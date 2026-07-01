@@ -6,9 +6,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  admitExecutionBasis,
   constructEnginePluginContract,
+  constructEvidenceAdmittedEvent,
   constructFpDispatchOutcome,
+  constructPayloadObservedEvent,
+  constructPayloadValidatedEvent,
+  loadGtlTargetCarrierDefaultsBundle,
   publicStart,
+  resolveTargetCarrierContractBinding,
   start
 } from "../../build/semantic/code/src/index.js";
 import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
@@ -24,6 +30,71 @@ function vectorClosedEvent(plannedEvent) {
     edge: plannedEvent.edge,
     closureKind: "assessed"
   };
+}
+
+const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
+
+function basisForStart(input, context) {
+  return admitExecutionBasis({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runId: context.runId,
+    workKey: context.workKey,
+    frameId: context.frameId,
+    frameLineageId: context.frameLineageId
+  });
+}
+
+function admittedTargetCarrierOutputEvents(input, context, vectorIndex) {
+  const basis = basisForStart(input, context);
+  const vector = basis.graph.vectors[vectorIndex];
+  assert.ok(vector);
+  const targetCarrier = resolveTargetCarrierContractBinding({
+    vector,
+    defaults: targetCarrierDefaults
+  });
+  const payloadRef = `payload://m04/replay/${vectorIndex}`;
+  const evidenceRef = `evidence://m04/replay/${vectorIndex}`;
+  const digest = `digest://m04/replay/${vectorIndex}`;
+  return [
+    constructPayloadObservedEvent({
+      basis,
+      vectorIndex,
+      payloadRef,
+      payloadClass: targetCarrier.outputCarrierKind,
+      contractRef: targetCarrier.contractRef,
+      digest,
+      producerRef: "worker://m04/replay",
+      sourceEventRef: `result://m04/replay/${vectorIndex}`,
+      authorityRef: `authority://m04/replay/${vectorIndex}`,
+      inputDigest: `source-projection://m04/replay/${vectorIndex}`,
+      policyRefs: ["policy://m04/replay"]
+    }),
+    constructPayloadValidatedEvent({
+      basis,
+      vectorIndex,
+      payloadRef,
+      contractRef: targetCarrier.contractRef,
+      contractDigest: targetCarrier.configDigest,
+      digest,
+      validationRef: `validation://m04/replay/${vectorIndex}`,
+      evidenceRef,
+      policyRefs: ["policy://m04/replay"]
+    }),
+    constructEvidenceAdmittedEvent({
+      basis,
+      vectorIndex,
+      evidenceRef,
+      payloadRef,
+      authorityRef: `authority://m04/replay/${vectorIndex}`,
+      authorityDigest: `authority-digest://m04/replay/${vectorIndex}`,
+      inputDigest: `source-projection://m04/replay/${vectorIndex}`,
+      providerRefs: ["worker://m04/replay"],
+      policyRefs: ["policy://m04/replay"]
+    })
+  ];
 }
 
 test("T-072 M04 start: public start delegates to the ABG-owned iterate runner", () => {
@@ -121,6 +192,7 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
   });
   const replayEvents = canonicalRuntimeEvents([
     ...firstEvents,
+    ...admittedTargetCarrierOutputEvents(input, context, 0),
     vectorClosedEvent(
       firstEvents.find(
         (event) =>
@@ -175,6 +247,7 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
       "frame_opened",
       "vector_traversal_planned",
       "fp_dispatch_requested",
+      "instruction_causal_context_bound",
       "actor_invocation_started",
       "payload_observed",
       "payload_validated",

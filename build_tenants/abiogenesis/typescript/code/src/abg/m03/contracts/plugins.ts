@@ -45,10 +45,12 @@ import type {
 } from "./retry_frontier.js";
 import { deriveFreshRetryContextProjection } from "./retry_frontier.js";
 import type {
-  AdmittedOutputAuthorityProjection
+  AdmittedOutputAuthorityProjection,
+  InstructionCausalContextProjection
 } from "./payload_ledger.js";
 import {
   deriveAdmittedOutputAuthorityProjection,
+  deriveInstructionCausalContextProjection,
   derivePayloadLedgerProjection
 } from "./payload_ledger.js";
 import type {
@@ -272,6 +274,7 @@ export interface EnginePluginInput {
   readonly retryContext: FreshRetryContextProjection;
   readonly retryFrontier: RetryFrontierProjection;
   readonly outputAuthorityProjections: readonly AdmittedOutputAuthorityProjection[];
+  readonly instructionCausalContext: InstructionCausalContextProjection | null;
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
   readonly fpTransformRequest: FpTransformRequest | null;
@@ -1291,6 +1294,16 @@ export function constructEnginePluginInput(input: {
             })
           )
         );
+  const instructionCausalContext =
+    targetCarrierDefaults === null
+      ? null
+      : deriveInstructionCausalContextProjection({
+          basis: input.basis,
+          runtimeProjection: input.projection,
+          events: replayEvents,
+          vectorIndex: input.vectorIndex,
+          targetCarrierDefaults
+        });
   const normalizedActorInvocationRef =
     input.actorInvocationRef === undefined ||
     input.actorInvocationRef === null
@@ -1386,7 +1399,8 @@ export function constructEnginePluginInput(input: {
             (evaluator) => evaluator.name
           ),
           retryFrontier,
-          pluginTraversalObserverBinding
+          pluginTraversalObserverBinding,
+          instructionCausalContext
         })
       : null;
   const edgeAssuranceResolution = resolveEdgeAssuranceContract({
@@ -1453,6 +1467,7 @@ export function constructEnginePluginInput(input: {
     retryContext,
     retryFrontier,
     outputAuthorityProjections,
+    instructionCausalContext,
     actorInvocationRef: normalizedActorInvocationRef,
     attachedResultArtifact:
       input.attachedResultArtifact === undefined ||

@@ -116,6 +116,48 @@ export interface AdmittedOutputAuthorityProjection {
   readonly projectionRef: string;
 }
 
+export interface InstructionCausalInputBinding {
+  readonly kind: "instruction_causal_input_binding";
+  readonly bindingRef: string;
+  readonly targetBasisId: string;
+  readonly targetGraphCallId: string;
+  readonly targetFrameId: string;
+  readonly targetVectorIndex: number;
+  readonly targetEdge: string;
+  readonly sourceVectorIndex: number;
+  readonly sourceEdge: string;
+  readonly payloadRef: string;
+  readonly payloadClass: string;
+  readonly payloadDigest: string;
+  readonly payloadContractRef: string | null;
+  readonly producerRef: string;
+  readonly sourceEventRef: string | null;
+  readonly authorityRef: string | null;
+  readonly inputDigest: string | null;
+  readonly evidenceRefs: readonly string[];
+  readonly sourceProjectionRef: string;
+}
+
+export interface InstructionCausalContextProjection {
+  readonly kind: "instruction_causal_context_projection";
+  readonly contextRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly status: "empty" | "bound" | "blocked";
+  readonly bindingRefs: readonly string[];
+  readonly payloadRefs: readonly string[];
+  readonly payloadDigests: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly missingInputRefs: readonly string[];
+  readonly bindings: readonly InstructionCausalInputBinding[];
+  readonly reason: string | null;
+}
+
 export class TargetCarrierClosureRejectedError extends Error {
   readonly targetCarrierContractRef: string;
   readonly status: TargetCarrierAdmissionStatus;
@@ -229,6 +271,37 @@ function admittedOutputAuthorityProjectionRef(
     `payload=${input.payloadRef ?? "null"}`,
     `validations=${input.validationRefs.join(",")}`,
     `evidence=${input.evidenceRefs.join(",")}`
+  ].join(":");
+}
+
+function instructionCausalInputBindingRef(
+  input: Omit<InstructionCausalInputBinding, "kind" | "bindingRef">
+): string {
+  return [
+    "instruction_causal_input",
+    input.targetBasisId,
+    input.targetGraphCallId,
+    input.targetFrameId,
+    String(input.targetVectorIndex),
+    `source=${input.sourceVectorIndex}`,
+    `payload=${input.payloadRef}`,
+    `digest=${input.payloadDigest}`,
+    `evidence=${input.evidenceRefs.join(",")}`
+  ].join(":");
+}
+
+function instructionCausalContextProjectionRef(
+  input: Omit<InstructionCausalContextProjection, "kind" | "contextRef">
+): string {
+  return [
+    "instruction_causal_context",
+    input.basisId,
+    input.graphCallId,
+    input.frameId,
+    String(input.vectorIndex),
+    `status=${input.status}`,
+    `bindings=${input.bindingRefs.join(",")}`,
+    `missing=${input.missingInputRefs.join(",")}`
   ].join(":");
 }
 
@@ -454,6 +527,15 @@ export function deriveAdmittedOutputAuthorityProjection(input: {
         ? "target carrier payload validation lacks observed payload envelope"
         : "target carrier payload validation is not current ledger evidence";
   }
+  if (
+    targetCarrierAdmission.status === "admitted" &&
+    observed !== undefined &&
+    validated !== undefined &&
+    observed.digest !== validated.digest
+  ) {
+    status = "missing";
+    reason = "target carrier payload digest drift";
+  }
   const isAdmitted = status === "admitted" && observed !== undefined;
   const partial = Object.freeze({
     kind: "admitted_output_authority_projection" as const,
@@ -482,6 +564,141 @@ export function deriveAdmittedOutputAuthorityProjection(input: {
   return Object.freeze({
     ...partial,
     projectionRef: admittedOutputAuthorityProjectionRef(partial)
+  });
+}
+
+export function deriveInstructionCausalContextProjection(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly events: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
+}): InstructionCausalContextProjection {
+  const targetScope = derivePayloadLedgerScope(input);
+  const bindings: InstructionCausalInputBinding[] = [];
+  const missingInputRefs: string[] = [];
+  const requiredSourceVectorIndexes = input.runtimeProjection.closedVectorIndexes
+    .filter((index) => index < input.vectorIndex)
+    .sort((left, right) => left - right);
+
+  for (const sourceVectorIndex of requiredSourceVectorIndexes) {
+    const ledger = derivePayloadLedgerProjection({
+      basis: input.basis,
+      runtimeProjection: input.runtimeProjection,
+      events: input.events,
+      vectorIndex: sourceVectorIndex,
+      targetCarrierDefaults: input.targetCarrierDefaults
+    });
+    const authority = deriveAdmittedOutputAuthorityProjection({ ledger });
+    if (authority.status !== "admitted") {
+      if (
+        authority.status === "missing" &&
+        authority.reason !== "target carrier payload digest drift"
+      ) {
+        continue;
+      }
+      missingInputRefs.push(
+        [
+          "instruction_causal_missing_input",
+          input.basis.id,
+          String(input.vectorIndex),
+          `source=${sourceVectorIndex}`,
+          authority.reason ?? authority.status
+        ].join(":")
+      );
+      continue;
+    }
+    if (
+      authority.payloadRef === null ||
+      authority.payloadClass === null ||
+      authority.payloadDigest === null ||
+      authority.producerRef === null
+    ) {
+      missingInputRefs.push(
+        [
+          "instruction_causal_missing_input",
+          input.basis.id,
+          String(input.vectorIndex),
+          `source=${sourceVectorIndex}`,
+          "admitted_projection_missing_payload_identity"
+        ].join(":")
+      );
+      continue;
+    }
+    const partial = Object.freeze({
+      targetBasisId: targetScope.basisId,
+      targetGraphCallId: targetScope.graphCallId,
+      targetFrameId: targetScope.frameId,
+      targetVectorIndex: targetScope.vectorIndex,
+      targetEdge: targetScope.edge,
+      sourceVectorIndex,
+      sourceEdge: ledger.scope.edge,
+      payloadRef: authority.payloadRef,
+      payloadClass: authority.payloadClass,
+      payloadDigest: authority.payloadDigest,
+      payloadContractRef: authority.payloadContractRef,
+      producerRef: authority.producerRef,
+      sourceEventRef: authority.sourceEventRef,
+      authorityRef: authority.authorityRef,
+      inputDigest: authority.inputDigest,
+      evidenceRefs: freezeStringArray(authority.evidenceRefs),
+      sourceProjectionRef: authority.projectionRef
+    });
+    bindings.push(
+      Object.freeze({
+        kind: "instruction_causal_input_binding" as const,
+        bindingRef: instructionCausalInputBindingRef(partial),
+        ...partial
+      })
+    );
+  }
+
+  const bindingRefs = freezeStringArray(
+    bindings.map((binding) => binding.bindingRef)
+  );
+  const payloadRefs = freezeStringArray(
+    bindings.map((binding) => binding.payloadRef)
+  );
+  const payloadDigests = freezeStringArray(
+    bindings.map((binding) => binding.payloadDigest)
+  );
+  const evidenceRefs = uniqueStringArray(
+    bindings.flatMap((binding) => binding.evidenceRefs)
+  );
+  const sourceProjectionRefs = freezeStringArray(
+    bindings.map((binding) => binding.sourceProjectionRef)
+  );
+  const frozenMissingInputRefs = freezeStringArray(missingInputRefs);
+  const status =
+    frozenMissingInputRefs.length > 0
+      ? "blocked"
+      : bindingRefs.length > 0
+        ? "bound"
+        : "empty";
+  const partial = Object.freeze({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    graphCallId: targetScope.graphCallId,
+    frameId: targetScope.frameId,
+    vectorIndex: input.vectorIndex,
+    edge: targetScope.edge,
+    status,
+    bindingRefs,
+    payloadRefs,
+    payloadDigests,
+    evidenceRefs,
+    sourceProjectionRefs,
+    missingInputRefs: frozenMissingInputRefs,
+    bindings: Object.freeze([...bindings]),
+    reason:
+      status === "blocked"
+        ? "required prior admitted output is missing or stale"
+        : null
+  });
+  return Object.freeze({
+    kind: "instruction_causal_context_projection",
+    contextRef: instructionCausalContextProjectionRef(partial),
+    ...partial
   });
 }
 

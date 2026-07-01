@@ -30,6 +30,7 @@ import type {
   FrameOpenedEvent,
   GraphCallOpenedEvent,
   GraphVectorResumeCursorAppliedEvent,
+  InstructionCausalContextBoundEvent,
   ObservedStateAdmittedRuntimeEvent,
   ObservedStateSourceKind,
   PayloadObservedRuntimeEvent,
@@ -45,6 +46,9 @@ import type {
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent
 } from "./carriers.js";
+import type {
+  InstructionCausalContextProjection
+} from "./payload_ledger.js";
 import {
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
   FD_PRESSURE_ROUTING_DECISION_VALUES,
@@ -603,6 +607,48 @@ export function constructPluginTraversalPromptMaterializedEvent(input: {
     defaultsPath: input.selection.fallbackBundleRef?.bundlePath ?? null,
     defaultKey: input.selection.defaultKey,
     causationEventRefs,
+    correlationId: input.correlationId
+  });
+}
+
+export function constructInstructionCausalContextBoundEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly context: InstructionCausalContextProjection;
+  readonly invocation?: ActorInvocation | null;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): InstructionCausalContextBoundEvent {
+  if (input.context.basisId !== input.basis.id) {
+    throw new TypeError("Instruction causal context basis drift");
+  }
+  if (input.context.graphFunctionId !== input.basis.graphFunction.id) {
+    throw new TypeError("Instruction causal context graph-function drift");
+  }
+  assertVectorIndexInRange(input.basis, input.context.vectorIndex);
+  if (input.context.edge !== vectorEdge(input.basis, input.context.vectorIndex)) {
+    throw new TypeError("Instruction causal context edge drift");
+  }
+  return Object.freeze({
+    kind: "instruction_causal_context_bound",
+    basisId: input.basis.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    frameLineageId: input.basis.frameLineageId,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    vectorIndex: input.context.vectorIndex,
+    edge: input.context.edge,
+    actorInvocationId: input.invocation?.actorInvocationId ?? null,
+    contextRef: input.context.contextRef,
+    status: input.context.status,
+    bindingRefs: freezeStringArray(input.context.bindingRefs),
+    payloadRefs: freezeStringArray(input.context.payloadRefs),
+    payloadDigests: freezeStringArray(input.context.payloadDigests),
+    evidenceRefs: freezeStringArray(input.context.evidenceRefs),
+    sourceProjectionRefs: freezeStringArray(input.context.sourceProjectionRefs),
+    missingInputRefs: freezeStringArray(input.context.missingInputRefs),
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId: input.correlationId
   });
 }

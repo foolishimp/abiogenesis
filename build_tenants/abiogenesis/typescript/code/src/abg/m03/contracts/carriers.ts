@@ -728,6 +728,30 @@ export interface PluginTraversalPromptMaterializedEvent {
   readonly correlationId: string;
 }
 
+export interface InstructionCausalContextBoundEvent {
+  readonly kind: "instruction_causal_context_bound";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string | null;
+  readonly contextRef: string;
+  readonly status: "empty" | "bound" | "blocked";
+  readonly bindingRefs: readonly string[];
+  readonly payloadRefs: readonly string[];
+  readonly payloadDigests: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly missingInputRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface FhEscalatedEvent {
   readonly kind: "fh_escalated";
   readonly basisId: string;
@@ -2437,6 +2461,7 @@ export type RuntimeEvent =
   | RuntimeActivityProbeObservedEvent
   | RuntimeExternalInterruptionObservedEvent
   | PluginTraversalPromptMaterializedEvent
+  | InstructionCausalContextBoundEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -2552,6 +2577,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "runtime_activity_probe_observed",
   "runtime_external_interruption_observed",
   "plugin_traversal_prompt_materialized",
+  "instruction_causal_context_bound",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",

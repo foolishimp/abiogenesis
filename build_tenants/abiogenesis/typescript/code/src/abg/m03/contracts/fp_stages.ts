@@ -16,6 +16,9 @@ import {
   constructPayloadValidatedEvent
 } from "./event_factories.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
+import type {
+  InstructionCausalContextProjection
+} from "./payload_ledger.js";
 import {
   assertProjectionBasis,
   assertVectorIndexInRange,
@@ -69,6 +72,14 @@ export interface FpTransformRequest {
   readonly promptTemplateRef: string | null;
   readonly defaultsBundleRef: string | null;
   readonly defaultsBundleDigest: string | null;
+  readonly instructionCausalContextRef: string | null;
+  readonly instructionCausalStatus: "empty" | "bound" | "blocked";
+  readonly causalInputBindingRefs: readonly string[];
+  readonly causalInputPayloadRefs: readonly string[];
+  readonly causalInputPayloadDigests: readonly string[];
+  readonly causalInputEvidenceRefs: readonly string[];
+  readonly causalInputSourceProjectionRefs: readonly string[];
+  readonly causalMissingInputRefs: readonly string[];
 }
 
 export interface FpEvidenceCandidate {
@@ -321,6 +332,7 @@ export function constructFpTransformRequest(input: {
   readonly expectedAssessmentIds: readonly string[];
   readonly retryFrontier: RetryFrontierProjection;
   readonly pluginTraversalObserverBinding?: PluginTraversalObserverBindingSelection | null;
+  readonly instructionCausalContext?: InstructionCausalContextProjection | null;
 }): FpTransformRequest {
   assertProjectionBasis(input.basis, input.projection, "FpTransformRequest");
   assertVectorIndexInRange(input.basis, input.vectorIndex);
@@ -364,7 +376,27 @@ export function constructFpTransformRequest(input: {
     defaultsBundleRef:
       input.pluginTraversalObserverBinding?.fallbackBundleRef?.bundleRef ?? null,
     defaultsBundleDigest:
-      input.pluginTraversalObserverBinding?.fallbackBundleRef?.bundleDigest ?? null
+      input.pluginTraversalObserverBinding?.fallbackBundleRef?.bundleDigest ?? null,
+    instructionCausalContextRef: input.instructionCausalContext?.contextRef ?? null,
+    instructionCausalStatus: input.instructionCausalContext?.status ?? "empty",
+    causalInputBindingRefs: freezeStringArray(
+      input.instructionCausalContext?.bindingRefs ?? Object.freeze([])
+    ),
+    causalInputPayloadRefs: freezeStringArray(
+      input.instructionCausalContext?.payloadRefs ?? Object.freeze([])
+    ),
+    causalInputPayloadDigests: freezeStringArray(
+      input.instructionCausalContext?.payloadDigests ?? Object.freeze([])
+    ),
+    causalInputEvidenceRefs: freezeStringArray(
+      input.instructionCausalContext?.evidenceRefs ?? Object.freeze([])
+    ),
+    causalInputSourceProjectionRefs: freezeStringArray(
+      input.instructionCausalContext?.sourceProjectionRefs ?? Object.freeze([])
+    ),
+    causalMissingInputRefs: freezeStringArray(
+      input.instructionCausalContext?.missingInputRefs ?? Object.freeze([])
+    )
   });
 }
 

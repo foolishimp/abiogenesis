@@ -3,7 +3,7 @@ id: T-182
 title: Realize causal carry in ABG instruction rendering from admitted payload and evidence truth
 type: realization
 ticket_category: instruction_rendering_causal_carry
-status: backlog
+status: active
 goal: >-
   Make ABG-rendered F_P dispatch prompts carry the prior-stage artifacts and
   evidence required by the selected edge's source/target node type and asset
@@ -26,6 +26,7 @@ priority: high
 triaged_at: 2026-07-01
 created_at: 2026-07-01
 updated_at: 2026-07-01
+activated_at: 2026-07-01
 governance_scope: STDO Method, SPEC_METHOD, DESIGN_MODULE_METHOD, GTL, ABG Runtime, Binding, Payload, Evidence, Node Types
 build_tenant: typescript
 depends_on:
@@ -43,7 +44,7 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
 review_status: open
-proof_status: pending
+proof_status: partial
 target_truth: >-
   ABG runtime binding resolves the selected edge's required causal inputs from
   admitted payload, evidence, materialized artifact, node type, and
@@ -176,3 +177,73 @@ prior-stage artifacts required to make the staged traversal causally strong.
 The intended result is narrow: ABG binds existing admitted prior artifact truth
 into the current instruction envelope. It does not create the full instruction
 assembly algebra, a prompt ledger, or a product-owned prompt shell.
+
+## Execution Record
+
+### 2026-07-01 Start Slice
+
+Implemented the first causal-carry runtime slice:
+
+- Added `InstructionCausalInputBinding` and
+  `InstructionCausalContextProjection` as subordinate payload-ledger read
+  projections over existing admitted output-authority truth.
+- Added `deriveInstructionCausalContextProjection(...)`, deriving prior-vector
+  causal inputs from replay-derived closed vectors and target-carrier
+  payload/evidence admission.
+- Tightened admitted-output authority projection so observed/validated digest
+  drift is not treated as admitted output.
+- Threaded causal context into `EnginePluginInput` and `FpTransformRequest`.
+- Added `instruction_causal_context_bound` as replay-visible runtime truth
+  emitted by the runner before actor invocation on F_P dispatch.
+- Added runner fail-closed behavior: blocked causal context emits causal
+  context truth and terminates before actor invocation or F_P plugin dispatch.
+  This start slice blocks explicit rejected or digest-drifted prior target
+  truth; required-omission blocking remains gated on the declared binding
+  policy below.
+- Added focused synthetic proof lane script `test:t182`.
+
+Focused proof result:
+
+```text
+cd build_tenants/abiogenesis/typescript && npm run test:t182
+pass: 4/4
+```
+
+Regression proof results for the start slice:
+
+```text
+git diff --check
+pass
+
+cd build_tenants/abiogenesis/typescript && npm run build:semantic
+pass
+
+cd build_tenants/abiogenesis/typescript && node --test \
+  test_env/tests/test_t182_instruction_causal_carry.test.mjs \
+  test_env/tests/test_m04_engine_start_integration.test.mjs \
+  test_env/tests/test_t084_attached_fp_worker_loop.test.mjs
+pass: 16/16
+
+cd build_tenants/abiogenesis/typescript && npm run test:t177
+pass: 16/16
+
+cd build_tenants/abiogenesis/typescript && npm run test:t180
+pass: 9/9
+
+cd build_tenants/abiogenesis/typescript && npm run test:semantic
+pass: 982/982
+
+rg -n "InstructionComposition|PromptLedger|product-local prompt shell|local prompt shell" \
+  build_tenants/abiogenesis/typescript/code/src
+no matches
+```
+
+Current remaining work before closure:
+
+- Extend from refs/digests to the declared excerpt/full-content binding policy.
+- Add the declared required-input policy that distinguishes optional absent
+  prior artifacts from required omissions that must fail closed.
+- Prove the behavior on a real framework-smoke/software-build traversal with
+  live F_P dispatch.
+- Add a true live `test:t182:live` scenario that calls the F_P worker.
+- Re-run the full semantic suite and boundary greps after the live proof lands.

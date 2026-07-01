@@ -750,6 +750,7 @@ export function deriveRetryFrontierProjection(input: {
       case "observed_state_admitted":
       case "overlay_frame_declared":
       case "overlay_frame_evaluated":
+      case "instruction_causal_context_bound":
         break;
       default:
         {

@@ -634,6 +634,7 @@ export function deriveRuntimeAggregateProjection(
       case "traversal_forced_review_projected":
       case "traversal_same_edge_continuation_planned":
       case "traversal_modulation_exhausted":
+      case "instruction_causal_context_bound":
         assertVectorIndexInRange(basis, event.vectorIndex);
         graphCallId = event.graphCallId;
         frameId = event.frameId;

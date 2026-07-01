@@ -33,6 +33,7 @@ import {
   constructFdAdvanceReadyEvent,
   constructFhEscalatedEvent,
   constructFpDispatchRequestedEvent,
+  constructInstructionCausalContextBoundEvent,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
@@ -685,6 +686,31 @@ function fpDispatchAttemptStartedEvents(input: {
   readonly pluginInput: EnginePluginInput;
 }): readonly RuntimeEvent[] {
   const events: RuntimeEvent[] = [constructFpDispatchRequestedEvent(input.transition)];
+  if (
+    input.pluginInput.instructionCausalContext !== null &&
+    input.pluginInput.instructionCausalContext.status !== "empty"
+  ) {
+    events.push(
+      constructInstructionCausalContextBoundEvent({
+        basis: input.basis,
+        context: input.pluginInput.instructionCausalContext,
+        invocation: input.actorInvocation,
+        causationEventRefs: Object.freeze([
+          input.transition.dispatchRef,
+          input.pluginInput.sourceProjectionRef
+        ]),
+        correlationId: [
+          "instruction-causal-context",
+          input.basis.id,
+          String(input.transition.vectorIndex),
+          input.actorInvocation.actorInvocationId
+        ].join(":")
+      })
+    );
+  }
+  if (input.pluginInput.instructionCausalContext?.status === "blocked") {
+    return Object.freeze(events);
+  }
   if (input.pluginInput.pluginTraversalObserverBinding !== null) {
     events.push(
       constructPluginTraversalPromptMaterializedEvent({
@@ -5413,6 +5439,29 @@ function* runEngineIterateMachine(input: {
             pluginInput: scalarTransformInput
           })
         );
+        if (scalarTransformInput.instructionCausalContext?.status === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            scalarTransformInput.instructionCausalContext.reason ??
+              "instruction causal context blocked"
+          );
+          eventState = emitRunnerEvents(
+            eventState,
+            constructTerminalReachedEvent(blocked)
+          );
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            ),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         const outcome = fpDispatchOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fp_dispatch", input: scalarTransformInput }),
         );

@@ -986,6 +986,31 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
+  instruction_causal_context_bound: applyFieldRules(
+    "InstructionCausalContextBoundEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "nullable_string",
+      contextRef: "non_empty_string",
+      status: { oneOf: ["empty", "bound", "blocked"] },
+      bindingRefs: "string_array",
+      payloadRefs: "string_array",
+      payloadDigests: "string_array",
+      evidenceRefs: "string_array",
+      sourceProjectionRefs: "string_array",
+      missingInputRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   fh_escalated: applyFieldRules("FhEscalatedEvent", {
     basisId: "non_empty_string",
     approvalSubjectRef: "non_empty_string",
