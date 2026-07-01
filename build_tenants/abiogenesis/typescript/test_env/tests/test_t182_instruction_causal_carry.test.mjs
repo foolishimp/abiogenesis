@@ -53,6 +53,34 @@ function targetCarrierForVector(basis, vectorIndex) {
   });
 }
 
+function withTargetAssetSurface(basis, vectorIndex, patch) {
+  const vector = basis.graph.vectors[vectorIndex];
+  assert.ok(vector);
+  const target = Object.freeze({
+    ...vector.target,
+    assetSurface: Object.freeze({
+      ...vector.target.assetSurface,
+      ...patch
+    })
+  });
+  const nextVector = Object.freeze({
+    ...vector,
+    target
+  });
+  const graph = Object.freeze({
+    ...basis.graph,
+    vectors: Object.freeze(
+      basis.graph.vectors.map((candidate, index) =>
+        index === vectorIndex ? nextVector : candidate
+      )
+    )
+  });
+  return Object.freeze({
+    ...basis,
+    graph
+  });
+}
+
 function firstVectorOutputEvents(basis, options = {}) {
   const targetCarrier = targetCarrierForVector(basis, 0);
   const payloadRef = "payload://t182/requirements";
@@ -129,12 +157,26 @@ test("T-182 binds prior admitted output into the next F_P instruction context", 
   const [binding] = input.instructionCausalContext.bindings;
   assert.equal(binding.sourceVectorIndex, 0);
   assert.equal(binding.targetVectorIndex, 1);
+  assert.equal(binding.sourceAssetKind, "requirements");
+  assert.equal(binding.targetAssetKind, "design");
+  assert.equal(binding.bindingRole, "prior_target_output");
+  assert.equal(binding.contentMode, "ref_digest_only");
+  assert.equal(binding.contentRef, null);
+  assert.equal(binding.contentDigest, null);
+  assert.equal(binding.required, false);
   assert.equal(binding.payloadRef, "payload://t182/requirements");
   assert.deepEqual(binding.evidenceRefs, ["evidence://t182/requirements"]);
   assert.equal(input.fpTransformRequest.instructionCausalStatus, "bound");
   assert.deepEqual(input.fpTransformRequest.causalInputBindingRefs, [
     binding.bindingRef
   ]);
+  assert.deepEqual(input.fpTransformRequest.causalInputBindingPolicyRefs, [
+    binding.bindingPolicyRef
+  ]);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentModes, [
+    "ref_digest_only"
+  ]);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentRefs, []);
   assert.deepEqual(input.fpTransformRequest.causalInputPayloadDigests, [
     "digest://t182/requirements"
   ]);
@@ -147,7 +189,79 @@ test("T-182 binds prior admitted output into the next F_P instruction context", 
   });
   assertRuntimeEvent(bound);
   assert.equal(bound.status, "bound");
+  assert.deepEqual(bound.bindingPolicyRefs, [binding.bindingPolicyRef]);
+  assert.deepEqual(bound.contentModes, ["ref_digest_only"]);
+  assert.deepEqual(bound.contentRefs, []);
   assert.deepEqual(bound.payloadRefs, ["payload://t182/requirements"]);
+});
+
+test("T-182 marks declared constructor inputs as required causal inputs", () => {
+  const basis = withTargetAssetSurface(
+    buildThreeStageBasis({ defaultRegime: "F_P" }),
+    1,
+    { constructorInputAssetKinds: ["requirements"] }
+  );
+  const events = firstVectorOutputEvents(basis);
+  const input = secondVectorFpInput(basis, events);
+
+  assert.equal(input.instructionCausalContext.status, "bound");
+  assert.deepEqual(input.instructionCausalContext.requiredInputRefs, [
+    `instruction_causal_required_input:${basis.id}:1:asset_kind=requirements`
+  ]);
+  const [binding] = input.instructionCausalContext.bindings;
+  assert.equal(binding.required, true);
+  assert.equal(binding.sourceAssetKind, "requirements");
+  assert.deepEqual(input.fpTransformRequest.causalRequiredInputRefs, [
+    `instruction_causal_required_input:${basis.id}:1:asset_kind=requirements`
+  ]);
+  assert.deepEqual(input.fpTransformRequest.causalMissingInputRefs, []);
+});
+
+test("T-182 blocks when a declared required causal input is absent", () => {
+  const basis = withTargetAssetSurface(
+    buildThreeStageBasis({ defaultRegime: "F_P" }),
+    1,
+    { constructorInputAssetKinds: ["requirements"] }
+  );
+  const projection = deriveRuntimeAggregateProjection(basis, []);
+  const causal = deriveInstructionCausalContextProjection({
+    basis,
+    runtimeProjection: projection,
+    events: [],
+    vectorIndex: 1,
+    targetCarrierDefaults
+  });
+
+  assert.equal(causal.status, "blocked");
+  assert.deepEqual(causal.bindingRefs, []);
+  assert.deepEqual(causal.requiredInputRefs, [
+    `instruction_causal_required_input:${basis.id}:1:asset_kind=requirements`
+  ]);
+  assert.equal(causal.missingInputRefs.length, 1);
+  assert.match(causal.missingInputRefs[0], /required_input_missing/u);
+});
+
+test("T-182 blocks declared excerpt mode until admitted content is available", () => {
+  const basis = withTargetAssetSurface(
+    buildThreeStageBasis({ defaultRegime: "F_P" }),
+    1,
+    { renderedViewDigestPolicyRef: "policy://abg/instruction-causal/excerpt" }
+  );
+  const events = firstVectorOutputEvents(basis);
+  const projection = deriveRuntimeAggregateProjection(basis, events);
+  const causal = deriveInstructionCausalContextProjection({
+    basis,
+    runtimeProjection: projection,
+    events,
+    vectorIndex: 1,
+    targetCarrierDefaults
+  });
+
+  assert.equal(causal.status, "blocked");
+  assert.deepEqual(causal.bindings, []);
+  assert.equal(causal.missingInputRefs.length, 1);
+  assert.match(causal.missingInputRefs[0], /content_unavailable/u);
+  assert.match(causal.missingInputRefs[0], /content_mode=excerpt/u);
 });
 
 test("T-182 blocks causal carry when prior output digest drifts", () => {

@@ -116,6 +116,15 @@ export interface AdmittedOutputAuthorityProjection {
   readonly projectionRef: string;
 }
 
+export const INSTRUCTION_CAUSAL_CONTENT_MODE_VALUES = Object.freeze([
+  "ref_digest_only",
+  "excerpt",
+  "full_content"
+] as const);
+
+export type InstructionCausalContentMode =
+  (typeof INSTRUCTION_CAUSAL_CONTENT_MODE_VALUES)[number];
+
 export interface InstructionCausalInputBinding {
   readonly kind: "instruction_causal_input_binding";
   readonly bindingRef: string;
@@ -124,8 +133,16 @@ export interface InstructionCausalInputBinding {
   readonly targetFrameId: string;
   readonly targetVectorIndex: number;
   readonly targetEdge: string;
+  readonly targetAssetKind: string;
   readonly sourceVectorIndex: number;
   readonly sourceEdge: string;
+  readonly sourceAssetKind: string;
+  readonly bindingRole: "prior_target_output";
+  readonly bindingPolicyRef: string;
+  readonly contentMode: InstructionCausalContentMode;
+  readonly contentRef: string | null;
+  readonly contentDigest: string | null;
+  readonly required: boolean;
   readonly payloadRef: string;
   readonly payloadClass: string;
   readonly payloadDigest: string;
@@ -149,10 +166,15 @@ export interface InstructionCausalContextProjection {
   readonly edge: string;
   readonly status: "empty" | "bound" | "blocked";
   readonly bindingRefs: readonly string[];
+  readonly bindingPolicyRefs: readonly string[];
+  readonly contentModes: readonly InstructionCausalContentMode[];
+  readonly contentRefs: readonly string[];
+  readonly contentDigests: readonly string[];
   readonly payloadRefs: readonly string[];
   readonly payloadDigests: readonly string[];
   readonly evidenceRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
+  readonly requiredInputRefs: readonly string[];
   readonly missingInputRefs: readonly string[];
   readonly bindings: readonly InstructionCausalInputBinding[];
   readonly reason: string | null;
@@ -284,6 +306,10 @@ function instructionCausalInputBindingRef(
     input.targetFrameId,
     String(input.targetVectorIndex),
     `source=${input.sourceVectorIndex}`,
+    `source_asset=${input.sourceAssetKind}`,
+    `target_asset=${input.targetAssetKind}`,
+    `policy=${input.bindingPolicyRef}`,
+    `content_mode=${input.contentMode}`,
     `payload=${input.payloadRef}`,
     `digest=${input.payloadDigest}`,
     `evidence=${input.evidenceRefs.join(",")}`
@@ -301,8 +327,80 @@ function instructionCausalContextProjectionRef(
     String(input.vectorIndex),
     `status=${input.status}`,
     `bindings=${input.bindingRefs.join(",")}`,
+    `required=${input.requiredInputRefs.join(",")}`,
     `missing=${input.missingInputRefs.join(",")}`
   ].join(":");
+}
+
+function assetKindForTarget(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): string {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Instruction causal asset-kind vector index out of range");
+  }
+  return vector.target.assetSurface.kind;
+}
+
+function requiredInputAssetKindsForVector(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): readonly string[] {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Instruction causal required-input vector index out of range");
+  }
+  return uniqueStringArray(vector.target.assetSurface.constructorInputAssetKinds);
+}
+
+function instructionCausalRequiredInputRef(input: {
+  readonly basisId: string;
+  readonly vectorIndex: number;
+  readonly assetKind: string;
+}): string {
+  return [
+    "instruction_causal_required_input",
+    input.basisId,
+    String(input.vectorIndex),
+    `asset_kind=${input.assetKind}`
+  ].join(":");
+}
+
+function instructionCausalBindingPolicyRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly targetVectorIndex: number;
+  readonly sourceAssetKind: string;
+}): string {
+  const vector = input.basis.graph.vectors[input.targetVectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Instruction causal policy vector index out of range");
+  }
+  return (
+    vector.target.assetSurface.renderedViewDigestPolicyRef ??
+    [
+      "policy://abg/instruction-causal",
+      "ref-digest-only",
+      `source=${input.sourceAssetKind}`,
+      `target=${vector.target.assetSurface.kind}`
+    ].join("/")
+  );
+}
+
+function instructionCausalContentMode(
+  policyRef: string
+): InstructionCausalContentMode {
+  const normalized = policyRef.toLowerCase();
+  if (
+    normalized.includes("full_content") ||
+    normalized.includes("full-content")
+  ) {
+    return "full_content";
+  }
+  if (normalized.includes("excerpt")) {
+    return "excerpt";
+  }
+  return "ref_digest_only";
 }
 
 export function derivePayloadLedgerScope(input: {
@@ -575,6 +673,24 @@ export function deriveInstructionCausalContextProjection(input: {
   readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
 }): InstructionCausalContextProjection {
   const targetScope = derivePayloadLedgerScope(input);
+  const targetAssetKind = assetKindForTarget({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex
+  });
+  const requiredInputAssetKinds = requiredInputAssetKindsForVector({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex
+  });
+  const requiredInputRefs = freezeStringArray(
+    requiredInputAssetKinds.map((assetKind) =>
+      instructionCausalRequiredInputRef({
+        basisId: input.basis.id,
+        vectorIndex: input.vectorIndex,
+        assetKind
+      })
+    )
+  );
+  const requiredInputAssetKindSet = new Set(requiredInputAssetKinds);
   const bindings: InstructionCausalInputBinding[] = [];
   const missingInputRefs: string[] = [];
   const requiredSourceVectorIndexes = input.runtimeProjection.closedVectorIndexes
@@ -625,14 +741,46 @@ export function deriveInstructionCausalContextProjection(input: {
       );
       continue;
     }
+    const sourceAssetKind = assetKindForTarget({
+      basis: input.basis,
+      vectorIndex: sourceVectorIndex
+    });
+    const bindingPolicyRef = instructionCausalBindingPolicyRef({
+      basis: input.basis,
+      targetVectorIndex: input.vectorIndex,
+      sourceAssetKind
+    });
+    const contentMode = instructionCausalContentMode(bindingPolicyRef);
+    if (contentMode !== "ref_digest_only") {
+      missingInputRefs.push(
+        [
+          "instruction_causal_content_unavailable",
+          input.basis.id,
+          String(input.vectorIndex),
+          `source=${sourceVectorIndex}`,
+          `source_asset=${sourceAssetKind}`,
+          `content_mode=${contentMode}`,
+          "admitted payload event carries ref/digest only"
+        ].join(":")
+      );
+      continue;
+    }
     const partial = Object.freeze({
       targetBasisId: targetScope.basisId,
       targetGraphCallId: targetScope.graphCallId,
       targetFrameId: targetScope.frameId,
       targetVectorIndex: targetScope.vectorIndex,
       targetEdge: targetScope.edge,
+      targetAssetKind,
       sourceVectorIndex,
       sourceEdge: ledger.scope.edge,
+      sourceAssetKind,
+      bindingRole: "prior_target_output" as const,
+      bindingPolicyRef,
+      contentMode,
+      contentRef: null,
+      contentDigest: null,
+      required: requiredInputAssetKindSet.has(sourceAssetKind),
       payloadRef: authority.payloadRef,
       payloadClass: authority.payloadClass,
       payloadDigest: authority.payloadDigest,
@@ -653,8 +801,42 @@ export function deriveInstructionCausalContextProjection(input: {
     );
   }
 
+  const satisfiedRequiredAssetKinds = new Set(
+    bindings
+      .filter((binding) => binding.required)
+      .map((binding) => binding.sourceAssetKind)
+  );
+  for (const assetKind of requiredInputAssetKinds) {
+    if (!satisfiedRequiredAssetKinds.has(assetKind)) {
+      missingInputRefs.push(
+        [
+          "instruction_causal_required_input_missing",
+          input.basis.id,
+          String(input.vectorIndex),
+          `asset_kind=${assetKind}`
+        ].join(":")
+      );
+    }
+  }
+
   const bindingRefs = freezeStringArray(
     bindings.map((binding) => binding.bindingRef)
+  );
+  const bindingPolicyRefs = freezeStringArray(
+    bindings.map((binding) => binding.bindingPolicyRef)
+  );
+  const contentModes = Object.freeze(
+    bindings.map((binding) => binding.contentMode)
+  );
+  const contentRefs = freezeStringArray(
+    bindings.flatMap((binding) =>
+      binding.contentRef === null ? [] : [binding.contentRef]
+    )
+  );
+  const contentDigests = freezeStringArray(
+    bindings.flatMap((binding) =>
+      binding.contentDigest === null ? [] : [binding.contentDigest]
+    )
   );
   const payloadRefs = freezeStringArray(
     bindings.map((binding) => binding.payloadRef)
@@ -684,10 +866,15 @@ export function deriveInstructionCausalContextProjection(input: {
     edge: targetScope.edge,
     status,
     bindingRefs,
+    bindingPolicyRefs,
+    contentModes,
+    contentRefs,
+    contentDigests,
     payloadRefs,
     payloadDigests,
     evidenceRefs,
     sourceProjectionRefs,
+    requiredInputRefs,
     missingInputRefs: frozenMissingInputRefs,
     bindings: Object.freeze([...bindings]),
     reason:

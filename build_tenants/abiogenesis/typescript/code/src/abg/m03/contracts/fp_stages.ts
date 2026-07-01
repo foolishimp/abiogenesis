@@ -75,10 +75,15 @@ export interface FpTransformRequest {
   readonly instructionCausalContextRef: string | null;
   readonly instructionCausalStatus: "empty" | "bound" | "blocked";
   readonly causalInputBindingRefs: readonly string[];
+  readonly causalInputBindingPolicyRefs: readonly string[];
+  readonly causalInputContentModes: readonly string[];
+  readonly causalInputContentRefs: readonly string[];
+  readonly causalInputContentDigests: readonly string[];
   readonly causalInputPayloadRefs: readonly string[];
   readonly causalInputPayloadDigests: readonly string[];
   readonly causalInputEvidenceRefs: readonly string[];
   readonly causalInputSourceProjectionRefs: readonly string[];
+  readonly causalRequiredInputRefs: readonly string[];
   readonly causalMissingInputRefs: readonly string[];
 }
 
@@ -382,6 +387,18 @@ export function constructFpTransformRequest(input: {
     causalInputBindingRefs: freezeStringArray(
       input.instructionCausalContext?.bindingRefs ?? Object.freeze([])
     ),
+    causalInputBindingPolicyRefs: freezeStringArray(
+      input.instructionCausalContext?.bindingPolicyRefs ?? Object.freeze([])
+    ),
+    causalInputContentModes: freezeStringArray(
+      input.instructionCausalContext?.contentModes ?? Object.freeze([])
+    ),
+    causalInputContentRefs: freezeStringArray(
+      input.instructionCausalContext?.contentRefs ?? Object.freeze([])
+    ),
+    causalInputContentDigests: freezeStringArray(
+      input.instructionCausalContext?.contentDigests ?? Object.freeze([])
+    ),
     causalInputPayloadRefs: freezeStringArray(
       input.instructionCausalContext?.payloadRefs ?? Object.freeze([])
     ),
@@ -393,6 +410,9 @@ export function constructFpTransformRequest(input: {
     ),
     causalInputSourceProjectionRefs: freezeStringArray(
       input.instructionCausalContext?.sourceProjectionRefs ?? Object.freeze([])
+    ),
+    causalRequiredInputRefs: freezeStringArray(
+      input.instructionCausalContext?.requiredInputRefs ?? Object.freeze([])
     ),
     causalMissingInputRefs: freezeStringArray(
       input.instructionCausalContext?.missingInputRefs ?? Object.freeze([])

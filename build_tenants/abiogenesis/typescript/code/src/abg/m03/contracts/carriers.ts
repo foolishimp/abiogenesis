@@ -743,10 +743,15 @@ export interface InstructionCausalContextBoundEvent {
   readonly contextRef: string;
   readonly status: "empty" | "bound" | "blocked";
   readonly bindingRefs: readonly string[];
+  readonly bindingPolicyRefs: readonly string[];
+  readonly contentModes: readonly string[];
+  readonly contentRefs: readonly string[];
+  readonly contentDigests: readonly string[];
   readonly payloadRefs: readonly string[];
   readonly payloadDigests: readonly string[];
   readonly evidenceRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
+  readonly requiredInputRefs: readonly string[];
   readonly missingInputRefs: readonly string[];
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;

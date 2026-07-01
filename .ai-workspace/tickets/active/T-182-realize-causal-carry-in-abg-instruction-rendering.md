@@ -240,9 +240,57 @@ no matches
 
 Current remaining work before closure:
 
-- Extend from refs/digests to the declared excerpt/full-content binding policy.
-- Add the declared required-input policy that distinguishes optional absent
-  prior artifacts from required omissions that must fail closed.
+- Prove the behavior on a real framework-smoke/software-build traversal with
+  live F_P dispatch.
+- Add a true live `test:t182:live` scenario that calls the F_P worker.
+- Re-run the full semantic suite and boundary greps after the live proof lands.
+
+### 2026-07-01 Binding Policy Slice
+
+Implemented the deterministic binding-policy layer without widening the
+carrier model:
+
+- Added explicit causal binding policy metadata to
+  `InstructionCausalInputBinding`, `InstructionCausalContextProjection`,
+  `FpTransformRequest`, and the replay-visible
+  `instruction_causal_context_bound` event.
+- Bound causal input requirements to existing GTL `AssetSurface` truth:
+  `constructorInputAssetKinds` on the current target node declares which
+  prior target asset kinds are required.
+- Preserved optional prior truth behavior: absent optional prior outputs do
+  not create a prompt dependency.
+- Added fail-closed required-input behavior: a declared required prior asset
+  kind with no admitted prior output produces blocked causal context before
+  F_P dispatch.
+- Added declared content-mode behavior: policy refs that request `excerpt` or
+  `full_content` block in this slice because admitted payload events currently
+  carry ref/digest truth only. The default rendering mode is `ref_digest_only`.
+- Kept the implementation inside payload/evidence/read-model surfaces; no
+  broad `InstructionComposition`, prompt ledger, product-local prompt shell,
+  or renderer authority was added.
+
+Focused proof result:
+
+```text
+cd build_tenants/abiogenesis/typescript && npm run test:t182
+pass: 7/7
+```
+
+Regression proof results:
+
+```text
+git diff --check
+pass
+
+cd build_tenants/abiogenesis/typescript && npm run build:semantic
+pass
+
+cd build_tenants/abiogenesis/typescript && npm run test:semantic
+pass: 985/985
+```
+
+Current remaining work before closure:
+
 - Prove the behavior on a real framework-smoke/software-build traversal with
   live F_P dispatch.
 - Add a true live `test:t182:live` scenario that calls the F_P worker.
