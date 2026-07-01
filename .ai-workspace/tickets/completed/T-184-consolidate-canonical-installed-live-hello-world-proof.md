@@ -3,7 +3,7 @@ id: T-184
 title: Consolidate canonical installed live Hello World proof over GTL/ABG full stack
 type: realization_refactor
 ticket_category: live_proof_consolidation
-status: active
+status: completed
 goal: >-
   Replace scattered ticket-specific Hello World live smoke paths with one
   canonical installed-sandbox proof that installs the latest ABI package,
@@ -39,8 +39,8 @@ source_documents:
   - /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs
   - specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
   - specification/requirements/gtl/REQ-L-GTL3-NODE.md
-review_status: open
-proof_status: pending
+review_status: self_reviewed
+proof_status: passed
 target_truth: >-
   ABI has one canonical Hello World live proof for downstream GLC-style build
   confidence. The proof creates a fresh sandbox, cuts/extracts a package
@@ -128,3 +128,54 @@ This ticket consolidates the release-facing Hello World proof surface. It does
 not add product policy to ABI. It uses an odd_glc-shaped product declaration as
 a witness that GTL/ABG can run a downstream graph overlay through the installed
 ABI product without a product-local prompt shell or duplicate truth surface.
+
+## Closure Record
+
+Closed against clean source commit
+`b6e548cb382fe7c9315ccb62a792d5e4b63e295e`.
+
+Proof commands:
+
+- `git diff --check` - passed.
+- `npm run test:t180` - passed, 9/9.
+- `npm run test:t183` - passed, 11/11.
+- `npm run test:semantic` - passed, 997/997.
+- `npm run test:hello-world:live` - passed.
+
+Canonical live proof:
+
+- Run directory:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260701T135936690Z_pid85210`
+- Proof artifact:
+  `canonical-hello-world-full-stack-live-proof.json`
+- Source commit:
+  `b6e548cb382fe7c9315ccb62a792d5e4b63e295e`
+- Source dirty:
+  `false`
+- Duration:
+  `165580ms` in proof summary; `167071ms` Node test duration.
+- Installed package:
+  `@abiogenesis/typescript-tenant@4.2.0-rc.1`
+- Snapshot tarball sha256:
+  `7c77f9c034aa56b19e27ca47abe7ff1c56b6fbda7775cfe0578d4f14b93b8687`
+- Event digest:
+  `sha256:23dec715008dfc24b8270493d54edf1fd97f1b8fb9731d100bcc3521e5527796`
+
+Load-bearing event counts:
+
+- `registry_entry_admitted`: 6
+- `graph_function_selected`: 2
+- `graph_call_opened`: 2
+- `instruction_prompt_manifest_projected`: 2
+- `fp_dispatch_requested`: 2
+- `instruction_causal_context_bound`: 1
+- `actor_result_artifact_observed`: 2
+- `instruction_response_contract_admitted`: 2
+- `vector_closed`: 2
+- `terminal_reached`: 1
+
+The live worker prompt was taken from
+`instructionPromptManifest.renderedPrompt`. The proof does not use the deleted
+T-183 focused live test or a product-local `promptFor` helper. The generated
+artifact executed in the installed sandbox and produced exact stdout:
+`Hello, world!\n`.
