@@ -22,6 +22,8 @@
 - `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
 - `specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`
 - `.ai-workspace/tickets/active/T-183-design-and-realize-abg-instruction-assembly-semantic-compiler.md`
+- `build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md`
 
 ## Problem
 
@@ -272,7 +274,5 @@ fixtures and marker-driven dispositions.
 
 ## Immediate Next Work
 
-1. Create the T-183 IACS.
-2. Create the T-183 structural carrier diagram.
-3. Then implement only the smallest compiler slice that can prove the field cut
+1. Implement only the smallest compiler slice that can prove the field cut
    and prompt-manifest replay.

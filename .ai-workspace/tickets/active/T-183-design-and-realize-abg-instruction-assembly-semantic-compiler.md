@@ -52,6 +52,8 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
 design_surfaces:
   - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
+  - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md
+  - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md
 review_status: open
 proof_status: pending
 target_truth: >-
@@ -250,6 +252,7 @@ proof_commands:
   - git diff --check
   - rg -n "REQ-R-ABG3-INSTRUCTION-ASSEMBLY-(004A|005|007|011|012|014|015)" specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
   - rg -n "Existing Compiler Reuse And Gaps|constructAbgSemanticCompilerFpReviewGraphFunction|semanticReviewGates|promptAssets|CompiledPromptPlan" build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
+  - rg -n "Known Algebra Register|CompiledPromptPlan|InstructionEnvelope|PromptManifest|SemanticReviewGate|PromptAssetRow" build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
   - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
@@ -343,3 +346,20 @@ realization:
 Decision: T-183 realization shall adapt and extend the existing compiler and
 conformance surfaces. It shall not fork a second semantic compiler or prompt
 asset truth surface.
+
+### 2026-07-01 IACS And Structural Carrier Diagram
+
+Added the first-slice IACS and Mermaid structural carrier diagram:
+
+- `M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md` classifies the first slice as
+  three new prime carriers only: `CompiledPromptPlan`, `InstructionEnvelope`,
+  and `PromptManifest`.
+- `InstructionAssemblyRule`, `RuntimeBindingSlot`,
+  `PromptCompilerDiagnostic`, and `GovernedRendererBinding` are subordinate.
+- Existing `SemanticReviewGate` and `PromptAssetRow` surfaces are reused and
+  explicitly not forked.
+- The IACS records the known algebra register required before any compiler
+  check may claim F_D authority.
+- The structural diagram shows source GTL/ABG truth, startup registry
+  selection, compiler admission, runtime binding, renderer ownership, manifest
+  replay, P0 no-dispatch, and response-admission handoff.
