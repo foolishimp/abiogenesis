@@ -3,7 +3,7 @@ id: T-182
 title: Realize causal carry in ABG instruction rendering from admitted payload and evidence truth
 type: realization
 ticket_category: instruction_rendering_causal_carry
-status: active
+status: completed
 goal: >-
   Make ABG-rendered F_P dispatch prompts carry the prior-stage artifacts and
   evidence required by the selected edge's source/target node type and asset
@@ -43,8 +43,9 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   - specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
-review_status: open
-proof_status: partial
+review_status: closed
+proof_status: complete
+completed_at: 2026-07-01
 target_truth: >-
   ABG runtime binding resolves the selected edge's required causal inputs from
   admitted payload, evidence, materialized artifact, node type, and
@@ -279,10 +280,10 @@ eventCount: 88
 eventDigest: sha256:0a0e7bc8a8bd1859972b5f613aaf9ff32c483169510d36f187bbf39ba68e2f31
 ```
 
-The live proof earns the `ref_digest_only` causal-carry slice. It does not yet
-earn excerpt/full-content rendering: the current admitted payload and actor
-artifact events carry refs/digests, not admitted content bodies or content
-paths. That stronger rendering target remains open.
+The live proof earned the initial `ref_digest_only` causal-carry slice. It was
+superseded by the excerpt closure proof below. Full-content rendering remains
+fail-closed in this ticket and belongs to the broader T-183 instruction
+assembly/semantic compiler work.
 
 ### 2026-07-01 Binding Policy Slice
 
@@ -328,9 +329,74 @@ cd build_tenants/abiogenesis/typescript && npm run test:semantic
 pass: 985/985
 ```
 
-Current remaining work before closure:
+Resolved by the excerpt closure proof below.
 
-- Prove the behavior on a real framework-smoke/software-build traversal with
-  live F_P dispatch.
-- Add a true live `test:t182:live` scenario that calls the F_P worker.
-- Re-run the full semantic suite and boundary greps after the live proof lands.
+### 2026-07-01 Excerpt Closure Proof
+
+Completed the T-182 causal-carry slice:
+
+- Extended `actor_result_artifact_observed` with admitted artifact content
+  digest and bounded excerpt fields.
+- Passed the attached F_P result artifact payload through the ABG runner into
+  the actor-result artifact observation event.
+- Included actor-result artifact observations in the replay-derived payload
+  ledger projection.
+- Resolved declared `excerpt` causal content mode from admitted actor artifact
+  truth by ref, digest, and excerpt before F_P dispatch.
+- Preserved fail-closed behavior for `full_content`; this ticket does not add
+  a full body store or broad instruction assembly carrier.
+- Threaded `causalInputContentExcerpts` into
+  `instruction_causal_context_bound`, `FpTransformRequest`, and the live
+  sandbox worker prompt.
+- Kept the live worker oracle non-brittle: vector 1 must echo the admitted
+  content digest exactly and summarize the carried excerpt, while the runner
+  asserts the excerpt was present in the ABG-bound prompt input.
+- Added synthetic positive and negative proof: declared excerpt mode binds
+  when admitted actor artifact content exists, and blocks when the content
+  surface is absent.
+
+Proof results:
+
+```text
+git diff --check
+pass
+
+cd build_tenants/abiogenesis/typescript && npm run build:semantic
+pass
+
+cd build_tenants/abiogenesis/typescript && npm run test:t182
+pass: 8/8
+
+cd build_tenants/abiogenesis/typescript && npm run test:semantic
+pass: 986/986
+
+cd build_tenants/abiogenesis/typescript && npm run test:t182:live
+pass: 1/1
+test duration: 121.509s
+```
+
+Clean live proof record:
+
+```text
+proof: test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260701T103855291Z_pid26252/t180-glc-hello-world-bootstrap-live-proof.json
+sourceCommit: fe2df6d6cb6c4d7a76626298f7d11492a41c997d
+sourceDirty: false
+proof duration: 119.980s
+eventDigest: sha256:45c62dddb8ab7990e0198e9ad219a5ae6125695789f6125246f924351b4a8518
+```
+
+Boundary proof:
+
+```text
+rg -n "InstructionComposition|PromptLedger|product-local prompt shell|local prompt shell" \
+  build_tenants/abiogenesis/typescript/code/src
+no matches
+```
+
+Closure note:
+
+T-182 closes the first shippable causal-carry slice: admitted prior artifact
+truth can be bound into a later F_P instruction envelope as refs, digests, and
+bounded excerpts, and missing or drifted causal truth fails closed before
+weakened dispatch. The full semantic compiler and full-content rendering
+surface remain successor work under T-183.
