@@ -333,24 +333,27 @@ selection, invocation, startup, and satisfaction mechanics. odd_glc and other
 downstream products own domain names, overlays, prompt/policy content, plugin
 behavior, and lifecycle interpretation.
 
-The earned reusable node-type release is ABI TypeScript `4.2.0-rc.1`:
+The earned reusable node-type, instruction assembly, and canonical live proof
+release is ABI TypeScript `4.2.0-rc.2`:
 
-- source commit `0ccadad727a32611c4c60ae9fea994800b2ed030`;
-- release snapshot commit `de28b90bb692bc793ad944a7b20af5c5a431bebc`;
-- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.1/`;
-- `latest -> 4.2.0-rc.1`;
+- source commit `623da85864d03c736a3daec2ca414f516221f85b`;
+- release snapshot commit `31c4105883a16f574d40ba73e20ec1e49c9aac55`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.2/`;
+- `latest -> 4.2.0-rc.2`;
 - tarball sha256
-  `b558c437a508b1467ba02e0af2117b07587ddf19533425b1bd9ad809fffad68e`;
+  `fd94966566ad95e3fb1048b23265e0a215a1a1c656706c43fcc2fddf833b510c`;
 - release snapshot manifest sha256
-  `54a7f159af1bcbb5f2aaf5a232f8823c0aaef4bb55d939d5c4e13ec970e9ffde`;
+  `e7d1e3fee427cf9df8371bc616672fdd06f4b028e53170e5484fb3c7843e0422`;
 - release note sha256
-  `95ff136b5819e13836055cd152ce93beac41da63a2d6acbb3dedca6544e25ab4`;
+  `f6dfd1d4638661ca3358c6555be6c8078364ef5679cb3dc0275ae84045cc0eea`;
 - installed sandbox/bootstrap live proof artifact:
-  `build_tenants/abiogenesis/typescript/test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260630T161623713Z_pid55795/t180-glc-hello-world-bootstrap-live-proof.json`.
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260701T142325766Z_pid7540/canonical-hello-world-full-stack-live-proof.json`.
 
 The live proof artifact was generated against package metadata source commit
-`fba9d990c1702355a94374165c6deeb0edf6bf48` with `sourceDirty: false`; the
+`623da85864d03c736a3daec2ca414f516221f85b` with `sourceDirty: false`; the
 release snapshot tarball sha256 matches that proof artifact's snapshot tarball
-sha256. The final source commit for the release snapshot,
-`0ccadad727a32611c4c60ae9fea994800b2ed030`, only adds the T-180 closure record
-and downstream readiness note after that proof.
+sha256. The RC2 proof ran through the canonical installed sandbox path,
+selected graph functions through ABG registry truth, rendered worker prompts
+from ABG instruction prompt manifests, admitted worker responses, bound causal
+carry, executed the generated artifact, and produced exact stdout
+`Hello, world!\n`.
