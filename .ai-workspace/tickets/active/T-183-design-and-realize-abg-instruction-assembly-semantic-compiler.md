@@ -3,7 +3,7 @@ id: T-183
 title: Design and realize ABG instruction assembly law with semantic compiler assurance
 type: requirements_design_realization
 ticket_category: instruction_assembly_semantic_compiler
-status: backlog
+status: active
 goal: >-
   Define and realize the ABG/GTL instruction assembly surface that compiles
   edge-bound prompt plans from existing GTL/ABG carriers, deterministically
@@ -27,13 +27,15 @@ priority: high
 triaged_at: 2026-07-01
 created_at: 2026-07-01
 updated_at: 2026-07-01
+activated_at: 2026-07-01
 governance_scope: STDO Method, SPEC_METHOD, DESIGN_MODULE_METHOD, GTL, ABG Runtime, Semantic Compiler, Binding, Transport, Payload
 build_tenant: typescript
 depends_on:
   - .ai-workspace/tickets/completed/T-177-design-live-abg-runtime-graph-function-registry-lookup.md
   - .ai-workspace/tickets/completed/T-180-ratify-reusable-gtl-node-types-and-type-composition.md
+  - .ai-workspace/tickets/completed/T-182-realize-causal-carry-in-abg-instruction-rendering.md
 related_tickets:
-  - .ai-workspace/tickets/backlog/T-182-realize-causal-carry-in-abg-instruction-rendering.md
+  - .ai-workspace/tickets/completed/T-182-realize-causal-carry-in-abg-instruction-rendering.md
 source_documents:
   - .ai-workspace/comments/codex/20260701T083917Z_STRATEGY_gtl_abg_instruction_prompt_algebra.md
   - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
@@ -47,6 +49,8 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   - specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+design_surfaces:
+  - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
 review_status: open
 proof_status: pending
 target_truth: >-
@@ -216,7 +220,7 @@ acceptance_criteria:
 proof_commands:
   - git diff --check
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
-  - "! rg -n \"sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|proofObligationRefs|authoritySlots|rendererRefs|activeRegime|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
+  - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:t183
@@ -243,3 +247,29 @@ worker receives an immutable envelope; ABG admits or rejects the response.
 The purpose is not better prose. The purpose is to make prompt construction
 provable: relevant, compressed, proportional, typed, replayable, non-tautological,
 and unable to become a product-local authority surface.
+
+## Execution Record
+
+### 2026-07-01 Activation And Phase 0/1 Design Start
+
+Activated after T-182 closed the first causal-carry slice. Started with the
+M03 instruction assembly derivation rather than code, because this ticket
+changes the prompt/instruction design surface.
+
+Initial design decisions recorded:
+
+- The new assembly law is an ABG runtime/design surface over existing GTL/ABG
+  carriers, not a broad GTL prompt carrier.
+- `InstructionAssemblyRule` is narrow: it binds graph-function/vector refs to
+  section rules, relevance rules, compression policy, proportionality policy,
+  and runtime binding slot classes only.
+- Node types, response contracts, proof obligations, authority slots,
+  renderer refs, active regime, and carrier classes are derived from existing
+  carriers.
+- Relevance and compression are F_D compiler decisions; F_P may propose
+  wording or clarity but cannot own inclusion/minimality.
+- Renderer execution is ABG-owned or delegated only to an authority-denied
+  governed renderer over immutable envelopes.
+- P0 deterministic edges are no-dispatch edges.
+
+No realization code is started in this activation step.
