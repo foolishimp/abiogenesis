@@ -35,6 +35,7 @@ import {
   constructFpDispatchRequestedEvent,
   constructInstructionCausalContextBoundEvent,
   constructInstructionPromptManifestProjectedEvent,
+  constructInstructionResponseContractAdmittedEvent,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
@@ -5881,13 +5882,32 @@ function* runEngineIterateMachine(input: {
             invocation: actorInvocation,
             outcomeResultRef: outcome.resultRef
           });
-          eventState = emitRunnerEvents(eventState,
-            constructActorResultArtifactObservedEvent({
-              invocation: actorInvocation,
-              artifactRef: resultRef,
-              artifactPayload: outcome.attachedResultArtifact
-            })
-          );
+          const artifactObservedEvent = constructActorResultArtifactObservedEvent({
+            invocation: actorInvocation,
+            artifactRef: resultRef,
+            artifactPayload: outcome.attachedResultArtifact
+          });
+          eventState = emitRunnerEvents(eventState, artifactObservedEvent);
+          if (instructionBinding.kind === "manifest_projected") {
+            eventState = emitRunnerEvents(
+              eventState,
+              constructInstructionResponseContractAdmittedEvent({
+                invocation: actorInvocation,
+                manifest: instructionBinding.manifest,
+                artifactEvent: artifactObservedEvent,
+                causationEventRefs: Object.freeze([
+                  instructionBinding.manifest.manifestRef,
+                  artifactObservedEvent.artifactRef
+                ]),
+                correlationId: [
+                  "instruction-response-admission",
+                  request.basis.id,
+                  String(transition.vectorIndex),
+                  actorInvocation.actorInvocationId
+                ].join(":")
+              })
+            );
+          }
           if (scalarTransformInput.fpTransformRequest === null) {
             throw new TypeError("F_P dispatch requires a transform request carrier");
           }

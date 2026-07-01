@@ -32,6 +32,7 @@ import type {
   GraphVectorResumeCursorAppliedEvent,
   InstructionCausalContextBoundEvent,
   InstructionPromptManifestProjectedEvent,
+  InstructionResponseContractAdmittedEvent,
   ObservedStateAdmittedRuntimeEvent,
   ObservedStateSourceKind,
   PayloadObservedRuntimeEvent,
@@ -657,6 +658,53 @@ export function constructInstructionPromptManifestProjectedEvent(input: {
     gapRefs: freezeStringArray(input.manifest.gapRefs),
     forbiddenCarrierRefs: freezeStringArray(input.manifest.forbiddenCarrierRefs),
     outputContractRefs: freezeStringArray(input.manifest.outputContractRefs)
+  });
+}
+
+export function constructInstructionResponseContractAdmittedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly manifest: PromptManifest;
+  readonly artifactEvent: ActorResultArtifactObservedEvent;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): InstructionResponseContractAdmittedEvent {
+  if (input.artifactEvent.artifactContentDigest === null) {
+    throw new TypeError(
+      "Instruction response admission requires an observed result artifact digest"
+    );
+  }
+  const responseAdmissionRef = [
+    "instruction-response-admission",
+    input.invocation.actorInvocationId,
+    input.manifest.manifestDigest,
+    input.artifactEvent.artifactContentDigest
+  ].join(":");
+  return Object.freeze({
+    kind: "instruction_response_contract_admitted",
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    frameLineageId: null,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId,
+    responseAdmissionRef,
+    manifestRef: input.manifest.manifestRef,
+    manifestDigest: input.manifest.manifestDigest,
+    planRef: input.manifest.planRef,
+    envelopeRef: input.manifest.envelopeRef,
+    resultRef: input.artifactEvent.resultRef,
+    artifactRef: input.artifactEvent.artifactRef,
+    artifactContentDigest: input.artifactEvent.artifactContentDigest,
+    outputContractRefs: freezeStringArray(input.manifest.outputContractRefs),
+    promptDigest: input.manifest.promptDigest
   });
 }
 

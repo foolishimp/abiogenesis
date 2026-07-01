@@ -453,3 +453,46 @@ Remaining before closure:
   transport.
 - Add the `test:t183:live` proof lane and run the live framework-smoke proof
   with an actual F_P worker.
+
+### 2026-07-01 Response Admission Slice
+
+Implemented the first response-admission slice:
+
+- Added replay-visible runtime event
+  `instruction_response_contract_admitted`.
+- Added event admission and `RuntimeAggregateProjection` rows for response
+  admissions.
+- The F_P attached-artifact path now emits response admission only after
+  `actor_result_artifact_observed` exists and only when the invocation has a
+  compiled instruction prompt manifest.
+- The response admission carries the manifest ref/digest, plan ref, envelope
+  ref, result artifact ref, artifact digest, prompt digest, and derived output
+  contract refs.
+
+Focused proof additions:
+
+- A custom F_P dispatch plugin returns an attached result artifact.
+- The runner emits `instruction_response_contract_admitted` after
+  `actor_result_artifact_observed`.
+- The response admission's output contract refs are the compiled plan's derived
+  output contract refs.
+- The response admission is replay-visible through
+  `RuntimeAggregateProjection.instructionResponseAdmissionRefs`.
+
+Verification:
+
+- `git diff --check` passed.
+- Duplicate-surface code grep passed:
+  `! rg -n "InstructionComposition|\bPromptPlan\b|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses" build_tenants/abiogenesis/typescript/code/src`
+- `npm run test:t177` passed: 16/16.
+- `npm run test:t183` passed: 11/11.
+- `npm run test:semantic` reached 996/997 passing; the only failure was
+  unrelated `T-188 pty-terminal supervisor kills a non-cooperative worker child`
+  with missing `worker.pid` in a generated test run directory.
+- Rerunning that file directly passed/skipped under the current non-live env:
+  `node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs`.
+
+Remaining before closure:
+
+- Add the `test:t183:live` proof lane and run the live framework-smoke proof
+  with an actual F_P worker.

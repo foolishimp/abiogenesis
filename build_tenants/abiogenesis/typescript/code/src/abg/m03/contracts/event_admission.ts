@@ -1021,6 +1021,35 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       outputContractRefs: "string_array"
     }
   ),
+  instruction_response_contract_admitted: applyFieldRules(
+    "InstructionResponseContractAdmittedEvent",
+    {
+      basisId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "non_empty_string",
+      workerId: "non_empty_string",
+      backendId: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      responseAdmissionRef: "non_empty_string",
+      manifestRef: "non_empty_string",
+      manifestDigest: "non_empty_string",
+      planRef: "non_empty_string",
+      envelopeRef: "non_empty_string",
+      resultRef: "non_empty_string",
+      artifactRef: "non_empty_string",
+      artifactContentDigest: "non_empty_string",
+      outputContractRefs: "string_array",
+      promptDigest: "non_empty_string"
+    }
+  ),
   instruction_causal_context_bound: applyFieldRules(
     "InstructionCausalContextBoundEvent",
     {

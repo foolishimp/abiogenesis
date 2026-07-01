@@ -17,7 +17,10 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 import {
   constructGtlLibraryEntryDeclaration,
+  constructEnginePluginContract,
+  constructFpDispatchOutcome,
   constructProductRegistryStartupConfig,
+  runEngineStart,
   start as publicStart
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
@@ -286,6 +289,40 @@ function startPlanForFirstVector(executive) {
     bindingSlots: publicStartSlots(),
     expectedAnswerMarkers: ["gap_stop_without_dispatch"]
   });
+}
+
+function fpDispatchContract(ref) {
+  return constructEnginePluginContract({
+    ref,
+    pluginKind: "fp_dispatch",
+    authority: "effect_plugin",
+    inputCarrier: "EnginePluginInput",
+    outputCarrier: "FpDispatchOutcome"
+  });
+}
+
+function attachedArtifact(input) {
+  const assessmentIds =
+    input.expectedAssessmentIds.length === 0
+      ? ["instruction_response_admitted"]
+      : input.expectedAssessmentIds;
+  return {
+    edge: input.expectedEdge ?? input.edge,
+    actor: "codex",
+    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+      id: assessmentId,
+      evaluator: assessmentId,
+      fulfillment_status: "fulfilled",
+      fulfillment_detail: "runtime output accepted under derived output contract",
+      blocking_reasons: [],
+      evidence_refs: [`evidence://t183/response/${assessmentId}`]
+    })),
+    selected_worker_id: "worker://t183",
+    selected_backend: "backend://node",
+    role_id: "role://t183",
+    assignment_source: "policy_resolution",
+    resolved_runtime_ref: "runtime://typescript/node"
+  };
 }
 
 function admitted(plan) {
@@ -585,5 +622,69 @@ test("T-183 active instruction assembly blocks F_P dispatch when startup admits 
   assert.equal(
     events.some((event) => event.kind === "fp_dispatch_requested"),
     false
+  );
+});
+
+test("T-183 runner admits F_P response against the derived output contract after worker transport", () => {
+  const { input, context, executive } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const plan = startPlanForFirstVector(executive);
+  const declaration = graphFunctionDeclaration(executive.id);
+  const events = [];
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://t183/instruction-response"),
+    dispatch: (pluginInput) =>
+      constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t183/instruction-response/${encodeURIComponent(pluginInput.edge)}`,
+        attachedResultArtifact: attachedArtifact(pluginInput),
+        evidenceRefs: [pluginInput.sourceProjectionRef]
+      })
+  });
+  const result = runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [],
+    eventSink: (event) => events.push(event),
+    runtimeRegistryStartup: {
+      systemDeclarations: [],
+      productStartupConfig: productStartupConfig(),
+      productDeclarations: [declaration],
+      correlationId: "correlation://t183/start/response-registry"
+    },
+    instructionAssemblyStartup: {
+      compiledPromptPlans: [plan],
+      rendererRef: "renderer://abg/instruction-envelope/default"
+    },
+    plugins: { fpDispatch }
+  });
+  const manifestEvent = events.find(
+    (event) => event.kind === "instruction_prompt_manifest_projected"
+  );
+  const responseEvent = events.find(
+    (event) => event.kind === "instruction_response_contract_admitted"
+  );
+  assert.ok(manifestEvent);
+  assert.ok(responseEvent);
+  assert.equal(responseEvent.manifestRef, manifestEvent.manifestRef);
+  assert.equal(responseEvent.planRef, plan.planRef);
+  assert.deepEqual(responseEvent.outputContractRefs, [
+    "contract://t183/start/vector-0/output"
+  ]);
+  assert.equal(
+    events.findIndex((event) => event.kind === "actor_result_artifact_observed") <
+      events.findIndex((event) => event.kind === "instruction_response_contract_admitted"),
+    true
+  );
+  assert.equal(
+    result.projection.instructionResponseAdmissionRefs[0].responseAdmissionRef,
+    responseEvent.responseAdmissionRef
+  );
+  assert.equal(
+    result.projection.instructionResponseAdmissionRefs[0].artifactContentDigest,
+    responseEvent.artifactContentDigest
   );
 });

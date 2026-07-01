@@ -778,6 +778,20 @@ export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeSco
   readonly outputContractRefs: readonly string[];
 }
 
+export interface InstructionResponseContractAdmittedEvent extends ActorRuntimeScope {
+  readonly kind: "instruction_response_contract_admitted";
+  readonly responseAdmissionRef: string;
+  readonly manifestRef: string;
+  readonly manifestDigest: string;
+  readonly planRef: string;
+  readonly envelopeRef: string;
+  readonly resultRef: string;
+  readonly artifactRef: string;
+  readonly artifactContentDigest: string;
+  readonly outputContractRefs: readonly string[];
+  readonly promptDigest: string;
+}
+
 export interface FhEscalatedEvent {
   readonly kind: "fh_escalated";
   readonly basisId: string;
@@ -2489,6 +2503,7 @@ export type RuntimeEvent =
   | PluginTraversalPromptMaterializedEvent
   | InstructionCausalContextBoundEvent
   | InstructionPromptManifestProjectedEvent
+  | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -2606,6 +2621,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "plugin_traversal_prompt_materialized",
   "instruction_causal_context_bound",
   "instruction_prompt_manifest_projected",
+  "instruction_response_contract_admitted",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",
@@ -2908,6 +2924,25 @@ export interface RuntimeAggregateProjection {
     readonly gapRefs: readonly string[];
     readonly forbiddenCarrierRefs: readonly string[];
     readonly outputContractRefs: readonly string[];
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
+  }[];
+  readonly instructionResponseAdmissionRefs: readonly {
+    readonly vectorIndex: number;
+    readonly edge: string;
+    readonly actorInvocationId: string | null;
+    readonly workerId: string | null;
+    readonly backendId: string | null;
+    readonly responseAdmissionRef: string;
+    readonly manifestRef: string;
+    readonly manifestDigest: string;
+    readonly planRef: string;
+    readonly envelopeRef: string;
+    readonly resultRef: string;
+    readonly artifactRef: string;
+    readonly artifactContentDigest: string;
+    readonly outputContractRefs: readonly string[];
+    readonly promptDigest: string;
     readonly causationEventRefs: readonly string[];
     readonly correlationId: string;
   }[];
