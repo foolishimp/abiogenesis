@@ -1,4 +1,5 @@
 // Validates: T-180
+// Validates: T-182
 // Validates: T-177
 // Validates: REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL
 // Validates: REQ-L-GTL3-NODE
@@ -44,6 +45,7 @@ const TEST_RUNS_ROOT = path.join(
 
 function liveEnabled() {
   return process.env["ABG_TS_T180_GLC_BOOTSTRAP_LIVE"] === "1" ||
+    process.env["ABG_TS_T182_CAUSAL_CARRY_LIVE"] === "1" ||
     process.env["CODEX_LIVE_FP"] === "1";
 }
 
@@ -316,6 +318,7 @@ const executionEvidence = admittedNode({
     kind: "glc_execution_evidence",
     requiredContexts: ["context://odd_glc/evidence"],
     outputContractRefs: ["contract://odd_glc/execution-evidence"],
+    constructorInputAssetKinds: ["glc_lifecycle_artifact"],
     proofObligationRefs: ["proof://odd_glc/execution-evidence"]
   },
   tags: ["evidence-output"]
@@ -590,6 +593,7 @@ async function runNodeProgram(programPath) {
 }
 
 function promptFor(input) {
+  const request = input.fpTransformRequest;
   return [
     "Return only one JSON object. Do not include markdown or commentary.",
     "You are the live F_P worker for an odd_glc generic lifecycle Hello World bootstrap.",
@@ -598,6 +602,13 @@ function promptFor(input) {
     "",
     \`Current edge: \${input.edge}\`,
     \`Vector index: \${input.vectorIndex}\`,
+    "",
+    "ABG causal-carry context for this edge:",
+    \`- instructionCausalStatus: \${request.instructionCausalStatus}\`,
+    \`- causalInputPayloadRefs: \${JSON.stringify(request.causalInputPayloadRefs)}\`,
+    \`- causalInputPayloadDigests: \${JSON.stringify(request.causalInputPayloadDigests)}\`,
+    \`- causalRequiredInputRefs: \${JSON.stringify(request.causalRequiredInputRefs)}\`,
+    \`- causalMissingInputRefs: \${JSON.stringify(request.causalMissingInputRefs)}\`,
     "",
     "Declared GTL node type refs:",
     \`- bootstrap context: \${TYPE_REFS.bootstrapContext}\`,
@@ -612,12 +623,15 @@ function promptFor(input) {
     "  \\"source\\": string,",
     "  \\"expectedStdout\\": \\"Hello, world!\\\\n\\",",
     "  \\"nodeTypesUsed\\": string[],",
+    "  \\"causalInputPayloadRefsSeen\\": string[],",
     "  \\"reason\\": string",
     "}",
     "",
     "For stage program, provide a minimal JavaScript ESM program in source.",
     \`For stage program, nodeTypesUsed must include exactly \${TYPE_REFS.bootstrapContext} and \${TYPE_REFS.helloWorldProgram}.\`,
-    "For stage execution_evidence, inspect the existing program intent and return a short evidence summary in source.",
+    "For stage program, causalInputPayloadRefsSeen must be an empty list.",
+    "For stage execution_evidence, inspect the ABG causal-carry context and return a short evidence summary in source.",
+    "For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the listed causalInputPayloadRefs.",
     \`For stage execution_evidence, nodeTypesUsed must include exactly \${TYPE_REFS.helloWorldProgram} and \${TYPE_REFS.executionEvidence}.\`,
     "Do not claim to emit ABG events, select graph functions, or close traversal."
   ].join("\\n");
@@ -677,6 +691,29 @@ export const runtimeBinding = {
             \`GLC live worker must cite exact GTL node type refs: \${expectedNodeTypes.join(", ")}\`
           );
         }
+        const expectedCausalPayloadRefs = pluginInput.vectorIndex === 0
+          ? []
+          : [...pluginInput.fpTransformRequest.causalInputPayloadRefs];
+        if (pluginInput.vectorIndex === 1) {
+          if (pluginInput.fpTransformRequest.instructionCausalStatus !== "bound") {
+            throw new Error("T-182 vector 1 did not receive bound causal context before F_P dispatch");
+          }
+          if (pluginInput.fpTransformRequest.causalRequiredInputRefs.length !== 1) {
+            throw new Error("T-182 vector 1 did not receive its declared required causal input ref");
+          }
+          if (pluginInput.fpTransformRequest.causalInputPayloadDigests.length === 0) {
+            throw new Error("T-182 vector 1 causal input lacks admitted payload digest truth");
+          }
+        }
+        if (
+          !Array.isArray(assessment.causalInputPayloadRefsSeen) ||
+          JSON.stringify(assessment.causalInputPayloadRefsSeen) !==
+            JSON.stringify(expectedCausalPayloadRefs)
+        ) {
+          throw new Error(
+            \`GLC live worker did not echo the ABG causal payload refs: expected \${JSON.stringify(expectedCausalPayloadRefs)}, got \${JSON.stringify(assessment.causalInputPayloadRefsSeen)}\`
+          );
+        }
         const programPath = path.join(workspaceRoot, "generated", "hello-world.mjs");
         if (pluginInput.vectorIndex === 0) {
           if (typeof assessment.source !== "string" || !assessment.source.includes("Hello, world!")) {
@@ -732,6 +769,22 @@ export const runtimeBinding = {
             outputPath: transport.outputPath,
             structuredEventCount: transport.structuredEventCount,
             apiRetryCount: transport.apiRetryCount
+          }),
+          causalCarry: Object.freeze({
+            instructionCausalContextRef:
+              pluginInput.fpTransformRequest.instructionCausalContextRef,
+            instructionCausalStatus:
+              pluginInput.fpTransformRequest.instructionCausalStatus,
+            causalInputBindingRefs:
+              pluginInput.fpTransformRequest.causalInputBindingRefs,
+            causalInputPayloadRefs:
+              pluginInput.fpTransformRequest.causalInputPayloadRefs,
+            causalInputPayloadDigests:
+              pluginInput.fpTransformRequest.causalInputPayloadDigests,
+            causalRequiredInputRefs:
+              pluginInput.fpTransformRequest.causalRequiredInputRefs,
+            causalMissingInputRefs:
+              pluginInput.fpTransformRequest.causalMissingInputRefs
           })
         });
         await writeJson(path.join(liveRoot, \`\${label}-artifact.json\`), artifact);
@@ -920,6 +973,24 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   );
   assert.ok(firstSelectionIndex >= 0);
   assert.ok(firstGraphCallIndex > firstSelectionIndex);
+  const causalEvents = events.filter((event) =>
+    event.kind === "instruction_causal_context_bound"
+  );
+  const secondVectorCausalEvent = causalEvents.find((event) =>
+    event.vectorIndex === 1
+  );
+  assert.ok(secondVectorCausalEvent);
+  assert.equal(secondVectorCausalEvent.status, "bound");
+  assert.equal(secondVectorCausalEvent.contentModes.includes("ref_digest_only"), true);
+  assert.equal(secondVectorCausalEvent.payloadRefs.length > 0, true);
+  assert.equal(secondVectorCausalEvent.payloadDigests.length > 0, true);
+  assert.deepEqual(secondVectorCausalEvent.missingInputRefs, []);
+  assert.equal(
+    secondVectorCausalEvent.requiredInputRefs.some((ref) =>
+      ref.includes("asset_kind=glc_lifecycle_artifact")
+    ),
+    true
+  );
 
   const programSource = await readFile(
     path.join(workspaceRoot, "generated", "hello-world.mjs"),
@@ -937,9 +1008,19 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   assert.equal(secondArtifact.execution.stdout, "Hello, world!\n");
   assert.equal(firstArtifact.transport.status, 0);
   assert.equal(secondArtifact.transport.status, 0);
+  assert.equal(firstArtifact.causalCarry.instructionCausalStatus, "empty");
+  assert.equal(secondArtifact.causalCarry.instructionCausalStatus, "bound");
+  assert.deepEqual(
+    secondArtifact.causalCarry.causalInputPayloadRefs,
+    secondArtifact.assessment.causalInputPayloadRefsSeen
+  );
+  assert.deepEqual(
+    secondArtifact.causalCarry.causalInputPayloadRefs,
+    secondVectorCausalEvent.payloadRefs
+  );
 
   const proof = {
-    kind: "t180_glc_hello_world_bootstrap_live_proof",
+    kind: "t180_t182_glc_hello_world_bootstrap_causal_carry_live_proof",
     sourceCommit,
     sourceDirty,
     durationMs,
@@ -953,6 +1034,12 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
     genesisCommand,
     startOutput,
     eventDigest: sha256Text(JSON.stringify(events)),
+    causalCarry: {
+      contextRef: secondVectorCausalEvent.contextRef,
+      payloadRefs: secondVectorCausalEvent.payloadRefs,
+      payloadDigests: secondVectorCausalEvent.payloadDigests,
+      requiredInputRefs: secondVectorCausalEvent.requiredInputRefs
+    },
     liveArtifacts: [
       firstArtifact.transport.outputPath,
       secondArtifact.transport.outputPath
