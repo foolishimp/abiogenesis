@@ -5733,7 +5733,7 @@ function* runEngineIterateMachine(input: {
           request.basis,
           eventState.replayEvents
         );
-        const scalarTransformInput = constructEnginePluginInput({
+        let scalarTransformInput = constructEnginePluginInput({
           contract: plugins.fpDispatch.contract,
           basis: request.basis,
           projection: scalarTransformProjection,
@@ -5792,6 +5792,10 @@ function* runEngineIterateMachine(input: {
         }
         if (instructionBinding.kind === "manifest_projected") {
           eventState = emitRunnerEvents(eventState, instructionBinding.event);
+          scalarTransformInput = Object.freeze({
+            ...scalarTransformInput,
+            instructionPromptManifest: instructionBinding.manifest
+          });
         }
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({

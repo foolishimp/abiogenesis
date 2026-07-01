@@ -634,13 +634,20 @@ test("T-183 runner admits F_P response against the derived output contract after
   const events = [];
   const fpDispatch = Object.freeze({
     contract: fpDispatchContract("plugin://t183/instruction-response"),
-    dispatch: (pluginInput) =>
-      constructFpDispatchOutcome({
+    dispatch: (pluginInput) => {
+      assert.ok(pluginInput.instructionPromptManifest);
+      assert.equal(pluginInput.instructionPromptManifest.planRef, plan.planRef);
+      assert.match(
+        pluginInput.instructionPromptManifest.renderedPrompt,
+        /Transform the current source node/u
+      );
+      return constructFpDispatchOutcome({
         status: "dispatched",
         resultRef: `result://t183/instruction-response/${encodeURIComponent(pluginInput.edge)}`,
         attachedResultArtifact: attachedArtifact(pluginInput),
         evidenceRefs: [pluginInput.sourceProjectionRef]
-      })
+      });
+    }
   });
   const result = runEngineStart({
     startIntent: input,

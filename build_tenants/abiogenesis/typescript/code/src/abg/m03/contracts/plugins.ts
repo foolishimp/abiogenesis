@@ -81,6 +81,9 @@ import type {
   EvaluationRuleRole
 } from "./evaluation_set.js";
 import type {
+  PromptManifest
+} from "./instruction_assembly.js";
+import type {
   ComposedStageTaskOutcome,
   ComposedStageTaskRole
 } from "./composed_stage_set.js";
@@ -275,6 +278,7 @@ export interface EnginePluginInput {
   readonly retryFrontier: RetryFrontierProjection;
   readonly outputAuthorityProjections: readonly AdmittedOutputAuthorityProjection[];
   readonly instructionCausalContext: InstructionCausalContextProjection | null;
+  readonly instructionPromptManifest: PromptManifest | null;
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
   readonly fpTransformRequest: FpTransformRequest | null;
@@ -1255,6 +1259,7 @@ export function constructEnginePluginInput(input: {
   readonly priorStageProjectionRefs?: readonly string[] | undefined;
   readonly priorStageFoldInputRefs?: readonly string[] | undefined;
   readonly stageSetDependencyRefs?: readonly string[] | undefined;
+  readonly instructionPromptManifest?: PromptManifest | null | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -1468,6 +1473,7 @@ export function constructEnginePluginInput(input: {
     retryFrontier,
     outputAuthorityProjections,
     instructionCausalContext,
+    instructionPromptManifest: input.instructionPromptManifest ?? null,
     actorInvocationRef: normalizedActorInvocationRef,
     attachedResultArtifact:
       input.attachedResultArtifact === undefined ||

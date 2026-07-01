@@ -140,6 +140,7 @@
     "test:t182": "npm run build:semantic && node --test test_env/tests/test_t182_instruction_causal_carry.test.mjs",
     "test:t182:live": "npm run build:semantic && ABG_TS_T182_CAUSAL_CARRY_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t180_glc_hello_world_bootstrap_live.test.mjs",
     "test:t183": "npm run build:semantic && node --test test_env/tests/test_t183_instruction_assembly_semantic_compiler.test.mjs",
+    "test:t183:live": "npm run build:semantic && ABG_TS_T183_INSTRUCTION_ASSEMBLY_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t183_instruction_assembly_live.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",
