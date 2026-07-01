@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 
 import {
   assertRuntimeEvent,
+  constructActorResultArtifactObservedEvent,
   constructEnginePluginInput,
   constructEvidenceAdmittedEvent,
   constructInstructionCausalContextBoundEvent,
@@ -41,6 +42,30 @@ function actorInvocationRef(vectorIndex = 1) {
     attemptIndex: 0,
     dispatchRef: "dispatch://m03-iteration",
     resultRef: `result://t182/${vectorIndex}`
+  });
+}
+
+function actorInvocation(basis, vectorIndex, resultRef) {
+  const vector = basis.graph.vectors[vectorIndex];
+  assert.ok(vector);
+  return Object.freeze({
+    kind: "actor_invocation",
+    actorInvocationId: `actor-invocation://t182/${vectorIndex}`,
+    basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    runId: basis.runId,
+    workKey: basis.workKey,
+    graphCallId: `graph-call:${basis.id}`,
+    frameId: basis.frameId ?? `frame:${basis.id}:root`,
+    vectorIndex,
+    edge: vector.name,
+    attemptIndex: 0,
+    dispatchRef: "dispatch://m03-iteration",
+    workerId: "worker://t182",
+    backendId: "backend://node",
+    resultRef,
+    causationEventRefs: [`dispatch://m03-iteration/${vectorIndex}`],
+    correlationId: `correlation://t182/${vectorIndex}`
   });
 }
 
@@ -88,7 +113,20 @@ function firstVectorOutputEvents(basis, options = {}) {
   const digest = "digest://t182/requirements";
   const observedDigest = options.observedDigest ?? digest;
   const validationDigest = options.validationDigest ?? digest;
-  return captureEmit([
+  const events = [];
+  if (options.includeArtifactContent === true) {
+    events.push(
+      constructActorResultArtifactObservedEvent({
+        invocation: actorInvocation(basis, 0, "result://t182/requirements"),
+        artifactRef: "result://t182/requirements",
+        artifactPayload: {
+          kind: "t182_requirements_artifact",
+          source: "requirements artifact body for excerpt causal carry"
+        }
+      })
+    );
+  }
+  events.push(
     constructPayloadObservedEvent({
       basis,
       vectorIndex: 0,
@@ -129,7 +167,8 @@ function firstVectorOutputEvents(basis, options = {}) {
       vectorIndex: 0,
       closureKind: "assessed"
     })
-  ]);
+  );
+  return captureEmit(events);
 }
 
 function secondVectorFpInput(basis, events) {
@@ -262,6 +301,34 @@ test("T-182 blocks declared excerpt mode until admitted content is available", (
   assert.equal(causal.missingInputRefs.length, 1);
   assert.match(causal.missingInputRefs[0], /content_unavailable/u);
   assert.match(causal.missingInputRefs[0], /content_mode=excerpt/u);
+});
+
+test("T-182 binds declared excerpt mode from admitted actor artifact content", () => {
+  const basis = withTargetAssetSurface(
+    buildThreeStageBasis({ defaultRegime: "F_P" }),
+    1,
+    { renderedViewDigestPolicyRef: "policy://abg/instruction-causal/excerpt" }
+  );
+  const events = firstVectorOutputEvents(basis, {
+    includeArtifactContent: true
+  });
+  const input = secondVectorFpInput(basis, events);
+
+  assert.equal(input.instructionCausalContext.status, "bound");
+  const [binding] = input.instructionCausalContext.bindings;
+  assert.equal(binding.contentMode, "excerpt");
+  assert.equal(binding.contentRef, "result://t182/requirements");
+  assert.match(binding.contentDigest, /^sha256:/u);
+  assert.match(binding.contentExcerpt, /requirements artifact body/u);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentRefs, [
+    "result://t182/requirements"
+  ]);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentDigests, [
+    binding.contentDigest
+  ]);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentExcerpts, [
+    binding.contentExcerpt
+  ]);
 });
 
 test("T-182 blocks causal carry when prior output digest drifts", () => {

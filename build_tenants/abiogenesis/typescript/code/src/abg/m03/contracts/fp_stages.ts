@@ -79,6 +79,7 @@ export interface FpTransformRequest {
   readonly causalInputContentModes: readonly string[];
   readonly causalInputContentRefs: readonly string[];
   readonly causalInputContentDigests: readonly string[];
+  readonly causalInputContentExcerpts: readonly string[];
   readonly causalInputPayloadRefs: readonly string[];
   readonly causalInputPayloadDigests: readonly string[];
   readonly causalInputEvidenceRefs: readonly string[];
@@ -398,6 +399,9 @@ export function constructFpTransformRequest(input: {
     ),
     causalInputContentDigests: freezeStringArray(
       input.instructionCausalContext?.contentDigests ?? Object.freeze([])
+    ),
+    causalInputContentExcerpts: freezeStringArray(
+      input.instructionCausalContext?.contentExcerpts ?? Object.freeze([])
     ),
     causalInputPayloadRefs: freezeStringArray(
       input.instructionCausalContext?.payloadRefs ?? Object.freeze([])

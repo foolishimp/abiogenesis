@@ -720,7 +720,9 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       causationEventRefs: "string_array",
       correlationId: "non_empty_string",
       resultRef: "non_empty_string",
-      artifactRef: "non_empty_string"
+      artifactRef: "non_empty_string",
+      artifactContentDigest: "nullable_string",
+      artifactContentExcerpt: "nullable_string"
     }
   ),
   actor_invocation_closed: applyFieldRules("ActorInvocationClosedEvent", {
@@ -1006,6 +1008,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       contentModes: "string_array",
       contentRefs: "string_array",
       contentDigests: "string_array",
+      contentExcerpts: "string_array",
       payloadRefs: "string_array",
       payloadDigests: "string_array",
       evidenceRefs: "string_array",

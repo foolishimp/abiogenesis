@@ -5,6 +5,7 @@
 
 import type {
   AmbiguityObservationAdmittedRuntimeEvent,
+  ActorResultArtifactObservedEvent,
   AuthoritySnapshotAdmittedRuntimeEvent,
   ClosureInputPublishedRuntimeEvent,
   EvidenceAdmittedRuntimeEvent,
@@ -55,6 +56,7 @@ export type PayloadLedgerSourceEvent =
   | PayloadObservedRuntimeEvent
   | PayloadValidatedRuntimeEvent
   | PayloadRejectedRuntimeEvent
+  | ActorResultArtifactObservedEvent
   | AuthoritySnapshotAdmittedRuntimeEvent
   | EvidenceAdmittedRuntimeEvent
   | AmbiguityObservationAdmittedRuntimeEvent
@@ -67,6 +69,7 @@ export interface PayloadLedgerProjection {
   readonly observedPayloads: readonly PayloadObservedRuntimeEvent[];
   readonly validatedPayloads: readonly PayloadValidatedRuntimeEvent[];
   readonly rejectedPayloads: readonly PayloadRejectedRuntimeEvent[];
+  readonly actorResultArtifacts: readonly ActorResultArtifactObservedEvent[];
   readonly authoritySnapshots: readonly AuthoritySnapshotAdmittedRuntimeEvent[];
   readonly evidenceRows: readonly EvidenceAdmittedRuntimeEvent[];
   readonly ambiguityObservations: readonly AmbiguityObservationAdmittedRuntimeEvent[];
@@ -142,6 +145,7 @@ export interface InstructionCausalInputBinding {
   readonly contentMode: InstructionCausalContentMode;
   readonly contentRef: string | null;
   readonly contentDigest: string | null;
+  readonly contentExcerpt: string | null;
   readonly required: boolean;
   readonly payloadRef: string;
   readonly payloadClass: string;
@@ -170,6 +174,7 @@ export interface InstructionCausalContextProjection {
   readonly contentModes: readonly InstructionCausalContentMode[];
   readonly contentRefs: readonly string[];
   readonly contentDigests: readonly string[];
+  readonly contentExcerpts: readonly string[];
   readonly payloadRefs: readonly string[];
   readonly payloadDigests: readonly string[];
   readonly evidenceRefs: readonly string[];
@@ -201,6 +206,7 @@ function isPayloadLedgerSourceEvent(
     event.kind === "payload_observed" ||
     event.kind === "payload_validated" ||
     event.kind === "payload_rejected" ||
+    event.kind === "actor_result_artifact_observed" ||
     event.kind === "authority_snapshot_admitted" ||
     event.kind === "evidence_admitted" ||
     event.kind === "ambiguity_observation_admitted" ||
@@ -259,6 +265,7 @@ function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
     `observed=${input.observedPayloads.map((event) => event.payloadRef).join(",")}`,
     `validated=${input.validatedPayloads.map((event) => event.validationRef).join(",")}`,
     `rejected=${input.rejectedPayloads.map((event) => `${event.payloadRef}/${event.rejectionClass}`).join(",")}`,
+    `artifacts=${input.actorResultArtifacts.map((event) => `${event.resultRef}/${event.artifactRef}/${event.artifactContentDigest ?? "null"}`).join(",")}`,
     `authority=${input.authoritySnapshots.map((event) => event.authoritySnapshotRef).join(",")}`,
     `evidence=${input.evidenceRows.map((event) => event.evidenceRef).join(",")}`,
     `ambiguity=${input.ambiguityObservations.map((event) => event.ambiguityRef).join(",")}`,
@@ -403,6 +410,22 @@ function instructionCausalContentMode(
   return "ref_digest_only";
 }
 
+function actorResultArtifactForAuthority(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly sourceEventRef: string | null;
+}): ActorResultArtifactObservedEvent | undefined {
+  if (input.sourceEventRef === null) {
+    return undefined;
+  }
+  return input.ledger.actorResultArtifacts
+    .filter(
+      (event) =>
+        event.resultRef === input.sourceEventRef ||
+        event.artifactRef === input.sourceEventRef
+    )
+    .at(-1);
+}
+
 export function derivePayloadLedgerScope(input: {
   readonly basis: ExecutionBasis;
   readonly runtimeProjection: RuntimeAggregateProjection;
@@ -466,6 +489,12 @@ export function derivePayloadLedgerProjection(input: {
       sourceEvents.filter(
         (event): event is PayloadRejectedRuntimeEvent =>
           event.kind === "payload_rejected"
+      )
+    ),
+    actorResultArtifacts: Object.freeze(
+      sourceEvents.filter(
+        (event): event is ActorResultArtifactObservedEvent =>
+          event.kind === "actor_result_artifact_observed"
       )
     ),
     authoritySnapshots: Object.freeze(
@@ -751,7 +780,17 @@ export function deriveInstructionCausalContextProjection(input: {
       sourceAssetKind
     });
     const contentMode = instructionCausalContentMode(bindingPolicyRef);
-    if (contentMode !== "ref_digest_only") {
+    const artifact = actorResultArtifactForAuthority({
+      ledger,
+      sourceEventRef: authority.sourceEventRef
+    });
+    const contentRef = artifact?.artifactRef ?? null;
+    const contentDigest = artifact?.artifactContentDigest ?? null;
+    const contentExcerpt = artifact?.artifactContentExcerpt ?? null;
+    if (
+      contentMode === "excerpt" &&
+      (contentRef === null || contentDigest === null || contentExcerpt === null)
+    ) {
       missingInputRefs.push(
         [
           "instruction_causal_content_unavailable",
@@ -760,7 +799,21 @@ export function deriveInstructionCausalContextProjection(input: {
           `source=${sourceVectorIndex}`,
           `source_asset=${sourceAssetKind}`,
           `content_mode=${contentMode}`,
-          "admitted payload event carries ref/digest only"
+          "admitted artifact content excerpt is missing"
+        ].join(":")
+      );
+      continue;
+    }
+    if (contentMode === "full_content") {
+      missingInputRefs.push(
+        [
+          "instruction_causal_content_unavailable",
+          input.basis.id,
+          String(input.vectorIndex),
+          `source=${sourceVectorIndex}`,
+          `source_asset=${sourceAssetKind}`,
+          `content_mode=${contentMode}`,
+          "admitted full content body is not available in this slice"
         ].join(":")
       );
       continue;
@@ -778,8 +831,9 @@ export function deriveInstructionCausalContextProjection(input: {
       bindingRole: "prior_target_output" as const,
       bindingPolicyRef,
       contentMode,
-      contentRef: null,
-      contentDigest: null,
+      contentRef,
+      contentDigest,
+      contentExcerpt,
       required: requiredInputAssetKindSet.has(sourceAssetKind),
       payloadRef: authority.payloadRef,
       payloadClass: authority.payloadClass,
@@ -838,6 +892,11 @@ export function deriveInstructionCausalContextProjection(input: {
       binding.contentDigest === null ? [] : [binding.contentDigest]
     )
   );
+  const contentExcerpts = freezeStringArray(
+    bindings.flatMap((binding) =>
+      binding.contentExcerpt === null ? [] : [binding.contentExcerpt]
+    )
+  );
   const payloadRefs = freezeStringArray(
     bindings.map((binding) => binding.payloadRef)
   );
@@ -870,6 +929,7 @@ export function deriveInstructionCausalContextProjection(input: {
     contentModes,
     contentRefs,
     contentDigests,
+    contentExcerpts,
     payloadRefs,
     payloadDigests,
     evidenceRefs,

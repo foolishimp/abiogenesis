@@ -261,12 +261,20 @@ export function constructActorInvocationStartedEvent(
 export function constructActorResultArtifactObservedEvent(input: {
   readonly invocation: ActorInvocation;
   readonly artifactRef: string;
+  readonly artifactPayload?: unknown;
 }): ActorResultArtifactObservedEvent {
+  const artifactContent = input.artifactPayload === undefined
+    ? null
+    : stableJson(input.artifactPayload);
   return Object.freeze({
     kind: "actor_result_artifact_observed",
     ...actorRuntimeScope(input.invocation),
     resultRef: input.invocation.resultRef,
-    artifactRef: input.artifactRef
+    artifactRef: input.artifactRef,
+    artifactContentDigest:
+      artifactContent === null ? null : sha256DigestForText(artifactContent),
+    artifactContentExcerpt:
+      artifactContent === null ? null : artifactContent.slice(0, 4096)
   });
 }
 
@@ -647,6 +655,7 @@ export function constructInstructionCausalContextBoundEvent(input: {
     contentModes: freezeStringArray(input.context.contentModes),
     contentRefs: freezeStringArray(input.context.contentRefs),
     contentDigests: freezeStringArray(input.context.contentDigests),
+    contentExcerpts: freezeStringArray(input.context.contentExcerpts),
     payloadRefs: freezeStringArray(input.context.payloadRefs),
     payloadDigests: freezeStringArray(input.context.payloadDigests),
     evidenceRefs: freezeStringArray(input.context.evidenceRefs),

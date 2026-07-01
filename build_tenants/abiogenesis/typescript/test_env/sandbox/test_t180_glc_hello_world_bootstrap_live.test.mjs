@@ -164,7 +164,7 @@ function assetSurface(input) {
     constructorRefs: uniq(input.constructorRefs ?? []),
     constructorInputAssetKinds: uniq(input.constructorInputAssetKinds ?? []),
     rendererRefs: uniq(input.rendererRefs ?? []),
-    renderedViewDigestPolicyRef: null,
+    renderedViewDigestPolicyRef: input.renderedViewDigestPolicyRef ?? null,
     sectionKindRefs: uniq(input.sectionKindRefs ?? []),
     clauseKindRefs: uniq(input.clauseKindRefs ?? []),
     authoritySlots: Object.freeze([]),
@@ -319,6 +319,7 @@ const executionEvidence = admittedNode({
     requiredContexts: ["context://odd_glc/evidence"],
     outputContractRefs: ["contract://odd_glc/execution-evidence"],
     constructorInputAssetKinds: ["glc_lifecycle_artifact"],
+    renderedViewDigestPolicyRef: "policy://abg/instruction-causal/excerpt",
     proofObligationRefs: ["proof://odd_glc/execution-evidence"]
   },
   tags: ["evidence-output"]
@@ -607,6 +608,9 @@ function promptFor(input) {
     \`- instructionCausalStatus: \${request.instructionCausalStatus}\`,
     \`- causalInputPayloadRefs: \${JSON.stringify(request.causalInputPayloadRefs)}\`,
     \`- causalInputPayloadDigests: \${JSON.stringify(request.causalInputPayloadDigests)}\`,
+    \`- causalInputContentRefs: \${JSON.stringify(request.causalInputContentRefs)}\`,
+    \`- causalInputContentDigests: \${JSON.stringify(request.causalInputContentDigests)}\`,
+    \`- causalInputContentExcerpts: \${JSON.stringify(request.causalInputContentExcerpts)}\`,
     \`- causalRequiredInputRefs: \${JSON.stringify(request.causalRequiredInputRefs)}\`,
     \`- causalMissingInputRefs: \${JSON.stringify(request.causalMissingInputRefs)}\`,
     "",
@@ -624,14 +628,20 @@ function promptFor(input) {
     "  \\"expectedStdout\\": \\"Hello, world!\\\\n\\",",
     "  \\"nodeTypesUsed\\": string[],",
     "  \\"causalInputPayloadRefsSeen\\": string[],",
+    "  \\"causalInputContentDigestSeen\\": string | null,",
+    "  \\"causalInputContentSummary\\": string | null,",
     "  \\"reason\\": string",
     "}",
     "",
     "For stage program, provide a minimal JavaScript ESM program in source.",
     \`For stage program, nodeTypesUsed must include exactly \${TYPE_REFS.bootstrapContext} and \${TYPE_REFS.helloWorldProgram}.\`,
     "For stage program, causalInputPayloadRefsSeen must be an empty list.",
+    "For stage program, causalInputContentDigestSeen must be null.",
+    "For stage program, causalInputContentSummary must be null.",
     "For stage execution_evidence, inspect the ABG causal-carry context and return a short evidence summary in source.",
     "For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the listed causalInputPayloadRefs.",
+    "For stage execution_evidence, causalInputContentDigestSeen must echo exactly the first listed causalInputContentDigests value.",
+    "For stage execution_evidence, causalInputContentSummary must summarize the first listed causalInputContentExcerpts value and mention Hello, world.",
     \`For stage execution_evidence, nodeTypesUsed must include exactly \${TYPE_REFS.helloWorldProgram} and \${TYPE_REFS.executionEvidence}.\`,
     "Do not claim to emit ABG events, select graph functions, or close traversal."
   ].join("\\n");
@@ -694,6 +704,9 @@ export const runtimeBinding = {
         const expectedCausalPayloadRefs = pluginInput.vectorIndex === 0
           ? []
           : [...pluginInput.fpTransformRequest.causalInputPayloadRefs];
+        const expectedCausalContentDigest = pluginInput.vectorIndex === 0
+          ? null
+          : pluginInput.fpTransformRequest.causalInputContentDigests[0] ?? null;
         if (pluginInput.vectorIndex === 1) {
           if (pluginInput.fpTransformRequest.instructionCausalStatus !== "bound") {
             throw new Error("T-182 vector 1 did not receive bound causal context before F_P dispatch");
@@ -704,6 +717,9 @@ export const runtimeBinding = {
           if (pluginInput.fpTransformRequest.causalInputPayloadDigests.length === 0) {
             throw new Error("T-182 vector 1 causal input lacks admitted payload digest truth");
           }
+          if (pluginInput.fpTransformRequest.causalInputContentExcerpts.length === 0) {
+            throw new Error("T-182 vector 1 causal input lacks admitted content excerpt truth");
+          }
         }
         if (
           !Array.isArray(assessment.causalInputPayloadRefsSeen) ||
@@ -712,6 +728,23 @@ export const runtimeBinding = {
         ) {
           throw new Error(
             \`GLC live worker did not echo the ABG causal payload refs: expected \${JSON.stringify(expectedCausalPayloadRefs)}, got \${JSON.stringify(assessment.causalInputPayloadRefsSeen)}\`
+          );
+        }
+        if (assessment.causalInputContentDigestSeen !== expectedCausalContentDigest) {
+          throw new Error(
+            \`GLC live worker did not echo the ABG causal content digest\`
+          );
+        }
+        if (pluginInput.vectorIndex === 0) {
+          if (assessment.causalInputContentSummary !== null) {
+            throw new Error("GLC live worker returned causal content summary for the first vector");
+          }
+        } else if (
+          typeof assessment.causalInputContentSummary !== "string" ||
+          !assessment.causalInputContentSummary.includes("Hello, world")
+        ) {
+          throw new Error(
+            \`GLC live worker did not summarize the carried causal content excerpt\`
           );
         }
         const programPath = path.join(workspaceRoot, "generated", "hello-world.mjs");
@@ -781,6 +814,12 @@ export const runtimeBinding = {
               pluginInput.fpTransformRequest.causalInputPayloadRefs,
             causalInputPayloadDigests:
               pluginInput.fpTransformRequest.causalInputPayloadDigests,
+            causalInputContentRefs:
+              pluginInput.fpTransformRequest.causalInputContentRefs,
+            causalInputContentDigests:
+              pluginInput.fpTransformRequest.causalInputContentDigests,
+            causalInputContentExcerpts:
+              pluginInput.fpTransformRequest.causalInputContentExcerpts,
             causalRequiredInputRefs:
               pluginInput.fpTransformRequest.causalRequiredInputRefs,
             causalMissingInputRefs:
@@ -981,9 +1020,13 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   );
   assert.ok(secondVectorCausalEvent);
   assert.equal(secondVectorCausalEvent.status, "bound");
-  assert.equal(secondVectorCausalEvent.contentModes.includes("ref_digest_only"), true);
+  assert.deepEqual(secondVectorCausalEvent.contentModes, ["excerpt"]);
   assert.equal(secondVectorCausalEvent.payloadRefs.length > 0, true);
   assert.equal(secondVectorCausalEvent.payloadDigests.length > 0, true);
+  assert.equal(secondVectorCausalEvent.contentRefs.length > 0, true);
+  assert.equal(secondVectorCausalEvent.contentDigests.length > 0, true);
+  assert.equal(secondVectorCausalEvent.contentExcerpts.length > 0, true);
+  assert.match(secondVectorCausalEvent.contentExcerpts[0], /Hello, world!/u);
   assert.deepEqual(secondVectorCausalEvent.missingInputRefs, []);
   assert.equal(
     secondVectorCausalEvent.requiredInputRefs.some((ref) =>
@@ -1010,10 +1053,19 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   assert.equal(secondArtifact.transport.status, 0);
   assert.equal(firstArtifact.causalCarry.instructionCausalStatus, "empty");
   assert.equal(secondArtifact.causalCarry.instructionCausalStatus, "bound");
+  assert.equal(
+    secondArtifact.causalCarry.causalInputContentExcerpts.length > 0,
+    true
+  );
   assert.deepEqual(
     secondArtifact.causalCarry.causalInputPayloadRefs,
     secondArtifact.assessment.causalInputPayloadRefsSeen
   );
+  assert.equal(
+    secondArtifact.causalCarry.causalInputContentDigests[0],
+    secondArtifact.assessment.causalInputContentDigestSeen
+  );
+  assert.match(secondArtifact.assessment.causalInputContentSummary, /Hello, world/u);
   assert.deepEqual(
     secondArtifact.causalCarry.causalInputPayloadRefs,
     secondVectorCausalEvent.payloadRefs
@@ -1038,6 +1090,8 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
       contextRef: secondVectorCausalEvent.contextRef,
       payloadRefs: secondVectorCausalEvent.payloadRefs,
       payloadDigests: secondVectorCausalEvent.payloadDigests,
+      contentRefs: secondVectorCausalEvent.contentRefs,
+      contentDigests: secondVectorCausalEvent.contentDigests,
       requiredInputRefs: secondVectorCausalEvent.requiredInputRefs
     },
     liveArtifacts: [

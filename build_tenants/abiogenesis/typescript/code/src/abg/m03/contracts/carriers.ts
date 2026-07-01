@@ -528,6 +528,8 @@ export interface ActorResultArtifactObservedEvent extends ActorRuntimeScope {
   readonly kind: "actor_result_artifact_observed";
   readonly resultRef: string;
   readonly artifactRef: string;
+  readonly artifactContentDigest: string | null;
+  readonly artifactContentExcerpt: string | null;
 }
 
 export interface ActorInvocationClosedEvent extends ActorRuntimeScope {
@@ -747,6 +749,7 @@ export interface InstructionCausalContextBoundEvent {
   readonly contentModes: readonly string[];
   readonly contentRefs: readonly string[];
   readonly contentDigests: readonly string[];
+  readonly contentExcerpts: readonly string[];
   readonly payloadRefs: readonly string[];
   readonly payloadDigests: readonly string[];
   readonly evidenceRefs: readonly string[];

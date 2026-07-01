@@ -5522,7 +5522,8 @@ function* runEngineIterateMachine(input: {
           eventState = emitRunnerEvents(eventState,
             constructActorResultArtifactObservedEvent({
               invocation: actorInvocation,
-              artifactRef: resultRef
+              artifactRef: resultRef,
+              artifactPayload: outcome.attachedResultArtifact
             })
           );
           if (scalarTransformInput.fpTransformRequest === null) {
