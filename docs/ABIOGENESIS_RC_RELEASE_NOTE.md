@@ -1,18 +1,19 @@
-# abiogenesis 4.2.0-rc.1 Release Candidate Note
+# abiogenesis 4.2.0-rc.2 Release Candidate Note
 
-This checkpoint is the first TypeScript ABG `4.2.0` release candidate. It
-follows `4.1.0-rc.17` and publishes the T-180 reusable GTL node-type and
-type-composition substrate needed by downstream lifecycle consumers such as
-`odd_glc`.
+This checkpoint is the second TypeScript ABG `4.2.0` release candidate. It
+follows `4.2.0-rc.1` and publishes the consolidated GTL/ABG full-stack Hello
+World proof surface added after the reusable node-type and type-composition
+substrate.
 
 It is an RC candidate, not the final tapped `4.2.0` release.
 
 ## Release Claim
 
-RC1 preserves the earned `4.1.0-rc.17` requirements, execution, registry, and
-parallel-proof substrate and adds reusable GTL node types without introducing a
-second type carrier, product-local type registry, or callable node-type
-function surface.
+RC2 preserves the earned `4.2.0-rc.1` reusable node-type, composition,
+registry, startup, and invocation-guard substrate and adds the canonical
+installed live Hello World proof lane. The release-facing proof now exercises
+the downstream-shaped path through one installed sandbox run instead of
+scattered ticket-specific live smoke tests.
 
 The release includes:
 
@@ -28,15 +29,24 @@ The release includes:
 - installed startup binding for product registry declarations/config so a
   downstream product can publish graph functions, overlays, node types, and GTL
   bindings through canonical ABG startup rather than product-local shells;
+- instruction assembly startup binding through the installed CLI runtime
+  binding path;
+- ABG-rendered instruction prompt manifests used as the live F_P worker prompt;
+- admitted instruction responses tied to derived output contracts;
+- causal carry rendered into subsequent instruction envelopes from admitted
+  runtime truth;
+- one canonical `test:hello-world:live` proof script used by the T-180, T-182,
+  and T-183 live aliases;
 - installer refresh upgrade handling that preserves an existing target package
   identity when `--installed-package-name` is omitted, while still rejecting an
   explicitly conflicting installed package name.
 
 The steel-thread proof uses an `odd_glc`-style GLC Hello World bootstrap graph
 only as a downstream proof binding. ABI/GTL owns the generic node-type,
-composition, registry admission, selection, invocation, projection, and startup
-mechanics. ABI does not own odd_glc lifecycle policy, software build policy,
-test policy, deployment policy, or release-readiness semantics.
+composition, registry admission, selection, invocation, instruction assembly,
+response admission, projection, startup, and event-sourced proof mechanics. ABI
+does not own odd_glc lifecycle policy, software build policy, test policy,
+deployment policy, or release-readiness semantics.
 
 ## Boundary
 
@@ -45,14 +55,15 @@ The release keeps this authority split:
 ```text
 GTL declares:
   node types, graph functions, composed types, typed wiring,
-  product library entries, and startup config refs
+  product library entries, startup config refs, and instruction-plan data
 
 ABG admits and projects:
   registry entries, lookup eligibility, selection truth, graph-call opening,
-  invocation guards, node-type satisfaction, runtime events, and replay state
+  invocation guards, node-type satisfaction, instruction prompt manifests,
+  response-contract admission, runtime events, and replay state
 
 Downstream products own:
-  domain names, prompt/policy overlays, product plugin behavior,
+  domain names, prompt/policy content, product plugin behavior,
   lifecycle interpretation, and product-specific readiness claims
 ```
 
@@ -61,12 +72,16 @@ published, admitted, projected, and used for satisfaction checks, but it may not
 be selected as `graph_function_selected`, opened as a graph call, or accepted as
 public callable work.
 
+Prompt construction is not a downstream shell. Product instruction content may
+enter as declared data, but the live worker prompt for the canonical proof is
+the ABG-projected `instructionPromptManifest.renderedPrompt`.
+
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.1`
-- Candidate package version: `4.2.0-rc.1`
-- Candidate tag: `v4.2.0-rc.1`
+- RC identity: `4.2.0-rc.2`
+- Candidate package version: `4.2.0-rc.2`
+- Candidate tag: `v4.2.0-rc.2`
 
 ## Verification
 
@@ -76,34 +91,38 @@ Required evidence for accepting this RC:
 ABG semantic gate:
   npm run test:semantic
 
-Focused T-180 gate:
+Focused node-type gate:
   npm run test:t180
 
-Registry regression gate:
-  npm run test:t177
+Instruction assembly gate:
+  npm run test:t183
 
-Live F_P proof gate:
-  ABG_TS_LIVE_AGENT=claude CODEX_LIVE_FP=1 ABG_TS_T180_GLC_BOOTSTRAP_LIVE=1 npm run test:t180:live
+Canonical live F_P proof gate:
+  npm run test:hello-world:live
 
 Boundary and packaging gates:
-  node --test test_env/tests/test_t109_agent_callout_guard.test.mjs
-  node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 ```
 
 The live proof must create an installed sandbox instance from a release
 snapshot, write only product GTL declarations and product startup config into
-the installed bootstrap binding, run installed `genesis-ts start`, and observe
-ABG-emitted registry admission, `graph_function_selected`, `graph_call_opened`,
-and vector-closure truth. A direct in-process harness is diagnostic evidence
-only; it is not this RC's closure lane.
+the installed bootstrap binding, run installed `genesis-ts start`, use the
+ABG-rendered instruction prompt manifest for the worker prompt, execute the
+generated artifact, and observe ABG-emitted registry admission,
+`graph_function_selected`, `graph_call_opened`,
+`instruction_prompt_manifest_projected`,
+`instruction_response_contract_admitted`, vector-closure truth, and terminal
+truth. A direct in-process harness is diagnostic evidence only; it is not this
+RC's closure lane.
 
 ## RC Decision
 
-RC1 is the ABI/GTL publication candidate for reusable node types and explicit
-type composition. Downstream `odd_glc` may consume the release by declaring its
-own node types, graph functions, overlays, and product library entries through
-GTL and ABG startup. Downstream code must not create a product-local type
-registry, product-local graph-call shell, product-local selection truth, or
-parallel runtime registry.
+RC2 is the ABI/GTL publication candidate for reusable node types, explicit type
+composition, canonical startup pickup, instruction assembly, and the
+release-facing installed live Hello World proof. Downstream products may consume
+the release by declaring their own node types, graph functions, overlays, and
+product library entries through GTL and ABG startup. Downstream code must not
+create a product-local type registry, product-local graph-call shell,
+product-local prompt shell, product-local selection truth, or parallel runtime
+registry.
