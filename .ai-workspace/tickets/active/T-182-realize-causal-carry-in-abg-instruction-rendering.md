@@ -240,10 +240,49 @@ no matches
 
 Current remaining work before closure:
 
-- Prove the behavior on a real framework-smoke/software-build traversal with
-  live F_P dispatch.
-- Add a true live `test:t182:live` scenario that calls the F_P worker.
-- Re-run the full semantic suite and boundary greps after the live proof lands.
+- Extend the binding from admitted refs/digests to an admitted content-bearing
+  path or artifact-body surface before claiming excerpt/full-content rendering.
+- Decide whether that content-bearing surface belongs in T-182 or should be
+  split to the broader T-183 instruction assembly/semantic compiler work.
+
+### 2026-07-01 Live Sandbox Proof
+
+Added and ran the true live T-182 proof lane:
+
+- Added package script `test:t182:live`.
+- Reused the snapshot-installed GLC bootstrap sandbox proof so startup,
+  product registry declarations, node type declarations, graph-function
+  selection, graph-call opening, and traversal are driven by ABG.
+- Made the second vector's `GlcExecutionEvidence` target node declare
+  `constructorInputAssetKinds: ["glc_lifecycle_artifact"]`.
+- Required vector 1 to receive a bound causal context before F_P dispatch,
+  including admitted payload refs/digests and required-input refs derived from
+  the prior vector's admitted output.
+- Included the causal refs in the live F_P prompt and required the live worker
+  to echo the ABG-provided causal payload refs in its JSON response.
+- Asserted on emitted runtime truth: the event stream contains
+  `instruction_causal_context_bound` for vector 1 with `status: "bound"`,
+  `contentModes: ["ref_digest_only"]`, non-empty payload refs/digests, a
+  required input ref for `asset_kind=glc_lifecycle_artifact`, and no missing
+  input refs.
+
+Clean live proof result:
+
+```text
+cd build_tenants/abiogenesis/typescript && npm run test:t182:live
+pass: 1/1
+duration: 78.276s
+proof: test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260701T101559982Z_pid82039/t180-glc-hello-world-bootstrap-live-proof.json
+sourceCommit: e0cf0114972017a97dc1728335e708bca5d39466
+sourceDirty: false
+eventCount: 88
+eventDigest: sha256:0a0e7bc8a8bd1859972b5f613aaf9ff32c483169510d36f187bbf39ba68e2f31
+```
+
+The live proof earns the `ref_digest_only` causal-carry slice. It does not yet
+earn excerpt/full-content rendering: the current admitted payload and actor
+artifact events carry refs/digests, not admitted content bodies or content
+paths. That stronger rendering target remains open.
 
 ### 2026-07-01 Binding Policy Slice
 
