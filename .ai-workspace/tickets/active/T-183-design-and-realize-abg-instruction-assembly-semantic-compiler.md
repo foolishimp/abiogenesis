@@ -155,7 +155,11 @@ required_work:
     include the F_P validation/review traversal over a candidate plan when
     policy requires semantic sanity checking; F_P may only propose or review
     wording/rubric/policy clarity, and its output remains admitted evidence
-    until F_D validates or rejects the plan.
+    until F_D validates or rejects the plan. This phase shall reuse the existing
+    ABG semantic compiler F_P review graph function, semantic review gate, and
+    `promptAssets` conformance law where they apply; it shall not create a
+    second compiler path, prompt asset carrier, semantic review gate, or
+    product-local prompt shell.
   - >-
     Phase 4 - Startup admission: Admit compiled prompt plans through the same
     canonical startup path used for product GTL declarations, registry/library
@@ -220,6 +224,9 @@ acceptance_criteria:
   - The semantic compiler validates relevance, compression, proportionality,
     type coverage, authority coverage, source trace, and response-contract
     derivation as total functions over known algebras and admitted inputs.
+  - Existing semantic-compiler/conformance surfaces are reconciled before new
+    code: the T-150/T-162 F_P review graph, semantic review gates, and
+    `promptAssets` law are reused or explicitly narrowed, not duplicated.
   - Any F_P validation traversal in the compiler path is admitted as evidence
     only and cannot approve a compiled prompt plan without F_D validation.
   - F_P is never authoritative for relevance, compression, proportionality,
@@ -242,6 +249,7 @@ acceptance_criteria:
 proof_commands:
   - git diff --check
   - rg -n "REQ-R-ABG3-INSTRUCTION-ASSEMBLY-(004A|005|007|011|012|014|015)" specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
+  - rg -n "Existing Compiler Reuse And Gaps|constructAbgSemanticCompilerFpReviewGraphFunction|semanticReviewGates|promptAssets|CompiledPromptPlan" build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
   - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
@@ -309,3 +317,29 @@ Initial design decisions recorded:
   instruction-selection path is non-closure.
 
 No realization code is started in this activation step.
+
+### 2026-07-01 Existing Compiler Audit
+
+Verified the current TypeScript semantic compiler path before starting T-183
+realization:
+
+- Existing: `constructAbgSemanticCompilerFpReviewGraphFunction` builds a
+  one-vector F_P review graph with constrained worker-control and finite F_D
+  surface declarations.
+- Existing: `runAbgSemanticCompilerFpReviewGraphFunction` runs that graph and
+  admits the result through `admitAbgSemanticCompilerFpReviewResult`.
+- Existing: semantic review gates in GTL program conformance verify admitted
+  review rows, ABG producer provenance, digest refs, finite F_D surface refs,
+  passed status, and no open findings.
+- Existing: `promptAssets` conformance verifies prompt asset surfaces, renderer
+  refs, digest policy, constructor refs, proof obligations, output contracts,
+  authority slots, GTL node preservation, rendered digest, and evidence refs.
+- Gap: those surfaces are scoped to the T-150/T-162 semantic review package and
+  prompt asset law. They do not yet provide T-183 instruction assembly rules,
+  compiled prompt plans, runtime instruction envelopes, prompt manifests, P0
+  no-dispatch, response-contract-bound admission, or same-registry-path
+  compiled-plan startup selection.
+
+Decision: T-183 realization shall adapt and extend the existing compiler and
+conformance surfaces. It shall not fork a second semantic compiler or prompt
+asset truth surface.

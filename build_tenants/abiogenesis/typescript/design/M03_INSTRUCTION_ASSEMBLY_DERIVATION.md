@@ -145,6 +145,40 @@ because the F_P reviewer says it is good; it can pass only when the F_D compiler
 proves the requirement obligations and admits any F_P review output as
 supporting evidence.
 
+## Existing Compiler Reuse And Gaps
+
+The TypeScript tenant already contains semantic-compiler machinery that must be
+reused rather than re-created:
+
+| Existing surface | Current role | T-183 decision |
+| --- | --- | --- |
+| `constructAbgSemanticCompilerFpReviewGraphFunction` | Builds the existing one-vector F_P review graph function. | Reuse as the first F_P validation traversal precedent. Generalize only where T-183 needs prompt-plan review instead of the T-162 review package. |
+| `runAbgSemanticCompilerFpReviewGraphFunction` | Runs the review graph function, constructs a review result, and admits it. | Reuse the graph-function/evidence shape, but do not treat its admitted review result as compiled-plan approval. |
+| `admitAbgSemanticCompilerFpReviewResult` | F_D-admits review result shape, source package digest, producer digest, finite-surface refs, output status, and open findings. | Reuse the admission pattern for T-183 F_P validation evidence. Extend only after naming the known algebra and total output domain. |
+| `semanticReviewGates` in GTL program conformance | Requires admitted semantic review gate rows with ABG producer provenance and finite F_D surface refs. | Reuse as precedent for compiler evidence gates. It is not the compiled prompt-plan carrier. |
+| `promptAssets` in GTL program conformance | Validates prompt asset surfaces, renderer refs, digest policy, constructor refs, proof obligations, output contracts, authority slots, GTL node preservation, rendered digest, and evidence refs. | Reuse as the existing prompt asset law. T-183 must derive from it and must not define a duplicate prompt asset surface. |
+
+Those surfaces are real, but they are not sufficient for T-183 closure. The
+current implementation is scoped to the T-150/T-162 semantic review package and
+does not yet provide:
+
+1. an `InstructionAssemblyRule` or equivalent narrow edge-bound declaration;
+2. a digest-pinned `CompiledPromptPlan` admitted through startup;
+3. F_D relevance, compression, proportionality, and non-tautology checks over
+   declared known algebras and typed gap/rejection cases;
+4. a runtime `InstructionEnvelope` bound from replay/admitted truth;
+5. governed renderer execution over immutable envelopes;
+6. a replayable `PromptManifest` that reproduces the rendered prompt digest;
+7. P0 no-dispatch integration with traversal;
+8. response admission tied to the derived response contract;
+9. same-registry-path selection for instruction assembly, renderer, prompt
+   policy, runtime binding policy, and compiled prompt plans;
+10. T-183 `test:t183` and `test:t183:live` proof lanes.
+
+The implementation shall start by adapting the existing semantic review and
+prompt asset surfaces. It shall not create a second compiler, second prompt
+asset carrier, second review gate, or product-local prompt shell.
+
 ## Runtime Shape
 
 ```text
