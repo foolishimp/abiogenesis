@@ -336,27 +336,31 @@ selection, invocation, startup, and satisfaction mechanics. odd_glc and other
 downstream products own domain names, overlays, prompt/policy content, plugin
 behavior, and lifecycle interpretation.
 
-The earned reusable node-type, instruction assembly, and canonical live proof
-release is ABI TypeScript `4.2.0-rc.2`:
+The earned reusable node-type, instruction assembly, installed context, semantic
+compiler guardrail, and canonical live proof release is ABI TypeScript
+`4.2.0-rc.3`:
 
-- source commit `623da85864d03c736a3daec2ca414f516221f85b`;
-- release snapshot commit `31c4105883a16f574d40ba73e20ec1e49c9aac55`;
-- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.2/`;
-- `latest -> 4.2.0-rc.2`;
+- source commit `c4e635013cf3023b4c4670ecba44d4774b45770f`;
+- release snapshot commit `2ff420ebf0a26e115a46210d65e20095083228a8`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.3/`;
+- `latest -> 4.2.0-rc.3`;
 - tarball sha256
-  `fd94966566ad95e3fb1048b23265e0a215a1a1c656706c43fcc2fddf833b510c`;
+  `65570b9c50a77406b818cf00395ae9d0a006793792a6bac7b6863a2d9f32a640`;
 - release snapshot manifest sha256
-  `e7d1e3fee427cf9df8371bc616672fdd06f4b028e53170e5484fb3c7843e0422`;
+  `d8e056557950541308acfc005c5242abb32e3b71b57ce7c2b174487b573cb052`;
 - release note sha256
-  `f6dfd1d4638661ca3358c6555be6c8078364ef5679cb3dc0275ae84045cc0eea`;
+  `780a9b10052f3b9901386812a1a66a14463ba41f2dfbd7d6379abe39794e0bb7`;
 - installed sandbox/bootstrap live proof artifact:
-  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260701T142325766Z_pid7540/canonical-hello-world-full-stack-live-proof.json`.
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260702T191230832Z_pid95807/canonical-hello-world-full-stack-live-proof.json`.
 
 The live proof artifact was generated against package metadata source commit
-`623da85864d03c736a3daec2ca414f516221f85b` with `sourceDirty: false`; the
+`c4e635013cf3023b4c4670ecba44d4774b45770f` with `sourceDirty: false`; the
 release snapshot tarball sha256 matches that proof artifact's snapshot tarball
-sha256. The RC2 proof ran through the canonical installed sandbox path,
+sha256. The RC3 proof ran through the canonical installed sandbox path,
 selected graph functions through ABG registry truth, rendered worker prompts
 from ABG instruction prompt manifests, admitted worker responses, bound causal
 carry, executed the generated artifact, and produced exact stdout
-`Hello, world!\n`.
+`Hello, world!\n`. RC3 also records that installed context is version-owned,
+`abg.install` is context bootstrap rather than traversal runtime, and the GTL
+program conformance compiler rejects stale installed context and direct
+graph-function starts without overlay/program composition.
