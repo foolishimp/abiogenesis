@@ -64,6 +64,8 @@ function freezeTopologyVerification(
     runtimeBindingPresent: value.runtimeBindingPresent,
     toolchainBindingPresent: value.toolchainBindingPresent,
     abgConfigPresent: value.abgConfigPresent,
+    installedContextPresent: value.installedContextPresent,
+    installedInstructionContextPresent: value.installedInstructionContextPresent,
     standardsRootPresent: value.standardsRootPresent,
     standardsSmokeFilesPresent: value.standardsSmokeFilesPresent,
     docsRootPresent: value.docsRootPresent
@@ -113,6 +115,9 @@ export function constructAbgTypescriptInstallerManifest(input: {
   readonly abgConfigSourcePath: string;
   readonly abgConfigPath: string;
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedContextPath: string;
+  readonly installedContextFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedInstructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly toolchainBindingPath: string;
@@ -153,6 +158,15 @@ export function constructAbgTypescriptInstallerManifest(input: {
       bytes: input.abgConfigFile.bytes,
       sha256: input.abgConfigFile.sha256
     }),
+    installedContextPath: input.installedContextPath,
+    installedContextFile: Object.freeze({
+      relativePath: input.installedContextFile.relativePath,
+      bytes: input.installedContextFile.bytes,
+      sha256: input.installedContextFile.sha256
+    }),
+    installedInstructionFiles: freezeFileEvidenceArray(
+      input.installedInstructionFiles
+    ),
     runtimeIdentity: Object.freeze({
       workerId: input.runtimeIdentity.workerId,
       backendId: input.runtimeIdentity.backendId,
@@ -195,6 +209,9 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
   readonly abgConfigSourcePath: string;
   readonly abgConfigPath: string;
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedContextPath: string;
+  readonly installedContextFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedInstructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly toolchainBindingPath: string;
@@ -238,6 +255,15 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
       bytes: input.abgConfigFile.bytes,
       sha256: input.abgConfigFile.sha256
     }),
+    installedContextPath: input.installedContextPath,
+    installedContextFile: Object.freeze({
+      relativePath: input.installedContextFile.relativePath,
+      bytes: input.installedContextFile.bytes,
+      sha256: input.installedContextFile.sha256
+    }),
+    installedInstructionFiles: freezeFileEvidenceArray(
+      input.installedInstructionFiles
+    ),
     runtimeIdentity: Object.freeze({
       workerId: input.runtimeIdentity.workerId,
       backendId: input.runtimeIdentity.backendId,

@@ -4,9 +4,9 @@
 
 **Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/gtl/README.md](../requirements/gtl/README.md)
 
-**Purpose**: Prove that GTL 3 realizes reusable workflow programs through graph
-functions, lawful algebra, recursive declarations, and explicit structural
-choice.
+**Purpose**: Prove that GTL 3 realizes reusable workflow library functions
+inside program overlays/compositions through graph functions, lawful algebra,
+recursive declarations, and explicit structural choice.
 
 ## Scenario
 

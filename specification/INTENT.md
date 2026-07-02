@@ -81,6 +81,15 @@ traversal under a published `GraphFunction`, selected internal
 `GraphVector<A, B>`, selected composition, admitted attempt/output truth,
 assurance fold, consequence projection, and ABG replay disposition.
 
+The programming abstraction boundary is explicit. `GraphFunction` is the
+reusable workflow library function and callable work contract. A graph overlay
+or GTL program composition is the program that binds graph functions, vectors,
+node types, roles, security, starts, policies, proof obligations, and
+plugin/result contracts. A workspace is the mutable instance surface that
+supplies bootstrap config, files, data, observed state, generated artifacts,
+and run archives. ABG traversal is the runtime bind over that admitted program
+and workspace binding.
+
 A GTL edge declares the admissible external traversal space for that work:
 
 - input and output contract
@@ -513,7 +522,9 @@ GraphFunction : A -> Workflow[B]
 
 This is an algebraic reading, not a mandatory runtime type. It means:
 
-- `GraphFunction` is the reusable workflow program
+- `GraphFunction` is the reusable workflow library function; a graph overlay
+  or GTL program composition is the program that composes and binds those
+  functions
 - lawful composition is the primary means of building larger workflows
 - lawful substitution/refinement preserves declared outer contracts
 - recursion and higher-order operators are derived from the same center
@@ -597,7 +608,7 @@ ABG must not contain hidden business-choice logic.
 ### Scope
 
 **In scope (GTL + ABG boundary):**
-- `GraphFunction` as the primary reusable compute abstraction
+- `GraphFunction` as the primary reusable workflow-library compute abstraction
 - lawful composition with explicit interface validation
 - policy-visible structural parameterization, including named materialization profiles where a domain needs them
 - first-class publication of graph functions from modules and imported libraries
@@ -619,7 +630,7 @@ ABG must not contain hidden business-choice logic.
 
 ### Success Criteria
 
-1. `GraphFunction` is treated as the primary reusable GTL compute abstraction with explicit outer interface and declared effects
+1. `GraphFunction` is treated as the primary reusable GTL workflow-library compute abstraction with explicit outer interface and declared effects
 2. Sequential graph-function composition is lawful when interfaces align and invalid when they do not
 3. Local refinement preserves the outer contract seen by the caller even when internal structure changes
 4. Recursion is declarable, bounded, and traceable

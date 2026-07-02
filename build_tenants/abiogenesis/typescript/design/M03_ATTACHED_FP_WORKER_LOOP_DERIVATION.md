@@ -41,7 +41,8 @@ re-enter from replay-derived state until convergence, yield, or failure.
 
 ## Preserved Boundary Truth
 
-- `GraphFunction` remains the program carrier.
+- `GraphFunction` remains the reusable workflow library-function carrier.
+- A graph overlay or GTL program composition remains the program surface.
 - `ExecutionBasis` remains the admitted runtime basis.
 - `RuntimeEvent` remains the only runtime truth write family.
 - `RuntimeAggregateProjection` remains replay-derived current truth.
@@ -91,4 +92,3 @@ The TypeScript implementation adds one attached F_P loop inside the M03 runner:
 - No worker-internal HOW in ABG.
 - No plugin-emitted runtime events.
 - No plugin-selected next vector.
-

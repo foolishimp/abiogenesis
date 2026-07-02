@@ -339,6 +339,14 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   );
   assert.equal(
     await pathExists(
+      outcome.commandPaths.find((candidate) =>
+        candidate.endsWith(`${path.sep}abg.install`)
+      )
+    ),
+    true
+  );
+  assert.equal(
+    await pathExists(
       path.join(targetRoot, "node_modules", "@abiogenesis", "typescript-tenant")
     ),
     false
@@ -369,11 +377,46 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     path.join(".abiogenesis", "config", "abg.config.json")
   );
   assert.equal(
+    manifest.installedContextFile.relativePath,
+    path.join(".abiogenesis", "context", "ABG_GTL_CONTEXT.md")
+  );
+  assert.equal(manifest.installedInstructionFiles.length, 2);
+  assert.equal(
+    manifest.installedInstructionFiles.some(
+      (entry) => entry.relativePath === "AGENTS.md"
+    ),
+    true
+  );
+  assert.equal(
+    manifest.installedInstructionFiles.some(
+      (entry) => entry.relativePath === "CLAUDE.md"
+    ),
+    true
+  );
+  assert.equal(
     await pathExists(
       path.join(targetRoot, ".abiogenesis", "config", "abg.config.json")
     ),
     true
   );
+  const installedContext = await readFile(
+    path.join(targetRoot, ".abiogenesis", "context", "ABG_GTL_CONTEXT.md"),
+    "utf8"
+  );
+  assert.match(
+    installedContext,
+    new RegExp(`Version: ${outcome.packageVersion.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")}`, "u")
+  );
+  assert.match(
+    installedContext,
+    /graph-function library -> graph overlay\/program -> workspace binding -> ABG traversal -> replay interpretation/u
+  );
+  for (const instructionFile of ["AGENTS.md", "CLAUDE.md"]) {
+    const instruction = await readFile(path.join(targetRoot, instructionFile), "utf8");
+    assert.match(instruction, /<!-- ABG_GTL_CONTEXT_START -->/u);
+    assert.match(instruction, /<!-- ABG_GTL_CONTEXT_END -->/u);
+    assert.match(instruction, /A GraphFunction is a reusable workflow library function/u);
+  }
   assert(manifest.standardsFiles.length > 8);
   assert(manifest.docsFiles.length >= 3);
   assert.deepStrictEqual(manifest.commandPaths, outcome.commandPaths);
@@ -392,6 +435,8 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(topology.docsRootPresent, true);
   assert.equal(topology.runtimeBindingPresent, true);
   assert.equal(topology.abgConfigPresent, true);
+  assert.equal(topology.installedContextPresent, true);
+  assert.equal(topology.installedInstructionContextPresent, true);
   assert.deepStrictEqual(topology, outcome.topologyVerification);
 
   for (const relativePath of [
@@ -803,6 +848,105 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
       )
     ),
     true
+  );
+});
+
+test("T-186 abg.install bootstraps target context and binding without target-local product install", async () => {
+  const repoRoot = await locateRepoRoot();
+  const sourceRoot = tenantRoot(repoRoot);
+  const installedProductTarget = await makeTargetRoot("context-bootstrap-product");
+  const targetRoot = await makeTargetRoot("context-bootstrap-target");
+  const toolchainRoot = await makeTargetRoot("context-bootstrap-toolchain");
+  const installedProduct = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: installedProductTarget
+    },
+    packageSourceRoot: sourceRoot,
+    toolchainRoot
+  });
+  assert.equal(installedProduct.kind, "installed");
+  const contextCommand = installedProduct.commandPaths.find((candidate) =>
+    candidate.endsWith(`${path.sep}abg.install`)
+  );
+  assert.notEqual(contextCommand, undefined);
+
+  await writeFile(
+    path.join(targetRoot, "AGENTS.md"),
+    [
+      "# Project Agents",
+      "<!-- ABG_GTL_CONTEXT_START -->",
+      "stale graph functions are the program surface",
+      "<!-- ABG_GTL_CONTEXT_END -->",
+      "project-owned guidance"
+    ].join("\n"),
+    "utf8"
+  );
+  await writeFile(
+    path.join(targetRoot, "CLAUDE.md"),
+    [
+      "# Project Claude",
+      "<!-- ABG_GTL_CONTEXT_START -->",
+      "stale workflow program abstraction",
+      "<!-- ABG_GTL_CONTEXT_END -->"
+    ].join("\n"),
+    "utf8"
+  );
+
+  const firstRun = spawnSync(
+    contextCommand,
+    ["--target", targetRoot, "--toolchain-root", toolchainRoot],
+    {
+      cwd: targetRoot,
+      encoding: "utf8"
+    }
+  );
+  assert.equal(firstRun.status, 0, firstRun.stderr);
+  const firstPayload = parseCommandPayload(firstRun);
+  assert.equal(firstPayload.command, "context-bootstrap");
+  assert.equal(firstPayload.status, "context_bootstrap_installed");
+  assert.equal(firstPayload.outcome.packageVersion, installedProduct.packageVersion);
+
+  const binding = await readJson(
+    path.join(targetRoot, ".abiogenesis", "toolchain-binding.json")
+  );
+  assert.equal(binding.products[0].packageVersion, installedProduct.packageVersion);
+  assert.equal(
+    binding.products[0].productRoot,
+    path.join(toolchainRoot, "products", "abiogenesis", installedProduct.packageVersion)
+  );
+  assert.equal(
+    await pathExists(path.join(targetRoot, ".ai-workspace", "events", "events.jsonl")),
+    true
+  );
+  assert.equal(
+    await pathExists(
+      path.join(targetRoot, "node_modules", "@abiogenesis", "typescript-tenant")
+    ),
+    false
+  );
+
+  const agents = await readFile(path.join(targetRoot, "AGENTS.md"), "utf8");
+  assert.match(agents, /project-owned guidance/u);
+  assert.doesNotMatch(agents, /stale graph functions are the program surface/u);
+  assert.match(agents, /A GraphFunction is a reusable workflow library function/u);
+  const claude = await readFile(path.join(targetRoot, "CLAUDE.md"), "utf8");
+  assert.doesNotMatch(claude, /stale workflow program abstraction/u);
+  assert.match(claude, /graph overlay\/program -> workspace binding/u);
+
+  const secondRun = spawnSync(
+    contextCommand,
+    ["--target", targetRoot, "--toolchain-root", toolchainRoot],
+    {
+      cwd: targetRoot,
+      encoding: "utf8"
+    }
+  );
+  assert.equal(secondRun.status, 0, secondRun.stderr);
+  const secondPayload = parseCommandPayload(secondRun);
+  assert.equal(secondPayload.status, "context_bootstrap_installed");
+  assert.equal(
+    secondPayload.outcome.installedContextFile.sha256,
+    firstPayload.outcome.installedContextFile.sha256
   );
 });
 

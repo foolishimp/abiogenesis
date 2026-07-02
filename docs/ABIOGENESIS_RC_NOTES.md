@@ -72,14 +72,15 @@ Accepted public delivery bindings:
   - `gaps`
   - `assess-result`
 
-### GTL Is The Constructive Program Surface
+### GTL Owns Programs And Function Libraries
 
 GTL is accepted as the LLM-first graph algebra. ABG is accepted as the runtime
 that admits, executes, records, projects, and proves traversals.
 
 Accepted behavior:
 
-- graph functions are the primary published program form
+- graph overlays or GTL program compositions are the program surface
+- graph functions are reusable workflow library functions and callable work contracts
 - domains own asset meaning, domain HOW, and acceptance interpretation
 - hidden LLM reasoning is not product truth
 - hidden execution law is not admitted by GTL shape alone

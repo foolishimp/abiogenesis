@@ -2,8 +2,9 @@
 
 **Status**: Active
 **Date**: 2026-04-26
-**Purpose**: Distinguish graph topology, graph-function program, ABG execution
-instance, and downstream domain asset instance.
+**Purpose**: Distinguish graph topology, graph-function library function,
+program overlay/composition, ABG execution instance, and downstream domain
+asset instance.
 
 ## Source Material
 
@@ -19,7 +20,8 @@ instance, and downstream domain asset instance.
 | Surface | Owner | Meaning |
 | --- | --- | --- |
 | `Graph` | GTL | structural topology and internal vector shape |
-| `GraphFunction` | GTL | published reusable program and callable outer contract |
+| `GraphFunction` | GTL | published reusable workflow library function and callable outer contract |
+| graph overlay / program composition | GTL | program surface that binds graph functions, node types, starts, roles, policies, proof obligations, and plugin/result contracts |
 | `ExecutionBasis` | ABG | admitted runtime basis for one start/resume request |
 | `GraphCall` | ABG | runtime execution instance over one graph-function boundary |
 | `Frame` | ABG | runtime frame for internal graph-vector traversal |
@@ -30,10 +32,11 @@ instance, and downstream domain asset instance.
 
 Idempotency is not path sameness and is not mutable workspace sameness.
 
-The same published graph function and materialized graph may be used by many
-runtime instances. The same admitted runtime basis replays to the same graph
-call and frame identity. A different run identity is a different execution
-attempt even when the graph function and materialized graph are unchanged.
+The same admitted program composition may bind the same published graph
+function and materialized graph across many runtime instances. The same
+admitted runtime basis replays to the same graph call and frame identity. A
+different run identity is a different execution attempt even when the admitted
+program, graph function, and materialized graph are unchanged.
 
 Downstream domain asset identity remains downstream-owned. ABG can preserve
 lineage and provenance evidence, but it does not decide whether two projects,

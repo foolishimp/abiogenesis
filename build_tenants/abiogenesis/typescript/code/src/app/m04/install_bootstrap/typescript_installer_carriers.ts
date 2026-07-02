@@ -55,6 +55,9 @@ export interface AbgTypescriptInstallerManifest {
   readonly abgConfigSourcePath: string;
   readonly abgConfigPath: string;
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedContextPath: string;
+  readonly installedContextFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedInstructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly toolchainBindingPath: string;
@@ -95,6 +98,8 @@ export interface AbgTypescriptInstallerTopologyVerification {
   readonly runtimeBindingPresent: boolean;
   readonly toolchainBindingPresent: boolean;
   readonly abgConfigPresent: boolean;
+  readonly installedContextPresent: boolean;
+  readonly installedInstructionContextPresent: boolean;
   readonly standardsRootPresent: boolean;
   readonly standardsSmokeFilesPresent: boolean;
   readonly docsRootPresent: boolean;
@@ -122,6 +127,9 @@ export interface AbgTypescriptInstallerInstalled {
   readonly abgConfigSourcePath: string;
   readonly abgConfigPath: string;
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedContextPath: string;
+  readonly installedContextFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedInstructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly toolchainBindingPath: string;

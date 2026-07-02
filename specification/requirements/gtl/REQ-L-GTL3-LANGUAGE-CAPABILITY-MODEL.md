@@ -55,9 +55,10 @@ interfaces, graph-function boundaries, and stable graph identity.
 composition capability including edge, identity, compose, substitute, recurse,
 fan-out, fan-in, gate, promote, and same-object identity.
 
-**graph functions**: GTL shall publish graph functions as the primary reusable
-program carrier. A graph function shall expose an outer interface and shall be
-materializable or referenceable without becoming a runtime controller.
+**graph functions**: GTL shall publish graph functions as reusable workflow
+library functions and callable work contracts. A graph function shall expose an
+outer interface and shall be materializable or referenceable without becoming a
+whole program, graph overlay, workspace shell, or runtime controller.
 
 **reusable node types**: GTL shall publish reusable node-type declarations for
 node contract reuse, type refs, composed types, and type-sensitive graph
@@ -116,9 +117,11 @@ candidate choice that affects traversal shall become ABG-emitted selection
 truth before it has runtime authority.
 
 **library**: A reusable publication set of declared graph functions, overlays,
-candidate families, public starts, policies, or companion surfaces. A library
-may be upstream/system-owned or downstream/product-owned. A library is not a
-runtime registry until ABG admits and projects its entries into registry truth.
+candidate families, public starts, policies, or companion surfaces. A graph
+function in a library is a reusable workflow function, not the whole product
+program. A library may be upstream/system-owned or downstream/product-owned. A
+library is not a runtime registry until ABG admits and projects its entries
+into registry truth.
 
 **system library**: A GTL/ABG-owned library of generic graph functions and
 related surfaces needed identically across multiple ODD domains. System
@@ -150,9 +153,10 @@ truth or projections. A read model may label domain meaning. It shall not
 admit evidence, emit events, fold assurance, select traversal, close, continue,
 or re-enter.
 
-**overlay row**: A GTL or conformance declaration row that attaches catalog,
-public-start, graph-function, graph-vector, or policy metadata to a declared
-program surface. An overlay row is not a traversal controller.
+**overlay row**: A GTL or conformance declaration row that declares or indexes
+a program composition over graph functions, graph vectors, node types, starts,
+roles, security, policy, proof obligations, plugin/result contracts, and
+related metadata. An overlay row is not a traversal controller.
 
 **overlay frame**: An ABG runtime observation, pressure, or foldback contract
 scoped to admitted runtime state. An overlay frame belongs to ABG runtime law
@@ -252,10 +256,19 @@ read-only. It may interpret or label admitted truth for a consumer, but it
 shall not emit events, admit evidence, fold assurance, select traversal, close,
 continue, or re-enter.
 
-**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015**: An overlay row shall be catalog,
-publication, public-start, graph-function, graph-vector, or policy metadata.
-An overlay row shall not own runtime observation, pressure, foldback,
-continuation, or selection authority.
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015**: An overlay row shall be program
+composition, catalog, publication, public-start, graph-function, graph-vector,
+node-type, role, security, policy, proof-obligation, plugin/result-contract, or
+related metadata. An overlay row shall not own runtime observation, pressure,
+foldback, continuation, or selection authority.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015A**: GTL shall distinguish the
+library/program/workspace abstraction boundary. Graph functions are reusable
+library functions or callable work contracts. Graph overlays or GTL program
+compositions are the program surfaces that bind those functions. Workspaces are
+mutable instance surfaces that supply bootstrap config, files, data, observed
+state, generated artifacts, and run archives. ABG traversal is the runtime bind
+over admitted program and workspace truth.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-016**: An overlay frame shall be ABG
 runtime contract truth over observed state, pressure, or foldback. An overlay

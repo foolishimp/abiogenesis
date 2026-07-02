@@ -34,9 +34,13 @@ import {
   resolveToolchainRoot,
   TOOLCHAIN_BINDING_RELATIVE_PATH
 } from "../toolchain_binding/index.js";
-import type { DeliveryWriter } from "../../../shared/abg_delivery_library/index.js";
+import {
+  injectMarkedSection,
+  type DeliveryWriter
+} from "../../../shared/abg_delivery_library/index.js";
 import type { PublicInstallBootstrapInstalled } from "./carriers.js";
 import type {
+  ToolchainMutableStateRootInput,
   ToolchainSelectionSource,
   ToolchainWorkspaceBinding
 } from "../toolchain_binding/index.js";
@@ -52,6 +56,20 @@ interface PackageIdentity {
   readonly packageName: string;
   readonly packageVersion: string;
   readonly dependencies: readonly string[];
+}
+
+export interface AbgContextBootstrapOutcome {
+  readonly kind: "context_bootstrap_installed";
+  readonly targetRoot: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+  readonly toolchainRoot: string;
+  readonly toolchainBindingPath: string;
+  readonly toolchainBinding: ToolchainWorkspaceBinding;
+  readonly installedContextPath: string;
+  readonly installedContextFile: AbgTypescriptInstallerFileEvidence;
+  readonly installedInstructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
+  readonly aiWorkspaceDirectories: readonly string[];
 }
 
 type TargetMode = "imported" | "clean_no_project_authority";
@@ -88,6 +106,36 @@ const INSTALLED_ABG_CONFIG_RELATIVE_PATH = join(
   "config",
   "abg.config.json"
 );
+
+const INSTALLED_ABG_GTL_CONTEXT_RELATIVE_PATH = join(
+  ".abiogenesis",
+  "context",
+  "ABG_GTL_CONTEXT.md"
+);
+
+const ABG_GTL_CONTEXT_MARKERS = Object.freeze({
+  startMarker: "<!-- ABG_GTL_CONTEXT_START -->",
+  endMarker: "<!-- ABG_GTL_CONTEXT_END -->"
+});
+
+const ABG_GTL_CONTEXT_INSTRUCTION_FILES = Object.freeze([
+  "AGENTS.md",
+  "CLAUDE.md"
+] as const);
+
+const AI_WORKSPACE_CONTEXT_DIRECTORIES = Object.freeze([
+  ".ai-workspace",
+  join(".ai-workspace", "comments"),
+  join(".ai-workspace", "comments", "codex"),
+  join(".ai-workspace", "tickets"),
+  join(".ai-workspace", "tickets", "active"),
+  join(".ai-workspace", "tickets", "backlog"),
+  join(".ai-workspace", "tickets", "completed"),
+  join(".ai-workspace", "events"),
+  join(".ai-workspace", "runtime"),
+  join(".ai-workspace", "projections"),
+  join(".ai-workspace", "archives")
+] as const);
 
 function isNodeErrorCode(error: unknown, code: string): boolean {
   return (
@@ -456,6 +504,280 @@ async function copyAbgConfig(input: {
   });
 }
 
+function installedAbgGtlContextContent(identity: PackageIdentity): string {
+  return `# Installed ABG/GTL Context Compression
+
+Version: ${identity.packageVersion}
+Package: ${identity.packageName}
+
+This context is owned by the installed ABG/GTL product version. Refresh it with
+the ABIogenesis installer; do not hand-maintain it as downstream source truth.
+
+Authoritative source surfaces:
+- specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md
+- specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
+- specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md
+- specification/requirements/product/REQ-P-INSTALL.md
+
+Core chain:
+
+\`\`\`text
+graph-function library -> graph overlay/program -> workspace binding -> ABG traversal -> replay interpretation
+\`\`\`
+
+Installed axioms:
+- A GraphFunction is a reusable workflow library function or callable work
+  contract.
+- A graph overlay or GTL program composition is the program surface. It binds
+  graph functions, node types, starts, roles, security, policies, proof
+  obligations, plugin contracts, result contracts, and allowed bindings.
+- A workspace is the mutable program instance surface. It may provide bootstrap
+  config, files, observed state, generated artifacts, run archives, and
+  operator data. It does not select traversal, call vectors, own closure, or
+  replace ABG startup/admission.
+- ABG traversal owns startup, registry projection, selection, graph-call
+  opening, vector progression, instruction assembly, worker/effect dispatch,
+  admission, fold, residual, continuation, re-entry, block, terminal
+  projection, and replay truth.
+- Downstream products may publish specialized graph functions and overlays
+  through GTL declarations consumed by ABG. They must not create local prompt
+  shells, registries, ledgers, traversal loops, closure truth, or duplicate
+  runtime state.
+- F_D applies only over known algebra or total functions. F_P/F_H outputs may
+  provide admitted evidence or policy judgment, but they do not become
+  deterministic traversal law without F_D conformance over admitted truth.
+- Instruction and prompt envelopes are ABG-rendered projections over admitted
+  carriers. Product templates are data; product renderers are not authority to
+  inject a separate prompt shell.
+- Tests that claim traversal parity must enter through admitted GTL program and
+  workspace startup, or through a documented ABG resume boundary, and must read
+  replay truth for traversal-affecting results. Direct vector, plugin, worker,
+  or script calls are not traversal parity.
+`;
+}
+
+async function writeInstalledAbgGtlContext(input: {
+  readonly targetRoot: string;
+  readonly identity: PackageIdentity;
+}): Promise<{
+  readonly contextPath: string;
+  readonly contextFile: AbgTypescriptInstallerFileEvidence;
+  readonly instructionFiles: readonly AbgTypescriptInstallerFileEvidence[];
+}> {
+  const content = installedAbgGtlContextContent(input.identity);
+  const contextPath = join(
+    input.targetRoot,
+    INSTALLED_ABG_GTL_CONTEXT_RELATIVE_PATH
+  );
+  await mkdir(dirname(contextPath), { recursive: true });
+  await writeFile(contextPath, content, "utf8");
+
+  const instructionFiles: AbgTypescriptInstallerFileEvidence[] = [];
+  for (const relativePath of ABG_GTL_CONTEXT_INSTRUCTION_FILES) {
+    const targetPath = join(input.targetRoot, relativePath);
+    let existingContent: string | null = null;
+    try {
+      existingContent = await readFile(targetPath, "utf8");
+    } catch (error: unknown) {
+      if (!isNodeErrorCode(error, "ENOENT")) {
+        throw error;
+      }
+    }
+    const injected = injectMarkedSection(existingContent, {
+      markers: ABG_GTL_CONTEXT_MARKERS,
+      targetFile: { relativePath },
+      sectionContent: content
+    });
+    if (injected.kind === "updated") {
+      await mkdir(dirname(targetPath), { recursive: true });
+      await writeFile(targetPath, injected.content, "utf8");
+    }
+    instructionFiles.push(await fileEvidence(input.targetRoot, relativePath));
+  }
+
+  return Object.freeze({
+    contextPath,
+    contextFile: await fileEvidence(
+      input.targetRoot,
+      INSTALLED_ABG_GTL_CONTEXT_RELATIVE_PATH
+    ),
+    instructionFiles: Object.freeze(instructionFiles)
+  });
+}
+
+async function ensureAiWorkspaceContextDirectories(
+  targetRoot: string
+): Promise<readonly string[]> {
+  const created: string[] = [];
+  for (const relativePath of AI_WORKSPACE_CONTEXT_DIRECTORIES) {
+    await mkdir(join(targetRoot, relativePath), { recursive: true });
+    created.push(relativePath);
+  }
+  return Object.freeze(created);
+}
+
+function contextBootstrapRequest(input: unknown): {
+  readonly targetRoot: string;
+  readonly packageSourceRoot: string;
+  readonly toolchainRoot: string | null;
+  readonly mutableStateRoots: ToolchainMutableStateRootInput | null;
+  readonly initializeAiWorkspace: boolean;
+} {
+  const request = parsePlainObject(input, "ABG context bootstrap request");
+  const targetRoot = request["targetRoot"];
+  const packageSourceRoot = request["packageSourceRoot"];
+  const toolchainRoot = request["toolchainRoot"];
+  const mutableStateRoots = request["mutableStateRoots"];
+  const initializeAiWorkspace = request["initializeAiWorkspace"];
+  if (typeof targetRoot !== "string" || targetRoot.length === 0) {
+    throw new TypeError("ABG context bootstrap targetRoot must be non-empty");
+  }
+  if (
+    typeof packageSourceRoot !== "string" ||
+    packageSourceRoot.length === 0
+  ) {
+    throw new TypeError(
+      "ABG context bootstrap packageSourceRoot must be non-empty"
+    );
+  }
+  if (
+    initializeAiWorkspace !== undefined &&
+    typeof initializeAiWorkspace !== "boolean"
+  ) {
+    throw new TypeError(
+      "ABG context bootstrap initializeAiWorkspace must be boolean when present"
+    );
+  }
+  if (
+    toolchainRoot !== undefined &&
+    toolchainRoot !== null &&
+    typeof toolchainRoot !== "string"
+  ) {
+    throw new TypeError(
+      "ABG context bootstrap toolchainRoot must be string or null when present"
+    );
+  }
+  if (
+    mutableStateRoots !== undefined &&
+    mutableStateRoots !== null &&
+    (typeof mutableStateRoots !== "object" || Array.isArray(mutableStateRoots))
+  ) {
+    throw new TypeError(
+      "ABG context bootstrap mutableStateRoots must be object or null when present"
+    );
+  }
+  return Object.freeze({
+    targetRoot,
+    packageSourceRoot,
+    toolchainRoot: toolchainRoot ?? null,
+    mutableStateRoots:
+      mutableStateRoots === undefined
+        ? null
+        : (mutableStateRoots as ToolchainMutableStateRootInput | null),
+    initializeAiWorkspace: initializeAiWorkspace ?? true
+  });
+}
+
+async function readInstalledProductBinding(input: {
+  readonly productRoot: string;
+  readonly identity: PackageIdentity;
+}): Promise<ToolchainWorkspaceBinding["products"][number]> {
+  const manifestPath = join(input.productRoot, "product-toolchain-manifest.json");
+  const manifestContent = await readFile(manifestPath, "utf8");
+  const manifest = parsePlainObject(
+    JSON.parse(manifestContent),
+    "ABG product toolchain manifest"
+  );
+  const packageVersion = manifest["packageVersion"];
+  const packageRoot = manifest["packageRoot"];
+  const binRoot = manifest["binRoot"];
+  const libRoot = manifest["libRoot"];
+  const docsRoot = manifest["docsRoot"];
+  const standardsRoot = manifest["standardsRoot"];
+  const commandPaths = manifest["commandPaths"];
+  if (packageVersion !== input.identity.packageVersion) {
+    throw new TypeError(
+      `installed product version ${String(packageVersion)} does not match package ${input.identity.packageVersion}`
+    );
+  }
+  if (
+    typeof packageRoot !== "string" ||
+    typeof binRoot !== "string" ||
+    typeof libRoot !== "string" ||
+    typeof docsRoot !== "string" ||
+    typeof standardsRoot !== "string" ||
+    !Array.isArray(commandPaths) ||
+    !commandPaths.every((value) => typeof value === "string")
+  ) {
+    throw new TypeError("ABG product toolchain manifest is malformed");
+  }
+  return constructAbiogenesisProductToolchainBinding({
+    packageVersion: input.identity.packageVersion,
+    productRoot: input.productRoot,
+    packageRoot,
+    binRoot,
+    libRoot,
+    docsRoot,
+    standardsRoot,
+    manifestPath,
+    manifestDigest: sha256Text(manifestContent),
+    commandPaths
+  });
+}
+
+export async function installAbiogenesisContextBootstrap(
+  input: unknown
+): Promise<AbgContextBootstrapOutcome> {
+  const request = contextBootstrapRequest(input);
+  await mkdir(request.targetRoot, { recursive: true });
+  const identity = await readPackageIdentity(request.packageSourceRoot);
+  const resolvedToolchain = resolveToolchainRoot({
+    targetRoot: request.targetRoot,
+    explicitToolchainRoot: request.toolchainRoot
+  });
+  const productRoot = productRootForSharedToolchain({
+    toolchainRoot: resolvedToolchain.root,
+    packageVersion: identity.packageVersion
+  });
+  const productBinding = await readInstalledProductBinding({
+    productRoot,
+    identity
+  });
+  const toolchainBinding = constructWorkspaceToolchainBinding({
+    targetRoot: request.targetRoot,
+    toolchainRoot: resolvedToolchain.root,
+    selectionSource: resolvedToolchain.source,
+    products: [productBinding],
+    mutableStateRoots: request.mutableStateRoots
+  });
+  await ensureMutableStateRoots(toolchainBinding);
+  const toolchainBindingPath = await writeToolchainBinding({
+    targetRoot: request.targetRoot,
+    binding: toolchainBinding
+  });
+  const installedContext = await writeInstalledAbgGtlContext({
+    targetRoot: request.targetRoot,
+    identity
+  });
+  const aiWorkspaceDirectories = request.initializeAiWorkspace
+    ? await ensureAiWorkspaceContextDirectories(request.targetRoot)
+    : Object.freeze([] as const);
+
+  return Object.freeze({
+    kind: "context_bootstrap_installed",
+    targetRoot: request.targetRoot,
+    packageName: identity.packageName,
+    packageVersion: identity.packageVersion,
+    toolchainRoot: resolvedToolchain.root,
+    toolchainBindingPath,
+    toolchainBinding,
+    installedContextPath: installedContext.contextPath,
+    installedContextFile: installedContext.contextFile,
+    installedInstructionFiles: installedContext.instructionFiles,
+    aiWorkspaceDirectories
+  });
+}
+
 
 async function writeInstallProvenance(input: {
   readonly manifestPath: string;
@@ -581,7 +903,17 @@ async function writeCommandBindings(
     "bin",
     "abiogenesis.js"
   );
+  const packageInstallCommandPath = join(
+    packageRoot,
+    "build",
+    "semantic",
+    "code",
+    "src",
+    "bin",
+    "abg.install.js"
+  );
   await chmod(packageCommandPath, 0o755);
+  await chmod(packageInstallCommandPath, 0o755);
   return Object.freeze([
     await writeCommandBinding(
       binRoot,
@@ -592,6 +924,11 @@ async function writeCommandBindings(
       binRoot,
       "genesis-ts",
       packageCommandPath
+    ),
+    await writeCommandBinding(
+      binRoot,
+      "abg.install",
+      packageInstallCommandPath
     )
   ]);
 }
@@ -959,6 +1296,28 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     typeof manifestObject["abgConfigPath"] === "string"
       ? manifestObject["abgConfigPath"]
       : join(targetRoot, INSTALLED_ABG_CONFIG_RELATIVE_PATH);
+  const installedContextPath =
+    typeof manifestObject["installedContextPath"] === "string"
+      ? manifestObject["installedContextPath"]
+      : join(targetRoot, INSTALLED_ABG_GTL_CONTEXT_RELATIVE_PATH);
+  const installedInstructionFiles = Array.isArray(
+    manifestObject["installedInstructionFiles"]
+  )
+    ? manifestObject["installedInstructionFiles"]
+        .map((entry) => {
+          const evidence = parsePlainObject(
+            entry,
+            "typescript installer manifest installedInstructionFiles entry"
+          );
+          const relativePath = evidence["relativePath"];
+          return typeof relativePath === "string"
+            ? join(targetRoot, relativePath)
+            : null;
+        })
+        .filter((entry): entry is string => entry !== null)
+    : ABG_GTL_CONTEXT_INSTRUCTION_FILES.map((relativePath) =>
+        join(targetRoot, relativePath)
+      );
   const projectionDirectory =
     typeof manifestObject["projectionDirectory"] === "string"
       ? manifestObject["projectionDirectory"]
@@ -981,6 +1340,8 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     runtimeBindingPath,
     toolchainBindingPath,
     abgConfigPath,
+    installedContextPath,
+    ...installedInstructionFiles,
     projectionDirectory,
     archiveDirectory,
     standardsInstallRoot,
@@ -1011,6 +1372,10 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     runtimeBindingPresent: await pathIsFile(runtimeBindingPath),
     toolchainBindingPresent: await pathIsFile(toolchainBindingPath),
     abgConfigPresent: await pathIsFile(abgConfigPath),
+    installedContextPresent: await pathIsFile(installedContextPath),
+    installedInstructionContextPresent: await allPathsPresent(
+      installedInstructionFiles
+    ),
     standardsRootPresent: await pathIsDirectory(standardsInstallRoot),
     standardsSmokeFilesPresent: await allPathsPresent(
       REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
@@ -1107,6 +1472,10 @@ export async function installAbiogenesisTypescript(
       packageSourceRoot: request.packageSourceRoot,
       targetRoot: request.targetRoot.rootPath
     });
+    const installedContext = await writeInstalledAbgGtlContext({
+      targetRoot: request.targetRoot.rootPath,
+      identity
+    });
     const standardsFiles = await copyStandardsTree(
       standardsSourceRoot,
       standardsInstallRoot
@@ -1178,6 +1547,9 @@ export async function installAbiogenesisTypescript(
       abgConfigSourcePath: abgConfig.sourcePath,
       abgConfigPath: abgConfig.targetPath,
       abgConfigFile: abgConfig.evidence,
+      installedContextPath: installedContext.contextPath,
+      installedContextFile: installedContext.contextFile,
+      installedInstructionFiles: installedContext.instructionFiles,
       runtimeIdentity,
       runtimeBindingPath,
       toolchainBindingPath,
@@ -1220,6 +1592,9 @@ export async function installAbiogenesisTypescript(
         abgConfigSourcePath: abgConfig.sourcePath,
         abgConfigPath: abgConfig.targetPath,
         abgConfigSha256: abgConfig.evidence.sha256,
+        installedContextPath: installedContext.contextPath,
+        installedContextSha256: installedContext.contextFile.sha256,
+        installedInstructionFiles: installedContext.instructionFiles,
         standardsInstallRoot,
         standardsFileCount: standardsFiles.length,
         docsInstallRoot,
@@ -1263,6 +1638,9 @@ export async function installAbiogenesisTypescript(
         abgConfigSourcePath: abgConfig.sourcePath,
         abgConfigPath: abgConfig.targetPath,
         abgConfigFile: abgConfig.evidence,
+        installedContextPath: installedContext.contextPath,
+        installedContextFile: installedContext.contextFile,
+        installedInstructionFiles: installedContext.instructionFiles,
         runtimeIdentity,
         runtimeBindingPath,
         toolchainBindingPath,

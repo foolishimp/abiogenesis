@@ -24,7 +24,8 @@ future SDLC.TS proof lanes.
 ## Position
 
 ABIogenesis is the research product lab when it can prove downstream product
-families as graph-function programs over typed assets.
+families as GTL program overlays/compositions that bind reusable graph
+functions over typed assets.
 
 The catalog therefore tests whether the substrate can express:
 

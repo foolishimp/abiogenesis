@@ -182,6 +182,29 @@ installers and must remain visibly separate.
 marker-governed or otherwise idempotent so refresh does not delete unrelated
 project guidance.
 
+**REQ-P-INSTALL-033**: The installer shall materialize a versioned ABG/GTL
+context compression under the target `.abiogenesis/` surface. The context
+content is owned by the selected ABG/GTL product version and shall be recorded
+in installer manifest or provenance truth.
+
+**REQ-P-INSTALL-034**: The installer shall refresh installer-owned ABG/GTL
+context sections in cold-agent instruction files such as `AGENTS.md` and
+`CLAUDE.md` on fresh install and upgrade/refresh. Refresh shall be
+marker-governed, idempotent, and shall preserve unrelated project-owned
+guidance.
+
+**REQ-P-INSTALL-035**: Downstream projects shall not be required to hand-edit
+ABG/GTL compression to track current GTL/ABG semantics. A stale installed
+context section shall be replaced by the selected product version during
+installer refresh, and malformed paired markers shall fail closed.
+
+**REQ-P-INSTALL-036**: Target-workspace bootstrap shall bind the workspace to a
+selected shared product version through `.abiogenesis/` binding truth and shall
+not install the GTL/ABG product payload inside each downstream project. Product
+payload materialization belongs to the shared product toolchain root; workspace
+bootstrap is a convenience for local reference, context refresh, and mutable
+state initialization.
+
 ## Sandbox And Archive Proof
 
 **REQ-P-INSTALL-040**: Any downstream sandbox or qualification lane that claims
@@ -221,5 +244,7 @@ workspace proves:
 - clean-target versus imported-target behavior is explicit
 - public verification can classify the installed substrate
 - cold-agent bootstrap surfaces are discoverable
+- installed ABG/GTL context compression is versioned, manifest-recorded, and
+  marker-refreshed in cold-agent instruction files
 - repeat install behavior is deterministic or fails with precise remediation
 - sandbox/archive proof is persistent and target-workspace inspectable

@@ -100,6 +100,7 @@ export type GtlProgramConformanceSurfaceKind =
   | "external_tool_gate"
   | "runtime_binding"
   | "runtime_reentry_route"
+  | "installed_context"
   | "requirement_declaration"
   | "feature_coverage";
 
@@ -642,6 +643,15 @@ export interface GtlProgramRuntimeBindingRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+export interface GtlProgramInstalledContextRow {
+  readonly contextRef: string;
+  readonly abiPackageVersion: string;
+  readonly selectedProductVersion: string;
+  readonly contextText: string;
+  readonly toolchainBindingRef: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
 export type GtlProgramRepairSurfaceDisposition =
   | "current_edge_repair"
   | "upstream_reentry"
@@ -834,6 +844,9 @@ export interface GtlProgramConformanceInput {
   readonly runtimeReentryRoutes?:
     | readonly GtlProgramRuntimeReentryRouteRow[]
     | undefined;
+  readonly installedContextSurfaces?:
+    | readonly GtlProgramInstalledContextRow[]
+    | undefined;
   readonly traversalBindConservation?:
     | readonly GtlProgramTraversalBindConservationRow[]
     | undefined;
@@ -872,6 +885,7 @@ export interface GtlProgramInventoryDigests {
   readonly roleBindings: string;
   readonly externalToolGates: string;
   readonly runtimeBindings: string;
+  readonly installedContextSurfaces: string;
   readonly runtimeReentryRoutes: string;
   readonly traversalBindConservation: string;
   readonly requirementsAlgebraDeclarations: string;
@@ -5623,6 +5637,81 @@ function admitRuntimeBindingRows(
   );
 }
 
+function admitInstalledContextRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramInstalledContextRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `installedContextSurfaces[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "installed_context",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/installed-context-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          contextRef: requiredStringField({
+            record: row,
+            key: "contextRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          }),
+          abiPackageVersion: requiredStringField({
+            record: row,
+            key: "abiPackageVersion",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          }),
+          selectedProductVersion: requiredStringField({
+            record: row,
+            key: "selectedProductVersion",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          }),
+          contextText: requiredStringField({
+            record: row,
+            key: "contextText",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          }),
+          toolchainBindingRef: requiredStringField({
+            record: row,
+            key: "toolchainBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "installed_context",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 function admitRuntimeReentryRouteRows(
   input: readonly unknown[],
   subjectRef: string,
@@ -7303,6 +7392,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "runtimeBindings",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    installedContextSurfaces: admitInstalledContextRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "installedContextSurfaces",
         subjectRef,
         issues
       }),
@@ -9704,6 +9803,16 @@ function checkOverlays(input: {
   }
 
   for (const target of input.publicStartTargets) {
+    if (target.overlayRefs.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "public_start",
+          surfaceRef: target.name,
+          ruleRef: "abg://gtl-program/public-start/overlay-required",
+          message: `public start ${JSON.stringify(target.name)} must enter through a GTL overlay or program composition; direct graph-function starts are not traversal parity`
+        })
+      );
+    }
     if (!input.graphFunctionRefs.has(target.graphFunctionRef)) {
       input.issues.push(
         issue({
@@ -11437,6 +11546,15 @@ function commandRefLooksLikeProductLocalTraversalSubstitute(
   );
 }
 
+function commandRefUsesCanonicalAbgStart(commandRef: string): boolean {
+  const tokens = commandRefTokens(commandRef);
+  const executable = commandExecutableStem(tokens[0] ?? "");
+  return (
+    (executable === "abiogenesis-ts" || executable === "genesis-ts") &&
+    tokens[1] === "start"
+  );
+}
+
 function checkRuntimeBindingRows(input: {
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
@@ -11518,6 +11636,16 @@ function checkRuntimeBindingRows(input: {
         issues: input.issues
       });
     }
+    if (!commandRefUsesCanonicalAbgStart(row.commandRef)) {
+      pushRowIssue({
+        surfaceKind: "runtime_binding",
+        surfaceRef: row.bindingRef,
+        ruleRef: "abg://gtl-program/runtime-binding/canonical-abg-start",
+        message: `commandRef ${JSON.stringify(row.commandRef)} must enter through the canonical ABG start command; product-local shells and context bootstraps are not traversal runtime`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
   }
 
   const runtimeBoundPluginRefs = pluginRefsBoundByRuntime(input.runtimeBindings);
@@ -11539,6 +11667,103 @@ function checkRuntimeBindingRows(input: {
         message: `plugin contract ${JSON.stringify(pluginRef)} is not consumed by any ABG runtime binding row`,
         issues: input.issues
       });
+    }
+  }
+}
+
+function checkInstalledContextRows(input: {
+  readonly abiPackageVersion: string;
+  readonly installedContextSurfaces: readonly GtlProgramInstalledContextRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const requiredTextFragments = Object.freeze([
+    "GraphFunction is a reusable workflow library function",
+    "graph overlay or GTL program composition is the program surface",
+    "workspace is the mutable program instance surface",
+    "ABG traversal owns startup",
+    "graph-function library -> graph overlay/program -> workspace binding -> ABG traversal -> replay interpretation"
+  ] as const);
+  const forbiddenTextFragments = Object.freeze([
+    "GraphFunction is the reusable workflow program abstraction",
+    "graph functions are the program surface",
+    "primary published program form",
+    "primary reusable program carrier"
+  ] as const);
+
+  for (const row of input.installedContextSurfaces) {
+    const declaredVersion = row.contextText.match(/^Version:\s*(\S+)\s*$/mu)?.[1];
+    if (declaredVersion === undefined) {
+      pushRowIssue({
+        surfaceKind: "installed_context",
+        surfaceRef: row.contextRef,
+        ruleRef: "abg://gtl-program/installed-context/version-line",
+        message: "installed context text must contain a Version: line",
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    } else if (declaredVersion !== row.abiPackageVersion) {
+      pushRowIssue({
+        surfaceKind: "installed_context",
+        surfaceRef: row.contextRef,
+        ruleRef: "abg://gtl-program/installed-context/version-line",
+        message: `installed context Version line ${JSON.stringify(declaredVersion)} does not match row abiPackageVersion ${JSON.stringify(row.abiPackageVersion)}`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+    if (row.abiPackageVersion !== input.abiPackageVersion) {
+      pushRowIssue({
+        surfaceKind: "installed_context",
+        surfaceRef: row.contextRef,
+        ruleRef: "abg://gtl-program/installed-context/abi-version",
+        message: `installed context version ${JSON.stringify(row.abiPackageVersion)} does not match typecheck ABI package version ${JSON.stringify(input.abiPackageVersion)}`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+    if (row.selectedProductVersion !== input.abiPackageVersion) {
+      pushRowIssue({
+        surfaceKind: "installed_context",
+        surfaceRef: row.contextRef,
+        ruleRef: "abg://gtl-program/installed-context/selected-product-version",
+        message: `selected product version ${JSON.stringify(row.selectedProductVersion)} does not match typecheck ABI package version ${JSON.stringify(input.abiPackageVersion)}`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+    if (!row.toolchainBindingRef.includes("toolchain-binding")) {
+      pushRowIssue({
+        surfaceKind: "installed_context",
+        surfaceRef: row.contextRef,
+        ruleRef: "abg://gtl-program/installed-context/toolchain-binding",
+        message: "installed context must reference target workspace toolchain binding truth",
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+    for (const fragment of requiredTextFragments) {
+      if (!row.contextText.includes(fragment)) {
+        pushRowIssue({
+          surfaceKind: "installed_context",
+          surfaceRef: row.contextRef,
+          ruleRef: "abg://gtl-program/installed-context/required-abstraction",
+          message: `installed context is missing required abstraction text ${JSON.stringify(fragment)}`,
+          evidenceRefs: row.evidenceRefs,
+          issues: input.issues
+        });
+      }
+    }
+    for (const fragment of forbiddenTextFragments) {
+      if (row.contextText.includes(fragment)) {
+        pushRowIssue({
+          surfaceKind: "installed_context",
+          surfaceRef: row.contextRef,
+          ruleRef: "abg://gtl-program/installed-context/stale-abstraction",
+          message: `installed context still carries stale abstraction text ${JSON.stringify(fragment)}`,
+          evidenceRefs: row.evidenceRefs,
+          issues: input.issues
+        });
+      }
     }
   }
 }
@@ -12049,6 +12274,8 @@ function observedFeatureKinds(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly installedContextSurfaces:
+    readonly GtlProgramInstalledContextRow[];
   readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const observed = new Set<GtlProgramT153FeatureKind>();
@@ -12232,6 +12459,8 @@ function inventoryBackedFeatureKinds(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly installedContextSurfaces:
+    readonly GtlProgramInstalledContextRow[];
   readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const backed = new Set<GtlProgramT153FeatureKind>();
@@ -12461,6 +12690,8 @@ function computeInventoryDigests(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly installedContextSurfaces:
+    readonly GtlProgramInstalledContextRow[];
   readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
   readonly traversalBindConservation:
     readonly GtlProgramTraversalBindConservationRow[];
@@ -12497,6 +12728,7 @@ function computeInventoryDigests(input: {
     roleBindings: stableSha256Digest(input.roleBindings),
     externalToolGates: stableSha256Digest(input.externalToolGates),
     runtimeBindings: stableSha256Digest(input.runtimeBindings),
+    installedContextSurfaces: stableSha256Digest(input.installedContextSurfaces),
     runtimeReentryRoutes: stableSha256Digest(input.runtimeReentryRoutes),
     traversalBindConservation: stableSha256Digest(
       input.traversalBindConservation
@@ -12606,6 +12838,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     ...(input.externalToolGates ?? [])
   ]);
   const runtimeBindings = Object.freeze([...(input.runtimeBindings ?? [])]);
+  const installedContextSurfaces = Object.freeze([
+    ...(input.installedContextSurfaces ?? [])
+  ]);
   const runtimeReentryRoutes = Object.freeze([
     ...(input.runtimeReentryRoutes ?? [])
   ]);
@@ -12732,6 +12967,11 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     pluginRefsBoundByStages: stageBoundPluginRefs,
     issues
   });
+  checkInstalledContextRows({
+    abiPackageVersion: input.abiPackageVersion,
+    installedContextSurfaces,
+    issues
+  });
   checkRuntimeReentryRouteRows({
     runtimeReentryRoutes,
     vectors,
@@ -12763,6 +13003,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       roleBindings,
       externalToolGates,
       runtimeBindings,
+      installedContextSurfaces,
       runtimeReentryRoutes
     }),
     inventoryBackedFeatures: inventoryBackedFeatureKinds({
@@ -12788,6 +13029,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       roleBindings,
       externalToolGates,
       runtimeBindings,
+      installedContextSurfaces,
       runtimeReentryRoutes
     }),
     issues
@@ -12839,6 +13081,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     roleBindings,
     externalToolGates,
     runtimeBindings,
+    installedContextSurfaces,
     runtimeReentryRoutes,
     traversalBindConservation,
     requirementsAlgebraDeclarations

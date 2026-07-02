@@ -1,4 +1,4 @@
-# REQ-L-GTL3-GRAPHFUNCTION — Reusable Workflow Programs
+# REQ-L-GTL3-GRAPHFUNCTION — Reusable Workflow Library Functions
 
 **Status**: Active
 **Category**: Capability
@@ -9,14 +9,14 @@
 
 ## Purpose
 
-Define `GraphFunction` as the primary reusable GTL compute abstraction and
-contract boundary for lawful workflow reuse.
+Define `GraphFunction` as the primary reusable GTL workflow-library compute
+abstraction and contract boundary for lawful workflow reuse.
 
 ## Acceptance Criteria
 
 **REQ-L-GTL3-GRAPHFUNCTION-001**: `GraphFunction` shall be a frozen, immutable type with at minimum: `name`, `environment`, `inputs`, `outputs`, `template`, `effects`, `declarations`, and `tags`.
 
-**REQ-L-GTL3-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface and an explicit cumulative environment contract. It materializes a `Graph`, remains the reference contract boundary for callers, and is the sole public named callable workflow carrier of GTL 3.
+**REQ-L-GTL3-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface and an explicit cumulative environment contract. It materializes a `Graph`, remains the reference contract boundary for callers, and is the sole public named callable workflow-library carrier of GTL 3.
 
 **REQ-L-GTL3-GRAPHFUNCTION-003**: The template shall be represented as replayable publication truth. Interpreter-local callable resolution may exist as implementation convenience, but it is not the published graph-function contract.
 
@@ -24,7 +24,7 @@ contract boundary for lawful workflow reuse.
 
 **REQ-L-GTL3-GRAPHFUNCTION-005**: The `effects` surface shall support static analysis, engine capability matching, lawful composition reasoning, and workflow visibility.
 
-**REQ-L-GTL3-GRAPHFUNCTION-006**: Named workflows are reusable through graph functions, not through copied structure.
+**REQ-L-GTL3-GRAPHFUNCTION-006**: Named workflow functions are reusable through graph functions, not through copied structure or product-local shells.
 
 **REQ-L-GTL3-GRAPHFUNCTION-007**: `GraphFunction` shall be the unit of lawful composition, substitution, recursion, and higher-order graph application.
 
@@ -52,8 +52,9 @@ contract boundary for lawful workflow reuse.
 
 **REQ-L-GTL3-GRAPHFUNCTION-019**: A `GraphFunction` shall remain distinct from
 the materialized `Graph` it produces and from any ABG graph-call execution
-instance over that graph. It is the reusable program carrier, not the runtime
-attempt or the downstream domain asset created by an attempt.
+instance over that graph. It is a reusable workflow library function and
+callable work contract, not the whole program, runtime attempt, workspace
+surface, graph overlay, or downstream domain asset created by an attempt.
 
 **REQ-L-GTL3-GRAPHFUNCTION-020**: An ABG executive observer shall be published
 as a graph function over an existing declared target workspace and target work.
@@ -74,3 +75,9 @@ shall prove the same identity, non-callability, and publication semantics.
 **REQ-L-GTL3-GRAPHFUNCTION-023**: Job binding, public start binding,
 runtime-registry graph-function selection, graph-call opening, and invocation
 assertion shall reject node-type entries as callable graph functions.
+
+**REQ-L-GTL3-GRAPHFUNCTION-024**: A `GraphFunction` shall be a reusable library
+function or callable work contract. It shall not be treated as the whole
+product program when a graph overlay or GTL program composition declares the
+program that binds graph functions, vectors, node types, starts, roles,
+security, policy, proof obligations, and plugin/result contracts.

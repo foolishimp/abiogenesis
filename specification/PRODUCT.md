@@ -84,10 +84,13 @@ only environment selector. Legacy aliases, target-local full package copies,
 top-level command shims, and implicit target-root product fallback are outside
 the product contract.
 
-Graph functions are the primary published program form. A graph function is
-product-real only when it is discoverable through a module or job surface,
-materializable from declared inputs and policy-visible parameters, executable
-through ABG, and replayable through event and provenance truth.
+Graph functions are reusable workflow library functions and callable work
+contracts. A graph overlay or GTL program composition is the published program
+surface that binds graph functions, node types, starts, roles, policies, proof
+obligations, and plugin/result contracts. A graph function is product-real only
+when it is discoverable through a module or job surface, materializable from
+declared inputs and policy-visible parameters, callable through admitted
+GTL/ABG program truth, and replayable through event and provenance truth.
 
 ABG also owns the default recursive executive observer role for preserving
 obligation pressure over admitted graph work. The observer is a graph function
@@ -177,12 +180,20 @@ other product-local vocabulary are not canonical GTL type names. They must bind
 back to a GTL topology anchor or first-class declaration surface before
 declaring GTL or ABG behavior.
 
+The programming abstraction boundary is: `GraphFunction` is a reusable
+workflow library function and callable work contract; a graph overlay or GTL
+program composition is the program that binds graph functions, vectors, node
+types, roles, security, starts, policies, proof obligations, and plugin/result
+contracts; a workspace is the mutable instance surface that supplies bootstrap
+config, files, data, observed state, generated artifacts, and run archives.
+ABG traversal runs over the admitted program plus admitted workspace binding.
+
 | Type | Product meaning | Boundary |
 | --- | --- | --- |
 | `Graph` | Named topology of nodes and graph vectors. | It is the structural materialization surface, not the public callable workflow carrier by itself. |
 | `Node` | Typed local locus of graph meaning, invariant state, markov conditions, and optional asset-surface declaration. | It is not an executable workflow carrier, public work entrypoint, or graph function. |
 | `GraphVector` | Invariant traversal boundary and internal adjacency record from source node set to target node. It carries transition-governance declarations including dispatch intent, evaluation policy, escalation policy, deterministic proof surfaces, closure contract, assurance hook refs, other hook refs, and opaque hook config. | It is not a rival public ontology, public callable carrier, or semantic job target. |
-| `GraphFunction` | Primary published reusable workflow program. It has an explicit typed outer interface and cumulative environment contract, materializes a graph, and may realize one or more internal graph vectors. | It is not a node, not the materialized graph itself, not a runtime graph-call attempt, and not the downstream asset produced by an attempt. |
+| `GraphFunction` | Published reusable workflow library function and callable work contract. It has an explicit typed outer interface and cumulative environment contract, materializes a graph, and may realize one or more internal graph vectors. | It is not the whole product program, not a graph overlay/program composition, not a workspace, not a node, not the materialized graph itself, not a runtime graph-call attempt, and not the downstream asset produced by an attempt. |
 | `Job` | Durable semantic work contract over one or more published graph-function contracts. | It does not target bare graph vectors. |
 | `Module` | Publication boundary for GTL declarations, including graphs, graph functions, refinement boundaries, candidate families, jobs, roles, operators, evaluators, rules, imports, metadata, and module-level policy hooks. | It is not runtime event truth and does not replace ABG projection. |
 
@@ -510,7 +521,11 @@ It owns the declaration-side truth for:
 - vectors and outer contract boundaries
 - operators, evaluators, and rules
 - jobs and roles as semantic work declarations
-- `GraphFunction` as the primary reusable workflow program
+- `GraphFunction` as the primary reusable workflow library function and
+  callable work contract
+- graph overlays or GTL program compositions as the program surface that binds
+  graph functions, vectors, node types, roles, security, starts, policies,
+  proof obligations, and plugin/result contracts
 - edge traversal contracts as the admissible external space for probabilistic
   compute
 - lawful composition, substitution, recursion, and higher-order graph operators
@@ -756,7 +771,9 @@ scaffolding.
 The current TypeScript line is ready for SDLC.TS PoC entry under that boundary
 after the T-072/T-074 engine-iteration correction:
 
-- graph functions are the program surface
+- graph overlays or GTL program compositions are the program surface
+- graph functions are reusable workflow library functions and callable work
+  contracts inside that surface
 - ABG is the engine-owned traversal, event, projection, and proof substrate
 - `start(...)` delegates to an M03-owned `start -> iterate` runner rather than
   to a downstream or harness-owned loop

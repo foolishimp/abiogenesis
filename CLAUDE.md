@@ -103,7 +103,7 @@ Recursive selection opens invocation-local frames; it does not rewrite global mo
 4. `Context` is an externally located, snapshot-bound constraint dimension.
 5. `Operator` is the effectful action surface.
 6. `Evaluator` is the convergence and attestation surface.
-7. `GraphFunction` is the reusable workflow program abstraction.
+7. `GraphFunction` is the reusable workflow library function or callable work contract.
 8. `RefinementBoundary` is the explicit lawful refinement or synthesis boundary.
 9. `CandidateFamily` is the explicit lawful structural-alternative family.
 10. `Module` is the publication boundary.
@@ -123,7 +123,7 @@ ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `Se
 | `Operator` | `gtl.operator_model` | Named capability with regime and binding |
 | `Evaluator` | `gtl.operator_model` | Convergence and attestation declaration |
 | `Rule` | `gtl.operator_model` | Declarative constraint with kind and config |
-| `GraphFunction` | `gtl.function_model` | Reusable workflow template or program |
+| `GraphFunction` | `gtl.function_model` | Reusable workflow library function or callable work contract |
 | `RefinementBoundary` | `gtl.function_model` | Published lawful refinement boundary |
 | `CandidateFamily` | `gtl.function_model` | Published lawful alternatives over one outer contract |
 | `ContractRef` | `gtl.work_model` | Reference from a semantic job to a published graph-function contract |

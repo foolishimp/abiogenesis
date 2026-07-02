@@ -450,7 +450,7 @@ The governing split is:
 | `Graph` | GTL | Named topology of nodes and graph vectors; structural materialization surface, not the public callable workflow carrier by itself. |
 | `Node` | GTL | Typed local locus of graph meaning, invariant state, markov conditions, and optional asset-surface declaration; not an executable workflow carrier, public work entrypoint, or graph function. |
 | `GraphVector` | GTL | Internal invariant traversal boundary between source node set and target node; carries transition-governance declarations; not a public callable carrier or semantic job target. |
-| `GraphFunction` | GTL | Public reusable workflow program with typed outer interface and cumulative environment; materializes a graph and may realize one or more internal vectors. |
+| `GraphFunction` | GTL | Public reusable workflow library function or callable work contract with typed outer interface and cumulative environment; materializes a graph and may realize one or more internal vectors. |
 | `Job` | GTL | Durable semantic work contract over published graph functions; does not target bare graph vectors. |
 | `Module` | GTL | Publication boundary for graphs, graph functions, refinement boundaries, candidate families, jobs, roles, operators, evaluators, rules, imports, metadata, and module policy hooks; not runtime event truth. |
 | `ContractRef` | GTL | Job-to-contract indirection; current semantic work targets published graph-function contracts, not bare vectors. |

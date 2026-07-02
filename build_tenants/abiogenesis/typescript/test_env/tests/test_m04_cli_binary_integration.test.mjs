@@ -299,6 +299,7 @@ test("M04 CLI binary integration: installed package publishes TS binary aliases 
     await readFile(path.join(packageRoot, "package.json"), "utf8")
   );
   assert.deepStrictEqual(packageJson.bin, {
+    "abg.install": "./build/semantic/code/src/bin/abg.install.js",
     "abiogenesis-ts": "./build/semantic/code/src/bin/abiogenesis.js",
     "genesis-ts": "./build/semantic/code/src/bin/abiogenesis.js"
   });

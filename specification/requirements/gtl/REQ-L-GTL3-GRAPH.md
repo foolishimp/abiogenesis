@@ -31,7 +31,7 @@ carrier by itself. Public work entry and semantic jobs bind through published
 
 **REQ-L-GTL3-GRAPH-006**: `Graph` shall carry local constraints and declared or derived execution-regime visibility through `rules` and `effects`.
 
-**REQ-L-GTL3-GRAPH-007**: A `Graph` may be materialized by a published `GraphFunction`, but the `GraphFunction` shall remain the reusable outer workflow program and public callable carrier.
+**REQ-L-GTL3-GRAPH-007**: A `Graph` may be materialized by a published `GraphFunction`, but the `GraphFunction` shall remain the reusable workflow-library function and public callable carrier.
 
 **REQ-L-GTL3-GRAPH-008**: Public execution shall follow the current GTL/ABG chain: `Job` -> `GraphFunction` -> ABG `GraphCall` -> materialized `Graph` -> internal `GraphVector` traversal. `Graph` shall not be targeted as a bare public execution entrypoint.
 

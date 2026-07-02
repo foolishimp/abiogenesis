@@ -2323,7 +2323,7 @@ test("T-159 GTL program typechecker accepts overlay entry targets by graph-funct
   );
 });
 
-test("T-159 GTL program typechecker accepts direct graph-function start without overlay", () => {
+test("T-185 GTL program typechecker rejects direct graph-function start without overlay", () => {
   const base = multiVectorCompliantInput();
   const publicStart = base.publicStartTargets[0];
   assert.notEqual(publicStart, undefined);
@@ -2345,8 +2345,9 @@ test("T-159 GTL program typechecker accepts direct graph-function start without 
     ]
   });
 
-  assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+  assert.equal(report.passed, false);
   assert.equal(report.coverage.overlayCount, 0);
+  assertRule(report, "abg://gtl-program/public-start/overlay-required");
   assert.deepEqual(
     report.traversalUnitProjection.entryUnits[0]?.entryUnitRefs,
     [...report.traversalUnitProjection.units.map((unit) => unit.unitRef)].sort()
@@ -2737,6 +2738,127 @@ test("T-159 GTL program typechecker rejects product-local command routers by tok
       "abg://gtl-program/runtime-binding/no-product-local-command-router"
     );
   }
+});
+
+test("T-186 GTL program typechecker rejects context bootstrap as traversal runtime", () => {
+  const base = compliantInput();
+  const runtimeBinding = base.runtimeBindings[0];
+  assert.notEqual(runtimeBinding, undefined);
+
+  const report = typecheckGtlProgram(
+    compliantInput({
+      runtimeBindings: [
+        {
+          ...runtimeBinding,
+          commandRef: "abg.install --target ."
+        }
+      ]
+    })
+  );
+
+  assert.equal(report.passed, false);
+  assertRule(report, "abg://gtl-program/runtime-binding/canonical-abg-start");
+});
+
+function installedContextSurface(overrides = {}) {
+  return {
+    contextRef: "context://t186/installed-abg-gtl",
+    abiPackageVersion: ABG_VERSION,
+    selectedProductVersion: ABG_VERSION,
+    toolchainBindingRef: ".abiogenesis/toolchain-binding.json",
+    contextText: [
+      "Version: 4.0.0-rc.3",
+      "A GraphFunction is a reusable workflow library function or callable work contract.",
+      "A graph overlay or GTL program composition is the program surface.",
+      "A workspace is the mutable program instance surface.",
+      "ABG traversal owns startup, registry projection, selection, graph-call opening.",
+      "graph-function library -> graph overlay/program -> workspace binding -> ABG traversal -> replay interpretation"
+    ].join("\n"),
+    evidenceRefs: ["test://t186/installed-context"],
+    ...overrides
+  };
+}
+
+test("T-186 GTL program typechecker accepts current installed context compression", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      installedContextSurfaces: [installedContextSurface()]
+    })
+  );
+
+  assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+  assertNoRule(report, "abg://gtl-program/installed-context/stale-abstraction");
+});
+
+test("T-186 GTL program typechecker rejects stale or mismatched installed context compression", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      installedContextSurfaces: [
+        installedContextSurface({
+          abiPackageVersion: "4.1.0-rc.9",
+          selectedProductVersion: "4.1.0-rc.9",
+          contextText: [
+            "GraphFunction is the reusable workflow program abstraction.",
+            "graph functions are the program surface"
+          ].join("\n")
+        })
+      ]
+    })
+  );
+
+  assert.equal(report.passed, false);
+  assertRule(report, "abg://gtl-program/installed-context/abi-version");
+  assertRule(report, "abg://gtl-program/installed-context/selected-product-version");
+  assertRule(report, "abg://gtl-program/installed-context/stale-abstraction");
+  assertRule(report, "abg://gtl-program/installed-context/required-abstraction");
+});
+
+test("T-187 GTL program typechecker rejects stale embedded installed context version", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      installedContextSurfaces: [
+        installedContextSurface({
+          contextText: [
+            "Version: 4.1.0-rc.9",
+            "A GraphFunction is a reusable workflow library function or callable work contract.",
+            "A graph overlay or GTL program composition is the program surface.",
+            "A workspace is the mutable program instance surface.",
+            "ABG traversal owns startup, registry projection, selection, graph-call opening.",
+            "graph-function library -> graph overlay/program -> workspace binding -> ABG traversal -> replay interpretation"
+          ].join("\n")
+        })
+      ]
+    })
+  );
+
+  assert.equal(report.passed, false);
+  assertRule(report, "abg://gtl-program/installed-context/version-line");
+});
+
+test("T-187 GTL program typechecker includes installed context in inventory digest", () => {
+  const baseContext = installedContextSurface();
+  const first = typecheckGtlProgram(
+    compliantInput({
+      installedContextSurfaces: [baseContext]
+    })
+  );
+  const second = typecheckGtlProgram(
+    compliantInput({
+      installedContextSurfaces: [
+        installedContextSurface({
+          contextText: `${baseContext.contextText}\nEvidence digest: sha256:t187-context-drift`
+        })
+      ]
+    })
+  );
+
+  assert.equal(first.passed, true, formatGtlProgramConformanceIssues(first.issues));
+  assert.equal(second.passed, true, formatGtlProgramConformanceIssues(second.issues));
+  assert.notEqual(
+    first.inventoryDigests.installedContextSurfaces,
+    second.inventoryDigests.installedContextSurfaces
+  );
+  assert.notEqual(first.inventoryDigest, second.inventoryDigest);
 });
 
 test("T-159 GTL program typechecker reports missing target carrier as incomplete traversal unit", () => {

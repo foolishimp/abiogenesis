@@ -32,6 +32,7 @@ import {
 import {
   admitOperatorAssetQueryContract,
   admitToolchainWorkspaceBinding,
+  installAbiogenesisContextBootstrap,
   installAbiogenesisTypescript,
   publicGaps,
   publicCallableStartAsync,
@@ -73,6 +74,7 @@ interface ParsedFlags {
 }
 
 type ParsedCommand =
+  | ParsedContextBootstrapCommand
   | ParsedInstallCommand
   | ParsedStartCommand
   | ParsedGapsCommand
@@ -86,6 +88,21 @@ interface ParsedInstallCommand {
   readonly target: string;
   readonly packageSource: string | null;
   readonly installedPackageName: string | null;
+  readonly toolchainRoot: string | null;
+  readonly observedWorkspaceRoot: string | null;
+  readonly observerStateRoot: string | null;
+  readonly executorStateRoot: string | null;
+  readonly eventRoot: string | null;
+  readonly eventLogPath: string | null;
+  readonly runtimeRoot: string | null;
+  readonly projectionRoot: string | null;
+  readonly archiveRoot: string | null;
+}
+
+interface ParsedContextBootstrapCommand {
+  readonly kind: "context-bootstrap";
+  readonly target: string;
+  readonly packageSource: string | null;
   readonly toolchainRoot: string | null;
   readonly observedWorkspaceRoot: string | null;
   readonly observerStateRoot: string | null;
@@ -515,6 +532,40 @@ function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
   });
 }
 
+function parseContextBootstrapCommand(
+  args: readonly string[]
+): ParsedContextBootstrapCommand {
+  const parsed = parseFlags(args);
+  requireNoPositionals(parsed, "context-bootstrap");
+  requireAllowedFlags(parsed, "context-bootstrap", [
+    "target",
+    "package-source",
+    "toolchain-root",
+    "observed-workspace-root",
+    "observer-state-root",
+    "executor-state-root",
+    "event-root",
+    "event-log-path",
+    "runtime-root",
+    "projection-root",
+    "archive-root"
+  ]);
+  return Object.freeze({
+    kind: "context-bootstrap",
+    target: requiredFlag(parsed, "target"),
+    packageSource: optionalNullableFlag(parsed, "package-source"),
+    toolchainRoot: optionalNullableFlag(parsed, "toolchain-root"),
+    observedWorkspaceRoot: optionalNullableFlag(parsed, "observed-workspace-root"),
+    observerStateRoot: optionalNullableFlag(parsed, "observer-state-root"),
+    executorStateRoot: optionalNullableFlag(parsed, "executor-state-root"),
+    eventRoot: optionalNullableFlag(parsed, "event-root"),
+    eventLogPath: optionalNullableFlag(parsed, "event-log-path"),
+    runtimeRoot: optionalNullableFlag(parsed, "runtime-root"),
+    projectionRoot: optionalNullableFlag(parsed, "projection-root"),
+    archiveRoot: optionalNullableFlag(parsed, "archive-root")
+  });
+}
+
 function parseGapsCommand(args: readonly string[]): ParsedGapsCommand {
   const parsed = parseFlags(args);
   requireNoPositionals(parsed, "gaps");
@@ -622,6 +673,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
   }
   const args = argv.slice(1);
   switch (command) {
+    case "context-bootstrap":
+      return parseContextBootstrapCommand(args);
     case "install":
       return parseInstallCommand(args);
     case "start":
@@ -1827,6 +1880,50 @@ async function runInstallCommand(
   return outcome.kind === "installed" ? 0 : 1;
 }
 
+async function runContextBootstrapCommand(
+  command: ParsedContextBootstrapCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const targetRoot = resolveWorkspace(io.cwd(), command.target);
+  const packageSourceRoot = await resolvePackageSource(
+    io.cwd(),
+    command.packageSource
+  );
+  const mutableStateRoots: Record<string, string> = {};
+  for (const [key, value] of Object.entries({
+    observedWorkspaceRoot: command.observedWorkspaceRoot,
+    observerStateRoot: command.observerStateRoot,
+    executorStateRoot: command.executorStateRoot,
+    eventRoot: command.eventRoot,
+    eventLogPath: command.eventLogPath,
+    runtimeRoot: command.runtimeRoot,
+    projectionRoot: command.projectionRoot,
+    archiveRoot: command.archiveRoot
+  })) {
+    if (value !== null) {
+      mutableStateRoots[key] = resolveWorkspace(io.cwd(), value);
+    }
+  }
+  const outcome = await installAbiogenesisContextBootstrap({
+    targetRoot,
+    packageSourceRoot,
+    toolchainRoot: resolveOptionalWorkspace(io.cwd(), command.toolchainRoot),
+    ...(Object.keys(mutableStateRoots).length === 0
+      ? {}
+      : { mutableStateRoots })
+  });
+  io.stdout(
+    `${JSON.stringify({
+      command: "context-bootstrap",
+      status: outcome.kind,
+      target_root: targetRoot,
+      package_source_root: packageSourceRoot,
+      outcome
+    })}\n`
+  );
+  return 0;
+}
+
 async function runReleaseSnapshotCommand(
   command: ParsedReleaseSnapshotCommand,
   io: AbiogenesisCliIo
@@ -1872,6 +1969,8 @@ async function runParsedCommand(
   io: AbiogenesisCliIo
 ): Promise<number> {
   switch (command.kind) {
+    case "context-bootstrap":
+      return runContextBootstrapCommand(command, io);
     case "install":
       return runInstallCommand(command, io);
     case "start":

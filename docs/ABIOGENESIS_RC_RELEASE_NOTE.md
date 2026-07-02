@@ -1,19 +1,19 @@
-# abiogenesis 4.2.0-rc.2 Release Candidate Note
+# abiogenesis 4.2.0-rc.3 Release Candidate Note
 
-This checkpoint is the second TypeScript ABG `4.2.0` release candidate. It
-follows `4.2.0-rc.1` and publishes the consolidated GTL/ABG full-stack Hello
-World proof surface added after the reusable node-type and type-composition
-substrate.
+This checkpoint is the third TypeScript ABG `4.2.0` release candidate. It
+follows `4.2.0-rc.2` and publishes the installed-context and GTL program-shape
+guardrails added after the consolidated GTL/ABG full-stack Hello World proof
+surface.
 
 It is an RC candidate, not the final tapped `4.2.0` release.
 
 ## Release Claim
 
-RC2 preserves the earned `4.2.0-rc.1` reusable node-type, composition,
-registry, startup, and invocation-guard substrate and adds the canonical
-installed live Hello World proof lane. The release-facing proof now exercises
-the downstream-shaped path through one installed sandbox run instead of
-scattered ticket-specific live smoke tests.
+RC3 preserves the earned `4.2.0-rc.2` reusable node-type, composition,
+registry, startup, invocation-guard, instruction-assembly, and canonical live
+Hello World proof substrate. It adds compiler and installer-context guardrails
+that prevent downstream projects from reintroducing graph-function-as-program
+or context-bootstrap-as-runtime drift.
 
 The release includes:
 
@@ -39,7 +39,13 @@ The release includes:
   and T-183 live aliases;
 - installer refresh upgrade handling that preserves an existing target package
   identity when `--installed-package-name` is omitted, while still rejecting an
-  explicitly conflicting installed package name.
+  explicitly conflicting installed package name;
+- `abg.install` context bootstrap that writes version-owned local context and
+  target toolchain binding without installing a target-local ABI/GTL payload;
+- semantic compiler conformance guards that reject direct graph-function public
+  starts with no overlay/program composition, reject `abg.install` as traversal
+  runtime, parse the embedded installed-context `Version:` line, and bind
+  installed context rows into the inventory digest.
 
 The steel-thread proof uses an `odd_glc`-style GLC Hello World bootstrap graph
 only as a downstream proof binding. ABI/GTL owns the generic node-type,
@@ -79,9 +85,9 @@ the ABG-projected `instructionPromptManifest.renderedPrompt`.
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.2`
-- Candidate package version: `4.2.0-rc.2`
-- Candidate tag: `v4.2.0-rc.2`
+- RC identity: `4.2.0-rc.3`
+- Candidate package version: `4.2.0-rc.3`
+- Candidate tag: `v4.2.0-rc.3`
 
 ## Verification
 
@@ -96,6 +102,10 @@ Focused node-type gate:
 
 Instruction assembly gate:
   npm run test:t183
+
+Installed context and program-shape gate:
+  npm run test:t159
+  npm run test:t076
 
 Canonical live F_P proof gate:
   npm run test:hello-world:live
@@ -118,11 +128,12 @@ RC's closure lane.
 
 ## RC Decision
 
-RC2 is the ABI/GTL publication candidate for reusable node types, explicit type
-composition, canonical startup pickup, instruction assembly, and the
-release-facing installed live Hello World proof. Downstream products may consume
-the release by declaring their own node types, graph functions, overlays, and
-product library entries through GTL and ABG startup. Downstream code must not
-create a product-local type registry, product-local graph-call shell,
-product-local prompt shell, product-local selection truth, or parallel runtime
-registry.
+RC3 is the ABI/GTL publication candidate for reusable node types, explicit type
+composition, canonical startup pickup, instruction assembly, installed-context
+bootstrap, semantic compiler guardrails, and the release-facing installed live
+Hello World proof. Downstream products may consume the release by declaring
+their own node types, graph functions, overlays, and product library entries
+through GTL and ABG startup. Downstream code must not create a product-local
+type registry, product-local graph-call shell, product-local prompt shell,
+product-local selection truth, product-local context bootstrap runtime, or
+parallel runtime registry.
