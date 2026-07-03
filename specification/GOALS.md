@@ -337,31 +337,33 @@ selection, invocation, startup, and satisfaction mechanics. odd_glc and other
 downstream products own domain names, overlays, prompt/policy content, plugin
 behavior, and lifecycle interpretation.
 
-The earned reusable node-type, instruction assembly, installed context, semantic
-compiler guardrail, and canonical live proof release is ABI TypeScript
-`4.2.0-rc.3`:
+The earned reusable node-type, instruction assembly, installed context,
+semantic compiler guardrail, canonical live proof, and requirement-proof
+carry-through release is ABI TypeScript `4.2.0-rc.4`:
 
-- source commit `c4e635013cf3023b4c4670ecba44d4774b45770f`;
-- release snapshot commit `2ff420ebf0a26e115a46210d65e20095083228a8`;
-- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.3/`;
-- `latest -> 4.2.0-rc.3`;
+- source commit `472dbebab90a4552e0cc30032b9e64d43136054b`;
+- release snapshot commit `1a2eb5779c739d3c807cfb0733d89a00e1efa499`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.4/`;
+- `latest -> 4.2.0-rc.4`;
 - tarball sha256
-  `65570b9c50a77406b818cf00395ae9d0a006793792a6bac7b6863a2d9f32a640`;
+  `a5cb619c1eb3d3b51a88341b981011ea1bd1c49cc0311f328bda14a3b66b5eef`;
 - release snapshot manifest sha256
-  `d8e056557950541308acfc005c5242abb32e3b71b57ce7c2b174487b573cb052`;
+  `82bd0448ad02ddb1dffee569eb0984cdc0c969abf36894a3236acf5b370f09de`;
 - release note sha256
-  `780a9b10052f3b9901386812a1a66a14463ba41f2dfbd7d6379abe39794e0bb7`;
-- installed sandbox/bootstrap live proof artifact:
-  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260702T191230832Z_pid95807/canonical-hello-world-full-stack-live-proof.json`.
+  `8cd6da8b0af3b1daaa4ab291542256b52f2231a343cf2de219abfb3f82638219`;
+- installed sandbox/bootstrap live proof artifact inherited from RC3:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/canonical_hello_world_full_stack_live/20260702T191230832Z_pid95807/canonical-hello-world-full-stack-live-proof.json`;
+- requirement-proof carry-through live proof artifact:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t188_requirement_proof_carry_through_live/20260703T201352116Z_pid47828/t188-requirement-proof-live-summary.json`.
 
-The live proof artifact was generated against package metadata source commit
-`c4e635013cf3023b4c4670ecba44d4774b45770f` with `sourceDirty: false`; the
-release snapshot tarball sha256 matches that proof artifact's snapshot tarball
-sha256. The RC3 proof ran through the canonical installed sandbox path,
-selected graph functions through ABG registry truth, rendered worker prompts
-from ABG instruction prompt manifests, admitted worker responses, bound causal
-carry, executed the generated artifact, and produced exact stdout
-`Hello, world!\n`. RC3 also records that installed context is version-owned,
-`abg.install` is context bootstrap rather than traversal runtime, and the GTL
-program conformance compiler rejects stale installed context and direct
-graph-function starts without overlay/program composition.
+The RC4 release snapshot was cut from clean source commit
+`472dbebab90a4552e0cc30032b9e64d43136054b` with `sourceDirty: false`. RC4
+preserves the RC3 canonical installed sandbox path, selected graph functions
+through ABG registry truth, ABG-rendered instruction prompt manifests,
+response admission, causal carry, generated artifact execution, and exact
+stdout `Hello, world!\n`. RC4 adds T-188 requirement-proof carry-through: ABG
+derives dependency sufficiency, proof-depth completeness, proof-strength
+admission, candidate classification, requirement/proof pairing, proof
+coverage, residual pressure, and fold gating from admitted substrate truth
+instead of caller booleans, plugin labels, passing tests, or product-local
+coverage ledgers.
