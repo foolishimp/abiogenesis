@@ -11,6 +11,9 @@ import {
   type AssuranceClosureDecision,
   type AssuranceClosureDecisionKind
 } from "./assurance.js";
+import {
+  requirementProofCoverageStatusFromTruthRef
+} from "./requirement_proof_carry_through.js";
 
 export const REQUIREMENT_STAGE_VALUES = Object.freeze([
   "homeostatic_gap",
@@ -2416,6 +2419,13 @@ function requirementFoldStateFromAssuranceDecision(
 function foldStateFromEvidence(
   sourceAbgTruthRefs: readonly string[]
 ): RequirementFoldState {
+  for (const sourceRef of sourceAbgTruthRefs) {
+    const coverage = requirementProofCoverageStatusFromTruthRef(sourceRef);
+    if (coverage === null || coverage.status === "eligible") {
+      continue;
+    }
+    return coverage.status === "blocked" ? "blocked" : "no_close_preserved";
+  }
   for (const sourceRef of sourceAbgTruthRefs) {
     const decision = assuranceClosureDecisionFromTruthRef(sourceRef);
     if (decision !== null) {

@@ -8,6 +8,8 @@ import {
   admitCompiledPromptPlanAtStartup,
   bindInstructionEnvelope,
   compileInstructionAssemblyPlan,
+  constructDerivedDependencyInstructionTruth,
+  constructDerivedProofDepthInstructionTruth,
   constructInstructionAssemblyRule,
   constructInstructionSectionDecision,
   constructRuntimeBindingSlot,
@@ -116,6 +118,48 @@ function derivedTruth(overrides = {}) {
   };
 }
 
+function dependencyTruth(overrides = {}) {
+  return constructDerivedDependencyInstructionTruth({
+    truthRef: "dependency-instruction-truth://t183/framework-smoke/source-to-test",
+    workKind: "target_work",
+    dependencyGraphRef: null,
+    dependencyGraphDigest: null,
+    targetRefs: ["node://t183/test-source"],
+    prerequisiteNodeRefs: [],
+    prerequisiteEdgeRefs: [],
+    dependencyClosed: true,
+    typedPrerequisiteGapRefs: [],
+    noDependencyPolicyRef: "policy://t183/no-dependency-graph-required",
+    sourceProjectionRefs: ["projection://t183/no-dependency-policy"],
+    ...overrides
+  });
+}
+
+function proofDepthTruth(overrides = {}) {
+  return constructDerivedProofDepthInstructionTruth({
+    truthRef: "proof-depth-instruction-truth://t183/framework-smoke/source-to-test",
+    depthPolicyRef: "proof-depth-policy://t183/framework-smoke",
+    depthPolicyDigest: "sha256:t183-proof-depth-policy",
+    targetRefs: ["node://t183/test-source"],
+    requiredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
+    declaredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
+    declaredDepthObligationRefs: [
+      "proof-obligation://t183/positive",
+      "proof-obligation://t183/negative"
+    ],
+    notApplicableDepthClassRefs: [],
+    typedDepthGapRefs: [],
+    proofStrengthAdmissionRefs: ["proof-strength-admission://t183/framework-smoke"],
+    fdStrengthCriterionRefs: ["fd-strength-criterion://t183/coverage-strength"],
+    adversarialVerificationRefs: [],
+    adversarialCounterexampleRefs: [],
+    sourceProjectionRefs: ["proof-coverage-projection://t183/framework-smoke"],
+    depthComplete: true,
+    proofStrengthAdmitted: true,
+    ...overrides
+  });
+}
+
 function compileInput(overrides = {}) {
   return {
     planRef: "compiled-prompt-plan://t183/framework-smoke/source-to-test",
@@ -132,7 +176,10 @@ function compileInput(overrides = {}) {
     sectionDecisions: [section()],
     bindingSlots: slots(),
     proportionalityClass: "P1",
-    expectedAnswerMarkers: ["release_ready", "closed"],
+    instructionWorkKind: "target_work",
+    dependencyInstructionTruth: dependencyTruth(),
+    proofDepthInstructionTruth: proofDepthTruth(),
+    expectedAnswerMarkers: ["release_ready"],
     fpValidationEvidenceRefs: ["semantic-review-gate://t183/compiler-review"],
     compilerEvidenceRefs: ["evidence://t183/compiler"],
     ...overrides
@@ -287,6 +334,16 @@ function startPlanForFirstVector(executive) {
       })
     ],
     bindingSlots: publicStartSlots(),
+    dependencyInstructionTruth: dependencyTruth({
+      truthRef: "dependency-instruction-truth://t183/start/vector-0",
+      targetRefs: [vector.target.id],
+      sourceProjectionRefs: ["projection://t183/start/no-dependency-policy"]
+    }),
+    proofDepthInstructionTruth: proofDepthTruth({
+      truthRef: "proof-depth-instruction-truth://t183/start/vector-0",
+      targetRefs: [vector.target.id],
+      sourceProjectionRefs: ["proof-coverage-projection://t183/start/vector-0"]
+    }),
     expectedAnswerMarkers: ["gap_stop_without_dispatch"]
   });
 }
@@ -445,7 +502,8 @@ test("T-183 rejects answer-shaped prompt content differentially", () => {
         section({
           text: "The disposition is closed; write the proof around that answer."
         })
-      ]
+      ],
+      expectedAnswerMarkers: ["closed"]
     })
   );
   assert.equal(result.accepted, false);

@@ -1130,6 +1130,8 @@ export {
   admitCompiledPromptPlanAtStartup,
   bindInstructionEnvelope,
   compileInstructionAssemblyPlan,
+  constructDerivedDependencyInstructionTruth,
+  constructDerivedProofDepthInstructionTruth,
   constructInstructionAssemblyRule,
   constructInstructionSectionDecision,
   constructRuntimeBindingSlot,
@@ -1142,7 +1144,9 @@ export type {
   CompiledPromptPlan,
   CompiledPromptPlanStartupAdmission,
   CompileInstructionAssemblyPlanInput,
+  DerivedDependencyInstructionTruth,
   DerivedInstructionCarrierTruth,
+  DerivedProofDepthInstructionTruth,
   InstructionAssemblyCompileAccepted,
   InstructionAssemblyCompileRejected,
   InstructionAssemblyCompileResult,
@@ -1162,6 +1166,7 @@ export type {
   InstructionProportionalityClass,
   InstructionSectionDecision,
   InstructionSectionDisposition,
+  InstructionWorkKind,
   PromptManifest,
   PromptManifestRenderAccepted,
   PromptManifestRenderRejected,
@@ -1172,6 +1177,33 @@ export type {
   RuntimeBindingSlotClass,
   RuntimeBindingSourceTruthKind
 } from "./instruction_assembly.js";
+export {
+  admitRequirementProofCarryThroughOutput,
+  constructRequirementProofCandidateClassificationTable,
+  constructRequirementProofCarryThroughContract,
+  constructRequirementProofCarryThroughOutputEnvelope,
+  projectRequirementProofCoverage,
+  requirementAbgTruthRefFromRequirementProofCoverage,
+  requirementProofCandidateClassificationTableDigest,
+  requirementProofCarryThroughCategoryKey,
+  requirementProofCarryThroughReplayDigest,
+  requirementProofCoverageStatusFromTruthRef,
+  REQUIREMENT_PROOF_COMPUTE_STAGE_ROLE_VALUES
+} from "./requirement_proof_carry_through.js";
+export type {
+  RequirementProofCarryThroughAdmission,
+  RequirementProofCarryThroughAdmissionAccepted,
+  RequirementProofCarryThroughAdmissionRejected,
+  RequirementProofCarryThroughContract,
+  RequirementProofCarryThroughIssue,
+  RequirementProofCarryThroughIssueKind,
+  RequirementProofCarryThroughOutputEnvelope,
+  RequirementProofCandidateClassificationRule,
+  RequirementProofCandidateClassificationTable,
+  RequirementProofClosureStatus,
+  RequirementProofCoverageProjection,
+  RequirementProofComputeStageRole
+} from "./requirement_proof_carry_through.js";
 export {
   admitEvaluationRuleDeclaration,
   admitEvaluationRuleOutcome,

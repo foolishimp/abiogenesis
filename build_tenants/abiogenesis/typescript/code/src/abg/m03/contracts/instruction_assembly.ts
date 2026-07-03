@@ -1,4 +1,5 @@
 // Implements: T-183
+// Implements: T-188
 // Implements: REQ-R-ABG3-INSTRUCTION-ASSEMBLY
 
 import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
@@ -13,7 +14,17 @@ export const INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS = Object.freeze([
   "compression",
   "proportionality",
   "non_tautology",
-  "runtime_binding"
+  "runtime_binding",
+  "dependency_graph_projection",
+  "prerequisite_closure",
+  "dependency_sufficiency",
+  "obligation_lineage",
+  "proof_coverage",
+  "proof_policy_depth_completeness",
+  "depth_obligation_policy",
+  "proof_strength_admission",
+  "adversarial_verification",
+  "coverage_strength"
 ] as const);
 
 export type InstructionAssemblyKnownAlgebra =
@@ -48,6 +59,11 @@ export type InstructionCompressionMode =
   | "omitted";
 
 export type InstructionProportionalityClass = "P0" | "P1" | "P2" | "P3";
+
+export type InstructionWorkKind =
+  | "not_applicable"
+  | "target_work"
+  | "dependency_disambiguation";
 
 export type RuntimeBindingSlotClass =
   | "graph_call"
@@ -91,7 +107,17 @@ export type InstructionAssemblyIssueKind =
   | "runtime_binding_gap"
   | "startup_admission_gap"
   | "manifest_replay_mismatch"
-  | "p0_dispatch_forbidden";
+  | "p0_dispatch_forbidden"
+  | "dependency_sufficiency_gap"
+  | "typed_prerequisite_gap"
+  | "unresolved_requirement_node"
+  | "missing_dependency_edge"
+  | "depth_policy_incomplete"
+  | "missing_depth_obligation_class"
+  | "depth_class_not_applicable_unjustified"
+  | "proof_strength_not_admitted"
+  | "proof_strength_not_adversarially_verified"
+  | "adversarial_counterexample_found";
 
 export interface InstructionAssemblyIssue {
   readonly kind: "instruction_assembly_issue";
@@ -162,6 +188,43 @@ export interface DerivedInstructionCarrierTruth {
   readonly carrierClassRefs: readonly string[];
 }
 
+export interface DerivedDependencyInstructionTruth {
+  readonly kind: "derived_dependency_instruction_truth";
+  readonly truthRef: string;
+  readonly truthDigest: string;
+  readonly workKind: InstructionWorkKind;
+  readonly dependencyGraphRef: string | null;
+  readonly dependencyGraphDigest: string | null;
+  readonly targetRefs: readonly string[];
+  readonly prerequisiteNodeRefs: readonly string[];
+  readonly prerequisiteEdgeRefs: readonly string[];
+  readonly dependencyClosed: boolean;
+  readonly typedPrerequisiteGapRefs: readonly string[];
+  readonly noDependencyPolicyRef: string | null;
+  readonly sourceProjectionRefs: readonly string[];
+}
+
+export interface DerivedProofDepthInstructionTruth {
+  readonly kind: "derived_proof_depth_instruction_truth";
+  readonly truthRef: string;
+  readonly truthDigest: string;
+  readonly depthPolicyRef: string | null;
+  readonly depthPolicyDigest: string | null;
+  readonly targetRefs: readonly string[];
+  readonly requiredDepthClassRefs: readonly string[];
+  readonly declaredDepthClassRefs: readonly string[];
+  readonly declaredDepthObligationRefs: readonly string[];
+  readonly notApplicableDepthClassRefs: readonly string[];
+  readonly typedDepthGapRefs: readonly string[];
+  readonly proofStrengthAdmissionRefs: readonly string[];
+  readonly fdStrengthCriterionRefs: readonly string[];
+  readonly adversarialVerificationRefs: readonly string[];
+  readonly adversarialCounterexampleRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly depthComplete: boolean;
+  readonly proofStrengthAdmitted: boolean;
+}
+
 export interface InstructionSectionDecision {
   readonly kind: "instruction_section_decision";
   readonly sectionRef: string;
@@ -193,6 +256,15 @@ export interface CompileInstructionAssemblyPlanInput {
   readonly bindingSlots: readonly RuntimeBindingSlot[];
   readonly proportionalityClass: InstructionProportionalityClass;
   readonly expectedAnswerMarkers: readonly string[];
+  readonly instructionWorkKind?: InstructionWorkKind | undefined;
+  readonly dependencyInstructionTruth?:
+    | DerivedDependencyInstructionTruth
+    | null
+    | undefined;
+  readonly proofDepthInstructionTruth?:
+    | DerivedProofDepthInstructionTruth
+    | null
+    | undefined;
   readonly fpValidationEvidenceRefs?: readonly string[] | undefined;
   readonly compilerEvidenceRefs?: readonly string[] | undefined;
 }
@@ -214,6 +286,9 @@ export interface CompiledPromptPlan {
   readonly sectionDecisions: readonly InstructionSectionDecision[];
   readonly bindingSlots: readonly RuntimeBindingSlot[];
   readonly proportionalityClass: InstructionProportionalityClass;
+  readonly instructionWorkKind: InstructionWorkKind;
+  readonly dependencyInstructionTruth: DerivedDependencyInstructionTruth | null;
+  readonly proofDepthInstructionTruth: DerivedProofDepthInstructionTruth | null;
   readonly shouldDispatchFp: boolean;
   readonly fpValidationEvidenceRefs: readonly string[];
   readonly compilerEvidenceRefs: readonly string[];
@@ -307,6 +382,14 @@ export interface PromptManifest {
   readonly refOnlyCarrierRefs: readonly string[];
   readonly gapRefs: readonly string[];
   readonly forbiddenCarrierRefs: readonly string[];
+  readonly dependencyInstructionTruthRefs: readonly string[];
+  readonly dependencyGraphRefs: readonly string[];
+  readonly typedPrerequisiteGapRefs: readonly string[];
+  readonly proofDepthInstructionTruthRefs: readonly string[];
+  readonly depthPolicyRefs: readonly string[];
+  readonly typedDepthGapRefs: readonly string[];
+  readonly proofStrengthAdmissionRefs: readonly string[];
+  readonly adversarialCounterexampleRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
   readonly renderedPrompt: string;
 }
@@ -345,6 +428,10 @@ function uniqueSorted(input: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(input)].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
 }
 
+function includesAll(actual: readonly string[], expected: readonly string[]): boolean {
+  return expected.every((item) => actual.includes(item));
+}
+
 function requireNonEmptyString(input: string, label: string): void {
   if (typeof input !== "string" || input.length === 0) {
     throw new TypeError(`${label} must be a non-empty string`);
@@ -356,6 +443,17 @@ function requireStringArray(input: readonly string[], label: string): readonly s
     throw new TypeError(`${label} must be an array of non-empty strings`);
   }
   return Object.freeze([...input]);
+}
+
+function requireNullableNonEmptyString(
+  input: string | null,
+  label: string
+): string | null {
+  if (input === null) {
+    return null;
+  }
+  requireNonEmptyString(input, label);
+  return input;
 }
 
 function issue(input: {
@@ -391,6 +489,78 @@ function hasForbiddenRuleField(input: InstructionAssemblyRule): readonly Instruc
 
 function planDigest(input: Omit<CompiledPromptPlan, "planDigest">): string {
   return stableSha256Digest(input);
+}
+
+function dependencyInstructionTruthDigest(
+  input: Omit<DerivedDependencyInstructionTruth, "kind" | "truthDigest">
+): string {
+  return stableSha256Digest({
+    kind: "derived_dependency_instruction_truth",
+    ...input
+  });
+}
+
+function proofDepthInstructionTruthDigest(
+  input: Omit<DerivedProofDepthInstructionTruth, "kind" | "truthDigest">
+): string {
+  return stableSha256Digest({
+    kind: "derived_proof_depth_instruction_truth",
+    ...input
+  });
+}
+
+function deriveDependencyClosed(input: {
+  readonly workKind: InstructionWorkKind;
+  readonly dependencyGraphRef: string | null;
+  readonly dependencyGraphDigest: string | null;
+  readonly typedPrerequisiteGapRefs: readonly string[];
+  readonly noDependencyPolicyRef: string | null;
+}): boolean {
+  if (input.workKind === "dependency_disambiguation") {
+    return false;
+  }
+  if (input.typedPrerequisiteGapRefs.length > 0) {
+    return false;
+  }
+  if (input.dependencyGraphRef !== null) {
+    return input.dependencyGraphDigest !== null;
+  }
+  return input.noDependencyPolicyRef !== null;
+}
+
+function deriveDepthComplete(input: {
+  readonly depthPolicyRef: string | null;
+  readonly depthPolicyDigest: string | null;
+  readonly requiredDepthClassRefs: readonly string[];
+  readonly declaredDepthClassRefs: readonly string[];
+  readonly notApplicableDepthClassRefs: readonly string[];
+  readonly typedDepthGapRefs: readonly string[];
+}): boolean {
+  if (input.depthPolicyRef === null || input.depthPolicyDigest === null) {
+    return false;
+  }
+  if (input.typedDepthGapRefs.length > 0) {
+    return false;
+  }
+  const covered = uniqueSorted([
+    ...input.declaredDepthClassRefs,
+    ...input.notApplicableDepthClassRefs
+  ]);
+  return includesAll(covered, input.requiredDepthClassRefs);
+}
+
+function deriveProofStrengthAdmitted(input: {
+  readonly proofStrengthAdmissionRefs: readonly string[];
+  readonly fdStrengthCriterionRefs: readonly string[];
+  readonly adversarialVerificationRefs: readonly string[];
+  readonly adversarialCounterexampleRefs: readonly string[];
+}): boolean {
+  return (
+    input.proofStrengthAdmissionRefs.length > 0 &&
+    input.adversarialCounterexampleRefs.length === 0 &&
+    (input.fdStrengthCriterionRefs.length > 0 ||
+      input.adversarialVerificationRefs.length > 0)
+  );
 }
 
 function envelopeDigest(input: Omit<InstructionEnvelope, "envelopeDigest">): string {
@@ -435,8 +605,53 @@ function renderedPromptFor(input: {
             ].join("\n")
           )
           .join("\n");
+  const dependencyTruth = input.plan.dependencyInstructionTruth;
+  const proofDepthTruth = input.plan.proofDepthInstructionTruth;
+  const dependencyText =
+    dependencyTruth === null
+      ? "none"
+      : [
+          `truthRef: ${dependencyTruth.truthRef}`,
+          `truthDigest: ${dependencyTruth.truthDigest}`,
+          `workKind: ${dependencyTruth.workKind}`,
+          `dependencyGraphRef: ${dependencyTruth.dependencyGraphRef ?? "none"}`,
+          `dependencyGraphDigest: ${dependencyTruth.dependencyGraphDigest ?? "none"}`,
+          `targetRefs: ${stableJson(dependencyTruth.targetRefs)}`,
+          `prerequisiteNodeRefs: ${stableJson(dependencyTruth.prerequisiteNodeRefs)}`,
+          `prerequisiteEdgeRefs: ${stableJson(dependencyTruth.prerequisiteEdgeRefs)}`,
+          `dependencyClosed: ${String(dependencyTruth.dependencyClosed)}`,
+          `typedPrerequisiteGapRefs: ${stableJson(dependencyTruth.typedPrerequisiteGapRefs)}`,
+          `noDependencyPolicyRef: ${dependencyTruth.noDependencyPolicyRef ?? "none"}`,
+          `sourceProjectionRefs: ${stableJson(dependencyTruth.sourceProjectionRefs)}`
+        ].join("\n");
+  const proofDepthText =
+    proofDepthTruth === null
+      ? "none"
+      : [
+          `truthRef: ${proofDepthTruth.truthRef}`,
+          `truthDigest: ${proofDepthTruth.truthDigest}`,
+          `depthPolicyRef: ${proofDepthTruth.depthPolicyRef ?? "none"}`,
+          `depthPolicyDigest: ${proofDepthTruth.depthPolicyDigest ?? "none"}`,
+          `targetRefs: ${stableJson(proofDepthTruth.targetRefs)}`,
+          `requiredDepthClassRefs: ${stableJson(proofDepthTruth.requiredDepthClassRefs)}`,
+          `declaredDepthClassRefs: ${stableJson(proofDepthTruth.declaredDepthClassRefs)}`,
+          `declaredDepthObligationRefs: ${stableJson(proofDepthTruth.declaredDepthObligationRefs)}`,
+          `notApplicableDepthClassRefs: ${stableJson(proofDepthTruth.notApplicableDepthClassRefs)}`,
+          `typedDepthGapRefs: ${stableJson(proofDepthTruth.typedDepthGapRefs)}`,
+          `proofStrengthAdmissionRefs: ${stableJson(proofDepthTruth.proofStrengthAdmissionRefs)}`,
+          `fdStrengthCriterionRefs: ${stableJson(proofDepthTruth.fdStrengthCriterionRefs)}`,
+          `adversarialVerificationRefs: ${stableJson(proofDepthTruth.adversarialVerificationRefs)}`,
+          `adversarialCounterexampleRefs: ${stableJson(proofDepthTruth.adversarialCounterexampleRefs)}`,
+          `sourceProjectionRefs: ${stableJson(proofDepthTruth.sourceProjectionRefs)}`,
+          `depthComplete: ${String(proofDepthTruth.depthComplete)}`,
+          `proofStrengthAdmitted: ${String(proofDepthTruth.proofStrengthAdmitted)}`
+        ].join("\n");
   return [
     sectionText,
+    "## abg.dependency_instruction_truth",
+    dependencyText,
+    "## abg.proof_depth_instruction_truth",
+    proofDepthText,
     "## abg.runtime.bound_refs",
     runtimeBindingText
   ].join("\n\n");
@@ -455,6 +670,219 @@ function classifyCarriers(
       .filter((section) => section.disposition === disposition)
       .flatMap((section) => [...section.carrierRefs, ...section.gapRefs])
   );
+}
+
+function dependencyInstructionTruthRefs(
+  input: DerivedDependencyInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : Object.freeze([input.truthRef]);
+}
+
+function dependencyGraphRefs(
+  input: DerivedDependencyInstructionTruth | null
+): readonly string[] {
+  return input?.dependencyGraphRef === undefined || input.dependencyGraphRef === null
+    ? Object.freeze([])
+    : Object.freeze([input.dependencyGraphRef]);
+}
+
+function typedPrerequisiteGapRefs(
+  input: DerivedDependencyInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : uniqueSorted(input.typedPrerequisiteGapRefs);
+}
+
+function proofDepthInstructionTruthRefs(
+  input: DerivedProofDepthInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : Object.freeze([input.truthRef]);
+}
+
+function depthPolicyRefs(
+  input: DerivedProofDepthInstructionTruth | null
+): readonly string[] {
+  return input?.depthPolicyRef === undefined || input.depthPolicyRef === null
+    ? Object.freeze([])
+    : Object.freeze([input.depthPolicyRef]);
+}
+
+function typedDepthGapRefs(
+  input: DerivedProofDepthInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : uniqueSorted(input.typedDepthGapRefs);
+}
+
+function proofStrengthAdmissionRefs(
+  input: DerivedProofDepthInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : uniqueSorted(input.proofStrengthAdmissionRefs);
+}
+
+function adversarialCounterexampleRefs(
+  input: DerivedProofDepthInstructionTruth | null
+): readonly string[] {
+  return input === null ? Object.freeze([]) : uniqueSorted(input.adversarialCounterexampleRefs);
+}
+
+function normalizeInstructionWorkKind(input: InstructionWorkKind | undefined): InstructionWorkKind {
+  switch (input) {
+    case undefined:
+      return "not_applicable";
+    case "not_applicable":
+    case "target_work":
+    case "dependency_disambiguation":
+      return input;
+    default:
+      throw new TypeError(`instructionWorkKind: unsupported value ${JSON.stringify(input)}`);
+  }
+}
+
+export function constructDerivedDependencyInstructionTruth(
+  input: Omit<DerivedDependencyInstructionTruth, "kind" | "truthDigest"> & {
+    readonly truthDigest?: string | undefined;
+  }
+): DerivedDependencyInstructionTruth {
+  requireNonEmptyString(input.truthRef, "truthRef");
+  const workKind = normalizeInstructionWorkKind(input.workKind);
+  const dependencyGraphRef = requireNullableNonEmptyString(
+    input.dependencyGraphRef,
+    "dependencyGraphRef"
+  );
+  const dependencyGraphDigest = requireNullableNonEmptyString(
+    input.dependencyGraphDigest,
+    "dependencyGraphDigest"
+  );
+  const typedPrerequisiteGapRefs = uniqueSorted(
+    requireStringArray(input.typedPrerequisiteGapRefs, "typedPrerequisiteGapRefs")
+  );
+  const noDependencyPolicyRef = requireNullableNonEmptyString(
+    input.noDependencyPolicyRef,
+    "noDependencyPolicyRef"
+  );
+  const withoutDigest = Object.freeze({
+    truthRef: input.truthRef,
+    workKind,
+    dependencyGraphRef,
+    dependencyGraphDigest,
+    targetRefs: uniqueSorted(requireStringArray(input.targetRefs, "targetRefs")),
+    prerequisiteNodeRefs: uniqueSorted(
+      requireStringArray(input.prerequisiteNodeRefs, "prerequisiteNodeRefs")
+    ),
+    prerequisiteEdgeRefs: uniqueSorted(
+      requireStringArray(input.prerequisiteEdgeRefs, "prerequisiteEdgeRefs")
+    ),
+    dependencyClosed: deriveDependencyClosed({
+      workKind,
+      dependencyGraphRef,
+      dependencyGraphDigest,
+      typedPrerequisiteGapRefs,
+      noDependencyPolicyRef
+    }),
+    typedPrerequisiteGapRefs,
+    noDependencyPolicyRef,
+    sourceProjectionRefs: uniqueSorted(
+      requireStringArray(input.sourceProjectionRefs, "sourceProjectionRefs")
+    )
+  });
+  return Object.freeze({
+    kind: "derived_dependency_instruction_truth",
+    ...withoutDigest,
+    truthDigest: input.truthDigest ?? dependencyInstructionTruthDigest(withoutDigest)
+  });
+}
+
+export function constructDerivedProofDepthInstructionTruth(
+  input: Omit<DerivedProofDepthInstructionTruth, "kind" | "truthDigest"> & {
+    readonly truthDigest?: string | undefined;
+  }
+): DerivedProofDepthInstructionTruth {
+  requireNonEmptyString(input.truthRef, "truthRef");
+  const depthPolicyRef = requireNullableNonEmptyString(
+    input.depthPolicyRef,
+    "depthPolicyRef"
+  );
+  const depthPolicyDigest = requireNullableNonEmptyString(
+    input.depthPolicyDigest,
+    "depthPolicyDigest"
+  );
+  const requiredDepthClassRefs = uniqueSorted(
+    requireStringArray(input.requiredDepthClassRefs, "requiredDepthClassRefs")
+  );
+  const declaredDepthClassRefs = uniqueSorted(
+    requireStringArray(input.declaredDepthClassRefs, "declaredDepthClassRefs")
+  );
+  const notApplicableDepthClassRefs = uniqueSorted(
+    requireStringArray(
+      input.notApplicableDepthClassRefs,
+      "notApplicableDepthClassRefs"
+    )
+  );
+  const typedDepthGapRefs = uniqueSorted(
+    requireStringArray(input.typedDepthGapRefs, "typedDepthGapRefs")
+  );
+  const proofStrengthAdmissionRefs = uniqueSorted(
+    requireStringArray(
+      input.proofStrengthAdmissionRefs,
+      "proofStrengthAdmissionRefs"
+    )
+  );
+  const fdStrengthCriterionRefs = uniqueSorted(
+    requireStringArray(input.fdStrengthCriterionRefs, "fdStrengthCriterionRefs")
+  );
+  const adversarialVerificationRefs = uniqueSorted(
+    requireStringArray(
+      input.adversarialVerificationRefs,
+      "adversarialVerificationRefs"
+    )
+  );
+  const adversarialCounterexampleRefs = uniqueSorted(
+    requireStringArray(
+      input.adversarialCounterexampleRefs,
+      "adversarialCounterexampleRefs"
+    )
+  );
+  const withoutDigest = Object.freeze({
+    truthRef: input.truthRef,
+    depthPolicyRef,
+    depthPolicyDigest,
+    targetRefs: uniqueSorted(requireStringArray(input.targetRefs, "targetRefs")),
+    requiredDepthClassRefs,
+    declaredDepthClassRefs,
+    declaredDepthObligationRefs: uniqueSorted(
+      requireStringArray(
+        input.declaredDepthObligationRefs,
+        "declaredDepthObligationRefs"
+      )
+    ),
+    notApplicableDepthClassRefs,
+    typedDepthGapRefs,
+    proofStrengthAdmissionRefs,
+    fdStrengthCriterionRefs,
+    adversarialVerificationRefs,
+    adversarialCounterexampleRefs,
+    sourceProjectionRefs: uniqueSorted(
+      requireStringArray(input.sourceProjectionRefs, "sourceProjectionRefs")
+    ),
+    depthComplete: deriveDepthComplete({
+      depthPolicyRef,
+      depthPolicyDigest,
+      requiredDepthClassRefs,
+      declaredDepthClassRefs,
+      notApplicableDepthClassRefs,
+      typedDepthGapRefs
+    }),
+    proofStrengthAdmitted: deriveProofStrengthAdmitted({
+      proofStrengthAdmissionRefs,
+      fdStrengthCriterionRefs,
+      adversarialVerificationRefs,
+      adversarialCounterexampleRefs
+    })
+  });
+  return Object.freeze({
+    kind: "derived_proof_depth_instruction_truth",
+    ...withoutDigest,
+    truthDigest: input.truthDigest ?? proofDepthInstructionTruthDigest(withoutDigest)
+  });
 }
 
 export function constructInstructionAssemblyRule(
@@ -549,6 +977,17 @@ export function compileInstructionAssemblyPlan(
   input: CompileInstructionAssemblyPlanInput
 ): InstructionAssemblyCompileResult {
   const issues: InstructionAssemblyIssue[] = [];
+  const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
+  const dependencyInstructionTruth =
+    input.dependencyInstructionTruth === undefined ||
+    input.dependencyInstructionTruth === null
+      ? null
+      : constructDerivedDependencyInstructionTruth(input.dependencyInstructionTruth);
+  const proofDepthInstructionTruth =
+    input.proofDepthInstructionTruth === undefined ||
+    input.proofDepthInstructionTruth === null
+      ? null
+      : constructDerivedProofDepthInstructionTruth(input.proofDepthInstructionTruth);
   const ruleForbidden = hasForbiddenRuleField(input.rule);
   for (const field of ruleForbidden) {
     issues.push(
@@ -760,6 +1199,216 @@ export function compileInstructionAssemblyPlan(
       })
     );
   }
+  if (
+    input.knownAlgebraRefs.includes("dependency_sufficiency") &&
+    instructionWorkKind === "not_applicable"
+  ) {
+    issues.push(
+      issue({
+        issueKind: "dependency_sufficiency_gap",
+        algebraRef: "dependency_sufficiency",
+        message:
+          "dependency sufficiency algebra requires explicit target_work or dependency_disambiguation classification",
+        evidenceRefs: [input.planRef, input.vectorRef]
+      })
+    );
+  }
+  if (instructionWorkKind === "target_work") {
+    if (dependencyInstructionTruth === null) {
+      issues.push(
+        issue({
+          issueKind: "dependency_sufficiency_gap",
+          algebraRef: "dependency_sufficiency",
+          message: "target work requires derived dependency instruction truth",
+          evidenceRefs: [input.planRef, input.vectorRef]
+        })
+      );
+    } else {
+      if (dependencyInstructionTruth.workKind !== "target_work") {
+        issues.push(
+          issue({
+            issueKind: "dependency_sufficiency_gap",
+            algebraRef: "dependency_sufficiency",
+            message: "target work requires dependency truth classified as target_work",
+            evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      if (
+        (dependencyInstructionTruth.dependencyGraphRef === null ||
+          dependencyInstructionTruth.dependencyGraphDigest === null) &&
+        dependencyInstructionTruth.noDependencyPolicyRef === null
+      ) {
+        issues.push(
+          issue({
+            issueKind: "dependency_sufficiency_gap",
+            algebraRef: "dependency_graph_projection",
+            message: "target work requires a dependency graph or admitted no-dependency policy",
+            evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      if (
+        !dependencyInstructionTruth.dependencyClosed &&
+        dependencyInstructionTruth.noDependencyPolicyRef === null
+      ) {
+        issues.push(
+          issue({
+            issueKind: "dependency_sufficiency_gap",
+            algebraRef: "prerequisite_closure",
+            message: "target work requires F_D prerequisite closure before F_P dispatch",
+            evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      for (const gapRef of dependencyInstructionTruth.typedPrerequisiteGapRefs) {
+        issues.push(
+          issue({
+            issueKind: "typed_prerequisite_gap",
+            algebraRef: "dependency_sufficiency",
+            message: `target work has unresolved typed prerequisite gap ${gapRef}`,
+            evidenceRefs: [dependencyInstructionTruth.truthRef, gapRef]
+          })
+        );
+        if (gapRef.includes("requirement_node") || gapRef.includes("missing_node")) {
+          issues.push(
+            issue({
+              issueKind: "unresolved_requirement_node",
+              algebraRef: "obligation_lineage",
+              message: `target work has unresolved requirement/dependency node ${gapRef}`,
+              evidenceRefs: [dependencyInstructionTruth.truthRef, gapRef]
+            })
+          );
+        }
+        if (gapRef.includes("dependency_edge") || gapRef.includes("missing_edge")) {
+          issues.push(
+            issue({
+              issueKind: "missing_dependency_edge",
+              algebraRef: "dependency_graph_projection",
+              message: `target work has missing dependency edge ${gapRef}`,
+              evidenceRefs: [dependencyInstructionTruth.truthRef, gapRef]
+            })
+          );
+        }
+      }
+    }
+    if (proofDepthInstructionTruth === null) {
+      issues.push(
+        issue({
+          issueKind: "depth_policy_incomplete",
+          algebraRef: "proof_policy_depth_completeness",
+          message: "target work requires derived proof-depth instruction truth",
+          evidenceRefs: [input.planRef, input.vectorRef]
+        })
+      );
+    } else {
+      if (
+        proofDepthInstructionTruth.depthPolicyRef === null ||
+        proofDepthInstructionTruth.depthPolicyDigest === null
+      ) {
+        issues.push(
+          issue({
+            issueKind: "depth_policy_incomplete",
+            algebraRef: "depth_obligation_policy",
+            message: "target work requires admitted proof-depth policy identity",
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      if (!proofDepthInstructionTruth.depthComplete) {
+        issues.push(
+          issue({
+            issueKind: "depth_policy_incomplete",
+            algebraRef: "proof_policy_depth_completeness",
+            message: "target work requires complete proof-policy depth before closure-bearing dispatch",
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      const coveredDepthClasses = new Set([
+        ...proofDepthInstructionTruth.declaredDepthClassRefs,
+        ...proofDepthInstructionTruth.notApplicableDepthClassRefs
+      ]);
+      for (const depthClassRef of proofDepthInstructionTruth.requiredDepthClassRefs) {
+        if (!coveredDepthClasses.has(depthClassRef)) {
+          issues.push(
+            issue({
+              issueKind: "missing_depth_obligation_class",
+              algebraRef: "depth_obligation_policy",
+              message: `proof policy does not account for required depth class ${depthClassRef}`,
+              evidenceRefs: [proofDepthInstructionTruth.truthRef, depthClassRef]
+            })
+          );
+        }
+      }
+      for (const gapRef of proofDepthInstructionTruth.typedDepthGapRefs) {
+        issues.push(
+          issue({
+            issueKind: gapRef.includes("not_applicable")
+              ? "depth_class_not_applicable_unjustified"
+              : gapRef.includes("missing_depth") ||
+                  gapRef.includes("missing_depth_obligation_class")
+                ? "missing_depth_obligation_class"
+                : "depth_policy_incomplete",
+            algebraRef: "proof_policy_depth_completeness",
+            message: `target work has unresolved proof-depth gap ${gapRef}`,
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, gapRef]
+          })
+        );
+      }
+      if (
+        !proofDepthInstructionTruth.proofStrengthAdmitted ||
+        proofDepthInstructionTruth.proofStrengthAdmissionRefs.length === 0
+      ) {
+        issues.push(
+          issue({
+            issueKind: "proof_strength_not_admitted",
+            algebraRef: "proof_strength_admission",
+            message: "target work requires admitted proof-strength before closure-bearing dispatch",
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      if (
+        proofDepthInstructionTruth.proofStrengthAdmissionRefs.length > 0 &&
+        proofDepthInstructionTruth.fdStrengthCriterionRefs.length === 0 &&
+        proofDepthInstructionTruth.adversarialVerificationRefs.length === 0
+      ) {
+        issues.push(
+          issue({
+            issueKind: "proof_strength_not_adversarially_verified",
+            algebraRef: "adversarial_verification",
+            message:
+              "proof-strength admission requires a total F_D criterion or adversarial verification",
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+      for (const counterexampleRef of proofDepthInstructionTruth.adversarialCounterexampleRefs) {
+        issues.push(
+          issue({
+            issueKind: "adversarial_counterexample_found",
+            algebraRef: "adversarial_verification",
+            message: `adversarial verification found blocking counterexample ${counterexampleRef}`,
+            evidenceRefs: [proofDepthInstructionTruth.truthRef, counterexampleRef]
+          })
+        );
+      }
+    }
+  } else if (
+    instructionWorkKind === "dependency_disambiguation" &&
+    dependencyInstructionTruth !== null &&
+    dependencyInstructionTruth.workKind !== "dependency_disambiguation"
+  ) {
+    issues.push(
+      issue({
+        issueKind: "dependency_sufficiency_gap",
+        algebraRef: "dependency_sufficiency",
+        message: "dependency-disambiguation dispatch requires matching dependency truth classification",
+        evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
+      })
+    );
+  }
   if (issues.length > 0) {
     return Object.freeze({
       kind: "instruction_assembly_compile_rejected",
@@ -793,6 +1442,9 @@ export function compileInstructionAssemblyPlan(
     sectionDecisions: Object.freeze([...input.sectionDecisions]),
     bindingSlots: Object.freeze([...input.bindingSlots]),
     proportionalityClass: input.proportionalityClass,
+    instructionWorkKind,
+    dependencyInstructionTruth,
+    proofDepthInstructionTruth,
     shouldDispatchFp: input.proportionalityClass !== "P0",
     fpValidationEvidenceRefs: uniqueSorted(input.fpValidationEvidenceRefs ?? []),
     compilerEvidenceRefs: uniqueSorted(input.compilerEvidenceRefs ?? []),
@@ -974,6 +1626,22 @@ export function renderPromptManifest(input: {
     refOnlyCarrierRefs: classifyCarriers(input.plan.sectionDecisions, "ref_only"),
     gapRefs: classifyCarriers(input.plan.sectionDecisions, "gap"),
     forbiddenCarrierRefs: classifyCarriers(input.plan.sectionDecisions, "forbidden"),
+    dependencyInstructionTruthRefs: dependencyInstructionTruthRefs(
+      input.plan.dependencyInstructionTruth
+    ),
+    dependencyGraphRefs: dependencyGraphRefs(input.plan.dependencyInstructionTruth),
+    typedPrerequisiteGapRefs: typedPrerequisiteGapRefs(input.plan.dependencyInstructionTruth),
+    proofDepthInstructionTruthRefs: proofDepthInstructionTruthRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
+    depthPolicyRefs: depthPolicyRefs(input.plan.proofDepthInstructionTruth),
+    typedDepthGapRefs: typedDepthGapRefs(input.plan.proofDepthInstructionTruth),
+    proofStrengthAdmissionRefs: proofStrengthAdmissionRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
+    adversarialCounterexampleRefs: adversarialCounterexampleRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
     renderedPrompt
   });
@@ -1013,6 +1681,22 @@ export function replayPromptManifest(input: {
     refOnlyCarrierRefs: classifyCarriers(input.plan.sectionDecisions, "ref_only"),
     gapRefs: classifyCarriers(input.plan.sectionDecisions, "gap"),
     forbiddenCarrierRefs: classifyCarriers(input.plan.sectionDecisions, "forbidden"),
+    dependencyInstructionTruthRefs: dependencyInstructionTruthRefs(
+      input.plan.dependencyInstructionTruth
+    ),
+    dependencyGraphRefs: dependencyGraphRefs(input.plan.dependencyInstructionTruth),
+    typedPrerequisiteGapRefs: typedPrerequisiteGapRefs(input.plan.dependencyInstructionTruth),
+    proofDepthInstructionTruthRefs: proofDepthInstructionTruthRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
+    depthPolicyRefs: depthPolicyRefs(input.plan.proofDepthInstructionTruth),
+    typedDepthGapRefs: typedDepthGapRefs(input.plan.proofDepthInstructionTruth),
+    proofStrengthAdmissionRefs: proofStrengthAdmissionRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
+    adversarialCounterexampleRefs: adversarialCounterexampleRefs(
+      input.plan.proofDepthInstructionTruth
+    ),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
     renderedPrompt: expectedPrompt
   });

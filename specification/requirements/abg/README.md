@@ -20,6 +20,9 @@ related engine behavior.
 - event-sourced payload envelope, admission, and ledger projection law
 - event-sourced requirement algebra, replay-derived requirement ledgers, and
   requirement pressure query law
+- requirement proof carry-through from admitted requirement obligations into
+  paired realization and proof evidence before closure, including proof-policy
+  depth completeness and admitted proof-strength projection
 - instruction assembly and dispatch assurance over compiled prompt plans,
   runtime-bound instruction envelopes, prompt manifests, and semantic compiler
   checks
@@ -47,6 +50,7 @@ related engine behavior.
 - `REQ-R-ABG3-FN-COMPOSITION.md`
 - `REQ-R-ABG3-PAYLOAD.md`
 - `REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md`
+- `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md`
 - `REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`
 - `REQ-R-ABG3-POLICY.md`
 - `REQ-R-ABG3-SELECTION-APPLICATION.md`

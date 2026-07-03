@@ -195,6 +195,9 @@ export interface ProjectRequirementFoldFromAssuranceClosureInput {
   readonly requirementClosureDecisionRefsByRequirementId?:
     | Readonly<Record<string, AdmittedRef<"assurance_closure_decision">>>
     | undefined;
+  readonly proofCoverageTruthRefsByRequirementId?:
+    | Readonly<Record<string, readonly string[]>>
+    | undefined;
   readonly replayFacts: readonly RouteReplayFact[];
 }
 
@@ -738,6 +741,9 @@ function sourceTruthRefsByRequirementId(input: {
     | undefined;
   readonly projections: readonly RequirementProjection[];
   readonly evidenceBindings: readonly RequirementEvidenceBinding[];
+  readonly proofCoverageTruthRefsByRequirementId?:
+    | Readonly<Record<string, readonly string[]>>
+    | undefined;
   readonly replayFacts: readonly RouteReplayFact[];
 }): RouteResult<Readonly<Record<string, readonly string[]>>> {
   const projectedRequirementIds = Object.freeze([
@@ -749,6 +755,7 @@ function sourceTruthRefsByRequirementId(input: {
   const output: Record<string, readonly string[]> = {};
   const explicitRefs = input.requirementClosureDecisionRefsByRequirementId;
   for (const requirementId of projectedRequirementIds) {
+    const proofCoverageTruthRefs = input.proofCoverageTruthRefsByRequirementId?.[requirementId] ?? [];
     const explicitRef = explicitRefs?.[requirementId];
     if (explicitRef !== undefined) {
       const resolution = resolveAdmittedRef({
@@ -775,12 +782,14 @@ function sourceTruthRefsByRequirementId(input: {
         );
       }
       output[requirementId] = Object.freeze([
+        ...proofCoverageTruthRefs,
         requirementAbgTruthRefFromAssuranceClosureDecision(decision)
       ]);
       continue;
     }
     if (projectedRequirementIds.length === 1 || boundRequirementIds.has(requirementId)) {
       output[requirementId] = Object.freeze([
+        ...proofCoverageTruthRefs,
         scopedClosureTruthRef(
           input.closureDecision,
           requirementId,
@@ -850,7 +859,9 @@ export function projectRequirementFoldFromAssuranceClosure(
       input.requirementClosureDecisionRefsByRequirementId,
     projections: projectionResolution.value,
     evidenceBindings: bindingResolution.value,
-    replayFacts: input.replayFacts
+    replayFacts: input.replayFacts,
+    proofCoverageTruthRefsByRequirementId:
+      input.proofCoverageTruthRefsByRequirementId
   });
   if (sourceTruthResolution.status === "rejected") {
     return sourceTruthResolution;

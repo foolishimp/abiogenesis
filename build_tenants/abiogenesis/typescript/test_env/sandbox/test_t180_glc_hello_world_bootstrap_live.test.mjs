@@ -131,6 +131,7 @@ function runtimeBindingSource(input) {
   composeWithTypeWiring,
   composeNodeTypes,
   compileInstructionAssemblyPlan,
+  constructDerivedDependencyInstructionTruth,
   constructDefaultAbgFnCompositionDeclarations,
   constructFpDispatchOutcome,
   constructGtlLibraryEntryDeclaration,
@@ -734,7 +735,21 @@ function compiledPromptPlanForVector(vectorIndex) {
     sectionDecisions: [instructionSectionForVector({ vector, vectorIndex })],
     bindingSlots: instructionBindingSlots(requiresPriorArtifact),
     proportionalityClass: "P1",
-    expectedAnswerMarkers: ["closed", "release_ready", "blocked"],
+    instructionWorkKind: "target_work",
+    dependencyInstructionTruth: constructDerivedDependencyInstructionTruth({
+      truthRef: \`dependency-instruction-truth://odd_glc/glc-bootstrap/vector-\${vectorIndex}\`,
+      workKind: "target_work",
+      dependencyGraphRef: null,
+      dependencyGraphDigest: null,
+      targetRefs: [vector.target.id],
+      prerequisiteNodeRefs: [],
+      prerequisiteEdgeRefs: [],
+      dependencyClosed: true,
+      typedPrerequisiteGapRefs: [],
+      noDependencyPolicyRef: "policy://odd_glc/glc-bootstrap/no-dependency-graph-required",
+      sourceProjectionRefs: ["projection://odd_glc/glc-bootstrap/no-dependency-policy"]
+    }),
+    expectedAnswerMarkers: ["release_ready"],
     fpValidationEvidenceRefs: ["semantic-review-gate://odd_glc/glc-bootstrap/instruction-plan"],
     compilerEvidenceRefs: ["evidence://odd_glc/glc-bootstrap/compiler"]
   });
