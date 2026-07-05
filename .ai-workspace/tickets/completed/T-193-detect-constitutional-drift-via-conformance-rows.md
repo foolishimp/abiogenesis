@@ -3,7 +3,7 @@ id: T-193
 title: Detect constitutional drift via conformance rows (INT-002 generalized)
 type: requirements_realization
 ticket_category: constitutional_drift_detection
-status: active
+status: completed
 goal: >-
   Pull the asymmetric residues into the checked regime: the semantic
   compiler admits witnessed constitutional-surface rows (INTENT, PRODUCT,
@@ -136,3 +136,23 @@ constructed differential; live seam witnessing is the successor. (c) the
 witness loader lives in the test lane; a product-grade loader (installer/
 CLI emitting witnessed rows) is the successor that takes drift detection
 beyond the dev tree.
+
+## Closure Record (2026-07-06)
+
+All acceptance criteria met, all non_closure conditions hold:
+- INT-002 class mechanically detected — ON THE REAL TREE, first run
+  (bootstrap version drift), then fixed at the authored home, now a
+  standing red-suite gate for any future rc bump without propagation.
+- RC4 class mechanically detected (constructed differential with
+  constitutional_reprice affordance) AND validated clean against the real
+  rc.7 release record.
+- Seam-parity (F1 class) and digestless-witness rules differentially
+  proven; all drift diagnostics carry ratified IDs + default repairs;
+  identity coverage from birth; the ONE compiler judges (no second
+  checker); LAWS-028 ratified with CONTRACT-LAW-API propagation.
+Gates at closure: t193 5/5; semantic 1092/1092; standing gate
+test:t194:sandbox-live 1/1 sourceClean (run started one docs-only commit
+before this record — runtime surfaces identical; noted per freshness
+rule). NAMED SUCCESSORS: paragraph-scoped release-record witnessing;
+live seam-key witnessing; product-grade witness loader
+(installer/CLI-emitted rows beyond the dev tree).
