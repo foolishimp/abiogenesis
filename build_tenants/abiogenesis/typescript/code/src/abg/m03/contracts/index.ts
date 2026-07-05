@@ -1310,3 +1310,10 @@ export type {
   ProjectExecutiveObservationViewInput,
   ProjectExecutivePressureFactsInput
 } from "./executive_observer.js";
+export {
+  deriveRequirementProofCarryThroughAdmittedEvents
+} from "./requirement_proof_carry_through_producer.js";
+export type {
+  RequirementProofCarryThroughStartupEntry,
+  RequirementProofCarryThroughStartupInput
+} from "./requirement_proof_carry_through_producer.js";

@@ -255,17 +255,11 @@ import {
   type TraversalNonProgressCarrier,
   type TraversalContinuationSummary
 } from "../contracts/traversal_non_progress.js";
-import {
-  admitRequirementProofCarryThroughOutput,
-  constructRequirementProofCarryThroughOutputEnvelope,
-  projectRequirementProofCoverage,
-  requirementAbgTruthRefFromRequirementProofCoverage,
-  type RequirementProofCarryThroughContract,
-  type RequirementProofCandidateClassificationTable
-} from "../contracts/requirement_proof_carry_through.js";
-import { constructDerivedProofDepthInstructionTruth as constructCarryProofDepthTruth } from "../contracts/instruction_assembly.js";
-import { constructRequirementProofCarryThroughAdmittedEvent } from "../contracts/event_factories.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
+import {
+  deriveRequirementProofCarryThroughAdmittedEvents,
+  type RequirementProofCarryThroughStartupInput
+} from "../contracts/requirement_proof_carry_through_producer.js";
 import { dispatchRequestsForTransition } from "../transport/index.js";
 import {
   DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS,
@@ -285,20 +279,6 @@ import {
 } from "./construction_runner.js";
 import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
 
-export interface RequirementProofCarryThroughStartupEntry {
-  readonly contract: RequirementProofCarryThroughContract;
-  readonly classificationTable: RequirementProofCandidateClassificationTable;
-  readonly requirementIds: readonly string[];
-  readonly envelopeTemplate: Omit<
-    Parameters<typeof constructRequirementProofCarryThroughOutputEnvelope>[0],
-    "envelopeRef" | "evidenceRefs" | "replayIdentity" | "replayDigest"
-  >;
-  readonly edge?: string | undefined;
-}
-
-export interface RequirementProofCarryThroughStartupInput {
-  readonly entries: readonly RequirementProofCarryThroughStartupEntry[];
-}
 
 export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
@@ -6689,128 +6669,28 @@ function* runEngineIterateMachine(input: {
           );
           if (attachedDecision.kind === "accepted") {
             eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
-          {
-            // Implements: T-188 M5 - carry-through admission runs ONLY after the
-            // attached result payload is itself admitted (a rejected payload
-            // must not mint coverage truth); coverage at the
-            // result-admission site; coverage refs are producer-computed and
-            // carried on the event (no close-site reconstruction).
-            // Implements: T-188 M3 — strength refs resolve against the
-            // ADMITTED ledger (replay events), never against list presence
-            // or default-startup booleans.
-            // Typed admitted sources ONLY: evidence_admitted and validated
-            // payloads. Raw artifact/result/observed refs are NOT strength
-            // truth (string presence must not masquerade as admission).
-            const admittedLedgerRefs = new Set<string>();
-            for (const priorEvent of eventState.replayEvents) {
-              if (priorEvent.kind === "evidence_admitted") {
-                admittedLedgerRefs.add(priorEvent.evidenceRef);
-              } else if (priorEvent.kind === "payload_validated") {
-                admittedLedgerRefs.add(priorEvent.payloadRef);
-              }
-            }
-            const carryStartup = request.requirementProofCarryThroughStartup;
-            if (carryStartup !== undefined) {
-              for (const entry of carryStartup.entries) {
-                if (entry.edge !== undefined && entry.edge !== actorInvocation.edge) {
-                  continue;
-                }
-                const envelope = constructRequirementProofCarryThroughOutputEnvelope({
-                  ...entry.envelopeTemplate,
-                  envelopeRef: `${resultRef}/requirement-proof-carry-through`,
-                  evidenceRefs: Object.freeze([resultRef]),
-                  replayIdentity: `${actorInvocation.actorInvocationId}/carry-through`
-                });
-                const admission = admitRequirementProofCarryThroughOutput({
-                  contract: entry.contract,
-                  classificationTable: entry.classificationTable,
-                  envelope
-                });
-                const planDepthTruth =
+            // Implements: T-188 M5/M3 — producer derivation lives in
+            // contracts (requirement_proof_carry_through_producer); the
+            // runner's only duties here are the accepted-payload gate
+            // (position inside this branch) and emission.
+            eventState = emitRunnerEvents(
+              eventState,
+              deriveRequirementProofCarryThroughAdmittedEvents({
+                startup: request.requirementProofCarryThroughStartup,
+                replayEvents: eventState.replayEvents,
+                invocation: actorInvocation,
+                frameLineageId: request.basis.frameLineageId ?? null,
+                resultRef,
+                planDependencyTruth:
+                  instructionBinding.kind === "manifest_projected"
+                    ? instructionBinding.plan.dependencyInstructionTruth
+                    : null,
+                planProofDepthTruth:
                   instructionBinding.kind === "manifest_projected"
                     ? instructionBinding.plan.proofDepthInstructionTruth
-                    : null;
-                const proofDepthTruth = constructCarryProofDepthTruth({
-                  admittedLedgerRefs,
-                  truthRef: `${envelope.envelopeRef}/proof-depth`,
-                  // depth policy is ADMITTED PLAN truth (compiled at startup),
-                  // not runner-synthesized
-                  depthPolicyRef: planDepthTruth?.depthPolicyRef ?? null,
-                  depthPolicyDigest: planDepthTruth?.depthPolicyDigest ?? null,
-                  targetRefs: [envelope.contractRef],
-                  requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
-                  declaredDepthClassRefs: envelope.depthClassRefs,
-                  declaredDepthObligationRefs: envelope.proofObligationRefs,
-                  notApplicableDepthClassRefs: [],
-                  typedDepthGapRefs: [],
-                  proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
-                  fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
-                  adversarialVerificationRefs: envelope.adversarialAttemptRefs,
-                  adversarialCounterexampleRefs: envelope.counterexampleRefs,
-                  sourceProjectionRefs: [envelope.envelopeRef],
-                  // Derive-only fields: the constructor ignores caller values
-                  // and derives internally (ledger-resolved via
-                  // admittedLedgerRefs above).
-                  depthComplete: false,
-                  proofStrengthAdmitted: false
-                });
-                const coverageRequirementIds: string[] = [];
-                const coverageStatuses: string[] = [];
-                const coverageIssueKindSet = new Set<string>();
-                const coverageTruthRefs: string[] = [];
-                for (const requirementId of entry.requirementIds) {
-                  const coverage = projectRequirementProofCoverage({
-                    projectionRef: `${envelope.envelopeRef}/coverage/${requirementId}`,
-                    requirementId,
-                    requiredRequirementObligationRefs: Object.freeze(
-                      entry.contract.fulfillmentBindings.map(
-                        (binding) => binding.obligationRef
-                      )
-                    ),
-                    admissions: [admission],
-                    dependencyInstructionTruth:
-                      instructionBinding.kind === "manifest_projected"
-                        ? instructionBinding.plan.dependencyInstructionTruth
-                        : null,
-                    proofDepthInstructionTruth: proofDepthTruth
-                  });
-                  coverageRequirementIds.push(requirementId);
-                  coverageStatuses.push(coverage.status);
-                  for (const issueKind of coverage.issueKinds) {
-                    coverageIssueKindSet.add(issueKind);
-                  }
-                  coverageTruthRefs.push(
-                    requirementAbgTruthRefFromRequirementProofCoverage(coverage)
-                  );
-                }
-                eventState = emitRunnerEvents(
-                  eventState,
-                  constructRequirementProofCarryThroughAdmittedEvent({
-                    invocation: actorInvocation,
-                    frameLineageId: request.basis.frameLineageId ?? null,
-                    correlationId: actorInvocation.actorInvocationId,
-                    envelopeRef: admission.envelope.envelopeRef,
-                    contractRef: entry.contract.contractRef,
-                    categoryKey: admission.categoryKey,
-                    accepted: admission.accepted,
-                    sourceRequirementObligationRefs:
-                      admission.envelope.sourceRequirementObligationRefs,
-                    proofObligationRefs: admission.envelope.proofObligationRefs,
-                    evidenceRoleRefs: admission.envelope.evidenceRoleRefs,
-                    issueKinds: Object.freeze(
-                      admission.issues.map((row) => row.issueKind)
-                    ),
-                    coverageRequirementIds: Object.freeze([...coverageRequirementIds]),
-                    coverageStatuses: Object.freeze([...coverageStatuses]),
-                    coverageIssueKinds: Object.freeze([...coverageIssueKindSet]),
-                    coverageTruthRefs: Object.freeze([...coverageTruthRefs]),
-                    replayIdentity: admission.envelope.replayIdentity,
-                    replayDigest: admission.envelope.replayDigest
-                  })
-                );
-              }
-            }
-          }
+                    : null
+              })
+            );
 
             const evaluationBaseProjection = deriveRuntimeAggregateProjection(
               request.basis,
