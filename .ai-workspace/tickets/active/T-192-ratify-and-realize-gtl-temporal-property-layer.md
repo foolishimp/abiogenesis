@@ -118,3 +118,24 @@ T-188/T-190/T-191 closures supply the property layer's first targets (the
 five standing gates as declared properties), and the R2-F1 consolidation
 means the temporal carriers will be built next to ONE carrier home, not
 three. Carrier pin applies to every slice.
+
+## Phase 1 COMPLETE (2026-07-06) — ratification
+
+CARRIER PIN (pre-slice, per convention): Rule {kind, config} (gtl m01) is
+the property carrier — no new ontology; RUNTIME_FLUENT_NAME_VALUES +
+deriveRuntimeEventCalculusProjection (event_calculus.ts, WIRED via
+projection.ts) is the one fluent vocabulary/calculus; module.rules (m02)
+is the authoring home; ExecutionBasis does NOT carry module rules — runtime
+ingress rides the engine-start passthrough family (F1 one-authority),
+basis-carried rules = named successor; residual routing consumes existing
+residual carriers; verdict events follow the T-188 event-carrier pattern.
+
+RATIFIED: specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md
+-001..-012 (Rule kind; trace-only atoms = event-occurrence + fluent-hold
+from the one vocabulary; closed operator grammar, fail-closed admission;
+three-valued finite-trace semantics; first-class vacuity/witness law;
+consequence split safety_gate/liveness_residual; declared gate points
+dispatch|closure with replay-visible blocking; verdict carrier law reading
+not re-deriving truth; ingress law; the five standing gates as the first
+property set with enforcement-after-proof differentials; total checker;
+T-119 exemption unchanged).
