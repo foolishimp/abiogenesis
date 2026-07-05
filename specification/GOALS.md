@@ -425,3 +425,30 @@ the startup-carried depth/strength/dependency boolean hazard as a non-closure
 condition before fold gating, and GOAL-030 keeps that proof-hardening work
 active. RC6 does not reprice `REQ-R-ABG3-SELECTION-APPLICATION-006`: absent
 vector or edge registry constraints remain intentionally unconstrained.
+
+The carry-through, dispatch-enumeration, authoring-loop, and standing-gate
+release is ABI TypeScript `4.2.0-rc.7`:
+
+- source commit `abe61eb11fc79f69730ddf8a4b269f83b7fd77d9` (`sourceDirty:
+  false`);
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.7/`;
+- `latest -> 4.2.0-rc.7`;
+- tarball sha256
+  `9c452c9b10bc8fde3206be9970ba3da9522be9e83163dc7b90970676e32d9c43`;
+- release snapshot manifest sha256
+  `d394d50c0a68cec5c715c1fecbc1da8955f7f45a9c2eeec8955485e525bd51ae`;
+- release note sha256
+  `a28a651d4faa255f6dccd3b0318839a7ba87c73e64a04fbb7fc48838fd340a1b`;
+- verification at the source commit: `test:semantic` 1073/1073, `test:t188`
+  31/31, `test:t189` 11/11, `test:t191` 14/14, `test:t183` 16/16,
+  `test:t177` 16/16, `git diff --check`, `npm pack --dry-run`;
+- live gates at the source commit: standing installed-sandbox gate
+  `test:t194:sandbox-live` 1/1 with `t194-gate-classification.json`
+  `{ sourceClean: true, releaseGrade: true }` (run
+  `test_env/test_runs/t194_feature_matrix_live/`, earn-commit run), and
+  canonical `test:hello-world:live` 1/1.
+
+RC7's closure claim is scoped by `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`:
+coverage-gated closure on DECLARED carry-through edges; undeclared edges
+with active obligations are a typed transitional state retired by the
+mandatory witness migration (named successor, not an RC7 claim).
