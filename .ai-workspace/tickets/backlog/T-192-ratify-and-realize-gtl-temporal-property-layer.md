@@ -82,3 +82,30 @@ itself per run. Fluents already exist and are wired; the property layer is a
 Rule kind + a total F_D checker + the standing audit gates as the first
 declared property set. Runtime verification, not model checking — the
 census/all-paths obligations remain where they are.
+
+## Phase 0 Census Record (2026-07-05, pre-activation)
+
+VERDICT: T-119 scheduling law is DECLARED-BUT-UNWIRED IN FULL.
+- Zero temporal-algebra function consumers outside the module + re-exports.
+- Zero reads of the `abg.temporal_constraint` graph-vector declaration key
+  anywhere (runner, iteration, conformance).
+- Zero emissions of the three temporal event kinds (constructors never
+  called).
+- Proven in isolation only: test_t119_temporal_algebra_unit,
+  test_t119_temporal_gtl_syntax, test_t122_temporal_deadline_policy,
+  test_t126_temporal_runtime_scope_consolidation.
+
+TYPED EXEMPTION (per this ticket's Phase 0 "wire it, or record a typed
+exemption with a successor"): the wiring is exempted from Phase 0 because
+it has a genuine design dependency the census surfaced — enforcement
+requires a TIMER-PROVIDER seam (governed effect plugin admitting
+TimerOutcome events against `clockRef`/`timerProviderRef`; the algebra is
+already replay-honest — time enters as admitted outcomes, never wall-clock
+reads). NAMED SUCCESSOR: "wire T-119 scheduling enforcement" = timer
+provider plugin contract + runner eligibility gate reading
+deriveTemporalConstraintFromGtl at vector planning + deadline-breach
+emission + differential (not_before in the future -> vector not eligible;
+timer outcome admitted -> eligible; breach -> pressure). The property
+layer (this ticket's Phases 1-4) does NOT depend on scheduling
+enforcement — LTLf properties quantify over traces, not clocks — so
+activation is UNBLOCKED by this record.
