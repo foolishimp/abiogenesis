@@ -15,6 +15,8 @@ import {
   buildThreeStageBasis,
   m03InstructionAssemblyRequestFields
 } from "./support/m03-iteration-fixtures.mjs";
+import * as publicRoot from "@abiogenesis/typescript-tenant";
+import * as publicGtlRequirements from "@abiogenesis/typescript-tenant/gtl/requirements";
 
 function classificationTable() {
   return constructRequirementProofCandidateClassificationTable({
@@ -337,4 +339,121 @@ test("T-188 item-6 differential: coverage fields disagreeing with the truth ref 
       }),
     /disagree with the truth ref/u
   );
+});
+
+function b3Bundle(basis, vectorIndex) {
+  const vector = basis.graph.vectors[vectorIndex];
+  const spanId = `span://t188/b3/${vector.id}`;
+  const requirement = publicGtlRequirements.declareRequirement({
+    requirementId: "REQ-T188-B3-001",
+    termKind: "atom",
+    stableId: "REQ-T188-B3-001",
+    sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#013",
+    sourceDigest: "sha256:t188-b3-requirement",
+    relationRefs: [],
+    spanRefs: [spanId],
+    contextRefs: [],
+    evidencePolicyRefs: ["policy://t188/b3-evidence"]
+  });
+  const span = publicGtlRequirements.declareTraversalSpan({
+    spanId,
+    graphFunctionRef: basis.graphFunction.id,
+    graphVectorRefs: [vector.id],
+    vectorIndexes: [vectorIndex],
+    sourceNodeRef: vector.source[0].id,
+    targetNodeRef: vector.target.id
+  });
+  return publicGtlRequirements.declareBundle({
+    requirements: [requirement],
+    spans: [span]
+  });
+}
+
+function b3Run(carryEntry, pluginEvidenceRefs) {
+  const base = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({
+    ...base,
+    startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementRouteDeclarationBundle: b3Bundle(basis, 0),
+    requirementProofCarryThroughStartup:
+      carryEntry === undefined ? undefined : { entries: [carryEntry] },
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t188/b3/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t188/b3/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledArtifact(input, pluginEvidenceRefs),
+            evidenceRefs: []
+          });
+        }
+      }),
+      fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
+    }
+  });
+  const fold = result.replayEvents.find(
+    (event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_fold_projected"
+  );
+  const carry = result.replayEvents.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  return { fold, carry, result };
+}
+
+test("T-188 B3: uncovered/residual coverage shall not close; eligible coverage folds satisfied", () => {
+  const table = classificationTable();
+  // baseline: no carry-through declared -> fold satisfied (undeclared edges unchanged)
+  const baseline = b3Run(undefined, undefined);
+  assert.ok(baseline.fold);
+  assert.equal(baseline.fold.requirementPayload.fold.state, "satisfied");
+  assert.equal(baseline.carry, undefined);
+
+  // residual coverage (strength refs never admitted) -> fold shall NOT close
+  const residual = b3Run(
+    {
+      contract: carryContract(table),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-001"],
+      envelopeTemplate: envelopeTemplate()
+    },
+    undefined
+  );
+  assert.ok(residual.carry);
+  assert.equal(residual.carry.coverageStatuses[0], "residual");
+  assert.ok(residual.fold);
+  assert.equal(residual.fold.requirementPayload.fold.state, "no_close_preserved");
+
+  // eligible coverage (typed-resolved strength) -> fold satisfied again
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const eligible = b3Run(
+    {
+      contract: carryContract(table, { fdStrengthCriterionRefs: [strengthRef] }),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-001"],
+      envelopeTemplate: envelopeTemplate({
+        proofStrengthAdmissionRefs: [strengthRef],
+        fdStrengthCriterionRefs: [strengthRef]
+      })
+    },
+    [strengthRef]
+  );
+  assert.ok(eligible.carry);
+  assert.deepEqual(eligible.carry.coverageStatuses, ["eligible"]);
+  assert.ok(eligible.fold);
+  assert.equal(eligible.fold.requirementPayload.fold.state, "satisfied");
 });

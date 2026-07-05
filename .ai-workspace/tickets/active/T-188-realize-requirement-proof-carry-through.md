@@ -1529,3 +1529,16 @@ discharged:
   and the engine-driven uncovered-obligation-shall-not-close
   differential. Role-typed strength resolution and digest-bound status
   remain named successors.
+
+Slice 8 COMPLETE (2026-07-05) — B3 fold differential, engine-driven:
+- Requirement-bearing harness (GTL requirement bundle + span over the
+  three-stage basis, first_traversal) with the route declaration bundle on
+  runEngineIterate.
+- PROVEN, three-way: (a) baseline without carry-through declared -> fold
+  state "satisfied" (undeclared edges unchanged); (b) RESIDUAL coverage
+  (unresolvable strength) -> carry event residual AND fold state
+  "no_close_preserved" — UNCOVERED SHALL NOT CLOSE, engine-driven; (c)
+  ELIGIBLE coverage (typed-resolved strength) -> carry eligible AND fold
+  "satisfied". foldStateFromEvidence's coverage gate + B2 threading are
+  therefore proven as one live chain.
+- Gates: wiring lane 6/6; test:t188 26/26; test:semantic 1059/1059.
