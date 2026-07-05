@@ -199,6 +199,16 @@ export function admitSerializedAttrs(
   label = "SerializedAttrs"
 ): SerializedAttrs {
   const attrsObject = parsePlainObject(input, label);
+  // Fail closed on unknown sibling keys: a plain key spread next to
+  // "entries" is silently dead to every reader (typed entries only) —
+  // authoring input must not vanish without a diagnostic.
+  for (const key of Object.keys(attrsObject)) {
+    if (key !== "entries") {
+      throw new TypeError(
+        `${label}.${key}: unknown SerializedAttrs key — declarations carry typed entries only (use { entries: [{ key, value }] })`
+      );
+    }
+  }
   const entriesInput = parseUnknownArray(attrsObject["entries"], `${label}.entries`);
   const entries = Object.freeze(
     entriesInput.map((entryInput, index) =>
