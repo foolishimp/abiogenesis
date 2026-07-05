@@ -963,7 +963,35 @@ function instructionAssemblyBindingBlockReason(
     : binding.reason;
 }
 
+// T-190: the F_P dispatch-arm registry. The census is the BIND PATH —
+// every bindInstructionAssemblyForFpEffect call names a registered arm and
+// an unregistered armId throws before any manifest can bind; since T-189
+// law blocks dispatch without binding, an unregistered arm cannot dispatch
+// at all. New F_P-capable arms are added HERE, which forces the runtime
+// enumeration test (classification-table set equality) red until the arm
+// carries a runtime proof or a typed exemption.
+export const ENGINE_FP_DISPATCH_ARM_IDS = Object.freeze([
+  "scalar_transform",
+  "scalar_evaluate",
+  "composed_transform",
+  "composed_consequence",
+  "evaluation_rule_batch",
+  "evaluation_rule_evaluate_singular"
+] as const);
+
+export type EngineFpDispatchArmId = (typeof ENGINE_FP_DISPATCH_ARM_IDS)[number];
+
+function assertEngineFpDispatchArmId(armId: string): EngineFpDispatchArmId {
+  if (!(ENGINE_FP_DISPATCH_ARM_IDS as readonly string[]).includes(armId)) {
+    throw new TypeError(
+      `unregistered F_P dispatch arm: ${armId} — register it in ENGINE_FP_DISPATCH_ARM_IDS and add a runtime proof or typed exemption (T-190)`
+    );
+  }
+  return armId as EngineFpDispatchArmId;
+}
+
 function bindInstructionAssemblyForFpEffect(input: {
+  readonly armId: EngineFpDispatchArmId;
   readonly runtime: EngineInstructionAssemblyRuntime | null;
   readonly basis: ExecutionBasis;
   readonly transition: InstructionAssemblyTransitionScope;
@@ -973,6 +1001,7 @@ function bindInstructionAssemblyForFpEffect(input: {
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
 }): InstructionAssemblyFpBinding {
+  assertEngineFpDispatchArmId(input.armId);
   const row = instructionAssemblyPlanForTransition({
     runtime: input.runtime,
     basis: input.basis,
@@ -5302,6 +5331,7 @@ function* runEngineIterateMachine(input: {
               });
             if (ruleActorInvocation !== null) {
               const ruleInstructionBinding = bindInstructionAssemblyForFpEffect({
+                armId: "evaluation_rule_batch",
                 runtime: instructionAssemblyRuntime,
                 basis: request.basis,
                 transition: {
@@ -5836,6 +5866,7 @@ function* runEngineIterateMachine(input: {
               });
             if (taskActorInvocation !== null) {
               const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                armId: "composed_consequence",
                 runtime: instructionAssemblyRuntime,
                 basis: request.basis,
                 transition: {
@@ -6329,6 +6360,7 @@ function* runEngineIterateMachine(input: {
               });
             if (taskActorInvocation !== null) {
               const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                armId: "composed_transform",
                 runtime: instructionAssemblyRuntime,
                 basis: request.basis,
                 transition: {
@@ -6500,6 +6532,7 @@ function* runEngineIterateMachine(input: {
           )
         });
         const instructionBinding = bindInstructionAssemblyForFpEffect({
+          armId: "scalar_transform",
           runtime: instructionAssemblyRuntime,
           basis: request.basis,
           transition,
@@ -6900,6 +6933,7 @@ function* runEngineIterateMachine(input: {
                   });
                 if (ruleActorInvocation !== null) {
                   const ruleInstructionBinding = bindInstructionAssemblyForFpEffect({
+                    armId: "evaluation_rule_batch",
                     runtime: instructionAssemblyRuntime,
                     basis: request.basis,
                     transition: {
@@ -7115,6 +7149,7 @@ function* runEngineIterateMachine(input: {
               )
             });
             const evaluationInstructionBinding = bindInstructionAssemblyForFpEffect({
+              armId: "scalar_evaluate",
               runtime: instructionAssemblyRuntime,
               basis: request.basis,
               transition,
@@ -7826,6 +7861,7 @@ function* runEngineIterateMachine(input: {
                   });
                 if (taskActorInvocation !== null) {
                   const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                    armId: "composed_consequence",
                     runtime: instructionAssemblyRuntime,
                     basis: request.basis,
                     transition: {
@@ -8363,7 +8399,7 @@ function* runEngineIterateMachine(input: {
   }
 }
 
-function resolveSyncEnginePluginEffect(
+export function resolveSyncEnginePluginEffect(
   effect: EnginePluginEffect,
   plugins: ResolvedRunnerPlugins
 ): EnginePluginEffectResult {
@@ -8407,6 +8443,14 @@ function resolveSyncEnginePluginEffect(
       const plugin = plugins.evaluationRules[effect.pluginIndex];
       if (plugin === undefined) {
         throw new TypeError("Unknown evaluation rule plugin index");
+      }
+      // T-190 construct-and-block: the singular effect has no producer in
+      // the runner today; if one ever yields it, it shall not run an F_P
+      // plugin without an admitted instruction prompt manifest.
+      if (effect.input.instructionPromptManifest == null) {
+        throw new TypeError(
+          "evaluation_rule_evaluate requires an admitted instruction prompt manifest before plugin invocation (T-190 construct-and-block)"
+        );
       }
       return Object.freeze({
         kind: "evaluation_rule_evaluate",
@@ -8526,6 +8570,14 @@ async function resolveAsyncEnginePluginEffect(
       const plugin = plugins.evaluationRules[effect.pluginIndex];
       if (plugin === undefined) {
         throw new TypeError("Unknown evaluation rule plugin index");
+      }
+      // T-190 construct-and-block: the singular effect has no producer in
+      // the runner today; if one ever yields it, it shall not run an F_P
+      // plugin without an admitted instruction prompt manifest.
+      if (effect.input.instructionPromptManifest == null) {
+        throw new TypeError(
+          "evaluation_rule_evaluate requires an admitted instruction prompt manifest before plugin invocation (T-190 construct-and-block)"
+        );
       }
       return Object.freeze({
         kind: "evaluation_rule_evaluate",

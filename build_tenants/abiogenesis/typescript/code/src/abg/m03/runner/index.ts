@@ -1,4 +1,6 @@
 export {
+  ENGINE_FP_DISPATCH_ARM_IDS,
+  resolveSyncEnginePluginEffect,
   ENGINE_START_PASSTHROUGH_KEYS,
   engineStartPassthrough,
   runEngineIterate,

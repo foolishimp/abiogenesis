@@ -363,7 +363,7 @@ export function m03InstructionAssemblyRequestFields(basis, options = {}) {
   });
 }
 
-function fnCompositionDeclarations() {
+function fnCompositionDeclarations(options = {}) {
   const regimeBindings = Object.freeze([
     {
       bindingRef: "regime-binding://m03-iteration/transform/fd",
@@ -420,6 +420,24 @@ function fnCompositionDeclarations() {
       outputCarrierRefs: ["ConsequenceProjectionOutcome"],
       evidenceRefs: ["evidence://m03-iteration/consequence"]
     },
+    // Opt-in (T-190): a consequence/F_P binding so the composed-consequence
+    // F_P dispatch arm is drivable; default OFF to keep every existing
+    // caller's composition identity unchanged.
+    ...(options.consequenceFpBinding === true
+      ? [
+          {
+            bindingRef: "regime-binding://m03-iteration/consequence/fp",
+            stageRole: "consequence",
+            regime: "F_P",
+            role: "observe",
+            order: 5,
+            authority: "evidence",
+            inputCarrierRefs: ["EnginePluginInput"],
+            outputCarrierRefs: ["ComposedStageTaskOutcome"],
+            evidenceRefs: ["evidence://m03-iteration/fp-consequence"]
+          }
+        ]
+      : []),
     {
       bindingRef: "regime-binding://m03-iteration/human-callout/fh",
       stageRole: "human_callout",
@@ -496,7 +514,8 @@ function stageGraphFunction(
   evaluatorId,
   regime,
   includeComposition,
-  vectorDeclarationEntries = []
+  vectorDeclarationEntries = [],
+  compositionOptions = {}
 ) {
   const vector = edge([source], target, {
     id: `graph-${name}`,
@@ -516,7 +535,7 @@ function stageGraphFunction(
 
   return graphFunctionForVector(vector, {
     name,
-    declarations: includeComposition ? fnCompositionDeclarations() : { entries: [] },
+    declarations: includeComposition ? fnCompositionDeclarations(compositionOptions) : { entries: [] },
     tags: ["m03_iteration"]
   });
 }
@@ -546,7 +565,8 @@ export function buildThreeStageModule(options = {}) {
       "requirements_ready",
       vectorRegimes[0],
       options.includeComposition !== false,
-      options.vectorDeclarationEntriesByIndex?.[0] ?? []
+      options.vectorDeclarationEntriesByIndex?.[0] ?? [],
+      { consequenceFpBinding: options.consequenceFpBinding === true }
     ),
     stageGraphFunction(
       "synthesize_design",
@@ -556,7 +576,8 @@ export function buildThreeStageModule(options = {}) {
       "design_ready",
       vectorRegimes[1],
       options.includeComposition !== false,
-      options.vectorDeclarationEntriesByIndex?.[1] ?? []
+      options.vectorDeclarationEntriesByIndex?.[1] ?? [],
+      { consequenceFpBinding: options.consequenceFpBinding === true }
     ),
     stageGraphFunction(
       "implement_code",
@@ -566,7 +587,8 @@ export function buildThreeStageModule(options = {}) {
       "code_ready",
       vectorRegimes[2],
       options.includeComposition !== false,
-      options.vectorDeclarationEntriesByIndex?.[2] ?? []
+      options.vectorDeclarationEntriesByIndex?.[2] ?? [],
+      { consequenceFpBinding: options.consequenceFpBinding === true }
     )
   );
 
@@ -600,6 +622,7 @@ export function buildThreeStageBasis(options = {}) {
   const defaultRegime = options.defaultRegime ?? "F_P";
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
+    consequenceFpBinding: options.consequenceFpBinding,
     vectorRegimes: options.vectorRegimes,
     includeComposition: options.includeComposition,
     vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex

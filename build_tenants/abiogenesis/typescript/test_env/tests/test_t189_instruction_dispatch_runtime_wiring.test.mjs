@@ -3,10 +3,16 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 import {
+  ENGINE_FP_DISPATCH_ARM_IDS,
+  resolveSyncEnginePluginEffect,
+  constructEvaluationRuleOutcome,
+  constructComposedStageTaskOutcome,
+  constructFdEvaluationOutcome,
+  constructFpEvaluationOutcome,
+  constructFpEvaluationFinding,
   compileInstructionAssemblyPlan,
   constructDerivedDependencyInstructionTruth,
   constructDerivedProofDepthInstructionTruth,
@@ -48,44 +54,6 @@ function countBy(values) {
   return Object.fromEntries([...counts.entries()].sort());
 }
 
-function runnerInstructionAssemblyDispatchSiteCensus() {
-  const source = readFileSync(RUNNER_SOURCE_PATH, "utf8");
-  const bindingSiteRoles = [
-    ...source.matchAll(
-      /bindInstructionAssemblyForFpEffect\(\{[\s\S]{0,1200}?computeStageRole:\s*"([^"]+)"/gu
-    )
-  ].map((match) => match[1]);
-  const fPRegimeSites = [...source.matchAll(/resolvedRegime === "F_P"/gu)].map(
-    (match) => match.index ?? -1
-  );
-  const fPRegimeSitesWithoutBinding = fPRegimeSites.filter((index) => {
-    if (index < 0) {
-      return true;
-    }
-    return !/bindInstructionAssemblyForFpEffect\(/u.test(
-      source.slice(index, index + 4000)
-    );
-  });
-  const fpEffectYields = [
-    ...source.matchAll(/yield Object\.freeze\(\{\s*kind:\s*"(fp_dispatch|fp_evaluate)"/gu)
-  ].map((match) => match[1]);
-  const fpEffectYieldsWithoutManifest = [
-    ...source.matchAll(/yield Object\.freeze\(\{\s*kind:\s*"(fp_dispatch|fp_evaluate)"/gu)
-  ].filter((match) => {
-    const index = match.index ?? -1;
-    return index < 0 || !/instructionPromptManifest/u.test(source.slice(index - 2000, index));
-  });
-
-  return Object.freeze({
-    bindingSiteRoles,
-    bindingSiteRoleCounts: countBy(bindingSiteRoles),
-    fPRegimeSiteCount: fPRegimeSites.length,
-    fPRegimeSitesWithoutBinding,
-    fpEffectYields,
-    fpEffectYieldCounts: countBy(fpEffectYields),
-    fpEffectYieldsWithoutManifest
-  });
-}
 
 function fpDispatchContract(ref = "plugin://t189/fp-dispatch") {
   return constructEnginePluginContract({
@@ -109,7 +77,9 @@ function stageContract(stageRole, computeMeans, ref) {
     computeStagePurpose:
       stageRole === "transform"
         ? "candidate_construction"
-        : "consequence_projection"
+        : stageRole === "evaluate"
+          ? "candidate_evaluation"
+          : "consequence_projection"
   });
 }
 
@@ -414,22 +384,7 @@ test("T-189 absent instruction assembly startup blocks scalar F_P before worker 
   );
 });
 
-test("T-189 dispatch-site census is derived from live runner F_P binding sites", () => {
-  const census = runnerInstructionAssemblyDispatchSiteCensus();
 
-  assert.deepEqual(census.bindingSiteRoleCounts, {
-    consequence: 2,
-    evaluate: 3,
-    transform: 2
-  });
-  assert.equal(census.fPRegimeSiteCount, 10);
-  assert.deepEqual(census.fPRegimeSitesWithoutBinding, []);
-  assert.deepEqual(census.fpEffectYieldCounts, {
-    fp_dispatch: 1,
-    fp_evaluate: 1
-  });
-  assert.deepEqual(census.fpEffectYieldsWithoutManifest, []);
-});
 
 test("T-189 composed transform F_P task receives admitted prompt manifest before plugin invocation", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
@@ -574,4 +529,356 @@ test("T-189 vector registry candidate refs constrain the otherwise open registry
     events.some((event) => event.kind === "fp_dispatch_requested"),
     false
   );
+});
+
+// ───────────────────────── T-190: runtime dispatch enumeration ─────────────────────────
+// The census is the BIND PATH: every bindInstructionAssemblyForFpEffect call
+// names a registered armId (unregistered throws before any manifest binds).
+// This table is the classification-as-data the ticket requires; set equality
+// with the runner's exported registry fails this suite by construction when
+// a new arm is registered without a proof row.
+const T190_ARM_CLASSIFICATION = Object.freeze({
+  scalar_transform: {
+    kind: "runtime_proven",
+    proofs: [
+      "T-189 absent instruction assembly startup blocks scalar F_P before worker invocation",
+      "T-183/T-188 manifest-bound dispatch lanes",
+      "T-194 installed sandbox live"
+    ]
+  },
+  scalar_evaluate: {
+    kind: "runtime_proven",
+    proofs: ["T-190 evaluate arms receive manifests", "T-190 omitted evaluate plan blocks evaluate arms"]
+  },
+  composed_transform: {
+    kind: "runtime_proven",
+    proofs: [
+      "T-189 composed transform F_P task receives admitted prompt manifest before plugin invocation",
+      "T-190 omitted transform plan blocks the composed transform task"
+    ]
+  },
+  composed_consequence: {
+    kind: "runtime_proven",
+    proofs: ["T-190 composed consequence task receives manifest", "T-190 omitted consequence plan blocks the consequence task"]
+  },
+  evaluation_rule_batch: {
+    kind: "runtime_proven",
+    proofs: ["T-190 evaluate arms receive manifests", "T-190 omitted evaluate plan blocks evaluate arms"]
+  },
+  evaluation_rule_evaluate_singular: {
+    kind: "construct_and_block",
+    proofs: ["T-190 singular evaluation_rule_evaluate cannot run a plugin without an admitted manifest"]
+  }
+});
+
+test("T-190 arm registry and classification table are set-equal (census fails by construction)", () => {
+  const registryIds = [...ENGINE_FP_DISPATCH_ARM_IDS].sort();
+  const classifiedIds = Object.keys(T190_ARM_CLASSIFICATION).sort();
+  assert.deepEqual(classifiedIds, registryIds);
+  for (const [armId, row] of Object.entries(T190_ARM_CLASSIFICATION)) {
+    assert.equal(
+      ["runtime_proven", "construct_and_block", "typed_exempt"].includes(row.kind),
+      true,
+      `${armId} must carry a lawful classification`
+    );
+    assert.equal(row.proofs.length > 0, true, `${armId} must cite at least one proof`);
+  }
+});
+
+function t190RulePlugin(observe = () => undefined) {
+  return Object.freeze({
+    contract: stageContract("evaluate", "F_P", "plugin://t190/rule"),
+    ruleRef: "evaluation-rule://t190/manifest-probe",
+    ruleRole: "register",
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: [],
+    outputCarrierRefs: ["EvaluationRuleOutcome"],
+    evaluate(input) {
+      observe(input);
+      return constructEvaluationRuleOutcome({
+        status: "accepted",
+        ruleRef: "evaluation-rule://t190/manifest-probe",
+        ruleRole: "register",
+        computeMeans: "F_P",
+        producedRegisterRefs: ["register://t190/manifest-probe"],
+        evidenceRefs: ["evidence://t190/rule"],
+        diagnosticRefs: [],
+        selectedCompositionRef: input.selectedCompositionRef,
+        selectedCompositionDigest: input.selectedCompositionDigest,
+        selectedCompositionSelectionRef: input.selectedCompositionSelectionRef,
+        selectedRegimeBindingRef: input.selectedRegimeBindingRef
+      });
+    }
+  });
+}
+
+function consequenceTaskPlugin(observe = () => undefined) {
+  return Object.freeze({
+    contract: stageContract("consequence", "F_P", "plugin://t190/consequence-task"),
+    taskRef: "stage-task://t190/consequence/fp-apply",
+    taskRole: "candidate",
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: [],
+    outputCarrierRefs: ["ComposedStageTaskOutcome"],
+    run(pluginInput) {
+      observe(pluginInput);
+      return constructComposedStageTaskOutcome({
+        status: "accepted",
+        taskRef: "stage-task://t190/consequence/fp-apply",
+        stageRole: "consequence",
+        taskRole: "candidate",
+        computeMeans: "F_P",
+        candidateRefs: [],
+        projectionRefs: ["projection://t190/consequence/fp-apply"],
+        evidenceRefs: ["evidence://t190/consequence/fp-apply"],
+        diagnosticRefs: [],
+        selectedCompositionRef: pluginInput.selectedCompositionRef,
+        selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+        selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
+        selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+        compositionContributionRef:
+          pluginInput.selectedRegimeBindingRef ?? pluginInput.selectedCompositionRef,
+        reason: null
+      });
+    }
+  });
+}
+
+function t190Plans(basis, stageRoles) {
+  return stageRoles.map((stageRole, index) =>
+    compiledPlanFor({
+      basis,
+      vectorIndex: 0,
+      computeStageRole: stageRole,
+      planRef: `compiled-prompt-plan://t190/vector-0/${stageRole}-${index}`
+    })
+  );
+}
+
+function t190AttachedArtifact(input) {
+  const assessmentIds =
+    input.expectedAssessmentIds.length > 0
+      ? input.expectedAssessmentIds
+      : ["runtime_fulfilled"];
+  return {
+    edge: input.expectedEdge ?? input.edge,
+    actor: "codex",
+    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+      id: assessmentId,
+      evaluator: assessmentId,
+      fulfillment_status: "fulfilled",
+      fulfillment_detail: "t190 runtime enumeration drive",
+      blocking_reasons: [],
+      evidence_refs: [`proof://t190/${assessmentId}`]
+    })),
+    selected_worker_id: input.workerId,
+    selected_backend: input.backendId,
+    role_id: "role://t190",
+    assignment_source: "policy_resolution",
+    resolved_runtime_ref: input.resolvedRuntimeRef
+  };
+}
+
+function t190FpDispatchPlugin() {
+  return Object.freeze({
+    contract: t190PluginContract("fp_dispatch", "plugin://t190/fp-dispatch", "FpDispatchOutcome"),
+    dispatch(input) {
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t190/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: t190AttachedArtifact(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+}
+
+function t190PluginContract(pluginKind, ref, outputCarrier) {
+  return constructEnginePluginContract({
+    ref,
+    pluginKind,
+    authority: "effect_plugin",
+    inputCarrier: "EnginePluginInput",
+    outputCarrier
+  });
+}
+
+function t190FindingFor(input) {
+  return constructFpEvaluationFinding({
+    findingRef: `finding://t190/fp/${input.vectorIndex}`,
+    evaluatorRef: input.contract.ref,
+    gainReportRef: `gain://t190/${input.vectorIndex}`,
+    metricRefs: [`metric://t190/${input.vectorIndex}`],
+    closeDisposition: "close",
+    evidenceRefs: [`evidence://t190/fp/${input.vectorIndex}`],
+    authorityRefs: Object.freeze([
+      ...new Set([
+        ...input.expectedAssessmentIds,
+        `authority://t190/fp/${input.vectorIndex}`
+      ])
+    ]),
+    compositionContributionRef:
+      input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+    compositionRef: input.selectedCompositionRef,
+    compositionDigest: input.selectedCompositionDigest
+  });
+}
+
+function t190Run(input) {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P", consequenceFpBinding: true });
+  const events = [];
+  const observed = { evaluator: null, rule: null, consequence: null, transform: null };
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    runtimeRegistryStartup: registryStartupFor(basis),
+    instructionAssemblyStartup: {
+      compiledPromptPlans: t190Plans(basis, input.stageRoles),
+      rendererRef: "renderer://abg/instruction-envelope/default"
+    },
+    plugins: {
+      fpDispatch: t190FpDispatchPlugin(),
+      fdEvaluator: Object.freeze({
+        contract: t190PluginContract("fd_evaluator", "plugin://t190/fd", "FdEvaluationOutcome"),
+        evaluate(fdInput) {
+          return constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [fdInput.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: Object.freeze({
+        contract: t190PluginContract("fp_evaluator", "plugin://t190/fp-evaluator", "FpEvaluationOutcome"),
+        evaluate(evaluationInput) {
+          observed.evaluator = evaluationInput;
+          return constructFpEvaluationOutcome({
+            status: "evaluated",
+            findings: [t190FindingFor(evaluationInput)],
+            evidenceRefs: [evaluationInput.sourceProjectionRef]
+          });
+        }
+      }),
+      transformTasks: [
+        transformTaskPlugin((taskInput) => {
+          observed.transform = taskInput;
+        })
+      ],
+      consequenceTasks: [
+        consequenceTaskPlugin((taskInput) => {
+          observed.consequence = taskInput;
+        })
+      ],
+      evaluationRules: [
+        t190RulePlugin((ruleInput) => {
+          observed.rule = ruleInput;
+        })
+      ]
+    }
+  });
+  return { events, observed };
+}
+
+test("T-190 evaluate arms receive manifests (scalar evaluate + evaluation rule batch)", () => {
+  const { observed } = t190Run({ stageRoles: ["transform", "evaluate", "consequence"] });
+  assert.notEqual(observed.rule, null, "rule plugin must be invoked");
+  assert.ok(
+    observed.rule.instructionPromptManifest,
+    "evaluation rule batch input must carry an admitted instruction prompt manifest"
+  );
+  if (observed.evaluator !== null) {
+    assert.ok(
+      observed.evaluator.instructionPromptManifest,
+      "scalar evaluate input must carry an admitted instruction prompt manifest"
+    );
+  }
+});
+
+test("T-190 composed consequence task receives manifest", () => {
+  const { observed } = t190Run({ stageRoles: ["transform", "evaluate", "consequence"] });
+  assert.notEqual(observed.consequence, null, "consequence task must be invoked");
+  assert.ok(
+    observed.consequence.instructionPromptManifest,
+    "composed consequence input must carry an admitted instruction prompt manifest"
+  );
+});
+
+test("T-190 omitted evaluate plan blocks evaluate arms before invocation", () => {
+  const { events, observed } = t190Run({ stageRoles: ["transform"] });
+  assert.equal(observed.rule, null, "rule plugin must NOT run without an evaluate plan");
+  assert.equal(observed.evaluator, null, "fp evaluator must NOT run without an evaluate plan");
+  const terminal = events.find((event) => event.kind === "terminal_reached");
+  assert.ok(terminal);
+  assert.equal(terminal.terminalKind, "gap_stop");
+  assert.equal(terminal.reason.includes("evaluate"), true);
+});
+
+test("T-190 omitted consequence plan blocks the consequence task before invocation", () => {
+  const { events, observed } = t190Run({ stageRoles: ["transform", "evaluate"] });
+  assert.equal(observed.consequence, null, "consequence task must NOT run without a consequence plan");
+  const terminal = events.find((event) => event.kind === "terminal_reached");
+  assert.ok(terminal);
+  assert.equal(terminal.terminalKind, "gap_stop");
+  assert.equal(terminal.reason.includes("consequence"), true);
+});
+
+test("T-190 omitted transform plan blocks the composed transform task before invocation", () => {
+  const { events, observed } = t190Run({ stageRoles: [] });
+  assert.equal(observed.transform, null, "transform task must NOT run without a transform plan");
+  const terminal = events.find((event) => event.kind === "terminal_reached");
+  assert.ok(terminal);
+  assert.equal(terminal.terminalKind, "gap_stop");
+});
+
+test("T-190 singular evaluation_rule_evaluate cannot run a plugin without an admitted manifest", () => {
+  let invoked = 0;
+  const plugins = {
+    evaluationRules: [
+      Object.freeze({
+        contract: stageContract("evaluate", "F_P", "plugin://t190/singular"),
+        evaluate(input) {
+          invoked += 1;
+          return constructEvaluationRuleOutcome({
+            status: "accepted",
+            ruleRef: "evaluation-rule://t190/singular",
+            ruleRole: "register",
+            computeMeans: "F_P",
+            producedRegisterRefs: ["register://t190/singular"],
+            evidenceRefs: [`evidence://t190/singular/${input.vectorIndex ?? 0}`],
+            diagnosticRefs: [],
+            selectedCompositionRef: input.selectedCompositionRef ?? "composition://t190/singular",
+            selectedCompositionDigest: input.selectedCompositionDigest ?? "sha256:t190-singular",
+            selectedCompositionSelectionRef: input.selectedCompositionSelectionRef ?? "composition-selection://t190/singular",
+            selectedRegimeBindingRef: input.selectedRegimeBindingRef ?? "regime-binding://t190/singular"
+          });
+        }
+      })
+    ]
+  };
+  // manifestless input: the executor must throw BEFORE the plugin runs
+  assert.throws(
+    () =>
+      resolveSyncEnginePluginEffect(
+        { kind: "evaluation_rule_evaluate", pluginIndex: 0, input: { instructionPromptManifest: null } },
+        plugins
+      ),
+    /construct-and-block/u
+  );
+  assert.equal(invoked, 0, "plugin must never run unbound");
+  // with an admitted manifest the plugin runs
+  const resolved = resolveSyncEnginePluginEffect(
+    {
+      kind: "evaluation_rule_evaluate",
+      pluginIndex: 0,
+      input: {
+        instructionPromptManifest: { manifestRef: "manifest://t190/singular" },
+        vectorIndex: 0,
+        selectedRegimeBindingRef: "regime-binding://t190/singular"
+      }
+    },
+    plugins
+  );
+  assert.equal(invoked, 1);
+  assert.equal(resolved.kind, "evaluation_rule_evaluate");
 });

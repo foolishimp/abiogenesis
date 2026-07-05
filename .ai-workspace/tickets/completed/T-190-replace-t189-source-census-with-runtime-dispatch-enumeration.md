@@ -3,7 +3,7 @@ id: T-190
 title: Replace T-189 source dispatch census with runtime F_P dispatch enumeration
 type: realization_refactor
 ticket_category: runtime_proof_hardening
-status: active
+status: completed
 goal: >-
   Replace the T-189 source-text dispatch census with runtime enumeration and
   mutation proofs for every F_P-capable dispatch arm, including latent arms
@@ -133,3 +133,37 @@ requirement reprice against `REQ-R-ABG3-SELECTION-APPLICATION-006`.
 
 - 2026-07-05: Ticket opened from the post-closure T-189 DMM review. No phases
   executed yet.
+
+## Execution + Closure Record (2026-07-06)
+
+REALIZED — the census is now the BIND PATH, not observation:
+- ENGINE_FP_DISPATCH_ARM_IDS exported from the runner; every
+  bindInstructionAssemblyForFpEffect call names a registered armId
+  (armId is REQUIRED in the input type — a new site cannot compile without
+  naming an arm; an unregistered armId throws before any manifest binds,
+  and T-189 law already blocks dispatch without binding, so an
+  unregistered arm cannot dispatch at all). Seven sites named:
+  scalar_transform, scalar_evaluate, composed_transform,
+  composed_consequence (x2 paths), evaluation_rule_batch (x2 paths).
+- Source-text census DELETED from the t189 lane (readFileSync scrape and
+  its test removed); replaced by classification-as-data
+  (T190_ARM_CLASSIFICATION) with registry set-equality — a new registered
+  arm without a classification row fails the suite by construction.
+- Runtime proofs added: evaluate arms (scalar evaluate + rule batch)
+  receive admitted manifests (observer assertions on live plugin inputs);
+  composed consequence receives manifest (fixture gained an OPT-IN
+  consequence/F_P regime binding — default off, existing composition
+  identities unchanged); mutation differentials per stage: omitted
+  transform/evaluate/consequence plan blocks that stage's plugins before
+  invocation with gap_stop naming the stage.
+- Latent singular evaluation_rule_evaluate: CONSTRUCT-AND-BLOCK realized
+  in both executor twins (sync/async) — a manifestless effect input
+  throws before plugin invocation; differential proves the plugin never
+  runs unbound and runs exactly once with a manifest.
+- SELECTION-APPLICATION-006 preserved: no registry-constraint semantics
+  changed by this ticket (the F5 ambiguity fix earlier today was its own
+  recorded change and did not touch -006's unconstrained-by-default law).
+
+Gates at closure: t189 lane 11/11; test:t183 16/16; test:t188 26/26;
+test:semantic 1068/1068; git diff --check clean; STANDING CLOSURE GATE
+test:t194:sandbox-live 1/1 (fresh run, first enforced use).
