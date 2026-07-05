@@ -315,3 +315,13 @@ The ticket's WORK is complete; the LANE lives on as infrastructure:
   the gate rule; it rides the next TICKET_METHOD wave or T-193.
 Closing to completed: the gate is test infrastructure + recorded law, not
 an open work item.
+
+## First Release-Grade Gate Artifact (2026-07-06)
+
+Clean-tree run at the codex-round commit:
+test_env/test_runs/t194_feature_matrix_live/20260705T165216088Z_pid91994/
+t194-gate-classification.json = { sourceClean: true, releaseGrade: true }.
+Matrix 1/1 with the identity-scoped consumer, named strength projection,
+REQ-038 declared-scope law, and latitude/calibration live guards all in
+force. THIS is the artifact class the rc.7 note cites (a fresh clean run
+at cut time supersedes it).
