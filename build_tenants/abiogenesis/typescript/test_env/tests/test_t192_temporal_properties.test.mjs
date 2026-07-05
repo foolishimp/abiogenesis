@@ -236,3 +236,70 @@ test("T-192 semantics: where-guards scope event atoms", () => {
   });
   assert.equal(crossVector.status, "violated", "a vector-1 manifest must not satisfy vector-0 dispatch");
 });
+
+// ─── Phase 3: the standing gate property set (enforcement after proof) ───
+import { STANDING_GATE_TEMPORAL_PROPERTY_RULES } from "../../build/semantic/code/src/abg/m03/contracts/temporal_property_gates.js";
+
+test("T-192 P3: all five standing gates admit and carry lawful shapes", () => {
+  assert.equal(STANDING_GATE_TEMPORAL_PROPERTY_RULES.length, 5);
+  for (const gateRule of STANDING_GATE_TEMPORAL_PROPERTY_RULES) {
+    const admission = admitTemporalPropertyRule(gateRule);
+    assert.equal(admission.accepted, true, `${gateRule.name}: ${JSON.stringify(admission.issues)}`);
+    assert.notEqual(admission.property.witnessFormula, null, `${gateRule.name} must be implication-shaped`);
+  }
+});
+
+function gateProperty(name) {
+  const gateRule = STANDING_GATE_TEMPORAL_PROPERTY_RULES.find((r) => r.name === name);
+  return admitTemporalPropertyRule(gateRule).property;
+}
+
+test("T-192 P3: each safety gate has mutation and vacuity differentials", () => {
+  const cases = [
+    ["gate_dispatch_requires_manifest", "instruction_prompt_manifest_projected", "fp_dispatch_requested"],
+    ["gate_coverage_requires_payload_admission", "payload_validated", "requirement_proof_carry_through_admitted"],
+    ["gate_invocation_requires_dispatch", "fp_dispatch_requested", "actor_invocation_started"],
+    ["gate_selection_requires_registry_admission", "registry_entry_admitted", "graph_function_selected"]
+  ];
+  for (const [name, required, trigger] of cases) {
+    const property = gateProperty(name);
+    const lawful = evaluateTemporalProperty({
+      property,
+      trace: { events: [ev(required), ev(trigger)], completed: true }
+    });
+    assert.equal(lawful.status, "satisfied", `${name} lawful trace`);
+    assert.equal(lawful.vacuous, false);
+    // mutation: remove the required event -> violated
+    const mutated = evaluateTemporalProperty({
+      property,
+      trace: { events: [ev(trigger)], completed: true }
+    });
+    assert.equal(mutated.status, "violated", `${name} mutation must flip`);
+    // vacuity: no trigger -> vacuous, not gate-satisfying
+    const vacuous = evaluateTemporalProperty({
+      property,
+      trace: { events: [ev(required)], completed: true }
+    });
+    assert.equal(vacuous.vacuous, true, `${name} zero-witness must be vacuous`);
+  }
+});
+
+test("T-192 P3: the liveness gate routes undetermined on open prefixes and never claims early", () => {
+  const property = gateProperty("gate_dispatch_eventually_closes");
+  assert.equal(property.consequenceClass, "liveness_residual");
+  const open = evaluateTemporalProperty({
+    property,
+    trace: { events: [ev("fp_dispatch_requested")], completed: false }
+  });
+  assert.equal(open.status, "undetermined", "open prefix must not decide liveness");
+  const closed = evaluateTemporalProperty({
+    property,
+    trace: { events: [ev("fp_dispatch_requested"), ev("actor_invocation_closed")], completed: true }
+  });
+  assert.equal(closed.status, "satisfied");
+  const never = evaluateTemporalProperty({
+    property,
+    trace: { events: [ev("fp_dispatch_requested")], completed: true }
+  });
+  assert.equal(never.status, "violated");
+});

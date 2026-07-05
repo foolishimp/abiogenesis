@@ -1337,3 +1337,4 @@ export type {
   TemporalVerdictStatus,
   TemporalTraceInput
 } from "./temporal_properties.js";
+export { STANDING_GATE_TEMPORAL_PROPERTY_RULES } from "./temporal_property_gates.js";
