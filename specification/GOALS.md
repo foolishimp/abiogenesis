@@ -482,3 +482,28 @@ a typed compiler diagnostic (T-193) — this cut is the first supervised by
 its own drift gate (a version bump without bootstrap propagation is a red
 suite). RC8 preserves every RC7 claim including the
 `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038` closure-claim scope.
+
+The downstream-driven root-cause release is ABI TypeScript `4.2.0-rc.9`:
+
+- source commit `dd45c381e40470c7b4240f4fb0db6e180c20e19f` (`sourceDirty:
+  false`);
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.9/`;
+- `latest -> 4.2.0-rc.9`;
+- tarball sha256
+  `008ce3ef88c8130dc2d1943c5227429073e6671af8b62d9ec0a50661c7b8709b`;
+- release snapshot manifest sha256
+  `4b60090e651c4236f03a8c382a34183ba8ee817bc361eeb986880a0a5789ba02`;
+- release note sha256
+  `37225e1455886360536db1b83fb2ef50e5413d6a5fc42b8decccea9a8fbf43b7`;
+- verification at the source commit: `test:semantic` 1093/1093, `test:t188`
+  32/32 (including the plan-declared causal-excerpt-bound differential),
+  `test:t189` 11/11, `git diff --check`, `npm pack --dry-run`; standing
+  gate `test:t194:sandbox-live` 1/1 `{ sourceClean: true, releaseGrade:
+  true }`.
+
+RC9 carries two root-cause fixes driven by the odd_glc T-030 data-mapper
+live campaign: `causalExcerptMaxChars` as fail-closed plan policy (a
+hardcoded 12k render ceiling starved product-scale admitted content and
+forced a lawful worker refusal at the test-design stage), and
+`ABG_TS_CODEX_MODEL` adapter ingress for the codex worker model. All RC8
+claims preserved.
