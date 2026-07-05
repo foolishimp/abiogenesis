@@ -579,12 +579,20 @@ function deriveProofStrengthAdmitted(input: {
   readonly fdStrengthCriterionRefs: readonly string[];
   readonly adversarialVerificationRefs: readonly string[];
   readonly adversarialCounterexampleRefs: readonly string[];
+  readonly admittedLedgerRefs?: ReadonlySet<string> | undefined;
 }): boolean {
+  // Implements: T-188 M3 — when the admitted ledger is supplied (runtime
+  // callers), strength refs must RESOLVE against admitted truth; list
+  // presence alone is compile-time behavior for startup/authoring callers.
+  const resolved = (refs: readonly string[]): boolean =>
+    refs.length > 0 &&
+    (input.admittedLedgerRefs === undefined ||
+      refs.every((ref) => input.admittedLedgerRefs?.has(ref) === true));
   return (
-    input.proofStrengthAdmissionRefs.length > 0 &&
+    resolved(input.proofStrengthAdmissionRefs) &&
     input.adversarialCounterexampleRefs.length === 0 &&
-    (input.fdStrengthCriterionRefs.length > 0 ||
-      input.adversarialVerificationRefs.length > 0)
+    (resolved(input.fdStrengthCriterionRefs) ||
+      resolved(input.adversarialVerificationRefs))
   );
 }
 
@@ -863,6 +871,7 @@ export function constructDerivedDependencyInstructionTruth(
 export function constructDerivedProofDepthInstructionTruth(
   input: Omit<DerivedProofDepthInstructionTruth, "kind" | "truthDigest"> & {
     readonly truthDigest?: string | undefined;
+    readonly admittedLedgerRefs?: ReadonlySet<string> | undefined;
   }
 ): DerivedProofDepthInstructionTruth {
   requireNonEmptyString(input.truthRef, "truthRef");
@@ -941,6 +950,7 @@ export function constructDerivedProofDepthInstructionTruth(
       typedDepthGapRefs
     }),
     proofStrengthAdmitted: deriveProofStrengthAdmitted({
+      admittedLedgerRefs: input.admittedLedgerRefs,
       proofStrengthAdmissionRefs,
       fdStrengthCriterionRefs,
       adversarialVerificationRefs,

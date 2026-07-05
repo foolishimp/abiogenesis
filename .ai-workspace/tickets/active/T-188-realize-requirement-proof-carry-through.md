@@ -1367,3 +1367,55 @@ Slice 4 PARTIAL (2026-07-05) — M3 groundwork landed; core fix diagnosed:
   differential test was REMOVED rather than weakened — no green-by-
   assertion-downgrade.
 - Proofs at this cut: wiring lane 3/3; test:semantic 1056/1056.
+
+## Self-Review Record (2026-07-05, full pass over the fold-gating wave)
+
+Verified-then-fixed (M3 core completed as the review's fix):
+1. DEAD CODE / overridden truth: the runner computed ledger-resolved
+   booleans that constructDerivedProofDepthInstructionTruth IGNORED
+   (derives internally, 0 reads of caller values). Fixed properly: the
+   derivation itself now accepts optional admittedLedgerRefs — presence
+   semantics preserved for compile-time callers, RESOLUTION semantics for
+   runtime callers; runner passes the ledger set; misleading computations
+   removed (derive-only placeholder fields documented).
+2. M3 DIFFERENTIAL PROVEN (issue-kind axis): with the result artifact as
+   the strength-admission evidence, accepted=true and
+   proof_strength_not_admitted ABSENT; with unresolvable fixture refs,
+   accepted=true and the issue PRESENT — list presence no longer admits
+   strength. (A prior test-side bug was diagnosed en route: overriding
+   envelope fd refs without aligning the contract broke envelope-contains-
+   contract admission — rejected admissions produce the full issue cluster
+   by design.)
+3. coverageIssueKinds added to the event (eligibility failures are now
+   replay-observable); factory guards parallel-array lengths; event
+   lineage now threads request.basis.frameLineageId instead of hardcoded
+   null.
+
+Findings recorded, not yet fixed (named, honest):
+4. TWO_TRUTH RISK: the runner's inline admitted-ledger scan duplicates
+   truth that derivePayloadLedgerProjection owns. The constructor now
+   takes a ref-SET input precisely so the source can swap to the ledger
+   projection without changing the derivation — do that swap in the B3
+   slice.
+5. TEMPLATE-STAMPED ENVELOPES: startup envelopeTemplate declares the
+   proof-claim fields, so admission largely checks startup against itself;
+   the result contributes evidenceRefs + replayIdentity only. Lawful as
+   claimed-shape + M3 resolution making claims EARN, but the M5
+   differential mutates the template, not the result. B3's engine-driven
+   lane must mutate RESULT-side truth.
+6. PROVEN_ONE_ARM: carry-through admission covers the scalar transform
+   arm only (composed transform/evaluate arms have no admission) — the
+   census discipline applies; named for successor.
+7. B2 CONSUMER UNPROVEN: the edge-close threading executes only when
+   requirement context exists; no test drives that path yet (B3 scope:
+   fold source refs must include the threaded coverage refs, and an
+   uncovered obligation shall not close).
+8. Vacuous composition check: contract and envelope composition refs both
+   come from startup, so the admission's composition match cannot fail on
+   this path; entry matching should bind to the selected plan/composition
+   (successor).
+9. ELIGIBILITY RESIDUAL: accepted + strength-resolved still shows one
+   undischarged issue-kind before eligible status — now OBSERVABLE via
+   coverageIssueKinds; diagnose in B3, do not guess.
+
+Proofs after review fixes: wiring lane 4/4; test:semantic 1057/1057.

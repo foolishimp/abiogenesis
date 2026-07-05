@@ -33,7 +33,7 @@ function classificationTable() {
   });
 }
 
-function carryContract(table) {
+function carryContract(table, overrides = {}) {
   return constructRequirementProofCarryThroughContract({
     contractRef: "plugin-proof-contract://t188/wiring/source",
     pluginRef: "plugin://t188/wiring/source",
@@ -74,7 +74,8 @@ function carryContract(table) {
     outputCandidateKinds: ["candidate-kind://t188/source-artifact"],
     admissionTargetKinds: ["admission-target://abg/payload"],
     classificationTableRef: table.tableRef,
-    classificationTableDigest: table.tableDigest
+    classificationTableDigest: table.tableDigest,
+    ...overrides
   });
 }
 
@@ -190,5 +191,84 @@ test("T-188 no startup => no carry-through events (undeclared edges unchanged)",
   assert.equal(
     events.some((event) => event.kind === "requirement_proof_carry_through_admitted"),
     false
+  );
+});
+
+test("T-188 M3 differential: ledger-resolved strength flips the strength issue kind", () => {
+  const table = classificationTable();
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const resolvingPlugin = Object.freeze({
+    contract: constructEnginePluginContract({
+      ref: "plugin://t188/wiring/fp-dispatch",
+      pluginKind: "fp_dispatch",
+      authority: "effect_plugin",
+      inputCarrier: "EnginePluginInput",
+      outputCarrier: "FpDispatchOutcome"
+    }),
+    dispatch() {
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        // the result artifact IS the strength-admission evidence: its ref
+        // lands in the admitted ledger via actor_result_artifact_observed
+        resultRef: strengthRef,
+        attachedResultArtifact: {
+          kind: "actor_result_artifact",
+          contentText: "artifact://t188/wiring/source"
+        },
+        evidenceRefs: []
+      });
+    }
+  });
+  const basisA = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const eventsA = [];
+  runEngineIterate({
+    basis: basisA,
+    eventSink: (event) => eventsA.push(event),
+    ...m03InstructionAssemblyRequestFields(basisA),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table, {
+            fdStrengthCriterionRefs: [strengthRef]
+          }),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          envelopeTemplate: envelopeTemplate({
+            proofStrengthAdmissionRefs: [strengthRef],
+            fdStrengthCriterionRefs: [strengthRef]
+          })
+        }
+      ]
+    },
+    plugins: { fpDispatch: resolvingPlugin }
+  });
+  const admittedA = eventsA.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.ok(admittedA);
+  assert.equal(admittedA.accepted, true);
+  assert.equal(
+    admittedA.coverageIssueKinds.includes("proof_strength_not_admitted"),
+    false
+  );
+  // Full eligibility has one further issue-kind to discharge (B3 scope);
+  // the M3 axis proven here is the strength issue flipping with ledger
+  // resolution while the admission is accepted.
+
+  // Unresolvable fixture refs: list presence alone no longer admits strength.
+  const { events: eventsB } = runWiring({
+    contract: carryContract(table),
+    classificationTable: table,
+    requirementIds: ["requirement://t188/r1"],
+    envelopeTemplate: envelopeTemplate()
+  });
+  const admittedB = eventsB.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.ok(admittedB);
+  assert.equal(admittedB.accepted, true);
+  assert.equal(
+    admittedB.coverageIssueKinds.includes("proof_strength_not_admitted"),
+    true
   );
 });

@@ -672,6 +672,7 @@ export function constructPluginTraversalPromptMaterializedEvent(input: {
 
 export function constructRequirementProofCarryThroughAdmittedEvent(input: {
   readonly invocation: ActorInvocation;
+  readonly frameLineageId?: string | null | undefined;
   readonly causationEventRefs?: readonly string[];
   readonly correlationId: string;
   readonly envelopeRef: string;
@@ -684,13 +685,22 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
   readonly issueKinds: readonly string[];
   readonly coverageRequirementIds: readonly string[];
   readonly coverageStatuses: readonly string[];
+  readonly coverageIssueKinds: readonly string[];
   readonly coverageTruthRefs: readonly string[];
   readonly replayIdentity: string;
   readonly replayDigest: string;
 }): RequirementProofCarryThroughAdmittedEvent {
+  if (
+    input.coverageStatuses.length !== input.coverageRequirementIds.length ||
+    input.coverageTruthRefs.length !== input.coverageRequirementIds.length
+  ) {
+    throw new TypeError(
+      "carry-through coverage arrays must be parallel per requirementId"
+    );
+  }
   return Object.freeze({
     ...actorRuntimeScope(input.invocation),
-    frameLineageId: null,
+    frameLineageId: input.frameLineageId ?? null,
     causationEventRefs: Object.freeze([...(input.causationEventRefs ?? [])]),
     correlationId: input.correlationId,
     kind: "requirement_proof_carry_through_admitted",
@@ -706,6 +716,7 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
     issueKinds: Object.freeze([...input.issueKinds]),
     coverageRequirementIds: Object.freeze([...input.coverageRequirementIds]),
     coverageStatuses: Object.freeze([...input.coverageStatuses]),
+    coverageIssueKinds: Object.freeze([...input.coverageIssueKinds]),
     coverageTruthRefs: Object.freeze([...input.coverageTruthRefs]),
     replayIdentity: input.replayIdentity,
     replayDigest: input.replayDigest

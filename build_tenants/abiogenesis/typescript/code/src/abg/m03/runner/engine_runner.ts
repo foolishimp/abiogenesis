@@ -6643,8 +6643,6 @@ function* runEngineIterateMachine(input: {
                 admittedLedgerRefs.add(priorEvent.artifactRef);
               }
             }
-            const ledgerResolved = (refs: readonly string[]): boolean =>
-              refs.length > 0 && refs.every((ref) => admittedLedgerRefs.has(ref));
             const carryStartup = request.requirementProofCarryThroughStartup;
             if (carryStartup !== undefined) {
               for (const entry of carryStartup.entries) {
@@ -6662,15 +6660,8 @@ function* runEngineIterateMachine(input: {
                   classificationTable: entry.classificationTable,
                   envelope
                 });
-                const proofStrengthAdmitted =
-                  ledgerResolved(envelope.proofStrengthAdmissionRefs) &&
-                  envelope.counterexampleRefs.length === 0 &&
-                  (ledgerResolved(envelope.fdStrengthCriterionRefs) ||
-                    ledgerResolved(envelope.adversarialAttemptRefs));
-                const depthComplete = entry.contract.requiredDepthClassRefs.every(
-                  (ref) => envelope.depthClassRefs.includes(ref)
-                );
                 const proofDepthTruth = constructCarryProofDepthTruth({
+                  admittedLedgerRefs,
                   truthRef: `${envelope.envelopeRef}/proof-depth`,
                   depthPolicyRef: null,
                   depthPolicyDigest: null,
@@ -6685,11 +6676,15 @@ function* runEngineIterateMachine(input: {
                   adversarialVerificationRefs: envelope.adversarialAttemptRefs,
                   adversarialCounterexampleRefs: envelope.counterexampleRefs,
                   sourceProjectionRefs: [envelope.envelopeRef],
-                  depthComplete,
-                  proofStrengthAdmitted
+                  // Derive-only fields: the constructor ignores caller values
+                  // and derives internally (ledger-resolved via
+                  // admittedLedgerRefs above).
+                  depthComplete: false,
+                  proofStrengthAdmitted: false
                 });
                 const coverageRequirementIds: string[] = [];
                 const coverageStatuses: string[] = [];
+                const coverageIssueKindSet = new Set<string>();
                 const coverageTruthRefs: string[] = [];
                 for (const requirementId of entry.requirementIds) {
                   const coverage = projectRequirementProofCoverage({
@@ -6709,6 +6704,9 @@ function* runEngineIterateMachine(input: {
                   });
                   coverageRequirementIds.push(requirementId);
                   coverageStatuses.push(coverage.status);
+                  for (const issueKind of coverage.issueKinds) {
+                    coverageIssueKindSet.add(issueKind);
+                  }
                   coverageTruthRefs.push(
                     requirementAbgTruthRefFromRequirementProofCoverage(coverage)
                   );
@@ -6717,6 +6715,7 @@ function* runEngineIterateMachine(input: {
                   eventState,
                   constructRequirementProofCarryThroughAdmittedEvent({
                     invocation: actorInvocation,
+                    frameLineageId: request.basis.frameLineageId ?? null,
                     correlationId: actorInvocation.actorInvocationId,
                     envelopeRef: admission.envelope.envelopeRef,
                     contractRef: entry.contract.contractRef,
@@ -6731,6 +6730,7 @@ function* runEngineIterateMachine(input: {
                     ),
                     coverageRequirementIds: Object.freeze([...coverageRequirementIds]),
                     coverageStatuses: Object.freeze([...coverageStatuses]),
+                    coverageIssueKinds: Object.freeze([...coverageIssueKindSet]),
                     coverageTruthRefs: Object.freeze([...coverageTruthRefs]),
                     replayIdentity: admission.envelope.replayIdentity,
                     replayDigest: admission.envelope.replayDigest
