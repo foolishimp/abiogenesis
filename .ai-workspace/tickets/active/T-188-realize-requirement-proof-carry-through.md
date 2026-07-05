@@ -1467,3 +1467,27 @@ green; redo with the spec below (all four are accepted findings):
    role-typed resolution, eligible-status discharge, and fold behavior
    remain). Prior record language stands corrected accordingly. B3
    remains the closure gate; do not close from this state.
+
+Slice 5 COMPLETE (2026-07-05) — the review redo spec, executed green:
+1. ORDERING FIXED: the M5 carry-through block now runs INSIDE
+   attachedDecision.kind === "accepted", after payloadEvents emission — a
+   payload_contract_failure result can no longer mint coverage truth.
+2. TYPED STRENGTH SOURCES: admittedLedgerRefs = evidence_admitted
+   .evidenceRef + payload_validated.payloadRef ONLY; raw artifact/result/
+   observed refs removed (string presence cannot masquerade as admission).
+3. START-PATH FORWARDING: requirementProofCarryThroughStartup forwarded at
+   both runEngineStart/Async delegations.
+4. CONSUMER SCOPING: edge-close threads only accepted admissions scoped to
+   the closing vectorIndex (cross-traversal pollution + rejected-admission
+   refs excluded); requirement-level cross-edge accumulation remains a
+   deliberate fold-design decision, recorded.
+5. FIXTURES: input-derived fulfilled artifacts (expected assessment ids,
+   worker/backend/runtime identities from the dispatch input) — the M3
+   differential now proves TYPED resolution: the artifact DECLARES the
+   strength evidence in its assessment evidence_refs; the accepted payload
+   admission turns it into typed truth; only then does
+   proof_strength_not_admitted clear. Rejected-payload paths emit nothing.
+Remaining from adjudication #2: coverage-ref parser + factory
+cross-validation (item 6); role-typed (not just typed-source) strength
+resolution, eligibility discharge, and fold behavior = B3 scope. M3
+remains PARTIAL until those land.

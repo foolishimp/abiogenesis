@@ -111,6 +111,30 @@ function envelopeTemplate(overrides = {}) {
   };
 }
 
+function fulfilledArtifact(input, evidenceRefs) {
+  const assessmentIds =
+    input.expectedAssessmentIds.length > 0
+      ? input.expectedAssessmentIds
+      : ["runtime_fulfilled"];
+  return {
+    edge: input.expectedEdge ?? input.edge,
+    actor: "codex",
+    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+      id: assessmentId,
+      evaluator: assessmentId,
+      fulfillment_status: "fulfilled",
+      fulfillment_detail: "attached worker result accepted",
+      blocking_reasons: [],
+      evidence_refs: evidenceRefs ?? [`proof://${assessmentId}`]
+    })),
+    selected_worker_id: input.workerId,
+    selected_backend: input.backendId,
+    role_id: "role://runtime",
+    assignment_source: "policy_resolution",
+    resolved_runtime_ref: input.resolvedRuntimeRef
+  };
+}
+
 function fpDispatchPluginWithArtifact() {
   return Object.freeze({
     contract: constructEnginePluginContract({
@@ -124,10 +148,7 @@ function fpDispatchPluginWithArtifact() {
       return constructFpDispatchOutcome({
         status: "dispatched",
         resultRef: `result://t188/wiring/${input.vectorIndex}`,
-        attachedResultArtifact: {
-          kind: "actor_result_artifact",
-          contentText: "artifact://t188/wiring/source"
-        },
+        attachedResultArtifact: fulfilledArtifact(input),
         evidenceRefs: [input.sourceProjectionRef]
       });
     }
@@ -205,16 +226,14 @@ test("T-188 M3 differential: ledger-resolved strength flips the strength issue k
       inputCarrier: "EnginePluginInput",
       outputCarrier: "FpDispatchOutcome"
     }),
-    dispatch() {
+    dispatch(input) {
       return constructFpDispatchOutcome({
         status: "dispatched",
-        // the result artifact IS the strength-admission evidence: its ref
-        // lands in the admitted ledger via actor_result_artifact_observed
-        resultRef: strengthRef,
-        attachedResultArtifact: {
-          kind: "actor_result_artifact",
-          contentText: "artifact://t188/wiring/source"
-        },
+        resultRef: `result://t188/wiring/${input.vectorIndex}`,
+        // the artifact DECLARES the strength evidence; the accepted payload
+        // admission turns it into typed evidence truth — only then does
+        // strength resolution succeed (no raw-string masquerade)
+        attachedResultArtifact: fulfilledArtifact(input, [strengthRef]),
         evidenceRefs: []
       });
     }

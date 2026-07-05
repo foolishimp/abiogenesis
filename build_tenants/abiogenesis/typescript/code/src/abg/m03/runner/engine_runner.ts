@@ -3775,6 +3775,9 @@ function emitRequirementRouteForEdgeClose(input: {
     if (event.kind !== "requirement_proof_carry_through_admitted") {
       continue;
     }
+    if (!event.accepted || event.vectorIndex !== input.vectorIndex) {
+      continue;
+    }
     event.coverageRequirementIds.forEach((requirementId, index) => {
       const truthRef = event.coverageTruthRefs[index];
       if (truthRef === undefined) {
@@ -6621,26 +6624,52 @@ function* runEngineIterateMachine(input: {
                 ].join(":")
               })
             );
+
+          }
+          if (scalarTransformInput.fpTransformRequest === null) {
+            throw new TypeError("F_P dispatch requires a transform request carrier");
+          }
+          const attachedDecision = deriveAttachedFpResultDecision({
+            basis: request.basis,
+            projection,
+            replayEvents: eventState.replayEvents,
+            transition,
+            outcome,
+            transformRequest: scalarTransformInput.fpTransformRequest,
+            targetCarrierDefaults,
+            maxAttempts: request.maxAttachedFpAttempts
+          });
+          eventState = emitRunnerEvents(eventState,
+            constructActorInvocationClosedEvent({
+              invocation: actorInvocation,
+              closureStatus:
+                outcome.status === "blocked"
+                  ? "blocked_with_artifact"
+                  : "completed",
+              resultRef,
+              detail: outcome.reason
+            })
+          );
+          if (attachedDecision.kind === "accepted") {
+            eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
           {
-            // Implements: T-188 M5 - carry-through admission + coverage at the
+            // Implements: T-188 M5 - carry-through admission runs ONLY after the
+            // attached result payload is itself admitted (a rejected payload
+            // must not mint coverage truth); coverage at the
             // result-admission site; coverage refs are producer-computed and
             // carried on the event (no close-site reconstruction).
             // Implements: T-188 M3 — strength refs resolve against the
             // ADMITTED ledger (replay events), never against list presence
             // or default-startup booleans.
+            // Typed admitted sources ONLY: evidence_admitted and validated
+            // payloads. Raw artifact/result/observed refs are NOT strength
+            // truth (string presence must not masquerade as admission).
             const admittedLedgerRefs = new Set<string>();
             for (const priorEvent of eventState.replayEvents) {
               if (priorEvent.kind === "evidence_admitted") {
                 admittedLedgerRefs.add(priorEvent.evidenceRef);
+              } else if (priorEvent.kind === "payload_validated") {
                 admittedLedgerRefs.add(priorEvent.payloadRef);
-              } else if (
-                priorEvent.kind === "payload_observed" ||
-                priorEvent.kind === "payload_validated"
-              ) {
-                admittedLedgerRefs.add(priorEvent.payloadRef);
-              } else if (priorEvent.kind === "actor_result_artifact_observed") {
-                admittedLedgerRefs.add(priorEvent.resultRef);
-                admittedLedgerRefs.add(priorEvent.artifactRef);
               }
             }
             const carryStartup = request.requirementProofCarryThroughStartup;
@@ -6740,33 +6769,6 @@ function* runEngineIterateMachine(input: {
             }
           }
 
-          }
-          if (scalarTransformInput.fpTransformRequest === null) {
-            throw new TypeError("F_P dispatch requires a transform request carrier");
-          }
-          const attachedDecision = deriveAttachedFpResultDecision({
-            basis: request.basis,
-            projection,
-            replayEvents: eventState.replayEvents,
-            transition,
-            outcome,
-            transformRequest: scalarTransformInput.fpTransformRequest,
-            targetCarrierDefaults,
-            maxAttempts: request.maxAttachedFpAttempts
-          });
-          eventState = emitRunnerEvents(eventState,
-            constructActorInvocationClosedEvent({
-              invocation: actorInvocation,
-              closureStatus:
-                outcome.status === "blocked"
-                  ? "blocked_with_artifact"
-                  : "completed",
-              resultRef,
-              detail: outcome.reason
-            })
-          );
-          if (attachedDecision.kind === "accepted") {
-            eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
             const evaluationBaseProjection = deriveRuntimeAggregateProjection(
               request.basis,
               eventState.replayEvents
@@ -8699,6 +8701,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     eventSink: request.eventSink,
     runtimeRegistryStartup: request.runtimeRegistryStartup,
     instructionAssemblyStartup: request.instructionAssemblyStartup,
+    requirementProofCarryThroughStartup: request.requirementProofCarryThroughStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
@@ -8725,6 +8728,7 @@ export async function runEngineStartAsync(
     eventSink: request.eventSink,
     runtimeRegistryStartup: request.runtimeRegistryStartup,
     instructionAssemblyStartup: request.instructionAssemblyStartup,
+    requirementProofCarryThroughStartup: request.requirementProofCarryThroughStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
