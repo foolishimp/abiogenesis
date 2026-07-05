@@ -151,3 +151,34 @@ existing surface; promote-don't-re-mint is closure law.
   check + canonical-form/digest check over the existing
   gtl/m01+m02 serialization machinery. Reprice-before-code sequencing
   honored: clauses land first; realization is the next slice.
+- 2026-07-05 design note (Phase 2 seam, settled with product owner): the
+  SEMANTIC COMPILER is the sole enforcement home — no loader-side checker.
+  The epistemic gap (a parsed object has no memory of how it was authored)
+  is closed by the T-187 witness/judge pattern: startup supplies
+  declaration-source rows (canonical_data vs module_export + source bytes'
+  canonical digest) as conformance INPUT; the compiler owns all law. Slice
+  A = canonical digest identity on the conformance report (the -021
+  identity half). Slice B = witnessed source rows + pure-data law (the
+  -022 half).
+- 2026-07-05 standing law note (from the four-recursions strategy post,
+  20260705T073323Z): factory provenance and traversal lineage are DISJOINT
+  carrier families joined only by reference — at admission (factory->shop)
+  and at self-hosting output (shop->factory, producing-run cited). The
+  installed-context artifact is the basis-change operator between
+  instances; T-186/T-187 are its law. Nothing in T-191 may merge those
+  families.
+- 2026-07-05 Phase 2 Slice A COMPLETE — by RECOGNITION, not code:
+  `inventoryDigest = stableSha256Digest(inventoryDigests)` over per-family
+  stable digests of the admitted inventory ALREADY REALIZES the LAWS-021
+  canonical identity. Adding a parallel canonicalProgramDigest would have
+  been two_truth (promote-don't-re-mint applied to this ticket's own
+  work). What was missing was PROOF, now added to test:t191: (a)
+  order-invariance — key-permuted inputs yield identical digests (the
+  canonical property); (b) mutation sensitivity; (c) derived-not-stored —
+  report.inventoryDigest recomputes from report.inventoryDigests; (d)
+  determinism. test:t191 8/8; test:semantic 1047/1047.
+  REMAINING in Phase 2 (Slice B): witnessed declaration-source rows
+  (canonical_data vs module_export + source-bytes digest) as conformance
+  input, the -022 pure-data/computed-declaration rules, and their new
+  diagnostic IDs added to the ratified vocabulary as a deliberate recorded
+  act with default repair mappings.

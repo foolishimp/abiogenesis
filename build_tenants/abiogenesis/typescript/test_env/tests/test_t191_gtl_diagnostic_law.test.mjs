@@ -81,6 +81,40 @@ test("T-191 mapped diagnostics carry populated default repair affordances", () =
   }
 });
 
+test("T-191 canonical program identity is order-invariant and mutation-sensitive (LAWS-021)", async () => {
+  const { stableSha256Digest } = await import(
+    "../../build/semantic/code/src/shared/runtime_identity.js"
+  );
+  const a = { alpha: 1, nested: { c: 2, d: [1, 2, 3] }, zed: "x" };
+  const b = { zed: "x", nested: { d: [1, 2, 3], c: 2 }, alpha: 1 };
+  // Canonical: key insertion order does not change identity.
+  assert.equal(stableSha256Digest(a), stableSha256Digest(b));
+  // Differential: any content mutation changes identity.
+  assert.notEqual(
+    stableSha256Digest(a),
+    stableSha256Digest({ ...a, alpha: 2 })
+  );
+  assert.notEqual(
+    stableSha256Digest(a),
+    stableSha256Digest({ ...a, nested: { c: 2, d: [1, 2, 4] } })
+  );
+});
+
+test("T-191 conformance report digest identity is derived, not stored authority (LAWS-021)", async () => {
+  const { stableSha256Digest } = await import(
+    "../../build/semantic/code/src/shared/runtime_identity.js"
+  );
+  const report = typecheckGtlProgram({});
+  // One truth surface: the rolled-up identity must recompute from the
+  // per-family digests — a stored-but-divergent rollup would be two_truth.
+  assert.equal(
+    report.inventoryDigest,
+    stableSha256Digest(report.inventoryDigests)
+  );
+  // Determinism: same input, same identity.
+  assert.equal(typecheckGtlProgram({}).inventoryDigest, report.inventoryDigest);
+});
+
 test("T-191 repair edit-class vocabulary is closed and frozen", () => {
   assert.equal(Object.isFrozen(GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES), true);
   assert.equal(
