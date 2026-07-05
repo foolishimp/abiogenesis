@@ -111,6 +111,7 @@ export type InstructionAssemblyIssueKind =
   | "future_stage_bleed"
   | "answer_shaped_content"
   | "declared_latitude_invalid"
+  | "golden_instance_calibration_invalid"
   | "runtime_binding_gap"
   | "startup_admission_gap"
   | "manifest_replay_mismatch"
@@ -248,6 +249,12 @@ export interface InstructionSectionDecision {
 }
 
 export interface CompileInstructionAssemblyPlanInput {
+  readonly goldenInstanceCalibration?: readonly {
+    readonly contractRef: string;
+    readonly exampleInstanceRefs: readonly string[];
+    readonly counterexampleInstanceRefs: readonly string[];
+    readonly instanceSetDigest: string;
+  }[] | undefined;
   readonly declaredLatitude?: readonly {
     readonly scopeRef: string;
     readonly ownerRoute: string;
@@ -286,6 +293,18 @@ export interface CompileInstructionAssemblyPlanInput {
 // as PERMISSION (ODD §5 — prompts grant permission, not prescription).
 // Owner route is F_P or F_H only; F_D "latitude" is a contradiction (the
 // deterministic regime has no judgment latitude) and fails compile.
+// T-191 acceptance 3: golden instances bound on an edge are CONSUMED by
+// evaluator calibration — rendered into EVALUATE-stage manifests only.
+// Examples define admissible shape; counterexamples are refutation
+// (non-tautology mutation) material. Refs + digest only — never instance
+// content (answer-shaped content is forbidden by the non-tautology gate).
+export interface GoldenInstanceCalibrationRow {
+  readonly contractRef: string;
+  readonly exampleInstanceRefs: readonly string[];
+  readonly counterexampleInstanceRefs: readonly string[];
+  readonly instanceSetDigest: string;
+}
+
 export interface DeclaredLatitudeRow {
   readonly scopeRef: string;
   readonly ownerRoute: "F_P" | "F_H";
@@ -294,6 +313,7 @@ export interface DeclaredLatitudeRow {
 
 export interface CompiledPromptPlan {
   readonly declaredLatitude: readonly DeclaredLatitudeRow[];
+  readonly goldenInstanceCalibration: readonly GoldenInstanceCalibrationRow[];
   readonly kind: "compiled_prompt_plan";
   readonly planRef: string;
   readonly planDigest: string;
@@ -732,6 +752,18 @@ function renderedPromptFor(input: {
           `depthComplete: ${String(proofDepthTruth.depthComplete)}`,
           `proofStrengthAdmitted: ${String(proofDepthTruth.proofStrengthAdmitted)}`
         ].join("\n");
+  const calibrationText =
+    input.plan.computeStageRole !== "evaluate" ||
+    input.plan.goldenInstanceCalibration.length === 0
+      ? null
+      : [
+          "Calibration instances for evaluator judgment. Examples define admissible shape; counterexamples are refutation material — a candidate matching a counterexample shall be rejected.",
+          "These are calibration REFS with a digest-bound instance set, not answers; resolving and applying them is the evaluator's judgment.",
+          ...input.plan.goldenInstanceCalibration.map(
+            (row) =>
+              `contract: ${row.contractRef} | examples: ${stableCompactRefs(row.exampleInstanceRefs)} | counterexamples: ${stableCompactRefs(row.counterexampleInstanceRefs)} | digest: ${row.instanceSetDigest}`
+          )
+        ].join("\n");
   const latitudeText =
     input.plan.declaredLatitude.length === 0
       ? null
@@ -745,6 +777,7 @@ function renderedPromptFor(input: {
   return [
     sectionText,
     ...(latitudeText === null ? [] : ["## abg.declared_latitude", latitudeText]),
+    ...(calibrationText === null ? [] : ["## abg.golden_instance_calibration", calibrationText]),
     "## abg.instruction_authority_precedence",
     [
       "ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.",
@@ -1085,6 +1118,41 @@ export function compileInstructionAssemblyPlan(
 ): InstructionAssemblyCompileResult {
   const issues: InstructionAssemblyIssue[] = [];
   const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
+  const goldenInstanceCalibration: GoldenInstanceCalibrationRow[] = [];
+  for (const row of input.goldenInstanceCalibration ?? []) {
+    if (row.instanceSetDigest.trim().length === 0) {
+      issues.push(
+        Object.freeze({
+          kind: "instruction_assembly_issue",
+          issueKind: "golden_instance_calibration_invalid",
+          algebraRef: "startup",
+          message: `golden instance calibration requires a content digest for ${row.contractRef}`,
+          evidenceRefs: Object.freeze([row.contractRef])
+        })
+      );
+      continue;
+    }
+    if (row.exampleInstanceRefs.length === 0 && row.counterexampleInstanceRefs.length === 0) {
+      issues.push(
+        Object.freeze({
+          kind: "instruction_assembly_issue",
+          issueKind: "golden_instance_calibration_invalid",
+          algebraRef: "startup",
+          message: `golden instance calibration requires at least one example or counterexample for ${row.contractRef}`,
+          evidenceRefs: Object.freeze([row.contractRef])
+        })
+      );
+      continue;
+    }
+    goldenInstanceCalibration.push(
+      Object.freeze({
+        contractRef: row.contractRef,
+        exampleInstanceRefs: Object.freeze([...row.exampleInstanceRefs]),
+        counterexampleInstanceRefs: Object.freeze([...row.counterexampleInstanceRefs]),
+        instanceSetDigest: row.instanceSetDigest
+      })
+    );
+  }
   const declaredLatitude: DeclaredLatitudeRow[] = [];
   const latitudeIssues: InstructionAssemblyIssue[] = [];
   for (const row of input.declaredLatitude ?? []) {
@@ -1566,6 +1634,7 @@ export function compileInstructionAssemblyPlan(
   const withoutDigest = Object.freeze({
     kind: "compiled_prompt_plan" as const,
     declaredLatitude: Object.freeze(declaredLatitude),
+    goldenInstanceCalibration: Object.freeze(goldenInstanceCalibration),
     planRef: input.planRef,
     ruleRef: input.rule.ruleRef,
     computeStageRole,

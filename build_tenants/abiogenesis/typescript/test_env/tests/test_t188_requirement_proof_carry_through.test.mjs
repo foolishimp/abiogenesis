@@ -1079,3 +1079,99 @@ test("T-191 declared latitude fails closed on F_D owner route and empty notes", 
     true
   );
 });
+
+// ─── T-191 acceptance 3 (unit half): golden instances consumed by evaluator calibration ───
+
+test("T-191 golden instance calibration renders into EVALUATE manifests only", () => {
+  const calibration = [
+    {
+      contractRef: "contract://t191/toy",
+      exampleInstanceRefs: ["payload://t191/good-a", "payload://t191/good-b"],
+      counterexampleInstanceRefs: ["payload://t191/reject-a"],
+      instanceSetDigest: "sha256:t191-instances"
+    }
+  ];
+  const evaluatePlan = compileAccepted({
+    computeStageRole: "evaluate",
+    goldenInstanceCalibration: calibration
+  });
+  const evaluateEnvelope = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t191/calibration-evaluate",
+    plan: evaluatePlan,
+    startupAdmission: admission(evaluatePlan),
+    runtimeFacts: runtimeFacts()
+  });
+  const evaluateRendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t191/calibration-evaluate",
+    plan: evaluatePlan,
+    envelope: evaluateEnvelope.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(evaluateRendered.accepted, true);
+  const prompt = evaluateRendered.manifest.renderedPrompt;
+  assert.equal(prompt.includes("## abg.golden_instance_calibration"), true);
+  assert.equal(prompt.includes("counterexamples are refutation material"), true);
+  assert.equal(prompt.includes("payload://t191/reject-a"), true);
+  assert.equal(prompt.includes("sha256:t191-instances"), true);
+
+  // consumption is the EVALUATOR's: a transform plan with the same rows
+  // renders NO calibration section
+  const transformPlan = compileAccepted({
+    goldenInstanceCalibration: calibration
+  });
+  const transformEnvelope = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t191/calibration-transform",
+    plan: transformPlan,
+    startupAdmission: admission(transformPlan),
+    runtimeFacts: runtimeFacts()
+  });
+  const transformRendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t191/calibration-transform",
+    plan: transformPlan,
+    envelope: transformEnvelope.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(
+    transformRendered.manifest.renderedPrompt.includes("## abg.golden_instance_calibration"),
+    false
+  );
+});
+
+test("T-191 golden instance calibration fails closed on missing digest or empty instance sets", () => {
+  const noDigest = compileInstructionAssemblyPlan(
+    compileInput({
+      computeStageRole: "evaluate",
+      goldenInstanceCalibration: [
+        {
+          contractRef: "contract://t191/bad",
+          exampleInstanceRefs: ["payload://x"],
+          counterexampleInstanceRefs: [],
+          instanceSetDigest: ""
+        }
+      ]
+    })
+  );
+  assert.equal(noDigest.accepted, false);
+  assert.equal(
+    noDigest.issues.some((row) => row.issueKind === "golden_instance_calibration_invalid"),
+    true
+  );
+  const emptySets = compileInstructionAssemblyPlan(
+    compileInput({
+      computeStageRole: "evaluate",
+      goldenInstanceCalibration: [
+        {
+          contractRef: "contract://t191/empty",
+          exampleInstanceRefs: [],
+          counterexampleInstanceRefs: [],
+          instanceSetDigest: "sha256:x"
+        }
+      ]
+    })
+  );
+  assert.equal(emptySets.accepted, false);
+  assert.equal(
+    emptySets.issues.some((row) => row.issueKind === "golden_instance_calibration_invalid"),
+    true
+  );
+});

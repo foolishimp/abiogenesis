@@ -668,6 +668,32 @@ function compiledPromptPlanForVector(vectorIndex, computeStageRole = "transform"
   const result = compileInstructionAssemblyPlan({
     planRef: \`compiled-prompt-plan://odd_glc/glc-bootstrap/vector-\${vectorIndex}/\${computeStageRole}\`,
     computeStageRole,
+    // T-191: declared latitude (transform) + golden-instance calibration
+    // (evaluate) on the requirement-bearing toy edge — the live pilot.
+    ...(computeStageRole === "transform"
+      ? {
+          declaredLatitude: [
+            {
+              scopeRef: "scope://odd_glc/glc-bootstrap/program-shape",
+              ownerRoute: "F_P",
+              latitudeNote:
+                "worker may choose program structure and identifier naming provided stdout is exactly Hello, world!"
+            }
+          ]
+        }
+      : {}),
+    ...(computeStageRole === "evaluate"
+      ? {
+          goldenInstanceCalibration: [
+            {
+              contractRef: "contract://odd_glc/execution-evidence",
+              exampleInstanceRefs: ["payload://odd_glc/golden/hello-world-stdout"],
+              counterexampleInstanceRefs: ["payload://odd_glc/golden/reject-empty-stdout"],
+              instanceSetDigest: "sha256:odd-glc-golden-hello-world-v1"
+            }
+          ]
+        }
+      : {}),
     rule: instructionRuleForVector({
       vector,
       vectorIndex,
@@ -962,6 +988,9 @@ ${input.includeCarryThrough === true ? `  requirementRouteDeclarationBundle: t19
         if (!pluginInput.instructionPromptManifest.renderedPrompt.includes("## abg.runtime.bound_refs")) {
           throw new Error("GLC live prompt is missing ABG-rendered runtime bound refs");
         }
+        if (!pluginInput.instructionPromptManifest.renderedPrompt.includes("## abg.declared_latitude")) {
+          throw new Error("GLC live prompt is missing the declared-latitude permission section (T-191)");
+        }
         if (
           pluginInput.vectorIndex === 1 &&
           !pluginInput.instructionPromptManifest.renderedPrompt.includes("slot: prior_artifact")
@@ -1139,7 +1168,31 @@ ${input.includeCarryThrough === true ? `  requirementRouteDeclarationBundle: t19
     });
     return Object.freeze({
       fpDispatch,
-      fpEvaluator: defaultFpEvaluatorPlugin
+      fpEvaluator: Object.freeze({
+        contract: defaultFpEvaluatorPlugin.contract,
+        evaluate(evaluationInput) {
+          if (
+            evaluationInput.instructionPromptManifest === null ||
+            !evaluationInput.instructionPromptManifest.renderedPrompt.includes(
+              "## abg.golden_instance_calibration"
+            )
+          ) {
+            throw new Error(
+              "evaluator arm did not receive golden-instance calibration in its manifest (T-191 acceptance 3)"
+            );
+          }
+          if (
+            !evaluationInput.instructionPromptManifest.renderedPrompt.includes(
+              "payload://odd_glc/golden/reject-empty-stdout"
+            )
+          ) {
+            throw new Error(
+              "evaluator calibration is missing the counterexample refutation material (T-191)"
+            );
+          }
+          return defaultFpEvaluatorPlugin.evaluate(evaluationInput);
+        }
+      })
     });
   }
 };

@@ -370,3 +370,29 @@ AUDIT against verbatim non_closure + acceptance criteria:
   but no live edge consumes bound instances for calibration/mutation.
   This is Phase 3's pilot; ticket stays ACTIVE until it lands or the
   criterion is repriced by explicit decision.
+
+## Acceptance-3 Pilot ASSEMBLED (2026-07-06) — pending one live run
+
+Unit half REALIZED and green (t188 lane 30/30, semantic 1072/1072):
+- GoldenInstanceCalibrationRow carrier on CompiledPromptPlan; compile
+  fails closed on empty digests and empty instance sets
+  (golden_instance_calibration_invalid, ratified into the issue union).
+- Rendering law: calibration renders into EVALUATE-stage manifests ONLY
+  (consumption belongs to the evaluator arm) — refs + digest, never
+  instance content (non-tautology preserved); counterexamples framed as
+  refutation material. Differentials: evaluate renders + counterexample
+  ref present + digest present; transform with identical rows renders
+  NOTHING; missing digest and empty sets rejected.
+Live half ASSEMBLED into the standing gate (shared binding builder):
+- The toy's requirement-bearing edge declares BOTH families as product
+  data: transform plans carry declared latitude (permission over program
+  shape/naming); evaluate plans carry golden calibration (hello-world
+  stdout example + reject-empty-stdout counterexample, digest-bound).
+- Live guards fail the run if: the REAL worker's prompt lacks the
+  declared-latitude section, or the evaluator arm's manifest lacks the
+  calibration section or its counterexample ref.
+RESIDUAL (named): instanceSetDigest is a declared constant, not yet
+computed from instance content — calibration-set content provenance is
+the recorded successor (strength-resolution wiring to provenance).
+ONE COMMAND stands between assembly and acceptance-3 EARNED:
+  npm run test:t194:sandbox-live
