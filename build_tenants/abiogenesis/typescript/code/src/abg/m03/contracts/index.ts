@@ -571,6 +571,7 @@ export {
   constructBasisAdmittedEvent,
   constructClosureInputPublishedEvent,
   constructEvidenceAdmittedEvent,
+  constructRequirementProofCarryThroughAdmittedEvent,
   constructFdAuthorityOutcomeAdmittedEvent,
   constructFrameOpenedEvent,
   constructGraphVectorResumeCursorAppliedEvent,
