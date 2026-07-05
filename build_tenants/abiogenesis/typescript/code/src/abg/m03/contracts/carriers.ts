@@ -819,6 +819,24 @@ export interface FhEscalatedEvent {
   readonly gateReason: string;
 }
 
+// Implements: REQ-L-GTL3-TEMPORAL-PROPERTIES-008 — verdicts are typed,
+// replay-visible projections; witnessCount null = no witness formula.
+export interface TemporalPropertyVerdictProjectedEvent {
+  readonly kind: "temporal_property_verdict_projected";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly propertyRef: string;
+  readonly formulaDigest: string;
+  readonly consequenceClass: string;
+  readonly gatePoint: string;
+  readonly evaluationPoint: string;
+  readonly status: string;
+  readonly vacuous: boolean;
+  readonly witnessCount: number | null;
+  readonly implicatedEventRefs: readonly string[];
+}
+
 export interface TerminalReachedEvent {
   readonly kind: "terminal_reached";
   readonly basisId: string;
@@ -2526,6 +2544,7 @@ export type RuntimeEvent =
   | InstructionPromptManifestProjectedEvent
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
+  | TemporalPropertyVerdictProjectedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
   | FrameOpenedEvent
@@ -2645,6 +2664,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "instruction_prompt_manifest_projected",
   "instruction_response_contract_admitted",
   "fh_escalated",
+  "temporal_property_verdict_projected",
   "terminal_reached",
   "graph_call_opened",
   "frame_opened",

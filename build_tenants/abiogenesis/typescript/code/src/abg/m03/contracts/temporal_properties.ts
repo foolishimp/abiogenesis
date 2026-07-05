@@ -680,6 +680,7 @@ export function evaluateSafetyGateAtStep(input: {
     throw new TypeError("evaluateSafetyGateAtStep requires a safety_gate property");
   }
   const prefix: TemporalTraceInput = {
+    ...(input.trace.basis === undefined ? {} : { basis: input.trace.basis }),
     events: input.trace.events.slice(0, input.step + 1),
     completed: false
   };

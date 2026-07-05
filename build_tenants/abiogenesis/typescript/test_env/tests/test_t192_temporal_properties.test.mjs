@@ -303,3 +303,113 @@ test("T-192 P3: the liveness gate routes undetermined on open prefixes and never
   });
   assert.equal(never.status, "violated");
 });
+
+// ─── Phase 4: runner wiring differentials ───
+import {
+  runEngineIterate
+} from "../../build/semantic/code/src/abg/m03/contracts/../../m03/index.js";
+import { m03InstructionAssemblyRequestFields } from "./support/m03-iteration-fixtures.mjs";
+import {
+  constructEnginePluginContract,
+  constructFpDispatchOutcome,
+  defaultFpEvaluatorPlugin
+} from "../../build/semantic/code/src/abg/m03/index.js";
+import { fulfilledAttachedArtifactFor } from "./support/m03-iteration-fixtures.mjs";
+
+function p4Run(temporalRules) {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const first = Object.freeze({
+    ...basis,
+    startIntent: Object.freeze({ ...basis.startIntent, until: "first_traversal" })
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis: first,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(first),
+    ...(temporalRules === undefined
+      ? {}
+      : { temporalPropertyStartup: { rules: temporalRules } }),
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t192/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t192/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+  return { result, events };
+}
+
+test("T-192 P4: standing gates run live — verdicts at terminal, all satisfied non-vacuous, liveness decided", () => {
+  const { result } = p4Run(STANDING_GATE_TEMPORAL_PROPERTY_RULES);
+  const verdicts = result.replayEvents.filter(
+    (event) => event.kind === "temporal_property_verdict_projected"
+  );
+  assert.equal(verdicts.length, 5, "one verdict per standing gate at the terminal");
+  for (const verdict of verdicts) {
+    assert.equal(verdict.status, "satisfied", `${verdict.propertyRef}: ${verdict.status}`);
+  }
+  const g1 = verdicts.find((v) => v.propertyRef.includes("dispatch-requires-manifest"));
+  assert.equal(g1.vacuous, false, "dispatch happened, G1 must be witnessed");
+  const g5 = verdicts.find((v) => v.propertyRef.includes("dispatch-eventually-closes"));
+  assert.equal(g5.consequenceClass, "liveness_residual");
+  // completed first_traversal terminal decides the liveness obligation
+  assert.equal(g5.status, "satisfied");
+  // verdicts precede the terminal event in replay order
+  const terminalIndex = result.replayEvents.findIndex((e) => e.kind === "terminal_reached");
+  const lastVerdictIndex = result.replayEvents
+    .map((e, i) => (e.kind === "temporal_property_verdict_projected" ? i : -1))
+    .reduce((a, b) => Math.max(a, b), -1);
+  assert.equal(lastVerdictIndex < terminalIndex, true);
+});
+
+test("T-192 P4: the online dispatch gate blocks a violated safety property BEFORE the dispatch enters truth", () => {
+  const impossible = {
+    op: "historically",
+    child: {
+      op: "implies",
+      left: { op: "atom", atom: { kind: "event", eventKind: "fp_dispatch_requested" } },
+      right: { op: "once", child: { op: "atom", atom: { kind: "event", eventKind: "no_such_event_kind" } } }
+    }
+  };
+  const gate = rule(entries({ formula: impossible, ref: "property://t192/impossible" }));
+  const { result } = p4Run([gate]);
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.equal(result.transition.reason.includes("temporal property violated at dispatch"), true);
+  assert.equal(
+    result.replayEvents.filter((e) => e.kind === "fp_dispatch_requested").length,
+    0,
+    "the candidate dispatch must never enter truth"
+  );
+  const violated = result.replayEvents.find(
+    (e) => e.kind === "temporal_property_verdict_projected" && e.status === "violated"
+  );
+  assert.ok(violated, "the block must be replay-visible as a violated verdict");
+  assert.equal(violated.evaluationPoint.startsWith("dispatch:"), true);
+});
+
+test("T-192 P4: unlawful property startup fails closed before any traversal", () => {
+  const bad = rule(entries({ formula: { op: "sometime", child: { op: "atom", atom: { kind: "event", eventKind: "x" } } } }));
+  const { result } = p4Run([bad]);
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.equal(result.transition.reason.includes("temporal property startup rejected"), true);
+  assert.equal(
+    result.replayEvents.filter((e) => e.kind === "fp_dispatch_requested").length,
+    0
+  );
+});

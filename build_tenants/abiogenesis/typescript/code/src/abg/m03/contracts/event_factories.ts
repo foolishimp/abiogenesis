@@ -47,7 +47,8 @@ import type {
   TerminalTransition,
   VectorClosedEvent,
   VectorEvaluatedEvent,
-  VectorTraversalPlannedEvent
+  VectorTraversalPlannedEvent,
+  TemporalPropertyVerdictProjectedEvent
 } from "./carriers.js";
 import type {
   InstructionCausalContextProjection
@@ -877,6 +878,37 @@ export function constructFhEscalatedEvent(
     basisId: transition.basis.id,
     approvalSubjectRef: transition.approvalSubjectRef,
     gateReason: transition.gateReason
+  });
+}
+
+export function constructTemporalPropertyVerdictProjectedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly propertyRef: string;
+  readonly formulaDigest: string;
+  readonly consequenceClass: string;
+  readonly gatePoint: string;
+  readonly evaluationPoint: string;
+  readonly status: string;
+  readonly vacuous: boolean;
+  readonly witnessCount: number | null;
+  readonly implicatedEventRefs: readonly string[];
+}): TemporalPropertyVerdictProjectedEvent {
+  return Object.freeze({
+    kind: "temporal_property_verdict_projected",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    propertyRef: input.propertyRef,
+    formulaDigest: input.formulaDigest,
+    consequenceClass: input.consequenceClass,
+    gatePoint: input.gatePoint,
+    evaluationPoint: input.evaluationPoint,
+    status: input.status,
+    vacuous: input.vacuous,
+    witnessCount: input.witnessCount,
+    implicatedEventRefs: Object.freeze([...input.implicatedEventRefs])
   });
 }
 

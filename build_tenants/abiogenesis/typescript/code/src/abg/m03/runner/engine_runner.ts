@@ -257,6 +257,12 @@ import {
 } from "../contracts/traversal_non_progress.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 import {
+  admitTemporalPropertyStartup,
+  deriveTemporalVerdictEvents,
+  temporalDispatchGateBlock,
+  type TemporalPropertyStartupInput
+} from "../contracts/temporal_property_runtime.js";
+import {
   deriveRequirementProofCarryThroughAdmittedEvents,
   type RequirementProofCarryThroughStartupInput
 } from "../contracts/requirement_proof_carry_through_producer.js";
@@ -285,6 +291,7 @@ export interface EngineIterateRequest {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
     | undefined;
@@ -329,6 +336,7 @@ export interface EngineIterateRequest {
 // defects (T-188 P1-b, m04 drop, CLI drop). New passthrough fields are added
 // HERE (type + keys) and propagate everywhere.
 export interface EngineStartPassthroughFields {
+  readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly runtimeRegistryStartup?: EngineIterateRequest["runtimeRegistryStartup"];
   readonly instructionAssemblyStartup?: EngineIterateRequest["instructionAssemblyStartup"];
   readonly requirementProofCarryThroughStartup?: EngineIterateRequest["requirementProofCarryThroughStartup"];
@@ -336,6 +344,7 @@ export interface EngineStartPassthroughFields {
 }
 
 export const ENGINE_START_PASSTHROUGH_KEYS = Object.freeze([
+  "temporalPropertyStartup",
   "runtimeRegistryStartup",
   "instructionAssemblyStartup",
   "requirementProofCarryThroughStartup",
@@ -358,6 +367,7 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
     | undefined;
@@ -4981,15 +4991,71 @@ function* runEngineIterateMachine(input: {
   let continuationStageProjectionRefs: readonly string[] = Object.freeze([]);
   let continuationStageFoldInputRefs: readonly string[] = Object.freeze([]);
 
+  // Implements: REQ-L-GTL3-TEMPORAL-PROPERTIES-006/-008 — verdicts for the
+  // full declared property set are derived and emitted immediately before
+  // ANY terminal event (one choke point covers every terminal site);
+  // completed terminals decide future obligations, others leave liveness
+  // undetermined (residual interpretation, never a block).
+  const temporalStartupAdmission = admitTemporalPropertyStartup(
+    request.temporalPropertyStartup ?? { rules: [] }
+  );
+  const temporalProperties = temporalStartupAdmission.properties;
   const emitRunnerEvents = (
     state: EngineEventEmissionState,
     events: RuntimeEvent | readonly RuntimeEvent[]
-  ): EngineEventEmissionState =>
-    appendEngineRunnerEvents({
+  ): EngineEventEmissionState => {
+    let toEmit: RuntimeEvent | readonly RuntimeEvent[] = events;
+    if (temporalProperties.length > 0) {
+      const list = Array.isArray(events)
+        ? (events as readonly RuntimeEvent[])
+        : [events as RuntimeEvent];
+      const terminal = list.find((event) => event.kind === "terminal_reached");
+      if (terminal !== undefined && terminal.kind === "terminal_reached") {
+        const completed =
+          terminal.terminalKind === "traversal_applied" ||
+          terminal.terminalKind === "converged";
+        toEmit = [
+          ...deriveTemporalVerdictEvents({
+            properties: temporalProperties,
+            events: state.replayEvents,
+            completed,
+            basis: request.basis,
+            runId: request.basis.runId ?? null,
+            workKey: request.basis.workKey ?? null,
+            evaluationPoint: `terminal:${terminal.terminalKind}`
+          }),
+          ...list
+        ];
+      }
+    }
+    return appendEngineRunnerEvents({
       state,
-      events,
+      events: toEmit,
       sink: request.eventSink
     });
+  };
+  if (!temporalStartupAdmission.accepted) {
+    // Fail-closed startup (REQ -009): an unlawful property set never runs.
+    const blocked = terminalTransition(
+      request.basis,
+      "gap_stop",
+      `temporal property startup rejected: ${temporalStartupAdmission.issues
+        .map((row) => row.issueKind)
+        .join(",")}`
+    );
+    eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+    return constructResult({
+      basis: request.basis,
+      transition: blocked,
+      projection: deriveRuntimeAggregateProjection(
+        request.basis,
+        eventState.replayEvents
+      ),
+      emittedEvents: eventState.emittedEvents,
+      replayEvents: eventState.replayEvents,
+      iterationCount
+    });
+  }
 
   if (!hasBasisAdmittedEvent(request.basis, eventState.replayEvents)) {
     eventState = emitRunnerEvents(
@@ -6577,6 +6643,45 @@ function* runEngineIterateMachine(input: {
           ...scalarTransformInput,
           instructionPromptManifest: instructionBinding.manifest
         });
+        // Implements: REQ-L-GTL3-TEMPORAL-PROPERTIES-007 — the online
+        // dispatch gate judges the candidate dispatch event against the
+        // trace prefix BEFORE it enters truth; a violated safety property
+        // blocks this dispatch with a replay-visible verdict.
+        {
+          const dispatchCandidate = constructFpDispatchRequestedEvent(transition);
+          const gateBlock = temporalDispatchGateBlock({
+            properties: temporalProperties,
+            events: eventState.replayEvents,
+            candidate: dispatchCandidate,
+            basis: request.basis,
+            runId: request.basis.runId ?? null,
+            workKey: request.basis.workKey ?? null,
+            vectorIndex: transition.vectorIndex
+          });
+          if (gateBlock !== null) {
+            eventState = emitRunnerEvents(eventState, gateBlock.verdictEvent);
+            const blocked = terminalTransition(
+              request.basis,
+              "gap_stop",
+              gateBlock.reason
+            );
+            eventState = emitRunnerEvents(
+              eventState,
+              constructTerminalReachedEvent(blocked)
+            );
+            return constructResult({
+              basis: request.basis,
+              transition: blocked,
+              projection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              emittedEvents: eventState.emittedEvents,
+              replayEvents: eventState.replayEvents,
+              iterationCount
+            });
+          }
+        }
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,

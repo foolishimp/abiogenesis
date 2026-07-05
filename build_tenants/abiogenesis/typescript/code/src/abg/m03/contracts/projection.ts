@@ -789,6 +789,7 @@ export function deriveRuntimeAggregateProjection(
       case "observed_state_admitted":
       case "overlay_frame_declared":
       case "overlay_frame_evaluated":
+      case "temporal_property_verdict_projected":
         break;
       default: {
         const exhaustive: never = event;

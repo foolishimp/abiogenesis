@@ -1117,6 +1117,20 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     approvalSubjectRef: "non_empty_string",
     gateReason: "non_empty_string"
   }),
+  temporal_property_verdict_projected: applyFieldRules("TemporalPropertyVerdictProjectedEvent", {
+    basisId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    propertyRef: "non_empty_string",
+    formulaDigest: "non_empty_string",
+    consequenceClass: "non_empty_string",
+    gatePoint: "non_empty_string",
+    evaluationPoint: "non_empty_string",
+    status: "non_empty_string",
+    vacuous: "boolean",
+    witnessCount: "nullable_non_negative_integer",
+    implicatedEventRefs: "string_array"
+  }),
   terminal_reached: applyFieldRules("TerminalReachedEvent", {
     basisId: "non_empty_string",
     terminalKind: { oneOf: TERMINAL_KIND_VALUES },
