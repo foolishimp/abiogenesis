@@ -10,7 +10,10 @@ import { fileURLToPath } from "node:url";
 import * as publicRoot from "../../build/semantic/code/src/index.js";
 import * as publicAbgRequirements from "../../build/semantic/code/src/abg/requirements/index.js";
 import * as publicGtlRequirements from "../../build/semantic/code/src/gtl/requirements/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 import {
   REQUIRED_NON_CLOSED_REQUIREMENT_ROUTE_PAYLOAD_KINDS,
   assertRequirementRouteReplayArtifact,
@@ -267,6 +270,7 @@ async function runT167DispositionScenario(input) {
   const sinkEvents = [];
   const result = await publicRoot.runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },
@@ -489,6 +493,7 @@ test("T-167 installed proof publishes non-closed route replay artifact", async (
 
   const result = await publicRoot.runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },

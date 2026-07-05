@@ -22,6 +22,7 @@ export type AgentTransportFailureClass =
 export interface AgentTransportRequest {
   readonly contract: AgentTransportContract;
   readonly prompt: string;
+  readonly responseJsonSchema?: unknown;
   readonly cwd: string;
   readonly archiveRoot: string;
   readonly label: string;
@@ -110,17 +111,28 @@ export function renderAgentTransportArgs(
   );
 }
 
-export function claudeStreamJsonArgs(prompt: string): readonly string[] {
-  return Object.freeze([
+export function claudeStreamJsonArgs(
+  prompt: string,
+  responseJsonSchema?: unknown
+): readonly string[] {
+  void prompt;
+  const args = [
     "-p",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
     "--output-format",
     "stream-json",
     "--verbose",
     "--permission-mode",
     "bypassPermissions",
-    "--tools=",
-    prompt
-  ]);
+    "--tools",
+    ""
+  ];
+  if (responseJsonSchema !== undefined) {
+    args.push("--json-schema", JSON.stringify(responseJsonSchema));
+  }
+  return Object.freeze(args);
 }
 
 function writeJson(filePath: string, value: unknown): void {
@@ -151,8 +163,18 @@ function collectPlainTransportText(stdout: string, outputPath: string): string {
   return stdout;
 }
 
-function classifyFailure(input: {
-  readonly status: number | null;
+function environmentForAgentTransport(
+  contract: AgentTransportContract
+): Record<string, string> {
+  const env = sanitizeAgentTransportEnvironment(contract);
+  if (contract.agentKey === "claude") {
+    delete env["CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL"];
+    env["CLAUDE_CODE_DISABLE_ADVISOR_TOOL"] = "1";
+  }
+  return env;
+}
+
+function hasTransportFailureSignal(input: {
   readonly timedOut: boolean;
   readonly inactivityTimedOut: boolean;
   readonly error: string | null;
@@ -162,11 +184,8 @@ function classifyFailure(input: {
   readonly parser: "generic-text" | "claude-stream-json";
   readonly structuredEventCount: number;
   readonly apiRetryCount: number;
-}): AgentTransportFailureClass | null {
-  if (input.status === 0) {
-    return input.text.trim().length === 0 ? "no_output" : null;
-  }
-  if (
+}): boolean {
+  return (
     input.timedOut ||
     input.inactivityTimedOut ||
     input.outcome.kind === "executor_unavailable" ||
@@ -181,8 +200,42 @@ function classifyFailure(input: {
     /ETIMEDOUT|ECONNRESET|ConnectionRefused|FailedToOpenSocket/iu.test(
       input.error ?? ""
     )
-  ) {
+  );
+}
+
+function hasToolTranscriptMarker(text: string): boolean {
+  return (
+    text.includes("**Use Tool:") ||
+    text.includes("**Tool Results:") ||
+    text.includes("<function_calls>") ||
+    text.includes("<invoke name=")
+  );
+}
+
+function classifyFailure(input: {
+  readonly status: number | null;
+  readonly timedOut: boolean;
+  readonly inactivityTimedOut: boolean;
+  readonly error: string | null;
+  readonly text: string;
+  readonly stderr: string;
+  readonly outcome: TracedProcessOutcome;
+  readonly parser: "generic-text" | "claude-stream-json";
+  readonly structuredEventCount: number;
+  readonly apiRetryCount: number;
+  readonly toolCallCount: number;
+}): AgentTransportFailureClass | null {
+  if (input.status !== 0 && hasTransportFailureSignal(input)) {
     return "transport_failure";
+  }
+  if (input.toolCallCount > 0) {
+    return "contract_failure";
+  }
+  if (hasToolTranscriptMarker(input.text)) {
+    return "contract_failure";
+  }
+  if (input.status === 0) {
+    return input.text.trim().length === 0 ? "no_output" : null;
   }
   return "contract_failure";
 }
@@ -224,7 +277,7 @@ export async function runAgentTransport(
   const isClaude = request.contract.agentKey === "claude";
   const workerRef = request.workerRef ?? request.contract.agentKey;
   const args = isClaude
-    ? claudeStreamJsonArgs(request.prompt)
+    ? claudeStreamJsonArgs(request.prompt, request.responseJsonSchema)
     : renderAgentTransportArgs(request.contract.argsTemplate, {
         prompt: request.prompt,
         outputPath
@@ -236,10 +289,11 @@ export async function runAgentTransport(
     command: request.contract.command,
     args,
     cwd: request.cwd,
-    env: sanitizeAgentTransportEnvironment(request.contract),
+    env: environmentForAgentTransport(request.contract),
     archiveRoot: traceRoot,
     label: request.label,
     parser: isClaude ? "claude-stream-json" : "generic-text",
+    ...(isClaude ? { stdin: request.prompt } : {}),
     ...(executorProfile === undefined
       ? {}
       : { executorProfile }),
@@ -283,7 +337,8 @@ export async function runAgentTransport(
       outcome: traced.outcome,
       parser: isClaude ? "claude-stream-json" : "generic-text",
       structuredEventCount: traced.structuredEventCount,
-      apiRetryCount: traced.apiRetryEvents.length
+      apiRetryCount: traced.apiRetryEvents.length,
+      toolCallCount: traced.toolCallEvents.length
     }),
     structuredEventCount: traced.structuredEventCount,
     apiRetryCount: traced.apiRetryEvents.length,

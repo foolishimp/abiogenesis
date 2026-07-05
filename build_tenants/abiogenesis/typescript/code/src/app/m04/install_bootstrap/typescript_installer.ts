@@ -939,11 +939,13 @@ function installedCliRuntimeBindingSource(input: {
   readonly standardsRoot: string;
 }): string {
   return `import {
+  admitExecutionBasis,
   admitModule,
   admitNode,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
   constructDefaultAbgFnCompositionDeclarations,
+  constructDefaultInstructionAssemblyStartupForBasis,
   edge,
   graphFunctionForVector
 } from ${JSON.stringify(input.packageImportSpecifier)};
@@ -1029,18 +1031,46 @@ const module = admitModule({
   metadata: { entries: [] }
 });
 
-export const runtimeBinding = {
-  module,
-  runtimeIdentity: admitResolvedRuntimeIdentity(${JSON.stringify(
+const runtimeIdentity = admitResolvedRuntimeIdentity(${JSON.stringify(
     input.runtimeIdentity,
     null,
     2
-  )}),
-  resolvedPolicy: admitResolvedPolicyIdentity({
-    resolvedPolicyBundleRef: "policy://abiogenesis/installed-substrate-self-test/F_D",
-    defaultRegime: "F_D",
-    dispatchRef: null
+  )});
+const resolvedPolicy = admitResolvedPolicyIdentity({
+  resolvedPolicyBundleRef: "policy://abiogenesis/installed-substrate-self-test/F_D",
+  defaultRegime: "F_D",
+  dispatchRef: null
+});
+const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+  admitExecutionBasis({
+    startIntent: {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: module.name
+      },
+      target: {
+        kind: "graph_function",
+        handle: runtimeBindingGraphFunction.name
+      },
+      until: "converged"
+    },
+    module,
+    runtimeIdentity,
+    resolvedPolicy,
+    runId: "run://abiogenesis/installed-substrate-self-test",
+    workKey: "wk://abiogenesis/installed-substrate-self-test",
+    frameId: null,
+    frameLineageId: null
   }),
+  { prefix: "abiogenesis-installed-substrate-self-test" }
+);
+
+export const runtimeBinding = {
+  module,
+  runtimeIdentity,
+  resolvedPolicy,
+  ...startupFields,
   fallbackConfigPath: ".abiogenesis/config/abg.config.json",
   runId: "run://abiogenesis/installed-substrate-self-test",
   workKey: "wk://abiogenesis/installed-substrate-self-test"

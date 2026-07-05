@@ -16,7 +16,10 @@ import {
   runEngineIterate,
   terminalTransitionForRuntimeContinuationProjection
 } from "../../build/semantic/code/src/abg/m03/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function runtimeFixture({ vectorIndex = 1 } = {}) {
   const basis = buildThreeStageBasis({
@@ -223,6 +226,7 @@ test("T-148 runner path uses runtime continuation transition projection", () => 
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => {},
     plugins: { fpDispatch }
   });

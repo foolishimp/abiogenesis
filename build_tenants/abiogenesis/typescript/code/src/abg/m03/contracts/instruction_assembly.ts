@@ -65,6 +65,12 @@ export type InstructionWorkKind =
   | "target_work"
   | "dependency_disambiguation";
 
+export type InstructionAssemblyComputeStageRole =
+  | "transform"
+  | "evaluate"
+  | "consequence"
+  | "human_callout";
+
 export type RuntimeBindingSlotClass =
   | "graph_call"
   | "frame"
@@ -243,6 +249,7 @@ export interface InstructionSectionDecision {
 export interface CompileInstructionAssemblyPlanInput {
   readonly planRef: string;
   readonly rule: InstructionAssemblyRule;
+  readonly computeStageRole?: InstructionAssemblyComputeStageRole | undefined;
   readonly graphFunctionRef: string;
   readonly vectorRef: string;
   readonly registryEntryRefs: readonly string[];
@@ -274,6 +281,7 @@ export interface CompiledPromptPlan {
   readonly planRef: string;
   readonly planDigest: string;
   readonly ruleRef: string;
+  readonly computeStageRole: InstructionAssemblyComputeStageRole;
   readonly graphFunctionRef: string;
   readonly vectorRef: string;
   readonly registryEntryRefs: readonly string[];
@@ -456,6 +464,23 @@ function requireNullableNonEmptyString(
   return input;
 }
 
+function normalizeInstructionAssemblyComputeStageRole(
+  input: InstructionAssemblyComputeStageRole | undefined
+): InstructionAssemblyComputeStageRole {
+  if (input === undefined) {
+    return "transform";
+  }
+  if (
+    input === "transform" ||
+    input === "evaluate" ||
+    input === "consequence" ||
+    input === "human_callout"
+  ) {
+    return input;
+  }
+  throw new TypeError("computeStageRole must be a known instruction assembly compute stage role");
+}
+
 function issue(input: {
   readonly issueKind: InstructionAssemblyIssueKind;
   readonly algebraRef: InstructionAssemblyIssue["algebraRef"];
@@ -567,6 +592,42 @@ function envelopeDigest(input: Omit<InstructionEnvelope, "envelopeDigest">): str
   return stableSha256Digest(input);
 }
 
+const MAX_RENDERED_REF_CHARS = 180;
+const MAX_RENDERED_EXCERPT_CHARS = 12000;
+
+function compactRenderedRef(ref: string): string {
+  if (ref.length <= MAX_RENDERED_REF_CHARS) {
+    return ref;
+  }
+  const digest = stableSha256Digest(ref);
+  if (ref.startsWith("node:")) {
+    try {
+      const parsed: unknown = JSON.parse(ref.slice("node:".length));
+      if (typeof parsed === "object" && parsed !== null && !Array.isArray(parsed)) {
+        const record = parsed as Readonly<Record<string, unknown>>;
+        const name = typeof record["name"] === "string" ? record["name"] : "unnamed";
+        const typeRef = typeof record["typeRef"] === "string" ? record["typeRef"] : "untyped";
+        return `node:${name}:${typeRef}:${digest}`;
+      }
+    } catch {
+      // Fall through to digest-only rendering for malformed legacy refs.
+    }
+  }
+  const prefix = ref.slice(0, 48).replace(/[\r\n\t]/gu, " ");
+  return `${prefix}...${digest}`;
+}
+
+function stableCompactRefs(refs: readonly string[]): string {
+  return stableJson(refs.map((ref) => compactRenderedRef(ref)));
+}
+
+function compactRenderedExcerpt(excerpt: string | null): string | null {
+  if (excerpt === null || excerpt.length <= MAX_RENDERED_EXCERPT_CHARS) {
+    return excerpt;
+  }
+  return `${excerpt.slice(0, MAX_RENDERED_EXCERPT_CHARS)}...[truncated:${excerpt.length}]`;
+}
+
 function renderedPromptFor(input: {
   readonly envelope: InstructionEnvelope;
   readonly plan: CompiledPromptPlan;
@@ -576,8 +637,8 @@ function renderedPromptFor(input: {
   );
   const sectionText = sections
     .map((section) => {
-      const carrierLine = `carriers: ${stableJson(section.carrierRefs)}`;
-      const dependencyLine = `dependencies: ${stableJson(section.dependencyRefs)}`;
+      const carrierLine = `carriers: ${stableCompactRefs(section.carrierRefs)}`;
+      const dependencyLine = `dependencies: ${stableCompactRefs(section.dependencyRefs)}`;
       const digestLine = section.digestRef === null ? "digest: none" : `digest: ${section.digestRef}`;
       return [
         `## ${section.sectionRef}`,
@@ -595,13 +656,13 @@ function renderedPromptFor(input: {
           .map((fact) =>
             [
               `- slot: ${fact.slotClass}`,
-              `  ref: ${fact.ref}`,
+              `  ref: ${compactRenderedRef(fact.ref)}`,
               `  digest: ${fact.digest}`,
               `  payloadDigest: ${fact.payloadDigest ?? "none"}`,
-              `  contentRef: ${fact.contentRef ?? "none"}`,
+              `  contentRef: ${fact.contentRef == null ? "none" : compactRenderedRef(fact.contentRef)}`,
               `  contentDigest: ${fact.contentDigest ?? "none"}`,
-              `  contentExcerpt: ${stableJson(fact.contentExcerpt ?? null)}`,
-              `  sourceEventRefs: ${stableJson(fact.sourceEventRefs)}`
+              `  contentExcerpt: ${stableJson(compactRenderedExcerpt(fact.contentExcerpt ?? null))}`,
+              `  sourceEventRefs: ${stableCompactRefs(fact.sourceEventRefs)}`
             ].join("\n")
           )
           .join("\n");
@@ -614,15 +675,15 @@ function renderedPromptFor(input: {
           `truthRef: ${dependencyTruth.truthRef}`,
           `truthDigest: ${dependencyTruth.truthDigest}`,
           `workKind: ${dependencyTruth.workKind}`,
-          `dependencyGraphRef: ${dependencyTruth.dependencyGraphRef ?? "none"}`,
+          `dependencyGraphRef: ${dependencyTruth.dependencyGraphRef === null ? "none" : compactRenderedRef(dependencyTruth.dependencyGraphRef)}`,
           `dependencyGraphDigest: ${dependencyTruth.dependencyGraphDigest ?? "none"}`,
-          `targetRefs: ${stableJson(dependencyTruth.targetRefs)}`,
-          `prerequisiteNodeRefs: ${stableJson(dependencyTruth.prerequisiteNodeRefs)}`,
-          `prerequisiteEdgeRefs: ${stableJson(dependencyTruth.prerequisiteEdgeRefs)}`,
+          `targetRefs: ${stableCompactRefs(dependencyTruth.targetRefs)}`,
+          `prerequisiteNodeRefs: ${stableCompactRefs(dependencyTruth.prerequisiteNodeRefs)}`,
+          `prerequisiteEdgeRefs: ${stableCompactRefs(dependencyTruth.prerequisiteEdgeRefs)}`,
           `dependencyClosed: ${String(dependencyTruth.dependencyClosed)}`,
-          `typedPrerequisiteGapRefs: ${stableJson(dependencyTruth.typedPrerequisiteGapRefs)}`,
+          `typedPrerequisiteGapRefs: ${stableCompactRefs(dependencyTruth.typedPrerequisiteGapRefs)}`,
           `noDependencyPolicyRef: ${dependencyTruth.noDependencyPolicyRef ?? "none"}`,
-          `sourceProjectionRefs: ${stableJson(dependencyTruth.sourceProjectionRefs)}`
+          `sourceProjectionRefs: ${stableCompactRefs(dependencyTruth.sourceProjectionRefs)}`
         ].join("\n");
   const proofDepthText =
     proofDepthTruth === null
@@ -632,22 +693,30 @@ function renderedPromptFor(input: {
           `truthDigest: ${proofDepthTruth.truthDigest}`,
           `depthPolicyRef: ${proofDepthTruth.depthPolicyRef ?? "none"}`,
           `depthPolicyDigest: ${proofDepthTruth.depthPolicyDigest ?? "none"}`,
-          `targetRefs: ${stableJson(proofDepthTruth.targetRefs)}`,
-          `requiredDepthClassRefs: ${stableJson(proofDepthTruth.requiredDepthClassRefs)}`,
-          `declaredDepthClassRefs: ${stableJson(proofDepthTruth.declaredDepthClassRefs)}`,
-          `declaredDepthObligationRefs: ${stableJson(proofDepthTruth.declaredDepthObligationRefs)}`,
-          `notApplicableDepthClassRefs: ${stableJson(proofDepthTruth.notApplicableDepthClassRefs)}`,
-          `typedDepthGapRefs: ${stableJson(proofDepthTruth.typedDepthGapRefs)}`,
-          `proofStrengthAdmissionRefs: ${stableJson(proofDepthTruth.proofStrengthAdmissionRefs)}`,
-          `fdStrengthCriterionRefs: ${stableJson(proofDepthTruth.fdStrengthCriterionRefs)}`,
-          `adversarialVerificationRefs: ${stableJson(proofDepthTruth.adversarialVerificationRefs)}`,
-          `adversarialCounterexampleRefs: ${stableJson(proofDepthTruth.adversarialCounterexampleRefs)}`,
-          `sourceProjectionRefs: ${stableJson(proofDepthTruth.sourceProjectionRefs)}`,
+          `targetRefs: ${stableCompactRefs(proofDepthTruth.targetRefs)}`,
+          `requiredDepthClassRefs: ${stableCompactRefs(proofDepthTruth.requiredDepthClassRefs)}`,
+          `declaredDepthClassRefs: ${stableCompactRefs(proofDepthTruth.declaredDepthClassRefs)}`,
+          `declaredDepthObligationRefs: ${stableCompactRefs(proofDepthTruth.declaredDepthObligationRefs)}`,
+          `notApplicableDepthClassRefs: ${stableCompactRefs(proofDepthTruth.notApplicableDepthClassRefs)}`,
+          `typedDepthGapRefs: ${stableCompactRefs(proofDepthTruth.typedDepthGapRefs)}`,
+          `proofStrengthAdmissionRefs: ${stableCompactRefs(proofDepthTruth.proofStrengthAdmissionRefs)}`,
+          `fdStrengthCriterionRefs: ${stableCompactRefs(proofDepthTruth.fdStrengthCriterionRefs)}`,
+          `adversarialVerificationRefs: ${stableCompactRefs(proofDepthTruth.adversarialVerificationRefs)}`,
+          `adversarialCounterexampleRefs: ${stableCompactRefs(proofDepthTruth.adversarialCounterexampleRefs)}`,
+          `sourceProjectionRefs: ${stableCompactRefs(proofDepthTruth.sourceProjectionRefs)}`,
           `depthComplete: ${String(proofDepthTruth.depthComplete)}`,
           `proofStrengthAdmitted: ${String(proofDepthTruth.proofStrengthAdmitted)}`
         ].join("\n");
   return [
     sectionText,
+    "## abg.instruction_authority_precedence",
+    [
+      "ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.",
+      "Product section text, stage policy data, templates, and worker instructions may narrow or strengthen admitted prior obligations, but they shall not weaken, replace, or contradict them.",
+      "If a product instruction conflicts with an admitted prior artifact, dependency/proof truth, or runtime binding, the admitted truth wins and the conflict is a dispatch/evaluation defect.",
+      "The F_P worker must not use a weaker product instruction to satisfy an obligation carried by admitted prior truth.",
+      "The F_P evaluator must reject a candidate that follows a weaker product instruction when admitted prior truth requires the stronger obligation."
+    ].join("\n"),
     "## abg.dependency_instruction_truth",
     dependencyText,
     "## abg.proof_depth_instruction_truth",
@@ -978,6 +1047,9 @@ export function compileInstructionAssemblyPlan(
 ): InstructionAssemblyCompileResult {
   const issues: InstructionAssemblyIssue[] = [];
   const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
+  const computeStageRole = normalizeInstructionAssemblyComputeStageRole(
+    input.computeStageRole
+  );
   const dependencyInstructionTruth =
     input.dependencyInstructionTruth === undefined ||
     input.dependencyInstructionTruth === null
@@ -1421,6 +1493,7 @@ export function compileInstructionAssemblyPlan(
     kind: "compiled_prompt_plan" as const,
     planRef: input.planRef,
     ruleRef: input.rule.ruleRef,
+    computeStageRole,
     graphFunctionRef: input.graphFunctionRef,
     vectorRef: input.vectorRef,
     registryEntryRefs: uniqueSorted(input.registryEntryRefs),

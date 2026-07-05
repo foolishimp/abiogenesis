@@ -23,6 +23,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       admitResolvedRuntimeIdentity,
       assertFpEdgeAssuranceEvalFindingMatchesHookAction,
       constructAuthoritySnapshotAdmittedEvent,
+      constructDefaultInstructionAssemblyStartupForBasis,
       constructEnginePluginContract,
       constructEnvRef,
       constructEvidenceAdmittedEvent,
@@ -501,6 +502,10 @@ export function installedT132EdgeAssuranceThreeChainSource({
       frameId: null,
       frameLineageId: null
     });
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      basis,
+      { prefix: "t132-edge-assurance-installed" }
+    );
 
     const fpDispatchContract = constructEnginePluginContract({
       ref: "plugin://t132/edge-assurance/fp-dispatch",
@@ -1467,6 +1472,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
         basis,
         runtimeEvents,
         eventSink,
+        ...startupFields,
         plugins
       });
       const runnerReplayEvents = result.replayEvents;

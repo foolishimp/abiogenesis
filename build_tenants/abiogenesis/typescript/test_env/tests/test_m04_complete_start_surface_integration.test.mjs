@@ -91,6 +91,8 @@ test("M04 complete-start integration: bare callable start advances through subst
     [
       "lever_resolution_admitted",
       "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -174,9 +176,12 @@ test("M04 complete-start integration: F_P bare callable start projects worker di
     [
       "lever_resolution_admitted",
       "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
+      "instruction_prompt_manifest_projected",
       "fp_dispatch_requested",
       "actor_invocation_started",
       "payload_observed",

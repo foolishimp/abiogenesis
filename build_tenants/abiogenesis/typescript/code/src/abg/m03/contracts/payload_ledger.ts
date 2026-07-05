@@ -140,7 +140,7 @@ export interface InstructionCausalInputBinding {
   readonly sourceVectorIndex: number;
   readonly sourceEdge: string;
   readonly sourceAssetKind: string;
-  readonly bindingRole: "prior_target_output";
+  readonly bindingRole: "prior_target_output" | "same_vector_retry_repair";
   readonly bindingPolicyRef: string;
   readonly contentMode: InstructionCausalContentMode;
   readonly contentRef: string | null;
@@ -312,6 +312,7 @@ function instructionCausalInputBindingRef(
     input.targetGraphCallId,
     input.targetFrameId,
     String(input.targetVectorIndex),
+    `role=${input.bindingRole}`,
     `source=${input.sourceVectorIndex}`,
     `source_asset=${input.sourceAssetKind}`,
     `target_asset=${input.targetAssetKind}`,
@@ -426,6 +427,113 @@ function actorResultArtifactForAuthority(input: {
     .at(-1);
 }
 
+function actorResultArtifactForObservedPayload(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly observed: PayloadObservedRuntimeEvent | undefined;
+}): ActorResultArtifactObservedEvent | undefined {
+  if (input.observed === undefined) {
+    return undefined;
+  }
+  return actorResultArtifactForAuthority({
+    ledger: input.ledger,
+    sourceEventRef: input.observed.sourceEventRef
+  });
+}
+
+function sameVectorRetryRepairBindings(input: {
+  readonly targetScope: PayloadLedgerScope;
+  readonly targetAssetKind: string;
+  readonly ledger: PayloadLedgerProjection;
+}): readonly InstructionCausalInputBinding[] {
+  if (input.ledger.rejectedPayloads.length === 0) {
+    return Object.freeze([]);
+  }
+  const observedByPayloadRef = new Map(
+    input.ledger.observedPayloads.map((event) => [event.payloadRef, event])
+  );
+  return Object.freeze(
+    input.ledger.rejectedPayloads.map((rejected) => {
+      const observed = observedByPayloadRef.get(rejected.payloadRef);
+      const artifact = actorResultArtifactForObservedPayload({
+        ledger: input.ledger,
+        observed
+      });
+      const sourceEventRef = [
+        "event:payload_rejected",
+        rejected.payloadRef,
+        rejected.rejectionClass
+      ].join(":");
+      const contentExcerpt = [
+        `Rejected same-vector candidate payload ${rejected.payloadRef}.`,
+        `rejectionClass: ${rejected.rejectionClass}`,
+        `reason: ${rejected.reason}`,
+        artifact?.artifactContentExcerpt === null ||
+        artifact?.artifactContentExcerpt === undefined
+          ? null
+          : `artifactExcerpt: ${artifact.artifactContentExcerpt}`
+      ]
+        .filter((line): line is string => line !== null)
+        .join("\n");
+      const contentDigest =
+        artifact?.artifactContentDigest ?? rejected.digest ?? observed?.digest ?? null;
+      const payloadDigest =
+        rejected.digest ??
+        observed?.digest ??
+        [
+          "digest:rejected_payload",
+          rejected.payloadRef,
+          rejected.rejectionClass
+        ].join(":");
+      const partial = Object.freeze({
+        targetBasisId: input.targetScope.basisId,
+        targetGraphCallId: input.targetScope.graphCallId,
+        targetFrameId: input.targetScope.frameId,
+        targetVectorIndex: input.targetScope.vectorIndex,
+        targetEdge: input.targetScope.edge,
+        targetAssetKind: input.targetAssetKind,
+        sourceVectorIndex: input.targetScope.vectorIndex,
+        sourceEdge: input.targetScope.edge,
+        sourceAssetKind: input.targetAssetKind,
+        bindingRole: "same_vector_retry_repair" as const,
+        bindingPolicyRef: [
+          "instruction_causal_retry_repair_policy",
+          input.targetScope.basisId,
+          String(input.targetScope.vectorIndex),
+          rejected.payloadRef
+        ].join(":"),
+        contentMode: "excerpt" as const,
+        contentRef: artifact?.artifactRef ?? observed?.sourceEventRef ?? null,
+        contentDigest,
+        contentExcerpt,
+        required: false,
+        payloadRef: rejected.payloadRef,
+        payloadClass: observed?.payloadClass ?? "rejected_target_candidate",
+        payloadDigest,
+        payloadContractRef: rejected.contractRef,
+        producerRef: observed?.producerRef ?? "unknown_rejected_payload_producer",
+        sourceEventRef,
+        authorityRef: observed?.authorityRef ?? null,
+        inputDigest: observed?.inputDigest ?? null,
+        evidenceRefs: freezeStringArray([
+          sourceEventRef,
+          ...(observed === undefined
+            ? []
+            : [`event:payload_observed:${observed.payloadRef}`]),
+          ...(artifact === undefined
+            ? []
+            : [`event:actor_result_artifact_observed:${artifact.artifactRef}`])
+        ]),
+        sourceProjectionRef: sourceEventRef
+      });
+      return Object.freeze({
+        kind: "instruction_causal_input_binding" as const,
+        bindingRef: instructionCausalInputBindingRef(partial),
+        ...partial
+      });
+    })
+  );
+}
+
 export function derivePayloadLedgerScope(input: {
   readonly basis: ExecutionBasis;
   readonly runtimeProjection: RuntimeAggregateProjection;
@@ -532,6 +640,62 @@ export function derivePayloadLedgerProjection(input: {
   });
 }
 
+type TargetCarrierDecisionEvent =
+  | {
+      readonly kind: "admitted";
+      readonly event: PayloadValidatedRuntimeEvent;
+      readonly index: number;
+    }
+  | {
+      readonly kind: "rejected";
+      readonly event: PayloadRejectedRuntimeEvent;
+      readonly index: number;
+    };
+
+function eventAdmissionOrdinal(event: object): number | null {
+  const ordinal = (event as { readonly eventAdmissionOrdinal?: unknown })
+    .eventAdmissionOrdinal;
+  return typeof ordinal === "number" && Number.isFinite(ordinal) ? ordinal : null;
+}
+
+function compareTargetCarrierDecisions(
+  left: TargetCarrierDecisionEvent,
+  right: TargetCarrierDecisionEvent
+): number {
+  const leftOrdinal = eventAdmissionOrdinal(left.event);
+  const rightOrdinal = eventAdmissionOrdinal(right.event);
+  if (leftOrdinal !== null && rightOrdinal !== null) {
+    return leftOrdinal - rightOrdinal;
+  }
+  if (leftOrdinal !== null) {
+    return 1;
+  }
+  if (rightOrdinal !== null) {
+    return -1;
+  }
+  const leftFallback = left.kind === "rejected" ? 1 : 0;
+  const rightFallback = right.kind === "rejected" ? 1 : 0;
+  if (leftFallback !== rightFallback) {
+    return leftFallback - rightFallback;
+  }
+  return left.index - right.index;
+}
+
+function latestTargetCarrierDecision(input: {
+  readonly validatedPayloads: readonly PayloadValidatedRuntimeEvent[];
+  readonly rejectedPayloads: readonly PayloadRejectedRuntimeEvent[];
+}): TargetCarrierDecisionEvent | null {
+  const decisions: TargetCarrierDecisionEvent[] = [
+    ...input.validatedPayloads.map((event, index) =>
+      Object.freeze({ kind: "admitted" as const, event, index })
+    ),
+    ...input.rejectedPayloads.map((event, index) =>
+      Object.freeze({ kind: "rejected" as const, event, index })
+    )
+  ];
+  return decisions.sort(compareTargetCarrierDecisions).at(-1) ?? null;
+}
+
 export function deriveTargetCarrierAdmissionProjection(input: {
   readonly ledger: PayloadLedgerProjection;
   readonly payloadRef?: string | null | undefined;
@@ -551,6 +715,38 @@ export function deriveTargetCarrierAdmissionProjection(input: {
       event.contractDigest === contractDigest &&
       (payloadRef === null || event.payloadRef === payloadRef)
   );
+
+  if (payloadRef === null) {
+    const latestDecision = latestTargetCarrierDecision({
+      validatedPayloads,
+      rejectedPayloads
+    });
+    if (latestDecision?.kind === "rejected") {
+      return Object.freeze({
+        kind: "target_carrier_admission_projection",
+        targetCarrierContractRef: contractRef,
+        targetCarrierContractDigest: contractDigest,
+        status: "rejected",
+        payloadRef: latestDecision.event.payloadRef,
+        validationRefs: freezeStringArray([]),
+        rejectedPayloadRefs: freezeStringArray([latestDecision.event.payloadRef]),
+        reason: latestDecision.event.reason
+      });
+    }
+    if (latestDecision?.kind === "admitted") {
+      return Object.freeze({
+        kind: "target_carrier_admission_projection",
+        targetCarrierContractRef: contractRef,
+        targetCarrierContractDigest: contractDigest,
+        status: "admitted",
+        payloadRef: latestDecision.event.payloadRef,
+        validationRefs: freezeStringArray([latestDecision.event.validationRef]),
+        rejectedPayloadRefs: freezeStringArray([]),
+        reason: null
+      });
+    }
+  }
+
   const targetPayloadRef =
     payloadRef ??
     rejectedPayloads.at(-1)?.payloadRef ??
@@ -633,7 +829,7 @@ export function deriveAdmittedOutputAuthorityProjection(input: {
                 targetCarrierAdmission.targetCarrierContractDigest
           )
           .at(-1);
-  const evidenceRefs =
+  const payloadEvidenceRefs =
     targetPayloadRef === null
       ? Object.freeze([])
       : uniqueStringArray(
@@ -641,6 +837,13 @@ export function deriveAdmittedOutputAuthorityProjection(input: {
             .filter((event) => event.payloadRef === targetPayloadRef)
             .map((event) => event.evidenceRef)
         );
+  const evidenceRefs =
+    targetCarrierAdmission.status === "admitted"
+      ? uniqueStringArray([
+          ...payloadEvidenceRefs,
+          ...targetCarrierAdmission.validationRefs
+        ])
+      : payloadEvidenceRefs;
 
   let status: AdmittedOutputAuthorityStatus = targetCarrierAdmission.status;
   let reason = targetCarrierAdmission.reason;
@@ -722,8 +925,32 @@ export function deriveInstructionCausalContextProjection(input: {
   const requiredInputAssetKindSet = new Set(requiredInputAssetKinds);
   const bindings: InstructionCausalInputBinding[] = [];
   const missingInputRefs: string[] = [];
+  const targetLedger = derivePayloadLedgerProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    events: input.events,
+    vectorIndex: input.vectorIndex,
+    targetCarrierDefaults: input.targetCarrierDefaults
+  });
+  bindings.push(
+    ...sameVectorRetryRepairBindings({
+      targetScope,
+      targetAssetKind,
+      ledger: targetLedger
+    })
+  );
   const requiredSourceVectorIndexes = input.runtimeProjection.closedVectorIndexes
     .filter((index) => index < input.vectorIndex)
+    .filter((index) => {
+      if (requiredInputAssetKindSet.size === 0) {
+        return true;
+      }
+      const sourceAssetKind = assetKindForTarget({
+        basis: input.basis,
+        vectorIndex: index
+      });
+      return requiredInputAssetKindSet.has(sourceAssetKind);
+    })
     .sort((left, right) => left - right);
 
   for (const sourceVectorIndex of requiredSourceVectorIndexes) {

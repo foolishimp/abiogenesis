@@ -13,6 +13,7 @@ import {
   constructConstructionObservationSnapshot,
   constructConstructionPriorityScheme,
   constructConstructionRepairSurfaceTriageRow,
+  constructDefaultInstructionAssemblyStartupForBasis,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructFdEvaluationOutcome,
@@ -417,6 +418,10 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
     frameLineageId: context.frameLineageId
   });
   const world = buildConstructionWorld(basis);
+  const graphStartupFields = constructDefaultInstructionAssemblyStartupForBasis(
+    basis,
+    { prefix: "t128-construction-runner" }
+  );
   const emittedEvents = [];
   const fpEdges = [];
   const fdEdges = [];
@@ -430,6 +435,8 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
     priorityProjection: world.priority,
     actionCatalog: world.catalog,
     constructionEvents: admittedConstructionEvents(world, basis),
+    graphRuntimeRegistryStartup: graphStartupFields.runtimeRegistryStartup,
+    graphInstructionAssemblyStartup: graphStartupFields.instructionAssemblyStartup,
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -508,13 +515,17 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "construction_pressure_package_materialized",
       "construction_graph_action_invoked",
       "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
+      "instruction_prompt_manifest_projected",
       "fp_dispatch_requested",
       "actor_invocation_started",
       ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
+      "instruction_response_contract_admitted",
       "actor_invocation_closed",
       "authority_snapshot_admitted",
       "payload_observed",
@@ -522,6 +533,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "evidence_admitted",
       "payload_observed",
       "payload_validated",
+      "instruction_prompt_manifest_projected",
       "payload_observed",
       "payload_validated",
       "authority_snapshot_admitted",
@@ -535,6 +547,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "vector_evaluated",
       ...composedStageOutcomeEvents,
       "vector_closed",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -545,6 +558,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       ...composedStageOutcomeEvents,
       "vector_closed",
       "fd_advance_ready",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",

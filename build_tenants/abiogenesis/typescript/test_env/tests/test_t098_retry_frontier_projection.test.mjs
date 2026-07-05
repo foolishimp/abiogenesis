@@ -14,7 +14,10 @@ import {
   deriveRetryFrontierProjection,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
@@ -133,6 +136,7 @@ test("T-098 retry frontier: next F_P input receives full prior failure frontier"
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
     maxAttachedFpAttempts: 3
@@ -192,6 +196,7 @@ test("T-098 retry frontier: zero-attempt stop is evidence, not attempt coverage"
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: { fpDispatch },
     maxAttachedFpAttempts: 1

@@ -20,8 +20,22 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import {
   buildThreeStageBasis,
-  buildThreeStageStartContext
+  buildThreeStageStartContext,
+  m03InstructionAssemblyRequestFields
 } from "./support/m03-iteration-fixtures.mjs";
+
+const INSTRUCTION_WIRING_EVENT_KINDS = new Set([
+  "registry_entry_admitted",
+  "graph_function_selected",
+  "instruction_prompt_manifest_projected",
+  "instruction_response_contract_admitted"
+]);
+
+function legacyCoreEventKinds(events) {
+  return events
+    .map((event) => event.kind)
+    .filter((kind) => !INSTRUCTION_WIRING_EVENT_KINDS.has(kind));
+}
 
 function attachedArtifact(input, options = {}) {
   const fulfillmentStatus = options.fulfillmentStatus ?? "fulfilled";
@@ -153,6 +167,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -208,7 +223,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
   ];
   const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
   assert.deepStrictEqual(
-    events.map((event) => event.kind),
+    legacyCoreEventKinds(events),
     [
       "basis_admitted",
       "graph_call_opened",
@@ -304,6 +319,7 @@ test("T-084 engine runner: assurance retry over an accepted artifact redispatche
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -421,6 +437,7 @@ test("T-159 typed F_P continuation reaches consequence before assurance retry", 
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -442,7 +459,7 @@ test("T-159 typed F_P continuation reaches consequence before assurance retry", 
 });
 
 test("T-084 public start: attached F_P graph converges without caller-owned loop", () => {
-  const { input, context } = buildThreeStageStartContext({
+  const { input, context, basis } = buildThreeStageStartContext({
     defaultRegime: "F_P",
     dispatchRef: "dispatch://attached-worker"
   });
@@ -460,7 +477,10 @@ test("T-084 public start: attached F_P graph converges without caller-owned loop
 
   const outcome = start(
     input,
-    context,
+    {
+      ...context,
+      ...m03InstructionAssemblyRequestFields(basis)
+    },
     (event) => {
       events.push(event);
     },
@@ -512,6 +532,7 @@ test("T-084 non-retryable runtime failures stop without same-edge retry", () => 
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -582,6 +603,7 @@ test("T-084 negative: wrong-edge attached artifact cannot close a vector", () =>
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },

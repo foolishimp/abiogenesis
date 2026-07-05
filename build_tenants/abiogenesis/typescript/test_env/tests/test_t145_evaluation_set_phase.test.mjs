@@ -20,7 +20,10 @@ import {
   runEngineIterate,
   runEngineIterateAsync
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function pluginContract(pluginKind, ref, outputCarrier) {
   return constructEnginePluginContract({
@@ -231,6 +234,7 @@ test("T-145 scalar F_P evaluator remains a one-rule evaluation-set reduction", (
   const events = [];
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -267,6 +271,7 @@ test("T-145 F_D register rules are admitted before final F_P semantic judgment",
   let fpEvaluationInput = null;
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -335,6 +340,7 @@ test("T-145 F_D advance uses evaluation-set register phase before scalar F_D aut
   const fdEvaluationInputs = [];
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fdEvaluator: fdEvaluatorPlugin((input) => {
@@ -390,9 +396,11 @@ test("T-145 F_D advance uses evaluation-set register phase before scalar F_D aut
 test("T-145 dependent evaluation rules can read admitted predecessor refs", () => {
   const firstRuleRef = "evaluation-rule://t145/dependent-input/first";
   const secondRuleRef = "evaluation-rule://t145/dependent-input/second";
+  const basis = firstFpBasis();
   let secondInput = null;
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -427,10 +435,12 @@ test("T-145 dependent evaluation rules can read admitted predecessor refs", () =
 
 test("T-145 F_P evaluation rules receive ABG actor invocation provenance", () => {
   const ruleRef = "evaluation-rule://t145/fp-actor-provenance";
+  const basis = firstFpBasis();
   const observedInputs = [];
   const events = [];
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -468,9 +478,11 @@ test("T-145 F_P evaluation rules receive ABG actor invocation provenance", () =>
 test("T-145 evaluation rule replay identity includes dependency refs", () => {
   const secondRuleRef = "evaluation-rule://t145/dependent-identity/second";
   const digestForFirstRule = (firstRuleRef) => {
+    const basis = firstFpBasis();
     const events = [];
     const result = runEngineIterate({
-      basis: firstFpBasis(),
+      basis,
+      ...m03InstructionAssemblyRequestFields(basis),
       eventSink: (event) => events.push(event),
       plugins: {
         fpDispatch: fpDispatchPlugin(),
@@ -505,9 +517,10 @@ test("T-145 evaluation rule replay identity includes dependency refs", () => {
 
 test("T-145 scalar F_D replay identity includes register refs", () => {
   const digestForRegisterRule = (ruleRef) => {
+    const basis = firstFdBasis();
     const events = [];
     const result = runEngineIterate({
-      basis: firstFdBasis(),
+      basis,
       eventSink: (event) => events.push(event),
       plugins: {
         fdEvaluator: fdEvaluatorPlugin(),
@@ -534,9 +547,11 @@ test("T-145 scalar F_D replay identity includes register refs", () => {
 
 test("T-145 scalar F_P replay identity includes register refs", () => {
   const digestForRegisterRule = (ruleRef) => {
+    const basis = firstFpBasis();
     const events = [];
     const result = runEngineIterate({
-      basis: firstFpBasis(),
+      basis,
+      ...m03InstructionAssemblyRequestFields(basis),
       eventSink: (event) => events.push(event),
       plugins: {
         fpDispatch: fpDispatchPlugin(),
@@ -581,6 +596,7 @@ test("T-145 parallel register batches replay in stable rule-ref order", () => {
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -647,6 +663,7 @@ test("T-145 async parallel register batches invoke concurrently and admit stably
 
   const result = await runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -684,6 +701,7 @@ test("T-145 missing required evaluation rule blocks closure", () => {
   let fpEvaluateCount = 0;
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -711,6 +729,7 @@ test("T-145 missing required evaluation rule blocks scalar F_D authority", () =>
   let fdEvaluateCount = 0;
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fdEvaluator: fdEvaluatorPlugin(() => {
@@ -737,6 +756,7 @@ test("T-145 blocked required evaluation rule vetoes scalar F_D closure", () => {
   const blockedRuleRef = "evaluation-rule://t145/blocked-fd-required-register";
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fdEvaluator: fdEvaluatorPlugin(() => {
@@ -822,6 +842,7 @@ test("T-145 retry-capable required evaluation rule replays the same edge", () =>
   });
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -1055,6 +1076,7 @@ test("T-145 evaluation rule outcomes cannot smuggle ABG authority", () => {
     () =>
       runEngineIterate({
         basis,
+        ...m03InstructionAssemblyRequestFields(basis),
         eventSink: () => undefined,
         plugins: {
           fpDispatch: fpDispatchPlugin(),

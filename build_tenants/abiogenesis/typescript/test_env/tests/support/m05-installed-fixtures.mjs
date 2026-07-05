@@ -284,6 +284,7 @@ export function installedLiveLaneSource() {
       edge,
       graphFunctionForVector,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -418,6 +419,19 @@ export function installedLiveLaneSource() {
       },
       until: "converged"
     };
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      admitExecutionBasis({
+        startIntent: admitPublicStartRequest(startInput).startIntent,
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId: "run://installed-live",
+        workKey: "wk://installed-live",
+        frameId: null,
+        frameLineageId: null
+      }),
+      { prefix: "m05-installed-live-lane" }
+    );
 
     const events = [];
     const startOutcome = publicStart(
@@ -427,7 +441,8 @@ export function installedLiveLaneSource() {
         runtimeIdentity,
         resolvedPolicy,
         runId: "run://installed-live",
-        workKey: "wk://installed-live"
+        workKey: "wk://installed-live",
+        ...startupFields
       },
       (event) => events.push(event)
     );
@@ -523,6 +538,7 @@ export function installedGraphFunctionTargetSource() {
       edge,
       graphFunctionForVector,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -651,6 +667,19 @@ export function installedGraphFunctionTargetSource() {
       },
       until: "first_traversal"
     };
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      admitExecutionBasis({
+        startIntent: admitPublicStartRequest(startInput).startIntent,
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId: "run://installed-graph-function-target",
+        workKey: "wk://installed-graph-function-target",
+        frameId: null,
+        frameLineageId: null
+      }),
+      { prefix: "m05-installed-graph-function-target" }
+    );
     const events = [];
     const startOutcome = publicStart(
       startInput,
@@ -659,7 +688,8 @@ export function installedGraphFunctionTargetSource() {
         runtimeIdentity,
         resolvedPolicy,
         runId: "run://installed-graph-function-target",
-        workKey: "wk://installed-graph-function-target"
+        workKey: "wk://installed-graph-function-target",
+        ...startupFields
       },
       (event) => events.push(event)
     );
@@ -753,6 +783,7 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       graphFunctionForVector,
       materializeGraphFunction,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -912,6 +943,19 @@ export function installedThreeStageGraphFunctionSandboxSource() {
     };
     const runId = "run://installed-three-stage-graph-function-sandbox";
     const workKey = "wk://installed-three-stage-graph-function-sandbox";
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      admitExecutionBasis({
+        startIntent: admitPublicStartRequest(startInput).startIntent,
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId,
+        workKey,
+        frameId: null,
+        frameLineageId: null
+      }),
+      { prefix: "m05-installed-three-stage" }
+    );
     const emittedEventKinds = [];
     const startOutcome = publicStart(
       startInput,
@@ -920,7 +964,8 @@ export function installedThreeStageGraphFunctionSandboxSource() {
         runtimeIdentity,
         resolvedPolicy,
         runId,
-        workKey
+        workKey,
+        ...startupFields
       },
       (event) => emittedEventKinds.push(event.kind)
     );
@@ -1110,6 +1155,7 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
       edge,
       graphFunctionForVector,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1288,6 +1334,21 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
         },
         until: "converged"
       };
+      const runId = \`run://\${scenario.scenarioName}-\${index}\`;
+      const workKey = \`wk://\${scenario.scenarioName}-\${index}\`;
+      const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+        admitExecutionBasis({
+          startIntent: admitPublicStartRequest(startInput).startIntent,
+          module,
+          runtimeIdentity,
+          resolvedPolicy,
+          runId,
+          workKey,
+          frameId: null,
+          frameLineageId: null
+        }),
+        { prefix: \`m05-live-portfolio-\${scenario.scenarioName}-\${index}\` }
+      );
 
       const startOutcome = publicStart(
         startInput,
@@ -1295,8 +1356,9 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
           module,
           runtimeIdentity,
           resolvedPolicy,
-          runId: \`run://\${scenario.scenarioName}-\${index}\`,
-          workKey: \`wk://\${scenario.scenarioName}-\${index}\`
+          runId,
+          workKey,
+          ...startupFields
         },
         (event) => emittedEventKinds.push(event.kind)
       );
@@ -1422,6 +1484,7 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
       edge,
       graphFunctionForVector,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1546,6 +1609,21 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
         },
         until: "converged"
       };
+      const runId = \`run://\${safeName}-\${profile.index}\`;
+      const workKey = \`wk://\${safeName}-\${profile.index}\`;
+      const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+        admitExecutionBasis({
+          startIntent: admitPublicStartRequest(startInput).startIntent,
+          module,
+          runtimeIdentity,
+          resolvedPolicy,
+          runId,
+          workKey,
+          frameId: null,
+          frameLineageId: null
+        }),
+        { prefix: \`m05-sandbox-behavior-\${safeName}-\${profile.index}\` }
+      );
 
       const startOutcome = publicStart(
         startInput,
@@ -1553,8 +1631,9 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
           module,
           runtimeIdentity,
           resolvedPolicy,
-          runId: \`run://\${safeName}-\${profile.index}\`,
-          workKey: \`wk://\${safeName}-\${profile.index}\`
+          runId,
+          workKey,
+          ...startupFields
         },
         (event) => emittedEventKinds.push(event.kind)
       );
@@ -1689,6 +1768,7 @@ export function installedResetPostmortemSource() {
       eventIngress,
       graphFunctionForVector,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1811,6 +1891,22 @@ export function installedResetPostmortemSource() {
       };
     }
 
+    function startupFieldsFor(input) {
+      return constructDefaultInstructionAssemblyStartupForBasis(
+        admitExecutionBasis({
+          startIntent: admitPublicStartRequest(input.startInput).startIntent,
+          module: input.module,
+          runtimeIdentity: input.runtimeIdentity,
+          resolvedPolicy: input.resolvedPolicy,
+          runId: input.runId,
+          workKey: input.workKey,
+          frameId: null,
+          frameLineageId: null
+        }),
+        { prefix: input.prefix }
+      );
+    }
+
     function resetPayload(runId, workKey) {
       return {
         kind: "reset",
@@ -1837,7 +1933,16 @@ export function installedResetPostmortemSource() {
           runtimeIdentity,
           resolvedPolicy,
           runId,
-          workKey
+          workKey,
+          ...startupFieldsFor({
+            startInput,
+            module,
+            runtimeIdentity,
+            resolvedPolicy,
+            runId,
+            workKey,
+            prefix: "m05-reset-active"
+          })
         },
         (event) => events.push(event)
       );
@@ -1878,7 +1983,16 @@ export function installedResetPostmortemSource() {
           runtimeIdentity,
           resolvedPolicy,
           runId,
-          workKey
+          workKey,
+          ...startupFieldsFor({
+            startInput,
+            module,
+            runtimeIdentity,
+            resolvedPolicy,
+            runId,
+            workKey,
+            prefix: "m05-reset-continuation"
+          })
         },
         (event) => events.push(event)
       );

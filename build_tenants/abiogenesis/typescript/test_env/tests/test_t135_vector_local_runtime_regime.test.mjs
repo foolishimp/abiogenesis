@@ -22,7 +22,10 @@ import {
   runEngineIterate,
   runtimeEventsForIterationDecision
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
@@ -139,6 +142,7 @@ test("T-135 mixed F_P then F_D graph drains under one ABG runner", () => {
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },

@@ -54,6 +54,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-026` | `Install` + `Context` + `Toolchain Binding` | Make downstream target bootstrap a local reference/context operation over the selected installed ABG/GTL product version. | `REQ-P-INSTALL` distinguishes full product payload materialization from target workspace bootstrap; the TypeScript installer records version-owned ABG/GTL context evidence; `abg.install` writes `.abiogenesis/toolchain-binding.json`, refreshes context markers in `AGENTS.md`/`CLAUDE.md`, initializes `.ai-workspace`, and does not install a target-local GTL/ABG product payload. | `T-186`, `REQ-P-INSTALL`, `test:t076` | Completed | `T-186` |
 | `GOAL-027` | `Semantic Compiler` + `GTL Program Conformance` + `Install Context` | Make compiler conformance reject drift in the installed context and program/startup shape before downstream projects reproduce local truth surfaces. | `REQ-M-GTL3-PROGRAM-TRAVERSAL` names semantic compiler guardrails; TypeScript conformance rejects direct graph-function public starts without overlay/program composition, rejects `abg.install` as traversal runtime, and rejects stale or mismatched installed context compression while admitting current context rows. | `T-187`, `REQ-M-GTL3-PROGRAM-TRAVERSAL`, `test:t159`, `test:t076` | Completed | `T-187` |
 | `GOAL-028` | `Requirements` + `ABG Runtime` + `Instruction Assembly` + `Assurance` | Make admitted requirement pressure carry through into paired realization and proof obligations before closure. | ABG derives stable requirement obligation ids, projects paired realization/proof obligations, binds them into instruction assembly, admits realization and proof witnesses against the same source obligations, proves recursive graph-function calls as ABG traversal bind with foldback, and fails closure for missing proof, missing realization, role mismatch, weaker-contract proof, test-pass-with-uncovered-requirements, incomplete proof-policy depth, or unadmitted proof strength. | `T-188`, `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH`, `M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION`, `test:t188`, `test:t188:live` | Active | `T-188` |
+| `GOAL-029` | `Requirements` + `ABG Runtime` + `Instruction Assembly` + `Registry Selection` + `Release Claims` | Wire ratified dispatch and selection law into the live runtime path: instruction assembly mandatory and fail-closed on every F_P dispatch arm, non-tautology gated on every arm, registry eligibility computed from the registry universe plus vector constraints, and release narration aligned to closed-ticket truth. | Absent instruction-assembly startup at an F_P boundary resolves to blocked; a source-derived dispatch-site census covers seven instruction-binding sites, ten F_P regime branches, and both F_P yield sites; composed transform/consequence tasks and F_P evaluation-rule batches dispatch with admitted manifests; registry lookup treats absent vector constraints as unconstrained and rejects vector-excluded or non-conformant selected candidates; the RC4 claim paragraph matches shipped truth. | `T-189`, `REQ-R-ABG3-INSTRUCTION-ASSEMBLY`, `REQ-R-ABG3-SELECTION-APPLICATION`, `test:t189`, `test:semantic` | Completed | `T-189` |
 
 ## Wave Boundary
 
@@ -338,8 +339,8 @@ downstream products own domain names, overlays, prompt/policy content, plugin
 behavior, and lifecycle interpretation.
 
 The earned reusable node-type, instruction assembly, installed context,
-semantic compiler guardrail, canonical live proof, and requirement-proof
-carry-through release is ABI TypeScript `4.2.0-rc.4`:
+semantic compiler guardrail, canonical live proof, and first requirement-proof
+carry-through algebra release is ABI TypeScript `4.2.0-rc.4`:
 
 - source commit `472dbebab90a4552e0cc30032b9e64d43136054b`;
 - release snapshot commit `1a2eb5779c739d3c807cfb0733d89a00e1efa499`;
@@ -361,9 +362,10 @@ The RC4 release snapshot was cut from clean source commit
 preserves the RC3 canonical installed sandbox path, selected graph functions
 through ABG registry truth, ABG-rendered instruction prompt manifests,
 response admission, causal carry, generated artifact execution, and exact
-stdout `Hello, world!\n`. RC4 adds T-188 requirement-proof carry-through: ABG
-derives dependency sufficiency, proof-depth completeness, proof-strength
-admission, candidate classification, requirement/proof pairing, proof
-coverage, residual pressure, and fold gating from admitted substrate truth
-instead of caller booleans, plugin labels, passing tests, or product-local
-coverage ledgers.
+stdout `Hello, world!\n`. RC4 adds the T-188 requirement-proof carry-through
+carrier and admission algebra: digest-bound requirement/proof pairing,
+candidate classification checks, depth-policy and proof-strength admission
+checks, and fail-closed rejection for caller-provided weaker or incomplete
+proof material. T-188 remains the active carrier for live fold gating, resolved
+strength admission, coverage producer threading, and requirement-pressure
+consumption on the runner close path.

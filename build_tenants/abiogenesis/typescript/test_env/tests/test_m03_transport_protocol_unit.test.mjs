@@ -67,6 +67,7 @@ test("M03 transport unit: Claude default contract preserves OAuth auth while str
     request,
     Object.freeze({
       CLAUDE_CODE_OAUTH_TOKEN: "token-from-keychain",
+      CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL: "1",
       CLAUDE_CODE_SSE_PORT: "3000",
       CLAUDE_CODE_ENTRYPOINT: "parent-session",
       CLAUDE_CODE_EXECPATH: "/tmp/parent",
@@ -85,16 +86,20 @@ test("M03 transport unit: Claude default contract preserves OAuth auth while str
 test("M03 transport unit: Claude stream transport disables tools for closed prompt proofs", () => {
   const args = claudeStreamJsonArgs("return-json");
 
-  assert.deepStrictEqual(args.slice(0, 6), [
+  assert.deepStrictEqual(args, [
     "-p",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
     "--output-format",
     "stream-json",
     "--verbose",
     "--permission-mode",
-    "bypassPermissions"
+    "bypassPermissions",
+    "--tools",
+    ""
   ]);
-  assert.equal(args.at(-2), "--tools=");
-  assert.equal(args.at(-1), "return-json");
+  assert.ok(!args.includes("return-json"));
 });
 
 test("M03 transport unit: Codex default contract pins the live model", () => {

@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.2.0-rc.4",
+  "version": "4.2.0-rc.5",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -145,6 +145,7 @@
     "test:t183:live": "npm run test:hello-world:live",
     "test:t188": "npm run build:semantic && node --test test_env/tests/test_t188_requirement_proof_carry_through.test.mjs",
     "test:t188:live": "npm run build:semantic && ABG_TS_T188_REQUIREMENT_PROOF_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t188_requirement_proof_carry_through_live.test.mjs",
+    "test:t189": "npm run build:semantic && node --test test_env/tests/test_t189_instruction_dispatch_runtime_wiring.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdir, readFile } from "node:fs/promises";
+import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -93,6 +93,63 @@ test("T-109 parser fixture: Claude stream-json accumulator is pure parser state"
     [
       "structured_event_observed",
       "api_retry_observed",
+      "structured_event_observed",
+      "tool_call_observed",
+      "structured_event_observed"
+    ]
+  );
+});
+
+test("T-109 parser fixture: Claude server tool activity is preserved as tool-call evidence", () => {
+  const state = createClaudeStreamJsonState();
+  const events = [
+    {
+      type: "assistant",
+      message: {
+        content: [
+          {
+            type: "server_tool_use",
+            id: "srvtoolu_fixture",
+            name: "advisor",
+            input: {}
+          }
+        ]
+      }
+    },
+    {
+      type: "advisor_tool_result",
+      tool_use_id: "srvtoolu_fixture",
+      content: {
+        type: "advisor_result",
+        text: "tool activity must not be invisible to closed prompt proofs"
+      }
+    },
+    {
+      type: "result",
+      subtype: "success",
+      result: "server tool fixture final"
+    }
+  ];
+  const observations = [
+    ...observeClaudeStreamJsonChunk(
+      state,
+      `${events.map((event) => JSON.stringify(event)).join("\n")}\n`
+    ),
+    ...flushClaudeStreamJson(state)
+  ];
+
+  assert.equal(state.structuredEventCount, 3);
+  assert.equal(state.structuredParseFailureCount, 0);
+  assert.equal(state.toolCallEvents.length, 2);
+  assert.equal(
+    finalOutputFromClaudeStreamJsonState(state),
+    "server tool fixture final"
+  );
+  assert.deepStrictEqual(
+    observations.map((observation) => observation.kind),
+    [
+      "structured_event_observed",
+      "tool_call_observed",
       "structured_event_observed",
       "tool_call_observed",
       "structured_event_observed"
@@ -283,6 +340,247 @@ test("T-109 failure fixture: generic nonzero output remains a contract failure",
   assert.equal(result.status, 7);
   assert.equal(result.outcome.kind, "exited");
   assert.equal(result.failureClass, "contract_failure");
+});
+
+test("T-109 Claude transport fixture: large prompts are delivered through stdin, not argv", async () => {
+  const archiveRoot = await runRoot("claude-large-prompt-stdin");
+  const fakeClaude = path.join(archiveRoot, "fake-claude-stdin.mjs");
+  await writeFile(
+    fakeClaude,
+    [
+      "#!/usr/bin/env node",
+      "let stdin = '';",
+      "process.stdin.setEncoding('utf8');",
+      "process.stdin.on('data', (chunk) => { stdin += chunk; });",
+      "process.stdin.on('end', () => {",
+      "  const argv = process.argv.slice(2);",
+      "  const hasLargePromptInArgv = argv.some((arg) => arg.includes('large-prompt-sentinel'));",
+      "  const sawPromptOnStdin = stdin.includes('large-prompt-sentinel');",
+      "  const result = hasLargePromptInArgv || !sawPromptOnStdin ? 'bad-prompt-channel' : 'stdin-prompt-ok';",
+      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result }));",
+      "});"
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(fakeClaude, 0o755);
+
+  const largePrompt = `large-prompt-sentinel\n${"x".repeat(512 * 1024)}`;
+  const result = await runAgentTransport({
+    contract: {
+      agentKey: "claude",
+      command: fakeClaude,
+      argsTemplate: [],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    prompt: largePrompt,
+    cwd: archiveRoot,
+    archiveRoot,
+    label: "claude-large-prompt-stdin",
+    timeoutMs: 30000
+  });
+
+  assert.equal(result.status, 0);
+  assert.equal(result.text, "stdin-prompt-ok");
+  assert.equal(result.failureClass, null);
+  assert.ok(!result.args.some((arg) => arg.includes("large-prompt-sentinel")));
+});
+
+test("T-109 Claude transport fixture: server-side advisor is disabled by environment", async () => {
+  const archiveRoot = await runRoot("claude-disable-advisor-env");
+  const fakeClaude = path.join(archiveRoot, "fake-claude-env.mjs");
+  await writeFile(
+    fakeClaude,
+    [
+      "#!/usr/bin/env node",
+      "let stdin = '';",
+      "process.stdin.setEncoding('utf8');",
+      "process.stdin.on('data', (chunk) => { stdin += chunk; });",
+      "process.stdin.on('end', () => {",
+      "  const result = JSON.stringify({",
+      "    disableAdvisor: process.env.CLAUDE_CODE_DISABLE_ADVISOR_TOOL ?? null,",
+      "    enableAdvisor: process.env.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL ?? null,",
+      "    sawPrompt: stdin.includes('advisor-env-sentinel')",
+      "  });",
+      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result }));",
+      "});"
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(fakeClaude, 0o755);
+
+  const previousEnable = process.env.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL;
+  const previousDisable = process.env.CLAUDE_CODE_DISABLE_ADVISOR_TOOL;
+  process.env.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL = "1";
+  delete process.env.CLAUDE_CODE_DISABLE_ADVISOR_TOOL;
+  try {
+    const result = await runAgentTransport({
+      contract: {
+        agentKey: "claude",
+        command: fakeClaude,
+        argsTemplate: [],
+        sanitizedEnvironmentPolicy: { prefixes: [] }
+      },
+      prompt: "advisor-env-sentinel",
+      cwd: archiveRoot,
+      archiveRoot,
+      label: "claude-disable-advisor-env",
+      timeoutMs: 30000
+    });
+
+    assert.equal(result.status, 0);
+    assert.equal(result.failureClass, null);
+    assert.deepStrictEqual(JSON.parse(result.text), {
+      disableAdvisor: "1",
+      enableAdvisor: null,
+      sawPrompt: true
+    });
+  } finally {
+    if (previousEnable === undefined) {
+      delete process.env.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL;
+    } else {
+      process.env.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL = previousEnable;
+    }
+    if (previousDisable === undefined) {
+      delete process.env.CLAUDE_CODE_DISABLE_ADVISOR_TOOL;
+    } else {
+      process.env.CLAUDE_CODE_DISABLE_ADVISOR_TOOL = previousDisable;
+    }
+  }
+});
+
+test("T-109 failure fixture: Claude server tool use fails closed even with final output", async () => {
+  const archiveRoot = await runRoot("claude-server-tool-contract-failure");
+  const fakeClaude = path.join(archiveRoot, "fake-claude.mjs");
+  await writeFile(
+    fakeClaude,
+    [
+      "#!/usr/bin/env node",
+      "const events = [",
+      JSON.stringify({
+        type: "assistant",
+        message: {
+          content: [
+            {
+              type: "server_tool_use",
+              id: "srvtoolu_fixture",
+              name: "advisor",
+              input: {}
+            }
+          ]
+        }
+      }),
+      ",",
+      JSON.stringify({
+        type: "advisor_tool_result",
+        tool_use_id: "srvtoolu_fixture",
+        content: {
+          type: "advisor_result",
+          text: "server tool result"
+        }
+      }),
+      ",",
+      JSON.stringify({
+        type: "result",
+        subtype: "success",
+        result: "final output after server tool"
+      }),
+      "];",
+      "for (const event of events) console.log(JSON.stringify(event));"
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(fakeClaude, 0o755);
+
+  const result = await runAgentTransport({
+    contract: {
+      agentKey: "claude",
+      command: fakeClaude,
+      argsTemplate: [],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    prompt: "unused prompt",
+    cwd: archiveRoot,
+    archiveRoot,
+    label: "claude-server-tool-contract-failure",
+    timeoutMs: 30000
+  });
+
+  assert.equal(result.status, 0);
+  assert.equal(result.text, "final output after server tool");
+  assert.equal(result.toolCallCount, 2);
+  assert.equal(result.failureClass, "contract_failure");
+});
+
+test("T-109 failure fixture: Claude rate-limit envelope stays retryable transport failure", async () => {
+  const archiveRoot = await runRoot("claude-rate-limit-transport-failure");
+  const fakeClaude = path.join(archiveRoot, "fake-claude-rate-limit.mjs");
+  await writeFile(
+    fakeClaude,
+    [
+      "#!/usr/bin/env node",
+      "const events = [",
+      JSON.stringify({
+        type: "assistant",
+        message: {
+          content: [
+            {
+              type: "server_tool_use",
+              id: "srvtoolu_rate_limit",
+              name: "advisor",
+              input: {}
+            }
+          ]
+        }
+      }),
+      ",",
+      JSON.stringify({
+        type: "assistant",
+        message: {
+          content: [
+            {
+              type: "advisor_tool_result",
+              tool_use_id: "srvtoolu_rate_limit",
+              content: {
+                type: "advisor_tool_result_error",
+                error_code: "too_many_requests"
+              }
+            }
+          ]
+        }
+      }),
+      ",",
+      JSON.stringify({
+        type: "result",
+        subtype: "success",
+        is_error: true,
+        result: "API Error: Rate limited"
+      }),
+      "];",
+      "for (const event of events) console.log(JSON.stringify(event));",
+      "process.exit(1);"
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(fakeClaude, 0o755);
+
+  const result = await runAgentTransport({
+    contract: {
+      agentKey: "claude",
+      command: fakeClaude,
+      argsTemplate: [],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    prompt: "unused prompt",
+    cwd: archiveRoot,
+    archiveRoot,
+    label: "claude-rate-limit-transport-failure",
+    timeoutMs: 30000
+  });
+
+  assert.equal(result.status, 1);
+  assert.equal(result.text, "API Error: Rate limited");
+  assert.equal(result.toolCallCount, 1);
+  assert.equal(result.failureClass, "transport_failure");
 });
 
 test("T-109 actor fixture: supervised actor-style subprocess uses the universal call-out interface", async () => {

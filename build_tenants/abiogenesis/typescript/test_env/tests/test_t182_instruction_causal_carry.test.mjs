@@ -13,6 +13,7 @@ import {
   constructEvidenceAdmittedEvent,
   constructInstructionCausalContextBoundEvent,
   constructPayloadObservedEvent,
+  constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
   constructVectorClosedEvent,
   defaultFpDispatchPlugin,
@@ -23,7 +24,10 @@ import {
   resolveTargetCarrierContractBinding,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
 
@@ -204,7 +208,10 @@ test("T-182 binds prior admitted output into the next F_P instruction context", 
   assert.equal(binding.contentDigest, null);
   assert.equal(binding.required, false);
   assert.equal(binding.payloadRef, "payload://t182/requirements");
-  assert.deepEqual(binding.evidenceRefs, ["evidence://t182/requirements"]);
+  assert.deepEqual(binding.evidenceRefs, [
+    "evidence://t182/requirements",
+    "validation://t182/requirements"
+  ]);
   assert.equal(input.fpTransformRequest.instructionCausalStatus, "bound");
   assert.deepEqual(input.fpTransformRequest.causalInputBindingRefs, [
     binding.bindingRef
@@ -331,6 +338,87 @@ test("T-182 binds declared excerpt mode from admitted actor artifact content", (
   ]);
 });
 
+test("T-182 binds same-vector rejected payload evidence into retry repair context", () => {
+  const basis = withTargetAssetSurface(
+    buildThreeStageBasis({ defaultRegime: "F_P" }),
+    1,
+    { renderedViewDigestPolicyRef: "policy://abg/instruction-causal/excerpt" }
+  );
+  const targetCarrier = targetCarrierForVector(basis, 1);
+  const resultRef = "result://t182/design-attempt-1";
+  const payloadRef = "payload://t182/design-attempt-1";
+  const digest = "digest://t182/design-attempt-1";
+  const events = captureEmit([
+    constructActorResultArtifactObservedEvent({
+      invocation: actorInvocation(basis, 1, resultRef),
+      artifactRef: resultRef,
+      artifactPayload: {
+        kind: "t182_design_candidate",
+        materializedFileSummaries: [
+          {
+            path: "src/test/scala/ExampleSpec.scala",
+            digest: "sha256:t182",
+            contentPreview: "val bad = MissingApi.default"
+          }
+        ]
+      }
+    }),
+    constructPayloadObservedEvent({
+      basis,
+      vectorIndex: 1,
+      payloadRef,
+      payloadClass: targetCarrier.outputCarrierKind,
+      contractRef: targetCarrier.contractRef,
+      digest,
+      producerRef: "worker://t182",
+      sourceEventRef: resultRef,
+      actorInvocationId: "actor-invocation://t182/1",
+      authorityRef: "authority://t182/design-attempt-1",
+      inputDigest: "source-projection://t182/vector-1",
+      policyRefs: ["policy://t182"]
+    }),
+    constructPayloadRejectedEvent({
+      basis,
+      vectorIndex: 1,
+      payloadRef,
+      rejectionClass: "contract_invalid",
+      contractRef: targetCarrier.contractRef,
+      contractDigest: targetCarrier.configDigest,
+      digest,
+      reason: "sbt Test/compile exited 1: value default is not a member of MissingApi",
+      policyRefs: ["policy://t182"]
+    })
+  ]);
+  const input = constructEnginePluginInput({
+    contract: defaultFpDispatchPlugin.contract,
+    basis,
+    projection: deriveRuntimeAggregateProjection(basis, events),
+    replayEvents: events,
+    vectorIndex: 1,
+    edge: basis.graph.vectors[1].name,
+    regime: "F_P",
+    actorInvocationRef: Object.freeze({
+      ...actorInvocationRef(1),
+      attemptIndex: 2
+    }),
+    targetCarrierDefaults
+  });
+
+  assert.equal(input.instructionCausalContext.status, "bound");
+  const [binding] = input.instructionCausalContext.bindings;
+  assert.equal(binding.bindingRole, "same_vector_retry_repair");
+  assert.equal(binding.sourceVectorIndex, 1);
+  assert.equal(binding.targetVectorIndex, 1);
+  assert.equal(binding.payloadRef, payloadRef);
+  assert.match(binding.contentExcerpt, /sbt Test\/compile exited 1/u);
+  assert.match(binding.contentExcerpt, /MissingApi\.default/u);
+  assert.deepEqual(input.fpTransformRequest.causalInputContentRefs, [resultRef]);
+  assert.match(
+    input.fpTransformRequest.causalInputContentExcerpts[0],
+    /value default is not a member/u
+  );
+});
+
 test("T-182 blocks causal carry when prior output digest drifts", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const events = firstVectorOutputEvents(basis, {
@@ -368,6 +456,7 @@ test("T-182 runner does not invoke F_P when causal carry is blocked", () => {
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     runtimeEvents: replayEvents,
     eventSink: (event) => {
       emittedEvents.push(event);
@@ -383,9 +472,12 @@ test("T-182 runner does not invoke F_P when causal carry is blocked", () => {
     emittedEvents.map((event) => event.kind),
     [
       "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
+      "instruction_prompt_manifest_projected",
       "fp_dispatch_requested",
       "instruction_causal_context_bound",
       "terminal_reached"

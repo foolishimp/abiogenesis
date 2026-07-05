@@ -30,10 +30,27 @@ import {
   deriveTraversalModulationProfileFromGtl,
   deriveTraversalModulationSummary,
   resolveTraversalStrategyDirectiveFromGtl,
-  runEngineIterate,
-  runEngineIterateAsync
+  runEngineIterate as runEngineIterateBase,
+  runEngineIterateAsync as runEngineIterateAsyncBase
 } from "../../build/semantic/code/src/abg/m03/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
+
+function runEngineIterate(input) {
+  return runEngineIterateBase({
+    ...m03InstructionAssemblyRequestFields(input.basis),
+    ...input
+  });
+}
+
+function runEngineIterateAsync(input) {
+  return runEngineIterateAsyncBase({
+    ...m03InstructionAssemblyRequestFields(input.basis),
+    ...input
+  });
+}
 
 function attrs(entries = []) {
   return Object.freeze({ entries: Object.freeze(entries) });

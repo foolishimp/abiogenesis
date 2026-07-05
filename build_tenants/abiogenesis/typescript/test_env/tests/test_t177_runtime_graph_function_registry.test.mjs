@@ -351,15 +351,15 @@ test("T-177 eligibility filter rejects each required field independently", () =>
     ["interface", { interfaceRef: "interface://wrong" }],
     ["source_contract", { sourceContractRef: "contract://wrong-source" }],
     ["target_contract", { targetContractRef: "contract://wrong-target" }],
-    ["context", { contextRefs: [] }],
-    ["authority", { authorityRefs: [] }],
-    ["overlay", { overlayRefs: [] }],
+    ["context", { contextRefs: ["context://wrong"] }],
+    ["authority", { authorityRefs: ["authority://wrong"] }],
+    ["overlay", { overlayRefs: ["overlay://wrong"] }],
     ["namespace", { namespaceRefs: ["unrelated"] }],
     ["version", { acceptedVersions: ["0.0.0"] }],
-    ["provenance", { provenanceRefs: [] }],
-    ["readiness", { readinessRefs: [] }],
-    ["proof", { proofRefs: [] }],
-    ["policy_constraints", { policyRefs: [] }]
+    ["provenance", { provenanceRefs: ["provenance://wrong"] }],
+    ["readiness", { readinessRefs: ["readiness://wrong"] }],
+    ["proof", { proofRefs: ["proof://wrong"] }],
+    ["policy_constraints", { policyRefs: ["policy://wrong"] }]
   ];
 
   for (const [field, override] of cases) {

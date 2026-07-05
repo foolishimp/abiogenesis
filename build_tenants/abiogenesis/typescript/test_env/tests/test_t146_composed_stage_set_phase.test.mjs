@@ -18,7 +18,10 @@ import {
   runEngineIterate,
   runEngineIterateAsync
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function stagePurpose(stageRole) {
   switch (stageRole) {
@@ -257,9 +260,11 @@ function stageTaskPlugin(input) {
 }
 
 test("T-146 scalar transform, evaluate, and consequence are stage-set reductions", () => {
+  const basis = firstFpBasis();
   const events = [];
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -294,8 +299,10 @@ test("T-146 transform.C.F_D tasks run before scalar transform.C.F_P dispatch", (
   const observed = [];
   let dispatchInput = null;
   const prepTaskRef = "stage-task://t146/transform/fd-prep";
+  const basis = firstFpBasis();
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin((input) => {
@@ -332,9 +339,11 @@ test("T-146 transform.C.F_D tasks run before scalar transform.C.F_P dispatch", (
 
 test("T-146 scalar transform replay identity includes predecessor refs", () => {
   const digestForPrepTask = (prepTaskRef) => {
+    const basis = firstFpBasis();
     const events = [];
     const result = runEngineIterate({
-      basis: firstFpBasis(),
+      basis,
+      ...m03InstructionAssemblyRequestFields(basis),
       eventSink: (event) => events.push(event),
       plugins: {
         fpDispatch: fpDispatchPlugin(),
@@ -368,6 +377,7 @@ test("T-146 scalar transform replay identity includes predecessor refs", () => {
 });
 
 test("T-146 parallel transform tasks invoke concurrently and admit by task ref", async () => {
+  const basis = firstFpBasis();
   const events = [];
   let inFlight = 0;
   let maxInFlight = 0;
@@ -389,7 +399,8 @@ test("T-146 parallel transform tasks invoke concurrently and admit by task ref",
   );
 
   const result = await runEngineIterateAsync({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -418,9 +429,11 @@ test("T-146 parallel transform tasks invoke concurrently and admit by task ref",
 test("T-146 dependent transform tasks can read admitted predecessor refs", () => {
   const firstTaskRef = "stage-task://t146/dependent-transform/first";
   const secondTaskRef = "stage-task://t146/dependent-transform/second";
+  const basis = firstFpBasis();
   let secondInput = null;
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -454,9 +467,11 @@ test("T-146 dependent transform tasks can read admitted predecessor refs", () =>
 });
 
 test("T-146 missing required transform task blocks before F_P dispatch", () => {
+  const basis = firstFpBasis();
   let dispatchCount = 0;
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(() => {
@@ -474,10 +489,12 @@ test("T-146 missing required transform task blocks before F_P dispatch", () => {
 });
 
 test("T-146 transform and evaluation projections feed later stage inputs", () => {
+  const basis = firstFpBasis();
   let fpEvaluationInput = null;
   let consequenceInput = null;
   const result = runEngineIterate({
-    basis: firstFpBasis(),
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -678,6 +695,7 @@ test("T-146 missing required consequence task blocks before projection", () => {
 });
 
 test("T-146 composed stage task outcomes cannot smuggle ABG authority", () => {
+  const basis = firstFpBasis();
   const badTask = {
     ...stageTaskPlugin({
       stageRole: "transform",
@@ -716,7 +734,8 @@ test("T-146 composed stage task outcomes cannot smuggle ABG authority", () => {
   assert.throws(
     () =>
       runEngineIterate({
-        basis: firstFpBasis(),
+        basis,
+        ...m03InstructionAssemblyRequestFields(basis),
         eventSink: () => undefined,
         plugins: {
           fpDispatch: fpDispatchPlugin(),

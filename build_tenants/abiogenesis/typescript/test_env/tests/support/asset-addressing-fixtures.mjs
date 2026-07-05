@@ -2,6 +2,7 @@ import {
   admitRuntimeModule,
   jobPayload,
   publishedProfile,
+  publicInstructionAssemblyFields,
   requestPayload,
   resolvedPolicyIdentity,
   runtimeIdentity
@@ -63,6 +64,17 @@ export function assetAddressingStartContext() {
     ]
   });
 
+  const contextBase = {
+    module,
+    runtimeIdentity: runtimeIdentity(),
+    resolvedPolicy: resolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://public-fd",
+      defaultRegime: "F_D"
+    }),
+    runId: "run://m04-asset-addressing",
+    workKey: "wk://m04-asset-addressing"
+  };
+
   return {
     reviewProfile,
     codeProfile,
@@ -71,14 +83,15 @@ export function assetAddressingStartContext() {
       return requestPayload(handle);
     },
     publicStartContext: {
-      module,
-      runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: resolvedPolicyIdentity({
-        resolvedPolicyBundleRef: "policy://public-fd",
-        defaultRegime: "F_D"
-      }),
-      runId: "run://m04-asset-addressing",
-      workKey: "wk://m04-asset-addressing"
+      ...contextBase,
+      ...publicInstructionAssemblyFields({
+        handle: codeProfile.name,
+        module,
+        runtimeIdentity: contextBase.runtimeIdentity,
+        resolvedPolicy: contextBase.resolvedPolicy,
+        runId: contextBase.runId,
+        workKey: contextBase.workKey
+      })
     }
   };
 }

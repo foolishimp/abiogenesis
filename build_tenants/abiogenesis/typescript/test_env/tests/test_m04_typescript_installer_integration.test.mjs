@@ -538,6 +538,8 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.deepStrictEqual(selfTestStartPayload.event_kinds, [
     "lever_resolution_admitted",
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",

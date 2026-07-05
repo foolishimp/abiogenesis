@@ -4,7 +4,8 @@ import { admitModule } from "../../../build/semantic/code/src/gtl/m02/admission/
 import {
   admitExecutionBasis,
   admitResolvedPolicyIdentity,
-  admitResolvedRuntimeIdentity
+  admitResolvedRuntimeIdentity,
+  constructDefaultInstructionAssemblyStartupForBasis
 } from "../../../build/semantic/code/src/abg/m03/index.js";
 import {
   deriveAdvancementTransition,
@@ -278,6 +279,25 @@ export function requestPayload(handle, overrides = {}) {
   };
 }
 
+export function publicInstructionAssemblyFields(input) {
+  const startIntent = input.startIntent ?? requestPayload(input.handle);
+  const basis = admitExecutionBasis({
+    startIntent,
+    module: input.module,
+    runtimeIdentity: input.runtimeIdentity,
+    resolvedPolicy: input.resolvedPolicy,
+    ...(input.runId === undefined ? {} : { runId: input.runId }),
+    ...(input.workKey === undefined ? {} : { workKey: input.workKey }),
+    ...(input.frameId === undefined ? {} : { frameId: input.frameId }),
+    ...(input.frameLineageId === undefined
+      ? {}
+      : { frameLineageId: input.frameLineageId })
+  });
+  return constructDefaultInstructionAssemblyStartupForBasis(basis, {
+    prefix: "m04-public-start"
+  });
+}
+
 export function publicStartContext({
   handle = "public_profile",
   policyOverrides = {},
@@ -301,15 +321,27 @@ export function publicStartContext({
     ]
   });
 
+  const contextBase = {
+    module,
+    runtimeIdentity: runtimeIdentity(),
+    resolvedPolicy: resolvedPolicyIdentity(policyOverrides),
+    runId,
+    workKey
+  };
+
   return {
     profile,
     module,
     context: {
-      module,
-      runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: resolvedPolicyIdentity(policyOverrides),
-      runId,
-      workKey
+      ...contextBase,
+      ...publicInstructionAssemblyFields({
+        handle,
+        module,
+        runtimeIdentity: contextBase.runtimeIdentity,
+        resolvedPolicy: contextBase.resolvedPolicy,
+        runId,
+        workKey
+      })
     }
   };
 }

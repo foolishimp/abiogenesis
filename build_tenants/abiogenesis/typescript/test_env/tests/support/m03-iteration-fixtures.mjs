@@ -5,9 +5,19 @@ import {
   admitNode,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
+  constructDefaultInstructionAssemblyStartupForBasis,
+  compileInstructionAssemblyPlan,
   compose,
+  constructDerivedDependencyInstructionTruth,
+  constructDerivedProofDepthInstructionTruth,
+  constructGtlLibraryEntryDeclaration,
+  constructInstructionAssemblyRule,
+  constructInstructionSectionDecision,
+  constructProductRegistryStartupConfig,
+  constructRuntimeBindingSlot,
   edge,
-  graphFunctionForVector
+  graphFunctionForVector,
+  INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS
 } from "../../../build/semantic/code/src/index.js";
 
 function scalarEntry(key, value) {
@@ -53,6 +63,303 @@ function jsonEntry(key, value) {
   return Object.freeze({
     key,
     value: Object.freeze({ kind: "json_blob", value: jsonValue(value) })
+  });
+}
+
+const DEFAULT_INSTRUCTION_RENDERER_REF =
+  "renderer://abg/instruction-envelope/default";
+
+function runtimeBindingSlots(prefix = "m03-iteration") {
+  return Object.freeze([
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/graph-call`,
+      slotClass: "graph_call",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: [`evidence://${prefix}/slot/graph-call`]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/frame`,
+      slotClass: "frame",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: [`evidence://${prefix}/slot/frame`]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/vector`,
+      slotClass: "vector",
+      required: true,
+      sourceTruthKind: "projection",
+      evidenceRefs: [`evidence://${prefix}/slot/vector`]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/event-log`,
+      slotClass: "event_log",
+      required: true,
+      sourceTruthKind: "projection",
+      evidenceRefs: [`evidence://${prefix}/slot/event-log`]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/worker`,
+      slotClass: "worker_invocation",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: [`evidence://${prefix}/slot/worker`]
+    })
+  ]);
+}
+
+export function m03InstructionRegistryEntryRef(options = {}) {
+  return options.registryEntryRef ?? "registry-entry://m03-iteration/default";
+}
+
+export function m03InstructionGraphFunctionDeclaration(basis, options = {}) {
+  const registryEntryRef = m03InstructionRegistryEntryRef(options);
+  return constructGtlLibraryEntryDeclaration({
+    declarationRef:
+      options.declarationRef ?? "gtl-declaration://m03-iteration/default",
+    entryRef: registryEntryRef,
+    libraryScope: "product",
+    entryKind: "graph_function",
+    namespace: options.namespace ?? "m03.iteration",
+    ownerRef: options.ownerRef ?? "owner://abg/m03-iteration",
+    version: options.version ?? "test",
+    graphFunctionRef: basis.graphFunction.id,
+    interfaceRef: options.interfaceRef ?? "interface://m03-iteration/default",
+    sourceContractRef:
+      options.sourceContractRef ?? "contract://m03-iteration/source",
+    targetContractRef:
+      options.targetContractRef ?? "contract://m03-iteration/target",
+    contextRefs: options.contextRefs ?? ["context://m03-iteration"],
+    authorityRefs: options.authorityRefs ?? ["authority://m03-iteration/abg"],
+    overlayRefs: options.overlayRefs ?? ["overlay://m03-iteration/default"],
+    provenanceRefs:
+      options.provenanceRefs ?? ["provenance://m03-iteration/default"],
+    readinessRefs:
+      options.readinessRefs ?? ["readiness://m03-iteration/default"],
+    proofRefs: options.proofRefs ?? ["proof://m03-iteration/default"],
+    policyRefs: options.policyRefs ?? ["policy://m03-iteration/default"],
+    declarationSourceRefs:
+      options.declarationSourceRefs ?? ["gtl://m03-iteration/default"]
+  });
+}
+
+export function m03InstructionRegistryStartupForBasis(basis, options = {}) {
+  return Object.freeze({
+    systemDeclarations: Object.freeze([]),
+    productStartupConfig: constructProductRegistryStartupConfig({
+      configRef: options.configRef ?? "product-registry-startup://m03-iteration",
+      productNamespace: options.namespace ?? "m03.iteration",
+      ownerRef: options.ownerRef ?? "owner://abg/m03-iteration",
+      version: options.version ?? "test",
+      enabledLibraryRefs: [
+        m03InstructionRegistryEntryRef(options),
+        options.declarationRef ?? "gtl-declaration://m03-iteration/default",
+        "gtl://m03-iteration/default"
+      ],
+      overlayRefs: options.overlayRefs ?? ["overlay://m03-iteration/default"],
+      pluginRefs: options.pluginRefs ?? ["plugin://m03-iteration/fp-worker"],
+      readinessRefs:
+        options.readinessRefs ?? ["readiness://m03-iteration/default"],
+      proofRefs: options.proofRefs ?? ["proof://m03-iteration/default"],
+      policyRefs: options.policyRefs ?? ["policy://m03-iteration/default"],
+      configSourceRefs:
+        options.configSourceRefs ?? ["config://m03-iteration/default"]
+    }),
+    productDeclarations: Object.freeze([
+      m03InstructionGraphFunctionDeclaration(basis, options)
+    ]),
+    correlationId:
+      options.correlationId ?? "correlation://m03-iteration/instruction-startup"
+  });
+}
+
+export function m03CompiledInstructionPlanFor(input) {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new Error(`no vector at index ${input.vectorIndex}`);
+  }
+  const prefix = input.prefix ?? "m03-iteration";
+  const planRef =
+    input.planRef ??
+    `compiled-prompt-plan://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`;
+  const result = compileInstructionAssemblyPlan({
+    planRef,
+    computeStageRole: input.computeStageRole,
+    rule: constructInstructionAssemblyRule({
+      ruleRef: `instruction-rule://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+      appliesToGraphFunctionRefs: [input.basis.graphFunction.id],
+      appliesToVectorRefs: [vector.name],
+      sectionRules: [
+        {
+          sectionRef: `section://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+          required: true,
+          policyRefs: [`policy://${prefix}/current-vector`]
+        }
+      ],
+      relevanceRules: [
+        {
+          ruleRef: `relevance://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+          requiredInputRefs: [],
+          allowFutureStageRefs: []
+        }
+      ],
+      compressionPolicyRef: `compression://${prefix}/digest`,
+      proportionalityPolicyRef: `proportionality://${prefix}/p1-worker`,
+      runtimeBindingSlotClasses: [
+        "graph_call",
+        "frame",
+        "vector",
+        "event_log",
+        "worker_invocation"
+      ],
+      policyRefs: [`policy://${prefix}`],
+      evidenceRefs: [`evidence://${prefix}/rule`]
+    }),
+    graphFunctionRef: input.basis.graphFunction.id,
+    vectorRef: vector.name,
+    registryEntryRefs: [m03InstructionRegistryEntryRef(input.options ?? {})],
+    sourceNodeRefs: vector.source.map((entry) => entry.id),
+    targetNodeRef: vector.target.id,
+    derivedTruth: {
+      kind: "derived_instruction_carrier_truth",
+      sourceTypeRefs: vector.source.map((entry) => entry.schema.ref),
+      targetTypeRefs: [vector.target.schema.ref],
+      outputContractRefs: [
+        `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
+      ],
+      proofRefs: [
+        `proof://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
+      ],
+      authorityRefs: [`authority://${prefix}/abg`],
+      rendererRefs: [DEFAULT_INSTRUCTION_RENDERER_REF],
+      activeRegime: "F_P",
+      carrierClassRefs: [
+        ...vector.source.map((entry) => entry.assetSurface.kind),
+        vector.target.assetSurface.kind
+      ]
+    },
+    knownAlgebraRefs: [...INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS],
+    requiredInputRefs: [],
+    availableInputRefs: [],
+    sectionDecisions: [
+      constructInstructionSectionDecision({
+        sectionRef: `section://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+        disposition: "include",
+        dependencyRefs: [vector.name],
+        carrierRefs: [
+          ...vector.source.map((entry) => entry.id),
+          vector.target.id
+        ],
+        compressionMode: "digest",
+        text: `Run ${input.computeStageRole} for ${vector.name} without carrying an answer marker.`,
+        digestRef: `sha256:${prefix}-vector-${input.vectorIndex}-${input.computeStageRole}`,
+        excerptDigest: null,
+        fullContentAdmitted: false,
+        stageRef: `stage://${prefix}/${input.computeStageRole}`,
+        gapRefs: []
+      })
+    ],
+    bindingSlots: runtimeBindingSlots(prefix),
+    proportionalityClass: "P1",
+    instructionWorkKind: "target_work",
+    dependencyInstructionTruth: constructDerivedDependencyInstructionTruth({
+      truthRef: `dependency-instruction-truth://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+      workKind: "target_work",
+      dependencyGraphRef: null,
+      dependencyGraphDigest: null,
+      targetRefs: [vector.target.id],
+      prerequisiteNodeRefs: [],
+      prerequisiteEdgeRefs: [],
+      dependencyClosed: true,
+      typedPrerequisiteGapRefs: [],
+      noDependencyPolicyRef: `policy://${prefix}/no-dependency-required`,
+      sourceProjectionRefs: [`projection://${prefix}/no-dependency-required`]
+    }),
+    proofDepthInstructionTruth: constructDerivedProofDepthInstructionTruth({
+      truthRef: `proof-depth-instruction-truth://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+      depthPolicyRef: `proof-depth-policy://${prefix}`,
+      depthPolicyDigest: `sha256:${prefix}-proof-depth-policy`,
+      targetRefs: [vector.target.id],
+      requiredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
+      declaredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
+      declaredDepthObligationRefs: [
+        `proof-obligation://${prefix}/positive`,
+        `proof-obligation://${prefix}/negative`
+      ],
+      notApplicableDepthClassRefs: [],
+      typedDepthGapRefs: [],
+      proofStrengthAdmissionRefs: [`proof-strength-admission://${prefix}`],
+      fdStrengthCriterionRefs: [`fd-strength-criterion://${prefix}`],
+      adversarialVerificationRefs: [],
+      adversarialCounterexampleRefs: [],
+      sourceProjectionRefs: [
+        `proof-coverage-projection://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
+      ],
+      depthComplete: true,
+      proofStrengthAdmitted: true
+    }),
+    expectedAnswerMarkers: ["forbidden-answer-marker"],
+    fpValidationEvidenceRefs: [`semantic-review-gate://${prefix}`],
+    compilerEvidenceRefs: [`evidence://${prefix}/compiler`]
+  });
+  if (!result.accepted || result.plan === null) {
+    throw new Error(JSON.stringify(result.issues));
+  }
+  return result.plan;
+}
+
+export function m03InstructionAssemblyStartupForBasis(basis, options = {}) {
+  const stageRoles = options.stageRoles ?? ["transform", "evaluate", "consequence"];
+  const vectorIndexes =
+    options.vectorIndexes ?? basis.graph.vectors.map((_, index) => index);
+  return Object.freeze({
+    compiledPromptPlans: Object.freeze(
+      vectorIndexes.flatMap((vectorIndex) =>
+        stageRoles.map((computeStageRole) =>
+          m03CompiledInstructionPlanFor({
+            basis,
+            vectorIndex,
+            computeStageRole,
+            prefix: options.prefix
+          })
+        )
+      )
+    ),
+    rendererRef: options.rendererRef ?? DEFAULT_INSTRUCTION_RENDERER_REF
+  });
+}
+
+export function m03InstructionAssemblyRequestFields(basis, options = {}) {
+  return constructDefaultInstructionAssemblyStartupForBasis(basis, {
+    prefix: options.prefix ?? "m03-iteration",
+    namespace: options.namespace ?? "m03.iteration",
+    ownerRef: options.ownerRef ?? "owner://abg/m03-iteration",
+    version: options.version ?? "test",
+    registryEntryRef: m03InstructionRegistryEntryRef(options),
+    declarationRef:
+      options.declarationRef ?? "gtl-declaration://m03-iteration/default",
+    interfaceRef: options.interfaceRef ?? "interface://m03-iteration/default",
+    sourceContractRef:
+      options.sourceContractRef ?? "contract://m03-iteration/source",
+    targetContractRef:
+      options.targetContractRef ?? "contract://m03-iteration/target",
+    contextRefs: options.contextRefs ?? ["context://m03-iteration"],
+    authorityRefs: options.authorityRefs ?? ["authority://m03-iteration/abg"],
+    overlayRefs: options.overlayRefs ?? ["overlay://m03-iteration/default"],
+    provenanceRefs:
+      options.provenanceRefs ?? ["provenance://m03-iteration/default"],
+    readinessRefs:
+      options.readinessRefs ?? ["readiness://m03-iteration/default"],
+    proofRefs: options.proofRefs ?? ["proof://m03-iteration/default"],
+    policyRefs: options.policyRefs ?? ["policy://m03-iteration/default"],
+    declarationSourceRefs:
+      options.declarationSourceRefs ?? ["gtl://m03-iteration/default"],
+    pluginRefs: options.pluginRefs ?? ["plugin://m03-iteration/fp-worker"],
+    configSourceRefs:
+      options.configSourceRefs ?? ["config://m03-iteration/default"],
+    stageRoles: options.stageRoles,
+    vectorIndexes: options.vectorIndexes
   });
 }
 
@@ -375,7 +682,7 @@ export function buildThreeStageStartContext(options = {}) {
     },
     until: options.until ?? "converged"
   });
-  const context = Object.freeze({
+  const contextBase = {
     module,
     runtimeIdentity: admitResolvedRuntimeIdentity({
       workerId: "worker://m03-iteration",
@@ -393,7 +700,21 @@ export function buildThreeStageStartContext(options = {}) {
     workKey: options.workKey ?? "wk://m03-iteration",
     frameId: options.frameId ?? null,
     frameLineageId: options.frameLineageId ?? null
+  };
+  const basis = admitExecutionBasis({
+    startIntent: input,
+    module,
+    runtimeIdentity: contextBase.runtimeIdentity,
+    resolvedPolicy: contextBase.resolvedPolicy,
+    runId: contextBase.runId,
+    workKey: contextBase.workKey,
+    frameId: contextBase.frameId,
+    frameLineageId: contextBase.frameLineageId
+  });
+  const context = Object.freeze({
+    ...contextBase,
+    ...m03InstructionAssemblyRequestFields(basis)
   });
 
-  return Object.freeze({ input, context, module, executive });
+  return Object.freeze({ input, context, module, executive, basis });
 }

@@ -31,7 +31,10 @@ import {
   constructGtlEvaluationScopeRef
 } from "../../build/semantic/code/src/gtl/m02/index.js";
 import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 import {
   assessmentFor,
   buildSchedule,
@@ -476,6 +479,7 @@ test("T-149 runner path materializes converged terminal from the fold", () => {
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     }
@@ -508,6 +512,7 @@ test("T-149 runner path materializes suspend from F_D handoff fold outcome", () 
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -537,6 +542,7 @@ test("T-149 runner path consumes graph re-entry redispatch before default iterat
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     runtimeEvents: canonicalRuntimeEvents([
       constructVectorClosedEvent({ basis, vectorIndex: 0, closureKind: "assessed" }),
       constructVectorClosedEvent({ basis, vectorIndex: 1, closureKind: "assessed" }),
@@ -758,6 +764,7 @@ test("T-149 runner path uses fold-backed attached F_P blocked-artifact stop", ()
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },

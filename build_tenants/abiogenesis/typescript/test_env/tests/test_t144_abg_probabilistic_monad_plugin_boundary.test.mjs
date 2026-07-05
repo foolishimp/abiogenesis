@@ -34,10 +34,13 @@ import {
   loadGtlTargetCarrierDefaultsBundle,
   loadAbgFallbackBundleFromFile,
   resolveAbgFnCompositionSelection,
-  runEngineIterate,
+  runEngineIterate as runEngineIterateBase,
   selectedAbgFnRegimeBindingForCompute
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 import { loadFallbackBundleFromConfig } from "./support/abg_config_fallback.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -47,6 +50,13 @@ const REFERENCE_FALLBACK_PATH = path.join(
   "config",
   "abg.config.json"
 );
+
+function runEngineIterate(input) {
+  return runEngineIterateBase({
+    ...m03InstructionAssemblyRequestFields(input.basis),
+    ...input
+  });
+}
 
 function pluginContract(pluginKind) {
   return constructEnginePluginContract({

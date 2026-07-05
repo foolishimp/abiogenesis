@@ -36,7 +36,10 @@ import {
   runEngineIterate,
   runtimeEventsForRetryRepairDecision
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function genericNode(id, name, kind) {
   return admitNode({
@@ -299,6 +302,7 @@ test("T-147 runtime plugin inputs carry fresh retry context on retry", () => {
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => undefined,
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
@@ -338,6 +342,7 @@ test("T-147 runtime admits target output before closure and carries it downstrea
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
@@ -513,7 +518,8 @@ test("T-147 admitted target-carrier output closes only with authority-bound evid
     "validation://t147/target-output"
   ]);
   assert.deepEqual(outputAuthority.evidenceRefs, [
-    "evidence://t147/target-output"
+    "evidence://t147/target-output",
+    "validation://t147/target-output"
   ]);
 
   const gate = evaluateAssuranceGate({

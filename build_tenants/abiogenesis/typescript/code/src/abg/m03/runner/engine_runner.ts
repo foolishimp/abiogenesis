@@ -37,6 +37,7 @@ import {
   constructInstructionPromptManifestProjectedEvent,
   constructInstructionResponseContractAdmittedEvent,
   constructPayloadObservedEvent,
+  constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
   constructTerminalReachedEvent,
@@ -164,7 +165,10 @@ import type {
   GtlRequirementsAlgebraDeclarationBundle,
   GtlTargetCarrierDefaultsBundle
 } from "../../../gtl/m01/contracts/index.js";
-import { loadGtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
+import {
+  loadGtlTargetCarrierDefaultsBundle,
+  resolveTargetCarrierContractBinding
+} from "../../../gtl/m01/contracts/index.js";
 import {
   constructAssuranceAuthoritySnapshot,
   deriveAssuranceClosureDecision,
@@ -269,7 +273,7 @@ import {
   type ConstructionIntentRunnerRequest,
   type ConstructionRunnerStepOutcome
 } from "./construction_runner.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
@@ -547,6 +551,85 @@ function actorInvocationForTransition(input: {
   });
 }
 
+interface InstructionAssemblyTransitionScope {
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly dispatchRef: string;
+}
+
+function instructionAssemblyTransitionScopeFor(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: Exclude<AdvancementTransition, { readonly kind: "terminal" }>;
+}): InstructionAssemblyTransitionScope | null {
+  const dispatchRef =
+    "dispatchRef" in input.transition
+      ? input.transition.dispatchRef
+      : input.basis.resolvedPolicy.dispatchRef;
+  return dispatchRef === null
+    ? null
+    : Object.freeze({
+        vectorIndex: input.transition.vectorIndex,
+        edge: input.transition.edge,
+        dispatchRef
+      });
+}
+
+function actorInvocationForComposedStageTask(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly transition: InstructionAssemblyTransitionScope;
+  readonly stageRole: "transform" | "evaluate" | "consequence";
+  readonly taskRef: string;
+  readonly pluginIndex: number;
+}): ActorInvocation {
+  const attemptIndex = actorAttemptIndexForProjection({
+    projection: input.projection,
+    vectorIndex: input.transition.vectorIndex
+  });
+  const dispatchScope = {
+    basisId: input.basis.id,
+    vectorIndex: input.transition.vectorIndex,
+    stageRole: input.stageRole,
+    taskRef: input.taskRef,
+    pluginIndex: input.pluginIndex,
+    attemptIndex
+  };
+  const scopedDigest = stableSha256Digest(dispatchScope);
+  const dispatchRef = [
+    input.transition.dispatchRef,
+    "composed-stage",
+    input.stageRole,
+    scopedDigest
+  ].join(":");
+  return Object.freeze({
+    kind: "actor_invocation",
+    actorInvocationId: `actor-invocation:${JSON.stringify(dispatchScope)}`,
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    vectorIndex: input.transition.vectorIndex,
+    edge: input.transition.edge,
+    attemptIndex,
+    dispatchRef,
+    workerId: input.basis.runtimeIdentity.workerId,
+    backendId: input.basis.runtimeIdentity.backendId,
+    resultRef: `${dispatchRef}:result`,
+    causationEventRefs: Object.freeze([input.transition.dispatchRef]),
+    correlationId: [
+      "actor-correlation",
+      input.basis.id,
+      String(input.transition.vectorIndex),
+      input.stageRole,
+      input.taskRef,
+      String(input.pluginIndex),
+      String(attemptIndex)
+    ].join(":")
+  });
+}
+
 function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
   return Object.freeze({
     actorInvocationId: invocation.actorInvocationId,
@@ -600,7 +683,8 @@ function instructionAssemblyRuntimeForStartup(input: {
 function instructionAssemblyPlanForTransition(input: {
   readonly runtime: EngineInstructionAssemblyRuntime | null;
   readonly basis: ExecutionBasis;
-  readonly transition: FpDispatchTransition;
+  readonly transition: InstructionAssemblyTransitionScope;
+  readonly computeStageRole: "transform" | "evaluate" | "consequence" | "human_callout";
 }): EngineInstructionAssemblyPlanAdmission | null {
   if (input.runtime === null) {
     return null;
@@ -611,7 +695,9 @@ function instructionAssemblyPlanForTransition(input: {
         selectedGraphFunctionRefMatchesBasis({
           selectedGraphFunctionRef: row.plan.graphFunctionRef,
           basis: input.basis
-        }) && row.plan.vectorRef === input.transition.edge
+        }) &&
+        row.plan.vectorRef === input.transition.edge &&
+        row.plan.computeStageRole === input.computeStageRole
     ) ?? null
   );
 }
@@ -667,9 +753,10 @@ function latestSelectedGraphFunctionEvent(input: {
 
 function runtimeBindingFactsForInstructionAssembly(input: {
   readonly basis: ExecutionBasis;
-  readonly transition: FpDispatchTransition;
+  readonly transition: InstructionAssemblyTransitionScope;
   readonly actorInvocation: ActorInvocation;
   readonly pluginInput: EnginePluginInput;
+  readonly plan: CompiledPromptPlan;
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
 }): readonly RuntimeBindingFact[] {
@@ -732,30 +819,68 @@ function runtimeBindingFactsForInstructionAssembly(input: {
       })
     );
   }
+  if (input.pluginInput.attachedResultArtifact !== null) {
+    const content = stableJson(input.pluginInput.attachedResultArtifact);
+    facts.push(
+      runtimeBindingFact({
+        slotClass: "payload",
+        ref: [
+          "candidate-payload",
+          input.basis.id,
+          String(input.transition.vectorIndex),
+          input.actorInvocation.actorInvocationId
+        ].join(":"),
+        sourceEventRefs: [input.pluginInput.sourceProjectionRef],
+        payloadDigest: stableSha256Digest(input.pluginInput.attachedResultArtifact),
+        contentRef: input.pluginInput.actorInvocationRef?.resultRef ?? null,
+        contentDigest: stableSha256Digest(content),
+        contentExcerpt:
+          content.length > 2400 ? `${content.slice(0, 2400)}...` : content
+      })
+    );
+  }
   const context = input.pluginInput.instructionCausalContext;
   if (context !== null) {
-    for (const [index, payloadRef] of context.payloadRefs.entries()) {
+    const prerequisiteEdgeRefs = new Set(
+      input.plan.dependencyInstructionTruth?.prerequisiteEdgeRefs ?? []
+    );
+    const selectedBindings = context.bindings.filter((binding) => {
+      if (binding.bindingRole === "same_vector_retry_repair") {
+        return true;
+      }
+      if (prerequisiteEdgeRefs.size === 0) {
+        return binding.required;
+      }
+      return prerequisiteEdgeRefs.has(binding.sourceEdge);
+    });
+    for (const binding of selectedBindings) {
       facts.push(
         runtimeBindingFact({
           slotClass: "prior_artifact",
-          ref: payloadRef,
+          ref: binding.payloadRef,
           sourceEventRefs: [
-            ...context.sourceProjectionRefs,
-            ...context.evidenceRefs
+            binding.sourceProjectionRef,
+            ...binding.evidenceRefs
           ],
-          payloadDigest: context.payloadDigests[index] ?? null,
-          contentRef: context.contentRefs[index] ?? null,
-          contentDigest: context.contentDigests[index] ?? null,
-          contentExcerpt: context.contentExcerpts[index] ?? null
+          payloadDigest: binding.payloadDigest,
+          contentRef: binding.contentRef,
+          contentDigest: binding.contentDigest,
+          contentExcerpt:
+            binding.contentMode === "excerpt" ? binding.contentExcerpt : null
         })
       );
     }
-    for (const evidenceRef of context.evidenceRefs) {
+    const selectedEvidenceRefs = Object.freeze(
+      [...new Set(selectedBindings.flatMap((binding) => binding.evidenceRefs))].sort(
+        (left, right) => (left < right ? -1 : left > right ? 1 : 0)
+      )
+    );
+    for (const evidenceRef of selectedEvidenceRefs) {
       facts.push(
         runtimeBindingFact({
           slotClass: "evidence",
           ref: evidenceRef,
-          sourceEventRefs: context.sourceProjectionRefs
+          sourceEventRefs: selectedBindings.map((binding) => binding.sourceProjectionRef)
         })
       );
     }
@@ -772,7 +897,7 @@ function runtimeBindingFactsForInstructionAssembly(input: {
   return Object.freeze(facts);
 }
 
-type InstructionAssemblyDispatchBinding =
+type InstructionAssemblyFpBinding =
   | {
       readonly kind: "not_configured";
     }
@@ -786,26 +911,36 @@ type InstructionAssemblyDispatchBinding =
       readonly manifest: PromptManifest;
     };
 
-function bindInstructionAssemblyForFpDispatch(input: {
+function instructionAssemblyBindingBlockReason(
+  binding: Extract<InstructionAssemblyFpBinding, { readonly kind: "blocked" | "not_configured" }>
+): string {
+  return binding.kind === "not_configured"
+    ? "instruction assembly startup is absent for F_P dispatch"
+    : binding.reason;
+}
+
+function bindInstructionAssemblyForFpEffect(input: {
   readonly runtime: EngineInstructionAssemblyRuntime | null;
   readonly basis: ExecutionBasis;
-  readonly transition: FpDispatchTransition;
+  readonly transition: InstructionAssemblyTransitionScope;
+  readonly computeStageRole: "transform" | "evaluate" | "consequence" | "human_callout";
   readonly actorInvocation: ActorInvocation;
   readonly pluginInput: EnginePluginInput;
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
-}): InstructionAssemblyDispatchBinding {
+}): InstructionAssemblyFpBinding {
   const row = instructionAssemblyPlanForTransition({
     runtime: input.runtime,
     basis: input.basis,
-    transition: input.transition
+    transition: input.transition,
+    computeStageRole: input.computeStageRole
   });
   if (row === null) {
     return input.runtime === null
       ? Object.freeze({ kind: "not_configured" })
       : Object.freeze({
           kind: "blocked",
-          reason: `instruction assembly startup has no admitted plan for ${input.transition.edge}`
+          reason: `instruction assembly startup has no admitted plan for ${input.computeStageRole} ${input.transition.edge}`
         });
   }
   const bindResult = bindInstructionEnvelope({
@@ -813,16 +948,23 @@ function bindInstructionAssemblyForFpDispatch(input: {
       "instruction-envelope",
       input.basis.id,
       String(input.transition.vectorIndex),
+      input.computeStageRole,
       input.actorInvocation.actorInvocationId
     ].join(":"),
     plan: row.plan,
     startupAdmission: row.admission,
-    runtimeFacts: runtimeBindingFactsForInstructionAssembly(input)
+    runtimeFacts: runtimeBindingFactsForInstructionAssembly({
+      ...input,
+      plan: row.plan
+    })
   });
   if (!bindResult.accepted) {
+    const issueSummary = bindResult.issues
+      .map((issue) => `${issue.issueKind}:${issue.message}`)
+      .join(",");
     return Object.freeze({
       kind: "blocked",
-      reason: `instruction envelope binding failed: ${bindResult.issues.map((issue) => issue.issueKind).join(",")}`
+      reason: `instruction envelope binding failed: ${issueSummary}`
     });
   }
   const renderResult = renderPromptManifest({
@@ -830,6 +972,7 @@ function bindInstructionAssemblyForFpDispatch(input: {
       "prompt-manifest",
       input.basis.id,
       String(input.transition.vectorIndex),
+      input.computeStageRole,
       input.actorInvocation.actorInvocationId
     ].join(":"),
     plan: row.plan,
@@ -856,6 +999,7 @@ function bindInstructionAssemblyForFpDispatch(input: {
         "instruction-prompt-manifest",
         input.basis.id,
         String(input.transition.vectorIndex),
+        input.computeStageRole,
         input.actorInvocation.actorInvocationId
       ].join(":")
     })
@@ -2689,6 +2833,44 @@ function assertFpEvaluationOutcomeMatchesSelectedComposition(input: {
   }
 }
 
+function targetCarrierPayloadForFpEvaluation(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
+}): {
+  readonly payloadRef: string;
+  readonly contractRef: string;
+  readonly contractDigest: string;
+  readonly digest: string;
+} | null {
+  const artifact = input.pluginInput.attachedResultArtifact;
+  const invocationRef = input.pluginInput.actorInvocationRef;
+  if (artifact === null || invocationRef === null) {
+    return null;
+  }
+  const vector = input.basis.graph.vectors[input.pluginInput.vectorIndex];
+  if (vector === undefined) {
+    return null;
+  }
+  const targetCarrierContract = resolveTargetCarrierContractBinding({
+    vector,
+    defaults: input.targetCarrierDefaults
+  });
+  const targetPayloadDigest = stableSha256Digest({
+    resultRef: invocationRef.resultRef,
+    artifactPayload: artifact,
+    targetCarrierContractRef: targetCarrierContract.contractRef,
+    targetCarrierContractDigest: targetCarrierContract.configDigest
+  });
+  const digest = `digest:target_carrier:${targetPayloadDigest}`;
+  return Object.freeze({
+    payloadRef: `payload:target_carrier:${targetPayloadDigest}`,
+    contractRef: targetCarrierContract.contractRef,
+    contractDigest: targetCarrierContract.configDigest,
+    digest
+  });
+}
+
 function fpEvaluationCoreEvents(input: {
   readonly basis: ExecutionBasis;
   readonly pluginInput: EnginePluginInput;
@@ -2843,6 +3025,50 @@ function fpEvaluationCoreEvents(input: {
   );
 
   return Object.freeze(events);
+}
+
+function fpEvaluationTargetPayloadRejectionEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FpEvaluationOutcome;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
+}): readonly RuntimeEvent[] {
+  const targetCarrierPayload = targetCarrierPayloadForFpEvaluation({
+    basis: input.basis,
+    pluginInput: input.pluginInput,
+    targetCarrierDefaults: input.targetCarrierDefaults
+  });
+  if (targetCarrierPayload === null) {
+    return Object.freeze([]);
+  }
+  const policyRefs = Object.freeze([
+    input.basis.resolvedPolicy.resolvedPolicyBundleRef
+  ]);
+  return Object.freeze(
+    input.outcome.findings
+      .filter((finding) => finding.closeDisposition !== "close")
+      .map((finding) =>
+        constructPayloadRejectedEvent({
+          basis: input.basis,
+          vectorIndex: input.pluginInput.vectorIndex,
+          payloadRef: targetCarrierPayload.payloadRef,
+          rejectionClass: "contradictory",
+          contractRef: targetCarrierPayload.contractRef,
+          contractDigest: targetCarrierPayload.contractDigest,
+          digest: targetCarrierPayload.digest,
+          reason:
+            input.outcome.reason ??
+            [
+              `fp_evaluation_${finding.closeDisposition}`,
+              finding.findingRef,
+              ...finding.residualPressureRefs,
+              ...finding.continuationRefs,
+              ...finding.diagnosticRefs
+            ].join(":"),
+          policyRefs
+        })
+      )
+  );
 }
 
 function assuranceDecisionForCurrentVector(input: {
@@ -3686,6 +3912,68 @@ function registryEntryForExecutionBasis(input: {
   );
 }
 
+function graphVectorDeclarationScalar(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly key: string;
+}): string | null {
+  const entry = input.basis.graph.vectors[input.vectorIndex]?.declarations.entries.find(
+    (candidate) => candidate.key === input.key
+  );
+  if (entry === undefined || entry.value.kind !== "scalar") {
+    return null;
+  }
+  return typeof entry.value.value === "string" ? entry.value.value : null;
+}
+
+function graphVectorDeclarationStringList(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly key: string;
+}): readonly string[] | null {
+  const entry = input.basis.graph.vectors[input.vectorIndex]?.declarations.entries.find(
+    (candidate) => candidate.key === input.key
+  );
+  if (entry === undefined || entry.value.kind !== "string_list") {
+    return null;
+  }
+  return Object.freeze([...entry.value.value]);
+}
+
+function runtimeRegistryLookupBoundary(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: Exclude<AdvancementTransition, { readonly kind: "terminal" }>;
+}): Omit<Parameters<typeof constructRegistryLookupRequest>[0], "lookupRef" | "entryKinds"> {
+  const vectorIndex = input.transition.vectorIndex;
+  const scalar = (key: string): string | null =>
+    graphVectorDeclarationScalar({
+      basis: input.basis,
+      vectorIndex,
+      key
+    });
+  const stringList = (key: string): readonly string[] =>
+    graphVectorDeclarationStringList({
+      basis: input.basis,
+      vectorIndex,
+      key
+    }) ?? Object.freeze([]);
+  return Object.freeze({
+    candidateIdentityRefs: stringList("runtime_registry_candidate_refs"),
+    interfaceRef: scalar("runtime_registry_interface_ref"),
+    sourceContractRef: scalar("runtime_registry_source_contract_ref"),
+    targetContractRef: scalar("runtime_registry_target_contract_ref"),
+    contextRefs: stringList("runtime_registry_context_refs"),
+    authorityRefs: stringList("runtime_registry_authority_refs"),
+    overlayRefs: stringList("runtime_registry_overlay_refs"),
+    namespaceRefs: stringList("runtime_registry_namespace_refs"),
+    acceptedVersions: stringList("runtime_registry_accepted_versions"),
+    provenanceRefs: stringList("runtime_registry_provenance_refs"),
+    readinessRefs: stringList("runtime_registry_readiness_refs"),
+    proofRefs: stringList("runtime_registry_proof_refs"),
+    policyRefs: stringList("runtime_registry_policy_refs")
+  });
+}
+
 function runtimeRegistrySelectionForTransition(input: {
   readonly basis: ExecutionBasis;
   readonly transition: AdvancementTransition;
@@ -3709,30 +3997,23 @@ function runtimeRegistrySelectionForTransition(input: {
     basis: input.basis,
     vectorIndex: input.transition.vectorIndex
   });
+  const lookupBoundary = runtimeRegistryLookupBoundary({
+    basis: input.basis,
+    transition: input.transition
+  });
   const digest = stableSha256Digest({
     basisId: input.basis.id,
     graphFunctionId: input.basis.graphFunction.id,
     vectorIndex: input.transition.vectorIndex,
     edge: input.transition.edge,
     selectedEntryRef: selectedEntry.entryRef,
+    lookupBoundary,
     registryProjectionRef: projection.projectionRef
   });
   const lookupRequest = constructRegistryLookupRequest({
     lookupRef: `registry-lookup:runner:${digest}`,
     entryKinds: ["graph_function"],
-    candidateIdentityRefs: [selectedEntry.entryRef],
-    interfaceRef: selectedEntry.interfaceRef,
-    sourceContractRef: selectedEntry.sourceContractRef,
-    targetContractRef: selectedEntry.targetContractRef,
-    contextRefs: selectedEntry.contextRefs,
-    authorityRefs: selectedEntry.authorityRefs,
-    overlayRefs: selectedEntry.overlayRefs,
-    namespaceRefs: [selectedEntry.namespace],
-    acceptedVersions: [selectedEntry.version],
-    provenanceRefs: selectedEntry.provenanceRefs,
-    readinessRefs: selectedEntry.readinessRefs,
-    proofRefs: selectedEntry.proofRefs,
-    policyRefs: selectedEntry.policyRefs
+    ...lookupBoundary
   });
   const lookupResult = lookupRuntimeGraphFunctionRegistry({
     projection,
@@ -4207,6 +4488,8 @@ function consumeConsequenceTraversalAction(input: {
         graphRuntimeEvents: input.eventState.replayEvents,
         eventSink: input.request.eventSink,
         graphRunnerPlugins: input.request.plugins,
+        graphRuntimeRegistryStartup: input.request.runtimeRegistryStartup,
+        graphInstructionAssemblyStartup: input.request.instructionAssemblyStartup,
         maxAttachedFpAttempts: input.request.maxAttachedFpAttempts,
         graphAssuranceProvider: input.request.assuranceProvider,
         graphTargetCarrierDefaults: input.request.targetCarrierDefaults,
@@ -4859,16 +5142,70 @@ function* runEngineIterateMachine(input: {
               evaluationSetPlan,
               evaluationRuleOutcomes
             );
-          const plannedBatchWithInputs = plannedBatch.map(
-            ({ declaration, plannedRule }) => {
-              const ruleInput = constructEnginePluginInput({
+          const plannedBatchWithInputs: {
+            readonly declaration: EvaluationRuleDeclaration;
+            readonly plannedRule: PlannedEvaluationRule;
+            readonly ruleInput: EnginePluginInput;
+            readonly actorInvocation: ActorInvocation | null;
+          }[] = [];
+          for (const { declaration, plannedRule } of plannedBatch) {
+            const resolvedRegime =
+              plannedRule.plugin.contract.computeMeans ?? "F_D";
+            const ruleActorInvocation =
+              resolvedRegime === "F_P"
+                ? (() => {
+                    const instructionTransition =
+                      instructionAssemblyTransitionScopeFor({
+                        basis: request.basis,
+                        transition
+                      });
+                    if (instructionTransition === null) {
+                      return null;
+                    }
+                    return actorInvocationForComposedStageTask({
+                      basis: request.basis,
+                      projection: batchEvaluationProjection,
+                      transition: instructionTransition,
+                      stageRole: "evaluate",
+                      taskRef: declaration.ruleRef,
+                      pluginIndex: plannedRule.pluginIndex
+                    });
+                  })()
+                : null;
+            if (resolvedRegime === "F_P" && ruleActorInvocation === null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                "F_P evaluation rule requires dispatchRef for instruction assembly"
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(blocked)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                ),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            let ruleInput = constructEnginePluginInput({
                 contract: plannedRule.plugin.contract,
                 basis: request.basis,
                 projection: batchEvaluationProjection,
                 replayEvents: eventState.replayEvents,
                 vectorIndex: transition.vectorIndex,
                 edge: transition.edge,
-                regime: plannedRule.plugin.contract.computeMeans ?? "F_D",
+                regime: resolvedRegime,
+                actorInvocationRef:
+                  ruleActorInvocation === null
+                    ? null
+                    : actorInvocationRef(ruleActorInvocation),
                 abgFallbackBundle: request.abgFallbackBundle ?? null,
                 edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                 constructionPressurePackage:
@@ -4884,9 +5221,62 @@ function* runEngineIterateMachine(input: {
                   priorEvaluationSetProjection
                 )
               });
-              return { declaration, plannedRule, ruleInput };
+            if (ruleActorInvocation !== null) {
+              const ruleInstructionBinding = bindInstructionAssemblyForFpEffect({
+                runtime: instructionAssemblyRuntime,
+                basis: request.basis,
+                transition: {
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  dispatchRef: ruleActorInvocation.dispatchRef
+                },
+                computeStageRole: "evaluate",
+                actorInvocation: ruleActorInvocation,
+                pluginInput: ruleInput,
+                projection: batchEvaluationProjection,
+                replayEvents: eventState.replayEvents
+              });
+              if (ruleInstructionBinding.kind !== "manifest_projected") {
+                const blocked = terminalTransition(
+                  request.basis,
+                  "gap_stop",
+                  instructionAssemblyBindingBlockReason(ruleInstructionBinding)
+                );
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructTerminalReachedEvent(blocked)
+                );
+                return constructResult({
+                  basis: request.basis,
+                  transition: blocked,
+                  projection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
+              eventState = emitRunnerEvents(
+                eventState,
+                [
+                  ruleInstructionBinding.event,
+                  constructActorInvocationStartedEvent(ruleActorInvocation)
+                ]
+              );
+              ruleInput = Object.freeze({
+                ...ruleInput,
+                instructionPromptManifest: ruleInstructionBinding.manifest
+              });
             }
-          );
+            plannedBatchWithInputs.push({
+              declaration,
+              plannedRule,
+              ruleInput,
+              actorInvocation: ruleActorInvocation
+            });
+          }
           const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "evaluation_rule_batch_evaluate",
@@ -4925,6 +5315,19 @@ function* runEngineIterateMachine(input: {
                   request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
+            const invocation = plannedBatchWithInputs[index]?.actorInvocation;
+            if (invocation !== undefined && invocation !== null) {
+              eventState = emitRunnerEvents(
+                eventState,
+                constructActorInvocationClosedEvent({
+                  invocation,
+                  closureStatus:
+                    ruleOutcome.status === "blocked" ? "blocked" : "completed",
+                  resultRef: invocation.resultRef,
+                  detail: ruleOutcome.reason
+                })
+              );
+            }
           }
         }
         const preScalarAdmission = constructEvaluationSetAdmission({
@@ -5271,16 +5674,70 @@ function* runEngineIterateMachine(input: {
               consequenceStagePlan,
               consequenceStageOutcomes
             );
-          const plannedBatchWithInputs = plannedBatch.map(
-            ({ declaration, plannedTask }) => {
-              const taskInput = constructEnginePluginInput({
+          const plannedBatchWithInputs: {
+            readonly declaration: ComposedStageTaskDeclaration;
+            readonly plannedTask: PlannedComposedStageTask;
+            readonly taskInput: EnginePluginInput;
+            readonly actorInvocation: ActorInvocation | null;
+          }[] = [];
+          for (const { declaration, plannedTask } of plannedBatch) {
+            const resolvedRegime =
+              plannedTask.plugin.contract.computeMeans ?? "F_D";
+            const taskActorInvocation =
+              resolvedRegime === "F_P"
+                ? (() => {
+                    const instructionTransition =
+                      instructionAssemblyTransitionScopeFor({
+                        basis: request.basis,
+                        transition
+                      });
+                    if (instructionTransition === null) {
+                      return null;
+                    }
+                    return actorInvocationForComposedStageTask({
+                      basis: request.basis,
+                      projection: batchConsequenceProjection,
+                      transition: instructionTransition,
+                      stageRole: "consequence",
+                      taskRef: declaration.taskRef,
+                      pluginIndex: plannedTask.pluginIndex
+                    });
+                  })()
+                : null;
+            if (resolvedRegime === "F_P" && taskActorInvocation === null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                "F_P composed consequence task requires dispatchRef for instruction assembly"
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(blocked)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                ),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            let taskInput = constructEnginePluginInput({
                 contract: plannedTask.plugin.contract,
                 basis: request.basis,
                 projection: batchConsequenceProjection,
                 replayEvents: eventState.replayEvents,
                 vectorIndex: transition.vectorIndex,
                 edge: transition.edge,
-                regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                regime: resolvedRegime,
+                actorInvocationRef:
+                  taskActorInvocation === null
+                    ? null
+                    : actorInvocationRef(taskActorInvocation),
                 abgFallbackBundle: request.abgFallbackBundle ?? null,
                 edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                 constructionPressurePackage:
@@ -5298,9 +5755,62 @@ function* runEngineIterateMachine(input: {
                   priorConsequenceStageProjection
                 )
               });
-              return { declaration, plannedTask, taskInput };
+            if (taskActorInvocation !== null) {
+              const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                runtime: instructionAssemblyRuntime,
+                basis: request.basis,
+                transition: {
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  dispatchRef: taskActorInvocation.dispatchRef
+                },
+                computeStageRole: "consequence",
+                actorInvocation: taskActorInvocation,
+                pluginInput: taskInput,
+                projection: batchConsequenceProjection,
+                replayEvents: eventState.replayEvents
+              });
+              if (taskInstructionBinding.kind !== "manifest_projected") {
+                const blocked = terminalTransition(
+                  request.basis,
+                  "gap_stop",
+                  instructionAssemblyBindingBlockReason(taskInstructionBinding)
+                );
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructTerminalReachedEvent(blocked)
+                );
+                return constructResult({
+                  basis: request.basis,
+                  transition: blocked,
+                  projection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
+              eventState = emitRunnerEvents(
+                eventState,
+                [
+                  taskInstructionBinding.event,
+                  constructActorInvocationStartedEvent(taskActorInvocation)
+                ]
+              );
+              taskInput = Object.freeze({
+                ...taskInput,
+                instructionPromptManifest: taskInstructionBinding.manifest
+              });
             }
-          );
+            plannedBatchWithInputs.push({
+              declaration,
+              plannedTask,
+              taskInput,
+              actorInvocation: taskActorInvocation
+            });
+          }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "composed_stage_task_batch_run",
@@ -5340,6 +5850,19 @@ function* runEngineIterateMachine(input: {
                   request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
+            const invocation = plannedBatchWithInputs[index]?.actorInvocation;
+            if (invocation !== undefined && invocation !== null) {
+              eventState = emitRunnerEvents(
+                eventState,
+                constructActorInvocationClosedEvent({
+                  invocation,
+                  closureStatus:
+                    taskOutcome.status === "blocked" ? "blocked" : "completed",
+                  resultRef: invocation.resultRef,
+                  detail: taskOutcome.reason
+                })
+              );
+            }
           }
         }
         const preProjectionConsequenceAdmission = constructComposedStageAdmission({
@@ -5644,16 +6167,70 @@ function* runEngineIterateMachine(input: {
               transformStagePlan,
               transformStageOutcomes
             );
-          const plannedBatchWithInputs = plannedBatch.map(
-            ({ declaration, plannedTask }) => {
-              const taskInput = constructEnginePluginInput({
+          const plannedBatchWithInputs: {
+            readonly declaration: ComposedStageTaskDeclaration;
+            readonly plannedTask: PlannedComposedStageTask;
+            readonly taskInput: EnginePluginInput;
+            readonly actorInvocation: ActorInvocation | null;
+          }[] = [];
+          for (const { declaration, plannedTask } of plannedBatch) {
+            const resolvedRegime =
+              plannedTask.plugin.contract.computeMeans ?? "F_D";
+            const taskActorInvocation =
+              resolvedRegime === "F_P"
+                ? (() => {
+                    const instructionTransition =
+                      instructionAssemblyTransitionScopeFor({
+                        basis: request.basis,
+                        transition
+                      });
+                    if (instructionTransition === null) {
+                      return null;
+                    }
+                    return actorInvocationForComposedStageTask({
+                      basis: request.basis,
+                      projection: batchTransformProjection,
+                      transition: instructionTransition,
+                      stageRole: "transform",
+                      taskRef: declaration.taskRef,
+                      pluginIndex: plannedTask.pluginIndex
+                    });
+                  })()
+                : null;
+            if (resolvedRegime === "F_P" && taskActorInvocation === null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                "F_P composed transform task requires dispatchRef for instruction assembly"
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(blocked)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                ),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            let taskInput = constructEnginePluginInput({
                 contract: plannedTask.plugin.contract,
                 basis: request.basis,
                 projection: batchTransformProjection,
                 replayEvents: eventState.replayEvents,
                 vectorIndex: transition.vectorIndex,
                 edge: transition.edge,
-                regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                regime: resolvedRegime,
+                actorInvocationRef:
+                  taskActorInvocation === null
+                    ? null
+                    : actorInvocationRef(taskActorInvocation),
                 traversalStrategySelection: modulatedAttempt?.selection ?? null,
                 traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
                 abgFallbackBundle: request.abgFallbackBundle ?? null,
@@ -5671,9 +6248,62 @@ function* runEngineIterateMachine(input: {
                   priorTransformStageProjection
                 )
               });
-              return { declaration, plannedTask, taskInput };
+            if (taskActorInvocation !== null) {
+              const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                runtime: instructionAssemblyRuntime,
+                basis: request.basis,
+                transition: {
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  dispatchRef: taskActorInvocation.dispatchRef
+                },
+                computeStageRole: "transform",
+                actorInvocation: taskActorInvocation,
+                pluginInput: taskInput,
+                projection: batchTransformProjection,
+                replayEvents: eventState.replayEvents
+              });
+              if (taskInstructionBinding.kind !== "manifest_projected") {
+                const blocked = terminalTransition(
+                  request.basis,
+                  "gap_stop",
+                  instructionAssemblyBindingBlockReason(taskInstructionBinding)
+                );
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructTerminalReachedEvent(blocked)
+                );
+                return constructResult({
+                  basis: request.basis,
+                  transition: blocked,
+                  projection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
+              eventState = emitRunnerEvents(
+                eventState,
+                [
+                  taskInstructionBinding.event,
+                  constructActorInvocationStartedEvent(taskActorInvocation)
+                ]
+              );
+              taskInput = Object.freeze({
+                ...taskInput,
+                instructionPromptManifest: taskInstructionBinding.manifest
+              });
             }
-          );
+            plannedBatchWithInputs.push({
+              declaration,
+              plannedTask,
+              taskInput,
+              actorInvocation: taskActorInvocation
+            });
+          }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "composed_stage_task_batch_run",
@@ -5713,6 +6343,21 @@ function* runEngineIterateMachine(input: {
                   request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
+            if (plannedBatchWithInputs[index]?.actorInvocation !== null) {
+              const invocation = plannedBatchWithInputs[index]?.actorInvocation;
+              if (invocation !== undefined && invocation !== null) {
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructActorInvocationClosedEvent({
+                    invocation,
+                    closureStatus:
+                      taskOutcome.status === "blocked" ? "blocked" : "completed",
+                    resultRef: invocation.resultRef,
+                    detail: taskOutcome.reason
+                  })
+                );
+              }
+            }
           }
         }
         const preDispatchTransformAdmission = constructComposedStageAdmission({
@@ -5775,20 +6420,21 @@ function* runEngineIterateMachine(input: {
             preDispatchTransformProjection
           )
         });
-        const instructionBinding = bindInstructionAssemblyForFpDispatch({
+        const instructionBinding = bindInstructionAssemblyForFpEffect({
           runtime: instructionAssemblyRuntime,
           basis: request.basis,
           transition,
+          computeStageRole: "transform",
           actorInvocation,
           pluginInput: scalarTransformInput,
           projection: scalarTransformProjection,
           replayEvents: eventState.replayEvents
         });
-        if (instructionBinding.kind === "blocked") {
+        if (instructionBinding.kind !== "manifest_projected") {
           const blocked = terminalTransition(
             request.basis,
             "gap_stop",
-            instructionBinding.reason
+            instructionAssemblyBindingBlockReason(instructionBinding)
           );
           eventState = emitRunnerEvents(
             eventState,
@@ -5806,13 +6452,11 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
-        if (instructionBinding.kind === "manifest_projected") {
-          eventState = emitRunnerEvents(eventState, instructionBinding.event);
-          scalarTransformInput = Object.freeze({
-            ...scalarTransformInput,
-            instructionPromptManifest: instructionBinding.manifest
-          });
-        }
+        eventState = emitRunnerEvents(eventState, instructionBinding.event);
+        scalarTransformInput = Object.freeze({
+          ...scalarTransformInput,
+          instructionPromptManifest: instructionBinding.manifest
+        });
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,
@@ -6068,17 +6712,70 @@ function* runEngineIterateMachine(input: {
                   evaluationSetPlan,
                   evaluationRuleOutcomes
                 );
-              const plannedBatchWithInputs = plannedBatch.map(
-                ({ declaration, plannedRule }) => {
-                  const ruleInput = constructEnginePluginInput({
+              const plannedBatchWithInputs: {
+                readonly declaration: EvaluationRuleDeclaration;
+                readonly plannedRule: PlannedEvaluationRule;
+                readonly ruleInput: EnginePluginInput;
+                readonly actorInvocation: ActorInvocation | null;
+              }[] = [];
+              for (const { declaration, plannedRule } of plannedBatch) {
+                const resolvedRegime =
+                  plannedRule.plugin.contract.computeMeans ?? "F_D";
+                const ruleActorInvocation =
+                  resolvedRegime === "F_P"
+                    ? (() => {
+                        const instructionTransition =
+                          instructionAssemblyTransitionScopeFor({
+                            basis: request.basis,
+                            transition
+                          });
+                        if (instructionTransition === null) {
+                          return null;
+                        }
+                        return actorInvocationForComposedStageTask({
+                          basis: request.basis,
+                          projection: batchEvaluationProjection,
+                          transition: instructionTransition,
+                          stageRole: "evaluate",
+                          taskRef: declaration.ruleRef,
+                          pluginIndex: plannedRule.pluginIndex
+                        });
+                      })()
+                    : null;
+                if (resolvedRegime === "F_P" && ruleActorInvocation === null) {
+                  const blocked = terminalTransition(
+                    request.basis,
+                    "gap_stop",
+                    "F_P evaluation rule requires dispatchRef for instruction assembly"
+                  );
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructTerminalReachedEvent(blocked)
+                  );
+                  return constructResult({
+                    basis: request.basis,
+                    transition: blocked,
+                    projection: deriveRuntimeAggregateProjection(
+                      request.basis,
+                      eventState.replayEvents
+                    ),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+                let ruleInput = constructEnginePluginInput({
                     contract: plannedRule.plugin.contract,
                     basis: request.basis,
                     projection: batchEvaluationProjection,
                     replayEvents: eventState.replayEvents,
                     vectorIndex: transition.vectorIndex,
                     edge: transition.edge,
-                    regime: plannedRule.plugin.contract.computeMeans ?? "F_D",
-                    actorInvocationRef: actorInvocationRef(actorInvocation),
+                    regime: resolvedRegime,
+                    actorInvocationRef:
+                      ruleActorInvocation === null
+                        ? null
+                        : actorInvocationRef(ruleActorInvocation),
                     traversalStrategySelection: modulatedAttempt?.selection ?? null,
                     traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
                     abgFallbackBundle: request.abgFallbackBundle ?? null,
@@ -6098,9 +6795,62 @@ function* runEngineIterateMachine(input: {
                       priorEvaluationSetProjection
                     )
                   });
-                  return { declaration, plannedRule, ruleInput };
+                if (ruleActorInvocation !== null) {
+                  const ruleInstructionBinding = bindInstructionAssemblyForFpEffect({
+                    runtime: instructionAssemblyRuntime,
+                    basis: request.basis,
+                    transition: {
+                      vectorIndex: transition.vectorIndex,
+                      edge: transition.edge,
+                      dispatchRef: ruleActorInvocation.dispatchRef
+                    },
+                    computeStageRole: "evaluate",
+                    actorInvocation: ruleActorInvocation,
+                    pluginInput: ruleInput,
+                    projection: batchEvaluationProjection,
+                    replayEvents: eventState.replayEvents
+                  });
+                  if (ruleInstructionBinding.kind !== "manifest_projected") {
+                    const blocked = terminalTransition(
+                      request.basis,
+                      "gap_stop",
+                      instructionAssemblyBindingBlockReason(ruleInstructionBinding)
+                    );
+                    eventState = emitRunnerEvents(
+                      eventState,
+                      constructTerminalReachedEvent(blocked)
+                    );
+                    return constructResult({
+                      basis: request.basis,
+                      transition: blocked,
+                      projection: deriveRuntimeAggregateProjection(
+                        request.basis,
+                        eventState.replayEvents
+                      ),
+                      emittedEvents: eventState.emittedEvents,
+                      replayEvents: eventState.replayEvents,
+                      iterationCount
+                    });
+                  }
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    [
+                      ruleInstructionBinding.event,
+                      constructActorInvocationStartedEvent(ruleActorInvocation)
+                    ]
+                  );
+                  ruleInput = Object.freeze({
+                    ...ruleInput,
+                    instructionPromptManifest: ruleInstructionBinding.manifest
+                  });
                 }
-              );
+                plannedBatchWithInputs.push({
+                  declaration,
+                  plannedRule,
+                  ruleInput,
+                  actorInvocation: ruleActorInvocation
+                });
+              }
               const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
                 result: yield Object.freeze({
                   kind: "evaluation_rule_batch_evaluate",
@@ -6139,6 +6889,19 @@ function* runEngineIterateMachine(input: {
                       request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
                   })
                 );
+                const invocation = plannedBatchWithInputs[index]?.actorInvocation;
+                if (invocation !== undefined && invocation !== null) {
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructActorInvocationClosedEvent({
+                      invocation,
+                      closureStatus:
+                        ruleOutcome.status === "blocked" ? "blocked" : "completed",
+                      resultRef: invocation.resultRef,
+                      detail: ruleOutcome.reason
+                    })
+                  );
+                }
               }
             }
             const preSemanticAdmission = constructEvaluationSetAdmission({
@@ -6220,7 +6983,7 @@ function* runEngineIterateMachine(input: {
               request.basis,
               eventState.replayEvents
             );
-            const fpEvaluationInput = constructEnginePluginInput({
+            let fpEvaluationInput = constructEnginePluginInput({
               contract: plugins.fpEvaluator.contract,
               basis: request.basis,
               projection: fpSemanticEvaluationProjection,
@@ -6247,6 +7010,46 @@ function* runEngineIterateMachine(input: {
               stageSetDependencyRefs: stageProjectionFoldInputRefs(
                 preSemanticEvaluationSetProjection
               )
+            });
+            const evaluationInstructionBinding = bindInstructionAssemblyForFpEffect({
+              runtime: instructionAssemblyRuntime,
+              basis: request.basis,
+              transition,
+              computeStageRole: "evaluate",
+              actorInvocation,
+              pluginInput: fpEvaluationInput,
+              projection: fpSemanticEvaluationProjection,
+              replayEvents: eventState.replayEvents
+            });
+            if (evaluationInstructionBinding.kind !== "manifest_projected") {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                instructionAssemblyBindingBlockReason(evaluationInstructionBinding)
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(blocked)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                ),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            eventState = emitRunnerEvents(
+              eventState,
+              evaluationInstructionBinding.event
+            );
+            fpEvaluationInput = Object.freeze({
+              ...fpEvaluationInput,
+              instructionPromptManifest: evaluationInstructionBinding.manifest
             });
             if (fpEvaluationInput.pluginTraversalObserverBinding !== null) {
               eventState = emitRunnerEvents(eventState,
@@ -6417,6 +7220,15 @@ function* runEngineIterateMachine(input: {
                 policyRefs: [
                   request.basis.resolvedPolicy.resolvedPolicyBundleRef
                 ]
+              })
+            );
+            eventState = emitRunnerEvents(
+              eventState,
+              fpEvaluationTargetPayloadRejectionEvents({
+                basis: request.basis,
+                pluginInput: fpEvaluationInput,
+                outcome: fpEvaluationOutcome,
+                targetCarrierDefaults
               })
             );
             const assuranceTerminal = terminalForAssuranceDecision({
@@ -6826,16 +7638,70 @@ function* runEngineIterateMachine(input: {
                   consequenceStagePlan,
                   consequenceStageOutcomes
                 );
-              const plannedBatchWithInputs = plannedBatch.map(
-                ({ declaration, plannedTask }) => {
-                  const taskInput = constructEnginePluginInput({
+              const plannedBatchWithInputs: {
+                readonly declaration: ComposedStageTaskDeclaration;
+                readonly plannedTask: PlannedComposedStageTask;
+                readonly taskInput: EnginePluginInput;
+                readonly actorInvocation: ActorInvocation | null;
+              }[] = [];
+              for (const { declaration, plannedTask } of plannedBatch) {
+                const resolvedRegime =
+                  plannedTask.plugin.contract.computeMeans ?? "F_D";
+                const taskActorInvocation =
+                  resolvedRegime === "F_P"
+                    ? (() => {
+                        const instructionTransition =
+                          instructionAssemblyTransitionScopeFor({
+                            basis: request.basis,
+                            transition
+                          });
+                        if (instructionTransition === null) {
+                          return null;
+                        }
+                        return actorInvocationForComposedStageTask({
+                          basis: request.basis,
+                          projection: batchConsequenceProjection,
+                          transition: instructionTransition,
+                          stageRole: "consequence",
+                          taskRef: declaration.taskRef,
+                          pluginIndex: plannedTask.pluginIndex
+                        });
+                      })()
+                    : null;
+                if (resolvedRegime === "F_P" && taskActorInvocation === null) {
+                  const blocked = terminalTransition(
+                    request.basis,
+                    "gap_stop",
+                    "F_P composed consequence task requires dispatchRef for instruction assembly"
+                  );
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructTerminalReachedEvent(blocked)
+                  );
+                  return constructResult({
+                    basis: request.basis,
+                    transition: blocked,
+                    projection: deriveRuntimeAggregateProjection(
+                      request.basis,
+                      eventState.replayEvents
+                    ),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+                let taskInput = constructEnginePluginInput({
                     contract: plannedTask.plugin.contract,
                     basis: request.basis,
                     projection: batchConsequenceProjection,
                     replayEvents: eventState.replayEvents,
                     vectorIndex: transition.vectorIndex,
                     edge: transition.edge,
-                    regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                    regime: resolvedRegime,
+                    actorInvocationRef:
+                      taskActorInvocation === null
+                        ? null
+                        : actorInvocationRef(taskActorInvocation),
                     traversalStrategySelection: modulatedAttempt?.selection ?? null,
                     traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
                     abgFallbackBundle: request.abgFallbackBundle ?? null,
@@ -6855,9 +7721,62 @@ function* runEngineIterateMachine(input: {
                       priorConsequenceStageProjection
                     )
                   });
-                  return { declaration, plannedTask, taskInput };
+                if (taskActorInvocation !== null) {
+                  const taskInstructionBinding = bindInstructionAssemblyForFpEffect({
+                    runtime: instructionAssemblyRuntime,
+                    basis: request.basis,
+                    transition: {
+                      vectorIndex: transition.vectorIndex,
+                      edge: transition.edge,
+                      dispatchRef: taskActorInvocation.dispatchRef
+                    },
+                    computeStageRole: "consequence",
+                    actorInvocation: taskActorInvocation,
+                    pluginInput: taskInput,
+                    projection: batchConsequenceProjection,
+                    replayEvents: eventState.replayEvents
+                  });
+                  if (taskInstructionBinding.kind !== "manifest_projected") {
+                    const blocked = terminalTransition(
+                      request.basis,
+                      "gap_stop",
+                      instructionAssemblyBindingBlockReason(taskInstructionBinding)
+                    );
+                    eventState = emitRunnerEvents(
+                      eventState,
+                      constructTerminalReachedEvent(blocked)
+                    );
+                    return constructResult({
+                      basis: request.basis,
+                      transition: blocked,
+                      projection: deriveRuntimeAggregateProjection(
+                        request.basis,
+                        eventState.replayEvents
+                      ),
+                      emittedEvents: eventState.emittedEvents,
+                      replayEvents: eventState.replayEvents,
+                      iterationCount
+                    });
+                  }
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    [
+                      taskInstructionBinding.event,
+                      constructActorInvocationStartedEvent(taskActorInvocation)
+                    ]
+                  );
+                  taskInput = Object.freeze({
+                    ...taskInput,
+                    instructionPromptManifest: taskInstructionBinding.manifest
+                  });
                 }
-              );
+                plannedBatchWithInputs.push({
+                  declaration,
+                  plannedTask,
+                  taskInput,
+                  actorInvocation: taskActorInvocation
+                });
+              }
               const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
                 result: yield Object.freeze({
                   kind: "composed_stage_task_batch_run",
@@ -6897,6 +7816,19 @@ function* runEngineIterateMachine(input: {
                       request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
                   })
                 );
+                const invocation = plannedBatchWithInputs[index]?.actorInvocation;
+                if (invocation !== undefined && invocation !== null) {
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructActorInvocationClosedEvent({
+                      invocation,
+                      closureStatus:
+                        taskOutcome.status === "blocked" ? "blocked" : "completed",
+                      resultRef: invocation.resultRef,
+                      detail: taskOutcome.reason
+                    })
+                  );
+                }
               }
             }
             const preProjectionConsequenceAdmission =

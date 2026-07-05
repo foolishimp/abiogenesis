@@ -1127,6 +1127,12 @@ export type {
   GtlProgramTraversalUnitProjectionRow
 } from "./gtl_program_conformance.js";
 export {
+  constructDefaultInstructionAssemblyStartupForBasis
+} from "./default_instruction_startup.js";
+export type {
+  DefaultInstructionStartupOptions
+} from "./default_instruction_startup.js";
+export {
   admitCompiledPromptPlanAtStartup,
   bindInstructionEnvelope,
   compileInstructionAssemblyPlan,

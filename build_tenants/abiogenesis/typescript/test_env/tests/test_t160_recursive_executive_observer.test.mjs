@@ -5,7 +5,10 @@ import assert from "node:assert/strict";
 
 import * as publicRoot from "../../build/semantic/code/src/index.js";
 import * as publicExecutive from "../../build/semantic/code/src/abg/executive/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 const OBSERVATION_INPUT = Object.freeze({
   observerGraphFunctionRef: "graph-function://abg/executive/default-observer",
@@ -329,6 +332,7 @@ test("T-160 engine runner emits executive pressure facts into replay events", as
   const sinkEvents = [];
   const result = await publicRoot.runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },
@@ -377,6 +381,7 @@ test("T-160 production runner opens default executive observer without request i
   const sinkEvents = [];
   const result = await publicRoot.runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },

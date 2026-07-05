@@ -35,7 +35,10 @@ import {
 import {
   stableJson
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 const FORBIDDEN_PUBLIC_EMITTERS = Object.freeze([
   "admitRequirementEventPayload",
@@ -786,6 +789,7 @@ test("T-164 runner emits requirement route facts on the traversal path", () => {
 
   const result = publicRoot.runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },
@@ -917,6 +921,7 @@ test("T-164 runner no-ops uncovered route edges instead of crashing", () => {
 
   const result = publicRoot.runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => {},
     plugins: {
       fpDispatch,

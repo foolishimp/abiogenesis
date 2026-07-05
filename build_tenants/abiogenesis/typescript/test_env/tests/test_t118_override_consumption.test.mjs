@@ -168,8 +168,13 @@ test("T-118 AC: publicStart consumes fh_mode override and emits provenance", () 
   assert.equal(event.fhModeSource, "override");
   assert.equal(event.runnerRetryMaxAttemptsSource, "registry_default");
   assert.deepStrictEqual(
-    events.slice(0, 3).map((candidate) => candidate.kind),
-    ["lever_resolution_admitted", "basis_admitted", "graph_call_opened"]
+    events.slice(0, 4).map((candidate) => candidate.kind),
+    [
+      "lever_resolution_admitted",
+      "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected"
+    ]
   );
 });
 
@@ -309,11 +314,21 @@ test("T-118 AC: lever resolution event is once per public start invocation", () 
     1
   );
   assert.deepStrictEqual(
-    firstEvents.slice(0, 3).map((event) => event.kind),
-    ["lever_resolution_admitted", "basis_admitted", "graph_call_opened"]
+    firstEvents.slice(0, 4).map((event) => event.kind),
+    [
+      "lever_resolution_admitted",
+      "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected"
+    ]
   );
   assert.deepStrictEqual(
-    secondEvents.slice(0, 3).map((event) => event.kind),
-    ["lever_resolution_admitted", "basis_admitted", "graph_call_opened"]
+    secondEvents.slice(0, 4).map((event) => event.kind),
+    [
+      "lever_resolution_admitted",
+      "basis_admitted",
+      "registry_entry_admitted",
+      "graph_function_selected"
+    ]
   );
 });

@@ -141,6 +141,8 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "lever_resolution_admitted",
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",

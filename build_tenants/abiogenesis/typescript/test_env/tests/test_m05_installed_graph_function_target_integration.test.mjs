@@ -38,9 +38,12 @@ test("M05 installed graph-function target integration: packaged sandbox start se
   assert.deepStrictEqual(payload.eventKinds, [
     "lever_resolution_admitted",
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "instruction_prompt_manifest_projected",
     "fp_dispatch_requested",
     "actor_invocation_started",
     "payload_observed",

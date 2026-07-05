@@ -17,11 +17,12 @@ import {
   deriveRuntimeAggregateProjection,
   loadAbgFallbackBundleFromFile,
   resolvePluginTraversalObserverBinding,
-  runEngineIterate,
+  runEngineIterate as runEngineIterateBase,
   tryResolvePluginTraversalObserverBinding
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { buildFpBasis } from "./support/m03-fixtures.mjs";
 import { loadFallbackBundleFromConfig } from "./support/abg_config_fallback.mjs";
+import { m03InstructionAssemblyRequestFields } from "./support/m03-iteration-fixtures.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TYPESCRIPT_ROOT = path.resolve(TEST_DIR, "..", "..");
@@ -30,6 +31,13 @@ const REFERENCE_FALLBACK_PATH = path.join(
   "config",
   "abg.config.json"
 );
+
+function runEngineIterate(input) {
+  return runEngineIterateBase({
+    ...m03InstructionAssemblyRequestFields(input.basis),
+    ...input
+  });
+}
 
 function attrs(entries = []) {
   return Object.freeze({ entries: Object.freeze(entries) });

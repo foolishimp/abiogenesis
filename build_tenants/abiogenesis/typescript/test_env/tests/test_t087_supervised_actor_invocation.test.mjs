@@ -16,7 +16,10 @@ import {
   defaultFpEvaluatorPlugin,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function attachedArtifact(input, options = {}) {
   const fulfillmentStatus = options.fulfillmentStatus ?? "fulfilled";
@@ -89,6 +92,7 @@ test("T-087 actor invocation: same-edge retry creates fresh one-to-one actor ide
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -141,6 +145,7 @@ test("T-087 actor invocation: blocked transport with a valid artifact is salvage
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },
@@ -212,6 +217,7 @@ test("T-087 actor invocation: malformed observed artifact becomes terminal paylo
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       events.push(event);
     },

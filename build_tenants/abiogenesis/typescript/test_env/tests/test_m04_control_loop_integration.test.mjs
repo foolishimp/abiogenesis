@@ -20,6 +20,7 @@ import {
   controlLoopPayload,
   jobPayload,
   publishedProfile,
+  publicInstructionAssemblyFields,
   resolvedPolicyIdentity,
   runtimeIdentity
 } from "./support/m04-fixtures.mjs";
@@ -105,18 +106,30 @@ test("M04 control integration: dispatch-required seam remains explicit control t
     ]
   });
   const events = [];
+  const controlInput = controlLoopPayload(profile.name);
+  const context = {
+    module,
+    runtimeIdentity: runtimeIdentity(),
+    resolvedPolicy: resolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://public-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://public-fp"
+    }),
+    runId: "run://m04-control-int-fp",
+    workKey: "wk://m04-control-int-fp"
+  };
   const outcome = publicControlLoop(
-    controlLoopPayload(profile.name),
+    controlInput,
     {
-      module,
-      runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: resolvedPolicyIdentity({
-        resolvedPolicyBundleRef: "policy://public-fp",
-        defaultRegime: "F_P",
-        dispatchRef: "dispatch://public-fp"
-      }),
-      runId: "run://m04-control-int-fp",
-      workKey: "wk://m04-control-int-fp"
+      ...context,
+      ...publicInstructionAssemblyFields({
+        startIntent: controlInput.start_request,
+        module,
+        runtimeIdentity: context.runtimeIdentity,
+        resolvedPolicy: context.resolvedPolicy,
+        runId: context.runId,
+        workKey: context.workKey
+      })
     },
     (event) => {
       events.push(event);
@@ -128,9 +141,12 @@ test("M04 control integration: dispatch-required seam remains explicit control t
   assert.deepStrictEqual(outcome.trace.stepKinds, ["blocked"]);
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "instruction_prompt_manifest_projected",
     "fp_dispatch_requested",
     "actor_invocation_started",
     "payload_observed",

@@ -151,6 +151,12 @@ export interface ConstructionIntentRunnerRequest {
   readonly eventSink: RuntimeEventSink;
   readonly graphRuntimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly graphRunnerPlugins?: EngineIterateRequest["plugins"] | undefined;
+  readonly graphRuntimeRegistryStartup?:
+    | EngineIterateRequest["runtimeRegistryStartup"]
+    | undefined;
+  readonly graphInstructionAssemblyStartup?:
+    | EngineIterateRequest["instructionAssemblyStartup"]
+    | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly graphAssuranceProvider?:
     | EngineIterateRequest["assuranceProvider"]
@@ -232,11 +238,14 @@ function runtimeEventRef(event: RuntimeEvent, index: number): string {
   if ("closureInputRef" in event) {
     return `${event.kind}:${event.closureInputRef}`;
   }
+  if ("manifestRef" in event) {
+    return `${event.kind}:${event.manifestRef}`;
+  }
   if ("payloadRef" in event) {
     return `${event.kind}:${event.payloadRef}`;
   }
   if ("actorInvocationId" in event) {
-    return `${event.kind}:${event.actorInvocationId}`;
+    return `${event.kind}:${event.actorInvocationId}:${index}`;
   }
   if ("graphCallId" in event && event.graphCallId !== null) {
     return `${event.kind}:${event.graphCallId}:${index}`;
@@ -644,6 +653,12 @@ export function runConstructionEffectPlan(input: {
     ...(runtimeEventsForEngine === undefined
       ? {}
       : { runtimeEvents: runtimeEventsForEngine }),
+    ...(request.graphRuntimeRegistryStartup === undefined
+      ? {}
+      : { runtimeRegistryStartup: request.graphRuntimeRegistryStartup }),
+    ...(request.graphInstructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: request.graphInstructionAssemblyStartup }),
     eventSink: request.eventSink,
     plugins: request.graphRunnerPlugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
@@ -710,6 +725,12 @@ export async function runConstructionEffectPlanAsync(input: {
     ...(runtimeEventsForEngine === undefined
       ? {}
       : { runtimeEvents: runtimeEventsForEngine }),
+    ...(request.graphRuntimeRegistryStartup === undefined
+      ? {}
+      : { runtimeRegistryStartup: request.graphRuntimeRegistryStartup }),
+    ...(request.graphInstructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: request.graphInstructionAssemblyStartup }),
     eventSink: request.eventSink,
     plugins: request.graphRunnerPlugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,

@@ -23,3 +23,5 @@ turning ABG into a strategy engine.
 **REQ-R-ABG3-SELECTION-APPLICATION-004**: The default runtime application of a selected graph function shall open graph-call and frame-local execution truth rather than rewrite published GTL carriers.
 
 **REQ-R-ABG3-SELECTION-APPLICATION-005**: Hidden structural alternatives or ambiguous declared alternatives shall fail closed.
+
+**REQ-R-ABG3-SELECTION-APPLICATION-006**: Runtime registry selection shall treat admitted registry entries as the candidate universe. A traversal vector or edge may constrain allowable candidates by candidate identity, interface, source contract, target contract, context, authority, overlay, namespace, version, provenance, readiness, proof, or policy refs. An absent vector or edge constraint shall mean that field is unconstrained; ABG shall not fill an absent constraint from the already-selected candidate. The selected candidate shall be eligible against the registry universe after all declared constraints are applied.

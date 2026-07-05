@@ -19,6 +19,7 @@ import {
   admitRuntimeModule,
   jobPayload,
   publishedProfile,
+  publicInstructionAssemblyFields,
   requestPayload,
   resolvedPolicyIdentity,
   runtimeIdentity
@@ -103,18 +104,30 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
     ]
   });
   const events = [];
+  const input = requestPayload(profile.name);
+  const context = {
+    module,
+    runtimeIdentity: runtimeIdentity(),
+    resolvedPolicy: resolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://public-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://public-fp"
+    }),
+    runId: "run://m04-int-fp",
+    workKey: "wk://m04-int-fp"
+  };
   const outcome = publicStart(
-    requestPayload(profile.name),
+    input,
     {
-      module,
-      runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: resolvedPolicyIdentity({
-        resolvedPolicyBundleRef: "policy://public-fp",
-        defaultRegime: "F_P",
-        dispatchRef: "dispatch://public-fp"
-      }),
-      runId: "run://m04-int-fp",
-      workKey: "wk://m04-int-fp"
+      ...context,
+      ...publicInstructionAssemblyFields({
+        startIntent: input,
+        module,
+        runtimeIdentity: context.runtimeIdentity,
+        resolvedPolicy: context.resolvedPolicy,
+        runId: context.runId,
+        workKey: context.workKey
+      })
     },
     (event) => {
       events.push(event);
@@ -126,9 +139,12 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "lever_resolution_admitted",
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "instruction_prompt_manifest_projected",
     "fp_dispatch_requested",
     "actor_invocation_started",
     "payload_observed",

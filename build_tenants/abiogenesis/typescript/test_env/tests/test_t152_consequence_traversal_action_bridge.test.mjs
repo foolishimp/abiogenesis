@@ -15,7 +15,10 @@ import {
   runEngineIterate,
   runEngineIterateAsync
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function allowedTraversalFamiliesEntry(families) {
   return Object.freeze({
@@ -121,6 +124,7 @@ test("T-152 engine consumes consequence traversal action through construction re
   let traversalActionIssued = false;
   const outcome = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -219,6 +223,7 @@ test("T-152 async engine consumes consequence re-entry into async F_P dispatch",
   let traversalActionIssued = false;
   const outcome = await runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -346,6 +351,7 @@ test("T-159 blocked consequence projection does not close the vector", () => {
   const emittedEvents = [];
   const outcome = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -402,6 +408,7 @@ test("T-159 consequence bind admits plugin proposal only through ABG replay-visi
   let traversalActionIssued = false;
   const outcome = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -527,6 +534,7 @@ test("T-159 consequence bind accepts graph function name aliases at replay bound
   let traversalActionIssued = false;
   const outcome = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       emittedEvents.push(event);
     },
@@ -674,6 +682,7 @@ test("T-152 engine blocks out-of-range consequence re-entry targets without thro
   });
   const outcome = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => {},
     plugins: {
       fdEvaluator: Object.freeze({

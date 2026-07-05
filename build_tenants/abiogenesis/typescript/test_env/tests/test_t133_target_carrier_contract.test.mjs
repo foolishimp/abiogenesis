@@ -427,6 +427,53 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
   assert.equal(admitted.status, "admitted");
   assert.doesNotThrow(() => assertTargetCarrierAdmittedForClosure(admitted));
 
+  const retryLedger = derivePayloadLedgerProjection({
+    basis,
+    runtimeProjection,
+    events: [
+      Object.freeze({
+        ...constructPayloadRejectedEvent({
+          basis,
+          vectorIndex: 0,
+          payloadRef: "payload://t133/old-target",
+          rejectionClass: "contract_invalid",
+          contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+          contractDigest: ledgerWithoutPayload.targetCarrierContract.configDigest,
+          digest: "digest://t133/old-target",
+          reason: "older attempt rejected"
+        }),
+        eventAdmissionOrdinal: 1
+      }),
+      Object.freeze({
+        ...constructPayloadValidatedEvent({
+          basis,
+          vectorIndex: 0,
+          payloadRef: "payload://t133/new-target",
+          contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+          contractDigest: ledgerWithoutPayload.targetCarrierContract.configDigest,
+          digest: "digest://t133/new-target",
+          validationRef: "validation://t133/new-target",
+          evidenceRef: "evidence://t133/new-target"
+        }),
+        eventAdmissionOrdinal: 2
+      })
+    ],
+    vectorIndex: 0,
+    targetCarrierDefaults: defaults
+  });
+  const retryAdmitted = deriveTargetCarrierAdmissionProjection({
+    ledger: retryLedger
+  });
+  assert.equal(retryAdmitted.status, "admitted");
+  assert.equal(retryAdmitted.payloadRef, "payload://t133/new-target");
+  assert.deepEqual(retryAdmitted.validationRefs, ["validation://t133/new-target"]);
+  assert.deepEqual(retryAdmitted.rejectedPayloadRefs, []);
+  const explicitOldAttempt = deriveTargetCarrierAdmissionProjection({
+    ledger: retryLedger,
+    payloadRef: "payload://t133/old-target"
+  });
+  assert.equal(explicitOldAttempt.status, "rejected");
+
   const wrongDigestLedger = derivePayloadLedgerProjection({
     basis,
     runtimeProjection,

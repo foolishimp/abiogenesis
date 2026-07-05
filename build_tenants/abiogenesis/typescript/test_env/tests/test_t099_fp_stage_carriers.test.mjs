@@ -25,7 +25,10 @@ import {
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
 import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
@@ -155,6 +158,7 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
@@ -338,6 +342,7 @@ test("T-099 negative: request-scoped transform admission rejects mismatched resu
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => {},
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
@@ -410,6 +415,7 @@ test("T-099 negative: blocked attached outcomes enter retry through typed transf
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
     maxAttachedFpAttempts: 2
@@ -452,6 +458,7 @@ test("T-099 negative: worker fulfilled self-report cannot override assurance aut
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     runtimeEvents: targetCarrierFulfillmentEvents(basis),
     eventSink: () => {},
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
@@ -490,6 +497,7 @@ test("T-099 assurance gate admits provider current-material evidence rows", () =
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     runtimeEvents: targetCarrierFulfillmentEvents(basis),
     eventSink: () => {},
     plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },

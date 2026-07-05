@@ -19,11 +19,13 @@ import {
 function runtimeBindingSource({ ambiguousNext = false, resolveNextTarget = false } = {}) {
   return `
     import {
+      admitExecutionBasis,
       admitModule,
       admitNode,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
       constructDefaultAbgFnCompositionDeclarations,
+      constructDefaultInstructionAssemblyStartupForBasis,
       edge,
       graphFunctionForVector
     } from "@abiogenesis/typescript-tenant";
@@ -116,32 +118,61 @@ function runtimeBindingSource({ ambiguousNext = false, resolveNextTarget = false
           }
         ]`};
 
+    const module = admitModule({
+      name: "cli_binary_runtime",
+      graphs: graphFunctions.map((graphFunction) => graphFunction.template.graph),
+      graphFunctions,
+      refinementBoundaries: [],
+      candidateFamilies: [],
+      jobs,
+      roles: [],
+      operators: [],
+      evaluators: [],
+      rules: [],
+      imports: [],
+      metadata: { entries: [] }
+    });
+    const runtimeIdentity = admitResolvedRuntimeIdentity({
+      workerId: "worker://cli-binary",
+      backendId: "backend://node",
+      buildId: "build://typescript-cli-binary",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    });
+    const resolvedPolicy = admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://cli-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://cli-binary"
+    });
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      admitExecutionBasis({
+        startIntent: {
+          scope: {
+            kind: "workspace",
+            workspaceRoot: process.cwd(),
+            moduleName: module.name
+          },
+          target: {
+            kind: "graph_function",
+            handle: codeProfile.name
+          },
+          until: "converged"
+        },
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId: "run://cli-binary",
+        workKey: "wk://cli-binary",
+        frameId: null,
+        frameLineageId: null
+      }),
+      { prefix: "t057-cli-binary-runtime" }
+    );
+
     export const runtimeBinding = {
-      module: admitModule({
-        name: "cli_binary_runtime",
-        graphs: graphFunctions.map((graphFunction) => graphFunction.template.graph),
-        graphFunctions,
-        refinementBoundaries: [],
-        candidateFamilies: [],
-        jobs,
-        roles: [],
-        operators: [],
-        evaluators: [],
-        rules: [],
-        imports: [],
-        metadata: { entries: [] }
-      }),
-      runtimeIdentity: admitResolvedRuntimeIdentity({
-        workerId: "worker://cli-binary",
-        backendId: "backend://node",
-        buildId: "build://typescript-cli-binary",
-        resolvedRuntimeRef: "runtime://typescript/node"
-      }),
-      resolvedPolicy: admitResolvedPolicyIdentity({
-        resolvedPolicyBundleRef: "policy://cli-fp",
-        defaultRegime: "F_P",
-        dispatchRef: "dispatch://cli-binary"
-      }),
+      module,
+      runtimeIdentity,
+      resolvedPolicy,
+      ...startupFields,
       ${resolveNextTarget ? `resolveNextTarget: () => "code_flow",` : ""}
       runId: "run://cli-binary",
       workKey: "wk://cli-binary"

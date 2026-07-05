@@ -124,10 +124,12 @@ function runtimeBindingSource({
     : "";
   return `
     import {
+      admitExecutionBasis,
       admitModule,
       admitNode,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructDefaultInstructionAssemblyStartupForBasis,
       constructEnginePluginContract,
       constructDefaultAbgFnCompositionDeclarations,
       constructFpDispatchOutcome,
@@ -214,19 +216,47 @@ function runtimeBindingSource({
 
     ${pluginSource}
 
+    const runtimeIdentity = admitResolvedRuntimeIdentity({
+      workerId: "worker://cli-binary",
+      backendId: "backend://node",
+      buildId: "build://typescript-cli-binary",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    });
+    const resolvedPolicy = admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://cli-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://cli-binary"
+    });
+    const startupFields = constructDefaultInstructionAssemblyStartupForBasis(
+      admitExecutionBasis({
+        startIntent: {
+          scope: {
+            kind: "workspace",
+            workspaceRoot: process.cwd(),
+            moduleName: module.name
+          },
+          target: {
+            kind: "graph_function",
+            handle: codeProfile.name
+          },
+          until: "converged"
+        },
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId: "run://cli-binary",
+        workKey: "wk://cli-binary",
+        frameId: null,
+        frameLineageId: null
+      }),
+      { prefix: "cli-binary-runtime" }
+    );
+
     export const runtimeBinding = {
       module,
-      runtimeIdentity: admitResolvedRuntimeIdentity({
-        workerId: "worker://cli-binary",
-        backendId: "backend://node",
-        buildId: "build://typescript-cli-binary",
-        resolvedRuntimeRef: "runtime://typescript/node"
-      }),
-      resolvedPolicy: admitResolvedPolicyIdentity({
-        resolvedPolicyBundleRef: "policy://cli-fp",
-        defaultRegime: "F_P",
-        dispatchRef: "dispatch://cli-binary"
-      }),
+      runtimeIdentity,
+      resolvedPolicy,
+      ...startupFields,
       ${policyProperty}
       ${pluginProperty}
       runId: "run://cli-binary",
@@ -329,9 +359,12 @@ test("M04 CLI binary integration: installed package publishes TS binary aliases 
   assert.deepStrictEqual(payload.event_kinds, [
     "lever_resolution_admitted",
     "basis_admitted",
+    "registry_entry_admitted",
+    "graph_function_selected",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "instruction_prompt_manifest_projected",
     "fp_dispatch_requested",
     "actor_invocation_started",
     "payload_observed",

@@ -269,6 +269,9 @@ export function constructActorResultArtifactObservedEvent(input: {
   const artifactContent = input.artifactPayload === undefined
     ? null
     : stableJson(input.artifactPayload);
+  const artifactExcerpt = input.artifactPayload === undefined
+    ? null
+    : artifactContentExcerptFor(input.artifactPayload, artifactContent);
   return Object.freeze({
     kind: "actor_result_artifact_observed",
     ...actorRuntimeScope(input.invocation),
@@ -276,9 +279,53 @@ export function constructActorResultArtifactObservedEvent(input: {
     artifactRef: input.artifactRef,
     artifactContentDigest:
       artifactContent === null ? null : sha256DigestForText(artifactContent),
-    artifactContentExcerpt:
-      artifactContent === null ? null : artifactContent.slice(0, 4096)
+    artifactContentExcerpt: artifactExcerpt
   });
+}
+
+const MAX_ACTOR_ARTIFACT_EXCERPT_CHARS = 60000;
+
+function artifactContentExcerptFor(payload: unknown, stableContent: string | null): string | null {
+  const materializedExcerpt = materializedFileSummaryExcerptFor(payload);
+  const excerpt = materializedExcerpt ?? stableContent;
+  if (excerpt === null) {
+    return null;
+  }
+  return excerpt.length > MAX_ACTOR_ARTIFACT_EXCERPT_CHARS
+    ? `${excerpt.slice(0, MAX_ACTOR_ARTIFACT_EXCERPT_CHARS)}...[truncated:${excerpt.length}]`
+    : excerpt;
+}
+
+function materializedFileSummaryExcerptFor(payload: unknown): string | null {
+  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) {
+    return null;
+  }
+  const summaries = (payload as Readonly<Record<string, unknown>>)["materializedFileSummaries"];
+  if (!Array.isArray(summaries) || summaries.length === 0) {
+    return null;
+  }
+  const rendered = summaries.flatMap((summary, index) => {
+    if (typeof summary !== "object" || summary === null || Array.isArray(summary)) {
+      return [];
+    }
+    const record = summary as Readonly<Record<string, unknown>>;
+    const path = typeof record["path"] === "string" ? record["path"] : `materialized-file-${String(index)}`;
+    const sha256 = typeof record["sha256"] === "string" ? record["sha256"] : "sha256:unknown";
+    const byteLength = typeof record["byteLength"] === "number" ? String(record["byteLength"]) : "unknown";
+    const lineCount = typeof record["lineCount"] === "number" ? String(record["lineCount"]) : "unknown";
+    const preview = typeof record["contentPreview"] === "string" ? record["contentPreview"] : "";
+    return [
+      [
+        `### materialized_file ${path}`,
+        `sha256: ${sha256}`,
+        `byteLength: ${byteLength}`,
+        `lineCount: ${lineCount}`,
+        "contentPreview:",
+        preview
+      ].join("\n")
+    ];
+  });
+  return rendered.length === 0 ? null : rendered.join("\n\n");
 }
 
 export function constructActorInvocationClosedEvent(input: {

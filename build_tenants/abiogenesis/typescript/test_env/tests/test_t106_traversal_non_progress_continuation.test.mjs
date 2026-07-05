@@ -33,7 +33,10 @@ import {
   runEngineIterate
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function invocationFor({ basis, vectorIndex = 1, actorInvocationId = "actor://t106/1", attemptIndex = 1 } = {}) {
   const graphCall = constructGraphCallOpenedEvent(basis);
@@ -705,6 +708,7 @@ test("T-106 runner path consumes silent process truth and retries same edge", ()
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     runtimeEvents: silentProcessTimeoutEvents({ invocation: firstInvocation }),
     eventSink: (event) => {
       events.push(event);
@@ -743,6 +747,7 @@ test("T-106 runner path renders inspect archive when process evidence is missing
 
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: () => {},
     plugins: { fpDispatch }
   });

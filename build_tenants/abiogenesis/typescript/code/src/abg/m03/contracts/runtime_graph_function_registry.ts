@@ -104,9 +104,9 @@ export interface RegistryLookupRequest {
   readonly lookupRef: string;
   readonly entryKinds: readonly GtlRegistryEntryKind[];
   readonly candidateIdentityRefs: readonly string[];
-  readonly interfaceRef: string;
-  readonly sourceContractRef: string;
-  readonly targetContractRef: string;
+  readonly interfaceRef: string | null;
+  readonly sourceContractRef: string | null;
+  readonly targetContractRef: string | null;
   readonly contextRefs: readonly string[];
   readonly authorityRefs: readonly string[];
   readonly overlayRefs: readonly string[];
@@ -162,6 +162,17 @@ function assertNonEmptyString(value: string, label: string): void {
   if (value.length === 0) {
     throw new TypeError(`${label} must be non-empty`);
   }
+}
+
+function optionalNonEmptyString(
+  value: string | null | undefined,
+  label: string
+): string | null {
+  if (value === null || value === undefined) {
+    return null;
+  }
+  assertNonEmptyString(value, label);
+  return value;
 }
 
 function freezeUniqueStrings<T extends string>(
@@ -224,7 +235,14 @@ function matchesOptionalSet(
   accepted: readonly string[],
   candidate: string
 ): boolean {
-  return accepted.includes("*") || accepted.includes(candidate);
+  return accepted.length === 0 || accepted.includes("*") || accepted.includes(candidate);
+}
+
+function matchesOptionalSuperset(
+  required: readonly string[],
+  available: readonly string[]
+): boolean {
+  return available.length === 0 || isSubset(required, available);
 }
 
 function refIsEnabledByStartupConfig(input: {
@@ -495,9 +513,9 @@ export function constructRegistryLookupRequest(input: {
   readonly lookupRef: string;
   readonly entryKinds?: readonly GtlRegistryEntryKind[];
   readonly candidateIdentityRefs?: readonly string[];
-  readonly interfaceRef: string;
-  readonly sourceContractRef: string;
-  readonly targetContractRef: string;
+  readonly interfaceRef?: string | null | undefined;
+  readonly sourceContractRef?: string | null | undefined;
+  readonly targetContractRef?: string | null | undefined;
   readonly contextRefs: readonly string[];
   readonly authorityRefs: readonly string[];
   readonly overlayRefs: readonly string[];
@@ -509,9 +527,6 @@ export function constructRegistryLookupRequest(input: {
   readonly policyRefs: readonly string[];
 }): RegistryLookupRequest {
   assertNonEmptyString(input.lookupRef, "RegistryLookupRequest.lookupRef");
-  assertNonEmptyString(input.interfaceRef, "RegistryLookupRequest.interfaceRef");
-  assertNonEmptyString(input.sourceContractRef, "RegistryLookupRequest.sourceContractRef");
-  assertNonEmptyString(input.targetContractRef, "RegistryLookupRequest.targetContractRef");
   return Object.freeze({
     kind: "registry_lookup_request",
     lookupRef: input.lookupRef,
@@ -523,9 +538,18 @@ export function constructRegistryLookupRequest(input: {
       input.candidateIdentityRefs ?? [],
       "RegistryLookupRequest.candidateIdentityRefs"
     ),
-    interfaceRef: input.interfaceRef,
-    sourceContractRef: input.sourceContractRef,
-    targetContractRef: input.targetContractRef,
+    interfaceRef: optionalNonEmptyString(
+      input.interfaceRef,
+      "RegistryLookupRequest.interfaceRef"
+    ),
+    sourceContractRef: optionalNonEmptyString(
+      input.sourceContractRef,
+      "RegistryLookupRequest.sourceContractRef"
+    ),
+    targetContractRef: optionalNonEmptyString(
+      input.targetContractRef,
+      "RegistryLookupRequest.targetContractRef"
+    ),
     contextRefs: freezeUniqueStrings(input.contextRefs, "RegistryLookupRequest.contextRefs"),
     authorityRefs: freezeUniqueStrings(input.authorityRefs, "RegistryLookupRequest.authorityRefs"),
     overlayRefs: freezeUniqueStrings(input.overlayRefs, "RegistryLookupRequest.overlayRefs"),
@@ -578,32 +602,36 @@ function eligibilityForEntry(
     }),
     fieldDecision({
       field: "interface",
-      accepted: entry.interfaceRef === request.interfaceRef,
+      accepted: request.interfaceRef === null || entry.interfaceRef === request.interfaceRef,
       reason: "interface_mismatch"
     }),
     fieldDecision({
       field: "source_contract",
-      accepted: entry.sourceContractRef === request.sourceContractRef,
+      accepted:
+        request.sourceContractRef === null ||
+        entry.sourceContractRef === request.sourceContractRef,
       reason: "source_contract_mismatch"
     }),
     fieldDecision({
       field: "target_contract",
-      accepted: entry.targetContractRef === request.targetContractRef,
+      accepted:
+        request.targetContractRef === null ||
+        entry.targetContractRef === request.targetContractRef,
       reason: "target_contract_mismatch"
     }),
     fieldDecision({
       field: "context",
-      accepted: isSubset(entry.contextRefs, request.contextRefs),
+      accepted: matchesOptionalSuperset(entry.contextRefs, request.contextRefs),
       reason: "context_unsatisfied"
     }),
     fieldDecision({
       field: "authority",
-      accepted: isSubset(entry.authorityRefs, request.authorityRefs),
+      accepted: matchesOptionalSuperset(entry.authorityRefs, request.authorityRefs),
       reason: "authority_unsatisfied"
     }),
     fieldDecision({
       field: "overlay",
-      accepted: isSubset(entry.overlayRefs, request.overlayRefs),
+      accepted: matchesOptionalSuperset(entry.overlayRefs, request.overlayRefs),
       reason: "overlay_unsatisfied"
     }),
     fieldDecision({
@@ -618,22 +646,22 @@ function eligibilityForEntry(
     }),
     fieldDecision({
       field: "provenance",
-      accepted: isSubset(entry.provenanceRefs, request.provenanceRefs),
+      accepted: matchesOptionalSuperset(entry.provenanceRefs, request.provenanceRefs),
       reason: "provenance_unsatisfied"
     }),
     fieldDecision({
       field: "readiness",
-      accepted: isSubset(entry.readinessRefs, request.readinessRefs),
+      accepted: matchesOptionalSuperset(entry.readinessRefs, request.readinessRefs),
       reason: "readiness_unsatisfied"
     }),
     fieldDecision({
       field: "proof",
-      accepted: isSubset(entry.proofRefs, request.proofRefs),
+      accepted: matchesOptionalSuperset(entry.proofRefs, request.proofRefs),
       reason: "proof_unsatisfied"
     }),
     fieldDecision({
       field: "policy_constraints",
-      accepted: isSubset(entry.policyRefs, request.policyRefs),
+      accepted: matchesOptionalSuperset(entry.policyRefs, request.policyRefs),
       reason: "policy_constraints_unsatisfied"
     })
   ]);

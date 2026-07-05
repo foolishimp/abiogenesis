@@ -20,7 +20,10 @@ import {
   buildRequirementRouteRuntimeContextFromDeclarations,
   mintRuntimeScopeRef
 } from "../../build/semantic/code/src/abg/m03/contracts/requirements_route.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 import {
   REQUIRED_REFINEMENT_REQUIREMENT_ROUTE_PAYLOAD_KINDS,
   assertRequirementRouteReplayArtifact,
@@ -409,6 +412,7 @@ test("T-168 projects multi-requirement refinement and aggregate parent state", a
   const sinkEvents = [];
   const result = await publicRoot.runEngineIterateAsync({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => {
       sinkEvents.push(event);
     },

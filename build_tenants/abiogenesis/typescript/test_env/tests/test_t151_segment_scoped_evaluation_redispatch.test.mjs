@@ -24,7 +24,10 @@ import {
   deriveRuntimeAggregateProjection,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 function sourceFile(relativePath) {
   return readFileSync(join(process.cwd(), relativePath), "utf8");
@@ -528,6 +531,7 @@ test("T-151 runner path admits scoped F_P findings and rejects mismatched scope 
   const events = [];
   const result = runEngineIterate({
     basis,
+    ...m03InstructionAssemblyRequestFields(basis),
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
@@ -550,6 +554,7 @@ test("T-151 runner path admits scoped F_P findings and rejects mismatched scope 
     () =>
       runEngineIterate({
         basis,
+        ...m03InstructionAssemblyRequestFields(basis),
         eventSink: () => undefined,
         plugins: {
           fpDispatch: fpDispatchPlugin(),

@@ -42,7 +42,10 @@ import {
   resolveConstructionHookDeclaration,
   runConstructionIntentStep
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "./support/m03-iteration-fixtures.mjs";
 
 const EPISODE_ID = "construction-episode://t139/1";
 const OBSERVATION_ID = "construction-observation://t139/1";
@@ -427,6 +430,10 @@ test("T-139 runner passes pressure package through the F_P plugin boundary", () 
   const outcome = runConstructionIntentStep({
     basis,
     graphActionBasis: basis,
+    graphRuntimeRegistryStartup:
+      m03InstructionAssemblyRequestFields(basis).runtimeRegistryStartup,
+    graphInstructionAssemblyStartup:
+      m03InstructionAssemblyRequestFields(basis).instructionAssemblyStartup,
     observation: world.observation,
     admittedIntent: world.admission.admittedIntent,
     admissions: [world.admission],

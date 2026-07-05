@@ -69,6 +69,12 @@ function claudeMessageText(event: Record<string, unknown>): string[] {
 }
 
 function claudeToolUseEvents(event: Record<string, unknown>): readonly unknown[] {
+  if (
+    event["type"] === "server_tool_use" ||
+    event["type"] === "advisor_tool_result"
+  ) {
+    return Object.freeze([event]);
+  }
   const message = event["message"];
   if (!isRecord(message)) {
     return [];
@@ -79,7 +85,9 @@ function claudeToolUseEvents(event: Record<string, unknown>): readonly unknown[]
   }
   return content.filter(
     (item): item is Record<string, unknown> =>
-      isRecord(item) && item["type"] === "tool_use"
+      isRecord(item) &&
+      (item["type"] === "tool_use" || item["type"] === "server_tool_use") &&
+      !(item["type"] === "tool_use" && item["name"] === "StructuredOutput")
   );
 }
 
