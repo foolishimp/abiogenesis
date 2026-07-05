@@ -6689,11 +6689,17 @@ function* runEngineIterateMachine(input: {
                   classificationTable: entry.classificationTable,
                   envelope
                 });
+                const planDepthTruth =
+                  instructionBinding.kind === "manifest_projected"
+                    ? instructionBinding.plan.proofDepthInstructionTruth
+                    : null;
                 const proofDepthTruth = constructCarryProofDepthTruth({
                   admittedLedgerRefs,
                   truthRef: `${envelope.envelopeRef}/proof-depth`,
-                  depthPolicyRef: null,
-                  depthPolicyDigest: null,
+                  // depth policy is ADMITTED PLAN truth (compiled at startup),
+                  // not runner-synthesized
+                  depthPolicyRef: planDepthTruth?.depthPolicyRef ?? null,
+                  depthPolicyDigest: planDepthTruth?.depthPolicyDigest ?? null,
                   targetRefs: [envelope.contractRef],
                   requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
                   declaredDepthClassRefs: envelope.depthClassRefs,

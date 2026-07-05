@@ -270,9 +270,10 @@ test("T-188 M3 differential: ledger-resolved strength flips the strength issue k
     admittedA.coverageIssueKinds.includes("proof_strength_not_admitted"),
     false
   );
-  // Full eligibility has one further issue-kind to discharge (B3 scope);
-  // the M3 axis proven here is the strength issue flipping with ledger
-  // resolution while the admission is accepted.
+  // ELIGIBLE end to end: accepted admission + ledger-resolved strength +
+  // plan-carried depth policy + plan-derived dependency closure.
+  assert.deepEqual([...admittedA.coverageIssueKinds], []);
+  assert.deepEqual(admittedA.coverageStatuses, ["eligible"]);
 
   // Unresolvable fixture refs: list presence alone no longer admits strength.
   const { events: eventsB } = runWiring({

@@ -1511,3 +1511,21 @@ Slice 6 COMPLETE (2026-07-05) — adjudication item 6:
   status into the digest is a small successor alongside B3.
 - Wiring lane 5/5; test:semantic green.
 - Slice-6 correction: the item-6 commit landed with the tamper test red (commit chain gated on git diff --check only — process defect, mine); factory index export fixes it same-session. Wiring 5/5, semantic 1058/1058.
+
+Slice 7 COMPLETE (2026-07-05) — eligibility residual diagnosed and
+discharged:
+- Diagnosis via the coverageIssueKinds observability: the residual was
+  missing_depth_obligation_class, caused by depthPolicyRef: null (the
+  derive fails closed on absent policy — correct law).
+- Fix mirrors the dependency-truth pattern: depth policy ref+digest now
+  come from the ADMITTED compiled plan's proofDepthInstructionTruth
+  (startup-compiled truth, not runner-synthesized).
+- The M3/A differential now asserts the FULL eligible chain: accepted
+  admission + typed ledger-resolved strength + plan-carried depth policy
+  + plan-derived dependency closure => coverageStatuses ["eligible"],
+  coverageIssueKinds []. Wiring lane 5/5; test:semantic 1058/1058.
+- B3 REMAINING (final gate): fold behavior on a requirement-bearing edge
+  (threaded coverage refs present in fold source truth; status decoded)
+  and the engine-driven uncovered-obligation-shall-not-close
+  differential. Role-typed strength resolution and digest-bound status
+  remain named successors.
