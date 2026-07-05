@@ -1319,6 +1319,9 @@ export interface GtlProgramConformanceInput {
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
 
 export interface GtlProgramInventoryDigests {
+  readonly declarationSourceRows: string;
+  readonly goldenInstanceBindings: string;
+  readonly underdeterminedDeclarations: string;
   readonly featureCoverageManifest: string;
   readonly catalogGraphFunctionRefs: string;
   readonly graphFunctions: string;
@@ -6216,7 +6219,14 @@ function admitGoldenInstanceBindingRows(
           Array.isArray(value) ? value.map((entry) => String(entry)) : []
         );
       const admitted = Object.freeze({
-        contractRef: String(row["contractRef"] ?? ""),
+        contractRef: requiredStringField({
+          record: row,
+          key: "contractRef",
+          label: surfaceRef,
+          subjectRef: surfaceRef,
+          surfaceKind: "golden_instance",
+          issues
+        }),
         exampleInstanceRefs: toRefs(row["exampleInstanceRefs"]),
         counterexampleInstanceRefs: toRefs(row["counterexampleInstanceRefs"]),
         instanceSetDigest: String(row["instanceSetDigest"] ?? "")
@@ -6279,7 +6289,14 @@ function admitUnderdeterminedDeclarationRows(
       }
       return [
         Object.freeze({
-          scopeRef: String(row["scopeRef"] ?? ""),
+          scopeRef: requiredStringField({
+            record: row,
+            key: "scopeRef",
+            label: surfaceRef,
+            subjectRef: surfaceRef,
+            surfaceKind: "underdetermined_scope",
+            issues
+          }),
           ownerRoute,
           latitudeNote: String(row["latitudeNote"] ?? "")
         })
@@ -13361,6 +13378,9 @@ function sourceIdentityDigestRows(
 }
 
 function computeInventoryDigests(input: {
+  readonly declarationSourceRows: readonly GtlProgramDeclarationSourceRow[];
+  readonly goldenInstanceBindings: readonly GtlProgramGoldenInstanceBindingRow[];
+  readonly underdeterminedDeclarations: readonly GtlProgramUnderdeterminedDeclarationRow[];
   readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
   readonly catalogGraphFunctionRefs: readonly string[];
   readonly graphFunctions: readonly GraphFunction[];
@@ -13399,6 +13419,9 @@ function computeInventoryDigests(input: {
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
+    declarationSourceRows: stableSha256Digest(input.declarationSourceRows),
+    goldenInstanceBindings: stableSha256Digest(input.goldenInstanceBindings),
+    underdeterminedDeclarations: stableSha256Digest(input.underdeterminedDeclarations),
     catalogGraphFunctionRefs: stableSha256Digest(input.catalogGraphFunctionRefs),
     graphFunctions: stableSha256Digest(input.graphFunctions),
     modules: stableSha256Digest(input.modules),
@@ -13760,6 +13783,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     issues
   });
   const inventoryDigests = computeInventoryDigests({
+    declarationSourceRows,
+    goldenInstanceBindings: Object.freeze([...(input.goldenInstanceBindings ?? [])]),
+    underdeterminedDeclarations: Object.freeze([...(input.underdeterminedDeclarations ?? [])]),
     featureCoverageManifest,
     catalogGraphFunctionRefs,
     graphFunctions,

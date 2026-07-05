@@ -302,3 +302,44 @@ FOUND, known, unchanged (already-named remainders confirmed adequate):
 Verdict: the wave survives its own audit with five honest corrections,
 zero carrier changes, and no conclusion reversed. Proofs after fixes:
 test:t191 12/12; corpus replay green.
+
+## External Review Adjudication (2026-07-05, two reviewer sets)
+
+REAL and FIXED:
+- P1 identity omission (CONFIRMED — the reviews caught what my self-review
+  missed): declarationSourceRows, goldenInstanceBindings, and
+  underdeterminedDeclarations were absent from GtlProgramInventoryDigests /
+  computeInventoryDigests, so valid row mutations moved neither
+  inventoryDigest nor reportRef — violating LAWS-021 coverage. Fixed: all
+  three families are identity members; NEW coverage differential in
+  test:t191 proves each row family (and an authorship mutation) moves
+  inventoryDigest and reportRef. Self-review lesson recorded: I proved the
+  digest's PROPERTIES (order-invariance) but never its COVERAGE — the
+  presence-not-differential class in mirror form.
+- P1 silent coercion (PARTIALLY REAL): underdetermined scopeRef and golden
+  contractRef now fail closed via requiredStringField (new differentials).
+  authorRef/authorityRef remain optional BY AMENDED LAW (-025: checks are
+  successor). canonical_data rows with empty digest remain un-checked —
+  ADDED as remainder #8 (per-kind digest law needs a deliberate corpus
+  regeneration, per the corpus discipline note).
+
+STALE (addressed pre-review by the self-review commit):
+- "checked at admission" authorship wording — already amended in -025.
+- Namespace bypass as an undeclared hole — already named in amended -019 as
+  successor law; test title reworded to stop claiming "by declaration".
+
+ACCEPTED, DEFERRED (named, not silent):
+- Declaration-set validation of source-authority identities (successor per
+  -019; reviewers' pressure acknowledged — it is the top successor).
+- Phase 5 "denotation" column: seed is conformance-only (programs +
+  expected diagnostic identities); traversal denotations require runnable
+  corpus programs — remainder #9.
+- "Phases 3-5 landed" reads as SEED SURFACES, not earned semantics —
+  reviewer framing adopted verbatim; matches remainders 1-3.
+
+RECORD-DRIFT corrections: default repair table has 18 entries (record said
+16 before the phase 3-5 additions); commit count through this entry is
+seven, not four/five.
+
+Proofs after fixes: test:t191 14/14; test:t150 97/97;
+test:semantic 1053/1053.

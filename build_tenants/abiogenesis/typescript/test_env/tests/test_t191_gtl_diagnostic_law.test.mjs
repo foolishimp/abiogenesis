@@ -39,7 +39,7 @@ test("T-191 unratified diagnostic identity is rejected differentially", () => {
   }
 });
 
-test("T-191 declaration-carried source-authority identities are accepted by declaration", () => {
+test("T-191 declaration-carried source-authority identities are accepted by namespace pending declaration-set validation (successor per -019)", () => {
   assert.equal(
     assertRatifiedGtlProgramDiagnosticId(
       "abg://gtl-program/source-authority/no-archive-status-as-acceptance"
@@ -198,6 +198,59 @@ test("T-191 language conformance corpus replays exactly (LAWS-027)", async () =>
       assertRatifiedGtlProgramDiagnosticId(id);
     }
   }
+});
+
+test("T-191 authoring-law rows are covered by conformance identity (LAWS-021 coverage differential)", () => {
+  const base = typecheckGtlProgram({});
+  const withRows = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://p", sourceKind: "canonical_data", canonicalDigest: "sha256:abc" }
+    ]
+  });
+  assert.notEqual(base.inventoryDigest, withRows.inventoryDigest);
+  assert.notEqual(base.reportRef, withRows.reportRef);
+  const withGolden = typecheckGtlProgram({
+    goldenInstanceBindings: [
+      { contractRef: "contract://x", exampleInstanceRefs: ["payload://g"], counterexampleInstanceRefs: [], instanceSetDigest: "sha256:d" }
+    ]
+  });
+  assert.notEqual(base.inventoryDigest, withGolden.inventoryDigest);
+  const withLatitude = typecheckGtlProgram({
+    underdeterminedDeclarations: [
+      { scopeRef: "scope://a", ownerRoute: "F_P", latitudeNote: "n" }
+    ]
+  });
+  assert.notEqual(base.inventoryDigest, withLatitude.inventoryDigest);
+  // authorship mutation also moves identity (factory provenance is covered)
+  const withAuthor = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://p", sourceKind: "canonical_data", canonicalDigest: "sha256:abc", authorRef: "worker://w" }
+    ]
+  });
+  assert.notEqual(withRows.inventoryDigest, withAuthor.inventoryDigest);
+});
+
+test("T-191 required row identities fail closed (P1-B)", () => {
+  const emptyScope = typecheckGtlProgram({
+    underdeterminedDeclarations: [{ scopeRef: "", ownerRoute: "F_P", latitudeNote: "" }]
+  });
+  assert.equal(
+    emptyScope.issues.some(
+      (row) => row.ruleRef === "abg://gtl-program/input/string-field" && row.surfaceKind === "underdetermined_scope"
+    ),
+    true
+  );
+  const emptyContract = typecheckGtlProgram({
+    goldenInstanceBindings: [
+      { contractRef: "", exampleInstanceRefs: [], counterexampleInstanceRefs: [], instanceSetDigest: "" }
+    ]
+  });
+  assert.equal(
+    emptyContract.issues.some(
+      (row) => row.ruleRef === "abg://gtl-program/input/string-field" && row.surfaceKind === "golden_instance"
+    ),
+    true
+  );
 });
 
 test("T-191 repair edit-class vocabulary is closed and frozen", () => {
