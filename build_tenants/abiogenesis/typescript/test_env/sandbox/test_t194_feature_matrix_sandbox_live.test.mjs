@@ -929,7 +929,7 @@ const t194EnvelopeTemplate = {
   negativeEvidenceShapeRefs: ["evidence-shape://t194/negative"],
   proofStrengthRefs: ["proof-strength://t194/execution"],
   depthPolicyRefs: ["proof-depth-policy://t194/live"],
-  depthClassRefs: ["depth-class://positive", "depth-class://negative"],
+  depthClassRefs: ${JSON.stringify(input.carryDepthClassRefs ?? ["depth-class://positive", "depth-class://negative"])},
   proofStrengthAdmissionRefs: [TYPE_REFS.executionEvidence],
   fdStrengthCriterionRefs: [TYPE_REFS.executionEvidence],
   adversarialAttemptRefs: [],
@@ -973,6 +973,38 @@ export const runtimeBinding = {
     const fpDispatch = Object.freeze({
       contract: defaultFpDispatchPlugin.contract,
       dispatch: async (pluginInput) => {
+      if (${JSON.stringify(input.stubDispatch === true)}) {
+        // Row b: deterministic stub worker — fold gating is the target,
+        // not worker quality; zero live cost.
+        return constructFpDispatchOutcome({
+          status: "dispatched",
+          resultRef: \`result://odd_glc/glc-bootstrap/stub/\${pluginInput.vectorIndex}\`,
+          attachedResultArtifact: {
+            edge: pluginInput.expectedEdge ?? pluginInput.edge,
+            actor: "codex",
+            fulfillment_assessments: (pluginInput.expectedAssessmentIds.length > 0
+              ? pluginInput.expectedAssessmentIds
+              : ["runtime_fulfilled"]).map((assessmentId) => ({
+              id: assessmentId,
+              evaluator: assessmentId,
+              fulfillment_status: "fulfilled",
+              fulfillment_detail: "stub worker artifact for fold-gating differential",
+              blocking_reasons: [],
+              evidence_refs: [
+                "live://odd_glc/glc-bootstrap",
+                TYPE_REFS.helloWorldProgram,
+                TYPE_REFS.executionEvidence
+              ]
+            })),
+            selected_worker_id: "worker://odd_glc/glc-bootstrap-live",
+            selected_backend: "backend://claude",
+            role_id: "role://odd_glc/live-fp",
+            assignment_source: "policy://odd_glc/glc-bootstrap-live",
+            resolved_runtime_ref: "runtime://odd_glc/glc-bootstrap-live"
+          },
+          evidenceRefs: ["live://odd_glc/glc-bootstrap"]
+        });
+      }
         const liveRoot = path.join(workspaceRoot, ".ai-workspace", "glc-hello-world-live");
         await mkdir(liveRoot, { recursive: true });
         const label = \`t180-glc-bootstrap-vector-\${pluginInput.vectorIndex}\`;
@@ -1313,6 +1345,88 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     foldEvents.some((event) => event.requirementPayload?.fold?.state === "satisfied"),
     true,
     "REQ-T194-001 must fold satisfied with eligible coverage threaded"
+  );
+
+  // Row b: shallow depth + stub worker in a SECOND installed instance —
+  // uncovered obligation shall not close, from the installed public path.
+  const workspaceRootB = path.join(runRoot, "instance-b");
+  await mkdir(workspaceRootB, { recursive: true });
+  const installB = await installAbiogenesisTypescript({
+    targetRoot: { rootPath: workspaceRootB },
+    packageSourceRoot: snapshotPackageRoot,
+    standardsSourceRoot: STANDARDS_ROOT,
+    docsSourceRoot: DOCS_ROOT,
+    installedPackageName: packageJson.name,
+    toolchainRoot
+  });
+  assert.equal(installB.kind, "installed");
+  await writeGlcRuntimeBinding({
+    workspaceRoot: workspaceRootB,
+    packageRoot: installB.packageRoot,
+    packageVersion: packageJson.version,
+    carryDepthClassRefs: ["depth-class://positive"],
+    stubDispatch: true
+  });
+  const genesisCommandB = installB.commandPaths.find((commandPath) =>
+    path.basename(commandPath) === "genesis-ts"
+  );
+  const startB = spawnSync(
+    genesisCommandB,
+    [
+      "start",
+      "--workspace",
+      workspaceRootB,
+      "--scope",
+      "workspace",
+      "--target",
+      "next",
+      "--until",
+      "converged"
+    ],
+    {
+      cwd: workspaceRootB,
+      encoding: "utf8",
+      env: { ...process.env, ABG_TS_T194_FEATURE_MATRIX_LIVE: "1" }
+    }
+  );
+  // Row b intentionally tolerates a blocked exit (no_close is the point);
+  // anything OTHER than clean converge or blocked is a harness defect.
+  assert.equal([0, 4].includes(startB.status), true,
+    `row b start must converge or block, got ${startB.status}\n${startB.stdout}\n${startB.stderr}`);
+  const eventsB = parseJsonLines(
+    await readFile(path.join(workspaceRootB, ".ai-workspace", "events", "events.jsonl"), "utf8")
+  );
+  const carryB = eventsB.filter(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.equal(carryB.length > 0, true, "row b must emit carry-through admissions");
+  assert.equal(
+    carryB.some((event) => event.coverageStatuses?.[0] === "residual"),
+    true,
+    "shallow depth must classify coverage residual"
+  );
+  assert.equal(
+    carryB.some((event) =>
+      (event.coverageIssueKinds ?? []).includes("missing_depth_obligation_class")
+    ),
+    true,
+    "the residual must carry the missing_depth_obligation_class issue kind"
+  );
+  const foldB = eventsB.filter(
+    (event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_fold_projected"
+  );
+  assert.equal(foldB.length > 0, true, "row b must project requirement folds");
+  assert.equal(
+    foldB.some((event) => event.requirementPayload?.fold?.state === "no_close_preserved"),
+    true,
+    "REQ-T194-001 shall NOT close with residual coverage (uncovered shall not close)"
+  );
+  assert.equal(
+    foldB.some((event) => event.requirementPayload?.fold?.state === "satisfied"),
+    false,
+    "no satisfied fold may exist for the shallow branch"
   );
   const registryEvents = events.filter((event) =>
     event.kind === "registry_entry_admitted"

@@ -160,3 +160,17 @@ Canonical-lane repairs (defects 2/3/5) applied to the t180 lane in the
 same wave. Gates: test:semantic 1059/1059; test:t188 26/26.
 Remaining matrix rows: b (stub-worker shallow/no-close), c1-c3, d1-d5, e.
 - Canonical-lane verification (2026-07-05): test:hello-world:live 1/1 GREEN after the three repairs — the pre-existing release gate is restored; rc.7 may cite both lanes.
+
+## Row b EARNED (2026-07-05) — uncovered shall not close, installed public path
+
+test:t194:sandbox-live 1/1 with BOTH branches: instance-b (second install
+from the same snapshot) runs a deterministic stub worker (zero live cost)
+with carryDepthClassRefs ["positive"] only — carry admissions classify
+RESIDUAL with missing_depth_obligation_class, requirement folds project
+no_close_preserved, and ZERO satisfied folds exist for the shallow branch.
+Combined with row a3 (eligible -> satisfied, live workers), both halves of
+the T-188 depth guarantee are proven from the installed CLI public path
+with product-declared truth. Harness lessons recorded: replicate the
+canonical CLI invocation verbatim (--scope/--target/--until); guard
+sub-run exit statuses explicitly ([0,4] = converge-or-block, anything
+else fails loudly).
