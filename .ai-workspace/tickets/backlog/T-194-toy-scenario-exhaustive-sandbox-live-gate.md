@@ -87,3 +87,30 @@ and fold truth, both branches differentially.
 - Assertions: parse the sandbox run's emitted JSON lines for
   requirement_proof_carry_through_admitted (statuses/issueKinds) and
   requirement_fold_projected (fold.state), both branches.
+
+## Feature-Proof Matrix (2026-07-05 — scope widened: prove ALL features from the T-188/T-189/T-191 waves in one sandbox)
+
+One snapshot-installed sandbox, one toy scenario, a matrix of sub-runs.
+Sub-runs (a)-(b) use the real LLM worker; (c)-(e) are engine/compiler
+negatives inside the same installed instance (no worker cost).
+
+| # | Feature (wave) | Proof in the toy scenario |
+| --- | --- | --- |
+| a1 | Registry startup/selection + node types (T-180, inherited) | lane already asserts selected entry + typed composition |
+| a2 | Instruction manifests + non-tautology + causal carry (T-183/T-189) | lane already asserts renderedPrompt bound refs + prior_artifact slot; ADD: assert manifest carries no answer-shaped content for the toy edge |
+| a3 | Carry-through eligible chain (T-188) | full-depth branch: carry event accepted+eligible, typed strength via assessment evidence_refs, fold satisfied |
+| b | Uncovered shall not close (T-188 B3) | depth-shallow branch: carry residual + missing_depth_obligation_class + fold no_close_preserved |
+| c1 | REQ-017 fail-closed (T-189) | sub-run WITHOUT instructionAssemblyStartup in the binding: engine blocks (gap_stop, no fp_dispatch_requested) — asserted from emitted events |
+| c2 | Registry boundary rejection (T-189/RC5) | toy vector declares runtime_registry_candidate_refs excluding a decoy product entry: decoy enumerated-and-rejected with replay-visible selection truth |
+| c3 | Rejected-payload no-emission (T-188 slice 5) | sub-run whose worker artifact omits fulfillment payload: NO carry-through event emitted (ordering gate) |
+| d1 | Diagnostic identity + repair affordances (T-191 P1) | installed typecheckGtlProgram over the toy program: every issue carries a ratified ID; mapped issues carry populated repairs; unknown-ID constructor rejection asserted via installed assertRatifiedGtlProgramDiagnosticId |
+| d2 | Declaration-source witness law (T-191 P2) | toy program declares declarationSourceRows: canonical_data+digest clean; module_export without digest -> module-export-round-trip diagnostic with align_digest_or_version repair |
+| d3 | Golden instances (T-191 P3) | binding with instances + digest clean; digest-empty -> golden-instance-digest-required |
+| d4 | Declared latitude (T-191 P4) | F_P owner route clean; F_D route -> underdetermined-owner-route-field fail-closed |
+| d5 | Canonical identity coverage (T-191 review fix) | two typechecks differing only in a witness row -> different inventoryDigest + reportRef |
+| e | Corpus-style exact replay (T-191 P5) | the toy program's expected diagnostic-ID set recorded in the artifact and replayed exactly by a second typecheck |
+
+Artifact: one digest-pinned summary JSON recording every sub-run verdict —
+the rc.7 note cites this single digest. Worker cost: 2 live dispatches
+(a-branch + b-branch); everything else engine/compiler-level inside the
+installed sandbox.
