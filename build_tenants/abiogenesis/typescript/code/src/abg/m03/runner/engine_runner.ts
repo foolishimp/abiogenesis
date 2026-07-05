@@ -887,8 +887,15 @@ function runtimeBindingFactsForInstructionAssembly(input: {
         payloadDigest: stableSha256Digest(input.pluginInput.attachedResultArtifact),
         contentRef: input.pluginInput.actorInvocationRef?.resultRef ?? null,
         contentDigest: stableSha256Digest(content),
+        // T-030 campaign bug #3a (second ceiling): the fact-construction
+        // excerpt cap is PLAN POLICY (causalExcerptMaxChars), not 2400 —
+        // the evaluator arm must be able to see candidate evidence
+        // (stage/vector metadata, materialized files, post-materialization
+        // validation), not just the assessment's opening characters.
         contentExcerpt:
-          content.length > 2400 ? `${content.slice(0, 2400)}...` : content
+          content.length > input.plan.causalExcerptMaxChars
+            ? `${content.slice(0, input.plan.causalExcerptMaxChars)}...`
+            : content
       })
     );
   }
