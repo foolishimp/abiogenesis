@@ -220,3 +220,23 @@ wave — hardening, not an rc.7 gate.
    proceeded) — GOAL-005 says ambiguity fails closed. Either a lawful
    deterministic tie-break exists (locate and cite it) or unconstrained
    same-interface duplicates are a fail-open gap needing a ticket.
+
+## MATRIX COMPLETE (2026-07-05): 13/13 rows EARNED — test:t194:sandbox-live 1/1
+
+Row c2 earned on the fail-closed law: decoy enumerated (2 graph-function
+admissions), selection rejection replay-visible
+(selected_candidate_not_eligible naming the decoy), zero dispatch, zero
+coverage truth, gap_stop terminal carrying the rejection reason. The
+"must converge" expectation was repriced to actual law — the boundary
+halts the machine rather than routing around a rival candidate.
+
+Full matrix: a1/a2 (registry+composition+all-arms manifests), a3
+(eligible->satisfied, live workers), b (shallow->residual->no_close),
+c1 (fail-closed dispatch), c2 (registry boundary fail-closed), c3
+(rejected-payload no-emission), d1-d5 (installed T-191 compiler surface),
+e (exact replay). One lane, one run, 2 live dispatches, 6 sub-instances.
+Seven defects found and fixed on the way (3 forwarding seams, 2 canonical
+regressions, 1 stale expectation, 1 typed-carrier silent-ignore) + 1 open
+law question (unconstrained same-interface tie-break) handed to review.
+This lane is the standing rc.7 exhaustive live gate. test:semantic
+1059/1059 unchanged.
