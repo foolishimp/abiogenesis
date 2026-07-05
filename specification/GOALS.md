@@ -452,3 +452,33 @@ RC7's closure claim is scoped by `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038
 coverage-gated closure on DECLARED carry-through edges; undeclared edges
 with active obligations are a typed transitional state retired by the
 mandatory witness migration (named successor, not an RC7 claim).
+
+The runtime self-enforcement release is ABI TypeScript `4.2.0-rc.8`:
+
+- source commit `50a1eaa47e4cdb8c63ec0fa904d32d2671f865d4` (`sourceDirty:
+  false`);
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.8/`;
+- `latest -> 4.2.0-rc.8`;
+- tarball sha256
+  `d1dfb2fcdf292c76b981fc40d9c3b93290f5ec4853b45f1f126cc190faf3bec6`;
+- release snapshot manifest sha256
+  `6c57177d24d9f104cae76f9a228cd7cc744800bcfd0b82ba74677023464216dd`;
+- release note sha256
+  `a97199d2f8c7301e36409cab69f6baa80d115d841ae3983ca060424dd1bc8f56`;
+- verification at the source commit: `test:semantic` 1092/1092 (including
+  the T-192 temporal-property lane 14/14 and the T-193 constitutional
+  drift real-tree witness 5/5), `test:t188` 31/31, `test:t189` 11/11,
+  `test:t191` 14/14, `test:t183` 16/16, `test:t177` 16/16,
+  `git diff --check`, `npm pack --dry-run`;
+- live gates at the source commit: standing installed-sandbox gate
+  `test:t194:sandbox-live` 1/1 with `{ sourceClean: true, releaseGrade:
+  true }` (the run carried the five standing temporal gates live: all
+  satisfied, dispatch gate witnessed, liveness completion-decided) and
+  canonical `test:hello-world:live` 1/1.
+
+RC8 publishes runtime self-enforcement: the five standing audit gates as
+declared per-run temporal properties (T-192) and constitutional drift as
+a typed compiler diagnostic (T-193) — this cut is the first supervised by
+its own drift gate (a version bump without bootstrap propagation is a red
+suite). RC8 preserves every RC7 claim including the
+`REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038` closure-claim scope.
