@@ -6,7 +6,7 @@ import type {
   ConstructionPriorityScheme,
   ExecutionBasisAdmissionInput,
   EngineAssuranceProvider,
-  EngineStartRequest,
+  EngineStartPassthroughFields,
   PluginTraversalKind,
   RuntimeEvent,
   RuntimeEventSink
@@ -15,7 +15,7 @@ import type { AbgFallbackBundle } from "../../abg/m03/index.js";
 import type { AbgLeverOverridesBundle } from "../../shared/lever_registry/overrides.js";
 import type { Module } from "../../gtl/m02/contracts/carriers.js";
 
-export interface PublicStartContext {
+export interface PublicStartContext extends EngineStartPassthroughFields {
   readonly module: Module;
   readonly runtimeIdentity: ExecutionBasisAdmissionInput["runtimeIdentity"];
   readonly resolvedPolicy: ExecutionBasisAdmissionInput["resolvedPolicy"];
@@ -27,10 +27,6 @@ export interface PublicStartContext {
   readonly frameId?: string | null;
   readonly frameLineageId?: string | null;
   readonly assuranceProvider?: EngineAssuranceProvider;
-  readonly runtimeRegistryStartup?: EngineStartRequest["runtimeRegistryStartup"];
-  readonly instructionAssemblyStartup?: EngineStartRequest["instructionAssemblyStartup"];
-  readonly requirementProofCarryThroughStartup?: EngineStartRequest["requirementProofCarryThroughStartup"];
-  readonly requirementRouteDeclarationBundle?: EngineStartRequest["requirementRouteDeclarationBundle"];
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
   readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;

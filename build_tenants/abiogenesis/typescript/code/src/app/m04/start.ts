@@ -2,6 +2,7 @@
 // Implements: REQ-R-ABG3-RUN
 
 import {
+  engineStartPassthrough,
   runEngineStart,
   runEngineStartAsync,
   type EngineRunnerPluginSet,
@@ -72,18 +73,7 @@ export function startFromRequest(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
-    ...(context.runtimeRegistryStartup === undefined
-      ? {}
-      : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
-    ...(context.instructionAssemblyStartup === undefined
-      ? {}
-      : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
-    ...(context.requirementProofCarryThroughStartup === undefined
-      ? {}
-      : { requirementProofCarryThroughStartup: context.requirementProofCarryThroughStartup }),
-    ...(context.requirementRouteDeclarationBundle === undefined
-      ? {}
-      : { requirementRouteDeclarationBundle: context.requirementRouteDeclarationBundle }),
+    ...engineStartPassthrough(context),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),
@@ -146,18 +136,7 @@ export async function startFromRequestAsync(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
-    ...(context.runtimeRegistryStartup === undefined
-      ? {}
-      : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
-    ...(context.instructionAssemblyStartup === undefined
-      ? {}
-      : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
-    ...(context.requirementProofCarryThroughStartup === undefined
-      ? {}
-      : { requirementProofCarryThroughStartup: context.requirementProofCarryThroughStartup }),
-    ...(context.requirementRouteDeclarationBundle === undefined
-      ? {}
-      : { requirementRouteDeclarationBundle: context.requirementRouteDeclarationBundle }),
+    ...engineStartPassthrough(context),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),

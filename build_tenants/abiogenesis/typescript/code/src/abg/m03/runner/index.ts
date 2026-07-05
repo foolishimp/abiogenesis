@@ -1,9 +1,12 @@
 export {
+  ENGINE_START_PASSTHROUGH_KEYS,
+  engineStartPassthrough,
   runEngineIterate,
   runEngineIterateAsync,
   runEngineStart,
   runEngineStartAsync
 } from "./engine_runner.js";
+export type { EngineStartPassthroughFields } from "./engine_runner.js";
 export {
   constructNotEvaluatedAssuranceGate,
   evaluateAssuranceGate

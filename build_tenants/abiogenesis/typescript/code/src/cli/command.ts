@@ -12,11 +12,14 @@ import type {
 } from "../abg/m03/contracts/carriers.js";
 import type {
   AffectPriorityPolicy,
+  EngineStartPassthroughFields,
   ConstructionPriorityScheme,
   EngineAssuranceProvider,
   EngineRunnerPluginSet
 } from "../abg/m03/index.js";
 import {
+  ENGINE_START_PASSTHROUGH_KEYS,
+  engineStartPassthrough,
   admitAffectPriorityPolicies,
   admitConstructionPriorityScheme,
   admitAbgFallbackBundle,
@@ -176,14 +179,10 @@ type CliStartTarget =
     }
   | { readonly kind: "asset"; readonly handle: string; readonly publicRef: string };
 
-interface RuntimeBinding {
+interface RuntimeBinding extends EngineStartPassthroughFields {
   readonly module: Module;
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
-  readonly runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
-  readonly instructionAssemblyStartup?: PublicStartContext["instructionAssemblyStartup"];
-  readonly requirementProofCarryThroughStartup?: PublicStartContext["requirementProofCarryThroughStartup"];
-  readonly requirementRouteDeclarationBundle?: PublicStartContext["requirementRouteDeclarationBundle"];
   // Scoped to plugin-observer FALLBACK resolution only (installed-workspace
   // path for the abg.config.json `fallbacks` section). It is NOT global config
   // authority: the lever and target-carrier sections resolve via
@@ -986,10 +985,6 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     assuranceProvider?: EngineAssuranceProvider;
-    runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
-    instructionAssemblyStartup?: PublicStartContext["instructionAssemblyStartup"];
-    requirementProofCarryThroughStartup?: PublicStartContext["requirementProofCarryThroughStartup"];
-    requirementRouteDeclarationBundle?: PublicStartContext["requirementRouteDeclarationBundle"];
     resolveNextTarget?: RuntimeBindingNextTargetResolver;
     resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
@@ -1065,39 +1060,13 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     result.assuranceProvider =
       input["assuranceProvider"] as unknown as EngineAssuranceProvider;
   }
-  if (hasOwnField(input, "runtimeRegistryStartup")) {
-    if (!isRecord(input["runtimeRegistryStartup"])) {
-      throw new CliError(`${label}.runtimeRegistryStartup must be an object`);
+  for (const passthroughKey of ENGINE_START_PASSTHROUGH_KEYS) {
+    if (hasOwnField(input, passthroughKey)) {
+      if (!isRecord(input[passthroughKey])) {
+        throw new CliError(`${label}.${passthroughKey} must be an object`);
+      }
+      (result as Record<string, unknown>)[passthroughKey] = input[passthroughKey];
     }
-    result.runtimeRegistryStartup =
-      input["runtimeRegistryStartup"] as unknown as PublicStartContext["runtimeRegistryStartup"];
-  }
-  if (hasOwnField(input, "instructionAssemblyStartup")) {
-    if (!isRecord(input["instructionAssemblyStartup"])) {
-      throw new CliError(
-        `${label}.instructionAssemblyStartup must be an object`
-      );
-    }
-    result.instructionAssemblyStartup =
-      input["instructionAssemblyStartup"] as unknown as PublicStartContext["instructionAssemblyStartup"];
-  }
-  if (hasOwnField(input, "requirementProofCarryThroughStartup")) {
-    if (!isRecord(input["requirementProofCarryThroughStartup"])) {
-      throw new CliError(
-        `${label}.requirementProofCarryThroughStartup must be an object`
-      );
-    }
-    result.requirementProofCarryThroughStartup =
-      input["requirementProofCarryThroughStartup"] as unknown as PublicStartContext["requirementProofCarryThroughStartup"];
-  }
-  if (hasOwnField(input, "requirementRouteDeclarationBundle")) {
-    if (!isRecord(input["requirementRouteDeclarationBundle"])) {
-      throw new CliError(
-        `${label}.requirementRouteDeclarationBundle must be an object`
-      );
-    }
-    result.requirementRouteDeclarationBundle =
-      input["requirementRouteDeclarationBundle"] as unknown as PublicStartContext["requirementRouteDeclarationBundle"];
   }
   if (hasOwnField(input, "plugins")) {
     if (!isRecord(input["plugins"])) {
@@ -1463,18 +1432,7 @@ function startContext(
     ...(binding.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: binding.assuranceProvider }),
-    ...(binding.runtimeRegistryStartup === undefined
-      ? {}
-      : { runtimeRegistryStartup: binding.runtimeRegistryStartup }),
-    ...(binding.instructionAssemblyStartup === undefined
-      ? {}
-      : { instructionAssemblyStartup: binding.instructionAssemblyStartup }),
-    ...(binding.requirementProofCarryThroughStartup === undefined
-      ? {}
-      : { requirementProofCarryThroughStartup: binding.requirementProofCarryThroughStartup }),
-    ...(binding.requirementRouteDeclarationBundle === undefined
-      ? {}
-      : { requirementRouteDeclarationBundle: binding.requirementRouteDeclarationBundle }),
+    ...engineStartPassthrough(binding),
     ...(binding.pluginTraversalObserverFallbackEnabled === undefined
       ? {}
       : {

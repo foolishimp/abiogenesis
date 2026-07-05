@@ -342,6 +342,38 @@ export interface EngineIterateRequest {
     | undefined;
 }
 
+// ONE authority for the engine-start passthrough family. Every public seam
+// (m04 start context, publicCallableStart, CLI runtime-binding parse) MUST
+// consume EngineStartPassthroughFields + engineStartPassthrough() instead of
+// hand-listing fields — hand-listed seams manufactured three forwarding
+// defects (T-188 P1-b, m04 drop, CLI drop). New passthrough fields are added
+// HERE (type + keys) and propagate everywhere.
+export interface EngineStartPassthroughFields {
+  readonly runtimeRegistryStartup?: EngineIterateRequest["runtimeRegistryStartup"];
+  readonly instructionAssemblyStartup?: EngineIterateRequest["instructionAssemblyStartup"];
+  readonly requirementProofCarryThroughStartup?: EngineIterateRequest["requirementProofCarryThroughStartup"];
+  readonly requirementRouteDeclarationBundle?: EngineIterateRequest["requirementRouteDeclarationBundle"];
+}
+
+export const ENGINE_START_PASSTHROUGH_KEYS = Object.freeze([
+  "runtimeRegistryStartup",
+  "instructionAssemblyStartup",
+  "requirementProofCarryThroughStartup",
+  "requirementRouteDeclarationBundle"
+] as const) satisfies readonly (keyof EngineStartPassthroughFields)[];
+
+export function engineStartPassthrough(
+  source: EngineStartPassthroughFields
+): EngineStartPassthroughFields {
+  const forwarded: Record<string, unknown> = {};
+  for (const key of ENGINE_START_PASSTHROUGH_KEYS) {
+    if (source[key] !== undefined) {
+      forwarded[key] = source[key];
+    }
+  }
+  return forwarded as EngineStartPassthroughFields;
+}
+
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -8710,9 +8742,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
-    runtimeRegistryStartup: request.runtimeRegistryStartup,
-    instructionAssemblyStartup: request.instructionAssemblyStartup,
-    requirementProofCarryThroughStartup: request.requirementProofCarryThroughStartup,
+    ...engineStartPassthrough(request),
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
@@ -8724,7 +8754,6 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
     pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog,
-    requirementRouteDeclarationBundle: request.requirementRouteDeclarationBundle,
     executiveObserver: request.executiveObserver
   });
 }
@@ -8737,9 +8766,7 @@ export async function runEngineStartAsync(
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
-    runtimeRegistryStartup: request.runtimeRegistryStartup,
-    instructionAssemblyStartup: request.instructionAssemblyStartup,
-    requirementProofCarryThroughStartup: request.requirementProofCarryThroughStartup,
+    ...engineStartPassthrough(request),
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
@@ -8751,7 +8778,6 @@ export async function runEngineStartAsync(
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
     pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog,
-    requirementRouteDeclarationBundle: request.requirementRouteDeclarationBundle,
     executiveObserver: request.executiveObserver
   });
 }
