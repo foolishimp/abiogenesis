@@ -3,7 +3,7 @@ id: T-191
 title: Ratify GTL authoring-loop meta-law (diagnostics, canonical form, examples, latitude, authorship, evolution vocabulary, corpus seed)
 type: requirements_realization
 ticket_category: gtl_llm_first_meta_language
-status: active
+status: completed
 goal: >-
   Move the static half of the LLM authoring loop into compiler-visible law:
   ratified diagnostic IDs with admissible-repair sets, a canonical authored
@@ -396,3 +396,27 @@ computed from instance content — calibration-set content provenance is
 the recorded successor (strength-resolution wiring to provenance).
 ONE COMMAND stands between assembly and acceptance-3 EARNED:
   npm run test:t194:sandbox-live
+
+## Closure Record (2026-07-06)
+
+Acceptance 3 EARNED LIVE: test:t194:sandbox-live 1/1 (fresh run, standing
+gate) with the requirement-bearing toy edge binding golden instances as
+product data — the EVALUATOR arm's manifest carried
+## abg.golden_instance_calibration with the digest-bound instance set and
+the counterexample refutation ref (in-run guards throw on absence); the
+REAL worker's prompt carried ## abg.declared_latitude (acceptance 4
+live). All five acceptance criteria are now met; all five non_closure
+conditions hold (carrier consolidation R2-F1 landed same-day: one rule
+home in gtl_program_conformance).
+
+NAMED SUCCESSORS (recorded, not silently dropped):
+1. Calibration-set content provenance: instanceSetDigest computed from
+   instance content + strength-resolution wiring to provenance (the
+   Phase-3 tail).
+2. Mandatory declaration-source witness migration (loader emission).
+3. source-authority/* declaration-set validation (successor named in
+   LAWS-019 wave).
+4. Corpus growth + denotation column; corpus placement decision
+   (test_env placement stays provisional).
+5. Declaration authorship self-dealing replay query.
+6. canonical_data digest rule for module-export round-trip (remainder 8).
