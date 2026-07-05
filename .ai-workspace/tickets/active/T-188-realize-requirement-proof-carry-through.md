@@ -1510,3 +1510,4 @@ Slice 6 COMPLETE (2026-07-05) — adjudication item 6:
   digest (digest covers projectionRef+requirementId only) — binding
   status into the digest is a small successor alongside B3.
 - Wiring lane 5/5; test:semantic green.
+- Slice-6 correction: the item-6 commit landed with the tamper test red (commit chain gated on git diff --check only — process defect, mine); factory index export fixes it same-session. Wiring 5/5, semantic 1058/1058.
