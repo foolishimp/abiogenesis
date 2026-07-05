@@ -1,91 +1,118 @@
-# abiogenesis 4.2.0-rc.6 Release Candidate Note
+# abiogenesis 4.2.0-rc.7 Release Candidate Note
 
-This checkpoint is the sixth TypeScript ABG `4.2.0` release candidate. It
-follows `4.2.0-rc.5` and publishes the post-RC5 dispatch-review follow-up
-records as part of the release source boundary.
+This checkpoint is the seventh TypeScript ABG `4.2.0` release candidate. It
+follows `4.2.0-rc.6` and publishes the completed requirement-proof
+carry-through wave, the runtime dispatch enumeration proof, the GTL
+authoring-loop meta-law, and the standing installed-sandbox live gate.
 
 It is an RC candidate, not the final tapped `4.2.0` release.
 
 ## Release Claim
 
-RC6 preserves the earned `4.2.0-rc.5` runtime behavior:
+RC7 preserves the earned RC5/RC6 runtime behavior and adds, as closed-ticket
+truth:
 
-- every F_P dispatch is governed by instruction assembly law;
-- absent, unresolved, unadmitted, or non-matching instruction-assembly startup
-  blocks before worker, plugin, evaluator, response admission, assurance,
-  continuation, residual, or closure paths;
-- scalar transform, scalar evaluate, composed transform, composed consequence,
-  and F_P evaluation-rule batch dispatches bind admitted prompt manifests
-  before invocation;
-- registry selection treats admitted registry entries as the candidate
-  universe and vector declarations as optional constraints;
-- absent vector registry constraints are unconstrained, not filled from the
-  already-selected entry;
-- selected graph functions must remain eligible after the registry universe and
-  declared vector constraints are applied.
+Requirement proof carry-through (T-188, closed):
 
-RC6 adds the post-RC5 review record to the release source:
+- on an edge bearing a declared carry-through contract, requirement closure
+  derives from replay-derived proof coverage: producer-computed coverage is
+  admitted at the accepted-payload result site, threaded to the closing fold
+  under basis + edge + vector identity, and an uncovered or residual
+  obligation shall not close (proven engine-driven and from a
+  snapshot-installed sandbox with a real worker);
+- proof-strength refs resolve against the admitted replay ledger through one
+  named projection (`deriveAdmittedStrengthRefSet`, the
+  `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-035` interim admitted
+  projection); string presence, worker self-report, and startup-carried
+  booleans are not strength truth;
+- rejected attached payloads mint no coverage truth; rejected admissions
+  carry residual no-close pressure; coverage truth refs are parseable,
+  digest-checked, and cross-validated at event construction;
+- SCOPE (per `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`, ratified this
+  RC): coverage-gated closure applies to DECLARED carry-through edges. An
+  edge with active obligations and no declared contract is a typed
+  transitional state, not silent permission; the mandatory carry-through
+  witness migration is the named successor that retires it. RC7 does NOT
+  claim universal coverage-gated closure.
 
-- completed T-189 now records the post-closure DMM review disposition;
-- active T-190 tracks replacement of the source-text dispatch census with
-  runtime F_P dispatch enumeration and mutation differentials;
-- active T-188 now has an explicit non-closure guard forbidding assurance fold,
-  lifecycle closure, release proof, or downstream closure from trusting
-  startup-carried `dependencyClosed`, `depthComplete`, or
-  `proofStrengthAdmitted` flags as proof truth;
-- GOAL-030 tracks the runtime dispatch proof-hardening successor work.
+Runtime dispatch enumeration (T-190, closed):
 
-RC6 intentionally does not reprice `REQ-R-ABG3-SELECTION-APPLICATION-006`.
-The ratified design remains:
+- the F_P dispatch census is the bind path itself: every binding site names a
+  registered arm (compile-forced, runtime fail-closed) and an unregistered
+  arm cannot bind or dispatch;
+- scalar transform, scalar evaluate, composed transform, composed
+  consequence, and evaluation-rule batch arms carry runtime manifest-presence
+  and per-stage manifest-identity proofs plus omitted-plan blocking
+  differentials; the latent singular `evaluation_rule_evaluate` effect is
+  construct-and-block guarded in both executor twins;
+- the source-text census is deleted; classification-as-data with registry
+  set-equality fails the suite by construction when a new arm is registered
+  without a proof row.
 
-```text
-registry universe -> optional vector constraints -> selected candidate remains eligible
-```
+GTL authoring-loop meta-law (T-191, closed):
 
-Absent vector or edge registry constraints are unconstrained. Any future move
-to intrinsic edge-contract defaults requires a separate requirement reprice.
+- REQ-L-GTL3-LAWS-019..-027 ratified: stable diagnostic identities with a
+  closed vocabulary and constructor gate, typed admissible repairs, canonical
+  authored form (declarations-are-data), witnessed declaration-source rows,
+  golden-instance bindings, declared underdetermination, authorship,
+  supersession, and the language conformance corpus;
+- declared latitude renders into instruction manifests as PERMISSION
+  (`## abg.declared_latitude`); golden instances bound on a
+  requirement-bearing edge are consumed by the evaluator arm's manifest as
+  calibration with counterexample refutation material
+  (`## abg.golden_instance_calibration`) — both proven live from the
+  installed sandbox;
+- the latitude/calibration carriers and predicates have ONE rule home
+  (`gtl_program_conformance`); plan-compile validation derives from it.
 
-## Boundary
+Registry selection and public seams:
 
-The release keeps this authority split:
+- ambiguity is not authority: with multiple basis-matching entries the runner
+  asserts no pre-picked candidate; a declared vector candidate constraint
+  lawfully resolves selection; unauthorized ambiguity fails closed with a
+  replay-visible `graph_function_selection_rejected`;
+- the engine-start passthrough family has one authority
+  (`EngineStartPassthroughFields`) consumed by every public seam (m04 start
+  context, public start, CLI runtime-binding parse);
+- vector/function declarations admit through a fail-closed typed carrier:
+  unknown sibling keys are rejected, not silently dropped.
 
-```text
-GTL declares:
-  graph overlays, graph functions, node types, vector constraints, plugin
-  contracts, fulfillment bindings, registry entries, startup config, and policy
-  refs as language/configuration truth
+Standing installed-sandbox live gate (T-194, closed; lane is infrastructure):
 
-ABG derives and admits:
-  instruction assembly startup, runtime binding, prompt manifests, registry
-  lookup, registry selection, graph-function invocation truth, worker response
-  admission, requirement/proof pairing, proof coverage, residual pressure, and
-  replay-visible runtime truth
+- one lane installs the release snapshot into a sandbox and proves the
+  14-row feature matrix through the installed CLI public path with a real
+  worker: carry-through both branches, fail-closed dispatch, registry
+  boundary both ways, rejected-payload no-emission, the installed T-191
+  compiler surface, exact replay, and the latitude/calibration live guards;
+- gate runs self-classify (`t194-gate-classification.json`): only a
+  `sourceClean` run is release-grade; this RC cites such a run;
+- runtime-affecting tickets close only with a fresh green gate run (standing
+  closure rule; T-188/T-190/T-191 closed under it);
+- the canonical hello-world full-stack lane is repaired (proof-depth truth
+  and evaluate-stage plans in its generated startup) and green on the shared
+  binding-source builder.
 
-F_P workers provide:
-  candidate material and semantic evidence only
+RC7 intentionally does not reprice `REQ-R-ABG3-SELECTION-APPLICATION-006`.
+The ratified design remains: registry universe first, optional vector
+constraints second, no selected-entry backfill.
 
-Downstream products own:
-  domain meaning, product plugin behavior, prompt/policy content, lifecycle
-  interpretation, and product-specific readiness claims
-```
+RC7 does not accept as truth:
 
-The release specifically rejects these drift paths:
-
-- unmanifested F_P worker, plugin, or evaluator invocation;
-- product-local prompt shells or prompt loaders;
-- selected-entry registry self-confirmation;
+- closure claims on undeclared carry-through edges beyond the typed
+  transitional state named by `-038`;
 - vector constraints inferred from the candidate being selected;
 - worker self-report, transport success, or response shape as closure truth;
 - startup-carried `dependencyClosed`, `depthComplete`, or
   `proofStrengthAdmitted` as closure authority;
-- product-local proof coverage ledgers, closure registers, or registry truth.
+- product-local proof coverage ledgers, closure registers, or registry truth;
+- dirty-source gate runs as release evidence.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.6`
-- Candidate package version: `4.2.0-rc.6`
-- Candidate tag: `v4.2.0-rc.6`
+- RC identity: `4.2.0-rc.7`
+- Candidate package version: `4.2.0-rc.7`
+- Candidate tag: `v4.2.0-rc.7`
 
 ## Verification
 
@@ -95,8 +122,14 @@ Required evidence for accepting this RC:
 ABG semantic gate:
   npm run test:semantic
 
-Focused runtime wiring gate:
+Requirement-proof gates:
+  npm run test:t188
+
+Runtime dispatch enumeration gate:
   npm run test:t189
+
+Authoring-loop meta-law gate:
+  npm run test:t191
 
 Instruction assembly regression gate:
   npm run test:t183
@@ -104,23 +137,26 @@ Instruction assembly regression gate:
 Registry regression gate:
   npm run test:t177
 
-Requirement-proof regression gate:
-  npm run test:t188
+Standing installed-sandbox live gate (release-grade, sourceClean):
+  npm run test:t194:sandbox-live
+
+Canonical installed live lane:
+  npm run test:hello-world:live
 
 Boundary and packaging gates:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 ```
 
-The T-189 proof remains the RC5 runtime proof. T-190 is the active successor
-that hardens the proof method by replacing source-text census closure with
-runtime per-arm enumeration and mutation differentials.
-
 ## RC Decision
 
-RC6 is the ABI/GTL publication candidate for the RC5 runtime dispatch and
-registry-selection behavior plus the completed post-review follow-up records.
-Downstream products may consume RC6 to depend on the RC5 runtime behavior while
-also receiving the current T-188 hazard guard and T-190 proof-hardening work
-surface in the release source. RC6 does not make ABG own product acceptability,
-software policy, release readiness, or downstream lifecycle interpretation.
+RC7 is the ABI/GTL publication candidate for the carry-through, dispatch
+enumeration, authoring-loop, and standing-gate waves. Downstream products may
+consume RC7 to depend on coverage-gated closure on declared carry-through
+edges, bind-path dispatch enumeration, permission-rendered latitude,
+evaluator-consumed golden calibration, and the self-classifying installed
+live gate. RC7 does not make ABG own product acceptability, software policy,
+release readiness, or downstream lifecycle interpretation. The named open
+successors (mandatory carry-through witness migration, full
+`ProofStrengthAdmission` carrier, frame-identity fold scoping, temporal
+property layer T-192) are work surfaces, not RC7 claims.
