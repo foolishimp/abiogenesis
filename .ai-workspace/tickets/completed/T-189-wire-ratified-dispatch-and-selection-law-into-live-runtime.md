@@ -313,3 +313,24 @@ closing it.
   vector-constraint selection law, runner fail-closed wiring across F_P sites,
   the source-derived dispatch census, vector constraint differentials, and the
   full semantic rerun recorded above.
+- 2026-07-05: Post-closure DMM review disposition recorded after the RC5 cut.
+  Verdict: T-189 remains substantially earned for the dispatch/fail-closed
+  and selected-entry fallback defects. The review confirmed that
+  `not_configured` blocks across the seven current binding sites, composed
+  transform/evaluation-rule/consequence paths bind per F_P task, the
+  non-tautology gate rides the shared compile path, and registry lookup no
+  longer self-seeds from the selected entry. Surviving defect transferred to
+  successor T-190: the current dispatch-site census is a source-text scrape,
+  not a runtime enumeration proof, and the latent singular
+  `evaluation_rule_evaluate` effect must be construct-and-block proven or
+  typed-exempt before any future wiring makes it live. Forward hazard
+  transferred to active T-188: default instruction startup currently carries
+  `dependencyClosed`, `depthComplete`, and `proofStrengthAdmitted` truth used
+  for instruction binding; T-188 fold gating must derive those verdicts from
+  admitted coverage/strength/dependency truth and must not trust startup
+  booleans. Ratified design decision retained: under
+  `REQ-R-ABG3-SELECTION-APPLICATION-006`, absent edge/vector registry
+  constraints are deliberately unconstrained; vector declarations narrow the
+  registry universe, and ABG shall not backfill missing constraints from the
+  selected candidate. The execution record's current proof count is
+  `test:t189` 5/5, `test:semantic` 1039/1039.

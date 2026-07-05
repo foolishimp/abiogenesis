@@ -21,7 +21,7 @@ owner: abiogenesis
 priority: high
 triaged_at: 2026-07-03
 created_at: 2026-07-03
-updated_at: 2026-07-04
+updated_at: 2026-07-05
 governance_scope: STDO Method, SPEC_METHOD, DESIGN_MODULE_METHOD, ODD_METHOD, GTL, ABG Runtime, Requirements Algebra, Instruction Assembly, Assurance
 build_tenant: typescript
 depends_on:
@@ -123,6 +123,12 @@ non_closure_conditions:
   - Proof-strength admission is called F_D without a declared total function
     over admitted evidence, proof policy, expected evidence shape, depth
     classes, coverage rows, and typed rejection or gap outcomes.
+  - Assurance fold, lifecycle closure, release proof, or downstream read-model
+    closure consumes startup-carried `dependencyClosed`, `depthComplete`,
+    `proofStrengthAdmitted`, or equivalent default instruction-startup flags as
+    authoritative proof truth instead of deriving dependency sufficiency,
+    depth completeness, and proof-strength admission from admitted
+    replay-visible coverage, strength, dependency, and typed-gap projections.
   - An adversarial proof-strength route records a review result but does not
     preserve admitted adversarial attempt refs, counterexample refs when
     present, disposition, and replay identity.
@@ -1234,3 +1240,17 @@ Verification:
   source digest, verifier digest, governed traced-process subject/verifier
   runs, full coverage `eligible` -> fold `satisfied`, and shallow
   depth-incomplete coverage `residual` -> fold `no_close_preserved`.
+
+2026-07-05 post-RC5 hazard transfer from T-189 review:
+
+- `constructDefaultInstructionAssemblyStartupForBasis(...)` currently produces
+  default instruction startup rows with `dependencyClosed: true`,
+  `depthComplete: true`, and `proofStrengthAdmitted: true` for startup
+  usability. Those defaults are acceptable only as startup instruction-binding
+  material while fold gating derives closure eligibility from admitted
+  projection truth.
+- T-188 shall not close if assurance fold, lifecycle disposition, release
+  proof, or downstream closure reads those startup-carried booleans as proof of
+  dependency sufficiency, proof-depth completeness, or proof-strength
+  admission. The closure path must consume replay-derived coverage,
+  dependency, depth-policy, strength-admission, and typed-gap projections.
