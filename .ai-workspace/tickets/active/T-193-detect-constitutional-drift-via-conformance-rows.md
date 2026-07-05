@@ -3,7 +3,7 @@ id: T-193
 title: Detect constitutional drift via conformance rows (INT-002 generalized)
 type: requirements_realization
 ticket_category: constitutional_drift_detection
-status: backlog
+status: active
 goal: >-
   Pull the asymmetric residues into the checked regime: the semantic
   compiler admits witnessed constitutional-surface rows (INTENT, PRODUCT,
@@ -64,3 +64,23 @@ notes:
 
 The factory checks its own constitution: surfaces become the model half of
 a live gap computation, and drift becomes delta, not a review catch.
+
+## Activation + Phase 0 Residue Pin (2026-07-06)
+
+Activated as T-192's completion proof (user directive). CARRIER PIN: the
+row families, vocabulary gate, repair carriers, and inventory-digest
+identity coverage in gtl_program_conformance are the promote-don't-re-mint
+homes; T-187 witness/judge split governs (loaders witness surfaces, the
+compiler judges); no new checker outside the semantic compiler.
+
+RESIDUE PIN (live drift verified in-tree at activation):
+- CLAUDE.md:57 and AGENTS.md:49 declare bootstrap Version 4.0.0-rc.6
+  while the package is 4.2.0-rc.7 — INT-002's stale-installed-axiom class,
+  LIVE. The real-tree witness test must catch exactly this before the tree
+  is fixed (the detector proves itself on real drift, then the fix lands,
+  then clean).
+- GOALS release records cite tickets by ref; the RC4 class
+  (release-claim-cites-active-ticket) has no live instance today (rc.7
+  cites closed tickets only) — the differential covers it constructed.
+- Seam parity (ENGINE_START_PASSTHROUGH_KEYS vs public seams) is code-law
+  since F1; the parity ROW makes drift a typed diagnostic.
