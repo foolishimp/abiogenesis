@@ -1317,3 +1317,23 @@ export type {
   RequirementProofCarryThroughStartupEntry,
   RequirementProofCarryThroughStartupInput
 } from "./requirement_proof_carry_through_producer.js";
+export {
+  TEMPORAL_PROPERTY_RULE_KIND,
+  TEMPORAL_CONSEQUENCE_CLASS_VALUES,
+  TEMPORAL_GATE_POINT_VALUES,
+  TEMPORAL_VERDICT_STATUS_VALUES,
+  admitTemporalPropertyRule,
+  evaluateTemporalProperty,
+  evaluateSafetyGateAtStep
+} from "./temporal_properties.js";
+export type {
+  TemporalAtom,
+  TemporalFormula,
+  TemporalProperty,
+  TemporalPropertyAdmission,
+  TemporalPropertyVerdict,
+  TemporalConsequenceClass,
+  TemporalGatePoint,
+  TemporalVerdictStatus,
+  TemporalTraceInput
+} from "./temporal_properties.js";

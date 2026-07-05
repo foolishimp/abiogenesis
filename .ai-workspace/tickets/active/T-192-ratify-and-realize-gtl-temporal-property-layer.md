@@ -139,3 +139,24 @@ dispatch|closure with replay-visible blocking; verdict carrier law reading
 not re-deriving truth; ingress law; the five standing gates as the first
 property set with enforcement-after-proof differentials; total checker;
 T-119 exemption unchanged).
+
+## Phase 2 COMPLETE (2026-07-06) — checker realized
+
+contracts/temporal_properties.ts: fail-closed admitTemporalPropertyRule
+(unknown operator/fluent/enums/kind + safety-requires-past-time, 5 axes
+differentially proven), three-valued LTL3/LTLf checker (open prefix =>
+undetermined futures; completed trace decides), first-class vacuity with
+witness counts (zero-witness satisfied => vacuous), fluent atoms folded
+from the ONE event calculus (basis-threaded axioms), where-guarded event
+atoms, evaluateSafetyGateAtStep for online gating. 8/8 differentials incl.
+mutation-flip and prefix/completed liveness routing.
+
+GÖDEL CHECKPOINT 1 (post-P2 review-react): the checker's verdict-position
+convention (past-rooted at final step, future-rooted at first) was code
+truth not law — a one-step-historically checker would have been green
+against the old wording. REACTED: REQ -004 amended in-wave to carry the
+convention. NAMED (not fixed): effect-row identity mapping assumes the
+calculus preserves event object identity (proven by test today; brittle if
+calculus clones — successor: ref-keyed rows); per-dispatch gate evaluation
+rebuilds trace context (O(trace) per gate — acceptable now, perf successor
+for hot paths).
