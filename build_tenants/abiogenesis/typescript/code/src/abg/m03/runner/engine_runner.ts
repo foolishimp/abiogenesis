@@ -263,6 +263,7 @@ import {
   type RequirementProofCarryThroughContract,
   type RequirementProofCandidateClassificationTable
 } from "../contracts/requirement_proof_carry_through.js";
+import { constructDerivedProofDepthInstructionTruth as constructCarryProofDepthTruth } from "../contracts/instruction_assembly.js";
 import { constructRequirementProofCarryThroughAdmittedEvent } from "../contracts/event_factories.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 import { dispatchRequestsForTransition } from "../transport/index.js";
@@ -939,6 +940,7 @@ type InstructionAssemblyFpBinding =
       readonly kind: "manifest_projected";
       readonly event: RuntimeEvent;
       readonly manifest: PromptManifest;
+      readonly plan: CompiledPromptPlan;
     };
 
 function instructionAssemblyBindingBlockReason(
@@ -1018,6 +1020,7 @@ function bindInstructionAssemblyForFpEffect(input: {
   return Object.freeze({
     kind: "manifest_projected",
     manifest: renderResult.manifest,
+    plan: row.plan,
     event: constructInstructionPromptManifestProjectedEvent({
       invocation: input.actorInvocation,
       manifest: renderResult.manifest,
@@ -6622,6 +6625,26 @@ function* runEngineIterateMachine(input: {
             // Implements: T-188 M5 - carry-through admission + coverage at the
             // result-admission site; coverage refs are producer-computed and
             // carried on the event (no close-site reconstruction).
+            // Implements: T-188 M3 — strength refs resolve against the
+            // ADMITTED ledger (replay events), never against list presence
+            // or default-startup booleans.
+            const admittedLedgerRefs = new Set<string>();
+            for (const priorEvent of eventState.replayEvents) {
+              if (priorEvent.kind === "evidence_admitted") {
+                admittedLedgerRefs.add(priorEvent.evidenceRef);
+                admittedLedgerRefs.add(priorEvent.payloadRef);
+              } else if (
+                priorEvent.kind === "payload_observed" ||
+                priorEvent.kind === "payload_validated"
+              ) {
+                admittedLedgerRefs.add(priorEvent.payloadRef);
+              } else if (priorEvent.kind === "actor_result_artifact_observed") {
+                admittedLedgerRefs.add(priorEvent.resultRef);
+                admittedLedgerRefs.add(priorEvent.artifactRef);
+              }
+            }
+            const ledgerResolved = (refs: readonly string[]): boolean =>
+              refs.length > 0 && refs.every((ref) => admittedLedgerRefs.has(ref));
             const carryStartup = request.requirementProofCarryThroughStartup;
             if (carryStartup !== undefined) {
               for (const entry of carryStartup.entries) {
@@ -6639,7 +6662,34 @@ function* runEngineIterateMachine(input: {
                   classificationTable: entry.classificationTable,
                   envelope
                 });
+                const proofStrengthAdmitted =
+                  ledgerResolved(envelope.proofStrengthAdmissionRefs) &&
+                  envelope.counterexampleRefs.length === 0 &&
+                  (ledgerResolved(envelope.fdStrengthCriterionRefs) ||
+                    ledgerResolved(envelope.adversarialAttemptRefs));
+                const depthComplete = entry.contract.requiredDepthClassRefs.every(
+                  (ref) => envelope.depthClassRefs.includes(ref)
+                );
+                const proofDepthTruth = constructCarryProofDepthTruth({
+                  truthRef: `${envelope.envelopeRef}/proof-depth`,
+                  depthPolicyRef: null,
+                  depthPolicyDigest: null,
+                  targetRefs: [envelope.contractRef],
+                  requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
+                  declaredDepthClassRefs: envelope.depthClassRefs,
+                  declaredDepthObligationRefs: envelope.proofObligationRefs,
+                  notApplicableDepthClassRefs: [],
+                  typedDepthGapRefs: [],
+                  proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
+                  fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
+                  adversarialVerificationRefs: envelope.adversarialAttemptRefs,
+                  adversarialCounterexampleRefs: envelope.counterexampleRefs,
+                  sourceProjectionRefs: [envelope.envelopeRef],
+                  depthComplete,
+                  proofStrengthAdmitted
+                });
                 const coverageRequirementIds: string[] = [];
+                const coverageStatuses: string[] = [];
                 const coverageTruthRefs: string[] = [];
                 for (const requirementId of entry.requirementIds) {
                   const coverage = projectRequirementProofCoverage({
@@ -6651,10 +6701,14 @@ function* runEngineIterateMachine(input: {
                       )
                     ),
                     admissions: [admission],
-                    dependencyInstructionTruth: null,
-                    proofDepthInstructionTruth: null
+                    dependencyInstructionTruth:
+                      instructionBinding.kind === "manifest_projected"
+                        ? instructionBinding.plan.dependencyInstructionTruth
+                        : null,
+                    proofDepthInstructionTruth: proofDepthTruth
                   });
                   coverageRequirementIds.push(requirementId);
+                  coverageStatuses.push(coverage.status);
                   coverageTruthRefs.push(
                     requirementAbgTruthRefFromRequirementProofCoverage(coverage)
                   );
@@ -6676,6 +6730,7 @@ function* runEngineIterateMachine(input: {
                       admission.issues.map((row) => row.issueKind)
                     ),
                     coverageRequirementIds: Object.freeze([...coverageRequirementIds]),
+                    coverageStatuses: Object.freeze([...coverageStatuses]),
                     coverageTruthRefs: Object.freeze([...coverageTruthRefs]),
                     replayIdentity: admission.envelope.replayIdentity,
                     replayDigest: admission.envelope.replayDigest

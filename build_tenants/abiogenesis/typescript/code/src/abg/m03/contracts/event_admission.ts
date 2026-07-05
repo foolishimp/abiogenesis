@@ -1012,6 +1012,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       evidenceRoleRefs: "string_array",
       issueKinds: "string_array",
       coverageRequirementIds: "string_array",
+      coverageStatuses: "string_array",
       coverageTruthRefs: "string_array",
       replayIdentity: "non_empty_string",
       replayDigest: "non_empty_string"

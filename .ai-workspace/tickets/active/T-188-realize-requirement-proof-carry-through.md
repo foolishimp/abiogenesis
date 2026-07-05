@@ -1343,3 +1343,27 @@ Slice 3 COMPLETE (2026-07-05) — the wiring differential on the live runner:
   obligation shall not close; coverage removal flips disposition; fold
   source refs proven to include the threaded coverage refs on a
   requirement-bearing edge).
+
+Slice 4 PARTIAL (2026-07-05) — M3 groundwork landed; core fix diagnosed:
+- LANDED: coverageStatuses on the admitted event (carrier/factory/
+  admission/emission); admitted-ledger ref scan at the M5 site (evidence_
+  admitted, payload_observed/validated, actor_result_artifact_observed);
+  dependencyInstructionTruth now threaded from the ADMITTED compiled plan
+  (binding exposes plan; plan-derived, not synthesized); proof-depth truth
+  constructed at the M5 site from envelope + contract.
+- DIAGNOSED (the actual M3 defect location):
+  constructDerivedProofDepthInstructionTruth IGNORES explicit booleans and
+  derives internally via the PRESENCE-BASED deriveProofStrengthAdmitted —
+  so ledger-resolved values computed in the runner are overwritten. The
+  fix belongs INSIDE the derivation: optional admittedLedgerRefs input on
+  the constructor; when provided, strength refs must RESOLVE against it
+  (presence alone insufficient); absent input preserves compile-time
+  behavior for startup/fixture callers. Also: an unidentified residual
+  issue-kind persists in the eligible-path probe even with presence
+  satisfied and dependency closed — expose coverage issueKinds per
+  requirement on the admitted event (coverageIssueKinds) to make
+  eligibility failures observable, then complete the differential
+  (resolvable refs -> eligible; fixture refs -> not eligible). The M3
+  differential test was REMOVED rather than weakened — no green-by-
+  assertion-downgrade.
+- Proofs at this cut: wiring lane 3/3; test:semantic 1056/1056.
