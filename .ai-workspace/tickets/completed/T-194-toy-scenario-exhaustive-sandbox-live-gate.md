@@ -3,7 +3,7 @@ id: T-194
 title: Toy-scenario exhaustive installed-sandbox live gate (rc.7 release gate)
 type: proof_realization
 ticket_category: release_gate_live_proof
-status: backlog
+status: completed
 goal: >-
   Create a toy GTL scenario proven exhaustively live from a
   snapshot-installed sandbox: real installer, real installed package, the
@@ -300,3 +300,18 @@ touches, or declare new-with-reason" — the 15-minute derivation step that
 converts promote-don't-re-mint from review catch to non-event (adopted
 from DMM review R2-F1). Home: ABI-local convention now; candidates for
 TICKET_METHOD ratification with the gate-home decision.
+
+## Closure Record (2026-07-06)
+
+The ticket's WORK is complete; the LANE lives on as infrastructure:
+- Matrix 14/14 EARNED (a1-a3, b, c1, c2a, c2b, c3, d1-d5, e) — this
+  session's final run also carried the T-191 latitude + calibration live
+  guards (1/1 fresh).
+- Standing-gate rule OPERATIONAL with three enforced closures (T-188
+  retro-discharged via the installed proof, T-190, T-191) and seven
+  defects found-and-fixed by the lane before its first green.
+- The RATIFICATION-HOME decision (shared TICKET_METHOD vs ABI-local
+  clause) is a standing DECISION, not ticket work — recorded here and in
+  the gate rule; it rides the next TICKET_METHOD wave or T-193.
+Closing to completed: the gate is test infrastructure + recorded law, not
+an open work item.

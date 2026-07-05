@@ -3,7 +3,7 @@ id: T-192
 title: Ratify and realize the GTL temporal-property layer over event-calculus fluents
 type: requirements_realization
 ticket_category: gtl_temporal_property_law
-status: backlog
+status: active
 goal: >-
   Add temporal-logic properties to GTL as a Rule kind over event-calculus
   fluents, checked F_D over finite replay traces (LTLf, three-valued), with
@@ -109,3 +109,12 @@ timer outcome admitted -> eligible; breach -> pressure). The property
 layer (this ticket's Phases 1-4) does NOT depend on scheduling
 enforcement — LTLf properties quantify over traces, not clocks — so
 activation is UNBLOCKED by this record.
+
+## Activation (2026-07-06)
+
+Activated as the next constitutional wave: Phase 0 census complete (typed
+exemption + timer-provider successor recorded); Phases 1-4 open. The
+T-188/T-190/T-191 closures supply the property layer's first targets (the
+five standing gates as declared properties), and the R2-F1 consolidation
+means the temporal carriers will be built next to ONE carrier home, not
+three. Carrier pin applies to every slice.
