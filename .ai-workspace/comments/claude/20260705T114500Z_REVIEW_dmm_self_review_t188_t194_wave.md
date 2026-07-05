@@ -111,3 +111,19 @@ F1 and F2 before any next wave touches these surfaces (both are
 one-sitting consolidations; both remove empirically-proven defect
 factories). F3/F4 fold into the T-188 successor work. F5 to the external
 review. F6 to T-191's remainder. F7 opportunistic.
+
+## Fix-Wave Addendum (2026-07-05, same day)
+
+All seven findings closed in five commits, each test-gated:
+F1 one-authority passthrough (19 mentions -> 1); F3 producer extracted to
+contracts; F6 declarations admission fails closed (differential);
+F5 adjudicated FAIL-OPEN at the runner and FIXED — no pre-pick on
+duplicate basis matches, pick law decides, with the matrix repriced to the
+better law (c2a: a declared constraint lawfully RESOLVES ambiguity and
+converges; c2b: unauthorized ambiguity fails closed replay-visibly);
+F2/F4 one shared typed-variant binding builder (2071 duplicated lines
+removed; its unknown-key validator caught its own first caller bug);
+F7 minors incl. §6C retention named. Final gates: t194 matrix 1/1 (14
+rows), canonical hello-world live 1/1 on the shared builder, semantic
+1062/1062. The review's sequencing recommendation (F1/F2 before the next
+wave) was executed same-day; the seams are now Prime alongside the laws.
