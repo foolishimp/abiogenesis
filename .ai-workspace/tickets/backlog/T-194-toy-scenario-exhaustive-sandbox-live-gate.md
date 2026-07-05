@@ -62,3 +62,28 @@ The toy scenario is the smallest program that exercises the full carry-
 through chain in a real install: declared requirements, product-declared
 carry-through startup, public start, real worker, engine-emitted coverage
 and fold truth, both branches differentially.
+
+## Build Scout Record (2026-07-05 — splice anchors verified, build-ready)
+
+- The generated runtime-binding source builds ONE config object consumed by
+  the installed runtime-binding convention (.abiogenesis/
+  typescript-runtime.mjs): `runtimeRegistryStartup`,
+  `instructionAssemblyStartup`, runId/workKey, `createPlugins` (whose
+  fpDispatch already dispatches the real worker with ONLY
+  instructionPromptManifest.renderedPrompt and asserts manifest-rendered
+  bound refs + prior-artifact carry).
+- T-194 deltas on the copy: add `requirementRouteDeclarationBundle` +
+  `requirementProofCarryThroughStartup` to that binding object (product
+  data), with strength refs declared in the artifact's assessment
+  evidence_refs (the accepted-payload path admits them as typed evidence —
+  the exact chain proven in the T-188 live lane).
+- FIRST BUILD STEP (potential gap the lane exists to catch): verify the
+  PUBLICSTART ADAPTER forwards requirementProofCarryThroughStartup +
+  requirementRouteDeclarationBundle down to runEngineStart —
+  runEngineStart/Async forwarding was fixed (T-188 slice 5), but the
+  adapter layer above it (publicStart / installed cli-runtime binding
+  consumption) has not been checked. If it drops either family, that is a
+  P1-b-shaped finding on the public path and the first fix of this lane.
+- Assertions: parse the sandbox run's emitted JSON lines for
+  requirement_proof_carry_through_admitted (statuses/issueKinds) and
+  requirement_fold_projected (fold.state), both branches.
