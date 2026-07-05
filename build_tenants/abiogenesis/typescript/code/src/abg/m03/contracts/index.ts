@@ -1195,6 +1195,7 @@ export {
   constructRequirementProofCandidateClassificationTable,
   constructRequirementProofCarryThroughContract,
   constructRequirementProofCarryThroughOutputEnvelope,
+  parseRequirementProofCoverageTruthRef,
   projectRequirementProofCoverage,
   requirementAbgTruthRefFromRequirementProofCoverage,
   requirementProofCandidateClassificationTableDigest,

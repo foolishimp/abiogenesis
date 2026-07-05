@@ -291,3 +291,49 @@ test("T-188 M3 differential: ledger-resolved strength flips the strength issue k
     true
   );
 });
+
+test("T-188 item-6 differential: coverage fields disagreeing with the truth ref fail closed", async () => {
+  const { parseRequirementProofCoverageTruthRef, constructRequirementProofCarryThroughAdmittedEvent } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const table = classificationTable();
+  const { events } = runWiring({
+    contract: carryContract(table),
+    classificationTable: table,
+    requirementIds: ["requirement://t188/r1"],
+    envelopeTemplate: envelopeTemplate()
+  });
+  const admitted = events.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.ok(admitted);
+  const parsed = parseRequirementProofCoverageTruthRef(admitted.coverageTruthRefs[0]);
+  assert.equal(parsed.requirementId, "requirement://t188/r1");
+  assert.equal(parsed.status, admitted.coverageStatuses[0]);
+  // tamper: status field disagreeing with the ref must throw at construction
+  assert.throws(
+    () =>
+      constructRequirementProofCarryThroughAdmittedEvent({
+        invocation: {
+          basisId: admitted.basisId, graphFunctionId: admitted.graphFunctionId,
+          runId: admitted.runId, workKey: admitted.workKey,
+          graphCallId: admitted.graphCallId, frameId: admitted.frameId,
+          vectorIndex: admitted.vectorIndex, edge: admitted.edge,
+          actorInvocationId: admitted.actorInvocationId,
+          workerId: admitted.workerId, backendId: admitted.backendId,
+          causationEventRefs: [], correlationId: admitted.correlationId,
+          resultRef: "result://x"
+        },
+        correlationId: admitted.correlationId,
+        envelopeRef: admitted.envelopeRef, contractRef: admitted.contractRef,
+        categoryKey: admitted.categoryKey, accepted: admitted.accepted,
+        sourceRequirementObligationRefs: admitted.sourceRequirementObligationRefs,
+        proofObligationRefs: admitted.proofObligationRefs,
+        evidenceRoleRefs: admitted.evidenceRoleRefs, issueKinds: admitted.issueKinds,
+        coverageRequirementIds: admitted.coverageRequirementIds,
+        coverageStatuses: ["eligible"],
+        coverageTruthRefs: admitted.coverageTruthRefs,
+        replayIdentity: admitted.replayIdentity, replayDigest: admitted.replayDigest
+      }),
+    /disagree with the truth ref/u
+  );
+});

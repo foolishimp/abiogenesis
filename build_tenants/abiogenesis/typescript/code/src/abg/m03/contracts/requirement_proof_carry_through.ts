@@ -443,6 +443,37 @@ export function requirementProofCarryThroughCategoryKey(input: {
 export const REQUIREMENT_PROOF_COVERAGE_TRUTH_REF_PREFIX =
   "abg://requirement-proof-coverage" as const;
 
+export interface ParsedRequirementProofCoverageTruthRef {
+  readonly status: RequirementProofClosureStatus;
+  readonly projectionRef: string;
+  readonly requirementId: string;
+}
+
+// Implements: T-188 adjudication item 6 — coverage truth refs are parseable
+// and integrity-checked so event fields can be cross-validated against them.
+export function parseRequirementProofCoverageTruthRef(
+  ref: string
+): ParsedRequirementProofCoverageTruthRef {
+  const prefix = REQUIREMENT_PROOF_COVERAGE_TRUTH_REF_PREFIX + "/";
+  if (!ref.startsWith(prefix)) {
+    throw new TypeError(`not a requirement proof coverage truth ref: ${ref}`);
+  }
+  const parts = ref.slice(prefix.length).split("/");
+  if (parts.length !== 4) {
+    throw new TypeError(`malformed coverage truth ref: ${ref}`);
+  }
+  const status = requireClosureStatus(
+    parts[0] as RequirementProofClosureStatus,
+    "coverage truth ref status"
+  );
+  const projectionRef = decodeURIComponent(parts[2] ?? "");
+  const requirementId = decodeURIComponent(parts[3] ?? "");
+  if (stableSha256Digest([projectionRef, requirementId]) !== parts[1]) {
+    throw new TypeError(`coverage truth ref digest mismatch: ${ref}`);
+  }
+  return Object.freeze({ status, projectionRef, requirementId });
+}
+
 export function requirementAbgTruthRefFromRequirementProofCoverage(
   input: Pick<
     RequirementProofCoverageProjection,

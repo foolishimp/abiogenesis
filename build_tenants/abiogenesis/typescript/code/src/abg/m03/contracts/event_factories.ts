@@ -73,6 +73,7 @@ import {
   sha256DigestForText,
   stableJson
 } from "../../../shared/runtime_identity.js";
+import { parseRequirementProofCoverageTruthRef } from "./requirement_proof_carry_through.js";
 import {
   GTL_NODE_TYPE_GRAPH_FUNCTION_TAG
 } from "../../../gtl/m01/contracts/carriers.js";
@@ -698,6 +699,17 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
       "carry-through coverage arrays must be parallel per requirementId"
     );
   }
+  input.coverageTruthRefs.forEach((truthRef, index) => {
+    const parsed = parseRequirementProofCoverageTruthRef(truthRef);
+    if (
+      parsed.status !== input.coverageStatuses[index] ||
+      parsed.requirementId !== input.coverageRequirementIds[index]
+    ) {
+      throw new TypeError(
+        "carry-through coverage fields disagree with the truth ref: " + truthRef
+      );
+    }
+  });
   return Object.freeze({
     ...actorRuntimeScope(input.invocation),
     frameLineageId: input.frameLineageId ?? null,

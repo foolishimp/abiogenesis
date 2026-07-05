@@ -1497,3 +1497,16 @@ remains PARTIAL until those land.
   the slice-5 commit. RECORD CORRECTION: the slice-5 commit message says
   "t188 25/25"; the actual gate is 24/24 (20 unit + 4 wiring) — message
   overstated by one, ticket record is authoritative.
+
+Slice 6 COMPLETE (2026-07-05) — adjudication item 6:
+- Exported parseRequirementProofCoverageTruthRef (status + projectionRef +
+  requirementId recovered; digest over the identity pair recomputed, fail
+  closed on mismatch or malformed shape).
+- Factory cross-validates coverageStatuses/coverageRequirementIds against
+  each parsed truth ref at construction — a status swap throws
+  differentially (tamper test), and every live emission passes the check
+  (producer fields provably agree with refs).
+- RESIDUAL NOTED: status is path-carried in the ref, not inside the
+  digest (digest covers projectionRef+requirementId only) — binding
+  status into the digest is a small successor alongside B3.
+- Wiring lane 5/5; test:semantic green.
