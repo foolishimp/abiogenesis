@@ -751,6 +751,8 @@ export function deriveRetryFrontierProjection(input: {
       case "overlay_frame_declared":
       case "overlay_frame_evaluated":
       case "instruction_causal_context_bound":
+      case "requirement_proof_carry_through_admitted":
+        break;
       case "instruction_prompt_manifest_projected":
       case "instruction_response_contract_admitted":
         break;

@@ -1,4 +1,5 @@
 import type {
+  RequirementProofCarryThroughAdmittedEvent,
   AdvancementTransition,
   ActorInvocation,
   ActorInvocationClosedEvent,
@@ -666,6 +667,41 @@ export function constructPluginTraversalPromptMaterializedEvent(input: {
     defaultKey: input.selection.defaultKey,
     causationEventRefs,
     correlationId: input.correlationId
+  });
+}
+
+export function constructRequirementProofCarryThroughAdmittedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+  readonly envelopeRef: string;
+  readonly contractRef: string;
+  readonly categoryKey: string;
+  readonly accepted: boolean;
+  readonly sourceRequirementObligationRefs: readonly string[];
+  readonly proofObligationRefs: readonly string[];
+  readonly evidenceRoleRefs: readonly string[];
+  readonly issueKinds: readonly string[];
+  readonly replayIdentity: string;
+  readonly replayDigest: string;
+}): RequirementProofCarryThroughAdmittedEvent {
+  return Object.freeze({
+    ...actorRuntimeScope(input.invocation),
+    causationEventRefs: Object.freeze([...(input.causationEventRefs ?? [])]),
+    correlationId: input.correlationId,
+    kind: "requirement_proof_carry_through_admitted",
+    envelopeRef: input.envelopeRef,
+    contractRef: input.contractRef,
+    categoryKey: input.categoryKey,
+    accepted: input.accepted,
+    sourceRequirementObligationRefs: Object.freeze([
+      ...input.sourceRequirementObligationRefs
+    ]),
+    proofObligationRefs: Object.freeze([...input.proofObligationRefs]),
+    evidenceRoleRefs: Object.freeze([...input.evidenceRoleRefs]),
+    issueKinds: Object.freeze([...input.issueKinds]),
+    replayIdentity: input.replayIdentity,
+    replayDigest: input.replayDigest
   });
 }
 

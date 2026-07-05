@@ -1254,3 +1254,39 @@ Verification:
   dependency sufficiency, proof-depth completeness, or proof-strength
   admission. The closure path must consume replay-derived coverage,
   dependency, depth-policy, strength-admission, and typed-gap projections.
+
+## Fold-Gating Wave Record (2026-07-05, Claude taking the open gates M5/B2/M3/B3)
+
+Slice 1 COMPLETE — replay carrier layer for carry-through admissions:
+- New runtime event `requirement_proof_carry_through_admitted`
+  (carriers.ts: interface + RuntimeEvent union + kind list; event_factories:
+  `constructRequirementProofCarryThroughAdmittedEvent` over the
+  actorRuntimeScope/invocation pattern; event_admission: full field-rule
+  entry; projection + retry_frontier: standalone cases).
+- Proofs: build clean; test:t188 20/20; test:semantic 1053/1053.
+
+NEXT SLICE SPEC (decided now, not improvised later): coverage is computed
+AT ADMISSION TIME by the producer and carried as truth refs on the event —
+`projectRequirementProofCoverage` requires full Admission objects, so
+close-site reconstruction from event summaries would be reconstructed
+truth (forbidden). Plan:
+1. M5 producer: at the F_P result-admission site, when a carry-through
+   contract is bound, run `admitRequirementProofCarryThroughOutput`, then
+   `projectRequirementProofCoverage` per requirementId, then emit the
+   admitted event carrying
+   `requirementAbgTruthRefFromRequirementProofCoverage(...)` refs (extend
+   the event with `coverageTruthRefsByRequirementId` rows or a sibling
+   `requirement_proof_coverage_projected` event — prefer extending, one
+   event one fact-family).
+2. B2 consumer: at engine_runner.ts:3740
+   (`emitRequirementRouteFactsForEdgeClose`), collect refs by
+   requirementId from replay events, thread
+   `proofCoverageTruthRefsByRequirementId` (interface already accepts it).
+   Absent contract => absent refs => fold unchanged (no behavior flip on
+   undeclared edges — the T-189 migration lesson).
+3. M3: resolve `proofStrengthAdmissionRefs` / `adversarialVerificationRefs`
+   / `fdStrengthCriterionRefs` against the admitted ledger before
+   `deriveProofStrengthAdmitted` may return true; per ticket law
+   (:1247-1253) fold gating shall NOT read default-startup booleans.
+4. B3: engine-driven live lane — uncovered obligation shall not close;
+   coverage removal flips disposition.

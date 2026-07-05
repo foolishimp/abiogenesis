@@ -988,6 +988,33 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
+  requirement_proof_carry_through_admitted: applyFieldRules(
+    "RequirementProofCarryThroughAdmittedEvent",
+    {
+      runId: "non_empty_string",
+      workKey: "nullable_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "non_empty_string",
+      workerId: "non_empty_string",
+      backendId: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      envelopeRef: "non_empty_string",
+      contractRef: "non_empty_string",
+      categoryKey: "non_empty_string",
+      accepted: "boolean",
+      sourceRequirementObligationRefs: "string_array",
+      proofObligationRefs: "string_array",
+      evidenceRoleRefs: "string_array",
+      issueKinds: "string_array",
+      replayIdentity: "non_empty_string",
+      replayDigest: "non_empty_string"
+    }
+  ),
   instruction_prompt_manifest_projected: applyFieldRules(
     "InstructionPromptManifestProjectedEvent",
     {

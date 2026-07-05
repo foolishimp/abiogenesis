@@ -523,6 +523,9 @@ export function deriveRuntimeAggregateProjection(
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
+      case "requirement_proof_carry_through_admitted":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        break;
       case "instruction_prompt_manifest_projected":
         assertVectorIndexInRange(basis, event.vectorIndex);
         instructionPromptManifestRefs.push(

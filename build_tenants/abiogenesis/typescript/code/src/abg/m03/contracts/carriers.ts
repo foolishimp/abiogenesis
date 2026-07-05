@@ -760,6 +760,22 @@ export interface InstructionCausalContextBoundEvent {
   readonly correlationId: string;
 }
 
+// Implements: T-188 REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-013/-037
+export interface RequirementProofCarryThroughAdmittedEvent
+  extends ActorRuntimeScope {
+  readonly kind: "requirement_proof_carry_through_admitted";
+  readonly envelopeRef: string;
+  readonly contractRef: string;
+  readonly categoryKey: string;
+  readonly accepted: boolean;
+  readonly sourceRequirementObligationRefs: readonly string[];
+  readonly proofObligationRefs: readonly string[];
+  readonly evidenceRoleRefs: readonly string[];
+  readonly issueKinds: readonly string[];
+  readonly replayIdentity: string;
+  readonly replayDigest: string;
+}
+
 export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeScope {
   readonly kind: "instruction_prompt_manifest_projected";
   readonly manifestRef: string;
@@ -2502,6 +2518,7 @@ export type RuntimeEvent =
   | RuntimeExternalInterruptionObservedEvent
   | PluginTraversalPromptMaterializedEvent
   | InstructionCausalContextBoundEvent
+  | RequirementProofCarryThroughAdmittedEvent
   | InstructionPromptManifestProjectedEvent
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
@@ -2620,6 +2637,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "runtime_external_interruption_observed",
   "plugin_traversal_prompt_materialized",
   "instruction_causal_context_bound",
+  "requirement_proof_carry_through_admitted",
   "instruction_prompt_manifest_projected",
   "instruction_response_contract_admitted",
   "fh_escalated",
