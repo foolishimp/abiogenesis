@@ -240,3 +240,35 @@ regressions, 1 stale expectation, 1 typed-carrier silent-ignore) + 1 open
 law question (unconstrained same-interface tie-break) handed to review.
 This lane is the standing rc.7 exhaustive live gate. test:semantic
 1059/1059 unchanged.
+
+## DMM Self-Review Fix Wave COMPLETE (2026-07-05) — all seven findings closed
+
+- F1 seam sprawl: EngineStartPassthroughFields + KEYS + helper = ONE
+  authority; m04 StartContext and CLI RuntimeBinding extend it; both
+  start.ts spreads, both engine delegations, and the CLI parse loop
+  consume it (19 hand-listed mentions -> 1 place to add a field).
+- F2/F4 builder duplication + untyped template DSL: ONE shared
+  glc-binding-source.mjs under sandbox/support with a TYPED variant
+  surface (unknown option keys throw — the validator caught its own first
+  caller bug: workspaceRoot leaking into source options). t180 1335->412
+  lines, t194 1854->706, zero inline builders; canonical repairs now land
+  once.
+- F3 inline producer: deriveRequirementProofCarryThroughAdmittedEvents
+  extracted to contracts (requirement_proof_carry_through_producer); the
+  runner keeps only the accepted-payload gate position and emission.
+- F5 registry ambiguity FIXED (adjudicated fail-open at the runner): no
+  pre-picked candidate on duplicate basis matches; the pick law decides.
+  Matrix repriced: c2a constrained -> boundary lawfully RESOLVES
+  (converge, decoy never selected, eligible carry-through intact); c2b
+  unconstrained -> fail closed (no_selected_candidate, replay-visible,
+  zero dispatch, zero minting). Contracts differentials added.
+- F6 declarations ingress: admitSerializedAttrs fails closed on unknown
+  sibling keys (differential added; semantic proves no lawful caller
+  relied on the hole).
+- F7: row b on runNegativeRow; stringly probes -> field assertions
+  (entryRef/selectedEntryRef); retention policy NAMED per DMM §6C:
+  test_runs/ sub-instances accumulate per run and are cleaned manually —
+  acceptable for a proof lane, revisit if disk pressure appears.
+- Gates: t194 matrix 1/1 GREEN (14 rows incl. c2a/c2b); canonical
+  hello-world live 1/1 GREEN on the shared builder; test:semantic
+  1062/1062 (includes 3 new differentials).
