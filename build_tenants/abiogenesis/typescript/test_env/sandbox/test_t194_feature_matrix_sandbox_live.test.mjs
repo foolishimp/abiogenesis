@@ -382,9 +382,37 @@ function vector(source, target, id, name) {
         tags: ["odd_glc", "glc-bootstrap"]
       }
     ],
-    declarations: constructDefaultAbgFnCompositionDeclarations({
-      scopeRef: "odd-glc/glc-hello-world-bootstrap"
-    }),
+    declarations: (() => {
+      const base = constructDefaultAbgFnCompositionDeclarations({
+        scopeRef: "odd-glc/glc-hello-world-bootstrap"
+      });
+      if (!${JSON.stringify(input.registryDecoy === true)}) {
+        return base;
+      }
+      // typed SerializedAttrs entry — plain record keys are ignored by the
+      // declaration reader (entries + string_list carrier only)
+      return Object.freeze({
+        entries: Object.freeze([
+          ...base.entries,
+          Object.freeze({
+            key: "runtime_registry_candidate_refs",
+            value: Object.freeze({
+              kind: "string_list",
+              value: Object.freeze([
+                // every lawful entry EXCEPT the decoy — the vector-scoped
+                // constraint governs all registry lookups on this vector
+                "registry-entry://odd_glc/glc-bootstrap/graph-function/glc-hello-world-bootstrap",
+                "registry-entry://odd_glc/glc-bootstrap/node-type/bootstrap-context",
+                "registry-entry://odd_glc/glc-bootstrap/node-type/executable-artifact",
+                "registry-entry://odd_glc/glc-bootstrap/node-type/execution-evidence",
+                "registry-entry://odd_glc/glc-bootstrap/node-type/hello-world-program",
+                "registry-entry://odd_glc/glc-bootstrap/node-type/lifecycle-artifact"
+              ])
+            })
+          })
+        ])
+      });
+    })(),
     tags: ["odd_glc", "glc-bootstrap", "t180"]
   }).vectors[0];
 }
@@ -559,7 +587,17 @@ const productDeclarations = Object.freeze([
     targetContractRef: "contract://odd_glc/execution-evidence",
     authorityRefs: ["authority://abg/runtime"],
     policyRefs: ["policy://odd_glc/glc-bootstrap-selection"]
-  })
+  })${input.registryDecoy === true ? `,
+  libraryEntry({
+    slug: "graph-function/decoy-boundary-test",
+    entryKind: "graph_function",
+    graphFunctionRef: glcHelloWorldGraphFunction.id,
+    interfaceRef: "interface://odd_glc/glc-hello-world-bootstrap",
+    sourceContractRef: "contract://odd_glc/bootstrap-context",
+    targetContractRef: "contract://odd_glc/execution-evidence",
+    authorityRefs: ["authority://abg/runtime"],
+    policyRefs: ["policy://odd_glc/glc-bootstrap-selection"]
+  })` : ""}
 ]);
 
 const runtimeRegistryStartup = Object.freeze({
@@ -1600,6 +1638,51 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
   const idsOf = (report) => report.issues.map((row) => row.ruleRef).sort().join("|");
   assert.equal(idsOf(e1), idsOf(d1), "e: issue-ID multiset must replay exactly");
   assert.equal(e1.inventoryDigest, d1.inventoryDigest, "e: inventory digest must replay exactly");
+
+  // Row c2: registry lookup boundary — a same-interface DECOY entry is
+  // admitted (enumerated), the vector's declared candidate refs make it
+  // INELIGIBLE, and the system FAILS CLOSED: selection rejection is
+  // replay-visible, nothing dispatches, no coverage truth is minted.
+  // (GOAL-005: ambiguity fails closed — no silent fallback to the lawful
+  // entry when a rival candidate contaminates the selection.)
+  const c2 = await runNegativeRow("c2", { registryDecoy: true });
+  assert.equal(c2.rowStart.status, 4, "c2: an ambiguous registry must block, not converge");
+  const c2Admitted = c2.rowEvents.filter(
+    (event) => event.kind === "registry_entry_admitted" && event.entryKind === "graph_function"
+  );
+  assert.equal(c2Admitted.length, 2, "c2: decoy must be ENUMERATED (admitted) alongside the lawful entry");
+  assert.equal(
+    c2Admitted.some((event) => JSON.stringify(event).includes("decoy-boundary-test")),
+    true,
+    "c2: the admitted set must include the decoy"
+  );
+  const c2Rejections = c2.rowEvents.filter(
+    (event) => event.kind === "graph_function_selection_rejected"
+  );
+  assert.equal(c2Rejections.length > 0, true, "c2: the selection rejection must be replay-visible");
+  assert.equal(c2Rejections[0].rejectionReason, "selected_candidate_not_eligible");
+  assert.equal(
+    c2Rejections[0].rejectedCandidateRefs.some((ref) => ref.includes("decoy-boundary-test")),
+    true,
+    "c2: the rejection must name the decoy"
+  );
+  assert.equal(
+    c2.rowEvents.filter((event) => event.kind === "fp_dispatch_requested").length,
+    0,
+    "c2: nothing may dispatch past a rejected selection"
+  );
+  assert.equal(
+    c2.rowEvents.filter((event) => event.kind === "requirement_proof_carry_through_admitted").length,
+    0,
+    "c2: no coverage truth may be minted past a rejected selection"
+  );
+  const c2Terminal = c2.rowEvents.find((event) => event.kind === "terminal_reached");
+  assert.equal(c2Terminal.terminalKind, "gap_stop");
+  assert.equal(
+    c2Terminal.reason.includes("runtime registry selection rejected"),
+    true,
+    "c2: the terminal must carry the selection-rejection reason"
+  );
   const registryEvents = events.filter((event) =>
     event.kind === "registry_entry_admitted"
   );

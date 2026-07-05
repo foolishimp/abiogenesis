@@ -199,3 +199,24 @@ decoy enumerated (registry_entry_admitted) AND registry_entry_rejected
 present for it AND selections exclude the decoy AND run still converges.
 c2 is installed-path confirmation of law already unit-proven in the T-189
 wave — hardening, not an rc.7 gate.
+
+## c2 Law Findings (2026-07-05, discovered while earning the row)
+
+1. `runtime_registry_candidate_refs` is a VECTOR-SCOPED whitelist governing
+   ALL registry lookups on that vector (node types included), not a
+   graph-function-only filter. A partial list starves infrastructure
+   lookups and blocks the run. Documented in the lane comment.
+2. Declarations are a typed SerializedAttrs carrier ({entries:[{key,
+   value:{kind:"string_list",...}}]}); plain record keys spread into
+   `declarations` are SILENTLY IGNORED — an undeclared-hole class for
+   T-191 (a conformance row should flag unknown plain keys).
+3. FAIL-CLOSED CONFIRMED with constraint: selector picks the decoy,
+   eligibility rejects it (selected_candidate_not_eligible), run gap-stops
+   with graph_function_selection_rejected naming the decoy — replay-visible
+   selection truth, zero dispatch, zero coverage minted. Row c2 asserts
+   this exact law.
+4. OPEN LAW QUESTION (for external review): WITHOUT a constraint, two
+   same-interface candidates yielded a SILENT PICK (decoy selected, run
+   proceeded) — GOAL-005 says ambiguity fails closed. Either a lawful
+   deterministic tie-break exists (locate and cite it) or unconstrained
+   same-interface duplicates are a fail-open gap needing a ticket.
