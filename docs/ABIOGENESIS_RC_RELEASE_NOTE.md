@@ -1,10 +1,13 @@
-# abiogenesis 4.2.0-rc.8 Release Candidate Note
+# abiogenesis 4.2.0-rc.9 Release Candidate Note
 
-This checkpoint is the eighth TypeScript ABG `4.2.0` release candidate. It
-follows `4.2.0-rc.7` and publishes the temporal-property layer (the
-constitution enforcing itself per run) and constitutional drift detection,
-on top of the rc.7 carry-through, dispatch-enumeration, authoring-loop,
-and standing-gate waves.
+This checkpoint is the ninth TypeScript ABG `4.2.0` release candidate. It
+follows `4.2.0-rc.9` with two downstream-driven root-cause fixes from the
+odd_glc data-mapper live campaign (T-030): the causal-excerpt render bound
+is plan-declared policy (`causalExcerptMaxChars`, fail-closed validation)
+instead of a hardcoded 12k constant that silently starved product-scale
+admitted content, and the codex worker model is adapter ingress
+(`ABG_TS_CODEX_MODEL`) instead of a hardcoded account-dependent pin. All
+rc.8 claims are preserved unchanged.
 
 It is an RC candidate, not the final tapped `4.2.0` release.
 
@@ -147,9 +150,9 @@ RC7 does not accept as truth:
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.8`
-- Candidate package version: `4.2.0-rc.8`
-- Candidate tag: `v4.2.0-rc.8`
+- RC identity: `4.2.0-rc.9`
+- Candidate package version: `4.2.0-rc.9`
+- Candidate tag: `v4.2.0-rc.9`
 
 ## Verification
 
