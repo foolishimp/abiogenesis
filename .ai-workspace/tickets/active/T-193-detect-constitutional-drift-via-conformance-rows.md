@@ -121,3 +121,18 @@ Acceptance criteria: INT-002 failure mode mechanically detected ✓ (live,
 then fixed); RC4 failure mode mechanically detected ✓ (constructed +
 real-record validated clean); ratified IDs + repairs on all drift
 diagnostics ✓. Gates: t193 5/5; semantic 1092/1092.
+
+## Gödel Checkpoint 3 (post-realization review-react)
+
+REACTED: CONTRACT-LAW-API index extended to -028. NAMED (successors, not
+closure blockers): (a) the real-tree release-record witness window runs
+from the rc.7 marker to EOF — deliberately strict (future GOALS appends
+mentioning active tickets go red and force review) but over-broad as
+prose-vs-claim discrimination; paragraph-scoped witnessing is the
+successor. (b) seamKeySets are structurally true post-F1 (every seam
+consumes ENGINE_START_PASSTHROUGH_KEYS by construction) but not yet
+witnessed from live introspection — the parity RULE is proven by
+constructed differential; live seam witnessing is the successor. (c) the
+witness loader lives in the test lane; a product-grade loader (installer/
+CLI emitting witnessed rows) is the successor that takes drift detection
+beyond the dev tree.
