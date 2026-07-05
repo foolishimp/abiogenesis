@@ -1491,3 +1491,9 @@ Remaining from adjudication #2: coverage-ref parser + factory
 cross-validation (item 6); role-typed (not just typed-source) strength
 resolution, eligibility discharge, and fold behavior = B3 scope. M3
 remains PARTIAL until those land.
+- Slice-5 self-review (2026-07-05): verified single M5 block (no duplicate
+  from the revert/reapply cycle), typed-source scan with zero raw
+  artifact refs, both start forwards, edge-scoped consumer, clean tree at
+  the slice-5 commit. RECORD CORRECTION: the slice-5 commit message says
+  "t188 25/25"; the actual gate is 24/24 (20 unit + 4 wiring) — message
+  overstated by one, ticket record is authoritative.
