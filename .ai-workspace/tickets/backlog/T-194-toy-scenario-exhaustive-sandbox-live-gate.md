@@ -114,3 +114,15 @@ Artifact: one digest-pinned summary JSON recording every sub-run verdict —
 the rc.7 note cites this single digest. Worker cost: 2 live dispatches
 (a-branch + b-branch); everything else engine/compiler-level inside the
 installed sandbox.
+
+## Build Step 1 COMPLETE (2026-07-05) — public-path forwarding gap found and fixed
+
+As predicted by the scout: the m04 adapter chain (StartContext +
+publicCallableStart at BOTH start.ts sites) declared and forwarded only
+runtimeRegistryStartup + instructionAssemblyStartup — it silently dropped
+requirementProofCarryThroughStartup AND requirementRouteDeclarationBundle.
+The P1-b defect class, one layer above the engine (engine-level forwarding
+was fixed in the T-188 wave; the adapter was not). Fixed: both fields on
+StartContext, forwarded at both sites. build clean; test:semantic
+1059/1059. The T-194 lane will prove the forwarding live from the
+installed sandbox (matrix rows a3/b depend on it).

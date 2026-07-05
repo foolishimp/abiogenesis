@@ -29,6 +29,8 @@ export interface PublicStartContext {
   readonly assuranceProvider?: EngineAssuranceProvider;
   readonly runtimeRegistryStartup?: EngineStartRequest["runtimeRegistryStartup"];
   readonly instructionAssemblyStartup?: EngineStartRequest["instructionAssemblyStartup"];
+  readonly requirementProofCarryThroughStartup?: EngineStartRequest["requirementProofCarryThroughStartup"];
+  readonly requirementRouteDeclarationBundle?: EngineStartRequest["requirementRouteDeclarationBundle"];
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
   readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;

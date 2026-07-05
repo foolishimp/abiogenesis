@@ -78,6 +78,12 @@ export function startFromRequest(
     ...(context.instructionAssemblyStartup === undefined
       ? {}
       : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
+    ...(context.requirementProofCarryThroughStartup === undefined
+      ? {}
+      : { requirementProofCarryThroughStartup: context.requirementProofCarryThroughStartup }),
+    ...(context.requirementRouteDeclarationBundle === undefined
+      ? {}
+      : { requirementRouteDeclarationBundle: context.requirementRouteDeclarationBundle }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),
@@ -146,6 +152,12 @@ export async function startFromRequestAsync(
     ...(context.instructionAssemblyStartup === undefined
       ? {}
       : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
+    ...(context.requirementProofCarryThroughStartup === undefined
+      ? {}
+      : { requirementProofCarryThroughStartup: context.requirementProofCarryThroughStartup }),
+    ...(context.requirementRouteDeclarationBundle === undefined
+      ? {}
+      : { requirementRouteDeclarationBundle: context.requirementRouteDeclarationBundle }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),
