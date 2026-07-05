@@ -1590,3 +1590,22 @@ carry-through witness migration (undeclared-obligation edges become
 declared or blocked) is the named successor that retires the transitional
 state; release notes shall not claim universal coverage-gated closure
 until it lands.
+
+Codex-round realizations landed with the adjudication (2026-07-06):
+- IDENTITY SCOPE (Medium accepted): edge-close coverage threading now
+  matches basisId + closing-vector edge + vectorIndex (was vectorIndex
+  alone); differential proves a forged foreign-edge residual seeded into
+  replay does NOT flip the closing fold (t188 fold lane 7/7).
+  frameId/graphCallId/runId matching = named residual (close site carries
+  no frame/run identity today).
+- STRENGTH PROJECTION (Medium accepted): the producer's inline scan moved
+  to ONE named replay-derived projection — deriveAdmittedStrengthRefSet in
+  payload_ledger, documented as the REQ -035 interim "equivalent admitted
+  projection"; the full ProofStrengthAdmission carrier (-035 field list)
+  remains the named successor, now with requirement teeth.
+- Record drift (Medium): GOAL-031 + three completed-ticket headers made
+  truthful; this failure class is a named T-193 differential candidate
+  (board-metadata-vs-ticket-state parity).
+- Gate classification (Low/Medium accepted): T-194 runs now write
+  t194-gate-classification.json {sourceClean, releaseGrade} — dirty-source
+  runs are explicitly NOT citable in release notes.

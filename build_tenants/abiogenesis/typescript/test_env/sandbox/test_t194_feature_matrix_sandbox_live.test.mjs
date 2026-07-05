@@ -207,6 +207,30 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
   );
   assert.equal(typeof genesisCommand, "string");
   const startedAt = Date.now();
+  // RELEASE-GRADE MARKING (codex round): the gate ACCEPTS dirty source for
+  // development runs, but the artifact is explicitly classified — a release
+  // note may cite only a sourceClean run.
+  const sourceStatus = spawnSync("git", ["status", "--porcelain"], {
+    cwd: TENANT_ROOT,
+    encoding: "utf8"
+  });
+  const sourceClean = sourceStatus.status === 0 && sourceStatus.stdout.trim().length === 0;
+  await writeText(
+    path.join(runRoot, "t194-gate-classification.json"),
+    JSON.stringify(
+      {
+        kind: "t194_gate_run_classification",
+        sourceClean,
+        releaseGrade: sourceClean,
+        note: sourceClean
+          ? "clean-source run: citable as release-grade gate evidence"
+          : "dirty-source development run: NOT citable in a release note"
+      },
+      null,
+      2
+    ) + "\n"
+  );
+  console.error(`t194 gate classification: sourceClean=${sourceClean}`);
   const start = run(
     genesisCommand,
     [

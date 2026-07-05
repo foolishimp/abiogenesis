@@ -3819,9 +3819,17 @@ function emitRequirementRouteForEdgeClose(input: {
     // Rejected ADMISSIONS still carry residual coverage truth — an output
     // that failed envelope law is no-close pressure, not silence (the
     // rejected-PAYLOAD case is already excluded upstream: no emission
-    // happens without an accepted attached payload). Scope to the closing
-    // edge only.
-    if (event.vectorIndex !== input.vectorIndex) {
+    // happens without an accepted attached payload).
+    // IDENTITY SCOPE (codex round): basis + edge + vector — not
+    // vectorIndex alone; recursive/repeated graph calls reuse vector
+    // indexes. frameId/graphCallId/runId matching is the named residual
+    // (the close site does not carry frame/run identity today).
+    const closingVector = input.request.basis.graph.vectors[input.vectorIndex];
+    if (
+      event.vectorIndex !== input.vectorIndex ||
+      event.basisId !== input.request.basis.id ||
+      (closingVector !== undefined && event.edge !== closingVector.name)
+    ) {
       continue;
     }
     event.coverageRequirementIds.forEach((requirementId, index) => {

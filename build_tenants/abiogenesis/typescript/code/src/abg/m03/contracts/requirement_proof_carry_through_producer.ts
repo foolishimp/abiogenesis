@@ -25,6 +25,7 @@ import {
   type DerivedProofDepthInstructionTruth
 } from "./instruction_assembly.js";
 import { constructRequirementProofCarryThroughAdmittedEvent } from "./event_factories.js";
+import { deriveAdmittedStrengthRefSet } from "./payload_ledger.js";
 
 export interface RequirementProofCarryThroughStartupEntry {
   readonly contract: RequirementProofCarryThroughContract;
@@ -53,19 +54,10 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
   if (input.startup === undefined) {
     return Object.freeze([]);
   }
-  // Typed admitted sources ONLY: evidence_admitted and validated payloads.
-  // Raw artifact/result/observed refs are NOT strength truth (string
-  // presence must not masquerade as admission). Successor (recorded in
-  // T-188 closure): swap this scan for derivePayloadLedgerProjection so
-  // one projection owns admitted-ref truth.
-  const admittedLedgerRefs = new Set<string>();
-  for (const priorEvent of input.replayEvents) {
-    if (priorEvent.kind === "evidence_admitted") {
-      admittedLedgerRefs.add(priorEvent.evidenceRef);
-    } else if (priorEvent.kind === "payload_validated") {
-      admittedLedgerRefs.add(priorEvent.payloadRef);
-    }
-  }
+  // Strength resolution consumes the ONE named replay-derived projection
+  // (REQ -035 interim equivalence; full ProofStrengthAdmission carrier is
+  // the named successor).
+  const admittedLedgerRefs = deriveAdmittedStrengthRefSet(input.replayEvents);
   const events: RequirementProofCarryThroughAdmittedEvent[] = [];
   for (const entry of input.startup.entries) {
     if (entry.edge !== undefined && entry.edge !== input.invocation.edge) {

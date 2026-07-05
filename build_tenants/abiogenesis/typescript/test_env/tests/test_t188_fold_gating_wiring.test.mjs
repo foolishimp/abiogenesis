@@ -347,7 +347,7 @@ function b3Bundle(basis, vectorIndex) {
   });
 }
 
-function b3Run(carryEntry, pluginEvidenceRefs) {
+function b3Run(carryEntry, pluginEvidenceRefs, seedEvents) {
   const base = buildThreeStageBasis({ defaultRegime: "F_P" });
   const basis = Object.freeze({
     ...base,
@@ -356,6 +356,7 @@ function b3Run(carryEntry, pluginEvidenceRefs) {
   const events = [];
   const result = runEngineIterate({
     basis,
+    ...(seedEvents === undefined ? {} : { runtimeEvents: seedEvents }),
     eventSink: (event) => events.push(event),
     ...m03InstructionAssemblyRequestFields(basis),
     requirementRouteDeclarationBundle: b3Bundle(basis, 0),
@@ -434,4 +435,61 @@ test("T-188 B3: uncovered/residual coverage shall not close; eligible coverage f
   assert.deepEqual(eligible.carry.coverageStatuses, ["eligible"]);
   assert.ok(eligible.fold);
   assert.equal(eligible.fold.requirementPayload.fold.state, "satisfied");
+});
+
+test("T-188 identity scope: foreign-edge residual coverage does not feed the closing fold", async () => {
+  const {
+    constructRequirementProofCarryThroughAdmittedEvent,
+    requirementAbgTruthRefFromRequirementProofCoverage
+  } = await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const { emit } = await import("../../build/semantic/code/src/abg/m03/events/index.js");
+  const probe = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const foreignRef = requirementAbgTruthRefFromRequirementProofCoverage({
+    kind: "requirement_proof_coverage_projection",
+    projectionRef: "requirement-proof-coverage://t188/forged/foreign",
+    requirementId: "REQ-T188-B3-001",
+    status: "residual"
+  });
+  // same basis + same vectorIndex, but the EDGE is vector 1's — the
+  // identity scope must exclude it from vector 0's close.
+  const forged = constructRequirementProofCarryThroughAdmittedEvent({
+    invocation: {
+      basisId: probe.id,
+      graphFunctionId: probe.graphFunction.id,
+      runId: "run://t188/forged",
+      workKey: "wk://t188/forged",
+      graphCallId: "graph-call://t188/forged",
+      frameId: "frame://t188/forged",
+      vectorIndex: 0,
+      edge: probe.graph.vectors[1]?.name ?? "requirements→design",
+      actorInvocationId: "actor-invocation://t188/forged",
+      workerId: "worker://t188/forged",
+      backendId: "backend://t188/forged",
+      causationEventRefs: [],
+      correlationId: "correlation://t188/forged",
+      resultRef: "result://t188/forged"
+    },
+    frameLineageId: null,
+    correlationId: "correlation://t188/forged",
+    envelopeRef: "envelope://t188/forged",
+    contractRef: "plugin-proof-contract://t188/forged",
+    categoryKey: "category://t188/forged",
+    accepted: true,
+    sourceRequirementObligationRefs: ["requirement-obligation://t188/forged"],
+    proofObligationRefs: ["proof-obligation://t188/forged"],
+    evidenceRoleRefs: ["evidence-role://t188/forged"],
+    issueKinds: [],
+    coverageRequirementIds: ["REQ-T188-B3-001"],
+    coverageStatuses: ["residual"],
+    coverageIssueKinds: ["missing_depth_obligation_class"],
+    coverageTruthRefs: [foreignRef],
+    replayIdentity: "replay://t188/forged",
+    replayDigest: "sha256:t188-forged"
+  });
+  // baseline WITH the forged foreign-edge residual seeded: fold must STILL
+  // be satisfied — the residual must not leak across edge identity.
+  const stamped = emit([forged], () => undefined);
+  const seeded = b3Run(undefined, undefined, stamped);
+  assert.ok(seeded.fold);
+  assert.equal(seeded.fold.requirementPayload.fold.state, "satisfied");
 });

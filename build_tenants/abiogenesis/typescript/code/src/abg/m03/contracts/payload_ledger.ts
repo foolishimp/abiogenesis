@@ -1292,3 +1292,23 @@ export function deriveAssuranceEvidenceRowsFromPayloadLedger(input: {
     })
   );
 }
+
+// Implements: REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-035 (interim
+// "equivalent admitted projection"). ONE replay-derived home for the
+// admitted strength-resolution ref set: evidence_admitted evidence refs +
+// validated payload refs. Raw artifact/result/observed refs are NOT
+// strength truth. The full ProofStrengthAdmission carrier (-035 field
+// list) is the named successor; consumers shall swap to it, not fork this.
+export function deriveAdmittedStrengthRefSet(
+  events: readonly RuntimeEvent[]
+): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const event of events) {
+    if (event.kind === "evidence_admitted") {
+      refs.add(event.evidenceRef);
+    } else if (event.kind === "payload_validated") {
+      refs.add(event.payloadRef);
+    }
+  }
+  return refs;
+}
