@@ -174,3 +174,4 @@ with product-declared truth. Harness lessons recorded: replicate the
 canonical CLI invocation verbatim (--scope/--target/--until); guard
 sub-run exit statuses explicitly ([0,4] = converge-or-block, anything
 else fails loudly).
+- Rows c1+c3 EARNED (2026-07-05, green first run): c1 fail-closed (no instruction startup -> exit 4 + gap_stop + zero dispatch + zero carry truth); c3 ordering gate (assessment-less stub artifact -> dispatch happens, payload admission rejects, ZERO carry admissions, no satisfied fold). runNegativeRow helper added (per-row instance, ~15 lines per future negative). Live cost unchanged (2 dispatches).

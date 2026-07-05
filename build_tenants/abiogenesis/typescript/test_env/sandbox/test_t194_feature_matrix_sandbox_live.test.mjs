@@ -955,7 +955,7 @@ export const runtimeBinding = {
     approvalSubjectRef: null
   }),
   runtimeRegistryStartup,
-  instructionAssemblyStartup,
+${input.omitInstructionAssembly === true ? "" : "  instructionAssemblyStartup,"}
   requirementRouteDeclarationBundle: t194Bundle,
   requirementProofCarryThroughStartup: {
     entries: [
@@ -982,7 +982,7 @@ export const runtimeBinding = {
           attachedResultArtifact: {
             edge: pluginInput.expectedEdge ?? pluginInput.edge,
             actor: "codex",
-            fulfillment_assessments: (pluginInput.expectedAssessmentIds.length > 0
+            fulfillment_assessments: ${input.stubArtifactVariant === "missing_assessments" ? "[] || " : ""}(pluginInput.expectedAssessmentIds.length > 0
               ? pluginInput.expectedAssessmentIds
               : ["runtime_fulfilled"]).map((assessmentId) => ({
               id: assessmentId,
@@ -1427,6 +1427,84 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     foldB.some((event) => event.requirementPayload?.fold?.state === "satisfied"),
     false,
     "no satisfied fold may exist for the shallow branch"
+  );
+
+  // Shared sub-run helper for the negative rows (stub worker, per-row instance).
+  const runNegativeRow = async (rowName, bindingOptions) => {
+    const rowRoot = path.join(runRoot, `instance-${rowName}`);
+    await mkdir(rowRoot, { recursive: true });
+    const rowInstall = await installAbiogenesisTypescript({
+      targetRoot: { rootPath: rowRoot },
+      packageSourceRoot: snapshotPackageRoot,
+      standardsSourceRoot: STANDARDS_ROOT,
+      docsSourceRoot: DOCS_ROOT,
+      installedPackageName: packageJson.name,
+      toolchainRoot
+    });
+    assert.equal(rowInstall.kind, "installed");
+    await writeGlcRuntimeBinding({
+      workspaceRoot: rowRoot,
+      packageRoot: rowInstall.packageRoot,
+      packageVersion: packageJson.version,
+      stubDispatch: true,
+      ...bindingOptions
+    });
+    const rowCommand = rowInstall.commandPaths.find((commandPath) =>
+      path.basename(commandPath) === "genesis-ts"
+    );
+    const rowStart = spawnSync(
+      rowCommand,
+      ["start", "--workspace", rowRoot, "--scope", "workspace", "--target", "next", "--until", "converged"],
+      { cwd: rowRoot, encoding: "utf8", env: { ...process.env, ABG_TS_T194_FEATURE_MATRIX_LIVE: "1" } }
+    );
+    assert.equal([0, 4].includes(rowStart.status), true,
+      `row ${rowName} start must converge or block, got ${rowStart.status}\n${rowStart.stdout}\n${rowStart.stderr}`);
+    const rowEvents = parseJsonLines(
+      await readFile(path.join(rowRoot, ".ai-workspace", "events", "events.jsonl"), "utf8")
+    );
+    return { rowStart, rowEvents };
+  };
+
+  // Row c1: REQ-017 fail-closed — no instruction assembly startup declared
+  // => the engine shall block BEFORE any dispatch; nothing reaches a worker.
+  const c1 = await runNegativeRow("c1", { omitInstructionAssembly: true });
+  assert.equal(c1.rowStart.status, 4, "c1 must block (fail-closed), not converge");
+  assert.equal(
+    c1.rowEvents.filter((event) => event.kind === "fp_dispatch_requested").length,
+    0,
+    "c1: no dispatch may be requested without admitted instruction plans"
+  );
+  assert.equal(
+    c1.rowEvents.filter((event) => event.kind === "requirement_proof_carry_through_admitted").length,
+    0,
+    "c1: no carry-through truth may be minted on the blocked path"
+  );
+  const c1Terminal = c1.rowEvents.find((event) => event.kind === "terminal_reached");
+  assert.ok(c1Terminal, "c1 must reach a typed terminal");
+  assert.equal(c1Terminal.terminalKind, "gap_stop");
+
+  // Row c3: rejected-payload no-emission — stub artifact with no
+  // fulfillment assessments fails payload admission; the T-188 ordering
+  // gate means NO carry-through truth may exist despite dispatch happening.
+  const c3 = await runNegativeRow("c3", { stubArtifactVariant: "missing_assessments" });
+  assert.equal(
+    c3.rowEvents.filter((event) => event.kind === "fp_dispatch_requested").length > 0,
+    true,
+    "c3: dispatch must happen (the failure is payload admission, not planning)"
+  );
+  assert.equal(
+    c3.rowEvents.filter((event) => event.kind === "requirement_proof_carry_through_admitted").length,
+    0,
+    "c3: a rejected payload shall not mint coverage truth (T-188 ordering gate)"
+  );
+  assert.equal(
+    c3.rowEvents.some((event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_fold_projected" &&
+      event.requirementPayload?.fold?.state === "satisfied"
+    ),
+    false,
+    "c3: no satisfied requirement fold may exist without admitted coverage"
   );
   const registryEvents = events.filter((event) =>
     event.kind === "registry_entry_admitted"
