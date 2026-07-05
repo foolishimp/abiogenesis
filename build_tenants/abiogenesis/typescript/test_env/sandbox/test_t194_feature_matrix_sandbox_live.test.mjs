@@ -1506,6 +1506,100 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     false,
     "c3: no satisfied requirement fold may exist without admitted coverage"
   );
+
+  // Rows d1-d5 + e: the T-191 authoring-law compiler surface, exercised
+  // against the INSTALLED artifact (no engine run, no live cost).
+  const installedRoot = await import(
+    pathToFileURL(
+      path.join(install.packageRoot, "build", "semantic", "code", "src", "index.js")
+    ).href
+  );
+  const { typecheckGtlProgram, assertRatifiedGtlProgramDiagnosticId } = installedRoot;
+  assert.equal(typeof typecheckGtlProgram, "function", "installed artifact must export typecheckGtlProgram");
+
+  // d1: every live issue carries a ratified identity + repair field; unknown IDs throw.
+  const d1 = typecheckGtlProgram({});
+  assert.equal(d1.issues.length > 0, true, "d1: live conformance must surface issues");
+  for (const row of d1.issues) {
+    assertRatifiedGtlProgramDiagnosticId(row.ruleRef);
+    assert.equal(Array.isArray(row.admissibleRepairs), true);
+  }
+  assert.throws(
+    () => assertRatifiedGtlProgramDiagnosticId("abg://gtl-program/bogus/unratified"),
+    /ratified/iu,
+    "d1: unratified diagnostic identities must be rejected by the installed gate"
+  );
+
+  // d2: declaration-source witness law (module_export needs a digest; canonical_data clean).
+  const d2Flagged = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://t194/index.mjs", sourceKind: "module_export", canonicalDigest: "" }
+    ]
+  });
+  const d2Hit = d2Flagged.issues.filter(
+    (row) => row.ruleRef === "abg://gtl-program/declaration/module-export-round-trip"
+  );
+  assert.equal(d2Hit.length, 1, "d2: digestless module_export must flag round-trip law");
+  assert.equal(d2Hit[0].admissibleRepairs[0].editClass, "align_digest_or_version");
+  const d2Clean = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://t194/program.gtl.json", sourceKind: "canonical_data", canonicalDigest: "sha256:t194" }
+    ]
+  });
+  assert.equal(
+    d2Clean.issues.filter((row) => row.surfaceKind === "declaration_source").length,
+    0,
+    "d2: witnessed canonical_data must be clean"
+  );
+
+  // d3: golden instances require a content digest.
+  const d3 = typecheckGtlProgram({
+    goldenInstanceBindings: [
+      { contractRef: "contract://t194/toy", exampleInstanceRefs: ["payload://t194/good"], counterexampleInstanceRefs: [], instanceSetDigest: "" }
+    ]
+  });
+  assert.equal(
+    d3.issues.filter(
+      (row) => row.ruleRef === "abg://gtl-program/contract/golden-instance-digest-required"
+    ).length,
+    1,
+    "d3: digestless golden binding must be flagged"
+  );
+
+  // d4: declared underdetermination requires a lawful owner route (F_D is not one).
+  const d4 = typecheckGtlProgram({
+    underdeterminedDeclarations: [
+      { scopeRef: "scope://t194/toy", ownerRoute: "F_D", latitudeNote: "" }
+    ]
+  });
+  assert.equal(
+    d4.issues.filter(
+      (row) => row.ruleRef === "abg://gtl-program/input/underdetermined-owner-route-field"
+    ).length,
+    1,
+    "d4: F_D owner route must fail closed"
+  );
+
+  // d5: identity coverage — a differing witness row changes the inventory digest.
+  const d5a = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://t194/a", sourceKind: "canonical_data", canonicalDigest: "sha256:a" }
+    ]
+  });
+  const d5b = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://t194/b", sourceKind: "canonical_data", canonicalDigest: "sha256:b" }
+    ]
+  });
+  assert.notEqual(d5a.inventoryDigest, d5b.inventoryDigest,
+    "d5: witness rows must be covered by the inventory digest");
+
+  // e: corpus-style exact replay — identical input reproduces the identical
+  // issue-ID multiset and digest from the installed artifact.
+  const e1 = typecheckGtlProgram({});
+  const idsOf = (report) => report.issues.map((row) => row.ruleRef).sort().join("|");
+  assert.equal(idsOf(e1), idsOf(d1), "e: issue-ID multiset must replay exactly");
+  assert.equal(e1.inventoryDigest, d1.inventoryDigest, "e: inventory digest must replay exactly");
   const registryEvents = events.filter((event) =>
     event.kind === "registry_entry_admitted"
   );
