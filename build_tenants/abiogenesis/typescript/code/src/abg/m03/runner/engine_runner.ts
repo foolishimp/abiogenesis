@@ -3775,7 +3775,12 @@ function emitRequirementRouteForEdgeClose(input: {
     if (event.kind !== "requirement_proof_carry_through_admitted") {
       continue;
     }
-    if (!event.accepted || event.vectorIndex !== input.vectorIndex) {
+    // Rejected ADMISSIONS still carry residual coverage truth — an output
+    // that failed envelope law is no-close pressure, not silence (the
+    // rejected-PAYLOAD case is already excluded upstream: no emission
+    // happens without an accepted attached payload). Scope to the closing
+    // edge only.
+    if (event.vectorIndex !== input.vectorIndex) {
       continue;
     }
     event.coverageRequirementIds.forEach((requirementId, index) => {

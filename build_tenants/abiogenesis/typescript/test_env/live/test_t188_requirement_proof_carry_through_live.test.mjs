@@ -3,6 +3,17 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
+import {
+  buildThreeStageBasis,
+  m03InstructionAssemblyRequestFields
+} from "../tests/support/m03-iteration-fixtures.mjs";
+import * as publicRoot from "@abiogenesis/typescript-tenant";
+import {
+  runEngineIterate,
+  constructEnginePluginContract,
+  constructFpDispatchOutcome
+} from "@abiogenesis/typescript-tenant";
+import * as publicGtlRequirements from "@abiogenesis/typescript-tenant/gtl/requirements";
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -409,55 +420,152 @@ test("T-188 live F_P output closes only with admitted depth and preserves residu
     executionEvidenceRef,
     evaluatorFindingRef: "evaluator-finding://t188/live/source-build"
   });
-  const fullAdmission = admitRequirementProofCarryThroughOutput({
-    contract,
-    classificationTable: classificationTable(),
-    envelope: carryEnvelope({
-      realizationEvidenceRef,
-      executionEvidenceRef,
-      depthClassRefs: ["depth-class://positive", "depth-class://negative"]
-    })
+  // Engine-driven (B3): both scenarios run through runEngineIterate with the
+  // REAL worker evidence — the verifier execution ref is the strength
+  // evidence; nothing below hand-calls admission, coverage, or fold.
+  const requirementId = "requirement://t188/live/r1";
+  const table = classificationTable();
+  const baseContract = carryContract({
+    realizationEvidenceRef,
+    executionEvidenceRef,
+    evaluatorFindingRef: "evaluator-finding://t188/live/source-build"
   });
-  assert.equal(fullAdmission.accepted, true);
-
-  const fullCoverage = projectRequirementProofCoverage({
-    projectionRef: "requirement-proof-coverage://t188/live/r1/full",
-    requirementId: "requirement://t188/live/r1",
-    requiredRequirementObligationRefs: ["requirement-obligation://t188/live/r1"],
-    admissions: [fullAdmission],
-    dependencyInstructionTruth: dependencyTruth(),
-    proofDepthInstructionTruth: proofDepthTruth({
-      label: "full",
-      depthClassRefs: ["depth-class://positive", "depth-class://negative"],
-      typedDepthGapRefs: [],
-      depthComplete: true
-    })
+  const engineContract = constructRequirementProofCarryThroughContract({
+    ...baseContract,
+    fdStrengthCriterionRefs: [executionEvidenceRef]
   });
-  assert.equal(fullCoverage.closureEligible, true);
-
-  const shallowCoverage = projectRequirementProofCoverage({
-    projectionRef: "requirement-proof-coverage://t188/live/r1/shallow",
-    requirementId: "requirement://t188/live/r1",
-    requiredRequirementObligationRefs: ["requirement-obligation://t188/live/r1"],
-    admissions: [fullAdmission],
-    dependencyInstructionTruth: dependencyTruth(),
-    proofDepthInstructionTruth: proofDepthTruth({
-      label: "shallow",
-      depthClassRefs: ["depth-class://positive"],
-      typedDepthGapRefs: [
-        "typed-depth-gap://t188/live/missing_depth_obligation_class/negative"
+  const templateBase = carryEnvelope({
+    realizationEvidenceRef,
+    executionEvidenceRef,
+    depthClassRefs: ["depth-class://positive", "depth-class://negative"]
+  });
+  const engineTemplate = (depthClassRefs) => {
+    const { envelopeRef, evidenceRefs, replayIdentity, replayDigest, kind, ...rest } =
+      templateBase;
+    return {
+      ...rest,
+      depthClassRefs,
+      proofStrengthAdmissionRefs: [executionEvidenceRef],
+      fdStrengthCriterionRefs: [executionEvidenceRef]
+    };
+  };
+  const engineRun = (depthClassRefs) => {
+    const base = buildThreeStageBasis({ defaultRegime: "F_P" });
+    const basis = Object.freeze({
+      ...base,
+      startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
+    });
+    const vector = basis.graph.vectors[0];
+    const spanId = `span://t188/live/${vector.id}`;
+    const bundle = publicGtlRequirements.declareBundle({
+      requirements: [
+        publicGtlRequirements.declareRequirement({
+          requirementId,
+          termKind: "atom",
+          stableId: requirementId,
+          sourceRef:
+            "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#013",
+          sourceDigest: "sha256:t188-live-requirement",
+          relationRefs: [],
+          spanRefs: [spanId],
+          contextRefs: [],
+          evidencePolicyRefs: ["policy://t188/live-evidence"]
+        })
       ],
-      depthComplete: false
-    })
-  });
-  assert.equal(shallowCoverage.closureEligible, false);
-  assert.equal(shallowCoverage.status, "residual");
+      spans: [
+        publicGtlRequirements.declareTraversalSpan({
+          spanId,
+          graphFunctionRef: basis.graphFunction.id,
+          graphVectorRefs: [vector.id],
+          vectorIndexes: [0],
+          sourceNodeRef: vector.source[0].id,
+          targetNodeRef: vector.target.id
+        })
+      ]
+    });
+    const events = [];
+    const result = runEngineIterate({
+      basis,
+      eventSink: (event) => events.push(event),
+      ...m03InstructionAssemblyRequestFields(basis),
+      requirementRouteDeclarationBundle: bundle,
+      requirementProofCarryThroughStartup: {
+        entries: [
+          {
+            contract: engineContract,
+            classificationTable: table,
+            requirementIds: [requirementId],
+            envelopeTemplate: engineTemplate(depthClassRefs)
+          }
+        ]
+      },
+      plugins: {
+        fpDispatch: Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t188/live/fp-dispatch",
+            pluginKind: "fp_dispatch",
+            authority: "effect_plugin",
+            inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpDispatchOutcome"
+          }),
+          dispatch(input) {
+            const assessmentIds =
+              input.expectedAssessmentIds.length > 0
+                ? input.expectedAssessmentIds
+                : ["runtime_fulfilled"];
+            return constructFpDispatchOutcome({
+              status: "dispatched",
+              resultRef: `result://t188/live/${input.vectorIndex}`,
+              attachedResultArtifact: {
+                edge: input.expectedEdge ?? input.edge,
+                actor: "codex",
+                fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+                  id: assessmentId,
+                  evaluator: assessmentId,
+                  fulfillment_status: "fulfilled",
+                  fulfillment_detail: "live worker artifacts verified",
+                  blocking_reasons: [],
+                  evidence_refs: [executionEvidenceRef, realizationEvidenceRef]
+                })),
+                selected_worker_id: input.workerId,
+                selected_backend: input.backendId,
+                role_id: "role://runtime",
+                assignment_source: "policy_resolution",
+                resolved_runtime_ref: input.resolvedRuntimeRef
+              },
+              evidenceRefs: []
+            });
+          }
+        }),
+        fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
+      }
+    });
+    const carry = result.replayEvents.find(
+      (event) => event.kind === "requirement_proof_carry_through_admitted"
+    );
+    const fold = result.replayEvents.find(
+      (event) =>
+        event.kind === "requirement_route_fact_projected" &&
+        event.routePayloadKind === "requirement_fold_projected"
+    );
+    return { carry, fold };
+  };
 
-  const fixture = foldFixture();
-  const fullFold = foldWithCoverage({ fixture, coverage: fullCoverage });
-  const shallowFold = foldWithCoverage({ fixture, coverage: shallowCoverage });
-  assert.equal(fullFold[0]?.state, "satisfied");
-  assert.equal(shallowFold[0]?.state, "no_close_preserved");
+  const full = engineRun(["depth-class://positive", "depth-class://negative"]);
+  assert.ok(full.carry);
+  assert.equal(full.carry.accepted, true);
+  assert.deepEqual(full.carry.coverageStatuses, ["eligible"]);
+  assert.equal(full.fold.requirementPayload.fold.state, "satisfied");
+
+  const shallow = engineRun(["depth-class://positive"]);
+  assert.ok(shallow.carry);
+  assert.equal(shallow.carry.coverageStatuses[0], "residual");
+  assert.equal(
+    shallow.carry.coverageIssueKinds.includes("missing_depth_obligation_class"),
+    true
+  );
+  assert.equal(shallow.fold.requirementPayload.fold.state, "no_close_preserved");
+
 
   const summary = {
     kind: "t188_requirement_proof_carry_through_live_summary",
@@ -466,10 +574,16 @@ test("T-188 live F_P output closes only with admitted depth and preserves residu
     workerOutputDigest: sha256Text(transport.text),
     sourceDigest: sha256Text(worker.source),
     verifierDigest: sha256Text(worker.verifierSource),
-    fullCoverage,
-    shallowCoverage,
-    fullFold: fullFold[0],
-    shallowFold: shallowFold[0],
+    fullCarry: {
+      statuses: full.carry.coverageStatuses,
+      truthRefs: full.carry.coverageTruthRefs
+    },
+    shallowCarry: {
+      statuses: shallow.carry.coverageStatuses,
+      issueKinds: shallow.carry.coverageIssueKinds
+    },
+    fullFold: { state: full.fold.requirementPayload.fold.state },
+    shallowFold: { state: shallow.fold.requirementPayload.fold.state },
     subjectRun: {
       status: subjectRun.status,
       stdout: subjectRun.stdout,

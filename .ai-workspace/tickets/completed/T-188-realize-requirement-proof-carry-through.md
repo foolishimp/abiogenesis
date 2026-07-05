@@ -3,7 +3,7 @@ id: T-188
 title: Realize requirement proof carry-through over paired realization and proof obligations
 type: requirement_design_realization
 ticket_category: requirement_proof_carry_through
-status: active
+status: completed
 goal: >-
   Make admitted requirements carry through into paired realization obligations
   and proof obligations so generated code/artifacts and generated
@@ -1542,3 +1542,39 @@ Slice 8 COMPLETE (2026-07-05) — B3 fold differential, engine-driven:
   "satisfied". foldStateFromEvidence's coverage gate + B2 threading are
   therefore proven as one live chain.
 - Gates: wiring lane 6/6; test:t188 26/26; test:semantic 1059/1059.
+
+Slice 9 COMPLETE (2026-07-05) — engine-driven LIVE proof + a live-earned
+law correction:
+- The live lane is now engine-driven end to end: a REAL LLM worker
+  produces subject+verifier; both execute for real; then BOTH scenarios
+  run through runEngineIterate with the verifier-execution ref as
+  strength evidence — full depth => carry eligible + fold satisfied;
+  depth-shallow => carry residual (missing_depth_obligation_class) + fold
+  no_close_preserved. No hand-called admission, coverage, or fold remains
+  in the live lane. test:t188:live 1/1 (real worker).
+- LAW CORRECTION EARNED BY THE LIVE RUN (unit lanes could not catch it):
+  the slice-5 accepted-only consumer filter silently converted "output
+  failed envelope law" into "no pressure". Corrected to scope-only:
+  rejected ADMISSIONS carry residual coverage (no-close pressure);
+  rejected PAYLOADS never emit (upstream ordering gate). Two rejections,
+  two laws, now explicit in code.
+- Final gates: test:t188 26/26; test:t188:live 1/1; test:t189 5/5;
+  test:t191 14/14; test:semantic 1059/1059.
+
+## Closure Record (2026-07-05)
+
+All four audit gates realized and proven on the live runner path:
+M5 (admission at the accepted-payload result site, producer-computed
+coverage), B2 (edge-scoped threading into the fold), M3 (typed
+ledger-resolved strength; presence insufficient; differential proven),
+B3 (fold gating: uncovered/residual SHALL NOT close — engine-driven unit
+differential + real-LLM live lane). Closure claims derive from admitted
+substrate truth; no caller booleans, plugin labels, passing tests, or
+product-local ledgers gate closure.
+
+NAMED SUCCESSORS (recorded, not silently deferred): role-typed strength
+resolution (evidence-role-partitioned ledger, swap the inline scan to
+derivePayloadLedgerProjection); digest-bound coverage status; carry-
+through coverage for composed/evaluate F_P arms (census discipline);
+mandatory-witness migration; requirement-level cross-edge fold
+accumulation decision.
