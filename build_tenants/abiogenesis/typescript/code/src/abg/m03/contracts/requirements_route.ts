@@ -239,6 +239,9 @@ export interface BuildRequirementRouteRuntimeContextFromDeclarationsInput {
 }
 
 export interface EmitRequirementRouteFactsForEdgeCloseInput {
+  readonly proofCoverageTruthRefsByRequirementId?:
+    | Readonly<Record<string, readonly string[]>>
+    | undefined;
   readonly runtimeScope: RuntimeScopeRef;
   readonly context: RequirementRouteRuntimeContext;
   readonly edge: RequirementEdgeRef;
@@ -1044,6 +1047,8 @@ export function emitRequirementRouteFactsForEdgeClose(
     payload: input.closureDecision
   });
   const fold = projectRequirementFoldFromAssuranceClosure({
+    proofCoverageTruthRefsByRequirementId:
+      input.proofCoverageTruthRefsByRequirementId,
     runtimeScope: input.runtimeScope,
     environment,
     requirementProjectionRefs: projectionRefs,

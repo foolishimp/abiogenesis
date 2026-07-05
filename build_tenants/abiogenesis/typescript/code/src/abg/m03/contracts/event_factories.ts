@@ -682,6 +682,8 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
   readonly proofObligationRefs: readonly string[];
   readonly evidenceRoleRefs: readonly string[];
   readonly issueKinds: readonly string[];
+  readonly coverageRequirementIds: readonly string[];
+  readonly coverageTruthRefs: readonly string[];
   readonly replayIdentity: string;
   readonly replayDigest: string;
 }): RequirementProofCarryThroughAdmittedEvent {
@@ -700,6 +702,8 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
     proofObligationRefs: Object.freeze([...input.proofObligationRefs]),
     evidenceRoleRefs: Object.freeze([...input.evidenceRoleRefs]),
     issueKinds: Object.freeze([...input.issueKinds]),
+    coverageRequirementIds: Object.freeze([...input.coverageRequirementIds]),
+    coverageTruthRefs: Object.freeze([...input.coverageTruthRefs]),
     replayIdentity: input.replayIdentity,
     replayDigest: input.replayDigest
   });

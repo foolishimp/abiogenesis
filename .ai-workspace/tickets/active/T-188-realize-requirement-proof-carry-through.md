@@ -1290,3 +1290,34 @@ truth (forbidden). Plan:
    (:1247-1253) fold gating shall NOT read default-startup booleans.
 4. B3: engine-driven live lane — uncovered obligation shall not close;
    coverage removal flips disposition.
+
+Slice 2 COMPLETE (2026-07-05) — M5 producer + B2 consumer wired:
+- Engine request family `requirementProofCarryThroughStartup`
+  ({contract, classificationTable, requirementIds, envelopeTemplate,
+  edge?} entries) on both EngineIterate/EngineStart requests.
+- M5: at the scalar F_P result-admission site (immediately after
+  instruction_response_contract_admitted), the engine constructs the
+  carry-through envelope (template + result-derived evidenceRefs/
+  replayIdentity), runs admitRequirementProofCarryThroughOutput with the
+  admitted classification table, projects coverage PER requirementId with
+  obligations DERIVED FROM fulfillmentBindings (binding-derived per the
+  Prime fix — the contract no longer carries flat obligation lists), and
+  emits `requirement_proof_carry_through_admitted` carrying
+  coverageRequirementIds + coverageTruthRefs (producer-computed truth
+  refs; no close-site reconstruction).
+- B2: at edge-close, refs are collected from replay events by
+  requirementId and threaded through the NEW optional
+  `proofCoverageTruthRefsByRequirementId` on
+  EmitRequirementRouteFactsForEdgeCloseInput, forwarded to
+  projectRequirementFoldFromAssuranceClosure. Absent startup => absent
+  refs => fold unchanged on undeclared edges (no behavior flip).
+- Proofs: build clean; test:t188 20/20; test:t189 5/5;
+  test:semantic 1053/1053.
+- NEXT (slice 3): the WIRING DIFFERENTIAL — engine-level t188 test
+  (startup entry + attached F_P plugin -> event emitted with coverage
+  refs; fold source refs include them; rejected admission -> ineligible
+  coverage). Then M3 (ledger-resolved strength; fold never reads
+  default-startup booleans) and B3 (engine-driven live lane: uncovered
+  obligation shall not close). Per the wiring-proof gate, T-188 does NOT
+  claim the runtime property delivered until slice 3's differential runs
+  on the live runner path.

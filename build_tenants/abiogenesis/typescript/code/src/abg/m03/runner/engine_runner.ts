@@ -255,6 +255,15 @@ import {
   type TraversalNonProgressCarrier,
   type TraversalContinuationSummary
 } from "../contracts/traversal_non_progress.js";
+import {
+  admitRequirementProofCarryThroughOutput,
+  constructRequirementProofCarryThroughOutputEnvelope,
+  projectRequirementProofCoverage,
+  requirementAbgTruthRefFromRequirementProofCoverage,
+  type RequirementProofCarryThroughContract,
+  type RequirementProofCandidateClassificationTable
+} from "../contracts/requirement_proof_carry_through.js";
+import { constructRequirementProofCarryThroughAdmittedEvent } from "../contracts/event_factories.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 import { dispatchRequestsForTransition } from "../transport/index.js";
 import {
@@ -275,11 +284,29 @@ import {
 } from "./construction_runner.js";
 import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
 
+export interface RequirementProofCarryThroughStartupEntry {
+  readonly contract: RequirementProofCarryThroughContract;
+  readonly classificationTable: RequirementProofCandidateClassificationTable;
+  readonly requirementIds: readonly string[];
+  readonly envelopeTemplate: Omit<
+    Parameters<typeof constructRequirementProofCarryThroughOutputEnvelope>[0],
+    "envelopeRef" | "evidenceRefs" | "replayIdentity" | "replayDigest"
+  >;
+  readonly edge?: string | undefined;
+}
+
+export interface RequirementProofCarryThroughStartupInput {
+  readonly entries: readonly RequirementProofCarryThroughStartupEntry[];
+}
+
 export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly requirementProofCarryThroughStartup?:
+    | RequirementProofCarryThroughStartupInput
+    | undefined;
   readonly instructionAssemblyStartup?:
     | EngineInstructionAssemblyStartupInput
     | undefined;
@@ -318,6 +345,9 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly requirementProofCarryThroughStartup?:
+    | RequirementProofCarryThroughStartupInput
+    | undefined;
   readonly instructionAssemblyStartup?:
     | EngineInstructionAssemblyStartupInput
     | undefined;
@@ -3737,7 +3767,24 @@ function emitRequirementRouteForEdgeClose(input: {
     basis: input.request.basis,
     events: input.state.replayEvents
   });
+  const proofCoverageTruthRefsByRequirementId: Record<string, readonly string[]> = {};
+  for (const event of input.state.replayEvents) {
+    if (event.kind !== "requirement_proof_carry_through_admitted") {
+      continue;
+    }
+    event.coverageRequirementIds.forEach((requirementId, index) => {
+      const truthRef = event.coverageTruthRefs[index];
+      if (truthRef === undefined) {
+        return;
+      }
+      proofCoverageTruthRefsByRequirementId[requirementId] = Object.freeze([
+        ...(proofCoverageTruthRefsByRequirementId[requirementId] ?? []),
+        truthRef
+      ]);
+    });
+  }
   const route = emitRequirementRouteFactsForEdgeClose({
+    proofCoverageTruthRefsByRequirementId,
     runtimeScope: requirementRouteScopeRef({
       basis: input.request.basis,
       vectorIndex: input.vectorIndex
@@ -6571,6 +6618,73 @@ function* runEngineIterateMachine(input: {
                 ].join(":")
               })
             );
+          {
+            // Implements: T-188 M5 - carry-through admission + coverage at the
+            // result-admission site; coverage refs are producer-computed and
+            // carried on the event (no close-site reconstruction).
+            const carryStartup = request.requirementProofCarryThroughStartup;
+            if (carryStartup !== undefined) {
+              for (const entry of carryStartup.entries) {
+                if (entry.edge !== undefined && entry.edge !== actorInvocation.edge) {
+                  continue;
+                }
+                const envelope = constructRequirementProofCarryThroughOutputEnvelope({
+                  ...entry.envelopeTemplate,
+                  envelopeRef: `${resultRef}/requirement-proof-carry-through`,
+                  evidenceRefs: Object.freeze([resultRef]),
+                  replayIdentity: `${actorInvocation.actorInvocationId}/carry-through`
+                });
+                const admission = admitRequirementProofCarryThroughOutput({
+                  contract: entry.contract,
+                  classificationTable: entry.classificationTable,
+                  envelope
+                });
+                const coverageRequirementIds: string[] = [];
+                const coverageTruthRefs: string[] = [];
+                for (const requirementId of entry.requirementIds) {
+                  const coverage = projectRequirementProofCoverage({
+                    projectionRef: `${envelope.envelopeRef}/coverage/${requirementId}`,
+                    requirementId,
+                    requiredRequirementObligationRefs: Object.freeze(
+                      entry.contract.fulfillmentBindings.map(
+                        (binding) => binding.obligationRef
+                      )
+                    ),
+                    admissions: [admission],
+                    dependencyInstructionTruth: null,
+                    proofDepthInstructionTruth: null
+                  });
+                  coverageRequirementIds.push(requirementId);
+                  coverageTruthRefs.push(
+                    requirementAbgTruthRefFromRequirementProofCoverage(coverage)
+                  );
+                }
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructRequirementProofCarryThroughAdmittedEvent({
+                    invocation: actorInvocation,
+                    correlationId: actorInvocation.actorInvocationId,
+                    envelopeRef: admission.envelope.envelopeRef,
+                    contractRef: entry.contract.contractRef,
+                    categoryKey: admission.categoryKey,
+                    accepted: admission.accepted,
+                    sourceRequirementObligationRefs:
+                      admission.envelope.sourceRequirementObligationRefs,
+                    proofObligationRefs: admission.envelope.proofObligationRefs,
+                    evidenceRoleRefs: admission.envelope.evidenceRoleRefs,
+                    issueKinds: Object.freeze(
+                      admission.issues.map((row) => row.issueKind)
+                    ),
+                    coverageRequirementIds: Object.freeze([...coverageRequirementIds]),
+                    coverageTruthRefs: Object.freeze([...coverageTruthRefs]),
+                    replayIdentity: admission.envelope.replayIdentity,
+                    replayDigest: admission.envelope.replayDigest
+                  })
+                );
+              }
+            }
+          }
+
           }
           if (scalarTransformInput.fpTransformRequest === null) {
             throw new TypeError("F_P dispatch requires a transform request carrier");

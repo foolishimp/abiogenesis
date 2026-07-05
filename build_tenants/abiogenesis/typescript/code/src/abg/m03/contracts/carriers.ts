@@ -772,6 +772,8 @@ export interface RequirementProofCarryThroughAdmittedEvent
   readonly proofObligationRefs: readonly string[];
   readonly evidenceRoleRefs: readonly string[];
   readonly issueKinds: readonly string[];
+  readonly coverageRequirementIds: readonly string[];
+  readonly coverageTruthRefs: readonly string[];
   readonly replayIdentity: string;
   readonly replayDigest: string;
 }
