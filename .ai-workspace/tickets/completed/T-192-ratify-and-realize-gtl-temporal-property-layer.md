@@ -3,7 +3,7 @@ id: T-192
 title: Ratify and realize the GTL temporal-property layer over event-calculus fluents
 type: requirements_realization
 ticket_category: gtl_temporal_property_law
-status: active
+status: completed
 goal: >-
   Add temporal-logic properties to GTL as a Rule kind over event-calculus
   fluents, checked F_D over finite replay traces (LTLf, three-valued), with
@@ -216,3 +216,30 @@ per-vector formulas, closure-point fold consumption, run-identity depth,
 checker perf — all named successors, none closure-blocking (the ticket's
 non_closure list is satisfied by the scalar online gate + terminal
 verdicts + live proof).
+
+## Closure Record (2026-07-06)
+
+All acceptance criteria met; all non_closure conditions hold:
+- Rule kind + LTLf/LTL3 three-valued semantics + vacuity/witness law +
+  consequence split RATIFIED (REQ-L-GTL3-TEMPORAL-PROPERTIES-001..-012,
+  amended in-wave with the verdict-position convention).
+- Checker is a total F_D function over replay (fail-closed admission on 5
+  axes; one fluent vocabulary consumed via the one calculus; where-guarded
+  event atoms); verdicts are typed replay-visible carriers.
+- The five standing gates run as DECLARED properties with mutation,
+  vacuity, and undetermined-routing differentials — and LIVE on the
+  installed sandbox path (5/5 satisfied, G1 witnessed, G5
+  completion-decided; verdicts precede the terminal in replay).
+- Online enforcement proven: a violated safety property blocks the
+  dispatch BEFORE the candidate event enters truth, replay-visibly.
+- No property blocks on undetermined; zero-witness satisfied is vacuous
+  and never gate-satisfying; no second fluent or property surface exists.
+- Phase 0 census disposition recorded (typed exemption + timer-provider
+  successor); constitutional propagation done (PRODUCT owns-list +
+  CONTRACT-LAW-API index).
+Gates at closure: t192 lane 14/14; semantic 1087/1087; t188 31/31; t189
+11/11; STANDING GATE test:t194:sandbox-live 1/1 fresh with sourceClean:
+true. NAMED SUCCESSORS: per-vector parameterized formulas; composed-arm
+dispatch gating; closure-point fold consumption of violated verdicts;
+run-identity depth on verdicts; checker perf; verdict-emission policy
+review for resumed runs.
