@@ -1,7 +1,7 @@
-# abiogenesis 4.2.0-rc.9 Release Candidate Note
+# abiogenesis 4.2.0-rc.10 Release Candidate Note
 
-This checkpoint is the ninth TypeScript ABG `4.2.0` release candidate. It
-follows `4.2.0-rc.9` with two downstream-driven root-cause fixes from the
+This checkpoint is the tenth TypeScript ABG `4.2.0` release candidate. It
+follows `4.2.0-rc.10` with two downstream-driven root-cause fixes from the
 odd_glc data-mapper live campaign (T-030): the causal-excerpt render bound
 is plan-declared policy (`causalExcerptMaxChars`, fail-closed validation)
 instead of a hardcoded 12k constant that silently starved product-scale
@@ -150,9 +150,9 @@ RC7 does not accept as truth:
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.9`
-- Candidate package version: `4.2.0-rc.9`
-- Candidate tag: `v4.2.0-rc.9`
+- RC identity: `4.2.0-rc.10`
+- Candidate package version: `4.2.0-rc.10`
+- Candidate tag: `v4.2.0-rc.10`
 
 ## Verification
 
