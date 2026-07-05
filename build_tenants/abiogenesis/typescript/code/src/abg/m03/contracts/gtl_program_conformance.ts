@@ -71,6 +71,7 @@ import {
 } from "./requirements_algebra.js";
 
 export type GtlProgramConformanceSurfaceKind =
+  | "constitutional_surface"
   | "graph_function"
   | "graph"
   | "module"
@@ -448,6 +449,11 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/input/golden-instance-row",
   "abg://gtl-program/input/underdetermined-owner-route-field",
   "abg://gtl-program/input/underdetermined-row",
+  "abg://gtl-program/constitution/version-line-drift",
+  "abg://gtl-program/constitution/release-claim-cites-active-ticket",
+  "abg://gtl-program/constitution/surface-digest-missing",
+  "abg://gtl-program/constitution/seam-parity-drift",
+  "abg://gtl-program/input/constitutional-surface-row",
 ] as const);
 
 export type GtlProgramDiagnosticId =
@@ -510,7 +516,15 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/declaration/module-export-round-trip":
     "align_digest_or_version",
   "abg://gtl-program/contract/golden-instance-digest-required":
-    "align_digest_or_version"
+    "align_digest_or_version",
+  "abg://gtl-program/constitution/version-line-drift":
+    "align_digest_or_version",
+  "abg://gtl-program/constitution/release-claim-cites-active-ticket":
+    "constitutional_reprice",
+  "abg://gtl-program/constitution/surface-digest-missing":
+    "align_digest_or_version",
+  "abg://gtl-program/constitution/seam-parity-drift":
+    "correct_reference"
 });
 
 export interface GtlProgramConformanceIssue {
@@ -1075,6 +1089,28 @@ export interface GtlProgramDeclarationSourceRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+// Implements: REQ-L-GTL3-LAWS-028 (T-193). Constitutional surfaces become
+// the model half of a live gap computation: loaders WITNESS rows (surface
+// ref, digest, declared version, cited ticket refs) plus live facts; the
+// compiler JUDGES drift as typed diagnostics with repair affordances.
+// Drift is delta, not a review catch.
+export interface GtlProgramConstitutionalSurfaceRow {
+  readonly surfaceRef: string;
+  readonly digest: string;
+  readonly declaredVersion: string | null;
+  readonly citedTicketRefs: readonly string[];
+}
+
+export interface GtlProgramConstitutionalLiveFacts {
+  readonly packageVersion: string;
+  readonly activeTicketRefs: readonly string[];
+  readonly passthroughKeys: readonly string[];
+  readonly seamKeySets: readonly {
+    readonly seamRef: string;
+    readonly keys: readonly string[];
+  }[];
+}
+
 // Implements: REQ-L-GTL3-LAWS-023
 // ONE RULE HOME: these row shapes and predicates are consumed by BOTH the
 // program-level conformance checks here AND the plan-compile validation in
@@ -1324,6 +1360,13 @@ export interface GtlProgramConformanceInput {
   readonly underdeterminedDeclarations?:
     | readonly GtlProgramUnderdeterminedDeclarationRow[]
     | undefined;
+  readonly constitutionalSurfaceRows?:
+    | readonly GtlProgramConstitutionalSurfaceRow[]
+    | undefined;
+  readonly constitutionalLiveFacts?:
+    | GtlProgramConstitutionalLiveFacts
+    | null
+    | undefined;
   readonly traversalBindConservation?:
     | readonly GtlProgramTraversalBindConservationRow[]
     | undefined;
@@ -1335,6 +1378,8 @@ export interface GtlProgramConformanceInput {
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
 
 export interface GtlProgramInventoryDigests {
+  readonly constitutionalSurfaceRows: string;
+  readonly constitutionalLiveFacts: string;
   readonly declarationSourceRows: string;
   readonly goldenInstanceBindings: string;
   readonly underdeterminedDeclarations: string;
@@ -6268,6 +6313,157 @@ function admitGoldenInstanceBindingRows(
   );
 }
 
+function admitConstitutionalSurfaceRows(
+  input: readonly unknown[],
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramConstitutionalSurfaceRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `constitutionalSurfaceRows[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const admitted: GtlProgramConstitutionalSurfaceRow = Object.freeze({
+        surfaceRef: String(row["surfaceRef"] ?? surfaceRef),
+        digest: String(row["digest"] ?? ""),
+        declaredVersion:
+          row["declaredVersion"] === null || row["declaredVersion"] === undefined
+            ? null
+            : String(row["declaredVersion"]),
+        citedTicketRefs: Object.freeze(
+          Array.isArray(row["citedTicketRefs"])
+            ? row["citedTicketRefs"].map((ref) => String(ref))
+            : []
+        )
+      });
+      if (admitted.digest.trim().length === 0) {
+        issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef: admitted.surfaceRef,
+            ruleRef: "abg://gtl-program/constitution/surface-digest-missing",
+            message:
+              "constitutional surfaces are witnessed data and require a content digest"
+          })
+        );
+      }
+      return [admitted];
+    })
+  );
+}
+
+function admitConstitutionalLiveFacts(
+  input: unknown,
+  issues: GtlProgramConformanceIssue[]
+): GtlProgramConstitutionalLiveFacts | null {
+  if (input === undefined || input === null) {
+    return null;
+  }
+  if (!isRecord(input)) {
+    issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts must be an object"
+      })
+    );
+    return null;
+  }
+  const seams = Array.isArray(input["seamKeySets"]) ? input["seamKeySets"] : [];
+  return Object.freeze({
+    packageVersion: String(input["packageVersion"] ?? ""),
+    activeTicketRefs: Object.freeze(
+      Array.isArray(input["activeTicketRefs"])
+        ? input["activeTicketRefs"].map((ref) => String(ref))
+        : []
+    ),
+    passthroughKeys: Object.freeze(
+      Array.isArray(input["passthroughKeys"])
+        ? input["passthroughKeys"].map((key) => String(key))
+        : []
+    ),
+    seamKeySets: Object.freeze(
+      seams.flatMap((seam) => {
+        if (!isRecord(seam)) {
+          return [];
+        }
+        return [
+          Object.freeze({
+            seamRef: String(seam["seamRef"] ?? "seam"),
+            keys: Object.freeze(
+              Array.isArray(seam["keys"]) ? seam["keys"].map((key) => String(key)) : []
+            )
+          })
+        ];
+      })
+    )
+  });
+}
+
+// The drift JUDGE (T-193): rows are the declared model; live facts are the
+// telemetry; drift is delta with a typed diagnostic and repair affordance.
+function checkConstitutionalDrift(input: {
+  readonly rows: readonly GtlProgramConstitutionalSurfaceRow[];
+  readonly liveFacts: GtlProgramConstitutionalLiveFacts | null;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (input.liveFacts === null) {
+    return;
+  }
+  for (const row of input.rows) {
+    if (
+      row.declaredVersion !== null &&
+      input.liveFacts.packageVersion.length > 0 &&
+      row.declaredVersion !== input.liveFacts.packageVersion
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "constitutional_surface",
+          surfaceRef: row.surfaceRef,
+          ruleRef: "abg://gtl-program/constitution/version-line-drift",
+          message: `surface declares version ${row.declaredVersion} but the live package is ${input.liveFacts.packageVersion}`
+        })
+      );
+    }
+    for (const cited of row.citedTicketRefs) {
+      if (input.liveFacts.activeTicketRefs.includes(cited)) {
+        input.issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef: row.surfaceRef,
+            ruleRef:
+              "abg://gtl-program/constitution/release-claim-cites-active-ticket",
+            message: `release-bearing surface cites ACTIVE ticket ${cited}; release claims cite closed tickets only`
+          })
+        );
+      }
+    }
+  }
+  for (const seam of input.liveFacts.seamKeySets) {
+    const expected = [...input.liveFacts.passthroughKeys].sort().join(",");
+    const actual = [...seam.keys].sort().join(",");
+    if (expected !== actual) {
+      input.issues.push(
+        issue({
+          surfaceKind: "constitutional_surface",
+          surfaceRef: seam.seamRef,
+          ruleRef: "abg://gtl-program/constitution/seam-parity-drift",
+          message: `seam key set [${actual}] does not equal the passthrough authority [${expected}]`
+        })
+      );
+    }
+  }
+}
+
 function admitUnderdeterminedDeclarationRows(
   input: readonly unknown[],
   issues: GtlProgramConformanceIssue[]
@@ -8118,6 +8314,19 @@ export function admitGtlProgramConformanceInput(
         subjectRef,
         issues
       }),
+      issues
+    ),
+    constitutionalSurfaceRows: admitConstitutionalSurfaceRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "constitutionalSurfaceRows",
+        subjectRef,
+        issues
+      }),
+      issues
+    ),
+    constitutionalLiveFacts: admitConstitutionalLiveFacts(
+      rawInput["constitutionalLiveFacts"],
       issues
     ),
     runtimeReentryRoutes: admitRuntimeReentryRouteRows(
@@ -13394,6 +13603,8 @@ function sourceIdentityDigestRows(
 }
 
 function computeInventoryDigests(input: {
+  readonly constitutionalSurfaceRows: readonly GtlProgramConstitutionalSurfaceRow[];
+  readonly constitutionalLiveFacts: GtlProgramConstitutionalLiveFacts | null;
   readonly declarationSourceRows: readonly GtlProgramDeclarationSourceRow[];
   readonly goldenInstanceBindings: readonly GtlProgramGoldenInstanceBindingRow[];
   readonly underdeterminedDeclarations: readonly GtlProgramUnderdeterminedDeclarationRow[];
@@ -13435,6 +13646,8 @@ function computeInventoryDigests(input: {
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
+    constitutionalSurfaceRows: stableSha256Digest(input.constitutionalSurfaceRows),
+    constitutionalLiveFacts: stableSha256Digest(input.constitutionalLiveFacts),
     declarationSourceRows: stableSha256Digest(input.declarationSourceRows),
     goldenInstanceBindings: stableSha256Digest(input.goldenInstanceBindings),
     underdeterminedDeclarations: stableSha256Digest(input.underdeterminedDeclarations),
@@ -13798,7 +14011,14 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     coverage,
     issues
   });
+  checkConstitutionalDrift({
+    rows: Object.freeze([...(input.constitutionalSurfaceRows ?? [])]),
+    liveFacts: input.constitutionalLiveFacts ?? null,
+    issues
+  });
   const inventoryDigests = computeInventoryDigests({
+    constitutionalSurfaceRows: Object.freeze([...(input.constitutionalSurfaceRows ?? [])]),
+    constitutionalLiveFacts: input.constitutionalLiveFacts ?? null,
     declarationSourceRows,
     goldenInstanceBindings: Object.freeze([...(input.goldenInstanceBindings ?? [])]),
     underdeterminedDeclarations: Object.freeze([...(input.underdeterminedDeclarations ?? [])]),

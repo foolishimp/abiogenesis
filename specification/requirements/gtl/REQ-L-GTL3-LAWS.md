@@ -66,3 +66,18 @@ State the governing language laws of GTL 3.
 **REQ-L-GTL3-LAWS-026**: Evolution vocabulary — requirement relation kinds include supersession; contract and declaration evolution is expressed through the existing relation-kind family rather than a second relation vocabulary. Removal of ratified identities happens only by supersession.
 
 **REQ-L-GTL3-LAWS-027**: Language conformance corpus — the language publishes a ratified conformance corpus pairing programs with expected diagnostic identities. The corpus is the implementation-independent oracle: a conforming toolchain replays every corpus entry to the exact expected identities. It is distinct from the requirements corpus and from qualification evidence.
+
+**REQ-L-GTL3-LAWS-028**: Constitutional surfaces are witnessed data and
+drift is a typed conformance failure. A loader witnesses constitutional
+surfaces (surface ref, content digest, declared version line, cited ticket
+refs) together with live facts (package version, active ticket refs,
+public-seam key sets against the engine passthrough authority); the
+semantic compiler judges the gap. A declared version line that disagrees
+with the live package is `version-line-drift`; a release-bearing surface
+citing an active ticket is `release-claim-cites-active-ticket`; a
+witnessed surface without a content digest is `surface-digest-missing`; a
+public seam whose key set diverges from the passthrough authority is
+`seam-parity-drift`. Each drift diagnostic carries a ratified identity and
+a default admissible repair. Drift detection shall not be a second checker
+outside the semantic compiler, and drift rules shall not be prose review
+checklists.

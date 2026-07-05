@@ -84,3 +84,40 @@ RESIDUE PIN (live drift verified in-tree at activation):
   cites closed tickets only) — the differential covers it constructed.
 - Seam parity (ENGINE_START_PASSTHROUGH_KEYS vs public seams) is code-law
   since F1; the parity ROW makes drift a typed diagnostic.
+
+## Phases 1-4 COMPLETE (2026-07-06)
+
+P1 RATIFIED: REQ-L-GTL3-LAWS-028 (witnessed surfaces + live facts; the
+compiler judges the gap); four drift diagnostics in the ratified
+vocabulary with default repairs (version-line-drift =>
+align_digest_or_version; release-claim-cites-active-ticket =>
+constitutional_reprice; surface-digest-missing =>
+align_digest_or_version; seam-parity-drift => correct_reference) plus the
+constitutional-surface-row input diagnostic.
+
+P2 REALIZED in the ONE compiler (carrier pin honored): witnessed
+GtlProgramConstitutionalSurfaceRow + GtlProgramConstitutionalLiveFacts
+inputs on typecheckGtlProgram; checkConstitutionalDrift judge; digestless
+witnesses fail closed; identity coverage (rows + live facts in the
+inventory digest — the T-191 lesson applied at birth).
+
+P3 DIFFERENTIALS: version drift flagged + clean-on-agreement; THE RC4
+CLASS (release claim citing an active ticket) mechanically detected with
+constitutional_reprice affordance; seam-parity drift (the F1 class)
+detected per seam; digestless rejection; identity-digest divergence.
+
+P4 REAL-TREE WITNESS (the detector proved itself on live drift, day one):
+the standing test witnesses the ACTUAL tree — CLAUDE.md bootstrap version
+line, the rc.7 release record's cited tickets vs tickets/active/, the
+live ENGINE_START_PASSTHROUGH_KEYS — and on first run found exactly the
+pinned drift (bootstrap 4.0.0-rc.6 vs package 4.2.0-rc.7) and NOTHING
+else (rc.7's record judged clean, validating the RC4 rule against
+reality). Drift fixed at the authored home (CLAUDE.md + AGENTS.md
+version lines); detector green; the test now stands as the drift gate in
+the semantic suite — any future rc bump without bootstrap propagation is
+a red suite, not a review catch.
+
+Acceptance criteria: INT-002 failure mode mechanically detected ✓ (live,
+then fixed); RC4 failure mode mechanically detected ✓ (constructed +
+real-record validated clean); ratified IDs + repairs on all drift
+diagnostics ✓. Gates: t193 5/5; semantic 1092/1092.
