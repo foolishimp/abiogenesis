@@ -1,0 +1,129 @@
+{
+  "kind": "gtl_language_conformance_corpus",
+  "law": "REQ-L-GTL3-LAWS-027",
+  "note": "Seed harvested mechanically from the TS tenant at 4.2.0-rc.6+t191. A conforming toolchain replays every entry to exactly the expected diagnostic identities. Distinct from the requirements corpus and from qualification evidence.",
+  "entries": [
+    {
+      "name": "empty-program",
+      "program": {},
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    },
+    {
+      "name": "module-export-declaration-without-round-trip-digest",
+      "program": {
+        "declarationSourceRows": [
+          {
+            "sourceRef": "decl://p/index.mjs",
+            "sourceKind": "module_export",
+            "canonicalDigest": ""
+          }
+        ]
+      },
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/declaration/module-export-round-trip",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    },
+    {
+      "name": "canonical-data-declaration-witnessed",
+      "program": {
+        "declarationSourceRows": [
+          {
+            "sourceRef": "decl://p/program.gtl.json",
+            "sourceKind": "canonical_data",
+            "canonicalDigest": "sha256:abc",
+            "authorRef": "worker://claude",
+            "authorityRef": "authority://jim"
+          }
+        ]
+      },
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    },
+    {
+      "name": "underdetermined-scope-with-unlawful-owner-route",
+      "program": {
+        "underdeterminedDeclarations": [
+          {
+            "scopeRef": "scope://design/naming",
+            "ownerRoute": "F_D",
+            "latitudeNote": ""
+          }
+        ]
+      },
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/input/underdetermined-owner-route-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    },
+    {
+      "name": "underdetermined-scope-with-declared-fp-latitude",
+      "program": {
+        "underdeterminedDeclarations": [
+          {
+            "scopeRef": "scope://design/naming",
+            "ownerRoute": "F_P",
+            "latitudeNote": "naming style is worker latitude"
+          }
+        ]
+      },
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    },
+    {
+      "name": "golden-instances-without-content-digest",
+      "program": {
+        "goldenInstanceBindings": [
+          {
+            "contractRef": "contract://hello/output",
+            "exampleInstanceRefs": [
+              "payload://good-1"
+            ],
+            "counterexampleInstanceRefs": [
+              "payload://bad-1"
+            ],
+            "instanceSetDigest": ""
+          }
+        ]
+      },
+      "expectedDiagnosticIds": [
+        "abg://gtl-program/contract/golden-instance-digest-required",
+        "abg://gtl-program/coverage/expected-count-nonzero",
+        "abg://gtl-program/coverage/expected-coverage-required",
+        "abg://gtl-program/feature-coverage/manifest-required",
+        "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/string-field",
+        "abg://gtl-program/version/exact-package-version"
+      ]
+    }
+  ]
+}

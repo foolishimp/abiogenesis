@@ -83,7 +83,7 @@ This requirement indexes and depends on:
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-CONTRACT-LAW-API-001**: GTL shall be the constitutional contract-law API for graph-native workflow programs and deterministic integration boundaries.
+**REQ-L-GTL3-CONTRACT-LAW-API-001**: GTL shall be the constitutional contract-law API for graph-native workflow programs and deterministic integration boundaries. The authoring-loop meta-law (typed diagnostic identity, admissible repair affordances, canonical authored form, declarations-as-data, golden instance bindings, declared underdetermination, declaration authorship, and the language conformance corpus) is indexed at REQ-L-GTL3-LAWS-019 through -027.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-002**: GTL shall expose graph algebra as inspectable program law. Core graph algebra operations include `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity`, and `same_object`. Implementation APIs may use host-language spellings such as `sameObject` when the carrier identity and law are unchanged.
 

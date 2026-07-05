@@ -474,3 +474,9 @@ item 3); reviewer 2's claim that a supersession relation kind exists at
 relation-kind family exists, a supersession kind does not; Gap 6 now says
 extend that family). Reviewers applied this workspace's own
 promote-don't-re-mint discipline back at this post — correctly.
+
+**Third-round correction (2026-07-05, T-191 execution):** `supersession`
+IS present in `GTL_REQUIREMENT_RELATION_KIND_VALUES` in the current tree
+(the earlier refutation was verified against an older tree state or a
+prefix-grep miss). Gap 6's relation-kind extension is therefore realized
+by recognition; REQ-L-GTL3-LAWS-026 ratifies it.

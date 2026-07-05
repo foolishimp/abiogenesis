@@ -530,6 +530,10 @@ It owns the declaration-side truth for:
   compute
 - lawful composition, substitution, recursion, and higher-order graph operators
 - module publication and engine-independence boundaries
+- authoring-loop meta-law: ratified diagnostic identities with admissible
+  repair affordances, canonical authored form and declarations-as-data,
+  golden instance bindings, declared underdetermination, declaration
+  authorship, and the language conformance corpus
 
 GTL does not own runtime binding, transport policy, business-choice logic,
 hidden worker reasoning, or product-layer release governance.

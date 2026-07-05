@@ -206,3 +206,50 @@ Slice B COMPLETE — witnessed declaration-source rows, T-187 pattern:
   and is successor work, named here so absence of rows is a recorded gap,
   not assumed coverage. Loader-side witness EMISSION (startup supplying
   the rows) is the other half of that successor.
+
+## Phases 3-5 Record (2026-07-05)
+
+Constitutional: REQ-L-GTL3-LAWS-023 (golden instance binding, promoted from
+the ABG evidence-shape/counterexample families), -024 (declared
+underdetermination with owner routes), -025 (declaration authorship as
+factory provenance, reference-joined only), -026 (evolution via the
+existing relation-kind family; removal only by supersession), -027
+(language conformance corpus as the implementation-independent oracle).
+Constitutional propagation done in-wave per non_closure: PRODUCT GTL
+owns-list + CONTRACT-LAW-API index sentence.
+
+Realization:
+- Phase 3: `GtlProgramGoldenInstanceBindingRow` as optional conformance
+  input; instances without a content digest ->
+  `contract/golden-instance-digest-required` with repair
+  `align_digest_or_version`.
+- Phase 4: underdetermined rows (`scopeRef`, `ownerRoute` F_P|F_H
+  fail-closed, `latitudeNote`); authorship fields (`authorRef`,
+  `authorityRef`) on the declaration-source row (factory provenance
+  carrier — one carrier, one job); relation-kind `supersession` realized
+  BY RECOGNITION (present in `GTL_REQUIREMENT_RELATION_KIND_VALUES` in the
+  current tree — corrects the gaps-post second-round refutation, third-round
+  note added there).
+- Phase 5: `test_env/corpus/gtl-language-conformance-corpus.json` — 6-entry
+  seed harvested mechanically from the built compiler; replay test asserts
+  EXACT diagnostic-identity sets per entry and that every expected ID is
+  ratified.
+- Vocabulary extended by 4 IDs (recorded act); surface kinds
+  `golden_instance`, `underdetermined_scope` added.
+- Proofs: test:t191 12/12; test:semantic 1051/1051; git diff --check clean.
+
+## Named Remainders (ticket stays ACTIVE; do not close over these)
+
+1. Golden-instance PILOT on a live requirement-bearing edge + calibration
+   consumption — overlaps T-188/M3 strength resolution (codex-owned);
+   handoff, not silent deferral.
+2. Declared latitude rendered into instruction manifests (ABG
+   instruction-assembly side).
+3. Undeclared-hole DETECTION (requires semantic analysis; -024 currently
+   governs declared latitude and fail-closed routes).
+4. Mandatory declaration-source witness + loader-side emission (the
+   T-189-shaped migration; recorded in Slice B).
+5. Corpus curation beyond the seed (grow per REQ family; harvest the
+   semantic-suite fixtures).
+6. Authorship self-dealing replay query (join declaration authorRef to
+   evaluating worker identity).

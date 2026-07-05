@@ -103,7 +103,9 @@ export type GtlProgramConformanceSurfaceKind =
   | "installed_context"
   | "requirement_declaration"
   | "feature_coverage"
-  | "declaration_source";
+  | "declaration_source"
+  | "golden_instance"
+  | "underdetermined_scope";
 
 // Implements: REQ-L-GTL3-LAWS-019
 // The ratified closed diagnostic vocabulary. Every conformance issue must
@@ -442,6 +444,10 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/declaration/module-export-round-trip",
   "abg://gtl-program/input/declaration-source-kind-field",
   "abg://gtl-program/input/declaration-source-row",
+  "abg://gtl-program/contract/golden-instance-digest-required",
+  "abg://gtl-program/input/golden-instance-row",
+  "abg://gtl-program/input/underdetermined-owner-route-field",
+  "abg://gtl-program/input/underdetermined-row",
 ] as const);
 
 export type GtlProgramDiagnosticId =
@@ -502,6 +508,8 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/semantic-review-gate/admitted-result-kind":
     "correct_reference",
   "abg://gtl-program/declaration/module-export-round-trip":
+    "align_digest_or_version",
+  "abg://gtl-program/contract/golden-instance-digest-required":
     "align_digest_or_version"
 });
 
@@ -1060,7 +1068,31 @@ export interface GtlProgramDeclarationSourceRow {
   readonly sourceRef: string;
   readonly sourceKind: string;
   readonly canonicalDigest: string;
+  // Implements: REQ-L-GTL3-LAWS-025 — factory provenance, reference-joined
+  // to runtime lineage only; never traversal authority.
+  readonly authorRef: string;
+  readonly authorityRef: string;
   readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+// Implements: REQ-L-GTL3-LAWS-023
+export interface GtlProgramGoldenInstanceBindingRow {
+  readonly contractRef: string;
+  readonly exampleInstanceRefs: readonly string[];
+  readonly counterexampleInstanceRefs: readonly string[];
+  readonly instanceSetDigest: string;
+}
+
+// Implements: REQ-L-GTL3-LAWS-024
+export const GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES = Object.freeze([
+  "F_P",
+  "F_H"
+] as const);
+
+export interface GtlProgramUnderdeterminedDeclarationRow {
+  readonly scopeRef: string;
+  readonly ownerRoute: string;
+  readonly latitudeNote: string;
 }
 
 export interface GtlProgramInstalledContextRow {
@@ -1269,6 +1301,12 @@ export interface GtlProgramConformanceInput {
     | undefined;
   readonly declarationSourceRows?:
     | readonly GtlProgramDeclarationSourceRow[]
+    | undefined;
+  readonly goldenInstanceBindings?:
+    | readonly GtlProgramGoldenInstanceBindingRow[]
+    | undefined;
+  readonly underdeterminedDeclarations?:
+    | readonly GtlProgramUnderdeterminedDeclarationRow[]
     | undefined;
   readonly traversalBindConservation?:
     | readonly GtlProgramTraversalBindConservationRow[]
@@ -6142,11 +6180,108 @@ function admitDeclarationSourceRows(
           }),
           sourceKind,
           canonicalDigest: String(row["canonicalDigest"] ?? ""),
+          authorRef: String(row["authorRef"] ?? ""),
+          authorityRef: String(row["authorityRef"] ?? ""),
           evidenceRefs: Object.freeze(
             Array.isArray(row["evidenceRefs"])
               ? (row["evidenceRefs"] as readonly unknown[]).map((entry) => String(entry))
               : []
           )
+        })
+      ];
+    })
+  );
+}
+
+function admitGoldenInstanceBindingRows(
+  input: readonly unknown[],
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramGoldenInstanceBindingRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `goldenInstanceBindings[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "golden_instance",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/golden-instance-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const toRefs = (value: unknown): readonly string[] =>
+        Object.freeze(
+          Array.isArray(value) ? value.map((entry) => String(entry)) : []
+        );
+      const admitted = Object.freeze({
+        contractRef: String(row["contractRef"] ?? ""),
+        exampleInstanceRefs: toRefs(row["exampleInstanceRefs"]),
+        counterexampleInstanceRefs: toRefs(row["counterexampleInstanceRefs"]),
+        instanceSetDigest: String(row["instanceSetDigest"] ?? "")
+      });
+      if (
+        (admitted.exampleInstanceRefs.length > 0 ||
+          admitted.counterexampleInstanceRefs.length > 0) &&
+        admitted.instanceSetDigest.length === 0
+      ) {
+        issues.push(
+          issue({
+            surfaceKind: "golden_instance",
+            surfaceRef: admitted.contractRef || surfaceRef,
+            ruleRef:
+              "abg://gtl-program/contract/golden-instance-digest-required",
+            message:
+              "golden instance bindings are admitted data and require a content digest"
+          })
+        );
+      }
+      return [admitted];
+    })
+  );
+}
+
+function admitUnderdeterminedDeclarationRows(
+  input: readonly unknown[],
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramUnderdeterminedDeclarationRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `underdeterminedDeclarations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "underdetermined_scope",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/underdetermined-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const ownerRoute = String(row["ownerRoute"] ?? "");
+      if (
+        !(GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES as readonly string[]).includes(
+          ownerRoute
+        )
+      ) {
+        issues.push(
+          issue({
+            surfaceKind: "underdetermined_scope",
+            surfaceRef,
+            ruleRef:
+              "abg://gtl-program/input/underdetermined-owner-route-field",
+            message: `${surfaceRef}.ownerRoute must be one of ${GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES.join(", ")}`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          scopeRef: String(row["scopeRef"] ?? ""),
+          ownerRoute,
+          latitudeNote: String(row["latitudeNote"] ?? "")
         })
       ];
     })
@@ -7932,6 +8067,24 @@ export function admitGtlProgramConformanceInput(
         issues
       }),
       subjectRef,
+      issues
+    ),
+    goldenInstanceBindings: admitGoldenInstanceBindingRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "goldenInstanceBindings",
+        subjectRef,
+        issues
+      }),
+      issues
+    ),
+    underdeterminedDeclarations: admitUnderdeterminedDeclarationRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "underdeterminedDeclarations",
+        subjectRef,
+        issues
+      }),
       issues
     ),
     runtimeReentryRoutes: admitRuntimeReentryRouteRows(

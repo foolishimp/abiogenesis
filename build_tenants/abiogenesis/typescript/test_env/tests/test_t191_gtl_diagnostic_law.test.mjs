@@ -152,6 +152,54 @@ test("T-191 witnessed declaration-source rows enforce the pure-data law (LAWS-02
   );
 });
 
+test("T-191 golden-instance bindings require a content digest (LAWS-023)", () => {
+  const flagged = typecheckGtlProgram({
+    goldenInstanceBindings: [
+      { contractRef: "contract://x", exampleInstanceRefs: ["payload://good"], counterexampleInstanceRefs: [], instanceSetDigest: "" }
+    ]
+  });
+  const hit = flagged.issues.filter(
+    (row) => row.ruleRef === "abg://gtl-program/contract/golden-instance-digest-required"
+  );
+  assert.equal(hit.length, 1);
+  assert.equal(hit[0].admissibleRepairs[0].editClass, "align_digest_or_version");
+});
+
+test("T-191 underdetermination requires a lawful owner route (LAWS-024)", () => {
+  const bad = typecheckGtlProgram({
+    underdeterminedDeclarations: [{ scopeRef: "scope://a", ownerRoute: "F_D", latitudeNote: "" }]
+  });
+  assert.equal(
+    bad.issues.filter(
+      (row) => row.ruleRef === "abg://gtl-program/input/underdetermined-owner-route-field"
+    ).length,
+    1
+  );
+  const good = typecheckGtlProgram({
+    underdeterminedDeclarations: [{ scopeRef: "scope://a", ownerRoute: "F_P", latitudeNote: "worker latitude" }]
+  });
+  assert.equal(
+    good.issues.filter((row) => row.surfaceKind === "underdetermined_scope").length,
+    0
+  );
+});
+
+test("T-191 language conformance corpus replays exactly (LAWS-027)", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const corpus = JSON.parse(
+    await readFile(new URL("../corpus/gtl-language-conformance-corpus.json", import.meta.url), "utf8")
+  );
+  assert.equal(corpus.kind, "gtl_language_conformance_corpus");
+  assert.equal(corpus.entries.length >= 6, true);
+  for (const entry of corpus.entries) {
+    const got = [...new Set(typecheckGtlProgram(entry.program).issues.map((r) => r.ruleRef))].sort();
+    assert.deepEqual(got, entry.expectedDiagnosticIds, `corpus entry ${entry.name} must replay exactly`);
+    for (const id of entry.expectedDiagnosticIds) {
+      assertRatifiedGtlProgramDiagnosticId(id);
+    }
+  }
+});
+
 test("T-191 repair edit-class vocabulary is closed and frozen", () => {
   assert.equal(Object.isFrozen(GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES), true);
   assert.equal(

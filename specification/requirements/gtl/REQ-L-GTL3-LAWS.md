@@ -56,3 +56,13 @@ State the governing language laws of GTL 3.
 **REQ-L-GTL3-LAWS-021**: Canonical authored form — an authored GTL program has one canonical data serialization with stable ordering and content-addressable digest identity. Identity canonicalization for digests and the canonical authored form are the same serialization law; alternate orderings or spellings are not rival authored truth.
 
 **REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declarations are pure data in the canonical form. Host-language control flow, computation, or string assembly that produces declaration content at authoring time is drift, not authored truth; conformance rejects computed declarations at the declaration boundary.
+
+**REQ-L-GTL3-LAWS-023**: Golden instance binding — a contract declaration may bind ratified example and counterexample instances as admitted data with content digests, promoting the existing evidence-shape and counterexample ref families rather than minting a rival surface. Golden instances calibrate evaluators and supply non-tautology mutation material; they are data, never closure authority.
+
+**REQ-L-GTL3-LAWS-024**: Declared underdetermination — a declaration may mark a scope as deliberately underdetermined with an owning decision route (`F_P` latitude or `F_H` decision). Invention is lawful only inside declared latitude; an undeclared hole is a defect, not permission.
+
+**REQ-L-GTL3-LAWS-025**: Declaration authorship — authored declarations may carry author and authority identity as factory provenance, checked at admission. Authorship is provenance truth joined to runtime lineage only by reference; it never drives traversal decisions.
+
+**REQ-L-GTL3-LAWS-026**: Evolution vocabulary — requirement relation kinds include supersession; contract and declaration evolution is expressed through the existing relation-kind family rather than a second relation vocabulary. Removal of ratified identities happens only by supersession.
+
+**REQ-L-GTL3-LAWS-027**: Language conformance corpus — the language publishes a ratified conformance corpus pairing programs with expected diagnostic identities. The corpus is the implementation-independent oracle: a conforming toolchain replays every corpus entry to the exact expected identities. It is distinct from the requirements corpus and from qualification evidence.
