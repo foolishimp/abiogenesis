@@ -159,3 +159,4 @@ carry a typed exemption.
 Canonical-lane repairs (defects 2/3/5) applied to the t180 lane in the
 same wave. Gates: test:semantic 1059/1059; test:t188 26/26.
 Remaining matrix rows: b (stub-worker shallow/no-close), c1-c3, d1-d5, e.
+- Canonical-lane verification (2026-07-05): test:hello-world:live 1/1 GREEN after the three repairs — the pre-existing release gate is restored; rc.7 may cite both lanes.
