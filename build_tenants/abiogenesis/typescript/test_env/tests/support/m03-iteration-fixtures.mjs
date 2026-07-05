@@ -109,11 +109,35 @@ function runtimeBindingSlots(prefix = "m03-iteration") {
   ]);
 }
 
+// Fail-closed option surface (DMM R2-F3): a typo'd option must throw, not
+// silently no-op a proof. One shared set across the fixture entry points.
+const M03_FIXTURE_KNOWN_OPTIONS = new Set([
+  "approvalSubjectRef", "authorityRefs", "configRef", "configSourceRefs",
+  "consequenceFpBinding", "contextRefs", "correlationId", "declarationRef",
+  "declarationSourceRefs", "defaultRegime", "dispatchRef", "frameId",
+  "frameLineageId", "includeComposition", "interfaceRef", "namespace",
+  "overlayRefs", "ownerRef", "pluginRefs", "policyRefs", "prefix",
+  "proofRefs", "provenanceRefs", "readinessRefs", "registryEntryRef",
+  "rendererRef", "runId", "sourceContractRef", "stageRoles",
+  "targetContractRef", "until", "vectorDeclarationEntriesByIndex",
+  "vectorIndexes", "vectorRegimes", "version", "workKey"
+]);
+
+function assertKnownM03FixtureOptions(options, label) {
+  for (const key of Object.keys(options)) {
+    if (!M03_FIXTURE_KNOWN_OPTIONS.has(key)) {
+      throw new Error(`${label}: unknown fixture option "${key}"`);
+    }
+  }
+}
+
 export function m03InstructionRegistryEntryRef(options = {}) {
+  assertKnownM03FixtureOptions(options, "m03InstructionRegistryEntryRef");
   return options.registryEntryRef ?? "registry-entry://m03-iteration/default";
 }
 
 export function m03InstructionGraphFunctionDeclaration(basis, options = {}) {
+  assertKnownM03FixtureOptions(options, "m03InstructionGraphFunctionDeclaration");
   const registryEntryRef = m03InstructionRegistryEntryRef(options);
   return constructGtlLibraryEntryDeclaration({
     declarationRef:
@@ -145,6 +169,7 @@ export function m03InstructionGraphFunctionDeclaration(basis, options = {}) {
 }
 
 export function m03InstructionRegistryStartupForBasis(basis, options = {}) {
+  assertKnownM03FixtureOptions(options, "m03InstructionRegistryStartupForBasis");
   return Object.freeze({
     systemDeclarations: Object.freeze([]),
     productStartupConfig: constructProductRegistryStartupConfig({
@@ -310,6 +335,7 @@ export function m03CompiledInstructionPlanFor(input) {
 }
 
 export function m03InstructionAssemblyStartupForBasis(basis, options = {}) {
+  assertKnownM03FixtureOptions(options, "m03InstructionAssemblyStartupForBasis");
   const stageRoles = options.stageRoles ?? ["transform", "evaluate", "consequence"];
   const vectorIndexes =
     options.vectorIndexes ?? basis.graph.vectors.map((_, index) => index);
@@ -331,6 +357,7 @@ export function m03InstructionAssemblyStartupForBasis(basis, options = {}) {
 }
 
 export function m03InstructionAssemblyRequestFields(basis, options = {}) {
+  assertKnownM03FixtureOptions(options, "m03InstructionAssemblyRequestFields");
   return constructDefaultInstructionAssemblyStartupForBasis(basis, {
     prefix: options.prefix ?? "m03-iteration",
     namespace: options.namespace ?? "m03.iteration",
@@ -541,6 +568,7 @@ function stageGraphFunction(
 }
 
 export function buildThreeStageModule(options = {}) {
+  assertKnownM03FixtureOptions(options, "buildThreeStageModule");
   const vectorRegimes = options.vectorRegimes ?? [
     options.defaultRegime ?? "F_P",
     options.defaultRegime ?? "F_P",
@@ -619,6 +647,7 @@ export function buildThreeStageModule(options = {}) {
 }
 
 export function buildThreeStageBasis(options = {}) {
+  assertKnownM03FixtureOptions(options, "buildThreeStageBasis");
   const defaultRegime = options.defaultRegime ?? "F_P";
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
@@ -674,6 +703,7 @@ export function buildThreeStageBasis(options = {}) {
 }
 
 export function buildThreeStageStartContext(options = {}) {
+  assertKnownM03FixtureOptions(options, "buildThreeStageStartContext");
   const defaultRegime = options.defaultRegime ?? "F_D";
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
@@ -740,4 +770,31 @@ export function buildThreeStageStartContext(options = {}) {
   });
 
   return Object.freeze({ input, context, module, executive, basis });
+}
+
+// ONE input-derived fulfilled attached artifact (DMM R2-F2). Sixteen test
+// files carry local copies; new and touched files use THIS. Payload-shape
+// field additions land here once.
+export function fulfilledAttachedArtifactFor(input, overrides = {}) {
+  const assessmentIds =
+    input.expectedAssessmentIds.length > 0
+      ? input.expectedAssessmentIds
+      : ["runtime_fulfilled"];
+  return {
+    edge: input.expectedEdge ?? input.edge,
+    actor: overrides.actor ?? "codex",
+    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+      id: assessmentId,
+      evaluator: assessmentId,
+      fulfillment_status: overrides.fulfillmentStatus ?? "fulfilled",
+      fulfillment_detail: overrides.fulfillmentDetail ?? "fixture worker result accepted",
+      blocking_reasons: overrides.blockingReasons ?? [],
+      evidence_refs: overrides.evidenceRefs ?? [`proof://${assessmentId}`]
+    })),
+    selected_worker_id: input.workerId,
+    selected_backend: input.backendId,
+    role_id: overrides.roleId ?? "role://fixture/runtime",
+    assignment_source: "policy_resolution",
+    resolved_runtime_ref: input.resolvedRuntimeRef
+  };
 }

@@ -25,7 +25,10 @@ import {
   INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  fulfilledAttachedArtifactFor
+} from "./support/m03-iteration-fixtures.mjs";
 
 
 function scalarEntry(key, value) {
@@ -653,45 +656,24 @@ function t190Plans(basis, stageRoles) {
   );
 }
 
-function t190AttachedArtifact(input) {
-  const assessmentIds =
-    input.expectedAssessmentIds.length > 0
-      ? input.expectedAssessmentIds
-      : ["runtime_fulfilled"];
-  return {
-    edge: input.expectedEdge ?? input.edge,
-    actor: "codex",
-    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
-      id: assessmentId,
-      evaluator: assessmentId,
-      fulfillment_status: "fulfilled",
-      fulfillment_detail: "t190 runtime enumeration drive",
-      blocking_reasons: [],
-      evidence_refs: [`proof://t190/${assessmentId}`]
-    })),
-    selected_worker_id: input.workerId,
-    selected_backend: input.backendId,
-    role_id: "role://t190",
-    assignment_source: "policy_resolution",
-    resolved_runtime_ref: input.resolvedRuntimeRef
-  };
-}
 
 function t190FpDispatchPlugin() {
   return Object.freeze({
-    contract: t190PluginContract("fp_dispatch", "plugin://t190/fp-dispatch", "FpDispatchOutcome"),
+    contract: pluginContract("fp_dispatch", "plugin://t190/fp-dispatch", "FpDispatchOutcome"),
     dispatch(input) {
       return constructFpDispatchOutcome({
         status: "dispatched",
         resultRef: `result://t190/${encodeURIComponent(input.edge)}`,
-        attachedResultArtifact: t190AttachedArtifact(input),
+        attachedResultArtifact: fulfilledAttachedArtifactFor(input, {
+          fulfillmentDetail: "t190 runtime enumeration drive"
+        }),
         evidenceRefs: [input.sourceProjectionRef]
       });
     }
   });
 }
 
-function t190PluginContract(pluginKind, ref, outputCarrier) {
+function pluginContract(pluginKind, ref, outputCarrier) {
   return constructEnginePluginContract({
     ref,
     pluginKind,
@@ -737,7 +719,7 @@ function t190Run(input) {
     plugins: {
       fpDispatch: t190FpDispatchPlugin(),
       fdEvaluator: Object.freeze({
-        contract: t190PluginContract("fd_evaluator", "plugin://t190/fd", "FdEvaluationOutcome"),
+        contract: pluginContract("fd_evaluator", "plugin://t190/fd", "FdEvaluationOutcome"),
         evaluate(fdInput) {
           return constructFdEvaluationOutcome({
             status: "accepted",
@@ -746,7 +728,7 @@ function t190Run(input) {
         }
       }),
       fpEvaluator: Object.freeze({
-        contract: t190PluginContract("fp_evaluator", "plugin://t190/fp-evaluator", "FpEvaluationOutcome"),
+        contract: pluginContract("fp_evaluator", "plugin://t190/fp-evaluator", "FpEvaluationOutcome"),
         evaluate(evaluationInput) {
           observed.evaluator = evaluationInput;
           return constructFpEvaluationOutcome({

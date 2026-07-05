@@ -187,3 +187,34 @@ constitutional-adjacent code — it should be consolidated before T-192
 builds the temporal-property carriers next to these families. R2-F2/F3
 are test-tier and schedulable; neither blocks Phase A (the live run) nor
 rc.7.
+
+## Round 2 Fix Addendum (2026-07-06, same day)
+
+All four R2 findings addressed, test-gated:
+- R2-F1 FIXED: gtl_program_conformance is the ONE RULE HOME — exports
+  goldenInstanceBindingHasDigest/HasMaterial predicates (self-consumed by
+  its own LAWS-023 check); instruction_assembly's carriers became aliases
+  (GoldenInstanceCalibrationRow = the ratified binding row;
+  DeclaredLatitudeRow extends the ratified underdetermined row, narrowing
+  ownerRoute via GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES — the third
+  copy of the route law is now derived from the first). Cross-referenced
+  both directions.
+- R2-F3 FIXED: M03_FIXTURE_KNOWN_OPTIONS + fail-closed assert on all 8
+  fixture entry points; the full semantic sweep (1072/1072) doubles as
+  proof that no suite was passing rogue keys.
+- R2-F2 FIXED (touched-files scope): fulfilledAttachedArtifactFor exported
+  from the fixture module; t189 and t188-fold-gating lanes migrated (2 of
+  16 local copies retired; remaining 14 migrate opportunistically per the
+  no-mass-rename rule; the sandbox builder's copy stays — generated
+  in-sandbox code cannot import test support).
+- R2-F4 ADDRESSED: t190PluginContract renamed pluginContract (t145
+  convention); lane-level a1/a2 assertion duplication ADJUDICATED
+  ACCEPTED — lanes assert independently by design, divergence is loud
+  (a lane fails), unlike silent source divergence which is what the
+  shared builder eliminated.
+Gates: t189 11/11, t188 fold 6/6, semantic 1072/1072, lanes skip clean,
+whitespace clean. Gödel note accepted as operating posture: the design
+system cannot prove its own completeness from inside a slice — the
+review-react loop IS the design instrument for what per-slice derivation
+cannot see; carrier-pin added to reduce (not eliminate) the reaction
+surface.

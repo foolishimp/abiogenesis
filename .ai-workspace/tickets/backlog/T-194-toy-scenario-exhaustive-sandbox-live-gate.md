@@ -291,3 +291,12 @@ itself closes when this rule is ratified into its constitutional home —
 OPEN DECISION (user's): TICKET_METHOD (shared law, specification_methodology
 first) vs an ABI-local REQ clause / TICKET_METHOD-local closure rule.
 First enforced uses: rc.7 cut; T-190 and T-191 closures.
+
+## Ticket Convention Addition (2026-07-06): CARRIER PIN
+
+Alongside the Phase-0 evidence pin, tickets whose slices touch contracts
+SHALL carry a carrier pin: "name the existing carrier families this slice
+touches, or declare new-with-reason" — the 15-minute derivation step that
+converts promote-don't-re-mint from review catch to non-event (adopted
+from DMM review R2-F1). Home: ABI-local convention now; candidates for
+TICKET_METHOD ratification with the gate-home decision.

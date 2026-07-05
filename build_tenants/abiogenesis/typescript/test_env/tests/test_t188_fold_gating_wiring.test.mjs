@@ -13,6 +13,7 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import {
   buildThreeStageBasis,
+  fulfilledAttachedArtifactFor,
   m03InstructionAssemblyRequestFields
 } from "./support/m03-iteration-fixtures.mjs";
 import * as publicRoot from "@abiogenesis/typescript-tenant";
@@ -113,29 +114,6 @@ function envelopeTemplate(overrides = {}) {
   };
 }
 
-function fulfilledArtifact(input, evidenceRefs) {
-  const assessmentIds =
-    input.expectedAssessmentIds.length > 0
-      ? input.expectedAssessmentIds
-      : ["runtime_fulfilled"];
-  return {
-    edge: input.expectedEdge ?? input.edge,
-    actor: "codex",
-    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
-      id: assessmentId,
-      evaluator: assessmentId,
-      fulfillment_status: "fulfilled",
-      fulfillment_detail: "attached worker result accepted",
-      blocking_reasons: [],
-      evidence_refs: evidenceRefs ?? [`proof://${assessmentId}`]
-    })),
-    selected_worker_id: input.workerId,
-    selected_backend: input.backendId,
-    role_id: "role://runtime",
-    assignment_source: "policy_resolution",
-    resolved_runtime_ref: input.resolvedRuntimeRef
-  };
-}
 
 function fpDispatchPluginWithArtifact() {
   return Object.freeze({
@@ -150,7 +128,7 @@ function fpDispatchPluginWithArtifact() {
       return constructFpDispatchOutcome({
         status: "dispatched",
         resultRef: `result://t188/wiring/${input.vectorIndex}`,
-        attachedResultArtifact: fulfilledArtifact(input),
+        attachedResultArtifact: fulfilledAttachedArtifactFor(input),
         evidenceRefs: [input.sourceProjectionRef]
       });
     }
@@ -235,7 +213,7 @@ test("T-188 M3 differential: ledger-resolved strength flips the strength issue k
         // the artifact DECLARES the strength evidence; the accepted payload
         // admission turns it into typed evidence truth — only then does
         // strength resolution succeed (no raw-string masquerade)
-        attachedResultArtifact: fulfilledArtifact(input, [strengthRef]),
+        attachedResultArtifact: fulfilledAttachedArtifactFor(input, { evidenceRefs: [strengthRef] }),
         evidenceRefs: []
       });
     }
@@ -396,7 +374,7 @@ function b3Run(carryEntry, pluginEvidenceRefs) {
           return constructFpDispatchOutcome({
             status: "dispatched",
             resultRef: `result://t188/b3/${input.vectorIndex}`,
-            attachedResultArtifact: fulfilledArtifact(input, pluginEvidenceRefs),
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input, { evidenceRefs: pluginEvidenceRefs }),
             evidenceRefs: []
           });
         }

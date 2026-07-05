@@ -1076,6 +1076,22 @@ export interface GtlProgramDeclarationSourceRow {
 }
 
 // Implements: REQ-L-GTL3-LAWS-023
+// ONE RULE HOME: these row shapes and predicates are consumed by BOTH the
+// program-level conformance checks here AND the plan-compile validation in
+// instruction_assembly (T-191 acceptance 3/4). Reprice the law HERE.
+export function goldenInstanceBindingHasDigest(row: {
+  readonly instanceSetDigest: string;
+}): boolean {
+  return row.instanceSetDigest.trim().length > 0;
+}
+
+export function goldenInstanceBindingHasMaterial(row: {
+  readonly exampleInstanceRefs: readonly string[];
+  readonly counterexampleInstanceRefs: readonly string[];
+}): boolean {
+  return row.exampleInstanceRefs.length > 0 || row.counterexampleInstanceRefs.length > 0;
+}
+
 export interface GtlProgramGoldenInstanceBindingRow {
   readonly contractRef: string;
   readonly exampleInstanceRefs: readonly string[];
@@ -6234,7 +6250,7 @@ function admitGoldenInstanceBindingRows(
       if (
         (admitted.exampleInstanceRefs.length > 0 ||
           admitted.counterexampleInstanceRefs.length > 0) &&
-        admitted.instanceSetDigest.length === 0
+        !goldenInstanceBindingHasDigest(admitted)
       ) {
         issues.push(
           issue({

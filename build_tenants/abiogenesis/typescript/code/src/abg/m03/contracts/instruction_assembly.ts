@@ -2,6 +2,13 @@
 // Implements: T-188
 // Implements: REQ-R-ABG3-INSTRUCTION-ASSEMBLY
 
+import {
+  GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES,
+  goldenInstanceBindingHasDigest,
+  goldenInstanceBindingHasMaterial,
+  type GtlProgramGoldenInstanceBindingRow,
+  type GtlProgramUnderdeterminedDeclarationRow
+} from "./gtl_program_conformance.js";
 import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS = Object.freeze([
@@ -293,22 +300,14 @@ export interface CompileInstructionAssemblyPlanInput {
 // as PERMISSION (ODD §5 — prompts grant permission, not prescription).
 // Owner route is F_P or F_H only; F_D "latitude" is a contradiction (the
 // deterministic regime has no judgment latitude) and fails compile.
-// T-191 acceptance 3: golden instances bound on an edge are CONSUMED by
-// evaluator calibration — rendered into EVALUATE-stage manifests only.
-// Examples define admissible shape; counterexamples are refutation
-// (non-tautology mutation) material. Refs + digest only — never instance
-// content (answer-shaped content is forbidden by the non-tautology gate).
-export interface GoldenInstanceCalibrationRow {
-  readonly contractRef: string;
-  readonly exampleInstanceRefs: readonly string[];
-  readonly counterexampleInstanceRefs: readonly string[];
-  readonly instanceSetDigest: string;
-}
+// T-191 acceptance 3/4 carriers: the RATIFIED HOME is gtl_program_conformance
+// (LAWS-023/-024 rows + predicates). These are consumption-role aliases —
+// calibration renders into EVALUATE manifests; latitude renders as
+// permission. Reprice the law in the conformance module, not here.
+export type GoldenInstanceCalibrationRow = GtlProgramGoldenInstanceBindingRow;
 
-export interface DeclaredLatitudeRow {
-  readonly scopeRef: string;
-  readonly ownerRoute: "F_P" | "F_H";
-  readonly latitudeNote: string;
+export interface DeclaredLatitudeRow extends GtlProgramUnderdeterminedDeclarationRow {
+  readonly ownerRoute: (typeof GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES)[number];
 }
 
 export interface CompiledPromptPlan {
@@ -1120,7 +1119,7 @@ export function compileInstructionAssemblyPlan(
   const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
   const goldenInstanceCalibration: GoldenInstanceCalibrationRow[] = [];
   for (const row of input.goldenInstanceCalibration ?? []) {
-    if (row.instanceSetDigest.trim().length === 0) {
+    if (!goldenInstanceBindingHasDigest(row)) {
       issues.push(
         Object.freeze({
           kind: "instruction_assembly_issue",
@@ -1132,7 +1131,7 @@ export function compileInstructionAssemblyPlan(
       );
       continue;
     }
-    if (row.exampleInstanceRefs.length === 0 && row.counterexampleInstanceRefs.length === 0) {
+    if (!goldenInstanceBindingHasMaterial(row)) {
       issues.push(
         Object.freeze({
           kind: "instruction_assembly_issue",
@@ -1156,7 +1155,7 @@ export function compileInstructionAssemblyPlan(
   const declaredLatitude: DeclaredLatitudeRow[] = [];
   const latitudeIssues: InstructionAssemblyIssue[] = [];
   for (const row of input.declaredLatitude ?? []) {
-    if (row.ownerRoute !== "F_P" && row.ownerRoute !== "F_H") {
+    if (!(GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES as readonly string[]).includes(row.ownerRoute)) {
       latitudeIssues.push(
         Object.freeze({
           kind: "instruction_assembly_issue",
@@ -1183,7 +1182,7 @@ export function compileInstructionAssemblyPlan(
     declaredLatitude.push(
       Object.freeze({
         scopeRef: row.scopeRef,
-        ownerRoute: row.ownerRoute,
+        ownerRoute: row.ownerRoute as DeclaredLatitudeRow["ownerRoute"],
         latitudeNote: row.latitudeNote
       })
     );
