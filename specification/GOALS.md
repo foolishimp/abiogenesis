@@ -397,3 +397,30 @@ source-derived dispatch-site census; registry lookup starts from the registry
 universe, treats absent vector constraints as unconstrained, and rejects
 selected candidates excluded by vector constraints or registry eligibility
 rather than self-confirming from the selected entry.
+
+The post-RC5 dispatch-review record release is ABI TypeScript `4.2.0-rc.6`:
+
+- source commit `f38168358e31d9bb4181b5b47fd24c5f44557c6a`;
+- release snapshot commit `ec329750c9c0b200cad23073eaab7e6863832ba4`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.6/`;
+- `latest -> 4.2.0-rc.6`;
+- tarball sha256
+  `e28cb3d8840f4e7c1dfb104142ef2a4303cf414225c5346111954a3c466507d3`;
+- release snapshot manifest sha256
+  `7e59b26f00b2dd2d33729016919f472fae91fac84b03ea84661ba3c7d5c2a7e5`;
+- release note sha256
+  `1b559fe538413e19e897b737325bef39bb56fac6c6fc566e0e65158bdbc50407`;
+- verification: `test:t189` 5/5, `test:t177` 16/16, `test:t183` 16/16,
+  `test:t188` 20/20, `test:semantic` 1039/1039, `git diff --check`, and
+  `npm pack --dry-run`.
+
+The RC6 release snapshot was cut from clean source commit
+`f38168358e31d9bb4181b5b47fd24c5f44557c6a` with `sourceDirty: false`. RC6
+preserves the RC5 runtime wiring behavior and adds the post-RC5 DMM review
+record to release source: T-189 records the review disposition and surviving
+successor item, T-190 tracks replacement of the source-text dispatch census
+with runtime F_P dispatch enumeration and mutation differentials, T-188 names
+the startup-carried depth/strength/dependency boolean hazard as a non-closure
+condition before fold gating, and GOAL-030 keeps that proof-hardening work
+active. RC6 does not reprice `REQ-R-ABG3-SELECTION-APPLICATION-006`: absent
+vector or edge registry constraints remain intentionally unconstrained.
