@@ -160,3 +160,40 @@ calculus preserves event object identity (proven by test today; brittle if
 calculus clones — successor: ref-keyed rows); per-dispatch gate evaluation
 rebuilds trace context (O(trace) per gate — acceptable now, perf successor
 for hot paths).
+
+## Phase 3 + Phase 4 COMPLETE (2026-07-06)
+
+P3: STANDING_GATE_TEMPORAL_PROPERTY_RULES — the five standing audit gates
+as declared GTL Rules (data): dispatch-requires-manifest,
+coverage-requires-payload-admission (the T-188 ordering law),
+invocation-requires-dispatch, selection-requires-registry-admission
+(safety_gate/dispatch|closure), dispatch-eventually-closes
+(liveness_residual). Every gate proven before gating: lawful + mutation
++ vacuity differentials per safety gate; undetermined-open /
+satisfied-completed / violated-never differentials for the liveness gate.
+
+P4 (engine): temporal_property_verdict_projected carrier + factory +
+admission (witnessCount nullable = no witness formula);
+temporalPropertyStartup rides the ONE passthrough authority (every public
+seam forwards it for free); startup admission fails closed (unlawful set
+=> gap_stop before any traversal); ONE choke point (the local
+emitRunnerEvents closure) derives full-set verdicts immediately before
+EVERY terminal event — 47 terminal sites covered by a single
+interception; completed terminals (traversal_applied/converged) decide
+future obligations, all others leave liveness undetermined (LTL3); the
+scalar dispatch arm gates candidates BEFORE they enter truth (violated
+safety => replay-visible violated verdict + gap_stop, and the candidate
+fp_dispatch_requested never appears in replay — proven differentially).
+
+CARRIER NOTE (§5E-style): Rule(config: formula json) --admit-->
+TemporalProperty --evaluate over (events x calculus fluents)-->
+TemporalPropertyVerdict --construct--> verdict event --emit choke point-->
+replay. One fluent vocabulary; one verdict carrier; verdicts read truth,
+never write it.
+
+NAMED SUCCESSORS: per-vector parameterized gate formulas (v1 is
+kind-level); composed-arm dispatch gating (v1 gates the scalar arm — the
+composed arms emit stage-task events, not fp_dispatch_requested);
+closure-point online blocking (verdicts carry the pressure; fold
+consumption is the successor); run-identity on verdicts richer than
+basis-level; checker perf (per-gate trace rebuild).

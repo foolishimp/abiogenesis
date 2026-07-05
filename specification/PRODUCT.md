@@ -530,6 +530,11 @@ It owns the declaration-side truth for:
   compute
 - lawful composition, substitution, recursion, and higher-order graph operators
 - module publication and engine-independence boundaries
+- temporal-property law: GTL temporal properties as a Rule kind checked as
+  total three-valued functions over finite replay traces, with online
+  safety gating, residual-routed liveness, vacuity rejection, and the
+  standing audit gates as the first declared property set
+  (REQ-L-GTL3-TEMPORAL-PROPERTIES);
 - authoring-loop meta-law: ratified diagnostic identities with admissible
   repair affordances, canonical authored form and declarations-as-data,
   golden instance bindings, declared underdetermination, declaration

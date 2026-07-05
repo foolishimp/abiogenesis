@@ -57,6 +57,7 @@ export function runtimeBindingSource(input) {
   constructNode,
   constructNodeTypeGraphFunction,
   constructProductRegistryStartupConfig,
+  STANDING_GATE_TEMPORAL_PROPERTY_RULES,
   constructRuntimeBindingSlot,
   contractForKnownAgent,
   defaultFpDispatchPlugin,
@@ -929,6 +930,7 @@ export const runtimeBinding = {
     approvalSubjectRef: null
   }),
   runtimeRegistryStartup,
+  temporalPropertyStartup: { rules: STANDING_GATE_TEMPORAL_PROPERTY_RULES },
 ${input.omitInstructionAssembly === true ? "" : "  instructionAssemblyStartup,"}
 ${input.includeCarryThrough === true ? `  requirementRouteDeclarationBundle: t194Bundle,
   requirementProofCarryThroughStartup: {

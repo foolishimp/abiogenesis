@@ -289,6 +289,31 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     "REQ-T194-001 must fold satisfied with eligible coverage threaded"
   );
 
+  // T-192 live: the standing temporal gates ran on the installed path —
+  // one verdict per gate at the terminal, all satisfied, dispatch gate
+  // witnessed (non-vacuous), liveness decided on the completed run.
+  const temporalVerdicts = events.filter(
+    (event) => event.kind === "temporal_property_verdict_projected"
+  );
+  assert.equal(temporalVerdicts.length >= 5, true, "standing-gate verdicts must be emitted live");
+  const byRef = new Map(temporalVerdicts.map((v) => [v.propertyRef, v]));
+  for (const ref of [
+    "temporal-property://abg/standing/dispatch-requires-manifest",
+    "temporal-property://abg/standing/coverage-requires-payload-admission",
+    "temporal-property://abg/standing/invocation-requires-dispatch",
+    "temporal-property://abg/standing/selection-requires-registry-admission",
+    "temporal-property://abg/standing/dispatch-eventually-closes"
+  ]) {
+    const verdict = byRef.get(ref);
+    assert.ok(verdict, `missing live verdict for ${ref}`);
+    assert.equal(verdict.status, "satisfied", `${ref}: ${verdict?.status}`);
+  }
+  assert.equal(
+    byRef.get("temporal-property://abg/standing/dispatch-requires-manifest").vacuous,
+    false,
+    "live dispatches happened; G1 must be witnessed"
+  );
+
   // Shared sub-run helper for the negative rows (stub worker, per-row instance).
   const runNegativeRow = async (rowName, bindingOptions) => {
     const rowRoot = path.join(runRoot, `instance-${rowName}`);
