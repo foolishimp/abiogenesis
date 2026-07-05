@@ -176,3 +176,26 @@ sub-run exit statuses explicitly ([0,4] = converge-or-block, anything
 else fails loudly).
 - Rows c1+c3 EARNED (2026-07-05, green first run): c1 fail-closed (no instruction startup -> exit 4 + gap_stop + zero dispatch + zero carry truth); c3 ordering gate (assessment-less stub artifact -> dispatch happens, payload admission rejects, ZERO carry admissions, no satisfied fold). runNegativeRow helper added (per-row instance, ~15 lines per future negative). Live cost unchanged (2 dispatches).
 - Rows d1-d5 + e EARNED (2026-07-05, green first run): T-191 compiler surface proven FROM THE INSTALLED ARTIFACT — ratified identities + repairs on live issues, unratified-ID rejection, declaration-source witness law (flag + clean), golden-instance digest law, underdetermined owner-route fail-closed, inventory-digest identity coverage, and exact issue-set/digest replay (corpus semantics). The installed product carries the law, not just the source tree.
+
+## Matrix Status (2026-07-05): 12/13 rows EARNED; c2 splice plan recorded
+
+EARNED in test:t194:sandbox-live (1/1 green, 2 live dispatches total):
+a1/a2 (inherited, incl. manifests=4 all-arms), a3 (eligible->satisfied,
+live), b (shallow->residual->no_close, stub), c1 (fail-closed, no
+dispatch), c3 (rejected payload mints nothing), d1-d5 + e (installed
+T-191 compiler surface + exact replay).
+
+REMAINING: c2 registry boundary rejection. MECHANISM VERIFIED: vector
+declaration key `runtime_registry_candidate_refs` constrains candidate
+identity refs (engine_runner reads it via graphVectorDeclarationStringList
+at the registry lookup); rejections are replay-visible as
+`registry_entry_rejected` events. SPLICE PLAN: binding option
+`registryDecoy: true` -> (1) generated source appends one decoy entry to
+the product registry startup config (clone a node_type entry with a decoy
+identity ref), (2) the toy vector's declarations gain
+runtime_registry_candidate_refs listing only the lawful refs, (3)
+runNegativeRow("c2", {registryDecoy: true, stubDispatch: true}) asserts:
+decoy enumerated (registry_entry_admitted) AND registry_entry_rejected
+present for it AND selections exclude the decoy AND run still converges.
+c2 is installed-path confirmation of law already unit-proven in the T-189
+wave — hardening, not an rc.7 gate.
