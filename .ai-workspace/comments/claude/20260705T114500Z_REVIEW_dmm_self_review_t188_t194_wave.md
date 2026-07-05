@@ -127,3 +127,63 @@ F7 minors incl. §6C retention named. Final gates: t194 matrix 1/1 (14
 rows), canonical hello-world live 1/1 on the shared builder, semantic
 1062/1062. The review's sequencing recommendation (F1/F2 before the next
 wave) was executed same-day; the seams are now Prime alongside the laws.
+
+## Round 2 (2026-07-06): T-190 realization + T-191 acceptance wave
+
+Scope: everything since round 1 — armId census, latitude + calibration
+carriers/rendering, gate assembly. Same lenses: duplicate surfaces, debt.
+
+### R2-F1 — MAJOR. One law, three homes (latitude/calibration)
+Essential Carrier Consolidation. The T-191 families now exist TWICE as
+types and THRICE as validation:
+- GtlProgramGoldenInstanceBindingRow (conformance, LAWS-023) is
+  field-for-field identical to GoldenInstanceCalibrationRow
+  (instruction_assembly); GtlProgramUnderdeterminedDeclarationRow ≡
+  DeclaredLatitudeRow.
+- The owner-route law (F_P/F_H only) lives as
+  GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES in conformance, as a
+  hardcoded pair in my compile validation, AND as the TS union on
+  DeclaredLatitudeRow — three copies of one rule.
+- The digest-required law lives as the conformance diagnostic
+  (golden-instance-digest-required) and again as my compile check
+  (golden_instance_calibration_invalid).
+Divergence risk is live: reprice LAWS-023/-024 and the compile half
+drifts silently. SMALLEST LAWFUL FIX: one shared carrier module (the
+conformance rows are the ratified home — instruction_assembly imports the
+row types + a shared owner-route predicate; compile validation delegates
+to shared predicates; keep the two issue vocabularies but derive both
+checks from one rule source). Cross-reference comments both ways.
+
+### R2-F2 — MAJOR (pre-existing, grown by this wave). Sixteen copies of
+the input-derived attached-artifact fixture. 16 test/lane files define
+their own attachedArtifact/fulfilledArtifact; 44 files touch
+fulfillment_assessments shapes. Every payload-admission field addition
+(the selectedComposition* whack-a-mole this wave hit FOUR times) is a
+16-site hunt. FIX: one exported fulfilledAttachedArtifactFor(input,
+overrides) in m03-iteration-fixtures; migrate opportunistically —
+new/touched files first, no mass rename.
+
+### R2-F3 — MEDIUM. The shared fixture's option surface is fail-open.
+m03-iteration-fixtures reads 88 options.* keys with zero unknown-key
+validation — the exact silent-ignore class F4/F6 constitutionalized
+against, in the fixture every suite trusts. A typo'd option
+(consequenceFpBindng) silently no-ops and a proof goes vacuous. FIX:
+KNOWN_OPTIONS set + throw, mirroring the binding builder.
+
+### R2-F4 — MINOR. Local duplications in the t189 lane: t190PluginContract
+beside stageContract (two contract helpers, one file); t194/t180 lanes
+still duplicate the inherited a1/a2 assertion bodies (builders
+consolidated, assertions not).
+
+### Residuals carried (named, unchanged): armId runtime assert is dead
+under TS callers; async executor twin differential; calibration
+instanceSetDigest is a declared constant pending content provenance;
+test_runs retention manual.
+
+### Verdict
+Round 1's laws remain Prime; this wave's additions are individually
+lawful but R2-F1 reintroduces the two-truth pattern at the TYPE level in
+constitutional-adjacent code — it should be consolidated before T-192
+builds the temporal-property carriers next to these families. R2-F2/F3
+are test-tier and schedulable; neither blocks Phase A (the live run) nor
+rc.7.
