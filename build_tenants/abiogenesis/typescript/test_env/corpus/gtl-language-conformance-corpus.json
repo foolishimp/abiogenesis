@@ -1,7 +1,7 @@
 {
   "kind": "gtl_language_conformance_corpus",
   "law": "REQ-L-GTL3-LAWS-027",
-  "note": "Seed harvested mechanically from the TS tenant at 4.2.0-rc.6+t191. A conforming toolchain replays every entry to exactly the expected diagnostic identities. Distinct from the requirements corpus and from qualification evidence.",
+  "note": "Seed harvested mechanically from the TS tenant at 4.2.0-rc.6+t191. A conforming toolchain replays every entry to exactly the expected diagnostic identities. Distinct from the requirements corpus and from qualification evidence. PROVISIONAL PLACEMENT: lives under test_env pending a published-language-surface decision (T-191 remainder); exact-set replay means any new base-conformance check intentionally breaks all entries — regenerate deliberately, never patch expected sets to green.",
   "entries": [
     {
       "name": "empty-program",

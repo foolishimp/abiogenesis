@@ -253,3 +253,52 @@ Realization:
    semantic-suite fixtures).
 6. Authorship self-dealing replay query (join declaration authorRef to
    evaluating worker identity).
+
+## Self-Review Record (2026-07-05, full pass over the five T-191 commits)
+
+Method: the workspace failure taxonomy applied to my own work; every
+suspicion verified against the tree before acting.
+
+CLEARED by verification:
+- Dynamic-domain completeness: both template-literal builders' domains are
+  exactly the ratified 8+8 (requiredRefPrefixes, requiredConservationFields).
+- No unbounded template ruleRefs: the traversal-unit digest template
+  (:8689) is a surface ref, not a diagnostic identity; zero
+  backtick-built ruleRefs remain.
+- Repair-table dead-law risk: already covered by the table-keys-must-be-
+  ratified differential.
+- Corpus version stability: `version/exact-package-version` fires on
+  ABSENT input, so replay is stable across version bumps.
+- PRODUCT / CONTRACT-LAW-API propagation landed correctly.
+
+FOUND and FIXED in this pass (all law-vs-code gaps of my own making — the
+exact class this workspace audits):
+1. -019 clause text did not grant the declaration-carried namespace
+   exception the code implements (source-authority/* prefix acceptance).
+   Clause amended to name declaration-carried identities + the successor
+   validation against the admitted declaration set.
+2. -019 said an unknown identity "is a conformance failure"; the
+   realization THROWS at the constructor (fail-closed crash, not an
+   emitted issue). Clause amended to say fails closed at the constructor
+   boundary — law now matches realization honestly.
+3. -025 said authorship is "checked at admission"; realization only
+   CARRIES the fields. Clause amended: admitted with the declaration;
+   authority checks bind as successor law.
+4. Corpus placement contradiction: -027 says distinct from qualification
+   evidence, yet the seed lives under test_env/. Placement declared
+   PROVISIONAL in the corpus note pending a published-language-surface
+   decision — remainder #7.
+5. Corpus exactness brittleness declared in the note: any new base check
+   intentionally breaks all entries; regenerate deliberately, never patch
+   expected sets to green.
+
+FOUND, known, unchanged (already-named remainders confirmed adequate):
+- The declaration-carried namespace is an open prefix inside a closed
+  vocabulary — reachable by design via declared policy rows; successor
+  validation named in -019 itself now.
+- Latitude rows and authorship fields have no consumers yet
+  (declared_not_wired BY DESIGN, remainders 2/6).
+
+Verdict: the wave survives its own audit with five honest corrections,
+zero carrier changes, and no conclusion reversed. Proofs after fixes:
+test:t191 12/12; corpus replay green.
