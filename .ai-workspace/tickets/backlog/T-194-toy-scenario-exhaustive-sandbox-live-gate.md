@@ -272,3 +272,22 @@ This lane is the standing rc.7 exhaustive live gate. test:semantic
 - Gates: t194 matrix 1/1 GREEN (14 rows incl. c2a/c2b); canonical
   hello-world live 1/1 GREEN on the shared builder; test:semantic
   1062/1062 (includes 3 new differentials).
+
+## Disposition: STANDING CLOSURE GATE (2026-07-06)
+
+This ticket does not close as a one-off proof. The lane IS the standing
+ticket-closure gate:
+
+RULE (ABI-local until a ratification home is chosen): a ticket whose
+change touches runtime, contracts, public seams, or proof surfaces SHALL
+NOT close unless test:t194:sandbox-live is green at the closure commit
+(fresh run, not inherited — the rc.6-inherited-from-rc.3 lesson).
+Spec-only and commentary tickets are exempt. Cost: ~2 live dispatches per
+run; negative rows are stub-driven and free.
+
+This is the executable half of the standing audit gates (wiring-proof +
+release-claim as a command, not review discipline). The T-194 ticket
+itself closes when this rule is ratified into its constitutional home —
+OPEN DECISION (user's): TICKET_METHOD (shared law, specification_methodology
+first) vs an ABI-local REQ clause / TICKET_METHOD-local closure rule.
+First enforced uses: rc.7 cut; T-190 and T-191 closures.
