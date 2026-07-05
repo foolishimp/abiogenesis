@@ -197,3 +197,22 @@ composed arms emit stage-task events, not fp_dispatch_requested);
 closure-point online blocking (verdicts carry the pressure; fold
 consumption is the successor); run-identity on verdicts richer than
 basis-level; checker perf (per-gate trace rebuild).
+
+## Phase 4 LIVE + Gödel Checkpoint 2 (2026-07-06)
+
+LIVE EARNED: the standing gates rode the installed toy binding through
+the CLI public path (temporalPropertyStartup on the one passthrough
+authority) — test:t194:sandbox-live 1/1 with per-gate verdict asserts:
+all five satisfied on the converged run, G1 witnessed non-vacuous, G5
+liveness decided by completion; exactly 5 verdict events in the
+instance's events.jsonl (no batch inflation on this shape).
+
+CHECKPOINT 2 (review-react): (a) verdict-noise on multi-yield runs —
+yields emit terminal_reached, so long runs would batch verdicts per
+pause; REACTED: yield-kind terminals skip verdict derivation (pauses are
+not judgments; every non-yield terminal judges). (b) refuted concern:
+live batch count exactly 5. (c) carried: composed-arm gate,
+per-vector formulas, closure-point fold consumption, run-identity depth,
+checker perf — all named successors, none closure-blocking (the ticket's
+non_closure list is satisfied by the scalar online gate + terminal
+verdicts + live proof).

@@ -5010,7 +5010,13 @@ function* runEngineIterateMachine(input: {
         ? (events as readonly RuntimeEvent[])
         : [events as RuntimeEvent];
       const terminal = list.find((event) => event.kind === "terminal_reached");
-      if (terminal !== undefined && terminal.kind === "terminal_reached") {
+      // Yields are pauses, not judgments: no verdict batch per yield
+      // (checkpoint-2 noise guard); every non-yield terminal judges.
+      if (
+        terminal !== undefined &&
+        terminal.kind === "terminal_reached" &&
+        terminal.terminalKind !== "yielded"
+      ) {
         const completed =
           terminal.terminalKind === "traversal_applied" ||
           terminal.terminalKind === "converged";
