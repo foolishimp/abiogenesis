@@ -167,3 +167,23 @@ REALIZED — the census is now the BIND PATH, not observation:
 Gates at closure: t189 lane 11/11; test:t183 16/16; test:t188 26/26;
 test:semantic 1068/1068; git diff --check clean; STANDING CLOSURE GATE
 test:t194:sandbox-live 1/1 (fresh run, first enforced use).
+
+## Post-Closure Self-Review (2026-07-06, same day)
+
+Findings against my own closure, fixed in-pass:
+1. VACUITY HOLE (real, not hiding a vacuous pass): the scalar_evaluate
+   assertion was conditional (`if observed.evaluator !== null`) — the
+   cited proof could have passed with the evaluator never invoked.
+   Hardened to an unconditional invocation guard; the evaluator IS
+   invoked (proof was real, weakly asserted).
+2. IDENTITY GAP: presence-only manifest assertions on the new arms;
+   added per-stage planRef identity (evaluate plan to evaluate arms,
+   consequence plan to the consequence task) — presence-not-differential
+   discipline applied to my own tests.
+3. Dead census artifacts removed (RUNNER_SOURCE_PATH + unused import).
+RESIDUAL (named, not fixed): the async executor twin's construct-and-block
+guard is code-identical to the sync twin but only the sync path has a
+differential (resolveAsyncEnginePluginEffect is unexported); the runtime
+armId assert is dead code under TS callers (the union type is the compile
+gate) and guards only non-TS/cast callers — both acceptable, both named.
+Lane 11/11; semantic re-verified green.

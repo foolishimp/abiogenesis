@@ -3,7 +3,6 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { fileURLToPath } from "node:url";
 
 import {
   ENGINE_FP_DISPATCH_ARM_IDS,
@@ -28,9 +27,6 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
-const RUNNER_SOURCE_PATH = fileURLToPath(
-  new URL("../../code/src/abg/m03/runner/engine_runner.ts", import.meta.url)
-);
 
 function scalarEntry(key, value) {
   return Object.freeze({
@@ -787,12 +783,21 @@ test("T-190 evaluate arms receive manifests (scalar evaluate + evaluation rule b
     observed.rule.instructionPromptManifest,
     "evaluation rule batch input must carry an admitted instruction prompt manifest"
   );
-  if (observed.evaluator !== null) {
-    assert.ok(
-      observed.evaluator.instructionPromptManifest,
-      "scalar evaluate input must carry an admitted instruction prompt manifest"
-    );
-  }
+  assert.equal(
+    observed.rule.instructionPromptManifest.planRef.includes("/evaluate-"),
+    true,
+    "rule batch must receive the EVALUATE-stage plan (manifest identity)"
+  );
+  assert.notEqual(observed.evaluator, null, "fp evaluator MUST be invoked (vacuity guard)");
+  assert.ok(
+    observed.evaluator.instructionPromptManifest,
+    "scalar evaluate input must carry an admitted instruction prompt manifest"
+  );
+  assert.equal(
+    observed.evaluator.instructionPromptManifest.planRef.includes("/evaluate-"),
+    true,
+    "scalar evaluate must receive the EVALUATE-stage plan (manifest identity)"
+  );
 });
 
 test("T-190 composed consequence task receives manifest", () => {
@@ -801,6 +806,11 @@ test("T-190 composed consequence task receives manifest", () => {
   assert.ok(
     observed.consequence.instructionPromptManifest,
     "composed consequence input must carry an admitted instruction prompt manifest"
+  );
+  assert.equal(
+    observed.consequence.instructionPromptManifest.planRef.includes("/consequence-"),
+    true,
+    "composed consequence must receive the CONSEQUENCE-stage plan (manifest identity)"
   );
 });
 
