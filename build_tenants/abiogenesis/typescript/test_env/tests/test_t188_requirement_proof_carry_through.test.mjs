@@ -1175,3 +1175,39 @@ test("T-191 golden instance calibration fails closed on missing digest or empty 
     true
   );
 });
+
+// ─── T-030 campaign root-cause: causal excerpt bound is plan policy ───
+
+test("causal excerpt render bound is plan-declared policy, not a constant", () => {
+  const longExcerpt = "A".repeat(20000);
+  const runtimeFactsWithExcerpt = () =>
+    runtimeFacts().map((fact, index) =>
+      index === 0 ? { ...fact, contentExcerpt: longExcerpt } : fact
+    );
+  const renderWithBound = (causalExcerptMaxChars) => {
+    const plan = compileAccepted(
+      causalExcerptMaxChars === undefined ? {} : { causalExcerptMaxChars }
+    );
+    const envelopeResult = bindInstructionEnvelope({
+      envelopeRef: `instruction-envelope://t030/excerpt-${causalExcerptMaxChars ?? "default"}`,
+      plan,
+      startupAdmission: admission(plan),
+      runtimeFacts: runtimeFactsWithExcerpt()
+    });
+    const rendered = renderPromptManifest({
+      manifestRef: `prompt-manifest://t030/excerpt-${causalExcerptMaxChars ?? "default"}`,
+      plan,
+      envelope: envelopeResult.envelope,
+      rendererRef: "renderer://abg/instruction-envelope/default"
+    });
+    return rendered.manifest.renderedPrompt;
+  };
+  // default bound truncates the 20k excerpt
+  assert.equal(renderWithBound(undefined).includes("[truncated:20000]"), true);
+  // plan-declared 96k bound carries it whole
+  assert.equal(renderWithBound(96000).includes("[truncated:"), false);
+  // unlawful bound fails compile closed
+  const bad = compileInstructionAssemblyPlan(compileInput({ causalExcerptMaxChars: 12 }));
+  assert.equal(bad.accepted, false);
+  assert.equal(bad.issues.some((row) => row.issueKind === "renderer_gap"), true);
+});

@@ -81,7 +81,10 @@ export function contractForKnownAgent(
         argsTemplate: [
           "exec",
           "--model",
-          "gpt-5.3-codex",
+          // Adapter/bootstrap ingress (runtime truth rule 11): the codex
+          // model is account-dependent; hardcoding it broke ChatGPT-account
+          // workers (T-030 data-mapper campaign, builder bug #2).
+          process.env["ABG_TS_CODEX_MODEL"] ?? "gpt-5.3-codex",
           "--full-auto",
           "--skip-git-repo-check",
           "-o",

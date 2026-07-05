@@ -256,6 +256,7 @@ export interface InstructionSectionDecision {
 }
 
 export interface CompileInstructionAssemblyPlanInput {
+  readonly causalExcerptMaxChars?: number | undefined;
   readonly goldenInstanceCalibration?: readonly {
     readonly contractRef: string;
     readonly exampleInstanceRefs: readonly string[];
@@ -311,6 +312,10 @@ export interface DeclaredLatitudeRow extends GtlProgramUnderdeterminedDeclaratio
 }
 
 export interface CompiledPromptPlan {
+  // T-030 root-cause (data-mapper campaign): the causal-excerpt render
+  // bound is PLAN POLICY, not a constant — product-scale admitted content
+  // (multi-module source surfaces) must be carryable by declaration.
+  readonly causalExcerptMaxChars: number;
   readonly declaredLatitude: readonly DeclaredLatitudeRow[];
   readonly goldenInstanceCalibration: readonly GoldenInstanceCalibrationRow[];
   readonly kind: "compiled_prompt_plan";
@@ -665,11 +670,14 @@ function stableCompactRefs(refs: readonly string[]): string {
   return stableJson(refs.map((ref) => compactRenderedRef(ref)));
 }
 
-function compactRenderedExcerpt(excerpt: string | null): string | null {
-  if (excerpt === null || excerpt.length <= MAX_RENDERED_EXCERPT_CHARS) {
+function compactRenderedExcerpt(
+  excerpt: string | null,
+  maxChars: number = MAX_RENDERED_EXCERPT_CHARS
+): string | null {
+  if (excerpt === null || excerpt.length <= maxChars) {
     return excerpt;
   }
-  return `${excerpt.slice(0, MAX_RENDERED_EXCERPT_CHARS)}...[truncated:${excerpt.length}]`;
+  return `${excerpt.slice(0, maxChars)}...[truncated:${excerpt.length}]`;
 }
 
 function renderedPromptFor(input: {
@@ -705,7 +713,7 @@ function renderedPromptFor(input: {
               `  payloadDigest: ${fact.payloadDigest ?? "none"}`,
               `  contentRef: ${fact.contentRef == null ? "none" : compactRenderedRef(fact.contentRef)}`,
               `  contentDigest: ${fact.contentDigest ?? "none"}`,
-              `  contentExcerpt: ${stableJson(compactRenderedExcerpt(fact.contentExcerpt ?? null))}`,
+              `  contentExcerpt: ${stableJson(compactRenderedExcerpt(fact.contentExcerpt ?? null, input.plan.causalExcerptMaxChars))}`,
               `  sourceEventRefs: ${stableCompactRefs(fact.sourceEventRefs)}`
             ].join("\n")
           )
@@ -1117,6 +1125,22 @@ export function compileInstructionAssemblyPlan(
 ): InstructionAssemblyCompileResult {
   const issues: InstructionAssemblyIssue[] = [];
   const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
+  const causalExcerptMaxChars = input.causalExcerptMaxChars ?? MAX_RENDERED_EXCERPT_CHARS;
+  if (
+    !Number.isInteger(causalExcerptMaxChars) ||
+    causalExcerptMaxChars < 1000 ||
+    causalExcerptMaxChars > 400000
+  ) {
+    issues.push(
+      Object.freeze({
+        kind: "instruction_assembly_issue",
+        issueKind: "renderer_gap",
+        algebraRef: "startup",
+        message: `causalExcerptMaxChars must be an integer in [1000, 400000], got ${String(input.causalExcerptMaxChars)}`,
+        evidenceRefs: Object.freeze([input.planRef])
+      })
+    );
+  }
   const goldenInstanceCalibration: GoldenInstanceCalibrationRow[] = [];
   for (const row of input.goldenInstanceCalibration ?? []) {
     if (!goldenInstanceBindingHasDigest(row)) {
@@ -1632,6 +1656,7 @@ export function compileInstructionAssemblyPlan(
   }
   const withoutDigest = Object.freeze({
     kind: "compiled_prompt_plan" as const,
+    causalExcerptMaxChars,
     declaredLatitude: Object.freeze(declaredLatitude),
     goldenInstanceCalibration: Object.freeze(goldenInstanceCalibration),
     planRef: input.planRef,
