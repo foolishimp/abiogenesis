@@ -7,6 +7,7 @@ import { test } from "node:test";
 import {
   GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
   GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
+  GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS,
   assertRatifiedGtlProgramDiagnosticId,
   typecheckGtlProgram
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
@@ -53,6 +54,30 @@ test("T-191 live conformance issues carry ratified identities and the repair fie
   for (const row of report.issues) {
     assertRatifiedGtlProgramDiagnosticId(row.ruleRef);
     assert.equal(Array.isArray(row.admissibleRepairs), true);
+  }
+});
+
+test("T-191 mapped diagnostics carry populated default repair affordances", () => {
+  const report = typecheckGtlProgram({});
+  const mapped = report.issues.filter(
+    (row) => GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS[row.ruleRef] !== undefined
+  );
+  assert.equal(mapped.length > 0, true);
+  for (const row of mapped) {
+    assert.equal(row.admissibleRepairs.length, 1);
+    const repair = row.admissibleRepairs[0];
+    assert.equal(repair.kind, "gtl_program_admissible_repair");
+    assert.equal(
+      GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES.includes(repair.editClass),
+      true
+    );
+    assert.equal(repair.repairSurfaceRef, row.surfaceRef);
+    assert.equal(repair.changeClassRef, null);
+  }
+  // Differential: the default-repair table only names ratified identities —
+  // a table entry outside the vocabulary would be unreachable dead law.
+  for (const id of Object.keys(GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS)) {
+    assert.equal(assertRatifiedGtlProgramDiagnosticId(id), id);
   }
 });
 

@@ -454,6 +454,7 @@ const GTL_PROGRAM_DIAGNOSTIC_ID_SET: ReadonlySet<string> = new Set(
 export const GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES = Object.freeze([
   "add_missing_declaration",
   "correct_reference",
+  "correct_field_shape",
   "remove_duplicate_declaration",
   "align_digest_or_version",
   "constitutional_reprice"
@@ -468,6 +469,35 @@ export interface GtlProgramAdmissibleRepair {
   readonly repairSurfaceRef: string;
   readonly changeClassRef: string | null;
 }
+
+// Implements: REQ-L-GTL3-LAWS-020
+// Ratified default repair routing for the top diagnostic set. One table is
+// the single truth surface for default repair affordances; callers may
+// override per issue, and unmapped diagnostics carry no default repair.
+export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
+  Record<string, GtlProgramRepairEditClass>
+> = Object.freeze({
+  "abg://gtl-program/input/object": "correct_field_shape",
+  "abg://gtl-program/input/module": "add_missing_declaration",
+  "abg://gtl-program/input/graph-function": "add_missing_declaration",
+  "abg://gtl-program/input/string-field": "correct_field_shape",
+  "abg://gtl-program/input/string-array": "correct_field_shape",
+  "abg://gtl-program/input/array-field": "correct_field_shape",
+  "abg://gtl-program/input/non-negative-integer-array": "correct_field_shape",
+  "abg://gtl-program/requirements-algebra/open-payload": "correct_field_shape",
+  "abg://gtl-program/source-identity/current-abg-version":
+    "align_digest_or_version",
+  "abg://gtl-program/installed-context/version-line": "align_digest_or_version",
+  "abg://gtl-program/prompt-asset/rendered-view-digest":
+    "align_digest_or_version",
+  "abg://gtl-program/coverage/expected-coverage-required":
+    "add_missing_declaration",
+  "abg://gtl-program/public-start/overlay-required": "add_missing_declaration",
+  "abg://gtl-program/graph-vector/unique-ref": "remove_duplicate_declaration",
+  "abg://gtl-program/runtime-reentry/lawful-basis": "correct_reference",
+  "abg://gtl-program/semantic-review-gate/admitted-result-kind":
+    "correct_reference"
+});
 
 export interface GtlProgramConformanceIssue {
   readonly kind: "gtl_program_conformance_issue";
@@ -1418,6 +1448,19 @@ function issue(input: {
   // built-in vocabulary. Named follow-up: validate them against the admitted
   // declaration set instead of by namespace.
   assertRatifiedGtlProgramDiagnosticId(input.ruleRef);
+  const defaultEditClass = GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS[input.ruleRef];
+  const admissibleRepairs =
+    input.admissibleRepairs ??
+    (defaultEditClass === undefined
+      ? []
+      : [
+          Object.freeze({
+            kind: "gtl_program_admissible_repair" as const,
+            editClass: defaultEditClass,
+            repairSurfaceRef: input.surfaceRef,
+            changeClassRef: null
+          })
+        ]);
   return Object.freeze({
     kind: "gtl_program_conformance_issue",
     severity: "error",
@@ -1426,7 +1469,7 @@ function issue(input: {
     ruleRef: input.ruleRef,
     message: input.message,
     evidenceRefs: freezeStrings(input.evidenceRefs),
-    admissibleRepairs: Object.freeze([...(input.admissibleRepairs ?? [])])
+    admissibleRepairs: Object.freeze([...admissibleRepairs])
   });
 }
 

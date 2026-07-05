@@ -132,3 +132,22 @@ existing surface; promote-don't-re-mint is closure law.
   - REMAINING in Phase 1: populate admissible-repair sets on the top-ten
     diagnostics (field + vocabulary exist and are enforced; population is
     the open slice — do not close Phase 1 without it).
+- 2026-07-05 Phase 1 COMPLETE (checkpoint commit + population slice):
+  - `GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS` ratified default-repair table
+    (16 mapped diagnostics — one truth surface applied at the constructor;
+    callers may override; unmapped IDs carry no default). Edit-class
+    vocabulary extended with `correct_field_shape` (pre-release extension in
+    the same wave).
+  - Differentials added: mapped live issues carry exactly one populated
+    repair (kind/editClass/surfaceRef/changeClassRef asserted); every table
+    key must itself be a ratified identity (dead-law guard).
+  - Proofs: test:t191 6/6; test:t150 97/97; test:semantic 1045/1045.
+- 2026-07-05 Phase 2 (constitutional half): ratified REQ-L-GTL3-LAWS-021
+  (canonical authored form — one canonical serialization; digest identity
+  and authored form are the SAME serialization law, closing the
+  internal-vs-public split from the strategy review) and -022 (declarations
+  are data; computed declarations rejected at the declaration boundary).
+  REMAINING in Phase 2 (realization): the pure-data declaration conformance
+  check + canonical-form/digest check over the existing
+  gtl/m01+m02 serialization machinery. Reprice-before-code sequencing
+  honored: clauses land first; realization is the next slice.

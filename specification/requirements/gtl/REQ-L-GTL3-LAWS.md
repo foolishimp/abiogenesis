@@ -52,3 +52,7 @@ State the governing language laws of GTL 3.
 **REQ-L-GTL3-LAWS-019**: Typed diagnostic identity — conformance failure is typed truth: every conformance diagnostic carries a stable diagnostic identity from the published closed diagnostic vocabulary; an unknown or unratified diagnostic identity is itself a conformance failure; diagnostic identities are stable across releases and are removed only by supersession, not by renaming.
 
 **REQ-L-GTL3-LAWS-020**: Admissible repair affordance — a ratified diagnostic may carry a typed admissible-repair set naming the lawful repair moves for that failure: the repair surface, the smallest lawful edit class, and the governing change class when the repair is constitutional. Repair affordances are typed carriers over declared truth, not prose advice, and they do not perform, select, or authorize the repair.
+
+**REQ-L-GTL3-LAWS-021**: Canonical authored form — an authored GTL program has one canonical data serialization with stable ordering and content-addressable digest identity. Identity canonicalization for digests and the canonical authored form are the same serialization law; alternate orderings or spellings are not rival authored truth.
+
+**REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declarations are pure data in the canonical form. Host-language control flow, computation, or string assembly that produces declaration content at authoring time is drift, not authored truth; conformance rejects computed declarations at the declaration boundary.
