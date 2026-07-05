@@ -1419,3 +1419,51 @@ Findings recorded, not yet fixed (named, honest):
    coverageIssueKinds; diagnose in B3, do not guess.
 
 Proofs after review fixes: wiring lane 4/4; test:semantic 1057/1057.
+
+## External Review Adjudication #2 (2026-07-05, two codex sets; tree returned to green HEAD after a verified fix attempt)
+
+STALE: the P0 "t188 red at :246" reviewed a mid-flight tree between
+splices; committed HEAD is 24/24 with semantic 1057/1057.
+
+REAL — verified, fix attempted this session, REVERTED to keep the tree
+green; redo with the spec below (all four are accepted findings):
+1. P1 ORDERING (the sharp one): carry-through admission emits BEFORE
+   deriveAttachedFpResultDecision — a payload_contract_failure result
+   still mints coverage referencing unadmitted evidence. FIX (validated
+   to build; relocation exposes the next item): move the whole M5 block
+   inside the attachedDecision.kind === "accepted" branch, after
+   payloadEvents emission.
+2. FIXTURE CONSEQUENCE of (1): the wiring tests' attachedResultArtifact
+   is contract-rejected, so they only passed because emission preceded
+   rejection (exactly the reviewer's reproduction). The fixtures must use
+   the t084 attached-artifact shape AND match the basis's expected
+   assessment ids (study buildThreeStageBasis evaluation policy /
+   test_t084 expectedAssessmentIds derivation) so the decision is
+   genuinely accepted.
+3. P1/High RAW-REF MASQUERADE: admittedLedgerRefs accepts any replay
+   string (artifact/result/observed refs), so Set.has proves string
+   presence, not typed admission; the test used the artifact ref AS the
+   strength ref. FIX: typed sources only — evidence_admitted.evidenceRef
+   and payload_validated.payloadRef; with (1) in place, the artifact's
+   fulfillment_assessments.evidence_refs become admitted evidence on the
+   accepted path, so the fixture declares the strength URI THERE and
+   resolution is genuinely typed.
+4. P1 START-PATH DROP: runEngineStart/Async forward
+   instructionAssemblyStartup (:8701/:8727) but NOT
+   requirementProofCarryThroughStartup — public callers silently drop the
+   family. FIX: forward at both delegations (one-line each).
+5. High CROSS-TRAVERSAL POLLUTION: the close-side consumer collects by
+   requirementId only. FIX: skip !event.accepted (rejected-admission
+   coverage signals envelope defects) and scope to the closing edge
+   (event.vectorIndex === input.vectorIndex); requirement-level
+   cross-edge accumulation is a fold-design question to settle
+   deliberately, not by default.
+6. Medium: factory/admission do not cross-validate coverageStatuses /
+   requirementIds against the digest-bound truth refs — needs an exported
+   coverage-ref parser first (none exists); add parser + factory
+   cross-check.
+7. Medium ACCEPTED AS STATED: the restored M3 test proves the
+   strength-issue axis only — M3 is PARTIAL (resolution mechanism earned;
+   role-typed resolution, eligible-status discharge, and fold behavior
+   remain). Prior record language stands corrected accordingly. B3
+   remains the closure gate; do not close from this state.
