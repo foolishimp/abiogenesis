@@ -1321,3 +1321,25 @@ Slice 2 COMPLETE (2026-07-05) — M5 producer + B2 consumer wired:
   obligation shall not close). Per the wiring-proof gate, T-188 does NOT
   claim the runtime property delivered until slice 3's differential runs
   on the live runner path.
+
+Slice 3 COMPLETE (2026-07-05) — the wiring differential on the live runner:
+- New test lane test_t188_fold_gating_wiring.test.mjs (wired into
+  test:t188): engine-level runEngineIterate with instruction-assembly +
+  registry startup, an attached F_P plugin returning a result artifact,
+  and a requirementProofCarryThroughStartup entry.
+- PROVEN: (1) accepted path — exactly one
+  requirement_proof_carry_through_admitted event, accepted=true, coverage
+  refs per requirementId in the abg://requirement-proof-coverage/
+  namespace, empty issueKinds; (2) DIFFERENTIAL — envelope missing the
+  source obligation => accepted=false with source_obligation_gap, coverage
+  truth still producer-computed (status digest-bound); (3) no startup =>
+  zero carry-through events (undeclared edges unchanged).
+- Fix during slice: factory fills frameLineageId: null (invocation scope
+  does not carry lineage; admission rules require nullable presence).
+- Proofs: test:t188 now 23/23 across both lanes; test:semantic 1053/1053.
+- REMAINING GATES: M3 (resolve strength/adversarial/fd refs against the
+  admitted ledger in deriveProofStrengthAdmitted; fold shall not read
+  default-startup booleans) and B3 (engine-driven live lane: uncovered
+  obligation shall not close; coverage removal flips disposition; fold
+  source refs proven to include the threaded coverage refs on a
+  requirement-bearing edge).

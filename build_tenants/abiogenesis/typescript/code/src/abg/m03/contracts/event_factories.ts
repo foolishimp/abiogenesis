@@ -689,6 +689,7 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
 }): RequirementProofCarryThroughAdmittedEvent {
   return Object.freeze({
     ...actorRuntimeScope(input.invocation),
+    frameLineageId: null,
     causationEventRefs: Object.freeze([...(input.causationEventRefs ?? [])]),
     correlationId: input.correlationId,
     kind: "requirement_proof_carry_through_admitted",

@@ -143,7 +143,7 @@
     "test:t182:live": "npm run test:hello-world:live",
     "test:t183": "npm run build:semantic && node --test test_env/tests/test_t183_instruction_assembly_semantic_compiler.test.mjs",
     "test:t183:live": "npm run test:hello-world:live",
-    "test:t188": "npm run build:semantic && node --test test_env/tests/test_t188_requirement_proof_carry_through.test.mjs",
+    "test:t188": "npm run build:semantic && node --test test_env/tests/test_t188_requirement_proof_carry_through.test.mjs test_env/tests/test_t188_fold_gating_wiring.test.mjs",
     "test:t188:live": "npm run build:semantic && ABG_TS_T188_REQUIREMENT_PROOF_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t188_requirement_proof_carry_through_live.test.mjs",
     "test:t189": "npm run build:semantic && node --test test_env/tests/test_t189_instruction_dispatch_runtime_wiring.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
