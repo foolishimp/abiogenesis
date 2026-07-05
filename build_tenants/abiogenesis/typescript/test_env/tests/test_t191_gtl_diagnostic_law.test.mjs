@@ -115,6 +115,43 @@ test("T-191 conformance report digest identity is derived, not stored authority 
   assert.equal(typecheckGtlProgram({}).inventoryDigest, report.inventoryDigest);
 });
 
+test("T-191 witnessed declaration-source rows enforce the pure-data law (LAWS-022)", () => {
+  // module_export ingress without a canonical round-trip digest -> rejected
+  // with the -022 diagnostic and its default repair affordance.
+  const flagged = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://product/index.mjs", sourceKind: "module_export", canonicalDigest: "" }
+    ]
+  });
+  const hit = flagged.issues.filter(
+    (row) => row.ruleRef === "abg://gtl-program/declaration/module-export-round-trip"
+  );
+  assert.equal(hit.length, 1);
+  assert.equal(hit[0].admissibleRepairs[0].editClass, "align_digest_or_version");
+  // canonical_data with a digest -> no declaration_source issues.
+  const clean = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://product/program.gtl.json", sourceKind: "canonical_data", canonicalDigest: "sha256:abc" }
+    ]
+  });
+  assert.equal(
+    clean.issues.filter((row) => row.surfaceKind === "declaration_source").length,
+    0
+  );
+  // unknown sourceKind -> typed field diagnostic (fail-closed enum).
+  const badKind = typecheckGtlProgram({
+    declarationSourceRows: [
+      { sourceRef: "decl://x", sourceKind: "computed", canonicalDigest: "sha256:abc" }
+    ]
+  });
+  assert.equal(
+    badKind.issues.filter(
+      (row) => row.ruleRef === "abg://gtl-program/input/declaration-source-kind-field"
+    ).length,
+    1
+  );
+});
+
 test("T-191 repair edit-class vocabulary is closed and frozen", () => {
   assert.equal(Object.isFrozen(GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES), true);
   assert.equal(

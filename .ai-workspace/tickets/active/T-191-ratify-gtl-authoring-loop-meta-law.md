@@ -182,3 +182,27 @@ existing surface; promote-don't-re-mint is closure law.
   input, the -022 pure-data/computed-declaration rules, and their new
   diagnostic IDs added to the ratified vocabulary as a deliberate recorded
   act with default repair mappings.
+
+## Phase 2 Slice B Record (2026-07-05)
+
+Slice B COMPLETE — witnessed declaration-source rows, T-187 pattern:
+
+- New carrier: `GtlProgramDeclarationSourceRow` (`sourceRef`, `sourceKind`
+  canonical_data|module_export, `canonicalDigest`) as OPTIONAL conformance
+  input (`declarationSourceRows`), admitted by
+  `admitDeclarationSourceRows` mirroring the installed-context rows.
+- The -022 rule (`checkDeclarationSourceRows`): module_export ingress
+  without a stable canonical round-trip digest ->
+  `abg://gtl-program/declaration/module-export-round-trip` with default
+  repair `align_digest_or_version`. Unknown sourceKind fails closed
+  (`input/declaration-source-kind-field`).
+- Vocabulary extended by 3 IDs as a deliberate recorded act (the -019 gate
+  governing its own extension); surface kind `declaration_source` added.
+- Proofs: test:t191 9/9 (flagged / clean / bad-kind differentials with
+  repair assertion); test:semantic 1048/1048.
+- DECLARED DEFERRAL (not silent): rows are OPTIONAL in this slice —
+  observability first. Making the witness MANDATORY per declaration
+  surface flips every startup caller (the T-189 Phase-2 migration shape)
+  and is successor work, named here so absence of rows is a recorded gap,
+  not assumed coverage. Loader-side witness EMISSION (startup supplying
+  the rows) is the other half of that successor.

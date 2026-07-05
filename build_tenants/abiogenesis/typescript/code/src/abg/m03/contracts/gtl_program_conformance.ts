@@ -102,7 +102,8 @@ export type GtlProgramConformanceSurfaceKind =
   | "runtime_reentry_route"
   | "installed_context"
   | "requirement_declaration"
-  | "feature_coverage";
+  | "feature_coverage"
+  | "declaration_source";
 
 // Implements: REQ-L-GTL3-LAWS-019
 // The ratified closed diagnostic vocabulary. Every conformance issue must
@@ -438,6 +439,9 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/traversal-unit/bind-conservation-residual-pressure",
   "abg://gtl-program/traversal-unit/bind-conservation-staged-authority",
   "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding",
+  "abg://gtl-program/declaration/module-export-round-trip",
+  "abg://gtl-program/input/declaration-source-kind-field",
+  "abg://gtl-program/input/declaration-source-row",
 ] as const);
 
 export type GtlProgramDiagnosticId =
@@ -496,7 +500,9 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/graph-vector/unique-ref": "remove_duplicate_declaration",
   "abg://gtl-program/runtime-reentry/lawful-basis": "correct_reference",
   "abg://gtl-program/semantic-review-gate/admitted-result-kind":
-    "correct_reference"
+    "correct_reference",
+  "abg://gtl-program/declaration/module-export-round-trip":
+    "align_digest_or_version"
 });
 
 export interface GtlProgramConformanceIssue {
@@ -1039,6 +1045,24 @@ export interface GtlProgramRuntimeBindingRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+// Implements: REQ-L-GTL3-LAWS-022
+// Witnessed declaration-source truth (T-187 witness/judge pattern): startup
+// reports HOW each declaration surface was authored; the compiler judges.
+export const GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES = Object.freeze([
+  "canonical_data",
+  "module_export"
+] as const);
+
+export type GtlProgramDeclarationSourceKind =
+  (typeof GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES)[number];
+
+export interface GtlProgramDeclarationSourceRow {
+  readonly sourceRef: string;
+  readonly sourceKind: string;
+  readonly canonicalDigest: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
 export interface GtlProgramInstalledContextRow {
   readonly contextRef: string;
   readonly abiPackageVersion: string;
@@ -1242,6 +1266,9 @@ export interface GtlProgramConformanceInput {
     | undefined;
   readonly installedContextSurfaces?:
     | readonly GtlProgramInstalledContextRow[]
+    | undefined;
+  readonly declarationSourceRows?:
+    | readonly GtlProgramDeclarationSourceRow[]
     | undefined;
   readonly traversalBindConservation?:
     | readonly GtlProgramTraversalBindConservationRow[]
@@ -6068,6 +6095,64 @@ function admitRuntimeBindingRows(
   );
 }
 
+function admitDeclarationSourceRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramDeclarationSourceRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `declarationSourceRows[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "declaration_source",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/declaration-source-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const sourceKind = String(row["sourceKind"] ?? "");
+      if (
+        !(GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES as readonly string[]).includes(
+          sourceKind
+        )
+      ) {
+        issues.push(
+          issue({
+            surfaceKind: "declaration_source",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/declaration-source-kind-field",
+            message: `${surfaceRef}.sourceKind must be one of ${GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES.join(", ")}`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          sourceRef: requiredStringField({
+            record: row,
+            key: "sourceRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "declaration_source",
+            issues
+          }),
+          sourceKind,
+          canonicalDigest: String(row["canonicalDigest"] ?? ""),
+          evidenceRefs: Object.freeze(
+            Array.isArray(row["evidenceRefs"])
+              ? (row["evidenceRefs"] as readonly unknown[]).map((entry) => String(entry))
+              : []
+          )
+        })
+      ];
+    })
+  );
+}
+
 function admitInstalledContextRows(
   input: readonly unknown[],
   subjectRef: string,
@@ -7833,6 +7918,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "installedContextSurfaces",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    declarationSourceRows: admitDeclarationSourceRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "declarationSourceRows",
         subjectRef,
         issues
       }),
@@ -12102,6 +12197,26 @@ function checkRuntimeBindingRows(input: {
   }
 }
 
+// Implements: REQ-L-GTL3-LAWS-022
+function checkDeclarationSourceRows(input: {
+  readonly declarationSourceRows: readonly GtlProgramDeclarationSourceRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  for (const row of input.declarationSourceRows) {
+    if (row.sourceKind === "module_export" && row.canonicalDigest.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "declaration_source",
+          surfaceRef: row.sourceRef,
+          ruleRef: "abg://gtl-program/declaration/module-export-round-trip",
+          message:
+            "module-export declaration ingress is lawful only with a stable canonical round-trip digest witness"
+        })
+      );
+    }
+  }
+}
+
 function checkInstalledContextRows(input: {
   readonly abiPackageVersion: string;
   readonly installedContextSurfaces: readonly GtlProgramInstalledContextRow[];
@@ -13272,6 +13387,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const installedContextSurfaces = Object.freeze([
     ...(input.installedContextSurfaces ?? [])
   ]);
+  const declarationSourceRows = Object.freeze([
+    ...(input.declarationSourceRows ?? [])
+  ]);
   const runtimeReentryRoutes = Object.freeze([
     ...(input.runtimeReentryRoutes ?? [])
   ]);
@@ -13396,6 +13514,10 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     pluginContractRefs: suppliedPluginContractRefs,
     computeStageBindingRefs: suppliedStageBindingRefs,
     pluginRefsBoundByStages: stageBoundPluginRefs,
+    issues
+  });
+  checkDeclarationSourceRows({
+    declarationSourceRows,
     issues
   });
   checkInstalledContextRows({
