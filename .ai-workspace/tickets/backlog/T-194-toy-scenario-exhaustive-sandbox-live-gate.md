@@ -126,3 +126,36 @@ was fixed in the T-188 wave; the adapter was not). Fixed: both fields on
 StartContext, forwarded at both sites. build clean; test:semantic
 1059/1059. The T-194 lane will prove the forwarding live from the
 installed sandbox (matrix rows a3/b depend on it).
+
+## Row a3 EARNED (2026-07-05) — five defects found by the lane before first green
+
+test:t194:sandbox-live 1/1: snapshot-installed sandbox, installed CLI
+genesis-ts start, product-declared requirement bundle + carry-through
+startup in the runtime binding, two real LLM worker dispatches, run
+CONVERGED with 2 accepted+eligible carry-through admissions on
+REQ-T194-001 (typed strength via the product-declared execution-evidence
+ref, zero issue kinds) and requirement fold state "satisfied" — all read
+from the instance's events.jsonl, no hand-called truth anywhere.
+
+DEFECTS FOUND AND FIXED BY THIS LANE (each invisible to unit lanes):
+1. m04 adapter (StartContext + both start.ts sites) dropped
+   requirementProofCarryThroughStartup + requirementRouteDeclarationBundle.
+2. Canonical-lane generated plans lacked proof-depth truth — T-188's
+   depth_policy_incomplete gate correctly rejects them; the canonical
+   release lane had been un-runnable since the T-188 wave (rc.6's live
+   artifact was inherited from rc.3, hiding it).
+3. Canonical-lane startup compiled no evaluate-stage plans — T-189's
+   fail-closed law correctly gap-stops; second latent canonical regression.
+4. CLI binding parser (interface + hasOwnField allowlist + spread) — a
+   third independent seam dropping the same two fields.
+5. Inherited manifest-count expectation (2) was stale: 4 manifests =
+   transform + evaluate per vector = the T-189 all-arms law visibly
+   working in the installed sandbox; expectation repriced in both lanes.
+PATTERN (for T-193): every public seam is an independent allowlist; each
+is a fresh declared_not_wired opportunity. A conformance row should assert
+EngineStartRequest fields are parseable+forwardable at every seam or
+carry a typed exemption.
+
+Canonical-lane repairs (defects 2/3/5) applied to the t180 lane in the
+same wave. Gates: test:semantic 1059/1059; test:t188 26/26.
+Remaining matrix rows: b (stub-worker shallow/no-close), c1-c3, d1-d5, e.

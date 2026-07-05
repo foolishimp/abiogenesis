@@ -41,11 +41,11 @@ const DOCS_ROOT = path.join(REPO_ROOT, "docs");
 const TEST_RUNS_ROOT = path.join(
   TEST_ENV_ROOT,
   "test_runs",
-  "canonical_hello_world_full_stack_live"
+  "t194_feature_matrix_live"
 );
 
 function liveEnabled() {
-  return process.env["ABG_TS_HELLO_WORLD_FULL_STACK_LIVE"] === "1" ||
+  return process.env["ABG_TS_T194_FEATURE_MATRIX_LIVE"] === "1" ||
     process.env["ABG_TS_T184_CANONICAL_HELLO_WORLD_LIVE"] === "1" ||
     process.env["ABG_TS_T182_CAUSAL_CARRY_LIVE"] === "1" ||
     process.env["ABG_TS_T180_GLC_BOOTSTRAP_LIVE"] === "1" ||
@@ -116,6 +116,9 @@ function runtimeBindingSource(input) {
   const packageImport = pathToFileURL(
     path.join(input.packageRoot, "build", "semantic", "code", "src", "index.js")
   ).href;
+  const gtlRequirementsImport = pathToFileURL(
+    path.join(input.packageRoot, "build", "semantic", "code", "src", "gtl", "requirements", "index.js")
+  ).href;
   const typeRefs = {
     bootstrapContext: "node-type://odd_glc/GlcBootstrapContext",
     lifecycleArtifact: "node-type://odd_glc/GlcLifecycleArtifact",
@@ -135,6 +138,9 @@ function runtimeBindingSource(input) {
   constructDerivedProofDepthInstructionTruth,
   constructDefaultAbgFnCompositionDeclarations,
   constructFpDispatchOutcome,
+  constructGtlContractFulfillmentBinding,
+  constructRequirementProofCandidateClassificationTable,
+  constructRequirementProofCarryThroughContract,
   constructGtlLibraryEntryDeclaration,
   constructInstructionAssemblyRule,
   constructInstructionSectionDecision,
@@ -151,6 +157,11 @@ function runtimeBindingSource(input) {
   runAgentTransport,
   satisfiesNodeType
 } from ${JSON.stringify(packageImport)};
+import {
+  declareBundle,
+  declareRequirement,
+  declareTraversalSpan
+} from ${JSON.stringify(gtlRequirementsImport)};
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
@@ -822,6 +833,113 @@ async function runNodeProgram(programPath) {
   });
 }
 
+// T-194: requirement route bundle + carry-through startup as PRODUCT data.
+const t194Vector = glcHelloWorldGraphFunction.template.graph.vectors[0];
+const t194SpanId = \`span://t194/\${t194Vector.id}\`;
+const t194Bundle = declareBundle({
+  requirements: [
+    declareRequirement({
+      requirementId: "REQ-T194-001",
+      termKind: "atom",
+      stableId: "REQ-T194-001",
+      sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#013",
+      sourceDigest: "sha256:t194-requirement",
+      relationRefs: [],
+      spanRefs: [t194SpanId],
+      contextRefs: [],
+      evidencePolicyRefs: ["policy://t194/evidence"]
+    })
+  ],
+  spans: [
+    declareTraversalSpan({
+      spanId: t194SpanId,
+      graphFunctionRef: glcHelloWorldGraphFunction.id,
+      graphVectorRefs: [t194Vector.id],
+      vectorIndexes: [0],
+      sourceNodeRef: t194Vector.source[0].id,
+      targetNodeRef: t194Vector.target.id
+    })
+  ]
+});
+const t194Table = constructRequirementProofCandidateClassificationTable({
+  tableRef: "classification-table://t194/live",
+  sourceRef: "gtl-overlay://t194/live",
+  rules: [
+    {
+      kind: "requirement_proof_candidate_classification_rule",
+      ruleRef: "classification-rule://t194/live/artifact",
+      stageRole: "transform",
+      outputCandidateKind: "candidate-kind://t194/artifact",
+      admissionTargetKind: "admission-target://abg/payload",
+      evidenceRoleRefs: ["evidence-role://t194/realization"]
+    }
+  ]
+});
+const t194Contract = constructRequirementProofCarryThroughContract({
+  contractRef: "plugin-proof-contract://t194/live",
+  pluginRef: "plugin://t194/live",
+  stageRole: "transform",
+  resultInterfaceRef: "result-interface://t194/live",
+  responseContractRefs: ["response-contract://t194/live"],
+  selectedCompositionRef: "composition://t194/live",
+  selectedCompositionDigest: "sha256:t194-composition",
+  fulfillmentBindings: [
+    constructGtlContractFulfillmentBinding({
+      bindingRef: "gtl-contract-fulfillment-binding://t194/r1",
+      obligationRef: "requirement-obligation://t194/r1",
+      requirementRef: "REQ-T194-001",
+      productRequirementRef: "product-requirement://t194/r1",
+      designObligationRef: "design-obligation://t194/live",
+      componentRef: "component://t194/live",
+      productTargetRef: "target://t194/live",
+      outputSurfaceRef: "output-surface://t194/live",
+      functionOrEntrypointRef: "function://t194/live",
+      realizationEvidenceRefs: [TYPE_REFS.helloWorldProgram],
+      testOrExecutionEvidenceRefs: ["proof-obligation://t194/execution"],
+      evaluatorFindingRef: "evaluator-finding://t194/execution",
+      authorityRefs: ["authority://t194/live-fp"],
+      evidenceRefs: [TYPE_REFS.helloWorldProgram]
+    })
+  ],
+  proofPolicyRefs: ["proof-policy://t194/positive-negative"],
+  expectedEvidenceShapeRefs: ["evidence-shape://t194/positive", "evidence-shape://t194/negative"],
+  proofStrengthRefs: ["proof-strength://t194/execution"],
+  depthPolicyRefs: ["proof-depth-policy://t194/live"],
+  requiredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
+  fdStrengthCriterionRefs: [TYPE_REFS.executionEvidence],
+  requiredAdversarialCheckRefs: [],
+  evidenceRoleRefs: ["evidence-role://t194/realization"],
+  outputCandidateKinds: ["candidate-kind://t194/artifact"],
+  admissionTargetKinds: ["admission-target://abg/payload"],
+  classificationTableRef: t194Table.tableRef,
+  classificationTableDigest: t194Table.tableDigest
+});
+const t194EnvelopeTemplate = {
+  contractRef: "plugin-proof-contract://t194/live",
+  stageRole: "transform",
+  taskRole: "task-role://t194/build",
+  outputCandidateKind: "candidate-kind://t194/artifact",
+  admissionTargetKind: "admission-target://abg/payload",
+  sourceRequirementObligationRefs: ["requirement-obligation://t194/r1"],
+  evidenceRoleRefs: ["evidence-role://t194/realization"],
+  proofObligationRefs: ["proof-obligation://t194/execution"],
+  proofPolicyRefs: ["proof-policy://t194/positive-negative"],
+  expectedEvidenceShapeRefs: ["evidence-shape://t194/positive", "evidence-shape://t194/negative"],
+  positiveEvidenceShapeRefs: ["evidence-shape://t194/positive"],
+  negativeEvidenceShapeRefs: ["evidence-shape://t194/negative"],
+  proofStrengthRefs: ["proof-strength://t194/execution"],
+  depthPolicyRefs: ["proof-depth-policy://t194/live"],
+  depthClassRefs: ["depth-class://positive", "depth-class://negative"],
+  proofStrengthAdmissionRefs: [TYPE_REFS.executionEvidence],
+  fdStrengthCriterionRefs: [TYPE_REFS.executionEvidence],
+  adversarialAttemptRefs: [],
+  counterexampleRefs: [],
+  responseContractRef: "response-contract://t194/live",
+  resultInterfaceRef: "result-interface://t194/live",
+  selectedCompositionRef: "composition://t194/live",
+  selectedCompositionDigest: "sha256:t194-composition"
+};
+
 export const runtimeBinding = {
   module,
   runtimeIdentity: admitResolvedRuntimeIdentity({
@@ -838,6 +956,17 @@ export const runtimeBinding = {
   }),
   runtimeRegistryStartup,
   instructionAssemblyStartup,
+  requirementRouteDeclarationBundle: t194Bundle,
+  requirementProofCarryThroughStartup: {
+    entries: [
+      {
+        contract: t194Contract,
+        classificationTable: t194Table,
+        requirementIds: ["REQ-T194-001"],
+        envelopeTemplate: t194EnvelopeTemplate
+      }
+    ]
+  },
   runId: "run://odd_glc/glc-bootstrap-live",
   workKey: "wk://odd_glc/glc-bootstrap-live",
   createPlugins: ({ workspaceRoot }) => {
@@ -1055,9 +1184,9 @@ function parseJsonLines(text) {
     .map((line) => JSON.parse(line));
 }
 
-test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbox instance", async (t) => {
+test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a snapshot-installed sandbox", async (t) => {
   if (!liveEnabled()) {
-    t.skip("set ABG_TS_HELLO_WORLD_FULL_STACK_LIVE=1 or CODEX_LIVE_FP=1 to run the canonical Hello World live proof");
+    t.skip("set ABG_TS_T194_FEATURE_MATRIX_LIVE=1 or CODEX_LIVE_FP=1 to run the T-194 feature-matrix live proof");
     return;
   }
 
@@ -1147,7 +1276,7 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
       env: {
         ...process.env,
         CODEX_LIVE_FP: "1",
-        ABG_TS_HELLO_WORLD_FULL_STACK_LIVE: "1",
+        ABG_TS_T194_FEATURE_MATRIX_LIVE: "1",
         ABG_TS_LIVE_AGENT: process.env["ABG_TS_LIVE_AGENT"] ?? "claude",
         ABG_TS_LIVE_TIMEOUT_MS: process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "180000"
       }
@@ -1164,6 +1293,27 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   assert.equal(startOutput.event_kinds.includes("instruction_response_contract_admitted"), true);
 
   const events = parseJsonLines(await readFile(startOutput.events_path, "utf8"));
+  // T-194 rows a3: carry-through eligible chain from the installed sandbox
+  const carryEvents = events.filter(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.equal(carryEvents.length > 0, true, "carry-through events must be emitted from the installed sandbox");
+  const eligibleCarry = carryEvents.find(
+    (event) => event.accepted === true && event.coverageStatuses?.[0] === "eligible"
+  );
+  assert.ok(eligibleCarry, "at least one accepted+eligible carry-through admission (typed strength via product-declared execution-evidence ref)");
+  assert.deepEqual(eligibleCarry.coverageRequirementIds, ["REQ-T194-001"]);
+  const foldEvents = events.filter(
+    (event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_fold_projected"
+  );
+  assert.equal(foldEvents.length > 0, true, "requirement fold facts must be emitted");
+  assert.equal(
+    foldEvents.some((event) => event.requirementPayload?.fold?.state === "satisfied"),
+    true,
+    "REQ-T194-001 must fold satisfied with eligible coverage threaded"
+  );
   const registryEvents = events.filter((event) =>
     event.kind === "registry_entry_admitted"
   );
@@ -1289,7 +1439,7 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
     return accumulator;
   }, {});
   const proof = {
-    kind: "canonical_hello_world_full_stack_live_proof",
+    kind: "t194_feature_matrix_live_proof",
     sourceCommit,
     sourceDirty,
     durationMs,

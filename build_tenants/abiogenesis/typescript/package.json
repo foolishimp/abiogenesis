@@ -280,7 +280,8 @@
     "test:t151": "npm run build:semantic && node --test test_env/tests/test_t151_segment_scoped_evaluation_redispatch.test.mjs test_env/live/test_t151_segment_scoped_evaluation_redispatch_live.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live",
-    "test:t191": "npm run build:semantic && node --test test_env/tests/test_t191_gtl_diagnostic_law.test.mjs"
+    "test:t191": "npm run build:semantic && node --test test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
+    "test:t194:sandbox-live": "npm run build:semantic && ABG_TS_T194_FEATURE_MATRIX_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t194_feature_matrix_sandbox_live.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"
