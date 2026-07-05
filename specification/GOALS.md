@@ -369,3 +369,30 @@ checks, and fail-closed rejection for caller-provided weaker or incomplete
 proof material. T-188 remains the active carrier for live fold gating, resolved
 strength admission, coverage producer threading, and requirement-pressure
 consumption on the runner close path.
+
+The earned runtime dispatch and registry-selection wiring release is ABI
+TypeScript `4.2.0-rc.5`:
+
+- source commit `b9e5b10775a98abb8d9c8e93488637188681bea7`;
+- release snapshot commit `6c53e4604b0af75d9e5c8124eba767dd6ae0d8f1`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.5/`;
+- `latest -> 4.2.0-rc.5`;
+- tarball sha256
+  `283fe1dff0d23ad6b33edc802425aaa4282a88d5dd8c7867094c6df598daabaa`;
+- release snapshot manifest sha256
+  `66f8ffee5fd5f9be1f7871a5c3e88df50bc61a342e38ea179cd6784847926dd6`;
+- release note sha256
+  `61a60d69100fee6e9bd5f06d4b4548a0149f7dd0c1135d79b8d3b808ad2fb33f`;
+- verification: `test:t189` 5/5, `test:t177` 16/16, `test:t183` 16/16,
+  `test:t188` 20/20, `test:semantic` 1039/1039, `git diff --check`, and
+  `npm pack --dry-run`.
+
+The RC5 release snapshot was cut from clean source commit
+`b9e5b10775a98abb8d9c8e93488637188681bea7` with `sourceDirty: false`. RC5
+adds the T-189 runtime law wiring: every live F_P dispatch arm binds admitted
+instruction assembly or fails closed; scalar transform/evaluate, composed
+transform/consequence, and evaluation-rule batch dispatches are covered by a
+source-derived dispatch-site census; registry lookup starts from the registry
+universe, treats absent vector constraints as unconstrained, and rejects
+selected candidates excluded by vector constraints or registry eligibility
+rather than self-confirming from the selected entry.
