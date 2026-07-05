@@ -507,3 +507,19 @@ hardcoded 12k render ceiling starved product-scale admitted content and
 forced a lawful worker refusal at the test-design stage), and
 `ABG_TS_CODEX_MODEL` adapter ingress for the codex worker model. All RC8
 claims preserved.
+
+The excerpt-policy completion release is ABI TypeScript `4.2.0-rc.10`:
+
+- source commit `5de75b829e07edd7cacfea4e7c8e117954599905` (`sourceDirty: false`);
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.10/`;
+- `latest -> 4.2.0-rc.10`;
+- tarball sha256 `a122a0f96e0b880ed8f1e1a89aeec99724a43c1a3ef36403147db2ca5dcce39b`;
+- release snapshot manifest sha256 `45a45d16d7172d5d3dd755665bebd6698ace3591f9e7a29d346829d9ecbd374d`;
+- release note sha256 `7fe4e099e5b8b5fee2e8fa926fac1d22e3468116f990fff8d34f97e81b3a1d17`;
+- verification: `test:semantic` 1093/1093, `test:t188` 32/32, standing
+  gate `test:t194:sandbox-live` 1/1 `{ sourceClean: true }`.
+
+RC10 completes the T-030 campaign causal-excerpt fix: the runner's
+fact-construction cap (a second 2400-char ceiling under the rc.9 render
+fix) now reads the same plan-declared `causalExcerptMaxChars` policy, so
+the evaluate arm sees full candidate evidence. All RC9 claims preserved.
