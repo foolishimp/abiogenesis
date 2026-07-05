@@ -104,6 +104,371 @@ export type GtlProgramConformanceSurfaceKind =
   | "requirement_declaration"
   | "feature_coverage";
 
+// Implements: REQ-L-GTL3-LAWS-019
+// The ratified closed diagnostic vocabulary. Every conformance issue must
+// carry one of these stable identities; unknown identities are rejected at
+// the constructor boundary. Identities are removed only by supersession.
+export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
+  "abg://gtl-program/allowed-consequence-traversal/declaration",
+  "abg://gtl-program/compute-composition/digest",
+  "abg://gtl-program/compute-composition/notation-ref",
+  "abg://gtl-program/compute-composition/regime-bindings",
+  "abg://gtl-program/compute-composition/required-stage-row",
+  "abg://gtl-program/compute-composition/stage-binding",
+  "abg://gtl-program/compute-composition/stage-binding-resolves",
+  "abg://gtl-program/compute-composition/unique-ref",
+  "abg://gtl-program/compute-stage/composition-digest",
+  "abg://gtl-program/compute-stage/composition-resolves",
+  "abg://gtl-program/compute-stage/composition-stage-membership",
+  "abg://gtl-program/compute-stage/input-carriers",
+  "abg://gtl-program/compute-stage/nonparticipation-reason",
+  "abg://gtl-program/compute-stage/notation-ref",
+  "abg://gtl-program/compute-stage/output-carriers",
+  "abg://gtl-program/compute-stage/participating-regime-binding",
+  "abg://gtl-program/compute-stage/plugin-contract-resolves",
+  "abg://gtl-program/compute-stage/predecessor-resolves",
+  "abg://gtl-program/compute-stage/regime-disposition-required",
+  "abg://gtl-program/compute-stage/regime-disposition-unique",
+  "abg://gtl-program/compute-stage/unique-ref",
+  "abg://gtl-program/coverage/expected-count",
+  "abg://gtl-program/coverage/expected-count-admitted",
+  "abg://gtl-program/coverage/expected-count-nonzero",
+  "abg://gtl-program/coverage/expected-count-required",
+  "abg://gtl-program/coverage/expected-coverage-nonempty",
+  "abg://gtl-program/coverage/expected-coverage-required",
+  "abg://gtl-program/declaration/host-ref-resolves",
+  "abg://gtl-program/edge-closure/no-orphan-row",
+  "abg://gtl-program/edge-closure/target-asset-match",
+  "abg://gtl-program/edge-closure/unique-vector-row",
+  "abg://gtl-program/evaluator-declaration/tag-refs",
+  "abg://gtl-program/evaluator-declaration/unique-ref",
+  "abg://gtl-program/external-tool-gate/admission-ref",
+  "abg://gtl-program/external-tool-gate/not-language-truth",
+  "abg://gtl-program/external-tool-gate/transport-ref",
+  "abg://gtl-program/external-tool-gate/unique-ref",
+  "abg://gtl-program/feature-coverage/disposition",
+  "abg://gtl-program/feature-coverage/feature-kind",
+  "abg://gtl-program/feature-coverage/kind",
+  "abg://gtl-program/feature-coverage/manifest-required",
+  "abg://gtl-program/feature-coverage/not-used-contradiction",
+  "abg://gtl-program/feature-coverage/not-used-reason",
+  "abg://gtl-program/feature-coverage/owner-classification",
+  "abg://gtl-program/feature-coverage/owner-classification-truth",
+  "abg://gtl-program/feature-coverage/present-evidence",
+  "abg://gtl-program/feature-coverage/present-without-inventory",
+  "abg://gtl-program/feature-coverage/requirement-trace",
+  "abg://gtl-program/feature-coverage/row",
+  "abg://gtl-program/feature-coverage/t153-feature-required",
+  "abg://gtl-program/feature-coverage/t153-requirement",
+  "abg://gtl-program/feature-coverage/unique-feature-row",
+  "abg://gtl-program/graph-function/catalog-published",
+  "abg://gtl-program/graph-function/inputs-equal-environment-requires",
+  "abg://gtl-program/graph-function/materializable-template",
+  "abg://gtl-program/graph-function/outputs-provided",
+  "abg://gtl-program/graph-function/unique-publication",
+  "abg://gtl-program/graph-vector/edge-closure-required",
+  "abg://gtl-program/graph-vector/source-derivable",
+  "abg://gtl-program/graph-vector/source-node-declared",
+  "abg://gtl-program/graph-vector/target-carrier-required",
+  "abg://gtl-program/graph-vector/target-node-declared",
+  "abg://gtl-program/graph-vector/unique-ref",
+  "abg://gtl-program/graph/input-node-declared",
+  "abg://gtl-program/graph/node-reachable-or-bound",
+  "abg://gtl-program/graph/output-derivable",
+  "abg://gtl-program/graph/output-node-declared",
+  "abg://gtl-program/hook-boundary/concern-refs",
+  "abg://gtl-program/hook-boundary/plugin-contract-resolves",
+  "abg://gtl-program/hook-boundary/plugin-stage-binding-resolves",
+  "abg://gtl-program/hook-boundary/unique-host-hook",
+  "abg://gtl-program/input/array-field",
+  "abg://gtl-program/input/boolean-field",
+  "abg://gtl-program/input/composition-source-kind-field",
+  "abg://gtl-program/input/compute-composition-row",
+  "abg://gtl-program/input/compute-stage-binding-row",
+  "abg://gtl-program/input/compute-stage-purpose-field",
+  "abg://gtl-program/input/compute-stage-role-field",
+  "abg://gtl-program/input/edge-closure-row",
+  "abg://gtl-program/input/evaluator-declaration-row",
+  "abg://gtl-program/input/external-tool-gate-row",
+  "abg://gtl-program/input/graph-function",
+  "abg://gtl-program/input/graph-reentry-point-field",
+  "abg://gtl-program/input/hook-boundary-row",
+  "abg://gtl-program/input/hook-source-kind-field",
+  "abg://gtl-program/input/host-kind-field",
+  "abg://gtl-program/input/installed-context-row",
+  "abg://gtl-program/input/job-binding-row",
+  "abg://gtl-program/input/module",
+  "abg://gtl-program/input/non-negative-integer-array",
+  "abg://gtl-program/input/non-negative-integer-field",
+  "abg://gtl-program/input/object",
+  "abg://gtl-program/input/operator-declaration-row",
+  "abg://gtl-program/input/overlay-row",
+  "abg://gtl-program/input/plugin-result-interface-row",
+  "abg://gtl-program/input/prompt-asset-digest",
+  "abg://gtl-program/input/prompt-asset-node",
+  "abg://gtl-program/input/prompt-asset-row",
+  "abg://gtl-program/input/prompt-asset-surface",
+  "abg://gtl-program/input/public-start-row",
+  "abg://gtl-program/input/regime-field",
+  "abg://gtl-program/input/repair-surface-disposition-field",
+  "abg://gtl-program/input/requirement-context-row",
+  "abg://gtl-program/input/requirement-declaration-row",
+  "abg://gtl-program/input/requirement-relation-row",
+  "abg://gtl-program/input/requirement-span-row",
+  "abg://gtl-program/input/requirement-test-relation-row",
+  "abg://gtl-program/input/requirement-topology-row",
+  "abg://gtl-program/input/requirements-algebra-bundle",
+  "abg://gtl-program/input/role-binding-row",
+  "abg://gtl-program/input/rule-declaration-row",
+  "abg://gtl-program/input/runtime-binding-kind-field",
+  "abg://gtl-program/input/runtime-binding-row",
+  "abg://gtl-program/input/runtime-reentry-route-row",
+  "abg://gtl-program/input/same-object-row",
+  "abg://gtl-program/input/selection-boundary-kind-field",
+  "abg://gtl-program/input/selection-boundary-row",
+  "abg://gtl-program/input/semantic-review-gate-row",
+  "abg://gtl-program/input/semantic-review-status",
+  "abg://gtl-program/input/source-authority-policy-row",
+  "abg://gtl-program/input/source-authority-token-match-mode",
+  "abg://gtl-program/input/source-identity-row",
+  "abg://gtl-program/input/stage-regime-disposition-field",
+  "abg://gtl-program/input/stage-regime-disposition-row",
+  "abg://gtl-program/input/string-array",
+  "abg://gtl-program/input/string-field",
+  "abg://gtl-program/input/target-carrier-row",
+  "abg://gtl-program/input/traversal-bind-conservation-row",
+  "abg://gtl-program/installed-context/abi-version",
+  "abg://gtl-program/installed-context/required-abstraction",
+  "abg://gtl-program/installed-context/selected-product-version",
+  "abg://gtl-program/installed-context/stale-abstraction",
+  "abg://gtl-program/installed-context/toolchain-binding",
+  "abg://gtl-program/installed-context/version-line",
+  "abg://gtl-program/job-binding/graph-function-resolves",
+  "abg://gtl-program/job-binding/job-ref-resolves",
+  "abg://gtl-program/job-binding/node-type-not-callable",
+  "abg://gtl-program/job-binding/role-ref-resolves",
+  "abg://gtl-program/job-binding/unique-ref",
+  "abg://gtl-program/module/no-untracked-graph-function",
+  "abg://gtl-program/operator-declaration/tag-refs",
+  "abg://gtl-program/operator-declaration/unique-ref",
+  "abg://gtl-program/overlay/default-start-target-resolves",
+  "abg://gtl-program/overlay/graph-function-resolves",
+  "abg://gtl-program/overlay/graph-vector-resolves",
+  "abg://gtl-program/overlay/public-start-target-resolves",
+  "abg://gtl-program/plugin-contract/admission",
+  "abg://gtl-program/plugin-contract/no-engine-authority",
+  "abg://gtl-program/plugin-contract/runtime-binding-required",
+  "abg://gtl-program/plugin-contract/stage-binding-required",
+  "abg://gtl-program/plugin-contract/unique-ref",
+  "abg://gtl-program/plugin-result-interface/composition-digest",
+  "abg://gtl-program/plugin-result-interface/composition-ref",
+  "abg://gtl-program/plugin-result-interface/compute-means",
+  "abg://gtl-program/plugin-result-interface/no-local-file-selector",
+  "abg://gtl-program/plugin-result-interface/output-carrier-covers-stage",
+  "abg://gtl-program/plugin-result-interface/output-carrier-stage-member",
+  "abg://gtl-program/plugin-result-interface/output-carriers",
+  "abg://gtl-program/plugin-result-interface/produced-carriers",
+  "abg://gtl-program/plugin-result-interface/required-identity-field",
+  "abg://gtl-program/plugin-result-interface/result-carrier-kind",
+  "abg://gtl-program/plugin-result-interface/selector-authority",
+  "abg://gtl-program/plugin-result-interface/stage-binding-required",
+  "abg://gtl-program/plugin-result-interface/stage-binding-resolves",
+  "abg://gtl-program/plugin-result-interface/stage-role",
+  "abg://gtl-program/plugin-result-interface/unique-produced-carriers",
+  "abg://gtl-program/plugin-result-interface/unique-ref",
+  "abg://gtl-program/plugin-result-interface/unique-runtime-selector",
+  "abg://gtl-program/prompt-asset/asset-surface-admission",
+  "abg://gtl-program/prompt-asset/authority-slot",
+  "abg://gtl-program/prompt-asset/constructor-ref",
+  "abg://gtl-program/prompt-asset/current-abg-fold-ref",
+  "abg://gtl-program/prompt-asset/evidence-ref",
+  "abg://gtl-program/prompt-asset/gtl-node",
+  "abg://gtl-program/prompt-asset/node-preserves-asset-surface",
+  "abg://gtl-program/prompt-asset/output-contract",
+  "abg://gtl-program/prompt-asset/proof-obligation",
+  "abg://gtl-program/prompt-asset/rendered-structure-has-renderer",
+  "abg://gtl-program/prompt-asset/rendered-view-digest",
+  "abg://gtl-program/prompt-asset/rendered-view-digest-policy",
+  "abg://gtl-program/prompt-asset/renderer-ref",
+  "abg://gtl-program/public-start/default-overlay-resolves",
+  "abg://gtl-program/public-start/default-overlay-start-compatible",
+  "abg://gtl-program/public-start/graph-function-resolves",
+  "abg://gtl-program/public-start/node-type-not-callable",
+  "abg://gtl-program/public-start/overlay-graph-function-compatible",
+  "abg://gtl-program/public-start/overlay-required",
+  "abg://gtl-program/public-start/overlay-resolves",
+  "abg://gtl-program/requirements-algebra/context-applies-to",
+  "abg://gtl-program/requirements-algebra/context-applies-to-resolves",
+  "abg://gtl-program/requirements-algebra/context-fragment-digest",
+  "abg://gtl-program/requirements-algebra/context-promotion-policy-admitted",
+  "abg://gtl-program/requirements-algebra/context-ref-resolves",
+  "abg://gtl-program/requirements-algebra/declaration-key",
+  "abg://gtl-program/requirements-algebra/enum-field",
+  "abg://gtl-program/requirements-algebra/evidence-policy-coverage",
+  "abg://gtl-program/requirements-algebra/graph-function-ref-resolves",
+  "abg://gtl-program/requirements-algebra/graph-vector-ref-resolves",
+  "abg://gtl-program/requirements-algebra/kind",
+  "abg://gtl-program/requirements-algebra/no-runtime-authority-fields",
+  "abg://gtl-program/requirements-algebra/open-payload",
+  "abg://gtl-program/requirements-algebra/relation-contradiction",
+  "abg://gtl-program/requirements-algebra/relation-cycle",
+  "abg://gtl-program/requirements-algebra/relation-ref-resolves",
+  "abg://gtl-program/requirements-algebra/relation-requirement-ref-resolves",
+  "abg://gtl-program/requirements-algebra/relation-self-reference",
+  "abg://gtl-program/requirements-algebra/source-digest",
+  "abg://gtl-program/requirements-algebra/span-matches-vector",
+  "abg://gtl-program/requirements-algebra/span-range-source-node-ref",
+  "abg://gtl-program/requirements-algebra/span-range-target-node-ref",
+  "abg://gtl-program/requirements-algebra/span-ref-resolves",
+  "abg://gtl-program/requirements-algebra/span-source-node-ref",
+  "abg://gtl-program/requirements-algebra/span-target-node-ref",
+  "abg://gtl-program/requirements-algebra/span-vector-identity-required",
+  "abg://gtl-program/requirements-algebra/test-evidence-policy-ref-resolves",
+  "abg://gtl-program/requirements-algebra/test-projection-ref-grammar",
+  "abg://gtl-program/requirements-algebra/test-requirement-ref-resolves",
+  "abg://gtl-program/requirements-algebra/test-root-coverage",
+  "abg://gtl-program/requirements-algebra/topology-applies-to",
+  "abg://gtl-program/requirements-algebra/topology-applies-to-resolves",
+  "abg://gtl-program/requirements-algebra/topology-constraint-ref-resolves",
+  "abg://gtl-program/requirements-algebra/topology-constraints",
+  "abg://gtl-program/requirements-algebra/unique-context-fragment-ref",
+  "abg://gtl-program/requirements-algebra/unique-destination-topology-ref",
+  "abg://gtl-program/requirements-algebra/unique-relation-id",
+  "abg://gtl-program/requirements-algebra/unique-requirement-id",
+  "abg://gtl-program/requirements-algebra/unique-span-id",
+  "abg://gtl-program/requirements-algebra/unique-stable-id",
+  "abg://gtl-program/requirements-algebra/unique-test-relation-ref",
+  "abg://gtl-program/requirements-algebra/vector-index-resolves",
+  "abg://gtl-program/role-binding/capability-refs",
+  "abg://gtl-program/role-binding/role-ref-resolves",
+  "abg://gtl-program/role-binding/unique-ref",
+  "abg://gtl-program/rule-declaration/config-digest",
+  "abg://gtl-program/rule-declaration/tag-refs",
+  "abg://gtl-program/rule-declaration/unique-ref",
+  "abg://gtl-program/runtime-binding/canonical-abg-start",
+  "abg://gtl-program/runtime-binding/module-ref-resolves",
+  "abg://gtl-program/runtime-binding/no-product-local-command-router",
+  "abg://gtl-program/runtime-binding/plugin-contract-resolves",
+  "abg://gtl-program/runtime-binding/plugin-stage-binding-resolves",
+  "abg://gtl-program/runtime-binding/public-start-ref-resolves",
+  "abg://gtl-program/runtime-binding/stage-binding-resolves",
+  "abg://gtl-program/runtime-binding/unique-ref",
+  "abg://gtl-program/runtime-reentry/absolute-target-identity",
+  "abg://gtl-program/runtime-reentry/lawful-basis",
+  "abg://gtl-program/runtime-reentry/relative-offset-not-authority",
+  "abg://gtl-program/runtime-reentry/selected-action-kind",
+  "abg://gtl-program/runtime-reentry/target-vector-index-resolves",
+  "abg://gtl-program/runtime-reentry/unique-ref",
+  "abg://gtl-program/runtime-reentry/upstream-disposition",
+  "abg://gtl-program/same-object/equality-digest",
+  "abg://gtl-program/same-object/nontrivial-proof",
+  "abg://gtl-program/same-object/unique-proof-ref",
+  "abg://gtl-program/selection-boundary/candidate-refs",
+  "abg://gtl-program/selection-boundary/host-ref-resolves",
+  "abg://gtl-program/selection-boundary/input-contracts",
+  "abg://gtl-program/selection-boundary/output-contracts",
+  "abg://gtl-program/selection-boundary/unique-ref",
+  "abg://gtl-program/semantic-review-gate/abg-producer-provenance",
+  "abg://gtl-program/semantic-review-gate/admitted-result-kind",
+  "abg://gtl-program/semantic-review-gate/deterministic-report-digest",
+  "abg://gtl-program/semantic-review-gate/no-open-findings",
+  "abg://gtl-program/semantic-review-gate/source-package-digest",
+  "abg://gtl-program/semantic-review-gate/status-passed",
+  "abg://gtl-program/semantic-review-gate/subject-ref",
+  "abg://gtl-program/semantic-review-gate/t162-fd-finite-surface",
+  "abg://gtl-program/semantic-review-gate/t162-worker-control",
+  "abg://gtl-program/semantic-review-gate/unique-ref",
+  "abg://gtl-program/source-authority-policy/forbidden-token-required",
+  "abg://gtl-program/source-authority-policy/source-surface-prefix-resolves",
+  "abg://gtl-program/source-authority-policy/source-surface-ref-resolves",
+  "abg://gtl-program/source-authority-policy/unique-ref",
+  "abg://gtl-program/source-identity/current-abg-version",
+  "abg://gtl-program/source-identity/current-abi-package-version",
+  "abg://gtl-program/source-identity/current-compact-abg-version",
+  "abg://gtl-program/source-identity/stale-stage-label",
+  "abg://gtl-program/target-carrier/envelope-ref",
+  "abg://gtl-program/target-carrier/family-ref",
+  "abg://gtl-program/target-carrier/fixed-protocol-fields",
+  "abg://gtl-program/target-carrier/gtl-ref",
+  "abg://gtl-program/target-carrier/literal-domain",
+  "abg://gtl-program/target-carrier/no-orphan-row",
+  "abg://gtl-program/target-carrier/output-surface",
+  "abg://gtl-program/target-carrier/required-fields",
+  "abg://gtl-program/target-carrier/schema-ref",
+  "abg://gtl-program/target-carrier/target-asset-match",
+  "abg://gtl-program/target-carrier/template-ref",
+  "abg://gtl-program/target-carrier/unique-vector-row",
+  "abg://gtl-program/target-carrier/vector-ref-match",
+  "abg://gtl-program/target-carrier/worker-protocol-authority",
+  "abg://gtl-program/traversal-bind-conservation/graph-function-ref-match",
+  "abg://gtl-program/traversal-bind-conservation/graph-ref-match",
+  "abg://gtl-program/traversal-bind-conservation/graph-vector-ref-match",
+  "abg://gtl-program/traversal-bind-conservation/no-orphan-row",
+  "abg://gtl-program/traversal-bind-conservation/unique-conservation-ref",
+  "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
+  "abg://gtl-program/traversal-unit/bind-conservation-ambiguous",
+  "abg://gtl-program/traversal-unit/bind-conservation-materialization-coverage",
+  "abg://gtl-program/traversal-unit/bind-conservation-required",
+  "abg://gtl-program/traversal-unit/bind-conservation-stage-coverage",
+  "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage",
+  "abg://gtl-program/traversal-unit/compute-composition-required",
+  "abg://gtl-program/traversal-unit/consequence-result-interface-required",
+  "abg://gtl-program/traversal-unit/edge-closure-ambiguous",
+  "abg://gtl-program/traversal-unit/edge-closure-required",
+  "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage",
+  "abg://gtl-program/traversal-unit/obligation-delta-family",
+  "abg://gtl-program/traversal-unit/plugin-result-interface-required",
+  "abg://gtl-program/traversal-unit/public-start-entry",
+  "abg://gtl-program/traversal-unit/stage-binding-required",
+  "abg://gtl-program/traversal-unit/target-carrier-ambiguous",
+  "abg://gtl-program/traversal-unit/target-carrier-required",
+  "abg://gtl-program/version/exact-package-version",
+  "abg://gtl-program/target-carrier/admissionRef",
+  "abg://gtl-program/target-carrier/closurePreconditionRef",
+  "abg://gtl-program/target-carrier/constructionTemplateRef",
+  "abg://gtl-program/target-carrier/edgeAssuranceBindingRef",
+  "abg://gtl-program/target-carrier/handoffProjectionRef",
+  "abg://gtl-program/target-carrier/materializationPolicyRef",
+  "abg://gtl-program/target-carrier/payloadLedgerBindingRef",
+  "abg://gtl-program/target-carrier/replayDigestPolicyRef",
+  "abg://gtl-program/traversal-unit/bind-conservation-carried-obligation",
+  "abg://gtl-program/traversal-unit/bind-conservation-downstream-terminal-pressure",
+  "abg://gtl-program/traversal-unit/bind-conservation-intent-lineage",
+  "abg://gtl-program/traversal-unit/bind-conservation-materialization-binding",
+  "abg://gtl-program/traversal-unit/bind-conservation-residual-pressure",
+  "abg://gtl-program/traversal-unit/bind-conservation-staged-authority",
+  "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding",
+] as const);
+
+export type GtlProgramDiagnosticId =
+  (typeof GTL_PROGRAM_DIAGNOSTIC_ID_VALUES)[number];
+
+const GTL_PROGRAM_DIAGNOSTIC_ID_SET: ReadonlySet<string> = new Set(
+  GTL_PROGRAM_DIAGNOSTIC_ID_VALUES
+);
+
+// Implements: REQ-L-GTL3-LAWS-020
+// Admissible repair affordance: typed lawful repair moves for a ratified
+// diagnostic. Routing truth only — it does not perform, select, or authorize
+// the repair.
+export const GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES = Object.freeze([
+  "add_missing_declaration",
+  "correct_reference",
+  "remove_duplicate_declaration",
+  "align_digest_or_version",
+  "constitutional_reprice"
+] as const);
+
+export type GtlProgramRepairEditClass =
+  (typeof GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES)[number];
+
+export interface GtlProgramAdmissibleRepair {
+  readonly kind: "gtl_program_admissible_repair";
+  readonly editClass: GtlProgramRepairEditClass;
+  readonly repairSurfaceRef: string;
+  readonly changeClassRef: string | null;
+}
+
 export interface GtlProgramConformanceIssue {
   readonly kind: "gtl_program_conformance_issue";
   readonly severity: "error";
@@ -112,6 +477,7 @@ export interface GtlProgramConformanceIssue {
   readonly ruleRef: string;
   readonly message: string;
   readonly evidenceRefs: readonly string[];
+  readonly admissibleRepairs: readonly GtlProgramAdmissibleRepair[];
 }
 
 export interface GtlProgramTargetCarrierRow {
@@ -1024,13 +1390,34 @@ function freezeStrings(values: readonly string[] | undefined): readonly string[]
   return Object.freeze([...(values ?? [])]);
 }
 
+// Implements: REQ-L-GTL3-LAWS-019
+export function assertRatifiedGtlProgramDiagnosticId(ruleRef: string): string {
+  const declarationCarried = ruleRef.startsWith(
+    "abg://gtl-program/source-authority/"
+  );
+  if (!declarationCarried && !GTL_PROGRAM_DIAGNOSTIC_ID_SET.has(ruleRef)) {
+    throw new TypeError(
+      `unratified gtl program diagnostic identity: ${ruleRef}`
+    );
+  }
+  return ruleRef;
+}
+
 function issue(input: {
   readonly surfaceKind: GtlProgramConformanceSurfaceKind;
   readonly surfaceRef: string;
   readonly ruleRef: string;
   readonly message: string;
   readonly evidenceRefs?: readonly string[] | undefined;
+  readonly admissibleRepairs?: readonly GtlProgramAdmissibleRepair[] | undefined;
 }): GtlProgramConformanceIssue {
+  // Implements: REQ-L-GTL3-LAWS-019 — the constructor is the vocabulary
+  // boundary: an unknown diagnostic identity is itself a conformance failure.
+  // Declaration-carried rule identities (admitted sourceAuthorityPolicy rows
+  // supply their own rule identity) are ratified by declaration, not by the
+  // built-in vocabulary. Named follow-up: validate them against the admitted
+  // declaration set instead of by namespace.
+  assertRatifiedGtlProgramDiagnosticId(input.ruleRef);
   return Object.freeze({
     kind: "gtl_program_conformance_issue",
     severity: "error",
@@ -1038,7 +1425,8 @@ function issue(input: {
     surfaceRef: input.surfaceRef,
     ruleRef: input.ruleRef,
     message: input.message,
-    evidenceRefs: freezeStrings(input.evidenceRefs)
+    evidenceRefs: freezeStrings(input.evidenceRefs),
+    admissibleRepairs: Object.freeze([...(input.admissibleRepairs ?? [])])
   });
 }
 

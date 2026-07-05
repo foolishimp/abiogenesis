@@ -48,3 +48,7 @@ State the governing language laws of GTL 3.
 **REQ-L-GTL3-LAWS-017**: Explicit invariant traversal visibility — contract boundaries may visibly declare invariant traversal truth.
 
 **REQ-L-GTL3-LAWS-018**: Replayable hook and publication truth — publication, materialization, hook attachment, and derived bundle truth shall remain inspectable and replayable.
+
+**REQ-L-GTL3-LAWS-019**: Typed diagnostic identity — conformance failure is typed truth: every conformance diagnostic carries a stable diagnostic identity from the published closed diagnostic vocabulary; an unknown or unratified diagnostic identity is itself a conformance failure; diagnostic identities are stable across releases and are removed only by supersession, not by renaming.
+
+**REQ-L-GTL3-LAWS-020**: Admissible repair affordance — a ratified diagnostic may carry a typed admissible-repair set naming the lawful repair moves for that failure: the repair surface, the smallest lawful edit class, and the governing change class when the repair is constitutional. Repair affordances are typed carriers over declared truth, not prose advice, and they do not perform, select, or authorize the repair.

@@ -1,0 +1,134 @@
+---
+id: T-191
+title: Ratify GTL authoring-loop meta-law (diagnostics, canonical form, examples, latitude, authorship, evolution vocabulary, corpus seed)
+type: requirements_realization
+ticket_category: gtl_llm_first_meta_language
+status: active
+goal: >-
+  Move the static half of the LLM authoring loop into compiler-visible law:
+  ratified diagnostic IDs with admissible-repair sets, a canonical authored
+  program format with declarations-as-data law, contract-carried golden
+  examples promoted from existing ABG shape/counterexample refs, declared
+  underdetermination markers, declaration authorship/authority fields, an
+  evolution vocabulary extending the existing requirement relation-kind
+  family, and a mechanically seeded language conformance corpus.
+change_class: requirement_reprice
+re_entry_point: gtl_authoring_loop_meta_law
+owner: abiogenesis
+priority: high
+created_at: 2026-07-05
+updated_at: 2026-07-05
+governance_scope: STDO Method, SPEC_METHOD, GTL, Semantic Compiler / Conformance, Instruction Assembly (read-only consumer)
+build_tenant: typescript
+source_documents:
+  - .ai-workspace/comments/claude/20260705T030432Z_STRATEGY_gtl_llm_first_language_gaps.md
+  - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
+review_status: pending
+proof_status: pending
+target_truth: >-
+  The generate->typecheck->repair->admit loop runs on ratified law: every
+  conformance diagnostic carries a stable ID and (top set) an admissible
+  repair set; GTL programs have one ratified canonical authored data format
+  and computed declarations are drift; contracts may bind ratified
+  example/counterexample instances via the promoted ABG ref families;
+  underdetermination is declarable with owner routes and undeclared holes are
+  defects; declarations carry authorship/authority checked at admission; the
+  relation-kind family carries supersession/compatibility vocabulary; and a
+  ratified language-conformance-corpus format exists with a mechanically
+  harvested seed.
+non_closure_conditions:
+  - Any phase mints a parallel surface where a named existing partial carrier
+    exists (open ruleRef strings, repair-surface disposition, serializeModule
+    machinery, ABG shape/counterexample ref families, relation-kind family) —
+    promote-don't-re-mint is closure law.
+  - Diagnostic IDs are added without ratification of ID stability, or repair
+    sets are prose rather than typed admissible-edit carriers.
+  - The canonical-form law ratifies digest-identity canonicalization as the
+    authored format (they are different capabilities; both must be named).
+  - The corpus artifact is named "corpus" bare — it must be the language
+    conformance corpus, distinct from the requirements corpus and test
+    evidence senses.
+  - Constitutional surfaces (PRODUCT owns-lists, CONTRACT-LAW-API index) are
+    not repriced in the same wave as the new clauses.
+required_work:
+  - "Phase 0 - Evidence pin: re-verify the strategy post's exists/absent table against the tree at execution time (diagnostics fields, serializeModule, relation kinds, shape/counterexample refs); record deltas."
+  - "Phase 1 - Diagnostics: ratify stable diagnostic IDs over the open GtlProgramConformanceIssue.ruleRef, a severity taxonomy, and admissible-repair sets extending the existing GtlProgramRepairSurfaceDisposition; migrate the top ten diagnostics."
+  - "Phase 2 - Canonical form: ratify the public authored-program data format over the existing gtl/m01+m02 serialization machinery; declarations-are-data clause; conformance check that declaration files are pure data."
+  - "Phase 3 - Examples: promote/bridge positiveEvidenceShapeRefs / negativeEvidenceShapeRefs / adversarialCounterexampleRefs into GTL contract law binding ratified instances with digests; pilot one requirement-bearing hello-world edge; wire strength resolution to calibration-set provenance."
+  - "Phase 4 - Small riders: underdetermined marker (scope + owner route + undeclared-hole diagnostic); declaration authorship/authority fields + admission check + self-dealing replay query; supersession/compatibility kinds extending GTL_REQUIREMENT_RELATION_KIND_VALUES (T-178 reconciled, not duplicated)."
+  - "Phase 5 - Corpus seed: ratify the language-conformance-corpus format (program + expected diagnostic IDs + denotation); mechanically harvest the existing semantic-suite fixtures into it while Phase 1 touches the same files; full curation is successor work."
+acceptance_criteria:
+  - Stable diagnostic IDs ratified; top-ten diagnostics carry typed repair
+    sets; a mutation test proves an unknown ruleRef is rejected.
+  - Canonical authored format ratified; a computed declaration fails
+    conformance differentially.
+  - One live edge binds golden instances consumed by evaluator calibration
+    and non-tautology mutation material.
+  - Underdeclared holes produce a typed diagnostic; declared latitude renders
+    into instruction manifests as permission.
+  - Corpus seed exists in the ratified format with harvested lawful/unlawful
+    pairs and passes against the TS tenant.
+notes:
+  - Split boundary - this ticket is the STATIC authoring-law half (compiler
+    surface; no runtime enforcement changes). The dynamic/temporal
+    enforcement half is T-192. Strategy post section 11 carries the
+    bang-for-buck rationale; phases follow it.
+---
+
+# T-191: GTL Authoring-Loop Meta-Law
+
+Static half of the LLM-first gap map: errors, form, meaning, latitude,
+authorship, evolution vocabulary, corpus. Every phase extends a named
+existing surface; promote-don't-re-mint is closure law.
+
+## Execution Record
+
+- 2026-07-05: Activated (backlog -> active); GOAL-031 registered (GOAL-030
+  was taken by T-190 proof-hardening).
+- 2026-07-05 Phase 0 evidence pin (tree at post-rc.6 main):
+  - `GtlProgramConformanceIssue` (gtl_program_conformance.ts:107-115)
+    unchanged: `severity: "error"` fixed; `ruleRef: string` OPEN.
+  - NEW precision: `ruleRef` values are pass-throughs at issue sites
+    (`ruleRef: input`, zero literals) — actual rule strings originate at
+    caller check sites, so the ratified closed vocabulary must be enforced
+    at the issue CONSTRUCTOR boundary, and the top-ten migration set must be
+    harvested from caller literals, not from this file.
+  - Repair surface confirmed: `GtlProgramRepairSurfaceDisposition` at :655,
+    `repairSurfaceDisposition` field at :680.
+  - Absences re-confirmed: underdetermined marker, authorship fields,
+    corpus artifact — zero hits in code/src/gtl.
+  - Phase 1 constitutional home: `REQ-L-GTL3-LAWS` (50 lines, clauses
+    -001..-018; next free: -019).
+  - Serialization machinery re-confirmed per strategy post section 4
+    (machinery exists incl. serializeModule; gap is ratified law only).
+- 2026-07-05 Phase 1 (diagnostics law) — constitutional + realization landed:
+  - Ratified REQ-L-GTL3-LAWS-019 (typed diagnostic identity; closed
+    vocabulary; unknown identity is itself a conformance failure; stability
+    by supersession) and -020 (admissible repair affordance; typed carriers,
+    not prose; routing only — no repair authority).
+  - Harvested and ratified `GTL_PROGRAM_DIAGNOSTIC_ID_VALUES`: 314 literal
+    IDs + 15 closed-domain IDs from the two template-literal builders
+    (`target-carrier/${fieldName}` over the frozen 8-field list;
+    `bind-conservation-${fieldKey}` over the frozen 8-key list) = 329 total.
+  - Constructor-boundary gate live in `issue(...)` via exported
+    `assertRatifiedGtlProgramDiagnosticId` (one truth surface for the gate).
+    The gate CAUGHT the 15 missed dynamic IDs on first run — REQ-019 doing
+    its job during its own installation.
+  - Declaration-carried namespace decision:
+    `abg://gtl-program/source-authority/*` identities originate from
+    admitted sourceAuthorityPolicy declarations and are accepted by
+    declaration, not by the built-in vocabulary. NAMED FOLLOW-UP: validate
+    them against the admitted declaration set instead of by namespace.
+  - REQ-020 realization: `GtlProgramAdmissibleRepair` carrier
+    (closed edit-class vocabulary: add_missing_declaration /
+    correct_reference / remove_duplicate_declaration /
+    align_digest_or_version / constitutional_reprice) +
+    `admissibleRepairs` field on the issue carrier (frozen, empty default).
+  - Proofs: test:t191 5/5 (vocabulary closed/frozen/unique; unknown ID
+    rejected differentially; assert total over vocabulary;
+    declaration-carried accepted; live issues carry ratified IDs + repair
+    field; edit-class vocabulary frozen). test:t150 97/97.
+    test:semantic 1044/1044. git diff --check clean.
+  - REMAINING in Phase 1: populate admissible-repair sets on the top-ten
+    diagnostics (field + vocabulary exist and are enforced; population is
+    the open slice — do not close Phase 1 without it).
