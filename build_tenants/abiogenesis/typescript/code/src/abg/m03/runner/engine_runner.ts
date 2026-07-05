@@ -3966,19 +3966,19 @@ function runtimeRegistrySelectionBasisRef(input: {
   ].join(":");
 }
 
-function registryEntryForExecutionBasis(input: {
+function registryEntriesForExecutionBasis(input: {
   readonly entries: readonly RuntimeRegistryEntryProjection[];
   readonly basis: ExecutionBasis;
-}): RuntimeRegistryEntryProjection | null {
-  return (
-    input.entries.find(
+}): readonly RuntimeRegistryEntryProjection[] {
+  return Object.freeze(
+    input.entries.filter(
       (entry) =>
         entry.entryKind === "graph_function" &&
         selectedGraphFunctionRefMatchesBasis({
           selectedGraphFunctionRef: entry.graphFunctionRef,
           basis: input.basis
         })
-    ) ?? null
+    )
   );
 }
 
@@ -4053,15 +4053,22 @@ function runtimeRegistrySelectionForTransition(input: {
     throw new TypeError("Runtime registry selection requires a traversal transition");
   }
   const projection = projectRuntimeGraphFunctionRegistry(input.replayEvents);
-  const selectedEntry = registryEntryForExecutionBasis({
+  const basisEntries = registryEntriesForExecutionBasis({
     entries: projection.entries,
     basis: input.basis
   });
-  if (selectedEntry === null) {
+  if (basisEntries.length === 0) {
     throw new TypeError(
       `Runtime registry startup requires a registered graph_function entry for ${input.basis.graphFunction.id}`
     );
   }
+  // AMBIGUITY IS NOT AUTHORITY: with multiple basis-matching entries the
+  // runner asserts NO pre-picked candidate — the selection contract's pick
+  // law decides (a declared candidate constraint may lawfully resolve to
+  // one eligible entry; unauthorized ambiguity fails closed with a
+  // replay-visible graph_function_selection_rejected). A single match is
+  // asserted as before.
+  const selectedEntry = basisEntries.length === 1 ? basisEntries[0] ?? null : null;
 
   const runtimeBasisRef = runtimeRegistrySelectionBasisRef({
     basis: input.basis,
@@ -4076,7 +4083,7 @@ function runtimeRegistrySelectionForTransition(input: {
     graphFunctionId: input.basis.graphFunction.id,
     vectorIndex: input.transition.vectorIndex,
     edge: input.transition.edge,
-    selectedEntryRef: selectedEntry.entryRef,
+    selectedEntryRef: selectedEntry?.entryRef ?? basisEntries[0]?.entryRef ?? null,
     lookupBoundary,
     registryProjectionRef: projection.projectionRef
   });
@@ -4095,7 +4102,9 @@ function runtimeRegistrySelectionForTransition(input: {
     selectionRef: `graph-function-selection:runner:${digest}`,
     runtimeBasisRef,
     rationaleRef: "rationale://abg/runtime-registry/current-basis",
-    abgSelectedCandidateRef: selectedEntry.entryRef,
+    ...(selectedEntry === null
+      ? {}
+      : { abgSelectedCandidateRef: selectedEntry.entryRef }),
     causationEventRefs: projection.sourceEventRefs,
     correlationId: `correlation://runtime-registry-selection/${digest}`
   });
@@ -4103,7 +4112,7 @@ function runtimeRegistrySelectionForTransition(input: {
     assertGraphFunctionInvocationSelected({
       events: [...input.replayEvents, selection],
       runtimeBasisRef,
-      graphFunctionRef: selectedEntry.graphFunctionRef,
+      graphFunctionRef: selection.selectedGraphFunctionRef,
       selectionRef: selection.selectionRef
     });
   }
