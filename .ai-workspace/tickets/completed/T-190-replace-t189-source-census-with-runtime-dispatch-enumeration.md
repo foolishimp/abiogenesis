@@ -29,8 +29,8 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md
   - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
   - build_tenants/abiogenesis/typescript/test_env/tests/test_t189_instruction_dispatch_runtime_wiring.test.mjs
-review_status: pending
-proof_status: pending
+review_status: passed
+proof_status: passed
 target_truth: >-
   Every F_P-capable runtime dispatch arm is proven by runtime execution or by
   a typed construct-and-block exemption. Runtime proof observes the actual

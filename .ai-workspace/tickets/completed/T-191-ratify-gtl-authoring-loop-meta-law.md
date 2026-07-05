@@ -23,8 +23,8 @@ build_tenant: typescript
 source_documents:
   - .ai-workspace/comments/claude/20260705T030432Z_STRATEGY_gtl_llm_first_language_gaps.md
   - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
-review_status: pending
-proof_status: pending
+review_status: passed
+proof_status: passed
 target_truth: >-
   The generate->typecheck->repair->admit loop runs on ratified law: every
   conformance diagnostic carries a stable ID and (top set) an admissible

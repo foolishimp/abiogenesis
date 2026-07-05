@@ -1578,3 +1578,15 @@ derivePayloadLedgerProjection); digest-bound coverage status; carry-
 through coverage for composed/evaluate F_P arms (census discipline);
 mandatory-witness migration; requirement-level cross-edge fold
 accumulation decision.
+
+## Post-Closure Adjudication Addendum (2026-07-06, codex review)
+
+CLAIM NARROWED (accepted High): fold gating is earned FOR EDGES WITH A
+DECLARED CARRY-THROUGH CONTRACT; an undeclared edge with active
+obligations retains legacy closure semantics as a typed transitional
+state — this is now constitutional law (REQ -038, requirement_reprice via
+this adjudication) rather than an implicit test comment. The mandatory
+carry-through witness migration (undeclared-obligation edges become
+declared or blocked) is the named successor that retires the transitional
+state; release notes shall not claim universal coverage-gated closure
+until it lands.

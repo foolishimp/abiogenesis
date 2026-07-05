@@ -26,8 +26,8 @@ depends_on:
   - .ai-workspace/tickets/completed/T-184-consolidate-canonical-installed-live-hello-world-proof.md
 source_documents:
   - test_env/sandbox/test_t180_glc_hello_world_bootstrap_live.test.mjs
-review_status: pending
-proof_status: pending
+review_status: passed
+proof_status: passed
 target_truth: >-
   A digest-pinned sandbox live artifact proves the carry-through chain on
   the installed public path; rc.7 cites this artifact; no RC after rc.6

@@ -114,3 +114,13 @@ before closure.
 **REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-036**: `ProofStrengthAdmission` shall be F_D-checkable or adversarially verified. An F_D-checkable strength criterion shall be a total function over admitted evidence, declared proof policy, expected evidence shape, depth classes, coverage rows, and typed rejection or gap outcomes. An adversarial verification result shall be admitted evidence that attempts to refute the strength claim. F_P may propose a strength judgment, but worker self-report, prompt shape, passing tests, or a caller-supplied strength label shall not become admitted proof strength.
 
 **REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-037**: ABG assurance fold projection shall consume both replay-derived proof coverage and proof-policy depth completeness before requirement closure. A vector, graph call, run, release proof, or downstream lifecycle interpretation shall not claim closure while depth policy is incomplete, required depth classes are missing or unjustified, proof strength is not admitted, or an admitted adversarial verification produced a blocking counterexample.
+
+**REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038**: Coverage-gated closure
+applies to edges bearing a declared requirement proof carry-through
+contract. On such edges the assurance fold shall consume replay-derived
+coverage before closure per `-037`. An edge with active requirement
+obligations and no declared carry-through contract is a migration gap,
+not silent permission: it retains pre-carry-through closure semantics
+only as a typed transitional state, and a release shall not claim
+universal coverage-gated closure while such edges exist. The mandatory
+carry-through witness migration closes this gap.
