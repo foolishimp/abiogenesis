@@ -996,3 +996,86 @@ test("T-188 proof coverage gate preserves residual despite assurance close when 
   assert.equal(folds[0].state, "no_close_preserved");
   assert.equal(folds[0].residualPressureRefs.length, 1);
 });
+
+// ─── T-191 acceptance 4: declared latitude renders into manifests as permission ───
+
+test("T-191 declared latitude renders into the manifest as permission", () => {
+  const plan = compileAccepted({
+    declaredLatitude: [
+      {
+        scopeRef: "scope://t191/naming",
+        ownerRoute: "F_P",
+        latitudeNote: "worker may choose identifier naming within the module convention"
+      }
+    ]
+  });
+  assert.deepEqual(plan.declaredLatitude.length, 1);
+  const envelopeResult = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t191/latitude",
+    plan,
+    startupAdmission: admission(plan),
+    runtimeFacts: runtimeFacts()
+  });
+  assert.equal(envelopeResult.accepted, true);
+  const rendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t191/latitude",
+    plan,
+    envelope: envelopeResult.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(rendered.accepted, true);
+  assert.equal(rendered.manifest.renderedPrompt.includes("## abg.declared_latitude"), true);
+  assert.equal(
+    rendered.manifest.renderedPrompt.includes("grants PERMISSION within the named scope"),
+    true
+  );
+  assert.equal(
+    rendered.manifest.renderedPrompt.includes("worker may choose identifier naming"),
+    true
+  );
+  // absence differential: no latitude -> no section
+  const plain = compileAccepted();
+  const plainEnvelope = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t191/latitude-plain",
+    plan: plain,
+    startupAdmission: admission(plain),
+    runtimeFacts: runtimeFacts()
+  });
+  const plainRendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t191/latitude-plain",
+    plan: plain,
+    envelope: plainEnvelope.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(
+    plainRendered.manifest.renderedPrompt.includes("## abg.declared_latitude"),
+    false
+  );
+});
+
+test("T-191 declared latitude fails closed on F_D owner route and empty notes", () => {
+  const fd = compileInstructionAssemblyPlan(
+    compileInput({
+      declaredLatitude: [
+        { scopeRef: "scope://t191/bad", ownerRoute: "F_D", latitudeNote: "x" }
+      ]
+    })
+  );
+  assert.equal(fd.accepted, false);
+  assert.equal(
+    fd.issues.some((row) => row.issueKind === "declared_latitude_invalid"),
+    true
+  );
+  const empty = compileInstructionAssemblyPlan(
+    compileInput({
+      declaredLatitude: [
+        { scopeRef: "scope://t191/hole", ownerRoute: "F_P", latitudeNote: "  " }
+      ]
+    })
+  );
+  assert.equal(empty.accepted, false);
+  assert.equal(
+    empty.issues.some((row) => row.issueKind === "declared_latitude_invalid"),
+    true
+  );
+});

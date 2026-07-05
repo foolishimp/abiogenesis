@@ -343,3 +343,30 @@ seven, not four/five.
 
 Proofs after fixes: test:t191 14/14; test:t150 97/97;
 test:semantic 1053/1053.
+
+## Closure Audit + Acceptance-4 Realization (2026-07-06)
+
+AUDIT against verbatim non_closure + acceptance criteria:
+- All five non_closure conditions HOLD (promote-don't-re-mint verified in
+  wave; ID stability + typed repairs ratified; canonical-form law names
+  both capabilities; corpus named language-conformance; constitutional
+  surfaces repriced same-wave).
+- Acceptance 1, 2, 5 MET (ratified IDs + unknown-ruleRef rejection;
+  computed-declaration differential + F6 admission fail-closed; corpus
+  seed passes + T-194 row e exact replay from the installed artifact).
+- Acceptance 4 was HALF-met (typed underdetermined diagnostic existed;
+  latitude did NOT render) — REALIZED NOW: DeclaredLatitudeRow carrier on
+  CompiledPromptPlan; compile validates owner route (F_P/F_H only — F_D
+  latitude is a contradiction) and non-empty notes, failing closed with
+  the ratified issueKind declared_latitude_invalid; the manifest renders
+  "## abg.declared_latitude" with explicit permission framing (ODD §5:
+  permission, not prescription). Differentials: render + note present;
+  absence -> no section; F_D route and empty note -> rejected.
+  Lanes: t188 28/28 (unit home of instruction assembly), t191 14/14,
+  t183 16/16, semantic green.
+- Acceptance 3 REMAINS THE SOLE CLOSURE BLOCKER: "one live edge binds
+  golden instances consumed by evaluator calibration and non-tautology
+  mutation material" — the law + digest enforcement exist (T-194 row d3),
+  but no live edge consumes bound instances for calibration/mutation.
+  This is Phase 3's pilot; ticket stays ACTIVE until it lands or the
+  criterion is repriced by explicit decision.

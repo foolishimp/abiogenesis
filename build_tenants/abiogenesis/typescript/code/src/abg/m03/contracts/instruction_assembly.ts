@@ -110,6 +110,7 @@ export type InstructionAssemblyIssueKind =
   | "proportionality_gap"
   | "future_stage_bleed"
   | "answer_shaped_content"
+  | "declared_latitude_invalid"
   | "runtime_binding_gap"
   | "startup_admission_gap"
   | "manifest_replay_mismatch"
@@ -247,6 +248,11 @@ export interface InstructionSectionDecision {
 }
 
 export interface CompileInstructionAssemblyPlanInput {
+  readonly declaredLatitude?: readonly {
+    readonly scopeRef: string;
+    readonly ownerRoute: string;
+    readonly latitudeNote: string;
+  }[] | undefined;
   readonly planRef: string;
   readonly rule: InstructionAssemblyRule;
   readonly computeStageRole?: InstructionAssemblyComputeStageRole | undefined;
@@ -276,7 +282,18 @@ export interface CompileInstructionAssemblyPlanInput {
   readonly compilerEvidenceRefs?: readonly string[] | undefined;
 }
 
+// T-191 acceptance 4: declared latitude renders into instruction manifests
+// as PERMISSION (ODD §5 — prompts grant permission, not prescription).
+// Owner route is F_P or F_H only; F_D "latitude" is a contradiction (the
+// deterministic regime has no judgment latitude) and fails compile.
+export interface DeclaredLatitudeRow {
+  readonly scopeRef: string;
+  readonly ownerRoute: "F_P" | "F_H";
+  readonly latitudeNote: string;
+}
+
 export interface CompiledPromptPlan {
+  readonly declaredLatitude: readonly DeclaredLatitudeRow[];
   readonly kind: "compiled_prompt_plan";
   readonly planRef: string;
   readonly planDigest: string;
@@ -715,8 +732,19 @@ function renderedPromptFor(input: {
           `depthComplete: ${String(proofDepthTruth.depthComplete)}`,
           `proofStrengthAdmitted: ${String(proofDepthTruth.proofStrengthAdmitted)}`
         ].join("\n");
+  const latitudeText =
+    input.plan.declaredLatitude.length === 0
+      ? null
+      : [
+          "Declared latitude grants PERMISSION within the named scope; it does not prescribe outcomes and does not weaken admitted prior truth.",
+          ...input.plan.declaredLatitude.map(
+            (row) =>
+              `scope: ${row.scopeRef} | owner: ${row.ownerRoute} | latitude: ${row.latitudeNote}`
+          )
+        ].join("\n");
   return [
     sectionText,
+    ...(latitudeText === null ? [] : ["## abg.declared_latitude", latitudeText]),
     "## abg.instruction_authority_precedence",
     [
       "ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.",
@@ -1057,6 +1085,41 @@ export function compileInstructionAssemblyPlan(
 ): InstructionAssemblyCompileResult {
   const issues: InstructionAssemblyIssue[] = [];
   const instructionWorkKind = normalizeInstructionWorkKind(input.instructionWorkKind);
+  const declaredLatitude: DeclaredLatitudeRow[] = [];
+  const latitudeIssues: InstructionAssemblyIssue[] = [];
+  for (const row of input.declaredLatitude ?? []) {
+    if (row.ownerRoute !== "F_P" && row.ownerRoute !== "F_H") {
+      latitudeIssues.push(
+        Object.freeze({
+          kind: "instruction_assembly_issue",
+          issueKind: "declared_latitude_invalid",
+          algebraRef: "startup",
+          message: `declared latitude owner route must be F_P or F_H, got ${row.ownerRoute} for ${row.scopeRef}`,
+          evidenceRefs: Object.freeze([row.scopeRef])
+        })
+      );
+      continue;
+    }
+    if (row.latitudeNote.trim().length === 0) {
+      latitudeIssues.push(
+        Object.freeze({
+          kind: "instruction_assembly_issue",
+          issueKind: "declared_latitude_invalid",
+          algebraRef: "startup",
+          message: `declared latitude requires a non-empty latitude note for ${row.scopeRef} (an empty note is an undeclared hole)`,
+          evidenceRefs: Object.freeze([row.scopeRef])
+        })
+      );
+      continue;
+    }
+    declaredLatitude.push(
+      Object.freeze({
+        scopeRef: row.scopeRef,
+        ownerRoute: row.ownerRoute,
+        latitudeNote: row.latitudeNote
+      })
+    );
+  }
   const computeStageRole = normalizeInstructionAssemblyComputeStageRole(
     input.computeStageRole
   );
@@ -1070,6 +1133,7 @@ export function compileInstructionAssemblyPlan(
     input.proofDepthInstructionTruth === null
       ? null
       : constructDerivedProofDepthInstructionTruth(input.proofDepthInstructionTruth);
+  issues.push(...latitudeIssues);
   const ruleForbidden = hasForbiddenRuleField(input.rule);
   for (const field of ruleForbidden) {
     issues.push(
@@ -1501,6 +1565,7 @@ export function compileInstructionAssemblyPlan(
   }
   const withoutDigest = Object.freeze({
     kind: "compiled_prompt_plan" as const,
+    declaredLatitude: Object.freeze(declaredLatitude),
     planRef: input.planRef,
     ruleRef: input.rule.ruleRef,
     computeStageRole,
