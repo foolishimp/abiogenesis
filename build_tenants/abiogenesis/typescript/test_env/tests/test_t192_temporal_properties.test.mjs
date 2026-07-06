@@ -991,7 +991,9 @@ test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the le
     });
     return result;
   };
-  // attempt 1: the worker is down -> lean rung, lawful stop
+  // the worker is down (pre-spawn trio class) -> the retry lane now
+  // escalates IN-RUN (run-18 fix): attempt 1 lean, attempt 2+ deep —
+  // compression descent without leaving the run.
   const run1 = runLadder(null, (input) => constructFpDispatchOutcome({
     status: "blocked",
     reason: "worker down (contract_failure)",
@@ -1001,10 +1003,13 @@ test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the le
   const run1Transforms = run1.replayEvents.filter(
     (e) => e.kind === "c_call_fibre_selected" && e.armId.endsWith("/t")
   );
-  assert.equal(run1Transforms.length, 1);
+  assert.equal(run1Transforms.length >= 2, true, "in-run retry after pre-spawn failure");
   assert.equal(run1Transforms[0].programRef, "gtl://t205/lean", "attempt 1 runs the LEAN rung");
   assert.equal(run1Transforms[0].armId, "arm://lean/t");
-  // operator fixes the worker; resume: replay-global attempt 2 -> DEEP rung
+  assert.equal(run1Transforms[1].programRef, "gtl://t205/deep", "attempt 2 escalates IN-RUN");
+  assert.equal(run1Transforms[1].armId, "arm://deep/t");
+  // operator fixes the worker; resume: the frontier holds and the run
+  // completes on the escalated rung (attempts stay replay-global)
   const run2 = runLadder(run1.replayEvents, (input) => constructFpDispatchOutcome({
     status: "dispatched",
     resultRef: `result://esc/${input.vectorIndex}`,
@@ -1155,4 +1160,52 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
   const asyncSel = asyncRun.replayEvents.find((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://db/a");
   const asyncJudged = asyncRun.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === asyncSel.cCallRef);
   assert.equal(asyncJudged.judgment, "advance", "async handlers run on the async driver");
+});
+
+test("T-205 run-18 mirror: a PRE-SPAWN dispatch contract_failure retries in-run — never missing_process_evidence", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  let dispatches = 0;
+  const events = [];
+  const result = runEngineIterate({
+    basis: Object.freeze({
+      ...basis,
+      startIntent: Object.freeze({ ...basis.startIntent, until: "converged" })
+    }),
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/prespawn-dispatch", pluginKind: "fp_dispatch",
+          authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          dispatches += 1;
+          if (dispatches === 1) {
+            // the vector-21 shape: the plugin THROWS on a malformed plan;
+            // the P4 guard converts it to typed blocked (contract_failure)
+            throw new Error("Malformed execution plan command: {\"scenario\":\"...\"}");
+          }
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://prespawn/${input.vectorIndex}/${dispatches}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+  // the fix: NEVER the archive-inspection dead end for a pre-spawn failure
+  if (result.transition.kind === "terminal") {
+    assert.doesNotMatch(
+      String(result.transition.reason ?? ""),
+      /missing_process_evidence/,
+      `pre-spawn failures must not dead-end: ${result.transition.reason}`
+    );
+  }
+  // the retry lane re-dispatched after the typed conversion
+  assert.equal(dispatches >= 2, true, `expected an in-run retry, got ${dispatches} dispatch(es); terminal=${JSON.stringify(result.transition.kind === "terminal" ? result.transition.terminalKind + ":" + result.transition.reason : result.transition.kind).slice(0, 160)}`);
 });

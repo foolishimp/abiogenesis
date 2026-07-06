@@ -271,13 +271,37 @@ function inferTimeoutClass(input: {
   return null;
 }
 
+// Pre-spawn dispatch failure (run-18 campaign class): the invocation
+// closed carrying a typed trio marker but NO process ever spawned —
+// lawfully retryable per the allowlist; archive inspection would be a
+// dead end because there is no archive to inspect.
+function preSpawnDispatchFailureClass(input: {
+  readonly process: unknown;
+  readonly closureDetail: string | null;
+}): RuntimeFailureClass | null {
+  if (input.process !== undefined) return null;
+  const detail = input.closureDetail ?? "";
+  if (detail.includes("(contract_failure)")) return "contract_failure";
+  if (detail.includes("(transport_failure)")) return "transport_failure";
+  if (detail.includes("(no_output)")) return "no_output";
+  return null;
+}
+
 function inferRuntimeFailureClass(input: {
   readonly timeoutClass: TraversalNonProgressTimeoutClass | null;
   readonly process:
     | RuntimeAggregateProjection["actorProcessRefs"][number]
     | undefined;
   readonly classification: TraversalNonProgressClassification;
+  readonly closureDetail?: string | null;
 }): RuntimeFailureClass {
+  const preSpawn = preSpawnDispatchFailureClass({
+    process: input.process,
+    closureDetail: input.closureDetail ?? null
+  });
+  if (preSpawn !== null) {
+    return preSpawn;
+  }
   if (input.timeoutClass !== null) {
     return runtimeFailureClassForTraversalTimeout(input.timeoutClass);
   }
@@ -407,7 +431,8 @@ export function deriveTraversalNonProgressCarrier(
   const runtimeFailureClass = inferRuntimeFailureClass({
     timeoutClass,
     process,
-    classification
+    classification,
+    closureDetail: invocation.closureDetail ?? null
   });
   assertRuntimeFailureClass(runtimeFailureClass);
   const evidenceRefs = uniqueNonEmptyStrings([
@@ -608,7 +633,12 @@ export function deriveTraversalContinuationActionProjection(
       sourceProjectionRefs,
       reEntryPoint: "requirements" as const
     });
-  } else if (!input.carrier.processEvidenceComplete) {
+  } else if (
+    !input.carrier.processEvidenceComplete &&
+    !retryableRuntimeFailureClasses.some(
+      (failureClass) => failureClass === input.carrier.runtimeFailureClass
+    )
+  ) {
     inspectArchive = true;
     inspectReason = "missing_process_evidence";
     runtimeRows.push({
@@ -629,7 +659,10 @@ export function deriveTraversalContinuationActionProjection(
       sourceProjectionRefs
     });
   } else if (
-    input.carrier.classification === "incomplete_runtime_archive"
+    input.carrier.classification === "incomplete_runtime_archive" &&
+    !retryableRuntimeFailureClasses.some(
+      (failureClass) => failureClass === input.carrier.runtimeFailureClass
+    )
   ) {
     inspectArchive = true;
     inspectReason = "process_progress_requires_archive_inspection";

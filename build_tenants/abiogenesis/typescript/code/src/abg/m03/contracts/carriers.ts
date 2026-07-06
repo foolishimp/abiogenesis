@@ -2981,6 +2981,10 @@ export interface RuntimeAggregateProjection {
     readonly attemptIndex: number;
     readonly dispatchRef: string;
     readonly resultRef: string;
+    // closure truth (run-18 campaign): pre-spawn dispatch failures are
+    // recognizable without process rows.
+    readonly closureStatus: string | null;
+    readonly closureDetail: string | null;
   }[];
   readonly observedActorArtifactRefs: readonly {
     readonly vectorIndex: number;

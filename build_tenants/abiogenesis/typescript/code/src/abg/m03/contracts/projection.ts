@@ -394,7 +394,9 @@ export function deriveRuntimeAggregateProjection(
             correlationId: event.correlationId,
             attemptIndex: event.attemptIndex,
             dispatchRef: event.dispatchRef,
-            resultRef: event.resultRef
+            resultRef: event.resultRef,
+            closureStatus: null,
+            closureDetail: null
           })
         );
         graphCallId = event.graphCallId;
@@ -423,11 +425,25 @@ export function deriveRuntimeAggregateProjection(
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
-      case "actor_invocation_closed":
+      case "actor_invocation_closed": {
         assertVectorIndexInRange(basis, event.vectorIndex);
+        const openIndex = actorInvocationRefs.findIndex(
+          (row) => row.actorInvocationId === event.actorInvocationId
+        );
+        if (openIndex !== -1) {
+          const open = actorInvocationRefs[openIndex];
+          if (open !== undefined) {
+            actorInvocationRefs[openIndex] = Object.freeze({
+              ...open,
+              closureStatus: (event as { closureStatus?: string }).closureStatus ?? null,
+              closureDetail: (event as { detail?: string }).detail ?? null
+            });
+          }
+        }
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
+      }
       case "actor_process_started":
         assertVectorIndexInRange(basis, event.vectorIndex);
         actorProcessStarted.set(event.actorInvocationId, event);
