@@ -35,7 +35,10 @@ standard, envelope universal.
 Delivers: envelope universality claimable for the first time; a
 standard-path product ships ZERO plugin code.
 
-THE 4.5 DEFINITION (user ruling): functionally complete 4.5 IS the
+THE 4.5 DEFINITION (user ruling): 4.5 = the BASELINE STATIC solution
+on graph overlays — all system-level functions present for
+higher-order dynamic functions to be written against, none of the
+dynamic functions shipped. Functionally complete 4.5 IS the
 clean data-mapper run — converged, tests green,
 `data_mapper_full_sbt ok`. RCs before that run are checkpoints; no
 release claims functional completeness until the run exists in replay.

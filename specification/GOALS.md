@@ -558,6 +558,26 @@ The Heart of Gold envelope checkpoint cut is ABI TypeScript `4.4.0-rc.1`:
 Functionally complete 4.5 IS the clean data-mapper run (converged,
 tests green, `data_mapper_full_sbt ok`) — the release claim is the run.
 
+SCOPE (user ruling 2026-07-06): 4.5 is the BASELINE STATIC solution —
+graph overlays with statically declared programs, catalogs, ladders,
+selections, and handler bindings. It must include ALL system-level
+functions that higher-order DYNAMIC functions need to be written
+against, while shipping none of the dynamic functions themselves:
+- declaration WRITE surface: program / catalog / ladder / selection /
+  handler-binding keys, fail-closed admission (live);
+- execution: interpretation at one seam, standard handlers, anchors,
+  all three fibres (live);
+- iteration: retry + ladder escalation + resume over replay (live;
+  lane flag Phase C);
+- re-entry: consequence-routed upstream landing (machinery live;
+  exercised at B5);
+- READ surface: replay with per-call programRef — sufficient for any
+  higher-order function to compute its own projections (live);
+- audit: -012 archives≡spines in the gate (live).
+Dynamic composition (tuner, intent observer, adaptive selection
+authored at runtime) is Phase D and beyond: free constructions over
+these atoms, no new engine law.
+
 Three rules: no new tickets (everything lands under T-200, T-205,
 T-030, T-195, T-206); no glc work until ABG's own lanes prove the whole
 stack; no rc cuts before the internal-everything gate.
