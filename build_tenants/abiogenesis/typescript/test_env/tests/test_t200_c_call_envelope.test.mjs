@@ -716,10 +716,13 @@ test("T-205 B3: standard F_D handlers — tool emergence, evidence honesty, writ
     declaredConfig: { command, args: ["a"], env: { PATH: "declared://path" }, cwd: "cwd://declared", timeoutMs: 1000 },
     workProjection: null
   });
-  assert.equal(runWith("cmd://ok").outcomeStatus, "accepted");
-  const rejected = runWith("cmd://fails");
-  assert.equal(rejected.outcomeStatus, "rejected");
-  assert.equal(rejected.failureReason, "exit_status:7");
+  // STRICT F_D (HANDLERS-009 rider): mechanical outcomes ONLY — the
+  // handler never pronounces on the work; exit codes are F_P evidence.
+  assert.equal(runWith("cmd://ok").outcomeStatus, "executed");
+  const nonzero = runWith("cmd://fails");
+  assert.equal(nonzero.outcomeStatus, "executed", "nonzero exit is still EXECUTED mechanics");
+  assert.equal(nonzero.failureReason, null, "no semantic pronouncement in F_D");
+  assert.equal(nonzero.evidenceRefs.includes("exec-status:7"), true, "exit code is EVIDENCE for F_P");
   const enoent = runWith("cmd://missing");
   assert.equal(enoent.outcomeStatus, "blocked");
   assert.match(enoent.failureReason, /ENOENT.*contract_failure/);

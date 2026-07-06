@@ -51,8 +51,12 @@ function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
   return record as ProcessExecutionConfig;
 }
 
-// F_D process execution (-009). Evidence honesty (-003): the interior
-// carries the exit status and error verbatim — a spawn error is typed
+// F_D process execution (-009). STRICT F_D BOUNDARY (HANDLERS-009
+// rider, user law): outcomes are MECHANICAL only — "executed" (ran to
+// completion, whatever the exit status) or "blocked" (spawn mechanics
+// failed). Exit status is EVIDENCE for the F_P evaluate stage; mapping
+// exit codes to accept/reject here is behavioral F_D, the recurring
+// bug class. Evidence honesty (-003): status and error land verbatim — a spawn error is typed
 // truth, never a silent null (campaign bug #11/#12 class).
 export function standardProcessExecutionHandler(io: ProcessExecutionIo): CCallHandler {
   return (input): CCallHandlerInterior => {
@@ -78,11 +82,11 @@ export function standardProcessExecutionHandler(io: ProcessExecutionIo): CCallHa
       });
     }
     return Object.freeze({
-      outcomeStatus: outcome.status === 0 ? "accepted" : "rejected",
+      outcomeStatus: "executed",
       evidenceRefs,
       payloadRef: null,
       responseContractRef: null,
-      failureReason: outcome.status === 0 ? null : `exit_status:${outcome.status}`
+      failureReason: null
     });
   };
 }
