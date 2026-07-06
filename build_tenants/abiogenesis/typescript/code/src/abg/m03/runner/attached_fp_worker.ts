@@ -18,6 +18,7 @@ import type {
   FpTransformResult,
   IterationOutcome
 } from "../contracts/index.js";
+import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import {
   admitFpTransformResultForRequest,
   constructPayloadObservedEvent,
@@ -42,7 +43,6 @@ import {
   type ResultArtifact,
   type ResultIngestOutcome
 } from "../transport/index.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS = 3;
 
@@ -247,13 +247,13 @@ function payloadEventsForAcceptedResult(input: {
     vector,
     defaults: input.targetCarrierDefaults
   });
-  const targetPayloadDigest = stableSha256Digest({
-    resultRef: input.artifact.resultRef,
-    artifactPayload: input.artifact.artifactPayload,
-    targetCarrierContractRef: targetCarrierContract.contractRef,
-    targetCarrierContractDigest: targetCarrierContract.configDigest
-  });
-  const targetPayloadRef = `payload:target_carrier:${targetPayloadDigest}`;
+  const { targetPayloadDigest, payloadRef: targetPayloadRef } =
+    mintTargetCarrierPayloadIdentity({
+      resultRef: input.artifact.resultRef,
+      artifactPayload: input.artifact.artifactPayload,
+      targetCarrierContractRef: targetCarrierContract.contractRef,
+      targetCarrierContractDigest: targetCarrierContract.configDigest
+    });
   const transformEvents = runtimeEventsForFpTransformResult({
     basis: input.basis,
     request: input.transformRequest,

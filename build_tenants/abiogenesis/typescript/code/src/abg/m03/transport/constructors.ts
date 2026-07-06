@@ -1,4 +1,5 @@
 import type { AdvancementTransition } from "../contracts/carriers.js";
+import { graphCallIdForBasisId, rootFrameIdForBasisId } from "../contracts/runtime_support.js";
 import {
   assertNonNegativeInteger,
   frameIdForBasis,
@@ -33,8 +34,8 @@ export function constructDispatchRequest(
     kind: "fp_dispatch_request",
     basisId: input.basisId,
     graphFunctionId: input.graphFunctionId,
-    graphCallId: input.graphCallId ?? `graph-call:${input.basisId}`,
-    frameId: input.frameId ?? `frame:${input.basisId}:root`,
+    graphCallId: input.graphCallId ?? graphCallIdForBasisId(input.basisId),
+    frameId: input.frameId ?? rootFrameIdForBasisId(input.basisId),
     vectorIndex,
     jobId: input.jobId,
     dispatchRef: input.dispatchRef,

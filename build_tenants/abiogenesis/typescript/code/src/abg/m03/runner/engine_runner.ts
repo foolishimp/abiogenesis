@@ -3,6 +3,7 @@
 // Implements: REQ-R-ABG3-RUN
 // Implements: REQ-R-ABG3-CONVERGENCE
 
+import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -2948,18 +2949,17 @@ function targetCarrierPayloadForFpEvaluation(input: {
     vector,
     defaults: input.targetCarrierDefaults
   });
-  const targetPayloadDigest = stableSha256Digest({
+  const identity = mintTargetCarrierPayloadIdentity({
     resultRef: invocationRef.resultRef,
     artifactPayload: artifact,
     targetCarrierContractRef: targetCarrierContract.contractRef,
     targetCarrierContractDigest: targetCarrierContract.configDigest
   });
-  const digest = `digest:target_carrier:${targetPayloadDigest}`;
   return Object.freeze({
-    payloadRef: `payload:target_carrier:${targetPayloadDigest}`,
+    payloadRef: identity.payloadRef,
     contractRef: targetCarrierContract.contractRef,
     contractDigest: targetCarrierContract.configDigest,
-    digest
+    digest: identity.digest
   });
 }
 

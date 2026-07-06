@@ -146,3 +146,13 @@ export function assertProjectionBasis(
 export function sortedNumbers(values: Iterable<number>): readonly number[] {
   return Object.freeze([...values].sort((left, right) => left - right));
 }
+
+// T-195 C6: string-keyed fallback-ID minters — transport defaults derive
+// from these instead of re-spelling the formats.
+export function graphCallIdForBasisId(basisId: string): string {
+  return `graph-call:${basisId}`;
+}
+
+export function rootFrameIdForBasisId(basisId: string): string {
+  return `frame:${basisId}:root`;
+}

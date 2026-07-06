@@ -20,6 +20,7 @@ import type {
   GtlTargetCarrierDefaultsBundle,
   TargetCarrierContractBinding
 } from "../../../gtl/m01/contracts/index.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { resolveTargetCarrierContractBinding } from "../../../gtl/m01/contracts/index.js";
 import type {
   AssuranceAuthoritySnapshot,
@@ -1311,4 +1312,30 @@ export function deriveAdmittedStrengthRefSet(
     }
   }
   return refs;
+}
+
+// T-195 C6: the ONE mint for target-carrier payload identity — both the
+// attached-worker path and the F_P evaluation path derive from this; the
+// digest basis and ref prefixes have no second home.
+export function mintTargetCarrierPayloadIdentity(input: {
+  readonly resultRef: string;
+  readonly artifactPayload: unknown;
+  readonly targetCarrierContractRef: string;
+  readonly targetCarrierContractDigest: string;
+}): {
+  readonly targetPayloadDigest: string;
+  readonly payloadRef: string;
+  readonly digest: string;
+} {
+  const targetPayloadDigest = stableSha256Digest({
+    resultRef: input.resultRef,
+    artifactPayload: input.artifactPayload,
+    targetCarrierContractRef: input.targetCarrierContractRef,
+    targetCarrierContractDigest: input.targetCarrierContractDigest
+  });
+  return Object.freeze({
+    targetPayloadDigest,
+    payloadRef: `payload:target_carrier:${targetPayloadDigest}`,
+    digest: `digest:target_carrier:${targetPayloadDigest}`
+  });
 }
