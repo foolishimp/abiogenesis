@@ -38,6 +38,8 @@ their phase owners.
 | F_P transport: trio failures, pass/block/unlawful/unparseable dispositions, advisory mode, projection splice | B3 transport differential |
 | Runtime impls (traced_process route, real fs) | g4 smoke (config gate; real materialization) |
 | Tool emergence (no tool names in handler code) | source-witness grep-in-test |
+| RAW-field admission (no coercion; numeric/boolean fields reject as authored) | codex P1-a differential |
+| CLOSED-KEY program + stage admission (unknown siblings reject; admitted stages carry only known keys; syntax layer uniform) | codex P1-b differential |
 
 ## C. Execution anchors & programs
 
@@ -89,6 +91,16 @@ their phase owners.
    catalog+ladder (triple-shaped, no extra stages → no bindings
    needed). Extra-stage bindings live at engine level (g2). A live
    declared-bindings row rides Phase C's scenario surgery.
+
+## Post-review round (codex, rc.1 candidate)
+
+Two P1 admission findings (coerced binding fields; open-key program
+admission) — both verified by probe, both closed with the probes
+pinned as differentials; syntax layer made closed-key for uniformity.
+The release-state and evidence-scope notes were accurate as stated:
+readiness (not a cut), and the live gate was re-run at the final
+candidate HEAD so the citable artifact installs the 4.5.0-rc.1
+package.
 
 ## Verdict
 
