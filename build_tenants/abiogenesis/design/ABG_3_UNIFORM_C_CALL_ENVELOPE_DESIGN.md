@@ -457,7 +457,7 @@ code paths. The substrate's whole surface is: seven primitives, five
 spine kinds, one judgment router, one census, and law. Everything else
 in §8–§14 — including the "best" workflow — is authored from them.
 
-## 15. The sovereignty decision: the monad as GTL-declared program (RECOMMENDED, awaiting user ratification)
+## 15. The sovereignty decision: the monad as GTL-declared program (RATIFIED — by necessity, user 2026-07-06)
 
 Question: is the edge program a GTL declared program run by ABG —
 system-level configuration in the constitutional carrier — rather than
@@ -483,7 +483,7 @@ programs = self-hosted successors. Fail-closed: malformed program
 declarations reject at startup admission; the census derives from the
 admitted program.
 
-Stratification law (on ratification): built-in bootstrap triple (never
+Stratification law (ratified): built-in bootstrap triple (never
 removed, never extended); everything richer is GTL. ABG interprets;
 GTL structures; nothing else configures the monad.
 
@@ -504,3 +504,15 @@ Precision: HoG is not a third component beside ABG and GTL — HoG IS
 ABG running HoG.GTL. The name denotes the composition, not a part.
 Publication home on ratification: a catalog module (e.g.
 gtl://abg/hog/*) versioned and drift-witnessed like all published law.
+
+### 15.2 Ratification record
+
+Ratified by necessity (user: "we have no choice"). The forcing
+argument: every alternative violates already-ratified law — a TS-side
+program format is a second configuration language (duplicate-surface
+violation); unnamed programs are undeclarable boundaries (violates
+-013/§10.1); engine-coded programs are the substrate learning what must
+stay emergent (violates the T-030 boundary law). GTL-declared programs
+are the only coherent point in the design space. P2 target final:
+resolveCCall as GTL-program interpreter over the baked P0 triple;
+HoG.GTL as the first system-level catalog module.
