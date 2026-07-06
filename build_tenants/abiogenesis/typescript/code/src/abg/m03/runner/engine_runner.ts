@@ -4,6 +4,7 @@
 // Implements: REQ-R-ABG3-CONVERGENCE
 
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
+import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -21,6 +22,7 @@ import type {
   TerminalTransition
 } from "../contracts/carriers.js";
 import { GRAPH_REENTRY_POINT_VALUES } from "../contracts/carriers.js";
+import type { CCallJudgment } from "../contracts/carriers.js";
 import {
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
@@ -37,6 +39,11 @@ import {
   constructInstructionCausalContextBoundEvent,
   constructInstructionPromptManifestProjectedEvent,
   constructInstructionResponseContractAdmittedEvent,
+  constructCCallEvidencedEvent,
+  constructCCallFibreSelectedEvent,
+  constructCCallJudgedEvent,
+  constructCCallOpenedEvent,
+  constructCCallResultAdmittedEvent,
   constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
@@ -6669,6 +6676,68 @@ function* runEngineIterateMachine(input: {
           });
         }
         eventState = emitRunnerEvents(eventState, instructionBinding.event);
+        // T-200 P2c: the transform C call's spine OPENS around the F_P
+        // interior (REQ-R-ABG3-CCALL-001/-003; stage from the baked P0
+        // triple). Spine minting is engine authority; the interior below
+        // is enclosed evidence.
+        const scalarTransformStage = HOG_BOOTSTRAP_TRIPLE.stages[0];
+        if (scalarTransformStage === undefined) {
+          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
+        }
+        const scalarTransformCCallOpened = constructCCallOpenedEvent({
+          basisId: request.basis.id,
+          graphFunctionId: actorInvocation.graphFunctionId,
+          graphCallId: actorInvocation.graphCallId,
+          frameId: actorInvocation.frameId,
+          edge: transition.edge,
+          vectorIndex: transition.vectorIndex,
+          stageRole: scalarTransformStage.stageRole,
+          taskOrdinal: null,
+          attempt: actorInvocation.attemptIndex,
+          batchRef: null
+        });
+        const scalarTransformCCallEvidence: string[] = [
+          instructionBinding.manifest.manifestRef
+        ];
+        const closeScalarTransformCCall = (
+          state: EngineEventEmissionState,
+          close: {
+            readonly outcomeStatus: string;
+            readonly payloadRef: string | null;
+            readonly judgment: CCallJudgment;
+          }
+        ): EngineEventEmissionState =>
+          emitRunnerEvents(state, [
+            constructCCallEvidencedEvent({
+              cCallRef: scalarTransformCCallOpened.cCallRef,
+              basisId: request.basis.id,
+              evidenceClass: "fp_interior",
+              evidenceRefs: Object.freeze([...scalarTransformCCallEvidence])
+            }),
+            constructCCallResultAdmittedEvent({
+              cCallRef: scalarTransformCCallOpened.cCallRef,
+              basisId: request.basis.id,
+              outcomeStatus: close.outcomeStatus,
+              payloadRef: close.payloadRef,
+              responseContractRef: null
+            }),
+            constructCCallJudgedEvent({
+              cCallRef: scalarTransformCCallOpened.cCallRef,
+              basisId: request.basis.id,
+              judgment: close.judgment,
+              reasonRef: null
+            })
+          ]);
+        eventState = emitRunnerEvents(eventState, [
+          scalarTransformCCallOpened,
+          constructCCallFibreSelectedEvent({
+            cCallRef: scalarTransformCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            regime: "F_P",
+            armId: scalarTransformStage.armId,
+            compositionRef: null
+          })
+        ]);
         scalarTransformInput = Object.freeze({
           ...scalarTransformInput,
           instructionPromptManifest: instructionBinding.manifest
@@ -6690,6 +6759,11 @@ function* runEngineIterateMachine(input: {
           });
           if (gateBlock !== null) {
             eventState = emitRunnerEvents(eventState, gateBlock.verdictEvent);
+            eventState = closeScalarTransformCCall(eventState, {
+              outcomeStatus: "blocked",
+              payloadRef: null,
+              judgment: "blocked"
+            });
             const blocked = terminalTransition(
               request.basis,
               "gap_stop",
@@ -6722,6 +6796,11 @@ function* runEngineIterateMachine(input: {
           })
         );
         if (scalarTransformInput.instructionCausalContext?.status === "blocked") {
+          eventState = closeScalarTransformCCall(eventState, {
+            outcomeStatus: "blocked",
+            payloadRef: null,
+            judgment: "blocked"
+          });
           const blocked = terminalTransition(
             request.basis,
             "gap_stop",
@@ -6744,6 +6823,7 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        scalarTransformCCallEvidence.push(transition.dispatchRef);
         const outcome = fpDispatchOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fp_dispatch", input: scalarTransformInput }),
         );
@@ -6781,6 +6861,11 @@ function* runEngineIterateMachine(input: {
           requiredTaskRefs: transformStagePlan.requiredTaskRefs
         });
         if (transformStageBlockingReason !== null) {
+          eventState = closeScalarTransformCCall(eventState, {
+            outcomeStatus: "blocked",
+            payloadRef: null,
+            judgment: "blocked"
+          });
           const blocked = terminalTransition(
             request.basis,
             "gap_stop",
@@ -6854,6 +6939,11 @@ function* runEngineIterateMachine(input: {
           );
           if (attachedDecision.kind === "accepted") {
             eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
+            eventState = closeScalarTransformCCall(eventState, {
+              outcomeStatus: outcome.status,
+              payloadRef: resultRef,
+              judgment: "advance"
+            });
             // Implements: T-188 M5/M3 — producer derivation lives in
             // contracts (requirement_proof_carry_through_producer); the
             // runner's only duties here are the accepted-payload gate
@@ -8361,6 +8451,11 @@ function* runEngineIterateMachine(input: {
             }
             break;
           }
+          eventState = closeScalarTransformCCall(eventState, {
+            outcomeStatus: outcome.status,
+            payloadRef: resultRef,
+            judgment: attachedDecision.kind === "retry_planned" ? "retry" : "blocked"
+          });
           eventState = emitRunnerEvents(eventState,
             constructVectorEvaluatedEvent({
               basis: request.basis,
@@ -8426,6 +8521,11 @@ function* runEngineIterateMachine(input: {
               request.maxAttachedFpAttempts ??
               DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
           });
+          eventState = closeScalarTransformCCall(eventState, {
+            outcomeStatus: outcome.status,
+            payloadRef: null,
+            judgment: continuation.kind === "retry" ? "retry" : "blocked"
+          });
           if (continuation.kind === "retry") {
             eventState = emitRunnerEvents(eventState,
               fpDispatchAttemptNonProgressEvents({
@@ -8470,6 +8570,11 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        eventState = closeScalarTransformCCall(eventState, {
+          outcomeStatus: outcome.status,
+          payloadRef: null,
+          judgment: "pending"
+        });
         return constructResult({
           basis: request.basis,
           transition,

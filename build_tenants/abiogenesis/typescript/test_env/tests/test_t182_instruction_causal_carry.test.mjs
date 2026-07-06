@@ -478,8 +478,13 @@ test("T-182 runner does not invoke F_P when causal carry is blocked", () => {
       "frame_opened",
       "vector_traversal_planned",
       "instruction_prompt_manifest_projected",
+      "c_call_opened",
+      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "instruction_causal_context_bound",
+      "c_call_evidenced",
+      "c_call_result_admitted",
+      "c_call_judged",
       "terminal_reached"
     ]
   );

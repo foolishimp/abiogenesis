@@ -179,11 +179,16 @@ test("T-072 M04 start: F_P remains a lawful dispatch stop from the same engine p
       "frame_opened",
       "vector_traversal_planned",
       "instruction_prompt_manifest_projected",
+      "c_call_opened",
+      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "actor_invocation_started",
       "payload_observed",
       "payload_validated",
-      "actor_invocation_closed"
+      "actor_invocation_closed",
+      "c_call_evidenced",
+      "c_call_result_admitted",
+      "c_call_judged"
     ]
   );
 });
@@ -256,12 +261,17 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
       "frame_opened",
       "vector_traversal_planned",
       "instruction_prompt_manifest_projected",
+      "c_call_opened",
+      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "instruction_causal_context_bound",
       "actor_invocation_started",
       "payload_observed",
       "payload_validated",
-      "actor_invocation_closed"
+      "actor_invocation_closed",
+      "c_call_evidenced",
+      "c_call_result_admitted",
+      "c_call_judged"
     ]
   );
   assert.deepStrictEqual(
