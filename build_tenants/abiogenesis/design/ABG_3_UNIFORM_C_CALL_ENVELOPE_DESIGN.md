@@ -486,3 +486,21 @@ admitted program.
 Stratification law (on ratification): built-in bootstrap triple (never
 removed, never extended); everything richer is GTL. ABG interprets;
 GTL structures; nothing else configures the monad.
+
+### 15.1 The stack, stated exactly
+
+- ABG — the code engine: interprets GTL, mints spine truth, enforces
+  law; carries the baked bootstrap triple (P0) and nothing richer.
+- GTL — the language: typed nodes, graph functions,
+  declarations-are-data; the C-algebra primitives are its carriers.
+- HoG.GTL — the SYSTEM-LEVEL COMPOSITION written in GTL: the published
+  program family that constitutes the heart — edge programs (§14 as
+  catalog reference), census, fibre parameters, proportionality
+  declarations. System-level because it configures the engine's own
+  operation rather than any domain; products overlay it exactly as they
+  overlay domain graphs.
+
+Precision: HoG is not a third component beside ABG and GTL — HoG IS
+ABG running HoG.GTL. The name denotes the composition, not a part.
+Publication home on ratification: a catalog module (e.g.
+gtl://abg/hog/*) versioned and drift-witnessed like all published law.
