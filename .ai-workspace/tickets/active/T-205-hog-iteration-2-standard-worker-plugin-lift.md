@@ -59,6 +59,28 @@ human-gate); the census binds armId → handler ref + declared config.
 Custom handlers remain the plugin seam. "Plugin" stops meaning
 "downstream program" and starts meaning "handler binding".
 
+## Handler classes (user extension: the capability outcall)
+
+Two handler classes realize a leaf, same obligations, different depth:
+- PIPELINE HANDLERS (standard, substrate-shipped): realize the
+  CONSTRUCTED F_P/F_D interior — manifest render → transport → payload
+  admission (or plan execution). The substrate composes the interior;
+  the handler runs its steps.
+- CAPABILITY HANDLERS (complete replacement): ONE plugin replaces the
+  entire constructed interior — a complete outcall into a local
+  downstream capability (installed product, local service, library,
+  in-proc engine). No manifest, no agent transport; the capability IS
+  the worker. The C call's category position is unchanged: spine,
+  selection (the capability declares its regime), judgment, budgets,
+  evidence (capability invocation refs) — O1–O8 hold in full, O3
+  especially (the outcall's effects must be evidenced, not asserted).
+
+This completes the BOUNDARY SPECTRUM per call, cheapest to deepest:
+inline instruction category (-015) < reified stage (-014) < capability
+outcall (opaque leaf, this class) < workflow.C sub-traversal
+(transparent, -013). Products place each obligation at the depth its
+trust and cost deserve — all four rungs declared data.
+
 ## Handler obligations (P0 requirements family, O1–O8)
 
 O1 ARM FIDELITY: realize exactly the census-bound arm; nothing else.
