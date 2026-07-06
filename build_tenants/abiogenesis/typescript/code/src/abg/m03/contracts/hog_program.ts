@@ -68,11 +68,33 @@ function isNonEmptyString(value: unknown): value is string {
 // Fail-closed admission for declared programs (-014): non-empty stage
 // list, unique roles, exactly one result-bearing role, lawful regimes,
 // named arms. The (role × fibre) census derives from what admits here.
+const HOG_PROGRAM_KEYS = Object.freeze([
+  "kind",
+  "programRef",
+  "stages",
+  "proportionalityClass"
+]);
+const HOG_STAGE_KEYS = Object.freeze([
+  "stageRole",
+  "defaultRegime",
+  "armId",
+  "resultBearing",
+  "instructionCategoryRefs"
+]);
+
 export function admitHogProgram(input: unknown): HogProgramAdmission {
   const issues: string[] = [];
   const record = input as Partial<HogProgramDeclaration> | null;
   if (record === null || typeof record !== "object") {
     return Object.freeze({ accepted: false, program: null, issues: Object.freeze(["program declaration must be an object"]) });
+  }
+  // CLOSED KEY SET (codex P1): the program surface is the monad's
+  // configuration — unknown siblings are rejected, never carried as a
+  // metadata bag (second-truth-surface guard).
+  for (const key of Object.keys(record as Record<string, unknown>)) {
+    if (!HOG_PROGRAM_KEYS.includes(key)) {
+      issues.push(`unknown program field ${JSON.stringify(key)} (closed key set)`);
+    }
   }
   if (record.kind !== "hog_program_declaration") {
     issues.push("kind must be hog_program_declaration");
@@ -91,6 +113,11 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     if (stage === null || typeof stage !== "object") {
       issues.push(`${at} must be an object`);
       continue;
+    }
+    for (const key of Object.keys(stage as Record<string, unknown>)) {
+      if (!HOG_STAGE_KEYS.includes(key)) {
+        issues.push(`${at}: unknown stage field ${JSON.stringify(key)} (closed key set)`);
+      }
     }
     if (!isNonEmptyString(stage.stageRole)) {
       issues.push(`${at}.stageRole must be a non-empty string`);
@@ -133,7 +160,19 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     program: Object.freeze({
       kind: "hog_program_declaration",
       programRef: admitted.programRef,
-      stages: Object.freeze(admitted.stages.map((stage) => Object.freeze({ ...stage }))),
+      stages: Object.freeze(
+        admitted.stages.map((stage) =>
+          Object.freeze({
+            stageRole: stage.stageRole,
+            defaultRegime: stage.defaultRegime,
+            armId: stage.armId,
+            resultBearing: stage.resultBearing,
+            ...(stage.instructionCategoryRefs === undefined
+              ? {}
+              : { instructionCategoryRefs: Object.freeze([...stage.instructionCategoryRefs]) })
+          })
+        )
+      ),
       proportionalityClass: admitted.proportionalityClass ?? null
     }),
     issues: Object.freeze([])

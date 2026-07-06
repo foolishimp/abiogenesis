@@ -959,3 +959,55 @@ test("T-205 COVERAGE g4: runtime standard implementations — real materializati
     /process_execution_config_invalid/
   );
 });
+
+// ─── codex rc.1 round: admission is fail-closed on RAW fields and CLOSED keys ───
+
+import { assembleHandlerRegistry as assembleForProbe } from "../../build/semantic/code/src/abg/m03/index.js";
+import { admitHogProgram as admitProgramForProbe } from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205 codex P1-a: handler binding assembly rejects coerced-shape fields AS AUTHORED — numeric programRef, boolean stageRole, numeric configRef, unknown siblings", () => {
+  const impls = new Map([["handler://x", () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null })]]);
+  const base = {
+    programRef: "gtl://p", stageRole: "admit", armId: "arm://a",
+    regime: "F_D", handlerRef: "handler://x", handlerClass: "pipeline", handlerConfigRef: null
+  };
+  // lawful row assembles
+  const ok = assembleForProbe({ declaredBindings: [base], handlers: impls });
+  assert.equal(ok.bindings[0].programRef, "gtl://p");
+  // the exact codex probes: NO stringified admission
+  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, programRef: 123 }], handlers: impls }),
+    /programRef must be a non-empty string as AUTHORED/);
+  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, stageRole: false }], handlers: impls }),
+    /stageRole must be a non-empty string as AUTHORED/);
+  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, handlerConfigRef: 7 }], handlers: impls }),
+    /handlerConfigRef must be null or a string as AUTHORED/);
+  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, shadow: "field" }], handlers: impls }),
+    /unknown field "shadow"/);
+});
+
+test("T-205 codex P1-b: program admission is CLOSED-KEY on program and stage rows; admitted stages carry ONLY known keys", () => {
+  const lawful = {
+    kind: "hog_program_declaration",
+    programRef: "gtl://p",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://t", resultBearing: true }
+    ],
+    proportionalityClass: null
+  };
+  assert.equal(admitProgramForProbe(lawful).accepted, true);
+  // unknown PROGRAM sibling rejected
+  const programShadow = admitProgramForProbe({ ...lawful, shadowField: "x" });
+  assert.equal(programShadow.accepted, false);
+  assert.match(programShadow.issues.join(";"), /unknown program field "shadowField"/);
+  // unknown STAGE sibling rejected (the exact codex probe)
+  const stageShadow = admitProgramForProbe({
+    ...lawful,
+    stages: [{ ...lawful.stages[0], extraStage: "shadow" }]
+  });
+  assert.equal(stageShadow.accepted, false);
+  assert.match(stageShadow.issues.join(";"), /unknown stage field "extraStage"/);
+  // admitted stages carry ONLY known keys (no metadata bag survives)
+  const admitted = admitProgramForProbe(lawful);
+  assert.deepEqual(Object.keys(admitted.program.stages[0]).sort(),
+    ["armId", "defaultRegime", "resultBearing", "stageRole"]);
+});

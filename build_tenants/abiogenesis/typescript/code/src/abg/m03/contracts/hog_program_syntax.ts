@@ -52,8 +52,25 @@ export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
       ])
     });
   }
+  // closed key set at the SYNTAX layer too (codex P1 uniformity):
+  // unknown authored fields are rejected with a message, never
+  // silently dropped by the lowering.
+  const SYNTAX_KEYS = ["syntaxVersion", "programRef", "stages", "proportionalityClass"];
+  const unknownKeys = Object.keys(record as Record<string, unknown>).filter(
+    (key) => !SYNTAX_KEYS.includes(key)
+  );
+  if (unknownKeys.length > 0) {
+    return Object.freeze({
+      accepted: false,
+      program: null,
+      issues: Object.freeze([
+        `unknown program syntax fields ${JSON.stringify(unknownKeys)} (closed key set)`
+      ])
+    });
+  }
   // hog-syntax/1 normalization: shape-preserving lowering into the
-  // normalized declaration, judged by the one admission.
+  // normalized declaration, judged by the one admission (stage-row
+  // closed keys are enforced there).
   return admitHogProgram({
     kind: "hog_program_declaration",
     programRef: record.programRef,

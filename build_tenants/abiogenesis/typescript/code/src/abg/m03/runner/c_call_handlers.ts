@@ -179,26 +179,58 @@ export function executeHandler(
 // by ref — the supplied map carries both the substrate's standard
 // handlers and any product-supplied custom handlers (the plugin seam).
 // Assembly is fail-closed via admitHandlerRegistry at the engine entry.
+const HANDLER_BINDING_KEYS = Object.freeze([
+  "programRef",
+  "stageRole",
+  "armId",
+  "regime",
+  "handlerRef",
+  "handlerClass",
+  "handlerConfigRef"
+]);
+
+// FAIL-CLOSED RAW-FIELD ADMISSION (codex P1): declaration rows are
+// validated AS AUTHORED — no coercion, closed key set. A numeric
+// programRef or boolean stageRole is a typed rejection, never a
+// stringified admission.
 export function assembleHandlerRegistry(input: {
   readonly declaredBindings: readonly unknown[];
   readonly handlers: ReadonlyMap<string, CCallHandler>;
 }): CCallHandlerRegistry {
   const bindings = input.declaredBindings.map((row, index) => {
-    const record = row as Partial<CCallHandlerBinding> | null;
-    if (record === null || typeof record !== "object") {
-      throw new TypeError(`handler binding [${index}] must be an object row`);
+    const at = `handler binding [${index}]`;
+    if (row === null || typeof row !== "object" || Array.isArray(row)) {
+      throw new TypeError(`${at} must be an object row`);
+    }
+    const record = row as Record<string, unknown>;
+    for (const key of Object.keys(record)) {
+      if (!HANDLER_BINDING_KEYS.includes(key)) {
+        throw new TypeError(`${at}: unknown field ${JSON.stringify(key)} (closed key set)`);
+      }
+    }
+    const rawString = (key: string): string => {
+      const value = record[key];
+      if (typeof value !== "string" || value.length === 0) {
+        throw new TypeError(
+          `${at}.${key} must be a non-empty string as AUTHORED, got ${JSON.stringify(value)}`
+        );
+      }
+      return value;
+    };
+    const configRef = record["handlerConfigRef"];
+    if (configRef !== null && configRef !== undefined && typeof configRef !== "string") {
+      throw new TypeError(
+        `${at}.handlerConfigRef must be null or a string as AUTHORED, got ${JSON.stringify(configRef)}`
+      );
     }
     return Object.freeze({
-      programRef: String(record.programRef ?? ""),
-      stageRole: String(record.stageRole ?? ""),
-      armId: String(record.armId ?? ""),
-      regime: record.regime as CCallHandlerBinding["regime"],
-      handlerRef: String(record.handlerRef ?? ""),
-      handlerClass: record.handlerClass as CCallHandlerBinding["handlerClass"],
-      handlerConfigRef:
-        record.handlerConfigRef === null || record.handlerConfigRef === undefined
-          ? null
-          : String(record.handlerConfigRef)
+      programRef: rawString("programRef"),
+      stageRole: rawString("stageRole"),
+      armId: rawString("armId"),
+      regime: rawString("regime") as CCallHandlerBinding["regime"],
+      handlerRef: rawString("handlerRef"),
+      handlerClass: rawString("handlerClass") as CCallHandlerBinding["handlerClass"],
+      handlerConfigRef: configRef === undefined || configRef === null ? null : configRef
     });
   });
   return Object.freeze({ bindings: Object.freeze(bindings), handlers: input.handlers });
