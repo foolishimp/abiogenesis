@@ -306,7 +306,8 @@ test("T-192 P3: the liveness gate routes undetermined on open prefixes and never
 
 // ─── Phase 4: runner wiring differentials ───
 import {
-  runEngineIterate
+  runEngineIterate,
+  runEngineIterateAsync
 } from "../../build/semantic/code/src/abg/m03/contracts/../../m03/index.js";
 import { m03InstructionAssemblyRequestFields } from "./support/m03-iteration-fixtures.mjs";
 import {
@@ -1024,4 +1025,134 @@ test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the le
   );
   assert.notEqual(deepEvaluate, undefined, "attempt-2 evaluate runs the deep rung");
   assert.equal(deepEvaluate.programRef, "gtl://t205/deep");
+});
+
+test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_handler_bindings/_configs assemble the registry; declared config reaches the handler; async impls refuse on the sync driver and run on the async driver", async () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const fourStage = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://t205/declared-bindings" },
+      { key: "proportionalityClass", value: "P2" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://db/t" },
+          { key: "resultBearing", value: true }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "admit" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: "arm://db/a" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "evaluate" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://db/e" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "consequence" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: "arm://db/c" },
+          { key: "resultBearing", value: false }
+        ] }
+      ] } }
+    ]
+  };
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.hog_program", value: Object.freeze({ kind: "json_blob", value: fourStage }) }),
+          // THE WRITE SURFACE: bindings + configs as declarations
+          Object.freeze({ key: "abg.hog_handler_bindings", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "array", items: [ { kind: "object", entries: [
+              { key: "programRef", value: "gtl://t205/declared-bindings" },
+              { key: "stageRole", value: "admit" },
+              { key: "armId", value: "arm://db/a" },
+              { key: "regime", value: "F_D" },
+              { key: "handlerRef", value: "handler://t205/declared-admit" },
+              { key: "handlerClass", value: "pipeline" },
+              { key: "handlerConfigRef", value: "config://t205/admit" }
+            ] } ]
+          } }) }),
+          Object.freeze({ key: "abg.hog_handler_configs", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [
+              { key: "config://t205/admit", value: { kind: "object", entries: [
+                { key: "expectedMarker", value: "declared-config-arrived" }
+              ] } }
+            ]
+          } }) })
+        ])
+      })
+    })
+  });
+  const seenConfigs = [];
+  const mkPlugins = (impl) => ({
+    // impls arrive by ref through the plugin seam; BINDINGS come from declarations
+    handlerRegistry: { bindings: [], handlers: new Map([["handler://t205/declared-admit", impl]]) },
+    fpDispatch: Object.freeze({
+      contract: constructEnginePluginContract({
+        ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
+        authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+        outputCarrier: "FpDispatchOutcome"
+      }),
+      dispatch(input) {
+        return constructFpDispatchOutcome({
+          status: "dispatched",
+          resultRef: `result://db/${input.vectorIndex}`,
+          attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
+    }),
+    fpEvaluator: defaultFpEvaluatorPlugin
+  });
+  // SYNC impl on the SYNC driver: declared config threads through
+  const syncImpl = (input) => {
+    seenConfigs.push(input.declaredConfig);
+    return { outcomeStatus: "executed", evidenceRefs: ["db://ok"], payloadRef: null, responseContractRef: null, failureReason: null };
+  };
+  const okRun = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: mkPlugins(syncImpl)
+  });
+  const admitSel = okRun.replayEvents.find((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://db/a");
+  assert.notEqual(admitSel, undefined, "declared-binding stage ran");
+  assert.equal(seenConfigs.length > 0, true);
+  assert.deepEqual(seenConfigs[0], { expectedMarker: "declared-config-arrived" }, "-005: declared config reached the handler");
+  // ASYNC impl on the SYNC driver: typed refusal, judged blocked, lawful stop
+  const asyncImpl = async () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null });
+  const refused = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: mkPlugins(asyncImpl)
+  });
+  assert.equal(refused.transition.terminalKind, "gap_stop");
+  assert.match(refused.transition.reason, /hog_stage_blocked: admit/);
+  const refusedSel = refused.replayEvents.filter((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://db/a").pop();
+  const refusedJudged = refused.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === refusedSel.cCallRef);
+  assert.equal(refusedJudged.judgment, "blocked");
+  const refusedEvidenced = refused.replayEvents.find((e) => e.kind === "c_call_evidenced" && e.cCallRef === refusedSel.cCallRef);
+  assert.equal(refusedEvidenced.evidenceRefs.some((r) => r.includes("handler_requires_async_driver")), true, "typed refusal in evidence");
+  // the SAME async impl on the ASYNC driver: advances
+  const asyncRun = await runEngineIterateAsync({
+    basis: declaredBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: mkPlugins(asyncImpl)
+  });
+  const asyncSel = asyncRun.replayEvents.find((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://db/a");
+  const asyncJudged = asyncRun.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === asyncSel.cCallRef);
+  assert.equal(asyncJudged.judgment, "advance", "async handlers run on the async driver");
 });

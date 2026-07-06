@@ -890,3 +890,72 @@ test("T-205: the bootstrap triple is a LABELLED catalog entry (default), visible
   }]);
   assert.throws(() => effectiveHogProgramCatalog(shadow.catalog), /hog_program_catalog_reserved_ref/);
 });
+
+// ─── T-205 COVERAGE g1/g4: ladder admission negatives + runtime standard impls ───
+
+import { compileHogProgramLadder, ladderRungForAttempt } from "../../build/semantic/code/src/abg/m03/index.js";
+import { buildStandardHandlerImplementations } from "../../build/semantic/code/src/abg/m03/index.js";
+import { mkdtempSync, readFileSync as readBack } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+test("T-205 COVERAGE g1: ladder admission — first rung at 1, strictly increasing, typed rows; rung selection law", () => {
+  const ok = compileHogProgramLadder([
+    { programRef: "gtl://a", fromAttempt: 1 },
+    { programRef: "gtl://b", fromAttempt: 3 }
+  ]);
+  assert.equal(ok.accepted, true, JSON.stringify(ok.issues));
+  assert.equal(ladderRungForAttempt(ok.rungs, 1).programRef, "gtl://a");
+  assert.equal(ladderRungForAttempt(ok.rungs, 2).programRef, "gtl://a");
+  assert.equal(ladderRungForAttempt(ok.rungs, 3).programRef, "gtl://b");
+  assert.equal(ladderRungForAttempt(ok.rungs, 99).programRef, "gtl://b");
+  // NEGATIVES
+  assert.equal(compileHogProgramLadder([]).accepted, false);
+  assert.match(compileHogProgramLadder([{ programRef: "gtl://a", fromAttempt: 2 }]).issues[0], /first rung must start at attempt 1/);
+  assert.match(compileHogProgramLadder([
+    { programRef: "gtl://a", fromAttempt: 1 },
+    { programRef: "gtl://b", fromAttempt: 1 }
+  ]).issues.join(";"), /strictly increase/);
+  assert.match(compileHogProgramLadder([{ programRef: "", fromAttempt: 1 }]).issues[0], /rung must carry/);
+  assert.match(compileHogProgramLadder([{ programRef: "gtl://a", fromAttempt: 0 }]).issues[0], /rung must carry/);
+});
+
+test("T-205 COVERAGE g4: runtime standard implementations — real materialization io; fh gate; process config fail-closed", async () => {
+  const impls = buildStandardHandlerImplementations();
+  assert.equal(impls.size, 3);
+  const stage = (role, regime, arm) => ({ stageRole: role, defaultRegime: regime, armId: arm, resultBearing: false });
+  const binding = (ref) => ({ programRef: "gtl://rt", stageRole: "admit", armId: "arm://rt/a",
+    regime: "F_D", handlerRef: ref, handlerClass: "pipeline", handlerConfigRef: "config://rt" });
+  // materialization writes REAL files under the declared root
+  const root = mkdtempSync(join(tmpdir(), "t205-rt-"));
+  const mat = impls.get("handler://abg/fd/materialization");
+  const matOut = await mat({
+    stage: stage("admit", "F_D", "arm://rt/a"),
+    binding: binding("handler://abg/fd/materialization"),
+    declaredConfig: { writeRoot: root, files: [{ path: "out/hello.txt", content: "materialized" }] },
+    workProjection: null
+  });
+  assert.equal(matOut.outcomeStatus, "executed");
+  assert.equal(readBack(join(root, "out/hello.txt"), "utf8"), "materialized");
+  // fh gate escalates with the declared subject
+  const fh = impls.get("handler://abg/fh/gate");
+  const fhOut = await fh({
+    stage: stage("approve", "F_H", "arm://rt/h"),
+    binding: binding("handler://abg/fh/gate"),
+    declaredConfig: { approvalSubjectRef: "subject://rt" },
+    workProjection: null
+  });
+  assert.equal(fhOut.outcomeStatus, "escalated");
+  // traced process impl: invalid declared config is a TYPED throw at the
+  // config gate (the executor wrapper converts it) — no spawn attempted
+  const exec = impls.get("handler://abg/fd/process-execution");
+  await assert.rejects(
+    () => Promise.resolve(exec({
+      stage: stage("admit", "F_D", "arm://rt/a"),
+      binding: binding("handler://abg/fd/process-execution"),
+      declaredConfig: { command: "" },
+      workProjection: null
+    })),
+    /process_execution_config_invalid/
+  );
+});
