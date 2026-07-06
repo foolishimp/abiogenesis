@@ -71,13 +71,15 @@ visible in the next run's selection rows.
 
 ## Two top-tier items the three goals must not orphan
 
-**3-prerequisite — Intent as a live gap (constitutional currency).**
-The tuner reconciles DECLARED against OBSERVED. If the declared half is
-dead — INTENT.md frozen at INT-007 while the product repositioned — the
-consciousness loop tunes against a stale set-point and its proposals
-are noise. Before T-206 ratifies its first proposal: INT-008 reprice +
-the intent-ledger disposition pass (Four-Recursions §2/§7-3a). Small,
-constitutional, and load-bearing for Goal 3's integrity.
+**Backlogged (user ruling) — Intent generation as a higher-order
+system (T-207).** Not a Goal-3 prerequisite: intent generation sits ON
+TOP of a product graph — an observer node that computes the declared-
+vs-reality gap and FORCES RE-ENTRY at the height the gap implicates.
+It composes from existing machinery (overlay frames, consequence-routed
+re-entry, the change-class ladder) and sits above the tuner: T-206
+adjusts terms within a set-point; T-207 revises the set-point. The
+manual INT-008 reprice stays available as cheap hygiene whenever the
+stale set-point becomes the binding constraint.
 
 **Goal 4 (next arc, named now) — the factory recursion as data: the
 GLC ticket-lifecycle overlay + release vector.** Release truth becomes
@@ -99,12 +101,11 @@ review/rework loops).
 3. **T-205** — interpretation + handlers; odd_glc adoption converts the
    binding to declarations; consequence catalog declared here too.
 4. **Clean data-mapper run** → **T-195 closes** (Goal 2 delivered).
-5. **INT-008 reprice** (constitutional currency) — before the tuner's
-   first ratified proposal.
-6. **T-206** — the tuner over the accumulated campaign replay
+5. **T-206** — the tuner over the accumulated campaign replay
    (Goal 3 delivered).
-7. **Goal 4 opens**: ticket-lifecycle overlay + release vector
-   (~odd_glc T-031).
+6. **Follow-on arcs (confirmed)**: Goal 4 — ticket-lifecycle overlay +
+   release vector (~odd_glc T-031); T-207 — intent-generation observer
+   (backlog, higher-order).
 
 Out of scope, named honestly: legacy actives (B-010, T-092/094/095,
 T-110, T-178/179) predate this arc — disposition in a separate hygiene
