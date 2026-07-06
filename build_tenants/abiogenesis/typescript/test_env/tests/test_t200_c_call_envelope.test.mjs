@@ -736,7 +736,7 @@ test("T-205 B3: standard F_D handlers — tool emergence, evidence honesty, writ
     declaredConfig: { writeRoot: "root://out", files }, workProjection: null
   });
   const okMat = matRun([{ path: "src/a.txt", content: "x" }]);
-  assert.equal(okMat.outcomeStatus, "accepted");
+  assert.equal(okMat.outcomeStatus, "executed", "mechanical vocabulary for F_D success too");
   assert.deepEqual(written, ["root://out/src/a.txt"]);
   const escape = matRun([{ path: "../escape.txt", content: "x" }]);
   assert.equal(escape.outcomeStatus, "blocked");

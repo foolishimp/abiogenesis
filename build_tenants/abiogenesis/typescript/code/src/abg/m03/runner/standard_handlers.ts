@@ -137,7 +137,7 @@ export function standardMaterializationHandler(io: MaterializationIo): CCallHand
       io.writeFile(resolved, file.content);
     }
     return Object.freeze({
-      outcomeStatus: "accepted",
+      outcomeStatus: "executed",
       evidenceRefs: Object.freeze(
         config.files.map((file) => `materialized:${file.path}`)
       ),
