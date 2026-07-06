@@ -516,3 +516,35 @@ stay emergent (violates the T-030 boundary law). GTL-declared programs
 are the only coherent point in the design space. P2 target final:
 resolveCCall as GTL-program interpreter over the baked P0 triple;
 HoG.GTL as the first system-level catalog module.
+
+### 14.2 Stage reification vs instruction inlining (capability-relative shape)
+
+A cognitive stage ("make a plan", "critique") has TWO lawful homes:
+
+- REIFIED: an explicit program stage — its own C call, envelope,
+  judgment, retry budget, cost line in replay;
+- INLINED: an instruction category inside another stage's prompt
+  (the T-191 section machinery), trusting the worker's internal
+  coherence.
+
+The selection principle: THE DUMBER THE AGENT, THE MORE EXPLICIT
+STAGES; the smarter, the fewer — the original triple was not a
+minimal agentic coder but the smart-agent compression, taking
+advantage of capable workers by inlining cognition. The 7-stage
+campaign-hardened program is the same program at lower trust.
+
+THE INVARIANT — GATE INVARIANCE UNDER COMPRESSION: hard gates never
+inline. F_D admission, deterministic execution/verification, and the
+evaluate judgment are trust boundaries, not cognitive assists — a
+program may compress COGNITION into prompts, never VERIFICATION.
+Compression moves plan/critique/repair-guidance between stage and
+instruction category; the gate set is the fixed point.
+
+Consequences: (a) program shape is a PROPORTIONALITY lever with a
+capability input — reification costs an envelope + possibly a session;
+inlining costs prompt complexity and worker trust; (b) this is the dual
+of fibre annealing (§12.7): annealing hardens fibres as OUTPUTS
+stabilize, compression folds stages as WORKERS strengthen — both
+preserve gates; (c) the consciousness layer gains its program-shape
+axis: observed capability (retry rates, critique-catch rates) drives
+declared compression level, per §13.1 writing declarations only.
