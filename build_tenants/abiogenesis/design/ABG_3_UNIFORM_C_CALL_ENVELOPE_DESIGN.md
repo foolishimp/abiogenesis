@@ -623,3 +623,33 @@ program consumes — already exposed or ticketed:
 Realization home: downstream (odd_sdlc T-166 consensus programs + a
 tuning overlay), sequenced post-RC. ABI backlog items T-196/T-201 are
 the remaining tool-surface pieces, not the layer itself.
+
+### 17.1 Bundled and first-class (user decision): the shell tuner
+
+The two-layer LAW (§17) is an authority statement, not a deployment
+statement. Operationally the tuner SHIPS IN THE BOX as system content —
+exactly the HoG.GTL precedent (system composition, published with the
+product):
+
+- a published, versioned, drift-witnessed system catalog module
+  (gtl://abg/tuner/*) — the default tuning loop as GTL program(s);
+  products may override with their own tuner programs (-016 applies to
+  the tuner itself: labelled tuner configurations);
+- SHELL VERBS as the first-class surface:
+  `tune report`  — per-configuration -012 cost/capability projection
+                   over the workspace replay (read-only);
+  `tune propose` — run the tuning program; output = STAGED draft
+                   declarations (catalogs/ladders/proportionality),
+                   never directly admitted;
+  `tune ratify`  — the F_H gate (or a declared auto-ratify policy for
+                   low-risk classes) admits staged drafts into law;
+- runs TOGETHER: the tuner executes on the same engine in the same
+  workspace under its own basis/frames — a tune run is just another
+  traversal in the same replay universe (-013 recursion), spine-visible
+  and auditable by the -012 it consumes; schedulable as a post-run hook;
+- the §13.1 boundary is enforced by the WRITE PATH (staged drafts vs
+  admitted declarations), not by process separation — bundling costs
+  no authority.
+
+Realization: T-206 (backlog) after T-205 — consumes step-2
+interpretation, the standard plugin, and the cost projection.
