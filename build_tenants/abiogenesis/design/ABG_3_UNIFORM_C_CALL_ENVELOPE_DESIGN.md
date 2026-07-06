@@ -210,3 +210,51 @@ product/design authority; that it must be DECLARED is envelope law.
 P2 note: the construction lane's inner runs become the first
 sub_traversal evidence rows — the lane closure from T-195 C5 (full
 passthrough) is what makes the child lawfully the "same monad".
+
+## 10. Construction primitives: the C algebra generator set (ratified framing)
+
+The minimal constructors from which every lawful compute composition is
+built — GTL-side carriers (declarations-are-data), interpreted by the
+monad; the census admits what they name:
+
+```
+C.of(fibre, armId)                 -- unit: one atomic call bound to a
+                                      census arm; the leaf boundary.
+C.id                               -- identity: judgment no_declared_check
+                                      where nothing is demanded; compose
+                                      identity element.
+C.compose(c1, c2)  (c1 >=> c2)     -- Kleisli sequencing under judgment
+                                      routing; ASSOCIATIVE; the edge
+                                      program constructor.
+C.edge({transform, evaluate,       -- the stage-role triple; record form
+        consequence})                 of compose over the three roles.
+workflow.C(graphFunctionRef)       -- THE LIFT (-013): an entire graph
+                                      function/program as ONE C; the
+                                      transparent monad boundary;
+                                      evidence = sub_traversal child refs.
+C.batch([tasks], batchRef)         -- grouped composition: spine per
+                                      invoking task, parent grouping ref
+                                      (-005); composed stage sets are its
+                                      existing carrier.
+C.retry(c, budget)                 -- attempt closure under the ONE
+                                      allowlist (-009); budgets declared,
+                                      never implicit.
+```
+
+Laws: compose is associative with C.id as identity; workflow.C(g) is a
+functor from the graph category back into compute (the recursion
+functor) — lift then traverse ≡ traverse then lift per level; batch
+distributes over compose at task granularity; audit equality composes
+through every constructor (-012/-013).
+
+Degeneracy theorems (not features): fold of C.edge with all fibres F_D
+IS a traditional workflow engine; all F_H IS a human process; mixed
+tuples are the product's choice. workflow.C makes "a workflow" itself
+just a C — the composed workflow beneath the monad (§8), now
+constructible from above.
+
+Downstream consequence: bindings stop hand-assembling plugin objects
+and DECLARE C compositions as product data; the plugin seam realizes
+C.of leaves; everything else is algebra the engine interprets. P2
+realizes these as typed GTL carriers beside the composed-stage-set
+family; the census is the admission gate for every C.of.
