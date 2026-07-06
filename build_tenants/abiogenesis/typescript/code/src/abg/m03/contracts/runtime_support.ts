@@ -102,6 +102,17 @@ export function assertBasisEvent(
   basis: ExecutionBasis,
   event: RuntimeEvent
 ): void {
+  // campaign #17: runtime_failure_observed lawfully carries basisId
+  // null (P0-4 CLI-error-as-event fires before/outside a basis) — an
+  // observability event in the shared log must not poison every
+  // subsequent projection over the workspace.
+  if (
+    event.kind === "runtime_failure_observed" &&
+    "basisId" in event &&
+    event.basisId === null
+  ) {
+    return;
+  }
   if ("basisId" in event && event.basisId !== basis.id) {
     throw new TypeError(
       `Runtime event ${event.kind} belongs to ${JSON.stringify(event.basisId)}, not ${JSON.stringify(basis.id)}`

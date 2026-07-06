@@ -1235,3 +1235,49 @@ test("T-205 campaign #16: invocation attempt identity is replay-global — a res
   const ids = r2.replayEvents.filter((e) => e.kind === "actor_invocation_started").map((e) => e.actorInvocationId);
   assert.equal(new Set(ids).size, ids.length, "no invocation id collision across resume");
 });
+
+test("T-205 campaign #17: a null-basis runtime_failure_observed in the shared log does not poison projection — resume proceeds", () => {
+  const basis0 = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({ ...basis0, startIntent: Object.freeze({ ...basis0.startIntent, until: "converged" }) });
+  const good = Object.freeze({
+    contract: constructEnginePluginContract({
+      ref: "plugin://t205/c17-dispatch", pluginKind: "fp_dispatch",
+      authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
+    }),
+    dispatch(input) {
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://c17/${input.vectorIndex}`,
+        attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+  const r1 = runEngineIterate({
+    basis, eventSink: () => {}, ...m03InstructionAssemblyRequestFields(basis),
+    plugins: { fpDispatch: good, fpEvaluator: defaultFpEvaluatorPlugin }
+  });
+  assert.equal(r1.transition.terminalKind, "converged");
+  // the CLI-observability event lands in the shared log with basisId null
+  const poisoned = Object.freeze([
+    ...r1.replayEvents,
+    Object.freeze({
+      kind: "runtime_failure_observed",
+      basisId: null,
+      surface: "cli:start",
+      failureClass: "runtime_failure",
+      message: "campaign #17 shape",
+      stackExcerpt: null,
+      eventId: "runtime-event:c17:poison",
+      eventTime: new Date(1783400000000).toISOString(),
+      eventTimeUnixMs: 1783400000000,
+      eventAdmissionOrdinal: 999999
+    })
+  ]);
+  const r2 = runEngineIterate({
+    basis, runtimeEvents: poisoned, eventSink: () => {}, ...m03InstructionAssemblyRequestFields(basis),
+    plugins: { fpDispatch: good, fpEvaluator: defaultFpEvaluatorPlugin }
+  });
+  assert.equal(r2.transition.kind, "terminal");
+  assert.doesNotMatch(String(r2.transition.reason ?? r2.transition.terminalKind), /belongs to null/);
+});
