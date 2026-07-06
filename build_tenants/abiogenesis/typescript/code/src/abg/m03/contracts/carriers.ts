@@ -256,6 +256,14 @@ export const RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
   "payload_contract_failure"
 ] as const);
 
+// T-195 P0-6: the ONE retry-law allowlist home. Zoom/slice arms and
+// branch defaults both derive from this set; no second value home.
+export const RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
+  "transport_failure",
+  "no_output",
+  "contract_failure"
+] as const satisfies readonly RuntimeFailureClass[]);
+
 export type RuntimeFailureClass =
   (typeof RUNTIME_FAILURE_CLASS_VALUES)[number];
 

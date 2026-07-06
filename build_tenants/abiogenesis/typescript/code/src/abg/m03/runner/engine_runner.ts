@@ -3619,11 +3619,11 @@ function defaultExecutiveObserverObservation(input: {
       encodeURIComponent(input.request.basis.id)
     ].join("/"),
     targetWorkspaceLocator: `workspace://${encodeURIComponent(input.request.basis.workspaceRoot)}`,
-    targetWorkspaceDigest: `sha256:${stableSha256Digest({
+    targetWorkspaceDigest: stableSha256Digest({
       basisId: input.request.basis.id,
       workspaceRoot: input.request.basis.workspaceRoot,
       workKey: input.request.basis.workKey
-    })}`,
+    }),
     targetWorkRef:
       input.request.basis.workKey ??
       input.request.basis.startIntent.target.handle ??

@@ -68,7 +68,7 @@ function parseRuntimeFailureClass(
     }
   }
   throw new TypeError(
-    `${label}: expected "runtime_unavailable", "capability_missing", "runtime_failure", or "payload_contract_failure", got ${JSON.stringify(failureClass)}`
+    `${label}: expected one of ${JSON.stringify(RUNTIME_FAILURE_CLASS_VALUES)}, got ${JSON.stringify(failureClass)}`
   );
 }
 

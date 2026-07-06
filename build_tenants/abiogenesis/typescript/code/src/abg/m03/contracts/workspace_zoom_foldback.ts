@@ -21,6 +21,7 @@ import type {
   OutputPluginHandoffManifest,
   WorkspaceAssetBinding
 } from "./output_allocation.js";
+import { RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES } from "./carriers.js";
 import {
   assertBasisEvent,
   assertNonEmptyString,
@@ -55,11 +56,7 @@ export interface ScheduledSliceFindingClassCounts {
 }
 
 export const RETRYABLE_RUNTIME_FAILURE_CLASSES: readonly RuntimeFailureClass[] =
-  Object.freeze([
-    "transport_failure",
-    "no_output",
-    "contract_failure"
-  ]);
+  RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES;
 
 export type ZoomFoldbackDecision =
   | "close"

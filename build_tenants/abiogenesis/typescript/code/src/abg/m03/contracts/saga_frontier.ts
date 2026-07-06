@@ -15,6 +15,7 @@ import type {
   RuntimeEvent,
   RuntimeFailureClass
 } from "./carriers.js";
+import { RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES } from "./carriers.js";
 import { BRANCH_EXECUTION_DISPOSITION_VALUES } from "./carriers.js";
 import type { RuntimeWatchdogPolicy } from "./runtime_liveness.js";
 import {
@@ -88,11 +89,8 @@ export interface BranchResourceLimit {
   readonly resolvedSystemPolicyRefs: readonly string[];
 }
 
-export const DEFAULT_BRANCH_RETRY_FAILURE_CLASSES = Object.freeze([
-  "transport_failure",
-  "no_output",
-  "contract_failure"
-] as const satisfies readonly RuntimeFailureClass[]);
+export const DEFAULT_BRANCH_RETRY_FAILURE_CLASSES: readonly RuntimeFailureClass[] =
+  RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES;
 
 const BRANCH_CANCELLATION_SIGNAL_KIND_VALUES = Object.freeze([
   "abort_signal",

@@ -4,6 +4,7 @@ import type {
   RuntimeFailureClass,
   TerminalKind
 } from "./carriers.js";
+import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../../../shared/validation/governed_enums.js";
 import {
   BRANCH_EXECUTION_DISPOSITION_VALUES,
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
@@ -639,9 +640,9 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     workspaceRoot: "non_empty_string",
     moduleName: "non_empty_string",
     targetHandle: "non_empty_string",
-    until: { oneOf: ["first_traversal", "blocked", "converged"] },
-    fhMode: { oneOf: ["direct", "human-proxy"] },
-    rootMode: { oneOf: ["direct", "supervised"] },
+    until: { oneOf: [...UNTIL_VALUES] },
+    fhMode: { oneOf: [...FH_MODE_VALUES] },
+    rootMode: { oneOf: [...ROOT_MODE_VALUES] },
     resolvedRuntimeRef: "non_empty_string",
     resolvedPolicyBundleRef: "non_empty_string",
     runId: "nullable_string",

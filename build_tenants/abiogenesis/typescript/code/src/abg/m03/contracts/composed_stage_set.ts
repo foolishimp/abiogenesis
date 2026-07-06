@@ -508,7 +508,7 @@ export function constructComposedStageSetPlan(input: {
   return Object.freeze({
     kind: "composed_stage_set_plan",
     planRef: `composed-stage-set-plan:${planDigest}`,
-    planDigest: `sha256:${planDigest}`,
+    planDigest,
     basisId: parseNonEmptyString(input.basisId, "ComposedStageSetPlan.basisId"),
     graphFunctionId: parseNonEmptyString(
       input.graphFunctionId,

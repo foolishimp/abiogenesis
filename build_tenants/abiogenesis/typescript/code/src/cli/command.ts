@@ -1,5 +1,6 @@
 // Implements: REQ-P-POLICY-017
 
+import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { access, appendFile, mkdir, readFile } from "node:fs/promises";
@@ -414,33 +415,29 @@ function parseBooleanFlag(input: string, name: string): boolean {
 }
 
 function parseUntil(input: string): StartIntent["until"] {
-  if (
-    input === "first_traversal" ||
-    input === "blocked" ||
-    input === "converged"
-  ) {
-    return input;
+  if ((UNTIL_VALUES as readonly string[]).includes(input)) {
+    return input as StartIntent["until"];
   }
   throw new CliError(
-    `--until must be one of first_traversal, blocked, converged; got ${JSON.stringify(input)}`
+    `--until must be one of ${UNTIL_VALUES.join(", ")}; got ${JSON.stringify(input)}`
   );
 }
 
 function parseFhMode(input: string): FhMode {
-  if (input === "direct" || input === "human-proxy") {
-    return input;
+  if ((FH_MODE_VALUES as readonly string[]).includes(input)) {
+    return input as FhMode;
   }
   throw new CliError(
-    `--fh-mode must be one of direct, human-proxy; got ${JSON.stringify(input)}`
+    `--fh-mode must be one of ${FH_MODE_VALUES.join(", ")}; got ${JSON.stringify(input)}`
   );
 }
 
 function parseRootMode(input: string): RootMode {
-  if (input === "direct" || input === "supervised") {
-    return input;
+  if ((ROOT_MODE_VALUES as readonly string[]).includes(input)) {
+    return input as RootMode;
   }
   throw new CliError(
-    `--root-mode must be one of direct, supervised; got ${JSON.stringify(input)}`
+    `--root-mode must be one of ${ROOT_MODE_VALUES.join(", ")}; got ${JSON.stringify(input)}`
   );
 }
 
