@@ -15,7 +15,7 @@ The repo is organized around spec-driven development:
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
 The active TypeScript release line is `@abiogenesis/typescript-tenant`
-`4.1.0-rc.12`. The constitutional language/runtime requirement families remain
+`4.3.0-rc.1`. The constitutional language/runtime requirement families remain
 GTL 3 / ABG 3. The fast reload authority for GTL contract-law/API review is
 [`REQ-L-GTL3-CONTRACT-LAW-API.md`](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
 
