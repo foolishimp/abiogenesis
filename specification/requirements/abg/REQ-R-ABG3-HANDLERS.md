@@ -63,10 +63,12 @@ world). This family governs the functor.
   governing programRef (CCALL-017); escalation never skips declared
   rungs.
 - **-014 Resume semantics.** Re-entry over persisted replay continues
-  from the frontier (closed C calls stay closed). After a
-  gap_stop(retry_budget_exhausted), a ratified resume opens a fresh
-  attempt window under a DECLARED re-entry policy; replay-derived
-  frontier state is never hand-edited.
+  from the frontier (closed C calls stay closed) and OPENS A FRESH
+  ATTEMPT WINDOW after gap_stop(retry_budget_exhausted) — engine law,
+  differentially pinned (t192 lane, T-205 B-prep). The ratified-resume
+  policy therefore governs WHO may resume (an F_H act on a stopped
+  run), not budget mechanics; replay-derived frontier state is never
+  hand-edited.
 
 ## Non-closure
 

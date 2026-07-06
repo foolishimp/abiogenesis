@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Realizes**: T-200 (design §2 as amended §8)
-**Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.
+**Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), REQ-R-ABG3-INSTRUCTION-ASSEMBLY, REQ-R-ABG3-TRANSPORT, REQ-R-ABG3-PAYLOAD, T-195 C3/C4 adjudications, T-030 emergence boundary law.
 
 ONTOLOGY: C is COMPUTE. Traversal A→B carries compute C as a tuple over
 fibres {F_D, F_P, F_H}; a "C call" is a COMPUTE CALL — one instantiation
@@ -127,6 +127,96 @@ structure around it.
   truth and -012 cost reports per configuration. Capability is assessed
   from replay, never self-declared (-015).
 
+- **-018 Handler binding ontology.** A C-call handler is the effectful
+  realization of one selected declared arm. The declared program,
+  catalog, ladder, contracts, response shapes, evidence classes, budgets,
+  and calibration are CATEGORY truth. The handler is the FUNCTOR from
+  that admitted category row to world effects. Handler binding is
+  admitted configuration data: `{programRef, stageRole, armId, regime,
+  handlerRef, handlerClass, handlerConfigRef}`. The handler does not
+  define the program, select the next call, own closure, or mint spine
+  truth.
+
+- **-019 Handler interpretation is ABG-owned.** The ABG interpreter
+  resolves `programRef -> stage -> arm -> handler binding -> declared
+  configuration` through the same admitted catalog/ladder path as the
+  C-call selection row. Missing, duplicate, ambiguous, unadmitted, or
+  program-mismatched handler bindings fail closed before the handler
+  runs. A product-local handler scanner, prompt shell, file loader,
+  registry, or ad hoc effect router is not a lawful interpretation path.
+
+- **-020 Standard pipeline handlers.** ABG may ship standard pipeline
+  handlers for common effect signatures: F_P agent transport, F_D
+  materialization, F_D process execution, and F_H human gate. A pipeline
+  handler realizes the constructed interior over already admitted
+  declarations, such as rendered instruction manifests, transport
+  contracts, response contracts, materialization specs, execution plans,
+  and budget envelopes. The handler returns only an interior result:
+  evidence refs, outcome status, payload refs, response-contract refs,
+  and typed failure; it never returns spine events.
+
+- **-021 Capability handlers.** A declared arm may bind to a capability
+  handler that replaces the constructed interior with one opaque
+  capability outcall to an installed product, local service, library, or
+  in-process engine. The category position is unchanged: the same spine,
+  selection row, budget envelope, judgment vocabulary, evidence honesty,
+  and audit equality rules apply. A capability handler may omit prompt
+  and agent-transport evidence only when its admitted handler class
+  declares that prompt/transport are not part of that capability's
+  effect signature.
+
+- **-022 Arm fidelity and interiors-only.** A handler realizes exactly
+  the selected `{programRef, stageRole, armId, regime}` and no other arm.
+  It may not change programRef, stageRole, armId, regime, graph-call
+  identity, vector identity, retry policy, closure state, or traversal
+  selection. Its output is candidate interior material that ABG admits
+  or rejects; handler output is not runtime truth until admitted by the
+  ABG event path.
+
+- **-023 Evidence honesty.** A handler's outcome status and evidence refs
+  must correspond to real effects that occurred under the selected
+  configuration. Archive paths, payload refs, execution refs,
+  capability-invocation refs, human-response refs, and validation refs
+  are replay-auditable and reconcile with -012 for the handler class.
+  A handler may not assert success, execution, materialization,
+  transport, human approval, or capability completion without admitted
+  evidence for that effect.
+
+- **-024 Declared configuration only.** Handler parameters come from
+  admitted declarations: handler binding, transport contract, environment
+  ingress, manifest/materialization/execution plan, response contract,
+  budget envelope, and calibration or latitude rows. Ambient process
+  environment, local path scans, default shell behavior, product-local
+  prompt assembly, or hidden service discovery are not configuration
+  authority. Tool knowledge stays inside declared handler configuration
+  under the T-030 emergence boundary.
+
+- **-025 Typed failure and budget respect.** Handler throw, timeout,
+  refusal, overrun, malformed output, missing evidence, and contract
+  breach are typed blocked or retryable outcomes under the one judgment
+  router. They do not escape as host exceptions that bypass the spine,
+  do not hang the traversal, and do not become product-local controller
+  state. Timeout, attempt, concurrency, and escalation envelopes derive
+  from the selected configuration or ladder; overrun is admitted failure
+  truth.
+
+- **-026 Idempotent evidence and resume.** Handler evidence is keyed by
+  cCallRef plus declared handler binding identity. Re-entry and resume
+  must either reuse matching admitted evidence or emit a new attempt under
+  the retry law; duplicate archives, duplicate payload claims, and
+  mismatched replay digests fail closed. A handler may not complete a
+  resumed C call by reading unbound files or previous session state that
+  is not linked through admitted evidence refs.
+
+- **-027 Interpretation family.** Program interpretation, ladder
+  selection, handler binding, handler execution, evidence admission,
+  judgment routing, retry, and audit are one family of ABG-owned runtime
+  mechanics. Downstream products may declare catalogs, labelled programs,
+  ladder rows, handler selections, contracts, materialization specs,
+  response schemas, calibration, and domain policy; they do not implement
+  a parallel worker loop for the standard path. Custom handlers remain
+  lawful only at the handler seam and remain subject to -018..-026.
+
 ## Realization State (typed strangler window — reviewed at each T-200 checkpoint)
 
 -001's universality is realized INCREMENTALLY under the ratified
@@ -147,6 +237,8 @@ not claim envelope universality while it stands.
 ## Non-closure
 
 Weakened tests; any fibre name in spine code; any tool name in
-substrate; free-floating fibre events on real replay; a
-no_declared_check judgment satisfying a declared check; archives ≠
-replay on any arm.
+substrate outside declared handler configuration; free-floating fibre
+events on real replay; a no_declared_check judgment satisfying a
+declared check; archives ≠ replay on any arm; handler output minting
+spine truth; product-local standard-path worker loops; hidden handler
+configuration from ambient scans or shells.

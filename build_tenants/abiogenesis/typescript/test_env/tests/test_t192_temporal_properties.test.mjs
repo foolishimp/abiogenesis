@@ -449,3 +449,93 @@ test("T-200 P4: throwing fp plugins become blocked outcomes, not engine deaths (
     assert.equal(truth.includes("contract_failure"), true, `${label}: typed class visible in truth`);
   }
 });
+
+// ─── T-205 B-prep (REQ-R-ABG3-HANDLERS-014 baseline): engine re-entry ───
+
+function resumeRun(runtimeEvents, dispatchImpl) {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const converged = Object.freeze({
+    ...basis,
+    startIntent: Object.freeze({ ...basis.startIntent, until: "converged" })
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis: converged,
+    ...(runtimeEvents === null ? {} : { runtimeEvents }),
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(converged),
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch: dispatchImpl
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+  return { result, events };
+}
+
+test("T-205 B-prep: re-entry continues from the frontier — closed C calls stay closed; exhaustion semantics observed", () => {
+  // Run 1: vector 0 succeeds; vector 1 blocks every attempt -> exhaustion.
+  const dispatchCalls1 = [];
+  const run1 = resumeRun(null, (input) => {
+    dispatchCalls1.push(input.vectorIndex);
+    if (input.vectorIndex === 0) {
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t205/${input.vectorIndex}`,
+        attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+    return constructFpDispatchOutcome({
+      status: "blocked",
+      reason: "worker down (contract_failure)",
+      evidenceRefs: [input.sourceProjectionRef]
+    });
+  });
+  assert.equal(run1.result.transition.kind, "terminal");
+  assert.equal(run1.result.transition.terminalKind, "gap_stop");
+  assert.equal(dispatchCalls1.includes(0), true);
+  assert.equal(dispatchCalls1.filter((v) => v === 1).length >= 1, true);
+
+  // Run 2: same replay, worker fixed. The frontier must hold: vector 0
+  // is NEVER re-dispatched. The exhaustion semantic is OBSERVED and
+  // pinned here as the -014 baseline.
+  const dispatchCalls2 = [];
+  const run2 = resumeRun(run1.result.replayEvents, (input) => {
+    dispatchCalls2.push(input.vectorIndex);
+    return constructFpDispatchOutcome({
+      status: "dispatched",
+      resultRef: `result://t205/resume/${input.vectorIndex}`,
+      attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+      evidenceRefs: [input.sourceProjectionRef]
+    });
+  });
+  assert.equal(
+    dispatchCalls2.includes(0),
+    false,
+    "-014: closed C calls stay closed on re-entry (vector 0 not re-dispatched)"
+  );
+  // PINNED BASELINE (engine law, proven here): a fresh start over an
+  // exhausted frontier opens a fresh attempt window implicitly — the
+  // fixed worker re-attempts vector 1 and the run CONVERGES. Closed
+  // C calls stay closed. If this ever changes, -014 must be re-ratified.
+  assert.equal(
+    dispatchCalls2.filter((v) => v === 1).length > 0,
+    true,
+    "-014 baseline: re-entry re-attempts the exhausted vector"
+  );
+  assert.equal(run2.result.transition.kind, "terminal");
+  assert.equal(
+    run2.result.transition.terminalKind,
+    "converged",
+    "-014 baseline: the resumed run converges once the defect is fixed"
+  );
+});

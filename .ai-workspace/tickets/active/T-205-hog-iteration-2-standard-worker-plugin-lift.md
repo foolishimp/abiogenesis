@@ -5,7 +5,7 @@ status: active
 class: design_reframe
 opened: 2026-07-06
 depends: T-200 strangler step 2 (program/catalog interpretation) — same seam, arrives together
-requirements: REQ-R-ABG3-CCALL-014/-015/-016 (consumed); new family to ratify at P0
+requirements: REQ-R-ABG3-CCALL-014/-017 (programs/ladders consumed); REQ-R-ABG3-CCALL-018/-027 (B1 handler-law authority)
 acceptance: THE INTERNAL-EVERYTHING GATE first — ABG's own sandbox lanes prove catalogs/ladders/resume/re-entry/handlers with a real worker and -012 green, BEFORE any glc step; 4.5.0-rc.1 cuts on that gate. Then: a product on the standard F_P path ships ZERO plugin code —
   declarations only (catalog + selections + response contracts +
   materialization specs + calibration); the odd_glc data-mapper runs on
@@ -116,15 +116,67 @@ call records its governing configuration; ladder interpretation lands
 with step-2 integration; per-configuration -012 cost reporting feeds
 the offline tuner (§13.1 boundary holds).
 
+## B1 review surface (handler law before code)
+
+Authority now lives in `REQ-R-ABG3-CCALL-018/-027`:
+
+- `-018` handler binding ontology: category truth is declared data; the
+  handler is the effectful functor; handler binding is admitted config.
+- `-019` interpretation path: ABG resolves program/stage/arm/handler via
+  the admitted catalog/ladder path; local scanners, prompt shells,
+  loaders, registries, and effect routers fail closure.
+- `-020` standard pipeline handlers: ABG-owned standard handlers return
+  interior results only.
+- `-021` capability handlers: opaque outcalls remain in the same C-call
+  category position and obey the same audit/evidence/judgment law.
+- `-022` O1/O2: arm fidelity and interiors-only.
+- `-023` O3: evidence honesty.
+- `-024` O4/O5: declared configuration only and T-030 tool-emergence
+  boundary at the handler.
+- `-025` O6/O8: typed failure and budget respect.
+- `-026` O7: idempotent evidence and resume.
+- `-027` interpretation family: program interpretation, ladder
+  selection, handler binding/execution, evidence admission, judgment,
+  retry, and audit are one ABG-owned runtime family.
+
+B1 cannot proceed to code while any of these review checks fail:
+
+1. The handler law does not introduce a second compute ontology beside
+   the C-call envelope.
+2. The handler law does not let downstream product code implement the
+   standard worker loop.
+3. Pipeline and capability handlers are separated without changing the
+   C-call spine, selection row, judgment vocabulary, or audit equality.
+4. Handler output remains candidate interior material until ABG admits
+   it.
+5. Evidence honesty is replay-auditable; no handler can assert effects
+   without evidence refs.
+6. Hidden configuration from ambient process state, shell defaults,
+   local path scans, or product prompt assembly is non-closure.
+7. Failure, timeout, overrun, malformed output, and missing evidence
+   become typed outcomes under the judgment router, not host exceptions
+   or product controller state.
+8. Resume is keyed by cCallRef plus handler binding identity, with
+   digest mismatch and duplicate archive claims failing closed.
+9. The interpretation family is one ABG-owned runtime family; standard
+   path products declare data only.
+
 ## Plan sketch (P0 ratify before realization)
 
-P0 requirements family (worker-plugin law: what is mechanics vs domain;
-fail-closed declaration admission; no tool names — T-030 boundary law
-holds at the substrate too). P1 standard transform interior. P2
-standard evaluate interior (latitude/golden consumed). P3 deterministic
-interiors (materialize/execute from declarations). P4 odd_glc adoption:
-binding → declarations; campaign reruns as the proof. Gödel checkpoints
-per phase; codex review at P0.
+B1 ratifies and reviews handler-law requirements before realization.
+P1 standard transform interior. P2 standard evaluate interior
+(latitude/golden consumed). P3 deterministic interiors
+(materialize/execute from declarations). P4 odd_glc adoption: binding
+→ declarations; campaign reruns as the proof. Gödel checkpoints per
+phase; codex review at B1/P0.
+
+## Proof commands
+
+```sh
+rg -n "Handler binding ontology|Handler interpretation is ABG-owned|Standard pipeline handlers|Capability handlers|Arm fidelity and interiors-only|Evidence honesty|Declared configuration only|Typed failure and budget respect|Idempotent evidence and resume|Interpretation family" specification/requirements/abg/REQ-R-ABG3-CCALL.md
+rg -n "REQ-R-ABG3-CCALL-018/-027|B1 review surface|local scanners|product prompt assembly|standard worker loop" .ai-workspace/tickets/active/T-205-hog-iteration-2-standard-worker-plugin-lift.md
+git diff --check
+```
 
 ## Absorbed (board consolidation, user 2026-07-06)
 - T-199 per-vector temporal formulas — subsumed by -017 ladder
