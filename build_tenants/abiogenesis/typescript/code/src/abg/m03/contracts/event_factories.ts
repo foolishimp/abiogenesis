@@ -971,6 +971,7 @@ export function constructCCallFibreSelectedEvent(input: Omit<CCallFibreSelectedE
     basisId: input.basisId,
     regime: input.regime,
     armId: input.armId,
+    programRef: input.programRef,
     compositionRef: input.compositionRef
   });
 }

@@ -896,6 +896,9 @@ export interface CCallFibreSelectedEvent {
   readonly basisId: string;
   readonly regime: CCallRegime;
   readonly armId: string;
+  // -017: the governing configuration — which labelled program ran this
+  // call is per-call replay truth; -012 cost reports resolve per config.
+  readonly programRef: string;
   readonly compositionRef: string | null;
 }
 

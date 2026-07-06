@@ -11,6 +11,7 @@ import type {
   RuntimeEvent
 } from "../contracts/carriers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
+import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
 import {
   constructCCallEvidencedEvent,
   constructCCallFibreSelectedEvent,
@@ -48,6 +49,7 @@ export interface CCallInteriorResult {
 
 export interface ResolveCCallInput {
   readonly stage: HogProgramStage;
+  readonly programRef?: string | undefined;
   readonly locus: CCallLocus;
   readonly regimeOverride?: CCallRegime | undefined;
   readonly compositionRef?: string | null | undefined;
@@ -90,6 +92,7 @@ export async function resolveCCall(
     basisId: locus.basisId,
     regime,
     armId: stage.armId,
+    programRef: input.programRef ?? HOG_BOOTSTRAP_TRIPLE.programRef,
     compositionRef: input.compositionRef ?? null
   });
   input.emit([opened, selected]);

@@ -1189,12 +1189,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   }),
   c_call_opened: C_CALL_OPENED_ADMISSION,
   c_call_fibre_selected: spineClosedKeys("CCallFibreSelectedEvent",
-    ["kind", "cCallRef", "basisId", "regime", "armId", "compositionRef"],
+    ["kind", "cCallRef", "basisId", "regime", "armId", "programRef", "compositionRef"],
     applyFieldRules("CCallFibreSelectedEvent", {
     cCallRef: "non_empty_string",
     basisId: "non_empty_string",
     regime: { oneOf: C_CALL_REGIME_VALUES },
     armId: "non_empty_string",
+    programRef: "non_empty_string",
     compositionRef: "nullable_string"
   })),
   c_call_evidenced: spineClosedKeys("CCallEvidencedEvent",

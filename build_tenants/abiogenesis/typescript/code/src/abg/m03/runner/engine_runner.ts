@@ -4711,6 +4711,7 @@ function finishConsequenceTraversalActionConsumption(input: {
             basisId: input.request.basis.id,
             regime: "F_D",
             armId: "construction_intent_step",
+            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
             compositionRef: null
           }),
           constructCCallEvidencedEvent({
@@ -5618,6 +5619,7 @@ function* runEngineIterateMachine(input: {
                   basisId: request.basis.id,
                   regime: ruleInput.regime,
                   armId: "evaluation_rule_batch",
+                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                   compositionRef: null
                 })
               ]);
@@ -5854,6 +5856,7 @@ function* runEngineIterateMachine(input: {
             basisId: request.basis.id,
             regime: "F_D",
             armId: fdEvaluateStage.armId,
+            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
             compositionRef: null
           })
         ]);
@@ -6261,6 +6264,7 @@ function* runEngineIterateMachine(input: {
                   basisId: request.basis.id,
                   regime: taskInput.regime,
                   armId: "composed_consequence",
+                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                   compositionRef: null
                 })
               ]);
@@ -6453,6 +6457,7 @@ function* runEngineIterateMachine(input: {
             basisId: request.basis.id,
             regime: "F_D",
             armId: consequenceCCallStage.armId,
+            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
             compositionRef: null
           })
         ]);
@@ -6863,6 +6868,7 @@ function* runEngineIterateMachine(input: {
                   basisId: request.basis.id,
                   regime: taskInput.regime,
                   armId: "composed_transform",
+                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                   compositionRef: null
                 })
               ]);
@@ -7107,6 +7113,7 @@ function* runEngineIterateMachine(input: {
           basisId: request.basis.id,
           regime: "F_P",
           armId: scalarTransformStage.armId,
+          programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
           compositionRef: null
         });
         // REQ-R-ABG3-CCALL-010 + TEMPORAL -007: the online dispatch gate
@@ -7846,6 +7853,7 @@ function* runEngineIterateMachine(input: {
                 basisId: request.basis.id,
                 regime: "F_P",
                 armId: scalarEvaluateStage.armId,
+                programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                 compositionRef: null
               })
             ]);
@@ -8619,6 +8627,7 @@ function* runEngineIterateMachine(input: {
                       basisId: request.basis.id,
                       regime: taskInput.regime,
                       armId: "composed_consequence",
+                      programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                       compositionRef: null
                     })
                   ]);
@@ -8812,6 +8821,7 @@ function* runEngineIterateMachine(input: {
                 basisId: request.basis.id,
                 regime: "F_D",
                 armId: consequenceCCallStage.armId,
+                programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
                 compositionRef: null
               })
             ]);
@@ -9199,6 +9209,7 @@ function* runEngineIterateMachine(input: {
               basisId: request.basis.id,
               regime: "F_H",
               armId: "fh_admission",
+              programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
               compositionRef: null
             }),
             constructCCallEvidencedEvent({

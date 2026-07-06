@@ -40,6 +40,7 @@ test("T-200 P1: all five spine kinds construct and admit", () => {
     basisId: locus.basisId,
     regime: "F_P",
     armId: "arm://t200/transform/f_p",
+    programRef: "gtl://abg/hog/bootstrap-triple",
     compositionRef: null
   }));
   assertRuntimeEvent(constructCCallEvidencedEvent({
@@ -133,6 +134,7 @@ test("T-200 P1: fibre regime vocabulary is closed (-003)", () => {
       basisId: locus.basisId,
       regime: "F_X",
       armId: "arm://x",
+      programRef: "gtl://abg/hog/bootstrap-triple",
       compositionRef: null
     })),
     /regime/
