@@ -388,3 +388,27 @@ declaration updates — the tuner, standing above the monad, itself
 expressible as graph functions over the same substrate (the recursion
 functor makes self-reflection lawful: the tuner is traversals reading
 traversals).
+
+### 13.1 Solve loop vs optimize loop — same shape, different object
+
+Backlogging the layer was correct method (steel thread first: atoms and
+primes lined up, working-but-inefficient solution, optimize later). The
+subtlety that makes the deferral SAFE to end later: the optimize loop
+and the solve/evaluate loop are the SAME SHAPE — judgment-routed C
+compositions over the same primitives — so they are distinguished by
+LAW, not by structure:
+
+| | Solve loop | Optimize loop |
+|---|---|---|
+| Judges | the CANDIDATE (is this artifact lawful/adequate?) | the DECLARATIONS (was this allocation right?) |
+| Writes | candidates/artifacts (retry, repair) | terms (budgets, fibres, program shapes, proportionality) |
+| Tempo | in-run, online | between runs / at declared checkpoints (online only through declared seams: budgets, escalation routes) |
+| Failure mode if confused | retries doing allocation's job (20 identical attempts on a deterministic fault) | allocation editing truth-seeking (tuner weakening evaluators to save cost) |
+
+LAW: solve writes only candidates, never declarations; optimize writes
+only declarations, never candidates. A program that does both in one
+judgment is unlawful. The campaign already exhibited both failure
+modes' precursors; the table is their permanent guard. Because the
+shapes are identical, un-backlogging costs no new machinery: the
+optimize loop is a -014 program over replay projections, the day it is
+wanted.
