@@ -11,12 +11,10 @@ import type {
   RuntimeEvent
 } from "../contracts/carriers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
-import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
+import { buildCCallSpineOpen, buildCCallSpineClose } from "./c_call_spine.js";
 import {
   constructCCallEvidencedEvent,
-  constructCCallFibreSelectedEvent,
   constructCCallJudgedEvent,
-  constructCCallOpenedEvent,
   constructCCallResultAdmittedEvent,
   mintCCallRef
 } from "../contracts/event_factories.js";
@@ -74,7 +72,7 @@ export async function resolveCCall(
 ): Promise<ResolveCCallResult> {
   const { stage, locus } = input;
   const regime = input.regimeOverride ?? stage.defaultRegime;
-  const opened = constructCCallOpenedEvent({
+  const spine = buildCCallSpineOpen({
     basisId: locus.basisId,
     graphFunctionId: locus.graphFunctionId,
     graphCallId: locus.graphCallId,
@@ -84,18 +82,14 @@ export async function resolveCCall(
     stageRole: stage.stageRole,
     taskOrdinal: locus.taskOrdinal,
     attempt: locus.attempt,
-    batchRef: locus.batchRef
-  });
-  const cCallRef = opened.cCallRef;
-  const selected = constructCCallFibreSelectedEvent({
-    cCallRef,
-    basisId: locus.basisId,
+    batchRef: locus.batchRef,
     regime,
     armId: stage.armId,
-    programRef: input.programRef ?? HOG_BOOTSTRAP_TRIPLE.programRef,
+    programRef: input.programRef,
     compositionRef: input.compositionRef ?? null
   });
-  input.emit([opened, selected]);
+  const cCallRef = spine.cCallRef;
+  input.emit([...spine.events]);
   let interior: CCallInteriorResult;
   try {
     interior = await input.resolveFibre({
@@ -108,24 +102,16 @@ export async function resolveCCall(
     // No orphan partial spines (codex round 4): a throwing fibre still
     // closes its spine as blocked truth before the error propagates.
     input.emit([
-      constructCCallEvidencedEvent({
+      ...buildCCallSpineClose({
         cCallRef,
         basisId: locus.basisId,
         evidenceClass: "fibre_failure",
-        evidenceRefs: Object.freeze([
+        evidenceRefs: [
           `error:${String(error instanceof Error ? error.message : error).slice(0, 200)}`
-        ])
-      }),
-      constructCCallResultAdmittedEvent({
-        cCallRef,
-        basisId: locus.basisId,
+        ],
         outcomeStatus: "blocked",
         payloadRef: null,
-        responseContractRef: null
-      }),
-      constructCCallJudgedEvent({
-        cCallRef,
-        basisId: locus.basisId,
+        responseContractRef: null,
         judgment: "blocked",
         reasonRef: null
       })

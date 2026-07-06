@@ -6,6 +6,7 @@
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
+import { buildCCallSpineOpen, buildCCallSpineClose } from "./c_call_spine.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -40,12 +41,7 @@ import {
   constructInstructionCausalContextBoundEvent,
   constructInstructionPromptManifestProjectedEvent,
   constructInstructionResponseContractAdmittedEvent,
-  constructCCallEvidencedEvent,
   mintCCallRef,
-  constructCCallFibreSelectedEvent,
-  constructCCallJudgedEvent,
-  constructCCallOpenedEvent,
-  constructCCallResultAdmittedEvent,
   constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
@@ -4689,7 +4685,7 @@ function finishConsequenceTraversalActionConsumption(input: {
       "terminalKind" in innerTransition
         ? String(innerTransition.terminalKind)
         : innerTransition.kind;
-    const subTraversalOpened = constructCCallOpenedEvent({
+    const subTraversalSpine = buildCCallSpineOpen({
       basisId: input.request.basis.id,
       graphFunctionId: input.request.basis.graphFunction.id,
       graphCallId: graphCallIdForBasis(input.request.basis),
@@ -4699,43 +4695,29 @@ function finishConsequenceTraversalActionConsumption(input: {
       stageRole: "consequence",
       taskOrdinal: 0,
       attempt: 1,
-      batchRef: null
+      batchRef: null,
+      regime: "F_D",
+      armId: "construction_intent_step"
     });
     eventState = appendAlreadyEmittedEngineRunnerEvents({
       state: eventState,
       events: emit(
         [
-          subTraversalOpened,
-          constructCCallFibreSelectedEvent({
-            cCallRef: subTraversalOpened.cCallRef,
-            basisId: input.request.basis.id,
-            regime: "F_D",
-            armId: "construction_intent_step",
-            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-            compositionRef: null
-          }),
-          constructCCallEvidencedEvent({
-            cCallRef: subTraversalOpened.cCallRef,
+          ...subTraversalSpine.events,
+          ...buildCCallSpineClose({
+            cCallRef: subTraversalSpine.cCallRef,
             basisId: input.request.basis.id,
             evidenceClass: "sub_traversal",
-            evidenceRefs: Object.freeze([
+            evidenceRefs: [
               `sub-traversal:${input.request.basis.id}`,
               `iteration:${String(input.iterationCount)}:inner:${String(
                 input.constructionOutcome.graphActionResult.iterationCount
               )}`,
               `terminal:${innerTerminalKind}`
-            ])
-          }),
-          constructCCallResultAdmittedEvent({
-            cCallRef: subTraversalOpened.cCallRef,
-            basisId: input.request.basis.id,
+            ],
             outcomeStatus: innerTerminalKind,
             payloadRef: null,
-            responseContractRef: null
-          }),
-          constructCCallJudgedEvent({
-            cCallRef: subTraversalOpened.cCallRef,
-            basisId: input.request.basis.id,
+            responseContractRef: null,
             judgment:
               innerTerminalKind === "converged" ||
               innerTerminalKind === "traversal_applied" ||
@@ -5600,7 +5582,7 @@ function* runEngineIterateMachine(input: {
             // T-200 P3-C: spine per invoking evaluation-rule task (-005);
             // the rule batch is the evaluate stage's task family.
             {
-              const ruleTaskOpened = constructCCallOpenedEvent({
+              const ruleTaskSpine = buildCCallSpineOpen({
                 basisId: request.basis.id,
                 graphFunctionId: ruleActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
                 graphCallId: ruleActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
@@ -5610,19 +5592,11 @@ function* runEngineIterateMachine(input: {
                 stageRole: "evaluate",
                 taskOrdinal: plannedRule.pluginIndex,
                 attempt: ruleActorInvocation?.attemptIndex ?? 1,
-                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`,
+                regime: ruleInput.regime,
+                armId: "evaluation_rule_batch"
               });
-              eventState = emitRunnerEvents(eventState, [
-                ruleTaskOpened,
-                constructCCallFibreSelectedEvent({
-                  cCallRef: ruleTaskOpened.cCallRef,
-                  basisId: request.basis.id,
-                  regime: ruleInput.regime,
-                  armId: "evaluation_rule_batch",
-                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                  compositionRef: null
-                })
-              ]);
+              eventState = emitRunnerEvents(eventState, ruleTaskSpine.events);
             }
           }
           const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
@@ -5686,27 +5660,17 @@ function* runEngineIterateMachine(input: {
                 taskOrdinal: plannedBatchWithInputs[index]?.plannedRule.pluginIndex ?? index,
                 attempt: invocation?.attemptIndex ?? 1
               });
-              eventState = emitRunnerEvents(eventState, [
-                constructCCallEvidencedEvent({
-                  cCallRef: ruleTaskRef,
-                  basisId: request.basis.id,
-                  evidenceClass: ruleInput.regime === "F_P" ? "fp_interior" : "fd_interior",
-                  evidenceRefs: Object.freeze([ruleInput.sourceProjectionRef])
-                }),
-                constructCCallResultAdmittedEvent({
-                  cCallRef: ruleTaskRef,
-                  basisId: request.basis.id,
-                  outcomeStatus: ruleOutcome.status,
-                  payloadRef: null,
-                  responseContractRef: null
-                }),
-                constructCCallJudgedEvent({
-                  cCallRef: ruleTaskRef,
-                  basisId: request.basis.id,
-                  judgment: ruleOutcome.status === "blocked" ? "blocked" : "advance",
-                  reasonRef: null
-                })
-              ]);
+              eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+                cCallRef: ruleTaskRef,
+                basisId: request.basis.id,
+                evidenceClass: ruleInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                evidenceRefs: [ruleInput.sourceProjectionRef],
+                outcomeStatus: ruleOutcome.status,
+                payloadRef: null,
+                responseContractRef: null,
+                judgment: ruleOutcome.status === "blocked" ? "blocked" : "advance",
+                reasonRef: null
+              }));
             }
           }
         }
@@ -5837,7 +5801,7 @@ function* runEngineIterateMachine(input: {
         if (fdEvaluateStage === undefined) {
           throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
         }
-        const fdEvaluateCCallOpened = constructCCallOpenedEvent({
+        const fdEvaluateSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
           graphFunctionId: transition.basis.graphFunction.id,
           graphCallId: graphCallIdForBasis(transition.basis),
@@ -5847,19 +5811,12 @@ function* runEngineIterateMachine(input: {
           stageRole: fdEvaluateStage.stageRole,
           taskOrdinal: null,
           attempt: 1,
-          batchRef: null
+          batchRef: null,
+          regime: "F_D",
+          armId: fdEvaluateStage.armId
         });
-        eventState = emitRunnerEvents(eventState, [
-          fdEvaluateCCallOpened,
-          constructCCallFibreSelectedEvent({
-            cCallRef: fdEvaluateCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            regime: "F_D",
-            armId: fdEvaluateStage.armId,
-            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-            compositionRef: null
-          })
-        ]);
+        const fdEvaluateCCallOpened = fdEvaluateSpine.opened;
+        eventState = emitRunnerEvents(eventState, fdEvaluateSpine.events);
         const outcome = fdEvaluationOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "fd_evaluate",
@@ -5909,27 +5866,17 @@ function* runEngineIterateMachine(input: {
             outcome
           })
         );
-        eventState = emitRunnerEvents(eventState, [
-          constructCCallEvidencedEvent({
-            cCallRef: fdEvaluateCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            evidenceClass: "fd_interior",
-            evidenceRefs: Object.freeze([scalarFdEvaluationInput.sourceProjectionRef])
-          }),
-          constructCCallResultAdmittedEvent({
-            cCallRef: fdEvaluateCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            outcomeStatus: outcome.status,
-            payloadRef: null,
-            responseContractRef: null
-          }),
-          constructCCallJudgedEvent({
-            cCallRef: fdEvaluateCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            judgment: outcome.status === "accepted" ? "advance" : "blocked",
-            reasonRef: null
-          })
-        ]);
+        eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+          cCallRef: fdEvaluateCCallOpened.cCallRef,
+          basisId: request.basis.id,
+          evidenceClass: "fd_interior",
+          evidenceRefs: [scalarFdEvaluationInput.sourceProjectionRef],
+          outcomeStatus: outcome.status,
+          payloadRef: null,
+          responseContractRef: null,
+          judgment: outcome.status === "accepted" ? "advance" : "blocked",
+          reasonRef: null
+        }));
         eventState = emitRunnerEvents(eventState,
           constructVectorEvaluatedEvent({
             basis: request.basis,
@@ -6245,7 +6192,7 @@ function* runEngineIterateMachine(input: {
             // T-200 P2e: spine per invoking batch task (-005); identity is
             // deterministic (-004) so the close re-mints, no tracker.
             {
-              const batchTaskOpened = constructCCallOpenedEvent({
+              const batchTaskSpine = buildCCallSpineOpen({
                 basisId: request.basis.id,
                 graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
                 graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
@@ -6255,19 +6202,11 @@ function* runEngineIterateMachine(input: {
                 stageRole: "consequence",
                 taskOrdinal: plannedTask.pluginIndex,
                 attempt: taskActorInvocation?.attemptIndex ?? 1,
-                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
+                regime: taskInput.regime,
+                armId: "composed_consequence"
               });
-              eventState = emitRunnerEvents(eventState, [
-                batchTaskOpened,
-                constructCCallFibreSelectedEvent({
-                  cCallRef: batchTaskOpened.cCallRef,
-                  basisId: request.basis.id,
-                  regime: taskInput.regime,
-                  armId: "composed_consequence",
-                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                  compositionRef: null
-                })
-              ]);
+              eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -6332,27 +6271,17 @@ function* runEngineIterateMachine(input: {
                 taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
                 attempt: invocation?.attemptIndex ?? 1
               });
-              eventState = emitRunnerEvents(eventState, [
-                constructCCallEvidencedEvent({
-                  cCallRef: batchTaskRef,
-                  basisId: request.basis.id,
-                  evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
-                  evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
-                }),
-                constructCCallResultAdmittedEvent({
-                  cCallRef: batchTaskRef,
-                  basisId: request.basis.id,
-                  outcomeStatus: taskOutcome.status,
-                  payloadRef: null,
-                  responseContractRef: null
-                }),
-                constructCCallJudgedEvent({
-                  cCallRef: batchTaskRef,
-                  basisId: request.basis.id,
-                  judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
-                  reasonRef: null
-                })
-              ]);
+              eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+                cCallRef: batchTaskRef,
+                basisId: request.basis.id,
+                evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                evidenceRefs: [taskInput.sourceProjectionRef],
+                outcomeStatus: taskOutcome.status,
+                payloadRef: null,
+                responseContractRef: null,
+                judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                reasonRef: null
+              }));
             }
           }
         }
@@ -6438,7 +6367,7 @@ function* runEngineIterateMachine(input: {
         if (consequenceCCallStage === undefined) {
           throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
         }
-        const consequenceCCallOpened = constructCCallOpenedEvent({
+        const consequenceSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
           graphFunctionId: transition.basis.graphFunction.id,
           graphCallId: graphCallIdForBasis(transition.basis),
@@ -6448,19 +6377,12 @@ function* runEngineIterateMachine(input: {
           stageRole: consequenceCCallStage.stageRole,
           taskOrdinal: null,
           attempt: 1,
-          batchRef: null
+          batchRef: null,
+          regime: "F_D",
+          armId: consequenceCCallStage.armId
         });
-        eventState = emitRunnerEvents(eventState, [
-          consequenceCCallOpened,
-          constructCCallFibreSelectedEvent({
-            cCallRef: consequenceCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            regime: "F_D",
-            armId: consequenceCCallStage.armId,
-            programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-            compositionRef: null
-          })
-        ]);
+        const consequenceCCallOpened = consequenceSpine.opened;
+        eventState = emitRunnerEvents(eventState, consequenceSpine.events);
         const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "consequence_project",
@@ -6500,27 +6422,17 @@ function* runEngineIterateMachine(input: {
           admission: consequenceStageAdmission,
           requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
         });
-        eventState = emitRunnerEvents(eventState, [
-          constructCCallEvidencedEvent({
-            cCallRef: consequenceCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            evidenceClass: "fd_interior",
-            evidenceRefs: Object.freeze([scalarConsequenceInput.sourceProjectionRef])
-          }),
-          constructCCallResultAdmittedEvent({
-            cCallRef: consequenceCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            outcomeStatus: consequenceOutcome.status,
-            payloadRef: null,
-            responseContractRef: null
-          }),
-          constructCCallJudgedEvent({
-            cCallRef: consequenceCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
-            reasonRef: null
-          })
-        ]);
+        eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+          cCallRef: consequenceCCallOpened.cCallRef,
+          basisId: request.basis.id,
+          evidenceClass: "fd_interior",
+          evidenceRefs: [scalarConsequenceInput.sourceProjectionRef],
+          outcomeStatus: consequenceOutcome.status,
+          payloadRef: null,
+          responseContractRef: null,
+          judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
+          reasonRef: null
+        }));
         if (consequenceStageBlockingReason !== null) {
           const blocked = terminalTransition(
             request.basis,
@@ -6849,7 +6761,7 @@ function* runEngineIterateMachine(input: {
             // T-200 P2e: spine per invoking batch task (-005); identity is
             // deterministic (-004) so the close re-mints, no tracker.
             {
-              const batchTaskOpened = constructCCallOpenedEvent({
+              const batchTaskSpine = buildCCallSpineOpen({
                 basisId: request.basis.id,
                 graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
                 graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
@@ -6859,19 +6771,11 @@ function* runEngineIterateMachine(input: {
                 stageRole: "transform",
                 taskOrdinal: plannedTask.pluginIndex,
                 attempt: taskActorInvocation?.attemptIndex ?? 1,
-                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`,
+                regime: taskInput.regime,
+                armId: "composed_transform"
               });
-              eventState = emitRunnerEvents(eventState, [
-                batchTaskOpened,
-                constructCCallFibreSelectedEvent({
-                  cCallRef: batchTaskOpened.cCallRef,
-                  basisId: request.basis.id,
-                  regime: taskInput.regime,
-                  armId: "composed_transform",
-                  programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                  compositionRef: null
-                })
-              ]);
+              eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -6937,27 +6841,17 @@ function* runEngineIterateMachine(input: {
                   taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
                   attempt: invocation?.attemptIndex ?? 1
                 });
-                eventState = emitRunnerEvents(eventState, [
-                  constructCCallEvidencedEvent({
-                    cCallRef: batchTaskRef,
-                    basisId: request.basis.id,
-                    evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
-                    evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
-                  }),
-                  constructCCallResultAdmittedEvent({
-                    cCallRef: batchTaskRef,
-                    basisId: request.basis.id,
-                    outcomeStatus: taskOutcome.status,
-                    payloadRef: null,
-                    responseContractRef: null
-                  }),
-                  constructCCallJudgedEvent({
-                    cCallRef: batchTaskRef,
-                    basisId: request.basis.id,
-                    judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
-                    reasonRef: null
-                  })
-                ]);
+                eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+                  cCallRef: batchTaskRef,
+                  basisId: request.basis.id,
+                  evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                  evidenceRefs: [taskInput.sourceProjectionRef],
+                  outcomeStatus: taskOutcome.status,
+                  payloadRef: null,
+                  responseContractRef: null,
+                  judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                  reasonRef: null
+                }));
               }
             }
           }
@@ -7064,7 +6958,7 @@ function* runEngineIterateMachine(input: {
         if (scalarTransformStage === undefined) {
           throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
         }
-        const scalarTransformCCallOpened = constructCCallOpenedEvent({
+        const scalarTransformSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
           graphFunctionId: actorInvocation.graphFunctionId,
           graphCallId: actorInvocation.graphCallId,
@@ -7074,8 +6968,11 @@ function* runEngineIterateMachine(input: {
           stageRole: scalarTransformStage.stageRole,
           taskOrdinal: null,
           attempt: actorInvocation.attemptIndex,
-          batchRef: null
+          batchRef: null,
+          regime: "F_P",
+          armId: scalarTransformStage.armId
         });
+        const scalarTransformCCallOpened = scalarTransformSpine.opened;
         const scalarTransformCCallEvidence: string[] = [
           instructionBinding.manifest.manifestRef
         ];
@@ -7086,36 +6983,19 @@ function* runEngineIterateMachine(input: {
             readonly payloadRef: string | null;
             readonly judgment: CCallJudgment;
           }
-        ): EngineEventEmissionState =>
-          emitRunnerEvents(state, [
-            constructCCallEvidencedEvent({
-              cCallRef: scalarTransformCCallOpened.cCallRef,
-              basisId: request.basis.id,
-              evidenceClass: "fp_interior",
-              evidenceRefs: Object.freeze([...scalarTransformCCallEvidence])
-            }),
-            constructCCallResultAdmittedEvent({
-              cCallRef: scalarTransformCCallOpened.cCallRef,
-              basisId: request.basis.id,
-              outcomeStatus: close.outcomeStatus,
-              payloadRef: close.payloadRef,
-              responseContractRef: null
-            }),
-            constructCCallJudgedEvent({
-              cCallRef: scalarTransformCCallOpened.cCallRef,
-              basisId: request.basis.id,
-              judgment: close.judgment,
-              reasonRef: null
-            })
-          ]);
-        const scalarTransformFibreSelected = constructCCallFibreSelectedEvent({
-          cCallRef: scalarTransformCCallOpened.cCallRef,
-          basisId: request.basis.id,
-          regime: "F_P",
-          armId: scalarTransformStage.armId,
-          programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-          compositionRef: null
-        });
+          ): EngineEventEmissionState =>
+          emitRunnerEvents(state, buildCCallSpineClose({
+            cCallRef: scalarTransformCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            evidenceClass: "fp_interior",
+            evidenceRefs: scalarTransformCCallEvidence,
+            outcomeStatus: close.outcomeStatus,
+            payloadRef: close.payloadRef,
+            responseContractRef: null,
+            judgment: close.judgment,
+            reasonRef: null
+          }));
+        const scalarTransformFibreSelected = scalarTransformSpine.selected;
         // REQ-R-ABG3-CCALL-010 + TEMPORAL -007: the online dispatch gate
         // judges the SELECTION candidate against the trace prefix BEFORE
         // the C call enters truth.
@@ -7803,7 +7683,7 @@ function* runEngineIterateMachine(input: {
             if (scalarEvaluateStage === undefined) {
               throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
             }
-            const scalarEvaluateCCallOpened = constructCCallOpenedEvent({
+            const scalarEvaluateSpine = buildCCallSpineOpen({
               basisId: request.basis.id,
               graphFunctionId: actorInvocation.graphFunctionId,
               graphCallId: actorInvocation.graphCallId,
@@ -7813,8 +7693,11 @@ function* runEngineIterateMachine(input: {
               stageRole: scalarEvaluateStage.stageRole,
               taskOrdinal: null,
               attempt: actorInvocation.attemptIndex,
-              batchRef: null
+              batchRef: null,
+              regime: "F_P",
+              armId: scalarEvaluateStage.armId
             });
+            const scalarEvaluateCCallOpened = scalarEvaluateSpine.opened;
             const scalarEvaluateCCallEvidence: string[] = [
               evaluationInstructionBinding.manifest.manifestRef
             ];
@@ -7824,39 +7707,19 @@ function* runEngineIterateMachine(input: {
                 readonly outcomeStatus: string;
                 readonly judgment: CCallJudgment;
               }
-            ): EngineEventEmissionState =>
-              emitRunnerEvents(state, [
-                constructCCallEvidencedEvent({
-                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
-                  basisId: request.basis.id,
-                  evidenceClass: "fp_interior",
-                  evidenceRefs: Object.freeze([...scalarEvaluateCCallEvidence])
-                }),
-                constructCCallResultAdmittedEvent({
-                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
-                  basisId: request.basis.id,
-                  outcomeStatus: close.outcomeStatus,
-                  payloadRef: null,
-                  responseContractRef: null
-                }),
-                constructCCallJudgedEvent({
-                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
-                  basisId: request.basis.id,
-                  judgment: close.judgment,
-                  reasonRef: null
-                })
-              ]);
-            eventState = emitRunnerEvents(eventState, [
-              scalarEvaluateCCallOpened,
-              constructCCallFibreSelectedEvent({
+              ): EngineEventEmissionState =>
+              emitRunnerEvents(state, buildCCallSpineClose({
                 cCallRef: scalarEvaluateCCallOpened.cCallRef,
                 basisId: request.basis.id,
-                regime: "F_P",
-                armId: scalarEvaluateStage.armId,
-                programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                compositionRef: null
-              })
-            ]);
+                evidenceClass: "fp_interior",
+                evidenceRefs: scalarEvaluateCCallEvidence,
+                outcomeStatus: close.outcomeStatus,
+                payloadRef: null,
+                responseContractRef: null,
+                judgment: close.judgment,
+                reasonRef: null
+              }));
+            eventState = emitRunnerEvents(eventState, scalarEvaluateSpine.events);
             fpEvaluationInput = Object.freeze({
               ...fpEvaluationInput,
               instructionPromptManifest: evaluationInstructionBinding.manifest
@@ -8608,7 +8471,7 @@ function* runEngineIterateMachine(input: {
                 // T-200 P2e: spine per invoking batch task (-005); identity is
                 // deterministic (-004) so the close re-mints, no tracker.
                 {
-                  const batchTaskOpened = constructCCallOpenedEvent({
+                  const batchTaskSpine = buildCCallSpineOpen({
                     basisId: request.basis.id,
                     graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
                     graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
@@ -8618,19 +8481,11 @@ function* runEngineIterateMachine(input: {
                     stageRole: "consequence",
                     taskOrdinal: plannedTask.pluginIndex,
                     attempt: taskActorInvocation?.attemptIndex ?? 1,
-                    batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`
+                    batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
+                    regime: taskInput.regime,
+                    armId: "composed_consequence"
                   });
-                  eventState = emitRunnerEvents(eventState, [
-                    batchTaskOpened,
-                    constructCCallFibreSelectedEvent({
-                      cCallRef: batchTaskOpened.cCallRef,
-                      basisId: request.basis.id,
-                      regime: taskInput.regime,
-                      armId: "composed_consequence",
-                      programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                      compositionRef: null
-                    })
-                  ]);
+                  eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
                 }
               }
               const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -8695,27 +8550,17 @@ function* runEngineIterateMachine(input: {
                     taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
                     attempt: invocation?.attemptIndex ?? 1
                   });
-                  eventState = emitRunnerEvents(eventState, [
-                    constructCCallEvidencedEvent({
-                      cCallRef: batchTaskRef,
-                      basisId: request.basis.id,
-                      evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
-                      evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
-                    }),
-                    constructCCallResultAdmittedEvent({
-                      cCallRef: batchTaskRef,
-                      basisId: request.basis.id,
-                      outcomeStatus: taskOutcome.status,
-                      payloadRef: null,
-                      responseContractRef: null
-                    }),
-                    constructCCallJudgedEvent({
-                      cCallRef: batchTaskRef,
-                      basisId: request.basis.id,
-                      judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
-                      reasonRef: null
-                    })
-                  ]);
+                  eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+                    cCallRef: batchTaskRef,
+                    basisId: request.basis.id,
+                    evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                    evidenceRefs: [taskInput.sourceProjectionRef],
+                    outcomeStatus: taskOutcome.status,
+                    payloadRef: null,
+                    responseContractRef: null,
+                    judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                    reasonRef: null
+                  }));
                 }
               }
             }
@@ -8802,7 +8647,7 @@ function* runEngineIterateMachine(input: {
             if (consequenceCCallStage === undefined) {
               throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
             }
-            const consequenceCCallOpened = constructCCallOpenedEvent({
+            const consequenceSpine = buildCCallSpineOpen({
               basisId: request.basis.id,
               graphFunctionId: transition.basis.graphFunction.id,
               graphCallId: graphCallIdForBasis(transition.basis),
@@ -8812,19 +8657,12 @@ function* runEngineIterateMachine(input: {
               stageRole: consequenceCCallStage.stageRole,
               taskOrdinal: null,
               attempt: 1,
-              batchRef: null
+              batchRef: null,
+              regime: "F_D",
+              armId: consequenceCCallStage.armId
             });
-            eventState = emitRunnerEvents(eventState, [
-              consequenceCCallOpened,
-              constructCCallFibreSelectedEvent({
-                cCallRef: consequenceCCallOpened.cCallRef,
-                basisId: request.basis.id,
-                regime: "F_D",
-                armId: consequenceCCallStage.armId,
-                programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-                compositionRef: null
-              })
-            ]);
+            const consequenceCCallOpened = consequenceSpine.opened;
+            eventState = emitRunnerEvents(eventState, consequenceSpine.events);
             const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
               yield Object.freeze({
                 kind: "consequence_project",
@@ -8865,27 +8703,17 @@ function* runEngineIterateMachine(input: {
               admission: consequenceStageAdmission,
               requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
             });
-            eventState = emitRunnerEvents(eventState, [
-              constructCCallEvidencedEvent({
-                cCallRef: consequenceCCallOpened.cCallRef,
-                basisId: request.basis.id,
-                evidenceClass: "fd_interior",
-                evidenceRefs: Object.freeze([scalarConsequenceInput.sourceProjectionRef])
-              }),
-              constructCCallResultAdmittedEvent({
-                cCallRef: consequenceCCallOpened.cCallRef,
-                basisId: request.basis.id,
-                outcomeStatus: consequenceOutcome.status,
-                payloadRef: null,
-                responseContractRef: null
-              }),
-              constructCCallJudgedEvent({
-                cCallRef: consequenceCCallOpened.cCallRef,
-                basisId: request.basis.id,
-                judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
-                reasonRef: null
-              })
-            ]);
+            eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+              cCallRef: consequenceCCallOpened.cCallRef,
+              basisId: request.basis.id,
+              evidenceClass: "fd_interior",
+              evidenceRefs: [scalarConsequenceInput.sourceProjectionRef],
+              outcomeStatus: consequenceOutcome.status,
+              payloadRef: null,
+              responseContractRef: null,
+              judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
+              reasonRef: null
+            }));
             if (consequenceStageBlockingReason !== null) {
               const blocked = terminalTransition(
                 request.basis,
@@ -9190,7 +9018,7 @@ function* runEngineIterateMachine(input: {
           if (fhStage === undefined) {
             throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
           }
-          const fhOpened = constructCCallOpenedEvent({
+          const fhSpine = buildCCallSpineOpen({
             basisId: request.basis.id,
             graphFunctionId: transition.basis.graphFunction.id,
             graphCallId: graphCallIdForBasis(transition.basis),
@@ -9200,40 +9028,24 @@ function* runEngineIterateMachine(input: {
             stageRole: fhStage.stageRole,
             taskOrdinal: null,
             attempt: 1,
-            batchRef: null
+            batchRef: null,
+            regime: "F_H",
+            armId: "fh_admission"
           });
-          eventState = emitRunnerEvents(eventState, [
-            fhOpened,
-            constructCCallFibreSelectedEvent({
-              cCallRef: fhOpened.cCallRef,
-              basisId: request.basis.id,
-              regime: "F_H",
-              armId: "fh_admission",
-              programRef: HOG_BOOTSTRAP_TRIPLE.programRef,
-              compositionRef: null
-            }),
-            constructCCallEvidencedEvent({
-              cCallRef: fhOpened.cCallRef,
-              basisId: request.basis.id,
-              evidenceClass: "fh_interior",
-              evidenceRefs: Object.freeze([
-                `approval-subject:${request.basis.resolvedPolicy.approvalSubjectRef ?? "none"}`
-              ])
-            }),
-            constructCCallResultAdmittedEvent({
-              cCallRef: fhOpened.cCallRef,
-              basisId: request.basis.id,
-              outcomeStatus: "escalated",
-              payloadRef: null,
-              responseContractRef: null
-            }),
-            constructCCallJudgedEvent({
-              cCallRef: fhOpened.cCallRef,
-              basisId: request.basis.id,
-              judgment: "escalated",
-              reasonRef: null
-            })
-          ]);
+          eventState = emitRunnerEvents(eventState, fhSpine.events);
+          eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+            cCallRef: fhSpine.cCallRef,
+            basisId: request.basis.id,
+            evidenceClass: "fh_interior",
+            evidenceRefs: [
+              `approval-subject:${request.basis.resolvedPolicy.approvalSubjectRef ?? "none"}`
+            ],
+            outcomeStatus: "escalated",
+            payloadRef: null,
+            responseContractRef: null,
+            judgment: "escalated",
+            reasonRef: null
+          }));
         }
         eventState = emitRunnerEvents(eventState, constructFhEscalatedEvent(transition));
         return constructResult({

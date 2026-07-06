@@ -567,7 +567,16 @@ micromanagement (proportionality waste, §12.1); under-reification of
 weak workers = chaos (the campaign's blind-retry loops). Trust
 calibration is program shape; compliance is gate invariance.
 
-### 8.1 P2 checkpoint amendment (codex round 4 + user checkpoint)
+### 8.1 P2 checkpoint amendment (codex round 4 + user checkpoint; A1 executed)
+
+A1 EXECUTED (ruling (a)): the ONE spine authority is
+`runner/c_call_spine.ts` — pure builders (buildCCallSpineOpen /
+buildCCallSpineClose), generator-compatible and gate-compatible; every
+engine site and the async resolver delegate to it; the engine
+constructs ZERO spine events directly (grep-proven). "One resolver
+entry" in generator form is thereby realized at the construction
+authority; the interpretation seam (programs/catalogs/ladders) is
+T-205's single entry, per this ruling.
 
 The strangler is TWO-STEP, ratified retroactively with the evidence in
 hand: step 1 (DONE) — spine visibility by site-bracketing; the wrapped
