@@ -1390,3 +1390,12 @@ export {
   HOG_PROGRAM_DECLARATION_KEY,
   hogProgramFromDeclarationAttrs
 } from "./hog_program_syntax.js";
+
+export {
+  HOG_PROGRAM_CATALOG_DECLARATION_KEY,
+  HOG_PROGRAM_SELECTION_KEY,
+  compileHogProgramCatalog,
+  selectHogProgram,
+  hogProgramCatalogFromDeclarationAttrs
+} from "./hog_program_syntax.js";
+export type { HogProgramCatalog } from "./hog_program_syntax.js";

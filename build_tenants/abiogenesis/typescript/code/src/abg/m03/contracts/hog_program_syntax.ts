@@ -8,7 +8,7 @@
 
 import type { SerializedAttrs } from "../../../gtl/m01/contracts/carriers.js";
 import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
-import type { HogProgramAdmission } from "./hog_program.js";
+import type { HogProgramAdmission, HogProgramDeclaration } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
 
 export const HOG_PROGRAM_SYNTAX_VERSIONS = Object.freeze([
@@ -84,4 +84,70 @@ export function hogProgramFromDeclarationAttrs(
     });
   }
   return compileHogProgramSyntax(serializedJsonValueToPlain(entry.value.value));
+}
+
+// -016: HoG configurations are LABELLED, never a singleton — a catalog
+// of named programs coexists; edges select by programRef. Tuning is
+// addressable at both levels: workflow shape (the program) and prompt
+// level (per-stage instructionCategoryRefs).
+export const HOG_PROGRAM_CATALOG_DECLARATION_KEY = "abg.hog_program_catalog";
+export const HOG_PROGRAM_SELECTION_KEY = "abg.hog_program_ref";
+
+export interface HogProgramCatalog {
+  readonly programs: ReadonlyMap<string, HogProgramDeclaration>;
+}
+
+export function compileHogProgramCatalog(input: unknown): {
+  readonly accepted: boolean;
+  readonly catalog: HogProgramCatalog | null;
+  readonly issues: readonly string[];
+} {
+  if (!Array.isArray(input)) {
+    return Object.freeze({ accepted: false, catalog: null, issues: Object.freeze(["catalog must be an array of program syntaxes"]) });
+  }
+  const issues: string[] = [];
+  const programs = new Map<string, HogProgramDeclaration>();
+  for (const [index, entry] of input.entries()) {
+    const compiled = compileHogProgramSyntax(entry);
+    if (!compiled.accepted || compiled.program === null) {
+      issues.push(`catalog[${index}]: ${compiled.issues.join("; ")}`);
+      continue;
+    }
+    if (programs.has(compiled.program.programRef)) {
+      issues.push(`catalog[${index}]: duplicate programRef ${compiled.program.programRef}`);
+      continue;
+    }
+    programs.set(compiled.program.programRef, compiled.program);
+  }
+  if (issues.length > 0) {
+    return Object.freeze({ accepted: false, catalog: null, issues: Object.freeze(issues) });
+  }
+  return Object.freeze({ accepted: true, catalog: Object.freeze({ programs }), issues: Object.freeze([]) });
+}
+
+export function selectHogProgram(
+  catalog: HogProgramCatalog,
+  programRef: string
+): HogProgramDeclaration | null {
+  return catalog.programs.get(programRef) ?? null;
+}
+
+export function hogProgramCatalogFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): ReturnType<typeof compileHogProgramCatalog> | null {
+  const entry = attrs.entries.find((row) => row.key === HOG_PROGRAM_CATALOG_DECLARATION_KEY);
+  if (entry === undefined) {
+    return null;
+  }
+  if (entry.value.kind !== "json_blob") {
+    return Object.freeze({
+      accepted: false,
+      catalog: null,
+      issues: Object.freeze([
+        `${HOG_PROGRAM_CATALOG_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+      ])
+    });
+  }
+  return compileHogProgramCatalog(serializedJsonValueToPlain(entry.value.value));
 }

@@ -97,6 +97,15 @@ structure around it.
   that remain explicit stages under every compression level. Capability
   is assessed from replay, never self-declared.
 
+- **-016 Labelled configurations.** HoG programs are NAMED
+  configurations, never a singleton: a declared catalog
+  (`abg.hog_program_catalog`) carries coexisting programs keyed by
+  programRef; edges select by label (`abg.hog_program_ref`); duplicate
+  labels fail closed. Tuning is addressable at BOTH declared levels:
+  workflow shape (the program) and prompt level (per-stage
+  `instructionCategoryRefs` — the inlined form of cognitive stages
+  under -015, consumed by the instruction section machinery at render).
+
 ## Realization State (typed strangler window — reviewed at each T-200 checkpoint)
 
 -001's universality is realized INCREMENTALLY under the ratified

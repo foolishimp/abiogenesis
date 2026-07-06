@@ -487,3 +487,51 @@ test("T-200 P6: engine-level fibre substitution preserves spine shape (-007)", a
   assert.deepEqual([...shapes.F_P], [...shapes.F_D],
     "identical spine kind-sequence under fibre substitution — tags differ, shape never");
 });
+
+// ─── -016: labelled catalogs — HoG is never a singleton ───
+
+import {
+  compileHogProgramCatalog,
+  selectHogProgram
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 -016: labelled program catalogs — coexisting configurations, per-ref selection, fail-closed duplicates", () => {
+  const lean = {
+    syntaxVersion: "hog-syntax/1",
+    programRef: "gtl://odd_glc/hog/lean-doc",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://d/t", resultBearing: true,
+        instructionCategoryRefs: ["instruction-category://plan-inline", "instruction-category://self-critique"] },
+      { stageRole: "evaluate", defaultRegime: "F_P", armId: "arm://d/e", resultBearing: false }
+    ],
+    proportionalityClass: "P1"
+  };
+  const hardened = {
+    syntaxVersion: "hog-syntax/1",
+    programRef: "gtl://odd_glc/hog/code-hardened",
+    stages: [
+      { stageRole: "plan", defaultRegime: "F_P", armId: "arm://c/p", resultBearing: false },
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://c/t", resultBearing: true },
+      { stageRole: "admit", defaultRegime: "F_D", armId: "arm://c/a", resultBearing: false },
+      { stageRole: "critique", defaultRegime: "F_P", armId: "arm://c/c", resultBearing: false },
+      { stageRole: "evaluate", defaultRegime: "F_P", armId: "arm://c/e", resultBearing: false },
+      { stageRole: "consequence", defaultRegime: "F_D", armId: "arm://c/q", resultBearing: false }
+    ],
+    proportionalityClass: "P3"
+  };
+  const compiled = compileHogProgramCatalog([lean, hardened]);
+  assert.equal(compiled.accepted, true, JSON.stringify(compiled.issues));
+  assert.equal(compiled.catalog.programs.size, 2);
+  // selection by label
+  const picked = selectHogProgram(compiled.catalog, "gtl://odd_glc/hog/code-hardened");
+  assert.equal(picked.stages.length, 6);
+  assert.equal(selectHogProgram(compiled.catalog, "gtl://nope"), null);
+  // the prompt-level surface rides the stage rows
+  const leanPicked = selectHogProgram(compiled.catalog, "gtl://odd_glc/hog/lean-doc");
+  assert.deepEqual(leanPicked.stages[0].instructionCategoryRefs,
+    ["instruction-category://plan-inline", "instruction-category://self-critique"]);
+  // NEGATIVE: duplicate labels fail closed
+  const dup = compileHogProgramCatalog([lean, lean]);
+  assert.equal(dup.accepted, false);
+  assert.match(dup.issues[0], /duplicate programRef/);
+});

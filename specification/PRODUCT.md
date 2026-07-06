@@ -909,7 +909,11 @@ engine's cost and coverage are readable from its own truth.
 ### Programs are configuration
 
 Workflow shape is product-declared data compiled through one isolated,
-versioned syntax (`hog-syntax/*`), never engine code. Stage
+versioned syntax (`hog-syntax/*`), never engine code. Configurations
+are LABELLED and coexist — a declared catalog of named programs with
+per-edge selection by ref — so tuning is addressable per edge-class at
+both the workflow level and the prompt level (per-stage instruction
+categories, the inlined form under gate invariance). Stage
 explicitness is capability-relative: cognitive stages reify as explicit
 nodes for weaker workers or inline as instruction categories for
 stronger ones — the regulator/process/checklist isomorphism — while

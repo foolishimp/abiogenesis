@@ -13,6 +13,10 @@ export interface HogProgramStage {
   readonly defaultRegime: CCallRegime;
   readonly armId: string;
   readonly resultBearing: boolean;
+  // -015/-016 prompt-level tuning: the INLINED form of cognitive stages —
+  // instruction categories folded into this stage's prompt (T-191
+  // section machinery consumes these at render).
+  readonly instructionCategoryRefs?: readonly string[] | undefined;
 }
 
 export interface HogProgramDeclaration {
@@ -105,6 +109,13 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       issues.push(`${at}.resultBearing must be a boolean`);
     } else if (stage.resultBearing) {
       resultBearingCount += 1;
+    }
+    if (
+      stage.instructionCategoryRefs !== undefined &&
+      (!Array.isArray(stage.instructionCategoryRefs) ||
+        !stage.instructionCategoryRefs.every(isNonEmptyString))
+    ) {
+      issues.push(`${at}.instructionCategoryRefs must be non-empty strings`);
     }
   }
   if (stages !== null && stages.length > 0 && resultBearingCount !== 1) {
