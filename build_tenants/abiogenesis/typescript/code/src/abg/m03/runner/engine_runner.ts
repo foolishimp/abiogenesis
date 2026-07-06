@@ -5979,10 +5979,56 @@ function* runEngineIterateMachine(input: {
             })
           );
         }
+        // T-205 B4: the F_D MECHANICAL TRANSFORM C call — on a
+        // deterministic edge the transform IS the source-projection
+        // derivation (a total function over replay: F_D by the totality
+        // law). No worker, no dispatch; the spine makes the degenerate
+        // transform visible and accountable. Same stage shape as the
+        // F_P bracket — only the fibre differs (-007).
+        const fdHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        {
+          const fdTransformStage = hogStageByRole(fdHogProgram, "transform");
+          if (fdTransformStage === null) {
+            throw new TypeError(`hog program ${fdHogProgram.program.programRef} must declare a transform stage`);
+          }
+          const fdTransformSpine = buildCCallSpineOpen({
+            basisId: request.basis.id,
+            graphFunctionId: transition.basis.graphFunction.id,
+            graphCallId: graphCallIdForBasis(transition.basis),
+            frameId: frameIdForBasis(transition.basis),
+            edge: transition.edge,
+            vectorIndex: transition.vectorIndex,
+            stageRole: fdTransformStage.stageRole,
+            taskOrdinal: null,
+            attempt: nextCCallAttempt(eventState.replayEvents, {
+              basisId: request.basis.id,
+              graphCallId: graphCallIdForBasis(transition.basis),
+              frameId: frameIdForBasis(transition.basis),
+              vectorIndex: transition.vectorIndex,
+              stageRole: fdTransformStage.stageRole,
+              taskOrdinal: null
+            }),
+            batchRef: null,
+            regime: "F_D",
+            armId: fdTransformStage.armId,
+            programRef: fdHogProgram.program.programRef
+          });
+          eventState = emitRunnerEvents(eventState, fdTransformSpine.events);
+          eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
+            cCallRef: fdTransformSpine.cCallRef,
+            basisId: request.basis.id,
+            evidenceClass: "fd_interior",
+            evidenceRefs: [scalarFdEvaluationInput.sourceProjectionRef],
+            outcomeStatus: "executed",
+            payloadRef: null,
+            responseContractRef: null,
+            judgment: "advance",
+            reasonRef: null
+          }));
+        }
         // T-200 P2d: the F_D evaluate C call — the same evaluate stage
         // role running the F_D fibre (live substitution: spine shape
         // identical to the F_P bracket, only the selection row differs).
-        const fdHogProgram = resolveHogProgram(transition.basis.graphFunction);
         const fdEvaluateStage = hogStageByRole(fdHogProgram, "evaluate");
         if (fdEvaluateStage === null) {
           throw new TypeError(`hog program ${fdHogProgram.program.programRef} must declare an evaluate stage`);
