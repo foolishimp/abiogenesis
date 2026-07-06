@@ -227,3 +227,14 @@ READINESS: version 4.5.0-rc.1, note single-current, docs swept
 (witness-driven), battery 1129/1129 + t205 13/13 + t188 32/32.
 AWAITING: user code review + test-results review; then B6 cut
 (snapshot:release + tarball + toolchain manifest) and T-205 closure.
+
+## codex rc.1 round CLOSED + final-candidate gate (2026-07-07)
+P1-a raw-field binding admission (no coercion, closed keys, probes
+pinned) + P1-b closed-key program/stage admission (explicit no-spread
+build; syntax layer uniform) — both fixed same-pass. Scenario-coverage
+matrix posted (4 in-review gaps closed incl. declared-bindings e2e +
+async driver law; 4 named gaps with phase owners). FINAL-CANDIDATE
+GATE at HEAD: sourceClean=true, releaseGrade=true, installed package
+4.5.0-rc.1, converged, per-config {gtl://sandbox/hog/lean: 6} — the
+evidence-scope caveat is retired. Suite 1134/1134, t205 18/18.
+B6 cut remains the only pending act.
