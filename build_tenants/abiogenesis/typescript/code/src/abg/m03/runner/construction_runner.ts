@@ -157,6 +157,18 @@ export interface ConstructionIntentRunnerRequest {
   readonly graphInstructionAssemblyStartup?:
     | EngineIterateRequest["instructionAssemblyStartup"]
     | undefined;
+  // T-195 P0-1: the remaining passthrough-family fields — a consequence
+  // sub-run carries the SAME declared law as its parent (temporal
+  // properties, carry-through, route bundle), never a subset.
+  readonly graphTemporalPropertyStartup?:
+    | EngineIterateRequest["temporalPropertyStartup"]
+    | undefined;
+  readonly graphRequirementProofCarryThroughStartup?:
+    | EngineIterateRequest["requirementProofCarryThroughStartup"]
+    | undefined;
+  readonly graphRequirementRouteDeclarationBundle?:
+    | EngineIterateRequest["requirementRouteDeclarationBundle"]
+    | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly graphAssuranceProvider?:
     | EngineIterateRequest["assuranceProvider"]
@@ -659,6 +671,21 @@ export function runConstructionEffectPlan(input: {
     ...(request.graphInstructionAssemblyStartup === undefined
       ? {}
       : { instructionAssemblyStartup: request.graphInstructionAssemblyStartup }),
+    ...(request.graphTemporalPropertyStartup === undefined
+      ? {}
+      : { temporalPropertyStartup: request.graphTemporalPropertyStartup }),
+    ...(request.graphRequirementProofCarryThroughStartup === undefined
+      ? {}
+      : {
+          requirementProofCarryThroughStartup:
+            request.graphRequirementProofCarryThroughStartup
+        }),
+    ...(request.graphRequirementRouteDeclarationBundle === undefined
+      ? {}
+      : {
+          requirementRouteDeclarationBundle:
+            request.graphRequirementRouteDeclarationBundle
+        }),
     eventSink: request.eventSink,
     plugins: request.graphRunnerPlugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,

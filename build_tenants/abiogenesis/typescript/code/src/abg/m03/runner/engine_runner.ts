@@ -3942,16 +3942,21 @@ function consequenceTraversalBlockedResult(input: {
   readonly eventState: EngineEventEmissionState;
   readonly reason: string;
   readonly iterationCount: number;
+  // T-195 P0-1: terminals in this lane go through the ONE choke point so
+  // the temporal property set judges them (verdict batch included).
+  readonly emitTerminal: (
+    state: EngineEventEmissionState,
+    events: RuntimeEvent | readonly RuntimeEvent[]
+  ) => EngineEventEmissionState;
 }): {
   readonly eventState: EngineEventEmissionState;
   readonly result: EngineIterateResult;
 } {
   const blocked = terminalTransition(input.request.basis, "gap_stop", input.reason);
-  const eventState = appendEngineRunnerEvents({
-    state: input.eventState,
-    events: constructTerminalReachedEvent(blocked),
-    sink: input.request.eventSink
-  });
+  const eventState = input.emitTerminal(
+    input.eventState,
+    constructTerminalReachedEvent(blocked)
+  );
   return Object.freeze({
     eventState,
     result: constructResult({
@@ -4556,6 +4561,10 @@ function buildConsequenceTraversalConstructionWorld(input: {
 }
 
 function consumeConsequenceTraversalAction(input: {
+  readonly emitTerminal: (
+    state: EngineEventEmissionState,
+    events: RuntimeEvent | readonly RuntimeEvent[]
+  ) => EngineEventEmissionState;
   readonly request: EngineIterateRequest;
   readonly eventState: EngineEventEmissionState;
   readonly runtimeProjection: RuntimeAggregateProjection;
@@ -4592,7 +4601,8 @@ function consumeConsequenceTraversalAction(input: {
       request: input.request,
       eventState: input.eventState,
       reason: build.reason,
-      iterationCount: input.iterationCount
+      iterationCount: input.iterationCount,
+      emitTerminal: input.emitTerminal
     });
   }
 
@@ -4623,6 +4633,11 @@ function consumeConsequenceTraversalAction(input: {
         graphRunnerPlugins: input.request.plugins,
         graphRuntimeRegistryStartup: input.request.runtimeRegistryStartup,
         graphInstructionAssemblyStartup: input.request.instructionAssemblyStartup,
+        graphTemporalPropertyStartup: input.request.temporalPropertyStartup,
+        graphRequirementProofCarryThroughStartup:
+          input.request.requirementProofCarryThroughStartup,
+        graphRequirementRouteDeclarationBundle:
+          input.request.requirementRouteDeclarationBundle,
         maxAttachedFpAttempts: input.request.maxAttachedFpAttempts,
         graphAssuranceProvider: input.request.assuranceProvider,
         graphTargetCarrierDefaults: input.request.targetCarrierDefaults,
@@ -6211,6 +6226,7 @@ function* runEngineIterateMachine(input: {
           });
         }
         const consequenceTraversalConsumption = consumeConsequenceTraversalAction({
+          emitTerminal: emitRunnerEvents,
           request,
           eventState,
           runtimeProjection: deriveRuntimeAggregateProjection(
@@ -7588,6 +7604,7 @@ function* runEngineIterateMachine(input: {
                 }
                 const consequenceTraversalConsumption =
                   consumeConsequenceTraversalAction({
+                    emitTerminal: emitRunnerEvents,
                     request,
                     eventState,
                     runtimeProjection: deriveRuntimeAggregateProjection(
@@ -8247,6 +8264,7 @@ function* runEngineIterateMachine(input: {
               });
             }
             const consequenceTraversalConsumption = consumeConsequenceTraversalAction({
+              emitTerminal: emitRunnerEvents,
               request,
               eventState,
               runtimeProjection: deriveRuntimeAggregateProjection(
