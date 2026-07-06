@@ -874,13 +874,55 @@ product terms:
 
 That is the intended role of this document.
 
-## Compute Tuple And The Uniform C-Call Envelope
+## Heart of Gold: The Compute Architecture
+
+ABG is the code engine. GTL is the language. HoG.GTL is the
+system-level composition written in GTL — HoG IS ABG running HoG.GTL.
+The engine's substrate surface is: seven algebra primitives, five spine
+event kinds, one judgment router, one census, and law. Everything
+richer is admitted GTL configuration.
+
+### The algebra
 
 Traversal A→B carries compute C as a tuple over the fibres
-{F_D, F_P, F_H}; each edge runs its declared program of C calls (default: the canonical
-transform/evaluate/consequence triple), fibre-substitutable via plugins — all-F_D degenerates to a
-workflow engine, all-F_H to a human process. Truth is shape-preserving
-under fibre substitution: one locus-only spine per C call with fibre
-selection and evidence as admitted interior rows (REQ-R-ABG3-CCALL,
-realized under T-200). The product owns fibre choice; ABG owns the
-envelope.
+{F_D, F_P, F_H}. Each edge runs its DECLARED program of C calls;
+the canonical triple [transform, evaluate, consequence] is baked only
+as bootstrap P0. The generator set: C.of (unit), C.id, C.compose
+(Kleisli sequencing, associative, flat unless lifted), C.edge,
+workflow.C (the named lift — the recursion functor), C.batch,
+C.retry. Compose is closed; boundaries exist only via named lifts:
+every spine level corresponds to an admitted program identity.
+All-F_D degenerates to a workflow engine; all-F_H to a human process;
+truth is shape-preserving under fibre substitution
+(`REQ-R-ABG3-CCALL-001..-015`).
+
+### The envelope
+
+One locus-only spine per C call (opened → fibre-selected →
+evidenced → result-admitted → judged); fibres are admitted interior
+rows, never spine structure. The judgment vocabulary {advance, retry,
+pending, blocked, escalated, no_declared_check} routes the monad;
+no_declared_check is never gate-satisfying. External work sessions in
+archives equal external-work-bearing spine invocations in replay — the
+engine's cost and coverage are readable from its own truth.
+
+### Programs are configuration
+
+Workflow shape is product-declared data compiled through one isolated,
+versioned syntax (`hog-syntax/*`), never engine code. Stage
+explicitness is capability-relative: cognitive stages reify as explicit
+nodes for weaker workers or inline as instruction categories for
+stronger ones — the regulator/process/checklist isomorphism — while
+verification gates remain explicit at every compression level
+(`-015`). Proportionality is the composable measure over C calls:
+declared class reconciles against replay-observed cost, and sustained
+divergence is a typed signal.
+
+### The reflective boundary
+
+Allocation over scarcity (which calls earn effort, which anneal to
+F_D, which few escalate to F_H — the scarcest resource) belongs to a
+reflective layer that consumes replay and authors DECLARATIONS only:
+solve loops write candidates, optimize loops write terms, and no
+program does both in one judgment. ABG remains the sole truth
+authority at every layer.

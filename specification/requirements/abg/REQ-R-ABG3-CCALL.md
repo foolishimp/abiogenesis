@@ -86,6 +86,14 @@ structure around it.
   declared program is in scope — a role outside the admitted program is
   drift.
 
+- **-015 Gate invariance under compression.** A cognitive stage (plan,
+  critique, repair guidance) is reifiable as an explicit program stage
+  OR inlinable as an instruction category, by declaration, calibrated
+  to worker capability. Verification is NEVER inlinable: F_D admission,
+  deterministic execution, and evaluate judgment are trust boundaries
+  that remain explicit stages under every compression level. Capability
+  is assessed from replay, never self-declared.
+
 ## Non-closure
 
 Weakened tests; any fibre name in spine code; any tool name in
