@@ -206,3 +206,24 @@ Neither absorbed stub BLOCKS functional-complete 4.5 (the clean run):
   FP-review wired-or-ratified): erase work, post-clean-run.
 T-199 repointed to T-206 (its merge note overclaimed: ladders are
 attempt-based selection, not per-vector property formulas).
+
+## B5 EARNED MAP + 4.5.0-rc.1 READINESS (2026-07-07)
+The internal-everything gate items and where each earned:
+- declared catalog override: LIVE LANE (t194 sandbox, real gpt-5.5
+  worker) — per-configuration {gtl://sandbox/hog/lean: 6}, declared
+  arms on all rows, session parity 2==2, converged, releaseGrade
+  sourceClean=true classification on the run artifact;
+- ladder escalation: engine battery (compression descent across
+  resume, governing-attempt coherence);
+- resume: engine battery (frontier holds, fresh window, -004
+  replay-global attempts);
+- consequence re-entry: engine battery (t152-lane: upstream landing,
+  monotone spines through the loop);
+- handlers end-to-end: engine battery (keystone 4-stage + triad
+  6-stage, all three fibres); binding DECLARATION surface live
+  (bindings/configs as GTL, registry admitted at entry);
+- -012 per configuration: live-lane audit row.
+READINESS: version 4.5.0-rc.1, note single-current, docs swept
+(witness-driven), battery 1129/1129 + t205 13/13 + t188 32/32.
+AWAITING: user code review + test-results review; then B6 cut
+(snapshot:release + tarball + toolchain manifest) and T-205 closure.

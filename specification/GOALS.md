@@ -611,9 +611,11 @@ Phases:
   F_P transport + F_H gate handlers shipped); B4 COMPLETE (F_D
   mechanical-transform spine — envelope universal on both lanes);
   -017 LADDERS LIVE (compression descent proven across resume;
-  governing-attempt coherence). Remaining to the gate: B5 only —
-  the internal-everything lane (real worker, consequence re-entry
-  exercised, -012 per configuration) → B6 cut.
+  governing-attempt coherence). B5 DONE (earned map on T-205: live lane with a real worker governed
+  by the DECLARED catalog, releaseGrade sourceClean classification;
+  engine batteries carry escalation/resume/re-entry). 4.5.0-rc.1
+  READINESS COMMITTED (version + note + docs swept, battery
+  1129/1129). B6 cut awaits user review of code + test results.
 - C — glc: repin; binding becomes declarations (catalog + ladder +
   consequence catalog; repaired_* stages retire); resume flag; iterate
   in-system to the clean run. T-030 and T-195 close. 4.5 functionally
