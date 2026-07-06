@@ -206,3 +206,57 @@ archives==replay audit), test:t194:sandbox-live, and the odd_glc
 data-mapper live lane on the envelope release.
 
 STATUS: design amended; awaiting user P0 evaluation before realization.
+
+## 9. Refined execution plan to RC (from P0-complete + P1 batch 1)
+
+P1 finish: test:t200 lane batch 1 (admission axes x5, cCallRef collision
++ format, NEGATIVE spine-with-regime, judgment vocab) + npm script.
+Gate: t200 + semantic green.
+
+P2 strangler (load-bearing), fibre-by-fibre inside one seam:
+  2a resolveCCall entry + (stageRole x fibre) census rows;
+  2b transform.F_P spine around existing interior (finding #11 partner);
+  2c evaluate.F_P spine — evaluator sessions become replay truth;
+  2d F_D lanes incl. deterministic execution (evidence artifacts per
+     -012); 2e composed per-task spines with batchRef; 2f F_H.
+  Event-count assertions updated honestly per lane. Differentials:
+  parity t072/t145/t146/t183; archives==replay on p4; enclosure NEGATIVE
+  (free-floating fibre event -> drift diagnostic).
+  GODEL CHECKPOINT: user reviews parity + audit evidence.
+  DECISION POINT (user): confirm spine-per-task granularity on the
+  instrumented composed lanes.
+
+P3 gates re-anchored: five standing gates bind c_call_fibre_selected
+  (regime guards); pre-envelope replay via -011 adapter; m04 pending
+  projection generalizes dispatch_required (named gap resolved).
+  Interlock: T-195 remainder item "T-192 Rule via constructor" lands
+  here (gate rules re-authored on the constructor, cast retired).
+  Differentials: non-vacuous on evaluate arm; NEGATIVE no_declared_check
+  never satisfies.
+
+P4 retry law at spine: allowlist judges spine outcomes; arm parity +
+  NEGATIVE non-allowlisted blocks identically. odd_glc #5b guards become
+  redundant upstream (retired at repin).
+  Interlock: T-195 "coerceRuntimeBinding structural admission" lands
+  with the CLI seam touch; stall-classification single module folds in.
+
+P5 erase pass: per-arm resolvers, C3 markers, dispatch_required
+  specialness, PublicTerminalKind + trio tie consolidation; enclosure
+  witness over REAL t194 replay. Erase register section 6 checked off.
+  Gate: full suite + t188/t189/t191/t192/t193.
+
+P6 proof: audit-equality (-012) automated INTO test:t194:sandbox-live;
+  substitution differential (evaluate F_P->F_D fixture, identical spine
+  shape). T-200 closes on the fresh green gate (standing closure rule).
+
+P7 RC ritual: authored 4.4.0-rc.1 note (self-reference + docs witnesses
+  standing); earn set; gates; sourceClean; snapshot; GOALS record (no
+  active-ticket refs); toolchain install; odd_glc repin (+ campaign
+  vector-16 sbt spawn-null fix, odd_glc-side, rides this window);
+  data-mapper live run on the envelope substrate.
+  T-195 closes on the CLEAN data-mapper run (its acceptance).
+  Backlog untouched by RC: T-196/197/199/201/202/203b.
+
+Standing risks: event-count churn across 1095 tests (honest updates
+only); m04 pending mapping; -011 adapter correctness on rc.10-era
+ledgers.
