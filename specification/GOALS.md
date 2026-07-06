@@ -523,3 +523,17 @@ RC10 completes the T-030 campaign causal-excerpt fix: the runner's
 fact-construction cap (a second 2400-char ceiling under the rc.9 render
 fix) now reads the same plan-declared `causalExcerptMaxChars` policy, so
 the evaluate arm sees full candidate evidence. All RC9 claims preserved.
+
+The T-195 remediation cut is ABI TypeScript `4.3.0-rc.1`:
+
+- source commit `8a209181b30cac88058aa78163042e82bbcd5cb6` (`sourceDirty: false`); `latest -> 4.3.0-rc.1`;
+- tarball sha256 `a89f2ef27228b3d391c38b47d988fe1363beeffdb61b941c99694814080b367f`; manifest sha256 `648c9de1a6e5856c3a6adaded40a3ef342f3ca846ea8ca5ea076cb3976a26d97`; note sha256 `45ccb7534e1dbdf873d724ce6e73f7ce0a12dbd81eaee8cf222076e3b1aad44e`;
+- verification: `test:semantic` 1094/1094 (incl. the new release-note
+  self-reference drift witness), `test:t188` 32/32, `test:t189` 11/11,
+  standing gate `test:t194:sandbox-live` 1/1 `{ sourceClean: true }`;
+- delta: the T-195 five-dimension review remediation (see the authored
+  release note); T-195 remains ACTIVE for the enumerated remainder
+  (coerceRuntimeBinding structural admission, T-192 Rule constructor,
+  stall-classification single module, PublicTerminalKind, transport trio
+  tie, assurance opt-out admission) and closes with the clean data-mapper
+  run.
