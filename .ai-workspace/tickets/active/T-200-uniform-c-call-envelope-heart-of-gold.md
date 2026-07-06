@@ -118,3 +118,44 @@ free-floating fibre events on real replay; no_declared_check satisfying
 a declared check; archives ≠ replay on any external-work-bearing arm;
 engine code paths richer than the baked triple; a spine level without
 admitted program identity; release claims citing active tickets.
+
+## P2c SPLICE SPEC (execute next; facts verified at HEAD)
+
+Transform.F_P bracket in `code/src/abg/m03/runner/engine_runner.ts`
+(scalar_transform arm, armId literal at :6639):
+
+1. OPEN — insert AFTER
+   `eventState = emitRunnerEvents(eventState, instructionBinding.event);`
+   (:~6671):
+   construct `c_call_opened` via constructCCallOpenedEvent with locus:
+   basisId = request.basis.id; graphCallId/frameId/graphFunctionId from
+   the actor runtime scope used by constructActorInvocationStartedEvent
+   (helper `actorRuntimeScope(actorInvocation)` in event_factories —
+   reuse or mirror its field source); edge = transition.edge;
+   vectorIndex = transition.vectorIndex; stageRole/armId from
+   HOG_BOOTSTRAP_TRIPLE.stages[0]; attempt =
+   actorInvocation.attemptIndex; taskOrdinal/batchRef null. Then
+   `c_call_fibre_selected` {regime: "F_P"}. Emit both via
+   emitRunnerEvents. Track `const transformCCall = { ref, evidence:
+   [instructionBinding.manifest.manifestRef] }` in the attempt scope.
+2. EVIDENCE — after the dispatch-candidate gate passes (:~6700) push
+   the dispatch ref; after invocation events push invocation refs.
+3. CLOSE (accepted) — at `attachedDecision.kind === "accepted"` block
+   (:~6856, after `attachedDecision.payloadEvents` emission): emit
+   c_call_evidenced (accumulated refs) + c_call_result_admitted
+   {outcomeStatus from the dispatch outcome status, payloadRef from the
+   attached payload ref} + c_call_judged {advance}.
+4. CLOSE (rejected/blocked paths) — the payload-rejection and
+   gate-block/terminal branches in the same region: judged
+   {retry|blocked} with reasonRef null.
+5. FALLOUT — event-sequence assertions gain spine kinds: expect red in
+   test_t192_temporal_properties engine tests (exact batch kinds),
+   t072/t145/t146 lanes, m03/m04 integration event lists. Update
+   honestly (add the five kinds where the lane traverses the scalar
+   arm); NEVER weaken semantics.
+6. NEXT bracket: evaluate.F_P (armId at :7295; disposition exits
+   :7522 retry / :7745 blocked / :7810 accepted) — closes finding #11.
+7. THEN: -012 audit script (sessions==spine) into the t194 gate lane.
+
+Tree state at spec time: GREEN — t200 13/13, semantic 1108/1108, all
+P2a/P2a.2/P2b committed.
