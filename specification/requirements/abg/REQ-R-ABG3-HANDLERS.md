@@ -47,6 +47,18 @@ handler configuration; it does not implement a standard-path worker loop.
   → payload admission), F_D process-execution, F_D materialization,
   F_H gate. Products configure them by declarations only; the standard
   path ships zero downstream handler code.
+  TOTALITY LAW (user, the formal criterion): F_D is lawful ONLY as a
+  finite state machine over a TOTAL function — a program: defined
+  output for every input in its domain, finite states, guaranteed
+  termination. Predicates that are partial over MEANING (semantic
+  quality, intent satisfaction, "did the work succeed") have an open
+  domain; executing them deterministically does not close it — they
+  are F_P by nature. This is why executed/blocked is lawful F_D
+  vocabulary (total: every process outcome maps to exactly one) and
+  accepted/rejected over work quality is not (partial: presumes a
+  semantic domain). F_P exists precisely because such functions are
+  not total — they are distributions requiring sampling under
+  judgment.
   STRICT F_D RIDER (user law): F_D handler outcomes are MECHANICAL
   vocabulary only (executed / blocked / envelope facts: existence,
   write-root, digest, identity). An F_D handler never pronounces
