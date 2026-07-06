@@ -185,3 +185,33 @@ test("T-193 P4: the real tree is judged clean (post-fix) — drift detection is 
     "the real tree must carry no constitutional drift"
   );
 });
+
+// ─── T-195 C7: the release note may not misdescribe its own cut ───
+
+test("T-195 release note names its version once and never follows itself", () => {
+  const noteText = readFileSync(
+    path.join(REPO_ROOT, "docs", "ABIOGENESIS_RC_RELEASE_NOTE.md"),
+    "utf8"
+  );
+  const titleMatch = noteText.match(/^# abiogenesis (\S+) Release Candidate Note/m);
+  assert.notEqual(titleMatch, null, "release note must open with its version");
+  const noteVersion = titleMatch[1];
+  const followsMatch = noteText.match(/It\s+follows\s+`(\S+?)`/);
+  assert.notEqual(followsMatch, null, "release note must name its predecessor");
+  assert.notEqual(
+    followsMatch[1],
+    noteVersion,
+    "release note claims to follow ITSELF — sed-bumped body, not an authored delta"
+  );
+  const pkg = JSON.parse(
+    readFileSync(
+      path.join(REPO_ROOT, "build_tenants", "abiogenesis", "typescript", "package.json"),
+      "utf8"
+    )
+  );
+  assert.equal(
+    noteVersion,
+    pkg.version,
+    "release note version line drifted from package version"
+  );
+});

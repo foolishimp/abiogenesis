@@ -1,19 +1,47 @@
-# abiogenesis 4.2.0-rc.10 Release Candidate Note
+# abiogenesis 4.3.0-rc.1 Release Candidate Note
 
-This checkpoint is the tenth TypeScript ABG `4.2.0` release candidate. It
-follows `4.2.0-rc.10` with two downstream-driven root-cause fixes from the
-odd_glc data-mapper live campaign (T-030): the causal-excerpt render bound
-is plan-declared policy (`causalExcerptMaxChars`, fail-closed validation)
-instead of a hardcoded 12k constant that silently starved product-scale
-admitted content, and the codex worker model is adapter ingress
-(`ABG_TS_CODEX_MODEL`) instead of a hardcoded account-dependent pin. All
-rc.8 claims are preserved unchanged.
+This checkpoint is the first `4.3.0` release candidate. It follows
+`4.2.0-rc.10` and carries the T-195 full-review remediation wave — the
+product-completeness pass over the five-dimension rc.10 review:
 
-It is an RC candidate, not the final tapped `4.2.0` release.
+- one retry-law allowlist home (`RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES`
+  in carriers; zoom/slice and branch arms derive);
+- digest prefixes minted only by `runtime_identity` (the landed
+  `sha256:sha256:` double-prefix drift in composed-stage plans and the
+  executive workspace digest is repaired);
+- governed until/fh-mode/root-mode enums have one value home consumed by
+  the CLI parsers and the event-admission schema;
+- intake integrity: only a MISSING event ledger reads as genesis
+  (ENOENT-discriminated), every replay row is admitted as a canonical
+  runtime event, the admission-ordinal counter only moves forward, and
+  caller-supplied truth digests are verified against recomputed content
+  (construction rejects forgeries; admission mints the typed
+  `replay_digest_mismatch` issue);
+- plugin-default adjudication: fd-evaluator and consequence-projection
+  vacuity is replay-visible evidence; the fp-dispatch default is
+  bisect-verified as the lawful dispatch-pending stop, not fabrication;
+- truth perimeter: workspace plugin factories receive a KIND-RESTRICTED
+  sink (`TRANSPORT_SINK_EVENT_KIND_VALUES`, enforcing the declared
+  `sink_receive_only` authority); start-command events survive mid-run
+  throws; perimeter failures enter replay as the new
+  `runtime_failure_observed` event with stack excerpt;
+- lane closure: consequence/construction sub-runs consume the FULL
+  engine-start passthrough authority (temporal properties, carry-through,
+  route bundle) and lane terminals emit through the one temporal choke
+  point;
+- seam consolidation: one excerpt-truncation transform, one canonical
+  envelope predicate, one canonical `stableJson`/digest family (gaps
+  digests are now environment-stable), one target-carrier payload
+  identity mint, transport fallback IDs derived from runtime_support;
+- paperwork with teeth: the release-note self-reference drift class is
+  now a standing red-suite witness; TEMPORAL-PROPERTIES carries a Status
+  header; the successor ledger is ticketed (T-196..T-202, T-203b).
+
+It is an RC candidate, not the final tapped `4.3.0` release.
 
 ## Release Claim
 
-RC8 preserves the earned RC7 claims below and adds, as closed-ticket truth:
+All 4.2.0-line claims below are preserved unchanged (earned across rc.7-rc.10):
 
 Temporal property layer (T-192, closed):
 
@@ -150,9 +178,9 @@ RC7 does not accept as truth:
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.2.0-rc.10`
-- Candidate package version: `4.2.0-rc.10`
-- Candidate tag: `v4.2.0-rc.10`
+- RC identity: `4.3.0-rc.1`
+- Candidate package version: `4.3.0-rc.1`
+- Candidate tag: `v4.3.0-rc.1`
 
 ## Verification
 

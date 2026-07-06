@@ -1,6 +1,6 @@
 // Validates: T-138
 // Validates: REQ-L-GTL3-EVALUATOR-008
-// Validates: REQ-R-ABG3-FP-CONSCIOUSNESS-011
+// Validates: REQ-R-ABG3-FPC-011
 
 import test from "node:test";
 import assert from "node:assert/strict";

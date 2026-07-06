@@ -1,5 +1,7 @@
 # REQ-L-GTL3-TEMPORAL-PROPERTIES — GTL Temporal Property Law
 
+**Status**: Active
+
 GTL declares temporal-logic properties over the ABG event trace as a Rule
 kind. ABG checks them as total deterministic functions over finite replay
 traces with three-valued verdicts. This family is the dynamic enforcement

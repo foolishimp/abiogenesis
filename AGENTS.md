@@ -46,7 +46,7 @@ Default role assignments for this install:
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 4.2.0-rc.10
+**Version**: 4.3.0-rc.1
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal read model over the live GTL 3 / ABG 3 constitutional surface
 
