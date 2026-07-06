@@ -446,3 +446,13 @@ only behind F_D gates; anneal stages to F_D as they stabilize; doc-
 producing edges keep the lean default triple at low effort. The
 canonical triple remains the degenerate minimum — this program is what
 it grows into where the work is code.
+
+### 14.1 Status of §14: configuration, not substrate
+
+§14 is CONFIGURATION built from the primitives — C.of/compose/edge
+applications with fibre parameters and proportionality declarations.
+Nothing in it is engine. It ships as reference declaration data in
+product space (a declared default program carrier), never as engine
+code paths. The substrate's whole surface is: seven primitives, five
+spine kinds, one judgment router, one census, and law. Everything else
+in §8–§14 — including the "best" workflow — is authored from them.
