@@ -48,6 +48,8 @@ import type {
   VectorClosedEvent,
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent,
+  RuntimeFailureClass,
+  RuntimeFailureObservedEvent,
   TemporalPropertyVerdictProjectedEvent
 } from "./carriers.js";
 import type {
@@ -909,6 +911,23 @@ export function constructTemporalPropertyVerdictProjectedEvent(input: {
     vacuous: input.vacuous,
     witnessCount: input.witnessCount,
     implicatedEventRefs: Object.freeze([...input.implicatedEventRefs])
+  });
+}
+
+export function constructRuntimeFailureObservedEvent(input: {
+  readonly basisId: string | null;
+  readonly surface: string;
+  readonly failureClass: RuntimeFailureClass;
+  readonly message: string;
+  readonly stackExcerpt: string | null;
+}): RuntimeFailureObservedEvent {
+  return Object.freeze({
+    kind: "runtime_failure_observed",
+    basisId: input.basisId,
+    surface: input.surface,
+    failureClass: input.failureClass,
+    message: input.message,
+    stackExcerpt: input.stackExcerpt
   });
 }
 

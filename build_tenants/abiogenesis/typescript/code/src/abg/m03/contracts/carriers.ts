@@ -845,6 +845,17 @@ export interface TemporalPropertyVerdictProjectedEvent {
   readonly implicatedEventRefs: readonly string[];
 }
 
+// T-195 P0-4: a perimeter failure is EVENTS, not a swallowed wrapper —
+// the CLI records the failure into replay truth before reporting it.
+export interface RuntimeFailureObservedEvent {
+  readonly kind: "runtime_failure_observed";
+  readonly basisId: string | null;
+  readonly surface: string;
+  readonly failureClass: RuntimeFailureClass;
+  readonly message: string;
+  readonly stackExcerpt: string | null;
+}
+
 export interface TerminalReachedEvent {
   readonly kind: "terminal_reached";
   readonly basisId: string;
@@ -2553,6 +2564,7 @@ export type RuntimeEvent =
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
   | TemporalPropertyVerdictProjectedEvent
+  | RuntimeFailureObservedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
   | FrameOpenedEvent
@@ -2673,6 +2685,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "instruction_response_contract_admitted",
   "fh_escalated",
   "temporal_property_verdict_projected",
+  "runtime_failure_observed",
   "terminal_reached",
   "graph_call_opened",
   "frame_opened",

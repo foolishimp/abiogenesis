@@ -254,7 +254,10 @@ function activityRow(input: {
     kind: "runtime_liveness_activity_row",
     sourceEventKind: input.event.kind,
     eventOrdinal: input.eventOrdinal,
-    basisId: "basisId" in input.event ? input.event.basisId : input.basis.id,
+    basisId:
+      "basisId" in input.event && input.event.basisId !== null
+        ? input.event.basisId
+        : input.basis.id,
     graphFunctionId: eventGraphFunctionId(input.event, input.basis),
     runId: eventRunId(input.event, input.basis),
     workKey: eventWorkKey(input.event, input.basis),
@@ -340,7 +343,10 @@ function interruptionRow(input: {
     kind: "runtime_liveness_interruption_row",
     sourceEventKind: input.event.kind,
     eventOrdinal: input.eventOrdinal,
-    basisId: "basisId" in input.event ? input.event.basisId : input.basis.id,
+    basisId:
+      "basisId" in input.event && input.event.basisId !== null
+        ? input.event.basisId
+        : input.basis.id,
     graphFunctionId: eventGraphFunctionId(input.event, input.basis),
     runId: eventRunId(input.event, input.basis),
     workKey: eventWorkKey(input.event, input.basis),

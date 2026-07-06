@@ -1,6 +1,9 @@
 // Implements: REQ-P-POLICY-017
 
 import { assertCanonicalRuntimeEvent } from "../abg/m03/contracts/event_admission.js";
+import { TRANSPORT_SINK_EVENT_KIND_VALUES } from "../abg/m03/contracts/plugins.js";
+import { constructRuntimeFailureObservedEvent } from "../abg/m03/contracts/event_factories.js";
+import { emit } from "../abg/m03/events/emit.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -1570,6 +1573,17 @@ async function runStartCommand(
   const eventSink = (event: RuntimeEvent): void => {
     emitted.push(event);
   };
+  // T-195 P0-3: workspace plugin factories get a KIND-RESTRICTED sink —
+  // transport envelope events only; core truth enters exclusively through
+  // admitted plugin outcomes.
+  const pluginEventSink = (event: RuntimeEvent): void => {
+    if (!(TRANSPORT_SINK_EVENT_KIND_VALUES as readonly string[]).includes(event.kind)) {
+      throw new CliError(
+        `workspace plugin emitted non-transport event kind ${JSON.stringify(event.kind)}; plugin truth enters through outcomes only`
+      );
+    }
+    emitted.push(event);
+  };
   const resolvedPolicy = await runtimePolicyForStart({
     binding,
     workspaceRoot,
@@ -1583,14 +1597,35 @@ async function runStartCommand(
     command,
     target,
     replayEvents,
-    eventSink
+    eventSink: pluginEventSink
   });
-  const outcome = await publicCallableStartAsync(
-    callableInput(command, workspaceRoot, binding, target),
-    startContext(workspaceRoot, binding, replayEvents, resolvedPolicy),
-    eventSink,
-    plugins
-  );
+  let outcome;
+  try {
+    outcome = await publicCallableStartAsync(
+      callableInput(command, workspaceRoot, binding, target),
+      startContext(workspaceRoot, binding, replayEvents, resolvedPolicy),
+      eventSink,
+      plugins
+    );
+  } catch (error) {
+    // T-195 P0-4: failures are EVENTS — record the perimeter failure into
+    // replay truth and preserve everything emitted before the throw.
+    emit(
+      constructRuntimeFailureObservedEvent({
+        basisId: null,
+        surface: "cli:start",
+        failureClass: "runtime_failure",
+        message: error instanceof Error ? error.message : String(error),
+        stackExcerpt:
+          error instanceof Error && typeof error.stack === "string"
+            ? error.stack.slice(0, 2000)
+            : null
+      }),
+      eventSink
+    );
+    await appendRuntimeEvents(eventLogPath, emitted);
+    throw error;
+  }
   await appendRuntimeEvents(eventLogPath, emitted);
 
   const output = {
@@ -2000,7 +2035,14 @@ export async function runAbiogenesisCli(
     const reason = error instanceof Error ? error.message : "unknown CLI error";
     const exitCode = error instanceof CliError ? error.exitCode : 1;
     io.stdout(`${JSON.stringify({ status: "error", reason })}\n`);
-    io.stderr(`${reason}\n`);
+    // T-195 P0-4: never discard the stack or the cause chain.
+    const stack = error instanceof Error && typeof error.stack === "string"
+      ? error.stack
+      : reason;
+    const cause = error instanceof Error && error.cause !== undefined
+      ? `\ncause: ${error.cause instanceof Error ? error.cause.stack ?? error.cause.message : String(error.cause)}`
+      : "";
+    io.stderr(`${stack}${cause}\n`);
     return exitCode;
   }
 }

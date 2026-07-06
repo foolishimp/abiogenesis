@@ -743,6 +743,7 @@ export function deriveRetryFrontierProjection(input: {
       case "registry_entry_admitted":
       case "registry_entry_rejected":
       case "temporal_property_verdict_projected":
+      case "runtime_failure_observed":
       case "registry_plugin_advice_admitted":
       case "registry_plugin_advice_rejected":
       case "graph_function_selected":

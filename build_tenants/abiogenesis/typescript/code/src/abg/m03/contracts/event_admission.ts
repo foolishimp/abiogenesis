@@ -1132,6 +1132,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     witnessCount: "nullable_non_negative_integer",
     implicatedEventRefs: "string_array"
   }),
+  runtime_failure_observed: applyFieldRules("RuntimeFailureObservedEvent", {
+    basisId: "nullable_string",
+    surface: "non_empty_string",
+    failureClass: { oneOf: RUNTIME_FAILURE_CLASS_VALUES },
+    message: "non_empty_string",
+    stackExcerpt: "nullable_string"
+  }),
   terminal_reached: applyFieldRules("TerminalReachedEvent", {
     basisId: "non_empty_string",
     terminalKind: { oneOf: TERMINAL_KIND_VALUES },

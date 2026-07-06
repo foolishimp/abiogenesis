@@ -2481,6 +2481,21 @@ export const defaultFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
     })
 });
 
+// T-195 P0-3: the ONLY event kinds a workspace plugin may emit through
+// the handed sink (sink_receive_only, enforced at the CLI seam) — the
+// transport execution envelope. Core truth enters through outcomes.
+export const TRANSPORT_SINK_EVENT_KIND_VALUES = Object.freeze([
+  "actor_process_started",
+  "actor_process_start_failed",
+  "actor_process_stream_observed",
+  "actor_process_heartbeat",
+  "actor_process_timeout",
+  "actor_process_signal_sent",
+  "actor_process_exited",
+  "runtime_activity_probe_observed",
+  "runtime_external_interruption_observed"
+] as const);
+
 export const missingFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
   contract: fpEvaluatorContract,
   evaluate: (input: EnginePluginInput): FpEvaluationOutcome =>
