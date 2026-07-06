@@ -7,6 +7,9 @@ import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../con
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { resolveHogProgram, hogStageByRole } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
+import { resolveHandlerForSelection, executeHandler } from "./c_call_handlers.js";
+import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
+import type { HogProgramStage } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -440,6 +443,7 @@ interface EngineInstructionAssemblyRuntime {
 }
 
 interface ResolvedRunnerPlugins {
+  readonly handlerRegistry: CCallHandlerRegistry | null;
   readonly fdEvaluator: FdEvaluatorPlugin;
   readonly fpEvaluator: FpEvaluatorPlugin;
   readonly fpDispatch: FpDispatchPlugin;
@@ -457,6 +461,7 @@ function resolveRunnerPlugins(
   plugins: EngineRunnerPluginSet | undefined
 ): ResolvedRunnerPlugins {
   return Object.freeze({
+    handlerRegistry: plugins?.handlerRegistry ?? null,
     fdEvaluator: plugins?.fdEvaluator ?? defaultFdEvaluatorPlugin,
     fpEvaluator: plugins?.fpEvaluator ?? missingFpEvaluatorPlugin,
     fpDispatch: plugins?.fpDispatch ?? defaultFpDispatchPlugin,
@@ -4806,6 +4811,13 @@ type EnginePluginEffect =
   | {
       readonly kind: "construction_intent_step";
       readonly request: ConstructionIntentRunnerRequest;
+    }
+  | {
+      readonly kind: "c_call_handler_execute";
+      readonly programRef: string;
+      readonly stage: HogProgramStage;
+      readonly declaredConfig: unknown;
+      readonly workProjection: unknown;
     };
 
 type EnginePluginEffectResult =
@@ -4851,6 +4863,10 @@ type EnginePluginEffectResult =
   | {
       readonly kind: "construction_intent_step";
       readonly outcome: ConstructionRunnerStepOutcome;
+    }
+  | {
+      readonly kind: "c_call_handler_execute";
+      readonly interior: CCallHandlerInterior;
     };
 
 function assertEnginePluginEffectKind(
@@ -4884,6 +4900,7 @@ function fdEvaluationOutcomeFromEffectResult(
       throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
   }
 }
@@ -4919,6 +4936,7 @@ function composedStageTaskBatchOutcomesFromEffectResult(input: {
     case "fh_admit":
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError(
         "Engine plugin effect expected composed_stage_task_batch_run"
       );
@@ -4956,6 +4974,7 @@ function evaluationRuleBatchOutcomesFromEffectResult(input: {
     case "fh_admit":
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError(
         "Engine plugin effect expected evaluation_rule_batch_evaluate"
       );
@@ -4977,6 +4996,7 @@ function fpEvaluationOutcomeFromEffectResult(
     case "fh_admit":
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected fp_evaluate");
   }
 }
@@ -5022,6 +5042,7 @@ function fpDispatchOutcomeFromEffectResult(
       throw new TypeError("Engine plugin effect expected fp_dispatch");
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected fp_dispatch");
   }
 }
@@ -5041,6 +5062,7 @@ function fhAdmissionOutcomeFromEffectResult(
     case "fp_dispatch":
     case "consequence_project":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected fh_admit");
   }
 }
@@ -5060,6 +5082,7 @@ function consequenceProjectionOutcomeFromEffectResult(
     case "fp_dispatch":
     case "fh_admit":
     case "construction_intent_step":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected consequence_project");
   }
 }
@@ -5079,6 +5102,7 @@ function constructionRunnerOutcomeFromEffectResult(
     case "fp_dispatch":
     case "fh_admit":
     case "consequence_project":
+    case "c_call_handler_execute":
       throw new TypeError("Engine plugin effect expected construction_intent_step");
   }
 }
@@ -9223,6 +9247,39 @@ export function resolveSyncEnginePluginEffect(
   plugins: ResolvedRunnerPlugins
 ): EnginePluginEffectResult {
   switch (effect.kind) {
+    case "c_call_handler_execute": {
+      // HANDLERS-012 belt: entry admission guarantees a binding exists;
+      // if the invariant breaks, the interior is typed blocked, never a
+      // host escape.
+      let interior: CCallHandlerInterior;
+      try {
+        if (plugins.handlerRegistry === null) {
+          throw new TypeError("handler_binding_missing: no registry admitted");
+        }
+        const hit = resolveHandlerForSelection(plugins.handlerRegistry, {
+          programRef: effect.programRef,
+          stageRole: effect.stage.stageRole,
+          armId: effect.stage.armId,
+          regime: effect.stage.defaultRegime
+        });
+        interior = executeHandler(hit.handler, {
+          stage: effect.stage,
+          binding: hit.binding,
+          declaredConfig: effect.declaredConfig,
+          workProjection: effect.workProjection
+        });
+      } catch (error) {
+        const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+        interior = Object.freeze({
+          outcomeStatus: "blocked",
+          evidenceRefs: Object.freeze([`handler-resolution-error:${effect.stage.armId}`]),
+          payloadRef: null,
+          responseContractRef: null,
+          failureReason: `${message} (contract_failure)`
+        });
+      }
+      return Object.freeze({ kind: "c_call_handler_execute", interior });
+    }
     case "fd_evaluate":
       return Object.freeze({
         kind: "fd_evaluate",
@@ -9364,6 +9421,10 @@ async function resolveAsyncEnginePluginEffect(
   plugins: ResolvedRunnerPlugins
 ): Promise<EnginePluginEffectResult> {
   switch (effect.kind) {
+    case "c_call_handler_execute":
+      // handlers are sync data-in/data-out; the sync resolver's typed
+      // conversion applies identically on the async path.
+      return resolveSyncEnginePluginEffect(effect, plugins);
     case "fd_evaluate":
       return Object.freeze({
         kind: "fd_evaluate",

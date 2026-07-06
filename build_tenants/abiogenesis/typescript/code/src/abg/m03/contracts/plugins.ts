@@ -439,6 +439,10 @@ export interface ComposedStageTaskPlugin {
 }
 
 export interface EngineRunnerPluginSet {
+  // T-205 B3: census-bound handler registry — the functor half of the
+  // plugin surface. Admitted at run entry; extra declared stages
+  // execute through it (HANDLERS-011).
+  readonly handlerRegistry?: import("../runner/c_call_handlers.js").CCallHandlerRegistry;
   readonly fdEvaluator?: FdEvaluatorPlugin;
   readonly fpEvaluator?: FpEvaluatorPlugin;
   readonly fpDispatch?: FpDispatchPlugin;
