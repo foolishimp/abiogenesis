@@ -623,3 +623,59 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
     { key: "abg.hog_program", value: { kind: "json_blob", value: sixStage } }
   ])), /unsupported_stage_set/);
 });
+
+// ─── T-205 B3: the handler contract — census-bound, fail-closed, typed failure ───
+
+import {
+  admitHandlerRegistry,
+  resolveHandlerForSelection,
+  executeHandler
+} from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205 B3: handler registry — admission, fail-closed resolution, regime mismatch, typed throw conversion (-001/-002/-006/-012)", () => {
+  const okHandler = () => Object.freeze({
+    outcomeStatus: "accepted", evidenceRefs: ["exec://ok"], payloadRef: null,
+    responseContractRef: null, failureReason: null
+  });
+  const throwingHandler = () => { throw new Error("spawn ENOENT"); };
+  const handlers = new Map([
+    ["handler://abg/fd/process-execution", okHandler],
+    ["handler://t205/throwing", throwingHandler]
+  ]);
+  const binding = {
+    programRef: "gtl://t205/custom", stageRole: "consequence", armId: "arm://x/c",
+    regime: "F_D", handlerRef: "handler://abg/fd/process-execution",
+    handlerClass: "pipeline", handlerConfigRef: null
+  };
+  // admission: duplicates + unknown refs fail
+  assert.equal(admitHandlerRegistry({ bindings: [binding], handlers }).accepted, true);
+  const dup = admitHandlerRegistry({ bindings: [binding, binding], handlers });
+  assert.equal(dup.accepted, false);
+  assert.match(dup.issues[0], /duplicate binding/);
+  const unknown = admitHandlerRegistry({
+    bindings: [{ ...binding, handlerRef: "handler://nope" }], handlers
+  });
+  assert.equal(unknown.accepted, false);
+  assert.match(unknown.issues[0], /no registered handler/);
+  // resolution: exact key; missing fails closed; regime must match the selection row
+  const registry = { bindings: [binding], handlers };
+  const hit = resolveHandlerForSelection(registry, {
+    programRef: "gtl://t205/custom", stageRole: "consequence", armId: "arm://x/c", regime: "F_D"
+  });
+  assert.equal(hit.binding.handlerClass, "pipeline");
+  assert.throws(() => resolveHandlerForSelection(registry, {
+    programRef: "gtl://t205/custom", stageRole: "transform", armId: "arm://x/t", regime: "F_P"
+  }), /handler_binding_missing/);
+  assert.throws(() => resolveHandlerForSelection(registry, {
+    programRef: "gtl://t205/custom", stageRole: "consequence", armId: "arm://x/c", regime: "F_P"
+  }), /handler_regime_mismatch/);
+  // executor: a throw becomes a typed blocked interior (-006), never a host escape
+  const blocked = executeHandler(throwingHandler, {
+    stage: { stageRole: "consequence", defaultRegime: "F_D", armId: "arm://x/c", resultBearing: false },
+    binding: { ...binding, handlerRef: "handler://t205/throwing" },
+    declaredConfig: null, workProjection: null
+  });
+  assert.equal(blocked.outcomeStatus, "blocked");
+  assert.match(blocked.failureReason, /spawn ENOENT.*\(contract_failure\)/);
+  assert.equal(blocked.evidenceRefs[0], "handler-error:handler://t205/throwing");
+});
