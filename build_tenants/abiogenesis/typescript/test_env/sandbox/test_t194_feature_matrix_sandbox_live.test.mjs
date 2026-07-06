@@ -125,6 +125,15 @@ async function writeGlcRuntimeBinding(input) {
   return runtimeBindingPath;
 }
 
+function selectionsForB5(events) {
+  return events.filter(
+    (event) =>
+      event.kind === "c_call_fibre_selected" &&
+      typeof event.armId === "string" &&
+      event.armId.startsWith("arm://sandbox/")
+  );
+}
+
 function parseJsonLines(text) {
   return text
     .split(/\r?\n/u)
@@ -199,7 +208,10 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     workspaceRoot,
     packageRoot: install.packageRoot,
     packageVersion: packageJson.version,
-    includeCarryThrough: true
+    includeCarryThrough: true,
+    // T-205 B5: the sandbox scenario DECLARES its compute — labelled
+    // catalog + ladder as typed GTL; the live run must be governed by it.
+    declareHogCatalog: true
   });
 
   const genesisCommand = install.commandPaths.find((commandPath) =>
@@ -730,6 +742,29 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
         assert.equal(openedRefs.has(event.cCallRef), true, "-006: no orphan spine rows");
       }
     }
+    // T-205 B5: DECLARED COMPUTE GOVERNS THE LIVE RUN — every
+    // triple-stage selection row carries the declared ladder's
+    // attempt-1 rung (catalog+ladder are GTL data, not code); and the
+    // audit resolves PER CONFIGURATION.
+    const declaredRows = selectionsForB5(events);
+    assert.equal(declaredRows.length > 0, true, "B5: declared-arm spine rows present");
+    for (const row of declaredRows) {
+      assert.equal(
+        row.programRef,
+        "gtl://sandbox/hog/lean",
+        `B5: declared rung governs (arm=${row.armId})`
+      );
+    }
+    const perConfiguration = new Map();
+    for (const row of events.filter((e) => e.kind === "c_call_fibre_selected")) {
+      perConfiguration.set(row.programRef, (perConfiguration.get(row.programRef) ?? 0) + 1);
+    }
+    assert.equal(
+      perConfiguration.has("gtl://sandbox/hog/lean"),
+      true,
+      "B5: per-configuration audit resolves the declared config"
+    );
+
     // external-session parity: worker invocations == transform.F_P spines
     const invocations = events.filter((e) => e.kind === "actor_invocation_started").length;
     const selections = events.filter((e) => e.kind === "c_call_fibre_selected");

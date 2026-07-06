@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import path from "node:path";
 
 const KNOWN_OPTIONS = new Set([
+  "declareHogCatalog",
   "packageRoot",
   "packageVersion",
   "includeCarryThrough",
@@ -297,12 +298,83 @@ function vector(source, target, id, name) {
       const base = constructDefaultAbgFnCompositionDeclarations({
         scopeRef: "odd-glc/glc-hello-world-bootstrap"
       });
+      const withHog = (attrs) => {
+        if (!${JSON.stringify(input.declareHogCatalog === true)}) {
+          return attrs;
+        }
+        // T-205 B5: the scenario DECLARES its compute — a labelled
+        // catalog + ladder as typed GTL data; the live run's spine rows
+        // must carry the declared programRef.
+        const tripleStages = (armPrefix) => ({
+          kind: "array",
+          items: [
+            { kind: "object", entries: [
+              { key: "stageRole", value: "transform" },
+              { key: "defaultRegime", value: "F_P" },
+              { key: "armId", value: \`\${armPrefix}/transform\` },
+              { key: "resultBearing", value: true }
+            ] },
+            { kind: "object", entries: [
+              { key: "stageRole", value: "evaluate" },
+              { key: "defaultRegime", value: "F_P" },
+              { key: "armId", value: \`\${armPrefix}/evaluate\` },
+              { key: "resultBearing", value: false }
+            ] },
+            { kind: "object", entries: [
+              { key: "stageRole", value: "consequence" },
+              { key: "defaultRegime", value: "F_D" },
+              { key: "armId", value: \`\${armPrefix}/consequence\` },
+              { key: "resultBearing", value: false }
+            ] }
+          ]
+        });
+        const program = (ref, armPrefix, klass) => ({
+          kind: "object",
+          entries: [
+            { key: "syntaxVersion", value: "hog-syntax/1" },
+            { key: "programRef", value: ref },
+            { key: "proportionalityClass", value: klass },
+            { key: "stages", value: tripleStages(armPrefix) }
+          ]
+        });
+        return Object.freeze({
+          entries: Object.freeze([
+            ...attrs.entries,
+            Object.freeze({
+              key: "abg.hog_program_catalog",
+              value: Object.freeze({ kind: "json_blob", value: {
+                kind: "array",
+                items: [
+                  program("gtl://sandbox/hog/lean", "arm://sandbox/lean", "P1"),
+                  program("gtl://sandbox/hog/deep", "arm://sandbox/deep", "P2")
+                ]
+              } })
+            }),
+            Object.freeze({
+              key: "abg.hog_program_ladder",
+              value: Object.freeze({ kind: "json_blob", value: {
+                kind: "array",
+                items: [
+                  { kind: "object", entries: [
+                    { key: "programRef", value: "gtl://sandbox/hog/lean" },
+                    { key: "fromAttempt", value: 1 }
+                  ] },
+                  { kind: "object", entries: [
+                    { key: "programRef", value: "gtl://sandbox/hog/deep" },
+                    { key: "fromAttempt", value: 2 }
+                  ] }
+                ]
+              } })
+            })
+          ])
+        });
+      };
       if (!${JSON.stringify(input.constrainCandidates === true)}) {
-        return base;
+        return withHog(base);
       }
       // typed SerializedAttrs entry — plain record keys are ignored by the
       // declaration reader (entries + string_list carrier only)
-      return Object.freeze({
+      return withHog(Object.freeze({
         entries: Object.freeze([
           ...base.entries,
           Object.freeze({
@@ -322,7 +394,7 @@ function vector(source, target, id, name) {
             })
           })
         ])
-      });
+      }));
     })(),
     tags: ["odd_glc", "glc-bootstrap", "t180"]
   }).vectors[0];
