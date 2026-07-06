@@ -308,7 +308,8 @@ function closeVectorScript(vectorIndex) {
       admitExecutionBasis,
       admitPublicStartRequest,
       constructVectorClosedEvent,
-      constructVectorEvaluatedEvent
+      constructVectorEvaluatedEvent,
+      emit
     } from "@abiogenesis/typescript-tenant";
     import { runtimeBinding } from "./typescript-runtime.mjs";
 
@@ -347,10 +348,14 @@ function closeVectorScript(vectorIndex) {
         closureKind: "assessed"
       })
     ];
+    // T-195 P1-10: ledger rows must be canonical — route through emit(),
+    // exactly as the CLI does, instead of appending raw constructions.
+    const canonical = [];
+    emit(events, (event) => canonical.push(event));
     await mkdir(".ai-workspace/events", { recursive: true });
     await appendFile(
       ".ai-workspace/events/events.jsonl",
-      events.map((event) => JSON.stringify(event)).join("\\n") + "\\n",
+      canonical.map((event) => JSON.stringify(event)).join("\\n") + "\\n",
       "utf8"
     );
     console.log(JSON.stringify({ appended: events.map((event) => event.kind) }));

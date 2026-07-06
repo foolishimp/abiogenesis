@@ -910,12 +910,23 @@ test("T-188 rejects plugin output when strength lacks basis or adversarial refut
 });
 
 test("T-188 rejects output classification collision and digest drift", () => {
+  // T-195 P1-9 moved digest-drift rejection EARLIER: the constructor now
+  // refuses to mint a forged replayDigest at all.
+  assert.throws(
+    () => carryEnvelope({ replayDigest: "sha256:not-the-replay-digest" }),
+    /replayDigest: supplied digest .* does not match computed/
+  );
+  // The admission-path differentials still hold on a lawfully-built
+  // envelope: drift the digest AFTER construction (bypassing the
+  // constructor, as a forger would).
+  const forged = Object.freeze({
+    ...carryEnvelope(),
+    replayDigest: "sha256:not-the-replay-digest"
+  });
   const result = admitRequirementProofCarryThroughOutput({
     contract: carryContract(),
     classificationTable: classificationTable(),
-    envelope: carryEnvelope({
-      replayDigest: "sha256:not-the-replay-digest"
-    }),
+    envelope: forged,
     existingReplayIdentities: ["replay://t188/source/1"]
   });
   assert.equal(result.accepted, false);

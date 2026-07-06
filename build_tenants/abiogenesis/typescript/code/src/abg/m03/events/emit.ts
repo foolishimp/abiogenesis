@@ -60,6 +60,16 @@ function canonicalRuntimeEvent(event: RuntimeEvent): CanonicalRuntimeEvent {
   assertRuntimeEvent(event);
   if (hasCanonicalRuntimeEventEnvelope(event)) {
     assertCanonicalRuntimeEvent(event);
+    // T-195 P1-10: replayed truth lawfully carries old ordinals, so a
+    // lower pre-stamp passes through — but the live counter only moves
+    // FORWARD, so a pre-stamped ordinal can never collide with a future
+    // mint. (Authenticating replay-vs-forged pre-stamps needs a caller
+    // context flag: named refinement under T-195.)
+    const stamped = (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal;
+    runtimeEventAdmissionOrdinal = Math.max(
+      runtimeEventAdmissionOrdinal,
+      stamped + 1
+    );
     return event;
   }
   const eventTimeUnixMs = Date.now();

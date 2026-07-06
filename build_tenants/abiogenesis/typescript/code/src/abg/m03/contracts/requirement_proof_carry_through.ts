@@ -333,8 +333,25 @@ export function constructRequirementProofCandidateClassificationTable(
   return Object.freeze({
     kind: "requirement_proof_candidate_classification_table",
     ...withoutDigest,
-    tableDigest: input.tableDigest ?? requirementProofCandidateClassificationTableDigest(withoutDigest)
+    tableDigest: verifiedSuppliedCarryDigest(
+      input.tableDigest,
+      requirementProofCandidateClassificationTableDigest(withoutDigest),
+      "classification_table.tableDigest"
+    )
   });
+}
+
+function verifiedSuppliedCarryDigest(
+  supplied: string | undefined,
+  computed: string,
+  label: string
+): string {
+  if (supplied !== undefined && supplied !== computed) {
+    throw new TypeError(
+      `${label}: supplied digest ${supplied} does not match computed ${computed}`
+    );
+  }
+  return computed;
 }
 
 function issue(input: {
@@ -823,7 +840,11 @@ export function constructRequirementProofCarryThroughOutputEnvelope(
   return Object.freeze({
     kind: "requirement_proof_carry_through_output_envelope",
     ...withoutDigest,
-    replayDigest: input.replayDigest ?? requirementProofCarryThroughReplayDigest(withoutDigest)
+    replayDigest: verifiedSuppliedCarryDigest(
+      input.replayDigest,
+      requirementProofCarryThroughReplayDigest(withoutDigest),
+      "carry_through_output.replayDigest"
+    )
   });
 }
 
@@ -837,7 +858,15 @@ export function admitRequirementProofCarryThroughOutput(input: {
   const classificationTable = constructRequirementProofCandidateClassificationTable(
     input.classificationTable
   );
-  const envelope = constructRequirementProofCarryThroughOutputEnvelope(input.envelope);
+  // T-195 P1-9: admission canonicalizes WITHOUT trusting the claimed
+  // replayDigest (the constructor rejects forged digests outright);
+  // admission's own comparison below turns drift into the typed
+  // replay_digest_mismatch issue instead of an exception.
+  const claimedReplayDigest = input.envelope.replayDigest;
+  const envelope = constructRequirementProofCarryThroughOutputEnvelope({
+    ...input.envelope,
+    replayDigest: undefined
+  });
   const issues: RequirementProofCarryThroughIssue[] = [];
   if (
     classificationTable.tableRef !== contract.classificationTableRef ||
@@ -1188,7 +1217,7 @@ export function admitRequirementProofCarryThroughOutput(input: {
     );
   }
   const expectedDigest = requirementProofCarryThroughReplayDigest(envelope);
-  if (envelope.replayDigest !== expectedDigest) {
+  if (claimedReplayDigest !== undefined && claimedReplayDigest !== expectedDigest) {
     issues.push(
       issue({
         issueKind: "replay_digest_mismatch",

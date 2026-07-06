@@ -1,5 +1,6 @@
 // Implements: REQ-P-POLICY-017
 
+import { assertCanonicalRuntimeEvent } from "../abg/m03/contracts/event_admission.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -831,8 +832,13 @@ async function readReplayEvents(path: string): Promise<readonly RuntimeEvent[]> 
   let text: string;
   try {
     text = await readFile(path, "utf8");
-  } catch {
-    return Object.freeze([]);
+  } catch (error) {
+    // T-195 P1-10: only a MISSING ledger reads as genesis; any other read
+    // failure is corrupted-truth territory and fails closed.
+    if ((error as { code?: string } | null)?.code === "ENOENT") {
+      return Object.freeze([]);
+    }
+    throw error;
   }
 
   const events: RuntimeEvent[] = [];
@@ -842,11 +848,20 @@ async function readReplayEvents(path: string): Promise<readonly RuntimeEvent[]> 
     if (trimmed.length === 0) {
       continue;
     }
+    let parsed: unknown;
     try {
-      events.push(JSON.parse(trimmed) as RuntimeEvent);
+      parsed = JSON.parse(trimmed);
     } catch {
       throw new CliError(`events replay line ${index + 1} is not valid JSON`);
     }
+    try {
+      assertCanonicalRuntimeEvent(parsed as RuntimeEvent);
+    } catch (error) {
+      throw new CliError(
+        `events replay line ${index + 1} is not a canonical runtime event: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+    events.push(parsed as RuntimeEvent);
   }
   return Object.freeze(events);
 }

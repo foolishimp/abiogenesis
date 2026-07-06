@@ -882,6 +882,21 @@ function normalizeInstructionWorkKind(input: InstructionWorkKind | undefined): I
   }
 }
 
+// T-195 P1-9: a caller-supplied digest is a CLAIM — verify against the
+// recomputed content digest and reject mismatches instead of trusting it.
+function verifiedSuppliedDigest(
+  supplied: string | undefined,
+  computed: string,
+  label: string
+): string {
+  if (supplied !== undefined && supplied !== computed) {
+    throw new TypeError(
+      `${label}: supplied digest ${supplied} does not match computed ${computed}`
+    );
+  }
+  return computed;
+}
+
 export function constructDerivedDependencyInstructionTruth(
   input: Omit<DerivedDependencyInstructionTruth, "kind" | "truthDigest"> & {
     readonly truthDigest?: string | undefined;
@@ -932,7 +947,11 @@ export function constructDerivedDependencyInstructionTruth(
   return Object.freeze({
     kind: "derived_dependency_instruction_truth",
     ...withoutDigest,
-    truthDigest: input.truthDigest ?? dependencyInstructionTruthDigest(withoutDigest)
+    truthDigest: verifiedSuppliedDigest(
+      input.truthDigest,
+      dependencyInstructionTruthDigest(withoutDigest),
+      "dependency_instruction_truth.truthDigest"
+    )
   });
 }
 
@@ -1028,7 +1047,11 @@ export function constructDerivedProofDepthInstructionTruth(
   return Object.freeze({
     kind: "derived_proof_depth_instruction_truth",
     ...withoutDigest,
-    truthDigest: input.truthDigest ?? proofDepthInstructionTruthDigest(withoutDigest)
+    truthDigest: verifiedSuppliedDigest(
+      input.truthDigest,
+      proofDepthInstructionTruthDigest(withoutDigest),
+      "proof_depth_instruction_truth.truthDigest"
+    )
   });
 }
 
