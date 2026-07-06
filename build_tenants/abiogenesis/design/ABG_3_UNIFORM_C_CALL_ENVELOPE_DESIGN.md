@@ -335,3 +335,28 @@ conformance/enclosure check (program in scope), never free-form truth.
    was one pass over events. Lever: a standing cost projection (per
    C call class: attempts, wall, judgment mix) feeds declarations 1-7;
    HoG tunes off its own truth, no external telemetry.
+
+### 12.1 Proportionality as measure (lineage: odd_sdlc bootstrap)
+
+The §12 levers are one concept: PROPORTIONALITY — how much compute/
+rigor a piece of work deserves — previously encoded as a static class
+in the odd_sdlc bootstrap and carried today as the plan-level
+proportionalityClass. The earlier encoding was DECLARED but not
+MEASURED: a label with no truth loop, so nothing enforced or learned
+from it. The envelope completes it:
+
+- CARRIER: proportionality attaches per C call and composes like a
+  measure — additive over compose/batch, declared at lift boundaries,
+  comparable across fibres (effort, retry budget, carry bound, and
+  program length are its components).
+- OBSERVATION: the spine yields observed cost per C-call class from
+  replay alone (attempts, wall, judgment mix) — the measure's actual
+  value.
+- LAW: declared proportionality vs observed cost is a reconcilable
+  pair; sustained divergence is a typed tuning signal (and a
+  drift-class candidate), not an anecdote. Tuning = moving declarations
+  toward observed reality or justifying the gap.
+
+The plan-level proportionalityClass re-homes as the C-call measure's
+declaration surface at P2; odd_sdlc's bootstrap intent lands here as
+enforceable runtime law rather than a bootstrap annotation.
