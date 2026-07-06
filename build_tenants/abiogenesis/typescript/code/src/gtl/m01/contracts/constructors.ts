@@ -212,6 +212,23 @@ function sameOrderedContract(left: readonly Node[], right: readonly Node[]): boo
   return JSON.stringify(interfaceContract(left)) === JSON.stringify(interfaceContract(right));
 }
 
+// The ONE tagged-json decoder (T-200 P3-F consolidation): admission
+// stores json_blob values TAGGED; consumers decode through this. NOTE:
+// distinct from the canonical-digest form below — this yields plain JS.
+export function serializedJsonValueToPlain(value: SerializedJsonValue): unknown {
+  if (value === null || typeof value !== "object") {
+    return value;
+  }
+  if (value.kind === "array") {
+    return Object.freeze(value.items.map(serializedJsonValueToPlain));
+  }
+  return Object.freeze(
+    Object.fromEntries(
+      value.entries.map((entry) => [entry.key, serializedJsonValueToPlain(entry.value)])
+    )
+  );
+}
+
 function canonicalSerializedJsonValue(value: SerializedJsonValue): unknown {
   if (
     value === null ||

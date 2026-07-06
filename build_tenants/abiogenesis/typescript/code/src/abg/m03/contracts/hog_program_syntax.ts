@@ -6,6 +6,8 @@
 // that same normalized carrier. Upgrading the syntax never touches the
 // engine seam; adding a version extends the dispatch below.
 
+import type { SerializedAttrs } from "../../../gtl/m01/contracts/carriers.js";
+import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
 import type { HogProgramAdmission } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
 
@@ -57,4 +59,29 @@ export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
     stages: record.stages,
     proportionalityClass: record.proportionalityClass ?? null
   });
+}
+
+// P3-F: the GTL-lawful authoring surface — products declare programs as
+// tagged json_blob attrs under this key (declarations-are-data); the
+// engine's interpreter consumes the compiled result at strangler step 2.
+export const HOG_PROGRAM_DECLARATION_KEY = "abg.hog_program";
+
+export function hogProgramFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): HogProgramAdmission | null {
+  const entry = attrs.entries.find((row) => row.key === HOG_PROGRAM_DECLARATION_KEY);
+  if (entry === undefined) {
+    return null;
+  }
+  if (entry.value.kind !== "json_blob") {
+    return Object.freeze({
+      accepted: false,
+      program: null,
+      issues: Object.freeze([
+        `${HOG_PROGRAM_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+      ])
+    });
+  }
+  return compileHogProgramSyntax(serializedJsonValueToPlain(entry.value.value));
 }

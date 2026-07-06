@@ -5,14 +5,14 @@ import type {
   GraphFunction,
   GraphVector,
   SerializedAttrs,
-  SerializedAttrValue,
-  SerializedJsonValue
+  SerializedAttrValue
 } from "../../../gtl/m01/contracts/carriers.js";
 import type {
   Job,
   Module,
   Role
 } from "../../../gtl/m02/contracts/carriers.js";
+import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
 import {
   assertNonEmptyString,
   freezeStringArray
@@ -61,27 +61,6 @@ function duplicatedSerializedAttrKeys(attrs: SerializedAttrs): readonly string[]
   );
 }
 
-function serializedJsonValueToPlain(value: SerializedJsonValue): unknown {
-  if (
-    value === null ||
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean"
-  ) {
-    return value;
-  }
-  if (value.kind === "array") {
-    return Object.freeze(value.items.map(serializedJsonValueToPlain));
-  }
-  return Object.freeze(
-    Object.fromEntries(
-      value.entries.map((entry) => [
-        entry.key,
-        serializedJsonValueToPlain(entry.value)
-      ])
-    )
-  );
-}
 
 function serializedAttrValueToPlain(value: SerializedAttrValue): unknown {
   if (value.kind === "scalar") {

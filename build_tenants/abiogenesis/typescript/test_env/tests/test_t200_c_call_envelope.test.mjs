@@ -408,3 +408,47 @@ test("T-200 P3-B: enclosure witness holds over the REAL gate replay", async () =
     assert.equal(report.openedCount, report.judgedCount, "every opened spine judged on real replay");
   }
 });
+
+// ─── P3-F: the GTL authoring surface for programs ───
+
+import {
+  HOG_PROGRAM_DECLARATION_KEY,
+  hogProgramFromDeclarationAttrs
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 P3-F: programs author as tagged json_blob declarations (declarations-are-data)", () => {
+  const tagged = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://abg/hog/declared-by-product" },
+      { key: "proportionalityClass", value: "P2" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://p/t" },
+          { key: "resultBearing", value: true }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "evaluate" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://p/e" },
+          { key: "resultBearing", value: false }
+        ] }
+      ] } }
+    ]
+  };
+  const attrs = { entries: [{ key: HOG_PROGRAM_DECLARATION_KEY, value: { kind: "json_blob", value: tagged } }] };
+  const compiled = hogProgramFromDeclarationAttrs(attrs, "graph-function://p/demo");
+  assert.notEqual(compiled, null);
+  assert.equal(compiled.accepted, true, JSON.stringify(compiled.issues));
+  assert.equal(compiled.program.programRef, "gtl://abg/hog/declared-by-product");
+  // absent key -> null (baked default applies); non-blob -> fail closed
+  assert.equal(hogProgramFromDeclarationAttrs({ entries: [] }, "x"), null);
+  const bad = hogProgramFromDeclarationAttrs(
+    { entries: [{ key: HOG_PROGRAM_DECLARATION_KEY, value: { kind: "scalar", value: "nope" } }] },
+    "graph-function://p/demo"
+  );
+  assert.equal(bad.accepted, false);
+});

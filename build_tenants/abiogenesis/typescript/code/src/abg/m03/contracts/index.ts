@@ -1385,3 +1385,8 @@ export type {
 
 export { checkCCallEnclosure } from "./c_call_enclosure.js";
 export type { CCallEnclosureIssue, CCallEnclosureReport } from "./c_call_enclosure.js";
+
+export {
+  HOG_PROGRAM_DECLARATION_KEY,
+  hogProgramFromDeclarationAttrs
+} from "./hog_program_syntax.js";

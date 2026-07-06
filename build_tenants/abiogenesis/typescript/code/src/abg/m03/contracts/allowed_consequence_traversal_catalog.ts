@@ -6,9 +6,9 @@ import type {
   GraphFunction,
   GraphVector,
   SerializedAttrs,
-  SerializedAttrValue,
-  SerializedJsonValue
+  SerializedAttrValue
 } from "../../../gtl/m01/contracts/carriers.js";
+import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
 import {
   CONSTRUCTION_ACTION_KIND_VALUES
 } from "./construction_action_kinds.js";
@@ -270,27 +270,6 @@ export function constructAllowedConsequenceTraversalCatalog(input: {
   });
 }
 
-function serializedJsonValueToPlain(value: SerializedJsonValue): unknown {
-  if (
-    value === null ||
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean"
-  ) {
-    return value;
-  }
-  if (value.kind === "array") {
-    return Object.freeze(value.items.map(serializedJsonValueToPlain));
-  }
-  return Object.freeze(
-    Object.fromEntries(
-      value.entries.map((entry) => [
-        entry.key,
-        serializedJsonValueToPlain(entry.value)
-      ])
-    )
-  );
-}
 
 function attrValuesForKey(
   attrs: SerializedAttrs,

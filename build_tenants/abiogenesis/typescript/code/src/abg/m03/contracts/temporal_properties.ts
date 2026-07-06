@@ -4,8 +4,10 @@
 // atoms from the ONE event-calculus vocabulary); the checker is a total
 // deterministic function over the finite trace with three-valued verdicts,
 // first-class vacuity, and a safety/liveness consequence split.
+import type { SerializedJsonValue } from "../../../gtl/m01/contracts/carriers.js";
 import type { Rule } from "../../../gtl/m01/contracts/carriers.js";
 import type { ExecutionBasis, RuntimeEvent } from "./carriers.js";
+import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
 import {
   RUNTIME_FLUENT_NAME_VALUES,
   deriveRuntimeEventCalculusProjection,
@@ -260,23 +262,15 @@ function configScalar(rule: Rule, key: string): string | null {
   return null;
 }
 
-// GTL-lawful json_blob values are TAGGED SerializedJsonValue; decode to
-// plain for the formula parser. Legacy plain blobs (pre-T-200 bindings)
-// pass through unchanged — the parser judges their shape either way.
+// GTL-lawful json_blob values are TAGGED; decode via the ONE decoder.
+// Legacy plain blobs (pre-T-200 bindings) pass through unchanged.
 function plainFromSerializedJson(value: unknown): unknown {
   if (value === null || typeof value !== "object") {
     return value;
   }
-  const record = value as { readonly kind?: unknown };
-  if (record.kind === "array" && Array.isArray((record as { readonly items?: unknown }).items)) {
-    return ((record as { readonly items: readonly unknown[] }).items).map(plainFromSerializedJson);
-  }
-  if (record.kind === "object" && Array.isArray((record as { readonly entries?: unknown }).entries)) {
-    const out: Record<string, unknown> = {};
-    for (const entry of (record as { readonly entries: readonly { readonly key: string; readonly value: unknown }[] }).entries) {
-      out[entry.key] = plainFromSerializedJson(entry.value);
-    }
-    return out;
+  const kind = (value as { readonly kind?: unknown }).kind;
+  if (kind === "array" || kind === "object") {
+    return serializedJsonValueToPlain(value as SerializedJsonValue);
   }
   return value;
 }
