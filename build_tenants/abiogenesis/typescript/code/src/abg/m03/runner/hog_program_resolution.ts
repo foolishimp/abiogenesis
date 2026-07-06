@@ -62,28 +62,40 @@ export function assertHogProgramExecutable(
       readonly programRef: string;
       readonly stageRole: string;
       readonly armId: string;
+      readonly regime: string;
+      readonly handlerRef: string;
     }[];
+    readonly handlers: ReadonlyMap<string, unknown>;
   } | null
 ): void {
   const program = resolved.program;
+  // BINDING-COMPLETE entry gate (codex MEDIUM): a non-triple stage is
+  // executable IFF exactly the full binding holds — program × stage ×
+  // arm match, REGIME equals the stage's declared regime, and the
+  // handlerRef resolves to a registered handler. Registry-level shape,
+  // duplicates, and classes are enforced by admitHandlerRegistry at
+  // entry before this check runs.
   const unsupported = program.stages
     .filter((stage: HogProgramStage) => {
       if (EXECUTABLE_STAGE_ROLES.includes(stage.stageRole)) return false;
       if (registry === null) return true;
-      return !registry.bindings.some(
-        (binding) =>
-          binding.programRef === program.programRef &&
-          binding.stageRole === stage.stageRole &&
-          binding.armId === stage.armId
+      const binding = registry.bindings.find(
+        (row) =>
+          row.programRef === program.programRef &&
+          row.stageRole === stage.stageRole &&
+          row.armId === stage.armId
       );
+      if (binding === undefined) return true;
+      if (binding.regime !== stage.defaultRegime) return true;
+      return !registry.handlers.has(binding.handlerRef);
     })
     .map((stage: HogProgramStage) => stage.stageRole);
   if (unsupported.length > 0) {
     throw new TypeError(
       `unsupported_stage_set: hog program ${program.programRef} declares stage ` +
-        `roles ${JSON.stringify(unsupported)} with no admitted handler binding ` +
-        `(triple roles run baked; other roles need a registry binding; ` +
-        `baked roles: ${JSON.stringify(EXECUTABLE_STAGE_ROLES)})`
+        `roles ${JSON.stringify(unsupported)} with no COMPLETE handler binding ` +
+        `(program×stage×arm + regime match + registered handler; triple roles ` +
+        `run baked: ${JSON.stringify(EXECUTABLE_STAGE_ROLES)})`
     );
   }
 }

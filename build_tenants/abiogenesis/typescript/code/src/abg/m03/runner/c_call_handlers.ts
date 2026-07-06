@@ -14,6 +14,7 @@
 // (-006) — a handler error can never kill a run.
 
 import type { CCallRegime } from "../contracts/carriers.js";
+import { C_CALL_REGIME_VALUES } from "../contracts/carriers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
 
 export const C_CALL_HANDLER_CLASS_VALUES = Object.freeze([
@@ -69,8 +70,21 @@ export function admitHandlerRegistry(input: {
 }): { readonly accepted: boolean; readonly issues: readonly string[] } {
   const issues: string[] = [];
   const seen = new Set<string>();
+  const nonEmpty = (value: unknown): value is string =>
+    typeof value === "string" && value.length > 0;
   for (const [index, binding] of input.bindings.entries()) {
     const at = `bindings[${index}]`;
+    // field shapes first (codex probe: empty/invalid fields must reject)
+    if (!nonEmpty(binding.programRef)) issues.push(`${at}.programRef must be a non-empty string`);
+    if (!nonEmpty(binding.stageRole)) issues.push(`${at}.stageRole must be a non-empty string`);
+    if (!nonEmpty(binding.armId)) issues.push(`${at}.armId must be a non-empty string`);
+    if (!nonEmpty(binding.handlerRef)) issues.push(`${at}.handlerRef must be a non-empty string`);
+    if (!(C_CALL_REGIME_VALUES as readonly string[]).includes(binding.regime as string)) {
+      issues.push(`${at}.regime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`);
+    }
+    if (binding.handlerConfigRef !== null && !nonEmpty(binding.handlerConfigRef)) {
+      issues.push(`${at}.handlerConfigRef must be null or a non-empty string`);
+    }
     const key = bindingKey(binding.programRef, binding.stageRole, binding.armId);
     if (seen.has(key)) {
       issues.push(`${at}: duplicate binding for ${key}`);
@@ -79,7 +93,7 @@ export function admitHandlerRegistry(input: {
     if (!(C_CALL_HANDLER_CLASS_VALUES as readonly string[]).includes(binding.handlerClass)) {
       issues.push(`${at}: handlerClass must be one of ${JSON.stringify(C_CALL_HANDLER_CLASS_VALUES)}`);
     }
-    if (!input.handlers.has(binding.handlerRef)) {
+    if (nonEmpty(binding.handlerRef) && !input.handlers.has(binding.handlerRef)) {
       issues.push(`${at}: handlerRef ${binding.handlerRef} has no registered handler`);
     }
   }

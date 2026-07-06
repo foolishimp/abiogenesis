@@ -187,3 +187,12 @@ B2 status: interpretation seam LIVE (resolution at run entry, typed
 fail-closed truth per codex HIGH: runtime_failure_observed +
 gap_stop(hog_program_unresolvable), zero spine rows, no host
 exception); declared program identity proven flowing into real replay.
+
+## B3 status (current)
+Contract + F_D handlers (strict-F_D/totality law) DONE. Interpreter
+plumbing DONE: c_call_handler_execute through the effect protocol;
+registry admitted AT ENTRY (admitHandlerRegistry with field validation
+— codex probe pinned as differential); executability gate
+binding-complete (program×stage×arm + regime match + registered
+handler). REMAINING: the execution anchor (extra stages running
+spine-enclosed), F_P agent-transport + F_H gate handlers, B4, B5.

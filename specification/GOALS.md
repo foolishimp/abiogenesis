@@ -577,8 +577,11 @@ Phases:
   replay-global attempt fix); B2 LIVE (one seam, run-entry typed
   failure, declared program proven driving real replay, test:t205
   lane); B3 at 2/3 (handler contract + F_D process-execution and
-  materialization, mechanical-vocabulary proven). Remaining to the
-  gate: B3 interpreter loop + F_P/F_H handlers, B4, B5.
+  materialization, mechanical-vocabulary proven); B3 interpreter
+  plumbing live (c_call_handler_execute effect, registry ADMITTED at
+  entry with field validation, binding-complete executability gate).
+  Remaining to the gate: B3 execution anchor + F_P/F_H handlers, B4,
+  B5.
 - C — glc: repin; binding becomes declarations (catalog + ladder +
   consequence catalog; repaired_* stages retire); resume flag; iterate
   in-system to the clean run. T-030 and T-195 close. 4.5 functionally

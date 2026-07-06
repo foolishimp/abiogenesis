@@ -7,7 +7,7 @@ import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../con
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
-import { resolveHandlerForSelection, executeHandler } from "./c_call_handlers.js";
+import { resolveHandlerForSelection, executeHandler, admitHandlerRegistry } from "./c_call_handlers.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
@@ -5192,6 +5192,14 @@ function* runEngineIterateMachine(input: {
   // gap_stop terminal in replay — never a host exception, never a
   // half-opened spine.
   try {
+    if (plugins.handlerRegistry !== null) {
+      const registryAdmission = admitHandlerRegistry(plugins.handlerRegistry);
+      if (!registryAdmission.accepted) {
+        throw new TypeError(
+          `handler_registry_inadmissible: ${registryAdmission.issues.join("; ")}`
+        );
+      }
+    }
     assertHogProgramExecutable(
       resolveHogProgram(request.basis.graphFunction),
       plugins.handlerRegistry

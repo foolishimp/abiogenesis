@@ -625,14 +625,20 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   ]));
   // no registry: extra role fails closed
   assert.throws(() => assertHogProgramExecutable(deepResolved, null), /unsupported_stage_set/);
-  // registry binding NARROWS the wall: the same program becomes executable
-  assertHogProgramExecutable(deepResolved, { bindings: [{
-    programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://d/k"
-  }] });
-  // wrong arm in the binding: still fails closed
-  assert.throws(() => assertHogProgramExecutable(deepResolved, { bindings: [{
-    programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://other"
-  }] }), /unsupported_stage_set/);
+  // COMPLETE binding narrows the wall (program×stage×arm + regime + registered handler)
+  const critiqueHandler = () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null });
+  const completeRegistry = (over) => ({
+    bindings: [{ programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://d/k",
+      regime: "F_P", handlerRef: "handler://t205/critique", ...over }],
+    handlers: new Map([["handler://t205/critique", critiqueHandler]])
+  });
+  assertHogProgramExecutable(deepResolved, completeRegistry({}));
+  // wrong arm: fails closed
+  assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ armId: "arm://other" })), /unsupported_stage_set/);
+  // regime mismatch vs the stage's declared regime: fails closed (codex MEDIUM)
+  assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ regime: "F_D" })), /unsupported_stage_set/);
+  // unregistered handlerRef: fails closed (codex MEDIUM)
+  assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ handlerRef: "handler://nope" })), /unsupported_stage_set/);
 });
 
 // ─── T-205 B3: the handler contract — census-bound, fail-closed, typed failure ───
@@ -668,6 +674,14 @@ test("T-205 B3: handler registry — admission, fail-closed resolution, regime m
   });
   assert.equal(unknown.accepted, false);
   assert.match(unknown.issues[0], /no registered handler/);
+  // codex probe pinned: empty/invalid fields must reject
+  const probe = admitHandlerRegistry({
+    bindings: [{ programRef: "", stageRole: "", armId: "", regime: "F_X",
+      handlerRef: "", handlerClass: "pipeline", handlerConfigRef: 7 }],
+    handlers
+  });
+  assert.equal(probe.accepted, false);
+  assert.equal(probe.issues.length >= 5, true, JSON.stringify(probe.issues));
   // resolution: exact key; missing fails closed; regime must match the selection row
   const registry = { bindings: [binding], handlers };
   const hit = resolveHandlerForSelection(registry, {
