@@ -849,3 +849,44 @@ test("T-205 B3: F_P transport handler — declared prompt/contract, trio-classed
   assert.equal(prompts.some((p) => p.includes("WORK PROJECTION:\nresult://prior")), true);
   assert.equal(prompts[prompts.length - 2].includes("WORK PROJECTION"), false, "advisory config declared includeWorkProjection:false");
 });
+
+// ─── User ruling: the default is a typed catalog citizen; config = system/env bindings only ───
+
+import {
+  effectiveHogProgramCatalog,
+  HOG_BOOTSTRAP_PROGRAM_REF,
+  compileHogProgramCatalog as compileCatalogForCitizenship
+} from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205: the bootstrap triple is a LABELLED catalog entry (default), visible to higher-order choosers; reserved ref unshadowable", () => {
+  // bare: the effective catalog still carries the typed default entry
+  const bare = effectiveHogProgramCatalog(null);
+  assert.equal(bare.defaultProgramRef, HOG_BOOTSTRAP_PROGRAM_REF);
+  const entry = bare.programs.get(HOG_BOOTSTRAP_PROGRAM_REF);
+  assert.equal(entry.kind, "hog_program_declaration");
+  assert.equal(entry.stages.length, 3);
+  // declared catalog: entries COEXIST with the default in one choice set
+  const declared = compileCatalogForCitizenship([{
+    syntaxVersion: "hog-syntax/1",
+    programRef: "gtl://p/lean",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://l/t", resultBearing: true },
+      { stageRole: "evaluate", defaultRegime: "F_P", armId: "arm://l/e", resultBearing: false }
+    ],
+    proportionalityClass: "P1"
+  }]);
+  const merged = effectiveHogProgramCatalog(declared.catalog);
+  assert.equal(merged.programs.size, 2, "default + declared in ONE choice set");
+  assert.equal(merged.programs.has(HOG_BOOTSTRAP_PROGRAM_REF), true);
+  assert.equal(merged.programs.has("gtl://p/lean"), true);
+  // reserved ref: fail-closed
+  const shadow = compileCatalogForCitizenship([{
+    syntaxVersion: "hog-syntax/1",
+    programRef: HOG_BOOTSTRAP_PROGRAM_REF,
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://x/t", resultBearing: true }
+    ],
+    proportionalityClass: null
+  }]);
+  assert.throws(() => effectiveHogProgramCatalog(shadow.catalog), /hog_program_catalog_reserved_ref/);
+});

@@ -15,8 +15,8 @@
 
 import type { GraphFunction } from "../../../gtl/m01/contracts/carriers.js";
 import type { HogProgramDeclaration, HogProgramStage } from "../contracts/hog_program.js";
-import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
 import {
+  effectiveHogProgramCatalog,
   HOG_PROGRAM_DECLARATION_KEY,
   HOG_PROGRAM_CATALOG_DECLARATION_KEY,
   HOG_PROGRAM_SELECTION_KEY,
@@ -241,7 +241,14 @@ export function resolveHogProgram(
     }
     return Object.freeze({ program: single.program, source: "declared" as const });
   }
-  return Object.freeze({ program: HOG_BOOTSTRAP_TRIPLE, source: "default" as const });
+  // the default is a CATALOG ENTRY (typed, labelled, reserved ref) —
+  // resolution reports membership, not a bare constant fallback.
+  const effective = effectiveHogProgramCatalog(null);
+  const defaultProgram = effective.programs.get(effective.defaultProgramRef);
+  if (defaultProgram === undefined) {
+    throw new TypeError("effective catalog must carry the bootstrap default");
+  }
+  return Object.freeze({ program: defaultProgram, source: "default" as const });
 }
 
 // Stage lookup BY ROLE from the resolved program — the engine never

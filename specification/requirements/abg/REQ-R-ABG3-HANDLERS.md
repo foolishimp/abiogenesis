@@ -98,6 +98,24 @@ handler configuration; it does not implement a standard-path worker loop.
   run), not budget mechanics; replay-derived frontier state is never
   hand-edited.
 
+- **-015 Config boundary (user law 2026-07-07).** Handler config
+  carries SYSTEM-LEVEL and ENVIRONMENTAL bindings ONLY: commands,
+  paths, env, timeouts, archive roots — the io/deployment surface.
+  All other configuration is GTL: domain content, workflow shape,
+  prompts, contracts, and policies live as typed declarations that
+  support systems consume. NAMED GAP: FpTransportConfig.prompt
+  currently violates this boundary — prompts re-home to GTL
+  (instruction categories via the stage's instructionCategoryRefs and
+  the section machinery) when extra F_P stages bind to the manifest
+  pipeline; the field is transitional and non-closing for T-205's
+  final gate.
+- **-016 The default is a catalog citizen (user law 2026-07-07).** The
+  substrate's default program (the bootstrap triple) is a TYPED,
+  LABELLED entry in the effective catalog under a reserved ref, marked
+  default — never an invisible code fallback. Higher-order functions
+  choose against the FULL catalog including the default; declared
+  entries cannot shadow the reserved ref (fail-closed).
+
 ## Non-closure
 
 Weakened tests; a handler minting truth; a tool name in handler code;

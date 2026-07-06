@@ -7,7 +7,8 @@ import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../con
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable, extraHogStageSegments } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
-import { resolveHandlerForSelection, executeHandler, admitHandlerRegistry } from "./c_call_handlers.js";
+import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
+import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
@@ -5126,6 +5127,8 @@ function* runExtraHogStages(input: {
   readonly edge: string;
   readonly vectorIndex: number;
   readonly workProjectionRef: string | null;
+  readonly handlerRegistry: CCallHandlerRegistry | null;
+  readonly declaredConfigs: Readonly<Record<string, unknown>> | null;
 }): Generator<
   EnginePluginEffect,
   {
@@ -5160,11 +5163,22 @@ function* runExtraHogStages(input: {
       programRef: input.programRef
     });
     eventState = input.emit(eventState, spine.events);
+    // -005: declared config resolves via the binding's handlerConfigRef
+    const stageBinding = input.handlerRegistry?.bindings.find(
+      (row) =>
+        row.programRef === input.programRef &&
+        row.stageRole === stage.stageRole &&
+        row.armId === stage.armId
+    ) ?? null;
+    const declaredConfig =
+      stageBinding?.handlerConfigRef != null && input.declaredConfigs !== null
+        ? input.declaredConfigs[stageBinding.handlerConfigRef] ?? null
+        : null;
     const result = yield Object.freeze({
       kind: "c_call_handler_execute" as const,
       programRef: input.programRef,
       stage,
-      declaredConfig: null,
+      declaredConfig,
       workProjection: input.workProjectionRef
     });
     if (result.kind !== "c_call_handler_execute") {
@@ -7501,7 +7515,12 @@ function* runEngineIterateMachine(input: {
                   frameId: actorInvocation.frameId,
                   edge: transition.edge,
                   vectorIndex: transition.vectorIndex,
-                  workProjectionRef: resultRef
+                  workProjectionRef: resultRef,
+                  handlerRegistry: plugins.handlerRegistry,
+                  declaredConfigs: hogHandlerConfigsFromDeclarationAttrs(
+                    request.basis.graphFunction.declarations,
+                    request.basis.graphFunction.name
+                  )
                 });
                 eventState = ran.eventState;
                 if (ran.blockedStageRole !== null) {
@@ -8579,7 +8598,12 @@ function* runEngineIterateMachine(input: {
                   frameId: actorInvocation.frameId,
                   edge: transition.edge,
                   vectorIndex: transition.vectorIndex,
-                  workProjectionRef: null
+                  workProjectionRef: null,
+                  handlerRegistry: plugins.handlerRegistry,
+                  declaredConfigs: hogHandlerConfigsFromDeclarationAttrs(
+                    request.basis.graphFunction.declarations,
+                    request.basis.graphFunction.name
+                  )
                 });
                 eventState = ran.eventState;
                 if (ran.blockedStageRole !== null) {
@@ -9672,10 +9696,36 @@ async function resolveAsyncEnginePluginEffect(
   plugins: ResolvedRunnerPlugins
 ): Promise<EnginePluginEffectResult> {
   switch (effect.kind) {
-    case "c_call_handler_execute":
-      // handlers are sync data-in/data-out; the sync resolver's typed
-      // conversion applies identically on the async path.
-      return resolveSyncEnginePluginEffect(effect, plugins);
+    case "c_call_handler_execute": {
+      let interior: CCallHandlerInterior;
+      try {
+        if (plugins.handlerRegistry === null) {
+          throw new TypeError("handler_binding_missing: no registry admitted");
+        }
+        const hit = resolveHandlerForSelection(plugins.handlerRegistry, {
+          programRef: effect.programRef,
+          stageRole: effect.stage.stageRole,
+          armId: effect.stage.armId,
+          regime: effect.stage.defaultRegime
+        });
+        interior = await executeHandlerAsync(hit.handler, {
+          stage: effect.stage,
+          binding: hit.binding,
+          declaredConfig: effect.declaredConfig,
+          workProjection: effect.workProjection
+        });
+      } catch (error) {
+        const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+        interior = Object.freeze({
+          outcomeStatus: "blocked",
+          evidenceRefs: Object.freeze([`handler-resolution-error:${effect.stage.armId}`]),
+          payloadRef: null,
+          responseContractRef: null,
+          failureReason: `${message} (contract_failure)`
+        });
+      }
+      return Object.freeze({ kind: "c_call_handler_execute", interior });
+    }
     case "fd_evaluate":
       return Object.freeze({
         kind: "fd_evaluate",
@@ -9788,10 +9838,35 @@ async function resolveAsyncEnginePluginEffect(
   }
 }
 
+// HANDLERS write surface: declared bindings assemble the EFFECTIVE
+// registry before the machine and the effect resolvers see plugins.
+// Implementations arrive by ref through the supplied handlers map
+// (standard set from the runtime layer, custom via the plugin seam).
+function effectiveRunnerPlugins(
+  request: EngineIterateRequest,
+  plugins: ResolvedRunnerPlugins
+): ResolvedRunnerPlugins {
+  const declaredBindings = hogHandlerBindingsFromDeclarationAttrs(
+    request.basis.graphFunction.declarations,
+    request.basis.graphFunction.name
+  );
+  if (declaredBindings === null) {
+    return plugins;
+  }
+  const impls = new Map(plugins.handlerRegistry?.handlers ?? new Map());
+  return Object.freeze({
+    ...plugins,
+    handlerRegistry: assembleHandlerRegistry({
+      declaredBindings,
+      handlers: impls
+    })
+  });
+}
+
 export function runEngineIterate(
   request: EngineIterateRequest
 ): EngineIterateResult {
-  const plugins = resolveRunnerPlugins(request.plugins);
+  const plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
   const targetCarrierDefaults =
     request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const machine = runEngineIterateMachine({
@@ -9809,7 +9884,7 @@ export function runEngineIterate(
 export async function runEngineIterateAsync(
   request: EngineIterateRequest
 ): Promise<EngineIterateResult> {
-  const plugins = resolveRunnerPlugins(request.plugins);
+  const plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
   const targetCarrierDefaults =
     request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const machine = runEngineIterateMachine({

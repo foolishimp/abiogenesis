@@ -9,6 +9,7 @@
 import type { SerializedAttrs } from "../../../gtl/m01/contracts/carriers.js";
 import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
 import type { HogProgramAdmission, HogProgramDeclaration } from "./hog_program.js";
+import { HOG_BOOTSTRAP_TRIPLE } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
 
 export const HOG_PROGRAM_SYNTAX_VERSIONS = Object.freeze([
@@ -225,4 +226,87 @@ export function hogProgramLadderFromDeclarationAttrs(
     });
   }
   return compileHogProgramLadder(serializedJsonValueToPlain(entry.value.value));
+}
+
+// HANDLERS write surface: handler BINDINGS are declared data — the
+// census rows {programRef, stageRole, armId, regime, handlerRef,
+// handlerClass, handlerConfigRef} authored as GTL declarations; handler
+// IMPLEMENTATIONS arrive by ref (standard set shipped by the substrate,
+// custom impls via the plugin seam). Configs are declared per
+// handlerConfigRef.
+export const HOG_HANDLER_BINDINGS_DECLARATION_KEY = "abg.hog_handler_bindings";
+export const HOG_HANDLER_CONFIGS_DECLARATION_KEY = "abg.hog_handler_configs";
+
+export function hogHandlerBindingsFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): readonly unknown[] | null {
+  const entry = attrs.entries.find((row) => row.key === HOG_HANDLER_BINDINGS_DECLARATION_KEY);
+  if (entry === undefined) return null;
+  if (entry.value.kind !== "json_blob") {
+    throw new TypeError(
+      `${HOG_HANDLER_BINDINGS_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+    );
+  }
+  const plain = serializedJsonValueToPlain(entry.value.value);
+  if (!Array.isArray(plain)) {
+    throw new TypeError(
+      `${HOG_HANDLER_BINDINGS_DECLARATION_KEY} on ${sourceRef} must be an array of binding rows`
+    );
+  }
+  return plain;
+}
+
+export function hogHandlerConfigsFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): Readonly<Record<string, unknown>> | null {
+  const entry = attrs.entries.find((row) => row.key === HOG_HANDLER_CONFIGS_DECLARATION_KEY);
+  if (entry === undefined) return null;
+  if (entry.value.kind !== "json_blob") {
+    throw new TypeError(
+      `${HOG_HANDLER_CONFIGS_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+    );
+  }
+  const plain = serializedJsonValueToPlain(entry.value.value);
+  if (plain === null || typeof plain !== "object" || Array.isArray(plain)) {
+    throw new TypeError(
+      `${HOG_HANDLER_CONFIGS_DECLARATION_KEY} on ${sourceRef} must be an object keyed by handlerConfigRef`
+    );
+  }
+  return plain as Readonly<Record<string, unknown>>;
+}
+
+// USER RULING (2026-07-07): the HoG default program is a TYPED, LABELLED
+// CATALOG ENTRY, not an invisible code fallback. The effective catalog
+// ALWAYS contains the bootstrap triple under its reserved ref (marked
+// default) so higher-order functions dynamically choose against the
+// FULL set. Declared entries may not shadow the reserved ref.
+export const HOG_BOOTSTRAP_PROGRAM_REF = HOG_BOOTSTRAP_TRIPLE.programRef;
+
+export interface EffectiveHogProgramCatalog {
+  readonly programs: ReadonlyMap<string, HogProgramDeclaration>;
+  readonly defaultProgramRef: string;
+}
+
+export function effectiveHogProgramCatalog(
+  declared: HogProgramCatalog | null
+): EffectiveHogProgramCatalog {
+  const programs = new Map<string, HogProgramDeclaration>();
+  programs.set(HOG_BOOTSTRAP_PROGRAM_REF, HOG_BOOTSTRAP_TRIPLE);
+  if (declared !== null) {
+    for (const [ref, program] of declared.programs) {
+      if (ref === HOG_BOOTSTRAP_PROGRAM_REF) {
+        throw new TypeError(
+          `hog_program_catalog_reserved_ref: ${HOG_BOOTSTRAP_PROGRAM_REF} is the ` +
+            `substrate default and may not be shadowed by a declared entry`
+        );
+      }
+      programs.set(ref, program);
+    }
+  }
+  return Object.freeze({
+    programs,
+    defaultProgramRef: HOG_BOOTSTRAP_PROGRAM_REF
+  });
 }

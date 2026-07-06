@@ -1399,3 +1399,17 @@ export {
   hogProgramCatalogFromDeclarationAttrs
 } from "./hog_program_syntax.js";
 export type { HogProgramCatalog } from "./hog_program_syntax.js";
+
+export {
+  effectiveHogProgramCatalog,
+  HOG_BOOTSTRAP_PROGRAM_REF,
+  HOG_PROGRAM_LADDER_DECLARATION_KEY,
+  compileHogProgramLadder,
+  ladderRungForAttempt,
+  hogProgramLadderFromDeclarationAttrs,
+  HOG_HANDLER_BINDINGS_DECLARATION_KEY,
+  HOG_HANDLER_CONFIGS_DECLARATION_KEY,
+  hogHandlerBindingsFromDeclarationAttrs,
+  hogHandlerConfigsFromDeclarationAttrs
+} from "./hog_program_syntax.js";
+export type { EffectiveHogProgramCatalog, HogProgramLadderRung } from "./hog_program_syntax.js";

@@ -37,3 +37,12 @@ export type {
   FpTransportIo,
   FpTransportConfig
 } from "./runner/standard_handlers.js";
+
+export { buildStandardHandlerImplementations } from "./runner/standard_handler_runtime.js";
+export { assembleHandlerRegistry } from "./runner/c_call_handlers.js";
+export {
+  HOG_HANDLER_BINDINGS_DECLARATION_KEY,
+  HOG_HANDLER_CONFIGS_DECLARATION_KEY,
+  hogHandlerBindingsFromDeclarationAttrs,
+  hogHandlerConfigsFromDeclarationAttrs
+} from "./contracts/hog_program_syntax.js";

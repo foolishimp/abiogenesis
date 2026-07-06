@@ -53,7 +53,9 @@ export interface CCallHandlerInput {
   readonly workProjection: unknown;
 }
 
-export type CCallHandler = (input: CCallHandlerInput) => CCallHandlerInterior;
+export type CCallHandler = (
+  input: CCallHandlerInput
+) => CCallHandlerInterior | Promise<CCallHandlerInterior>;
 
 export interface CCallHandlerRegistry {
   readonly bindings: readonly CCallHandlerBinding[];
@@ -149,6 +151,66 @@ export function executeHandler(
 ): CCallHandlerInterior {
   try {
     const interior = handler(input);
+    if (interior instanceof Promise) {
+      // the sync driver cannot await: typed refusal, never a dangling
+      // promise (async handlers require the async driver).
+      return Object.freeze({
+        outcomeStatus: "blocked",
+        evidenceRefs: Object.freeze([`handler-async-refused:${input.binding.handlerRef}`]),
+        payloadRef: null,
+        responseContractRef: null,
+        failureReason: "handler_requires_async_driver (contract_failure)"
+      });
+    }
+    return Object.freeze({ ...interior, evidenceRefs: Object.freeze([...interior.evidenceRefs]) });
+  } catch (error) {
+    const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+    return Object.freeze({
+      outcomeStatus: "blocked",
+      evidenceRefs: Object.freeze([`handler-error:${input.binding.handlerRef}`]),
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: `${message} (contract_failure)`
+    });
+  }
+}
+
+// Registry ASSEMBLY: bindings come from declarations; implementations
+// by ref — the supplied map carries both the substrate's standard
+// handlers and any product-supplied custom handlers (the plugin seam).
+// Assembly is fail-closed via admitHandlerRegistry at the engine entry.
+export function assembleHandlerRegistry(input: {
+  readonly declaredBindings: readonly unknown[];
+  readonly handlers: ReadonlyMap<string, CCallHandler>;
+}): CCallHandlerRegistry {
+  const bindings = input.declaredBindings.map((row, index) => {
+    const record = row as Partial<CCallHandlerBinding> | null;
+    if (record === null || typeof record !== "object") {
+      throw new TypeError(`handler binding [${index}] must be an object row`);
+    }
+    return Object.freeze({
+      programRef: String(record.programRef ?? ""),
+      stageRole: String(record.stageRole ?? ""),
+      armId: String(record.armId ?? ""),
+      regime: record.regime as CCallHandlerBinding["regime"],
+      handlerRef: String(record.handlerRef ?? ""),
+      handlerClass: record.handlerClass as CCallHandlerBinding["handlerClass"],
+      handlerConfigRef:
+        record.handlerConfigRef === null || record.handlerConfigRef === undefined
+          ? null
+          : String(record.handlerConfigRef)
+    });
+  });
+  return Object.freeze({ bindings: Object.freeze(bindings), handlers: input.handlers });
+}
+
+// Async twin: awaits handler promises; identical throw conversion.
+export async function executeHandlerAsync(
+  handler: CCallHandler,
+  input: CCallHandlerInput
+): Promise<CCallHandlerInterior> {
+  try {
+    const interior = await handler(input);
     return Object.freeze({ ...interior, evidenceRefs: Object.freeze([...interior.evidenceRefs]) });
   } catch (error) {
     const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
