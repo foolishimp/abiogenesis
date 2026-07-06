@@ -302,7 +302,7 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     "temporal-property://abg/standing/coverage-requires-payload-admission",
     "temporal-property://abg/standing/invocation-requires-dispatch",
     "temporal-property://abg/standing/selection-requires-registry-admission",
-    "temporal-property://abg/standing/dispatch-eventually-closes"
+    "temporal-property://abg/standing/selection-eventually-judged"
   ]) {
     const verdict = byRef.get(ref);
     assert.ok(verdict, `missing live verdict for ${ref}`);

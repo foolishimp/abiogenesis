@@ -355,3 +355,56 @@ test("T-200 round-4: ALL spine kinds are closed surfaces (-002)", () => {
     );
   }
 });
+
+// ─── P3-B: the enclosure standing witness (-006) ───
+
+import { checkCCallEnclosure } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 P3-B: enclosure witness — lawful spine accepted; orphan/dangling/order violations caught", () => {
+  const o = opened();
+  const lawful = [
+    o,
+    { kind: "c_call_fibre_selected", cCallRef: o.cCallRef, basisId: locus.basisId, regime: "F_P", armId: "arm://x", compositionRef: null },
+    { kind: "c_call_evidenced", cCallRef: o.cCallRef, basisId: locus.basisId, evidenceClass: "fp_interior", evidenceRefs: ["e://1"] },
+    { kind: "c_call_result_admitted", cCallRef: o.cCallRef, basisId: locus.basisId, outcomeStatus: "dispatched", payloadRef: null, responseContractRef: null },
+    { kind: "c_call_judged", cCallRef: o.cCallRef, basisId: locus.basisId, judgment: "advance", reasonRef: null }
+  ];
+  const ok = checkCCallEnclosure(lawful, { completed: true });
+  assert.equal(ok.accepted, true, JSON.stringify(ok.issues));
+  // NEGATIVE: orphan spine row (no opened)
+  const orphan = checkCCallEnclosure([lawful[4]], { completed: true });
+  assert.equal(orphan.accepted, false);
+  assert.equal(orphan.issues[0].issueKind, "orphan_spine_row");
+  // NEGATIVE: judged before admitted
+  const misordered = checkCCallEnclosure([lawful[0], lawful[1], lawful[4]], { completed: false });
+  assert.equal(misordered.accepted, false);
+  assert.equal(misordered.issues.some((i) => i.issueKind === "judged_before_admitted"), true);
+  // NEGATIVE: dangling open spine on completed replay
+  const dangling = checkCCallEnclosure([lawful[0], lawful[1]], { completed: true });
+  assert.equal(dangling.accepted, false);
+  assert.equal(dangling.issues.some((i) => i.issueKind === "dangling_open_spine"), true);
+  // TRANSITIONAL: free-floating F_P interior reports but does not fail
+  const transitional = checkCCallEnclosure([{ kind: "fp_dispatch_requested", basisId: locus.basisId, dispatchRef: "d://1" }], { completed: true });
+  assert.equal(transitional.accepted, true);
+  assert.equal(transitional.issues[0]?.issueKind, "unenclosed_fibre_interior");
+  assert.equal(transitional.issues[0]?.severity, "transitional");
+});
+
+test("T-200 P3-B: enclosure witness holds over the REAL gate replay", async () => {
+  const { readFileSync, readdirSync, existsSync } = await import("node:fs");
+  const path = (await import("node:path")).default;
+  const base = path.resolve("test_env/test_runs/t194_feature_matrix_live");
+  if (!existsSync(base)) return; // no local gate runs: witness runs in the gate lane itself
+  const runs = readdirSync(base).sort().reverse();
+  for (const run of runs.slice(0, 1)) {
+    const eventsPath = readdirSync(path.join(base, run)).flatMap((d) => {
+      const p = path.join(base, run, d, ".ai-workspace", "events", "events.jsonl");
+      return existsSync(p) ? [p] : [];
+    })[0];
+    if (eventsPath === undefined) return;
+    const events = readFileSync(eventsPath, "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    const report = checkCCallEnclosure(events, { completed: true });
+    assert.equal(report.accepted, true, JSON.stringify(report.issues.filter((i) => i.severity === "violation")));
+    assert.equal(report.openedCount, report.judgedCount, "every opened spine judged on real replay");
+  }
+});

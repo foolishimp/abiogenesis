@@ -1382,3 +1382,6 @@ export type {
   HogProgramSyntaxV1,
   HogProgramSyntaxVersion
 } from "./hog_program_syntax.js";
+
+export { checkCCallEnclosure } from "./c_call_enclosure.js";
+export type { CCallEnclosureIssue, CCallEnclosureReport } from "./c_call_enclosure.js";
