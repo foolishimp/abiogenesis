@@ -45,6 +45,7 @@ import {
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
+  constructRuntimeFailureObservedEvent,
   constructTerminalReachedEvent,
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent
@@ -5161,6 +5162,42 @@ function* runEngineIterateMachine(input: {
       sink: request.eventSink
     });
   };
+  // T-205 B2 (HANDLERS-012; codex review HIGH): the run's program is
+  // admitted at ENTRY. An unresolvable or not-yet-executable declared
+  // program becomes TYPED TRUTH — runtime_failure_observed + a lawful
+  // gap_stop terminal in replay — never a host exception, never a
+  // half-opened spine.
+  try {
+    resolveHogProgram(request.basis.graphFunction);
+  } catch (error) {
+    const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
+    const blocked = terminalTransition(
+      request.basis,
+      "gap_stop",
+      `hog_program_unresolvable: ${message}`
+    );
+    eventState = emitRunnerEvents(eventState, [
+      constructRuntimeFailureObservedEvent({
+        basisId: request.basis.id,
+        surface: "hog_program_resolution",
+        failureClass: "contract_failure",
+        message,
+        stackExcerpt: null
+      }),
+      constructTerminalReachedEvent(blocked)
+    ]);
+    return constructResult({
+      basis: request.basis,
+      transition: blocked,
+      projection: deriveRuntimeAggregateProjection(
+        request.basis,
+        eventState.replayEvents
+      ),
+      emittedEvents: eventState.emittedEvents,
+      replayEvents: eventState.replayEvents,
+      iterationCount: 0
+    });
+  }
   if (!temporalStartupAdmission.accepted) {
     // Fail-closed startup (REQ -009): an unlawful property set never runs.
     const blocked = terminalTransition(

@@ -60,10 +60,10 @@ function assertExecutableShape(
     .filter((role: string) => !EXECUTABLE_STAGE_ROLES.includes(role));
   if (unsupported.length > 0) {
     throw new TypeError(
-      `hog program ${program.programRef} on ${sourceRef} declares stage roles ` +
-        `${JSON.stringify(unsupported)} the engine cannot execute yet ` +
-        `(unsupported_stage_set: standard handlers land at T-205 B3; ` +
-        `executable roles today: ${JSON.stringify(EXECUTABLE_STAGE_ROLES)})`
+      `unsupported_stage_set: hog program ${program.programRef} declares stage ` +
+        `roles ${JSON.stringify(unsupported)} the engine cannot execute yet ` +
+        `(standard handlers land at T-205 B3; executable roles today: ` +
+        `${JSON.stringify(EXECUTABLE_STAGE_ROLES)}) on ${sourceRef}`
     );
   }
 }
@@ -72,7 +72,9 @@ function assertExecutableShape(
 // catalog + selection ref -> single program declaration -> baked default.
 // Every failure is fail-closed BEFORE any interior runs (HANDLERS-012).
 export function resolveHogProgram(graphFunction: GraphFunction): ResolvedHogProgram {
-  const sourceRef = graphFunction.id;
+  // messages use the function NAME — ids are structural blobs and bury
+  // the typed reason tag past any truncation window.
+  const sourceRef = graphFunction.name;
   const catalogCompilation = hogProgramCatalogFromDeclarationAttrs(
     graphFunction.declarations,
     sourceRef

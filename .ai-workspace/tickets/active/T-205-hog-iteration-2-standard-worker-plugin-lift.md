@@ -176,3 +176,14 @@ git diff --check
   infra.
 - T-203b legacy sunsets (trace dual-write, branch_lease producer,
   FP-review ratification) — erase-adjacent, this wave.
+
+## Proof commands (codex MEDIUM actioned)
+```bash
+cd build_tenants/abiogenesis/typescript
+npm run test:t205        # all T-205 behavioral differentials (t200 + t192 lanes)
+npm run test:semantic    # full suite
+```
+B2 status: interpretation seam LIVE (resolution at run entry, typed
+fail-closed truth per codex HIGH: runtime_failure_observed +
+gap_stop(hog_program_unresolvable), zero spine rows, no host
+exception); declared program identity proven flowing into real replay.

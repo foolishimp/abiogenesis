@@ -640,3 +640,65 @@ test("T-205 B2: a DECLARED program drives the engine — selection rows carry it
   assert.equal(arms.has("arm://t205/transform"), true, JSON.stringify([...arms]));
   assert.equal(arms.has("arm://abg/hog/transform"), false, "baked arm must NOT appear");
 });
+
+test("T-205 B2 (codex HIGH): an unexecutable declared program is TYPED TRUTH — gap_stop + runtime_failure_observed, no host exception, no spine", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const deepSyntax = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://t205/deep-seven" },
+      { key: "proportionalityClass", value: "P3" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "plan" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://d/p" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://d/t" },
+          { key: "resultBearing", value: true }
+        ] }
+      ] } }
+    ]
+  };
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({
+            key: "abg.hog_program",
+            value: Object.freeze({ kind: "json_blob", value: deepSyntax })
+          })
+        ])
+      })
+    })
+  });
+  const events = [];
+  // must NOT throw (the codex probe threw here before the fix)
+  const result = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: {}
+  });
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /hog_program_unresolvable/);
+  assert.match(result.transition.reason, /unsupported_stage_set/);
+  const failure = result.replayEvents.find((e) => e.kind === "runtime_failure_observed");
+  assert.notEqual(failure, undefined, "typed failure event present");
+  assert.equal(failure.surface, "hog_program_resolution");
+  assert.equal(failure.failureClass, "contract_failure");
+  // no half-opened spine: zero c_call rows
+  assert.equal(result.replayEvents.filter((e) => e.kind.startsWith("c_call_")).length, 0);
+  // and the terminal is judged by the property engine like any other
+  const terminal = result.replayEvents.find((e) => e.kind === "terminal_reached");
+  assert.notEqual(terminal, undefined);
+});

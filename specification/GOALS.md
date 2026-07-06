@@ -585,6 +585,7 @@ Links: strategy
 `.ai-workspace/comments/claude/20260706T160000Z_STRATEGY_three_goals_to_closure_hog_reentry_consciousness.md`;
 design `build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md`
 (§1–§18.1); law `specification/requirements/abg/REQ-R-ABG3-CCALL.md`
-(-001..-017 + Realization State); tickets T-200, T-205 (active),
+(-001..-017 + Realization State) and
+`specification/requirements/abg/REQ-R-ABG3-HANDLERS.md` (-001..-014); tickets T-200, T-205 (active),
 T-206/T-207 (backlog), odd_glc T-030/T-195; follow-on Goal 4
 (ticket-lifecycle overlay + release vector, ~odd_glc T-031).
