@@ -561,3 +561,19 @@ class, T-195 C3); over-reification of capable workers =
 micromanagement (proportionality waste, §12.1); under-reification of
 weak workers = chaos (the campaign's blind-retry loops). Trust
 calibration is program shape; compliance is gate invariance.
+
+### 8.1 P2 checkpoint amendment (codex round 4 + user checkpoint)
+
+The strangler is TWO-STEP, ratified retroactively with the evidence in
+hand: step 1 (DONE) — spine visibility by site-bracketing; the wrapped
+sites are real truth and serve as the parity ORACLE for step 2. Step 2
+(pre-P5) — the old branches delegate through resolveCCall (the §8
+pipeline), proven by oracle-equality: delegation must reproduce the
+bracketed sites' spine streams exactly. Acceptance item "one resolver
+entry" is EARNED AT STEP 2, not before (codex checkpoint verdict:
+"P2 clears as a visibility/parity checkpoint, not as design-complete
+HoG realization"). Granularity CONFIRMED at checkpoint:
+spine-per-invoking-task (taskOrdinal = pluginIndex, batchRef grouping) —
+"per-batch would hide the unit of compute you are trying to audit."
+P3/P4 must explicitly prove evaluator EXTERNAL-session parity on the
+live lanes (the named evaluate-interior asymmetry).

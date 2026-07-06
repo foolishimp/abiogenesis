@@ -93,12 +93,42 @@ export async function resolveCCall(
     compositionRef: input.compositionRef ?? null
   });
   input.emit([opened, selected]);
-  const interior = await input.resolveFibre({
-    cCallRef,
-    stageRole: stage.stageRole,
-    regime,
-    armId: stage.armId
-  });
+  let interior: CCallInteriorResult;
+  try {
+    interior = await input.resolveFibre({
+      cCallRef,
+      stageRole: stage.stageRole,
+      regime,
+      armId: stage.armId
+    });
+  } catch (error) {
+    // No orphan partial spines (codex round 4): a throwing fibre still
+    // closes its spine as blocked truth before the error propagates.
+    input.emit([
+      constructCCallEvidencedEvent({
+        cCallRef,
+        basisId: locus.basisId,
+        evidenceClass: "fibre_failure",
+        evidenceRefs: Object.freeze([
+          `error:${String(error instanceof Error ? error.message : error).slice(0, 200)}`
+        ])
+      }),
+      constructCCallResultAdmittedEvent({
+        cCallRef,
+        basisId: locus.basisId,
+        outcomeStatus: "blocked",
+        payloadRef: null,
+        responseContractRef: null
+      }),
+      constructCCallJudgedEvent({
+        cCallRef,
+        basisId: locus.basisId,
+        judgment: "blocked",
+        reasonRef: null
+      })
+    ]);
+    throw error;
+  }
   const tail: RuntimeEvent[] = [];
   for (const row of interior.evidence) {
     tail.push(

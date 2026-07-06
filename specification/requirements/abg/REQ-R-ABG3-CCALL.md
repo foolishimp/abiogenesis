@@ -94,6 +94,23 @@ structure around it.
   that remain explicit stages under every compression level. Capability
   is assessed from replay, never self-declared.
 
+## Realization State (typed strangler window — reviewed at each T-200 checkpoint)
+
+-001's universality is realized INCREMENTALLY under the ratified
+two-step strangler. ENCLOSED at this revision: transform.F_P (all
+exits), evaluate.F_P, evaluate.F_D (live substitution), consequence
+scalar (both paired sites), composed transform/consequence batch tasks
+(spine per invoking task), construction sub_traversal (-013). PENDING,
+with retirement points: evaluation-rule batch arms and fh_admit (P3,
+with their gate antecedents); F_D mechanical transform (program
+interpretation, P5); gate antecedent rebind from fp_dispatch_requested
+to the selection row (P3 — until then the old antecedent remains the
+operative gate point on new runs); resolveCCall delegation replacing
+the site brackets (pre-P5; the brackets are the delegation's parity
+oracle); GTL catalog publication of program declarations (P2g/P3).
+This clause retires when -001 holds unconditionally; a release note may
+not claim envelope universality while it stands.
+
 ## Non-closure
 
 Weakened tests; any fibre name in spine code; any tool name in

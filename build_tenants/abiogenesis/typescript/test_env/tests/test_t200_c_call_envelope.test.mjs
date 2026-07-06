@@ -65,9 +65,14 @@ test("T-200 P1: all five spine kinds construct and admit", () => {
 
 test("T-200 P1: mintCCallRef carries full replay identity (-004)", () => {
   const base = mintCCallRef(locus);
-  assert.equal(
-    base,
-    "c-call:execution_basis:t200:graph-call:execution_basis:t200:frame:execution_basis:t200:root:0:transform:-:1"
+  // digest form: injective over the typed tuple by construction
+  assert.match(base, /^c-call:sha256:[0-9a-f]{64}$/);
+  assert.equal(base, mintCCallRef(locus), "deterministic");
+  // ADVERSARIAL SPLIT (codex round 4): ":"-containing fields must not
+  // collide across field boundaries.
+  assert.notEqual(
+    mintCCallRef({ ...locus, basisId: "x:y", graphCallId: "g" }),
+    mintCCallRef({ ...locus, basisId: "x", graphCallId: "y:g" })
   );
   // recursive frames, repeated graph calls, composed tasks, attempts —
   // each identity axis produces a DISTINCT ref (collision differential)
@@ -304,4 +309,49 @@ test("T-200 P2b: fibre substitution changes the selection row only (-007 seed)",
     shapes.push(emitted.map((event) => event.kind).join(","));
   }
   assert.equal(shapes[0], shapes[1], "spine shape is identical under fibre substitution");
+});
+
+
+test("T-200 round-4: a throwing fibre closes its spine as blocked before propagating", async () => {
+  const emitted = [];
+  await assert.rejects(
+    resolveCCall({
+      stage: TRIPLE.stages[0],
+      locus: { ...locus },
+      emit: (events) => emitted.push(...events),
+      resolveFibre: async () => {
+        throw new Error("transport exploded");
+      }
+    }),
+    /transport exploded/
+  );
+  const kinds = emitted.map((event) => event.kind);
+  assert.deepEqual(kinds, [
+    "c_call_opened",
+    "c_call_fibre_selected",
+    "c_call_evidenced",
+    "c_call_result_admitted",
+    "c_call_judged"
+  ]);
+  assert.equal(emitted[4].judgment, "blocked");
+  assert.equal(emitted[2].evidenceClass, "fibre_failure");
+});
+
+test("T-200 round-4: ALL spine kinds are closed surfaces (-002)", () => {
+  const o = opened();
+  const riders = { unexpected: "x" };
+  const bases = [
+    { kind: "c_call_fibre_selected", cCallRef: o.cCallRef, basisId: locus.basisId, regime: "F_P", armId: "arm://x", compositionRef: null },
+    { kind: "c_call_evidenced", cCallRef: o.cCallRef, basisId: locus.basisId, evidenceClass: "fp_interior", evidenceRefs: ["e://1"] },
+    { kind: "c_call_result_admitted", cCallRef: o.cCallRef, basisId: locus.basisId, outcomeStatus: "dispatched", payloadRef: null, responseContractRef: null },
+    { kind: "c_call_judged", cCallRef: o.cCallRef, basisId: locus.basisId, judgment: "advance", reasonRef: null }
+  ];
+  for (const base of bases) {
+    assertRuntimeEvent(Object.freeze({ ...base }));
+    assert.throws(
+      () => assertRuntimeEvent(Object.freeze({ ...base, ...riders })),
+      /closed surface|unexpected field/,
+      base.kind
+    );
+  }
 });

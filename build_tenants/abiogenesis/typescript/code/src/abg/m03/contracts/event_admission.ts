@@ -627,6 +627,60 @@ function assertNodeTypeSatisfactionPayload(event: RuntimeEventRecord): void {
   }
 }
 
+// REQ-R-ABG3-CCALL-002: the WHOLE spine is a closed surface — every
+// spine kind rejects unknown sibling fields (canonical envelope keys
+// excepted).
+const SPINE_ENVELOPE_KEYS = ["eventId", "eventTime", "eventTimeUnixMs", "eventAdmissionOrdinal"];
+function spineClosedKeys(
+  label: string,
+  fields: readonly string[],
+  inner: (event: RuntimeEventRecord) => void
+): (event: RuntimeEventRecord) => void {
+  const allowed = new Set([...fields, ...SPINE_ENVELOPE_KEYS]);
+  return (event: RuntimeEventRecord): void => {
+    for (const key of Object.keys(event)) {
+      if (!allowed.has(key)) {
+        throw new TypeError(
+          `${label}: spine events are a closed surface; unexpected field ${JSON.stringify(key)}`
+        );
+      }
+    }
+    inner(event);
+  };
+}
+
+const C_CALL_OPENED_ADMISSION = (event: RuntimeEventRecord): void => {
+    // REQ-R-ABG3-CCALL-002: the spine is LOCUS-ONLY, enforced as a
+    // CLOSED key set — any unknown sibling field (fibre data, manifest
+    // refs, arbitrary riders) is rejected, not ignored.
+    const allowed = new Set([
+      "kind", "cCallRef", "basisId", "graphFunctionId", "graphCallId",
+      "frameId", "edge", "vectorIndex", "stageRole", "taskOrdinal",
+      "attempt", "batchRef",
+      "eventId", "eventTime", "eventTimeUnixMs", "eventAdmissionOrdinal"
+    ]);
+    for (const key of Object.keys(event)) {
+      if (!allowed.has(key)) {
+        throw new TypeError(
+          `CCallOpenedEvent: spine events are locus-only; unexpected field ${JSON.stringify(key)}`
+        );
+      }
+    }
+    applyFieldRules("CCallOpenedEvent", {
+      cCallRef: "non_empty_string",
+      basisId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      edge: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      stageRole: "non_empty_string",
+      taskOrdinal: "nullable_non_negative_integer",
+      attempt: "non_negative_integer",
+      batchRef: "nullable_string"
+    })(event);
+  };
+
 const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   basis_admitted: applyFieldRules("BasisAdmittedEvent", {
     basisId: "non_empty_string",
@@ -1133,63 +1187,41 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     witnessCount: "nullable_non_negative_integer",
     implicatedEventRefs: "string_array"
   }),
-  c_call_opened: (event: RuntimeEventRecord): void => {
-    // REQ-R-ABG3-CCALL-002: the spine is LOCUS-ONLY, enforced as a
-    // CLOSED key set — any unknown sibling field (fibre data, manifest
-    // refs, arbitrary riders) is rejected, not ignored.
-    const allowed = new Set([
-      "kind", "cCallRef", "basisId", "graphFunctionId", "graphCallId",
-      "frameId", "edge", "vectorIndex", "stageRole", "taskOrdinal",
-      "attempt", "batchRef",
-      "eventId", "eventTime", "eventTimeUnixMs", "eventAdmissionOrdinal"
-    ]);
-    for (const key of Object.keys(event)) {
-      if (!allowed.has(key)) {
-        throw new TypeError(
-          `CCallOpenedEvent: spine events are locus-only; unexpected field ${JSON.stringify(key)}`
-        );
-      }
-    }
-    applyFieldRules("CCallOpenedEvent", {
-      cCallRef: "non_empty_string",
-      basisId: "non_empty_string",
-      graphFunctionId: "non_empty_string",
-      graphCallId: "non_empty_string",
-      frameId: "non_empty_string",
-      edge: "non_empty_string",
-      vectorIndex: "non_negative_integer",
-      stageRole: "non_empty_string",
-      taskOrdinal: "nullable_non_negative_integer",
-      attempt: "non_negative_integer",
-      batchRef: "nullable_string"
-    })(event);
-  },
-  c_call_fibre_selected: applyFieldRules("CCallFibreSelectedEvent", {
+  c_call_opened: C_CALL_OPENED_ADMISSION,
+  c_call_fibre_selected: spineClosedKeys("CCallFibreSelectedEvent",
+    ["kind", "cCallRef", "basisId", "regime", "armId", "compositionRef"],
+    applyFieldRules("CCallFibreSelectedEvent", {
     cCallRef: "non_empty_string",
     basisId: "non_empty_string",
     regime: { oneOf: C_CALL_REGIME_VALUES },
     armId: "non_empty_string",
     compositionRef: "nullable_string"
-  }),
-  c_call_evidenced: applyFieldRules("CCallEvidencedEvent", {
-    cCallRef: "non_empty_string",
-    basisId: "non_empty_string",
-    evidenceClass: "non_empty_string",
-    evidenceRefs: "string_array"
-  }),
-  c_call_result_admitted: applyFieldRules("CCallResultAdmittedEvent", {
-    cCallRef: "non_empty_string",
-    basisId: "non_empty_string",
-    outcomeStatus: "non_empty_string",
-    payloadRef: "nullable_string",
-    responseContractRef: "nullable_string"
-  }),
-  c_call_judged: applyFieldRules("CCallJudgedEvent", {
-    cCallRef: "non_empty_string",
-    basisId: "non_empty_string",
-    judgment: { oneOf: C_CALL_JUDGMENT_VALUES },
-    reasonRef: "nullable_string"
-  }),
+  })),
+  c_call_evidenced: spineClosedKeys("CCallEvidencedEvent",
+    ["kind", "cCallRef", "basisId", "evidenceClass", "evidenceRefs"],
+    applyFieldRules("CCallEvidencedEvent", {
+      cCallRef: "non_empty_string",
+      basisId: "non_empty_string",
+      evidenceClass: "non_empty_string",
+      evidenceRefs: "string_array"
+    })),
+  c_call_result_admitted: spineClosedKeys("CCallResultAdmittedEvent",
+    ["kind", "cCallRef", "basisId", "outcomeStatus", "payloadRef", "responseContractRef"],
+    applyFieldRules("CCallResultAdmittedEvent", {
+      cCallRef: "non_empty_string",
+      basisId: "non_empty_string",
+      outcomeStatus: "non_empty_string",
+      payloadRef: "nullable_string",
+      responseContractRef: "nullable_string"
+    })),
+  c_call_judged: spineClosedKeys("CCallJudgedEvent",
+    ["kind", "cCallRef", "basisId", "judgment", "reasonRef"],
+    applyFieldRules("CCallJudgedEvent", {
+      cCallRef: "non_empty_string",
+      basisId: "non_empty_string",
+      judgment: { oneOf: C_CALL_JUDGMENT_VALUES },
+      reasonRef: "nullable_string"
+    })),
   runtime_failure_observed: applyFieldRules("RuntimeFailureObservedEvent", {
     basisId: "nullable_string",
     surface: "non_empty_string",

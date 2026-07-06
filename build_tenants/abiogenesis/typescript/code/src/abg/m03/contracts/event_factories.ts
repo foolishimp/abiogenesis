@@ -61,6 +61,7 @@ import type {
 import type {
   InstructionCausalContextProjection
 } from "./payload_ledger.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
   FD_PRESSURE_ROUTING_DECISION_VALUES,
@@ -931,16 +932,19 @@ export function mintCCallRef(input: {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
 }): string {
-  return [
-    "c-call",
-    input.basisId,
-    input.graphCallId,
-    input.frameId,
-    String(input.vectorIndex),
-    input.stageRole,
-    input.taskOrdinal === null ? "-" : String(input.taskOrdinal),
-    String(input.attempt)
-  ].join(":");
+  // INJECTIVE by construction: identity fields may themselves contain
+  // ":" so a delimiter join collides across field splits (codex round 4
+  // reproduced it). The digest of the typed tuple cannot; the readable
+  // locus lives on c_call_opened itself.
+  return `c-call:${stableSha256Digest({
+    basisId: input.basisId,
+    graphCallId: input.graphCallId,
+    frameId: input.frameId,
+    vectorIndex: input.vectorIndex,
+    stageRole: input.stageRole,
+    taskOrdinal: input.taskOrdinal,
+    attempt: input.attempt
+  })}`;
 }
 
 export function constructCCallOpenedEvent(input: Omit<CCallOpenedEvent, "kind" | "cCallRef">): CCallOpenedEvent {

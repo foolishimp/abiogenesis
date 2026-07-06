@@ -4667,6 +4667,7 @@ function finishConsequenceTraversalActionConsumption(input: {
   readonly preludeState: EngineEventEmissionState;
   readonly constructionOutcome: ConstructionRunnerStepOutcome;
   readonly iterationCount: number;
+  readonly vectorIndex: number;
 }): {
   readonly eventState: EngineEventEmissionState;
   readonly result: EngineIterateResult;
@@ -4693,10 +4694,10 @@ function finishConsequenceTraversalActionConsumption(input: {
       graphCallId: graphCallIdForBasis(input.request.basis),
       frameId: frameIdForBasis(input.request.basis),
       edge: "consequence_traversal",
-      vectorIndex: 0,
+      vectorIndex: input.vectorIndex,
       stageRole: "consequence",
       taskOrdinal: 0,
-      attempt: input.iterationCount + 1,
+      attempt: 1,
       batchRef: null
     });
     eventState = appendAlreadyEmittedEngineRunnerEvents({
@@ -4716,7 +4717,8 @@ function finishConsequenceTraversalActionConsumption(input: {
             basisId: input.request.basis.id,
             evidenceClass: "sub_traversal",
             evidenceRefs: Object.freeze([
-              `sub-traversal:${input.request.basis.id}:${String(
+              `sub-traversal:${input.request.basis.id}`,
+              `iteration:${String(input.iterationCount)}:inner:${String(
                 input.constructionOutcome.graphActionResult.iterationCount
               )}`,
               `terminal:${innerTerminalKind}`
@@ -6487,7 +6489,8 @@ function* runEngineIterateMachine(input: {
             request,
             preludeState: consequenceTraversalConsumption.eventState,
             constructionOutcome,
-            iterationCount: consequenceTraversalConsumption.iterationCount
+            iterationCount: consequenceTraversalConsumption.iterationCount,
+            vectorIndex: transition.vectorIndex
           }).result;
         }
         eventState = emitRunnerEvents(eventState, [
@@ -8070,7 +8073,8 @@ function* runEngineIterateMachine(input: {
                     request,
                     preludeState: consequenceTraversalConsumption.eventState,
                     constructionOutcome,
-                    iterationCount: consequenceTraversalConsumption.iterationCount
+                    iterationCount: consequenceTraversalConsumption.iterationCount,
+                    vectorIndex: transition.vectorIndex
                   }).result;
                 }
               }
@@ -8844,7 +8848,8 @@ function* runEngineIterateMachine(input: {
                 request,
                 preludeState: consequenceTraversalConsumption.eventState,
                 constructionOutcome,
-                iterationCount: consequenceTraversalConsumption.iterationCount
+                iterationCount: consequenceTraversalConsumption.iterationCount,
+                vectorIndex: transition.vectorIndex
               }).result;
             }
             const requirementRouteProjection = deriveRuntimeAggregateProjection(
