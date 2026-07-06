@@ -63,6 +63,16 @@ call; the fibre is data inside it, never structure around it.
   deterministic evidence artifacts in place of sessions. The standing
   gate measures both.
 
+- **-013 Recursive enclosure.** A C call may resolve as a CHILD
+  traversal: the fibre interior carries `evidenceClass:
+  "sub_traversal"` with the child basis/run refs, and the child is the
+  same monad at its own boundary — spines all the way down. The monad
+  boundary (atomic session vs transparent sub-traversal) is a DECLARED
+  placement per call, not architecture. Audit equality (-012) composes:
+  each level's archives reconcile against its own spine invocations;
+  cCallRef identity (-004: graphCallId + frameId) makes recursion
+  collision-free.
+
 ## Non-closure
 
 Weakened tests; any fibre name in spine code; any tool name in

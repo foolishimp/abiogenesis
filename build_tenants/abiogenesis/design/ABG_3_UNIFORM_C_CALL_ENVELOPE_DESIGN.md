@@ -188,3 +188,25 @@ law. Everything else is fibre interior.
 3. The plugin seam's meaning sharpens: downstream systems compose
    workflows by choosing fibres per stage role — three plugin-capable
    steps per edge, no more surface than that.
+
+## 9. The recursive boundary (ratified framing)
+
+Once the edge program is data and the engine its interpreter, the
+structure is self-recursive: a C call's fibre interior may itself be a
+whole traversal (the construction/consequence lane already runs inner
+engine iterations today; an F_P worker may itself be an ABG instance —
+the workspace recursive-product taxonomy appearing inside the runtime).
+The MONAD BOUNDARY is therefore a placement choice per call:
+
+- **atomic**: evidence = opaque session/artifact refs (a leaf);
+- **transparent**: evidence = `sub_traversal` child basis/run refs — the
+  child is the same monad one level down (REQ -013).
+
+The spine makes the choice declared and auditable rather than
+accidental: enclosure gives a fractal replay (spines at every level),
+audit equality composes per level, and cCallRef's frame/graph-call
+identity keeps recursion collision-free. Where to put the boundary is
+product/design authority; that it must be DECLARED is envelope law.
+P2 note: the construction lane's inner runs become the first
+sub_traversal evidence rows — the lane closure from T-195 C5 (full
+passthrough) is what makes the child lawfully the "same monad".
