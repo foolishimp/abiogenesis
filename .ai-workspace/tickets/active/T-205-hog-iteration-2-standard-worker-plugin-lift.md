@@ -6,7 +6,7 @@ class: design_reframe
 opened: 2026-07-06
 depends: T-200 strangler step 2 (program/catalog interpretation) — same seam, arrives together
 requirements: REQ-R-ABG3-CCALL-014/-015/-016 (consumed); new family to ratify at P0
-acceptance: a product on the standard F_P path ships ZERO plugin code —
+acceptance: THE INTERNAL-EVERYTHING GATE first — ABG's own sandbox lanes prove catalogs/ladders/resume/re-entry/handlers with a real worker and -012 green, BEFORE any glc step; 4.5.0-rc.1 cuts on that gate. Then: a product on the standard F_P path ships ZERO plugin code —
   declarations only (catalog + selections + response contracts +
   materialization specs + calibration); the odd_glc data-mapper runs on
   the substrate's standard worker plugin with its binding reduced to

@@ -105,25 +105,63 @@ time — the release vector kills the class structurally instead of
 catching it. Sequenced after Goal 2 (it needs re-entry heights for its
 review/rework loops).
 
-## Execution order (dependencies, no dates)
+## THE PLAN TO 4.5 (overarching; no new tickets; ABG proves everything internally before any glc step)
 
-1. **T-200 closure** — spine-authority consolidation + erase + gate.
-   Cut 4.5.0-rc.1.
-2. **T-030 resume flag** (parallel-safe, odd_glc-side) — campaign
-   iterates in-system immediately, even before T-205.
-3. **T-205** — interpretation + handlers; odd_glc adoption converts the
-   binding to declarations; consequence catalog declared here too.
-4. **Clean data-mapper run** → **T-195 closes** (Goal 2 delivered) →
-   **4.5 is functionally complete** — the release claim is the run.
-5. **T-206** — the tuner over the accumulated campaign replay
-   (Goal 3 delivered).
-6. **Follow-on arcs (confirmed)**: Goal 4 — ticket-lifecycle overlay +
-   release vector (~odd_glc T-031); T-207 — intent-generation observer
-   (backlog, higher-order).
+RULE 1 — no new tickets. Every line below lands under T-200, T-205,
+T-030, T-195, or T-206. Scope grows inside acceptance, never sideways.
+RULE 2 — no glc until ABG's own lanes prove the whole stack. The
+internal-everything gate (B5) is the 4.5.0-rc.1 cut condition.
+RULE 3 — no rc cuts between here and B6. Checkpoints are commits and
+gate runs, not releases.
 
-Out of scope, named honestly: legacy actives (B-010, T-092/094/095,
-T-110, T-178/179) predate this arc — disposition in a separate hygiene
-pass, not silently carried.
+### Phase A — close T-200 (ABI-internal)
+A1. Spine-authority consolidation: ONE engine module (open/close),
+    the eight bracket bodies collapse into it; design §8.1 amended per
+    ruling (a).
+A2. Erase-able P5 items against the oracle; transitional clause
+    narrows to interpretation-pending.
+A3. Full battery + t194 sourceClean (with -012 rows) → T-200 CLOSES.
+    No cut.
+
+### Phase B — T-205 core, proven in ABG's own lanes
+B1. P0: handler-law requirements (O1–O8 + interpretation family);
+    codex review before code.
+B2. Step-2 interpretation at ONE seam: catalogs, selections, -017
+    ladders consumed; census derives from the admitted program; baked
+    triple remains the undeclared default.
+B3. Standard handlers: F_P agent-transport pipeline, F_D
+    process-execution, F_D materialization, F_H gate — plus the
+    capability-handler class. All census-bound.
+B4. F_D mechanical-transform spine (envelope universality).
+B5. THE INTERNAL-EVERYTHING GATE — extend ABG's own sandbox lanes
+    (t194 / hello-world) until they exercise, with a REAL worker and
+    no glc involvement:
+      - a declared catalog overriding the baked triple;
+      - ladder escalation observed (attempt 2 runs the deeper program);
+      - resume: start → gap_stop → fixture fix → start on the SAME
+        workspace → frontier advances (budget-refresh policy verified);
+      - consequence re-entry: a declared upstream landing actually
+        taken and folded back;
+      - standard handlers driving the run end-to-end (zero lane-local
+        plugin code);
+      - -012 audit green per configuration.
+B6. Full battery + sourceClean → **4.5.0-rc.1 CUT** (the
+    internal-everything checkpoint). T-205 CLOSES.
+
+### Phase C — glc, only now (T-030 → T-195)
+C1. Repin odd_glc to 4.5.0-rc.1. Binding becomes declarations:
+    catalog (lean-doc + code-hardened programs), ladder, consequence
+    catalog (failure class → landing vector). repaired_* stages retire.
+C2. Resume flag in the campaign lane (run-18 spec, already written).
+C3. Iterate IN-SYSTEM to convergence — operator supplies only F_H
+    fixes; each costs one stage's wall-time.
+→  The clean run: converged, tests green, `data_mapper_full_sbt ok`.
+    T-030 and T-195 CLOSE. **4.5 is functionally complete** — the
+    release claim is the run.
+
+### Phase D — T-206 tuner (post-4.5)
+The consciousness loop over a full campaign of per-configuration
+replay. Goal 3 delivered. Follow-ons (Goal 4, T-207) open after.
 
 ## One-line rule
 
