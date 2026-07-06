@@ -21,3 +21,15 @@ export type {
   CCallHandlerInterior,
   CCallHandlerRegistry
 } from "./runner/c_call_handlers.js";
+
+export {
+  standardProcessExecutionHandler,
+  standardMaterializationHandler,
+  STANDARD_HANDLER_REFS
+} from "./runner/standard_handlers.js";
+export type {
+  ProcessExecutionIo,
+  ProcessExecutionConfig,
+  MaterializationIo,
+  MaterializationConfig
+} from "./runner/standard_handlers.js";

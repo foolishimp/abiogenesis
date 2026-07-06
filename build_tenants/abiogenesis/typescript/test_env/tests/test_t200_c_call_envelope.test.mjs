@@ -679,3 +679,64 @@ test("T-205 B3: handler registry — admission, fail-closed resolution, regime m
   assert.match(blocked.failureReason, /spawn ENOENT.*\(contract_failure\)/);
   assert.equal(blocked.evidenceRefs[0], "handler-error:handler://t205/throwing");
 });
+
+// ─── T-205 B3 (2/3): the standard F_D handlers — declared config, injected effects ───
+
+import { readFileSync } from "node:fs";
+import {
+  standardProcessExecutionHandler,
+  standardMaterializationHandler,
+  STANDARD_HANDLER_REFS
+} from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205 B3: standard F_D handlers — tool emergence, evidence honesty, write-root confinement, typed failure", () => {
+  const stageFd = { stageRole: "consequence", defaultRegime: "F_D", armId: "arm://x/c", resultBearing: false };
+  const bindingFor = (ref) => ({
+    programRef: "gtl://t205/custom", stageRole: "consequence", armId: "arm://x/c",
+    regime: "F_D", handlerRef: ref, handlerClass: "pipeline", handlerConfigRef: "config://declared"
+  });
+  // -004 TOOL EMERGENCE: the handler module names no tools (source witness)
+  const source = readFileSync(
+    new URL("../../code/src/abg/m03/runner/standard_handlers.ts", import.meta.url), "utf8");
+  for (const tool of ["sbt", "npm", "codex", "claude", "spawnSync", "child_process", "node:fs"]) {
+    assert.equal(source.includes(tool), false, `tool name leaked: ${tool}`);
+  }
+  // process execution: success / nonzero / spawn-error — all typed (-003, bug #11/#12 class)
+  const calls = [];
+  const execHandler = standardProcessExecutionHandler({
+    runProcess(input) {
+      calls.push(input);
+      if (input.command === "cmd://ok") return { status: 0, stdout: "ok", stderr: "", error: null };
+      if (input.command === "cmd://fails") return { status: 7, stdout: "", stderr: "boom", error: null };
+      return { status: null, stdout: "", stderr: "", error: "ENOENT cmd://missing" };
+    }
+  });
+  const runWith = (command) => execHandler({
+    stage: stageFd, binding: bindingFor(STANDARD_HANDLER_REFS.processExecution),
+    declaredConfig: { command, args: ["a"], env: { PATH: "declared://path" }, cwd: "cwd://declared", timeoutMs: 1000 },
+    workProjection: null
+  });
+  assert.equal(runWith("cmd://ok").outcomeStatus, "accepted");
+  const rejected = runWith("cmd://fails");
+  assert.equal(rejected.outcomeStatus, "rejected");
+  assert.equal(rejected.failureReason, "exit_status:7");
+  const enoent = runWith("cmd://missing");
+  assert.equal(enoent.outcomeStatus, "blocked");
+  assert.match(enoent.failureReason, /ENOENT.*contract_failure/);
+  assert.equal(enoent.evidenceRefs.includes("exec-status:null"), true, "status null is EVIDENCE, not silence");
+  assert.equal(calls.every((c) => c.env.PATH === "declared://path"), true, "-005: env comes from declared config only");
+  // materialization: confined writes + escape blocked
+  const written = [];
+  const matHandler = standardMaterializationHandler({ writeFile: (p, c) => written.push(p) });
+  const matRun = (files) => matHandler({
+    stage: stageFd, binding: bindingFor(STANDARD_HANDLER_REFS.materialization),
+    declaredConfig: { writeRoot: "root://out", files }, workProjection: null
+  });
+  const okMat = matRun([{ path: "src/a.txt", content: "x" }]);
+  assert.equal(okMat.outcomeStatus, "accepted");
+  assert.deepEqual(written, ["root://out/src/a.txt"]);
+  const escape = matRun([{ path: "../escape.txt", content: "x" }]);
+  assert.equal(escape.outcomeStatus, "blocked");
+  assert.match(escape.failureReason, /write_root_escape/);
+  assert.equal(written.length, 1, "escape wrote NOTHING");
+});
