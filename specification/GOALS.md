@@ -571,6 +571,14 @@ Phases:
   escalation observed, resume on the same workspace, consequence
   re-entry taken upstream, handlers end-to-end with a real worker,
   -012 green per configuration) → 4.5.0-rc.1 cuts. T-205 closes.
+  B progress: B1 law ratified + review-hardened (HANDLERS-001..-014,
+  strict-F_D rider, totality law); B-prep pinned (engine re-entry is
+  law: closed calls stay closed, fresh window after exhaustion; -004
+  replay-global attempt fix); B2 LIVE (one seam, run-entry typed
+  failure, declared program proven driving real replay, test:t205
+  lane); B3 at 2/3 (handler contract + F_D process-execution and
+  materialization, mechanical-vocabulary proven). Remaining to the
+  gate: B3 interpreter loop + F_P/F_H handlers, B4, B5.
 - C — glc: repin; binding becomes declarations (catalog + ladder +
   consequence catalog; repaired_* stages retire); resume flag; iterate
   in-system to the clean run. T-030 and T-195 close. 4.5 functionally
