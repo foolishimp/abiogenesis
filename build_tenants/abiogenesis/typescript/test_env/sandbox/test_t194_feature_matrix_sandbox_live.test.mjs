@@ -710,6 +710,37 @@ test("T-194 feature-matrix live: carry-through proves eligible+satisfied from a 
     accumulator[event.kind] = (accumulator[event.kind] ?? 0) + 1;
     return accumulator;
   }, {});
+  // ── T-200 P6: the -012 audit IS a gate row — spine integrity, enclosure,
+  // and external-session parity measured on this run's replay.
+  {
+    const spineOpened = events.filter((e) => e.kind === "c_call_opened");
+    const spineJudged = events.filter((e) => e.kind === "c_call_judged");
+    assert.equal(spineOpened.length > 0, true, "-012: spines present on the live run");
+    assert.equal(
+      spineOpened.length,
+      spineJudged.length,
+      "-012: every opened C call judged"
+    );
+    for (const openedEvent of spineOpened) {
+      assert.match(openedEvent.cCallRef, /^c-call:sha256:[0-9a-f]{64}$/u, "-004 digest refs");
+    }
+    const openedRefs = new Set(spineOpened.map((e) => e.cCallRef));
+    for (const event of events) {
+      if (event.cCallRef !== undefined && event.kind !== "c_call_opened") {
+        assert.equal(openedRefs.has(event.cCallRef), true, "-006: no orphan spine rows");
+      }
+    }
+    // external-session parity: worker invocations == transform.F_P spines
+    const invocations = events.filter((e) => e.kind === "actor_invocation_started").length;
+    const selections = events.filter((e) => e.kind === "c_call_fibre_selected");
+    const transformFp = selections.filter((s) => s.regime === "F_P").length -
+      selections.filter((s) => s.regime === "F_P" && s.armId.includes("evaluate")).length;
+    assert.equal(
+      invocations,
+      transformFp,
+      "-012: external work sessions equal external-work-bearing F_P spines"
+    );
+  }
   const proof = {
     kind: "t194_feature_matrix_live_proof",
     sourceCommit,

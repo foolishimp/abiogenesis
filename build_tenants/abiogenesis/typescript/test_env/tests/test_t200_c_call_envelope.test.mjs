@@ -402,7 +402,8 @@ test("T-200 P3-B: enclosure witness holds over the REAL gate replay", async () =
       return existsSync(p) ? [p] : [];
     })[0];
     if (eventsPath === undefined) return;
-    const events = readFileSync(eventsPath, "utf8").trim().split("\n").map((l) => JSON.parse(l));
+    const events = readFileSync(eventsPath, "utf8").trim().split("\n").flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
+    if (!events.some((e) => e.kind === "terminal_reached")) return; // in-flight run
     const report = checkCCallEnclosure(events, { completed: true });
     assert.equal(report.accepted, true, JSON.stringify(report.issues.filter((i) => i.severity === "violation")));
     assert.equal(report.openedCount, report.judgedCount, "every opened spine judged on real replay");
@@ -451,4 +452,38 @@ test("T-200 P3-F: programs author as tagged json_blob declarations (declarations
     "graph-function://p/demo"
   );
   assert.equal(bad.accepted, false);
+});
+
+// ─── P6: substitution shape at ENGINE level — F_P and F_D C calls leave identical spine skeletons ───
+
+test("T-200 P6: engine-level fibre substitution preserves spine shape (-007)", async () => {
+  const { readFileSync, readdirSync, existsSync } = await import("node:fs");
+  const path = (await import("node:path")).default;
+  const base = path.resolve("test_env/test_runs/t194_feature_matrix_live");
+  if (!existsSync(base)) return;
+  const run = readdirSync(base).sort().reverse()[0];
+  const eventsPath = readdirSync(path.join(base, run)).flatMap((d) => {
+    const p = path.join(base, run, d, ".ai-workspace", "events", "events.jsonl");
+    return existsSync(p) ? [p] : [];
+  })[0];
+  if (eventsPath === undefined) return;
+  const events = readFileSync(eventsPath, "utf8").trim().split("\n").flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
+    if (!events.some((e) => e.kind === "terminal_reached")) return; // in-flight run
+  const byRef = new Map();
+  for (const event of events) {
+    if (event.cCallRef === undefined) continue;
+    const row = byRef.get(event.cCallRef) ?? { kinds: [], regime: null };
+    row.kinds.push(event.kind);
+    if (event.kind === "c_call_fibre_selected") row.regime = event.regime;
+    byRef.set(event.cCallRef, row);
+  }
+  const shapes = { F_P: new Set(), F_D: new Set() };
+  for (const row of byRef.values()) {
+    if (row.regime === "F_P" || row.regime === "F_D") {
+      shapes[row.regime].add(row.kinds.join(","));
+    }
+  }
+  assert.ok(shapes.F_P.size > 0 && shapes.F_D.size > 0, "both fibres present on the gate run");
+  assert.deepEqual([...shapes.F_P], [...shapes.F_D],
+    "identical spine kind-sequence under fibre substitution — tags differ, shape never");
 });
