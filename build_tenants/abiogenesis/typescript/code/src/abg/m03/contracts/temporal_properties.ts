@@ -260,13 +260,34 @@ function configScalar(rule: Rule, key: string): string | null {
   return null;
 }
 
+// GTL-lawful json_blob values are TAGGED SerializedJsonValue; decode to
+// plain for the formula parser. Legacy plain blobs (pre-T-200 bindings)
+// pass through unchanged — the parser judges their shape either way.
+function plainFromSerializedJson(value: unknown): unknown {
+  if (value === null || typeof value !== "object") {
+    return value;
+  }
+  const record = value as { readonly kind?: unknown };
+  if (record.kind === "array" && Array.isArray((record as { readonly items?: unknown }).items)) {
+    return ((record as { readonly items: readonly unknown[] }).items).map(plainFromSerializedJson);
+  }
+  if (record.kind === "object" && Array.isArray((record as { readonly entries?: unknown }).entries)) {
+    const out: Record<string, unknown> = {};
+    for (const entry of (record as { readonly entries: readonly { readonly key: string; readonly value: unknown }[] }).entries) {
+      out[entry.key] = plainFromSerializedJson(entry.value);
+    }
+    return out;
+  }
+  return value;
+}
+
 function configJson(rule: Rule, key: string): unknown {
   const entry = rule.config.entries.find((row) => row.key === key);
   if (entry === undefined) {
     return undefined;
   }
   if (entry.value.kind === "json_blob") {
-    return entry.value.value;
+    return plainFromSerializedJson(entry.value.value);
   }
   return undefined;
 }

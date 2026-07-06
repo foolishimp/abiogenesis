@@ -27,8 +27,11 @@ structure around it.
   {cCallRef, regime, armId, compositionRef|null} is the first interior
   row. The (stageRole × fibre) arm census is registry data asserted at
   the one resolver entry.
-- **-004 Full replay identity.** cCallRef =
-  `c-call:{basisId}:{graphCallId}:{frameId}:{vectorIndex}:{stageRole}:{taskOrdinal|-}:{attempt}`.
+- **-004 Full replay identity.** cCallRef is a STABLE DIGEST over the
+  typed identity tuple {basisId, graphCallId, frameId, vectorIndex,
+  stageRole, taskOrdinal, attempt} — `c-call:sha256:<hex>` — injective
+  by construction (delimiter encodings collide across ":"-bearing
+  fields); the READABLE locus is retained on `c_call_opened` itself.
   Recursive frames, repeated graph calls, and composed tasks shall not
   collide. (Absorbs the T-198 frame-identity successor.)
 - **-005 Spine per invoking task.** Any stage-task that can invoke a

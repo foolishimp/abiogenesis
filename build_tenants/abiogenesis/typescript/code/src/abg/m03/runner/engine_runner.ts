@@ -7018,30 +7018,21 @@ function* runEngineIterateMachine(input: {
               reasonRef: null
             })
           ]);
-        eventState = emitRunnerEvents(eventState, [
-          scalarTransformCCallOpened,
-          constructCCallFibreSelectedEvent({
-            cCallRef: scalarTransformCCallOpened.cCallRef,
-            basisId: request.basis.id,
-            regime: "F_P",
-            armId: scalarTransformStage.armId,
-            compositionRef: null
-          })
-        ]);
-        scalarTransformInput = Object.freeze({
-          ...scalarTransformInput,
-          instructionPromptManifest: instructionBinding.manifest
+        const scalarTransformFibreSelected = constructCCallFibreSelectedEvent({
+          cCallRef: scalarTransformCCallOpened.cCallRef,
+          basisId: request.basis.id,
+          regime: "F_P",
+          armId: scalarTransformStage.armId,
+          compositionRef: null
         });
-        // Implements: REQ-L-GTL3-TEMPORAL-PROPERTIES-007 — the online
-        // dispatch gate judges the candidate dispatch event against the
-        // trace prefix BEFORE it enters truth; a violated safety property
-        // blocks this dispatch with a replay-visible verdict.
+        // REQ-R-ABG3-CCALL-010 + TEMPORAL -007: the online dispatch gate
+        // judges the SELECTION candidate against the trace prefix BEFORE
+        // the C call enters truth.
         {
-          const dispatchCandidate = constructFpDispatchRequestedEvent(transition);
           const gateBlock = temporalDispatchGateBlock({
             properties: temporalProperties,
             events: eventState.replayEvents,
-            candidate: dispatchCandidate,
+            candidate: scalarTransformFibreSelected,
             basis: request.basis,
             runId: request.basis.runId ?? null,
             workKey: request.basis.workKey ?? null,
@@ -7049,11 +7040,6 @@ function* runEngineIterateMachine(input: {
           });
           if (gateBlock !== null) {
             eventState = emitRunnerEvents(eventState, gateBlock.verdictEvent);
-            eventState = closeScalarTransformCCall(eventState, {
-              outcomeStatus: "blocked",
-              payloadRef: null,
-              judgment: "blocked"
-            });
             const blocked = terminalTransition(
               request.basis,
               "gap_stop",
@@ -7076,6 +7062,17 @@ function* runEngineIterateMachine(input: {
             });
           }
         }
+        eventState = emitRunnerEvents(eventState, [
+          scalarTransformCCallOpened,
+          scalarTransformFibreSelected
+        ]);
+        scalarTransformInput = Object.freeze({
+          ...scalarTransformInput,
+          instructionPromptManifest: instructionBinding.manifest
+        });
+        // T-200 P3: the online gate point moved to the fibre-selection
+        // candidate above (REQ-R-ABG3-CCALL-010); the dispatch event is
+        // interior evidence and needs no second gate.
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,

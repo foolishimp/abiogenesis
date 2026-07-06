@@ -256,23 +256,23 @@ function gateProperty(name) {
 
 test("T-192 P3: each safety gate has mutation and vacuity differentials", () => {
   const cases = [
-    ["gate_dispatch_requires_manifest", "instruction_prompt_manifest_projected", "fp_dispatch_requested"],
-    ["gate_coverage_requires_payload_admission", "payload_validated", "requirement_proof_carry_through_admitted"],
-    ["gate_invocation_requires_dispatch", "fp_dispatch_requested", "actor_invocation_started"],
-    ["gate_selection_requires_registry_admission", "registry_entry_admitted", "graph_function_selected"]
+    ["gate_dispatch_requires_manifest", "instruction_prompt_manifest_projected", "c_call_fibre_selected", { regime: "F_P" }],
+    ["gate_coverage_requires_payload_admission", "payload_validated", "requirement_proof_carry_through_admitted", {}],
+    ["gate_invocation_requires_dispatch", "c_call_fibre_selected", "actor_invocation_started", {}],
+    ["gate_selection_requires_registry_admission", "registry_entry_admitted", "graph_function_selected", {}]
   ];
-  for (const [name, required, trigger] of cases) {
+  for (const [name, required, trigger, triggerFields] of cases) {
     const property = gateProperty(name);
     const lawful = evaluateTemporalProperty({
       property,
-      trace: { events: [ev(required), ev(trigger)], completed: true }
+      trace: { events: [ev(required), ev(trigger, triggerFields)], completed: true }
     });
     assert.equal(lawful.status, "satisfied", `${name} lawful trace`);
     assert.equal(lawful.vacuous, false);
     // mutation: remove the required event -> violated
     const mutated = evaluateTemporalProperty({
       property,
-      trace: { events: [ev(trigger)], completed: true }
+      trace: { events: [ev(trigger, triggerFields)], completed: true }
     });
     assert.equal(mutated.status, "violated", `${name} mutation must flip`);
     // vacuity: no trigger -> vacuous, not gate-satisfying
@@ -285,21 +285,21 @@ test("T-192 P3: each safety gate has mutation and vacuity differentials", () => 
 });
 
 test("T-192 P3: the liveness gate routes undetermined on open prefixes and never claims early", () => {
-  const property = gateProperty("gate_dispatch_eventually_closes");
+  const property = gateProperty("gate_selection_eventually_judged");
   assert.equal(property.consequenceClass, "liveness_residual");
   const open = evaluateTemporalProperty({
     property,
-    trace: { events: [ev("fp_dispatch_requested")], completed: false }
+    trace: { events: [ev("c_call_fibre_selected")], completed: false }
   });
   assert.equal(open.status, "undetermined", "open prefix must not decide liveness");
   const closed = evaluateTemporalProperty({
     property,
-    trace: { events: [ev("fp_dispatch_requested"), ev("actor_invocation_closed")], completed: true }
+    trace: { events: [ev("c_call_fibre_selected"), ev("c_call_judged")], completed: true }
   });
   assert.equal(closed.status, "satisfied");
   const never = evaluateTemporalProperty({
     property,
-    trace: { events: [ev("fp_dispatch_requested")], completed: true }
+    trace: { events: [ev("c_call_fibre_selected")], completed: true }
   });
   assert.equal(never.status, "violated");
 });
@@ -365,7 +365,7 @@ test("T-192 P4: standing gates run live — verdicts at terminal, all satisfied 
   }
   const g1 = verdicts.find((v) => v.propertyRef.includes("dispatch-requires-manifest"));
   assert.equal(g1.vacuous, false, "dispatch happened, G1 must be witnessed");
-  const g5 = verdicts.find((v) => v.propertyRef.includes("dispatch-eventually-closes"));
+  const g5 = verdicts.find((v) => v.propertyRef.includes("selection-eventually-judged"));
   assert.equal(g5.consequenceClass, "liveness_residual");
   // completed first_traversal terminal decides the liveness obligation
   assert.equal(g5.status, "satisfied");
@@ -382,7 +382,7 @@ test("T-192 P4: the online dispatch gate blocks a violated safety property BEFOR
     op: "historically",
     child: {
       op: "implies",
-      left: { op: "atom", atom: { kind: "event", eventKind: "fp_dispatch_requested" } },
+      left: { op: "atom", atom: { kind: "event", eventKind: "c_call_fibre_selected" } },
       right: { op: "once", child: { op: "atom", atom: { kind: "event", eventKind: "no_such_event_kind" } } }
     }
   };
@@ -392,9 +392,14 @@ test("T-192 P4: the online dispatch gate blocks a violated safety property BEFOR
   assert.equal(result.transition.terminalKind, "gap_stop");
   assert.equal(result.transition.reason.includes("temporal property violated at dispatch"), true);
   assert.equal(
+    result.replayEvents.filter((e) => e.kind === "c_call_fibre_selected").length,
+    0,
+    "the candidate selection must never enter truth"
+  );
+  assert.equal(
     result.replayEvents.filter((e) => e.kind === "fp_dispatch_requested").length,
     0,
-    "the candidate dispatch must never enter truth"
+    "no dispatch without its C call"
   );
   const violated = result.replayEvents.find(
     (e) => e.kind === "temporal_property_verdict_projected" && e.status === "violated"
