@@ -125,3 +125,11 @@ standard evaluate interior (latitude/golden consumed). P3 deterministic
 interiors (materialize/execute from declarations). P4 odd_glc adoption:
 binding → declarations; campaign reruns as the proof. Gödel checkpoints
 per phase; codex review at P0.
+
+## Absorbed (board consolidation, user 2026-07-06)
+- T-199 per-vector temporal formulas — subsumed by -017 ladder
+  predicates (per-edge-class declared conditions).
+- T-202 product-grade drift witness loader — rides this wave's gate
+  infra.
+- T-203b legacy sunsets (trace dual-write, branch_lease producer,
+  FP-review ratification) — erase-adjacent, this wave.

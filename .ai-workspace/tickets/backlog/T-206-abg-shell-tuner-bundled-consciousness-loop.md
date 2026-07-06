@@ -16,3 +16,7 @@ the same engine in the same workspace, spine-visible, audited by the
 verdicts (T-201), witness rows (T-196), replay. Writes: declaration
 drafts only. odd_sdlc T-166 consensus programs compose in as tuner
 stages.
+
+Absorbed (board consolidation): T-196 witness-row consumption and T-201
+closure-point verdict consumption — the tuner's read surface; realized
+here, not as separate waves.
