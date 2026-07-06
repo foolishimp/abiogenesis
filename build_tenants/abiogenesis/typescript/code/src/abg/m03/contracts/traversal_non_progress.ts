@@ -278,8 +278,15 @@ function inferTimeoutClass(input: {
 function preSpawnDispatchFailureClass(input: {
   readonly process: unknown;
   readonly closureDetail: string | null;
+  readonly closureFailureClass?: string | null;
 }): RuntimeFailureClass | null {
   if (input.process !== undefined) return null;
+  // F6: the TYPED field is authoritative; prose parsing remains only as
+  // a fallback for replays recorded before the field existed.
+  const typed = input.closureFailureClass ?? null;
+  if (typed === "contract_failure" || typed === "transport_failure" || typed === "no_output") {
+    return typed;
+  }
   const detail = input.closureDetail ?? "";
   if (detail.includes("(contract_failure)")) return "contract_failure";
   if (detail.includes("(transport_failure)")) return "transport_failure";
@@ -294,10 +301,12 @@ function inferRuntimeFailureClass(input: {
     | undefined;
   readonly classification: TraversalNonProgressClassification;
   readonly closureDetail?: string | null;
+  readonly closureFailureClass?: string | null;
 }): RuntimeFailureClass {
   const preSpawn = preSpawnDispatchFailureClass({
     process: input.process,
-    closureDetail: input.closureDetail ?? null
+    closureDetail: input.closureDetail ?? null,
+    closureFailureClass: input.closureFailureClass ?? null
   });
   if (preSpawn !== null) {
     return preSpawn;
@@ -432,7 +441,8 @@ export function deriveTraversalNonProgressCarrier(
     timeoutClass,
     process,
     classification,
-    closureDetail: invocation.closureDetail ?? null
+    closureDetail: invocation.closureDetail ?? null,
+    closureFailureClass: invocation.closureFailureClass ?? null
   });
   assertRuntimeFailureClass(runtimeFailureClass);
   const evidenceRefs = uniqueNonEmptyStrings([
@@ -660,8 +670,14 @@ export function deriveTraversalContinuationActionProjection(
     });
   } else if (
     input.carrier.classification === "incomplete_runtime_archive" &&
-    !retryableRuntimeFailureClasses.some(
-      (failureClass) => failureClass === input.carrier.runtimeFailureClass
+    // F4 (self-review): only the PRE-SPAWN class skips inspection here —
+    // a REAL process that died with an incomplete archive still gets
+    // inspected; retryable pre-spawn failures (no process ever) do not.
+    !(
+      !input.carrier.processEvidenceComplete &&
+      retryableRuntimeFailureClasses.some(
+        (failureClass) => failureClass === input.carrier.runtimeFailureClass
+      )
     )
   ) {
     inspectArchive = true;

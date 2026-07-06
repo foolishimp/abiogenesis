@@ -396,7 +396,8 @@ export function deriveRuntimeAggregateProjection(
             dispatchRef: event.dispatchRef,
             resultRef: event.resultRef,
             closureStatus: null,
-            closureDetail: null
+            closureDetail: null,
+            closureFailureClass: null
           })
         );
         graphCallId = event.graphCallId;
@@ -443,7 +444,9 @@ export function deriveRuntimeAggregateProjection(
             actorInvocationRefs[openIndex] = Object.freeze({
               ...open,
               closureStatus: (event as { closureStatus?: string }).closureStatus ?? null,
-              closureDetail: (event as { detail?: string }).detail ?? null
+              closureDetail: (event as { detail?: string }).detail ?? null,
+              closureFailureClass:
+                (event as { closureFailureClass?: string }).closureFailureClass ?? null
             });
           }
         }

@@ -238,3 +238,19 @@ GATE at HEAD: sourceClean=true, releaseGrade=true, installed package
 4.5.0-rc.1, converged, per-config {gtl://sandbox/hog/lean: 6} — the
 evidence-scope caveat is retired. Suite 1134/1134, t205 18/18.
 B6 cut remains the only pending act.
+
+## Self-review round applied (2026-07-07)
+Post-campaign self code review (9 findings) applied in recommended
+order: F1 consequence-plugin never-crash guard restored + name-derived
+target (odd_glc); F3 resume verifies scenario identity (odd_glc); F2
+THE BINDING UNIT LANE — pure surfaces (plan shape family, compile
+attribution, re-entry target) extracted and exported from the generated
+binding, generation-fidelity checks pin the escape-discipline class
+(#10b/#15 signatures) permanently (odd_glc, suite 56/0); F4 second
+inspect-gate exception narrowed to the pre-spawn signature (ABI); F7
+attempt identity = max(attemptIndex)+1 (batch-safe by construction,
+ABI); F5 consequence-plugin throws are typed blocked projections on
+both drivers (run-19 #21 shape pinned as differential, ABI); F6 typed
+closureFailureClass derived once at the construction boundary (carrier
++ factory + admission + projection row + typed-first consumer with
+prose fallback for pre-field replays, ABI). These ride the rc.4 line.

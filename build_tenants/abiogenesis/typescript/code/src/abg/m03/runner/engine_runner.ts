@@ -569,15 +569,17 @@ function actorAttemptIndexForProjection(input: {
   readonly vectorIndex: number;
 }): number {
   // campaign #16 (-004 at the invocation layer): attempt identity is
-  // REPLAY-GLOBAL — the count of prior invocations at this locus, so a
+  // REPLAY-GLOBAL — max prior attemptIndex at this locus + 1, so a
   // resumed fresh window CONTINUES the numbering instead of colliding
-  // with a prior attempt's invocation id (which silently orphaned the
-  // new closure detail and dead-ended the retry lane).
-  return (
-    input.projection.actorInvocationRefs.filter(
-      (invocation) => invocation.vectorIndex === input.vectorIndex
-    ).length + 1
-  );
+  // (F7: max, not count — composed-batch vectors run one invocation
+  // PER TASK within an attempt; counting rows would inflate).
+  let maxAttempt = 0;
+  for (const invocation of input.projection.actorInvocationRefs) {
+    if (invocation.vectorIndex === input.vectorIndex && invocation.attemptIndex > maxAttempt) {
+      maxAttempt = invocation.attemptIndex;
+    }
+  }
+  return maxAttempt + 1;
 }
 
 function actorInvocationForTransition(input: {
@@ -9678,16 +9680,35 @@ export function resolveSyncEnginePluginEffect(
           )
         )
       });
-    case "consequence_project":
-      return Object.freeze({
-        kind: "consequence_project",
-        outcome: admitConsequenceProjectionOutcome(
+    case "consequence_project": {
+      // F5 (self-review; observed live at run-19 #21): a consequence
+      // plugin throw must be a TYPED blocked projection, never a host
+      // failure — same law as the P4 dispatch/evaluator guards.
+      let consequenceOutcome;
+      try {
+        consequenceOutcome = admitConsequenceProjectionOutcome(
           resolveSyncPluginOutcome(
             plugins.consequenceProjection.project(effect.input),
             "consequence projection plugin"
           )
-        )
+        );
+      } catch (error) {
+        const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+        consequenceOutcome = admitConsequenceProjectionOutcome({
+          kind: "consequence_projection",
+          status: "blocked",
+          consequenceRef: "consequence://abg/plugin-throw",
+          domainReadModelRefs: [],
+          traversalAction: null,
+          evidenceRefs: [`consequence-plugin-error:${message.slice(0, 120)}`],
+          reason: `consequence projection plugin threw (contract_failure): ${message}`
+        });
+      }
+      return Object.freeze({
+        kind: "consequence_project",
+        outcome: consequenceOutcome
       });
+    }
     case "construction_intent_step":
       return Object.freeze({
         kind: "construction_intent_step",
@@ -9828,13 +9849,29 @@ async function resolveAsyncEnginePluginEffect(
           await plugins.fhAdmission.admit(effect.input)
         )
       });
-    case "consequence_project":
+    case "consequence_project": {
+      let consequenceOutcome;
+      try {
+        consequenceOutcome = admitConsequenceProjectionOutcome(
+          await plugins.consequenceProjection.project(effect.input)
+        );
+      } catch (error) {
+        const message = (error instanceof Error ? error.message : String(error)).slice(0, 200);
+        consequenceOutcome = admitConsequenceProjectionOutcome({
+          kind: "consequence_projection",
+          status: "blocked",
+          consequenceRef: "consequence://abg/plugin-throw",
+          domainReadModelRefs: [],
+          traversalAction: null,
+          evidenceRefs: [`consequence-plugin-error:${message.slice(0, 120)}`],
+          reason: `consequence projection plugin threw (contract_failure): ${message}`
+        });
+      }
       return Object.freeze({
         kind: "consequence_project",
-        outcome: admitConsequenceProjectionOutcome(
-          await plugins.consequenceProjection.project(effect.input)
-        )
+        outcome: consequenceOutcome
       });
+    }
     case "construction_intent_step":
       return Object.freeze({
         kind: "construction_intent_step",

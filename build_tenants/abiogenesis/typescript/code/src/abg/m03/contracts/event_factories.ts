@@ -340,6 +340,18 @@ function materializedFileSummaryExcerptFor(payload: unknown): string | null {
   return rendered.length === 0 ? null : rendered.join("\n\n");
 }
 
+// F6: the ONE construction-boundary parser for the P4 trio markers —
+// the typed class rides the event; consumers never parse prose.
+function closureFailureClassFromDetail(
+  detail: string | null
+): ActorInvocationClosedEvent["closureFailureClass"] {
+  if (detail === null) return null;
+  if (detail.includes("(contract_failure)")) return "contract_failure";
+  if (detail.includes("(transport_failure)")) return "transport_failure";
+  if (detail.includes("(no_output)")) return "no_output";
+  return null;
+}
+
 export function constructActorInvocationClosedEvent(input: {
   readonly invocation: ActorInvocation;
   readonly closureStatus: ActorInvocationClosedEvent["closureStatus"];
@@ -348,6 +360,7 @@ export function constructActorInvocationClosedEvent(input: {
 }): ActorInvocationClosedEvent {
   return Object.freeze({
     kind: "actor_invocation_closed",
+    closureFailureClass: closureFailureClassFromDetail(input.detail),
     ...actorRuntimeScope(input.invocation),
     closureStatus: input.closureStatus,
     resultRef: input.resultRef,

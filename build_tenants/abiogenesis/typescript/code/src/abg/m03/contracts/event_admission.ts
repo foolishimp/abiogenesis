@@ -782,6 +782,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     }
   ),
   actor_invocation_closed: applyFieldRules("ActorInvocationClosedEvent", {
+    closureFailureClass: { oneOf: ["transport_failure", "no_output", "contract_failure", "runtime_failure"], nullable: true },
     basisId: "non_empty_string",
     graphFunctionId: "non_empty_string",
     runId: "nullable_string",

@@ -1281,3 +1281,44 @@ test("T-205 campaign #17: a null-basis runtime_failure_observed in the shared lo
   assert.equal(r2.transition.kind, "terminal");
   assert.doesNotMatch(String(r2.transition.reason ?? r2.transition.terminalKind), /belongs to null/);
 });
+
+test("T-205 F5 (run-19 #21 shape): a consequence-plugin THROW is a typed blocked projection — the run never dies as a host failure", () => {
+  const basis0 = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({ ...basis0, startIntent: Object.freeze({ ...basis0.startIntent, until: "converged" }) });
+  const events = [];
+  // must NOT throw out of the engine
+  const result = runEngineIterate({
+    basis, eventSink: (event) => events.push(event), ...m03InstructionAssemblyRequestFields(basis),
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/f5-dispatch", pluginKind: "fp_dispatch",
+          authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://f5/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin,
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/f5-consequence", pluginKind: "consequence_projection",
+          authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project() { throw new Error("Cannot read properties of undefined (reading '12')"); }
+      })
+    }
+  });
+  assert.equal(result.transition.kind, "terminal");
+  // the throw became typed truth in replay, not a host escape
+  const blockedConsequence = result.replayEvents.some((e) =>
+    typeof e.reason === "string" && e.reason.includes("consequence projection plugin threw (contract_failure)"));
+  const evidenced = result.replayEvents.some((e) =>
+    Array.isArray(e.evidenceRefs) && e.evidenceRefs.some((r) => String(r).startsWith("consequence-plugin-error:")));
+  assert.equal(blockedConsequence || evidenced, true, "typed consequence failure visible in replay");
+});

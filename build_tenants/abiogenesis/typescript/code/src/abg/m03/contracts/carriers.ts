@@ -546,6 +546,10 @@ export interface ActorInvocationClosedEvent extends ActorRuntimeScope {
   readonly closureStatus: "completed" | "blocked" | "blocked_with_artifact";
   readonly resultRef: string | null;
   readonly detail: string | null;
+  // F6: the failure class as a TYPED field, derived once at the
+  // construction boundary from the P4 trio markers — consumers stop
+  // parsing prose (convention-not-carrier retired).
+  readonly closureFailureClass: RuntimeFailureClass | null;
 }
 
 export type ActorProcessRuntimeScope = ActorRuntimeScope;
@@ -2985,6 +2989,7 @@ export interface RuntimeAggregateProjection {
     // recognizable without process rows.
     readonly closureStatus: string | null;
     readonly closureDetail: string | null;
+    readonly closureFailureClass: string | null;
   }[];
   readonly observedActorArtifactRefs: readonly {
     readonly vectorIndex: number;
