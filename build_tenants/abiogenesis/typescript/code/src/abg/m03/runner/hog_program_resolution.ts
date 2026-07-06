@@ -98,6 +98,61 @@ export function assertHogProgramExecutable(
         `run baked: ${JSON.stringify(EXECUTABLE_STAGE_ROLES)})`
     );
   }
+  // POSITION LAW: extra stages execute at two anchors only —
+  // (transform..evaluate] and (evaluate..consequence). Before transform
+  // or after consequence there is no lawful anchor yet: fail closed.
+  const roleIndex = (role: string): number =>
+    program.stages.findIndex((stage) => stage.stageRole === role);
+  const transformAt = roleIndex("transform");
+  const consequenceAt = roleIndex("consequence");
+  const misplaced = program.stages
+    .filter((stage, index) => {
+      if (EXECUTABLE_STAGE_ROLES.includes(stage.stageRole)) return false;
+      if (transformAt !== -1 && index < transformAt) return true;
+      if (consequenceAt !== -1 && index > consequenceAt) return true;
+      return false;
+    })
+    .map((stage) => stage.stageRole);
+  if (misplaced.length > 0) {
+    throw new TypeError(
+      `unsupported_stage_position: hog program ${program.programRef} places ` +
+        `${JSON.stringify(misplaced)} outside the lawful anchors ` +
+        `(after transform, before consequence)`
+    );
+  }
+}
+
+// The two anchor segments, derived from declared order.
+export function extraHogStageSegments(program: HogProgramDeclaration): {
+  readonly postTransform: readonly HogProgramStage[];
+  readonly postEvaluate: readonly HogProgramStage[];
+} {
+  const roleIndex = (role: string): number =>
+    program.stages.findIndex((stage) => stage.stageRole === role);
+  const transformAt = roleIndex("transform");
+  const evaluateAt = roleIndex("evaluate");
+  const consequenceAt = roleIndex("consequence");
+  const extras = program.stages
+    .map((stage, index) => ({ stage, index }))
+    .filter(({ stage }) => !EXECUTABLE_STAGE_ROLES.includes(stage.stageRole));
+  return Object.freeze({
+    postTransform: Object.freeze(
+      extras
+        .filter(({ index }) =>
+          transformAt !== -1 && index > transformAt &&
+          (evaluateAt === -1 || index < evaluateAt)
+        )
+        .map(({ stage }) => stage)
+    ),
+    postEvaluate: Object.freeze(
+      extras
+        .filter(({ index }) =>
+          evaluateAt !== -1 && index > evaluateAt &&
+          (consequenceAt === -1 || index < consequenceAt)
+        )
+        .map(({ stage }) => stage)
+    )
+  });
 }
 
 // The ONE seam (HANDLERS-011). Resolution order:

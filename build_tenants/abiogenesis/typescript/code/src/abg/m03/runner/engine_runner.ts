@@ -5,7 +5,7 @@
 
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
-import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable } from "./hog_program_resolution.js";
+import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable, extraHogStageSegments } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
 import { resolveHandlerForSelection, executeHandler, admitHandlerRegistry } from "./c_call_handlers.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
@@ -5107,6 +5107,88 @@ function constructionRunnerOutcomeFromEffectResult(
   }
 }
 
+// T-205 B3: extra declared stages run spine-enclosed at their anchor.
+// Each: open via the spine authority -> yield the handler effect ->
+// close from the interior (executed -> advance; anything else ->
+// blocked, and the run stops lawfully at the caller).
+function* runExtraHogStages(input: {
+  readonly eventState: EngineEventEmissionState;
+  readonly emit: (
+    state: EngineEventEmissionState,
+    events: RuntimeEvent | readonly RuntimeEvent[]
+  ) => EngineEventEmissionState;
+  readonly stages: readonly HogProgramStage[];
+  readonly programRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly edge: string;
+  readonly vectorIndex: number;
+  readonly workProjectionRef: string | null;
+}): Generator<
+  EnginePluginEffect,
+  { readonly eventState: EngineEventEmissionState; readonly blockedStageRole: string | null },
+  EnginePluginEffectResult
+> {
+  let eventState = input.eventState;
+  for (const stage of input.stages) {
+    const spine = buildCCallSpineOpen({
+      basisId: input.basisId,
+      graphFunctionId: input.graphFunctionId,
+      graphCallId: input.graphCallId,
+      frameId: input.frameId,
+      edge: input.edge,
+      vectorIndex: input.vectorIndex,
+      stageRole: stage.stageRole,
+      taskOrdinal: null,
+      attempt: nextCCallAttempt(eventState.replayEvents, {
+        basisId: input.basisId,
+        graphCallId: input.graphCallId,
+        frameId: input.frameId,
+        vectorIndex: input.vectorIndex,
+        stageRole: stage.stageRole,
+        taskOrdinal: null
+      }),
+      batchRef: null,
+      regime: stage.defaultRegime,
+      armId: stage.armId,
+      programRef: input.programRef
+    });
+    eventState = input.emit(eventState, spine.events);
+    const result = yield Object.freeze({
+      kind: "c_call_handler_execute" as const,
+      programRef: input.programRef,
+      stage,
+      declaredConfig: null,
+      workProjection: input.workProjectionRef
+    });
+    if (result.kind !== "c_call_handler_execute") {
+      throw new TypeError("Engine plugin effect expected c_call_handler_execute");
+    }
+    const interior = result.interior;
+    const executed = interior.outcomeStatus === "executed";
+    eventState = input.emit(eventState, buildCCallSpineClose({
+      cCallRef: spine.cCallRef,
+      basisId: input.basisId,
+      evidenceClass: stage.defaultRegime === "F_P" ? "fp_interior" : "fd_interior",
+      evidenceRefs: [
+        ...interior.evidenceRefs,
+        ...(interior.failureReason === null ? [] : [`failure:${interior.failureReason.slice(0, 160)}`])
+      ],
+      outcomeStatus: interior.outcomeStatus,
+      payloadRef: interior.payloadRef,
+      responseContractRef: interior.responseContractRef,
+      judgment: executed ? "advance" : "blocked",
+      reasonRef: null
+    }));
+    if (!executed) {
+      return Object.freeze({ eventState, blockedStageRole: stage.stageRole });
+    }
+  }
+  return Object.freeze({ eventState, blockedStageRole: null });
+}
+
 function* runEngineIterateMachine(input: {
   readonly request: EngineIterateRequest;
   readonly plugins: ResolvedRunnerPlugins;
@@ -7338,6 +7420,44 @@ function* runEngineIterateMachine(input: {
               payloadRef: resultRef,
               judgment: "advance"
             });
+            // T-205 B3 anchor A: extra stages declared between transform
+            // and evaluate run here, spine-enclosed; a blocked stage
+            // stops the run lawfully.
+            {
+              const anchorA = extraHogStageSegments(scalarHogProgram.program).postTransform;
+              if (anchorA.length > 0) {
+                const ran = yield* runExtraHogStages({
+                  eventState,
+                  emit: emitRunnerEvents,
+                  stages: anchorA,
+                  programRef: scalarHogProgram.program.programRef,
+                  basisId: request.basis.id,
+                  graphFunctionId: actorInvocation.graphFunctionId,
+                  graphCallId: actorInvocation.graphCallId,
+                  frameId: actorInvocation.frameId,
+                  edge: transition.edge,
+                  vectorIndex: transition.vectorIndex,
+                  workProjectionRef: resultRef
+                });
+                eventState = ran.eventState;
+                if (ran.blockedStageRole !== null) {
+                  const blocked = terminalTransition(
+                    request.basis,
+                    "gap_stop",
+                    `hog_stage_blocked: ${ran.blockedStageRole} (post-transform anchor)`
+                  );
+                  eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+                  return constructResult({
+                    basis: request.basis,
+                    transition: blocked,
+                    projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+              }
+            }
             // Implements: T-188 M5/M3 — producer derivation lives in
             // contracts (requirement_proof_carry_through_producer); the
             // runner's only duties here are the accepted-payload gate
@@ -8360,6 +8480,43 @@ function* runEngineIterateMachine(input: {
               outcomeStatus: fpEvaluationOutcome.status,
               judgment: "advance"
             });
+            // T-205 B3 anchor B: extra stages declared between evaluate
+            // and consequence run here, spine-enclosed.
+            {
+              const anchorB = extraHogStageSegments(scalarEvaluateHogProgram.program).postEvaluate;
+              if (anchorB.length > 0) {
+                const ran = yield* runExtraHogStages({
+                  eventState,
+                  emit: emitRunnerEvents,
+                  stages: anchorB,
+                  programRef: scalarEvaluateHogProgram.program.programRef,
+                  basisId: request.basis.id,
+                  graphFunctionId: actorInvocation.graphFunctionId,
+                  graphCallId: actorInvocation.graphCallId,
+                  frameId: actorInvocation.frameId,
+                  edge: transition.edge,
+                  vectorIndex: transition.vectorIndex,
+                  workProjectionRef: null
+                });
+                eventState = ran.eventState;
+                if (ran.blockedStageRole !== null) {
+                  const blocked = terminalTransition(
+                    request.basis,
+                    "gap_stop",
+                    `hog_stage_blocked: ${ran.blockedStageRole} (post-evaluate anchor)`
+                  );
+                  eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+                  return constructResult({
+                    basis: request.basis,
+                    transition: blocked,
+                    projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+              }
+            }
             eventState = emitRunnerEvents(eventState,
               constructVectorEvaluatedEvent({
                 basis: request.basis,

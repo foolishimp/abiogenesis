@@ -611,15 +611,17 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   // FAIL-CLOSED: catalog without selection
   assert.throws(() => resolveHogProgram(gfWith([catalogEntries[0]])), /requires abg\.hog_program_ref|requires/);
   // FAIL-CLOSED: admitted-but-unexecutable stage set (staged earn until B3)
-  const sixStage = TRIPLE_SYNTAX("gtl://t205/deep", "arm://d");
-  sixStage.entries.find((e) => e.key === "stages").value.items.push({
+  const critiqueStage = {
     kind: "object", entries: [
       { key: "stageRole", value: "critique" },
       { key: "defaultRegime", value: "F_P" },
       { key: "armId", value: "arm://d/k" },
       { key: "resultBearing", value: false }
     ]
-  });
+  };
+  const sixStage = TRIPLE_SYNTAX("gtl://t205/deep", "arm://d");
+  // lawful position: between evaluate and consequence
+  sixStage.entries.find((e) => e.key === "stages").value.items.splice(2, 0, critiqueStage);
   const deepResolved = resolveHogProgram(gfWith([
     { key: "abg.hog_program", value: { kind: "json_blob", value: sixStage } }
   ]));
@@ -639,6 +641,15 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ regime: "F_D" })), /unsupported_stage_set/);
   // unregistered handlerRef: fails closed (codex MEDIUM)
   assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ handlerRef: "handler://nope" })), /unsupported_stage_set/);
+  // POSITION LAW: an extra stage after consequence has no lawful anchor
+  const misplaced = TRIPLE_SYNTAX("gtl://t205/misplaced", "arm://m");
+  misplaced.entries.find((e) => e.key === "stages").value.items.push(critiqueStage);
+  const misplacedResolved = resolveHogProgram(gfWith([
+    { key: "abg.hog_program", value: { kind: "json_blob", value: misplaced } }
+  ]));
+  assert.throws(() => assertHogProgramExecutable(misplacedResolved, completeRegistry({
+    programRef: "gtl://t205/misplaced"
+  })), /unsupported_stage_position/);
 });
 
 // ─── T-205 B3: the handler contract — census-bound, fail-closed, typed failure ───

@@ -702,3 +702,118 @@ test("T-205 B2 (codex HIGH): an unexecutable declared program is TYPED TRUTH —
   const terminal = result.replayEvents.find((e) => e.kind === "terminal_reached");
   assert.notEqual(terminal, undefined);
 });
+
+test("T-205 B3 KEYSTONE: a declared 4-stage program EXECUTES — admit stage runs spine-enclosed at anchor A; blocked admit stops the run lawfully", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const fourStage = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://t205/four" },
+      { key: "proportionalityClass", value: "P2" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://f/t" },
+          { key: "resultBearing", value: true }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "admit" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: "arm://f/a" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "evaluate" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://f/e" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "consequence" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: "arm://f/c" },
+          { key: "resultBearing", value: false }
+        ] }
+      ] } }
+    ]
+  };
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.hog_program", value: Object.freeze({ kind: "json_blob", value: fourStage }) })
+        ])
+      })
+    })
+  });
+  const admitCalls = [];
+  const runFour = (admitOutcome) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: declaredBasis,
+      eventSink: (event) => events.push(event),
+      ...m03InstructionAssemblyRequestFields(declaredBasis),
+      plugins: {
+        handlerRegistry: {
+          bindings: [{
+            programRef: "gtl://t205/four", stageRole: "admit", armId: "arm://f/a",
+            regime: "F_D", handlerRef: "handler://t205/admit",
+            handlerClass: "pipeline", handlerConfigRef: null
+          }],
+          handlers: new Map([["handler://t205/admit", (input) => {
+            admitCalls.push(input.stage.stageRole);
+            return admitOutcome;
+          }]])
+        },
+        fpDispatch: Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
+            authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpDispatchOutcome"
+          }),
+          dispatch(input) {
+            return constructFpDispatchOutcome({
+              status: "dispatched",
+              resultRef: `result://t205/four/${input.vectorIndex}`,
+              attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+              evidenceRefs: [input.sourceProjectionRef]
+            });
+          }
+        }),
+        fpEvaluator: defaultFpEvaluatorPlugin
+      }
+    });
+    return result;
+  };
+  // POSITIVE: admit executes; run proceeds; spine complete
+  const ok = runFour({ outcomeStatus: "executed", evidenceRefs: ["admit://ok"], payloadRef: null, responseContractRef: null, failureReason: null });
+  assert.equal(admitCalls.length > 0, true, "the handler actually ran");
+  const admitSelections = ok.replayEvents.filter((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://f/a");
+  assert.equal(admitSelections.length > 0, true, "admit spine present");
+  assert.equal(admitSelections[0].programRef, "gtl://t205/four");
+  assert.equal(admitSelections[0].regime, "F_D");
+  const admitRef = admitSelections[0].cCallRef;
+  const admitJudged = ok.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === admitRef);
+  assert.equal(admitJudged.judgment, "advance");
+  // order: admit opened AFTER transform judged, BEFORE evaluate opened
+  const kindsInOrder = ok.replayEvents
+    .filter((e) => e.kind === "c_call_opened")
+    .map((e) => e.stageRole);
+  const ti = kindsInOrder.indexOf("transform");
+  const ai = kindsInOrder.indexOf("admit");
+  const ei = kindsInOrder.indexOf("evaluate");
+  assert.equal(ti < ai && ai < ei, true, `order: ${JSON.stringify(kindsInOrder)}`);
+  // NEGATIVE: blocked admit -> lawful gap_stop, admit judged blocked
+  const bad = runFour({ outcomeStatus: "blocked", evidenceRefs: ["admit://reject"], payloadRef: null, responseContractRef: null, failureReason: "envelope check failed" });
+  assert.equal(bad.transition.kind, "terminal");
+  assert.equal(bad.transition.terminalKind, "gap_stop");
+  assert.match(bad.transition.reason, /hog_stage_blocked: admit/);
+  const badAdmitSel = bad.replayEvents.filter((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://f/a").pop();
+  const badJudged = bad.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === badAdmitSel.cCallRef);
+  assert.equal(badJudged.judgment, "blocked");
+});
