@@ -5570,6 +5570,32 @@ function* runEngineIterateMachine(input: {
               ruleInput,
               actorInvocation: ruleActorInvocation
             });
+            // T-200 P3-C: spine per invoking evaluation-rule task (-005);
+            // the rule batch is the evaluate stage's task family.
+            {
+              const ruleTaskOpened = constructCCallOpenedEvent({
+                basisId: request.basis.id,
+                graphFunctionId: ruleActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
+                graphCallId: ruleActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                frameId: ruleActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                edge: transition.edge,
+                vectorIndex: transition.vectorIndex,
+                stageRole: "evaluate",
+                taskOrdinal: plannedRule.pluginIndex,
+                attempt: ruleActorInvocation?.attemptIndex ?? 1,
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`
+              });
+              eventState = emitRunnerEvents(eventState, [
+                ruleTaskOpened,
+                constructCCallFibreSelectedEvent({
+                  cCallRef: ruleTaskOpened.cCallRef,
+                  basisId: request.basis.id,
+                  regime: ruleInput.regime,
+                  armId: "evaluation_rule_batch",
+                  compositionRef: null
+                })
+              ]);
+            }
           }
           const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
@@ -5621,6 +5647,38 @@ function* runEngineIterateMachine(input: {
                   detail: ruleOutcome.reason
                 })
               );
+            }
+            {
+              const ruleTaskRef = mintCCallRef({
+                basisId: request.basis.id,
+                graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
+                vectorIndex: transition.vectorIndex,
+                stageRole: "evaluate",
+                taskOrdinal: plannedBatchWithInputs[index]?.plannedRule.pluginIndex ?? index,
+                attempt: invocation?.attemptIndex ?? 1
+              });
+              eventState = emitRunnerEvents(eventState, [
+                constructCCallEvidencedEvent({
+                  cCallRef: ruleTaskRef,
+                  basisId: request.basis.id,
+                  evidenceClass: ruleInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                  evidenceRefs: Object.freeze([ruleInput.sourceProjectionRef])
+                }),
+                constructCCallResultAdmittedEvent({
+                  cCallRef: ruleTaskRef,
+                  basisId: request.basis.id,
+                  outcomeStatus: ruleOutcome.status,
+                  payloadRef: null,
+                  responseContractRef: null
+                }),
+                constructCCallJudgedEvent({
+                  cCallRef: ruleTaskRef,
+                  basisId: request.basis.id,
+                  judgment: ruleOutcome.status === "blocked" ? "blocked" : "advance",
+                  reasonRef: null
+                })
+              ]);
             }
           }
         }
@@ -9085,6 +9143,56 @@ function* runEngineIterateMachine(input: {
             replayEvents: eventState.replayEvents,
             iterationCount
           });
+        }
+        // T-200 P3-C: the F_H C call — escalation is the fibre's judgment.
+        {
+          const fhStage = HOG_BOOTSTRAP_TRIPLE.stages[0];
+          if (fhStage === undefined) {
+            throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
+          }
+          const fhOpened = constructCCallOpenedEvent({
+            basisId: request.basis.id,
+            graphFunctionId: transition.basis.graphFunction.id,
+            graphCallId: graphCallIdForBasis(transition.basis),
+            frameId: frameIdForBasis(transition.basis),
+            edge: transition.edge,
+            vectorIndex: transition.vectorIndex,
+            stageRole: fhStage.stageRole,
+            taskOrdinal: null,
+            attempt: 1,
+            batchRef: null
+          });
+          eventState = emitRunnerEvents(eventState, [
+            fhOpened,
+            constructCCallFibreSelectedEvent({
+              cCallRef: fhOpened.cCallRef,
+              basisId: request.basis.id,
+              regime: "F_H",
+              armId: "fh_admission",
+              compositionRef: null
+            }),
+            constructCCallEvidencedEvent({
+              cCallRef: fhOpened.cCallRef,
+              basisId: request.basis.id,
+              evidenceClass: "fh_interior",
+              evidenceRefs: Object.freeze([
+                `approval-subject:${request.basis.resolvedPolicy.approvalSubjectRef ?? "none"}`
+              ])
+            }),
+            constructCCallResultAdmittedEvent({
+              cCallRef: fhOpened.cCallRef,
+              basisId: request.basis.id,
+              outcomeStatus: "escalated",
+              payloadRef: null,
+              responseContractRef: null
+            }),
+            constructCCallJudgedEvent({
+              cCallRef: fhOpened.cCallRef,
+              basisId: request.basis.id,
+              judgment: "escalated",
+              reasonRef: null
+            })
+          ]);
         }
         eventState = emitRunnerEvents(eventState, constructFhEscalatedEvent(transition));
         return constructResult({

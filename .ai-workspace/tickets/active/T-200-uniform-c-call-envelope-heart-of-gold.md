@@ -164,18 +164,13 @@ Transform.F_P bracket in `code/src/abg/m03/runner/engine_runner.ts`
 Tree state at spec time: GREEN — t200 13/13, semantic 1108/1108, all
 P2a/P2a.2/P2b committed.
 
-## P2 GÖDEL CHECKPOINT EVIDENCE (real installed run, t194 gate 20260706T061918155Z, sourceClean=true)
+## CHECKPOINT EVIDENCE (REFRESHED at post-round-5 HEAD; sourceClean=true)
 
-Spine integrity: 6 opened = 6 selected = 6 evidenced = 6 admitted =
-6 judged; ZERO orphan spine rows (enclosure holds on real replay).
-Triple-per-edge exact: 2 edges × 3 C calls = 6 spines.
-Fibre distribution exact: 4 F_P (transform+evaluate ×2 edges) + 2 F_D
-(consequence ×2) — matches the baked triple's declaration precisely.
-Judgments: 6/6 advance (clean run); 5 temporal verdicts; 1 terminal.
-External-session parity (-012): 2 external worker sessions == 2
-transform.F_P spines. HONEST ASYMMETRY: evaluate.F_P interiors carry no
-invocation events yet (in-process plugin evaluation here; on live lanes
-the evaluator's external session now has a spine to reconcile against —
-interior enrichment lands with P3/P4).
-Deferred families (reasoned): evaluation-rule batch spine (P3, with its
-gate antecedents); retry-branch bridge covered via finish() sub_traversal.
+Fresh installed-gate run at the current source: spine 6=6=6=6=6, zero
+orphans, digest-form refs verified (c-call:sha256:<hex>), fibres
+{F_P:4, F_D:2} exact to the baked triple, 5 verdicts incl. the
+fibre-uniform G5 (selection-eventually-judged), matrix 1/1. The
+enclosure witness additionally verifies the SAME real replay in-suite
+(t200 P3-B: every opened spine judged; violations = red). Codex round-5
+staleness finding retired.
+

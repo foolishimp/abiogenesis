@@ -219,6 +219,11 @@ test("M04 control integration: human-proxy mode preserves human-gate seam withou
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "c_call_opened",
+    "c_call_fibre_selected",
+    "c_call_evidenced",
+    "c_call_result_admitted",
+    "c_call_judged",
     "fh_escalated"
   ]);
 });
