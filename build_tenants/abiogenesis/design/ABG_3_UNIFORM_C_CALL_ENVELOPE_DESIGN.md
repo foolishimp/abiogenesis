@@ -294,3 +294,44 @@ evaluator-reject → blind retry) become declarable stages (worker →
 critic → repair → evaluate), spine-visible instead of implicit.
 Census generalizes to (declared role × fibre); role membership is a
 conformance/enclosure check (program in scope), never free-form truth.
+
+## 12. Tuning HoG — levers grounded in the data-mapper campaign
+
+1. FIBRE PARAMETERS PER STAGE ROLE (effort/model/timeout as program
+   data). Evidence: xhigh closed intent/product stages in 17-45s —
+   wasted effort — while code/test stages genuinely needed it (control:
+   37s xhigh vs 10s low on the same problem). Lever: C.of carries
+   declared fibre params; early doc roles run low/medium, code/test/
+   repair roles run xhigh. Expected ~2x cost reduction on the default
+   program.
+2. RETRY POLICY PER FIBRE, not per run. Evidence: 20 attempts burned on
+   a DETERMINISTIC fault (sbt spawn null) — F_D failures are not
+   stochastic; identical retries are waste. Lever: C.retry budgets
+   distinguish stochastic-retry (F_P, meaningful), repair-retry (F_D,
+   only after input change), transport-retry (backoff class).
+3. CAUSAL-CARRY POLICY PER ROLE. Evidence: 12k starved the test-design
+   worker into lawful refusal; 96k carried whole but pays tokens on
+   every stage. Lever: causalExcerptMaxChars (already plan policy)
+   declared per stage role; carry-by-reference with selective expansion
+   as the successor.
+4. PROGRAM SHAPE (-014). Evidence: valid candidates burned 9-blind-loop
+   retries where ONE critique pass would have surfaced the naming
+   contract. Lever: declare critique/repair stages where retries
+   cluster; retries stop being the only repair mechanism.
+5. EVALUATOR CALIBRATION AS DATA. Evidence: bug family #6/#8/#9 —
+   over-demand (execution evidence everywhere), two-truth pins, exact
+   counts. Lever: T-191 latitude + golden-instance calibration (already
+   live machinery) declared per stage; strictness is data, not prompt
+   accident.
+6. GATE-DRIVEN ESCALATION. Evidence: retry exhaustion was always
+   discovered at terminal. Lever: temporal properties with judgment
+   thresholds — N identical retry judgments on one cCallRef routes to a
+   repair stage or F_H escalation before the budget burns.
+7. FIBRE ANNEALING. Evidence: deterministic stages were the cheapest
+   and most reliable. Lever: stages start F_P and harden to F_D as
+   their programs stabilize — lawful by the degeneracy theorems;
+   substitution changes tags, never shape.
+8. THE TUNING LOOP IS REPLAY-DERIVED. Evidence: the run-15 cost audit
+   was one pass over events. Lever: a standing cost projection (per
+   C call class: attempts, wall, judgment mix) feeds declarations 1-7;
+   HoG tunes off its own truth, no external telemetry.
