@@ -537,3 +537,18 @@ The review-remediation checkpoint cut is ABI TypeScript `4.3.0-rc.1`:
   stall-classification single module, PublicTerminalKind, transport trio
   tie, assurance opt-out admission) and closes with the clean data-mapper
   run.
+
+The Heart of Gold envelope checkpoint cut is ABI TypeScript `4.4.0-rc.1`:
+
+- source commit `e03a7c28eec85d1b070dd9acbf1405997f153e75` (`sourceDirty: false`); `latest -> 4.4.0-rc.1`;
+- tarball sha256 `f16a00fc7f89e553965fb13a4cb15c419faca05bbc48c5dfc705e9585238a607`;
+- release snapshot manifest sha256 `0989f3af40b0e7712c778ac44a35bbe02cc480544964678fa048fa88d6037141`; release note sha256 `87543c89cd05178036aa41caec93d9066b0a52e3a9b328e43ad8652cd7311063`;
+- verification: `test:semantic` 1115/1115, `test:t188` 32/32,
+  `test:t200` 19/19, standing gate `test:t194:sandbox-live` 1/1
+  `{ sourceClean: true }` WITH the -012 audit rows measuring spine
+  integrity, enclosure, digest refs, and external-session parity on the
+  gate run itself;
+- delta: the uniform C-call envelope at strangler step 1 (see the
+  authored release note); the envelope wave ticket remains active for
+  the enumerated remainder (resolveCCall delegation, F_D mechanical
+  transform spine, erase pass) under the CCALL Realization State clause.
