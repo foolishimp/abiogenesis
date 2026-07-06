@@ -4,7 +4,7 @@ title: HoG iteration 2 — the standard worker plugin lifts into the substrate
 status: active
 class: design_reframe
 opened: 2026-07-06
-depends: T-200 strangler step 2 (program/catalog interpretation) — same seam, arrives together
+depends: T-200 (SATISFIED — closed 2026-07-06; the interpretation seam landed here at B2)
 requirements: REQ-R-ABG3-CCALL-014/-017 (programs/ladders consumed); REQ-R-ABG3-HANDLERS-001/-014 (B1 handler-law authority)
 acceptance: THE INTERNAL-EVERYTHING GATE first — ABG's own sandbox lanes prove catalogs/ladders/resume/re-entry/handlers with a real worker and -012 green, BEFORE any glc step; 4.5.0-rc.1 cuts on that gate. Then: a product on the standard F_P path ships ZERO plugin code —
   declarations only (catalog + selections + response contracts +
