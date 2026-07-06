@@ -6,7 +6,7 @@
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
-import { buildCCallSpineOpen, buildCCallSpineClose } from "./c_call_spine.js";
+import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -41,7 +41,6 @@ import {
   constructInstructionCausalContextBoundEvent,
   constructInstructionPromptManifestProjectedEvent,
   constructInstructionResponseContractAdmittedEvent,
-  mintCCallRef,
   constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
@@ -4694,7 +4693,14 @@ function finishConsequenceTraversalActionConsumption(input: {
       vectorIndex: input.vectorIndex,
       stageRole: "consequence",
       taskOrdinal: 0,
-      attempt: 1,
+      attempt: nextCCallAttempt(input.preludeState.replayEvents, {
+        basisId: input.request.basis.id,
+        graphCallId: graphCallIdForBasis(input.request.basis),
+        frameId: frameIdForBasis(input.request.basis),
+        vectorIndex: input.vectorIndex,
+        stageRole: "consequence",
+        taskOrdinal: 0
+      }),
       batchRef: null,
       regime: "F_D",
       armId: "construction_intent_step"
@@ -5449,7 +5455,8 @@ function* runEngineIterateMachine(input: {
             readonly plannedRule: PlannedEvaluationRule;
             readonly ruleInput: EnginePluginInput;
             readonly actorInvocation: ActorInvocation | null;
-          }[] = [];
+            cCallRef?: string;
+            }[] = [];
           for (const { declaration, plannedRule } of plannedBatch) {
             const resolvedRegime =
               plannedRule.plugin.contract.computeMeans ?? "F_D";
@@ -5591,12 +5598,25 @@ function* runEngineIterateMachine(input: {
                 vectorIndex: transition.vectorIndex,
                 stageRole: "evaluate",
                 taskOrdinal: plannedRule.pluginIndex,
-                attempt: ruleActorInvocation?.attemptIndex ?? 1,
+                attempt: nextCCallAttempt(eventState.replayEvents, {
+                  basisId: request.basis.id,
+                  graphCallId: ruleActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                  frameId: ruleActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                  vectorIndex: transition.vectorIndex,
+                  stageRole: "evaluate",
+                  taskOrdinal: plannedRule.pluginIndex
+                }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`,
                 regime: ruleInput.regime,
                 armId: "evaluation_rule_batch"
               });
               eventState = emitRunnerEvents(eventState, ruleTaskSpine.events);
+            {
+              const plannedEntry = plannedBatchWithInputs[plannedBatchWithInputs.length - 1];
+              if (plannedEntry !== undefined) {
+                plannedEntry.cCallRef = ruleTaskSpine.cCallRef;
+              }
+            }
             }
           }
           const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
@@ -5651,15 +5671,10 @@ function* runEngineIterateMachine(input: {
               );
             }
             {
-              const ruleTaskRef = mintCCallRef({
-                basisId: request.basis.id,
-                graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
-                frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
-                vectorIndex: transition.vectorIndex,
-                stageRole: "evaluate",
-                taskOrdinal: plannedBatchWithInputs[index]?.plannedRule.pluginIndex ?? index,
-                attempt: invocation?.attemptIndex ?? 1
-              });
+              const ruleTaskRef = plannedBatchWithInputs[index]?.cCallRef;
+              if (ruleTaskRef === undefined) {
+                throw new TypeError("rule task spine ref must be threaded from open");
+              }
               eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
                 cCallRef: ruleTaskRef,
                 basisId: request.basis.id,
@@ -5810,7 +5825,14 @@ function* runEngineIterateMachine(input: {
           vectorIndex: transition.vectorIndex,
           stageRole: fdEvaluateStage.stageRole,
           taskOrdinal: null,
-          attempt: 1,
+          attempt: nextCCallAttempt(eventState.replayEvents, {
+            basisId: request.basis.id,
+            graphCallId: graphCallIdForBasis(transition.basis),
+            frameId: frameIdForBasis(transition.basis),
+            vectorIndex: transition.vectorIndex,
+            stageRole: fdEvaluateStage.stageRole,
+            taskOrdinal: null
+          }),
           batchRef: null,
           regime: "F_D",
           armId: fdEvaluateStage.armId
@@ -6057,7 +6079,8 @@ function* runEngineIterateMachine(input: {
             readonly plannedTask: PlannedComposedStageTask;
             readonly taskInput: EnginePluginInput;
             readonly actorInvocation: ActorInvocation | null;
-          }[] = [];
+            cCallRef?: string;
+            }[] = [];
           for (const { declaration, plannedTask } of plannedBatch) {
             const resolvedRegime =
               plannedTask.plugin.contract.computeMeans ?? "F_D";
@@ -6201,12 +6224,25 @@ function* runEngineIterateMachine(input: {
                 vectorIndex: transition.vectorIndex,
                 stageRole: "consequence",
                 taskOrdinal: plannedTask.pluginIndex,
-                attempt: taskActorInvocation?.attemptIndex ?? 1,
+                attempt: nextCCallAttempt(eventState.replayEvents, {
+                  basisId: request.basis.id,
+                  graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                  frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                  vectorIndex: transition.vectorIndex,
+                  stageRole: "consequence",
+                  taskOrdinal: plannedTask.pluginIndex
+                }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                 regime: taskInput.regime,
                 armId: "composed_consequence"
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
+            {
+              const plannedEntry = plannedBatchWithInputs[plannedBatchWithInputs.length - 1];
+              if (plannedEntry !== undefined) {
+                plannedEntry.cCallRef = batchTaskSpine.cCallRef;
+              }
+            }
             }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -6262,15 +6298,10 @@ function* runEngineIterateMachine(input: {
               );
             }
             {
-              const batchTaskRef = mintCCallRef({
-                basisId: request.basis.id,
-                graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
-                frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
-                vectorIndex: transition.vectorIndex,
-                stageRole: "consequence",
-                taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
-                attempt: invocation?.attemptIndex ?? 1
-              });
+              const batchTaskRef = plannedBatchWithInputs[index]?.cCallRef;
+              if (batchTaskRef === undefined) {
+                throw new TypeError("batch task spine ref must be threaded from open");
+              }
               eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
                 cCallRef: batchTaskRef,
                 basisId: request.basis.id,
@@ -6376,7 +6407,14 @@ function* runEngineIterateMachine(input: {
           vectorIndex: transition.vectorIndex,
           stageRole: consequenceCCallStage.stageRole,
           taskOrdinal: null,
-          attempt: 1,
+          attempt: nextCCallAttempt(eventState.replayEvents, {
+            basisId: request.basis.id,
+            graphCallId: graphCallIdForBasis(transition.basis),
+            frameId: frameIdForBasis(transition.basis),
+            vectorIndex: transition.vectorIndex,
+            stageRole: consequenceCCallStage.stageRole,
+            taskOrdinal: null
+          }),
           batchRef: null,
           regime: "F_D",
           armId: consequenceCCallStage.armId
@@ -6626,7 +6664,8 @@ function* runEngineIterateMachine(input: {
             readonly plannedTask: PlannedComposedStageTask;
             readonly taskInput: EnginePluginInput;
             readonly actorInvocation: ActorInvocation | null;
-          }[] = [];
+            cCallRef?: string;
+            }[] = [];
           for (const { declaration, plannedTask } of plannedBatch) {
             const resolvedRegime =
               plannedTask.plugin.contract.computeMeans ?? "F_D";
@@ -6770,12 +6809,25 @@ function* runEngineIterateMachine(input: {
                 vectorIndex: transition.vectorIndex,
                 stageRole: "transform",
                 taskOrdinal: plannedTask.pluginIndex,
-                attempt: taskActorInvocation?.attemptIndex ?? 1,
+                attempt: nextCCallAttempt(eventState.replayEvents, {
+                  basisId: request.basis.id,
+                  graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                  frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                  vectorIndex: transition.vectorIndex,
+                  stageRole: "transform",
+                  taskOrdinal: plannedTask.pluginIndex
+                }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`,
                 regime: taskInput.regime,
                 armId: "composed_transform"
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
+            {
+              const plannedEntry = plannedBatchWithInputs[plannedBatchWithInputs.length - 1];
+              if (plannedEntry !== undefined) {
+                plannedEntry.cCallRef = batchTaskSpine.cCallRef;
+              }
+            }
             }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -6832,15 +6884,10 @@ function* runEngineIterateMachine(input: {
                 );
               }
               {
-                const batchTaskRef = mintCCallRef({
-                  basisId: request.basis.id,
-                  graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
-                  frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
-                  vectorIndex: transition.vectorIndex,
-                  stageRole: "transform",
-                  taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
-                  attempt: invocation?.attemptIndex ?? 1
-                });
+                const batchTaskRef = plannedBatchWithInputs[index]?.cCallRef;
+                if (batchTaskRef === undefined) {
+                  throw new TypeError("batch task spine ref must be threaded from open");
+                }
                 eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
                   cCallRef: batchTaskRef,
                   basisId: request.basis.id,
@@ -6967,7 +7014,14 @@ function* runEngineIterateMachine(input: {
           vectorIndex: transition.vectorIndex,
           stageRole: scalarTransformStage.stageRole,
           taskOrdinal: null,
-          attempt: actorInvocation.attemptIndex,
+          attempt: nextCCallAttempt(eventState.replayEvents, {
+            basisId: request.basis.id,
+            graphCallId: actorInvocation.graphCallId,
+            frameId: actorInvocation.frameId,
+            vectorIndex: transition.vectorIndex,
+            stageRole: scalarTransformStage.stageRole,
+            taskOrdinal: null
+          }),
           batchRef: null,
           regime: "F_P",
           armId: scalarTransformStage.armId
@@ -7692,7 +7746,14 @@ function* runEngineIterateMachine(input: {
               vectorIndex: transition.vectorIndex,
               stageRole: scalarEvaluateStage.stageRole,
               taskOrdinal: null,
-              attempt: actorInvocation.attemptIndex,
+              attempt: nextCCallAttempt(eventState.replayEvents, {
+                basisId: request.basis.id,
+                graphCallId: actorInvocation.graphCallId,
+                frameId: actorInvocation.frameId,
+                vectorIndex: transition.vectorIndex,
+                stageRole: scalarEvaluateStage.stageRole,
+                taskOrdinal: null
+              }),
               batchRef: null,
               regime: "F_P",
               armId: scalarEvaluateStage.armId
@@ -8334,7 +8395,8 @@ function* runEngineIterateMachine(input: {
                 readonly plannedTask: PlannedComposedStageTask;
                 readonly taskInput: EnginePluginInput;
                 readonly actorInvocation: ActorInvocation | null;
-              }[] = [];
+                cCallRef?: string;
+                }[] = [];
               for (const { declaration, plannedTask } of plannedBatch) {
                 const resolvedRegime =
                   plannedTask.plugin.contract.computeMeans ?? "F_D";
@@ -8480,12 +8542,25 @@ function* runEngineIterateMachine(input: {
                     vectorIndex: transition.vectorIndex,
                     stageRole: "consequence",
                     taskOrdinal: plannedTask.pluginIndex,
-                    attempt: taskActorInvocation?.attemptIndex ?? 1,
+                    attempt: nextCCallAttempt(eventState.replayEvents, {
+                      basisId: request.basis.id,
+                      graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                      frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                      vectorIndex: transition.vectorIndex,
+                      stageRole: "consequence",
+                      taskOrdinal: plannedTask.pluginIndex
+                    }),
                     batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                     regime: taskInput.regime,
                     armId: "composed_consequence"
                   });
                   eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
+                {
+              const plannedEntry = plannedBatchWithInputs[plannedBatchWithInputs.length - 1];
+              if (plannedEntry !== undefined) {
+                plannedEntry.cCallRef = batchTaskSpine.cCallRef;
+              }
+            }
                 }
               }
               const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
@@ -8541,15 +8616,10 @@ function* runEngineIterateMachine(input: {
                   );
                 }
                 {
-                  const batchTaskRef = mintCCallRef({
-                    basisId: request.basis.id,
-                    graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
-                    frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
-                    vectorIndex: transition.vectorIndex,
-                    stageRole: "consequence",
-                    taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
-                    attempt: invocation?.attemptIndex ?? 1
-                  });
+                  const batchTaskRef = plannedBatchWithInputs[index]?.cCallRef;
+                  if (batchTaskRef === undefined) {
+                    throw new TypeError("batch task spine ref must be threaded from open");
+                  }
                   eventState = emitRunnerEvents(eventState, buildCCallSpineClose({
                     cCallRef: batchTaskRef,
                     basisId: request.basis.id,
@@ -8656,7 +8726,14 @@ function* runEngineIterateMachine(input: {
               vectorIndex: transition.vectorIndex,
               stageRole: consequenceCCallStage.stageRole,
               taskOrdinal: null,
-              attempt: 1,
+              attempt: nextCCallAttempt(eventState.replayEvents, {
+                basisId: request.basis.id,
+                graphCallId: graphCallIdForBasis(transition.basis),
+                frameId: frameIdForBasis(transition.basis),
+                vectorIndex: transition.vectorIndex,
+                stageRole: consequenceCCallStage.stageRole,
+                taskOrdinal: null
+              }),
               batchRef: null,
               regime: "F_D",
               armId: consequenceCCallStage.armId
@@ -9027,7 +9104,14 @@ function* runEngineIterateMachine(input: {
             vectorIndex: transition.vectorIndex,
             stageRole: fhStage.stageRole,
             taskOrdinal: null,
-            attempt: 1,
+            attempt: nextCCallAttempt(eventState.replayEvents, {
+              basisId: request.basis.id,
+              graphCallId: graphCallIdForBasis(transition.basis),
+              frameId: frameIdForBasis(transition.basis),
+              vectorIndex: transition.vectorIndex,
+              stageRole: fhStage.stageRole,
+              taskOrdinal: null
+            }),
             batchRef: null,
             regime: "F_H",
             armId: "fh_admission"

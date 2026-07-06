@@ -7,7 +7,10 @@
 ONTOLOGY: C is compute. A plugin factors into its CATEGORY (the
 declared shape of compute — programs, catalogs, ladders, contracts:
 GTL data) and its FUNCTOR (the effect handler realizing compute in the
-world). This family governs the functor.
+world). This family governs the functor. A handler binding is admitted
+configuration data: `{programRef, stageRole, armId, regime, handlerRef,
+handlerClass, handlerConfigRef}`. A product may declare the category and
+handler configuration; it does not implement a standard-path worker loop.
 
 ## Handler obligations
 
@@ -54,7 +57,9 @@ world). This family governs the functor.
 - **-011 One seam.** Programs, catalogs, selections, and -017 ladders
   are consumed at exactly ONE interpretation point; the census derives
   from the admitted program; the baked bootstrap triple is the
-  undeclared default. No second consumption path.
+  undeclared default. No second consumption path. Product-local prompt
+  shells, handler scanners, file loaders, registries, and effect routers
+  are not lawful interpretation seams for the standard path.
 - **-012 Fail-closed interpretation.** An admitted-but-unresolvable
   selection (unknown programRef, unknown arm, missing handler binding)
   blocks the C call with a typed reason before any interior runs.
@@ -73,6 +78,8 @@ world). This family governs the functor.
 ## Non-closure
 
 Weakened tests; a handler minting truth; a tool name in handler code;
-unevidenced outcall effects; a second interpretation seam; a handler
-throw killing a run; duplicated evidence after resume; glc adoption
-before the ABG-internal everything-gate is green.
+unevidenced outcall effects; a second interpretation seam; product-local
+standard-path worker loops; hidden handler configuration from ambient
+scans or shells; a handler throw killing a run; duplicated evidence
+after resume; glc adoption before the ABG-internal everything-gate is
+green.

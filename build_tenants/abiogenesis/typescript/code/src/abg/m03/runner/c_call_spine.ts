@@ -21,6 +21,39 @@ import {
 } from "../contracts/event_factories.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
 
+// REQ-R-ABG3-CCALL-004 across resume: attempt identity is REPLAY-GLOBAL
+// per locus — a fresh window continues the count, never reuses it.
+// (Pinned by the T-205 B-prep differential: window-local attempt
+// numbering collided cCallRefs across re-entry.)
+export function nextCCallAttempt(
+  replayEvents: readonly RuntimeEvent[],
+  locus: {
+    readonly basisId: string;
+    readonly graphCallId: string;
+    readonly frameId: string;
+    readonly vectorIndex: number;
+    readonly stageRole: string;
+    readonly taskOrdinal: number | null;
+  }
+): number {
+  let count = 0;
+  for (const event of replayEvents) {
+    if (event.kind !== "c_call_opened") continue;
+    const opened = event;
+    if (
+      opened.basisId === locus.basisId &&
+      opened.graphCallId === locus.graphCallId &&
+      opened.frameId === locus.frameId &&
+      opened.vectorIndex === locus.vectorIndex &&
+      opened.stageRole === locus.stageRole &&
+      opened.taskOrdinal === locus.taskOrdinal
+    ) {
+      count += 1;
+    }
+  }
+  return count + 1;
+}
+
 export interface CCallSpineOpenInput {
   readonly basisId: string;
   readonly graphFunctionId: string;
