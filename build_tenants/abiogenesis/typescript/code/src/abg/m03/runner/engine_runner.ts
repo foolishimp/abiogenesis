@@ -7418,6 +7418,66 @@ function* runEngineIterateMachine(input: {
               eventState,
               evaluationInstructionBinding.event
             );
+            // T-200 P2c: the evaluate C call's spine — finding #11 dies
+            // here: evaluate.F_P work becomes replay-visible dispatch
+            // truth with the same envelope as the transform arm.
+            const scalarEvaluateStage = HOG_BOOTSTRAP_TRIPLE.stages[1];
+            if (scalarEvaluateStage === undefined) {
+              throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
+            }
+            const scalarEvaluateCCallOpened = constructCCallOpenedEvent({
+              basisId: request.basis.id,
+              graphFunctionId: actorInvocation.graphFunctionId,
+              graphCallId: actorInvocation.graphCallId,
+              frameId: actorInvocation.frameId,
+              edge: transition.edge,
+              vectorIndex: transition.vectorIndex,
+              stageRole: scalarEvaluateStage.stageRole,
+              taskOrdinal: null,
+              attempt: actorInvocation.attemptIndex,
+              batchRef: null
+            });
+            const scalarEvaluateCCallEvidence: string[] = [
+              evaluationInstructionBinding.manifest.manifestRef
+            ];
+            const closeScalarEvaluateCCall = (
+              state: EngineEventEmissionState,
+              close: {
+                readonly outcomeStatus: string;
+                readonly judgment: CCallJudgment;
+              }
+            ): EngineEventEmissionState =>
+              emitRunnerEvents(state, [
+                constructCCallEvidencedEvent({
+                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
+                  basisId: request.basis.id,
+                  evidenceClass: "fp_interior",
+                  evidenceRefs: Object.freeze([...scalarEvaluateCCallEvidence])
+                }),
+                constructCCallResultAdmittedEvent({
+                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
+                  basisId: request.basis.id,
+                  outcomeStatus: close.outcomeStatus,
+                  payloadRef: null,
+                  responseContractRef: null
+                }),
+                constructCCallJudgedEvent({
+                  cCallRef: scalarEvaluateCCallOpened.cCallRef,
+                  basisId: request.basis.id,
+                  judgment: close.judgment,
+                  reasonRef: null
+                })
+              ]);
+            eventState = emitRunnerEvents(eventState, [
+              scalarEvaluateCCallOpened,
+              constructCCallFibreSelectedEvent({
+                cCallRef: scalarEvaluateCCallOpened.cCallRef,
+                basisId: request.basis.id,
+                regime: "F_P",
+                armId: scalarEvaluateStage.armId,
+                compositionRef: null
+              })
+            ]);
             fpEvaluationInput = Object.freeze({
               ...fpEvaluationInput,
               instructionPromptManifest: evaluationInstructionBinding.manifest
@@ -7608,6 +7668,10 @@ function* runEngineIterateMachine(input: {
               reason: assuranceFold.closureDecision.reason
             });
             if (assuranceFold.closureDecision.decision === "retry") {
+              eventState = closeScalarEvaluateCCall(eventState, {
+                outcomeStatus: fpEvaluationOutcome.status,
+                judgment: "retry"
+              });
               eventState = emitRunnerEvents(eventState,
                 constructVectorEvaluatedEvent({
                   basis: request.basis,
@@ -7831,6 +7895,10 @@ function* runEngineIterateMachine(input: {
               });
             }
             if (assuranceTerminal !== null) {
+              eventState = closeScalarEvaluateCCall(eventState, {
+                outcomeStatus: fpEvaluationOutcome.status,
+                judgment: "blocked"
+              });
               eventState = emitRunnerEvents(eventState,
                 constructVectorEvaluatedEvent({
                   basis: request.basis,
@@ -7896,6 +7964,10 @@ function* runEngineIterateMachine(input: {
                 iterationCount
               });
             }
+            eventState = closeScalarEvaluateCCall(eventState, {
+              outcomeStatus: fpEvaluationOutcome.status,
+              judgment: "advance"
+            });
             eventState = emitRunnerEvents(eventState,
               constructVectorEvaluatedEvent({
                 basis: request.basis,

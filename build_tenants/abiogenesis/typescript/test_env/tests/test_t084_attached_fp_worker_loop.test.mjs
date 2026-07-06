@@ -212,6 +212,8 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "c_call_evidenced",
     "c_call_result_admitted",
     "c_call_judged",
+    "c_call_opened",
+    "c_call_fibre_selected",
     "payload_observed",
     "payload_validated",
     "authority_snapshot_admitted",
@@ -222,6 +224,9 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "ambiguity_observation_admitted",
     "executive_pressure_fact_projected",
     "closure_input_published",
+    "c_call_evidenced",
+    "c_call_result_admitted",
+    "c_call_judged",
     "vector_evaluated"
   ];
   const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
