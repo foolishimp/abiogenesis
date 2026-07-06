@@ -7,7 +7,7 @@ opened: 2026-07-06
 design: build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md (RATIFIED §1-§15.2, incl. sovereignty by necessity)
 requirements: specification/requirements/abg/REQ-R-ABG3-CCALL.md (-001..-014, Active)
 absorbs: T-198 (frame-identity scoping, via -004)
-progress: P0 COMPLETE (two codex rounds adjudicated); P1 batch 1 LANDED (five spine kinds: carriers/factories/admission with -002 negative guard + open roles; 1095/1095)
+progress: P0 COMPLETE (three codex rounds adjudicated); P1 COMPLETE AND EARNED — test:t200 lane 7/7 (admission axes x5, mintCCallRef identity-axis collision differential, NEGATIVE locus-only incl. closed key set, judgment/regime vocabularies, open roles); suite 1102/1102; CCall surface exported through the contracts index
 acceptance: §Acceptance below; T-200 closes on a fresh green standing gate carrying the -012 audit; the campaign's clean data-mapper run on the 4.4.0-rc.1 substrate closes T-195
 ---
 
@@ -29,10 +29,9 @@ case; the edge program hidden inside an ~8k-line state machine.
 
 ## Execution plan (current, post-§15)
 
-- **P1 (finish)** — test:t200 lane batch 1: admission axes ×5 kinds,
-  mintCCallRef format + collision differentials, NEGATIVE
-  spine-with-regime rejected, judgment vocabulary axes; npm script.
-  Gate: t200 + semantic green.
+- **P1 — COMPLETE**: test:t200 7/7 (incl. the round-3 closed-key-set
+  negative control); suite 1102/1102; factories/types/vocabularies
+  exported via the contracts index.
 - **P2 — the GTL-program interpreter (strangler; load-bearing)**
   - 2a GTL carriers for the C algebra: program declarations (roles,
     result-bearing role, fibre selections, proportionality) as typed

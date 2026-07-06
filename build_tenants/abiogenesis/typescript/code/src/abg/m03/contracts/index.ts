@@ -1338,3 +1338,27 @@ export type {
   TemporalTraceInput
 } from "./temporal_properties.js";
 export { STANDING_GATE_TEMPORAL_PROPERTY_RULES } from "./temporal_property_gates.js";
+
+export {
+  constructCCallOpenedEvent,
+  constructCCallFibreSelectedEvent,
+  constructCCallEvidencedEvent,
+  constructCCallResultAdmittedEvent,
+  constructCCallJudgedEvent,
+  mintCCallRef
+} from "./event_factories.js";
+export {
+  C_CALL_DEFAULT_PROGRAM_STAGE_ROLES,
+  C_CALL_JUDGMENT_VALUES,
+  C_CALL_REGIME_VALUES
+} from "./carriers.js";
+export type {
+  CCallOpenedEvent,
+  CCallFibreSelectedEvent,
+  CCallEvidencedEvent,
+  CCallResultAdmittedEvent,
+  CCallJudgedEvent,
+  CCallStageRole,
+  CCallJudgment,
+  CCallRegime
+} from "./carriers.js";

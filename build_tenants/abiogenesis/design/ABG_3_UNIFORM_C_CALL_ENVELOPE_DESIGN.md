@@ -47,9 +47,9 @@ flowchart TD
 
 Invariant visible by construction: no fibre name appears in any SPINE
 box; `regime`/`armId` exist only in the fibre-selection interior row.
-Edge traversal = three spine instances (transform, evaluate,
-consequence); composed stage-tasks that can invoke work each get their
-own spine with `batchRef` grouping (-005).
+Edge traversal = one spine instance per stage of the DECLARED program
+(default program: the canonical triple); composed stage-tasks that can
+invoke work each get their own spine with `batchRef` grouping (-005).
 
 ## 2. Seams and authority
 

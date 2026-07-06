@@ -1134,12 +1134,21 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     implicatedEventRefs: "string_array"
   }),
   c_call_opened: (event: RuntimeEventRecord): void => {
-    // REQ-R-ABG3-CCALL-002 negative control: the spine is LOCUS-ONLY —
-    // a spine event carrying fibre fields is rejected at admission.
-    if ("regime" in event || "armId" in event) {
-      throw new TypeError(
-        "CCallOpenedEvent: spine events are locus-only; regime/armId belong to c_call_fibre_selected"
-      );
+    // REQ-R-ABG3-CCALL-002: the spine is LOCUS-ONLY, enforced as a
+    // CLOSED key set — any unknown sibling field (fibre data, manifest
+    // refs, arbitrary riders) is rejected, not ignored.
+    const allowed = new Set([
+      "kind", "cCallRef", "basisId", "graphFunctionId", "graphCallId",
+      "frameId", "edge", "vectorIndex", "stageRole", "taskOrdinal",
+      "attempt", "batchRef",
+      "eventId", "eventTime", "eventTimeUnixMs", "eventAdmissionOrdinal"
+    ]);
+    for (const key of Object.keys(event)) {
+      if (!allowed.has(key)) {
+        throw new TypeError(
+          `CCallOpenedEvent: spine events are locus-only; unexpected field ${JSON.stringify(key)}`
+        );
+      }
     }
     applyFieldRules("CCallOpenedEvent", {
       cCallRef: "non_empty_string",

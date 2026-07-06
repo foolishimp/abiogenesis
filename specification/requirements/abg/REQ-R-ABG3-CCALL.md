@@ -5,9 +5,11 @@
 **Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.
 
 Traversal A→B carries compute C as a tuple over fibres {F_D, F_P, F_H}.
-Each edge traversal makes three C calls (transform, evaluate,
-consequence). The envelope below is the one truth shape for every C
-call; the fibre is data inside it, never structure around it.
+Each edge traversal runs its DECLARED program of C calls (-014); the
+canonical default program is the triple [transform, evaluate,
+consequence], baked only as bootstrap P0. The envelope below is the one
+truth shape for every C call; the fibre is data inside it, never
+structure around it.
 
 ## Clauses
 

@@ -98,6 +98,6 @@ over traces, not clocks, and introduce no wall-clock reads.
 ## Amendment (T-200 P0)
 
 -007 gate points: on the uniform C-call envelope, the dispatch gate
-point binds to `c_call_opened` joined with its `c_call_fibre_selected`
-row (REQ-R-ABG3-CCALL-010). The fp_dispatch_requested antecedent remains
+point binds to `c_call_fibre_selected` with single-event where-guards
+(REQ-R-ABG3-CCALL-010); no cross-event join is required or implied. The fp_dispatch_requested antecedent remains
 lawful for pre-envelope replay via the CCALL-011 projection adapter.
