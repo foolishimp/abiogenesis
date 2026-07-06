@@ -316,7 +316,7 @@ import {
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { fulfilledAttachedArtifactFor } from "./support/m03-iteration-fixtures.mjs";
 
-function p4Run(temporalRules) {
+function p4Run(temporalRules, pluginOverrides = {}) {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const first = Object.freeze({
     ...basis,
@@ -331,7 +331,8 @@ function p4Run(temporalRules) {
       ? {}
       : { temporalPropertyStartup: { rules: temporalRules } }),
     plugins: {
-      fpDispatch: Object.freeze({
+      ...pluginOverrides,
+      fpDispatch: pluginOverrides.fpDispatch ?? Object.freeze({
         contract: constructEnginePluginContract({
           ref: "plugin://t192/fp-dispatch",
           pluginKind: "fp_dispatch",
@@ -348,7 +349,7 @@ function p4Run(temporalRules) {
           });
         }
       }),
-      fpEvaluator: defaultFpEvaluatorPlugin
+      fpEvaluator: pluginOverrides.fpEvaluator ?? defaultFpEvaluatorPlugin
     }
   });
   return { result, events };
@@ -417,4 +418,34 @@ test("T-192 P4: unlawful property startup fails closed before any traversal", ()
     result.replayEvents.filter((e) => e.kind === "fp_dispatch_requested").length,
     0
   );
+});
+
+// ─── T-200 P4: arm-parity — a throwing plugin is blocked truth on EVERY arm ───
+
+test("T-200 P4: throwing fp plugins become blocked outcomes, not engine deaths (arm parity)", () => {
+  const throwingDispatch = {
+    contract: constructEnginePluginContract({
+      ref: "plugin://t200/p4/throwing-dispatch",
+      pluginKind: "fp_dispatch",
+      authority: "effect_plugin",
+      inputCarrier: "EnginePluginInput",
+      outputCarrier: "FpDispatchOutcome"
+    }),
+    dispatch: () => { throw new Error("transport exploded"); }
+  };
+  const throwingEvaluator = {
+    contract: defaultFpEvaluatorPlugin.contract,
+    evaluate: () => { throw new Error("judge exploded"); }
+  };
+  for (const [label, overrides] of [
+    ["dispatch", { fpDispatch: throwingDispatch }],
+    ["evaluator", { fpEvaluator: throwingEvaluator }]
+  ]) {
+    const { result } = p4Run(STANDING_GATE_TEMPORAL_PROPERTY_RULES, overrides);
+    assert.equal(result.transition.kind, "terminal", `${label}: lawful terminal, no crash`);
+    const spineJudged = result.replayEvents.filter((e) => e.kind === "c_call_judged");
+    assert.ok(spineJudged.length > 0, `${label}: the C call was judged, not abandoned`);
+    const truth = JSON.stringify(result.replayEvents);
+    assert.equal(truth.includes("contract_failure"), true, `${label}: typed class visible in truth`);
+  }
 });

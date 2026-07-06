@@ -3,6 +3,7 @@
 // Implements: REQ-R-ABG3-RUN
 // Implements: REQ-R-ABG3-CONVERGENCE
 
+import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
@@ -4989,6 +4990,31 @@ function fpEvaluationOutcomeFromEffectResult(
   }
 }
 
+// T-200 P4: a throwing plugin is a fibre failure, not an engine death —
+// it becomes a blocked outcome whose reason carries the typed class
+// (contract_failure: allowlisted, retry law decides) so EVERY arm routes
+// identically through the ordinary blocked exits.
+function blockedReasonForPluginThrow(label: string, error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error);
+  return `${label} threw (contract_failure): ${message.slice(0, 300)}`;
+}
+
+function guardedSync<T>(label: string, run: () => T, blocked: (reason: string) => T): T {
+  try {
+    return run();
+  } catch (error) {
+    return blocked(blockedReasonForPluginThrow(label, error));
+  }
+}
+
+async function guardedAsync<T>(label: string, run: () => Promise<T> | T, blocked: (reason: string) => T): Promise<T> {
+  try {
+    return await run();
+  } catch (error) {
+    return blocked(blockedReasonForPluginThrow(label, error));
+  }
+}
+
 function fpDispatchOutcomeFromEffectResult(
   result: EnginePluginEffectResult
 ): FpDispatchOutcome {
@@ -9316,21 +9342,29 @@ export function resolveSyncEnginePluginEffect(
     case "fp_evaluate":
       return Object.freeze({
         kind: "fp_evaluate",
-        outcome: admitFpEvaluationOutcome(
-          resolveSyncPluginOutcome(
-            plugins.fpEvaluator.evaluate(effect.input),
-            "fp evaluator plugin"
-          )
+        outcome: guardedSync(
+          "fp evaluator plugin",
+          () => admitFpEvaluationOutcome(
+            resolveSyncPluginOutcome(
+              plugins.fpEvaluator.evaluate(effect.input),
+              "fp evaluator plugin"
+            )
+          ),
+          (reason) => constructFpEvaluationOutcome({ status: "blocked", reason })
         )
       });
     case "fp_dispatch":
       return Object.freeze({
         kind: "fp_dispatch",
-        outcome: admitFpDispatchOutcome(
-          resolveSyncPluginOutcome(
-            plugins.fpDispatch.dispatch(effect.input),
-            "fp dispatch plugin"
-          )
+        outcome: guardedSync(
+          "fp dispatch plugin",
+          () => admitFpDispatchOutcome(
+            resolveSyncPluginOutcome(
+              plugins.fpDispatch.dispatch(effect.input),
+              "fp dispatch plugin"
+            )
+          ),
+          (reason) => constructFpDispatchOutcome({ status: "blocked", reason })
         )
       });
     case "fh_admit":
@@ -9437,15 +9471,23 @@ async function resolveAsyncEnginePluginEffect(
     case "fp_evaluate":
       return Object.freeze({
         kind: "fp_evaluate",
-        outcome: admitFpEvaluationOutcome(
-          await plugins.fpEvaluator.evaluate(effect.input)
+        outcome: await guardedAsync(
+          "fp evaluator plugin",
+          async () => admitFpEvaluationOutcome(
+            await plugins.fpEvaluator.evaluate(effect.input)
+          ),
+          (reason) => constructFpEvaluationOutcome({ status: "blocked", reason })
         )
       });
     case "fp_dispatch":
       return Object.freeze({
         kind: "fp_dispatch",
-        outcome: admitFpDispatchOutcome(
-          await plugins.fpDispatch.dispatch(effect.input)
+        outcome: await guardedAsync(
+          "fp dispatch plugin",
+          async () => admitFpDispatchOutcome(
+            await plugins.fpDispatch.dispatch(effect.input)
+          ),
+          (reason) => constructFpDispatchOutcome({ status: "blocked", reason })
         )
       });
     case "fh_admit":
