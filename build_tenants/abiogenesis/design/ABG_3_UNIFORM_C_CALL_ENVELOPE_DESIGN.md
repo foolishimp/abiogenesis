@@ -278,7 +278,12 @@ by boundary declaration:
 
 Corollary: compose.C.compose is always lawful; whether it is one frame
 or two is never an accident of nesting syntax — it is the presence or
-absence of a named lift.
+absence of a named lift. READ IN THE ONTOLOGY (C = compute): the
+notation is literal — a composition whose COMPUTE position holds
+another composition. The four boundary rungs (inline < stage <
+capability outcall < workflow.C) are exactly the lawful realizations
+of that inner C, cheapest to deepest; the recursion functor is the
+grammar reading itself.
 
 ## 11. Open programs: HoG beyond the triple (ratified framing)
 
