@@ -150,7 +150,11 @@ function realTreeReport() {
     "utf8"
   );
   // witness the latest release record's cited tickets (rc.7 paragraph)
-  const rc7Block = goals.slice(goals.lastIndexOf("4.2.0-rc.7`:"));
+  // release-record slice ends at the next section heading — the GOALS
+  // wave section below it lawfully cites active tickets.
+  const rcStart = goals.lastIndexOf("4.2.0-rc.7`:");
+  const rcHeadingEnd = goals.indexOf("\n## ", rcStart);
+  const rc7Block = goals.slice(rcStart, rcHeadingEnd === -1 ? undefined : rcHeadingEnd);
   const citedTicketRefs = [...new Set((rc7Block.match(/T-\d+/g) ?? []))];
   return typecheckGtlProgram({
     constitutionalSurfaceRows: [
