@@ -848,12 +848,15 @@ export interface TemporalPropertyVerdictProjectedEvent {
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
-export const C_CALL_STAGE_ROLE_VALUES = Object.freeze([
+// -014: roles are open program data; this list is the CANONICAL DEFAULT
+// program's roles, not a closed vocabulary. Membership in the declared
+// program is enforced at enclosure/conformance, not at field admission.
+export const C_CALL_DEFAULT_PROGRAM_STAGE_ROLES = Object.freeze([
   "transform",
   "evaluate",
   "consequence"
 ] as const);
-export type CCallStageRole = (typeof C_CALL_STAGE_ROLE_VALUES)[number];
+export type CCallStageRole = string;
 
 export const C_CALL_JUDGMENT_VALUES = Object.freeze([
   "advance",

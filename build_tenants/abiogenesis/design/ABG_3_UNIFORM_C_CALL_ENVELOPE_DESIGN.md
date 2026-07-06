@@ -279,3 +279,18 @@ by boundary declaration:
 Corollary: compose.C.compose is always lawful; whether it is one frame
 or two is never an accident of nesting syntax — it is the presence or
 absence of a named lift.
+
+## 11. Open programs: HoG beyond the triple (ratified framing)
+
+The primitives compose INTO the engine: the edge program
+[transform >=> evaluate >=> consequence] is the canonical DEFAULT
+composition, not the monad's shape (REQ -014). Declared programs may
+carry more stages — e.g. plan >=> transform >=> critique >=> repair >=>
+evaluate >=> consequence — each stage a C with its own fibre selection,
+spine, judgment, and retry, all under the unchanged router. Programs
+declare their RESULT-BEARING role so closure/carry law binds without
+knowing the program. The campaign's observed retry loops (worker →
+evaluator-reject → blind retry) become declarable stages (worker →
+critic → repair → evaluate), spine-visible instead of implicit.
+Census generalizes to (declared role × fibre); role membership is a
+conformance/enclosure check (program in scope), never free-form truth.

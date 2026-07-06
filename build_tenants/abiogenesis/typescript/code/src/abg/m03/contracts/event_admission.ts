@@ -4,7 +4,7 @@ import type {
   RuntimeFailureClass,
   TerminalKind
 } from "./carriers.js";
-import { C_CALL_JUDGMENT_VALUES, C_CALL_REGIME_VALUES, C_CALL_STAGE_ROLE_VALUES } from "./carriers.js";
+import { C_CALL_JUDGMENT_VALUES, C_CALL_REGIME_VALUES } from "./carriers.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../../../shared/validation/governed_enums.js";
 import {
   BRANCH_EXECUTION_DISPOSITION_VALUES,
@@ -1149,7 +1149,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       frameId: "non_empty_string",
       edge: "non_empty_string",
       vectorIndex: "non_negative_integer",
-      stageRole: { oneOf: C_CALL_STAGE_ROLE_VALUES },
+      stageRole: "non_empty_string",
       taskOrdinal: "nullable_non_negative_integer",
       attempt: "non_negative_integer",
       batchRef: "nullable_string"

@@ -73,6 +73,17 @@ call; the fibre is data inside it, never structure around it.
   cCallRef identity (-004: graphCallId + frameId) makes recursion
   collision-free.
 
+- **-014 Open edge programs.** The edge program is a DECLARED
+  composition in the C algebra, not a fixed triple: stage roles are
+  admitted program data (the census becomes (declared role × fibre));
+  the canonical default program is [transform, evaluate, consequence].
+  Every declared program names its RESULT-BEARING role (whose admitted
+  payload feeds closure/carry law) and runs under the same judgment
+  router and retry law. Spine admission accepts any non-empty role;
+  program MEMBERSHIP is enforced at enclosure/conformance where the
+  declared program is in scope — a role outside the admitted program is
+  drift.
+
 ## Non-closure
 
 Weakened tests; any fibre name in spine code; any tool name in
