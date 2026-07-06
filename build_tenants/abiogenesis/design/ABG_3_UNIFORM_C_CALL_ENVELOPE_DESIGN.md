@@ -548,3 +548,16 @@ stabilize, compression folds stages as WORKERS strengthen — both
 preserve gates; (c) the consciousness layer gains its program-shape
 axis: observed capability (retry rates, critique-catch rates) drives
 declared compression level, per §13.1 writing declarations only.
+
+The organizational isomorphism (user): REGULATOR over CORPORATE PROCESS
+over DETAILED PROCESS FOR JUNIORS. Gates = the regulator — external to
+the regulated, invariant across seniority, never folded into anyone's
+discretion (the audited never write their own audit). The declared
+program = corporate process — the organization's chosen shape. Stage
+reification = the junior's checklist; inlining = senior autonomy.
+The failure modes map exactly and are already named in this design:
+gate inlining = regulatory capture (the fabricated-success default
+class, T-195 C3); over-reification of capable workers =
+micromanagement (proportionality waste, §12.1); under-reification of
+weak workers = chaos (the campaign's blind-retry loops). Trust
+calibration is program shape; compliance is gate invariance.
