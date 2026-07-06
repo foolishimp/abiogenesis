@@ -230,3 +230,78 @@ test("T-200 P2a.2 NEGATIVE: unknown syntax versions fail closed (upgrade seam)",
   assert.equal(future.accepted, false);
   assert.match(future.issues[0], /unknown program syntaxVersion/);
 });
+
+// ─── P2b: resolveCCall — the spine minted around any fibre interior ───
+
+import { resolveCCall } from "../../build/semantic/code/src/abg/m03/runner/c_call_resolver.js";
+import {
+  HOG_BOOTSTRAP_TRIPLE as TRIPLE
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 P2b: resolveCCall mints the full spine in order around the interior", async () => {
+  const emitted = [];
+  const result = await resolveCCall({
+    stage: TRIPLE.stages[0],
+    locus: { ...locus },
+    emit: (events) => emitted.push(...events),
+    resolveFibre: async (selection) => {
+      assert.equal(selection.stageRole, "transform");
+      assert.equal(selection.regime, "F_P");
+      assert.equal(selection.armId, "arm://abg/hog/transform");
+      return {
+        outcomeStatus: "dispatched",
+        payloadRef: "payload:target_carrier:sha256:demo",
+        responseContractRef: "response-contract://t200/demo",
+        evidence: [
+          { evidenceClass: "instruction_manifest", evidenceRefs: ["prompt-manifest://t200/p2b"] },
+          { evidenceClass: "fp_dispatch", evidenceRefs: ["event://t200/dispatch/1"] }
+        ],
+        judgment: "advance",
+        reasonRef: null
+      };
+    }
+  });
+  assert.equal(result.judgment, "advance");
+  const kinds = emitted.map((event) => event.kind);
+  assert.deepEqual(kinds, [
+    "c_call_opened",
+    "c_call_fibre_selected",
+    "c_call_evidenced",
+    "c_call_evidenced",
+    "c_call_result_admitted",
+    "c_call_judged"
+  ]);
+  // enclosure (-006): every interior row carries the spine identity
+  for (const event of emitted) {
+    assertRuntimeEvent(event);
+    assert.equal(event.cCallRef, result.cCallRef);
+  }
+  // locus-only (-002): the opened event carries no fibre fields
+  assert.equal("regime" in emitted[0], false);
+  assert.equal("armId" in emitted[0], false);
+  // fibre truth lives in the selection row (-003)
+  assert.equal(emitted[1].regime, "F_P");
+});
+
+test("T-200 P2b: fibre substitution changes the selection row only (-007 seed)", async () => {
+  const shapes = [];
+  for (const regimeOverride of [undefined, "F_D"]) {
+    const emitted = [];
+    await resolveCCall({
+      stage: TRIPLE.stages[2],
+      locus: { ...locus, stageRole: undefined, vectorIndex: 3 },
+      regimeOverride,
+      emit: (events) => emitted.push(...events),
+      resolveFibre: async () => ({
+        outcomeStatus: "projected",
+        payloadRef: null,
+        responseContractRef: null,
+        evidence: [{ evidenceClass: "default", evidenceRefs: ["consequence://identity"] }],
+        judgment: "no_declared_check",
+        reasonRef: null
+      })
+    });
+    shapes.push(emitted.map((event) => event.kind).join(","));
+  }
+  assert.equal(shapes[0], shapes[1], "spine shape is identical under fibre substitution");
+});
