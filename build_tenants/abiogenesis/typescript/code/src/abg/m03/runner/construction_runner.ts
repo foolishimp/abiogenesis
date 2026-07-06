@@ -232,6 +232,11 @@ function runtimeEventRef(event: RuntimeEvent, index: number): string {
   if ("constructionEventRef" in event) {
     return event.constructionEventRef;
   }
+  // T-200: spine events key on the C-call identity (REQ-R-ABG3-CCALL-004)
+  // — kind alone would collide across the calls of one edge program.
+  if ("cCallRef" in event) {
+    return `${event.kind}:${event.cCallRef}:${index}`;
+  }
   if ("outcomeRef" in event) {
     return event.outcomeRef;
   }

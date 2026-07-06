@@ -5669,6 +5669,35 @@ function* runEngineIterateMachine(input: {
             })
           );
         }
+        // T-200 P2d: the F_D evaluate C call — the same evaluate stage
+        // role running the F_D fibre (live substitution: spine shape
+        // identical to the F_P bracket, only the selection row differs).
+        const fdEvaluateStage = HOG_BOOTSTRAP_TRIPLE.stages[1];
+        if (fdEvaluateStage === undefined) {
+          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
+        }
+        const fdEvaluateCCallOpened = constructCCallOpenedEvent({
+          basisId: request.basis.id,
+          graphFunctionId: transition.basis.graphFunction.id,
+          graphCallId: graphCallIdForBasis(transition.basis),
+          frameId: frameIdForBasis(transition.basis),
+          edge: transition.edge,
+          vectorIndex: transition.vectorIndex,
+          stageRole: fdEvaluateStage.stageRole,
+          taskOrdinal: null,
+          attempt: 1,
+          batchRef: null
+        });
+        eventState = emitRunnerEvents(eventState, [
+          fdEvaluateCCallOpened,
+          constructCCallFibreSelectedEvent({
+            cCallRef: fdEvaluateCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            regime: "F_D",
+            armId: fdEvaluateStage.armId,
+            compositionRef: null
+          })
+        ]);
         const outcome = fdEvaluationOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "fd_evaluate",
@@ -5718,6 +5747,27 @@ function* runEngineIterateMachine(input: {
             outcome
           })
         );
+        eventState = emitRunnerEvents(eventState, [
+          constructCCallEvidencedEvent({
+            cCallRef: fdEvaluateCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            evidenceClass: "fd_interior",
+            evidenceRefs: Object.freeze([scalarFdEvaluationInput.sourceProjectionRef])
+          }),
+          constructCCallResultAdmittedEvent({
+            cCallRef: fdEvaluateCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            outcomeStatus: outcome.status,
+            payloadRef: null,
+            responseContractRef: null
+          }),
+          constructCCallJudgedEvent({
+            cCallRef: fdEvaluateCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            judgment: outcome.status === "accepted" ? "advance" : "blocked",
+            reasonRef: null
+          })
+        ]);
         eventState = emitRunnerEvents(eventState,
           constructVectorEvaluatedEvent({
             basis: request.basis,
