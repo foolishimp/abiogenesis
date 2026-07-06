@@ -537,3 +537,89 @@ test("T-200 -016: labelled program catalogs — coexisting configurations, per-r
   assert.equal(dup.accepted, false);
   assert.match(dup.issues[0], /duplicate programRef/);
 });
+
+// ─── T-205 B2: the ONE interpretation seam (HANDLERS-011/-012) ───
+
+import {
+  resolveHogProgram,
+  HOG_PROGRAM_CATALOG_DECLARATION_KEY,
+  HOG_PROGRAM_SELECTION_KEY
+} from "../../build/semantic/code/src/abg/m03/index.js";
+
+const TRIPLE_SYNTAX = (ref, armPrefix) => ({
+  kind: "object",
+  entries: [
+    { key: "syntaxVersion", value: "hog-syntax/1" },
+    { key: "programRef", value: ref },
+    { key: "proportionalityClass", value: "P1" },
+    { key: "stages", value: { kind: "array", items: [
+      { kind: "object", entries: [
+        { key: "stageRole", value: "transform" },
+        { key: "defaultRegime", value: "F_P" },
+        { key: "armId", value: `${armPrefix}/t` },
+        { key: "resultBearing", value: true }
+      ] },
+      { kind: "object", entries: [
+        { key: "stageRole", value: "evaluate" },
+        { key: "defaultRegime", value: "F_P" },
+        { key: "armId", value: `${armPrefix}/e` },
+        { key: "resultBearing", value: false }
+      ] },
+      { kind: "object", entries: [
+        { key: "stageRole", value: "consequence" },
+        { key: "defaultRegime", value: "F_D" },
+        { key: "armId", value: `${armPrefix}/c` },
+        { key: "resultBearing", value: false }
+      ] }
+    ] } }
+  ]
+});
+const gfWith = (entries) => ({ id: "graph-function://t205/seam", declarations: { entries } });
+
+test("T-205 B2: resolution order — default, declared single, catalog+selection; fail-closed matrix", () => {
+  // default
+  const dflt = resolveHogProgram(gfWith([]));
+  assert.equal(dflt.source, "default");
+  assert.equal(dflt.program.programRef, "gtl://abg/hog/bootstrap-triple");
+  // declared single
+  const single = resolveHogProgram(gfWith([
+    { key: "abg.hog_program", value: { kind: "json_blob", value: TRIPLE_SYNTAX("gtl://t205/custom", "arm://x") } }
+  ]));
+  assert.equal(single.source, "declared");
+  assert.equal(single.program.programRef, "gtl://t205/custom");
+  // catalog + selection
+  const catalogEntries = [
+    { key: HOG_PROGRAM_CATALOG_DECLARATION_KEY, value: { kind: "json_blob", value: {
+      kind: "array", items: [TRIPLE_SYNTAX("gtl://t205/lean", "arm://l"), TRIPLE_SYNTAX("gtl://t205/hard", "arm://h")]
+    } } },
+    { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/hard" } }
+  ];
+  const picked = resolveHogProgram(gfWith(catalogEntries));
+  assert.equal(picked.source, "declared_catalog");
+  assert.equal(picked.program.programRef, "gtl://t205/hard");
+  assert.equal(picked.program.stages[0].armId, "arm://h/t");
+  // FAIL-CLOSED: unknown selection ref
+  assert.throws(() => resolveHogProgram(gfWith([
+    catalogEntries[0],
+    { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/nope" } }
+  ])), /does not name a program/);
+  // FAIL-CLOSED: selection without catalog
+  assert.throws(() => resolveHogProgram(gfWith([
+    { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/hard" } }
+  ])), /requires a declared/);
+  // FAIL-CLOSED: catalog without selection
+  assert.throws(() => resolveHogProgram(gfWith([catalogEntries[0]])), /requires abg\.hog_program_ref|requires/);
+  // FAIL-CLOSED: admitted-but-unexecutable stage set (staged earn until B3)
+  const sixStage = TRIPLE_SYNTAX("gtl://t205/deep", "arm://d");
+  sixStage.entries.find((e) => e.key === "stages").value.items.push({
+    kind: "object", entries: [
+      { key: "stageRole", value: "critique" },
+      { key: "defaultRegime", value: "F_P" },
+      { key: "armId", value: "arm://d/k" },
+      { key: "resultBearing", value: false }
+    ]
+  });
+  assert.throws(() => resolveHogProgram(gfWith([
+    { key: "abg.hog_program", value: { kind: "json_blob", value: sixStage } }
+  ])), /unsupported_stage_set/);
+});

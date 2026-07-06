@@ -5,7 +5,7 @@
 
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
-import { HOG_BOOTSTRAP_TRIPLE } from "../contracts/hog_program.js";
+import { resolveHogProgram, hogStageByRole } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
@@ -4703,7 +4703,8 @@ function finishConsequenceTraversalActionConsumption(input: {
       }),
       batchRef: null,
       regime: "F_D",
-      armId: "construction_intent_step"
+      armId: "construction_intent_step",
+      programRef: resolveHogProgram(input.request.basis.graphFunction).program.programRef
     });
     eventState = appendAlreadyEmittedEngineRunnerEvents({
       state: eventState,
@@ -5608,7 +5609,8 @@ function* runEngineIterateMachine(input: {
                 }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`,
                 regime: ruleInput.regime,
-                armId: "evaluation_rule_batch"
+                armId: "evaluation_rule_batch",
+                programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
               });
               eventState = emitRunnerEvents(eventState, ruleTaskSpine.events);
             {
@@ -5812,9 +5814,10 @@ function* runEngineIterateMachine(input: {
         // T-200 P2d: the F_D evaluate C call — the same evaluate stage
         // role running the F_D fibre (live substitution: spine shape
         // identical to the F_P bracket, only the selection row differs).
-        const fdEvaluateStage = HOG_BOOTSTRAP_TRIPLE.stages[1];
-        if (fdEvaluateStage === undefined) {
-          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
+        const fdHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const fdEvaluateStage = hogStageByRole(fdHogProgram, "evaluate");
+        if (fdEvaluateStage === null) {
+          throw new TypeError(`hog program ${fdHogProgram.program.programRef} must declare an evaluate stage`);
         }
         const fdEvaluateSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
@@ -5835,7 +5838,8 @@ function* runEngineIterateMachine(input: {
           }),
           batchRef: null,
           regime: "F_D",
-          armId: fdEvaluateStage.armId
+          armId: fdEvaluateStage.armId,
+          programRef: fdHogProgram.program.programRef
         });
         const fdEvaluateCCallOpened = fdEvaluateSpine.opened;
         eventState = emitRunnerEvents(eventState, fdEvaluateSpine.events);
@@ -6234,7 +6238,8 @@ function* runEngineIterateMachine(input: {
                 }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                 regime: taskInput.regime,
-                armId: "composed_consequence"
+                armId: "composed_consequence",
+    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             {
@@ -6394,9 +6399,10 @@ function* runEngineIterateMachine(input: {
           );
         }
         // T-200 P2d: the consequence C call — the triple's third stage.
-        const consequenceCCallStage = HOG_BOOTSTRAP_TRIPLE.stages[2];
-        if (consequenceCCallStage === undefined) {
-          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
+        const consequenceHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const consequenceCCallStage = hogStageByRole(consequenceHogProgram, "consequence");
+        if (consequenceCCallStage === null) {
+          throw new TypeError(`hog program ${consequenceHogProgram.program.programRef} must declare a consequence stage`);
         }
         const consequenceSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
@@ -6417,7 +6423,8 @@ function* runEngineIterateMachine(input: {
           }),
           batchRef: null,
           regime: "F_D",
-          armId: consequenceCCallStage.armId
+          armId: consequenceCCallStage.armId,
+  programRef: consequenceHogProgram.program.programRef
         });
         const consequenceCCallOpened = consequenceSpine.opened;
         eventState = emitRunnerEvents(eventState, consequenceSpine.events);
@@ -6819,7 +6826,8 @@ function* runEngineIterateMachine(input: {
                 }),
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`,
                 regime: taskInput.regime,
-                armId: "composed_transform"
+                armId: "composed_transform",
+    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             {
@@ -7001,9 +7009,10 @@ function* runEngineIterateMachine(input: {
         // interior (REQ-R-ABG3-CCALL-001/-003; stage from the baked P0
         // triple). Spine minting is engine authority; the interior below
         // is enclosed evidence.
-        const scalarTransformStage = HOG_BOOTSTRAP_TRIPLE.stages[0];
-        if (scalarTransformStage === undefined) {
-          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
+        const scalarHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const scalarTransformStage = hogStageByRole(scalarHogProgram, "transform");
+        if (scalarTransformStage === null) {
+          throw new TypeError(`hog program ${scalarHogProgram.program.programRef} must declare a transform stage`);
         }
         const scalarTransformSpine = buildCCallSpineOpen({
           basisId: request.basis.id,
@@ -7024,7 +7033,8 @@ function* runEngineIterateMachine(input: {
           }),
           batchRef: null,
           regime: "F_P",
-          armId: scalarTransformStage.armId
+          armId: scalarTransformStage.armId,
+          programRef: scalarHogProgram.program.programRef
         });
         const scalarTransformCCallOpened = scalarTransformSpine.opened;
         const scalarTransformCCallEvidence: string[] = [
@@ -7733,9 +7743,10 @@ function* runEngineIterateMachine(input: {
             // T-200 P2c: the evaluate C call's spine — finding #11 dies
             // here: evaluate.F_P work becomes replay-visible dispatch
             // truth with the same envelope as the transform arm.
-            const scalarEvaluateStage = HOG_BOOTSTRAP_TRIPLE.stages[1];
-            if (scalarEvaluateStage === undefined) {
-              throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare an evaluate stage");
+            const scalarEvaluateHogProgram = resolveHogProgram(transition.basis.graphFunction);
+            const scalarEvaluateStage = hogStageByRole(scalarEvaluateHogProgram, "evaluate");
+            if (scalarEvaluateStage === null) {
+              throw new TypeError(`hog program ${scalarEvaluateHogProgram.program.programRef} must declare an evaluate stage`);
             }
             const scalarEvaluateSpine = buildCCallSpineOpen({
               basisId: request.basis.id,
@@ -7756,7 +7767,8 @@ function* runEngineIterateMachine(input: {
               }),
               batchRef: null,
               regime: "F_P",
-              armId: scalarEvaluateStage.armId
+              armId: scalarEvaluateStage.armId,
+              programRef: scalarEvaluateHogProgram.program.programRef
             });
             const scalarEvaluateCCallOpened = scalarEvaluateSpine.opened;
             const scalarEvaluateCCallEvidence: string[] = [
@@ -8552,7 +8564,8 @@ function* runEngineIterateMachine(input: {
                     }),
                     batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                     regime: taskInput.regime,
-                    armId: "composed_consequence"
+                    armId: "composed_consequence",
+    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
                   });
                   eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
                 {
@@ -8713,9 +8726,10 @@ function* runEngineIterateMachine(input: {
               );
             }
             // T-200 P2d: the consequence C call — the triple's third stage.
-            const consequenceCCallStage = HOG_BOOTSTRAP_TRIPLE.stages[2];
-            if (consequenceCCallStage === undefined) {
-              throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
+            const consequenceHogProgram = resolveHogProgram(transition.basis.graphFunction);
+            const consequenceCCallStage = hogStageByRole(consequenceHogProgram, "consequence");
+            if (consequenceCCallStage === null) {
+              throw new TypeError(`hog program ${consequenceHogProgram.program.programRef} must declare a consequence stage`);
             }
             const consequenceSpine = buildCCallSpineOpen({
               basisId: request.basis.id,
@@ -8736,7 +8750,8 @@ function* runEngineIterateMachine(input: {
               }),
               batchRef: null,
               regime: "F_D",
-              armId: consequenceCCallStage.armId
+              armId: consequenceCCallStage.armId,
+  programRef: consequenceHogProgram.program.programRef
             });
             const consequenceCCallOpened = consequenceSpine.opened;
             eventState = emitRunnerEvents(eventState, consequenceSpine.events);
@@ -9091,7 +9106,11 @@ function* runEngineIterateMachine(input: {
         }
         // T-200 P3-C: the F_H C call — escalation is the fibre's judgment.
         {
-          const fhStage = HOG_BOOTSTRAP_TRIPLE.stages[0];
+          const fhHogProgram = resolveHogProgram(transition.basis.graphFunction);
+          const fhStage = hogStageByRole(fhHogProgram, "transform");
+          if (fhStage === null) {
+            throw new TypeError(`hog program ${fhHogProgram.program.programRef} must declare a transform stage`);
+          }
           if (fhStage === undefined) {
             throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a transform stage");
           }
@@ -9114,7 +9133,8 @@ function* runEngineIterateMachine(input: {
             }),
             batchRef: null,
             regime: "F_H",
-            armId: "fh_admission"
+            armId: "fh_admission",
+            programRef: fhHogProgram.program.programRef
           });
           eventState = emitRunnerEvents(eventState, fhSpine.events);
           eventState = emitRunnerEvents(eventState, buildCCallSpineClose({

@@ -557,3 +557,86 @@ test("T-205 B-prep: re-entry continues from the frontier — closed C calls stay
   assert.equal(judged, openedRefs.length,
     "every opened C call judged across the resume boundary");
 });
+
+test("T-205 B2: a DECLARED program drives the engine — selection rows carry its programRef and armIds", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const declaredSyntax = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://t205/declared-lean" },
+      { key: "proportionalityClass", value: "P1" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://t205/transform" },
+          { key: "resultBearing", value: true }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "evaluate" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: "arm://t205/evaluate" },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "consequence" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: "arm://t205/consequence" },
+          { key: "resultBearing", value: false }
+        ] }
+      ] } }
+    ]
+  };
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({
+            key: "abg.hog_program",
+            value: Object.freeze({ kind: "json_blob", value: declaredSyntax })
+          })
+        ])
+      })
+    })
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t205/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+  const selections = result.replayEvents.filter((e) => e.kind === "c_call_fibre_selected");
+  assert.equal(selections.length > 0, true, "spine present");
+  // every selection row carries the DECLARED program identity
+  for (const row of selections) {
+    assert.equal(row.programRef, "gtl://t205/declared-lean", `row arm=${row.armId}`);
+  }
+  // triple-stage arms come from the DECLARED program, not the baked constant
+  const arms = new Set(selections.map((r) => r.armId));
+  assert.equal(arms.has("arm://t205/transform"), true, JSON.stringify([...arms]));
+  assert.equal(arms.has("arm://abg/hog/transform"), false, "baked arm must NOT appear");
+});
