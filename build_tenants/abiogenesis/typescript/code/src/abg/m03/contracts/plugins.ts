@@ -2432,12 +2432,18 @@ export function enginePluginInventory(): readonly EnginePluginInventoryEntry[] {
   return inventoryEntries;
 }
 
+// T-195 P0-2: F_D evaluation is an EXTENSION hook — absence means "no
+// additional mechanical checks declared", which is lawful, but the
+// vacuity must be replay-visible, never silent.
 export const defaultFdEvaluatorPlugin: FdEvaluatorPlugin = Object.freeze({
   contract: fdEvaluatorContract,
   evaluate: (input: EnginePluginInput): FdEvaluationOutcome =>
     constructFdEvaluationOutcome({
       status: "accepted",
-      evidenceRefs: [input.sourceProjectionRef]
+      evidenceRefs: [
+        "fd-evaluator://abg/default/no-declared-checks",
+        input.sourceProjectionRef
+      ]
     })
 });
 
@@ -2487,6 +2493,10 @@ export const missingFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
     })
 });
 
+// T-195 P0-2 adjudication (bisect-verified): "dispatched" here does NOT
+// claim completed work — it records that the dispatch REQUEST stands and
+// the run halts at the lawful dispatch-pending stop (public outcome
+// dispatch_required). resultRef names the request, not result truth.
 export const defaultFpDispatchPlugin: FpDispatchPlugin = Object.freeze({
   contract: fpDispatchContract,
   dispatch: (input: EnginePluginInput): FpDispatchOutcome =>
@@ -2510,6 +2520,9 @@ export const defaultFhAdmissionPlugin: FhAdmissionPlugin = Object.freeze({
     })
 });
 
+// T-195 P0-2: the consequence stage is part of the MECHANICAL lane — the
+// default is the engine's own identity projection (not a claim of
+// external work), with the default's use replay-visible.
 export const defaultConsequenceProjectionPlugin: ConsequenceProjectionPlugin =
   Object.freeze({
     contract: consequenceProjectionContract,
@@ -2522,6 +2535,9 @@ export const defaultConsequenceProjectionPlugin: ConsequenceProjectionPlugin =
           edge: input.edge
         })}`,
         domainReadModelRefs: [input.sourceProjectionRef],
-        evidenceRefs: [input.sourceProjectionRef]
+        evidenceRefs: [
+          "consequence-projection://abg/default/identity-projection",
+          input.sourceProjectionRef
+        ]
       })
   });
