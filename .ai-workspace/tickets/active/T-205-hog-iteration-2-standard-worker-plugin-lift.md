@@ -11,6 +11,7 @@ acceptance: THE INTERNAL-EVERYTHING GATE first — ABG's own sandbox lanes prove
   materialization specs + calibration); the odd_glc data-mapper runs on
   the substrate's standard worker plugin with its binding reduced to
   declarations; -012 audit green on the result.
+progress: B1 AUTHORED (REQ-R-ABG3-HANDLERS-001..-014, codex review requested). B-PREP PINNED (engine differentials, review-independent): re-entry continues from the frontier, closed C calls stay closed, FRESH ATTEMPT WINDOW after exhaustion is engine law (fixed worker re-attempts and converges), cCallRefs unique across resume, combined replay enclosure-clean — the odd_glc resume flag is pure scaffolding, no new engine law.
 ---
 
 # T-205: The Plugin Lift

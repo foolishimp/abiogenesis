@@ -538,4 +538,22 @@ test("T-205 B-prep: re-entry continues from the frontier — closed C calls stay
     "converged",
     "-014 baseline: the resumed run converges once the defect is fixed"
   );
+  // Spine resume-safety (HANDLERS -007 / CCALL -004 across resume):
+  // every C call across BOTH runs has a unique ref (attempt identity
+  // survives the process boundary) and the combined replay is
+  // enclosure-clean — no duplicated or orphaned spine truth.
+  const combined = run2.result.replayEvents;
+  const openedRefs = combined.filter((e) => e.kind === "c_call_opened").map((e) => e.cCallRef);
+  assert.equal(new Set(openedRefs).size, openedRefs.length,
+    "-004: no cCallRef collision across resume (fresh attempts mint fresh identity)");
+  const openedSet = new Set(openedRefs);
+  for (const event of combined) {
+    if (event.cCallRef !== undefined && event.kind !== "c_call_opened") {
+      assert.equal(openedSet.has(event.cCallRef), true,
+        "-007: no orphan spine rows in the combined resumed replay");
+    }
+  }
+  const judged = combined.filter((e) => e.kind === "c_call_judged").length;
+  assert.equal(judged, openedRefs.length,
+    "every opened C call judged across the resume boundary");
 });
