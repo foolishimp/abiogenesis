@@ -258,3 +258,24 @@ and DECLARE C compositions as product data; the plugin seam realizes
 C.of leaves; everything else is algebra the engine interprets. P2
 realizes these as typed GTL carriers beside the composed-stage-set
 family; the census is the admission gate for every C.of.
+
+### 10.1 Closure law: compose.C.compose
+
+compose is CLOSED: a composition is a C and may be an operand of
+compose. Nested compose has exactly two lawful readings, distinguished
+by boundary declaration:
+
+1. FLAT (default): compose(compose(a,b),c) ≡ a >=> b >=> c by
+   associativity — nesting is syntax and ERASES at interpretation; the
+   spine sees one leaf per C.of, all in the same frame. Spine count =
+   leaf count.
+2. BOUNDED: to make an inner composition ONE call at the outer level,
+   it must be NAMED and lifted — workflow.C over an admitted program
+   (graph function / composed-stage-set carrier). There is NO anonymous
+   seal: an undeclared boundary would be unauditable recursion,
+   violating -013's declared-placement law. Every spine level
+   corresponds to an admitted program identity.
+
+Corollary: compose.C.compose is always lawful; whether it is one frame
+or two is never an accident of nesting syntax — it is the presence or
+absence of a named lift.
