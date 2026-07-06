@@ -263,7 +263,8 @@ function assessedObligationIdsForEdge(
 
 function transitionStatus(
   transition: AdvancementTransition,
-  projection: RuntimeAggregateProjection
+  projection: RuntimeAggregateProjection,
+  events: readonly RuntimeEvent[]
 ): PublicGapsEntryStatus {
   if (transition.kind === "terminal") {
     if (transition.terminalKind === "nothing_to_do") {
@@ -276,6 +277,18 @@ function transitionStatus(
   }
   if (transition.kind === "fp_dispatch") {
     return "dispatch_required";
+  }
+  // T-200 P3-E (REQ-R-ABG3-CCALL-008): `pending` is the fibre-
+  // independent awaiting-external-actor judgment; the public projection
+  // reads it from the spine on ANY arm — dispatch_required generalizes
+  // beyond the transform transition.
+  {
+    const lastJudged = [...events]
+      .reverse()
+      .find((event) => event.kind === "c_call_judged");
+    if (lastJudged !== undefined && lastJudged.judgment === "pending") {
+      return "dispatch_required";
+    }
   }
   if (transition.kind === "fh_escalation") {
     return "human_gate_required";
@@ -496,7 +509,7 @@ function constructRuntimeSubject(input: {
     projection: input.projection,
     transition: input.transition,
     events: input.events,
-    status: transitionStatus(input.transition, input.projection),
+    status: transitionStatus(input.transition, input.projection, input.events),
     vectorIndex,
     vector,
     edge,

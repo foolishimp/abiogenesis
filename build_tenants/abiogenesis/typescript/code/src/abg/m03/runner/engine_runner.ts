@@ -7852,6 +7852,10 @@ function* runEngineIterateMachine(input: {
                 input: fpEvaluationInput
               })
             );
+            // T-200 P3-D: the evaluate spine's interior carries the
+            // outcome's evidence (live-lane external sessions reconcile
+            // against these refs at the -012 audit).
+            scalarEvaluateCCallEvidence.push(...fpEvaluationOutcome.evidenceRefs);
             const fpEvaluationRuleOutcome = evaluationRuleOutcomeFromFpEvaluation({
               declaration: scalarFpRule,
               pluginInput: fpEvaluationInput,
