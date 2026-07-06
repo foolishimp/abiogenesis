@@ -1,13 +1,13 @@
 ---
 id: T-200
 title: HoG — the uniform C-call envelope; the monad as GTL-declared program
-status: active
+status: closed (2026-07-06)
 class: design_reframe + requirement_reprice
 opened: 2026-07-06
 design: build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md (RATIFIED §1-§15.2, incl. sovereignty by necessity)
 requirements: specification/requirements/abg/REQ-R-ABG3-CCALL.md (-001..-014, Active)
 absorbs: T-198 (frame-identity scoping, via -004)
-progress: P0+P1 EARNED; P2 CLEARED AS VISIBILITY/PARITY CHECKPOINT (codex round 4 + user): all site brackets live (transform.F_P, evaluate.F_P/F_D, consequence x2, batch per-task, sub_traversal), injective digest cCallRef, closed-surface spine x5, resolver orphan-proof; granularity CONFIRMED spine-per-task; acceptance item 4 (one resolver entry) EARNS AT STRANGLER STEP 2; t200 15/15, suite 1110/1110
+progress: CLOSED at Phase A3 under ruling (a). A1: ONE spine authority (runner/c_call_spine.ts), all 8 engine families + async resolver delegate, engine constructs zero spine events directly; oracle held 1116/1116 at every step. A2: PublicTerminalKind + transport-trio single homes. A3: standing gate sourceClean=true 1/1 WITH the -012 audit rows. Acceptance: (1) audit-in-gate EARNED; (2) substitution differential EARNED; (3) gates non-vacuous EARNED; (4) one-resolver-entry EARNED in generator form per ruling (a) — the interpretation seam is T-205's single entry; (5) programRef on every selection row EARNED; (6) full battery EARNED. The CCALL Realization State clause stands, narrowed to interpretation-pending items owned by T-205.
 acceptance: §Acceptance below; T-200 closes on a fresh green standing gate carrying the -012 audit; the campaign's clean data-mapper run on the 4.4.0-rc.1 substrate closes T-195
 ---
 

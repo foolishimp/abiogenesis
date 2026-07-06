@@ -563,7 +563,8 @@ T-030, T-195, T-206); no glc work until ABG's own lanes prove the whole
 stack; no rc cuts before the internal-everything gate.
 
 Phases:
-- A — close T-200: one spine-authority module, erase pass, gate. No cut.
+- A — DONE (2026-07-06): T-200 closed at the sourceClean gate; one
+  spine-authority module; PublicTerminalKind + transport-trio homes.
 - B — T-205 in ABG's own lanes: interpretation at one seam, the four
   standard handlers + capability class, F_D transform spine, then the
   INTERNAL-EVERYTHING GATE (declared catalog override, ladder
