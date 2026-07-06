@@ -54,7 +54,7 @@ node build/semantic/code/src/bin/abiogenesis.js gaps  --workspace ../../..
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 4.5.0-rc.1
+**Version**: 4.5.0-rc.2
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal read model over the live GTL 3 / ABG 3 constitutional surface
 

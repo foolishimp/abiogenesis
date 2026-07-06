@@ -1,6 +1,19 @@
-# abiogenesis 4.5.0-rc.1 Release Candidate Note
+# abiogenesis 4.5.0-rc.2 Release Candidate Note
 
-This checkpoint is the first `4.5.0` release candidate. It follows
+This checkpoint is the second `4.5.0` release candidate. It follows
+`4.5.0-rc.1` and carries the run-18 campaign fix on top of it:
+
+- PRE-SPAWN DISPATCH FAILURES RETRY (campaign #13): invocation closure
+  truth (closureStatus/detail) lands on the projection row; trio-marked
+  closures with no spawned process classify as their retryable class;
+  BOTH archive-inspection gates except retryable classes — a typed
+  dispatch conversion re-enters the retry lane instead of dead-ending
+  in missing_process_evidence; compression descent now occurs WITHIN a
+  run (differential: lean@1 -> deep@2 in one start).
+
+The rc.1 content follows.
+
+This checkpoint was the first `4.5.0` release candidate. It follows
 `4.4.0-rc.1` and publishes the BASELINE STATIC HoG solution on graph
 overlays: all system-level functions higher-order dynamic functions
 need, with programs, catalogs, ladders, and handler bindings as typed
