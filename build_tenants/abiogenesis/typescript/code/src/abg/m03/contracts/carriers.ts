@@ -845,6 +845,82 @@ export interface TemporalPropertyVerdictProjectedEvent {
   readonly implicatedEventRefs: readonly string[];
 }
 
+// Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
+// The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
+// fibre selection is the first interior row (-003).
+export const C_CALL_STAGE_ROLE_VALUES = Object.freeze([
+  "transform",
+  "evaluate",
+  "consequence"
+] as const);
+export type CCallStageRole = (typeof C_CALL_STAGE_ROLE_VALUES)[number];
+
+export const C_CALL_JUDGMENT_VALUES = Object.freeze([
+  "advance",
+  "retry",
+  "pending",
+  "blocked",
+  "escalated",
+  "no_declared_check"
+] as const);
+export type CCallJudgment = (typeof C_CALL_JUDGMENT_VALUES)[number];
+
+export const C_CALL_REGIME_VALUES = Object.freeze([
+  "F_D",
+  "F_P",
+  "F_H"
+] as const);
+export type CCallRegime = (typeof C_CALL_REGIME_VALUES)[number];
+
+export interface CCallOpenedEvent {
+  readonly kind: "c_call_opened";
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly edge: string;
+  readonly vectorIndex: number;
+  readonly stageRole: CCallStageRole;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly batchRef: string | null;
+}
+
+export interface CCallFibreSelectedEvent {
+  readonly kind: "c_call_fibre_selected";
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly regime: CCallRegime;
+  readonly armId: string;
+  readonly compositionRef: string | null;
+}
+
+export interface CCallEvidencedEvent {
+  readonly kind: "c_call_evidenced";
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly evidenceClass: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface CCallResultAdmittedEvent {
+  readonly kind: "c_call_result_admitted";
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly outcomeStatus: string;
+  readonly payloadRef: string | null;
+  readonly responseContractRef: string | null;
+}
+
+export interface CCallJudgedEvent {
+  readonly kind: "c_call_judged";
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly judgment: CCallJudgment;
+  readonly reasonRef: string | null;
+}
+
 // T-195 P0-4: a perimeter failure is EVENTS, not a swallowed wrapper —
 // the CLI records the failure into replay truth before reporting it.
 export interface RuntimeFailureObservedEvent {
@@ -2564,6 +2640,11 @@ export type RuntimeEvent =
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
   | TemporalPropertyVerdictProjectedEvent
+  | CCallOpenedEvent
+  | CCallFibreSelectedEvent
+  | CCallEvidencedEvent
+  | CCallResultAdmittedEvent
+  | CCallJudgedEvent
   | RuntimeFailureObservedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -2686,6 +2767,11 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "fh_escalated",
   "temporal_property_verdict_projected",
   "runtime_failure_observed",
+  "c_call_opened",
+  "c_call_fibre_selected",
+  "c_call_evidenced",
+  "c_call_result_admitted",
+  "c_call_judged",
   "terminal_reached",
   "graph_call_opened",
   "frame_opened",

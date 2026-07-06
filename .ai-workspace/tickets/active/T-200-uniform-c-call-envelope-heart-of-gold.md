@@ -37,8 +37,10 @@ the spine may mention a fibre; nothing in a fibre may mint spine truth.
 ### 2.1 The spine (uniform event skeleton, one per C call)
 
 ```
-c_call_opened      {cCallRef, basisId, vectorIndex, stageRole, regime,
-                    armId, manifestRef|null, attempt}
+c_call_opened      {cCallRef, basisId, graphFunctionId, graphCallId,
+                    frameId, edge, vectorIndex, stageRole,
+                    taskOrdinal|null, attempt, batchRef|null}
+c_call_fibre_selected {cCallRef, regime, armId, compositionRef|null}
 c_call_evidenced   {cCallRef, evidenceClass, evidenceRefs[]}   (0..n)
 c_call_result_admitted {cCallRef, outcomeStatus, payloadRef|null,
                     responseContractRef|null}
@@ -46,7 +48,7 @@ c_call_judged      {cCallRef, judgment: advance|retry|pending|blocked|
                     escalated, reasonRef|null}
 ```
 
-`cCallRef = c-call:{basisId}:{vectorIndex}:{stageRole}:{attempt}`.
+`cCallRef = c-call:{basisId}:{graphCallId}:{frameId}:{vectorIndex}:{stageRole}:{taskOrdinal|-}:{attempt}`.
 The spine is THE dispatch-gate antecedent, THE retry-law subject, THE
 cost-audit unit, for every arm and every fibre.
 
@@ -95,8 +97,9 @@ the ONE entry.
 REQ-R-ABG3-CCALL-001 uniformity: every C call emits exactly one spine.
 -002 shape preservation: fibre substitution changes tags/evidence class,
 never spine kinds or order. -003 enclosure: fibre evidence events are
-lawful only inside an open spine. -004 antecedent: dispatch-point
-temporal properties bind to c_call_opened{regime:F_P}. -005 pending:
+lawful only inside an open spine. -004/-010 antecedent: dispatch-point
+temporal properties bind to c_call_fibre_selected (single-event
+where-guards; no cross-event join needed). -005 pending:
 external-actor waiting is a judgment, arm-independent. -006 degenerate
 fibre: default/absent plugins emit honest default-evidence envelopes.
 -007 retry: the one allowlist judges spine outcomes. -008 census:
@@ -144,7 +147,11 @@ legacy replay projection (REQ -009) correctness; composed batch = one
 spine per stage-task vs per batch (DESIGN DECISION for user: default =
 one spine per C call, batch tasks as evidenced interior rows).
 
-## 8. P0 Amendments — codex round 1, all five findings accepted
+## 8. Changelog — codex round 1 (all five accepted; §2/§4 above ARE the
+current truth incorporating them) and round 2 (antecedent = the
+selection row itself; manifests are fibre evidence not spine locus;
+PRODUCT/LAWS amendment homes realized; -012 scoped to
+external-work-bearing calls)
 
 8.1 (High, ACCEPTED) The spine was self-violating: regime/armId sat in
 c_call_opened and REQ-004 bound gates to a spine field. AMENDED: the

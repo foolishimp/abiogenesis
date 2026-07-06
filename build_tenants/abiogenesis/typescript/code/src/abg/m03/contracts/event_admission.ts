@@ -4,6 +4,7 @@ import type {
   RuntimeFailureClass,
   TerminalKind
 } from "./carriers.js";
+import { C_CALL_JUDGMENT_VALUES, C_CALL_REGIME_VALUES, C_CALL_STAGE_ROLE_VALUES } from "./carriers.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../../../shared/validation/governed_enums.js";
 import {
   BRANCH_EXECUTION_DISPOSITION_VALUES,
@@ -1131,6 +1132,54 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     vacuous: "boolean",
     witnessCount: "nullable_non_negative_integer",
     implicatedEventRefs: "string_array"
+  }),
+  c_call_opened: (event: RuntimeEventRecord): void => {
+    // REQ-R-ABG3-CCALL-002 negative control: the spine is LOCUS-ONLY —
+    // a spine event carrying fibre fields is rejected at admission.
+    if ("regime" in event || "armId" in event) {
+      throw new TypeError(
+        "CCallOpenedEvent: spine events are locus-only; regime/armId belong to c_call_fibre_selected"
+      );
+    }
+    applyFieldRules("CCallOpenedEvent", {
+      cCallRef: "non_empty_string",
+      basisId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      edge: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      stageRole: { oneOf: C_CALL_STAGE_ROLE_VALUES },
+      taskOrdinal: "nullable_non_negative_integer",
+      attempt: "non_negative_integer",
+      batchRef: "nullable_string"
+    })(event);
+  },
+  c_call_fibre_selected: applyFieldRules("CCallFibreSelectedEvent", {
+    cCallRef: "non_empty_string",
+    basisId: "non_empty_string",
+    regime: { oneOf: C_CALL_REGIME_VALUES },
+    armId: "non_empty_string",
+    compositionRef: "nullable_string"
+  }),
+  c_call_evidenced: applyFieldRules("CCallEvidencedEvent", {
+    cCallRef: "non_empty_string",
+    basisId: "non_empty_string",
+    evidenceClass: "non_empty_string",
+    evidenceRefs: "string_array"
+  }),
+  c_call_result_admitted: applyFieldRules("CCallResultAdmittedEvent", {
+    cCallRef: "non_empty_string",
+    basisId: "non_empty_string",
+    outcomeStatus: "non_empty_string",
+    payloadRef: "nullable_string",
+    responseContractRef: "nullable_string"
+  }),
+  c_call_judged: applyFieldRules("CCallJudgedEvent", {
+    cCallRef: "non_empty_string",
+    basisId: "non_empty_string",
+    judgment: { oneOf: C_CALL_JUDGMENT_VALUES },
+    reasonRef: "nullable_string"
   }),
   runtime_failure_observed: applyFieldRules("RuntimeFailureObservedEvent", {
     basisId: "nullable_string",

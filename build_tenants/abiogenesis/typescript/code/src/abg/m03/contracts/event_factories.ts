@@ -48,6 +48,12 @@ import type {
   VectorClosedEvent,
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent,
+  CCallEvidencedEvent,
+  CCallFibreSelectedEvent,
+  CCallJudgedEvent,
+  CCallOpenedEvent,
+  CCallResultAdmittedEvent,
+  CCallStageRole,
   RuntimeFailureClass,
   RuntimeFailureObservedEvent,
   TemporalPropertyVerdictProjectedEvent
@@ -911,6 +917,88 @@ export function constructTemporalPropertyVerdictProjectedEvent(input: {
     vacuous: input.vacuous,
     witnessCount: input.witnessCount,
     implicatedEventRefs: Object.freeze([...input.implicatedEventRefs])
+  });
+}
+
+// Implements: REQ-R-ABG3-CCALL-004 — the ONE cCallRef mint (full replay
+// identity; recursive frames, repeated calls, composed tasks distinct).
+export function mintCCallRef(input: {
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly stageRole: CCallStageRole;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+}): string {
+  return [
+    "c-call",
+    input.basisId,
+    input.graphCallId,
+    input.frameId,
+    String(input.vectorIndex),
+    input.stageRole,
+    input.taskOrdinal === null ? "-" : String(input.taskOrdinal),
+    String(input.attempt)
+  ].join(":");
+}
+
+export function constructCCallOpenedEvent(input: Omit<CCallOpenedEvent, "kind" | "cCallRef">): CCallOpenedEvent {
+  return Object.freeze({
+    kind: "c_call_opened",
+    cCallRef: mintCCallRef(input),
+    basisId: input.basisId,
+    graphFunctionId: input.graphFunctionId,
+    graphCallId: input.graphCallId,
+    frameId: input.frameId,
+    edge: input.edge,
+    vectorIndex: input.vectorIndex,
+    stageRole: input.stageRole,
+    taskOrdinal: input.taskOrdinal,
+    attempt: input.attempt,
+    batchRef: input.batchRef
+  });
+}
+
+export function constructCCallFibreSelectedEvent(input: Omit<CCallFibreSelectedEvent, "kind">): CCallFibreSelectedEvent {
+  return Object.freeze({
+    kind: "c_call_fibre_selected",
+    cCallRef: input.cCallRef,
+    basisId: input.basisId,
+    regime: input.regime,
+    armId: input.armId,
+    compositionRef: input.compositionRef
+  });
+}
+
+export function constructCCallEvidencedEvent(input: Omit<CCallEvidencedEvent, "kind">): CCallEvidencedEvent {
+  return Object.freeze({
+    kind: "c_call_evidenced",
+    cCallRef: input.cCallRef,
+    basisId: input.basisId,
+    evidenceClass: input.evidenceClass,
+    evidenceRefs: Object.freeze([...input.evidenceRefs])
+  });
+}
+
+export function constructCCallResultAdmittedEvent(input: Omit<CCallResultAdmittedEvent, "kind">): CCallResultAdmittedEvent {
+  return Object.freeze({
+    kind: "c_call_result_admitted",
+    cCallRef: input.cCallRef,
+    basisId: input.basisId,
+    outcomeStatus: input.outcomeStatus,
+    payloadRef: input.payloadRef,
+    responseContractRef: input.responseContractRef
+  });
+}
+
+export function constructCCallJudgedEvent(input: Omit<CCallJudgedEvent, "kind">): CCallJudgedEvent {
+  return Object.freeze({
+    kind: "c_call_judged",
+    cCallRef: input.cCallRef,
+    basisId: input.basisId,
+    judgment: input.judgment,
+    reasonRef: input.reasonRef
   });
 }
 

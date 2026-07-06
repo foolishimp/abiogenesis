@@ -873,3 +873,14 @@ product terms:
 - realization and qualification prove the product operationally
 
 That is the intended role of this document.
+
+## Compute Tuple And The Uniform C-Call Envelope
+
+Traversal A→B carries compute C as a tuple over the fibres
+{F_D, F_P, F_H}; each edge makes three C calls (transform, evaluate,
+consequence), fibre-substitutable via plugins — all-F_D degenerates to a
+workflow engine, all-F_H to a human process. Truth is shape-preserving
+under fibre substitution: one locus-only spine per C call with fibre
+selection and evidence as admitted interior rows (REQ-R-ABG3-CCALL,
+realized under T-200). The product owns fibre choice; ABG owns the
+envelope.

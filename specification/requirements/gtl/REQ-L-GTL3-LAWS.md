@@ -81,3 +81,11 @@ public seam whose key set diverges from the passthrough authority is
 a default admissible repair. Drift detection shall not be a second checker
 outside the semantic compiler, and drift rules shall not be prose review
 checklists.
+
+## Amendment (T-200 P0)
+
+The retryable-failure allowlist (one typed home,
+`RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES`) judges uniform C-call spine
+outcomes (`REQ-R-ABG3-CCALL-009`): no per-arm classification detours;
+evaluator- and composed-arm failures route identically to transform-arm
+failures.

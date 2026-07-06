@@ -12,7 +12,7 @@ per-arm effect zoo.
 ```mermaid
 flowchart TD
   subgraph SPINE["Spine (base category — locus only, engine-minted)"]
-    O["c_call_opened\ncCallRef, basisId, graphFunctionId,\ngraphCallId, frameId, edge, vectorIndex,\nstageRole, taskOrdinal?, attempt, manifestRef?"]
+    O["c_call_opened\ncCallRef, basisId, graphFunctionId,\ngraphCallId, frameId, edge, vectorIndex,\nstageRole, taskOrdinal?, attempt, batchRef?"]
     O --> FS["c_call_fibre_selected\ncCallRef, regime, armId, compositionRef?\n(first interior row, admitted truth)"]
     FS --> EV["c_call_evidenced (0..n)\ncCallRef, evidenceClass, evidenceRefs[]"]
     EV --> RA["c_call_result_admitted\ncCallRef, outcomeStatus,\npayloadRef?, responseContractRef?"]
@@ -75,7 +75,7 @@ own spine with `batchRef` grouping (-005).
 | Shape preservation (-007) | substitution differential | same scenario, evaluate.C flipped F_P→F_D fixture: identical spine kind sequence; diff limited to selection row + evidence class |
 | Judgment vocabulary (-008) | NEGATIVE control | `no_declared_check` on an edge with declared checks does NOT advance; never satisfies any temporal gate |
 | One retry law (-009) | allowlist differential | evaluator-arm transport failure retries exactly as transform-arm; non-allowlisted class blocks on both |
-| Antecedent join (-010) | gate re-proof | five standing gates non-vacuous on evaluate + composed arms in the p4 lane |
+| Antecedent = selection row (-010) | gate re-proof, single-event guards | five standing gates non-vacuous on evaluate + composed arms in the p4 lane; no join machinery added |
 | Replay compat (-011) | old-ledger differential | rc.10-era events.jsonl projects a derived spine; zero synthetic events written |
 | Audit equality (-012) | standing gate measurement | sessions-in-archives == spine invocations, per arm, per fibre, in t194 + data-mapper lanes |
 

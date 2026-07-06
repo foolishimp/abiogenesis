@@ -17,8 +17,10 @@ call; the fibre is data inside it, never structure around it.
   or plugin path is exempt.
 - **-002 Locus-only spine.** `c_call_opened` carries call-locus identity
   only: cCallRef, basisId, graphFunctionId, graphCallId, frameId, edge,
-  vectorIndex, stageRole, taskOrdinal|null, attempt, manifestRef|null.
-  No spine event carries a fibre name; fibre-freedom is structural.
+  vectorIndex, stageRole, taskOrdinal|null, attempt. No spine event
+  carries a fibre name OR fibre-dependent material (instruction
+  manifests are fibre evidence, not locus identity); fibre-freedom is
+  structural.
 - **-003 Fibre selection is admitted truth.** `c_call_fibre_selected`
   {cCallRef, regime, armId, compositionRef|null} is the first interior
   row. The (stageRole × fibre) arm census is registry data asserted at
@@ -48,14 +50,18 @@ call; the fibre is data inside it, never structure around it.
 - **-009 One retry law.** The retryable-failure allowlist judges spine
   outcomes; no per-arm classification detours.
 - **-010 Antecedent law.** Dispatch-point temporal properties bind to
-  `c_call_opened` joined with its fibre-selection row (e.g. regime=F_P
-  via where-guards). Gates are non-vacuous on every arm that ran.
+  `c_call_fibre_selected` with single-event where-guards (e.g.
+  regime=F_P) — the selection row IS the antecedent; the temporal
+  algebra needs no cross-event join. Gates are non-vacuous on every arm
+  that ran.
 - **-011 Replay compatibility.** Pre-envelope ledgers project a derived
   spine at read time (projection adapter); synthetic events never enter
   truth.
 - **-012 Audit equality.** For every completed run: external work
-  sessions in archives equal spine invocations in replay, per arm and
-  per fibre. The standing gate measures this.
+  sessions in archives equal EXTERNAL-WORK-BEARING spine invocations in
+  replay, per arm (F_P and external F_H). F_D C calls require
+  deterministic evidence artifacts in place of sessions. The standing
+  gate measures both.
 
 ## Non-closure
 

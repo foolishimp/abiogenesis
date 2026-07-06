@@ -791,6 +791,11 @@ export function deriveRuntimeAggregateProjection(
       case "overlay_frame_evaluated":
       case "temporal_property_verdict_projected":
       case "runtime_failure_observed":
+      case "c_call_opened":
+      case "c_call_fibre_selected":
+      case "c_call_evidenced":
+      case "c_call_result_admitted":
+      case "c_call_judged":
         break;
       default: {
         const exhaustive: never = event;
