@@ -51,19 +51,39 @@ function selectionRefFromDeclarations(graphFunction: GraphFunction): string | nu
   return entry.value.value;
 }
 
-function assertExecutableShape(
-  program: HogProgramDeclaration,
-  sourceRef: string
+// Executability is an ENTRY-GATE concern, separate from resolution:
+// a triple role executes on the baked path; any other role executes
+// IFF the admitted handler registry binds (programRef × stageRole ×
+// armId). No registry = triple-only (the pre-B3 wall, now narrowed).
+export function assertHogProgramExecutable(
+  resolved: ResolvedHogProgram,
+  registry: {
+    readonly bindings: readonly {
+      readonly programRef: string;
+      readonly stageRole: string;
+      readonly armId: string;
+    }[];
+  } | null
 ): void {
+  const program = resolved.program;
   const unsupported = program.stages
-    .map((stage: HogProgramStage) => stage.stageRole)
-    .filter((role: string) => !EXECUTABLE_STAGE_ROLES.includes(role));
+    .filter((stage: HogProgramStage) => {
+      if (EXECUTABLE_STAGE_ROLES.includes(stage.stageRole)) return false;
+      if (registry === null) return true;
+      return !registry.bindings.some(
+        (binding) =>
+          binding.programRef === program.programRef &&
+          binding.stageRole === stage.stageRole &&
+          binding.armId === stage.armId
+      );
+    })
+    .map((stage: HogProgramStage) => stage.stageRole);
   if (unsupported.length > 0) {
     throw new TypeError(
       `unsupported_stage_set: hog program ${program.programRef} declares stage ` +
-        `roles ${JSON.stringify(unsupported)} the engine cannot execute yet ` +
-        `(standard handlers land at T-205 B3; executable roles today: ` +
-        `${JSON.stringify(EXECUTABLE_STAGE_ROLES)}) on ${sourceRef}`
+        `roles ${JSON.stringify(unsupported)} with no admitted handler binding ` +
+        `(triple roles run baked; other roles need a registry binding; ` +
+        `baked roles: ${JSON.stringify(EXECUTABLE_STAGE_ROLES)})`
     );
   }
 }
@@ -100,7 +120,6 @@ export function resolveHogProgram(graphFunction: GraphFunction): ResolvedHogProg
           `name a program in the declared catalog`
       );
     }
-    assertExecutableShape(selected, sourceRef);
     return Object.freeze({ program: selected, source: "declared_catalog" as const });
   }
   if (selectionRef !== null) {
@@ -117,7 +136,6 @@ export function resolveHogProgram(graphFunction: GraphFunction): ResolvedHogProg
           single.issues.join("; ")
       );
     }
-    assertExecutableShape(single.program, sourceRef);
     return Object.freeze({ program: single.program, source: "declared" as const });
   }
   return Object.freeze({ program: HOG_BOOTSTRAP_TRIPLE, source: "default" as const });

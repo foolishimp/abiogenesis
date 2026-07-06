@@ -5,7 +5,7 @@
 
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
-import { resolveHogProgram, hogStageByRole } from "./hog_program_resolution.js";
+import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable } from "./hog_program_resolution.js";
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
 import { resolveHandlerForSelection, executeHandler } from "./c_call_handlers.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
@@ -5192,7 +5192,10 @@ function* runEngineIterateMachine(input: {
   // gap_stop terminal in replay — never a host exception, never a
   // half-opened spine.
   try {
-    resolveHogProgram(request.basis.graphFunction);
+    assertHogProgramExecutable(
+      resolveHogProgram(request.basis.graphFunction),
+      plugins.handlerRegistry
+    );
   } catch (error) {
     const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
     const blocked = terminalTransition(

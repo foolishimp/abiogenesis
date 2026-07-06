@@ -542,6 +542,7 @@ test("T-200 -016: labelled program catalogs — coexisting configurations, per-r
 
 import {
   resolveHogProgram,
+  assertHogProgramExecutable,
   HOG_PROGRAM_CATALOG_DECLARATION_KEY,
   HOG_PROGRAM_SELECTION_KEY
 } from "../../build/semantic/code/src/abg/m03/index.js";
@@ -619,9 +620,19 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
       { key: "resultBearing", value: false }
     ]
   });
-  assert.throws(() => resolveHogProgram(gfWith([
+  const deepResolved = resolveHogProgram(gfWith([
     { key: "abg.hog_program", value: { kind: "json_blob", value: sixStage } }
-  ])), /unsupported_stage_set/);
+  ]));
+  // no registry: extra role fails closed
+  assert.throws(() => assertHogProgramExecutable(deepResolved, null), /unsupported_stage_set/);
+  // registry binding NARROWS the wall: the same program becomes executable
+  assertHogProgramExecutable(deepResolved, { bindings: [{
+    programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://d/k"
+  }] });
+  // wrong arm in the binding: still fails closed
+  assert.throws(() => assertHogProgramExecutable(deepResolved, { bindings: [{
+    programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://other"
+  }] }), /unsupported_stage_set/);
 });
 
 // ─── T-205 B3: the handler contract — census-bound, fail-closed, typed failure ───
