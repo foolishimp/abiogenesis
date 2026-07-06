@@ -1,239 +1,47 @@
-# abiogenesis 4.4.0-rc.1 Release Candidate Note
+# abiogenesis 4.5.0-rc.1 Release Candidate Note
 
-This checkpoint is the first `4.4.0` release candidate. It follows
-`4.3.0-rc.1` and publishes the HEART OF GOLD envelope layer — the
-uniform C-call spine over the compute fibres {F_D, F_P, F_H}
-(`REQ-R-ABG3-CCALL-001..-015`, ratified design
-ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN §1–§15.2):
+This checkpoint is the first `4.5.0` release candidate. It follows
+`4.4.0-rc.1` and publishes the BASELINE STATIC HoG solution on graph
+overlays: all system-level functions higher-order dynamic functions
+need, with programs, catalogs, ladders, and handler bindings as typed
+GTL declarations (REQ-R-ABG3-CCALL-001..-017, REQ-R-ABG3-HANDLERS-001..
+-016, design §1–§18.1):
 
-- one locus-only spine per C call (opened → fibre-selected →
-  evidenced → result-admitted → judged), closed-surface admission on
-  all five kinds, injective digest cCallRef;
-- live in the engine at strangler STEP 1 (site brackets as the
-  delegation oracle): transform.F_P, evaluate.F_P and F_D (live fibre
-  substitution), consequence (scalar + composed per-task with batchRef),
-  evaluation-rule batch tasks, the F_H call, and construction
-  sub-traversals as transparent-boundary calls (-013);
-- the five standing temporal gates re-anchored to spine antecedents
-  with the fibre-uniform liveness law (selection-eventually-judged);
-  the online gate judges the SELECTION candidate before any of the
-  C call enters truth; gate Rules authored in lawful tagged json_blob
-  form (cast retired);
-- retry law at the spine: throwing fp plugins become typed blocked
-  outcomes (contract_failure) at both executor twins — dispatch and
-  evaluator arms route identically (arm-parity differential);
-- the -012 audit runs INSIDE the standing gate: spine integrity,
-  enclosure (zero orphans), digest refs, and external-session parity
-  measured on every gate run; engine-level -007 substitution-shape
-  differential over real replay;
-- programs are declared data: baked bootstrap triple as P0, isolated
-  versioned syntax (hog-syntax/1, fail-closed on unknown versions), and
-  the GTL authoring key `abg.hog_program` (tagged json_blob,
-  declarations-are-data);
-- SCOPE (per the CCALL Realization State clause): envelope universality
-  is NOT claimed — resolveCCall delegation (strangler step 2), the F_D
-  mechanical-transform spine, and the erase pass are named pending work
-  with retirement points; this note claims exactly the enclosed set.
+- PROGRAM INTERPRETATION at one seam: declared program / labelled
+  catalog / attempt-laddered selection resolve per graph function
+  (ladder outranks static selection; the bootstrap triple is a TYPED
+  CATALOG CITIZEN under a reserved, unshadowable ref); unresolvable or
+  unexecutable declarations are typed truth at run entry
+  (runtime_failure_observed + gap_stop), never host exceptions;
+- THE MULTI-STAGE MONAD EXECUTES: declared extra stages run
+  spine-enclosed at two anchors (post-transform, post-evaluate) through
+  census-bound effect handlers; position law fails misplaced stages
+  closed; a blocked stage stops the run lawfully; an F_H stage
+  escalates with its own terminal truth;
+- HANDLERS: binding tuples are DECLARED data (abg.hog_handler_bindings
+  / _configs); the registry is admitted at entry (field-validated,
+  binding-complete executability); implementations arrive by ref —
+  standard set shipped (F_D process-execution via the traced-process
+  surface with archive evidence, F_D materialization with write-root
+  confinement, F_H gate that can never approve on a human's behalf,
+  F_P agent-transport mapping worker dispositions, never inventing
+  them); handler throws become typed blocked interiors on both drivers;
+- STRICT F_D LAW: totality (an FSM over a total function, or vice
+  versa — a program) with mechanical outcome vocabulary
+  (executed/blocked); semantic consumption of deterministic
+  observations is F_P's judgment;
+- ITERATION HEIGHTS: retry (attempt ladders as compression descent,
+  proven across the resume boundary with governing-attempt coherence),
+  resume (re-entry over persisted replay: closed C calls stay closed,
+  fresh attempt window is engine law, attempt identity replay-global),
+  re-enter (consequence-routed upstream landing with fresh monotone
+  spines through the loop);
+- -012 audit rows live in the standing gate; the internal sandbox lane
+  declares its compute (catalog + ladder as GTL) and the live run is
+  governed by the declared attempt-1 rung with per-configuration audit.
 
-It is an RC candidate, not the final tapped `4.4.0` release.
+Realization state: the FpTransportConfig.prompt field is a named
+transitional violation of the config boundary (HANDLERS-015) pending
+prompt re-homing to instruction categories; the CCALL Realization
+State clause remains narrowed to T-205-owned interpretation items.
 
-## Release Claim
-
-All 4.2.0/4.3.0-line claims below are preserved unchanged:
-
-Temporal property layer (T-192, closed):
-
-- GTL temporal properties are a Rule kind (no new ontology) over trace-only
-  atoms (event-occurrence + fluent-hold from the one event-calculus
-  vocabulary), checked as total three-valued LTL3/LTLf functions over
-  finite replay traces (REQ-L-GTL3-TEMPORAL-PROPERTIES-001..-012);
-- the five standing audit gates run as DECLARED properties on every run
-  carrying the startup family: dispatch-requires-manifest,
-  coverage-requires-payload-admission, invocation-requires-dispatch,
-  selection-requires-registry-admission (safety), and
-  dispatch-eventually-closes (liveness);
-- online enforcement: a violated safety property blocks the dispatch
-  BEFORE the candidate event enters truth, with a replay-visible violated
-  verdict; unlawful property sets fail closed at startup;
-- verdict law: zero-witness satisfied is VACUOUS and never gate-
-  satisfying; open-prefix liveness is undetermined and routes to residual,
-  never blocking; completed terminals decide future obligations; yields
-  do not judge;
-- proven live from the installed sandbox: five verdicts, all satisfied,
-  dispatch gate witnessed non-vacuous, liveness decided by completion.
-
-Constitutional drift detection (T-193, closed):
-
-- constitutional surfaces are witnessed data (REQ-L-GTL3-LAWS-028):
-  loaders witness surface digests, declared version lines, and cited
-  ticket refs plus live facts; the ONE semantic compiler judges drift as
-  typed diagnostics with default repair affordances;
-- the four drift classes: version-line-drift, release-claim-cites-active-
-  ticket (the RC4 class), surface-digest-missing, seam-parity-drift;
-- the real-tree witness stands in the semantic suite: this RC's own
-  bootstrap version lines are drift-checked against the package version —
-  an rc bump without bootstrap propagation is a red suite;
-- day-one proof: the detector caught live bootstrap version drift on its
-  first real-tree run; the drift was fixed at its authored home.
-
-RC7 claims preserved (all still in force):
-
-Requirement proof carry-through (T-188, closed):
-
-- on an edge bearing a declared carry-through contract, requirement closure
-  derives from replay-derived proof coverage: producer-computed coverage is
-  admitted at the accepted-payload result site, threaded to the closing fold
-  under basis + edge + vector identity, and an uncovered or residual
-  obligation shall not close (proven engine-driven and from a
-  snapshot-installed sandbox with a real worker);
-- proof-strength refs resolve against the admitted replay ledger through one
-  named projection (`deriveAdmittedStrengthRefSet`, the
-  `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-035` interim admitted
-  projection); string presence, worker self-report, and startup-carried
-  booleans are not strength truth;
-- rejected attached payloads mint no coverage truth; rejected admissions
-  carry residual no-close pressure; coverage truth refs are parseable,
-  digest-checked, and cross-validated at event construction;
-- SCOPE (per `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`, ratified this
-  RC): coverage-gated closure applies to DECLARED carry-through edges. An
-  edge with active obligations and no declared contract is a typed
-  transitional state, not silent permission; the mandatory carry-through
-  witness migration is the named successor that retires it. RC7 does NOT
-  claim universal coverage-gated closure.
-
-Runtime dispatch enumeration (T-190, closed):
-
-- the F_P dispatch census is the bind path itself: every binding site names a
-  registered arm (compile-forced, runtime fail-closed) and an unregistered
-  arm cannot bind or dispatch;
-- scalar transform, scalar evaluate, composed transform, composed
-  consequence, and evaluation-rule batch arms carry runtime manifest-presence
-  and per-stage manifest-identity proofs plus omitted-plan blocking
-  differentials; the latent singular `evaluation_rule_evaluate` effect is
-  construct-and-block guarded in both executor twins;
-- the source-text census is deleted; classification-as-data with registry
-  set-equality fails the suite by construction when a new arm is registered
-  without a proof row.
-
-GTL authoring-loop meta-law (T-191, closed):
-
-- REQ-L-GTL3-LAWS-019..-027 ratified: stable diagnostic identities with a
-  closed vocabulary and constructor gate, typed admissible repairs, canonical
-  authored form (declarations-are-data), witnessed declaration-source rows,
-  golden-instance bindings, declared underdetermination, authorship,
-  supersession, and the language conformance corpus;
-- declared latitude renders into instruction manifests as PERMISSION
-  (`## abg.declared_latitude`); golden instances bound on a
-  requirement-bearing edge are consumed by the evaluator arm's manifest as
-  calibration with counterexample refutation material
-  (`## abg.golden_instance_calibration`) — both proven live from the
-  installed sandbox;
-- the latitude/calibration carriers and predicates have ONE rule home
-  (`gtl_program_conformance`); plan-compile validation derives from it.
-
-Registry selection and public seams:
-
-- ambiguity is not authority: with multiple basis-matching entries the runner
-  asserts no pre-picked candidate; a declared vector candidate constraint
-  lawfully resolves selection; unauthorized ambiguity fails closed with a
-  replay-visible `graph_function_selection_rejected`;
-- the engine-start passthrough family has one authority
-  (`EngineStartPassthroughFields`) consumed by every public seam (m04 start
-  context, public start, CLI runtime-binding parse);
-- vector/function declarations admit through a fail-closed typed carrier:
-  unknown sibling keys are rejected, not silently dropped.
-
-Standing installed-sandbox live gate (T-194, closed; lane is infrastructure):
-
-- one lane installs the release snapshot into a sandbox and proves the
-  14-row feature matrix through the installed CLI public path with a real
-  worker: carry-through both branches, fail-closed dispatch, registry
-  boundary both ways, rejected-payload no-emission, the installed T-191
-  compiler surface, exact replay, and the latitude/calibration live guards;
-- gate runs self-classify (`t194-gate-classification.json`): only a
-  `sourceClean` run is release-grade; this RC cites such a run;
-- runtime-affecting tickets close only with a fresh green gate run (standing
-  closure rule; T-188/T-190/T-191 closed under it);
-- the canonical hello-world full-stack lane is repaired (proof-depth truth
-  and evaluate-stage plans in its generated startup) and green on the shared
-  binding-source builder.
-
-RC7 intentionally does not reprice `REQ-R-ABG3-SELECTION-APPLICATION-006`.
-The ratified design remains: registry universe first, optional vector
-constraints second, no selected-entry backfill.
-
-RC7 does not accept as truth:
-
-- closure claims on undeclared carry-through edges beyond the typed
-  transitional state named by `-038`;
-- vector constraints inferred from the candidate being selected;
-- worker self-report, transport success, or response shape as closure truth;
-- startup-carried `dependencyClosed`, `depthComplete`, or
-  `proofStrengthAdmitted` as closure authority;
-- product-local proof coverage ledgers, closure registers, or registry truth;
-- dirty-source gate runs as release evidence.
-
-## Versioned Artifacts
-
-- RC branch: `main`
-- RC identity: `4.4.0-rc.1`
-- Candidate package version: `4.4.0-rc.1`
-- Candidate tag: `v4.4.0-rc.1`
-
-## Verification
-
-Required evidence for accepting this RC:
-
-```text
-ABG semantic gate:
-  npm run test:semantic
-
-Requirement-proof gates:
-  npm run test:t188
-
-Runtime dispatch enumeration gate:
-  npm run test:t189
-
-Authoring-loop meta-law gate:
-  npm run test:t191
-
-Temporal-property gate:
-  node --test test_env/tests/test_t192_temporal_properties.test.mjs
-
-Constitutional drift gate (real-tree witness):
-  node --test test_env/tests/test_t193_constitutional_drift.test.mjs
-
-Instruction assembly regression gate:
-  npm run test:t183
-
-Registry regression gate:
-  npm run test:t177
-
-Standing installed-sandbox live gate (release-grade, sourceClean):
-  npm run test:t194:sandbox-live
-
-Canonical installed live lane:
-  npm run test:hello-world:live
-
-Boundary and packaging gates:
-  git diff --check
-  npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-```
-
-## RC Decision
-
-RC8 is the ABI/GTL publication candidate for runtime self-enforcement:
-downstream products consuming RC8 get the standing audit gates as
-declared per-run temporal law and constitutional drift as a typed
-compiler diagnostic, on top of every RC7 claim. Downstream products may
-consume RC7 to depend on coverage-gated closure on declared carry-through
-edges, bind-path dispatch enumeration, permission-rendered latitude,
-evaluator-consumed golden calibration, and the self-classifying installed
-live gate. RC8 does not make ABG own product acceptability, software policy,
-release readiness, or downstream lifecycle interpretation. The named open
-successors (mandatory carry-through witness migration, full
-`ProofStrengthAdmission` carrier, frame-identity fold scoping, temporal
-property layer T-192) are work surfaces, not RC8 claims — joined by the T-192/T-193 successors
-(per-vector property formulas, composed-arm dispatch gating,
-closure-point verdict consumption, paragraph-scoped release witnessing,
-product-grade witness loader).

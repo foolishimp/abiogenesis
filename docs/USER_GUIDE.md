@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.4.0-rc.1 release line
+**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.5.0-rc.1 release line
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -487,9 +487,9 @@ Avoid these mistakes:
 - creating product-local requirement compilers, closure ledgers, residual
   ledgers, or next-action routers that shadow the GTL/ABG route
 
-## ABG 4.4.0-rc.1 Runtime Boundary
+## ABG 4.5.0-rc.1 Runtime Boundary
 
-The ABG 4.4.0-rc.1 TypeScript line keeps runtime law carrier and event owned.
+The ABG 4.5.0-rc.1 TypeScript line keeps runtime law carrier and event owned.
 It carries the read-only F_P construction evaluator/gaps projection and the
 downstream-consumable requirements route as query surfaces over replay-derived
 runtime truth.

@@ -109,7 +109,7 @@ test("M03 transport unit: Codex default contract pins the live model", () => {
   assert.deepStrictEqual(contract.argsTemplate.slice(0, 4), [
     "exec",
     "--model",
-    "gpt-5.3-codex",
+    "gpt-5.5",
     "--full-auto"
   ]);
   assert.ok(contract.argsTemplate.includes("{output_path}"));
