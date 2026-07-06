@@ -922,6 +922,20 @@ verification gates remain explicit at every compression level
 declared class reconciles against replay-observed cost, and sustained
 divergence is a typed signal.
 
+### The atom criterion
+
+The product's deliverable is its ATOM SET, judged on exactly two
+properties: ROBUST (fail-closed admission, gated advancement, replay
+audit — an atom that can be misused silently is not done) and
+COMPOSABLE (one algebra, declared boundaries, reference joins — an atom
+that only works in one arrangement is not an atom). Higher-order
+decision networks — tuners, intent observers, lifecycle overlays,
+consensus panels — are FREE CONSTRUCTIONS over these atoms: unbounded
+in number, each inheriting admission, gating, drift-witnessing, and
+audit without new engine law. Every wave of work is accepted against
+this criterion: does it strengthen atom robustness or composability;
+feature count is not a measure.
+
 ### The reflective boundary
 
 Allocation over scarcity (which calls earn effort, which anneal to

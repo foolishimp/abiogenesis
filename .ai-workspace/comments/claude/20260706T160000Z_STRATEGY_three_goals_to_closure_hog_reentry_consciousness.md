@@ -15,6 +15,13 @@ The envelope made every unit of compute visible and judged. The board
 now carries exactly three goals, and every open ticket serves one of
 them. Nothing is called delivered until the replay says so.
 
+THE ACCEPTANCE CRITERION (user, governing this and every wave): the
+deliverable is the atom set — robust and composable. Higher-order
+decision networks (tuner, intent observer, lifecycle overlay, consensus
+panels, and any number yet unnamed) are free constructions over the
+atoms, each inheriting law for free. Work is judged by what it does to
+atom robustness and composability, not by feature count.
+
 ## Goal 1 — Complete the HoG
 
 One compute ontology, fully realized: programs interpreted, handlers
