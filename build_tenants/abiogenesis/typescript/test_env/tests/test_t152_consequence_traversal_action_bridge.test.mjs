@@ -723,3 +723,90 @@ test("T-152 engine blocks out-of-range consequence re-entry targets without thro
     "consequence traversal action has no admitted graph reentry target"
   );
 });
+
+test("T-205 B5-prep: the spine tells the re-entry story — re-entered vectors carry fresh triple spines with monotone attempts, zero orphans, all judged", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t205/reentry-spine",
+    workKey: "work-key://t205/reentry-spine"
+  });
+  const targetVectorIndex = 1;
+  let traversalActionIssued = false;
+  const outcome = runEngineIterate({
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis),
+    eventSink: () => {},
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t205/reentry-spine/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/reentry-spine/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: (input) => {
+          if (input.vectorIndex === 2 && !traversalActionIssued) {
+            traversalActionIssued = true;
+            return {
+              kind: "consequence_projection",
+              status: "projected",
+              consequenceRef: "consequence://t205/reentry",
+              domainReadModelRefs: [],
+              traversalAction: rawTraversalAction(basis, targetVectorIndex),
+              evidenceRefs: ["evidence://t205/reentry"],
+              reason: null
+            };
+          }
+          return {
+            kind: "consequence_projection",
+            status: "projected",
+            consequenceRef: `consequence://t205/pass/${input.vectorIndex}`,
+            domainReadModelRefs: [],
+            traversalAction: null,
+            evidenceRefs: [`evidence://t205/pass/${input.vectorIndex}`],
+            reason: null
+          };
+        }
+      })
+    }
+  });
+  assert.equal(outcome.transition.terminalKind, "converged");
+  assert.equal(
+    outcome.replayEvents.some(
+      (e) => e.kind === "graph_reentry_applied" && e.targetVectorIndex === targetVectorIndex
+    ),
+    true,
+    "upstream landing taken"
+  );
+  const spines = outcome.replayEvents.filter((e) => e.kind === "c_call_opened");
+  // re-entered vectors (1, 2) ran TWICE: two evaluate spines each,
+  // attempts monotone (replay-global identity across the loop, -004)
+  for (const vec of [1, 2]) {
+    const evalOpens = spines.filter((e) => e.vectorIndex === vec && e.stageRole === "evaluate");
+    assert.equal(evalOpens.length, 2, `vector ${vec} evaluate ran twice`);
+    assert.deepEqual(evalOpens.map((e) => e.attempt), [1, 2], `vector ${vec} attempts monotone`);
+  }
+  const vec0Evals = spines.filter((e) => e.vectorIndex === 0 && e.stageRole === "evaluate");
+  assert.equal(vec0Evals.length, 1, "vector 0 (before the landing) ran once");
+  // enclosure across the loop: every opened judged, zero orphans
+  const openedRefs = new Set(spines.map((e) => e.cCallRef));
+  assert.equal(new Set(spines.map((e) => e.cCallRef)).size, spines.length, "no ref collision across re-entry");
+  const judged = outcome.replayEvents.filter((e) => e.kind === "c_call_judged");
+  assert.equal(judged.length, spines.length, "every opened C call judged across the re-entry loop");
+  for (const e of outcome.replayEvents) {
+    if (e.cCallRef !== undefined && e.kind !== "c_call_opened") {
+      assert.equal(openedRefs.has(e.cCallRef), true, "no orphan spine rows");
+    }
+  }
+});
