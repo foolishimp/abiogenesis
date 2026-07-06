@@ -226,6 +226,53 @@ Interpretation:
    depth, produce code, run tests, admit evidence, evaluate adequacy, and close
    or leave residual truth without a local product shell.
 
+## Footnote: odd_manager As The GLC Build UX
+
+Current `odd_manager` changes the comparison if it becomes the main interface
+for GLC builds.
+
+`odd_manager` is already specified as the operator-facing control plane for
+`odd_*` products built on GTL/ABG. Its live product boundary is not to become a
+second runtime and not to absorb domain packages. It observes managed projects
+through ABG/GTL ledgers, catalogs, projections, `.ai-workspace` artifacts, and
+compatible domain UI packs. That is the right interface layer for GLC:
+
+```text
+GTL/ABG owns runtime truth.
+odd_glc owns lifecycle domain declarations/functions/overlays.
+odd_manager owns the operator workbench over those truths.
+```
+
+The current `odd_manager` implementation already points in that direction:
+the React/Vite Sidecar is the route-level workbench; it has a project registry,
+`.ai-workspace` inventory and artifact viewers, ABG process/runtime projection,
+document inspection, and a durable shell/session workspace. Its requirements
+call out graph workspace orientation, process and requirements entry lenses,
+proof/provenance/closure inspection, session workspace, and explicit
+domain-pack compatibility.
+
+That makes the product story stronger:
+
+- Sandcastle is the simple sandboxed coding-agent runner.
+- Flue is the deployable agent framework.
+- ABG/GTL is the governed runtime/language.
+- odd_manager is the operator console that can make ABG/GTL usable for real
+  GLC builds.
+
+The caution is the same boundary law as everywhere else: `odd_manager` must
+consume ABG/GTL and domain-pack projections; it must not choose traversal,
+close gaps, build local proof state, or create a product-specific shell that
+competes with ABG runtime truth. If it becomes the main GLC build UX, its job
+is to expose admitted program identity, graph overlays, node types, C-call
+spines, requirements lineage, proof carry-through, replay, artifacts, tests,
+and closure posture in one operator surface.
+
+The visible gap is version alignment. `odd_manager` still carries older
+installed GTL/ABG bootstrap language and ABG 4.2 observation wording while ABG
+is moving through 4.3/HoG. Before it is used as the main GLC build interface,
+it should be repinned to the current ABG/GTL context and made to consume HoG
+spine/replay truth as an observation feature rather than a manager-local model.
+
 ## Positioning Statement
 
 Short form:
@@ -287,4 +334,3 @@ Local ABG/GTL sources reviewed:
 - `specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md`
 - `specification/requirements/abg/REQ-R-ABG3-CCALL.md`
 - `build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md`
-
