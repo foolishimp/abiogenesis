@@ -4,6 +4,7 @@
 // Implements: REQ-P-POLICY-012
 // Implements: REQ-P-POLICY-013
 
+import type { PublicTerminalKind } from "../../../abg/m03/contracts/carriers.js";
 import type {
   AssuranceAmbiguityStatus,
   AssuranceClosureDecisionKind,
@@ -90,7 +91,7 @@ export interface PublicStartYielded {
 
 export interface PublicStartConverged {
   readonly kind: "converged";
-  readonly terminalKind: "converged" | "nothing_to_do";
+  readonly terminalKind: PublicTerminalKind;
   readonly runtimeIdentity: PublicRuntimeIdentityProjection;
   readonly trace: PublicKernelTraceRef;
 }

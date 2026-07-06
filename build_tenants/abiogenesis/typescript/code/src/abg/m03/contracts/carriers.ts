@@ -3,6 +3,7 @@
 // Implements: REQ-R-ABG3-RUN
 // Implements: REQ-R-ABG3-CONVERGENCE
 
+import { AGENT_TRANSPORT_FAILURE_CLASS_VALUES } from "../../../shared/abg_library/transport_contracts.js";
 import type {
   Graph,
   GraphFunction,
@@ -246,10 +247,10 @@ export const COMPUTE_BASIS_FAILURE_CLASS_VALUES = Object.freeze([
 export type ComputeBasisFailureClass =
   (typeof COMPUTE_BASIS_FAILURE_CLASS_VALUES)[number];
 
+// T-200 A2: the transport trio derives from the shared authority —
+// renames upstream fail compilation here, never drift silently.
 export const RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
-  "transport_failure",
-  "no_output",
-  "contract_failure",
+  ...AGENT_TRANSPORT_FAILURE_CLASS_VALUES,
   "runtime_unavailable",
   "capability_missing",
   "runtime_failure",
@@ -2748,6 +2749,13 @@ export interface CanonicalRuntimeEventEnvelope {
 
 export type CanonicalRuntimeEvent = RuntimeEvent & CanonicalRuntimeEventEnvelope;
 
+// T-200 A2: the ONE public terminal-kind subset — m04 seams derive.
+export const PUBLIC_TERMINAL_KIND_VALUES = Object.freeze([
+  "converged",
+  "nothing_to_do"
+] as const);
+export type PublicTerminalKind = (typeof PUBLIC_TERMINAL_KIND_VALUES)[number];
+
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
   "lever_resolution_admitted",
@@ -3119,7 +3127,7 @@ export interface IterationAdvanceVectorDecision {
 export interface IterationConvergedDecision {
   readonly kind: "converged";
   readonly basis: ExecutionBasis;
-  readonly terminalKind: "converged" | "nothing_to_do";
+  readonly terminalKind: PublicTerminalKind;
   readonly reason: string;
 }
 

@@ -1,6 +1,7 @@
 // Implements: REQ-P-QUAL
 // Implements: REQ-P-SCENARIOS
 
+import { PUBLIC_TERMINAL_KIND_VALUES, type PublicTerminalKind } from "../../../abg/m03/contracts/carriers.js";
 import {
   parseNonEmptyString,
   parseOptionalField,
@@ -243,12 +244,12 @@ function admitPublicStartOutcome(
         outcome["terminalKind"],
         `${label}.terminalKind`
       );
-      if (terminalKind !== "converged" && terminalKind !== "nothing_to_do") {
+      if (!(PUBLIC_TERMINAL_KIND_VALUES as readonly string[]).includes(terminalKind)) {
         throw new TypeError(`${label}.terminalKind: unsupported converged value`);
       }
       return Object.freeze({
         kind,
-        terminalKind,
+        terminalKind: terminalKind as PublicTerminalKind,
         runtimeIdentity: admitRuntimeIdentityProjection(
           outcome["runtimeIdentity"],
           `${label}.runtimeIdentity`

@@ -3,6 +3,12 @@ import type {
   SanitizedEnvironmentPolicy
 } from "./carriers.js";
 
+export const AGENT_TRANSPORT_FAILURE_CLASS_VALUES = Object.freeze([
+  "transport_failure",
+  "no_output",
+  "contract_failure"
+] as const);
+
 export type KnownTransportAgentKey = "claude" | "codex" | "gemini" | "generic";
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
