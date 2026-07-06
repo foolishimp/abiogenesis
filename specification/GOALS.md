@@ -577,11 +577,15 @@ Phases:
   replay-global attempt fix); B2 LIVE (one seam, run-entry typed
   failure, declared program proven driving real replay, test:t205
   lane); B3 at 2/3 (handler contract + F_D process-execution and
-  materialization, mechanical-vocabulary proven); B3 interpreter
-  plumbing live (c_call_handler_execute effect, registry ADMITTED at
-  entry with field validation, binding-complete executability gate).
-  Remaining to the gate: B3 execution anchor + F_P/F_H handlers, B4,
-  B5.
+  materialization, mechanical-vocabulary proven); B3 COMPLETE (anchors
+  A+B execute declared extra stages spine-enclosed — keystone: 4-stage
+  program runs; triad: F_D advances, F_P worker passes, F_H escalates;
+  F_P transport + F_H gate handlers shipped); B4 COMPLETE (F_D
+  mechanical-transform spine — envelope universal on both lanes);
+  -017 LADDERS LIVE (compression descent proven across resume;
+  governing-attempt coherence). Remaining to the gate: B5 only —
+  the internal-everything lane (real worker, consequence re-entry
+  exercised, -012 per configuration) → B6 cut.
 - C — glc: repin; binding becomes declarations (catalog + ladder +
   consequence catalog; repaired_* stages retire); resume flag; iterate
   in-system to the clean run. T-030 and T-195 close. 4.5 functionally
