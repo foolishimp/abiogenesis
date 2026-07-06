@@ -140,3 +140,51 @@ own spine with `batchRef` grouping (-005).
 Ratified by the user 2026-07-06. P1 executes under this design
 authority; findings anchor to §-clauses of this document and the CCALL
 requirement family.
+
+## 8. The monad reviewed: a composed workflow beneath (pre-P2, ratified framing)
+
+Review of the traversal monad as realized today, against the algebra:
+
+**Current state (verified this session).** The iterate machine is a
+~8k-line yield-based state machine. The three C calls exist on every
+edge but are INTERLEAVED, not composed: transform dispatch at the six
+census sites, evaluation via the fp/fd evaluate paths, consequence via
+consequence_project plus the construction lane; judgment routing
+(advance/retry/stop) is implicit in per-arm branch logic scattered
+across the machine. The composition is real but hidden — which is
+precisely why the evaluate arm could go invisible (finding #11): a
+hidden step cannot be audited.
+
+**The insight this design realizes.** Each edge traversal IS a composed
+workflow of exactly three plugin-capable steps:
+
+```
+traverseEdge = transform >=> evaluate >=> consequence     (Kleisli)
+
+bind(cCall)  = open → select fibre (census) → resolve (plugin seam)
+               → admit → judge
+```
+
+where `>=>` routes on the judgment vocabulary: advance → next step;
+retry → same step, attempt+1, under the one retry law; pending /
+escalated / blocked → stop states; no_declared_check → advance only
+where nothing demanded the check. Graph traversal = fold of this
+three-step program over planned vectors. The monad core shrinks to:
+plan next vector → run the edge program → fold judgments → terminal
+law. Everything else is fibre interior.
+
+**Consequences.**
+1. The per-edge program becomes DATA (the composed-stage-set family
+   already models programs-as-data for batches); the engine is its
+   interpreter. The all-F_D degeneracy is then literal: ABG interpreting
+   a three-step F_D program IS a workflow engine — the workflow was
+   always beneath the monad; the spine makes it visible instead of
+   hidden.
+2. P2's strangler target is therefore NOT spine-wrapping the six old
+   sites in place — it is the edge pipeline itself (resolveCCall + the
+   Kleisli router), with the old state-machine branches delegating
+   edge-by-edge into it. The erase pass then collapses branches into
+   the router rather than deleting six wrappers.
+3. The plugin seam's meaning sharpens: downstream systems compose
+   workflows by choosing fibres per stage role — three plugin-capable
+   steps per edge, no more surface than that.
