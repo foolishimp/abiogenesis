@@ -158,7 +158,10 @@ C1. Repin odd_glc to 4.5.0-rc.1. Binding becomes declarations:
 C2. Resume flag in the campaign lane (run-18 spec, already written).
 C3. Iterate IN-SYSTEM to convergence — operator supplies only F_H
     fixes; each costs one stage's wall-time.
-→  The clean run: converged, tests green, `data_mapper_full_sbt ok`.
+→  The clean run: converged, tests green, `data_mapper_full_sbt ok`,
+    AND converged THROUGH upstream re-entry (user bar: replay shows
+    graph_reentry_applied to a prior node via the declared consequence
+    catalog — retry-only linear passes do not satisfy 4.5).
     T-030 and T-195 CLOSE. **4.5 is functionally complete** — the
     release claim is the run.
 

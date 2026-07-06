@@ -557,6 +557,14 @@ The Heart of Gold envelope checkpoint cut is ABI TypeScript `4.4.0-rc.1`:
 
 Functionally complete 4.5 IS the clean data-mapper run (converged,
 tests green, `data_mapper_full_sbt ok`) — the release claim is the run.
+THE RUN'S ITERATION BAR (user ruling 2026-07-06): success requires
+iterating BEYOND the current vector — the run must RE-ENTER AT A PRIOR
+NODE via consequence routing (e.g. a test failure landing back at the
+code or design vector) and converge THROUGH that loop. A linear pass
+with retries only does not satisfy 4.5: replay must show
+graph_reentry_applied to an upstream vector on the way to convergence,
+with the repaired_* linearized stages retired in favor of the declared
+consequence catalog.
 
 SCOPE (user ruling 2026-07-06): 4.5 is the BASELINE STATIC solution —
 graph overlays with statically declared programs, catalogs, ladders,
