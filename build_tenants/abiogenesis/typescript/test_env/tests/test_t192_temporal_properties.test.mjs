@@ -817,3 +817,104 @@ test("T-205 B3 KEYSTONE: a declared 4-stage program EXECUTES — admit stage run
   const badJudged = bad.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === badAdmitSel.cCallRef);
   assert.equal(badJudged.judgment, "blocked");
 });
+
+test("T-205 B3 TRIAD: a 6-stage program runs all three fibres at the anchors — F_D executes, F_P worker passes, F_H escalates the run", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const stageRow = (role, regime, arm, resultBearing = false) => ({
+    kind: "object", entries: [
+      { key: "stageRole", value: role },
+      { key: "defaultRegime", value: regime },
+      { key: "armId", value: arm },
+      { key: "resultBearing", value: resultBearing }
+    ]
+  });
+  const sixStage = {
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: "gtl://t205/triad" },
+      { key: "proportionalityClass", value: "P3" },
+      { key: "stages", value: { kind: "array", items: [
+        stageRow("transform", "F_P", "arm://x/t", true),
+        stageRow("admit", "F_D", "arm://x/a"),
+        stageRow("evaluate", "F_P", "arm://x/e"),
+        stageRow("critique", "F_P", "arm://x/k"),
+        stageRow("approve", "F_H", "arm://x/h"),
+        stageRow("consequence", "F_D", "arm://x/c")
+      ] } }
+    ]
+  };
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.hog_program", value: Object.freeze({ kind: "json_blob", value: sixStage }) })
+        ])
+      })
+    })
+  });
+  const bindingRow = (role, regime, arm, ref) => ({
+    programRef: "gtl://t205/triad", stageRole: role, armId: arm,
+    regime, handlerRef: ref, handlerClass: "pipeline", handlerConfigRef: null
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: {
+      handlerRegistry: {
+        bindings: [
+          bindingRow("admit", "F_D", "arm://x/a", "handler://triad/admit"),
+          bindingRow("critique", "F_P", "arm://x/k", "handler://triad/critique"),
+          bindingRow("approve", "F_H", "arm://x/h", "handler://triad/approve")
+        ],
+        handlers: new Map([
+          ["handler://triad/admit", () => ({ outcomeStatus: "executed", evidenceRefs: ["exec-status:0"], payloadRef: null, responseContractRef: null, failureReason: null })],
+          ["handler://triad/critique", () => ({ outcomeStatus: "executed", evidenceRefs: ["worker-disposition:pass"], payloadRef: null, responseContractRef: null, failureReason: null })],
+          ["handler://triad/approve", () => ({ outcomeStatus: "escalated", evidenceRefs: ["approval-subject:subject://triad"], payloadRef: null, responseContractRef: null, failureReason: null })]
+        ])
+      },
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
+          authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://triad/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+  // the run stops at the human gate with ESCALATED truth, not blocked
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /hog_stage_escalated: approve/);
+  // all three extra fibres ran, in declared order, each spine-judged
+  const opened = result.replayEvents.filter((e) => e.kind === "c_call_opened").map((e) => e.stageRole);
+  const ti = opened.indexOf("transform"), ai = opened.indexOf("admit"),
+        ei = opened.indexOf("evaluate"), ki = opened.indexOf("critique"), hi = opened.indexOf("approve");
+  assert.equal(ti < ai && ai < ei && ei < ki && ki < hi, true, JSON.stringify(opened));
+  const judgmentFor = (role) => {
+    const sel = result.replayEvents.filter((e) => e.kind === "c_call_opened" && e.stageRole === role).pop();
+    return result.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === sel.cCallRef).judgment;
+  };
+  assert.equal(judgmentFor("admit"), "advance");
+  assert.equal(judgmentFor("critique"), "advance");
+  assert.equal(judgmentFor("approve"), "escalated");
+  // regimes on the selection rows match the declared fibres
+  const regimeFor = (arm) => result.replayEvents.find((e) => e.kind === "c_call_fibre_selected" && e.armId === arm).regime;
+  assert.equal(regimeFor("arm://x/a"), "F_D");
+  assert.equal(regimeFor("arm://x/k"), "F_P");
+  assert.equal(regimeFor("arm://x/h"), "F_H");
+});

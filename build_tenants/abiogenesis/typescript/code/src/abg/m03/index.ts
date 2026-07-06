@@ -26,11 +26,14 @@ export {
   standardProcessExecutionHandler,
   standardMaterializationHandler,
   standardFhGateHandler,
+  standardFpTransportHandler,
   STANDARD_HANDLER_REFS
 } from "./runner/standard_handlers.js";
 export type {
   ProcessExecutionIo,
   ProcessExecutionConfig,
   MaterializationIo,
-  MaterializationConfig
+  MaterializationConfig,
+  FpTransportIo,
+  FpTransportConfig
 } from "./runner/standard_handlers.js";

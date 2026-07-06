@@ -151,7 +151,8 @@ export function standardMaterializationHandler(io: MaterializationIo): CCallHand
 export const STANDARD_HANDLER_REFS = Object.freeze({
   processExecution: "handler://abg/fd/process-execution",
   materialization: "handler://abg/fd/materialization",
-  fhGate: "handler://abg/fh/gate"
+  fhGate: "handler://abg/fh/gate",
+  fpTransport: "handler://abg/fp/agent-transport"
 } as const);
 
 // F_H gate (-009): the human fibre at an extra stage. The interior is
@@ -171,6 +172,137 @@ export function standardFhGateHandler(): CCallHandler {
       payloadRef: null,
       responseContractRef: null,
       failureReason: null
+    });
+  };
+}
+
+// ── F_P agent transport (-009): the probabilistic fibre at an extra
+// stage. Prompt and contract come ONLY from declared config (-005);
+// the agent invocation is INJECTED io (-004: no tool name here — which
+// agent, which env, which command is binding-layer declaration).
+//
+// F_P/F_D boundary note: this handler maps the WORKER's declared-
+// contract disposition mechanically. A "block" disposition is the
+// WORKER's semantic judgment — lawful, because judging semantically is
+// what the F_P fibre IS. The handler itself pronounces nothing; its
+// own vocabulary stays mechanical (transport failed / contract
+// unparseable -> blocked with the trio class).
+
+export interface FpTransportIo {
+  readonly invokeAgent: (input: {
+    readonly prompt: string;
+    readonly timeoutMs: number;
+  }) => {
+    readonly output: string | null;
+    readonly sessionRef: string | null;
+    readonly error: string | null;
+  };
+}
+
+export interface FpTransportConfig {
+  readonly prompt: string;
+  readonly timeoutMs: number;
+  readonly responseContract:
+    | { readonly kind: "advisory_text" }
+    | { readonly kind: "disposition_json" };
+  readonly includeWorkProjection: boolean;
+}
+
+function fpTransportConfigFrom(input: unknown): FpTransportConfig {
+  const record = input as Partial<FpTransportConfig> | null;
+  if (
+    record === null ||
+    typeof record !== "object" ||
+    typeof record.prompt !== "string" ||
+    record.prompt.length === 0 ||
+    typeof record.timeoutMs !== "number" ||
+    record.responseContract === null ||
+    typeof record.responseContract !== "object" ||
+    !["advisory_text", "disposition_json"].includes(
+      (record.responseContract as { kind?: string }).kind ?? ""
+    ) ||
+    typeof record.includeWorkProjection !== "boolean"
+  ) {
+    throw new TypeError(
+      "fp_transport_config_invalid: declared config must carry " +
+        "{prompt, timeoutMs, responseContract{kind}, includeWorkProjection}"
+    );
+  }
+  return record as FpTransportConfig;
+}
+
+export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
+  return (input): CCallHandlerInterior => {
+    const config = fpTransportConfigFrom(input.declaredConfig);
+    const prompt =
+      config.includeWorkProjection && input.workProjection !== null
+        ? `${config.prompt}\n\nWORK PROJECTION:\n${String(input.workProjection)}`
+        : config.prompt;
+    const outcome = io.invokeAgent({ prompt, timeoutMs: config.timeoutMs });
+    const sessionEvidence =
+      outcome.sessionRef === null ? [] : [`agent-session:${outcome.sessionRef}`];
+    if (outcome.error !== null || outcome.output === null) {
+      return Object.freeze({
+        outcomeStatus: "blocked",
+        evidenceRefs: Object.freeze([
+          ...sessionEvidence,
+          `transport-error:${(outcome.error ?? "no_output").slice(0, 120)}`
+        ]),
+        payloadRef: null,
+        responseContractRef: null,
+        failureReason: `agent_transport_failed: ${outcome.error ?? "no output"} (transport_failure)`
+      });
+    }
+    if (config.responseContract.kind === "advisory_text") {
+      return Object.freeze({
+        outcomeStatus: "executed",
+        evidenceRefs: Object.freeze([
+          ...sessionEvidence,
+          `agent-output-chars:${String(outcome.output.length)}`
+        ]),
+        payloadRef: null,
+        responseContractRef: "response-contract://abg/fp/advisory-text",
+        failureReason: null
+      });
+    }
+    // disposition_json: the worker judges via the declared contract
+    let parsed: { disposition?: string; reasons?: readonly string[] };
+    try {
+      parsed = JSON.parse(outcome.output) as typeof parsed;
+    } catch {
+      return Object.freeze({
+        outcomeStatus: "blocked",
+        evidenceRefs: Object.freeze([...sessionEvidence, "agent-output-unparseable"]),
+        payloadRef: null,
+        responseContractRef: "response-contract://abg/fp/disposition-json",
+        failureReason: "agent_response_unparseable (contract_failure)"
+      });
+    }
+    if (parsed.disposition === "pass") {
+      return Object.freeze({
+        outcomeStatus: "executed",
+        evidenceRefs: Object.freeze([...sessionEvidence, "worker-disposition:pass"]),
+        payloadRef: null,
+        responseContractRef: "response-contract://abg/fp/disposition-json",
+        failureReason: null
+      });
+    }
+    if (parsed.disposition === "block") {
+      const reasons = (parsed.reasons ?? []).join("; ").slice(0, 160);
+      return Object.freeze({
+        outcomeStatus: "blocked",
+        evidenceRefs: Object.freeze([...sessionEvidence, "worker-disposition:block"]),
+        payloadRef: null,
+        responseContractRef: "response-contract://abg/fp/disposition-json",
+        failureReason: `worker_blocked: ${reasons.length > 0 ? reasons : "no reasons given"}`
+      });
+    }
+    return Object.freeze({
+      outcomeStatus: "blocked",
+      evidenceRefs: Object.freeze([...sessionEvidence, "agent-disposition-unlawful"]),
+      payloadRef: null,
+      responseContractRef: "response-contract://abg/fp/disposition-json",
+      failureReason: `unlawful_disposition: ${String(parsed.disposition).slice(0, 40)} (contract_failure)`
     });
   };
 }

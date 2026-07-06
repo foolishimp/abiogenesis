@@ -804,3 +804,48 @@ test("T-205 B3: F_H gate handler always escalates — a handler cannot approve o
   assert.equal(bare.outcomeStatus, "escalated");
   assert.equal(bare.evidenceRefs[0], "approval-subject:undeclared");
 });
+
+// ─── T-205 B3: the F_P agent-transport handler — worker judges, handler maps ───
+
+import { standardFpTransportHandler } from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205 B3: F_P transport handler — declared prompt/contract, trio-classed transport failure, worker disposition mapped not invented", () => {
+  const stageFp = { stageRole: "critique", defaultRegime: "F_P", armId: "arm://x/k", resultBearing: false };
+  const binding = { programRef: "gtl://p", stageRole: "critique", armId: "arm://x/k",
+    regime: "F_P", handlerRef: "handler://abg/fp/agent-transport", handlerClass: "pipeline", handlerConfigRef: "config://critique" };
+  const prompts = [];
+  const mkHandler = (reply) => standardFpTransportHandler({
+    invokeAgent(input) { prompts.push(input.prompt); return reply; }
+  });
+  const run = (reply, config, workProjection = null) =>
+    mkHandler(reply)({ stage: stageFp, binding, declaredConfig: config, workProjection });
+  const dispositionConfig = {
+    prompt: "critique the artifact", timeoutMs: 60000,
+    responseContract: { kind: "disposition_json" }, includeWorkProjection: true
+  };
+  // transport failure -> blocked with the trio class; session evidenced when present
+  const dead = run({ output: null, sessionRef: "session://1", error: "spawn timeout" }, dispositionConfig);
+  assert.equal(dead.outcomeStatus, "blocked");
+  assert.match(dead.failureReason, /transport_failure/);
+  assert.equal(dead.evidenceRefs.includes("agent-session:session://1"), true);
+  // worker PASS -> executed (the worker judged, the handler mapped)
+  const pass = run({ output: JSON.stringify({ disposition: "pass" }), sessionRef: "session://2", error: null }, dispositionConfig);
+  assert.equal(pass.outcomeStatus, "executed");
+  assert.equal(pass.evidenceRefs.includes("worker-disposition:pass"), true);
+  // worker BLOCK -> blocked carrying the WORKER's reasons
+  const block = run({ output: JSON.stringify({ disposition: "block", reasons: ["missing tests"] }), sessionRef: null, error: null }, dispositionConfig);
+  assert.equal(block.outcomeStatus, "blocked");
+  assert.match(block.failureReason, /worker_blocked: missing tests/);
+  // unparseable / unlawful disposition -> contract_failure, never a throw
+  assert.match(run({ output: "not json", sessionRef: null, error: null }, dispositionConfig).failureReason, /contract_failure/);
+  assert.match(run({ output: JSON.stringify({ disposition: "maybe" }), sessionRef: null, error: null }, dispositionConfig).failureReason, /unlawful_disposition: maybe/);
+  // advisory_text: output is evidence, executed without judgment
+  const advisory = run({ output: "plan: do x then y", sessionRef: "session://3", error: null },
+    { prompt: "make a plan", timeoutMs: 60000, responseContract: { kind: "advisory_text" }, includeWorkProjection: false });
+  assert.equal(advisory.outcomeStatus, "executed");
+  assert.equal(advisory.evidenceRefs.includes("agent-output-chars:17"), true);
+  // declared work projection splices into the prompt only when declared
+  run({ output: "{}", sessionRef: null, error: null }, dispositionConfig, "result://prior");
+  assert.equal(prompts.some((p) => p.includes("WORK PROJECTION:\nresult://prior")), true);
+  assert.equal(prompts[prompts.length - 2].includes("WORK PROJECTION"), false, "advisory config declared includeWorkProjection:false");
+});

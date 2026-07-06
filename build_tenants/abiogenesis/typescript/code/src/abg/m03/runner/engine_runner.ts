@@ -5128,7 +5128,11 @@ function* runExtraHogStages(input: {
   readonly workProjectionRef: string | null;
 }): Generator<
   EnginePluginEffect,
-  { readonly eventState: EngineEventEmissionState; readonly blockedStageRole: string | null },
+  {
+    readonly eventState: EngineEventEmissionState;
+    readonly blockedStageRole: string | null;
+    readonly stopKind: "blocked" | "escalated" | null;
+  },
   EnginePluginEffectResult
 > {
   let eventState = input.eventState;
@@ -5189,10 +5193,14 @@ function* runExtraHogStages(input: {
       reasonRef: null
     }));
     if (!executed) {
-      return Object.freeze({ eventState, blockedStageRole: stage.stageRole });
+      return Object.freeze({
+        eventState,
+        blockedStageRole: stage.stageRole,
+        stopKind: escalated ? ("escalated" as const) : ("blocked" as const)
+      });
     }
   }
-  return Object.freeze({ eventState, blockedStageRole: null });
+  return Object.freeze({ eventState, blockedStageRole: null, stopKind: null });
 }
 
 function* runEngineIterateMachine(input: {
@@ -7450,7 +7458,7 @@ function* runEngineIterateMachine(input: {
                   const blocked = terminalTransition(
                     request.basis,
                     "gap_stop",
-                    `hog_stage_blocked: ${ran.blockedStageRole} (post-transform anchor)`
+                    `hog_stage_${ran.stopKind ?? "blocked"}: ${ran.blockedStageRole} (post-transform anchor)`
                   );
                   eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
                   return constructResult({
@@ -8509,7 +8517,7 @@ function* runEngineIterateMachine(input: {
                   const blocked = terminalTransition(
                     request.basis,
                     "gap_stop",
-                    `hog_stage_blocked: ${ran.blockedStageRole} (post-evaluate anchor)`
+                    `hog_stage_${ran.stopKind ?? "blocked"}: ${ran.blockedStageRole} (post-evaluate anchor)`
                   );
                   eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
                   return constructResult({
