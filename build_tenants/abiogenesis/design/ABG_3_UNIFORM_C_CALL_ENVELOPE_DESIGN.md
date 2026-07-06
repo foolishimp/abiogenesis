@@ -658,3 +658,46 @@ product):
 
 Realization: T-206 (backlog) after T-205 — consumes step-2
 interpretation, the standard plugin, and the cost projection.
+
+## 18. The two axes: iteration AND recursion (ratified framing)
+
+LLM compute has exactly two composition axes, and HoG now carries both
+as declared law:
+
+ITERATION — the horizontal axis: the same monad re-applied over its own
+accumulated truth. Retry within a call (attempt ladder); re-entry across
+runs (start over persisted replay — the frontier advances, closed
+vectors stay closed); the repair stages; the tuner's offline loop.
+Iteration is how stochastic calls become reliable: sample under
+judgment until advance. Its carrier: judgments + budgets + replay
+re-entry. Its declared form: the -017 ladder.
+
+RECURSION — the vertical axis: compute containing compute
+(compose.C.compose read literally). The four rungs: inline category <
+reified stage < capability outcall < workflow.C sub-traversal; and one
+level up, programs over programs (the tuner as an odd_ product over an
+odd product). Recursion is how bounded contexts exceed themselves:
+decompose into child universes, each with its own spine, gates, budget.
+Its carrier: boundary declarations (-013) + named lifts (§10.1). Its
+declared form: programs and catalogs (-014/-016).
+
+THE DIAGONAL — escalation connects the axes: iteration failure descends
+a recursion rung (compression descent: a retry judgment escalates the
+program — more explicit structure, deeper decomposition); recursive
+child outcomes bubble up as judgments that feed iteration. The named
+industry patterns are all points on this plane: self-refinement =
+iteration at one call; actor/critic = reified stages; subagents =
+recursion rung 3-4; reflection/tuning = recursion one product up plus
+offline iteration; tree-of-thought = ladder × lift.
+
+THE GATE TRINITY that makes both axes lawful for LLMs: iteration cures
+stochasticity, recursion cures boundedness, external judgment cures
+self-report — fibres, boundaries, and gates give each its carrier, and
+all three are data.
+
+THE CAMPAIGN LESSON (root cause restated): we built both axes and ran
+the proof harness on neither — batch restarts (no iteration over truth)
+at fixed depth (no ladder, baked triple everywhere). Delivery mode =
+both axes engaged: persistent-workspace re-entry (horizontal) ×
+adaptive program depth (vertical), operator supplying only F_H
+judgments. The loop was never missing a tool; it was missing its wiring.
