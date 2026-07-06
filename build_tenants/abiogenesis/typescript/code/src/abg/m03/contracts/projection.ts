@@ -427,9 +427,16 @@ export function deriveRuntimeAggregateProjection(
         break;
       case "actor_invocation_closed": {
         assertVectorIndexInRange(basis, event.vectorIndex);
-        const openIndex = actorInvocationRefs.findIndex(
-          (row) => row.actorInvocationId === event.actorInvocationId
-        );
+        // merge onto the LAST unclosed row with this id (defense in
+        // depth against id collisions across resume windows)
+        let openIndex = -1;
+        for (let i = actorInvocationRefs.length - 1; i >= 0; i -= 1) {
+          const row = actorInvocationRefs[i];
+          if (row !== undefined && row.actorInvocationId === event.actorInvocationId) {
+            openIndex = i;
+            if (row.closureStatus === null) break;
+          }
+        }
         if (openIndex !== -1) {
           const open = actorInvocationRefs[openIndex];
           if (open !== undefined) {

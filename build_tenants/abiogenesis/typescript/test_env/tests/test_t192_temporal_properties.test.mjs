@@ -1209,3 +1209,29 @@ test("T-205 run-18 mirror: a PRE-SPAWN dispatch contract_failure retries in-run 
   // the retry lane re-dispatched after the typed conversion
   assert.equal(dispatches >= 2, true, `expected an in-run retry, got ${dispatches} dispatch(es); terminal=${JSON.stringify(result.transition.kind === "terminal" ? result.transition.terminalKind + ":" + result.transition.reason : result.transition.kind).slice(0, 160)}`);
 });
+
+test("T-205 campaign #16: invocation attempt identity is replay-global — a resumed fresh window continues numbering; resume never dead-ends in archive inspection", () => {
+  const basis0 = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({ ...basis0, startIntent: Object.freeze({ ...basis0.startIntent, until: "converged" }) });
+  const throwing = Object.freeze({
+    contract: constructEnginePluginContract({
+      ref: "plugin://t205/c16-dispatch", pluginKind: "fp_dispatch",
+      authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
+    }),
+    dispatch() { throw new Error("Malformed execution plan: c16"); }
+  });
+  const runOnce = (runtimeEvents) => runEngineIterate({
+    basis, ...(runtimeEvents === null ? {} : { runtimeEvents }),
+    eventSink: () => {}, ...m03InstructionAssemblyRequestFields(basis),
+    plugins: { fpDispatch: throwing, fpEvaluator: defaultFpEvaluatorPlugin }
+  });
+  const r1 = runOnce(null);
+  assert.match(String(r1.transition.reason), /retry_exhausted|stationary/);
+  const r2 = runOnce(r1.replayEvents);
+  // the fix: lawful exhaustion verdict, never the inspection dead end
+  assert.doesNotMatch(String(r2.transition.reason), /missing_process_evidence/);
+  assert.match(String(r2.transition.reason), /retry_exhausted|stationary/);
+  // attempt identity continued across the window: no duplicate invocation ids
+  const ids = r2.replayEvents.filter((e) => e.kind === "actor_invocation_started").map((e) => e.actorInvocationId);
+  assert.equal(new Set(ids).size, ids.length, "no invocation id collision across resume");
+});

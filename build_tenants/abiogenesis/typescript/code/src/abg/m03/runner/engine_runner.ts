@@ -568,9 +568,14 @@ function actorAttemptIndexForProjection(input: {
   readonly projection: RuntimeAggregateProjection;
   readonly vectorIndex: number;
 }): number {
+  // campaign #16 (-004 at the invocation layer): attempt identity is
+  // REPLAY-GLOBAL — the count of prior invocations at this locus, so a
+  // resumed fresh window CONTINUES the numbering instead of colliding
+  // with a prior attempt's invocation id (which silently orphaned the
+  // new closure detail and dead-ended the retry lane).
   return (
-    input.projection.retryAttemptRefs.filter(
-      (attempt) => attempt.vectorIndex === input.vectorIndex
+    input.projection.actorInvocationRefs.filter(
+      (invocation) => invocation.vectorIndex === input.vectorIndex
     ).length + 1
   );
 }
