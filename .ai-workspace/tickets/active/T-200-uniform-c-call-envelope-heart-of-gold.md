@@ -143,3 +143,59 @@ honestly, never weakened); m04 public-outcome mapping for pending;
 legacy replay projection (REQ -009) correctness; composed batch = one
 spine per stage-task vs per batch (DESIGN DECISION for user: default =
 one spine per C call, batch tasks as evidenced interior rows).
+
+## 8. P0 Amendments — codex round 1, all five findings accepted
+
+8.1 (High, ACCEPTED) The spine was self-violating: regime/armId sat in
+c_call_opened and REQ-004 bound gates to a spine field. AMENDED: the
+spine identifies the CALL LOCUS ONLY. Fibre selection is the first
+interior row, itself admitted truth:
+
+```
+c_call_opened        {cCallRef, basisId, graphFunctionId, graphCallId,
+                      frameId, edge, vectorIndex, stageRole,
+                      taskOrdinal|null, attempt, manifestRef|null}
+c_call_fibre_selected{cCallRef, regime, armId, compositionRef|null}
+```
+
+REQ-004 rebinds: dispatch-point antecedent = c_call_opened JOINED with
+its fibre-selection row where regime=F_P (temporal where-guards already
+express joins). Substitution now changes ONE interior row's payload;
+spine kinds and order are fibre-free by construction, not by discipline.
+
+8.2 (High, ACCEPTED) cCallRef rescoped to full replay identity:
+`c-call:{basisId}:{graphCallId}:{frameId}:{vectorIndex}:{stageRole}:
+{taskOrdinal|-}:{attempt}` with graphFunctionId/edge/compositionRef as
+fields — recursive frames, repeated graph calls, and composed tasks
+cannot collide. This REALIZES T-198 (frame-identity scoping) inside
+T-200; T-198 closes into it.
+
+8.3 (High, ACCEPTED — supersedes the §7 reserved default) One spine per
+stage-TASK that can invoke a worker/plugin; the batch is a parent
+grouping ref (batchRef field), never the counted call. The §6.1
+invariant (sessions == spine invocations) now holds by construction for
+composed batches. User may override at P0 evaluation.
+
+8.4 (Medium, ACCEPTED) Judgment vocabulary gains `no_declared_check`,
+distinct from advance: {advance, retry, pending, blocked, escalated,
+no_declared_check}. Law (new REQ -010): no_declared_check is NEVER
+gate-satisfying and NEVER satisfies an edge that declares required
+checks — it advances only where nothing demanded the check (mirrors
+T-192 vacuous-never-satisfies). This reconciles T-195 C3 with the
+degenerate fibre: absence is honest, visible, and cannot masquerade as
+judgment.
+
+8.5 (Medium, ACCEPTED) P0 ratification expanded. Requirement homes:
+NEW specification/requirements/abg/REQ-R-ABG3-CCALL.md (-001..-010);
+AMEND REQ-L-GTL3-TEMPORAL-PROPERTIES-007 (gate points = spine+fibre
+join), the retry-law clause (allowlist judges spine outcomes), the
+instruction-assembly family (manifestRef binding per C call), PRODUCT.md
+compute-tuple rider. Derives-from: T-190 census, T-192 temporal law,
+T-188 carry (payload admission unchanged, enclosed), T-195 C3/C4
+adjudications, T-030 boundary law. Non-closure proof commands:
+test:semantic, test:t188, test:t189, test:t192-lane, test:t193-lane,
+new test:t200 (spine admission + enclosure + substitution differential +
+archives==replay audit), test:t194:sandbox-live, and the odd_glc
+data-mapper live lane on the envelope release.
+
+STATUS: design amended; awaiting user P0 evaluation before realization.
