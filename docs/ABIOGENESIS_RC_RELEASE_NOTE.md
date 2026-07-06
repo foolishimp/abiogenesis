@@ -1,6 +1,23 @@
-# abiogenesis 4.5.0-rc.2 Release Candidate Note
+# abiogenesis 4.5.0-rc.3 Release Candidate Note
 
-This checkpoint is the second `4.5.0` release candidate. It follows
+This checkpoint is the third `4.5.0` release candidate. It follows
+`4.5.0-rc.2` and carries the remaining run-18 campaign fixes — the
+substrate that carried the FIRST COMPLETE data-mapper run (26/26
+vectors converged by replay; 8 Scala modules built from specification;
+24/24 subject tests green):
+
+- INVOCATION ATTEMPT IDENTITY IS REPLAY-GLOBAL (campaign #16, the -004
+  law at the invocation layer): a resumed fresh window continues
+  numbering instead of colliding invocation ids (collision orphaned the
+  new closure detail and dead-ended the retry lane); the projection
+  close-merge targets the last unclosed matching row.
+- NULL-BASIS OBSERVABILITY TOLERATED (campaign #17): a
+  runtime_failure_observed with basisId null (P0-4 CLI-error-as-event)
+  no longer poisons projection over a shared workspace log.
+
+The rc.2 content follows.
+
+This checkpoint was the second `4.5.0` release candidate. It follows
 `4.5.0-rc.1` and carries the run-18 campaign fix on top of it:
 
 - PRE-SPAWN DISPATCH FAILURES RETRY (campaign #13): invocation closure
