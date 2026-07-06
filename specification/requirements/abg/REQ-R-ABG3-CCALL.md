@@ -106,6 +106,22 @@ structure around it.
   `instructionCategoryRefs` — the inlined form of cognitive stages
   under -015, consumed by the instruction section machinery at render).
 
+- **-017 Adaptive selection.** Program selection is a RUNTIME decision
+  over DECLARED terms: an edge-class declares a selection LADDER —
+  ordered labelled configurations with predicates over replay-observed
+  signals (attempt number, prior judgments, proportionality
+  declared-vs-observed, worker-capability indicators) — and the judgment
+  router walks it live: retry may ESCALATE the program (lean → hardened
+  → human-gated) instead of re-running the same shape blindly. Different
+  C calls in the SAME workflow may run different configurations. The
+  solve/optimize boundary holds: the ladder and its predicates are
+  declarations (the optimize loop re-authors them offline from replay);
+  the router only selects among them (candidates, never terms).
+  VISIBILITY: the governing programRef is recorded on
+  `c_call_fibre_selected` so every call's configuration is replay
+  truth and -012 cost reports per configuration. Capability is assessed
+  from replay, never self-declared (-015).
+
 ## Realization State (typed strangler window — reviewed at each T-200 checkpoint)
 
 -001's universality is realized INCREMENTALLY under the ratified

@@ -50,6 +50,17 @@ T-205 consumes that seam: catalog/selection interpretation and the
 standard plugin ride the SAME resolveCCall integration point — one
 seam, two tickets, T-200's oracle-equality proof first.
 
+## Adaptive selection (-017, in scope)
+
+The catalog is not statically bound: edge-classes declare selection
+LADDERS (ordered configs + predicates over replay signals); the router
+escalates the program on retry (compression descent) and toward F_H on
+repeated failure. P0 realizes programRef on c_call_fibre_selected
+(carrier + closed keys + all emission sites + differentials) so every
+call records its governing configuration; ladder interpretation lands
+with step-2 integration; per-configuration -012 cost reporting feeds
+the offline tuner (§13.1 boundary holds).
+
 ## Plan sketch (P0 ratify before realization)
 
 P0 requirements family (worker-plugin law: what is mechanics vs domain;

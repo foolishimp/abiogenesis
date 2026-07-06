@@ -577,3 +577,22 @@ spine-per-invoking-task (taskOrdinal = pluginIndex, batchRef grouping) —
 "per-batch would hide the unit of compute you are trying to audit."
 P3/P4 must explicitly prove evaluator EXTERNAL-session parity on the
 live lanes (the named evaluate-interior asymmetry).
+
+## 16. Adaptive configuration (-016/-017, ratified framing)
+
+HoG configurations are labelled and coexist (-016); selection is
+adaptive (-017): a declared LADDER per edge-class maps live signals to
+configurations — attempt 1 runs the lean program, a retry judgment
+escalates to the hardened program (reified critique/repair), repeated
+failure escalates toward F_H. Retry stops being repetition and becomes
+COMPRESSION DESCENT (§14.2 read backwards: failure is evidence the
+worker needed more explicit structure). The two §12 dials unify: the
+ladder is proportionality-aware (cheap shapes first, expensive shapes
+earned by failure) and capability-aware (observed, never
+self-declared). Boundary (§13.1): ladders/predicates are TERMS —
+authored as declarations, re-tuned offline by the consciousness layer
+from per-configuration -012 cost reports; the router walking the ladder
+in-run is the solve loop selecting among declared candidates. First
+realization item (T-205 P0): programRef lands on c_call_fibre_selected
+(closed-key set updated) so the governing configuration is per-call
+replay truth; engine brackets pass the bootstrap ref truthfully today.
