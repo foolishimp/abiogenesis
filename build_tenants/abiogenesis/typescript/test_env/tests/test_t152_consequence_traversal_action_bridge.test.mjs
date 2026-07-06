@@ -601,50 +601,61 @@ test("T-159 consequence bind rejects engine-authority plugin proposal before rep
   });
   const emittedEvents = [];
 
-  assert.throws(
-    () =>
-      runEngineIterate({
-        basis,
-        eventSink: (event) => {
-          emittedEvents.push(event);
-        },
-        plugins: {
-          fdEvaluator: Object.freeze({
-            contract: fdEvaluatorContract("plugin://t159/consequence-bind/reject/fd"),
-            evaluate: (input) =>
-              constructFdEvaluationOutcome({
-                status: "accepted",
-                evidenceRefs: [input.sourceProjectionRef]
-              })
-          }),
-          consequenceProjection: Object.freeze({
-            contract: constructEnginePluginContract({
-              ref: "plugin://t159/consequence-bind/reject/consequence",
-              pluginKind: "consequence_projection",
-              authority: "effect_plugin",
-              inputCarrier: "EnginePluginInput",
-              outputCarrier: "ConsequenceProjectionOutcome"
-            }),
-            project: () => ({
-              kind: "consequence_projection",
-              status: "projected",
-              consequenceRef: "consequence://t159/reject-authority",
-              domainReadModelRefs: ["read-model://t159/reject-authority"],
-              traversalAction: rawTraversalAction(basis, 1, {
-                mayEmitRuntimeEvents: true
-              }),
-              evidenceRefs: ["evidence://t159/reject-authority"],
-              reason: null
-            })
+  // F5 upgrade of this differential: the engine-authority rejection is
+  // now REPLAY-VISIBLE TYPED TRUTH (a blocked consequence projection
+  // carrying the admission message), never a host throw — the same law
+  // T-159 named ("admits plugin proposal only through ABG
+  // replay-visible re-entry"), with the rejection itself as truth.
+  const outcome = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t159/consequence-bind/reject/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
           })
-        }
       }),
-    /mayEmitRuntimeEvents: consequence traversal action cannot own engine authority/u
-  );
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t159/consequence-bind/reject/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: () => ({
+          kind: "consequence_projection",
+          status: "projected",
+          consequenceRef: "consequence://t159/reject-authority",
+          domainReadModelRefs: ["read-model://t159/reject-authority"],
+          traversalAction: rawTraversalAction(basis, 1, {
+            mayEmitRuntimeEvents: true
+          }),
+          evidenceRefs: ["evidence://t159/reject-authority"],
+          reason: null
+        })
+      })
+    }
+  });
+  // the rejection is truth, not a crash
+  const rejectionVisible = outcome.replayEvents.some((event) =>
+    typeof event.reason === "string" &&
+    event.reason.includes("consequence projection plugin threw (contract_failure)") &&
+    event.reason.includes("cannot own engine authority"));
+  assert.equal(rejectionVisible, true, "authority rejection must be replay-visible typed truth");
+  // the unlawful proposal was never applied
   assert.equal(
     emittedEvents.some((event) => event.kind === "graph_reentry_applied"),
     false
   );
+  // and the affected vector did not close on a blocked consequence
+  assert.notEqual(outcome.transition.kind === "terminal" && outcome.transition.terminalKind === "converged", true,
+    "a run with a rejected consequence proposal must not converge past it");
 });
 
 test("T-152 consequence traversal action admission rejects engine-authority payloads", () => {
