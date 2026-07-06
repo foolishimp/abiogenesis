@@ -43,6 +43,39 @@ Downstream keeps: domain declarations ONLY (catalogs, selections,
 contracts, calibration/latitude). The plugin SEAM remains for exotic
 fibres; the standard path needs no code.
 
+## The factoring (user, ratification-grade): category vs functor
+
+A plugin is TWO things, and only one of them is code:
+- its CATEGORY — the declared composition: program/catalog/ladder,
+  stage roles, contracts, response shapes, evidence classes, budgets.
+  This is GTL structure (-014..-017) — the work already done. It is
+  data, admitted fail-closed, drift-witnessed, tunable.
+- its FUNCTOR — the effect handler: the mapping from a declared leaf
+  morphism to the world. Invoke a transport; spawn a process; write
+  files; await a human. Small, effectful, irreducible.
+The substrate ships STANDARD HANDLERS per effect signature (F_P
+agent-transport, F_D process-execution, F_D materialization, F_H
+human-gate); the census binds armId → handler ref + declared config.
+Custom handlers remain the plugin seam. "Plugin" stops meaning
+"downstream program" and starts meaning "handler binding".
+
+## Handler obligations (P0 requirements family, O1–O8)
+
+O1 ARM FIDELITY: realize exactly the census-bound arm; nothing else.
+O2 INTERIORS ONLY: return interior results; never mint spine or truth
+   (enforced: engine-owned spine, kind-restricted sink).
+O3 EVIDENCE HONESTY: outcome status and evidence refs correspond to
+   real effects — archives ≡ refs, audited by -012 per configuration.
+O4 TOOL EMERGENCE: tool knowledge stays inside declared handler config
+   (T-030 boundary law holds AT the handler).
+O5 DECLARED CONFIG ONLY: parameters come from admitted declarations
+   (transport contract, env ingress, plans); no ambient authority.
+O6 TYPED FAILURE: a throw IS a contract_failure blocked outcome
+   (P4 executor guards make breach lawful truth).
+O7 IDEMPOTENT EVIDENCE: archives keyed by cCallRef; resume-safe.
+O8 BUDGET RESPECT: timeout/attempt envelopes from the selected
+   configuration's ladder; overrun is a typed judgment, never a hang.
+
 ## Boundary vs T-200
 
 T-200 closes on delegation + erase + gate (envelope law realized).
