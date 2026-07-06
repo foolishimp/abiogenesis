@@ -196,3 +196,13 @@ registry admitted AT ENTRY (admitHandlerRegistry with field validation
 binding-complete (program×stage×arm + regime match + registered
 handler). REMAINING: the execution anchor (extra stages running
 spine-enclosed), F_P agent-transport + F_H gate handlers, B4, B5.
+
+## Absorbed-stub ruling (board audit 2026-07-06)
+Neither absorbed stub BLOCKS functional-complete 4.5 (the clean run):
+- T-202 (witness loader leaves the test lane): B6 cut QUALITY item;
+  acceptable to ship rc with gate-lane witnesses as 4.4.0-rc.1 did;
+  schedule with the post-run cleanup.
+- T-203b (timeout dual-write sunset; branch_lease producer-or-replay;
+  FP-review wired-or-ratified): erase work, post-clean-run.
+T-199 repointed to T-206 (its merge note overclaimed: ladders are
+attempt-based selection, not per-vector property formulas).
