@@ -25,6 +25,7 @@ export type {
 export {
   standardProcessExecutionHandler,
   standardMaterializationHandler,
+  standardFhGateHandler,
   STANDARD_HANDLER_REFS
 } from "./runner/standard_handlers.js";
 export type {

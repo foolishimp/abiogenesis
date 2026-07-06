@@ -5168,10 +5168,16 @@ function* runExtraHogStages(input: {
     }
     const interior = result.interior;
     const executed = interior.outcomeStatus === "executed";
+    const escalated = interior.outcomeStatus === "escalated";
     eventState = input.emit(eventState, buildCCallSpineClose({
       cCallRef: spine.cCallRef,
       basisId: input.basisId,
-      evidenceClass: stage.defaultRegime === "F_P" ? "fp_interior" : "fd_interior",
+      evidenceClass:
+        stage.defaultRegime === "F_H"
+          ? "fh_interior"
+          : stage.defaultRegime === "F_P"
+            ? "fp_interior"
+            : "fd_interior",
       evidenceRefs: [
         ...interior.evidenceRefs,
         ...(interior.failureReason === null ? [] : [`failure:${interior.failureReason.slice(0, 160)}`])
@@ -5179,7 +5185,7 @@ function* runExtraHogStages(input: {
       outcomeStatus: interior.outcomeStatus,
       payloadRef: interior.payloadRef,
       responseContractRef: interior.responseContractRef,
-      judgment: executed ? "advance" : "blocked",
+      judgment: executed ? "advance" : escalated ? "escalated" : "blocked",
       reasonRef: null
     }));
     if (!executed) {

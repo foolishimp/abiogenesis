@@ -150,5 +150,27 @@ export function standardMaterializationHandler(io: MaterializationIo): CCallHand
 
 export const STANDARD_HANDLER_REFS = Object.freeze({
   processExecution: "handler://abg/fd/process-execution",
-  materialization: "handler://abg/fd/materialization"
+  materialization: "handler://abg/fd/materialization",
+  fhGate: "handler://abg/fh/gate"
 } as const);
+
+// F_H gate (-009): the human fibre at an extra stage. The interior is
+// ALWAYS "escalated" — a handler cannot approve on a human's behalf;
+// it can only surface the declared approval subject. The stage runner
+// maps escalated to the escalated judgment and stops the run lawfully
+// pending F_H (approval consumption is replay re-entry, like the baked
+// fh_admission arm).
+export function standardFhGateHandler(): CCallHandler {
+  return (input): CCallHandlerInterior => {
+    const config = input.declaredConfig as { readonly approvalSubjectRef?: string } | null;
+    return Object.freeze({
+      outcomeStatus: "escalated",
+      evidenceRefs: Object.freeze([
+        `approval-subject:${config?.approvalSubjectRef ?? "undeclared"}`
+      ]),
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: null
+    });
+  };
+}

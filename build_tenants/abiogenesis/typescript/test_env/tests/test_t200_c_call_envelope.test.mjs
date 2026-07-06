@@ -779,3 +779,28 @@ test("T-205 B3: standard F_D handlers — tool emergence, evidence honesty, writ
   assert.match(escape.failureReason, /write_root_escape/);
   assert.equal(written.length, 1, "escape wrote NOTHING");
 });
+
+// ─── T-205 B3: the F_H gate handler — humans are never impersonated ───
+
+import { standardFhGateHandler } from "../../build/semantic/code/src/abg/m03/index.js";
+
+test("T-205 B3: F_H gate handler always escalates — a handler cannot approve on a human's behalf", () => {
+  const gate = standardFhGateHandler();
+  const out = gate({
+    stage: { stageRole: "approve", defaultRegime: "F_H", armId: "arm://x/h", resultBearing: false },
+    binding: { programRef: "gtl://p", stageRole: "approve", armId: "arm://x/h",
+      regime: "F_H", handlerRef: "handler://abg/fh/gate", handlerClass: "pipeline", handlerConfigRef: null },
+    declaredConfig: { approvalSubjectRef: "subject://release/4.5" },
+    workProjection: null
+  });
+  assert.equal(out.outcomeStatus, "escalated");
+  assert.equal(out.evidenceRefs[0], "approval-subject:subject://release/4.5");
+  assert.equal(out.failureReason, null);
+  // undeclared subject still escalates, evidence says so
+  const bare = gate({ stage: { stageRole: "approve", defaultRegime: "F_H", armId: "a", resultBearing: false },
+    binding: { programRef: "p", stageRole: "approve", armId: "a", regime: "F_H",
+      handlerRef: "h", handlerClass: "pipeline", handlerConfigRef: null },
+    declaredConfig: null, workProjection: null });
+  assert.equal(bare.outcomeStatus, "escalated");
+  assert.equal(bare.evidenceRefs[0], "approval-subject:undeclared");
+});
