@@ -105,8 +105,13 @@ test("M04 complete-start integration: bare callable start advances through subst
       "c_call_result_admitted",
       "c_call_judged",
       "vector_evaluated",
+      "c_call_opened",
+      "c_call_fibre_selected",
       "payload_observed",
       "payload_validated",
+      "c_call_evidenced",
+      "c_call_result_admitted",
+      "c_call_judged",
       "vector_closed",
       "fd_advance_ready",
       "terminal_reached"

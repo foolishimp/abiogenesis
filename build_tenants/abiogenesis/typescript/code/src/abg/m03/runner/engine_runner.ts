@@ -6212,6 +6212,33 @@ function* runEngineIterateMachine(input: {
             })
           );
         }
+        // T-200 P2d: the consequence C call — the triple's third stage.
+        const consequenceCCallStage = HOG_BOOTSTRAP_TRIPLE.stages[2];
+        if (consequenceCCallStage === undefined) {
+          throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
+        }
+        const consequenceCCallOpened = constructCCallOpenedEvent({
+          basisId: request.basis.id,
+          graphFunctionId: transition.basis.graphFunction.id,
+          graphCallId: graphCallIdForBasis(transition.basis),
+          frameId: frameIdForBasis(transition.basis),
+          edge: transition.edge,
+          vectorIndex: transition.vectorIndex,
+          stageRole: consequenceCCallStage.stageRole,
+          taskOrdinal: null,
+          attempt: 1,
+          batchRef: null
+        });
+        eventState = emitRunnerEvents(eventState, [
+          consequenceCCallOpened,
+          constructCCallFibreSelectedEvent({
+            cCallRef: consequenceCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            regime: "F_D",
+            armId: consequenceCCallStage.armId,
+            compositionRef: null
+          })
+        ]);
         const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "consequence_project",
@@ -6251,6 +6278,27 @@ function* runEngineIterateMachine(input: {
           admission: consequenceStageAdmission,
           requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
         });
+        eventState = emitRunnerEvents(eventState, [
+          constructCCallEvidencedEvent({
+            cCallRef: consequenceCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            evidenceClass: "fd_interior",
+            evidenceRefs: Object.freeze([scalarConsequenceInput.sourceProjectionRef])
+          }),
+          constructCCallResultAdmittedEvent({
+            cCallRef: consequenceCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            outcomeStatus: consequenceOutcome.status,
+            payloadRef: null,
+            responseContractRef: null
+          }),
+          constructCCallJudgedEvent({
+            cCallRef: consequenceCCallOpened.cCallRef,
+            basisId: request.basis.id,
+            judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
+            reasonRef: null
+          })
+        ]);
         if (consequenceStageBlockingReason !== null) {
           const blocked = terminalTransition(
             request.basis,
@@ -8404,6 +8452,33 @@ function* runEngineIterateMachine(input: {
                 })
               );
             }
+            // T-200 P2d: the consequence C call — the triple's third stage.
+            const consequenceCCallStage = HOG_BOOTSTRAP_TRIPLE.stages[2];
+            if (consequenceCCallStage === undefined) {
+              throw new TypeError("HOG_BOOTSTRAP_TRIPLE must declare a consequence stage");
+            }
+            const consequenceCCallOpened = constructCCallOpenedEvent({
+              basisId: request.basis.id,
+              graphFunctionId: transition.basis.graphFunction.id,
+              graphCallId: graphCallIdForBasis(transition.basis),
+              frameId: frameIdForBasis(transition.basis),
+              edge: transition.edge,
+              vectorIndex: transition.vectorIndex,
+              stageRole: consequenceCCallStage.stageRole,
+              taskOrdinal: null,
+              attempt: 1,
+              batchRef: null
+            });
+            eventState = emitRunnerEvents(eventState, [
+              consequenceCCallOpened,
+              constructCCallFibreSelectedEvent({
+                cCallRef: consequenceCCallOpened.cCallRef,
+                basisId: request.basis.id,
+                regime: "F_D",
+                armId: consequenceCCallStage.armId,
+                compositionRef: null
+              })
+            ]);
             const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
               yield Object.freeze({
                 kind: "consequence_project",
@@ -8444,6 +8519,27 @@ function* runEngineIterateMachine(input: {
               admission: consequenceStageAdmission,
               requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
             });
+            eventState = emitRunnerEvents(eventState, [
+              constructCCallEvidencedEvent({
+                cCallRef: consequenceCCallOpened.cCallRef,
+                basisId: request.basis.id,
+                evidenceClass: "fd_interior",
+                evidenceRefs: Object.freeze([scalarConsequenceInput.sourceProjectionRef])
+              }),
+              constructCCallResultAdmittedEvent({
+                cCallRef: consequenceCCallOpened.cCallRef,
+                basisId: request.basis.id,
+                outcomeStatus: consequenceOutcome.status,
+                payloadRef: null,
+                responseContractRef: null
+              }),
+              constructCCallJudgedEvent({
+                cCallRef: consequenceCCallOpened.cCallRef,
+                basisId: request.basis.id,
+                judgment: consequenceStageBlockingReason === null ? "advance" : "blocked",
+                reasonRef: null
+              })
+            ]);
             if (consequenceStageBlockingReason !== null) {
               const blocked = terminalTransition(
                 request.basis,

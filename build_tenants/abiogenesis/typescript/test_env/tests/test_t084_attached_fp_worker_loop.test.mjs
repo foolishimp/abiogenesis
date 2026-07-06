@@ -28,7 +28,15 @@ const INSTRUCTION_WIRING_EVENT_KINDS = new Set([
   "registry_entry_admitted",
   "graph_function_selected",
   "instruction_prompt_manifest_projected",
-  "instruction_response_contract_admitted"
+  "instruction_response_contract_admitted",
+  // T-200: this lane asserts retry/traversal SEMANTICS; the C-call spine
+  // has its own placement coverage (test_t200 lane + the sequence-updated
+  // integration lanes), so it is wiring here, not subject matter.
+  "c_call_opened",
+  "c_call_fibre_selected",
+  "c_call_evidenced",
+  "c_call_result_admitted",
+  "c_call_judged"
 ]);
 
 function legacyCoreEventKinds(events) {
@@ -209,11 +217,6 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "evidence_admitted",
     "payload_observed",
     "payload_validated",
-    "c_call_evidenced",
-    "c_call_result_admitted",
-    "c_call_judged",
-    "c_call_opened",
-    "c_call_fibre_selected",
     "payload_observed",
     "payload_validated",
     "authority_snapshot_admitted",
@@ -224,9 +227,6 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "ambiguity_observation_admitted",
     "executive_pressure_fact_projected",
     "closure_input_published",
-    "c_call_evidenced",
-    "c_call_result_admitted",
-    "c_call_judged",
     "vector_evaluated"
   ];
   const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
@@ -237,16 +237,11 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "c_call_opened",
-      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "actor_invocation_started",
       ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
-      "c_call_evidenced",
-      "c_call_result_admitted",
-      "c_call_judged",
       "vector_evaluated",
       "retry_repair_planned",
       "retry_attempt_opened",
@@ -256,8 +251,6 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "c_call_opened",
-      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "actor_invocation_started",
       ...composedStageOutcomeEvents,
@@ -269,8 +262,6 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "c_call_opened",
-      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "instruction_causal_context_bound",
       "actor_invocation_started",
@@ -283,8 +274,6 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "c_call_opened",
-      "c_call_fibre_selected",
       "fp_dispatch_requested",
       "instruction_causal_context_bound",
       "actor_invocation_started",
