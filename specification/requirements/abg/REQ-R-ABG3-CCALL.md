@@ -4,7 +4,12 @@
 **Realizes**: T-200 (design §2 as amended §8)
 **Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.
 
-Traversal A→B carries compute C as a tuple over fibres {F_D, F_P, F_H}.
+ONTOLOGY: C is COMPUTE. Traversal A→B carries compute C as a tuple over
+fibres {F_D, F_P, F_H}; a "C call" is a COMPUTE CALL — one instantiation
+of the tuple at one program stage. Descriptive language elsewhere
+(e.g. the T-205 "category vs functor" plugin factoring) never redefines
+C: the declared shape of compute is data, the handler realizes compute,
+and C names the compute itself.
 Each edge traversal runs its DECLARED program of C calls (-014); the
 canonical default program is the triple [transform, evaluate,
 consequence], baked only as bootstrap P0. The envelope below is the one
