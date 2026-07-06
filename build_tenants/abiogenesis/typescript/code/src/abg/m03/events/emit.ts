@@ -7,7 +7,8 @@ import type {
 import {
   assertCanonicalRuntimeEvent,
   assertCanonicalRuntimeEventSequence,
-  assertRuntimeEvent
+  assertRuntimeEvent,
+  hasCanonicalRuntimeEventEnvelope
 } from "../contracts/event_admission.js";
 
 export type RuntimeEventSink = (event: CanonicalRuntimeEvent) => void;
@@ -44,15 +45,6 @@ export function seedRuntimeEventAdmissionOrdinal(
   runtimeEventAdmissionOrdinal = Math.max(
     runtimeEventAdmissionOrdinal,
     nextOrdinal
-  );
-}
-
-function hasCanonicalRuntimeEventEnvelope(event: RuntimeEvent): boolean {
-  return (
-    "eventId" in event ||
-    "eventTime" in event ||
-    "eventTimeUnixMs" in event ||
-    "eventAdmissionOrdinal" in event
   );
 }
 

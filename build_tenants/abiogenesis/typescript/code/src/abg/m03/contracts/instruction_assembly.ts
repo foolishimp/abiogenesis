@@ -670,7 +670,7 @@ function stableCompactRefs(refs: readonly string[]): string {
   return stableJson(refs.map((ref) => compactRenderedRef(ref)));
 }
 
-function compactRenderedExcerpt(
+export function compactRenderedExcerpt(
   excerpt: string | null,
   maxChars: number = MAX_RENDERED_EXCERPT_CHARS
 ): string | null {

@@ -202,6 +202,7 @@ import {
   type RuntimeRegistryStartupInput
 } from "../contracts/runtime_graph_function_registry.js";
 import {
+  compactRenderedExcerpt,
   admitCompiledPromptPlanAtStartup,
   bindInstructionEnvelope,
   renderPromptManifest,
@@ -892,10 +893,10 @@ function runtimeBindingFactsForInstructionAssembly(input: {
         // the evaluator arm must be able to see candidate evidence
         // (stage/vector metadata, materialized files, post-materialization
         // validation), not just the assessment's opening characters.
-        contentExcerpt:
-          content.length > input.plan.causalExcerptMaxChars
-            ? `${content.slice(0, input.plan.causalExcerptMaxChars)}...`
-            : content
+        contentExcerpt: compactRenderedExcerpt(
+          content,
+          input.plan.causalExcerptMaxChars
+        )
       })
     );
   }

@@ -2,7 +2,7 @@
 // Implements: REQ-P-POLICY-016
 // Implements: REQ-P-POLICY-017
 
-import { createHash } from "node:crypto";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
   admitExecutionBasis,
   constructConstructionActionCatalogProjection,
@@ -133,22 +133,7 @@ function installedConstructionHookFallback(
   });
 }
 
-function stableJson(value: unknown): string {
-  if (Array.isArray(value)) {
-    return `[${value.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  if (typeof value === "object" && value !== null) {
-    return `{${Object.entries(value)
-      .sort(([left], [right]) => left.localeCompare(right))
-      .map(([key, entry]) => `${JSON.stringify(key)}:${stableJson(entry)}`)
-      .join(",")}}`;
-  }
-  return JSON.stringify(value);
-}
 
-function stableDigest(value: unknown): string {
-  return createHash("sha256").update(stableJson(value)).digest("hex");
-}
 
 function runtimeIdentityProjection(
   context: PublicGapsContext
@@ -383,7 +368,7 @@ function constructionPriorityScheme(
       context.module.name,
       context.runId ?? "runless",
       context.workKey ?? "workspace",
-      stableDigest(
+      stableSha256Digest(
         hookResolutions.map((resolution) => ({
           source: resolution.source,
           sourceRef: resolution.sourceRef,
@@ -710,7 +695,7 @@ function derivePublicGapsConstructionEvaluatorProjection(input: {
   const observationAssetRefs = constructionObservationAssetRefsForSubjects(
     input.subjects
   );
-  const hookResolutionDigest = stableDigest(
+  const hookResolutionDigest = stableSha256Digest(
     hookResolutions.map((resolution) => ({
       resolutionRef: resolution.resolutionRef,
       source: resolution.source,

@@ -45,12 +45,12 @@ function parentDirectories(relativePath: string): readonly string[] {
   return directories;
 }
 
-function stableJson(payload: unknown): string {
+function prettyJson(payload: unknown): string {
   return `${JSON.stringify(payload, null, 2)}\n`;
 }
 
 function runMetaContent(request: RunArchiveFinalizationRequest): string {
-  return stableJson({
+  return prettyJson({
     usecase_id: request.metadata.usecaseId,
     test_name: request.metadata.testName,
     timestamp: request.metadata.timestamp,
@@ -66,7 +66,7 @@ function runMetaContent(request: RunArchiveFinalizationRequest): string {
 }
 
 function summaryContent(request: RunArchiveFinalizationRequest): string {
-  return stableJson({
+  return prettyJson({
     usecase_id: request.metadata.usecaseId,
     test_name: request.metadata.testName,
     workspace: request.summary.workspacePath,

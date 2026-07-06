@@ -157,7 +157,7 @@ function assertIsoUtcMillisecondDateTime(value: unknown, label: string): void {
   }
 }
 
-function hasCanonicalRuntimeEventEnvelope(event: RuntimeEventRecord): boolean {
+export function hasCanonicalRuntimeEventEnvelope(event: object): boolean {
   return (
     "eventId" in event ||
     "eventTime" in event ||

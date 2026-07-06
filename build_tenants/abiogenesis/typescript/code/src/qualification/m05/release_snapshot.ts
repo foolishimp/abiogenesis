@@ -80,7 +80,7 @@ function readOptionalBoolean(
   return typeof value === "boolean" ? value : false;
 }
 
-function stableJson(value: unknown): string {
+function prettyJson(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
@@ -526,7 +526,7 @@ export async function createReleaseSnapshotBundle(
     });
     await writeFile(
       join(stagingRoot, "release-snapshot-manifest.json"),
-      stableJson(manifest),
+      prettyJson(manifest),
       "utf8"
     );
     const manifestArtifact = await artifactRef({
