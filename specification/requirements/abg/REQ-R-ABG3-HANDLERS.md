@@ -48,9 +48,11 @@ handler configuration; it does not implement a standard-path worker loop.
   F_H gate. Products configure them by declarations only; the standard
   path ships zero downstream handler code.
   TOTALITY LAW (user, the formal criterion): F_D is lawful ONLY as a
-  finite state machine over a TOTAL function — a program: defined
-  output for every input in its domain, finite states, guaranteed
-  termination. Predicates that are partial over MEANING (semantic
+  finite state machine over a TOTAL function — or, vice versa, a total
+  function over a finite state machine: a program either way. BOTH
+  properties must hold, composed in either direction: finite structure
+  AND totality — defined output for every input, finite states,
+  guaranteed termination. Drop either property and it is not F_D. Predicates that are partial over MEANING (semantic
   quality, intent satisfaction, "did the work succeed") have an open
   domain; executing them deterministically does not close it — they
   are F_P by nature. This is why executed/blocked is lawful F_D
