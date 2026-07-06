@@ -596,3 +596,30 @@ in-run is the solve loop selecting among declared candidates. First
 realization item (T-205 P0): programRef lands on c_call_fibre_selected
 (closed-key set updated) so the governing configuration is per-call
 replay truth; engine brackets pass the bootstrap ref truthfully today.
+
+## 17. The two layers: consciousness as an odd_ program over an odd program
+
+The consciousness layer is NOT an engine feature — it is another odd_*
+PRODUCT whose domain is the tuning of another product's HoG
+configuration: typed nodes = cost reports, capability assessments,
+ladder declarations; edges = observe → judge → re-author; F_D = the
+audit projections; F_P = analysis workers; F_H = the human ratifying a
+re-tuned ladder; result artifacts = NEW GTL declarations (catalogs,
+ladders, proportionality classes) admitted into the tuned product. The
+recursive product taxonomy at runtime: a program over a program, the
+same monad one level up (§9's recursion functor applied to products).
+
+ABI's whole obligation is therefore the TOOL SURFACE this higher
+program consumes — already exposed or ticketed:
+- READ: replay (spine + interiors), per-configuration -012 cost
+  reports, temporal verdicts (T-201 consumption), witness rows (T-196);
+- WRITE: the declaration keys ONLY — abg.hog_program_catalog,
+  abg.hog_program_ref ladders, proportionality classes (§13.1: it
+  authors terms, never candidates, never truth);
+- LAW it inherits for free: fail-closed admission of everything it
+  writes, drift witnessing of everything it publishes, its own spines
+  for every analysis call it makes (it is auditable BY the same -012
+  it consumes).
+Realization home: downstream (odd_sdlc T-166 consensus programs + a
+tuning overlay), sequenced post-RC. ABI backlog items T-196/T-201 are
+the remaining tool-surface pieces, not the layer itself.
