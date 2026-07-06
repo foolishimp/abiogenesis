@@ -412,3 +412,37 @@ modes' precursors; the table is their permanent guard. Because the
 shapes are identical, un-backlogging costs no new machinery: the
 optimize loop is a -014 program over replay projections, the day it is
 wanted.
+
+## 14. The workflow structure (campaign-hardened default program)
+
+There is no universal best — -014 exists because structure is
+conditional — but there is a best KNOWN default for work-producing
+edges, assembled from sixteen runs of evidence:
+
+```
+plan(F_P, low)             -- bind contracts/constraints EARLY (kills the
+                              #8 class: two-truth discovered at judgment)
+>=> transform(F_P, effort by proportionality)
+>=> admit(F_D)             -- mechanical gate: schema, paths, compile;
+                              the cheapest kill (run-10's SBT evidence)
+>=> critique(F_P, low-med) -- ONE adversarial pass; converts blind-loop
+                              retries into guidance (kills the v12/v14
+                              class: 9 attempts where 1 critique sufficed)
+>=> repair(F_P, conditional on critique/admit findings)
+>=> evaluate(F_P, high; latitude+golden calibrated)
+>=> consequence(F_D)       -- deterministic projection default
+```
+
+Routing: admit-fail routes to repair with findings (never blind retry);
+retry budgets per fibre (#12.2); an escalation property watches for N
+identical judgments per cCallRef and routes to F_H or reprice before
+budgets burn.
+
+SELECTION PRINCIPLES (the theorem behind the shape): expected cost =
+Σ cost_i × P(reach_i) — order verifiers by ascending cost-to-kill ratio
+(cheap deterministic gates first, xhigh judgment last); place repair
+immediately after the cheapest signal that can inform it; spend F_P
+only behind F_D gates; anneal stages to F_D as they stabilize; doc-
+producing edges keep the lean default triple at low effort. The
+canonical triple remains the degenerate minimum — this program is what
+it grows into where the work is code.
