@@ -1,6 +1,6 @@
 # ABG 3 Uniform C-Call Envelope — Design Module (T-200)
 
-**Status**: Proposed — awaiting user ratification (DMM checkpoint P0.5)
+**Status**: Ratified (user, 2026-07-06)
 **Authority**: realizes `REQ-R-ABG3-CCALL-001..-012`; design under T-200
 §2 as amended §8; governed by DESIGN_MODULE_METHOD.
 **Module**: the traversal monad's single compute envelope — spine
@@ -137,6 +137,6 @@ own spine with `batchRef` grouping (-005).
 
 ## 7. Ratification
 
-Awaiting user ratification of this module. On ratification: P1 begins
-under design authority; findings anchor to §-clauses of this document
-and the CCALL requirement family.
+Ratified by the user 2026-07-06. P1 executes under this design
+authority; findings anchor to §-clauses of this document and the CCALL
+requirement family.
