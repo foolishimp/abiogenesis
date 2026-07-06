@@ -27,3 +27,16 @@ response admission), with outcomes carrying transport evidence refs.
 One fix collapses: finding #11 (invisible evaluator cost), vacuous
 dispatch gates on non-transform arms, and evaluator transport failures
 bypassing the retry allowlist.
+
+GOVERNING ALGEBRA (user recap, 2026-07-06): traversal A->B carries compute
+C as a tuple over {F_D, F_P, F_H}; the engine is the traversal monad and
+each edge internally makes THREE C calls (transform, evaluate,
+consequence), each regime-substitutable via plugins — all-F_D degenerates
+to a workflow engine, all-F_H to a human process. The functor property
+demands SHAPE-PRESERVING truth under regime substitution: one C-call
+envelope parameterized by (stage-role, regime), same replay skeleton in
+every fiber, regime-specific only in evidence class. Today only
+transform.C satisfies this. T-200 realizes the uniform envelope — not
+"F_P visibility for the evaluate arm" but envelope-uniformity over C,
+of which finding #11 is one symptom. Ratification home for the algebra
+statement itself: user's decision (ODD/PRODUCT candidate).
