@@ -1373,3 +1373,12 @@ export type {
   HogProgramStage,
   HogProgramAdmission
 } from "./hog_program.js";
+
+export {
+  HOG_PROGRAM_SYNTAX_VERSIONS,
+  compileHogProgramSyntax
+} from "./hog_program_syntax.js";
+export type {
+  HogProgramSyntaxV1,
+  HogProgramSyntaxVersion
+} from "./hog_program_syntax.js";

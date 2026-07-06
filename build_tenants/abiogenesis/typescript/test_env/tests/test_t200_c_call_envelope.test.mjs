@@ -199,3 +199,34 @@ test("T-200 P2a: declared programs admit fail-closed (-014)", () => {
     proportionalityClass: null
   }).accepted, false);
 });
+
+// ─── P2a.2: syntax isolation — authored syntax compiles, engine sees only normalized ───
+
+import {
+  compileHogProgramSyntax
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 P2a.2: hog-syntax/1 compiles to the normalized carrier", () => {
+  const compiled = compileHogProgramSyntax({
+    syntaxVersion: "hog-syntax/1",
+    programRef: "gtl://abg/hog/from-syntax",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://s/t", resultBearing: true },
+      { stageRole: "evaluate", defaultRegime: "F_P", armId: "arm://s/e", resultBearing: false }
+    ],
+    proportionalityClass: "P1"
+  });
+  assert.equal(compiled.accepted, true, JSON.stringify(compiled.issues));
+  assert.equal(compiled.program.kind, "hog_program_declaration");
+  assert.equal(compiled.program.programRef, "gtl://abg/hog/from-syntax");
+});
+
+test("T-200 P2a.2 NEGATIVE: unknown syntax versions fail closed (upgrade seam)", () => {
+  const future = compileHogProgramSyntax({
+    syntaxVersion: "hog-syntax/2",
+    programRef: "gtl://abg/hog/composed",
+    compose: ["a", "b"]
+  });
+  assert.equal(future.accepted, false);
+  assert.match(future.issues[0], /unknown program syntaxVersion/);
+});
