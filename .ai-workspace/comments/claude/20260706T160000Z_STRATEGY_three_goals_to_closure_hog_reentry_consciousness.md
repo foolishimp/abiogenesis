@@ -166,6 +166,43 @@ C3. Iterate IN-SYSTEM to convergence — operator supplies only F_H
 The consciousness loop over a full campaign of per-configuration
 replay. Goal 3 delivered. Follow-ons (Goal 4, T-207) open after.
 
+## Backlog review under the 4.5 scope ruling (2026-07-06)
+
+Criterion: an item promotes into 4.5 ONLY if it is a system-level
+function higher-order dynamic functions need AND cannot compose from
+existing atoms. Verdict: NOTHING promotes — the plan stands.
+
+- T-196 (witness rows consumable): drift signals are already readable
+  (gate outputs + replay); this is a strengthening of an existing read
+  surface, not a missing function. Post-4.5 (T-206).
+- T-197 (ProofStrengthAdmission carrier): better typing of an existing
+  readable projection; consumers can read it today. Post-4.5.
+- T-199 (per-vector temporal formulas): ALREADY AUTHORABLE — temporal
+  rules are startup-supplied declarations and where-guards can scope
+  to a vectorIndex; T-199 is a formula-library convenience. Post-4.5
+  (T-206).
+- T-201 (closure-point verdict consumption): in-engine verdict-bound
+  closure is NOT required for higher-order composition — an observer
+  reads verdicts (replay) and forces re-entry (consequence routing,
+  live); enforcement-at-closure is a strengthening. Post-4.5 (T-206).
+- T-202 / T-203b / T-197: cut-quality and erase hygiene; unchanged.
+- T-206 / T-207: the dynamic functions themselves — definitionally
+  post-4.5.
+
+Reverse check (is any system-level function MISSING from the plan?):
+- overlay-level declaration flow: the keys attach to
+  GraphFunction.declarations; overlays reach them through the Phase C
+  adoption path (binding generates functions from overlays) — no ABG
+  gap;
+- F_H approval consumption after an escalated stop: resume + admission
+  machinery live (B-prep, fh_admission) — no gap;
+- capability handlers: the class is admitted law and the registry
+  accepts capability bindings — a product binds its own (the plugin
+  seam); no standard capability handler is needed for the static
+  baseline;
+- everything else: the six-function inventory in GOALS, all live or
+  B5-exercised.
+
 ## One-line rule
 
 ```text
