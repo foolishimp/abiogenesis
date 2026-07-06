@@ -40,3 +40,21 @@ transform.C satisfies this. T-200 realizes the uniform envelope — not
 "F_P visibility for the evaluate arm" but envelope-uniformity over C,
 of which finding #11 is one symptom. Ratification home for the algebra
 statement itself: user's decision (ODD/PRODUCT candidate).
+
+MANDATE (user, 2026-07-06): T-200 is the CONSOLIDATION ticket — one
+consistent fibre-based implementation of the C-call envelope, and a
+tech-debt ERASE of every inconsistency the split ontology created:
+- evaluate/composed arms gain the engine-owned envelope (finding #11);
+- the C3 "visible vacuity" markers on F_D defaults are RETIRED in favor
+  of the degenerate-fibre envelope (regime: F_D, evidence: default);
+- dispatch_required stops become the F_P fibre's "pending external
+  actor" state expressed through the uniform envelope, not a
+  transform-arm special case;
+- evaluator/composed transport failures route through the ONE retry
+  allowlist like every other fibre;
+- temporal dispatch gates read the uniform envelope, giving every arm
+  and regime its antecedent (T-192 successor collapses in);
+- acceptance: sessions-in-archives == invocations-in-replay on every
+  arm; regime substitution changes event TAGS, never event SHAPE.
+Scope class: design_reframe over the engine effect resolvers + outcome
+carriers + admission; requirements amendment for the envelope law.
