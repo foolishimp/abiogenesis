@@ -343,7 +343,7 @@ test("T-200 round-4: ALL spine kinds are closed surfaces (-002)", () => {
   const o = opened();
   const riders = { unexpected: "x" };
   const bases = [
-    { kind: "c_call_fibre_selected", cCallRef: o.cCallRef, basisId: locus.basisId, regime: "F_P", armId: "arm://x", compositionRef: null },
+    { kind: "c_call_fibre_selected", cCallRef: o.cCallRef, basisId: locus.basisId, regime: "F_P", armId: "arm://x", programRef: "gtl://abg/hog/bootstrap-triple", compositionRef: null },
     { kind: "c_call_evidenced", cCallRef: o.cCallRef, basisId: locus.basisId, evidenceClass: "fp_interior", evidenceRefs: ["e://1"] },
     { kind: "c_call_result_admitted", cCallRef: o.cCallRef, basisId: locus.basisId, outcomeStatus: "dispatched", payloadRef: null, responseContractRef: null },
     { kind: "c_call_judged", cCallRef: o.cCallRef, basisId: locus.basisId, judgment: "advance", reasonRef: null }
