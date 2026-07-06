@@ -141,3 +141,61 @@ test("T-200 P1: stage roles are OPEN program data at admission (-014)", () => {
   // membership in the declared program is an enclosure/conformance
   // concern (P2), not a field-admission concern.
 });
+
+// ─── P2a: the HoG program carrier + baked P0 triple ───
+
+import {
+  HOG_BOOTSTRAP_TRIPLE,
+  admitHogProgram,
+  hogProgramCensus
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+
+test("T-200 P2a: the baked triple is itself an admissible program (P0 self-lawfulness)", () => {
+  const admission = admitHogProgram(HOG_BOOTSTRAP_TRIPLE);
+  assert.equal(admission.accepted, true, JSON.stringify(admission.issues));
+  assert.equal(admission.program.stages.length, 3);
+  assert.equal(hogProgramCensus(admission.program).size, 3);
+});
+
+test("T-200 P2a: declared programs admit fail-closed (-014)", () => {
+  const richer = admitHogProgram({
+    kind: "hog_program_declaration",
+    programRef: "gtl://abg/hog/campaign-hardened",
+    stages: [
+      { stageRole: "plan", defaultRegime: "F_P", armId: "arm://x/plan", resultBearing: false },
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://x/t", resultBearing: true },
+      { stageRole: "admit", defaultRegime: "F_D", armId: "arm://x/a", resultBearing: false },
+      { stageRole: "critique", defaultRegime: "F_P", armId: "arm://x/c", resultBearing: false },
+      { stageRole: "evaluate", defaultRegime: "F_P", armId: "arm://x/e", resultBearing: false },
+      { stageRole: "consequence", defaultRegime: "F_D", armId: "arm://x/q", resultBearing: false }
+    ],
+    proportionalityClass: "P2"
+  });
+  assert.equal(richer.accepted, true, JSON.stringify(richer.issues));
+  // negatives: duplicate role, zero result-bearing, unlawful regime
+  assert.equal(admitHogProgram({
+    kind: "hog_program_declaration",
+    programRef: "gtl://x",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://a", resultBearing: true },
+      { stageRole: "transform", defaultRegime: "F_D", armId: "arm://b", resultBearing: false }
+    ],
+    proportionalityClass: null
+  }).accepted, false);
+  assert.equal(admitHogProgram({
+    kind: "hog_program_declaration",
+    programRef: "gtl://x",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_P", armId: "arm://a", resultBearing: false }
+    ],
+    proportionalityClass: null
+  }).accepted, false);
+  assert.equal(admitHogProgram({
+    kind: "hog_program_declaration",
+    programRef: "gtl://x",
+    stages: [
+      { stageRole: "transform", defaultRegime: "F_X", armId: "arm://a", resultBearing: true }
+    ],
+    proportionalityClass: null
+  }).accepted, false);
+});

@@ -1362,3 +1362,14 @@ export type {
   CCallJudgment,
   CCallRegime
 } from "./carriers.js";
+
+export {
+  HOG_BOOTSTRAP_TRIPLE,
+  admitHogProgram,
+  hogProgramCensus
+} from "./hog_program.js";
+export type {
+  HogProgramDeclaration,
+  HogProgramStage,
+  HogProgramAdmission
+} from "./hog_program.js";
