@@ -33,7 +33,13 @@ standard, envelope universal.
 | T-205 | Step-2 interpretation live at ONE seam (catalogs, selections, -017 ladders consumed; census from the admitted program); the four standard handlers shipped (pipeline + capability classes, obligations O1–O8); F_D mechanical-transform spine; odd_glc binding reduced to declarations. |
 
 Delivers: envelope universality claimable for the first time; a
-standard-path product ships ZERO plugin code; 4.5.0-rc.1 is the cut.
+standard-path product ships ZERO plugin code.
+
+THE 4.5 DEFINITION (user ruling): functionally complete 4.5 IS the
+clean data-mapper run — converged, tests green,
+`data_mapper_full_sbt ok`. RCs before that run are checkpoints; no
+release claims functional completeness until the run exists in replay.
+Goals 1 and 2 therefore share one release gate: the run.
 
 Success measure: the CCALL Realization State clause retires; archives ≡
 spines on every arm of a live run; the data-mapper binding diff is
@@ -107,7 +113,8 @@ review/rework loops).
    iterates in-system immediately, even before T-205.
 3. **T-205** — interpretation + handlers; odd_glc adoption converts the
    binding to declarations; consequence catalog declared here too.
-4. **Clean data-mapper run** → **T-195 closes** (Goal 2 delivered).
+4. **Clean data-mapper run** → **T-195 closes** (Goal 2 delivered) →
+   **4.5 is functionally complete** — the release claim is the run.
 5. **T-206** — the tuner over the accumulated campaign replay
    (Goal 3 delivered).
 6. **Follow-on arcs (confirmed)**: Goal 4 — ticket-lifecycle overlay +
