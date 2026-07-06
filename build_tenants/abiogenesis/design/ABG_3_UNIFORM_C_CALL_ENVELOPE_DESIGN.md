@@ -360,3 +360,31 @@ from it. The envelope completes it:
 The plan-level proportionalityClass re-homes as the C-call measure's
 declaration surface at P2; odd_sdlc's bootstrap intent lands here as
 enforceable runtime law rather than a bootstrap annotation.
+
+## 13. The consciousness layer (framing; cross-repo ticket family)
+
+T-166 (odd_sdlc: adaptable consensus graph function), T-196 (witness
+migration), T-201 (closure-point verdict consumption), the FPC
+requirement family, proportionality (§12.1), and the cost projection
+are organs of ONE layer: a reflective layer that optimizes over limited
+resources — as consciousness does. Its closed loop:
+
+1. SELF-OBSERVATION: spine replay, temporal verdicts, coverage, the
+   proportionality measure (declared vs observed);
+2. SELF-JUDGMENT: gates, consensus rounds, golden calibration — all
+   DECLARED PROGRAMS in the -014 sense (T-166's submitter-reviewer
+   rounds are a multi-stage program with a judgment fold, not engine
+   magic);
+3. RE-ALLOCATION: fibre annealing, budgets, program reshaping,
+   escalation.
+
+Resource law: the fibre tuple IS a scarcity hierarchy — F_D cheap,
+F_P costly, F_H scarcest (human attention). The layer allocates across
+it: which calls earn xhigh, which anneal to F_D, which few escalate to
+a human. Boundary law: the layer OWNS ALLOCATION, never truth — it
+consumes replay and authors declarations; ABG remains the only truth
+authority. In the algebra it is a functor from replay projections to
+declaration updates — the tuner, standing above the monad, itself
+expressible as graph functions over the same substrate (the recursion
+functor makes self-reflection lawful: the tuner is traversals reading
+traversals).
