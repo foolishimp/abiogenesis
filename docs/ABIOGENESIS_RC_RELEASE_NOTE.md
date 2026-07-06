@@ -1,47 +1,45 @@
-# abiogenesis 4.3.0-rc.1 Release Candidate Note
+# abiogenesis 4.4.0-rc.1 Release Candidate Note
 
-This checkpoint is the first `4.3.0` release candidate. It follows
-`4.2.0-rc.10` and carries the T-195 full-review remediation wave — the
-product-completeness pass over the five-dimension rc.10 review:
+This checkpoint is the first `4.4.0` release candidate. It follows
+`4.3.0-rc.1` and publishes the HEART OF GOLD envelope layer — the
+uniform C-call spine over the compute fibres {F_D, F_P, F_H}
+(`REQ-R-ABG3-CCALL-001..-015`, ratified design
+ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN §1–§15.2):
 
-- one retry-law allowlist home (`RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES`
-  in carriers; zoom/slice and branch arms derive);
-- digest prefixes minted only by `runtime_identity` (the landed
-  `sha256:sha256:` double-prefix drift in composed-stage plans and the
-  executive workspace digest is repaired);
-- governed until/fh-mode/root-mode enums have one value home consumed by
-  the CLI parsers and the event-admission schema;
-- intake integrity: only a MISSING event ledger reads as genesis
-  (ENOENT-discriminated), every replay row is admitted as a canonical
-  runtime event, the admission-ordinal counter only moves forward, and
-  caller-supplied truth digests are verified against recomputed content
-  (construction rejects forgeries; admission mints the typed
-  `replay_digest_mismatch` issue);
-- plugin-default adjudication: fd-evaluator and consequence-projection
-  vacuity is replay-visible evidence; the fp-dispatch default is
-  bisect-verified as the lawful dispatch-pending stop, not fabrication;
-- truth perimeter: workspace plugin factories receive a KIND-RESTRICTED
-  sink (`TRANSPORT_SINK_EVENT_KIND_VALUES`, enforcing the declared
-  `sink_receive_only` authority); start-command events survive mid-run
-  throws; perimeter failures enter replay as the new
-  `runtime_failure_observed` event with stack excerpt;
-- lane closure: consequence/construction sub-runs consume the FULL
-  engine-start passthrough authority (temporal properties, carry-through,
-  route bundle) and lane terminals emit through the one temporal choke
-  point;
-- seam consolidation: one excerpt-truncation transform, one canonical
-  envelope predicate, one canonical `stableJson`/digest family (gaps
-  digests are now environment-stable), one target-carrier payload
-  identity mint, transport fallback IDs derived from runtime_support;
-- paperwork with teeth: the release-note self-reference drift class is
-  now a standing red-suite witness; TEMPORAL-PROPERTIES carries a Status
-  header; the successor ledger is ticketed (T-196..T-202, T-203b).
+- one locus-only spine per C call (opened → fibre-selected →
+  evidenced → result-admitted → judged), closed-surface admission on
+  all five kinds, injective digest cCallRef;
+- live in the engine at strangler STEP 1 (site brackets as the
+  delegation oracle): transform.F_P, evaluate.F_P and F_D (live fibre
+  substitution), consequence (scalar + composed per-task with batchRef),
+  evaluation-rule batch tasks, the F_H call, and construction
+  sub-traversals as transparent-boundary calls (-013);
+- the five standing temporal gates re-anchored to spine antecedents
+  with the fibre-uniform liveness law (selection-eventually-judged);
+  the online gate judges the SELECTION candidate before any of the
+  C call enters truth; gate Rules authored in lawful tagged json_blob
+  form (cast retired);
+- retry law at the spine: throwing fp plugins become typed blocked
+  outcomes (contract_failure) at both executor twins — dispatch and
+  evaluator arms route identically (arm-parity differential);
+- the -012 audit runs INSIDE the standing gate: spine integrity,
+  enclosure (zero orphans), digest refs, and external-session parity
+  measured on every gate run; engine-level -007 substitution-shape
+  differential over real replay;
+- programs are declared data: baked bootstrap triple as P0, isolated
+  versioned syntax (hog-syntax/1, fail-closed on unknown versions), and
+  the GTL authoring key `abg.hog_program` (tagged json_blob,
+  declarations-are-data);
+- SCOPE (per the CCALL Realization State clause): envelope universality
+  is NOT claimed — resolveCCall delegation (strangler step 2), the F_D
+  mechanical-transform spine, and the erase pass are named pending work
+  with retirement points; this note claims exactly the enclosed set.
 
-It is an RC candidate, not the final tapped `4.3.0` release.
+It is an RC candidate, not the final tapped `4.4.0` release.
 
 ## Release Claim
 
-All 4.2.0-line claims below are preserved unchanged (earned across rc.7-rc.10):
+All 4.2.0/4.3.0-line claims below are preserved unchanged:
 
 Temporal property layer (T-192, closed):
 
@@ -178,9 +176,9 @@ RC7 does not accept as truth:
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.3.0-rc.1`
-- Candidate package version: `4.3.0-rc.1`
-- Candidate tag: `v4.3.0-rc.1`
+- RC identity: `4.4.0-rc.1`
+- Candidate package version: `4.4.0-rc.1`
+- Candidate tag: `v4.4.0-rc.1`
 
 ## Verification
 
