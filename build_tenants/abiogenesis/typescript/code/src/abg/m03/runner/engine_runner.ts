@@ -40,6 +40,7 @@ import {
   constructInstructionPromptManifestProjectedEvent,
   constructInstructionResponseContractAdmittedEvent,
   constructCCallEvidencedEvent,
+  mintCCallRef,
   constructCCallFibreSelectedEvent,
   constructCCallJudgedEvent,
   constructCCallOpenedEvent,
@@ -6080,6 +6081,32 @@ function* runEngineIterateMachine(input: {
               taskInput,
               actorInvocation: taskActorInvocation
             });
+            // T-200 P2e: spine per invoking batch task (-005); identity is
+            // deterministic (-004) so the close re-mints, no tracker.
+            {
+              const batchTaskOpened = constructCCallOpenedEvent({
+                basisId: request.basis.id,
+                graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
+                graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                edge: transition.edge,
+                vectorIndex: transition.vectorIndex,
+                stageRole: "consequence",
+                taskOrdinal: plannedTask.pluginIndex,
+                attempt: taskActorInvocation?.attemptIndex ?? 1,
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`
+              });
+              eventState = emitRunnerEvents(eventState, [
+                batchTaskOpened,
+                constructCCallFibreSelectedEvent({
+                  cCallRef: batchTaskOpened.cCallRef,
+                  basisId: request.basis.id,
+                  regime: taskInput.regime,
+                  armId: "composed_consequence",
+                  compositionRef: null
+                })
+              ]);
+            }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
@@ -6132,6 +6159,38 @@ function* runEngineIterateMachine(input: {
                   detail: taskOutcome.reason
                 })
               );
+            }
+            {
+              const batchTaskRef = mintCCallRef({
+                basisId: request.basis.id,
+                graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
+                vectorIndex: transition.vectorIndex,
+                stageRole: "consequence",
+                taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
+                attempt: invocation?.attemptIndex ?? 1
+              });
+              eventState = emitRunnerEvents(eventState, [
+                constructCCallEvidencedEvent({
+                  cCallRef: batchTaskRef,
+                  basisId: request.basis.id,
+                  evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                  evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
+                }),
+                constructCCallResultAdmittedEvent({
+                  cCallRef: batchTaskRef,
+                  basisId: request.basis.id,
+                  outcomeStatus: taskOutcome.status,
+                  payloadRef: null,
+                  responseContractRef: null
+                }),
+                constructCCallJudgedEvent({
+                  cCallRef: batchTaskRef,
+                  basisId: request.basis.id,
+                  judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                  reasonRef: null
+                })
+              ]);
             }
           }
         }
@@ -6623,6 +6682,32 @@ function* runEngineIterateMachine(input: {
               taskInput,
               actorInvocation: taskActorInvocation
             });
+            // T-200 P2e: spine per invoking batch task (-005); identity is
+            // deterministic (-004) so the close re-mints, no tracker.
+            {
+              const batchTaskOpened = constructCCallOpenedEvent({
+                basisId: request.basis.id,
+                graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
+                graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                edge: transition.edge,
+                vectorIndex: transition.vectorIndex,
+                stageRole: "transform",
+                taskOrdinal: plannedTask.pluginIndex,
+                attempt: taskActorInvocation?.attemptIndex ?? 1,
+                batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`
+              });
+              eventState = emitRunnerEvents(eventState, [
+                batchTaskOpened,
+                constructCCallFibreSelectedEvent({
+                  cCallRef: batchTaskOpened.cCallRef,
+                  basisId: request.basis.id,
+                  regime: taskInput.regime,
+                  armId: "composed_transform",
+                  compositionRef: null
+                })
+              ]);
+            }
           }
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
@@ -6676,6 +6761,38 @@ function* runEngineIterateMachine(input: {
                     detail: taskOutcome.reason
                   })
                 );
+              }
+              {
+                const batchTaskRef = mintCCallRef({
+                  basisId: request.basis.id,
+                  graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                  frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
+                  vectorIndex: transition.vectorIndex,
+                  stageRole: "transform",
+                  taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
+                  attempt: invocation?.attemptIndex ?? 1
+                });
+                eventState = emitRunnerEvents(eventState, [
+                  constructCCallEvidencedEvent({
+                    cCallRef: batchTaskRef,
+                    basisId: request.basis.id,
+                    evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                    evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
+                  }),
+                  constructCCallResultAdmittedEvent({
+                    cCallRef: batchTaskRef,
+                    basisId: request.basis.id,
+                    outcomeStatus: taskOutcome.status,
+                    payloadRef: null,
+                    responseContractRef: null
+                  }),
+                  constructCCallJudgedEvent({
+                    cCallRef: batchTaskRef,
+                    basisId: request.basis.id,
+                    judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                    reasonRef: null
+                  })
+                ]);
               }
             }
           }
@@ -8319,6 +8436,32 @@ function* runEngineIterateMachine(input: {
                   taskInput,
                   actorInvocation: taskActorInvocation
                 });
+                // T-200 P2e: spine per invoking batch task (-005); identity is
+                // deterministic (-004) so the close re-mints, no tracker.
+                {
+                  const batchTaskOpened = constructCCallOpenedEvent({
+                    basisId: request.basis.id,
+                    graphFunctionId: taskActorInvocation?.graphFunctionId ?? transition.basis.graphFunction.id,
+                    graphCallId: taskActorInvocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                    frameId: taskActorInvocation?.frameId ?? frameIdForBasis(transition.basis),
+                    edge: transition.edge,
+                    vectorIndex: transition.vectorIndex,
+                    stageRole: "consequence",
+                    taskOrdinal: plannedTask.pluginIndex,
+                    attempt: taskActorInvocation?.attemptIndex ?? 1,
+                    batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`
+                  });
+                  eventState = emitRunnerEvents(eventState, [
+                    batchTaskOpened,
+                    constructCCallFibreSelectedEvent({
+                      cCallRef: batchTaskOpened.cCallRef,
+                      basisId: request.basis.id,
+                      regime: taskInput.regime,
+                      armId: "composed_consequence",
+                      compositionRef: null
+                    })
+                  ]);
+                }
               }
               const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
                 result: yield Object.freeze({
@@ -8371,6 +8514,38 @@ function* runEngineIterateMachine(input: {
                       detail: taskOutcome.reason
                     })
                   );
+                }
+                {
+                  const batchTaskRef = mintCCallRef({
+                    basisId: request.basis.id,
+                    graphCallId: invocation?.graphCallId ?? graphCallIdForBasis(transition.basis),
+                    frameId: invocation?.frameId ?? frameIdForBasis(transition.basis),
+                    vectorIndex: transition.vectorIndex,
+                    stageRole: "consequence",
+                    taskOrdinal: plannedBatchWithInputs[index]?.plannedTask.pluginIndex ?? index,
+                    attempt: invocation?.attemptIndex ?? 1
+                  });
+                  eventState = emitRunnerEvents(eventState, [
+                    constructCCallEvidencedEvent({
+                      cCallRef: batchTaskRef,
+                      basisId: request.basis.id,
+                      evidenceClass: taskInput.regime === "F_P" ? "fp_interior" : "fd_interior",
+                      evidenceRefs: Object.freeze([taskInput.sourceProjectionRef])
+                    }),
+                    constructCCallResultAdmittedEvent({
+                      cCallRef: batchTaskRef,
+                      basisId: request.basis.id,
+                      outcomeStatus: taskOutcome.status,
+                      payloadRef: null,
+                      responseContractRef: null
+                    }),
+                    constructCCallJudgedEvent({
+                      cCallRef: batchTaskRef,
+                      basisId: request.basis.id,
+                      judgment: taskOutcome.status === "blocked" ? "blocked" : "advance",
+                      reasonRef: null
+                    })
+                  ]);
                 }
               }
             }
