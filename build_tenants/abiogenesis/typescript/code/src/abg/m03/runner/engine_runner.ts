@@ -4671,10 +4671,82 @@ function finishConsequenceTraversalActionConsumption(input: {
   readonly eventState: EngineEventEmissionState;
   readonly result: EngineIterateResult;
 } {
-  const eventState = appendAlreadyEmittedEngineRunnerEvents({
+  let eventState = appendAlreadyEmittedEngineRunnerEvents({
     state: input.preludeState,
     events: input.constructionOutcome.emittedEvents
   });
+  // T-200 P2f (REQ-R-ABG3-CCALL-013): the consumed construction traversal
+  // is a TRANSPARENT-boundary C call — the child is the same monad one
+  // level down; its identity and terminal enter the parent's replay as
+  // sub_traversal evidence on a consequence-role spine (taskOrdinal 0
+  // distinguishes it from the scalar consequence call at the same locus).
+  {
+    const innerTransition =
+      input.constructionOutcome.graphActionResult.transition;
+    const innerTerminalKind =
+      "terminalKind" in innerTransition
+        ? String(innerTransition.terminalKind)
+        : innerTransition.kind;
+    const subTraversalOpened = constructCCallOpenedEvent({
+      basisId: input.request.basis.id,
+      graphFunctionId: input.request.basis.graphFunction.id,
+      graphCallId: graphCallIdForBasis(input.request.basis),
+      frameId: frameIdForBasis(input.request.basis),
+      edge: "consequence_traversal",
+      vectorIndex: 0,
+      stageRole: "consequence",
+      taskOrdinal: 0,
+      attempt: input.iterationCount + 1,
+      batchRef: null
+    });
+    eventState = appendAlreadyEmittedEngineRunnerEvents({
+      state: eventState,
+      events: emit(
+        [
+          subTraversalOpened,
+          constructCCallFibreSelectedEvent({
+            cCallRef: subTraversalOpened.cCallRef,
+            basisId: input.request.basis.id,
+            regime: "F_D",
+            armId: "construction_intent_step",
+            compositionRef: null
+          }),
+          constructCCallEvidencedEvent({
+            cCallRef: subTraversalOpened.cCallRef,
+            basisId: input.request.basis.id,
+            evidenceClass: "sub_traversal",
+            evidenceRefs: Object.freeze([
+              `sub-traversal:${input.request.basis.id}:${String(
+                input.constructionOutcome.graphActionResult.iterationCount
+              )}`,
+              `terminal:${innerTerminalKind}`
+            ])
+          }),
+          constructCCallResultAdmittedEvent({
+            cCallRef: subTraversalOpened.cCallRef,
+            basisId: input.request.basis.id,
+            outcomeStatus: innerTerminalKind,
+            payloadRef: null,
+            responseContractRef: null
+          }),
+          constructCCallJudgedEvent({
+            cCallRef: subTraversalOpened.cCallRef,
+            basisId: input.request.basis.id,
+            judgment:
+              innerTerminalKind === "converged" ||
+              innerTerminalKind === "traversal_applied" ||
+              innerTerminalKind === "nothing_to_do"
+                ? "advance"
+                : "blocked",
+            reasonRef: null
+          })
+        ],
+        (event) => {
+          void event;
+        }
+      )
+    });
+  }
   const projection = deriveRuntimeAggregateProjection(
     input.request.basis,
     eventState.replayEvents
