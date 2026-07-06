@@ -918,3 +918,110 @@ test("T-205 B3 TRIAD: a 6-stage program runs all three fibres at the anchors —
   assert.equal(regimeFor("arm://x/k"), "F_P");
   assert.equal(regimeFor("arm://x/h"), "F_H");
 });
+
+test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the lean rung, attempt 2 runs the deep rung, per-call replay truth", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const rungSyntax = (ref, armPrefix) => ({
+    kind: "object",
+    entries: [
+      { key: "syntaxVersion", value: "hog-syntax/1" },
+      { key: "programRef", value: ref },
+      { key: "proportionalityClass", value: "P1" },
+      { key: "stages", value: { kind: "array", items: [
+        { kind: "object", entries: [
+          { key: "stageRole", value: "transform" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: `${armPrefix}/t` },
+          { key: "resultBearing", value: true }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "evaluate" },
+          { key: "defaultRegime", value: "F_P" },
+          { key: "armId", value: `${armPrefix}/e` },
+          { key: "resultBearing", value: false }
+        ] },
+        { kind: "object", entries: [
+          { key: "stageRole", value: "consequence" },
+          { key: "defaultRegime", value: "F_D" },
+          { key: "armId", value: `${armPrefix}/c` },
+          { key: "resultBearing", value: false }
+        ] }
+      ] } }
+    ]
+  });
+  const declaredBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.hog_program_catalog", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "array", items: [rungSyntax("gtl://t205/lean", "arm://lean"), rungSyntax("gtl://t205/deep", "arm://deep")]
+          } }) }),
+          Object.freeze({ key: "abg.hog_program_ladder", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "array", items: [
+              { kind: "object", entries: [ { key: "programRef", value: "gtl://t205/lean" }, { key: "fromAttempt", value: 1 } ] },
+              { kind: "object", entries: [ { key: "programRef", value: "gtl://t205/deep" }, { key: "fromAttempt", value: 2 } ] }
+            ]
+          } }) })
+        ])
+      })
+    })
+  });
+  const runLadder = (runtimeEvents, dispatchImpl) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: declaredBasis,
+      ...(runtimeEvents === null ? {} : { runtimeEvents }),
+      eventSink: (event) => events.push(event),
+      ...m03InstructionAssemblyRequestFields(declaredBasis),
+      plugins: {
+        fpDispatch: Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
+            authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpDispatchOutcome"
+          }),
+          dispatch: dispatchImpl
+        }),
+        fpEvaluator: defaultFpEvaluatorPlugin
+      }
+    });
+    return result;
+  };
+  // attempt 1: the worker is down -> lean rung, lawful stop
+  const run1 = runLadder(null, (input) => constructFpDispatchOutcome({
+    status: "blocked",
+    reason: "worker down (contract_failure)",
+    evidenceRefs: [input.sourceProjectionRef]
+  }));
+  assert.equal(run1.transition.kind, "terminal");
+  const run1Transforms = run1.replayEvents.filter(
+    (e) => e.kind === "c_call_fibre_selected" && e.armId.endsWith("/t")
+  );
+  assert.equal(run1Transforms.length, 1);
+  assert.equal(run1Transforms[0].programRef, "gtl://t205/lean", "attempt 1 runs the LEAN rung");
+  assert.equal(run1Transforms[0].armId, "arm://lean/t");
+  // operator fixes the worker; resume: replay-global attempt 2 -> DEEP rung
+  const run2 = runLadder(run1.replayEvents, (input) => constructFpDispatchOutcome({
+    status: "dispatched",
+    resultRef: `result://esc/${input.vectorIndex}`,
+    attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+    evidenceRefs: [input.sourceProjectionRef]
+  }));
+  const run2Transforms = run2.replayEvents.filter(
+    (e) => e.kind === "c_call_fibre_selected" && e.armId.endsWith("/t") &&
+      !run1.replayEvents.some((r) => r.cCallRef === e.cCallRef)
+  );
+  assert.equal(run2Transforms.length >= 1, true, "resumed attempt ran");
+  // COMPRESSION DESCENT across the resume boundary (-017)
+  assert.equal(run2Transforms[0].programRef, "gtl://t205/deep", "attempt 2 runs the DEEP rung");
+  assert.equal(run2Transforms[0].armId, "arm://deep/t");
+  // coherence: attempt-2 evaluate carries the same rung
+  const deepEvaluate = run2.replayEvents.find(
+    (e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://deep/e"
+  );
+  assert.notEqual(deepEvaluate, undefined, "attempt-2 evaluate runs the deep rung");
+  assert.equal(deepEvaluate.programRef, "gtl://t205/deep");
+});

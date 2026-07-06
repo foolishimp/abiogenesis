@@ -7223,7 +7223,18 @@ function* runEngineIterateMachine(input: {
         // interior (REQ-R-ABG3-CCALL-001/-003; stage from the baked P0
         // triple). Spine minting is engine authority; the interior below
         // is enclosed evidence.
-        const scalarHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const scalarTransformAttempt = nextCCallAttempt(eventState.replayEvents, {
+          basisId: request.basis.id,
+          graphCallId: actorInvocation.graphCallId,
+          frameId: actorInvocation.frameId,
+          vectorIndex: transition.vectorIndex,
+          stageRole: "transform",
+          taskOrdinal: null
+        });
+        const scalarHogProgram = resolveHogProgram(
+          transition.basis.graphFunction,
+          scalarTransformAttempt
+        );
         const scalarTransformStage = hogStageByRole(scalarHogProgram, "transform");
         if (scalarTransformStage === null) {
           throw new TypeError(`hog program ${scalarHogProgram.program.programRef} must declare a transform stage`);
@@ -7237,14 +7248,7 @@ function* runEngineIterateMachine(input: {
           vectorIndex: transition.vectorIndex,
           stageRole: scalarTransformStage.stageRole,
           taskOrdinal: null,
-          attempt: nextCCallAttempt(eventState.replayEvents, {
-            basisId: request.basis.id,
-            graphCallId: actorInvocation.graphCallId,
-            frameId: actorInvocation.frameId,
-            vectorIndex: transition.vectorIndex,
-            stageRole: scalarTransformStage.stageRole,
-            taskOrdinal: null
-          }),
+          attempt: scalarTransformAttempt,
           batchRef: null,
           regime: "F_P",
           armId: scalarTransformStage.armId,
@@ -7995,7 +7999,33 @@ function* runEngineIterateMachine(input: {
             // T-200 P2c: the evaluate C call's spine — finding #11 dies
             // here: evaluate.F_P work becomes replay-visible dispatch
             // truth with the same envelope as the transform arm.
-            const scalarEvaluateHogProgram = resolveHogProgram(transition.basis.graphFunction);
+            const scalarEvaluateAttempt = nextCCallAttempt(eventState.replayEvents, {
+              basisId: request.basis.id,
+              graphCallId: actorInvocation.graphCallId,
+              frameId: actorInvocation.frameId,
+              vectorIndex: transition.vectorIndex,
+              stageRole: "evaluate",
+              taskOrdinal: null
+            });
+            // -017 coherence: the vector's GOVERNING attempt is the
+            // TRANSFORM attempt — the rung that produced the artifact
+            // under evaluation governs its evaluation. The spine keeps
+            // the evaluate stage's own locus attempt.
+            const scalarEvaluateGoverningAttempt = Math.max(
+              1,
+              nextCCallAttempt(eventState.replayEvents, {
+                basisId: request.basis.id,
+                graphCallId: actorInvocation.graphCallId,
+                frameId: actorInvocation.frameId,
+                vectorIndex: transition.vectorIndex,
+                stageRole: "transform",
+                taskOrdinal: null
+              }) - 1
+            );
+            const scalarEvaluateHogProgram = resolveHogProgram(
+              transition.basis.graphFunction,
+              scalarEvaluateGoverningAttempt
+            );
             const scalarEvaluateStage = hogStageByRole(scalarEvaluateHogProgram, "evaluate");
             if (scalarEvaluateStage === null) {
               throw new TypeError(`hog program ${scalarEvaluateHogProgram.program.programRef} must declare an evaluate stage`);
@@ -8009,14 +8039,7 @@ function* runEngineIterateMachine(input: {
               vectorIndex: transition.vectorIndex,
               stageRole: scalarEvaluateStage.stageRole,
               taskOrdinal: null,
-              attempt: nextCCallAttempt(eventState.replayEvents, {
-                basisId: request.basis.id,
-                graphCallId: actorInvocation.graphCallId,
-                frameId: actorInvocation.frameId,
-                vectorIndex: transition.vectorIndex,
-                stageRole: scalarEvaluateStage.stageRole,
-                taskOrdinal: null
-              }),
+              attempt: scalarEvaluateAttempt,
               batchRef: null,
               regime: "F_P",
               armId: scalarEvaluateStage.armId,

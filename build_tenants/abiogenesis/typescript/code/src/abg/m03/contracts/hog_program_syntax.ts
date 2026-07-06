@@ -151,3 +151,78 @@ export function hogProgramCatalogFromDeclarationAttrs(
   }
   return compileHogProgramCatalog(serializedJsonValueToPlain(entry.value.value));
 }
+
+// -017: the selection LADDER — ordered rungs over the declared catalog;
+// the rung whose fromAttempt is the highest <= the observed attempt
+// governs. Retry escalates the program (compression descent) instead of
+// re-running the same shape blindly.
+export const HOG_PROGRAM_LADDER_DECLARATION_KEY = "abg.hog_program_ladder";
+
+export interface HogProgramLadderRung {
+  readonly programRef: string;
+  readonly fromAttempt: number;
+}
+
+export function compileHogProgramLadder(input: unknown): {
+  readonly accepted: boolean;
+  readonly rungs: readonly HogProgramLadderRung[] | null;
+  readonly issues: readonly string[];
+} {
+  if (!Array.isArray(input) || input.length === 0) {
+    return Object.freeze({ accepted: false, rungs: null, issues: Object.freeze(["ladder must be a non-empty array of rungs"]) });
+  }
+  const issues: string[] = [];
+  const rungs: HogProgramLadderRung[] = [];
+  let lastFrom = 0;
+  for (const [index, entry] of input.entries()) {
+    const at = `ladder[${index}]`;
+    const record = entry as Partial<HogProgramLadderRung> | null;
+    if (record === null || typeof record !== "object" ||
+        typeof record.programRef !== "string" || record.programRef.length === 0 ||
+        typeof record.fromAttempt !== "number" || !Number.isInteger(record.fromAttempt) || record.fromAttempt < 1) {
+      issues.push(`${at}: rung must carry {programRef, fromAttempt >= 1}`);
+      continue;
+    }
+    if (index === 0 && record.fromAttempt !== 1) {
+      issues.push(`${at}: the first rung must start at attempt 1`);
+    }
+    if (record.fromAttempt <= lastFrom && index > 0) {
+      issues.push(`${at}: fromAttempt must strictly increase (escalation never skips back)`);
+    }
+    lastFrom = record.fromAttempt;
+    rungs.push(Object.freeze({ programRef: record.programRef, fromAttempt: record.fromAttempt }));
+  }
+  if (issues.length > 0) {
+    return Object.freeze({ accepted: false, rungs: null, issues: Object.freeze(issues) });
+  }
+  return Object.freeze({ accepted: true, rungs: Object.freeze(rungs), issues: Object.freeze([]) });
+}
+
+export function ladderRungForAttempt(
+  rungs: readonly HogProgramLadderRung[],
+  attempt: number
+): HogProgramLadderRung {
+  let selected = rungs[0];
+  for (const rung of rungs) {
+    if (rung.fromAttempt <= attempt) selected = rung;
+  }
+  if (selected === undefined) {
+    throw new TypeError("ladder must carry at least one rung");
+  }
+  return selected;
+}
+
+export function hogProgramLadderFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): ReturnType<typeof compileHogProgramLadder> | null {
+  const entry = attrs.entries.find((row) => row.key === HOG_PROGRAM_LADDER_DECLARATION_KEY);
+  if (entry === undefined) return null;
+  if (entry.value.kind !== "json_blob") {
+    return Object.freeze({
+      accepted: false, rungs: null,
+      issues: Object.freeze([`${HOG_PROGRAM_LADDER_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`])
+    });
+  }
+  return compileHogProgramLadder(serializedJsonValueToPlain(entry.value.value));
+}

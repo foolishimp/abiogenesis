@@ -20,8 +20,11 @@ import {
   HOG_PROGRAM_DECLARATION_KEY,
   HOG_PROGRAM_CATALOG_DECLARATION_KEY,
   HOG_PROGRAM_SELECTION_KEY,
+  HOG_PROGRAM_LADDER_DECLARATION_KEY,
   hogProgramFromDeclarationAttrs,
   hogProgramCatalogFromDeclarationAttrs,
+  hogProgramLadderFromDeclarationAttrs,
+  ladderRungForAttempt,
   selectHogProgram
 } from "../contracts/hog_program_syntax.js";
 
@@ -29,7 +32,7 @@ const EXECUTABLE_STAGE_ROLES = Object.freeze(["transform", "evaluate", "conseque
 
 export interface ResolvedHogProgram {
   readonly program: HogProgramDeclaration;
-  readonly source: "declared" | "declared_catalog" | "default";
+  readonly source: "declared" | "declared_catalog" | "declared_ladder" | "default";
 }
 
 function selectionRefFromDeclarations(graphFunction: GraphFunction): string | null {
@@ -158,7 +161,13 @@ export function extraHogStageSegments(program: HogProgramDeclaration): {
 // The ONE seam (HANDLERS-011). Resolution order:
 // catalog + selection ref -> single program declaration -> baked default.
 // Every failure is fail-closed BEFORE any interior runs (HANDLERS-012).
-export function resolveHogProgram(graphFunction: GraphFunction): ResolvedHogProgram {
+// -017: attempt-aware resolution. A declared LADDER (over the catalog)
+// outranks the static selection ref; the rung for the observed attempt
+// governs. attempt defaults to 1 (first window).
+export function resolveHogProgram(
+  graphFunction: GraphFunction,
+  attempt: number = 1
+): ResolvedHogProgram {
   // messages use the function NAME — ids are structural blobs and bury
   // the typed reason tag past any truncation window.
   const sourceRef = graphFunction.name;
@@ -166,6 +175,33 @@ export function resolveHogProgram(graphFunction: GraphFunction): ResolvedHogProg
     graphFunction.declarations,
     sourceRef
   );
+  const ladderCompilation = hogProgramLadderFromDeclarationAttrs(
+    graphFunction.declarations,
+    sourceRef
+  );
+  if (ladderCompilation !== null) {
+    if (!ladderCompilation.accepted || ladderCompilation.rungs === null) {
+      throw new TypeError(
+        `${HOG_PROGRAM_LADDER_DECLARATION_KEY} on ${sourceRef} failed admission: ` +
+          ladderCompilation.issues.join("; ")
+      );
+    }
+    if (catalogCompilation === null || !catalogCompilation.accepted || catalogCompilation.catalog === null) {
+      throw new TypeError(
+        `${HOG_PROGRAM_LADDER_DECLARATION_KEY} on ${sourceRef} requires an ` +
+          `admitted ${HOG_PROGRAM_CATALOG_DECLARATION_KEY}`
+      );
+    }
+    const rung = ladderRungForAttempt(ladderCompilation.rungs, attempt);
+    const program = selectHogProgram(catalogCompilation.catalog, rung.programRef);
+    if (program === null) {
+      throw new TypeError(
+        `ladder rung ${rung.programRef} on ${sourceRef} does not name a ` +
+          `program in the declared catalog`
+      );
+    }
+    return Object.freeze({ program, source: "declared_ladder" as const });
+  }
   const selectionRef = selectionRefFromDeclarations(graphFunction);
   if (catalogCompilation !== null) {
     if (!catalogCompilation.accepted || catalogCompilation.catalog === null) {
