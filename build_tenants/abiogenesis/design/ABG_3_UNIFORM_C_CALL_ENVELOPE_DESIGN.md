@@ -701,3 +701,37 @@ at fixed depth (no ladder, baked triple everywhere). Delivery mode =
 both axes engaged: persistent-workspace re-entry (horizontal) ×
 adaptive program depth (vertical), operator supplying only F_H
 judgments. The loop was never missing a tool; it was missing its wiring.
+
+### 18.1 Re-entry height: the consequence stage completes the iteration axis
+
+The odd_sdlc limitation: replay worked on a SINGLE ARC. Iteration meant
+retry the same vector, or resume at the frontier. The SDLC's real
+topology is not an arc — a test failure re-opens design; a design gap
+re-opens requirements. odd_sdlc-era scenarios faked those loops by
+adding more linear stages (the data-mapper's repaired_* stages are this
+inherited workaround).
+
+The consequence stage was designed for exactly this: consequence.C
+COMPUTES THE NEXT ENTRY POINT. Its outcome may carry a traversal action
+targeting an UPSTREAM vector, bounded by the declared
+allowed-consequence-traversal catalog (no ambient authority — a
+re-entry is lawful only if declared). The machinery is live in ABG
+today: consequence traversal actions (T-152 bridge),
+allowedConsequenceTraversalCatalog, reentryTargetVectorIndex,
+graph_reentry_applied — and since P2f every such re-entry is
+spine-visible as a judged sub-traversal.
+
+Iteration therefore has three heights, all lawful, all declared:
+  retry     — same vector, next attempt (the ladder, -017);
+  resume    — same arc, at the frontier (run-18 mode);
+  re-enter  — UPSTREAM, at the vector the consequence computed
+              (test failure -> code or design; incomplete requirements
+              discovered during design -> requirements).
+
+Adoption gap (T-030): the data-mapper declares NO consequence catalog —
+its repair loop is linearized stages. The lawful migration: consequence
+at test-execution declares its allowed upstream targets with predicates
+(failure class -> re-entry height), budgets bound the loop, and the
+repaired_* stages retire. Re-entry height selection is itself an
+adaptive decision: the -017 ladder generalizes from "which program" to
+"which program, at which height".
