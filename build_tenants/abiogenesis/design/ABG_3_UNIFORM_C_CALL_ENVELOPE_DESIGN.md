@@ -456,3 +456,33 @@ product space (a declared default program carrier), never as engine
 code paths. The substrate's whole surface is: seven primitives, five
 spine kinds, one judgment router, one census, and law. Everything else
 in §8–§14 — including the "best" workflow — is authored from them.
+
+## 15. The sovereignty decision: the monad as GTL-declared program (RECOMMENDED, awaiting user ratification)
+
+Question: is the edge program a GTL declared program run by ABG —
+system-level configuration in the constitutional carrier — rather than
+TS-side declaration data?
+
+RECOMMENDATION: YES. The design already implies it twice: §10.1 demands
+every spine level correspond to an ADMITTED PROGRAM IDENTITY, and
+workflow.C lifts graphFunctionRefs — programs are only nameable,
+liftable, boundary-declarable if they are GTL objects. Making it
+explicit buys, for free: admission + digest pinning + T-191 authoring
+law + T-193 drift witnessing + conformance corpus proof for the
+monad's own interior; the consciousness layer's write surface becomes
+lawful GTL authoring (already constitutionally governed); products
+declare programs exactly as they declare overlays; §14 ships as a
+published GTL program in the catalog.
+
+THE ONE REAL COST — bootstrap circularity — resolves by the workspace's
+own recursive-product law: ABG carries ONE BUILT-IN program (the
+canonical triple) as its bootstrap P0; it needs no GTL to run it.
+Declared GTL programs admit at startup and override per overlay/edge.
+Compiler analogy exact: baked triple = bootstrap compiler; declared
+programs = self-hosted successors. Fail-closed: malformed program
+declarations reject at startup admission; the census derives from the
+admitted program.
+
+Stratification law (on ratification): built-in bootstrap triple (never
+removed, never extended); everything richer is GTL. ABG interprets;
+GTL structures; nothing else configures the monad.
