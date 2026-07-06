@@ -47,6 +47,15 @@ handler configuration; it does not implement a standard-path worker loop.
   → payload admission), F_D process-execution, F_D materialization,
   F_H gate. Products configure them by declarations only; the standard
   path ships zero downstream handler code.
+  STRICT F_D RIDER (user law): F_D handler outcomes are MECHANICAL
+  vocabulary only (executed / blocked / envelope facts: existence,
+  write-root, digest, identity). An F_D handler never pronounces
+  accepted/rejected on the work: semantic consumption of deterministic
+  observations (exit codes, test counts, artifact contents) is the F_P
+  stage's judgment, informed by F_D evidence. Determinism never
+  reclassifies a semantic check as F_D; a generic F_D traversal or
+  evaluation handler is behavioral F_D (the recurring bug class
+  B-003/013/014/016/017) and is non-closing.
 - **-010 Capability handlers** (complete replacement): ONE handler is
   the entire interior — a declared outcall into a local downstream
   capability which itself declares its regime. All obligations hold;
