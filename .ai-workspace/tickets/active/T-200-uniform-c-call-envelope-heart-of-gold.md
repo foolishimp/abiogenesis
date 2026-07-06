@@ -7,7 +7,7 @@ opened: 2026-07-06
 design: build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md (RATIFIED §1-§15.2, incl. sovereignty by necessity)
 requirements: specification/requirements/abg/REQ-R-ABG3-CCALL.md (-001..-014, Active)
 absorbs: T-198 (frame-identity scoping, via -004)
-progress: P0 COMPLETE (three codex rounds adjudicated); P1 COMPLETE AND EARNED — test:t200 lane 7/7 (admission axes x5, mintCCallRef identity-axis collision differential, NEGATIVE locus-only incl. closed key set, judgment/regime vocabularies, open roles); suite 1102/1102; CCall surface exported through the contracts index
+progress: P0+P1 EARNED; P2 CLEARED AS VISIBILITY/PARITY CHECKPOINT (codex round 4 + user): all site brackets live (transform.F_P, evaluate.F_P/F_D, consequence x2, batch per-task, sub_traversal), injective digest cCallRef, closed-surface spine x5, resolver orphan-proof; granularity CONFIRMED spine-per-task; acceptance item 4 (one resolver entry) EARNS AT STRANGLER STEP 2; t200 15/15, suite 1110/1110
 acceptance: §Acceptance below; T-200 closes on a fresh green standing gate carrying the -012 audit; the campaign's clean data-mapper run on the 4.4.0-rc.1 substrate closes T-195
 ---
 
@@ -56,7 +56,11 @@ case; the edge program hidden inside an ~8k-line state machine.
   replay via the -011 adapter; m04 `pending` projection generalizes
   dispatch_required (named gap resolved). T-195 interlock: T-192 gate
   Rules re-authored on the constructor (cast retired). NEGATIVE:
-  no_declared_check never satisfies.
+  no_declared_check never satisfies. ALSO IN P3 (from checkpoint):
+  evaluation-rule batch + fh_admit spines (their antecedents);
+  enclosure standing witness (free-floating fibre event -> conformance
+  diagnostic, red-path differential); evaluator EXTERNAL-session parity
+  proven on live lanes; GTL catalog publication of program declarations.
 - **P4 — retry law at the spine** (-009): arm-parity differential +
   NEGATIVE non-allowlisted blocks identically. T-195 interlock:
   coerceRuntimeBinding structural admission; stall-classification
