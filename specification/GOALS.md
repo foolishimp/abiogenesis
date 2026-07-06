@@ -552,3 +552,38 @@ The Heart of Gold envelope checkpoint cut is ABI TypeScript `4.4.0-rc.1`:
   authored release note); the envelope wave ticket remains active for
   the enumerated remainder (resolveCCall delegation, F_D mechanical
   transform spine, erase pass) under the CCALL Realization State clause.
+
+## Current Wave: The Plan To 4.5
+
+Functionally complete 4.5 IS the clean data-mapper run (converged,
+tests green, `data_mapper_full_sbt ok`) — the release claim is the run.
+
+Three rules: no new tickets (everything lands under T-200, T-205,
+T-030, T-195, T-206); no glc work until ABG's own lanes prove the whole
+stack; no rc cuts before the internal-everything gate.
+
+Phases:
+- A — close T-200: one spine-authority module, erase pass, gate. No cut.
+- B — T-205 in ABG's own lanes: interpretation at one seam, the four
+  standard handlers + capability class, F_D transform spine, then the
+  INTERNAL-EVERYTHING GATE (declared catalog override, ladder
+  escalation observed, resume on the same workspace, consequence
+  re-entry taken upstream, handlers end-to-end with a real worker,
+  -012 green per configuration) → 4.5.0-rc.1 cuts. T-205 closes.
+- C — glc: repin; binding becomes declarations (catalog + ladder +
+  consequence catalog; repaired_* stages retire); resume flag; iterate
+  in-system to the clean run. T-030 and T-195 close. 4.5 functionally
+  complete.
+- D — T-206 tuner over the campaign replay. Goal 3 delivered.
+
+Acceptance criterion for every step (product law, PRODUCT.md "The atom
+criterion"): atoms robust and composable; higher-order networks are
+free constructions; feature count is not a measure.
+
+Links: strategy
+`.ai-workspace/comments/claude/20260706T160000Z_STRATEGY_three_goals_to_closure_hog_reentry_consciousness.md`;
+design `build_tenants/abiogenesis/design/ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN.md`
+(§1–§18.1); law `specification/requirements/abg/REQ-R-ABG3-CCALL.md`
+(-001..-017 + Realization State); tickets T-200, T-205 (active),
+T-206/T-207 (backlog), odd_glc T-030/T-195; follow-on Goal 4
+(ticket-lifecycle overlay + release vector, ~odd_glc T-031).
