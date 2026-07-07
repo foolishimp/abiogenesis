@@ -1,3 +1,24 @@
+# abiogenesis 4.5.0-rc.4 Release Candidate Note
+
+This checkpoint is the fourth `4.5.0` release candidate. It follows
+`4.5.0-rc.3` and carries the post-rc.3 run-19 campaign fixes required
+before the next citable data-mapper run:
+
+- INSPECT-GATE NARROWING (campaign F4): archive-inspection exceptions
+  stay limited to the typed pre-spawn dispatch-failure lane rather than
+  weakening unrelated failure handling.
+- CONSEQUENCE-THROW GUARD (campaign F5): consequence-plugin throws are
+  converted to typed blocked projection truth on both sync and async
+  drivers; routing plugins do not escape as host failures.
+- TYPED CLOSURE FAILURE CLASS (campaign F6): invocation closure class is
+  derived once at the construction boundary and consumed as typed retry
+  truth; prose parsing is fallback only.
+- BATCH-SAFE ATTEMPT IDENTITY (campaign F7): invocation attempt identity
+  is replay-global by maximum prior attempt index, so composed-batch and
+  resume paths do not collide or orphan closure truth.
+
+The rc.3 content follows.
+
 # abiogenesis 4.5.0-rc.3 Release Candidate Note
 
 This checkpoint is the third `4.5.0` release candidate. It follows
@@ -74,4 +95,3 @@ Realization state: the FpTransportConfig.prompt field is a named
 transitional violation of the config boundary (HANDLERS-015) pending
 prompt re-homing to instruction categories; the CCALL Realization
 State clause remains narrowed to T-205-owned interpretation items.
-
