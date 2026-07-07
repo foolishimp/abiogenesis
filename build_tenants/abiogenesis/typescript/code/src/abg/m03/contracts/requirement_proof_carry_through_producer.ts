@@ -286,6 +286,133 @@ function carryThroughOwedObligationRefsByRequirementId(
   return frozen;
 }
 
+// -007 REQUIREMENT PRESSURE (T-030 reopen): the ENGINE-derived refs that
+// instruction assembly delivers to the F_P worker for a requirement-
+// bearing vector. One derivation home; the runner binds these as
+// requirement_pressure runtime facts, the manifest carries them as
+// requirementPressureRefs, and replay reconstructs them from the same
+// inputs. Sources: admitted route facts in replay (terms, spans with
+// vectorIndexes, obligation projections — ABG-emitted, shapes known) plus
+// the ADMITTED carry-through startup (owed obligation refs + declared
+// proof obligation refs). Products supply declarations only; ABG derives,
+// binds, emits, and replays the pressure.
+interface RequirementRoutePayloadShapes {
+  readonly kind?: unknown;
+  readonly term?: { readonly requirementId?: unknown; readonly spanRefs?: unknown };
+  readonly span?: { readonly spanId?: unknown; readonly vectorIndexes?: unknown };
+  readonly projection?: {
+    readonly requirementId?: unknown;
+    readonly spanId?: unknown;
+    readonly projectionRef?: unknown;
+    readonly sourceRefs?: unknown;
+  };
+}
+
+function routePayloadOf(event: RuntimeEvent): RequirementRoutePayloadShapes | null {
+  if (event.kind !== "requirement_route_fact_projected") {
+    return null;
+  }
+  const payload = (event as { readonly requirementPayload?: unknown }).requirementPayload;
+  return payload !== null && typeof payload === "object"
+    ? (payload as RequirementRoutePayloadShapes)
+    : null;
+}
+
+function stringsOf(value: unknown): readonly string[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string")
+    : [];
+}
+
+export function deriveRequirementPressureRefsForVector(input: {
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly startup: AdmittedRequirementProofCarryThroughStartup | undefined;
+}): ReadonlyMap<string, readonly string[]> {
+  const spannedVectorsBySpanId = new Map<string, readonly number[]>();
+  const spanIdsByRequirementId = new Map<string, Set<string>>();
+  const refsByRequirementId = new Map<string, Set<string>>();
+  const note = (requirementId: string, spanId: string | null, refs: readonly string[]): void => {
+    const spanIds = spanIdsByRequirementId.get(requirementId) ?? new Set<string>();
+    if (spanId !== null) {
+      spanIds.add(spanId);
+    }
+    spanIdsByRequirementId.set(requirementId, spanIds);
+    const bucket = refsByRequirementId.get(requirementId) ?? new Set<string>();
+    for (const ref of refs) {
+      bucket.add(ref);
+    }
+    refsByRequirementId.set(requirementId, bucket);
+  };
+  for (const event of input.replayEvents) {
+    const payload = routePayloadOf(event);
+    if (payload === null) {
+      continue;
+    }
+    if (payload.kind === "traversal_span_admitted" && typeof payload.span?.spanId === "string") {
+      spannedVectorsBySpanId.set(
+        payload.span.spanId,
+        Array.isArray(payload.span.vectorIndexes)
+          ? payload.span.vectorIndexes.filter((row): row is number => Number.isInteger(row))
+          : []
+      );
+    } else if (
+      payload.kind === "requirement_term_admitted" &&
+      typeof payload.term?.requirementId === "string"
+    ) {
+      for (const spanRef of stringsOf(payload.term.spanRefs)) {
+        note(payload.term.requirementId, spanRef, [payload.term.requirementId]);
+      }
+    } else if (
+      payload.kind === "requirement_projection_admitted" &&
+      typeof payload.projection?.requirementId === "string"
+    ) {
+      note(
+        payload.projection.requirementId,
+        typeof payload.projection.spanId === "string" ? payload.projection.spanId : null,
+        [
+          payload.projection.requirementId,
+          ...(typeof payload.projection.projectionRef === "string"
+            ? [payload.projection.projectionRef]
+            : []),
+          ...stringsOf(payload.projection.sourceRefs)
+        ]
+      );
+    }
+  }
+  const owedRefs = carryThroughOwedObligationRefsByRequirementId(input.startup);
+  const proofRefsByRequirementId = new Map<string, Set<string>>();
+  for (const entry of input.startup?.entries ?? []) {
+    for (const requirementId of entry.requirementIds) {
+      const bucket = proofRefsByRequirementId.get(requirementId) ?? new Set<string>();
+      for (const ref of stringsOf(entry.envelopeTemplate.proofObligationRefs)) {
+        bucket.add(ref);
+      }
+      proofRefsByRequirementId.set(requirementId, bucket);
+    }
+  }
+  const output = new Map<string, readonly string[]>();
+  for (const [requirementId, spanIds] of spanIdsByRequirementId) {
+    const covers = [...spanIds].some((spanId) =>
+      (spannedVectorsBySpanId.get(spanId) ?? []).includes(input.vectorIndex)
+    );
+    if (!covers) {
+      continue;
+    }
+    output.set(
+      requirementId,
+      Object.freeze(
+        [...new Set([
+          ...(refsByRequirementId.get(requirementId) ?? []),
+          ...(owedRefs.get(requirementId) ?? []),
+          ...(proofRefsByRequirementId.get(requirementId) ?? [])
+        ])].sort()
+      )
+    );
+  }
+  return output;
+}
+
 // Fold-input assembly for one edge close (REQ-R-ABG3-REQUIREMENT-PROOF-
 // CARRY-THROUGH-002/-005/-010/-013/-037). Two sources, one map:
 // 1. SCAN: admitted coverage truth refs from replay, identity-scoped to the

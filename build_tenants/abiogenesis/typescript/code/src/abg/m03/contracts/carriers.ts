@@ -808,6 +808,7 @@ export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeSco
   readonly refOnlyCarrierRefs: readonly string[];
   readonly gapRefs: readonly string[];
   readonly forbiddenCarrierRefs: readonly string[];
+  readonly requirementPressureRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
 }
 

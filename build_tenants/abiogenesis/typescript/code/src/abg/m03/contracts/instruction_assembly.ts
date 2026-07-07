@@ -92,6 +92,11 @@ export type RuntimeBindingSlotClass =
   | "continuation"
   | "reentry"
   | "policy"
+  // REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-007 (T-030 reopen): active
+  // requirement obligation pressure for the current vector, ENGINE-derived
+  // from admitted route + carry-through startup truth — never product-
+  // assembled into plans.
+  | "requirement_pressure"
   | "worker_invocation"
   | "event_log";
 
@@ -439,6 +444,9 @@ export interface PromptManifest {
   readonly typedDepthGapRefs: readonly string[];
   readonly proofStrengthAdmissionRefs: readonly string[];
   readonly adversarialCounterexampleRefs: readonly string[];
+  // -007: replay-visible requirement pressure delivered to the worker —
+  // derived from the envelope's requirement_pressure runtime binding facts.
+  readonly requirementPressureRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
   readonly renderedPrompt: string;
 }
@@ -800,6 +808,19 @@ function renderedPromptFor(input: {
     "## abg.runtime.bound_refs",
     runtimeBindingText
   ].join("\n\n");
+}
+
+// -007: one derivation home for manifest-visible requirement pressure —
+// the envelope's requirement_pressure facts, unique-sorted. Render and
+// replay both consume this, so the digest law covers the pressure.
+function requirementPressureRefsFromEnvelope(
+  envelope: InstructionEnvelope
+): readonly string[] {
+  return uniqueSorted(
+    envelope.boundRuntimeRefs
+      .filter((fact) => fact.slotClass === "requirement_pressure")
+      .map((fact) => fact.ref)
+  );
 }
 
 function manifestDigest(input: Omit<PromptManifest, "manifestDigest">): string {
@@ -1906,6 +1927,7 @@ export function renderPromptManifest(input: {
     adversarialCounterexampleRefs: adversarialCounterexampleRefs(
       input.plan.proofDepthInstructionTruth
     ),
+    requirementPressureRefs: requirementPressureRefsFromEnvelope(input.envelope),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
     renderedPrompt
   });
@@ -1961,6 +1983,7 @@ export function replayPromptManifest(input: {
     adversarialCounterexampleRefs: adversarialCounterexampleRefs(
       input.plan.proofDepthInstructionTruth
     ),
+    requirementPressureRefs: requirementPressureRefsFromEnvelope(input.envelope),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
     renderedPrompt: expectedPrompt
   });

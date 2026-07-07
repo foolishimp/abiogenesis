@@ -1312,6 +1312,7 @@ export type {
 } from "./executive_observer.js";
 export {
   admitRequirementProofCarryThroughStartup,
+  deriveRequirementPressureRefsForVector,
   deriveRequirementProofCarryThroughAdmittedEvents,
   deriveRequirementProofCoverageTruthRefsForEdgeClose
 } from "./requirement_proof_carry_through_producer.js";

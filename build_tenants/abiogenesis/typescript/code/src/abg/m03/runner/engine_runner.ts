@@ -275,6 +275,7 @@ import {
 } from "../contracts/temporal_property_runtime.js";
 import {
   admitRequirementProofCarryThroughStartup,
+  deriveRequirementPressureRefsForVector,
   deriveRequirementProofCarryThroughAdmittedEvents,
   deriveRequirementProofCoverageTruthRefsForEdgeClose,
   type AdmittedRequirementProofCarryThroughStartup,
@@ -835,6 +836,7 @@ function runtimeBindingFactsForInstructionAssembly(input: {
   readonly plan: CompiledPromptPlan;
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
+  readonly carryThroughStartup: AdmittedRequirementProofCarryThroughStartup | undefined;
 }): readonly RuntimeBindingFact[] {
   const facts: RuntimeBindingFact[] = [
     runtimeBindingFact({
@@ -977,6 +979,29 @@ function runtimeBindingFactsForInstructionAssembly(input: {
       })
     );
   }
+  // -007 (T-030 reopen): ENGINE-derived requirement pressure for the
+  // current vector — active requirement ids, obligation projection refs,
+  // owed obligation refs, and declared proof obligation refs, from admitted
+  // route facts in replay plus the admitted carry-through startup. These
+  // facts render into the prompt (abg.runtime.bound_refs) and surface on
+  // the manifest as requirementPressureRefs; replay reconstructs them from
+  // the same inputs.
+  const pressureByRequirementId = deriveRequirementPressureRefsForVector({
+    replayEvents: input.replayEvents,
+    vectorIndex: input.transition.vectorIndex,
+    startup: input.carryThroughStartup
+  });
+  for (const [, pressureRefs] of pressureByRequirementId) {
+    for (const pressureRef of pressureRefs) {
+      facts.push(
+        runtimeBindingFact({
+          slotClass: "requirement_pressure",
+          ref: pressureRef,
+          sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+        })
+      );
+    }
+  }
   return Object.freeze(facts);
 }
 
@@ -1040,6 +1065,7 @@ function bindInstructionAssemblyForFpEffect(input: {
   readonly pluginInput: EnginePluginInput;
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
+  readonly carryThroughStartup: AdmittedRequirementProofCarryThroughStartup | undefined;
 }): InstructionAssemblyFpBinding {
   assertEngineFpDispatchArmId(input.armId);
   const row = instructionAssemblyPlanForTransition({
@@ -5744,7 +5770,8 @@ function* runEngineIterateMachine(input: {
                 actorInvocation: ruleActorInvocation,
                 pluginInput: ruleInput,
                 projection: batchEvaluationProjection,
-                replayEvents: eventState.replayEvents
+                replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
               });
               if (ruleInstructionBinding.kind !== "manifest_projected") {
                 const blocked = terminalTransition(
@@ -6419,7 +6446,8 @@ function* runEngineIterateMachine(input: {
                 actorInvocation: taskActorInvocation,
                 pluginInput: taskInput,
                 projection: batchConsequenceProjection,
-                replayEvents: eventState.replayEvents
+                replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
               });
               if (taskInstructionBinding.kind !== "manifest_projected") {
                 const blocked = terminalTransition(
@@ -7007,7 +7035,8 @@ function* runEngineIterateMachine(input: {
                 actorInvocation: taskActorInvocation,
                 pluginInput: taskInput,
                 projection: batchTransformProjection,
-                replayEvents: eventState.replayEvents
+                replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
               });
               if (taskInstructionBinding.kind !== "manifest_projected") {
                 const blocked = terminalTransition(
@@ -7225,7 +7254,8 @@ function* runEngineIterateMachine(input: {
           actorInvocation,
           pluginInput: scalarTransformInput,
           projection: scalarTransformProjection,
-          replayEvents: eventState.replayEvents
+          replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
         });
         if (instructionBinding.kind !== "manifest_projected") {
           const blocked = terminalTransition(
@@ -7792,7 +7822,8 @@ function* runEngineIterateMachine(input: {
                     actorInvocation: ruleActorInvocation,
                     pluginInput: ruleInput,
                     projection: batchEvaluationProjection,
-                    replayEvents: eventState.replayEvents
+                    replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
                   });
                   if (ruleInstructionBinding.kind !== "manifest_projected") {
                     const blocked = terminalTransition(
@@ -8004,7 +8035,8 @@ function* runEngineIterateMachine(input: {
               actorInvocation,
               pluginInput: fpEvaluationInput,
               projection: fpSemanticEvaluationProjection,
-              replayEvents: eventState.replayEvents
+              replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
             });
             if (evaluationInstructionBinding.kind !== "manifest_projected") {
               const blocked = terminalTransition(
@@ -8845,7 +8877,8 @@ function* runEngineIterateMachine(input: {
                     actorInvocation: taskActorInvocation,
                     pluginInput: taskInput,
                     projection: batchConsequenceProjection,
-                    replayEvents: eventState.replayEvents
+                    replayEvents: eventState.replayEvents,
+          carryThroughStartup: admittedCarryThroughStartup
                   });
                   if (taskInstructionBinding.kind !== "manifest_projected") {
                     const blocked = terminalTransition(

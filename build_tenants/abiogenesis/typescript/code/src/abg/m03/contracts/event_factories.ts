@@ -793,6 +793,7 @@ export function constructInstructionPromptManifestProjectedEvent(input: {
     refOnlyCarrierRefs: freezeStringArray(input.manifest.refOnlyCarrierRefs),
     gapRefs: freezeStringArray(input.manifest.gapRefs),
     forbiddenCarrierRefs: freezeStringArray(input.manifest.forbiddenCarrierRefs),
+    requirementPressureRefs: freezeStringArray(input.manifest.requirementPressureRefs),
     outputContractRefs: freezeStringArray(input.manifest.outputContractRefs)
   });
 }

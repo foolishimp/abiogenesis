@@ -1492,3 +1492,130 @@ test("T-205 startup admission depth (review probe): a kind-tag-only carrier is r
     true
   );
 });
+
+// T-030 reopen (-007 realization): requirement pressure is ENGINE-derived
+// and manifest-visible. The derivation is one home in the producer module;
+// the envelope's requirement_pressure facts surface as
+// requirementPressureRefs on the manifest and render into the prompt via
+// abg.runtime.bound_refs, under the same digest/replay law.
+function pressureRouteFact(payload) {
+  return {
+    kind: "requirement_route_fact_projected",
+    requirementPayload: payload
+  };
+}
+
+function pressureReplayEvents() {
+  return [
+    pressureRouteFact({
+      kind: "requirement_term_admitted",
+      term: { requirementId: "requirement://t188/r1", spanRefs: ["span://t188/prove"] }
+    }),
+    pressureRouteFact({
+      kind: "traversal_span_admitted",
+      span: { spanId: "span://t188/prove", vectorIndexes: [3] }
+    }),
+    pressureRouteFact({
+      kind: "requirement_projection_admitted",
+      projection: {
+        requirementId: "requirement://t188/r1",
+        spanId: "span://t188/prove",
+        projectionRef: "projection:requirement://t188/r1:obligation",
+        sourceRefs: ["specification/requirements/t188.md#r1"]
+      }
+    })
+  ];
+}
+
+test("T-030 -007: pressure derivation is span-scoped and merges route, owed, and proof refs", async () => {
+  const { deriveRequirementPressureRefsForVector } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  const startup = admittedStartup([closeSiteStartupEntry()]);
+  const spanned = deriveRequirementPressureRefsForVector({
+    replayEvents: pressureReplayEvents(),
+    vectorIndex: 3,
+    startup
+  });
+  const refs = spanned.get("requirement://t188/r1");
+  assert.ok(refs);
+  assert.equal(refs.includes("requirement://t188/r1"), true);
+  assert.equal(refs.includes("projection:requirement://t188/r1:obligation"), true);
+  assert.equal(refs.includes("requirement-obligation://t188/r1"), true);
+  assert.equal(refs.includes("proof-obligation://t188/source-build"), true);
+  // unspanned vector: no pressure (the -038 world for undeclared vectors)
+  const unspanned = deriveRequirementPressureRefsForVector({
+    replayEvents: pressureReplayEvents(),
+    vectorIndex: 0,
+    startup
+  });
+  assert.equal(unspanned.size, 0);
+  // no startup: route-fact pressure alone still flows for the spanned vector
+  const routeOnly = deriveRequirementPressureRefsForVector({
+    replayEvents: pressureReplayEvents(),
+    vectorIndex: 3,
+    startup: undefined
+  });
+  assert.equal(routeOnly.get("requirement://t188/r1").includes("requirement://t188/r1"), true);
+});
+
+test("T-030 -007: pressure facts surface on the manifest and rendered prompt under digest law", () => {
+  const plan = compileAccepted();
+  const pressureFacts = [
+    {
+      kind: "runtime_binding_fact",
+      slotClass: "requirement_pressure",
+      ref: "requirement-obligation://t188/r1",
+      digest: "sha256:t188-pressure-obligation",
+      sourceEventRefs: ["event://t188/route-fact"],
+      admitted: true
+    },
+    {
+      kind: "runtime_binding_fact",
+      slotClass: "requirement_pressure",
+      ref: "requirement://t188/r1",
+      digest: "sha256:t188-pressure-id",
+      sourceEventRefs: ["event://t188/route-fact"],
+      admitted: true
+    }
+  ];
+  const envelopeResult = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t188/pressure",
+    plan,
+    startupAdmission: admission(plan),
+    runtimeFacts: [...runtimeFacts(), ...pressureFacts]
+  });
+  assert.equal(envelopeResult.accepted, true);
+  const rendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t188/pressure",
+    plan,
+    envelope: envelopeResult.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(rendered.accepted, true);
+  assert.deepEqual([...rendered.manifest.requirementPressureRefs], [
+    "requirement-obligation://t188/r1",
+    "requirement://t188/r1"
+  ]);
+  assert.match(rendered.manifest.renderedPrompt, /slot: requirement_pressure/u);
+  assert.match(rendered.manifest.renderedPrompt, /requirement-obligation:\/\/t188\/r1/u);
+  const replay = replayPromptManifest({
+    plan,
+    envelope: envelopeResult.envelope,
+    manifest: rendered.manifest
+  });
+  assert.equal(replay.passed, true);
+  // a manifest WITHOUT the pressure facts must not replay as this one
+  const bare = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t188/pressure",
+    plan,
+    startupAdmission: admission(plan),
+    runtimeFacts: runtimeFacts()
+  });
+  const bareReplay = replayPromptManifest({
+    plan,
+    envelope: bare.envelope,
+    manifest: rendered.manifest
+  });
+  assert.equal(bareReplay.passed, false);
+});

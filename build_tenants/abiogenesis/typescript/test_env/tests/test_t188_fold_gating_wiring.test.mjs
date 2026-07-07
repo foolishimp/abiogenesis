@@ -569,3 +569,33 @@ test("T-205 inadmissible startup fails closed at entry: typed gap_stop terminal,
     false
   );
 });
+
+test("T-030 -007: engine manifests carry requirement pressure for the spanned vector before F_P dispatch", () => {
+  const table = classificationTable();
+  const { result } = b3Run(
+    {
+      contract: carryContract(table),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-001"],
+      envelopeTemplate: envelopeTemplate()
+    },
+    undefined
+  );
+  const manifests = result.replayEvents.filter(
+    (event) =>
+      event.kind === "instruction_prompt_manifest_projected" &&
+      event.vectorIndex === 0
+  );
+  assert.notEqual(manifests.length, 0);
+  for (const manifest of manifests) {
+    assert.equal(manifest.requirementPressureRefs.includes("REQ-T188-B3-001"), true);
+    assert.equal(
+      manifest.requirementPressureRefs.includes("requirement-obligation://t188/r1"),
+      true
+    );
+    assert.equal(
+      manifest.requirementPressureRefs.includes("proof-obligation://t188/source-build"),
+      true
+    );
+  }
+});
