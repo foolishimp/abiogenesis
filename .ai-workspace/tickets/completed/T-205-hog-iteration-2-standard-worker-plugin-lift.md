@@ -1,7 +1,7 @@
 ---
 id: T-205
 title: HoG iteration 2 — the standard worker plugin lifts into the substrate
-status: active
+status: completed
 class: design_reframe
 opened: 2026-07-06
 depends: T-200 (SATISFIED — closed 2026-07-06; the interpretation seam landed here at B2)
@@ -609,3 +609,38 @@ record now checks the PACKAGED artifact's content against the claimed
 fixes, not only the manifest's sourceCommit. CLOSURE STATEMENT stands
 with the substrate corrected: the remediation is closed and shipped at
 4.5.0-rc.7; B6 unblocked on the rc.7 substrate.
+
+## T-205 CLOSED (2026-07-08)
+
+Closure basis, per the ODD A16 narrow (acceptance repriced, successor
+opened — no silent acceptance drift):
+
+EARNED AND CLOSED HERE:
+- handler law ratified and realized (REQ-R-ABG3-HANDLERS-001/-014;
+  B1-B3): contract + F_D handlers, interpretation seam live at entry,
+  registry admitted at entry, executability gate binding-complete;
+- THE INTERNAL-EVERYTHING GATE (B5 earned map): catalogs, ladders,
+  resume, re-entry, handlers end-to-end proven in ABG's own lanes with a
+  real worker; -012 green per configuration; final-candidate gate
+  sourceClean/releaseGrade;
+- carry-through applicability remediation: implemented, three review
+  rounds + self-review, differentially pinned, shipped;
+- B6 acts realized: 4.5.0-rc.7 cut (snapshot:release + tarball +
+  checksums + release note; artifact-content verified), toolchain
+  product install (product-toolchain-manifest digest pinned), odd_glc
+  repinned to rc.7 (suite 59/0, F1 verified in the installed payload).
+  rc.6 is superseded release history (artifact predates F1).
+
+REPRICED OUT (successors own them):
+- P4 standard-path adoption — odd_glc ships declarations only, campaign
+  rerun as proof, -012 green on the standard worker plugin: T-209;
+- commonization escrow (admission-support family, T-188 fixture family,
+  route prepend seam): T-208;
+- named residuals on their owning boundaries: frame/run close-site
+  identity; -038 witness wiring (derivable from the owedness function);
+  F2 basis-identifier well-formedness (basis admission); T-202/T-203b
+  per the absorbed-stub ruling.
+
+Final proof state at close: abiogenesis semantic 1147/1147, t188 41/41,
+t205 22/22; odd_glc 59 pass / 0 fail on the rc.7 substrate; trees
+pushed (abiogenesis 03af760+, odd_glc 399a3a4).
