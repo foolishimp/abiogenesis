@@ -1,3 +1,24 @@
+# abiogenesis 4.5.0-rc.8 Release Candidate Note
+
+This checkpoint is the eighth `4.5.0` release candidate. It follows
+`4.5.0-rc.7` and realizes `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-007`
+— the gap found by odd_glc T-030's reopened lineage review (a converged
+downstream run whose canary showed zero requirement pressure entering any
+instruction prompt):
+
+- REQUIREMENT PRESSURE IN MANIFESTS (-007): the engine derives per-vector
+  requirement pressure — requirement ids, obligation projection refs, owed
+  obligation refs, declared proof obligation refs — from admitted route
+  facts in replay plus the admitted carry-through startup, and binds it as
+  `requirement_pressure` runtime facts at every F_P instruction-bind site.
+  The pressure renders into the worker prompt (`abg.runtime.bound_refs`)
+  and surfaces replay-visibly as `requirementPressureRefs` on the prompt
+  manifest carrier and event, under the existing digest/replay law.
+  Products supply declarations only; ABG derives, binds, emits, and
+  replays the pressure.
+
+The rc.7 content follows.
+
 # abiogenesis 4.5.0-rc.7 Release Candidate Note
 
 This checkpoint is the seventh `4.5.0` release candidate. It follows
