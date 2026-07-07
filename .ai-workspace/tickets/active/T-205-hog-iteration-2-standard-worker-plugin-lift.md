@@ -595,3 +595,17 @@ B6 is UNBLOCKED. Remaining before T-205 closure: user review of the
 rc.6 substrate, then the B6 cut; escrow at T-208; named residuals
 (frame/run close identity, -038 witness wiring, F2 basis
 well-formedness) carried on their owning boundaries.
+
+## Release-state correction: rc.7 cut (2026-07-08)
+
+Release review (user) found the closure statement above overclaimed:
+"shipped at 4.5.0-rc.6 with F1 hardening riding main" — but the rc.6
+ARTIFACT (sourceCommit 6517268) predates F1 (24b8583); an installed
+rc.6 carries the pre-F1 shallow-freeze admitted-template path. For glc
+repin that gap is release-blocking. Recorded cuts are immutable, so the
+correction is a fresh cut, not a recut: 4.5.0-rc.7 carries F1; the
+repin substrate is rc.7. Verification discipline amended: the release
+record now checks the PACKAGED artifact's content against the claimed
+fixes, not only the manifest's sourceCommit. CLOSURE STATEMENT stands
+with the substrate corrected: the remediation is closed and shipped at
+4.5.0-rc.7; B6 unblocked on the rc.7 substrate.

@@ -1,3 +1,23 @@
+# abiogenesis 4.5.0-rc.7 Release Candidate Note
+
+This checkpoint is the seventh `4.5.0` release candidate. It follows
+`4.5.0-rc.6` and exists because the rc.6 ARTIFACT predates the
+self-review F1 hardening (rc.6 sourceCommit 6517268; F1 landed at
+24b8583) — an installed rc.6 carries the pre-F1 shallow-freeze
+admitted-template path. Release review classified that gap
+release-blocking for downstream repin. rc.7 delta over rc.6:
+
+- ADMITTED-TEMPLATE DEEP CLOSURE (self-review F1): the carry-through
+  startup admission derives the admitted envelope template FROM the
+  probe construction — constructor-frozen, canonical, detached from
+  caller arrays. Post-admission mutation of the raw template cannot
+  reach the admitted carrier or defeat the probe guarantee; the
+  mutation-invisibility differential pins it.
+
+Downstream repin targets THIS artifact, not rc.6.
+
+The rc.6 content follows.
+
 # abiogenesis 4.5.0-rc.6 Release Candidate Note
 
 This checkpoint is the sixth `4.5.0` release candidate. It follows
