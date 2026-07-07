@@ -21,6 +21,14 @@ blocker to that has been fixed and unit-pinned since run 19 parked.
 
 ## 2. Immediate next actions, in order
 
+ADJUDICATED 2026-07-07 (do not re-litigate): F5 is PRESENT at repo HEAD
+(0b117d4; direct probe through both drivers: threw=false,
+typedTruth=true) and ABSENT from the deployed rc.3 toolchain product
+(cut at b717486, before F5). A probe against the installed product or
+any rc.3-pinned workspace correctly shows the throw escaping. This is
+release lag, not a code gap — and it makes step 1 MANDATORY before any
+campaign run.
+
 1. **Cut 4.5.0-rc.4** in abiogenesis (bundles the post-rc.3 fixes:
    F4 gate narrowing, F5 consequence-throw guard, F6 typed
    closureFailureClass, F7 batch-safe attempt identity). Battery is
