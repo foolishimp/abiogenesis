@@ -156,18 +156,32 @@ export function admitRequirementProofCarryThroughStartup(
         reject("classification_table_inadmissible", `${at}.classificationTable`, admissionIssueMessage(error));
       }
     }
+    let admittedTemplate: RequirementProofCarryThroughStartupEntry["envelopeTemplate"] | null = null;
     if (entry.envelopeTemplate === null || typeof entry.envelopeTemplate !== "object") {
       reject("envelope_template_inadmissible", `${at}.envelopeTemplate`, "must be an envelope template object");
     } else {
       // probe construction proves the template can never throw at
-      // production time (real refs are engine-derived non-empty strings)
+      // production time (real refs are engine-derived non-empty strings) —
+      // and the ADMITTED template is derived FROM the probe result, so the
+      // admitted carrier is constructor-frozen and canonical throughout;
+      // a caller mutating the raw template's arrays after admission cannot
+      // reach it (self-review F1, 2026-07-08).
       try {
-        constructRequirementProofCarryThroughOutputEnvelope({
+        const probe = constructRequirementProofCarryThroughOutputEnvelope({
           ...entry.envelopeTemplate,
           envelopeRef: CARRY_THROUGH_ADMISSION_PROBE_REF,
           evidenceRefs: Object.freeze([CARRY_THROUGH_ADMISSION_PROBE_REF]),
           replayIdentity: CARRY_THROUGH_ADMISSION_PROBE_REF
         });
+        const {
+          kind: _kind,
+          envelopeRef: _envelopeRef,
+          evidenceRefs: _evidenceRefs,
+          replayIdentity: _replayIdentity,
+          replayDigest: _replayDigest,
+          ...canonicalTemplate
+        } = probe;
+        admittedTemplate = Object.freeze(canonicalTemplate);
       } catch (error) {
         reject("envelope_template_inadmissible", `${at}.envelopeTemplate`, admissionIssueMessage(error));
       }
@@ -187,13 +201,19 @@ export function admitRequirementProofCarryThroughStartup(
     if (!edgeValid) {
       reject("edge_invalid", `${at}.edge`, "must be undefined or a non-empty well-formed string");
     }
-    if (contract !== null && classificationTable !== null && requirementIdsValid && edgeValid) {
+    if (
+      contract !== null &&
+      classificationTable !== null &&
+      admittedTemplate !== null &&
+      requirementIdsValid &&
+      edgeValid
+    ) {
       admittedEntries.push(
         Object.freeze({
           contract,
           classificationTable,
           requirementIds: Object.freeze([...entry.requirementIds]),
-          envelopeTemplate: Object.freeze({ ...entry.envelopeTemplate }),
+          envelopeTemplate: admittedTemplate,
           edge: entry.edge
         })
       );

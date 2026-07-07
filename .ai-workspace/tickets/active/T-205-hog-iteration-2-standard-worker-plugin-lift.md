@@ -548,3 +548,50 @@ coverage-prepend single seam + explicit drop decision (-013 triage note).
 
 Proof: t188 41/41, t205 22/22, semantic 1147/1147 (one fewer than round
 2 by the lawful test merge), git diff --check clean.
+
+## Carry-through self-review round (2026-07-08, post-rc.6, rides the next cut)
+
+Self review of the full remediation wave targeting the round-3 changes
+(they landed AFTER the workflow review ran and were themselves
+unreviewed) plus a claims-vs-tree audit. Result: one confirmed defect
+(fixed), one named residual (recorded), three suspicions checked and
+cleared, no false closure claims found.
+
+F1 CONFIRMED + FIXED — admitted carrier was not fully closed: the
+admitted envelopeTemplate was a SHALLOW freeze of the raw caller object;
+its arrays stayed caller-shared and mutable (probe: post-admission
+`push("")` was visible inside the admitted carrier), so a mutating
+caller could defeat the probe guarantee and reintroduce a mid-run host
+throw at real envelope construction. The admitted template now derives
+FROM the probe construction itself — constructor-frozen, canonical,
+detached from caller arrays. Differential pins frozen-deep +
+detached + mutation-invisible. It was the one carrier in the family
+below the constructor-frozen standard.
+
+F2 NAMED RESIDUAL — basisId and the closing vector name flow into
+encodeURIComponent at residual synthesis without well-formedness
+guarantees. That is basis-admission scope, a pre-existing exposure
+class across the ref-minting family (route scopedClosureTruthRef
+included), not carry-through ingress; noted for the basis-admission
+boundary, not patched here.
+
+Checked and cleared: temporal fail-closed block single-event ->
+array emission through the shared helper (behavior-identical, suites
+pin); hog block literal iterationCount 0 vs the variable (value-
+identical at entry, first increment is inside the loop); emission-path
+canonicalization via owedObligationRefsForEntry (projector already
+canonicalized — projections bitwise identical). Claims audit: ticket
+round records, rc.6 release note, and suite numbers all match the tree;
+no weakened test (the one merged differential is recorded with law
+preserved; changed expectations trace to the typed-vocabulary review
+finding, not to implementation behavior).
+
+CLOSURE STATEMENT: the carry-through applicability remediation is
+CLOSED — implemented, three review rounds applied (design review,
+adversarial probe round, 4-lens workflow round), self-review clean
+after F1, differentially pinned (t188 41/41, t205 22/22, semantic
+1147/1147), shipped at 4.5.0-rc.6 with F1 hardening riding main.
+B6 is UNBLOCKED. Remaining before T-205 closure: user review of the
+rc.6 substrate, then the B6 cut; escrow at T-208; named residuals
+(frame/run close identity, -038 witness wiring, F2 basis
+well-formedness) carried on their owning boundaries.

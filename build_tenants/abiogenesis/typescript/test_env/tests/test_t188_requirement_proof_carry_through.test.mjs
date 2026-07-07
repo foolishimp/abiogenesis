@@ -1390,6 +1390,21 @@ test("T-205 startup admission: the ONE total function over the open startup doma
     "requirement_proof_carry_through_contract"
   );
   assert.equal(Object.isFrozen(ok.admitted.entries[0]), true);
+  // self-review F1: the admitted template derives from the probe
+  // construction — constructor-frozen and detached from the caller's raw
+  // arrays, so post-admission mutation cannot defeat the probe guarantee
+  const mutableRefs = ["proof-obligation://t188/source-build"];
+  const rawTemplate = carryEnvelopeTemplate({ proofObligationRefs: mutableRefs });
+  const mutable = admitRequirementProofCarryThroughStartup({
+    entries: [closeSiteStartupEntry({ envelopeTemplate: rawTemplate })]
+  });
+  assert.equal(mutable.accepted, true);
+  const admittedTemplate = mutable.admitted.entries[0].envelopeTemplate;
+  assert.equal(Object.isFrozen(admittedTemplate), true);
+  assert.equal(Object.isFrozen(admittedTemplate.proofObligationRefs), true);
+  assert.notEqual(admittedTemplate.proofObligationRefs, mutableRefs);
+  mutableRefs.push("");
+  assert.equal(admittedTemplate.proofObligationRefs.includes(""), false);
   // open-domain shapes collapse to CLOSED-VOCABULARY typed issues here,
   // not to prose pattern-matching and not in consumers:
   const rejected = admitRequirementProofCarryThroughStartup({
