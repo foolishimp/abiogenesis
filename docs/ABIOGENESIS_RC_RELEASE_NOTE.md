@@ -1,3 +1,24 @@
+# abiogenesis 4.5.0-rc.5 Release Candidate Note
+
+This checkpoint is the fifth `4.5.0` release candidate. It follows
+`4.5.0-rc.4` and carries the live replay-log append remediation required
+before downstream sandbox observation continues:
+
+- LIVE REPLAY-LOG APPEND (REQ-R-ABG3-EVENTS-024): installed/public
+  runtime event emission now appends the canonical event to
+  `.ai-workspace/events/events.jsonl` as part of event-sink acceptance,
+  before the next effectful runtime step. Terminal-only batch flush is
+  no longer a lawful realization for replay event truth.
+- SINGLE EVENT-TRUTH SINK: `genesis-ts start` and `assess-result` share
+  the ABG-owned event-log-backed runtime sink. Product transcripts,
+  PTY/process traces, and archives remain evidence interiors; they do
+  not replace the replay log.
+- INSTALLED CLI DIFFERENTIAL: the M04 CLI integration proof now reads the
+  workspace replay log during F_P dispatch and requires already-emitted
+  ABG events to be visible before the plugin emits its own probe.
+
+The rc.4 content follows.
+
 # abiogenesis 4.5.0-rc.4 Release Candidate Note
 
 This checkpoint is the fourth `4.5.0` release candidate. It follows

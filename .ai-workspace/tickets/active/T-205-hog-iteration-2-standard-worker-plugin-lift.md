@@ -254,3 +254,27 @@ both drivers (run-19 #21 shape pinned as differential, ABI); F6 typed
 closureFailureClass derived once at the construction boundary (carrier
 + factory + admission + projection row + typed-first consumer with
 prose fallback for pre-field replays, ABI). These ride the rc.4 line.
+
+## Remediation: live replay-log append (2026-07-07)
+Observed in the odd_glc standalone sandbox run
+`build_tenants/odd_glc/typescript/test_runs/glc_software_build_overlay_live/basic-cli/20260707T012039280Z_pid27983`:
+the PTY trace flushed live, but the ABG replay log
+`.ai-workspace/events/events.jsonl` stayed empty during execution and
+only received the full event batch at process exit. That makes live
+observation depend on archive inspection instead of the replay truth
+surface.
+
+Requirement authority: `REQ-R-ABG3-EVENTS-024`. Event append is a
+single ABG-owned runtime sink. Products and scenario harnesses must not
+create a second event writer. Process/PTY traces remain evidence
+interiors; they do not substitute for replay event truth.
+
+Implementation target:
+- `createRuntimeEventLogSink(eventLogPath)` appends the canonical event
+  to the workspace replay log at emission time and keeps the same event
+  in the command-local payload list.
+- `genesis-ts start` and `genesis-ts assess-result` use that sink
+  directly; the old finalization-only batch append path is retired.
+- The M04 CLI integration plugin-factory proof reads
+  `.ai-workspace/events/events.jsonl` during F_P dispatch and must see
+  already-emitted ABG events before the plugin emits its own probe.

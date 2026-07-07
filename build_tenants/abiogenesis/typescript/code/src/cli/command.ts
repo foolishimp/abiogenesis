@@ -7,7 +7,7 @@ import { emit } from "../abg/m03/events/emit.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
-import { access, appendFile, mkdir, readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
@@ -67,7 +67,10 @@ import type {
 } from "../app/m04/contracts/carriers.js";
 import type { PublicCallableStartOutcome } from "../app/m04/max_autonomy/carriers.js";
 import type { PublicStartContext } from "../app/m04/public_start.js";
-import { seedRuntimeEventAdmissionOrdinal } from "../abg/m03/events/index.js";
+import {
+  createRuntimeEventLogSink,
+  seedRuntimeEventAdmissionOrdinal
+} from "../abg/m03/events/index.js";
 import type { ToolchainWorkspaceBinding } from "../app/m04/index.js";
 
 interface AbiogenesisCliIo {
@@ -869,21 +872,6 @@ async function readReplayEvents(path: string): Promise<readonly RuntimeEvent[]> 
   return Object.freeze(events);
 }
 
-async function appendRuntimeEvents(
-  path: string,
-  events: readonly RuntimeEvent[]
-): Promise<void> {
-  if (events.length === 0) {
-    return;
-  }
-  await mkdir(dirname(path), { recursive: true });
-  await appendFile(
-    path,
-    `${events.map((event) => JSON.stringify(event)).join("\n")}\n`,
-    "utf8"
-  );
-}
-
 function unwrapRuntimeBinding(namespace: unknown): unknown {
   if (!isRecord(namespace)) {
     return namespace;
@@ -1569,10 +1557,8 @@ async function runStartCommand(
     command,
     replayEvents
   );
-  const emitted: RuntimeEvent[] = [];
-  const eventSink = (event: RuntimeEvent): void => {
-    emitted.push(event);
-  };
+  const eventLogSink = createRuntimeEventLogSink(eventLogPath);
+  const eventSink = eventLogSink.sink;
   // T-195 P0-3: workspace plugin factories get a KIND-RESTRICTED sink —
   // transport envelope events only; core truth enters exclusively through
   // admitted plugin outcomes.
@@ -1582,7 +1568,7 @@ async function runStartCommand(
         `workspace plugin emitted non-transport event kind ${JSON.stringify(event.kind)}; plugin truth enters through outcomes only`
       );
     }
-    emitted.push(event);
+    emit(event, eventSink);
   };
   const resolvedPolicy = await runtimePolicyForStart({
     binding,
@@ -1623,10 +1609,9 @@ async function runStartCommand(
       }),
       eventSink
     );
-    await appendRuntimeEvents(eventLogPath, emitted);
     throw error;
   }
-  await appendRuntimeEvents(eventLogPath, emitted);
+  const emitted = eventLogSink.emittedEvents;
 
   const output = {
     command: "start",
@@ -1815,11 +1800,11 @@ async function runAssessResultCommand(
     : resolve(workspaceRoot, command.result);
   const payload = JSON.parse(await readFile(resultPath, "utf8")) as unknown;
   seedRuntimeEventAdmissionOrdinal(await readReplayEvents(eventLogPath));
-  const emitted: RuntimeEvent[] = [];
+  const eventLogSink = createRuntimeEventLogSink(eventLogPath);
   const outcome = resultAssessment(payload, (event) => {
-    emitted.push(event);
+    eventLogSink.sink(event);
   });
-  await appendRuntimeEvents(eventLogPath, emitted);
+  const emitted = eventLogSink.emittedEvents;
   io.stdout(
     `${JSON.stringify({
       command: "assess-result",

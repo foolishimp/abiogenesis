@@ -3,6 +3,7 @@
 // Validates: REQ-P-POLICY-011
 // Validates: REQ-P-POLICY-012
 // Validates: REQ-P-POLICY-013
+// Validates: REQ-R-ABG3-EVENTS-024
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -39,6 +40,22 @@ function runtimeBindingSource({
       }),
       dispatch: (input) => {
         if (factoryEventSink !== null) {
+          let observedEventKindsDuringDispatch = [];
+          if (factoryWorkspaceRoot !== null) {
+            try {
+              const observedEventLogText = readFileSync(
+                join(factoryWorkspaceRoot, ".ai-workspace", "events", "events.jsonl"),
+                "utf8"
+              );
+              observedEventKindsDuringDispatch = observedEventLogText
+                .trim()
+                .split(/\\r?\\n/u)
+                .filter(Boolean)
+                .map((line) => JSON.parse(line).kind);
+            } catch {
+              observedEventKindsDuringDispatch = ["event_log_unreadable"];
+            }
+          }
           factoryEventSink(constructRuntimeActivityProbeObservedEvent({
             basisId: input.basisId,
             graphFunctionId: input.graphFunctionId,
@@ -58,7 +75,11 @@ function runtimeBindingSource({
             elapsedMs: 0,
             observedAtMs: 0,
             evidenceRefs: [factoryWorkspaceRoot ?? "workspace://unknown"],
-            detail: "runtime binding factory supplied plugin set with ABG event sink",
+            detail: JSON.stringify({
+              message: "runtime binding factory supplied plugin set with ABG event sink",
+              observedEventCountDuringDispatch: observedEventKindsDuringDispatch.length,
+              observedEventKindsDuringDispatch
+            }),
             causationEventRefs: [input.sourceProjectionRef],
             correlationId: \`runtime-binding-plugin-factory:\${input.vectorIndex}\`
           }));
@@ -123,6 +144,8 @@ function runtimeBindingSource({
     `
     : "";
   return `
+    import { readFileSync } from "node:fs";
+    import { join } from "node:path";
     import {
       admitExecutionBasis,
       admitModule,
@@ -311,7 +334,7 @@ function parsePayload(run) {
   return JSON.parse(run.stdout);
 }
 
-async function eventKinds(targetRoot) {
+async function runtimeEvents(targetRoot) {
   const text = await readFile(
     path.join(targetRoot, ".ai-workspace", "events", "events.jsonl"),
     "utf8"
@@ -320,7 +343,11 @@ async function eventKinds(targetRoot) {
     .trim()
     .split(/\r?\n/u)
     .filter(Boolean)
-    .map((line) => JSON.parse(line).kind);
+    .map((line) => JSON.parse(line));
+}
+
+async function eventKinds(targetRoot) {
+  return (await runtimeEvents(targetRoot)).map((event) => event.kind);
 }
 
 test("M04 CLI binary integration: installed package publishes TS binary aliases and graph_function target uses the shared suffix", async () => {
@@ -498,7 +525,21 @@ test("M04 CLI binary integration: runtime binding plugin factory receives ABG ev
     payload.event_kinds.includes("actor_result_artifact_observed"),
     true
   );
-  assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
+  const events = await runtimeEvents(targetRoot);
+  const probeEvent = events.find(
+    (event) => event.kind === "runtime_activity_probe_observed"
+  );
+  assert.notEqual(probeEvent, undefined);
+  const probeDetail = JSON.parse(probeEvent.detail);
+  assert.equal(probeDetail.observedEventCountDuringDispatch > 0, true);
+  assert.equal(
+    probeDetail.observedEventKindsDuringDispatch.includes("fp_dispatch_requested"),
+    true
+  );
+  assert.deepStrictEqual(
+    events.map((event) => event.kind),
+    payload.event_kinds
+  );
 });
 
 test("M04 CLI binary integration: runtime binding policy factory selects target policy", async () => {
