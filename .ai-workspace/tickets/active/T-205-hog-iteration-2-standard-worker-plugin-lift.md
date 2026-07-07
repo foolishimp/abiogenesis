@@ -225,8 +225,8 @@ The internal-everything gate items and where each earned:
 - -012 per configuration: live-lane audit row.
 READINESS: version 4.5.0-rc.1, note single-current, docs swept
 (witness-driven), battery 1129/1129 + t205 13/13 + t188 32/32.
-AWAITING: user code review + test-results review; then B6 cut
-(snapshot:release + tarball + toolchain manifest) and T-205 closure.
+AWAITING: user code review + test-results review; B6 cut remains
+blocked by the carry-through applicability remediation below.
 
 ## codex rc.1 round CLOSED + final-candidate gate (2026-07-07)
 P1-a raw-field binding admission (no coercion, closed keys, probes
@@ -237,7 +237,8 @@ async driver law; 4 named gaps with phase owners). FINAL-CANDIDATE
 GATE at HEAD: sourceClean=true, releaseGrade=true, installed package
 4.5.0-rc.1, converged, per-config {gtl://sandbox/hog/lean: 6} — the
 evidence-scope caveat is retired. Suite 1134/1134, t205 18/18.
-B6 cut remains the only pending act.
+B6 cut is paused until the carry-through applicability information-loss
+defect below is reviewed and implemented.
 
 ## Self-review round applied (2026-07-07)
 Post-campaign self code review (9 findings) applied in recommended
@@ -278,3 +279,272 @@ Implementation target:
 - The M04 CLI integration plugin-factory proof reads
   `.ai-workspace/events/events.jsonl` during F_P dispatch and must see
   already-emitted ABG events before the plugin emits its own probe.
+
+## Remediation: carry-through applicability information loss (2026-07-08)
+
+STDO status: design review required before code. No temporary odd_glc
+patch is authorized.
+
+Problem:
+
+The data-mapper campaign exposed an ABG information-loss defect in
+requirement proof carry-through. Active requirement pressure exists on a
+closing edge, and `requirementProofCarryThroughStartup` may be present,
+but if no matching `requirement_proof_carry_through_admitted` event is
+emitted for that edge, the route currently passes an empty
+`proofCoverageTruthRefsByRequirementId` row into the fold. The fold then
+falls back to generic assurance closure truth.
+
+This collapses two different information states:
+
+- coverage is not required for this edge;
+- coverage is required for this edge but missing.
+
+Those states are not equivalent. Treating both as "no coverage refs"
+lets an edge close while silently dropping requirement-proof pressure.
+That violates `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-002`,
+`-005`, `-010`, `-013`, `-037`, and the transition rule in `-038`.
+
+Current code shape:
+
+- `deriveRequirementProofCarryThroughAdmittedEvents(...)` filters
+  startup entries by `entry.edge` and emits nothing for non-matching
+  edges.
+- `emitRequirementRouteForEdgeClose(...)` collects only emitted
+  coverage refs scoped to the closing edge.
+- `sourceTruthRefsByRequirementId(...)` treats absent coverage refs as
+  absence, then appends scoped assurance closure truth.
+- `foldRequirementEvidence(...)` already preserves no-close when it sees
+  a non-eligible `abg://requirement-proof-coverage/...` truth ref, but
+  it never sees one for the "required but missing" case.
+
+Prime-law diagnosis:
+
+The missing Prime carrier is not a downstream lifecycle slot map, a glc
+coverage table, or a caller-supplied boolean. The missing derivation is
+ABG-owned carry-through applicability:
+
+`active requirement obligation x admitted carry-through contract x
+edge/program locus x replay events -> requirement proof coverage
+projection`
+
+The attempted local shape `proofCoverageExpected` is not sufficient if
+it is caller supplied. It is only lawful if it is an internal derived
+predicate over admitted startup/program/contract truth and active
+requirement projections.
+
+Irreducible solution:
+
+ABG shall derive carry-through applicability at the route close site from
+admitted truth. For every active projected requirement on the closing
+edge:
+
+1. If no carry-through contract applies, preserve the existing
+   transitional `-038` behavior and mark the gap as migration state in
+   release claims.
+2. If a carry-through contract applies and matching coverage exists,
+   pass the existing coverage truth refs into the requirement fold.
+3. If a carry-through contract applies and matching coverage is absent,
+   ABG shall project a residual `requirement_proof_coverage_projection`
+   for that requirement and feed its
+   `abg://requirement-proof-coverage/residual/...` truth ref into the
+   fold.
+
+This reuses the existing coverage truth grammar and the existing fold
+behavior. It does not mint a new closure surface. The missing information
+becomes replay-derived residual pressure, so the traversal can continue,
+retry, recurse, re-enter, or block through existing ABG mechanisms.
+
+Non-solutions:
+
+- Do not enumerate per-vector carry-through entries in odd_glc to cover
+  the hole.
+- Do not add a glc-local requirement-proof ledger, closure register, or
+  post-processor.
+- Do not let F_P, a scenario harness, or a sandbox monitor assert that
+  coverage is complete.
+- Do not add a caller-owned `proofCoverageExpected` flag as closure
+  truth.
+- Do not fail the host process when coverage is missing; project typed
+  residual/no-close truth.
+
+Review checklist before implementation:
+
+- The applicability predicate is F_D: total over known/admitted
+  requirement, edge, program, startup, contract, and replay carriers.
+- Applicability has one Prime source: admitted GTL/ABG program/startup
+  and active requirement projection truth. No downstream product-owned
+  mirror exists.
+- Absence is typed: "required but missing" emits residual coverage truth
+  or an equivalent replay-visible projection, not silence.
+- Existing undeclared-edge transitional behavior remains explicit under
+  `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`; release notes do not
+  claim universal coverage-gated closure while undeclared edges remain.
+- The implementation composes with C-call enclosure and handler law:
+  plugin outputs remain candidate interiors until ABG admits them.
+
+Proof gates:
+
+- Add a T-188/T-205 differential where carry-through startup exists for
+  a different edge while the closing edge has active requirements:
+  no matching coverage event is emitted; the fold must be
+  `no_close_preserved`.
+- Assert the fold source truth includes a residual
+  `abg://requirement-proof-coverage/...` ref for the missing-coverage
+  requirement.
+- Keep the existing baseline: no carry-through declared at all retains
+  the `-038` transitional path and does not silently upgrade to universal
+  coverage gating.
+- Keep the existing eligible and residual coverage tests: eligible
+  coverage + assurance close satisfies; residual/blocked coverage
+  vetoes close.
+- Run `npm run test:t188`, `npm run test:t205`, and
+  `npm run test:semantic`.
+
+## Carry-through applicability IMPLEMENTED (2026-07-08)
+
+Design review ratified with two pinned decisions, then code:
+
+1. Predicate scope pinned (the review's one major ambiguity): owedness is
+   REQUIREMENT-scoped, production is EDGE-scoped. `entry.requirementIds`
+   names which requirements owe coverage wherever their pressure is
+   active; `entry.edge` names only where the producer emits. An entry
+   naming a foreign requirement leaves the closing requirement on the
+   `-038` transitional path; an entry naming the active requirement with
+   a foreign production edge preserves no-close with residual pressure.
+2. F_D totality law (user, this round): F_D is a total function over a
+   finite state machine, and responsibility separation is strict —
+   admission collapses the open domain once at ingress; derivations are
+   total over the admitted domain and never grow guards against raw
+   shapes. Realized as `admitRequirementProofCarryThroughStartup` at
+   engine entry (admitHandlerRegistry/temporal-startup precedent):
+   inadmissible startup becomes a typed `gap_stop` terminal
+   (`requirement proof carry-through startup rejected: entries[i].field`),
+   never a host exception, and never runs.
+
+Compute self-healing only — no new variable carrier, status, or event
+kind. The close-site fix is one pure fold over the finite cell lattice
+{not_owed, owed_uncovered, covered(eligible|residual|blocked)}:
+owed_uncovered maps to the EXISTING residual status via the EXISTING
+projector applied to zero admissions and the EXISTING self-certifying
+truth-ref codec; the fold's first-loop veto consumes it unchanged.
+
+Code sites (one home, requirement_proof_carry_through_producer.ts):
+- `admitRequirementProofCarryThroughStartup` — the one total admission
+  over the open startup ingress;
+- `carryThroughEntryProducesOnEdge` — production predicate, now shared
+  by the producer loop (was inline);
+- `carryThroughOwedObligationRefsByRequirementId` — obligation scope;
+- `deriveRequirementProofCoverageTruthRefsForEdgeClose` — scan +
+  synthesis fold-input assembly, deterministic synthesized
+  projectionRef over (basisId, vectorIndex, edge, requirementId);
+- engine_runner: entry admission block + close-site assembly replaced by
+  the contracts call (three close sites ride the one helper). Route and
+  fold signatures untouched.
+
+Differentials (9 new): owed-but-missing => no_close_preserved with
+exactly one synthesized residual ref in fold source truth;
+requirement-scoped control => -038 transitional close; inadmissible
+startup => typed gap_stop at entry; unit lane pins determinism,
+suppression-on-presence (no double projection), identity scope,
+mixed per-requirement, no-owedness, and admission rejections.
+
+Proof: t188 41/41, t205 22/22, `npm run test:semantic` 1147/1147,
+`git diff --check` clean. Known residual (pre-existing, named in code):
+close-site identity is basis+edge+vector; frame/run identity remains the
+named follow-up. The -038 release-claim witness can now enumerate
+undeclared-but-obligated edges from the same owedness function (free
+consequence, not yet wired).
+
+## Carry-through review round applied (2026-07-08, second pass)
+
+Adversarial review (user probe) found the startup admission was a
+kind-tag check, not admission — `{ contract: { kind: ... } }` passed,
+then both consumers threw host exceptions (owedness map:
+`fulfillmentBindings is not iterable`; producer: `contractRef must be a
+non-empty string`). The open domain had survived behind the gate.
+
+Fix (deep admission, one validator home):
+- `admitRequirementProofCarryThroughStartup` now RECONSTRUCTS each
+  entry through the existing carrier constructors
+  (`constructRequirementProofCarryThroughContract`,
+  `constructRequirementProofCandidateClassificationTable`) and
+  probe-constructs the envelope template with deterministic placeholder
+  refs — the constructors ARE the validators; no duplicated field rules.
+  Supplied-digest tampering on the classification table fails closed for
+  free (`verifiedSuppliedCarryDigest`).
+- Admission returns `AdmittedRequirementProofCarryThroughStartup`
+  (frozen, reconstructed). Producer emission, owedness, and the
+  close-site derivation accept ONLY that type — raw startup cannot
+  reach them through the public surface (review finding 2 closed).
+- Runner threads the admitted carrier from the entry gate to the
+  producer call and all three close sites; the raw request field is
+  consumed nowhere past the gate. Child construction-episode requests
+  still forward raw startup lawfully — the child run re-enters the same
+  entry admission.
+- `carryThroughEntryProducesOnEdge` demoted to module-local (public-API
+  inflation removed).
+
+Accepted-by-design (review finding 3): the synthesized residual carries
+only the coverage truth ref; issue-kind detail is F_D re-derivable from
+admitted startup + replay (deterministic), so no replay information is
+lost — the product claim is fold-level no-close, not a persisted
+missing-coverage diagnostic object.
+
+New differentials: admission depth probe (kind-tag-only carrier
+rejected with per-field constructor diagnostics; tampered table digest
+rejected); admitted-carrier shape pinned (frozen, reconstructed
+contract kind). Proof: t188 42/42, t205 22/22, semantic 1148/1148.
+
+## Carry-through review round 3: workflow review applied (2026-07-08)
+
+Four-lens principles workflow (parallel-truth, recurrence, F_D-totality,
+prime-compression; 23 raw -> 13 deduped -> 11 adversarially CONFIRMED,
+2 refuted) over the carry-through diff. It independently confirmed both
+user findings from round 2 and surfaced the rest. Boundary-local set
+APPLIED this wave:
+
+- P1 null-startup hole closed: `admitRequirementProofCarryThroughStartup`
+  now rejects null/non-object startup as typed `startup_not_object`
+  (null is in the open ingress domain — JSON round-trips mint it).
+- P1 lone-surrogate hole closed: the admission's string guard requires
+  well-formed strings (`\p{Surrogate}` reject) for requirementIds and
+  edge — an admitted lone surrogate previously threw URIError inside
+  encodeURIComponent at ref minting on in-domain input.
+- P1 closed rejection vocabulary: admission issues are typed rows
+  {issueKind, at, message} (temporal-precedent shape); the gap_stop
+  reason joins locus:issueKind, never pattern-matched prose.
+- P5 fail-closed startup realization: one module-local
+  `failClosedStartupResult` in the runner; the hog / temporal /
+  carry-through entry blocks (third recurrence) rewired through it.
+- P5/P3 route-close call bundle: one local
+  `emitRequirementRouteCloseForEdge` closure; the three close sites
+  (which this wave had edited identically three times) rewired; the next
+  per-close input (frame/run identity residual) threads in one place.
+- P3 owedness one home: `owedObligationRefsForEntry` now feeds BOTH the
+  producer emission path and the cross-entry owedness merge — produced
+  and synthesized coverage share one required-set truth (behavior
+  identical; the projector already canonicalized).
+- P3 ref grammar: synthesized projectionRef now scheme://
+  (`carry-through-close://...`), the family's only single-colon ref
+  removed.
+- P4 export surface: `carryThroughOwedObligationRefsByRequirementId`
+  internalized (zero external consumers; the -038 witness gets it back
+  when a real consumer exists).
+- P3/P5 tests: residual-ref recognition via the owning parser
+  (`requirementProofCoverageStatusFromTruthRef`), raw prefix literal
+  removed; the redundant suppression differential merged into the mixed
+  per-requirement differential (net one fewer test, no pinned law lost);
+  null-startup and lone-surrogate admission differentials added.
+
+Refuted (recorded, no action): obligation-refs canonicalization
+divergence (the projector is the one canonicalization home); comment-
+prose duplication (comments are read models, one full home exists).
+
+Cross-boundary findings escrowed to T-208 (backlog): admission-support
+commonization (predicate at 4 sites, scaffold at 3), T-188 fixture
+family consolidation to test_env/tests/support/, requirements_route
+coverage-prepend single seam + explicit drop decision (-013 triage note).
+
+Proof: t188 41/41, t205 22/22, semantic 1147/1147 (one fewer than round
+2 by the lawful test merge), git diff --check clean.

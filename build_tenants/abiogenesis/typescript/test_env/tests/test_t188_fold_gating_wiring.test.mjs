@@ -1,5 +1,8 @@
 // Implements: T-188 (fold-gating slices 2-3: M5 producer + B2 consumer wiring differential)
+// Implements: T-205 (carry-through applicability: owed-but-missing coverage is typed residual pressure, not silence)
+// Implements: REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-002
 // Implements: REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-013
+// Implements: REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038
 import test from "node:test";
 import assert from "node:assert/strict";
 
@@ -353,6 +356,9 @@ function b3Run(carryEntry, pluginEvidenceRefs, seedEvents) {
     ...base,
     startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
   });
+  // entries that need basis identity (e.g. a foreign production edge) are
+  // passed as a factory over the built basis
+  const entry = typeof carryEntry === "function" ? carryEntry(basis) : carryEntry;
   const events = [];
   const result = runEngineIterate({
     basis,
@@ -361,7 +367,7 @@ function b3Run(carryEntry, pluginEvidenceRefs, seedEvents) {
     ...m03InstructionAssemblyRequestFields(basis),
     requirementRouteDeclarationBundle: b3Bundle(basis, 0),
     requirementProofCarryThroughStartup:
-      carryEntry === undefined ? undefined : { entries: [carryEntry] },
+      entry === undefined ? undefined : { entries: [entry] },
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
@@ -492,4 +498,74 @@ test("T-188 identity scope: foreign-edge residual coverage does not feed the clo
   const seeded = b3Run(undefined, undefined, stamped);
   assert.ok(seeded.fold);
   assert.equal(seeded.fold.requirementPayload.fold.state, "satisfied");
+});
+
+test("T-205 owed-but-missing coverage: foreign-production-edge contract preserves no-close with a synthesized residual ref", async () => {
+  // ref recognition through the owning parser — no raw ref-scheme literals
+  // outside the owning module (review finding: startsWith prefix drift)
+  const { requirementProofCoverageStatusFromTruthRef } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  const table = classificationTable();
+  // the entry OWES coverage for the active requirement (requirementIds is
+  // obligation scope) but PRODUCES on vector 1's edge (edge is production
+  // scope) — vector 0 closes with active pressure and no admitted coverage
+  const missing = b3Run(
+    (basis) => ({
+      contract: carryContract(table),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-001"],
+      envelopeTemplate: envelopeTemplate(),
+      edge: basis.graph.vectors[1]?.name ?? "requirements→design"
+    }),
+    undefined
+  );
+  assert.equal(missing.carry, undefined);
+  assert.ok(missing.fold);
+  assert.equal(missing.fold.requirementPayload.fold.state, "no_close_preserved");
+  const residualRefs = missing.fold.requirementPayload.fold.sourceAbgTruthRefs.filter(
+    (ref) => requirementProofCoverageStatusFromTruthRef(ref)?.status === "residual"
+  );
+  assert.equal(residualRefs.length, 1);
+});
+
+test("T-205 requirement-scoped owedness control: a contract naming only a foreign requirement keeps the -038 transitional close", () => {
+  const table = classificationTable();
+  const control = b3Run(
+    (basis) => ({
+      contract: carryContract(table),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-OTHER"],
+      envelopeTemplate: envelopeTemplate(),
+      edge: basis.graph.vectors[1]?.name ?? "requirements→design"
+    }),
+    undefined
+  );
+  assert.ok(control.fold);
+  assert.equal(control.fold.requirementPayload.fold.state, "satisfied");
+});
+
+test("T-205 inadmissible startup fails closed at entry: typed gap_stop terminal, no host exception, no traversal", () => {
+  const table = classificationTable();
+  const { events, result } = runWiring({
+    contract: carryContract(table),
+    classificationTable: table,
+    requirementIds: ["requirement://t188/r1", ""],
+    envelopeTemplate: envelopeTemplate()
+  });
+  const terminal = result.replayEvents.find(
+    (event) => event.kind === "terminal_reached"
+  );
+  assert.ok(terminal);
+  assert.equal(terminal.terminalKind, "gap_stop");
+  // the reason joins the CLOSED issueKind vocabulary (locus:kind), not prose
+  assert.match(
+    terminal.reason ?? "",
+    /requirement proof carry-through startup rejected: entries\[0\]\.requirementIds:requirement_ids_invalid/u
+  );
+  // the unlawful entry set never runs: no carry-through emission, no dispatch
+  assert.equal(
+    events.some((event) => event.kind === "requirement_proof_carry_through_admitted"),
+    false
+  );
 });

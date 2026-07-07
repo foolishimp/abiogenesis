@@ -274,7 +274,10 @@ import {
   type TemporalPropertyStartupInput
 } from "../contracts/temporal_property_runtime.js";
 import {
+  admitRequirementProofCarryThroughStartup,
   deriveRequirementProofCarryThroughAdmittedEvents,
+  deriveRequirementProofCoverageTruthRefsForEdgeClose,
+  type AdmittedRequirementProofCarryThroughStartup,
   type RequirementProofCarryThroughStartupInput
 } from "../contracts/requirement_proof_carry_through_producer.js";
 import { dispatchRequestsForTransition } from "../transport/index.js";
@@ -3834,6 +3837,7 @@ function emitRequirementRouteForEdgeClose(input: {
   readonly state: EngineEventEmissionState;
   readonly request: EngineIterateRequest;
   readonly context: RequirementRouteRuntimeContext | undefined;
+  readonly carryThroughStartup: AdmittedRequirementProofCarryThroughStartup | undefined;
   readonly vectorIndex: number;
   readonly closureDecision: AssuranceClosureDecision;
   readonly continuationTransitions?:
@@ -3847,38 +3851,18 @@ function emitRequirementRouteForEdgeClose(input: {
     basis: input.request.basis,
     events: input.state.replayEvents
   });
-  const proofCoverageTruthRefsByRequirementId: Record<string, readonly string[]> = {};
-  for (const event of input.state.replayEvents) {
-    if (event.kind !== "requirement_proof_carry_through_admitted") {
-      continue;
-    }
-    // Rejected ADMISSIONS still carry residual coverage truth — an output
-    // that failed envelope law is no-close pressure, not silence (the
-    // rejected-PAYLOAD case is already excluded upstream: no emission
-    // happens without an accepted attached payload).
-    // IDENTITY SCOPE (codex round): basis + edge + vector — not
-    // vectorIndex alone; recursive/repeated graph calls reuse vector
-    // indexes. frameId/graphCallId/runId matching is the named residual
-    // (the close site does not carry frame/run identity today).
-    const closingVector = input.request.basis.graph.vectors[input.vectorIndex];
-    if (
-      event.vectorIndex !== input.vectorIndex ||
-      event.basisId !== input.request.basis.id ||
-      (closingVector !== undefined && event.edge !== closingVector.name)
-    ) {
-      continue;
-    }
-    event.coverageRequirementIds.forEach((requirementId, index) => {
-      const truthRef = event.coverageTruthRefs[index];
-      if (truthRef === undefined) {
-        return;
-      }
-      proofCoverageTruthRefsByRequirementId[requirementId] = Object.freeze([
-        ...(proofCoverageTruthRefsByRequirementId[requirementId] ?? []),
-        truthRef
-      ]);
+  // Scan + owed-but-missing residual synthesis live in the contracts
+  // module (T-205 carry-through applicability); the runner only sequences.
+  // The ADMITTED startup carrier arrives from the entry admission — never
+  // the raw request field.
+  const proofCoverageTruthRefsByRequirementId =
+    deriveRequirementProofCoverageTruthRefsForEdgeClose({
+      startup: input.carryThroughStartup,
+      replayEvents: input.state.replayEvents,
+      basisId: input.request.basis.id,
+      vectorIndex: input.vectorIndex,
+      edge: input.request.basis.graph.vectors[input.vectorIndex]?.name
     });
-  }
   const route = emitRequirementRouteFactsForEdgeClose({
     proofCoverageTruthRefsByRequirementId,
     runtimeScope: requirementRouteScopeRef({
@@ -5303,11 +5287,34 @@ function* runEngineIterateMachine(input: {
       sink: request.eventSink
     });
   };
+  // ONE fail-closed startup realization (T-205 review round 3): an
+  // inadmissible-at-entry surface becomes typed gap_stop truth — never a
+  // host exception, never a half-opened spine. Each admission below asks a
+  // DIFFERENT question; this helper is the single home for the terminal
+  // realization they share (third recurrence forced the extraction).
+  const failClosedStartupResult = (
+    reason: string,
+    extraEvents: readonly RuntimeEvent[] = []
+  ): EngineIterateResult => {
+    const blocked = terminalTransition(request.basis, "gap_stop", reason);
+    eventState = emitRunnerEvents(eventState, [
+      ...extraEvents,
+      constructTerminalReachedEvent(blocked)
+    ]);
+    return constructResult({
+      basis: request.basis,
+      transition: blocked,
+      projection: deriveRuntimeAggregateProjection(
+        request.basis,
+        eventState.replayEvents
+      ),
+      emittedEvents: eventState.emittedEvents,
+      replayEvents: eventState.replayEvents,
+      iterationCount
+    });
+  };
   // T-205 B2 (HANDLERS-012; codex review HIGH): the run's program is
-  // admitted at ENTRY. An unresolvable or not-yet-executable declared
-  // program becomes TYPED TRUTH — runtime_failure_observed + a lawful
-  // gap_stop terminal in replay — never a host exception, never a
-  // half-opened spine.
+  // admitted at ENTRY.
   try {
     if (plugins.handlerRegistry !== null) {
       const registryAdmission = admitHandlerRegistry(plugins.handlerRegistry);
@@ -5323,55 +5330,58 @@ function* runEngineIterateMachine(input: {
     );
   } catch (error) {
     const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
-    const blocked = terminalTransition(
-      request.basis,
-      "gap_stop",
-      `hog_program_unresolvable: ${message}`
-    );
-    eventState = emitRunnerEvents(eventState, [
+    return failClosedStartupResult(`hog_program_unresolvable: ${message}`, [
       constructRuntimeFailureObservedEvent({
         basisId: request.basis.id,
         surface: "hog_program_resolution",
         failureClass: "contract_failure",
         message,
         stackExcerpt: null
-      }),
-      constructTerminalReachedEvent(blocked)
+      })
     ]);
-    return constructResult({
-      basis: request.basis,
-      transition: blocked,
-      projection: deriveRuntimeAggregateProjection(
-        request.basis,
-        eventState.replayEvents
-      ),
-      emittedEvents: eventState.emittedEvents,
-      replayEvents: eventState.replayEvents,
-      iterationCount: 0
-    });
   }
   if (!temporalStartupAdmission.accepted) {
-    // Fail-closed startup (REQ -009): an unlawful property set never runs.
-    const blocked = terminalTransition(
-      request.basis,
-      "gap_stop",
+    // REQ -009: an unlawful property set never runs.
+    return failClosedStartupResult(
       `temporal property startup rejected: ${temporalStartupAdmission.issues
         .map((row) => row.issueKind)
         .join(",")}`
     );
-    eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
-    return constructResult({
-      basis: request.basis,
-      transition: blocked,
-      projection: deriveRuntimeAggregateProjection(
-        request.basis,
-        eventState.replayEvents
-      ),
-      emittedEvents: eventState.emittedEvents,
-      replayEvents: eventState.replayEvents,
-      iterationCount
-    });
   }
+
+  const carryThroughStartupAdmission = admitRequirementProofCarryThroughStartup(
+    request.requirementProofCarryThroughStartup
+  );
+  if (!carryThroughStartupAdmission.accepted) {
+    // T-205 carry-through applicability: the startup family is deep-admitted
+    // ONCE here; producer emission and edge-close owedness accept only the
+    // ADMITTED carrier below. The reason joins the CLOSED issueKind
+    // vocabulary (locus:kind), not prose.
+    return failClosedStartupResult(
+      `requirement proof carry-through startup rejected: ${carryThroughStartupAdmission.issues
+        .map((row) => `${row.at}:${row.issueKind}`)
+        .join(",")}`
+    );
+  }
+  const admittedCarryThroughStartup = carryThroughStartupAdmission.admitted;
+  // ONE home for the requirement-route edge-close call bundle (T-205 review
+  // round 3: the identical bundle was rebuilt at three close sites; the next
+  // per-close input threads here, in exactly one place).
+  const emitRequirementRouteCloseForEdge = (input: {
+    readonly state: EngineEventEmissionState;
+    readonly vectorIndex: number;
+    readonly closureDecision: AssuranceClosureDecision;
+    readonly continuationTransition: RuntimeContinuationTransitionProjection;
+  }): EngineEventEmissionState =>
+    emitRequirementRouteForEdgeClose({
+      state: input.state,
+      request,
+      context: requirementRouteContext,
+      carryThroughStartup: admittedCarryThroughStartup,
+      vectorIndex: input.vectorIndex,
+      closureDecision: input.closureDecision,
+      continuationTransitions: Object.freeze([input.continuationTransition])
+    });
 
   if (!hasBasisAdmittedEvent(request.basis, eventState.replayEvents)) {
     eventState = emitRunnerEvents(
@@ -7555,7 +7565,7 @@ function* runEngineIterateMachine(input: {
             eventState = emitRunnerEvents(
               eventState,
               deriveRequirementProofCarryThroughAdmittedEvents({
-                startup: request.requirementProofCarryThroughStartup,
+                startup: admittedCarryThroughStartup,
                 replayEvents: eventState.replayEvents,
                 invocation: actorInvocation,
                 frameLineageId: request.basis.frameLineageId ?? null,
@@ -8436,15 +8446,11 @@ function* runEngineIterateMachine(input: {
                   assuranceClosureDecision: assuranceFold.closureDecision,
                   ...continuationTypedRefsFromExecutive(executiveContinuationInput)
                 });
-              eventState = emitRequirementRouteForEdgeClose({
+              eventState = emitRequirementRouteCloseForEdge({
                 state: eventState,
-                request,
-                context: requirementRouteContext,
                 vectorIndex: transition.vectorIndex,
                 closureDecision: assuranceFold.closureDecision,
-                continuationTransitions: Object.freeze([
-                  requirementRouteContinuationTransition
-                ])
+                continuationTransition: requirementRouteContinuationTransition
               });
               const assuranceRetry =
                 executiveRetryTransition === null
@@ -8555,15 +8561,11 @@ function* runEngineIterateMachine(input: {
                   assuranceClosureDecision: assuranceFold.closureDecision,
                   ...continuationTypedRefsFromExecutive(executiveContinuationInput)
                 });
-              eventState = emitRequirementRouteForEdgeClose({
+              eventState = emitRequirementRouteCloseForEdge({
                 state: eventState,
-                request,
-                context: requirementRouteContext,
                 vectorIndex: transition.vectorIndex,
                 closureDecision: assuranceFold.closureDecision,
-                continuationTransitions: Object.freeze([
-                  requirementRouteContinuationTransition
-                ])
+                continuationTransition: requirementRouteContinuationTransition
               });
               const continuationTerminal =
                 terminalTransitionForRuntimeContinuationProjection({
@@ -9238,15 +9240,11 @@ function* runEngineIterateMachine(input: {
                 assuranceClosureDecision: assuranceFold.closureDecision,
                 ...continuationTypedRefsFromExecutive(executiveContinuationInput)
               });
-            eventState = emitRequirementRouteForEdgeClose({
+            eventState = emitRequirementRouteCloseForEdge({
               state: eventState,
-              request,
-              context: requirementRouteContext,
               vectorIndex: transition.vectorIndex,
               closureDecision: assuranceFold.closureDecision,
-              continuationTransitions: Object.freeze([
-                requirementRouteContinuationTransition
-              ])
+              continuationTransition: requirementRouteContinuationTransition
             });
             eventState = emitRunnerEvents(eventState,
               constructVectorClosedEvent({

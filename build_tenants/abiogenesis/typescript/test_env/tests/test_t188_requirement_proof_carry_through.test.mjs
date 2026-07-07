@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import {
   admitCompiledPromptPlanAtStartup,
   admitRequirementProofCarryThroughOutput,
+  admitRequirementProofCarryThroughStartup,
   bindInstructionEnvelope,
   compileInstructionAssemblyPlan,
   constructDerivedDependencyInstructionTruth,
@@ -15,10 +16,13 @@ import {
   constructInstructionAssemblyRule,
   constructInstructionSectionDecision,
   constructRequirementProofCandidateClassificationTable,
+  constructRequirementProofCarryThroughAdmittedEvent,
   constructRequirementProofCarryThroughContract,
   constructRequirementProofCarryThroughOutputEnvelope,
   constructRuntimeBindingSlot,
+  deriveRequirementProofCoverageTruthRefsForEdgeClose,
   INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS,
+  parseRequirementProofCoverageTruthRef,
   projectRequirementProofCoverage,
   requirementAbgTruthRefFromRequirementProofCoverage,
   renderPromptManifest,
@@ -1221,4 +1225,255 @@ test("causal excerpt render bound is plan-declared policy, not a constant", () =
   const bad = compileInstructionAssemblyPlan(compileInput({ causalExcerptMaxChars: 12 }));
   assert.equal(bad.accepted, false);
   assert.equal(bad.issues.some((row) => row.issueKind === "renderer_gap"), true);
+});
+
+// T-205 carry-through applicability (REQ-R-ABG3-REQUIREMENT-PROOF-
+// CARRY-THROUGH-002/-005/-010/-013/-037/-038): the close-site derivation is
+// the ONE fold-input assembly — scan of identity-scoped admitted coverage
+// plus residual synthesis for owed-but-missing requirements. Consumers
+// accept only the ADMITTED startup carrier, so fixtures pass through
+// admitRequirementProofCarryThroughStartup like the engine does.
+function carryEnvelopeTemplate(overrides = {}) {
+  // derived from the constructed envelope fixture — no duplicated values
+  const { kind, replayDigest, envelopeRef, evidenceRefs, replayIdentity, ...template } =
+    carryEnvelope();
+  return { ...template, ...overrides };
+}
+
+function closeSiteStartupEntry(overrides = {}) {
+  return {
+    contract: carryContract(),
+    classificationTable: classificationTable(),
+    requirementIds: ["requirement://t188/r1"],
+    envelopeTemplate: carryEnvelopeTemplate(),
+    ...overrides
+  };
+}
+
+function admittedStartup(entries) {
+  const admission = admitRequirementProofCarryThroughStartup({ entries });
+  assert.equal(admission.accepted, true, admission.issues.join("; "));
+  return admission.admitted;
+}
+
+function carryCloseAdmittedEvent(overrides = {}) {
+  const requirementId = overrides.requirementId ?? "requirement://t188/r1";
+  const status = overrides.status ?? "eligible";
+  const truthRef = requirementAbgTruthRefFromRequirementProofCoverage({
+    kind: "requirement_proof_coverage_projection",
+    projectionRef: "requirement-proof-coverage://t205/close/produced",
+    requirementId,
+    status
+  });
+  return constructRequirementProofCarryThroughAdmittedEvent({
+    invocation: {
+      basisId: overrides.basisId ?? "basis://t205/close",
+      graphFunctionId: "graph-function://t205/close",
+      runId: "run://t205/close",
+      workKey: "wk://t205/close",
+      graphCallId: "graph-call://t205/close",
+      frameId: "frame://t205/close",
+      vectorIndex: overrides.vectorIndex ?? 0,
+      edge: overrides.edge ?? "code->tests",
+      actorInvocationId: "actor-invocation://t205/close",
+      workerId: "worker://t205/close",
+      backendId: "backend://t205/close",
+      causationEventRefs: [],
+      correlationId: "correlation://t205/close",
+      resultRef: "result://t205/close"
+    },
+    frameLineageId: null,
+    correlationId: "correlation://t205/close",
+    envelopeRef: "envelope://t205/close",
+    contractRef: "plugin-proof-contract://t188/transform/source",
+    categoryKey: "category://t205/close",
+    accepted: true,
+    sourceRequirementObligationRefs: ["requirement-obligation://t188/r1"],
+    proofObligationRefs: ["proof-obligation://t188/source-build"],
+    evidenceRoleRefs: ["evidence-role://t188/realization"],
+    issueKinds: [],
+    coverageRequirementIds: [requirementId],
+    coverageStatuses: [status],
+    coverageIssueKinds: [],
+    coverageTruthRefs: [truthRef],
+    replayIdentity: "replay://t205/close",
+    replayDigest: "sha256:t205-close"
+  });
+}
+
+function closeDerivationInput(overrides = {}) {
+  return {
+    startup: admittedStartup([closeSiteStartupEntry()]),
+    replayEvents: [],
+    basisId: "basis://t205/close",
+    vectorIndex: 0,
+    edge: "code->tests",
+    ...overrides
+  };
+}
+
+test("T-205 close-site derivation synthesizes a deterministic residual ref for owed-but-missing coverage", () => {
+  const refs = deriveRequirementProofCoverageTruthRefsForEdgeClose(closeDerivationInput());
+  const list = refs["requirement://t188/r1"];
+  assert.ok(list);
+  assert.equal(list.length, 1);
+  const parsed = parseRequirementProofCoverageTruthRef(list[0]);
+  assert.equal(parsed.status, "residual");
+  assert.equal(parsed.requirementId, "requirement://t188/r1");
+  // determinism: same close identity and startup -> same synthesized ref
+  const again = deriveRequirementProofCoverageTruthRefsForEdgeClose(closeDerivationInput());
+  assert.deepEqual(again, refs);
+});
+
+test("T-205 close-site derivation: identity scope excludes foreign-edge coverage while owedness still synthesizes", () => {
+  const foreign = carryCloseAdmittedEvent({ edge: "requirements->design" });
+  const refs = deriveRequirementProofCoverageTruthRefsForEdgeClose(
+    closeDerivationInput({ replayEvents: [foreign] })
+  );
+  const parsed = parseRequirementProofCoverageTruthRef(refs["requirement://t188/r1"][0]);
+  assert.equal(parsed.status, "residual");
+});
+
+test("T-205 close-site derivation: mixed per-requirement — covered ref suppresses synthesis exactly (no double projection), sibling owed-missing synthesizes", () => {
+  const event = carryCloseAdmittedEvent();
+  const refs = deriveRequirementProofCoverageTruthRefsForEdgeClose(
+    closeDerivationInput({
+      startup: admittedStartup([
+        closeSiteStartupEntry({
+          requirementIds: ["requirement://t188/r1", "requirement://t188/r2"]
+        })
+      ]),
+      replayEvents: [event]
+    })
+  );
+  assert.deepEqual([...refs["requirement://t188/r1"]], [event.coverageTruthRefs[0]]);
+  assert.equal(
+    parseRequirementProofCoverageTruthRef(refs["requirement://t188/r2"][0]).status,
+    "residual"
+  );
+});
+
+test("T-205 close-site derivation: no owedness -> no synthesis (-038 transitional path preserved)", () => {
+  const none = deriveRequirementProofCoverageTruthRefsForEdgeClose(
+    closeDerivationInput({ startup: undefined })
+  );
+  assert.deepEqual(none, {});
+  // requirement-scoped owedness: an entry naming only a foreign requirement
+  // owes nothing for r1
+  const foreignRequirement = deriveRequirementProofCoverageTruthRefsForEdgeClose(
+    closeDerivationInput({
+      startup: admittedStartup([
+        closeSiteStartupEntry({ requirementIds: ["requirement://t188/other"] })
+      ])
+    })
+  );
+  assert.equal(foreignRequirement["requirement://t188/r1"], undefined);
+  assert.ok(foreignRequirement["requirement://t188/other"]);
+});
+
+test("T-205 startup admission: the ONE total function over the open startup domain — typed entry-indexed rejections", () => {
+  // absent startup is admitted (nothing declared, -038 transitional world)
+  assert.deepEqual(admitRequirementProofCarryThroughStartup(undefined), {
+    accepted: true,
+    issues: [],
+    admitted: undefined
+  });
+  // well-formed entry is admitted as the RECONSTRUCTED frozen carrier
+  const ok = admitRequirementProofCarryThroughStartup({
+    entries: [closeSiteStartupEntry()]
+  });
+  assert.equal(ok.accepted, true);
+  assert.equal(ok.admitted.kind, "admitted_requirement_proof_carry_through_startup");
+  assert.equal(ok.admitted.entries.length, 1);
+  assert.equal(
+    ok.admitted.entries[0].contract.kind,
+    "requirement_proof_carry_through_contract"
+  );
+  assert.equal(Object.isFrozen(ok.admitted.entries[0]), true);
+  // open-domain shapes collapse to CLOSED-VOCABULARY typed issues here,
+  // not to prose pattern-matching and not in consumers:
+  const rejected = admitRequirementProofCarryThroughStartup({
+    entries: [
+      closeSiteStartupEntry({ requirementIds: ["requirement://t188/r1", ""] }),
+      closeSiteStartupEntry({ requirementIds: [] }),
+      closeSiteStartupEntry({ edge: "" }),
+      closeSiteStartupEntry({ contract: { kind: "not_a_contract" } }),
+      // lone surrogate passes length checks but would throw URIError at
+      // ref minting — rejected at the one ingress
+      closeSiteStartupEntry({ requirementIds: ["\uD800"] })
+    ]
+  });
+  assert.equal(rejected.accepted, false);
+  assert.equal(rejected.admitted, undefined);
+  const hasIssue = (at, issueKind) =>
+    rejected.issues.some((issue) => issue.at === at && issue.issueKind === issueKind);
+  assert.equal(hasIssue("entries[0].requirementIds", "requirement_ids_invalid"), true);
+  assert.equal(hasIssue("entries[1].requirementIds", "requirement_ids_invalid"), true);
+  assert.equal(hasIssue("entries[2].edge", "edge_invalid"), true);
+  assert.equal(hasIssue("entries[3].contract", "contract_inadmissible"), true);
+  assert.equal(hasIssue("entries[4].requirementIds", "requirement_ids_invalid"), true);
+  // non-array entries and null startup fail closed as one typed issue —
+  // null is IN the open ingress domain (JSON round-trips mint it)
+  assert.deepEqual(
+    admitRequirementProofCarryThroughStartup({ entries: "nope" }).issues.map(
+      (issue) => issue.issueKind
+    ),
+    ["entries_not_array"]
+  );
+  const nullStartup = admitRequirementProofCarryThroughStartup(null);
+  assert.equal(nullStartup.accepted, false);
+  assert.deepEqual(
+    nullStartup.issues.map((issue) => issue.issueKind),
+    ["startup_not_object"]
+  );
+});
+
+test("T-205 startup admission depth (review probe): a kind-tag-only carrier is rejected, not passed through to throwing consumers", () => {
+  // the 2026-07-08 review probe: correct kind tags with missing fields
+  // previously passed the tag-check admission and then threw host
+  // exceptions inside the owedness map and the producer. Admission must be
+  // DEEP: the existing constructors are the validators.
+  const probe = admitRequirementProofCarryThroughStartup({
+    entries: [
+      {
+        contract: { kind: "requirement_proof_carry_through_contract" },
+        classificationTable: {
+          kind: "requirement_proof_candidate_classification_table"
+        },
+        requirementIds: ["requirement://t188/r1"],
+        envelopeTemplate: {}
+      }
+    ]
+  });
+  assert.equal(probe.accepted, false);
+  assert.equal(probe.admitted, undefined);
+  const probeHas = (at, issueKind) =>
+    probe.issues.some((issue) => issue.at === at && issue.issueKind === issueKind);
+  assert.equal(probeHas("entries[0].contract", "contract_inadmissible"), true);
+  assert.equal(
+    probeHas("entries[0].classificationTable", "classification_table_inadmissible"),
+    true
+  );
+  assert.equal(
+    probeHas("entries[0].envelopeTemplate", "envelope_template_inadmissible"),
+    true
+  );
+  // a tampered supplied digest on an otherwise-valid table fails closed
+  const table = classificationTable();
+  const tampered = admitRequirementProofCarryThroughStartup({
+    entries: [
+      closeSiteStartupEntry({
+        classificationTable: { ...table, tableDigest: "sha256:tampered" }
+      })
+    ]
+  });
+  assert.equal(tampered.accepted, false);
+  assert.equal(
+    tampered.issues.some(
+      (issue) =>
+        issue.issueKind === "classification_table_inadmissible" &&
+        issue.message.includes("does not match computed")
+    ),
+    true
+  );
 });

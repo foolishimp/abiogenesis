@@ -1,3 +1,36 @@
+# abiogenesis 4.5.0-rc.6 Release Candidate Note
+
+This checkpoint is the sixth `4.5.0` release candidate. It follows
+`4.5.0-rc.5` and carries the carry-through applicability remediation —
+the information-loss defect that paused the B6 cut — through three
+review rounds to a reviewed, differentially pinned close:
+
+- CARRY-THROUGH APPLICABILITY (REQ-R-ABG3-REQUIREMENT-PROOF-
+  CARRY-THROUGH-002/-005/-010/-013/-037/-038): "coverage required but
+  missing" is no longer collapsed into "coverage not required". At edge
+  close, every requirement owed coverage by an admitted startup contract
+  with no admitted coverage truth receives a synthesized residual
+  coverage projection through the existing projector and truth-ref
+  grammar; the fold preserves no-close. Undeclared requirements retain
+  the `-038` transitional path unchanged. Predicate scope is pinned:
+  `entry.edge` scopes production, `entry.requirementIds` scope
+  obligation — carry-through pressure crosses edges by design.
+- DEEP STARTUP ADMISSION (F_D totality law): the carry-through startup
+  family is admitted once at engine entry by reconstructing each entry
+  through the existing carrier constructors, with a probe-validated
+  envelope template; consumers accept only the admitted carrier type.
+  Null startup, kind-tag-only carriers, tampered classification-table
+  digests, and lone-surrogate identifiers are typed entry rejections
+  (`gap_stop`, closed issueKind vocabulary), never host exceptions.
+- COMPRESSION WAVE (principles review, 11 confirmed findings applied or
+  escrowed): one fail-closed startup realization and one requirement-
+  route close bundle in the runner; one owed-obligation derivation
+  feeding produced and synthesized coverage; scheme-conformant
+  synthesized refs; export surface reduced to the consumed functions.
+  Cross-boundary commonization is escrowed to T-208.
+
+The rc.5 content follows.
+
 # abiogenesis 4.5.0-rc.5 Release Candidate Note
 
 This checkpoint is the fifth `4.5.0` release candidate. It follows

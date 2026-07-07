@@ -1311,9 +1311,14 @@ export type {
   ProjectExecutivePressureFactsInput
 } from "./executive_observer.js";
 export {
-  deriveRequirementProofCarryThroughAdmittedEvents
+  admitRequirementProofCarryThroughStartup,
+  deriveRequirementProofCarryThroughAdmittedEvents,
+  deriveRequirementProofCoverageTruthRefsForEdgeClose
 } from "./requirement_proof_carry_through_producer.js";
 export type {
+  AdmittedRequirementProofCarryThroughStartup,
+  RequirementProofCarryThroughStartupAdmissionIssue,
+  RequirementProofCarryThroughStartupAdmissionIssueKind,
   RequirementProofCarryThroughStartupEntry,
   RequirementProofCarryThroughStartupInput
 } from "./requirement_proof_carry_through_producer.js";
