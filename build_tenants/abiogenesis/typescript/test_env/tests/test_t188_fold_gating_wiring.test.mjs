@@ -1765,10 +1765,26 @@ test("T-209 b2: a forged payload_validated ref shaped like execution evidence ne
     // unattributed evidence: no provider, no provenance
     { kind: "evidence_admitted", evidenceRef: "mutant-survived://requirement%3A%2F%2Fx/m1", providerRefs: [] }
   ];
-  const workerTurn = deriveWorkerTurnEvidenceRefSet(events);
+  const declared = new Set(["plugin://fp-dispatch"]);
+  const workerTurn = deriveWorkerTurnEvidenceRefSet(events, declared);
   assert.equal(workerTurn.has(genuineKill), true);
   assert.equal(workerTurn.has(forgedKill), false);
   assert.equal(workerTurn.has("mutant-survived://requirement%3A%2F%2Fx/m1"), false);
+  // the reviewer's spoof probe pinned: NON-DECLARED provider attribution
+  // (harness://not-worker) is not a worker turn — attribution must match
+  // the runner's actual dispatch, not merely be non-empty
+  const spoofed = deriveWorkerTurnEvidenceRefSet(
+    [
+      { kind: "evidence_admitted", evidenceRef: genuineKill, providerRefs: ["harness://not-worker"] }
+    ],
+    declared
+  );
+  assert.equal(spoofed.has(genuineKill), false);
+  // no declared providers -> nothing resolves (fail-closed)
+  assert.equal(
+    deriveWorkerTurnEvidenceRefSet(events, new Set()).size,
+    0
+  );
   assert.equal(isExecutionEvidenceRef(forgedKill), true);
   assert.equal(isExecutionEvidenceRef("proof-strength-admission://s1"), false);
 });

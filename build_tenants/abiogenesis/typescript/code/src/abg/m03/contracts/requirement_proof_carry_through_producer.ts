@@ -514,6 +514,10 @@ export function deriveRequirementProofCoverageTruthRefsForEdgeClose(input: {
 export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
   readonly startup: AdmittedRequirementProofCarryThroughStartup | undefined;
   readonly replayEvents: readonly RuntimeEvent[];
+  // T-209 b2 (review-hardened): the DECLARED worker-turn provider refs —
+  // the fp_dispatch plugin contract ref(s) the runner actually invoked,
+  // from runner scope, never from payload fields
+  readonly workerTurnProviderRefs: readonly string[];
   readonly invocation: ActorInvocation;
   readonly frameLineageId: string | null;
   readonly resultRef: string;
@@ -555,7 +559,17 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
     // attribution); the payload_validated side door is closed for this
     // family. Non-execution refs keep the general admitted ledger. One
     // composed view — no second truth surface.
-    const workerTurnRefs = deriveWorkerTurnEvidenceRefSet(input.replayEvents);
+    // Declared worker-turn attribution, ALL from runner scope: the
+    // dispatch plugin contract (envelope-evidence path) and the
+    // runner-minted invocation's worker identity (artifact-assessment
+    // path). Payload fields never contribute.
+    const workerTurnRefs = deriveWorkerTurnEvidenceRefSet(
+      input.replayEvents,
+      new Set([
+        ...input.workerTurnProviderRefs,
+        input.invocation.workerId
+      ])
+    );
     const provenanceScopedRefs: ReadonlySet<string> = new Set(
       [...admittedLedgerRefs].filter(
         (ref) => !isExecutionEvidenceRef(ref) || workerTurnRefs.has(ref)

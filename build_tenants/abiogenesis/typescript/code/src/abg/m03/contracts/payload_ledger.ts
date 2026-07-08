@@ -1322,14 +1322,26 @@ export function isExecutionEvidenceRef(ref: string): boolean {
   );
 }
 
+// Review HIGH (2026-07-09): "any provider attribution" is spoofable —
+// a forged event with providerRefs ["harness://not-worker"] must not
+// pass. The gate checks provider refs against the DECLARED worker-turn
+// providers, which come from the RUNNER'S OWN dispatch scope (the
+// fp_dispatch plugin contract it actually invoked), never from payload
+// or caller lists.
 export function deriveWorkerTurnEvidenceRefSet(
-  events: readonly RuntimeEvent[]
+  events: readonly RuntimeEvent[],
+  declaredWorkerTurnProviderRefs: ReadonlySet<string>
 ): ReadonlySet<string> {
   const refs = new Set<string>();
+  if (declaredWorkerTurnProviderRefs.size === 0) {
+    return refs;
+  }
   for (const event of events) {
     if (
       event.kind === "evidence_admitted" &&
-      event.providerRefs.length > 0
+      event.providerRefs.some((ref) =>
+        declaredWorkerTurnProviderRefs.has(ref)
+      )
     ) {
       refs.add(event.evidenceRef);
     }

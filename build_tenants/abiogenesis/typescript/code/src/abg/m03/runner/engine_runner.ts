@@ -7641,6 +7641,9 @@ function* runEngineIterateMachine(input: {
               deriveRequirementProofCarryThroughAdmittedEvents({
                 startup: admittedCarryThroughStartup,
                 replayEvents: eventState.replayEvents,
+                // runner-scope dispatch truth: the plugin contract the
+                // engine ACTUALLY invoked for the worker turn
+                workerTurnProviderRefs: [plugins.fpDispatch.contract.ref],
                 invocation: actorInvocation,
                 frameLineageId: request.basis.frameLineageId ?? null,
                 resultRef,
