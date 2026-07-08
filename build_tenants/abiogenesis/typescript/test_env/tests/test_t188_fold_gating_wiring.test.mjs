@@ -1662,3 +1662,52 @@ test("T-197 wiring: strength closes through the ADVERSARIAL disjunct when F_D cr
   assert.deepEqual([...admitted.coverageIssueKinds], []);
   assert.deepEqual(admitted.coverageStatuses, ["eligible"]);
 });
+
+// T-210 break 5: read-model honesty — declaration never displays as
+// admitted strength in the coverage projection.
+test("T-210 b5: a not_admitted template strength ref is absent from the projected proofStrengthAdmissionRefs", () => {
+  const table = classificationTable();
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          // template DECLARES a strength admission ref that never
+          // resolves against the admitted ledger
+          envelopeTemplate: envelopeTemplate()
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: depthMapDispatchPlugin({
+        strengthRef: "proof-strength-admission://t188/unrelated",
+        mapRows: [
+          {
+            requirementId: "requirement://t188/r1",
+            depthClassRef: "depth-class://negative",
+            testIdentityRefs: ["neg-test"]
+          }
+        ]
+      })
+    }
+  });
+  const admitted = events.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.ok(admitted);
+  // residual (unresolved strength among other gaps) — and the projected
+  // truth refs carried on the event contain NO strength-admission ref
+  // minted from mere declaration
+  assert.equal(admitted.coverageStatuses[0] === "eligible", false);
+  assert.equal(
+    admitted.coverageIssueKinds.includes("proof_strength_not_admitted"),
+    true
+  );
+});

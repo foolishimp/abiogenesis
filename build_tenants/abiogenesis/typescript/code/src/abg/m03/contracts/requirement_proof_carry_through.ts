@@ -671,10 +671,19 @@ export function projectRequirementProofCoverage(input: {
       ...depthClassRefs,
       ...(input.proofDepthInstructionTruth?.declaredDepthClassRefs ?? [])
     ]),
-    proofStrengthAdmissionRefs: uniqueSorted([
-      ...proofStrengthAdmissionRefs,
-      ...(input.proofDepthInstructionTruth?.proofStrengthAdmissionRefs ?? [])
-    ]),
+    // T-210 break 5 (read-model honesty): when depth truth is present its
+    // strength refs are the CARRIER-RESOLVED closure-bearing set (T-197)
+    // and the projection exposes ONLY that — a template-declared ref with
+    // disposition not_admitted must not display as strength in any read
+    // model. Envelope refs remain the declared surface for the
+    // declaration-completeness gate above and for truth-less
+    // (authoring/compile-time) callers.
+    proofStrengthAdmissionRefs:
+      input.proofDepthInstructionTruth === null
+        ? uniqueSorted(proofStrengthAdmissionRefs)
+        : uniqueSorted([
+            ...input.proofDepthInstructionTruth.proofStrengthAdmissionRefs
+          ]),
     dependencyGraphRefs,
     sourceEnvelopeRefs: uniqueSorted(
       acceptedAdmissions.map((admission) => admission.envelope.envelopeRef)

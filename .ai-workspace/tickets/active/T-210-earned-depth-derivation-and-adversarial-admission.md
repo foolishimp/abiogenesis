@@ -37,9 +37,12 @@
   evidence is requirement-scoped so evidence proves only the obligation
   it names); T-197 rider DONE
   (full ProofStrengthAdmission carrier as derived projection; producer
-  consumes closure-bearing set only); break 5 NEXT (projections/read
-  models repriced + interface checklist walk + proof last, then rc cut
-  with artifact verification + odd_glc repin)
+  consumes closure-bearing set only); break 5 DONE (2026-07-09):
+  coverage projection's proofStrengthAdmissionRefs exposes ONLY the
+  carrier-resolved closure-bearing set when depth truth is present —
+  declaration never displays as strength in read models (differential
+  pinned); interface checklist walked below. NEXT: rc cut with
+  artifact-content verification + odd_glc repin
 - dependencies: T-205 (closed; handler law + carry-through family), odd_glc T-032 (consumer)
 - links: odd_glc .ai-workspace/tickets/active/T-032-earned-depth-mutation-kill-proof.md
 
@@ -126,22 +129,43 @@
    counterexampleRefs => existing adversarial_counterexample_found gate.
 5. Reprice projections/read models and differentials; only then proof.
 
-## Impacted Interface Review Checklist
+## Impacted Interface Review Checklist (walked 2026-07-09)
 
-- [ ] requirement_proof_carry_through producer consumes derived depth
+- [x] requirement_proof_carry_through producer consumes derived depth
       truth for map-bearing targets and cannot silently fall back to
-      template-static refs
-- [ ] projectRequirementProofCoverage's depth issues derive from the
-      admitted map, not caller-supplied booleans (-033 law holds)
-- [ ] instruction-assembly proofDepthInstructionTruth remains lawful
+      template-static refs (b2 severing; template path survives ONLY for
+      unmapped targets as the lawful -038 transitional state; strength
+      refs carrier-resolved per T-197; adversarial refs ledger-resolved
+      and requirement-scoped per b4 + review)
+- [x] projectRequirementProofCoverage's depth issues derive from the
+      admitted map, not caller-supplied booleans (-033 holds:
+      depthComplete/proofStrengthAdmitted are derive-only in the
+      constructor — caller values ignored; gaps flow as typed refs)
+- [x] instruction-assembly proofDepthInstructionTruth remains lawful
       startup PLAN data but is demoted from closure authority where a map
-      is admitted
-- [ ] payload ledger resolves adversarial evidence refs with digest
-      identity
+      is admitted (plan truth now supplies only depth-policy identity;
+      declared classes/gaps are earned where mapped)
+- [x] payload ledger resolves adversarial evidence refs (ref-set
+      membership over digest-bearing admitted events; requirement-scoped
+      prefixes). NOTE: full digest identity on kill evidence itself rides
+      the Phase 4 mutation-outcome payload — see restore-digest scoping
+      below.
 - [ ] odd_glc consumes via declarations + read models only (kernel law)
-- [ ] negative proofs: hollow declaration fails closed; survived mutant
-      blocks; missing map row is a typed gap; restore-digest mismatch
-      rejects kill evidence
+      — Phase 4 (odd_glc T-032) proves this; not closable from abg
+- [x] negative proofs: hollow declaration fails closed (b2); survived
+      mutant blocks (b4); missing map row is a typed gap (b2);
+      declaration never displays as strength in read models (b5).
+      RESTORE-DIGEST SCOPING (recorded, not silently dropped): kill
+      evidence today is worker-attached refs; a restore-digest law the
+      kernel can enforce requires KERNEL-WITNESSED workspace digests
+      (the F_D materialization handler digesting before/after the
+      mutation campaign — mechanical, not worker-claimed; anything less
+      is self-report and unlawful under -036 and the evidence-provenance
+      ruling). That handler surface is Phase 3/4 (T-209 standard path +
+      T-032 mutation-outcome payload); the negative proof lands there.
+      Until then a forged bare kill ref is bounded by requirement
+      scoping + the adversarial gates, and depth closure still demands
+      the full earned-depth chain.
 
 ## Boundary Discipline
 
