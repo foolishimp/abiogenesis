@@ -1,3 +1,19 @@
+# abiogenesis 4.5.0-rc.16 Release Candidate Note
+
+This checkpoint is the sixteenth `4.5.0` release candidate. It follows
+`4.5.0-rc.15` and carries one campaign-found fix:
+
+- ABG_TS_CODEX_SANDBOX ENV INGRESS (odd_glc T-032 campaign BUG #6): the
+  codex transport contract hardcoded --full-auto, whose sandbox denies
+  ServerSocket binding — sbt's forked test transport and Spark's Netty
+  failed BEFORE subject tests executed, and workers lawfully recorded
+  truthful red they could not repair. The sandbox capability is an
+  ENVIRONMENTAL BINDING of the install (the ABG_TS_CODEX_MODEL
+  precedent, runtime truth rule 11): ABG_TS_CODEX_SANDBOX=<level>
+  replaces --full-auto with --sandbox <level>; unset keeps the default.
+
+Suites at cut: semantic 1174/1174.
+
 # abiogenesis 4.5.0-rc.15 Release Candidate Note
 
 This checkpoint is the fifteenth `4.5.0` release candidate. It follows
