@@ -1,3 +1,35 @@
+# abiogenesis 4.5.0-rc.13 Release Candidate Note
+
+This checkpoint is the thirteenth `4.5.0` release candidate. It follows
+`4.5.0-rc.12` and opens the Foundation Phase 3 kernel surface: execution
+authority becomes admission-gated law, realizing the 2026-07-09
+governance-failure ruling (the sbt forensics — prose safeguards without
+an admission chokepoint are advisory).
+
+- EXECUTION-AUTHORITY VOCABULARY (T-209 b1): carry-through contracts
+  carry a closed executionAuthority — worker_turn by default (the
+  execution-default law as contract structure); annealed_fd_handler
+  admits ONLY with a ratified equivalenceContractRef (the T-206
+  annealing path); anything else is an admission error, never a silent
+  downgrade.
+- PROVENANCE-SCOPED EVIDENCE LEDGER (T-209 b2): execution-family
+  evidence (mutation-kill://, mutant-survived://, test-identity://) is
+  closure-bearing only when worker-turn attributed (plugin-attributed
+  evidence_admitted); the payload_validated side door is closed for the
+  family; unattributed evidence carries no provenance. Framework-
+  assembled execution evidence is inadmissible BY CONSTRUCTION.
+- STANDING KERNEL CONFORMANCE (T-209 b4, kernel half): a default-suite
+  differential asserts the m03 contracts layer contains no
+  process-execution capability — drift is a red test the day it
+  happens. The downstream (odd_glc) red test lands with the Phase 4
+  worker-loop deletion.
+
+Escrowed by name: kernel-witnessed materialization digests (D1.4,
+restore-digest proof) ride the Phase 4 mutation-outcome payload; the
+odd_glc deletion set (D3) is the Phase 4 campaign's entry.
+
+Suites at cut: semantic 1171/1171, t188 65/65, t205 22/22.
+
 # abiogenesis 4.5.0-rc.12 Release Candidate Note
 
 This checkpoint is the twelfth `4.5.0` release candidate. It follows
