@@ -398,3 +398,37 @@ export function deriveUnprovenKillObligationGapRefs(input: {
   }
   return Object.freeze([...gaps].sort());
 }
+
+// ── T-210 break 4: LEDGER-RESOLVED ADVERSARIAL TRUTH (-035/-036) ─────────
+// Survived mutants arrive as admitted evidence and become counterexample
+// truth for the EXISTING adversarial_counterexample_found gate; admitted
+// mutation-kill evidence doubles as adversarial verification. Template
+// declarations never masquerade as either.
+export const MUTANT_SURVIVED_EVIDENCE_PREFIX = "mutant-survived://";
+
+export function mutantSurvivedEvidenceRef(mutantIdentity: string): string {
+  return `${MUTANT_SURVIVED_EVIDENCE_PREFIX}${encodeURIComponent(mutantIdentity)}`;
+}
+
+export interface AdmittedAdversarialTruth {
+  readonly verificationRefs: readonly string[];
+  readonly counterexampleRefs: readonly string[];
+}
+
+export function deriveAdmittedAdversarialTruth(
+  admittedEvidenceRefs: ReadonlySet<string>
+): AdmittedAdversarialTruth {
+  const verificationRefs: string[] = [];
+  const counterexampleRefs: string[] = [];
+  for (const ref of admittedEvidenceRefs) {
+    if (ref.startsWith(MUTATION_KILL_EVIDENCE_PREFIX)) {
+      verificationRefs.push(ref);
+    } else if (ref.startsWith(MUTANT_SURVIVED_EVIDENCE_PREFIX)) {
+      counterexampleRefs.push(ref);
+    }
+  }
+  return Object.freeze({
+    verificationRefs: Object.freeze(verificationRefs.sort()),
+    counterexampleRefs: Object.freeze(counterexampleRefs.sort())
+  });
+}

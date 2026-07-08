@@ -29,6 +29,7 @@ import {
 import { constructRequirementProofCarryThroughAdmittedEvent } from "./event_factories.js";
 import { deriveAdmittedStrengthRefSet } from "./payload_ledger.js";
 import {
+  deriveAdmittedAdversarialTruth,
   deriveEarnedDepthTruthForRequirements,
   deriveKillObligations,
   deriveUnprovenKillObligationGapRefs
@@ -551,6 +552,7 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
     // never declared. Unproven obligations flow as typed depth gaps
     // through the EXISTING gate; no map means no obligations here (owed
     // map absence is already the earned-depth concern above).
+    const admittedAdversarialTruth = deriveAdmittedAdversarialTruth(admittedLedgerRefs);
     const killObligationGapRefs = deriveUnprovenKillObligationGapRefs({
       obligations: deriveKillObligations({
         replayEvents: input.replayEvents,
@@ -579,8 +581,21 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       ],
       proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
       fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
-      adversarialVerificationRefs: envelope.adversarialAttemptRefs,
-      adversarialCounterexampleRefs: envelope.counterexampleRefs,
+      // T-210 break 4 (-035/-036): adversarial refs are LEDGER-RESOLVED,
+      // never template-static — a declared attempt counts as verification
+      // only when it is itself admitted evidence; admitted mutation-kill
+      // evidence is verification; admitted survived-mutant evidence is a
+      // counterexample and blocks through the existing gate.
+      adversarialVerificationRefs: [
+        ...envelope.adversarialAttemptRefs.filter((ref) =>
+          admittedLedgerRefs.has(ref)
+        ),
+        ...admittedAdversarialTruth.verificationRefs
+      ],
+      adversarialCounterexampleRefs: [
+        ...envelope.counterexampleRefs,
+        ...admittedAdversarialTruth.counterexampleRefs
+      ],
       sourceProjectionRefs: [envelope.envelopeRef],
       // Derive-only fields: the constructor ignores caller values and
       // derives internally (ledger-resolved via admittedLedgerRefs above).

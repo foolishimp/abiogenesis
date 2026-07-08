@@ -28,9 +28,12 @@
   map-bearing targets, mixed-authority law entry-wide); break 3 DONE
   (kill obligations derived from admitted adversarial-class rows via
   contract-declared adversarialDepthClassRefs; unproven obligations gap
-  typed through the existing depth gate); break 4 NEXT (ledger-resolved
-  adversarial refs + survived-mutant counterexamples), then break 5
-  (projections/read models + proof last)
+  typed through the existing depth gate); break 4 DONE (adversarial refs
+  ledger-resolved in the producer — attempts resolve against the admitted
+  ledger, admitted mutation-kill evidence is verification, admitted
+  survived-mutant evidence is a counterexample and BLOCKS through the
+  existing gate); break 5 NEXT (projections/read models repriced + proof
+  last, then rc cut with artifact verification + odd_glc repin)
 - dependencies: T-205 (closed; handler law + carry-through family), odd_glc T-032 (consumer)
 - links: odd_glc .ai-workspace/tickets/active/T-032-earned-depth-mutation-kill-proof.md
 

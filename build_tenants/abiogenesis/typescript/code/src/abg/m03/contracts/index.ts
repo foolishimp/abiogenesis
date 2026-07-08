@@ -1312,6 +1312,7 @@ export type {
 } from "./executive_observer.js";
 export {
   DEPTH_PROOF_MAP_PAYLOAD_KEY,
+  MUTANT_SURVIVED_EVIDENCE_PREFIX,
   MUTATION_KILL_EVIDENCE_PREFIX,
   TEST_IDENTITY_EVIDENCE_PREFIX,
   admitDepthProofMap,
@@ -1320,10 +1321,13 @@ export {
   deriveEarnedDepthTruthForRequirements,
   deriveKillObligations,
   deriveUnprovenKillObligationGapRefs,
+  deriveAdmittedAdversarialTruth,
+  mutantSurvivedEvidenceRef,
   mutationKillEvidenceRef,
   testIdentityEvidenceRef
 } from "./depth_proof_map.js";
 export type {
+  AdmittedAdversarialTruth,
   DepthProofMap,
   DepthProofMapRow,
   DerivedKillObligation,

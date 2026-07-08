@@ -1372,3 +1372,81 @@ test("T-210 b1 admission closure: canonical event admission rejects accepted dep
     1
   );
 });
+
+// T-210 break 4 (-035/-036): adversarial refs ledger-resolved in the
+// producer; survived mutants block through the existing gate.
+test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise fully earned closure", async () => {
+  const { testIdentityEvidenceRef, mutationKillEvidenceRef, mutantSurvivedEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const positiveIdentity = "MapperSpec: maps well-formed row";
+  const negativeIdentity = "MapperSpec: rejects malformed row";
+  const mapRows = [
+    { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://positive", testIdentityRefs: [positiveIdentity] },
+    { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [negativeIdentity] }
+  ];
+  const runWithEvidence = (extraEvidenceRefs) => {
+    const table = classificationTable();
+    const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+    const events = [];
+    runEngineIterate({
+      basis,
+      eventSink: (event) => events.push(event),
+      ...m03InstructionAssemblyRequestFields(basis),
+      requirementProofCarryThroughStartup: {
+        entries: [
+          {
+            contract: carryContract(table, {
+              fdStrengthCriterionRefs: [strengthRef],
+              adversarialDepthClassRefs: ["depth-class://negative"]
+            }),
+            classificationTable: table,
+            requirementIds: ["requirement://t188/r1"],
+            envelopeTemplate: envelopeTemplate({
+              proofStrengthAdmissionRefs: [strengthRef],
+              fdStrengthCriterionRefs: [strengthRef]
+            })
+          }
+        ]
+      },
+      plugins: {
+        fpDispatch: depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs })
+      }
+    });
+    return events.find((event) => event.kind === "requirement_proof_carry_through_admitted");
+  };
+  const earnedEvidence = [
+    testIdentityEvidenceRef(positiveIdentity),
+    testIdentityEvidenceRef(negativeIdentity),
+    mutationKillEvidenceRef(negativeIdentity)
+  ];
+  // fully earned baseline: eligible
+  assert.deepEqual(runWithEvidence(earnedEvidence).coverageStatuses, ["eligible"]);
+  // one admitted survived mutant: the same run BLOCKS — kill evidence
+  // does not outvote a counterexample
+  const survived = runWithEvidence([
+    ...earnedEvidence,
+    mutantSurvivedEvidenceRef("Mutation: drop malformed-row rejection branch")
+  ]);
+  assert.ok(survived);
+  assert.equal(survived.coverageIssueKinds.includes("adversarial_counterexample_found"), true);
+  assert.deepEqual(survived.coverageStatuses, ["blocked"]);
+});
+
+test("T-210 b4: template-declared adversarial attempts resolve against the admitted ledger, never by list presence", async () => {
+  const { deriveAdmittedAdversarialTruth, mutationKillEvidenceRef, mutantSurvivedEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const truth = deriveAdmittedAdversarialTruth(new Set([
+    mutationKillEvidenceRef("neg-test"),
+    mutantSurvivedEvidenceRef("mutant-1"),
+    "evidence://t188/source/artifact",
+    "proof-strength-admission://t188/source-test"
+  ]));
+  assert.deepEqual([...truth.verificationRefs], [mutationKillEvidenceRef("neg-test")]);
+  assert.deepEqual([...truth.counterexampleRefs], [mutantSurvivedEvidenceRef("mutant-1")]);
+  // empty ledger: nothing resolves — template declarations alone carry
+  // no adversarial truth
+  const empty = deriveAdmittedAdversarialTruth(new Set());
+  assert.deepEqual([...empty.verificationRefs], []);
+  assert.deepEqual([...empty.counterexampleRefs], []);
+});
