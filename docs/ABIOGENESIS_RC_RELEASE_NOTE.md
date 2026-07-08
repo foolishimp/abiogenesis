@@ -1,3 +1,22 @@
+# abiogenesis 4.5.0-rc.14 Release Candidate Note
+
+This checkpoint is the fourteenth `4.5.0` release candidate. It follows
+`4.5.0-rc.13` immediately and carries one review-found fix to the
+Phase 3 provenance gate:
+
+- DECLARED-ATTRIBUTION WORKER-TURN GATE: rc.13's gate accepted any
+  evidence_admitted event with non-empty providerRefs as worker-turn
+  evidence — spoofable by a forged provider (harness://not-worker).
+  The gate now requires attribution to match the DECLARED worker-turn
+  set, composed entirely from runner scope: the fp_dispatch plugin
+  contract the engine actually invoked plus the runner-minted
+  invocation's worker identity. An empty declared set resolves nothing
+  (fail-closed). The spoof probe is pinned as a differential. The
+  rc.13 claim "framework-assembled execution evidence is inadmissible
+  by construction" is reliable only from this cut.
+
+Suites at cut: semantic 1171/1171, t188 65/65, t205 22/22.
+
 # abiogenesis 4.5.0-rc.13 Release Candidate Note
 
 This checkpoint is the thirteenth `4.5.0` release candidate. It follows
