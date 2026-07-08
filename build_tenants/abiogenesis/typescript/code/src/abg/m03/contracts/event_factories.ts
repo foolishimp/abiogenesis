@@ -1,4 +1,5 @@
 import type {
+  DepthProofMapAdmittedEvent,
   RequirementProofCarryThroughAdmittedEvent,
   AdvancementTransition,
   ActorInvocation,
@@ -755,6 +756,51 @@ export function constructRequirementProofCarryThroughAdmittedEvent(input: {
     coverageTruthRefs: Object.freeze([...input.coverageTruthRefs]),
     replayIdentity: input.replayIdentity,
     replayDigest: input.replayDigest
+  });
+}
+
+export function constructDepthProofMapAdmittedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly correlationId: string;
+  readonly mapRef: string;
+  readonly sourceResultRef: string;
+  readonly accepted: boolean;
+  readonly issueKinds: readonly string[];
+  readonly rows: readonly {
+    readonly requirementId: string;
+    readonly depthClassRef: string;
+    readonly testIdentityRefs: readonly string[];
+  }[];
+  readonly replayIdentity: string;
+  readonly mapDigest: string;
+}): DepthProofMapAdmittedEvent {
+  return Object.freeze({
+    kind: "depth_proof_map_admitted",
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    frameLineageId: null,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    causationEventRefs: Object.freeze([]),
+    correlationId: input.correlationId,
+    mapRef: input.mapRef,
+    sourceResultRef: input.sourceResultRef,
+    accepted: input.accepted,
+    issueKinds: freezeStringArray(input.issueKinds),
+    rows: Object.freeze(input.rows.map((row) => Object.freeze({
+      requirementId: row.requirementId,
+      depthClassRef: row.depthClassRef,
+      testIdentityRefs: freezeStringArray(row.testIdentityRefs)
+    }))),
+    replayIdentity: input.replayIdentity,
+    mapDigest: input.mapDigest
   });
 }
 

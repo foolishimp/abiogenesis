@@ -550,6 +550,7 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "requirement_proof_carry_through_admitted":
+      case "depth_proof_map_admitted":
         assertVectorIndexInRange(basis, event.vectorIndex);
         break;
       case "instruction_prompt_manifest_projected":

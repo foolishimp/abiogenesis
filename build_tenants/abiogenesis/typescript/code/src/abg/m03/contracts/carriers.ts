@@ -793,6 +793,23 @@ export interface RequirementProofCarryThroughAdmittedEvent
   readonly replayDigest: string;
 }
 
+// T-210 break 1: the admitted depth-proof map is replay truth — rows
+// inline so ledger projection is total over replay alone.
+export interface DepthProofMapAdmittedEvent extends ActorRuntimeScope {
+  readonly kind: "depth_proof_map_admitted";
+  readonly mapRef: string;
+  readonly sourceResultRef: string;
+  readonly accepted: boolean;
+  readonly issueKinds: readonly string[];
+  readonly rows: readonly {
+    readonly requirementId: string;
+    readonly depthClassRef: string;
+    readonly testIdentityRefs: readonly string[];
+  }[];
+  readonly replayIdentity: string;
+  readonly mapDigest: string;
+}
+
 export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeScope {
   readonly kind: "instruction_prompt_manifest_projected";
   readonly manifestRef: string;
@@ -2648,6 +2665,7 @@ export type RuntimeEvent =
   | PluginTraversalPromptMaterializedEvent
   | InstructionCausalContextBoundEvent
   | RequirementProofCarryThroughAdmittedEvent
+  | DepthProofMapAdmittedEvent
   | InstructionPromptManifestProjectedEvent
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
@@ -2781,6 +2799,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "plugin_traversal_prompt_materialized",
   "instruction_causal_context_bound",
   "requirement_proof_carry_through_admitted",
+  "depth_proof_map_admitted",
   "instruction_prompt_manifest_projected",
   "instruction_response_contract_admitted",
   "fh_escalated",

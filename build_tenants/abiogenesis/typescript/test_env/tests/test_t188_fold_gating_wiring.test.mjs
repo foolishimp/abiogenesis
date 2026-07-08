@@ -855,3 +855,124 @@ test("T-195 P0-5 recurrence pin: no sha256:sha256 double-prefix in any emitted t
   result.replayEvents.forEach((event, index) => scan(event, `event[${index}](${event.kind})`));
   assert.deepEqual(doubled, []);
 });
+
+// T-210 break 1 differentials: the admitted depth-proof-map carrier.
+test("T-210 b1: depth-map admission is total — valid rows admit canonically, malformed rows reject typed, foreign shapes inert", async () => {
+  const { admitDepthProofMap, deriveAdmittedDepthProofRowsByRequirementId } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const valid = admitDepthProofMap({
+    payloadSection: {
+      rows: [
+        { requirementId: "REQ-B", depthClassRef: "depth-class://negative", testIdentityRefs: ["z-test", "a-test"] },
+        { requirementId: "REQ-A", depthClassRef: "depth-class://positive", testIdentityRefs: ["p-test"] }
+      ]
+    },
+    sourceResultRef: "result://t210/b1",
+    replayIdentity: "replay://t210/b1"
+  });
+  assert.equal(valid.accepted, true);
+  // canonical: rows sorted by requirement:class, test refs sorted
+  assert.deepEqual(valid.map.rows.map((row) => row.requirementId), ["REQ-A", "REQ-B"]);
+  assert.deepEqual([...valid.map.rows[1].testIdentityRefs], ["a-test", "z-test"]);
+  assert.match(valid.map.mapDigest, /^sha256:[0-9a-f]{64}$/u);
+  // determinism: same content -> same digest
+  const again = admitDepthProofMap({
+    payloadSection: {
+      rows: [
+        { requirementId: "REQ-A", depthClassRef: "depth-class://positive", testIdentityRefs: ["p-test"] },
+        { requirementId: "REQ-B", depthClassRef: "depth-class://negative", testIdentityRefs: ["a-test", "z-test"] }
+      ]
+    },
+    sourceResultRef: "result://t210/b1",
+    replayIdentity: "replay://t210/b1"
+  });
+  assert.equal(again.map.mapDigest, valid.map.mapDigest);
+  // malformed: typed issues, no map
+  const bad = admitDepthProofMap({
+    payloadSection: {
+      rows: [
+        { requirementId: "", depthClassRef: "depth-class://positive", testIdentityRefs: ["x"] },
+        { requirementId: "REQ-C", depthClassRef: 7, testIdentityRefs: [] },
+        "not-a-row",
+        { requirementId: "\uD800", depthClassRef: "depth-class://boundary", testIdentityRefs: ["y"] }
+      ]
+    },
+    sourceResultRef: "result://t210/b1",
+    replayIdentity: "replay://t210/b1"
+  });
+  assert.equal(bad.accepted, false);
+  assert.equal(bad.map, undefined);
+  const kinds = bad.issues.map((issue) => issue.issueKind);
+  assert.equal(kinds.includes("requirement_id_invalid"), true);
+  assert.equal(kinds.includes("depth_class_invalid"), true);
+  assert.equal(kinds.includes("test_identity_refs_invalid"), true);
+  assert.equal(kinds.includes("row_not_object"), true);
+  // foreign shapes: typed rejection, never a throw
+  assert.equal(admitDepthProofMap({ payloadSection: null, sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "map_not_object");
+  assert.equal(admitDepthProofMap({ payloadSection: [1], sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "map_not_object");
+  assert.equal(admitDepthProofMap({ payloadSection: { rows: "x" }, sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "rows_not_array");
+  // ledger projection: later admitted map supersedes for the requirement
+  const events = [
+    { kind: "depth_proof_map_admitted", accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://positive", testIdentityRefs: ["old"] }] },
+    { kind: "depth_proof_map_admitted", accepted: false, rows: [] },
+    { kind: "depth_proof_map_admitted", accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://negative", testIdentityRefs: ["new"] }] }
+  ];
+  const ledger = deriveAdmittedDepthProofRowsByRequirementId(events);
+  assert.deepEqual(ledger.get("REQ-A").map((row) => row.depthClassRef), ["depth-class://negative"]);
+});
+
+test("T-210 b1: an attached artifact carrying a depth-proof map emits admitted replay truth in the accepted branch", () => {
+  const table = classificationTable();
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          envelopeTemplate: envelopeTemplate()
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t210/b1/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t210/b1/${input.vectorIndex}`,
+            attachedResultArtifact: {
+              ...fulfilledAttachedArtifactFor(input),
+              depthProofMap: {
+                rows: [
+                  {
+                    requirementId: "requirement://t188/r1",
+                    depthClassRef: "depth-class://negative",
+                    testIdentityRefs: ["AccountingSpec: flags imbalance"]
+                  }
+                ]
+              }
+            },
+            evidenceRefs: []
+          });
+        }
+      })
+    }
+  });
+  const admitted = events.filter((event) => event.kind === "depth_proof_map_admitted");
+  assert.notEqual(admitted.length, 0, "depth map delivery must emit replay truth");
+  assert.equal(admitted[0].accepted, true);
+  assert.equal(admitted[0].rows[0].requirementId, "requirement://t188/r1");
+  assert.match(admitted[0].mapDigest, /^sha256:[0-9a-f]{64}$/u);
+});

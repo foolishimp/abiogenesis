@@ -30,6 +30,7 @@ import type {
 import { GRAPH_REENTRY_POINT_VALUES } from "../contracts/carriers.js";
 import type { CCallJudgment } from "../contracts/carriers.js";
 import {
+  constructDepthProofMapAdmittedEvent,
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
   constructActorResultArtifactObservedEvent,
@@ -273,6 +274,10 @@ import {
   temporalDispatchGateBlock,
   type TemporalPropertyStartupInput
 } from "../contracts/temporal_property_runtime.js";
+import {
+  DEPTH_PROOF_MAP_PAYLOAD_KEY,
+  admitDepthProofMap
+} from "../contracts/depth_proof_map.js";
 import {
   admitRequirementProofCarryThroughStartup,
   deriveRequirementPressureRefsForVector,
@@ -7586,6 +7591,45 @@ function* runEngineIterateMachine(input: {
                     iterationCount
                   });
                 }
+              }
+            }
+            // T-210 break 1: if the accepted artifact payload carries a
+            // depth-proof map section, collapse it ONCE at this ingress
+            // into the typed carrier and emit the admission replay truth
+            // (accepted or rejected-with-issues — never silence). Absence
+            // of the section is inert here; owed-but-unmapped depth is a
+            // typed gap at the earned-depth derivation, not an error at
+            // delivery.
+            {
+              // the RAW attached artifact is the worker's payload; the
+              // map section rides at its top level
+              const rawArtifact = outcome.attachedResultArtifact as
+                | { readonly [DEPTH_PROOF_MAP_PAYLOAD_KEY]?: unknown }
+                | null;
+              const depthMapSection = rawArtifact?.[DEPTH_PROOF_MAP_PAYLOAD_KEY];
+              if (depthMapSection !== undefined) {
+                const mapAdmission = admitDepthProofMap({
+                  payloadSection: depthMapSection,
+                  sourceResultRef: resultRef,
+                  replayIdentity: `${actorInvocation.actorInvocationId}/depth-proof-map`
+                });
+                eventState = emitRunnerEvents(eventState, [
+                  constructDepthProofMapAdmittedEvent({
+                    invocation: actorInvocation,
+                    correlationId: actorInvocation.actorInvocationId,
+                    mapRef:
+                      mapAdmission.map?.mapRef ??
+                      `depth-proof-map://${encodeURIComponent(resultRef)}`,
+                    sourceResultRef: resultRef,
+                    accepted: mapAdmission.accepted,
+                    issueKinds: mapAdmission.issues.map((issue) => issue.issueKind),
+                    rows: mapAdmission.map?.rows ?? [],
+                    replayIdentity: `${actorInvocation.actorInvocationId}/depth-proof-map`,
+                    mapDigest:
+                      mapAdmission.map?.mapDigest ??
+                      stableSha256Digest({ rejected: resultRef })
+                  })
+                ]);
               }
             }
             // Implements: T-188 M5/M3 — producer derivation lives in

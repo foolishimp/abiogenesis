@@ -1311,6 +1311,17 @@ export type {
   ProjectExecutivePressureFactsInput
 } from "./executive_observer.js";
 export {
+  DEPTH_PROOF_MAP_PAYLOAD_KEY,
+  admitDepthProofMap,
+  deriveAdmittedDepthProofRowsByRequirementId
+} from "./depth_proof_map.js";
+export type {
+  DepthProofMap,
+  DepthProofMapRow,
+  DepthProofMapAdmissionIssue,
+  DepthProofMapAdmissionIssueKind
+} from "./depth_proof_map.js";
+export {
   admitRequirementProofCarryThroughStartup,
   deriveRequirementPressureRefsForVector,
   deriveRequirementProofCarryThroughAdmittedEvents,

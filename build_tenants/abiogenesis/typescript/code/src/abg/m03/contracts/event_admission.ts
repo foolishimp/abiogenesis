@@ -1045,6 +1045,29 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
+  depth_proof_map_admitted: applyFieldRules(
+    "DepthProofMapAdmittedEvent",
+    {
+      runId: "non_empty_string",
+      workKey: "nullable_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "non_empty_string",
+      workerId: "non_empty_string",
+      backendId: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      mapRef: "non_empty_string",
+      sourceResultRef: "non_empty_string",
+      accepted: "boolean",
+      issueKinds: "string_array",
+      replayIdentity: "non_empty_string",
+      mapDigest: "non_empty_string"
+    }
+  ),
   requirement_proof_carry_through_admitted: applyFieldRules(
     "RequirementProofCarryThroughAdmittedEvent",
     {
