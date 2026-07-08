@@ -1,3 +1,20 @@
+# abiogenesis 4.5.0-rc.10 Release Candidate Note
+
+This checkpoint is the tenth `4.5.0` release candidate. It follows
+`4.5.0-rc.9` and carries the T-031 campaign's second builder fix, found
+live at the typed-UAT data-mapper proving edge:
+
+- MULTI-REQUIREMENT COVERAGE FOLD SEAM: a projected requirement's proof
+  coverage truth now always reaches its fold. Previously, in
+  multi-requirement scope a requirement without a per-requirement
+  evidence binding fell through silently — eight eligible carry
+  admissions at the proving edge produced eight folds with EMPTY sources
+  (no_close_preserved by default), and synthesized residual pressure had
+  been dropped by the same seam. Coverage truth is requirement-proof
+  truth (-013); the fold consumes it whenever it exists.
+
+The rc.9 content follows.
+
 # abiogenesis 4.5.0-rc.9 Release Candidate Note
 
 This checkpoint is the ninth `4.5.0` release candidate. It follows
