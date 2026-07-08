@@ -37,3 +37,27 @@ P2 seam-consolidation pass. Work clusters, gates between:
 
 Non-closure: any weakened test; any fabricated-success default surviving;
 sub-runs without temporal law; release note describing another cut's delta.
+
+
+## Intake Triage re-run (2026-07-09): STALENESS DISPOSITION REQUIRED
+
+1. The acceptance is VERSION-STALE: it pins "4.3.0-rc.1" while the line
+   stands at 4.5.0-rc.10 — the same historical-RC pinning defect T-030's
+   law correction removed ("active ticket law shall not pin behavior to
+   a historical RC"). The acceptance's substantive content has been
+   OVERTAKEN by events: the standing gate is sourceClean (holds at every
+   cut through rc.10) and a CLEAN odd_glc data-mapper-full live run
+   exists (T-031 closure run, 4.5.0-rc.10, 26/26, folds satisfied).
+2. Cluster evidence suggests substantial absorption into the 4.4/4.5
+   waves (C4's CLI-error-as-event and live replay-log append shipped in
+   4.5.0-rc.5; C7's successor tickets exist — T-197 traces to P1-8;
+   T-205's codex rounds closed P1-a/P1-b-class items) — but ABSORPTION
+   IS NOT CLOSURE EVIDENCE. Per TICKET_METHOD, a forensic close review
+   must classify every cluster item C1-C7 / P0-1..P1-12 against the
+   CURRENT tree: accepted (with evidence ref), still-open (reprice into
+   a fresh ticket at the current line), or superseded (with the
+   superseding surface named).
+3. DISPOSITION: this ticket may not remain active in its stale form and
+   may not be silently closed. Next lawful act = the close review above;
+   outcome is either completed-with-evidence or a successor ticket
+   scoped to the surviving items on the 4.5 line.

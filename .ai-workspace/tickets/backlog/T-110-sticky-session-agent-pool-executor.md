@@ -185,3 +185,17 @@ T-110 is not closed by proving that one warm session can be reused. It closes on
 ## Related Forward Work
 
 The pool executor and the future AWS-Lambda / Step-Functions distributed executor share the same `TracedProcessExecutor` seam. SDK-direct pooling and SDK-direct Lambda invocation are the same code shape with different lifecycle policies. Landing T-110 over the local executor first hardens the abstraction before the distributed backend ships.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+This ticket already models the triage-first discipline (intake_source,
+target_truth, affected_boundary, typed non-closures) — walk CONFIRMED:
+requirement authority named (TRANSPORT/EVENTS/PROJECTION/QUAL), design
+missing => design_reframe. Two 2026-07-09 reconciliations: (a) kernel
+law — the pool executor is kernel space (traced-process substrate),
+correctly allocated; (b) execution-default law RAISES its value: typed
+F_P workers as the execution default means more, longer worker turns —
+session stickiness and cache-prefix discipline become first-order
+economics for the T-032 depth campaign (worker-run test loops).
+Priority: consider raising from medium when T-032's campaign begins.

@@ -12,7 +12,7 @@
 - re_entry_point: design_surface
 - triaged_at: 2026-07-08
 - created_at: 2026-07-08
-- updated_at: 2026-07-08
+- updated_at: 2026-07-09
 - links: T-205 (carry-through applicability implementation + review rounds)
 
 ## Context
@@ -70,3 +70,20 @@ any of these patterns is non-conformant by default.
 - a fourth local rebuild of any listed pattern
 - unifying the trimming schema predicate with the admission guards
 - absorbing the -013 behavior question silently into the seam hoist
+
+
+## Intake Triage re-run (2026-07-09)
+
+1. UPWARD WALK: no requirement or product truth changes — recurrence
+   extraction under DMM 11C; change_class design_reframe stands.
+2. ITEM 3 STATUS CORRECTION: the requirements_route coverage-prepend
+   drop seam went LOAD-BEARING and was fixed as T-031 campaign BUG #2
+   (rc.10): coverage-bearing requirements now always emit fold sources.
+   The REMAINING item-3 residue is narrower: the prepend is still
+   restated per branch (one-seam hoist not done), and the
+   evidence-binding attribution question in multi-requirement scope
+   (runtime evidence binds per-edge, not per-requirement) is named for
+   the requirements-algebra board. The -013 triage note stands for that
+   half.
+3. Items 1 (admission-support commonization — now FOUR sites with the
+   T-210 wave incoming) and 2 (T-188 fixture family) unchanged.

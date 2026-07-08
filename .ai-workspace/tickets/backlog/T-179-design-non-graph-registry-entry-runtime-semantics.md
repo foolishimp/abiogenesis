@@ -67,3 +67,8 @@ proof_commands:
 Backlog follow-on from T-177. T-177 proves the canonical pickup path and
 graph-function selection. This ticket prevents that proof from being stretched
 to non-graph entry kinds before their runtime semantics are designed.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run under the triage-first discipline: Requirement authority exists (same families); design absent for non-graph entry kinds => design_reframe CONFIRMED. Kernel-law note: every non-closure here is an instance of the ratified law (no downstream shells/scans/registries).

@@ -71,3 +71,8 @@ Backlog follow-on from T-177. This ticket is not required to prove initial
 registry startup/admission/lookup/selection, but it is required before the live
 registry may claim active replacement, stale-entry exclusion, revocation, or
 supersession semantics.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run under the triage-first discipline: Requirement authority exists (LANGUAGE-CAPABILITY-MODEL, SELECTION-BOUNDARY; T-177 named the lifecycle gap); design absent => design_reframe CONFIRMED. Depends on T-177 disposition — verify T-177 state at activation.

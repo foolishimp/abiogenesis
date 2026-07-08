@@ -125,3 +125,13 @@ current lawful outcome after the TS-primary release reprice is:
    external review accepts the tenant-scope decision;
 4. if Python is reactivated, re-enter here before any Python payload-ledger
    claim can close.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run: this ticket targets the PAUSED Python reference line
+(PRODUCT.md: "a paused released reference line retained for history and
+comparison evidence, not an active RC gate"). Activation requires a
+prior product-level decision to revive the Python tenant
+(product_reprice), not just ticket work. Remains lawful backlog;
+tenant-locality per multi-tenant ticket law is intact.

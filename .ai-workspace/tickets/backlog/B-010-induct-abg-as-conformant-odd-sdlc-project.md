@@ -139,3 +139,12 @@ Future re-entry trigger:
 3. open a new ticket that supersedes this precondition record
 
 Until then, this ticket is no longer actionable backlog.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run: intent_reprice at goals re-entry stands; blocked state is
+lawful (blocking dependency named: a stable released ODD SDLC governing
+substrate). One update: the self-hosting maturity evidence has grown —
+the odd_glc line now closes typed-requirement lifecycles end to end
+(T-031) — but the blocking dependency is unchanged. No action.

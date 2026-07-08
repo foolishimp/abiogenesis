@@ -106,3 +106,13 @@ Verification:
 The 2026-04-30 external review trace blockers were resolved before the pause.
 That evidence remains useful reference material. It is not an active release
 gate while Python is paused.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run: this ticket targets the PAUSED Python reference line
+(PRODUCT.md: "a paused released reference line retained for history and
+comparison evidence, not an active RC gate"). Activation requires a
+prior product-level decision to revive the Python tenant
+(product_reprice), not just ticket work. Remains lawful backlog;
+tenant-locality per multi-tenant ticket law is intact.

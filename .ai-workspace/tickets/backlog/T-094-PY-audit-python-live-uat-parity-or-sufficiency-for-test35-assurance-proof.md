@@ -65,3 +65,13 @@ Current lawful reading:
 - T-094 must not claim Python parity or Python no-gap sufficiency.
 - If Python is reactivated, this ticket re-enters before any Python live UAT
   parity claim can close.
+
+
+## Intake Triage confirmation (2026-07-09)
+
+Walk re-run: this ticket targets the PAUSED Python reference line
+(PRODUCT.md: "a paused released reference line retained for history and
+comparison evidence, not an active RC gate"). Activation requires a
+prior product-level decision to revive the Python tenant
+(product_reprice), not just ticket work. Remains lawful backlog;
+tenant-locality per multi-tenant ticket law is intact.
