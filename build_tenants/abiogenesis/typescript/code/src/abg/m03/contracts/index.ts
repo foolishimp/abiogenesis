@@ -1326,6 +1326,15 @@ export {
   mutationKillEvidenceRef,
   testIdentityEvidenceRef
 } from "./depth_proof_map.js";
+export {
+  closureBearingStrengthRefs,
+  deriveProofStrengthAdmissionsForEnvelope
+} from "./proof_strength_admission.js";
+export type {
+  ProofStrengthAdmission,
+  ProofStrengthAdmissionDerivationInput,
+  ProofStrengthDisposition
+} from "./proof_strength_admission.js";
 export type {
   AdmittedAdversarialTruth,
   DepthProofMap,

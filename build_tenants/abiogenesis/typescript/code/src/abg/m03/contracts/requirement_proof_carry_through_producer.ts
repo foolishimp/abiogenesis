@@ -34,6 +34,10 @@ import {
   deriveKillObligations,
   deriveUnprovenKillObligationGapRefs
 } from "./depth_proof_map.js";
+import {
+  closureBearingStrengthRefs,
+  deriveProofStrengthAdmissionsForEnvelope
+} from "./proof_strength_admission.js";
 
 export interface RequirementProofCarryThroughStartupEntry {
   readonly contract: RequirementProofCarryThroughContract;
@@ -564,6 +568,37 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       }),
       admittedEvidenceRefs: admittedLedgerRefs
     });
+    // T-197 (-035/-036): the FULL ProofStrengthAdmission carrier is
+    // derived here — one admission per declared strength ref, disposition
+    // from admitted evidence only — and STRENGTH TRUTH downstream consumes
+    // the carrier's closure-bearing set, never the template-declared list.
+    const resolvedAdversarialAttemptRefs = envelope.adversarialAttemptRefs.filter(
+      (ref) => admittedLedgerRefs.has(ref)
+    );
+    const declaredDepthClassRefs = earnedDepth.mapped
+      ? earnedDepth.declaredDepthClassRefs
+      : envelope.depthClassRefs;
+    const proofStrengthAdmissions = deriveProofStrengthAdmissionsForEnvelope({
+      envelopeRef: envelope.envelopeRef,
+      replayIdentity: envelope.replayIdentity,
+      strengthRefs: envelope.proofStrengthAdmissionRefs,
+      fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
+      sourceRequirementObligationRefs: envelope.sourceRequirementObligationRefs,
+      proofObligationRefs: envelope.proofObligationRefs,
+      proofPolicyRefs: envelope.proofPolicyRefs,
+      expectedEvidenceShapeRefs: envelope.expectedEvidenceShapeRefs,
+      depthClassRefs: declaredDepthClassRefs,
+      adversarialAttemptRefs: resolvedAdversarialAttemptRefs,
+      adversarialVerificationRefs: [
+        ...resolvedAdversarialAttemptRefs,
+        ...admittedAdversarialTruth.verificationRefs
+      ],
+      counterexampleRefs: [
+        ...envelope.counterexampleRefs,
+        ...admittedAdversarialTruth.counterexampleRefs
+      ],
+      admittedEvidenceRefs: admittedLedgerRefs
+    });
     const proofDepthTruth = constructDerivedProofDepthInstructionTruth({
       admittedLedgerRefs,
       truthRef: `${envelope.envelopeRef}/proof-depth`,
@@ -573,16 +608,17 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       depthPolicyDigest: input.planProofDepthTruth?.depthPolicyDigest ?? null,
       targetRefs: [envelope.contractRef],
       requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
-      declaredDepthClassRefs: earnedDepth.mapped
-        ? earnedDepth.declaredDepthClassRefs
-        : envelope.depthClassRefs,
+      declaredDepthClassRefs,
       declaredDepthObligationRefs: envelope.proofObligationRefs,
       notApplicableDepthClassRefs: [],
       typedDepthGapRefs: [
         ...(earnedDepth.mapped ? earnedDepth.typedDepthGapRefs : []),
         ...killObligationGapRefs
       ],
-      proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
+      // T-197: strength refs are the CARRIER's closure-bearing set —
+      // a template-declared admission ref with disposition not_admitted
+      // carries no strength truth at runtime
+      proofStrengthAdmissionRefs: closureBearingStrengthRefs(proofStrengthAdmissions),
       fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
       // T-210 break 4 (-035/-036): adversarial refs are LEDGER-RESOLVED,
       // never template-static — a declared attempt counts as verification
@@ -590,9 +626,7 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       // evidence is verification; admitted survived-mutant evidence is a
       // counterexample and blocks through the existing gate.
       adversarialVerificationRefs: [
-        ...envelope.adversarialAttemptRefs.filter((ref) =>
-          admittedLedgerRefs.has(ref)
-        ),
+        ...resolvedAdversarialAttemptRefs,
         ...admittedAdversarialTruth.verificationRefs
       ],
       adversarialCounterexampleRefs: [

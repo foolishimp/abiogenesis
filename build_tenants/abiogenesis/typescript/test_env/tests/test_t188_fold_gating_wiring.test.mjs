@@ -1534,3 +1534,131 @@ test("T-210 b4 scoping: one admitted kill proves only the obligation of the requ
     []
   );
 });
+
+// T-197 (-035/-036): the FULL ProofStrengthAdmission carrier.
+test("T-197: disposition lattice is total and the -035 field list is preserved", async () => {
+  const { deriveProofStrengthAdmissionsForEnvelope, closureBearingStrengthRefs } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const base = {
+    envelopeRef: "envelope://t197/e1",
+    replayIdentity: "replay://t197/e1",
+    strengthRefs: ["proof-strength-admission://t197/s1"],
+    sourceRequirementObligationRefs: ["requirement-obligation://t197/r1"],
+    proofObligationRefs: ["proof-obligation://t197/build"],
+    proofPolicyRefs: ["proof-policy://t197/pn"],
+    expectedEvidenceShapeRefs: ["evidence-shape://t197/pos"],
+    depthClassRefs: ["depth-class://positive"],
+    adversarialAttemptRefs: [],
+    adversarialVerificationRefs: [],
+    counterexampleRefs: []
+  };
+  // fd_checked: strength ref admitted + fd criteria total over the ledger
+  const fdChecked = deriveProofStrengthAdmissionsForEnvelope({
+    ...base,
+    fdStrengthCriterionRefs: ["fd-criterion://t197/c1"],
+    admittedEvidenceRefs: new Set([
+      "proof-strength-admission://t197/s1",
+      "fd-criterion://t197/c1"
+    ])
+  });
+  assert.equal(fdChecked.length, 1);
+  assert.equal(fdChecked[0].disposition, "fd_checked");
+  assert.deepEqual([...fdChecked[0].verifierRefs], ["fd-criterion://t197/c1"]);
+  // -035 preservation
+  assert.equal(fdChecked[0].strengthRef, "proof-strength-admission://t197/s1");
+  assert.deepEqual([...fdChecked[0].sourceRequirementObligationRefs], ["requirement-obligation://t197/r1"]);
+  assert.deepEqual([...fdChecked[0].proofObligationRefs], ["proof-obligation://t197/build"]);
+  assert.deepEqual([...fdChecked[0].proofPolicyRefs], ["proof-policy://t197/pn"]);
+  assert.deepEqual([...fdChecked[0].expectedEvidenceShapeRefs], ["evidence-shape://t197/pos"]);
+  assert.deepEqual([...fdChecked[0].depthClassRefs], ["depth-class://positive"]);
+  assert.equal(fdChecked[0].replayIdentity, "replay://t197/e1");
+  assert.match(fdChecked[0].admissionDigest, /^sha256:[0-9a-f]{64}$/u);
+  // adversarially_verified: fd criteria NOT total, admitted verification present
+  const adversarial = deriveProofStrengthAdmissionsForEnvelope({
+    ...base,
+    fdStrengthCriterionRefs: ["fd-criterion://t197/unresolvable"],
+    adversarialVerificationRefs: ["mutation-kill://r1/neg-test"],
+    admittedEvidenceRefs: new Set(["proof-strength-admission://t197/s1"])
+  });
+  assert.equal(adversarial[0].disposition, "adversarially_verified");
+  assert.deepEqual([...adversarial[0].verifierRefs], ["mutation-kill://r1/neg-test"]);
+  // counterexample outvotes everything
+  const countered = deriveProofStrengthAdmissionsForEnvelope({
+    ...base,
+    fdStrengthCriterionRefs: ["fd-criterion://t197/c1"],
+    counterexampleRefs: ["mutant-survived://r1/m1"],
+    admittedEvidenceRefs: new Set([
+      "proof-strength-admission://t197/s1",
+      "fd-criterion://t197/c1"
+    ])
+  });
+  assert.equal(countered[0].disposition, "not_admitted");
+  assert.deepEqual([...countered[0].counterexampleRefs], ["mutant-survived://r1/m1"]);
+  // unresolved strength ref: template declaration alone is not strength
+  const unresolved = deriveProofStrengthAdmissionsForEnvelope({
+    ...base,
+    fdStrengthCriterionRefs: ["fd-criterion://t197/c1"],
+    admittedEvidenceRefs: new Set(["fd-criterion://t197/c1"])
+  });
+  assert.equal(unresolved[0].disposition, "not_admitted");
+  assert.deepEqual([...closureBearingStrengthRefs(unresolved)], []);
+  assert.deepEqual(
+    [...closureBearingStrengthRefs([...fdChecked, ...unresolved])],
+    ["proof-strength-admission://t197/s1"]
+  );
+});
+
+test("T-197 wiring: strength closes through the ADVERSARIAL disjunct when F_D criteria never resolve (-036)", async () => {
+  const { testIdentityEvidenceRef, mutationKillEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const positiveIdentity = "MapperSpec: maps well-formed row";
+  const negativeIdentity = "MapperSpec: rejects malformed row";
+  const table = classificationTable();
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          // fd criteria stay the UNRESOLVABLE fixture defaults — the F_D
+          // disjunct cannot close; only admitted adversarial verification can
+          contract: carryContract(table, {
+            adversarialDepthClassRefs: ["depth-class://negative"]
+          }),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          envelopeTemplate: envelopeTemplate({
+            proofStrengthAdmissionRefs: [strengthRef]
+          })
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: depthMapDispatchPlugin({
+        strengthRef,
+        mapRows: [
+          { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://positive", testIdentityRefs: [positiveIdentity] },
+          { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [negativeIdentity] }
+        ],
+        extraEvidenceRefs: [
+          testIdentityEvidenceRef(positiveIdentity),
+          testIdentityEvidenceRef(negativeIdentity),
+          mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
+        ]
+      })
+    }
+  });
+  const admitted = events.find(
+    (event) => event.kind === "requirement_proof_carry_through_admitted"
+  );
+  assert.ok(admitted);
+  assert.equal(admitted.accepted, true);
+  // earned depth + kill obligation proven + strength adversarially
+  // verified — eligible with NO resolvable F_D strength criterion
+  assert.deepEqual([...admitted.coverageIssueKinds], []);
+  assert.deepEqual(admitted.coverageStatuses, ["eligible"]);
+});

@@ -1298,8 +1298,11 @@ export function deriveAssuranceEvidenceRowsFromPayloadLedger(input: {
 // "equivalent admitted projection"). ONE replay-derived home for the
 // admitted strength-resolution ref set: evidence_admitted evidence refs +
 // validated payload refs. Raw artifact/result/observed refs are NOT
-// strength truth. The full ProofStrengthAdmission carrier (-035 field
-// list) is the named successor; consumers shall swap to it, not fork this.
+// strength truth. T-197 (2026-07-09): the full ProofStrengthAdmission
+// carrier landed (contracts/proof_strength_admission.ts) and STRENGTH
+// consumers derive through it; this set remains the admitted-evidence
+// PRIMITIVE the carrier derivation (and depth/adversarial derivations)
+// consume. Do not consume this set directly for strength judgments.
 export function deriveAdmittedStrengthRefSet(
   events: readonly RuntimeEvent[]
 ): ReadonlySet<string> {
