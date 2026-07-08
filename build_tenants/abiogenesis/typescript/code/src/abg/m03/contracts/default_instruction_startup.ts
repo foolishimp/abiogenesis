@@ -5,6 +5,7 @@ import {
   constructGtlLibraryEntryDeclaration,
   constructProductRegistryStartupConfig
 } from "../../../gtl/m02/contracts/runtime_registry.js";
+import { sha256DigestForText } from "../../../shared/runtime_identity.js";
 import type { ExecutionBasis } from "./carriers.js";
 import {
   compileInstructionAssemblyPlan,
@@ -180,7 +181,7 @@ function compiledInstructionPlanFor(input: {
         ],
         compressionMode: "digest",
         text: `Run ${input.computeStageRole} for ${vector.name} without carrying an answer marker.`,
-        digestRef: `sha256:${prefix}-vector-${input.vectorIndex}-${input.computeStageRole}`,
+        digestRef: sha256DigestForText(`${prefix}-vector-${input.vectorIndex}-${input.computeStageRole}`),
         excerptDigest: null,
         fullContentAdmitted: false,
         stageRef: `stage://${prefix}/${input.computeStageRole}`,
@@ -206,7 +207,7 @@ function compiledInstructionPlanFor(input: {
     proofDepthInstructionTruth: constructDerivedProofDepthInstructionTruth({
       truthRef: `proof-depth-instruction-truth://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
       depthPolicyRef: `proof-depth-policy://${prefix}`,
-      depthPolicyDigest: `sha256:${prefix}-proof-depth-policy`,
+      depthPolicyDigest: sha256DigestForText(`${prefix}-proof-depth-policy`),
       targetRefs: [vector.target.id],
       requiredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
       declaredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],

@@ -476,7 +476,10 @@ export function constructEvaluationSetPlan(input: {
   return Object.freeze({
     kind: "evaluation_set_plan",
     planRef: `evaluation-set-plan:${planDigest}`,
-    planDigest: `sha256:${planDigest}`,
+    // T-195 P0-5 recurrence (close-review 2026-07-09): stableSha256Digest
+    // already returns the sha256:-prefixed form — re-wrapping minted
+    // sha256:sha256:<hex> into live plan digests.
+    planDigest,
     basisId: parseNonEmptyString(input.basisId, "EvaluationSetPlan.basisId"),
     graphFunctionId: parseNonEmptyString(
       input.graphFunctionId,

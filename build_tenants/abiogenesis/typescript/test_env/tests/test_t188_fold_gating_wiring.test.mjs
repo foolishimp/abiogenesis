@@ -828,3 +828,30 @@ test("T-031 BUG #2: coverage-bearing requirement in multi-requirement scope fold
     "synthesized residual must reach the fold in multi-requirement scope"
   );
 });
+
+test("T-195 P0-5 recurrence pin: no sha256:sha256 double-prefix in any emitted truth", () => {
+  const table = classificationTable();
+  const { result } = b3Run(
+    {
+      contract: carryContract(table),
+      classificationTable: table,
+      requirementIds: ["REQ-T188-B3-001"],
+      envelopeTemplate: envelopeTemplate()
+    },
+    undefined
+  );
+  const doubled = [];
+  const scan = (value, path) => {
+    if (typeof value === "string" && value.includes("sha256:sha256:")) {
+      doubled.push(path);
+    } else if (Array.isArray(value)) {
+      value.forEach((row, index) => scan(row, `${path}[${index}]`));
+    } else if (value !== null && typeof value === "object") {
+      for (const [key, row] of Object.entries(value)) {
+        scan(row, `${path}.${key}`);
+      }
+    }
+  };
+  result.replayEvents.forEach((event, index) => scan(event, `event[${index}](${event.kind})`));
+  assert.deepEqual(doubled, []);
+});
