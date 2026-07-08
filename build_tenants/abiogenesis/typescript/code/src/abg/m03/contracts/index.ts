@@ -1332,6 +1332,18 @@ export {
   isExecutionEvidenceRef
 } from "./payload_ledger.js";
 export {
+  MUTATION_OUTCOMES_PAYLOAD_KEY,
+  admitMutationOutcomes,
+  deriveKernelMintedMutationRefs,
+  mintMutationEvidenceRefs
+} from "./mutation_outcomes.js";
+export type {
+  AdmittedMutationOutcomes,
+  MutationOutcomeRow,
+  MutationOutcomesAdmissionIssue,
+  MutationOutcomesAdmissionIssueKind
+} from "./mutation_outcomes.js";
+export {
   closureBearingStrengthRefs,
   deriveProofStrengthAdmissionsForEnvelope
 } from "./proof_strength_admission.js";

@@ -320,6 +320,44 @@ function assertOverlayFrameScopeRows(value: unknown, label: string): void {
   }
 }
 
+function assertMutationOutcomeRows(value: unknown, label: string): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  const digestShape = /^sha256:[0-9a-f]{64}$/u;
+  for (const [index, entry] of value.entries()) {
+    const rowLabel = `${label}[${index}]`;
+    if (!isPlainObject(entry)) {
+      throw new TypeError(`${rowLabel} must be a plain object`);
+    }
+    assertWellFormedNonEmptyString(entry["requirementId"], `${rowLabel}.requirementId`);
+    assertWellFormedNonEmptyString(entry["mutantIdentity"], `${rowLabel}.mutantIdentity`);
+    assertStringArray(entry["testIdentityRefs"], `${rowLabel}.testIdentityRefs`);
+    const refs = entry["testIdentityRefs"];
+    if (Array.isArray(refs)) {
+      if (refs.length === 0) {
+        throw new TypeError(`${rowLabel}.testIdentityRefs must not be empty`);
+      }
+      for (const [refIndex, ref] of refs.entries()) {
+        assertWellFormedNonEmptyString(ref, `${rowLabel}.testIdentityRefs[${refIndex}]`);
+      }
+    }
+    const exit = entry["suiteExit"];
+    if (typeof exit !== "number" || !Number.isInteger(exit) || exit < 0) {
+      throw new TypeError(`${rowLabel}.suiteExit must be a non-negative integer`);
+    }
+    for (const field of ["baselineDigest", "restoreDigest"]) {
+      const v = entry[field];
+      if (typeof v !== "string" || !digestShape.test(v)) {
+        throw new TypeError(`${rowLabel}.${field} must be a sha256:<64-hex> digest`);
+      }
+    }
+    if (entry["baselineDigest"] !== entry["restoreDigest"]) {
+      throw new TypeError(`${rowLabel} restoreDigest must equal baselineDigest`);
+    }
+  }
+}
+
 function assertOverlayFramePredicateRow(
   value: unknown,
   label: string
@@ -1111,6 +1149,32 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       }
     )(event);
     assertDepthProofMapRows(event["rows"], "DepthProofMapAdmittedEvent.rows");
+  },
+  mutation_outcomes_admitted: (event) => {
+    applyFieldRules(
+      "MutationOutcomesAdmittedEvent",
+      {
+        runId: "non_empty_string",
+        workKey: "nullable_string",
+        graphCallId: "non_empty_string",
+        frameId: "non_empty_string",
+        frameLineageId: "nullable_string",
+        vectorIndex: "non_negative_integer",
+        edge: "non_empty_string",
+        actorInvocationId: "non_empty_string",
+        workerId: "non_empty_string",
+        backendId: "non_empty_string",
+        causationEventRefs: "string_array",
+        correlationId: "non_empty_string",
+        outcomesRef: "non_empty_string",
+        sourceResultRef: "non_empty_string",
+        accepted: "boolean",
+        issueKinds: "string_array",
+        replayIdentity: "non_empty_string",
+        outcomesDigest: "non_empty_string"
+      }
+    )(event);
+    assertMutationOutcomeRows(event["rows"], "MutationOutcomesAdmittedEvent.rows");
   },
   requirement_proof_carry_through_admitted: applyFieldRules(
     "RequirementProofCarryThroughAdmittedEvent",

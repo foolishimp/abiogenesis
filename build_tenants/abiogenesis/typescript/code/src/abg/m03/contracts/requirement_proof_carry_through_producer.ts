@@ -42,6 +42,11 @@ import {
   closureBearingStrengthRefs,
   deriveProofStrengthAdmissionsForEnvelope
 } from "./proof_strength_admission.js";
+import { deriveKernelMintedMutationRefs } from "./mutation_outcomes.js";
+import {
+  MUTANT_SURVIVED_EVIDENCE_PREFIX,
+  MUTATION_KILL_EVIDENCE_PREFIX
+} from "./depth_proof_map.js";
 
 export interface RequirementProofCarryThroughStartupEntry {
   readonly contract: RequirementProofCarryThroughContract;
@@ -570,11 +575,25 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
         input.invocation.workerId
       ])
     );
-    const provenanceScopedRefs: ReadonlySet<string> = new Set(
-      [...admittedLedgerRefs].filter(
-        (ref) => !isExecutionEvidenceRef(ref) || workerTurnRefs.has(ref)
-      )
+    // T-032 Stage A: mutation-family refs come ONLY from the kernel
+    // mint over admitted mutation_outcomes rows (kill = suite red +
+    // verified restore). A raw worker-attached mutation-kill:// or
+    // mutant-survived:// ref is NOT evidence, however attributed.
+    const kernelMintedMutationRefs = deriveKernelMintedMutationRefs(
+      input.replayEvents
     );
+    const isMutationFamilyRef = (ref: string): boolean =>
+      ref.startsWith(MUTATION_KILL_EVIDENCE_PREFIX) ||
+      ref.startsWith(MUTANT_SURVIVED_EVIDENCE_PREFIX);
+    const provenanceScopedRefs: ReadonlySet<string> = new Set([
+      ...[...admittedLedgerRefs].filter((ref) => {
+        if (isMutationFamilyRef(ref)) {
+          return false;
+        }
+        return !isExecutionEvidenceRef(ref) || workerTurnRefs.has(ref);
+      }),
+      ...kernelMintedMutationRefs
+    ]);
     const earnedDepth = deriveEarnedDepthTruthForRequirements({
       replayEvents: input.replayEvents,
       requirementIds: entry.requirementIds,
@@ -630,7 +649,10 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       admittedEvidenceRefs: provenanceScopedRefs
     });
     const proofDepthTruth = constructDerivedProofDepthInstructionTruth({
-      admittedLedgerRefs,
+      // the provenance-scoped view IS the admitted ledger for strength
+      // and adversarial resolution: kernel-minted mutation refs resolve,
+      // raw attached mutation refs do not
+      admittedLedgerRefs: provenanceScopedRefs,
       truthRef: `${envelope.envelopeRef}/proof-depth`,
       // depth policy is ADMITTED PLAN truth (compiled at startup), not
       // runner-synthesized

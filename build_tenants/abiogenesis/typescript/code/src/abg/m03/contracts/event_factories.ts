@@ -1,5 +1,6 @@
 import type {
   DepthProofMapAdmittedEvent,
+  MutationOutcomesAdmittedEvent,
   RequirementProofCarryThroughAdmittedEvent,
   AdvancementTransition,
   ActorInvocation,
@@ -801,6 +802,57 @@ export function constructDepthProofMapAdmittedEvent(input: {
     }))),
     replayIdentity: input.replayIdentity,
     mapDigest: input.mapDigest
+  });
+}
+
+export function constructMutationOutcomesAdmittedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly correlationId: string;
+  readonly outcomesRef: string;
+  readonly sourceResultRef: string;
+  readonly accepted: boolean;
+  readonly issueKinds: readonly string[];
+  readonly rows: readonly {
+    readonly requirementId: string;
+    readonly mutantIdentity: string;
+    readonly testIdentityRefs: readonly string[];
+    readonly suiteExit: number;
+    readonly baselineDigest: string;
+    readonly restoreDigest: string;
+  }[];
+  readonly replayIdentity: string;
+  readonly outcomesDigest: string;
+}): MutationOutcomesAdmittedEvent {
+  return Object.freeze({
+    kind: "mutation_outcomes_admitted",
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    frameLineageId: null,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    causationEventRefs: Object.freeze([]),
+    correlationId: input.correlationId,
+    outcomesRef: input.outcomesRef,
+    sourceResultRef: input.sourceResultRef,
+    accepted: input.accepted,
+    issueKinds: freezeStringArray(input.issueKinds),
+    rows: Object.freeze(input.rows.map((row) => Object.freeze({
+      requirementId: row.requirementId,
+      mutantIdentity: row.mutantIdentity,
+      testIdentityRefs: freezeStringArray(row.testIdentityRefs),
+      suiteExit: row.suiteExit,
+      baselineDigest: row.baselineDigest,
+      restoreDigest: row.restoreDigest
+    }))),
+    replayIdentity: input.replayIdentity,
+    outcomesDigest: input.outcomesDigest
   });
 }
 

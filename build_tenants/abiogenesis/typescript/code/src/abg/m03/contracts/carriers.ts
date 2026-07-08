@@ -810,6 +810,26 @@ export interface DepthProofMapAdmittedEvent extends ActorRuntimeScope {
   readonly mapDigest: string;
 }
 
+// T-032 Stage A: admitted mutation outcomes are replay truth — rows
+// inline so the kernel evidence mint is total over replay alone.
+export interface MutationOutcomesAdmittedEvent extends ActorRuntimeScope {
+  readonly kind: "mutation_outcomes_admitted";
+  readonly outcomesRef: string;
+  readonly sourceResultRef: string;
+  readonly accepted: boolean;
+  readonly issueKinds: readonly string[];
+  readonly rows: readonly {
+    readonly requirementId: string;
+    readonly mutantIdentity: string;
+    readonly testIdentityRefs: readonly string[];
+    readonly suiteExit: number;
+    readonly baselineDigest: string;
+    readonly restoreDigest: string;
+  }[];
+  readonly replayIdentity: string;
+  readonly outcomesDigest: string;
+}
+
 export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeScope {
   readonly kind: "instruction_prompt_manifest_projected";
   readonly manifestRef: string;
@@ -2666,6 +2686,7 @@ export type RuntimeEvent =
   | InstructionCausalContextBoundEvent
   | RequirementProofCarryThroughAdmittedEvent
   | DepthProofMapAdmittedEvent
+  | MutationOutcomesAdmittedEvent
   | InstructionPromptManifestProjectedEvent
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
@@ -2800,6 +2821,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "instruction_causal_context_bound",
   "requirement_proof_carry_through_admitted",
   "depth_proof_map_admitted",
+  "mutation_outcomes_admitted",
   "instruction_prompt_manifest_projected",
   "instruction_response_contract_admitted",
   "fh_escalated",

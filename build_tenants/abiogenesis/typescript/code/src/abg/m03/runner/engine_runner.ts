@@ -31,6 +31,7 @@ import { GRAPH_REENTRY_POINT_VALUES } from "../contracts/carriers.js";
 import type { CCallJudgment } from "../contracts/carriers.js";
 import {
   constructDepthProofMapAdmittedEvent,
+  constructMutationOutcomesAdmittedEvent,
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
   constructActorResultArtifactObservedEvent,
@@ -278,6 +279,10 @@ import {
   DEPTH_PROOF_MAP_PAYLOAD_KEY,
   admitDepthProofMap
 } from "../contracts/depth_proof_map.js";
+import {
+  MUTATION_OUTCOMES_PAYLOAD_KEY,
+  admitMutationOutcomes
+} from "../contracts/mutation_outcomes.js";
 import {
   admitRequirementProofCarryThroughStartup,
   deriveRequirementPressureRefsForVector,
@@ -7627,6 +7632,36 @@ function* runEngineIterateMachine(input: {
                     replayIdentity: `${actorInvocation.actorInvocationId}/depth-proof-map`,
                     mapDigest:
                       mapAdmission.map?.mapDigest ??
+                      stableSha256Digest({ rejected: resultRef })
+                  })
+                ]);
+              }
+              // T-032 Stage A: mutation outcomes ride the same ingress.
+              // The kernel mints kill/survived evidence from ADMITTED
+              // rows only — workers never attach those refs directly.
+              const mutationSection = (rawArtifact as
+                | { readonly [MUTATION_OUTCOMES_PAYLOAD_KEY]?: unknown }
+                | null)?.[MUTATION_OUTCOMES_PAYLOAD_KEY];
+              if (mutationSection !== undefined) {
+                const outcomeAdmission = admitMutationOutcomes({
+                  payloadSection: mutationSection,
+                  sourceResultRef: resultRef,
+                  replayIdentity: `${actorInvocation.actorInvocationId}/mutation-outcomes`
+                });
+                eventState = emitRunnerEvents(eventState, [
+                  constructMutationOutcomesAdmittedEvent({
+                    invocation: actorInvocation,
+                    correlationId: actorInvocation.actorInvocationId,
+                    outcomesRef:
+                      outcomeAdmission.outcomes?.outcomesRef ??
+                      `mutation-outcomes://${encodeURIComponent(resultRef)}`,
+                    sourceResultRef: resultRef,
+                    accepted: outcomeAdmission.accepted,
+                    issueKinds: outcomeAdmission.issues.map((issue) => issue.issueKind),
+                    rows: outcomeAdmission.outcomes?.rows ?? [],
+                    replayIdentity: `${actorInvocation.actorInvocationId}/mutation-outcomes`,
+                    outcomesDigest:
+                      outcomeAdmission.outcomes?.outcomesDigest ??
                       stableSha256Digest({ rejected: resultRef })
                   })
                 ]);

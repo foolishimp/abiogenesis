@@ -979,7 +979,9 @@ test("T-210 b1: an attached artifact carrying a depth-proof map emits admitted r
 
 // T-210 break 2: severed plan-declared depth authority for map-bearing
 // requirements (REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-032/-034).
-function depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs = [] }) {
+const T032_DIGEST = "sha256:" + "ab".repeat(32);
+
+function depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs = [], mutationRows = null }) {
   return Object.freeze({
     contract: constructEnginePluginContract({
       ref: "plugin://t210/b2/fp-dispatch",
@@ -996,7 +998,8 @@ function depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs = [] }
           ...fulfilledAttachedArtifactFor(input, {
             evidenceRefs: [strengthRef, ...extraEvidenceRefs]
           }),
-          depthProofMap: { rows: mapRows }
+          depthProofMap: { rows: mapRows },
+          ...(mutationRows === null ? {} : { mutationOutcomes: { rows: mutationRows } })
         },
         evidenceRefs: []
       });
@@ -1266,7 +1269,7 @@ test("T-210 b3 wiring: an earned-depth run with a declared adversarial class sta
     { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://positive", testIdentityRefs: [positiveIdentity] },
     { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [negativeIdentity] }
   ];
-  const runWithEvidence = (extraEvidenceRefs) => {
+  const runWith = ({ extraEvidenceRefs, mutationRows = null }) => {
     const table = classificationTable();
     const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
     const events = [];
@@ -1291,7 +1294,7 @@ test("T-210 b3 wiring: an earned-depth run with a declared adversarial class sta
         ]
       },
       plugins: {
-        fpDispatch: depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs })
+        fpDispatch: depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs, mutationRows })
       }
     });
     return events.find((event) => event.kind === "requirement_proof_carry_through_admitted");
@@ -1302,18 +1305,38 @@ test("T-210 b3 wiring: an earned-depth run with a declared adversarial class sta
   ];
   // earned depth alone no longer suffices: the map's adversarial row
   // projected a kill obligation and no kill evidence is admitted
-  const unproven = runWithEvidence(identityRefs);
+  const unproven = runWith({ extraEvidenceRefs: identityRefs });
   assert.ok(unproven);
   assert.equal(unproven.coverageIssueKinds.includes("missing_depth_obligation_class"), true);
   assert.deepEqual(unproven.coverageStatuses, ["residual"]);
-  // admitted kill evidence for the row's test identity closes the obligation
-  const proven = runWithEvidence([
-    ...identityRefs,
-    mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
-  ]);
+  // T-032 Stage A: kill evidence arrives ONLY as an admitted mutation
+  // outcome (suite red + verified restore); the kernel mints the ref
+  const proven = runWith({
+    extraEvidenceRefs: identityRefs,
+    mutationRows: [
+      {
+        requirementId: "requirement://t188/r1",
+        mutantIdentity: "Mutation: drop malformed-row rejection branch",
+        testIdentityRefs: [negativeIdentity],
+        suiteExit: 1,
+        baselineDigest: T032_DIGEST,
+        restoreDigest: T032_DIGEST
+      }
+    ]
+  });
   assert.ok(proven);
   assert.deepEqual([...proven.coverageIssueKinds], []);
   assert.deepEqual(proven.coverageStatuses, ["eligible"]);
+  // a RAW worker-attached kill ref is NOT evidence (kernel-mint law):
+  // same run shape, ref attached directly, obligation stays unproven
+  const rawAttached = runWith({
+    extraEvidenceRefs: [
+      ...identityRefs,
+      mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
+    ]
+  });
+  assert.equal(rawAttached.coverageIssueKinds.includes("missing_depth_obligation_class"), true);
+  assert.deepEqual(rawAttached.coverageStatuses, ["residual"]);
 });
 
 // T-210 review HIGH (2026-07-09): rows are carrier truth the ledger
@@ -1402,7 +1425,7 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
     { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://positive", testIdentityRefs: [positiveIdentity] },
     { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [negativeIdentity] }
   ];
-  const runWithEvidence = (extraEvidenceRefs) => {
+  const runWithMutations = (mutationRows) => {
     const table = classificationTable();
     const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
     const events = [];
@@ -1427,34 +1450,66 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
         ]
       },
       plugins: {
-        fpDispatch: depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs })
+        fpDispatch: depthMapDispatchPlugin({
+          strengthRef,
+          mapRows,
+          extraEvidenceRefs: [
+            testIdentityEvidenceRef(positiveIdentity),
+            testIdentityEvidenceRef(negativeIdentity)
+          ],
+          mutationRows
+        })
       }
     });
     return events.find((event) => event.kind === "requirement_proof_carry_through_admitted");
   };
-  const earnedEvidence = [
-    testIdentityEvidenceRef(positiveIdentity),
-    testIdentityEvidenceRef(negativeIdentity),
-    mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
-  ];
-  // fully earned baseline: eligible
-  assert.deepEqual(runWithEvidence(earnedEvidence).coverageStatuses, ["eligible"]);
+  const killedRow = {
+    requirementId: "requirement://t188/r1",
+    mutantIdentity: "Mutation: drop malformed-row rejection branch",
+    testIdentityRefs: [negativeIdentity],
+    suiteExit: 1,
+    baselineDigest: T032_DIGEST,
+    restoreDigest: T032_DIGEST
+  };
+  // fully earned baseline (kill via admitted outcome): eligible
+  assert.deepEqual(runWithMutations([killedRow]).coverageStatuses, ["eligible"]);
   // a survived mutant against a FOREIGN requirement does not block this
   // entry (obligation-scoped adversarial truth)
-  const foreign = runWithEvidence([
-    ...earnedEvidence,
-    mutantSurvivedEvidenceRef("requirement://elsewhere/r9", "Mutation: unrelated")
+  const foreign = runWithMutations([
+    killedRow,
+    {
+      requirementId: "requirement://elsewhere/r9",
+      mutantIdentity: "Mutation: unrelated",
+      testIdentityRefs: ["other-test"],
+      suiteExit: 0,
+      baselineDigest: T032_DIGEST,
+      restoreDigest: T032_DIGEST
+    }
   ]);
   assert.deepEqual(foreign.coverageStatuses, ["eligible"]);
-  // one admitted survived mutant AGAINST THIS requirement: the same run
-  // BLOCKS — kill evidence does not outvote a counterexample
-  const survived = runWithEvidence([
-    ...earnedEvidence,
-    mutantSurvivedEvidenceRef("requirement://t188/r1", "Mutation: drop malformed-row rejection branch")
+  // one admitted SURVIVED mutant (suite green) against THIS requirement:
+  // the same run BLOCKS — kill evidence does not outvote a counterexample
+  const survived = runWithMutations([
+    killedRow,
+    {
+      requirementId: "requirement://t188/r1",
+      mutantIdentity: "Mutation: second mutant survives",
+      testIdentityRefs: [negativeIdentity],
+      suiteExit: 0,
+      baselineDigest: T032_DIGEST,
+      restoreDigest: T032_DIGEST
+    }
   ]);
   assert.ok(survived);
   assert.equal(survived.coverageIssueKinds.includes("adversarial_counterexample_found"), true);
   assert.deepEqual(survived.coverageStatuses, ["blocked"]);
+  // restore-digest law: a red suite with an UNRESTORED subject is a
+  // rejected admission, not kill evidence — obligation stays unproven
+  const unrestored = runWithMutations([
+    { ...killedRow, restoreDigest: "sha256:" + "cd".repeat(32) }
+  ]);
+  assert.equal(unrestored.coverageIssueKinds.includes("missing_depth_obligation_class"), true);
+  assert.deepEqual(unrestored.coverageStatuses, ["residual"]);
 });
 
 test("T-210 b4: template-declared adversarial attempts resolve against the admitted ledger, never by list presence", async () => {
@@ -1660,8 +1715,17 @@ test("T-197 wiring: strength closes through the ADVERSARIAL disjunct when F_D cr
         ],
         extraEvidenceRefs: [
           testIdentityEvidenceRef(positiveIdentity),
-          testIdentityEvidenceRef(negativeIdentity),
-          mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
+          testIdentityEvidenceRef(negativeIdentity)
+        ],
+        mutationRows: [
+          {
+            requirementId: "requirement://t188/r1",
+            mutantIdentity: "Mutation: adversarial disjunct",
+            testIdentityRefs: [negativeIdentity],
+            suiteExit: 1,
+            baselineDigest: T032_DIGEST,
+            restoreDigest: T032_DIGEST
+          }
         ]
       })
     }
@@ -1805,4 +1869,99 @@ test("T-209 b4: the m03 contracts layer contains no process-execution capability
     }
   }
   assert.deepEqual(offenders, [], "contracts layer must never execute processes");
+});
+
+// T-032 Stage A: mutation-outcomes admission totality + the kernel mint.
+test("T-032 A: mutation-outcomes admission is total; restore mismatch rejects; the kernel mint is the only ref source", async () => {
+  const { admitMutationOutcomes, mintMutationEvidenceRefs, deriveKernelMintedMutationRefs, assertRuntimeEvent } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const good = {
+    requirementId: "requirement://t032/r1",
+    mutantIdentity: "Mutation: m1",
+    testIdentityRefs: ["neg-test"],
+    suiteExit: 1,
+    baselineDigest: T032_DIGEST,
+    restoreDigest: T032_DIGEST
+  };
+  const valid = admitMutationOutcomes({
+    payloadSection: { rows: [good] },
+    sourceResultRef: "result://t032/a",
+    replayIdentity: "replay://t032/a"
+  });
+  assert.equal(valid.accepted, true);
+  assert.match(valid.outcomes.outcomesDigest, /^sha256:[0-9a-f]{64}$/u);
+  // restore mismatch: typed rejection, never a downgrade
+  const mismatch = admitMutationOutcomes({
+    payloadSection: { rows: [{ ...good, restoreDigest: "sha256:" + "cd".repeat(32) }] },
+    sourceResultRef: "result://t032/a",
+    replayIdentity: "replay://t032/a"
+  });
+  assert.equal(mismatch.accepted, false);
+  assert.equal(mismatch.issues.some((i) => i.issueKind === "restore_digest_mismatch"), true);
+  // surrogate + malformed rejections
+  const bad = admitMutationOutcomes({
+    payloadSection: { rows: [
+      { ...good, requirementId: "\uD800" },
+      { ...good, suiteExit: -1 },
+      { ...good, baselineDigest: "not-a-digest" },
+      "not-a-row"
+    ] },
+    sourceResultRef: "result://t032/a",
+    replayIdentity: "replay://t032/a"
+  });
+  assert.equal(bad.accepted, false);
+  const kinds = bad.issues.map((i) => i.issueKind);
+  for (const k of ["requirement_id_invalid", "suite_exit_invalid", "digest_invalid", "row_not_object"]) {
+    assert.equal(kinds.includes(k), true, k);
+  }
+  assert.equal(admitMutationOutcomes({ payloadSection: null, sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "section_not_object");
+  // the mint: red suite -> kill refs per test identity; green -> survived
+  const minted = mintMutationEvidenceRefs([
+    good,
+    { ...good, mutantIdentity: "Mutation: m2", suiteExit: 0 }
+  ]);
+  assert.equal(minted.some((r) => r.startsWith("mutation-kill://")), true);
+  assert.equal(minted.some((r) => r.startsWith("mutant-survived://")), true);
+  // replay projection: only ACCEPTED events mint
+  const refs = deriveKernelMintedMutationRefs([
+    { kind: "mutation_outcomes_admitted", accepted: true, rows: [good] },
+    { kind: "mutation_outcomes_admitted", accepted: false, rows: [{ ...good, mutantIdentity: "rejected" }] }
+  ]);
+  assert.equal(refs.size, 1);
+  // canonical event admission closes rows (forged variants reject)
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [{
+        contract: carryContract(classificationTable()),
+        classificationTable: classificationTable(),
+        requirementIds: ["requirement://t188/r1"],
+        envelopeTemplate: envelopeTemplate()
+      }]
+    },
+    plugins: {
+      fpDispatch: depthMapDispatchPlugin({
+        strengthRef: "proof-strength-admission://t188/source-test",
+        mapRows: [{ requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: ["neg-test"] }],
+        mutationRows: [good]
+      })
+    }
+  });
+  const genuine = events.find((e) => e.kind === "mutation_outcomes_admitted");
+  assert.ok(genuine);
+  assert.equal(genuine.accepted, true);
+  assertRuntimeEvent(genuine);
+  assert.throws(() => assertRuntimeEvent({ ...genuine, rows: "bad" }), /rows must be a list/u);
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ ...good, restoreDigest: "sha256:" + "cd".repeat(32) }] }),
+    /restoreDigest must equal baselineDigest/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ ...good, requirementId: "\uD800" }] }),
+    /well-formed/u
+  );
 });
