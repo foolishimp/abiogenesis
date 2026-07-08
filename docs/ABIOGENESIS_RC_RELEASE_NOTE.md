@@ -1,3 +1,34 @@
+# abiogenesis 4.5.0-rc.15 Release Candidate Note
+
+This checkpoint is the fifteenth `4.5.0` release candidate. It follows
+`4.5.0-rc.14` and carries T-032 Stage A: the mutation-outcome carrier
+and the constitutionally compressed installer bootstrap.
+
+- ADMITTED MUTATION OUTCOMES (T-032 Stage A): the worker's mutation
+  campaign returns typed rows {requirementId, mutantIdentity,
+  testIdentityRefs, suiteExit, baselineDigest, restoreDigest} in the
+  attached result artifact; admission is total with a closed issue
+  vocabulary; a restore-digest mismatch REJECTS the row (typed, never a
+  downgrade); the mutation_outcomes_admitted event closes rows at
+  canonical event admission (digest shape, surrogate, restore laws).
+- KERNEL EVIDENCE MINT: mutation-kill:// (suite red + verified restore,
+  per test identity) and mutant-survived:// (suite green ->
+  counterexample, blocks) derive ONLY from accepted admitted rows. Raw
+  worker-attached mutation-family refs are excluded from the
+  provenance-scoped view — attaching them does nothing.
+  RESIDUAL (stated): baseline/restore digests are worker-reported until
+  the F_D materialization handler witnesses workspace digests.
+- CONSTITUTIONAL BOOTSTRAP (T-212): the installer-injected
+  AGENTS.md/CLAUDE.md context now carries the four boundary blocks,
+  agent-addressed (three-layer ownership; execution default — the
+  worker runs the toolchain in its turn, the framework never does;
+  earned depth; evidence provenance), compression-reviewed with the
+  removal list recorded on the ticket. The install lane CONTENT-verifies
+  the blocks in the stamped files.
+
+Suites at cut: semantic 1172/1172, t188 66/66, t205 22/22, installer
+lane 6/6.
+
 # abiogenesis 4.5.0-rc.14 Release Candidate Note
 
 This checkpoint is the fourteenth `4.5.0` release candidate. It follows
