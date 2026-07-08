@@ -1,3 +1,63 @@
+# abiogenesis 4.5.0-rc.11 Release Candidate Note
+
+This checkpoint is the eleventh `4.5.0` release candidate. It follows
+`4.5.0-rc.10` and carries Phase 2 of the Foundation Release wave: depth
+is now EARNED truth derived by the kernel, never declared into closure.
+T-210 (all five breaks) and T-197 land together; two external review
+waves hardened the carriers before this cut.
+
+- EARNED DEPTH (-032/-033/-034): a worker-delivered depth-proof map
+  (test identity -> depth class -> requirement) is collapsed once at the
+  accepted-artifact ingress into an admitted, digest-bound carrier with
+  a closed issue vocabulary and replay-total event admission (row shape
+  and string well-formedness checked at the canonical admitter). For
+  map-bearing requirements, declared depth classes and typed gaps derive
+  from the admitted map plus admitted test-identity evidence; the
+  per-(requirement, class) lattice is {unmapped, identity-unverified,
+  earned}. Declaration equality is severed from closure authority: a
+  hollow declared-equal plan with an admitted map missing rows folds
+  residual, never satisfied. Mixed old/new depth authority is
+  non-closure: one mapped requirement holds every entry sibling to
+  earned truth.
+- DISCOVERED KILL OBLIGATIONS (-039, the Goedel projection): map rows in
+  contract-declared adversarial depth classes project kill obligations —
+  one per admitted row, cardinality discovered at admission, never
+  enumerated. An obligation without complete admitted mutation-kill
+  evidence is a typed gap through the existing depth gate.
+- ADVERSARIAL ADMISSION (-035/-036): adversarial refs are
+  ledger-resolved, never template-static; admitted survived-mutant
+  evidence is counterexample truth and BLOCKS through the existing gate
+  (kill evidence does not outvote a counterexample). Kill and survived
+  evidence identity embeds the requirement id — evidence proves only the
+  obligation it names; a foreign entry's survived mutant does not block,
+  and a shared test identity cannot false-close a sibling requirement.
+- FULL ProofStrengthAdmission CARRIER (T-197): the -035 field list
+  preserved verbatim in one typed carrier per strength ref, derived
+  totally over already-admitted truth as an equivalent admitted
+  projection (no new event kind — strength has no open ingress of its
+  own). Closed disposition lattice: counterexample -> not_admitted;
+  admitted ref + F_D criteria total over the ledger -> fd_checked;
+  admitted ref + admitted adversarial verification ->
+  adversarially_verified. The -036 disjunct is proven end to end:
+  strength closes through adversarial verification when F_D criteria
+  never resolve. Consumers swapped, not forked: proof-depth truth
+  consumes only the carrier's closure-bearing set.
+- READ-MODEL HONESTY: the coverage projection's
+  proofStrengthAdmissionRefs exposes only the carrier-resolved
+  closure-bearing set when depth truth is present — a declared-but-
+  unadmitted ref no longer displays as strength anywhere downstream.
+
+Differential surface: 18 new pinned differentials across admission
+totality, the severing negative proof, the earned positive path, the
+mixed-authority law, obligation cardinality/determinism, scoped-evidence
+probes (both review HIGHs), the disposition lattice, and the -036
+disjunct. Suites at cut: semantic 1167/1167, t188 62/62, t205 22/22.
+
+Downstream: odd_glc repins to this cut before the T-032 earned-depth
+proving campaign (Phase 4); the campaign delivers depth maps, test
+identities, and mutation evidence through the carriers this cut
+publishes.
+
 # abiogenesis 4.5.0-rc.10 Release Candidate Note
 
 This checkpoint is the tenth `4.5.0` release candidate. It follows
