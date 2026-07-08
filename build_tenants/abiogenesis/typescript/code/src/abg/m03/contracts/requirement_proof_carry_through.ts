@@ -1139,18 +1139,14 @@ export function admitRequirementProofCarryThroughOutput(input: {
       })
     );
   }
-  if (
-    contract.requiredDepthClassRefs.length > 0 &&
-    !includesAll(envelope.depthClassRefs, contract.requiredDepthClassRefs)
-  ) {
-    issues.push(
-      issue({
-        issueKind: "missing_depth_obligation_class",
-        message: "output envelope does not carry every required depth class",
-        evidenceRefs: [envelope.envelopeRef, ...contract.requiredDepthClassRefs]
-      })
-    );
-  }
+  // T-032 campaign BUG #10 (T-210 migration completed at this seam):
+  // the envelope's DECLARED depth classes are template data demoted from
+  // closure authority — requiring them to enumerate the contract's
+  // required classes was the old self-declaration law, and it rejected
+  // the lawful map-or-residual design (declared [] + admitted map =
+  // earned depth). Depth closure is owned by the coverage projector's
+  // DERIVED truth: earned classes, typed gaps, and kill obligations from
+  // the admitted map. No admission check on declaration completeness.
   if (
     envelope.expectedEvidenceShapeRefs.length === 0 ||
     !includesAll(envelope.expectedEvidenceShapeRefs, contract.expectedEvidenceShapeRefs)

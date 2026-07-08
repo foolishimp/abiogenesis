@@ -865,9 +865,14 @@ test("T-188 rejects plugin output with shallow depth and unadmitted strength", (
   });
   assert.equal(result.accepted, false);
   assert.equal(result.issues.some((item) => item.issueKind === "depth_policy_gap"), true);
+  // T-210 migration completed (campaign BUG #10): envelope depth-class
+  // DECLARATION completeness is no longer admission law — depth closure
+  // is owned by the coverage projector's DERIVED truth (earned classes,
+  // typed gaps, kill obligations). Declaration emptiness is lawful
+  // (map-or-residual).
   assert.equal(
     result.issues.some((item) => item.issueKind === "missing_depth_obligation_class"),
-    true
+    false
   );
   assert.equal(
     result.issues.some((item) => item.issueKind === "proof_strength_not_admitted"),
