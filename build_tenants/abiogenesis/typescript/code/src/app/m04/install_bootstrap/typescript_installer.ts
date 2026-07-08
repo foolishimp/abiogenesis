@@ -525,26 +525,44 @@ Core chain:
 graph-function library -> graph overlay/program -> workspace binding -> ABG traversal -> replay interpretation
 \`\`\`
 
+Constitutional boundaries — these govern YOU, the agent reading this:
+- THREE-LAYER OWNERSHIP: GTL declares (syntax); ABG interprets, admits,
+  derives, and gates — ABG owns ALL systems functionality (startup,
+  admission, traversal, instruction assembly, dispatch, fold, re-entry,
+  replay truth); downstream odd_* products ship DOMAIN DECLARATIONS
+  ONLY and own no systems functionality. Do not build local prompt
+  shells, registries, ledgers, traversal loops, closure truth, or
+  duplicate runtime state — however reasonable it seems in the moment.
+- EXECUTION DEFAULT: execution belongs to YOUR typed F_P worker turn.
+  When a stage declares that tests, builds, mutants, or generation run,
+  YOU run them inside your turn and return the typed execution result
+  (command, exit status, report identities, counts, typed payload
+  sections) in your result artifact. The framework, binding, or harness
+  NEVER invokes the subject toolchain — no spawn of build/test commands
+  outside the declared worker turn. F_D consumes admitted results; it
+  never performs execution. Determinism does not reclassify execution
+  as F_D.
+- EARNED DEPTH: depth truth derives from admitted intermediate assets
+  (your delivered depth-proof map, executed report identities, admitted
+  mutation outcomes) plus admitted evidence. Declaration equality never
+  closes anything. Proof obligations are DISCOVERED from admitted
+  assets, never statically enumerated — deliver the map and the
+  obligations follow.
+- EVIDENCE PROVENANCE: execution evidence is closure-bearing only with
+  admitted worker-turn provenance. Framework-assembled or self-reported
+  evidence is inadmissible by construction — the kernel mints
+  kill/survived truth from your admitted mutation outcomes (suite red +
+  verified restore); attaching such refs directly does nothing.
+
 Installed axioms:
 - A GraphFunction is a reusable workflow library function or callable work
-  contract.
-- A graph overlay or GTL program composition is the program surface. It binds
-  graph functions, node types, starts, roles, security, policies, proof
-  obligations, plugin contracts, result contracts, and allowed bindings.
-- A workspace is the mutable program instance surface. It may provide bootstrap
-  config, files, observed state, generated artifacts, run archives, and
-  operator data. It does not select traversal, call vectors, own closure, or
-  replace ABG startup/admission.
-- ABG traversal owns startup, registry projection, selection, graph-call
-  opening, vector progression, instruction assembly, worker/effect dispatch,
-  admission, fold, residual, continuation, re-entry, block, terminal
-  projection, and replay truth.
-- Downstream products may publish specialized graph functions and overlays
-  through GTL declarations consumed by ABG. They must not create local prompt
-  shells, registries, ledgers, traversal loops, closure truth, or duplicate
-  runtime state.
-- F_D applies only over known algebra or total functions. F_P/F_H outputs may
-  provide admitted evidence or policy judgment, but they do not become
+  contract. A graph overlay or GTL program composition is the program
+  surface binding functions, node types, roles, policies, proof
+  obligations, and contracts.
+- A workspace is the mutable program instance surface. It does not select
+  traversal, call vectors, own closure, or replace ABG startup/admission.
+- F_D applies only over known algebra or total functions. F_P/F_H outputs
+  may provide admitted evidence or policy judgment, but they do not become
   deterministic traversal law without F_D conformance over admitted truth.
 - Instruction and prompt envelopes are ABG-rendered projections over admitted
   carriers. Product templates are data; product renderers are not authority to

@@ -416,6 +416,14 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     assert.match(instruction, /<!-- ABG_GTL_CONTEXT_START -->/u);
     assert.match(instruction, /<!-- ABG_GTL_CONTEXT_END -->/u);
     assert.match(instruction, /A GraphFunction is a reusable workflow library function/u);
+    // T-212: the four constitutional boundary blocks are CONTENT-verified
+    // in the STAMPED instruction files (the rc.6 lesson — version lines
+    // are not content)
+    assert.match(instruction, /THREE-LAYER OWNERSHIP: GTL declares/u);
+    assert.match(instruction, /EXECUTION DEFAULT: execution belongs to YOUR typed F_P worker turn/u);
+    assert.match(instruction, /EARNED DEPTH: depth truth derives from admitted intermediate assets/u);
+    assert.match(instruction, /EVIDENCE PROVENANCE: execution evidence is closure-bearing only/u);
+    assert.match(instruction, /The framework, binding, or harness\n\s+NEVER invokes the subject toolchain/u);
   }
   assert(manifest.standardsFiles.length > 8);
   assert(manifest.docsFiles.length >= 3);

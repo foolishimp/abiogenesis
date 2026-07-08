@@ -5,7 +5,7 @@
 - ticket_category: ordinary
 - library_usage: extend
 - governing_library: app/m04 install_bootstrap (typescript_installer.ts precreated bootstrap; AGENTS.md + CLAUDE.md injection)
-- status: backlog
+- status: completed (2026-07-09, rides rc.15 per reschedule)
 - goal: GOAL-032 (Foundation Release)
 - rescheduled: 2026-07-09 — rides Stage A/rc.15 of the T-032 execution plan (user reprice): the installer-driven odd_glc workspace refresh is the delivery and TEST vehicle; the Phase 4 campaign runs workers under the new context, making it the live gate-zero test. Also corrects the rc.5-stale install-provenance drift (workspace context hand-bumped since rc.7).
 - change_intent: >-
@@ -110,3 +110,31 @@
 - boundary text present in the repo CLAUDE.md but not in the
   INSTALLER-injected bootstrap (the repo copy is not the product
   surface)
+
+## Closure (2026-07-09)
+
+Realized in installedAbgGtlContextContent (app/m04 install_bootstrap):
+four constitutional boundary blocks added, AGENT-ADDRESSED ("these
+govern YOU, the agent reading this" / "YOU run them inside your turn"):
+three-layer ownership, execution default, earned depth, evidence
+provenance. Install-lane integration test CONTENT-verifies all four
+blocks plus the never-invokes-toolchain sentence in the STAMPED
+AGENTS.md/CLAUDE.md (not version lines).
+
+COMPRESSION REMOVAL LIST (what was cut to make room, and why):
+- The 15-item "ABG traversal owns ..." enumeration collapsed into the
+  three-layer ownership block's 8 anchors — the boundary statement
+  subsumes the enumeration; a worker that knows the boundary can look
+  up the carrier, the reverse fails.
+- The standalone "Downstream products may publish..." axiom merged into
+  the ownership block (its prohibition list survives verbatim there).
+- The GraphFunction and program-surface axioms merged to one bullet;
+  the binding enumeration trimmed of duplicates (starts/security kept
+  as roles/policies/contracts).
+Net: content grew only by the boundary blocks themselves; structural
+enumeration shrank. Precedence/read-model framing untouched.
+
+Live test: the Phase 4 (T-032 Stage D) campaign runs every F_P worker
+under this context via the installer-refreshed odd_glc workspace — the
+gate-zero claim gets its empirical reading there (delivery shapes
+lawful first-attempt vs corrective-guidance cycles).
