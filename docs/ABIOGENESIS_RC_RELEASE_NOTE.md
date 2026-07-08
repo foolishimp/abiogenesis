@@ -1,3 +1,22 @@
+# abiogenesis 4.5.0-rc.17 Release Candidate Note
+
+This checkpoint is the seventeenth `4.5.0` release candidate. It follows
+`4.5.0-rc.16` and carries one campaign-found kernel fix:
+
+- DECLARATION-EQUALITY DEPTH LAW FULLY DEMOTED (T-032 campaign BUG #10):
+  the carry-through envelope admission still required declared
+  depthClassRefs to enumerate the contract's required classes — the old
+  self-declaration law surviving at one seam. It rejected the lawful
+  map-or-residual design (declared [] + admitted depth map = earned
+  depth) before derivation could run, collapsing the campaign's first
+  full earned-depth cycle (48-row admitted map, 16/16 mutants killed,
+  zero survived) into owed-but-missing residuals. Envelope depth
+  declarations are template data; depth closure is owned by the
+  coverage projector's DERIVED truth (earned classes, typed gaps,
+  discovered kill obligations). Mixed-law pin repriced.
+
+Suites at cut: semantic 1174/1174, t188 67/67, t205 22/22.
+
 # abiogenesis 4.5.0-rc.16 Release Candidate Note
 
 This checkpoint is the sixteenth `4.5.0` release candidate. It follows
