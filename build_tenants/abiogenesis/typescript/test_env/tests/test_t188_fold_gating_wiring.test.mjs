@@ -599,3 +599,104 @@ test("T-030 -007: engine manifests carry requirement pressure for the spanned ve
     );
   }
 });
+
+// T-031 live-run reproduction: a MULTI-VECTOR span whose FIRST vector
+// closes before the coverage-producing vector (the data-mapper shape:
+// spans [4,14,16,21], v4 closes first). The live run showed ZERO route
+// facts at the spanned close — this pins whichever gate rejects.
+function t031MultiSpanBundle(basis) {
+  const spanId = "span://t188/t031/multi";
+  const vectors = [basis.graph.vectors[0], basis.graph.vectors[2]];
+  return publicGtlRequirements.declareBundle({
+    requirements: [
+      publicGtlRequirements.declareRequirement({
+        requirementId: "REQ-T188-B3-001",
+        termKind: "atom",
+        stableId: "REQ-T188-B3-001",
+        sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#013",
+        sourceDigest: "sha256:t188-t031-requirement",
+        relationRefs: [],
+        spanRefs: [spanId],
+        contextRefs: [],
+        evidencePolicyRefs: ["policy://t188/b3-evidence"]
+      })
+    ],
+    spans: [
+      publicGtlRequirements.declareTraversalSpan({
+        spanId,
+        graphFunctionRef: basis.graphFunction.id,
+        graphVectorRefs: vectors.map((vector) => vector.id),
+        vectorIndexes: [0, 2],
+        sourceNodeRef: vectors[0].source[0].id,
+        targetNodeRef: vectors[1].target.id
+      })
+    ]
+  });
+}
+
+test("T-031 repro: non-final spanned close emits fold truth (owed-but-missing residual), not silence", () => {
+  const table = classificationTable();
+  const base = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({
+    ...base,
+    startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
+  });
+  const events = [];
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementRouteDeclarationBundle: t031MultiSpanBundle(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table),
+          classificationTable: table,
+          requirementIds: ["REQ-T188-B3-001"],
+          envelopeTemplate: envelopeTemplate(),
+          // produces coverage on vector 2's edge — NOT the closing vector 0
+          edge: basis.graph.vectors[2]?.name ?? "design→code"
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t188/t031/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t188/t031/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input),
+            evidenceRefs: []
+          });
+        }
+      }),
+      fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
+    }
+  });
+  const closed = result.replayEvents.filter((event) => event.kind === "vector_closed");
+  assert.equal(closed.length >= 1, true);
+  assert.equal(closed[0].vectorIndex, 0);
+  const folds = result.replayEvents.filter(
+    (event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_fold_projected"
+  );
+  // THE LIVE DEFECT SHAPE: zero folds at a reached spanned close = the
+  // requirement pressure vanished from replay at this close (silence).
+  assert.notEqual(folds.length, 0, "non-final spanned close emitted no fold truth");
+  const fold = folds[0].requirementPayload.fold;
+  assert.equal(fold.requirementId, "REQ-T188-B3-001");
+  assert.equal(fold.state, "no_close_preserved");
+  assert.equal(
+    fold.sourceAbgTruthRefs.some((ref) => ref.includes("/residual/")),
+    true,
+    "owed-but-missing coverage must surface as residual pressure at the spanned close"
+  );
+});

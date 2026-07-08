@@ -1763,12 +1763,28 @@ function spanCoversEdge(span: TraversalSpan, edge: RequirementEdgeRef): boolean 
   if (!vectorMatches) {
     return false;
   }
-
+  // T-031 span-boundary law: a span's sourceNodeRef/targetNodeRef are the
+  // WHOLE span's endpoints (source of its first vector, target of its
+  // last). Corroborating them against EVERY member edge made a
+  // multi-vector span fail to cover its own boundary vectors (only
+  // interiors matched), silencing route folds at the creating and proving
+  // edges. Node-identity drift protection (T-162) is preserved where it
+  // is semantically defined: the source endpoint corroborates the edge at
+  // the span's FIRST vector, the target endpoint at its LAST; a
+  // single-vector span checks both, exactly as before.
   if (!interiorIndexMatch && !endpointRangeMatch) {
-    if (!optionalStringMatches(edge.sourceNodeRef, [span.sourceNodeRef, ...span.aliasRefs])) {
+    const atFirst = range === null || edge.vectorIndex === range.min;
+    const atLast = range === null || edge.vectorIndex === range.max;
+    if (
+      atFirst &&
+      !optionalStringMatches(edge.sourceNodeRef, [span.sourceNodeRef, ...span.aliasRefs])
+    ) {
       return false;
     }
-    if (!optionalStringMatches(edge.targetNodeRef, [span.targetNodeRef, ...span.aliasRefs])) {
+    if (
+      atLast &&
+      !optionalStringMatches(edge.targetNodeRef, [span.targetNodeRef, ...span.aliasRefs])
+    ) {
       return false;
     }
   }
