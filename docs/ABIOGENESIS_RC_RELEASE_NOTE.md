@@ -1,3 +1,20 @@
+# abiogenesis 4.5.0-rc.9 Release Candidate Note
+
+This checkpoint is the ninth `4.5.0` release candidate. It follows
+`4.5.0-rc.8` and carries the T-031 campaign's first builder fix, found
+live on the typed-UAT data-mapper run within five vector closes:
+
+- SPAN-BOUNDARY COVERAGE LAW: a multi-vector traversal span now covers
+  its own boundary vectors. Endpoint-node corroboration applies only
+  where it is defined — the span's source endpoint at its first vector,
+  its target endpoint at its last; single-vector spans check both
+  (node-identity drift protection preserved exactly). Previously the
+  whole-span endpoints were corroborated against every member edge, so
+  boundary vectors silently failed coverage and the requirement route
+  emitted no fold truth at the creating and proving edges.
+
+The rc.8 content follows.
+
 # abiogenesis 4.5.0-rc.8 Release Candidate Note
 
 This checkpoint is the eighth `4.5.0` release candidate. It follows
