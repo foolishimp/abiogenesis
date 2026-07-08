@@ -1573,15 +1573,29 @@ test("T-197: disposition lattice is total and the -035 field list is preserved",
   assert.deepEqual([...fdChecked[0].depthClassRefs], ["depth-class://positive"]);
   assert.equal(fdChecked[0].replayIdentity, "replay://t197/e1");
   assert.match(fdChecked[0].admissionDigest, /^sha256:[0-9a-f]{64}$/u);
-  // adversarially_verified: fd criteria NOT total, admitted verification present
+  // adversarially_verified: fd criteria NOT total, verification ref
+  // ADMITTED in the ledger (-036: list presence is never verification)
   const adversarial = deriveProofStrengthAdmissionsForEnvelope({
     ...base,
     fdStrengthCriterionRefs: ["fd-criterion://t197/unresolvable"],
     adversarialVerificationRefs: ["mutation-kill://r1/neg-test"],
-    admittedEvidenceRefs: new Set(["proof-strength-admission://t197/s1"])
+    admittedEvidenceRefs: new Set([
+      "proof-strength-admission://t197/s1",
+      "mutation-kill://r1/neg-test"
+    ])
   });
   assert.equal(adversarial[0].disposition, "adversarially_verified");
   assert.deepEqual([...adversarial[0].verifierRefs], ["mutation-kill://r1/neg-test"]);
+  // the reviewer's probe pinned: an UNLEDGERED verification ref is not
+  // verification — strength stays not_admitted
+  const unledgered = deriveProofStrengthAdmissionsForEnvelope({
+    ...base,
+    fdStrengthCriterionRefs: ["fd-criterion://t197/unresolvable"],
+    adversarialVerificationRefs: ["mutation-kill://not-in-ledger"],
+    admittedEvidenceRefs: new Set(["proof-strength-admission://t197/s1"])
+  });
+  assert.equal(unledgered[0].disposition, "not_admitted");
+  assert.deepEqual([...closureBearingStrengthRefs(unledgered)], []);
   // counterexample outvotes everything
   const countered = deriveProofStrengthAdmissionsForEnvelope({
     ...base,

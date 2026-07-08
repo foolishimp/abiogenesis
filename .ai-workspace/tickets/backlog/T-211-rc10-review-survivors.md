@@ -54,3 +54,15 @@
 
 - cd build_tenants/abiogenesis/typescript && npm run test:semantic
 - git diff --check
+
+## Installer valibot-payload defect (recorded 2026-07-09, review LOW)
+
+RECURRING (3+ installs: rc.7, rc.10, rc.11): every toolchain install
+leaves lib/node_modules/valibot EMPTY; the working state at rc.5+ is a
+symlink into the abiogenesis source tree's node_modules/valibot —
+repair ritual, not a fix. OWNED HERE as an installer defect: the
+install must hoist a REAL valibot payload (or declare the dependency
+resolution lawfully); a toolchain whose runtime dependency resolves
+through a mutable source tree violates the release-cut immutability
+boundary. Reproduce: install any cut to a clean toolchain root and
+list lib/node_modules/valibot.

@@ -87,7 +87,17 @@ export function deriveProofStrengthAdmissionsForEnvelope(
     input.fdStrengthCriterionRefs.every((ref) =>
       input.admittedEvidenceRefs.has(ref)
     );
-  const adversariallyVerified = input.adversarialVerificationRefs.length > 0;
+  // -036 (review HIGH 2026-07-09): an adversarial verification result is
+  // ADMITTED evidence — a verification ref counts only when it resolves
+  // against the admitted ledger. List presence (template or caller lists)
+  // is never verification. The producer already passes resolved refs;
+  // this derivation enforces the law for EVERY caller.
+  const admittedVerificationRefs = uniqueSorted(
+    input.adversarialVerificationRefs.filter((ref) =>
+      input.admittedEvidenceRefs.has(ref)
+    )
+  );
+  const adversariallyVerified = admittedVerificationRefs.length > 0;
   const counterexampleRefs = uniqueSorted(input.counterexampleRefs);
   const admissions = uniqueSorted(input.strengthRefs).map((strengthRef) => {
     let disposition: ProofStrengthDisposition = "not_admitted";
@@ -101,7 +111,7 @@ export function deriveProofStrengthAdmissionsForEnvelope(
         verifierRefs = uniqueSorted(input.fdStrengthCriterionRefs);
       } else if (adversariallyVerified) {
         disposition = "adversarially_verified";
-        verifierRefs = uniqueSorted(input.adversarialVerificationRefs);
+        verifierRefs = admittedVerificationRefs;
       }
     }
     const withoutDigest = {
