@@ -7,6 +7,7 @@
 - governing_library: app/m04 install_bootstrap (typescript_installer.ts precreated bootstrap; AGENTS.md + CLAUDE.md injection)
 - status: backlog
 - goal: GOAL-032 (Foundation Release)
+- rescheduled: 2026-07-09 — rides Stage A/rc.15 of the T-032 execution plan (user reprice): the installer-driven odd_glc workspace refresh is the delivery and TEST vehicle; the Phase 4 campaign runs workers under the new context, making it the live gate-zero test. Also corrects the rc.5-stale install-provenance drift (workspace context hand-bumped since rc.7).
 - change_intent: >-
     Review the precreated GTL bootloader the installer injects into
     AGENTS.md and CLAUDE.md so the constitutional BOUNDARIES are part of
