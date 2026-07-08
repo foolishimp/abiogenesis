@@ -1965,3 +1965,23 @@ test("T-032 A: mutation-outcomes admission is total; restore mismatch rejects; t
     /well-formed/u
   );
 });
+
+// Review A (LOW, pinned): admission is total over HOSTILE in-process
+// objects — a throwing getter is a typed rejection, never an escape.
+test("T-032 A review: throwing getters and hostile proxies reject typed at both carriers", async () => {
+  const { admitMutationOutcomes, admitDepthProofMap } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const hostileRow = { get requirementId() { throw new Error("boom"); } };
+  const viaMutation = admitMutationOutcomes({
+    payloadSection: { rows: [hostileRow] },
+    sourceResultRef: "r", replayIdentity: "i"
+  });
+  assert.equal(viaMutation.accepted, false);
+  assert.equal(viaMutation.issues[0].issueKind, "row_not_object");
+  const viaMap = admitDepthProofMap({
+    payloadSection: { rows: [new Proxy({}, { get() { throw new Error("boom"); }, ownKeys() { throw new Error("boom"); } })] },
+    sourceResultRef: "r", replayIdentity: "i"
+  });
+  assert.equal(viaMap.accepted, false);
+  assert.equal(viaMap.issues[0].issueKind, "row_not_object");
+});

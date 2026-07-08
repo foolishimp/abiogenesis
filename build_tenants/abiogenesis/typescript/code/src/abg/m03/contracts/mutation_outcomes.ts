@@ -9,8 +9,9 @@
 // kernel-minted refs).
 //
 // Kill law: a mutant is KILLED only when the suite went red under the
-// mutant (suiteExit != 0) AND the subject was verifiably restored
-// (restoreDigest === baselineDigest). A digest mismatch REJECTS the row
+// mutant (suiteExit != 0) AND the restore claim holds (restoreDigest
+// === baselineDigest — digest equality of WORKER-REPORTED digests;
+// kernel-witnessed digests are the named successor). A digest mismatch REJECTS the row
 // (typed issue), never silently downgrades. RESIDUAL (stated, not
 // hidden): baseline/restore digests are worker-reported until the F_D
 // materialization handler witnesses workspace digests kernel-side.
@@ -99,6 +100,14 @@ export function admitMutationOutcomes(input: {
     const at = `mutationOutcomes.rows[${index}]`;
     if (row === null || typeof row !== "object" || Array.isArray(row)) {
       reject("row_not_object", at, "must be a row object");
+      return;
+    }
+    // review A (LOW): totality over HOSTILE in-process objects — a
+    // throwing getter/Proxy becomes a typed rejection, never an escape
+    try {
+      JSON.stringify(row);
+    } catch {
+      reject("row_not_object", at, "row fields must be plain readable data");
       return;
     }
     const c = row as {

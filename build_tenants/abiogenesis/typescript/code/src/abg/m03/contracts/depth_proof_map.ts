@@ -87,6 +87,14 @@ export function admitDepthProofMap(input: {
       reject("row_not_object", at, "must be a row object");
       return;
     }
+    // review A (LOW): same hostile-object totality law as the mutation
+    // carrier — throwing getters become typed rejections
+    try {
+      JSON.stringify(row);
+    } catch {
+      reject("row_not_object", at, "row fields must be plain readable data");
+      return;
+    }
     const candidate = row as {
       readonly requirementId?: unknown;
       readonly depthClassRef?: unknown;

@@ -66,3 +66,21 @@ resolution lawfully); a toolchain whose runtime dependency resolves
 through a mutable source tree violates the release-cut immutability
 boundary. Reproduce: install any cut to a clean toolchain root and
 list lib/node_modules/valibot.
+
+## Review A residuals (2026-07-09, Stage A gate — recorded, not blocking)
+
+1. MEDIUM (named T-195 refinement, confirmed live by probe): the replay
+   event log is unauthenticated ingress — a canonical-shape-valid forged
+   mutation_outcomes_admitted or evidence_admitted event supplied via
+   request.runtimeEvents mints closure truth (probe closed eligible with
+   zero campaign). The provider-ref gate defends against WRONG provider
+   refs only; real refs are visible in every emitted event. Successor:
+   replay-vs-forged pre-stamp authentication (events/emit.ts named
+   refinement). Trust boundary today: whoever writes the log.
+2. LOW (fixed at Stage A gate): hostile in-process objects (throwing
+   getters/proxies) escaped admission as exceptions — now typed
+   row_not_object rejections at both carriers, probe pinned.
+3. LOW (stated residual): restore digests are worker-reported; kill-law
+   comment softened from "verifiably restored" to the honest claim.
+   Successor: kernel-witnessed workspace digests (F_D materialization
+   handler).
