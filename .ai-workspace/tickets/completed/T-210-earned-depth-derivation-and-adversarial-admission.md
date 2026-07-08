@@ -6,7 +6,7 @@
 - migration_strategy: inside_out_hard_break
 - library_usage: extend
 - governing_library: abg/m03 carry-through producer + requirements route family (deriveAdmittedStrengthRefSet ledger-resolution pattern; coverage projector gates)
-- status: active
+- status: completed (2026-07-09)
 - goal: hog-iteration-2-depth
 - change_intent: >-
     Realize REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-032/-033/-034/-035/-036
@@ -175,3 +175,23 @@ kernel execution machinery. Kernel scope: admission, derivation,
 obligation projection, gates. F_D never reads test source; it consumes
 the admitted map, report identities, and suite exit truth. Semantic
 adequacy of the map is F_P evaluator judgment under calibration.
+
+## Closure (2026-07-09)
+
+All five breaks + the T-197 rider realized inside-out and differentially
+pinned (18 differentials); two external review waves survived (canonical
+rows admission; ingress well-formedness; obligation-scoped evidence).
+Phase 2 exit met: hollow declaration fails closed (negative proof
+pinned); suites 1168/1168 semantic, 62/62 t188, 22/22 t205; 4.5.0-rc.11
+cut with ARTIFACT-CONTENT verification (earned-depth derivation,
+kill-obligation projection, scoped adversarial evidence, strength
+carrier, row admission all grepped in the packaged tarball); odd_glc
+repinned (pin guard 24/24, suite 68/0).
+
+ESCROWED TO LATER PHASES (named, not silently dropped):
+- odd_glc declarations-only consumption proof -> Phase 4 (T-032 live
+  campaign over the rc.11 carriers).
+- restore-digest negative proof -> Phase 3/4 (needs kernel-witnessed
+  workspace digests via the F_D materialization handler; worker-claimed
+  digests would be self-report, unlawful under -036 and the
+  evidence-provenance ruling).
