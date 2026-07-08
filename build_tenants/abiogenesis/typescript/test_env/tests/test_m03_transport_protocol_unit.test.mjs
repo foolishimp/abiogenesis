@@ -116,6 +116,23 @@ test("M03 transport unit: Codex default contract pins the live model", () => {
   assert.ok(contract.argsTemplate.includes("{prompt}"));
 });
 
+test("M03 transport unit: ABG_TS_CODEX_SANDBOX env ingress replaces --full-auto (T-032 campaign BUG #6 — socket-capable toolchain runs)", () => {
+  const prior = process.env.ABG_TS_CODEX_SANDBOX;
+  try {
+    process.env.ABG_TS_CODEX_SANDBOX = "danger-full-access";
+    const contract = contractForKnownAgent("codex");
+    assert.ok(contract.argsTemplate.includes("--sandbox"));
+    assert.ok(contract.argsTemplate.includes("danger-full-access"));
+    assert.ok(!contract.argsTemplate.includes("--full-auto"));
+  } finally {
+    if (prior === undefined) {
+      delete process.env.ABG_TS_CODEX_SANDBOX;
+    } else {
+      process.env.ABG_TS_CODEX_SANDBOX = prior;
+    }
+  }
+});
+
 test("M03 transport unit: valid result artifact normalizes payload and ingests as accepted truth", () => {
   const request = admitDispatchRequest({
     kind: "fp_dispatch_request",

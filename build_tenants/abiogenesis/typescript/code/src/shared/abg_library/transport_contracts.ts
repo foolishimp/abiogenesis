@@ -91,7 +91,17 @@ export function contractForKnownAgent(
           // model is account-dependent; hardcoding it broke ChatGPT-account
           // workers (T-030 data-mapper campaign, builder bug #2).
           process.env["ABG_TS_CODEX_MODEL"] ?? "gpt-5.5",
-          "--full-auto",
+          // Adapter/bootstrap ingress (runtime truth rule 11; the
+          // ABG_TS_CODEX_MODEL precedent): the sandbox capability is an
+          // ENVIRONMENTAL BINDING of the install. odd_glc T-032 campaign
+          // BUG #6: --full-auto denies ServerSocket binding, killing
+          // sbt's forked-test transport and Spark's Netty BEFORE subject
+          // tests execute — the execution-default law requires workers
+          // to run toolchains whose test transports bind local sockets.
+          ...(process.env["ABG_TS_CODEX_SANDBOX"] !== undefined &&
+          process.env["ABG_TS_CODEX_SANDBOX"] !== ""
+            ? ["--sandbox", process.env["ABG_TS_CODEX_SANDBOX"]]
+            : ["--full-auto"]),
           "--skip-git-repo-check",
           "-o",
           "{output_path}",
