@@ -304,6 +304,16 @@ ABG bind is therefore a conservation boundary: scalar edge close cannot erase
 the obligation vector, and materializing traversal cannot dispatch until a
 sufficient construction intent has been rehydrated from admitted lineage.
 
+The obligation topology is discovered, not enumerated. Where a proof
+surface's obligation instances depend on delivered artifacts — which
+tests instantiate a depth class, which adversarial checks a delivered
+map implies — the intermediate computation reveals the topology: each
+admitted intermediate asset extends the obligation set, and
+completeness is adjudicated against the extended set, never against the
+startup enumeration. A proof surface whose obligation cardinality is
+capped by initial declarations while admitted intermediate assets
+lawfully extend it carries a typed gap, not implicit completeness.
+
 Requirements are the product-level carrier for that conservation boundary.
 A requirement is not only a prose row or a downstream-local obligation id. It is
 an admitted algebraic term with stable identity, source provenance, typed
@@ -406,6 +416,17 @@ contributions are evidence or judgment states under that identity; they are not
 closure law. F_P-to-F_D optimization is lawful only when an admitted equivalence
 contract preserves the source composition identity through positive and negative
 cases.
+
+Execution-bearing edges default to the generic typed F_P traversal: the
+edge declares, through typed input and output contracts, that the
+probabilistic worker executes the built unit, test suite, data
+generation, or other declared plan and returns a typed execution-result
+asset. The worker's run-and-iterate path is hidden interior freedom;
+the returned result is candidate material until deterministic
+mechanical checks and admission make it truth. F_D-specific execution
+interiors are optimizations: they enter a program only through the
+reflective layer's ratified annealing proposals under the equivalence
+contract above, never by preemptive design.
 
 ABG owns the governance and control truth around an invocation of that
 traversal. It binds the traversal to a worker, tool, or agent; records events
@@ -746,6 +767,15 @@ The product boundary also separates abiogenesis from its downstream consumers:
 - abiogenesis owns the GTL + ABG product
 - downstream products own their domain truth and use abiogenesis as the
   language/runtime platform
+
+The ownership law across that boundary is strict. GTL provides
+declarative syntax. ABG interprets it and provides the runtime kernel:
+everything that executes, admits, derives, or gates is ABG-owned
+mechanism. Downstream products own domain knowledge — types,
+decomposition, vocabulary, policy data, calibration, and read-only
+interpretation — and own no systems functionality. A downstream surface
+that executes plans, runs processes, derives truth, or adjudicates
+completeness is misallocated mechanism, not product realization.
 
 ---
 

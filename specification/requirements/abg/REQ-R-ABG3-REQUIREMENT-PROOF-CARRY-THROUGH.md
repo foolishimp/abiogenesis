@@ -124,3 +124,17 @@ not silent permission: it retains pre-carry-through closure semantics
 only as a typed transitional state, and a release shall not claim
 universal coverage-gated closure while such edges exist. The mandatory
 carry-through witness migration closes this gap.
+
+**REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-039**: Proof-obligation
+discovery. Where a declared proof policy names obligation classes whose
+instances depend on delivered artifacts, ABG shall derive the obligation
+instance set from the admitted intermediate assets that reveal them —
+a depth row per declared test mapping, an adversarial check per
+declared refutation shape — with cardinality discovered at asset
+admission. Startup enumeration shall not cap a discoverable obligation
+set: an obligation set held at its initial enumeration while admitted
+intermediate assets lawfully extend it shall carry a typed
+depth or coverage gap, not implicit completeness. Discovered failure
+evidence (a survived adversarial check) shall project repair or
+re-entry pressure through the existing foldback machinery rather than
+closing by absence of enumeration.
