@@ -1,0 +1,111 @@
+# T-212 Installer Bootstrap Constitutional Compression Review
+
+- id: T-212
+- type: chore
+- ticket_category: ordinary
+- library_usage: extend
+- governing_library: app/m04 install_bootstrap (typescript_installer.ts precreated bootstrap; AGENTS.md + CLAUDE.md injection)
+- status: backlog
+- goal: GOAL-032 (Foundation Release)
+- change_intent: >-
+    Review the precreated GTL bootloader the installer injects into
+    AGENTS.md and CLAUDE.md so the constitutional BOUNDARIES are part of
+    the compression, not only the structural/runtime surface. Principle
+    (user, 2026-07-09): sometimes the most direct control over an
+    agentic worker is the injected prompt surface itself — bootstrap-
+    level law is gate zero, acting before any kernel admission can.
+- change_class: realization_refactor
+- re_entry_point: authored bootstrap surface (install_bootstrap module)
+- triaged_at: 2026-07-09
+- created_at: 2026-07-09
+- updated_at: 2026-07-09
+- links: T-209 (governance-failure addendum — mechanical enforcement is
+  the backstop this surface complements), GOALS.md Phase 1 (the three
+  foundation laws now live in PRODUCT.md), fd-fp-boundary precedent
+
+## Intake Triage (performed)
+
+1. SUBSTANTIVE? Yes. The injected bootstrap is the FIRST constraint
+   surface an F_P worker reads in every installed workspace. Today it
+   compresses structure (types, algebra, regimes) and runtime truth
+   rules, but carries NONE of the foundation laws ratified 2026-07-09:
+   three-layer ownership, execution-default, earned depth. A worker
+   operating on bootstrap context alone can rebuild framework execution
+   in good faith — the exact odd_glc mechanism: the sbt machinery was
+   built openly, motivated by laws the worker COULD see (anti-self-
+   report) and unconstrained by laws it could NOT (execution-default,
+   which did not exist in its context).
+2. UPWARD WALK: intent, product, and requirements now carry the laws
+   (Phase 1 constitutional repricing, 2026-07-09). The bootstrap is a
+   precreated authored READ MODEL over that live surface, injected by
+   the installer and versioned with the release. Requirement present,
+   product present, read model stale => first missing layer is the
+   authored bootstrap => realization_refactor; no upstream reprice.
+3. DEFENSE-IN-DEPTH POSITION: this surface is gate ZERO (cheapest,
+   earliest, reaches the worker's reasoning before any act); the T-209
+   mechanical enforcement (execution-result provenance gate + standing
+   conformance differential) is the BACKSTOP. They compose; neither
+   substitutes for the other. Prose law without an admission chokepoint
+   is advisory (governance ruling) — AND admission gates without
+   prompt-level law waste worker turns on acts that were never lawful.
+4. SPAN: authored bootstrap text in
+   code/src/app/m04/install_bootstrap/typescript_installer.ts ->
+   injected AGENTS.md/CLAUDE.md at install -> every installed
+   workspace's worker context (including odd_* build tenants) ->
+   release artifact (bootstrap version stamps with the cut).
+5. RELEASE SCOPE: must land before the Phase 6 Foundation Release cut —
+   the released installer stamps the bootstrap, and the release claims
+   the foundation laws; an installer that injects a bootstrap silent on
+   those laws ships a stale read model of its own release claim. Rides
+   any rc after realization.
+
+## Scope
+
+1. Add the constitutional boundaries to the bootstrap compression,
+   phrased as operating rules for the READING agent (the audience is
+   the worker itself):
+   - three-layer ownership: GTL declares syntax; ABG interprets,
+     admits, derives, gates (ALL systems functionality); odd_* ships
+     domain declarations only and owns no systems functionality
+   - execution-default: execution belongs to typed F_P worker turns
+     returning typed execution-result nodes; the framework, binding,
+     or harness NEVER invokes the toolchain (no spawn of build/test
+     commands outside the declared worker turn); F_D consumes admitted
+     results, never performs execution — determinism does not
+     reclassify execution as F_D
+   - earned depth: depth truth derives from admitted intermediate
+     assets plus admitted evidence; declaration equality never closes;
+     proof obligations are discovered from admitted assets, never
+     statically enumerated
+   - evidence provenance: execution evidence is closure-bearing only
+     with admitted worker-turn provenance; framework-assembled or
+     self-reported evidence is inadmissible
+2. Compression discipline: the bootstrap is bounded; review what to
+   REMOVE or tighten to make room — boundaries outrank enumerations of
+   runtime carrier names (a worker that knows the boundary can look up
+   the carrier; the reverse fails).
+3. Preserve the precedence law unchanged: the bootstrap remains a
+   constrained read model; live constitutional/design surfaces win.
+4. Both injection targets (AGENTS.md, CLAUDE.md) and any sibling
+   bootstrap copies (python tenant GTL_BOOTLOADER.md noted as paused
+   reference — update only if the file is touched by release ritual).
+
+## Acceptance
+
+- injected bootstrap carries the four boundary blocks above, agent-
+  addressed, within the existing compressed register
+- bootstrap version bumps with the rc that carries it; installer test
+  (install lane) asserts the boundary text is present in the stamped
+  AGENTS.md/CLAUDE.md (content verification, not manifest-only — the
+  rc.6 lesson)
+- precedence/read-model framing intact
+- a compression removal list is recorded in the ticket on closure
+  (what was cut to make room and why)
+
+## Non-closure
+
+- appending the laws without the compression review (an unbounded
+  bootstrap is a different defect)
+- boundary text present in the repo CLAUDE.md but not in the
+  INSTALLER-injected bootstrap (the repo copy is not the product
+  surface)

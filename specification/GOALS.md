@@ -42,7 +42,7 @@ Foundation laws (to be constitutionally repriced in Phase 1):
 | 3 | T-209: standard-path adoption — binding worker-loop code deleted for declarations + standard pipeline handler; execution stages become typed F_P worker turns returning typed execution-result nodes; the failed prose-safeguard pattern replaced with mechanical enforcement (execution-result provenance gated at admission; standing no-framework-execution conformance differential) per the 2026-07-09 governance-failure ruling | 11.5B execution-authority audit clean; proxy prohibition holds; no worker-loop step downstream; framework-assembled execution evidence inadmissible by construction |
 | 4 | odd_glc T-032: depth node types + declarations; the proving campaign | a live data-mapper run closes with folds satisfied, depth EARNED, zero survived mutants, canary clean |
 | 5 | T-110 session economics (T-111 satisfied) + T-208 items 1-2 riding | typed long F_P turns affordable; commonization paydown recorded |
-| 6 | Foundation Release cut | authored release note claiming exactly the proven foundation; artifact-content verification; odd_glc repin; release-grade classification |
+| 6 | Foundation Release cut (T-212 installer-bootstrap constitutional compression rides — the injected AGENTS.md/CLAUDE.md bootstrap carries the foundation boundaries as gate zero before the released installer stamps it) | authored release note claiming exactly the proven foundation; artifact-content verification (including bootstrap boundary text in the stamped install); odd_glc repin; release-grade classification |
 
 ### Deferred from this wave
 
