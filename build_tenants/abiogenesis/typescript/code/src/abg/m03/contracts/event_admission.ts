@@ -340,6 +340,19 @@ function assertOverlayFramePredicateRow(
 // ledger projection iterates directly — canonical event admission must
 // close over their shape or a forged accepted event breaks replay
 // totality downstream.
+// Row strings feed encodeURIComponent at downstream ref minting — the
+// event admitter carries the SAME well-formedness predicate as the
+// payload ingress (review HIGH 2026-07-09: a lone-surrogate row accepted
+// here threw URIError inside deriveKillObligations).
+const DEPTH_PROOF_MAP_LONE_SURROGATE = /\p{Surrogate}/u;
+
+function assertWellFormedNonEmptyString(value: unknown, label: string): void {
+  assertNonEmptyString(value, label);
+  if (typeof value === "string" && DEPTH_PROOF_MAP_LONE_SURROGATE.test(value)) {
+    throw new TypeError(`${label} must be a well-formed string`);
+  }
+}
+
 function assertDepthProofMapRows(value: unknown, label: string): void {
   if (!Array.isArray(value)) {
     throw new TypeError(`${label} must be a list`);
@@ -349,8 +362,8 @@ function assertDepthProofMapRows(value: unknown, label: string): void {
     if (!isPlainObject(entry)) {
       throw new TypeError(`${rowLabel} must be a plain object`);
     }
-    assertNonEmptyString(entry["requirementId"], `${rowLabel}.requirementId`);
-    assertNonEmptyString(entry["depthClassRef"], `${rowLabel}.depthClassRef`);
+    assertWellFormedNonEmptyString(entry["requirementId"], `${rowLabel}.requirementId`);
+    assertWellFormedNonEmptyString(entry["depthClassRef"], `${rowLabel}.depthClassRef`);
     assertStringArray(entry["testIdentityRefs"], `${rowLabel}.testIdentityRefs`);
     const refs = entry["testIdentityRefs"];
     if (Array.isArray(refs)) {
@@ -358,7 +371,7 @@ function assertDepthProofMapRows(value: unknown, label: string): void {
         throw new TypeError(`${rowLabel}.testIdentityRefs must not be empty`);
       }
       for (const [refIndex, ref] of refs.entries()) {
-        assertNonEmptyString(ref, `${rowLabel}.testIdentityRefs[${refIndex}]`);
+        assertWellFormedNonEmptyString(ref, `${rowLabel}.testIdentityRefs[${refIndex}]`);
       }
     }
   }

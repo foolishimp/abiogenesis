@@ -1235,8 +1235,8 @@ test("T-210 b3: kill-obligation cardinality is discovered from admitted adversar
   // proof law: EVERY test identity on the row needs kill evidence —
   // partial evidence on the invariant row still gaps
   const partialEvidence = new Set([
-    mutationKillEvidenceRef("neg-a"),
-    mutationKillEvidenceRef("inv-a")
+    mutationKillEvidenceRef("requirement://t210/r1", "neg-a"),
+    mutationKillEvidenceRef("requirement://t210/r1", "inv-a")
   ]);
   const gaps = deriveUnprovenKillObligationGapRefs({
     obligations,
@@ -1246,9 +1246,9 @@ test("T-210 b3: kill-obligation cardinality is discovered from admitted adversar
   assert.equal(gaps[0].includes(encodeURIComponent("depth-class://invariant")), true);
   assert.equal(gaps[0].endsWith("/kill-unproven"), true);
   const fullEvidence = new Set([
-    mutationKillEvidenceRef("neg-a"),
-    mutationKillEvidenceRef("inv-a"),
-    mutationKillEvidenceRef("inv-b")
+    mutationKillEvidenceRef("requirement://t210/r1", "neg-a"),
+    mutationKillEvidenceRef("requirement://t210/r1", "inv-a"),
+    mutationKillEvidenceRef("requirement://t210/r1", "inv-b")
   ]);
   assert.deepEqual(
     [...deriveUnprovenKillObligationGapRefs({ obligations, admittedEvidenceRefs: fullEvidence })],
@@ -1307,7 +1307,10 @@ test("T-210 b3 wiring: an earned-depth run with a declared adversarial class sta
   assert.equal(unproven.coverageIssueKinds.includes("missing_depth_obligation_class"), true);
   assert.deepEqual(unproven.coverageStatuses, ["residual"]);
   // admitted kill evidence for the row's test identity closes the obligation
-  const proven = runWithEvidence([...identityRefs, mutationKillEvidenceRef(negativeIdentity)]);
+  const proven = runWithEvidence([
+    ...identityRefs,
+    mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
+  ]);
   assert.ok(proven);
   assert.deepEqual([...proven.coverageIssueKinds], []);
   assert.deepEqual(proven.coverageStatuses, ["eligible"]);
@@ -1366,6 +1369,20 @@ test("T-210 b1 admission closure: canonical event admission rejects accepted dep
     () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "r", depthClassRef: "x", testIdentityRefs: [] }] }),
     /testIdentityRefs must not be empty/u
   );
+  // lone surrogates pass length checks but throw URIError at downstream
+  // ref minting — the event admitter carries the ingress predicate
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "\uD800", depthClassRef: "x", testIdentityRefs: ["y"] }] }),
+    /requirementId must be a well-formed string/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "r", depthClassRef: "\uDC00", testIdentityRefs: ["y"] }] }),
+    /depthClassRef must be a well-formed string/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "r", depthClassRef: "x", testIdentityRefs: ["\uD800"] }] }),
+    /testIdentityRefs\[0\] must be a well-formed string/u
+  );
   // and the projection stays total over what admission accepts
   assert.equal(
     deriveAdmittedDepthProofRowsByRequirementId([genuine]).get("requirement://t188/r1").length,
@@ -1418,15 +1435,22 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
   const earnedEvidence = [
     testIdentityEvidenceRef(positiveIdentity),
     testIdentityEvidenceRef(negativeIdentity),
-    mutationKillEvidenceRef(negativeIdentity)
+    mutationKillEvidenceRef("requirement://t188/r1", negativeIdentity)
   ];
   // fully earned baseline: eligible
   assert.deepEqual(runWithEvidence(earnedEvidence).coverageStatuses, ["eligible"]);
-  // one admitted survived mutant: the same run BLOCKS — kill evidence
-  // does not outvote a counterexample
+  // a survived mutant against a FOREIGN requirement does not block this
+  // entry (obligation-scoped adversarial truth)
+  const foreign = runWithEvidence([
+    ...earnedEvidence,
+    mutantSurvivedEvidenceRef("requirement://elsewhere/r9", "Mutation: unrelated")
+  ]);
+  assert.deepEqual(foreign.coverageStatuses, ["eligible"]);
+  // one admitted survived mutant AGAINST THIS requirement: the same run
+  // BLOCKS — kill evidence does not outvote a counterexample
   const survived = runWithEvidence([
     ...earnedEvidence,
-    mutantSurvivedEvidenceRef("Mutation: drop malformed-row rejection branch")
+    mutantSurvivedEvidenceRef("requirement://t188/r1", "Mutation: drop malformed-row rejection branch")
   ]);
   assert.ok(survived);
   assert.equal(survived.coverageIssueKinds.includes("adversarial_counterexample_found"), true);
@@ -1436,17 +1460,77 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
 test("T-210 b4: template-declared adversarial attempts resolve against the admitted ledger, never by list presence", async () => {
   const { deriveAdmittedAdversarialTruth, mutationKillEvidenceRef, mutantSurvivedEvidenceRef } =
     await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
-  const truth = deriveAdmittedAdversarialTruth(new Set([
-    mutationKillEvidenceRef("neg-test"),
-    mutantSurvivedEvidenceRef("mutant-1"),
+  const ledger = new Set([
+    mutationKillEvidenceRef("requirement://t210/r1", "neg-test"),
+    mutantSurvivedEvidenceRef("requirement://t210/r1", "mutant-1"),
+    mutationKillEvidenceRef("requirement://t210/other", "neg-test"),
+    mutantSurvivedEvidenceRef("requirement://t210/other", "mutant-2"),
     "evidence://t188/source/artifact",
     "proof-strength-admission://t188/source-test"
-  ]));
-  assert.deepEqual([...truth.verificationRefs], [mutationKillEvidenceRef("neg-test")]);
-  assert.deepEqual([...truth.counterexampleRefs], [mutantSurvivedEvidenceRef("mutant-1")]);
+  ]);
+  const truth = deriveAdmittedAdversarialTruth({
+    admittedEvidenceRefs: ledger,
+    requirementIds: ["requirement://t210/r1"]
+  });
+  // only THIS requirement's evidence resolves — the foreign requirement's
+  // kill is not verification here and its survived mutant does not block
+  assert.deepEqual(
+    [...truth.verificationRefs],
+    [mutationKillEvidenceRef("requirement://t210/r1", "neg-test")]
+  );
+  assert.deepEqual(
+    [...truth.counterexampleRefs],
+    [mutantSurvivedEvidenceRef("requirement://t210/r1", "mutant-1")]
+  );
   // empty ledger: nothing resolves — template declarations alone carry
   // no adversarial truth
-  const empty = deriveAdmittedAdversarialTruth(new Set());
+  const empty = deriveAdmittedAdversarialTruth({
+    admittedEvidenceRefs: new Set(),
+    requirementIds: ["requirement://t210/r1"]
+  });
   assert.deepEqual([...empty.verificationRefs], []);
   assert.deepEqual([...empty.counterexampleRefs], []);
+});
+
+// Review HIGH #2 (2026-07-09): the exact cross-requirement probe — a
+// shared test identity must not let one kill admission prove both
+// requirements' obligations.
+test("T-210 b4 scoping: one admitted kill proves only the obligation of the requirement it names", async () => {
+  const { deriveKillObligations, deriveUnprovenKillObligationGapRefs, mutationKillEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const sharedIdentity = "SharedSpec: boundary case";
+  const mapEvent = {
+    kind: "depth_proof_map_admitted",
+    accepted: true,
+    rows: [
+      { requirementId: "requirement://t210/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [sharedIdentity] },
+      { requirementId: "requirement://t210/r2", depthClassRef: "depth-class://negative", testIdentityRefs: [sharedIdentity] }
+    ]
+  };
+  const obligations = deriveKillObligations({
+    replayEvents: [mapEvent],
+    requirementIds: ["requirement://t210/r1", "requirement://t210/r2"],
+    adversarialDepthClassRefs: ["depth-class://negative"]
+  });
+  assert.equal(obligations.length, 2);
+  // kill admitted for r1 only: r2's obligation stays a typed gap
+  const gaps = deriveUnprovenKillObligationGapRefs({
+    obligations,
+    admittedEvidenceRefs: new Set([
+      mutationKillEvidenceRef("requirement://t210/r1", sharedIdentity)
+    ])
+  });
+  assert.equal(gaps.length, 1);
+  assert.equal(gaps[0].includes(encodeURIComponent("requirement://t210/r2")), true);
+  // kills admitted for both: no gaps
+  assert.deepEqual(
+    [...deriveUnprovenKillObligationGapRefs({
+      obligations,
+      admittedEvidenceRefs: new Set([
+        mutationKillEvidenceRef("requirement://t210/r1", sharedIdentity),
+        mutationKillEvidenceRef("requirement://t210/r2", sharedIdentity)
+      ])
+    })],
+    []
+  );
 });

@@ -552,7 +552,10 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
     // never declared. Unproven obligations flow as typed depth gaps
     // through the EXISTING gate; no map means no obligations here (owed
     // map absence is already the earned-depth concern above).
-    const admittedAdversarialTruth = deriveAdmittedAdversarialTruth(admittedLedgerRefs);
+    const admittedAdversarialTruth = deriveAdmittedAdversarialTruth({
+      admittedEvidenceRefs: admittedLedgerRefs,
+      requirementIds: entry.requirementIds
+    });
     const killObligationGapRefs = deriveUnprovenKillObligationGapRefs({
       obligations: deriveKillObligations({
         replayEvents: input.replayEvents,

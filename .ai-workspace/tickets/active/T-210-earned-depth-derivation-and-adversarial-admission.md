@@ -32,7 +32,10 @@
   ledger-resolved in the producer — attempts resolve against the admitted
   ledger, admitted mutation-kill evidence is verification, admitted
   survived-mutant evidence is a counterexample and BLOCKS through the
-  existing gate); break 5 NEXT (projections/read models repriced + proof
+  existing gate; review HIGHs 2026-07-09 closed: event row admission
+  carries the ingress well-formedness predicate, and kill/survived
+  evidence is requirement-scoped so evidence proves only the obligation
+  it names); break 5 NEXT (projections/read models repriced + proof
   last, then rc cut with artifact verification + odd_glc repin)
 - dependencies: T-205 (closed; handler law + carry-through family), odd_glc T-032 (consumer)
 - links: odd_glc .ai-workspace/tickets/active/T-032-earned-depth-mutation-kill-proof.md

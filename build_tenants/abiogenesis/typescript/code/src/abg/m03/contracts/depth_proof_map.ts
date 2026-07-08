@@ -330,8 +330,18 @@ export function deriveEarnedDepthTruthForRequirements(input: {
 // without complete kill evidence is a typed gap, not silence.
 export const MUTATION_KILL_EVIDENCE_PREFIX = "mutation-kill://";
 
-export function mutationKillEvidenceRef(testIdentity: string): string {
-  return `${MUTATION_KILL_EVIDENCE_PREFIX}${encodeURIComponent(testIdentity)}`;
+// Kill evidence is OBLIGATION-SCOPED (review HIGH 2026-07-09): the same
+// test identity may appear on rows of several requirements, and a kill
+// claim is about one requirement's mutant surface — an unscoped ref
+// would let one admitted kill satisfy every obligation naming that
+// identity. The requirement id is part of the evidence identity.
+// (Test-identity evidence stays unscoped by design: it attests that a
+// named test EXECUTED, a fact about the test, not about a requirement.)
+export function mutationKillEvidenceRef(
+  requirementId: string,
+  testIdentity: string
+): string {
+  return `${MUTATION_KILL_EVIDENCE_PREFIX}${encodeURIComponent(requirementId)}/${encodeURIComponent(testIdentity)}`;
 }
 
 export interface DerivedKillObligation {
@@ -390,7 +400,9 @@ export function deriveUnprovenKillObligationGapRefs(input: {
   const gaps: string[] = [];
   for (const obligation of input.obligations) {
     const proven = obligation.testIdentityRefs.every((testIdentity) =>
-      input.admittedEvidenceRefs.has(mutationKillEvidenceRef(testIdentity))
+      input.admittedEvidenceRefs.has(
+        mutationKillEvidenceRef(obligation.requirementId, testIdentity)
+      )
     );
     if (!proven) {
       gaps.push(`${obligation.obligationRef}/kill-unproven`);
@@ -406,8 +418,14 @@ export function deriveUnprovenKillObligationGapRefs(input: {
 // declarations never masquerade as either.
 export const MUTANT_SURVIVED_EVIDENCE_PREFIX = "mutant-survived://";
 
-export function mutantSurvivedEvidenceRef(mutantIdentity: string): string {
-  return `${MUTANT_SURVIVED_EVIDENCE_PREFIX}${encodeURIComponent(mutantIdentity)}`;
+// Requirement-scoped for the same reason as kill evidence: a survived
+// mutant is a counterexample against ONE requirement's proof — an
+// unscoped ref would block every entry in the run.
+export function mutantSurvivedEvidenceRef(
+  requirementId: string,
+  mutantIdentity: string
+): string {
+  return `${MUTANT_SURVIVED_EVIDENCE_PREFIX}${encodeURIComponent(requirementId)}/${encodeURIComponent(mutantIdentity)}`;
 }
 
 export interface AdmittedAdversarialTruth {
@@ -415,15 +433,28 @@ export interface AdmittedAdversarialTruth {
   readonly counterexampleRefs: readonly string[];
 }
 
-export function deriveAdmittedAdversarialTruth(
-  admittedEvidenceRefs: ReadonlySet<string>
-): AdmittedAdversarialTruth {
+// Resolution is scoped to the consuming entry's requirement set: only
+// evidence minted against one of THESE requirements resolves here. A
+// foreign entry's kill evidence is not verification for this one, and a
+// foreign entry's survived mutant does not block it.
+export function deriveAdmittedAdversarialTruth(input: {
+  readonly admittedEvidenceRefs: ReadonlySet<string>;
+  readonly requirementIds: readonly string[];
+}): AdmittedAdversarialTruth {
+  const killPrefixes = input.requirementIds.map(
+    (requirementId) =>
+      `${MUTATION_KILL_EVIDENCE_PREFIX}${encodeURIComponent(requirementId)}/`
+  );
+  const survivedPrefixes = input.requirementIds.map(
+    (requirementId) =>
+      `${MUTANT_SURVIVED_EVIDENCE_PREFIX}${encodeURIComponent(requirementId)}/`
+  );
   const verificationRefs: string[] = [];
   const counterexampleRefs: string[] = [];
-  for (const ref of admittedEvidenceRefs) {
-    if (ref.startsWith(MUTATION_KILL_EVIDENCE_PREFIX)) {
+  for (const ref of input.admittedEvidenceRefs) {
+    if (killPrefixes.some((prefix) => ref.startsWith(prefix))) {
       verificationRefs.push(ref);
-    } else if (ref.startsWith(MUTANT_SURVIVED_EVIDENCE_PREFIX)) {
+    } else if (survivedPrefixes.some((prefix) => ref.startsWith(prefix))) {
       counterexampleRefs.push(ref);
     }
   }
