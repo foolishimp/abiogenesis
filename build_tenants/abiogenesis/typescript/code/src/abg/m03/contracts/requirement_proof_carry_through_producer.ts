@@ -27,7 +27,11 @@ import {
   type DerivedProofDepthInstructionTruth
 } from "./instruction_assembly.js";
 import { constructRequirementProofCarryThroughAdmittedEvent } from "./event_factories.js";
-import { deriveAdmittedStrengthRefSet } from "./payload_ledger.js";
+import {
+  deriveAdmittedStrengthRefSet,
+  deriveWorkerTurnEvidenceRefSet,
+  isExecutionEvidenceRef
+} from "./payload_ledger.js";
 import {
   deriveAdmittedAdversarialTruth,
   deriveEarnedDepthTruthForRequirements,
@@ -545,11 +549,23 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
     // plan/template declaration equality is severed from closure
     // authority. Unmapped requirements retain the transitional
     // plan-declared path.
+    // T-209 break 2 (D1.3, provenance-scoped ledger): execution-family
+    // evidence (mutation-kill/mutant-survived/test-identity) resolves
+    // ONLY when worker-turn-attributed (evidence_admitted with provider
+    // attribution); the payload_validated side door is closed for this
+    // family. Non-execution refs keep the general admitted ledger. One
+    // composed view — no second truth surface.
+    const workerTurnRefs = deriveWorkerTurnEvidenceRefSet(input.replayEvents);
+    const provenanceScopedRefs: ReadonlySet<string> = new Set(
+      [...admittedLedgerRefs].filter(
+        (ref) => !isExecutionEvidenceRef(ref) || workerTurnRefs.has(ref)
+      )
+    );
     const earnedDepth = deriveEarnedDepthTruthForRequirements({
       replayEvents: input.replayEvents,
       requirementIds: entry.requirementIds,
       requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
-      admittedEvidenceRefs: admittedLedgerRefs
+      admittedEvidenceRefs: provenanceScopedRefs
     });
     // T-210 break 3 (-039): kill obligations project from the admitted
     // map's adversarial-class rows — cardinality discovered at admission,
@@ -557,7 +573,7 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
     // through the EXISTING gate; no map means no obligations here (owed
     // map absence is already the earned-depth concern above).
     const admittedAdversarialTruth = deriveAdmittedAdversarialTruth({
-      admittedEvidenceRefs: admittedLedgerRefs,
+      admittedEvidenceRefs: provenanceScopedRefs,
       requirementIds: entry.requirementIds
     });
     const killObligationGapRefs = deriveUnprovenKillObligationGapRefs({
@@ -566,14 +582,14 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
         requirementIds: entry.requirementIds,
         adversarialDepthClassRefs: entry.contract.adversarialDepthClassRefs
       }),
-      admittedEvidenceRefs: admittedLedgerRefs
+      admittedEvidenceRefs: provenanceScopedRefs
     });
     // T-197 (-035/-036): the FULL ProofStrengthAdmission carrier is
     // derived here — one admission per declared strength ref, disposition
     // from admitted evidence only — and STRENGTH TRUTH downstream consumes
     // the carrier's closure-bearing set, never the template-declared list.
     const resolvedAdversarialAttemptRefs = envelope.adversarialAttemptRefs.filter(
-      (ref) => admittedLedgerRefs.has(ref)
+      (ref) => provenanceScopedRefs.has(ref)
     );
     const declaredDepthClassRefs = earnedDepth.mapped
       ? earnedDepth.declaredDepthClassRefs
@@ -597,7 +613,7 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
         ...envelope.counterexampleRefs,
         ...admittedAdversarialTruth.counterexampleRefs
       ],
-      admittedEvidenceRefs: admittedLedgerRefs
+      admittedEvidenceRefs: provenanceScopedRefs
     });
     const proofDepthTruth = constructDerivedProofDepthInstructionTruth({
       admittedLedgerRefs,

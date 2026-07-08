@@ -1303,6 +1303,40 @@ export function deriveAssuranceEvidenceRowsFromPayloadLedger(input: {
 // consumers derive through it; this set remains the admitted-evidence
 // PRIMITIVE the carrier derivation (and depth/adversarial derivations)
 // consume. Do not consume this set directly for strength judgments.
+// T-209 break 2 (D1.3, the provenance-scoped ledger): execution-family
+// evidence (mutation-kill://, mutant-survived://, test-identity://) is
+// closure-bearing ONLY when admitted as plugin-attributed evidence from
+// a worker-turn artifact — evidence_admitted events with a non-empty
+// provider attribution. The payload_validated side door (its payloadRef
+// also enters the general strength set) is CLOSED for this family: a
+// forged payload ref shaped like execution evidence never resolves.
+export const EXECUTION_EVIDENCE_REF_PREFIXES = Object.freeze([
+  "mutation-kill://",
+  "mutant-survived://",
+  "test-identity://"
+] as const);
+
+export function isExecutionEvidenceRef(ref: string): boolean {
+  return EXECUTION_EVIDENCE_REF_PREFIXES.some((prefix) =>
+    ref.startsWith(prefix)
+  );
+}
+
+export function deriveWorkerTurnEvidenceRefSet(
+  events: readonly RuntimeEvent[]
+): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const event of events) {
+    if (
+      event.kind === "evidence_admitted" &&
+      event.providerRefs.length > 0
+    ) {
+      refs.add(event.evidenceRef);
+    }
+  }
+  return refs;
+}
+
 export function deriveAdmittedStrengthRefSet(
   events: readonly RuntimeEvent[]
 ): ReadonlySet<string> {

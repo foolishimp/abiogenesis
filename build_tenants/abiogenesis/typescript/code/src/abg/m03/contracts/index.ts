@@ -1327,6 +1327,11 @@ export {
   testIdentityEvidenceRef
 } from "./depth_proof_map.js";
 export {
+  EXECUTION_EVIDENCE_REF_PREFIXES,
+  deriveWorkerTurnEvidenceRefSet,
+  isExecutionEvidenceRef
+} from "./payload_ledger.js";
+export {
   closureBearingStrengthRefs,
   deriveProofStrengthAdmissionsForEnvelope
 } from "./proof_strength_admission.js";

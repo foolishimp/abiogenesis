@@ -1749,3 +1749,44 @@ test("T-209 b1: executionAuthority defaults to worker_turn; annealed_fd_handler 
     /worker_turn or annealed_fd_handler/u
   );
 });
+
+// T-209 break 2 (D1.3): the provenance-scoped ledger.
+test("T-209 b2: a forged payload_validated ref shaped like execution evidence never resolves; worker-turn attribution does", async () => {
+  const { deriveWorkerTurnEvidenceRefSet, isExecutionEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const forgedKill = "mutation-kill://requirement%3A%2F%2Fx/forged-test";
+  const genuineKill = "mutation-kill://requirement%3A%2F%2Fx/real-test";
+  const events = [
+    // the side door: payload_validated's payloadRef enters the GENERAL
+    // strength set but must never carry execution-family truth
+    { kind: "payload_validated", payloadRef: forgedKill },
+    // worker-turn attribution: evidence_admitted with provider refs
+    { kind: "evidence_admitted", evidenceRef: genuineKill, providerRefs: ["plugin://fp-dispatch"] },
+    // unattributed evidence: no provider, no provenance
+    { kind: "evidence_admitted", evidenceRef: "mutant-survived://requirement%3A%2F%2Fx/m1", providerRefs: [] }
+  ];
+  const workerTurn = deriveWorkerTurnEvidenceRefSet(events);
+  assert.equal(workerTurn.has(genuineKill), true);
+  assert.equal(workerTurn.has(forgedKill), false);
+  assert.equal(workerTurn.has("mutant-survived://requirement%3A%2F%2Fx/m1"), false);
+  assert.equal(isExecutionEvidenceRef(forgedKill), true);
+  assert.equal(isExecutionEvidenceRef("proof-strength-admission://s1"), false);
+});
+
+// T-209 break 4 (D2): the standing conformance differential, kernel side.
+// The m03 contracts layer is pure derivation/admission law — process
+// execution appearing there is a red test TODAY, not an audit finding.
+test("T-209 b4: the m03 contracts layer contains no process-execution capability", async () => {
+  const { readdir, readFile } = await import("node:fs/promises");
+  const path = await import("node:path");
+  const dir = new URL("../../code/src/abg/m03/contracts/", import.meta.url).pathname;
+  const offenders = [];
+  for (const file of await readdir(dir)) {
+    if (!file.endsWith(".ts")) continue;
+    const text = await readFile(path.join(dir, file), "utf8");
+    if (/child_process|spawnSync|execFileSync|\bspawn\(|\bexecFile\(|\bfork\(/u.test(text)) {
+      offenders.push(file);
+    }
+  }
+  assert.deepEqual(offenders, [], "contracts layer must never execute processes");
+});
