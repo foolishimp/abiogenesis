@@ -1,3 +1,20 @@
+# abiogenesis 4.5.0-rc.12 Release Candidate Note
+
+This checkpoint is the twelfth `4.5.0` release candidate. It follows
+`4.5.0-rc.11` immediately and carries exactly one review-found fix:
+
+- -036 LEDGER LAW INSIDE THE STRENGTH CARRIER: rc.11's
+  ProofStrengthAdmission derivation marked `adversarially_verified`
+  from list presence of verification refs — only the producer happened
+  to pass ledger-resolved refs, so a direct caller could obtain
+  closure-bearing strength from an unledgered `mutation-kill://` ref.
+  Verification refs now resolve against the admitted evidence ledger
+  inside the derivation itself (verifierRefs carry only admitted refs);
+  the reviewer's probe is pinned as a differential. rc.11's recorded
+  artifact is superseded for downstream consumption.
+
+Suites at cut: semantic 1168/1168, t188 62/62, t205 22/22.
+
 # abiogenesis 4.5.0-rc.11 Release Candidate Note
 
 This checkpoint is the eleventh `4.5.0` release candidate. It follows
