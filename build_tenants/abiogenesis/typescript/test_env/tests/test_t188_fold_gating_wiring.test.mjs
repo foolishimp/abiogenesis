@@ -1187,3 +1187,188 @@ test("T-210 b2 mixed authority: one mapped requirement holds every entry sibling
   assert.deepEqual([...bothEarned.declaredDepthClassRefs], ["depth-class://negative"]);
   assert.deepEqual([...bothEarned.typedDepthGapRefs], []);
 });
+
+// T-210 break 3: kill obligations DERIVED from the admitted map (-039,
+// the Gödel projection) — cardinality discovered, never declared.
+test("T-210 b3: kill-obligation cardinality is discovered from admitted adversarial rows, and unproven obligations gap typed", async () => {
+  const {
+    deriveKillObligations,
+    deriveUnprovenKillObligationGapRefs,
+    mutationKillEvidenceRef
+  } = await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const mapEvent = {
+    kind: "depth_proof_map_admitted",
+    accepted: true,
+    rows: [
+      { requirementId: "requirement://t210/r1", depthClassRef: "depth-class://negative", testIdentityRefs: ["neg-a"] },
+      { requirementId: "requirement://t210/r1", depthClassRef: "depth-class://invariant", testIdentityRefs: ["inv-a", "inv-b"] },
+      { requirementId: "requirement://t210/r1", depthClassRef: "depth-class://positive", testIdentityRefs: ["pos-a"] }
+    ]
+  };
+  // cardinality: 2 adversarial rows -> 2 obligations; the positive row
+  // projects nothing; an empty adversarial declaration projects nothing
+  const obligations = deriveKillObligations({
+    replayEvents: [mapEvent],
+    requirementIds: ["requirement://t210/r1"],
+    adversarialDepthClassRefs: ["depth-class://negative", "depth-class://invariant"]
+  });
+  assert.equal(obligations.length, 2);
+  assert.deepEqual(
+    obligations.map((obligation) => obligation.depthClassRef).sort(),
+    ["depth-class://invariant", "depth-class://negative"]
+  );
+  assert.equal(
+    deriveKillObligations({
+      replayEvents: [mapEvent],
+      requirementIds: ["requirement://t210/r1"],
+      adversarialDepthClassRefs: []
+    }).length,
+    0
+  );
+  // determinism: same admitted row -> same obligation ref across replays
+  const again = deriveKillObligations({
+    replayEvents: [mapEvent],
+    requirementIds: ["requirement://t210/r1"],
+    adversarialDepthClassRefs: ["depth-class://negative", "depth-class://invariant"]
+  });
+  assert.deepEqual(again.map((o) => o.obligationRef), obligations.map((o) => o.obligationRef));
+  // proof law: EVERY test identity on the row needs kill evidence —
+  // partial evidence on the invariant row still gaps
+  const partialEvidence = new Set([
+    mutationKillEvidenceRef("neg-a"),
+    mutationKillEvidenceRef("inv-a")
+  ]);
+  const gaps = deriveUnprovenKillObligationGapRefs({
+    obligations,
+    admittedEvidenceRefs: partialEvidence
+  });
+  assert.equal(gaps.length, 1);
+  assert.equal(gaps[0].includes(encodeURIComponent("depth-class://invariant")), true);
+  assert.equal(gaps[0].endsWith("/kill-unproven"), true);
+  const fullEvidence = new Set([
+    mutationKillEvidenceRef("neg-a"),
+    mutationKillEvidenceRef("inv-a"),
+    mutationKillEvidenceRef("inv-b")
+  ]);
+  assert.deepEqual(
+    [...deriveUnprovenKillObligationGapRefs({ obligations, admittedEvidenceRefs: fullEvidence })],
+    []
+  );
+});
+
+test("T-210 b3 wiring: an earned-depth run with a declared adversarial class stays residual until kill evidence is admitted", async () => {
+  const { testIdentityEvidenceRef, mutationKillEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const positiveIdentity = "MapperSpec: maps well-formed row";
+  const negativeIdentity = "MapperSpec: rejects malformed row";
+  const mapRows = [
+    { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://positive", testIdentityRefs: [positiveIdentity] },
+    { requirementId: "requirement://t188/r1", depthClassRef: "depth-class://negative", testIdentityRefs: [negativeIdentity] }
+  ];
+  const runWithEvidence = (extraEvidenceRefs) => {
+    const table = classificationTable();
+    const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+    const events = [];
+    runEngineIterate({
+      basis,
+      eventSink: (event) => events.push(event),
+      ...m03InstructionAssemblyRequestFields(basis),
+      requirementProofCarryThroughStartup: {
+        entries: [
+          {
+            contract: carryContract(table, {
+              fdStrengthCriterionRefs: [strengthRef],
+              adversarialDepthClassRefs: ["depth-class://negative"]
+            }),
+            classificationTable: table,
+            requirementIds: ["requirement://t188/r1"],
+            envelopeTemplate: envelopeTemplate({
+              proofStrengthAdmissionRefs: [strengthRef],
+              fdStrengthCriterionRefs: [strengthRef]
+            })
+          }
+        ]
+      },
+      plugins: {
+        fpDispatch: depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs })
+      }
+    });
+    return events.find((event) => event.kind === "requirement_proof_carry_through_admitted");
+  };
+  const identityRefs = [
+    testIdentityEvidenceRef(positiveIdentity),
+    testIdentityEvidenceRef(negativeIdentity)
+  ];
+  // earned depth alone no longer suffices: the map's adversarial row
+  // projected a kill obligation and no kill evidence is admitted
+  const unproven = runWithEvidence(identityRefs);
+  assert.ok(unproven);
+  assert.equal(unproven.coverageIssueKinds.includes("missing_depth_obligation_class"), true);
+  assert.deepEqual(unproven.coverageStatuses, ["residual"]);
+  // admitted kill evidence for the row's test identity closes the obligation
+  const proven = runWithEvidence([...identityRefs, mutationKillEvidenceRef(negativeIdentity)]);
+  assert.ok(proven);
+  assert.deepEqual([...proven.coverageIssueKinds], []);
+  assert.deepEqual(proven.coverageStatuses, ["eligible"]);
+});
+
+// T-210 review HIGH (2026-07-09): rows are carrier truth the ledger
+// projection iterates — canonical event admission must reject a forged
+// accepted event with malformed rows BEFORE projection can throw.
+test("T-210 b1 admission closure: canonical event admission rejects accepted depth-map events with malformed rows", async () => {
+  const { assertRuntimeEvent, deriveAdmittedDepthProofRowsByRequirementId } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const table = classificationTable();
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          envelopeTemplate: envelopeTemplate()
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: depthMapDispatchPlugin({
+        strengthRef: "proof-strength-admission://t188/source-test",
+        mapRows: [
+          {
+            requirementId: "requirement://t188/r1",
+            depthClassRef: "depth-class://negative",
+            testIdentityRefs: ["neg-test"]
+          }
+        ]
+      })
+    }
+  });
+  const genuine = events.find((event) => event.kind === "depth_proof_map_admitted");
+  assert.ok(genuine);
+  // the genuinely emitted event passes canonical admission
+  assertRuntimeEvent(genuine);
+  // forged variants fail admission — replay totality holds before the
+  // ledger projection ever sees them
+  const { rows: _dropped, ...withoutRows } = genuine;
+  assert.throws(() => assertRuntimeEvent(withoutRows), /rows must be a list/u);
+  assert.throws(() => assertRuntimeEvent({ ...genuine, rows: "bad" }), /rows must be a list/u);
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "", depthClassRef: "x", testIdentityRefs: ["y"] }] }),
+    /requirementId/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...genuine, rows: [{ requirementId: "r", depthClassRef: "x", testIdentityRefs: [] }] }),
+    /testIdentityRefs must not be empty/u
+  );
+  // and the projection stays total over what admission accepts
+  assert.equal(
+    deriveAdmittedDepthProofRowsByRequirementId([genuine]).get("requirement://t188/r1").length,
+    1
+  );
+});

@@ -336,6 +336,34 @@ function assertOverlayFramePredicateRow(
   }
 }
 
+// T-210 (review HIGH, 2026-07-09): depth-map rows are carrier truth the
+// ledger projection iterates directly — canonical event admission must
+// close over their shape or a forged accepted event breaks replay
+// totality downstream.
+function assertDepthProofMapRows(value: unknown, label: string): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    const rowLabel = `${label}[${index}]`;
+    if (!isPlainObject(entry)) {
+      throw new TypeError(`${rowLabel} must be a plain object`);
+    }
+    assertNonEmptyString(entry["requirementId"], `${rowLabel}.requirementId`);
+    assertNonEmptyString(entry["depthClassRef"], `${rowLabel}.depthClassRef`);
+    assertStringArray(entry["testIdentityRefs"], `${rowLabel}.testIdentityRefs`);
+    const refs = entry["testIdentityRefs"];
+    if (Array.isArray(refs)) {
+      if (refs.length === 0) {
+        throw new TypeError(`${rowLabel}.testIdentityRefs must not be empty`);
+      }
+      for (const [refIndex, ref] of refs.entries()) {
+        assertNonEmptyString(ref, `${rowLabel}.testIdentityRefs[${refIndex}]`);
+      }
+    }
+  }
+}
+
 function assertOverlayFramePredicateEvaluationRows(
   value: unknown,
   label: string
@@ -1045,29 +1073,32 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
-  depth_proof_map_admitted: applyFieldRules(
-    "DepthProofMapAdmittedEvent",
-    {
-      runId: "non_empty_string",
-      workKey: "nullable_string",
-      graphCallId: "non_empty_string",
-      frameId: "non_empty_string",
-      frameLineageId: "nullable_string",
-      vectorIndex: "non_negative_integer",
-      edge: "non_empty_string",
-      actorInvocationId: "non_empty_string",
-      workerId: "non_empty_string",
-      backendId: "non_empty_string",
-      causationEventRefs: "string_array",
-      correlationId: "non_empty_string",
-      mapRef: "non_empty_string",
-      sourceResultRef: "non_empty_string",
-      accepted: "boolean",
-      issueKinds: "string_array",
-      replayIdentity: "non_empty_string",
-      mapDigest: "non_empty_string"
-    }
-  ),
+  depth_proof_map_admitted: (event) => {
+    applyFieldRules(
+      "DepthProofMapAdmittedEvent",
+      {
+        runId: "non_empty_string",
+        workKey: "nullable_string",
+        graphCallId: "non_empty_string",
+        frameId: "non_empty_string",
+        frameLineageId: "nullable_string",
+        vectorIndex: "non_negative_integer",
+        edge: "non_empty_string",
+        actorInvocationId: "non_empty_string",
+        workerId: "non_empty_string",
+        backendId: "non_empty_string",
+        causationEventRefs: "string_array",
+        correlationId: "non_empty_string",
+        mapRef: "non_empty_string",
+        sourceResultRef: "non_empty_string",
+        accepted: "boolean",
+        issueKinds: "string_array",
+        replayIdentity: "non_empty_string",
+        mapDigest: "non_empty_string"
+      }
+    )(event);
+    assertDepthProofMapRows(event["rows"], "DepthProofMapAdmittedEvent.rows");
+  },
   requirement_proof_carry_through_admitted: applyFieldRules(
     "RequirementProofCarryThroughAdmittedEvent",
     {

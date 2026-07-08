@@ -28,7 +28,11 @@ import {
 } from "./instruction_assembly.js";
 import { constructRequirementProofCarryThroughAdmittedEvent } from "./event_factories.js";
 import { deriveAdmittedStrengthRefSet } from "./payload_ledger.js";
-import { deriveEarnedDepthTruthForRequirements } from "./depth_proof_map.js";
+import {
+  deriveEarnedDepthTruthForRequirements,
+  deriveKillObligations,
+  deriveUnprovenKillObligationGapRefs
+} from "./depth_proof_map.js";
 
 export interface RequirementProofCarryThroughStartupEntry {
   readonly contract: RequirementProofCarryThroughContract;
@@ -542,6 +546,19 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
       admittedEvidenceRefs: admittedLedgerRefs
     });
+    // T-210 break 3 (-039): kill obligations project from the admitted
+    // map's adversarial-class rows — cardinality discovered at admission,
+    // never declared. Unproven obligations flow as typed depth gaps
+    // through the EXISTING gate; no map means no obligations here (owed
+    // map absence is already the earned-depth concern above).
+    const killObligationGapRefs = deriveUnprovenKillObligationGapRefs({
+      obligations: deriveKillObligations({
+        replayEvents: input.replayEvents,
+        requirementIds: entry.requirementIds,
+        adversarialDepthClassRefs: entry.contract.adversarialDepthClassRefs
+      }),
+      admittedEvidenceRefs: admittedLedgerRefs
+    });
     const proofDepthTruth = constructDerivedProofDepthInstructionTruth({
       admittedLedgerRefs,
       truthRef: `${envelope.envelopeRef}/proof-depth`,
@@ -556,7 +573,10 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
         : envelope.depthClassRefs,
       declaredDepthObligationRefs: envelope.proofObligationRefs,
       notApplicableDepthClassRefs: [],
-      typedDepthGapRefs: earnedDepth.mapped ? earnedDepth.typedDepthGapRefs : [],
+      typedDepthGapRefs: [
+        ...(earnedDepth.mapped ? earnedDepth.typedDepthGapRefs : []),
+        ...killObligationGapRefs
+      ],
       proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
       fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
       adversarialVerificationRefs: envelope.adversarialAttemptRefs,

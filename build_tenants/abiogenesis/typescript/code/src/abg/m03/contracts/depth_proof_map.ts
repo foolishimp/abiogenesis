@@ -320,3 +320,81 @@ export function deriveEarnedDepthTruthForRequirements(input: {
     typedDepthGapRefs: Object.freeze([...gaps].sort())
   });
 }
+
+// ── T-210 break 3: KILL-OBLIGATION PROJECTION (-039, the Gödel break) ────
+// Proof obligations whose cardinality is DISCOVERED, never declared: each
+// admitted map row in a contract-declared adversarial depth class projects
+// one kill obligation. The topology could not be enumerated up front — the
+// intermediate computation (the map delivery) discovers it. Kill evidence
+// rides the existing evidence machinery per test identity; an obligation
+// without complete kill evidence is a typed gap, not silence.
+export const MUTATION_KILL_EVIDENCE_PREFIX = "mutation-kill://";
+
+export function mutationKillEvidenceRef(testIdentity: string): string {
+  return `${MUTATION_KILL_EVIDENCE_PREFIX}${encodeURIComponent(testIdentity)}`;
+}
+
+export interface DerivedKillObligation {
+  readonly obligationRef: string;
+  readonly requirementId: string;
+  readonly depthClassRef: string;
+  readonly testIdentityRefs: readonly string[];
+}
+
+export function deriveKillObligations(input: {
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly requirementIds: readonly string[];
+  readonly adversarialDepthClassRefs: readonly string[];
+}): readonly DerivedKillObligation[] {
+  const adversarialClasses = new Set(input.adversarialDepthClassRefs);
+  if (adversarialClasses.size === 0) {
+    return Object.freeze([]);
+  }
+  const rowsByRequirement = deriveAdmittedDepthProofRowsByRequirementId(input.replayEvents);
+  const obligations: DerivedKillObligation[] = [];
+  for (const requirementId of [...new Set(input.requirementIds)].sort()) {
+    for (const row of rowsByRequirement.get(requirementId) ?? []) {
+      if (!adversarialClasses.has(row.depthClassRef)) {
+        continue;
+      }
+      // content-derived identity: the same admitted row always projects
+      // the same obligation ref across replays
+      const rowDigest = stableSha256Digest({
+        requirementId: row.requirementId,
+        depthClassRef: row.depthClassRef,
+        testIdentityRefs: row.testIdentityRefs
+      });
+      obligations.push(Object.freeze({
+        obligationRef: [
+          "kill-obligation:/",
+          encodeURIComponent(row.requirementId),
+          encodeURIComponent(row.depthClassRef),
+          rowDigest.replace(/^sha256:/u, "").slice(0, 12)
+        ].join("/"),
+        requirementId: row.requirementId,
+        depthClassRef: row.depthClassRef,
+        testIdentityRefs: row.testIdentityRefs
+      }));
+    }
+  }
+  return Object.freeze(obligations);
+}
+
+// The break-3 gap law: an obligation is proven only when EVERY test
+// identity on its row has admitted kill evidence; anything less is a
+// typed gap carrying the obligation identity.
+export function deriveUnprovenKillObligationGapRefs(input: {
+  readonly obligations: readonly DerivedKillObligation[];
+  readonly admittedEvidenceRefs: ReadonlySet<string>;
+}): readonly string[] {
+  const gaps: string[] = [];
+  for (const obligation of input.obligations) {
+    const proven = obligation.testIdentityRefs.every((testIdentity) =>
+      input.admittedEvidenceRefs.has(mutationKillEvidenceRef(testIdentity))
+    );
+    if (!proven) {
+      gaps.push(`${obligation.obligationRef}/kill-unproven`);
+    }
+  }
+  return Object.freeze([...gaps].sort());
+}

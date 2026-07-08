@@ -91,6 +91,11 @@ export interface RequirementProofCarryThroughContract {
   readonly requiredDepthClassRefs: readonly string[];
   readonly fdStrengthCriterionRefs: readonly string[];
   readonly requiredAdversarialCheckRefs: readonly string[];
+  // T-210 break 3 (-039): the depth classes whose admitted map rows
+  // project kill obligations. Domain knowledge — DECLARED downstream on
+  // the contract; the kernel owns only the projection mechanism. Empty
+  // means the contract projects no kill obligations (transitional).
+  readonly adversarialDepthClassRefs: readonly string[];
   readonly evidenceRoleRefs: readonly string[];
   readonly outputCandidateKinds: readonly string[];
   readonly admissionTargetKinds: readonly string[];
@@ -688,7 +693,10 @@ export function projectRequirementProofCoverage(input: {
 }
 
 export function constructRequirementProofCarryThroughContract(
-  input: Omit<RequirementProofCarryThroughContract, "kind">
+  input: Omit<
+    RequirementProofCarryThroughContract,
+    "kind" | "adversarialDepthClassRefs"
+  > & { readonly adversarialDepthClassRefs?: readonly string[] }
 ): RequirementProofCarryThroughContract {
   return Object.freeze({
     kind: "requirement_proof_carry_through_contract",
@@ -733,6 +741,12 @@ export function constructRequirementProofCarryThroughContract(
       requireStringArray(
         input.requiredAdversarialCheckRefs,
         "requiredAdversarialCheckRefs"
+      )
+    ),
+    adversarialDepthClassRefs: uniqueSorted(
+      requireStringArray(
+        input.adversarialDepthClassRefs ?? [],
+        "adversarialDepthClassRefs"
       )
     ),
     evidenceRoleRefs: uniqueSorted(

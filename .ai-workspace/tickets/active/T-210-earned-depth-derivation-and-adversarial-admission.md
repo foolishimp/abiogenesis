@@ -6,7 +6,7 @@
 - migration_strategy: inside_out_hard_break
 - library_usage: extend
 - governing_library: abg/m03 carry-through producer + requirements route family (deriveAdmittedStrengthRefSet ledger-resolution pattern; coverage projector gates)
-- status: backlog
+- status: active
 - goal: hog-iteration-2-depth
 - change_intent: >-
     Realize REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-032/-033/-034/-035/-036
@@ -22,6 +22,15 @@
 - triaged_at: 2026-07-09
 - created_at: 2026-07-09
 - updated_at: 2026-07-09
+- execution_state: break 1 DONE (admitted depth-map carrier + canonical
+  event-admission row closure after review HIGH 2026-07-09); break 2 DONE
+  (earned-depth derivation, plan-declared authority severed for
+  map-bearing targets, mixed-authority law entry-wide); break 3 DONE
+  (kill obligations derived from admitted adversarial-class rows via
+  contract-declared adversarialDepthClassRefs; unproven obligations gap
+  typed through the existing depth gate); break 4 NEXT (ledger-resolved
+  adversarial refs + survived-mutant counterexamples), then break 5
+  (projections/read models + proof last)
 - dependencies: T-205 (closed; handler law + carry-through family), odd_glc T-032 (consumer)
 - links: odd_glc .ai-workspace/tickets/active/T-032-earned-depth-mutation-kill-proof.md
 
