@@ -700,3 +700,131 @@ test("T-031 repro: non-final spanned close emits fold truth (owed-but-missing re
     "owed-but-missing coverage must surface as residual pressure at the spanned close"
   );
 });
+
+// T-031 BUG #2: multi-requirement scope with coverage truth but ZERO
+// per-requirement evidence bindings — coverage must reach the fold. Found
+// live at the data-mapper proving edge: 8 eligible carry admissions, then
+// 8 folds no_close_preserved on EMPTY sources (the review-escrowed drop
+// seam gone load-bearing). Route-level differential over the fold input.
+test("T-031 BUG #2: coverage-bearing requirement in multi-requirement scope folds from coverage, not silence", async () => {
+  const {
+    projectRequirementFoldFromAssuranceClosure
+  } = await import("../../build/semantic/code/src/abg/m03/contracts/requirements_route.js");
+  // exercised through the engine instead: two requirements on one span,
+  // one covered eligible via carry admission, neither evidence-bound —
+  // both folds must carry coverage-derived sources (satisfied for the
+  // covered one; residual/no-close for the owed-but-missing one).
+  const table = classificationTable();
+  const base = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const basis = Object.freeze({
+    ...base,
+    startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
+  });
+  const spanId = "span://t188/t031/two";
+  const vector = basis.graph.vectors[0];
+  const bundle = publicGtlRequirements.declareBundle({
+    requirements: ["REQ-T188-B3-001", "REQ-T188-B3-002"].map((requirementId) =>
+      publicGtlRequirements.declareRequirement({
+        requirementId,
+        termKind: "atom",
+        stableId: requirementId,
+        sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md#013",
+        sourceDigest: `sha256:t031-${requirementId}`,
+        relationRefs: [],
+        spanRefs: [spanId],
+        contextRefs: [],
+        evidencePolicyRefs: ["policy://t188/b3-evidence"]
+      })
+    ),
+    spans: [
+      publicGtlRequirements.declareTraversalSpan({
+        spanId,
+        graphFunctionRef: basis.graphFunction.id,
+        graphVectorRefs: [vector.id],
+        vectorIndexes: [0],
+        sourceNodeRef: vector.source[0].id,
+        targetNodeRef: vector.target.id
+      })
+    ]
+  });
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const result = runEngineIterate({
+    basis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementRouteDeclarationBundle: bundle,
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table, { fdStrengthCriterionRefs: [strengthRef] }),
+          classificationTable: table,
+          requirementIds: ["REQ-T188-B3-001"],
+          envelopeTemplate: envelopeTemplate({
+            proofStrengthAdmissionRefs: [strengthRef],
+            fdStrengthCriterionRefs: [strengthRef]
+          })
+        },
+        {
+          // -002 is OWED (entry names it) but PRODUCES on a foreign edge,
+          // so no coverage exists at the closing vector -> synthesized
+          // residual must reach its fold (the T-205 applicability law
+          // composing with the BUG #2 seam fix in multi-requirement scope)
+          contract: carryContract(table, {
+            contractRef: "plugin-proof-contract://t188/t031b2/second"
+          }),
+          classificationTable: table,
+          requirementIds: ["REQ-T188-B3-002"],
+          envelopeTemplate: envelopeTemplate({
+            contractRef: "plugin-proof-contract://t188/t031b2/second"
+          }),
+          edge: basis.graph.vectors[1]?.name ?? "requirements→design"
+        }
+      ]
+    },
+    plugins: {
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t188/t031b2/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch(input) {
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t188/t031b2/${input.vectorIndex}`,
+            attachedResultArtifact: fulfilledAttachedArtifactFor(input, { evidenceRefs: [strengthRef] }),
+            evidenceRefs: []
+          });
+        }
+      }),
+      fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
+    }
+  });
+  const folds = {};
+  for (const event of result.replayEvents) {
+    if (event.kind === "requirement_route_fact_projected" &&
+        event.routePayloadKind === "requirement_fold_projected") {
+      const fold = event.requirementPayload.fold;
+      folds[fold.requirementId] = fold;
+    }
+  }
+  const covered = folds["REQ-T188-B3-001"];
+  assert.ok(covered, "covered requirement must fold");
+  assert.notEqual(covered.sourceAbgTruthRefs.length, 0, "fold sources must not be empty");
+  assert.equal(
+    covered.sourceAbgTruthRefs.some((ref) => ref.includes("requirement-proof-coverage/eligible")),
+    true,
+    "eligible coverage must reach the fold without evidence bindings"
+  );
+  assert.equal(covered.state, "satisfied");
+  const owed = folds["REQ-T188-B3-002"];
+  assert.ok(owed, "owed-but-missing requirement must fold");
+  assert.equal(owed.state, "no_close_preserved");
+  assert.equal(
+    owed.sourceAbgTruthRefs.some((ref) => ref.includes("/residual/")),
+    true,
+    "synthesized residual must reach the fold in multi-requirement scope"
+  );
+});

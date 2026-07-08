@@ -790,7 +790,18 @@ function sourceTruthRefsByRequirementId(input: {
       ]);
       continue;
     }
-    if (projectedRequirementIds.length === 1 || boundRequirementIds.has(requirementId)) {
+    // T-031 campaign BUG #2 (the escrowed drop seam, load-bearing): in
+    // multi-requirement scope a requirement with COVERAGE truth but no
+    // per-requirement evidence binding fell through silently — its
+    // eligible (or synthesized residual) coverage refs never reached the
+    // fold, which then defaulted to no_close_preserved on empty sources.
+    // Coverage truth is requirement-proof truth (-013): it must reach the
+    // fold whenever it exists for a projected requirement.
+    if (
+      projectedRequirementIds.length === 1 ||
+      boundRequirementIds.has(requirementId) ||
+      proofCoverageTruthRefs.length > 0
+    ) {
       output[requirementId] = Object.freeze([
         ...proofCoverageTruthRefs,
         scopedClosureTruthRef(
