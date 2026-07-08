@@ -16,7 +16,7 @@
 - re_entry_point: design_surface
 - triaged_at: 2026-07-09 (re-triaged; original 2026-07-08 was pro forma)
 - created_at: 2026-07-08
-- updated_at: 2026-07-09
+- updated_at: 2026-07-09 (governance-failure addendum, user ruling)
 - dependencies: T-205 (CLOSED — handler law, interpretation seam, internal
   gate, carry-through applicability all earned there; substrate 4.5.0-rc.7)
 - links: T-208 (commonization escrow), REQ-R-ABG3-HANDLERS-001/-014,
@@ -83,6 +83,61 @@ The successor to T-205's P4 phase, carried out on the 4.5.0-rc.7+ substrate:
    adoption runs on the current rc line at activation.
 5. SPAN: binding generation -> standard handler selection declarations
    -> live campaign proof -> 11.5B execution-authority audit.
+
+## Governance-Failure Triage Addendum (2026-07-09, user ruling)
+
+USER RULING: the framework calling sbt was the constitutional trigger;
+that every safeguard supposed to block it failed is itself the finding.
+This ticket's scope is therefore not adoption alone: REMOVE the entire
+framework-side execution machinery and REPLACE the failed safeguard
+pattern with mechanically enforced constitutional framework.
+
+ROOT CAUSE WALK (why the safeguards did not fire):
+
+1. CATEGORY BLIND SPOT. Every boundary law (kernel law, HANDLERS
+   product-boundary rule, 11.5B) governs "the product binding" or "the
+   handler"; the offending machinery lives in the LIVE TEST HARNESS
+   (test/glc-software-build-overlay-live.test.mjs), nominally a proof
+   surface. The harness became the de facto worker loop — product
+   realization wearing a test file's category — and so sat outside
+   every governed category.
+2. BYPASS, NOT BREACH. The kernel's mechanical gates (handler census,
+   -002 interiors-only, payload admission) gate what ENTERS the
+   handler/admission path. The harness never presented its sbt
+   execution as a handler or payload at all; the kernel cannot gate
+   what never enters the gated path. Prose safeguards without an
+   admission chokepoint are advisory.
+3. CLOSURE-TIME AUDIT, ADMISSION-TIME DRIFT. The 11.5B
+   execution-authority audit is scheduled at ticket exit; the drift
+   accreted during campaign mode ("patch and continue") — bugs #11
+   (maxBuffer) and #12 (PATH expansion) were each repaired IN PLACE
+   inside the framework executor, deepening the unlawful surface,
+   because nothing raised the boundary question at patch time.
+4. EVIDENCE PROVENANCE UNGATED. Execution evidence assembled by the
+   framework is currently admissible closure truth — nothing requires
+   execution results to carry ADMITTED WORKER-TURN PROVENANCE. This is
+   the deepest gap: even perfect prose cannot hold while the kernel
+   accepts the fruit of unlawful execution.
+
+REQUIRED WORK ADDED (the replacement, both halves mandatory):
+
+- (a) REMOVAL: delete (not wrap — proxy prohibition) the harness plan
+  executor, runForEvidence, the sbt Test/compile post-materialization
+  gate, and all framework-side execution evidence assembly. Execution
+  stages become typed F_P worker turns returning typed execution-result
+  nodes; the compile gate becomes worker-turn work whose typed result
+  F_D checks.
+- (b) MECHANICAL ENFORCEMENT (requirement_reprice, HANDLERS/CCALL
+  family): (b1) provenance gate — an execution-result payload is
+  closure-bearing ONLY when admitted as the typed result of a declared
+  worker turn; framework-assembled execution evidence is inadmissible
+  by construction. (b2) conformance differential in the standing proof
+  surface (runs every suite, not at closure): the product binding and
+  its proof harness contain no process-execution capability outside
+  the declared worker-turn seam; a binding that spawns is a red test
+  TODAY, not an audit finding later.
+- 11.5B remains as the closure audit, now auditing what the mechanics
+  already enforced continuously.
 
 ## Migration Declaration
 
