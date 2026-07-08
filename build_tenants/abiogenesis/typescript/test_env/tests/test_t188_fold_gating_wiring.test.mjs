@@ -976,3 +976,214 @@ test("T-210 b1: an attached artifact carrying a depth-proof map emits admitted r
   assert.equal(admitted[0].rows[0].requirementId, "requirement://t188/r1");
   assert.match(admitted[0].mapDigest, /^sha256:[0-9a-f]{64}$/u);
 });
+
+// T-210 break 2: severed plan-declared depth authority for map-bearing
+// requirements (REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-032/-034).
+function depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs = [] }) {
+  return Object.freeze({
+    contract: constructEnginePluginContract({
+      ref: "plugin://t210/b2/fp-dispatch",
+      pluginKind: "fp_dispatch",
+      authority: "effect_plugin",
+      inputCarrier: "EnginePluginInput",
+      outputCarrier: "FpDispatchOutcome"
+    }),
+    dispatch(input) {
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t210/b2/${input.vectorIndex}`,
+        attachedResultArtifact: {
+          ...fulfilledAttachedArtifactFor(input, {
+            evidenceRefs: [strengthRef, ...extraEvidenceRefs]
+          }),
+          depthProofMap: { rows: mapRows }
+        },
+        evidenceRefs: []
+      });
+    }
+  });
+}
+
+function runDepthSeveringWiring(plugin) {
+  const table = classificationTable();
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const events = [];
+  runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(basis),
+    requirementProofCarryThroughStartup: {
+      entries: [
+        {
+          contract: carryContract(table, { fdStrengthCriterionRefs: [strengthRef] }),
+          classificationTable: table,
+          requirementIds: ["requirement://t188/r1"],
+          // the HOLLOW declaration: template declares depth classes equal to
+          // the required set — under old authority this closed by equality
+          envelopeTemplate: envelopeTemplate({
+            proofStrengthAdmissionRefs: [strengthRef],
+            fdStrengthCriterionRefs: [strengthRef]
+          })
+        }
+      ]
+    },
+    plugins: { fpDispatch: plugin }
+  });
+  return events.find((event) => event.kind === "requirement_proof_carry_through_admitted");
+}
+
+test("T-210 b2 severing: a hollow declared-equal plan with an admitted map missing rows folds residual, never satisfied", () => {
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const admitted = runDepthSeveringWiring(depthMapDispatchPlugin({
+    strengthRef,
+    // map covers only the negative class; positive is owed but unmapped —
+    // and no test identity is admitted for the negative row either
+    mapRows: [
+      {
+        requirementId: "requirement://t188/r1",
+        depthClassRef: "depth-class://negative",
+        testIdentityRefs: ["MapperSpec: rejects malformed row"]
+      }
+    ]
+  }));
+  assert.ok(admitted);
+  assert.equal(admitted.accepted, true);
+  assert.equal(
+    admitted.coverageIssueKinds.includes("missing_depth_obligation_class"),
+    true,
+    "declaration equality must not close depth once a map is admitted"
+  );
+  assert.deepEqual(admitted.coverageStatuses, ["residual"]);
+});
+
+test("T-210 b2 earned: full map coverage with admitted test identities closes depth through the earned path", async () => {
+  const { testIdentityEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const strengthRef = "proof-strength-admission://t188/source-test";
+  const positiveIdentity = "MapperSpec: maps well-formed row";
+  const negativeIdentity = "MapperSpec: rejects malformed row";
+  const admitted = runDepthSeveringWiring(depthMapDispatchPlugin({
+    strengthRef,
+    mapRows: [
+      {
+        requirementId: "requirement://t188/r1",
+        depthClassRef: "depth-class://positive",
+        testIdentityRefs: [positiveIdentity]
+      },
+      {
+        requirementId: "requirement://t188/r1",
+        depthClassRef: "depth-class://negative",
+        testIdentityRefs: [negativeIdentity]
+      }
+    ],
+    extraEvidenceRefs: [
+      testIdentityEvidenceRef(positiveIdentity),
+      testIdentityEvidenceRef(negativeIdentity)
+    ]
+  }));
+  assert.ok(admitted);
+  assert.deepEqual([...admitted.coverageIssueKinds], []);
+  assert.deepEqual(admitted.coverageStatuses, ["eligible"]);
+});
+
+test("T-210 b2 lattice: deriveEarnedDepthTruth is total over {unmapped, identity-unverified, earned} per (requirement, class)", async () => {
+  const { deriveEarnedDepthTruth, testIdentityEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const required = ["depth-class://positive", "depth-class://negative"];
+  const mapEvent = {
+    kind: "depth_proof_map_admitted",
+    accepted: true,
+    rows: [
+      {
+        requirementId: "requirement://t210/r1",
+        depthClassRef: "depth-class://negative",
+        testIdentityRefs: ["neg-test"]
+      }
+    ]
+  };
+  // no admitted map -> not mapped; transitional plan authority applies upstream
+  const unmapped = deriveEarnedDepthTruth({
+    replayEvents: [],
+    requirementId: "requirement://t210/r1",
+    requiredDepthClassRefs: required,
+    admittedEvidenceRefs: new Set()
+  });
+  assert.equal(unmapped.mapped, false);
+  // mapped: unmapped class AND identity-unverified class are DISTINCT typed gaps
+  const partial = deriveEarnedDepthTruth({
+    replayEvents: [mapEvent],
+    requirementId: "requirement://t210/r1",
+    requiredDepthClassRefs: required,
+    admittedEvidenceRefs: new Set()
+  });
+  assert.equal(partial.mapped, true);
+  assert.deepEqual([...partial.declaredDepthClassRefs], []);
+  assert.equal(partial.typedDepthGapRefs.some((ref) => ref.endsWith("/unmapped")), true);
+  assert.equal(partial.typedDepthGapRefs.some((ref) => ref.endsWith("/identity-unverified")), true);
+  // earned: admitted identity flips the mapped class to declared truth
+  const earned = deriveEarnedDepthTruth({
+    replayEvents: [mapEvent],
+    requirementId: "requirement://t210/r1",
+    requiredDepthClassRefs: ["depth-class://negative"],
+    admittedEvidenceRefs: new Set([testIdentityEvidenceRef("neg-test")])
+  });
+  assert.deepEqual([...earned.declaredDepthClassRefs], ["depth-class://negative"]);
+  assert.deepEqual([...earned.typedDepthGapRefs], []);
+});
+
+test("T-210 b2 mixed authority: one mapped requirement holds every entry sibling to earned truth", async () => {
+  const { deriveEarnedDepthTruthForRequirements, testIdentityEvidenceRef } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  const required = ["depth-class://negative"];
+  const mapEvent = {
+    kind: "depth_proof_map_admitted",
+    accepted: true,
+    rows: [
+      {
+        requirementId: "requirement://t210/r1",
+        depthClassRef: "depth-class://negative",
+        testIdentityRefs: ["neg-test"]
+      }
+    ]
+  };
+  const identities = new Set([testIdentityEvidenceRef("neg-test")]);
+  // r1 earned, r2 has no map: mixed old/new authority is non-closure —
+  // the unmapped sibling gaps every required class and blocks declaration
+  const mixed = deriveEarnedDepthTruthForRequirements({
+    replayEvents: [mapEvent],
+    requirementIds: ["requirement://t210/r1", "requirement://t210/r2"],
+    requiredDepthClassRefs: required,
+    admittedEvidenceRefs: identities
+  });
+  assert.equal(mixed.mapped, true);
+  assert.deepEqual([...mixed.declaredDepthClassRefs], []);
+  assert.equal(
+    mixed.typedDepthGapRefs.some((ref) =>
+      ref.includes(encodeURIComponent("requirement://t210/r2")) && ref.endsWith("/unmapped")
+    ),
+    true
+  );
+  // both mapped and earned: class declared entry-wide
+  const bothEarned = deriveEarnedDepthTruthForRequirements({
+    replayEvents: [
+      mapEvent,
+      {
+        kind: "depth_proof_map_admitted",
+        accepted: true,
+        rows: [
+          {
+            requirementId: "requirement://t210/r2",
+            depthClassRef: "depth-class://negative",
+            testIdentityRefs: ["neg-test"]
+          }
+        ]
+      }
+    ],
+    requirementIds: ["requirement://t210/r1", "requirement://t210/r2"],
+    requiredDepthClassRefs: required,
+    admittedEvidenceRefs: identities
+  });
+  assert.deepEqual([...bothEarned.declaredDepthClassRefs], ["depth-class://negative"]);
+  assert.deepEqual([...bothEarned.typedDepthGapRefs], []);
+});

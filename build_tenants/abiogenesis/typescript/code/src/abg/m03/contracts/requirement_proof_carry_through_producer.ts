@@ -28,6 +28,7 @@ import {
 } from "./instruction_assembly.js";
 import { constructRequirementProofCarryThroughAdmittedEvent } from "./event_factories.js";
 import { deriveAdmittedStrengthRefSet } from "./payload_ledger.js";
+import { deriveEarnedDepthTruthForRequirements } from "./depth_proof_map.js";
 
 export interface RequirementProofCarryThroughStartupEntry {
   readonly contract: RequirementProofCarryThroughContract;
@@ -529,6 +530,18 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       classificationTable: entry.classificationTable,
       envelope
     });
+    // T-210 break 2 (-034/-039): for requirements with an ADMITTED
+    // depth-proof map, depth truth is EARNED — declared classes and typed
+    // gaps derive from the map plus admitted test-identity evidence, and
+    // plan/template declaration equality is severed from closure
+    // authority. Unmapped requirements retain the transitional
+    // plan-declared path.
+    const earnedDepth = deriveEarnedDepthTruthForRequirements({
+      replayEvents: input.replayEvents,
+      requirementIds: entry.requirementIds,
+      requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
+      admittedEvidenceRefs: admittedLedgerRefs
+    });
     const proofDepthTruth = constructDerivedProofDepthInstructionTruth({
       admittedLedgerRefs,
       truthRef: `${envelope.envelopeRef}/proof-depth`,
@@ -538,10 +551,12 @@ export function deriveRequirementProofCarryThroughAdmittedEvents(input: {
       depthPolicyDigest: input.planProofDepthTruth?.depthPolicyDigest ?? null,
       targetRefs: [envelope.contractRef],
       requiredDepthClassRefs: entry.contract.requiredDepthClassRefs,
-      declaredDepthClassRefs: envelope.depthClassRefs,
+      declaredDepthClassRefs: earnedDepth.mapped
+        ? earnedDepth.declaredDepthClassRefs
+        : envelope.depthClassRefs,
       declaredDepthObligationRefs: envelope.proofObligationRefs,
       notApplicableDepthClassRefs: [],
-      typedDepthGapRefs: [],
+      typedDepthGapRefs: earnedDepth.mapped ? earnedDepth.typedDepthGapRefs : [],
       proofStrengthAdmissionRefs: envelope.proofStrengthAdmissionRefs,
       fdStrengthCriterionRefs: envelope.fdStrengthCriterionRefs,
       adversarialVerificationRefs: envelope.adversarialAttemptRefs,

@@ -181,3 +181,142 @@ export function deriveAdmittedDepthProofRowsByRequirementId(
   }
   return frozen;
 }
+
+// ── T-210 break 2: EARNED-DEPTH DERIVATION (-034/-039) ──────────────────
+// Severs plan-declared depth authority for map-bearing requirements: when
+// an ADMITTED depth-proof map covers a requirement, declared depth truth
+// derives from the map and from admitted test-identity evidence — never
+// from declaration equality. Requirements without an admitted map retain
+// the transitional plan-declared path (the -038 pattern).
+
+// Test identities are admitted through the EXISTING evidence machinery:
+// the executing worker attaches one evidence ref per executed test
+// identity; the derivation checks map rows against the admitted set.
+export const TEST_IDENTITY_EVIDENCE_PREFIX = "test-identity://";
+
+export function testIdentityEvidenceRef(testIdentity: string): string {
+  return `${TEST_IDENTITY_EVIDENCE_PREFIX}${encodeURIComponent(testIdentity)}`;
+}
+
+function depthGapRef(requirementId: string, depthClassRef: string, gapKind: string): string {
+  return [
+    "depth-gap:/",
+    encodeURIComponent(requirementId),
+    encodeURIComponent(depthClassRef),
+    gapKind
+  ].join("/");
+}
+
+export interface EarnedDepthTruth {
+  readonly mapped: boolean;
+  readonly declaredDepthClassRefs: readonly string[];
+  readonly typedDepthGapRefs: readonly string[];
+}
+
+// Total over the finite admitted state: admitted map rows (replay) x
+// required classes (admitted contract) x admitted evidence refs. The
+// per-(requirement, class) cell lattice is
+//   { unmapped, mapped_identity_unverified, earned }
+// — unmapped and unverified map to typed gap refs; earned classes become
+// declared truth; depthComplete then derives in the existing constructor.
+export function deriveEarnedDepthTruth(input: {
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly requirementId: string;
+  readonly requiredDepthClassRefs: readonly string[];
+  readonly admittedEvidenceRefs: ReadonlySet<string>;
+}): EarnedDepthTruth {
+  const rowsByRequirement = deriveAdmittedDepthProofRowsByRequirementId(input.replayEvents);
+  const rows = rowsByRequirement.get(input.requirementId);
+  if (rows === undefined) {
+    return Object.freeze({
+      mapped: false,
+      declaredDepthClassRefs: Object.freeze([]),
+      typedDepthGapRefs: Object.freeze([])
+    });
+  }
+  const rowsByClass = new Map<string, DepthProofMapRow[]>();
+  for (const row of rows) {
+    const bucket = rowsByClass.get(row.depthClassRef) ?? [];
+    bucket.push(row);
+    rowsByClass.set(row.depthClassRef, bucket);
+  }
+  const declared: string[] = [];
+  const gaps: string[] = [];
+  for (const depthClassRef of [...new Set(input.requiredDepthClassRefs)].sort()) {
+    const classRows = rowsByClass.get(depthClassRef);
+    if (classRows === undefined) {
+      gaps.push(depthGapRef(input.requirementId, depthClassRef, "unmapped"));
+      continue;
+    }
+    const verified = classRows.some((row) =>
+      row.testIdentityRefs.some((testIdentity) =>
+        input.admittedEvidenceRefs.has(testIdentityEvidenceRef(testIdentity))
+      )
+    );
+    if (!verified) {
+      gaps.push(depthGapRef(input.requirementId, depthClassRef, "identity-unverified"));
+      continue;
+    }
+    declared.push(depthClassRef);
+  }
+  return Object.freeze({
+    mapped: true,
+    declaredDepthClassRefs: Object.freeze(declared),
+    typedDepthGapRefs: Object.freeze(gaps)
+  });
+}
+
+// Entry-level combination over an entry's full requirement set. The
+// migration law "mixed old/new depth authority is non-closure" binds
+// here: once ANY requirement in the entry has an admitted map, EVERY
+// requirement is held to earned truth — an unmapped sibling contributes
+// unmapped gaps for all required classes, and a class is declared only
+// when every requirement in the entry has earned it.
+export function deriveEarnedDepthTruthForRequirements(input: {
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly requirementIds: readonly string[];
+  readonly requiredDepthClassRefs: readonly string[];
+  readonly admittedEvidenceRefs: ReadonlySet<string>;
+}): EarnedDepthTruth {
+  const perRequirement = input.requirementIds.map((requirementId) => ({
+    requirementId,
+    earned: deriveEarnedDepthTruth({
+      replayEvents: input.replayEvents,
+      requirementId,
+      requiredDepthClassRefs: input.requiredDepthClassRefs,
+      admittedEvidenceRefs: input.admittedEvidenceRefs
+    })
+  }));
+  if (!perRequirement.some((entry) => entry.earned.mapped)) {
+    return Object.freeze({
+      mapped: false,
+      declaredDepthClassRefs: Object.freeze([]),
+      typedDepthGapRefs: Object.freeze([])
+    });
+  }
+  const requiredClasses = [...new Set(input.requiredDepthClassRefs)].sort();
+  const gaps = new Set<string>();
+  let declared = new Set<string>(requiredClasses);
+  for (const { requirementId, earned } of perRequirement) {
+    if (!earned.mapped) {
+      declared = new Set<string>();
+      for (const depthClassRef of requiredClasses) {
+        gaps.add(depthGapRef(requirementId, depthClassRef, "unmapped"));
+      }
+      continue;
+    }
+    declared = new Set<string>(
+      [...declared].filter((depthClassRef) =>
+        earned.declaredDepthClassRefs.includes(depthClassRef)
+      )
+    );
+    for (const gap of earned.typedDepthGapRefs) {
+      gaps.add(gap);
+    }
+  }
+  return Object.freeze({
+    mapped: true,
+    declaredDepthClassRefs: Object.freeze([...declared].sort()),
+    typedDepthGapRefs: Object.freeze([...gaps].sort())
+  });
+}
