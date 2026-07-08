@@ -91,6 +91,14 @@ export interface RequirementProofCarryThroughContract {
   readonly requiredDepthClassRefs: readonly string[];
   readonly fdStrengthCriterionRefs: readonly string[];
   readonly requiredAdversarialCheckRefs: readonly string[];
+  // T-209 break 1 (execution-authority provenance design D1.1): the
+  // closed execution-authority vocabulary. worker_turn is the default —
+  // execution belongs to the typed F_P worker turn (execution-default
+  // law). annealed_fd_handler is admissible ONLY carrying a ratified
+  // equivalence contract ref (the T-206 annealing path); without it the
+  // value is an admission error, never a silent downgrade.
+  readonly executionAuthority: "worker_turn" | "annealed_fd_handler";
+  readonly equivalenceContractRef: string | null;
   // T-210 break 3 (-039): the depth classes whose admitted map rows
   // project kill obligations. Domain knowledge — DECLARED downstream on
   // the contract; the kernel owns only the projection mechanism. Empty
@@ -701,11 +709,37 @@ export function projectRequirementProofCoverage(input: {
   });
 }
 
+function requireExecutionAuthority(
+  value: "worker_turn" | "annealed_fd_handler" | undefined,
+  equivalenceContractRef: string | null | undefined
+): "worker_turn" | "annealed_fd_handler" {
+  const authority = value ?? "worker_turn";
+  if (authority !== "worker_turn" && authority !== "annealed_fd_handler") {
+    throw new TypeError(
+      `executionAuthority must be worker_turn or annealed_fd_handler`
+    );
+  }
+  if (
+    authority === "annealed_fd_handler" &&
+    (typeof equivalenceContractRef !== "string" ||
+      equivalenceContractRef.length === 0)
+  ) {
+    throw new TypeError(
+      "executionAuthority annealed_fd_handler requires a ratified equivalenceContractRef — F_D execution interiors arrive only by annealing (T-206), never by declaration alone"
+    );
+  }
+  return authority;
+}
+
 export function constructRequirementProofCarryThroughContract(
   input: Omit<
     RequirementProofCarryThroughContract,
-    "kind" | "adversarialDepthClassRefs"
-  > & { readonly adversarialDepthClassRefs?: readonly string[] }
+    "kind" | "adversarialDepthClassRefs" | "executionAuthority" | "equivalenceContractRef"
+  > & {
+    readonly adversarialDepthClassRefs?: readonly string[];
+    readonly executionAuthority?: "worker_turn" | "annealed_fd_handler";
+    readonly equivalenceContractRef?: string | null;
+  }
 ): RequirementProofCarryThroughContract {
   return Object.freeze({
     kind: "requirement_proof_carry_through_contract",
@@ -758,6 +792,11 @@ export function constructRequirementProofCarryThroughContract(
         "adversarialDepthClassRefs"
       )
     ),
+    executionAuthority: requireExecutionAuthority(
+      input.executionAuthority,
+      input.equivalenceContractRef
+    ),
+    equivalenceContractRef: input.equivalenceContractRef ?? null,
     evidenceRoleRefs: uniqueSorted(
       requireStringArray(input.evidenceRoleRefs, "evidenceRoleRefs")
     ),

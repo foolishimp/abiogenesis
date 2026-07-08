@@ -1725,3 +1725,27 @@ test("T-210 b5: a not_admitted template strength ref is absent from the projecte
     true
   );
 });
+
+// T-209 break 1 (D1.1): the closed execution-authority vocabulary.
+test("T-209 b1: executionAuthority defaults to worker_turn; annealed_fd_handler rejects without an equivalence contract ref", () => {
+  const table = classificationTable();
+  // default: execution belongs to the typed F_P worker turn
+  assert.equal(carryContract(table).executionAuthority, "worker_turn");
+  // annealed WITHOUT an equivalence ref: admission error, not a downgrade
+  assert.throws(
+    () => carryContract(table, { executionAuthority: "annealed_fd_handler" }),
+    /requires a ratified equivalenceContractRef/u
+  );
+  // annealed WITH the ref: lawful (the T-206 path)
+  const annealed = carryContract(table, {
+    executionAuthority: "annealed_fd_handler",
+    equivalenceContractRef: "equivalence-contract://t206/ratified"
+  });
+  assert.equal(annealed.executionAuthority, "annealed_fd_handler");
+  assert.equal(annealed.equivalenceContractRef, "equivalence-contract://t206/ratified");
+  // unknown value: rejected
+  assert.throws(
+    () => carryContract(table, { executionAuthority: "framework" }),
+    /worker_turn or annealed_fd_handler/u
+  );
+});
