@@ -16,7 +16,39 @@ from `SPEC_METHOD.md`:
 This wave does not treat alias spellings or mixed operator stories as
 acceptable closure.
 
-The current completed wave is ABG construction-substrate. It turns the T-127
+## Current Wave: Foundation Release (goal_reprice 2026-07-09)
+
+The consciousness tier (tuner, intent observer) is the OPTIMISATION over
+the system layers and is explicitly deferred. This wave completes the
+FOUNDATION: the layers a release can claim when typed F_P workers
+EXECUTE processes into typed nodes on the standard declarations-only
+path —
+
+- GTL declares (syntax); ABG interprets, admits, derives, and gates
+  (the kernel); odd_* products ship domain declarations only;
+- execution defaults to TYPED F_P worker turns (the worker runs the
+  built unit / tests / generation and returns a typed execution-result
+  node; admission and F_D mechanical checks make it truth);
+- depth is EARNED (derived from admitted intermediate assets and
+  executed reports; adversarial mutation-kill evidence admitted), never
+  self-declared;
+- F_D-specific interiors arrive only later by ratified annealing
+  (the deferred consciousness tier).
+
+Foundation-release ticket set, inside-out order: T-195 close review
+(active-lane honesty) -> T-210 with T-197 riding (kernel source
+carriers: depth-map admission, earned-depth derivation, kill-obligation
+projection, adversarial/strength admission) -> T-209 (standard-path
+adoption; typed F_P execution turns) -> odd_glc T-032 (declarations +
+the proving campaign) -> T-110 (session economics; T-111 satisfied) and
+T-208 items 1-2 riding the waves. Constitutional repricing of the three
+ratified laws (kernel, execution-default, topology-discovery) into
+their specification homes is release-blocking: a release may not claim
+law that lives only in ticket prose. Deferred from this wave: T-206,
+T-207 (consciousness), T-178/T-179 (registry lifecycle claims simply
+not made), B-010 (blocked), Python tenant trio (paused line).
+
+The prior completed wave is ABG construction-substrate. It turns the T-127
 first-slice construction carriers into an installed mixed-regime runner with
 composition grammar, vector-local regimes, observed-state admission, overlay
 frames, F_D authority placement, construction pressure packaging, and
