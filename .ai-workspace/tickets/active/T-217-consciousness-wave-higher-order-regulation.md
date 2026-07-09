@@ -1210,6 +1210,38 @@ execution-authority precedent). (3) MIGRATION of the 26 legacy files
 rides the live gate: each live test's gate re-run IS its migration
 moment (rewrite to installed style, then run). Suites 1280/1280.
 
+THE LIVE GATE OPENED (2026-07-10) — FIRST LIVE CITABLE RECORD.
+test_env/live/test_t217_witness_sandbox_live.test.mjs (born conformant
+with the live-install ruling; gate ABG_TS_T217_WITNESS_LIVE=1): a REAL
+codex worker turn (model gpt-5.5, reasoning effort xhigh from the
+operator's codex config; executor profile pty-terminal; sandbox
+capability workspace-write, declared) through the PACKED-AND-INSTALLED
+substrate — the binding imports only the installed package; every CLI
+invocation runs through the ONE traced exec surface (runTracedProcess,
+per the T-109 guard, archiving its own evidence); the worker's act is
+REAL (hello-t217.md on disk with the demanded content) and its
+invocation is replay truth (actor events under
+worker://codex/t217-live). RESULT: status converged; CITABLE TRUE
+(converged AND frozen-law AND hygiene-clean, zero failing conjuncts);
+attestation VERIFIED by a fresh process over the live record; observer
+drafts ZERO over the healthy record; and the tuner's FIRST REAL COST
+ROW — worker://codex/t217-live|backend://codex-cli, 1 invocation,
+~23.0s live turn (23,340ms and 23,045ms across the two green runs).
+Fix ledger from the live loop (each a real gate the sandbox surfaced):
+--scope workspace is the only lawful scope; productStartupConfig
+requires configSourceRefs; F_P dispatch requires the
+instruction-assembly startup (the m04 binding precedent); macOS
+mkdtemp /var symlinks vs process.cwd() realpath split the basis
+identity (realpath the root — the t085 precedent); the REGISTRY-ROUTED
+flow demands per-entry assembled plans beyond the default startup
+(NAMED FINDING for the live-gate backlog: registry-selected dispatch +
+default instruction assembly do not compose yet — the drift/reprice
+laws stay proven by the in-suite RC gate; the live campaign path via
+odd_glc builds real plans); the T-109 guard correctly forced the
+installed-binary spawns onto the traced surface (every future live
+migration inherits this shape). Suites 1280/1280 with the live test
+green under its gate.
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
