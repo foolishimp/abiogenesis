@@ -169,3 +169,25 @@ REQUIRED WORK ADDED (the replacement, both halves mandatory):
 - [ ] ticket declares library usage and names the governing library or rationale
 - [ ] single tenant lifecycle (odd_glc typescript); no sibling duplicate
 - [ ] ticket wording, product wording, and proof claims are reconciled before closure
+## Execution-Authority Core: PROVEN LIVE (2026-07-09)
+
+The governance-failure ruling's required work is REALIZED AND PROVEN:
+(a) REMOVAL — the odd_glc framework executes nothing: plan executor
+rewritten verify-only, sbt compile gate retired, execution stages are
+typed F_P worker turns (run-fix-run); proven by the T-032 citable run —
+74/74 subject executions were worker turns, audited independently
+(Review D-final claim 5 = the 11.5B execution-authority evidence for
+the execution half). (b) MECHANICAL ENFORCEMENT — executionAuthority
+contract vocabulary (rc.14+), provenance-scoped evidence ledger
+(framework-assembled execution evidence inadmissible), kernel-minted
+mutation evidence (rc.15+), standing signature-pinned conformance
+differentials in BOTH repos.
+
+REMAINING SCOPE (this ticket stays open): the declarations-only
+adoption — the generated binding still owns worker-loop plumbing
+(transport invocation, manifest consumption, response parsing,
+materialization, evidence archiving, evaluator prompting) that the
+substrate's standard F_P pipeline handler family should absorb.
+ESCROWED: kernel-witnessed workspace digests (D1.4; worker-reported
+restore digests spot-check-verified by the D-final audit but still
+self-reported at admission).
