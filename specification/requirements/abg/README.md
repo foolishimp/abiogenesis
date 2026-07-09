@@ -29,6 +29,12 @@ related engine behavior.
 - replay-stable ABG.Fn regime composition grammar
 - correction, supersession, and self-hosting behavior
 - one replay-derived active-iteration outcome algebra
+- supervisor/operator witness law: halt diagnosis, defect intake, reprice
+  admission, substrate stamps, operator lifecycle, workspace hygiene,
+  mechanical citability, CLI-as-control-plane
+- reflective tuner law: declaration-draft-only optimisation, ratification
+  states, annealing equivalence contracts, crystallization (rails/emergence)
+  track changes
 
 ## Families
 
@@ -60,3 +66,5 @@ related engine behavior.
 - `REQ-R-ABG3-TRANSPORT.md`
 - `REQ-R-ABG3-INTERPRET.md`
 - `REQ-R-ABG3-SELFHOSTING.md`
+- `REQ-R-ABG3-SUPERVISOR-WITNESS.md`
+- `REQ-R-ABG3-TUNER.md`

@@ -193,6 +193,23 @@ workspace hygiene stamps, mechanical citability predicate); (c) FPC
 refinement naming the observer-tier observable set. EXIT: live spec
 carries every law this wave builds on.
 
+DELIVERED (2026-07-09): product_reprice — PRODUCT.md "The reflective
+boundary" repriced. Requirement_reprice — (a) specification/
+requirements/abg/REQ-R-ABG3-TUNER.md (TUNER-001..014: catalog module,
+tune verbs, draft-only writes, ratification states, annealing
+authority + equivalence contracts, crystallization/composition-entropy/
+rail-break/mode-interchangeability per design SS9, catalog-visibility
+curation); (b) specification/requirements/abg/
+REQ-R-ABG3-SUPERVISOR-WITNESS.md (WITNESS-001..014: T-215 rows 1-7
+verbatim + frozen-law predicate + CLI-as-control-plane law per design
+SS8 + campaign lifecycle verbs + tier surfaces as CLI projections +
+role-separation audit); (c) FPC-018 (observer observable set) +
+FPC-019 (non-constructive observer catalog; drill through published
+refinement boundaries; termination at the human F_H seat). Family
+README registered. PHASE 0 EXIT MET: live spec carries every law this
+wave builds on. Realization of every WITNESS/TUNER requirement is
+owned by Phases 1-4.
+
 ### Phase 1 — Sense organs + trustworthy telemetry
 Absorbs T-215 (rows 1-7 realized as kernel events/projections),
 T-211's trust items (replay-log authentication — the tier reads replay

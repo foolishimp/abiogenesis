@@ -1,0 +1,48 @@
+# REQ-R-ABG3-SUPERVISOR-WITNESS — Supervisor As Admitted Actor
+
+**Status**: Active
+**Category**: Constraint / Guarantee
+**Date**: 2026-07-09
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-PROVENANCE.md](./REQ-R-ABG3-PROVENANCE.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [T-217](../../../.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-215](../../../.ai-workspace/tickets/completed/T-215-supervisor-as-admitted-actor.md))
+
+---
+
+## Purpose
+
+Every supervisor or operator act over a run is a typed, actor-attributed,
+replay-visible, admitted event. The monitor seat is a framework actor:
+halt diagnosis, defect triage, mid-run law amendment, run lifecycle, and
+evidence handling leave replay truth, and run citability is a mechanical
+replay predicate rather than judgment. Witness truth is registrations
+into the existing closed event universe plus replay-derived read models;
+it introduces no new runtime store and no supervisor node kind.
+
+## Acceptance Criteria
+
+**REQ-R-ABG3-WITNESS-001**: ABG shall derive a typed halt-diagnosis projection for any halted or gap-stopped run: the implicated frontier, rejection or failure evidence refs, and attempt history, replay-derived without private diagnostic state.
+
+**REQ-R-ABG3-WITNESS-002**: Defect intake from a halt shall be a typed triage record admitted as an event, carrying owner, change_class, and re-entry point per TICKET_METHOD. Ticket drafts shall be generated FROM admitted intake records; intake is the gap-to-intent seam of the reflective loop, and solutioning proceeds up to — never into — action.
+
+**REQ-R-ABG3-WITNESS-003**: Resuming or continuing a run whose declaration, binding, or policy truth changed since the prior segment shall admit a `declaration_reprice_admitted` event carrying before/after digests, change_class, and the owning ticket ref. A substrate change without an admitted reprice event shall be a typed block, not a silent continuation.
+
+**REQ-R-ABG3-WITNESS-004**: Frozen-law classification shall be a replay predicate: a run span is frozen-law exactly when it contains zero admitted reprice events. Frozen-law status shall not rest on operator assertion or post-hoc judgment.
+
+**REQ-R-ABG3-WITNESS-005**: Each resumed segment shall stamp substrate identity (package/artifact identity and governing declaration digests) so mixed-substrate runs decompose per segment under replay.
+
+**REQ-R-ABG3-WITNESS-006**: Operator run lifecycle shall be actor-attributed F_H events: at minimum `run_resumed` and `run_stopped` with a typed reason. Lifecycle acts that bypass event admission shall not exist on the operator path.
+
+**REQ-R-ABG3-WITNESS-007**: ABG shall witness workspace hygiene over evidence surfaces: kernel digests at segment boundaries, detection and typed classification of foreign writes, and a copy-out diagnosis rule — diagnosis operates on copied-out artifacts, and foreign-written evidence is inadmissible for closure until re-measured.
+
+**REQ-R-ABG3-WITNESS-008**: Citability shall be a replay predicate: converged AND zero reprice events AND hygiene clean. The citability projection shall expose which conjunct fails when a run is not citable.
+
+**REQ-R-ABG3-WITNESS-009**: The CLI shall be the one operator interface. Every operator interaction is a CLI verb; every verb emits admitted, actor-attributed events; operator acts route through the CLI or they did not happen. Dashboards, side-channel scripts, and direct harness entry are not operator surfaces; tests driving the harness in-process are not operators.
+
+**REQ-R-ABG3-WITNESS-010**: Campaign lifecycle shall join the CLI verb surface: run/resume/stop scenario verbs replace raw harness invocation, environment and sandbox capabilities are declared verb arguments, each verb emits the operator lifecycle events, and a run is reproducible from its CLI invocation line.
+
+**REQ-R-ABG3-WITNESS-011**: Tier read surfaces shall be CLI-rendered projections over replay: at minimum an observe-report verb (gaps, drift, halts, citability) and draft review/ratify verbs where ratification is itself an admitted F_H event. No tier surface may own a second truth store.
+
+**REQ-R-ABG3-WITNESS-012**: Witness truth shall audit the supervisor role separation. A constructive act performed outside admitted work (bypassing the ticket effector) shall surface as a reprice or hygiene violation in replay; witness events record the separation, they do not substitute for it.
+
+**REQ-R-ABG3-WITNESS-013**: Deterministic tests shall cover halt-diagnosis derivation, defect-intake admission and ticket-draft generation from it, reprice admission on changed substrate with block-on-missing-reprice, the frozen-law predicate over spans with and without reprice events, per-segment substrate stamps, operator lifecycle attribution, foreign-write detection with copy-out classification, the citability predicate and its failing-conjunct exposure, and CLI-verb-to-admitted-event coverage before runtime/live closure can be claimed.
+
+**REQ-R-ABG3-WITNESS-014**: Witness event kinds that initiate, terminate, clip, or declip runtime fluent truth shall declare Event Calculus effects before implementation closure. Frozen-law and citability states are replay-derived predicate truth, never primary event authority.
