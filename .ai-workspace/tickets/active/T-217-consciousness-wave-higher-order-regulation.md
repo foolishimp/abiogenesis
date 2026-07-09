@@ -599,6 +599,30 @@ graph_function_selection_rejected); the grammar binds it as session
 verbs (design SS8 updated). TUNER-012 catalog-visibility curation is
 the optimisation twin of this operator restriction.
 
+SUBSUMPTION UPGRADE (user adjudication 2026-07-09, "incorporated into
+my current build, or better said subsumed"): the REUSABLE
+review/consensus graph-function FAMILIES from odd_sdlc T-167/T-166 are
+SUBSUMED into this wave — design authority moves here; they ship as
+substrate-bundled DECLARED modules in the tuner-catalog slot
+(TUNER-001 precedent; D-4 all-in): gtl://abg/review/* (surface ->
+configured reviewer profiles -> typed findings -> rulings ->
+TICKET_METHOD drafts via the S4 intake seam; never status authority)
+and gtl://abg/consensus/* (same-surface submitter/reviewer refinement,
+done|recurse via lawful graph-function recursion). NOTHING-LOST
+BOUNDARY: odd_sdlc T-166/T-167 RETAIN their host-binding scope
+(odd_sdlc-specific bindings + the completed T-162 ticket-workflow
+injection); the reusable outer contracts, carrier sets, decision
+vocabularies, recursion/stop law, and proof obligations specified
+there are absorbed VERBATIM as this wave's design inputs. PHASE
+PLACEMENT: family design + declared modules land with Phase 3 (the
+observer's product-module work — the observer's campaign IS a review
+host); the odd_glc REVIEW HOST BINDING is a named Phase 5 deliverable
+(the campaign's review equipment: campaign artifacts as the surface,
+codex+claude reviewer profiles, findings -> defect_intake_admitted ->
+drafts behind F_H, all inside the session allowlist). odd_glc ships
+domain declarations only — the binding adds no systems functionality
+(three-layer law holds).
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the
@@ -662,6 +686,8 @@ repin; release-grade by its own frozen-law proving.
 | T-213 typed artifact schemas | Phase 1 | one-schema/three-duties law; prompt-rendered + admission-enforced |
 | T-214 diff-execution witness | Phase 1 | coverage-of-change gate; binding export pin rule |
 | T-211 rc10 survivors | Phase 1 (trust items) | replay-log authentication; valibot installer fix; remaining review-survivor rows re-triaged into Phase 1 or explicitly retired at Phase 0 |
+| odd_sdlc T-167 review family (PARTIAL: reusable family subsumed 2026-07-09; host bindings stay odd_sdlc) | Phase 3 (declared module gtl://abg/review/*) + Phase 5 (odd_glc host binding) | outer contract, reviewer profiles, finding/ruling vocabulary, ticket-draft routing via S4 intake, proof obligations |
+| odd_sdlc T-166 consensus family (PARTIAL: reusable family subsumed 2026-07-09; host bindings stay odd_sdlc) | Phase 3 (declared module gtl://abg/consensus/*) + Phase 4 (tuner stages per T-206 absorption) | outer contract, round carriers, reduction/termination policy, recursion/stop law, done-or-recurse closure |
 | T-110 sticky-session pool | Phase 4 | session affinity over traced call-out; local-spawn default; T-111 dependency noted |
 | T-208 commonization paydown | Phase 2 (riders) | items 1-2 verbatim; item 3's -013 triage note preserved |
 | T-209 standard-path adoption | Phase 2 | migration declaration + checklist carried VERBATIM; execution-authority core already proven (history preserved in the superseded file) |
