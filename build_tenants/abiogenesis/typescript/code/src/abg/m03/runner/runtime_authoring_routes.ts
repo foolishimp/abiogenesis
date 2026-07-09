@@ -29,6 +29,7 @@ import {
   constructWorkspaceHygieneStampedEvent
 } from "../contracts/event_factories.js";
 import {
+  deriveBasisForkObligations,
   deriveFrozenLawPredicate,
   type FrozenLawPredicate
 } from "../contracts/declaration_reprice.js";
@@ -137,13 +138,35 @@ function hasBasisAdmittedEvent(
   );
 }
 
+// S5 self-review F1: the fresh-store convenience admission must not
+// launder a basis fork around the runner's witness. The check reads the
+// RAW caller events (route-side replay is basis-filtered and prior
+// spines are cross-basis by definition); an uncovered fork throws — the
+// operator ratifies from the existing spine first.
 function withBasisAdmission(
   basis: ExecutionBasis,
-  replayEvents: readonly RuntimeEvent[],
+  rawRuntimeEvents: readonly RuntimeEvent[],
   events: readonly RuntimeEvent[]
 ): readonly RuntimeEvent[] {
-  if (hasBasisAdmittedEvent(basis, replayEvents)) {
+  if (hasBasisAdmittedEvent(basis, rawRuntimeEvents)) {
     return events;
+  }
+  const forkObligations = deriveBasisForkObligations({
+    priorEvents: rawRuntimeEvents,
+    enteringBasis: {
+      basisId: basis.id,
+      graphFunctionId: basis.graphFunction.id,
+      jobId: basis.job.id,
+      runId: basis.runId,
+      workKey: basis.workKey
+    }
+  });
+  if (forkObligations.uncoveredForkRows.length > 0) {
+    throw new TypeError(
+      `basis_fork_detected: ${forkObligations.uncoveredForkRows
+        .map((row) => row.spineRef)
+        .join(",")} — route admission cannot ratify a fork; admit the covering reprice from the existing spine first`
+    );
   }
   return Object.freeze([constructBasisAdmittedEvent(basis), ...events]);
 }
@@ -350,7 +373,7 @@ export function admitDeclarationReprice(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([repriceEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([repriceEvent])),
     input.eventSink
   );
   const nextReplayEvents = appendEmittedReplay(replayEvents, emittedEvents);
@@ -415,7 +438,7 @@ export function admitRunResumed(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([lifecycleEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([lifecycleEvent])),
     input.eventSink
   );
   return Object.freeze({
@@ -445,7 +468,7 @@ export function admitRunStopped(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([lifecycleEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([lifecycleEvent])),
     input.eventSink
   );
   return Object.freeze({
@@ -506,7 +529,7 @@ export function admitWorkspaceHygieneStamp(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([hygieneEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([hygieneEvent])),
     input.eventSink
   );
   const nextReplayEvents = appendEmittedReplay(replayEvents, emittedEvents);
@@ -581,7 +604,7 @@ export function admitDefectIntake(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([intakeEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([intakeEvent])),
     input.eventSink
   );
   return Object.freeze({
@@ -612,7 +635,7 @@ export function applyExplicitGraphVectorResumeCursor(
     correlationId: input.correlationId
   });
   const emittedEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, Object.freeze([cursorEvent])),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([cursorEvent])),
     input.eventSink
   );
   const nextReplayEvents = appendEmittedReplay(replayEvents, emittedEvents);
@@ -688,7 +711,7 @@ export function applyGraphSpanReentryRoute(
     })
   ]);
   const emittedSpanEvents = emit(
-    withBasisAdmission(input.basis, replayEvents, scheduleAndFoldEvents),
+    withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), scheduleAndFoldEvents),
     input.eventSink
   );
   let nextReplayEvents = appendEmittedReplay(replayEvents, emittedSpanEvents);

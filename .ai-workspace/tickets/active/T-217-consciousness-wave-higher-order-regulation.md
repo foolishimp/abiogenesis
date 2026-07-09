@@ -518,6 +518,27 @@ fail-closed), i3 (live runner: policy-bundle fork blocked before
 admission, covering reprice ratifies, forked basis admitted after).
 SR-2 CLOSED.
 
+S5 SELF-REVIEW (2026-07-09, covering S5 + the post-bdd8a07 fix
+commits; S3 was already covered by the first self-review round which
+produced SR-1): ONE HIGH FOUND AND FIXED — F-S5-1 ROUTE LAUNDERING:
+every operator route's withBasisAdmission prepended basis_admitted for
+an unseen basis with NO fork check, and route-side replay is
+basis-filtered so the prior spine was invisible — any route called
+with a forked basis over an existing store admitted the fork silently,
+after which the runner saw a "resume" and its guard never fired.
+FIXED: withBasisAdmission now takes the RAW caller events (all 7 call
+sites repriced), enforces deriveBasisForkObligations, and throws
+basis_fork_detected on an uncovered fork — the operator ratifies from
+the existing spine first (pin j1: laundering probe throws; ratified
+fork admits through the route). Lesser notes: the S4-fix private
+decisiveByOrdinal in halt_diagnosis now duplicates the shared
+admission_hygiene authority (SR-6 rider grew by one, consolidate
+there); baseline key collision between an artifactRef and an assetRef
+naming different content is contrived-but-possible (documented,
+no action). Suites 1211/1211 green. Review ledger: S1-S5 all have at
+least one hostile round (codex or self); codex rounds on S3+S5
+surfaces remain requested.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

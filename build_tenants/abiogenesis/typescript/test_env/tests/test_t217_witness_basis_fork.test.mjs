@@ -13,8 +13,11 @@ import {
   mintExecutionBasisSpineRef
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
-import { runEngineStart } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
+import { admitRunResumed, runEngineStart } from "../../build/semantic/code/src/index.js";
+import {
+  buildThreeStageBasis,
+  buildThreeStageStartContext
+} from "./support/m03-iteration-fixtures.mjs";
 
 const SPINE = Object.freeze({
   graphFunctionId: "graph-function://t217/s5/subject",
@@ -226,4 +229,83 @@ test("T-217 S5 i3: runner blocks a live policy fork before the new basis is admi
       event.kind === "basis_admitted" && event.basisId === blocked.basis.id
   );
   assert.ok(admittedB, "the ratified basis is admitted");
+});
+
+test("T-217 S5 j1 (self-review F1): routes cannot launder a fork — the convenience basis admission enforces the same witness", () => {
+  const { input, context } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const runOneEvents = [];
+  runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [],
+    eventSink: (event) => runOneEvents.push(event)
+  });
+  const basisA = runOneEvents.find((event) => event.kind === "basis_admitted");
+  assert.ok(basisA);
+  // a forked basis object over the same spine (test-side reconstruction:
+  // same work identity, different basis id as a policy change would mint)
+  const fixture = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const forkedBasis = Object.freeze({
+    ...fixture,
+    id: "execution_basis:forked-for-j1",
+    runId: basisA.runId,
+    workKey: basisA.workKey
+  });
+  assert.equal(forkedBasis.graphFunction.id, basisA.graphFunctionId);
+  assert.equal(forkedBasis.job.id, basisA.jobId);
+
+  // the laundering probe: any route with the forked basis over the store
+  assert.throws(
+    () =>
+      admitRunResumed({
+        basis: forkedBasis,
+        runtimeEvents: [...runOneEvents],
+        eventSink: () => {},
+        operatorActorRef: "operator://jim",
+        reasonKind: "operator_resume",
+        reasonDetail: "laundering probe"
+      }),
+    /basis_fork_detected/u
+  );
+
+  // the covering reprice ratifies; the route then admits the forked basis
+  const [ratified] = emit(
+    constructDeclarationRepriceAdmittedEvent({
+      basisId: basisA.basisId,
+      runId: basisA.runId,
+      workKey: basisA.workKey,
+      declarationRef: mintExecutionBasisSpineRef({
+        graphFunctionId: basisA.graphFunctionId,
+        jobId: basisA.jobId,
+        runId: basisA.runId,
+        workKey: basisA.workKey
+      }),
+      beforeDigest: basisA.basisId,
+      afterDigest: forkedBasis.id,
+      changeClass: "realization_refactor",
+      owningTicketRef: "ticket://T-217",
+      operatorActorRef: "operator://jim",
+      reason: "ratified fork for the route path"
+    }),
+    () => {}
+  );
+  const sunk = [];
+  const resumed = admitRunResumed({
+    basis: forkedBasis,
+    runtimeEvents: [...runOneEvents, ratified],
+    eventSink: (event) => sunk.push(event),
+    operatorActorRef: "operator://jim",
+    reasonKind: "operator_resume",
+    reasonDetail: "ratified fork continues"
+  });
+  assert.equal(resumed.kind, "run_resumed_admission_result");
+  const admittedFork = sunk.find(
+    (event) =>
+      event.kind === "basis_admitted" && event.basisId === forkedBasis.id
+  );
+  assert.ok(admittedFork, "the ratified fork is admitted through the route");
 });
