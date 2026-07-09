@@ -6,8 +6,10 @@
 import type {
   CanonicalRuntimeEvent,
   DeclarationRepriceAdmittedEvent,
+  DefectIntakeAdmittedEvent,
   ExecutionBasis,
   GraphChangeClass,
+  GraphReentryPoint,
   GraphVectorResumeCursorAppliedEvent,
   RunResumedEvent,
   RunResumeReasonKind,
@@ -21,6 +23,7 @@ import {
   constructBasisAdmittedEvent,
   constructDeclarationRepriceAdmittedEvent,
   constructGraphVectorResumeCursorAppliedEvent,
+  constructDefectIntakeAdmittedEvent,
   constructRunResumedEvent,
   constructRunStoppedEvent,
   constructWorkspaceHygieneStampedEvent
@@ -37,6 +40,14 @@ import {
   type WorkspaceHygieneObservation,
   type WorkspaceHygienePredicate
 } from "../contracts/workspace_hygiene.js";
+import {
+  deriveHaltDiagnosis,
+  type HaltDiagnosisProjection
+} from "../contracts/halt_diagnosis.js";
+import {
+  deriveTicketDraftFromIntake,
+  type TicketDraftProjection
+} from "../contracts/defect_intake.js";
 import {
   deriveRuntimeContinuationTransitionProjectionFromDisposition,
   type RuntimeContinuationTransitionProjection
@@ -509,6 +520,80 @@ export function admitWorkspaceHygieneStamp(
     emittedEvents,
     replayEvents: nextReplayEvents
   } satisfies WorkspaceHygieneStampResult);
+}
+
+export interface DefectIntakeRequest {
+  readonly basis: ExecutionBasis;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly owner: string;
+  readonly changeClass: GraphChangeClass;
+  readonly reEntryPoint: GraphReentryPoint;
+  readonly summary: string;
+  readonly triagedBy: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}
+
+export interface DefectIntakeAdmissionResult {
+  readonly kind: "defect_intake_admission_result";
+  readonly basis: ExecutionBasis;
+  readonly diagnosis: HaltDiagnosisProjection;
+  readonly intakeEvent: DefectIntakeAdmittedEvent;
+  readonly intakeRef: string;
+  readonly ticketDraft: TicketDraftProjection;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+// Implements: REQ-R-ABG3-WITNESS-002 — the gap-to-intent seam. The route
+// derives the halt diagnosis from replay (an intake presupposes a halt —
+// fail closed otherwise), admits the typed triage record bound to that
+// diagnosis, and returns the ticket DRAFT derived from the admitted
+// record. Solutioning stops at the draft: the ticket is the sole
+// effector behind F_H.
+export function admitDefectIntake(
+  input: DefectIntakeRequest
+): DefectIntakeAdmissionResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const diagnosis = deriveHaltDiagnosis(replayEvents);
+  if (!diagnosis.halted) {
+    throw new TypeError(
+      "Defect intake requires a halted run: the replay carries no gap_stop terminal to triage"
+    );
+  }
+  const intakeEvent = constructDefectIntakeAdmittedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    haltDiagnosisRef: diagnosis.diagnosisRef,
+    owner: input.owner,
+    changeClass: input.changeClass,
+    reEntryPoint: input.reEntryPoint,
+    summary: input.summary,
+    evidenceRefs: input.evidenceRefs ?? diagnosis.rejectionEvidenceRefs,
+    triagedBy: input.triagedBy,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(input.basis, replayEvents, Object.freeze([intakeEvent])),
+    input.eventSink
+  );
+  return Object.freeze({
+    kind: "defect_intake_admission_result",
+    basis: input.basis,
+    diagnosis,
+    intakeEvent,
+    intakeRef: intakeEvent.intakeRef,
+    ticketDraft: deriveTicketDraftFromIntake(intakeEvent),
+    emittedEvents,
+    replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
+  } satisfies DefectIntakeAdmissionResult);
 }
 
 export function applyExplicitGraphVectorResumeCursor(

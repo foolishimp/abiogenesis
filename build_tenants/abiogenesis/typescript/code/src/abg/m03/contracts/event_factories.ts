@@ -57,7 +57,9 @@ import type {
   CCallResultAdmittedEvent,
   CCallStageRole,
   DeclarationRepriceAdmittedEvent,
+  DefectIntakeAdmittedEvent,
   GraphChangeClass,
+  GraphReentryPoint,
   RunResumedEvent,
   RunResumeReasonKind,
   RunSegmentOpenedEvent,
@@ -1197,6 +1199,57 @@ export function constructWorkspaceHygieneStampedEvent(input: {
     rows: Object.freeze(input.rows.map((row) => Object.freeze({ ...row }))),
     causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId: input.correlationId ?? hygieneRef
+  });
+}
+
+export function mintDefectIntakeRef(input: {
+  readonly basisId: string;
+  readonly haltDiagnosisRef: string;
+  readonly owner: string;
+  readonly changeClass: GraphChangeClass;
+  readonly reEntryPoint: GraphReentryPoint;
+  readonly summary: string;
+}): string {
+  return `defect-intake:${stableSha256Digest({
+    basisId: input.basisId,
+    haltDiagnosisRef: input.haltDiagnosisRef,
+    owner: input.owner,
+    changeClass: input.changeClass,
+    reEntryPoint: input.reEntryPoint,
+    summary: input.summary
+  })}`;
+}
+
+export function constructDefectIntakeAdmittedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly haltDiagnosisRef: string;
+  readonly owner: string;
+  readonly changeClass: GraphChangeClass;
+  readonly reEntryPoint: GraphReentryPoint;
+  readonly summary: string;
+  readonly evidenceRefs: readonly string[];
+  readonly triagedBy: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): DefectIntakeAdmittedEvent {
+  const intakeRef = mintDefectIntakeRef(input);
+  return Object.freeze({
+    kind: "defect_intake_admitted",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    intakeRef,
+    haltDiagnosisRef: input.haltDiagnosisRef,
+    owner: input.owner,
+    changeClass: input.changeClass,
+    reEntryPoint: input.reEntryPoint,
+    summary: input.summary,
+    evidenceRefs: freezeStringArray(input.evidenceRefs),
+    triagedBy: input.triagedBy,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId ?? intakeRef
   });
 }
 

@@ -1378,6 +1378,24 @@ export {
   constructWorkspaceHygieneStampedEvent,
   mintWorkspaceHygieneRef
 } from "./event_factories.js";
+export {
+  constructDefectIntakeAdmittedEvent,
+  mintDefectIntakeRef
+} from "./event_factories.js";
+export { deriveHaltDiagnosis } from "./halt_diagnosis.js";
+export type {
+  HaltAttemptRow,
+  HaltDiagnosisProjection,
+  HaltFailureRow,
+  HaltRejectionRow
+} from "./halt_diagnosis.js";
+export {
+  deriveAdmittedDefectIntakeEvents,
+  deriveTicketDraftFromIntake,
+  deriveTicketDraftsFromIntakes
+} from "./defect_intake.js";
+export type { TicketDraftProjection } from "./defect_intake.js";
+export type { DefectIntakeAdmittedEvent } from "./carriers.js";
 export { WORKSPACE_HYGIENE_CLASSIFICATION_VALUES } from "./carriers.js";
 export type {
   WorkspaceHygieneClassification,

@@ -408,6 +408,36 @@ shuffled-replay + unorderable). P3 literal NUL byte in run_segments.ts
 made the file binary to diff tooling; killed by the P1a rewrite (no
 compound key needed; byte-verified clean). Suites 1198/1198 green.
 
+S4 DELIVERED (2026-07-09): deriveHaltDiagnosis (WITNESS-001) — pure
+replay fold, no new event kind, no private diagnostic state: halted
+iff LAST terminal is gap_stop (a halt superseded by convergence is
+resolved); implicated edges (attempt+rejection union), attempt history
+(retry opened/stopped/escalated/progress rows with reasons, counts,
+stationarity), failure rows (surface/class/message), rejection rows +
+evidence refs (payload refs + reentry causing-frontier refs),
+reentry plan refs, latest segment ref (S2 tie); diagnosisRef
+content-derived. defect_intake_admitted (WITNESS-002) — the typed
+triage record: owner + changeClass (GraphChangeClass reused) +
+reEntryPoint (GRAPH_REENTRY_POINT_VALUES reused — both TICKET_METHOD
+vocabularies were already constitutional carriers, no new particles) +
+summary + evidence + triagedBy attribution; intakeRef self-certified
+(retriage-without-remint inadmissible). deriveTicketDraftFromIntake:
+drafts derive FROM admitted intake records; solutioning STOPS at the
+draft (nothing writes tickets — the effector stays behind F_H per
+FPC-007/-019); observer/tuner separation by construction (intake
+carries no optimisation terms). Route admitDefectIntake: derives the
+diagnosis from replay, FAIL-CLOSED on non-halted replay (intake
+presupposes a halt), binds intake to diagnosisRef, defaults evidence
+to the diagnosis rejection refs, returns the draft. Tests
+test_t217_witness_halt_intake.test.mjs f1-f5; f5 is the FULL LOOP
+differential: S1's reprice guard halts a live resumed run =>
+deriveHaltDiagnosis reads declaration_reprice_required => the intake
+route triages it to changeClass requirement_reprice / re-entry
+requirements => ticket draft. The tier's sense-to-intent path runs end
+to end on kernel law alone. Suites 1203/1203 green. T-215 ROWS 1-7 NOW
+ALL REALIZED. Phase 1 remainder: T-211 trust items, T-213 typed
+artifact schemas, T-214 diff-execution witness.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

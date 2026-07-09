@@ -33,6 +33,7 @@ export {
 } from "./saga_frontier_runner.js";
 export {
   admitDeclarationReprice,
+  admitDefectIntake,
   admitRunResumed,
   admitRunStopped,
   admitWorkspaceHygieneStamp,
@@ -42,6 +43,8 @@ export {
 export type {
   DeclarationRepriceAdmissionRequest,
   DeclarationRepriceAdmissionResult,
+  DefectIntakeAdmissionResult,
+  DefectIntakeRequest,
   OperatorRunLifecycleRequest,
   RunResumedAdmissionResult,
   RunStoppedAdmissionResult,

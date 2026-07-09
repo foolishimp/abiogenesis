@@ -1360,6 +1360,36 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
     }
   },
+  defect_intake_admitted: (event) => {
+    applyFieldRules("DefectIntakeAdmittedEvent", {
+      basisId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      intakeRef: "non_empty_string",
+      haltDiagnosisRef: "non_empty_string",
+      owner: "non_empty_string",
+      changeClass: { oneOf: GRAPH_CHANGE_CLASS_VALUES },
+      reEntryPoint: { oneOf: GRAPH_REENTRY_POINT_VALUES },
+      summary: "non_empty_string",
+      evidenceRefs: "string_array",
+      triagedBy: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    const expectedIntakeRef = `defect-intake:${stableSha256Digest({
+      basisId: event["basisId"],
+      haltDiagnosisRef: event["haltDiagnosisRef"],
+      owner: event["owner"],
+      changeClass: event["changeClass"],
+      reEntryPoint: event["reEntryPoint"],
+      summary: event["summary"]
+    })}`;
+    if (event["intakeRef"] !== expectedIntakeRef) {
+      throw new TypeError(
+        "DefectIntakeAdmittedEvent.intakeRef must be the content-derived identity"
+      );
+    }
+  },
   run_segment_opened: (event) => {
     applyFieldRules("RunSegmentOpenedEvent", {
       basisId: "non_empty_string",

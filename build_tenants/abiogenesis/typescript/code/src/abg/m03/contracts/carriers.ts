@@ -1021,6 +1021,29 @@ export interface WorkspaceHygieneStampedEvent {
   readonly correlationId: string;
 }
 
+// Implements: REQ-R-ABG3-WITNESS-002 — defect intake from a halt is a
+// typed triage record admitted as an event: owner, change_class, and
+// re-entry point per TICKET_METHOD, bound to the replay-derived halt
+// diagnosis it triages. Intake is the gap-to-intent seam; ticket DRAFTS
+// derive FROM admitted intake records (defect_intake.ts) and solutioning
+// proceeds up to — never into — action. intakeRef is self-certified.
+export interface DefectIntakeAdmittedEvent {
+  readonly kind: "defect_intake_admitted";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly intakeRef: string;
+  readonly haltDiagnosisRef: string;
+  readonly owner: string;
+  readonly changeClass: GraphChangeClass;
+  readonly reEntryPoint: GraphReentryPoint;
+  readonly summary: string;
+  readonly evidenceRefs: readonly string[];
+  readonly triagedBy: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2829,6 +2852,7 @@ export type RuntimeEvent =
   | RunResumedEvent
   | RunStoppedEvent
   | WorkspaceHygieneStampedEvent
+  | DefectIntakeAdmittedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -2969,6 +2993,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "run_resumed",
   "run_stopped",
   "workspace_hygiene_stamped",
+  "defect_intake_admitted",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",
