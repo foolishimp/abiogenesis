@@ -74,12 +74,17 @@ import {
   admitReplayLogAttestation,
   admitRunResumed,
   admitRunStopped,
+  admitTunerDraft,
+  admitTunerDraftDecision,
   admitWorkspaceHygieneStamp,
   deriveCitabilityPredicate,
   deriveHaltDiagnosis,
   deriveKernelMeasurableSurfaces,
+  deriveConfigurationCostRows,
   deriveObserverObservables,
   deriveObserverTicketDrafts,
+  deriveTunerDraftStates,
+  deriveTunerModeSignals,
   deriveRunSegments,
   reconstructRouteBasisFromReplay,
   runtimeEventsForBasis,
@@ -92,6 +97,7 @@ import type {
   RouteBasisIdentity,
   RunResumeReasonKind,
   RunStopReasonKind,
+  TunerProposalKind,
   WorkspaceHygieneObservation
 } from "../abg/m03/index.js";
 import { sha256DigestForBytes, sha256HexForText } from "../shared/runtime_identity.js";
@@ -119,6 +125,7 @@ type ParsedCommand =
   | ParsedGapsCommand
   | ParsedWitnessCommand
   | ParsedObserveCommand
+  | ParsedTuneCommand
   | ParsedGenConfigCommand
   | ParsedAssessResultCommand
   | ParsedTypecheckGtlProgramCommand
@@ -196,6 +203,15 @@ interface ParsedObserveCommand {
   readonly kind: "observe";
   readonly sub: "report" | "drafts";
   readonly workspace: string;
+}
+
+// T-217 Phase 4 (TUNER-003): the tuner verb surface — report renders
+// replay-derived read models only; propose/ratify/reject admit events.
+interface ParsedTuneCommand {
+  readonly kind: "tune";
+  readonly sub: "report" | "propose" | "ratify" | "reject";
+  readonly workspace: string;
+  readonly fields: Readonly<Record<string, string>>;
 }
 
 interface ParsedGapsCommand {
@@ -769,6 +785,91 @@ function parseObserveCommand(args: readonly string[]): ParsedObserveCommand {
   });
 }
 
+const TUNE_SUB_FLAGS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  report: Object.freeze([]),
+  propose: Object.freeze([
+    "proposal-kind",
+    "proposer",
+    "affects",
+    "before-digest",
+    "after-digest",
+    "summary",
+    "equivalence-contract",
+    "cite",
+    "telemetry"
+  ]),
+  ratify: Object.freeze(["draft-ref", "actor", "policy"]),
+  reject: Object.freeze(["draft-ref", "actor", "reason"])
+});
+
+function parseTuneCommand(args: readonly string[]): ParsedTuneCommand {
+  const sub = args[0];
+  if (
+    sub !== "report" &&
+    sub !== "propose" &&
+    sub !== "ratify" &&
+    sub !== "reject"
+  ) {
+    throw new CliError(
+      "tune requires a subcommand: report | propose | ratify | reject"
+    );
+  }
+  const parsed = parseFlags(args.slice(1));
+  requireNoPositionals(parsed, `tune ${sub}`);
+  requireAllowedFlags(parsed, `tune ${sub}`, [
+    "workspace",
+    ...TUNE_SUB_FLAGS[sub] ?? []
+  ]);
+  const fields: Record<string, string> = {};
+  if (sub === "propose") {
+    for (const flag of [
+      "proposal-kind",
+      "proposer",
+      "affects",
+      "before-digest",
+      "after-digest",
+      "summary"
+    ]) {
+      fields[flag] = requiredFlag(parsed, flag);
+    }
+    for (const flag of ["equivalence-contract", "cite", "telemetry"]) {
+      const value = optionalNullableFlag(parsed, flag);
+      if (value !== null) {
+        fields[flag] = value;
+      }
+    }
+  }
+  if (sub === "ratify") {
+    fields["draft-ref"] = requiredFlag(parsed, "draft-ref");
+    const actor = optionalNullableFlag(parsed, "actor");
+    const policy = optionalNullableFlag(parsed, "policy");
+    // TUNER-005: F_H by actor or DECLARED policy — exactly one; never
+    // by omission
+    if ((actor === null) === (policy === null)) {
+      throw new CliError(
+        "tune ratify requires exactly one of --actor (F_H) or --policy (declared auto-ratify policy)"
+      );
+    }
+    if (actor !== null) {
+      fields["actor"] = actor;
+    }
+    if (policy !== null) {
+      fields["policy"] = policy;
+    }
+  }
+  if (sub === "reject") {
+    fields["draft-ref"] = requiredFlag(parsed, "draft-ref");
+    fields["actor"] = requiredFlag(parsed, "actor");
+    fields["reason"] = requiredFlag(parsed, "reason");
+  }
+  return Object.freeze({
+    kind: "tune",
+    sub,
+    workspace: optionalFlag(parsed, "workspace", "."),
+    fields: Object.freeze(fields)
+  });
+}
+
 function parseGenConfigCommand(
   args: readonly string[]
 ): ParsedGenConfigCommand {
@@ -877,6 +978,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseWitnessCommand(args);
     case "observe":
       return parseObserveCommand(args);
+    case "tune":
+      return parseTuneCommand(args);
     case "gen-config":
       return parseGenConfigCommand(args);
     case "assess-result":
@@ -2419,6 +2522,79 @@ async function runObserveCommand(
   return 0;
 }
 
+async function runTuneCommand(
+  command: ParsedTuneCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const { eventLogPath, replayEvents } = await loadWitnessContext(
+    io,
+    command.workspace
+  );
+  const fields = command.fields;
+  if (command.sub === "report") {
+    // TUNER-003/-013: report is READ-ONLY — renders replay-derived
+    // models, appends nothing
+    io.stdout(
+      `${JSON.stringify({
+        command: "tune",
+        report: {
+          drafts: deriveTunerDraftStates(replayEvents),
+          signals: deriveTunerModeSignals(replayEvents),
+          cost_rows: deriveConfigurationCostRows(replayEvents)
+        }
+      })}\n`
+    );
+    return 0;
+  }
+  const eventLogSink = createRuntimeEventLogSink(eventLogPath);
+  const sink = (event: CanonicalRuntimeEvent): void => {
+    eventLogSink.sink(event);
+  };
+  if (command.sub === "propose") {
+    const list = (value: string | undefined): readonly string[] =>
+      value === undefined || value.length === 0
+        ? []
+        : value.split(",").map((entry) => entry.trim());
+    const outcome = admitTunerDraft({
+      runtimeEvents: replayEvents,
+      eventSink: sink,
+      proposalKind: fields["proposal-kind"] as TunerProposalKind,
+      proposer: fields["proposer"] ?? "",
+      telemetryBasisRefs: list(fields["telemetry"]),
+      affectedDeclarationRefs: list(fields["affects"]),
+      beforeDigest: fields["before-digest"] ?? "",
+      afterDigest: fields["after-digest"] ?? "",
+      equivalenceContractRef: fields["equivalence-contract"] ?? null,
+      citedSignalRefs: list(fields["cite"]),
+      summary: fields["summary"] ?? ""
+    });
+    io.stdout(
+      `${JSON.stringify({ command: "tune", sub: "propose", ref: outcome.draftRef })}\n`
+    );
+    return 0;
+  }
+  const outcome = admitTunerDraftDecision({
+    runtimeEvents: replayEvents,
+    eventSink: sink,
+    draftRef: fields["draft-ref"] ?? "",
+    decision: command.sub === "ratify" ? "ratify" : "reject",
+    ratifiedBy: fields["actor"] ?? null,
+    ratificationPolicyRef: fields["policy"] ?? null,
+    rejectedBy: fields["actor"] ?? "",
+    reason: fields["reason"] ?? ""
+  });
+  const decided = outcome.states.find((row) => row.draftRef === outcome.draftRef);
+  io.stdout(
+    `${JSON.stringify({
+      command: "tune",
+      sub: command.sub,
+      ref: outcome.draftRef,
+      state: decided?.state ?? null
+    })}\n`
+  );
+  return 0;
+}
+
 async function runAssessResultCommand(
   command: ParsedAssessResultCommand,
   io: AbiogenesisCliIo
@@ -2630,6 +2806,8 @@ async function runParsedCommand(
       return runWitnessCommand(command, io);
     case "observe":
       return runObserveCommand(command, io);
+    case "tune":
+      return runTuneCommand(command, io);
     case "gen-config":
       return runGenConfigCommand(command, io);
     case "assess-result":

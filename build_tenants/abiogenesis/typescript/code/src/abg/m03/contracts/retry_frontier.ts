@@ -771,6 +771,9 @@ export function deriveRetryFrontierProjection(input: {
         break;
       case "instruction_prompt_manifest_projected":
       case "instruction_response_contract_admitted":
+      case "tuner_draft_admitted":
+      case "tuner_draft_ratified":
+      case "tuner_draft_rejected":
         break;
       default:
         {

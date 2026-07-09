@@ -1061,6 +1061,65 @@ export interface ReplayLogAttestedEvent {
   readonly correlationId: string;
 }
 
+// Implements: REQ-R-ABG3-TUNER-003/-004/-005/-014 (T-217 Phase 4) — the
+// tuner's write surface: DECLARATION DRAFTS only, behind ratification.
+// Draft STATE (draft -> ratified | rejected) is replay-derived truth
+// over these events by the D-ordinal law, never primary event authority
+// (TUNER-014 disposition; the Event Calculus effects: tuner_draft_admitted
+// INITIATES the open-draft fluent; ratified/rejected TERMINATE it).
+// draftRef is self-certified (recomputed at admission).
+export const TUNER_PROPOSAL_KIND_VALUES = Object.freeze([
+  "annealing",
+  "calibration",
+  "lay_rail",
+  "pull_up",
+  "abstraction",
+  "promotion",
+  "demotion",
+  "visibility"
+] as const);
+
+export type TunerProposalKind = (typeof TUNER_PROPOSAL_KIND_VALUES)[number];
+
+export interface TunerDraftAdmittedEvent {
+  readonly kind: "tuner_draft_admitted";
+  readonly draftRef: string;
+  readonly proposalKind: TunerProposalKind;
+  readonly proposer: string;
+  readonly telemetryBasisRefs: readonly string[];
+  readonly affectedDeclarationRefs: readonly string[];
+  readonly beforeDigest: string;
+  readonly afterDigest: string;
+  // TUNER-006/-007: REQUIRED for annealing proposals — no equivalence
+  // contract, no annealing draft
+  readonly equivalenceContractRef: string | null;
+  // TUNER-010: promotion/demotion must cite admitted signal rows by ref
+  readonly citedSignalRefs: readonly string[];
+  readonly summary: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TunerDraftRatifiedEvent {
+  readonly kind: "tuner_draft_ratified";
+  readonly draftRef: string;
+  // TUNER-005: F_H default — exactly one of ratifiedBy (the human/actor
+  // seat) or ratificationPolicyRef (declared visible auto-ratify policy)
+  readonly ratifiedBy: string | null;
+  readonly ratificationPolicyRef: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TunerDraftRejectedEvent {
+  readonly kind: "tuner_draft_rejected";
+  readonly draftRef: string;
+  readonly rejectedBy: string;
+  readonly reason: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2881,6 +2940,9 @@ export type RuntimeEvent =
   | WorkspaceHygieneStampedEvent
   | DefectIntakeAdmittedEvent
   | ReplayLogAttestedEvent
+  | TunerDraftAdmittedEvent
+  | TunerDraftRatifiedEvent
+  | TunerDraftRejectedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -3023,6 +3085,9 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "workspace_hygiene_stamped",
   "defect_intake_admitted",
   "replay_log_attested",
+  "tuner_draft_admitted",
+  "tuner_draft_ratified",
+  "tuner_draft_rejected",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",

@@ -115,6 +115,10 @@ export type {
   PayloadObservedRuntimeEvent,
   PayloadRejectedRuntimeEvent,
   PayloadRejectionIssueRow,
+  TunerDraftAdmittedEvent,
+  TunerDraftRatifiedEvent,
+  TunerDraftRejectedEvent,
+  TunerProposalKind,
   PayloadRejectionClass,
   PayloadValidatedRuntimeEvent,
   PluginTraversalKind,
@@ -248,6 +252,7 @@ export {
   PAYLOAD_REJECTION_CLASS_VALUES,
   RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
+  TUNER_PROPOSAL_KIND_VALUES,
   RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES,
@@ -1417,6 +1422,23 @@ export type {
   ConsensusRoundOutcome,
   ReviewRulingKind
 } from "./review_consensus_modules.js";
+export {
+  ABG_TUNER_MODULE_DECLARATIONS,
+  constructTunerDraftAdmittedEvent,
+  constructTunerDraftRatifiedEvent,
+  constructTunerDraftRejectedEvent,
+  deriveConfigurationCostRows,
+  deriveTunerDivergenceObligations,
+  deriveTunerDraftStates,
+  deriveTunerModeSignals
+} from "./tuner_tier.js";
+export type {
+  ConfigurationCostRow,
+  TunerDivergenceObligation,
+  TunerDraftState,
+  TunerDraftStateRow,
+  TunerModeSignalRow
+} from "./tuner_tier.js";
 export { verifyJUnitReportContents } from "./test_report_verification.js";
 export type {
   TestReportContentRow,

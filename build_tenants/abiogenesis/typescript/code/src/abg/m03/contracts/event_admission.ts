@@ -21,6 +21,7 @@ import {
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
+  TUNER_PROPOSAL_KIND_VALUES,
   RUN_RESUME_REASON_KIND_VALUES,
   RUN_STOP_REASON_KIND_VALUES,
   RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
@@ -1416,6 +1417,89 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
     }
   },
+  tuner_draft_admitted: (event) => {
+    applyFieldRules("TunerDraftAdmittedEvent", {
+      draftRef: "non_empty_string",
+      proposalKind: { oneOf: TUNER_PROPOSAL_KIND_VALUES },
+      proposer: "non_empty_string",
+      telemetryBasisRefs: "string_array",
+      affectedDeclarationRefs: "string_array",
+      beforeDigest: "non_empty_string",
+      afterDigest: "non_empty_string",
+      equivalenceContractRef: "nullable_string",
+      citedSignalRefs: "string_array",
+      summary: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    // TUNER-006: an annealing proposal without an admitted equivalence
+    // contract is inadmissible — hand-tuned F_D interiors are unlawful
+    if (
+      event["proposalKind"] === "annealing" &&
+      event["equivalenceContractRef"] === null
+    ) {
+      throw new TypeError(
+        "TunerDraftAdmittedEvent: annealing proposals require an equivalence contract (TUNER-006)"
+      );
+    }
+    // TUNER-010: promotion/demotion must cite admitted signal rows
+    if (
+      (event["proposalKind"] === "promotion" ||
+        event["proposalKind"] === "demotion") &&
+      (event["citedSignalRefs"] as readonly string[]).length === 0
+    ) {
+      throw new TypeError(
+        "TunerDraftAdmittedEvent: promotion/demotion proposals must cite admitted signal rows (TUNER-010)"
+      );
+    }
+    // TUNER-004 judgment separation: diagnosis vocabulary inside an
+    // optimisation judgment is inadmissible — observer and tuner
+    // exchange truth only through admitted records
+    if (/\b(triage|change_class|re_entry|defect intake)\b/iu.test(String(event["summary"]))) {
+      throw new TypeError(
+        "TunerDraftAdmittedEvent: optimisation judgments carry no triage output (TUNER-004 separation)"
+      );
+    }
+    const expectedDraftRef = `tuner-draft:${stableSha256Digest({
+      proposalKind: event["proposalKind"],
+      proposer: event["proposer"],
+      affectedDeclarationRefs: event["affectedDeclarationRefs"],
+      beforeDigest: event["beforeDigest"],
+      afterDigest: event["afterDigest"],
+      equivalenceContractRef: event["equivalenceContractRef"],
+      summary: event["summary"]
+    })}`;
+    if (event["draftRef"] !== expectedDraftRef) {
+      throw new TypeError(
+        "TunerDraftAdmittedEvent.draftRef must be the content-derived identity"
+      );
+    }
+  },
+  tuner_draft_ratified: (event) => {
+    applyFieldRules("TunerDraftRatifiedEvent", {
+      draftRef: "non_empty_string",
+      ratifiedBy: "nullable_string",
+      ratificationPolicyRef: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    // TUNER-005: F_H by actor OR declared visible policy — exactly one;
+    // auto-ratification by omission is unlawful
+    const byActor = event["ratifiedBy"] !== null;
+    const byPolicy = event["ratificationPolicyRef"] !== null;
+    if (byActor === byPolicy) {
+      throw new TypeError(
+        "TunerDraftRatifiedEvent requires exactly one of ratifiedBy (F_H) or ratificationPolicyRef (declared auto-ratify policy)"
+      );
+    }
+  },
+  tuner_draft_rejected: applyFieldRules("TunerDraftRejectedEvent", {
+    draftRef: "non_empty_string",
+    rejectedBy: "non_empty_string",
+    reason: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
   run_segment_opened: (event) => {
     applyFieldRules("RunSegmentOpenedEvent", {
       basisId: "non_empty_string",

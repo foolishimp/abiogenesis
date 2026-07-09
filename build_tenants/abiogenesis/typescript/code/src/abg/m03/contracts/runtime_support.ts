@@ -164,7 +164,11 @@ export const RUN_INDEPENDENT_EVENT_SCOPE_CLASSES = Object.freeze({
   reset: "run",
   assessed: "run",
   // perimeter failures may occur before any basis exists (nullable basisId)
-  runtime_failure_observed: "perimeter"
+  runtime_failure_observed: "perimeter",
+  // tuner drafts are workspace-level authoring acts over declarations
+  tuner_draft_admitted: "workspace",
+  tuner_draft_ratified: "workspace",
+  tuner_draft_rejected: "workspace"
 } as const) satisfies Readonly<Partial<Record<RuntimeEvent["kind"], string>>>;
 
 export function runtimeEventsForBasis(

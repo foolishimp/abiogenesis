@@ -34,6 +34,8 @@ export {
 export {
   admitDeclarationReprice,
   admitDefectIntake,
+  admitTunerDraft,
+  admitTunerDraftDecision,
   admitReplayLogAttestation,
   admitRunResumed,
   admitRunStopped,

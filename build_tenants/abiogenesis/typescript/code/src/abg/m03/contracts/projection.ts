@@ -831,6 +831,11 @@ export function deriveRuntimeAggregateProjection(
       case "c_call_evidenced":
       case "c_call_result_admitted":
       case "c_call_judged":
+      // tuner drafts are workspace-level authoring truth — inert to the
+      // per-basis aggregate projection
+      case "tuner_draft_admitted":
+      case "tuner_draft_ratified":
+      case "tuner_draft_rejected":
         break;
       default: {
         const exhaustive: never = event;

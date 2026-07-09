@@ -49,6 +49,13 @@ import {
 } from "../contracts/halt_diagnosis.js";
 import { deriveReplayChainDigest } from "../contracts/replay_attestation.js";
 import {
+  constructTunerDraftAdmittedEvent,
+  constructTunerDraftRatifiedEvent,
+  constructTunerDraftRejectedEvent,
+  deriveTunerDraftStates,
+  type TunerDraftStateRow
+} from "../contracts/tuner_tier.js";
+import {
   deriveTicketDraftFromIntake,
   type TicketDraftProjection
 } from "../contracts/defect_intake.js";
@@ -829,4 +836,108 @@ export function applyGraphSpanReentryRoute(
     emittedEvents: Object.freeze([...emittedSpanEvents, ...emittedReentryEvents]),
     replayEvents: nextReplayEvents
   } satisfies GraphSpanReentryApplicationResult);
+}
+
+// ── T-217 Phase 4: the tuner verb routes (TUNER-003/-004/-005) ───────
+// No basis anchor: tuner drafts are workspace-level authoring acts over
+// declarations. propose ADMITS a draft (the admitters enforce the
+// annealing/citation/separation laws); the decision route ratifies or
+// rejects an EXISTING undecided draft — deciding a phantom or re-deciding
+// a settled draft fails closed.
+
+export interface TunerProposeRequest {
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly proposalKind: import("../contracts/carriers.js").TunerProposalKind;
+  readonly proposer: string;
+  readonly telemetryBasisRefs?: readonly string[];
+  readonly affectedDeclarationRefs: readonly string[];
+  readonly beforeDigest: string;
+  readonly afterDigest: string;
+  readonly equivalenceContractRef?: string | null;
+  readonly citedSignalRefs?: readonly string[];
+  readonly summary: string;
+  readonly correlationId?: string;
+}
+
+export function admitTunerDraft(input: TunerProposeRequest): {
+  readonly draftRef: string;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly states: readonly TunerDraftStateRow[];
+} {
+  const draftEvent = constructTunerDraftAdmittedEvent({
+    proposalKind: input.proposalKind,
+    proposer: input.proposer,
+    telemetryBasisRefs: input.telemetryBasisRefs ?? [],
+    affectedDeclarationRefs: input.affectedDeclarationRefs,
+    beforeDigest: input.beforeDigest,
+    afterDigest: input.afterDigest,
+    equivalenceContractRef: input.equivalenceContractRef ?? null,
+    citedSignalRefs: input.citedSignalRefs ?? [],
+    summary: input.summary,
+    correlationId:
+      input.correlationId ?? `tuner-propose:${input.proposer}:${input.summary.slice(0, 40)}`
+  });
+  const emittedEvents = emit(Object.freeze([draftEvent]), input.eventSink);
+  return Object.freeze({
+    draftRef: draftEvent.draftRef,
+    emittedEvents,
+    states: deriveTunerDraftStates([
+      ...(input.runtimeEvents ?? []),
+      ...emittedEvents
+    ])
+  });
+}
+
+export interface TunerDecisionRequest {
+  readonly runtimeEvents: readonly RuntimeEvent[];
+  readonly eventSink: RuntimeEventSink;
+  readonly draftRef: string;
+  readonly decision: "ratify" | "reject";
+  readonly ratifiedBy?: string | null;
+  readonly ratificationPolicyRef?: string | null;
+  readonly rejectedBy?: string;
+  readonly reason?: string;
+  readonly correlationId?: string;
+}
+
+export function admitTunerDraftDecision(input: TunerDecisionRequest): {
+  readonly draftRef: string;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly states: readonly TunerDraftStateRow[];
+} {
+  const states = deriveTunerDraftStates(input.runtimeEvents);
+  const current = states.find((row) => row.draftRef === input.draftRef);
+  if (current === undefined) {
+    throw new TypeError(
+      `Tuner decision requires an admitted draft: ${JSON.stringify(input.draftRef)} is not in replay`
+    );
+  }
+  if (current.state !== "draft") {
+    throw new TypeError(
+      `Tuner draft ${JSON.stringify(input.draftRef)} is already ${current.state}; decisions are not re-issued`
+    );
+  }
+  const decisionEvent =
+    input.decision === "ratify"
+      ? constructTunerDraftRatifiedEvent({
+          draftRef: input.draftRef,
+          ratifiedBy: input.ratifiedBy ?? null,
+          ratificationPolicyRef: input.ratificationPolicyRef ?? null,
+          correlationId:
+            input.correlationId ?? `tuner-ratify:${input.draftRef}`
+        })
+      : constructTunerDraftRejectedEvent({
+          draftRef: input.draftRef,
+          rejectedBy: input.rejectedBy ?? "",
+          reason: input.reason ?? "",
+          correlationId:
+            input.correlationId ?? `tuner-reject:${input.draftRef}`
+        });
+  const emittedEvents = emit(Object.freeze([decisionEvent]), input.eventSink);
+  return Object.freeze({
+    draftRef: input.draftRef,
+    emittedEvents,
+    states: deriveTunerDraftStates([...input.runtimeEvents, ...emittedEvents])
+  });
 }
