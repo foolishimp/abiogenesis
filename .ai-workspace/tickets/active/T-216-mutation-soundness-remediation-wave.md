@@ -75,3 +75,32 @@
 5. D3 (verification eviction from glc — with T-209; the binding pin
    suite repriced to consume the kernel surface)
 6. 4.5.1 cut + repin + the release-grade frozen-law run.
+
+## Execution outcome (2026-07-09)
+
+DONE (differentially pinned, all kernel + odd_glc suites green):
+- D1 (CRITICAL): per-test kill attribution — mutantCompiled +
+  failedTestIdentityRefs; compile-broken mints nothing; internal-
+  consistency law; one lazy/compile-broken row can no longer discharge
+  the -039 topology. Kernel + binding contract + canary migrated.
+- D2 (HIGH, codex S1): edge-scoped last-wins supersession for both
+  carriers; omitting retry emits an empty retraction event.
+- D3 (HIGH, codeReview S8): element-scoped XML parse — CDATA/comment/
+  <testsuites>-wrapper text can no longer inflate the pass count.
+- D4 (MEDIUM, S5): execution-family refs rejected from strength
+  resolution.
+- D5 (MEDIUM, codex P1): read-once detach law (shared admission_hygiene)
+  — value-changing/second-read getters can't escape.
+- D6 (MEDIUM, codex P2): deterministic canonicalization (full-content,
+  sorted-keys, codepoint) — locale-free, ambiguity-free digests.
+- D7 (P2, codex): socket-needing scenarios assert an explicit sandbox
+  capability (fail-fast, reproducible by construction).
+
+REMAINDER (honest, routed):
+- D3 ARCHITECTURAL: the report-verification MECHANISM still lives in
+  odd_glc userland (three-layer violation). The correctness defect is
+  fixed in place; the full eviction into a kernel report-verification
+  surface is T-209's remaining scope (noted in the binding code).
+- 4.5.1 CUT + release-grade frozen-law proving run re-executes on the
+  fixed substrate (the 4.5.0 proving run used the unsound mint; its
+  kill evidence is retired by D1).
