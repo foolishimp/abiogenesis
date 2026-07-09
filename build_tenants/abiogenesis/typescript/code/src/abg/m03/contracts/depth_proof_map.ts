@@ -10,6 +10,10 @@
 // a CLOSED issue vocabulary; consumers accept only the admitted carrier.
 import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  canonicalizeRowsByContent,
+  detachRowSnapshot
+} from "./admission_hygiene.js";
 
 export interface DepthProofMapRow {
   readonly requirementId: string;
@@ -87,15 +91,14 @@ export function admitDepthProofMap(input: {
       reject("row_not_object", at, "must be a row object");
       return;
     }
-    // review A (LOW): same hostile-object totality law as the mutation
-    // carrier — throwing getters become typed rejections
-    try {
-      JSON.stringify(row);
-    } catch {
+    // T-216 D5 read-once law (codex P1): detach once, validate only the
+    // detached snapshot — a value-changing getter cannot escape.
+    const detached = detachRowSnapshot(row);
+    if (detached === null || typeof detached !== "object" || Array.isArray(detached)) {
       reject("row_not_object", at, "row fields must be plain readable data");
       return;
     }
-    const candidate = row as {
+    const candidate = detached as {
       readonly requirementId?: unknown;
       readonly depthClassRef?: unknown;
       readonly testIdentityRefs?: unknown;
@@ -133,13 +136,7 @@ export function admitDepthProofMap(input: {
   if (issues.length > 0) {
     return Object.freeze({ accepted: false, issues: Object.freeze(issues), map: undefined });
   }
-  const canonicalRows = Object.freeze(
-    [...rows].sort((left, right) =>
-      `${left.requirementId}:${left.depthClassRef}`.localeCompare(
-        `${right.requirementId}:${right.depthClassRef}`
-      )
-    )
-  );
+  const canonicalRows = canonicalizeRowsByContent(rows);
   const mapDigest = stableSha256Digest({
     sourceResultRef: input.sourceResultRef,
     rows: canonicalRows

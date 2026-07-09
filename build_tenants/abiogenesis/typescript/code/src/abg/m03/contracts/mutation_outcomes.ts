@@ -18,6 +18,10 @@
 import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
+  canonicalizeRowsByContent,
+  detachRowSnapshot
+} from "./admission_hygiene.js";
+import {
   mutantSurvivedEvidenceRef,
   mutationKillEvidenceRef
 } from "./depth_proof_map.js";
@@ -102,15 +106,16 @@ export function admitMutationOutcomes(input: {
       reject("row_not_object", at, "must be a row object");
       return;
     }
-    // review A (LOW): totality over HOSTILE in-process objects — a
-    // throwing getter/Proxy becomes a typed rejection, never an escape
-    try {
-      JSON.stringify(row);
-    } catch {
+    // T-216 D5 read-once law (codex P1): detach ONCE into a plain
+    // snapshot; validate and freeze only the snapshot. A Proxy/getter
+    // that passes stringify then throws/changes on a second read cannot
+    // escape admission — the original row is never read again.
+    const detached = detachRowSnapshot(row);
+    if (detached === null || typeof detached !== "object" || Array.isArray(detached)) {
       reject("row_not_object", at, "row fields must be plain readable data");
       return;
     }
-    const c = row as {
+    const c = detached as {
       readonly requirementId?: unknown;
       readonly mutantIdentity?: unknown;
       readonly testIdentityRefs?: unknown;
@@ -162,11 +167,7 @@ export function admitMutationOutcomes(input: {
   if (issues.length > 0) {
     return rejected();
   }
-  const canonicalRows = Object.freeze(
-    [...rows].sort((a, b) =>
-      `${a.requirementId}:${a.mutantIdentity}`.localeCompare(`${b.requirementId}:${b.mutantIdentity}`)
-    )
-  );
+  const canonicalRows = canonicalizeRowsByContent(rows);
   return Object.freeze({
     accepted: true,
     issues: Object.freeze([]),

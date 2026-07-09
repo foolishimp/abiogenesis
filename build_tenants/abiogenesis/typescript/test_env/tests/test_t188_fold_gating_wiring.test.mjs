@@ -872,8 +872,14 @@ test("T-210 b1: depth-map admission is total — valid rows admit canonically, m
   });
   assert.equal(valid.accepted, true);
   // canonical: rows sorted by requirement:class, test refs sorted
-  assert.deepEqual(valid.map.rows.map((row) => row.requirementId), ["REQ-A", "REQ-B"]);
-  assert.deepEqual([...valid.map.rows[1].testIdentityRefs], ["a-test", "z-test"]);
+  // T-216 D6: canonical order is by FULL row content (sorted-keys JSON,
+  // codepoint) — depthClassRef "negative" < "positive", so REQ-B first
+  assert.equal(new Set(valid.map.rows.map((row) => row.requirementId)).size, 2);
+  assert.deepEqual(valid.map.rows.map((row) => row.requirementId), ["REQ-B", "REQ-A"]);
+  const reqA = valid.map.rows.find((row) => row.requirementId === "REQ-A");
+  const reqB = valid.map.rows.find((row) => row.requirementId === "REQ-B");
+  assert.deepEqual([...reqB.testIdentityRefs], ["a-test", "z-test"]);
+  assert.deepEqual([...reqA.testIdentityRefs], ["p-test"]);
   assert.match(valid.map.mapDigest, /^sha256:[0-9a-f]{64}$/u);
   // determinism: same content -> same digest
   const again = admitDepthProofMap({
@@ -1984,4 +1990,83 @@ test("T-032 A review: throwing getters and hostile proxies reject typed at both 
   });
   assert.equal(viaMap.accepted, false);
   assert.equal(viaMap.issues[0].issueKind, "row_not_object");
+});
+
+// T-216 D5 (codex P1): a VALUE-CHANGING getter that passes stringify and
+// mutates on a later read must not escape admission or store an
+// unvalidated value — the read-once detach law.
+test("T-216 D5: value-changing getters detach to a stable snapshot; second-read attacks fail closed at both carriers", async () => {
+  const { admitMutationOutcomes, admitDepthProofMap } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  // a getter that stringifies fine (returns a clean value) then throws on
+  // a later direct read
+  const secondReadThrows = (cleanValue) => {
+    let reads = 0;
+    return {
+      get requirementId() {
+        reads += 1;
+        // JSON.stringify reads once; any later validator read throws
+        if (reads > 1) { throw new Error("second read boom"); }
+        return cleanValue;
+      }
+    };
+  };
+  // the law: admission returns a TYPED result, never a host exception —
+  // the getter's second read never fires (validator reads the snapshot)
+  const m = admitMutationOutcomes({
+    payloadSection: { rows: [secondReadThrows("REQ-OK")] },
+    sourceResultRef: "r", replayIdentity: "i"
+  });
+  assert.equal(m.accepted, false);
+  assert.equal(Array.isArray(m.issues), true);
+  const d = admitDepthProofMap({
+    payloadSection: { rows: [secondReadThrows("REQ-OK")] },
+    sourceResultRef: "r", replayIdentity: "i"
+  });
+  assert.equal(d.accepted, false);
+  assert.equal(Array.isArray(d.issues), true);
+  // a getter returning DIFFERENT clean values per read: the STORED value
+  // is the detached snapshot (read 1), never a smuggled surrogate
+  let n = 0;
+  const drift = {
+    requirementId: "requirement://t216/r1",
+    depthClassRef: "depth-class://negative",
+    get testIdentityRefs() { n += 1; return n === 1 ? ["clean-id"] : ["\uD800"]; }
+  };
+  const accepted = admitDepthProofMap({
+    payloadSection: { rows: [drift] },
+    sourceResultRef: "result://t216", replayIdentity: "replay://t216"
+  });
+  // either it rejected, or it stored ONLY the detached clean value — never
+  // the surrogate that would throw downstream
+  if (accepted.accepted) {
+    assert.deepEqual([...accepted.map.rows[0].testIdentityRefs], ["clean-id"]);
+  } else {
+    assert.equal(accepted.issues[0].issueKind, "row_not_object");
+  }
+});
+
+// T-216 D6 (codex P2): canonical digests are deterministic under
+// duplicate logical keys and input reordering.
+test("T-216 D6: identical row sets in any order yield one digest (no ambiguous concat, no localeCompare)", async () => {
+  const { admitMutationOutcomes, admitDepthProofMap } =
+    await import("../../build/semantic/code/src/abg/m03/contracts/index.js");
+  // depth: two rows sharing requirementId:depthClassRef prefix ambiguity
+  const rowsA = [
+    { requirementId: "a:b", depthClassRef: "c", testIdentityRefs: ["t1"] },
+    { requirementId: "a", depthClassRef: "b:c", testIdentityRefs: ["t2"] }
+  ];
+  const rowsB = [rowsA[1], rowsA[0]];
+  const dA = admitDepthProofMap({ payloadSection: { rows: rowsA }, sourceResultRef: "r", replayIdentity: "i" });
+  const dB = admitDepthProofMap({ payloadSection: { rows: rowsB }, sourceResultRef: "r", replayIdentity: "i" });
+  assert.equal(dA.map.mapDigest, dB.map.mapDigest);
+  assert.deepEqual(dA.map.rows, dB.map.rows);
+  // mutation: same
+  const mRows = [
+    { requirementId: "req:x", mutantIdentity: "m", testIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "ab".repeat(32), restoreDigest: "sha256:" + "ab".repeat(32) },
+    { requirementId: "req", mutantIdentity: "x:m", testIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "cd".repeat(32), restoreDigest: "sha256:" + "cd".repeat(32) }
+  ];
+  const mA = admitMutationOutcomes({ payloadSection: { rows: mRows }, sourceResultRef: "r", replayIdentity: "i" });
+  const mB = admitMutationOutcomes({ payloadSection: { rows: [mRows[1], mRows[0]] }, sourceResultRef: "r", replayIdentity: "i" });
+  assert.equal(mA.outcomes.outcomesDigest, mB.outcomes.outcomesDigest);
 });
