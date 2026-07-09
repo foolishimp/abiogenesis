@@ -1,5 +1,6 @@
 export {
   createRuntimeEventEmitterContext,
+  createSeededLiveEmitterContext,
   emit,
   emitWithContext,
   seedRuntimeEventAdmissionOrdinal

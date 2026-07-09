@@ -8,7 +8,7 @@ import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/valida
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
   PluginTraversalKind,
@@ -103,6 +103,7 @@ import type {
 import { sha256DigestForBytes, sha256HexForText } from "../shared/runtime_identity.js";
 import {
   createRuntimeEventLogSink,
+  createSeededLiveEmitterContext,
   seedRuntimeEventAdmissionOrdinal
 } from "../abg/m03/events/index.js";
 import type { ToolchainWorkspaceBinding } from "../app/m04/index.js";
@@ -1935,15 +1936,6 @@ export function narrowRegistryStartupToSessionAllowlist(
       "start --allow requires a binding-declared runtimeRegistryStartup: there is no declared catalog to narrow"
     );
   }
-  const enabledView = startup.productStartupConfig?.enabledLibraryRefs ?? [];
-  if (enabledView.length > 0) {
-    const widening = allowRefs.filter((ref) => !enabledView.includes(ref));
-    if (widening.length > 0) {
-      throw new CliError(
-        `start --allow is narrowing-only; refs outside the binding-enabled view: ${JSON.stringify(widening)}`
-      );
-    }
-  }
   const coveredBy = (
     declaration: RuntimeRegistryStartupInput["productDeclarations"][number],
     refs: ReadonlySet<string>
@@ -1951,6 +1943,29 @@ export function narrowRegistryStartupToSessionAllowlist(
     refs.has(declaration.entryRef) ||
     refs.has(declaration.declarationRef) ||
     declaration.declarationSourceRefs.some((sourceRef) => refs.has(sourceRef));
+  const enabledView = startup.productStartupConfig?.enabledLibraryRefs ?? [];
+  if (enabledView.length > 0) {
+    // narrowing-only by the registry's OWN enablement law: an allow ref
+    // widens iff it covers a declaration the binding view does not
+    // enable — a different lawful handle for an already-enabled
+    // declaration is narrowing, not widening (review finding: verbatim
+    // string membership falsely rejected same-declaration handles)
+    const enabledSet = new Set(enabledView);
+    const widening = allowRefs.filter((ref) => {
+      const refSet = new Set([ref]);
+      const covered = startup.productDeclarations.filter((declaration) =>
+        coveredBy(declaration, refSet)
+      );
+      return covered.some(
+        (declaration) => !coveredBy(declaration, enabledSet)
+      );
+    });
+    if (widening.length > 0) {
+      throw new CliError(
+        `start --allow is narrowing-only; refs outside the binding-enabled view: ${JSON.stringify(widening)}`
+      );
+    }
+  }
   const allowSet = new Set(allowRefs);
   const unmatched = allowRefs.filter(
     (ref) =>
@@ -2250,7 +2265,17 @@ async function loadWitnessContext(io: AbiogenesisCliIo, workspace: string) {
   const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);
-  return { workspaceRoot, toolchainBinding, eventLogPath, replayEvents };
+  // codex P1 (review round 2026-07-10): the CLI's persisted log is a
+  // LIVE store — operator appends mint through a live context (forged
+  // pre-stamped envelopes fail closed) seeded past the replayed record.
+  const emitterContext = createSeededLiveEmitterContext(replayEvents);
+  return {
+    workspaceRoot,
+    toolchainBinding,
+    eventLogPath,
+    replayEvents,
+    emitterContext
+  };
 }
 
 // D1.4 (T-209 escrow, delivered T-217 S2.2): the kernel-witnessed
@@ -2279,10 +2304,26 @@ async function measureWorkspaceSurfaces(input: {
     );
   }
   const observations: WorkspaceHygieneObservation[] = [];
+  const containedRoot = resolve(input.workspaceRoot);
   for (const surface of surfaces) {
     const measuredPath = isAbsolute(surface.materializedPath)
-      ? surface.materializedPath
+      ? resolve(surface.materializedPath)
       : resolve(input.workspaceRoot, surface.materializedPath);
+    // codex P1 (review round 2026-07-10): admission checks SHAPE, not
+    // allocation containment — a forged materialization event in a
+    // hostile log could point the instrument at any host path. The
+    // kernel reads ONLY inside the workspace root; anything else is a
+    // typed failure, never a read.
+    const relativeToRoot = relative(containedRoot, measuredPath);
+    if (
+      relativeToRoot === ".." ||
+      relativeToRoot.startsWith(`..${sep}`) ||
+      isAbsolute(relativeToRoot)
+    ) {
+      throw new CliError(
+        `witness hygiene-stamp --measure workspace refuses ${JSON.stringify(surface.artifactRef)}: its materialized path escapes the workspace root`
+      );
+    }
     let content: Uint8Array | null;
     try {
       content = await readFile(measuredPath);
@@ -2331,8 +2372,13 @@ async function runWitnessCommand(
   command: ParsedWitnessCommand,
   io: AbiogenesisCliIo
 ): Promise<number> {
-  const { workspaceRoot, toolchainBinding, eventLogPath, replayEvents } =
-    await loadWitnessContext(io, command.workspace);
+  const {
+    workspaceRoot,
+    toolchainBinding,
+    eventLogPath,
+    replayEvents,
+    emitterContext
+  } = await loadWitnessContext(io, command.workspace);
   const basis = reconstructRouteBasisFromReplay(replayEvents);
   const eventLogSink = createRuntimeEventLogSink(eventLogPath);
   const sink = (event: CanonicalRuntimeEvent): void => {
@@ -2347,6 +2393,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         declarationRef: fields["declaration-ref"] ?? "",
         beforeDigest: fields["before-digest"] ?? "",
         afterDigest: fields["after-digest"] ?? "",
@@ -2364,6 +2411,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         attestedBy: fields["actor"] ?? ""
       });
       resultRef = outcome.attestationRef;
@@ -2397,6 +2445,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         observedBy,
         observations
       });
@@ -2409,6 +2458,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         owner: fields["owner"] ?? "",
         changeClass: fields["change-class"] as GraphChangeClass,
         reEntryPoint: fields["re-entry"] as GraphReentryPoint,
@@ -2424,6 +2474,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         operatorActorRef: fields["actor"] ?? "",
         reasonKind: fields["reason-kind"] as RunResumeReasonKind,
         reasonDetail: fields["reason"] ?? ""
@@ -2436,6 +2487,7 @@ async function runWitnessCommand(
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
+        emitterContext,
         operatorActorRef: fields["actor"] ?? "",
         reasonKind: fields["reason-kind"] as RunStopReasonKind,
         reasonDetail: fields["reason"] ?? ""
@@ -2526,10 +2578,8 @@ async function runTuneCommand(
   command: ParsedTuneCommand,
   io: AbiogenesisCliIo
 ): Promise<number> {
-  const { eventLogPath, replayEvents } = await loadWitnessContext(
-    io,
-    command.workspace
-  );
+  const { eventLogPath, replayEvents, emitterContext } =
+    await loadWitnessContext(io, command.workspace);
   const fields = command.fields;
   if (command.sub === "report") {
     // TUNER-003/-013: report is READ-ONLY — renders replay-derived
@@ -2558,6 +2608,7 @@ async function runTuneCommand(
     const outcome = admitTunerDraft({
       runtimeEvents: replayEvents,
       eventSink: sink,
+      emitterContext,
       proposalKind: fields["proposal-kind"] as TunerProposalKind,
       proposer: fields["proposer"] ?? "",
       telemetryBasisRefs: list(fields["telemetry"]),
@@ -2576,6 +2627,7 @@ async function runTuneCommand(
   const outcome = admitTunerDraftDecision({
     runtimeEvents: replayEvents,
     eventSink: sink,
+    emitterContext,
     draftRef: fields["draft-ref"] ?? "",
     decision: command.sub === "ratify" ? "ratify" : "reject",
     ratifiedBy: fields["actor"] ?? null,

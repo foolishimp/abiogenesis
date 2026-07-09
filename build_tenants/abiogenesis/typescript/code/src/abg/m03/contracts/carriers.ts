@@ -1657,8 +1657,12 @@ export interface PayloadRejectedRuntimeEvent {
   // T-217 S2.4 — REQ-R-ABG3-EVENTS-026 realized: rejection issues are
   // STRUCTURED rows (issue kind + offending path), superseding the
   // interim comma-joined reason grammar. The reason string remains a
-  // human-facing summary; rows are the typed truth.
-  readonly issues: readonly PayloadRejectionIssueRow[];
+  // human-facing summary; rows are the typed truth. OPTIONAL for replay
+  // compatibility: events persisted BEFORE this realization lawfully
+  // lack the field (they sit inside attested spans and cannot be
+  // rewritten) — absence means pre-realization truth; the factory
+  // always emits rows on new events.
+  readonly issues?: readonly PayloadRejectionIssueRow[];
   readonly basisId: string;
   readonly graphCallId: string;
   readonly frameId: string;

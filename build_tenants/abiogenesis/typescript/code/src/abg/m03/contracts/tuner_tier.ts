@@ -226,7 +226,13 @@ export function deriveTunerModeSignals(
     }
   }
   // rail-break: a declared path halting on ambiguity projects a
-  // mode-selection signal BEFORE same-edge retry burn
+  // mode-selection signal BEFORE same-edge retry burn.
+  // NAMED GAP (codex P2, review round 2026-07-10, FPC-021): the reason
+  // TEXT is the only ambiguity witness replay carries today — matching
+  // it is a DECLARED INTERIM, not signal authority. The Prime source is
+  // a typed ambiguity class on the halt carrier (an EVENTS-family
+  // rider); this scan retires with it, and consumers treat rail_break
+  // as pressure, never as admission authority.
   for (const event of events) {
     if (
       event.kind === "terminal_reached" &&
@@ -278,6 +284,9 @@ export function deriveConfigurationCostRows(
     }
     if (event.kind === "actor_invocation_closed") {
       const started = startedAt.get(event.actorInvocationId);
+      // consume the start: a duplicated close event is inert instead of
+      // double-counting the same invocation (review finding)
+      startedAt.delete(event.actorInvocationId);
       const closedTime =
         "eventTimeUnixMs" in event && typeof event.eventTimeUnixMs === "number"
           ? event.eventTimeUnixMs

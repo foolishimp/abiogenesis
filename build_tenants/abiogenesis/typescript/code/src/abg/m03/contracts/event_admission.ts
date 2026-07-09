@@ -1966,8 +1966,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       policyRefs: "string_array"
     })(event);
     // EVENTS-026: structured issue rows — each row carries exactly the
-    // issue kind and the offending path, both non-empty.
+    // issue kind and the offending path, both non-empty. ABSENCE is the
+    // pre-realization shape: events persisted before the reprice sit
+    // inside attested spans and must stay admissible replay truth.
     const issues = event["issues"];
+    if (issues === undefined) {
+      return;
+    }
     if (!Array.isArray(issues)) {
       throw new TypeError(
         "PayloadRejectedRuntimeEvent.issues must be an array of issue rows"

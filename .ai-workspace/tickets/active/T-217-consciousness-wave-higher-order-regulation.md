@@ -1126,6 +1126,51 @@ T-110 sticky-session agent pool (session affinity over the traced
 call-out interface); cost-ledger rows from live campaign turns feeding
 tune report; local-loop honing tickets generated FROM live telemetry.
 
+REVIEW ROUND (2026-07-10, self-review + codex, post-functional-
+complete). SELF-REVIEW found 7, all fixed+pinned: (1) HIGH replay
+compat — EVENTS-026 made payload_rejected.issues REQUIRED at admission,
+so pre-realization events inside ATTESTED spans became unreadable;
+absence is now the declared pre-realization shape (admissible),
+presence still validates, the factory always emits rows. (2) MED —
+the S1 guard comma-joins multiple drifted refs into one reason; the
+observer parsed the join as ONE ref; now one draft per declaration.
+(3) MED — the unclassifiable-halt fh_input question was suppressed by
+ANY other draft; now fires whenever the HALT ITSELF is unaddressed.
+(4) MED-LOW — the allowlist widening check used verbatim string
+membership, falsely rejecting same-declaration different-handle allows;
+now judged by the registry's own enablement law over covered
+declarations. (5) LOW — repeated schema rejections deduped by
+content-derived draftRef. (6) LOW — duplicated close events now inert
+in cost rows (start consumed on close). (7) LOW — dead else-branch
+removed from the schema-rejection map.
+
+CODEX ROUND found 5, all fixed+pinned or named-gapped: (P1-a) the
+live/replay emitter split was opt-in — no live surface adopted it;
+NOW ADOPTED: createSeededLiveEmitterContext + routeEmit thread a LIVE
+context through all eight operator routes, and the CLI's persisted log
+is a live store (forged pre-stamped envelopes fail closed at append;
+minted ordinals continue past the record; differential pinned).
+(P1-b) the kernel measure instrument read paths from shape-valid but
+allocation-unchecked replay events (a forged materialization could
+point it at any host path); the instrument now refuses paths escaping
+the workspace root BEFORE any read (typed failure; /etc/hosts
+differential pinned). (P1-c) citedSignalRefs was a presence check;
+admitTunerDraft now verifies every cited ref against
+deriveTunerModeSignals over the SAME replay — phantom citations fail
+closed (pinned). The auto-ratify policy check remains exactly-one-
+authority only: NAMED GAP recorded (no declared auto-ratify-policy
+surface exists yet; binding-schema rider; F_H is the complete path —
+the FpTransportConfig.prompt precedent). (P2-a) observer drift
+retirement upgraded to the S1 exact-pair law where digests are
+observable (two-digest drifts retire only under a reprice naming the
+observed pair; reason-channel drifts stay ref-level — their pairs are
+not in the record; wrong-pair differential pinned). (P2-b) rail_break
+derives from reason TEXT — DECLARED INTERIM under FPC-021 with the
+Prime source recorded as an EVENTS-family rider (a typed ambiguity
+class on the halt carrier); the scan retires with it; rail_break is
+pressure, never admission authority. Suites 1277/1277; gate
+violations=0 over the full round.
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,

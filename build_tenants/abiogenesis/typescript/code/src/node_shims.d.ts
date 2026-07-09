@@ -154,6 +154,9 @@ declare module "node:path" {
   export function join(...paths: readonly string[]): string;
   export function relative(from: string, to: string): string;
   export function resolve(...paths: readonly string[]): string;
+  // codex P1 (review 2026-07-10): the measured-path containment law
+  // compares against the platform separator
+  export const sep: string;
 }
 
 declare module "node:url" {

@@ -748,3 +748,123 @@ test("T-217 S2.1 (C-5): route-basis reconstruction fails closed on a log with no
   );
   assert.match(ctx.lastJson().reason, /requires an admitted basis/u);
 });
+
+test("T-217 review R4 (WITNESS-015): allowing an enabled declaration by a DIFFERENT lawful handle is narrowing, not widening", () => {
+  const namespace = "t217/allow";
+  const alpha = t217Declaration({ namespace, subject: "alpha", contentMarker: "v1" });
+  const beta = t217Declaration({ namespace, subject: "beta", contentMarker: "v1" });
+  // the binding enables alpha BY ENTRY REF only
+  const binding = allowlistBinding({
+    enabledLibraryRefs: [alpha.entryRef],
+    declarations: [alpha, beta]
+  });
+  // allowing alpha by DECLARATION ref: same declaration, different
+  // handle — lawful narrowing under the registry's own enablement law
+  const narrowed = narrowRegistryStartupToSessionAllowlist(binding, [
+    alpha.declarationRef
+  ]);
+  assert.deepEqual(
+    narrowed.runtimeRegistryStartup.productDeclarations.map((d) => d.entryRef),
+    [alpha.entryRef]
+  );
+  // beta stays widening: it covers a declaration the view does not enable
+  assert.throws(
+    () => narrowRegistryStartupToSessionAllowlist(binding, [beta.declarationRef]),
+    /narrowing-only/u
+  );
+});
+
+test("T-217 codex P1: the CLI append path is a LIVE store — a forged pre-stamped envelope fails closed at emission; minted ordinals continue past the record", async () => {
+  const {
+    createSeededLiveEmitterContext,
+    emitWithContext,
+    emit: emitDefault
+  } = await import("../../build/semantic/code/src/abg/m03/events/index.js");
+  const failure = (message) => ({
+    kind: "runtime_failure_observed",
+    basisId: null,
+    surface: "test://t217/live-store",
+    failureClass: "runtime_failure",
+    message,
+    stackExcerpt: null
+  });
+  const [persisted] = emitDefault(failure("persisted"), () => {});
+  const live = createSeededLiveEmitterContext([persisted]);
+  // a forged pre-stamped canonical envelope at the live append: rejected
+  assert.throws(
+    () => emitWithContext(live, persisted, () => {}),
+    /live emitter context rejects pre-stamped canonical envelopes/u
+  );
+  // fresh operator acts mint PAST the persisted record
+  const [minted] = emitWithContext(live, failure("fresh"), () => {});
+  assert.ok(minted.eventAdmissionOrdinal > persisted.eventAdmissionOrdinal);
+});
+
+test("T-217 codex P1: the kernel measure instrument refuses materialized paths that escape the workspace root", async () => {
+  const { root, eventLogPath } = fixtureWorkspace();
+  const { module: mod, executive } = buildThreeStageModule({
+    defaultRegime: "F_P"
+  });
+  const basis = admitExecutionBasis({
+    startIntent: {
+      scope: { kind: "workspace", workspaceRoot: root, moduleName: mod.name },
+      target: { kind: "graph_function", handle: executive.name },
+      until: "converged"
+    },
+    module: mod,
+    runtimeIdentity: admitResolvedRuntimeIdentity({
+      workerId: "worker://t217/escape",
+      backendId: "backend://node",
+      buildId: "build://typescript",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    }),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://t217/escape",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t217/escape"
+    }),
+    runId: "run://t217/escape",
+    workKey: "wk://t217/escape",
+    frameId: null,
+    frameLineageId: null
+  });
+  // a forged materialization event pointing OUTSIDE the workspace: the
+  // shape admits (codex P1), so the INSTRUMENT must refuse the read
+  const forged = {
+    kind: "output_materialization_observed",
+    basisId: basis.id,
+    graphCallId: `graph-call:${basis.id}`,
+    frameId: `frame:${basis.id}:root`,
+    vectorIndex: 0,
+    edge: basis.graph.vectors[0].name,
+    allocationId: "allocation://t217/escape",
+    assetRef: "workspace://t217/escape",
+    materializedRef: "materialized://t217/escape",
+    materializedPath: "/etc/hosts",
+    digest: "sha256:whatever",
+    observerRef: "observer://t217/escape",
+    artifactRefs: []
+  };
+  const emitted = [];
+  emit([constructBasisAdmittedEvent(basis), forged], (event) =>
+    emitted.push(event)
+  );
+  writeFileSync(
+    eventLogPath,
+    emitted.map((event) => JSON.stringify(event)).join("\n") + "\n",
+    "utf8"
+  );
+  const ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(
+      ["witness", "hygiene-stamp", "--workspace", root, "--measure", "workspace"],
+      ctx.io
+    ),
+    1
+  );
+  assert.match(
+    ctx.lastJson().reason,
+    /escapes the workspace root/u,
+    "the instrument refuses, it never reads"
+  );
+});

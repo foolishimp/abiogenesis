@@ -557,3 +557,96 @@ test("T-217 P4: rejection through route and grammar; policy-ratify through the g
     /tune requires a subcommand: report \| propose \| ratify \| reject/u
   );
 });
+
+test("T-217 review R6: a duplicated close event is inert — one invocation counts once", () => {
+  const scope = {
+    basisId: "basis://t217/review/cost",
+    graphFunctionId: "graph-function://t217/review",
+    runId: null,
+    workKey: null,
+    graphCallId: "graph-call://t217/review/cost",
+    frameId: "frame://t217/review/cost",
+    vectorIndex: 0,
+    edge: "input_set→requirements",
+    actorInvocationId: "actor-invocation://t217/review/cost",
+    workerId: "worker://codex",
+    backendId: "backend://codex-cli",
+    causationEventRefs: [],
+    correlationId: "correlation://t217/review/cost"
+  };
+  const started = {
+    kind: "actor_invocation_started",
+    ...scope,
+    attemptIndex: 0,
+    dispatchRef: "dispatch://t217/review",
+    resultRef: "result://t217/review/cost"
+  };
+  const closed = {
+    kind: "actor_invocation_closed",
+    ...scope,
+    attemptIndex: 0,
+    dispatchRef: "dispatch://t217/review",
+    resultRef: "result://t217/review/cost",
+    closureStatus: "completed",
+    closureFailureClass: null,
+    detail: null
+  };
+  const [canonicalStarted, canonicalClosed] = emit([started, closed], () => {});
+  // a hostile/duplicated replay carrying the SAME closed event twice
+  const rows = deriveConfigurationCostRows([
+    canonicalStarted,
+    canonicalClosed,
+    canonicalClosed
+  ]);
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].invocationCount, 1, "the duplicate close is inert");
+});
+
+test("T-217 codex P1: cited signal refs are replay-derived authority — phantom citations fail closed, derived citations admit", () => {
+  // a replay that DERIVES a retry-density signal
+  const scope = (attempt) => ({
+    kind: "actor_invocation_started",
+    basisId: "basis://t217/cite",
+    graphFunctionId: "graph-function://t217/cite",
+    runId: null,
+    workKey: null,
+    graphCallId: "graph-call://t217/cite",
+    frameId: "frame://t217/cite",
+    vectorIndex: 0,
+    edge: "input_set→requirements",
+    actorInvocationId: `actor-invocation://t217/cite/${attempt}`,
+    workerId: "worker://codex",
+    backendId: "backend://codex-cli",
+    causationEventRefs: [],
+    correlationId: `correlation://t217/cite/${attempt}`,
+    attemptIndex: attempt,
+    dispatchRef: "dispatch://t217/cite",
+    resultRef: `result://t217/cite/${attempt}`
+  });
+  const replay = emit([scope(0), scope(1)], () => {});
+  const derivedRef = deriveTunerModeSignals(replay)[0].signalRef;
+
+  // phantom citation: fails closed at the route
+  assert.throws(
+    () =>
+      admitTunerDraft({
+        runtimeEvents: replay,
+        eventSink: () => {},
+        ...CAL_DRAFT,
+        proposalKind: "promotion",
+        citedSignalRefs: ["tuner-signal://does-not-exist"],
+        summary: "promote citing a phantom signal"
+      }),
+    /cites signal rows the replay does not derive/u
+  );
+  // a citation the replay derives admits
+  const lawful = admitTunerDraft({
+    runtimeEvents: replay,
+    eventSink: () => {},
+    ...CAL_DRAFT,
+    proposalKind: "promotion",
+    citedSignalRefs: [derivedRef],
+    summary: "promote citing the derived retry-density signal"
+  });
+  assert.equal(lawful.states[0].proposalKind, "promotion");
+});

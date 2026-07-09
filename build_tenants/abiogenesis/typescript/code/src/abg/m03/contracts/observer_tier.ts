@@ -86,6 +86,10 @@ function observedDeclarationDriftRefs(
   events: readonly RuntimeEvent[]
 ): readonly string[] {
   const digestsByRef = new Map<string, Set<string>>();
+  const repricePairsByRef = new Map<
+    string,
+    { readonly beforeDigest: string; readonly afterDigest: string }[]
+  >();
   const coveredRefs = new Set<string>();
   const driftRefs = new Set<string>();
   for (const event of events) {
@@ -95,30 +99,59 @@ function observedDeclarationDriftRefs(
       digestsByRef.set(event.declarationRef, digests);
     }
     if (event.kind === "declaration_reprice_admitted") {
+      // codex P2 (review round 2026-07-10): coverage follows the S1
+      // exact-pair law where digests are observable. Reason-channel
+      // drifts (the guard blocked before admitting the second digest)
+      // retire at ref level — their pairs are not in the record.
       coveredRefs.add(event.declarationRef);
+      const pairs = repricePairsByRef.get(event.declarationRef) ?? [];
+      pairs.push({
+        beforeDigest: event.beforeDigest,
+        afterDigest: event.afterDigest
+      });
+      repricePairsByRef.set(event.declarationRef, pairs);
     }
     // the S1 guard BLOCKS drifted resumes before admitting the drifted
     // entry, so the drift's replay witness is the typed halt reason —
-    // the second channel alongside two-digest admission records
+    // the second channel alongside two-digest admission records. The
+    // guard COMMA-JOINS multiple drifted refs into one reason; each is
+    // its own drift fact (review finding: one draft per declaration,
+    // never one draft over a joined string).
     if (event.kind === "terminal_reached" && event.reason !== null) {
       const match = /^declaration_reprice_required:\s*(.+)$/u.exec(
         event.reason
       );
       if (match?.[1] !== undefined) {
-        driftRefs.add(match[1].trim());
+        for (const ref of match[1].split(",")) {
+          if (ref.trim().length > 0) {
+            driftRefs.add(ref.trim());
+          }
+        }
       }
     }
   }
+  const pairCovered = (ref: string, digests: ReadonlySet<string>): boolean =>
+    (repricePairsByRef.get(ref) ?? []).some(
+      (pair) =>
+        digests.has(pair.beforeDigest) && digests.has(pair.afterDigest)
+    );
+  const uncovered = new Set<string>();
   for (const [ref, digests] of digestsByRef) {
-    if (digests.size > 1) {
-      driftRefs.add(ref);
+    // two-digest drifts demand PAIR coverage: a reprice on the ref that
+    // does not name the observed digest pair leaves the drift standing
+    if (digests.size > 1 && !pairCovered(ref, digests)) {
+      uncovered.add(ref);
     }
   }
-  return Object.freeze(
-    [...driftRefs]
-      .filter((ref) => !coveredRefs.has(ref))
-      .sort(codepointCompare)
-  );
+  for (const ref of driftRefs) {
+    if (!digestsByRef.has(ref) || (digestsByRef.get(ref)?.size ?? 0) <= 1) {
+      // reason-channel drift: digests unobservable, ref-level retirement
+      if (!coveredRefs.has(ref)) {
+        uncovered.add(ref);
+      }
+    }
+  }
+  return Object.freeze([...uncovered].sort(codepointCompare));
 }
 
 function observedBasisForkSpineRefs(
@@ -154,25 +187,24 @@ export function deriveObserverObservables(
   events: readonly RuntimeEvent[]
 ): ObserverObservables {
   const attestationRows = verifyReplayLogAttestations(events);
-  const schemaRejections = events
-    .filter(
-      (event) =>
-        event.kind === "payload_rejected" &&
-        event.rejectionClass === "schema_invalid"
-    )
-    .map((event) =>
-      event.kind === "payload_rejected"
-        ? Object.freeze({
+  const schemaRejections = events.flatMap((event) =>
+    event.kind === "payload_rejected" &&
+    event.rejectionClass === "schema_invalid"
+      ? [
+          Object.freeze({
             payloadRef: event.payloadRef,
             schemaRef: event.schemaRef,
             issueKinds: Object.freeze(
-              [...new Set(event.issues.map((issue) => issue.issueKind))].sort(
-                codepointCompare
-              )
+              [
+                ...new Set(
+                  (event.issues ?? []).map((issue) => issue.issueKind)
+                )
+              ].sort(codepointCompare)
             )
           })
-        : Object.freeze({ payloadRef: "", schemaRef: null, issueKinds: Object.freeze([]) })
-    );
+        ]
+      : []
+  );
   return Object.freeze({
     kind: "observer_observables",
     haltDiagnosis: deriveHaltDiagnosis(events),
@@ -418,11 +450,17 @@ export function deriveObserverTicketDrafts(
 
   // a halt whose reason class carries no mechanical rule: a QUESTION for
   // the seat, not a guess — the observer never classifies what it
-  // cannot prove (FPC-021: no authority from narrative)
-  if (
-    observables.haltDiagnosis.halted &&
-    drafts.length === 0
-  ) {
+  // cannot prove (FPC-021: no authority from narrative). The question
+  // fires when the HALT ITSELF is unaddressed — an unrelated taint or
+  // fork draft must not silence it (review finding).
+  const haltReason = observables.haltDiagnosis.haltReason ?? "";
+  const haltAddressed =
+    (/^declaration_reprice_required:/u.test(haltReason) &&
+      observables.repriceObligationRefs.length > 0) ||
+    (/basis_fork_detected/u.test(haltReason) &&
+      observables.basisForkObligationRefs.length > 0) ||
+    (/schema/iu.test(haltReason) && observables.schemaRejections.length > 0);
+  if (observables.haltDiagnosis.halted && !haltAddressed) {
     drafts.push(
       draft({
         actionKind: "fh_input",
@@ -437,7 +475,15 @@ export function deriveObserverTicketDrafts(
     );
   }
 
+  // one draft per distinct proposal: repeated rejections of the same
+  // payload re-derive the same content-derived draftRef (review finding)
+  const deduped = new Map<string, ObserverTicketDraft>();
+  for (const row of drafts) {
+    deduped.set(row.draftRef, row);
+  }
   return Object.freeze(
-    drafts.sort((left, right) => codepointCompare(left.draftRef, right.draftRef))
+    [...deduped.values()].sort((left, right) =>
+      codepointCompare(left.draftRef, right.draftRef)
+    )
   );
 }

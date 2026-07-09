@@ -45,6 +45,23 @@ const defaultEmitterContext: RuntimeEventEmitterContext = {
   ordinal: 0
 };
 
+// codex P1 (review round 2026-07-10): the live/replay split is real only
+// where a LIVE context is actually adopted. This is the adoption helper
+// for a persisted store's append path: a live context (pre-stamped
+// canonical envelopes fail closed as forged) seeded PAST the replayed
+// record so minted ordinals never collide with persisted truth.
+export function createSeededLiveEmitterContext(
+  replayEvents: readonly RuntimeEvent[]
+): RuntimeEventEmitterContext {
+  const context = createRuntimeEventEmitterContext({ source: "live" });
+  seedRuntimeEventAdmissionOrdinal(replayEvents, context);
+  // the module default may already sit past this store's record (other
+  // stores in-process); never mint BEHIND it or cross-store appends in
+  // one process could collide on replay ordering
+  context.ordinal = Math.max(context.ordinal, defaultEmitterContext.ordinal);
+  return context;
+}
+
 function isRuntimeEventBatch(
   events: RuntimeEvent | readonly RuntimeEvent[]
 ): events is readonly RuntimeEvent[] {

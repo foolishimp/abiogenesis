@@ -49,10 +49,15 @@ import {
 } from "../contracts/halt_diagnosis.js";
 import { deriveReplayChainDigest } from "../contracts/replay_attestation.js";
 import {
+  emitWithContext,
+  type RuntimeEventEmitterContext
+} from "../events/emit.js";
+import {
   constructTunerDraftAdmittedEvent,
   constructTunerDraftRatifiedEvent,
   constructTunerDraftRejectedEvent,
   deriveTunerDraftStates,
+  deriveTunerModeSignals,
   type TunerDraftStateRow
 } from "../contracts/tuner_tier.js";
 import {
@@ -333,7 +338,22 @@ function graphSpanTransitionProjection(input: {
   }
 }
 
+// codex P1 (review round 2026-07-10): operator routes are a persisted
+// store's APPEND path — when the caller supplies a live emitter context,
+// fresh events mint through it (pre-stamped envelopes fail closed as
+// forged); without one, the module default preserves existing callers.
+function routeEmit(
+  context: RuntimeEventEmitterContext | undefined,
+  events: readonly RuntimeEvent[],
+  sink: RuntimeEventSink
+): readonly CanonicalRuntimeEvent[] {
+  return context === undefined
+    ? emit(events, sink)
+    : emitWithContext(context, events, sink);
+}
+
 export interface DeclarationRepriceAdmissionRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -383,7 +403,8 @@ export function admitDeclarationReprice(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([repriceEvent])),
     input.eventSink
   );
@@ -400,6 +421,7 @@ export function admitDeclarationReprice(
 }
 
 export interface OperatorRunLifecycleRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -448,7 +470,8 @@ export function admitRunResumed(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([lifecycleEvent])),
     input.eventSink
   );
@@ -478,7 +501,8 @@ export function admitRunStopped(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([lifecycleEvent])),
     input.eventSink
   );
@@ -492,6 +516,7 @@ export function admitRunStopped(
 }
 
 export interface WorkspaceHygieneStampRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -539,7 +564,8 @@ export function admitWorkspaceHygieneStamp(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([hygieneEvent])),
     input.eventSink
   );
@@ -557,6 +583,7 @@ export function admitWorkspaceHygieneStamp(
 }
 
 export interface DefectIntakeRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -614,7 +641,8 @@ export function admitDefectIntake(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([intakeEvent])),
     input.eventSink
   );
@@ -631,6 +659,7 @@ export function admitDefectIntake(
 }
 
 export interface ReplayLogAttestationRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
@@ -672,7 +701,8 @@ export function admitReplayLogAttestation(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(
       input.basis,
       input.runtimeEvents ?? Object.freeze([]),
@@ -846,6 +876,7 @@ export function applyGraphSpanReentryRoute(
 // a settled draft fails closed.
 
 export interface TunerProposeRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly proposalKind: import("../contracts/carriers.js").TunerProposalKind;
@@ -865,6 +896,25 @@ export function admitTunerDraft(input: TunerProposeRequest): {
   readonly emittedEvents: readonly CanonicalRuntimeEvent[];
   readonly states: readonly TunerDraftStateRow[];
 } {
+  // codex P1 (review round 2026-07-10): "cite admitted signal rows by
+  // ref" (TUNER-010) is a REPLAY-DERIVED authority check, not a
+  // presence check — every cited ref must resolve against the signal
+  // rows this replay actually derives, or the proposal fails closed.
+  if ((input.citedSignalRefs ?? []).length > 0) {
+    const derivedRefs = new Set(
+      deriveTunerModeSignals(input.runtimeEvents ?? Object.freeze([])).map(
+        (row) => row.signalRef
+      )
+    );
+    const phantom = (input.citedSignalRefs ?? []).filter(
+      (ref) => !derivedRefs.has(ref)
+    );
+    if (phantom.length > 0) {
+      throw new TypeError(
+        `Tuner proposal cites signal rows the replay does not derive: ${JSON.stringify(phantom)} (TUNER-010)`
+      );
+    }
+  }
   const draftEvent = constructTunerDraftAdmittedEvent({
     proposalKind: input.proposalKind,
     proposer: input.proposer,
@@ -878,7 +928,7 @@ export function admitTunerDraft(input: TunerProposeRequest): {
     correlationId:
       input.correlationId ?? `tuner-propose:${input.proposer}:${input.summary.slice(0, 40)}`
   });
-  const emittedEvents = emit(Object.freeze([draftEvent]), input.eventSink);
+  const emittedEvents = routeEmit(input.emitterContext, Object.freeze([draftEvent]), input.eventSink);
   return Object.freeze({
     draftRef: draftEvent.draftRef,
     emittedEvents,
@@ -890,6 +940,7 @@ export function admitTunerDraft(input: TunerProposeRequest): {
 }
 
 export interface TunerDecisionRequest {
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly runtimeEvents: readonly RuntimeEvent[];
   readonly eventSink: RuntimeEventSink;
   readonly draftRef: string;
@@ -918,6 +969,13 @@ export function admitTunerDraftDecision(input: TunerDecisionRequest): {
       `Tuner draft ${JSON.stringify(input.draftRef)} is already ${current.state}; decisions are not re-issued`
     );
   }
+  // NAMED GAP (codex P1, review round 2026-07-10, the
+  // FpTransportConfig.prompt precedent): ratificationPolicyRef is
+  // exactly-one-authority checked but not yet verified against a
+  // DECLARED auto-ratify policy surface — no such declaration surface
+  // exists in the binding schema yet. Until it lands (a binding-schema
+  // rider), policy-path ratification is transitional and non-closing
+  // for TUNER-005's final gate; F_H ratification is the complete path.
   const decisionEvent =
     input.decision === "ratify"
       ? constructTunerDraftRatifiedEvent({
@@ -934,7 +992,7 @@ export function admitTunerDraftDecision(input: TunerDecisionRequest): {
           correlationId:
             input.correlationId ?? `tuner-reject:${input.draftRef}`
         });
-  const emittedEvents = emit(Object.freeze([decisionEvent]), input.eventSink);
+  const emittedEvents = routeEmit(input.emitterContext, Object.freeze([decisionEvent]), input.eventSink);
   return Object.freeze({
     draftRef: input.draftRef,
     emittedEvents,
