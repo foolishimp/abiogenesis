@@ -1406,6 +1406,17 @@ export type {
   ObserverObservables,
   ObserverTicketDraft
 } from "./observer_tier.js";
+export {
+  ABG_CONSENSUS_MODULE_DECLARATIONS,
+  ABG_REVIEW_MODULE_DECLARATIONS,
+  ABG_SUBSUMED_MODULE_DECLARATIONS,
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  REVIEW_RULING_KIND_VALUES
+} from "./review_consensus_modules.js";
+export type {
+  ConsensusRoundOutcome,
+  ReviewRulingKind
+} from "./review_consensus_modules.js";
 export { verifyJUnitReportContents } from "./test_report_verification.js";
 export type {
   TestReportContentRow,

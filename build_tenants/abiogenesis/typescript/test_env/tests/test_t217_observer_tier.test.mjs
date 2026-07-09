@@ -507,3 +507,82 @@ test("T-217 P3.1: the two-digest admission channel also witnesses drift — a re
     "gtl-declaration://t217/two-digest"
   ]);
 });
+
+// ── P3.5: the subsumed review/consensus declared modules ─────────────
+
+test("T-217 P3.5: the subsumed families are catalog citizens — system-scope declarations under reserved refs that products cannot shadow", async () => {
+  const {
+    ABG_SUBSUMED_MODULE_DECLARATIONS,
+    ABG_REVIEW_MODULE_DECLARATIONS,
+    ABG_CONSENSUS_MODULE_DECLARATIONS,
+    REVIEW_RULING_KIND_VALUES,
+    CONSENSUS_ROUND_OUTCOME_VALUES
+  } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  const {
+    admitGtlLibraryEntryDeclaration,
+    projectRuntimeGraphFunctionRegistry
+  } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/runtime_graph_function_registry.js"
+  );
+
+  // the declared families: review (assessment + ruling reduction) and
+  // consensus (governed rounds), all system scope under gtl://abg/*
+  assert.equal(ABG_SUBSUMED_MODULE_DECLARATIONS.length, 3);
+  for (const declaration of ABG_SUBSUMED_MODULE_DECLARATIONS) {
+    assert.equal(declaration.libraryScope, "system");
+    assert.match(declaration.entryRef, /^gtl:\/\/abg\/(review|consensus)\//u);
+  }
+  // the decision vocabularies are closed data
+  assert.deepEqual(REVIEW_RULING_KIND_VALUES, [
+    "decision_row",
+    "draft_ticket",
+    "split_ticket",
+    "deferment",
+    "rejected_finding"
+  ]);
+  assert.deepEqual(CONSENSUS_ROUND_OUTCOME_VALUES, [
+    "closed_done",
+    "recurse_next_round",
+    "escalate_fh"
+  ]);
+  // review output is never ticket status authority; consensus recursion
+  // stops by declared law — both carried as declared policy refs
+  assert.ok(
+    ABG_REVIEW_MODULE_DECLARATIONS[1].policyRefs.some((ref) =>
+      /review-never-owns-status/u.test(ref)
+    )
+  );
+  assert.ok(
+    ABG_CONSENSUS_MODULE_DECLARATIONS[0].policyRefs.some((ref) =>
+      /recursion-stops-by-declared-law/u.test(ref)
+    )
+  );
+
+  // admission: the system entries admit; a PRODUCT declaration shadowing
+  // the reserved ref without override law is rejected unlawful_system_shadow
+  const emitted = [];
+  for (const declaration of ABG_SUBSUMED_MODULE_DECLARATIONS) {
+    const event = admitGtlLibraryEntryDeclaration({
+      declaration,
+      correlationId: `correlation://t217/p35/${declaration.entryRef}`
+    });
+    assert.equal(event.kind, "registry_entry_admitted");
+    emitted.push(...emit([event], () => {}));
+  }
+  const projection = projectRuntimeGraphFunctionRegistry(emitted);
+  const shadow = admitGtlLibraryEntryDeclaration({
+    declaration: {
+      ...ABG_REVIEW_MODULE_DECLARATIONS[0],
+      libraryScope: "product",
+      declarationRef: "gtl-declaration://product/shadow-attempt",
+      namespace: "product.shadow",
+      ownerRef: "owner://product/shadow"
+    },
+    projection,
+    correlationId: "correlation://t217/p35/shadow"
+  });
+  assert.equal(shadow.kind, "registry_entry_rejected");
+  assert.equal(shadow.rejectionReason, "unlawful_system_shadow");
+});

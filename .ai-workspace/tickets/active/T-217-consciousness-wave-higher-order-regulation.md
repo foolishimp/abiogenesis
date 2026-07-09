@@ -1059,6 +1059,31 @@ independent derivation is the LIVE observer episode's F_P work
 1258/1258; gate violations=0. REMAINING Phase 3: P3.5 (the subsumed
 gtl://abg/review/* + gtl://abg/consensus/* declared modules).
 
+P3.5 DELIVERED (2026-07-10) — PHASE 3 COMPLETE (deterministic scope).
+The subsumed families ship as substrate-bundled DECLARED modules
+(contracts/review_consensus_modules.ts), the HOG_BOOTSTRAP_TRIPLE
+catalog-citizen precedent: SYSTEM-scope GtlLibraryEntryDeclarations
+under reserved refs — gtl://abg/review/multi-reviewer-assessment,
+gtl://abg/review/findings-to-rulings,
+gtl://abg/consensus/submitter-reviewer-rounds — with the T-167/T-166
+design authority carried as declared data: closed decision vocabularies
+(REVIEW_RULING_KIND_VALUES = decision_row|draft_ticket|split_ticket|
+deferment|rejected_finding; CONSENSUS_ROUND_OUTCOME_VALUES =
+closed_done|recurse_next_round|escalate_fh), the review-never-owns-
+ticket-status and recursion-stops-by-declared-law policies as policy
+refs, and odd_sdlc subsumption provenance refs. Differential: the
+system entries ADMIT through the registry; a product declaration
+shadowing a reserved ref without override law rejects
+unlawful_system_shadow. Hosts (odd_sdlc workflows, odd_glc review
+sessions) bind the published family — the session allowlist
+(WITNESS-015) is how an operator narrows a session to exactly these
+functions (the motivating odd_glc-review-session use case). The
+families' EXECUTION (fan-out, reduction, rounds) is graph-function
+realization that rides the live gate with the host bindings (the
+odd_glc review host binding is the named Phase 5 deliverable). Suites
+1259/1259; gate violations=0. Next: Phase 4 entry triage (the tuner +
+session economics).
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
