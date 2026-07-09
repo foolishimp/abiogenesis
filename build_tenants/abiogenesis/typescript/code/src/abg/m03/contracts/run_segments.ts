@@ -10,6 +10,7 @@
 
 import type { RunSegmentOpenedEvent, RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import { decisiveValueByAdmissionOrdinal } from "./admission_hygiene.js";
 import {
   deriveFrozenLawPredicate,
   type FrozenLawPredicate,
@@ -49,12 +50,28 @@ function codepointCompare(left: string, right: string): number {
 export function deriveGoverningDeclarationSet(
   events: readonly RuntimeEvent[]
 ): GoverningDeclarationSet {
-  const latestByDeclarationRef = new Map<string, string>();
+  const rowsByDeclarationRef = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "registry_entry_admitted" }>[]
+  >();
   for (const event of events) {
     if (event.kind !== "registry_entry_admitted") {
       continue;
     }
-    latestByDeclarationRef.set(event.declarationRef, event.declarationDigest);
+    const rows = rowsByDeclarationRef.get(event.declarationRef) ?? [];
+    rows.push(event);
+    rowsByDeclarationRef.set(event.declarationRef, rows);
+  }
+  const latestByDeclarationRef = new Map<string, string>();
+  for (const [declarationRef, rows] of rowsByDeclarationRef) {
+    const digest = decisiveValueByAdmissionOrdinal(
+      rows,
+      (row) => row.declarationDigest,
+      `Governing declaration set (${declarationRef})`
+    );
+    if (digest !== null) {
+      latestByDeclarationRef.set(declarationRef, digest);
+    }
   }
   const pairs = [...latestByDeclarationRef.entries()]
     .map(([declarationRef, declarationDigest]) => ({

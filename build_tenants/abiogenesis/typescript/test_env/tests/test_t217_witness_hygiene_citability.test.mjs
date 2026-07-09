@@ -19,6 +19,7 @@ import {
   admitWorkspaceHygieneStamp
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
 
 function artifactObserved(artifactRef, digest, basisId = "basis://t217/s3") {
   // synthetic replay row: the derivations read kind + artifactRef +
@@ -149,11 +150,33 @@ test("T-217 S3 d2: the kernel join — observations x latest admitted digests ->
     artifactObserved("artifact://report", "digest-v2"),
     artifactObserved("artifact://log", "digest-log"),
     artifactObserved("artifact://gone", "digest-gone")
-  ];
+  ].map((event) => emit(event, () => {})[0]);
   assert.equal(
     latestAdmittedArtifactDigests(replay).get("artifact://report"),
     "digest-v2",
     "the LATEST admitted digest is the re-measurement baseline"
+  );
+  // codex P1: ordinal truth, not array order — shuffled replay is stable
+  assert.equal(
+    latestAdmittedArtifactDigests([...replay].reverse()).get("artifact://report"),
+    "digest-v2"
+  );
+  // disagreeing unorderable candidates fail closed
+  assert.throws(
+    () =>
+      latestAdmittedArtifactDigests([
+        artifactObserved("artifact://raw", "digest-a"),
+        artifactObserved("artifact://raw", "digest-b")
+      ]),
+    /requires admission ordinals/u
+  );
+  // agreeing duplicates need no ordinals
+  assert.equal(
+    latestAdmittedArtifactDigests([
+      artifactObserved("artifact://dup", "digest-same"),
+      artifactObserved("artifact://dup", "digest-same")
+    ]).get("artifact://dup"),
+    "digest-same"
   );
   const rows = deriveWorkspaceHygieneRows({
     observations: [
@@ -185,30 +208,57 @@ test("T-217 S3 d2: the kernel join — observations x latest admitted digests ->
   assert.equal(byRef.get("artifact://new").classification, "untracked");
 });
 
-test("T-217 S3 d3: taint resolves ONLY by clean re-measurement; untracked never taints", () => {
-  const tainted = hygieneStamp([
-    foreignRow("artifact://report", "digest-x", "digest-v2", "copyout://r/1"),
-    {
-      artifactRef: "artifact://new",
-      observedDigest: "digest-new",
-      admittedDigest: null,
-      classification: "untracked",
-      copyOutRef: null
-    }
-  ]);
+test("T-217 S3 d3: taint resolves ONLY by clean re-measurement, in ORDINAL order — array shuffles cannot flip cleanliness", () => {
+  const [tainted] = emit(
+    hygieneStamp([
+      foreignRow("artifact://report", "digest-x", "digest-v2", "copyout://r/1"),
+      {
+        artifactRef: "artifact://new",
+        observedDigest: "digest-new",
+        admittedDigest: null,
+        classification: "untracked",
+        copyOutRef: null
+      }
+    ]),
+    () => {}
+  );
   const afterTaint = deriveWorkspaceHygienePredicate([tainted]);
   assert.equal(afterTaint.hygieneClean, false);
   assert.deepEqual(afterTaint.taintedArtifactRefs, ["artifact://report"]);
 
   // a later clean re-measurement resolves the taint
-  const remeasured = hygieneStamp([cleanRow("artifact://report", "digest-v2")]);
+  const [remeasured] = emit(
+    hygieneStamp([cleanRow("artifact://report", "digest-v2")]),
+    () => {}
+  );
   const afterRemeasure = deriveWorkspaceHygienePredicate([tainted, remeasured]);
   assert.equal(afterRemeasure.hygieneClean, true);
   assert.equal(afterRemeasure.stampCount, 2);
 
-  // order matters: taint AFTER a clean stamp taints
-  const taintedAgain = deriveWorkspaceHygienePredicate([remeasured, tainted]);
-  assert.equal(taintedAgain.hygieneClean, false);
+  // codex P1: ORDINAL truth decides — the shuffled array stays clean
+  const shuffled = deriveWorkspaceHygienePredicate([remeasured, tainted]);
+  assert.equal(shuffled.hygieneClean, true);
+
+  // a taint stamped LATER (higher ordinal) taints, in any array order
+  const [taintedAgain] = emit(
+    hygieneStamp([
+      foreignRow("artifact://report", "digest-y", "digest-v2", "copyout://r/2")
+    ]),
+    () => {}
+  );
+  assert.equal(
+    deriveWorkspaceHygienePredicate([taintedAgain, tainted, remeasured]).hygieneClean,
+    false
+  );
+  // multiple unorderable stamps fail closed
+  assert.throws(
+    () =>
+      deriveWorkspaceHygienePredicate([
+        hygieneStamp([cleanRow("artifact://a", "digest-1")]),
+        hygieneStamp([cleanRow("artifact://b", "digest-2")])
+      ]),
+    /requires admission ordinals/u
+  );
 });
 
 test("T-217 S3 d4: citability = converged AND frozen-law AND hygiene clean, with the failing conjunct exposed", () => {
@@ -338,7 +388,11 @@ test("T-217 S3 h1 (self-review SR-1): materialized outputs are re-measurable sur
   assert.equal(rows[0].classification, "foreign_write");
   assert.equal(rows[0].admittedDigest, "digest-materialized-v1");
   // matching re-measurement stays clean; re-materialization moves the baseline
-  const rematerialized = { ...materialized, digest: "digest-materialized-v2" };
+  const [materializedCanonical] = emit({ ...materialized }, () => {});
+  const [rematerialized] = emit(
+    { ...materialized, digest: "digest-materialized-v2" },
+    () => {}
+  );
   const moved = deriveWorkspaceHygieneRows({
     observations: [
       {
@@ -346,7 +400,18 @@ test("T-217 S3 h1 (self-review SR-1): materialized outputs are re-measurable sur
         observedDigest: "digest-materialized-v2"
       }
     ],
-    replayEvents: [materialized, rematerialized]
+    replayEvents: [materializedCanonical, rematerialized]
   });
   assert.equal(moved[0].classification, "clean");
+  // ordinal truth: shuffled replay keeps the moved baseline
+  const movedShuffled = deriveWorkspaceHygieneRows({
+    observations: [
+      {
+        artifactRef: "materialized://t217/s3/code-module/1",
+        observedDigest: "digest-materialized-v2"
+      }
+    ],
+    replayEvents: [rematerialized, materializedCanonical]
+  });
+  assert.equal(movedShuffled[0].classification, "clean");
 });

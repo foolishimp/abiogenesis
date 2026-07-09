@@ -41,6 +41,12 @@ function basisAdmitted(basisId, overrides = {}) {
 }
 
 function coveringReprice(priorBasisId, enteringBasisId) {
+  // coverage authority requires canonical replay truth (codex P1)
+  const [canonical] = emit(rawCoveringReprice(priorBasisId, enteringBasisId), () => {});
+  return canonical;
+}
+
+function rawCoveringReprice(priorBasisId, enteringBasisId) {
   return constructDeclarationRepriceAdmittedEvent({
     basisId: priorBasisId,
     runId: SPINE.runId,
@@ -107,6 +113,17 @@ test("T-217 S5 i1: fork detection — same spine + different basisId requires th
     enteringBasis: entering
   });
   assert.equal(resume.forkRows.length, 0);
+
+  // k1 (codex P1): a RAW constructed reprice is a self-reported operator
+  // act, not replay truth — it covers nothing
+  const rawCover = deriveBasisForkObligations({
+    priorEvents: [
+      basisAdmitted("basis://A"),
+      rawCoveringReprice("basis://A", "basis://B")
+    ],
+    enteringBasis: entering
+  });
+  assert.equal(rawCover.uncoveredForkRows.length, 1);
 });
 
 test("T-217 S5 i2: chain of custody — the decisive prior is ordinal-latest; unorderable multiples fail closed", () => {
@@ -308,4 +325,66 @@ test("T-217 S5 j1 (self-review F1): routes cannot launder a fork — the conveni
       event.kind === "basis_admitted" && event.basisId === forkedBasis.id
   );
   assert.ok(admittedFork, "the ratified fork is admitted through the route");
+});
+
+test("T-217 S5 k1 (codex P1): the runner rejects raw-reprice fork coverage — canonical admitted truth or the fork stays blocked", () => {
+  const { input, context } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const runOneEvents = [];
+  runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [],
+    eventSink: (event) => runOneEvents.push(event)
+  });
+  const basisA = runOneEvents.find((event) => event.kind === "basis_admitted");
+  const forkedPolicy = Object.freeze({
+    ...context.resolvedPolicy,
+    resolvedPolicyBundleRef: "policy://m03-iteration/v3"
+  });
+  const probe = runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: forkedPolicy,
+    runtimeEvents: [...runOneEvents],
+    eventSink: () => {}
+  });
+  assert.match(probe.transition.reason ?? "", /basis_fork_detected/u);
+  // the exact codex probe: a RAW constructed reprice smuggled into the
+  // request events — no eventId, no ordinal, never admitted
+  const rawReprice = constructDeclarationRepriceAdmittedEvent({
+    basisId: basisA.basisId,
+    runId: basisA.runId,
+    workKey: basisA.workKey,
+    declarationRef: mintExecutionBasisSpineRef({
+      graphFunctionId: basisA.graphFunctionId,
+      jobId: basisA.jobId,
+      runId: basisA.runId,
+      workKey: basisA.workKey
+    }),
+    beforeDigest: basisA.basisId,
+    afterDigest: probe.basis.id,
+    changeClass: "realization_refactor",
+    owningTicketRef: "ticket://T-217",
+    operatorActorRef: "operator://forger",
+    reason: "self-reported coverage probe"
+  });
+  const stillBlocked = runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: forkedPolicy,
+    runtimeEvents: [...runOneEvents, rawReprice],
+    eventSink: () => {}
+  });
+  assert.equal(stillBlocked.transition.terminalKind, "gap_stop");
+  assert.match(
+    stillBlocked.transition.reason ?? "",
+    /basis_fork_detected/u,
+    "a self-reported reprice must not ratify a fork"
+  );
 });

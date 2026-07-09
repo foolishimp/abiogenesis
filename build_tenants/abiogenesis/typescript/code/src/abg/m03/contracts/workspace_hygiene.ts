@@ -26,6 +26,10 @@ import {
   deriveFrozenLawPredicate,
   type FrozenLawWindow
 } from "./declaration_reprice.js";
+import {
+  decisiveValueByAdmissionOrdinal,
+  sortByAdmissionOrdinalStrict
+} from "./admission_hygiene.js";
 
 export interface WorkspaceHygieneObservation {
   readonly artifactRef: string;
@@ -70,17 +74,37 @@ function codepointCompare(left: string, right: string): number {
 export function latestAdmittedArtifactDigests(
   events: readonly RuntimeEvent[]
 ): ReadonlyMap<string, string> {
-  const digests = new Map<string, string>();
+  // S3 codex P1: the baseline obeys the D-ordinal law — agreeing
+  // duplicates need no order; disagreeing candidates are decided by
+  // admission ordinal, and unorderable disagreement fails closed.
+  type BaselineCandidate = { readonly event: RuntimeEvent; readonly digest: string };
+  const candidatesByKey = new Map<string, BaselineCandidate[]>();
+  const push = (key: string, event: RuntimeEvent, digest: string): void => {
+    const rows = candidatesByKey.get(key) ?? [];
+    rows.push({ event, digest });
+    candidatesByKey.set(key, rows);
+  };
   for (const event of events) {
     if (
       event.kind === "actor_result_artifact_observed" &&
       event.artifactContentDigest !== null
     ) {
-      digests.set(event.artifactRef, event.artifactContentDigest);
+      push(event.artifactRef, event, event.artifactContentDigest);
     }
     if (event.kind === "output_materialization_observed") {
-      digests.set(event.materializedRef, event.digest);
-      digests.set(event.assetRef, event.digest);
+      push(event.materializedRef, event, event.digest);
+      push(event.assetRef, event, event.digest);
+    }
+  }
+  const digests = new Map<string, string>();
+  for (const [key, rows] of candidatesByKey) {
+    const digest = decisiveValueByAdmissionOrdinal(
+      rows.map((row) => Object.freeze({ ...row.event, __digest: row.digest })),
+      (candidate) => (candidate as { __digest: string }).__digest,
+      `Hygiene baseline (${key})`
+    );
+    if (digest !== null) {
+      digests.set(key, digest);
     }
   }
   return digests;
@@ -155,7 +179,12 @@ export function deriveAdmittedWorkspaceHygieneStamps(
 export function deriveWorkspaceHygienePredicate(
   events: readonly RuntimeEvent[]
 ): WorkspaceHygienePredicate {
-  const stamps = deriveAdmittedWorkspaceHygieneStamps(events);
+  // S3 codex P1: taint resolution folds stamps in ORDINAL order, never
+  // caller array order — a shuffled replay must not flip cleanliness.
+  const stamps = sortByAdmissionOrdinalStrict(
+    deriveAdmittedWorkspaceHygieneStamps(events),
+    "Workspace hygiene stamps"
+  );
   const latestClassification = new Map<string, WorkspaceHygieneClassification>();
   for (const stamp of stamps) {
     for (const row of stamp.rows) {
@@ -191,12 +220,17 @@ export function deriveCitabilityPredicate(
   events: readonly RuntimeEvent[],
   window?: FrozenLawWindow
 ): CitabilityPredicate {
-  let lastTerminalKind: string | null = null;
-  for (const event of events) {
-    if (event.kind === "terminal_reached") {
-      lastTerminalKind = event.terminalKind;
-    }
-  }
+  // S3 codex P1: the decisive terminal is ordinal truth (agreeing
+  // duplicates need no order; disagreement fails closed unorderable)
+  const terminalKinds = events.filter(
+    (event) => event.kind === "terminal_reached"
+  );
+  const lastTerminalKind = decisiveValueByAdmissionOrdinal(
+    terminalKinds,
+    (event) =>
+      event.kind === "terminal_reached" ? event.terminalKind : null,
+    "Citability terminal"
+  );
   const converged = lastTerminalKind === "converged";
   const frozen =
     window === undefined

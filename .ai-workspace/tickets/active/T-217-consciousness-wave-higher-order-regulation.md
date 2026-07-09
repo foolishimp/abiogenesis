@@ -539,6 +539,38 @@ no action). Suites 1211/1211 green. Review ledger: S1-S5 all have at
 least one hostile round (codex or self); codex rounds on S3+S5
 surfaces remain requested.
 
+S3+S5 CODEX ROUND FIXES (2026-07-09, two P1s, both confirmed and
+pinned): P1a fork coverage accepted UNCANONICAL raw reprice events —
+raw cross-basis events bypass the basis-scoped ingress assert and fed
+the fork scan, so a self-reported constructed reprice ratified a fork;
+FIXED: coverage authority requires the canonical envelope
+(hasCanonicalRuntimeEventEnvelope) — the asymmetry is principled:
+uncanonical events may DETECT a fork (fail closed), never ratify one;
+forged-envelope resistance composes with the T-211 authenticated-
+replay trust item (pins: i1 raw-cover unit, k1 runner-level replaying
+the exact smuggled-raw-reprice probe). P1b S3's three folds were still
+array-order authority (baseline latest digest, taint resolution,
+citability terminal) — the SAME class fixed in S2/S4, unswept in S3 (a
+process defect: the standing lesson said sweep and the sweep did not
+happen; codex swept). FIXED via TWO NEW SHARED LAWS in
+admission_hygiene: sortByAdmissionOrdinalStrict (whole-sequence folds)
+and decisiveValueByAdmissionOrdinal (DISAGREEMENT-AWARE: agreeing
+duplicates need no ordinals, disagreeing candidates demand ordinal
+truth, unorderable disagreement fails closed) — applied to the hygiene
+baseline, stamp-fold order, citability terminal, AND the same-class
+instances codex did not name (deriveGoverningDeclarationSet, the
+reprice prior-digest fold). Repins: d2/d3/h1/e2 canonicalized with
+shuffle-stability + agree-without-ordinals + disagree-fails-closed
+assertions. OPEN POINT ACCEPTED into campaign law: zero hygiene stamps
+= vacuous-clean citability; the Phase 5 campaign gate MUST add a
+measurement-coverage conjunct (stampCount >= declared coverage) — now
+a NAMED Phase 5 entry requirement, not a footnote. RIDER NOTE: the
+pre-T-217 folds latestAdmittedEventsPerEdge (depth_proof_map/mutation
+outcomes, 4.5-line law) are the same class; in-runner they read
+ingress-asserted append-ordered replay (safe), as pure functions they
+share the hazard — routed to the SR-6 commonization rider for the
+ordinal-law sweep. Suites 1212/1212 green.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

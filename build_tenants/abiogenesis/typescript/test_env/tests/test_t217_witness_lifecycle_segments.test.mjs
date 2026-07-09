@@ -399,15 +399,21 @@ test("T-217 S2 e1 (review P1): a startup-less resume stamps the replay-derived g
   assert.equal(stamp.declarationSetDigest, expectedGoverningSet.declarationSetDigest);
 });
 
-test("T-217 S2 e2 (review P1): governing set is latest-per-declarationRef — a superseded digest never rides the stamp", () => {
-  const admittedV1 = admitGtlLibraryEntryDeclaration({
-    declaration: t217Declaration("content-v1", "graph-function://t217/s2/e2"),
-    correlationId: "correlation://t217/s2/e2/v1"
-  });
-  const admittedV2 = admitGtlLibraryEntryDeclaration({
-    declaration: t217Declaration("content-v2", "graph-function://t217/s2/e2"),
-    correlationId: "correlation://t217/s2/e2/v2"
-  });
+test("T-217 S2 e2 (review P1): governing set is latest-per-declarationRef by ORDINAL — a superseded digest never rides, in any array order", () => {
+  const [admittedV1] = emit(
+    admitGtlLibraryEntryDeclaration({
+      declaration: t217Declaration("content-v1", "graph-function://t217/s2/e2"),
+      correlationId: "correlation://t217/s2/e2/v1"
+    }),
+    () => {}
+  );
+  const [admittedV2] = emit(
+    admitGtlLibraryEntryDeclaration({
+      declaration: t217Declaration("content-v2", "graph-function://t217/s2/e2"),
+      correlationId: "correlation://t217/s2/e2/v2"
+    }),
+    () => {}
+  );
   const superseded = deriveGoverningDeclarationSet([admittedV1, admittedV2]);
   const direct = deriveGoverningDeclarationSet([admittedV2]);
   assert.equal(superseded.declarationCount, 1);
@@ -415,6 +421,24 @@ test("T-217 S2 e2 (review P1): governing set is latest-per-declarationRef — a 
     superseded.declarationSetDigest,
     direct.declarationSetDigest,
     "latest digest per declarationRef wins; the superseded digest is gone"
+  );
+  // ordinal law: array order is not authority
+  const shuffled = deriveGoverningDeclarationSet([admittedV2, admittedV1]);
+  assert.equal(shuffled.declarationSetDigest, direct.declarationSetDigest);
+  // disagreeing candidates without ordinals fail closed
+  assert.throws(
+    () =>
+      deriveGoverningDeclarationSet([
+        admitGtlLibraryEntryDeclaration({
+          declaration: t217Declaration("content-v1", "graph-function://t217/s2/e2"),
+          correlationId: "correlation://t217/s2/e2/raw1"
+        }),
+        admitGtlLibraryEntryDeclaration({
+          declaration: t217Declaration("content-v2", "graph-function://t217/s2/e2"),
+          correlationId: "correlation://t217/s2/e2/raw2"
+        })
+      ]),
+    /requires admission ordinals/u
   );
 });
 

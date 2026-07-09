@@ -131,3 +131,53 @@ export function decisiveByAdmissionOrdinal<T>(
   }
   return decisive === null ? null : decisive.candidate;
 }
+
+// Strict ordering for folds that consume EVERY candidate in sequence:
+// with more than one candidate, all must carry ordinals — else fail
+// closed. A single candidate needs no order.
+export function sortByAdmissionOrdinalStrict<T>(
+  items: readonly T[],
+  label: string
+): readonly T[] {
+  if (items.length <= 1) {
+    return Object.freeze([...items]);
+  }
+  const withOrdinals = items.map((item) => {
+    const ordinal = eventAdmissionOrdinalOf(item);
+    if (ordinal === null) {
+      throw new TypeError(
+        `${label} requires admission ordinals to order multiple candidates`
+      );
+    }
+    return { item, ordinal };
+  });
+  return Object.freeze(
+    withOrdinals
+      .sort((left, right) => left.ordinal - right.ordinal)
+      .map((entry) => entry.item)
+  );
+}
+
+// Disagreement-aware decisive value: candidates that all AGREE need no
+// ordering (idempotent duplicates are lawful without ordinals); only
+// DISAGREEING candidates demand ordinal truth — then the latest decides,
+// and unorderable disagreement fails closed.
+export function decisiveValueByAdmissionOrdinal<T, V extends string | null>(
+  candidates: readonly T[],
+  extractValue: (candidate: T) => V,
+  label: string
+): V | null {
+  if (candidates.length === 0) {
+    return null;
+  }
+  const first = candidates[0];
+  if (first === undefined) {
+    return null;
+  }
+  const values = new Set(candidates.map(extractValue));
+  if (values.size === 1) {
+    return extractValue(first);
+  }
+  const decisive = decisiveByAdmissionOrdinal(candidates, label);
+  return decisive === null ? null : extractValue(decisive);
+}

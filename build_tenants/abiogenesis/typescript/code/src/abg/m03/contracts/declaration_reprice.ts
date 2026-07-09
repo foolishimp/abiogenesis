@@ -25,7 +25,11 @@ import type {
   RuntimeEvent
 } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
-import { decisiveByAdmissionOrdinal } from "./admission_hygiene.js";
+import {
+  decisiveByAdmissionOrdinal,
+  decisiveValueByAdmissionOrdinal
+} from "./admission_hygiene.js";
+import { hasCanonicalRuntimeEventEnvelope } from "./event_admission.js";
 
 export interface FrozenLawWindow {
   readonly fromOrdinal: number | null;
@@ -131,13 +135,29 @@ export function deriveDeclarationRepriceObligations(input: {
   readonly priorEvents: readonly RuntimeEvent[];
   readonly startupAdmissionEvents: readonly RuntimeEvent[];
 }): DeclarationRepriceObligationProjection {
-  const priorDigestByDeclarationRef = new Map<string, string>();
+  // the prior baseline per declarationRef obeys the D-ordinal law:
+  // agreeing duplicates need no order; disagreeing candidates are
+  // decided by admission ordinal (unorderable disagreement fails closed)
+  const priorRegistryEventsByRef = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "registry_entry_admitted" }>[]
+  >();
   for (const event of input.priorEvents) {
     if (event.kind === "registry_entry_admitted") {
-      priorDigestByDeclarationRef.set(
-        event.declarationRef,
-        event.declarationDigest
-      );
+      const rows = priorRegistryEventsByRef.get(event.declarationRef) ?? [];
+      rows.push(event);
+      priorRegistryEventsByRef.set(event.declarationRef, rows);
+    }
+  }
+  const priorDigestByDeclarationRef = new Map<string, string>();
+  for (const [declarationRef, rows] of priorRegistryEventsByRef) {
+    const digest = decisiveValueByAdmissionOrdinal(
+      rows,
+      (row) => row.declarationDigest,
+      `Reprice prior baseline (${declarationRef})`
+    );
+    if (digest !== null) {
+      priorDigestByDeclarationRef.set(declarationRef, digest);
     }
   }
   const admittedReprices = deriveAdmittedDeclarationRepriceEvents(
@@ -300,11 +320,19 @@ export function deriveBasisForkObligations(input: {
     return empty;
   }
   const spineRef = mintExecutionBasisSpineRef(entering);
+  // S5 codex P1: the fork scan reads RAW cross-basis events (they bypass
+  // the basis-scoped ingress assert), so COVERAGE authority demands the
+  // canonical envelope — a raw constructed reprice is a self-reported
+  // operator act, not replay truth. The asymmetry is principled:
+  // uncanonical events may DETECT a fork (fail-closed), never ratify
+  // one. Authenticated replay (forged-envelope resistance) is the T-211
+  // trust item this composes with.
   const coveringRepriceRefs = deriveAdmittedDeclarationRepriceEvents(
     input.priorEvents
   )
     .filter(
       (reprice) =>
+        hasCanonicalRuntimeEventEnvelope(reprice) &&
         reprice.declarationRef === spineRef &&
         reprice.beforeDigest === decisivePrior.basisId &&
         reprice.afterDigest === entering.basisId
