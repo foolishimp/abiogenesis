@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 2 riders (items 1-2 verbatim; item 3 -013 note preserved). Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 # T-208 Carry-Through Review Commonization Paydown
 
 - id: T-208

@@ -44,7 +44,27 @@ Foundation laws (to be constitutionally repriced in Phase 1):
 | 5 (DEFERRED 2026-07-09, user adjudication at Phase 6 entry) | T-110 session economics + T-208 items 1-2 + T-213/T-214 riders — post-release hardening, not foundation claims; they ride the Consciousness Wave runway | (deferred) |
 | 6 (ACTIVE) | Foundation Release cut — 4.5.1 is the release-grade candidate (4.5.0 superseded; T-216 mutation-soundness patch CLOSED; T-212 bootstrap landed rc.15; artifact-verified; odd_glc repinned to 4.5.1). ONLY REMAINING GATE: the frozen-law cold proving run on the 4.5.1 artifact — everything else (D3 kernel eviction via T-209, Phase 5 economics, T-213/214/215) moves downstream to the Consciousness build. | frozen-law cold proving run converges on 4.5.1 with zero monitor law-repairs => release-grade classification granted |
 
-### Next Wave (ratified 2026-07-09): The Consciousness Wave — build the regulator, let it tune the reflexes
+### Current Build Wave (consolidated 2026-07-09): The Consciousness Wave — T-217
+
+ONE STDO-governed multiphasal ticket now carries the whole build:
+`.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md`
+(GOAL-033). It consolidates and SUPERSEDES nine partial/overlapping
+tickets (T-206, T-207, T-215, T-213, T-214, T-211, T-110, T-208,
+T-209-remainder) under the nothing-lost law — every absorbed acceptance
+is delivered or explicitly retired by its owning phase. Phases:
+0 constitutional repricing (session laws + two new requirement
+families) -> 1 sense organs + trustworthy telemetry -> 2 clean kernel
+boundary (T-209 migration verbatim + T-208 riders) -> 3 the Observer
+(FPC law; ticket drafts behind F_H) -> 4 the Tuner + session economics
+(T-110) -> 5 the tier's proving campaign (zero out-of-framework
+interventions) -> 6 the 4.6 release. Out of scope and untouched:
+Python trio, T-178/T-179, B-010.
+
+The Foundation wave's ONE remaining gate (the 4.5.1 frozen-law proving
+run, Phase 6 above) stays open in parallel; it is T-217's entry gate
+for Phase 5, not absorbed by it.
+
+### Wave rationale (ratified 2026-07-09): build the regulator, let it tune the reflexes
 
 CROSSROADS ADJUDICATION (user, 2026-07-09): tighten the local loops
 (evaluator.C.F_P as a micro-consciousness honed by hand) OR accept
@@ -99,6 +119,8 @@ substrate), the Python tenant trio (paused reference line).
 | Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
 | --- | --- | --- | --- | --- | --- |
 | `GOAL-032` | `GTL` + `ABG Runtime` + `Requirements` + `Release` + `Downstream Proof` | Cut the Foundation Release: typed F_P execution into typed nodes on the declarations-only standard path, with earned depth and adversarial admission, consciousness deferred. | The Phase 0-6 exit criteria above, in order; the release note claims exactly what the odd_glc proving campaign demonstrated on the released artifact. | Phases table above; T-195, T-210, T-197, T-209, odd_glc T-032, T-110, T-208 | Active |
+
+| `GOAL-033` | `ABG Runtime` + `Requirements` + `Product` + `odd_glc consumer` | Build the consciousness layer as system content: observer + tuner over the system's own telemetry, ticket as sole effector, same substrate manifold. | T-217 phases 0-6 exit in order; Phase 5 closes a campaign with zero out-of-framework supervisor acts. | T-217 (consolidation of nine) | Active |
 
 Goals GOAL-003 through GOAL-031 are completed waves; their rows moved to
 git history with this reprice (see release notes and completed tickets

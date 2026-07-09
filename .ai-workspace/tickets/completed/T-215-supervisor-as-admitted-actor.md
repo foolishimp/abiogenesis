@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 0 (supervisor-witness requirement family) + Phase 1 (sense organs); row 8 = Phases 3-5. Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 # T-215 Supervisor As Admitted Actor — Witnessing The Monitor Seat
 
 - id: T-215

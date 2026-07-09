@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 1 (trustworthy telemetry: one schema, three duties). Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 # T-213 Typed Artifact Schemas — the Worker Boundary as One Strong Type
 
 - id: T-213

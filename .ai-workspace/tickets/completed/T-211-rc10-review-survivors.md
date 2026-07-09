@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 1 (replay-log authentication + valibot installer fix); remaining rows re-triaged or retired at Phase 0. Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 # T-211 rc.10 Review Survivors (T-195 close-review reprice)
 
 - id: T-211

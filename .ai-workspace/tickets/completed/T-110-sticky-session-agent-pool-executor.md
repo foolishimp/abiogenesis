@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 4 (session economics: sticky pool over traced call-out). Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 ---
 id: T-110
 title: Sticky-session agent pool executor over the universal traced agent call-out substrate

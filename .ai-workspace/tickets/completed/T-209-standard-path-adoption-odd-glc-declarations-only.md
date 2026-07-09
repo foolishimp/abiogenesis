@@ -1,3 +1,9 @@
+> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
+> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
+> Content carried at: Phase 2 (migration declaration + checklist carried verbatim; execution-authority core already proven — see this file's history). Per the consolidation's nothing-lost law,
+> every acceptance below is delivered or explicitly retired by the owning
+> phase; this file is preserved as history.
+
 # T-209 Standard-Path Adoption: odd_glc Ships Declarations Only
 
 - id: T-209
