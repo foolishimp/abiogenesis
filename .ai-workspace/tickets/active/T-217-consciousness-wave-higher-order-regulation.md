@@ -1249,6 +1249,33 @@ installed-binary spawns onto the traced surface (every future live
 migration inherits this shape). Suites 1280/1280 with the live test
 green under its gate.
 
+THE CLEAN RUN (2026-07-10) — RC 4.6.0-rc.1 PROVEN BY CAMPAIGN.
+User rulings executed: (a) bugfix precedence — fix the GTL/ABG
+framework only, never the scenario; (b) a clean run precedes any RC
+claim; (c) all live proof on sandbox-style installs. RC 4.6.0-rc.1 was
+cut into the shared toolchain store (tarball sha 54b35f58..., release
+snapshot 78bacbc), odd_glc REPINNED to it (package dep + full
+provenance + identity-pin test; 79/79 suite), and the T-032-proven
+data-mapper scenario rerun UNMODIFIED as the RC regression probe:
+
+SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT on 4.6.0-rc.1 — ONE PASS, CLEAN.
+codex worker (gpt-5.5, xhigh via operator config), pty-terminal
+executor, danger-full-access sandbox (BUG #6 socket law), 15-min turn
+budget. Result: CONVERGED ("all graph-function vectors are closed by
+replay") in ~56 minutes; 3,238 events; 28 vectors closed; 31 worker
+turns; 3 retries; 240 accepted depth-proof-map rows; 64 admitted
+mutation-outcome rows — 64/64 suite-red-with-verified-restore KILLS
+across all 8 CDME requirements (T-032 was 16/16; the fresh worker
+volunteered a 4x denser kill matrix). ZERO scenario patches, ZERO
+framework fixes needed mid-run: every S2 guard (reprice, fork, taint,
+schema, scope classes, live emitter contexts) rode the full campaign
+silently — the regression probe found no regression. The overnight
+directive (RC -> deploy to glc -> migrate to latest RC -> clean
+data-mapper run) is COMPLETE. Run artifacts local at
+test_runs/glc_software_build_overlay_live/data-mapper-full/
+20260709T180312781Z_pid37013 (test_runs is gitignored; the record is
+this ledger + the odd_glc migration commit 47aeda5).
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
