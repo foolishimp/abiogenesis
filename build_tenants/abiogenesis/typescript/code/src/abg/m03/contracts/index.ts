@@ -1317,6 +1317,7 @@ export {
   TEST_IDENTITY_EVIDENCE_PREFIX,
   admitDepthProofMap,
   deriveAdmittedDepthProofRowsByRequirementId,
+  latestAdmittedEventsPerEdge,
   deriveEarnedDepthTruth,
   deriveEarnedDepthTruthForRequirements,
   deriveKillObligations,

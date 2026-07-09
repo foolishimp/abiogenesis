@@ -821,7 +821,8 @@ export interface MutationOutcomesAdmittedEvent extends ActorRuntimeScope {
   readonly rows: readonly {
     readonly requirementId: string;
     readonly mutantIdentity: string;
-    readonly testIdentityRefs: readonly string[];
+    readonly mutantCompiled: boolean;
+    readonly failedTestIdentityRefs: readonly string[];
     readonly suiteExit: number;
     readonly baselineDigest: string;
     readonly restoreDigest: string;

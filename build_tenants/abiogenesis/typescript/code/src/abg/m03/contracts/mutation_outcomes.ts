@@ -22,6 +22,7 @@ import {
   detachRowSnapshot
 } from "./admission_hygiene.js";
 import {
+  latestAdmittedEventsPerEdge,
   mutantSurvivedEvidenceRef,
   mutationKillEvidenceRef
 } from "./depth_proof_map.js";
@@ -29,7 +30,14 @@ import {
 export interface MutationOutcomeRow {
   readonly requirementId: string;
   readonly mutantIdentity: string;
-  readonly testIdentityRefs: readonly string[];
+  // T-216 D1 (CRITICAL fix, -036 refutation semantics): mutantCompiled
+  // is whether the mutant COMPILED (the suite actually ran and produced
+  // reports). A compile-broken mutant is not a kill — no test refuted
+  // anything. failedTestIdentityRefs names the tests that ACTUALLY WENT
+  // RED under the mutant (from the mutant run's report), NOT the tests
+  // the worker targeted — empty means the suite ran green (survived).
+  readonly mutantCompiled: boolean;
+  readonly failedTestIdentityRefs: readonly string[];
   readonly suiteExit: number;
   readonly baselineDigest: string;
   readonly restoreDigest: string;
@@ -41,8 +49,10 @@ export type MutationOutcomesAdmissionIssueKind =
   | "row_not_object"
   | "requirement_id_invalid"
   | "mutant_identity_invalid"
-  | "test_identity_refs_invalid"
+  | "failed_test_identity_refs_invalid"
+  | "mutant_compiled_invalid"
   | "suite_exit_invalid"
+  | "outcome_inconsistent"
   | "digest_invalid"
   | "restore_digest_mismatch";
 
@@ -118,7 +128,8 @@ export function admitMutationOutcomes(input: {
     const c = detached as {
       readonly requirementId?: unknown;
       readonly mutantIdentity?: unknown;
-      readonly testIdentityRefs?: unknown;
+      readonly mutantCompiled?: unknown;
+      readonly failedTestIdentityRefs?: unknown;
       readonly suiteExit?: unknown;
       readonly baselineDigest?: unknown;
       readonly restoreDigest?: unknown;
@@ -132,14 +143,38 @@ export function admitMutationOutcomes(input: {
       reject("mutant_identity_invalid", `${at}.mutantIdentity`, "must be a non-empty well-formed string");
       valid = false;
     }
-    const refs = c.testIdentityRefs;
-    if (!Array.isArray(refs) || refs.length === 0 || !refs.every((r: unknown) => wellFormedNonEmpty(r))) {
-      reject("test_identity_refs_invalid", `${at}.testIdentityRefs`, "must be a non-empty array of well-formed strings");
+    if (typeof c.mutantCompiled !== "boolean") {
+      reject("mutant_compiled_invalid", `${at}.mutantCompiled`, "must be a boolean (did the mutant compile and the suite run)");
+      valid = false;
+    }
+    // failedTestIdentityRefs: the tests that WENT RED under the mutant.
+    // MAY be empty (survived). Every entry must be well-formed.
+    const failed = c.failedTestIdentityRefs;
+    if (!Array.isArray(failed) || !failed.every((r: unknown) => wellFormedNonEmpty(r))) {
+      reject("failed_test_identity_refs_invalid", `${at}.failedTestIdentityRefs`, "must be an array of well-formed strings (empty = survived)");
       valid = false;
     }
     if (typeof c.suiteExit !== "number" || !Number.isInteger(c.suiteExit) || c.suiteExit < 0) {
       reject("suite_exit_invalid", `${at}.suiteExit`, "must be a non-negative integer exit status");
       valid = false;
+    }
+    // D1 internal-consistency law: the row's three signals cannot
+    // contradict. compile-broken -> no legitimate failures; compiled +
+    // failures -> suite must be red; compiled + no failures -> green.
+    if (valid) {
+      const failedRefs = failed as string[];
+      const compiled = c.mutantCompiled as boolean;
+      const exit = c.suiteExit as number;
+      if (!compiled && failedRefs.length > 0) {
+        reject("outcome_inconsistent", at, "a mutant that did not compile cannot have failed tests");
+        valid = false;
+      } else if (compiled && failedRefs.length > 0 && exit === 0) {
+        reject("outcome_inconsistent", at, "named failed tests require a non-zero suite exit");
+        valid = false;
+      } else if (compiled && failedRefs.length === 0 && exit !== 0) {
+        reject("outcome_inconsistent", at, "a compiled mutant with no named failures must exit 0 (survived) — an unattributed red suite is not evidence");
+        valid = false;
+      }
     }
     for (const [field, value] of [["baselineDigest", c.baselineDigest], ["restoreDigest", c.restoreDigest]] as const) {
       if (typeof value !== "string" || !DIGEST_SHAPE.test(value)) {
@@ -148,8 +183,6 @@ export function admitMutationOutcomes(input: {
       }
     }
     if (valid && c.baselineDigest !== c.restoreDigest) {
-      // the restore law: an unrestored subject invalidates the row —
-      // typed rejection, never a silent downgrade to survived/killed
       reject("restore_digest_mismatch", at, "restoreDigest must equal baselineDigest — subject not verifiably restored");
       valid = false;
     }
@@ -157,7 +190,8 @@ export function admitMutationOutcomes(input: {
       rows.push(Object.freeze({
         requirementId: c.requirementId as string,
         mutantIdentity: c.mutantIdentity as string,
-        testIdentityRefs: Object.freeze([...(refs as string[])].sort()),
+        mutantCompiled: c.mutantCompiled as boolean,
+        failedTestIdentityRefs: Object.freeze([...(failed as string[])].sort()),
         suiteExit: c.suiteExit as number,
         baselineDigest: c.baselineDigest as string,
         restoreDigest: c.restoreDigest as string
@@ -182,16 +216,29 @@ export function admitMutationOutcomes(input: {
   });
 }
 
-// KERNEL MINT: the only lawful source of kill/survived evidence refs.
-// killed  = suite red under the mutant (admission already proved restore)
-// survived = suite green under the mutant -> counterexample
+// KERNEL MINT (T-216 D1, the Critical fix): the only lawful source of
+// kill/survived evidence refs.
+//   compile-broken mutant  -> mints NOTHING (no test refuted anything;
+//                             the obligation stays a typed gap)
+//   compiled + named failures -> kill evidence for EACH failed identity
+//                             (only the tests that actually went red —
+//                             never the full targeted list)
+//   compiled + no failures -> survived (counterexample)
+// The obligation cross-check (deriveUnprovenKillObligationGapRefs) then
+// requires the FAILED identities to cover the map row's required
+// identities: one lazy or compile-broken row can no longer discharge
+// the kill topology.
 export function mintMutationEvidenceRefs(
   rows: readonly MutationOutcomeRow[]
 ): readonly string[] {
   const refs: string[] = [];
   for (const row of rows) {
-    if (row.suiteExit !== 0) {
-      for (const testIdentity of row.testIdentityRefs) {
+    if (!row.mutantCompiled) {
+      // a mutant that did not compile is not adversarial evidence
+      continue;
+    }
+    if (row.failedTestIdentityRefs.length > 0) {
+      for (const testIdentity of row.failedTestIdentityRefs) {
         refs.push(mutationKillEvidenceRef(row.requirementId, testIdentity));
       }
     } else {
@@ -209,7 +256,10 @@ export function deriveKernelMintedMutationRefs(
   replayEvents: readonly RuntimeEvent[]
 ): ReadonlySet<string> {
   const refs = new Set<string>();
-  for (const event of replayEvents) {
+  // T-216 D2 (codex/S1): only the LAST admitted event per edge mints —
+  // a superseding retry (including one that omits the outcomes) retires
+  // the prior attempt's mints. No per-attempt union.
+  for (const event of latestAdmittedEventsPerEdge(replayEvents, "mutation_outcomes_admitted")) {
     if (event.kind !== "mutation_outcomes_admitted" || event.accepted !== true) {
       continue;
     }

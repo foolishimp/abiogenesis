@@ -18,6 +18,7 @@
 // from admitted evidence membership — fd criteria resolved against the
 // ledger, or adversarial verification evidence with no counterexample.
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import { isExecutionEvidenceRef } from "./payload_ledger.js";
 
 // Closed disposition vocabulary (-036): only the two verified forms are
 // closure-bearing; everything else is the one typed refusal.
@@ -82,10 +83,15 @@ function uniqueSorted(values: readonly string[]): readonly string[] {
 export function deriveProofStrengthAdmissionsForEnvelope(
   input: ProofStrengthAdmissionDerivationInput
 ): readonly ProofStrengthAdmission[] {
+  // T-216 D4 (codeReview MEDIUM/S5): strength and fd-criterion refs must
+  // NOT be execution-family — a contract cannot declare a kill/survived
+  // ref as its own strength criterion and have kernel-minted evidence
+  // satisfy it. The family is closed (isExecutionEvidenceRef); such refs
+  // are rejected from strength resolution regardless of ledger presence.
   const fdCriteriaResolved =
     input.fdStrengthCriterionRefs.length > 0 &&
     input.fdStrengthCriterionRefs.every((ref) =>
-      input.admittedEvidenceRefs.has(ref)
+      !isExecutionEvidenceRef(ref) && input.admittedEvidenceRefs.has(ref)
     );
   // -036 (review HIGH 2026-07-09): an adversarial verification result is
   // ADMITTED evidence — a verification ref counts only when it resolves
@@ -104,6 +110,7 @@ export function deriveProofStrengthAdmissionsForEnvelope(
     let verifierRefs: readonly string[] = Object.freeze([]);
     if (
       counterexampleRefs.length === 0 &&
+      !isExecutionEvidenceRef(strengthRef) &&
       input.admittedEvidenceRefs.has(strengthRef)
     ) {
       if (fdCriteriaResolved) {

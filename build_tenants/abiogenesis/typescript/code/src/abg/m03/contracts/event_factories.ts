@@ -815,7 +815,8 @@ export function constructMutationOutcomesAdmittedEvent(input: {
   readonly rows: readonly {
     readonly requirementId: string;
     readonly mutantIdentity: string;
-    readonly testIdentityRefs: readonly string[];
+    readonly mutantCompiled: boolean;
+    readonly failedTestIdentityRefs: readonly string[];
     readonly suiteExit: number;
     readonly baselineDigest: string;
     readonly restoreDigest: string;
@@ -846,7 +847,8 @@ export function constructMutationOutcomesAdmittedEvent(input: {
     rows: Object.freeze(input.rows.map((row) => Object.freeze({
       requirementId: row.requirementId,
       mutantIdentity: row.mutantIdentity,
-      testIdentityRefs: freezeStringArray(row.testIdentityRefs),
+      mutantCompiled: row.mutantCompiled,
+      failedTestIdentityRefs: freezeStringArray(row.failedTestIdentityRefs),
       suiteExit: row.suiteExit,
       baselineDigest: row.baselineDigest,
       restoreDigest: row.restoreDigest

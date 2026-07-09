@@ -7635,6 +7635,29 @@ function* runEngineIterateMachine(input: {
                       stableSha256Digest({ rejected: resultRef })
                   })
                 ]);
+              } else if (
+                // T-216 D2: a superseding accepted artifact that OMITS the
+                // map retires the prior attempt's map for this edge — emit
+                // an empty retraction so absence supersedes stale truth.
+                eventState.replayEvents.some(
+                  (event) =>
+                    event.kind === "depth_proof_map_admitted" &&
+                    event.edge === actorInvocation.edge
+                )
+              ) {
+                eventState = emitRunnerEvents(eventState, [
+                  constructDepthProofMapAdmittedEvent({
+                    invocation: actorInvocation,
+                    correlationId: actorInvocation.actorInvocationId,
+                    mapRef: `depth-proof-map://${encodeURIComponent(resultRef)}`,
+                    sourceResultRef: resultRef,
+                    accepted: true,
+                    issueKinds: [],
+                    rows: [],
+                    replayIdentity: `${actorInvocation.actorInvocationId}/depth-proof-map-retraction`,
+                    mapDigest: stableSha256Digest({ retraction: resultRef })
+                  })
+                ]);
               }
               // T-032 Stage A: mutation outcomes ride the same ingress.
               // The kernel mints kill/survived evidence from ADMITTED
@@ -7663,6 +7686,28 @@ function* runEngineIterateMachine(input: {
                     outcomesDigest:
                       outcomeAdmission.outcomes?.outcomesDigest ??
                       stableSha256Digest({ rejected: resultRef })
+                  })
+                ]);
+              } else if (
+                // T-216 D2: omission on a superseding accepted artifact
+                // retires the prior mutation outcomes for this edge.
+                eventState.replayEvents.some(
+                  (event) =>
+                    event.kind === "mutation_outcomes_admitted" &&
+                    event.edge === actorInvocation.edge
+                )
+              ) {
+                eventState = emitRunnerEvents(eventState, [
+                  constructMutationOutcomesAdmittedEvent({
+                    invocation: actorInvocation,
+                    correlationId: actorInvocation.actorInvocationId,
+                    outcomesRef: `mutation-outcomes://${encodeURIComponent(resultRef)}`,
+                    sourceResultRef: resultRef,
+                    accepted: true,
+                    issueKinds: [],
+                    rows: [],
+                    replayIdentity: `${actorInvocation.actorInvocationId}/mutation-outcomes-retraction`,
+                    outcomesDigest: stableSha256Digest({ retraction: resultRef })
                   })
                 ]);
               }

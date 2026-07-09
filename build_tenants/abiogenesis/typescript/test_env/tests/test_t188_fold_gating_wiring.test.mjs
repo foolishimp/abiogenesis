@@ -1147,6 +1147,7 @@ test("T-210 b2 mixed authority: one mapped requirement holds every entry sibling
   const required = ["depth-class://negative"];
   const mapEvent = {
     kind: "depth_proof_map_admitted",
+    edge: "edge://map/r1",
     accepted: true,
     rows: [
       {
@@ -1179,6 +1180,7 @@ test("T-210 b2 mixed authority: one mapped requirement holds every entry sibling
       mapEvent,
       {
         kind: "depth_proof_map_admitted",
+        edge: "edge://map/r2",
         accepted: true,
         rows: [
           {
@@ -1323,7 +1325,8 @@ test("T-210 b3 wiring: an earned-depth run with a declared adversarial class sta
       {
         requirementId: "requirement://t188/r1",
         mutantIdentity: "Mutation: drop malformed-row rejection branch",
-        testIdentityRefs: [negativeIdentity],
+        mutantCompiled: true,
+        failedTestIdentityRefs: [negativeIdentity],
         suiteExit: 1,
         baselineDigest: T032_DIGEST,
         restoreDigest: T032_DIGEST
@@ -1472,7 +1475,8 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
   const killedRow = {
     requirementId: "requirement://t188/r1",
     mutantIdentity: "Mutation: drop malformed-row rejection branch",
-    testIdentityRefs: [negativeIdentity],
+    mutantCompiled: true,
+    failedTestIdentityRefs: [negativeIdentity],
     suiteExit: 1,
     baselineDigest: T032_DIGEST,
     restoreDigest: T032_DIGEST
@@ -1486,7 +1490,8 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
     {
       requirementId: "requirement://elsewhere/r9",
       mutantIdentity: "Mutation: unrelated",
-      testIdentityRefs: ["other-test"],
+      mutantCompiled: true,
+      failedTestIdentityRefs: [],
       suiteExit: 0,
       baselineDigest: T032_DIGEST,
       restoreDigest: T032_DIGEST
@@ -1500,7 +1505,8 @@ test("T-210 b4: an admitted survived-mutant counterexample BLOCKS an otherwise f
     {
       requirementId: "requirement://t188/r1",
       mutantIdentity: "Mutation: second mutant survives",
-      testIdentityRefs: [negativeIdentity],
+      mutantCompiled: true,
+      failedTestIdentityRefs: [],
       suiteExit: 0,
       baselineDigest: T032_DIGEST,
       restoreDigest: T032_DIGEST
@@ -1727,7 +1733,8 @@ test("T-197 wiring: strength closes through the ADVERSARIAL disjunct when F_D cr
           {
             requirementId: "requirement://t188/r1",
             mutantIdentity: "Mutation: adversarial disjunct",
-            testIdentityRefs: [negativeIdentity],
+            mutantCompiled: true,
+            failedTestIdentityRefs: [negativeIdentity],
             suiteExit: 1,
             baselineDigest: T032_DIGEST,
             restoreDigest: T032_DIGEST
@@ -1884,7 +1891,8 @@ test("T-032 A: mutation-outcomes admission is total; restore mismatch rejects; t
   const good = {
     requirementId: "requirement://t032/r1",
     mutantIdentity: "Mutation: m1",
-    testIdentityRefs: ["neg-test"],
+    mutantCompiled: true,
+    failedTestIdentityRefs: ["neg-test"],
     suiteExit: 1,
     baselineDigest: T032_DIGEST,
     restoreDigest: T032_DIGEST
@@ -1924,16 +1932,54 @@ test("T-032 A: mutation-outcomes admission is total; restore mismatch rejects; t
   // the mint: red suite -> kill refs per test identity; green -> survived
   const minted = mintMutationEvidenceRefs([
     good,
-    { ...good, mutantIdentity: "Mutation: m2", suiteExit: 0 }
+    { ...good, mutantIdentity: "Mutation: m2", failedTestIdentityRefs: [], suiteExit: 0 }
   ]);
   assert.equal(minted.some((r) => r.startsWith("mutation-kill://")), true);
   assert.equal(minted.some((r) => r.startsWith("mutant-survived://")), true);
+  // T-216 D1 (CRITICAL): a compile-broken mutant (mutantCompiled false)
+  // mints NOTHING — no test refuted anything.
+  assert.deepEqual(
+    [...mintMutationEvidenceRefs([{ ...good, mutantCompiled: false, failedTestIdentityRefs: [], suiteExit: 2 }])],
+    []
+  );
+  // D1: a row lists TWO targets but only ONE actually failed — only the
+  // failed identity earns a kill, never the full list.
+  const lazy = mintMutationEvidenceRefs([
+    { ...good, failedTestIdentityRefs: ["neg-test"], suiteExit: 1 }
+  ]);
+  assert.equal(lazy.filter((r) => r.startsWith("mutation-kill://")).length, 1);
+  assert.equal(lazy.some((r) => r.includes("neg-test")), true);
+  // D1 consistency: compiled + named failures + green exit is REJECTED
+  assert.equal(
+    admitMutationOutcomes({
+      payloadSection: { rows: [{ ...good, suiteExit: 0 }] },
+      sourceResultRef: "r", replayIdentity: "i"
+    }).issues.some((i) => i.issueKind === "outcome_inconsistent"),
+    true
+  );
+  // D1 consistency: compile-broken + named failures is REJECTED
+  assert.equal(
+    admitMutationOutcomes({
+      payloadSection: { rows: [{ ...good, mutantCompiled: false }] },
+      sourceResultRef: "r", replayIdentity: "i"
+    }).issues.some((i) => i.issueKind === "outcome_inconsistent"),
+    true
+  );
   // replay projection: only ACCEPTED events mint
   const refs = deriveKernelMintedMutationRefs([
-    { kind: "mutation_outcomes_admitted", accepted: true, rows: [good] },
-    { kind: "mutation_outcomes_admitted", accepted: false, rows: [{ ...good, mutantIdentity: "rejected" }] }
+    { kind: "mutation_outcomes_admitted", edge: "edge://a", accepted: true, rows: [good] },
+    { kind: "mutation_outcomes_admitted", edge: "edge://b", accepted: false, rows: [{ ...good, mutantIdentity: "rejected" }] }
   ]);
   assert.equal(refs.size, 1);
+  // T-216 D2: a later event on the SAME edge supersedes — an omitting
+  // retraction (accepted, empty rows) retires the prior edge's mints
+  assert.equal(
+    deriveKernelMintedMutationRefs([
+      { kind: "mutation_outcomes_admitted", edge: "edge://a", accepted: true, rows: [good] },
+      { kind: "mutation_outcomes_admitted", edge: "edge://a", accepted: true, rows: [] }
+    ]).size,
+    0
+  );
   // canonical event admission closes rows (forged variants reject)
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const events = [];
@@ -2063,8 +2109,8 @@ test("T-216 D6: identical row sets in any order yield one digest (no ambiguous c
   assert.deepEqual(dA.map.rows, dB.map.rows);
   // mutation: same
   const mRows = [
-    { requirementId: "req:x", mutantIdentity: "m", testIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "ab".repeat(32), restoreDigest: "sha256:" + "ab".repeat(32) },
-    { requirementId: "req", mutantIdentity: "x:m", testIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "cd".repeat(32), restoreDigest: "sha256:" + "cd".repeat(32) }
+    { requirementId: "req:x", mutantIdentity: "m", mutantCompiled: true, failedTestIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "ab".repeat(32), restoreDigest: "sha256:" + "ab".repeat(32) },
+    { requirementId: "req", mutantIdentity: "x:m", mutantCompiled: true, failedTestIdentityRefs: ["t"], suiteExit: 1, baselineDigest: "sha256:" + "cd".repeat(32), restoreDigest: "sha256:" + "cd".repeat(32) }
   ];
   const mA = admitMutationOutcomes({ payloadSection: { rows: mRows }, sourceResultRef: "r", replayIdentity: "i" });
   const mB = admitMutationOutcomes({ payloadSection: { rows: [mRows[1], mRows[0]] }, sourceResultRef: "r", replayIdentity: "i" });

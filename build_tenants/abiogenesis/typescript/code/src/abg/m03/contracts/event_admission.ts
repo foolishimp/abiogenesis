@@ -332,14 +332,15 @@ function assertMutationOutcomeRows(value: unknown, label: string): void {
     }
     assertWellFormedNonEmptyString(entry["requirementId"], `${rowLabel}.requirementId`);
     assertWellFormedNonEmptyString(entry["mutantIdentity"], `${rowLabel}.mutantIdentity`);
-    assertStringArray(entry["testIdentityRefs"], `${rowLabel}.testIdentityRefs`);
-    const refs = entry["testIdentityRefs"];
+    if (typeof entry["mutantCompiled"] !== "boolean") {
+      throw new TypeError(`${rowLabel}.mutantCompiled must be a boolean`);
+    }
+    // T-216 D1: failedTestIdentityRefs MAY be empty (survived)
+    assertStringArray(entry["failedTestIdentityRefs"], `${rowLabel}.failedTestIdentityRefs`);
+    const refs = entry["failedTestIdentityRefs"];
     if (Array.isArray(refs)) {
-      if (refs.length === 0) {
-        throw new TypeError(`${rowLabel}.testIdentityRefs must not be empty`);
-      }
       for (const [refIndex, ref] of refs.entries()) {
-        assertWellFormedNonEmptyString(ref, `${rowLabel}.testIdentityRefs[${refIndex}]`);
+        assertWellFormedNonEmptyString(ref, `${rowLabel}.failedTestIdentityRefs[${refIndex}]`);
       }
     }
     const exit = entry["suiteExit"];

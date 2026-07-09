@@ -155,21 +155,40 @@ export function admitDepthProofMap(input: {
   });
 }
 
-// Ledger projection (replay-derived, read-only): the admitted maps per
-// requirement. Later admissions supersede earlier ones for the same
-// requirement (correction shadows stale truth; history stays in replay).
+// T-216 D2 (supersession law, codex/S1 HIGH): the LAST admitted event
+// per EDGE is the sole depth-map authority for that edge. A superseding
+// accepted artifact retires the prior attempt's map — including a retry
+// that OMITS the map (the runner emits an empty retraction event on the
+// edge, so absence supersedes rather than leaving stale truth standing).
+// Per-attempt union is gone: only the surviving latest event per edge
+// contributes rows.
+export function latestAdmittedEventsPerEdge(
+  replayEvents: readonly RuntimeEvent[],
+  kind: "depth_proof_map_admitted" | "mutation_outcomes_admitted"
+): readonly RuntimeEvent[] {
+  const latestByEdge = new Map<string, RuntimeEvent>();
+  for (const event of replayEvents) {
+    if (event.kind !== kind) {
+      continue;
+    }
+    // replay order is emission order; last write wins per edge
+    latestByEdge.set(event.edge, event);
+  }
+  return Object.freeze([...latestByEdge.values()]);
+}
+
 export function deriveAdmittedDepthProofRowsByRequirementId(
   replayEvents: readonly RuntimeEvent[]
 ): ReadonlyMap<string, readonly DepthProofMapRow[]> {
   const byRequirement = new Map<string, DepthProofMapRow[]>();
-  for (const event of replayEvents) {
+  for (const event of latestAdmittedEventsPerEdge(replayEvents, "depth_proof_map_admitted")) {
     if (event.kind !== "depth_proof_map_admitted" || event.accepted !== true) {
       continue;
     }
     const seen = new Set<string>();
     for (const row of event.rows) {
       if (!seen.has(row.requirementId)) {
-        // a newer admitted map REPLACES this requirement's rows
+        // within one surviving event, first sight of a requirement resets
         byRequirement.set(row.requirementId, []);
         seen.add(row.requirementId);
       }
