@@ -438,6 +438,22 @@ to end on kernel law alone. Suites 1203/1203 green. T-215 ROWS 1-7 NOW
 ALL REALIZED. Phase 1 remainder: T-211 trust items, T-213 typed
 artifact schemas, T-214 diff-execution witness.
 
+SELF-REVIEW (2026-07-09, S1-S4, commentary at .ai-workspace/comments/
+claude/20260709T150000Z_REVIEW_t217_phase1_s1_s4_self_review.md):
+SR-1 HIGH — hygiene baseline ignores output_materialization_observed
+digests; tampered materialized outputs classify untracked (never
+taint). SR-2 HIGH — WITNESS-003 "binding, or policy truth" is NOT
+covered: policy/binding change forks basis.id (content-derived) into
+the fresh-start path — no guard fires, spines coexist, no reprice
+owed; the widening previously drifted S2->S3+ unowned (SR-3, corrected
+here): THE WITNESS-003 REMAINDER IS OPEN, owned by an S5 fork-witness
+slice, and gates Phase 1 exit. SR-4 LOW duplicate reprice refs in the
+predicate (dedupe). SR-5/SR-8 contract notes (basis-scoped input;
+route-bound diagnosisRef). SR-6/SR-7 riders (helper commonization to
+admission_hygiene's exported codepointCompare; direct WITNESS-012
+audit differential at the exit gate). Dispositions: SR-1/SR-4 fix on
+approval; SR-2 adjudicate the fork-witness shape.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the
