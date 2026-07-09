@@ -1,0 +1,45 @@
+# T-215 Supervisor As Admitted Actor — Witnessing The Monitor Seat
+
+- id: T-215
+- type: feature
+- ticket_category: ordinary
+- status: backlog
+- goal: GOAL-032 successor wave (rows 1-7 buildable pre-consciousness)
+- change_intent: >-
+    The T-032 campaign was supervised by an out-of-framework agent whose
+    acts (halt diagnosis, defect triage, MID-RUN LAW AMENDMENT via
+    resume, run lifecycle, release repins, citation adjudication) were
+    git-visible but REPLAY-INVISIBLE. The constitution's answer is to
+    ADMIT the supervisor, not prevent it: every monitor act becomes a
+    typed, replay-visible, gated event. Not the consciousness tier
+    (T-206/T-207 automate the seat; this ticket witnesses it).
+- change_class: design_reframe
+- re_entry_point: design_surface (abg/m03 resume + events)
+- intake_source: user probe 2026-07-09 ("a supervisor not running as
+  part of the framework taking the actions you took")
+- triaged_at: 2026-07-09
+- created_at: 2026-07-09
+
+## Fix table (from the campaign forensics)
+
+1. Typed halt-diagnosis projection (replay-derived gap_stop report:
+   frontier, rejection evidence, attempt history) — ABG, canary
+   generalized.
+2. Defect-intake: halt -> typed triage record (owner, change_class,
+   re-entry point) admitted as an event; tickets generated FROM it —
+   T-207 seam + TICKET_METHOD.
+3. PRIORITY — reprice admission: resume with a changed binding admits
+   declaration_reprice_admitted (before/after digests, change_class,
+   owning ticket). "Frozen-law run" becomes MECHANICAL: zero reprice
+   events in replay. (Both 2026-07-09 user probes — mixed-law and
+   "tampering" — are this one missing event kind.)
+4. Per-segment substrate identity stamps on resume — ABG.
+5. Operator lifecycle as F_H events: run_resumed / run_stopped(reason),
+   actor-attributed — ABG.
+6. Workspace foreign-write detection (kernel digests over evidence
+   surfaces at segment boundaries) + copy-out diagnosis rule — ABG +
+   method.
+7. Citability as a replay predicate (converged AND zero reprices AND
+   hygiene clean) — ABG projection; falls out of 3+6.
+8. NOT THIS TICKET: automating the seat is T-206/T-207 with F_H
+   ratification gates.
