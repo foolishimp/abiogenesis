@@ -1,7 +1,7 @@
 # abiogenesis 4.5.0 — THE FOUNDATION RELEASE
 
-This cut closes the 4.5.0 release-candidate line (rc.1-rc.17) as the
-FOUNDATION RELEASE: typed F_P workers EXECUTE processes into typed
+It follows `4.5.0-rc.17` and closes the 4.5.0 release-candidate line
+(rc.1-rc.17) as the FOUNDATION RELEASE: typed F_P workers EXECUTE processes into typed
 nodes on a declarations-only path, with earned depth, adversarial
 verification, and admission-gated evidence provenance. The
 consciousness tier (tuner, intent observer) is DEFERRED by design; its

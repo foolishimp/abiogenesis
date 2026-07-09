@@ -197,7 +197,9 @@ test("T-195 release note names its version once and never follows itself", () =>
     path.join(REPO_ROOT, "docs", "ABIOGENESIS_RC_RELEASE_NOTE.md"),
     "utf8"
   );
-  const titleMatch = noteText.match(/^# abiogenesis (\S+) Release Candidate Note/m);
+  // 4.5.0 reprice: FINAL releases title as "— THE ... RELEASE"; rc cuts
+  // keep the "Release Candidate Note" form. Both must open the file.
+  const titleMatch = noteText.match(/^# abiogenesis (\S+) (?:Release Candidate Note|— THE \S[^\n]*RELEASE)/m);
   assert.notEqual(titleMatch, null, "release note must open with its version");
   const noteVersion = titleMatch[1];
   const followsMatch = noteText.match(/It\s+follows\s+`(\S+?)`/);
