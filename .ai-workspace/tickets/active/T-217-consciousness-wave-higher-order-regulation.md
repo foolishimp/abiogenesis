@@ -1010,6 +1010,55 @@ law), S2.4 (EVENTS-025/-026 realization, C-3/C-4/C-5/C-9, ordinal
 sweep). Next: Phase 3 entry triage (the observer as a declared
 product).
 
+PHASE 3 ENTRY TRIAGE (2026-07-10, performed): requirements EXIST
+(FPC-018/-019/-020/-021 from Phase 0; FPC-003..-017 prior waves); the
+construction-episode machinery EXISTS (12 contract modules + runner);
+missing layer = the OBSERVER INSTANTIATION realization => realization
+work under existing law, no reprice. Slices: P3.1 observable set,
+P3.2 non-constructive catalog, P3.3 mechanical triage -> drafts behind
+the intake ratification, P3.4 T-032 ground-truth differential,
+P3.5 subsumed review/consensus declared modules.
+
+P3.1-P3.4 DELIVERED (2026-07-10, commit 2e46dd7) — THE OBSERVER'S
+DETERMINISTIC HALF (contracts/observer_tier.ts). (1) FPC-018:
+ObserverObservables — ONE typed assembly over the Phase 1 sense organs
+(halt diagnosis, citability, frozen law, hygiene, segments, attestation
+verification, drift facts, schema rejections; the Phase 4 cost-row slot
+declared empty). Drift derives from the RECORD ITSELF over two
+channels: the typed halt reason (the S1 guard blocks BEFORE admitting
+the drifted entry, so the reason string is the replay witness) AND
+two-digest admissions per declarationRef; basis forks from same-spine
+multiple basis ids (mintExecutionBasisSpineRef); both retire under
+covering reprice refs. (2) FPC-019: OBSERVER_ACTION_CATALOG — six
+non-constructive rows (typed_block, fh_input, ticket_draft,
+reprice_proposal, escalation, drill_view_restriction via the
+WITNESS-015 allowlist); assertObserverCatalogNonConstructive rejects
+constructive kinds AND optimisation terms (observer/tuner separation:
+diagnosis and policy rewrite never share one judgment). (3) FPC-007:
+deriveObserverTicketDrafts — MECHANICAL triage rules with the
+intake-triage upward walk encoded: declaration drift =>
+requirement_reprice/requirements (reprice_proposal); basis fork =>
+design_reframe/design_surface; schema-invalid worker payloads =>
+design_reframe/design_surface (the T-213 class); hygiene taint =>
+realization_refactor/realization (re-measure law); attestation
+verification failure => fh_input (the kernel proves divergence, never
+intent); any unclassifiable halt => fh_input — the observer NEVER
+guesses a class it cannot prove (FPC-021). Drafts are READ-MODEL
+proposals (content-derived draftRef); ratification = the intake verb
+(actor-attributed admitted F_H act, WITNESS-011); the observe drafts
+CLI sub renders them through the grammar. (4) THE T-032 GROUND-TRUTH
+DIFFERENTIAL: the twelve campaign defects encoded by kernel-visible
+signature — the schema/shape class (#2/#5/#8) triages EXACTLY
+design_reframe/design_surface; every judgment class (#1 contract
+contradiction, #3 environmental binding, #4 convergence starvation,
+#6 substrate capability, #7 bookkeeping, #9 flag semantics, #10 kernel
+over-enforcement, #11 authority gap, #12 self-report-as-F_D) ROUTES to
+fh_input with changeClass null — ZERO misclassifications. Full 12/12
+independent derivation is the LIVE observer episode's F_P work
+(Phase 5 exit), per FPC-021: no authority from narrative. Suites
+1258/1258; gate violations=0. REMAINING Phase 3: P3.5 (the subsumed
+gtl://abg/review/* + gtl://abg/consensus/* declared modules).
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
