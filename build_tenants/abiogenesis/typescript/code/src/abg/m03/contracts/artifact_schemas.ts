@@ -11,7 +11,23 @@
 // The dialect is deliberately CLOSED and small — the same field-rule
 // vocabulary event admission already speaks, plus one array-of-rows
 // member. Closed keys everywhere (the T-031 envelope-key lesson):
-// unknown keys are defects, not extensions.
+// unknown keys are defects, not extensions — on the WORKER PAYLOAD and
+// on the DECLARATION itself (S6 codex P1).
+//
+// SCOPE (S6 codex P2, stated exactly): enforcement binds at the
+// attached-result ingress — today's one worker file-payload ingress —
+// generic over every DECLARED artifactKey; domain extractions consult
+// the schema-rejection set before their row law (both existing domain
+// sections are wired). Any FUTURE worker file-payload ingress must join
+// this gate; "every worker-authored FILE artifact" is the standing law,
+// this ingress is its current realization.
+//
+// REJECTION CARRIAGE (S6 codex P2, explicitly lossy at the event layer):
+// payload_rejected carries schemaRef plus a MACHINE-PARSEABLE reason —
+// comma-joined `issueKind:path` pairs — not a structured issue array
+// (the 4.5-line carrier shape is unchanged; a structured issues field
+// rides the Phase 2 EVENTS-family reprice with C-1). Consumers may rely
+// on the pair grammar; the pin holds it.
 
 import { detachRowSnapshot } from "./admission_hygiene.js";
 
@@ -42,7 +58,8 @@ export type ArtifactSchemaAdmissionIssueKind =
   | "artifact_key_invalid"
   | "artifact_key_duplicate"
   | "field_rule_unknown"
-  | "rows_spec_invalid";
+  | "rows_spec_invalid"
+  | "unknown_key";
 
 export interface ArtifactSchemaAdmissionIssue {
   readonly kind: "artifact_schema_admission_issue";
@@ -85,6 +102,20 @@ export function admitArtifactSchemas(
       continue;
     }
     const record = raw as Record<string, unknown>;
+    // S6 codex P1: the declaration obeys its own law — closed keys on the
+    // schema object itself. An open declaration payload (e.g. a typo'd
+    // "rowz") previously admitted an EMPTY schema that then accepted {}:
+    // the sole shape authority silently weakened at its own ingress.
+    let declarationKeysValid = true;
+    for (const key of Object.keys(record)) {
+      if (!["schemaRef", "artifactKey", "fields", "rows"].includes(key)) {
+        issue("unknown_key", `${at}.${key}`);
+        declarationKeysValid = false;
+      }
+    }
+    if (!declarationKeysValid) {
+      continue;
+    }
     const schemaRef = record["schemaRef"];
     const artifactKey = record["artifactKey"];
     if (typeof schemaRef !== "string" || schemaRef.length === 0) {
@@ -122,6 +153,16 @@ export function admitArtifactSchemas(
         !isRuleRecord((rawRows as Record<string, unknown>)["fields"])
       ) {
         issue("rows_spec_invalid", `${at}.rows`);
+        continue;
+      }
+      let rowsKeysValid = true;
+      for (const key of Object.keys(rawRows as Record<string, unknown>)) {
+        if (!["key", "fields"].includes(key)) {
+          issue("unknown_key", `${at}.rows.${key}`);
+          rowsKeysValid = false;
+        }
+      }
+      if (!rowsKeysValid) {
         continue;
       }
       const rowFields = (rawRows as Record<string, unknown>)[

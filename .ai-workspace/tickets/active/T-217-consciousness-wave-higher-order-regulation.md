@@ -722,6 +722,26 @@ PHASE 1 EXIT EVIDENCE (2026-07-09, presented for F_H ruling):
 - EXIT GATE REMAINING: the codex round on the S6 surface, then the
   F_H ruling closes Phase 1 and opens Phase 2.
 
+S6 CODEX ROUND FIXES (2026-07-09, 1 P1 + 2 P2, all confirmed): P1 the
+declaration admission was NOT closed-key — a typo'd "rowz" admitted an
+EMPTY schema that then accepted {} (the sole shape authority silently
+weakened at its own ingress); FIXED: closed keys on the schema object
+AND the rows spec, unknown_key issues, an open declaration admits
+NOTHING (pins: the exact rowz probe + .rows.extra). P2a the typed
+issue paths flatten into payload_rejected.reason — now an EXPLICITLY
+lossy contract: the reason is a stable machine-parseable grammar
+(comma-joined issueKind:path pairs, pinned); the structured issues
+field rides the Phase 2 EVENTS-family reprice with C-1. P2b the
+"every worker-authored FILE artifact" claim truthed to exact scope:
+enforcement binds at the attached-result ingress (today's one worker
+file-payload ingress), generic over declared keys, both domain
+sections wired to withholding; future ingress points must join the
+gate. Earlier rounds confirmed held by codex: attestation
+content+scope, gate segment semantics, odd_glc export pin. Suites
+1228/1228 green (validated after the disk-full interruption was
+cleared). THE S6 CODEX ROUND IS ABSORBED — the exit gate is now the
+F_H ruling alone.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

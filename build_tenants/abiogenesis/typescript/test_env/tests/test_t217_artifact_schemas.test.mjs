@@ -52,6 +52,39 @@ test("T-217 S6 n1: schema declaration admission — closed rule vocabulary, uniq
     badRows.issues.some((issue) => issue.issueKind === "rows_spec_invalid"),
     true
   );
+
+  // codex P1: the declaration obeys its own closed-key law — the exact
+  // probe: a typo'd "rowz" must be a defect, never an empty schema
+  const typo = admitArtifactSchemas([
+    {
+      schemaRef: "schema://t213/typo",
+      artifactKey: "depthProofMap",
+      rowz: { key: "rows", fields: { requirementId: "non_empty_string" } }
+    }
+  ]);
+  assert.equal(typo.accepted, false);
+  assert.equal(typo.schemas.length, 0, "an open declaration admits nothing");
+  assert.equal(
+    typo.issues.some(
+      (issue) =>
+        issue.issueKind === "unknown_key" && issue.at.endsWith(".rowz")
+    ),
+    true
+  );
+  const rowsTypo = admitArtifactSchemas([
+    {
+      ...DEPTH_SCHEMA,
+      rows: { key: "rows", fields: { requirementId: "non_empty_string" }, extra: 1 }
+    }
+  ]);
+  assert.equal(rowsTypo.accepted, false);
+  assert.equal(
+    rowsTypo.issues.some(
+      (issue) =>
+        issue.issueKind === "unknown_key" && issue.at.includes(".rows.extra")
+    ),
+    true
+  );
 });
 
 test("T-217 S6 n2: enforcement — closed keys, typed fields, row law, hostile objects fail typed", () => {

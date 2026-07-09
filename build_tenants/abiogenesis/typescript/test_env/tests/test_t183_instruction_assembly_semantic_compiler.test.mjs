@@ -1611,6 +1611,12 @@ test("T-217 S6: the runner enforces the declared schema BEFORE domain row law �
   assert.equal(rejection.schemaRef, "schema://t213/depth-proof-map");
   assert.match(rejection.reason, /row_missing_field/u);
   assert.match(rejection.reason, /row_unknown_key/u);
+  // codex P2 (explicitly lossy carriage): the reason is a STABLE
+  // machine-parseable grammar — comma-joined issueKind:path pairs —
+  // until the Phase 2 EVENTS reprice adds a structured issues field
+  for (const pair of rejection.reason.split(",")) {
+    assert.match(pair, /^[a-z_]+:.+$/u, `parseable pair: ${pair}`);
+  }
   assert.equal(
     rejectedEvents.find((event) => event.kind === "depth_proof_map_admitted"),
     undefined,
