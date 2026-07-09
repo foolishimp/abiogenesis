@@ -4,6 +4,10 @@
 // REQ-R-ABG3-WITNESS-008 (citability = converged AND zero reprices AND
 // hygiene clean, with the failing conjunct exposed).
 //
+// INPUT CONTRACT (self-review SR-5): every derivation here assumes
+// basis-scoped replay (one run's record, e.g. via runtimeEventsForBasis);
+// over a multi-basis store the predicates blend spines.
+//
 // Measurement discipline (A1-A3): the OBSERVATION (artifactRef,
 // observedDigest) arrives from an attributed external instrument; the
 // kernel owns the JOIN against replay-admitted digests and the minted
@@ -54,9 +58,15 @@ function codepointCompare(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-// The latest admitted content digest per evidence artifact. Null digests
-// (artifact observed without content digest) do not register an admitted
-// surface — there is nothing to re-measure against.
+// The latest admitted content digest per evidence surface. Baseline keys
+// (self-review SR-1: materialized outputs were tamper-invisible before —
+// their observations classified untracked, and untracked never taints):
+// - actor_result_artifact_observed: artifactRef (null digests register
+//   nothing — there is nothing to re-measure against)
+// - output_materialization_observed: BOTH materializedRef and assetRef
+//   carry the materialization digest, so an instrument may measure the
+//   surface under either handle; latest per key wins (re-materialization
+//   moves the baseline).
 export function latestAdmittedArtifactDigests(
   events: readonly RuntimeEvent[]
 ): ReadonlyMap<string, string> {
@@ -67,6 +77,10 @@ export function latestAdmittedArtifactDigests(
       event.artifactContentDigest !== null
     ) {
       digests.set(event.artifactRef, event.artifactContentDigest);
+    }
+    if (event.kind === "output_materialization_observed") {
+      digests.set(event.materializedRef, event.digest);
+      digests.set(event.assetRef, event.digest);
     }
   }
   return digests;

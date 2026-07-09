@@ -476,6 +476,22 @@ STANDING LESSON now applied twice: every "latest/last X" over replay
 is an ordinal law, never an array law — sweep any future fold for
 this class at authoring time.
 
+SELF-REVIEW FIXES DELIVERED (2026-07-09): SR-1 — hygiene baseline now
+folds output_materialization_observed under BOTH materializedRef and
+assetRef handles (latest per key; re-materialization moves the
+baseline); tampered materialized outputs classify foreign_write, not
+untracked (pin h1 reproduces the pre-fix hole + baseline-move case).
+SR-4 — frozen-law predicate dedupes content-derived reprice refs (pin
+h2). SR-5 — basis-scoped input contract stated on all four witness
+read-model module headers. SR-8 — verifier re-derivation note on
+halt_diagnosis. STILL OPEN: SR-2 (policy/binding basis-fork witness,
+S5, awaiting shape adjudication — proposal: same runId/workKey +
+different basisId in one store requires an admitted covering reprice
+or fail-closes at startup, mirroring the S1 guard; adjudication needed
+on whether lawful multi-basis workspaces share runId/workKey); SR-6
+helper commonization + SR-7 WITNESS-012 direct differential ride the
+Phase 2 cleanup / Phase 1 exit gate. Suites 1207/1207 green.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

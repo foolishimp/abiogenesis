@@ -4,7 +4,10 @@
 // private diagnostic state. This is the observer's first sense organ:
 // the T-032 monitor rebuilt this by hand from events.jsonl every halt.
 // WITNESS-014 disposition: derived read-model truth, never event
-// authority.
+// authority. INPUT CONTRACT (self-review SR-5): assumes basis-scoped
+// replay. VERIFIER NOTE (SR-8): an intake's haltDiagnosisRef is bound by
+// the route, not recomputable by stateless admission — verifiers
+// re-derive this projection over the same replay and compare refs.
 
 import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";

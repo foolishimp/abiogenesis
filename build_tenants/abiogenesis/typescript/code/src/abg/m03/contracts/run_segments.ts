@@ -1,3 +1,6 @@
+// INPUT CONTRACT (self-review SR-5): derivations assume basis-scoped
+// replay; over a multi-basis store segment windows blend spines.
+//
 // Implements: REQ-R-ABG3-WITNESS-005 — mixed-substrate runs decompose per
 // segment under replay. A segment is one engine invocation's span; its
 // window runs from its stamp's admission ordinal to the ordinal before

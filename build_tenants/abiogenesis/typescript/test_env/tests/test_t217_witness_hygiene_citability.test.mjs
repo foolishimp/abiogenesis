@@ -297,3 +297,56 @@ test("T-217 S3 d5: the measurement route joins, mints, admits canonically, and r
   assert.equal(result.citability.citable, false);
   assert.ok(result.citability.failingConjuncts.includes("hygiene_clean"));
 });
+
+test("T-217 S3 h1 (self-review SR-1): materialized outputs are re-measurable surfaces — tampering taints instead of hiding as untracked", () => {
+  const materialized = {
+    kind: "output_materialization_observed",
+    basisId: "basis://t217/s3",
+    graphCallId: "graph-call://t217/s3",
+    frameId: "frame://t217/s3",
+    vectorIndex: 2,
+    edge: "design→code",
+    allocationId: "allocation://t217/s3/1",
+    assetRef: "asset://t217/s3/code-module",
+    materializedRef: "materialized://t217/s3/code-module/1",
+    materializedPath: "/workspace/out/code-module.ts",
+    digest: "digest-materialized-v1",
+    observerRef: "observer://abg/output-allocation",
+    artifactRefs: []
+  };
+  const baseline = latestAdmittedArtifactDigests([materialized]);
+  assert.equal(
+    baseline.get("materialized://t217/s3/code-module/1"),
+    "digest-materialized-v1"
+  );
+  assert.equal(
+    baseline.get("asset://t217/s3/code-module"),
+    "digest-materialized-v1",
+    "both handles carry the materialization digest"
+  );
+  // the exact pre-fix hole: this classified untracked (never taints)
+  const rows = deriveWorkspaceHygieneRows({
+    observations: [
+      {
+        artifactRef: "asset://t217/s3/code-module",
+        observedDigest: "digest-tampered",
+        copyOutRef: "copyout://code-module/1"
+      }
+    ],
+    replayEvents: [materialized]
+  });
+  assert.equal(rows[0].classification, "foreign_write");
+  assert.equal(rows[0].admittedDigest, "digest-materialized-v1");
+  // matching re-measurement stays clean; re-materialization moves the baseline
+  const rematerialized = { ...materialized, digest: "digest-materialized-v2" };
+  const moved = deriveWorkspaceHygieneRows({
+    observations: [
+      {
+        artifactRef: "materialized://t217/s3/code-module/1",
+        observedDigest: "digest-materialized-v2"
+      }
+    ],
+    replayEvents: [materialized, rematerialized]
+  });
+  assert.equal(moved[0].classification, "clean");
+});

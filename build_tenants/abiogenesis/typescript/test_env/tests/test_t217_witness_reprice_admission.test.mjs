@@ -499,3 +499,10 @@ test("T-217 S1 a5: runner blocks resumed declaration drift fail-closed before th
     false
   );
 });
+
+test("T-217 S1 h2 (self-review SR-4): an idempotently re-admitted reprice does not duplicate refs in the frozen-law predicate", () => {
+  const reprice = repriceEvent();
+  const predicate = deriveFrozenLawPredicate([reprice, { ...reprice }]);
+  assert.equal(predicate.frozenLaw, false);
+  assert.deepEqual(predicate.repriceRefs, [reprice.repriceRef]);
+});

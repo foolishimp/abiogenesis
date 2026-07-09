@@ -3,6 +3,9 @@
 // predicate: a span is frozen-law exactly when it contains zero
 // admitted reprice events — never operator assertion).
 //
+// INPUT CONTRACT (self-review SR-5): derivations assume basis-scoped
+// replay; over a multi-basis store the predicates blend spines.
+//
 // WITNESS-014 disposition: declaration_reprice_admitted initiates and
 // terminates no runtime fluent; frozen-law is replay-derived predicate
 // truth owned here, never primary event authority. Coverage is exact:
@@ -105,10 +108,15 @@ export function deriveFrozenLawPredicate(
           }
           return true;
         });
+  // self-review SR-4: an idempotently re-admitted reprice (same digest
+  // pair, same content-derived ref) must not duplicate in the projection
+  const repriceRefs = Object.freeze([
+    ...new Set(inWindow.map((event) => event.repriceRef))
+  ]);
   return Object.freeze({
     kind: "frozen_law_predicate",
-    frozenLaw: inWindow.length === 0,
-    repriceRefs: Object.freeze(inWindow.map((event) => event.repriceRef)),
+    frozenLaw: repriceRefs.length === 0,
+    repriceRefs,
     window: window === undefined ? null : Object.freeze({ ...window })
   });
 }
