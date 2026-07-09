@@ -1,3 +1,83 @@
+# abiogenesis 4.5.0 — THE FOUNDATION RELEASE
+
+This cut closes the 4.5.0 release-candidate line (rc.1-rc.17) as the
+FOUNDATION RELEASE: typed F_P workers EXECUTE processes into typed
+nodes on a declarations-only path, with earned depth, adversarial
+verification, and admission-gated evidence provenance. The
+consciousness tier (tuner, intent observer) is DEFERRED by design; its
+plan is ratified in specification/GOALS.md (the Consciousness Wave).
+
+## What this release claims — exactly what was proven
+
+1. EXECUTION-DEFAULT LAW, REALIZED AND PROVEN LIVE. Execution belongs
+   to typed F_P worker turns: workers run the subject toolchain inside
+   their own turns and return typed execution results; the framework
+   executes nothing. Proven by the T-032 data-mapper campaign: every
+   subject execution (full sbt suites, repair cycles, 16 mutant
+   apply-execute-restore loops) was a worker turn — audited
+   independently, 74/74 worker invocations. Enforced mechanically:
+   executionAuthority contract vocabulary (worker_turn default;
+   annealed_fd_handler admissible only with a ratified equivalence
+   ref), and standing signature-pinned conformance differentials in
+   substrate and downstream.
+2. EARNED DEPTH (-032/-033/-034/-039). Depth truth is DERIVED by the
+   kernel from admitted intermediate assets — the worker-declared
+   depth-proof map (admitted once at the artifact ingress, replay-total
+   event admission) plus test identities corroborated as exact
+   executed-report testcase names. Declaration equality is demoted at
+   EVERY seam (admission and projection). Proof obligations are
+   DISCOVERED from admitted map rows (the Goedel projection) —
+   cardinality never enumerated. Proven live: 8/8 CDME requirement
+   folds eligible under derived truth; 48-row map; hollow declarations
+   fold residual by construction.
+3. ADVERSARIAL VERIFICATION (-035/-036). Mutation-kill outcomes are
+   admitted typed rows (restore-digest law: mismatch rejects); the
+   KERNEL mints kill/survived evidence from admitted rows only — raw
+   attached refs are dead; survived mutants are counterexamples that
+   BLOCK closure. The full ProofStrengthAdmission carrier preserves the
+   -035 field list with a closed disposition lattice; strength closes
+   through F_D criteria or admitted adversarial verification, never
+   list presence or self-report. Proven live: 16/16 mutants killed,
+   zero survived.
+4. EVIDENCE PROVENANCE. Execution-family evidence is closure-bearing
+   only with declared worker-turn attribution (runner-scope dispatch
+   truth, not spoofable provider lists); framework-assembled execution
+   evidence is inadmissible by construction.
+5. THE CONSTITUTIONAL BOOTSTRAP. The installer stamps the four boundary
+   blocks (three-layer ownership, execution default, earned depth,
+   evidence provenance), agent-addressed, into every installed
+   workspace — gate zero, content-verified at install. The proving
+   campaign ran under it: workers refused fabrication under
+   contradictory law rather than comply (the truthful-halt property).
+6. HONESTY OF THE LOWER LAYER (the load-bearing fact for the deferred
+   consciousness tier): across the proving campaign the system NEVER
+   false-closed — it halted honestly (truthful refusals, truthful red
+   evidence, fail-closed terminals). Imperfect-and-honest is the
+   substrate the higher-order regulator will be built on.
+
+## Release-grade proving
+
+The release-grade classification is earned by the frozen-law cold
+proving run ON THIS ARTIFACT (fresh workspace, zero resumes, zero law
+amendments): the builder converges the full data-mapper scenario
+unaided. The run is recorded in the release record upon completion;
+the release-grade claim is conditional on it.
+
+## Known residuals (stated, not hidden)
+
+- Restore digests are worker-reported at admission (kernel-witnessed
+  workspace digests ride the T-209 remainder); the citable campaign
+  audit spot-verified them against files.
+- Replay-log authentication (forged canonical events by a log-writing
+  actor) is the named T-195 refinement (T-211).
+- Depth-class witness distinctness (one test may witness several
+  classes) is a named tightening lever, as is declaring further
+  adversarial classes.
+- The valibot toolchain-payload installer defect persists (T-211);
+  installs repair via the documented symlink.
+- T-209's declarations-only adoption (worker-loop plumbing into the
+  standard handler family) continues post-release.
+
 # abiogenesis 4.5.0-rc.17 Release Candidate Note
 
 This checkpoint is the seventeenth `4.5.0` release candidate. It follows
