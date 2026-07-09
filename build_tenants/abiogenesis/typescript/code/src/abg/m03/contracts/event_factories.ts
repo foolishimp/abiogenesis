@@ -64,7 +64,9 @@ import type {
   RunStoppedEvent,
   RuntimeFailureClass,
   RuntimeFailureObservedEvent,
-  TemporalPropertyVerdictProjectedEvent
+  TemporalPropertyVerdictProjectedEvent,
+  WorkspaceHygieneRow,
+  WorkspaceHygieneStampedEvent
 } from "./carriers.js";
 import type {
   InstructionCausalContextProjection
@@ -1147,6 +1149,51 @@ export function constructRunStoppedEvent(input: {
     causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId:
       input.correlationId ?? `run-stopped:${input.basisId}:${input.reasonKind}`
+  });
+}
+
+export function mintWorkspaceHygieneRef(input: {
+  readonly basisId: string;
+  readonly segmentRef: string | null;
+  readonly observedBy: string;
+  readonly rows: readonly WorkspaceHygieneRow[];
+}): string {
+  return `workspace-hygiene:${stableSha256Digest({
+    basisId: input.basisId,
+    segmentRef: input.segmentRef,
+    observedBy: input.observedBy,
+    rows: input.rows.map((row) => ({
+      artifactRef: row.artifactRef,
+      observedDigest: row.observedDigest,
+      admittedDigest: row.admittedDigest,
+      classification: row.classification,
+      copyOutRef: row.copyOutRef
+    }))
+  })}`;
+}
+
+export function constructWorkspaceHygieneStampedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly segmentRef: string | null;
+  readonly observedBy: string;
+  readonly rows: readonly WorkspaceHygieneRow[];
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): WorkspaceHygieneStampedEvent {
+  const hygieneRef = mintWorkspaceHygieneRef(input);
+  return Object.freeze({
+    kind: "workspace_hygiene_stamped",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    hygieneRef,
+    segmentRef: input.segmentRef,
+    observedBy: input.observedBy,
+    rows: Object.freeze(input.rows.map((row) => Object.freeze({ ...row }))),
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId ?? hygieneRef
   });
 }
 

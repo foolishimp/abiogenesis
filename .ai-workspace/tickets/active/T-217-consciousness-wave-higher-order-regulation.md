@@ -357,6 +357,37 @@ Suites 1190/1190 green. WITNESS-005/-006 realized; WITNESS-003's
 "binding, or policy truth" widening remains with S3+ (hygiene stamps
 extend the same digest-diff seam).
 
+S3 DELIVERED (2026-07-09): workspace_hygiene_stamped (WITNESS-007) —
+measurement stays an ATTRIBUTED EXTERNAL OBSERVATION (A2: observedBy
+instrument; the runner grows no filesystem reach, design SS5 honored);
+the KERNEL owns the join (deriveWorkspaceHygieneRows: observations x
+latestAdmittedArtifactDigests from actor_result_artifact_observed) and
+the minted classification (clean/foreign_write/missing/untracked).
+Rows are internally consistent BY ADMISSION LAW (classification must
+equal the digest-pair-derived class — any consumer can re-derive);
+COPY-OUT RULE MECHANICAL: foreign_write rows inadmissible without
+copyOutRef (diagnosis operates on preserved copies); hygieneRef
+self-certified. Taint law: latest classification per artifact decides;
+foreign_write/missing taint; resolved ONLY by later clean
+re-measurement ("inadmissible until re-measured"); untracked never
+taints; zero stamps = vacuous-clean with stampCount exposed so
+campaign law can require measurement coverage.
+deriveForeignTaintedArtifactRefs is the typed closure-taint input the
+Phase 2 kernel boundary consumes (closure-gating integration into edge
+convergence explicitly routed there, not silently dropped).
+deriveCitabilityPredicate (WITNESS-008): converged (last terminal) AND
+frozen-law (windowable per segment) AND hygiene clean, failing
+conjuncts exposed by name + repriceRefs + taintedArtifactRefs +
+hygieneStampCount carried. Route admitWorkspaceHygieneStamp = the
+measurement seam (instrument supplies observations; kernel joins,
+mints, admits; returns post-stamp hygiene + citability). Tests
+test_t217_witness_hygiene_citability.test.mjs d1-d5 (row-consistency
+law incl. mislabeled-pair/no-copy-out/nothing-witnessed/forged-ref,
+kernel join incl. latest-digest baseline, taint-resolution ordering,
+all four citability conjunct combinations, route differential with
+kernel-joined admitted digest). Suites 1195/1195 green. T-215 rows 1-7
+now realized except rows 1-2 (halt-diagnosis + defect-intake = S4).
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

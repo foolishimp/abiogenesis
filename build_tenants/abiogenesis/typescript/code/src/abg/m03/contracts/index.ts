@@ -1359,6 +1359,31 @@ export type {
   GoverningDeclarationSet,
   RunSegmentProjection
 } from "./run_segments.js";
+export {
+  classifyWorkspaceHygienePair,
+  deriveAdmittedWorkspaceHygieneStamps,
+  deriveCitabilityPredicate,
+  deriveForeignTaintedArtifactRefs,
+  deriveWorkspaceHygienePredicate,
+  deriveWorkspaceHygieneRows,
+  latestAdmittedArtifactDigests
+} from "./workspace_hygiene.js";
+export type {
+  CitabilityConjunct,
+  CitabilityPredicate,
+  WorkspaceHygieneObservation,
+  WorkspaceHygienePredicate
+} from "./workspace_hygiene.js";
+export {
+  constructWorkspaceHygieneStampedEvent,
+  mintWorkspaceHygieneRef
+} from "./event_factories.js";
+export { WORKSPACE_HYGIENE_CLASSIFICATION_VALUES } from "./carriers.js";
+export type {
+  WorkspaceHygieneClassification,
+  WorkspaceHygieneRow,
+  WorkspaceHygieneStampedEvent
+} from "./carriers.js";
 export type {
   AdmittedMutationOutcomes,
   MutationOutcomeRow,

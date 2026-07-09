@@ -24,6 +24,7 @@ import {
   RUN_STOP_REASON_KIND_VALUES,
   RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
+  WORKSPACE_HYGIENE_CLASSIFICATION_VALUES,
   RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
@@ -1393,6 +1394,87 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     if (event["segmentRef"] !== expectedSegmentRef) {
       throw new TypeError(
         "RunSegmentOpenedEvent.segmentRef must be the content-derived identity"
+      );
+    }
+  },
+  workspace_hygiene_stamped: (event) => {
+    applyFieldRules("WorkspaceHygieneStampedEvent", {
+      basisId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      hygieneRef: "non_empty_string",
+      segmentRef: "nullable_string",
+      observedBy: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    const rows = event["rows"];
+    if (!Array.isArray(rows)) {
+      throw new TypeError("WorkspaceHygieneStampedEvent.rows must be an array");
+    }
+    for (const [index, row] of rows.entries()) {
+      const label = `WorkspaceHygieneStampedEvent.rows[${index}]`;
+      if (typeof row !== "object" || row === null || Array.isArray(row)) {
+        throw new TypeError(`${label} must be an object`);
+      }
+      const record = row as Record<string, unknown>;
+      assertNonEmptyString(record["artifactRef"], `${label}.artifactRef`);
+      assertNullableString(record["observedDigest"], `${label}.observedDigest`);
+      assertNullableString(record["admittedDigest"], `${label}.admittedDigest`);
+      assertNullableString(record["copyOutRef"], `${label}.copyOutRef`);
+      assertOneOf(
+        record["classification"],
+        `${label}.classification`,
+        WORKSPACE_HYGIENE_CLASSIFICATION_VALUES
+      );
+      // the classification is internally consistent BY LAW — any consumer
+      // can re-derive it from the carried digest pair
+      const observed = record["observedDigest"] as string | null;
+      const admitted = record["admittedDigest"] as string | null;
+      const classification = record["classification"] as string;
+      const expected =
+        observed === null && admitted === null
+          ? null
+          : observed === null
+            ? "missing"
+            : admitted === null
+              ? "untracked"
+              : observed === admitted
+                ? "clean"
+                : "foreign_write";
+      if (expected === null) {
+        throw new TypeError(
+          `${label} requires an observed or admitted digest: a row with neither witnesses nothing`
+        );
+      }
+      if (classification !== expected) {
+        throw new TypeError(
+          `${label}.classification must equal the digest-pair-derived class ${expected}`
+        );
+      }
+      // the copy-out diagnosis rule: foreign-write truth is inadmissible
+      // without naming the preserved copy
+      if (classification === "foreign_write" && record["copyOutRef"] === null) {
+        throw new TypeError(
+          `${label}.copyOutRef is required for foreign_write: diagnosis operates on copied-out artifacts`
+        );
+      }
+    }
+    const expectedHygieneRef = `workspace-hygiene:${stableSha256Digest({
+      basisId: event["basisId"],
+      segmentRef: event["segmentRef"],
+      observedBy: event["observedBy"],
+      rows: (rows as Record<string, unknown>[]).map((row) => ({
+        artifactRef: row["artifactRef"],
+        observedDigest: row["observedDigest"],
+        admittedDigest: row["admittedDigest"],
+        classification: row["classification"],
+        copyOutRef: row["copyOutRef"]
+      }))
+    })}`;
+    if (event["hygieneRef"] !== expectedHygieneRef) {
+      throw new TypeError(
+        "WorkspaceHygieneStampedEvent.hygieneRef must be the content-derived identity"
       );
     }
   },

@@ -35,6 +35,7 @@ export {
   admitDeclarationReprice,
   admitRunResumed,
   admitRunStopped,
+  admitWorkspaceHygieneStamp,
   applyExplicitGraphVectorResumeCursor,
   applyGraphSpanReentryRoute
 } from "./runtime_authoring_routes.js";
@@ -43,7 +44,9 @@ export type {
   DeclarationRepriceAdmissionResult,
   OperatorRunLifecycleRequest,
   RunResumedAdmissionResult,
-  RunStoppedAdmissionResult
+  RunStoppedAdmissionResult,
+  WorkspaceHygieneStampRequest,
+  WorkspaceHygieneStampResult
 } from "./runtime_authoring_routes.js";
 export {
   runExecutiveObserverProjection

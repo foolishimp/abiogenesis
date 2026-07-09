@@ -13,19 +13,29 @@ import type {
   RunStopReasonKind,
   RunStoppedEvent,
   RuntimeAggregateProjection,
-  RuntimeEvent
+  RuntimeEvent,
+  WorkspaceHygieneStampedEvent
 } from "../contracts/carriers.js";
 import {
   constructBasisAdmittedEvent,
   constructDeclarationRepriceAdmittedEvent,
   constructGraphVectorResumeCursorAppliedEvent,
   constructRunResumedEvent,
-  constructRunStoppedEvent
+  constructRunStoppedEvent,
+  constructWorkspaceHygieneStampedEvent
 } from "../contracts/event_factories.js";
 import {
   deriveFrozenLawPredicate,
   type FrozenLawPredicate
 } from "../contracts/declaration_reprice.js";
+import {
+  deriveCitabilityPredicate,
+  deriveWorkspaceHygienePredicate,
+  deriveWorkspaceHygieneRows,
+  type CitabilityPredicate,
+  type WorkspaceHygieneObservation,
+  type WorkspaceHygienePredicate
+} from "../contracts/workspace_hygiene.js";
 import {
   deriveRuntimeContinuationTransitionProjectionFromDisposition,
   type RuntimeContinuationTransitionProjection
@@ -430,6 +440,71 @@ export function admitRunStopped(
     emittedEvents,
     replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
   } satisfies RunStoppedAdmissionResult);
+}
+
+export interface WorkspaceHygieneStampRequest {
+  readonly basis: ExecutionBasis;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly observedBy: string;
+  readonly observations: readonly WorkspaceHygieneObservation[];
+  readonly segmentRef?: string | null | undefined;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}
+
+export interface WorkspaceHygieneStampResult {
+  readonly kind: "workspace_hygiene_stamp_result";
+  readonly basis: ExecutionBasis;
+  readonly hygieneEvent: WorkspaceHygieneStampedEvent;
+  readonly hygieneRef: string;
+  readonly hygiene: WorkspaceHygienePredicate;
+  readonly citability: CitabilityPredicate;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+// Implements: REQ-R-ABG3-WITNESS-007 — the measurement seam: an attributed
+// instrument supplies (artifactRef, observedDigest) observations; the
+// KERNEL joins them against replay-admitted digests and mints the
+// classification rows. The returned predicates are the post-stamp hygiene
+// and WITNESS-008 citability truth.
+export function admitWorkspaceHygieneStamp(
+  input: WorkspaceHygieneStampRequest
+): WorkspaceHygieneStampResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const rows = deriveWorkspaceHygieneRows({
+    observations: input.observations,
+    replayEvents
+  });
+  const hygieneEvent = constructWorkspaceHygieneStampedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    segmentRef: input.segmentRef ?? null,
+    observedBy: input.observedBy,
+    rows,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(input.basis, replayEvents, Object.freeze([hygieneEvent])),
+    input.eventSink
+  );
+  const nextReplayEvents = appendEmittedReplay(replayEvents, emittedEvents);
+  return Object.freeze({
+    kind: "workspace_hygiene_stamp_result",
+    basis: input.basis,
+    hygieneEvent,
+    hygieneRef: hygieneEvent.hygieneRef,
+    hygiene: deriveWorkspaceHygienePredicate(nextReplayEvents),
+    citability: deriveCitabilityPredicate(nextReplayEvents),
+    emittedEvents,
+    replayEvents: nextReplayEvents
+  } satisfies WorkspaceHygieneStampResult);
 }
 
 export function applyExplicitGraphVectorResumeCursor(

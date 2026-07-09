@@ -822,6 +822,7 @@ export function deriveRuntimeAggregateProjection(
       case "run_segment_opened":
       case "run_resumed":
       case "run_stopped":
+      case "workspace_hygiene_stamped":
       case "runtime_failure_observed":
       case "c_call_opened":
       case "c_call_fibre_selected":

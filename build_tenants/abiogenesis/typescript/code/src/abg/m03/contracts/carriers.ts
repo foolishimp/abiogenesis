@@ -972,6 +972,43 @@ export interface RunStoppedEvent {
   readonly correlationId: string;
 }
 
+// Implements: REQ-R-ABG3-WITNESS-007 — workspace hygiene over evidence
+// surfaces. Measurement is an attributed external observation (A2); the
+// kernel joins observations against replay-admitted digests and the row
+// classification is internally consistent BY ADMISSION LAW. The copy-out
+// diagnosis rule is mechanical: foreign-write truth is inadmissible
+// without naming the preserved copy (copyOutRef).
+export const WORKSPACE_HYGIENE_CLASSIFICATION_VALUES = Object.freeze([
+  "clean",
+  "foreign_write",
+  "missing",
+  "untracked"
+] as const);
+
+export type WorkspaceHygieneClassification =
+  (typeof WORKSPACE_HYGIENE_CLASSIFICATION_VALUES)[number];
+
+export interface WorkspaceHygieneRow {
+  readonly artifactRef: string;
+  readonly observedDigest: string | null;
+  readonly admittedDigest: string | null;
+  readonly classification: WorkspaceHygieneClassification;
+  readonly copyOutRef: string | null;
+}
+
+export interface WorkspaceHygieneStampedEvent {
+  readonly kind: "workspace_hygiene_stamped";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly hygieneRef: string;
+  readonly segmentRef: string | null;
+  readonly observedBy: string;
+  readonly rows: readonly WorkspaceHygieneRow[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2779,6 +2816,7 @@ export type RuntimeEvent =
   | RunSegmentOpenedEvent
   | RunResumedEvent
   | RunStoppedEvent
+  | WorkspaceHygieneStampedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -2918,6 +2956,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "run_segment_opened",
   "run_resumed",
   "run_stopped",
+  "workspace_hygiene_stamped",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",
