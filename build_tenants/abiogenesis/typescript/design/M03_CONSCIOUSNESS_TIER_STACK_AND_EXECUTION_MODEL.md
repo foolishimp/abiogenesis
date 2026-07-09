@@ -1,6 +1,6 @@
 # M03 Consciousness Tier — The Stacked Hierarchy And Computational Execution Model
 
-- status: proposed (T-217 Phase 0 design basis; ratification gates realization)
+- status: RATIFIED 2026-07-09 (user adjudication of D-1..D-4; T-217 design basis)
 - derives_from: REQ-R-ABG3-FP-CONSCIOUSNESS (FPC-001..011), PRODUCT.md
   ("the reflective boundary"; the Phase-1 foundation laws), the ratified
   2026-07-09 session laws (intent-generation loop; same manifold /
@@ -202,17 +202,17 @@ lifecycle, hygiene stamps); the tuner/annealing REQUIREMENT FAMILY
 TYPES for the consciousness module (userland vocabulary, the same class
 as odd_glc's depth_proof_map types).
 
-## 8. Open decisions for ratification
+## 8. Decisions — RATIFIED (user, 2026-07-09)
 
-D-1: observer wake granularity (per gap_stop vs per terminal vs both) —
-     cost/latency trade; proposal: both, with the FPC-010 ledger as the
-     damper.
-D-2: does the observer's ground-truth validation (re-derive T-032's 12
-     triages from replay) gate Phase 3 exit alone, or plus one live
-     campaign shadow? proposal: both, shadow read-only.
-D-3: tuner's first optimization target (view-size reduction vs
-     evaluator calibration vs annealing candidate) — proposal:
-     evaluator calibration (lowest risk, highest telemetry density).
-D-4: 4.6 versioning of the product module (bundled vs separately
-     versioned gtl://abg/consciousness catalog) — proposal: bundled
-     until Phase 5 proves it, split at release if consumers want it.
+D-1 RATIFIED: BOTH — wake on gap_stops, residual folds, terminals, and
+     drift-mismatch facts; the FPC-010 ledger damps re-wakes on
+     same-blocker/same-digest.
+D-2 RATIFIED: BOTH — the T-032 ground-truth re-derivation AND a
+     read-only live shadow (natural subject: the 4.5.1 frozen-law
+     proving run) gate Phase 3 exit.
+D-3 RATIFIED: (a) EVALUATOR CALIBRATION first (view-size reduction may
+     ride if calibration lands early; annealing waits for one low-stakes
+     equivalence-contract exercise).
+D-4 RATIFIED: ALL-IN BUNDLED NOW — the consciousness module ships
+     inside the substrate package on the 4.6 line from the first cut;
+     the stable 4.5 line is the fallback for conservative consumers.

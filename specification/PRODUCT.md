@@ -974,3 +974,35 @@ reflective layer that consumes replay and authors DECLARATIONS only:
 solve loops write candidates, optimize loops write terms, and no
 program does both in one judgment. ABG remains the sole truth
 authority at every layer.
+
+The workspace is the underlying reality: mutable, concurrent, forever
+changing, and known only through telemetry. Telemetry is attributed
+point-measurement of a region of reality at an instant; replay is the
+append-only measurement record — epistemic truth, never reality
+itself; every projection is a model over measurements. Drift between
+model and reality is the default condition, bounded by attributed
+measurement, single-writer mutation windows, and scheduled
+re-measurement — never assumed away.
+
+Regulation is a view, not a layer of command. Every actor operates
+through a bounded, admitted view of the one record; a tier is a
+coordinate choice over the same substrate — the same machinery and the
+same worker class pointed at the system's own telemetry instead of the
+worksite. Recursion is view restriction: narrower scope, finer
+resolution, opened only through published refinement boundaries.
+Defects concentrate at the transitions between views, where no local
+evaluator can see them in principle; the reflective layer is the view
+whose coordinates are those transitions.
+
+The reflective layer holds an internal model of what is intended (the
+constitutional surface), receives telemetry, and the gap between them
+drives an intent process that covers solutioning up to — never into —
+action: the TICKET is its only effector, behind F_H ratification, and
+its drafts re-enter the system as ordinary admitted work. It has no
+downward control path. Local-loop tightening (evaluator calibration,
+F_D annealing under admitted equivalence contracts) arrives as the
+reflective layer's OUTPUT derived from telemetry, never as hand-tuning.
+A proving campaign's deliverable is always the builder, not the
+scenario artifact; capability claims require frozen law — runs whose
+declarations were amended mid-flight are diagnostic history, not
+closure evidence.
