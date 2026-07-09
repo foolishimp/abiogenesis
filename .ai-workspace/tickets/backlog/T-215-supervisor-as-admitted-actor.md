@@ -19,6 +19,7 @@
   part of the framework taking the actions you took")
 - triaged_at: 2026-07-09
 - created_at: 2026-07-09
+- commentary: .ai-workspace/comments/claude/20260709T110000Z_ANALYSIS_t215_supervisor_actions_fix_table.md (full table with concern rationale per row)
 
 ## Fix table (from the campaign forensics)
 
