@@ -205,12 +205,16 @@ REJECTED — supervisor node kind / monitor runtime / meta-scheduler: the
 tier is ordinary episodes of the existing step function over a
 different view; scheduling is the existing pressure/frontier machinery.
 REJECTED — a second truth store for tier state: projections only.
-ACCEPTED (bounded, pre-scoped): T-215 witness EVENT REGISTRATIONS into
-the existing closed universe (reprice admission, operator F_H
-lifecycle, hygiene stamps); the tuner/annealing REQUIREMENT FAMILY
-(names verbs + draft states over existing carriers); product-layer NODE
-TYPES for the consciousness module (userland vocabulary, the same class
-as odd_glc's depth_proof_map types).
+ACCEPTED (bounded, pre-scoped): the WITNESS-REGISTRATION CLASS into
+the existing closed universe — delivered as eight kinds
+(declaration_reprice_admitted, run_segment_opened, run_resumed,
+run_stopped, workspace_hygiene_stamped, defect_intake_admitted,
+replay_log_attested, plus the basis-fork/identity-conflict law rows
+riding the reprice carrier) with their replay-derived read models; the
+tuner/annealing REQUIREMENT FAMILY (names verbs + draft states over
+existing carriers); product-layer NODE TYPES for the consciousness
+module (userland vocabulary, the same class as odd_glc's
+depth_proof_map types).
 
 ## 8. The operator grammar and its reference adapter (user ratification 2026-07-09; grammar reprice per codex 2026-07-09)
 

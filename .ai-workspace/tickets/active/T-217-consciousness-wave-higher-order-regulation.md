@@ -88,6 +88,10 @@ scope TIGHTENS accordingly: no View or Measurement carrier is minted.
 
 ## Holistic ontology & epistemology (ratified design synthesis 2026-07-09)
 
+> RATIFIED INTO DESIGN SS8-SS9 (M03_CONSCIOUSNESS_TIER_STACK_AND_
+> EXECUTION_MODEL.md) — the design doc is the LIVE authority; this copy
+> is intake history. Do not edit law here (self-review D-3).
+
 The exploration converged to one recursive structure. Phase 0 ratifies
 this whole synthesis; every particle already exists (zoo audit, design
 SS7) — this names the patterns.
