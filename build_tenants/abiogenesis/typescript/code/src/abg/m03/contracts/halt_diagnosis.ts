@@ -11,6 +11,10 @@
 
 import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  codepointCompare,
+  decisiveByAdmissionOrdinal
+} from "./admission_hygiene.js";
 
 export interface HaltAttemptRow {
   readonly kind: "halt_attempt_row";
@@ -53,52 +57,6 @@ export interface HaltDiagnosisProjection {
   readonly rejectionEvidenceRefs: readonly string[];
   readonly reentryPlanRefs: readonly string[];
   readonly latestSegmentRef: string | null;
-}
-
-function codepointCompare(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0;
-}
-
-function eventAdmissionOrdinalOf(event: RuntimeEvent): number | null {
-  if (
-    "eventAdmissionOrdinal" in event &&
-    typeof event.eventAdmissionOrdinal === "number" &&
-    Number.isSafeInteger(event.eventAdmissionOrdinal) &&
-    event.eventAdmissionOrdinal >= 0
-  ) {
-    return event.eventAdmissionOrdinal;
-  }
-  return null;
-}
-
-// S4 review P1: the DECISIVE terminal (and the latest segment stamp) are
-// chosen by admission-ordinal truth, never caller array order. With one
-// candidate no order question exists; with several, any unorderable
-// candidate fails closed.
-function decisiveByOrdinal<T extends RuntimeEvent>(
-  candidates: readonly T[],
-  label: string
-): T | null {
-  if (candidates.length === 0) {
-    return null;
-  }
-  const first = candidates[0];
-  if (candidates.length === 1 && first !== undefined) {
-    return first;
-  }
-  let decisive: { event: T; ordinal: number } | null = null;
-  for (const event of candidates) {
-    const ordinal = eventAdmissionOrdinalOf(event);
-    if (ordinal === null) {
-      throw new TypeError(
-        `Halt diagnosis requires admission ordinals to order multiple ${label} events`
-      );
-    }
-    if (decisive === null || ordinal > decisive.ordinal) {
-      decisive = { event, ordinal };
-    }
-  }
-  return decisive === null ? null : decisive.event;
 }
 
 export function deriveHaltDiagnosis(
@@ -202,8 +160,8 @@ export function deriveHaltDiagnosis(
     }
   }
 
-  const decisiveTerminal = decisiveByOrdinal(terminalEvents, "terminal_reached");
-  const latestStamp = decisiveByOrdinal(segmentStamps, "run_segment_opened");
+  const decisiveTerminal = decisiveByAdmissionOrdinal(terminalEvents, "Halt diagnosis (terminal_reached)");
+  const latestStamp = decisiveByAdmissionOrdinal(segmentStamps, "Halt diagnosis (run_segment_opened)");
   const halted = decisiveTerminal?.terminalKind === "gap_stop";
   const basisId = decisiveTerminal?.basisId ?? null;
   const haltReason = halted ? (decisiveTerminal?.reason ?? null) : null;

@@ -147,7 +147,7 @@ test("T-217 S4 f1: halt diagnosis is a replay fold — frontier, evidence, attem
         HALT_TERMINAL,
         { ...HALT_TERMINAL, terminalKind: "converged", reason: null }
       ]),
-    /requires admission ordinals to order multiple terminal_reached/u
+    /Halt diagnosis \(terminal_reached\) requires admission ordinals/u
   );
 });
 

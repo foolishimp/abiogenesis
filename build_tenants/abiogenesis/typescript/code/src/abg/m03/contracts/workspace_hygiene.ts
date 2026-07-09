@@ -27,6 +27,7 @@ import {
   type FrozenLawWindow
 } from "./declaration_reprice.js";
 import {
+  codepointCompare,
   decisiveValueByAdmissionOrdinal,
   sortByAdmissionOrdinalStrict
 } from "./admission_hygiene.js";
@@ -56,10 +57,6 @@ export interface CitabilityPredicate {
   readonly repriceRefs: readonly string[];
   readonly taintedArtifactRefs: readonly string[];
   readonly hygieneStampCount: number;
-}
-
-function codepointCompare(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 // The latest admitted content digest per evidence surface. Baseline keys

@@ -26,8 +26,10 @@ import type {
 } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
+  codepointCompare,
   decisiveByAdmissionOrdinal,
-  decisiveValueByAdmissionOrdinal
+  decisiveValueByAdmissionOrdinal,
+  eventAdmissionOrdinalOf
 } from "./admission_hygiene.js";
 import { hasCanonicalRuntimeEventEnvelope } from "./event_admission.js";
 
@@ -76,18 +78,6 @@ export function deriveAdmittedDeclarationRepriceEvents(
   );
 }
 
-function eventAdmissionOrdinalOf(event: RuntimeEvent): number | null {
-  if (
-    "eventAdmissionOrdinal" in event &&
-    typeof event.eventAdmissionOrdinal === "number" &&
-    Number.isSafeInteger(event.eventAdmissionOrdinal) &&
-    event.eventAdmissionOrdinal >= 0
-  ) {
-    return event.eventAdmissionOrdinal;
-  }
-  return null;
-}
-
 // Review fix (2026-07-09, S1 hostile review F3): the span is an explicit
 // ordinal window, not a caller-slicing convention. An unstamped reprice
 // inside a window query cannot be placed, so it poisons the window —
@@ -125,10 +115,6 @@ export function deriveFrozenLawPredicate(
     repriceRefs,
     window: window === undefined ? null : Object.freeze({ ...window })
   });
-}
-
-function codepointCompare(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 export function deriveDeclarationRepriceObligations(input: {

@@ -10,7 +10,11 @@
 
 import type { RunSegmentOpenedEvent, RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
-import { decisiveValueByAdmissionOrdinal } from "./admission_hygiene.js";
+import {
+  codepointCompare,
+  decisiveValueByAdmissionOrdinal,
+  eventAdmissionOrdinalOf
+} from "./admission_hygiene.js";
 import {
   deriveFrozenLawPredicate,
   type FrozenLawPredicate,
@@ -35,10 +39,6 @@ export interface RunSegmentProjection {
   readonly declarationCount: number;
   readonly window: FrozenLawWindow;
   readonly frozenLaw: FrozenLawPredicate;
-}
-
-function codepointCompare(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 // ONE authority for the governing-set digest law: the LATEST admitted
@@ -104,18 +104,6 @@ export function nextRunSegmentIndex(
     }
   }
   return maxIndex + 1;
-}
-
-function eventAdmissionOrdinalOf(event: RuntimeEvent): number | null {
-  if (
-    "eventAdmissionOrdinal" in event &&
-    typeof event.eventAdmissionOrdinal === "number" &&
-    Number.isSafeInteger(event.eventAdmissionOrdinal) &&
-    event.eventAdmissionOrdinal >= 0
-  ) {
-    return event.eventAdmissionOrdinal;
-  }
-  return null;
 }
 
 // S2 review P2: windows derive from ORDINAL truth, never input order —
