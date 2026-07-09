@@ -243,6 +243,23 @@ admitted operator events through the same admission. Consequences:
   operator surface (tests driving the harness in-process are not
   operators). Operator acts route through the grammar or they did not
   happen.
+- SESSION ALLOWLIST (user ratification 2026-07-09): the session's
+  ALLOWED GRAPH-FUNCTION SET is an initial condition the grammar hands
+  to the root frame — governing and controlling allowed work by
+  RESTRICTING THE VIEW, exactly A4's recursion law applied to the
+  action catalog. The full catalog remains declared module truth
+  (FPC-004 holds: never prompt prose, never harness-local config); the
+  session allowlist is an ADMITTED view restriction over it, enforced
+  at selection/admission (kernel), inherited down recursive frames,
+  replay-visible, violations fail closed as selection rejections.
+  Recursive graph-function execution is the wanted capability; the
+  allowlist is what makes an emergent session governable — discovery
+  runs free INSIDE a bounded catalog view. Realization seam largely
+  exists: ProductRegistryStartupConfig.enabledLibraryRefs admits the
+  enabled set at startup and graph_function_selection_rejected carries
+  the refusal; the grammar binds these as session verbs. The tuner's
+  catalog-visibility curation (TUNER-012) is the OPTIMISATION twin of
+  this OPERATOR restriction — one mechanism, two authorities.
 
 ## 9. Rails and discovery — the composition algebra (canonical, user 2026-07-09)
 

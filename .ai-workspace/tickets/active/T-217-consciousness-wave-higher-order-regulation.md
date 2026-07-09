@@ -571,6 +571,34 @@ ingress-asserted append-ordered replay (safe), as pure functions they
 share the hazard — routed to the SR-6 commonization rider for the
 ordinal-law sweep. Suites 1212/1212 green.
 
+ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
+(2026-07-09): the two-workers-over-a-surface capability is ALREADY
+SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
+family: configured reviewer profiles incl. reviewer://odd-sdlc/codex +
+/claude, typed findings, rulings accepted/rejected/deferred/split/
+needs_consensus/blocked, TICKET_METHOD-shaped drafts, review never
+status authority) and T-166 (consensus: same-surface submitter/
+reviewer refinement rounds, done|recurse, explicitly distinct from
+review); T-162 (ticket workflow authority) is COMPLETED odd_sdlc-side;
+T-117/B-004 carry the worker-binding/transport debt (paired with our
+T-110 in Phase 4). LAW: Phases 3/5 CONSUME the T-166/T-167 families —
+the consciousness module does not reinvent them (three-layer
+ownership; both tickets annotated with substrate-readiness addenda:
+the S4 intake seam is their kernel landing terminal, the witness
+family is their attribution law). RATIFIED (user, 2026-07-09):
+recursive graph-function execution is the wanted capability, and the
+SESSION ALLOWLIST — the allowed graph-function set admitted as an
+initial condition of the root frame via the operator grammar — is the
+governance mechanism for allowed work: a view restriction (A4) over
+the declared catalog (FPC-004 preserved — catalog stays declared
+module truth, never harness-local prose), enforced at selection/
+admission, inherited down recursive frames, replay-visible, violations
+fail closed as selection rejections. Realization seam largely exists
+(ProductRegistryStartupConfig.enabledLibraryRefs +
+graph_function_selection_rejected); the grammar binds it as session
+verbs (design SS8 updated). TUNER-012 catalog-visibility curation is
+the optimisation twin of this operator restriction.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the
