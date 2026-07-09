@@ -104,6 +104,12 @@ scope TIGHTENS accordingly: no View or Measurement carrier is minted.
 ## Phases (multiphasal, inside-out; each phase exits by the ritual)
 
 ### Phase 0 — Constitutional repricing
+(+ CLI-as-control-plane law: the abg CLI is the ONE operator interface
+— every operator act a CLI verb, every verb an admitted event, every
+tier surface a CLI-rendered projection; requirement families below
+include the CLI verb surface. + The crystallization law: graph where
+truth must be gated, emergence where truth is claimed at a boundary;
+promote/demote as tuner drafts behind F_H. Design SS8-SS9.)
 Product_reprice: the three session laws + option-2 adjudication into
 PRODUCT.md (reflective boundary section). Requirement_reprice: (a) the
 TUNER/ANNEALING family (absorbs T-206's walk: tuner catalog + verbs,

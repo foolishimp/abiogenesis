@@ -202,7 +202,80 @@ lifecycle, hygiene stamps); the tuner/annealing REQUIREMENT FAMILY
 TYPES for the consciousness module (userland vocabulary, the same class
 as odd_glc's depth_proof_map types).
 
-## 8. Decisions — RATIFIED (user, 2026-07-09)
+## 8. The CLI as the control plane (user ratification, 2026-07-09)
+
+"This changes the entire bootstrap of the abg cli — all of it is
+controllable through that interface."
+
+THE LAW: the abg CLI (genesis-ts) is the ONE operator interface — the
+L5/F_H chart. Every operator interaction is a CLI verb; every CLI verb
+emits ADMITTED events; every tier read surface is a CLI-rendered
+projection. Consequences:
+- T-215's witness problem becomes STRUCTURAL: operator acts are CLI
+  verbs, CLI verbs are admitted F_H-attributed events, therefore no
+  unlogged supervisor act can exist. (The T-032 monitor was
+  replay-invisible precisely because it bypassed the CLI — raw test
+  invocations, env vars, manual resumes. That path closes.)
+- CAMPAIGN LIFECYCLE joins the CLI: run/resume/stop scenario verbs
+  replace raw harness invocation; env steering becomes verb arguments;
+  each emits the operator lifecycle events (T-215 row 5) by existing.
+- THE TIER'S SURFACES are CLI verbs over projections: observe report
+  (gaps, drift, halts, citability), draft review/ratify (the F_H gate),
+  tune report/propose/ratify (T-206 verbs unchanged).
+- Sandbox/env capabilities become DECLARED verb arguments (D7
+  generalized): a run is reproducible from its CLI invocation line.
+- ONE AUTHORITY: no dashboards, no side-channel scripts, no direct
+  harness entry for OPERATORS (tests driving the harness in-process are
+  not operators). Operator acts route through the CLI or they did not
+  happen.
+
+## 9. Declared graph vs recursive emergence (the crystallization law; user question 2026-07-09)
+
+THE CRITERION: it is a GRAPH where truth must be GATED; it is
+recursively EMERGENT where truth is only claimed at a boundary.
+Edges are obligations; frames are freedom.
+
+- DECLARE a vector/edge when any of: (1) truth must be admitted or
+  minted at that point (evidence, payload, measurement); (2) closure
+  folds or re-entry must target it; (3) authority changes across it
+  (different role/actor/regime on each side); (4) F_H must be able to
+  ratify the step BEFORE execution; (5) budgets differ across it
+  (retry/timeout/cost boundaries). The declared graph is the skeleton
+  of ADMISSION POINTS — the shape of accountability, published in the
+  atlas, ratifiable in advance.
+- LEAVE IT EMERGENT when the decomposition is itself an output of the
+  work (the Goedel law: topology discovered by computation), when
+  intermediate states carry no independent obligations, when one typed
+  boundary (entry contract + exit evidence + budget) carries the whole
+  obligation, and when the internal shape varies run to run. Emergence
+  lives INSIDE bounded frames: the worker's run-fix-run iterations, the
+  observer's drill-downs. The frame boundary is strong precisely so the
+  interior can be free.
+- SINGLE VIEW vs HIGHEST-ORDER VIEW are the same machine at the two
+  extremes: one frame with everything emergent inside it (maximum
+  freedom, one gate — the lawful bootstrap posture, FPC-004E) versus
+  the fully declared lifecycle graph (maximum accountability — the
+  28-vector data-mapper plan). Neither is prior; systems ANNEAL from
+  the first toward the second.
+- THE BOUNDARY IS DYNAMIC AND TELEMETRY-DRIVEN — it IS the atlas the
+  tuner optimizes: PROMOTE emergent structure to declared topology when
+  telemetry shows a stable recurring interior shape AND a defect class
+  that a per-step gate would catch; DEMOTE (collapse) declared edges
+  that never discriminate (no distinct evidence, always co-pass —
+  ceremony). Both moves are declaration drafts behind F_H (SS13.1).
+  Structure crystallizes where accountability pays for itself and
+  dissolves where it does not.
+- PREFER ENRICHING THE BOUNDARY over multiplying vectors: when the
+  T-032 campaign needed truth from INSIDE a turn (which tests failed
+  under a mutant), the lawful fix was a richer boundary payload
+  (failedTestIdentityRefs), not new vectors. A new vector is justified
+  only by a needed ADMISSION POINT, never by curiosity about the
+  interior.
+- T-032 evidence for the criterion: every defect lived at DECLARED
+  edges (contract seams) where gates caught them; the emergent
+  interiors (worker iterations) needed no gates and worked.
+
+## 10. Decisions — RATIFIED (user, 2026-07-09)
 
 D-1 RATIFIED: BOTH — wake on gap_stops, residual folds, terminals, and
      drift-mismatch facts; the FPC-010 ledger damps re-wakes on
