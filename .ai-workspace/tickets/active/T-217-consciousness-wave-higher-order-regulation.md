@@ -454,6 +454,28 @@ admission_hygiene's exported codepointCompare; direct WITNESS-012
 audit differential at the exit gate). Dispositions: SR-1/SR-4 fix on
 approval; SR-2 adjudicate the fork-witness shape.
 
+S4 HOSTILE-REVIEW FIXES (2026-07-09, three findings, all confirmed and
+pinned — P1a is the S2-P2 order-over-ordinal class recurring in a
+sibling fold, which the self-review also missed): P1a deriveHalt-
+Diagnosis took the LAST terminal in CALLER ARRAY ORDER ([converged,
+halt] shuffled resurrected a resolved halt); FIXED: decisiveByOrdinal
+— the decisive terminal AND the latest segment stamp are chosen by
+admission-ordinal truth; single candidate needs no order; multiple
+unorderable candidates FAIL CLOSED (pin in f1: both orders resolve,
+raw pair throws). P1b intakeRef bound only part of the admitted
+content — evidenceRefs and triagedBy mutated freely under one ref and
+draftRef collided across differing evidence/actors; FIXED: the mint
+and the admission recompute bind basisId + haltDiagnosisRef + owner +
+changeClass + reEntryPoint + summary + evidenceRefs + triagedBy (pin
+g1: smuggled evidence ref and impostor actor inadmissible; re-minted
+evidence yields distinct draft identity). P2 diagnosisRef excluded
+reentryPlanRefs and latestSegmentRef from its digest — non-injective
+over the projection it names; FIXED: both included (pin g2: segment
+tie and reentry plans are identity-bearing). Suites 1205/1205 green.
+STANDING LESSON now applied twice: every "latest/last X" over replay
+is an ordinal law, never an array law — sweep any future fold for
+this class at authoring time.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

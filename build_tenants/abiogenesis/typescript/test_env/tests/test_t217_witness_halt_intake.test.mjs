@@ -8,9 +8,11 @@ import assert from "node:assert/strict";
 import {
   assertRuntimeEvent,
   constructDefectIntakeAdmittedEvent,
+  constructRunSegmentOpenedEvent,
   deriveHaltDiagnosis,
   deriveTicketDraftsFromIntakes
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
 import {
   admitDefectIntake,
   constructGtlLibraryEntryDeclaration,
@@ -120,12 +122,113 @@ test("T-217 S4 f1: halt diagnosis is a replay fold — frontier, evidence, attem
   ]);
   assert.equal(healthy.halted, false);
   assert.equal(healthy.haltReason, null);
-  // and the LAST terminal decides: a halt superseded by convergence is resolved
-  const recovered = deriveHaltDiagnosis([
-    HALT_TERMINAL,
-    { ...HALT_TERMINAL, terminalKind: "converged", reason: null }
-  ]);
+  // and the ordinal-DECISIVE terminal decides: a halt superseded by
+  // convergence is resolved — in EITHER array order (S4 review P1)
+  const [haltCanonical] = emit({ ...HALT_TERMINAL }, () => {});
+  const [convergedCanonical] = emit(
+    { ...HALT_TERMINAL, terminalKind: "converged", reason: null },
+    () => {}
+  );
+  const recovered = deriveHaltDiagnosis([haltCanonical, convergedCanonical]);
   assert.equal(recovered.halted, false);
+  const recoveredShuffled = deriveHaltDiagnosis([
+    convergedCanonical,
+    haltCanonical
+  ]);
+  assert.equal(
+    recoveredShuffled.halted,
+    false,
+    "caller array order must not resurrect a resolved halt"
+  );
+  // multiple unorderable terminals fail closed
+  assert.throws(
+    () =>
+      deriveHaltDiagnosis([
+        HALT_TERMINAL,
+        { ...HALT_TERMINAL, terminalKind: "converged", reason: null }
+      ]),
+    /requires admission ordinals to order multiple terminal_reached/u
+  );
+});
+
+test("T-217 S4 g1 (review P1): intakeRef binds evidence and triage attribution — partial-identity retriage is inadmissible", () => {
+  const valid = intakeEvent();
+  assertRuntimeEvent(valid);
+  assert.throws(
+    () =>
+      assertRuntimeEvent({
+        ...valid,
+        evidenceRefs: ["payload://t217/s4/design-attempt", "payload://smuggled"]
+      }),
+    /intakeRef must be the content-derived identity/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...valid, triagedBy: "observer://impostor" }),
+    /intakeRef must be the content-derived identity/u
+  );
+  // different evidence lawfully re-minted yields a DIFFERENT draft identity
+  const other = intakeEvent({ evidenceRefs: ["payload://t217/s4/other"] });
+  assert.notEqual(valid.intakeRef, other.intakeRef);
+  const drafts = deriveTicketDraftsFromIntakes([valid, other]);
+  assert.notEqual(drafts[0].draftRef, drafts[1].draftRef);
+});
+
+test("T-217 S4 g2 (review P2): diagnosisRef is injective over the whole projection — segment tie and reentry plans included", () => {
+  const base = haltReplay();
+  const withoutSegment = deriveHaltDiagnosis(base);
+  const [stamp] = emit(
+    constructRunSegmentOpenedEvent({
+      basisId: "basis://t217/s4",
+      runId: "run://t217/s4",
+      workKey: "wk://t217/s4",
+      segmentIndex: 1,
+      workerId: "worker://t217",
+      backendId: "backend://node",
+      buildId: "build://typescript",
+      resolvedRuntimeRef: "runtime://typescript/node",
+      declarationSetDigest: "digest://declaration-set/v1",
+      declarationCount: 1
+    }),
+    () => {}
+  );
+  const withSegment = deriveHaltDiagnosis([...base, stamp]);
+  assert.equal(withSegment.latestSegmentRef, stamp.segmentRef);
+  assert.notEqual(
+    withSegment.diagnosisRef,
+    withoutSegment.diagnosisRef,
+    "the segment tie is identity-bearing"
+  );
+  const withReentry = deriveHaltDiagnosis([
+    ...base,
+    {
+      kind: "graph_reentry_planned",
+      basisId: "basis://t217/s4",
+      graphCallId: "graph-call://t217/s4",
+      frameId: "frame://t217/s4",
+      frameLineageId: null,
+      graphFunctionId: "graph-function://t217/s4",
+      runId: "run://t217/s4",
+      workKey: "wk://t217/s4",
+      planRef: "reentry-plan://t217/s4/1",
+      fromTerminalVectorIndex: 2,
+      targetVectorIndex: 1,
+      changeClass: null,
+      reEntryPoint: null,
+      routeContractRefs: [],
+      causingFrontierRowRefs: [],
+      shadowedVectorIndexes: [],
+      causationEventRefs: [],
+      correlationId: "correlation://t217/s4/g2/reentry",
+      reason: "diagnosis identity probe",
+      generation: 0
+    }
+  ]);
+  assert.deepEqual(withReentry.reentryPlanRefs, ["reentry-plan://t217/s4/1"]);
+  assert.notEqual(
+    withReentry.diagnosisRef,
+    withoutSegment.diagnosisRef,
+    "reentry plans are identity-bearing"
+  );
 });
 
 test("T-217 S4 f2: intake admission — TICKET_METHOD triage authority is closed vocabulary, intakeRef self-certified", () => {

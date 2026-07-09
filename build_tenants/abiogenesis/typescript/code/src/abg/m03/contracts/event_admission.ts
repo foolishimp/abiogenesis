@@ -1382,7 +1382,9 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       owner: event["owner"],
       changeClass: event["changeClass"],
       reEntryPoint: event["reEntryPoint"],
-      summary: event["summary"]
+      summary: event["summary"],
+      evidenceRefs: [...(event["evidenceRefs"] as readonly string[])],
+      triagedBy: event["triagedBy"]
     })}`;
     if (event["intakeRef"] !== expectedIntakeRef) {
       throw new TypeError(

@@ -1202,6 +1202,10 @@ export function constructWorkspaceHygieneStampedEvent(input: {
   });
 }
 
+// S4 review P1: the identity binds EVERY authority-bearing field —
+// evidence and triage attribution included — so retriaging any content
+// under the same ref is inadmissible and draft identities cannot collide
+// across differing evidence or actors.
 export function mintDefectIntakeRef(input: {
   readonly basisId: string;
   readonly haltDiagnosisRef: string;
@@ -1209,6 +1213,8 @@ export function mintDefectIntakeRef(input: {
   readonly changeClass: GraphChangeClass;
   readonly reEntryPoint: GraphReentryPoint;
   readonly summary: string;
+  readonly evidenceRefs: readonly string[];
+  readonly triagedBy: string;
 }): string {
   return `defect-intake:${stableSha256Digest({
     basisId: input.basisId,
@@ -1216,7 +1222,9 @@ export function mintDefectIntakeRef(input: {
     owner: input.owner,
     changeClass: input.changeClass,
     reEntryPoint: input.reEntryPoint,
-    summary: input.summary
+    summary: input.summary,
+    evidenceRefs: [...input.evidenceRefs],
+    triagedBy: input.triagedBy
   })}`;
 }
 

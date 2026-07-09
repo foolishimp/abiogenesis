@@ -56,13 +56,53 @@ function codepointCompare(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
+function eventAdmissionOrdinalOf(event: RuntimeEvent): number | null {
+  if (
+    "eventAdmissionOrdinal" in event &&
+    typeof event.eventAdmissionOrdinal === "number" &&
+    Number.isSafeInteger(event.eventAdmissionOrdinal) &&
+    event.eventAdmissionOrdinal >= 0
+  ) {
+    return event.eventAdmissionOrdinal;
+  }
+  return null;
+}
+
+// S4 review P1: the DECISIVE terminal (and the latest segment stamp) are
+// chosen by admission-ordinal truth, never caller array order. With one
+// candidate no order question exists; with several, any unorderable
+// candidate fails closed.
+function decisiveByOrdinal<T extends RuntimeEvent>(
+  candidates: readonly T[],
+  label: string
+): T | null {
+  if (candidates.length === 0) {
+    return null;
+  }
+  const first = candidates[0];
+  if (candidates.length === 1 && first !== undefined) {
+    return first;
+  }
+  let decisive: { event: T; ordinal: number } | null = null;
+  for (const event of candidates) {
+    const ordinal = eventAdmissionOrdinalOf(event);
+    if (ordinal === null) {
+      throw new TypeError(
+        `Halt diagnosis requires admission ordinals to order multiple ${label} events`
+      );
+    }
+    if (decisive === null || ordinal > decisive.ordinal) {
+      decisive = { event, ordinal };
+    }
+  }
+  return decisive === null ? null : decisive.event;
+}
+
 export function deriveHaltDiagnosis(
   events: readonly RuntimeEvent[]
 ): HaltDiagnosisProjection {
-  let halted = false;
-  let basisId: string | null = null;
-  let haltReason: string | null = null;
-  let latestSegmentRef: string | null = null;
+  const terminalEvents: Extract<RuntimeEvent, { readonly kind: "terminal_reached" }>[] = [];
+  const segmentStamps: Extract<RuntimeEvent, { readonly kind: "run_segment_opened" }>[] = [];
   const attemptRows: HaltAttemptRow[] = [];
   const failureRows: HaltFailureRow[] = [];
   const rejectionRows: HaltRejectionRow[] = [];
@@ -72,12 +112,10 @@ export function deriveHaltDiagnosis(
   for (const event of events) {
     switch (event.kind) {
       case "terminal_reached":
-        halted = event.terminalKind === "gap_stop";
-        basisId = event.basisId;
-        haltReason = event.terminalKind === "gap_stop" ? event.reason : null;
+        terminalEvents.push(event);
         break;
       case "run_segment_opened":
-        latestSegmentRef = event.segmentRef;
+        segmentStamps.push(event);
         break;
       case "retry_attempt_opened":
         attemptRows.push(Object.freeze({
@@ -161,6 +199,13 @@ export function deriveHaltDiagnosis(
     }
   }
 
+  const decisiveTerminal = decisiveByOrdinal(terminalEvents, "terminal_reached");
+  const latestStamp = decisiveByOrdinal(segmentStamps, "run_segment_opened");
+  const halted = decisiveTerminal?.terminalKind === "gap_stop";
+  const basisId = decisiveTerminal?.basisId ?? null;
+  const haltReason = halted ? (decisiveTerminal?.reason ?? null) : null;
+  const latestSegmentRef = latestStamp?.segmentRef ?? null;
+
   const implicatedEdges = Object.freeze(
     [...new Set([
       ...attemptRows.map((row) => row.edge),
@@ -183,7 +228,9 @@ export function deriveHaltDiagnosis(
       attemptRows: frozenAttempts,
       failureRows: frozenFailures,
       rejectionRows: frozenRejections,
-      rejectionEvidenceRefs: sortedEvidenceRefs
+      rejectionEvidenceRefs: sortedEvidenceRefs,
+      reentryPlanRefs,
+      latestSegmentRef
     })}`,
     halted,
     basisId,
