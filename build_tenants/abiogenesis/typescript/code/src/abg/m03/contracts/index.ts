@@ -1389,6 +1389,12 @@ export type {
   WorkspaceHygieneObservation,
   WorkspaceHygienePredicate
 } from "./workspace_hygiene.js";
+export { verifyJUnitReportContents } from "./test_report_verification.js";
+export type {
+  TestReportContentRow,
+  TestReportVerification,
+  TestReportVerificationRow
+} from "./test_report_verification.js";
 export {
   constructWorkspaceHygieneStampedEvent,
   mintWorkspaceHygieneRef

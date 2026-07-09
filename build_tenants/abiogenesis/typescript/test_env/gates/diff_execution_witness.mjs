@@ -49,6 +49,25 @@ function changedSourceLines() {
     { cwd: tenantRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }
   );
   const changed = new Map(); // repo-relative .ts path -> Set<line>
+  // T-217 S2.3 gate fix: `git diff` cannot see NEVER-COMMITTED files, so
+  // a whole new module could ship unwitnessed. Untracked .ts files under
+  // code/src are changed IN FULL — every line is coverage-of-change.
+  const untracked = execFileSync(
+    "git",
+    ["ls-files", "--others", "--exclude-standard", "--", "code/src"],
+    { cwd: tenantRoot, encoding: "utf8", maxBuffer: 16 * 1024 * 1024 }
+  )
+    .split("\n")
+    .map((file) => file.trim())
+    .filter((file) => file.endsWith(".ts") && file.startsWith("code/src/"));
+  for (const file of untracked) {
+    const content = readFileSync(path.join(tenantRoot, file), "utf8");
+    const lines = new Set();
+    for (let index = 1; index <= content.split("\n").length; index += 1) {
+      lines.add(index);
+    }
+    changed.set(file, lines);
+  }
   let currentFile = null;
   for (const line of diff.split("\n")) {
     if (line.startsWith("+++ b/")) {

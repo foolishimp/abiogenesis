@@ -726,3 +726,25 @@ test("T-217 S2.2 (D1.4): the measure grammar is closed — one measurement sourc
     /no admitted materialized surfaces to measure/u
   );
 });
+
+test("T-217 S2.1 (C-5): route-basis reconstruction fails closed on a log with no admitted basis", async () => {
+  const { reconstructRouteBasisFromReplay } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  assert.throws(
+    () => reconstructRouteBasisFromReplay([]),
+    /requires an admitted basis in replay/u
+  );
+  // and through the grammar: a witness act on an empty log is a typed
+  // command failure, not a crash
+  const { root } = fixtureWorkspace();
+  const ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(
+      ["witness", "attest", "--workspace", root, "--actor", "operator://jim"],
+      ctx.io
+    ),
+    1
+  );
+  assert.match(ctx.lastJson().reason, /requires an admitted basis/u);
+});
