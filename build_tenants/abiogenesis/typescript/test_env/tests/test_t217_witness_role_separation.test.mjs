@@ -27,48 +27,23 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 
+// C-8: fixtures hoisted to support/t217-witness-fixtures.mjs
+import {
+  t217Declaration as sharedDeclaration,
+  t217StartupConfig as sharedStartupConfig
+} from "./support/t217-witness-fixtures.mjs";
+
 function declaration(marker, graphFunctionRef) {
-  return constructGtlLibraryEntryDeclaration({
-    declarationRef: "gtl-declaration://t217/sr7/subject",
-    entryRef: "registry-entry://t217/sr7/subject",
-    libraryScope: "product",
-    entryKind: "graph_function",
-    namespace: "t217.sr7",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    graphFunctionRef,
-    interfaceRef: "interface://t217/sr7/subject",
-    sourceContractRef: "contract://t217/sr7/source",
-    targetContractRef: "contract://t217/sr7/target",
-    contextRefs: ["context://t217/sr7"],
-    authorityRefs: ["authority://t217/sr7/abg-runtime"],
-    overlayRefs: ["overlay://t217/sr7/subject"],
-    provenanceRefs: ["provenance://t217/sr7"],
-    readinessRefs: ["readiness://t217/sr7"],
-    proofRefs: [`proof://t217/sr7/${marker}`],
-    policyRefs: ["policy://t217/sr7"],
-    declarationSourceRefs: ["gtl://module/t217/sr7"]
+  return sharedDeclaration({
+    namespace: "t217/sr7",
+    subject: "subject",
+    contentMarker: marker,
+    graphFunctionRef
   });
 }
 
 function startupConfig() {
-  return constructProductRegistryStartupConfig({
-    configRef: "product-registry-startup://t217/sr7",
-    productNamespace: "t217.sr7",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    enabledLibraryRefs: [
-      "registry-entry://t217/sr7/subject",
-      "gtl-declaration://t217/sr7/subject",
-      "gtl://module/t217/sr7"
-    ],
-    overlayRefs: ["overlay://t217/sr7/subject"],
-    pluginRefs: ["plugin://t217/sr7/fp-worker"],
-    readinessRefs: ["readiness://t217/sr7"],
-    proofRefs: ["proof://t217/sr7"],
-    policyRefs: ["policy://t217/sr7"],
-    configSourceRefs: ["config://t217/sr7"]
-  });
+  return sharedStartupConfig({ namespace: "t217/sr7", subject: "subject" });
 }
 
 test("T-217 SR-7 (WITNESS-012): an out-of-band SUBSTRATE act surfaces as a reprice violation; ratified, the same act passes — recorded, not substituted", () => {

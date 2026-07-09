@@ -44,50 +44,23 @@ function repriceEvent(overrides = {}) {
   });
 }
 
-// content marker varies the declaration DIGEST while the version stays
-// coupled to the startup config — a reprice witnesses content change
+// C-8: fixtures hoisted to support/t217-witness-fixtures.mjs; these
+// adapters keep the call sites and ref universe stable.
+import {
+  t217Declaration as sharedDeclaration,
+  t217StartupConfig as sharedStartupConfig
+} from "./support/t217-witness-fixtures.mjs";
+
 function t217Declaration(contentMarker, graphFunctionRef = "graph-function://t217/witness-subject") {
-  return constructGtlLibraryEntryDeclaration({
-    declarationRef: "gtl-declaration://t217/start/witness-subject",
-    entryRef: "registry-entry://t217/start/witness-subject",
-    libraryScope: "product",
-    entryKind: "graph_function",
-    namespace: "t217.start",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    graphFunctionRef,
-    interfaceRef: "interface://t217/start/witness-subject",
-    sourceContractRef: "contract://t217/start/source",
-    targetContractRef: "contract://t217/start/target",
-    contextRefs: ["context://t217/start"],
-    authorityRefs: ["authority://t217/start/abg-runtime"],
-    overlayRefs: ["overlay://t217/start/witness-subject"],
-    provenanceRefs: ["provenance://t217/start"],
-    readinessRefs: ["readiness://t217/start"],
-    proofRefs: [`proof://t217/start/${contentMarker}`],
-    policyRefs: ["policy://t217/start"],
-    declarationSourceRefs: ["gtl://module/t217/start"]
+  return sharedDeclaration({
+    namespace: "t217/start",
+    contentMarker,
+    graphFunctionRef
   });
 }
 
 function t217StartupConfig() {
-  return constructProductRegistryStartupConfig({
-    configRef: "product-registry-startup://t217/start",
-    productNamespace: "t217.start",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    enabledLibraryRefs: [
-      "registry-entry://t217/start/witness-subject",
-      "gtl-declaration://t217/start/witness-subject",
-      "gtl://module/t217/start"
-    ],
-    overlayRefs: ["overlay://t217/start/witness-subject"],
-    pluginRefs: ["plugin://t217/start/fp-worker"],
-    readinessRefs: ["readiness://t217/start"],
-    proofRefs: ["proof://t217/start"],
-    policyRefs: ["policy://t217/start"],
-    configSourceRefs: ["config://t217/start"]
-  });
+  return sharedStartupConfig({ namespace: "t217/start" });
 }
 
 test("T-217 S1 a1: reprice admission accepts full authority and rejects each missing/invalid field AS AUTHORED", () => {

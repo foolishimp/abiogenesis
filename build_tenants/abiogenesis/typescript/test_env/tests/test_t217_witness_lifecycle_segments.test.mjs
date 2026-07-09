@@ -48,48 +48,18 @@ function segmentStamp(overrides = {}) {
   });
 }
 
+// C-8: fixtures hoisted to support/t217-witness-fixtures.mjs
+import {
+  t217Declaration as sharedDeclaration,
+  t217StartupConfig as sharedStartupConfig
+} from "./support/t217-witness-fixtures.mjs";
+
 function t217Declaration(contentMarker, graphFunctionRef) {
-  return constructGtlLibraryEntryDeclaration({
-    declarationRef: "gtl-declaration://t217/s2/witness-subject",
-    entryRef: "registry-entry://t217/s2/witness-subject",
-    libraryScope: "product",
-    entryKind: "graph_function",
-    namespace: "t217.s2",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    graphFunctionRef,
-    interfaceRef: "interface://t217/s2/witness-subject",
-    sourceContractRef: "contract://t217/s2/source",
-    targetContractRef: "contract://t217/s2/target",
-    contextRefs: ["context://t217/s2"],
-    authorityRefs: ["authority://t217/s2/abg-runtime"],
-    overlayRefs: ["overlay://t217/s2/witness-subject"],
-    provenanceRefs: ["provenance://t217/s2"],
-    readinessRefs: ["readiness://t217/s2"],
-    proofRefs: [`proof://t217/s2/${contentMarker}`],
-    policyRefs: ["policy://t217/s2"],
-    declarationSourceRefs: ["gtl://module/t217/s2"]
-  });
+  return sharedDeclaration({ namespace: "t217/s2", contentMarker, graphFunctionRef });
 }
 
 function t217StartupConfig() {
-  return constructProductRegistryStartupConfig({
-    configRef: "product-registry-startup://t217/s2",
-    productNamespace: "t217.s2",
-    ownerRef: "owner://abg/t217",
-    version: "4.6.0-dev",
-    enabledLibraryRefs: [
-      "registry-entry://t217/s2/witness-subject",
-      "gtl-declaration://t217/s2/witness-subject",
-      "gtl://module/t217/s2"
-    ],
-    overlayRefs: ["overlay://t217/s2/witness-subject"],
-    pluginRefs: ["plugin://t217/s2/fp-worker"],
-    readinessRefs: ["readiness://t217/s2"],
-    proofRefs: ["proof://t217/s2"],
-    policyRefs: ["policy://t217/s2"],
-    configSourceRefs: ["config://t217/s2"]
-  });
+  return sharedStartupConfig({ namespace: "t217/s2" });
 }
 
 function startRequest(input, context, runtimeEvents, sink, declaration, correlationId) {

@@ -10,6 +10,11 @@ import {
   type GtlProgramUnderdeterminedDeclarationRow
 } from "./gtl_program_conformance.js";
 import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  admitArtifactSchemas,
+  renderArtifactSchemasText,
+  type ArtifactSchema
+} from "./artifact_schemas.js";
 
 export const INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS = Object.freeze([
   "field_cut",
@@ -124,6 +129,7 @@ export type InstructionAssemblyIssueKind =
   | "answer_shaped_content"
   | "declared_latitude_invalid"
   | "golden_instance_calibration_invalid"
+  | "artifact_schema_invalid"
   | "runtime_binding_gap"
   | "startup_admission_gap"
   | "manifest_replay_mismatch"
@@ -273,6 +279,9 @@ export interface CompileInstructionAssemblyPlanInput {
     readonly ownerRoute: string;
     readonly latitudeNote: string;
   }[] | undefined;
+  // T-213 (S6): one declared schema per worker-authored artifact section
+  // — rendered into the prompt AND enforced at file-payload admission
+  readonly artifactSchemas?: readonly unknown[] | undefined;
   readonly planRef: string;
   readonly rule: InstructionAssemblyRule;
   readonly computeStageRole?: InstructionAssemblyComputeStageRole | undefined;
@@ -323,6 +332,7 @@ export interface CompiledPromptPlan {
   readonly causalExcerptMaxChars: number;
   readonly declaredLatitude: readonly DeclaredLatitudeRow[];
   readonly goldenInstanceCalibration: readonly GoldenInstanceCalibrationRow[];
+  readonly artifactSchemas: readonly ArtifactSchema[];
   readonly kind: "compiled_prompt_plan";
   readonly planRef: string;
   readonly planDigest: string;
@@ -789,10 +799,16 @@ function renderedPromptFor(input: {
               `scope: ${row.scopeRef} | owner: ${row.ownerRoute} | latitude: ${row.latitudeNote}`
           )
         ].join("\n");
+  const artifactSchemasText = renderArtifactSchemasText(
+    input.plan.artifactSchemas
+  );
   return [
     sectionText,
     ...(latitudeText === null ? [] : ["## abg.declared_latitude", latitudeText]),
     ...(calibrationText === null ? [] : ["## abg.golden_instance_calibration", calibrationText]),
+    ...(artifactSchemasText === null
+      ? []
+      : ["## abg.artifact_output_schemas", artifactSchemasText]),
     "## abg.instruction_authority_precedence",
     [
       "ABG-rendered dependency truth, proof-depth truth, runtime bound refs, and admitted prior artifacts are authoritative for this dispatch.",
@@ -1217,6 +1233,22 @@ export function compileInstructionAssemblyPlan(
         exampleInstanceRefs: Object.freeze([...row.exampleInstanceRefs]),
         counterexampleInstanceRefs: Object.freeze([...row.counterexampleInstanceRefs]),
         instanceSetDigest: row.instanceSetDigest
+      })
+    );
+  }
+  // T-213 (S6): declared artifact schemas admit at compile — a bad
+  // schema is a compile issue, never a silent drop
+  const artifactSchemaAdmission = admitArtifactSchemas(
+    input.artifactSchemas ?? []
+  );
+  for (const schemaIssue of artifactSchemaAdmission.issues) {
+    issues.push(
+      Object.freeze({
+        kind: "instruction_assembly_issue",
+        issueKind: "artifact_schema_invalid",
+        algebraRef: "startup",
+        message: `artifact schema ${schemaIssue.issueKind} at ${schemaIssue.at}`,
+        evidenceRefs: Object.freeze([schemaIssue.at])
       })
     );
   }
@@ -1703,6 +1735,7 @@ export function compileInstructionAssemblyPlan(
     causalExcerptMaxChars,
     declaredLatitude: Object.freeze(declaredLatitude),
     goldenInstanceCalibration: Object.freeze(goldenInstanceCalibration),
+    artifactSchemas: artifactSchemaAdmission.schemas,
     planRef: input.planRef,
     ruleRef: input.rule.ruleRef,
     computeStageRole,

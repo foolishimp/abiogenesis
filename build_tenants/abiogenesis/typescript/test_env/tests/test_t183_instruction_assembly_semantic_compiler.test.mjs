@@ -293,7 +293,7 @@ function productStartupConfig() {
   });
 }
 
-function startPlanForFirstVector(executive) {
+function startPlanForFirstVector(executive, extra = {}) {
   const vector = executive.template.graph.vectors[0];
   assert.ok(vector);
   return acceptedPlan({
@@ -353,7 +353,8 @@ function startPlanForFirstVector(executive) {
       targetRefs: [vector.target.id],
       sourceProjectionRefs: ["proof-coverage-projection://t183/start/vector-0"]
     }),
-    expectedAnswerMarkers: ["gap_stop_without_dispatch"]
+    expectedAnswerMarkers: ["gap_stop_without_dispatch"],
+    ...extra
   });
 }
 
@@ -1493,4 +1494,166 @@ test("T-183 runner filters prior artifacts through dependency instruction truth"
   assert.equal(result.transition.kind, "terminal");
   assert.equal(result.transition.terminalKind, "gap_stop");
   assert.match(result.transition.reason, /no admitted plan for evaluate/u);
+});
+
+// ── T-217 S6 (T-213): typed artifact schemas — compile, render, enforce ──
+
+const T213_DEPTH_SCHEMA = Object.freeze({
+  schemaRef: "schema://t213/depth-proof-map",
+  artifactKey: "depthProofMap",
+  fields: {},
+  rows: {
+    key: "rows",
+    fields: {
+      requirementId: "non_empty_string",
+      depthClassRef: "non_empty_string",
+      testIdentityRefs: "string_array"
+    }
+  }
+});
+
+test("T-217 S6: a declared artifact schema compiles onto the plan and renders as the prompt's shape authority", () => {
+  const plan = acceptedPlan({ artifactSchemas: [T213_DEPTH_SCHEMA] });
+  assert.equal(plan.artifactSchemas.length, 1);
+  assert.equal(plan.artifactSchemas[0].schemaRef, "schema://t213/depth-proof-map");
+
+  const envelopeResult = bindInstructionEnvelope({
+    envelopeRef: "instruction-envelope://t213/render",
+    plan,
+    startupAdmission: admitted(plan),
+    runtimeFacts: runtimeFacts()
+  });
+  assert.equal(envelopeResult.accepted, true, JSON.stringify(envelopeResult.issues));
+  const rendered = renderPromptManifest({
+    manifestRef: "prompt-manifest://t213/render",
+    plan,
+    envelope: envelopeResult.envelope,
+    rendererRef: "renderer://abg/instruction-envelope/default"
+  });
+  assert.equal(rendered.accepted, true);
+  assert.equal(
+    rendered.manifest.renderedPrompt.includes("## abg.artifact_output_schemas"),
+    true,
+    "the worker sees the type it is held to"
+  );
+  assert.equal(
+    rendered.manifest.renderedPrompt.includes("schema://t213/depth-proof-map"),
+    true
+  );
+  assert.equal(
+    rendered.manifest.renderedPrompt.includes("closed keys"),
+    true
+  );
+
+  // a malformed declared schema is a compile issue, never a silent drop
+  const badCompile = compileInstructionAssemblyPlan(
+    compileInput({
+      artifactSchemas: [{ schemaRef: "", artifactKey: "depthProofMap" }]
+    })
+  );
+  assert.equal(badCompile.accepted, false);
+  assert.equal(
+    badCompile.issues.some((issue) => issue.issueKind === "artifact_schema_invalid"),
+    true
+  );
+});
+
+test("T-217 S6: the runner enforces the declared schema BEFORE domain row law — malformed sections reject with the schema carried back; well-formed sections flow", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const plan = startPlanForFirstVector(basis.graphFunction, {
+    artifactSchemas: [T213_DEPTH_SCHEMA]
+  });
+  const declaration = graphFunctionDeclaration(basis.graphFunction.id);
+  const runWith = (depthProofMapSection) => {
+    const events = [];
+    const fpDispatch = Object.freeze({
+      contract: fpDispatchContract("plugin://t213/instruction-response"),
+      dispatch: (pluginInput) =>
+        constructFpDispatchOutcome({
+          status: "dispatched",
+          resultRef: `result://t213/${encodeURIComponent(pluginInput.edge)}`,
+          attachedResultArtifact: {
+            ...attachedArtifact(pluginInput),
+            depthProofMap: depthProofMapSection
+          },
+          evidenceRefs: [pluginInput.sourceProjectionRef]
+        })
+    });
+    runEngineIterate({
+      basis,
+      runtimeEvents: [],
+      eventSink: (event) => events.push(event),
+      runtimeRegistryStartup: {
+        systemDeclarations: [],
+        productStartupConfig: productStartupConfig(),
+        productDeclarations: [declaration],
+        correlationId: "correlation://t213/runner/registry"
+      },
+      instructionAssemblyStartup: {
+        compiledPromptPlans: [plan],
+        rendererRef: "renderer://abg/instruction-envelope/default"
+      },
+      plugins: { fpDispatch }
+    });
+    return events;
+  };
+
+  // malformed: row missing depthClassRef/testIdentityRefs + smuggled key
+  const rejectedEvents = runWith({
+    rows: [{ requirementId: "REQ-T213-A", smuggled: true }]
+  });
+  const rejection = rejectedEvents.find(
+    (event) =>
+      event.kind === "payload_rejected" &&
+      event.rejectionClass === "schema_invalid"
+  );
+  assert.ok(rejection, "schema violation must emit payload_rejected");
+  assert.equal(rejection.schemaRef, "schema://t213/depth-proof-map");
+  assert.match(rejection.reason, /row_missing_field/u);
+  assert.match(rejection.reason, /row_unknown_key/u);
+  assert.equal(
+    rejectedEvents.find((event) => event.kind === "depth_proof_map_admitted"),
+    undefined,
+    "a schema-rejected section is withheld from domain admission"
+  );
+
+  // absence is inert (T-210 law): a declared schema does not force the
+  // section's presence — owed-but-missing is the earned-depth gap's law
+  const absentEvents = runWith(undefined);
+  assert.equal(
+    absentEvents.find(
+      (event) =>
+        event.kind === "payload_rejected" &&
+        event.rejectionClass === "schema_invalid"
+    ),
+    undefined
+  );
+  assert.equal(
+    absentEvents.find((event) => event.kind === "depth_proof_map_admitted"),
+    undefined
+  );
+
+  // well-formed: schema passes, domain admission proceeds
+  const acceptedEvents = runWith({
+    rows: [
+      {
+        requirementId: "REQ-T213-A",
+        depthClassRef: "depth-class://positive",
+        testIdentityRefs: ["test://t213/a"]
+      }
+    ]
+  });
+  const depthAdmitted = acceptedEvents.find(
+    (event) => event.kind === "depth_proof_map_admitted"
+  );
+  assert.ok(depthAdmitted, "a well-formed section reaches domain admission");
+  assert.equal(depthAdmitted.accepted, true);
+  assert.equal(
+    acceptedEvents.find(
+      (event) =>
+        event.kind === "payload_rejected" &&
+        event.rejectionClass === "schema_invalid"
+    ),
+    undefined
+  );
 });

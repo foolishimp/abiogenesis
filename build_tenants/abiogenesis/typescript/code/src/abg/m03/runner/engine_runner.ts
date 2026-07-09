@@ -222,6 +222,7 @@ import {
   deriveGoverningDeclarationSet,
   nextRunSegmentIndex
 } from "../contracts/run_segments.js";
+import { admitArtifactAgainstSchema } from "../contracts/artifact_schemas.js";
 import {
   compactRenderedExcerpt,
   admitCompiledPromptPlanAtStartup,
@@ -7706,7 +7707,49 @@ function* runEngineIterateMachine(input: {
               const rawArtifact = outcome.attachedResultArtifact as
                 | { readonly [DEPTH_PROOF_MAP_PAYLOAD_KEY]?: unknown }
                 | null;
-              const depthMapSection = rawArtifact?.[DEPTH_PROOF_MAP_PAYLOAD_KEY];
+              // T-213 (S6): the declared artifact schema is the SOLE shape
+              // authority and gates BEFORE the domain row law. A schema
+              // rejection emits payload_rejected carrying schemaRef +
+              // typed issues (the retry re-render puts the schema block
+              // back in front of the worker) and the rejected section is
+              // withheld from domain admission (fail closed).
+              const schemaRejectedArtifactKeys = new Set<string>();
+              const declaredArtifactSchemas =
+                instructionBinding?.kind === "manifest_projected"
+                  ? instructionBinding.plan.artifactSchemas
+                  : Object.freeze([]);
+              for (const declaredSchema of declaredArtifactSchemas) {
+                const sectionValue = (rawArtifact as
+                  | Record<string, unknown>
+                  | null)?.[declaredSchema.artifactKey];
+                if (sectionValue === undefined) {
+                  continue;
+                }
+                const schemaAdmission = admitArtifactAgainstSchema(
+                  sectionValue,
+                  declaredSchema
+                );
+                if (!schemaAdmission.accepted) {
+                  schemaRejectedArtifactKeys.add(declaredSchema.artifactKey);
+                  eventState = emitRunnerEvents(eventState, [
+                    constructPayloadRejectedEvent({
+                      basis: request.basis,
+                      vectorIndex: actorInvocation.vectorIndex,
+                      payloadRef: `artifact://${declaredSchema.artifactKey}/${encodeURIComponent(resultRef)}`,
+                      rejectionClass: "schema_invalid",
+                      schemaRef: schemaAdmission.schemaRef,
+                      reason: schemaAdmission.issues
+                        .map((issue) => `${issue.issueKind}:${issue.path}`)
+                        .join(",")
+                    })
+                  ]);
+                }
+              }
+              const depthMapSection = schemaRejectedArtifactKeys.has(
+                DEPTH_PROOF_MAP_PAYLOAD_KEY
+              )
+                ? undefined
+                : rawArtifact?.[DEPTH_PROOF_MAP_PAYLOAD_KEY];
               if (depthMapSection !== undefined) {
                 const mapAdmission = admitDepthProofMap({
                   payloadSection: depthMapSection,
@@ -7757,9 +7800,13 @@ function* runEngineIterateMachine(input: {
               // T-032 Stage A: mutation outcomes ride the same ingress.
               // The kernel mints kill/survived evidence from ADMITTED
               // rows only — workers never attach those refs directly.
-              const mutationSection = (rawArtifact as
-                | { readonly [MUTATION_OUTCOMES_PAYLOAD_KEY]?: unknown }
-                | null)?.[MUTATION_OUTCOMES_PAYLOAD_KEY];
+              const mutationSection = schemaRejectedArtifactKeys.has(
+                MUTATION_OUTCOMES_PAYLOAD_KEY
+              )
+                ? undefined
+                : (rawArtifact as
+                    | { readonly [MUTATION_OUTCOMES_PAYLOAD_KEY]?: unknown }
+                    | null)?.[MUTATION_OUTCOMES_PAYLOAD_KEY];
               if (mutationSection !== undefined) {
                 const outcomeAdmission = admitMutationOutcomes({
                   payloadSection: mutationSection,

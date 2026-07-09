@@ -173,9 +173,9 @@ observer wakes on. Hygiene = periodic metrology, expressed as work.
 
 | concern | authority (home) | notes |
 |---|---|---|
-| measurement discipline (attribution, digests, provenance classes) | abg/m03 contracts (payload ledger + event admission) — EXISTS; extended only by the T-215 witness event registrations | registrations into the existing closed event universe; not new particle classes |
+| measurement discipline (attribution, digests, provenance classes) | abg/m03 contracts (payload ledger + event admission) — EXISTS; extended by the witness-registration class (eight kinds, SS7) + the artifact-schema dialect | registrations into the existing closed event universe; not new particle classes |
 | models/projections incl. drift facts, halt-diagnosis, citability predicate | abg/m03 contracts projections — EXISTS + new read models | read models only; replay-derived |
-| the step function, recursion, foldback, reentry | abg/m03 runner — EXISTS, unchanged | the tier adds NO runner mechanics |
+| the step function, recursion, foldback, reentry | abg/m03 runner — EXISTS; gains ADMISSION GUARDS at the startup boundary (reprice guard, basis-fork guard, resumed-segment stamp) and the artifact-schema gate at result ingress | ZERO traversal-mechanics change — guards gate entry and ingress, they never alter the step function (self-review D-2: the earlier "unchanged" claim was false once the guards landed; the distinction is load-bearing) |
 | observer/tuner products (node types, graph functions, catalogs, priority/affect policy, prompts-as-data) | a DECLARED product module (gtl://abg/consciousness/*), same shape as any odd_* product | domain vocabulary is lawful product content, not kernel particles |
 | draft admission (ticket drafts, tune drafts, equivalence contracts) | abg/m03 contracts admission | the tier's effector gate |
 | ratification workflow | TICKET_METHOD + F_H seat | unchanged method law |
@@ -193,6 +193,21 @@ observer wakes on. Hygiene = periodic metrology, expressed as work.
 | T-206 walk (tuner family gap) | Phase 0 requirement_reprice: tuner verbs/drafts/ratification/equivalence as a NEW REQ family over EXISTING carriers | requirements + product module |
 | T-215 rows (witness gap) | Phase 0 requirement_reprice: witness events as registrations into the closed event universe | requirements + contracts |
 | A7 drift law | re-measurement as scheduled L3 work + drift facts as L2 read model | product job + projection |
+
+### 6b. Realization map (Phase 1 delivered — refreshed 2026-07-09 at exit; DMM disposition: this table IS the derivation surface for these small requirement-annotated modules, chosen over per-module boilerplate docs)
+
+| requirement | realization | proof |
+|---|---|---|
+| WITNESS-003/-004 (reprice + frozen-law) | contracts/declaration_reprice.ts (+ identity-conflict + basis-fork law) + runner startup guards + route admitDeclarationReprice | t217 reprice suite a/b/h + fork suite i/j/k |
+| WITNESS-005/-006 (segments + lifecycle) | contracts/run_segments.ts + runner resumed-segment stamp + routes admitRunResumed/admitRunStopped | t217 lifecycle suite c/e |
+| WITNESS-007/-008 (hygiene + citability) | contracts/workspace_hygiene.ts + route admitWorkspaceHygieneStamp | t217 hygiene suite d/h1 |
+| WITNESS-001/-002 (halt + intake) | contracts/halt_diagnosis.ts + contracts/defect_intake.ts + route admitDefectIntake | t217 halt-intake suite f/g |
+| WITNESS-012 (role-separation audit) | composition of the above | t217 role-separation suite (SR-7) |
+| T-211.2 / T-195 P1-10 (authenticated record) | contracts/replay_attestation.ts + route admitReplayLogAttestation | t217 attestation suite m |
+| T-213 (typed artifact schemas) | contracts/artifact_schemas.ts + instruction_assembly (plan field + `## abg.artifact_output_schemas` render) + runner schema gate before domain row law | t217 artifact-schema units n + t183 S6 flow differentials |
+| T-214 (diff-execution witness) | test_env/gates/diff_execution_witness.mjs (+ odd_glc export pin rule) | proven live: caught 172 unwitnessed lines in this wave's own change; violations=0 after pinning |
+| WITNESS-015 (session allowlist) | requirement live; realization seam = ProductRegistryStartupConfig.enabledLibraryRefs + graph_function_selection_rejected; grammar binding = Phase 2 | (pending grammar realization) |
+| shared laws | contracts/admission_hygiene.ts (D5 detach, D6 canonical order, D-ordinal decisive/sort/value laws) | consumed by every module above |
 
 ## 7. The zoo audit (normative: rejected particles)
 

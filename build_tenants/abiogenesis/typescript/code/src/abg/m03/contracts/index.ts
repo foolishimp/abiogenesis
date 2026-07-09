@@ -1418,6 +1418,20 @@ export type {
 } from "./replay_attestation.js";
 export { constructReplayLogAttestedEvent } from "./event_factories.js";
 export type { ReplayLogAttestedEvent } from "./carriers.js";
+export {
+  ARTIFACT_FIELD_RULE_VALUES,
+  admitArtifactAgainstSchema,
+  admitArtifactSchemas,
+  renderArtifactSchemasText
+} from "./artifact_schemas.js";
+export type {
+  ArtifactAgainstSchemaAdmission,
+  ArtifactAgainstSchemaIssue,
+  ArtifactFieldRule,
+  ArtifactSchema,
+  ArtifactSchemaRowSpec,
+  ArtifactSchemasAdmission
+} from "./artifact_schemas.js";
 export { WORKSPACE_HYGIENE_CLASSIFICATION_VALUES } from "./carriers.js";
 export type {
   WorkspaceHygieneClassification,

@@ -23,6 +23,10 @@ import {
   buildThreeStageBasis,
   buildThreeStageStartContext
 } from "./support/m03-iteration-fixtures.mjs";
+import {
+  t217Declaration as sharedDeclaration,
+  t217StartupConfig as sharedStartupConfig
+} from "./support/t217-witness-fixtures.mjs";
 
 const HALT_TERMINAL = Object.freeze({
   kind: "terminal_reached",
@@ -339,45 +343,14 @@ test("T-217 S4 f5: full loop — S1's reprice guard halts the run, S4 diagnoses 
     defaultRegime: "F_P"
   });
   const declaration = (marker) =>
-    constructGtlLibraryEntryDeclaration({
-      declarationRef: "gtl-declaration://t217/s4/live-subject",
-      entryRef: "registry-entry://t217/s4/live-subject",
-      libraryScope: "product",
-      entryKind: "graph_function",
-      namespace: "t217.s4",
-      ownerRef: "owner://abg/t217",
-      version: "4.6.0-dev",
-      graphFunctionRef: executive.id,
-      interfaceRef: "interface://t217/s4/live-subject",
-      sourceContractRef: "contract://t217/s4/source",
-      targetContractRef: "contract://t217/s4/target",
-      contextRefs: ["context://t217/s4"],
-      authorityRefs: ["authority://t217/s4/abg-runtime"],
-      overlayRefs: ["overlay://t217/s4/live-subject"],
-      provenanceRefs: ["provenance://t217/s4"],
-      readinessRefs: ["readiness://t217/s4"],
-      proofRefs: [`proof://t217/s4/${marker}`],
-      policyRefs: ["policy://t217/s4"],
-      declarationSourceRefs: ["gtl://module/t217/s4"]
+    sharedDeclaration({
+      namespace: "t217/s4",
+      subject: "live-subject",
+      contentMarker: marker,
+      graphFunctionRef: executive.id
     });
   const startupConfig = () =>
-    constructProductRegistryStartupConfig({
-      configRef: "product-registry-startup://t217/s4",
-      productNamespace: "t217.s4",
-      ownerRef: "owner://abg/t217",
-      version: "4.6.0-dev",
-      enabledLibraryRefs: [
-        "registry-entry://t217/s4/live-subject",
-        "gtl-declaration://t217/s4/live-subject",
-        "gtl://module/t217/s4"
-      ],
-      overlayRefs: ["overlay://t217/s4/live-subject"],
-      pluginRefs: ["plugin://t217/s4/fp-worker"],
-      readinessRefs: ["readiness://t217/s4"],
-      proofRefs: ["proof://t217/s4"],
-      policyRefs: ["policy://t217/s4"],
-      configSourceRefs: ["config://t217/s4"]
-    });
+    sharedStartupConfig({ namespace: "t217/s4", subject: "live-subject" });
 
   const runOneEvents = [];
   runEngineStart({

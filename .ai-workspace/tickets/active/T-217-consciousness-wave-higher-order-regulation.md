@@ -663,6 +663,65 @@ incremental hardening (guard + one narrowing cast), full owned-carrier
 constructors ride the Phase 2 cleanup family — the ticket claim
 already said exactly that. Suites 1223/1223 green.
 
+S6 DELIVERED (2026-07-09) — T-213 typed artifact schemas, the "typed"
+exit-word bearer: contracts/artifact_schemas.ts (closed dialect over
+the event-admission field-rule vocabulary + one rows member; closed
+keys everywhere per the T-031 envelope-key lesson; D5 hostile-object
+safe). THREE DUTIES, ONE DECLARATION: (1) RENDERED — the
+`## abg.artifact_output_schemas` prompt block ("return EXACTLY this
+shape, closed keys") joins renderedPromptFor beside calibration/
+latitude; (2) ENFORCED — the runner's schema gate runs BEFORE domain
+row law at result ingress; a violation emits payload_rejected with
+rejectionClass schema_invalid + schemaRef + typed issue paths (the
+retry re-render puts the schema back in front of the worker) and the
+rejected section is WITHHELD from domain admission (fail closed);
+absence stays inert (T-210 law: owed-but-missing is the earned-depth
+gap's business); (3) SOLE AUTHORITY — declared schemas admit at
+compile (artifact_schema_invalid issues, never silent drops) and ride
+CompiledPromptPlan (planDigest covers them). Pins: n-units
+(declaration admission, closed-key/row/hostile enforcement, render) +
+t183 flow differentials (compile->render block; runner
+malformed-reject-with-schema-carried-back / withheld-from-domain /
+absence-inert / well-formed-flows). GTL-declaration-side ingestion
+(conformance row family) rides Phase 2 with the monolith split —
+products supply plan-level schemas today. Downstream odd_glc prose
+shape instructions retire at the 4.6 repin. C-8 DELIVERED: t217
+fixtures hoisted to support/t217-witness-fixtures.mjs (one signature;
+four files on thin adapters). D-2 DELIVERED: design SS5/SS6 refreshed
+— the false "runner unchanged" claim corrected to the load-bearing
+truth (admission guards at boundaries, zero traversal-mechanics
+change) + the 6b realization map as the single derivation surface.
+D-4 DELIVERED: GOALS Phase 6 gate now cites the mechanical predicates.
+Suites 1228/1228; diff-execution gate violations=0 over the S6 diff.
+
+PHASE 1 EXIT EVIDENCE (2026-07-09, presented for F_H ruling):
+- EXIT CRITERION: "every observable the tier consumes is typed,
+  authenticated, and complete; frozen-law is a replay predicate."
+  TYPED: T-213 delivered (S6) — worker-payload observables carry one
+  declared schema, rendered + enforced + sole authority. AUTHENTICATED:
+  the replay record is tamper-evident between attestations
+  (full-content chain, symmetric basis scope; forgery + mutation
+  probes pinned); coverage conjuncts (attestation count, hygiene
+  stampCount) named Phase 5 campaign law. COMPLETE: the witness family
+  WITNESS-001..015 realized (see design 6b map) + the diff-execution
+  witness holds the builder itself to earned execution. FROZEN-LAW:
+  WITNESS-004 mechanical, windowed, segment-scoped; citability =
+  converged AND frozen AND hygiene-clean with failing conjuncts named.
+- REVIEW LEDGER: seven hostile rounds absorbed (codex S1, S2, S4,
+  S3+S5, T-211/T-214; self S1-S4, S5+fixes, DMM+debt census); every
+  finding fixed-and-pinned or explicitly routed; final suites
+  1228/1228; gate violations=0.
+- ROUTED REMAINDERS (owned, not dropped): grammar realization of
+  WITNESS-009..011/-015 + the two env-steering promotions (Phase 2);
+  closure-gating over the taint set (Phase 2 kernel boundary); C-1
+  event scoping, C-2 monolith splits, C-3 helper reconciliation, C-4
+  store-scoped emitter, C-5 basis-from-replay API,
+  latestAdmittedEventsPerEdge ordinal sweep (Phase 2); C-6 barrel
+  split (4.6 release hygiene); T-213 conformance-row ingestion
+  (Phase 2); odd_glc prose retirement (4.6 repin).
+- EXIT GATE REMAINING: the codex round on the S6 surface, then the
+  F_H ruling closes Phase 1 and opens Phase 2.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
