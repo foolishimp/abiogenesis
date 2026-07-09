@@ -1084,6 +1084,64 @@ odd_glc review host binding is the named Phase 5 deliverable). Suites
 1259/1259; gate violations=0. Next: Phase 4 entry triage (the tuner +
 session economics).
 
+PHASE 4 DELIVERED (2026-07-10, commit ff118a8) — THE TUNER'S
+DETERMINISTIC HALF; FUNCTIONALLY COMPLETE THROUGH PHASE 4 (the standing
+directive's gate). Entry triage: TUNER-001..-014 exist (Phase 0);
+carriers/routes/verbs were the missing realization => realization work,
+no reprice. DELIVERED: (1) carriers — tuner_draft_admitted
+(self-certified draftRef; closed proposal vocabulary annealing|
+calibration|lay_rail|pull_up|abstraction|promotion|demotion|visibility)
+/ tuner_draft_ratified (exactly one of ratifiedBy F_H or
+ratificationPolicyRef — declared auto-ratify only, never by omission) /
+tuner_draft_rejected; workspace scope class (EVENTS-025 map); TUNER-014
+Event Calculus dispositions declared at the carrier (admitted INITIATES
+the open-draft fluent, decisions TERMINATE it; state is replay-derived).
+Admission enforces TUNER-006 (annealing REQUIRES an equivalence
+contract), TUNER-010 (promotion/demotion REQUIRE cited signal rows),
+TUNER-004 separation (triage vocabulary inside an optimisation judgment
+is inadmissible). (2) tuner_tier.ts derivations — deriveTunerDraftStates
+(decisive by the D-ordinal law), deriveTunerModeSignals (route variance
+per function, retry density per basis, RAIL-BREAK: ambiguity halts
+project the mode-selection signal before retry burn),
+deriveConfigurationCostRows (per worker|backend configuration from
+invocation started/closed envelope times — the T-110 economics slot
+populated from replay), deriveTunerDivergenceObligations (TUNER-007:
+ratified annealing + divergence row => demotion AND intake owed —
+through the observer's seat, never inside the tuner's judgment).
+(3) routes admitTunerDraft / admitTunerDraftDecision (phantom/settled
+decisions fail closed) and the TUNER-003 verb surface: tune report
+(READ-ONLY — appends nothing, differentially pinned) | propose |
+ratify | reject, all through the grammar with typed rejections.
+(4) gtl://abg/tuner/default-loop as a system-scope catalog citizen
+(TUNER-001) beside the P3.5 modules. TUNER-013's deterministic
+obligations covered: state transitions, F_H vs declared-policy
+ratification, annealing/citation/separation rejections, divergence
+obligations, rail-break projection, forged draftRef inadmissible,
+write-boundary (report appends nothing). Suites 1267/1267; gate
+violations=0.
+
+LIVE-GATED Phase 4 tail (recorded): first annealing proposal ratified
+END-TO-END over a real F_P->F_D interior with live divergence watch;
+T-110 sticky-session agent pool (session affinity over the traced
+call-out interface); cost-ledger rows from live campaign turns feeding
+tune report; local-loop honing tickets generated FROM live telemetry.
+
+======================================================================
+FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
+deterministic gate under the standing directive ("close phase 1,
+continue through to phase 4, before we do live sandbox testing").
+What remains before Phase 6 release: (A) THE LIVE/SANDBOX GATE — the
+deferred Phase 1 sandbox witness differential; S2.3's adoption tail
+(odd_glc declarations-only + D3 consumption + 11.5B audit + T-213
+conformance-row schema, all riding the first 4.6-line substrate
+install); P3's live observer episode (full 12/12 T-032 derivation);
+P4's live tail above; the odd_glc review host binding (P3.5 family
+proof). (B) Phase 5 — the tier's proving campaign with the human F_H
+seat. (C) 4.6 release hygiene: C-2 monolith splits + C-6 barrel prune,
+then the release cut. The next re-entry point is the live gate's
+harness work in test_env/live + the odd_glc campaign rerun.
+======================================================================
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
