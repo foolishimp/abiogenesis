@@ -44,6 +44,49 @@ Foundation laws (to be constitutionally repriced in Phase 1):
 | 5 | T-110 session economics (T-111 satisfied) + T-208 items 1-2 riding | typed long F_P turns affordable; commonization paydown recorded |
 | 6 | Foundation Release cut (T-212 installer-bootstrap constitutional compression rides — the injected AGENTS.md/CLAUDE.md bootstrap carries the foundation boundaries as gate zero before the released installer stamps it) | authored release note claiming exactly the proven foundation; artifact-content verification (including bootstrap boundary text in the stamped install); odd_glc repin; release-grade classification |
 
+### Next Wave (ratified 2026-07-09): The Consciousness Wave — build the regulator, let it tune the reflexes
+
+CROSSROADS ADJUDICATION (user, 2026-07-09): tighten the local loops
+(evaluator.C.F_P as a micro-consciousness honed by hand) OR accept
+nature's imperfections and build the higher-order system from the same
+substrate tools, then optimise. DECISION: the higher-order system —
+option 2 subsumes option 1 in the lawful order.
+
+Evidence basis (the T-032 campaign as controlled experiment): all 12
+ledgered defects were invisible to the local evaluator IN PRINCIPLE —
+each was a defect in the law the evaluator enforces, not in its
+enforcement; the evaluators had a flawless campaign. The gaps lived
+BETWEEN laws, visible only to an observer whose manifold spans runs,
+ledgers, tickets, releases. Precondition verified: the lower layer
+does not lie, it HALTS (truthful refusals/reds, fail-closed terminals,
+zero false closures across 15 runs) — honest telemetry is the substrate
+a regulator can be built on.
+
+Wave shape (follows Phase 6):
+1. Activate T-207 (intent observer) as a DECLARED product over
+   telemetry observables — same manifold, different observables (the
+   ratified design principle): node types over replay streams,
+   gap_stops, folds, cost rows, constitutional-vs-projected drift;
+   internal model = the constitutional surface; SOLE EFFECTOR = the
+   ticket (the ratified intent-generation loop: model + telemetry ->
+   gap -> intent -> solutioning -> TICKET -> ticket action).
+2. Activate T-206 (tuner) as the optimisation half: annealing F_D
+   interiors and evaluator calibration FROM observed replay + cost,
+   with equivalence contracts (SS13.1 ratification).
+3. T-215 rows 1-7 land as the tier's sense organs and audit trail
+   (halt-diagnosis projection, defect-intake, reprice admission,
+   operator F_H events, hygiene stamps, mechanical citability).
+4. FIRST PROVING CAMPAIGN of the tier: generate the evaluator-honing
+   tickets from telemetry (which stages burn retries, which contracts
+   leak shape variance, which evaluator prompts need calibration) —
+   local-loop tightening arrives as the tier's OUTPUT, never as
+   hand-tuning (anti-F_D-drift law guarded).
+5. Recursion terminates at the human F_H seat reading the top layer's
+   replay.
+
+Deep-insight commentary: .ai-workspace/comments/claude/
+20260709T110000Z_ANALYSIS_t215_supervisor_actions_fix_table.md
+
 ### Deferred from this wave
 
 T-206 and T-207 (the consciousness tier — T-206 becomes the annealing
