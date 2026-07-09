@@ -889,6 +889,53 @@ gate itself taught that .d.ts lines are non-executable (declaration
 files compile to nothing). Suites 1241/1241; gate violations=0.
 Next: S2.3 (T-209 remainder, cross-repo).
 
+S2.3 RULING + DELIVERY (2026-07-10). Census performed (full worker-loop
+survey of odd_glc, pinned here): the surviving worker loop is the
+generated binding template (glc-software-build-overlay-live.test.mjs
+lines 1854-5192, ~3340 lines) whose fpDispatch (4659) / fpEvaluator
+(4976) plugin BODIES still own manifest assembly, prompt construction,
+response parsing (parseAssessmentJson 2756 ff.), materialization
+(materializeScenario 3312), and evidence archiving
+(writeAttemptAndLatestJson 3709) — a WRAPPER over the substrate's
+standard family (it already imports/reuses defaultFpDispatchPlugin/
+defaultFpEvaluatorPlugin contracts, runAgentTransport, and the outcome
+constructors; the kernel owns traversal via genesis-ts start). The
+execution half is already demoted (executor verify-only, compile gate
+retired, subject spawns signature-pinned "shrinking"). Response
+contracts + materialization specs live INSIDE the template (4436-4555)
+rather than as binding-level declarations; calibration declarations are
+ABSENT; no plugin://abg/* standard handler selection exists yet.
+
+DELIVERED NOW (the deterministic half): the T-216 D3 EVICTION's kernel
+surface — verifyJUnitReportContents in
+contracts/test_report_verification.ts (element-scoped total-F_D JUnit
+parse: comments/CDATA inert, attributes never summed, testcase-child
+classification with failure>error>skipped precedence, typed missing
+rows, nothing throws) with the T-216 false-green differentials carried
+verbatim; exported through the package barrel so the odd_glc binding
+consumes it at its next substrate install. PLUS a T-214 gate hole found
+and closed while witnessing it: git diff cannot see never-committed
+files, so a whole new module could ship unwitnessed — untracked
+code/src .ts files are now changed IN FULL; the retroactive run over
+the entire Phase 2 span caught route_basis.ts's fail-closed throw
+unexecuted (now witnessed unit + through-the-grammar). 1245/1245;
+span-gate a36eab2..worktree = 708 witnessed, 0 violations.
+
+LIVE-GATED TAIL (recorded, not closed — T-209's own closure law):
+(1) odd_glc consumption of the kernel report surface (the regex summer
+in xmlTestReportPassCount dies) is VERSION-GATED on the first 4.6-line
+substrate install into .abg-toolchains — minting a new store version is
+a release act (Phase 6 / the live gate's install), not a slice act;
+(2) the declarations-only adoption (fpDispatch/fpEvaluator bodies ->
+declarations consumed by plugin://abg/fp-dispatch|fp-evaluator|
+result-assessment; response contracts + materialization specs out of
+the template into binding declarations; calibration rows) closes ONLY
+by the live data-mapper campaign rerun with -012 green — T-209
+Non-closure (a) forbids harness-only closure; (3) the 11.5B
+execution-authority audit runs on the ADOPTED binding at that gate.
+This sequencing is the standing directive's: functionally complete
+through Phase 4 first, live/sandbox proving after.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
