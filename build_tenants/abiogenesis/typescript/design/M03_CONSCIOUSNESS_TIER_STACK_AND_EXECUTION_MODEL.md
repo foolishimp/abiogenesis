@@ -27,13 +27,16 @@ A5. TRANSITIONS: defects concentrate at chart boundaries (admission /
     coordinates ARE the transitions.
 A6. EFFECTOR: the regulation tier acts ONLY by ticket/reprice proposal
     behind F_H (FPC-007); local-loop tightening arrives as tier OUTPUT.
-A6b. CLI = ROOT BOUNDARY CONDITION: the abg CLI is a shell that hands
-    INITIAL CONDITIONS to the first node. The operator is inside the
-    ontology — the CLI is the transition map between reality and the
-    root frame; every verb is an admitted input to a node. From the
-    first node, one recursive structure all the way down. There is no
-    operator surface other than admitted node inputs (making T-215's
-    witness problem structural, not additive).
+A6b. OPERATOR GRAMMAR = ROOT BOUNDARY CONDITION: one typed
+    operator-command/event grammar hands INITIAL CONDITIONS to the
+    first node. The operator is inside the ontology — the grammar is
+    the transition map between reality and the root frame; every
+    command is an admitted input to a node. The abg CLI is the
+    grammar's REFERENCE ADAPTER (a shell UX), not the ontology; any
+    surface is lawful iff it emits the same admitted operator events.
+    From the first node, one recursive structure all the way down.
+    There is no operator surface other than admitted node inputs
+    (making T-215's witness problem structural, not additive).
 A7. DRIFT: model-vs-reality divergence is the default condition; the
     system bounds it by attributed measurement, single-writer mutation
     windows, and scheduled re-measurement — never assumes it away.
@@ -209,37 +212,46 @@ lifecycle, hygiene stamps); the tuner/annealing REQUIREMENT FAMILY
 TYPES for the consciousness module (userland vocabulary, the same class
 as odd_glc's depth_proof_map types).
 
-## 8. The CLI as the control plane (user ratification, 2026-07-09)
+## 8. The operator grammar and its reference adapter (user ratification 2026-07-09; grammar reprice per codex 2026-07-09)
 
 "This changes the entire bootstrap of the abg cli — all of it is
 controllable through that interface."
 
-THE LAW: the abg CLI (genesis-ts) is the ONE operator interface — the
-L5/F_H chart. Every operator interaction is a CLI verb; every CLI verb
-emits ADMITTED events; every tier read surface is a CLI-rendered
-projection. Consequences:
-- T-215's witness problem becomes STRUCTURAL: operator acts are CLI
-  verbs, CLI verbs are admitted F_H-attributed events, therefore no
-  unlogged supervisor act can exist. (The T-032 monitor was
-  replay-invisible precisely because it bypassed the CLI — raw test
-  invocations, env vars, manual resumes. That path closes.)
-- CAMPAIGN LIFECYCLE joins the CLI: run/resume/stop scenario verbs
-  replace raw harness invocation; env steering becomes verb arguments;
-  each emits the operator lifecycle events (T-215 row 5) by existing.
-- THE TIER'S SURFACES are CLI verbs over projections: observe report
-  (gaps, drift, halts, citability), draft review/ratify (the F_H gate),
-  tune report/propose/ratify (T-206 verbs unchanged).
-- Sandbox/env capabilities become DECLARED verb arguments (D7
-  generalized): a run is reproducible from its CLI invocation line.
-- ONE AUTHORITY: no dashboards, no side-channel scripts, no direct
-  harness entry for OPERATORS (tests driving the harness in-process are
-  not operators). Operator acts route through the CLI or they did not
+THE LAW: there is ONE operator-command/event GRAMMAR — the L5/F_H
+chart. Every operator interaction is a typed operator command; every
+command admits actor-attributed events; every tier read surface is a
+projection rendered through the grammar. The abg CLI (genesis-ts) is
+the grammar's REFERENCE ADAPTER — a shell UX over the grammar, not
+constitutional ontology. Alternative operator surfaces (dashboards,
+APIs, odd_manager, future UX) are lawful iff they emit the SAME
+admitted operator events through the same admission. Consequences:
+- T-215's witness problem becomes STRUCTURAL: operator acts are
+  grammar commands, commands are admitted F_H-attributed events,
+  therefore no unlogged supervisor act can exist. (The T-032 monitor
+  was replay-invisible precisely because it bypassed the grammar — raw
+  test invocations, env vars, manual resumes. That path closes.)
+- CAMPAIGN LIFECYCLE joins the grammar: run/resume/stop scenario
+  commands replace raw harness invocation; env steering becomes
+  declared command arguments; each admits the operator lifecycle
+  events (T-215 row 5) by existing.
+- THE TIER'S SURFACES are grammar commands over projections: observe
+  report (gaps, drift, halts, citability), draft review/ratify (the
+  F_H gate), tune report/propose/ratify (T-206 verbs unchanged).
+- Sandbox/env capabilities become DECLARED command arguments (D7
+  generalized): a run is reproducible from its admitted command line.
+- ONE AUTHORITY: a surface that bypasses the grammar is not an
+  operator surface (tests driving the harness in-process are not
+  operators). Operator acts route through the grammar or they did not
   happen.
 
 ## 9. Rails and discovery — the composition algebra (canonical, user 2026-07-09)
 
-ONE MEDIUM, ONE ALGEBRA. Everything travels only through graph
-functions — typed contracts, governed interiors. The OVERLAY is their
+ONE MEDIUM, ONE ALGEBRA — SCOPED TO WORK. All constructive WORK
+travels only through graph functions — typed contracts, governed
+interiors. Measurement, event admission, replay, and projection are
+ABG runtime epistemology (A1-A3): the record work is known BY, not
+terms in the work algebra — telemetry does not ride the composition
+algebra. The OVERLAY is their
 published ahead-of-time composition: the RAILS. EMERGENT RECURSION is
 just-in-time composition of the SAME functions inside a bounded frame:
 DISCOVERY. Both are optimizations over one typed algebra; both produce
@@ -274,6 +286,14 @@ RAIL-BREAK (declared path halting on ambiguity) is a MODE SIGNAL before
 it is a defect — drop to discovery, do not burn same-edge retries
 (FPC-011 lifted from step to topology).
 
+MODE SIGNALS ARE COMPUTED, NOT NARRATED: route variance (composition
+entropy), retry density, repeated path shape, per-contract cost,
+closure rate, adapter-gap counts, defect recurrence — typed
+replay-derived observables (TUNER-010). F_P proposes interpretation;
+promotion/demotion candidates cite admitted counts. "Ambiguity",
+"confidence", "known flow" are labels over those rows, never authority
+(FPC-021).
+
 CRYSTALLIZATION = COMPILATION (the tuner's atlas operation): JIT
 discovery traces are AOT rail candidates. Read COMPOSITION ENTROPY per
 contract from replay — near-zero (same route every run) means the
@@ -295,13 +315,24 @@ contract) and the qualifying catalog rows (FPC-004B/C/D); F_P chooses
 which row. Even at maximum emergence every unit is one bounded graph
 invocation (FPC-002), admitted and evidenced.
 
-OPEN (carried to realization):
-- ADAPTER LAW: type-mismatch glue must be DECLARED (typed projection /
-  small graph function); a missing adapter is a GAP, never inline
+RATIFIED FROM THE OPEN LIST (codex reprice 2026-07-09):
+- ADAPTER LAW (now FPC-020, first-class): type-mismatch glue must be
+  DECLARED (typed projection / published graph function); a missing
+  adapter is a TYPED GAP binding to catalog rows, never inline
   improvisation — the joint stays in the algebra or it does not exist.
+  This is the direct guard on the product/substrate-joint bug class.
+- NO AUTHORITY FROM NARRATIVE (now FPC-021): ambiguity, confidence,
+  entropy, adequacy, drift are lawful only as labels resolving to
+  admitted rows or typed gaps; no admission, selection authority,
+  ratification, mode promotion/demotion, or closure decision cites an
+  unresolved label. The tier is a governed regulator over replay, not
+  a story generator.
+
+OPEN (carried to realization):
 - CATALOG-VISIBILITY ECONOMICS: the view serialization is the context
   spend; the catalog is part of the view; as abstraction grows the
-  vocabulary, what-is-visible-from-where is a tuner curation surface.
+  vocabulary, what-is-visible-from-where is a tuner curation surface
+  (TUNER-012 names the surface; the economics remain open).
 
 ## 10. Decisions — RATIFIED (user, 2026-07-09)
 

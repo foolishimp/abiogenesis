@@ -210,6 +210,26 @@ README registered. PHASE 0 EXIT MET: live spec carries every law this
 wave builds on. Realization of every WITNESS/TUNER requirement is
 owned by Phases 1-4.
 
+CODEX TIGHTENING APPLIED (2026-07-09, six critiques, all accepted —
+none reverses a ratified law): (1) GRAMMAR NOT BINARY — one
+operator-command/event grammar is constitutional; the abg CLI is its
+REFERENCE ADAPTER; alternative surfaces lawful iff they emit the same
+admitted operator events (WITNESS-009..011/-013, design SS8, axiom
+A6b — preserves the ratified invariant: no unlogged operator act).
+(2) ALGEBRA SCOPED TO WORK — constructive work travels through graph
+functions; measurement/admission/replay/projection are ABG runtime
+epistemology, not algebra terms (design SS9). (3) COMPUTABLE MODE
+SIGNALS — route variance, retry density, path shape, cost, closure
+rate, adapter gaps, defect recurrence as typed replay observables;
+promotion/demotion cites admitted rows (TUNER-010/-013, design SS9).
+(4) ADAPTER LAW promoted from OPEN to first-class FPC-020 (typed
+adapter gap; ill-typed plans rejected pre-execution). (5) OBSERVER/
+TUNER JUDGMENT SEPARATION — diagnosis and policy rewrite never share
+one judgment (FPC-019, TUNER-004). (6) NO AUTHORITY FROM NARRATIVE —
+labels bear on decisions only after resolving to admitted rows/typed
+gaps; unresolved labels are affect-class at most (FPC-021, design
+SS9). Remaining OPEN: catalog-visibility economics only.
+
 ### Phase 1 — Sense organs + trustworthy telemetry
 Absorbs T-215 (rows 1-7 realized as kernel events/projections),
 T-211's trust items (replay-log authentication — the tier reads replay
