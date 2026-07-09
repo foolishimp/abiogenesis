@@ -1171,6 +1171,45 @@ class on the halt carrier); the scan retires with it; rail_break is
 pressure, never admission authority. Suites 1277/1277; gate
 violations=0 over the full round.
 
+USER RULING (2026-07-10): ALL LIVE PROOF RUNS ON SANDBOX-STYLE
+INSTALLS — a live test provisions a packed-and-installed substrate and
+drives the INSTALLED surface; live agents never run against the repo
+build tree. Census at ruling time: 26 of 33 live-flavored tests ran
+in-repo (21 of 27 in test_env/live, plus 3 sandbox-live and the m05
+real-ingress); conformant already: t085, t087, t132, the m05 RC
+portfolio/UAT pair, t180-glc, t194.
+
+REALIZED (2026-07-10): (1) THE RC GATE —
+test_env/tests/test_t217_witness_sandbox_installed.test.mjs, the first
+fully-conformant exemplar and a REQUIRED in-suite gate (runs on every
+test:semantic, ~1.7s): packs the CURRENT source once, installs via the
+real installer + packed tarball, and drives the ENTIRE operator surface
+out of process — one spawned binary invocation per act over one
+persisted log: start(v1) admits, start(v2) drift-halts
+(declaration_reprice_required through the installed S1 guard), then
+observe report -> intake -> reprice (expected v2 digest computed FROM
+THE INSTALLED PACKAGE surface) -> run-resumed -> hygiene-stamp ->
+run-stopped -> attest -> observe report (attestation VERIFIED by a
+fresh process) -> observe drafts (ratified drift drafts nothing) ->
+tune propose/ratify/report. Exit asserts: the CROSS-PROCESS ORDINAL LAW
+(strictly increasing admission ordinals across separate processes —
+the live-context seeding law no in-process test can prove) and the
+eight witness/tuner kinds persisted through the binary. A second test
+probes the installed package's downstream consumption surfaces:
+verifyJUnitReportContents (the odd_glc D3 seam), the three
+review/consensus catalog citizens, gtl://abg/tuner/default-loop, and
+the observer/tuner derivations. The runtime binding imports ONLY
+@abiogenesis/typescript-tenant (rewritten to the installed index) —
+zero repo-build imports. (2) THE ENFORCEMENT PIN —
+test_t217_live_sandbox_install_conformance.test.mjs (in-suite): every
+live-flavored file under test_env/live + test_env/sandbox must use the
+installed-substrate helpers; the 26 pre-ruling files are a PINNED
+SHRINK-ONLY legacy list (stale entries fail; vanished files fail; new
+live tests must be conformant from birth — the odd_glc
+execution-authority precedent). (3) MIGRATION of the 26 legacy files
+rides the live gate: each live test's gate re-run IS its migration
+moment (rewrite to installed style, then run). Suites 1280/1280.
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
