@@ -1320,6 +1320,28 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     witnessCount: "nullable_non_negative_integer",
     implicatedEventRefs: "string_array"
   }),
+  declaration_reprice_admitted: (event) => {
+    applyFieldRules("DeclarationRepriceAdmittedEvent", {
+      basisId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      repriceRef: "non_empty_string",
+      declarationRef: "non_empty_string",
+      beforeDigest: "non_empty_string",
+      afterDigest: "non_empty_string",
+      changeClass: { oneOf: GRAPH_CHANGE_CLASS_VALUES },
+      owningTicketRef: "non_empty_string",
+      operatorActorRef: "non_empty_string",
+      reason: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    if (event["beforeDigest"] === event["afterDigest"]) {
+      throw new TypeError(
+        "DeclarationRepriceAdmittedEvent requires beforeDigest !== afterDigest: a reprice witnesses changed declaration truth"
+      );
+    }
+  },
   c_call_opened: C_CALL_OPENED_ADMISSION,
   c_call_fibre_selected: spineClosedKeys("CCallFibreSelectedEvent",
     ["kind", "cCallRef", "basisId", "regime", "armId", "programRef", "compositionRef"],

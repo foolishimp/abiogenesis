@@ -889,6 +889,30 @@ export interface TemporalPropertyVerdictProjectedEvent {
   readonly implicatedEventRefs: readonly string[];
 }
 
+// Implements: REQ-R-ABG3-WITNESS-003 — a substrate change across a resume
+// boundary is admitted truth: before/after digests, change_class, owning
+// ticket, operator attribution. Run-scoped (no edge/vectorIndex): the act
+// is an operator/constitutional act, not a traversal act. WITNESS-014
+// disposition: this kind initiates/terminates no runtime fluent; the
+// frozen-law state it clips is replay-derived predicate truth
+// (declaration_reprice.ts), never primary event authority.
+export interface DeclarationRepriceAdmittedEvent {
+  readonly kind: "declaration_reprice_admitted";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly repriceRef: string;
+  readonly declarationRef: string;
+  readonly beforeDigest: string;
+  readonly afterDigest: string;
+  readonly changeClass: GraphChangeClass;
+  readonly owningTicketRef: string;
+  readonly operatorActorRef: string;
+  readonly reason: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2692,6 +2716,7 @@ export type RuntimeEvent =
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
   | TemporalPropertyVerdictProjectedEvent
+  | DeclarationRepriceAdmittedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -2827,6 +2852,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "instruction_response_contract_admitted",
   "fh_escalated",
   "temporal_property_verdict_projected",
+  "declaration_reprice_admitted",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",

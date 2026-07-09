@@ -761,6 +761,7 @@ export function deriveRetryFrontierProjection(input: {
       case "requirement_proof_carry_through_admitted":
       case "depth_proof_map_admitted":
     case "mutation_outcomes_admitted":
+      case "declaration_reprice_admitted":
         break;
       case "instruction_prompt_manifest_projected":
       case "instruction_response_contract_admitted":

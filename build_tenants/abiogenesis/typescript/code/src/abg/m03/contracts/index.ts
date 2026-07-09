@@ -1338,6 +1338,16 @@ export {
   deriveKernelMintedMutationRefs,
   mintMutationEvidenceRefs
 } from "./mutation_outcomes.js";
+export {
+  deriveAdmittedDeclarationRepriceEvents,
+  deriveDeclarationRepriceObligations,
+  deriveFrozenLawPredicate
+} from "./declaration_reprice.js";
+export type {
+  DeclarationDigestDriftRow,
+  DeclarationRepriceObligationProjection,
+  FrozenLawPredicate
+} from "./declaration_reprice.js";
 export type {
   AdmittedMutationOutcomes,
   MutationOutcomeRow,
@@ -1405,6 +1415,8 @@ export {
   constructCCallJudgedEvent,
   mintCCallRef
 } from "./event_factories.js";
+export { constructDeclarationRepriceAdmittedEvent } from "./event_factories.js";
+export type { DeclarationRepriceAdmittedEvent } from "./carriers.js";
 export {
   C_CALL_DEFAULT_PROGRAM_STAGE_ROLES,
   C_CALL_JUDGMENT_VALUES,

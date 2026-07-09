@@ -32,8 +32,13 @@ export {
   runNativeSagaFrontier
 } from "./saga_frontier_runner.js";
 export {
+  admitDeclarationReprice,
   applyExplicitGraphVectorResumeCursor,
   applyGraphSpanReentryRoute
+} from "./runtime_authoring_routes.js";
+export type {
+  DeclarationRepriceAdmissionRequest,
+  DeclarationRepriceAdmissionResult
 } from "./runtime_authoring_routes.js";
 export {
   runExecutiveObserverProjection

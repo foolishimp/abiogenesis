@@ -284,6 +284,27 @@ PHASE 1 ENTRY TRIAGE (performed 2026-07-09):
    4.5.1 frozen-law run remains the Foundation gate and becomes
    mechanically classifiable once S1 lands.
 STARTED: S1 in flight 2026-07-09.
+S1 DELIVERED (2026-07-09): declaration_reprice_admitted registered
+into the closed event universe (carriers interface/union/allowlist;
+admission law incl. closed change-class vocabulary, mandatory owning
+ticket + operator attribution, beforeDigest!==afterDigest; factory
+mints repriceRef from the digest pair). New contracts module
+declaration_reprice.ts: deriveFrozenLawPredicate (WITNESS-004 —
+frozen-law iff zero admitted reprices, refs exposed),
+deriveDeclarationRepriceObligations (drift vs prior admitted registry
+digests; EXACT digest-pair coverage — near-miss reprices stamp
+nothing). Runner guard at registry startup: uncovered drift on resume
+=> fail-closed gap_stop declaration_reprice_required, blocked BEFORE
+the drifted digests reach the store (no drift laundering). Operator
+route admitDeclarationReprice (runtime_authoring_routes) — the kernel
+seam the grammar command adapts. WITNESS-014 disposition recorded: the
+kind touches no runtime fluent; frozen-law is derived predicate truth.
+Differential tests test_t217_witness_reprice_admission.test.mjs (a1
+admission accept/reject-as-authored, a2 predicate, a3 exact-pair
+coverage law, a4 route, a5 runner block/no-launder/covered-resume).
+Suites 1181/1181 green. Remainder of WITNESS-003 ("binding, or policy
+truth") rides S2's substrate stamps — the S1 diff surface is declared
+registry digests, the mechanically-admitted digest carrier today.
 
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried

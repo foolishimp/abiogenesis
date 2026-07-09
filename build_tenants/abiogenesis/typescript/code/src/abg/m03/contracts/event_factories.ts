@@ -56,6 +56,8 @@ import type {
   CCallOpenedEvent,
   CCallResultAdmittedEvent,
   CCallStageRole,
+  DeclarationRepriceAdmittedEvent,
+  GraphChangeClass,
   RuntimeFailureClass,
   RuntimeFailureObservedEvent,
   TemporalPropertyVerdictProjectedEvent
@@ -1001,6 +1003,45 @@ export function constructFhEscalatedEvent(
     basisId: transition.basis.id,
     approvalSubjectRef: transition.approvalSubjectRef,
     gateReason: transition.gateReason
+  });
+}
+
+export function constructDeclarationRepriceAdmittedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly declarationRef: string;
+  readonly beforeDigest: string;
+  readonly afterDigest: string;
+  readonly changeClass: GraphChangeClass;
+  readonly owningTicketRef: string;
+  readonly operatorActorRef: string;
+  readonly reason: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): DeclarationRepriceAdmittedEvent {
+  const repriceRef = `declaration-reprice:${stableSha256Digest({
+    declarationRef: input.declarationRef,
+    beforeDigest: input.beforeDigest,
+    afterDigest: input.afterDigest,
+    changeClass: input.changeClass,
+    owningTicketRef: input.owningTicketRef
+  })}`;
+  return Object.freeze({
+    kind: "declaration_reprice_admitted",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    repriceRef,
+    declarationRef: input.declarationRef,
+    beforeDigest: input.beforeDigest,
+    afterDigest: input.afterDigest,
+    changeClass: input.changeClass,
+    owningTicketRef: input.owningTicketRef,
+    operatorActorRef: input.operatorActorRef,
+    reason: input.reason,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId ?? repriceRef
   });
 }
 

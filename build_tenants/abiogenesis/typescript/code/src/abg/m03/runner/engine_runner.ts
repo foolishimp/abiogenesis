@@ -213,6 +213,7 @@ import {
   type RuntimeRegistryStartupAdmissionResult,
   type RuntimeRegistryStartupInput
 } from "../contracts/runtime_graph_function_registry.js";
+import { deriveDeclarationRepriceObligations } from "../contracts/declaration_reprice.js";
 import {
   compactRenderedExcerpt,
   admitCompiledPromptPlanAtStartup,
@@ -5427,9 +5428,25 @@ function* runEngineIterateMachine(input: {
   }
   let registryStartup: RuntimeRegistryStartupAdmissionResult | null = null;
   if (request.runtimeRegistryStartup !== undefined) {
+    const replayEventsBeforeRegistryStartup = eventState.replayEvents;
     registryStartup = admitRuntimeGraphFunctionRegistryStartup(
       request.runtimeRegistryStartup
     );
+    // WITNESS-003: resumed declaration drift requires an admitted covering
+    // reprice (exact digest pair). The block happens BEFORE the drifted
+    // admission events reach the store — emitting first would make the new
+    // digest the prior digest and launder the drift on the next resume.
+    const repriceObligations = deriveDeclarationRepriceObligations({
+      priorEvents: replayEventsBeforeRegistryStartup,
+      startupAdmissionEvents: registryStartup.admissionEvents
+    });
+    if (repriceObligations.uncoveredDriftRows.length > 0) {
+      return failClosedStartupResult(
+        `declaration_reprice_required: ${repriceObligations.uncoveredDriftRows
+          .map((row) => row.declarationRef)
+          .join(",")}`
+      );
+    }
     if (registryStartup.admissionEvents.length > 0) {
       eventState = emitRunnerEvents(eventState, registryStartup.admissionEvents);
     }

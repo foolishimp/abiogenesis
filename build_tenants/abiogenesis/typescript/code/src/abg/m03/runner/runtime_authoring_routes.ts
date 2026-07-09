@@ -5,15 +5,22 @@
 
 import type {
   CanonicalRuntimeEvent,
+  DeclarationRepriceAdmittedEvent,
   ExecutionBasis,
+  GraphChangeClass,
   GraphVectorResumeCursorAppliedEvent,
   RuntimeAggregateProjection,
   RuntimeEvent
 } from "../contracts/carriers.js";
 import {
   constructBasisAdmittedEvent,
+  constructDeclarationRepriceAdmittedEvent,
   constructGraphVectorResumeCursorAppliedEvent
 } from "../contracts/event_factories.js";
+import {
+  deriveFrozenLawPredicate,
+  type FrozenLawPredicate
+} from "../contracts/declaration_reprice.js";
 import {
   deriveRuntimeContinuationTransitionProjectionFromDisposition,
   type RuntimeContinuationTransitionProjection
@@ -263,6 +270,72 @@ function graphSpanTransitionProjection(input: {
       throw new TypeError(`Unsupported graph-span transition ${JSON.stringify(exhaustive)}`);
     }
   }
+}
+
+export interface DeclarationRepriceAdmissionRequest {
+  readonly basis: ExecutionBasis;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly declarationRef: string;
+  readonly beforeDigest: string;
+  readonly afterDigest: string;
+  readonly changeClass: GraphChangeClass;
+  readonly owningTicketRef: string;
+  readonly operatorActorRef: string;
+  readonly reason: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}
+
+export interface DeclarationRepriceAdmissionResult {
+  readonly kind: "declaration_reprice_admission_result";
+  readonly basis: ExecutionBasis;
+  readonly repriceEvent: DeclarationRepriceAdmittedEvent;
+  readonly repriceRef: string;
+  readonly frozenLaw: FrozenLawPredicate;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+// Implements: REQ-R-ABG3-WITNESS-003 — the operator seam that admits a
+// declaration reprice ahead of resume. This route is the kernel carrier the
+// operator-grammar command adapts (WITNESS-009); the returned predicate is
+// the WITNESS-004 frozen-law truth AFTER this admission.
+export function admitDeclarationReprice(
+  input: DeclarationRepriceAdmissionRequest
+): DeclarationRepriceAdmissionResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const repriceEvent = constructDeclarationRepriceAdmittedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    declarationRef: input.declarationRef,
+    beforeDigest: input.beforeDigest,
+    afterDigest: input.afterDigest,
+    changeClass: input.changeClass,
+    owningTicketRef: input.owningTicketRef,
+    operatorActorRef: input.operatorActorRef,
+    reason: input.reason,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(input.basis, replayEvents, Object.freeze([repriceEvent])),
+    input.eventSink
+  );
+  const nextReplayEvents = appendEmittedReplay(replayEvents, emittedEvents);
+  return Object.freeze({
+    kind: "declaration_reprice_admission_result",
+    basis: input.basis,
+    repriceEvent,
+    repriceRef: repriceEvent.repriceRef,
+    frozenLaw: deriveFrozenLawPredicate(nextReplayEvents),
+    emittedEvents,
+    replayEvents: nextReplayEvents
+  } satisfies DeclarationRepriceAdmissionResult);
 }
 
 export function applyExplicitGraphVectorResumeCursor(
