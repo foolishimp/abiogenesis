@@ -1074,7 +1074,9 @@ function admitEngineRunnerPluginSetShape(
   return value as unknown as EngineRunnerPluginSet;
 }
 
-function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
+// exported for the unit lane: this IS the CLI's ingress admission law
+// (T-211/T-214 — admission functions get direct differential pins)
+export function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   if (!isRecord(input)) {
     throw new CliError(`${label} must export an object runtime binding`);
   }

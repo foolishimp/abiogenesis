@@ -146,3 +146,90 @@ test("T-217 m3: the route attests a live run; forging inside the attested span i
   assert.equal(fullRows.length, 2);
   assert.ok(fullRows.every((row) => row.verified));
 });
+
+test("T-217 m4 (codex P1): the chain hashes FULL content — a payload mutation with a preserved envelope is evident", () => {
+  const [genuine] = emit(
+    { kind: "terminal_reached", basisId: "basis://t217/m4", terminalKind: "gap_stop", reason: "honest halt" },
+    () => {}
+  );
+  const attestation = (() => {
+    const [event] = emit(
+      constructReplayLogAttestedEvent({
+        basisId: "basis://t217/m4",
+        runId: null,
+        workKey: null,
+        chainDigest: deriveReplayChainDigest([genuine]).chainDigest,
+        eventCount: 1,
+        attestedBy: "operator://jim/attestation-instrument"
+      }),
+      () => {}
+    );
+    return event;
+  })();
+  assert.equal(verifyReplayLogAttestations([genuine, attestation])[0].verified, true);
+  // the codex probe: mutate the PAYLOAD, preserve the canonical envelope
+  const mutated = { ...genuine, terminalKind: "converged", reason: null };
+  const rows = verifyReplayLogAttestations([mutated, attestation]);
+  assert.equal(rows[0].verified, false, "content mutation must be evident");
+  assert.equal(rows[0].failureReason, "chain_digest_mismatch");
+});
+
+test("T-217 m5 (codex P1): verification applies the mint's basis scope; unplaceable and uncanonical events fail closed", () => {
+  const [scoped] = emit(
+    { kind: "terminal_reached", basisId: "basis://t217/m5", terminalKind: "converged", reason: null },
+    () => {}
+  );
+  const [foreign] = emit(
+    { kind: "terminal_reached", basisId: "basis://t217/m5/OTHER", terminalKind: "gap_stop", reason: "foreign spine" },
+    () => {}
+  );
+  const [attestation] = emit(
+    constructReplayLogAttestedEvent({
+      basisId: "basis://t217/m5",
+      runId: null,
+      workKey: null,
+      chainDigest: deriveReplayChainDigest([scoped]).chainDigest,
+      eventCount: 1,
+      attestedBy: "operator://jim/attestation-instrument"
+    }),
+    () => {}
+  );
+  // a foreign-basis event preceding the attestation in a shared store
+  // must NOT break it (its own basis's attestations cover it)
+  const rows = verifyReplayLogAttestations([foreign, scoped, attestation]);
+  assert.equal(rows[0].verified, true, "foreign-basis events are out of scope");
+
+  // an event with an ordinal but NO eventId cannot be attested
+  assert.throws(
+    () =>
+      deriveReplayChainDigest([
+        { kind: "terminal_reached", basisId: "basis://t217/m5", terminalKind: "converged", reason: null, eventAdmissionOrdinal: 7 }
+      ]),
+    /requires canonical stamped events/u
+  );
+  // a raw (never-admitted) attestation event is itself unplaceable
+  const rawAttestation = constructReplayLogAttestedEvent({
+    basisId: "basis://t217/m5",
+    runId: null,
+    workKey: null,
+    chainDigest: "chain://raw",
+    eventCount: 0,
+    attestedBy: "operator://forger"
+  });
+  const rawRows = verifyReplayLogAttestations([scoped, rawAttestation]);
+  assert.equal(rawRows[0].verified, false);
+  assert.equal(rawRows[0].failureReason, "unplaceable_events");
+
+  // an in-scope RAW event hiding in the record poisons verification of a
+  // placeable attestation (nothing unplaceable can hide in an attested
+  // record)
+  const rawInScope = {
+    kind: "terminal_reached",
+    basisId: "basis://t217/m5",
+    terminalKind: "converged",
+    reason: "raw smuggle"
+  };
+  const poisoned = verifyReplayLogAttestations([scoped, rawInScope, attestation]);
+  assert.equal(poisoned[0].verified, false);
+  assert.equal(poisoned[0].failureReason, "unplaceable_events");
+});

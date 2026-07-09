@@ -1410,7 +1410,6 @@ export type { DefectIntakeAdmittedEvent } from "./carriers.js";
 export {
   deriveAdmittedReplayAttestations,
   deriveReplayChainDigest,
-  mintReplayAttestationRef,
   verifyReplayLogAttestations
 } from "./replay_attestation.js";
 export type {

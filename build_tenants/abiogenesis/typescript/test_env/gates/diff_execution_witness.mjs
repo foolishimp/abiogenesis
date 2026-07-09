@@ -116,15 +116,46 @@ function executedLinesPerGeneratedFile() {
         }
         offsetIndexCache.set(filePath, offsets);
       }
-      const lines = executed.get(filePath) ?? new Set();
+      // codex P1: a positive-range union overcounts — a changed line
+      // inside a ZERO-count nested branch was treated as witnessed
+      // because the enclosing function range ran. Effective coverage is
+      // the c8 semantic at OFFSET-SEGMENT resolution: between range
+      // boundaries the smallest covering range's count decides; a LINE
+      // is executed iff any of its segments resolves positive. (Line-
+      // granular smallest-wins is too coarse — an unexecuted `??`
+      // fallback sub-expression would poison its whole line; segment
+      // resolution keeps zero-BRANCH lines unwitnessed while mixed
+      // lines with executed main expressions stay witnessed.)
+      const boundaries = [];
+      const rangeList = [];
       for (const fn of script.functions ?? []) {
         for (const range of fn.ranges ?? []) {
-          if (range.count > 0) {
-            const startLine = lineForOffset(offsets, range.startOffset);
-            const endLine = lineForOffset(offsets, Math.max(range.startOffset, range.endOffset - 1));
-            for (let line = startLine; line <= endLine; line += 1) {
-              lines.add(line);
+          rangeList.push(range);
+          boundaries.push(range.startOffset, range.endOffset);
+        }
+      }
+      const sortedBounds = [...new Set(boundaries)].sort((a, b) => a - b);
+      const lines = executed.get(filePath) ?? new Set();
+      for (let index = 0; index < sortedBounds.length - 1; index += 1) {
+        const segStart = sortedBounds[index];
+        const segEnd = sortedBounds[index + 1];
+        if (segEnd <= segStart) {
+          continue;
+        }
+        let smallest = null;
+        for (const range of rangeList) {
+          if (range.startOffset <= segStart && range.endOffset >= segEnd) {
+            const span = range.endOffset - range.startOffset;
+            if (smallest === null || span < smallest.span) {
+              smallest = { span, count: range.count };
             }
+          }
+        }
+        if (smallest !== null && smallest.count > 0) {
+          const startLine = lineForOffset(offsets, segStart);
+          const endLine = lineForOffset(offsets, Math.max(segStart, segEnd - 1));
+          for (let line = startLine; line <= endLine; line += 1) {
+            lines.add(line);
           }
         }
       }

@@ -1322,3 +1322,15 @@ test("T-205 F5 (run-19 #21 shape): a consequence-plugin THROW is a typed blocked
     Array.isArray(e.evidenceRefs) && e.evidenceRefs.some((r) => String(r).startsWith("consequence-plugin-error:")));
   assert.equal(blockedConsequence || evidenced, true, "typed consequence failure visible in replay");
 });
+
+test("T-211: an unstamped event in a violated trace is a typed rejection, never a synthetic ref", () => {
+  const { property } = admitTemporalPropertyRule(rule(entries({ formula: DISPATCH_REQUIRES_MANIFEST })));
+  assert.throws(
+    () =>
+      evaluateTemporalProperty({
+        property,
+        trace: { events: [{ kind: "fp_dispatch_requested" }], completed: true }
+      }),
+    /temporal evaluation requires canonical stamped events/u
+  );
+});

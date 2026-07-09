@@ -630,6 +630,35 @@ exists (per-carrier ad hoc at engine_runner 7696-7809); payload_*
 events already carry schemaRef (universally null today — no producer
 sets it). PHASE 1 EXIT after S6 + codex rounds on S3/S5/S6 surfaces.
 
+T-211/T-214 CODEX ROUND FIXES (2026-07-09, 3 P1 + 2 P2, all confirmed):
+P1a attestation hashed only the canonical ENVELOPE while eventIds are
+random — a payload mutation (gap_stop->converged) preserved
+verification; FIXED: the chain hashes FULL canonical event content
+(pin m4 replays the exact probe). P1b mint attested the basis-scoped
+record but verification folded EVERYTHING preceding — a foreign-basis
+event in a shared store broke valid attestations; FIXED: verification
+applies the mint's identical scope via the attestation's own basisId
+(pin m5: foreign-basis excluded; in-scope raw events poison;
+unplaceable attestations fail). P1c the gate counted positive-range
+UNIONS — changed lines inside unexecuted branches passed because the
+enclosing function ran; FIXED at OFFSET-SEGMENT resolution: between
+range boundaries the smallest covering range's count decides, a line
+is executed iff any of its segments resolves positive (line-granular
+smallest-wins was tried and rejected — an unexecuted `??` fallback
+sub-expression poisoned whole lines with 12 false positives on the
+routes file). THE STRENGTHENED GATE THEN CAUGHT 172 UNWITNESSED LINES
+IN OUR OWN T-211 CHANGE (Review B class, live): fixed by PINS not
+gate-weakening — coerceRuntimeBinding exported as the CLI's ingress
+admission law with full accept/reject differentials, attestation
+branch pins, temporal typed-rejection pin, and the gate-exposed DEAD
+EXPORT mintReplayAttestationRef removed. Final gate: witnessed=383
+non-executable=101 VIOLATIONS=0. P2a odd_glc export pin strengthened
+(aaad595): imported-AND-used beyond the import block, not
+text-mentioned. P2b acknowledged: the CLI ingress admitters are
+incremental hardening (guard + one narrowing cast), full owned-carrier
+constructors ride the Phase 2 cleanup family — the ticket claim
+already said exactly that. Suites 1223/1223 green.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

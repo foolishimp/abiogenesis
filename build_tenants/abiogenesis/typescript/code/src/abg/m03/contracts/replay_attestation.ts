@@ -71,7 +71,13 @@ export function deriveReplayChainDigest(
         `Replay attestation requires canonical stamped events: ${event.kind} carries no canonical envelope`
       );
     }
-    chain = stableSha256Digest({ previous: chain, envelope });
+    // codex P1: eventIds are random, not content-derived — an
+    // envelope-only chain let a payload mutation gap_stop->converged
+    // verify. The attested surface is exactly replay truth: hash the
+    // FULL canonical event. (envelope retained above as the
+    // canonicality gate.)
+    void envelope;
+    chain = stableSha256Digest({ previous: chain, event });
     count += 1;
   }
   return Object.freeze({
@@ -79,20 +85,6 @@ export function deriveReplayChainDigest(
     chainDigest: chain,
     eventCount: count
   });
-}
-
-export function mintReplayAttestationRef(input: {
-  readonly basisId: string;
-  readonly chainDigest: string;
-  readonly eventCount: number;
-  readonly attestedBy: string;
-}): string {
-  return `replay-attestation:${stableSha256Digest({
-    basisId: input.basisId,
-    chainDigest: input.chainDigest,
-    eventCount: input.eventCount,
-    attestedBy: input.attestedBy
-  })}`;
 }
 
 export function deriveAdmittedReplayAttestations(
@@ -131,8 +123,19 @@ export function verifyReplayLogAttestations(
           failureReason: "unplaceable_events" as const
         });
       }
+      // codex P1: the mint attests the BASIS-SCOPED record (route
+      // filters via runtimeEventsForBasis: null-basis events plus the
+      // attesting basis) — verification applies the identical scope, so
+      // a foreign-basis event in a shared workspace log never breaks a
+      // valid attestation (its own basis's attestations cover it).
+      const inScope = (event: RuntimeEvent): boolean => {
+        const basisId = (event as { readonly basisId?: unknown }).basisId;
+        const scoped =
+          typeof basisId === "string" && basisId.length > 0 ? basisId : null;
+        return scoped === null || scoped === attestation.basisId;
+      };
       const attestedSpan = events.filter((event) => {
-        if (event === attestation) {
+        if (event === attestation || !inScope(event)) {
           return false;
         }
         const ordinal = eventAdmissionOrdinalOf(event);
@@ -140,7 +143,9 @@ export function verifyReplayLogAttestations(
       });
       const unplaceable = events.some(
         (event) =>
-          event !== attestation && eventAdmissionOrdinalOf(event) === null
+          event !== attestation &&
+          inScope(event) &&
+          eventAdmissionOrdinalOf(event) === null
       );
       if (unplaceable) {
         return Object.freeze({
