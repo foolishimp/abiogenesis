@@ -29,7 +29,7 @@
     "rootDir": ".",
     "outDir": "build/semantic",
     "declaration": true,
-    "sourceMap": false
+    "sourceMap": true
   },
   "include": [
     "code/src/**/*.ts"
