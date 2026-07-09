@@ -70,6 +70,22 @@
    established ritual (gate, cut, artifact verification, installer
    repin).
 
+## Design basis (proposed 2026-07-09, ratification gates realization)
+
+build_tenants/abiogenesis/typescript/design/
+M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md — the DMM-governed
+stacked hierarchy (L0 reality .. L5 atlas/F_H) and the computational
+execution model (ONE step function at every tier; a tier is exactly
+three parameters: view coordinates, action catalog, effector
+admission). NORMATIVE ZOO AUDIT: no new fundamental particles —
+measurement and view disciplines are named over EXISTING carriers;
+accepted additions are bounded to T-215 witness event registrations,
+the tuner/annealing requirement family, and product-layer node types.
+The observer's resolve/drill/escalate algebra is DERIVED from the
+consequence() outcome set under a catalog with no constructive actions
+(making the T-032 monitor's role-collapse unrepresentable). Phase 0
+scope TIGHTENS accordingly: no View or Measurement carrier is minted.
+
 ## Constitutional basis (Phase 0 ratifies these into live spec)
 
 - INTENT-GENERATION LOOP (user, 2026-07-09; in T-207 prose today):
