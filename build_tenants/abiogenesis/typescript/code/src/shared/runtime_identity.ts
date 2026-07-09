@@ -26,6 +26,14 @@ export function sha256DigestForText(content: string): string {
   return `sha256:${sha256HexForText(content)}`;
 }
 
+// D1.4 (T-209 escrow, delivered T-217 S2.2): THE canonical workspace
+// file-digest law. Materialization baselines, kernel measurement, and
+// hygiene observations must digest the same bytes under the same law or
+// the clean/foreign_write comparison lies.
+export function sha256DigestForBytes(content: Uint8Array): string {
+  return `sha256:${createHash("sha256").update(content).digest("hex")}`;
+}
+
 export function stableSha256HexDigest(input: unknown): string {
   return sha256HexForText(stableJson(input));
 }

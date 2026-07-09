@@ -6,21 +6,34 @@
 // act a typed command, every command admitted events in the REAL log.
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
 import {
-  assertRuntimeEvent
+  assertRuntimeEvent,
+  constructBasisAdmittedEvent
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
+import { sha256DigestForBytes } from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
   applyDeclaredTransportSteering,
   narrowRegistryStartupToSessionAllowlist,
   runAbiogenesisCli
 } from "../../build/semantic/code/src/cli/command.js";
 import { contractForKnownAgent } from "../../build/semantic/code/src/shared/abg_library/transport_contracts.js";
-import { runEngineStart } from "../../build/semantic/code/src/index.js";
-import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
+import {
+  admitExecutionBasis,
+  admitResolvedPolicyIdentity,
+  admitResolvedRuntimeIdentity,
+  constructOutputMaterializationObservedEvent,
+  deriveOutputInstanceAllocation,
+  runEngineStart
+} from "../../build/semantic/code/src/index.js";
+import {
+  buildThreeStageModule,
+  buildThreeStageStartContext
+} from "./support/m03-iteration-fixtures.mjs";
 import {
   t217Declaration,
   t217StartupConfig
@@ -522,4 +535,194 @@ test("T-217 S2.1 (C-7): codex model/sandbox are declared start arguments — the
       process.env.ABG_TS_CODEX_SANDBOX = savedSandbox;
     }
   }
+});
+
+// ---------------------------------------------------------------------------
+// S2.2 (D1.4) — the kernel-witnessed measurement source: witness
+// hygiene-stamp --measure workspace. The kernel derives the admitted
+// materialized surfaces from the persisted log, digests their bytes
+// itself under the canonical file-digest law, copies out divergent
+// evidence before stamping it foreign, and attributes the stamp to the
+// kernel instrument — no operator- or worker-reported digests anywhere.
+// ---------------------------------------------------------------------------
+
+function seedMaterializedRun(root, eventLogPath) {
+  const { module: mod, executive } = buildThreeStageModule({
+    defaultRegime: "F_P"
+  });
+  const basis = admitExecutionBasis({
+    startIntent: {
+      scope: { kind: "workspace", workspaceRoot: root, moduleName: mod.name },
+      target: { kind: "graph_function", handle: executive.name },
+      until: "converged"
+    },
+    module: mod,
+    runtimeIdentity: admitResolvedRuntimeIdentity({
+      workerId: "worker://t217/measure",
+      backendId: "backend://node",
+      buildId: "build://typescript",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    }),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://t217/measure",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t217/measure"
+    }),
+    runId: "run://t217/measure",
+    workKey: "wk://t217/measure",
+    frameId: null,
+    frameLineageId: null
+  });
+  const allocated = deriveOutputInstanceAllocation({
+    basis,
+    outputName: "report",
+    outputAssetType: "Workspace.report",
+    relativePath: "report.md"
+  });
+  assert.equal(allocated.ok, true);
+  const reportPath = path.join(
+    allocated.allocation.materializationRoot,
+    "report.md"
+  );
+  mkdirSync(path.dirname(reportPath), { recursive: true });
+  writeFileSync(reportPath, "kernel-witnessed report v1\n", "utf8");
+  const materialization = constructOutputMaterializationObservedEvent({
+    basis,
+    vectorIndex: 0,
+    allocation: allocated.allocation,
+    materializedRef: "materialized://t217/measure/report",
+    materializedPath: reportPath,
+    digest: sha256DigestForBytes(readFileSync(reportPath)),
+    observerRef: "observer://t217/measure",
+    artifactRefs: []
+  });
+  const emitted = [];
+  emit([constructBasisAdmittedEvent(basis), materialization], (event) =>
+    emitted.push(event)
+  );
+  writeFileSync(
+    eventLogPath,
+    emitted.map((event) => JSON.stringify(event)).join("\n") + "\n",
+    "utf8"
+  );
+  return { reportPath };
+}
+
+test("T-217 S2.2 (D1.4): kernel-measured hygiene stamps — clean, foreign_write with kernel copy-out, missing; kernel attribution throughout", async () => {
+  const { root, eventLogPath } = fixtureWorkspace();
+  const { reportPath } = seedMaterializedRun(root, eventLogPath);
+  const ws = ["--workspace", root];
+  const measureArgs = ["witness", "hygiene-stamp", ...ws, "--measure", "workspace"];
+
+  // untouched surface: the kernel measures it CLEAN
+  let ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(measureArgs, ctx.io), 0);
+  assert.equal(ctx.lastJson().extra?.hygiene?.hygieneClean ?? ctx.lastJson().hygiene.hygieneClean, true);
+
+  // hand-edit the surface: the kernel measures FOREIGN and preserves a copy
+  writeFileSync(reportPath, "hand-edited outside admitted work\n", "utf8");
+  ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(measureArgs, ctx.io), 0);
+  const foreign = ctx.lastJson();
+  assert.equal(foreign.hygiene.hygieneClean, false);
+  assert.deepEqual(foreign.hygiene.taintedArtifactRefs, [
+    "materialized://t217/measure/report"
+  ]);
+
+  // the persisted stamps carry kernel attribution and the copy-out row
+  const persisted = readFileSync(eventLogPath, "utf8")
+    .split("\n")
+    .filter((line) => line.trim().length > 0)
+    .map((line) => JSON.parse(line))
+    .filter((event) => event.kind === "workspace_hygiene_stamped");
+  assert.equal(persisted.length, 2);
+  for (const stamp of persisted) {
+    assert.equal(stamp.observedBy, "kernel://workspace-digest-instrument");
+  }
+  const foreignRow = persisted[1].rows[0];
+  assert.equal(foreignRow.classification, "foreign_write");
+  assert.match(foreignRow.copyOutRef, /^copyout:\/\//u);
+  const copyOutFile = path.join(
+    root,
+    foreignRow.copyOutRef.slice("copyout://".length)
+  );
+  assert.equal(
+    readFileSync(copyOutFile, "utf8"),
+    "hand-edited outside admitted work\n",
+    "the divergent bytes are preserved verbatim"
+  );
+
+  // restore the admitted content: clean re-measurement resolves the taint
+  writeFileSync(reportPath, "kernel-witnessed report v1\n", "utf8");
+  ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(measureArgs, ctx.io), 0);
+  assert.equal(ctx.lastJson().hygiene.hygieneClean, true);
+
+  // delete the surface: an admitted materialization that vanished is
+  // MISSING truth (taints again)
+  rmSync(reportPath);
+  ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(measureArgs, ctx.io), 0);
+  assert.equal(ctx.lastJson().hygiene.hygieneClean, false);
+
+  // a read failure that is NOT absence fails closed — the kernel never
+  // mints a false measurement (here: the surface path is a directory)
+  mkdirSync(reportPath, { recursive: true });
+  ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(measureArgs, ctx.io), 1);
+  assert.match(ctx.lastJson().reason, /EISDIR|directory/iu);
+});
+
+test("T-217 S2.2 (D1.4): the measure grammar is closed — one measurement source, workspace-only domain, and no surfaces fails typed", async () => {
+  const { root, eventLogPath } = fixtureWorkspace();
+  const ws = ["--workspace", root];
+
+  // mixing measurement sources is a typed rejection (parse-time)
+  let ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(
+      [
+        "witness", "hygiene-stamp", ...ws,
+        "--measure", "workspace",
+        "--observed-by", "operator://jim"
+      ],
+      ctx.io
+    ),
+    1
+  );
+  assert.match(ctx.lastJson().reason, /ONE measurement source/u);
+
+  // the measurable domain is closed
+  ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(
+      ["witness", "hygiene-stamp", ...ws, "--measure", "vibes"],
+      ctx.io
+    ),
+    1
+  );
+  assert.match(ctx.lastJson().reason, /--measure must be "workspace"/u);
+
+  // neither source given is a typed rejection
+  ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(["witness", "hygiene-stamp", ...ws], ctx.io),
+    1
+  );
+  assert.match(ctx.lastJson().reason, /requires --observations/u);
+
+  // a workspace with NO admitted materialized surfaces fails closed
+  seedHaltedRun(eventLogPath);
+  ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(
+      ["witness", "hygiene-stamp", ...ws, "--measure", "workspace"],
+      ctx.io
+    ),
+    1
+  );
+  assert.match(
+    ctx.lastJson().reason,
+    /no admitted materialized surfaces to measure/u
+  );
 });

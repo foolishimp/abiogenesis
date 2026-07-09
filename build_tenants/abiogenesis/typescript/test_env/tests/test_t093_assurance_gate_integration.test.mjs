@@ -12,8 +12,10 @@ import {
   constructAssuranceAuthoritySnapshot,
   constructAssuranceEvidenceRow,
   constructEvidenceAdmittedEvent,
+  constructOutputMaterializationObservedEvent,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
+  deriveOutputInstanceAllocation,
   loadGtlTargetCarrierDefaultsBundle,
   resolveTargetCarrierContractBinding,
   runEngineIterate,
@@ -26,6 +28,10 @@ import {
   constructRunArchiveSummaryRef,
   finalizeRunArchive
 } from "../../build/semantic/code/src/qualification/m05/index.js";
+import {
+  constructWorkspaceHygieneStampedEvent,
+  deriveWorkspaceHygieneRows
+} from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 import {
   buildThreeStageBasis,
   buildThreeStageStartContext
@@ -371,4 +377,122 @@ test("T-093-TS archive summary renders assurance projection as read-model truth"
     closure_decisions: ["retry"],
     blocking_statuses: ["missing"]
   });
+});
+
+// ---------------------------------------------------------------------------
+// T-217 Phase 2 S2.2 — the WITNESS-007 enforcement half at the TERMINAL
+// assurance gate: a run whose assurance facts fully close cannot close
+// over this basis's foreign-written evidence; clean re-measurement
+// restores closure. (The per-vector evaluation fold consumes the same
+// shared gate law — applyClosureTaintGate — unit-covered in
+// test_t217_closure_taint_gate.)
+// ---------------------------------------------------------------------------
+
+function t217TaintFixture() {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
+  const { input, context } = buildThreeStageStartContext({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
+  const allocated = deriveOutputInstanceAllocation({
+    basis,
+    outputName: "report",
+    outputAssetType: "Workspace.report",
+    relativePath: "report.md"
+  });
+  assert.equal(allocated.ok, true);
+  const materialization = constructOutputMaterializationObservedEvent({
+    basis,
+    vectorIndex: 0,
+    allocation: allocated.allocation,
+    materializedRef: "materialized://t217/s22/report",
+    materializedPath: `${allocated.allocation.materializationRoot}/report.md`,
+    digest: "sha256:admitted-report",
+    observerRef: "observer://t217/s22/gate",
+    artifactRefs: []
+  });
+  const stampFor = (observedDigest, copyOutRef = null) =>
+    constructWorkspaceHygieneStampedEvent({
+      basisId: basis.id,
+      runId: basis.runId,
+      workKey: basis.workKey,
+      segmentRef: null,
+      observedBy: "kernel://workspace-digest-instrument",
+      rows: deriveWorkspaceHygieneRows({
+        observations: [
+          {
+            artifactRef: "materialized://t217/s22/report",
+            observedDigest,
+            copyOutRef
+          }
+        ],
+        replayEvents: [materialization]
+      })
+    });
+  return { basis, input, context, materialization, stampFor };
+}
+
+test("T-217 S2.2 (WITNESS-007): the terminal assurance gate cannot close over this basis's foreign-written evidence", () => {
+  const { basis, input, context, materialization, stampFor } =
+    t217TaintFixture();
+  const emitted = [];
+  const outcome = start(
+    input,
+    {
+      ...context,
+      runtimeEvents: [
+        ...eventSourcedFulfillmentEvents(basis),
+        ...canonicalRuntimeEvents([
+          materialization,
+          stampFor("sha256:hand-edited", "copyout://t217/s22/report/1")
+        ])
+      ],
+      assuranceProvider: ledgerOnlyAssuranceProvider()
+    },
+    (event) => emitted.push(event)
+  );
+
+  assert.equal(outcome.kind, "blocked");
+  assert.equal(outcome.stopPredicate, "gap_stop");
+  assert.equal(outcome.trace.assurance.status, "assurance_blocked");
+  assert.deepStrictEqual(outcome.trace.assurance.blockingStatuses, [
+    "contradictory_evidence"
+  ]);
+  const terminal = emitted.findLast(
+    (event) => event.kind === "terminal_reached"
+  );
+  assert.match(
+    terminal.reason ?? "",
+    /workspace_hygiene_taint/u,
+    "the halt reason names the taint in replay truth"
+  );
+  assert.match(terminal.reason ?? "", /materialized:\/\/t217\/s22\/report/u);
+});
+
+test("T-217 S2.2 (WITNESS-007): clean re-measurement resolves the taint and the same run closes", () => {
+  const { basis, input, context, materialization, stampFor } =
+    t217TaintFixture();
+  const outcome = start(
+    input,
+    {
+      ...context,
+      runtimeEvents: [
+        ...eventSourcedFulfillmentEvents(basis),
+        ...canonicalRuntimeEvents([
+          materialization,
+          stampFor("sha256:hand-edited", "copyout://t217/s22/report/1"),
+          stampFor("sha256:admitted-report")
+        ])
+      ],
+      assuranceProvider: ledgerOnlyAssuranceProvider()
+    },
+    () => {}
+  );
+
+  assert.equal(outcome.kind, "converged");
+  assert.equal(outcome.trace.assurance.status, "assurance_closed");
+  assert.deepStrictEqual(outcome.trace.assurance.closureDecisions, ["close"]);
 });

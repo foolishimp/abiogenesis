@@ -218,6 +218,7 @@ import {
   deriveBasisForkObligations,
   deriveDeclarationRepriceObligations
 } from "../contracts/declaration_reprice.js";
+import { applyClosureTaintGate } from "../contracts/workspace_hygiene.js";
 import {
   deriveGoverningDeclarationSet,
   nextRunSegmentIndex
@@ -3288,7 +3289,7 @@ function assuranceDecisionForCurrentVector(input: {
     authoritySnapshot,
     evidenceRows
   });
-  const closureDecision: AssuranceClosureDecision =
+  const admittedClosureDecision: AssuranceClosureDecision =
     outputAuthority.status === "admitted"
       ? deriveAssuranceClosureDecision(assuranceProjection)
       : Object.freeze({
@@ -3302,6 +3303,14 @@ function assuranceDecisionForCurrentVector(input: {
             outputAuthority.reason ??
             "target carrier output payload is not admitted"
         });
+  // T-217 S2.2 (WITNESS-007 enforcement half): a minted "close" over
+  // currently-tainted basis evidence demotes to block before any closing
+  // truth is emitted — the shared gate law in workspace_hygiene.ts.
+  const closureDecision = applyClosureTaintGate({
+    decision: admittedClosureDecision,
+    basisId: input.basis.id,
+    events: input.replayEvents
+  });
   return Object.freeze({
     payloadLedger,
     outputAuthority,

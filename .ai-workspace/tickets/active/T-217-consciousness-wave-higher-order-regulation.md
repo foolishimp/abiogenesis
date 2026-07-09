@@ -855,6 +855,40 @@ parsed allow list meets the LOADED binding's catalog and fails closed
 on a phantom ref, with the declared codex argument applied by the same
 path. Suites 1234/1234; gate violations=0. Next: S2.2 closure-gating.
 
+S2.2 DELIVERED (2026-07-10) — CLOSURE CONSUMES TAINT + KERNEL-WITNESSED
+DIGESTS. (1) The WITNESS-007 enforcement half, ONE surface:
+applyClosureTaintGate in workspace_hygiene.ts — a minted "close" over
+currently-tainted basis evidence demotes to block (blockingStatuses
+[contradictory_evidence], reason workspace_hygiene_taint naming the
+refs) BEFORE any closing truth is emitted; retry/reprice/block pass
+through (they are not closure). The blocking set is basis-scoped
+(deriveClosureBlockingTaintedRefs = workspace-global taint INTERSECT
+this basis's admitted evidence surfaces) — another run's taint never
+blocks this basis. BOTH closure sites consume the shared law: the
+per-vector evaluation fold (assuranceDecisionForCurrentVector) and the
+terminal assurance gate (scopeResultForProvider) — differential: a run
+whose assurance facts fully close halts gap_stop with the taint named
+in the terminal reason; clean re-measurement resolves and the same run
+closes. (2) D1.4 (the T-209 escrow): kernel-witnessed workspace
+digests. sha256DigestForBytes = THE canonical file-digest law (shared
+runtime_identity home); deriveKernelMeasurableSurfaces derives (surface,
+path, admitted digest) from admitted materializations by the D-ordinal
+decisive-pair law; witness hygiene-stamp --measure workspace makes the
+KERNEL the instrument — it reads the bytes, digests under the canonical
+law, COPIES OUT divergent evidence before stamping it foreign (the
+WITNESS-007 copy-out diagnosis rule: content-derived copy name under
+the binding archiveRoot, copyOutRef on the row), classifies vanished
+surfaces missing, and fails closed on any read failure that is not
+absence (no false measurements). One measurement source per stamp:
+--measure workspace XOR --observations/--observed-by, typed rejections
+for mixing, unknown domains, and zero measurable surfaces; kernel
+stamps attributed kernel://workspace-digest-instrument. Gate-driven
+fixes: the unreachable defensive branch restructured to the positive
+guard; the non-ENOENT rethrow witnessed by an EISDIR differential; the
+gate itself taught that .d.ts lines are non-executable (declaration
+files compile to nothing). Suites 1241/1241; gate violations=0.
+Next: S2.3 (T-209 remainder, cross-repo).
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

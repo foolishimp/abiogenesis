@@ -20,6 +20,7 @@ import type {
 import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
 import {
   admitAssuranceProviderOutput,
+  applyClosureTaintGate,
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
   deriveAssuranceClosureDecision,
   deriveAssuranceEvidenceRowsFromPayloadLedger,
@@ -292,7 +293,14 @@ function scopeResultForProvider(input: {
     ...(eventLedgerValid === undefined ? {} : { eventLedgerValid }),
     ...(priorClosureSnapshot === null ? {} : { priorClosureSnapshot })
   });
-  const decision = deriveAssuranceClosureDecision(projection);
+  // T-217 S2.2 (WITNESS-007 enforcement half): the terminal gate consumes
+  // the same closure-taint law as the per-vector fold — a scope cannot
+  // close over this basis's foreign-written evidence.
+  const decision = applyClosureTaintGate({
+    decision: deriveAssuranceClosureDecision(projection),
+    basisId: input.basis.id,
+    events: input.replayEvents
+  });
   const report = deriveAssuranceReportReadModel({
     projection,
     decision

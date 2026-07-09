@@ -104,6 +104,9 @@ declare module "node:fs/promises" {
     data: string,
     encoding: "utf8"
   ): Promise<void>;
+  // T-217 S2.2 (D1.4): the kernel copy-out instrument preserves divergent
+  // evidence BYTES verbatim — no encoding round-trip.
+  export function writeFile(path: string, data: Uint8Array): Promise<void>;
   export function appendFile(
     path: string,
     data: string,

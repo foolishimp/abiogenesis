@@ -269,6 +269,13 @@ const violations = [];
 let witnessed = 0;
 let nonExecutable = 0;
 for (const [sourceFile, lines] of changed) {
+  // T-217 S2.2: declaration files compile to NOTHING — every changed
+  // .d.ts line is type surface with no runtime, so there is no execution
+  // to witness (and no generated .js to map against).
+  if (sourceFile.endsWith(".d.ts")) {
+    nonExecutable += lines.size;
+    continue;
+  }
   // code/src/foo.ts -> build/semantic/code/src/foo.js(.map)
   const generatedJs = path.join(
     tenantRoot,

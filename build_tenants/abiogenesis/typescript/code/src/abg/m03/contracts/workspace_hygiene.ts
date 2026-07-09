@@ -17,11 +17,13 @@
 // predicate truth, never primary event authority.
 
 import type {
+  OutputMaterializationObservedEvent,
   RuntimeEvent,
   WorkspaceHygieneClassification,
   WorkspaceHygieneRow,
   WorkspaceHygieneStampedEvent
 } from "./carriers.js";
+import type { AssuranceClosureDecision } from "./assurance.js";
 import {
   deriveFrozenLawPredicate,
   type FrozenLawWindow
@@ -211,6 +213,114 @@ export function deriveForeignTaintedArtifactRefs(
   events: readonly RuntimeEvent[]
 ): readonly string[] {
   return deriveWorkspaceHygienePredicate(events).taintedArtifactRefs;
+}
+
+// T-217 S2.2 — the WITNESS-007 ENFORCEMENT half's blocking set: taint
+// intersected with the basis's OWN admitted evidence surfaces. Another
+// run's tainted evidence never blocks this basis; this basis's
+// foreign-written (or vanished) evidence is inadmissible for closure
+// until re-measured clean.
+export function deriveClosureBlockingTaintedRefs(input: {
+  readonly basisId: string;
+  readonly events: readonly RuntimeEvent[];
+}): readonly string[] {
+  const tainted = deriveForeignTaintedArtifactRefs(input.events);
+  if (tainted.length === 0) {
+    return Object.freeze([]);
+  }
+  const basisRefs = new Set(
+    latestAdmittedArtifactDigests(
+      input.events.filter(
+        (event) => "basisId" in event && event.basisId === input.basisId
+      )
+    ).keys()
+  );
+  return Object.freeze(tainted.filter((ref) => basisRefs.has(ref)));
+}
+
+// T-217 S2.2 — the WITNESS-007 enforcement half's SINGLE consumption
+// surface, applied wherever a closure decision is minted (the per-vector
+// evaluation fold and the terminal assurance gate). A minted "close"
+// over currently-tainted basis evidence demotes to block BEFORE any
+// closing truth is emitted (the S1 no-laundering ordering). Every other
+// decision passes through: retry/reprice/block are not closure, and
+// re-work is how tainted evidence gets lawfully replaced.
+export function applyClosureTaintGate(input: {
+  readonly decision: AssuranceClosureDecision;
+  readonly basisId: string;
+  readonly events: readonly RuntimeEvent[];
+}): AssuranceClosureDecision {
+  if (input.decision.decision !== "close") {
+    return input.decision;
+  }
+  const hygieneBlockedRefs = deriveClosureBlockingTaintedRefs({
+    basisId: input.basisId,
+    events: input.events
+  });
+  if (hygieneBlockedRefs.length === 0) {
+    return input.decision;
+  }
+  return Object.freeze({
+    kind: "assurance_closure_decision",
+    decision: "block",
+    scope: input.decision.scope,
+    projectionRef: input.decision.projectionRef,
+    blockingStatuses: Object.freeze(["contradictory_evidence" as const]),
+    rowIds: hygieneBlockedRefs,
+    reason: `workspace_hygiene_taint: foreign-written evidence is inadmissible for closure until re-measured: ${hygieneBlockedRefs.join(", ")}`
+  });
+}
+
+// D1.4 (T-209 escrow, delivered T-217 S2.2): what the kernel can measure
+// ITSELF. Admitted materialized outputs carry their workspace paths, so
+// the kernel-witnessed instrument derives (surface, path, admitted
+// digest) from replay and measures bytes at the path — the hygiene
+// baseline joins against kernel-measured truth, not reported claims.
+// Latest per surface by the D-ordinal law; the decisive value is the
+// (path, digest) PAIR — a re-materialization moves both together.
+export interface KernelMeasurableSurface {
+  readonly artifactRef: string;
+  readonly materializedPath: string;
+  readonly admittedDigest: string;
+}
+
+export function deriveKernelMeasurableSurfaces(
+  events: readonly RuntimeEvent[]
+): readonly KernelMeasurableSurface[] {
+  const candidatesByRef = new Map<string, OutputMaterializationObservedEvent[]>();
+  for (const event of events) {
+    if (event.kind !== "output_materialization_observed") {
+      continue;
+    }
+    const rows = candidatesByRef.get(event.materializedRef) ?? [];
+    rows.push(event);
+    candidatesByRef.set(event.materializedRef, rows);
+  }
+  const surfaces: KernelMeasurableSurface[] = [];
+  for (const [artifactRef, rows] of candidatesByRef) {
+    const decisivePair = decisiveValueByAdmissionOrdinal(
+      rows,
+      (event) =>
+        event.kind === "output_materialization_observed"
+          ? JSON.stringify([event.materializedPath, event.digest])
+          : null,
+      `Kernel measurable surface (${artifactRef})`
+    );
+    if (decisivePair !== null) {
+      const [materializedPath, admittedDigest] = JSON.parse(decisivePair) as [
+        string,
+        string
+      ];
+      surfaces.push(
+        Object.freeze({ artifactRef, materializedPath, admittedDigest })
+      );
+    }
+  }
+  return Object.freeze(
+    surfaces.sort((left, right) =>
+      codepointCompare(left.artifactRef, right.artifactRef)
+    )
+  );
 }
 
 export function deriveCitabilityPredicate(

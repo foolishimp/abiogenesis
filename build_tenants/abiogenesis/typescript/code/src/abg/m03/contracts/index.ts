@@ -1371,10 +1371,13 @@ export type {
   RunSegmentProjection
 } from "./run_segments.js";
 export {
+  applyClosureTaintGate,
   classifyWorkspaceHygienePair,
   deriveAdmittedWorkspaceHygieneStamps,
   deriveCitabilityPredicate,
+  deriveClosureBlockingTaintedRefs,
   deriveForeignTaintedArtifactRefs,
+  deriveKernelMeasurableSurfaces,
   deriveWorkspaceHygienePredicate,
   deriveWorkspaceHygieneRows,
   latestAdmittedArtifactDigests
@@ -1382,6 +1385,7 @@ export {
 export type {
   CitabilityConjunct,
   CitabilityPredicate,
+  KernelMeasurableSurface,
   WorkspaceHygieneObservation,
   WorkspaceHygienePredicate
 } from "./workspace_hygiene.js";

@@ -7,8 +7,8 @@ import { emit } from "../abg/m03/events/emit.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
-import { access, readFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, resolve } from "node:path";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
   PluginTraversalKind,
@@ -77,17 +77,22 @@ import {
   admitWorkspaceHygieneStamp,
   deriveCitabilityPredicate,
   deriveHaltDiagnosis,
+  deriveKernelMeasurableSurfaces,
   deriveRunSegments,
   reconstructRouteBasisFromReplay,
+  runtimeEventsForBasis,
   verifyReplayLogAttestations
 } from "../abg/m03/index.js";
 import type {
   CanonicalRuntimeEvent,
   GraphChangeClass,
   GraphReentryPoint,
+  RouteBasisIdentity,
   RunResumeReasonKind,
-  RunStopReasonKind
+  RunStopReasonKind,
+  WorkspaceHygieneObservation
 } from "../abg/m03/index.js";
+import { sha256DigestForBytes, sha256HexForText } from "../shared/runtime_identity.js";
 import {
   createRuntimeEventLogSink,
   seedRuntimeEventAdmissionOrdinal
@@ -672,7 +677,7 @@ const WITNESS_ACT_FLAGS: Readonly<Record<WitnessAct, readonly string[]>> =
       "reason"
     ]),
     attest: Object.freeze(["actor"]),
-    "hygiene-stamp": Object.freeze(["observed-by", "observations"]),
+    "hygiene-stamp": Object.freeze(["observed-by", "observations", "measure"]),
     intake: Object.freeze([
       "owner",
       "change-class",
@@ -703,8 +708,40 @@ function parseWitnessCommand(args: readonly string[]): ParsedWitnessCommand {
   const actFlags = WITNESS_ACT_FLAGS[act];
   requireAllowedFlags(parsed, `witness ${act}`, ["workspace", ...actFlags]);
   const fields: Record<string, string> = {};
-  for (const flag of actFlags) {
-    fields[flag] = requiredFlag(parsed, flag);
+  if (act === "hygiene-stamp") {
+    // T-217 S2.2 (D1.4): ONE measurement source per stamp — either the
+    // kernel-witnessed instrument (--measure workspace: the kernel derives
+    // the admitted materialized surfaces from replay and digests their
+    // bytes itself) or an attributed external instrument (--observations
+    // file with --observed-by). Mixing sources is a typed rejection.
+    const measure = optionalNullableFlag(parsed, "measure");
+    const observations = optionalNullableFlag(parsed, "observations");
+    const observedBy = optionalNullableFlag(parsed, "observed-by");
+    if (measure !== null) {
+      if (measure !== "workspace") {
+        throw new CliError(
+          `witness hygiene-stamp --measure must be "workspace"; got ${JSON.stringify(measure)}`
+        );
+      }
+      if (observations !== null || observedBy !== null) {
+        throw new CliError(
+          "witness hygiene-stamp takes ONE measurement source: --measure workspace (kernel-witnessed) or --observations with --observed-by"
+        );
+      }
+      fields["measure"] = measure;
+    } else {
+      if (observations === null || observedBy === null) {
+        throw new CliError(
+          "witness hygiene-stamp requires --observations <file> with --observed-by, or --measure workspace"
+        );
+      }
+      fields["observations"] = observations;
+      fields["observed-by"] = observedBy;
+    }
+  } else {
+    for (const flag of actFlags) {
+      fields[flag] = requiredFlag(parsed, flag);
+    }
   }
   return Object.freeze({
     kind: "witness",
@@ -2106,17 +2143,89 @@ async function loadWitnessContext(io: AbiogenesisCliIo, workspace: string) {
   const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);
-  return { workspaceRoot, eventLogPath, replayEvents };
+  return { workspaceRoot, toolchainBinding, eventLogPath, replayEvents };
+}
+
+// D1.4 (T-209 escrow, delivered T-217 S2.2): the kernel-witnessed
+// measurement source. The kernel derives WHAT to measure from replay
+// (admitted materialized surfaces carry their paths) and measures each
+// surface itself — bytes read, canonical digest — so the hygiene join
+// runs against kernel-measured truth, not operator- or worker-reported
+// claims. A vanished surface measures null and classifies "missing"
+// (taints until re-measured); any read failure other than absence fails
+// closed rather than minting a false measurement.
+export const KERNEL_DIGEST_INSTRUMENT_REF =
+  "kernel://workspace-digest-instrument";
+
+async function measureWorkspaceSurfaces(input: {
+  readonly workspaceRoot: string;
+  readonly archiveRoot: string;
+  readonly basis: RouteBasisIdentity;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): Promise<readonly WorkspaceHygieneObservation[]> {
+  const surfaces = deriveKernelMeasurableSurfaces(
+    runtimeEventsForBasis(input.basis, input.replayEvents)
+  );
+  if (surfaces.length === 0) {
+    throw new CliError(
+      "witness hygiene-stamp --measure workspace found no admitted materialized surfaces to measure"
+    );
+  }
+  const observations: WorkspaceHygieneObservation[] = [];
+  for (const surface of surfaces) {
+    const measuredPath = isAbsolute(surface.materializedPath)
+      ? surface.materializedPath
+      : resolve(input.workspaceRoot, surface.materializedPath);
+    let content: Uint8Array | null;
+    try {
+      content = await readFile(measuredPath);
+    } catch (error) {
+      if ((error as { code?: string } | null)?.code !== "ENOENT") {
+        throw error;
+      }
+      content = null;
+    }
+    if (content === null) {
+      observations.push(
+        Object.freeze({ artifactRef: surface.artifactRef, observedDigest: null })
+      );
+      continue;
+    }
+    const observedDigest = sha256DigestForBytes(content);
+    if (observedDigest === surface.admittedDigest) {
+      observations.push(
+        Object.freeze({ artifactRef: surface.artifactRef, observedDigest })
+      );
+      continue;
+    }
+    // the copy-out diagnosis rule (WITNESS-007): foreign-write truth is
+    // inadmissible without naming the preserved copy, so the kernel copies
+    // the divergent bytes out BEFORE stamping them foreign. The copy name
+    // is content-derived — re-measuring the same divergence lands the
+    // same preserved copy.
+    const copyOutName = `${sha256HexForText(
+      `${surface.artifactRef}:${observedDigest}`
+    )}.copyout`;
+    const copyOutPath = join(input.archiveRoot, "hygiene-copyout", copyOutName);
+    await mkdir(dirname(copyOutPath), { recursive: true });
+    await writeFile(copyOutPath, content);
+    observations.push(
+      Object.freeze({
+        artifactRef: surface.artifactRef,
+        observedDigest,
+        copyOutRef: `copyout://${relative(input.workspaceRoot, copyOutPath)}`
+      })
+    );
+  }
+  return Object.freeze(observations);
 }
 
 async function runWitnessCommand(
   command: ParsedWitnessCommand,
   io: AbiogenesisCliIo
 ): Promise<number> {
-  const { eventLogPath, replayEvents } = await loadWitnessContext(
-    io,
-    command.workspace
-  );
+  const { workspaceRoot, toolchainBinding, eventLogPath, replayEvents } =
+    await loadWitnessContext(io, command.workspace);
   const basis = reconstructRouteBasisFromReplay(replayEvents);
   const eventLogSink = createRuntimeEventLogSink(eventLogPath);
   const sink = (event: CanonicalRuntimeEvent): void => {
@@ -2158,17 +2267,30 @@ async function runWitnessCommand(
       break;
     }
     case "hygiene-stamp": {
-      const observationsPath = isAbsolute(fields["observations"] ?? "")
-        ? resolve(fields["observations"] ?? "")
-        : resolve(io.cwd(), fields["observations"] ?? "");
-      const observations = JSON.parse(
-        await readFile(observationsPath, "utf8")
-      ) as readonly { artifactRef: string; observedDigest: string | null }[];
+      let observations: readonly WorkspaceHygieneObservation[];
+      let observedBy: string;
+      if (fields["measure"] === "workspace") {
+        observations = await measureWorkspaceSurfaces({
+          workspaceRoot,
+          archiveRoot: toolchainBinding.mutableStateRoots.archiveRoot,
+          basis,
+          replayEvents
+        });
+        observedBy = KERNEL_DIGEST_INSTRUMENT_REF;
+      } else {
+        const observationsPath = isAbsolute(fields["observations"] ?? "")
+          ? resolve(fields["observations"] ?? "")
+          : resolve(io.cwd(), fields["observations"] ?? "");
+        observations = JSON.parse(
+          await readFile(observationsPath, "utf8")
+        ) as readonly { artifactRef: string; observedDigest: string | null }[];
+        observedBy = fields["observed-by"] ?? "";
+      }
       const outcome = admitWorkspaceHygieneStamp({
         basis,
         runtimeEvents: replayEvents,
         eventSink: sink,
-        observedBy: fields["observed-by"] ?? "",
+        observedBy,
         observations
       });
       resultRef = outcome.hygieneRef;
