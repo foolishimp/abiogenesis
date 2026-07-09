@@ -1350,6 +1350,15 @@ export type {
   FrozenLawPredicate,
   FrozenLawWindow
 } from "./declaration_reprice.js";
+export {
+  deriveGoverningDeclarationSet,
+  deriveRunSegments,
+  nextRunSegmentIndex
+} from "./run_segments.js";
+export type {
+  GoverningDeclarationSet,
+  RunSegmentProjection
+} from "./run_segments.js";
 export type {
   AdmittedMutationOutcomes,
   MutationOutcomeRow,
@@ -1419,6 +1428,19 @@ export {
 } from "./event_factories.js";
 export { constructDeclarationRepriceAdmittedEvent } from "./event_factories.js";
 export type { DeclarationRepriceAdmittedEvent } from "./carriers.js";
+export {
+  constructRunResumedEvent,
+  constructRunSegmentOpenedEvent,
+  constructRunStoppedEvent,
+  mintRunSegmentRef
+} from "./event_factories.js";
+export { RUN_STOP_REASON_KIND_VALUES } from "./carriers.js";
+export type {
+  RunResumedEvent,
+  RunSegmentOpenedEvent,
+  RunStopReasonKind,
+  RunStoppedEvent
+} from "./carriers.js";
 export {
   C_CALL_DEFAULT_PROGRAM_STAGE_ROLES,
   C_CALL_JUDGMENT_VALUES,

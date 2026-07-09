@@ -301,6 +301,8 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
     secondEvents.map((event) => event.kind),
     [
       "registry_entry_admitted",
+      // T-217 WITNESS-005: a resumed invocation stamps its substrate segment
+      "run_segment_opened",
       "graph_function_selected",
       "graph_call_opened",
       "frame_opened",

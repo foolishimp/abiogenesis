@@ -913,6 +913,65 @@ export interface DeclarationRepriceAdmittedEvent {
   readonly correlationId: string;
 }
 
+// Implements: REQ-R-ABG3-WITNESS-005 — every engine invocation opens a
+// substrate-stamped segment: runtime identity + the governing declaration
+// digest set, so mixed-substrate runs decompose per segment under replay.
+// segmentRef is SELF-CERTIFIED (admission recomputes it — the F2 lesson
+// baked in). WITNESS-014 disposition: stamps touch no runtime fluent;
+// segment windows are derived read-model truth (run_segments.ts).
+export interface RunSegmentOpenedEvent {
+  readonly kind: "run_segment_opened";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly segmentRef: string;
+  readonly segmentIndex: number;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly buildId: string;
+  readonly resolvedRuntimeRef: string;
+  readonly declarationSetDigest: string;
+  readonly declarationCount: number;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export const RUN_STOP_REASON_KIND_VALUES = Object.freeze([
+  "operator_stop",
+  "operator_abort",
+  "external_interruption",
+  "campaign_close"
+] as const);
+
+export type RunStopReasonKind =
+  (typeof RUN_STOP_REASON_KIND_VALUES)[number];
+
+// Implements: REQ-R-ABG3-WITNESS-006 — operator run lifecycle as
+// actor-attributed F_H events; lifecycle acts that bypass event admission
+// do not exist on the operator path.
+export interface RunResumedEvent {
+  readonly kind: "run_resumed";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly operatorActorRef: string;
+  readonly reasonDetail: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface RunStoppedEvent {
+  readonly kind: "run_stopped";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly operatorActorRef: string;
+  readonly reasonKind: RunStopReasonKind;
+  readonly reasonDetail: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2717,6 +2776,9 @@ export type RuntimeEvent =
   | FhEscalatedEvent
   | TemporalPropertyVerdictProjectedEvent
   | DeclarationRepriceAdmittedEvent
+  | RunSegmentOpenedEvent
+  | RunResumedEvent
+  | RunStoppedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -2853,6 +2915,9 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "fh_escalated",
   "temporal_property_verdict_projected",
   "declaration_reprice_admitted",
+  "run_segment_opened",
+  "run_resumed",
+  "run_stopped",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",

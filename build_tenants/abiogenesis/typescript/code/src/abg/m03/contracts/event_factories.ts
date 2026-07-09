@@ -58,6 +58,10 @@ import type {
   CCallStageRole,
   DeclarationRepriceAdmittedEvent,
   GraphChangeClass,
+  RunResumedEvent,
+  RunSegmentOpenedEvent,
+  RunStopReasonKind,
+  RunStoppedEvent,
   RuntimeFailureClass,
   RuntimeFailureObservedEvent,
   TemporalPropertyVerdictProjectedEvent
@@ -1042,6 +1046,107 @@ export function constructDeclarationRepriceAdmittedEvent(input: {
     reason: input.reason,
     causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId: input.correlationId ?? repriceRef
+  });
+}
+
+export function mintRunSegmentRef(input: {
+  readonly basisId: string;
+  readonly segmentIndex: number;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly buildId: string;
+  readonly resolvedRuntimeRef: string;
+  readonly declarationSetDigest: string;
+  readonly declarationCount: number;
+}): string {
+  return `run-segment:${stableSha256Digest({
+    basisId: input.basisId,
+    segmentIndex: input.segmentIndex,
+    workerId: input.workerId,
+    backendId: input.backendId,
+    buildId: input.buildId,
+    resolvedRuntimeRef: input.resolvedRuntimeRef,
+    declarationSetDigest: input.declarationSetDigest,
+    declarationCount: input.declarationCount
+  })}`;
+}
+
+export function constructRunSegmentOpenedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly segmentIndex: number;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly buildId: string;
+  readonly resolvedRuntimeRef: string;
+  readonly declarationSetDigest: string;
+  readonly declarationCount: number;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): RunSegmentOpenedEvent {
+  const segmentRef = mintRunSegmentRef(input);
+  return Object.freeze({
+    kind: "run_segment_opened",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    segmentRef,
+    segmentIndex: input.segmentIndex,
+    workerId: input.workerId,
+    backendId: input.backendId,
+    buildId: input.buildId,
+    resolvedRuntimeRef: input.resolvedRuntimeRef,
+    declarationSetDigest: input.declarationSetDigest,
+    declarationCount: input.declarationCount,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId ?? segmentRef
+  });
+}
+
+export function constructRunResumedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly operatorActorRef: string;
+  readonly reasonDetail: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): RunResumedEvent {
+  return Object.freeze({
+    kind: "run_resumed",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    operatorActorRef: input.operatorActorRef,
+    reasonDetail: input.reasonDetail,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId:
+      input.correlationId ?? `run-resumed:${input.basisId}:${input.operatorActorRef}`
+  });
+}
+
+export function constructRunStoppedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly operatorActorRef: string;
+  readonly reasonKind: RunStopReasonKind;
+  readonly reasonDetail: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): RunStoppedEvent {
+  return Object.freeze({
+    kind: "run_stopped",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    operatorActorRef: input.operatorActorRef,
+    reasonKind: input.reasonKind,
+    reasonDetail: input.reasonDetail,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId:
+      input.correlationId ?? `run-stopped:${input.basisId}:${input.reasonKind}`
   });
 }
 

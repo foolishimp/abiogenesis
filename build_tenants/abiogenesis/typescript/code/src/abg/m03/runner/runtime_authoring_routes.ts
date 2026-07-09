@@ -9,13 +9,18 @@ import type {
   ExecutionBasis,
   GraphChangeClass,
   GraphVectorResumeCursorAppliedEvent,
+  RunResumedEvent,
+  RunStopReasonKind,
+  RunStoppedEvent,
   RuntimeAggregateProjection,
   RuntimeEvent
 } from "../contracts/carriers.js";
 import {
   constructBasisAdmittedEvent,
   constructDeclarationRepriceAdmittedEvent,
-  constructGraphVectorResumeCursorAppliedEvent
+  constructGraphVectorResumeCursorAppliedEvent,
+  constructRunResumedEvent,
+  constructRunStoppedEvent
 } from "../contracts/event_factories.js";
 import {
   deriveFrozenLawPredicate,
@@ -336,6 +341,95 @@ export function admitDeclarationReprice(
     emittedEvents,
     replayEvents: nextReplayEvents
   } satisfies DeclarationRepriceAdmissionResult);
+}
+
+export interface OperatorRunLifecycleRequest {
+  readonly basis: ExecutionBasis;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly operatorActorRef: string;
+  readonly reasonDetail: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}
+
+export interface RunResumedAdmissionResult {
+  readonly kind: "run_resumed_admission_result";
+  readonly basis: ExecutionBasis;
+  readonly lifecycleEvent: RunResumedEvent;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+export interface RunStoppedAdmissionResult {
+  readonly kind: "run_stopped_admission_result";
+  readonly basis: ExecutionBasis;
+  readonly lifecycleEvent: RunStoppedEvent;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+// Implements: REQ-R-ABG3-WITNESS-006 — the operator lifecycle seams the
+// grammar's campaign commands adapt (WITNESS-010). Lifecycle acts route
+// through these admitted events or they did not happen on the operator
+// path; tests driving the harness in-process are not operators.
+export function admitRunResumed(
+  input: OperatorRunLifecycleRequest
+): RunResumedAdmissionResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const lifecycleEvent = constructRunResumedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    operatorActorRef: input.operatorActorRef,
+    reasonDetail: input.reasonDetail,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(input.basis, replayEvents, Object.freeze([lifecycleEvent])),
+    input.eventSink
+  );
+  return Object.freeze({
+    kind: "run_resumed_admission_result",
+    basis: input.basis,
+    lifecycleEvent,
+    emittedEvents,
+    replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
+  } satisfies RunResumedAdmissionResult);
+}
+
+export function admitRunStopped(
+  input: OperatorRunLifecycleRequest & { readonly reasonKind: RunStopReasonKind }
+): RunStoppedAdmissionResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const lifecycleEvent = constructRunStoppedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    operatorActorRef: input.operatorActorRef,
+    reasonKind: input.reasonKind,
+    reasonDetail: input.reasonDetail,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(input.basis, replayEvents, Object.freeze([lifecycleEvent])),
+    input.eventSink
+  );
+  return Object.freeze({
+    kind: "run_stopped_admission_result",
+    basis: input.basis,
+    lifecycleEvent,
+    emittedEvents,
+    replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
+  } satisfies RunStoppedAdmissionResult);
 }
 
 export function applyExplicitGraphVectorResumeCursor(

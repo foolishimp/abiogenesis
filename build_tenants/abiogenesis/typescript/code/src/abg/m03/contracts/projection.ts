@@ -819,6 +819,9 @@ export function deriveRuntimeAggregateProjection(
       case "overlay_frame_evaluated":
       case "temporal_property_verdict_projected":
       case "declaration_reprice_admitted":
+      case "run_segment_opened":
+      case "run_resumed":
+      case "run_stopped":
       case "runtime_failure_observed":
       case "c_call_opened":
       case "c_call_fibre_selected":

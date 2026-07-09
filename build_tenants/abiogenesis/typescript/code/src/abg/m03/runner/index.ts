@@ -33,12 +33,17 @@ export {
 } from "./saga_frontier_runner.js";
 export {
   admitDeclarationReprice,
+  admitRunResumed,
+  admitRunStopped,
   applyExplicitGraphVectorResumeCursor,
   applyGraphSpanReentryRoute
 } from "./runtime_authoring_routes.js";
 export type {
   DeclarationRepriceAdmissionRequest,
-  DeclarationRepriceAdmissionResult
+  DeclarationRepriceAdmissionResult,
+  OperatorRunLifecycleRequest,
+  RunResumedAdmissionResult,
+  RunStoppedAdmissionResult
 } from "./runtime_authoring_routes.js";
 export {
   runExecutiveObserverProjection

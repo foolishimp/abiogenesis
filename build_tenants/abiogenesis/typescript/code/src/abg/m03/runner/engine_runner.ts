@@ -38,6 +38,7 @@ import {
   constructAmbiguityObservationAdmittedEvent,
   constructAuthoritySnapshotAdmittedEvent,
   constructBasisAdmittedEvent,
+  constructRunSegmentOpenedEvent,
   constructClosureInputPublishedEvent,
   constructEvidenceAdmittedEvent,
   constructFdAuthorityOutcomeAdmittedEvent,
@@ -214,6 +215,10 @@ import {
   type RuntimeRegistryStartupInput
 } from "../contracts/runtime_graph_function_registry.js";
 import { deriveDeclarationRepriceObligations } from "../contracts/declaration_reprice.js";
+import {
+  deriveGoverningDeclarationSet,
+  nextRunSegmentIndex
+} from "../contracts/run_segments.js";
 import {
   compactRenderedExcerpt,
   admitCompiledPromptPlanAtStartup,
@@ -5420,7 +5425,11 @@ function* runEngineIterateMachine(input: {
       continuationTransitions: Object.freeze([input.continuationTransition])
     });
 
-  if (!hasBasisAdmittedEvent(request.basis, eventState.replayEvents)) {
+  const isResumedInvocation = hasBasisAdmittedEvent(
+    request.basis,
+    eventState.replayEvents
+  );
+  if (!isResumedInvocation) {
     eventState = emitRunnerEvents(
       eventState,
       constructBasisAdmittedEvent(request.basis)
@@ -5459,6 +5468,36 @@ function* runEngineIterateMachine(input: {
     if (registryStartup.admissionEvents.length > 0) {
       eventState = emitRunnerEvents(eventState, registryStartup.admissionEvents);
     }
+  }
+  // WITNESS-005: each RESUMED lawful invocation opens a substrate-stamped
+  // segment — runtime identity + the governing declaration digest set —
+  // AFTER the reprice guard (a blocked entry is not a segment). A fresh
+  // start's substrate is witnessed by its own startup admission events;
+  // the stamp exists to decompose MIXED-substrate runs, and mixing begins
+  // at the first resume. Segment windows feed the frozen-law predicate
+  // per proving span.
+  if (isResumedInvocation) {
+    const governingSet = deriveGoverningDeclarationSet(
+      registryStartup?.admissionEvents ?? Object.freeze([])
+    );
+    eventState = emitRunnerEvents(
+      eventState,
+      constructRunSegmentOpenedEvent({
+        basisId: request.basis.id,
+        runId: request.basis.runId,
+        workKey: request.basis.workKey,
+        segmentIndex: nextRunSegmentIndex(
+          eventState.replayEvents,
+          request.basis.id
+        ),
+        workerId: request.basis.runtimeIdentity.workerId,
+        backendId: request.basis.runtimeIdentity.backendId,
+        buildId: request.basis.runtimeIdentity.buildId,
+        resolvedRuntimeRef: request.basis.runtimeIdentity.resolvedRuntimeRef,
+        declarationSetDigest: governingSet.declarationSetDigest,
+        declarationCount: governingSet.declarationCount
+      })
+    );
   }
   const instructionAssemblyRuntime = instructionAssemblyRuntimeForStartup({
     startup: request.instructionAssemblyStartup,

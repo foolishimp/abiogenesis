@@ -329,6 +329,34 @@ frozen; whole-record default preserved with window: null (pin b3).
 Segment boundaries for the window arrive with S2's substrate stamps.
 Suites 1185/1185 green.
 
+S2 DELIVERED (2026-07-09): run_segment_opened (WITNESS-005) — each
+RESUMED lawful invocation stamps runtime identity (workerId/backendId/
+buildId/resolvedRuntimeRef) + the governing declaration digest SET
+(deduped codepoint-sorted pairs, ONE authority:
+deriveGoverningDeclarationSet); a fresh start is not a resumed segment
+(its substrate is its own startup admission truth) — requirement
+wording honored, blast radius contained (one sequence-pinned resume
+test repriced). segmentRef SELF-CERTIFIED (F2 lesson baked in);
+segmentIndex replay-global max+1 (F7 lesson); stamp emitted AFTER the
+reprice guard (a blocked entry is not a segment). run_resumed /
+run_stopped (WITNESS-006) — actor-attributed F_H lifecycle events;
+reasonKind CLOSED vocabulary (operator_stop/operator_abort/
+external_interruption/campaign_close) + reasonDetail; operator routes
+admitRunResumed/admitRunStopped are the kernel seams the grammar's
+campaign commands adapt (WITNESS-010). run_segments.ts read model:
+deriveRunSegments — per-segment ordinal windows (stamp to next-stamp)
+feeding deriveFrozenLawPredicate — CLOSES THE S1 F3 SEAM: per-proving-
+span frozen-law is mechanical (c4 proves: reprice between segments =>
+segment 1 not frozen, resumed segment 2 FROZEN, whole run not frozen).
+Tests test_t217_witness_lifecycle_segments.test.mjs c1-c5 (stamp
+self-certification incl. digest-set swap, index law >=1, lifecycle
+closed vocabulary + attribution, routes canonical, fresh-vs-resume
+stamping + mixed-substrate decomposition + per-segment predicates,
+governing-set dedupe law — c5 caught the list-not-set gap live).
+Suites 1190/1190 green. WITNESS-005/-006 realized; WITNESS-003's
+"binding, or policy truth" widening remains with S3+ (hygiene stamps
+extend the same digest-diff seam).
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

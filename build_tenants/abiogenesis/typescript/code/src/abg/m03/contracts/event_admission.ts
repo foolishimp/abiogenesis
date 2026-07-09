@@ -21,6 +21,7 @@ import {
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
+  RUN_STOP_REASON_KIND_VALUES,
   RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
   RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
@@ -1357,6 +1358,63 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
     }
   },
+  run_segment_opened: (event) => {
+    applyFieldRules("RunSegmentOpenedEvent", {
+      basisId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      segmentRef: "non_empty_string",
+      segmentIndex: "non_negative_integer",
+      workerId: "non_empty_string",
+      backendId: "non_empty_string",
+      buildId: "non_empty_string",
+      resolvedRuntimeRef: "non_empty_string",
+      declarationSetDigest: "non_empty_string",
+      declarationCount: "non_negative_integer",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    if ((event["segmentIndex"] as number) < 1) {
+      throw new TypeError(
+        "RunSegmentOpenedEvent.segmentIndex must be >= 1: segment numbering is replay-global from 1"
+      );
+    }
+    // the segment stamp identity is self-certified like the reprice ref
+    const expectedSegmentRef = `run-segment:${stableSha256Digest({
+      basisId: event["basisId"],
+      segmentIndex: event["segmentIndex"],
+      workerId: event["workerId"],
+      backendId: event["backendId"],
+      buildId: event["buildId"],
+      resolvedRuntimeRef: event["resolvedRuntimeRef"],
+      declarationSetDigest: event["declarationSetDigest"],
+      declarationCount: event["declarationCount"]
+    })}`;
+    if (event["segmentRef"] !== expectedSegmentRef) {
+      throw new TypeError(
+        "RunSegmentOpenedEvent.segmentRef must be the content-derived identity"
+      );
+    }
+  },
+  run_resumed: applyFieldRules("RunResumedEvent", {
+    basisId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    operatorActorRef: "non_empty_string",
+    reasonDetail: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  run_stopped: applyFieldRules("RunStoppedEvent", {
+    basisId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    operatorActorRef: "non_empty_string",
+    reasonKind: { oneOf: RUN_STOP_REASON_KIND_VALUES },
+    reasonDetail: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
   c_call_opened: C_CALL_OPENED_ADMISSION,
   c_call_fibre_selected: spineClosedKeys("CCallFibreSelectedEvent",
     ["kind", "cCallRef", "basisId", "regime", "armId", "programRef", "compositionRef"],
