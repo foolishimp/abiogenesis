@@ -124,6 +124,12 @@ test("M03 transport unit: ABG_TS_CODEX_SANDBOX env ingress replaces --full-auto 
     assert.ok(contract.argsTemplate.includes("--sandbox"));
     assert.ok(contract.argsTemplate.includes("danger-full-access"));
     assert.ok(!contract.argsTemplate.includes("--full-auto"));
+    // review D-interim residual #3: a spaces-bearing value stays ONE argv
+    // token (no flag smuggling through the env ingress)
+    process.env.ABG_TS_CODEX_SANDBOX = "foo --dangerous";
+    const smuggle = contractForKnownAgent("codex");
+    assert.ok(smuggle.argsTemplate.includes("foo --dangerous"));
+    assert.ok(!smuggle.argsTemplate.includes("--dangerous"));
   } finally {
     if (prior === undefined) {
       delete process.env.ABG_TS_CODEX_SANDBOX;
