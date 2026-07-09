@@ -828,11 +828,32 @@ diff-execution gate violations=0 over the slice diff (exhaustiveness
 default removed in favor of compile-proven definite assignment — no
 unreachable runtime lines).
 
-S2.1b REMAINING (the slice tail): start --allow (WITNESS-015 realized
-at the adapter: narrowing intersection over the binding's
-runtimeRegistryStartup.enabledLibraryRefs; error when no catalog to
-narrow) + the ABG_TS_CODEX_MODEL/SANDBOX env-steering promotion to
-declared start arguments (C-7). Then S2.2 closure-gating.
+S2.1b DELIVERED (2026-07-10) — S2.1 COMPLETE. start --allow
+(WITNESS-015 at the adapter): the session allowlist is a narrowing-only
+view restriction over the BINDING-DECLARED catalog — refs match by
+entryRef | declarationRef | declarationSourceRef (the registry's own
+enablement law); refs outside a non-empty binding-enabled view fail
+closed as widening; refs matching no declared entry fail closed as
+phantoms; --allow with no binding runtimeRegistryStartup fails closed
+(no catalog to narrow); empty/duplicate refs are typed grammar
+rejections. Disallowed declarations never reach registry admission, so
+the run's ADMITTED catalog is the narrowed view and any later selection
+of a disallowed function fails closed in the kernel as an unregistered
+ref — enforcement at admission, rejection typed, inheritance by
+construction (recursive frames select from the admitted registry).
+start --codex-model/--codex-sandbox (C-7): codex transport steering
+promoted from ambient environment to DECLARED start arguments; the CLI
+(the adapter that owns bootstrap ingress, runtime truth rule 11)
+applies the declared value over the ambient binding — differential
+proves declared beats ambient in contractForKnownAgent and the sandbox
+pair replaces --full-auto. WIRING WITNESSED, not just units: the
+diff-execution gate caught the five integration lines unexecuted
+(parse success return + runStartCommand's steering/narrowing calls);
+a real `start` through the full command path — toolchain binding,
+loaded app-owned runtime binding, seeded halted log — proves the
+parsed allow list meets the LOADED binding's catalog and fails closed
+on a phantom ref, with the declared codex argument applied by the same
+path. Suites 1234/1234; gate violations=0. Next: S2.2 closure-gating.
 
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY

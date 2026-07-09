@@ -33,6 +33,7 @@ import {
   type AbgFallbackBundle
 } from "../abg/m03/index.js";
 import type { Module } from "../gtl/m02/contracts/carriers.js";
+import type { RuntimeRegistryStartupInput } from "../abg/m03/contracts/runtime_graph_function_registry.js";
 import {
   constructModuleLookupAuthority,
   resolvePublishedGraphFunction
@@ -158,6 +159,15 @@ interface ParsedStartCommand {
   // root_mode via REQ-P-POLICY-013 (T-118).
   readonly fhMode: FhMode | undefined;
   readonly rootMode: RootMode | undefined;
+  // T-217 S2.1 (WITNESS-015): the session allowlist — a view restriction
+  // over the binding-declared catalog; undefined means the binding's own
+  // view governs unrestricted.
+  readonly allow: readonly string[] | undefined;
+  // T-217 S2.1 (census C-7): codex transport steering as DECLARED start
+  // arguments; the ambient environment stays adapter/bootstrap ingress
+  // (runtime truth rule 11) and the declared argument wins over it.
+  readonly codexModel: string | undefined;
+  readonly codexSandbox: string | undefined;
 }
 
 type WitnessAct =
@@ -530,10 +540,16 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     "target",
     "until",
     "fh-mode",
-    "root-mode"
+    "root-mode",
+    "allow",
+    "codex-model",
+    "codex-sandbox"
   ]);
   const fhModeFlag = optionalNullableFlag(parsed, "fh-mode");
   const rootModeFlag = optionalNullableFlag(parsed, "root-mode");
+  const allowFlag = optionalNullableFlag(parsed, "allow");
+  const codexModelFlag = optionalNullableFlag(parsed, "codex-model");
+  const codexSandboxFlag = optionalNullableFlag(parsed, "codex-sandbox");
   return Object.freeze({
     kind: "start",
     workspace: optionalFlag(parsed, "workspace", "."),
@@ -541,8 +557,24 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     target: parseStartTarget(requiredFlag(parsed, "target")),
     until: parseUntil(requiredFlag(parsed, "until")),
     fhMode: fhModeFlag === null ? undefined : parseFhMode(fhModeFlag),
-    rootMode: rootModeFlag === null ? undefined : parseRootMode(rootModeFlag)
+    rootMode: rootModeFlag === null ? undefined : parseRootMode(rootModeFlag),
+    allow: allowFlag === null ? undefined : parseSessionAllowRefs(allowFlag),
+    codexModel: codexModelFlag === null ? undefined : codexModelFlag,
+    codexSandbox: codexSandboxFlag === null ? undefined : codexSandboxFlag
   });
+}
+
+function parseSessionAllowRefs(raw: string): readonly string[] {
+  const refs = raw.split(",").map((ref) => ref.trim());
+  if (refs.some((ref) => ref.length === 0)) {
+    throw new CliError(
+      "start --allow requires a comma-separated list of non-empty refs"
+    );
+  }
+  if (new Set(refs).size !== refs.length) {
+    throw new CliError("start --allow refs must be unique");
+  }
+  return Object.freeze(refs);
 }
 
 function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
@@ -1739,13 +1771,94 @@ function firstEventEdge(events: readonly RuntimeEvent[]): string | null {
   return null;
 }
 
+// T-217 Phase 2 S2.1 (WITNESS-015): the session allowlist is an operator-
+// grammar view restriction over the BINDING-DECLARED catalog, narrowing
+// only. Disallowed declarations never reach registry admission, so the
+// run's admitted catalog IS the narrowed view and any later selection of
+// a disallowed function fails closed in the kernel as an unregistered
+// ref. Refs that would widen the binding-enabled view, or that match no
+// declared entry, fail closed here as typed grammar rejections.
+export function narrowRegistryStartupToSessionAllowlist(
+  binding: RuntimeBinding,
+  allowRefs: readonly string[] | undefined
+): RuntimeBinding {
+  if (allowRefs === undefined) {
+    return binding;
+  }
+  const startup = binding.runtimeRegistryStartup;
+  if (startup === undefined) {
+    throw new CliError(
+      "start --allow requires a binding-declared runtimeRegistryStartup: there is no declared catalog to narrow"
+    );
+  }
+  const enabledView = startup.productStartupConfig?.enabledLibraryRefs ?? [];
+  if (enabledView.length > 0) {
+    const widening = allowRefs.filter((ref) => !enabledView.includes(ref));
+    if (widening.length > 0) {
+      throw new CliError(
+        `start --allow is narrowing-only; refs outside the binding-enabled view: ${JSON.stringify(widening)}`
+      );
+    }
+  }
+  const coveredBy = (
+    declaration: RuntimeRegistryStartupInput["productDeclarations"][number],
+    refs: ReadonlySet<string>
+  ): boolean =>
+    refs.has(declaration.entryRef) ||
+    refs.has(declaration.declarationRef) ||
+    declaration.declarationSourceRefs.some((sourceRef) => refs.has(sourceRef));
+  const allowSet = new Set(allowRefs);
+  const unmatched = allowRefs.filter(
+    (ref) =>
+      !startup.productDeclarations.some((declaration) =>
+        coveredBy(declaration, new Set([ref]))
+      )
+  );
+  if (unmatched.length > 0) {
+    throw new CliError(
+      `start --allow refs match no declared catalog entry: ${JSON.stringify(unmatched)}`
+    );
+  }
+  return Object.freeze({
+    ...binding,
+    runtimeRegistryStartup: Object.freeze({
+      ...startup,
+      productDeclarations: Object.freeze(
+        startup.productDeclarations.filter((declaration) =>
+          coveredBy(declaration, allowSet)
+        )
+      )
+    })
+  });
+}
+
+// T-217 Phase 2 S2.1 (census C-7): promote codex transport steering from
+// ambient environment to declared start arguments. The CLI is the adapter
+// that owns process environment as bootstrap ingress (runtime truth rule
+// 11); a declared argument overwrites the ambient binding for this run.
+export function applyDeclaredTransportSteering(command: {
+  readonly codexModel: string | undefined;
+  readonly codexSandbox: string | undefined;
+}): void {
+  if (command.codexModel !== undefined) {
+    process.env["ABG_TS_CODEX_MODEL"] = command.codexModel;
+  }
+  if (command.codexSandbox !== undefined) {
+    process.env["ABG_TS_CODEX_SANDBOX"] = command.codexSandbox;
+  }
+}
+
 async function runStartCommand(
   command: ParsedStartCommand,
   io: AbiogenesisCliIo
 ): Promise<number> {
+  applyDeclaredTransportSteering(command);
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
   const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
-  const binding = await loadRuntimeBinding(workspaceRoot);
+  const binding = narrowRegistryStartupToSessionAllowlist(
+    await loadRuntimeBinding(workspaceRoot),
+    command.allow
+  );
   const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);

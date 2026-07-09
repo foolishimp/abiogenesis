@@ -13,7 +13,12 @@ import path from "node:path";
 import {
   assertRuntimeEvent
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
-import { runAbiogenesisCli } from "../../build/semantic/code/src/cli/command.js";
+import {
+  applyDeclaredTransportSteering,
+  narrowRegistryStartupToSessionAllowlist,
+  runAbiogenesisCli
+} from "../../build/semantic/code/src/cli/command.js";
+import { contractForKnownAgent } from "../../build/semantic/code/src/shared/abg_library/transport_contracts.js";
 import { runEngineStart } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 import {
@@ -304,4 +309,217 @@ test("T-217 S2.1: a full operator session through the grammar — every act a co
   assert.equal(finalReport.attestations.length, 1);
   assert.equal(finalReport.attestations[0].verified, true);
   assert.ok(finalReport.segments.length >= 1, "segments render in the report");
+});
+
+// ---------------------------------------------------------------------------
+// S2.1b — WITNESS-015: the session allowlist is a narrowing-only view
+// restriction over the binding-declared catalog, supplied through the
+// operator grammar.
+// ---------------------------------------------------------------------------
+
+function allowlistBinding({ enabledLibraryRefs, declarations }) {
+  const namespace = "t217/allow";
+  return {
+    module: { moduleRef: "module://t217/allow" },
+    runtimeIdentity: { resolvedRuntimeRef: "runtime://t217/allow" },
+    resolvedPolicy: { resolvedPolicyBundleRef: "policy://t217/allow" },
+    runtimeRegistryStartup: {
+      systemDeclarations: [],
+      productStartupConfig: {
+        ...t217StartupConfig({ namespace }),
+        enabledLibraryRefs
+      },
+      productDeclarations: declarations,
+      correlationId: "correlation://t217/allow"
+    }
+  };
+}
+
+test("T-217 S2.1 (WITNESS-015): --allow narrows the declared catalog — by entry ref, declaration ref, and source ref; undefined leaves the binding untouched", () => {
+  const namespace = "t217/allow";
+  const alpha = t217Declaration({ namespace, subject: "alpha", contentMarker: "v1" });
+  const beta = t217Declaration({ namespace, subject: "beta", contentMarker: "v1" });
+  const binding = allowlistBinding({
+    enabledLibraryRefs: [],
+    declarations: [alpha, beta]
+  });
+
+  // undefined allow: the binding's own view governs — same object, no copy
+  assert.equal(narrowRegistryStartupToSessionAllowlist(binding, undefined), binding);
+
+  // narrow by entry ref: beta is OUT of the session's view
+  const byEntry = narrowRegistryStartupToSessionAllowlist(binding, [alpha.entryRef]);
+  assert.deepEqual(
+    byEntry.runtimeRegistryStartup.productDeclarations.map((d) => d.entryRef),
+    [alpha.entryRef]
+  );
+  // narrow by declaration ref
+  const byDeclaration = narrowRegistryStartupToSessionAllowlist(binding, [
+    beta.declarationRef
+  ]);
+  assert.deepEqual(
+    byDeclaration.runtimeRegistryStartup.productDeclarations.map((d) => d.entryRef),
+    [beta.entryRef]
+  );
+  // a shared declaration-source ref covers every declaration it sources
+  const bySource = narrowRegistryStartupToSessionAllowlist(binding, [
+    `gtl://module/${namespace}`
+  ]);
+  assert.equal(bySource.runtimeRegistryStartup.productDeclarations.length, 2);
+});
+
+test("T-217 S2.1 (WITNESS-015): violations fail closed as typed grammar rejections — widening, phantom refs, and a binding with no catalog", () => {
+  const namespace = "t217/allow";
+  const alpha = t217Declaration({ namespace, subject: "alpha", contentMarker: "v1" });
+  const beta = t217Declaration({ namespace, subject: "beta", contentMarker: "v1" });
+
+  // the binding already restricts the view to alpha; allowing beta WIDENS
+  const restricted = allowlistBinding({
+    enabledLibraryRefs: [alpha.entryRef],
+    declarations: [alpha, beta]
+  });
+  assert.throws(
+    () => narrowRegistryStartupToSessionAllowlist(restricted, [beta.entryRef]),
+    /narrowing-only/u
+  );
+
+  // a ref matching nothing declared is a phantom, not a silent no-op
+  const open = allowlistBinding({
+    enabledLibraryRefs: [],
+    declarations: [alpha, beta]
+  });
+  assert.throws(
+    () =>
+      narrowRegistryStartupToSessionAllowlist(open, [
+        "registry-entry://t217/allow/phantom"
+      ]),
+    /match no declared catalog entry/u
+  );
+
+  // --allow with no binding-declared catalog: nothing to narrow
+  assert.throws(
+    () =>
+      narrowRegistryStartupToSessionAllowlist(
+        { module: {}, runtimeIdentity: {}, resolvedPolicy: {} },
+        [alpha.entryRef]
+      ),
+    /no declared catalog to narrow/u
+  );
+});
+
+test("T-217 S2.1 (WITNESS-015): the allow grammar itself is closed — empty and duplicate refs are typed command rejections", async () => {
+  const { root } = fixtureWorkspace();
+  const startArgs = (allow) => [
+    "start", "--workspace", root,
+    "--scope", "t217", "--target", "next", "--until", "converged",
+    "--allow", allow
+  ];
+  let ctx = cliIo(root);
+  assert.equal(await runAbiogenesisCli(startArgs(""), ctx.io), 1);
+  assert.match(ctx.lastJson().reason, /non-empty refs/u);
+  ctx = cliIo(root);
+  assert.equal(
+    await runAbiogenesisCli(startArgs("ref://a,ref://a"), ctx.io),
+    1
+  );
+  assert.match(ctx.lastJson().reason, /must be unique/u);
+});
+
+test("T-217 S2.1 (WITNESS-015 + C-7 wiring): start carries --allow and --codex-model through the REAL command path — the loaded binding's catalog is what the allowlist narrows", async () => {
+  const { root, eventLogPath } = fixtureWorkspace();
+  seedHaltedRun(eventLogPath);
+  // an app-owned runtime binding whose registry startup declares the
+  // catalog (open view), importing the same support fixtures this test
+  // uses so module/identity/policy shapes are the real ones
+  const supportUrl = (name) =>
+    new URL(`./support/${name}`, import.meta.url).href;
+  writeFileSync(
+    path.join(root, ".abiogenesis", "typescript-runtime.mjs"),
+    [
+      `import { buildThreeStageStartContext } from ${JSON.stringify(supportUrl("m03-iteration-fixtures.mjs"))};`,
+      `import { t217Declaration, t217StartupConfig } from ${JSON.stringify(supportUrl("t217-witness-fixtures.mjs"))};`,
+      `const { context, executive } = buildThreeStageStartContext({ defaultRegime: "F_P" });`,
+      `export const runtimeBinding = {`,
+      `  module: context.module,`,
+      `  runtimeIdentity: context.runtimeIdentity,`,
+      `  resolvedPolicy: context.resolvedPolicy,`,
+      `  runtimeRegistryStartup: {`,
+      `    systemDeclarations: [],`,
+      `    productStartupConfig: { ...t217StartupConfig({ namespace: "t217/grammar" }), enabledLibraryRefs: [] },`,
+      `    productDeclarations: [t217Declaration({ namespace: "t217/grammar", contentMarker: "content-v1", graphFunctionRef: executive.id })],`,
+      `    correlationId: "correlation://t217/grammar/binding"`,
+      `  }`,
+      `};`,
+      ``
+    ].join("\n"),
+    "utf8"
+  );
+  const savedModel = process.env.ABG_TS_CODEX_MODEL;
+  try {
+    const ctx = cliIo(root);
+    const exitCode = await runAbiogenesisCli(
+      [
+        "start", "--workspace", root,
+        "--scope", "t217", "--target", "next", "--until", "converged",
+        "--allow", "registry-entry://t217/grammar/phantom",
+        "--codex-model", "declared-model"
+      ],
+      ctx.io
+    );
+    // the phantom ref fails closed INSIDE the narrowing law, which proves
+    // the parsed allow list met the LOADED binding's declared catalog
+    assert.equal(exitCode, 1);
+    assert.match(ctx.lastJson().reason, /match no declared catalog entry/u);
+    // and the declared codex argument was applied by the same command path
+    assert.equal(process.env.ABG_TS_CODEX_MODEL, "declared-model");
+  } finally {
+    if (savedModel === undefined) {
+      delete process.env.ABG_TS_CODEX_MODEL;
+    } else {
+      process.env.ABG_TS_CODEX_MODEL = savedModel;
+    }
+  }
+});
+
+test("T-217 S2.1 (C-7): codex model/sandbox are declared start arguments — the declared value wins over ambient environment in the transport contract", () => {
+  const savedModel = process.env.ABG_TS_CODEX_MODEL;
+  const savedSandbox = process.env.ABG_TS_CODEX_SANDBOX;
+  try {
+    process.env.ABG_TS_CODEX_MODEL = "ambient-model";
+    delete process.env.ABG_TS_CODEX_SANDBOX;
+
+    // ambient only: env steers (rule 11 bootstrap ingress), sandbox defaults
+    let args = contractForKnownAgent("codex").argsTemplate;
+    assert.ok(args.includes("ambient-model"));
+    assert.ok(args.includes("--full-auto"));
+
+    // declared arguments overwrite the ambient binding for this run
+    applyDeclaredTransportSteering({
+      codexModel: "declared-model",
+      codexSandbox: "workspace-write"
+    });
+    args = contractForKnownAgent("codex").argsTemplate;
+    assert.ok(args.includes("declared-model"));
+    assert.equal(args.includes("ambient-model"), false);
+    const sandboxAt = args.indexOf("--sandbox");
+    assert.notEqual(sandboxAt, -1);
+    assert.equal(args[sandboxAt + 1], "workspace-write");
+    assert.equal(args.includes("--full-auto"), false);
+
+    // omitted declared arguments leave the standing binding untouched
+    applyDeclaredTransportSteering({ codexModel: undefined, codexSandbox: undefined });
+    args = contractForKnownAgent("codex").argsTemplate;
+    assert.ok(args.includes("declared-model"));
+  } finally {
+    if (savedModel === undefined) {
+      delete process.env.ABG_TS_CODEX_MODEL;
+    } else {
+      process.env.ABG_TS_CODEX_MODEL = savedModel;
+    }
+    if (savedSandbox === undefined) {
+      delete process.env.ABG_TS_CODEX_SANDBOX;
+    } else {
+      process.env.ABG_TS_CODEX_SANDBOX = savedSandbox;
+    }
+  }
 });
