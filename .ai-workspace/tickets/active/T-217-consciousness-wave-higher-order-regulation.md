@@ -804,6 +804,36 @@ slice discipline (entry triage -> slices -> hostile rounds -> ledger).
    additions: grammar conformance green; closure-gating live.
 6. RELEASE SCOPE: 4.6 line; odd_glc touched ONLY in S2.3.
 
+S2.1a DELIVERED (2026-07-10) — THE OPERATOR GRAMMAR'S CORE: the
+reference adapter gains `witness <act>` (reprice | attest |
+hygiene-stamp | intake | run-resumed | run-stopped) and
+`observe report` — every act a typed command with closed per-act
+flags; every command reconstructs the run's spine FROM THE PERSISTED
+LOG (C-5 delivered: RouteBasisIdentity +
+reconstructRouteBasisFromReplay by the D-ordinal law; the six witness
+routes now take the identity subset; the test-side basis hack is dead
+API-side), acts through the operator routes, and appends admitted
+canonical events to the workspace event log (EVENTS-024 durable
+append). `observe report` renders halt diagnosis, citability,
+segments, and attestation verification from the real log — WITNESS-011
+realized at the adapter. CONFORMANCE DIFFERENTIAL (the WITNESS-013
+tail): one fixture workspace + persisted JSONL log seeded with a real
+drift-halted run; a FULL OPERATOR SESSION through the CLI — observe
+(sees the halt) -> intake (triage) -> reprice (ratify) -> run-resumed
+-> hygiene-stamp -> run-stopped -> attest -> observe (attestation
+verified, segments rendered) — asserting every act lands as an
+admitted actor-attributed canonical event in the persisted log, and
+grammar rejections are typed commands too. Suites 1229/1229;
+diff-execution gate violations=0 over the slice diff (exhaustiveness
+default removed in favor of compile-proven definite assignment — no
+unreachable runtime lines).
+
+S2.1b REMAINING (the slice tail): start --allow (WITNESS-015 realized
+at the adapter: narrowing intersection over the binding's
+runtimeRegistryStartup.enabledLibraryRefs; error when no catalog to
+narrow) + the ABG_TS_CODEX_MODEL/SANDBOX env-steering promotion to
+declared start arguments (C-7). Then S2.2 closure-gating.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

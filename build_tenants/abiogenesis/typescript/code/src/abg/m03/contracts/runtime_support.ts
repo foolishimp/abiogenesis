@@ -128,7 +128,7 @@ export function runtimeEventBasisId(event: RuntimeEvent): string | null {
 }
 
 export function runtimeEventsForBasis(
-  basis: ExecutionBasis,
+  basis: { readonly id: string },
   events: readonly RuntimeEvent[]
 ): readonly RuntimeEvent[] {
   return Object.freeze(

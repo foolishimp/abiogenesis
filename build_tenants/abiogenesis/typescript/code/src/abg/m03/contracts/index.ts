@@ -1418,6 +1418,8 @@ export type {
 } from "./replay_attestation.js";
 export { constructReplayLogAttestedEvent } from "./event_factories.js";
 export type { ReplayLogAttestedEvent } from "./carriers.js";
+export { reconstructRouteBasisFromReplay } from "./route_basis.js";
+export type { RouteBasisIdentity } from "./route_basis.js";
 export {
   ARTIFACT_FIELD_RULE_VALUES,
   admitArtifactAgainstSchema,

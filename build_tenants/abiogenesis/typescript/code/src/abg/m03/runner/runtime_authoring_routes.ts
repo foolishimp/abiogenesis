@@ -82,6 +82,7 @@ import {
 } from "../contracts/runtime_support.js";
 import type { ZoomFoldbackEvaluation } from "../contracts/workspace_zoom_foldback.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
+import type { RouteBasisIdentity } from "../contracts/route_basis.js";
 
 export interface ExplicitGraphVectorResumeCursorRequest {
   readonly basis: ExecutionBasis;
@@ -133,7 +134,7 @@ export interface GraphSpanReentryApplicationResult {
 }
 
 function hasBasisAdmittedEvent(
-  basis: ExecutionBasis,
+  basis: { readonly id: string },
   events: readonly RuntimeEvent[]
 ): boolean {
   return events.some(
@@ -147,7 +148,7 @@ function hasBasisAdmittedEvent(
 // spines are cross-basis by definition); an uncovered fork throws — the
 // operator ratifies from the existing spine first.
 function withBasisAdmission(
-  basis: ExecutionBasis,
+  basis: RouteBasisIdentity,
   rawRuntimeEvents: readonly RuntimeEvent[],
   events: readonly RuntimeEvent[]
 ): readonly RuntimeEvent[] {
@@ -326,7 +327,7 @@ function graphSpanTransitionProjection(input: {
 }
 
 export interface DeclarationRepriceAdmissionRequest {
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly declarationRef: string;
@@ -342,7 +343,7 @@ export interface DeclarationRepriceAdmissionRequest {
 
 export interface DeclarationRepriceAdmissionResult {
   readonly kind: "declaration_reprice_admission_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly repriceEvent: DeclarationRepriceAdmittedEvent;
   readonly repriceRef: string;
   readonly frozenLaw: FrozenLawPredicate;
@@ -392,7 +393,7 @@ export function admitDeclarationReprice(
 }
 
 export interface OperatorRunLifecycleRequest {
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly operatorActorRef: string;
@@ -403,7 +404,7 @@ export interface OperatorRunLifecycleRequest {
 
 export interface RunResumedAdmissionResult {
   readonly kind: "run_resumed_admission_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly lifecycleEvent: RunResumedEvent;
   readonly emittedEvents: readonly CanonicalRuntimeEvent[];
   readonly replayEvents: readonly RuntimeEvent[];
@@ -411,7 +412,7 @@ export interface RunResumedAdmissionResult {
 
 export interface RunStoppedAdmissionResult {
   readonly kind: "run_stopped_admission_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly lifecycleEvent: RunStoppedEvent;
   readonly emittedEvents: readonly CanonicalRuntimeEvent[];
   readonly replayEvents: readonly RuntimeEvent[];
@@ -484,7 +485,7 @@ export function admitRunStopped(
 }
 
 export interface WorkspaceHygieneStampRequest {
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly observedBy: string;
@@ -496,7 +497,7 @@ export interface WorkspaceHygieneStampRequest {
 
 export interface WorkspaceHygieneStampResult {
   readonly kind: "workspace_hygiene_stamp_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly hygieneEvent: WorkspaceHygieneStampedEvent;
   readonly hygieneRef: string;
   readonly hygiene: WorkspaceHygienePredicate;
@@ -549,7 +550,7 @@ export function admitWorkspaceHygieneStamp(
 }
 
 export interface DefectIntakeRequest {
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly owner: string;
@@ -564,7 +565,7 @@ export interface DefectIntakeRequest {
 
 export interface DefectIntakeAdmissionResult {
   readonly kind: "defect_intake_admission_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly diagnosis: HaltDiagnosisProjection;
   readonly intakeEvent: DefectIntakeAdmittedEvent;
   readonly intakeRef: string;
@@ -623,7 +624,7 @@ export function admitDefectIntake(
 }
 
 export interface ReplayLogAttestationRequest {
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly attestedBy: string;
@@ -633,7 +634,7 @@ export interface ReplayLogAttestationRequest {
 
 export interface ReplayLogAttestationResult {
   readonly kind: "replay_log_attestation_result";
-  readonly basis: ExecutionBasis;
+  readonly basis: RouteBasisIdentity;
   readonly attestationEvent: ReplayLogAttestedEvent;
   readonly attestationRef: string;
   readonly chainDigest: string;

@@ -68,6 +68,26 @@ import type {
 import type { PublicCallableStartOutcome } from "../app/m04/max_autonomy/carriers.js";
 import type { PublicStartContext } from "../app/m04/public_start.js";
 import {
+  admitDeclarationReprice,
+  admitDefectIntake,
+  admitReplayLogAttestation,
+  admitRunResumed,
+  admitRunStopped,
+  admitWorkspaceHygieneStamp,
+  deriveCitabilityPredicate,
+  deriveHaltDiagnosis,
+  deriveRunSegments,
+  reconstructRouteBasisFromReplay,
+  verifyReplayLogAttestations
+} from "../abg/m03/index.js";
+import type {
+  CanonicalRuntimeEvent,
+  GraphChangeClass,
+  GraphReentryPoint,
+  RunResumeReasonKind,
+  RunStopReasonKind
+} from "../abg/m03/index.js";
+import {
   createRuntimeEventLogSink,
   seedRuntimeEventAdmissionOrdinal
 } from "../abg/m03/events/index.js";
@@ -89,6 +109,8 @@ type ParsedCommand =
   | ParsedInstallCommand
   | ParsedStartCommand
   | ParsedGapsCommand
+  | ParsedWitnessCommand
+  | ParsedObserveCommand
   | ParsedGenConfigCommand
   | ParsedAssessResultCommand
   | ParsedTypecheckGtlProgramCommand
@@ -136,6 +158,26 @@ interface ParsedStartCommand {
   // root_mode via REQ-P-POLICY-013 (T-118).
   readonly fhMode: FhMode | undefined;
   readonly rootMode: RootMode | undefined;
+}
+
+type WitnessAct =
+  | "reprice"
+  | "attest"
+  | "hygiene-stamp"
+  | "intake"
+  | "run-resumed"
+  | "run-stopped";
+
+interface ParsedWitnessCommand {
+  readonly kind: "witness";
+  readonly act: WitnessAct;
+  readonly workspace: string;
+  readonly fields: Readonly<Record<string, string>>;
+}
+
+interface ParsedObserveCommand {
+  readonly kind: "observe";
+  readonly workspace: string;
 }
 
 interface ParsedGapsCommand {
@@ -582,6 +624,78 @@ function parseGapsCommand(args: readonly string[]): ParsedGapsCommand {
   });
 }
 
+// T-217 Phase 2 S2.1 — the operator grammar's witness verbs. Every
+// operator act is a typed command; every command admits actor-attributed
+// events into the workspace event log (WITNESS-009..-011 realized at the
+// reference adapter).
+const WITNESS_ACT_FLAGS: Readonly<Record<WitnessAct, readonly string[]>> =
+  Object.freeze({
+    reprice: Object.freeze([
+      "declaration-ref",
+      "before-digest",
+      "after-digest",
+      "change-class",
+      "ticket",
+      "actor",
+      "reason"
+    ]),
+    attest: Object.freeze(["actor"]),
+    "hygiene-stamp": Object.freeze(["observed-by", "observations"]),
+    intake: Object.freeze([
+      "owner",
+      "change-class",
+      "re-entry",
+      "summary",
+      "triaged-by"
+    ]),
+    "run-resumed": Object.freeze(["actor", "reason-kind", "reason"]),
+    "run-stopped": Object.freeze(["actor", "reason-kind", "reason"])
+  });
+
+function parseWitnessCommand(args: readonly string[]): ParsedWitnessCommand {
+  const act = args[0];
+  if (
+    act !== "reprice" &&
+    act !== "attest" &&
+    act !== "hygiene-stamp" &&
+    act !== "intake" &&
+    act !== "run-resumed" &&
+    act !== "run-stopped"
+  ) {
+    throw new CliError(
+      `witness requires an act: reprice | attest | hygiene-stamp | intake | run-resumed | run-stopped`
+    );
+  }
+  const parsed = parseFlags(args.slice(1));
+  requireNoPositionals(parsed, `witness ${act}`);
+  const actFlags = WITNESS_ACT_FLAGS[act];
+  requireAllowedFlags(parsed, `witness ${act}`, ["workspace", ...actFlags]);
+  const fields: Record<string, string> = {};
+  for (const flag of actFlags) {
+    fields[flag] = requiredFlag(parsed, flag);
+  }
+  return Object.freeze({
+    kind: "witness",
+    act,
+    workspace: optionalFlag(parsed, "workspace", "."),
+    fields: Object.freeze(fields)
+  });
+}
+
+function parseObserveCommand(args: readonly string[]): ParsedObserveCommand {
+  const sub = args[0];
+  if (sub !== "report") {
+    throw new CliError("observe requires the report subcommand");
+  }
+  const parsed = parseFlags(args.slice(1));
+  requireNoPositionals(parsed, "observe report");
+  requireAllowedFlags(parsed, "observe report", ["workspace"]);
+  return Object.freeze({
+    kind: "observe",
+    workspace: optionalFlag(parsed, "workspace", ".")
+  });
+}
+
 function parseGenConfigCommand(
   args: readonly string[]
 ): ParsedGenConfigCommand {
@@ -686,6 +800,10 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseStartCommand(args);
     case "gaps":
       return parseGapsCommand(args);
+    case "witness":
+      return parseWitnessCommand(args);
+    case "observe":
+      return parseObserveCommand(args);
     case "gen-config":
       return parseGenConfigCommand(args);
     case "assess-result":
@@ -1869,6 +1987,174 @@ async function runGenConfigCommand(
   return 0;
 }
 
+async function loadWitnessContext(io: AbiogenesisCliIo, workspace: string) {
+  const workspaceRoot = resolveWorkspace(io.cwd(), workspace);
+  const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
+  const eventLogPath = runtimeEventLogPath(toolchainBinding);
+  const replayEvents = await readReplayEvents(eventLogPath);
+  seedRuntimeEventAdmissionOrdinal(replayEvents);
+  return { workspaceRoot, eventLogPath, replayEvents };
+}
+
+async function runWitnessCommand(
+  command: ParsedWitnessCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const { eventLogPath, replayEvents } = await loadWitnessContext(
+    io,
+    command.workspace
+  );
+  const basis = reconstructRouteBasisFromReplay(replayEvents);
+  const eventLogSink = createRuntimeEventLogSink(eventLogPath);
+  const sink = (event: CanonicalRuntimeEvent): void => {
+    eventLogSink.sink(event);
+  };
+  const fields = command.fields;
+  let resultRef: string;
+  let extra: Record<string, unknown> = {};
+  switch (command.act) {
+    case "reprice": {
+      const outcome = admitDeclarationReprice({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        declarationRef: fields["declaration-ref"] ?? "",
+        beforeDigest: fields["before-digest"] ?? "",
+        afterDigest: fields["after-digest"] ?? "",
+        changeClass: fields["change-class"] as GraphChangeClass,
+        owningTicketRef: fields["ticket"] ?? "",
+        operatorActorRef: fields["actor"] ?? "",
+        reason: fields["reason"] ?? ""
+      });
+      resultRef = outcome.repriceRef;
+      extra = { frozen_law: outcome.frozenLaw };
+      break;
+    }
+    case "attest": {
+      const outcome = admitReplayLogAttestation({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        attestedBy: fields["actor"] ?? ""
+      });
+      resultRef = outcome.attestationRef;
+      extra = {
+        chain_digest: outcome.chainDigest,
+        event_count: outcome.eventCount
+      };
+      break;
+    }
+    case "hygiene-stamp": {
+      const observationsPath = isAbsolute(fields["observations"] ?? "")
+        ? resolve(fields["observations"] ?? "")
+        : resolve(io.cwd(), fields["observations"] ?? "");
+      const observations = JSON.parse(
+        await readFile(observationsPath, "utf8")
+      ) as readonly { artifactRef: string; observedDigest: string | null }[];
+      const outcome = admitWorkspaceHygieneStamp({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        observedBy: fields["observed-by"] ?? "",
+        observations
+      });
+      resultRef = outcome.hygieneRef;
+      extra = { hygiene: outcome.hygiene, citability: outcome.citability };
+      break;
+    }
+    case "intake": {
+      const outcome = admitDefectIntake({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        owner: fields["owner"] ?? "",
+        changeClass: fields["change-class"] as GraphChangeClass,
+        reEntryPoint: fields["re-entry"] as GraphReentryPoint,
+        summary: fields["summary"] ?? "",
+        triagedBy: fields["triaged-by"] ?? ""
+      });
+      resultRef = outcome.intakeRef;
+      extra = { ticket_draft: outcome.ticketDraft };
+      break;
+    }
+    case "run-resumed": {
+      const outcome = admitRunResumed({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        operatorActorRef: fields["actor"] ?? "",
+        reasonKind: fields["reason-kind"] as RunResumeReasonKind,
+        reasonDetail: fields["reason"] ?? ""
+      });
+      resultRef = outcome.lifecycleEvent.correlationId;
+      break;
+    }
+    case "run-stopped": {
+      const outcome = admitRunStopped({
+        basis,
+        runtimeEvents: replayEvents,
+        eventSink: sink,
+        operatorActorRef: fields["actor"] ?? "",
+        reasonKind: fields["reason-kind"] as RunStopReasonKind,
+        reasonDetail: fields["reason"] ?? ""
+      });
+      resultRef = outcome.lifecycleEvent.correlationId;
+      break;
+    }
+  }
+  io.stdout(
+    `${JSON.stringify({
+      command: "witness",
+      act: command.act,
+      status: "ok",
+      ref: resultRef,
+      basis: basis.id,
+      event_kinds: eventLogSink.emittedEvents.map((event) => event.kind),
+      events_path: eventLogPath,
+      ...extra
+    })}\n`
+  );
+  return 0;
+}
+
+async function runObserveCommand(
+  command: ParsedObserveCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const { eventLogPath, replayEvents } = await loadWitnessContext(
+    io,
+    command.workspace
+  );
+  const diagnosis = deriveHaltDiagnosis(replayEvents);
+  const citability = deriveCitabilityPredicate(replayEvents);
+  const segments = deriveRunSegments(replayEvents);
+  const attestations = verifyReplayLogAttestations(replayEvents);
+  io.stdout(
+    `${JSON.stringify({
+      command: "observe",
+      report: {
+        events_path: eventLogPath,
+        event_count: replayEvents.length,
+        halted: diagnosis.halted,
+        halt_reason: diagnosis.haltReason,
+        implicated_edges: diagnosis.implicatedEdges,
+        citability,
+        segments: segments.map((segment) => ({
+          segment_ref: segment.segmentRef,
+          segment_index: segment.segmentIndex,
+          frozen_law: segment.frozenLaw.frozenLaw
+        })),
+        attestations: attestations.map((row) => ({
+          attestation_ref: row.attestationRef,
+          verified: row.verified,
+          failure: row.failureReason
+        }))
+      }
+    })}\n`
+  );
+  return 0;
+}
+
 async function runAssessResultCommand(
   command: ParsedAssessResultCommand,
   io: AbiogenesisCliIo
@@ -2076,6 +2362,10 @@ async function runParsedCommand(
       return runStartCommand(command, io);
     case "gaps":
       return runGapsCommand(command, io);
+    case "witness":
+      return runWitnessCommand(command, io);
+    case "observe":
+      return runObserveCommand(command, io);
     case "gen-config":
       return runGenConfigCommand(command, io);
     case "assess-result":

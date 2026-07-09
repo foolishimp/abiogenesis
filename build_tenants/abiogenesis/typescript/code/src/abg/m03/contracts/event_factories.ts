@@ -241,7 +241,9 @@ export function constructGraphVectorResumeCursorAppliedEvent(input: {
   } satisfies GraphVectorResumeCursorAppliedEvent);
 }
 
-export function constructBasisAdmittedEvent(basis: ExecutionBasis): BasisAdmittedEvent {
+export function constructBasisAdmittedEvent(
+  basis: import("./route_basis.js").RouteBasisIdentity
+): BasisAdmittedEvent {
   return Object.freeze({
     kind: "basis_admitted",
     basisId: basis.id,
