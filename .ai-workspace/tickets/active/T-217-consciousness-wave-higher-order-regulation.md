@@ -492,6 +492,32 @@ on whether lawful multi-basis workspaces share runId/workKey); SR-6
 helper commonization + SR-7 WITNESS-012 direct differential ride the
 Phase 2 cleanup / Phase 1 exit gate. Suites 1207/1207 green.
 
+S5 DELIVERED (2026-07-09): the basis-fork witness — WITNESS-003 NOW
+COVERED IN FULL (declaration digests S1 + policy/binding truth here).
+Shape as adjudicated-by-investigation: the spine is the work-identity
+key visible on basis_admitted truth (graphFunctionId + jobId + runId +
+workKey, nulls included); a NEW basis entering a spine that already
+ran under a DIFFERENT basisId fail-closes basis_fork_detected unless a
+covering reprice exists with declarationRef = spineRef and digests =
+the EXACT basisId pair — the existing reprice event covers it verbatim
+(no new kind; the no-zoo audit holds). The guard scans the RAW request
+events (the ingress filter is basis-scoped and prior spines are
+cross-basis by definition) and blocks BEFORE the forked basis_admitted
+is emitted (no fork laundering — the S1 lesson). Chain of custody: the
+decisive prior basis is ordinal-latest (A->A' ratified earlier means
+entering A'' must be covered FROM A'); multiple unorderable priors
+fail closed. The D-ORDINAL LAW is now a shared authority
+(admission_hygiene.decisiveByAdmissionOrdinal — the standing lesson
+has one home; SR-6's remaining copies still ride the cleanup rider).
+Multi-graph stores are safe by construction: a different graph
+function is a different spine (the adjudication concern resolved
+mechanically — no false positive; full suite 1210/1210 including all
+recursion/zoom suites clean on first run). Pins i1 (exact-pair/wrong-
+pair/other-spine/resume), i2 (ordinal chain of custody + unorderable
+fail-closed), i3 (live runner: policy-bundle fork blocked before
+admission, covering reprice ratifies, forked basis admitted after).
+SR-2 CLOSED.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

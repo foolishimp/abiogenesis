@@ -24,6 +24,8 @@ import type {
   DeclarationRepriceAdmittedEvent,
   RuntimeEvent
 } from "./carriers.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import { decisiveByAdmissionOrdinal } from "./admission_hygiene.js";
 
 export interface FrozenLawWindow {
   readonly fromOrdinal: number | null;
@@ -207,5 +209,119 @@ export function deriveDeclarationRepriceObligations(input: {
       frozenRows.filter((row) => row.coveringRepriceRefs.length === 0)
     ),
     identityConflictRows: Object.freeze([...identityConflictRows])
+  });
+}
+
+// ── The basis-fork witness (S5, WITNESS-003 "binding, or policy truth";
+// self-review SR-2). basis.id is content-derived over resolvedPolicy and
+// runtimeIdentity, so a policy/binding change on the SAME declared work
+// mints a new basis identity and enters the fresh-start path — without
+// this witness the fork is silent and spines coexist unratified. The
+// spine is the work-identity key visible on basis_admitted truth; the
+// covering carrier is the EXISTING reprice event with declarationRef =
+// spineRef and the basisId pair as its digests (exact-pair law, no new
+// event kind). The decisive prior basis is chosen by admission ordinal
+// (chain of custody: A->A' covered earlier means entering A'' must be
+// covered from A').
+
+export interface ExecutionBasisSpine {
+  readonly graphFunctionId: string;
+  readonly jobId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+}
+
+export interface BasisForkRow {
+  readonly kind: "basis_fork_row";
+  readonly spineRef: string;
+  readonly priorBasisId: string;
+  readonly enteringBasisId: string;
+  readonly coveringRepriceRefs: readonly string[];
+}
+
+export interface BasisForkObligationProjection {
+  readonly kind: "basis_fork_obligation_projection";
+  readonly forkRows: readonly BasisForkRow[];
+  readonly uncoveredForkRows: readonly BasisForkRow[];
+}
+
+export function mintExecutionBasisSpineRef(
+  spine: ExecutionBasisSpine
+): string {
+  return `execution-basis-spine:${stableSha256Digest({
+    graphFunctionId: spine.graphFunctionId,
+    jobId: spine.jobId,
+    runId: spine.runId,
+    workKey: spine.workKey
+  })}`;
+}
+
+export function deriveBasisForkObligations(input: {
+  readonly priorEvents: readonly RuntimeEvent[];
+  readonly enteringBasis: { readonly basisId: string } & ExecutionBasisSpine;
+}): BasisForkObligationProjection {
+  const empty = Object.freeze({
+    kind: "basis_fork_obligation_projection" as const,
+    forkRows: Object.freeze([]),
+    uncoveredForkRows: Object.freeze([])
+  });
+  const entering = input.enteringBasis;
+  const spineMatches = input.priorEvents.filter(
+    (event) =>
+      event.kind === "basis_admitted" &&
+      event.graphFunctionId === entering.graphFunctionId &&
+      event.jobId === entering.jobId &&
+      (event.runId ?? null) === entering.runId &&
+      (event.workKey ?? null) === entering.workKey
+  );
+  // the entering basis already admitted on this spine = a lawful resume,
+  // not a fork (the caller gates on new-entry; this keeps the derivation
+  // total either way)
+  if (
+    spineMatches.some(
+      (event) =>
+        event.kind === "basis_admitted" && event.basisId === entering.basisId
+    )
+  ) {
+    return empty;
+  }
+  const priorForks = spineMatches.filter(
+    (event) =>
+      event.kind === "basis_admitted" && event.basisId !== entering.basisId
+  );
+  if (priorForks.length === 0) {
+    return empty;
+  }
+  const decisivePrior = decisiveByAdmissionOrdinal(
+    priorForks,
+    "Basis fork detection"
+  );
+  if (decisivePrior === null || decisivePrior.kind !== "basis_admitted") {
+    return empty;
+  }
+  const spineRef = mintExecutionBasisSpineRef(entering);
+  const coveringRepriceRefs = deriveAdmittedDeclarationRepriceEvents(
+    input.priorEvents
+  )
+    .filter(
+      (reprice) =>
+        reprice.declarationRef === spineRef &&
+        reprice.beforeDigest === decisivePrior.basisId &&
+        reprice.afterDigest === entering.basisId
+    )
+    .map((reprice) => reprice.repriceRef);
+  const row = Object.freeze({
+    kind: "basis_fork_row" as const,
+    spineRef,
+    priorBasisId: decisivePrior.basisId,
+    enteringBasisId: entering.basisId,
+    coveringRepriceRefs: Object.freeze([...new Set(coveringRepriceRefs)])
+  });
+  return Object.freeze({
+    kind: "basis_fork_obligation_projection" as const,
+    forkRows: Object.freeze([row]),
+    uncoveredForkRows: Object.freeze(
+      row.coveringRepriceRefs.length === 0 ? [row] : []
+    )
   });
 }

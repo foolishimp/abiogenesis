@@ -86,3 +86,48 @@ function replacerSortingKeys(
     return sorted;
   };
 }
+
+// D-ORDINAL LAW (T-217 S2-P2 / S4-P1a, the standing lesson applied at
+// the shared home): every "latest/last X" over replay is an ORDINAL
+// law, never an array law. A single candidate needs no ordering; among
+// several, any unorderable candidate (no admission ordinal) FAILS
+// CLOSED — caller array order must never mint authority.
+export function eventAdmissionOrdinalOf(event: unknown): number | null {
+  if (
+    typeof event === "object" &&
+    event !== null &&
+    "eventAdmissionOrdinal" in event &&
+    typeof (event as { eventAdmissionOrdinal: unknown }).eventAdmissionOrdinal === "number" &&
+    Number.isSafeInteger((event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal) &&
+    (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal >= 0
+  ) {
+    return (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal;
+  }
+  return null;
+}
+
+export function decisiveByAdmissionOrdinal<T>(
+  candidates: readonly T[],
+  label: string
+): T | null {
+  if (candidates.length === 0) {
+    return null;
+  }
+  const first = candidates[0];
+  if (candidates.length === 1 && first !== undefined) {
+    return first;
+  }
+  let decisive: { candidate: T; ordinal: number } | null = null;
+  for (const candidate of candidates) {
+    const ordinal = eventAdmissionOrdinalOf(candidate);
+    if (ordinal === null) {
+      throw new TypeError(
+        `${label} requires admission ordinals to order multiple candidates`
+      );
+    }
+    if (decisive === null || ordinal > decisive.ordinal) {
+      decisive = { candidate, ordinal };
+    }
+  }
+  return decisive === null ? null : decisive.candidate;
+}

@@ -214,7 +214,10 @@ import {
   type RuntimeRegistryStartupAdmissionResult,
   type RuntimeRegistryStartupInput
 } from "../contracts/runtime_graph_function_registry.js";
-import { deriveDeclarationRepriceObligations } from "../contracts/declaration_reprice.js";
+import {
+  deriveBasisForkObligations,
+  deriveDeclarationRepriceObligations
+} from "../contracts/declaration_reprice.js";
 import {
   deriveGoverningDeclarationSet,
   nextRunSegmentIndex
@@ -5430,6 +5433,30 @@ function* runEngineIterateMachine(input: {
     eventState.replayEvents
   );
   if (!isResumedInvocation) {
+    // WITNESS-003 (S5, the basis-fork witness): a NEW basis entering a
+    // spine that already ran under a different basis identity is a
+    // policy/binding fork — inadmissible without a covering reprice
+    // (declarationRef = spineRef, digests = the basisId pair). The scan
+    // reads the RAW request events: the ingress filter is basis-scoped
+    // and prior spines are cross-basis by definition. Blocked BEFORE the
+    // new basis_admitted is emitted (no fork laundering).
+    const forkObligations = deriveBasisForkObligations({
+      priorEvents: request.runtimeEvents ?? Object.freeze([]),
+      enteringBasis: {
+        basisId: request.basis.id,
+        graphFunctionId: request.basis.graphFunction.id,
+        jobId: request.basis.job.id,
+        runId: request.basis.runId,
+        workKey: request.basis.workKey
+      }
+    });
+    if (forkObligations.uncoveredForkRows.length > 0) {
+      return failClosedStartupResult(
+        `basis_fork_detected: ${forkObligations.uncoveredForkRows
+          .map((row) => row.spineRef)
+          .join(",")}`
+      );
+    }
     eventState = emitRunnerEvents(
       eventState,
       constructBasisAdmittedEvent(request.basis)

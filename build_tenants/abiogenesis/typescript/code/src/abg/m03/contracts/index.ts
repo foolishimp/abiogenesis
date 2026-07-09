@@ -1340,9 +1340,20 @@ export {
 } from "./mutation_outcomes.js";
 export {
   deriveAdmittedDeclarationRepriceEvents,
+  deriveBasisForkObligations,
   deriveDeclarationRepriceObligations,
-  deriveFrozenLawPredicate
+  deriveFrozenLawPredicate,
+  mintExecutionBasisSpineRef
 } from "./declaration_reprice.js";
+export type {
+  BasisForkObligationProjection,
+  BasisForkRow,
+  ExecutionBasisSpine
+} from "./declaration_reprice.js";
+export {
+  decisiveByAdmissionOrdinal,
+  eventAdmissionOrdinalOf
+} from "./admission_hygiene.js";
 export type {
   DeclarationDigestDriftRow,
   DeclarationIdentityConflictRow,
