@@ -4,7 +4,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
-- status: active
+- status: completed (2026-07-09)
 - goal: GOAL-032 (Phase 6 release-grade BLOCKED on this wave; fixes cut as 4.5.1)
 - change_intent: >-
     Hostile kernel review (2026-07-09, post-4.5.0) confirmed 1 Critical,
@@ -72,9 +72,12 @@
    nothing; non-listed identity earns nothing; per-test truth)
 3. D2 (supersession; differential: omitted-section retry retires truth)
 4. D4 (family guard)
-5. D3 (verification eviction from glc — with T-209; the binding pin
-   suite repriced to consume the kernel surface)
-6. 4.5.1 cut + repin + the release-grade frozen-law run.
+5. D3 correctness fix DONE in place; the verification-mechanism
+   EVICTION into a kernel surface ROUTED to T-209 (its declarations-only
+   adoption scope) — not a T-216 remainder.
+6. 4.5.1 cut + repin DONE; the release-grade frozen-law proving run is a
+   Phase 6 classification GATE (GOALS), not a bug-ticket deliverable —
+   gated there, not here.
 
 ## Execution outcome (2026-07-09)
 
@@ -104,3 +107,30 @@ REMAINDER (honest, routed):
 - 4.5.1 CUT + release-grade frozen-law proving run re-executes on the
   fixed substrate (the 4.5.0 proving run used the unsound mint; its
   kill evidence is retired by D1).
+
+## CLOSURE (2026-07-09)
+
+The remediation deliverable — all SEVEN confirmed defects (1 Critical,
+2 High, 4 Medium/P2) from the hostile kernel review + codex feedback —
+is delivered, differentially pinned, and artifact-verified in 4.5.1.
+Closure evidence: the confirmed failure probes now fail closed as
+pinned differentials (D1 compile-break mints nothing + lazy-row credits
+only the failed identity; D2 edge supersession + omitting retraction;
+D3 element-scoped anti-inflation; D4 family guard; D5 second-read
+detach; D6 deterministic-digest; D7 sandbox assertion); suites green
+(abiogenesis 1176/69/22, odd_glc 84/76); 4.5.1 tarball grep-verified;
+odd_glc repinned to 4.5.1.
+
+Everything beyond the code fix moves downstream to the Consciousness
+build:
+- D3 architectural eviction -> T-209 (declarations-only adoption).
+- Release-grade frozen-law proving run -> Phase 6 (GOALS classification
+  gate).
+- The review-found process pattern (mechanism escaping design
+  governance = the worst bugs) is a design input to the consciousness
+  tier (T-206/T-207) — the higher-order regulator observing exactly
+  this class.
+
+CLOSING ON DIFFERENTIAL EVIDENCE (stated): the FIXED mint is proven in
+unit differentials, not yet end-to-end live; live confirmation is the
+Phase 6 proving run. Standard for a bug remediation.
