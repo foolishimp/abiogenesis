@@ -69,3 +69,28 @@ confusion (supervisor-as-actor instead of supervisor-as-intent-
 generator) is the cause. T-215's reprice-admission event remains wanted
 as a WITNESS, but the constitutional fix is this role separation: the
 intent process may propose; only a ticket acts.
+
+## Design Principle (user, 2026-07-09): same manifold, different observables
+
+"Several billion years has shown that for higher order systems you need
+some consciousness regulation with maybe the same sized manifold but
+over a different set of observables." (Conant-Ashby: the regulator must
+model the system; Ashby: requisite variety.)
+
+CONSEQUENCE FOR THIS TICKET: the consciousness tier is NOT a
+meta-framework. It is the SAME machinery — GTL declarations, ABG
+traversal/admission/replay, F_P workers behind typed boundaries —
+instantiated over a DIFFERENT observable set: the system's own replay
+streams, fold outcomes, gap_stops, retry histories, cost rows, and the
+drift between the constitutional surface (the internal model) and
+projected reality. The T-215 witness events and halt-diagnosis
+projections are its sense organs; its requisite variety is the same
+F_P worker class that produced the disturbances; its ONLY effector is
+the ticket (the ratified intent-generation loop). The recursion
+terminates: the regulator-of-the-regulator is the goals/intent surface
+with the human in the F_H seat, reading the top layer's replay.
+
+The T-032 campaign is the empirical basis: the monitor seat required no
+machinery the framework lacked — it required the same intelligence
+pointed at events.jsonl instead of at Scala, plus the declared
+observables and the ticket effector it did not yet have.
