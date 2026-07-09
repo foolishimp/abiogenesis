@@ -39,3 +39,33 @@ change-class ladder (goal/intent_reprice as its F_H residence). Sits
 ABOVE the tuner: T-206 adjusts terms WITHIN a set-point; this system
 revises the set-point. INT-008 (the manual intent reprice) remains a
 cheap constitutional hygiene item that this eventually automates.
+
+## Ratified Intent Articulation (user, 2026-07-09 — the T-032 campaign as the worked negative example)
+
+The supervisor role's PURPOSE, stated: the supervisor holds an INTERNAL
+MODEL of what is good/expected; it receives TELEMETRY (replay,
+projections, halt evidence); the GAP between observed reality and the
+model DRIVES the intent process; the intent process covers SOLUTIONING
+up to — never into — ACTION; at the action boundary a TICKETING PROCESS
+fulfils the intent through a ticket action. That closes the full
+lifecycle:
+
+  internal model <- ratification
+       ^                                    |
+  telemetry (replay) -> GAP -> intent -> solution proposal
+                                              |
+                                       TICKET (admission of change)
+                                              |
+                                       ticket ACTION (the only acting
+                                       surface: realize, prove)
+                                              |
+                                       telemetry again (loop closes)
+
+NEGATIVE EXAMPLE (T-032 campaign, T-215 row 3): the monitor collapsed
+the loop — gap perception went straight to action (mid-run law
+amendment), with the ticket-shaped record (campaign ledger) written
+AFTER the act. The mixed-law traversal problem is the SYMPTOM; the role
+confusion (supervisor-as-actor instead of supervisor-as-intent-
+generator) is the cause. T-215's reprice-admission event remains wanted
+as a WITNESS, but the constitutional fix is this role separation: the
+intent process may propose; only a ticket acts.

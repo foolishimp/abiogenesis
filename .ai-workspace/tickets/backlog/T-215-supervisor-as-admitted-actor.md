@@ -44,3 +44,15 @@
    hygiene clean) — ABG projection; falls out of 3+6.
 8. NOT THIS TICKET: automating the seat is T-206/T-207 with F_H
    ratification gates.
+
+## Reprice (user adjudication 2026-07-09): the root cause of row 3
+
+Row 3 was the worst BECAUSE the supervisor role was confused about its
+purpose. The constitutional shape (ratified into T-207): the supervisor
+is an INTENT GENERATOR — internal model + telemetry -> gap -> intent ->
+solutioning UP TO action; the TICKET is the only action carrier. Rows
+2 and 8 reprice accordingly: row 2 (defect-intake) IS the gap->intent
+seam of that process; row 8 is not "automating the seat" but
+implementing the intent process with the ticket boundary as the action
+gate. Row 3's event witness remains wanted, but as the AUDIT of the
+role separation, not a substitute for it.
