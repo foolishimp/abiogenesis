@@ -243,6 +243,48 @@ itself). EXIT: every observable the tier consumes is typed,
 authenticated, and complete; "frozen-law run" is a replay predicate,
 not judgment.
 
+PHASE 1 ENTRY TRIAGE (performed 2026-07-09):
+1. SUBSTANTIVE? Yes — kernel event registrations, projections, and
+   guard points; the tier's sense organs.
+2. BOUNDARY: abg/m03 contracts (event kinds + admission +
+   projections) + the resume/stop emission points (m03 runner / m04
+   control loop) + semantic tests. NO new runner mechanics (design
+   SS5); registrations into the EXISTING closed event universe only.
+   odd_glc untouched this phase.
+3. UPWARD WALK: goals EXIST (GOAL-033) -> intent stable -> product
+   EXISTS (reflective boundary, repriced) -> requirements EXIST
+   (WITNESS-001..014, TUNER-001..014, FPC-018..021, codex-tightened)
+   -> design EXISTS (M03 consciousness doc RATIFIED; SS5 names the
+   realization homes). FIRST MISSING LAYER = REALIZATION. No reprice
+   class required for entry; WITNESS-014's Event Calculus declaration
+   duty is discharged inside each slice before its closure.
+4. RE-ENTRY POINT: build_tenants/abiogenesis/typescript code/src/abg/
+   m03 contracts, inside-out: event kind + admission law first, then
+   the emission/guard point, then the replay predicate, then tests.
+5. SPAN — SLICE ORDER (derived, not enumerated by preference):
+   S1 = WITNESS-003/-004 (declaration_reprice_admitted + block-on-
+   missing-reprice at resume + frozen-law predicate). FIRST because
+   (a) T-215 marked row 3 PRIORITY — both 2026-07-09 user probes were
+   this one missing event kind; (b) the frozen-law predicate is the
+   MECHANICAL gate the open 4.5.1 cold proving run (Foundation Phase
+   6, T-217 Phase 5 entry) must be classified by — realizing S1 first
+   makes that gate law before the run executes; (c) smallest lawful
+   slice: pure contracts+projection with one guard point.
+   S2 = WITNESS-005/-006 (substrate stamps + operator lifecycle F_H
+   events) — same emission locus as S1's guard (resume/stop paths).
+   S3 = WITNESS-007/-008 (hygiene stamps + citability) — citability
+   composes S1+S3 conjuncts, so it lands after both exist.
+   S4 = WITNESS-001/-002 (halt-diagnosis + defect-intake) — the
+   gap->intent seam; feeds Phase 3's observer directly.
+   Then the absorptions: T-211 trust items, T-213 schemas, T-214 diff
+   witness. Grammar commands (WITNESS-009..011) realize WITH their
+   emission points (operator lifecycle commands ride S2); the full
+   grammar surface completes across Phases 1-2.
+6. RELEASE SCOPE: 4.6 line (D-4 all-in); 4.5 line untouched; the
+   4.5.1 frozen-law run remains the Foundation gate and becomes
+   mechanically classifiable once S1 lands.
+STARTED: S1 in flight 2026-07-09.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the
