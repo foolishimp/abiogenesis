@@ -46,10 +46,11 @@ Foundation laws (to be constitutionally repriced in Phase 1):
 
 ### Current Build Wave (consolidated 2026-07-09): The Consciousness Wave — T-217
 
-STATUS (2026-07-09): Phase 0 DELIVERED (constitutional surfaces live,
-codex-tightened); Phase 1 DELIVERED pending F_H exit ruling (witness
-family S1-S6 realized with seven hostile-review rounds absorbed;
-suites 1228/1228; diff-execution gate violations=0).
+STATUS (2026-07-09): Phase 0 DELIVERED; Phase 1 CLOSED (F_H ruling
+2026-07-09 — exit met on semantic-lane evidence; live/sandbox proof
+deferred by ruling to the functionally-complete gate after Phase 4);
+Phase 2 ACTIVE (the kernel boundary: grammar realization, T-209
+remainder, closure-gating, carrier cleanup).
 
 ONE STDO-governed multiphasal ticket now carries the whole build:
 `.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md`

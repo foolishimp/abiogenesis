@@ -742,6 +742,68 @@ content+scope, gate segment semantics, odd_glc export pin. Suites
 cleared). THE S6 CODEX ROUND IS ABSORBED — the exit gate is now the
 F_H ruling alone.
 
+PHASE 1 CLOSED — F_H RULING (user, 2026-07-09, verbatim: "close phase
+1, continue through to phase 4, before we do live sandbox testing ie
+functionally complete"): EXIT MET on the semantic-lane evidence; the
+live/sandbox witness proof is DEFERRED BY RULING to the
+functionally-complete gate — Phases 2-4 build the full machinery
+first, then live sandbox testing precedes/enters Phase 5 (the tier's
+proving campaign remains the live-proof surface, as designed). The
+sandbox witness differential (persisted-log drift/reprice/attestation/
+citability scenario) is the FIRST item of that gate. STANDING
+DIRECTIVE: proceed through Phases 2, 3, and 4 under the established
+slice discipline (entry triage -> slices -> hostile rounds -> ledger).
+
+## Phase 2 entry triage (performed 2026-07-09)
+
+1. SUBSTANTIVE? Yes — the kernel boundary: the operator grammar
+   realized, execution authority cleaned to declarations-only,
+   closure-gating over witness truth, and the carrier debt the census
+   inventoried.
+2. BOUNDARY: cli/command.ts (the reference adapter), abg/m03
+   contracts+runner, odd_glc (T-209 D3 eviction + adoption — the ONE
+   cross-repo slice), specification/requirements/abg (EVENTS-family
+   mini-reprice).
+3. UPWARD WALK: goals EXIST (GOAL-033); product EXISTS; requirements —
+   grammar law EXISTS (WITNESS-009..011/-015); GAP: no EVENTS-family
+   row owns run/basis scoping for the eight run-independent kinds nor
+   structured rejection issues => S2.0 requirement_reprice, then
+   realization. Design EXISTS (SS8 grammar; 6b map); monolith-split
+   design detail lands with its slice.
+4. SLICE ORDER (derived, inside-out):
+   S2.0 EVENTS-family mini-reprice: scope law for run-independent
+        kinds + structured rejection-issue rows (constitution before
+        realization).
+   S2.1 THE GRAMMAR SLICE: CLI verbs binding the existing operator
+        routes (reprice, attest, hygiene-stamp, intake, resume, stop,
+        observe-report); session allowlist as an admitted initial
+        condition (WITNESS-015 realized over enabledLibraryRefs);
+        ABG_TS_CODEX_* env steering promoted to declared verb
+        arguments; operator-command-to-admitted-event conformance
+        differentials (the WITNESS-013 tail).
+   S2.2 CLOSURE-GATING: edge convergence consumes
+        deriveForeignTaintedArtifactRefs (WITNESS-007 enforcement
+        half) + D1.4 kernel-witnessed workspace digests (strengthens
+        the S3 hygiene baseline at its measurement source).
+   S2.3 T-209 REMAINDER (cross-repo): declarations-only adoption; D3
+        report-verification eviction from odd_glc userland into the
+        kernel; proxy prohibition; 11.5B execution-authority audit as
+        the slice exit.
+   S2.4 CARRIER/CLEANUP REALIZATION: C-1 scoping realization over
+        S2.0's law; payload_rejected structured issues; C-4
+        store-scoped emitter handle + the T-195 emit flag; C-5
+        basis-from-replay API (deletes the ~8 test reconstructions);
+        latestAdmittedEventsPerEdge ordinal sweep; C-3 helper
+        reconciliation + T-208 riders; T-213 conformance-row
+        ingestion; C-9 temporal accessor.
+   S2.5 MONOLITH SPLITS (C-2): engine_runner by concern behind its 5
+        entry points; conformance file section-bannered (full split
+        deferred if Phase 3 pressure demands).
+5. EXIT (verbatim from the phase): no mechanism in userland; 11.5B
+   clean; one authority per recurring seam. Plus this wave's
+   additions: grammar conformance green; closure-gating live.
+6. RELEASE SCOPE: 4.6 line; odd_glc touched ONLY in S2.3.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
