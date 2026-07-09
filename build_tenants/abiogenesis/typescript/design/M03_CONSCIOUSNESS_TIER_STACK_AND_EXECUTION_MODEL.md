@@ -27,6 +27,13 @@ A5. TRANSITIONS: defects concentrate at chart boundaries (admission /
     coordinates ARE the transitions.
 A6. EFFECTOR: the regulation tier acts ONLY by ticket/reprice proposal
     behind F_H (FPC-007); local-loop tightening arrives as tier OUTPUT.
+A6b. CLI = ROOT BOUNDARY CONDITION: the abg CLI is a shell that hands
+    INITIAL CONDITIONS to the first node. The operator is inside the
+    ontology — the CLI is the transition map between reality and the
+    root frame; every verb is an admitted input to a node. From the
+    first node, one recursive structure all the way down. There is no
+    operator surface other than admitted node inputs (making T-215's
+    witness problem structural, not additive).
 A7. DRIFT: model-vs-reality divergence is the default condition; the
     system bounds it by attributed measurement, single-writer mutation
     windows, and scheduled re-measurement — never assumes it away.
@@ -229,51 +236,72 @@ projection. Consequences:
   not operators). Operator acts route through the CLI or they did not
   happen.
 
-## 9. Declared graph vs recursive emergence (the crystallization law; user question 2026-07-09)
+## 9. Rails and discovery — the composition algebra (canonical, user 2026-07-09)
 
-THE CRITERION: it is a GRAPH where truth must be GATED; it is
-recursively EMERGENT where truth is only claimed at a boundary.
-Edges are obligations; frames are freedom.
+ONE MEDIUM, ONE ALGEBRA. Everything travels only through graph
+functions — typed contracts, governed interiors. The OVERLAY is their
+published ahead-of-time composition: the RAILS. EMERGENT RECURSION is
+just-in-time composition of the SAME functions inside a bounded frame:
+DISCOVERY. Both are optimizations over one typed algebra; both produce
+terms in it. (T-032 ran both together: the traversal rode overlay rails
+vector-to-vector; inside frames the rails could not specify — fix the
+Scala, kill the mutants — emergent recursion went overland through the
+same graph functions.)
 
-- DECLARE a vector/edge when any of: (1) truth must be admitted or
-  minted at that point (evidence, payload, measurement); (2) closure
-  folds or re-entry must target it; (3) authority changes across it
-  (different role/actor/regime on each side); (4) F_H must be able to
-  ratify the step BEFORE execution; (5) budgets differ across it
-  (retry/timeout/cost boundaries). The declared graph is the skeleton
-  of ADMISSION POINTS — the shape of accountability, published in the
-  atlas, ratifiable in advance.
-- LEAVE IT EMERGENT when the decomposition is itself an output of the
-  work (the Goedel law: topology discovered by computation), when
-  intermediate states carry no independent obligations, when one typed
-  boundary (entry contract + exit evidence + budget) carries the whole
-  obligation, and when the internal shape varies run to run. Emergence
-  lives INSIDE bounded frames: the worker's run-fix-run iterations, the
-  observer's drill-downs. The frame boundary is strong precisely so the
-  interior can be free.
-- SINGLE VIEW vs HIGHEST-ORDER VIEW are the same machine at the two
-  extremes: one frame with everything emergent inside it (maximum
-  freedom, one gate — the lawful bootstrap posture, FPC-004E) versus
-  the fully declared lifecycle graph (maximum accountability — the
-  28-vector data-mapper plan). Neither is prior; systems ANNEAL from
-  the first toward the second.
-- THE BOUNDARY IS DYNAMIC AND TELEMETRY-DRIVEN — it IS the atlas the
-  tuner optimizes: PROMOTE emergent structure to declared topology when
-  telemetry shows a stable recurring interior shape AND a defect class
-  that a per-step gate would catch; DEMOTE (collapse) declared edges
-  that never discriminate (no distinct evidence, always co-pass —
-  ceremony). Both moves are declaration drafts behind F_H (SS13.1).
-  Structure crystallizes where accountability pays for itself and
-  dissolves where it does not.
-- PREFER ENRICHING THE BOUNDARY over multiplying vectors: when the
-  T-032 campaign needed truth from INSIDE a turn (which tests failed
-  under a mutant), the lawful fix was a richer boundary payload
-  (failedTestIdentityRefs), not new vectors. A new vector is justified
-  only by a needed ADMISSION POINT, never by curiosity about the
-  interior.
-- T-032 evidence for the criterion: every defect lived at DECLARED
-  edges (contract seams) where gates caught them; the emergent
-  interiors (worker iterations) needed no gates and worked.
+THE WHEN-IS-IT-A-GRAPH CRITERION (binding time, not kind):
+- DECLARE a vector/edge (lay rail) when truth must be GATED there:
+  admission/mint of evidence or measurement; a fold or re-entry target;
+  an authority change (role/actor/regime); an F_H pre-ratification
+  point; a budget boundary. The declared graph is the skeleton of
+  ADMISSION POINTS — accountability's published shape.
+- LEAVE EMERGENT (discovery) when one typed boundary (entry contract +
+  exit evidence + budget) carries the whole obligation, the interior
+  shape varies run to run, and the decomposition is itself an output of
+  the work (Goedel law). Emergence lives INSIDE bounded frames; the
+  boundary is strong precisely so the interior is free.
+- SINGLE VIEW and HIGHEST-ORDER VIEW are the extremes of one machine:
+  one frame all-emergent-inside (the lawful bootstrap, FPC-004E) vs the
+  fully-declared lifecycle graph (the 28-vector plan). Neither is prior.
+
+MODE SELECTION (the interchangeability law): ambiguity/discovery ->
+emergent; known flow -> rails; per-contract selection is a
+CandidateFamily choice under visible policy — a declared interior and
+an emergent interior are two candidates over one outer contract.
+Biased toward emergence at low confidence by failure economics: a wrong
+"rails" guess costs halts and law repairs (12 in T-032, all at declared
+seams under novelty); a wrong "emergent" guess costs only compute. A
+RAIL-BREAK (declared path halting on ambiguity) is a MODE SIGNAL before
+it is a defect — drop to discovery, do not burn same-edge retries
+(FPC-011 lifted from step to topology).
+
+CRYSTALLIZATION = COMPILATION (the tuner's atlas operation): JIT
+discovery traces are AOT rail candidates. Read COMPOSITION ENTROPY per
+contract from replay — near-zero (same route every run) means the
+per-step F_P choice is waste: lay rail (publish overlay extension).
+Non-discriminating declared edges (no distinct evidence, always
+co-pass) are ceremony: pull up. ABSTRACTION closes the algebra —
+a proven composition is NAMED as a new graph function and enters the
+catalog as one tool with a narrower chart (recursive graphs and
+recursive views are the same operation from two sides). All track
+changes are declaration drafts behind F_H (SS13.1); structure
+crystallizes where accountability pays for itself and dissolves where
+it does not.
+
+TYPING IS THE COMPOSITION LAW: functions compose where types unify;
+ill-typed plans are unrepresentable (admission rejects pre-execution).
+The LLM composes accountability; it cannot compose around it. Each
+emergent step decomposes: F_D computes the typed gap (frontier -> exit
+contract) and the qualifying catalog rows (FPC-004B/C/D); F_P chooses
+which row. Even at maximum emergence every unit is one bounded graph
+invocation (FPC-002), admitted and evidenced.
+
+OPEN (carried to realization):
+- ADAPTER LAW: type-mismatch glue must be DECLARED (typed projection /
+  small graph function); a missing adapter is a GAP, never inline
+  improvisation — the joint stays in the algebra or it does not exist.
+- CATALOG-VISIBILITY ECONOMICS: the view serialization is the context
+  spend; the catalog is part of the view; as abstraction grows the
+  vocabulary, what-is-visible-from-where is a tuner curation surface.
 
 ## 10. Decisions — RATIFIED (user, 2026-07-09)
 

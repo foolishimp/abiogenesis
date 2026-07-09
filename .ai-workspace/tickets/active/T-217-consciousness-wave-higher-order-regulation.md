@@ -86,6 +86,77 @@ consequence() outcome set under a catalog with no constructive actions
 (making the T-032 monitor's role-collapse unrepresentable). Phase 0
 scope TIGHTENS accordingly: no View or Measurement carrier is minted.
 
+## Holistic ontology & epistemology (ratified design synthesis 2026-07-09)
+
+The exploration converged to one recursive structure. Phase 0 ratifies
+this whole synthesis; every particle already exists (zoo audit, design
+SS7) — this names the patterns.
+
+ONTOLOGY (what exists):
+- ONE MEDIUM: the graph function — typed contract, governed interior.
+  Nothing travels except through graph functions; the overlay is their
+  published composition (the rails).
+- ONE STRUCTURE: the recursive frame. A tier, a view, an episode, a
+  drill-down, the operator session — all the same step function
+  (render -> dispatch -> admit -> evaluate -> consequence) over a
+  bounded chart. Recursion is view restriction opened through published
+  refinements/CandidateFamilies.
+- ONE RECORD: the append-only measurement record (replay). All models
+  (projections) derive from it; there is no second truth store.
+- ONE REALITY: the workspace — mutable, concurrent, the referent, never
+  a component; reached only by instruments in and admitted actions out.
+- THE CLI IS THE ROOT BOUNDARY CONDITION: the abg CLI is a shell that
+  hands INITIAL CONDITIONS to the first node. The operator is not
+  outside the ontology — the CLI is the transition map between reality
+  (operator + workspace) and the root frame; every verb is an admitted
+  input to a node, every operator act therefore an event. From the
+  first node it is the same recursive structure all the way down. This
+  is why T-215's witness problem is structural, not additive: there is
+  no operator surface OTHER than admitted inputs to nodes.
+
+EPISTEMOLOGY (how it is known):
+- Reality is known only by MEASUREMENT (attributed point-observation,
+  stale on arrival); replay is the measurement record, never reality;
+  drift is the default, bounded by attribution + single-writer windows
+  + scheduled re-measurement.
+- TRUTH IS GATED AT TRANSITIONS: admission/mint/fold seams are where
+  epistemic commitments are made; defects concentrate there and are
+  invisible to any local view in principle (T-032: 12/12). The
+  regulation tier is the view whose coordinates ARE the transitions.
+- TWO BINDING TIMES OVER ONE ALGEBRA: graph functions compose
+  ahead-of-time (the overlay = rails: deterministic, cheap per run,
+  ratifiable before execution — accountability's shape) or just-in-time
+  (emergent recursion = discovery: ambiguity-tolerant, a judgment per
+  step, bounded by the frame contract). Both are optimizations; both
+  produce terms in the same typed algebra; they are interchangeable
+  where the boundary carries every obligation.
+- THE MODE-SELECTION LAW: ambiguity/discovery -> emergent; known flow
+  -> rails; per-contract selection is a CandidateFamily choice under
+  visible policy, biased toward emergence when confidence is low
+  (failure economics: a wrong "rails" guess costs halts; a wrong
+  "emergent" guess costs only compute). A rail-break (declared path
+  halting on ambiguity) is a MODE SIGNAL before it is a defect.
+- CRYSTALLIZATION IS COMPILATION: JIT discovery traces are AOT rail
+  candidates. The tuner reads COMPOSITION ENTROPY from replay — low
+  entropy (same route every run) -> lay rails (publish overlay
+  extension); non-discriminating edges -> pull up. Abstraction (naming
+  a proven composition as a new graph function) grows the vocabulary.
+  All track changes are declaration drafts behind F_H (SS13.1).
+- TYPING IS THE COMPOSITION LAW: functions compose where types unify;
+  ill-typed plans are unrepresentable (admission rejects before
+  execution). The LLM composes accountability; it cannot compose around
+  it. Gap = the typed distance from frontier to exit contract (FPC-004
+  C/D); F_D narrows (what's missing, which tools qualify), F_P chooses.
+
+OPEN TENSIONS (named, carried into design):
+- ADAPTER LAW: type-mismatch glue must be DECLARED (typed projection or
+  small graph function); a missing adapter is a gap, never inline
+  improvisation — else mechanism leaks into the joints (the campaign's
+  worst-bug locus).
+- CATALOG-VISIBILITY ECONOMICS: the view's serialization is the context
+  spend and the catalog is part of the view; as abstraction grows the
+  vocabulary, curation of what-is-visible-from-where is a tuner surface.
+
 ## Constitutional basis (Phase 0 ratifies these into live spec)
 
 - INTENT-GENERATION LOOP (user, 2026-07-09; in T-207 prose today):
