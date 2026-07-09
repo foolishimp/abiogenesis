@@ -1,3 +1,44 @@
+# abiogenesis 4.5.1 — Foundation Release, mutation-soundness patch
+
+It follows `4.5.0` and is the release-grade Foundation cut: 4.5.0's
+adversarial-verification claim rested on an unsound kill mint (a hostile
+kernel review found it post-cut). This patch (T-216) makes the
+adversarial guarantee mechanically sound. 4.5.0 is superseded for
+downstream consumption.
+
+- D1 (CRITICAL): mutation kill evidence is attributed PER TEST, not per
+  suite exit. A row carries mutantCompiled (a compile-broken mutant
+  refuted nothing -> mints nothing) and failedTestIdentityRefs (the
+  tests that ACTUALLY went red, verified against the mutant run's
+  report). The kernel mints a kill only for named failures; the -039
+  obligation cross-check requires the failed identities to cover the
+  map row's required identities. One lazy or compile-broken row can no
+  longer discharge the kill topology, and an internal-consistency law
+  rejects contradictory rows.
+- D2: the last admitted event per EDGE is the sole authority for depth
+  maps and mutation outcomes; a superseding retry that omits the
+  section emits an empty retraction — stale cross-attempt evidence
+  cannot persist.
+- D3: report verification is element-scoped (counts testcase elements)
+  — CDATA/comment/aggregate-wrapper text can no longer inflate the pass
+  count toward false-green.
+- D4: execution-family refs are rejected from proof-strength
+  resolution.
+- D5: admission is read-once (detach to a plain snapshot; validate the
+  snapshot) — value-changing/second-read getters cannot escape.
+- D6: carrier canonicalization is deterministic (full-content,
+  sorted-keys, codepoint order) — locale-free, ambiguity-free digests.
+- D7: socket-needing live scenarios assert an explicit sandbox
+  capability (reproducible by construction).
+
+Release-grade proving: the frozen-law cold run re-executes on THIS
+artifact (4.5.0's proving-run kill evidence is retired by D1). The
+release record is completed by that run.
+
+Remainder: the report-verification MECHANISM still lives in the odd_glc
+binding (three-layer violation, correctness fixed in place); its
+eviction into a kernel surface is T-209's remaining scope.
+
 # abiogenesis 4.5.0 — THE FOUNDATION RELEASE
 
 It follows `4.5.0-rc.17` and closes the 4.5.0 release-candidate line
