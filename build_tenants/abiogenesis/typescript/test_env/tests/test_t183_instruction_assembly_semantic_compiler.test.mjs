@@ -1611,12 +1611,24 @@ test("T-217 S6: the runner enforces the declared schema BEFORE domain row law �
   assert.equal(rejection.schemaRef, "schema://t213/depth-proof-map");
   assert.match(rejection.reason, /row_missing_field/u);
   assert.match(rejection.reason, /row_unknown_key/u);
-  // codex P2 (explicitly lossy carriage): the reason is a STABLE
-  // machine-parseable grammar — comma-joined issueKind:path pairs —
-  // until the Phase 2 EVENTS reprice adds a structured issues field
+  // the reason stays a human summary in the interim comma grammar
   for (const pair of rejection.reason.split(",")) {
     assert.match(pair, /^[a-z_]+:.+$/u, `parseable pair: ${pair}`);
   }
+  // EVENTS-026 realized (T-217 S2.4): the STRUCTURED rows are the typed
+  // truth — issue kind + offending path, superseding the reason grammar
+  assert.ok(rejection.issues.length >= 2);
+  const issueKinds = rejection.issues.map((issue) => issue.issueKind);
+  assert.ok(issueKinds.includes("row_missing_field"));
+  assert.ok(issueKinds.includes("row_unknown_key"));
+  for (const issue of rejection.issues) {
+    assert.equal(typeof issue.path, "string");
+    assert.ok(issue.path.length > 0, "every issue row names its path");
+  }
+  const unknownKeyIssue = rejection.issues.find(
+    (issue) => issue.issueKind === "row_unknown_key"
+  );
+  assert.match(unknownKeyIssue.path, /smuggled/u);
   assert.equal(
     rejectedEvents.find((event) => event.kind === "depth_proof_map_admitted"),
     undefined,

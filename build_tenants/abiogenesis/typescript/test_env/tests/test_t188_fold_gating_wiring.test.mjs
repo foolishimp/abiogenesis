@@ -918,11 +918,20 @@ test("T-210 b1: depth-map admission is total — valid rows admit canonically, m
   assert.equal(admitDepthProofMap({ payloadSection: [1], sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "map_not_object");
   assert.equal(admitDepthProofMap({ payloadSection: { rows: "x" }, sourceResultRef: "r", replayIdentity: "i" }).issues[0].issueKind, "rows_not_array");
   // ledger projection: later admitted map supersedes for the requirement
+  // S2.4 ordinal sweep: supersession is the D-ordinal law, so the
+  // fixture DECLARES its admission order instead of leaning on array
+  // position — a shuffled copy must resolve identically
   const events = [
-    { kind: "depth_proof_map_admitted", accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://positive", testIdentityRefs: ["old"] }] },
-    { kind: "depth_proof_map_admitted", accepted: false, rows: [] },
-    { kind: "depth_proof_map_admitted", accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://negative", testIdentityRefs: ["new"] }] }
+    { kind: "depth_proof_map_admitted", eventAdmissionOrdinal: 1, accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://positive", testIdentityRefs: ["old"] }] },
+    { kind: "depth_proof_map_admitted", eventAdmissionOrdinal: 2, accepted: false, rows: [] },
+    { kind: "depth_proof_map_admitted", eventAdmissionOrdinal: 3, accepted: true, rows: [{ requirementId: "REQ-A", depthClassRef: "depth-class://negative", testIdentityRefs: ["new"] }] }
   ];
+  const shuffled = [events[2], events[0], events[1]];
+  assert.deepEqual(
+    deriveAdmittedDepthProofRowsByRequirementId(shuffled).get("REQ-A").map((row) => row.depthClassRef),
+    ["depth-class://negative"],
+    "a shuffled replay resolves to the same decisive map"
+  );
   const ledger = deriveAdmittedDepthProofRowsByRequirementId(events);
   assert.deepEqual(ledger.get("REQ-A").map((row) => row.depthClassRef), ["depth-class://negative"]);
 });
@@ -1975,8 +1984,8 @@ test("T-032 A: mutation-outcomes admission is total; restore mismatch rejects; t
   // retraction (accepted, empty rows) retires the prior edge's mints
   assert.equal(
     deriveKernelMintedMutationRefs([
-      { kind: "mutation_outcomes_admitted", edge: "edge://a", accepted: true, rows: [good] },
-      { kind: "mutation_outcomes_admitted", edge: "edge://a", accepted: true, rows: [] }
+      { kind: "mutation_outcomes_admitted", eventAdmissionOrdinal: 1, edge: "edge://a", accepted: true, rows: [good] },
+      { kind: "mutation_outcomes_admitted", eventAdmissionOrdinal: 2, edge: "edge://a", accepted: true, rows: [] }
     ]).size,
     0
   );

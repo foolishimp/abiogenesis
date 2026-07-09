@@ -1527,10 +1527,16 @@ export function constructPayloadRejectedEvent(input: {
   readonly contractDigest?: string | null;
   readonly digest?: string | null;
   readonly reason: string;
+  readonly issues?: readonly { readonly issueKind: string; readonly path: string }[];
   readonly policyRefs?: readonly string[];
 }): PayloadRejectedRuntimeEvent {
   return Object.freeze({
     kind: "payload_rejected",
+    issues: Object.freeze(
+      (input.issues ?? []).map((issue) =>
+        Object.freeze({ issueKind: issue.issueKind, path: issue.path })
+      )
+    ),
     ...runtimeEventScope(input),
     payloadRef: input.payloadRef,
     rejectionClass: input.rejectionClass,

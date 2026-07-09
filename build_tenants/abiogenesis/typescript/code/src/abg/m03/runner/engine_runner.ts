@@ -7747,6 +7747,12 @@ function* runEngineIterateMachine(input: {
                       payloadRef: `artifact://${declaredSchema.artifactKey}/${encodeURIComponent(resultRef)}`,
                       rejectionClass: "schema_invalid",
                       schemaRef: schemaAdmission.schemaRef,
+                      // EVENTS-026: structured rows are the typed truth;
+                      // the comma grammar stays as the human summary
+                      issues: schemaAdmission.issues.map((issue) => ({
+                        issueKind: issue.issueKind,
+                        path: issue.path
+                      })),
                       reason: schemaAdmission.issues
                         .map((issue) => `${issue.issueKind}:${issue.path}`)
                         .join(",")

@@ -114,6 +114,7 @@ export type {
   PayloadClosureDecisionKind,
   PayloadObservedRuntimeEvent,
   PayloadRejectedRuntimeEvent,
+  PayloadRejectionIssueRow,
   PayloadRejectionClass,
   PayloadValidatedRuntimeEvent,
   PluginTraversalKind,
@@ -451,6 +452,7 @@ export {
   parseTerminalKind
 } from "./event_admission.js";
 export {
+  RUN_INDEPENDENT_EVENT_SCOPE_CLASSES,
   runtimeEventBasisId,
   runtimeEventsForBasis
 } from "./runtime_support.js";

@@ -936,6 +936,36 @@ execution-authority audit runs on the ADOPTED binding at that gate.
 This sequencing is the standing directive's: functionally complete
 through Phase 4 first, live/sandbox proving after.
 
+S2.4a DELIVERED (2026-07-10) — CARRIER LAWS REALIZED. (1) C-1 /
+EVENTS-025: the declared scope-class law
+(RUN_INDEPENDENT_EVENT_SCOPE_CLASSES — 9 workspace kinds: the registry
+publication family x4, graph-function selection x2, node-type
+satisfaction, workspace installation, lever resolution; 4 run kinds:
+approved/revoked/reset/assessed; 1 perimeter kind:
+runtime_failure_observed with nullable basis). runtimeEventsForBasis
+CONSUMES the declaration: an event with no basis scope whose kind is
+undeclared now FAILS CLOSED as a carrier defect instead of silently
+blending across runs — the whole suite passes over the new law, proving
+the map total over real traffic. (Census correction recorded: the
+"defect kinds" depth_proof_map_admitted /
+instruction_response_contract_admitted /
+requirement_proof_carry_through_admitted already carry the spine via
+ActorRuntimeScope extends — the earlier interface-body scan missed the
+extends clause.) (2) EVENTS-026: payload_rejected carries STRUCTURED
+issue rows ({issueKind, path}, closed row keys, hostile rows fail
+typed at admission); the schema gate emits them; the comma reason
+grammar stays as the human summary; differential upgraded from
+grammar-parse to structured-truth assertions. (3) C-5 migration: the
+two fixture-spread basis reconstructions (attestation m3, halt-intake)
+now use reconstructRouteBasisFromReplay. (4) The
+latestAdmittedEventsPerEdge supersession fold now obeys the D-ordinal
+law (decisiveByAdmissionOrdinal per edge) — the T-188 fixtures declare
+admission ordinals and a shuffled-replay differential pins that order
+cannot flip authority. Suites 1247/1247; gate violations=0.
+S2.4b REMAINING: C-4 store-scoped emitter + T-195 flag; C-3 helper
+reconciliation + T-208 riders; T-213 conformance-row ingestion; C-9
+temporal accessor.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

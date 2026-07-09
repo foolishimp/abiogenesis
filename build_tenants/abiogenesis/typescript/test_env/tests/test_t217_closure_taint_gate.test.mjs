@@ -225,3 +225,86 @@ test("T-217 S2.2 (D1.4): kernel-measurable surfaces derive from admitted materia
     }
   ]);
 });
+
+test("T-217 S2.4 (C-1, EVENTS-025): the basis filter consumes the declared scope classes — declared run-independent kinds pass, undeclared no-scope kinds fail closed", async () => {
+  const { RUN_INDEPENDENT_EVENT_SCOPE_CLASSES, runtimeEventsForBasis } =
+    await import(
+      "../../build/semantic/code/src/abg/m03/contracts/index.js"
+    );
+  // the declaration is the law's surface: workspace/run/perimeter classes
+  assert.equal(
+    RUN_INDEPENDENT_EVENT_SCOPE_CLASSES.registry_entry_admitted,
+    "workspace"
+  );
+  assert.equal(RUN_INDEPENDENT_EVENT_SCOPE_CLASSES.approved, "run");
+  assert.equal(
+    RUN_INDEPENDENT_EVENT_SCOPE_CLASSES.runtime_failure_observed,
+    "perimeter"
+  );
+  const basis = { id: "basis://t217/s24" };
+  const mine = { kind: "terminal_reached", basisId: "basis://t217/s24", terminalKind: "converged", reason: null };
+  const theirs = { kind: "terminal_reached", basisId: "basis://other", terminalKind: "converged", reason: null };
+  const workspaceTruth = { kind: "registry_entry_admitted", entryRef: "registry-entry://t217/s24" };
+  const filtered = runtimeEventsForBasis(basis, [mine, theirs, workspaceTruth]);
+  assert.deepEqual(filtered, [mine, workspaceTruth]);
+  // an event with NO basis scope whose kind is undeclared is a carrier
+  // defect — it fails closed instead of silently blending across runs
+  assert.throws(
+    () =>
+      runtimeEventsForBasis(basis, [
+        { kind: "future_unscoped_kind", payload: 1 }
+      ]),
+    /not declared run-independent/u
+  );
+});
+
+test("T-217 S2.4 (EVENTS-026): hostile issue rows fail admission typed — smuggled keys and empty fields are carrier defects", async () => {
+  const { assertRuntimeEvent } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  const rejected = (issues) => ({
+    kind: "payload_rejected",
+    basisId: "basis://t217/s24",
+    graphCallId: "graph-call://t217/s24",
+    frameId: "frame://t217/s24",
+    vectorIndex: 0,
+    edge: "input_set→requirements",
+    payloadRef: "payload://t217/s24",
+    rejectionClass: "schema_invalid",
+    schemaRef: "schema://t217/s24",
+    contractRef: null,
+    contractDigest: null,
+    digest: null,
+    reason: "row_missing_field:depthProofMap.rows[0]",
+    issues,
+    policyRefs: []
+  });
+  // lawful structured rows admit
+  assertRuntimeEvent(
+    rejected([{ issueKind: "row_missing_field", path: "depthProofMap.rows[0]" }])
+  );
+  // a smuggled row key is a carrier defect
+  assert.throws(
+    () =>
+      assertRuntimeEvent(
+        rejected([
+          { issueKind: "row_missing_field", path: "p", smuggled: true }
+        ])
+      ),
+    /not a lawful issue-row key/u
+  );
+  // an empty field is a carrier defect
+  assert.throws(
+    () => assertRuntimeEvent(rejected([{ issueKind: "", path: "p" }])),
+    /issueKind must be a non-empty string/u
+  );
+  // a missing/malformed issues array and a non-object row fail typed
+  assert.throws(
+    () => assertRuntimeEvent(rejected("not-an-array")),
+    /issues must be an array/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent(rejected(["not-a-row"])),
+    /issues\[0\] must be an object/u
+  );
+});

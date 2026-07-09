@@ -12,6 +12,7 @@ import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
   canonicalizeRowsByContent,
+  decisiveByAdmissionOrdinal,
   detachRowSnapshot
 } from "./admission_hygiene.js";
 
@@ -166,15 +167,26 @@ export function latestAdmittedEventsPerEdge(
   replayEvents: readonly RuntimeEvent[],
   kind: "depth_proof_map_admitted" | "mutation_outcomes_admitted"
 ): readonly RuntimeEvent[] {
-  const latestByEdge = new Map<string, RuntimeEvent>();
+  // T-217 S2.4 ordinal sweep: "latest per edge" is the D-ORDINAL law,
+  // never caller array order — a shuffled replay must not flip which
+  // attempt's map is authority (the S2/S3/S4 recurring lesson).
+  const candidatesByEdge = new Map<string, RuntimeEvent[]>();
   for (const event of replayEvents) {
     if (event.kind !== kind) {
       continue;
     }
-    // replay order is emission order; last write wins per edge
-    latestByEdge.set(event.edge, event);
+    const rows = candidatesByEdge.get(event.edge) ?? [];
+    rows.push(event);
+    candidatesByEdge.set(event.edge, rows);
   }
-  return Object.freeze([...latestByEdge.values()]);
+  const decisive: RuntimeEvent[] = [];
+  for (const [edge, rows] of candidatesByEdge) {
+    const event = decisiveByAdmissionOrdinal(rows, `Latest ${kind} (${edge})`);
+    if (event !== null) {
+      decisive.push(event);
+    }
+  }
+  return Object.freeze(decisive);
 }
 
 export function deriveAdmittedDepthProofRowsByRequirementId(

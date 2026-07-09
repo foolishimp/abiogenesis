@@ -1865,21 +1865,48 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     evidenceRef: "nullable_string",
     policyRefs: "string_array"
   }),
-  payload_rejected: applyFieldRules("PayloadRejectedRuntimeEvent", {
-    basisId: "non_empty_string",
-    graphCallId: "non_empty_string",
-    frameId: "non_empty_string",
-    vectorIndex: "non_negative_integer",
-    edge: "non_empty_string",
-    payloadRef: "non_empty_string",
-    rejectionClass: { oneOf: PAYLOAD_REJECTION_CLASS_VALUES },
-    schemaRef: "nullable_string",
-    contractRef: "nullable_string",
-    contractDigest: "nullable_string",
-    digest: "nullable_string",
-    reason: "non_empty_string",
-    policyRefs: "string_array"
-  }),
+  payload_rejected: (event) => {
+    applyFieldRules("PayloadRejectedRuntimeEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      payloadRef: "non_empty_string",
+      rejectionClass: { oneOf: PAYLOAD_REJECTION_CLASS_VALUES },
+      schemaRef: "nullable_string",
+      contractRef: "nullable_string",
+      contractDigest: "nullable_string",
+      digest: "nullable_string",
+      reason: "non_empty_string",
+      policyRefs: "string_array"
+    })(event);
+    // EVENTS-026: structured issue rows — each row carries exactly the
+    // issue kind and the offending path, both non-empty.
+    const issues = event["issues"];
+    if (!Array.isArray(issues)) {
+      throw new TypeError(
+        "PayloadRejectedRuntimeEvent.issues must be an array of issue rows"
+      );
+    }
+    issues.forEach((row: unknown, index: number) => {
+      const label = `PayloadRejectedRuntimeEvent.issues[${String(index)}]`;
+      if (row === null || typeof row !== "object" || Array.isArray(row)) {
+        throw new TypeError(`${label} must be an object`);
+      }
+      const record = row as Readonly<Record<string, unknown>>;
+      for (const key of Object.keys(record)) {
+        if (key !== "issueKind" && key !== "path") {
+          throw new TypeError(`${label}.${key} is not a lawful issue-row key`);
+        }
+      }
+      for (const field of ["issueKind", "path"] as const) {
+        if (typeof record[field] !== "string" || record[field].length === 0) {
+          throw new TypeError(`${label}.${field} must be a non-empty string`);
+        }
+      }
+    });
+  },
   authority_snapshot_admitted: applyFieldRules(
     "AuthoritySnapshotAdmittedRuntimeEvent",
     {

@@ -127,6 +127,33 @@ export function runtimeEventBasisId(event: RuntimeEvent): string | null {
   return null;
 }
 
+// T-217 S2.4 (C-1) — REQ-R-ABG3-EVENTS-025 realized: every runtime event
+// kind either carries basis scope or is DECLARED here with its named
+// scope class. The basis filter consumes THIS declaration; an event with
+// no basis scope whose kind is undeclared is a carrier defect and fails
+// closed instead of silently blending across runs in a shared store.
+export const RUN_INDEPENDENT_EVENT_SCOPE_CLASSES = Object.freeze({
+  // workspace-scoped truth: publication/selection/installation facts the
+  // whole store shares by design (the governing-set fold and the
+  // basis-fork scan lean on this deliberately)
+  registry_entry_admitted: "workspace",
+  registry_entry_rejected: "workspace",
+  registry_plugin_advice_admitted: "workspace",
+  registry_plugin_advice_rejected: "workspace",
+  graph_function_selected: "workspace",
+  graph_function_selection_rejected: "workspace",
+  node_type_satisfaction_projected: "workspace",
+  workspace_installation_admitted: "workspace",
+  lever_resolution_admitted: "workspace",
+  // run-scoped operator/F_H acts: they carry runId/workKey, never basisId
+  approved: "run",
+  revoked: "run",
+  reset: "run",
+  assessed: "run",
+  // perimeter failures may occur before any basis exists (nullable basisId)
+  runtime_failure_observed: "perimeter"
+} as const) satisfies Readonly<Partial<Record<RuntimeEvent["kind"], string>>>;
+
 export function runtimeEventsForBasis(
   basis: { readonly id: string },
   events: readonly RuntimeEvent[]
@@ -134,7 +161,15 @@ export function runtimeEventsForBasis(
   return Object.freeze(
     events.filter((event) => {
       const basisId = runtimeEventBasisId(event);
-      return basisId === null || basisId === basis.id;
+      if (basisId !== null) {
+        return basisId === basis.id;
+      }
+      if (event.kind in RUN_INDEPENDENT_EVENT_SCOPE_CLASSES) {
+        return true;
+      }
+      throw new TypeError(
+        `Runtime event kind ${JSON.stringify(event.kind)} carries no basis scope and is not declared run-independent (EVENTS-025 carrier defect)`
+      );
     })
   );
 }

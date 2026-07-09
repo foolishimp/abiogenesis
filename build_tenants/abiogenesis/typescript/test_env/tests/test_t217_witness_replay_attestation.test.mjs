@@ -9,14 +9,12 @@ import {
   assertRuntimeEvent,
   constructReplayLogAttestedEvent,
   deriveReplayChainDigest,
+  reconstructRouteBasisFromReplay,
   verifyReplayLogAttestations
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
 import { admitReplayLogAttestation, runEngineStart } from "../../build/semantic/code/src/index.js";
-import {
-  buildThreeStageBasis,
-  buildThreeStageStartContext
-} from "./support/m03-iteration-fixtures.mjs";
+import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 
 test("T-217 m1: attestation admission — self-certified ref, full authority fields", () => {
   const valid = constructReplayLogAttestedEvent({
@@ -79,14 +77,9 @@ test("T-217 m3: the route attests a live run; forging inside the attested span i
     runtimeEvents: [],
     eventSink: (event) => runEvents.push(event)
   });
-  const basisAdmitted = runEvents.find((event) => event.kind === "basis_admitted");
-  const fixture = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const basis = Object.freeze({
-    ...fixture,
-    id: basisAdmitted.basisId,
-    runId: basisAdmitted.runId,
-    workKey: basisAdmitted.workKey
-  });
+  // C-5 (S2.4): the route-invocable spine comes FROM REPLAY — the
+  // kernel API replaces the fixture-spread reconstruction hack
+  const basis = reconstructRouteBasisFromReplay(runEvents);
   const sunk = [];
   const attested = admitReplayLogAttestation({
     basis,
@@ -108,7 +101,7 @@ test("T-217 m3: the route attests a live run; forging inside the attested span i
   // the attested span (fake envelope, ordinal below the attestation)
   const forged = {
     kind: "terminal_reached",
-    basisId: basisAdmitted.basisId,
+    basisId: basis.id,
     terminalKind: "converged",
     reason: "forged-closure",
     eventId: "runtime-event:forged:0:deadbeef",
@@ -126,7 +119,7 @@ test("T-217 m3: the route attests a live run; forging inside the attested span i
   // append-only friendliness: lawful events AFTER the attestation do not
   // disturb it; a NEW attestation covers them
   const [later] = emit(
-    { kind: "terminal_reached", basisId: basisAdmitted.basisId, terminalKind: "converged", reason: null },
+    { kind: "terminal_reached", basisId: basis.id, terminalKind: "converged", reason: null },
     () => {}
   );
   const appendedRows = verifyReplayLogAttestations([...record, later]);

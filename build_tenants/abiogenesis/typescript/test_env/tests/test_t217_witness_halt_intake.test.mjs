@@ -10,7 +10,8 @@ import {
   constructDefectIntakeAdmittedEvent,
   constructRunSegmentOpenedEvent,
   deriveHaltDiagnosis,
-  deriveTicketDraftsFromIntakes
+  deriveTicketDraftsFromIntakes,
+  reconstructRouteBasisFromReplay
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
 import {
@@ -393,18 +394,9 @@ test("T-217 S4 f5: full loop — S1's reprice guard halts the run, S4 diagnoses 
   const basisAdmitted = runOneEvents.find(
     (event) => event.kind === "basis_admitted"
   );
-  // reconstruct the RUN's basis identity: same content, and the fixture's
-  // only divergence from the started run is runId/workKey (the run derives
-  // null/null; the fixture defaults are non-null and ?? swallows null
-  // overrides) — carrying the run's own basis_admitted truth keeps the
-  // route acting within the run's spine
-  const fixture = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const routeBasis = Object.freeze({
-    ...fixture,
-    id: basisAdmitted.basisId,
-    runId: basisAdmitted.runId,
-    workKey: basisAdmitted.workKey
-  });
+  // C-5 (S2.4): the route-invocable spine comes FROM REPLAY — the
+  // kernel API replaces the fixture-spread reconstruction hack
+  const routeBasis = reconstructRouteBasisFromReplay(fullReplay);
   const sunk = [];
   const result = admitDefectIntake({
     basis: routeBasis,
