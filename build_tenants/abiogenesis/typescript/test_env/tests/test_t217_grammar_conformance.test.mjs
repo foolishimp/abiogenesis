@@ -266,7 +266,7 @@ test("T-217 S2.1: a full operator session through the grammar — every act a co
   assert.match(ctx.lastJson().reason, /witness requires an act/u);
   ctx = cliIo(root);
   assert.equal(await runAbiogenesisCli(["observe", "vibes", ...ws], ctx.io), 1);
-  assert.match(ctx.lastJson().reason, /observe requires the report subcommand/u);
+  assert.match(ctx.lastJson().reason, /observe requires the report or drafts subcommand/u);
 
   // lifecycle: the operator marks the stop, through the grammar
   ctx = cliIo(root);

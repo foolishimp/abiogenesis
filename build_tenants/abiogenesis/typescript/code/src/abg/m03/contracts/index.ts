@@ -1393,6 +1393,19 @@ export type {
   WorkspaceHygieneObservation,
   WorkspaceHygienePredicate
 } from "./workspace_hygiene.js";
+export {
+  assertObserverCatalogNonConstructive,
+  deriveObserverObservables,
+  deriveObserverTicketDrafts,
+  OBSERVER_ACTION_CATALOG,
+  OBSERVER_ACTION_KIND_VALUES
+} from "./observer_tier.js";
+export type {
+  ObserverActionCatalogRow,
+  ObserverActionKind,
+  ObserverObservables,
+  ObserverTicketDraft
+} from "./observer_tier.js";
 export { verifyJUnitReportContents } from "./test_report_verification.js";
 export type {
   TestReportContentRow,

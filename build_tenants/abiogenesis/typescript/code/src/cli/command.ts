@@ -78,6 +78,8 @@ import {
   deriveCitabilityPredicate,
   deriveHaltDiagnosis,
   deriveKernelMeasurableSurfaces,
+  deriveObserverObservables,
+  deriveObserverTicketDrafts,
   deriveRunSegments,
   reconstructRouteBasisFromReplay,
   runtimeEventsForBasis,
@@ -192,6 +194,7 @@ interface ParsedWitnessCommand {
 
 interface ParsedObserveCommand {
   readonly kind: "observe";
+  readonly sub: "report" | "drafts";
   readonly workspace: string;
 }
 
@@ -753,14 +756,15 @@ function parseWitnessCommand(args: readonly string[]): ParsedWitnessCommand {
 
 function parseObserveCommand(args: readonly string[]): ParsedObserveCommand {
   const sub = args[0];
-  if (sub !== "report") {
-    throw new CliError("observe requires the report subcommand");
+  if (sub !== "report" && sub !== "drafts") {
+    throw new CliError("observe requires the report or drafts subcommand");
   }
   const parsed = parseFlags(args.slice(1));
-  requireNoPositionals(parsed, "observe report");
-  requireAllowedFlags(parsed, "observe report", ["workspace"]);
+  requireNoPositionals(parsed, `observe ${sub}`);
+  requireAllowedFlags(parsed, `observe ${sub}`, ["workspace"]);
   return Object.freeze({
     kind: "observe",
+    sub,
     workspace: optionalFlag(parsed, "workspace", ".")
   });
 }
@@ -2360,6 +2364,31 @@ async function runObserveCommand(
     io,
     command.workspace
   );
+  if (command.sub === "drafts") {
+    // T-217 Phase 3 (WITNESS-011): the draft REVIEW command — triaged
+    // ticket drafts are a read model over replay; ratification is the
+    // intake verb (an admitted actor-attributed F_H act). A draft never
+    // ratified never becomes an intake.
+    const drafts = deriveObserverTicketDrafts(
+      deriveObserverObservables(replayEvents)
+    );
+    io.stdout(
+      `${JSON.stringify({
+        command: "observe",
+        drafts: drafts.map((row) => ({
+          draft_ref: row.draftRef,
+          action_kind: row.actionKind,
+          owner: row.owner,
+          change_class: row.changeClass,
+          re_entry_point: row.reEntryPoint,
+          summary: row.summary,
+          triage_reason: row.triageReason,
+          evidence_refs: row.evidenceRefs
+        }))
+      })}\n`
+    );
+    return 0;
+  }
   const diagnosis = deriveHaltDiagnosis(replayEvents);
   const citability = deriveCitabilityPredicate(replayEvents);
   const segments = deriveRunSegments(replayEvents);
