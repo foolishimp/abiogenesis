@@ -1232,12 +1232,19 @@ Fix ledger from the live loop (each a real gate the sandbox surfaced):
 requires configSourceRefs; F_P dispatch requires the
 instruction-assembly startup (the m04 binding precedent); macOS
 mkdtemp /var symlinks vs process.cwd() realpath split the basis
-identity (realpath the root — the t085 precedent); the REGISTRY-ROUTED
-flow demands per-entry assembled plans beyond the default startup
-(NAMED FINDING for the live-gate backlog: registry-selected dispatch +
-default instruction assembly do not compose yet — the drift/reprice
-laws stay proven by the in-suite RC gate; the live campaign path via
-odd_glc builds real plans); the T-109 guard correctly forced the
+identity (realpath the root — the t085 precedent); the default instruction
+assembly and a product registry startup must be a CONSISTENT PAIR
+(CORRECTED FINDING: the initial live binding supplied TWO registry
+startups — the default one bundled by
+constructDefaultInstructionAssemblyStartupForBasis PLUS an explicit
+override whose entries the default's compiled plans never referenced,
+so the plans admitted against the wrong registry and the lookup found
+none. Not a framework gap: odd_glc's binding builds its registry
+startup and its compiled plans as ONE matched pair and composes
+correctly; the fix was the SCENARIO correction of dropping the
+contradictory second startup — lawful under the bugfix-precedence
+ruling. Live drift/reprice remains proven by the in-suite RC gate; the
+data-mapper campaign exercises the matched-pair path); the T-109 guard correctly forced the
 installed-binary spawns onto the traced surface (every future live
 migration inherits this shape). Suites 1280/1280 with the live test
 green under its gate.
