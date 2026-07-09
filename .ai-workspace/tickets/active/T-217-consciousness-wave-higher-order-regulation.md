@@ -991,6 +991,25 @@ live gate (S2.3's bucket); inventing the shape now from stale memory
 would recreate the exact bug class T-213 kills. Suites 1249/1249; gate
 violations=0. Next: S2.5 monolith splits (C-2).
 
+S2.5 RE-ROUTE RULING (2026-07-10): C-2's physical splits move to the
+4.6 RELEASE-HYGIENE gate alongside C-6 (the barrel split) — same class:
+structural hygiene, zero functional delta. Reasons: (a) the standing
+directive prioritizes functional completeness through Phase 4 before
+live proving; (b) engine_runner's 139 functions INTERLEAVE concerns
+(sampled: dispatch/evaluation/composed-stage/plugin clusters bleed
+across the 5-10k span), so honest bannering is itself a full-file read
+and misplaced banners actively mislead; (c) Phases 3-4 touch the runner
+only at declared boundaries (observer = declared product + routes;
+tuner = draft-only writes), so the split does not get harder by
+deferring past them. The split executes at 4.6 hygiene with the C-6
+barrel prune, before the release cut. PHASE 2 FUNCTIONAL CONTENT IS
+COMPLETE: S2.0 (EVENTS reprice), S2.1 (operator grammar + allowlist +
+C-5/C-7), S2.2 (closure-taint enforcement + D1.4 kernel digests), S2.3
+(D3 kernel surface; adoption tail live-gated by T-209's own closure
+law), S2.4 (EVENTS-025/-026 realization, C-3/C-4/C-5/C-9, ordinal
+sweep). Next: Phase 3 entry triage (the observer as a declared
+product).
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function
