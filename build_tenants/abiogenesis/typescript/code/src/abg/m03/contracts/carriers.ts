@@ -946,15 +946,27 @@ export const RUN_STOP_REASON_KIND_VALUES = Object.freeze([
 export type RunStopReasonKind =
   (typeof RUN_STOP_REASON_KIND_VALUES)[number];
 
+export const RUN_RESUME_REASON_KIND_VALUES = Object.freeze([
+  "operator_resume",
+  "reprice_reentry",
+  "external_recovery",
+  "campaign_continue"
+] as const);
+
+export type RunResumeReasonKind =
+  (typeof RUN_RESUME_REASON_KIND_VALUES)[number];
+
 // Implements: REQ-R-ABG3-WITNESS-006 — operator run lifecycle as
-// actor-attributed F_H events; lifecycle acts that bypass event admission
-// do not exist on the operator path.
+// actor-attributed F_H events WITH A TYPED REASON (S2 review P1: the
+// closed vocabulary applies to resume as well as stop); lifecycle acts
+// that bypass event admission do not exist on the operator path.
 export interface RunResumedEvent {
   readonly kind: "run_resumed";
   readonly basisId: string;
   readonly runId: string | null;
   readonly workKey: string | null;
   readonly operatorActorRef: string;
+  readonly reasonKind: RunResumeReasonKind;
   readonly reasonDetail: string;
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;

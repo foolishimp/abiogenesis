@@ -10,6 +10,7 @@ import type {
   GraphChangeClass,
   GraphVectorResumeCursorAppliedEvent,
   RunResumedEvent,
+  RunResumeReasonKind,
   RunStopReasonKind,
   RunStoppedEvent,
   RuntimeAggregateProjection,
@@ -384,7 +385,9 @@ export interface RunStoppedAdmissionResult {
 // through these admitted events or they did not happen on the operator
 // path; tests driving the harness in-process are not operators.
 export function admitRunResumed(
-  input: OperatorRunLifecycleRequest
+  input: OperatorRunLifecycleRequest & {
+    readonly reasonKind: RunResumeReasonKind;
+  }
 ): RunResumedAdmissionResult {
   const replayEvents = runtimeEventsForBasis(
     input.basis,
@@ -395,6 +398,7 @@ export function admitRunResumed(
     runId: input.basis.runId,
     workKey: input.basis.workKey,
     operatorActorRef: input.operatorActorRef,
+    reasonKind: input.reasonKind,
     reasonDetail: input.reasonDetail,
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId

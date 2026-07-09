@@ -59,6 +59,7 @@ import type {
   DeclarationRepriceAdmittedEvent,
   GraphChangeClass,
   RunResumedEvent,
+  RunResumeReasonKind,
   RunSegmentOpenedEvent,
   RunStopReasonKind,
   RunStoppedEvent,
@@ -1111,6 +1112,7 @@ export function constructRunResumedEvent(input: {
   readonly runId: string | null;
   readonly workKey: string | null;
   readonly operatorActorRef: string;
+  readonly reasonKind: RunResumeReasonKind;
   readonly reasonDetail: string;
   readonly causationEventRefs?: readonly string[] | undefined;
   readonly correlationId?: string | undefined;
@@ -1121,6 +1123,7 @@ export function constructRunResumedEvent(input: {
     runId: input.runId,
     workKey: input.workKey,
     operatorActorRef: input.operatorActorRef,
+    reasonKind: input.reasonKind,
     reasonDetail: input.reasonDetail,
     causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId:

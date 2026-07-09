@@ -5475,10 +5475,13 @@ function* runEngineIterateMachine(input: {
   // start's substrate is witnessed by its own startup admission events;
   // the stamp exists to decompose MIXED-substrate runs, and mixing begins
   // at the first resume. Segment windows feed the frozen-law predicate
-  // per proving span.
+  // per proving span. The governing set derives from the FULL replay so
+  // far (S2 review P1: a resume without a fresh startup batch stamps the
+  // replay-derived governing truth, never an empty set; latest digest per
+  // declarationRef wins, so a covered reprice stamps its new digest).
   if (isResumedInvocation) {
     const governingSet = deriveGoverningDeclarationSet(
-      registryStartup?.admissionEvents ?? Object.freeze([])
+      eventState.replayEvents
     );
     eventState = emitRunnerEvents(
       eventState,

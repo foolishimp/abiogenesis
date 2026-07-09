@@ -21,6 +21,7 @@ import {
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
+  RUN_RESUME_REASON_KIND_VALUES,
   RUN_STOP_REASON_KIND_VALUES,
   RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
@@ -1483,6 +1484,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     runId: "nullable_string",
     workKey: "nullable_string",
     operatorActorRef: "non_empty_string",
+    reasonKind: { oneOf: RUN_RESUME_REASON_KIND_VALUES },
     reasonDetail: "non_empty_string",
     causationEventRefs: "string_array",
     correlationId: "non_empty_string"

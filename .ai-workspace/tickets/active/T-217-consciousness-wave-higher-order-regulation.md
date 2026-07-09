@@ -388,6 +388,26 @@ all four citability conjunct combinations, route differential with
 kernel-joined admitted digest). Suites 1195/1195 green. T-215 rows 1-7
 now realized except rows 1-2 (halt-diagnosis + defect-intake = S4).
 
+S2 HOSTILE-REVIEW FIXES (2026-07-09, four findings, all confirmed and
+pinned): P1a stamps could LIE about governing declarations — a lawful
+resume without a fresh runtimeRegistryStartup stamped declarationCount
+0 despite prior registry truth in replay; FIXED:
+deriveGoverningDeclarationSet is now latest-digest-per-declarationRef
+over the FULL replay-so-far (runner passes eventState.replayEvents
+post-admission) — startup-less resumes stamp replay-derived truth, a
+covered reprice stamps its new digest, superseded digests never ride
+(pins e1 runner differential reproducing the count-0 probe + e2
+supersession unit). P1b run_resumed lacked the WITNESS-006 typed
+reason; FIXED: RUN_RESUME_REASON_KIND_VALUES closed vocabulary
+(operator_resume/reprice_reentry/external_recovery/campaign_continue)
++ reasonKind on carrier/admission/factory/route (pin in c3). P2
+deriveRunSegments trusted input order over ordinal truth (probe minted
+window {from:20,to:9}); FIXED: stamps sort by eventAdmissionOrdinal;
+unorderable stamps (no ordinal) FAIL CLOSED with a typed throw (pin e3
+shuffled-replay + unorderable). P3 literal NUL byte in run_segments.ts
+made the file binary to diff tooling; killed by the P1a rewrite (no
+compound key needed; byte-verified clean). Suites 1198/1198 green.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

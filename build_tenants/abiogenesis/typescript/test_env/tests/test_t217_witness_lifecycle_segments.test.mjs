@@ -182,9 +182,20 @@ test("T-217 S2 c3: operator lifecycle routes admit canonical actor-attributed ev
     runtimeEvents: [],
     eventSink: (event) => sunk.push(event),
     operatorActorRef: "operator://jim",
+    reasonKind: "operator_resume",
     reasonDetail: "continue campaign after fix"
   });
   assert.equal(resumed.kind, "run_resumed_admission_result");
+  assert.equal(resumed.lifecycleEvent.reasonKind, "operator_resume");
+  // S2 review P1: the typed-reason law covers resume, not just stop
+  assert.throws(
+    () =>
+      assertRuntimeEvent({
+        ...resumed.lifecycleEvent,
+        reasonKind: "felt_like_it"
+      }),
+    /reasonKind/u
+  );
   const stopped = admitRunStopped({
     basis,
     runtimeEvents: resumed.replayEvents,
@@ -348,4 +359,93 @@ test("T-217 S2 c5: governing-set digest law and segment index law are one author
   assert.equal(nextRunSegmentIndex([stamp], "basis://t217/s2"), 4);
   assert.equal(nextRunSegmentIndex([stamp], "basis://other"), 1);
   assert.equal(nextRunSegmentIndex([], "basis://t217/s2"), 1);
+});
+
+test("T-217 S2 e1 (review P1): a startup-less resume stamps the replay-derived governing set, never an empty one", () => {
+  const { input, context, executive } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const runOneEvents = [];
+  runEngineStart(
+    startRequest(
+      input,
+      context,
+      [],
+      (event) => runOneEvents.push(event),
+      t217Declaration("content-v1", executive.id),
+      "correlation://t217/s2/e1/run1"
+    )
+  );
+  const expectedGoverningSet = deriveGoverningDeclarationSet(runOneEvents);
+  assert.equal(expectedGoverningSet.declarationCount, 1);
+
+  // the probe: resume WITHOUT a fresh runtimeRegistryStartup batch
+  const runTwoEvents = [];
+  runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [...runOneEvents],
+    eventSink: (event) => runTwoEvents.push(event)
+  });
+  const stamp = runTwoEvents.find((event) => event.kind === "run_segment_opened");
+  assert.ok(stamp, "the resume still stamps its segment");
+  assert.equal(
+    stamp.declarationCount,
+    1,
+    "the stamp carries the replay-derived governing truth, not an empty set"
+  );
+  assert.equal(stamp.declarationSetDigest, expectedGoverningSet.declarationSetDigest);
+});
+
+test("T-217 S2 e2 (review P1): governing set is latest-per-declarationRef — a superseded digest never rides the stamp", () => {
+  const admittedV1 = admitGtlLibraryEntryDeclaration({
+    declaration: t217Declaration("content-v1", "graph-function://t217/s2/e2"),
+    correlationId: "correlation://t217/s2/e2/v1"
+  });
+  const admittedV2 = admitGtlLibraryEntryDeclaration({
+    declaration: t217Declaration("content-v2", "graph-function://t217/s2/e2"),
+    correlationId: "correlation://t217/s2/e2/v2"
+  });
+  const superseded = deriveGoverningDeclarationSet([admittedV1, admittedV2]);
+  const direct = deriveGoverningDeclarationSet([admittedV2]);
+  assert.equal(superseded.declarationCount, 1);
+  assert.equal(
+    superseded.declarationSetDigest,
+    direct.declarationSetDigest,
+    "latest digest per declarationRef wins; the superseded digest is gone"
+  );
+});
+
+test("T-217 S2 e3 (review P2): segment windows derive from ordinal truth — shuffled replay cannot mint impossible windows; unorderable stamps fail closed", () => {
+  const [stampOne] = emit(
+    segmentStamp({ segmentIndex: 1 }),
+    () => {}
+  );
+  const [stampTwo] = emit(
+    segmentStamp({ segmentIndex: 2, declarationCount: 2 }),
+    () => {}
+  );
+  // shuffled input order: later stamp first
+  const segments = deriveRunSegments([stampTwo, stampOne]);
+  assert.equal(segments.length, 2);
+  assert.equal(segments[0].segmentIndex, 1);
+  assert.equal(segments[1].segmentIndex, 2);
+  assert.ok(
+    segments[0].window.toOrdinal === null ||
+      segments[0].window.fromOrdinal === null ||
+      segments[0].window.fromOrdinal <= segments[0].window.toOrdinal,
+    "no impossible window"
+  );
+  assert.equal(
+    segments[0].window.toOrdinal,
+    segments[1].window.fromOrdinal - 1,
+    "windows tile the record in ordinal order"
+  );
+  // an unorderable (never-admitted) stamp fails closed
+  assert.throws(
+    () => deriveRunSegments([segmentStamp({ segmentIndex: 3 })]),
+    /require admission ordinals/u
+  );
 });

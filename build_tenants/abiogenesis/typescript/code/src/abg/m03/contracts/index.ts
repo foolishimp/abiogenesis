@@ -1459,9 +1459,13 @@ export {
   constructRunStoppedEvent,
   mintRunSegmentRef
 } from "./event_factories.js";
-export { RUN_STOP_REASON_KIND_VALUES } from "./carriers.js";
+export {
+  RUN_RESUME_REASON_KIND_VALUES,
+  RUN_STOP_REASON_KIND_VALUES
+} from "./carriers.js";
 export type {
   RunResumedEvent,
+  RunResumeReasonKind,
   RunSegmentOpenedEvent,
   RunStopReasonKind,
   RunStoppedEvent
