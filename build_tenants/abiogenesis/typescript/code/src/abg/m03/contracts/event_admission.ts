@@ -1341,6 +1341,21 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
         "DeclarationRepriceAdmittedEvent requires beforeDigest !== afterDigest: a reprice witnesses changed declaration truth"
       );
     }
+    // Review fix (2026-07-09, S1 hostile review F2): the witness identity
+    // is SELF-CERTIFIED — admission recomputes the content-derived ref, so
+    // a caller-forged repriceRef cannot enter replay truth.
+    const expectedRepriceRef = `declaration-reprice:${stableSha256Digest({
+      declarationRef: event["declarationRef"],
+      beforeDigest: event["beforeDigest"],
+      afterDigest: event["afterDigest"],
+      changeClass: event["changeClass"],
+      owningTicketRef: event["owningTicketRef"]
+    })}`;
+    if (event["repriceRef"] !== expectedRepriceRef) {
+      throw new TypeError(
+        "DeclarationRepriceAdmittedEvent.repriceRef must be the content-derived identity"
+      );
+    }
   },
   c_call_opened: C_CALL_OPENED_ADMISSION,
   c_call_fibre_selected: spineClosedKeys("CCallFibreSelectedEvent",

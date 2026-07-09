@@ -306,6 +306,29 @@ Suites 1181/1181 green. Remainder of WITNESS-003 ("binding, or policy
 truth") rides S2's substrate stamps — the S1 diff surface is declared
 registry digests, the mechanically-admitted digest carrier today.
 
+S1 HOSTILE-REVIEW FIXES (2026-07-09, three findings, all confirmed and
+pinned): F1 HIGH duplicate-declarationRef bypass — first-wins folding
+let a startup row carrying the old digest mask a second row carrying
+the drifted one (driftRows: 0 => laundered); FIXED: multiple distinct
+current digests per declarationRef is a typed
+declaration_identity_conflict_row, inherently uncoverable (coverage
+presupposes ONE current identity); runner blocks
+declaration_identity_conflict before uncovered-drift check, emitting
+neither digest (pins b1 unit + b1-runner live differential incl.
+benign same-digest idempotence and no-prior ambiguity). F2 HIGH
+caller-trusted repriceRef — forged witness identity passed admission;
+FIXED: admission recomputes the content-derived ref
+(declarationRef/beforeDigest/afterDigest/changeClass/owningTicketRef)
+and rejects mismatch — identity is self-certified (pin b2 incl.
+changed-field-without-remint). F3 MEDIUM frozen-law not span-scoped —
+caller-slicing convention could falsely mark spans; FIXED:
+deriveFrozenLawPredicate takes an explicit ordinal window
+(FrozenLawWindow), returns it in the predicate; unplaceable
+(unstamped) reprices poison a window query fail-closed toward NOT
+frozen; whole-record default preserved with window: null (pin b3).
+Segment boundaries for the window arrive with S2's substrate stamps.
+Suites 1185/1185 green.
+
 ### Phase 2 — Clean kernel boundary (the regulated surface)
 Absorbs T-209's REMAINDER under its migration declaration (carried
 verbatim: declarations-only adoption — worker-loop plumbing into the

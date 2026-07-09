@@ -206,6 +206,151 @@ test("T-217 S1 a3: drift coverage is the exact digest pair — near-miss reprice
   assert.equal(fresh.driftRows.length, 0);
 });
 
+test("T-217 S1 b1 (review F1): duplicate declarationRef with distinct digests is a typed identity conflict, never a first-wins dedupe", () => {
+  const admittedV1 = admitGtlLibraryEntryDeclaration({
+    declaration: t217Declaration("content-v1"),
+    correlationId: "correlation://t217/b1/v1"
+  });
+  const admittedV2 = admitGtlLibraryEntryDeclaration({
+    declaration: t217Declaration("content-v2"),
+    correlationId: "correlation://t217/b1/v2"
+  });
+  // the exact bypass: first current row carries the OLD digest (masks),
+  // second carries the drifted one — must surface as conflict, not dedupe
+  const conflicted = deriveDeclarationRepriceObligations({
+    priorEvents: [admittedV1],
+    startupAdmissionEvents: [admittedV1, admittedV2]
+  });
+  assert.equal(conflicted.driftRows.length, 0);
+  assert.equal(conflicted.identityConflictRows.length, 1);
+  assert.equal(
+    conflicted.identityConflictRows[0].declarationRef,
+    admittedV1.declarationRef
+  );
+  assert.deepEqual(
+    [...conflicted.identityConflictRows[0].currentDigests].sort(),
+    [admittedV1.declarationDigest, admittedV2.declarationDigest].sort()
+  );
+  // duplicate rows with the SAME digest are benign idempotence, not conflict
+  const benign = deriveDeclarationRepriceObligations({
+    priorEvents: [admittedV1],
+    startupAdmissionEvents: [admittedV1, admittedV1]
+  });
+  assert.equal(benign.identityConflictRows.length, 0);
+  assert.equal(benign.driftRows.length, 0);
+  // conflict with no prior at all is still ambiguous identity
+  const freshConflict = deriveDeclarationRepriceObligations({
+    priorEvents: [],
+    startupAdmissionEvents: [admittedV1, admittedV2]
+  });
+  assert.equal(freshConflict.identityConflictRows.length, 1);
+  assert.equal(freshConflict.identityConflictRows[0].priorDigest, null);
+});
+
+test("T-217 S1 b2 (review F2): repriceRef is self-certified — a forged witness identity is inadmissible", () => {
+  const valid = repriceEvent();
+  assertRuntimeEvent(valid);
+  assert.throws(
+    () =>
+      assertRuntimeEvent({ ...valid, repriceRef: "declaration-reprice:forged" }),
+    /repriceRef must be the content-derived identity/u
+  );
+  // identity is bound to content: changing a covered field without
+  // re-minting the ref is equally inadmissible
+  assert.throws(
+    () => assertRuntimeEvent({ ...valid, owningTicketRef: "ticket://T-999" }),
+    /repriceRef must be the content-derived identity/u
+  );
+});
+
+test("T-217 S1 b3 (review F3): frozen-law takes an explicit ordinal window; unplaceable reprices poison the window fail-closed", () => {
+  const sunk = [];
+  const [canonicalReprice] = emit(repriceEvent(), (event) => sunk.push(event));
+  const ordinal = canonicalReprice.eventAdmissionOrdinal;
+  // window strictly after the reprice -> frozen
+  const after = deriveFrozenLawPredicate([canonicalReprice], {
+    fromOrdinal: ordinal + 1,
+    toOrdinal: null
+  });
+  assert.equal(after.frozenLaw, true);
+  assert.deepEqual(after.window, { fromOrdinal: ordinal + 1, toOrdinal: null });
+  // window covering the reprice -> not frozen
+  const covering = deriveFrozenLawPredicate([canonicalReprice], {
+    fromOrdinal: ordinal,
+    toOrdinal: ordinal
+  });
+  assert.equal(covering.frozenLaw, false);
+  assert.deepEqual(covering.repriceRefs, [canonicalReprice.repriceRef]);
+  // an UNSTAMPED reprice cannot be placed: any window query stays non-frozen
+  const unplaceable = deriveFrozenLawPredicate([repriceEvent()], {
+    fromOrdinal: 1000,
+    toOrdinal: 2000
+  });
+  assert.equal(unplaceable.frozenLaw, false);
+  // whole-record default is unchanged and carries a null window
+  const whole = deriveFrozenLawPredicate([canonicalReprice]);
+  assert.equal(whole.frozenLaw, false);
+  assert.equal(whole.window, null);
+});
+
+test("T-217 S1 b1-runner (review F1): a startup carrying old+new digests for one declarationRef blocks as identity conflict and emits neither", () => {
+  const { input, context, executive } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const runOneEvents = [];
+  runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [],
+    eventSink: (event) => runOneEvents.push(event),
+    runtimeRegistryStartup: {
+      systemDeclarations: [],
+      productStartupConfig: t217StartupConfig(),
+      productDeclarations: [t217Declaration("content-v1", executive.id)],
+      correlationId: "correlation://t217/b1r/run1"
+    }
+  });
+  const admittedV1 = runOneEvents.find(
+    (event) => event.kind === "registry_entry_admitted"
+  );
+  assert.ok(admittedV1);
+
+  const runTwoEvents = [];
+  const blocked = runEngineStart({
+    startIntent: input,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: [...runOneEvents],
+    eventSink: (event) => runTwoEvents.push(event),
+    runtimeRegistryStartup: {
+      systemDeclarations: [],
+      productStartupConfig: t217StartupConfig(),
+      productDeclarations: [
+        t217Declaration("content-v1", executive.id),
+        t217Declaration("content-v2", executive.id)
+      ],
+      correlationId: "correlation://t217/b1r/run2"
+    }
+  });
+  assert.equal(blocked.transition.kind, "terminal");
+  assert.equal(blocked.transition.terminalKind, "gap_stop");
+  assert.match(
+    blocked.transition.reason ?? "",
+    /declaration_identity_conflict: gtl-declaration:\/\/t217\/start\/witness-subject/u
+  );
+  const emittedRegistryRow = runTwoEvents.find(
+    (event) => event.kind === "registry_entry_admitted"
+  );
+  assert.equal(
+    emittedRegistryRow,
+    undefined,
+    "conflicted startup must emit no registry digest at all"
+  );
+});
+
 test("T-217 S1 a4: the operator route admits the reprice and returns the post-admission frozen-law truth", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const sunk = [];

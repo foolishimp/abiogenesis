@@ -5440,6 +5440,15 @@ function* runEngineIterateMachine(input: {
       priorEvents: replayEventsBeforeRegistryStartup,
       startupAdmissionEvents: registryStartup.admissionEvents
     });
+    if (repriceObligations.identityConflictRows.length > 0) {
+      // Review fix (2026-07-09, S1 F1): ambiguous current identity blocks
+      // outright — reprice coverage presupposes ONE current digest.
+      return failClosedStartupResult(
+        `declaration_identity_conflict: ${repriceObligations.identityConflictRows
+          .map((row) => row.declarationRef)
+          .join(",")}`
+      );
+    }
     if (repriceObligations.uncoveredDriftRows.length > 0) {
       return failClosedStartupResult(
         `declaration_reprice_required: ${repriceObligations.uncoveredDriftRows

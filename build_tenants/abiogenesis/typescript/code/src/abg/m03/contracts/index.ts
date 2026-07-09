@@ -1345,8 +1345,10 @@ export {
 } from "./declaration_reprice.js";
 export type {
   DeclarationDigestDriftRow,
+  DeclarationIdentityConflictRow,
   DeclarationRepriceObligationProjection,
-  FrozenLawPredicate
+  FrozenLawPredicate,
+  FrozenLawWindow
 } from "./declaration_reprice.js";
 export type {
   AdmittedMutationOutcomes,
