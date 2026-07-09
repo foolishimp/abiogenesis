@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.6.0-rc.1",
+  "version": "4.6.0-rc.2",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -149,7 +149,7 @@
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",
-    "snapshot:release": "npm run build:semantic && node build/semantic/code/src/bin/abiogenesis.js release-snapshot --snapshot-root ../../../release_snapshots/abiogenesis-typescript-tenant/$npm_package_version --release-identity $npm_package_version --source-ref main --rc-branch main --release-note ../../../docs/ABIOGENESIS_RC_RELEASE_NOTE.md --expected-package-name $npm_package_name --expected-package-version $npm_package_version",
+    "snapshot:release": "npm run build:semantic && npm run lint:semantic && npm run test:semantic && node build/semantic/code/src/bin/abiogenesis.js release-snapshot --snapshot-root ../../../release_snapshots/abiogenesis-typescript-tenant/$npm_package_version --release-identity $npm_package_version --source-ref main --rc-branch main --release-note ../../../docs/ABIOGENESIS_RC_RELEASE_NOTE.md --expected-package-name $npm_package_name --expected-package-version $npm_package_version",
     "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
     "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
     "test:t009": "npm run build:semantic && node --test test_env/tests/t009-m01-negative-ingress.test.mjs test_env/tests/t009-m01-roundtrip.test.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs",

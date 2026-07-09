@@ -81,7 +81,7 @@ export function admitHandlerRegistry(input: {
     if (!nonEmpty(binding.stageRole)) issues.push(`${at}.stageRole must be a non-empty string`);
     if (!nonEmpty(binding.armId)) issues.push(`${at}.armId must be a non-empty string`);
     if (!nonEmpty(binding.handlerRef)) issues.push(`${at}.handlerRef must be a non-empty string`);
-    if (!(C_CALL_REGIME_VALUES as readonly string[]).includes(binding.regime as string)) {
+    if (!(C_CALL_REGIME_VALUES as readonly string[]).includes(binding.regime)) {
       issues.push(`${at}.regime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`);
     }
     if (binding.handlerConfigRef !== null && !nonEmpty(binding.handlerConfigRef)) {

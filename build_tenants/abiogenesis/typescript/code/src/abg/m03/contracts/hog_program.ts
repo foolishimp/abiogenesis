@@ -41,19 +41,19 @@ export const HOG_BOOTSTRAP_TRIPLE: HogProgramDeclaration = Object.freeze({
   stages: Object.freeze([
     Object.freeze({
       stageRole: "transform",
-      defaultRegime: "F_P" as CCallRegime,
+      defaultRegime: "F_P",
       armId: "arm://abg/hog/transform",
       resultBearing: true
     }),
     Object.freeze({
       stageRole: "evaluate",
-      defaultRegime: "F_P" as CCallRegime,
+      defaultRegime: "F_P",
       armId: "arm://abg/hog/evaluate",
       resultBearing: false
     }),
     Object.freeze({
       stageRole: "consequence",
-      defaultRegime: "F_D" as CCallRegime,
+      defaultRegime: "F_D",
       armId: "arm://abg/hog/consequence",
       resultBearing: false
     })
@@ -91,7 +91,7 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
   // CLOSED KEY SET (codex P1): the program surface is the monad's
   // configuration — unknown siblings are rejected, never carried as a
   // metadata bag (second-truth-surface guard).
-  for (const key of Object.keys(record as Record<string, unknown>)) {
+  for (const key of Object.keys(record)) {
     if (!HOG_PROGRAM_KEYS.includes(key)) {
       issues.push(`unknown program field ${JSON.stringify(key)} (closed key set)`);
     }

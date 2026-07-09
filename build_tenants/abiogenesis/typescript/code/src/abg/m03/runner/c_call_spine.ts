@@ -103,10 +103,10 @@ export function buildCCallSpineOpen(input: CCallSpineOpenInput): CCallSpineOpen 
     cCallRef: opened.cCallRef,
     opened,
     selected,
-    events: Object.freeze([opened, selected]) as readonly [
-      CCallOpenedEvent,
-      CCallFibreSelectedEvent
-    ]
+    events: Object.freeze<readonly [CCallOpenedEvent, CCallFibreSelectedEvent]>([
+      opened,
+      selected
+    ])
   });
 }
 

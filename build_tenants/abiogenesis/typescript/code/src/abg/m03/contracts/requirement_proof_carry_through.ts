@@ -182,11 +182,27 @@ export interface RequirementProofCoverageProjection {
   readonly diagnosticRefs: readonly string[];
 }
 
-function uniqueSorted(input: readonly string[]): readonly string[] {
+function uniqueSorted<T extends string>(input: readonly T[]): readonly T[] {
   return Object.freeze([...new Set(input)].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
 }
 
-function requireNonEmptyString(input: string, label: string): string {
+export function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function requireRecord(
+  input: unknown,
+  label: string
+): Readonly<Record<string, unknown>> {
+  if (!isPlainRecord(input)) {
+    throw new TypeError(`${label} must be an object`);
+  }
+  return input;
+}
+
+function requireNonEmptyString(input: unknown, label: string): string {
   if (typeof input !== "string" || input.length === 0) {
     throw new TypeError(`${label} must be a non-empty string`);
   }
@@ -194,7 +210,7 @@ function requireNonEmptyString(input: string, label: string): string {
 }
 
 function requireNullableNonEmptyString(
-  input: string | null | undefined,
+  input: unknown,
   label: string
 ): string | null {
   if (input === undefined || input === null) {
@@ -203,70 +219,78 @@ function requireNullableNonEmptyString(
   return requireNonEmptyString(input, label);
 }
 
-function requireStringArray(input: readonly string[], label: string): readonly string[] {
-  if (!Array.isArray(input) || input.some((value) => typeof value !== "string" || value.length === 0)) {
+function requireStringArray(input: unknown, label: string): readonly string[] {
+  if (
+    !Array.isArray(input) ||
+    !input.every(
+      (value): value is string => typeof value === "string" && value.length > 0
+    )
+  ) {
     throw new TypeError(`${label} must be an array of non-empty strings`);
   }
-  return Object.freeze([...input]);
+  const rows: readonly string[] = input;
+  return Object.freeze([...rows]);
 }
 
 function requireFulfillmentBindings(
-  input: readonly GtlContractFulfillmentBinding[],
+  input: unknown,
   label: string
 ): readonly GtlContractFulfillmentBinding[] {
   if (!Array.isArray(input)) {
     throw new TypeError(`${label} must be an array`);
   }
+  const rows: readonly unknown[] = input;
   return Object.freeze(
-    input.map((binding, index) => {
+    rows.map((row, index) => {
       const prefix = `${label}[${index}]`;
-      if (binding.kind !== "gtl_contract_fulfillment_binding") {
+      const binding = requireRecord(row, prefix);
+      if (binding["kind"] !== "gtl_contract_fulfillment_binding") {
         throw new TypeError(`${prefix}.kind must be gtl_contract_fulfillment_binding`);
       }
       return Object.freeze({
         kind: "gtl_contract_fulfillment_binding" as const,
-        bindingRef: requireNonEmptyString(binding.bindingRef, `${prefix}.bindingRef`),
-        obligationRef: requireNonEmptyString(binding.obligationRef, `${prefix}.obligationRef`),
-        requirementRef: requireNonEmptyString(binding.requirementRef, `${prefix}.requirementRef`),
+        bindingRef: requireNonEmptyString(binding["bindingRef"], `${prefix}.bindingRef`),
+        obligationRef: requireNonEmptyString(binding["obligationRef"], `${prefix}.obligationRef`),
+        requirementRef: requireNonEmptyString(binding["requirementRef"], `${prefix}.requirementRef`),
         productRequirementRef: requireNonEmptyString(
-          binding.productRequirementRef,
+          binding["productRequirementRef"],
           `${prefix}.productRequirementRef`
         ),
         designObligationRef: requireNonEmptyString(
-          binding.designObligationRef,
+          binding["designObligationRef"],
           `${prefix}.designObligationRef`
         ),
-        componentRef: requireNonEmptyString(binding.componentRef, `${prefix}.componentRef`),
+        componentRef: requireNonEmptyString(binding["componentRef"], `${prefix}.componentRef`),
         productTargetRef: requireNonEmptyString(
-          binding.productTargetRef,
+          binding["productTargetRef"],
           `${prefix}.productTargetRef`
         ),
         outputSurfaceRef: requireNonEmptyString(
-          binding.outputSurfaceRef,
+          binding["outputSurfaceRef"],
           `${prefix}.outputSurfaceRef`
         ),
         functionOrEntrypointRef: requireNonEmptyString(
-          binding.functionOrEntrypointRef,
+          binding["functionOrEntrypointRef"],
           `${prefix}.functionOrEntrypointRef`
         ),
         realizationEvidenceRefs: uniqueSorted(
-          requireStringArray(binding.realizationEvidenceRefs, `${prefix}.realizationEvidenceRefs`)
+          requireStringArray(binding["realizationEvidenceRefs"], `${prefix}.realizationEvidenceRefs`)
         ),
         testOrExecutionEvidenceRefs: uniqueSorted(
           requireStringArray(
-            binding.testOrExecutionEvidenceRefs,
+            binding["testOrExecutionEvidenceRefs"],
             `${prefix}.testOrExecutionEvidenceRefs`
           )
         ),
         evaluatorFindingRef: requireNonEmptyString(
-          binding.evaluatorFindingRef,
+          binding["evaluatorFindingRef"],
           `${prefix}.evaluatorFindingRef`
         ),
         authorityRefs: uniqueSorted(
-          requireStringArray(binding.authorityRefs, `${prefix}.authorityRefs`)
+          requireStringArray(binding["authorityRefs"], `${prefix}.authorityRefs`)
         ),
         evidenceRefs: uniqueSorted(
-          requireStringArray(binding.evidenceRefs, `${prefix}.evidenceRefs`)
+          requireStringArray(binding["evidenceRefs"], `${prefix}.evidenceRefs`)
         )
       });
     })
@@ -274,40 +298,42 @@ function requireFulfillmentBindings(
 }
 
 function requireStageRole(
-  input: RequirementProofComputeStageRole,
+  input: unknown,
   label: string
 ): RequirementProofComputeStageRole {
-  if (!REQUIREMENT_PROOF_COMPUTE_STAGE_ROLE_VALUES.includes(input)) {
+  if (input !== "transform" && input !== "evaluate" && input !== "consequence") {
     throw new TypeError(`${label}: unsupported stage role ${JSON.stringify(input)}`);
   }
   return input;
 }
 
 function requireClassificationRules(
-  input: readonly RequirementProofCandidateClassificationRule[],
+  input: unknown,
   label: string
 ): readonly RequirementProofCandidateClassificationRule[] {
   if (!Array.isArray(input)) {
     throw new TypeError(`${label} must be an array`);
   }
+  const rows: readonly unknown[] = input;
   return Object.freeze(
-    input.map((rule, index) => {
+    rows.map((row, index) => {
+      const rule = requireRecord(row, `${label}[${index}]`);
       const evidenceRoleRefs = uniqueSorted(
-        requireStringArray(rule.evidenceRoleRefs, `${label}[${index}].evidenceRoleRefs`)
+        requireStringArray(rule["evidenceRoleRefs"], `${label}[${index}].evidenceRoleRefs`)
       );
       if (evidenceRoleRefs.length === 0) {
         throw new TypeError(`${label}[${index}].evidenceRoleRefs must not be empty`);
       }
       return Object.freeze({
         kind: "requirement_proof_candidate_classification_rule" as const,
-        ruleRef: requireNonEmptyString(rule.ruleRef, `${label}[${index}].ruleRef`),
-        stageRole: requireStageRole(rule.stageRole, `${label}[${index}].stageRole`),
+        ruleRef: requireNonEmptyString(rule["ruleRef"], `${label}[${index}].ruleRef`),
+        stageRole: requireStageRole(rule["stageRole"], `${label}[${index}].stageRole`),
         outputCandidateKind: requireNonEmptyString(
-          rule.outputCandidateKind,
+          rule["outputCandidateKind"],
           `${label}[${index}].outputCandidateKind`
         ),
         admissionTargetKind: requireNonEmptyString(
-          rule.admissionTargetKind,
+          rule["admissionTargetKind"],
           `${label}[${index}].admissionTargetKind`
         ),
         evidenceRoleRefs
@@ -334,20 +360,21 @@ export function requirementProofCandidateClassificationTableDigest(
 }
 
 export function constructRequirementProofCandidateClassificationTable(
-  input: Omit<RequirementProofCandidateClassificationTable, "kind" | "tableDigest"> & {
-    readonly tableDigest?: string | undefined;
-  }
+  rawInput: unknown
 ): RequirementProofCandidateClassificationTable {
+  // ingress admit boundary: the body IS the validator, so the parameter
+  // is honestly unknown — typed callers still assign
+  const input = requireRecord(rawInput, "classification_table");
   const withoutDigest = Object.freeze({
-    tableRef: requireNonEmptyString(input.tableRef, "tableRef"),
-    sourceRef: requireNonEmptyString(input.sourceRef, "sourceRef"),
-    rules: requireClassificationRules(input.rules, "rules")
+    tableRef: requireNonEmptyString(input["tableRef"], "tableRef"),
+    sourceRef: requireNonEmptyString(input["sourceRef"], "sourceRef"),
+    rules: requireClassificationRules(input["rules"], "rules")
   });
   return Object.freeze({
     kind: "requirement_proof_candidate_classification_table",
     ...withoutDigest,
     tableDigest: verifiedSuppliedCarryDigest(
-      input.tableDigest,
+      input["tableDigest"],
       requirementProofCandidateClassificationTableDigest(withoutDigest),
       "classification_table.tableDigest"
     )
@@ -355,7 +382,7 @@ export function constructRequirementProofCandidateClassificationTable(
 }
 
 function verifiedSuppliedCarryDigest(
-  supplied: string | undefined,
+  supplied: unknown,
   computed: string,
   label: string
 ): string {
@@ -394,8 +421,11 @@ function intersects(
   return actual.some((item) => expected.includes(item));
 }
 
+const EMPTY_CARRY_THROUGH_ISSUES: readonly RequirementProofCarryThroughIssue[] =
+  Object.freeze([]);
+
 function requireClosureStatus(
-  input: RequirementProofClosureStatus,
+  input: unknown,
   label: string
 ): RequirementProofClosureStatus {
   if (input !== "eligible" && input !== "residual" && input !== "blocked") {
@@ -492,10 +522,7 @@ export function parseRequirementProofCoverageTruthRef(
   if (parts.length !== 4) {
     throw new TypeError(`malformed coverage truth ref: ${ref}`);
   }
-  const status = requireClosureStatus(
-    parts[0] as RequirementProofClosureStatus,
-    "coverage truth ref status"
-  );
+  const status = requireClosureStatus(parts[0], "coverage truth ref status");
   const projectionRef = decodeURIComponent(parts[2] ?? "");
   const requirementId = decodeURIComponent(parts[3] ?? "");
   if (stableSha256Digest([projectionRef, requirementId]) !== parts[1]) {
@@ -544,7 +571,7 @@ export function requirementProofCoverageStatusFromTruthRef(
   let projectionRef: string;
   let requirementId: string;
   try {
-    status = requireClosureStatus(parts[0] as RequirementProofClosureStatus, "status");
+    status = requireClosureStatus(parts[0], "status");
     projectionRef = decodeURIComponent(parts[2] ?? "");
     requirementId = decodeURIComponent(parts[3] ?? "");
   } catch {
@@ -656,7 +683,8 @@ export function projectRequirementProofCoverage(input: {
   if (proofStrengthAdmissionRefs.length === 0) {
     issues.push("proof_strength_not_admitted");
   }
-  const uniqueIssues = uniqueSorted(issues) as readonly RequirementProofCarryThroughIssueKind[];
+  const uniqueIssues: readonly RequirementProofCarryThroughIssueKind[] =
+    uniqueSorted(issues);
   const blocked = uniqueIssues.includes("adversarial_counterexample_found");
   const closureEligible = uniqueIssues.length === 0;
   return Object.freeze({
@@ -710,8 +738,8 @@ export function projectRequirementProofCoverage(input: {
 }
 
 function requireExecutionAuthority(
-  value: "worker_turn" | "annealed_fd_handler" | undefined,
-  equivalenceContractRef: string | null | undefined
+  value: unknown,
+  equivalenceContractRef: unknown
 ): "worker_turn" | "annealed_fd_handler" {
   const authority = value ?? "worker_turn";
   if (authority !== "worker_turn" && authority !== "annealed_fd_handler") {
@@ -732,178 +760,174 @@ function requireExecutionAuthority(
 }
 
 export function constructRequirementProofCarryThroughContract(
-  input: Omit<
-    RequirementProofCarryThroughContract,
-    "kind" | "adversarialDepthClassRefs" | "executionAuthority" | "equivalenceContractRef"
-  > & {
-    readonly adversarialDepthClassRefs?: readonly string[];
-    readonly executionAuthority?: "worker_turn" | "annealed_fd_handler";
-    readonly equivalenceContractRef?: string | null;
-  }
+  rawInput: unknown
 ): RequirementProofCarryThroughContract {
+  const input = requireRecord(rawInput, "carry_through_contract");
   return Object.freeze({
     kind: "requirement_proof_carry_through_contract",
-    contractRef: requireNonEmptyString(input.contractRef, "contractRef"),
-    pluginRef: requireNonEmptyString(input.pluginRef, "pluginRef"),
-    stageRole: requireStageRole(input.stageRole, "stageRole"),
-    resultInterfaceRef: requireNonEmptyString(input.resultInterfaceRef, "resultInterfaceRef"),
+    contractRef: requireNonEmptyString(input["contractRef"], "contractRef"),
+    pluginRef: requireNonEmptyString(input["pluginRef"], "pluginRef"),
+    stageRole: requireStageRole(input["stageRole"], "stageRole"),
+    resultInterfaceRef: requireNonEmptyString(input["resultInterfaceRef"], "resultInterfaceRef"),
     responseContractRefs: uniqueSorted(
-      requireStringArray(input.responseContractRefs, "responseContractRefs")
+      requireStringArray(input["responseContractRefs"], "responseContractRefs")
     ),
     selectedCompositionRef: requireNonEmptyString(
-      input.selectedCompositionRef,
+      input["selectedCompositionRef"],
       "selectedCompositionRef"
     ),
     selectedCompositionDigest: requireNonEmptyString(
-      input.selectedCompositionDigest,
+      input["selectedCompositionDigest"],
       "selectedCompositionDigest"
     ),
     fulfillmentBindings: requireFulfillmentBindings(
-      input.fulfillmentBindings,
+      input["fulfillmentBindings"],
       "fulfillmentBindings"
     ),
     proofPolicyRefs: uniqueSorted(
-      requireStringArray(input.proofPolicyRefs, "proofPolicyRefs")
+      requireStringArray(input["proofPolicyRefs"], "proofPolicyRefs")
     ),
     expectedEvidenceShapeRefs: uniqueSorted(
-      requireStringArray(input.expectedEvidenceShapeRefs, "expectedEvidenceShapeRefs")
+      requireStringArray(input["expectedEvidenceShapeRefs"], "expectedEvidenceShapeRefs")
     ),
     proofStrengthRefs: uniqueSorted(
-      requireStringArray(input.proofStrengthRefs, "proofStrengthRefs")
+      requireStringArray(input["proofStrengthRefs"], "proofStrengthRefs")
     ),
     depthPolicyRefs: uniqueSorted(
-      requireStringArray(input.depthPolicyRefs, "depthPolicyRefs")
+      requireStringArray(input["depthPolicyRefs"], "depthPolicyRefs")
     ),
     requiredDepthClassRefs: uniqueSorted(
-      requireStringArray(input.requiredDepthClassRefs, "requiredDepthClassRefs")
+      requireStringArray(input["requiredDepthClassRefs"], "requiredDepthClassRefs")
     ),
     fdStrengthCriterionRefs: uniqueSorted(
-      requireStringArray(input.fdStrengthCriterionRefs, "fdStrengthCriterionRefs")
+      requireStringArray(input["fdStrengthCriterionRefs"], "fdStrengthCriterionRefs")
     ),
     requiredAdversarialCheckRefs: uniqueSorted(
       requireStringArray(
-        input.requiredAdversarialCheckRefs,
+        input["requiredAdversarialCheckRefs"],
         "requiredAdversarialCheckRefs"
       )
     ),
     adversarialDepthClassRefs: uniqueSorted(
       requireStringArray(
-        input.adversarialDepthClassRefs ?? [],
+        input["adversarialDepthClassRefs"] ?? [],
         "adversarialDepthClassRefs"
       )
     ),
     executionAuthority: requireExecutionAuthority(
-      input.executionAuthority,
-      input.equivalenceContractRef
+      input["executionAuthority"],
+      input["equivalenceContractRef"]
     ),
-    equivalenceContractRef: input.equivalenceContractRef ?? null,
+    equivalenceContractRef: requireNullableNonEmptyString(
+      input["equivalenceContractRef"],
+      "equivalenceContractRef"
+    ),
     evidenceRoleRefs: uniqueSorted(
-      requireStringArray(input.evidenceRoleRefs, "evidenceRoleRefs")
+      requireStringArray(input["evidenceRoleRefs"], "evidenceRoleRefs")
     ),
     outputCandidateKinds: uniqueSorted(
-      requireStringArray(input.outputCandidateKinds, "outputCandidateKinds")
+      requireStringArray(input["outputCandidateKinds"], "outputCandidateKinds")
     ),
     admissionTargetKinds: uniqueSorted(
-      requireStringArray(input.admissionTargetKinds, "admissionTargetKinds")
+      requireStringArray(input["admissionTargetKinds"], "admissionTargetKinds")
     ),
     classificationTableRef: requireNonEmptyString(
-      input.classificationTableRef,
+      input["classificationTableRef"],
       "classificationTableRef"
     ),
     classificationTableDigest: requireNonEmptyString(
-      input.classificationTableDigest,
+      input["classificationTableDigest"],
       "classificationTableDigest"
     )
   });
 }
 
 export function constructRequirementProofCarryThroughOutputEnvelope(
-  input: Omit<RequirementProofCarryThroughOutputEnvelope, "kind" | "replayDigest"> & {
-    readonly replayDigest?: string | undefined;
-  }
+  rawInput: unknown
 ): RequirementProofCarryThroughOutputEnvelope {
+  const input = requireRecord(rawInput, "carry_through_output_envelope");
   const withoutDigest = Object.freeze({
-    envelopeRef: requireNonEmptyString(input.envelopeRef, "envelopeRef"),
-    contractRef: requireNonEmptyString(input.contractRef, "contractRef"),
-    stageRole: requireStageRole(input.stageRole, "stageRole"),
-    taskRole: requireNullableNonEmptyString(input.taskRole, "taskRole"),
+    envelopeRef: requireNonEmptyString(input["envelopeRef"], "envelopeRef"),
+    contractRef: requireNonEmptyString(input["contractRef"], "contractRef"),
+    stageRole: requireStageRole(input["stageRole"], "stageRole"),
+    taskRole: requireNullableNonEmptyString(input["taskRole"], "taskRole"),
     outputCandidateKind: requireNonEmptyString(
-      input.outputCandidateKind,
+      input["outputCandidateKind"],
       "outputCandidateKind"
     ),
     admissionTargetKind: requireNonEmptyString(
-      input.admissionTargetKind,
+      input["admissionTargetKind"],
       "admissionTargetKind"
     ),
     sourceRequirementObligationRefs: uniqueSorted(
       requireStringArray(
-        input.sourceRequirementObligationRefs,
+        input["sourceRequirementObligationRefs"],
         "sourceRequirementObligationRefs"
       )
     ),
     evidenceRoleRefs: uniqueSorted(
-      requireStringArray(input.evidenceRoleRefs, "evidenceRoleRefs")
+      requireStringArray(input["evidenceRoleRefs"], "evidenceRoleRefs")
     ),
     proofObligationRefs: uniqueSorted(
-      requireStringArray(input.proofObligationRefs, "proofObligationRefs")
+      requireStringArray(input["proofObligationRefs"], "proofObligationRefs")
     ),
     proofPolicyRefs: uniqueSorted(
-      requireStringArray(input.proofPolicyRefs, "proofPolicyRefs")
+      requireStringArray(input["proofPolicyRefs"], "proofPolicyRefs")
     ),
     expectedEvidenceShapeRefs: uniqueSorted(
-      requireStringArray(input.expectedEvidenceShapeRefs, "expectedEvidenceShapeRefs")
+      requireStringArray(input["expectedEvidenceShapeRefs"], "expectedEvidenceShapeRefs")
     ),
     positiveEvidenceShapeRefs: uniqueSorted(
-      requireStringArray(input.positiveEvidenceShapeRefs, "positiveEvidenceShapeRefs")
+      requireStringArray(input["positiveEvidenceShapeRefs"], "positiveEvidenceShapeRefs")
     ),
     negativeEvidenceShapeRefs: uniqueSorted(
-      requireStringArray(input.negativeEvidenceShapeRefs, "negativeEvidenceShapeRefs")
+      requireStringArray(input["negativeEvidenceShapeRefs"], "negativeEvidenceShapeRefs")
     ),
     proofStrengthRefs: uniqueSorted(
-      requireStringArray(input.proofStrengthRefs, "proofStrengthRefs")
+      requireStringArray(input["proofStrengthRefs"], "proofStrengthRefs")
     ),
     depthPolicyRefs: uniqueSorted(
-      requireStringArray(input.depthPolicyRefs, "depthPolicyRefs")
+      requireStringArray(input["depthPolicyRefs"], "depthPolicyRefs")
     ),
     depthClassRefs: uniqueSorted(
-      requireStringArray(input.depthClassRefs, "depthClassRefs")
+      requireStringArray(input["depthClassRefs"], "depthClassRefs")
     ),
     proofStrengthAdmissionRefs: uniqueSorted(
       requireStringArray(
-        input.proofStrengthAdmissionRefs,
+        input["proofStrengthAdmissionRefs"],
         "proofStrengthAdmissionRefs"
       )
     ),
     fdStrengthCriterionRefs: uniqueSorted(
-      requireStringArray(input.fdStrengthCriterionRefs, "fdStrengthCriterionRefs")
+      requireStringArray(input["fdStrengthCriterionRefs"], "fdStrengthCriterionRefs")
     ),
     adversarialAttemptRefs: uniqueSorted(
-      requireStringArray(input.adversarialAttemptRefs, "adversarialAttemptRefs")
+      requireStringArray(input["adversarialAttemptRefs"], "adversarialAttemptRefs")
     ),
     counterexampleRefs: uniqueSorted(
-      requireStringArray(input.counterexampleRefs, "counterexampleRefs")
+      requireStringArray(input["counterexampleRefs"], "counterexampleRefs")
     ),
     responseContractRef: requireNonEmptyString(
-      input.responseContractRef,
+      input["responseContractRef"],
       "responseContractRef"
     ),
-    resultInterfaceRef: requireNonEmptyString(input.resultInterfaceRef, "resultInterfaceRef"),
+    resultInterfaceRef: requireNonEmptyString(input["resultInterfaceRef"], "resultInterfaceRef"),
     selectedCompositionRef: requireNonEmptyString(
-      input.selectedCompositionRef,
+      input["selectedCompositionRef"],
       "selectedCompositionRef"
     ),
     selectedCompositionDigest: requireNonEmptyString(
-      input.selectedCompositionDigest,
+      input["selectedCompositionDigest"],
       "selectedCompositionDigest"
     ),
-    replayIdentity: requireNonEmptyString(input.replayIdentity, "replayIdentity"),
-    evidenceRefs: uniqueSorted(requireStringArray(input.evidenceRefs, "evidenceRefs"))
+    replayIdentity: requireNonEmptyString(input["replayIdentity"], "replayIdentity"),
+    evidenceRefs: uniqueSorted(requireStringArray(input["evidenceRefs"], "evidenceRefs"))
   });
   return Object.freeze({
     kind: "requirement_proof_carry_through_output_envelope",
     ...withoutDigest,
     replayDigest: verifiedSuppliedCarryDigest(
-      input.replayDigest,
+      input["replayDigest"],
       requirementProofCarryThroughReplayDigest(withoutDigest),
       "carry_through_output.replayDigest"
     )
@@ -1305,7 +1329,7 @@ export function admitRequirementProofCarryThroughOutput(input: {
       accepted: true,
       envelope,
       categoryKey,
-      issues: Object.freeze([] as RequirementProofCarryThroughIssue[])
+      issues: EMPTY_CARRY_THROUGH_ISSUES
     });
   }
   return Object.freeze({

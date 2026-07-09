@@ -13,13 +13,15 @@ import type {
 } from "./carriers.js";
 import {
   admitRequirementProofCarryThroughOutput,
+  isPlainRecord,
   constructRequirementProofCandidateClassificationTable,
   constructRequirementProofCarryThroughContract,
   constructRequirementProofCarryThroughOutputEnvelope,
   projectRequirementProofCoverage,
   requirementAbgTruthRefFromRequirementProofCoverage,
   type RequirementProofCandidateClassificationTable,
-  type RequirementProofCarryThroughContract
+  type RequirementProofCarryThroughContract,
+  type RequirementProofCarryThroughOutputEnvelope
 } from "./requirement_proof_carry_through.js";
 import {
   constructDerivedProofDepthInstructionTruth,
@@ -53,8 +55,8 @@ export interface RequirementProofCarryThroughStartupEntry {
   readonly classificationTable: RequirementProofCandidateClassificationTable;
   readonly requirementIds: readonly string[];
   readonly envelopeTemplate: Omit<
-    Parameters<typeof constructRequirementProofCarryThroughOutputEnvelope>[0],
-    "envelopeRef" | "evidenceRefs" | "replayIdentity" | "replayDigest"
+    RequirementProofCarryThroughOutputEnvelope,
+    "kind" | "envelopeRef" | "evidenceRefs" | "replayIdentity" | "replayDigest"
   >;
   readonly edge?: string | undefined;
 }
@@ -142,41 +144,45 @@ export function admitRequirementProofCarryThroughStartup(
     reject("startup_not_object", "startup", "startup must be an object with an entries array");
     return rejected();
   }
-  if (!Array.isArray(input.entries)) {
+  const rawEntriesInput: unknown = input.entries;
+  if (!Array.isArray(rawEntriesInput)) {
     reject("entries_not_array", "startup.entries", "entries must be an array");
     return rejected();
   }
+  const rawEntries: readonly unknown[] = rawEntriesInput;
   const admittedEntries: RequirementProofCarryThroughStartupEntry[] = [];
-  for (const [index, entry] of input.entries.entries()) {
+  for (const [index, entryRaw] of rawEntries.entries()) {
     const at = `entries[${index}]`;
-    if (entry === null || typeof entry !== "object") {
+    if (!isPlainRecord(entryRaw)) {
       reject("entry_not_object", at, "must be a startup entry object");
       continue;
     }
+    const entry = entryRaw;
     let contract: RequirementProofCarryThroughContract | null = null;
-    if (entry.contract === null || typeof entry.contract !== "object") {
+    if (!isPlainRecord(entry["contract"])) {
       reject("contract_inadmissible", `${at}.contract`, "must be a requirement proof carry-through contract");
     } else {
       try {
-        contract = constructRequirementProofCarryThroughContract(entry.contract);
+        contract = constructRequirementProofCarryThroughContract(entry["contract"]);
       } catch (error) {
         reject("contract_inadmissible", `${at}.contract`, admissionIssueMessage(error));
       }
     }
     let classificationTable: RequirementProofCandidateClassificationTable | null = null;
-    if (entry.classificationTable === null || typeof entry.classificationTable !== "object") {
+    if (!isPlainRecord(entry["classificationTable"])) {
       reject("classification_table_inadmissible", `${at}.classificationTable`, "must be a candidate classification table");
     } else {
       try {
         classificationTable = constructRequirementProofCandidateClassificationTable(
-          entry.classificationTable
+          entry["classificationTable"]
         );
       } catch (error) {
         reject("classification_table_inadmissible", `${at}.classificationTable`, admissionIssueMessage(error));
       }
     }
     let admittedTemplate: RequirementProofCarryThroughStartupEntry["envelopeTemplate"] | null = null;
-    if (entry.envelopeTemplate === null || typeof entry.envelopeTemplate !== "object") {
+    const templateRaw = entry["envelopeTemplate"];
+    if (!isPlainRecord(templateRaw)) {
       reject("envelope_template_inadmissible", `${at}.envelopeTemplate`, "must be an envelope template object");
     } else {
       // probe construction proves the template can never throw at
@@ -187,36 +193,64 @@ export function admitRequirementProofCarryThroughStartup(
       // reach it (self-review F1, 2026-07-08).
       try {
         const probe = constructRequirementProofCarryThroughOutputEnvelope({
-          ...entry.envelopeTemplate,
+          ...templateRaw,
           envelopeRef: CARRY_THROUGH_ADMISSION_PROBE_REF,
           evidenceRefs: Object.freeze([CARRY_THROUGH_ADMISSION_PROBE_REF]),
           replayIdentity: CARRY_THROUGH_ADMISSION_PROBE_REF
         });
-        const {
-          kind: _kind,
-          envelopeRef: _envelopeRef,
-          evidenceRefs: _evidenceRefs,
-          replayIdentity: _replayIdentity,
-          replayDigest: _replayDigest,
-          ...canonicalTemplate
-        } = probe;
-        admittedTemplate = Object.freeze(canonicalTemplate);
+        // explicit pick of the template fields from the TYPED probe (the
+        // rest-destructure named unused locals; the pick is total and typed)
+        admittedTemplate = Object.freeze({
+          contractRef: probe.contractRef,
+          stageRole: probe.stageRole,
+          taskRole: probe.taskRole,
+          outputCandidateKind: probe.outputCandidateKind,
+          admissionTargetKind: probe.admissionTargetKind,
+          sourceRequirementObligationRefs: probe.sourceRequirementObligationRefs,
+          evidenceRoleRefs: probe.evidenceRoleRefs,
+          proofObligationRefs: probe.proofObligationRefs,
+          proofPolicyRefs: probe.proofPolicyRefs,
+          expectedEvidenceShapeRefs: probe.expectedEvidenceShapeRefs,
+          positiveEvidenceShapeRefs: probe.positiveEvidenceShapeRefs,
+          negativeEvidenceShapeRefs: probe.negativeEvidenceShapeRefs,
+          proofStrengthRefs: probe.proofStrengthRefs,
+          depthPolicyRefs: probe.depthPolicyRefs,
+          depthClassRefs: probe.depthClassRefs,
+          proofStrengthAdmissionRefs: probe.proofStrengthAdmissionRefs,
+          fdStrengthCriterionRefs: probe.fdStrengthCriterionRefs,
+          adversarialAttemptRefs: probe.adversarialAttemptRefs,
+          counterexampleRefs: probe.counterexampleRefs,
+          responseContractRef: probe.responseContractRef,
+          resultInterfaceRef: probe.resultInterfaceRef,
+          selectedCompositionRef: probe.selectedCompositionRef,
+          selectedCompositionDigest: probe.selectedCompositionDigest
+        });
       } catch (error) {
         reject("envelope_template_inadmissible", `${at}.envelopeTemplate`, admissionIssueMessage(error));
       }
     }
-    const requirementIdsValid =
-      Array.isArray(entry.requirementIds) &&
-      entry.requirementIds.length > 0 &&
-      entry.requirementIds.every((requirementId: unknown) => wellFormedNonEmpty(requirementId));
-    if (!requirementIdsValid) {
+    const requirementIdsRaw: unknown = entry["requirementIds"];
+    let requirementIds: readonly string[] | null = null;
+    if (Array.isArray(requirementIdsRaw)) {
+      const candidates: readonly unknown[] = requirementIdsRaw;
+      if (
+        candidates.length > 0 &&
+        candidates.every((requirementId): requirementId is string =>
+          wellFormedNonEmpty(requirementId)
+        )
+      ) {
+        requirementIds = candidates;
+      }
+    }
+    if (requirementIds === null) {
       reject(
         "requirement_ids_invalid",
         `${at}.requirementIds`,
         "must be a non-empty array of non-empty well-formed strings"
       );
     }
-    const edgeValid = entry.edge === undefined || wellFormedNonEmpty(entry.edge);
+    const edgeRaw = entry["edge"];
+    const edgeValid = edgeRaw === undefined || wellFormedNonEmpty(edgeRaw);
     if (!edgeValid) {
       reject("edge_invalid", `${at}.edge`, "must be undefined or a non-empty well-formed string");
     }
@@ -224,16 +258,16 @@ export function admitRequirementProofCarryThroughStartup(
       contract !== null &&
       classificationTable !== null &&
       admittedTemplate !== null &&
-      requirementIdsValid &&
+      requirementIds !== null &&
       edgeValid
     ) {
       admittedEntries.push(
         Object.freeze({
           contract,
           classificationTable,
-          requirementIds: Object.freeze([...entry.requirementIds]),
+          requirementIds: Object.freeze([...requirementIds]),
           envelopeTemplate: admittedTemplate,
-          edge: entry.edge
+          edge: typeof edgeRaw === "string" ? edgeRaw : undefined
         })
       );
     }
@@ -331,10 +365,8 @@ function routePayloadOf(event: RuntimeEvent): RequirementRoutePayloadShapes | nu
   if (event.kind !== "requirement_route_fact_projected") {
     return null;
   }
-  const payload = (event as { readonly requirementPayload?: unknown }).requirementPayload;
-  return payload !== null && typeof payload === "object"
-    ? (payload as RequirementRoutePayloadShapes)
-    : null;
+  const payload: unknown = event.requirementPayload;
+  return payload !== null && typeof payload === "object" ? payload : null;
 }
 
 function stringsOf(value: unknown): readonly string[] {

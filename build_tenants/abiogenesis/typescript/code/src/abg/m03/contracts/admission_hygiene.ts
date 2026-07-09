@@ -80,7 +80,7 @@ function replacerSortingKeys(
       return value;
     }
     const sorted: Record<string, unknown> = {};
-    for (const objectKey of Object.keys(value as Record<string, unknown>).sort()) {
+    for (const objectKey of Object.keys(value).sort()) {
       sorted[objectKey] = (value as Record<string, unknown>)[objectKey];
     }
     return sorted;
@@ -97,7 +97,7 @@ export function eventAdmissionOrdinalOf(event: unknown): number | null {
     typeof event === "object" &&
     event !== null &&
     "eventAdmissionOrdinal" in event &&
-    typeof (event as { eventAdmissionOrdinal: unknown }).eventAdmissionOrdinal === "number" &&
+    typeof (event).eventAdmissionOrdinal === "number" &&
     Number.isSafeInteger((event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal) &&
     (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal >= 0
   ) {

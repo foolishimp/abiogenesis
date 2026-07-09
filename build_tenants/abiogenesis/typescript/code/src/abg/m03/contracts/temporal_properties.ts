@@ -172,7 +172,7 @@ function parseFormula(
           eventKind,
           ...(where.length === 0 ? {} : { where: Object.freeze(where) })
         })
-      }) as TemporalFormula;
+      });
     }
     if (atomKind === "fluent") {
       const fluent = String(atom["fluent"] ?? "");
@@ -189,7 +189,7 @@ function parseFormula(
       return Object.freeze({
         op: "atom",
         atom: Object.freeze({ kind: "fluent", fluent: fluent as RuntimeFluentName })
-      }) as TemporalFormula;
+      });
     }
     issues.push(issue("malformed_formula", `unknown atom kind: ${atomKind}`, propertyRef));
     return null;
@@ -201,7 +201,7 @@ function parseFormula(
       if (left === null || right === null) {
         return null;
       }
-      return Object.freeze({ op, left, right }) as TemporalFormula;
+      return Object.freeze({ op, left, right });
     }
     const child = parseFormula(node["child"], issues, propertyRef);
     if (child === null) {

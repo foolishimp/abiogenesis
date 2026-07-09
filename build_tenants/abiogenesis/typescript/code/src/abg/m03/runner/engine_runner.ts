@@ -396,7 +396,7 @@ export function engineStartPassthrough(
       forwarded[key] = source[key];
     }
   }
-  return forwarded as EngineStartPassthroughFields;
+  return forwarded;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
@@ -7713,9 +7713,14 @@ function* runEngineIterateMachine(input: {
             {
               // the RAW attached artifact is the worker's payload; the
               // map section rides at its top level
-              const rawArtifact = outcome.attachedResultArtifact as
-                | { readonly [DEPTH_PROOF_MAP_PAYLOAD_KEY]?: unknown }
-                | null;
+              const rawArtifact: Readonly<Record<string, unknown>> | null =
+                typeof outcome.attachedResultArtifact === "object" &&
+                outcome.attachedResultArtifact !== null &&
+                !Array.isArray(outcome.attachedResultArtifact)
+                  ? (outcome.attachedResultArtifact as Readonly<
+                      Record<string, unknown>
+                    >)
+                  : null;
               // T-213 (S6): the declared artifact schema is the SOLE shape
               // authority and gates BEFORE the domain row law. A schema
               // rejection emits payload_rejected carrying schemaRef +
@@ -7728,9 +7733,7 @@ function* runEngineIterateMachine(input: {
                   ? instructionBinding.plan.artifactSchemas
                   : Object.freeze([]);
               for (const declaredSchema of declaredArtifactSchemas) {
-                const sectionValue = (rawArtifact as
-                  | Record<string, unknown>
-                  | null)?.[declaredSchema.artifactKey];
+                const sectionValue = (rawArtifact)?.[declaredSchema.artifactKey];
                 if (sectionValue === undefined) {
                   continue;
                 }
@@ -7819,9 +7822,7 @@ function* runEngineIterateMachine(input: {
                 MUTATION_OUTCOMES_PAYLOAD_KEY
               )
                 ? undefined
-                : (rawArtifact as
-                    | { readonly [MUTATION_OUTCOMES_PAYLOAD_KEY]?: unknown }
-                    | null)?.[MUTATION_OUTCOMES_PAYLOAD_KEY];
+                : rawArtifact?.[MUTATION_OUTCOMES_PAYLOAD_KEY];
               if (mutationSection !== undefined) {
                 const outcomeAdmission = admitMutationOutcomes({
                   payloadSection: mutationSection,

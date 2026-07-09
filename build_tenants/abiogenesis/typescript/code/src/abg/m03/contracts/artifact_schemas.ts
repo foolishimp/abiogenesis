@@ -156,7 +156,7 @@ export function admitArtifactSchemas(
         continue;
       }
       let rowsKeysValid = true;
-      for (const key of Object.keys(rawRows as Record<string, unknown>)) {
+      for (const key of Object.keys(rawRows)) {
         if (!["key", "fields"].includes(key)) {
           issue("unknown_key", `${at}.rows.${key}`);
           rowsKeysValid = false;
