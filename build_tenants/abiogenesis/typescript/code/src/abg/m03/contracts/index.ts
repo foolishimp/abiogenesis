@@ -452,6 +452,8 @@ export {
   parseTerminalKind
 } from "./event_admission.js";
 export {
+  admitNonEmptyString,
+  assertNonEmptyString,
   RUN_INDEPENDENT_EVENT_SCOPE_CLASSES,
   runtimeEventBasisId,
   runtimeEventsForBasis

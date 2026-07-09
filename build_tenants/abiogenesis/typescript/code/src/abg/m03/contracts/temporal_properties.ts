@@ -386,6 +386,16 @@ interface TraceContext {
   readonly fluentHolds: readonly ReadonlySet<string>[];
 }
 
+// C-9 (T-217 S2.4): guard fields read through the event's OWN key space
+// — one keyof-narrowed accessor instead of an unknown-cast. An absent
+// field reads undefined and the guard simply fails to match.
+function declaredEventFieldValue(
+  event: RuntimeEvent,
+  field: string
+): unknown {
+  return field in event ? event[field as keyof typeof event] : undefined;
+}
+
 function eventAtomMatches(
   atom: Extract<TemporalAtom, { kind: "event" }>,
   event: RuntimeEvent
@@ -394,8 +404,7 @@ function eventAtomMatches(
     return false;
   }
   for (const guard of atom.where ?? []) {
-    const value = (event as unknown as Record<string, unknown>)[guard.field];
-    if (String(value) !== guard.equals) {
+    if (String(declaredEventFieldValue(event, guard.field)) !== guard.equals) {
       return false;
     }
   }

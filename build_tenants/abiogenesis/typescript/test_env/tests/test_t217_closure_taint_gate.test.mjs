@@ -308,3 +308,54 @@ test("T-217 S2.4 (EVENTS-026): hostile issue rows fail admission typed — smugg
     /issues\[0\] must be an object/u
   );
 });
+
+test("T-217 S2.4 (C-4): emitter contexts are store-scoped — independent counters, and a live store rejects forged pre-stamps while replay tolerance admits them", async () => {
+  const { createRuntimeEventEmitterContext, emitWithContext } = await import(
+    "../../build/semantic/code/src/abg/m03/events/index.js"
+  );
+  const failure = (message) => ({
+    kind: "runtime_failure_observed",
+    basisId: null,
+    surface: "test://t217/s24/c4",
+    failureClass: "runtime_failure",
+    message,
+    stackExcerpt: null
+  });
+
+  // two stores in one process: ordinals never interleave
+  const storeA = createRuntimeEventEmitterContext();
+  const storeB = createRuntimeEventEmitterContext();
+  const [a1] = emitWithContext(storeA, failure("a1"), () => {});
+  const [b1] = emitWithContext(storeB, failure("b1"), () => {});
+  const [a2] = emitWithContext(storeA, failure("a2"), () => {});
+  assert.equal(a1.eventAdmissionOrdinal, 0);
+  assert.equal(b1.eventAdmissionOrdinal, 0);
+  assert.equal(a2.eventAdmissionOrdinal, 1);
+
+  // T-195 caller-context flag: a LIVE store fails closed on a
+  // pre-stamped canonical envelope (forged pre-stamp)...
+  assert.throws(
+    () => emitWithContext(storeA, a1, () => {}),
+    /live emitter context rejects pre-stamped canonical envelopes/u
+  );
+  // ...while a replay-tolerant store admits replayed truth and its
+  // counter only moves forward past the stamped ordinal
+  const replayStore = createRuntimeEventEmitterContext({
+    source: "replay_tolerant",
+    startOrdinal: 0
+  });
+  const [replayed] = emitWithContext(replayStore, a2, () => {});
+  assert.equal(replayed, a2);
+  const [minted] = emitWithContext(replayStore, failure("fresh"), () => {});
+  assert.equal(minted.eventAdmissionOrdinal, a2.eventAdmissionOrdinal + 1);
+});
+
+test("T-217 S2.4 (C-3): the canonical string laws — assert narrows unknown, admit returns the narrowed value, both fail typed", async () => {
+  const { admitNonEmptyString, assertNonEmptyString } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  assert.equal(admitNonEmptyString("ref://a", "label"), "ref://a");
+  assertNonEmptyString("ok", "label");
+  assert.throws(() => admitNonEmptyString("", "label"), /label must be non-empty/u);
+  assert.throws(() => assertNonEmptyString(42, "label"), /label must be non-empty/u);
+});

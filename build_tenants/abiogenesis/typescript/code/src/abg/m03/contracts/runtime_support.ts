@@ -14,10 +14,23 @@ export function freezeStringArray(values: readonly string[]): readonly string[] 
   return Object.freeze([...values]);
 }
 
-export function assertNonEmptyString(value: string, label: string): void {
-  if (value.length === 0) {
+// T-217 S2.4 (C-3 reconciliation): THE canonical assert form — takes
+// unknown and narrows, so string-typed and unknown-typed callers share
+// one law. The returning admit form is admitNonEmptyString. Layer-local
+// copies elsewhere are accepted idiom under merge-on-touch; new code
+// consumes these two.
+export function assertNonEmptyString(
+  value: unknown,
+  label: string
+): asserts value is string {
+  if (typeof value !== "string" || value.length === 0) {
     throw new TypeError(`${label} must be non-empty`);
   }
+}
+
+export function admitNonEmptyString(value: unknown, label: string): string {
+  assertNonEmptyString(value, label);
+  return value;
 }
 
 export function assertNonNegativeInteger(value: number, label: string): void {

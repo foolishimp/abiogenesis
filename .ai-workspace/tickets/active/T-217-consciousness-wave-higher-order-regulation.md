@@ -962,9 +962,34 @@ latestAdmittedEventsPerEdge supersession fold now obeys the D-ordinal
 law (decisiveByAdmissionOrdinal per edge) — the T-188 fixtures declare
 admission ordinals and a shuffled-replay differential pins that order
 cannot flip authority. Suites 1247/1247; gate violations=0.
-S2.4b REMAINING: C-4 store-scoped emitter + T-195 flag; C-3 helper
-reconciliation + T-208 riders; T-213 conformance-row ingestion; C-9
-temporal accessor.
+S2.4b DELIVERED (2026-07-10) — S2.4 COMPLETE. (1) C-4: the admission
+ordinal is EMITTER-CONTEXT state (RuntimeEventEmitterContext +
+createRuntimeEventEmitterContext + emitWithContext; emit() delegates to
+the module default, preserving every existing caller) — two stores in
+one process no longer share a counter; the T-195 caller-context flag is
+realized: a LIVE context fails closed on pre-stamped canonical
+envelopes (forged pre-stamps), a replay-tolerant context admits
+replayed truth and only moves forward. Differentials: independent
+counters, live rejection, replay tolerance + forward-only. (2) C-3
+reconciliation RULING + kernel cut: the canonical signature law is
+DECLARED in runtime_support — assertNonEmptyString(unknown, label):
+asserts value is string (message unchanged for existing pins) and
+admitNonEmptyString(unknown, label): string; both exported and
+differentially pinned. The remaining layer-local copies (gtl/m01-m02,
+app/m04, 24x freezeStringArray et al.) are ACCEPTED LAYER-LOCAL IDIOM
+under merge-on-touch discipline — a blind cross-layer merge flips
+pinned error messages for zero behavioral value; new code consumes the
+canonical pair. T-208 riders (admission-support commonization, T-188
+fixture family) fold into the same merge-on-touch ruling. (3) C-9:
+temporal_properties' as-unknown-as replaced by the keyof-narrowed
+declaredEventFieldValue accessor — code/src is now free of
+as-unknown-as outside the five accepted CLI ingress narrowings.
+(4) T-213 conformance-row ingestion RE-ROUTED: the third file family
+(test-execution-result rows) originates in campaign lanes — its kernel
+schema home lands WITH the odd_glc declarations-only adoption at the
+live gate (S2.3's bucket); inventing the shape now from stale memory
+would recreate the exact bug class T-213 kills. Suites 1249/1249; gate
+violations=0. Next: S2.5 monolith splits (C-2).
 
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
