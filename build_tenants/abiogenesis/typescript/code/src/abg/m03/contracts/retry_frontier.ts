@@ -767,6 +767,7 @@ export function deriveRetryFrontierProjection(input: {
       case "run_stopped":
       case "workspace_hygiene_stamped":
       case "defect_intake_admitted":
+      case "replay_log_attested":
         break;
       case "instruction_prompt_manifest_projected":
       case "instruction_response_contract_admitted":

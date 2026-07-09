@@ -619,8 +619,18 @@ export interface TemporalPropertyVerdict {
 }
 
 function eventRefOf(event: RuntimeEvent): string {
-  const withId = event as unknown as { readonly eventId?: string };
-  return withId.eventId ?? `${event.kind}:unstamped`;
+  // T-211 (P1-12 residue): implicated-event refs are replay identities.
+  // An unstamped event cannot be lawfully implicated — the old
+  // `<kind>:unstamped` synthetic ref polluted verdict read-models with
+  // non-refs. Typed rejection, matching this module's evaluation-path
+  // convention.
+  const withId = event as { readonly eventId?: unknown };
+  if (typeof withId.eventId === "string" && withId.eventId.length > 0) {
+    return withId.eventId;
+  }
+  throw new TypeError(
+    `temporal evaluation requires canonical stamped events: ${event.kind} carries no eventId`
+  );
 }
 
 export function evaluateTemporalProperty(input: {

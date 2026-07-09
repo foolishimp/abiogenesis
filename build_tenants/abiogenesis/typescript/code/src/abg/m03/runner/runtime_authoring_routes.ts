@@ -11,6 +11,7 @@ import type {
   GraphChangeClass,
   GraphReentryPoint,
   GraphVectorResumeCursorAppliedEvent,
+  ReplayLogAttestedEvent,
   RunResumedEvent,
   RunResumeReasonKind,
   RunStopReasonKind,
@@ -24,6 +25,7 @@ import {
   constructDeclarationRepriceAdmittedEvent,
   constructGraphVectorResumeCursorAppliedEvent,
   constructDefectIntakeAdmittedEvent,
+  constructReplayLogAttestedEvent,
   constructRunResumedEvent,
   constructRunStoppedEvent,
   constructWorkspaceHygieneStampedEvent
@@ -45,6 +47,7 @@ import {
   deriveHaltDiagnosis,
   type HaltDiagnosisProjection
 } from "../contracts/halt_diagnosis.js";
+import { deriveReplayChainDigest } from "../contracts/replay_attestation.js";
 import {
   deriveTicketDraftFromIntake,
   type TicketDraftProjection
@@ -617,6 +620,68 @@ export function admitDefectIntake(
     emittedEvents,
     replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
   } satisfies DefectIntakeAdmissionResult);
+}
+
+export interface ReplayLogAttestationRequest {
+  readonly basis: ExecutionBasis;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
+  readonly eventSink: RuntimeEventSink;
+  readonly attestedBy: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}
+
+export interface ReplayLogAttestationResult {
+  readonly kind: "replay_log_attestation_result";
+  readonly basis: ExecutionBasis;
+  readonly attestationEvent: ReplayLogAttestedEvent;
+  readonly attestationRef: string;
+  readonly chainDigest: string;
+  readonly eventCount: number;
+  readonly emittedEvents: readonly CanonicalRuntimeEvent[];
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+// T-211 item 2: the attestation seam — an attributed instrument attests
+// the run's replay chain; verification re-derives the chain and any
+// tampering inside the attested span is evident. The grammar's campaign
+// commands attest at segment boundaries.
+export function admitReplayLogAttestation(
+  input: ReplayLogAttestationRequest
+): ReplayLogAttestationResult {
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const chain = deriveReplayChainDigest(replayEvents);
+  const attestationEvent = constructReplayLogAttestedEvent({
+    basisId: input.basis.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    chainDigest: chain.chainDigest,
+    eventCount: chain.eventCount,
+    attestedBy: input.attestedBy,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+  const emittedEvents = emit(
+    withBasisAdmission(
+      input.basis,
+      input.runtimeEvents ?? Object.freeze([]),
+      Object.freeze([attestationEvent])
+    ),
+    input.eventSink
+  );
+  return Object.freeze({
+    kind: "replay_log_attestation_result",
+    basis: input.basis,
+    attestationEvent,
+    attestationRef: attestationEvent.attestationRef,
+    chainDigest: chain.chainDigest,
+    eventCount: chain.eventCount,
+    emittedEvents,
+    replayEvents: appendEmittedReplay(replayEvents, emittedEvents)
+  } satisfies ReplayLogAttestationResult);
 }
 
 export function applyExplicitGraphVectorResumeCursor(

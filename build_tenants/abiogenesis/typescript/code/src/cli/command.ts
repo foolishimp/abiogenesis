@@ -960,22 +960,134 @@ function coercePluginTraversalKinds(
   );
 }
 
+// T-211 (P1-12 residue): the five raw `as unknown as` ingress casts are
+// collapsed through admitted ingress shapes — each admitter asserts the
+// structural contract at the CLI boundary and holds the ONE narrowing
+// cast behind those assertions (matching the sibling
+// admitConstructionPriorityScheme pattern).
+function admitModuleShape(value: unknown, label: string): Module {
+  const record = requiredObjectField({ module: value }, "module", label);
+  if (typeof record["name"] !== "string" || record["name"].length === 0) {
+    throw new CliError(`${label}.module.name must be a non-empty string`);
+  }
+  return record as unknown as Module;
+}
+
+function admitRuntimeIdentityShape(
+  value: unknown,
+  label: string
+): PublicStartContext["runtimeIdentity"] {
+  const record = requiredObjectField(
+    { runtimeIdentity: value },
+    "runtimeIdentity",
+    label
+  );
+  for (const field of ["workerId", "backendId", "buildId", "resolvedRuntimeRef"]) {
+    if (typeof record[field] !== "string" || record[field].length === 0) {
+      throw new CliError(
+        `${label}.runtimeIdentity.${field} must be a non-empty string`
+      );
+    }
+  }
+  return record as unknown as PublicStartContext["runtimeIdentity"];
+}
+
+function admitResolvedPolicyShape(
+  value: unknown,
+  label: string
+): PublicStartContext["resolvedPolicy"] {
+  const record = requiredObjectField(
+    { resolvedPolicy: value },
+    "resolvedPolicy",
+    label
+  );
+  if (
+    typeof record["resolvedPolicyBundleRef"] !== "string" ||
+    record["resolvedPolicyBundleRef"].length === 0
+  ) {
+    throw new CliError(
+      `${label}.resolvedPolicy.resolvedPolicyBundleRef must be a non-empty string`
+    );
+  }
+  const regime = record["defaultRegime"];
+  if (regime !== "F_D" && regime !== "F_P" && regime !== "F_H") {
+    throw new CliError(
+      `${label}.resolvedPolicy.defaultRegime must be one of F_D, F_P, F_H`
+    );
+  }
+  for (const field of ["dispatchRef", "approvalSubjectRef"]) {
+    const fieldValue = record[field];
+    if (fieldValue !== null && typeof fieldValue !== "string") {
+      throw new CliError(
+        `${label}.resolvedPolicy.${field} must be a string or null`
+      );
+    }
+  }
+  return record as unknown as PublicStartContext["resolvedPolicy"];
+}
+
+function admitAssuranceProviderShape(
+  value: unknown,
+  label: string
+): EngineAssuranceProvider {
+  if (!isRecord(value)) {
+    throw new CliError(`${label}.assuranceProvider must be an object`);
+  }
+  if (typeof value["authoritySnapshot"] !== "function") {
+    throw new CliError(
+      `${label}.assuranceProvider.authoritySnapshot must be a function`
+    );
+  }
+  for (const optional of [
+    "evidenceRows",
+    "eventLedgerValid",
+    "priorClosureSnapshot"
+  ]) {
+    if (hasOwnField(value, optional) && typeof value[optional] !== "function") {
+      throw new CliError(
+        `${label}.assuranceProvider.${optional} must be a function`
+      );
+    }
+  }
+  return value as unknown as EngineAssuranceProvider;
+}
+
+function admitEngineRunnerPluginSetShape(
+  value: unknown,
+  label: string
+): EngineRunnerPluginSet {
+  if (!isRecord(value)) {
+    throw new CliError(`${label}.plugins must be an object`);
+  }
+  for (const [key, plugin] of Object.entries(value)) {
+    if (
+      plugin !== undefined &&
+      plugin !== null &&
+      typeof plugin !== "object" &&
+      typeof plugin !== "function"
+    ) {
+      throw new CliError(
+        `${label}.plugins.${key} must be a plugin object or factory`
+      );
+    }
+  }
+  return value as unknown as EngineRunnerPluginSet;
+}
+
 function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   if (!isRecord(input)) {
     throw new CliError(`${label} must export an object runtime binding`);
   }
 
-  const module = requiredObjectField(input, "module", label) as unknown as Module;
-  const runtimeIdentity = requiredObjectField(
-    input,
-    "runtimeIdentity",
+  const module = admitModuleShape(input["module"], label);
+  const runtimeIdentity = admitRuntimeIdentityShape(
+    input["runtimeIdentity"],
     label
-  ) as unknown as PublicStartContext["runtimeIdentity"];
-  const resolvedPolicy = requiredObjectField(
-    input,
-    "resolvedPolicy",
+  );
+  const resolvedPolicy = admitResolvedPolicyShape(
+    input["resolvedPolicy"],
     label
-  ) as unknown as PublicStartContext["resolvedPolicy"];
+  );
 
   const result: {
     module: Module;
@@ -1028,40 +1140,10 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     );
   }
   if (hasOwnField(input, "assuranceProvider")) {
-    if (!isRecord(input["assuranceProvider"])) {
-      throw new CliError(`${label}.assuranceProvider must be an object`);
-    }
-    if (typeof input["assuranceProvider"]["authoritySnapshot"] !== "function") {
-      throw new CliError(
-        `${label}.assuranceProvider.authoritySnapshot must be a function`
-      );
-    }
-    if (
-      hasOwnField(input["assuranceProvider"], "evidenceRows") &&
-      typeof input["assuranceProvider"]["evidenceRows"] !== "function"
-    ) {
-      throw new CliError(
-        `${label}.assuranceProvider.evidenceRows must be a function`
-      );
-    }
-    if (
-      hasOwnField(input["assuranceProvider"], "eventLedgerValid") &&
-      typeof input["assuranceProvider"]["eventLedgerValid"] !== "function"
-    ) {
-      throw new CliError(
-        `${label}.assuranceProvider.eventLedgerValid must be a function`
-      );
-    }
-    if (
-      hasOwnField(input["assuranceProvider"], "priorClosureSnapshot") &&
-      typeof input["assuranceProvider"]["priorClosureSnapshot"] !== "function"
-    ) {
-      throw new CliError(
-        `${label}.assuranceProvider.priorClosureSnapshot must be a function`
-      );
-    }
-    result.assuranceProvider =
-      input["assuranceProvider"] as unknown as EngineAssuranceProvider;
+    result.assuranceProvider = admitAssuranceProviderShape(
+      input["assuranceProvider"],
+      label
+    );
   }
   for (const passthroughKey of ENGINE_START_PASSTHROUGH_KEYS) {
     if (hasOwnField(input, passthroughKey)) {
@@ -1072,10 +1154,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     }
   }
   if (hasOwnField(input, "plugins")) {
-    if (!isRecord(input["plugins"])) {
-      throw new CliError(`${label}.plugins must be an object`);
-    }
-    result.plugins = input["plugins"] as unknown as EngineRunnerPluginSet;
+    result.plugins = admitEngineRunnerPluginSetShape(input["plugins"], label);
   }
   if (hasOwnField(input, "resolvePolicy")) {
     if (typeof input["resolvePolicy"] !== "function") {

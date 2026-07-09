@@ -1044,6 +1044,23 @@ export interface DefectIntakeAdmittedEvent {
   readonly correlationId: string;
 }
 
+// Implements: T-217 Phase 1 (T-211 item 2 / T-195 P1-10) — the replay
+// record witnessed: an attested chain digest over the canonical envelope
+// sequence makes tampering inside the attested span EVIDENT on
+// re-derivation. attestationRef is self-certified.
+export interface ReplayLogAttestedEvent {
+  readonly kind: "replay_log_attested";
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly attestationRef: string;
+  readonly chainDigest: string;
+  readonly eventCount: number;
+  readonly attestedBy: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 // Implements: REQ-R-ABG3-CCALL-001..-008 — the uniform C-call spine.
 // The spine is LOCUS-ONLY (-002): no fibre name in any spine carrier;
 // fibre selection is the first interior row (-003).
@@ -2853,6 +2870,7 @@ export type RuntimeEvent =
   | RunStoppedEvent
   | WorkspaceHygieneStampedEvent
   | DefectIntakeAdmittedEvent
+  | ReplayLogAttestedEvent
   | CCallOpenedEvent
   | CCallFibreSelectedEvent
   | CCallEvidencedEvent
@@ -2994,6 +3012,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "run_stopped",
   "workspace_hygiene_stamped",
   "defect_intake_admitted",
+  "replay_log_attested",
   "runtime_failure_observed",
   "c_call_opened",
   "c_call_fibre_selected",

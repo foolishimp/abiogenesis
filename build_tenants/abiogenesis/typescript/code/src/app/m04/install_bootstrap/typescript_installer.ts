@@ -841,7 +841,13 @@ async function linkPackageDependency(
   );
   await mkdir(dirname(targetRootPath), { recursive: true });
   await rm(targetRootPath, { recursive: true, force: true });
-  await symlink(sourceRoot, targetRootPath, "dir");
+  // T-211 installer defect (recurring 3+ installs): a symlink into the
+  // builder's checkout dangles the moment the install is relocated —
+  // lib/node_modules/<pkg> read empty on every cut. A release-cut
+  // artifact resolves its runtime dependencies from ITS OWN payload:
+  // copy the real payload (locateDependencySource resolves to a real
+  // directory in the builder's node_modules).
+  await cp(sourceRoot, targetRootPath, { recursive: true });
 }
 
 async function linkPackageDependencies(

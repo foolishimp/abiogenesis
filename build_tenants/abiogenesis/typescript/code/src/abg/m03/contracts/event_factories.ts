@@ -59,6 +59,7 @@ import type {
   DeclarationRepriceAdmittedEvent,
   DefectIntakeAdmittedEvent,
   GraphChangeClass,
+  ReplayLogAttestedEvent,
   GraphReentryPoint,
   RunResumedEvent,
   RunResumeReasonKind,
@@ -1258,6 +1259,36 @@ export function constructDefectIntakeAdmittedEvent(input: {
     triagedBy: input.triagedBy,
     causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
     correlationId: input.correlationId ?? intakeRef
+  });
+}
+
+export function constructReplayLogAttestedEvent(input: {
+  readonly basisId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly chainDigest: string;
+  readonly eventCount: number;
+  readonly attestedBy: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): ReplayLogAttestedEvent {
+  const attestationRef = `replay-attestation:${stableSha256Digest({
+    basisId: input.basisId,
+    chainDigest: input.chainDigest,
+    eventCount: input.eventCount,
+    attestedBy: input.attestedBy
+  })}`;
+  return Object.freeze({
+    kind: "replay_log_attested",
+    basisId: input.basisId,
+    runId: input.runId,
+    workKey: input.workKey,
+    attestationRef,
+    chainDigest: input.chainDigest,
+    eventCount: input.eventCount,
+    attestedBy: input.attestedBy,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId ?? attestationRef
   });
 }
 

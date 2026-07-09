@@ -571,6 +571,65 @@ ingress-asserted append-ordered replay (safe), as pure functions they
 share the hazard — routed to the SR-6 commonization rider for the
 ordinal-law sweep. Suites 1212/1212 green.
 
+PHASE 1 REMAINDER DELIVERED (2026-07-09) — T-211 (ALL FOUR ITEMS) +
+T-214 (BOTH HALVES) + SR-6/SR-7 riders:
+- T-211.1a temporal unstamped-eventId fallback RETIRED (typed
+  TypeError; implicated refs are replay identities, never synthetic).
+- T-211.1b the five cli/command.ts `as unknown as` ingress casts
+  COLLAPSED through admitted ingress shapes (admitModuleShape /
+  admitRuntimeIdentityShape / admitResolvedPolicyShape /
+  admitAssuranceProviderShape / admitEngineRunnerPluginSetShape — one
+  guarded narrowing behind structural assertions each, sibling
+  admit-pattern matched).
+- T-211.2 REPLAY-LOG ATTESTATION (the T-195 P1-10 named refinement,
+  the "authenticated" exit-word bearer): replay_log_attested witness
+  kind (self-certified attestationRef) + deriveReplayChainDigest
+  (ordinal-ordered chained fold over canonical envelopes; fails closed
+  on uncanonical events) + verifyReplayLogAttestations (per-attestation
+  re-derivation; insertion/removal/reorder INSIDE an attested span
+  flips verified; appends after never disturb it) + route
+  admitReplayLogAttestation. The Review A forgery probe (canonical-
+  shaped forged event minting closure) is pinned tamper-EVIDENT (m3).
+  Zero attestations = vacuous integrity — attestation coverage joins
+  the Phase 5 campaign coverage conjuncts (with hygiene stampCount).
+  Composes with, does not replace, the emit-side caller-context flag
+  still named at events/emit.ts.
+- T-211.3 PRODUCT.md temporal claim narrowed to proven scope
+  (composed-path safety gating; per-vector online formulas ride the
+  tuner work).
+- T-211 valibot installer defect FIXED PROPERLY: linkPackageDependency
+  copied real payloads (cp recursive) instead of symlinking into the
+  builder's checkout — the dangling-symlink-on-relocation mechanism
+  identified and retired; release-cut immutability restored.
+- T-214a diff-execution witness gate (abiogenesis):
+  test_env/gates/diff_execution_witness.mjs — NODE_V8_COVERAGE +
+  inline VLQ sourcemap decode (zero deps) + git diff -U0; changed
+  executable lines never executed by the approving suite FAIL the
+  gate; sourcemaps enabled on the semantic build; gate:diff-witness
+  npm script; proven live (riders commit: witnessed=15 violations=0).
+  Tree-wide thresholds explicitly rejected per T-214 non-closure.
+- T-214b odd_glc export pin rule (odd_glc 9fb0694): every binding
+  export must be referenced by the unit lane (live lane excluded — its
+  vacuousness is how Review B shipped); caught 11 live unpinned
+  exports on first run; binding-surface pins added. Suite 87/79/0.
+- Suites: semantic 1217/1217 green.
+
+S6 OPEN — THE LAST PHASE 1 ITEM (T-213 typed artifact schemas), scoped
+by scout map, own reviewed slice: artifactSchemas enters as a
+gtl_program_conformance row family -> flows to CompiledPromptPlan
+(goldenInstanceCalibration template) -> rendered as an
+`## abg.artifact_output_schemas` prompt block (renderedPromptFor) ->
+enforced at the engine_runner file-admission block (7696+) BEFORE the
+domain admitX (which remain kernel row law) -> rejection rides the
+EXISTING payload_rejected (schemaRef + reason carry the schema back
+through the retry->re-render loop). Non-trivial build: the declared
+schema dialect + enforcement bridge (valibot wraps primitives only
+today). Scout findings of record: responseJsonSchema is a WEAK
+precedent (CLI arg, zero callers); no generic file-payload choke point
+exists (per-carrier ad hoc at engine_runner 7696-7809); payload_*
+events already carry schemaRef (universally null today — no producer
+sets it). PHASE 1 EXIT after S6 + codex rounds on S3/S5/S6 surfaces.
+
 ODD_SDLC BACKLOG RECONCILIATION + SESSION-ALLOWLIST RATIFICATION
 (2026-07-09): the two-workers-over-a-surface capability is ALREADY
 SPECIFIED in the odd_sdlc backlog — T-167 (review graph-function

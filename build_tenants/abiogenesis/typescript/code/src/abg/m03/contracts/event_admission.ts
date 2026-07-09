@@ -1392,6 +1392,30 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
     }
   },
+  replay_log_attested: (event) => {
+    applyFieldRules("ReplayLogAttestedEvent", {
+      basisId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      attestationRef: "non_empty_string",
+      chainDigest: "non_empty_string",
+      eventCount: "non_negative_integer",
+      attestedBy: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    const expectedAttestationRef = `replay-attestation:${stableSha256Digest({
+      basisId: event["basisId"],
+      chainDigest: event["chainDigest"],
+      eventCount: event["eventCount"],
+      attestedBy: event["attestedBy"]
+    })}`;
+    if (event["attestationRef"] !== expectedAttestationRef) {
+      throw new TypeError(
+        "ReplayLogAttestedEvent.attestationRef must be the content-derived identity"
+      );
+    }
+  },
   run_segment_opened: (event) => {
     applyFieldRules("RunSegmentOpenedEvent", {
       basisId: "non_empty_string",

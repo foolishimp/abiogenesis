@@ -34,6 +34,7 @@ export {
 export {
   admitDeclarationReprice,
   admitDefectIntake,
+  admitReplayLogAttestation,
   admitRunResumed,
   admitRunStopped,
   admitWorkspaceHygieneStamp,
@@ -46,6 +47,8 @@ export type {
   DefectIntakeAdmissionResult,
   DefectIntakeRequest,
   OperatorRunLifecycleRequest,
+  ReplayLogAttestationRequest,
+  ReplayLogAttestationResult,
   RunResumedAdmissionResult,
   RunStoppedAdmissionResult,
   WorkspaceHygieneStampRequest,

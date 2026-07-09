@@ -1407,6 +1407,18 @@ export {
 } from "./defect_intake.js";
 export type { TicketDraftProjection } from "./defect_intake.js";
 export type { DefectIntakeAdmittedEvent } from "./carriers.js";
+export {
+  deriveAdmittedReplayAttestations,
+  deriveReplayChainDigest,
+  mintReplayAttestationRef,
+  verifyReplayLogAttestations
+} from "./replay_attestation.js";
+export type {
+  ReplayAttestationVerificationRow,
+  ReplayChainDigest
+} from "./replay_attestation.js";
+export { constructReplayLogAttestedEvent } from "./event_factories.js";
+export type { ReplayLogAttestedEvent } from "./carriers.js";
 export { WORKSPACE_HYGIENE_CLASSIFICATION_VALUES } from "./carriers.js";
 export type {
   WorkspaceHygieneClassification,
