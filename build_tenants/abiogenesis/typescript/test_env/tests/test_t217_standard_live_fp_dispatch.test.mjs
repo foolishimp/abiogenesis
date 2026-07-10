@@ -93,7 +93,7 @@ test("live fp dispatch: worker JSON object dispatches with the parsed artifact a
   );
   const outcome = await plugin.dispatch(pluginInput(MANIFEST));
   assert.equal(outcome.status, "dispatched");
-  assert.match(outcome.resultRef, /^result:live_fp_dispatch:pin-v0$/u);
+  assert.match(outcome.resultRef, /^result:live_fp_dispatch:pin-dispatch-v0-a0-[0-9a-f]{12}$/u);
   assert.equal(outcome.attachedResultArtifact.ok, true);
   assert.equal(outcome.attachedResultArtifact.stage, "pin");
 });
@@ -167,4 +167,134 @@ test("live fp evaluator: transport failure is typed blocked with allowlist gramm
   assert.equal(outcome.status, "blocked");
   assert.match(outcome.reason, /transport failed/u);
   assert.match(outcome.reason, /failureClass=/u);
+});
+
+// ═══ codex round pins (T-217 closure campaign, review round 3) ═══
+
+test("F1: dispatch performs ZERO side effects before its first await", async () => {
+  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const { existsSync } = await import("node:fs");
+  const pending = plugin.dispatch(pluginInput(MANIFEST));
+  // synchronously after the call: nothing may exist yet
+  assert.equal(existsSync(cap.archiveRoot), false, "no pre-await filesystem work");
+  await pending;
+  assert.equal(existsSync(cap.archiveRoot), true);
+});
+
+test("F2: distinct invocations never collide — attempt and invocation id key the archive", async () => {
+  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const { readdirSync } = await import("node:fs");
+  const inputA = {
+    ...pluginInput(MANIFEST),
+    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 0, dispatchRef: "d://a", resultRef: null }
+  };
+  const inputB = {
+    ...pluginInput(MANIFEST),
+    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 1, dispatchRef: "d://b", resultRef: null }
+  };
+  const outcomeA = await plugin.dispatch(inputA);
+  const outcomeB = await plugin.dispatch(inputB);
+  assert.notEqual(outcomeA.resultRef, outcomeB.resultRef, "result refs must not alias");
+  const manifests = readdirSync(cap.archiveRoot).filter((f) => f.endsWith("-instruction-manifest.json"));
+  assert.equal(manifests.length, 2, "each attempt keeps its own archive");
+});
+
+test("F4: accepted-with-retry is NOT close-eligible — one decision drives every field", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(
+    capabilityWith("console.log(JSON.stringify({ accepted: true, closeDisposition: 'retry' }))")
+  );
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
+  assert.equal(outcome.status, "evaluated");
+  assert.equal(outcome.ambiguityStatus, "partial");
+  const finding = outcome.findings[0];
+  assert.equal(finding.closeDisposition, "retry");
+  assert.equal(finding.executiveDisposition, "local_repair");
+  assert.notEqual(finding.residualPressureRefs.length, 0, "retry carries residual pressure");
+  assert.notEqual(finding.continuationRefs.length, 0, "retry carries a continuation");
+});
+
+test("F6: failed transports reconcile to their session — archive refs ride the blocked outcome", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(capabilityWith("process.exit(2)"));
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
+  assert.equal(outcome.status, "blocked");
+  assert.equal(
+    outcome.evidenceRefs.some((ref) => ref.startsWith("agent-output:")),
+    true,
+    "the failed session's output archive must be citable from the outcome"
+  );
+});
+
+test("F7: hostile labelPrefix fails typed; capability mutation cannot change execution", async () => {
+  assert.throws(
+    () => standardLiveFpDispatchPlugin(capabilityWith("process.exit(0)", { labelPrefix: "../escape" })),
+    /path-safe label component/u
+  );
+  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const originalRoot = cap.archiveRoot;
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  cap.archiveRoot = "/tmp/hijacked-root-must-not-be-used";
+  const { existsSync } = await import("node:fs");
+  await plugin.dispatch(pluginInput(MANIFEST));
+  assert.equal(existsSync(originalRoot), true, "the SNAPSHOTTED root is used");
+  assert.equal(existsSync("/tmp/hijacked-root-must-not-be-used"), false);
+});
+
+test("F8: an alias catalog row fails closed on contract identity", async () => {
+  const { resolveDeclaredPluginSelection, STANDARD_ENGINE_PLUGIN_CATALOG } = await import(
+    "../../build/semantic/code/src/abg/m03/index.js"
+  );
+  const legit = STANDARD_ENGINE_PLUGIN_CATALOG["plugin://abg/fp-dispatch"];
+  assert.throws(
+    () =>
+      resolveDeclaredPluginSelection({
+        selection: { fpDispatch: "plugin://abg/aliased" },
+        sourceRef: "gf://pin",
+        catalog: { "plugin://abg/aliased": legit }
+      }),
+    /plugin_selection_identity_mismatch/u
+  );
+});
+
+test("F5: duplicate selection declarations and duplicate seam keys fail closed", async () => {
+  const { pluginSelectionFromDeclarationAttrs } = await import(
+    "../../build/semantic/code/src/abg/m03/index.js"
+  );
+  const blob = { kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/fp-dispatch" }] };
+  assert.throws(
+    () =>
+      pluginSelectionFromDeclarationAttrs(
+        { entries: [
+          { key: "abg.plugin_selection", value: { kind: "json_blob", value: blob } },
+          { key: "abg.plugin_selection", value: { kind: "json_blob", value: blob } }
+        ] },
+        "gf://pin"
+      ),
+    /duplicate selection authorities/u
+  );
+  assert.throws(
+    () =>
+      pluginSelectionFromDeclarationAttrs(
+        { entries: [{ key: "abg.plugin_selection", value: { kind: "json_blob", value: {
+          kind: "object", entries: [
+            { key: "fpDispatch", value: "plugin://abg/fp-dispatch" },
+            { key: "fpDispatch", value: "plugin://abg/fd-evaluator" }
+          ]
+        } } }] },
+        "gf://pin"
+      ),
+    /declared twice/u
+  );
+});
+
+test("F3: CLI capability admission is strict — no hints, no suffixes, no silent defaults", async () => {
+  const { admitLiveAgentKey, admitExecutorProfile, admitLiveTimeoutMs } = await import(
+    "../../build/semantic/code/src/cli/command.js"
+  );
+  assert.throws(() => admitLiveAgentKey("notclaude"), /live agent must be one of/u);
+  assert.equal(admitLiveAgentKey("codex"), "codex");
+  assert.throws(() => admitExecutorProfile("bogus"), /executor profile must be/u);
+  assert.throws(() => admitLiveTimeoutMs("240000x"), /plain integer/u);
+  assert.equal(admitLiveTimeoutMs("240000"), 240000);
 });

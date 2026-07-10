@@ -50,6 +50,64 @@ export interface LiveFpDispatchCapability {
   readonly labelPrefix?: string | undefined;
 }
 
+// codex round F7: the capability is SNAPSHOTTED at plugin construction —
+// later mutation of the caller's object cannot change execution — and
+// every path component is admitted (no separators, no traversal).
+const LABEL_COMPONENT_PATTERN = /^[A-Za-z0-9_-]{1,64}$/u;
+
+function admitLabelComponent(value: string, at: string): string {
+  if (!LABEL_COMPONENT_PATTERN.test(value)) {
+    throw new TypeError(
+      `${at} must match ${String(LABEL_COMPONENT_PATTERN)} (path-safe label component), got ${JSON.stringify(value)}`
+    );
+  }
+  return value;
+}
+
+function snapshotCapability(io: LiveFpDispatchCapability): LiveFpDispatchCapability {
+  return Object.freeze({
+    agentContract: Object.freeze({
+      agentKey: io.agentContract.agentKey,
+      command: io.agentContract.command,
+      argsTemplate: Object.freeze([...io.agentContract.argsTemplate]),
+      sanitizedEnvironmentPolicy: Object.freeze({
+        prefixes: Object.freeze([...io.agentContract.sanitizedEnvironmentPolicy.prefixes])
+      })
+    }),
+    archiveRoot: io.archiveRoot,
+    cwd: io.cwd,
+    timeoutMs: io.timeoutMs,
+    ...(io.executorProfile === undefined ? {} : { executorProfile: io.executorProfile }),
+    ...(io.terminalSessionKeyPrefix === undefined
+      ? {}
+      : {
+          terminalSessionKeyPrefix: admitLabelComponent(
+            io.terminalSessionKeyPrefix,
+            "capability.terminalSessionKeyPrefix"
+          )
+        }),
+    ...(io.labelPrefix === undefined
+      ? {}
+      : { labelPrefix: admitLabelComponent(io.labelPrefix, "capability.labelPrefix") })
+  });
+}
+
+// codex round F2: archive and ref identities key on the INVOCATION, not
+// the vector alone — attempts and concurrent invocations never collide.
+// actorInvocationId + attemptIndex ride EnginePluginInput; a short
+// content hash of the invocation id disambiguates across runs.
+function invocationLabel(
+  prefix: string,
+  kind: "dispatch" | "eval",
+  input: EnginePluginInput
+): string {
+  const invocation = input.actorInvocationRef ?? null;
+  const attempt = invocation === null ? 0 : invocation.attemptIndex;
+  const idSource = invocation === null ? input.basisId : invocation.actorInvocationId;
+  const idHash = createHash("sha256").update(idSource).digest("hex").slice(0, 12);
+  return `${prefix}-${kind}-v${String(input.vectorIndex)}-a${String(attempt)}-${idHash}`;
+}
+
 const liveFpDispatchContract = constructEnginePluginContract({
   ref: LIVE_FP_DISPATCH_PLUGIN_REF,
   pluginKind: "fp_dispatch",
@@ -77,12 +135,16 @@ function extractJsonObjectText(text: string): Readonly<Record<string, unknown>> 
 }
 
 export function standardLiveFpDispatchPlugin(
-  io: LiveFpDispatchCapability
+  input_io: LiveFpDispatchCapability
 ): FpDispatchPlugin {
+  const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_dispatch_capability");
   return Object.freeze({
     contract: liveFpDispatchContract,
     dispatch: async (input: EnginePluginInput): Promise<FpDispatchOutcome> => {
+      // codex round F1: NOTHING before this await — a sync driver that
+      // mishandles the promise must find zero side effects performed.
+      await Promise.resolve();
       if (input.instructionPromptManifest === null) {
         return constructFpDispatchOutcome({
           status: "blocked",
@@ -91,7 +153,7 @@ export function standardLiveFpDispatchPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const label = `${io.labelPrefix ?? "live-fp"}-v${String(input.vectorIndex)}`;
+      const label = invocationLabel(io.labelPrefix ?? "live-fp", "dispatch", input);
       mkdirSync(io.archiveRoot, { recursive: true });
       // the manifest the worker saw is replay-adjacent evidence
       writeFileSync(
@@ -134,7 +196,15 @@ export function standardLiveFpDispatchPlugin(
             outputPath: transport.outputPath,
             label
           },
-          evidenceRefs: [input.sourceProjectionRef]
+          // codex round F6: the failed session reconciles to its C-call —
+          // archive identities ride the outcome's evidence refs.
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${transport.outputPath}`,
+            ...(transport.traceResultPath === null
+              ? []
+              : [`agent-trace:${transport.traceResultPath}`])
+          ]
         });
       }
       let artifact: Readonly<Record<string, unknown>>;
@@ -151,7 +221,13 @@ export function standardLiveFpDispatchPlugin(
             outputPath: transport.outputPath,
             label
           },
-          evidenceRefs: [input.sourceProjectionRef]
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${transport.outputPath}`,
+            ...(transport.traceResultPath === null
+              ? []
+              : [`agent-trace:${transport.traceResultPath}`])
+          ]
         });
       }
       return constructFpDispatchOutcome({
@@ -204,6 +280,14 @@ export function standardPluginCatalogWithCapabilities(
 }
 
 export const LIVE_FP_EVALUATOR_PLUGIN_REF = "plugin://abg/fp-evaluator-live";
+
+// codex round F1: live plugins perform external transport work — the
+// SYNC driver must refuse their selection typed BEFORE any invocation,
+// mirroring the handler family's async-refusal law.
+export const ASYNC_ONLY_PLUGIN_REFS: readonly string[] = Object.freeze([
+  LIVE_FP_DISPATCH_PLUGIN_REF,
+  LIVE_FP_EVALUATOR_PLUGIN_REF
+]);
 
 const liveFpEvaluatorContract = constructEnginePluginContract({
   ref: LIVE_FP_EVALUATOR_PLUGIN_REF,
@@ -277,12 +361,15 @@ function sha256Hex(text: string): string {
 }
 
 export function standardLiveFpEvaluatorPlugin(
-  io: LiveFpDispatchCapability
+  input_io: LiveFpDispatchCapability
 ): FpEvaluatorPlugin {
+  const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_evaluator_capability");
   return Object.freeze({
     contract: liveFpEvaluatorContract,
     evaluate: async (input: EnginePluginInput): Promise<FpEvaluationOutcome> => {
+      // codex round F1: NOTHING before this await.
+      await Promise.resolve();
       if (input.instructionPromptManifest === null) {
         return constructFpEvaluationOutcome({
           status: "blocked",
@@ -291,7 +378,7 @@ export function standardLiveFpEvaluatorPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const label = `${io.labelPrefix ?? "live-fp"}-eval-v${String(input.vectorIndex)}`;
+      const label = invocationLabel(io.labelPrefix ?? "live-fp", "eval", input);
       mkdirSync(io.archiveRoot, { recursive: true });
       writeFileSync(
         join(io.archiveRoot, `${label}-instruction-manifest.json`),
@@ -325,7 +412,14 @@ export function standardLiveFpEvaluatorPlugin(
             `failureClass=${transport.failureClass ?? "transport_failure"}`,
             `toolCallCount=${String(transport.toolCallCount)}`
           ].join(" "),
-          evidenceRefs: [input.sourceProjectionRef]
+          // codex round F6: failed sessions reconcile to their C-call.
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${transport.outputPath}`,
+            ...(transport.traceResultPath === null
+              ? []
+              : [`agent-trace:${transport.traceResultPath}`])
+          ]
         });
       }
       let review: StandardLiveReview;
@@ -336,15 +430,29 @@ export function standardLiveFpEvaluatorPlugin(
         return constructFpEvaluationOutcome({
           status: "blocked",
           reason: `live fp evaluation review unparsable: ${message} (contract_failure)`,
-          evidenceRefs: [input.sourceProjectionRef]
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${transport.outputPath}`,
+            ...(transport.traceResultPath === null
+              ? []
+              : [`agent-trace:${transport.traceResultPath}`])
+          ]
         });
       }
       // mechanical corroboration: expected assessment ids must be attested
       const missing = input.expectedAssessmentIds.filter(
         (id) => !review.assessmentIds.includes(id)
       );
-      const accepted = review.accepted && missing.length === 0;
-      const closeDisposition = accepted ? review.closeDisposition : "retry";
+      // codex round F4: ONE close-eligibility decision derives EVERY
+      // closure-bearing field. A review that accepts but still asks to
+      // retry is NOT close-eligible — fulfilled/close_candidate truth
+      // never coexists with a retained retry.
+      const closeEligible =
+        review.accepted &&
+        missing.length === 0 &&
+        review.closeDisposition === "close";
+      const accepted = closeEligible;
+      const closeDisposition = closeEligible ? "close" : "retry";
       const reviewDigest = sha256Hex(JSON.stringify(review));
       const evidenceRefs = Object.freeze([
         input.sourceProjectionRef,

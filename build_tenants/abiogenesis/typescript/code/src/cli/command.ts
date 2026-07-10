@@ -5,7 +5,7 @@ import { TRANSPORT_SINK_EVENT_KIND_VALUES } from "../abg/m03/contracts/plugins.j
 import { constructRuntimeFailureObservedEvent } from "../abg/m03/contracts/event_factories.js";
 import { emit } from "../abg/m03/events/emit.js";
 import { hasCanonicalRuntimeEventEnvelope } from "../abg/m03/contracts/event_admission.js";
-import { contractForKnownAgent, selectKnownTransportAgentKey } from "../shared/abg_library/index.js";
+import { contractForKnownAgent } from "../shared/abg_library/index.js";
 import type { EnginePluginCapabilities, LiveFpDispatchCapability } from "../abg/m03/index.js";
 import { sortReplayByAdmissionOrdinalFailClosed } from "../abg/m03/contracts/admission_hygiene.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
@@ -187,6 +187,9 @@ interface ParsedStartCommand {
   // (runtime truth rule 11) and the declared argument wins over it.
   readonly codexModel: string | undefined;
   readonly codexSandbox: string | undefined;
+  readonly liveAgent: string | undefined;
+  readonly liveTimeoutMs: string | undefined;
+  readonly executorProfile: string | undefined;
 }
 
 type WitnessAct =
@@ -581,6 +584,9 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
   const allowFlag = optionalNullableFlag(parsed, "allow");
   const codexModelFlag = optionalNullableFlag(parsed, "codex-model");
   const codexSandboxFlag = optionalNullableFlag(parsed, "codex-sandbox");
+  const liveAgentFlag = optionalNullableFlag(parsed, "live-agent");
+  const liveTimeoutMsFlag = optionalNullableFlag(parsed, "live-timeout-ms");
+  const executorProfileFlag = optionalNullableFlag(parsed, "executor-profile");
   return Object.freeze({
     kind: "start",
     workspace: optionalFlag(parsed, "workspace", "."),
@@ -591,7 +597,10 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     rootMode: rootModeFlag === null ? undefined : parseRootMode(rootModeFlag),
     allow: allowFlag === null ? undefined : parseSessionAllowRefs(allowFlag),
     codexModel: codexModelFlag === null ? undefined : codexModelFlag,
-    codexSandbox: codexSandboxFlag === null ? undefined : codexSandboxFlag
+    codexSandbox: codexSandboxFlag === null ? undefined : codexSandboxFlag,
+    liveAgent: liveAgentFlag === null ? undefined : liveAgentFlag,
+    liveTimeoutMs: liveTimeoutMsFlag === null ? undefined : liveTimeoutMsFlag,
+    executorProfile: executorProfileFlag === null ? undefined : executorProfileFlag
   });
 }
 
@@ -1797,35 +1806,69 @@ async function resolveCliTarget(
   }
 }
 
-// S2.3 operator capability ingress (T-217 closure campaign): the live
-// plugin capabilities compose from the SAME declared/live steering the
-// transports use — agent identity, executor profile, and time budget
-// are operator facts, never binding declarations. Absent live steering
-// leaves the live catalog refs unresolvable (fail-closed selection).
-function livePluginCapabilitiesFromEnvironment(
-  workspaceRoot: string
+// S2.3 operator capability ingress (T-217 closure campaign; codex round
+// F3): capabilities compose from DECLARED VERB ARGUMENTS first
+// (--live-agent, --live-timeout-ms, --executor-profile — WITNESS-010's
+// reproducible command), with the documented env fallback second.
+// EVERY field is admitted STRICTLY: an unknown agent key, an invalid
+// executor profile, or a non-integer budget is a typed refusal — never
+// a silent default or substring guess. Absent live steering leaves the
+// live catalog refs unresolvable (fail-closed selection).
+const KNOWN_LIVE_AGENT_KEYS = Object.freeze(["claude", "codex", "gemini", "generic"] as const);
+type KnownLiveAgentKey = (typeof KNOWN_LIVE_AGENT_KEYS)[number];
+
+export function admitLiveAgentKey(value: string): KnownLiveAgentKey {
+  const match = KNOWN_LIVE_AGENT_KEYS.find((key): boolean => key === value);
+  if (match === undefined) {
+    throw new CliError(
+      `live agent must be one of ${JSON.stringify(KNOWN_LIVE_AGENT_KEYS)}, got ${JSON.stringify(value)}`
+    );
+  }
+  return match;
+}
+
+export function admitExecutorProfile(value: string): "local-spawn" | "pty-terminal" {
+  if (value !== "local-spawn" && value !== "pty-terminal") {
+    throw new CliError(
+      `executor profile must be "local-spawn" or "pty-terminal", got ${JSON.stringify(value)}`
+    );
+  }
+  return value;
+}
+
+export function admitLiveTimeoutMs(value: string): number {
+  if (!/^\d{1,9}$/u.test(value)) {
+    throw new CliError(
+      `live timeout must be a plain integer of milliseconds, got ${JSON.stringify(value)}`
+    );
+  }
+  return Number.parseInt(value, 10);
+}
+
+function livePluginCapabilities(
+  workspaceRoot: string,
+  command: ParsedStartCommand
 ): EnginePluginCapabilities | undefined {
-  const liveEnabled =
-    process.env["CODEX_LIVE_FP"] === "1" ||
-    process.env["ABG_TS_LIVE_AGENT"] !== undefined;
-  if (!liveEnabled) {
+  const agentRaw =
+    command.liveAgent ??
+    process.env["ABG_TS_LIVE_AGENT"] ??
+    (process.env["CODEX_LIVE_FP"] === "1" ? "codex" : undefined);
+  if (agentRaw === undefined) {
     return undefined;
   }
-  const profileRaw = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  const agentKey = admitLiveAgentKey(agentRaw);
+  const profileRaw =
+    command.executorProfile ?? process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
   const executorProfile =
-    profileRaw === "pty-terminal" || profileRaw === "local-spawn"
-      ? profileRaw
-      : undefined;
+    profileRaw === undefined ? undefined : admitExecutorProfile(profileRaw);
+  const timeoutMs = admitLiveTimeoutMs(
+    command.liveTimeoutMs ?? process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "240000"
+  );
   const capability: LiveFpDispatchCapability = {
-    agentContract: contractForKnownAgent(
-      selectKnownTransportAgentKey([process.env["ABG_TS_LIVE_AGENT"] ?? "codex"])
-    ),
+    agentContract: contractForKnownAgent(agentKey),
     archiveRoot: join(workspaceRoot, ".ai-workspace", "live-fp"),
     cwd: workspaceRoot,
-    timeoutMs: Number.parseInt(
-      process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "240000",
-      10
-    ),
+    timeoutMs,
     ...(executorProfile === undefined ? {} : { executorProfile }),
     ...(executorProfile === "pty-terminal"
       ? { terminalSessionKeyPrefix: "abg-live" }
@@ -1841,9 +1884,15 @@ function startContext(
   workspaceRoot: string,
   binding: RuntimeBinding,
   replayEvents: readonly RuntimeEvent[],
-  resolvedPolicy: PublicStartContext["resolvedPolicy"]
+  resolvedPolicy: PublicStartContext["resolvedPolicy"],
+  command?: ParsedStartCommand
 ): PublicStartContext {
-  const liveCapabilities = livePluginCapabilitiesFromEnvironment(workspaceRoot);
+  // read-only surfaces (gaps) pass no command and compose no live
+  // capabilities — reads never need transport.
+  const liveCapabilities =
+    command === undefined
+      ? undefined
+      : livePluginCapabilities(workspaceRoot, command);
   const runtimeEvents = Object.freeze([
     ...replayEvents,
     ...(binding.runtimeEvents ?? Object.freeze([]))
@@ -2126,7 +2175,7 @@ async function runStartCommand(
   try {
     outcome = await publicCallableStartAsync(
       callableInput(command, workspaceRoot, binding, target),
-      startContext(workspaceRoot, binding, replayEvents, resolvedPolicy),
+      startContext(workspaceRoot, binding, replayEvents, resolvedPolicy, command),
       eventSink,
       plugins
     );

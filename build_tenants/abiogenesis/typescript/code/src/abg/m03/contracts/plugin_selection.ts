@@ -104,16 +104,44 @@ export function pluginSelectionFromDeclarationAttrs(
   attrs: SerializedAttrs,
   sourceRef: string
 ): Readonly<Partial<Record<PluginSelectionSeam, string>>> | null {
-  const entry = attrs.entries.find(
+  // codex round F5: duplicate declaration entries are TWO AUTHORITIES —
+  // declaration order must never select which one wins.
+  const entries = attrs.entries.filter(
     (row) => row.key === PLUGIN_SELECTION_DECLARATION_KEY
   );
-  if (entry === undefined) {
+  if (entries.length === 0) {
     return null;
   }
-  if (entry.value.kind !== "json_blob") {
+  if (entries.length > 1) {
+    throw new TypeError(
+      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} is declared ${String(entries.length)} times — duplicate selection authorities fail closed`
+    );
+  }
+  const entry = entries[0];
+  if (entry === undefined || entry.value.kind !== "json_blob") {
     throw new TypeError(
       `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
     );
+  }
+  // codex round F5: duplicate seam keys INSIDE the tagged object would
+  // collapse last-wins at plainification — inspect the tagged entries
+  // before decoding.
+  const tagged: unknown = entry.value.value;
+  if (isPlainRecord(tagged) && tagged["kind"] === "object") {
+    const taggedEntries: unknown = tagged["entries"];
+    if (Array.isArray(taggedEntries)) {
+      const seen = new Set<string>();
+      for (const row of taggedEntries) {
+        if (isPlainRecord(row) && typeof row["key"] === "string") {
+          if (seen.has(row["key"])) {
+            throw new TypeError(
+              `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${JSON.stringify(row["key"])} is declared twice — duplicate seam authorities fail closed`
+            );
+          }
+          seen.add(row["key"]);
+        }
+      }
+    }
   }
   const plain: unknown = serializedJsonValueToPlain(entry.value.value);
   if (!isPlainRecord(plain)) {
@@ -170,6 +198,14 @@ export function resolveDeclaredPluginSelection(input: {
     if (row.seam !== seam) {
       throw new TypeError(
         `plugin_selection_seam_mismatch: ${input.sourceRef} selects ${JSON.stringify(ref)} for seam ${seam}, but that plugin's contract claims seam ${row.seam}`
+      );
+    }
+    // codex round F8: catalog identity is CONTRACT identity, not row
+    // metadata — an alias key or a row whose plugin contract disagrees
+    // with its catalog position fails closed.
+    if (row.plugin.contract.ref !== ref) {
+      throw new TypeError(
+        `plugin_selection_identity_mismatch: catalog key ${JSON.stringify(ref)} resolves a plugin whose contract ref is ${JSON.stringify(row.plugin.contract.ref)}`
       );
     }
     switch (row.seam) {

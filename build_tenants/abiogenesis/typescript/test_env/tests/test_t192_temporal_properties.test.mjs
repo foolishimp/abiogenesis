@@ -1479,14 +1479,29 @@ test("S2.3 live selection: the live dispatch ref without its capability fails cl
       })
     })
   });
-  const result = runEngineIterate({
+  // codex round F1: the SYNC driver refuses async-only refs BEFORE
+  // capability resolution — no unawaited transport can ever start.
+  const syncResult = runEngineIterate({
     basis: liveBasis,
     eventSink: () => {},
     ...m03InstructionAssemblyRequestFields(liveBasis),
     plugins: { fpEvaluator: defaultFpEvaluatorPlugin }
   });
-  assert.equal(result.transition.terminalKind, "gap_stop");
-  assert.match(result.transition.reason, /plugin_selection_unresolvable/u);
+  assert.equal(syncResult.transition.terminalKind, "gap_stop");
+  assert.match(syncResult.transition.reason, /plugin_selection_async_only/u);
+  // async driver WITHOUT the capability: unresolvable, typed, with the
+  // honest failure surface (codex round F8).
+  return runEngineIterateAsync({
+    basis: liveBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(liveBasis),
+    plugins: { fpEvaluator: defaultFpEvaluatorPlugin }
+  }).then((result) => {
+    assert.equal(result.transition.terminalKind, "gap_stop");
+    assert.match(result.transition.reason, /plugin_selection_unresolvable/u);
+    const failure = result.replayEvents.find((event) => event.kind === "runtime_failure_observed");
+    assert.equal(failure.surface, "plugin_selection");
+  });
 });
 
 test("S2.3 live selection: with the injected capability the live plugin serves the dispatch seam", async () => {
@@ -1531,10 +1546,13 @@ test("S2.3 live selection: with the injected capability the live plugin serves t
     }
   });
   // resolution succeeded (no unresolvable/conflict), and the live plugin
-  // demonstrably RAN: it archives the instruction manifest per attempt.
+  // demonstrably RAN: it archives the instruction manifest per attempt
+  // (invocation-keyed name per codex round F2).
   assert.doesNotMatch(result.transition.reason ?? "", /plugin_selection/u);
+  const { readdirSync } = await import("node:fs");
+  const archived = existsSyncLocal(archiveRoot) ? readdirSync(archiveRoot) : [];
   assert.equal(
-    existsSyncLocal(pathMod.join(archiveRoot, "t217-sel-v0-instruction-manifest.json")),
+    archived.some((name) => /^t217-sel-dispatch-v0-.*-instruction-manifest\.json$/u.test(name)),
     true,
     "the live dispatch plugin must have served vector 0"
   );

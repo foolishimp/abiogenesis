@@ -10,7 +10,7 @@ import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
 import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
 import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
-import { standardPluginCatalogWithCapabilities } from "./standard_live_plugins.js";
+import { standardPluginCatalogWithCapabilities, ASYNC_ONLY_PLUGIN_REFS } from "./standard_live_plugins.js";
 import type { EnginePluginCapabilities } from "./standard_live_plugins.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
@@ -10231,7 +10231,8 @@ async function resolveAsyncEnginePluginEffect(
 // (standard set from the runtime layer, custom via the plugin seam).
 function effectiveRunnerPlugins(
   request: EngineIterateRequest,
-  plugins: ResolvedRunnerPlugins
+  plugins: ResolvedRunnerPlugins,
+  driver: "sync" | "async"
 ): ResolvedRunnerPlugins {
   // S2.3 DECLARED PLUGIN SELECTION (T-217 closure campaign, F_H-approved
   // 2026-07-10): the binding may DECLARE which governed substrate plugin
@@ -10245,9 +10246,22 @@ function effectiveRunnerPlugins(
   );
   if (selection !== null) {
     for (const seam of PLUGIN_SELECTION_SEAM_VALUES) {
-      if (selection[seam] !== undefined && request.plugins?.[seam] !== undefined) {
+      const selectedRef = selection[seam];
+      if (selectedRef !== undefined && request.plugins?.[seam] !== undefined) {
         throw new TypeError(
-          `plugin_selection_conflict: ${request.basis.graphFunction.name} declares ${JSON.stringify(selection[seam])} for seam ${seam} while the caller supplies a plugin for the same seam — two authorities`
+          `plugin_selection_conflict: ${request.basis.graphFunction.name} declares ${JSON.stringify(selectedRef)} for seam ${seam} while the caller supplies a plugin for the same seam — two authorities`
+        );
+      }
+      // codex round F1: async-only plugins never board the sync driver —
+      // a mishandled promise would record blocked truth while the
+      // unawaited transport keeps working outside admitted truth.
+      if (
+        selectedRef !== undefined &&
+        driver === "sync" &&
+        ASYNC_ONLY_PLUGIN_REFS.includes(selectedRef)
+      ) {
+        throw new TypeError(
+          `plugin_selection_async_only: ${request.basis.graphFunction.name} selects ${JSON.stringify(selectedRef)} for seam ${seam}, which requires the async driver`
         );
       }
     }
@@ -10288,13 +10302,18 @@ function handlerAssemblyFailClosedResult(
   error: unknown
 ): EngineIterateResult {
   const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
-  const reason = `hog_program_unresolvable: ${message}`;
+  // codex round F8: the failure surface tells the truth — selection
+  // errors are plugin_selection failures, not hog-program mislabels.
+  const isSelectionFailure = message.startsWith("plugin_selection");
+  const reason = isSelectionFailure
+    ? message
+    : `hog_program_unresolvable: ${message}`;
   const blocked = terminalTransition(request.basis, "gap_stop", reason);
   const emitted = emit(
     [
       constructRuntimeFailureObservedEvent({
         basisId: request.basis.id,
-        surface: "hog_program_resolution",
+        surface: isSelectionFailure ? "plugin_selection" : "hog_program_resolution",
         failureClass: "contract_failure",
         message,
         stackExcerpt: null
@@ -10322,7 +10341,7 @@ export function runEngineIterate(
 ): EngineIterateResult {
   let plugins: ResolvedRunnerPlugins;
   try {
-    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins), "sync");
   } catch (error) {
     return handlerAssemblyFailClosedResult(request, error);
   }
@@ -10345,7 +10364,7 @@ export async function runEngineIterateAsync(
 ): Promise<EngineIterateResult> {
   let plugins: ResolvedRunnerPlugins;
   try {
-    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins), "async");
   } catch (error) {
     return handlerAssemblyFailClosedResult(request, error);
   }
