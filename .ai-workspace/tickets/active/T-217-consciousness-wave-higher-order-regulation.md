@@ -1387,6 +1387,34 @@ correspondingly narrowed (host bindings row: successor A5-GF2).
 proving run; the review family is OUT of Phase 5 per narrowing (1).
 The single non-delegable act remains the human tuner ratification.
 
+S2.3 KERNEL ADOPTION SURFACE DELIVERED (2026-07-10) — the closure
+campaign's C-track kernel phase, complete and gate-green (1314/1314,
+lint 0), commits 7bcba89/11a02a1/5b2cdee/09d7712/1588584/68309da:
+(1) DECLARED PLUGIN SELECTION — abg.plugin_selection resolves governed
+plugin refs against the standard catalog fail-closed (unknown seam/ref,
+seam-identity mismatch, declared-vs-caller conflict all typed; engine-
+depth pins); realizes PRODUCT.md's hook/plugin-boundary-declarations
+law. (2) STANDARD LIVE F_P DISPATCH (plugin://abg/fp-dispatch-live):
+manifest-as-prompt, typed blocked outcomes on the retry-allowlist
+grammar, archives on the capability root. (3) STANDARD LIVE F_P
+EVALUATOR (plugin://abg/fp-evaluator-live): standard review contract
+with MECHANICAL corroboration — a worker cannot accept by omission
+(unattested expected assessment ids force retry with named residuals).
+(4) OPERATOR CAPABILITY INGRESS: PublicStartContext.pluginCapabilities
+rides CLI -> public start -> engine; capabilities compose from the
+same live steering the transports use; absent steering leaves live
+refs unresolvable. Also landed earlier in C: odd_glc consumes the
+kernel D3 report surface (odd_glc 5564c1c — the local parser died).
+
+NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
+deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
+dispatch-intent declarations (PRODUCT.md: GraphVector carries dispatch
+intent), a kernel routing increment the selection seam does not yet
+express. Design decision for the phase: per-vector dispatch routing
+(vector declarations choose the dispatch path), then bodies -> plugin
+selection + declared specs, then the campaign rerun with -012 green,
+the 11.5B audit on the adopted binding, and T-213 schema landing.
+
 F_H RULING (2026-07-10): APPROVED — narrowings (1)-(3) and the closure
 campaign's course, conditional on PRODUCT.md compliance, which was
 verified: declared plugin selection realizes the ratified plugin-bound
