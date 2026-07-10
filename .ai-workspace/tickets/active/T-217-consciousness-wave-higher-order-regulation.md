@@ -1346,6 +1346,46 @@ a requirement_reprice-class change (binding schema carries/derives the
 authority proof). rc.2 carries the P0 unshipped-to-consumers except
 odd_glc, whose campaign does not touch it; the fix rides the next cut.
 
+CLOSURE CAMPAIGN OPENED (2026-07-10, F_H directive "do the work to
+close it"). Scope adjudications performed, consistent with the operator
+rulings recorded in T-218 revision 2 (odd_sdlc defunct; Review/
+Consensus execution routed to the 5.0 register); F_H holds veto:
+
+(1) P3.5 NARROWED WITH DURABLE SUCCESSOR. The odd_glc review host
+binding proof leaves the 4.6 claim: the review/consensus families ship
+in 4.6 as DECLARED outer contracts only (review_consensus_modules.ts —
+delivered), and their executable composition, recursion, and
+host-admission output are owned by T-218 candidate A5-GF2/CR-H-01..09.
+The 4.6 release note must claim declarations, not execution.
+Nothing-lost: T-166/T-167 vocabularies carried verbatim in the declared
+modules; the supersession-table row for the odd_sdlc T-167 family is
+correspondingly narrowed (host bindings row: successor A5-GF2).
+
+(2) A5-P1 RESIDUAL ADJUDICATION (fix-or-narrow before 4.6 final):
+- FIX IN 4.6: (a) engine-level assembly fail-closed differential (the
+  R4 conversion pinned at engine depth); (b) cross-process/installed
+  pre-stamp rejection differential (the C-4 plugin-sink law pinned
+  through the CLI); (c) decisiveByAdmissionOrdinal equal-ordinal tie
+  fail-closed (the F9 helper hardening) — all three land in this
+  closure campaign with pins.
+- NARROW WITH DURABLE SUCCESSOR: (d) handler-authority Prime (codex C7)
+  — requirement_reprice-class; 4.6 release note carries the rider
+  (binding authority is program/stage/arm/regime + registered-handler
+  checked; annealed-equivalence authority is TUNER-law prose, not yet
+  binding schema); successor: T-218 A5-P1 routing into the 5.0
+  requirement work. (e) EVENTS-025 scope-class semantics — classes are
+  membership-only by design in 4.6 (hasOwn-hardened); the
+  class-consumption question is a design ruling owned by the T-218
+  ingress/requirement review. (f) full engine-internal C-4
+  store-scoped-context adoption — 4.6 adopts live contexts at every
+  FOREIGN-INPUT boundary (witness, tune, plugin sink) and seeds the
+  shared default lawfully; engine-internal emissions (fresh events
+  only, behaviorally identical) migrate under the 5.0 public-ingress
+  work. Each narrowing becomes a release-note known-gap row.
+
+(3) PHASE 5 SCOPE: observer + tuner in the monitor seat over a live
+proving run; the review family is OUT of Phase 5 per narrowing (1).
+The single non-delegable act remains the human tuner ratification.
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
