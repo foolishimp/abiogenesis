@@ -104,3 +104,67 @@ test("live fp dispatch: capability time budget is admitted (HANDLERS-008)", () =
     /timeoutMs must be a positive safe integer/u
   );
 });
+
+// ── the standard live F_P EVALUATOR: same capability seam, standard
+// review contract, mechanical corroboration of expected assessment ids ──
+
+const { standardLiveFpEvaluatorPlugin, LIVE_FP_EVALUATOR_PLUGIN_REF } = await import(
+  "../../build/semantic/code/src/abg/m03/index.js"
+);
+
+function evaluatorInput(manifest, expected = []) {
+  return {
+    basisId: "basis://t217/live-eval-pin",
+    vectorIndex: 1,
+    sourceProjectionRef: "projection://t217/pin",
+    instructionPromptManifest: manifest,
+    expectedAssessmentIds: expected,
+    selectedCompositionRef: "composition://t217/pin",
+    selectedCompositionDigest: "digest://t217/pin",
+    selectedRegimeBindingRef: null
+  };
+}
+
+test("live fp evaluator: accepted review with attested ids evaluates fulfilled/close", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(
+    capabilityWith("console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1'] }))")
+  );
+  assert.equal(plugin.contract.ref, LIVE_FP_EVALUATOR_PLUGIN_REF);
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1"]));
+  assert.equal(outcome.status, "evaluated");
+  assert.equal(outcome.ambiguityStatus, "fulfilled");
+  assert.equal(outcome.findings[0].closeDisposition, "close");
+  assert.equal(outcome.findings[0].executiveDisposition, "close_candidate");
+});
+
+test("live fp evaluator: a worker cannot accept by omission — unattested expected ids force retry", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(
+    capabilityWith("console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))")
+  );
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1", "a2"]));
+  assert.equal(outcome.status, "evaluated");
+  assert.equal(outcome.ambiguityStatus, "partial");
+  assert.equal(outcome.findings[0].closeDisposition, "retry");
+  assert.equal(
+    outcome.findings[0].residualPressureRefs.some((ref) => ref.includes("unattested/a1")),
+    true
+  );
+});
+
+test("live fp evaluator: malformed review is typed blocked contract_failure", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(
+    capabilityWith("console.log(JSON.stringify({ accepted: 'yes' }))")
+  );
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /review unparsable|accepted must be a boolean/u);
+  assert.match(outcome.reason, /contract_failure/u);
+});
+
+test("live fp evaluator: transport failure is typed blocked with allowlist grammar", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(capabilityWith("process.exit(2)"));
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /transport failed/u);
+  assert.match(outcome.reason, /failureClass=/u);
+});

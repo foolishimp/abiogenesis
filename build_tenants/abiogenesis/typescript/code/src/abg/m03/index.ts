@@ -41,9 +41,15 @@ export type {
 export { buildStandardHandlerImplementations } from "./runner/standard_handler_runtime.js";
 export {
   LIVE_FP_DISPATCH_PLUGIN_REF,
-  standardLiveFpDispatchPlugin
+  LIVE_FP_EVALUATOR_PLUGIN_REF,
+  standardLiveFpDispatchPlugin,
+  standardLiveFpEvaluatorPlugin,
+  standardPluginCatalogWithCapabilities
 } from "./runner/standard_live_plugins.js";
-export type { LiveFpDispatchCapability } from "./runner/standard_live_plugins.js";
+export type {
+  EnginePluginCapabilities,
+  LiveFpDispatchCapability
+} from "./runner/standard_live_plugins.js";
 export { assembleHandlerRegistry } from "./runner/c_call_handlers.js";
 export {
   HOG_HANDLER_BINDINGS_DECLARATION_KEY,
