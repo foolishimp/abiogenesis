@@ -5,6 +5,8 @@ import { TRANSPORT_SINK_EVENT_KIND_VALUES } from "../abg/m03/contracts/plugins.j
 import { constructRuntimeFailureObservedEvent } from "../abg/m03/contracts/event_factories.js";
 import { emit } from "../abg/m03/events/emit.js";
 import { hasCanonicalRuntimeEventEnvelope } from "../abg/m03/contracts/event_admission.js";
+import { contractForKnownAgent, selectKnownTransportAgentKey } from "../shared/abg_library/index.js";
+import type { EnginePluginCapabilities, LiveFpDispatchCapability } from "../abg/m03/index.js";
 import { sortReplayByAdmissionOrdinalFailClosed } from "../abg/m03/contracts/admission_hygiene.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
@@ -1795,12 +1797,53 @@ async function resolveCliTarget(
   }
 }
 
+// S2.3 operator capability ingress (T-217 closure campaign): the live
+// plugin capabilities compose from the SAME declared/live steering the
+// transports use — agent identity, executor profile, and time budget
+// are operator facts, never binding declarations. Absent live steering
+// leaves the live catalog refs unresolvable (fail-closed selection).
+function livePluginCapabilitiesFromEnvironment(
+  workspaceRoot: string
+): EnginePluginCapabilities | undefined {
+  const liveEnabled =
+    process.env["CODEX_LIVE_FP"] === "1" ||
+    process.env["ABG_TS_LIVE_AGENT"] !== undefined;
+  if (!liveEnabled) {
+    return undefined;
+  }
+  const profileRaw = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  const executorProfile =
+    profileRaw === "pty-terminal" || profileRaw === "local-spawn"
+      ? profileRaw
+      : undefined;
+  const capability: LiveFpDispatchCapability = {
+    agentContract: contractForKnownAgent(
+      selectKnownTransportAgentKey([process.env["ABG_TS_LIVE_AGENT"] ?? "codex"])
+    ),
+    archiveRoot: join(workspaceRoot, ".ai-workspace", "live-fp"),
+    cwd: workspaceRoot,
+    timeoutMs: Number.parseInt(
+      process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "240000",
+      10
+    ),
+    ...(executorProfile === undefined ? {} : { executorProfile }),
+    ...(executorProfile === "pty-terminal"
+      ? { terminalSessionKeyPrefix: "abg-live" }
+      : {})
+  };
+  return Object.freeze({
+    liveFpDispatch: capability,
+    liveFpEvaluator: capability
+  });
+}
+
 function startContext(
   workspaceRoot: string,
   binding: RuntimeBinding,
   replayEvents: readonly RuntimeEvent[],
   resolvedPolicy: PublicStartContext["resolvedPolicy"]
 ): PublicStartContext {
+  const liveCapabilities = livePluginCapabilitiesFromEnvironment(workspaceRoot);
   const runtimeEvents = Object.freeze([
     ...replayEvents,
     ...(binding.runtimeEvents ?? Object.freeze([]))
@@ -1812,6 +1855,9 @@ function startContext(
     runtimeEvents,
     abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
     leverOverridesBundle: loadAbgLeverOverridesBundle(workspaceRoot),
+    ...(liveCapabilities === undefined
+      ? {}
+      : { pluginCapabilities: liveCapabilities }),
     ...(binding.constructionPriorityScheme === undefined
       ? {}
       : { constructionPriorityScheme: binding.constructionPriorityScheme }),

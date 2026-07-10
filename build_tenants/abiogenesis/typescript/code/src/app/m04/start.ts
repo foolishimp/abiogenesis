@@ -70,6 +70,9 @@ export function startFromRequest(
       bundle: context.leverOverridesBundle ?? null
     }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
+    ...(context.pluginCapabilities === undefined
+      ? {}
+      : { pluginCapabilities: context.pluginCapabilities }),
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
@@ -133,6 +136,9 @@ export async function startFromRequestAsync(
       bundle: context.leverOverridesBundle ?? null
     }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
+    ...(context.pluginCapabilities === undefined
+      ? {}
+      : { pluginCapabilities: context.pluginCapabilities }),
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
