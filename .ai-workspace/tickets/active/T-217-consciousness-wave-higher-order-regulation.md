@@ -1481,10 +1481,30 @@ budget) — not just the returned-failure paths. Phase boundary
 RE-SUBMITTED.
 
 CODEX ROUND 5 (2026-07-11): boundary REJECTED again; verdict accepted.
+F_H SCOPE RULING (2026-07-11): modified Option 1 — run the campaign
+immediately after a FINITE OBJECTIVE repair gate; codex approval is NOT
+a gate, but known R5 defects cheaply closed by the same architecture
+are not deferred. CLOSURE PREMISE CORRECTED: the green data-mapper
+rerun closes the T-209/S2.3 ADOPTION TAIL, not all of T-217 (which
+still owns observer/tuner campaign, Phase 5, hygiene, Phase 6). The
+ruling supplies the architecture executed below: (§1) driverRequirement
+contract metadata + one admitEffectiveRunnerPlugins boundary validating
+EVERY plugin; (§2) spine-first canonical cCallRef binding; (§3) one
+idempotent bundle per c-call, sequence counters gone; (§4) one confined
+bundle writer + honest post-launch evidence (contract_failure,
+verified-existing refs, real trace path); (§5) digest-backed capability
+carrier into lever_resolution_admitted + CLI, validate-before-early-
+return. Delivery sequence: land R5-1..8 → gates+reproductions → vector
+dispatch-intent routing → pack/install → demote odd_glc → deterministic
+preflight → unmodified live campaign → close S2.3 on -012 + T-213 +
+11.5B + archive reconciliation. Raw hostile-plugin isolation routes to
+5.0. Status discipline: "repaired, pending re-review" only.
+
+
 SECOND consecutive false "repaired in full" ledger entry — a recurring
 discipline failure now corrected in place (the round-4 entry above is
 relabeled). The round-4 fixes were SYMPTOM PATCHES where the findings
-demanded ARCHITECTURE. Six findings remain open; root-cause repairs
+demanded ARCHITECTURE. EIGHT findings open (R5-1..R5-8; the "six" count was itself wrong); root-cause repairs
 required (no "repaired in full" claim will be written again until codex
 confirms — status stays "repaired, pending re-review"):
 (R5-1 CRITICAL, was R4-1) async-only is an EXTERNAL REF DENYLIST — any
