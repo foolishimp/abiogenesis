@@ -1406,6 +1406,23 @@ same live steering the transports use; absent steering leaves live
 refs unresolvable. Also landed earlier in C: odd_glc consumes the
 kernel D3 report surface (odd_glc 5564c1c — the local parser died).
 
+CODEX REVIEW ROUND 3 ON THE KERNEL SURFACE (2026-07-10): codex
+REJECTED the phase boundary with 6 high + 2 medium findings — all
+CONFIRMED and REPAIRED with pins in commit 1aae9eb (1322/1322, lint 0):
+sync-driver async-only refusal + zero pre-await side effects (F1);
+invocation-keyed archive/ref identity — vector+attempt+invocation-id
+hash, no collisions across retries/runs (F2; the cCallRef carrier
+extension recorded as design follow-up per REQ-R-ABG3-HANDLERS:37);
+strict declared capability admission — verb args over env, exact agent
+keys, plain-integer budgets, closed profile set, typed refusals (F3,
+WITNESS-010); ONE close-eligibility decision drives every
+closure-bearing evaluator field — accepted-with-retry is not
+close-eligible (F4); duplicate selection/seam authorities fail closed
+(F5); failed sessions reconcile to their C-call via archive evidence
+refs (F6); capability snapshot + path-safe label admission (F7);
+catalog contract-identity check + honest plugin_selection failure
+surface (F8). The phase boundary is RE-SUBMITTED for review.
+
 NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
 deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
 dispatch-intent declarations (PRODUCT.md: GraphVector carries dispatch
