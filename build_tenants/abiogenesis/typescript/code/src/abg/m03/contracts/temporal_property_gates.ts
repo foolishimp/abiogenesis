@@ -51,9 +51,10 @@ function taggedJson(value: unknown): SerializedJsonValue {
   if (Array.isArray(value)) {
     return { kind: "array", items: value.map(taggedJson) };
   }
+  const record: Readonly<Record<string, unknown>> = { ...value };
   return {
     kind: "object",
-    entries: Object.entries(value as Record<string, unknown>).map(([key, entryValue]) => ({
+    entries: Object.entries(record).map(([key, entryValue]) => ({
       key,
       value: taggedJson(entryValue)
     }))

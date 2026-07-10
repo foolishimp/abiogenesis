@@ -359,3 +359,162 @@ test("T-217 S2.4 (C-3): the canonical string laws — assert narrows unknown, ad
   assert.throws(() => admitNonEmptyString("", "label"), /label must be non-empty/u);
   assert.throws(() => assertNonEmptyString(42, "label"), /label must be non-empty/u);
 });
+
+// ── lint-repayment coverage: the halt-diagnosis filter arms and the
+// standard handler-runtime config parser (coverage-of-change) ─────────
+
+test("T-217 repayment R-halt: every halt-diagnosis row arm derives — stopped, escalated, progress, failure, rejection, reentry evidence", async () => {
+  const { deriveHaltDiagnosis } = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/index.js"
+  );
+  const scope = {
+    basisId: "basis://t217/halt-rows",
+    graphCallId: "graph-call://t217/halt-rows",
+    frameId: "frame://t217/halt-rows",
+    vectorIndex: 0,
+    edge: "input_set→requirements"
+  };
+  const events = emit(
+    [
+      {
+        kind: "retry_attempt_opened",
+        ...scope,
+        retryRunId: "retry-run://t217/1",
+        retryCallId: "retry-call://t217/1",
+        manifestId: "manifest://t217/1"
+      },
+      {
+        kind: "retry_progress_recorded",
+        ...scope,
+        retryRunId: "retry-run://t217/1",
+        progressSignalRefs: ["signal://t217/1"],
+        stationary: false
+      },
+      {
+        kind: "retry_attempt_stopped",
+        ...scope,
+        reason: "retry_budget_exhausted",
+        observedAttemptCount: 3,
+        maxAttempts: 3
+      },
+      {
+        kind: "retry_attempt_escalated",
+        ...scope,
+        approvalSubjectRef: "approval://t217/halt-rows",
+        gateReason: "stationary_retry",
+        observedAttemptCount: 3,
+        maxAttempts: 3
+      },
+      {
+        kind: "graph_reentry_planned",
+        ...scope,
+        frameLineageId: null,
+        graphFunctionId: "graph-function://t217/halt-rows",
+        runId: null,
+        workKey: null,
+        planRef: "reentry-plan://t217/halt-rows",
+        fromTerminalVectorIndex: 0,
+        targetVectorIndex: null,
+        changeClass: "requirement_reprice",
+        reEntryPoint: "requirements",
+        routeContractRefs: [],
+        causingFrontierRowRefs: ["frontier-row://t217/halt-rows/1"],
+        shadowedVectorIndexes: [],
+        causationEventRefs: [],
+        correlationId: "correlation://t217/halt-rows/reentry",
+        reason: "coverage differential",
+        generation: 1
+      },
+      {
+        kind: "terminal_reached",
+        basisId: scope.basisId,
+        terminalKind: "gap_stop",
+        reason: "retry budget exhausted at input_set→requirements"
+      }
+    ],
+    () => {}
+  );
+  const diagnosis = deriveHaltDiagnosis(events);
+  assert.equal(diagnosis.halted, true);
+  const rowKinds = diagnosis.attemptRows.map((row) => row.rowKind);
+  assert.deepEqual(
+    [...new Set(rowKinds)].sort(),
+    ["escalated", "opened", "progress", "stopped"],
+    "all four attempt-row arms derive"
+  );
+  assert.ok(
+    diagnosis.reentryPlanRefs.includes("reentry-plan://t217/halt-rows"),
+    "the reentry plan ref is carried"
+  );
+  assert.ok(
+    diagnosis.rejectionEvidenceRefs.includes("frontier-row://t217/halt-rows/1"),
+    "reentry frontier rows land as rejection evidence"
+  );
+});
+
+test("T-217 repayment R-runtime: the traced-process handler config parser — hostile shapes throw typed, a valid config executes and archives", async () => {
+  const { buildStandardHandlerImplementations } = await import(
+    "../../build/semantic/code/src/abg/m03/runner/standard_handler_runtime.js"
+  );
+  const { mkdtempSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const path = (await import("node:path")).default;
+  const handlers = buildStandardHandlerImplementations();
+  const tracedRef = [...handlers.keys()].find((ref) =>
+    /process/u.test(ref)
+  );
+  assert.ok(tracedRef, `a traced process handler is registered: ${[...handlers.keys()].join(", ")}`);
+  const handler = handlers.get(tracedRef);
+  const invoke = (declaredConfig) =>
+    handler({
+      stage: {
+        stageRole: "consequence",
+        defaultRegime: "F_D",
+        armId: "arm://t217/runtime-coverage",
+        resultBearing: false
+      },
+      binding: {
+        programRef: "gtl://abg/hog/bootstrap-triple",
+        stageRole: "consequence",
+        armId: "arm://t217/runtime-coverage",
+        regime: "F_D",
+        handlerRef: tracedRef,
+        handlerClass: "pipeline",
+        handlerConfigRef: null
+      },
+      declaredConfig,
+      workProjection: null
+    });
+
+  // hostile shapes: not-an-object, missing archiveRoot, non-string env value
+  for (const hostile of [
+    null,
+    "config",
+    { command: "node", args: [], env: {}, cwd: ".", timeoutMs: 1000 },
+    {
+      command: "node",
+      args: [],
+      env: { HOME: 42 },
+      cwd: ".",
+      timeoutMs: 1000,
+      archiveRoot: "somewhere"
+    }
+  ]) {
+    await assert.rejects(
+      async () => invoke(hostile),
+      /process_execution_config_invalid/u
+    );
+  }
+
+  // a valid config executes a real quick process and archives evidence
+  const archiveRoot = mkdtempSync(path.join(tmpdir(), "t217-runtime-"));
+  const interior = await invoke({
+    command: process.execPath,
+    args: ["-e", "process.exit(0)"],
+    env: { PATH: process.env.PATH ?? "" },
+    cwd: archiveRoot,
+    timeoutMs: 30000,
+    archiveRoot
+  });
+  assert.equal(interior.outcomeStatus, "executed");
+});

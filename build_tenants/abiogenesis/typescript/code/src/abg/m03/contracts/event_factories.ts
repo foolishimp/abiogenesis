@@ -328,15 +328,17 @@ function materializedFileSummaryExcerptFor(payload: unknown): string | null {
   if (typeof payload !== "object" || payload === null || Array.isArray(payload)) {
     return null;
   }
-  const summaries = (payload as Readonly<Record<string, unknown>>)["materializedFileSummaries"];
-  if (!Array.isArray(summaries) || summaries.length === 0) {
+  const payloadRecord: Readonly<Record<string, unknown>> = { ...payload };
+  const summariesRaw = payloadRecord["materializedFileSummaries"];
+  if (!Array.isArray(summariesRaw) || summariesRaw.length === 0) {
     return null;
   }
+  const summaries: readonly unknown[] = summariesRaw;
   const rendered = summaries.flatMap((summary, index) => {
     if (typeof summary !== "object" || summary === null || Array.isArray(summary)) {
       return [];
     }
-    const record = summary as Readonly<Record<string, unknown>>;
+    const record: Readonly<Record<string, unknown>> = { ...summary };
     const path = typeof record["path"] === "string" ? record["path"] : `materialized-file-${String(index)}`;
     const sha256 = typeof record["sha256"] === "string" ? record["sha256"] : "sha256:unknown";
     const byteLength = typeof record["byteLength"] === "number" ? String(record["byteLength"]) : "unknown";

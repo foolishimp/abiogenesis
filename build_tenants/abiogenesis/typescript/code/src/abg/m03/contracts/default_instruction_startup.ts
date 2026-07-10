@@ -247,7 +247,7 @@ export function constructDefaultInstructionAssemblyStartupForBasis(
     "consequence"
   ];
   const vectorIndexes =
-    options.vectorIndexes ?? basis.graph.vectors.map((_, index) => index);
+    options.vectorIndexes ?? basis.graph.vectors.map((...args) => args[1]);
   const prefix = prefixFor(options);
   const declaration = constructGtlLibraryEntryDeclaration({
     declarationRef: declarationRef(options),

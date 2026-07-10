@@ -70,93 +70,84 @@ export function deriveHaltDiagnosis(
   const reentryPlanRefs: string[] = [];
   const rejectionEvidenceRefs = new Set<string>();
 
+  // a FILTER over the halt-relevant kinds (not a total consumer — the
+  // exhaustive-switch convention governs aggregate projections; a
+  // diagnosis filter names only what it reads)
   for (const event of events) {
-    switch (event.kind) {
-      case "terminal_reached":
-        terminalEvents.push(event);
-        break;
-      case "run_segment_opened":
-        segmentStamps.push(event);
-        break;
-      case "retry_attempt_opened":
-        attemptRows.push(Object.freeze({
-          kind: "halt_attempt_row",
-          rowKind: "opened",
-          edge: event.edge,
-          vectorIndex: event.vectorIndex,
-          retryRunId: event.retryRunId,
-          reason: null,
-          observedAttemptCount: null,
-          maxAttempts: null,
-          stationary: null
-        }));
-        break;
-      case "retry_attempt_stopped":
-        attemptRows.push(Object.freeze({
-          kind: "halt_attempt_row",
-          rowKind: "stopped",
-          edge: event.edge,
-          vectorIndex: event.vectorIndex,
-          retryRunId: null,
-          reason: event.reason,
-          observedAttemptCount: event.observedAttemptCount,
-          maxAttempts: event.maxAttempts,
-          stationary: null
-        }));
-        break;
-      case "retry_attempt_escalated":
-        attemptRows.push(Object.freeze({
-          kind: "halt_attempt_row",
-          rowKind: "escalated",
-          edge: event.edge,
-          vectorIndex: event.vectorIndex,
-          retryRunId: null,
-          reason: event.gateReason,
-          observedAttemptCount: event.observedAttemptCount,
-          maxAttempts: event.maxAttempts,
-          stationary: null
-        }));
-        break;
-      case "retry_progress_recorded":
-        attemptRows.push(Object.freeze({
-          kind: "halt_attempt_row",
-          rowKind: "progress",
-          edge: event.edge,
-          vectorIndex: event.vectorIndex,
-          retryRunId: event.retryRunId,
-          reason: null,
-          observedAttemptCount: null,
-          maxAttempts: null,
-          stationary: event.stationary
-        }));
-        break;
-      case "runtime_failure_observed":
-        failureRows.push(Object.freeze({
-          kind: "halt_failure_row",
-          surface: event.surface,
-          failureClass: event.failureClass,
-          message: event.message
-        }));
-        break;
-      case "payload_rejected":
-        rejectionRows.push(Object.freeze({
-          kind: "halt_rejection_row",
-          edge: event.edge,
-          vectorIndex: event.vectorIndex,
-          payloadRef: event.payloadRef,
-          rejectionClass: event.rejectionClass,
-          reason: event.reason
-        }));
-        rejectionEvidenceRefs.add(event.payloadRef);
-        break;
-      case "graph_reentry_planned":
-        reentryPlanRefs.push(event.planRef);
-        for (const ref of event.causingFrontierRowRefs) {
-          rejectionEvidenceRefs.add(ref);
-        }
-        break;
-      default:
-        break;
+    if (event.kind === "terminal_reached") {
+      terminalEvents.push(event);
+    } else if (event.kind === "run_segment_opened") {
+      segmentStamps.push(event);
+    } else if (event.kind === "retry_attempt_opened") {
+      attemptRows.push(Object.freeze({
+        kind: "halt_attempt_row",
+        rowKind: "opened",
+        edge: event.edge,
+        vectorIndex: event.vectorIndex,
+        retryRunId: event.retryRunId,
+        reason: null,
+        observedAttemptCount: null,
+        maxAttempts: null,
+        stationary: null
+      }));
+    } else if (event.kind === "retry_attempt_stopped") {
+      attemptRows.push(Object.freeze({
+        kind: "halt_attempt_row",
+        rowKind: "stopped",
+        edge: event.edge,
+        vectorIndex: event.vectorIndex,
+        retryRunId: null,
+        reason: event.reason,
+        observedAttemptCount: event.observedAttemptCount,
+        maxAttempts: event.maxAttempts,
+        stationary: null
+      }));
+    } else if (event.kind === "retry_attempt_escalated") {
+      attemptRows.push(Object.freeze({
+        kind: "halt_attempt_row",
+        rowKind: "escalated",
+        edge: event.edge,
+        vectorIndex: event.vectorIndex,
+        retryRunId: null,
+        reason: event.gateReason,
+        observedAttemptCount: event.observedAttemptCount,
+        maxAttempts: event.maxAttempts,
+        stationary: null
+      }));
+    } else if (event.kind === "retry_progress_recorded") {
+      attemptRows.push(Object.freeze({
+        kind: "halt_attempt_row",
+        rowKind: "progress",
+        edge: event.edge,
+        vectorIndex: event.vectorIndex,
+        retryRunId: event.retryRunId,
+        reason: null,
+        observedAttemptCount: null,
+        maxAttempts: null,
+        stationary: event.stationary
+      }));
+    } else if (event.kind === "runtime_failure_observed") {
+      failureRows.push(Object.freeze({
+        kind: "halt_failure_row",
+        surface: event.surface,
+        failureClass: event.failureClass,
+        message: event.message
+      }));
+    } else if (event.kind === "payload_rejected") {
+      rejectionRows.push(Object.freeze({
+        kind: "halt_rejection_row",
+        edge: event.edge,
+        vectorIndex: event.vectorIndex,
+        payloadRef: event.payloadRef,
+        rejectionClass: event.rejectionClass,
+        reason: event.reason
+      }));
+      rejectionEvidenceRefs.add(event.payloadRef);
+    } else if (event.kind === "graph_reentry_planned") {
+      reentryPlanRefs.push(event.planRef);
+      for (const ref of event.causingFrontierRowRefs) {
+        rejectionEvidenceRefs.add(ref);
+      }
     }
   }
 

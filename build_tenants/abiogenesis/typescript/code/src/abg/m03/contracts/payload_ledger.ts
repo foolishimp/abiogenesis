@@ -654,8 +654,8 @@ type TargetCarrierDecisionEvent =
     };
 
 function eventAdmissionOrdinal(event: object): number | null {
-  const ordinal = (event as { readonly eventAdmissionOrdinal?: unknown })
-    .eventAdmissionOrdinal;
+  const record: Readonly<Record<string, unknown>> = { ...event };
+  const ordinal = record["eventAdmissionOrdinal"];
   return typeof ordinal === "number" && Number.isFinite(ordinal) ? ordinal : null;
 }
 

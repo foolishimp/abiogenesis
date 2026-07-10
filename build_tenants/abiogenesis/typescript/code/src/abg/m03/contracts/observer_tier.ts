@@ -289,8 +289,8 @@ export function assertObserverCatalogNonConstructive(
 ): void {
   for (const row of rows) {
     if (
-      !(OBSERVER_ACTION_KIND_VALUES as readonly string[]).includes(
-        row.actionKind
+      !OBSERVER_ACTION_KIND_VALUES.some(
+        (kind): boolean => kind === row.actionKind
       )
     ) {
       throw new TypeError(

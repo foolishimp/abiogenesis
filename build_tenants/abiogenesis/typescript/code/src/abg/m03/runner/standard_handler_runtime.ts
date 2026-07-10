@@ -25,26 +25,52 @@ interface TracedProcessExecutionConfig {
 }
 
 function tracedProcessExecutionConfigFrom(input: unknown): TracedProcessExecutionConfig {
-  const record = input as Partial<TracedProcessExecutionConfig> | null;
-  if (
-    record === null ||
-    typeof record !== "object" ||
-    typeof record.command !== "string" ||
-    record.command.length === 0 ||
-    !Array.isArray(record.args) ||
-    typeof record.cwd !== "string" ||
-    typeof record.timeoutMs !== "number" ||
-    typeof record.archiveRoot !== "string" ||
-    record.archiveRoot.length === 0 ||
-    record.env === null ||
-    typeof record.env !== "object"
-  ) {
-    throw new TypeError(
-      "process_execution_config_invalid: declared config must carry " +
-        "{command, args, env, cwd, timeoutMs, archiveRoot}"
-    );
+  const invalid = new TypeError(
+    "process_execution_config_invalid: declared config must carry " +
+      "{command, args, env, cwd, timeoutMs, archiveRoot}"
+  );
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw invalid;
   }
-  return record as TracedProcessExecutionConfig;
+  const record: Readonly<Record<string, unknown>> = { ...input };
+  const command = record["command"];
+  const args = record["args"];
+  const cwd = record["cwd"];
+  const timeoutMs = record["timeoutMs"];
+  const archiveRoot = record["archiveRoot"];
+  const env = record["env"];
+  if (
+    typeof command !== "string" ||
+    command.length === 0 ||
+    !Array.isArray(args) ||
+    !args.every((entry): entry is string => typeof entry === "string") ||
+    typeof cwd !== "string" ||
+    typeof timeoutMs !== "number" ||
+    typeof archiveRoot !== "string" ||
+    archiveRoot.length === 0 ||
+    typeof env !== "object" ||
+    env === null ||
+    Array.isArray(env)
+  ) {
+    throw invalid;
+  }
+  const envRecord: Readonly<Record<string, unknown>> = { ...env };
+  const envRows: Record<string, string> = {};
+  for (const [key, value] of Object.entries(envRecord)) {
+    if (typeof value !== "string") {
+      throw invalid;
+    }
+    envRows[key] = value;
+  }
+  const argRows: readonly string[] = args;
+  return Object.freeze({
+    command,
+    args: Object.freeze([...argRows]),
+    env: Object.freeze(envRows),
+    cwd,
+    timeoutMs,
+    archiveRoot
+  });
 }
 
 // STRICT F_D (HANDLERS-009 rider): outcomes are mechanical only —

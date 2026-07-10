@@ -480,3 +480,75 @@ test("T-217 RC gate: the installed package exports the downstream consumption su
     "function"
   ]);
 });
+
+test("T-217 repayment R-bootstrap: context-bootstrap mutableStateRoots admission — absent is null, hostile rows throw typed, valid rows bind", async () => {
+  const { targetRoot } = await sharedInstall();
+  const { installAbiogenesisContextBootstrap } = await import(
+    "../../build/semantic/code/src/app/m04/index.js"
+  );
+  const { mkdtempSync, readFileSync: readSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  // the shared install's toolchain root (from its binding)
+  const binding = JSON.parse(
+    readSync(
+      path.join(targetRoot, ".abiogenesis", "toolchain-binding.json"),
+      "utf8"
+    )
+  );
+  const repoTenantRoot = path.resolve(
+    path.dirname(new URL(import.meta.url).pathname),
+    "..",
+    ".."
+  );
+
+  // hostile: non-object roots
+  await assert.rejects(
+    async () =>
+      installAbiogenesisContextBootstrap({
+        targetRoot: mkdtempSync(path.join(tmpdir(), "t217-boot-")),
+        packageSourceRoot: repoTenantRoot,
+        toolchainRoot: binding.toolchainRoot,
+        mutableStateRoots: "not-an-object"
+      }),
+    /mutableStateRoots must be an object or null/u
+  );
+  // hostile: empty-string row
+  await assert.rejects(
+    async () =>
+      installAbiogenesisContextBootstrap({
+        targetRoot: mkdtempSync(path.join(tmpdir(), "t217-boot-")),
+        packageSourceRoot: repoTenantRoot,
+        toolchainRoot: binding.toolchainRoot,
+        mutableStateRoots: { eventRoot: "" }
+      }),
+    /mutableStateRoots\.eventRoot must be a non-empty string/u
+  );
+
+  // valid WITH roots: bootstrap succeeds against the shared toolchain
+  const bootRoot = mkdtempSync(path.join(tmpdir(), "t217-boot-"));
+  const outcome = await installAbiogenesisContextBootstrap({
+    targetRoot: bootRoot,
+    packageSourceRoot: repoTenantRoot,
+    toolchainRoot: binding.toolchainRoot,
+    mutableStateRoots: {
+      observedWorkspaceRoot: bootRoot,
+      observerStateRoot: path.join(bootRoot, ".ai-workspace"),
+      executorStateRoot: path.join(bootRoot, ".ai-workspace"),
+      eventRoot: path.join(bootRoot, ".ai-workspace", "events"),
+      eventLogPath: path.join(bootRoot, ".ai-workspace", "events", "events.jsonl"),
+      runtimeRoot: path.join(bootRoot, ".ai-workspace", "runtime"),
+      projectionRoot: path.join(bootRoot, ".ai-workspace", "projections"),
+      archiveRoot: path.join(bootRoot, ".ai-workspace", "archives")
+    }
+  });
+  assert.notEqual(outcome.kind, "failed", JSON.stringify(outcome).slice(0, 300));
+
+  // valid ABSENT roots: admits as null and still bootstraps
+  const bareRoot = mkdtempSync(path.join(tmpdir(), "t217-boot-"));
+  const bare = await installAbiogenesisContextBootstrap({
+    targetRoot: bareRoot,
+    packageSourceRoot: repoTenantRoot,
+    toolchainRoot: binding.toolchainRoot
+  });
+  assert.notEqual(bare.kind, "failed");
+});

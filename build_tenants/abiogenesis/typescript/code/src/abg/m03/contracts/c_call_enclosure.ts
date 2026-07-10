@@ -52,39 +52,41 @@ export function checkCCallEnclosure(
   const judged = new Set<string>();
   let anySpineOpen = 0;
   for (const [ordinal, event] of events.entries()) {
-    const record = event as { readonly cCallRef?: string };
-    if (event.kind === "c_call_opened" && record.cCallRef !== undefined) {
-      opened.add(record.cCallRef);
+    const record: Readonly<Record<string, unknown>> = { ...event };
+    const cCallRefRaw = record["cCallRef"];
+    const cCallRef = typeof cCallRefRaw === "string" ? cCallRefRaw : undefined;
+    if (event.kind === "c_call_opened" && cCallRef !== undefined) {
+      opened.add(cCallRef);
       anySpineOpen += 1;
       continue;
     }
     if (SPINE_ROW_KINDS.has(event.kind)) {
-      if (record.cCallRef === undefined || !opened.has(record.cCallRef)) {
+      if (cCallRef === undefined || !opened.has(cCallRef)) {
         issues.push(Object.freeze({
           kind: "c_call_enclosure_issue",
           issueKind: "orphan_spine_row",
           severity: "violation",
           eventKind: event.kind,
-          cCallRef: record.cCallRef ?? null,
+          cCallRef: cCallRef ?? null,
           ordinal
         }));
         continue;
       }
       if (event.kind === "c_call_result_admitted") {
-        admitted.add(record.cCallRef);
+        admitted.add(cCallRef);
       }
       if (event.kind === "c_call_judged") {
-        if (!admitted.has(record.cCallRef)) {
+        if (!admitted.has(cCallRef)) {
           issues.push(Object.freeze({
             kind: "c_call_enclosure_issue",
             issueKind: "judged_before_admitted",
             severity: "violation",
             eventKind: event.kind,
-            cCallRef: record.cCallRef,
+            cCallRef,
             ordinal
           }));
         }
-        judged.add(record.cCallRef);
+        judged.add(cCallRef);
       }
       continue;
     }

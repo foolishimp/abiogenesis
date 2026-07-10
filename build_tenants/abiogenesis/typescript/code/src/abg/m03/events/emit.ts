@@ -112,8 +112,8 @@ function canonicalRuntimeEvent(
         "live emitter context rejects pre-stamped canonical envelopes: replayed truth enters through a replay-tolerant context"
       );
     }
-    const stamped = (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal;
-    context.ordinal = Math.max(context.ordinal, stamped + 1);
+    // assertCanonicalRuntimeEvent narrowed the type: the ordinal is a number
+    context.ordinal = Math.max(context.ordinal, event.eventAdmissionOrdinal + 1);
     return event;
   }
   const eventTimeUnixMs = Date.now();

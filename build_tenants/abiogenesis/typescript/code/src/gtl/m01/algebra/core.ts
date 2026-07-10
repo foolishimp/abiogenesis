@@ -218,10 +218,12 @@ function assetSurfacePreserves(local: Node, required: Node): boolean {
   );
 }
 
+const MERGE_CONFLICT: unique symbol = Symbol("merge_conflict");
+
 function mergeNullableRef(
   left: string | null,
   right: string | null
-): string | null | "conflict" {
+): string | null | typeof MERGE_CONFLICT {
   if (left === null) {
     return right;
   }
@@ -259,7 +261,7 @@ function mergeAssetSurfaces(
       renderedViewDigestPolicyRef,
       node.assetSurface.renderedViewDigestPolicyRef
     );
-    if (mergedDigest === "conflict") {
+    if (mergedDigest === MERGE_CONFLICT) {
       return "conflict";
     }
     renderedViewDigestPolicyRef = mergedDigest;

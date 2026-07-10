@@ -48,7 +48,8 @@ function canonicalEnvelopeOf(event: RuntimeEvent): {
   readonly kind: string;
 } | null {
   const ordinal = eventAdmissionOrdinalOf(event);
-  const eventId = (event as { readonly eventId?: unknown }).eventId;
+  const record: Readonly<Record<string, unknown>> = { ...event };
+  const eventId = record["eventId"];
   if (ordinal === null || typeof eventId !== "string" || eventId.length === 0) {
     return null;
   }
@@ -129,7 +130,8 @@ export function verifyReplayLogAttestations(
       // a foreign-basis event in a shared workspace log never breaks a
       // valid attestation (its own basis's attestations cover it).
       const inScope = (event: RuntimeEvent): boolean => {
-        const basisId = (event as { readonly basisId?: unknown }).basisId;
+        const record: Readonly<Record<string, unknown>> = { ...event };
+        const basisId = record["basisId"];
         const scoped =
           typeof basisId === "string" && basisId.length > 0 ? basisId : null;
         return scoped === null || scoped === attestation.basisId;

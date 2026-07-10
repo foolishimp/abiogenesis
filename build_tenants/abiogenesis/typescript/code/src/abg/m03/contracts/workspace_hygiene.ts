@@ -98,8 +98,10 @@ export function latestAdmittedArtifactDigests(
   const digests = new Map<string, string>();
   for (const [key, rows] of candidatesByKey) {
     const digest = decisiveValueByAdmissionOrdinal(
-      rows.map((row) => Object.freeze({ ...row.event, __digest: row.digest })),
-      (candidate) => (candidate as { __digest: string }).__digest,
+      rows.map((row) =>
+        Object.freeze({ ...row.event, hygieneCandidateDigest: row.digest })
+      ),
+      (candidate) => candidate.hygieneCandidateDigest,
       `Hygiene baseline (${key})`
     );
     if (digest !== null) {
@@ -298,21 +300,29 @@ export function deriveKernelMeasurableSurfaces(
   }
   const surfaces: KernelMeasurableSurface[] = [];
   for (const [artifactRef, rows] of candidatesByRef) {
+    // decisive by VALUE (agreeing duplicates need no ordinals); the pair
+    // key identifies the winning row, read back without re-parsing
+    const pairKeyOf = (row: OutputMaterializationObservedEvent): string =>
+      JSON.stringify([row.materializedPath, row.digest]);
     const decisivePair = decisiveValueByAdmissionOrdinal(
       rows,
       (event) =>
         event.kind === "output_materialization_observed"
-          ? JSON.stringify([event.materializedPath, event.digest])
+          ? pairKeyOf(event)
           : null,
       `Kernel measurable surface (${artifactRef})`
     );
-    if (decisivePair !== null) {
-      const [materializedPath, admittedDigest] = JSON.parse(decisivePair) as [
-        string,
-        string
-      ];
+    const winner =
+      decisivePair === null
+        ? undefined
+        : rows.find((row) => pairKeyOf(row) === decisivePair);
+    if (winner !== undefined) {
       surfaces.push(
-        Object.freeze({ artifactRef, materializedPath, admittedDigest })
+        Object.freeze({
+          artifactRef,
+          materializedPath: winner.materializedPath,
+          admittedDigest: winner.digest
+        })
       );
     }
   }

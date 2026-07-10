@@ -675,25 +675,37 @@ function contextBootstrapRequest(input: unknown): {
       "ABG context bootstrap toolchainRoot must be string or null when present"
     );
   }
-  if (
-    mutableStateRoots !== undefined &&
-    mutableStateRoots !== null &&
-    (typeof mutableStateRoots !== "object" || Array.isArray(mutableStateRoots))
-  ) {
-    throw new TypeError(
-      "ABG context bootstrap mutableStateRoots must be object or null when present"
-    );
-  }
   return Object.freeze({
     targetRoot,
     packageSourceRoot,
     toolchainRoot: toolchainRoot ?? null,
-    mutableStateRoots:
-      mutableStateRoots === undefined
-        ? null
-        : (mutableStateRoots as ToolchainMutableStateRootInput | null),
+    mutableStateRoots: admitMutableStateRootsInput(mutableStateRoots),
     initializeAiWorkspace: initializeAiWorkspace ?? true
   });
+}
+
+function admitMutableStateRootsInput(
+  value: unknown
+): ToolchainMutableStateRootInput | null {
+  if (value === undefined || value === null) {
+    return null;
+  }
+  if (typeof value !== "object" || Array.isArray(value)) {
+    throw new TypeError(
+      "ABG context bootstrap mutableStateRoots must be an object or null when present"
+    );
+  }
+  const record: Readonly<Record<string, unknown>> = { ...value };
+  const rows: Record<string, string> = {};
+  for (const [key, entry] of Object.entries(record)) {
+    if (typeof entry !== "string" || entry.length === 0) {
+      throw new TypeError(
+        `ABG context bootstrap mutableStateRoots.${key} must be a non-empty string`
+      );
+    }
+    rows[key] = entry;
+  }
+  return rows;
 }
 
 async function readInstalledProductBinding(input: {
