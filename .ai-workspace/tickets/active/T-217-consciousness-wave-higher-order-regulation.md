@@ -1276,6 +1276,47 @@ test_runs/glc_software_build_overlay_live/data-mapper-full/
 20260709T180312781Z_pid37013 (test_runs is gitignored; the record is
 this ledger + the odd_glc migration commit 47aeda5).
 
+LINT REPAYMENT -> rc.1 SUPERSEDED -> 4.6.0-rc.2 PROVEN (2026-07-10).
+F_H ruling recorded (gates-run-every-review; debt acceptance is F_H's,
+never the worker's): my "no tech debt" review claims had never run
+lint:semantic — 254 errors rode four review rounds silently. REPAID
+254 -> 0 in four commits (8cbe266, 90a03f9, a7599eb, 5c312df): typed
+admission predicates and narrowed reads only — zero suppressions, zero
+eslint-disable, zero any. rc.1 DECLARED SUPERSEDED UNSHIPPED: it was
+cut from a red tree (t193 constitutional drift 2/1280 — stale 4.5.1 in
+release note/CLAUDE/AGENTS/README — plus the lint debt). Drift fixed,
+release note reauthored for rc.2, and snapshot:release now MECHANICALLY
+chains build:semantic + lint:semantic + test:semantic before snapshot —
+the cut-from-red class cannot recur. rc.2 cut 9ec4ffc (version
+4.6.0-rc.2, sourceCommit 5c312df, tarball e937b65d..., store pack ==
+snapshot pack). odd_glc migrated 4dd96d7: dep + full provenance +
+identity pins + codex-found stale-4.5.1 sweeps (AGENTS/GOALS/PRODUCT)
++ scenario-conditional dataMapperGate label; 79/79.
+
+SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT on 4.6.0-rc.2 — CONVERGED, run 2 of
+the unmodified regression probe (20260710T012832676Z_pid27696): 28
+vectors closed, 30 worker turns, 2 retries, 240 depth-proof rows, 64/64
+mutation kills (suite-red + verified-restore), zero scenario patches,
+zero framework fixes, ~81 min wall. Both retries were the 900000 ms
+operator turn budget expiring mid-mutation-grind — allowlisted
+transport_failure, each attempt CONTINUED the persisted mutant matrix
+(the rc.1 pattern; the retry law, not a defect). The run surfaced two
+defects in the odd_glc TEST HARNESS (neither framework nor scenario,
+both fixed in odd_glc test/): (1) my repin sweep left the
+dataMapperGate assertion regex on the old "run" wording while the label
+said "campaign" — now an exact-literal pin on both branches; (2) the
+startup-kind assertions read the CLI per-process event_kinds summary,
+which is empty-of-admissions on a T-030 resume over a closed frontier —
+now replay-derived from result.events (the installed axiom: run truth
+is read from replay). Repairs verified by two degenerate
+ODD_GLC_LIVE_RESUME re-entries over the SAME converged frontier — no
+new worker turns — 13/13 green, node exit 0. COMMITTED EVIDENCE (codex
+P1 repaid): proof JSON + EVIDENCE.md at odd_glc
+test/proof_inputs/odd-glc-data-mapper-full-scala-sbt-live/
+20260710T012832676Z_pid27696/ (the 127 MB event log exceeds git hosting
+limits and stays under the local run root, pinned by the proof's
+eventLogSha256 cc9d2ed4...).
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
