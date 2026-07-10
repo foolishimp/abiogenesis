@@ -1334,3 +1334,57 @@ test("T-211: an unstamped event in a violated trace is a typed rejection, never 
     /temporal evaluation requires canonical stamped events/u
   );
 });
+
+// ── A5-P1 fix (dual review R4, T-217 closure campaign 2026-07-10) ──
+// Unknown VOCABULARY in a GTL-authored handler-binding declaration must
+// land as the SAME typed fail-closed startup result the machine's entry
+// admission produces — never a TypeError escaping the engine API. The
+// refuted defect: assembleHandlerRegistry ran at the engine entries
+// OUTSIDE the fail-closed try, so `regime: "F_X"` threw straight out of
+// runEngineIterate with no terminal and no replay truth.
+test("A5-P1 R4: unknown regime in declared bindings is a typed fail-closed startup result, never a host escape", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const badRegimeBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.hog_handler_bindings", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "array", items: [ { kind: "object", entries: [
+              { key: "programRef", value: "gtl://t217/bad-regime" },
+              { key: "stageRole", value: "admit" },
+              { key: "armId", value: "arm://t217/a" },
+              { key: "regime", value: "F_X" },
+              { key: "handlerRef", value: "handler://t217/none" },
+              { key: "handlerClass", value: "pipeline" },
+              { key: "handlerConfigRef", value: null }
+            ] } ]
+          } }) })
+        ])
+      })
+    })
+  });
+  let result;
+  assert.doesNotThrow(() => {
+    result = runEngineIterate({
+      basis: badRegimeBasis,
+      eventSink: () => {},
+      ...m03InstructionAssemblyRequestFields(badRegimeBasis),
+      plugins: {
+        handlerRegistry: { bindings: [], handlers: new Map() },
+        fpEvaluator: defaultFpEvaluatorPlugin
+      }
+    });
+  }, "assembly vocabulary errors must not escape the engine API");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /hog_program_unresolvable/u);
+  assert.match(result.transition.reason, /regime/u);
+  const failure = result.replayEvents.find((event) => event.kind === "runtime_failure_observed");
+  assert.notEqual(failure, undefined, "the failure is replay truth");
+  assert.equal(failure.failureClass, "contract_failure");
+  assert.equal(failure.surface, "hog_program_resolution");
+  const terminal = result.replayEvents.find((event) => event.kind === "terminal_reached");
+  assert.notEqual(terminal, undefined, "the run reaches a lawful terminal");
+});

@@ -185,3 +185,32 @@ test("declared-config strictness: the lawful shape still executes", () => {
   });
   assert.equal(interior.outcomeStatus, "executed");
 });
+
+// ── A5-P1 fix (dual review F9, T-217 closure campaign 2026-07-10):
+// equal-ordinal candidates at the decisive-read helper are unorderable
+// truth — first-in-array must never silently win.
+test("D-ordinal: decisiveByAdmissionOrdinal fails closed on equal-ordinal candidates", async () => {
+  const { decisiveByAdmissionOrdinal } = await import(
+    "../../build/semantic/code/src/abg/m03/index.js"
+  );
+  assert.throws(
+    () =>
+      decisiveByAdmissionOrdinal(
+        [
+          { kind: "a", eventAdmissionOrdinal: 7 },
+          { kind: "b", eventAdmissionOrdinal: 7 }
+        ],
+        "pin"
+      ),
+    /unorderable and fails closed/u
+  );
+  // ordered candidates still resolve to the ordinal-latest
+  const decisive = decisiveByAdmissionOrdinal(
+    [
+      { kind: "old", eventAdmissionOrdinal: 3 },
+      { kind: "new", eventAdmissionOrdinal: 9 }
+    ],
+    "pin"
+  );
+  assert.equal(decisive.kind, "new");
+});

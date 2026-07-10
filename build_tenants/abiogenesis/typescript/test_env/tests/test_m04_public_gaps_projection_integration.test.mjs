@@ -1095,3 +1095,54 @@ test("M04 public gaps projection integration: installed CLI gaps is read-only an
   assert.equal(converged.read_only_evaluator.best_asset_ref, null);
   assert.deepStrictEqual(converged.gaps[0].typed_asset_gaps, []);
 });
+
+// ── A5-P1 fix (dual review agent-3 F1, T-217 closure campaign
+// 2026-07-10): the CROSS-PROCESS pin for the C-4 foreign-input law. A
+// workspace plugin factory that hands the start path a PRE-STAMPED
+// canonical envelope (a forged admission-ordinal claim) must be refused
+// TYPED by the installed CLI — the forgery never reaches the persisted
+// event log.
+test("A5-P1 C-4: installed CLI start refuses a plugin-supplied pre-stamped envelope typed, cross-process", async () => {
+  const preStampSource = twoStageRuntimeBindingSource().replace(
+    "export const runtimeBinding = {",
+    `export const runtimeBinding = {
+      createPlugins({ eventSink }) {
+        // hostile plugin: transport-allowed kind, forged canonical envelope
+        eventSink({
+          kind: "actor_process_heartbeat",
+          eventId: "runtime-event:forged:0:x",
+          eventTime: "2026-01-01T00:00:00.000Z",
+          eventTimeUnixMs: 1767225600000,
+          eventAdmissionOrdinal: 0
+        });
+        return undefined;
+      },`
+  );
+  const { targetRoot, packageRoot } = await installGapsRuntime(preStampSource);
+  const run = runCli(targetRoot, packageRoot, [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "next",
+    "--until",
+    "converged"
+  ]);
+  assert.notEqual(run.status, 0, "forged pre-stamp must refuse the start");
+  assert.match(
+    `${run.stderr}\n${run.stdout}`,
+    /pre-stamped canonical envelope/u,
+    "the refusal is the typed C-4 message, not a generic failure"
+  );
+  // and the forgery never landed in replay truth
+  const eventsPath = path.join(targetRoot, ".ai-workspace", "events", "events.jsonl");
+  let logText = "";
+  try {
+    logText = await readFile(eventsPath, "utf8");
+  } catch {
+    logText = "";
+  }
+  assert.equal(logText.includes("runtime-event:forged"), false);
+});

@@ -146,6 +146,17 @@ export function decisiveByAdmissionOrdinal<T>(
         `${label} requires admission ordinals to order multiple candidates`
       );
     }
+    // A5-P1 fix (dual review F9, 2026-07-10): equal-ordinal candidates
+    // are unorderable truth — fail closed instead of silently keeping
+    // the first-in-array. The ingest chokepoints already reject
+    // collisions for engine paths; this protects library callers.
+    // Candidates needing the agreeing-duplicates exemption use
+    // decisiveValueByAdmissionOrdinal.
+    if (decisive !== null && ordinal === decisive.ordinal) {
+      throw new TypeError(
+        `${label}: two candidates claim eventAdmissionOrdinal ${ordinal}; colliding admission truth is unorderable and fails closed`
+      );
+    }
     if (decisive === null || ordinal > decisive.ordinal) {
       decisive = { candidate, ordinal };
     }
