@@ -1465,6 +1465,21 @@ deterministic-helpers-only pending their live exits, Phase 5 entry
 gate open, and the source tree is beyond rc.2 with no new cut — all
 consistent with this campaign's remaining tasks C/D/E/F.
 
+CODEX ROUND 4 REPAIRED IN FULL (2026-07-11, commit 210a08c;
+1329/1329, lint 0): R4-1 sync resolver refuses async-only plugin
+INVOCATION (closes the caller-supplied bypass; worker-leak differential
+pins no marker/no archive); R4-2 live flags reachable + parse pin;
+R4-3 capability provenance (value + per-field source) in the CLI start
+output (WITNESS-010); R4-4 transport-exception try/catch reconciles to
+the C-call; R4-5 cCallRef on EnginePluginInput + cCallRef->invocation->
+monotonic-seq identity with FULL sha256 + identity sidecar json
+(HANDLERS-007); R4-6 pluginKind-per-seam check + failure-classifier
+re-prefix; R4-7 positive budget + exclusive-create ('wx') writes. This
+time verified against codex's specific reproductions (caller-supplied
+sync, transport-throw, null-actor collision, symlink escape, zero
+budget) — not just the returned-failure paths. Phase boundary
+RE-SUBMITTED.
+
 NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
 deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
 dispatch-intent declarations (PRODUCT.md: GraphVector carries dispatch
