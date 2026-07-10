@@ -35,6 +35,8 @@ related engine behavior.
 - reflective tuner law: declaration-draft-only optimisation, ratification
   states, annealing equivalence contracts, crystallization (rails/emergence)
   track changes
+- kernel plugin adoption surface: the five plugin seams, the governed standard
+  catalog, fail-closed declared selection, F_H-approved live capability rows
 
 ## Families
 
@@ -68,3 +70,4 @@ related engine behavior.
 - `REQ-R-ABG3-SELFHOSTING.md`
 - `REQ-R-ABG3-SUPERVISOR-WITNESS.md`
 - `REQ-R-ABG3-TUNER.md`
+- `REQ-R-ABG3-PLUGIN-SEAMS.md`

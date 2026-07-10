@@ -19,5 +19,8 @@ and ABG 3 requirement families.
 Deferred family note: `REQ-M-GTL3-CAPABILITY` remains deferred and is tracked in
 design/module mapping surfaces rather than live testcase authority for the
 canonical ABG 3 line. Product verification authority such as
-`REQ-P-SCENARIOS` is traced through the canonical python test surface map
-rather than this GTL/ABG family matrix.
+`REQ-P-SCENARIOS` is traced through the released tenant's semantic build, lint,
+and test lanes and scenario bundles rather than this GTL/ABG family matrix.
+That authority is tenant-neutral: any released tenant carries equivalent
+lanes. The released TypeScript tenant's test lanes are the current reference
+realization of that authority.

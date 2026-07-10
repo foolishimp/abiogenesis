@@ -20,7 +20,7 @@ Product-level policy (feature closing, human proxy, merge gates, CLI behavior) l
 
 **REQ-P-POLICY-003**: CLI and control-plane summaries shall be product-layer projections over canonical ABG run truth. They shall not define independent boolean lifecycle truth that can contradict the canonical run/event model.
 
-**REQ-P-POLICY-004**: Product-layer `gen-start` control modes shall treat yielded ABG handoff truth as a lawful control seam. They shall not flatten yielded handoff into terminal success and shall not blindly redispatch the same constructive lane without first honoring the yielded observer or routing handoff.
+**REQ-P-POLICY-004**: Product-layer `start` control modes shall treat yielded ABG handoff truth as a lawful control seam. They shall not flatten yielded handoff into terminal success and shall not blindly redispatch the same constructive lane without first honoring the yielded observer or routing handoff.
 
 **REQ-P-POLICY-005**: Repeated proof failure on one current work identity shall project to product-layer control-plane hold truth. That hold truth shall be replay-derived from canonical `proof_failed`, `proof_passed`, and scoped `reset` events rather than hidden controller memory or a rival mutable run-state store.
 
@@ -28,13 +28,13 @@ Product-level policy (feature closing, human proxy, merge gates, CLI behavior) l
 
 **REQ-P-POLICY-007**: The proof-hold identity shall be keyed by `edge`, `work_key`, `spec_hash`, and `workflow_version`. Hold projection shall survive process restart and shall clear only by lawful replay-visible causes: proof success on the same identity, identity supersession by new `spec_hash` or `workflow_version`, or an explicit scoped `reset` over the held boundary.
 
-**REQ-P-POLICY-008**: Product-layer advancement and observation surfaces shall consume the same proof-hold projection. `gen-start`, `gen-gaps`, and live run status may report hold, but they shall not redefine ABG run lifecycle truth in order to do so.
+**REQ-P-POLICY-008**: Product-layer advancement and observation surfaces shall consume the same proof-hold projection. `start`, `gaps`, and live run status may report hold, but they shall not redefine ABG run lifecycle truth in order to do so.
 
-**REQ-P-POLICY-009**: `gen-start` traversal request truth shall be expressed as `scope + target + until`. Supervision, F_H proxying, and similar recovery behavior shall be modeled as orthogonal product-policy control modes outside that traversal request grammar.
+**REQ-P-POLICY-009**: `start` traversal request truth shall be expressed as `scope + target + until`. Supervision, F_H proxying, and similar recovery behavior shall be modeled as orthogonal product-policy control modes outside that traversal request grammar.
 
-**REQ-P-POLICY-010**: When product policy publishes `asset:<published_handle>` as a `gen-start` target family, that family shall resolve only through one published operator asset registry and ownership surface. Each published asset handle shall resolve to one governing traversal boundary, and unresolved, unowned, unsupported, or ambiguously owned asset handles shall fail closed.
+**REQ-P-POLICY-010**: When product policy publishes `asset:<published_handle>` as a `start` target family, that family shall resolve only through one published operator asset registry and ownership surface. Each published asset handle shall resolve to one governing traversal boundary, and unresolved, unowned, unsupported, or ambiguously owned asset handles shall fail closed.
 
-**REQ-P-POLICY-011**: The current public `gen-start` control-mode families shall be:
+**REQ-P-POLICY-011**: The current public `start` control-mode families shall be:
 - `fh_mode`
 - `root_mode`
 Those mode families are product-policy truth above the adapter. Literal flags or service parameters are bindings of those same mode families, not the source of truth for them.
@@ -47,14 +47,14 @@ Those mode families are product-policy truth above the adapter. Literal flags or
 **REQ-P-POLICY-013**: The current public `root_mode` values shall be:
 - `direct`
 - `supervised`
-`supervised` is the default. It is root-level convergence control around repeated `gen-start` advancement. `direct` is the public operator option to opt out of root supervision. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
+`supervised` is the default. It is root-level convergence control around repeated `start` advancement. `direct` is the public operator option to opt out of root supervision. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
 
 **REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
 start or observe loop over the public named compositions. An operator shall be
-able to define or refine current assets, run `gen-start`, receive one truthful
+able to define or refine current assets, run `start`, receive one truthful
 stop, hold, or gap signal, remove one ambiguity or roadblock through the
-interactive agentic coder surface, run `gen-gaps` or inspect the current
-projection, and run `gen-start` again without inventing a second runtime or
+interactive agentic coder surface, run `gaps` or inspect the current
+projection, and run `start` again without inventing a second runtime or
 controller model.
 
 **REQ-P-POLICY-015**: Website, service, or installer shells may bind the
@@ -65,8 +65,8 @@ or `gemini` are bindings of that same product law, not rival control models.
 
 **REQ-P-POLICY-016**: Product-layer stop, hold, and gap reporting for the
 interactive operator workflow shall be explicit enough that an operator can
-decide the next lawful action: continue by restarting `gen-start`, inspect
-with `gen-gaps`, remove an ambiguity, satisfy a missing capability, or supply
+decide the next lawful action: continue by restarting `start`, inspect
+with `gaps`, remove an ambiguity, satisfy a missing capability, or supply
 human decision. Downstream wrappers shall not need to reconstruct that next
 step from hidden controller-local state.
 

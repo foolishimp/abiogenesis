@@ -1,7 +1,7 @@
 # Abiogenesis — Product
 
 **Product ID**: PROD-001
-**Date**: 2026-04-03
+**Date**: 2026-07-11
 **Status**: Draft
 **Derives from**: INT-001, INT-005, INT-006, INT-007
 
@@ -144,6 +144,14 @@ The programmatic ABG proof surface for downstream graph assets is
 `admitGtlProgramConformanceInput(...)`. External tool surfaces, including MCP
 endpoints, may be gated by GTL/ABG, but they are not the constitutional source
 of GTL contract law.
+
+The conformance surface has a published contract shape. It accepts a submitted
+GTL program and returns typed conformance issues drawn from a published
+diagnostic-id enum, together with typed repair-edit classes and a default
+admissible-repair set. Target-carrier conformance rows and edge-closure
+conformance rows are part of the published contract. The diagnostic-id enum and
+the repair-edit classes are published versioned contracts of the released
+package.
 
 `typecheckGtlProgram(...)` is also the normal inspection surface for traversal
 law. A conforming downstream program publishes inventory; the validator projects
@@ -370,6 +378,24 @@ projection, assurance fold, traversal transition, continuation, closure,
 correction, and replay truth. `F_H` is an external callout regime: ABG admits
 or emits the callout boundary and later admits the response event/carrier; human
 work itself is outside the ABG system.
+
+Exact wire and serialization schemas for carriers, event envelopes, and
+payloads are published versioned contracts of the released package. The current
+normative schema authority is the typed contract modules addressable through
+the released tenant package's `exports` map (reference tenant:
+`@abiogenesis/typescript-tenant`): the root export (`.`), whose entry module
+re-exports the `gtl/m01`, `gtl/m02`, and `abg/m03` contract modules and their
+named contract symbols, and the published subpath exports (`./gtl/m01`,
+`./gtl/m02`, `./abg/m03`, `./abg/m03/transport`) that address the same
+contract surfaces directly. A tenant builder certifies exact shape against the
+contract symbols reachable from those export paths. The specification states
+invariant field law as "at minimum" lists. Gap: schema version/digest
+semantics and a resolvable `schema://abiogenesis/*` registry surface are not
+yet published — the refs are a named target, not a resolvable authority; until
+they land, the typed contract modules reachable through the package exports
+are the sole normative shape authority. Owner: T-218 (5.0 scoping). Gap: full
+admission of the schema surface into specification text is a named follow-up
+slice. Owner: T-218.
 
 This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
 `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-EVALUATOR`,
@@ -643,20 +669,46 @@ references stable without copying a full standards tree into every target
 workspace. They do not become the upstream source of shared method law when the
 method itself is edited.
 
+The four method standards that requirements derive from — `SPEC_METHOD`,
+`ODD_METHOD`, `TICKET_METHOD`, and `DESIGN_MODULE_METHOD` — are constitutional
+inputs sourced from the `specification_methodology` repository and
+install-mirrored into the workspace standards root. A tenant builder requires
+them as declared inputs.
+
 ## Public Operator Contract
 
-Abiogenesis publishes one public advancement and observation contract:
+Abiogenesis publishes one public control plane. Its verb families are:
 
-- `gen-start`
-- `gen-gaps`
+- `start` — advancement over the product-owned traversal request grammar
+- `gaps` — read-only evaluator projection
+- `assess-result` — admission of assessed F_P result truth
+- `witness <act>` — operator-witnessed acts admitted as events
+- `observe report|drafts` — replay-derived observer read models
+- `tune report|propose|ratify|reject` — drafts-only tuning mutation
+- `typecheck-gtl-program` — the conformance proof verb
+- install-time verbs — `context-bootstrap`, `install`, `gen-config`, and
+  `release-snapshot`
 
-Those names are the public named-composition truth.
+Those verb families are the public named-composition truth.
 
-`gen-start` accepts one product-owned traversal request grammar:
+Gap: the exact per-verb operator contract required by REQ-P-POLICY-017 — for
+each verb, its flags, defaults, value domains, output shape, and exit
+semantics, tenant-invariantly — is not yet published. This section names the
+verb families and their grammar; the per-verb contract surface remains to be
+published. Owner: T-218 (5.0 scoping).
+
+`start` accepts one product-owned traversal request grammar:
 
 - `scope`
 - `target`
 - `until`
+
+`start` also accepts declared session arguments above that grammar: a session
+allowlist narrowing argument (`--allow`) that restricts lawful work for one
+session without changing published program law, and declared transport steering
+arguments that select transport behavior for the session's probabilistic
+workers. Session arguments are declared start ingress. They are not members of
+the `scope + target + until` request grammar.
 
 The currently published target families are:
 
@@ -669,12 +721,45 @@ The currently published target families are:
 catalog to one canonical callable-carrier identity. It does not target raw
 graph vectors, unpublished helpers, or implicit candidate-family choice.
 
-`gen-gaps` is a read-only evaluator projection surface. It may expose
+`gaps` is a read-only evaluator projection surface. It may expose
 replay-derived open work, typed asset gaps, candidate completion or induction
 recommendations, blocking reasons, the highest-ranked asset, the implicated
 graph function, and ranking reasons from the same evaluator surface used for
-construction action selection. It does not start traversal, append events, admit
-construction intent, dispatch graph work, or own a retry loop.
+construction action selection. It does not start traversal, mutate runtime
+truth, admit construction intent, dispatch graph work, or own a retry loop.
+Under REQ-R-ABG3-WITNESS-009's operator-command/event grammar it is a pure
+read verb: it projects replay-derived read models and admits no events; event
+admission belongs to the commands that change or attest runtime truth.
+
+`assess-result` admits externally assessed F_P result truth back into runtime
+truth. It is an admission verb: what becomes truth is governed by admission and
+replay law, not by the assessing agent's prose.
+
+`witness <act>` records an operator-witnessed act as an admitted event. The
+published acts are `reprice`, `attest`, `hygiene-stamp`, `intake`,
+`run-resumed`, and `run-stopped`. Every witnessed act is an admitted event in
+the same append-only stream; witnessing does not mutate projections directly.
+
+`observe report` and `observe drafts` expose replay-derived observer read
+models only. They do not admit intent or mutate runtime truth; as pure read
+verbs under REQ-R-ABG3-WITNESS-009's operator-command/event grammar they
+admit no events.
+
+`tune report|propose|ratify|reject` is the tuning surface. Tuning mutation is
+drafts-only: proposals accumulate as drafts, and F_H ratification (or a
+declared ratification policy) admits the draft as ratified. Per
+REQ-R-ABG3-TUNER-004, ratification does not itself change effective
+configuration: a ratified draft re-enters the system as ordinary admitted work
+through the owning ticket and change class.
+
+`typecheck-gtl-program` is the conformance proof verb over submitted GTL
+programs. It is the operator binding of the programmatic conformance surface
+named in the GTL Contract-Law API Reload Anchor.
+
+The install-time verbs — `context-bootstrap`, `install`, `gen-config`, and
+`release-snapshot` — own workspace context bootstrap, installed substrate
+creation, configuration generation, and release snapshot cuts. They are verbs
+of the same one control plane, not a second toolchain.
 
 `asset:<published_handle>` must resolve through one published operator asset
 registry and ownership surface. That surface must publish the asset handle and
@@ -684,21 +769,23 @@ Unresolved, unowned, unsupported, or ambiguously owned asset handles fail
 closed.
 
 Their literal delivery spellings are adapter/build bindings, not rival product
-law. Examples include:
+law. Reference-adapter examples (the installed binding names shipped by the
+released TypeScript tenant package are `abiogenesis-ts`, `genesis-ts`, and
+`abg.install`):
 
-- `python -m genesis start`
-- `python -m genesis gaps`
-- `genesis start`
-- `genesis gaps`
-- service or command wrappers such as `/gen-start`
+- an installed command binding invoked as `abiogenesis-ts start`
+- an installed command binding invoked as `genesis-ts gaps`
+- direct invocation of the installed command path recorded in the workspace
+  binding
+- service or slash-command wrappers such as `/genesis-ts start`
 
 Lower-level traversal and status hooks may still exist structurally where the
 runtime or install line needs them, but they sit below the public operator
-contract. They must not be taught as co-equal human commands beside
-`gen-start` and `gen-gaps`.
+contract. They must not be taught as co-equal human commands beside the public
+verb families above.
 
 Orthogonal control modes such as F_H proxying or root supervision are product
-policy around `gen-start`. They are not members of the `scope + target + until`
+policy around `start`. They are not members of the `scope + target + until`
 request grammar.
 
 The current public control-mode families are:
@@ -715,7 +802,7 @@ Their current public values are:
 public control-mode truth above the adapter.
 Literal bindings such as `--fh-mode` and `--root-mode` are delivery bindings
 for those same mode families, not rival product law. In the current cut, both
-mode families are lawful only when `gen-start` is operating with
+mode families are lawful only when `start` is operating with
 `until = converged`.
 
 The primary operator UX in the current product line is not a website.
@@ -734,12 +821,12 @@ Those transports are delivery bindings over the same product truth. The core
 operator loop is:
 
 1. define or refine the current project assets and constraints
-2. trigger `gen-start`
+2. trigger `start`
 3. accept one truthful stop, hold, or gap signal from substrate truth
 4. work interactively with the agent to remove one ambiguity, missing
    capability, or roadblock
-5. run `gen-gaps` or inspect the current live/operator projection
-6. trigger `gen-start` again
+5. run `gaps` or inspect the current live/operator projection
+6. trigger `start` again
 
 That loop is product truth. It must be projection over ABG truth rather than a
 second controller or local runtime replacement in downstream wrappers.
@@ -782,7 +869,10 @@ completeness is misallocated mechanism, not product realization.
 
 ## Current Product Shape
 
-The current product should be read as:
+This section states the current release realization of the source project as
+product law.
+
+The current product is:
 
 - a graph-native workflow language, not a private configuration dialect
 - a canonical traversal governance and runtime-truth substrate, not a
@@ -866,8 +956,8 @@ intent, requirement, design, code, and evidence surfaces.
 
 | Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
 | --- | --- | --- | --- | --- | --- |
-| `GOAL-001` | `GTL` + `ABG` + `Mapping` | Make cumulative environment an executable runtime law over real composed and recursive carriers, not only a static GTL contract. | ABG resolves per-boundary environment truth, late steps can read carried bindings from earlier steps, and missing internally produced bindings block dispatch rather than converging or silently running. | `test_m03_engine_kernel_integration.py`, `test_sandbox_usecases_fake.py`, `test_sandbox_usecases_live.py`, downstream `gsdlc_lite` proving routes | Active |
-| `GOAL-002` | `GTL` + `ABG` + `Mapping` | Make typed asset surfaces operationally real at GTL boundaries and ABG bind time, so higher-order graph functions can consume returned assets by declared contract rather than by ad hoc path lore. | GTL nodes or graph-function boundaries can declare `asset_surface` truth for asset kind/schema, required carried contexts, and standards or output-contract refs; ABG resolves concrete bindings, specializes prompts and checks from that declaration, records source binding and producer provenance, and blocks dispatch when the declared asset contract is unresolved. | `test_m01_gtl_core_integration.py`, `test_m03_engine_kernel_integration.py`, `test_sandbox_usecases_fake.py`, downstream proving in `odd_method` and imported-workspace routes such as `data_mapper.*` | Active |
+| `GOAL-001` | `GTL` + `ABG` + `Mapping` | Make cumulative environment an executable runtime law over real composed and recursive carriers, not only a static GTL contract. | ABG resolves per-boundary environment truth, late steps can read carried bindings from earlier steps, and missing internally produced bindings block dispatch rather than converging or silently running. | The released tenant's semantic build, lint, and test lanes covering engine-kernel integration and sandbox use-case proof (fake and live) plus the scenario bundles; downstream proving routes such as `gsdlc_lite` | Active |
+| `GOAL-002` | `GTL` + `ABG` + `Mapping` | Make typed asset surfaces operationally real at GTL boundaries and ABG bind time, so higher-order graph functions can consume returned assets by declared contract rather than by ad hoc path lore. | GTL nodes or graph-function boundaries can declare `asset_surface` truth for asset kind/schema, required carried contexts, and standards or output-contract refs; ABG resolves concrete bindings, specializes prompts and checks from that declaration, records source binding and producer provenance, and blocks dispatch when the declared asset contract is unresolved. | The released tenant's semantic build, lint, and test lanes covering GTL-core and engine-kernel integration and sandbox use-case proof plus the scenario bundles; downstream proving in `odd_method` and imported-workspace routes such as `data_mapper.*` | Active |
 
 ### Goal Template
 

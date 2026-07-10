@@ -122,6 +122,22 @@ the proving obligations over that product contract.
 
 ---
 
+## Diff-Execution Witness Gate
+
+**REQ-P-QUAL-025**: The approving suite for a change shall **witness the change's execution**. Changed TypeScript executable lines under the tenant source root (`code/src`) that are not executed by the approving suite fail the diff-execution witness gate. Never-committed files under that root are witnessed in full. Every binding export shall be referenced by the unit lane.
+
+Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-219 (reconciliation follow-up).
+
+---
+
+## Live-Install-Only Proof
+
+**REQ-P-QUAL-026**: Every NEW or MIGRATED live proof run shall execute on a **packed-and-installed sandbox substrate** driving the installed surface, never the repo build tree — conformant from birth.
+
+Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-219 (migration follow-up).
+
+---
+
 ## Release Snapshot Bundles
 
 Release snapshot bundles are release-process artifacts. They record one
@@ -150,6 +166,20 @@ checksums for the package tarball and generated release snapshot files.
 **REQ-P-QUAL-055**: Release snapshot tooling shall package an explicit source
 root/ref and shall not silently reinterpret the mutable development checkout as
 an already tagged release cut.
+
+**REQ-P-QUAL-056**: The release snapshot shall be **self-certifying**. Snapshot
+creation embeds the declared gate evidence (build, lint, test outcomes and the
+parsed test summary) in the release snapshot manifest, and a gate that runs red
+refuses the cut. A RELEASE-GRADE cut requires build, lint, and test evidence
+green. The snapshot request surface carries declared bypass booleans
+(`runBuild`, `runLint`, `runTests`) for non-release snapshots; a bypassed gate
+records null evidence, never fabricated green.
+
+Gap: mechanical red-refuses-to-cut enforcement for release-grade cuts is not
+yet realized — the bypass booleans are honored unconditionally, so a snapshot
+can be cut with build, lint, and test skipped and nothing distinguishes a
+release-grade request that must refuse bypass. Owner: T-217 (the active 4.6
+wave).
 
 ---
 

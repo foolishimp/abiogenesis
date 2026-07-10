@@ -73,7 +73,9 @@ selector for shared product toolchain resolution. `ABIOGENESIS_HOME`,
 toolchain payloads.
 
 **REQ-P-INSTALL-009B**: A selected product payload shall be versioned under the
-toolchain root. ABG's TypeScript product payload shall resolve below
+toolchain root and shall resolve below
+`<toolchainRoot>/products/<product>/<packageVersion>/`. Reference-tenant
+example: the released TypeScript tenant's ABG product payload resolves below
 `<toolchainRoot>/products/abiogenesis/<packageVersion>/`.
 
 **REQ-P-INSTALL-009C**: The toolchain root shall not publish top-level command
@@ -223,17 +225,19 @@ not sufficient proof of installed substrate behavior.
 
 ## Acceptance
 
-The TypeScript installer is not release-candidate complete until a clean target
-workspace proves:
+A released tenant's installer is not release-candidate complete until a clean
+target workspace proves:
 
 - `.abiogenesis/` substrate root exists
 - installed package, command bindings, reference docs, and standards resolve
-  from an admitted shared product toolchain binding
+  from an admitted shared product toolchain binding, with the product payload
+  resolving below `<toolchainRoot>/products/<product>/<packageVersion>/`
 - install and installer manifests record runtime and package truth
 - the workspace toolchain binding records selected products, product manifest
   refs and digests, and mutable state roots
-- the target workspace does not require a full local
-  `node_modules/@abiogenesis/typescript-tenant` product copy
+- the target workspace does not require a full local product dependency copy
+  (reference-tenant example: no local
+  `node_modules/@abiogenesis/typescript-tenant` copy)
 - legacy environment aliases and missing toolchain selectors fail closed
 - product-version command paths are recorded, and no top-level toolchain shim is
   generated

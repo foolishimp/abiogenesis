@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Category**: Constraint / Guarantee
-**Date**: 2026-05-20
+**Date**: 2026-07-11
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-008, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)
 
 ---
@@ -29,7 +29,7 @@ parallel, paused, retried, blocked, compensated, or escalated.
 
 **REQ-R-ABG3-SAGA-FRONTIER-007**: Dependency-frontier, branch-liveness, write-territory conflict, fan-in, and public progress surfaces shall be replay-derived projections over admitted runtime truth and existing ABG Event Calculus law. They shall not introduce a rival saga calculus, scheduler calculus, or runner-local state authority.
 
-**REQ-R-ABG3-SAGA-FRONTIER-008**: The local TypeScript implementation shall use native Node asynchronous primitives for branch dispatch when dispatch is introduced. It shall not require a new orchestration framework for the semantic runtime model.
+**REQ-R-ABG3-SAGA-FRONTIER-008**: A host tenant shall realize branch dispatch with its native asynchronous primitives. The law is observational equivalence between serial and parallel realization of the same admitted frontier, not a host runtime choice; the semantic runtime model shall not require a new orchestration framework.
 
 **REQ-R-ABG3-SAGA-FRONTIER-009**: Runtime concurrency caps, transport limits, worker limits, resource caps, queueing behavior, timeout policy, cancellation policy, lease policy, and retry behavior shall be resolved from visible ABG system-level configuration, runtime policy/default surfaces, liveness/watchdog policy, and admitted runtime truth. Hidden constants, product-local knobs, and new config authorities shall not govern branch parallelism.
 

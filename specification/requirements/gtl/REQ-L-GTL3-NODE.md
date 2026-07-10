@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Category**: Capability
-**Date**: 2026-04-05
+**Date**: 2026-07-11
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
@@ -42,10 +42,14 @@ asset-surface declaration in GTL 3.
 explicit compiler-visible type reference. Type meaning shall not depend only
 on `Node.schema`, tags, prompt prose, file names, or downstream convention.
 
-**REQ-L-GTL3-NODE-014**: A node type reference shall be optional for migration,
-but when present it shall be preserved by GTL construction, admission,
-serialization, conformance, and GTL-to-ABG bridge surfaces without semantic
-loss.
+**REQ-L-GTL3-NODE-014**: A node type reference shall be optional declaration
+truth, because a type reference is a strengthening declaration over the node's
+inline schema, markov, and asset-surface contract, not a mandatory admission
+field: a node without a type reference carries exactly its inline contract.
+When present, the type reference shall be preserved by GTL construction,
+admission, serialization, conformance, and GTL-to-ABG bridge surfaces without
+semantic loss, and its satisfaction is enforced fail-closed per
+REQ-L-GTL3-NODE-015.
 
 **REQ-L-GTL3-NODE-015**: A node with inline schema, markov, and asset-surface
 law plus a type reference shall satisfy the referenced type only when the

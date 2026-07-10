@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Category**: Constraint / Guarantee
-**Date**: 2026-04-29
+**Date**: 2026-07-11
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-ASSURANCE.md](REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-TRANSPORT.md](REQ-R-ABG3-TRANSPORT.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md)
 
 ---
@@ -87,3 +87,7 @@ truth under the selected composition identity. Admission or projection shall
 reject side-door runtime-authority fields, including event emission, ledger
 writes, graph/frame mutation, traversal transition selection, continuation
 decision, and closure authority.
+
+**REQ-R-ABG3-PAYLOAD-028**: A worker-authored file artifact MAY carry exactly one declared output schema. Where a schema is declared, it is rendered into the worker instruction and enforced at result ingress before domain admission: a violating artifact is a typed corrective rejection (`payload_rejected` carrying the schema ref and structured issues), and the violating section is withheld from domain truth. A declared schema is the sole shape authority for its artifact and is covered by the instruction plan digest; prompt prose, parser tolerance, worker self-assessment, and product-local convention shall not widen, replace, or add a second shape authority.
+
+Gap: the universal obligation — EVERY worker-authored file artifact carries a declared schema — is not realized: instruction-plan artifact schemas are an optional input, and ingress checks only the declared schemas whose sections appear in the attached result artifact. Undeclared artifacts pass ingress with no shape authority. Owner: T-217 (the active 4.6 wave).

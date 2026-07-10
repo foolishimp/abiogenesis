@@ -14,12 +14,16 @@ Engines declare capability profiles so GTL programs can determine mapping fideli
 
 ## Deferred Scope
 
-This family is deferred for alternate-runtime mapping lines outside the
-canonical ABG 3 engine.
+This family is deferred.
 
-The current canonical ABG 3 line preserves mapping truth through
-`REQ-M-GTL3-MAPPING` and `REQ-M-GTL3-PROVENANCE`. It does not yet publish a
-separate engine capability-profile surface as active constitutional runtime law.
+Gap: engine capability/conformance profiles are the missing tenant conformance
+manifest — the published surface a new build tenant would certify against to
+claim ABG conformance. The current canonical ABG 3 line preserves mapping truth
+through `REQ-M-GTL3-MAPPING` and `REQ-M-GTL3-PROVENANCE`, and the conformance
+proof verb (`typecheckGtlProgram`) proves downstream program conformance, but
+no published capability-profile surface yet states what an engine or tenant
+must interpret to claim conformance. Scoping ownership: `T-218` (5.0 candidate
+register).
 
 ## Acceptance Criteria
 

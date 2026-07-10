@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Category**: Capability / Constraint
-**Date**: 2026-06-08
+**Date**: 2026-07-11
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
@@ -81,6 +81,20 @@ This requirement indexes and depends on:
 - `REQ-R-ABG3-WORKER`
 - `REQ-R-ABG3-JOB-WORKER`
 - `REQ-R-ABG3-SAGA-FRONTIER`
+
+Index gaps (realized-but-unspecified language capability):
+
+- Gap: the `GraphFunction` zoom family (zoom declaration and its zoomed
+  obligation/slice surface) is realized language capability with no owning
+  GTL requirement family in this index. Owner: T-219 follow-up.
+- Gap: the `GraphFunction` foldback-declaration surface (declared graph-span
+  foldback contracts beyond core `recurse` foldback law) is realized language
+  capability with no owning GTL requirement family in this index.
+  Owner: T-219 follow-up.
+- Gap: the `GraphFunction` type-wiring surface (typed wiring between declared
+  node/asset types across composed graph functions) is realized language
+  capability with no owning GTL requirement family in this index.
+  Owner: T-219 follow-up.
 
 ## Acceptance Criteria
 

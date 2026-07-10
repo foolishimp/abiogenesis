@@ -19,8 +19,8 @@ handler configuration; it does not implement a standard-path worker loop.
   asserted at the one interpretation seam.
 - **-002 Interiors only.** Handlers return interior results and never
   mint spine or truth events. Spine construction has ONE authority
-  (runner/c_call_spine.ts); handler-reachable sinks are kind-restricted
-  to the transport envelope.
+  (the C-call spine interpretation seam); handler-reachable sinks are
+  kind-restricted to the transport envelope.
 - **-003 Evidence honesty.** Outcome status and evidence refs
   correspond to real effects: external sessions reconcile against
   interior refs under the -012 audit, per configuration. Asserted-but-
@@ -103,12 +103,13 @@ handler configuration; it does not implement a standard-path worker loop.
   paths, env, timeouts, archive roots — the io/deployment surface.
   All other configuration is GTL: domain content, workflow shape,
   prompts, contracts, and policies live as typed declarations that
-  support systems consume. NAMED GAP: FpTransportConfig.prompt
-  currently violates this boundary — prompts re-home to GTL
-  (instruction categories via the stage's instructionCategoryRefs and
-  the section machinery) when extra F_P stages bind to the manifest
-  pipeline; the field is transitional and non-closing for T-205's
-  final gate.
+  support systems consume.
+  Gap: `FpTransportConfig.prompt` violates this boundary — a prompt
+  living in handler config instead of GTL. Owner: T-205.
+  Non-closure condition: the gap stays open, and T-205's final gate
+  cannot close, until prompts re-home to GTL (instruction categories
+  via the stage's instructionCategoryRefs and the section machinery)
+  when extra F_P stages bind to the manifest pipeline.
 - **-016 The default is a catalog citizen (user law 2026-07-07).** The
   substrate's default program (the bootstrap triple) is a TYPED,
   LABELLED entry in the effective catalog under a reserved ref, marked

@@ -4,6 +4,11 @@
 **Date**: 2026-03-15
 **Status**: Approved
 
+Gap: this surface carries migration narration and realization reach-downs
+(`.py` paths, retired verb spellings, engine-lineage framing). Repricing it is
+an owned gap, change class `intent_reprice`. Owner: F_H scheduling (recorded
+in T-219 D-03).
+
 ---
 
 ## The Problem

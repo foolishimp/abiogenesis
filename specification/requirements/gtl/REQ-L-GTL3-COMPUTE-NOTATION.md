@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Category**: Constraint / Guarantee
-**Date**: 2026-05-22
+**Date**: 2026-07-11
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHFUNCTION.md](REQ-L-GTL3-GRAPHFUNCTION.md), [REQ-L-GTL3-GRAPHVECTOR.md](REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-JOB.md](REQ-L-GTL3-JOB.md), [REQ-L-GTL3-EVALUATOR.md](REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-FN-COMPOSITION.md](../abg/REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-ASSURANCE.md](../abg/REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](../abg/REQ-R-ABG3-PAYLOAD.md), [T-143](../../../.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md)
 
 ---
@@ -115,7 +115,7 @@ contract identity for the owning boundary.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-013**: Product-specific pressure, gain meaning, and read-model interpretation shall remain product-owned projections over ABG-admitted facts. GTL compute notation shall not standardize downstream product strategy semantics.
 
-**REQ-L-GTL3-COMPUTE-NOTATION-014**: Documentation, examples, and TypeScript contracts that use the notation shall state that `Composition(...)` is display shorthand for selected `abg.fn_composition`, not a separate source of truth.
+**REQ-L-GTL3-COMPUTE-NOTATION-014**: Documentation, examples, and published tenant contracts that use the notation shall state that `Composition(...)` is display shorthand for selected `abg.fn_composition`, not a separate source of truth.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-015**: GTL compute notation shall expose compute plugin categories for `transform.C`, `evaluate.C`, and `consequence.C`. Each category shall preserve selected composition ref, digest, selection ref, regime binding ref when present, input carrier refs, output carrier refs, evidence refs, and non-authority flags proving the plugin cannot write ledgers, emit runtime events, select traversal, or close the boundary.
 
