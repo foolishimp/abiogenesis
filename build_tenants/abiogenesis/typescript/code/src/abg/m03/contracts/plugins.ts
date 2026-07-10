@@ -280,6 +280,9 @@ export interface EnginePluginInput {
   readonly instructionCausalContext: InstructionCausalContextProjection | null;
   readonly instructionPromptManifest: PromptManifest | null;
   readonly actorInvocationRef: ActorInvocationRef | null;
+  // HANDLERS-007 (codex round 4 R4-5): the c-call this input serves, so
+  // live-plugin archives key on cCallRef. Null on non-c-call seams.
+  readonly cCallRef: string | null;
   readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
@@ -1234,6 +1237,7 @@ export function constructEnginePluginInput(input: {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
+  readonly cCallRef?: string | null | undefined;
   readonly attachedResultArtifact?:
     | Readonly<Record<string, unknown>>
     | null
@@ -1323,6 +1327,10 @@ export function constructEnginePluginInput(input: {
           dispatchRef: input.actorInvocationRef.dispatchRef,
           resultRef: input.actorInvocationRef.resultRef
         });
+  const normalizedCCallRef =
+    input.cCallRef === undefined || input.cCallRef === null
+      ? null
+      : input.cCallRef;
   const compositionSelection = resolveAbgFnCompositionSelection({
     vector,
     graphFunction: input.basis.graphFunction,
@@ -1479,6 +1487,7 @@ export function constructEnginePluginInput(input: {
     instructionCausalContext,
     instructionPromptManifest: input.instructionPromptManifest ?? null,
     actorInvocationRef: normalizedActorInvocationRef,
+    cCallRef: normalizedCCallRef,
     attachedResultArtifact:
       input.attachedResultArtifact === undefined ||
       input.attachedResultArtifact === null

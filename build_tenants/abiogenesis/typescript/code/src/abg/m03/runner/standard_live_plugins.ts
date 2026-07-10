@@ -35,6 +35,15 @@ import { admitTimeoutBudgetMs } from "./standard_handlers.js";
 import type { StandardCatalogRow } from "../contracts/plugin_selection.js";
 import { STANDARD_ENGINE_PLUGIN_CATALOG } from "../contracts/plugin_selection.js";
 
+// exclusive-create write — refuses a pre-existing path so a symlink
+// planted in the archive root cannot redirect the write (codex round 4
+// R4-7). "wx" makes open(2) fail with EEXIST on any existing target.
+function writeExclusiveUtf8(path: string, data: string): void {
+  // "wx" makes open(2) fail EEXIST on any existing target — including a
+  // planted symlink — so the write can never follow one out of root.
+  writeFileSync(path, data, { encoding: "utf8", flag: "wx" });
+}
+
 export const LIVE_FP_DISPATCH_PLUGIN_REF = "plugin://abg/fp-dispatch-live";
 
 // The operator-supplied capability: which agent, under which budget and
@@ -92,20 +101,46 @@ function snapshotCapability(io: LiveFpDispatchCapability): LiveFpDispatchCapabil
   });
 }
 
-// codex round F2: archive and ref identities key on the INVOCATION, not
-// the vector alone — attempts and concurrent invocations never collide.
-// actorInvocationId + attemptIndex ride EnginePluginInput; a short
-// content hash of the invocation id disambiguates across runs.
-function invocationLabel(
-  prefix: string,
-  kind: "dispatch" | "eval",
+// codex round 4 R4-5: archive identity keys on the C-CALL (HANDLERS-007)
+// when present, then the invocation, then a per-plugin-instance
+// MONOTONIC counter so even null-actor same-basis/vector calls can
+// never collide. Full-length content hash — no truncation.
+function makeLabeler(prefix: string, kind: "dispatch" | "eval"): (
   input: EnginePluginInput
-): string {
-  const invocation = input.actorInvocationRef ?? null;
-  const attempt = invocation === null ? 0 : invocation.attemptIndex;
-  const idSource = invocation === null ? input.basisId : invocation.actorInvocationId;
-  const idHash = createHash("sha256").update(idSource).digest("hex").slice(0, 12);
-  return `${prefix}-${kind}-v${String(input.vectorIndex)}-a${String(attempt)}-${idHash}`;
+) => { readonly label: string; readonly identity: Readonly<Record<string, unknown>> } {
+  let seq = 0;
+  return (input) => {
+    seq += 1;
+    const invocation = input.actorInvocationRef ?? null;
+    const attempt = invocation === null ? 0 : invocation.attemptIndex;
+    const identitySource =
+      input.cCallRef ??
+      (invocation === null ? input.basisId : invocation.actorInvocationId);
+    const idHash = createHash("sha256").update(identitySource).digest("hex");
+    const label = `${prefix}-${kind}-v${String(input.vectorIndex)}-a${String(attempt)}-s${String(seq)}-${idHash}`;
+    const identity: Readonly<Record<string, unknown>> = Object.freeze({
+      kind: "live_fp_archive_identity",
+      seam: kind,
+      cCallRef: input.cCallRef ?? null,
+      actorInvocationId: invocation === null ? null : invocation.actorInvocationId,
+      attemptIndex: attempt,
+      basisId: input.basisId,
+      vectorIndex: input.vectorIndex,
+      sequence: seq
+    });
+    return { label, identity };
+  };
+}
+
+function writeIdentitySidecar(
+  archiveRoot: string,
+  label: string,
+  identity: Readonly<Record<string, unknown>>
+): void {
+  writeExclusiveUtf8(
+    join(archiveRoot, `${label}-identity.json`),
+    `${JSON.stringify(identity, null, 2)}\n`
+  );
 }
 
 const liveFpDispatchContract = constructEnginePluginContract({
@@ -139,6 +174,7 @@ export function standardLiveFpDispatchPlugin(
 ): FpDispatchPlugin {
   const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_dispatch_capability");
+  const labeler = makeLabeler(io.labelPrefix ?? "live-fp", "dispatch");
   return Object.freeze({
     contract: liveFpDispatchContract,
     dispatch: async (input: EnginePluginInput): Promise<FpDispatchOutcome> => {
@@ -153,15 +189,22 @@ export function standardLiveFpDispatchPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const label = invocationLabel(io.labelPrefix ?? "live-fp", "dispatch", input);
+      const { label, identity } = labeler(input);
       mkdirSync(io.archiveRoot, { recursive: true });
-      // the manifest the worker saw is replay-adjacent evidence
-      writeFileSync(
+      writeIdentitySidecar(io.archiveRoot, label, identity);
+      // the manifest the worker saw is replay-adjacent evidence; 'wx'
+      // refuses a pre-existing path (codex round 4 R4-7: symlink escape).
+      writeExclusiveUtf8(
         join(io.archiveRoot, `${label}-instruction-manifest.json`),
-        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`,
-        "utf8"
+        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`
       );
-      const transport = await runAgentTransport({
+      // codex round 4 R4-4: runAgentTransport can run the worker and THEN
+      // throw while writing artifacts — the session must still reconcile.
+      const outputPath = join(io.archiveRoot, `${label}-output.txt`);
+      const traceResultPath = join(io.archiveRoot, `${label}-trace-result.json`);
+      let transport;
+      try {
+        transport = await runAgentTransport({
         contract: io.agentContract,
         prompt: input.instructionPromptManifest.renderedPrompt,
         cwd: io.cwd,
@@ -174,11 +217,29 @@ export function standardLiveFpDispatchPlugin(
         ...(io.terminalSessionKeyPrefix === undefined
           ? {}
           : { terminalSessionKey: `${io.terminalSessionKeyPrefix}-${label}` }),
-        outputPath: join(io.archiveRoot, `${label}-output.txt`),
+        outputPath: outputPath,
         promptPath: join(io.archiveRoot, `${label}-prompt.txt`),
         stdoutPath: join(io.archiveRoot, `${label}-stdout.log`),
         stderrPath: join(io.archiveRoot, `${label}-stderr.log`)
       });
+      } catch (transportError) {
+        const message = (transportError instanceof Error ? transportError.message : String(transportError)).slice(0, 200);
+        return constructFpDispatchOutcome({
+          status: "blocked",
+          reason: `live fp dispatch transport threw after invocation: ${message} (transport_failure)`,
+          attachedResultArtifact: {
+            kind: "live_fp_transport_exception",
+            message,
+            outputPath,
+            label
+          },
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${outputPath}`,
+            `agent-trace:${traceResultPath}`
+          ]
+        });
+      }
       if (transport.status !== 0 || transport.failureClass !== null) {
         return constructFpDispatchOutcome({
           status: "blocked",
@@ -365,6 +426,7 @@ export function standardLiveFpEvaluatorPlugin(
 ): FpEvaluatorPlugin {
   const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_evaluator_capability");
+  const labeler = makeLabeler(io.labelPrefix ?? "live-fp", "eval");
   return Object.freeze({
     contract: liveFpEvaluatorContract,
     evaluate: async (input: EnginePluginInput): Promise<FpEvaluationOutcome> => {
@@ -378,14 +440,19 @@ export function standardLiveFpEvaluatorPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const label = invocationLabel(io.labelPrefix ?? "live-fp", "eval", input);
+      const { label, identity } = labeler(input);
       mkdirSync(io.archiveRoot, { recursive: true });
-      writeFileSync(
+      writeIdentitySidecar(io.archiveRoot, label, identity);
+      writeExclusiveUtf8(
         join(io.archiveRoot, `${label}-instruction-manifest.json`),
-        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`,
-        "utf8"
+        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`
       );
-      const transport = await runAgentTransport({
+      // codex round 4 R4-4: transport can throw after running the worker.
+      const outputPath = join(io.archiveRoot, `${label}-output.txt`);
+      const traceResultPath = join(io.archiveRoot, `${label}-trace-result.json`);
+      let transport;
+      try {
+        transport = await runAgentTransport({
         contract: io.agentContract,
         prompt: input.instructionPromptManifest.renderedPrompt,
         cwd: io.cwd,
@@ -398,11 +465,23 @@ export function standardLiveFpEvaluatorPlugin(
         ...(io.terminalSessionKeyPrefix === undefined
           ? {}
           : { terminalSessionKey: `${io.terminalSessionKeyPrefix}-${label}` }),
-        outputPath: join(io.archiveRoot, `${label}-output.txt`),
+        outputPath: outputPath,
         promptPath: join(io.archiveRoot, `${label}-prompt.txt`),
         stdoutPath: join(io.archiveRoot, `${label}-stdout.log`),
         stderrPath: join(io.archiveRoot, `${label}-stderr.log`)
       });
+      } catch (transportError) {
+        const message = (transportError instanceof Error ? transportError.message : String(transportError)).slice(0, 200);
+        return constructFpEvaluationOutcome({
+          status: "blocked",
+          reason: `live fp evaluation transport threw after invocation: ${message} (transport_failure)`,
+          evidenceRefs: [
+            input.sourceProjectionRef,
+            `agent-output:${outputPath}`,
+            `agent-trace:${traceResultPath}`
+          ]
+        });
+      }
       if (transport.status !== 0 || transport.failureClass !== null) {
         return constructFpEvaluationOutcome({
           status: "blocked",

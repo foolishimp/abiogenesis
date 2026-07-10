@@ -577,7 +577,10 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     "root-mode",
     "allow",
     "codex-model",
-    "codex-sandbox"
+    "codex-sandbox",
+    "live-agent",
+    "live-timeout-ms",
+    "executor-profile"
   ]);
   const fhModeFlag = optionalNullableFlag(parsed, "fh-mode");
   const rootModeFlag = optionalNullableFlag(parsed, "root-mode");
@@ -1842,28 +1845,79 @@ export function admitLiveTimeoutMs(value: string): number {
       `live timeout must be a plain integer of milliseconds, got ${JSON.stringify(value)}`
     );
   }
-  return Number.parseInt(value, 10);
+  const parsed = Number.parseInt(value, 10);
+  if (parsed <= 0) {
+    throw new CliError(
+      `live timeout must be a POSITIVE integer of milliseconds, got ${JSON.stringify(value)}`
+    );
+  }
+  return parsed;
+}
+
+// codex round 4 R4-3: capability facts are replay/output truth for
+// WITNESS-010 reproducibility — every field records its resolved value
+// AND its source (flag beats env beats default), and the CLI start
+// output carries the provenance so the command is reproducible.
+export interface LiveCapabilityProvenance {
+  readonly agentKey: string;
+  readonly agentKeySource: "flag" | "env" | "codex_live_default";
+  readonly executorProfile: string | null;
+  readonly executorProfileSource: "flag" | "env" | "unset";
+  readonly timeoutMs: number;
+  readonly timeoutMsSource: "flag" | "env" | "default";
+}
+
+export function resolveLiveCapabilityProvenance(
+  command: ParsedStartCommand
+): LiveCapabilityProvenance | null {
+  const agentSource: "flag" | "env" | "codex_live_default" | null =
+    command.liveAgent !== undefined
+      ? "flag"
+      : process.env["ABG_TS_LIVE_AGENT"] !== undefined
+        ? "env"
+        : process.env["CODEX_LIVE_FP"] === "1"
+          ? "codex_live_default"
+          : null;
+  if (agentSource === null) {
+    return null;
+  }
+  const agentRaw =
+    command.liveAgent ?? process.env["ABG_TS_LIVE_AGENT"] ?? "codex";
+  const agentKey = admitLiveAgentKey(agentRaw);
+  const profileFlag = command.executorProfile;
+  const profileEnv = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  const profileRaw = profileFlag ?? profileEnv;
+  const executorProfile =
+    profileRaw === undefined ? null : admitExecutorProfile(profileRaw);
+  const timeoutFlag = command.liveTimeoutMs;
+  const timeoutEnv = process.env["ABG_TS_LIVE_TIMEOUT_MS"];
+  const timeoutMs = admitLiveTimeoutMs(timeoutFlag ?? timeoutEnv ?? "240000");
+  return Object.freeze({
+    agentKey,
+    agentKeySource: agentSource,
+    executorProfile,
+    executorProfileSource:
+      profileFlag !== undefined ? "flag" : profileEnv !== undefined ? "env" : "unset",
+    timeoutMs,
+    timeoutMsSource:
+      timeoutFlag !== undefined ? "flag" : timeoutEnv !== undefined ? "env" : "default"
+  });
 }
 
 function livePluginCapabilities(
   workspaceRoot: string,
   command: ParsedStartCommand
 ): EnginePluginCapabilities | undefined {
-  const agentRaw =
-    command.liveAgent ??
-    process.env["ABG_TS_LIVE_AGENT"] ??
-    (process.env["CODEX_LIVE_FP"] === "1" ? "codex" : undefined);
-  if (agentRaw === undefined) {
+  const provenance = resolveLiveCapabilityProvenance(command);
+  if (provenance === null) {
     return undefined;
   }
-  const agentKey = admitLiveAgentKey(agentRaw);
-  const profileRaw =
-    command.executorProfile ?? process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  const agentKey = admitLiveAgentKey(provenance.agentKey);
   const executorProfile =
-    profileRaw === undefined ? undefined : admitExecutorProfile(profileRaw);
-  const timeoutMs = admitLiveTimeoutMs(
-    command.liveTimeoutMs ?? process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "240000"
-  );
+    provenance.executorProfile === null
+      ? undefined
+      : admitExecutorProfile(provenance.executorProfile);
+  const timeoutMs = provenance.timeoutMs;
   const capability: LiveFpDispatchCapability = {
     agentContract: contractForKnownAgent(agentKey),
     archiveRoot: join(workspaceRoot, ".ai-workspace", "live-fp"),
@@ -2216,7 +2270,8 @@ async function runStartCommand(
     mutable_state_roots: toolchainBinding?.mutableStateRoots ?? null,
     stop_class: outcome.stopClass,
     control_outcome: outcome.controlOutcome,
-    live_status: outcome.liveStatus
+    live_status: outcome.liveStatus,
+    live_capability: resolveLiveCapabilityProvenance(command)
   };
   io.stdout(`${JSON.stringify(output)}\n`);
   return exitCodeForStart(outcome);

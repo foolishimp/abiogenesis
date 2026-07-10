@@ -78,6 +78,11 @@ declare module "node:fs" {
     data: string,
     encoding: "utf8"
   ): void;
+  export function writeFileSync(
+    path: string,
+    data: string,
+    options: { readonly encoding: "utf8"; readonly flag: "wx" }
+  ): void;
 }
 
 declare module "node:perf_hooks" {

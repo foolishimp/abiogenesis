@@ -94,6 +94,15 @@ export const STANDARD_ENGINE_PLUGIN_CATALOG: Readonly<
   })
 });
 
+const SEAM_PLUGIN_KINDS: Readonly<Record<PluginSelectionSeam, string>> =
+  Object.freeze({
+    fdEvaluator: "fd_evaluator",
+    fpEvaluator: "fp_evaluator",
+    fpDispatch: "fp_dispatch",
+    fhAdmission: "fh_admission",
+    consequenceProjection: "consequence_projection"
+  });
+
 function isPluginSelectionSeam(value: string): value is PluginSelectionSeam {
   return PLUGIN_SELECTION_SEAM_VALUES.some((seam): boolean => seam === value);
 }
@@ -114,13 +123,13 @@ export function pluginSelectionFromDeclarationAttrs(
   }
   if (entries.length > 1) {
     throw new TypeError(
-      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} is declared ${String(entries.length)} times — duplicate selection authorities fail closed`
+      `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} is declared ${String(entries.length)} times — duplicate selection authorities fail closed`
     );
   }
   const entry = entries[0];
   if (entry === undefined || entry.value.kind !== "json_blob") {
     throw new TypeError(
-      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+      `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
     );
   }
   // codex round F5: duplicate seam keys INSIDE the tagged object would
@@ -135,7 +144,7 @@ export function pluginSelectionFromDeclarationAttrs(
         if (isPlainRecord(row) && typeof row["key"] === "string") {
           if (seen.has(row["key"])) {
             throw new TypeError(
-              `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${JSON.stringify(row["key"])} is declared twice — duplicate seam authorities fail closed`
+              `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${JSON.stringify(row["key"])} is declared twice — duplicate seam authorities fail closed`
             );
           }
           seen.add(row["key"]);
@@ -146,19 +155,19 @@ export function pluginSelectionFromDeclarationAttrs(
   const plain: unknown = serializedJsonValueToPlain(entry.value.value);
   if (!isPlainRecord(plain)) {
     throw new TypeError(
-      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be an object of {seam: pluginRef}`
+      `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be an object of {seam: pluginRef}`
     );
   }
   const selection: Partial<Record<PluginSelectionSeam, string>> = {};
   for (const [key, value] of Object.entries(plain)) {
     if (!isPluginSelectionSeam(key)) {
       throw new TypeError(
-        `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: unknown seam ${JSON.stringify(key)} (closed seam set: ${PLUGIN_SELECTION_SEAM_VALUES.join(", ")})`
+        `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: unknown seam ${JSON.stringify(key)} (closed seam set: ${PLUGIN_SELECTION_SEAM_VALUES.join(", ")})`
       );
     }
     if (typeof value !== "string" || value.length === 0) {
       throw new TypeError(
-        `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${key} must name a plugin ref as a non-empty string`
+        `plugin_selection_declaration_invalid: ${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${key} must name a plugin ref as a non-empty string`
       );
     }
     selection[key] = value;
@@ -206,6 +215,14 @@ export function resolveDeclaredPluginSelection(input: {
     if (row.plugin.contract.ref !== ref) {
       throw new TypeError(
         `plugin_selection_identity_mismatch: catalog key ${JSON.stringify(ref)} resolves a plugin whose contract ref is ${JSON.stringify(row.plugin.contract.ref)}`
+      );
+    }
+    // codex round 4 R4-6: the plugin's contract KIND must match the seam
+    // it serves — a mislabeled row cannot resolve.
+    const expectedKind = SEAM_PLUGIN_KINDS[seam];
+    if (row.plugin.contract.pluginKind !== expectedKind) {
+      throw new TypeError(
+        `plugin_selection_kind_mismatch: catalog key ${JSON.stringify(ref)} on seam ${seam} carries pluginKind ${JSON.stringify(row.plugin.contract.pluginKind)}, expected ${JSON.stringify(expectedKind)}`
       );
     }
     switch (row.seam) {

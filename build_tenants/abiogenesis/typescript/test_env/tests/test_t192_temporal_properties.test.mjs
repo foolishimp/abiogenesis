@@ -1557,3 +1557,49 @@ test("S2.3 live selection: with the injected capability the live plugin serves t
     "the live dispatch plugin must have served vector 0"
   );
 });
+
+// ── codex round 4 R4-1 (CRITICAL): a CALLER-SUPPLIED live plugin (not a
+// declared ref) must ALSO be refused by the sync driver before invocation.
+test("R4-1: sync driver refuses a caller-supplied async-only plugin before any invocation", async () => {
+  const { standardLiveFpDispatchPlugin } = await import(
+    "../../build/semantic/code/src/abg/m03/index.js"
+  );
+  const { mkdtempSync, readdirSync, existsSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const pathMod = await import("node:path");
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const root = mkdtempSync(pathMod.join(tmpdir(), "t217-r41-"));
+  const archiveRoot = pathMod.join(root, "archive");
+  const livePlugin = standardLiveFpDispatchPlugin({
+    agentContract: {
+      agentKey: "generic",
+      command: process.execPath,
+      // a worker that WOULD create a marker file if ever invoked
+      argsTemplate: ["-e", `require('fs').writeFileSync(${JSON.stringify(pathMod.join(root, "LEAKED"))},'x');console.log('{}')`],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    archiveRoot,
+    cwd: root,
+    timeoutMs: 30000,
+    labelPrefix: "r41"
+  });
+  // SYNC driver, caller-supplied (not declared) — must gap_stop with the
+  // async-only reason and NEVER spawn the worker.
+  const result = runEngineIterate({
+    basis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(basis),
+    plugins: { fpDispatch: livePlugin, fpEvaluator: defaultFpEvaluatorPlugin }
+  });
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  // the CRITICAL safety property codex reproduced: the worker never ran
+  // and no archive work happened outside admitted truth.
+  assert.equal(existsSync(pathMod.join(root, "LEAKED")), false, "no worker may have run");
+  assert.equal(existsSync(archiveRoot) ? readdirSync(archiveRoot).length : 0, 0, "no archive work");
+  // the sync driver's refusal is admitted truth: the async-only reason
+  // appears in the replayed event stream (fields vary by event kind).
+  const refusalRecorded = result.replayEvents.some((event) =>
+    JSON.stringify(event).includes("plugin_selection_async_only")
+  );
+  assert.equal(refusalRecorded, true, "the async-only refusal is recorded in replay");
+});

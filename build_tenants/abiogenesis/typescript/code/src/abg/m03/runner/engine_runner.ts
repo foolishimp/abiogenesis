@@ -1309,6 +1309,7 @@ function deriveFpDispatchAttemptInput(input: {
   });
   const pluginInput = constructEnginePluginInput({
     contract: input.contract,
+    cCallRef: actorInvocation.graphCallId,
     basis: input.basis,
     projection: input.projection,
     replayEvents: input.replayEvents,
@@ -7977,6 +7978,7 @@ function* runEngineIterateMachine(input: {
               edge: transition.edge,
               regime: "F_P",
               actorInvocationRef: actorInvocationRef(actorInvocation),
+              cCallRef: actorInvocation.graphCallId,
               attachedResultArtifact: outcome.attachedResultArtifact,
               traversalStrategySelection: modulatedAttempt?.selection ?? null,
               traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
@@ -9988,6 +9990,20 @@ export function resolveSyncEnginePluginEffect(
         )
       });
     case "fp_evaluate":
+      // codex round 4 R4-1 (CRITICAL): an async-only plugin must never be
+      // INVOKED on the sync driver — creating its promise starts external
+      // work that outlives the recorded blocked outcome. Gate on the
+      // plugin's contract identity BEFORE the call; this closes the
+      // caller-supplied path the declared-ref guard cannot see.
+      if (ASYNC_ONLY_PLUGIN_REFS.includes(plugins.fpEvaluator.contract.ref)) {
+        return Object.freeze({
+          kind: "fp_evaluate",
+          outcome: constructFpEvaluationOutcome({
+            status: "blocked",
+            reason: `plugin_selection_async_only: fp evaluator ${plugins.fpEvaluator.contract.ref} requires the async driver; the sync driver refuses before invocation (contract_failure)`
+          })
+        });
+      }
       return Object.freeze({
         kind: "fp_evaluate",
         outcome: guardedSync(
@@ -10002,6 +10018,15 @@ export function resolveSyncEnginePluginEffect(
         )
       });
     case "fp_dispatch":
+      if (ASYNC_ONLY_PLUGIN_REFS.includes(plugins.fpDispatch.contract.ref)) {
+        return Object.freeze({
+          kind: "fp_dispatch",
+          outcome: constructFpDispatchOutcome({
+            status: "blocked",
+            reason: `plugin_selection_async_only: fp dispatch ${plugins.fpDispatch.contract.ref} requires the async driver; the sync driver refuses before invocation (contract_failure)`
+          })
+        });
+      }
       return Object.freeze({
         kind: "fp_dispatch",
         outcome: guardedSync(
@@ -10304,7 +10329,9 @@ function handlerAssemblyFailClosedResult(
   const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
   // codex round F8: the failure surface tells the truth — selection
   // errors are plugin_selection failures, not hog-program mislabels.
-  const isSelectionFailure = message.startsWith("plugin_selection");
+  const isSelectionFailure =
+    message.startsWith("plugin_selection") ||
+    message.startsWith("abg.plugin_selection");
   const reason = isSelectionFailure
     ? message
     : `hog_program_unresolvable: ${message}`;
