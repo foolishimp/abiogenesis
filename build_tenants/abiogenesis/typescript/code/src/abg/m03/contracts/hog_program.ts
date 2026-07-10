@@ -65,6 +65,12 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.length > 0;
 }
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 // Fail-closed admission for declared programs (-014): non-empty stage
 // list, unique roles, exactly one result-bearing role, lawful regimes,
 // named arms. The (role × fibre) census derives from what admits here.
@@ -84,10 +90,10 @@ const HOG_STAGE_KEYS = Object.freeze([
 
 export function admitHogProgram(input: unknown): HogProgramAdmission {
   const issues: string[] = [];
-  const record = input as Partial<HogProgramDeclaration> | null;
-  if (record === null || typeof record !== "object") {
+  if (!isPlainRecord(input)) {
     return Object.freeze({ accepted: false, program: null, issues: Object.freeze(["program declaration must be an object"]) });
   }
+  const record = input;
   // CLOSED KEY SET (codex P1): the program surface is the monad's
   // configuration — unknown siblings are rejected, never carried as a
   // metadata bag (second-truth-surface guard).
@@ -96,87 +102,132 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       issues.push(`unknown program field ${JSON.stringify(key)} (closed key set)`);
     }
   }
-  if (record.kind !== "hog_program_declaration") {
+  if (record["kind"] !== "hog_program_declaration") {
     issues.push("kind must be hog_program_declaration");
   }
-  if (!isNonEmptyString(record.programRef)) {
+  const programRefRaw = record["programRef"];
+  if (!isNonEmptyString(programRefRaw)) {
     issues.push("programRef must be a non-empty string");
   }
-  const stages = Array.isArray(record.stages) ? record.stages : null;
+  const stagesRaw = record["stages"];
+  const stages: readonly unknown[] | null = Array.isArray(stagesRaw) ? stagesRaw : null;
   if (stages === null || stages.length === 0) {
     issues.push("stages must be a non-empty array");
   }
   const roles = new Set<string>();
   let resultBearingCount = 0;
-  for (const [index, stage] of (stages ?? []).entries()) {
+  const admittedStages: {
+    readonly stageRole: string;
+    readonly defaultRegime: (typeof C_CALL_REGIME_VALUES)[number];
+    readonly armId: string;
+    readonly resultBearing: boolean;
+    readonly instructionCategoryRefs?: readonly string[];
+  }[] = [];
+  for (const [index, stageRaw] of (stages ?? []).entries()) {
     const at = `stages[${index}]`;
-    if (stage === null || typeof stage !== "object") {
+    if (!isPlainRecord(stageRaw)) {
       issues.push(`${at} must be an object`);
       continue;
     }
-    for (const key of Object.keys(stage as Record<string, unknown>)) {
+    const stage = stageRaw;
+    for (const key of Object.keys(stage)) {
       if (!HOG_STAGE_KEYS.includes(key)) {
         issues.push(`${at}: unknown stage field ${JSON.stringify(key)} (closed key set)`);
       }
     }
-    if (!isNonEmptyString(stage.stageRole)) {
+    const stageRole = stage["stageRole"];
+    if (!isNonEmptyString(stageRole)) {
       issues.push(`${at}.stageRole must be a non-empty string`);
-    } else if (roles.has(stage.stageRole)) {
-      issues.push(`${at}.stageRole duplicates ${JSON.stringify(stage.stageRole)}`);
+    } else if (roles.has(stageRole)) {
+      issues.push(`${at}.stageRole duplicates ${JSON.stringify(stageRole)}`);
     } else {
-      roles.add(stage.stageRole);
+      roles.add(stageRole);
     }
-    if (!(C_CALL_REGIME_VALUES as readonly string[]).includes(stage.defaultRegime as string)) {
+    const defaultRegime = stage["defaultRegime"];
+    const regimeValid = C_CALL_REGIME_VALUES.some(
+      (regime): boolean => regime === defaultRegime
+    );
+    if (!regimeValid) {
       issues.push(`${at}.defaultRegime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`);
     }
-    if (!isNonEmptyString(stage.armId)) {
+    const armId = stage["armId"];
+    if (!isNonEmptyString(armId)) {
       issues.push(`${at}.armId must be a non-empty string`);
     }
-    if (typeof stage.resultBearing !== "boolean") {
+    const resultBearing = stage["resultBearing"];
+    if (typeof resultBearing !== "boolean") {
       issues.push(`${at}.resultBearing must be a boolean`);
-    } else if (stage.resultBearing) {
+    } else if (resultBearing) {
       resultBearingCount += 1;
     }
+    const categoryRefsRaw = stage["instructionCategoryRefs"];
+    let categoryRefs: readonly string[] | undefined;
+    if (categoryRefsRaw !== undefined) {
+      if (
+        !Array.isArray(categoryRefsRaw) ||
+        !categoryRefsRaw.every(isNonEmptyString)
+      ) {
+        issues.push(`${at}.instructionCategoryRefs must be non-empty strings`);
+      } else {
+        const refs: readonly string[] = categoryRefsRaw;
+        categoryRefs = refs;
+      }
+    }
     if (
-      stage.instructionCategoryRefs !== undefined &&
-      (!Array.isArray(stage.instructionCategoryRefs) ||
-        !stage.instructionCategoryRefs.every(isNonEmptyString))
+      isNonEmptyString(stageRole) &&
+      isNonEmptyString(armId) &&
+      typeof resultBearing === "boolean" &&
+      regimeValid &&
+      isCCallRegime(defaultRegime)
     ) {
-      issues.push(`${at}.instructionCategoryRefs must be non-empty strings`);
+      admittedStages.push(
+        Object.freeze({
+          stageRole,
+          defaultRegime,
+          armId,
+          resultBearing,
+          ...(categoryRefs === undefined
+            ? {}
+            : { instructionCategoryRefs: Object.freeze([...categoryRefs]) })
+        })
+      );
     }
   }
   if (stages !== null && stages.length > 0 && resultBearingCount !== 1) {
     issues.push(`exactly one result-bearing stage required, got ${resultBearingCount}`);
   }
-  if (record.proportionalityClass !== null && !isNonEmptyString(record.proportionalityClass)) {
+  const proportionalityRaw = record["proportionalityClass"];
+  if (
+    proportionalityRaw !== null &&
+    proportionalityRaw !== undefined &&
+    !isNonEmptyString(proportionalityRaw)
+  ) {
     issues.push("proportionalityClass must be null or a non-empty string");
   }
   if (issues.length > 0) {
     return Object.freeze({ accepted: false, program: null, issues: Object.freeze(issues) });
   }
-  const admitted = record as HogProgramDeclaration;
+  if (!isNonEmptyString(programRefRaw)) {
+    return Object.freeze({ accepted: false, program: null, issues: Object.freeze(["programRef must be a non-empty string"]) });
+  }
   return Object.freeze({
     accepted: true,
     program: Object.freeze({
-      kind: "hog_program_declaration",
-      programRef: admitted.programRef,
-      stages: Object.freeze(
-        admitted.stages.map((stage) =>
-          Object.freeze({
-            stageRole: stage.stageRole,
-            defaultRegime: stage.defaultRegime,
-            armId: stage.armId,
-            resultBearing: stage.resultBearing,
-            ...(stage.instructionCategoryRefs === undefined
-              ? {}
-              : { instructionCategoryRefs: Object.freeze([...stage.instructionCategoryRefs]) })
-          })
-        )
-      ),
-      proportionalityClass: admitted.proportionalityClass ?? null
+      kind: "hog_program_declaration" as const,
+      programRef: programRefRaw,
+      stages: Object.freeze(admittedStages.map((stage) => Object.freeze(stage))),
+      proportionalityClass: isNonEmptyString(proportionalityRaw)
+        ? proportionalityRaw
+        : null
     }),
     issues: Object.freeze([])
   });
+}
+
+function isCCallRegime(
+  value: unknown
+): value is (typeof C_CALL_REGIME_VALUES)[number] {
+  return C_CALL_REGIME_VALUES.some((regime): boolean => regime === value);
 }
 
 // The census the resolver asserts (-003): every (stageRole × regime ×

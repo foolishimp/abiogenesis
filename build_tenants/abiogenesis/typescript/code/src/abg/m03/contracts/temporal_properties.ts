@@ -74,9 +74,64 @@ export type TemporalFormula =
       readonly right: TemporalFormula;
     };
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 const PAST_OPS = new Set(["yesterday", "once", "historically", "since"]);
 const FUTURE_OPS = new Set(["next", "eventually", "globally", "until"]);
-const BOOL_OPS = new Set(["not", "and", "or", "implies"]);
+type UnaryTemporalOp =
+  | "not"
+  | "yesterday"
+  | "once"
+  | "historically"
+  | "next"
+  | "eventually"
+  | "globally";
+
+function isUnaryTemporalOp(op: string): op is UnaryTemporalOp {
+  return (
+    op === "not" ||
+    op === "yesterday" ||
+    op === "once" ||
+    op === "historically" ||
+    op === "next" ||
+    op === "eventually" ||
+    op === "globally"
+  );
+}
+
+function isRuntimeFluentName(value: string): value is RuntimeFluentName {
+  return RUNTIME_FLUENT_NAME_VALUES.some((name): boolean => name === value);
+}
+
+function isTemporalConsequenceClass(
+  value: string
+): value is TemporalConsequenceClass {
+  return TEMPORAL_CONSEQUENCE_CLASS_VALUES.some(
+    (row): boolean => row === value
+  );
+}
+
+function isTemporalGatePoint(value: string): value is TemporalGatePoint {
+  return TEMPORAL_GATE_POINT_VALUES.some((row): boolean => row === value);
+}
+
+function requireConsequenceClass(value: string): TemporalConsequenceClass {
+  if (!isTemporalConsequenceClass(value)) {
+    throw new TypeError(`unknown consequence class: ${value}`);
+  }
+  return value;
+}
+
+function requireGatePoint(value: string): TemporalGatePoint {
+  if (!isTemporalGatePoint(value)) {
+    throw new TypeError(`unknown gate point: ${value}`);
+  }
+  return value;
+}
 
 export interface TemporalProperty {
   readonly kind: "temporal_property";
@@ -128,18 +183,19 @@ function parseFormula(
   issues: TemporalPropertyAdmissionIssue[],
   propertyRef: string | null
 ): TemporalFormula | null {
-  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+  if (!isPlainRecord(input)) {
     issues.push(issue("malformed_formula", "formula node must be an object", propertyRef));
     return null;
   }
-  const node = input as Record<string, unknown>;
+  const node = input;
   const op = String(node["op"] ?? "");
   if (op === "atom") {
-    const atom = node["atom"] as Record<string, unknown> | undefined;
-    if (atom === undefined || typeof atom !== "object" || atom === null) {
+    const atomRaw = node["atom"];
+    if (!isPlainRecord(atomRaw)) {
       issues.push(issue("malformed_formula", "atom node requires an atom object", propertyRef));
       return null;
     }
+    const atom = atomRaw;
     const atomKind = String(atom["kind"] ?? "");
     if (atomKind === "event") {
       const eventKind = String(atom["eventKind"] ?? "");
@@ -154,10 +210,14 @@ function parseFormula(
           issues.push(issue("malformed_formula", "event atom where must be an array", propertyRef));
           return null;
         }
-        for (const rowInput of whereInput) {
-          const row = rowInput as Record<string, unknown>;
-          const field = String(row["field"] ?? "");
-          const equals = String(row["equals"] ?? "");
+        const whereRows: readonly unknown[] = whereInput;
+        for (const rowInput of whereRows) {
+          if (!isPlainRecord(rowInput)) {
+            issues.push(issue("malformed_formula", "where row must be an object", propertyRef));
+            return null;
+          }
+          const field = String(rowInput["field"] ?? "");
+          const equals = String(rowInput["equals"] ?? "");
           if (field.length === 0) {
             issues.push(issue("malformed_formula", "where row requires field", propertyRef));
             return null;
@@ -176,7 +236,7 @@ function parseFormula(
     }
     if (atomKind === "fluent") {
       const fluent = String(atom["fluent"] ?? "");
-      if (!(RUNTIME_FLUENT_NAME_VALUES as readonly string[]).includes(fluent)) {
+      if (!isRuntimeFluentName(fluent)) {
         issues.push(
           issue(
             "unknown_fluent",
@@ -188,34 +248,34 @@ function parseFormula(
       }
       return Object.freeze({
         op: "atom",
-        atom: Object.freeze({ kind: "fluent", fluent: fluent as RuntimeFluentName })
+        atom: Object.freeze({ kind: "fluent", fluent })
       });
     }
     issues.push(issue("malformed_formula", `unknown atom kind: ${atomKind}`, propertyRef));
     return null;
   }
-  if (op === "not" || PAST_OPS.has(op) || FUTURE_OPS.has(op)) {
-    if (op === "since" || op === "until") {
-      const left = parseFormula(node["left"], issues, propertyRef);
-      const right = parseFormula(node["right"], issues, propertyRef);
-      if (left === null || right === null) {
-        return null;
-      }
-      return Object.freeze({ op, left, right });
-    }
-    const child = parseFormula(node["child"], issues, propertyRef);
-    if (child === null) {
-      return null;
-    }
-    return Object.freeze({ op, child }) as TemporalFormula;
-  }
-  if (BOOL_OPS.has(op) && op !== "not") {
+  if (op === "since" || op === "until") {
     const left = parseFormula(node["left"], issues, propertyRef);
     const right = parseFormula(node["right"], issues, propertyRef);
     if (left === null || right === null) {
       return null;
     }
-    return Object.freeze({ op, left, right }) as TemporalFormula;
+    return Object.freeze({ op, left, right });
+  }
+  if (isUnaryTemporalOp(op)) {
+    const child = parseFormula(node["child"], issues, propertyRef);
+    if (child === null) {
+      return null;
+    }
+    return Object.freeze({ op, child });
+  }
+  if (op === "and" || op === "or" || op === "implies") {
+    const left = parseFormula(node["left"], issues, propertyRef);
+    const right = parseFormula(node["right"], issues, propertyRef);
+    if (left === null || right === null) {
+      return null;
+    }
+    return Object.freeze({ op, left, right });
   }
   issues.push(issue("unknown_operator", `unknown operator: ${op}`, propertyRef));
   return null;
@@ -265,14 +325,40 @@ function configScalar(rule: Rule, key: string): string | null {
 // GTL-lawful json_blob values are TAGGED; decode via the ONE decoder.
 // Legacy plain blobs (pre-T-200 bindings) pass through unchanged.
 function plainFromSerializedJson(value: unknown): unknown {
-  if (value === null || typeof value !== "object") {
+  if (!isPlainRecord(value)) {
     return value;
   }
-  const kind = (value as { readonly kind?: unknown }).kind;
+  const kind = value["kind"];
   if (kind === "array" || kind === "object") {
-    return serializedJsonValueToPlain(value as SerializedJsonValue);
+    // the ONE decoder validates the tagged shape internally; a malformed
+    // tagged blob throws there (total ingress law)
+    return serializedJsonValueToPlain(decodeSerializedJsonValue(value));
   }
   return value;
+}
+
+// tagged-blob shell narrowing for the one decoder: kind was checked by
+// the caller; array/object nodes carry items/entries validated by the
+// decoder itself
+function decodeSerializedJsonValue(
+  value: Readonly<Record<string, unknown>>
+): SerializedJsonValue {
+  if (!isSerializedJsonValueShell(value)) {
+    throw new TypeError("tagged json blob must carry a known kind");
+  }
+  return value;
+}
+
+function isSerializedJsonValueShell(
+  value: Readonly<Record<string, unknown>>
+): value is SerializedJsonValue & Readonly<Record<string, unknown>> {
+  const kind = value["kind"];
+  return (
+    kind === "array" ||
+    kind === "object" ||
+    kind === "scalar" ||
+    kind === "null"
+  );
 }
 
 function configJson(rule: Rule, key: string): unknown {
@@ -299,12 +385,12 @@ export function admitTemporalPropertyRule(rule: Rule): TemporalPropertyAdmission
   }
   const consequenceClassInput = configScalar(rule, "consequence_class") ?? "";
   const gatePointInput = configScalar(rule, "gate_point") ?? "";
-  if (!(TEMPORAL_CONSEQUENCE_CLASS_VALUES as readonly string[]).includes(consequenceClassInput)) {
+  if (!isTemporalConsequenceClass(consequenceClassInput)) {
     issues.push(
       issue("unknown_consequence_class", `unknown consequence class: ${consequenceClassInput}`, propertyRef)
     );
   }
-  if (!(TEMPORAL_GATE_POINT_VALUES as readonly string[]).includes(gatePointInput)) {
+  if (!isTemporalGatePoint(gatePointInput)) {
     issues.push(issue("unknown_gate_point", `unknown gate point: ${gatePointInput}`, propertyRef));
   }
   const formulaInput = configJson(rule, "formula");
@@ -343,8 +429,8 @@ export function admitTemporalPropertyRule(rule: Rule): TemporalPropertyAdmission
       propertyRef,
       formula,
       formulaDigest: stableSha256Digest(formula),
-      consequenceClass: consequenceClassInput as TemporalConsequenceClass,
-      gatePoint: gatePointInput as TemporalGatePoint,
+      consequenceClass: requireConsequenceClass(consequenceClassInput),
+      gatePoint: requireGatePoint(gatePointInput),
       witnessFormula: deriveWitnessFormula(formula)
     }),
     issues: Object.freeze([])
@@ -393,7 +479,8 @@ function declaredEventFieldValue(
   event: RuntimeEvent,
   field: string
 ): unknown {
-  return field in event ? event[field as keyof typeof event] : undefined;
+  const rows: readonly (readonly [string, unknown])[] = Object.entries(event);
+  return rows.find(([key]) => key === field)?.[1];
 }
 
 function eventAtomMatches(
@@ -465,9 +552,7 @@ function evalFormula(
   switch (formula.op) {
     case "atom": {
       if (formula.atom.kind === "event") {
-        result = eventAtomMatches(formula.atom, ctx.events[i] as RuntimeEvent)
-          ? "T"
-          : "F";
+        result = eventAtomMatches(formula.atom, eventAt(ctx, i)) ? "T" : "F";
       } else {
         result = ctx.fluentHolds[i]?.has(formula.atom.fluent) === true ? "T" : "F";
       }
@@ -562,7 +647,7 @@ function evalFormula(
           result = "T";
           break;
         }
-        if (v === "U" && (result as Tri) !== "T") {
+        if (v === "U") {
           result = "U";
         }
       }
@@ -576,7 +661,7 @@ function evalFormula(
           result = "F";
           break;
         }
-        if (v === "U" && (result as Tri) !== "F") {
+        if (v === "U") {
           result = "U";
         }
       }
@@ -627,15 +712,25 @@ export interface TemporalPropertyVerdict {
   readonly traceCompleted: boolean;
 }
 
+// bounded loops index the finite trace; an out-of-range read is a
+// checker defect, never a silent undefined
+function eventAt(ctx: TraceContext, index: number): RuntimeEvent {
+  const event = ctx.events[index];
+  if (event === undefined) {
+    throw new TypeError(`temporal trace index ${index} out of range`);
+  }
+  return event;
+}
+
 function eventRefOf(event: RuntimeEvent): string {
   // T-211 (P1-12 residue): implicated-event refs are replay identities.
   // An unstamped event cannot be lawfully implicated — the old
   // `<kind>:unstamped` synthetic ref polluted verdict read-models with
   // non-refs. Typed rejection, matching this module's evaluation-path
   // convention.
-  const withId = event as { readonly eventId?: unknown };
-  if (typeof withId.eventId === "string" && withId.eventId.length > 0) {
-    return withId.eventId;
+  const eventId = declaredEventFieldValue(event, "eventId");
+  if (typeof eventId === "string" && eventId.length > 0) {
+    return eventId;
   }
   throw new TypeError(
     `temporal evaluation requires canonical stamped events: ${event.kind} carries no eventId`
@@ -666,7 +761,7 @@ export function evaluateTemporalProperty(input: {
         node = node.child;
         for (let j = 0; j < n; j += 1) {
           if (evalFormula(node, j, ctx, memo) === "F") {
-            implicated.push(eventRefOf(ctx.events[j] as RuntimeEvent));
+            implicated.push(eventRefOf(eventAt(ctx, j)));
             break;
           }
         }

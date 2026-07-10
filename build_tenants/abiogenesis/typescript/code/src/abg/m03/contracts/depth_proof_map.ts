@@ -49,6 +49,12 @@ export interface DepthProofMapAdmissionIssue {
 // one ingress (the carry-through startup admission precedent)
 const LONE_SURROGATE = /\p{Surrogate}/u;
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function wellFormedNonEmpty(value: unknown): value is string {
   return typeof value === "string" && value.length > 0 && !LONE_SURROGATE.test(value);
 }
@@ -76,11 +82,11 @@ export function admitDepthProofMap(input: {
     issues.push(Object.freeze({ issueKind, at, message }));
   };
   const section = input.payloadSection;
-  if (section === null || typeof section !== "object" || Array.isArray(section)) {
+  if (!isPlainRecord(section)) {
     reject("map_not_object", "depthProofMap", "must be an object with a rows array");
     return Object.freeze({ accepted: false, issues: Object.freeze(issues), map: undefined });
   }
-  const rawRows = (section as { readonly rows?: unknown }).rows;
+  const rawRows = section["rows"];
   if (!Array.isArray(rawRows)) {
     reject("rows_not_array", "depthProofMap.rows", "must be an array of rows");
     return Object.freeze({ accepted: false, issues: Object.freeze(issues), map: undefined });
@@ -95,42 +101,46 @@ export function admitDepthProofMap(input: {
     // T-216 D5 read-once law (codex P1): detach once, validate only the
     // detached snapshot — a value-changing getter cannot escape.
     const detached = detachRowSnapshot(row);
-    if (detached === null || typeof detached !== "object" || Array.isArray(detached)) {
+    if (!isPlainRecord(detached)) {
       reject("row_not_object", at, "row fields must be plain readable data");
       return;
     }
-    const candidate = detached as {
-      readonly requirementId?: unknown;
-      readonly depthClassRef?: unknown;
-      readonly testIdentityRefs?: unknown;
-    };
-    let valid = true;
-    if (!wellFormedNonEmpty(candidate.requirementId)) {
+    const candidate = detached;
+    const requirementId = candidate["requirementId"];
+    if (!wellFormedNonEmpty(requirementId)) {
       reject("requirement_id_invalid", `${at}.requirementId`, "must be a non-empty well-formed string");
-      valid = false;
     }
-    if (!wellFormedNonEmpty(candidate.depthClassRef)) {
+    const depthClassRef = candidate["depthClassRef"];
+    if (!wellFormedNonEmpty(depthClassRef)) {
       reject("depth_class_invalid", `${at}.depthClassRef`, "must be a non-empty well-formed string");
-      valid = false;
     }
-    const refs = candidate.testIdentityRefs;
-    if (
-      !Array.isArray(refs) ||
-      refs.length === 0 ||
-      !refs.every((ref: unknown) => wellFormedNonEmpty(ref))
-    ) {
+    const refsRaw = candidate["testIdentityRefs"];
+    let refs: readonly string[] | null = null;
+    if (Array.isArray(refsRaw)) {
+      const entries: readonly unknown[] = refsRaw;
+      if (
+        entries.length > 0 &&
+        entries.every((ref): ref is string => wellFormedNonEmpty(ref))
+      ) {
+        refs = entries;
+      }
+    }
+    if (refs === null) {
       reject(
         "test_identity_refs_invalid",
         `${at}.testIdentityRefs`,
         "must be a non-empty array of non-empty well-formed strings"
       );
-      valid = false;
     }
-    if (valid) {
+    if (
+      wellFormedNonEmpty(requirementId) &&
+      wellFormedNonEmpty(depthClassRef) &&
+      refs !== null
+    ) {
       rows.push(Object.freeze({
-        requirementId: candidate.requirementId as string,
-        depthClassRef: candidate.depthClassRef as string,
-        testIdentityRefs: Object.freeze([...(refs as string[])].sort())
+        requirementId,
+        depthClassRef,
+        testIdentityRefs: Object.freeze([...refs].sort())
       }));
     }
   });

@@ -73,10 +73,33 @@ export interface ArtifactSchemasAdmission {
   readonly issues: readonly ArtifactSchemaAdmissionIssue[];
 }
 
-function isRuleRecord(
+function isPlainRecord(
   value: unknown
-): value is Readonly<Record<string, string>> {
+): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isArtifactFieldRule(value: unknown): value is ArtifactFieldRule {
+  return ARTIFACT_FIELD_RULE_VALUES.some((rule): boolean => rule === value);
+}
+
+// validates every entry against the closed rule vocabulary; reports each
+// offender through `report`; returns the TYPED map only when total
+function validatedFieldRules(
+  raw: Readonly<Record<string, unknown>>,
+  report: (field: string) => void
+): Readonly<Record<string, ArtifactFieldRule>> | null {
+  const rows: Record<string, ArtifactFieldRule> = {};
+  let valid = true;
+  for (const [field, rule] of Object.entries(raw)) {
+    if (isArtifactFieldRule(rule)) {
+      rows[field] = rule;
+    } else {
+      report(field);
+      valid = false;
+    }
+  }
+  return valid ? Object.freeze(rows) : null;
 }
 
 // Admission of the DECLARED schemas themselves (compile-time duty).
@@ -97,11 +120,11 @@ export function admitArtifactSchemas(
   for (const [index, rawInput] of input.entries()) {
     const at = `artifactSchemas[${index}]`;
     const raw = detachRowSnapshot(rawInput);
-    if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    if (!isPlainRecord(raw)) {
       issue("schema_ref_invalid", at);
       continue;
     }
-    const record = raw as Record<string, unknown>;
+    const record = raw;
     // S6 codex P1: the declaration obeys its own law — closed keys on the
     // schema object itself. An open declaration payload (e.g. a typo'd
     // "rowz") previously admitted an EMPTY schema that then accepted {}:
@@ -131,26 +154,27 @@ export function admitArtifactSchemas(
       continue;
     }
     const rawFields = record["fields"] ?? {};
-    if (!isRuleRecord(rawFields)) {
+    if (!isPlainRecord(rawFields)) {
       issue("field_rule_unknown", `${at}.fields`);
       continue;
     }
-    let fieldsValid = true;
-    for (const [field, rule] of Object.entries(rawFields)) {
-      if (!(ARTIFACT_FIELD_RULE_VALUES as readonly string[]).includes(rule)) {
-        issue("field_rule_unknown", `${at}.fields.${field}`);
-        fieldsValid = false;
-      }
-    }
+    const fields = validatedFieldRules(rawFields, (field) =>
+      issue("field_rule_unknown", `${at}.fields.${field}`)
+    );
+    let rowsInvalid = false;
     let rows: ArtifactSchemaRowSpec | null = null;
     const rawRows = record["rows"] ?? null;
     if (rawRows !== null) {
+      if (!isPlainRecord(rawRows)) {
+        issue("rows_spec_invalid", `${at}.rows`);
+        continue;
+      }
+      const rowsKey = rawRows["key"];
+      const rowsFieldsRaw = rawRows["fields"];
       if (
-        typeof rawRows !== "object" ||
-        Array.isArray(rawRows) ||
-        typeof (rawRows as Record<string, unknown>)["key"] !== "string" ||
-        ((rawRows as Record<string, unknown>)["key"] as string).length === 0 ||
-        !isRuleRecord((rawRows as Record<string, unknown>)["fields"])
+        typeof rowsKey !== "string" ||
+        rowsKey.length === 0 ||
+        !isPlainRecord(rowsFieldsRaw)
       ) {
         issue("rows_spec_invalid", `${at}.rows`);
         continue;
@@ -165,23 +189,16 @@ export function admitArtifactSchemas(
       if (!rowsKeysValid) {
         continue;
       }
-      const rowFields = (rawRows as Record<string, unknown>)[
-        "fields"
-      ] as Record<string, string>;
-      for (const [field, rule] of Object.entries(rowFields)) {
-        if (!(ARTIFACT_FIELD_RULE_VALUES as readonly string[]).includes(rule)) {
-          issue("field_rule_unknown", `${at}.rows.fields.${field}`);
-          fieldsValid = false;
-        }
+      const rowFields = validatedFieldRules(rowsFieldsRaw, (field) =>
+        issue("field_rule_unknown", `${at}.rows.fields.${field}`)
+      );
+      if (rowFields === null) {
+        rowsInvalid = true;
+      } else {
+        rows = Object.freeze({ key: rowsKey, fields: rowFields });
       }
-      rows = Object.freeze({
-        key: (rawRows as Record<string, unknown>)["key"] as string,
-        fields: Object.freeze({ ...rowFields }) as Readonly<
-          Record<string, ArtifactFieldRule>
-        >
-      });
     }
-    if (!fieldsValid) {
+    if (fields === null || rowsInvalid) {
       continue;
     }
     seenKeys.add(artifactKey);
@@ -189,9 +206,7 @@ export function admitArtifactSchemas(
       Object.freeze({
         schemaRef,
         artifactKey,
-        fields: Object.freeze({ ...rawFields }) as Readonly<
-          Record<string, ArtifactFieldRule>
-        >,
+        fields,
         rows
       })
     );
@@ -235,7 +250,7 @@ function fieldSatisfies(rule: ArtifactFieldRule, value: unknown): boolean {
     case "boolean":
       return typeof value === "boolean";
     case "non_negative_integer":
-      return Number.isInteger(value) && (value as number) >= 0;
+      return typeof value === "number" && Number.isInteger(value) && value >= 0;
     case "string_array":
       return (
         Array.isArray(value) &&
@@ -266,10 +281,10 @@ export function admitArtifactAgainstSchema(
     );
   };
   const detached = detachRowSnapshot(value);
-  if (typeof detached !== "object" || detached === null || Array.isArray(detached)) {
+  if (!isPlainRecord(detached)) {
     issue("not_object", schema.artifactKey);
   } else {
-    const record = detached as Record<string, unknown>;
+    const record = detached;
     const allowedKeys = new Set(Object.keys(schema.fields));
     if (schema.rows !== null) {
       allowedKeys.add(schema.rows.key);
@@ -297,11 +312,11 @@ export function admitArtifactAgainstSchema(
         const rowAllowed = new Set(Object.keys(schema.rows.fields));
         rowsValue.forEach((row, index) => {
           const rowPath = `${schema.artifactKey}.${schema.rows?.key}[${index}]`;
-          if (typeof row !== "object" || row === null || Array.isArray(row)) {
+          if (!isPlainRecord(row)) {
             issue("row_not_object", rowPath);
             return;
           }
-          const rowRecord = row as Record<string, unknown>;
+          const rowRecord = row;
           for (const key of Object.keys(rowRecord)) {
             if (!rowAllowed.has(key)) {
               issue("row_unknown_key", `${rowPath}.${key}`);

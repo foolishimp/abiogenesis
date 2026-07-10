@@ -65,6 +65,12 @@ export interface MutationOutcomesAdmissionIssue {
 const LONE_SURROGATE = /\p{Surrogate}/u;
 const DIGEST_SHAPE = /^sha256:[0-9a-f]{64}$/u;
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function wellFormedNonEmpty(value: unknown): value is string {
   return typeof value === "string" && value.length > 0 && !LONE_SURROGATE.test(value);
 }
@@ -100,11 +106,11 @@ export function admitMutationOutcomes(input: {
   const rejected = () =>
     Object.freeze({ accepted: false, issues: Object.freeze([...issues]), outcomes: undefined });
   const section = input.payloadSection;
-  if (section === null || typeof section !== "object" || Array.isArray(section)) {
+  if (!isPlainRecord(section)) {
     reject("section_not_object", "mutationOutcomes", "must be an object with a rows array");
     return rejected();
   }
-  const rawRows = (section as { readonly rows?: unknown }).rows;
+  const rawRows = section["rows"];
   if (!Array.isArray(rawRows)) {
     reject("rows_not_array", "mutationOutcomes.rows", "must be an array of rows");
     return rejected();
@@ -121,80 +127,99 @@ export function admitMutationOutcomes(input: {
     // that passes stringify then throws/changes on a second read cannot
     // escape admission — the original row is never read again.
     const detached = detachRowSnapshot(row);
-    if (detached === null || typeof detached !== "object" || Array.isArray(detached)) {
+    if (!isPlainRecord(detached)) {
       reject("row_not_object", at, "row fields must be plain readable data");
       return;
     }
-    const c = detached as {
-      readonly requirementId?: unknown;
-      readonly mutantIdentity?: unknown;
-      readonly mutantCompiled?: unknown;
-      readonly failedTestIdentityRefs?: unknown;
-      readonly suiteExit?: unknown;
-      readonly baselineDigest?: unknown;
-      readonly restoreDigest?: unknown;
-    };
+    const c = detached;
     let valid = true;
-    if (!wellFormedNonEmpty(c.requirementId)) {
+    const requirementId = c["requirementId"];
+    if (!wellFormedNonEmpty(requirementId)) {
       reject("requirement_id_invalid", `${at}.requirementId`, "must be a non-empty well-formed string");
       valid = false;
     }
-    if (!wellFormedNonEmpty(c.mutantIdentity)) {
+    const mutantIdentity = c["mutantIdentity"];
+    if (!wellFormedNonEmpty(mutantIdentity)) {
       reject("mutant_identity_invalid", `${at}.mutantIdentity`, "must be a non-empty well-formed string");
       valid = false;
     }
-    if (typeof c.mutantCompiled !== "boolean") {
+    const mutantCompiled = c["mutantCompiled"];
+    if (typeof mutantCompiled !== "boolean") {
       reject("mutant_compiled_invalid", `${at}.mutantCompiled`, "must be a boolean (did the mutant compile and the suite run)");
       valid = false;
     }
     // failedTestIdentityRefs: the tests that WENT RED under the mutant.
     // MAY be empty (survived). Every entry must be well-formed.
-    const failed = c.failedTestIdentityRefs;
-    if (!Array.isArray(failed) || !failed.every((r: unknown) => wellFormedNonEmpty(r))) {
+    const failedRaw = c["failedTestIdentityRefs"];
+    let failedRefs: readonly string[] | null = null;
+    if (Array.isArray(failedRaw)) {
+      const entries: readonly unknown[] = failedRaw;
+      if (entries.every((ref): ref is string => wellFormedNonEmpty(ref))) {
+        failedRefs = entries;
+      }
+    }
+    if (failedRefs === null) {
       reject("failed_test_identity_refs_invalid", `${at}.failedTestIdentityRefs`, "must be an array of well-formed strings (empty = survived)");
       valid = false;
     }
-    if (typeof c.suiteExit !== "number" || !Number.isInteger(c.suiteExit) || c.suiteExit < 0) {
+    const suiteExit = c["suiteExit"];
+    if (typeof suiteExit !== "number" || !Number.isInteger(suiteExit) || suiteExit < 0) {
       reject("suite_exit_invalid", `${at}.suiteExit`, "must be a non-negative integer exit status");
       valid = false;
     }
     // D1 internal-consistency law: the row's three signals cannot
     // contradict. compile-broken -> no legitimate failures; compiled +
     // failures -> suite must be red; compiled + no failures -> green.
-    if (valid) {
-      const failedRefs = failed as string[];
-      const compiled = c.mutantCompiled as boolean;
-      const exit = c.suiteExit as number;
-      if (!compiled && failedRefs.length > 0) {
+    if (
+      valid &&
+      typeof mutantCompiled === "boolean" &&
+      failedRefs !== null &&
+      typeof suiteExit === "number"
+    ) {
+      if (!mutantCompiled && failedRefs.length > 0) {
         reject("outcome_inconsistent", at, "a mutant that did not compile cannot have failed tests");
         valid = false;
-      } else if (compiled && failedRefs.length > 0 && exit === 0) {
+      } else if (mutantCompiled && failedRefs.length > 0 && suiteExit === 0) {
         reject("outcome_inconsistent", at, "named failed tests require a non-zero suite exit");
         valid = false;
-      } else if (compiled && failedRefs.length === 0 && exit !== 0) {
+      } else if (mutantCompiled && failedRefs.length === 0 && suiteExit !== 0) {
         reject("outcome_inconsistent", at, "a compiled mutant with no named failures must exit 0 (survived) — an unattributed red suite is not evidence");
         valid = false;
       }
     }
-    for (const [field, value] of [["baselineDigest", c.baselineDigest], ["restoreDigest", c.restoreDigest]] as const) {
+    const baselineDigest = c["baselineDigest"];
+    const restoreDigest = c["restoreDigest"];
+    for (const [field, value] of [
+      ["baselineDigest", baselineDigest],
+      ["restoreDigest", restoreDigest]
+    ] as const) {
       if (typeof value !== "string" || !DIGEST_SHAPE.test(value)) {
         reject("digest_invalid", `${at}.${field}`, "must be a sha256:<64-hex> digest");
         valid = false;
       }
     }
-    if (valid && c.baselineDigest !== c.restoreDigest) {
+    if (valid && baselineDigest !== restoreDigest) {
       reject("restore_digest_mismatch", at, "restoreDigest must equal baselineDigest — subject not verifiably restored");
       valid = false;
     }
-    if (valid) {
+    if (
+      valid &&
+      wellFormedNonEmpty(requirementId) &&
+      wellFormedNonEmpty(mutantIdentity) &&
+      typeof mutantCompiled === "boolean" &&
+      failedRefs !== null &&
+      typeof suiteExit === "number" &&
+      typeof baselineDigest === "string" &&
+      typeof restoreDigest === "string"
+    ) {
       rows.push(Object.freeze({
-        requirementId: c.requirementId as string,
-        mutantIdentity: c.mutantIdentity as string,
-        mutantCompiled: c.mutantCompiled as boolean,
-        failedTestIdentityRefs: Object.freeze([...(failed as string[])].sort()),
-        suiteExit: c.suiteExit as number,
-        baselineDigest: c.baselineDigest as string,
-        restoreDigest: c.restoreDigest as string
+        requirementId,
+        mutantIdentity,
+        mutantCompiled,
+        failedTestIdentityRefs: Object.freeze([...failedRefs].sort()),
+        suiteExit,
+        baselineDigest,
+        restoreDigest
       }));
     }
   });
