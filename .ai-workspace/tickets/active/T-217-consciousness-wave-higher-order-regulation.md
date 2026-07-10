@@ -1317,6 +1317,35 @@ test/proof_inputs/odd-glc-data-mapper-full-scala-sbt-live/
 limits and stays under the local run root, pinned by the proof's
 eventLogSha256 cc9d2ed4...).
 
+DUAL REVIEW ROUND 2 (2026-07-10, post-rc.2) — my three adversarial
+lanes (lint-repayment behavioral audit; D-ordinal + fail-closed laws;
+emitter contexts + RC gate) ran against codex's independent review.
+VERDICT: my "lint repayment = zero behavioral change" claim REFUTED —
+five live-executed drifts, one a SHIPPED P0 in rc.2 (MERGE_CONFLICT
+sentinel returned as string: node-type digest-policy conflicts
+composed successfully, minting "conflict" as data; no campaign path
+exercises that merge, which is why the clean run stayed clean). All
+findings fixed with their missing pins in commit 8b508c2 (abiogenesis)
++ 4bc140d (odd_glc): the systemic REPLAY INGEST LAW (ordinal-sort +
+collision fail-closed at both chokepoints — which immediately caught a
+real unseeded-appender defect in the m04 fixture), C-4 plugin-sink
+pre-stamp rejection + route parity, EVENTS-026 required issue rows,
+EVENTS-025 hasOwn, engine-entry typed fail-closed for assembly
+vocabulary errors, installer null-row contract restoration, hog
+absent-key rejection restored, conformance-pin discovery/marker
+bypasses closed, self-certifying release-snapshot manifests
+(lint+suite evidence embedded, red refuses), HANDLERS-008 budget
+admission, isPlainRecord one-home, and odd_glc's split campaign
+timing surface + committed evidence ledger. Acknowledged tightenings
+kept and pinned (numeric env, empty equivalenceContractRef, typed
+worker_blocked). Gates: 1296/1296 (+13 pins), lint 0. RESIDUALS
+routed to F_H in the consolidated review post
+(comments/claude/20260710T150000Z_REVIEW_t217_dual_review_round2
+_consolidated.md) — headline: codex C7 handler-authority Prime gap is
+a requirement_reprice-class change (binding schema carries/derives the
+authority proof). rc.2 carries the P0 unshipped-to-consumers except
+odd_glc, whose campaign does not touch it; the fix rides the next cut.
+
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
