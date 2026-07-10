@@ -1388,3 +1388,74 @@ test("A5-P1 R4: unknown regime in declared bindings is a typed fail-closed start
   const terminal = result.replayEvents.find((event) => event.kind === "terminal_reached");
   assert.notEqual(terminal, undefined, "the run reaches a lawful terminal");
 });
+
+// ── S2.3 DECLARED PLUGIN SELECTION at engine depth (T-217 closure
+// campaign, F_H-approved 2026-07-10): conflicts and unresolvable refs
+// land as typed fail-closed startup results, never host escapes.
+test("S2.3 plugin selection: declared seam + caller-supplied plugin for the same seam fails closed typed", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const selectedBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/fp-dispatch" }]
+          } }) })
+        ])
+      })
+    })
+  });
+  let result;
+  assert.doesNotThrow(() => {
+    result = runEngineIterate({
+      basis: selectedBasis,
+      eventSink: () => {},
+      ...m03InstructionAssemblyRequestFields(selectedBasis),
+      plugins: {
+        fpDispatch: {
+          contract: constructEnginePluginContract({
+            ref: "plugin://t217/custom-dispatch", pluginKind: "fp_dispatch",
+            authority: "effect_plugin", inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpDispatchOutcome"
+          }),
+          dispatch: () => { throw new Error("never reached"); }
+        },
+        fpEvaluator: defaultFpEvaluatorPlugin
+      }
+    });
+  });
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /plugin_selection_conflict/u);
+});
+
+test("S2.3 plugin selection: an unknown catalog ref fails closed typed at the engine", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const badBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/nope" }]
+          } }) })
+        ])
+      })
+    })
+  });
+  let result;
+  assert.doesNotThrow(() => {
+    result = runEngineIterate({
+      basis: badBasis,
+      eventSink: () => {},
+      ...m03InstructionAssemblyRequestFields(badBasis),
+      plugins: { fpEvaluator: defaultFpEvaluatorPlugin }
+    });
+  });
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /plugin_selection_unresolvable/u);
+});

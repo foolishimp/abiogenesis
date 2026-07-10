@@ -214,3 +214,57 @@ test("D-ordinal: decisiveByAdmissionOrdinal fails closed on equal-ordinal candid
   );
   assert.equal(decisive.kind, "new");
 });
+
+// ── S2.3 DECLARED PLUGIN SELECTION (T-217 closure campaign, F_H-approved
+// 2026-07-10): the kernel prerequisite for the odd_glc declarations-only
+// adoption — a binding declares governed plugin refs per seam; resolution
+// is fail-closed against the standard catalog.
+test("plugin selection: parse + resolve law (closed seams, catalog refs, seam identity)", async () => {
+  const {
+    pluginSelectionFromDeclarationAttrs,
+    resolveDeclaredPluginSelection
+  } = await import("../../build/semantic/code/src/abg/m03/index.js");
+  const attrsOf = (blob) => ({
+    entries: [{ key: "abg.plugin_selection", value: { kind: "json_blob", value: blob } }]
+  });
+  // absent declaration → null
+  assert.equal(
+    pluginSelectionFromDeclarationAttrs({ entries: [] }, "gf://pin"),
+    null
+  );
+  // lawful selection parses and resolves to the standard plugins
+  const selection = pluginSelectionFromDeclarationAttrs(
+    attrsOf({ kind: "object", entries: [
+      { key: "fpDispatch", value: "plugin://abg/fp-dispatch" },
+      { key: "fpEvaluator", value: "plugin://abg/fp-evaluator" }
+    ] }),
+    "gf://pin"
+  );
+  const resolved = resolveDeclaredPluginSelection({ selection, sourceRef: "gf://pin" });
+  assert.equal(resolved.fpDispatch.contract.ref, "plugin://abg/fp-dispatch");
+  assert.equal(resolved.fpEvaluator.contract.ref, "plugin://abg/fp-evaluator");
+  // unknown seam key fails closed
+  assert.throws(
+    () => pluginSelectionFromDeclarationAttrs(
+      attrsOf({ kind: "object", entries: [{ key: "sink", value: "plugin://abg/runtime-event-sink" }] }),
+      "gf://pin"
+    ),
+    /unknown seam "sink"/u
+  );
+  // unknown ref fails closed
+  assert.throws(
+    () => resolveDeclaredPluginSelection({
+      selection: { fpDispatch: "plugin://abg/does-not-exist" },
+      sourceRef: "gf://pin"
+    }),
+    /plugin_selection_unresolvable/u
+  );
+  // a ref on the WRONG seam fails closed — contract identity is law
+  assert.throws(
+    () => resolveDeclaredPluginSelection({
+      selection: { fpEvaluator: "plugin://abg/fp-dispatch" },
+      sourceRef: "gf://pin"
+    }),
+    /plugin_selection_seam_mismatch/u
+  );
+});

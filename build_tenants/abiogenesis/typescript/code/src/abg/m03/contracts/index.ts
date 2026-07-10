@@ -1365,6 +1365,17 @@ export {
   isPlainRecord,
   sortReplayByAdmissionOrdinalFailClosed
 } from "./admission_hygiene.js";
+export {
+  PLUGIN_SELECTION_DECLARATION_KEY,
+  PLUGIN_SELECTION_SEAM_VALUES,
+  STANDARD_ENGINE_PLUGIN_CATALOG,
+  pluginSelectionFromDeclarationAttrs,
+  resolveDeclaredPluginSelection
+} from "./plugin_selection.js";
+export type {
+  PluginSelectionSeam,
+  ResolvedPluginSelection
+} from "./plugin_selection.js";
 export type {
   DeclarationDigestDriftRow,
   DeclarationIdentityConflictRow,

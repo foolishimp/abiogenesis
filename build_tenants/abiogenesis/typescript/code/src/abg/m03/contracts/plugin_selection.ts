@@ -1,0 +1,190 @@
+// Implements: the S2.3/T-209 DECLARED PLUGIN SELECTION seam — PRODUCT.md's
+// "hook and plugin boundary declarations" law realized at the engine plugin
+// seams (T-217 closure campaign, F_H-approved 2026-07-10): a binding DECLARES
+// which governed plugin serves each seam by ref; ABG resolves the refs
+// against the substrate's standard catalog fail-closed. This is the kernel
+// prerequisite for the odd_glc declarations-only adoption — custom plugin
+// BODIES retire in favor of declared refs over substrate implementations.
+//
+// Laws:
+// - the declaration is `abg.plugin_selection` (json_blob): an object whose
+//   keys are the FIVE effect seams and whose values are catalog refs;
+// - unknown seam keys, non-string refs, unknown refs, and a ref admitted
+//   for a DIFFERENT seam all fail closed as typed rejections;
+// - a declared seam and a caller-supplied plugin for the SAME seam are two
+//   authorities — the engine entry fails closed (checked in the runner,
+//   which sees the raw caller set);
+// - selection selects among GOVERNED substrate plugins only; it is not a
+//   path for product code to inject bodies (that remains the explicit
+//   plugin/handler seam with its own admission).
+
+import type { SerializedAttrs } from "../../../gtl/m01/contracts/carriers.js";
+import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
+import { isPlainRecord } from "./admission_hygiene.js";
+import type {
+  ConsequenceProjectionPlugin,
+  FdEvaluatorPlugin,
+  FhAdmissionPlugin,
+  FpDispatchPlugin,
+  FpEvaluatorPlugin
+} from "./plugins.js";
+import {
+  defaultConsequenceProjectionPlugin,
+  defaultFdEvaluatorPlugin,
+  defaultFhAdmissionPlugin,
+  defaultFpDispatchPlugin,
+  defaultFpEvaluatorPlugin
+} from "./plugins.js";
+
+export const PLUGIN_SELECTION_DECLARATION_KEY = "abg.plugin_selection";
+
+export const PLUGIN_SELECTION_SEAM_VALUES = Object.freeze([
+  "fdEvaluator",
+  "fpEvaluator",
+  "fpDispatch",
+  "fhAdmission",
+  "consequenceProjection"
+] as const);
+export type PluginSelectionSeam = (typeof PLUGIN_SELECTION_SEAM_VALUES)[number];
+
+export interface ResolvedPluginSelection {
+  readonly fdEvaluator?: FdEvaluatorPlugin;
+  readonly fpEvaluator?: FpEvaluatorPlugin;
+  readonly fpDispatch?: FpDispatchPlugin;
+  readonly fhAdmission?: FhAdmissionPlugin;
+  readonly consequenceProjection?: ConsequenceProjectionPlugin;
+}
+
+interface StandardCatalogRow {
+  readonly seam: PluginSelectionSeam;
+  readonly plugin:
+    | FdEvaluatorPlugin
+    | FpEvaluatorPlugin
+    | FpDispatchPlugin
+    | FhAdmissionPlugin
+    | ConsequenceProjectionPlugin;
+}
+
+// The substrate's standard, governed, selectable implementations. Every row's
+// ref is the plugin's own declared contract ref — selection can never bind a
+// plugin to a seam its contract does not claim.
+export const STANDARD_ENGINE_PLUGIN_CATALOG: Readonly<
+  Record<string, StandardCatalogRow>
+> = Object.freeze({
+  "plugin://abg/fd-evaluator": Object.freeze({
+    seam: "fdEvaluator" as const,
+    plugin: defaultFdEvaluatorPlugin
+  }),
+  "plugin://abg/fp-evaluator": Object.freeze({
+    seam: "fpEvaluator" as const,
+    plugin: defaultFpEvaluatorPlugin
+  }),
+  "plugin://abg/fp-dispatch": Object.freeze({
+    seam: "fpDispatch" as const,
+    plugin: defaultFpDispatchPlugin
+  }),
+  "plugin://abg/fh-admission": Object.freeze({
+    seam: "fhAdmission" as const,
+    plugin: defaultFhAdmissionPlugin
+  }),
+  "plugin://abg/consequence-projection": Object.freeze({
+    seam: "consequenceProjection" as const,
+    plugin: defaultConsequenceProjectionPlugin
+  })
+});
+
+function isPluginSelectionSeam(value: string): value is PluginSelectionSeam {
+  return PLUGIN_SELECTION_SEAM_VALUES.some((seam): boolean => seam === value);
+}
+
+// Parse the declaration attrs: absent -> null (no selection); present ->
+// a validated {seam -> ref} record, fail-closed on shape.
+export function pluginSelectionFromDeclarationAttrs(
+  attrs: SerializedAttrs,
+  sourceRef: string
+): Readonly<Partial<Record<PluginSelectionSeam, string>>> | null {
+  const entry = attrs.entries.find(
+    (row) => row.key === PLUGIN_SELECTION_DECLARATION_KEY
+  );
+  if (entry === undefined) {
+    return null;
+  }
+  if (entry.value.kind !== "json_blob") {
+    throw new TypeError(
+      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
+    );
+  }
+  const plain: unknown = serializedJsonValueToPlain(entry.value.value);
+  if (!isPlainRecord(plain)) {
+    throw new TypeError(
+      `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef} must be an object of {seam: pluginRef}`
+    );
+  }
+  const selection: Partial<Record<PluginSelectionSeam, string>> = {};
+  for (const [key, value] of Object.entries(plain)) {
+    if (!isPluginSelectionSeam(key)) {
+      throw new TypeError(
+        `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: unknown seam ${JSON.stringify(key)} (closed seam set: ${PLUGIN_SELECTION_SEAM_VALUES.join(", ")})`
+      );
+    }
+    if (typeof value !== "string" || value.length === 0) {
+      throw new TypeError(
+        `${PLUGIN_SELECTION_DECLARATION_KEY} on ${sourceRef}: seam ${key} must name a plugin ref as a non-empty string`
+      );
+    }
+    selection[key] = value;
+  }
+  return Object.freeze(selection);
+}
+
+// Resolve a parsed selection against the standard catalog. Unknown refs and
+// seam mismatches fail closed.
+export function resolveDeclaredPluginSelection(input: {
+  readonly selection: Readonly<Partial<Record<PluginSelectionSeam, string>>>;
+  readonly sourceRef: string;
+}): ResolvedPluginSelection {
+  const resolved: {
+    fdEvaluator?: FdEvaluatorPlugin;
+    fpEvaluator?: FpEvaluatorPlugin;
+    fpDispatch?: FpDispatchPlugin;
+    fhAdmission?: FhAdmissionPlugin;
+    consequenceProjection?: ConsequenceProjectionPlugin;
+  } = {};
+  for (const seam of PLUGIN_SELECTION_SEAM_VALUES) {
+    const ref = input.selection[seam];
+    if (ref === undefined) {
+      continue;
+    }
+    const row = Object.hasOwn(STANDARD_ENGINE_PLUGIN_CATALOG, ref)
+      ? STANDARD_ENGINE_PLUGIN_CATALOG[ref]
+      : undefined;
+    if (row === undefined) {
+      throw new TypeError(
+        `plugin_selection_unresolvable: ${input.sourceRef} selects ${JSON.stringify(ref)} for seam ${seam}, which is not in the standard plugin catalog`
+      );
+    }
+    if (row.seam !== seam) {
+      throw new TypeError(
+        `plugin_selection_seam_mismatch: ${input.sourceRef} selects ${JSON.stringify(ref)} for seam ${seam}, but that plugin's contract claims seam ${row.seam}`
+      );
+    }
+    switch (seam) {
+      case "fdEvaluator":
+        resolved.fdEvaluator = row.plugin as FdEvaluatorPlugin;
+        break;
+      case "fpEvaluator":
+        resolved.fpEvaluator = row.plugin as FpEvaluatorPlugin;
+        break;
+      case "fpDispatch":
+        resolved.fpDispatch = row.plugin as FpDispatchPlugin;
+        break;
+      case "fhAdmission":
+        resolved.fhAdmission = row.plugin as FhAdmissionPlugin;
+        break;
+      case "consequenceProjection":
+        resolved.consequenceProjection = row.plugin as ConsequenceProjectionPlugin;
+        break;
+    }
+  }
+  return Object.freeze(resolved);
+}

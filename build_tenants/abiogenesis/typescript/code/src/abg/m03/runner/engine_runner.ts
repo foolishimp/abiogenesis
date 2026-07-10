@@ -9,6 +9,7 @@ import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable, extraHog
 import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
 import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
+import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
@@ -10224,16 +10225,42 @@ function effectiveRunnerPlugins(
   request: EngineIterateRequest,
   plugins: ResolvedRunnerPlugins
 ): ResolvedRunnerPlugins {
+  // S2.3 DECLARED PLUGIN SELECTION (T-217 closure campaign, F_H-approved
+  // 2026-07-10): the binding may DECLARE which governed substrate plugin
+  // serves each effect seam. A declared seam and a caller-supplied
+  // plugin for the SAME seam are two authorities — fail closed (the raw
+  // request set distinguishes caller-explicit from resolved defaults).
+  let merged = plugins;
+  const selection = pluginSelectionFromDeclarationAttrs(
+    request.basis.graphFunction.declarations,
+    request.basis.graphFunction.name
+  );
+  if (selection !== null) {
+    for (const seam of PLUGIN_SELECTION_SEAM_VALUES) {
+      if (selection[seam] !== undefined && request.plugins?.[seam] !== undefined) {
+        throw new TypeError(
+          `plugin_selection_conflict: ${request.basis.graphFunction.name} declares ${JSON.stringify(selection[seam])} for seam ${seam} while the caller supplies a plugin for the same seam — two authorities`
+        );
+      }
+    }
+    merged = Object.freeze({
+      ...merged,
+      ...resolveDeclaredPluginSelection({
+        selection,
+        sourceRef: request.basis.graphFunction.name
+      })
+    });
+  }
   const declaredBindings = hogHandlerBindingsFromDeclarationAttrs(
     request.basis.graphFunction.declarations,
     request.basis.graphFunction.name
   );
   if (declaredBindings === null) {
-    return plugins;
+    return merged;
   }
-  const impls = new Map(plugins.handlerRegistry?.handlers ?? new Map());
+  const impls = new Map(merged.handlerRegistry?.handlers ?? new Map());
   return Object.freeze({
-    ...plugins,
+    ...merged,
     handlerRegistry: assembleHandlerRegistry({
       declaredBindings,
       handlers: impls
