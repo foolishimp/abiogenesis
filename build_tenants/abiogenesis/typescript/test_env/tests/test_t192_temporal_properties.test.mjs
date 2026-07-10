@@ -1481,6 +1481,8 @@ test("S2.3 live selection: the live dispatch ref without its capability fails cl
   });
   // codex round F1: the SYNC driver refuses async-only refs BEFORE
   // capability resolution — no unawaited transport can ever start.
+  // without the capability the live ref is not in the catalog — it
+  // fails closed unresolvable on BOTH drivers, before the driver check.
   const syncResult = runEngineIterate({
     basis: liveBasis,
     eventSink: () => {},
@@ -1488,7 +1490,7 @@ test("S2.3 live selection: the live dispatch ref without its capability fails cl
     plugins: { fpEvaluator: defaultFpEvaluatorPlugin }
   });
   assert.equal(syncResult.transition.terminalKind, "gap_stop");
-  assert.match(syncResult.transition.reason, /plugin_selection_async_only/u);
+  assert.match(syncResult.transition.reason, /plugin_selection_unresolvable/u);
   // async driver WITHOUT the capability: unresolvable, typed, with the
   // honest failure surface (codex round F8).
   return runEngineIterateAsync({
@@ -1599,7 +1601,7 @@ test("R4-1: sync driver refuses a caller-supplied async-only plugin before any i
   // the sync driver's refusal is admitted truth: the async-only reason
   // appears in the replayed event stream (fields vary by event kind).
   const refusalRecorded = result.replayEvents.some((event) =>
-    JSON.stringify(event).includes("plugin_selection_async_only")
+    JSON.stringify(event).includes("plugin_driver_incompatible")
   );
   assert.equal(refusalRecorded, true, "the async-only refusal is recorded in replay");
 });

@@ -145,6 +145,7 @@ function writeIdentitySidecar(
 
 const liveFpDispatchContract = constructEnginePluginContract({
   ref: LIVE_FP_DISPATCH_PLUGIN_REF,
+  driverRequirement: "async_required",
   pluginKind: "fp_dispatch",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -178,9 +179,6 @@ export function standardLiveFpDispatchPlugin(
   return Object.freeze({
     contract: liveFpDispatchContract,
     dispatch: async (input: EnginePluginInput): Promise<FpDispatchOutcome> => {
-      // codex round F1: NOTHING before this await — a sync driver that
-      // mishandles the promise must find zero side effects performed.
-      await Promise.resolve();
       if (input.instructionPromptManifest === null) {
         return constructFpDispatchOutcome({
           status: "blocked",
@@ -342,16 +340,10 @@ export function standardPluginCatalogWithCapabilities(
 
 export const LIVE_FP_EVALUATOR_PLUGIN_REF = "plugin://abg/fp-evaluator-live";
 
-// codex round F1: live plugins perform external transport work — the
-// SYNC driver must refuse their selection typed BEFORE any invocation,
-// mirroring the handler family's async-refusal law.
-export const ASYNC_ONLY_PLUGIN_REFS: readonly string[] = Object.freeze([
-  LIVE_FP_DISPATCH_PLUGIN_REF,
-  LIVE_FP_EVALUATOR_PLUGIN_REF
-]);
 
 const liveFpEvaluatorContract = constructEnginePluginContract({
   ref: LIVE_FP_EVALUATOR_PLUGIN_REF,
+  driverRequirement: "async_required",
   pluginKind: "fp_evaluator",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -430,8 +422,6 @@ export function standardLiveFpEvaluatorPlugin(
   return Object.freeze({
     contract: liveFpEvaluatorContract,
     evaluate: async (input: EnginePluginInput): Promise<FpEvaluationOutcome> => {
-      // codex round F1: NOTHING before this await.
-      await Promise.resolve();
       if (input.instructionPromptManifest === null) {
         return constructFpEvaluationOutcome({
           status: "blocked",

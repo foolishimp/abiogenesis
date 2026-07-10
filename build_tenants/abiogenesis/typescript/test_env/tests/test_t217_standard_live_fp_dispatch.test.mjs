@@ -171,15 +171,17 @@ test("live fp evaluator: transport failure is typed blocked with allowlist gramm
 
 // ═══ codex round pins (T-217 closure campaign, review round 3) ═══
 
-test("F1: dispatch performs ZERO side effects before its first await", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
-  const plugin = standardLiveFpDispatchPlugin(cap);
-  const { existsSync } = await import("node:fs");
-  const pending = plugin.dispatch(pluginInput(MANIFEST));
-  // synchronously after the call: nothing may exist yet
-  assert.equal(existsSync(cap.archiveRoot), false, "no pre-await filesystem work");
-  await pending;
-  assert.equal(existsSync(cap.archiveRoot), true);
+// codex round 5 §1: the microtask fence was never a real safety
+// mechanism (an unawaited body still runs after the sync driver records
+// blocked). The real guarantee is the ADMISSION BOUNDARY refusing the
+// async plugin before invocation — pinned in test_t192 (R4-1) and
+// asserted here at the contract level: the live plugin declares
+// async_required, so no sync driver can ever board it.
+test("F1: the live dispatch plugin declares async_required (admission refuses it on the sync driver)", () => {
+  const plugin = standardLiveFpDispatchPlugin(
+    capabilityWith("console.log(JSON.stringify({ ok: true }))")
+  );
+  assert.equal(plugin.contract.driverRequirement, "async_required");
 });
 
 test("F2: distinct invocations never collide — attempt and invocation id key the archive", async () => {

@@ -207,7 +207,16 @@ export interface EnginePluginContract {
   readonly mayEmitRuntimeEvents: false;
   readonly mayCloseTraversal: false;
   readonly mayOwnIterationLoop: false;
+  // codex round 5 §1: whether this plugin's methods are safe on the
+  // SYNC engine driver. GOVERNED catalog contracts declare this
+  // explicitly (the live plugins are async_required); raw host-supplied
+  // bodies are a TRUSTED extension and default sync_compatible (untrusted
+  // product content selects governed refs only — it cannot supply raw
+  // bodies). Structural metadata, never an external ref denylist.
+  readonly driverRequirement: "sync_compatible" | "async_required";
 }
+
+export type PluginDriverRequirement = EnginePluginContract["driverRequirement"];
 
 export interface EngineComputeStageBinding {
   readonly kind: "engine_compute_stage_binding";
@@ -462,6 +471,7 @@ export interface EngineRunnerPluginSet {
 interface EnginePluginContractInput {
   readonly ref: string;
   readonly pluginKind: EnginePluginKind;
+  readonly driverRequirement?: "sync_compatible" | "async_required" | undefined;
   readonly authority: EnginePluginAuthority;
   readonly inputCarrier: string;
   readonly outputCarrier: string;
@@ -491,7 +501,8 @@ const ENGINE_PLUGIN_CONTRACT_FIELD_KEYS = Object.freeze([
   "maySelectNextVector",
   "mayEmitRuntimeEvents",
   "mayCloseTraversal",
-  "mayOwnIterationLoop"
+  "mayOwnIterationLoop",
+  "driverRequirement"
 ] as const);
 
 const ENGINE_PLUGIN_CONTRACT_FIELD_KEY_SET: ReadonlySet<string> = new Set(
@@ -1024,7 +1035,8 @@ function pluginContract(input: EnginePluginContractInput): EnginePluginContract 
     maySelectNextVector: input.maySelectNextVector ?? false,
     mayEmitRuntimeEvents: input.mayEmitRuntimeEvents ?? false,
     mayCloseTraversal: input.mayCloseTraversal ?? false,
-    mayOwnIterationLoop: input.mayOwnIterationLoop ?? false
+    mayOwnIterationLoop: input.mayOwnIterationLoop ?? false,
+    driverRequirement: input.driverRequirement ?? "sync_compatible"
   });
 }
 
@@ -1036,6 +1048,17 @@ export function constructEnginePluginContract(
   }
   return pluginContract({
     ref: parseNonEmptyString(input.ref, "EnginePluginContract.ref"),
+    driverRequirement:
+      input.driverRequirement === undefined
+        ? "sync_compatible"
+        : input.driverRequirement === "sync_compatible" ||
+            input.driverRequirement === "async_required"
+          ? input.driverRequirement
+          : (() => {
+              throw new TypeError(
+                `EnginePluginContract.driverRequirement must be "sync_compatible" or "async_required", got ${JSON.stringify(input.driverRequirement)}`
+              );
+            })(),
     pluginKind: assertPluginKind(
       input.pluginKind,
       "EnginePluginContract.pluginKind"
@@ -2076,6 +2099,7 @@ const runtimeEventSinkContract = constructEnginePluginContract({
 
 const fdEvaluatorContract = constructEnginePluginContract({
   ref: "plugin://abg/fd-evaluator",
+  driverRequirement: "sync_compatible",
   pluginKind: "fd_evaluator",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -2084,6 +2108,7 @@ const fdEvaluatorContract = constructEnginePluginContract({
 
 const fpEvaluatorContract = constructEnginePluginContract({
   ref: "plugin://abg/fp-evaluator",
+  driverRequirement: "sync_compatible",
   pluginKind: "fp_evaluator",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -2092,6 +2117,7 @@ const fpEvaluatorContract = constructEnginePluginContract({
 
 const fpDispatchContract = constructEnginePluginContract({
   ref: "plugin://abg/fp-dispatch",
+  driverRequirement: "sync_compatible",
   pluginKind: "fp_dispatch",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -2100,6 +2126,7 @@ const fpDispatchContract = constructEnginePluginContract({
 
 const fhAdmissionContract = constructEnginePluginContract({
   ref: "plugin://abg/fh-admission",
+  driverRequirement: "sync_compatible",
   pluginKind: "fh_admission",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",
@@ -2108,6 +2135,7 @@ const fhAdmissionContract = constructEnginePluginContract({
 
 const consequenceProjectionContract = constructEnginePluginContract({
   ref: "plugin://abg/consequence-projection",
+  driverRequirement: "sync_compatible",
   pluginKind: "consequence_projection",
   authority: "effect_plugin",
   inputCarrier: "EnginePluginInput",

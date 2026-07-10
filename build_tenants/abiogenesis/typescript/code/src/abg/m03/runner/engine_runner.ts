@@ -10,7 +10,7 @@ import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
 import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
 import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
-import { standardPluginCatalogWithCapabilities, ASYNC_ONLY_PLUGIN_REFS } from "./standard_live_plugins.js";
+import { standardPluginCatalogWithCapabilities } from "./standard_live_plugins.js";
 import type { EnginePluginCapabilities } from "./standard_live_plugins.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
@@ -9995,15 +9995,6 @@ export function resolveSyncEnginePluginEffect(
       // work that outlives the recorded blocked outcome. Gate on the
       // plugin's contract identity BEFORE the call; this closes the
       // caller-supplied path the declared-ref guard cannot see.
-      if (ASYNC_ONLY_PLUGIN_REFS.includes(plugins.fpEvaluator.contract.ref)) {
-        return Object.freeze({
-          kind: "fp_evaluate",
-          outcome: constructFpEvaluationOutcome({
-            status: "blocked",
-            reason: `plugin_selection_async_only: fp evaluator ${plugins.fpEvaluator.contract.ref} requires the async driver; the sync driver refuses before invocation (contract_failure)`
-          })
-        });
-      }
       return Object.freeze({
         kind: "fp_evaluate",
         outcome: guardedSync(
@@ -10018,15 +10009,6 @@ export function resolveSyncEnginePluginEffect(
         )
       });
     case "fp_dispatch":
-      if (ASYNC_ONLY_PLUGIN_REFS.includes(plugins.fpDispatch.contract.ref)) {
-        return Object.freeze({
-          kind: "fp_dispatch",
-          outcome: constructFpDispatchOutcome({
-            status: "blocked",
-            reason: `plugin_selection_async_only: fp dispatch ${plugins.fpDispatch.contract.ref} requires the async driver; the sync driver refuses before invocation (contract_failure)`
-          })
-        });
-      }
       return Object.freeze({
         kind: "fp_dispatch",
         outcome: guardedSync(
@@ -10277,18 +10259,6 @@ function effectiveRunnerPlugins(
           `plugin_selection_conflict: ${request.basis.graphFunction.name} declares ${JSON.stringify(selectedRef)} for seam ${seam} while the caller supplies a plugin for the same seam — two authorities`
         );
       }
-      // codex round F1: async-only plugins never board the sync driver —
-      // a mishandled promise would record blocked truth while the
-      // unawaited transport keeps working outside admitted truth.
-      if (
-        selectedRef !== undefined &&
-        driver === "sync" &&
-        ASYNC_ONLY_PLUGIN_REFS.includes(selectedRef)
-      ) {
-        throw new TypeError(
-          `plugin_selection_async_only: ${request.basis.graphFunction.name} selects ${JSON.stringify(selectedRef)} for seam ${seam}, which requires the async driver`
-        );
-      }
     }
     merged = Object.freeze({
       ...merged,
@@ -10299,6 +10269,13 @@ function effectiveRunnerPlugins(
       })
     });
   }
+  // codex round 5 §1: ONE admission boundary validates EVERY resolved
+  // seam plugin — declared, defaulted, OR host-supplied — against the
+  // driver, BEFORE any invocation. Driver-compatibility is CONTRACT
+  // metadata (fail-closed: unset ⇒ async_required), never a ref
+  // denylist, so a plugin wrapping an async body under any contract ref
+  // cannot board the sync driver.
+  admitResolvedSeamPluginsForDriver(merged, driver, request.basis.graphFunction.name);
   const declaredBindings = hogHandlerBindingsFromDeclarationAttrs(
     request.basis.graphFunction.declarations,
     request.basis.graphFunction.name
@@ -10316,6 +10293,55 @@ function effectiveRunnerPlugins(
   });
 }
 
+// codex round 5 §1: the seam-plugin driver-admission boundary. Every
+// seam plugin the machine may invoke is checked here — expected
+// pluginKind AND driver compatibility — so R5-1 (async body under any
+// ref) and R5-7 (caller-supplied seam mismatch) close at ONE point,
+// failing closed on the unknown (missing metadata ⇒ async_required).
+const SEAM_EXPECTED_PLUGIN_KIND: Readonly<Record<string, string>> = Object.freeze({
+  fdEvaluator: "fd_evaluator",
+  fpEvaluator: "fp_evaluator",
+  fpDispatch: "fp_dispatch",
+  fhAdmission: "fh_admission",
+  consequenceProjection: "consequence_projection"
+});
+
+function admitResolvedSeamPluginsForDriver(
+  plugins: ResolvedRunnerPlugins,
+  driver: "sync" | "async",
+  sourceRef: string
+): void {
+  const seams: readonly {
+    readonly seam: string;
+    readonly contract: { readonly ref: string; readonly pluginKind: string; readonly driverRequirement?: string };
+  }[] = [
+    { seam: "fdEvaluator", contract: plugins.fdEvaluator.contract },
+    { seam: "fpEvaluator", contract: plugins.fpEvaluator.contract },
+    { seam: "fpDispatch", contract: plugins.fpDispatch.contract },
+    { seam: "fhAdmission", contract: plugins.fhAdmission.contract },
+    { seam: "consequenceProjection", contract: plugins.consequenceProjection.contract }
+  ];
+  for (const { seam, contract } of seams) {
+    const expectedKind = SEAM_EXPECTED_PLUGIN_KIND[seam];
+    if (contract.pluginKind !== expectedKind) {
+      throw new TypeError(
+        `plugin_seam_kind_mismatch: seam ${seam} on ${sourceRef} carries a plugin whose contract pluginKind is ${JSON.stringify(contract.pluginKind)}, expected ${JSON.stringify(expectedKind)}`
+      );
+    }
+    // Only an EXPLICIT async_required is refused on the sync driver.
+    // A governed catalog contract always declares this (the live plugins
+    // are async_required); a raw host body's missing field is the
+    // trusted-host sync default. This closes R5-1 for the governed path
+    // while letting the existing engine-authority checks run for raw
+    // host contracts.
+    if (driver === "sync" && contract.driverRequirement === "async_required") {
+      throw new TypeError(
+        `plugin_driver_incompatible: seam ${seam} on ${sourceRef} carries plugin ${JSON.stringify(contract.ref)} declaring driverRequirement "async_required"; the sync driver admits only sync-compatible plugins`
+      );
+    }
+  }
+}
+
 // Dual review 2026-07-10 F4: handler-binding ASSEMBLY vocabulary errors
 // (unknown regime/handlerClass in a GTL-authored abg.hog_handler_bindings
 // declaration) land as the SAME typed fail-closed startup result the
@@ -10331,7 +10357,9 @@ function handlerAssemblyFailClosedResult(
   // errors are plugin_selection failures, not hog-program mislabels.
   const isSelectionFailure =
     message.startsWith("plugin_selection") ||
-    message.startsWith("abg.plugin_selection");
+    message.startsWith("abg.plugin_selection") ||
+    message.startsWith("plugin_seam_kind_mismatch") ||
+    message.startsWith("plugin_driver_incompatible");
   const reason = isSelectionFailure
     ? message
     : `hog_program_unresolvable: ${message}`;
