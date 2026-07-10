@@ -52,6 +52,17 @@
 | F21 | **ABG public ingress for tenant runtime transitions + SDK entrypoint reshape** — all six transition classes enter via public API; drop `.genesis` filesystem-territory assumptions from the entrypoint | mining S20 + A2-partial | odd_glc emits ZERO runtime events locally (repin proves it); entrypoint consumable as an embedded dependency |
 | F22 | **Registry lifecycle semantics** — retirement/revocation/supersession + non-graph entry kinds | backlog T-178 + T-179 (a versioned public registry needs both) | Their own ticket acceptances |
 
+## Chain SH/SP additions — the discussed features restored (2026-07-10 correction)
+
+These three were developed in conversation with Jim when the 5.0 direction was
+set and belong in the set explicitly, not implicitly:
+
+| ID | Feature | Source | Closure condition |
+|----|---------|--------|-------------------|
+| F25 | **SCN-ABG-SOFTWARE-BUILD scenario** — the campaign scenario whose SUBJECT is the next ABG version's source, declared in the data-mapper pattern (scenario declarations + worker turns + earned depth). The heaviest single feature 5.0 names: the builder's own tickets/requirements become the campaign's requirement surface | discussed at direction-setting; F2 is its RUN | Scenario declared and admitted over the installed substrate; drives F2; unmodified across attempts per the bugfix-precedence ruling |
+| F26 | **Observer/tuner supervisor seat over ABG's own build** — the consciousness tier built in 4.6 operates the ABG-builds-ABG campaign: observer derives triage drafts from the build's replay, tuner proposes optimisations behind the F_H-xor-policy ratification law, Jim holds the F_H seat | discussed: "it compounds: the tiers we just built become the supervisor seat for ABG's own build" | At least one observer-derived ticket draft and one lawfully-ratified tuner optimisation ride a real F2 run, with zero out-of-framework interventions (the T-217 Phase-5 non-closure conditions applied to the self-build) |
+| F27 | **Citability/frozen-law as the tenant-independent verdict** — the certification suite's OUTPUT format: cross-tenant acceptance battery = the campaign scenarios (data-mapper, hello-worlds, ABG-builds-ABG); a tenant's certification verdict is a citable, frozen-law-predicated replay claim, not a test count | discussed as the fourth-chain extraction detail | Suite (F7) emits citable verdicts; a certification claim names its frozen-law predicate and replay evidence; the TS tenant's own 5.0 certification is the first such verdict |
+
 ## Chain TM — tenant multiplication (5.0 SETS UP, does not build)
 
 | ID | Feature | Source | Closure condition |
