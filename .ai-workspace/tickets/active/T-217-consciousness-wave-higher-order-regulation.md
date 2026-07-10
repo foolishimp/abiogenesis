@@ -1386,6 +1386,17 @@ correspondingly narrowed (host bindings row: successor A5-GF2).
 (3) PHASE 5 SCOPE: observer + tuner in the monitor seat over a live
 proving run; the review family is OUT of Phase 5 per narrowing (1).
 The single non-delegable act remains the human tuner ratification.
+
+F_H RULING (2026-07-10): APPROVED — narrowings (1)-(3) and the closure
+campaign's course, conditional on PRODUCT.md compliance, which was
+verified: declared plugin selection realizes the ratified plugin-bound
+monad and "hook and plugin boundary declarations" law (PRODUCT.md
+:117/:126/:260-280); the odd_glc wrapper is the pre-existing
+non-conformance the adoption removes (:133 forbids plugin wrappers).
+The one live PRODUCT contradiction (gen-start/gen-gaps vs the realized
+operator grammar, :646-698) predates this campaign, is recorded as
+T-218 Current Reality #9, and is owned by A5-P2's reconciliation — not
+touched here.
 ======================================================================
 FUNCTIONALLY COMPLETE (2026-07-10): Phases 0-4 delivered to the
 deterministic gate under the standing directive ("close phase 1,
