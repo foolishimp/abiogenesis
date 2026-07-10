@@ -8,7 +8,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { runTracedProcess } from "../../../shared/traced_process/index.js";
-import type { CCallHandler, CCallHandlerInterior } from "./c_call_handlers.js";
+import {
+  constructCCallHandler,
+  type CCallHandler,
+  type CCallHandlerInterior
+} from "./c_call_handlers.js";
 import {
   admitTimeoutBudgetMs,
   standardFpTransportHandler,
@@ -81,7 +85,9 @@ function tracedProcessExecutionConfigFrom(input: unknown): TracedProcessExecutio
 // STRICT F_D (HANDLERS-009 rider): outcomes are mechanical only —
 // executed / blocked; exit status and archives are EVIDENCE for F_P.
 function tracedProcessExecutionHandler(): CCallHandler {
-  return async (input): Promise<CCallHandlerInterior> => {
+  return constructCCallHandler({
+    driverRequirement: "async_required",
+    execute: async (input): Promise<CCallHandlerInterior> => {
     const config = tracedProcessExecutionConfigFrom(input.declaredConfig);
     const outcome = await runTracedProcess({
       command: config.command,
@@ -115,7 +121,8 @@ function tracedProcessExecutionHandler(): CCallHandler {
       responseContractRef: null,
       failureReason: null
     });
-  };
+    }
+  });
 }
 
 // The standard set is FOUR handlers (HANDLERS-009: F_P agent transport,

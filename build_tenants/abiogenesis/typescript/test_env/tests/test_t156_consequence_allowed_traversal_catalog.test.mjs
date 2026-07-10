@@ -49,6 +49,7 @@ function basisWithAllowedFamilies(familiesByIndex) {
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fd_evaluator",
     authority: "effect_plugin",
@@ -59,6 +60,7 @@ function fdEvaluatorContract(ref) {
 
 function consequenceContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "consequence_projection",
     authority: "effect_plugin",

@@ -125,6 +125,7 @@ function fpEvaluationFinding(input, closeDisposition, attempt) {
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -427,6 +428,7 @@ test("T-159 typed F_P continuation reaches consequence before assurance retry", 
   });
   const consequenceProjection = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/t159-consequence-before-retry",
       pluginKind: "consequence_projection",
       authority: "effect_plugin",

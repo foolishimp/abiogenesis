@@ -27,7 +27,8 @@ const TEST_ENV_ROOT = path.resolve(TESTS_DIR, "..");
 // — CONFORMANCE is call-shaped: the file must CALL an install fixture;
 //   a marker in a comment or string no longer classifies.
 const CONFORMANCE_SELF = "tests/test_t217_live_sandbox_install_conformance.test.mjs";
-const LIVE_GATE_PATTERN = /CODEX_LIVE_FP|ABG_TS_LIVE_AGENT/u;
+const LIVE_GATE_ACCESS_PATTERN =
+  /(?:process\.env(?:\[\s*["'](?:CODEX_LIVE_FP|ABG_TS_LIVE_AGENT)["']\s*\]|\.(?:CODEX_LIVE_FP|ABG_TS_LIVE_AGENT))|\b(?:CODEX_LIVE_FP|ABG_TS_LIVE_AGENT)\s*:)/u;
 const INSTALL_CALL_PATTERN =
   /\b(?:provisionInstalledRoot|installPackedTenantPackage|installAbiogenesisTypescript)\s*\(/u;
 const NON_LANE_DIRS = new Set(["test_runs"]);
@@ -84,7 +85,7 @@ function liveTestFiles() {
       const isLive =
         lane === "live" ||
         legacy.has(file) ||
-        LIVE_GATE_PATTERN.test(contentOf(file));
+        LIVE_GATE_ACCESS_PATTERN.test(contentOf(file));
       if (isLive) {
         files.push(file);
       }

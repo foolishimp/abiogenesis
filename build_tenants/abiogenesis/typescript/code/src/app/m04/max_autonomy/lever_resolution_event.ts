@@ -15,6 +15,7 @@ import {
   resolveRunnerRetryMaxAttempts
 } from "../../../shared/lever_registry/overrides.js";
 import type { PublicCallableStartRequest } from "./carriers.js";
+import { projectLiveCapability } from "../live_capability.js";
 
 export function constructLeverResolutionEvent(
   request: PublicCallableStartRequest,
@@ -26,6 +27,7 @@ export function constructLeverResolutionEvent(
   const retryResolution = resolveRunnerRetryMaxAttempts({
     bundle: context.leverOverridesBundle ?? null
   });
+  const liveCapability = projectLiveCapability(context.liveCapability);
   const correlationBase =
     context.runId ?? context.workKey ?? startIntent.target.handle;
   return Object.freeze({
@@ -51,6 +53,17 @@ export function constructLeverResolutionEvent(
     runnerRetryMaxAttempts: retryResolution.maxAttempts,
     runnerRetryMaxAttemptsLeverKey: RUNNER_RETRY_MAX_ATTEMPTS_KEY,
     runnerRetryMaxAttemptsSource: retryResolution.source,
+    liveCapabilityRef: liveCapability?.capabilityRef ?? null,
+    liveCapabilityDigest: liveCapability?.capabilityDigest ?? null,
+    executionContractDigest: liveCapability?.executionContractDigest ?? null,
+    liveAgentKey: liveCapability?.agentKey ?? null,
+    liveAgentKeySource: liveCapability?.agentKeySource ?? null,
+    liveExecutorProfile: liveCapability?.executorProfile ?? null,
+    liveExecutorProfileSource: liveCapability?.executorProfileSource ?? null,
+    liveTimeoutMs: liveCapability?.timeoutMs ?? null,
+    liveTimeoutMsSource: liveCapability?.timeoutMsSource ?? null,
+    availableLivePluginRefs:
+      liveCapability?.availableLivePluginRefs ?? Object.freeze([]),
     selectedLeverKeys: PUBLIC_START_CONSUMED_LEVER_KEYS,
     causationEventRefs: Object.freeze([]),
     correlationId: `lever-resolution:${correlationBase}`

@@ -194,3 +194,29 @@ test("M04 control unit: gap-stop public-start truth stays explicit as blocked co
   assert.equal(outcome.stopDetail.kind, "gap_stop");
   assert.equal(outcome.stopDetail.terminalKind, "gap_stop");
 });
+
+test("M04 control unit: terminal reason survives the public-start and control projections", () => {
+  const reason = "plugin_selection_unresolvable: missing governed ref";
+  const publicStartOutcome = constructPublicStartOutcome(
+    {
+      id: "basis://m04-control-unit-reason",
+      runId: "run://m04-control-unit-reason",
+      workKey: "wk://m04-control-unit-reason",
+      frameId: null,
+      frameLineageId: null,
+      runtimeIdentity: runtimeIdentity()
+    },
+    { kind: "terminal", terminalKind: "gap_stop", reason },
+    [],
+    "first_traversal"
+  );
+  assert.equal(publicStartOutcome.kind, "blocked");
+  assert.equal(publicStartOutcome.stopDetail.gateReason, reason);
+
+  const outcome = constructPublicControlLoopOutcome(
+    [publicStartOutcome],
+    Object.freeze({ fhMode: "direct", rootMode: "direct" })
+  );
+  assert.equal(outcome.kind, "blocked");
+  assert.equal(outcome.stopDetail.gateReason, reason);
+});

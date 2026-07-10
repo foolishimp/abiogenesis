@@ -6,6 +6,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -35,12 +36,13 @@ function capabilityWith(script, overrides = {}) {
   };
 }
 
-function pluginInput(manifest) {
+function pluginInput(manifest, cCallRef = "c-call://t217/live-fp-pin/default") {
   return {
     basisId: "basis://t217/live-fp-pin",
     vectorIndex: 0,
     sourceProjectionRef: "projection://t217/pin",
-    instructionPromptManifest: manifest
+    instructionPromptManifest: manifest,
+    cCallRef
   };
 }
 
@@ -93,7 +95,7 @@ test("live fp dispatch: worker JSON object dispatches with the parsed artifact a
   );
   const outcome = await plugin.dispatch(pluginInput(MANIFEST));
   assert.equal(outcome.status, "dispatched");
-  assert.match(outcome.resultRef, /^result:live_fp_dispatch:pin-dispatch-v0-a0-s1-[0-9a-f]{64}$/u);
+  assert.match(outcome.resultRef, /^result:live_fp_dispatch:live-fp-dispatch-[0-9a-f]{64}$/u);
   assert.equal(outcome.attachedResultArtifact.ok, true);
   assert.equal(outcome.attachedResultArtifact.stage, "pin");
 });
@@ -112,7 +114,11 @@ const { standardLiveFpEvaluatorPlugin, LIVE_FP_EVALUATOR_PLUGIN_REF } = await im
   "../../build/semantic/code/src/abg/m03/index.js"
 );
 
-function evaluatorInput(manifest, expected = []) {
+function evaluatorInput(
+  manifest,
+  expected = [],
+  cCallRef = "c-call://t217/live-eval-pin/default"
+) {
   return {
     basisId: "basis://t217/live-eval-pin",
     vectorIndex: 1,
@@ -121,7 +127,8 @@ function evaluatorInput(manifest, expected = []) {
     expectedAssessmentIds: expected,
     selectedCompositionRef: "composition://t217/pin",
     selectedCompositionDigest: "digest://t217/pin",
-    selectedRegimeBindingRef: null
+    selectedRegimeBindingRef: null,
+    cCallRef
   };
 }
 
@@ -189,18 +196,18 @@ test("F2: distinct invocations never collide — attempt and invocation id key t
   const plugin = standardLiveFpDispatchPlugin(cap);
   const { readdirSync } = await import("node:fs");
   const inputA = {
-    ...pluginInput(MANIFEST),
+    ...pluginInput(MANIFEST, "c-call://t217/f2/a"),
     actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 0, dispatchRef: "d://a", resultRef: null }
   };
   const inputB = {
-    ...pluginInput(MANIFEST),
+    ...pluginInput(MANIFEST, "c-call://t217/f2/b"),
     actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 1, dispatchRef: "d://b", resultRef: null }
   };
   const outcomeA = await plugin.dispatch(inputA);
   const outcomeB = await plugin.dispatch(inputB);
   assert.notEqual(outcomeA.resultRef, outcomeB.resultRef, "result refs must not alias");
-  const manifests = readdirSync(cap.archiveRoot).filter((f) => f.endsWith("-instruction-manifest.json"));
-  assert.equal(manifests.length, 2, "each attempt keeps its own archive");
+  const bundles = readdirSync(path.join(cap.archiveRoot, "by-c-call"));
+  assert.equal(bundles.length, 2, "each canonical c-call keeps its own archive");
 });
 
 test("F4: accepted-with-retry is NOT close-eligible — one decision drives every field", async () => {
@@ -303,55 +310,270 @@ test("F3: CLI capability admission is strict — no hints, no suffixes, no silen
 
 // ═══ codex round 4 pins ═══
 
-test("R4-5: null-actor same-basis/vector calls never collide (monotonic seq + full hash)", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+test("R5-3: identical c-call verifies and reuses its completed bundle without rerunning", async () => {
+  const cap = capabilityWith(
+    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+  );
   const plugin = standardLiveFpDispatchPlugin(cap);
-  const { readdirSync } = await import("node:fs");
-  // identical input twice, NO actorInvocationRef, NO cCallRef
+  const { readFileSync, readdirSync } = await import("node:fs");
   const bare = pluginInput(MANIFEST);
   const a = await plugin.dispatch(bare);
   const b = await plugin.dispatch(bare);
-  assert.notEqual(a.resultRef, b.resultRef, "result refs must differ");
-  const manifests = readdirSync(cap.archiveRoot).filter((f) => f.endsWith("-instruction-manifest.json"));
-  assert.equal(manifests.length, 2, "each call keeps its own archive");
-  const sidecars = readdirSync(cap.archiveRoot).filter((f) => f.endsWith("-identity.json"));
-  assert.equal(sidecars.length, 2, "each call writes an identity sidecar");
-  // full-length sha256 in the label
+  assert.deepEqual(b, a, "the admitted outcome is reused byte-for-byte");
+  const bundles = readdirSync(path.join(cap.archiveRoot, "by-c-call"));
+  assert.equal(bundles.length, 1, "one c-call owns exactly one bundle");
+  assert.equal(readFileSync(path.join(cap.cwd, "worker-count"), "utf8"), "x");
   assert.match(a.resultRef, /[0-9a-f]{64}$/u, "full-length hash, no truncation");
 });
 
-test("R4-5: cCallRef keys the archive when present (HANDLERS-007)", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+test("R5-3: completion refuses an unknown sibling without rerunning", async () => {
+  const cap = capabilityWith(
+    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+  );
   const plugin = standardLiveFpDispatchPlugin(cap);
-  const { readFileSync, readdirSync } = await import("node:fs");
-  const pathMod = await import("node:path");
-  const withCall = { ...pluginInput(MANIFEST), cCallRef: "c-call://t217/pin-7" };
-  await plugin.dispatch(withCall);
-  const sidecar = readdirSync(cap.archiveRoot).find((f) => f.endsWith("-identity.json"));
-  const identity = JSON.parse(readFileSync(pathMod.join(cap.archiveRoot, sidecar), "utf8"));
-  assert.equal(identity.cCallRef, "c-call://t217/pin-7");
+  const cCallRef = "c-call://t217/completion-unknown-sibling";
+  await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+  const bundleId = createHash("sha256").update(cCallRef).digest("hex");
+  const completionPath = path.join(
+    cap.archiveRoot,
+    "by-c-call",
+    bundleId,
+    "completion.json"
+  );
+  const { readFileSync, writeFileSync } = await import("node:fs");
+  const completion = JSON.parse(readFileSync(completionPath, "utf8"));
+  writeFileSync(
+    completionPath,
+    `${JSON.stringify({ ...completion, unknownSibling: "retained-original-digest" }, null, 2)}\n`,
+    "utf8"
+  );
+
+  const refused = await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+
+  assert.equal(refused.status, "blocked");
+  assert.match(refused.reason, /archive_tampered/u);
+  assert.equal(readFileSync(path.join(cap.cwd, "worker-count"), "utf8"), "x");
 });
 
-test("R4-7: exclusive-create write refuses a pre-existing (symlink-plantable) path", async () => {
+test("R5-3: a structural caller cannot forge engine resume authority", async () => {
+  const cap = capabilityWith(
+    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+  );
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const bare = pluginInput(MANIFEST, "c-call://t217/resume-request");
+  const changed = {
+    ...bare,
+    instructionPromptManifest: {
+      ...MANIFEST,
+      manifestRef: "manifest://t217/regenerated",
+      renderedPrompt: "regenerated after replay growth"
+    }
+  };
+  const first = await plugin.dispatch(bare);
+  const ordinaryDuplicate = await plugin.dispatch(changed);
+  const forgedResume = await plugin.dispatch({ ...changed, cCallResume: true });
+  const { readFileSync } = await import("node:fs");
+  assert.equal(ordinaryDuplicate.status, "blocked");
+  assert.match(ordinaryDuplicate.reason, /archive_identity_conflict/u);
+  assert.equal(forgedResume.status, "blocked");
+  assert.match(forgedResume.reason, /archive_identity_conflict/u);
+  assert.notDeepEqual(forgedResume, first);
+  assert.equal(readFileSync(path.join(cap.cwd, "worker-count"), "utf8"), "x");
+});
+
+test("R5-3: same c-call with changed effect truth blocks without running a second worker", async () => {
+  const first = capabilityWith(
+    "require('fs').writeFileSync('first-ran','x');console.log(JSON.stringify({ ok: true }))"
+  );
+  const second = capabilityWith(
+    "require('fs').writeFileSync('second-ran','x');console.log(JSON.stringify({ ok: false }))",
+    { archiveRoot: first.archiveRoot, cwd: first.cwd }
+  );
+  const cCallRef = "c-call://t217/identity-conflict";
+  const firstOutcome = await standardLiveFpDispatchPlugin(first).dispatch(
+    pluginInput(MANIFEST, cCallRef)
+  );
+  const secondOutcome = await standardLiveFpDispatchPlugin(second).dispatch(
+    pluginInput(MANIFEST, cCallRef)
+  );
+  const { existsSync } = await import("node:fs");
+  assert.equal(firstOutcome.status, "dispatched");
+  assert.equal(secondOutcome.status, "blocked");
+  assert.match(secondOutcome.reason, /archive_identity_conflict/u);
+  assert.equal(existsSync(path.join(first.cwd, "second-ran")), false);
+});
+
+test("R5-3: incomplete and tampered bundles block without repeating external work", async () => {
+  const cap = capabilityWith(
+    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+  );
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const cCallRef = "c-call://t217/incomplete";
+  await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+  const bundleId = createHash("sha256").update(cCallRef).digest("hex");
+  const bundleRoot = path.join(cap.archiveRoot, "by-c-call", bundleId);
+  const { readFileSync, rmSync } = await import("node:fs");
+  rmSync(path.join(bundleRoot, "completion.json"));
+  const incomplete = await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+  assert.equal(incomplete.status, "blocked");
+  assert.match(incomplete.reason, /archive_incomplete/u);
+  assert.equal(
+    incomplete.evidenceRefs.some((ref) => ref.endsWith("/output.txt")),
+    true,
+    "an incomplete bundle still reports its actual worker output"
+  );
+  assert.equal(
+    incomplete.evidenceRefs.some((ref) => ref.endsWith("/trace/result.json")),
+    true,
+    "an incomplete bundle still reports its actual trace result"
+  );
+  assert.equal(readFileSync(path.join(cap.cwd, "worker-count"), "utf8"), "x");
+
+  for (const name of (await import("node:fs")).readdirSync(bundleRoot)) {
+    if (["request.json", "instruction-manifest.json", "launch.json"].includes(name)) {
+      continue;
+    }
+    rmSync(path.join(bundleRoot, name), { recursive: true, force: true });
+  }
+  const launchOnly = await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+  assert.equal(launchOnly.status, "blocked");
+  assert.equal(
+    launchOnly.evidenceRefs.some((ref) => ref.startsWith("agent-launch:")),
+    true,
+    "a launched/no-output attempt remains citable without inventing output evidence"
+  );
+  assert.equal(
+    launchOnly.evidenceRefs.some(
+      (ref) => ref.startsWith("agent-output:") || ref.startsWith("agent-trace:")
+    ),
+    false
+  );
+
+  const cap2 = capabilityWith(
+    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+  );
+  const plugin2 = standardLiveFpDispatchPlugin(cap2);
+  const tamperRef = "c-call://t217/tamper";
+  await plugin2.dispatch(pluginInput(MANIFEST, tamperRef));
+  const tamperId = createHash("sha256").update(tamperRef).digest("hex");
+  const tamperRoot = path.join(cap2.archiveRoot, "by-c-call", tamperId);
+  const { writeFileSync } = await import("node:fs");
+  writeFileSync(path.join(tamperRoot, "output.txt"), "tampered", "utf8");
+  const tampered = await plugin2.dispatch(pluginInput(MANIFEST, tamperRef));
+  assert.equal(tampered.status, "blocked");
+  assert.match(tampered.reason, /archive_tampered/u);
+  assert.equal(readFileSync(path.join(cap2.cwd, "worker-count"), "utf8"), "x");
+});
+
+test("R5-2: null c-call refuses before archive or worker effects", async () => {
+  const cap = capabilityWith(
+    "require('fs').writeFileSync('worker-ran','x');console.log(JSON.stringify({ ok: true }))"
+  );
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const outcome = await plugin.dispatch(pluginInput(MANIFEST, null));
+  const { existsSync } = await import("node:fs");
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /canonical cCallRef/u);
+  assert.equal(existsSync(cap.archiveRoot), false);
+  assert.equal(existsSync(path.join(cap.cwd, "worker-ran")), false);
+});
+
+test("R5-4: post-launch archive exception is contract_failure with existing evidence only", async () => {
+  const cap = capabilityWith("process.exit(0)");
+  cap.agentContract = fakeAgentContract(
+    "require('fs').mkdirSync(process.argv[1]);console.log(JSON.stringify({ ok: true }))"
+  );
+  cap.agentContract = Object.freeze({
+    ...cap.agentContract,
+    argsTemplate: Object.freeze([
+      "-e",
+      "require('fs').mkdirSync(process.argv[1]);console.log(JSON.stringify({ ok: true }))",
+      "{output_path}"
+    ])
+  });
+  const outcome = await standardLiveFpDispatchPlugin(cap).dispatch(
+    pluginInput(MANIFEST, "c-call://t217/post-launch")
+  );
+  const { statSync } = await import("node:fs");
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /after launch/u);
+  assert.match(outcome.reason, /contract_failure/u);
+  assert.doesNotMatch(outcome.reason, /transport_failure/u);
+  const archivedEvidence = outcome.evidenceRefs.filter((ref) => ref.startsWith("agent-"));
+  assert.notEqual(archivedEvidence.length, 0);
+  for (const ref of archivedEvidence) {
+    const filePath = ref.slice(ref.indexOf(":") + 1);
+    assert.equal(statSync(filePath).isFile(), true, `evidence must exist: ${filePath}`);
+  }
+  assert.equal(
+    archivedEvidence.some((ref) => ref.endsWith("/trace/result.json")),
+    true,
+    "trace evidence names the transport's actual result path"
+  );
+});
+
+test("R5-5: worker-created output symlink is rejected before archive read or write", async () => {
+  const cap = capabilityWith("process.exit(0)");
+  const outsidePath = path.join(cap.cwd, "outside.txt");
+  const workerScript = [
+    "const fs=require('fs')",
+    `fs.writeFileSync(${JSON.stringify(outsidePath)},'outside')`,
+    `fs.symlinkSync(${JSON.stringify(outsidePath)},process.argv[1])`,
+    "console.log(JSON.stringify({ok:true}))"
+  ].join(";");
+  cap.agentContract = Object.freeze({
+    ...fakeAgentContract(workerScript),
+    argsTemplate: Object.freeze(["-e", workerScript, "{output_path}"])
+  });
+  const outcome = await standardLiveFpDispatchPlugin(cap).dispatch(
+    pluginInput(MANIFEST, "c-call://t217/output-symlink")
+  );
+  const { readFileSync } = await import("node:fs");
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /symbolic-link component/u);
+  assert.match(outcome.reason, /contract_failure/u);
+  assert.equal(readFileSync(outsidePath, "utf8"), "outside");
+  assert.equal(
+    outcome.evidenceRefs.some((ref) => ref.startsWith("agent-output:")),
+    false,
+    "a symlink is never promoted as output evidence"
+  );
+});
+
+test("R5-2/R5-3: cCallRef alone keys the bundle and request identity", async () => {
   const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
   const plugin = standardLiveFpDispatchPlugin(cap);
-  const { mkdirSync, writeFileSync, readdirSync } = await import("node:fs");
+  const { readFileSync } = await import("node:fs");
   const pathMod = await import("node:path");
-  mkdirSync(cap.archiveRoot, { recursive: true });
-  // pre-plant the identity target the next call will try to write
-  const bare = { ...pluginInput(MANIFEST), cCallRef: "c-call://collide" };
-  // run once to learn the label shape, then pre-create a colliding file
-  await plugin.dispatch(bare);
-  // a second identical-cCallRef call has a different seq, so it won't
-  // collide; instead assert the write MODE by pre-creating any manifest:
-  const planted = pathMod.join(cap.archiveRoot, "planted-instruction-manifest.json");
-  writeFileSync(planted, "x", "utf8");
-  // the guarantee we pin: writes use exclusive create — verified by the
-  // helper's flag; a direct re-write of an existing path throws EEXIST.
-  assert.throws(
-    () => writeFileSync(planted, "y", { encoding: "utf8", flag: "wx" }),
-    /EEXIST/u
+  const cCallRef = "c-call://t217/pin-7";
+  const withCall = pluginInput(MANIFEST, cCallRef);
+  await plugin.dispatch(withCall);
+  const bundleId = createHash("sha256").update(cCallRef).digest("hex");
+  const request = JSON.parse(
+    readFileSync(
+      pathMod.join(cap.archiveRoot, "by-c-call", bundleId, "request.json"),
+      "utf8"
+    )
   );
+  assert.equal(request.cCallRef, cCallRef);
+});
+
+test("R5-5: a pre-planted per-call symlink blocks before worker execution", async () => {
+  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const plugin = standardLiveFpDispatchPlugin(cap);
+  const { existsSync, mkdirSync, symlinkSync } = await import("node:fs");
+  const pathMod = await import("node:path");
+  const cCallRef = "c-call://t217/symlink-plant";
+  const bundleId = createHash("sha256").update(cCallRef).digest("hex");
+  const callsRoot = pathMod.join(cap.archiveRoot, "by-c-call");
+  const outside = pathMod.join(pathMod.dirname(cap.archiveRoot), "outside");
+  mkdirSync(callsRoot, { recursive: true });
+  mkdirSync(outside, { recursive: true });
+  symlinkSync(outside, pathMod.join(callsRoot, bundleId), "dir");
+  const outcome = await plugin.dispatch(pluginInput(MANIFEST, cCallRef));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /archive_unconfined|symbolic/u);
+  assert.equal(existsSync(pathMod.join(outside, "request.json")), false);
 });
 
 const { admitLiveTimeoutMs: admitTimeout } = await import(

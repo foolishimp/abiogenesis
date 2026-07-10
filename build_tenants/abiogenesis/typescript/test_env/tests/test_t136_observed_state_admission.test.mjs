@@ -148,6 +148,7 @@ test("T-136 engine runner exposes admitted observed state without refresh pollin
   const observedInputs = [];
   const fdEvaluator = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/t136/fd-evaluator",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",

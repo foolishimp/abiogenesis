@@ -5,7 +5,11 @@
 // module (-004): commands, paths, and env are scenario/product
 // declarations flowing through handlerConfig.
 
-import type { CCallHandler, CCallHandlerInterior } from "./c_call_handlers.js";
+import {
+  constructCCallHandler,
+  type CCallHandler,
+  type CCallHandlerInterior
+} from "./c_call_handlers.js";
 import { isPlainRecord } from "../contracts/admission_hygiene.js";
 
 export interface ProcessExecutionIo {
@@ -100,36 +104,41 @@ function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
 // bug class. Evidence honesty (-003): status and error land verbatim — a spawn error is typed
 // truth, never a silent null (campaign bug #11/#12 class).
 export function standardProcessExecutionHandler(io: ProcessExecutionIo): CCallHandler {
-  return (input): CCallHandlerInterior => {
-    const config = processExecutionConfigFrom(input.declaredConfig);
-    const outcome = io.runProcess({
-      command: config.command,
-      args: config.args,
-      env: config.env,
-      cwd: config.cwd,
-      timeoutMs: config.timeoutMs
-    });
-    const evidenceRefs = Object.freeze([
-      `exec-status:${outcome.status === null ? "null" : String(outcome.status)}`,
-      ...(outcome.error === null ? [] : [`exec-error:${outcome.error.slice(0, 120)}`])
-    ]);
-    if (outcome.error !== null || outcome.status === null) {
+  return constructCCallHandler({
+    driverRequirement: "sync_compatible",
+    execute: (input): CCallHandlerInterior => {
+      const config = processExecutionConfigFrom(input.declaredConfig);
+      const outcome = io.runProcess({
+        command: config.command,
+        args: config.args,
+        env: config.env,
+        cwd: config.cwd,
+        timeoutMs: config.timeoutMs
+      });
+      const evidenceRefs = Object.freeze([
+        `exec-status:${outcome.status === null ? "null" : String(outcome.status)}`,
+        ...(outcome.error === null
+          ? []
+          : [`exec-error:${outcome.error.slice(0, 120)}`])
+      ]);
+      if (outcome.error !== null || outcome.status === null) {
+        return Object.freeze({
+          outcomeStatus: "blocked",
+          evidenceRefs,
+          payloadRef: null,
+          responseContractRef: null,
+          failureReason: `process_failed: ${outcome.error ?? "status null"} (contract_failure)`
+        });
+      }
       return Object.freeze({
-        outcomeStatus: "blocked",
+        outcomeStatus: "executed",
         evidenceRefs,
         payloadRef: null,
         responseContractRef: null,
-        failureReason: `process_failed: ${outcome.error ?? "status null"} (contract_failure)`
+        failureReason: null
       });
     }
-    return Object.freeze({
-      outcomeStatus: "executed",
-      evidenceRefs,
-      payloadRef: null,
-      responseContractRef: null,
-      failureReason: null
-    });
-  };
+  });
 }
 
 export interface MaterializationIo {
@@ -175,32 +184,39 @@ function materializationConfigFrom(input: unknown): MaterializationConfig {
 // INSIDE the declared writeRoot — traversal escapes are typed failures,
 // not effects (M03 output-allocation write-root law at the handler).
 export function standardMaterializationHandler(io: MaterializationIo): CCallHandler {
-  return (input): CCallHandlerInterior => {
-    const config = materializationConfigFrom(input.declaredConfig);
-    const root = config.writeRoot.endsWith("/") ? config.writeRoot : `${config.writeRoot}/`;
-    for (const file of config.files) {
-      const resolved = `${root}${file.path}`;
-      if (file.path.includes("..") || file.path.startsWith("/")) {
-        return Object.freeze({
-          outcomeStatus: "blocked",
-          evidenceRefs: Object.freeze([`write-escape:${file.path.slice(0, 120)}`]),
-          payloadRef: null,
-          responseContractRef: null,
-          failureReason: "write_root_escape (contract_failure)"
-        });
+  return constructCCallHandler({
+    driverRequirement: "sync_compatible",
+    execute: (input): CCallHandlerInterior => {
+      const config = materializationConfigFrom(input.declaredConfig);
+      const root = config.writeRoot.endsWith("/")
+        ? config.writeRoot
+        : `${config.writeRoot}/`;
+      for (const file of config.files) {
+        const resolved = `${root}${file.path}`;
+        if (file.path.includes("..") || file.path.startsWith("/")) {
+          return Object.freeze({
+            outcomeStatus: "blocked",
+            evidenceRefs: Object.freeze([
+              `write-escape:${file.path.slice(0, 120)}`
+            ]),
+            payloadRef: null,
+            responseContractRef: null,
+            failureReason: "write_root_escape (contract_failure)"
+          });
+        }
+        io.writeFile(resolved, file.content);
       }
-      io.writeFile(resolved, file.content);
+      return Object.freeze({
+        outcomeStatus: "executed",
+        evidenceRefs: Object.freeze(
+          config.files.map((file) => `materialized:${file.path}`)
+        ),
+        payloadRef: null,
+        responseContractRef: null,
+        failureReason: null
+      });
     }
-    return Object.freeze({
-      outcomeStatus: "executed",
-      evidenceRefs: Object.freeze(
-        config.files.map((file) => `materialized:${file.path}`)
-      ),
-      payloadRef: null,
-      responseContractRef: null,
-      failureReason: null
-    });
-  };
+  });
 }
 
 export const STANDARD_HANDLER_REFS = Object.freeze({
@@ -217,23 +233,26 @@ export const STANDARD_HANDLER_REFS = Object.freeze({
 // pending F_H (approval consumption is replay re-entry, like the baked
 // fh_admission arm).
 export function standardFhGateHandler(): CCallHandler {
-  return (input): CCallHandlerInterior => {
-    const declared = input.declaredConfig;
-    const approvalSubjectRef =
-      isPlainRecord(declared) &&
-      typeof declared["approvalSubjectRef"] === "string"
-        ? declared["approvalSubjectRef"]
-        : "undeclared";
-    return Object.freeze({
-      outcomeStatus: "escalated",
-      evidenceRefs: Object.freeze([
-        `approval-subject:${approvalSubjectRef}`
-      ]),
-      payloadRef: null,
-      responseContractRef: null,
-      failureReason: null
-    });
-  };
+  return constructCCallHandler({
+    driverRequirement: "sync_compatible",
+    execute: (input): CCallHandlerInterior => {
+      const declared = input.declaredConfig;
+      const approvalSubjectRef =
+        isPlainRecord(declared) &&
+        typeof declared["approvalSubjectRef"] === "string"
+          ? declared["approvalSubjectRef"]
+          : "undeclared";
+      return Object.freeze({
+        outcomeStatus: "escalated",
+        evidenceRefs: Object.freeze([
+          `approval-subject:${approvalSubjectRef}`
+        ]),
+        payloadRef: null,
+        responseContractRef: null,
+        failureReason: null
+      });
+    }
+  });
 }
 
 // ── F_P agent transport (-009): the probabilistic fibre at an extra
@@ -301,7 +320,9 @@ function fpTransportConfigFrom(input: unknown): FpTransportConfig {
 }
 
 export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
-  return (input): CCallHandlerInterior => {
+  return constructCCallHandler({
+    driverRequirement: "sync_compatible",
+    execute: (input): CCallHandlerInterior => {
     const config = fpTransportConfigFrom(input.declaredConfig);
     const prompt =
       config.includeWorkProjection && input.workProjection !== null
@@ -381,5 +402,6 @@ export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
       responseContractRef: "response-contract://abg/fp/disposition-json",
       failureReason: `unlawful_disposition: ${String(disposition).slice(0, 40)} (contract_failure)`
     });
-  };
+    }
+  });
 }

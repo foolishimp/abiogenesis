@@ -42,6 +42,7 @@ function buildConsequenceCatalogBasis(options = {}) {
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fd_evaluator",
     authority: "effect_plugin",
@@ -141,6 +142,7 @@ test("T-152 engine consumes consequence traversal action through construction re
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t152/consequence-bridge/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -238,6 +240,7 @@ test("T-152 async engine consumes consequence re-entry into async F_P dispatch",
       }),
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t152/async-reentry/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -256,6 +259,7 @@ test("T-152 async engine consumes consequence re-entry into async F_P dispatch",
       }),
       fpEvaluator: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t152/async-reentry/fp-evaluator",
           pluginKind: "fp_evaluator",
           authority: "effect_plugin",
@@ -288,6 +292,7 @@ test("T-152 async engine consumes consequence re-entry into async F_P dispatch",
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t152/async-reentry/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -366,6 +371,7 @@ test("T-159 blocked consequence projection does not close the vector", () => {
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t159/blocked-no-close/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -423,6 +429,7 @@ test("T-159 consequence bind admits plugin proposal only through ABG replay-visi
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t159/consequence-bind/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -549,6 +556,7 @@ test("T-159 consequence bind accepts graph function name aliases at replay bound
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t159/consequence-bind/name/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -622,6 +630,7 @@ test("T-159 consequence bind rejects engine-authority plugin proposal before rep
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t159/consequence-bind/reject/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -706,6 +715,7 @@ test("T-152 engine blocks out-of-range consequence re-entry targets without thro
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t152/consequence-bridge/consequence/oob",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",
@@ -760,6 +770,7 @@ test("T-205 B5-prep: the spine tells the re-entry story — re-entered vectors c
       }),
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/reentry-spine/consequence",
           pluginKind: "consequence_projection",
           authority: "effect_plugin",

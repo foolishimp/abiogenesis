@@ -449,6 +449,7 @@ function liveSandboxSource(agentKey, executorProfile) {
     const pluginInputs = [];
     const fpDispatch = Object.freeze({
       contract: constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t087/live-supervised-actor",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",
@@ -494,6 +495,7 @@ function liveSandboxSource(agentKey, executorProfile) {
 
         const fpEvaluator = Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t087/live-fp-evaluator",
             pluginKind: "fp_evaluator",
             authority: "effect_plugin",

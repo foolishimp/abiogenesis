@@ -44,6 +44,7 @@ test("T-072 negative: runner rejects an F_D plugin that attempts to select trave
   });
   const fdEvaluator = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/malicious-fd-evaluator",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",
@@ -73,9 +74,11 @@ test("T-072 negative: runner admits plugin contracts before invocation", () => {
     defaultRegime: "F_D",
     dispatchRef: null
   });
+  let invoked = 0;
   const fdEvaluator = Object.freeze({
     contract: {
       kind: "engine_plugin_contract",
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/malicious-contract",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",
@@ -83,21 +86,25 @@ test("T-072 negative: runner admits plugin contracts before invocation", () => {
       outputCarrier: "FdEvaluationOutcome",
       maySelectNextVector: true
     },
-    evaluate: () => ({
-      kind: "fd_evaluation",
-      status: "accepted"
-    })
+    evaluate: () => {
+      invoked += 1;
+      return {
+        kind: "fd_evaluation",
+        status: "accepted"
+      };
+    }
   });
 
-  assert.throws(
-    () =>
-      runEngineIterate({
-        basis,
-        eventSink: () => {},
-        plugins: { fdEvaluator }
-      }),
-    /engine authority/i
-  );
+  const result = runEngineIterate({
+    basis,
+    eventSink: () => {},
+    plugins: { fdEvaluator }
+  });
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /plugin_admission_failed/u);
+  assert.match(result.transition.reason, /engine authority/u);
+  assert.equal(invoked, 0);
 });
 
 test("T-072 negative: every plugin contract rejects explicit authority flags", () => {
@@ -106,6 +113,7 @@ test("T-072 negative: every plugin contract rejects explicit authority flags", (
       () =>
         admitEnginePluginContract({
           kind: "engine_plugin_contract",
+          driverRequirement: "sync_compatible",
           ref: `plugin://test/${pluginKind}`,
           pluginKind,
           authority: "effect_plugin",

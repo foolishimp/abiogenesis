@@ -38,6 +38,7 @@ function stagePurpose(stageRole) {
 
 function stageContract(stageRole, computeMeans, ref, outputCarrier = "ComposedStageTaskOutcome") {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "hook_ref",
     authority: "effect_plugin",
@@ -51,6 +52,7 @@ function stageContract(stageRole, computeMeans, ref, outputCarrier = "ComposedSt
 
 function pluginContract(pluginKind, ref, outputCarrier) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind,
     authority: "effect_plugin",

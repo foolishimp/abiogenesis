@@ -826,6 +826,7 @@ async function runParallelFrontierProof(input) {
 
 function fpDispatchContract(ref) {
   return publicRoot.constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -836,6 +837,7 @@ function fpDispatchContract(ref) {
 
 function fpEvaluatorContract(ref) {
   return publicRoot.constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_evaluator",
     authority: "effect_plugin",

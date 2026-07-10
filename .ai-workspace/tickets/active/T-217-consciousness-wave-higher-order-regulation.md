@@ -1504,9 +1504,9 @@ preflight → unmodified live campaign → close S2.3 on -012 + T-213 +
 SECOND consecutive false "repaired in full" ledger entry — a recurring
 discipline failure now corrected in place (the round-4 entry above is
 relabeled). The round-4 fixes were SYMPTOM PATCHES where the findings
-demanded ARCHITECTURE. EIGHT findings open (R5-1..R5-8; the "six" count was itself wrong); root-cause repairs
-required (no "repaired in full" claim will be written again until codex
-confirms — status stays "repaired, pending re-review"):
+demanded ARCHITECTURE. EIGHT findings were registered (R5-1..R5-8; the
+"six" count was itself wrong); root-cause repairs were required. Their
+closure evidence is recorded below; reviewer approval is not a ticket gate.
 (R5-1 CRITICAL, was R4-1) async-only is an EXTERNAL REF DENYLIST — any
 plugin wrapping the async body under another contract ref bypasses it
 and launches workers after the sync call. FIX: async-ness is CONTRACT
@@ -1540,6 +1540,43 @@ validation — a caller fpDispatch carrying an fd_evaluator contract ran
 (R5-8 MEDIUM) provenance returns early BEFORE validation — timeout/
 profile flags silently ignored with no agent source ('0'/'bogus'
 returned null); no parse-level regression pin. FIX: validate first.
+
+R5 OBJECTIVE REPAIR GATE CLOSED (2026-07-11). Sections 1-5 and all
+eight registered findings are realized and witnessed: (1) mandatory
+driverRequirement metadata plus one admission boundary validates every
+scalar and composed plugin before invocation; the sync driver cannot
+start async-required work. Handler implementations carry the same
+driver contract. (2) The canonical CCALL-004 identity is bound only
+after the engine opens the real transform/evaluate spine. Resume
+authority is engine-minted object identity held outside the public
+EnginePluginInput carrier; a structural caller cannot forge it. A
+durable opened-only prefix validates the admitted open and emits only
+the missing selected-fibre suffix. (3) One by-c-call/<sha256(cCallRef)>
+bundle owns request, artifacts, and completion; completed repeats
+verify/reuse, incomplete or tampered repeats fail closed without
+restarting external work, and replay-grown prompt drift reuses only the
+original admitted request under engine resume authority. (4) The
+confined writer covers every bundle artifact, cites only existing
+launch/output/trace evidence, classifies post-launch archive failure as
+contract_failure, and admits request/completion JSON with closed key
+sets and full digests. (5) The deep-snapshotted executable capability
+and its execution-contract digest enter lever_resolution_admitted
+before engine entry; actual public startFromRequest* bypass exports are
+removed, and live flags validate before the no-agent decision.
+
+The final bounded re-review found four residual defects before this gate
+(forgeable resume boolean, the differently named public capability
+bypass, open completion objects, and opened-only crash recovery); all
+four have direct negative/positive pins. Objective evidence on the
+merged tree: semantic build green; semantic lint 0; semantic suite
+1393/1393; diff-execution witness base=HEAD witnessed=2286,
+non-executable=431, violations=0. The broader test-harness lint still
+reports ten pre-existing unused-symbol rows already present at HEAD; no
+new R5 test lint violation remains. This closes the finite R5 repair
+gate only. S2.3 remains open on vector dispatch-intent routing,
+pack/install, odd_glc declarations-only demotion, deterministic
+preflight, the unmodified live campaign, -012, T-213, 11.5B, and archive
+reconciliation.
 
 NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
 deterministic-vs-live PER VECTOR — the lawful mapping is vector-level

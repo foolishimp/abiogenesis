@@ -1,10 +1,12 @@
 import {
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
+  realpathSync,
   writeFileSync
 } from "node:fs";
-import { join } from "node:path";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 
 import type { AgentTransportContract } from "./carriers.js";
 import {
@@ -139,8 +141,95 @@ function writeJson(filePath: string, value: unknown): void {
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
+function pathIsWithin(root: string, candidate: string): boolean {
+  const rel = relative(root, candidate);
+  return rel === "" || (!rel.startsWith(`..${sep}`) && rel !== ".." && !isAbsolute(rel));
+}
+
+function errorCode(error: unknown): unknown {
+  return typeof error === "object" && error !== null && "code" in error
+    ? Reflect.get(error, "code")
+    : null;
+}
+
+function assertNoExistingSymlink(root: string, candidate: string, label: string): void {
+  const rel = relative(root, candidate);
+  let current = root;
+  for (const component of rel === "" ? [] : rel.split(sep)) {
+    current = join(current, component);
+    try {
+      if (lstatSync(current).isSymbolicLink()) {
+        throw new TypeError(`${label} contains a symbolic-link component`);
+      }
+    } catch (error) {
+      const code = errorCode(error);
+      if (code === "ENOENT") {
+        return;
+      }
+      throw error;
+    }
+  }
+}
+
+function admitArchivePath(
+  lexicalRoot: string,
+  admittedRoot: string,
+  candidate: string,
+  label: string
+): string {
+  const absoluteCandidate = resolve(candidate);
+  const relativeCandidate = relative(lexicalRoot, absoluteCandidate);
+  if (
+    relativeCandidate === ".." ||
+    relativeCandidate.startsWith(`..${sep}`) ||
+    isAbsolute(relativeCandidate)
+  ) {
+    throw new TypeError(`${label} must remain beneath archiveRoot`);
+  }
+  const admittedCandidate = resolve(admittedRoot, relativeCandidate);
+  assertNoExistingSymlink(admittedRoot, admittedCandidate, label);
+  return admittedCandidate;
+}
+
+function admitAgentTransportArchivePaths(
+  input: AgentTransportRequest
+): AgentTransportRequest {
+  mkdirSync(input.archiveRoot, { recursive: true });
+  const lexicalRoot = resolve(input.archiveRoot);
+  const admittedRoot = realpathSync(input.archiveRoot);
+  const admitted = (path: string, label: string): string =>
+    admitArchivePath(lexicalRoot, admittedRoot, path, label);
+  return Object.freeze({
+    ...input,
+    archiveRoot: admittedRoot,
+    ...(input.outputPath === undefined
+      ? {}
+      : { outputPath: admitted(input.outputPath, "outputPath") }),
+    ...(input.promptPath === undefined
+      ? {}
+      : { promptPath: admitted(input.promptPath, "promptPath") }),
+    ...(input.stdoutPath === undefined
+      ? {}
+      : { stdoutPath: admitted(input.stdoutPath, "stdoutPath") }),
+    ...(input.stderrPath === undefined
+      ? {}
+      : { stderrPath: admitted(input.stderrPath, "stderrPath") }),
+    ...(input.transportPath === undefined
+      ? {}
+      : { transportPath: admitted(input.transportPath, "transportPath") }),
+    ...(input.traceRoot === undefined
+      ? {}
+      : { traceRoot: admitted(input.traceRoot, "traceRoot") })
+  });
+}
+
 function defaultPath(request: AgentTransportRequest, suffix: string): string {
-  return join(request.archiveRoot, `${request.label}${suffix}`);
+  const candidate = resolve(request.archiveRoot, `${request.label}${suffix}`);
+  if (!pathIsWithin(request.archiveRoot, candidate)) {
+    throw new TypeError("agent transport label must keep default paths beneath archiveRoot");
+  }
+  assertNoExistingSymlink(request.archiveRoot, candidate, "default transport path");
+  return candidate;
 }
 
 function outputPathFor(request: AgentTransportRequest): string {
@@ -245,6 +334,15 @@ function writeTransportArtifacts(
   result: AgentTransportResult
 ): void {
   mkdirSync(request.archiveRoot, { recursive: true });
+  for (const [label, filePath] of [
+    ["promptPath", request.promptPath ?? defaultPath(request, "-prompt.txt")],
+    ["outputPath", result.outputPath],
+    ["stdoutPath", request.stdoutPath ?? defaultPath(request, "-stdout.log")],
+    ["stderrPath", request.stderrPath ?? defaultPath(request, "-stderr.log")],
+    ["transportPath", request.transportPath ?? defaultPath(request, "-transport.json")]
+  ] as const) {
+    assertNoExistingSymlink(request.archiveRoot, filePath, `${label} after transport`);
+  }
   writeFileSync(
     request.promptPath ?? defaultPath(request, "-prompt.txt"),
     request.prompt,
@@ -268,8 +366,9 @@ function writeTransportArtifacts(
 }
 
 export async function runAgentTransport(
-  request: AgentTransportRequest
+  input: AgentTransportRequest
 ): Promise<AgentTransportResult> {
+  const request = admitAgentTransportArchivePaths(input);
   mkdirSync(request.archiveRoot, { recursive: true });
   const outputPath = outputPathFor(request);
   const traceRoot = request.traceRoot ?? defaultPath(request, ".trace");
@@ -305,6 +404,14 @@ export async function runAgentTransport(
       : { terminalPollMs: request.terminalPollMs }),
     ...(request.timeoutMs === undefined ? {} : { timeoutMs: request.timeoutMs })
   });
+  // The output path is disclosed to generic workers. Re-admit it after the
+  // external effect and before either reading or overwriting it, so a worker
+  // cannot replace the checked target with a symlink and redirect archive IO.
+  assertNoExistingSymlink(
+    request.archiveRoot,
+    outputPath,
+    "outputPath after transport"
+  );
   const text =
     isClaude && traced.finalOutput.trim().length > 0
       ? traced.finalOutput

@@ -291,6 +291,7 @@ test("T-092-TS assurance providers cannot smuggle engine authority", () => {
     () =>
       admitEnginePluginContract({
         kind: "engine_plugin_contract",
+        driverRequirement: "sync_compatible",
         ref: "plugin://bad/assurance",
         pluginKind: "assurance_evidence_adapter",
         authority: "provider",

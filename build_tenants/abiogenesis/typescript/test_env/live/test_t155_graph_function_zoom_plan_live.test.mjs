@@ -15,6 +15,7 @@ import { buildT155ZoomedBasis } from "../tests/support/t155-graph-function-zoom-
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fd_evaluator",
     authority: "effect_plugin",

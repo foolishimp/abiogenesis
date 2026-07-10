@@ -585,6 +585,7 @@ function vectorPlan(executive, vectorIndex, computeStageRole, options = {}) {
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -595,6 +596,7 @@ function fpDispatchContract(ref) {
 
 function fpEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_evaluator",
     authority: "effect_plugin",

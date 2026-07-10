@@ -508,6 +508,16 @@ export interface LeverResolutionAdmittedEvent {
   readonly runnerRetryMaxAttempts?: number | undefined;
   readonly runnerRetryMaxAttemptsLeverKey?: string | undefined;
   readonly runnerRetryMaxAttemptsSource?: LeverOverrideResolutionSource | undefined;
+  readonly liveCapabilityRef: string | null;
+  readonly liveCapabilityDigest: string | null;
+  readonly executionContractDigest: string | null;
+  readonly liveAgentKey: "claude" | "codex" | "gemini" | "generic" | null;
+  readonly liveAgentKeySource: "flag" | "env" | "default" | null;
+  readonly liveExecutorProfile: "local-spawn" | "pty-terminal" | null;
+  readonly liveExecutorProfileSource: "flag" | "env" | "default" | null;
+  readonly liveTimeoutMs: number | null;
+  readonly liveTimeoutMsSource: "flag" | "env" | "default" | null;
+  readonly availableLivePluginRefs: readonly string[];
   readonly selectedLeverKeys: readonly string[];
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;

@@ -133,7 +133,7 @@ function projectStopDetail(
     case "terminal":
       return Object.freeze({
         terminalKind: transition.terminalKind,
-        gateReason: null,
+        gateReason: transition.reason,
         dispatchRef: null,
         approvalSubjectRef: null
       });

@@ -181,6 +181,7 @@ function backendProfile(backendKind = "generic_process") {
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

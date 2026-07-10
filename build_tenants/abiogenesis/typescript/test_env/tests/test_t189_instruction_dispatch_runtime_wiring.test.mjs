@@ -45,17 +45,9 @@ function stringListEntry(key, value) {
   });
 }
 
-function countBy(values) {
-  const counts = new Map();
-  for (const value of values) {
-    counts.set(value, (counts.get(value) ?? 0) + 1);
-  }
-  return Object.fromEntries([...counts.entries()].sort());
-}
-
-
 function fpDispatchContract(ref = "plugin://t189/fp-dispatch") {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -66,11 +58,15 @@ function fpDispatchContract(ref = "plugin://t189/fp-dispatch") {
 
 function stageContract(stageRole, computeMeans, ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "hook_ref",
     authority: "effect_plugin",
     inputCarrier: "EnginePluginInput",
-    outputCarrier: "ComposedStageTaskOutcome",
+    outputCarrier:
+      stageRole === "evaluate"
+        ? "EvaluationRuleOutcome"
+        : "ComposedStageTaskOutcome",
     computeStageRole: stageRole,
     computeMeans,
     computeStagePurpose:
@@ -616,7 +612,7 @@ function consequenceTaskPlugin(observe = () => undefined) {
   return Object.freeze({
     contract: stageContract("consequence", "F_P", "plugin://t190/consequence-task"),
     taskRef: "stage-task://t190/consequence/fp-apply",
-    taskRole: "candidate",
+    taskRole: "projection",
     required: true,
     parallelGroupRef: null,
     dependencyRefs: [],
@@ -627,7 +623,7 @@ function consequenceTaskPlugin(observe = () => undefined) {
         status: "accepted",
         taskRef: "stage-task://t190/consequence/fp-apply",
         stageRole: "consequence",
-        taskRole: "candidate",
+        taskRole: "projection",
         computeMeans: "F_P",
         candidateRefs: [],
         projectionRefs: ["projection://t190/consequence/fp-apply"],
@@ -675,6 +671,7 @@ function t190FpDispatchPlugin() {
 
 function pluginContract(pluginKind, ref, outputCarrier) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind,
     authority: "effect_plugin",
@@ -829,6 +826,12 @@ test("T-190 singular evaluation_rule_evaluate cannot run a plugin without an adm
     evaluationRules: [
       Object.freeze({
         contract: stageContract("evaluate", "F_P", "plugin://t190/singular"),
+        ruleRef: "evaluation-rule://t190/singular",
+        ruleRole: "register",
+        required: true,
+        parallelGroupRef: null,
+        dependencyRefs: [],
+        outputCarrierRefs: ["EvaluationRuleOutcome"],
         evaluate(input) {
           invoked += 1;
           return constructEvaluationRuleOutcome({

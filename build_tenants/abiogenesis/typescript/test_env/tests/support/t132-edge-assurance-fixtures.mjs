@@ -508,6 +508,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
     );
 
     const fpDispatchContract = constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t132/edge-assurance/fp-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",

@@ -6,7 +6,15 @@
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable, extraHogStageSegments } from "./hog_program_resolution.js";
-import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c_call_spine.js";
+import {
+  buildCCallSpineClose,
+  buildCCallSpineCloseOrResume,
+  buildCCallSpineOpen,
+  buildCCallSpineOpenOrResume,
+  nextCCallAttempt,
+  projectResumableCCallSpine
+} from "./c_call_spine.js";
+import { admitEngineCCallResumeAuthority } from "./c_call_resume_authority.js";
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
 import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
 import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
@@ -85,6 +93,7 @@ import {
   vectorEdge
 } from "../contracts/runtime_support.js";
 import {
+  admitEnginePluginContract,
   admitFdEvaluationOutcome,
   admitFpEvaluationOutcome,
   admitFhAdmissionOutcome,
@@ -193,6 +202,7 @@ import {
   deriveAssuranceScopeRef,
   type AssuranceClosureDecision
 } from "../contracts/assurance.js";
+import { parsePlainObject } from "../../../shared/validation/primitives.js";
 import {
   deriveAdmittedOutputAuthorityProjection,
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
@@ -1309,7 +1319,6 @@ function deriveFpDispatchAttemptInput(input: {
   });
   const pluginInput = constructEnginePluginInput({
     contract: input.contract,
-    cCallRef: actorInvocation.graphCallId,
     basis: input.basis,
     projection: input.projection,
     replayEvents: input.replayEvents,
@@ -1335,6 +1344,22 @@ function deriveFpDispatchAttemptInput(input: {
     modulatedAttempt,
     pluginInput
   });
+}
+
+function bindPluginInputToCCall(
+  input: EnginePluginInput,
+  cCallRef: string,
+  instructionPromptManifest: PromptManifest,
+  resumeExistingCCall: boolean
+): EnginePluginInput {
+  const bound = Object.freeze({
+    ...input,
+    cCallRef,
+    instructionPromptManifest
+  });
+  return resumeExistingCCall
+    ? admitEngineCCallResumeAuthority(bound)
+    : bound;
 }
 
 function fpDispatchAttemptStartedEvents(input: {
@@ -1585,6 +1610,17 @@ type BlockedFpNoArtifactContinuation =
       readonly transitionProjection: RuntimeContinuationTransitionProjection;
       readonly transition: TerminalTransition;
     };
+
+function livePluginArchiveRefusalClass(
+  outcome: { readonly evidenceRefs: readonly string[] }
+): string | null {
+  const prefix = "live-plugin-archive-refusal:";
+  return (
+    outcome.evidenceRefs
+      .find((ref) => ref.startsWith(prefix))
+      ?.slice(prefix.length) ?? null
+  );
+}
 
 function deriveBlockedFpNoArtifactContinuation(input: {
   readonly basis: ExecutionBasis;
@@ -7431,14 +7467,21 @@ function* runEngineIterateMachine(input: {
         // interior (REQ-R-ABG3-CCALL-001/-003; stage from the baked P0
         // triple). Spine minting is engine authority; the interior below
         // is enclosed evidence.
-        const scalarTransformAttempt = nextCCallAttempt(eventState.replayEvents, {
+        const scalarTransformLocus = {
           basisId: request.basis.id,
           graphCallId: actorInvocation.graphCallId,
           frameId: actorInvocation.frameId,
           vectorIndex: transition.vectorIndex,
           stageRole: "transform",
           taskOrdinal: null
-        });
+        } as const;
+        const resumableScalarTransform = projectResumableCCallSpine(
+          eventState.replayEvents,
+          scalarTransformLocus
+        );
+        const scalarTransformAttempt =
+          resumableScalarTransform?.opened.attempt ??
+          nextCCallAttempt(eventState.replayEvents, scalarTransformLocus);
         const scalarHogProgram = resolveHogProgram(
           transition.basis.graphFunction,
           scalarTransformAttempt
@@ -7447,7 +7490,7 @@ function* runEngineIterateMachine(input: {
         if (scalarTransformStage === null) {
           throw new TypeError(`hog program ${scalarHogProgram.program.programRef} must declare a transform stage`);
         }
-        const scalarTransformSpine = buildCCallSpineOpen({
+        const scalarTransformSpine = buildCCallSpineOpenOrResume(eventState.replayEvents, {
           basisId: request.basis.id,
           graphFunctionId: actorInvocation.graphFunctionId,
           graphCallId: actorInvocation.graphCallId,
@@ -7474,7 +7517,7 @@ function* runEngineIterateMachine(input: {
             readonly judgment: CCallJudgment;
           }
           ): EngineEventEmissionState =>
-          emitRunnerEvents(state, buildCCallSpineClose({
+          emitRunnerEvents(state, buildCCallSpineCloseOrResume(state.replayEvents, {
             cCallRef: scalarTransformCCallOpened.cCallRef,
             basisId: request.basis.id,
             evidenceClass: "fp_interior",
@@ -7489,7 +7532,7 @@ function* runEngineIterateMachine(input: {
         // REQ-R-ABG3-CCALL-010 + TEMPORAL -007: the online dispatch gate
         // judges the SELECTION candidate against the trace prefix BEFORE
         // the C call enters truth.
-        {
+        if (!scalarTransformSpine.selectedAlreadyAdmitted) {
           const gateBlock = temporalDispatchGateBlock({
             properties: temporalProperties,
             events: eventState.replayEvents,
@@ -7523,14 +7566,15 @@ function* runEngineIterateMachine(input: {
             });
           }
         }
-        eventState = emitRunnerEvents(eventState, [
-          scalarTransformCCallOpened,
-          scalarTransformFibreSelected
-        ]);
-        scalarTransformInput = Object.freeze({
-          ...scalarTransformInput,
-          instructionPromptManifest: instructionBinding.manifest
-        });
+        if (scalarTransformSpine.events.length > 0) {
+          eventState = emitRunnerEvents(eventState, scalarTransformSpine.events);
+        }
+        scalarTransformInput = bindPluginInputToCCall(
+          scalarTransformInput,
+          scalarTransformCCallOpened.cCallRef,
+          instructionBinding.manifest,
+          scalarTransformSpine.resumed
+        );
         // T-200 P3: the online gate point moved to the fibre-selection
         // candidate above (REQ-R-ABG3-CCALL-010); the dispatch event is
         // interior evidence and needs no second gate.
@@ -7575,6 +7619,7 @@ function* runEngineIterateMachine(input: {
         const outcome = fpDispatchOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fp_dispatch", input: scalarTransformInput }),
         );
+        scalarTransformCCallEvidence.push(...outcome.evidenceRefs);
         const scalarTransformOutcome = composedStageTaskOutcomeFromFpDispatch({
           declaration: scalarTransformTask,
           pluginInput: scalarTransformInput,
@@ -7978,7 +8023,6 @@ function* runEngineIterateMachine(input: {
               edge: transition.edge,
               regime: "F_P",
               actorInvocationRef: actorInvocationRef(actorInvocation),
-              cCallRef: actorInvocation.graphCallId,
               attachedResultArtifact: outcome.attachedResultArtifact,
               traversalStrategySelection: modulatedAttempt?.selection ?? null,
               traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
@@ -8383,14 +8427,21 @@ function* runEngineIterateMachine(input: {
             // T-200 P2c: the evaluate C call's spine — finding #11 dies
             // here: evaluate.F_P work becomes replay-visible dispatch
             // truth with the same envelope as the transform arm.
-            const scalarEvaluateAttempt = nextCCallAttempt(eventState.replayEvents, {
+            const scalarEvaluateLocus = {
               basisId: request.basis.id,
               graphCallId: actorInvocation.graphCallId,
               frameId: actorInvocation.frameId,
               vectorIndex: transition.vectorIndex,
               stageRole: "evaluate",
               taskOrdinal: null
-            });
+            } as const;
+            const resumableScalarEvaluate = projectResumableCCallSpine(
+              eventState.replayEvents,
+              scalarEvaluateLocus
+            );
+            const scalarEvaluateAttempt =
+              resumableScalarEvaluate?.opened.attempt ??
+              nextCCallAttempt(eventState.replayEvents, scalarEvaluateLocus);
             // -017 coherence: the vector's GOVERNING attempt is the
             // TRANSFORM attempt — the rung that produced the artifact
             // under evaluation governs its evaluation. The spine keeps
@@ -8414,7 +8465,7 @@ function* runEngineIterateMachine(input: {
             if (scalarEvaluateStage === null) {
               throw new TypeError(`hog program ${scalarEvaluateHogProgram.program.programRef} must declare an evaluate stage`);
             }
-            const scalarEvaluateSpine = buildCCallSpineOpen({
+            const scalarEvaluateSpine = buildCCallSpineOpenOrResume(eventState.replayEvents, {
               basisId: request.basis.id,
               graphFunctionId: actorInvocation.graphFunctionId,
               graphCallId: actorInvocation.graphCallId,
@@ -8440,7 +8491,7 @@ function* runEngineIterateMachine(input: {
                 readonly judgment: CCallJudgment;
               }
               ): EngineEventEmissionState =>
-              emitRunnerEvents(state, buildCCallSpineClose({
+              emitRunnerEvents(state, buildCCallSpineCloseOrResume(state.replayEvents, {
                 cCallRef: scalarEvaluateCCallOpened.cCallRef,
                 basisId: request.basis.id,
                 evidenceClass: "fp_interior",
@@ -8451,11 +8502,15 @@ function* runEngineIterateMachine(input: {
                 judgment: close.judgment,
                 reasonRef: null
               }));
-            eventState = emitRunnerEvents(eventState, scalarEvaluateSpine.events);
-            fpEvaluationInput = Object.freeze({
-              ...fpEvaluationInput,
-              instructionPromptManifest: evaluationInstructionBinding.manifest
-            });
+            if (scalarEvaluateSpine.events.length > 0) {
+              eventState = emitRunnerEvents(eventState, scalarEvaluateSpine.events);
+            }
+            fpEvaluationInput = bindPluginInputToCCall(
+              fpEvaluationInput,
+              scalarEvaluateCCallOpened.cCallRef,
+              evaluationInstructionBinding.manifest,
+              scalarEvaluateSpine.resumed
+            );
             if (fpEvaluationInput.pluginTraversalObserverBinding !== null) {
               eventState = emitRunnerEvents(eventState,
                 constructPluginTraversalPromptMaterializedEvent({
@@ -8519,9 +8574,41 @@ function* runEngineIterateMachine(input: {
               requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
             });
             if (evaluationSetBlockReason !== null) {
+              const archiveRefusalClass =
+                livePluginArchiveRefusalClass(fpEvaluationOutcome);
+              if (archiveRefusalClass !== null) {
+                eventState = closeScalarEvaluateCCall(eventState, {
+                  outcomeStatus: fpEvaluationOutcome.status,
+                  judgment: "blocked"
+                });
+                const blocked = terminalTransition(
+                  request.basis,
+                  "gap_stop",
+                  `live F_P evaluator archive refused without retry: ${archiveRefusalClass}`
+                );
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructTerminalReachedEvent(blocked)
+                );
+                return constructResult({
+                  basis: request.basis,
+                  transition: blocked,
+                  projection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
               const retryableOutcomes = evaluationSetRetryableBlockedRequiredOutcomes({
                 admission: evaluationSetAdmission,
                 requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
+              });
+              eventState = closeScalarEvaluateCCall(eventState, {
+                outcomeStatus: fpEvaluationOutcome.status,
+                judgment: retryableOutcomes.length > 0 ? "retry" : "blocked"
               });
               if (retryableOutcomes.length > 0) {
                 const retryEvents = evaluationSetRetryEvents({
@@ -9685,6 +9772,34 @@ function* runEngineIterateMachine(input: {
           })
         );
         if (outcome.status === "blocked") {
+          const archiveRefusalClass = livePluginArchiveRefusalClass(outcome);
+          if (archiveRefusalClass !== null) {
+            eventState = closeScalarTransformCCall(eventState, {
+              outcomeStatus: outcome.status,
+              payloadRef: null,
+              judgment: "blocked"
+            });
+            const blocked = terminalTransition(
+              request.basis,
+              "gap_stop",
+              `live F_P archive refused without retry: ${archiveRefusalClass}`
+            );
+            eventState = emitRunnerEvents(
+              eventState,
+              constructTerminalReachedEvent(blocked)
+            );
+            return constructResult({
+              basis: request.basis,
+              transition: blocked,
+              projection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              emittedEvents: eventState.emittedEvents,
+              replayEvents: eventState.replayEvents,
+              iterationCount
+            });
+          }
           const continuation = deriveBlockedFpNoArtifactContinuation({
             basis: request.basis,
             projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
@@ -9871,7 +9986,7 @@ function* runEngineIterateMachine(input: {
   }
 }
 
-export function resolveSyncEnginePluginEffect(
+function resolveSyncEnginePluginEffectWithAdmittedPlugins(
   effect: EnginePluginEffect,
   plugins: ResolvedRunnerPlugins
 ): EnginePluginEffectResult {
@@ -10067,6 +10182,21 @@ export function resolveSyncEnginePluginEffect(
         outcome: runConstructionIntentStep(effect.request)
       });
   }
+}
+
+// This diagnostic/test-facing resolver cannot bypass the machine-entry
+// boundary. Public callers supply an ordinary plugin set, which is resolved
+// and admitted exactly as the sync engine would admit it before invocation.
+export function resolveSyncEnginePluginEffect(
+  effect: EnginePluginEffect,
+  plugins: EngineRunnerPluginSet
+): EnginePluginEffectResult {
+  const admitted = admitResolvedRunnerPluginsForDriver(
+    resolveRunnerPlugins(plugins),
+    "sync",
+    "direct-effect-resolver"
+  );
+  return resolveSyncEnginePluginEffectWithAdmittedPlugins(effect, admitted);
 }
 
 async function resolveAsyncEnginePluginEffect(
@@ -10275,7 +10405,11 @@ function effectiveRunnerPlugins(
   // metadata (fail-closed: unset ⇒ async_required), never a ref
   // denylist, so a plugin wrapping an async body under any contract ref
   // cannot board the sync driver.
-  admitResolvedSeamPluginsForDriver(merged, driver, request.basis.graphFunction.name);
+  merged = admitResolvedRunnerPluginsForDriver(
+    merged,
+    driver,
+    request.basis.graphFunction.name
+  );
   const declaredBindings = hogHandlerBindingsFromDeclarationAttrs(
     request.basis.graphFunction.declarations,
     request.basis.graphFunction.name
@@ -10293,53 +10427,287 @@ function effectiveRunnerPlugins(
   });
 }
 
-// codex round 5 §1: the seam-plugin driver-admission boundary. Every
-// seam plugin the machine may invoke is checked here — expected
-// pluginKind AND driver compatibility — so R5-1 (async body under any
-// ref) and R5-7 (caller-supplied seam mismatch) close at ONE point,
-// failing closed on the unknown (missing metadata ⇒ async_required).
-const SEAM_EXPECTED_PLUGIN_KIND: Readonly<Record<string, string>> = Object.freeze({
-  fdEvaluator: "fd_evaluator",
-  fpEvaluator: "fp_evaluator",
-  fpDispatch: "fp_dispatch",
-  fhAdmission: "fh_admission",
-  consequenceProjection: "consequence_projection"
-});
+interface RunnerPluginAdmissionSpec {
+  readonly seam: string;
+  readonly plugin: unknown;
+  readonly methodName: "evaluate" | "dispatch" | "admit" | "project" | "run";
+  readonly expectedPluginKinds: readonly string[];
+  readonly outputCarrier: string;
+  readonly computeStageRole?: "transform" | "evaluate" | "consequence" | undefined;
+}
 
-function admitResolvedSeamPluginsForDriver(
+function pluginAdmissionFailure(
+  seam: string,
+  sourceRef: string,
+  detail: string
+): TypeError {
+  return new TypeError(
+    `plugin_admission_failed: seam ${seam} on ${sourceRef}: ${detail}`
+  );
+}
+
+function asPluginRecord(
+  input: unknown,
+  seam: string,
+  sourceRef: string
+): Readonly<Record<string, unknown>> {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw pluginAdmissionFailure(seam, sourceRef, "expected plugin object");
+  }
+  return parsePlainObject(input, `EngineRunnerPluginSet.${seam}`);
+}
+
+interface AdmittedRunnerPlugin {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly contract: EnginePluginContract;
+}
+
+function admitRunnerPlugin(
+  spec: RunnerPluginAdmissionSpec,
+  driver: "sync" | "async",
+  sourceRef: string
+): AdmittedRunnerPlugin {
+  const plugin = asPluginRecord(spec.plugin, spec.seam, sourceRef);
+  let contract: EnginePluginContract;
+  try {
+    contract = admitEnginePluginContract(
+      plugin["contract"],
+      `EngineRunnerPluginSet.${spec.seam}.contract`
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw pluginAdmissionFailure(spec.seam, sourceRef, message);
+  }
+  if (!spec.expectedPluginKinds.includes(contract.pluginKind)) {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `contract pluginKind ${JSON.stringify(contract.pluginKind)} is incompatible; expected one of ${JSON.stringify(spec.expectedPluginKinds)}`
+    );
+  }
+  if (contract.authority !== "effect_plugin") {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `contract authority ${JSON.stringify(contract.authority)} must be "effect_plugin"`
+    );
+  }
+  if (contract.inputCarrier !== "EnginePluginInput") {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `contract inputCarrier ${JSON.stringify(contract.inputCarrier)} must be "EnginePluginInput"`
+    );
+  }
+  if (contract.outputCarrier !== spec.outputCarrier) {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `contract outputCarrier ${JSON.stringify(contract.outputCarrier)} must be ${JSON.stringify(spec.outputCarrier)}`
+    );
+  }
+  if (
+    spec.computeStageRole !== undefined &&
+    contract.computeStageRole !== spec.computeStageRole
+  ) {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `contract computeStageRole ${JSON.stringify(contract.computeStageRole)} must be ${JSON.stringify(spec.computeStageRole)}`
+    );
+  }
+  if (typeof plugin[spec.methodName] !== "function") {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `missing callable ${spec.methodName} method`
+    );
+  }
+  if (driver === "sync" && contract.driverRequirement !== "sync_compatible") {
+    throw pluginAdmissionFailure(
+      spec.seam,
+      sourceRef,
+      `plugin ${JSON.stringify(contract.ref)} requires ${JSON.stringify(contract.driverRequirement)}; the sync driver admits only "sync_compatible"`
+    );
+  }
+  return Object.freeze({ record: plugin, contract });
+}
+
+function admitComposedTaskCollection(
+  plugins: readonly ComposedStageTaskPlugin[],
+  stageRole: "transform" | "consequence",
+  driver: "sync" | "async",
+  sourceRef: string
+): readonly ComposedStageTaskPlugin[] {
+  return Object.freeze(
+    plugins.map((plugin, index) => {
+      const seam = `${stageRole}Tasks[${index}]`;
+      const admitted = admitRunnerPlugin(
+        {
+          seam,
+          plugin,
+          methodName: "run",
+          expectedPluginKinds: ["hook_ref"],
+          outputCarrier: "ComposedStageTaskOutcome",
+          computeStageRole: stageRole
+        },
+        driver,
+        sourceRef
+      );
+      if (
+        typeof admitted.record["taskRef"] !== "string" ||
+        admitted.record["taskRef"].length === 0
+      ) {
+        throw pluginAdmissionFailure(seam, sourceRef, "taskRef must be non-empty");
+      }
+      const taskRole = admitted.record["taskRole"];
+      const lawfulTaskRoles =
+        stageRole === "transform"
+          ? ["candidate"]
+          : ["projection"];
+      if (typeof taskRole !== "string" || !lawfulTaskRoles.includes(taskRole)) {
+        throw pluginAdmissionFailure(
+          seam,
+          sourceRef,
+          `taskRole ${JSON.stringify(taskRole)} is not lawful for ${stageRole}`
+        );
+      }
+      return Object.freeze({ ...plugin, contract: admitted.contract });
+    })
+  );
+}
+
+function admitEvaluationRuleCollection(
+  plugins: readonly EvaluationRulePlugin[],
+  driver: "sync" | "async",
+  sourceRef: string
+): readonly EvaluationRulePlugin[] {
+  return Object.freeze(
+    plugins.map((plugin, index) => {
+      const seam = `evaluationRules[${index}]`;
+      const admitted = admitRunnerPlugin(
+        {
+          seam,
+          plugin,
+          methodName: "evaluate",
+          expectedPluginKinds: ["fd_evaluator", "fp_evaluator", "hook_ref"],
+          outputCarrier: "EvaluationRuleOutcome",
+          computeStageRole: "evaluate"
+        },
+        driver,
+        sourceRef
+      );
+      if (
+        typeof admitted.record["ruleRef"] !== "string" ||
+        admitted.record["ruleRef"].length === 0
+      ) {
+        throw pluginAdmissionFailure(seam, sourceRef, "ruleRef must be non-empty");
+      }
+      return Object.freeze({ ...plugin, contract: admitted.contract });
+    })
+  );
+}
+
+function admitResolvedRunnerPluginsForDriver(
   plugins: ResolvedRunnerPlugins,
   driver: "sync" | "async",
   sourceRef: string
-): void {
-  const seams: readonly {
-    readonly seam: string;
-    readonly contract: { readonly ref: string; readonly pluginKind: string; readonly driverRequirement?: string };
-  }[] = [
-    { seam: "fdEvaluator", contract: plugins.fdEvaluator.contract },
-    { seam: "fpEvaluator", contract: plugins.fpEvaluator.contract },
-    { seam: "fpDispatch", contract: plugins.fpDispatch.contract },
-    { seam: "fhAdmission", contract: plugins.fhAdmission.contract },
-    { seam: "consequenceProjection", contract: plugins.consequenceProjection.contract }
-  ];
-  for (const { seam, contract } of seams) {
-    const expectedKind = SEAM_EXPECTED_PLUGIN_KIND[seam];
-    if (contract.pluginKind !== expectedKind) {
-      throw new TypeError(
-        `plugin_seam_kind_mismatch: seam ${seam} on ${sourceRef} carries a plugin whose contract pluginKind is ${JSON.stringify(contract.pluginKind)}, expected ${JSON.stringify(expectedKind)}`
-      );
-    }
-    // Only an EXPLICIT async_required is refused on the sync driver.
-    // A governed catalog contract always declares this (the live plugins
-    // are async_required); a raw host body's missing field is the
-    // trusted-host sync default. This closes R5-1 for the governed path
-    // while letting the existing engine-authority checks run for raw
-    // host contracts.
-    if (driver === "sync" && contract.driverRequirement === "async_required") {
-      throw new TypeError(
-        `plugin_driver_incompatible: seam ${seam} on ${sourceRef} carries plugin ${JSON.stringify(contract.ref)} declaring driverRequirement "async_required"; the sync driver admits only sync-compatible plugins`
-      );
-    }
-  }
+): ResolvedRunnerPlugins {
+  const fdEvaluator = admitRunnerPlugin(
+    {
+      seam: "fdEvaluator",
+      plugin: plugins.fdEvaluator,
+      methodName: "evaluate",
+      expectedPluginKinds: ["fd_evaluator"],
+      outputCarrier: "FdEvaluationOutcome"
+    },
+    driver,
+    sourceRef
+  );
+  const fpEvaluator = admitRunnerPlugin(
+    {
+      seam: "fpEvaluator",
+      plugin: plugins.fpEvaluator,
+      methodName: "evaluate",
+      expectedPluginKinds: ["fp_evaluator"],
+      outputCarrier: "FpEvaluationOutcome"
+    },
+    driver,
+    sourceRef
+  );
+  const fpDispatch = admitRunnerPlugin(
+    {
+      seam: "fpDispatch",
+      plugin: plugins.fpDispatch,
+      methodName: "dispatch",
+      expectedPluginKinds: ["fp_dispatch"],
+      outputCarrier: "FpDispatchOutcome"
+    },
+    driver,
+    sourceRef
+  );
+  const fhAdmission = admitRunnerPlugin(
+    {
+      seam: "fhAdmission",
+      plugin: plugins.fhAdmission,
+      methodName: "admit",
+      expectedPluginKinds: ["fh_admission"],
+      outputCarrier: "FhAdmissionOutcome"
+    },
+    driver,
+    sourceRef
+  );
+  const consequenceProjection = admitRunnerPlugin(
+    {
+      seam: "consequenceProjection",
+      plugin: plugins.consequenceProjection,
+      methodName: "project",
+      expectedPluginKinds: ["consequence_projection"],
+      outputCarrier: "ConsequenceProjectionOutcome"
+    },
+    driver,
+    sourceRef
+  );
+  return Object.freeze({
+    ...plugins,
+    fdEvaluator: Object.freeze({
+      ...plugins.fdEvaluator,
+      contract: fdEvaluator.contract
+    }),
+    fpEvaluator: Object.freeze({
+      ...plugins.fpEvaluator,
+      contract: fpEvaluator.contract
+    }),
+    fpDispatch: Object.freeze({
+      ...plugins.fpDispatch,
+      contract: fpDispatch.contract
+    }),
+    fhAdmission: Object.freeze({
+      ...plugins.fhAdmission,
+      contract: fhAdmission.contract
+    }),
+    consequenceProjection: Object.freeze({
+      ...plugins.consequenceProjection,
+      contract: consequenceProjection.contract
+    }),
+    transformTasks: admitComposedTaskCollection(
+      plugins.transformTasks,
+      "transform",
+      driver,
+      sourceRef
+    ),
+    evaluationRules: admitEvaluationRuleCollection(
+      plugins.evaluationRules,
+      driver,
+      sourceRef
+    ),
+    consequenceTasks: admitComposedTaskCollection(
+      plugins.consequenceTasks,
+      "consequence",
+      driver,
+      sourceRef
+    )
+  });
 }
 
 // Dual review 2026-07-10 F4: handler-binding ASSEMBLY vocabulary errors
@@ -10358,8 +10726,7 @@ function handlerAssemblyFailClosedResult(
   const isSelectionFailure =
     message.startsWith("plugin_selection") ||
     message.startsWith("abg.plugin_selection") ||
-    message.startsWith("plugin_seam_kind_mismatch") ||
-    message.startsWith("plugin_driver_incompatible");
+    message.startsWith("plugin_admission_failed");
   const reason = isSelectionFailure
     ? message
     : `hog_program_unresolvable: ${message}`;
@@ -10409,7 +10776,9 @@ export function runEngineIterate(
   });
   let step = machine.next();
   while (!step.done) {
-    step = machine.next(resolveSyncEnginePluginEffect(step.value, plugins));
+    step = machine.next(
+      resolveSyncEnginePluginEffectWithAdmittedPlugins(step.value, plugins)
+    );
   }
   return step.value;
 }

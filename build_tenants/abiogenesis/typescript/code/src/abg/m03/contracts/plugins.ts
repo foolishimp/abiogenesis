@@ -191,7 +191,11 @@ export const ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES = Object.freeze([
 export type EnginePluginRuntimeBindingStatus =
   (typeof ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES)[number];
 
-export interface EnginePluginContract {
+export type PluginDriverRequirement = "sync_compatible" | "async_required";
+
+export interface EnginePluginContract<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
   readonly kind: "engine_plugin_contract";
   readonly ref: string;
   readonly pluginKind: EnginePluginKind;
@@ -207,16 +211,11 @@ export interface EnginePluginContract {
   readonly mayEmitRuntimeEvents: false;
   readonly mayCloseTraversal: false;
   readonly mayOwnIterationLoop: false;
-  // codex round 5 §1: whether this plugin's methods are safe on the
-  // SYNC engine driver. GOVERNED catalog contracts declare this
-  // explicitly (the live plugins are async_required); raw host-supplied
-  // bodies are a TRUSTED extension and default sync_compatible (untrusted
-  // product content selects governed refs only — it cannot supply raw
-  // bodies). Structural metadata, never an external ref denylist.
-  readonly driverRequirement: "sync_compatible" | "async_required";
+  // Whether this plugin's methods are safe on the sync engine driver.
+  // The field is mandatory: omission is unknown capability and therefore
+  // fails closed before a plugin body can run.
+  readonly driverRequirement: D;
 }
-
-export type PluginDriverRequirement = EnginePluginContract["driverRequirement"];
 
 export interface EngineComputeStageBinding {
   readonly kind: "engine_compute_stage_binding";
@@ -385,45 +384,61 @@ export type EnginePluginOutcome =
   | ConsequenceProjectionOutcome;
 
 export type EnginePluginMaybePromise<T> = T | Promise<T>;
+export type EnginePluginResultForDriver<
+  D extends PluginDriverRequirement,
+  T
+> = D extends "sync_compatible" ? T : Promise<T>;
 
-export interface FdEvaluatorPlugin {
-  readonly contract: EnginePluginContract;
+export interface FdEvaluatorPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly evaluate: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<FdEvaluationOutcome>;
+  ) => EnginePluginResultForDriver<D, FdEvaluationOutcome>;
 }
 
-export interface FpEvaluatorPlugin {
-  readonly contract: EnginePluginContract;
+export interface FpEvaluatorPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly evaluate: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<FpEvaluationOutcome>;
+  ) => EnginePluginResultForDriver<D, FpEvaluationOutcome>;
 }
 
-export interface FpDispatchPlugin {
-  readonly contract: EnginePluginContract;
+export interface FpDispatchPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   // The runner emits fp_dispatch_requested before invoking this effect edge.
   readonly dispatch: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<FpDispatchOutcome>;
+  ) => EnginePluginResultForDriver<D, FpDispatchOutcome>;
 }
 
-export interface FhAdmissionPlugin {
-  readonly contract: EnginePluginContract;
+export interface FhAdmissionPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly admit: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<FhAdmissionOutcome>;
+  ) => EnginePluginResultForDriver<D, FhAdmissionOutcome>;
 }
 
-export interface ConsequenceProjectionPlugin {
-  readonly contract: EnginePluginContract;
+export interface ConsequenceProjectionPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly project: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<ConsequenceProjectionOutcome>;
+  ) => EnginePluginResultForDriver<D, ConsequenceProjectionOutcome>;
 }
 
-export interface EvaluationRulePlugin {
-  readonly contract: EnginePluginContract;
+export interface EvaluationRulePlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly ruleRef: string;
   readonly ruleRole?: EvaluationRuleRole | undefined;
   readonly required?: boolean | undefined;
@@ -433,11 +448,13 @@ export interface EvaluationRulePlugin {
   readonly outputCarrierRefs?: readonly string[] | undefined;
   readonly evaluate: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<EvaluationRuleOutcome>;
+  ) => EnginePluginResultForDriver<D, EvaluationRuleOutcome>;
 }
 
-export interface ComposedStageTaskPlugin {
-  readonly contract: EnginePluginContract;
+export interface ComposedStageTaskPlugin<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
+  readonly contract: EnginePluginContract<D>;
   readonly taskRef: string;
   readonly taskRole: ComposedStageTaskRole;
   readonly required?: boolean | undefined;
@@ -447,7 +464,7 @@ export interface ComposedStageTaskPlugin {
   readonly outputCarrierRefs?: readonly string[] | undefined;
   readonly run: (
     input: EnginePluginInput
-  ) => EnginePluginMaybePromise<ComposedStageTaskOutcome>;
+  ) => EnginePluginResultForDriver<D, ComposedStageTaskOutcome>;
 }
 
 export interface EngineRunnerPluginSet {
@@ -468,10 +485,12 @@ export interface EngineRunnerPluginSet {
   readonly requiredConsequenceTaskRefs?: readonly string[] | undefined;
 }
 
-interface EnginePluginContractInput {
+interface EnginePluginContractInput<
+  D extends PluginDriverRequirement = PluginDriverRequirement
+> {
   readonly ref: string;
   readonly pluginKind: EnginePluginKind;
-  readonly driverRequirement?: "sync_compatible" | "async_required" | undefined;
+  readonly driverRequirement: D;
   readonly authority: EnginePluginAuthority;
   readonly inputCarrier: string;
   readonly outputCarrier: string;
@@ -1018,7 +1037,9 @@ function normalizeComputeStageContract(
   });
 }
 
-function pluginContract(input: EnginePluginContractInput): EnginePluginContract {
+function pluginContract<D extends PluginDriverRequirement>(
+  input: EnginePluginContractInput<D>
+): EnginePluginContract<D> {
   const compute = normalizeComputeStageContract(input);
   return Object.freeze({
     kind: "engine_plugin_contract",
@@ -1036,29 +1057,29 @@ function pluginContract(input: EnginePluginContractInput): EnginePluginContract 
     mayEmitRuntimeEvents: input.mayEmitRuntimeEvents ?? false,
     mayCloseTraversal: input.mayCloseTraversal ?? false,
     mayOwnIterationLoop: input.mayOwnIterationLoop ?? false,
-    driverRequirement: input.driverRequirement ?? "sync_compatible"
+    driverRequirement: input.driverRequirement
   });
 }
 
-export function constructEnginePluginContract(
-  input: EnginePluginContractInput
-): EnginePluginContract {
+export function constructEnginePluginContract<
+  const D extends PluginDriverRequirement
+>(
+  input: EnginePluginContractInput<D>
+): EnginePluginContract<D> {
   if (isReadonlyRecord(input)) {
     assertOnlyEnginePluginContractFields(input, "EnginePluginContract");
   }
   return pluginContract({
     ref: parseNonEmptyString(input.ref, "EnginePluginContract.ref"),
     driverRequirement:
-      input.driverRequirement === undefined
-        ? "sync_compatible"
-        : input.driverRequirement === "sync_compatible" ||
-            input.driverRequirement === "async_required"
-          ? input.driverRequirement
-          : (() => {
-              throw new TypeError(
-                `EnginePluginContract.driverRequirement must be "sync_compatible" or "async_required", got ${JSON.stringify(input.driverRequirement)}`
-              );
-            })(),
+      input.driverRequirement === "sync_compatible" ||
+      input.driverRequirement === "async_required"
+        ? input.driverRequirement
+        : (() => {
+            throw new TypeError(
+              `EnginePluginContract.driverRequirement must be "sync_compatible" or "async_required", got ${JSON.stringify(input.driverRequirement)}`
+            );
+          })(),
     pluginKind: assertPluginKind(
       input.pluginKind,
       "EnginePluginContract.pluginKind"
@@ -1138,8 +1159,21 @@ export function admitEnginePluginContract(
     "computeStagePurpose"
   );
   const humanBoundaryInput = parseOptionalField(contractObject, "humanBoundary");
+  const driverRequirementInput = parseString(
+    contractObject["driverRequirement"],
+    `${label}.driverRequirement`
+  );
   return pluginContract({
     ref: parseNonEmptyString(contractObject["ref"], `${label}.ref`),
+    driverRequirement:
+      driverRequirementInput === "sync_compatible" ||
+      driverRequirementInput === "async_required"
+        ? driverRequirementInput
+        : (() => {
+            throw new TypeError(
+              `${label}.driverRequirement: expected "sync_compatible" or "async_required", got ${JSON.stringify(driverRequirementInput)}`
+            );
+          })(),
     pluginKind: assertPluginKind(
       parseString(contractObject["pluginKind"], `${label}.pluginKind`),
       `${label}.pluginKind`
@@ -2090,6 +2124,7 @@ export function admitConsequenceProjectionOutcome(
 
 const runtimeEventSinkContract = constructEnginePluginContract({
   ref: "plugin://abg/runtime-event-sink",
+  driverRequirement: "sync_compatible",
   pluginKind: "runtime_event_sink",
   authority: "sink",
   inputCarrier: "RuntimeEvent",
@@ -2194,6 +2229,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/result-assessment",
+      driverRequirement: "sync_compatible",
       pluginKind: "result_assessment",
       authority: "effect_plugin",
       inputCarrier: "ResultArtifact",
@@ -2208,6 +2244,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/event-ingress",
+      driverRequirement: "sync_compatible",
       pluginKind: "event_ingress",
       authority: "provider",
       inputCarrier: "ExternalEventEnvelope",
@@ -2222,6 +2259,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/continuation-repair",
+      driverRequirement: "sync_compatible",
       pluginKind: "continuation_repair",
       authority: "effect_plugin",
       inputCarrier: "RetryRepairDecision",
@@ -2236,6 +2274,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/policy-provider",
+      driverRequirement: "sync_compatible",
       pluginKind: "policy_provider",
       authority: "provider",
       inputCarrier: "StartIntent",
@@ -2250,6 +2289,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/assurance-authority-snapshot-provider",
+      driverRequirement: "sync_compatible",
       pluginKind: "assurance_authority_snapshot_provider",
       authority: "provider",
       inputCarrier: "AssuranceScopeRef",
@@ -2264,6 +2304,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/assurance-evidence-adapter",
+      driverRequirement: "sync_compatible",
       pluginKind: "assurance_evidence_adapter",
       authority: "provider",
       inputCarrier: "TraversalEnvelopeView",
@@ -2278,6 +2319,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/assurance-ambiguity-classifier",
+      driverRequirement: "sync_compatible",
       pluginKind: "assurance_ambiguity_classifier",
       authority: "provider",
       inputCarrier: "AssuranceAuthoritySnapshot + AssuranceEvidenceRow",
@@ -2292,6 +2334,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/assurance-closure-policy-provider",
+      driverRequirement: "sync_compatible",
       pluginKind: "assurance_closure_policy_provider",
       authority: "provider",
       inputCarrier: "AssuranceProjection",
@@ -2306,6 +2349,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/assurance-gain-function-adapter",
+      driverRequirement: "sync_compatible",
       pluginKind: "assurance_gain_function_adapter",
       authority: "provider",
       inputCarrier: "AssuranceEvidenceRow",
@@ -2320,6 +2364,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/runtime-identity-provider",
+      driverRequirement: "sync_compatible",
       pluginKind: "runtime_identity_provider",
       authority: "provider",
       inputCarrier: "StartIntent",
@@ -2334,6 +2379,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/operator-asset-resolver",
+      driverRequirement: "sync_compatible",
       pluginKind: "operator_asset_resolver",
       authority: "resolver",
       inputCarrier: "OperatorAssetQueryContract",
@@ -2348,6 +2394,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/context-resolver",
+      driverRequirement: "sync_compatible",
       pluginKind: "context_resolver",
       authority: "resolver",
       inputCarrier: "ContextRef",
@@ -2362,6 +2409,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/projection-consumer",
+      driverRequirement: "sync_compatible",
       pluginKind: "projection_consumer",
       authority: "projection_consumer",
       inputCarrier: "RuntimeAggregateProjection",
@@ -2377,6 +2425,7 @@ const inventoryInputs = Object.freeze([
   {
     contract: constructEnginePluginContract({
       ref: "plugin://abg/hook-ref",
+      driverRequirement: "sync_compatible",
       pluginKind: "hook_ref",
       authority: "declaration_ref",
       inputCarrier: "GtlHookRef",

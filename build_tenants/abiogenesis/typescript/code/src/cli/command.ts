@@ -6,7 +6,7 @@ import { constructRuntimeFailureObservedEvent } from "../abg/m03/contracts/event
 import { emit } from "../abg/m03/events/emit.js";
 import { hasCanonicalRuntimeEventEnvelope } from "../abg/m03/contracts/event_admission.js";
 import { contractForKnownAgent } from "../shared/abg_library/index.js";
-import type { EnginePluginCapabilities, LiveFpDispatchCapability } from "../abg/m03/index.js";
+import type { LiveFpDispatchCapability } from "../abg/m03/index.js";
 import { sortReplayByAdmissionOrdinalFailClosed } from "../abg/m03/contracts/admission_hygiene.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
@@ -47,11 +47,17 @@ import {
   admitToolchainWorkspaceBinding,
   installAbiogenesisContextBootstrap,
   installAbiogenesisTypescript,
+  constructLiveCapabilityBinding,
+  projectLiveCapability,
   publicGaps,
   publicCallableStartAsync,
   resolvePublicAssetTarget,
   resultAssessment,
   TOOLCHAIN_BINDING_RELATIVE_PATH
+} from "../app/m04/index.js";
+import type {
+  LiveCapabilityBinding,
+  LiveCapabilityValueSource
 } from "../app/m04/index.js";
 import {
   leverEntries,
@@ -1859,78 +1865,96 @@ export function admitLiveTimeoutMs(value: string): number {
 // AND its source (flag beats env beats default), and the CLI start
 // output carries the provenance so the command is reproducible.
 export interface LiveCapabilityProvenance {
-  readonly agentKey: string;
-  readonly agentKeySource: "flag" | "env" | "codex_live_default";
-  readonly executorProfile: string | null;
-  readonly executorProfileSource: "flag" | "env" | "unset";
+  readonly agentKey: KnownLiveAgentKey;
+  readonly agentKeySource: LiveCapabilityValueSource;
+  readonly executorProfile: "local-spawn" | "pty-terminal";
+  readonly executorProfileSource: LiveCapabilityValueSource;
   readonly timeoutMs: number;
-  readonly timeoutMsSource: "flag" | "env" | "default";
+  readonly timeoutMsSource: LiveCapabilityValueSource;
 }
 
 export function resolveLiveCapabilityProvenance(
   command: ParsedStartCommand
 ): LiveCapabilityProvenance | null {
-  const agentSource: "flag" | "env" | "codex_live_default" | null =
-    command.liveAgent !== undefined
-      ? "flag"
-      : process.env["ABG_TS_LIVE_AGENT"] !== undefined
-        ? "env"
-        : process.env["CODEX_LIVE_FP"] === "1"
-          ? "codex_live_default"
-          : null;
-  if (agentSource === null) {
-    return null;
-  }
-  const agentRaw =
-    command.liveAgent ?? process.env["ABG_TS_LIVE_AGENT"] ?? "codex";
-  const agentKey = admitLiveAgentKey(agentRaw);
+  const agentFlag = command.liveAgent;
+  const agentEnv = process.env["ABG_TS_LIVE_AGENT"];
   const profileFlag = command.executorProfile;
   const profileEnv = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
-  const profileRaw = profileFlag ?? profileEnv;
-  const executorProfile =
-    profileRaw === undefined ? null : admitExecutorProfile(profileRaw);
   const timeoutFlag = command.liveTimeoutMs;
   const timeoutEnv = process.env["ABG_TS_LIVE_TIMEOUT_MS"];
-  const timeoutMs = admitLiveTimeoutMs(timeoutFlag ?? timeoutEnv ?? "240000");
+
+  // Admission precedes the no-agent decision. Invalid or orphaned steering is
+  // never allowed to disappear through the old null early return.
+  const admittedProfile =
+    profileFlag !== undefined || profileEnv !== undefined
+      ? admitExecutorProfile(profileFlag ?? profileEnv ?? "")
+      : null;
+  const admittedTimeout =
+    timeoutFlag !== undefined || timeoutEnv !== undefined
+      ? admitLiveTimeoutMs(timeoutFlag ?? timeoutEnv ?? "")
+      : null;
+  const agentSource: LiveCapabilityValueSource | null =
+    command.liveAgent !== undefined
+      ? "flag"
+      : agentEnv !== undefined
+        ? "env"
+        : process.env["CODEX_LIVE_FP"] === "1"
+          ? "default"
+          : null;
+  if (agentSource === null) {
+    if (profileFlag !== undefined || profileEnv !== undefined) {
+      throw new CliError(
+        "live executor profile requires --live-agent, ABG_TS_LIVE_AGENT, or CODEX_LIVE_FP=1"
+      );
+    }
+    if (timeoutFlag !== undefined || timeoutEnv !== undefined) {
+      throw new CliError(
+        "live timeout requires --live-agent, ABG_TS_LIVE_AGENT, or CODEX_LIVE_FP=1"
+      );
+    }
+    return null;
+  }
+  const agentRaw = agentFlag ?? agentEnv ?? "codex";
+  const agentKey = admitLiveAgentKey(agentRaw);
+  const executorProfile = admittedProfile ?? "local-spawn";
+  const timeoutMs = admittedTimeout ?? admitLiveTimeoutMs("240000");
   return Object.freeze({
     agentKey,
     agentKeySource: agentSource,
     executorProfile,
     executorProfileSource:
-      profileFlag !== undefined ? "flag" : profileEnv !== undefined ? "env" : "unset",
+      profileFlag !== undefined ? "flag" : profileEnv !== undefined ? "env" : "default",
     timeoutMs,
     timeoutMsSource:
       timeoutFlag !== undefined ? "flag" : timeoutEnv !== undefined ? "env" : "default"
   });
 }
 
-function livePluginCapabilities(
+export function resolveLiveCapabilityBinding(
   workspaceRoot: string,
   command: ParsedStartCommand
-): EnginePluginCapabilities | undefined {
+): LiveCapabilityBinding | undefined {
   const provenance = resolveLiveCapabilityProvenance(command);
   if (provenance === null) {
     return undefined;
   }
-  const agentKey = admitLiveAgentKey(provenance.agentKey);
-  const executorProfile =
-    provenance.executorProfile === null
-      ? undefined
-      : admitExecutorProfile(provenance.executorProfile);
-  const timeoutMs = provenance.timeoutMs;
-  const capability: LiveFpDispatchCapability = {
-    agentContract: contractForKnownAgent(agentKey),
+  const capability: LiveFpDispatchCapability = Object.freeze({
+    agentContract: contractForKnownAgent(provenance.agentKey),
     archiveRoot: join(workspaceRoot, ".ai-workspace", "live-fp"),
     cwd: workspaceRoot,
-    timeoutMs,
-    ...(executorProfile === undefined ? {} : { executorProfile }),
-    ...(executorProfile === "pty-terminal"
+    timeoutMs: provenance.timeoutMs,
+    executorProfile: provenance.executorProfile,
+    ...(provenance.executorProfile === "pty-terminal"
       ? { terminalSessionKeyPrefix: "abg-live" }
       : {})
-  };
-  return Object.freeze({
-    liveFpDispatch: capability,
-    liveFpEvaluator: capability
+  });
+  return constructLiveCapabilityBinding({
+    workspaceRoot,
+    ...provenance,
+    pluginCapabilities: Object.freeze({
+      liveFpDispatch: capability,
+      liveFpEvaluator: capability
+    })
   });
 }
 
@@ -1939,14 +1963,8 @@ function startContext(
   binding: RuntimeBinding,
   replayEvents: readonly RuntimeEvent[],
   resolvedPolicy: PublicStartContext["resolvedPolicy"],
-  command?: ParsedStartCommand
+  liveCapability?: LiveCapabilityBinding
 ): PublicStartContext {
-  // read-only surfaces (gaps) pass no command and compose no live
-  // capabilities — reads never need transport.
-  const liveCapabilities =
-    command === undefined
-      ? undefined
-      : livePluginCapabilities(workspaceRoot, command);
   const runtimeEvents = Object.freeze([
     ...replayEvents,
     ...(binding.runtimeEvents ?? Object.freeze([]))
@@ -1958,9 +1976,9 @@ function startContext(
     runtimeEvents,
     abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
     leverOverridesBundle: loadAbgLeverOverridesBundle(workspaceRoot),
-    ...(liveCapabilities === undefined
+    ...(liveCapability === undefined
       ? {}
-      : { pluginCapabilities: liveCapabilities }),
+      : { liveCapability }),
     ...(binding.constructionPriorityScheme === undefined
       ? {}
       : { constructionPriorityScheme: binding.constructionPriorityScheme }),
@@ -2172,6 +2190,7 @@ async function runStartCommand(
 ): Promise<number> {
   applyDeclaredTransportSteering(command);
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
+  const liveCapability = resolveLiveCapabilityBinding(workspaceRoot, command);
   const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
   const binding = narrowRegistryStartupToSessionAllowlist(
     await loadRuntimeBinding(workspaceRoot),
@@ -2229,7 +2248,13 @@ async function runStartCommand(
   try {
     outcome = await publicCallableStartAsync(
       callableInput(command, workspaceRoot, binding, target),
-      startContext(workspaceRoot, binding, replayEvents, resolvedPolicy, command),
+      startContext(
+        workspaceRoot,
+        binding,
+        replayEvents,
+        resolvedPolicy,
+        liveCapability
+      ),
       eventSink,
       plugins
     );
@@ -2271,7 +2296,7 @@ async function runStartCommand(
     stop_class: outcome.stopClass,
     control_outcome: outcome.controlOutcome,
     live_status: outcome.liveStatus,
-    live_capability: resolveLiveCapabilityProvenance(command)
+    live_capability: projectLiveCapability(liveCapability)
   };
   io.stdout(`${JSON.stringify(output)}\n`);
   return exitCodeForStart(outcome);

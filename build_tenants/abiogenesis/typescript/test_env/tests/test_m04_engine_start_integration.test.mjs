@@ -262,6 +262,7 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
   const dispatchedEdges = [];
   const fpDispatch = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/no-same-edge-fp-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",

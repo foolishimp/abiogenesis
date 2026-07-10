@@ -32,6 +32,7 @@ function runtimeBindingSource({
 
     const fpDispatchPlugin = Object.freeze({
       contract: constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://cli-binary/runtime-binding/fp-dispatch",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",

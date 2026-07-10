@@ -10,6 +10,7 @@ export type { ResolvedHogProgram } from "./runner/hog_program_resolution.js";
 export {
   C_CALL_HANDLER_CLASS_VALUES,
   admitHandlerRegistry,
+  constructCCallHandler,
   resolveHandlerForSelection,
   executeHandler
 } from "./runner/c_call_handlers.js";
@@ -17,6 +18,7 @@ export type {
   CCallHandler,
   CCallHandlerBinding,
   CCallHandlerClass,
+  CCallHandlerDriverRequirement,
   CCallHandlerInput,
   CCallHandlerInterior,
   CCallHandlerRegistry

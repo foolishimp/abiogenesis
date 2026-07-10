@@ -137,6 +137,7 @@ test("T-072 engine runner: F_D evaluator is a substitutable plugin, not loop aut
   const observedInputs = [];
   const fdEvaluator = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/fd-evaluator",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",

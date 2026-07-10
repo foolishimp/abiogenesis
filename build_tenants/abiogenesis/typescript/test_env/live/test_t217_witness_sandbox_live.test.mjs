@@ -150,6 +150,7 @@ function runtimeBindingSource() {
 
     const fpDispatchPlugin = Object.freeze({
       contract: constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t217-live/fp-dispatch",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",

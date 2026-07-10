@@ -502,6 +502,7 @@ test("T-188 live F_P output closes only with admitted depth and preserves residu
       plugins: {
         fpDispatch: Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t188/live/fp-dispatch",
             pluginKind: "fp_dispatch",
             authority: "effect_plugin",

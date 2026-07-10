@@ -12,9 +12,9 @@ import type {
   RuntimeEventSink
 } from "../../abg/m03/index.js";
 import type { AbgFallbackBundle } from "../../abg/m03/index.js";
-import type { EnginePluginCapabilities } from "../../abg/m03/index.js";
 import type { AbgLeverOverridesBundle } from "../../shared/lever_registry/overrides.js";
 import type { Module } from "../../gtl/m02/contracts/carriers.js";
+import type { LiveCapabilityBinding } from "./live_capability.js";
 
 export interface PublicStartContext extends EngineStartPassthroughFields {
   readonly module: Module;
@@ -30,10 +30,9 @@ export interface PublicStartContext extends EngineStartPassthroughFields {
   readonly assuranceProvider?: EngineAssuranceProvider;
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
   readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
-  // S2.3 operator capability set for DECLARED live plugin selection —
-  // rides the context end-to-end so live catalog refs resolve at the
-  // engine without a second ingress.
-  readonly pluginCapabilities?: EnginePluginCapabilities;
+  // One admitted live capability authority. Its projection is replay/stdout
+  // identity; its pluginCapabilities member is the exact catalog input.
+  readonly liveCapability?: LiveCapabilityBinding;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;
   readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
 }

@@ -132,6 +132,7 @@ function directiveFromSelection(selection) {
 
 function pluginContract() {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref: "plugin://t112/fp",
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

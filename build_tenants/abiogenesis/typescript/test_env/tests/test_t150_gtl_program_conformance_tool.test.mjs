@@ -729,6 +729,7 @@ function runtimeReentryRouteRow(input) {
 
 function pluginContract(overrides = {}) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref: "plugin://t150/fp-dispatch",
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

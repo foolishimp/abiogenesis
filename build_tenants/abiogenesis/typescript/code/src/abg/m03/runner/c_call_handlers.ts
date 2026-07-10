@@ -53,9 +53,38 @@ export interface CCallHandlerInput {
   readonly workProjection: unknown;
 }
 
-export type CCallHandler = (
-  input: CCallHandlerInput
-) => CCallHandlerInterior | Promise<CCallHandlerInterior>;
+export type CCallHandlerDriverRequirement =
+  | "sync_compatible"
+  | "async_required";
+
+export type CCallHandlerResultForDriver<
+  D extends CCallHandlerDriverRequirement
+> = D extends "sync_compatible"
+  ? CCallHandlerInterior
+  : Promise<CCallHandlerInterior>;
+
+export type CCallHandler<
+  D extends CCallHandlerDriverRequirement = CCallHandlerDriverRequirement
+> = {
+  readonly driverRequirement: D;
+  (input: CCallHandlerInput): CCallHandlerResultForDriver<D>;
+};
+
+export function constructCCallHandler<
+  const D extends CCallHandlerDriverRequirement
+>(input: {
+  readonly driverRequirement: D;
+  readonly execute: (
+    handlerInput: CCallHandlerInput
+  ) => CCallHandlerResultForDriver<D>;
+}): CCallHandler<D> {
+  const handler = Object.assign(
+    (handlerInput: CCallHandlerInput): CCallHandlerResultForDriver<D> =>
+      input.execute(handlerInput),
+    { driverRequirement: input.driverRequirement }
+  );
+  return Object.freeze(handler);
+}
 
 export interface CCallHandlerRegistry {
   readonly bindings: readonly CCallHandlerBinding[];
@@ -74,6 +103,20 @@ export function admitHandlerRegistry(input: {
   const seen = new Set<string>();
   const nonEmpty = (value: unknown): value is string =>
     typeof value === "string" && value.length > 0;
+  for (const [handlerRef, handler] of input.handlers) {
+    if (typeof handler !== "function") {
+      issues.push(`handler ${handlerRef} must be callable`);
+      continue;
+    }
+    if (
+      handler.driverRequirement !== "sync_compatible" &&
+      handler.driverRequirement !== "async_required"
+    ) {
+      issues.push(
+        `handler ${handlerRef}.driverRequirement must be "sync_compatible" or "async_required"`
+      );
+    }
+  }
   for (const [index, binding] of input.bindings.entries()) {
     const at = `bindings[${index}]`;
     // field shapes first (codex probe: empty/invalid fields must reject)
@@ -153,6 +196,20 @@ export function executeHandler(
   handler: CCallHandler,
   input: CCallHandlerInput
 ): CCallHandlerInterior {
+  if (handler.driverRequirement !== "sync_compatible") {
+    return Object.freeze({
+      outcomeStatus: "blocked",
+      evidenceRefs: Object.freeze([
+        `handler-async-refused:${input.binding.handlerRef}`
+      ]),
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason:
+        handler.driverRequirement === "async_required"
+          ? "handler_requires_async_driver (contract_failure)"
+          : "handler_driver_requirement_invalid (contract_failure)"
+    });
+  }
   try {
     const interior = handler(input);
     if (interior instanceof Promise) {
@@ -273,6 +330,20 @@ export async function executeHandlerAsync(
   handler: CCallHandler,
   input: CCallHandlerInput
 ): Promise<CCallHandlerInterior> {
+  if (
+    handler.driverRequirement !== "sync_compatible" &&
+    handler.driverRequirement !== "async_required"
+  ) {
+    return Object.freeze({
+      outcomeStatus: "blocked",
+      evidenceRefs: Object.freeze([
+        `handler-driver-invalid:${input.binding.handlerRef}`
+      ]),
+      payloadRef: null,
+      responseContractRef: null,
+      failureReason: "handler_driver_requirement_invalid (contract_failure)"
+    });
+  }
   try {
     const interior = await handler(input);
     return Object.freeze({ ...interior, evidenceRefs: Object.freeze([...interior.evidenceRefs]) });

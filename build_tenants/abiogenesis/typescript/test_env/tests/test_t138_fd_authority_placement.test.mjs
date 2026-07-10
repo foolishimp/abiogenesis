@@ -17,6 +17,7 @@ import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fd_evaluator",
     authority: "effect_plugin",

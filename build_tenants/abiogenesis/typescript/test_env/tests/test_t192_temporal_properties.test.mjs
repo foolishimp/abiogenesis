@@ -311,11 +311,20 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/../../m03/index.js";
 import { m03InstructionAssemblyRequestFields } from "./support/m03-iteration-fixtures.mjs";
 import {
+  constructCCallHandler,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   defaultFpEvaluatorPlugin
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { fulfilledAttachedArtifactFor } from "./support/m03-iteration-fixtures.mjs";
+
+function syncCCallHandler(execute) {
+  return constructCCallHandler({ driverRequirement: "sync_compatible", execute });
+}
+
+function asyncCCallHandler(execute) {
+  return constructCCallHandler({ driverRequirement: "async_required", execute });
+}
 
 function p4Run(temporalRules, pluginOverrides = {}) {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
@@ -335,6 +344,7 @@ function p4Run(temporalRules, pluginOverrides = {}) {
       ...pluginOverrides,
       fpDispatch: pluginOverrides.fpDispatch ?? Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t192/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -426,6 +436,7 @@ test("T-192 P4: unlawful property startup fails closed before any traversal", ()
 test("T-200 P4: throwing fp plugins become blocked outcomes, not engine deaths (arm parity)", () => {
   const throwingDispatch = {
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t200/p4/throwing-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",
@@ -468,6 +479,7 @@ function resumeRun(runtimeEvents, dispatchImpl) {
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -612,6 +624,7 @@ test("T-205 B2: a DECLARED program drives the engine — selection rows carry it
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -766,13 +779,14 @@ test("T-205 B3 KEYSTONE: a declared 4-stage program EXECUTES — admit stage run
             regime: "F_D", handlerRef: "handler://t205/admit",
             handlerClass: "pipeline", handlerConfigRef: null
           }],
-          handlers: new Map([["handler://t205/admit", (input) => {
+          handlers: new Map([["handler://t205/admit", syncCCallHandler((input) => {
             admitCalls.push(input.stage.stageRole);
             return admitOutcome;
-          }]])
+          })]])
         },
         fpDispatch: Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
             authority: "effect_plugin", inputCarrier: "EnginePluginInput",
             outputCarrier: "FpDispatchOutcome"
@@ -874,13 +888,14 @@ test("T-205 B3 TRIAD: a 6-stage program runs all three fibres at the anchors —
           bindingRow("approve", "F_H", "arm://x/h", "handler://triad/approve")
         ],
         handlers: new Map([
-          ["handler://triad/admit", () => ({ outcomeStatus: "executed", evidenceRefs: ["exec-status:0"], payloadRef: null, responseContractRef: null, failureReason: null })],
-          ["handler://triad/critique", () => ({ outcomeStatus: "executed", evidenceRefs: ["worker-disposition:pass"], payloadRef: null, responseContractRef: null, failureReason: null })],
-          ["handler://triad/approve", () => ({ outcomeStatus: "escalated", evidenceRefs: ["approval-subject:subject://triad"], payloadRef: null, responseContractRef: null, failureReason: null })]
+          ["handler://triad/admit", syncCCallHandler(() => ({ outcomeStatus: "executed", evidenceRefs: ["exec-status:0"], payloadRef: null, responseContractRef: null, failureReason: null }))],
+          ["handler://triad/critique", syncCCallHandler(() => ({ outcomeStatus: "executed", evidenceRefs: ["worker-disposition:pass"], payloadRef: null, responseContractRef: null, failureReason: null }))],
+          ["handler://triad/approve", syncCCallHandler(() => ({ outcomeStatus: "escalated", evidenceRefs: ["approval-subject:subject://triad"], payloadRef: null, responseContractRef: null, failureReason: null }))]
         ])
       },
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
           authority: "effect_plugin", inputCarrier: "EnginePluginInput",
           outputCarrier: "FpDispatchOutcome"
@@ -980,6 +995,7 @@ test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the le
       plugins: {
         fpDispatch: Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
             authority: "effect_plugin", inputCarrier: "EnginePluginInput",
             outputCarrier: "FpDispatchOutcome"
@@ -1105,6 +1121,7 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
     handlerRegistry: { bindings: [], handlers: new Map([["handler://t205/declared-admit", impl]]) },
     fpDispatch: Object.freeze({
       contract: constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t205/fp-dispatch", pluginKind: "fp_dispatch",
         authority: "effect_plugin", inputCarrier: "EnginePluginInput",
         outputCarrier: "FpDispatchOutcome"
@@ -1121,10 +1138,10 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
     fpEvaluator: defaultFpEvaluatorPlugin
   });
   // SYNC impl on the SYNC driver: declared config threads through
-  const syncImpl = (input) => {
+  const syncImpl = syncCCallHandler((input) => {
     seenConfigs.push(input.declaredConfig);
     return { outcomeStatus: "executed", evidenceRefs: ["db://ok"], payloadRef: null, responseContractRef: null, failureReason: null };
-  };
+  });
   const okRun = runEngineIterate({
     basis: declaredBasis,
     eventSink: () => {},
@@ -1136,7 +1153,14 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
   assert.equal(seenConfigs.length > 0, true);
   assert.deepEqual(seenConfigs[0], { expectedMarker: "declared-config-arrived" }, "-005: declared config reached the handler");
   // ASYNC impl on the SYNC driver: typed refusal, judged blocked, lawful stop
-  const asyncImpl = async () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null });
+  let asyncInvocations = 0;
+  let asyncContinuationRan = false;
+  const asyncImpl = asyncCCallHandler(async () => {
+    asyncInvocations += 1;
+    await Promise.resolve();
+    asyncContinuationRan = true;
+    return { outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null };
+  });
   const refused = runEngineIterate({
     basis: declaredBasis,
     eventSink: () => {},
@@ -1150,6 +1174,9 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
   assert.equal(refusedJudged.judgment, "blocked");
   const refusedEvidenced = refused.replayEvents.find((e) => e.kind === "c_call_evidenced" && e.cCallRef === refusedSel.cCallRef);
   assert.equal(refusedEvidenced.evidenceRefs.some((r) => r.includes("handler_requires_async_driver")), true, "typed refusal in evidence");
+  await Promise.resolve();
+  assert.equal(asyncInvocations, 0, "the sync driver must refuse before invoking the handler");
+  assert.equal(asyncContinuationRan, false, "no async continuation may escape admitted truth");
   // the SAME async impl on the ASYNC driver: advances
   const asyncRun = await runEngineIterateAsync({
     basis: declaredBasis,
@@ -1160,6 +1187,8 @@ test("T-205 COVERAGE g2: DECLARED handler bindings drive the engine — abg.hog_
   const asyncSel = asyncRun.replayEvents.find((e) => e.kind === "c_call_fibre_selected" && e.armId === "arm://db/a");
   const asyncJudged = asyncRun.replayEvents.find((e) => e.kind === "c_call_judged" && e.cCallRef === asyncSel.cCallRef);
   assert.equal(asyncJudged.judgment, "advance", "async handlers run on the async driver");
+  assert.equal(asyncInvocations > 0, true, "the async driver invokes async-required handlers");
+  assert.equal(asyncContinuationRan, true);
 });
 
 test("T-205 run-18 mirror: a PRE-SPAWN dispatch contract_failure retries in-run — never missing_process_evidence", () => {
@@ -1176,6 +1205,7 @@ test("T-205 run-18 mirror: a PRE-SPAWN dispatch contract_failure retries in-run 
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/prespawn-dispatch", pluginKind: "fp_dispatch",
           authority: "effect_plugin", inputCarrier: "EnginePluginInput",
           outputCarrier: "FpDispatchOutcome"
@@ -1215,6 +1245,7 @@ test("T-205 campaign #16: invocation attempt identity is replay-global — a res
   const basis = Object.freeze({ ...basis0, startIntent: Object.freeze({ ...basis0.startIntent, until: "converged" }) });
   const throwing = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t205/c16-dispatch", pluginKind: "fp_dispatch",
       authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
     }),
@@ -1241,6 +1272,7 @@ test("T-205 campaign #17: a null-basis runtime_failure_observed in the shared lo
   const basis = Object.freeze({ ...basis0, startIntent: Object.freeze({ ...basis0.startIntent, until: "converged" }) });
   const good = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t205/c17-dispatch", pluginKind: "fp_dispatch",
       authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
     }),
@@ -1292,6 +1324,7 @@ test("T-205 F5 (run-19 #21 shape): a consequence-plugin THROW is a typed blocked
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/f5-dispatch", pluginKind: "fp_dispatch",
           authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "FpDispatchOutcome"
         }),
@@ -1307,6 +1340,7 @@ test("T-205 F5 (run-19 #21 shape): a consequence-plugin THROW is a typed blocked
       fpEvaluator: defaultFpEvaluatorPlugin,
       consequenceProjection: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t205/f5-consequence", pluginKind: "consequence_projection",
           authority: "effect_plugin", inputCarrier: "EnginePluginInput", outputCarrier: "ConsequenceProjectionOutcome"
         }),
@@ -1417,6 +1451,7 @@ test("S2.3 plugin selection: declared seam + caller-supplied plugin for the same
       plugins: {
         fpDispatch: {
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t217/custom-dispatch", pluginKind: "fp_dispatch",
             authority: "effect_plugin", inputCarrier: "EnginePluginInput",
             outputCarrier: "FpDispatchOutcome"
@@ -1506,8 +1541,8 @@ test("S2.3 live selection: the live dispatch ref without its capability fails cl
   });
 });
 
-test("S2.3 live selection: with the injected capability the live plugin serves the dispatch seam", async () => {
-  const { mkdtempSync, existsSync: existsSyncLocal } = await import("node:fs");
+test("S2.3 live selection: dispatch archive binds the emitted transform c-call", async () => {
+  const { mkdtempSync, readFileSync, readdirSync } = await import("node:fs");
   const { tmpdir } = await import("node:os");
   const pathMod = await import("node:path");
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
@@ -1547,16 +1582,456 @@ test("S2.3 live selection: with the injected capability the live plugin serves t
       }
     }
   });
-  // resolution succeeded (no unresolvable/conflict), and the live plugin
-  // demonstrably RAN: it archives the instruction manifest per attempt
-  // (invocation-keyed name per codex round F2).
+  // Resolution succeeded and the archive request is bound to the canonical
+  // c-call the runner opened for this transform effect.
   assert.doesNotMatch(result.transition.reason ?? "", /plugin_selection/u);
-  const { readdirSync } = await import("node:fs");
-  const archived = existsSyncLocal(archiveRoot) ? readdirSync(archiveRoot) : [];
+  const bundleIds = readdirSync(pathMod.join(archiveRoot, "by-c-call"));
+  assert.equal(bundleIds.length, 1);
+  const request = JSON.parse(
+    readFileSync(
+      pathMod.join(archiveRoot, "by-c-call", bundleIds[0], "request.json"),
+      "utf8"
+    )
+  );
+  const opened = result.replayEvents.find(
+    (event) => event.kind === "c_call_opened" && event.stageRole === "transform"
+  );
+  assert.ok(opened, "the live dispatch effect must have an opened transform c-call");
+  assert.equal(request.seam, "dispatch");
+  assert.equal(request.cCallRef, opened.cCallRef);
+});
+
+test("S2.3 live dispatch resume reuses one C-call and never repeats uncertain work", async () => {
+  const { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const pathMod = await import("node:path");
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const liveBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/fp-dispatch-live" }]
+          } }) })
+        ])
+      })
+    })
+  });
+  const root = mkdtempSync(pathMod.join(tmpdir(), "t217-live-resume-"));
+  const archiveRoot = pathMod.join(root, "archive");
+  const capability = {
+    agentContract: {
+      agentKey: "generic",
+      command: process.execPath,
+      argsTemplate: [
+        "-e",
+        "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+      ],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    archiveRoot,
+    cwd: root,
+    timeoutMs: 30000,
+    labelPrefix: "t217-resume"
+  };
+  const run = (runtimeEvents = [], eventSink = () => {}) =>
+    runEngineIterateAsync({
+      basis: liveBasis,
+      runtimeEvents,
+      eventSink,
+      ...m03InstructionAssemblyRequestFields(liveBasis),
+      plugins: { fpEvaluator: defaultFpEvaluatorPlugin },
+      pluginCapabilities: { liveFpDispatch: capability }
+    });
+
+  const durablePrefix = [];
+  await assert.rejects(
+    run([], (event) => {
+      if (event.kind === "c_call_fibre_selected") {
+        throw new Error("simulated durable sink interruption after c-call open");
+      }
+      durablePrefix.push(event);
+    }),
+    /simulated durable sink interruption/u
+  );
+  assert.equal(durablePrefix.at(-1)?.kind, "c_call_opened");
   assert.equal(
-    archived.some((name) => /^t217-sel-dispatch-v0-.*-instruction-manifest\.json$/u.test(name)),
+    existsSync(pathMod.join(root, "worker-count")),
+    false,
+    "the worker cannot run before selected-fibre truth is durable"
+  );
+
+  const first = await run(durablePrefix);
+  const opened = first.replayEvents.find(
+    (event) => event.kind === "c_call_opened" && event.stageRole === "transform"
+  );
+  assert.ok(opened);
+  const selectedIndex = first.replayEvents.findIndex(
+    (event) =>
+      event.kind === "c_call_fibre_selected" && event.cCallRef === opened.cCallRef
+  );
+  assert.notEqual(selectedIndex, -1);
+  assert.equal(
+    first.replayEvents.filter(
+      (event) => event.kind === "c_call_opened" && event.cCallRef === opened.cCallRef
+    ).length,
+    1,
+    "opened-only recovery preserves the durable open"
+  );
+  assert.equal(
+    first.replayEvents.filter(
+      (event) =>
+        event.kind === "c_call_fibre_selected" && event.cCallRef === opened.cCallRef
+    ).length,
+    1,
+    "opened-only recovery emits exactly the missing selected suffix"
+  );
+  const crashPrefix = first.replayEvents.slice(0, selectedIndex + 1);
+
+  const completedResume = await run(crashPrefix);
+  assert.equal(readFileSync(pathMod.join(root, "worker-count"), "utf8"), "x");
+  const resumeManifests = completedResume.replayEvents.filter(
+    (event) =>
+      event.kind === "instruction_prompt_manifest_projected" &&
+      event.vectorIndex === opened.vectorIndex
+  );
+  assert.notEqual(
+    resumeManifests[0]?.promptDigest,
+    resumeManifests.at(-1)?.promptDigest,
+    `the reproduction must include replay-grown prompt drift: ${JSON.stringify(
+      resumeManifests.map((event) => ({
+        actorInvocationId: event.actorInvocationId,
+        manifestDigest: event.manifestDigest,
+        envelopeDigest: event.envelopeDigest,
+        promptDigest: event.promptDigest
+      }))
+    )}`
+  );
+  assert.equal(
+    completedResume.replayEvents.filter(
+      (event) => event.kind === "c_call_opened" && event.cCallRef === opened.cCallRef
+    ).length,
+    1,
+    "resume must not duplicate the existing open"
+  );
+  assert.equal(
+    completedResume.replayEvents.some(
+      (event) => event.kind === "c_call_judged" && event.cCallRef === opened.cCallRef
+    ),
     true,
-    "the live dispatch plugin must have served vector 0"
+    "the reused completion closes the original C-call"
+  );
+
+  const firstEvidence = first.replayEvents.find(
+    (event) => event.kind === "c_call_evidenced" && event.cCallRef === opened.cCallRef
+  );
+  const firstResult = first.replayEvents.find(
+    (event) =>
+      event.kind === "c_call_result_admitted" && event.cCallRef === opened.cCallRef
+  );
+  assert.ok(firstEvidence);
+  assert.ok(firstResult);
+  const evidencePrefixResume = await run([...crashPrefix, firstEvidence]);
+  assert.equal(
+    evidencePrefixResume.replayEvents.filter(
+      (event) => event.kind === "c_call_evidenced" && event.cCallRef === opened.cCallRef
+    ).length,
+    1,
+    "resume after evidence must emit only the missing close suffix"
+  );
+  assert.equal(
+    evidencePrefixResume.replayEvents.filter(
+      (event) =>
+        event.kind === "c_call_result_admitted" && event.cCallRef === opened.cCallRef
+    ).length,
+    1
+  );
+  const resultPrefixResume = await run([
+    ...crashPrefix,
+    firstEvidence,
+    firstResult
+  ]);
+  assert.equal(
+    resultPrefixResume.replayEvents.filter(
+      (event) =>
+        event.kind === "c_call_result_admitted" && event.cCallRef === opened.cCallRef
+    ).length,
+    1,
+    "resume after result admission must emit only the missing judgment"
+  );
+  assert.equal(
+    resultPrefixResume.replayEvents.filter(
+      (event) => event.kind === "c_call_judged" && event.cCallRef === opened.cCallRef
+    ).length,
+    1
+  );
+  assert.equal(readFileSync(pathMod.join(root, "worker-count"), "utf8"), "x");
+
+  const { createHash } = await import("node:crypto");
+  const bundleRoot = pathMod.join(archiveRoot, "by-c-call");
+  const bundleIdsBeforeDeletion = readdirSync(bundleRoot);
+  const bundleId = createHash("sha256").update(opened.cCallRef).digest("hex");
+  assert.deepEqual(bundleIdsBeforeDeletion, [bundleId]);
+  const requestBeforeDeletion = JSON.parse(
+    readFileSync(pathMod.join(bundleRoot, bundleId, "request.json"), "utf8")
+  );
+  assert.equal(requestBeforeDeletion.cCallRef, opened.cCallRef);
+  rmSync(pathMod.join(archiveRoot, "by-c-call", bundleId, "completion.json"));
+  const incompleteResume = await run(crashPrefix);
+  const bundleDiagnostics = readdirSync(bundleRoot).map((candidateBundleId) => ({
+    bundleId: candidateBundleId,
+    cCallRef: JSON.parse(
+      readFileSync(
+        pathMod.join(bundleRoot, candidateBundleId, "request.json"),
+        "utf8"
+      )
+    ).cCallRef
+  }));
+  const openedDiagnostics = incompleteResume.replayEvents
+    .filter((event) => event.kind === "c_call_opened")
+    .map((event) => event.cCallRef);
+  assert.equal(
+    readFileSync(pathMod.join(root, "worker-count"), "utf8"),
+    "x",
+    JSON.stringify({ bundleDiagnostics, openedDiagnostics })
+  );
+  assert.equal(readdirSync(pathMod.join(archiveRoot, "by-c-call")).length, 1);
+  assert.equal(
+    incompleteResume.replayEvents.filter(
+      (event) => event.kind === "c_call_opened" && event.cCallRef === opened.cCallRef
+    ).length,
+    1
+  );
+  const evidence = incompleteResume.replayEvents.find(
+    (event) => event.kind === "c_call_evidenced" && event.cCallRef === opened.cCallRef
+  );
+  assert.ok(evidence, "the uncertain original C-call must close with actual archive evidence");
+  assert.equal(evidence.evidenceRefs.some((ref) => ref.endsWith("/output.txt")), true);
+  assert.equal(evidence.evidenceRefs.some((ref) => ref.endsWith("/trace/result.json")), true);
+});
+
+test("S2.3 live selection: evaluator archive binds the emitted evaluation c-call", async () => {
+  const { mkdtempSync, readFileSync, readdirSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const pathMod = await import("node:path");
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const liveBasis = Object.freeze({
+    ...basis,
+    startIntent: Object.freeze({ ...basis.startIntent, until: "first_traversal" }),
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object",
+            entries: [
+              { key: "fpDispatch", value: "plugin://abg/fp-dispatch-live" },
+              { key: "fpEvaluator", value: "plugin://abg/fp-evaluator-live" }
+            ]
+          } }) })
+        ])
+      })
+    })
+  });
+  const root = mkdtempSync(pathMod.join(tmpdir(), "t217-live-eval-sel-"));
+  const archiveRoot = pathMod.join(root, "archive");
+  const firstVector = liveBasis.graphFunction.template.graph.vectors[0];
+  const expectedAssessmentIds = firstVector.evaluators.map(
+    (evaluator) => evaluator.name
+  );
+  const dispatchArtifact = fulfilledAttachedArtifactFor({
+    expectedAssessmentIds,
+    expectedEdge: firstVector.name,
+    edge: firstVector.name,
+    workerId: liveBasis.runtimeIdentity.workerId,
+    backendId: liveBasis.runtimeIdentity.backendId,
+    resolvedRuntimeRef: liveBasis.runtimeIdentity.resolvedRuntimeRef
+  });
+  const capability = (script) => ({
+    agentContract: {
+      agentKey: "generic",
+      command: process.execPath,
+      argsTemplate: ["-e", script],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    archiveRoot,
+    cwd: root,
+    timeoutMs: 30000,
+    labelPrefix: "t217-eval-sel"
+  });
+  const result = await runEngineIterateAsync({
+    basis: liveBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(liveBasis),
+    pluginCapabilities: {
+      liveFpDispatch: capability(
+        `console.log(JSON.stringify(${JSON.stringify(dispatchArtifact)}))`
+      ),
+      liveFpEvaluator: capability(
+        "console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))"
+      )
+    }
+  });
+  assert.doesNotMatch(result.transition.reason ?? "", /plugin_selection/u);
+  const requests = readdirSync(pathMod.join(archiveRoot, "by-c-call")).map(
+    (bundleId) =>
+      JSON.parse(
+        readFileSync(
+          pathMod.join(archiveRoot, "by-c-call", bundleId, "request.json"),
+          "utf8"
+        )
+      )
+  );
+  const request = requests.find((row) => row.seam === "evaluation");
+  const opened = result.replayEvents.find(
+    (event) => event.kind === "c_call_opened" && event.stageRole === "evaluate"
+  );
+  assert.ok(
+    request,
+    `the live evaluator must write its per-c-call request; transition=${result.transition.reason}`
+  );
+  assert.ok(opened, "the live evaluator effect must have an opened evaluation c-call");
+  assert.equal(request.cCallRef, opened.cCallRef);
+  const evidenced = result.replayEvents.find(
+    (event) => event.kind === "c_call_evidenced" && event.cCallRef === opened.cCallRef
+  );
+  const judged = result.replayEvents.find(
+    (event) => event.kind === "c_call_judged" && event.cCallRef === opened.cCallRef
+  );
+  assert.ok(evidenced, "a retrying evaluator must close with its live evidence");
+  assert.equal(
+    evidenced.evidenceRefs.some((ref) => ref.startsWith("agent-output:")),
+    true
+  );
+  assert.ok(judged, "a retrying evaluator must close its C-call");
+  assert.equal(["retry", "blocked"].includes(judged.judgment), true);
+});
+
+test("S2.3 live evaluator incomplete resume blocks without repeating uncertain work", async () => {
+  const { existsSync, mkdtempSync, readFileSync, rmSync } = await import("node:fs");
+  const { createHash } = await import("node:crypto");
+  const { tmpdir } = await import("node:os");
+  const pathMod = await import("node:path");
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const liveBasis = Object.freeze({
+    ...basis,
+    startIntent: Object.freeze({ ...basis.startIntent, until: "first_traversal" }),
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object",
+            entries: [
+              { key: "fpDispatch", value: "plugin://abg/fp-dispatch-live" },
+              { key: "fpEvaluator", value: "plugin://abg/fp-evaluator-live" }
+            ]
+          } }) })
+        ])
+      })
+    })
+  });
+  const root = mkdtempSync(pathMod.join(tmpdir(), "t217-live-eval-resume-"));
+  const archiveRoot = pathMod.join(root, "archive");
+  const firstVector = liveBasis.graphFunction.template.graph.vectors[0];
+  const expectedAssessmentIds = firstVector.evaluators.map(
+    (evaluator) => evaluator.name
+  );
+  const dispatchArtifact = fulfilledAttachedArtifactFor({
+    expectedAssessmentIds,
+    expectedEdge: firstVector.name,
+    edge: firstVector.name,
+    workerId: liveBasis.runtimeIdentity.workerId,
+    backendId: liveBasis.runtimeIdentity.backendId,
+    resolvedRuntimeRef: liveBasis.runtimeIdentity.resolvedRuntimeRef
+  });
+  const capability = (script) => ({
+    agentContract: {
+      agentKey: "generic",
+      command: process.execPath,
+      argsTemplate: ["-e", script],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    archiveRoot,
+    cwd: root,
+    timeoutMs: 30000,
+    labelPrefix: "t217-eval-resume"
+  });
+  const run = (runtimeEvents = [], eventSink = () => {}) =>
+    runEngineIterateAsync({
+      basis: liveBasis,
+      runtimeEvents,
+      eventSink,
+      ...m03InstructionAssemblyRequestFields(liveBasis),
+      pluginCapabilities: {
+        liveFpDispatch: capability(
+          `console.log(JSON.stringify(${JSON.stringify(dispatchArtifact)}))`
+        ),
+        liveFpEvaluator: capability(
+          "require('fs').appendFileSync('evaluator-worker-count','x');console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))"
+        )
+      }
+    });
+
+  const durablePrefix = [];
+  let evaluationCallRef = null;
+  await assert.rejects(
+    run([], (event) => {
+      if (event.kind === "c_call_opened" && event.stageRole === "evaluate") {
+        evaluationCallRef = event.cCallRef;
+      }
+      if (
+        evaluationCallRef !== null &&
+        event.kind === "payload_observed" &&
+        event.payloadClass === "evaluation_rule_outcome"
+      ) {
+        throw new Error("simulated durable sink interruption after evaluator effect");
+      }
+      durablePrefix.push(event);
+    }),
+    /simulated durable sink interruption/u
+  );
+  assert.notEqual(evaluationCallRef, null);
+  assert.equal(
+    durablePrefix.some(
+      (event) =>
+        event.kind === "c_call_fibre_selected" &&
+        event.cCallRef === evaluationCallRef
+    ),
+    true
+  );
+  const bundleId = createHash("sha256").update(evaluationCallRef).digest("hex");
+  const completionPath = pathMod.join(
+    archiveRoot,
+    "by-c-call",
+    bundleId,
+    "completion.json"
+  );
+  assert.equal(existsSync(completionPath), true);
+  assert.equal(readFileSync(pathMod.join(root, "evaluator-worker-count"), "utf8"), "x");
+  rmSync(completionPath);
+
+  const refused = await run(durablePrefix);
+  assert.equal(refused.transition.kind, "terminal");
+  assert.equal(refused.transition.terminalKind, "gap_stop");
+  assert.match(
+    refused.transition.reason,
+    /live F_P evaluator archive refused without retry: archive_incomplete/u
+  );
+  const refusedJudgment = refused.replayEvents.find(
+    (event) =>
+      event.kind === "c_call_judged" && event.cCallRef === evaluationCallRef
+  );
+  assert.equal(refusedJudgment?.judgment, "blocked");
+  assert.equal(
+    readFileSync(pathMod.join(root, "evaluator-worker-count"), "utf8"),
+    "x",
+    "an incomplete evaluator archive is never repeated"
   );
 });
 
@@ -1601,7 +2076,7 @@ test("R4-1: sync driver refuses a caller-supplied async-only plugin before any i
   // the sync driver's refusal is admitted truth: the async-only reason
   // appears in the replayed event stream (fields vary by event kind).
   const refusalRecorded = result.replayEvents.some((event) =>
-    JSON.stringify(event).includes("plugin_driver_incompatible")
+    JSON.stringify(event).includes("plugin_admission_failed")
   );
   assert.equal(refusalRecorded, true, "the async-only refusal is recorded in replay");
 });

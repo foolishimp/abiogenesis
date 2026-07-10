@@ -121,6 +121,7 @@ function envelopeTemplate(overrides = {}) {
 function fpDispatchPluginWithArtifact() {
   return Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t188/wiring/fp-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",
@@ -203,6 +204,7 @@ test("T-188 M3 differential: ledger-resolved strength flips the strength issue k
   const strengthRef = "proof-strength-admission://t188/source-test";
   const resolvingPlugin = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t188/wiring/fp-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",
@@ -371,6 +373,7 @@ function b3Run(carryEntry, pluginEvidenceRefs, seedEvents) {
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t188/b3/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -662,6 +665,7 @@ test("T-031 repro: non-final spanned close emits fold truth (owed-but-missing re
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t188/t031/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -784,6 +788,7 @@ test("T-031 BUG #2: coverage-bearing requirement in multi-requirement scope fold
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t188/t031b2/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -957,6 +962,7 @@ test("T-210 b1: an attached artifact carrying a depth-proof map emits admitted r
     plugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t210/b1/fp-dispatch",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -999,6 +1005,7 @@ const T032_DIGEST = "sha256:" + "ab".repeat(32);
 function depthMapDispatchPlugin({ strengthRef, mapRows, extraEvidenceRefs = [], mutationRows = null }) {
   return Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t210/b2/fp-dispatch",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",

@@ -60,6 +60,7 @@ function runEngineIterate(input) {
 
 function pluginContract(pluginKind) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref: `plugin://t144/${pluginKind}`,
     pluginKind,
     authority:
@@ -610,6 +611,7 @@ test("T-144 GTL compose syntax keeps F_P transform dispatch distinct from evalua
   assert.throws(
     () =>
       constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t144/bad-fp-dispatch-as-evaluate",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",
@@ -1056,6 +1058,7 @@ test("T-144 malformed compute categories and fallback surfaces fail closed", () 
   assert.throws(
     () =>
       constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t144/bad-fh",
         pluginKind: "fh_admission",
         authority: "effect_plugin",
@@ -1070,6 +1073,7 @@ test("T-144 malformed compute categories and fallback surfaces fail closed", () 
   assert.throws(
     () =>
       constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t144/bad-purpose",
         pluginKind: "runtime_event_sink",
         authority: "sink",
@@ -1085,6 +1089,7 @@ test("T-144 malformed compute categories and fallback surfaces fail closed", () 
   assert.throws(
     () =>
       constructEnginePluginContract({
+        driverRequirement: "sync_compatible",
         ref: "plugin://t144/internal-human",
         pluginKind: "runtime_event_sink",
         authority: "sink",

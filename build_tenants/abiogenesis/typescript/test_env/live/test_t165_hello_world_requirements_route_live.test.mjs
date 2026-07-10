@@ -261,6 +261,7 @@ function expectedRouteContextForBasis(basis, vectorIndex, bundle) {
 
 function fpDispatchContract(ref) {
   return publicRoot.constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

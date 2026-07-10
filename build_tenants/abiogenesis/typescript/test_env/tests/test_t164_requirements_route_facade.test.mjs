@@ -321,6 +321,7 @@ test("T-164 admitted ref digest canonicalization is environment invariant", () =
 
 function fpDispatchContract(ref) {
   return publicRoot.constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

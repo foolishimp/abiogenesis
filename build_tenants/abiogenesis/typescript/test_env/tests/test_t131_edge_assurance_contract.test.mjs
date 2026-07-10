@@ -240,6 +240,7 @@ function basisWithModulePolicyHooks(policyHooks) {
 
 function fpDispatchContract() {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref: "plugin://t131/fp-dispatch",
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",

@@ -1249,6 +1249,7 @@ export {
 export type {
   ConsequenceProjectionOutcome,
   ConsequenceProjectionPlugin,
+  ComposedStageTaskPlugin,
   EngineComputeStageBinding,
   EngineComputeStagePurpose,
   EngineComputeStageRole,
@@ -1260,6 +1261,7 @@ export type {
   EnginePluginInventoryEntry,
   EnginePluginKind,
   EnginePluginOutcome,
+  EnginePluginResultForDriver,
   EnginePluginRuntimeBindingStatus,
   EngineRunnerPluginSet,
   EvaluationRulePlugin,
@@ -1272,7 +1274,8 @@ export type {
   FhAdmissionOutcome,
   FhAdmissionPlugin,
   FpDispatchOutcome,
-  FpDispatchPlugin
+  FpDispatchPlugin,
+  PluginDriverRequirement
 } from "./plugins.js";
 export type {
   EvaluationRuleDeclaration,

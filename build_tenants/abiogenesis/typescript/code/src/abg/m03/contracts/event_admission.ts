@@ -73,6 +73,29 @@ const LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES = Object.freeze([
   "registry_default"
 ] as const);
 
+const LIVE_CAPABILITY_VALUE_SOURCE_VALUES = Object.freeze([
+  "flag",
+  "env",
+  "default"
+] as const);
+
+const LIVE_CAPABILITY_AGENT_KEY_VALUES = Object.freeze([
+  "claude",
+  "codex",
+  "gemini",
+  "generic"
+] as const);
+
+const LIVE_CAPABILITY_EXECUTOR_PROFILE_VALUES = Object.freeze([
+  "local-spawn",
+  "pty-terminal"
+] as const);
+
+const AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS = Object.freeze([
+  "plugin://abg/fp-dispatch-live",
+  "plugin://abg/fp-evaluator-live"
+] as const);
+
 function isPlainObject(input: unknown): input is RuntimeEventRecord {
   return typeof input === "object" && input !== null && !Array.isArray(input);
 }
@@ -782,17 +805,8 @@ const C_CALL_OPENED_ADMISSION = (event: RuntimeEventRecord): void => {
     })(event);
   };
 
-const RUNTIME_EVENT_ADMITTERS = Object.freeze({
-  basis_admitted: applyFieldRules("BasisAdmittedEvent", {
-    basisId: "non_empty_string",
-    graphFunctionId: "non_empty_string",
-    jobId: "non_empty_string",
-    resolvedRuntimeRef: "non_empty_string",
-    resolvedPolicyBundleRef: "non_empty_string",
-    runId: "nullable_string",
-    workKey: "nullable_string"
-  }),
-  lever_resolution_admitted: applyFieldRules("LeverResolutionAdmittedEvent", {
+const admitLeverResolutionAdmittedEvent: RuntimeEventAdmitter = (event) => {
+  applyFieldRules("LeverResolutionAdmittedEvent", {
     workspaceRoot: "non_empty_string",
     moduleName: "non_empty_string",
     targetHandle: "non_empty_string",
@@ -820,6 +834,33 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES,
       optional: true
     },
+    liveCapabilityRef: "nullable_string",
+    liveCapabilityDigest: "nullable_string",
+    executionContractDigest: "nullable_string",
+    liveAgentKey: {
+      oneOf: LIVE_CAPABILITY_AGENT_KEY_VALUES,
+      nullable: true
+    },
+    liveAgentKeySource: {
+      oneOf: LIVE_CAPABILITY_VALUE_SOURCE_VALUES,
+      nullable: true
+    },
+    liveExecutorProfile: {
+      oneOf: LIVE_CAPABILITY_EXECUTOR_PROFILE_VALUES,
+      nullable: true
+    },
+    liveExecutorProfileSource: {
+      oneOf: LIVE_CAPABILITY_VALUE_SOURCE_VALUES,
+      nullable: true
+    },
+    liveTimeoutMs: "nullable_non_negative_integer",
+    liveTimeoutMsSource: {
+      oneOf: LIVE_CAPABILITY_VALUE_SOURCE_VALUES,
+      nullable: true
+    },
+    availableLivePluginRefs: {
+      equalsOneOfArrays: [[], AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS]
+    },
     selectedLeverKeys: {
       equalsOneOfArrays: [
         ["abg.m04.until", "abg.m04.fh_mode"],
@@ -832,7 +873,86 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     },
     causationEventRefs: "string_array",
     correlationId: "non_empty_string"
+  })(event);
+
+  const capabilityFields = [
+    "liveCapabilityRef",
+    "liveCapabilityDigest",
+    "executionContractDigest",
+    "liveAgentKey",
+    "liveAgentKeySource",
+    "liveExecutorProfile",
+    "liveExecutorProfileSource",
+    "liveTimeoutMs",
+    "liveTimeoutMsSource"
+  ] as const;
+  const capabilityAbsent = capabilityFields.every((field) => event[field] === null);
+  const capabilityPresent = capabilityFields.every((field) => event[field] !== null);
+  const availableRefs = event["availableLivePluginRefs"];
+  if (
+    capabilityAbsent !==
+    (Array.isArray(availableRefs) && availableRefs.length === 0)
+  ) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent live capability fields and available refs must be all absent or all present"
+    );
+  }
+  if (capabilityAbsent) {
+    return;
+  }
+  if (!capabilityPresent) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent live capability fields must be all present"
+    );
+  }
+  if (typeof event["liveTimeoutMs"] !== "number" || event["liveTimeoutMs"] <= 0) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent.liveTimeoutMs must be a positive integer"
+    );
+  }
+  if (
+    typeof event["executionContractDigest"] !== "string" ||
+    !/^sha256:[0-9a-f]{64}$/u.test(event["executionContractDigest"])
+  ) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent.executionContractDigest must be a sha256 digest"
+    );
+  }
+  const expectedDigest = stableSha256Digest({
+    kind: "abg_live_plugin_capability",
+    workspaceRoot: event["workspaceRoot"],
+    executionContractDigest: event["executionContractDigest"],
+    agentKey: event["liveAgentKey"],
+    agentKeySource: event["liveAgentKeySource"],
+    executorProfile: event["liveExecutorProfile"],
+    executorProfileSource: event["liveExecutorProfileSource"],
+    timeoutMs: event["liveTimeoutMs"],
+    timeoutMsSource: event["liveTimeoutMsSource"],
+    availableLivePluginRefs: availableRefs
+  });
+  if (event["liveCapabilityDigest"] !== expectedDigest) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent.liveCapabilityDigest does not match its capability facts"
+    );
+  }
+  if (event["liveCapabilityRef"] !== `capability:live:${expectedDigest}`) {
+    throw new TypeError(
+      "LeverResolutionAdmittedEvent.liveCapabilityRef does not match its capability digest"
+    );
+  }
+};
+
+const RUNTIME_EVENT_ADMITTERS = Object.freeze({
+  basis_admitted: applyFieldRules("BasisAdmittedEvent", {
+    basisId: "non_empty_string",
+    graphFunctionId: "non_empty_string",
+    jobId: "non_empty_string",
+    resolvedRuntimeRef: "non_empty_string",
+    resolvedPolicyBundleRef: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string"
   }),
+  lever_resolution_admitted: admitLeverResolutionAdmittedEvent,
   fd_advance_ready: applyFieldRules("FdAdvanceReadyEvent", {
     basisId: "non_empty_string",
     graphFunctionId: "non_empty_string",

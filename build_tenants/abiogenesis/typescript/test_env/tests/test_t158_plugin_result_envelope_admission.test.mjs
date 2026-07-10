@@ -197,6 +197,7 @@ function runtimeResultInterface(input) {
 function fdEvaluatorPlugin() {
   return Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t158/fd",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",

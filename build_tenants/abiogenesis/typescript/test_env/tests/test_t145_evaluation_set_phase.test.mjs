@@ -27,6 +27,7 @@ import {
 
 function pluginContract(pluginKind, ref, outputCarrier) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind,
     authority: "effect_plugin",

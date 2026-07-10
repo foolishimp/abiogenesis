@@ -169,6 +169,7 @@ function withRoles(basis, roles) {
 
 function fpDispatchContract() {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref: "plugin://t116/fp-dispatch",
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -261,6 +262,7 @@ test("T-116 fallback observer binding can be enabled per traversal kind", () => 
 
   const evalInput = constructEnginePluginInput({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://t116/fd-evaluator",
       pluginKind: "fd_evaluator",
       authority: "effect_plugin",

@@ -233,6 +233,7 @@ function assuranceEvidence(scope, input) {
 
 function fpDispatchContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fp_dispatch",
     authority: "effect_plugin",
@@ -243,6 +244,7 @@ function fpDispatchContract(ref) {
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
+    driverRequirement: "sync_compatible",
     ref,
     pluginKind: "fd_evaluator",
     authority: "effect_plugin",

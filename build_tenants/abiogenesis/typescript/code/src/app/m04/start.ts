@@ -51,6 +51,7 @@ export function startFromRequest(
 ): PublicStartOutcome {
   const sink = assertRuntimeEventSink(eventSink);
   const mismatchReason = selectorMismatchReason(request, context.runtimeIdentity);
+  const pluginCapabilities = context.liveCapability?.pluginCapabilities;
 
   if (mismatchReason !== null) {
     return constructRejectedPublicStartOutcome(
@@ -70,9 +71,9 @@ export function startFromRequest(
       bundle: context.leverOverridesBundle ?? null
     }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
-    ...(context.pluginCapabilities === undefined
+    ...(pluginCapabilities === undefined
       ? {}
-      : { pluginCapabilities: context.pluginCapabilities }),
+      : { pluginCapabilities }),
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
@@ -117,6 +118,7 @@ export async function startFromRequestAsync(
 ): Promise<PublicStartOutcome> {
   const sink = assertRuntimeEventSink(eventSink);
   const mismatchReason = selectorMismatchReason(request, context.runtimeIdentity);
+  const pluginCapabilities = context.liveCapability?.pluginCapabilities;
 
   if (mismatchReason !== null) {
     return constructRejectedPublicStartOutcome(
@@ -136,9 +138,9 @@ export async function startFromRequestAsync(
       bundle: context.leverOverridesBundle ?? null
     }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
-    ...(context.pluginCapabilities === undefined
+    ...(pluginCapabilities === undefined
       ? {}
-      : { pluginCapabilities: context.pluginCapabilities }),
+      : { pluginCapabilities }),
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),

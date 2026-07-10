@@ -12,8 +12,6 @@
 //   outcomes carrying the retry-allowlist grammar (transport_failure /
 //   contract_failure) — a live worker fault can never kill a run.
 
-import { mkdirSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
 import type { AgentTransportContract } from "../../../shared/abg_library/index.js";
 import type { TracedProcessExecutorProfile } from "../../../shared/traced_process/index.js";
 import { runAgentTransport } from "../../../shared/abg_library/index.js";
@@ -25,6 +23,8 @@ import type {
   FpEvaluatorPlugin
 } from "../contracts/plugins.js";
 import {
+  admitFpDispatchOutcome,
+  admitFpEvaluationOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructFpEvaluationFinding,
@@ -34,15 +34,13 @@ import { createHash } from "node:crypto";
 import { admitTimeoutBudgetMs } from "./standard_handlers.js";
 import type { StandardCatalogRow } from "../contracts/plugin_selection.js";
 import { STANDARD_ENGINE_PLUGIN_CATALOG } from "../contracts/plugin_selection.js";
-
-// exclusive-create write — refuses a pre-existing path so a symlink
-// planted in the archive root cannot redirect the write (codex round 4
-// R4-7). "wx" makes open(2) fail with EEXIST on any existing target.
-function writeExclusiveUtf8(path: string, data: string): void {
-  // "wx" makes open(2) fail EEXIST on any existing target — including a
-  // planted symlink — so the write can never follow one out of root.
-  writeFileSync(path, data, { encoding: "utf8", flag: "wx" });
-}
+import {
+  LivePluginArchiveError,
+  openLivePluginArchive,
+  type FreshLivePluginArchive,
+  type LivePluginArchiveOpenResult
+} from "./live_plugin_archive.js";
+import { hasEngineCCallResumeAuthority } from "./c_call_resume_authority.js";
 
 export const LIVE_FP_DISPATCH_PLUGIN_REF = "plugin://abg/fp-dispatch-live";
 
@@ -101,46 +99,159 @@ function snapshotCapability(io: LiveFpDispatchCapability): LiveFpDispatchCapabil
   });
 }
 
-// codex round 4 R4-5: archive identity keys on the C-CALL (HANDLERS-007)
-// when present, then the invocation, then a per-plugin-instance
-// MONOTONIC counter so even null-actor same-basis/vector calls can
-// never collide. Full-length content hash — no truncation.
-function makeLabeler(prefix: string, kind: "dispatch" | "eval"): (
-  input: EnginePluginInput
-) => { readonly label: string; readonly identity: Readonly<Record<string, unknown>> } {
-  let seq = 0;
-  return (input) => {
-    seq += 1;
-    const invocation = input.actorInvocationRef ?? null;
-    const attempt = invocation === null ? 0 : invocation.attemptIndex;
-    const identitySource =
-      input.cCallRef ??
-      (invocation === null ? input.basisId : invocation.actorInvocationId);
-    const idHash = createHash("sha256").update(identitySource).digest("hex");
-    const label = `${prefix}-${kind}-v${String(input.vectorIndex)}-a${String(attempt)}-s${String(seq)}-${idHash}`;
-    const identity: Readonly<Record<string, unknown>> = Object.freeze({
-      kind: "live_fp_archive_identity",
-      seam: kind,
-      cCallRef: input.cCallRef ?? null,
-      actorInvocationId: invocation === null ? null : invocation.actorInvocationId,
-      attemptIndex: attempt,
-      basisId: input.basisId,
-      vectorIndex: input.vectorIndex,
-      sequence: seq
-    });
-    return { label, identity };
-  };
+function archiveErrorText(error: unknown): string {
+  return (error instanceof Error ? error.message : String(error)).slice(0, 240);
 }
 
-function writeIdentitySidecar(
-  archiveRoot: string,
-  label: string,
-  identity: Readonly<Record<string, unknown>>
+function archiveErrorEvidence(
+  error: unknown,
+  sourceProjectionRef: string
+): readonly string[] {
+  if (!(error instanceof LivePluginArchiveError)) {
+    return Object.freeze([sourceProjectionRef]);
+  }
+  return Object.freeze([
+    sourceProjectionRef,
+    `live-plugin-archive-refusal:${error.code}`,
+    ...error.evidencePaths.map((path) =>
+      path.endsWith("/launch.json")
+        ? `agent-launch:${path}`
+        : path.endsWith("/trace/result.json")
+          ? `agent-trace:${path}`
+          : `agent-output:${path}`
+    )
+  ]);
+}
+
+function archiveCapability(io: LiveFpDispatchCapability): Readonly<Record<string, unknown>> {
+  return Object.freeze({
+    agentContract: io.agentContract,
+    cwd: io.cwd,
+    timeoutMs: io.timeoutMs,
+    executorProfile: io.executorProfile ?? null,
+    terminalSessionKeyPrefix: io.terminalSessionKeyPrefix ?? null,
+    labelPrefix: io.labelPrefix ?? null
+  });
+}
+
+function archiveEffectInput(
+  input: EnginePluginInput,
+  pluginRef: string
+): Readonly<Record<string, unknown>> {
+  // Only truth that can change the external effect or its admission belongs
+  // in the idempotency digest. Replay/projection collections grow during a
+  // resume and must not turn the same C-call into a conflicting request.
+  return Object.freeze({
+    cCallRef: input.cCallRef,
+    pluginRef,
+    pluginKind: input.contract?.pluginKind,
+    selectedCompositionRef: input.selectedCompositionRef,
+    selectedCompositionDigest: input.selectedCompositionDigest,
+    selectedRegimeBindingRef: input.selectedRegimeBindingRef,
+    basisId: input.basisId,
+    graphCallId: input.graphCallId,
+    frameId: input.frameId,
+    graphFunctionId: input.graphFunctionId,
+    jobId: input.jobId,
+    vectorIndex: input.vectorIndex,
+    edge: input.edge,
+    regime: input.regime,
+    expectedAssessmentIds: input.expectedAssessmentIds
+  });
+}
+
+function evidenceFor(
+  archive: FreshLivePluginArchive,
+  sourceProjectionRef: string
+): readonly string[] {
+  const existing = (path: string): string | null => {
+    try {
+      return archive.existingRegularPath(path);
+    } catch {
+      return null;
+    }
+  };
+  const launchPath = existing("launch.json");
+  const outputPath = existing("output.txt");
+  const traceResultPath = existing("trace/result.json");
+  return Object.freeze([
+    sourceProjectionRef,
+    ...(launchPath === null ? [] : [`agent-launch:${launchPath}`]),
+    ...(outputPath === null ? [] : [`agent-output:${outputPath}`]),
+    ...(traceResultPath === null ? [] : [`agent-trace:${traceResultPath}`])
+  ]);
+}
+
+function openEffectArchive(
+  io: LiveFpDispatchCapability,
+  input: EnginePluginInput,
+  seam: "dispatch" | "evaluation",
+  pluginRef: string,
+  cCallRef: string
+): LivePluginArchiveOpenResult {
+  return openLivePluginArchive({
+    archiveRoot: io.archiveRoot,
+    cCallRef,
+    seam,
+    pluginRef,
+    capability: archiveCapability(io),
+    manifest: input.instructionPromptManifest,
+    effectInput: archiveEffectInput(input, pluginRef),
+    resumeExisting: hasEngineCCallResumeAuthority(input)
+  });
+}
+
+function writePrelaunchArtifacts(
+  archive: FreshLivePluginArchive,
+  input: EnginePluginInput
 ): void {
-  writeExclusiveUtf8(
-    join(archiveRoot, `${label}-identity.json`),
-    `${JSON.stringify(identity, null, 2)}\n`
+  archive.writeText(
+    "instruction-manifest.json",
+    `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`
   );
+  // This is the final archive mutation before transport invocation. Once it
+  // exists, an exception is conservatively a contract failure because the
+  // external effect may have started.
+  archive.writeText(
+    "launch.json",
+    `${JSON.stringify(
+      {
+        kind: "live_plugin_transport_launch",
+        cCallRef: input.cCallRef,
+        requestDigest: archive.requestDigest
+      },
+      null,
+      2
+    )}\n`
+  );
+}
+
+function transportRequest(
+  io: LiveFpDispatchCapability,
+  timeoutMs: number,
+  archive: FreshLivePluginArchive,
+  prompt: string
+) {
+  return {
+    contract: io.agentContract,
+    prompt,
+    cwd: io.cwd,
+    archiveRoot: archive.bundleRoot,
+    label: archive.label,
+    timeoutMs,
+    ...(io.executorProfile === undefined
+      ? {}
+      : { executorProfile: io.executorProfile }),
+    ...(io.terminalSessionKeyPrefix === undefined
+      ? {}
+      : { terminalSessionKey: `${io.terminalSessionKeyPrefix}-${archive.bundleId}` }),
+    outputPath: archive.path("output.txt"),
+    promptPath: archive.path("prompt.txt"),
+    stdoutPath: archive.path("stdout.log"),
+    stderrPath: archive.path("stderr.log"),
+    transportPath: archive.path("transport.json"),
+    traceRoot: archive.path("trace")
+  };
 }
 
 const liveFpDispatchContract = constructEnginePluginContract({
@@ -172,13 +283,20 @@ function extractJsonObjectText(text: string): Readonly<Record<string, unknown>> 
 
 export function standardLiveFpDispatchPlugin(
   input_io: LiveFpDispatchCapability
-): FpDispatchPlugin {
+): FpDispatchPlugin<"async_required"> {
   const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_dispatch_capability");
-  const labeler = makeLabeler(io.labelPrefix ?? "live-fp", "dispatch");
   return Object.freeze({
     contract: liveFpDispatchContract,
     dispatch: async (input: EnginePluginInput): Promise<FpDispatchOutcome> => {
+      if (input.cCallRef === null) {
+        return constructFpDispatchOutcome({
+          status: "blocked",
+          reason:
+            "live fp dispatch requires a canonical cCallRef before effects (contract_failure)",
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
       if (input.instructionPromptManifest === null) {
         return constructFpDispatchOutcome({
           status: "blocked",
@@ -187,59 +305,83 @@ export function standardLiveFpDispatchPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const { label, identity } = labeler(input);
-      mkdirSync(io.archiveRoot, { recursive: true });
-      writeIdentitySidecar(io.archiveRoot, label, identity);
-      // the manifest the worker saw is replay-adjacent evidence; 'wx'
-      // refuses a pre-existing path (codex round 4 R4-7: symlink escape).
-      writeExclusiveUtf8(
-        join(io.archiveRoot, `${label}-instruction-manifest.json`),
-        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`
-      );
-      // codex round 4 R4-4: runAgentTransport can run the worker and THEN
-      // throw while writing artifacts — the session must still reconcile.
-      const outputPath = join(io.archiveRoot, `${label}-output.txt`);
-      const traceResultPath = join(io.archiveRoot, `${label}-trace-result.json`);
-      let transport;
+      let archive: LivePluginArchiveOpenResult;
       try {
-        transport = await runAgentTransport({
-        contract: io.agentContract,
-        prompt: input.instructionPromptManifest.renderedPrompt,
-        cwd: io.cwd,
-        archiveRoot: io.archiveRoot,
-        label,
-        timeoutMs,
-        ...(io.executorProfile === undefined
-          ? {}
-          : { executorProfile: io.executorProfile }),
-        ...(io.terminalSessionKeyPrefix === undefined
-          ? {}
-          : { terminalSessionKey: `${io.terminalSessionKeyPrefix}-${label}` }),
-        outputPath: outputPath,
-        promptPath: join(io.archiveRoot, `${label}-prompt.txt`),
-        stdoutPath: join(io.archiveRoot, `${label}-stdout.log`),
-        stderrPath: join(io.archiveRoot, `${label}-stderr.log`)
-      });
-      } catch (transportError) {
-        const message = (transportError instanceof Error ? transportError.message : String(transportError)).slice(0, 200);
+        archive = openEffectArchive(
+          io,
+          input,
+          "dispatch",
+          LIVE_FP_DISPATCH_PLUGIN_REF,
+          input.cCallRef
+        );
+      } catch (error) {
         return constructFpDispatchOutcome({
           status: "blocked",
-          reason: `live fp dispatch transport threw after invocation: ${message} (transport_failure)`,
-          attachedResultArtifact: {
-            kind: "live_fp_transport_exception",
-            message,
-            outputPath,
-            label
-          },
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${outputPath}`,
-            `agent-trace:${traceResultPath}`
-          ]
+          reason: `live fp dispatch archive refused: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: archiveErrorEvidence(error, input.sourceProjectionRef)
         });
       }
-      if (transport.status !== 0 || transport.failureClass !== null) {
+      if (archive.state === "reused") {
+        let outcome: FpDispatchOutcome | null = null;
+        try {
+          outcome = admitFpDispatchOutcome(
+            archive.outcome,
+            "live fp dispatch cached outcome"
+          );
+        } catch {
+          // A malformed cached completion is a contract failure below.
+        }
+        if (outcome === null) {
+          return constructFpDispatchOutcome({
+            status: "blocked",
+            reason:
+              "live fp dispatch archive completion carries the wrong outcome kind (contract_failure)",
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+        return outcome;
+      }
+      const label = archive.label;
+      try {
+        writePrelaunchArtifacts(archive, input);
+      } catch (error) {
         return constructFpDispatchOutcome({
+          status: "blocked",
+          reason: `live fp dispatch archive preparation failed: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+        });
+      }
+      let transport;
+      try {
+        transport = await runAgentTransport(
+          transportRequest(
+            io,
+            timeoutMs,
+            archive,
+            input.instructionPromptManifest.renderedPrompt
+          )
+        );
+      } catch (transportError) {
+        const outcome = constructFpDispatchOutcome({
+          status: "blocked",
+          reason: `live fp dispatch transport threw after launch: ${archiveErrorText(transportError)} (contract_failure)`,
+          attachedResultArtifact: {
+            kind: "live_fp_transport_exception",
+            message: archiveErrorText(transportError),
+            label
+          },
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+        });
+        try {
+          archive.complete(outcome);
+        } catch {
+          // An incomplete bundle deliberately blocks all later repetition.
+        }
+        return outcome;
+      }
+      let outcome: FpDispatchOutcome;
+      if (transport.status !== 0 || transport.failureClass !== null) {
+        outcome = constructFpDispatchOutcome({
           status: "blocked",
           reason: [
             "live fp dispatch transport failed",
@@ -255,46 +397,42 @@ export function standardLiveFpDispatchPlugin(
             outputPath: transport.outputPath,
             label
           },
-          // codex round F6: the failed session reconciles to its C-call —
-          // archive identities ride the outcome's evidence refs.
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${transport.outputPath}`,
-            ...(transport.traceResultPath === null
-              ? []
-              : [`agent-trace:${transport.traceResultPath}`])
-          ]
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
+      } else {
+        try {
+          const artifact = extractJsonObjectText(transport.text);
+          outcome = constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result:live_fp_dispatch:${label}`,
+            attachedResultArtifact: artifact,
+            evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+          });
+        } catch (error) {
+          const message = archiveErrorText(error).slice(0, 160);
+          outcome = constructFpDispatchOutcome({
+            status: "blocked",
+            reason: `live fp dispatch worker output unparsable: ${message} (contract_failure)`,
+            attachedResultArtifact: {
+              kind: "live_fp_output_unparsable",
+              textExcerpt: transport.text.slice(0, 400),
+              outputPath: transport.outputPath,
+              label
+            },
+            evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+          });
+        }
       }
-      let artifact: Readonly<Record<string, unknown>>;
       try {
-        artifact = extractJsonObjectText(transport.text);
+        archive.complete(outcome);
+        return outcome;
       } catch (error) {
-        const message = (error instanceof Error ? error.message : String(error)).slice(0, 160);
         return constructFpDispatchOutcome({
           status: "blocked",
-          reason: `live fp dispatch worker output unparsable: ${message} (contract_failure)`,
-          attachedResultArtifact: {
-            kind: "live_fp_output_unparsable",
-            textExcerpt: transport.text.slice(0, 400),
-            outputPath: transport.outputPath,
-            label
-          },
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${transport.outputPath}`,
-            ...(transport.traceResultPath === null
-              ? []
-              : [`agent-trace:${transport.traceResultPath}`])
-          ]
+          reason: `live fp dispatch archive finalization failed after launch: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
       }
-      return constructFpDispatchOutcome({
-        status: "dispatched",
-        resultRef: `result:live_fp_dispatch:${label}`,
-        attachedResultArtifact: artifact,
-        evidenceRefs: [input.sourceProjectionRef, `agent-output:${transport.outputPath}`]
-      });
     }
   });
 }
@@ -415,13 +553,20 @@ function sha256Hex(text: string): string {
 
 export function standardLiveFpEvaluatorPlugin(
   input_io: LiveFpDispatchCapability
-): FpEvaluatorPlugin {
+): FpEvaluatorPlugin<"async_required"> {
   const io = snapshotCapability(input_io);
   const timeoutMs = admitTimeoutBudgetMs(io.timeoutMs, "live_fp_evaluator_capability");
-  const labeler = makeLabeler(io.labelPrefix ?? "live-fp", "eval");
   return Object.freeze({
     contract: liveFpEvaluatorContract,
     evaluate: async (input: EnginePluginInput): Promise<FpEvaluationOutcome> => {
+      if (input.cCallRef === null) {
+        return constructFpEvaluationOutcome({
+          status: "blocked",
+          reason:
+            "live fp evaluation requires a canonical cCallRef before effects (contract_failure)",
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
       if (input.instructionPromptManifest === null) {
         return constructFpEvaluationOutcome({
           status: "blocked",
@@ -430,50 +575,78 @@ export function standardLiveFpEvaluatorPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
-      const { label, identity } = labeler(input);
-      mkdirSync(io.archiveRoot, { recursive: true });
-      writeIdentitySidecar(io.archiveRoot, label, identity);
-      writeExclusiveUtf8(
-        join(io.archiveRoot, `${label}-instruction-manifest.json`),
-        `${JSON.stringify(input.instructionPromptManifest, null, 2)}\n`
-      );
-      // codex round 4 R4-4: transport can throw after running the worker.
-      const outputPath = join(io.archiveRoot, `${label}-output.txt`);
-      const traceResultPath = join(io.archiveRoot, `${label}-trace-result.json`);
-      let transport;
+      let archive: LivePluginArchiveOpenResult;
       try {
-        transport = await runAgentTransport({
-        contract: io.agentContract,
-        prompt: input.instructionPromptManifest.renderedPrompt,
-        cwd: io.cwd,
-        archiveRoot: io.archiveRoot,
-        label,
-        timeoutMs,
-        ...(io.executorProfile === undefined
-          ? {}
-          : { executorProfile: io.executorProfile }),
-        ...(io.terminalSessionKeyPrefix === undefined
-          ? {}
-          : { terminalSessionKey: `${io.terminalSessionKeyPrefix}-${label}` }),
-        outputPath: outputPath,
-        promptPath: join(io.archiveRoot, `${label}-prompt.txt`),
-        stdoutPath: join(io.archiveRoot, `${label}-stdout.log`),
-        stderrPath: join(io.archiveRoot, `${label}-stderr.log`)
-      });
-      } catch (transportError) {
-        const message = (transportError instanceof Error ? transportError.message : String(transportError)).slice(0, 200);
+        archive = openEffectArchive(
+          io,
+          input,
+          "evaluation",
+          LIVE_FP_EVALUATOR_PLUGIN_REF,
+          input.cCallRef
+        );
+      } catch (error) {
         return constructFpEvaluationOutcome({
           status: "blocked",
-          reason: `live fp evaluation transport threw after invocation: ${message} (transport_failure)`,
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${outputPath}`,
-            `agent-trace:${traceResultPath}`
-          ]
+          reason: `live fp evaluation archive refused: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: archiveErrorEvidence(error, input.sourceProjectionRef)
         });
       }
-      if (transport.status !== 0 || transport.failureClass !== null) {
+      if (archive.state === "reused") {
+        let outcome: FpEvaluationOutcome | null = null;
+        try {
+          outcome = admitFpEvaluationOutcome(
+            archive.outcome,
+            "live fp evaluation cached outcome"
+          );
+        } catch {
+          // A malformed cached completion is a contract failure below.
+        }
+        if (outcome === null) {
+          return constructFpEvaluationOutcome({
+            status: "blocked",
+            reason:
+              "live fp evaluation archive completion carries the wrong outcome kind (contract_failure)",
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+        return outcome;
+      }
+      const label = archive.label;
+      try {
+        writePrelaunchArtifacts(archive, input);
+      } catch (error) {
         return constructFpEvaluationOutcome({
+          status: "blocked",
+          reason: `live fp evaluation archive preparation failed: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+        });
+      }
+      let transport;
+      try {
+        transport = await runAgentTransport(
+          transportRequest(
+            io,
+            timeoutMs,
+            archive,
+            input.instructionPromptManifest.renderedPrompt
+          )
+        );
+      } catch (transportError) {
+        const outcome = constructFpEvaluationOutcome({
+          status: "blocked",
+          reason: `live fp evaluation transport threw after launch: ${archiveErrorText(transportError)} (contract_failure)`,
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+        });
+        try {
+          archive.complete(outcome);
+        } catch {
+          // An incomplete bundle deliberately blocks all later repetition.
+        }
+        return outcome;
+      }
+      let outcome: FpEvaluationOutcome;
+      if (transport.status !== 0 || transport.failureClass !== null) {
+        outcome = constructFpEvaluationOutcome({
           status: "blocked",
           reason: [
             "live fp evaluation transport failed",
@@ -481,88 +654,83 @@ export function standardLiveFpEvaluatorPlugin(
             `failureClass=${transport.failureClass ?? "transport_failure"}`,
             `toolCallCount=${String(transport.toolCallCount)}`
           ].join(" "),
-          // codex round F6: failed sessions reconcile to their C-call.
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${transport.outputPath}`,
-            ...(transport.traceResultPath === null
-              ? []
-              : [`agent-trace:${transport.traceResultPath}`])
-          ]
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
+      } else {
+        try {
+          const review = admitStandardLiveReview(extractJsonObjectText(transport.text));
+          const missing = input.expectedAssessmentIds.filter(
+            (id) => !review.assessmentIds.includes(id)
+          );
+          const closeEligible =
+            review.accepted &&
+            missing.length === 0 &&
+            review.closeDisposition === "close";
+          const accepted = closeEligible;
+          const closeDisposition = closeEligible ? "close" : "retry";
+          const reviewDigest = sha256Hex(JSON.stringify(review));
+          const evidenceRefs = evidenceFor(archive, input.sourceProjectionRef);
+          outcome = constructFpEvaluationOutcome({
+            status: "evaluated",
+            ambiguityStatus: accepted ? "fulfilled" : "partial",
+            findings: [
+              constructFpEvaluationFinding({
+                findingRef: `finding://abg/live-fp-evaluator/${label}/${reviewDigest}`,
+                evaluatorRef: LIVE_FP_EVALUATOR_PLUGIN_REF,
+                gainReportRef: `gain://abg/live-fp-evaluator/${label}`,
+                metricRefs: [
+                  `metric://abg/live-fp-evaluator/${label}/accepted-${accepted ? "true" : "false"}`
+                ],
+                closeDisposition,
+                residualPressureRefs: accepted
+                  ? []
+                  : [
+                      `residual://abg/live-fp-evaluator/${label}`,
+                      ...missing.map(
+                        (id) =>
+                          `residual://abg/live-fp-evaluator/${label}/unattested/${id}`
+                      )
+                    ],
+                continuationRefs: accepted
+                  ? []
+                  : [`continuation://abg/live-fp-evaluator/${label}/retry`],
+                evidenceRefs,
+                authorityRefs: [
+                  `authority://abg/live-fp-evaluator/${label}`,
+                  ...input.expectedAssessmentIds
+                ],
+                compositionContributionRef:
+                  input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+                compositionRef: input.selectedCompositionRef,
+                compositionDigest: input.selectedCompositionDigest,
+                diagnosticRefs: review.reasons.map(
+                  (reason, index) =>
+                    `diagnostic://abg/live-fp-evaluator/${label}/${String(index)}:${reason.slice(0, 80)}`
+                ),
+                executiveDisposition: accepted ? "close_candidate" : "local_repair"
+              })
+            ],
+            evidenceRefs
+          });
+        } catch (error) {
+          const message = archiveErrorText(error).slice(0, 160);
+          outcome = constructFpEvaluationOutcome({
+            status: "blocked",
+            reason: `live fp evaluation review unparsable: ${message} (contract_failure)`,
+            evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
+          });
+        }
       }
-      let review: StandardLiveReview;
       try {
-        review = admitStandardLiveReview(extractJsonObjectText(transport.text));
+        archive.complete(outcome);
+        return outcome;
       } catch (error) {
-        const message = (error instanceof Error ? error.message : String(error)).slice(0, 160);
         return constructFpEvaluationOutcome({
           status: "blocked",
-          reason: `live fp evaluation review unparsable: ${message} (contract_failure)`,
-          evidenceRefs: [
-            input.sourceProjectionRef,
-            `agent-output:${transport.outputPath}`,
-            ...(transport.traceResultPath === null
-              ? []
-              : [`agent-trace:${transport.traceResultPath}`])
-          ]
+          reason: `live fp evaluation archive finalization failed after launch: ${archiveErrorText(error)} (contract_failure)`,
+          evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
       }
-      // mechanical corroboration: expected assessment ids must be attested
-      const missing = input.expectedAssessmentIds.filter(
-        (id) => !review.assessmentIds.includes(id)
-      );
-      // codex round F4: ONE close-eligibility decision derives EVERY
-      // closure-bearing field. A review that accepts but still asks to
-      // retry is NOT close-eligible — fulfilled/close_candidate truth
-      // never coexists with a retained retry.
-      const closeEligible =
-        review.accepted &&
-        missing.length === 0 &&
-        review.closeDisposition === "close";
-      const accepted = closeEligible;
-      const closeDisposition = closeEligible ? "close" : "retry";
-      const reviewDigest = sha256Hex(JSON.stringify(review));
-      const evidenceRefs = Object.freeze([
-        input.sourceProjectionRef,
-        `agent-output:${transport.outputPath}`
-      ]);
-      return constructFpEvaluationOutcome({
-        status: "evaluated",
-        ambiguityStatus: accepted ? "fulfilled" : "partial",
-        findings: [
-          constructFpEvaluationFinding({
-            findingRef: `finding://abg/live-fp-evaluator/${label}/${reviewDigest}`,
-            evaluatorRef: LIVE_FP_EVALUATOR_PLUGIN_REF,
-            gainReportRef: `gain://abg/live-fp-evaluator/${label}`,
-            metricRefs: [
-              `metric://abg/live-fp-evaluator/${label}/accepted-${accepted ? "true" : "false"}`
-            ],
-            closeDisposition,
-            residualPressureRefs: accepted
-              ? []
-              : [
-                  `residual://abg/live-fp-evaluator/${label}`,
-                  ...missing.map((id) => `residual://abg/live-fp-evaluator/${label}/unattested/${id}`)
-                ],
-            continuationRefs: accepted ? [] : [`continuation://abg/live-fp-evaluator/${label}/retry`],
-            evidenceRefs,
-            authorityRefs: [
-              `authority://abg/live-fp-evaluator/${label}`,
-              ...input.expectedAssessmentIds
-            ],
-            compositionContributionRef:
-              input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
-            compositionRef: input.selectedCompositionRef,
-            compositionDigest: input.selectedCompositionDigest,
-            diagnosticRefs: review.reasons.map(
-              (reason, index) => `diagnostic://abg/live-fp-evaluator/${label}/${String(index)}:${reason.slice(0, 80)}`
-            ),
-            executiveDisposition: accepted ? "close_candidate" : "local_repair"
-          })
-        ],
-        evidenceRefs
-      });
     }
   });
 }

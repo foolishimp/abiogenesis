@@ -444,6 +444,7 @@ test("T-139 runner passes pressure package through the F_P plugin boundary", () 
     graphRunnerPlugins: {
       fpDispatch: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t139/fp",
           pluginKind: "fp_dispatch",
           authority: "effect_plugin",
@@ -482,6 +483,7 @@ test("T-139 runner passes pressure package through the F_P plugin boundary", () 
       }),
       fdEvaluator: Object.freeze({
         contract: constructEnginePluginContract({
+          driverRequirement: "sync_compatible",
           ref: "plugin://t139/fd",
           pluginKind: "fd_evaluator",
           authority: "effect_plugin",

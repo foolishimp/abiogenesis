@@ -628,7 +628,7 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   // no registry: extra role fails closed
   assert.throws(() => assertHogProgramExecutable(deepResolved, null), /unsupported_stage_set/);
   // COMPLETE binding narrows the wall (program×stage×arm + regime + registered handler)
-  const critiqueHandler = () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null });
+  const critiqueHandler = syncCCallHandler(() => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null }));
   const completeRegistry = (over) => ({
     bindings: [{ programRef: "gtl://t205/deep", stageRole: "critique", armId: "arm://d/k",
       regime: "F_P", handlerRef: "handler://t205/critique", ...over }],
@@ -656,16 +656,21 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
 
 import {
   admitHandlerRegistry,
+  constructCCallHandler,
   resolveHandlerForSelection,
   executeHandler
 } from "../../build/semantic/code/src/abg/m03/index.js";
 
+function syncCCallHandler(execute) {
+  return constructCCallHandler({ driverRequirement: "sync_compatible", execute });
+}
+
 test("T-205 B3: handler registry — admission, fail-closed resolution, regime mismatch, typed throw conversion (-001/-002/-006/-012)", () => {
-  const okHandler = () => Object.freeze({
+  const okHandler = syncCCallHandler(() => Object.freeze({
     outcomeStatus: "accepted", evidenceRefs: ["exec://ok"], payloadRef: null,
     responseContractRef: null, failureReason: null
-  });
-  const throwingHandler = () => { throw new Error("spawn ENOENT"); };
+  }));
+  const throwingHandler = syncCCallHandler(() => { throw new Error("spawn ENOENT"); });
   const handlers = new Map([
     ["handler://abg/fd/process-execution", okHandler],
     ["handler://t205/throwing", throwingHandler]
@@ -677,6 +682,16 @@ test("T-205 B3: handler registry — admission, fail-closed resolution, regime m
   };
   // admission: duplicates + unknown refs fail
   assert.equal(admitHandlerRegistry({ bindings: [binding], handlers }).accepted, true);
+  const missingDriverMetadata = admitHandlerRegistry({
+    bindings: [binding],
+    handlers: new Map([[binding.handlerRef, () => ({})]])
+  });
+  assert.equal(missingDriverMetadata.accepted, false);
+  assert.match(
+    missingDriverMetadata.issues.join("; "),
+    /driverRequirement/u,
+    "handler driver capability has no default"
+  );
   const dup = admitHandlerRegistry({ bindings: [binding, binding], handlers });
   assert.equal(dup.accepted, false);
   assert.match(dup.issues[0], /duplicate binding/);
@@ -766,7 +781,7 @@ test("T-205 B3: standard F_D handlers — tool emergence, evidence honesty, writ
   assert.equal(calls.every((c) => c.env.PATH === "declared://path"), true, "-005: env comes from declared config only");
   // materialization: confined writes + escape blocked
   const written = [];
-  const matHandler = standardMaterializationHandler({ writeFile: (p, c) => written.push(p) });
+  const matHandler = standardMaterializationHandler({ writeFile: (p, _c) => written.push(p) });
   const matRun = (files) => matHandler({
     stage: stageFd, binding: bindingFor(STANDARD_HANDLER_REFS.materialization),
     declaredConfig: { writeRoot: "root://out", files }, workProjection: null
@@ -966,7 +981,7 @@ import { assembleHandlerRegistry as assembleForProbe } from "../../build/semanti
 import { admitHogProgram as admitProgramForProbe } from "../../build/semantic/code/src/abg/m03/index.js";
 
 test("T-205 codex P1-a: handler binding assembly rejects coerced-shape fields AS AUTHORED — numeric programRef, boolean stageRole, numeric configRef, unknown siblings", () => {
-  const impls = new Map([["handler://x", () => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null })]]);
+  const impls = new Map([["handler://x", syncCCallHandler(() => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null }))]]);
   const base = {
     programRef: "gtl://p", stageRole: "admit", armId: "arm://a",
     regime: "F_D", handlerRef: "handler://x", handlerClass: "pipeline", handlerConfigRef: null

@@ -210,6 +210,7 @@ test("T-148 runner path uses runtime continuation transition projection", () => 
   });
   const fpDispatch = Object.freeze({
     contract: constructEnginePluginContract({
+      driverRequirement: "sync_compatible",
       ref: "plugin://test/t148-runner-inspect",
       pluginKind: "fp_dispatch",
       authority: "effect_plugin",

@@ -274,6 +274,7 @@ function attachedFpLocalLiveSandboxSource() {
 
         const fpDispatch = Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t085/local-live-attached-worker",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",
@@ -346,6 +347,7 @@ function attachedFpLocalLiveSandboxSource() {
 
         const fpEvaluator = Object.freeze({
           contract: constructEnginePluginContract({
+            driverRequirement: "sync_compatible",
             ref: "plugin://t085/local-live-fp-evaluator",
             pluginKind: "fp_evaluator",
             authority: "effect_plugin",
