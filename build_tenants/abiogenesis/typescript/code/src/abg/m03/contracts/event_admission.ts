@@ -38,6 +38,7 @@ import {
 import {
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import { isPlainRecord } from "./admission_hygiene.js";
 
 type FieldRule =
   | "non_empty_string"
@@ -102,12 +103,6 @@ function admitStringList(value: unknown, label: string): readonly string[] {
   }
   const rows: readonly string[] = value;
   return rows;
-}
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function assertNonNegativeInteger(value: unknown, label: string): void {

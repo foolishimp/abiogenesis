@@ -437,6 +437,40 @@ test("T-180 composed node types preserve constituent obligations", () => {
   assert.equal(conflict.rejectionReason, "schema_conflict");
 });
 
+// Dual review 2026-07-10 F4 pin: disagreeing non-null digest-policy refs
+// are an ASSET-SURFACE CONFLICT — the merge fails closed. The refuted
+// defect: conflict truth returned in the STRING domain made the symbol
+// comparison always false, so this composition "succeeded" carrying the
+// literal string "conflict" as its digest-policy ref.
+test("T-180 composition fails closed on disagreeing rendered-view digest policy refs", () => {
+  const leftType = constructNodeTypeGraphFunction(
+    reviewNode({
+      assetSurface: assetSurface({
+        renderedViewDigestPolicyRef: "digest-policy://t180/left"
+      })
+    })
+  );
+  const rightType = constructNodeTypeGraphFunction(
+    reviewNode({
+      typeRef: "node-type://t180/OtherReviewDocument",
+      assetSurface: assetSurface({
+        renderedViewDigestPolicyRef: "digest-policy://t180/right"
+      })
+    })
+  );
+  const conflict = composeNodeTypes({
+    typeRef: "node-type://t180/DigestConflictReviewDocument",
+    constituentTypeRefs: [
+      "node-type://t180/ReviewDocument",
+      "node-type://t180/OtherReviewDocument"
+    ],
+    graphFunctions: [leftType, rightType]
+  });
+  assert.equal(conflict.satisfied, false);
+  assert.equal(conflict.rejectionReason, "asset_surface_conflict");
+  assert.equal(conflict.graphFunction, null);
+});
+
 test("T-180 explicit type wiring composes differently named ports without weakening exact compose", () => {
   const readyType = constructNodeTypeGraphFunction(reviewNode());
   const source = simpleNode("SourceDocument");

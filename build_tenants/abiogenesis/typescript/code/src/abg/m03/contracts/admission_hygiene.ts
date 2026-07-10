@@ -18,6 +18,16 @@
 // sort by the FULL detached row content under a fixed codepoint
 // comparator — identical row sets in any input order yield one digest.
 
+// ONE HOME (codex P2, dual review 2026-07-10): the plain-record shape
+// predicate every admission surface narrows unknown input through.
+// Rejects null, arrays, and non-objects; accepts any other object as a
+// readable record. Import it — never re-declare it per carrier file.
+export function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 // Detach a worker-payload row into a plain, self-consistent snapshot via
 // one JSON round-trip. Returns undefined when the row is not plain
 // readable data (throwing getter, non-serializable, cyclic) — a typed
@@ -167,6 +177,52 @@ export function sortByAdmissionOrdinalStrict<T>(
       .sort((left, right) => left.ordinal - right.ordinal)
       .map((entry) => entry.item)
   );
+}
+
+// REPLAY INGEST LAW (dual review 2026-07-10, D-ordinal systemic fix):
+// replay enters every downstream fold ORDINAL-SORTED and COLLISION-FREE.
+// Physical file order is not authority — overlapping writer processes
+// and replay-tolerant re-appends lawfully produce logs whose line order
+// differs from admission order, and last-write-wins folds over such a
+// log mint stale truth (resume cursors, authority snapshots, registry
+// entries). Enforced at the ingest chokepoints (CLI replay read; engine
+// canonical replay admission) so array order == ordinal order for every
+// consumer. Two DIFFERENT events claiming one ordinal are unorderable
+// truth and fail closed; identical duplicate lines fail the eventId
+// uniqueness assertion instead.
+export function sortReplayByAdmissionOrdinalFailClosed<T>(
+  events: readonly T[],
+  label: string
+): readonly T[] {
+  if (events.length <= 1) {
+    return Object.freeze([...events]);
+  }
+  const rows = events.map((event, index) => {
+    const ordinal = eventAdmissionOrdinalOf(event);
+    if (ordinal === null) {
+      throw new TypeError(
+        `${label}: replay ingest requires an admission ordinal on every event; index ${index} carries none`
+      );
+    }
+    return { event, ordinal, index };
+  });
+  const sorted = [...rows].sort(
+    (left, right) => left.ordinal - right.ordinal || left.index - right.index
+  );
+  for (let index = 1; index < sorted.length; index += 1) {
+    const previous = sorted[index - 1];
+    const current = sorted[index];
+    if (
+      previous !== undefined &&
+      current !== undefined &&
+      previous.ordinal === current.ordinal
+    ) {
+      throw new TypeError(
+        `${label}: replay ingest ordinal collision — two events claim eventAdmissionOrdinal ${previous.ordinal}; colliding admission truth is unorderable and fails closed`
+      );
+    }
+  }
+  return Object.freeze(sorted.map((row) => row.event));
 }
 
 // Disagreement-aware decisive value: candidates that all AGREE need no

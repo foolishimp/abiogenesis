@@ -4,6 +4,8 @@ import { assertCanonicalRuntimeEvent } from "../abg/m03/contracts/event_admissio
 import { TRANSPORT_SINK_EVENT_KIND_VALUES } from "../abg/m03/contracts/plugins.js";
 import { constructRuntimeFailureObservedEvent } from "../abg/m03/contracts/event_factories.js";
 import { emit } from "../abg/m03/events/emit.js";
+import { hasCanonicalRuntimeEventEnvelope } from "../abg/m03/contracts/event_admission.js";
+import { sortReplayByAdmissionOrdinalFailClosed } from "../abg/m03/contracts/admission_hygiene.js";
 import { UNTIL_VALUES, FH_MODE_VALUES, ROOT_MODE_VALUES } from "../shared/validation/governed_enums.js";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -251,6 +253,8 @@ interface ParsedReleaseSnapshotCommand {
   readonly expectedPackageName: string | null;
   readonly expectedPackageVersion: string | null;
   readonly runBuild: boolean;
+  readonly runLint: boolean;
+  readonly runTests: boolean;
   readonly allowDirtySource: boolean;
   readonly npmCacheRoot: string | null;
 }
@@ -952,6 +956,8 @@ function parseReleaseSnapshotCommand(
       "expected-package-version"
     ),
     runBuild: parseBooleanFlag(optionalFlag(parsed, "build", "true"), "build"),
+    runLint: parseBooleanFlag(optionalFlag(parsed, "lint", "true"), "lint"),
+    runTests: parseBooleanFlag(optionalFlag(parsed, "tests", "true"), "tests"),
     allowDirtySource: parseBooleanFlag(
       optionalFlag(parsed, "allow-dirty-source", "false"),
       "allow-dirty-source"
@@ -1164,7 +1170,11 @@ async function readReplayEvents(path: string): Promise<readonly RuntimeEvent[]> 
     }
     events.push(parsed as RuntimeEvent);
   }
-  return Object.freeze(events);
+  // REPLAY INGEST LAW (dual review 2026-07-10): downstream folds read
+  // array order as admission order — enforce it here. Physical line
+  // order may lawfully differ (overlapping writers, replay-tolerant
+  // re-appends); colliding ordinals are unorderable truth, fail closed.
+  return sortReplayByAdmissionOrdinalFailClosed(events, "events replay");
 }
 
 function unwrapRuntimeBinding(namespace: unknown): unknown {
@@ -2039,6 +2049,16 @@ async function runStartCommand(
         `workspace plugin emitted non-transport event kind ${JSON.stringify(event.kind)}; plugin truth enters through outcomes only`
       );
     }
+    // C-4 at the FOREIGN-INPUT boundary (dual review 2026-07-10, F1): a
+    // plugin-supplied PRE-STAMPED canonical envelope is a forged ordinal
+    // claim against this store's live append path — reject it here; the
+    // shared emitter counter mints admission ordinals for plugin events
+    // exactly as for engine-fresh events.
+    if (hasCanonicalRuntimeEventEnvelope(event)) {
+      throw new CliError(
+        `workspace plugin emitted a pre-stamped canonical envelope for kind ${JSON.stringify(event.kind)}; plugin events are minted at admission, never pre-stamped`
+      );
+    }
     emit(event, eventSink);
   };
   const resolvedPolicy = await runtimePolicyForStart({
@@ -2825,6 +2845,8 @@ async function runReleaseSnapshotCommand(
     expectedPackageName: command.expectedPackageName,
     expectedPackageVersion: command.expectedPackageVersion,
     runBuild: command.runBuild,
+    runLint: command.runLint,
+    runTests: command.runTests,
     npmCacheRoot: resolveOptionalWorkspace(io.cwd(), command.npmCacheRoot),
     createdAt: new Date().toISOString()
   });

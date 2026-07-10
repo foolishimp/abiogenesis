@@ -100,6 +100,11 @@ export interface ExplicitGraphVectorResumeCursorRequest {
   readonly basis: ExecutionBasis;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
+  // C-4 parity (dual review 2026-07-10, F3): every exported operator
+  // route threads the store-scoped emitter context; an adapter wiring
+  // this route to a persisted store must not silently inherit the
+  // replay-tolerant default.
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly targetVectorIndex: number;
   readonly reason: string;
   readonly causationEventRefs?: readonly string[] | undefined;
@@ -121,6 +126,9 @@ export interface GraphSpanReentryApplicationRequest {
   readonly basis: ExecutionBasis;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
+  // C-4 parity (dual review 2026-07-10, F3) — see
+  // ExplicitGraphVectorResumeCursorRequest.emitterContext.
+  readonly emitterContext?: RuntimeEventEmitterContext | undefined;
   readonly terminalVectorIndex: number;
   readonly assessments: readonly GraphSpanAssessment[];
   readonly closedVectorIndexes?: readonly number[] | undefined;
@@ -737,7 +745,8 @@ export function applyExplicitGraphVectorResumeCursor(
     causationEventRefs: input.causationEventRefs,
     correlationId: input.correlationId
   });
-  const emittedEvents = emit(
+  const emittedEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), Object.freeze([cursorEvent])),
     input.eventSink
   );
@@ -813,7 +822,8 @@ export function applyGraphSpanReentryRoute(
       causationEventRefs: input.causationEventRefs
     })
   ]);
-  const emittedSpanEvents = emit(
+  const emittedSpanEvents = routeEmit(
+    input.emitterContext,
     withBasisAdmission(input.basis, input.runtimeEvents ?? Object.freeze([]), scheduleAndFoldEvents),
     input.eventSink
   );
@@ -830,7 +840,8 @@ export function applyGraphSpanReentryRoute(
   });
   let emittedReentryEvents: readonly CanonicalRuntimeEvent[] = Object.freeze([]);
   if (plan !== null) {
-    emittedReentryEvents = emit(
+    emittedReentryEvents = routeEmit(
+      input.emitterContext,
       Object.freeze([
         constructGraphReentryPlannedEvent({ basis: input.basis, plan }),
         constructGraphReentryAppliedEvent({ basis: input.basis, plan })

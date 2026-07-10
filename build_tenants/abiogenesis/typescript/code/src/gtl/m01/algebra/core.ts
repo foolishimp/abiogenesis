@@ -230,7 +230,12 @@ function mergeNullableRef(
   if (right === null || left === right) {
     return left;
   }
-  return "conflict";
+  // the SYMBOL, never the string: a ref VALUE can legitimately be any
+  // string (including "conflict"), so conflict truth must be carried
+  // out-of-band of the string domain (dual review 2026-07-10 F4: the
+  // string return here made the caller's symbol comparison always false
+  // and let disagreeing refs merge "successfully" with a poisoned value)
+  return MERGE_CONFLICT;
 }
 
 function mergeAuthoritySlots(

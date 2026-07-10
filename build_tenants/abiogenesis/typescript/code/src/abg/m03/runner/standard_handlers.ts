@@ -6,6 +6,7 @@
 // declarations flowing through handlerConfig.
 
 import type { CCallHandler, CCallHandlerInterior } from "./c_call_handlers.js";
+import { isPlainRecord } from "../contracts/admission_hygiene.js";
 
 export interface ProcessExecutionIo {
   readonly runProcess: (input: {
@@ -30,10 +31,22 @@ export interface ProcessExecutionConfig {
   readonly timeoutMs: number;
 }
 
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+// HANDLERS-008 budget admission (dual-review P2 finding, 2026-07-10): a
+// declared time budget feeds setTimeout — NaN, Infinity, zero, negative,
+// or fractional values are typed rejections at admission, never a
+// silently-disabled or misfiring timer. ONE HOME: the runtime assembly
+// imports this admission; do not re-declare it per config parser.
+export function admitTimeoutBudgetMs(value: unknown, at: string): number {
+  if (
+    typeof value !== "number" ||
+    !Number.isSafeInteger(value) ||
+    value <= 0
+  ) {
+    throw new TypeError(
+      `${at}.timeoutMs must be a positive safe integer of milliseconds, got ${JSON.stringify(value)}`
+    );
+  }
+  return value;
 }
 
 function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
@@ -47,7 +60,10 @@ function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
   const command = input["command"];
   const args = input["args"];
   const cwd = input["cwd"];
-  const timeoutMs = input["timeoutMs"];
+  const timeoutMs = admitTimeoutBudgetMs(
+    input["timeoutMs"],
+    "process_execution_config"
+  );
   const env = input["env"];
   if (
     typeof command !== "string" ||
@@ -55,7 +71,6 @@ function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
     !Array.isArray(args) ||
     !args.every((entry): entry is string => typeof entry === "string") ||
     typeof cwd !== "string" ||
-    typeof timeoutMs !== "number" ||
     !isPlainRecord(env) ||
     !Object.values(env).every((value) => typeof value === "string")
   ) {
@@ -262,13 +277,12 @@ function fpTransportConfigFrom(input: unknown): FpTransportConfig {
     throw invalid;
   }
   const prompt = input["prompt"];
-  const timeoutMs = input["timeoutMs"];
+  const timeoutMs = admitTimeoutBudgetMs(input["timeoutMs"], "fp_transport_config");
   const responseContract = input["responseContract"];
   const includeWorkProjection = input["includeWorkProjection"];
   if (
     typeof prompt !== "string" ||
     prompt.length === 0 ||
-    typeof timeoutMs !== "number" ||
     !isPlainRecord(responseContract) ||
     typeof includeWorkProjection !== "boolean"
   ) {

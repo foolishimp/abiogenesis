@@ -698,9 +698,16 @@ function admitMutableStateRootsInput(
   const record: Readonly<Record<string, unknown>> = { ...value };
   const rows: Record<string, string> = {};
   for (const [key, entry] of Object.entries(record)) {
+    // ToolchainMutableStateRootInput declares every field
+    // `?: string | null` — null/undefined means "use the default root"
+    // (dual review 2026-07-10 F2: rejecting null rows broke the declared
+    // contract; resolve.ts coalesces absent entries to defaults).
+    if (entry === null || entry === undefined) {
+      continue;
+    }
     if (typeof entry !== "string" || entry.length === 0) {
       throw new TypeError(
-        `ABG context bootstrap mutableStateRoots.${key} must be a non-empty string`
+        `ABG context bootstrap mutableStateRoots.${key} must be a non-empty string, or null to take the default`
       );
     }
     rows[key] = entry;

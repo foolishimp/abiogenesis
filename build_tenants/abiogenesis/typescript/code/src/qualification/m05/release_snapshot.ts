@@ -19,7 +19,8 @@ import {
   constructReleaseSnapshotOutcome,
   constructReleaseSnapshotPackSummary,
   constructReleaseSnapshotPackageIdentity,
-  constructReleaseSnapshotRejectedOutcome
+  constructReleaseSnapshotRejectedOutcome,
+  constructReleaseSnapshotTestSummary
 } from "./release_snapshot_constructors.js";
 import type {
   ReleaseSnapshotArtifactKind,
@@ -30,7 +31,8 @@ import type {
   ReleaseSnapshotOutcome,
   ReleaseSnapshotPackSummary,
   ReleaseSnapshotPackageIdentity,
-  ReleaseSnapshotRequest
+  ReleaseSnapshotRequest,
+  ReleaseSnapshotTestSummary
 } from "./release_snapshot_carriers.js";
 
 interface NpmPackEntry {
@@ -217,6 +219,8 @@ function rejectSnapshot(input: {
   readonly reason: string;
   readonly gaps: readonly ReleaseSnapshotGapRef[];
   readonly build: ReleaseSnapshotCommandResult | null;
+  readonly lint: ReleaseSnapshotCommandResult | null;
+  readonly tests: ReleaseSnapshotCommandResult | null;
   readonly pack: ReleaseSnapshotCommandResult | null;
 }): ReleaseSnapshotOutcome {
   return constructReleaseSnapshotOutcome(
@@ -226,6 +230,8 @@ function rejectSnapshot(input: {
       reason: input.reason,
       gaps: input.gaps,
       build: input.build,
+      lint: input.lint,
+      tests: input.tests,
       pack: input.pack
     })
   );
@@ -255,6 +261,70 @@ function runBuildCommand(
     stdout: run.stdout,
     stderr: run.stderr
   });
+}
+
+// Gate outputs are recorded in the manifest as SELF-CERTIFYING evidence
+// (codex P2, dual review 2026-07-10): the artifact must carry proof that
+// lint and the full suite were green at snapshot time, not rely on the
+// invoking shell having chained them. Suite stdout is large; the
+// manifest keeps the TAIL, where node:test writes its summary.
+const GATE_OUTPUT_TAIL_CHARS = 4000;
+
+function tailText(text: string): string {
+  if (text.length <= GATE_OUTPUT_TAIL_CHARS) {
+    return text;
+  }
+  return `…[truncated ${text.length - GATE_OUTPUT_TAIL_CHARS} chars]${text.slice(-GATE_OUTPUT_TAIL_CHARS)}`;
+}
+
+function runGateCommand(input: {
+  readonly request: ReleaseSnapshotRequest;
+  readonly script: string;
+}): ReleaseSnapshotCommandResult {
+  const executable = "npm";
+  const args = Object.freeze(["run", input.script]);
+  const command = Object.freeze([executable, ...args]);
+  const run = spawnSync(executable, args, {
+    cwd: input.request.packageSourceRoot,
+    encoding: "utf8",
+    env:
+      input.request.npmCacheRoot === null
+        ? process.env
+        : { ...process.env, npm_config_cache: input.request.npmCacheRoot }
+  });
+  return commandResult({
+    command,
+    cwd: input.request.packageSourceRoot,
+    status: run.status,
+    stdout: tailText(run.stdout ?? ""),
+    stderr: tailText(run.stderr ?? "")
+  });
+}
+
+// The node:test runner prints one summary block; read its LAST
+// occurrence from the combined gate output. A green exit with no
+// parsable summary is fail-closed (test_output_unparsable): the
+// manifest never claims an unverifiable suite result.
+function parseNodeTestSummary(
+  result: ReleaseSnapshotCommandResult
+): ReleaseSnapshotTestSummary | null {
+  const combined = `${result.stdout}\n${result.stderr}`;
+  const readLast = (label: string): number | null => {
+    const matches = [...combined.matchAll(new RegExp(`ℹ ${label} (\\d+)`, "gu"))];
+    const last = matches.at(-1);
+    if (last === undefined) {
+      return null;
+    }
+    return Number.parseInt(last[1] ?? "", 10);
+  };
+  const tests = readLast("tests");
+  const pass = readLast("pass");
+  const fail = readLast("fail");
+  const skipped = readLast("skipped");
+  if (tests === null || pass === null || fail === null || skipped === null) {
+    return null;
+  }
+  return constructReleaseSnapshotTestSummary({ tests, pass, fail, skipped });
 }
 
 function parseNpmPackEntry(input: unknown, label: string): NpmPackEntry {
@@ -438,6 +508,8 @@ export async function createReleaseSnapshotBundle(
       reason: "release snapshot preflight failed",
       gaps,
       build: null,
+      lint: null,
+      tests: null,
       pack: null
     });
   }
@@ -451,8 +523,76 @@ export async function createReleaseSnapshotBundle(
         constructReleaseSnapshotGapRef("build_failed", build.stderr)
       ]),
       build,
+      lint: null,
+      tests: null,
       pack: null
     });
+  }
+
+  const lint = request.runLint ? runGateCommand({ request, script: "lint:semantic" }) : null;
+  if (lint !== null && lint.status !== 0) {
+    return rejectSnapshot({
+      request,
+      reason: "release snapshot lint failed",
+      gaps: Object.freeze([
+        constructReleaseSnapshotGapRef("lint_failed", lint.stderr)
+      ]),
+      build,
+      lint,
+      tests: null,
+      pack: null
+    });
+  }
+
+  const tests = request.runTests ? runGateCommand({ request, script: "test:semantic" }) : null;
+  let testSummary: ReleaseSnapshotTestSummary | null = null;
+  if (tests !== null) {
+    if (tests.status !== 0) {
+      return rejectSnapshot({
+        request,
+        reason: "release snapshot test suite failed",
+        gaps: Object.freeze([
+          constructReleaseSnapshotGapRef("tests_failed", tests.stderr)
+        ]),
+        build,
+        lint,
+        tests,
+        pack: null
+      });
+    }
+    testSummary = parseNodeTestSummary(tests);
+    if (testSummary === null) {
+      return rejectSnapshot({
+        request,
+        reason: "release snapshot test summary unparsable",
+        gaps: Object.freeze([
+          constructReleaseSnapshotGapRef(
+            "test_output_unparsable",
+            "no node:test summary (ℹ tests/pass/fail/skipped) in gate output"
+          )
+        ]),
+        build,
+        lint,
+        tests,
+        pack: null
+      });
+    }
+    if (testSummary.fail > 0) {
+      return rejectSnapshot({
+        request,
+        reason: "release snapshot test suite reported failures",
+        gaps: Object.freeze([
+          constructReleaseSnapshotGapRef(
+            "tests_failed",
+            `summary reports ${testSummary.fail} failing test(s)`
+          )
+        ]),
+        build,
+        lint,
+        tests,
+        pack: null
+      });
+    }
   }
 
   const stagingRoot = `${request.snapshotRoot}.staging-${Date.now()}`;
@@ -473,6 +613,8 @@ export async function createReleaseSnapshotBundle(
             : [pack.gap]
         ),
         build,
+        lint,
+        tests,
         pack: pack.result
       });
     }
@@ -518,6 +660,9 @@ export async function createReleaseSnapshotBundle(
       snapshotRoot: request.snapshotRoot,
       createdAt: request.createdAt,
       build,
+      lint,
+      tests,
+      testSummary,
       pack: pack.result,
       packSummary: packSummary(pack.entry),
       tarball: finalTarball,
@@ -609,6 +754,8 @@ export async function createReleaseSnapshotBundle(
         constructReleaseSnapshotGapRef("snapshot_write_failed", reason)
       ]),
       build,
+      lint,
+      tests,
       pack: null
     });
   }

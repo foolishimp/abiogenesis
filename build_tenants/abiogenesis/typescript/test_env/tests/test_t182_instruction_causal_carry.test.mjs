@@ -385,6 +385,7 @@ test("T-182 binds same-vector rejected payload evidence into retry repair contex
       contractRef: targetCarrier.contractRef,
       contractDigest: targetCarrier.configDigest,
       digest,
+      issues: [{ issueKind: "contract_invalid", path: "payload" }],
       reason: "sbt Test/compile exited 1: value default is not a member of MissingApi",
       policyRefs: ["policy://t182"]
     })

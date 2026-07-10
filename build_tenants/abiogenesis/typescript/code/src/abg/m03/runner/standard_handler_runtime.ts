@@ -10,10 +10,13 @@ import { dirname } from "node:path";
 import { runTracedProcess } from "../../../shared/traced_process/index.js";
 import type { CCallHandler, CCallHandlerInterior } from "./c_call_handlers.js";
 import {
+  admitTimeoutBudgetMs,
+  standardFpTransportHandler,
   standardMaterializationHandler,
   standardFhGateHandler,
   STANDARD_HANDLER_REFS
 } from "./standard_handlers.js";
+import type { FpTransportIo } from "./standard_handlers.js";
 
 interface TracedProcessExecutionConfig {
   readonly command: string;
@@ -36,7 +39,10 @@ function tracedProcessExecutionConfigFrom(input: unknown): TracedProcessExecutio
   const command = record["command"];
   const args = record["args"];
   const cwd = record["cwd"];
-  const timeoutMs = record["timeoutMs"];
+  const timeoutMs = admitTimeoutBudgetMs(
+    record["timeoutMs"],
+    "traced_process_execution_config"
+  );
   const archiveRoot = record["archiveRoot"];
   const env = record["env"];
   if (
@@ -45,7 +51,6 @@ function tracedProcessExecutionConfigFrom(input: unknown): TracedProcessExecutio
     !Array.isArray(args) ||
     !args.every((entry): entry is string => typeof entry === "string") ||
     typeof cwd !== "string" ||
-    typeof timeoutMs !== "number" ||
     typeof archiveRoot !== "string" ||
     archiveRoot.length === 0 ||
     typeof env !== "object" ||
@@ -113,8 +118,19 @@ function tracedProcessExecutionHandler(): CCallHandler {
   };
 }
 
-export function buildStandardHandlerImplementations(): ReadonlyMap<string, CCallHandler> {
-  return new Map<string, CCallHandler>([
+// The standard set is FOUR handlers (HANDLERS-009: F_P agent transport,
+// F_D process execution, F_D materialization, F_H gate). Three bind
+// ambient substrate io here; the F_P transport CANNOT default — agent
+// invocation is an operator-supplied capability (which CLI, which
+// account, which sandbox). The injection seam is therefore EXPLICIT in
+// the API (dual-review P2 finding, 2026-07-10): pass io.fpTransport to
+// receive the complete standard set; omit it and the returned map
+// carries three handlers and the fpTransport ref stays unbound —
+// registry admission then fails closed on any binding that names it.
+export function buildStandardHandlerImplementations(io?: {
+  readonly fpTransport?: FpTransportIo;
+}): ReadonlyMap<string, CCallHandler> {
+  const handlers = new Map<string, CCallHandler>([
     [STANDARD_HANDLER_REFS.processExecution, tracedProcessExecutionHandler()],
     [
       STANDARD_HANDLER_REFS.materialization,
@@ -127,4 +143,11 @@ export function buildStandardHandlerImplementations(): ReadonlyMap<string, CCall
     ],
     [STANDARD_HANDLER_REFS.fhGate, standardFhGateHandler()]
   ]);
+  if (io?.fpTransport !== undefined) {
+    handlers.set(
+      STANDARD_HANDLER_REFS.fpTransport,
+      standardFpTransportHandler(io.fpTransport)
+    );
+  }
+  return handlers;
 }

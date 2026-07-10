@@ -440,6 +440,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
           contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
           contractDigest: ledgerWithoutPayload.targetCarrierContract.configDigest,
           digest: "digest://t133/old-target",
+          issues: [{ issueKind: "contract_invalid", path: "payload" }],
           reason: "older attempt rejected"
         }),
         eventAdmissionOrdinal: 1
@@ -510,6 +511,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
         contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
         contractDigest: ledgerWithoutPayload.targetCarrierContract.configDigest,
         digest: "digest://t133/rejected",
+        issues: [{ issueKind: "contract_invalid", path: "payload" }],
         reason: "wrong target carrier kind"
       })
     ],

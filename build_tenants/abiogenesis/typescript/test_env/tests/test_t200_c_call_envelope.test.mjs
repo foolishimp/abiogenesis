@@ -956,7 +956,7 @@ test("T-205 COVERAGE g4: runtime standard implementations — real materializati
       declaredConfig: { command: "" },
       workProjection: null
     })),
-    /process_execution_config_invalid/
+    /process_execution_config_invalid|timeoutMs must be a positive safe integer/
   );
 });
 

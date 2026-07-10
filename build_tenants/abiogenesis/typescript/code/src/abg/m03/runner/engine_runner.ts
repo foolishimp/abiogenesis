@@ -58,6 +58,7 @@ import {
   constructVectorEvaluatedEvent
 } from "../contracts/event_factories.js";
 import { assertCanonicalRuntimeEventSequence } from "../contracts/event_admission.js";
+import { sortReplayByAdmissionOrdinalFailClosed } from "../contracts/admission_hygiene.js";
 import {
   deriveAdvancementTransition,
   deriveIterationOutcomeFromRows,
@@ -3219,6 +3220,18 @@ function fpEvaluationTargetPayloadRejectionEvents(input: {
           contractRef: targetCarrierPayload.contractRef,
           contractDigest: targetCarrierPayload.contractDigest,
           digest: targetCarrierPayload.digest,
+          // EVENTS-026 (dual review 2026-07-10 F10): the typed rows ARE
+          // the rejection truth; the reason grammar is human summary.
+          issues: [
+            {
+              issueKind: `fp_evaluation_${finding.closeDisposition}`,
+              path: finding.findingRef
+            },
+            ...finding.residualPressureRefs.map((ref) => ({
+              issueKind: "residual_pressure",
+              path: ref
+            }))
+          ],
           reason:
             input.outcome.reason ??
             [
@@ -3971,7 +3984,13 @@ function canonicalReplayEvents(
     events,
     "EngineIterateRequest.runtimeEvents"
   );
-  return Object.freeze([...events]);
+  // REPLAY INGEST LAW (dual review 2026-07-10): every downstream fold
+  // reads array order as admission order — sort here, fail closed on
+  // ordinal collisions (unorderable truth from overlapping writers).
+  return sortReplayByAdmissionOrdinalFailClosed(
+    events,
+    "EngineIterateRequest.runtimeEvents"
+  );
 }
 
 interface ParsedConsequenceReentryTarget {
@@ -10222,10 +10241,55 @@ function effectiveRunnerPlugins(
   });
 }
 
+// Dual review 2026-07-10 F4: handler-binding ASSEMBLY vocabulary errors
+// (unknown regime/handlerClass in a GTL-authored abg.hog_handler_bindings
+// declaration) land as the SAME typed fail-closed startup result the
+// machine's entry admission produces — never a host escape from the
+// engine API. The assembly runs at the entries (the effect resolvers
+// need the assembled registry), so the conversion lives here too.
+function handlerAssemblyFailClosedResult(
+  request: EngineIterateRequest,
+  error: unknown
+): EngineIterateResult {
+  const message = (error instanceof Error ? error.message : String(error)).slice(0, 300);
+  const reason = `hog_program_unresolvable: ${message}`;
+  const blocked = terminalTransition(request.basis, "gap_stop", reason);
+  const emitted = emit(
+    [
+      constructRuntimeFailureObservedEvent({
+        basisId: request.basis.id,
+        surface: "hog_program_resolution",
+        failureClass: "contract_failure",
+        message,
+        stackExcerpt: null
+      }),
+      constructTerminalReachedEvent(blocked)
+    ],
+    request.eventSink
+  );
+  const replayEvents = Object.freeze([
+    ...canonicalReplayEvents(request.runtimeEvents ?? Object.freeze([])),
+    ...emitted
+  ]);
+  return constructResult({
+    basis: request.basis,
+    transition: blocked,
+    projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+    emittedEvents: emitted,
+    replayEvents,
+    iterationCount: 0
+  });
+}
+
 export function runEngineIterate(
   request: EngineIterateRequest
 ): EngineIterateResult {
-  const plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+  let plugins: ResolvedRunnerPlugins;
+  try {
+    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+  } catch (error) {
+    return handlerAssemblyFailClosedResult(request, error);
+  }
   const targetCarrierDefaults =
     request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const machine = runEngineIterateMachine({
@@ -10243,7 +10307,12 @@ export function runEngineIterate(
 export async function runEngineIterateAsync(
   request: EngineIterateRequest
 ): Promise<EngineIterateResult> {
-  const plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+  let plugins: ResolvedRunnerPlugins;
+  try {
+    plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins));
+  } catch (error) {
+    return handlerAssemblyFailClosedResult(request, error);
+  }
   const targetCarrierDefaults =
     request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const machine = runEngineIterateMachine({

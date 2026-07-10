@@ -13,7 +13,8 @@ import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
   canonicalizeRowsByContent,
   decisiveByAdmissionOrdinal,
-  detachRowSnapshot
+  detachRowSnapshot,
+  isPlainRecord
 } from "./admission_hygiene.js";
 
 export interface DepthProofMapRow {
@@ -48,12 +49,6 @@ export interface DepthProofMapAdmissionIssue {
 // lone surrogates would throw in downstream ref minting — reject at the
 // one ingress (the carry-through startup admission precedent)
 const LONE_SURROGATE = /\p{Surrogate}/u;
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function wellFormedNonEmpty(value: unknown): value is string {
   return typeof value === "string" && value.length > 0 && !LONE_SURROGATE.test(value);

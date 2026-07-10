@@ -19,11 +19,18 @@ import { fileURLToPath } from "node:url";
 const TESTS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.resolve(TESTS_DIR, "..");
 
-const INSTALL_MARKERS = [
-  "provisionInstalledRoot",
-  "installPackedTenantPackage",
-  "installAbiogenesisTypescript"
-];
+// Dual review 2026-07-10 (F4/F5 hardening):
+// — DISCOVERY is content-based over EVERY lane, not a filename glob
+//   over two lanes: a live test is any test in live/, any legacy-listed
+//   test, or any test that flips the live agent gates — wherever it
+//   lives and whatever it is named. New lanes are scanned automatically.
+// — CONFORMANCE is call-shaped: the file must CALL an install fixture;
+//   a marker in a comment or string no longer classifies.
+const CONFORMANCE_SELF = "tests/test_t217_live_sandbox_install_conformance.test.mjs";
+const LIVE_GATE_PATTERN = /CODEX_LIVE_FP|ABG_TS_LIVE_AGENT/u;
+const INSTALL_CALL_PATTERN =
+  /\b(?:provisionInstalledRoot|installPackedTenantPackage|installAbiogenesisTypescript)\s*\(/u;
+const NON_LANE_DIRS = new Set(["test_runs"]);
 
 // the legacy list, pinned at ruling time. SHRINK ONLY.
 const LEGACY_IN_REPO_LIVE = Object.freeze([
@@ -55,31 +62,39 @@ const LEGACY_IN_REPO_LIVE = Object.freeze([
   "sandbox/test_m05_data_mapper_real_ingress.test.mjs"
 ]);
 
+function contentOf(relativePath) {
+  return readFileSync(path.join(TEST_ENV_ROOT, relativePath), "utf8");
+}
+
 function liveTestFiles() {
+  const legacy = new Set(LEGACY_IN_REPO_LIVE);
   const files = [];
-  for (const lane of ["live", "sandbox"]) {
+  const lanes = readdirSync(TEST_ENV_ROOT, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && !NON_LANE_DIRS.has(entry.name))
+    .map((entry) => entry.name);
+  for (const lane of lanes) {
     for (const entry of readdirSync(path.join(TEST_ENV_ROOT, lane))) {
       if (!entry.endsWith(".test.mjs")) {
         continue;
       }
-      // the sandbox lane holds both live-flavored and pure in-process
-      // scenario tests; the ruling governs the LIVE-flavored ones (they
-      // run agents or drive full engine flows as proof surfaces)
-      if (lane === "sandbox" && !/live|real_ingress/u.test(entry)) {
+      const file = `${lane}/${entry}`;
+      if (file === CONFORMANCE_SELF) {
         continue;
       }
-      files.push(`${lane}/${entry}`);
+      const isLive =
+        lane === "live" ||
+        legacy.has(file) ||
+        LIVE_GATE_PATTERN.test(contentOf(file));
+      if (isLive) {
+        files.push(file);
+      }
     }
   }
   return files.sort();
 }
 
 function usesInstalledSubstrate(relativePath) {
-  const content = readFileSync(
-    path.join(TEST_ENV_ROOT, relativePath),
-    "utf8"
-  );
-  return INSTALL_MARKERS.some((marker) => content.includes(marker));
+  return INSTALL_CALL_PATTERN.test(contentOf(relativePath));
 }
 
 test("T-217 live-install law: every live proof surface uses a sandbox-style install, except the pinned shrinking legacy list", () => {

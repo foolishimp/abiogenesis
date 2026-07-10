@@ -1529,13 +1529,23 @@ export function constructPayloadRejectedEvent(input: {
   readonly contractDigest?: string | null;
   readonly digest?: string | null;
   readonly reason: string;
-  readonly issues?: readonly { readonly issueKind: string; readonly path: string }[];
+  // EVENTS-026 (dual review 2026-07-10 F10): structured rows are the
+  // REQUIRED typed truth on every newly minted rejection — absence
+  // tolerance exists only for pre-realization REPLAYED events. A `?? []`
+  // default here let a live rejection spoof the absence law by
+  // emptiness while truth rode the colon-joined reason grammar.
+  readonly issues: readonly { readonly issueKind: string; readonly path: string }[];
   readonly policyRefs?: readonly string[];
 }): PayloadRejectedRuntimeEvent {
+  if (input.issues.length === 0) {
+    throw new TypeError(
+      "PayloadRejectedEvent requires at least one structured issue row (EVENTS-026): rejection truth is typed rows, never only the reason grammar"
+    );
+  }
   return Object.freeze({
     kind: "payload_rejected",
     issues: Object.freeze(
-      (input.issues ?? []).map((issue) =>
+      input.issues.map((issue) =>
         Object.freeze({ issueKind: issue.issueKind, path: issue.path })
       )
     ),

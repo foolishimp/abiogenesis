@@ -7,6 +7,7 @@
 
 import type { CCallRegime, CCallStageRole } from "./carriers.js";
 import { C_CALL_REGIME_VALUES } from "./carriers.js";
+import { isPlainRecord } from "./admission_hygiene.js";
 
 export interface HogProgramStage {
   readonly stageRole: CCallStageRole;
@@ -63,12 +64,6 @@ export const HOG_BOOTSTRAP_TRIPLE: HogProgramDeclaration = Object.freeze({
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.length > 0;
-}
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 // Fail-closed admission for declared programs (-014): non-empty stage
@@ -197,11 +192,12 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     issues.push(`exactly one result-bearing stage required, got ${resultBearingCount}`);
   }
   const proportionalityRaw = record["proportionalityClass"];
-  if (
-    proportionalityRaw !== null &&
-    proportionalityRaw !== undefined &&
-    !isNonEmptyString(proportionalityRaw)
-  ) {
+  // Fail-closed at the public boundary (dual review 2026-07-10 F3): the
+  // key must be PRESENT — explicitly null or a non-empty string. An
+  // absent key is an undeclared surface, not an implicit null (the GTL
+  // syntax path coalesces `?? null` before calling, so lawful authoring
+  // always arrives explicit).
+  if (proportionalityRaw !== null && !isNonEmptyString(proportionalityRaw)) {
     issues.push("proportionalityClass must be null or a non-empty string");
   }
   if (issues.length > 0) {

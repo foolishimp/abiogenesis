@@ -11,6 +11,7 @@ import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/construct
 import type { HogProgramAdmission, HogProgramDeclaration } from "./hog_program.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
+import { isPlainRecord } from "./admission_hygiene.js";
 
 export const HOG_PROGRAM_SYNTAX_VERSIONS = Object.freeze([
   "hog-syntax/1"
@@ -26,12 +27,6 @@ export interface HogProgramSyntaxV1 {
   readonly programRef: string;
   readonly stages: readonly unknown[];
   readonly proportionalityClass: string | null;
-}
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {

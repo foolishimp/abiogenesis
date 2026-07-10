@@ -11,8 +11,19 @@ export interface ReleaseSnapshotRequest {
   readonly expectedPackageName: string | null;
   readonly expectedPackageVersion: string | null;
   readonly runBuild: boolean;
+  readonly runLint: boolean;
+  readonly runTests: boolean;
   readonly npmCacheRoot: string | null;
   readonly createdAt: string;
+}
+
+// Parsed node:test summary lines from the tests gate — the manifest's
+// self-certifying record of what the suite reported at snapshot time.
+export interface ReleaseSnapshotTestSummary {
+  readonly tests: number;
+  readonly pass: number;
+  readonly fail: number;
+  readonly skipped: number;
 }
 
 export interface ReleaseSnapshotPackageIdentity {
@@ -64,6 +75,9 @@ export interface ReleaseSnapshotManifest {
   readonly snapshotRoot: string;
   readonly createdAt: string;
   readonly build: ReleaseSnapshotCommandResult | null;
+  readonly lint: ReleaseSnapshotCommandResult | null;
+  readonly tests: ReleaseSnapshotCommandResult | null;
+  readonly testSummary: ReleaseSnapshotTestSummary | null;
   readonly pack: ReleaseSnapshotCommandResult;
   readonly packSummary: ReleaseSnapshotPackSummary;
   readonly tarball: ReleaseSnapshotArtifactRef;
@@ -79,6 +93,9 @@ export type ReleaseSnapshotGapKind =
   | "snapshot_root_exists"
   | "release_note_missing"
   | "build_failed"
+  | "lint_failed"
+  | "tests_failed"
+  | "test_output_unparsable"
   | "pack_failed"
   | "pack_output_invalid"
   | "snapshot_write_failed";
@@ -105,6 +122,8 @@ export interface ReleaseSnapshotRejected {
   readonly reason: string;
   readonly gaps: readonly ReleaseSnapshotGapRef[];
   readonly build: ReleaseSnapshotCommandResult | null;
+  readonly lint: ReleaseSnapshotCommandResult | null;
+  readonly tests: ReleaseSnapshotCommandResult | null;
   readonly pack: ReleaseSnapshotCommandResult | null;
 }
 

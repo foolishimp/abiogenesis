@@ -14,6 +14,7 @@ import {
   type RuntimeFluentName
 } from "./event_calculus.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import { isPlainRecord } from "./admission_hygiene.js";
 
 export const TEMPORAL_PROPERTY_RULE_KIND = "temporal_property";
 
@@ -73,12 +74,6 @@ export type TemporalFormula =
       readonly left: TemporalFormula;
       readonly right: TemporalFormula;
     };
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 const PAST_OPS = new Set(["yesterday", "once", "historically", "since"]);
 const FUTURE_OPS = new Set(["next", "eventually", "globally", "until"]);

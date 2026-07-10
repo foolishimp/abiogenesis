@@ -35,7 +35,7 @@ async function writeJson(filePath, value) {
   await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-async function makeFixturePackage(root, version = "0.1.0-rc.1") {
+async function makeFixturePackage(root, version = "0.1.0-rc.1", scripts = undefined) {
   const packageRoot = path.join(root, "fixture-package");
   await mkdir(packageRoot, { recursive: true });
   await writeJson(path.join(packageRoot, "package.json"), {
@@ -43,7 +43,8 @@ async function makeFixturePackage(root, version = "0.1.0-rc.1") {
     version,
     private: true,
     type: "module",
-    files: ["index.js"]
+    files: ["index.js"],
+    ...(scripts === undefined ? {} : { scripts })
   });
   await writeFile(
     path.join(packageRoot, "index.js"),
@@ -52,6 +53,10 @@ async function makeFixturePackage(root, version = "0.1.0-rc.1") {
   );
   return packageRoot;
 }
+
+// node:test-shaped summary emitter for gate fixtures
+const SUMMARY_SCRIPT =
+  "node -e \"console.log('\\u2139 tests 3'); console.log('\\u2139 pass 3'); console.log('\\u2139 fail 0'); console.log('\\u2139 skipped 0')\"";
 
 function snapshotRequest(input) {
   return {
@@ -68,6 +73,8 @@ function snapshotRequest(input) {
       input.expectedPackageName ?? "@abiogenesis/release-snapshot-fixture",
     expectedPackageVersion: input.expectedPackageVersion ?? "0.1.0-rc.1",
     runBuild: false,
+    runLint: input.runLint ?? false,
+    runTests: input.runTests ?? false,
     npmCacheRoot: null,
     createdAt: "2026-05-22T00:00:00.000Z"
   };
@@ -109,6 +116,89 @@ test("T-142 release snapshot bundle writes tarball, manifest, note, and checksum
   const checksums = await readFile(outcome.checksumPath, "utf8");
   assert.match(checksums, /release-snapshot-manifest\.json/u);
   assert.match(checksums, /\.tgz/u);
+});
+
+// codex P2 (dual review 2026-07-10): the manifest is SELF-CERTIFYING —
+// it records lint and suite evidence including the parsed node:test
+// summary, and a red or unverifiable gate refuses the snapshot.
+test("T-142 release snapshot gates: manifest carries lint and test evidence", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "abg-t142-gates-"));
+  const packageRoot = await makeFixturePackage(root, "0.1.0-rc.1", {
+    "lint:semantic": "node -e \"process.exit(0)\"",
+    "test:semantic": SUMMARY_SCRIPT
+  });
+  const snapshotRoot = path.join(root, "snapshots", "0.1.0-rc.1");
+
+  const outcome = await createReleaseSnapshotBundle(
+    snapshotRequest({
+      packageSourceRoot: packageRoot,
+      snapshotRoot,
+      runLint: true,
+      runTests: true
+    })
+  );
+
+  assert.equal(outcome.kind, "created");
+  assert.equal(outcome.manifest.lint.status, 0);
+  assert.equal(outcome.manifest.tests.status, 0);
+  assert.deepEqual(outcome.manifest.testSummary, {
+    tests: 3,
+    pass: 3,
+    fail: 0,
+    skipped: 0
+  });
+  const manifest = JSON.parse(await readFile(outcome.manifestPath, "utf8"));
+  assert.equal(manifest.lint.status, 0);
+  assert.equal(manifest.tests.status, 0);
+  assert.deepEqual(manifest.testSummary, { tests: 3, pass: 3, fail: 0, skipped: 0 });
+});
+
+test("T-142 release snapshot gates: red lint refuses the snapshot", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "abg-t142-redlint-"));
+  const packageRoot = await makeFixturePackage(root, "0.1.0-rc.1", {
+    "lint:semantic": "node -e \"process.exit(1)\"",
+    "test:semantic": SUMMARY_SCRIPT
+  });
+  const snapshotRoot = path.join(root, "snapshots", "0.1.0-rc.1");
+
+  const outcome = await createReleaseSnapshotBundle(
+    snapshotRequest({
+      packageSourceRoot: packageRoot,
+      snapshotRoot,
+      runLint: true,
+      runTests: true
+    })
+  );
+
+  assert.equal(outcome.kind, "rejected");
+  assert.equal(outcome.gaps.some((entry) => entry.kind === "lint_failed"), true);
+  assert.equal(outcome.tests, null);
+  assert.equal(await pathExists(snapshotRoot), false);
+});
+
+test("T-142 release snapshot gates: green exit with no parsable summary refuses the snapshot", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "abg-t142-nosummary-"));
+  const packageRoot = await makeFixturePackage(root, "0.1.0-rc.1", {
+    "lint:semantic": "node -e \"process.exit(0)\"",
+    "test:semantic": "node -e \"process.exit(0)\""
+  });
+  const snapshotRoot = path.join(root, "snapshots", "0.1.0-rc.1");
+
+  const outcome = await createReleaseSnapshotBundle(
+    snapshotRequest({
+      packageSourceRoot: packageRoot,
+      snapshotRoot,
+      runLint: true,
+      runTests: true
+    })
+  );
+
+  assert.equal(outcome.kind, "rejected");
+  assert.equal(
+    outcome.gaps.some((entry) => entry.kind === "test_output_unparsable"),
+    true
+  );
+  assert.equal(await pathExists(snapshotRoot), false);
 });
 
 test("T-142 release snapshot bundle rejects existing snapshot roots", async () => {

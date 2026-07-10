@@ -7,6 +7,8 @@ import type {
   DerivedDependencyInstructionTruth,
   DerivedProofDepthInstructionTruth
 } from "./instruction_assembly.js";
+export { isPlainRecord } from "./admission_hygiene.js";
+import { isPlainRecord } from "./admission_hygiene.js";
 
 export const REQUIREMENT_PROOF_COMPUTE_STAGE_ROLE_VALUES = Object.freeze([
   "transform",
@@ -184,12 +186,6 @@ export interface RequirementProofCoverageProjection {
 
 function uniqueSorted<T extends string>(input: readonly T[]): readonly T[] {
   return Object.freeze([...new Set(input)].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
-}
-
-export function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function requireRecord(

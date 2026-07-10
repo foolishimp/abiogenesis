@@ -9,7 +9,8 @@ import type {
   ReleaseSnapshotPackSummary,
   ReleaseSnapshotPackageIdentity,
   ReleaseSnapshotRejected,
-  ReleaseSnapshotRequest
+  ReleaseSnapshotRequest,
+  ReleaseSnapshotTestSummary
 } from "./release_snapshot_carriers.js";
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
@@ -44,8 +45,21 @@ export function constructReleaseSnapshotRequest(
     expectedPackageName: input.expectedPackageName,
     expectedPackageVersion: input.expectedPackageVersion,
     runBuild: input.runBuild,
+    runLint: input.runLint,
+    runTests: input.runTests,
     npmCacheRoot: input.npmCacheRoot,
     createdAt: input.createdAt
+  });
+}
+
+export function constructReleaseSnapshotTestSummary(
+  input: ReleaseSnapshotTestSummary
+): ReleaseSnapshotTestSummary {
+  return Object.freeze({
+    tests: input.tests,
+    pass: input.pass,
+    fail: input.fail,
+    skipped: input.skipped
   });
 }
 
@@ -114,6 +128,18 @@ export function constructReleaseSnapshotManifest(
       input.build === null
         ? null
         : constructReleaseSnapshotCommandResult(input.build),
+    lint:
+      input.lint === null
+        ? null
+        : constructReleaseSnapshotCommandResult(input.lint),
+    tests:
+      input.tests === null
+        ? null
+        : constructReleaseSnapshotCommandResult(input.tests),
+    testSummary:
+      input.testSummary === null
+        ? null
+        : constructReleaseSnapshotTestSummary(input.testSummary),
     pack: constructReleaseSnapshotCommandResult(input.pack),
     packSummary: constructReleaseSnapshotPackSummary(input.packSummary),
     tarball: constructReleaseSnapshotArtifactRef(input.tarball),
@@ -160,6 +186,8 @@ export function constructReleaseSnapshotRejectedOutcome(input: {
   readonly reason: string;
   readonly gaps: readonly ReleaseSnapshotGapRef[];
   readonly build: ReleaseSnapshotCommandResult | null;
+  readonly lint: ReleaseSnapshotCommandResult | null;
+  readonly tests: ReleaseSnapshotCommandResult | null;
   readonly pack: ReleaseSnapshotCommandResult | null;
 }): ReleaseSnapshotRejected {
   return Object.freeze({
@@ -172,6 +200,14 @@ export function constructReleaseSnapshotRejectedOutcome(input: {
       input.build === null
         ? null
         : constructReleaseSnapshotCommandResult(input.build),
+    lint:
+      input.lint === null
+        ? null
+        : constructReleaseSnapshotCommandResult(input.lint),
+    tests:
+      input.tests === null
+        ? null
+        : constructReleaseSnapshotCommandResult(input.tests),
     pack:
       input.pack === null
         ? null

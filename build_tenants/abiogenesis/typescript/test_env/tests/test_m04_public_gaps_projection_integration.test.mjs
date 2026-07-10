@@ -303,13 +303,14 @@ function malformedPriorityRuntimeBindingSource() {
 
 function closeVectorScript(vectorIndex) {
   return `
-    import { appendFile, mkdir } from "node:fs/promises";
+    import { appendFile, mkdir, readFile } from "node:fs/promises";
     import {
       admitExecutionBasis,
       admitPublicStartRequest,
       constructVectorClosedEvent,
       constructVectorEvaluatedEvent,
-      emit
+      emit,
+      seedRuntimeEventAdmissionOrdinal
     } from "@abiogenesis/typescript-tenant";
     import { runtimeBinding } from "./typescript-runtime.mjs";
 
@@ -350,6 +351,13 @@ function closeVectorScript(vectorIndex) {
     ];
     // T-195 P1-10: ledger rows must be canonical — route through emit(),
     // exactly as the CLI does, instead of appending raw constructions.
+    // REPLAY INGEST LAW (dual review 2026-07-10): "exactly as the CLI
+    // does" includes SEEDING past the persisted record first — a fresh
+    // appender process that skips the seed re-mints ordinal 0 and the
+    // ingest chokepoints fail the log closed as an ordinal collision.
+    const priorText = await readFile(".ai-workspace/events/events.jsonl", "utf8").catch(() => "");
+    const priorEvents = priorText.split(/\\r?\\n/u).filter(Boolean).map((line) => JSON.parse(line));
+    seedRuntimeEventAdmissionOrdinal(priorEvents);
     const canonical = [];
     emit(events, (event) => canonical.push(event));
     await mkdir(".ai-workspace/events", { recursive: true });

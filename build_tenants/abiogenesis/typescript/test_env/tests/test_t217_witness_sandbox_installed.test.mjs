@@ -524,6 +524,22 @@ test("T-217 repayment R-bootstrap: context-bootstrap mutableStateRoots admission
     /mutableStateRoots\.eventRoot must be a non-empty string/u
   );
 
+  // NULL-VALUED rows are LAWFUL (dual review 2026-07-10 F2): the input
+  // contract types every field `?: string | null` — null means "take
+  // the default root". The repaid admission must not reject them.
+  const nullRowRoot = mkdtempSync(path.join(tmpdir(), "t217-boot-"));
+  const nullRowOutcome = await installAbiogenesisContextBootstrap({
+    targetRoot: nullRowRoot,
+    packageSourceRoot: repoTenantRoot,
+    toolchainRoot: binding.toolchainRoot,
+    mutableStateRoots: { eventRoot: null, runtimeRoot: null }
+  });
+  assert.notEqual(
+    nullRowOutcome.kind,
+    "failed",
+    JSON.stringify(nullRowOutcome).slice(0, 300)
+  );
+
   // valid WITH roots: bootstrap succeeds against the shared toolchain
   const bootRoot = mkdtempSync(path.join(tmpdir(), "t217-boot-"));
   const outcome = await installAbiogenesisContextBootstrap({

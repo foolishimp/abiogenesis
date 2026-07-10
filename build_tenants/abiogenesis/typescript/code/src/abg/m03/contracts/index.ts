@@ -1361,7 +1361,9 @@ export type {
 } from "./declaration_reprice.js";
 export {
   decisiveByAdmissionOrdinal,
-  eventAdmissionOrdinalOf
+  eventAdmissionOrdinalOf,
+  isPlainRecord,
+  sortReplayByAdmissionOrdinalFailClosed
 } from "./admission_hygiene.js";
 export type {
   DeclarationDigestDriftRow,

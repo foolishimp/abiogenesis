@@ -19,7 +19,8 @@ import type { RuntimeEvent } from "./carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import {
   canonicalizeRowsByContent,
-  detachRowSnapshot
+  detachRowSnapshot,
+  isPlainRecord
 } from "./admission_hygiene.js";
 import {
   latestAdmittedEventsPerEdge,
@@ -64,12 +65,6 @@ export interface MutationOutcomesAdmissionIssue {
 
 const LONE_SURROGATE = /\p{Surrogate}/u;
 const DIGEST_SHAPE = /^sha256:[0-9a-f]{64}$/u;
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function wellFormedNonEmpty(value: unknown): value is string {
   return typeof value === "string" && value.length > 0 && !LONE_SURROGATE.test(value);

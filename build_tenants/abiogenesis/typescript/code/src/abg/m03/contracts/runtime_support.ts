@@ -181,7 +181,10 @@ export function runtimeEventsForBasis(
       if (basisId !== null) {
         return basisId === basis.id;
       }
-      if (event.kind in RUN_INDEPENDENT_EVENT_SCOPE_CLASSES) {
+      // Object.hasOwn, never `in` (dual review 2026-07-10 F11): the
+      // prototype chain would admit an undeclared kind named like an
+      // Object.prototype member (e.g. "toString") past EVENTS-025.
+      if (Object.hasOwn(RUN_INDEPENDENT_EVENT_SCOPE_CLASSES, event.kind)) {
         return true;
       }
       throw new TypeError(

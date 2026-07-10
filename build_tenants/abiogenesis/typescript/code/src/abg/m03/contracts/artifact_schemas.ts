@@ -29,7 +29,7 @@
 // rides the Phase 2 EVENTS-family reprice with C-1). Consumers may rely
 // on the pair grammar; the pin holds it.
 
-import { detachRowSnapshot } from "./admission_hygiene.js";
+import { detachRowSnapshot, isPlainRecord } from "./admission_hygiene.js";
 
 export const ARTIFACT_FIELD_RULE_VALUES = Object.freeze([
   "non_empty_string",
@@ -71,12 +71,6 @@ export interface ArtifactSchemasAdmission {
   readonly accepted: boolean;
   readonly schemas: readonly ArtifactSchema[];
   readonly issues: readonly ArtifactSchemaAdmissionIssue[];
-}
-
-function isPlainRecord(
-  value: unknown
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function isArtifactFieldRule(value: unknown): value is ArtifactFieldRule {

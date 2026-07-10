@@ -329,6 +329,7 @@ test("T-095 payload ledger: rejected validated payload cannot satisfy evidence",
       rejectionClass: "contradictory",
       contractRef: "contract://t095/evidence",
       digest: "digest://t095/rejected-validated",
+      issues: [{ issueKind: "contradictory", path: "payload" }],
       reason: "same payload ref is rejected by a later check",
       policyRefs: ["policy://t095"]
     }),
@@ -449,6 +450,7 @@ test("T-095 payload ledger: rejected payload is projected and cannot satisfy evi
       payloadRef,
       rejectionClass: "contract_invalid",
       contractRef: "contract://t095/evidence",
+      issues: [{ issueKind: "contract_invalid", path: "payload" }],
       reason: "payload violates result contract",
       policyRefs: ["policy://t095"]
     })
@@ -501,6 +503,7 @@ for (const rejectionClass of [
           rejectionClass === "missing" || rejectionClass === "empty"
             ? null
             : `digest://t095/rejection/${rejectionClass}`,
+        issues: [{ issueKind: rejectionClass, path: "payload" }],
         reason: `${rejectionClass} payload cannot satisfy authority`,
         policyRefs: ["policy://t095"]
       })
