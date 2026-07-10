@@ -55,15 +55,16 @@ export interface ResolvedPluginSelection {
   readonly consequenceProjection?: ConsequenceProjectionPlugin;
 }
 
-interface StandardCatalogRow {
-  readonly seam: PluginSelectionSeam;
-  readonly plugin:
-    | FdEvaluatorPlugin
-    | FpEvaluatorPlugin
-    | FpDispatchPlugin
-    | FhAdmissionPlugin
-    | ConsequenceProjectionPlugin;
-}
+// Discriminated by seam so resolution narrows structurally — no casts.
+type StandardCatalogRow =
+  | { readonly seam: "fdEvaluator"; readonly plugin: FdEvaluatorPlugin }
+  | { readonly seam: "fpEvaluator"; readonly plugin: FpEvaluatorPlugin }
+  | { readonly seam: "fpDispatch"; readonly plugin: FpDispatchPlugin }
+  | { readonly seam: "fhAdmission"; readonly plugin: FhAdmissionPlugin }
+  | {
+      readonly seam: "consequenceProjection";
+      readonly plugin: ConsequenceProjectionPlugin;
+    };
 
 // The substrate's standard, governed, selectable implementations. Every row's
 // ref is the plugin's own declared contract ref — selection can never bind a
@@ -168,21 +169,21 @@ export function resolveDeclaredPluginSelection(input: {
         `plugin_selection_seam_mismatch: ${input.sourceRef} selects ${JSON.stringify(ref)} for seam ${seam}, but that plugin's contract claims seam ${row.seam}`
       );
     }
-    switch (seam) {
+    switch (row.seam) {
       case "fdEvaluator":
-        resolved.fdEvaluator = row.plugin as FdEvaluatorPlugin;
+        resolved.fdEvaluator = row.plugin;
         break;
       case "fpEvaluator":
-        resolved.fpEvaluator = row.plugin as FpEvaluatorPlugin;
+        resolved.fpEvaluator = row.plugin;
         break;
       case "fpDispatch":
-        resolved.fpDispatch = row.plugin as FpDispatchPlugin;
+        resolved.fpDispatch = row.plugin;
         break;
       case "fhAdmission":
-        resolved.fhAdmission = row.plugin as FhAdmissionPlugin;
+        resolved.fhAdmission = row.plugin;
         break;
       case "consequenceProjection":
-        resolved.consequenceProjection = row.plugin as ConsequenceProjectionPlugin;
+        resolved.consequenceProjection = row.plugin;
         break;
     }
   }
