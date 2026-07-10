@@ -88,6 +88,28 @@ function assertNullableString(value: unknown, label: string): void {
   }
 }
 
+function admitNullableString(value: unknown, label: string): string | null {
+  assertNullableString(value, label);
+  return typeof value === "string" ? value : null;
+}
+
+function admitStringList(value: unknown, label: string): readonly string[] {
+  if (
+    !Array.isArray(value) ||
+    !value.every((entry): entry is string => typeof entry === "string")
+  ) {
+    throw new TypeError(`${label} must be a list of strings`);
+  }
+  const rows: readonly string[] = value;
+  return rows;
+}
+
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function assertNonNegativeInteger(value: unknown, label: string): void {
   if (!Number.isInteger(value) || Number(value) < 0) {
     throw new TypeError(`${label} must be a non-negative integer`);
@@ -1384,7 +1406,9 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       changeClass: event["changeClass"],
       reEntryPoint: event["reEntryPoint"],
       summary: event["summary"],
-      evidenceRefs: [...(event["evidenceRefs"] as readonly string[])],
+      evidenceRefs: [
+        ...admitStringList(event["evidenceRefs"], "DefectIntakeAdmittedEvent.evidenceRefs")
+      ],
       triagedBy: event["triagedBy"]
     })}`;
     if (event["intakeRef"] !== expectedIntakeRef) {
@@ -1446,7 +1470,10 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     if (
       (event["proposalKind"] === "promotion" ||
         event["proposalKind"] === "demotion") &&
-      (event["citedSignalRefs"] as readonly string[]).length === 0
+      admitStringList(
+        event["citedSignalRefs"],
+        "TunerDraftAdmittedEvent.citedSignalRefs"
+      ).length === 0
     ) {
       throw new TypeError(
         "TunerDraftAdmittedEvent: promotion/demotion proposals must cite admitted signal rows (TUNER-010)"
@@ -1516,7 +1543,8 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       causationEventRefs: "string_array",
       correlationId: "non_empty_string"
     })(event);
-    if ((event["segmentIndex"] as number) < 1) {
+    const segmentIndex = event["segmentIndex"];
+    if (typeof segmentIndex !== "number" || segmentIndex < 1) {
       throw new TypeError(
         "RunSegmentOpenedEvent.segmentIndex must be >= 1: segment numbering is replay-global from 1"
       );
@@ -1555,10 +1583,10 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     }
     for (const [index, row] of rows.entries()) {
       const label = `WorkspaceHygieneStampedEvent.rows[${index}]`;
-      if (typeof row !== "object" || row === null || Array.isArray(row)) {
+      if (!isPlainRecord(row)) {
         throw new TypeError(`${label} must be an object`);
       }
-      const record = row as Record<string, unknown>;
+      const record = row;
       assertNonEmptyString(record["artifactRef"], `${label}.artifactRef`);
       assertNullableString(record["observedDigest"], `${label}.observedDigest`);
       assertNullableString(record["admittedDigest"], `${label}.admittedDigest`);
@@ -1570,9 +1598,15 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
       // the classification is internally consistent BY LAW — any consumer
       // can re-derive it from the carried digest pair
-      const observed = record["observedDigest"] as string | null;
-      const admitted = record["admittedDigest"] as string | null;
-      const classification = record["classification"] as string;
+      const observed = admitNullableString(
+        record["observedDigest"],
+        `${label}.observedDigest`
+      );
+      const admitted = admitNullableString(
+        record["admittedDigest"],
+        `${label}.admittedDigest`
+      );
+      const classification = record["classification"];
       const expected =
         observed === null && admitted === null
           ? null
@@ -1605,7 +1639,14 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       basisId: event["basisId"],
       segmentRef: event["segmentRef"],
       observedBy: event["observedBy"],
-      rows: (rows as Record<string, unknown>[]).map((row) => ({
+      rows: rows.map((rowRaw: unknown) => {
+        if (!isPlainRecord(rowRaw)) {
+          throw new TypeError(
+            "WorkspaceHygieneStampedEvent.rows must be row objects"
+          );
+        }
+        return rowRaw;
+      }).map((row) => ({
         artifactRef: row["artifactRef"],
         observedDigest: row["observedDigest"],
         admittedDigest: row["admittedDigest"],
@@ -1980,10 +2021,10 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     }
     issues.forEach((row: unknown, index: number) => {
       const label = `PayloadRejectedRuntimeEvent.issues[${String(index)}]`;
-      if (row === null || typeof row !== "object" || Array.isArray(row)) {
+      if (!isPlainRecord(row)) {
         throw new TypeError(`${label} must be an object`);
       }
-      const record = row as Readonly<Record<string, unknown>>;
+      const record = row;
       for (const key of Object.keys(record)) {
         if (key !== "issueKind" && key !== "path") {
           throw new TypeError(`${label}.${key} is not a lawful issue-row key`);

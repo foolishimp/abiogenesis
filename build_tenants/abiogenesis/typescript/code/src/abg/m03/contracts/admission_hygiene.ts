@@ -35,7 +35,8 @@ export function detachRowSnapshot(row: unknown): unknown {
     return undefined;
   }
   try {
-    return JSON.parse(serialized) as unknown;
+    const parsed: unknown = JSON.parse(serialized);
+    return parsed;
   } catch {
     return undefined;
   }
@@ -69,22 +70,28 @@ export function canonicalizeRowsByContent<T>(rows: readonly T[]): readonly T[] {
 // keys emitted in sorted order so key insertion order never affects the
 // canonical key. Rows are already detached plain values at this point.
 function stableRowKey(value: unknown): string {
-  return JSON.stringify(value, replacerSortingKeys(value));
+  return JSON.stringify(value, sortObjectKeysReplacer);
 }
 
-function replacerSortingKeys(
-  _root: unknown
-): (this: unknown, key: string, value: unknown) => unknown {
-  return function sorter(_key: string, value: unknown): unknown {
-    if (value === null || typeof value !== "object" || Array.isArray(value)) {
-      return value;
-    }
-    const sorted: Record<string, unknown> = {};
-    for (const objectKey of Object.keys(value).sort()) {
-      sorted[objectKey] = (value as Record<string, unknown>)[objectKey];
-    }
-    return sorted;
-  };
+function sortObjectKeysReplacer(
+  this: unknown,
+  key: string,
+  value: unknown
+): unknown {
+  void key;
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    Array.isArray(value)
+  ) {
+    return value;
+  }
+  const record: Readonly<Record<string, unknown>> = { ...value };
+  const sorted: Record<string, unknown> = {};
+  for (const objectKey of Object.keys(record).sort()) {
+    sorted[objectKey] = record[objectKey];
+  }
+  return sorted;
 }
 
 // D-ORDINAL LAW (T-217 S2-P2 / S4-P1a, the standing lesson applied at
@@ -94,16 +101,20 @@ function replacerSortingKeys(
 // CLOSED — caller array order must never mint authority.
 export function eventAdmissionOrdinalOf(event: unknown): number | null {
   if (
-    typeof event === "object" &&
-    event !== null &&
-    "eventAdmissionOrdinal" in event &&
-    typeof (event).eventAdmissionOrdinal === "number" &&
-    Number.isSafeInteger((event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal) &&
-    (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal >= 0
+    typeof event !== "object" ||
+    event === null ||
+    Array.isArray(event) ||
+    !("eventAdmissionOrdinal" in event)
   ) {
-    return (event as { eventAdmissionOrdinal: number }).eventAdmissionOrdinal;
+    return null;
   }
-  return null;
+  const record: Readonly<Record<string, unknown>> = event;
+  const ordinal = record["eventAdmissionOrdinal"];
+  return typeof ordinal === "number" &&
+    Number.isSafeInteger(ordinal) &&
+    ordinal >= 0
+    ? ordinal
+    : null;
 }
 
 export function decisiveByAdmissionOrdinal<T>(

@@ -30,25 +30,51 @@ export interface ProcessExecutionConfig {
   readonly timeoutMs: number;
 }
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function processExecutionConfigFrom(input: unknown): ProcessExecutionConfig {
-  const record = input as Partial<ProcessExecutionConfig> | null;
-  if (
-    record === null ||
-    typeof record !== "object" ||
-    typeof record.command !== "string" ||
-    record.command.length === 0 ||
-    !Array.isArray(record.args) ||
-    typeof record.cwd !== "string" ||
-    typeof record.timeoutMs !== "number" ||
-    record.env === null ||
-    typeof record.env !== "object"
-  ) {
-    throw new TypeError(
-      "process_execution_config_invalid: declared config must carry " +
-        "{command, args, env, cwd, timeoutMs}"
-    );
+  const invalid = new TypeError(
+    "process_execution_config_invalid: declared config must carry " +
+      "{command, args, env, cwd, timeoutMs}"
+  );
+  if (!isPlainRecord(input)) {
+    throw invalid;
   }
-  return record as ProcessExecutionConfig;
+  const command = input["command"];
+  const args = input["args"];
+  const cwd = input["cwd"];
+  const timeoutMs = input["timeoutMs"];
+  const env = input["env"];
+  if (
+    typeof command !== "string" ||
+    command.length === 0 ||
+    !Array.isArray(args) ||
+    !args.every((entry): entry is string => typeof entry === "string") ||
+    typeof cwd !== "string" ||
+    typeof timeoutMs !== "number" ||
+    !isPlainRecord(env) ||
+    !Object.values(env).every((value) => typeof value === "string")
+  ) {
+    throw invalid;
+  }
+  const envRows: Record<string, string> = {};
+  for (const [key, value] of Object.entries(env)) {
+    if (typeof value === "string") {
+      envRows[key] = value;
+    }
+  }
+  const argRows: readonly string[] = args;
+  return Object.freeze({
+    command,
+    args: Object.freeze([...argRows]),
+    env: Object.freeze(envRows),
+    cwd,
+    timeoutMs
+  });
 }
 
 // F_D process execution (-009). STRICT F_D BOUNDARY (HANDLERS-009
@@ -101,19 +127,33 @@ export interface MaterializationConfig {
 }
 
 function materializationConfigFrom(input: unknown): MaterializationConfig {
-  const record = input as Partial<MaterializationConfig> | null;
-  if (
-    record === null ||
-    typeof record !== "object" ||
-    typeof record.writeRoot !== "string" ||
-    record.writeRoot.length === 0 ||
-    !Array.isArray(record.files)
-  ) {
-    throw new TypeError(
-      "materialization_config_invalid: declared config must carry {writeRoot, files}"
-    );
+  const invalid = new TypeError(
+    "materialization_config_invalid: declared config must carry {writeRoot, files}"
+  );
+  if (!isPlainRecord(input)) {
+    throw invalid;
   }
-  return record as MaterializationConfig;
+  const writeRoot = input["writeRoot"];
+  const filesRaw = input["files"];
+  if (
+    typeof writeRoot !== "string" ||
+    writeRoot.length === 0 ||
+    !Array.isArray(filesRaw)
+  ) {
+    throw invalid;
+  }
+  const files = filesRaw.map((row: unknown) => {
+    if (!isPlainRecord(row)) {
+      throw invalid;
+    }
+    const path = row["path"];
+    const content = row["content"];
+    if (typeof path !== "string" || typeof content !== "string") {
+      throw invalid;
+    }
+    return Object.freeze({ path, content });
+  });
+  return Object.freeze({ writeRoot, files: Object.freeze(files) });
 }
 
 // F_D materialization (-009). Confinement (-005): every write resolves
@@ -163,11 +203,16 @@ export const STANDARD_HANDLER_REFS = Object.freeze({
 // fh_admission arm).
 export function standardFhGateHandler(): CCallHandler {
   return (input): CCallHandlerInterior => {
-    const config = input.declaredConfig as { readonly approvalSubjectRef?: string } | null;
+    const declared = input.declaredConfig;
+    const approvalSubjectRef =
+      isPlainRecord(declared) &&
+      typeof declared["approvalSubjectRef"] === "string"
+        ? declared["approvalSubjectRef"]
+        : "undeclared";
     return Object.freeze({
       outcomeStatus: "escalated",
       evidenceRefs: Object.freeze([
-        `approval-subject:${config?.approvalSubjectRef ?? "undeclared"}`
+        `approval-subject:${approvalSubjectRef}`
       ]),
       payloadRef: null,
       responseContractRef: null,
@@ -209,26 +254,36 @@ export interface FpTransportConfig {
 }
 
 function fpTransportConfigFrom(input: unknown): FpTransportConfig {
-  const record = input as Partial<FpTransportConfig> | null;
-  if (
-    record === null ||
-    typeof record !== "object" ||
-    typeof record.prompt !== "string" ||
-    record.prompt.length === 0 ||
-    typeof record.timeoutMs !== "number" ||
-    record.responseContract === null ||
-    typeof record.responseContract !== "object" ||
-    !["advisory_text", "disposition_json"].includes(
-      (record.responseContract as { kind?: string }).kind ?? ""
-    ) ||
-    typeof record.includeWorkProjection !== "boolean"
-  ) {
-    throw new TypeError(
-      "fp_transport_config_invalid: declared config must carry " +
-        "{prompt, timeoutMs, responseContract{kind}, includeWorkProjection}"
-    );
+  const invalid = new TypeError(
+    "fp_transport_config_invalid: declared config must carry " +
+      "{prompt, timeoutMs, responseContract{kind}, includeWorkProjection}"
+  );
+  if (!isPlainRecord(input)) {
+    throw invalid;
   }
-  return record as FpTransportConfig;
+  const prompt = input["prompt"];
+  const timeoutMs = input["timeoutMs"];
+  const responseContract = input["responseContract"];
+  const includeWorkProjection = input["includeWorkProjection"];
+  if (
+    typeof prompt !== "string" ||
+    prompt.length === 0 ||
+    typeof timeoutMs !== "number" ||
+    !isPlainRecord(responseContract) ||
+    typeof includeWorkProjection !== "boolean"
+  ) {
+    throw invalid;
+  }
+  const contractKind = responseContract["kind"];
+  if (contractKind !== "advisory_text" && contractKind !== "disposition_json") {
+    throw invalid;
+  }
+  return Object.freeze({
+    prompt,
+    timeoutMs,
+    responseContract: Object.freeze({ kind: contractKind }),
+    includeWorkProjection
+  });
 }
 
 export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
@@ -266,9 +321,9 @@ export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
       });
     }
     // disposition_json: the worker judges via the declared contract
-    let parsed: { disposition?: string; reasons?: readonly string[] };
+    let parsedRaw: unknown;
     try {
-      parsed = JSON.parse(outcome.output) as typeof parsed;
+      parsedRaw = JSON.parse(outcome.output);
     } catch {
       return Object.freeze({
         outcomeStatus: "blocked",
@@ -278,7 +333,16 @@ export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
         failureReason: "agent_response_unparseable (contract_failure)"
       });
     }
-    if (parsed.disposition === "pass") {
+    const parsedRecord = isPlainRecord(parsedRaw) ? parsedRaw : null;
+    const disposition = parsedRecord?.["disposition"];
+    const reasonsRaw = parsedRecord?.["reasons"];
+    const reasons = Array.isArray(reasonsRaw)
+      ? reasonsRaw
+          .filter((entry): entry is string => typeof entry === "string")
+          .join("; ")
+          .slice(0, 160)
+      : "";
+    if (disposition === "pass") {
       return Object.freeze({
         outcomeStatus: "executed",
         evidenceRefs: Object.freeze([...sessionEvidence, "worker-disposition:pass"]),
@@ -287,8 +351,7 @@ export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
         failureReason: null
       });
     }
-    if (parsed.disposition === "block") {
-      const reasons = (parsed.reasons ?? []).join("; ").slice(0, 160);
+    if (disposition === "block") {
       return Object.freeze({
         outcomeStatus: "blocked",
         evidenceRefs: Object.freeze([...sessionEvidence, "worker-disposition:block"]),
@@ -302,7 +365,7 @@ export function standardFpTransportHandler(io: FpTransportIo): CCallHandler {
       evidenceRefs: Object.freeze([...sessionEvidence, "agent-disposition-unlawful"]),
       payloadRef: null,
       responseContractRef: "response-contract://abg/fp/disposition-json",
-      failureReason: `unlawful_disposition: ${String(parsed.disposition).slice(0, 40)} (contract_failure)`
+      failureReason: `unlawful_disposition: ${String(disposition).slice(0, 40)} (contract_failure)`
     });
   };
 }

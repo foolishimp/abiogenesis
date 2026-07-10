@@ -443,10 +443,9 @@ export function deriveRuntimeAggregateProjection(
           if (open !== undefined) {
             actorInvocationRefs[openIndex] = Object.freeze({
               ...open,
-              closureStatus: (event as { closureStatus?: string }).closureStatus ?? null,
-              closureDetail: (event as { detail?: string }).detail ?? null,
-              closureFailureClass:
-                (event as { closureFailureClass?: string }).closureFailureClass ?? null
+              closureStatus: event.closureStatus,
+              closureDetail: event.detail,
+              closureFailureClass: event.closureFailureClass ?? null
             });
           }
         }

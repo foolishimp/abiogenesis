@@ -28,27 +28,33 @@ export interface HogProgramSyntaxV1 {
   readonly proportionalityClass: string | null;
 }
 
+function isPlainRecord(
+  value: unknown
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
-  const record = input as Partial<HogProgramSyntaxV1> | null;
-  if (record === null || typeof record !== "object") {
+  if (!isPlainRecord(input)) {
     return Object.freeze({
       accepted: false,
       program: null,
       issues: Object.freeze(["program syntax must be an object"])
     });
   }
+  const record = input;
   // Fail-closed forward compatibility: an unknown syntax version is
   // rejected, never guessed at.
   if (
-    !(HOG_PROGRAM_SYNTAX_VERSIONS as readonly string[]).includes(
-      record.syntaxVersion as string
+    !HOG_PROGRAM_SYNTAX_VERSIONS.some(
+      (version): boolean => version === record["syntaxVersion"]
     )
   ) {
     return Object.freeze({
       accepted: false,
       program: null,
       issues: Object.freeze([
-        `unknown program syntaxVersion ${JSON.stringify(record.syntaxVersion)}; known: ${JSON.stringify(HOG_PROGRAM_SYNTAX_VERSIONS)}`
+        `unknown program syntaxVersion ${JSON.stringify(record["syntaxVersion"])}; known: ${JSON.stringify(HOG_PROGRAM_SYNTAX_VERSIONS)}`
       ])
     });
   }
@@ -56,7 +62,7 @@ export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
   // unknown authored fields are rejected with a message, never
   // silently dropped by the lowering.
   const SYNTAX_KEYS = ["syntaxVersion", "programRef", "stages", "proportionalityClass"];
-  const unknownKeys = Object.keys(record as Record<string, unknown>).filter(
+  const unknownKeys = Object.keys(record).filter(
     (key) => !SYNTAX_KEYS.includes(key)
   );
   if (unknownKeys.length > 0) {
@@ -73,9 +79,9 @@ export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
   // closed keys are enforced there).
   return admitHogProgram({
     kind: "hog_program_declaration",
-    programRef: record.programRef,
-    stages: record.stages,
-    proportionalityClass: record.proportionalityClass ?? null
+    programRef: record["programRef"],
+    stages: record["stages"],
+    proportionalityClass: record["proportionalityClass"] ?? null
   });
 }
 
@@ -194,21 +200,25 @@ export function compileHogProgramLadder(input: unknown): {
   let lastFrom = 0;
   for (const [index, entry] of input.entries()) {
     const at = `ladder[${index}]`;
-    const record = entry as Partial<HogProgramLadderRung> | null;
-    if (record === null || typeof record !== "object" ||
-        typeof record.programRef !== "string" || record.programRef.length === 0 ||
-        typeof record.fromAttempt !== "number" || !Number.isInteger(record.fromAttempt) || record.fromAttempt < 1) {
+    if (!isPlainRecord(entry)) {
+      issues.push(`${at} must be a rung object`);
+      continue;
+    }
+    const programRefRaw = entry["programRef"];
+    const fromAttemptRaw = entry["fromAttempt"];
+    if (typeof programRefRaw !== "string" || programRefRaw.length === 0 ||
+        typeof fromAttemptRaw !== "number" || !Number.isInteger(fromAttemptRaw) || fromAttemptRaw < 1) {
       issues.push(`${at}: rung must carry {programRef, fromAttempt >= 1}`);
       continue;
     }
-    if (index === 0 && record.fromAttempt !== 1) {
+    if (index === 0 && fromAttemptRaw !== 1) {
       issues.push(`${at}: the first rung must start at attempt 1`);
     }
-    if (record.fromAttempt <= lastFrom && index > 0) {
+    if (fromAttemptRaw <= lastFrom && index > 0) {
       issues.push(`${at}: fromAttempt must strictly increase (escalation never skips back)`);
     }
-    lastFrom = record.fromAttempt;
-    rungs.push(Object.freeze({ programRef: record.programRef, fromAttempt: record.fromAttempt }));
+    lastFrom = fromAttemptRaw;
+    rungs.push(Object.freeze({ programRef: programRefRaw, fromAttempt: fromAttemptRaw }));
   }
   if (issues.length > 0) {
     return Object.freeze({ accepted: false, rungs: null, issues: Object.freeze(issues) });
@@ -265,13 +275,14 @@ export function hogHandlerBindingsFromDeclarationAttrs(
       `${HOG_HANDLER_BINDINGS_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
     );
   }
-  const plain = serializedJsonValueToPlain(entry.value.value);
+  const plain: unknown = serializedJsonValueToPlain(entry.value.value);
   if (!Array.isArray(plain)) {
     throw new TypeError(
       `${HOG_HANDLER_BINDINGS_DECLARATION_KEY} on ${sourceRef} must be an array of binding rows`
     );
   }
-  return plain;
+  const rows: readonly unknown[] = plain;
+  return rows;
 }
 
 export function hogHandlerConfigsFromDeclarationAttrs(
@@ -285,13 +296,13 @@ export function hogHandlerConfigsFromDeclarationAttrs(
       `${HOG_HANDLER_CONFIGS_DECLARATION_KEY} on ${sourceRef} must be a json_blob declaration`
     );
   }
-  const plain = serializedJsonValueToPlain(entry.value.value);
-  if (plain === null || typeof plain !== "object" || Array.isArray(plain)) {
+  const plain: unknown = serializedJsonValueToPlain(entry.value.value);
+  if (!isPlainRecord(plain)) {
     throw new TypeError(
       `${HOG_HANDLER_CONFIGS_DECLARATION_KEY} on ${sourceRef} must be an object keyed by handlerConfigRef`
     );
   }
-  return plain as Readonly<Record<string, unknown>>;
+  return plain;
 }
 
 // USER RULING (2026-07-07): the HoG default program is a TYPED, LABELLED

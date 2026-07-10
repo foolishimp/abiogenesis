@@ -1136,6 +1136,14 @@ export interface GtlProgramGoldenInstanceBindingRow {
 }
 
 // Implements: REQ-L-GTL3-LAWS-024
+function evidenceRefStrings(value: unknown): readonly string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const rows: readonly unknown[] = value;
+  return rows.map((entry) => String(entry));
+}
+
 export const GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES = Object.freeze([
   "F_P",
   "F_H"
@@ -6218,8 +6226,8 @@ function admitDeclarationSourceRows(
       }
       const sourceKind = String(row["sourceKind"] ?? "");
       if (
-        !(GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES as readonly string[]).includes(
-          sourceKind
+        !GTL_PROGRAM_DECLARATION_SOURCE_KIND_VALUES.some(
+          (kind): boolean => kind === sourceKind
         )
       ) {
         issues.push(
@@ -6247,9 +6255,7 @@ function admitDeclarationSourceRows(
           authorRef: String(row["authorRef"] ?? ""),
           authorityRef: String(row["authorityRef"] ?? ""),
           evidenceRefs: Object.freeze(
-            Array.isArray(row["evidenceRefs"])
-              ? (row["evidenceRefs"] as readonly unknown[]).map((entry) => String(entry))
-              : []
+            evidenceRefStrings(row["evidenceRefs"])
           )
         })
       ];
@@ -6484,8 +6490,8 @@ function admitUnderdeterminedDeclarationRows(
       }
       const ownerRoute = String(row["ownerRoute"] ?? "");
       if (
-        !(GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES as readonly string[]).includes(
-          ownerRoute
+        !GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES.some(
+          (route): boolean => route === ownerRoute
         )
       ) {
         issues.push(

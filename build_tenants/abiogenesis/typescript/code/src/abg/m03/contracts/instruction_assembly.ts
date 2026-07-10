@@ -506,10 +506,17 @@ function requireNonEmptyString(input: string, label: string): void {
 }
 
 function requireStringArray(input: readonly string[], label: string): readonly string[] {
-  if (!Array.isArray(input) || input.some((value) => typeof value !== "string" || value.length === 0)) {
+  const raw: unknown = input;
+  if (
+    !Array.isArray(raw) ||
+    !raw.every(
+      (value): value is string => typeof value === "string" && value.length > 0
+    )
+  ) {
     throw new TypeError(`${label} must be an array of non-empty strings`);
   }
-  return Object.freeze([...input]);
+  const rows: readonly string[] = raw;
+  return Object.freeze([...rows]);
 }
 
 function requireNullableNonEmptyString(
@@ -559,8 +566,19 @@ function lower(input: string): string {
   return input.toLocaleLowerCase("en-US");
 }
 
+const EMPTY_INSTRUCTION_ASSEMBLY_ISSUES: readonly InstructionAssemblyIssue[] =
+  Object.freeze([]);
+
+function isDeclaredLatitudeOwnerRoute(
+  value: string
+): value is DeclaredLatitudeRow["ownerRoute"] {
+  return GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES.some(
+    (route): boolean => route === value
+  );
+}
+
 function hasForbiddenRuleField(input: InstructionAssemblyRule): readonly InstructionAssemblyForbiddenRuleField[] {
-  const record = input as unknown;
+  const record: unknown = input;
   if (!isRecord(record)) {
     return Object.freeze([]);
   }
@@ -670,8 +688,8 @@ function compactRenderedRef(ref: string): string {
   if (ref.startsWith("node:")) {
     try {
       const parsed: unknown = JSON.parse(ref.slice("node:".length));
-      if (typeof parsed === "object" && parsed !== null && !Array.isArray(parsed)) {
-        const record = parsed as Readonly<Record<string, unknown>>;
+      if (isRecord(parsed)) {
+        const record = parsed;
         const name = typeof record["name"] === "string" ? record["name"] : "unnamed";
         const typeRef = typeof record["typeRef"] === "string" ? record["typeRef"] : "untyped";
         return `node:${name}:${typeRef}:${digest}`;
@@ -1095,7 +1113,7 @@ export function constructDerivedProofDepthInstructionTruth(
 export function constructInstructionAssemblyRule(
   input: InstructionAssemblyRuleInput
 ): InstructionAssemblyRule {
-  const raw = input as unknown;
+  const raw: unknown = input;
   if (isRecord(raw)) {
     for (const forbidden of INSTRUCTION_ASSEMBLY_FORBIDDEN_RULE_FIELDS) {
       if (Object.prototype.hasOwnProperty.call(raw, forbidden)) {
@@ -1255,7 +1273,8 @@ export function compileInstructionAssemblyPlan(
   const declaredLatitude: DeclaredLatitudeRow[] = [];
   const latitudeIssues: InstructionAssemblyIssue[] = [];
   for (const row of input.declaredLatitude ?? []) {
-    if (!(GTL_PROGRAM_UNDETERMINED_OWNER_ROUTE_VALUES as readonly string[]).includes(row.ownerRoute)) {
+    const ownerRoute = row.ownerRoute;
+    if (!isDeclaredLatitudeOwnerRoute(ownerRoute)) {
       latitudeIssues.push(
         Object.freeze({
           kind: "instruction_assembly_issue",
@@ -1282,7 +1301,7 @@ export function compileInstructionAssemblyPlan(
     declaredLatitude.push(
       Object.freeze({
         scopeRef: row.scopeRef,
-        ownerRoute: row.ownerRoute as DeclaredLatitudeRow["ownerRoute"],
+        ownerRoute,
         latitudeNote: row.latitudeNote
       })
     );
@@ -1766,7 +1785,7 @@ export function compileInstructionAssemblyPlan(
     shouldDispatchFp: input.proportionalityClass !== "P0",
     fpValidationEvidenceRefs: uniqueSorted(input.fpValidationEvidenceRefs ?? []),
     compilerEvidenceRefs: uniqueSorted(input.compilerEvidenceRefs ?? []),
-    compilerDiagnostics: Object.freeze([] as InstructionAssemblyIssue[])
+    compilerDiagnostics: EMPTY_INSTRUCTION_ASSEMBLY_ISSUES
   });
   const plan = Object.freeze({
     ...withoutDigest,
@@ -1776,7 +1795,7 @@ export function compileInstructionAssemblyPlan(
     kind: "instruction_assembly_compile_accepted",
     accepted: true,
     plan,
-    issues: Object.freeze([] as InstructionAssemblyIssue[])
+    issues: EMPTY_INSTRUCTION_ASSEMBLY_ISSUES
   });
 }
 
@@ -1901,7 +1920,7 @@ export function bindInstructionEnvelope(input: {
     kind: "instruction_envelope_bind_accepted",
     accepted: true,
     envelope,
-    issues: Object.freeze([] as InstructionAssemblyIssue[])
+    issues: EMPTY_INSTRUCTION_ASSEMBLY_ISSUES
   });
 }
 
@@ -1972,7 +1991,7 @@ export function renderPromptManifest(input: {
     kind: "prompt_manifest_render_accepted",
     accepted: true,
     manifest,
-    issues: Object.freeze([] as InstructionAssemblyIssue[])
+    issues: EMPTY_INSTRUCTION_ASSEMBLY_ISSUES
   });
 }
 

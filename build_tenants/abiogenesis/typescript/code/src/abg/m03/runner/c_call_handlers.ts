@@ -81,7 +81,7 @@ export function admitHandlerRegistry(input: {
     if (!nonEmpty(binding.stageRole)) issues.push(`${at}.stageRole must be a non-empty string`);
     if (!nonEmpty(binding.armId)) issues.push(`${at}.armId must be a non-empty string`);
     if (!nonEmpty(binding.handlerRef)) issues.push(`${at}.handlerRef must be a non-empty string`);
-    if (!(C_CALL_REGIME_VALUES as readonly string[]).includes(binding.regime)) {
+    if (!C_CALL_REGIME_VALUES.some((regime): boolean => regime === binding.regime)) {
       issues.push(`${at}.regime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`);
     }
     if (binding.handlerConfigRef !== null && !nonEmpty(binding.handlerConfigRef)) {
@@ -92,7 +92,11 @@ export function admitHandlerRegistry(input: {
       issues.push(`${at}: duplicate binding for ${key}`);
     }
     seen.add(key);
-    if (!(C_CALL_HANDLER_CLASS_VALUES as readonly string[]).includes(binding.handlerClass)) {
+    if (
+      !C_CALL_HANDLER_CLASS_VALUES.some(
+        (handlerClass): boolean => handlerClass === binding.handlerClass
+      )
+    ) {
       issues.push(`${at}: handlerClass must be one of ${JSON.stringify(C_CALL_HANDLER_CLASS_VALUES)}`);
     }
     if (nonEmpty(binding.handlerRef) && !input.handlers.has(binding.handlerRef)) {
@@ -197,12 +201,40 @@ export function assembleHandlerRegistry(input: {
   readonly declaredBindings: readonly unknown[];
   readonly handlers: ReadonlyMap<string, CCallHandler>;
 }): CCallHandlerRegistry {
+  const admitRegime = (
+    value: string,
+    at: string
+  ): CCallHandlerBinding["regime"] => {
+    const match = C_CALL_REGIME_VALUES.find(
+      (regime): boolean => regime === value
+    );
+    if (match === undefined) {
+      throw new TypeError(
+        `${at}.regime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}, got ${JSON.stringify(value)}`
+      );
+    }
+    return match;
+  };
+  const admitHandlerClass = (
+    value: string,
+    at: string
+  ): CCallHandlerBinding["handlerClass"] => {
+    const match = C_CALL_HANDLER_CLASS_VALUES.find(
+      (handlerClass): boolean => handlerClass === value
+    );
+    if (match === undefined) {
+      throw new TypeError(
+        `${at}.handlerClass must be one of ${JSON.stringify(C_CALL_HANDLER_CLASS_VALUES)}, got ${JSON.stringify(value)}`
+      );
+    }
+    return match;
+  };
   const bindings = input.declaredBindings.map((row, index) => {
     const at = `handler binding [${index}]`;
     if (row === null || typeof row !== "object" || Array.isArray(row)) {
       throw new TypeError(`${at} must be an object row`);
     }
-    const record = row as Record<string, unknown>;
+    const record: Readonly<Record<string, unknown>> = { ...row };
     for (const key of Object.keys(record)) {
       if (!HANDLER_BINDING_KEYS.includes(key)) {
         throw new TypeError(`${at}: unknown field ${JSON.stringify(key)} (closed key set)`);
@@ -227,9 +259,9 @@ export function assembleHandlerRegistry(input: {
       programRef: rawString("programRef"),
       stageRole: rawString("stageRole"),
       armId: rawString("armId"),
-      regime: rawString("regime") as CCallHandlerBinding["regime"],
+      regime: admitRegime(rawString("regime"), at),
       handlerRef: rawString("handlerRef"),
-      handlerClass: rawString("handlerClass") as CCallHandlerBinding["handlerClass"],
+      handlerClass: admitHandlerClass(rawString("handlerClass"), at),
       handlerConfigRef: configRef === undefined || configRef === null ? null : configRef
     });
   });

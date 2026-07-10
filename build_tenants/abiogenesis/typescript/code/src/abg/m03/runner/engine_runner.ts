@@ -1068,12 +1068,15 @@ export const ENGINE_FP_DISPATCH_ARM_IDS = Object.freeze([
 export type EngineFpDispatchArmId = (typeof ENGINE_FP_DISPATCH_ARM_IDS)[number];
 
 function assertEngineFpDispatchArmId(armId: string): EngineFpDispatchArmId {
-  if (!(ENGINE_FP_DISPATCH_ARM_IDS as readonly string[]).includes(armId)) {
+  const match = ENGINE_FP_DISPATCH_ARM_IDS.find(
+    (registered): boolean => registered === armId
+  );
+  if (match === undefined) {
     throw new TypeError(
       `unregistered F_P dispatch arm: ${armId} — register it in ENGINE_FP_DISPATCH_ARM_IDS and add a runtime proof or typed exemption (T-190)`
     );
   }
-  return armId as EngineFpDispatchArmId;
+  return match;
 }
 
 function bindInstructionAssemblyForFpEffect(input: {
@@ -5308,9 +5311,9 @@ function* runEngineIterateMachine(input: {
   ): EngineEventEmissionState => {
     let toEmit: RuntimeEvent | readonly RuntimeEvent[] = events;
     if (temporalProperties.length > 0) {
-      const list = Array.isArray(events)
-        ? (events as readonly RuntimeEvent[])
-        : [events as RuntimeEvent];
+      const list: readonly RuntimeEvent[] = Array.isArray(events)
+        ? events
+        : [events];
       const terminal = list.find((event) => event.kind === "terminal_reached");
       // Yields are pauses, not judgments: no verdict batch per yield
       // (checkpoint-2 noise guard); every non-yield terminal judges.
@@ -7717,9 +7720,7 @@ function* runEngineIterateMachine(input: {
                 typeof outcome.attachedResultArtifact === "object" &&
                 outcome.attachedResultArtifact !== null &&
                 !Array.isArray(outcome.attachedResultArtifact)
-                  ? (outcome.attachedResultArtifact as Readonly<
-                      Record<string, unknown>
-                    >)
+                  ? { ...outcome.attachedResultArtifact }
                   : null;
               // T-213 (S6): the declared artifact schema is the SOLE shape
               // authority and gates BEFORE the domain row law. A schema
