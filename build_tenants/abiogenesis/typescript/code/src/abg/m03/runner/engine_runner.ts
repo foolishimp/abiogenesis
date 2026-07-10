@@ -10,6 +10,8 @@ import { buildCCallSpineOpen, buildCCallSpineClose, nextCCallAttempt } from "./c
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
 import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
 import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
+import { standardPluginCatalogWithCapabilities } from "./standard_live_plugins.js";
+import type { EnginePluginCapabilities } from "./standard_live_plugins.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
 import { admitExecutionBasis } from "../admission/index.js";
@@ -337,6 +339,9 @@ export interface EngineIterateRequest {
     | EngineInstructionAssemblyStartupInput
     | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
+  // operator capability set for DECLARED live plugin selection (S2.3):
+  // live catalog refs resolve only when their capability is injected.
+  readonly pluginCapabilities?: EnginePluginCapabilities | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
   readonly targetCarrierDefaults?: GtlTargetCarrierDefaultsBundle | undefined;
@@ -413,6 +418,9 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
     | EngineInstructionAssemblyStartupInput
     | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
+  // operator capability set for DECLARED live plugin selection (S2.3):
+  // live catalog refs resolve only when their capability is injected.
+  readonly pluginCapabilities?: EnginePluginCapabilities | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
   readonly targetCarrierDefaults?: GtlTargetCarrierDefaultsBundle | undefined;
@@ -10247,7 +10255,8 @@ function effectiveRunnerPlugins(
       ...merged,
       ...resolveDeclaredPluginSelection({
         selection,
-        sourceRef: request.basis.graphFunction.name
+        sourceRef: request.basis.graphFunction.name,
+        catalog: standardPluginCatalogWithCapabilities(request.pluginCapabilities)
       })
     });
   }

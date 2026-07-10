@@ -27,6 +27,8 @@ import {
   constructFpDispatchOutcome
 } from "../contracts/plugins.js";
 import { admitTimeoutBudgetMs } from "./standard_handlers.js";
+import type { StandardCatalogRow } from "../contracts/plugin_selection.js";
+import { STANDARD_ENGINE_PLUGIN_CATALOG } from "../contracts/plugin_selection.js";
 
 export const LIVE_FP_DISPATCH_PLUGIN_REF = "plugin://abg/fp-dispatch-live";
 
@@ -154,5 +156,28 @@ export function standardLiveFpDispatchPlugin(
         evidenceRefs: [input.sourceProjectionRef, `agent-output:${transport.outputPath}`]
       });
     }
+  });
+}
+
+// The operator's capability set for live plugin selection. Injected at the
+// engine request (the CLI composes it from its declared verb steering);
+// absent capabilities leave the live refs OUT of the catalog, so selecting
+// one fails closed with the standard unresolvable-ref rejection.
+export interface EnginePluginCapabilities {
+  readonly liveFpDispatch?: LiveFpDispatchCapability | undefined;
+}
+
+export function standardPluginCatalogWithCapabilities(
+  capabilities: EnginePluginCapabilities | undefined
+): Readonly<Record<string, StandardCatalogRow>> {
+  if (capabilities?.liveFpDispatch === undefined) {
+    return STANDARD_ENGINE_PLUGIN_CATALOG;
+  }
+  return Object.freeze({
+    ...STANDARD_ENGINE_PLUGIN_CATALOG,
+    [LIVE_FP_DISPATCH_PLUGIN_REF]: Object.freeze({
+      seam: "fpDispatch" as const,
+      plugin: standardLiveFpDispatchPlugin(capabilities.liveFpDispatch)
+    })
   });
 }

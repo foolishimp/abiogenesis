@@ -56,7 +56,7 @@ export interface ResolvedPluginSelection {
 }
 
 // Discriminated by seam so resolution narrows structurally — no casts.
-type StandardCatalogRow =
+export type StandardCatalogRow =
   | { readonly seam: "fdEvaluator"; readonly plugin: FdEvaluatorPlugin }
   | { readonly seam: "fpEvaluator"; readonly plugin: FpEvaluatorPlugin }
   | { readonly seam: "fpDispatch"; readonly plugin: FpDispatchPlugin }
@@ -143,7 +143,12 @@ export function pluginSelectionFromDeclarationAttrs(
 export function resolveDeclaredPluginSelection(input: {
   readonly selection: Readonly<Partial<Record<PluginSelectionSeam, string>>>;
   readonly sourceRef: string;
+  // capability-extended catalog (runner-composed): live rows exist only
+  // when the operator injected their capability; the default is the
+  // mechanical standard catalog.
+  readonly catalog?: Readonly<Record<string, StandardCatalogRow>> | undefined;
 }): ResolvedPluginSelection {
+  const catalog = input.catalog ?? STANDARD_ENGINE_PLUGIN_CATALOG;
   const resolved: {
     fdEvaluator?: FdEvaluatorPlugin;
     fpEvaluator?: FpEvaluatorPlugin;
@@ -156,9 +161,7 @@ export function resolveDeclaredPluginSelection(input: {
     if (ref === undefined) {
       continue;
     }
-    const row = Object.hasOwn(STANDARD_ENGINE_PLUGIN_CATALOG, ref)
-      ? STANDARD_ENGINE_PLUGIN_CATALOG[ref]
-      : undefined;
+    const row = Object.hasOwn(catalog, ref) ? catalog[ref] : undefined;
     if (row === undefined) {
       throw new TypeError(
         `plugin_selection_unresolvable: ${input.sourceRef} selects ${JSON.stringify(ref)} for seam ${seam}, which is not in the standard plugin catalog`

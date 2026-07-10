@@ -1459,3 +1459,83 @@ test("S2.3 plugin selection: an unknown catalog ref fails closed typed at the en
   assert.equal(result.transition.terminalKind, "gap_stop");
   assert.match(result.transition.reason, /plugin_selection_unresolvable/u);
 });
+
+// ── S2.3 capability-gated LIVE selection (T-217 closure campaign):
+// plugin://abg/fp-dispatch-live resolves ONLY when the operator injected
+// its capability; without it, selection fails closed typed.
+test("S2.3 live selection: the live dispatch ref without its capability fails closed typed", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const liveBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/fp-dispatch-live" }]
+          } }) })
+        ])
+      })
+    })
+  });
+  const result = runEngineIterate({
+    basis: liveBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(liveBasis),
+    plugins: { fpEvaluator: defaultFpEvaluatorPlugin }
+  });
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /plugin_selection_unresolvable/u);
+});
+
+test("S2.3 live selection: with the injected capability the live plugin serves the dispatch seam", async () => {
+  const { mkdtempSync, existsSync: existsSyncLocal } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const pathMod = await import("node:path");
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const liveBasis = Object.freeze({
+    ...basis,
+    graphFunction: Object.freeze({
+      ...basis.graphFunction,
+      declarations: Object.freeze({
+        entries: Object.freeze([
+          ...basis.graphFunction.declarations.entries,
+          Object.freeze({ key: "abg.plugin_selection", value: Object.freeze({ kind: "json_blob", value: {
+            kind: "object", entries: [{ key: "fpDispatch", value: "plugin://abg/fp-dispatch-live" }]
+          } }) })
+        ])
+      })
+    })
+  });
+  const root = mkdtempSync(pathMod.join(tmpdir(), "t217-live-sel-"));
+  const archiveRoot = pathMod.join(root, "archive");
+  const result = await runEngineIterateAsync({
+    basis: liveBasis,
+    eventSink: () => {},
+    ...m03InstructionAssemblyRequestFields(liveBasis),
+    plugins: { fpEvaluator: defaultFpEvaluatorPlugin },
+    pluginCapabilities: {
+      liveFpDispatch: {
+        agentContract: {
+          agentKey: "generic",
+          command: process.execPath,
+          argsTemplate: ["-e", "console.log(JSON.stringify({ ok: true }))"],
+          sanitizedEnvironmentPolicy: { prefixes: [] }
+        },
+        archiveRoot,
+        cwd: root,
+        timeoutMs: 30000,
+        labelPrefix: "t217-sel"
+      }
+    }
+  });
+  // resolution succeeded (no unresolvable/conflict), and the live plugin
+  // demonstrably RAN: it archives the instruction manifest per attempt.
+  assert.doesNotMatch(result.transition.reason ?? "", /plugin_selection/u);
+  assert.equal(
+    existsSyncLocal(pathMod.join(archiveRoot, "t217-sel-v0-instruction-manifest.json")),
+    true,
+    "the live dispatch plugin must have served vector 0"
+  );
+});
