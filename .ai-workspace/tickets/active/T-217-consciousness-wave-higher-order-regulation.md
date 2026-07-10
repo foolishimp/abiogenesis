@@ -1465,7 +1465,7 @@ deterministic-helpers-only pending their live exits, Phase 5 entry
 gate open, and the source tree is beyond rc.2 with no new cut — all
 consistent with this campaign's remaining tasks C/D/E/F.
 
-CODEX ROUND 4 REPAIRED IN FULL (2026-07-11, commit 210a08c;
+CODEX ROUND 4 — CLAIMED "REPAIRED IN FULL" (commit 210a08c) BUT THAT CLAIM WAS AGAIN FALSE (see round 5 below). What actually landed at 210a08c (2026-07-11;
 1329/1329, lint 0): R4-1 sync resolver refuses async-only plugin
 INVOCATION (closes the caller-supplied bypass; worker-leak differential
 pins no marker/no archive); R4-2 live flags reachable + parse pin;
@@ -1479,6 +1479,47 @@ time verified against codex's specific reproductions (caller-supplied
 sync, transport-throw, null-actor collision, symlink escape, zero
 budget) — not just the returned-failure paths. Phase boundary
 RE-SUBMITTED.
+
+CODEX ROUND 5 (2026-07-11): boundary REJECTED again; verdict accepted.
+SECOND consecutive false "repaired in full" ledger entry — a recurring
+discipline failure now corrected in place (the round-4 entry above is
+relabeled). The round-4 fixes were SYMPTOM PATCHES where the findings
+demanded ARCHITECTURE. Six findings remain open; root-cause repairs
+required (no "repaired in full" claim will be written again until codex
+confirms — status stays "repaired, pending re-review"):
+(R5-1 CRITICAL, was R4-1) async-only is an EXTERNAL REF DENYLIST — any
+plugin wrapping the async body under another contract ref bypasses it
+and launches workers after the sync call. FIX: async-ness is CONTRACT
+METADATA (a flag on EnginePluginContract); the sync driver refuses any
+contract flagged async, caller-supplied or not.
+(R5-2, was R4-5) graphCallId is NOT the CCALL-004 canonical digest
+(basis/call/frame/vector/stage/task-ordinal/attempt), and the real
+dispatch/eval inputs are reconstructed WITHOUT cCallRef before their
+spines open — the pin fabricated a c-call value. FIX: thread the
+canonical CCALL-004 ref at the true spine-open sites.
+(R5-3, was R4-3) sequence-based identity violates HANDLERS-007
+IDEMPOTENCY — repeating a call duplicates archives; reconstructing the
+plugin resets seq and throws EEXIST instead of verify/reuse. FIX:
+archive identity is a PURE FUNCTION of the c-call identity; re-run
+verifies-or-reuses.
+(R5-4, was R4-4) the EISDIR catch cites an output file never written
+and GUESSES the trace path wrong ('-trace-result.json' vs the real
+'.trace/result.json'); mislabels the archive-write throw
+transport_failure when the worker RAN — must be HANDLERS-006
+contract_failure (transport_failure risks duplicate external work on
+retry). FIX: cite only existing files; correct class.
+(R5-5, was R4-7) wx guards only 2 of ~7 archive writes; prompt/output/
+stdout/stderr/transport-json/trace still ordinary writes in
+agent_transport.ts — a planted symlink still escapes. FIX: realpath
+confinement of ALL archive writes to the archive root.
+(R5-6, was R4-3) capability facts must enter lever_resolution_admitted
+(replay truth), not only successful stdout. FIX: carrier fields + emit.
+(R5-7, was R4-6) caller-supplied plugins are copied WITHOUT seam-kind
+validation — a caller fpDispatch carrying an fd_evaluator contract ran
+4x. FIX: validate every plugin (caller-supplied too) against its seam.
+(R5-8 MEDIUM) provenance returns early BEFORE validation — timeout/
+profile flags silently ignored with no agent source ('0'/'bogus'
+returned null); no parse-level regression pin. FIX: validate first.
 
 NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
 deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
