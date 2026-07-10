@@ -1407,8 +1407,13 @@ refs unresolvable. Also landed earlier in C: odd_glc consumes the
 kernel D3 report surface (odd_glc 5564c1c — the local parser died).
 
 CODEX REVIEW ROUND 3 ON THE KERNEL SURFACE (2026-07-10): codex
-REJECTED the phase boundary with 6 high + 2 medium findings — all
-CONFIRMED and REPAIRED with pins in commit 1aae9eb (1322/1322, lint 0):
+REJECTED the phase boundary with 6 high + 2 medium findings — repaired
+with pins in commit 1aae9eb (1322/1322, lint 0). CORRECTION (2026-07-11,
+round 4): this entry originally claimed "all CONFIRMED and REPAIRED" —
+that claim was FACTUALLY INCORRECT: F2 was partially repaired (label
+uniqueness landed; the HANDLERS-007 cCallRef keying did not) and F3 was
+partially repaired (strict admission landed; the flags were unreachable
+and capability identity never entered replay truth). The details:
 sync-driver async-only refusal + zero pre-await side effects (F1);
 invocation-keyed archive/ref identity — vector+attempt+invocation-id
 hash, no collisions across retries/runs (F2; the cCallRef carrier
@@ -1422,6 +1427,43 @@ close-eligible (F4); duplicate selection/seam authorities fail closed
 refs (F6); capability snapshot + path-safe label admission (F7);
 catalog contract-identity check + honest plugin_selection failure
 surface (F8). The phase boundary is RE-SUBMITTED for review.
+
+CODEX REVIEW ROUND 4 (2026-07-11): boundary REJECTED again, verdict
+accepted. Findings registered, repairs in progress under this campaign:
+(R4-1 CRITICAL) caller-supplied live plugins bypass the declared-ref
+async-only guard; the first-await fence only POSTPONES execution —
+reproduced: gap_stop recorded, then 4 workers produced 28 archive files
+outside admitted truth. Repair: the SYNC effect resolver refuses to
+INVOKE any fp plugin whose contract ref is async-only (gate before the
+promise is created), pinned by a marker-file differential.
+(R4-2 HIGH) --live-agent/--live-timeout-ms/--executor-profile parsed
+but ABSENT from the allowed-flags list — unreachable from the binary;
+the round-3 pin tested admitters directly, never command parsing.
+Repair: allowed list + a parse-level pin.
+(R4-3 HIGH) capability identity is not replay truth (WITNESS-010
+unmet): repair = capability facts (agentKey, executorProfile,
+timeoutMs, per-field source flag|env|default) recorded in the CLI
+start output AND the lever-resolution event.
+(R4-4 HIGH) transport EXCEPTIONS (post-worker artifact-write throws,
+reproduced EISDIR) lose session evidence — F6 covered only returned
+failures. Repair: try/catch around runAgentTransport in both plugins;
+blocked outcome carries derivable archive refs.
+(R4-5 HIGH) F2 remains OPEN under HANDLERS-007: no cCallRef on
+EnginePluginInput; null-actor same-basis/vector collide; 48-bit hash
+truncation. Repair: carrier extension (cCallRef threaded from the
+spine), full-length hash, identity sidecar json per archive set.
+(R4-6 MEDIUM) resolver does not check contract.pluginKind per seam;
+declaration-parse errors prefixed abg.plugin_selection escape the
+plugin_selection failure classifier. Repair: kind check + message
+re-prefixing.
+(R4-7 MEDIUM) admitLiveTimeoutMs("0") passes; deterministic archive
+writes follow pre-existing symlinks (reproduced in-root escape).
+Repair: positive budget; 'wx'-flag writes refusing existing paths.
+Also registered from the round's phase table: the PRODUCT
+gen-start/gen-gaps contradiction (recorded, A5-P2-owned), P3/P4 are
+deterministic-helpers-only pending their live exits, Phase 5 entry
+gate open, and the source tree is beyond rc.2 with no new cut — all
+consistent with this campaign's remaining tasks C/D/E/F.
 
 NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
 deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
