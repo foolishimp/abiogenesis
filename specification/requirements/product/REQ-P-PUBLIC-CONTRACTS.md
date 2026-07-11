@@ -20,12 +20,22 @@ It is a static product artifact, not a hosted schema service or second checker.
 
 ## Bootstrap Location And Identity
 
-**REQ-P-PUBLIC-CONTRACTS-001**: Each released product root shall contain
+**REQ-P-PUBLIC-CONTRACTS-001**: Each product root that claims conformance to the
+ABIogenesis 5.0-or-later public-contract family shall contain
 `product-toolchain-manifest.json`. Its bootstrap fields shall include `kind`
 equal to `abg_product_toolchain_manifest`, `schemaVersion`, `productId`,
 `packageName`, `packageVersion`, `productContentDigest`, and one
 `publicContractCatalog` object. A missing, malformed, duplicate, or
 digest-incoherent bootstrap field shall fail product verification.
+
+**REQ-P-PUBLIC-CONTRACTS-001A**: Exact P4/I4 under
+`REQ-R-ABG3-SELFHOSTING-004` is a released predecessor, not a product claiming
+conformance to this 5.0 public-contract family. Its exact bootstrap selection is
+governed by the ordinary applicable install law. Its absence of a 5.0 contract
+catalog is governed specifically by `REQ-P-INSTALL-008B` and
+`REQ-R-ABG3-SELFHOSTING-004`, `-006`, `-007`, and `-013`. That absence shall not
+be filled by inference, a compatibility facade, or mutable repackaging, and I4
+shall not thereby become catalog-admissible as a 5.0 product.
 
 **REQ-P-PUBLIC-CONTRACTS-002**: `publicContractCatalog` shall carry
 `schemaVersion`, `catalogId`, `catalogVersion`, `catalogDigest`,

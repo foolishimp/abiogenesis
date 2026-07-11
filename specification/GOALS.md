@@ -58,7 +58,7 @@ DS-0R -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-4Q -> DS-5 -> DS-6 -> DS-7 
 |---|---|---|---|
 | `DS-0R` specification closure | T-219 | T-219 walkthrough/review | Public contracts have an addressable manifest catalog and owner chain; zoom/foldback/type-wiring law is constitutional; remaining QUAL gaps route to T-239; the spec-only tenant-builder walkthrough passes. |
 | `DS-1` installed catalog/Hello World | T-222 | T-223 | Packed installed SDK/CLI and live Hello World steel thread. |
-| `DS-1F` bootstrap feasibility | T-224 | T-225 | Exact I4 admits frozen B5 through its actual public surface. |
+| `DS-1F` bootstrap feasibility | T-241 -> T-224 | T-225 | Exact I4 admits frozen B5 through its actual public surface without being recast as a 5.0 catalog product. |
 | `DS-2` complete C/runtime | T-226 and narrowed T-179 | T-227 and T-228 | Seven C terms, declared result path, residuals, node/overlay application. |
 | `DS-3` complete operator product | T-229 | T-230 | Exact SDK/CLI grammar, interactive loop, native/Codex projection. |
 | `DS-4` self-conformance/observer | T-231 | T-232 | Real-tree and seeded-negative self-conformance plus observer/tuner proof. |
@@ -68,17 +68,17 @@ DS-0R -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-4Q -> DS-5 -> DS-6 -> DS-7 
 | `DS-7` exact candidate gate | T-238 | T-235 | One A5-R1 candidate verdict returns green over exact R5/G5 bytes. |
 | `DS-8` ordered release | RELEASE_METHOD | T-240 -> T-236 -> odd_glc T-039 -> T-037 -> T-237 | Published and qualified RC lineage, released ABG 5.0, released odd_glc 0.2.0, verified immutable pair. |
 
-T-219 completed the specification-only entry prerequisite. T-222 completed the
-first executable design leaf; T-223 is the active DS-1 realization leaf.
-T-179 is active only as the accepted DS-2 owner and remains queued behind
-T-225. A realization leaf is non-admissible until its named design predecessor
-is completed and current.
+T-219 completed the specification-only entry prerequisite. T-222/T-223 closed
+DS-1. T-241 owns the exact-I4 requirement correction required before active
+T-224 can close DS-1F design. T-179 is active only as the accepted DS-2 owner
+and remains queued behind T-225. A realization leaf is non-admissible until its
+named requirement and design predecessors are completed and current.
 
 ## Current Goal
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 product and independently released G5 catalog product in the declared dependency order. | T-219, T-179, and T-222 through T-240 plus odd_glc T-033/T-038/T-039/T-037 close at their objective gates; R5 is self-hosted and immutable; both products pass published RC windows before tap; released ABG/G5 install and verify without rebuild; no admitted product claim is deferred or supplied by a second controller. | Leaf closure records, exact installed archives, C1/C2 equivalence, complete qualification enforcement, self-conformance result, data-mapper campaign, A5-R1 manifest, RC and final remote branches/tags/checksums, released-pair proof. | Active |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 product and independently released G5 catalog product in the declared dependency order. | T-219, T-179, T-222 through T-241, and odd_glc T-033/T-038/T-039/T-037 close at their objective gates; R5 is self-hosted and immutable; both products pass published RC windows before tap; released ABG/G5 install and verify without rebuild; no admitted product claim is deferred or supplied by a second controller. | Leaf closure records, exact installed archives, C1/C2 equivalence, complete qualification enforcement, self-conformance result, data-mapper campaign, A5-R1 manifest, RC and final remote branches/tags/checksums, released-pair proof. | Active |
 
 ## Invalidation Law
 

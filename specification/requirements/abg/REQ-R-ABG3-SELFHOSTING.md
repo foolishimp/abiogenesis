@@ -32,9 +32,22 @@ release-tarball digest, and `product-toolchain-manifest.json` SHA-256
 
 **REQ-R-ABG3-SELFHOSTING-005**: `S5` shall be one frozen ABIogenesis 5.0 source project used as the declared build input for both bootstrap stages.
 
-**REQ-R-ABG3-SELFHOSTING-006**: `B5` shall be one immutable ABG-owned `self_build_program_manifest`. It shall declare its schema version, identity, version, digest, GTL Module and GraphFunction references, compatibility with exact `P4`/`I4` and the ABIogenesis 5.0 candidate line, the `S5` input-root contract, result and equivalence surfaces, and required plugin and capability references.
+**REQ-R-ABG3-SELFHOSTING-006**: `B5` shall be one immutable ABG-owned,
+specialized serialized GTL Module governed by
+`abg.schema.self-build-program-manifest`. Its Module metadata shall declare
+kind `self_build_program_manifest`, schema version, identity, version, digest,
+selected GraphFunction reference and digest, compatibility with exact `P4`/`I4`
+and the ABIogenesis 5.0 candidate line, the `S5` input-root contract, result and
+equivalence surfaces, and required plugin and capability references. B5 shall
+not introduce a rival executable envelope around the GTL Module.
 
-**REQ-R-ABG3-SELFHOSTING-007**: `B5` shall be admitted as declaration and data through the public catalog and source-product input. Neither `I4` nor an installed 5.0 candidate may import executable runtime, provider, plugin, controller, or private helper code from `S5`.
+**REQ-R-ABG3-SELFHOSTING-007**: Exact I4 shall admit the frozen B5 Module bytes
+through its released public Module, StartIntent, execution-basis, event, and
+callable-start contracts. An installed 5.0 candidate shall re-admit those exact
+same B5 bytes as declaration and data through its public catalog and source-
+product input. Neither leg may import executable runtime, provider, plugin,
+controller, or private helper code from `S5`; no adapter may make I4 appear to
+implement a 5.0 catalog operation it does not publish.
 
 **REQ-R-ABG3-SELFHOSTING-008**: The first bootstrap stage shall execute `I4 + B5 + S5` to convergence and produce candidate `C1`. `I1` shall be an installation of exact `C1` with no mutable `S5` import or source fallback.
 
@@ -50,4 +63,9 @@ release. `C2` is the fixed-point witness and shall not become a second source ca
 
 **REQ-R-ABG3-SELFHOSTING-012**: A missing or incompatible bootstrap identity, manifest, capability, input root, result, convergence fact, source-isolation fact, or equivalence fact shall block the self-hosting claim and the release cut. It shall not be waived, inferred from package presence, or repaired by a bootstrap-specific controller.
 
-**REQ-R-ABG3-SELFHOSTING-013**: The `P4`/`I4` compatibility obligation is bounded to admitting and executing the frozen `B5` program through the public catalog behavior shared with the 5.0 candidate line. Stage-one success shall not imply that `P4` implements the complete ABIogenesis 5.0 contract.
+**REQ-R-ABG3-SELFHOSTING-013**: The `P4`/`I4` compatibility obligation is
+bounded to admitting and executing the frozen B5 Module/GraphFunction through
+the public GTL/runtime semantics shared with the 5.0 candidate line. I4 binds
+and starts through its released public contracts; the 5.0 candidate additionally
+uses its catalog/SDK contract. Stage-one success shall not imply that `P4`
+implements any DS-1 operation or the complete ABIogenesis 5.0 contract.

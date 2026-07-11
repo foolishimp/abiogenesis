@@ -62,12 +62,25 @@ state root, projection root, archive root, selected toolchain root, selected
 product payloads, product root, package root, command paths, product manifest
 path, and product manifest digest.
 
-**REQ-P-INSTALL-008A**: The selected ABG product manifest shall contain the
-bootstrap and `publicContractCatalog` fields required by
+**REQ-P-INSTALL-008A**: A selected ABG product manifest that claims ABIogenesis
+5.0-or-later conformance shall contain the bootstrap and
+`publicContractCatalog` fields required by
 `REQ-P-PUBLIC-CONTRACTS`. Installation and binding shall preserve the catalog
 identity/version/digest and its product-relative schema/asset locators. A
 product manifest without an admissible contract catalog shall not become a
-bound or catalog-admissible ABG product.
+bound or catalog-admissible 5.0 ABG product.
+
+**REQ-P-INSTALL-008B**: The only non-5.0 ABG product admissible to the 5.0
+self-hosting process is exact P4/I4 under `REQ-R-ABG3-SELFHOSTING-004`. Its
+stage-one binding shall identify package
+`@abiogenesis/typescript-tenant@4.6.0-rc.3`, release-tarball SHA-256
+`9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`,
+and installed `product-toolchain-manifest.json` SHA-256
+`92b3f94dd32bca9368a9511d823cc8b6e2eae75cd7168c9e901d3cbe8eadf07d`.
+That exact predecessor may admit and start B5 only through its released public
+GTL Module, StartIntent, execution-basis, event, and callable-start contracts.
+It shall not contribute a 5.0 catalog row, satisfy a missing 5.0 contract from
+package presence, or establish a reusable legacy-product exemption.
 
 **REQ-P-INSTALL-009**: The shared toolchain root shall not become the mutable
 event/projection/archive owner for a target workspace run unless explicitly
