@@ -44,6 +44,7 @@ This requirement indexes and depends on:
 - `REQ-L-GTL3-RULE`
 - `REQ-L-GTL3-GRAPHFUNCTION`
 - `REQ-L-GTL3-COMPOSE`
+- `REQ-L-GTL3-C-ALGEBRA`
 - `REQ-L-GTL3-SUBSTITUTE`
 - `REQ-L-GTL3-RECURSE`
 - `REQ-L-GTL3-HOF`

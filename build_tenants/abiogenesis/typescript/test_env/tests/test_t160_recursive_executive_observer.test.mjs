@@ -7,7 +7,8 @@ import * as publicRoot from "../../build/semantic/code/src/index.js";
 import * as publicExecutive from "../../build/semantic/code/src/abg/executive/index.js";
 import {
   buildThreeStageBasis,
-  m03InstructionAssemblyRequestFields
+  m03InstructionAssemblyRequestFields,
+  readmitThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
 
 const OBSERVATION_INPUT = Object.freeze({
@@ -80,13 +81,15 @@ function outcome(findings) {
 }
 
 function firstTraversalBasis(basis) {
-  return Object.freeze({
-    ...basis,
-    startIntent: Object.freeze({
-      ...basis.startIntent,
-      until: "first_traversal"
+  return readmitThreeStageBasis(
+    Object.freeze({
+      ...basis,
+      startIntent: Object.freeze({
+        ...basis.startIntent,
+        until: "first_traversal"
+      })
     })
-  });
+  );
 }
 
 function fpDispatchContract(ref) {

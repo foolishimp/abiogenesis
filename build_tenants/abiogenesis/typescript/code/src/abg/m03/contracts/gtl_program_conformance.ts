@@ -18,8 +18,26 @@ import {
   materializeGraphFunction
 } from "../../../gtl/m01/contracts/carriers.js";
 import {
+  constructGraphFunction,
+  constructGraphVector,
+  serializedJsonValueToPlain
+} from "../../../gtl/m01/contracts/constructors.js";
+import {
+  C_ALGEBRA_SYNTAX_VERSION,
+  admitCProgramSyntax,
+  type CProgramNode,
+  type CAlgebraDiagnostic
+} from "../../../gtl/m01/algebra/c_algebra.js";
+import {
   admitAssetSurface
 } from "../../../gtl/m01/admission/carriers.js";
+import {
+  admitGraphFunctionDeclarations,
+  admitGraphVectorDeclarations,
+  inspectGtlHostDeclarations,
+  type GtlDeclarationHost,
+  type GtlDeclarationLawViolationKind
+} from "../../../gtl/m01/contracts/declaration_law.js";
 import type {
   GtlAuthorityContextFragmentDeclaration,
   GtlDestinationTopologyDeclaration,
@@ -45,6 +63,12 @@ import {
   ENGINE_COMPUTE_STAGE_PURPOSE_VALUES,
   ENGINE_COMPUTE_STAGE_ROLE_VALUES
 } from "./plugins.js";
+import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
+import { compileExecutionDeclarations } from "./execution_declaration_compiler.js";
+import {
+  HOG_PROGRAM_CATALOG_DECLARATION_KEY,
+  HOG_PROGRAM_DECLARATION_KEY
+} from "./hog_program_syntax.js";
 import {
   deriveAllowedConsequenceTraversalCatalogFromGtl
 } from "./allowed_consequence_traversal_catalog.js";
@@ -131,6 +155,9 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/compute-stage/participating-regime-binding",
   "abg://gtl-program/compute-stage/plugin-contract-resolves",
   "abg://gtl-program/compute-stage/predecessor-resolves",
+  "abg://gtl-program/c-algebra/invalid-program",
+  "abg://gtl-program/c-algebra/semantic-not-realized",
+  "abg://gtl-program/c-algebra/unresolved-graph-function",
   "abg://gtl-program/compute-stage/regime-disposition-required",
   "abg://gtl-program/compute-stage/regime-disposition-unique",
   "abg://gtl-program/compute-stage/unique-ref",
@@ -140,10 +167,15 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/coverage/expected-count-required",
   "abg://gtl-program/coverage/expected-coverage-nonempty",
   "abg://gtl-program/coverage/expected-coverage-required",
+  "abg://gtl-program/declaration/duplicate-key",
+  "abg://gtl-program/declaration/host-compatible",
   "abg://gtl-program/declaration/host-ref-resolves",
+  "abg://gtl-program/declaration/reserved-key-registered",
+  "abg://gtl-program/declaration/value-kind",
   "abg://gtl-program/edge-closure/no-orphan-row",
   "abg://gtl-program/edge-closure/target-asset-match",
   "abg://gtl-program/edge-closure/unique-vector-row",
+  "abg://gtl-program/execution-declaration/invalid",
   "abg://gtl-program/evaluator-declaration/tag-refs",
   "abg://gtl-program/evaluator-declaration/unique-ref",
   "abg://gtl-program/external-tool-gate/admission-ref",
@@ -473,6 +505,7 @@ export const GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES = Object.freeze([
   "correct_field_shape",
   "remove_duplicate_declaration",
   "align_digest_or_version",
+  "realize_declared_semantics",
   "constitutional_reprice"
 ] as const);
 
@@ -508,6 +541,13 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
     "align_digest_or_version",
   "abg://gtl-program/coverage/expected-coverage-required":
     "add_missing_declaration",
+  "abg://gtl-program/declaration/duplicate-key":
+    "remove_duplicate_declaration",
+  "abg://gtl-program/declaration/host-compatible": "correct_reference",
+  "abg://gtl-program/declaration/reserved-key-registered":
+    "correct_reference",
+  "abg://gtl-program/declaration/value-kind": "correct_field_shape",
+  "abg://gtl-program/execution-declaration/invalid": "correct_field_shape",
   "abg://gtl-program/public-start/overlay-required": "add_missing_declaration",
   "abg://gtl-program/graph-vector/unique-ref": "remove_duplicate_declaration",
   "abg://gtl-program/runtime-reentry/lawful-basis": "correct_reference",
@@ -524,6 +564,11 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/constitution/surface-digest-missing":
     "align_digest_or_version",
   "abg://gtl-program/constitution/seam-parity-drift":
+    "correct_reference",
+  "abg://gtl-program/c-algebra/invalid-program": "correct_field_shape",
+  "abg://gtl-program/c-algebra/semantic-not-realized":
+    "realize_declared_semantics",
+  "abg://gtl-program/c-algebra/unresolved-graph-function":
     "correct_reference"
 });
 
@@ -1614,6 +1659,279 @@ function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : "validation failed";
 }
 
+const GTL_DECLARATION_LAW_DIAGNOSTIC_IDS: Readonly<
+  Record<GtlDeclarationLawViolationKind, GtlProgramDiagnosticId>
+> = Object.freeze({
+  duplicate_key: "abg://gtl-program/declaration/duplicate-key",
+  host_mismatch: "abg://gtl-program/declaration/host-compatible",
+  unregistered_reserved_key:
+    "abg://gtl-program/declaration/reserved-key-registered",
+  value_kind_mismatch: "abg://gtl-program/declaration/value-kind"
+});
+
+function checkHostDeclarationLaw(input: {
+  readonly host: GtlDeclarationHost;
+  readonly surfaceKind: "graph_function" | "graph_vector";
+  readonly surfaceRef: string;
+  readonly attrs: SerializedAttrs;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  try {
+    for (const violation of inspectGtlHostDeclarations({
+      host: input.host,
+      attrs: input.attrs
+    })) {
+      input.issues.push(
+        issue({
+          surfaceKind: input.surfaceKind,
+          surfaceRef: input.surfaceRef,
+          ruleRef: GTL_DECLARATION_LAW_DIAGNOSTIC_IDS[violation.kind],
+          message: violation.message,
+          evidenceRefs: Object.freeze([
+            `gtl-declaration://${input.host}/${encodeURIComponent(violation.key)}`
+          ])
+        })
+      );
+    }
+  } catch (error: unknown) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.surfaceRef,
+        ruleRef: "abg://gtl-program/declaration/value-kind",
+        message: `${input.host} declaration carrier is malformed: ${errorMessage(error)}`
+      })
+    );
+  }
+}
+
+function isPlainRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isUnknownArray(value: unknown): value is readonly unknown[] {
+  return Array.isArray(value);
+}
+
+function cAlgebraCandidates(attrs: SerializedAttrs): readonly unknown[] {
+  const candidates: unknown[] = [];
+  for (const entry of attrs.entries) {
+    if (
+      entry.key !== HOG_PROGRAM_DECLARATION_KEY &&
+      entry.key !== HOG_PROGRAM_CATALOG_DECLARATION_KEY
+    ) {
+      continue;
+    }
+    if (entry.value.kind !== "json_blob") {
+      continue;
+    }
+    const plain = serializedJsonValueToPlain(entry.value.value);
+    if (entry.key === HOG_PROGRAM_CATALOG_DECLARATION_KEY) {
+      if (isUnknownArray(plain)) {
+        for (const candidate of plain) {
+          candidates.push(candidate);
+        }
+      }
+      continue;
+    }
+    candidates.push(plain);
+  }
+  return Object.freeze(candidates);
+}
+
+function pushCAlgebraDiagnostic(input: {
+  readonly graphFunction: GraphFunction;
+  readonly row: CAlgebraDiagnostic;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const semanticGap = input.row.classification === "semantic_not_realized";
+  const ruleRef = semanticGap
+    ? "abg://gtl-program/c-algebra/semantic-not-realized"
+    : "abg://gtl-program/c-algebra/invalid-program";
+  input.issues.push(
+    issue({
+      surfaceKind: "graph_function",
+      surfaceRef: `${input.graphFunction.name}${input.row.path}`,
+      ruleRef,
+      message:
+        `${input.row.diagnosticId}: expected ${input.row.expectedRelation}; ` +
+        `actual ${input.row.actualRelation}`,
+      evidenceRefs: Object.freeze([
+        ...input.row.evidenceRefs,
+        `c-algebra-diagnostic:${input.row.diagnosticId}`,
+        `axiom:${input.row.axiomRef}`,
+        `requirement:${input.row.requirementRef}`
+      ]),
+      admissibleRepairs: Object.freeze(
+        [...new Set(input.row.repairAffordances.map(cAlgebraRepairEditClass))].map(
+          (editClass) =>
+            Object.freeze({
+              kind: "gtl_program_admissible_repair" as const,
+              editClass,
+              repairSurfaceRef: input.graphFunction.name,
+              changeClassRef:
+                editClass === "realize_declared_semantics"
+                  ? "design_reframe"
+                  : null
+            })
+        )
+      )
+    })
+  );
+}
+
+function cAlgebraRepairEditClass(
+  affordance: CAlgebraDiagnostic["repairAffordances"][number]
+): GtlProgramRepairEditClass {
+  switch (affordance) {
+    case "supply_non_empty_ref":
+    case "select_declared_regime":
+    case "bind_matching_carrier":
+    case "bind_canonical_edge_role":
+      return "correct_reference";
+    case "declare_executable_leaf":
+    case "declare_exactly_one_result_stage":
+      return "add_missing_declaration";
+    case "rename_duplicate_stage_role":
+      return "remove_duplicate_declaration";
+    case "await_runtime_realization":
+      return "realize_declared_semantics";
+    case "use_flat_composition":
+      return "correct_field_shape";
+    case "fix_declaration_shape":
+    case "remove_unknown_field":
+    case "supply_non_empty_batch":
+    case "bind_matching_result_cardinality":
+    case "supply_positive_retry_budget":
+      return "correct_field_shape";
+  }
+}
+
+function checkCAlgebraDeclarations(input: {
+  readonly graphFunction: GraphFunction;
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  let candidates: readonly unknown[];
+  try {
+    candidates = cAlgebraCandidates(input.graphFunction.declarations);
+  } catch (error: unknown) {
+    input.issues.push(
+      issue({
+        surfaceKind: "graph_function",
+        surfaceRef: input.graphFunction.name,
+        ruleRef: "abg://gtl-program/c-algebra/invalid-program",
+        message: `C algebra declaration could not be decoded: ${errorMessage(error)}`
+      })
+    );
+    return;
+  }
+  for (const candidate of candidates) {
+    if (
+      !isPlainRecord(candidate) ||
+      candidate["syntaxVersion"] !== C_ALGEBRA_SYNTAX_VERSION
+    ) {
+      continue;
+    }
+    const admission = admitCProgramSyntax(candidate);
+    const unresolvedWorkflowRefs =
+      admission.accepted && admission.program !== null
+        ? workflowGraphFunctionRefs(admission.program.term).filter(
+            (ref) =>
+              !input.graphFunctions.some(
+                (graphFunction) =>
+                  graphFunction.id === ref || graphFunction.name === ref
+              )
+          )
+        : Object.freeze([]);
+    for (const ref of unresolvedWorkflowRefs) {
+      input.issues.push(
+        issue({
+          surfaceKind: "graph_function",
+          surfaceRef: `${input.graphFunction.name}#${ref}`,
+          ruleRef:
+            "abg://gtl-program/c-algebra/unresolved-graph-function",
+          message: `workflow.C reference ${JSON.stringify(ref)} does not resolve to a graph function in the admitted compilation root`,
+          evidenceRefs: Object.freeze([
+            `unresolved-graph-function:${ref}`,
+            "requirement:REQ-L-GTL3-C-ALGEBRA-014"
+          ])
+        })
+      );
+    }
+    const compilation = compileCAlgebraToHog(candidate);
+    for (const row of compilation.diagnostics) {
+      if (
+        row.diagnosticId === "gtl-c-unrealized-workflow-lift" &&
+        unresolvedWorkflowRefs.length > 0
+      ) {
+        continue;
+      }
+      pushCAlgebraDiagnostic({
+        graphFunction: input.graphFunction,
+        row,
+        issues: input.issues
+      });
+    }
+  }
+}
+
+function workflowGraphFunctionRefs(term: CProgramNode): readonly string[] {
+  switch (term.kind) {
+    case "c_of":
+    case "c_identity":
+      return Object.freeze([]);
+    case "c_compose":
+      return Object.freeze([
+        ...workflowGraphFunctionRefs(term.left),
+        ...workflowGraphFunctionRefs(term.right)
+      ]);
+    case "c_edge":
+      return Object.freeze([
+        ...workflowGraphFunctionRefs(term.transform),
+        ...workflowGraphFunctionRefs(term.evaluate),
+        ...workflowGraphFunctionRefs(term.consequence)
+      ]);
+    case "c_workflow":
+      return Object.freeze([term.graphFunctionRef]);
+    case "c_batch":
+      return Object.freeze(
+        term.tasks.flatMap((task) => workflowGraphFunctionRefs(task))
+      );
+    case "c_retry":
+      return workflowGraphFunctionRefs(term.term);
+  }
+}
+
+function checkCompiledExecutionDeclarations(input: {
+  readonly graphFunction: GraphFunction;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  try {
+    compileExecutionDeclarations(input.graphFunction);
+  } catch (error: unknown) {
+    const message = errorMessage(error);
+    if (message.includes("gtl-c-unrealized-")) {
+      return;
+    }
+    const semanticNotRealized = message.startsWith("semantic_not_realized:");
+    input.issues.push(
+      issue({
+        surfaceKind: "graph_function",
+        surfaceRef: `${input.graphFunction.name}#execution-declarations`,
+        ruleRef: semanticNotRealized
+          ? "abg://gtl-program/c-algebra/semantic-not-realized"
+          : "abg://gtl-program/execution-declaration/invalid",
+        message,
+        evidenceRefs: Object.freeze([
+          `graph-function:${input.graphFunction.id}`,
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ])
+      })
+    );
+  }
+}
+
 function uniqueSorted(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)].sort());
 }
@@ -2361,7 +2679,7 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
       "semantic-compiler"
     ])
   });
-  const vector: GraphVector = Object.freeze({
+  const vector: GraphVector = constructGraphVector({
     name: "abg.semanticCompiler.fpReview",
     source: Object.freeze([sourceNode]),
     target: resultNode,
@@ -2420,7 +2738,9 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
     contexts: Object.freeze([context]),
     rule,
     allowsSubwork: false,
-    declarations: semanticCompilerFpReviewT162Declarations(),
+    declarations: admitGraphVectorDeclarations(
+      semanticCompilerFpReviewT162Declarations()
+    ),
     tags: Object.freeze([
       "abiogenesis",
       "semantic-compiler",
@@ -2444,7 +2764,7 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
     ]),
     id: "graph:abg.semanticCompiler.fpReview"
   });
-  return Object.freeze({
+  return constructGraphFunction({
     name: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
     environment: Object.freeze({
       requires: Object.freeze([sourceNode]),
@@ -2460,7 +2780,9 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
       version: null
     }),
     effects: Object.freeze([]),
-    declarations: semanticCompilerFpReviewT162Declarations(),
+    declarations: admitGraphFunctionDeclarations(
+      semanticCompilerFpReviewT162Declarations()
+    ),
     tags: Object.freeze([
       "abiogenesis",
       "semantic-compiler",
@@ -8846,6 +9168,15 @@ function materializeGraphVectors(
   const vectors: GraphVectorProjection[] = [];
   const vectorIdentityKeys = new Set<string>();
   for (const graphFunction of graphFunctions) {
+    checkHostDeclarationLaw({
+      host: "graph_function",
+      surfaceKind: "graph_function",
+      surfaceRef: `${graphFunction.name}#declarations`,
+      attrs: graphFunction.declarations,
+      issues
+    });
+    checkCAlgebraDeclarations({ graphFunction, graphFunctions, issues });
+    checkCompiledExecutionDeclarations({ graphFunction, issues });
     checkGraphFunctionInterface({ graphFunction, issues });
     try {
       const graph = materializeGraphFunction(graphFunction);
@@ -8856,6 +9187,13 @@ function materializeGraphVectors(
         issues
       });
       graph.vectors.forEach((vector, vectorIndex) => {
+        checkHostDeclarationLaw({
+          host: "graph_vector",
+          surfaceKind: "graph_vector",
+          surfaceRef: `${graphFunction.name}/${graph.name}/${vector.name}#declarations`,
+          attrs: vector.declarations,
+          issues
+        });
         vectors.push(
           Object.freeze({
             graphFunctionId: graphFunction.id,

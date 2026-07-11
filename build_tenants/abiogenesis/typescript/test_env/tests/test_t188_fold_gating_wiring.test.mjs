@@ -17,7 +17,8 @@ import {
 import {
   buildThreeStageBasis,
   fulfilledAttachedArtifactFor,
-  m03InstructionAssemblyRequestFields
+  m03InstructionAssemblyRequestFields,
+  readmitThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
 import * as publicRoot from "@abiogenesis/typescript-tenant";
 import * as publicGtlRequirements from "@abiogenesis/typescript-tenant/gtl/requirements";
@@ -354,10 +355,10 @@ function b3Bundle(basis, vectorIndex) {
 
 function b3Run(carryEntry, pluginEvidenceRefs, seedEvents) {
   const base = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const basis = Object.freeze({
+  const basis = readmitThreeStageBasis(Object.freeze({
     ...base,
     startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
-  });
+  }));
   // entries that need basis identity (e.g. a foreign production edge) are
   // passed as a factory over the built basis
   const entry = typeof carryEntry === "function" ? carryEntry(basis) : carryEntry;
@@ -640,10 +641,10 @@ function t031MultiSpanBundle(basis) {
 test("T-031 repro: non-final spanned close emits fold truth (owed-but-missing residual), not silence", () => {
   const table = classificationTable();
   const base = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const basis = Object.freeze({
+  const basis = readmitThreeStageBasis(Object.freeze({
     ...base,
     startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
-  });
+  }));
   const events = [];
   const result = runEngineIterate({
     basis,
@@ -720,10 +721,10 @@ test("T-031 BUG #2: coverage-bearing requirement in multi-requirement scope fold
   // covered one; residual/no-close for the owed-but-missing one).
   const table = classificationTable();
   const base = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const basis = Object.freeze({
+  const basis = readmitThreeStageBasis(Object.freeze({
     ...base,
     startIntent: Object.freeze({ ...base.startIntent, until: "first_traversal" })
-  });
+  }));
   const spanId = "span://t188/t031/two";
   const vector = basis.graph.vectors[0];
   const bundle = publicGtlRequirements.declareBundle({

@@ -7,7 +7,8 @@ import {
   constructGraphVector,
   constructNode,
   constructTemplateRef,
-  emptySerializedAttrs
+  emptyGraphFunctionDeclarations,
+  emptyGraphVectorDeclarations
 } from "../../gtl/m01/contracts/index.js";
 import type {
   Evaluator,
@@ -138,7 +139,7 @@ export function constructSdlcBootstrapProjectGraphFunction(): GraphFunction {
     contexts: [],
     rule: null,
     allowsSubwork: true,
-    declarations: emptySerializedAttrs(),
+    declarations: emptyGraphVectorDeclarations(),
     tags: ["sdlc", "bootstrap", "lineage"]
   });
   const graph = constructGraph({
@@ -171,7 +172,7 @@ export function constructSdlcBootstrapProjectGraphFunction(): GraphFunction {
       version: null
     }),
     effects: ["operator://sdlc/bootstrap-project/fd-inventory"],
-    declarations: emptySerializedAttrs(),
+    declarations: emptyGraphFunctionDeclarations(),
     tags: ["sdlc", "bootstrap", "lineage"]
   });
 }

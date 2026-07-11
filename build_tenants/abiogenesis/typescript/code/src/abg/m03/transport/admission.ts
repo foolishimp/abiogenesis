@@ -29,6 +29,19 @@ const FULFILLMENT_STATUSES = Object.freeze([
   "unfulfilled"
 ] satisfies readonly FulfillmentStatus[]);
 
+function assertClosedFields(
+  input: Readonly<Record<string, unknown>>,
+  allowedFields: readonly string[],
+  label: string
+): void {
+  const allowed = new Set(allowedFields);
+  for (const field of Object.keys(input)) {
+    if (!allowed.has(field)) {
+      throw new TypeError(`${label}.${field}: unknown field`);
+    }
+  }
+}
+
 function parseNullableNonEmptyString(
   input: unknown,
   label: string
@@ -160,6 +173,18 @@ function parseArtifactAssessment(
   readonly evidenceRefs: readonly string[];
 } {
   const assessment = parsePlainObject(input, label);
+  assertClosedFields(
+    assessment,
+    [
+      "id",
+      "evaluator",
+      "fulfillment_status",
+      "fulfillment_detail",
+      "blocking_reasons",
+      "evidence_refs"
+    ],
+    label
+  );
   const id = parseNonEmptyString(assessment["id"], `${label}.id`);
   const evaluator = parseNullableNonEmptyString(
     parseOptionalField(assessment, "evaluator"),
@@ -178,6 +203,15 @@ function parseArtifactAssessment(
       `${label}.evidence_refs: fulfilled assessment requires non-empty evidence refs`
     );
   }
+  const blockingReasons = parseOptionalStringArray(
+    parseOptionalField(assessment, "blocking_reasons"),
+    `${label}.blocking_reasons`
+  );
+  if (fulfillmentStatus === "fulfilled" && blockingReasons.length > 0) {
+    throw new TypeError(
+      `${label}.blocking_reasons: fulfilled assessment cannot carry blocking reasons`
+    );
+  }
   return Object.freeze({
     id,
     evaluator: evaluator ?? id,
@@ -187,10 +221,7 @@ function parseArtifactAssessment(
         parseOptionalField(assessment, "fulfillment_detail"),
         `${label}.fulfillment_detail`
       ) ?? "",
-    blockingReasons: parseOptionalStringArray(
-      parseOptionalField(assessment, "blocking_reasons"),
-      `${label}.blocking_reasons`
-    ),
+    blockingReasons,
     evidenceRefs
   });
 }
@@ -277,6 +308,7 @@ function parseRuntimeFailureArtifact(
   label: string
 ): ResultArtifact {
   const failure = parsePlainObject(input, label);
+  assertClosedFields(failure, ["kind", "failureClass", "detail"], label);
   return constructResultArtifact({
     basisId: request.basisId,
     dispatchRef: request.dispatchRef,

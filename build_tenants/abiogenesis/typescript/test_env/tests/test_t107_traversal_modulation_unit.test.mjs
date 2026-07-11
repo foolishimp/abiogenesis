@@ -35,7 +35,8 @@ import {
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
   buildThreeStageBasis,
-  m03InstructionAssemblyRequestFields
+  m03InstructionAssemblyRequestFields,
+  readmitThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
 
 function runEngineIterate(input) {
@@ -187,26 +188,6 @@ function fpDispatchContract(ref) {
     authority: "effect_plugin",
     inputCarrier: "EnginePluginInput",
     outputCarrier: "FpDispatchOutcome"
-  });
-}
-
-function withBasisGraphVectorDeclarations(basis, declarations, vectorIndex = 0) {
-  const vector = basis.graph.vectors[vectorIndex];
-  assert.ok(vector);
-  const vectors = basis.graph.vectors.map((candidate, index) =>
-    index === vectorIndex
-      ? Object.freeze({
-          ...candidate,
-          declarations
-        })
-      : candidate
-  );
-  return Object.freeze({
-    ...basis,
-    graph: Object.freeze({
-      ...basis.graph,
-      vectors: Object.freeze(vectors)
-    })
   });
 }
 
@@ -887,12 +868,10 @@ test("T-107 transport dispatch request can carry attempt envelope primitives", (
 });
 
 test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plugin", () => {
-  const basis = withBasisGraphVectorDeclarations(
-    buildThreeStageBasis({
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://t107-runner"
-    }),
-    attrs([
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t107-runner",
+    vectorDeclarationEntriesByIndex: [[
       hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/runner-steel-thread",
         label: "steel_thread",
@@ -906,8 +885,8 @@ test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plug
         maxItemCount: 2,
         orderingConstraintRefs: ["order://declared-requirement-order"]
       })
-    ])
-  );
+    ]]
+  });
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({
@@ -952,12 +931,10 @@ test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plug
 });
 
 test("T-107 runner lets runtime start selection choose N dependency refs", () => {
-  const staticQualifiedBasis = withBasisGraphVectorDeclarations(
-    buildThreeStageBasis({
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://t107-runtime-start"
-    }),
-    attrs([
+  const staticQualifiedBasis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t107-runtime-start",
+    vectorDeclarationEntriesByIndex: [[
       hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/static-full-breadth",
         label: "full_breadth",
@@ -970,9 +947,9 @@ test("T-107 runner lets runtime start selection choose N dependency refs", () =>
         targetItemCount: 3,
         maxItemCount: 3
       })
-    ])
-  );
-  const basis = Object.freeze({
+    ]]
+  });
+  const basis = readmitThreeStageBasis(Object.freeze({
     ...staticQualifiedBasis,
     startIntent: Object.freeze({
       ...staticQualifiedBasis.startIntent,
@@ -1006,7 +983,7 @@ test("T-107 runner lets runtime start selection choose N dependency refs", () =>
         })
       ])
     })
-  });
+  }));
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({
@@ -1096,12 +1073,10 @@ test("T-107 runner leaves unqualified F_P vectors on the unqualified path", () =
 });
 
 test("T-107 async runner derives the same qualified F_P attempt envelope as sync", async () => {
-  const basis = withBasisGraphVectorDeclarations(
-    buildThreeStageBasis({
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://t107-async-runner"
-    }),
-    attrs([
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t107-async-runner",
+    vectorDeclarationEntriesByIndex: [[
       hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/async-runner-steel-thread",
         label: "steel_thread",
@@ -1115,8 +1090,8 @@ test("T-107 async runner derives the same qualified F_P attempt envelope as sync
         maxItemCount: 2,
         orderingConstraintRefs: ["order://async-declared-requirement-order"]
       })
-    ])
-  );
+    ]]
+  });
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({
@@ -1161,12 +1136,10 @@ test("T-107 async runner derives the same qualified F_P attempt envelope as sync
 });
 
 test("T-107 async runner exits without internally retrying blocked attached artifact", async () => {
-  const basis = withBasisGraphVectorDeclarations(
-    buildThreeStageBasis({
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://t107-async-runner-bounded-attached"
-    }),
-    attrs([
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t107-async-runner-bounded-attached",
+    vectorDeclarationEntriesByIndex: [[
       hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/async-runner-bounded-attached",
         label: "steel_thread",
@@ -1178,8 +1151,8 @@ test("T-107 async runner exits without internally retrying blocked attached arti
         targetItemCount: 1,
         maxItemCount: 1
       })
-    ])
-  );
+    ]]
+  });
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({

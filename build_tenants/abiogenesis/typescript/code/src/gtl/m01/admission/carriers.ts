@@ -16,6 +16,10 @@ import {
   constructTemplateRef
 } from "../contracts/constructors.js";
 import {
+  admitGraphFunctionDeclarations,
+  admitGraphVectorDeclarations
+} from "../contracts/declaration_law.js";
+import {
   ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS,
   type AssetSurface,
   type AssetSurfaceAuthoritySlotDisposition,
@@ -51,6 +55,19 @@ import {
 
 const CONTEXT_SCHEMES = ["git://", "workspace://", "event://", "registry://"];
 
+function assertKnownFields(
+  input: Readonly<Record<string, unknown>>,
+  allowed: readonly string[],
+  label: string
+): void {
+  const allowedSet = new Set(allowed);
+  for (const key of Object.keys(input)) {
+    if (!allowedSet.has(key)) {
+      throw new TypeError(`${label}.${key}: unknown field`);
+    }
+  }
+}
+
 function isAssetSurfaceAuthoritySlotDisposition(
   value: string
 ): value is AssetSurfaceAuthoritySlotDisposition {
@@ -74,12 +91,12 @@ function admitSerializedScalar(input: unknown, label: string): SerializedScalar 
   if (
     input === null ||
     typeof input === "string" ||
-    typeof input === "number" ||
+    (typeof input === "number" && Number.isFinite(input)) ||
     typeof input === "boolean"
   ) {
     return input;
   }
-  throw new TypeError(`${label}: expected a serialized scalar`);
+  throw new TypeError(`${label}: expected a canonical serialized scalar`);
 }
 
 export function admitSerializedJsonValue(
@@ -99,6 +116,11 @@ export function admitSerializedJsonValue(
   const kind = parseString(valueObject["kind"], `${label}.kind`);
 
   if (kind === "array") {
+    for (const key of Object.keys(valueObject)) {
+      if (key !== "kind" && key !== "items") {
+        throw new TypeError(`${label}.${key}: unknown serialized array field`);
+      }
+    }
     const itemsInput = parseUnknownArray(valueObject["items"], `${label}.items`);
     const items = Object.freeze(
       itemsInput.map((item, index) =>
@@ -112,6 +134,11 @@ export function admitSerializedJsonValue(
   }
 
   if (kind === "object") {
+    for (const key of Object.keys(valueObject)) {
+      if (key !== "kind" && key !== "entries") {
+        throw new TypeError(`${label}.${key}: unknown serialized object field`);
+      }
+    }
     const entriesInput = parseUnknownArray(valueObject["entries"], `${label}.entries`);
     const entries = Object.freeze(
       entriesInput.map((entryInput, index) => {
@@ -119,6 +146,13 @@ export function admitSerializedJsonValue(
           entryInput,
           `${label}.entries[${index}]`
         );
+        for (const key of Object.keys(entryObject)) {
+          if (key !== "key" && key !== "value") {
+            throw new TypeError(
+              `${label}.entries[${index}].${key}: unknown serialized object-entry field`
+            );
+          }
+        }
         return Object.freeze({
           key: parseNonEmptyString(entryObject["key"], `${label}.entries[${index}].key`),
           value: admitSerializedJsonValue(
@@ -128,6 +162,15 @@ export function admitSerializedJsonValue(
         });
       })
     );
+    const seen = new Set<string>();
+    for (const entry of entries) {
+      if (seen.has(entry.key)) {
+        throw new TypeError(
+          `${label}: duplicate serialized object key ${JSON.stringify(entry.key)}`
+        );
+      }
+      seen.add(entry.key);
+    }
     return Object.freeze({
       kind: "object",
       entries
@@ -150,6 +193,7 @@ export function admitSerializedAttrValue(
   label = "SerializedAttrValue"
 ): SerializedAttrValue {
   const valueObject = parsePlainObject(input, label);
+  assertKnownFields(valueObject, ["kind", "value"], label);
   const kind = parseString(valueObject["kind"], `${label}.kind`);
 
   if (kind === "scalar") {
@@ -188,6 +232,7 @@ export function admitSerializedAttrEntry(
   label = "SerializedAttrEntry"
 ): SerializedAttrEntry {
   const entryObject = parsePlainObject(input, label);
+  assertKnownFields(entryObject, ["key", "value"], label);
   return Object.freeze({
     key: parseNonEmptyString(entryObject["key"], `${label}.key`),
     value: admitSerializedAttrValue(entryObject["value"], `${label}.value`)
@@ -215,6 +260,15 @@ export function admitSerializedAttrs(
       admitSerializedAttrEntry(entryInput, `${label}.entries[${index}]`)
     )
   );
+  const seen = new Set<string>();
+  for (const entry of entries) {
+    if (seen.has(entry.key)) {
+      throw new TypeError(
+        `${label}.entries: duplicate attr key ${JSON.stringify(entry.key)} fails closed`
+      );
+    }
+    seen.add(entry.key);
+  }
   return Object.freeze({ entries });
 }
 
@@ -449,6 +503,23 @@ export function admitGraphVector(
   label = "GraphVector"
 ): GraphVector {
   const vectorObject = parsePlainObject(input, label);
+  assertKnownFields(
+    vectorObject,
+    [
+      "name",
+      "source",
+      "target",
+      "operators",
+      "evaluators",
+      "contexts",
+      "rule",
+      "allowsSubwork",
+      "declarations",
+      "tags",
+      "id"
+    ],
+    label
+  );
   return constructGraphVector({
     name: parseNonEmptyString(vectorObject["name"], `${label}.name`),
     source: admitNonEmptyNodeBoundary(vectorObject["source"], `${label}.source`),
@@ -477,9 +548,11 @@ export function admitGraphVector(
       parseOptionalField(vectorObject, "allowsSubwork") ?? false,
       `${label}.allowsSubwork`
     ),
-    declarations: admitSerializedAttrs(
-      parseOptionalField(vectorObject, "declarations") ?? { entries: [] },
-      `${label}.declarations`
+    declarations: admitGraphVectorDeclarations(
+      admitSerializedAttrs(
+        parseOptionalField(vectorObject, "declarations") ?? { entries: [] },
+        `${label}.declarations`
+      )
     ),
     tags: parseStringArray(parseOptionalField(vectorObject, "tags") ?? [], `${label}.tags`),
     id: parseOptionalId(parseOptionalField(vectorObject, "id"), label)
@@ -560,6 +633,21 @@ export function admitGraphFunction(
   label = "GraphFunction"
 ): GraphFunction {
   const functionObject = parsePlainObject(input, label);
+  assertKnownFields(
+    functionObject,
+    [
+      "name",
+      "environment",
+      "inputs",
+      "outputs",
+      "template",
+      "effects",
+      "declarations",
+      "tags",
+      "id"
+    ],
+    label
+  );
   const name = parseNonEmptyString(functionObject["name"], `${label}.name`);
   const environment = admitEnvRef(functionObject["environment"], `${label}.environment`);
   const inputs = admitNodeArray(parseOptionalField(functionObject, "inputs") ?? [], `${label}.inputs`);
@@ -573,9 +661,11 @@ export function admitGraphFunction(
     outputs,
     template,
     effects: parseStringArray(parseOptionalField(functionObject, "effects") ?? [], `${label}.effects`),
-    declarations: admitSerializedAttrs(
-      parseOptionalField(functionObject, "declarations") ?? { entries: [] },
-      `${label}.declarations`
+    declarations: admitGraphFunctionDeclarations(
+      admitSerializedAttrs(
+        parseOptionalField(functionObject, "declarations") ?? { entries: [] },
+        `${label}.declarations`
+      )
     ),
     tags: parseStringArray(parseOptionalField(functionObject, "tags") ?? [], `${label}.tags`),
     id: parseOptionalId(parseOptionalField(functionObject, "id"), label)

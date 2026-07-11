@@ -10,6 +10,7 @@ import type {
   SerializedAttrs
 } from "../../../gtl/m01/contracts/carriers.js";
 import type { Job } from "../../../gtl/m02/contracts/carriers.js";
+import type { CompiledExecutionDeclarations } from "./execution_declaration_compiler.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
@@ -361,6 +362,7 @@ export interface ExecutionBasis {
   readonly moduleName: string;
   readonly graphFunction: GraphFunction;
   readonly graph: Graph;
+  readonly compiledExecutionDeclarations: CompiledExecutionDeclarations;
   readonly job: Job;
   readonly modulePolicyHooks: SerializedAttrs;
   readonly runtimeIdentity: {

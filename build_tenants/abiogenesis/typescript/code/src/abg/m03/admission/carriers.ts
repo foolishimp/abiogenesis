@@ -575,28 +575,32 @@ export function admitExecutionBasis(
       `ExecutionBasis.lookupAuthority.moduleName: expected ${JSON.stringify(module.name)}, got ${JSON.stringify(lookupAuthority.moduleName)}`
     );
   }
+  const runId = normalizeOptionalString(input.runId, "ExecutionBasis.runId");
+  const workKey = normalizeOptionalString(input.workKey, "ExecutionBasis.workKey");
+  const frameId = normalizeOptionalString(input.frameId, "ExecutionBasis.frameId");
+  const frameLineageId = normalizeOptionalString(
+    input.frameLineageId,
+    "ExecutionBasis.frameLineageId"
+  );
   return constructExecutionBasis({
     basisId: deriveIdentity("execution_basis", {
       moduleName: input.module.name,
       startIntent: input.startIntent,
       runtimeIdentity: input.runtimeIdentity,
       resolvedPolicy: input.resolvedPolicy,
-      runId: input.runId ?? null,
-      workKey: input.workKey ?? null,
-      frameId: input.frameId ?? null,
-      frameLineageId: input.frameLineageId ?? null
+      runId,
+      workKey,
+      frameId,
+      frameLineageId
     }),
     startIntent: input.startIntent,
     module,
     lookupAuthority,
     runtimeIdentity: input.runtimeIdentity,
     resolvedPolicy: input.resolvedPolicy,
-    runId: normalizeOptionalString(input.runId, "ExecutionBasis.runId"),
-    workKey: normalizeOptionalString(input.workKey, "ExecutionBasis.workKey"),
-    frameId: normalizeOptionalString(input.frameId, "ExecutionBasis.frameId"),
-    frameLineageId: normalizeOptionalString(
-      input.frameLineageId,
-      "ExecutionBasis.frameLineageId"
-    )
+    runId,
+    workKey,
+    frameId,
+    frameLineageId
   });
 }

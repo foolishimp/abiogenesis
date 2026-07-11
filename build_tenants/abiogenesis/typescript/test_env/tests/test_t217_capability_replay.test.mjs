@@ -5,7 +5,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  admitModule,
   assertRuntimeEvent,
+  constructGraphFunction,
   publicCallableStartAsync
 } from "../../build/semantic/code/src/index.js";
 import {
@@ -540,7 +542,7 @@ test("R5-6: capability event precedes a later typed plugin-selection block", asy
       dispatchRef: "dispatch://t217-capability"
     });
     const executive = fixture.context.module.graphFunctions[0];
-    const badExecutive = Object.freeze({
+    const badExecutive = constructGraphFunction({
       ...executive,
       declarations: Object.freeze({
         entries: Object.freeze([
@@ -560,6 +562,10 @@ test("R5-6: capability event precedes a later typed plugin-selection block", asy
         ])
       })
     });
+    const badModule = admitModule({
+      ...fixture.context.module,
+      graphFunctions: [badExecutive]
+    });
     const liveCapability = resolveLiveCapabilityBinding(
       fixture.input.scope.workspaceRoot,
       liveCommand({
@@ -573,10 +579,7 @@ test("R5-6: capability event precedes a later typed plugin-selection block", asy
       fixture.input,
       {
         ...fixture.context,
-        module: Object.freeze({
-          ...fixture.context.module,
-          graphFunctions: Object.freeze([badExecutive])
-        }),
+        module: badModule,
         liveCapability
       },
       (event) => events.push(event)

@@ -3,7 +3,8 @@
 This domain owns the constitutional language and graph law for GTL 3.
 
 GTL is an LLM-first, graph-first, algebraic governance control language with
-Python-native declarative syntax.
+implementation-independent canonical declaration data and native typed
+authoring APIs in each conforming build tenant.
 
 Fast reload anchor:
 
@@ -62,6 +63,7 @@ ratified ontology, and the GTL/ABG boundary.
 - `REQ-L-GTL3-JOB.md`
 - `REQ-L-GTL3-IDENTITY.md`
 - `REQ-L-GTL3-COMPOSE.md`
+- `REQ-L-GTL3-C-ALGEBRA.md`
 - `REQ-L-GTL3-SUBSTITUTE.md`
 - `REQ-L-GTL3-RECURSE.md`
 - `REQ-L-GTL3-HOF.md`

@@ -8,13 +8,16 @@
 
 import type { SerializedAttrs } from "../../../gtl/m01/contracts/carriers.js";
 import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
+import { C_ALGEBRA_SYNTAX_VERSION } from "../../../gtl/m01/algebra/c_algebra.js";
 import type { HogProgramAdmission, HogProgramDeclaration } from "./hog_program.js";
 import { HOG_BOOTSTRAP_TRIPLE } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
+import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import { isPlainRecord } from "./admission_hygiene.js";
 
 export const HOG_PROGRAM_SYNTAX_VERSIONS = Object.freeze([
-  "hog-syntax/1"
+  "hog-syntax/1",
+  C_ALGEBRA_SYNTAX_VERSION
 ] as const);
 export type HogProgramSyntaxVersion =
   (typeof HOG_PROGRAM_SYNTAX_VERSIONS)[number];
@@ -51,6 +54,18 @@ export function compileHogProgramSyntax(input: unknown): HogProgramAdmission {
       issues: Object.freeze([
         `unknown program syntaxVersion ${JSON.stringify(record["syntaxVersion"])}; known: ${JSON.stringify(HOG_PROGRAM_SYNTAX_VERSIONS)}`
       ])
+    });
+  }
+  if (record["syntaxVersion"] === C_ALGEBRA_SYNTAX_VERSION) {
+    const compilation = compileCAlgebraToHog(record);
+    return Object.freeze({
+      accepted: compilation.accepted,
+      program: compilation.program,
+      issues: Object.freeze(
+        compilation.diagnostics.map(
+          (row) => `${row.diagnosticId} at ${row.path}: ${row.message}`
+        )
+      )
     });
   }
   // closed key set at the SYNTAX layer too (codex P1 uniformity):
@@ -198,6 +213,11 @@ export function compileHogProgramLadder(input: unknown): {
     if (!isPlainRecord(entry)) {
       issues.push(`${at} must be a rung object`);
       continue;
+    }
+    for (const key of Object.keys(entry)) {
+      if (key !== "programRef" && key !== "fromAttempt") {
+        issues.push(`${at}.${key}: unknown rung field`);
+      }
     }
     const programRefRaw = entry["programRef"];
     const fromAttemptRaw = entry["fromAttempt"];

@@ -103,8 +103,13 @@
     "node": ">=20"
   },
   "scripts": {
-    "build:semantic": "tsc -p tsconfig.semantic-strict.json",
-    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/gtl/requirements/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/abg/requirements/**/*.ts\" \"code/src/abg/executive/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
+    "build:host": "tsc -p tsconfig.semantic-strict.json",
+    "build:semantic": "npm run build:host && npm run guard:gtl-law && npm run test:gtl-law",
+    "lint:host": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/gtl/requirements/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/abg/requirements/**/*.ts\" \"code/src/abg/executive/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
+    "lint:semantic": "npm run lint:host && npm run guard:gtl-law",
+    "guard:gtl-law": "node test_env/gates/gtl_algebra_authority_guard.mjs",
+    "test:gtl-law": "tsc -p test_env/type_tests/tsconfig.t220-c-algebra.json && tsc -p test_env/type_tests/tsconfig.t220.json && node --test test_env/tests/test_t220_c_algebra.test.mjs test_env/tests/test_t220_declaration_law.test.mjs test_env/tests/test_t220_execution_basis_coherence.test.mjs test_env/tests/test_t220_fp_output_admission.test.mjs",
+    "test:t220": "npm run build:semantic",
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",

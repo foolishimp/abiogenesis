@@ -26,29 +26,6 @@ function fdEvaluatorContract(ref) {
   });
 }
 
-function withFirstVectorConsumedFieldRefs(basis, consumedFieldRefs) {
-  const vectors = [...basis.graph.vectors];
-  const vector = vectors[0];
-  vectors[0] = Object.freeze({
-    ...vector,
-    evaluators: Object.freeze(
-      vector.evaluators.map((evaluator) =>
-        Object.freeze({
-          ...evaluator,
-          consumedFieldRefs: Object.freeze([...consumedFieldRefs])
-        })
-      )
-    )
-  });
-  return Object.freeze({
-    ...basis,
-    graph: Object.freeze({
-      ...basis.graph,
-      vectors: Object.freeze(vectors)
-    })
-  });
-}
-
 function fdRunner(input) {
   const events = [];
   const result = runEngineIterate({
@@ -143,10 +120,11 @@ test("T-138 F_D outcome admission rejects blocked outcomes without authority pla
 });
 
 test("T-138 diagnostic_shape_invalid preserves pressure and continues when fields are not consumed", () => {
-  const basis = withFirstVectorConsumedFieldRefs(
-    buildThreeStageBasis({ defaultRegime: "F_D", dispatchRef: null }),
-    ["routing.status"]
-  );
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorConsumedFieldRefsByIndex: [["routing.status"]]
+  });
   let count = 0;
   const { result, events } = fdRunner({
     basis,
@@ -183,10 +161,11 @@ test("T-138 diagnostic_shape_invalid preserves pressure and continues when field
 });
 
 test("T-138 diagnostic_shape_invalid blocks when a consumed field is malformed", () => {
-  const basis = withFirstVectorConsumedFieldRefs(
-    buildThreeStageBasis({ defaultRegime: "F_D", dispatchRef: null }),
-    ["routing.status"]
-  );
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorConsumedFieldRefsByIndex: [["routing.status"]]
+  });
   const { result, events } = fdRunner({
     basis,
     contractRef: "plugin://test/t138-diagnostic-consumed",

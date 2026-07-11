@@ -12,8 +12,7 @@ import {
   constructGraphFunction,
   constructGraphVector,
   constructNode,
-  constructTemplateRef,
-  emptySerializedAttrs
+  constructTemplateRef
 } from "../contracts/constructors.js";
 import {
   type Context,
@@ -35,6 +34,13 @@ import {
   materializeGraphFunction,
   nodeContractKey
 } from "../contracts/carriers.js";
+import {
+  emptyGraphFunctionDeclarations,
+  emptyGraphVectorDeclarations,
+  graphFunctionDeclarations,
+  type GraphFunctionDeclarations,
+  type GraphVectorDeclarations
+} from "../contracts/declaration_law.js";
 
 export const GRAPH_FUNCTION_ZOOM_REFINEMENT_BOUNDARY_DECLARATION_KEY =
   "gtl.zoom.refinement_boundary_ref";
@@ -116,13 +122,13 @@ export interface GraphFunctionZoomApplyInput {
   readonly refinement: GraphFunction;
   readonly plan: GraphFunctionZoomPlan;
   readonly name?: string | undefined;
-  readonly declarations?: SerializedAttrs | undefined;
+  readonly declarations?: GraphFunctionDeclarations | undefined;
   readonly tags?: readonly string[] | undefined;
 }
 
 export interface GraphFunctionZoomInput extends GraphFunctionZoomPlanInput {
   readonly name?: string | undefined;
-  readonly declarations?: SerializedAttrs | undefined;
+  readonly declarations?: GraphFunctionDeclarations | undefined;
   readonly tags?: readonly string[] | undefined;
 }
 
@@ -347,7 +353,7 @@ export function constructNodeTypeGraphFunction(
   node: Node,
   options?: {
     readonly typeRef?: string | undefined;
-    readonly declarations?: SerializedAttrs | undefined;
+    readonly declarations?: GraphFunctionDeclarations | undefined;
     readonly tags?: readonly string[] | undefined;
   }
 ): GraphFunction {
@@ -367,7 +373,7 @@ export function constructNodeTypeGraphFunction(
       });
   const identityOptions: {
     readonly name: string;
-    readonly declarations?: SerializedAttrs;
+    readonly declarations?: GraphFunctionDeclarations;
     readonly tags: readonly string[];
   } = {
     name: typeRef,
@@ -626,7 +632,9 @@ function entriesEqual(left: SerializedAttrEntry, right: SerializedAttrEntry): bo
   );
 }
 
-function mergeSerializedAttrs(values: readonly SerializedAttrs[]): SerializedAttrs {
+function mergeGraphFunctionDeclarations(
+  values: readonly GraphFunctionDeclarations[]
+): GraphFunctionDeclarations {
   const merged: SerializedAttrEntry[] = [];
 
   for (const attrs of values) {
@@ -644,15 +652,13 @@ function mergeSerializedAttrs(values: readonly SerializedAttrs[]): SerializedAtt
     }
   }
 
-  return Object.freeze({
-    entries: Object.freeze(merged)
-  });
+  return graphFunctionDeclarations(merged);
 }
 
-function attrsFromEntries(entries: readonly SerializedAttrEntry[]): SerializedAttrs {
-  return Object.freeze({
-    entries: Object.freeze([...entries])
-  });
+function graphFunctionDeclarationsFromEntries(
+  entries: readonly SerializedAttrEntry[]
+): GraphFunctionDeclarations {
+  return graphFunctionDeclarations(entries);
 }
 
 function jsonObjectValue(
@@ -873,8 +879,10 @@ function defaultGraphFunctionZoomPlanRef(input: {
   ].join(":");
 }
 
-function graphFunctionZoomDeclaration(plan: GraphFunctionZoomPlan): SerializedAttrs {
-  return attrsFromEntries([
+function graphFunctionZoomDeclaration(
+  plan: GraphFunctionZoomPlan
+): GraphFunctionDeclarations {
+  return graphFunctionDeclarationsFromEntries([
     jsonBlobEntry(`graph_function_zoom:${plan.planRef}`, [
       { key: "plan_ref", value: plan.planRef },
       { key: "parent_graph_function_ref", value: plan.parentGraphFunctionRef },
@@ -1280,7 +1288,7 @@ export function edge(
     readonly contexts?: readonly Context[];
     readonly rule?: Rule | null;
     readonly allowsSubwork?: boolean;
-    readonly declarations?: SerializedAttrs;
+    readonly declarations?: GraphVectorDeclarations;
     readonly tags?: readonly string[];
     readonly id?: string;
   }
@@ -1300,7 +1308,7 @@ export function edge(
     contexts: options?.contexts ?? [],
     rule: options?.rule ?? null,
     allowsSubwork: options?.allowsSubwork ?? false,
-    declarations: options?.declarations ?? emptySerializedAttrs(),
+    declarations: options?.declarations ?? emptyGraphVectorDeclarations(),
     tags: options?.tags ?? []
   });
 
@@ -1322,7 +1330,7 @@ export function identity(
   options?: {
     readonly name?: string;
     readonly tags?: readonly string[];
-    readonly declarations?: SerializedAttrs;
+    readonly declarations?: GraphFunctionDeclarations;
   }
 ): GraphFunction {
   const name =
@@ -1355,7 +1363,7 @@ export function identity(
       })
     },
     effects: [],
-    declarations: options?.declarations ?? emptySerializedAttrs(),
+    declarations: options?.declarations ?? emptyGraphFunctionDeclarations(),
     tags: options?.tags ?? []
   });
 }
@@ -1365,7 +1373,7 @@ export function graphFunctionForVector(
   options?: {
     readonly name?: string;
     readonly tags?: readonly string[];
-    readonly declarations?: SerializedAttrs;
+    readonly declarations?: GraphFunctionDeclarations;
   }
 ): GraphFunction {
   const name = options?.name ?? vector.name;
@@ -1396,10 +1404,8 @@ export function graphFunctionForVector(
       })
     },
     effects: [],
-    declarations: mergeSerializedAttrs([
-      vector.declarations,
-      options?.declarations ?? emptySerializedAttrs()
-    ]),
+    declarations:
+      options?.declarations ?? emptyGraphFunctionDeclarations(),
     tags: options?.tags ?? []
   });
 }
@@ -1591,9 +1597,9 @@ export function applyGraphFunctionZoomPlan(
       version: null
     }),
     effects: stableUnion([input.parent.effects, input.refinement.effects]),
-    declarations: mergeSerializedAttrs([
+    declarations: mergeGraphFunctionDeclarations([
       input.parent.declarations,
-      input.declarations ?? emptySerializedAttrs(),
+      input.declarations ?? emptyGraphFunctionDeclarations(),
       graphFunctionZoomDeclaration(input.plan)
     ]),
     tags: stableUnion([
@@ -1667,9 +1673,9 @@ export function recurse(
     outputs: graphFunction.outputs,
     template: graphFunction.template,
     effects: graphFunction.effects,
-    declarations: mergeSerializedAttrs([
+    declarations: mergeGraphFunctionDeclarations([
       graphFunction.declarations,
-      attrsFromEntries([
+      graphFunctionDeclarationsFromEntries([
         jsonBlobEntry("recursion", [
           { key: "termination", value: evaluatorDeclaration(termination) },
           { key: "foldback", value: jsonObjectValue(foldbackEntries) }
@@ -1751,9 +1757,9 @@ export function gate(
     outputs: target.outputs,
     template: target.template,
     effects: target.effects,
-    declarations: mergeSerializedAttrs([
+    declarations: mergeGraphFunctionDeclarations([
       target.declarations,
-      attrsFromEntries([
+      graphFunctionDeclarationsFromEntries([
         jsonBlobEntry("gate", [
           { key: "target", value: target.name },
           { key: "target_kind", value: "GraphFunction" },
@@ -1789,7 +1795,7 @@ export function promote(
       version: null
     }),
     effects: [],
-    declarations: emptySerializedAttrs(),
+    declarations: emptyGraphFunctionDeclarations(),
     tags: [`source:${source.name}`, `to:${to.name}`]
   });
 }
@@ -1828,7 +1834,10 @@ function composePair(left: GraphFunction, right: GraphFunction): GraphFunction {
     outputs: right.outputs,
     template: mergeGraphTemplates(left, right),
     effects: stableUnion([left.effects, right.effects]),
-    declarations: mergeSerializedAttrs([left.declarations, right.declarations]),
+    declarations: mergeGraphFunctionDeclarations([
+      left.declarations,
+      right.declarations
+    ]),
     tags: stableUnion([left.tags, right.tags])
   });
 }

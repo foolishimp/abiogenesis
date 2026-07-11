@@ -21,6 +21,50 @@ export type {
   SerializedScalar,
   TemplateRef
 } from "./carriers.js";
+export type {
+  GraphFunctionDeclarations,
+  GraphVectorDeclarations,
+  GtlDeclarationHost,
+  GtlDeclarationLawViolation,
+  GtlDeclarationLawViolationKind,
+  GtlDeclarationValueKind,
+  GtlExecutionDeclarationLaw,
+  GtlRegisteredDeclarationKey,
+  GtlRegisteredDeclarationKeyForHostAndKind,
+  GtlRegisteredDeclarationLaw,
+  HostedGtlDeclarations,
+  RegisteredGtlDeclarationEntry
+} from "./declaration_law.js";
+export {
+  GTL_DECLARATION_HOST_VALUES,
+  GTL_DECLARATION_LAW_VIOLATION_KIND_VALUES,
+  GTL_EXECUTION_DECLARATION_INTERPRETATION_OWNER,
+  GTL_EXECUTION_DECLARATION_LAWS,
+  GTL_REGISTERED_DECLARATION_LAWS,
+  admitGraphFunctionDeclarations,
+  admitGraphVectorDeclarations,
+  emptyGraphFunctionDeclarations,
+  emptyGraphVectorDeclarations,
+  graphFunctionDeclarations,
+  graphVectorDeclarations,
+  gtlDeclarationValueForKey,
+  inspectGtlHostDeclarations,
+  registeredGtlExecutionDeclarationLaw,
+  registeredGtlDeclarationLaw
+} from "./declaration_law.js";
+export {
+  GTL_PLUGIN_SELECTION_SEAM_VALUES,
+  hogHandlerBindingsDeclarationEntry,
+  hogHandlerConfigsDeclarationEntry,
+  hogProgramLadderDeclarationEntry,
+  hogProgramRefDeclarationEntry,
+  pluginSelectionDeclarationEntry
+} from "./execution_declaration_builders.js";
+export type {
+  GtlHogHandlerBindingDeclaration,
+  GtlHogProgramLadderRung,
+  GtlPluginSelectionSeam
+} from "./execution_declaration_builders.js";
 export {
   ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS,
   GTL_NODE_TYPE_GRAPH_FUNCTION_TAG,

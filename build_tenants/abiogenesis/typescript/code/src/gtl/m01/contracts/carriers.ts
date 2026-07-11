@@ -10,7 +10,18 @@
 // Implements: REQ-L-GTL3-RULE
 // Implements: REQ-L-GTL3-IDENTITY
 
+import type {
+  GraphFunctionDeclarations,
+  GraphVectorDeclarations
+} from "./declaration_law.js";
+
 export const GTL_NODE_TYPE_GRAPH_FUNCTION_TAG = "gtl:node_type";
+export const GTL_GRAPH_FUNCTION_ADMISSION: unique symbol = Symbol(
+  "gtl.graph_function.admission"
+);
+export const GTL_GRAPH_VECTOR_ADMISSION: unique symbol = Symbol(
+  "gtl.graph_vector.admission"
+);
 
 export type SerializedScalar = string | number | boolean | null;
 
@@ -150,9 +161,10 @@ export interface GraphVector {
   readonly contexts: readonly Context[];
   readonly rule: Rule | null;
   readonly allowsSubwork: boolean;
-  readonly declarations: SerializedAttrs;
+  readonly declarations: GraphVectorDeclarations;
   readonly tags: readonly string[];
   readonly id: string;
+  readonly [GTL_GRAPH_VECTOR_ADMISSION]: true;
 }
 
 export interface Graph {
@@ -195,9 +207,16 @@ export interface GraphFunction {
   readonly outputs: readonly Node[];
   readonly template: TemplateRef;
   readonly effects: readonly string[];
-  readonly declarations: SerializedAttrs;
+  readonly declarations: GraphFunctionDeclarations;
   readonly tags: readonly string[];
   readonly id: string;
+  readonly [GTL_GRAPH_FUNCTION_ADMISSION]: true;
+}
+
+export function isAdmittedGraphFunction(
+  value: GraphFunction
+): boolean {
+  return Object.hasOwn(value, GTL_GRAPH_FUNCTION_ADMISSION);
 }
 
 export function nodeContractKey(node: Node): string {

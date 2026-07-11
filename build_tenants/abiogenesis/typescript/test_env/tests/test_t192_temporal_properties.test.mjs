@@ -1,7 +1,10 @@
 // Validates: REQ-L-GTL3-TEMPORAL-PROPERTIES-001..-012 (T-192 Phase 2)
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  readmitThreeStageBasis
+} from "./support/m03-iteration-fixtures.mjs";
 import {
   admitTemporalPropertyRule,
   evaluateTemporalProperty,
@@ -306,8 +309,8 @@ test("T-192 P3: the liveness gate routes undetermined on open prefixes and never
 
 // ─── Phase 4: runner wiring differentials ───
 import {
-  runEngineIterate,
-  runEngineIterateAsync
+  runEngineIterate as runEngineIterateBase,
+  runEngineIterateAsync as runEngineIterateAsyncBase
 } from "../../build/semantic/code/src/abg/m03/contracts/../../m03/index.js";
 import { m03InstructionAssemblyRequestFields } from "./support/m03-iteration-fixtures.mjs";
 import {
@@ -317,6 +320,24 @@ import {
   defaultFpEvaluatorPlugin
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { fulfilledAttachedArtifactFor } from "./support/m03-iteration-fixtures.mjs";
+
+function runEngineIterate(input) {
+  const basis = readmitThreeStageBasis(input.basis);
+  return runEngineIterateBase({
+    ...input,
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis)
+  });
+}
+
+function runEngineIterateAsync(input) {
+  const basis = readmitThreeStageBasis(input.basis);
+  return runEngineIterateAsyncBase({
+    ...input,
+    basis,
+    ...m03InstructionAssemblyRequestFields(basis)
+  });
+}
 
 function syncCCallHandler(execute) {
   return constructCCallHandler({ driverRequirement: "sync_compatible", execute });
@@ -328,10 +349,12 @@ function asyncCCallHandler(execute) {
 
 function p4Run(temporalRules, pluginOverrides = {}) {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const first = Object.freeze({
-    ...basis,
-    startIntent: Object.freeze({ ...basis.startIntent, until: "first_traversal" })
-  });
+  const first = readmitThreeStageBasis(
+    Object.freeze({
+      ...basis,
+      startIntent: Object.freeze({ ...basis.startIntent, until: "first_traversal" })
+    })
+  );
   const events = [];
   const result = runEngineIterate({
     basis: first,
@@ -655,7 +678,7 @@ test("T-205 B2: a DECLARED program drives the engine — selection rows carry it
   assert.equal(arms.has("arm://abg/hog/transform"), false, "baked arm must NOT appear");
 });
 
-test("T-205 B2 (codex HIGH): an unexecutable declared program is TYPED TRUTH — gap_stop + runtime_failure_observed, no host exception, no spine", () => {
+test("T-220/T-205: an unexecutable authored program is refused during compilation before replay", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const deepSyntax = {
     kind: "object",
@@ -695,26 +718,17 @@ test("T-205 B2 (codex HIGH): an unexecutable declared program is TYPED TRUTH —
     })
   });
   const events = [];
-  // must NOT throw (the codex probe threw here before the fix)
-  const result = runEngineIterate({
-    basis: declaredBasis,
-    eventSink: (event) => events.push(event),
-    ...m03InstructionAssemblyRequestFields(declaredBasis),
-    plugins: {}
-  });
-  assert.equal(result.transition.kind, "terminal");
-  assert.equal(result.transition.terminalKind, "gap_stop");
-  assert.match(result.transition.reason, /hog_program_unresolvable/);
-  assert.match(result.transition.reason, /unsupported_stage_set/);
-  const failure = result.replayEvents.find((e) => e.kind === "runtime_failure_observed");
-  assert.notEqual(failure, undefined, "typed failure event present");
-  assert.equal(failure.surface, "hog_program_resolution");
-  assert.equal(failure.failureClass, "contract_failure");
-  // no half-opened spine: zero c_call rows
-  assert.equal(result.replayEvents.filter((e) => e.kind.startsWith("c_call_")).length, 0);
-  // and the terminal is judged by the property engine like any other
-  const terminal = result.replayEvents.find((e) => e.kind === "terminal_reached");
-  assert.notEqual(terminal, undefined);
+  assert.throws(
+    () =>
+      runEngineIterate({
+        basis: declaredBasis,
+        eventSink: (event) => events.push(event),
+        ...m03InstructionAssemblyRequestFields(declaredBasis),
+        plugins: {}
+      }),
+    /semantic_not_realized/u
+  );
+  assert.deepEqual(events, []);
 });
 
 test("T-205 B3 KEYSTONE: a declared 4-stage program EXECUTES — admit stage runs spine-enclosed at anchor A; blocked admit stops the run lawfully", () => {
@@ -936,7 +950,6 @@ test("T-205 B3 TRIAD: a 6-stage program runs all three fibres at the anchors —
 });
 
 test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the lean rung, attempt 2 runs the deep rung, per-call replay truth", () => {
-  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const rungSyntax = (ref, armPrefix) => ({
     kind: "object",
     entries: [
@@ -965,25 +978,19 @@ test("T-205 -017 ESCALATION: retry descends the ladder — attempt 1 runs the le
       ] } }
     ]
   });
-  const declaredBasis = Object.freeze({
-    ...basis,
-    graphFunction: Object.freeze({
-      ...basis.graphFunction,
-      declarations: Object.freeze({
-        entries: Object.freeze([
-          ...basis.graphFunction.declarations.entries,
-          Object.freeze({ key: "abg.hog_program_catalog", value: Object.freeze({ kind: "json_blob", value: {
+  const declaredBasis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    graphFunctionDeclarationEntries: [
+      Object.freeze({ key: "abg.hog_program_catalog", value: Object.freeze({ kind: "json_blob", value: {
             kind: "array", items: [rungSyntax("gtl://t205/lean", "arm://lean"), rungSyntax("gtl://t205/deep", "arm://deep")]
           } }) }),
-          Object.freeze({ key: "abg.hog_program_ladder", value: Object.freeze({ kind: "json_blob", value: {
+      Object.freeze({ key: "abg.hog_program_ladder", value: Object.freeze({ kind: "json_blob", value: {
             kind: "array", items: [
               { kind: "object", entries: [ { key: "programRef", value: "gtl://t205/lean" }, { key: "fromAttempt", value: 1 } ] },
               { kind: "object", entries: [ { key: "programRef", value: "gtl://t205/deep" }, { key: "fromAttempt", value: 2 } ] }
             ]
           } }) })
-        ])
-      })
-    })
+    ]
   });
   const runLadder = (runtimeEvents, dispatchImpl) => {
     const events = [];
@@ -1376,7 +1383,7 @@ test("T-211: an unstamped event in a violated trace is a typed rejection, never 
 // refuted defect: assembleHandlerRegistry ran at the engine entries
 // OUTSIDE the fail-closed try, so `regime: "F_X"` threw straight out of
 // runEngineIterate with no terminal and no replay truth.
-test("A5-P1 R4: unknown regime in declared bindings is a typed fail-closed startup result, never a host escape", () => {
+test("T-220/A5-P1 R4: unknown declared handler regime is refused before runtime truth", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const badRegimeBasis = Object.freeze({
     ...basis,
@@ -1400,27 +1407,21 @@ test("A5-P1 R4: unknown regime in declared bindings is a typed fail-closed start
       })
     })
   });
-  let result;
-  assert.doesNotThrow(() => {
-    result = runEngineIterate({
-      basis: badRegimeBasis,
-      eventSink: () => {},
-      ...m03InstructionAssemblyRequestFields(badRegimeBasis),
-      plugins: {
-        handlerRegistry: { bindings: [], handlers: new Map() },
-        fpEvaluator: defaultFpEvaluatorPlugin
-      }
-    });
-  }, "assembly vocabulary errors must not escape the engine API");
-  assert.equal(result.transition.terminalKind, "gap_stop");
-  assert.match(result.transition.reason, /hog_program_unresolvable/u);
-  assert.match(result.transition.reason, /regime/u);
-  const failure = result.replayEvents.find((event) => event.kind === "runtime_failure_observed");
-  assert.notEqual(failure, undefined, "the failure is replay truth");
-  assert.equal(failure.failureClass, "contract_failure");
-  assert.equal(failure.surface, "hog_program_resolution");
-  const terminal = result.replayEvents.find((event) => event.kind === "terminal_reached");
-  assert.notEqual(terminal, undefined, "the run reaches a lawful terminal");
+  const events = [];
+  assert.throws(
+    () =>
+      runEngineIterate({
+        basis: badRegimeBasis,
+        eventSink: (event) => events.push(event),
+        ...m03InstructionAssemblyRequestFields(badRegimeBasis),
+        plugins: {
+          handlerRegistry: { bindings: [], handlers: new Map() },
+          fpEvaluator: defaultFpEvaluatorPlugin
+        }
+      }),
+    /handler binding \[0\]\.regime must be one of/u
+  );
+  assert.deepEqual(events, []);
 });
 
 // ── S2.3 DECLARED PLUGIN SELECTION at engine depth (T-217 closure
@@ -1887,12 +1888,15 @@ test("S2.3 live selection: evaluator archive binds the emitted evaluation c-call
       )
   );
   const request = requests.find((row) => row.seam === "evaluation");
-  const opened = result.replayEvents.find(
-    (event) => event.kind === "c_call_opened" && event.stageRole === "evaluate"
-  );
   assert.ok(
     request,
     `the live evaluator must write its per-c-call request; transition=${result.transition.reason}`
+  );
+  const opened = result.replayEvents.find(
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.stageRole === "evaluate" &&
+      event.cCallRef === request.cCallRef
   );
   assert.ok(opened, "the live evaluator effect must have an opened evaluation c-call");
   assert.equal(request.cCallRef, opened.cCallRef);

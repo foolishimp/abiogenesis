@@ -5,7 +5,7 @@
 
 import { constructFpDispatchOutcome, constructFpEvaluationOutcome } from "../contracts/plugins.js";
 import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
-import { resolveHogProgram, hogStageByRole, assertHogProgramExecutable, extraHogStageSegments } from "./hog_program_resolution.js";
+import { resolveHogProgram, hogStageByRole, assertHogProgramPlanExecutable, extraHogStageSegments } from "./hog_program_resolution.js";
 import {
   buildCCallSpineClose,
   buildCCallSpineCloseOrResume,
@@ -16,12 +16,15 @@ import {
 } from "./c_call_spine.js";
 import { admitEngineCCallResumeAuthority } from "./c_call_resume_authority.js";
 import { resolveHandlerForSelection, executeHandler, executeHandlerAsync, admitHandlerRegistry, assembleHandlerRegistry } from "./c_call_handlers.js";
-import { hogHandlerBindingsFromDeclarationAttrs, hogHandlerConfigsFromDeclarationAttrs } from "../contracts/hog_program_syntax.js";
-import { pluginSelectionFromDeclarationAttrs, resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
+import { resolveDeclaredPluginSelection, PLUGIN_SELECTION_SEAM_VALUES } from "../contracts/plugin_selection.js";
 import { standardPluginCatalogWithCapabilities } from "./standard_live_plugins.js";
 import type { EnginePluginCapabilities } from "./standard_live_plugins.js";
 import type { CCallHandlerRegistry, CCallHandlerInterior } from "./c_call_handlers.js";
 import type { HogProgramStage } from "../contracts/hog_program.js";
+import {
+  gtlDeclarationValueForKey,
+  type GtlRegisteredDeclarationKeyForHostAndKind
+} from "../../../gtl/m01/contracts/declaration_law.js";
 import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
@@ -4170,29 +4173,45 @@ function registryEntriesForExecutionBasis(input: {
 function graphVectorDeclarationScalar(input: {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
-  readonly key: string;
+  readonly key: GtlRegisteredDeclarationKeyForHostAndKind<
+    "graph_vector",
+    "scalar"
+  >;
 }): string | null {
-  const entry = input.basis.graph.vectors[input.vectorIndex]?.declarations.entries.find(
-    (candidate) => candidate.key === input.key
-  );
-  if (entry === undefined || entry.value.kind !== "scalar") {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
     return null;
   }
-  return typeof entry.value.value === "string" ? entry.value.value : null;
+  const value = gtlDeclarationValueForKey(
+    vector.declarations,
+    input.key,
+    "scalar"
+  );
+  return value?.kind === "scalar" && typeof value.value === "string"
+    ? value.value
+    : null;
 }
 
 function graphVectorDeclarationStringList(input: {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
-  readonly key: string;
+  readonly key: GtlRegisteredDeclarationKeyForHostAndKind<
+    "graph_vector",
+    "string_list"
+  >;
 }): readonly string[] | null {
-  const entry = input.basis.graph.vectors[input.vectorIndex]?.declarations.entries.find(
-    (candidate) => candidate.key === input.key
-  );
-  if (entry === undefined || entry.value.kind !== "string_list") {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
     return null;
   }
-  return Object.freeze([...entry.value.value]);
+  const value = gtlDeclarationValueForKey(
+    vector.declarations,
+    input.key,
+    "string_list"
+  );
+  return value?.kind === "string_list"
+    ? Object.freeze([...value.value])
+    : null;
 }
 
 function runtimeRegistryLookupBoundary(input: {
@@ -4200,13 +4219,17 @@ function runtimeRegistryLookupBoundary(input: {
   readonly transition: Exclude<AdvancementTransition, { readonly kind: "terminal" }>;
 }): Omit<Parameters<typeof constructRegistryLookupRequest>[0], "lookupRef" | "entryKinds"> {
   const vectorIndex = input.transition.vectorIndex;
-  const scalar = (key: string): string | null =>
+  const scalar = (
+    key: GtlRegisteredDeclarationKeyForHostAndKind<"graph_vector", "scalar">
+  ): string | null =>
     graphVectorDeclarationScalar({
       basis: input.basis,
       vectorIndex,
       key
     });
-  const stringList = (key: string): readonly string[] =>
+  const stringList = (
+    key: GtlRegisteredDeclarationKeyForHostAndKind<"graph_vector", "string_list">
+  ): readonly string[] =>
     graphVectorDeclarationStringList({
       basis: input.basis,
       vectorIndex,
@@ -4825,7 +4848,9 @@ function finishConsequenceTraversalActionConsumption(input: {
       batchRef: null,
       regime: "F_D",
       armId: "construction_intent_step",
-      programRef: resolveHogProgram(input.request.basis.graphFunction).program.programRef
+      programRef: resolveHogProgram(
+        input.request.basis.compiledExecutionDeclarations.hogProgramPlan
+      ).program.programRef
     });
     eventState = appendAlreadyEmittedEngineRunnerEvents({
       state: eventState,
@@ -5447,8 +5472,8 @@ function* runEngineIterateMachine(input: {
         );
       }
     }
-    assertHogProgramExecutable(
-      resolveHogProgram(request.basis.graphFunction),
+    assertHogProgramPlanExecutable(
+      request.basis.compiledExecutionDeclarations.hogProgramPlan,
       plugins.handlerRegistry
     );
   } catch (error) {
@@ -6019,7 +6044,9 @@ function* runEngineIterateMachine(input: {
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:evaluate`,
                 regime: ruleInput.regime,
                 armId: "evaluation_rule_batch",
-                programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
+                programRef: resolveHogProgram(
+                  transition.basis.compiledExecutionDeclarations.hogProgramPlan
+                ).program.programRef
               });
               eventState = emitRunnerEvents(eventState, ruleTaskSpine.events);
             {
@@ -6226,7 +6253,9 @@ function* runEngineIterateMachine(input: {
         // law). No worker, no dispatch; the spine makes the degenerate
         // transform visible and accountable. Same stage shape as the
         // F_P bracket — only the fibre differs (-007).
-        const fdHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const fdHogProgram = resolveHogProgram(
+          transition.basis.compiledExecutionDeclarations.hogProgramPlan
+        );
         {
           const fdTransformStage = hogStageByRole(fdHogProgram, "transform");
           if (fdTransformStage === null) {
@@ -6695,7 +6724,9 @@ function* runEngineIterateMachine(input: {
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                 regime: taskInput.regime,
                 armId: "composed_consequence",
-    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
+    programRef: resolveHogProgram(
+      transition.basis.compiledExecutionDeclarations.hogProgramPlan
+    ).program.programRef
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             {
@@ -6855,7 +6886,9 @@ function* runEngineIterateMachine(input: {
           );
         }
         // T-200 P2d: the consequence C call — the triple's third stage.
-        const consequenceHogProgram = resolveHogProgram(transition.basis.graphFunction);
+        const consequenceHogProgram = resolveHogProgram(
+          transition.basis.compiledExecutionDeclarations.hogProgramPlan
+        );
         const consequenceCCallStage = hogStageByRole(consequenceHogProgram, "consequence");
         if (consequenceCCallStage === null) {
           throw new TypeError(`hog program ${consequenceHogProgram.program.programRef} must declare a consequence stage`);
@@ -7284,7 +7317,9 @@ function* runEngineIterateMachine(input: {
                 batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:transform`,
                 regime: taskInput.regime,
                 armId: "composed_transform",
-    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
+    programRef: resolveHogProgram(
+      transition.basis.compiledExecutionDeclarations.hogProgramPlan
+    ).program.programRef
               });
               eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
             {
@@ -7483,7 +7518,7 @@ function* runEngineIterateMachine(input: {
           resumableScalarTransform?.opened.attempt ??
           nextCCallAttempt(eventState.replayEvents, scalarTransformLocus);
         const scalarHogProgram = resolveHogProgram(
-          transition.basis.graphFunction,
+          transition.basis.compiledExecutionDeclarations.hogProgramPlan,
           scalarTransformAttempt
         );
         const scalarTransformStage = hogStageByRole(scalarHogProgram, "transform");
@@ -7756,10 +7791,8 @@ function* runEngineIterateMachine(input: {
                   vectorIndex: transition.vectorIndex,
                   workProjectionRef: resultRef,
                   handlerRegistry: plugins.handlerRegistry,
-                  declaredConfigs: hogHandlerConfigsFromDeclarationAttrs(
-                    request.basis.graphFunction.declarations,
-                    request.basis.graphFunction.name
-                  )
+                  declaredConfigs:
+                    request.basis.compiledExecutionDeclarations.handlerConfigs
                 });
                 eventState = ran.eventState;
                 if (ran.blockedStageRole !== null) {
@@ -8458,7 +8491,7 @@ function* runEngineIterateMachine(input: {
               }) - 1
             );
             const scalarEvaluateHogProgram = resolveHogProgram(
-              transition.basis.graphFunction,
+              transition.basis.compiledExecutionDeclarations.hogProgramPlan,
               scalarEvaluateGoverningAttempt
             );
             const scalarEvaluateStage = hogStageByRole(scalarEvaluateHogProgram, "evaluate");
@@ -9044,10 +9077,8 @@ function* runEngineIterateMachine(input: {
                   vectorIndex: transition.vectorIndex,
                   workProjectionRef: null,
                   handlerRegistry: plugins.handlerRegistry,
-                  declaredConfigs: hogHandlerConfigsFromDeclarationAttrs(
-                    request.basis.graphFunction.declarations,
-                    request.basis.graphFunction.name
-                  )
+                  declaredConfigs:
+                    request.basis.compiledExecutionDeclarations.handlerConfigs
                 });
                 eventState = ran.eventState;
                 if (ran.blockedStageRole !== null) {
@@ -9346,7 +9377,9 @@ function* runEngineIterateMachine(input: {
                     batchRef: `batch:${request.basis.id}:${transition.vectorIndex}:consequence`,
                     regime: taskInput.regime,
                     armId: "composed_consequence",
-    programRef: resolveHogProgram(transition.basis.graphFunction).program.programRef
+    programRef: resolveHogProgram(
+      transition.basis.compiledExecutionDeclarations.hogProgramPlan
+    ).program.programRef
                   });
                   eventState = emitRunnerEvents(eventState, batchTaskSpine.events);
                 {
@@ -9507,7 +9540,9 @@ function* runEngineIterateMachine(input: {
               );
             }
             // T-200 P2d: the consequence C call — the triple's third stage.
-            const consequenceHogProgram = resolveHogProgram(transition.basis.graphFunction);
+            const consequenceHogProgram = resolveHogProgram(
+              transition.basis.compiledExecutionDeclarations.hogProgramPlan
+            );
             const consequenceCCallStage = hogStageByRole(consequenceHogProgram, "consequence");
             if (consequenceCCallStage === null) {
               throw new TypeError(`hog program ${consequenceHogProgram.program.programRef} must declare a consequence stage`);
@@ -9911,7 +9946,9 @@ function* runEngineIterateMachine(input: {
         }
         // T-200 P3-C: the F_H C call — escalation is the fibre's judgment.
         {
-          const fhHogProgram = resolveHogProgram(transition.basis.graphFunction);
+          const fhHogProgram = resolveHogProgram(
+            transition.basis.compiledExecutionDeclarations.hogProgramPlan
+          );
           const fhStage = hogStageByRole(fhHogProgram, "transform");
           if (fhStage === null) {
             throw new TypeError(`hog program ${fhHogProgram.program.programRef} must declare a transform stage`);
@@ -10377,10 +10414,8 @@ function effectiveRunnerPlugins(
   // plugin for the SAME seam are two authorities — fail closed (the raw
   // request set distinguishes caller-explicit from resolved defaults).
   let merged = plugins;
-  const selection = pluginSelectionFromDeclarationAttrs(
-    request.basis.graphFunction.declarations,
-    request.basis.graphFunction.name
-  );
+  const selection =
+    request.basis.compiledExecutionDeclarations.pluginSelection;
   if (selection !== null) {
     for (const seam of PLUGIN_SELECTION_SEAM_VALUES) {
       const selectedRef = selection[seam];
@@ -10410,10 +10445,8 @@ function effectiveRunnerPlugins(
     driver,
     request.basis.graphFunction.name
   );
-  const declaredBindings = hogHandlerBindingsFromDeclarationAttrs(
-    request.basis.graphFunction.declarations,
-    request.basis.graphFunction.name
-  );
+  const declaredBindings =
+    request.basis.compiledExecutionDeclarations.handlerBindingRows;
   if (declaredBindings === null) {
     return merged;
   }

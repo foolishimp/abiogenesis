@@ -3059,19 +3059,31 @@ test("T-156 GTL program typechecker rejects unknown consequence traversal family
 });
 
 test("T-156 GTL program typechecker rejects malformed allowed traversal row declarations", () => {
-  const report = typecheckGtlProgram(
-    compliantInput(
-      {},
-      {
-        vectorDeclarations: serializedAttrs([
-          scalarAttr(
-            ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
-            "not-json"
-          )
-        ])
-      }
-    )
-  );
+  const input = compliantInput();
+  const module = input.modules[0];
+  const graphFunction = module.graphFunctions[0];
+  const graph = graphFunction.template.graph;
+  const vector = graph.vectors[0];
+  const malformedVector = {
+    ...vector,
+    declarations: serializedAttrs([
+      scalarAttr(
+        ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
+        "not-json"
+      )
+    ])
+  };
+  const malformedGraphFunction = {
+    ...graphFunction,
+    template: {
+      ...graphFunction.template,
+      graph: { ...graph, vectors: [malformedVector] }
+    }
+  };
+  const report = typecheckGtlProgram({
+    ...input,
+    modules: [{ ...module, graphFunctions: [malformedGraphFunction] }]
+  });
   const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
   const messages = report.issues.map((entry) => entry.message).join("\n");
 

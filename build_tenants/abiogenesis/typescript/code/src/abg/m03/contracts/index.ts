@@ -564,6 +564,15 @@ export type {
 export {
   constructExecutionBasis,
 } from "./constructors.js";
+export { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
+export type { CAlgebraHogCompilation } from "./c_algebra_hog_compiler.js";
+export {
+  compileExecutionDeclarations
+} from "./execution_declaration_compiler.js";
+export type {
+  CompiledExecutionDeclarations,
+  CompiledHogProgramPlan
+} from "./execution_declaration_compiler.js";
 export {
   constructAmbiguityObservationAdmittedEvent,
   constructActorInvocationClosedEvent,

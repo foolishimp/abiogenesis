@@ -9,6 +9,7 @@ import type {
   ExecutionBasis,
   StartIntent
 } from "./carriers.js";
+import { compileExecutionDeclarations } from "./execution_declaration_compiler.js";
 
 export interface ExecutionBasisInit {
   readonly basisId: string;
@@ -33,6 +34,7 @@ export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBas
     graphFunction.id
   );
   const graph = materializeGraphFunction(graphFunction);
+  const compiledExecutionDeclarations = compileExecutionDeclarations(graphFunction);
 
   return Object.freeze({
     id: input.basisId,
@@ -40,6 +42,7 @@ export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBas
     moduleName: input.module.name,
     graphFunction,
     graph,
+    compiledExecutionDeclarations,
     job,
     modulePolicyHooks: input.module.policyHooks,
     runtimeIdentity: input.runtimeIdentity,

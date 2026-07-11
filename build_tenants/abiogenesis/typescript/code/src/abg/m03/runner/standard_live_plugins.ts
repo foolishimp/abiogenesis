@@ -504,6 +504,18 @@ interface StandardLiveReview {
 function admitStandardLiveReview(
   artifact: Readonly<Record<string, unknown>>
 ): StandardLiveReview {
+  const allowedKeys = new Set([
+    "accepted",
+    "closeDisposition",
+    "assessmentIds",
+    "reasons"
+  ]);
+  const unknownKeys = Object.keys(artifact).filter((key) => !allowedKeys.has(key));
+  if (unknownKeys.length > 0) {
+    throw new TypeError(
+      `review contains unknown fields: ${unknownKeys.sort().join(", ")}`
+    );
+  }
   const accepted = artifact["accepted"];
   if (typeof accepted !== "boolean") {
     throw new TypeError("review.accepted must be a boolean");
@@ -527,11 +539,18 @@ function admitStandardLiveReview(
     idsRaw === undefined
       ? Object.freeze([])
       : Array.isArray(idsRaw) &&
-          idsRaw.every((row): row is string => typeof row === "string")
+          idsRaw.every(
+            (row): row is string => typeof row === "string" && row.length > 0
+          )
         ? Object.freeze([...idsRaw])
         : null;
   if (assessmentIds === null) {
-    throw new TypeError("review.assessmentIds must be an array of strings when present");
+    throw new TypeError(
+      "review.assessmentIds must be an array of non-empty strings when present"
+    );
+  }
+  if (new Set(assessmentIds).size !== assessmentIds.length) {
+    throw new TypeError("review.assessmentIds must not contain duplicates");
   }
   const reasonsRaw = artifact["reasons"];
   const reasons =
@@ -662,6 +681,15 @@ export function standardLiveFpEvaluatorPlugin(
           const missing = input.expectedAssessmentIds.filter(
             (id) => !review.assessmentIds.includes(id)
           );
+          const expectedAssessmentIds = new Set(input.expectedAssessmentIds);
+          const unexpected = review.assessmentIds.filter(
+            (id) => !expectedAssessmentIds.has(id)
+          );
+          if (unexpected.length > 0) {
+            throw new TypeError(
+              `review.assessmentIds contains unexpected ids: ${unexpected.join(", ")}`
+            );
+          }
           const closeEligible =
             review.accepted &&
             missing.length === 0 &&

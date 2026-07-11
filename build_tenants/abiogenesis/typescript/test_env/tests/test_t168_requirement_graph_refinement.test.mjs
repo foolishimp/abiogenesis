@@ -22,7 +22,8 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/requirements_route.js";
 import {
   buildThreeStageBasis,
-  m03InstructionAssemblyRequestFields
+  m03InstructionAssemblyRequestFields,
+  readmitThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
 import {
   REQUIRED_REFINEMENT_REQUIREMENT_ROUTE_PAYLOAD_KINDS,
@@ -84,13 +85,13 @@ async function writeRequirementSources(runRoot) {
 }
 
 function firstTraversalBasis(basis) {
-  return Object.freeze({
+  return readmitThreeStageBasis(Object.freeze({
     ...basis,
     startIntent: Object.freeze({
       ...basis.startIntent,
       until: "first_traversal"
     })
-  });
+  }));
 }
 
 function routeEdgeForBasisVector(basis, vectorIndex) {

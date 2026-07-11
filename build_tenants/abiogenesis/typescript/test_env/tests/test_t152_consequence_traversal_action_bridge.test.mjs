@@ -34,6 +34,7 @@ function buildConsequenceCatalogBasis(options = {}) {
   return buildThreeStageBasis({
     ...options,
     vectorDeclarationEntriesByIndex: Object.freeze({
+      0: Object.freeze([allowedTraversalFamiliesEntry(["depth_traversal"])]),
       1: Object.freeze([allowedTraversalFamiliesEntry(["depth_traversal"])]),
       2: Object.freeze([allowedTraversalFamiliesEntry(["depth_traversal"])])
     })

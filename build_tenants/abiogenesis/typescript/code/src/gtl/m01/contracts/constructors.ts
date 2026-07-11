@@ -9,13 +9,20 @@ import {
   type Graph,
   type GraphFunction,
   type GraphVector,
+  GTL_GRAPH_FUNCTION_ADMISSION,
+  GTL_GRAPH_VECTOR_ADMISSION,
   type Node,
-  type SerializedAttrEntry,
   type SerializedAttrs,
   type SerializedAttrValue,
   type SerializedJsonValue,
   type TemplateRef
 } from "./carriers.js";
+import {
+  admitGraphFunctionDeclarations,
+  admitGraphVectorDeclarations,
+  type GraphFunctionDeclarations,
+  type GraphVectorDeclarations
+} from "./declaration_law.js";
 
 export interface AssetSurfaceAuthoritySlotInit {
   readonly authorityKindRef: string;
@@ -57,7 +64,7 @@ export interface GraphVectorInit {
   readonly contexts: readonly Context[];
   readonly rule: GraphVector["rule"];
   readonly allowsSubwork: boolean;
-  readonly declarations: SerializedAttrs;
+  readonly declarations: GraphVectorDeclarations;
   readonly tags: readonly string[];
   readonly id?: string | undefined;
 }
@@ -104,7 +111,7 @@ export interface GraphFunctionInit {
   readonly outputs: readonly Node[];
   readonly template: TemplateRef;
   readonly effects: readonly string[];
-  readonly declarations: SerializedAttrs;
+  readonly declarations: GraphFunctionDeclarations;
   readonly tags: readonly string[];
   readonly id?: string | undefined;
 }
@@ -129,16 +136,6 @@ function freezeNodes(values: readonly Node[]): readonly Node[] {
 
 function freezeContexts(values: readonly Context[]): readonly Context[] {
   return Object.freeze([...values]);
-}
-
-function freezeAttrEntries(values: readonly SerializedAttrEntry[]): readonly SerializedAttrEntry[] {
-  return Object.freeze([...values]);
-}
-
-function freezeSerializedAttrs(values: SerializedAttrs): SerializedAttrs {
-  return Object.freeze({
-    entries: freezeAttrEntries(values.entries)
-  });
 }
 
 function requireKnownAuthoritySlotDisposition(
@@ -221,6 +218,15 @@ export function serializedJsonValueToPlain(value: SerializedJsonValue): unknown 
   }
   if (value.kind === "array") {
     return Object.freeze(value.items.map(serializedJsonValueToPlain));
+  }
+  const seen = new Set<string>();
+  for (const entry of value.entries) {
+    if (seen.has(entry.key)) {
+      throw new TypeError(
+        `SerializedJsonValue object contains duplicate key ${JSON.stringify(entry.key)}`
+      );
+    }
+    seen.add(entry.key);
   }
   return Object.freeze(
     Object.fromEntries(
@@ -479,7 +485,7 @@ export function constructGraphVector(input: GraphVectorInit): GraphVector {
     throw new TypeError("GraphVector.source: expected at least one source node");
   }
 
-  const vector = Object.freeze({
+  const vector = {
     name: input.name,
     source: freezeNodes(input.source),
     target: input.target,
@@ -499,7 +505,7 @@ export function constructGraphVector(input: GraphVectorInit): GraphVector {
     contexts: freezeContexts(input.contexts),
     rule: input.rule,
     allowsSubwork: input.allowsSubwork,
-    declarations: freezeSerializedAttrs(input.declarations),
+    declarations: admitGraphVectorDeclarations(input.declarations),
     tags: freezeStrings(input.tags),
     id:
       input.id ??
@@ -534,10 +540,14 @@ export function constructGraphVector(input: GraphVectorInit): GraphVector {
         allowsSubwork: input.allowsSubwork,
         declarations: canonicalSerializedAttrs(input.declarations),
         tags: [...input.tags]
-      })
-  });
+      }),
+    [GTL_GRAPH_VECTOR_ADMISSION]: true as const
+  };
 
-  return vector;
+  Object.defineProperty(vector, GTL_GRAPH_VECTOR_ADMISSION, {
+    enumerable: false
+  });
+  return Object.freeze(vector);
 }
 
 export function constructGraph(input: GraphInit): Graph {
@@ -638,14 +648,14 @@ export function constructGraphFunction(input: GraphFunctionInit): GraphFunction 
     }
   }
 
-  const graphFunction = Object.freeze({
+  const graphFunction = {
     name: input.name,
     environment: input.environment,
     inputs: freezeNodes(input.inputs),
     outputs: freezeNodes(input.outputs),
     template: input.template,
     effects: freezeStrings(input.effects),
-    declarations: freezeSerializedAttrs(input.declarations),
+    declarations: admitGraphFunctionDeclarations(input.declarations),
     tags: freezeStrings(input.tags),
     id:
       input.id ??
@@ -662,8 +672,11 @@ export function constructGraphFunction(input: GraphFunctionInit): GraphFunction 
         effects: [...input.effects],
         declarations: canonicalSerializedAttrs(input.declarations),
         tags: [...input.tags]
-      })
+      }),
+    [GTL_GRAPH_FUNCTION_ADMISSION]: true as const
+  };
+  Object.defineProperty(graphFunction, GTL_GRAPH_FUNCTION_ADMISSION, {
+    enumerable: false
   });
-
-  return graphFunction;
+  return Object.freeze(graphFunction);
 }

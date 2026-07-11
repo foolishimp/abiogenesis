@@ -163,6 +163,19 @@ function rejectForbiddenFpResultAuthorityFields(
   }
 }
 
+function assertClosedFields(
+  input: Readonly<Record<string, unknown>>,
+  allowedFields: readonly string[],
+  label: string
+): void {
+  const allowed = new Set(allowedFields);
+  for (const field of Object.keys(input)) {
+    if (!allowed.has(field)) {
+      throw new TypeError(`${label}.${field}: unknown field`);
+    }
+  }
+}
+
 function normalizeEvidenceCandidate(input: {
   readonly candidateRef: string;
   readonly authorityRef: string;
@@ -175,6 +188,12 @@ function normalizeEvidenceCandidate(input: {
   readonly contradictsAuthority?: boolean | undefined;
   readonly deferred?: boolean | undefined;
 }): FpEvidenceCandidate {
+  const complete = input.complete ?? true;
+  if (complete && input.evidenceRefs.length === 0) {
+    throw new TypeError(
+      "FpEvidenceCandidate.evidenceRefs: complete evidence requires at least one evidence ref"
+    );
+  }
   return Object.freeze({
     kind: "fp_evidence_candidate",
     candidateRef: input.candidateRef,
@@ -183,7 +202,7 @@ function normalizeEvidenceCandidate(input: {
     providerRefs: freezeStringArray(input.providerRefs),
     payloadClass: input.payloadClass ?? "evidence",
     contractRef: input.contractRef ?? "contract://abg/fp-transform-evidence",
-    complete: input.complete ?? true,
+    complete,
     shallow: input.shallow ?? false,
     contradictsAuthority: input.contradictsAuthority ?? false,
     deferred: input.deferred ?? false
@@ -192,6 +211,23 @@ function normalizeEvidenceCandidate(input: {
 
 function parseEvidenceCandidate(input: unknown, label: string): FpEvidenceCandidate {
   const candidate = parsePlainObject(input, label);
+  assertClosedFields(
+    candidate,
+    [
+      "kind",
+      "candidateRef",
+      "authorityRef",
+      "evidenceRefs",
+      "providerRefs",
+      "payloadClass",
+      "contractRef",
+      "complete",
+      "shallow",
+      "contradictsAuthority",
+      "deferred"
+    ],
+    label
+  );
   const kind = parseOptionalField(candidate, "kind");
   if (kind !== undefined && kind !== "fp_evidence_candidate") {
     throw new TypeError(
@@ -485,6 +521,20 @@ export function admitFpTransformResult(
 ): FpTransformResult {
   const result = parsePlainObject(input, label);
   rejectForbiddenFpResultAuthorityFields(result, label);
+  assertClosedFields(
+    result,
+    [
+      "kind",
+      "requestRef",
+      "actorInvocationId",
+      "resultRef",
+      "artifactRef",
+      "status",
+      "reason",
+      "evidenceCandidates"
+    ],
+    label
+  );
   const kind = parseString(result["kind"], `${label}.kind`);
   if (kind !== "fp_transform_result") {
     throw new TypeError(

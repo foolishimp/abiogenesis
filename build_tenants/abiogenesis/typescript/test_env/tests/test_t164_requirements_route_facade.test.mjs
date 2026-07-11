@@ -37,7 +37,8 @@ import {
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
   buildThreeStageBasis,
-  m03InstructionAssemblyRequestFields
+  m03InstructionAssemblyRequestFields,
+  readmitThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
 
 const FORBIDDEN_PUBLIC_EMITTERS = Object.freeze([
@@ -273,13 +274,15 @@ function t164RouteContextForBasis(basis, vectorIndex) {
 }
 
 function firstTraversalBasis(basis) {
-  return Object.freeze({
-    ...basis,
-    startIntent: Object.freeze({
-      ...basis.startIntent,
-      until: "first_traversal"
+  return readmitThreeStageBasis(
+    Object.freeze({
+      ...basis,
+      startIntent: Object.freeze({
+        ...basis.startIntent,
+        until: "first_traversal"
+      })
     })
-  });
+  );
 }
 
 function attachedArtifact(input) {

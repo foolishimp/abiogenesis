@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "./t220_declaration_law_types.ts"
+  ]
+}

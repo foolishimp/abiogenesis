@@ -416,6 +416,7 @@ test("T-200 P3-B: enclosure witness holds over the REAL gate replay", async () =
 
 import {
   HOG_PROGRAM_DECLARATION_KEY,
+  compileExecutionDeclarations,
   hogProgramFromDeclarationAttrs
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
 
@@ -575,15 +576,24 @@ const TRIPLE_SYNTAX = (ref, armPrefix) => ({
     ] } }
   ]
 });
-const gfWith = (entries) => ({ id: "graph-function://t205/seam", declarations: { entries } });
+const gfWith = (entries) => ({
+  id: "graph-function://t205/seam",
+  name: "graph-function://t205/seam",
+  declarations: { entries }
+});
+const resolveDeclaredProgram = (graphFunction, attempt = 1) =>
+  resolveHogProgram(
+    compileExecutionDeclarations(graphFunction).hogProgramPlan,
+    attempt
+  );
 
 test("T-205 B2: resolution order — default, declared single, catalog+selection; fail-closed matrix", () => {
   // default
-  const dflt = resolveHogProgram(gfWith([]));
+  const dflt = resolveDeclaredProgram(gfWith([]));
   assert.equal(dflt.source, "default");
   assert.equal(dflt.program.programRef, "gtl://abg/hog/bootstrap-triple");
   // declared single
-  const single = resolveHogProgram(gfWith([
+  const single = resolveDeclaredProgram(gfWith([
     { key: "abg.hog_program", value: { kind: "json_blob", value: TRIPLE_SYNTAX("gtl://t205/custom", "arm://x") } }
   ]));
   assert.equal(single.source, "declared");
@@ -595,21 +605,21 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
     } } },
     { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/hard" } }
   ];
-  const picked = resolveHogProgram(gfWith(catalogEntries));
+  const picked = resolveDeclaredProgram(gfWith(catalogEntries));
   assert.equal(picked.source, "declared_catalog");
   assert.equal(picked.program.programRef, "gtl://t205/hard");
   assert.equal(picked.program.stages[0].armId, "arm://h/t");
   // FAIL-CLOSED: unknown selection ref
-  assert.throws(() => resolveHogProgram(gfWith([
+  assert.throws(() => resolveDeclaredProgram(gfWith([
     catalogEntries[0],
     { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/nope" } }
   ])), /does not name a program/);
   // FAIL-CLOSED: selection without catalog
-  assert.throws(() => resolveHogProgram(gfWith([
+  assert.throws(() => resolveDeclaredProgram(gfWith([
     { key: HOG_PROGRAM_SELECTION_KEY, value: { kind: "scalar", value: "gtl://t205/hard" } }
   ])), /requires a declared/);
   // FAIL-CLOSED: catalog without selection
-  assert.throws(() => resolveHogProgram(gfWith([catalogEntries[0]])), /requires abg\.hog_program_ref|requires/);
+  assert.throws(() => resolveDeclaredProgram(gfWith([catalogEntries[0]])), /requires abg\.hog_program_ref|requires/);
   // FAIL-CLOSED: admitted-but-unexecutable stage set (staged earn until B3)
   const critiqueStage = {
     kind: "object", entries: [
@@ -622,7 +632,7 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   const sixStage = TRIPLE_SYNTAX("gtl://t205/deep", "arm://d");
   // lawful position: between evaluate and consequence
   sixStage.entries.find((e) => e.key === "stages").value.items.splice(2, 0, critiqueStage);
-  const deepResolved = resolveHogProgram(gfWith([
+  const deepResolved = resolveDeclaredProgram(gfWith([
     { key: "abg.hog_program", value: { kind: "json_blob", value: sixStage } }
   ]));
   // no registry: extra role fails closed
@@ -644,12 +654,13 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   // POSITION LAW: an extra stage after consequence has no lawful anchor
   const misplaced = TRIPLE_SYNTAX("gtl://t205/misplaced", "arm://m");
   misplaced.entries.find((e) => e.key === "stages").value.items.push(critiqueStage);
-  const misplacedResolved = resolveHogProgram(gfWith([
-    { key: "abg.hog_program", value: { kind: "json_blob", value: misplaced } }
-  ]));
-  assert.throws(() => assertHogProgramExecutable(misplacedResolved, completeRegistry({
-    programRef: "gtl://t205/misplaced"
-  })), /unsupported_stage_position/);
+  assert.throws(
+    () =>
+      resolveDeclaredProgram(gfWith([
+        { key: "abg.hog_program", value: { kind: "json_blob", value: misplaced } }
+      ])),
+    /outside the current lawful handler anchors/
+  );
 });
 
 // ─── T-205 B3: the handler contract — census-bound, fail-closed, typed failure ───
@@ -979,6 +990,7 @@ test("T-205 COVERAGE g4: runtime standard implementations — real materializati
 
 import { assembleHandlerRegistry as assembleForProbe } from "../../build/semantic/code/src/abg/m03/index.js";
 import { admitHogProgram as admitProgramForProbe } from "../../build/semantic/code/src/abg/m03/index.js";
+import { admitHogHandlerBindings as admitBindingsForProbe } from "../../build/semantic/code/src/abg/m03/contracts/hog_handler_bindings.js";
 
 test("T-205 codex P1-a: handler binding assembly rejects coerced-shape fields AS AUTHORED — numeric programRef, boolean stageRole, numeric configRef, unknown siblings", () => {
   const impls = new Map([["handler://x", syncCCallHandler(() => ({ outcomeStatus: "executed", evidenceRefs: [], payloadRef: null, responseContractRef: null, failureReason: null }))]]);
@@ -987,16 +999,17 @@ test("T-205 codex P1-a: handler binding assembly rejects coerced-shape fields AS
     regime: "F_D", handlerRef: "handler://x", handlerClass: "pipeline", handlerConfigRef: null
   };
   // lawful row assembles
-  const ok = assembleForProbe({ declaredBindings: [base], handlers: impls });
+  const admitted = admitBindingsForProbe([base], "t205-probe");
+  const ok = assembleForProbe({ declaredBindings: admitted, handlers: impls });
   assert.equal(ok.bindings[0].programRef, "gtl://p");
   // the exact codex probes: NO stringified admission
-  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, programRef: 123 }], handlers: impls }),
-    /programRef must be a non-empty string as AUTHORED/);
-  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, stageRole: false }], handlers: impls }),
-    /stageRole must be a non-empty string as AUTHORED/);
-  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, handlerConfigRef: 7 }], handlers: impls }),
-    /handlerConfigRef must be null or a string as AUTHORED/);
-  assert.throws(() => assembleForProbe({ declaredBindings: [{ ...base, shadow: "field" }], handlers: impls }),
+  assert.throws(() => admitBindingsForProbe([{ ...base, programRef: 123 }], "t205-probe"),
+    /programRef must be a non-empty string as authored/i);
+  assert.throws(() => admitBindingsForProbe([{ ...base, stageRole: false }], "t205-probe"),
+    /stageRole must be a non-empty string as authored/i);
+  assert.throws(() => admitBindingsForProbe([{ ...base, handlerConfigRef: 7 }], "t205-probe"),
+    /handlerConfigRef must be a non-empty string as authored/i);
+  assert.throws(() => admitBindingsForProbe([{ ...base, shadow: "field" }], "t205-probe"),
     /unknown field "shadow"/);
 });
 

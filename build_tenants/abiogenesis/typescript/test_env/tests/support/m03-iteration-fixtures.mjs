@@ -8,6 +8,7 @@ import {
   constructDefaultInstructionAssemblyStartupForBasis,
   compileInstructionAssemblyPlan,
   compose,
+  constructGraphFunction,
   constructDerivedDependencyInstructionTruth,
   constructDerivedProofDepthInstructionTruth,
   constructGtlLibraryEntryDeclaration,
@@ -17,6 +18,7 @@ import {
   constructRuntimeBindingSlot,
   edge,
   graphFunctionForVector,
+  graphFunctionDeclarations,
   INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS
 } from "../../../build/semantic/code/src/index.js";
 
@@ -115,12 +117,14 @@ const M03_FIXTURE_KNOWN_OPTIONS = new Set([
   "approvalSubjectRef", "authorityRefs", "configRef", "configSourceRefs",
   "consequenceFpBinding", "contextRefs", "correlationId", "declarationRef",
   "declarationSourceRefs", "defaultRegime", "dispatchRef", "frameId",
-  "frameLineageId", "includeComposition", "interfaceRef", "namespace",
+  "frameLineageId", "graphFunctionDeclarationEntries", "includeComposition",
+  "interfaceRef", "namespace",
   "overlayRefs", "ownerRef", "pluginRefs", "policyRefs", "prefix",
   "proofRefs", "provenanceRefs", "readinessRefs", "registryEntryRef",
   "rendererRef", "runId", "sourceContractRef", "stageRoles",
   "targetContractRef", "until", "vectorDeclarationEntriesByIndex",
-  "vectorIndexes", "vectorRegimes", "version", "workKey"
+  "vectorConsumedFieldRefsByIndex", "vectorIndexes", "vectorRegimes", "version",
+  "workKey"
 ]);
 
 function assertKnownM03FixtureOptions(options, label) {
@@ -542,6 +546,7 @@ function stageGraphFunction(
   regime,
   includeComposition,
   vectorDeclarationEntries = [],
+  vectorConsumedFieldRefs = [],
   compositionOptions = {}
 ) {
   const vector = edge([source], target, {
@@ -553,7 +558,8 @@ function stageGraphFunction(
         regime,
         description: `${edgeName} accepted`,
         binding: `binding://${name}`,
-        tags: ["fulfillment"]
+        tags: ["fulfillment"],
+        consumedFieldRefs: vectorConsumedFieldRefs
       }
     ],
     declarations: { entries: Object.freeze([...vectorDeclarationEntries]) },
@@ -584,7 +590,7 @@ export function buildThreeStageModule(options = {}) {
   const design = node("node-m03-design", "Design", "design", "derived");
   const code = node("node-m03-code", "Code", "code", "implemented");
 
-  const executive = compose(
+  const composedExecutive = compose(
     stageGraphFunction(
       "capture_requirements",
       inputSet,
@@ -594,6 +600,7 @@ export function buildThreeStageModule(options = {}) {
       vectorRegimes[0],
       options.includeComposition !== false,
       options.vectorDeclarationEntriesByIndex?.[0] ?? [],
+      options.vectorConsumedFieldRefsByIndex?.[0] ?? [],
       { consequenceFpBinding: options.consequenceFpBinding === true }
     ),
     stageGraphFunction(
@@ -605,6 +612,7 @@ export function buildThreeStageModule(options = {}) {
       vectorRegimes[1],
       options.includeComposition !== false,
       options.vectorDeclarationEntriesByIndex?.[1] ?? [],
+      options.vectorConsumedFieldRefsByIndex?.[1] ?? [],
       { consequenceFpBinding: options.consequenceFpBinding === true }
     ),
     stageGraphFunction(
@@ -616,9 +624,21 @@ export function buildThreeStageModule(options = {}) {
       vectorRegimes[2],
       options.includeComposition !== false,
       options.vectorDeclarationEntriesByIndex?.[2] ?? [],
+      options.vectorConsumedFieldRefsByIndex?.[2] ?? [],
       { consequenceFpBinding: options.consequenceFpBinding === true }
     )
   );
+  const executive =
+    options.graphFunctionDeclarationEntries === undefined
+      ? composedExecutive
+      : constructGraphFunction({
+          ...composedExecutive,
+          declarations: graphFunctionDeclarations([
+            ...composedExecutive.declarations.entries,
+            ...options.graphFunctionDeclarationEntries
+          ]),
+          id: undefined
+        });
 
   const module = admitModule({
     name: "m03_iteration_module",
@@ -654,7 +674,9 @@ export function buildThreeStageBasis(options = {}) {
     consequenceFpBinding: options.consequenceFpBinding,
     vectorRegimes: options.vectorRegimes,
     includeComposition: options.includeComposition,
-    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex
+    graphFunctionDeclarationEntries: options.graphFunctionDeclarationEntries,
+    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex,
+    vectorConsumedFieldRefsByIndex: options.vectorConsumedFieldRefsByIndex
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")
@@ -702,6 +724,38 @@ export function buildThreeStageBasis(options = {}) {
   });
 }
 
+export function readmitThreeStageBasis(basis) {
+  const graphFunction = constructGraphFunction({
+    ...basis.graphFunction,
+    id: basis.graphFunction.id
+  });
+  const module = admitModule({
+    name: basis.moduleName,
+    graphs: [],
+    graphFunctions: [graphFunction],
+    refinementBoundaries: [],
+    candidateFamilies: [],
+    jobs: [basis.job],
+    roles: [],
+    operators: [],
+    evaluators: [],
+    rules: [],
+    imports: [],
+    policyHooks: basis.modulePolicyHooks,
+    metadata: { entries: [] }
+  });
+  return admitExecutionBasis({
+    startIntent: basis.startIntent,
+    module,
+    runtimeIdentity: basis.runtimeIdentity,
+    resolvedPolicy: basis.resolvedPolicy,
+    runId: basis.runId,
+    workKey: basis.workKey,
+    frameId: basis.frameId,
+    frameLineageId: basis.frameLineageId
+  });
+}
+
 export function buildThreeStageStartContext(options = {}) {
   assertKnownM03FixtureOptions(options, "buildThreeStageStartContext");
   const defaultRegime = options.defaultRegime ?? "F_D";
@@ -709,7 +763,9 @@ export function buildThreeStageStartContext(options = {}) {
     defaultRegime,
     vectorRegimes: options.vectorRegimes,
     includeComposition: options.includeComposition,
-    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex
+    graphFunctionDeclarationEntries: options.graphFunctionDeclarationEntries,
+    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex,
+    vectorConsumedFieldRefsByIndex: options.vectorConsumedFieldRefsByIndex
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")

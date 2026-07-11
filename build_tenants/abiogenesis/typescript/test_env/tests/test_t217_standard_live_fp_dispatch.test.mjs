@@ -168,6 +168,45 @@ test("live fp evaluator: malformed review is typed blocked contract_failure", as
   assert.match(outcome.reason, /contract_failure/u);
 });
 
+test("live fp evaluator: a misspelled response field is rejected, never defaulted to close", async () => {
+  const plugin = standardLiveFpEvaluatorPlugin(
+    capabilityWith(
+      "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1'], closeDispostion: 'retry' }))"
+    )
+  );
+  const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1"]));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /unknown fields: closeDispostion/u);
+  assert.match(outcome.reason, /contract_failure/u);
+});
+
+test("live fp evaluator: unexpected, duplicate, or empty assessment ids are malformed", async () => {
+  const cases = [
+    {
+      script:
+        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'bogus'] }))",
+      expectedReason: /unexpected ids: bogus/u
+    },
+    {
+      script:
+        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'a1'] }))",
+      expectedReason: /must not contain duplicates/u
+    },
+    {
+      script:
+        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', ''] }))",
+      expectedReason: /array of non-empty strings/u
+    }
+  ];
+  for (const row of cases) {
+    const plugin = standardLiveFpEvaluatorPlugin(capabilityWith(row.script));
+    const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1"]));
+    assert.equal(outcome.status, "blocked");
+    assert.match(outcome.reason, row.expectedReason);
+    assert.match(outcome.reason, /contract_failure/u);
+  }
+});
+
 test("live fp evaluator: transport failure is typed blocked with allowlist grammar", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(capabilityWith("process.exit(2)"));
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));

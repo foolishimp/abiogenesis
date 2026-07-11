@@ -35,3 +35,56 @@ export type {
   NodeTypeSatisfactionRejectionReason,
   NodeTypeSatisfactionResult
 } from "./core.js";
+export {
+  C,
+  C_ALGEBRA_REGIME_VALUES,
+  C_ALGEBRA_SYNTAX_VERSION,
+  admitCProgramSyntax,
+  cBatch,
+  cCarrier,
+  cCompose,
+  cEdge,
+  cGraphFunctionRef,
+  cIdentity,
+  cOf,
+  cRetry,
+  cWorkflow,
+  constructCAlgebraDiagnostic,
+  declareCProgram,
+  isAdmittedCProgramDeclaration,
+  serializeCProgramCanonical,
+  workflow
+} from "./c_algebra.js";
+export {
+  cProgramCatalogDeclarationEntry,
+  cProgramDeclarationEntry,
+  cProgramGraphFunctionDeclarations
+} from "./c_algebra_declarations.js";
+export type {
+  AdmittedCProgramDeclarationNode,
+  CAlgebraDiagnostic,
+  CAlgebraDiagnosticId,
+  CAlgebraRegime,
+  CAlgebraRepairAffordance,
+  CAlgebraResultCardinality,
+  CBatchNode,
+  CCarrier,
+  CGraphFunctionRef,
+  CTermWitness,
+  CComposeNode,
+  CEdgeNode,
+  CIdentityNode,
+  CInputOf,
+  COfNode,
+  COfTerm,
+  COutputOf,
+  CProgramAdmission,
+  CProgramDeclaration,
+  CProgramDeclarationNode,
+  CProgramNode,
+  CProgramTerm,
+  CRetryNode,
+  CRolesOf,
+  CResultCardinalityOf,
+  CWorkflowNode
+} from "./c_algebra.js";

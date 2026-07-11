@@ -17,7 +17,15 @@ import {
   type SerializedJsonValue,
   type TemplateRef
 } from "../contracts/carriers.js";
-import { constructAssetSurface } from "../contracts/constructors.js";
+import {
+  constructAssetSurface,
+  constructGraphFunction,
+  constructGraphVector
+} from "../contracts/constructors.js";
+import {
+  admitGraphFunctionDeclarations,
+  admitGraphVectorDeclarations
+} from "../contracts/declaration_law.js";
 
 export function serializeSerializedJsonValue(
   value: SerializedJsonValue
@@ -191,7 +199,7 @@ export function serializeRule(rule: Rule): Rule {
 }
 
 export function serializeGraphVector(vector: GraphVector): GraphVector {
-  return Object.freeze({
+  return constructGraphVector({
     name: vector.name,
     source: Object.freeze(vector.source.map(serializeNode)),
     target: serializeNode(vector.target),
@@ -200,7 +208,9 @@ export function serializeGraphVector(vector: GraphVector): GraphVector {
     contexts: Object.freeze(vector.contexts.map(serializeContext)),
     rule: vector.rule === null ? null : serializeRule(vector.rule),
     allowsSubwork: vector.allowsSubwork,
-    declarations: serializeSerializedAttrs(vector.declarations),
+    declarations: admitGraphVectorDeclarations(
+      serializeSerializedAttrs(vector.declarations)
+    ),
     tags: Object.freeze([...vector.tags]),
     id: vector.id
   });
@@ -250,14 +260,16 @@ export function serializeTemplateRef(template: TemplateRef): TemplateRef {
 export function serializeGraphFunction(
   graphFunction: GraphFunction
 ): GraphFunction {
-  return Object.freeze({
+  return constructGraphFunction({
     name: graphFunction.name,
     environment: serializeEnvRef(graphFunction.environment),
     inputs: Object.freeze(graphFunction.inputs.map(serializeNode)),
     outputs: Object.freeze(graphFunction.outputs.map(serializeNode)),
     template: serializeTemplateRef(graphFunction.template),
     effects: Object.freeze([...graphFunction.effects]),
-    declarations: serializeSerializedAttrs(graphFunction.declarations),
+    declarations: admitGraphFunctionDeclarations(
+      serializeSerializedAttrs(graphFunction.declarations)
+    ),
     tags: Object.freeze([...graphFunction.tags]),
     id: graphFunction.id
   });
