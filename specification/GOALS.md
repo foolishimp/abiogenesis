@@ -19,7 +19,7 @@ dependency order that supports design before realization. T-218 owns this
 target-admission boundary. It is not the compound implementation or release
 ticket for 5.0.
 
-The target under review combines:
+The accepted target pending constitutional promotion and leaf emission combines:
 
 - an installed, source-independent GTL/ABG product and public conformance
   surface;
@@ -27,14 +27,14 @@ The target under review combines:
   native graph shell;
 - two-stage installed self-hosting with an explicit equivalence proof;
 - an independently released odd_glc catalog product;
-- truthful observer/tuner and optional Review/Consensus composition through
-  the same typed C algebra;
+- the truthful current observer/tuner through the same typed C algebra; new
+  Review/Consensus/GF2 composition remains future product scope;
 - native operation independent of Claude, Codex, or another marketplace host,
   with selected hosts tested only as compatibility adapters; and
 - one exact immutable 5.0 qualification and release cut.
 
-These are candidate claims until T-218 gives each a terminal disposition and
-promotes the accepted set through the constitutional chain.
+T-218 gives every intake candidate a terminal disposition and promotes this
+accepted set through the constitutional chain before implementation begins.
 
 ## Entry Evidence And Owners
 
@@ -43,7 +43,7 @@ promotes the accepted set through the constitutional chain.
 | T-219 | Landed the first current-specification reconciliation pass and named remaining specification gaps; its review/closure remains separate. | abiogenesis |
 | T-220 | Completed typed C-algebra authoring, admission, semantic-compiler, compiled-handoff, and malformed F_P response boundary. | abiogenesis |
 | T-217 | Closed as a superseded-and-split consolidation boundary. Its deterministic observer/tuner and kernel substrate are predecessor evidence; it did not earn its original live-campaign or release exits. | abiogenesis |
-| T-221 | Owns the exact prior-release/bootstrap-product boundary required before a frozen 5.0 self-hosting proof. | abiogenesis |
+| T-221 | Records the selected `abandoned_and_rebound` prior-release disposition. Final 4.6.0 will not be tapped. Exact published `4.6.0-rc.3` is P4 and its exact installed product identity is I4; DS-1F owns a fresh clean workspace selection of that installed product. | abiogenesis |
 | odd_glc T-033 | Owns downstream declarations-only adoption and fresh campaign proof; it may not invent vector routing or product-local runtime authority. | odd_glc |
 | T-218 | Owns candidate dispositions, accepted target promotion, singular leaf decomposition, and the dependent delivery plan. | abiogenesis |
 
@@ -69,10 +69,9 @@ hostile-local defenses from displacing the product's constructive path.
 
 The current order is:
 
-1. continue T-218 candidate disposition while T-221 runs its independent
-   prior-release common gate;
-2. close T-221's exact prior-release disposition, then close T-218 target
-   admission and leaf decomposition;
+1. preserve published `4.6.0-rc.3` as the exact P4/I4 predecessor and record
+   T-221's selected `abandoned_and_rebound` terminal disposition;
+2. complete T-218 constitutional promotion and leaf decomposition;
 3. open and close the accepted authority and design leaves in T-218's
    dependency order;
 4. realize and qualify the immutable install, catalog, GraphFunction, CLI,
