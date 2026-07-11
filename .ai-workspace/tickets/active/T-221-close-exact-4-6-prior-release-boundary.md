@@ -178,3 +178,17 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
   `package:@abiogenesis/typescript-tenant@4.6.0-rc.3`, wrote all three command
   bindings, and passed topology verification. Publication branch/tag evidence
   is recorded by the following release-assets commit and `v4.6.0-rc.3` tag.
+- 2026-07-11: published RC commit `f4f081f66ef8d3ce0c737ddb9d7530176711279a`
+  is present on origin as `main`, `rc/4.6.0`, and peeled tag
+  `v4.6.0-rc.3`. odd_glc repinned to that RC at `c39c711` and corrected its
+  three plugin driver declarations at `d055a15`; its deterministic suite then
+  passed `83/83` with eight env-gated live cases skipped. The canonical
+  snapshot-installed GLC Hello World live gate converged from clean source
+  `f4f081f` in run `20260711T033113388Z_pid15724`: two real Codex dispatches,
+  two response admissions, two closed vectors, causal carry present, and
+  stdout `Hello, world!\n`. The release tarball digest remained
+  `9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`;
+  the live proof digest is
+  `20cb9fd65e9277ad5e8da78bae445ec714fc16ba2309d08bbb2147cc05b28dca`.
+  This is RC/live compatibility evidence only. It does not tap final 4.6.0 or
+  close odd_glc T-033.
