@@ -35,7 +35,7 @@ depends_on:
   - .ai-workspace/tickets/completed/T-177-design-live-abg-runtime-graph-function-registry-lookup.md
 related_tickets:
   - .ai-workspace/tickets/backlog/T-178-design-event-sourced-registry-entry-retirement-supersession.md
-  - .ai-workspace/tickets/backlog/T-179-design-non-graph-registry-entry-runtime-semantics.md
+  - .ai-workspace/tickets/active/T-179-design-non-graph-registry-entry-runtime-semantics.md
 source_documents:
   - .ai-workspace/comments/claude/20260630T104500Z_STRATEGY_node_types_as_identity_graph_functions_v2.md
   - specification/PRODUCT.md

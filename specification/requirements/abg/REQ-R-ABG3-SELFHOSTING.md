@@ -1,4 +1,4 @@
-# REQ-R-ABG3-SELFHOSTING — Derived Artifact Governance
+# REQ-R-ABG3-SELFHOSTING — Self-Hosting And Fixed-Point Governance
 
 **Status**: Active
 **Category**: Constraint / Guarantee
@@ -9,8 +9,9 @@
 
 ## Purpose
 
-Apply the same runtime discipline to derived artifacts and bootstrap surfaces as
-to all other governed work.
+Define the installed two-stage bootstrap by which ABIogenesis builds and proves
+its next release candidate. Apply the same runtime discipline to derived
+artifacts and bootstrap surfaces as to all other governed work.
 
 ## Acceptance Criteria
 
@@ -19,3 +20,34 @@ to all other governed work.
 **REQ-R-ABG3-SELFHOSTING-002**: Drift between source-of-truth runtime/design surfaces and derived artifacts shall be detectable through deterministic consistency checks.
 
 **REQ-R-ABG3-SELFHOSTING-003**: Derived artifact governance is ordinary graph-function application and runtime truth, not special bootstrap magic.
+
+**REQ-R-ABG3-SELFHOSTING-004**: The ABIogenesis 5.0 bootstrap predecessor,
+`P4`, shall be the exact released
+`@abiogenesis/typescript-tenant@4.6.0-rc.3` product whose release-tarball
+SHA-256 is
+`9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`.
+`I4` shall be an installed `P4` selected by that package identity,
+release-tarball digest, and `product-toolchain-manifest.json` SHA-256
+`92b3f94dd32bca9368a9511d823cc8b6e2eae75cd7168c9e901d3cbe8eadf07d`.
+
+**REQ-R-ABG3-SELFHOSTING-005**: `S5` shall be one frozen ABIogenesis 5.0 source project used as the declared build input for both bootstrap stages.
+
+**REQ-R-ABG3-SELFHOSTING-006**: `B5` shall be one immutable ABG-owned `self_build_program_manifest`. It shall declare its schema version, identity, version, digest, GTL Module and GraphFunction references, compatibility with exact `P4`/`I4` and the ABIogenesis 5.0 candidate line, the `S5` input-root contract, result and equivalence surfaces, and required plugin and capability references.
+
+**REQ-R-ABG3-SELFHOSTING-007**: `B5` shall be admitted as declaration and data through the public catalog and source-product input. Neither `I4` nor an installed 5.0 candidate may import executable runtime, provider, plugin, controller, or private helper code from `S5`.
+
+**REQ-R-ABG3-SELFHOSTING-008**: The first bootstrap stage shall execute `I4 + B5 + S5` to convergence and produce candidate `C1`. `I1` shall be an installation of exact `C1` with no mutable `S5` import or source fallback.
+
+**REQ-R-ABG3-SELFHOSTING-009**: The second bootstrap stage shall execute `I1 + same B5 + same S5` to convergence and produce candidate `C2`. The stage-two invocation shall re-admit the exact `B5` identity and digest under its declared 5.0 compatibility predicate.
+
+**REQ-R-ABG3-SELFHOSTING-010**: `C1` and `C2` shall be equivalent across release-significant package identity, exports, compiled behavior, tenant-conformance result, install and catalog manifests, runtime binding meaning, and declared `B5` input and output meaning. Nondeterministic fields shall be declared and shown irrelevant; surfaces declared deterministic shall compare byte for byte.
+
+**REQ-R-ABG3-SELFHOSTING-011**: `R5` shall be the exact `C1` content frozen as
+the ABIogenesis 5.0 self-hosted source candidate only after both stages converge,
+source isolation passes, and `C1`/`C2` equivalence passes. `R5` enters the
+release-candidate window; it is not itself a published versioned RC or tapped
+release. `C2` is the fixed-point witness and shall not become a second source candidate.
+
+**REQ-R-ABG3-SELFHOSTING-012**: A missing or incompatible bootstrap identity, manifest, capability, input root, result, convergence fact, source-isolation fact, or equivalence fact shall block the self-hosting claim and the release cut. It shall not be waived, inferred from package presence, or repaired by a bootstrap-specific controller.
+
+**REQ-R-ABG3-SELFHOSTING-013**: The `P4`/`I4` compatibility obligation is bounded to admitting and executing the frozen `B5` program through the public catalog behavior shared with the 5.0 candidate line. Stage-one success shall not imply that `P4` implements the complete ABIogenesis 5.0 contract.

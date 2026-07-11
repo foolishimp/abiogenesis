@@ -41,8 +41,8 @@
   - T-218 references T-220 rather than duplicating this delivery body
   - completed T-143, T-152, T-185, and T-187 remain predecessor evidence, not closure substitutes
 - links:
-  - `.ai-workspace/tickets/active/T-218-abg-5-0-self-hosting-release-wave.md`
-  - `.ai-workspace/tickets/active/T-219-spec-reconciliation-what-from-realized-how.md`
+  - `.ai-workspace/tickets/completed/T-218-abg-5-0-self-hosting-release-wave.md`
+  - `.ai-workspace/tickets/completed/T-219-spec-reconciliation-what-from-realized-how.md`
   - `.ai-workspace/tickets/completed/T-143-define-gtl-compute-notation-types-over-ratified-carriers.md`
   - `.ai-workspace/tickets/completed/T-152-admit-gtl-program-conformance-gate-for-downstream-graph-assets.md`
   - `.ai-workspace/tickets/completed/T-185-ratify-gtl-program-overlay-and-abg-traversal-monad.md`

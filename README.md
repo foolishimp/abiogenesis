@@ -52,15 +52,30 @@ event-sourced payload ledger.
 
 ## Public Operator Surface
 
-The public advancement and observation contract is:
+Abiogenesis publishes one versioned public SDK. `abg.cli` is its thin native
+graph-shell adapter. The public operation families are:
 
-- `gen-start`
-- `gen-gaps`
+- product/catalog `resolve`, `verify`, `install`, `bind`, `admit`, `list`,
+  `describe`, `allow`, and GraphFunction `invoke`;
+- workspace `create` and `open`;
+- `start`, `resume`, `status`, `result`, `evidence`, and `replay`;
+- `gaps`, lawful `actions`, and typed F_H operations;
+- `assess-result` and `witness <act>`;
+- `observe report|drafts` and `tune report|propose|ratify|reject`;
+- `typecheck-gtl-program`; and
+- `context-bootstrap`, `gen-config`, and `release-snapshot`.
 
-Concrete spellings such as `python -m genesis start` or `genesis gaps` are
-adapter/build bindings for that same contract.
+Each operation has typed inputs, outputs, defaults, errors, provenance, actor
+attribution, and read-versus-write semantics. Reads project admitted truth and
+do not mutate it. Mutations enter through ABG admission. CLI, SDK, catalog
+products, and host projections do not invoke workers directly or own traversal,
+events, continuation, retry, or closure.
 
-`gen-start` accepts one traversal request grammar:
+The public contract includes one versioned host-neutral invocation descriptor
+for `invoke` and `start`. Native, CLI, and host adapters may carry it, but it
+contains no private runtime state or adapter-owned orchestration.
+
+`start` accepts one traversal request grammar:
 
 - `scope`
 - `target`
@@ -73,10 +88,10 @@ Current public target families are:
 - `asset:<published_handle>` when the selected runtime publishes an operator
   asset registry and ownership surface
 
-Control modes such as F_H proxying or root supervision sit outside that
-request grammar. `F_H` is an external human-callout regime; ABG admits the
-callout boundary and the eventual response carrier rather than performing human
-work inside the runtime.
+Control modes and session allowlists sit outside that request grammar. An
+allowlist narrows only the already admitted workspace catalog. `F_H` is an
+external human-callout regime; ABG admits the pending interaction and the typed
+actor-attributed response rather than performing human work inside the runtime.
 
 The current public control-mode families are:
 
@@ -91,7 +106,7 @@ only with `until = converged`.
 Lower-level traversal or status hooks may still exist in the runtime and
 install line, but they are not the public human operator workflow.
 
-Internally, `gen-start` binds operator input to the kernel carrier family
+Internally, `start` binds operator input to the kernel carrier family
 (`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
 `RegimeBindingSet`). Those carriers and replay-visible events are the runtime
 source of truth.

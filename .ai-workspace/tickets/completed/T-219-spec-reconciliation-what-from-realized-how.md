@@ -4,15 +4,22 @@
 - title: Reconcile specification WHAT from realized HOW and restore build-a-tenant-from-spec sufficiency
 - type: maintenance
 - ticket_category: constitutional_reconciliation
-- status: active
-- goal: abg-5-0-self-hosting (preparatory; feeds T-218 target admission)
+- status: completed
+- closed_at: 2026-07-11
+- goal: GOAL-035 specification-sufficiency follow-up; T-218 target admission is completed
 - priority: high
 - governance_scope: STDO Method
+- change_intent: >-
+    Reconcile live tenant-neutral product and requirement truth from verified
+    realization evidence, retain explicit owned gaps, and prove a competent
+    tenant builder can work from specification alone.
 - change_class: product_reprice
 - re_entry_point: specification/PRODUCT.md
 - created_at: 2026-07-11
+- triaged_at: 2026-07-11
 - updated_at: 2026-07-11
-- owner: claude
+- owner: codex
+- delivery_dependency: satisfied; T-222 is admitted and T-239 owns the code-bearing QUAL residuals
 - intake_source: >-
     F_H direction 2026-07-11: the specification (WHAT) of GTL/abiogenesis is
     out of date with the HOW, specifically the TypeScript build tenant; the
@@ -155,12 +162,13 @@ as explicit Gap with owner) · `current` (verified already admitted) ·
   unpublished target) must be named by spec as the published contract
   surface. Named Gap with pointer law now; full schema admission is a
   follow-up slice. Owner: T-218.
-- D-12 `gap/partial-admit`: realized GTL surface outside the 14-type
+- D-12 `admit`: realized GTL surface outside the 14-type
   ontology — GraphFunction zoom family, type wiring, asset/ref primitives,
   Gtl* plugin-binding cluster. FN-COMPOSITION/ASSET-SURFACE/
   REQUIREMENTS-ALGEBRA already carry parts; zoom/type-wiring have no home.
-  Name Gap rows in CONTRACT-LAW-API index; admit zoom/foldback declaration
-  law if trivially statable, else leave owned Gap. Owner: T-219.
+  `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT` now owns the zoom plan/substitution,
+  recursive rebind/parent-evaluation foldback, and node-type-matched composition
+  laws; CONTRACT-LAW-API indexes that family. Runtime zoom/foldback remains ABG law.
 
 ### Conformance surface (the closure-test spine)
 
@@ -178,7 +186,7 @@ as explicit Gap with owner) · `current` (verified already admitted) ·
   release-grade enforcement is an owned Gap (Owner: T-217); (c)
   live-install-only proof law scoped to NEW/MIGRATED live proofs
   (conformant from birth), with the 26-entry legacy list an owned
-  migration Gap (Owner: T-219) enforced by the shrink-only pin (operator
+  migration Gap (Owner: T-239) enforced by the shrink-only pin (operator
   ruling 2026-07-10).
 
 ### HOW-leak scrub (tenant-neutralize; keep meaning)
@@ -203,9 +211,10 @@ as explicit Gap with owner) · `current` (verified already admitted) ·
 
 ### Transitional-law audit
 
-- D-21 `gap`(kept, owned): CCALL strangler window (ENCLOSED vs PENDING
-  arms) — still open; keep, but the clause must read as an explicit Gap
-  with owner and retirement condition (already mostly does).
+- D-21 `gap`(admitted to 5.0 owner): CCALL strangler window (ENCLOSED vs
+  PENDING arms) stays honest in current requirement truth; T-226/T-227 own the
+  bounded design, full reachable-arm census, enclosure/antecedent/delegation
+  migration, audit equality, and retirement before DS-2 closes.
 - D-22 `gap`(kept): HANDLERS T-205 P0 status + prompt-boundary gap — keep
   as named Gap; realization not final.
 - D-23 `admit`(retire if true): ITERATION-013 "callers shall migrate" —
@@ -214,8 +223,12 @@ as explicit Gap with owner) · `current` (verified already admitted) ·
 - D-24 `admit` (repriced): NODE-014 "optional for migration" — verified at
   HEAD: typeRef genuinely optional at admission, fail-closed satisfaction
   when present; repriced to optional-with-reason in the executed reprice.
-- D-25 `gap`(kept): PROOF-CARRY-THROUGH migration-gap lines — still open
-  (REQ-...-032 gap class known from odd_glc campaign); keep as Gap.
+- D-25 `gap`(terminal 5.0 deferral): PROOF-CARRY-THROUGH-038 already defines
+  typed transitional semantics for undeclared legacy edges and forbids a
+  universal coverage-gated-closure claim. PRODUCT now narrows 5.0 accordingly:
+  new 5.0/G5 proof-bearing paths declare carry-through where they claim it;
+  universal legacy-edge witness migration re-enters only when that universal
+  product claim is admitted.
 
 ### Already current (verified; no action)
 
@@ -310,7 +323,7 @@ uncommitted):
   bypass booleans for non-release snapshots) with Gap: mechanical
   red-refuses-to-cut release-grade enforcement unrealized (T-218).
 - F6 QUAL-025 scoped to changed TS executable lines under code/src with
-  Gap for every-changed-executable-file generality (T-219); QUAL-026
+  Gap for every-changed-executable-file generality (T-239); QUAL-026
   states the shrink-only 26-entry legacy pin as the current mechanism.
 - F7 PRODUCT read-command sentences aligned to WITNESS-009 (read verbs do
   not mutate runtime truth; invocation witnessing per the one grammar);
@@ -350,7 +363,7 @@ against cited code sites and repaired, uncommitted):
   typed basis-fork results at routes unrealized (Owner: T-217).
 - F6 QUAL-026 — scoped to NEW/MIGRATED live proofs conformant from
   birth; 26-entry legacy list restated as owned migration Gap
-  (Owner: T-219) with the shrink-only pin as enforcement.
+  (Owner: T-239) with the shrink-only pin as enforcement.
 - F7 residual ownership rerouted — 4.6 runtime-law realization residuals
   (EVENTS-027/028 folds+emitter context, PAYLOAD-028 universal schema,
   PLUGIN-SEAMS-006 parser, ITERATION-013 adapter, QUAL-056
@@ -423,3 +436,71 @@ active as the prior-release qualification boundary):
   T-218's DS-0 `goal_reprice`; no GOALS edit belongs to T-219. No `rc.2` or
   version facts exist elsewhere in specification/ (swept; requirement law
   stays version-silent per the T-219 rule).
+
+2026-07-11 (T-218 DS-0 promotion and handoff, corrected by closure review):
+- D-03 closed by the owning INTENT reprice: live intent is tenant-neutral,
+  present tense, and no longer names the retired Python carrier or `gen-*`
+  operation contract.
+- D-11 closed for the 5.0 product by making the released package's versioned
+  exported carrier modules and static canonical schemas normative through the
+  addressable `REQ-P-PUBLIC-CONTRACTS` catalog in
+  `product-toolchain-manifest.json`. That catalog bootstraps exact contract,
+  operation, capability, event/diagnostic roster, corpus, locator, version, and
+  digest truth. T-222/T-223 establish the carrier; T-227, T-230, and T-232
+  complete their owned rows. A hosted schema service is not required.
+- D-14 closed by activating `REQ-M-GTL3-CAPABILITY` and the versioned
+  tenant-conformance manifest contract.
+- All T-218-owned runtime gaps now name T-227, T-230, T-235, or T-236/T-237 as
+  their singular delivery owners.
+- D-12 is now constitutionally closed by
+  `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT` and its CONTRACT-LAW-API index entry.
+  Native host interfaces already enforce the realized algebra. T-226/T-227 own
+  the remaining serialized declaration semantic-diagnostic path before the
+  self-conformance and exact-candidate gates.
+- QUAL-025 general executable-census enforcement and QUAL-026 legacy-live
+  shrink migration, plus QUAL-056 release-grade bypass/red-refusal admission,
+  are current 5.0 code-bearing work assigned to singular successor T-239 before
+  R5 freeze; they are not specification work in T-219.
+- T-219 remains active only for the final specification-only tenant-builder
+  walkthrough and closure review. GOAL-035 and T-222 name this closure as an
+  explicit prerequisite.
+- Codex accepted the T-219 closure pen as part of the operator-directed T-218
+  delivery sequence; prior Claude reconciliation evidence remains unchanged.
+
+2026-07-11 (specification-only walkthrough round 1):
+- Verdict REOPEN: the prior D-11 closure wording had removed the only package-
+  export locator without defining a product-manifest contract catalog. The
+  event roster, diagnostic vocabulary/corpus, capability identities, public
+  operation schemas, defaults, refusals, and invocation schema were therefore
+  not addressable to a source-blind tenant builder.
+- Repair admitted `REQ-P-PUBLIC-CONTRACTS`, restored exact TypeScript contract-
+  group export locators, named event/diagnostic symbols and machine-readable
+  rosters, defined the canonical corpus asset, fixed operation identities, and
+  defined the bootstrap/catalog/row/schema/capability locator law.
+- T-222/T-223, T-226/T-227, T-229/T-230, and T-231/T-232 now own the cumulative
+  contract-catalog realization before self-host and exact qualification.
+- T-219 remains active until a fresh specification-only walkthrough confirms
+  that these constitutional locators remove the blocker without relying on
+  ticket, design, code, or test history.
+- D-21 is admitted to T-226/T-227 because the complete seven-term C headline
+  requires uniform C-call enclosure. D-25 is explicitly deferred under its own
+  typed transitional law because 5.0 makes no universal legacy-edge coverage
+  claim; the two transitional gaps are no longer silently co-dispositioned.
+
+2026-07-11 (specification-only walkthrough round 2 and closure):
+- Verdict CLOSE. A source-blind tenant builder can bootstrap from the fixed
+  product-root `product-toolchain-manifest.json`, verify its externally bound
+  manifest identity, and traverse the product-root-relative public-contract
+  catalog without a circular digest dependency.
+- The catalog now locates the mandatory GTL program schemas and native
+  admit/serialize pairs, descriptor/contribution/lock/workspace/install
+  carriers, canonical event and diagnostic rosters, language corpus, complete
+  operation grammar, capability identities, conformance manifests, self-build
+  manifests, qualification contracts, and release read models.
+- D-11 and D-14 therefore close as constitutional sufficiency. D-12 is
+  constitutional and its remaining serialized semantic enforcement belongs to
+  T-226/T-227. D-21 belongs to T-226/T-227. QUAL-025/026/056 realization belongs
+  to T-239. No remaining row requires additional specification work here.
+- Independent proof: fresh specification-only walkthrough returned CLOSE with
+  no blocker; `git diff --check -- specification` passed. Later tickets must
+  realize and qualify the catalog rows but do not need to invent missing WHAT.

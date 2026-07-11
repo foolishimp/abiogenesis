@@ -2,7 +2,7 @@
 
 **Product ID**: PROD-001
 **Date**: 2026-07-11
-**Status**: Draft
+**Status**: Approved
 **Derives from**: INT-001, INT-005, INT-006, INT-007
 
 ---
@@ -42,6 +42,132 @@ Abiogenesis is the reference product that ships:
 The product is not a downstream domain workflow.
 Downstream products are consumers and proving domains for GTL + ABG. They are
 not the GTL + ABG product itself.
+
+---
+
+## Current Product Contract
+
+Abiogenesis is one source-independent installed GTL and ABG product for a
+trusted developer desktop. It publishes immutable product identity, public
+contracts, a native catalog, a public SDK, a thin native CLI, replay-citable
+runtime truth, self-conformance, self-hosting, and exact release evidence.
+
+### Installed And Catalog Product
+
+An Abiogenesis release is an immutable product selected by exact identity,
+version, digest, interface, dependency, and manifest truth. A source-blind
+consumer can verify and install it from a Git release artifact or tarball
+without importing the mutable source project.
+
+Catalog products are independently versioned products. A workspace may bind an
+exact ABG product and one or more exact compatible catalog products. Their
+admitted contributions enter one ABG-owned catalog under one identity,
+compatibility, conflict, provenance, and allowlist law. Catalog presence grants
+no runtime authority.
+
+`GraphFunction` is the sole named callable catalog contribution. Retained node
+types and overlays are inspectable and may participate in admitted program
+binding, but they are not independently callable. Workers are invoked only
+through a selected published graph function. Catalog products do not dispatch
+workers, emit ABG events, construct continuations, retry traversal, or decide
+closure.
+
+### Public Operator Product
+
+Abiogenesis publishes one source-blind public SDK. The native `abg.cli` graph
+shell is a thin adapter over that SDK and owns no separate runtime behavior.
+The public product covers:
+
+- source-blind workspace creation and opening;
+- exact product resolution, verification, installation, binding, catalog
+  admission, and inspection;
+- graph-function invocation, start, and resume;
+- status, result, evidence, and replay reads;
+- gaps and replay-derived lawful-action reads;
+- typed F_H selection, approval, rejection, assessment, escalation response,
+  and continuation;
+- assessed-result admission and witnessed operator acts;
+- observer reports and tuner report, proposal, ratification, and rejection;
+- GTL program conformance; and
+- exact release qualification and snapshot operations.
+
+Every operation publishes typed inputs, outputs, defaults, errors, actor
+attribution, and read-versus-write semantics. Read operations project replay
+truth and do not mutate it. Mutating operations enter through ABG admission and
+record attributed events. The SDK, CLI, and host projections cannot select
+private traversal state or become a second controller.
+
+A host-neutral invocation descriptor may carry one public invoke/start request
+between native, CLI, and host adapters. It binds the public operation-contract
+version, exact workspace/product/catalog identities, GraphFunction and input
+contracts, session allowlist, capabilities, and declared steering inputs. It is
+data for public admission, not a worker call, continuation, or controller.
+
+The primary operator workflow is an interactive loop over that public contract:
+start admitted work, receive one truthful stop, hold, gap, or terminal result,
+inspect the lawful frontier, remove one ambiguity or submit one typed F_H
+response, and resume or start again. ABG resolves the continuation and remains
+the sole owner of traversal and closure.
+
+### Conformance And Reflective Product
+
+The released product publishes the GTL and ABG capability and contract surface
+against which a build tenant, catalog product, or program claims conformance.
+Native types own locally decidable authoring validity, raw admission owns
+serialized validity, the semantic compiler owns whole-program relations, and
+runtime admission owns environmental facts and probabilistic results.
+
+ABG applies the same specification-method, contract, semantic, runtime, proof,
+and release rules to its own frozen builder surfaces. Self-conformance returns
+typed findings and dispositions through the ordinary conformance path. The
+builder has no exemption and no second checker defines release truth.
+
+The current observer and tuner are product capabilities over ABG replay truth.
+The observer diagnoses pressure and may draft lawful re-entry work. The tuner
+may draft policy or declaration changes. Drafts do not mutate effective truth;
+attributed ratification and ordinary constitutional re-entry remain required.
+
+### ABG Self-Hosting Fixed Point
+
+Self-hosting is an ABG-only two-stage installed product proof:
+
+- `P4` is the exact released Abiogenesis `4.6.0-rc.3` product and `I4` is its
+  exact installed form;
+- `B5` is one immutable ABG-owned self-build program contract, and `S5` is one
+  frozen Abiogenesis source input;
+- `I4 + B5 + S5` produces candidate `C1`, which is installed as `I1`;
+- `I1 + the same B5 + the same S5` produces candidate `C2`; and
+- `C1` and `C2` must satisfy the declared release-significant equivalence
+  contract before exact `C1` content may freeze as self-hosted source candidate
+  `R5` for the release-candidate window.
+
+Both stages use installed public product contracts and declared graph functions.
+Neither stage imports executable runtime, provider, plugin, or controller code
+from mutable `S5`. `C2` is the fixed-point witness, not a second release
+candidate.
+
+odd_glc does not participate in this compiler equivalence. Its `G5` source
+candidate is independently frozen as declarations-only content and qualified
+over exact installed `R5`. Its downstream campaign proves catalog consumption
+and domain use, not ABG self-hosting. RC and final product versions are assigned
+only by each product's independent release process.
+
+### Native And Release Boundary
+
+Native ABG operation requires no Claude, Codex, or other marketplace host. The
+selected Codex CLI or skill projection delegates to the same public SDK or native CLI
+contract and contains no copied graph, worker, traversal, event, continuation,
+or orchestration logic.
+
+Public distribution means exact immutable Git release artifacts and tarballs
+with coherent product identity, manifests, checksums, installed proof, and
+qualification evidence. It does not require a hosted package registry,
+storefront, signing service, license system, scheduler, multiple-host portfolio,
+multi-user administration, or hostile-workstation tamper defense.
+
+New Review, Consensus, and homeostatic intent-refinement composition are not
+part of this product contract. The current observer and tuner remain in scope;
+automatic wake and ABG-owned scheduling do not.
 
 ---
 
@@ -322,6 +448,15 @@ startup enumeration. A proof surface whose obligation cardinality is
 capped by initial declarations while admitted intermediate assets
 lawfully extend it carries a typed gap, not implicit completeness.
 
+Coverage-gated closure applies where an edge declares the requirement
+proof-carry-through contract. ABIogenesis 5.0 does not claim that every legacy
+edge has been migrated to that declaration. An edge with active obligations but
+no declared carry-through contract retains the typed transitional semantics of
+`REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`; it cannot be cited as proof of
+universal coverage-gated closure. New 5.0 and G5 proof-bearing paths declare the
+contract when they claim coverage-gated closure. Universal legacy-edge
+migration re-enters only with an explicit universal product claim.
+
 Requirements are the product-level carrier for that conservation boundary.
 A requirement is not only a prose row or a downstream-local obligation id. It is
 an admitted algebraic term with stable identity, source provenance, typed
@@ -379,23 +514,21 @@ correction, and replay truth. `F_H` is an external callout regime: ABG admits
 or emits the callout boundary and later admits the response event/carrier; human
 work itself is outside the ABG system.
 
-Exact wire and serialization schemas for carriers, event envelopes, and
-payloads are published versioned contracts of the released package. The current
-normative schema authority is the typed contract modules addressable through
-the released tenant package's `exports` map (reference tenant:
-`@abiogenesis/typescript-tenant`): the root export (`.`), whose entry module
-re-exports the `gtl/m01`, `gtl/m02`, and `abg/m03` contract modules and their
-named contract symbols, and the published subpath exports (`./gtl/m01`,
-`./gtl/m02`, `./abg/m03`, `./abg/m03/transport`) that address the same
-contract surfaces directly. A tenant builder certifies exact shape against the
-contract symbols reachable from those export paths. The specification states
-invariant field law as "at minimum" lists. Gap: schema version/digest
-semantics and a resolvable `schema://abiogenesis/*` registry surface are not
-yet published — the refs are a named target, not a resolvable authority; until
-they land, the typed contract modules reachable through the package exports
-are the sole normative shape authority. Owner: T-218 (5.0 scoping). Gap: full
-admission of the schema surface into specification text is a named follow-up
-slice. Owner: T-218.
+Exact wire and serialization schemas for carriers, event envelopes, payloads,
+and public operations are published versioned contracts of the released
+product. `product-toolchain-manifest.json` contains the addressable
+`publicContractCatalog` governed by `REQ-P-PUBLIC-CONTRACTS`: stable contract
+and capability identities, exact versions/digests, native package-export and
+named-symbol locators, canonical schema/asset locators, the event and diagnostic
+rosters, the language conformance corpus, and every public operation row. The
+TypeScript product publishes the contract groups through `./gtl/m01`,
+`./gtl/m02`, `./gtl/requirements`, `./abg/requirements`, `./abg/executive`,
+`./abg/m03`, `./abg/m03/transport`, `./app/m04`, and
+`./qualification/m05`; the root export may aggregate but does not replace those
+identities. A tenant builder certifies exact shape against that catalog.
+Unpublished implementation types, prompt prose, parser tolerance, local archive
+shape, or source paths are not schema authority. Static schemas and corpus
+assets do not imply a hosted `schema://` service.
 
 This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
 `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-EVALUATOR`,
@@ -659,9 +792,18 @@ publish:
 - the `.abiogenesis/` substrate root
 - install and installer manifests
 - installed package identity and command bindings
+- exact bound-product identities, versions, digests, dependencies, and
+  compatibility results
+- admitted catalog contributions and their provenance
 - runtime identity, event roots, projection roots, and archive roots
 - selected product manifest refs for method standards and reference docs
 - a cold-agent-readable bootstrap surface
+
+The released install path is source-independent. It resolves, verifies,
+installs, and binds immutable product artifacts without a mutable source import
+or private test harness. A workspace binding may name Abiogenesis and compatible
+catalog products, but ABG remains the sole owner of catalog admission, runtime
+eligibility, selection, graph calls, traversal, events, replay, and closure.
 
 Installed standards are product reference payloads resolved through the
 workspace binding and selected product manifest. They make cold-agent
@@ -679,23 +821,29 @@ them as declared inputs.
 
 Abiogenesis publishes one public control plane. Its verb families are:
 
-- `start` — advancement over the product-owned traversal request grammar
-- `gaps` — read-only evaluator projection
+- workspace `create` and `open`
+- catalog operations — resolve, verify, bind, admit, list, describe, and allow
+- `start` and invoke — advancement over the product-owned traversal request
+  grammar
+- `resume` — replay-derived continuation of an existing admitted run
+- status, result, evidence, and replay — read-only runtime projections
+- `gaps` and lawful actions — read-only frontier projections
+- F_H operations — typed selection, approval, rejection, assessment,
+  escalation response, and continuation
 - `assess-result` — admission of assessed F_P result truth
 - `witness <act>` — operator-witnessed acts admitted as events
 - `observe report|drafts` — replay-derived observer read models
 - `tune report|propose|ratify|reject` — drafts-only tuning mutation
 - `typecheck-gtl-program` — the conformance proof verb
-- install-time verbs — `context-bootstrap`, `install`, `gen-config`, and
-  `release-snapshot`
+- install and release operations — context bootstrap, install, configuration,
+  verification, and release snapshot
 
 Those verb families are the public named-composition truth.
 
-Gap: the exact per-verb operator contract required by REQ-P-POLICY-017 — for
-each verb, its flags, defaults, value domains, output shape, and exit
-semantics, tenant-invariantly — is not yet published. This section names the
-verb families and their grammar; the per-verb contract surface remains to be
-published. Owner: T-218 (5.0 scoping).
+Each operation has one tenant-invariant public contract for input, defaults,
+value domains, result, errors, actor attribution, mutation semantics, and
+terminal or non-terminal disposition. Literal executable names and host
+bindings may differ, but they do not define rival operation semantics.
 
 `start` accepts one product-owned traversal request grammar:
 
@@ -730,6 +878,21 @@ truth, admit construction intent, dispatch graph work, or own a retry loop.
 Under REQ-R-ABG3-WITNESS-009's operator-command/event grammar it is a pure
 read verb: it projects replay-derived read models and admits no events; event
 admission belongs to the commands that change or attest runtime truth.
+
+Status, result, evidence, replay, and lawful-action operations are also
+replay-derived reads. The lawful-action projection exposes only actions admitted
+at the current frontier. A caller may render or select a published action but
+may not construct private continuation or traversal state.
+
+`resume` continues an existing admitted run or continuation identity. ABG
+checks product and declaration compatibility, resolves the replay frontier, and
+records actor-attributed lifecycle truth. A caller cannot choose a private
+cursor or bypass the ordinary start and continuation law.
+
+Typed F_H operations bind a human selection, approval, rejection, assessment,
+or escalation response to the pending interaction, actor, capability, and run
+identity. Human input does not override deterministic failure and does not emit
+events or decide closure outside ABG admission.
 
 `assess-result` admits externally assessed F_P result truth back into runtime
 truth. It is an admission verb: what becomes truth is governed by admission and
@@ -768,16 +931,9 @@ boundary must resolve to one published graph-function carrier identity.
 Unresolved, unowned, unsupported, or ambiguously owned asset handles fail
 closed.
 
-Their literal delivery spellings are adapter/build bindings, not rival product
-law. Reference-adapter examples (the installed binding names shipped by the
-released TypeScript tenant package are `abiogenesis-ts`, `genesis-ts`, and
-`abg.install`):
-
-- an installed command binding invoked as `abiogenesis-ts start`
-- an installed command binding invoked as `genesis-ts gaps`
-- direct invocation of the installed command path recorded in the workspace
-  binding
-- service or slash-command wrappers such as `/genesis-ts start`
+Their literal delivery spellings are adapter and build bindings, not rival
+product law. Every binding resolves through the installed product manifest and
+the same public operation contracts.
 
 Lower-level traversal and status hooks may still exist structurally where the
 runtime or install line needs them, but they sit below the public operator
@@ -805,28 +961,17 @@ for those same mode families, not rival product law. In the current cut, both
 mode families are lawful only when `start` is operating with
 `until = converged`.
 
-The primary operator UX in the current product line is not a website.
-Downstream products may present abiogenesis through a website, service, or
-other shell, but the primary flexible operator surface is interactive work with
-an agentic coder interface over the public contract.
-
-In the current cut, that interactive operator surface is typically reached
-through agentic coder CLIs such as:
-
-- `claude`
-- `codex`
-- `gemini`
-
-Those transports are delivery bindings over the same product truth. The core
-operator loop is:
+The primary operator surface is the native CLI graph shell over the public SDK.
+Downstream websites, services, agentic coders, and marketplace skills may
+project the same contract, but they remain adapters. The core operator loop is:
 
 1. define or refine the current project assets and constraints
 2. trigger `start`
 3. accept one truthful stop, hold, or gap signal from substrate truth
 4. work interactively with the agent to remove one ambiguity, missing
    capability, or roadblock
-5. run `gaps` or inspect the current live/operator projection
-6. trigger `start` again
+5. run `gaps`, inspect lawful actions, or submit the typed human response
+6. invoke `resume` or trigger `start` again
 
 That loop is product truth. It must be projection over ABG truth rather than a
 second controller or local runtime replacement in downstream wrappers.
@@ -882,43 +1027,20 @@ The current product is:
 - a platform that should support downstream products without leaking one
   downstream domain into the GTL or ABG core
 
-Today that means:
+Each release identifies one qualified tenant carrier and its exact public
+contracts. Other tenant lines are reference or alternate realizations unless
+separately qualified for that release. Downstream proving domains remain
+evidence surfaces and independent catalog products; they are not the GTL and
+ABG product definition.
 
-- the primary release realization is `build_tenants/abiogenesis/typescript/`
-- `build_tenants/abiogenesis/python/` is a paused released reference line
-  retained for history and comparison evidence, not an active RC gate
-- `build_tenants/abiogenesis/codex/` remains a paused alternate realization
-- downstream proving domains are important evidence
-  surfaces, but they are not the GTL + ABG product definition
+## Downstream Product-Lab Boundary
 
-## Research Product Lab Readiness
-
-Abiogenesis may be used as a research product lab for downstream ODD-native
-products when the downstream work starts from graph functions, typed assets,
-ABG replay truth, and scenario proof rather than imperative framework
-scaffolding.
-
-The current TypeScript line is ready for SDLC.TS PoC entry under that boundary
-after the T-072/T-074 engine-iteration correction:
-
-- graph overlays or GTL program compositions are the program surface
-- graph functions are reusable workflow library functions and callable work
-  contracts inside that surface
-- ABG is the engine-owned traversal, event, projection, and proof substrate
-- `start(...)` delegates to an M03-owned `start -> iterate` runner rather than
-  to a downstream or harness-owned loop
-- replayed F_P assessed-result truth advances re-entry without redispatching
-  the already assessed edge
-- gap observation remains read-only substrate truth
-- gap triage and ticket creation remain downstream graph-function and product
-  policy work
-- extraction, synthesis, transform, fan-out, ambiguity, and gap-evaluation
-  scenarios define the next proof obligations
-
-This readiness is not a claim that SDLC.TS is already built, or that every
-future ODD capability is complete. It is a claim that the substrate has enough
-governed GTL/ABG truth to begin the PoC and expose remaining gaps through
-requirements, design, tickets, and scenario evidence.
+Abiogenesis may be used as a product lab for downstream ODD-native products
+when the downstream work starts from published graph functions, typed assets,
+admitted programs, ABG replay truth, and scenario proof rather than imperative
+framework scaffolding. Each downstream readiness claim requires its own
+product authority and installed scenario evidence; ABIogenesis does not infer
+readiness for a named downstream domain from substrate capability alone.
 
 ---
 
@@ -935,6 +1057,20 @@ A release claim should answer, at minimum:
 5. What qualification and scenario evidence proves the claim?
 6. Which downstream proving domains were in scope for the cut?
 
+The 5.0 release claim also identifies the exact immutable ABG product, the exact
+independently released odd_glc catalog product, their compatibility and binding
+truth, the C1/C2 self-host equivalence result, the native and Codex-projection
+results, and the installed scenario evidence. Git ref, tarball, manifest,
+checksums, product identity, and qualification evidence must identify the same
+bytes. A rebuilt or source-importing approximation is not release evidence for
+that cut.
+
+Both products follow `RELEASE_METHOD`: a mutable RC window publishes and
+qualifies at least one immutable versioned RC cut before final tap. The final
+tap assigns the final version and reconciles release-scoped assets. Any product
+behavior, declaration, public-contract, or dependency change after the accepted
+RC reopens that product's RC window; it is not hidden in the final tap.
+
 The purpose of this document in the release process is to define what the
 release is releasing.
 
@@ -944,41 +1080,12 @@ history.
 
 ---
 
-## Product Goals
+## Goal Authority
 
-Goals belong here because they are product-direction and release-focus
-statements, not detailed requirement families.
-
-Once a goal hardens into constitutional obligation, it should flow down into the
-intent, requirement, design, code, and evidence surfaces.
-
-### Active Goals
-
-| Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
-| --- | --- | --- | --- | --- | --- |
-| `GOAL-001` | `GTL` + `ABG` + `Mapping` | Make cumulative environment an executable runtime law over real composed and recursive carriers, not only a static GTL contract. | ABG resolves per-boundary environment truth, late steps can read carried bindings from earlier steps, and missing internally produced bindings block dispatch rather than converging or silently running. | The released tenant's semantic build, lint, and test lanes covering engine-kernel integration and sandbox use-case proof (fake and live) plus the scenario bundles; downstream proving routes such as `gsdlc_lite` | Active |
-| `GOAL-002` | `GTL` + `ABG` + `Mapping` | Make typed asset surfaces operationally real at GTL boundaries and ABG bind time, so higher-order graph functions can consume returned assets by declared contract rather than by ad hoc path lore. | GTL nodes or graph-function boundaries can declare `asset_surface` truth for asset kind/schema, required carried contexts, and standards or output-contract refs; ABG resolves concrete bindings, specializes prompts and checks from that declaration, records source binding and producer provenance, and blocks dispatch when the declared asset contract is unresolved. | The released tenant's semantic build, lint, and test lanes covering GTL-core and engine-kernel integration and sandbox use-case proof plus the scenario bundles; downstream proving in `odd_method` and imported-workspace routes such as `data_mapper.*` | Active |
-
-### Goal Template
-
-Use the following shape for new goals:
-
-| Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
-| --- | --- | --- | --- | --- | --- |
-| `GOAL-001` | `GTL` / `ABG` / `Mapping` / `Product` / mixed | Short statement of the product move | What would make it clearly true | Scenario, qualification lane, or downstream product that proves it | Proposed / Active / Closed |
-
-### Goal Writing Rule
-
-A product goal should say:
-
-- which layer or layers it is trying to move
-- why that move matters to the product as a whole
-- what success looks like in observable terms
-- what proving surface will show the goal is real
-
-Goals should not be written as pseudo-requirements. They are directional product
-statements that focus the next wave of requirement, design, implementation, and
-qualification work.
+The bounded current work wave lives only in [GOALS.md](GOALS.md). This product
+definition does not maintain a rival active-goal table. When a goal changes
+current product truth, that change enters this document and the owning
+requirements through the declared constitutional re-entry path.
 
 ---
 
@@ -1030,7 +1137,7 @@ engine's cost and coverage are readable from its own truth.
 ### Programs are configuration
 
 Workflow shape is product-declared data compiled through one isolated,
-versioned syntax (`hog-syntax/*`), never engine code. Configurations
+versioned typed GTL C-program contract, never engine code. Configurations
 are LABELLED and coexist — a declared catalog of named programs with
 per-edge selection by ref — so tuning is addressable per edge-class at
 both the workflow level and the prompt level (per-stage instruction

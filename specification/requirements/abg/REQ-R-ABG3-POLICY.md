@@ -26,6 +26,6 @@ default bundles.
 
 **REQ-R-ABG3-POLICY-006**: ABG shall publish supervised probabilistic dispatch as a first-class runtime capability. It remains automated runtime truth, not disguised human review.
 
-**REQ-R-ABG3-POLICY-007**: ABG may also publish a root-level supervision mode around `gen-start` for run-wide observation and recovery, but that control plane shall remain distinct from per-edge dispatch capability and from the traversal request grammar itself.
+**REQ-R-ABG3-POLICY-007**: ABG may also publish a root-level supervision mode around `start` for run-wide observation and recovery, but that control plane shall remain distinct from per-edge dispatch capability and from the traversal request grammar itself.
 
 **REQ-R-ABG3-POLICY-008**: ABG.Fn composition defaults, templates, fallback policy, standards context, and optimization policy shall resolve from visible configuration or published GTL assets. Hidden code constants, null contracts, prompt prose, parser convention, current process cwd, and replay-time filesystem discovery shall not satisfy composition policy authority.

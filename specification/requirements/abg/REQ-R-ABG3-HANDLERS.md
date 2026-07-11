@@ -105,8 +105,8 @@ handler configuration; it does not implement a standard-path worker loop.
   prompts, contracts, and policies live as typed declarations that
   support systems consume.
   Gap: `FpTransportConfig.prompt` violates this boundary — a prompt
-  living in handler config instead of GTL. Owner: T-205.
-  Non-closure condition: the gap stays open, and T-205's final gate
+  living in handler config instead of GTL. Owner: T-227.
+  Non-closure condition: the gap stays open, and T-227
   cannot close, until prompts re-home to GTL (instruction categories
   via the stage's instructionCategoryRefs and the section machinery)
   when extra F_P stages bind to the manifest pipeline.

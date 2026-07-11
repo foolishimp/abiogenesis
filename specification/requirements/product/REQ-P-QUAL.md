@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-25
-**Derives from**: INT-005 (run governance, failure classification), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (self-hosting and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 2
 
 ---
@@ -66,7 +66,13 @@ This requirement establishes the constitutional rules for the qualification infr
   - Smoke: asserts the protocol completed (response exists, judge ran). Does not assert artifact quality.
   - Qualification: asserts the judge passed. This is the release gate.
 
-**REQ-P-QUAL-014**: Qualification tests shall be **parametrized for statistical confidence**. A single pass is anecdotal; N passes across independent sandboxes is evidence. The qualification run count shall be a named constant, not a magic number.
+**REQ-P-QUAL-014**: A qualification question that claims statistical
+confidence shall declare and parameterize its independent run count. The count
+shall be a named constant rather than a magic number, and the resulting claim
+shall state the population it supports. A bounded deterministic, installed, or
+live steel-thread gate may require one declared run when it claims only that
+the exact scenario completed; ABG 5.0 does not claim generic pass@k
+characterization.
 
 **REQ-P-QUAL-015**: Entropy campaign tests (sequential dispatches in a shared sandbox, delta trend over accumulated state) shall be a **separate lane** from fresh-sandbox qualification. Entropy campaigns require artifact integrity (REQ-P-QUAL-007) to be satisfied — no fallback masking.
 
@@ -124,9 +130,14 @@ the proving obligations over that product contract.
 
 ## Diff-Execution Witness Gate
 
-**REQ-P-QUAL-025**: The approving suite for a change shall **witness the change's execution**. Changed TypeScript executable lines under the tenant source root (`code/src`) that are not executed by the approving suite fail the diff-execution witness gate. Never-committed files under that root are witnessed in full. Every binding export shall be referenced by the unit lane.
+**REQ-P-QUAL-025**: The approving suite for a change shall **witness the
+change's execution**. Changed executable surfaces declared by the released
+tenant's change census that are not executed by the approving suite fail the
+diff-execution witness gate. Never-committed executable surfaces in that census
+are witnessed in full. Every public binding export shall be referenced by the
+unit lane.
 
-Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-219 (reconciliation follow-up).
+Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-239.
 
 ---
 
@@ -134,7 +145,7 @@ Gap: the gate witnesses only `.ts` files under `code/src`; the general obligatio
 
 **REQ-P-QUAL-026**: Every NEW or MIGRATED live proof run shall execute on a **packed-and-installed sandbox substrate** driving the installed surface, never the repo build tree — conformant from birth.
 
-Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-219 (migration follow-up).
+Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-239. The list shall be empty before the R5 self-host freeze.
 
 ---
 
@@ -171,15 +182,94 @@ an already tagged release cut.
 creation embeds the declared gate evidence (build, lint, test outcomes and the
 parsed test summary) in the release snapshot manifest, and a gate that runs red
 refuses the cut. A RELEASE-GRADE cut requires build, lint, and test evidence
-green. The snapshot request surface carries declared bypass booleans
-(`runBuild`, `runLint`, `runTests`) for non-release snapshots; a bypassed gate
-records null evidence, never fabricated green.
+green. A RELEASE-GRADE request shall reject any build, lint, test, or exact-cut
+qualification bypass. Declared bypass booleans may be honored only for an
+explicitly non-release snapshot; a bypassed gate records null evidence and
+shall never be represented as green or promotable.
 
-Gap: mechanical red-refuses-to-cut enforcement for release-grade cuts is not
-yet realized — a gate that runs red does refuse the cut, but the bypass
-booleans are honored unconditionally, so a snapshot can be cut with build,
-lint, and test skipped and nothing distinguishes a release-grade request that
-must refuse bypass. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
+Gap: the current release-snapshot request still accepts build, lint, and test
+bypass booleans for a release-grade request. T-239 shall make release-grade
+admission reject every mandatory-gate or exact-cut bypass and pin the red and
+bypassed differentials before R5 freezes.
+
+## ABIogenesis 5.0 Exact-Cut Qualification
+
+**REQ-P-QUAL-057**: ABIogenesis 5.0 pre-RC qualification shall bind the exact
+installed `R5` and `G5` source-candidate identities, content and install-artifact
+digests, product-manifest digests, workspace binding, and tenant-conformance
+manifest identity and digest. Source-tree execution or evidence from different
+candidate content shall not satisfy the source-candidate gate. RC and final
+versions are assigned only by the release process.
+
+**REQ-P-QUAL-058**: The exact installed `R5` shall run one Hello World GraphFunction through the public SDK or CLI, produce the declared typed result, and expose the corresponding admitted catalog, selection, GraphCall, closure, and replay truth.
+
+**REQ-P-QUAL-059**: The exact installed `R5` shall complete the primary public operator loop: start, report one truthful stop, hold, or gap, expose the replay-derived frontier and lawful actions, admit an agent edit or typed F_H response, resume or start again, and converge without a second controller or private import.
+
+**REQ-P-QUAL-060**: The exact installed `R5` shall satisfy
+`REQ-P-SELF-CONFORMANCE` over its complete frozen constitutional, design,
+realization, proof, ticket/execution-contract, public-seam, manifest,
+qualification, and release-claim inventory under the exact declared
+method/rule/source basis. The real-tree and seeded-negative gates shall pass,
+findings and dispositions shall be typed, and the builder shall receive no
+conformance exemption.
+
+**REQ-P-QUAL-060A**: The exact installed `R5` shall run the current observer and
+tuner over the self-build path and prove truthful halt classification,
+replay-grounded findings and drafts, actor/policy attribution, ratification and
+rejection without direct authority mutation, replay-visible acts, and one
+injected negative that returns the expected non-green typed result.
+
+**REQ-P-QUAL-061**: The exact-cut gate shall admit the installed two-stage self-host and fixed-point evidence required by `REQ-R-ABG3-SELFHOSTING`, including exact bootstrap identities, convergence, source isolation, and `C1`/`C2` equivalence.
+
+**REQ-P-QUAL-062**: Exact `G5` shall qualify as a declarations-only catalog product over exact installed `R5` by completing one fresh full data-mapper campaign through ABG-owned catalog, traversal, worker, materialization, consequence, result, and replay contracts. A `G5`-local controller or runtime authority shall fail this gate.
+
+**REQ-P-QUAL-063**: The exact installed `R5` shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
+
+**REQ-P-QUAL-064**: One exact-cut verdict shall cite the owning qualification
+evidence for installed Hello World, the seven-term declared C program and its
+malformed GTL/F_P differentials, the bounded conformance-enforcement gate, the
+public operator loop, self-conformance, observer/tuner truth, self-hosting, the
+`G5` data-mapper campaign, native operation, the Codex projection, and
+exact product identity. It shall aggregate those owning proofs rather than
+introduce a second semantic checker, runtime, or release-wide qualification harness.
+
+**REQ-P-QUAL-065**: Qualification on the supported trusted-developer-desktop boundary shall defend malformed GTL and F_P results, unresolved or incompatible contracts and capabilities, incorrect product identity or binding, source/private-import dependence, and false convergence or release claims. It shall not require hostile-local tamper resistance, a signing service, remote attestation, a hosted marketplace, or repeated adversarial campaigns.
+
+**REQ-P-QUAL-066**: Codex projection qualification shall compare the native and
+adapter paths over the same versioned public operation contract. A fixed-result
+lane shall compare the declared result digest. A live F_P lane shall compare
+the declared response/result schemas and replay-significant invariants, or both
+paths may consume one identical recorded admitted result when the gate is
+explicitly a transport-independent projection test. Textual output equality is
+not required unless the public contract declares it.
+
+**REQ-P-QUAL-067**: Release closure shall fresh-install the independently
+published ABG 5.0 and G5 release artifacts by their verified remote identities,
+bind their exact released descriptors, manifests, versions, digests, dependency
+lock, and tenant-conformance identities, and pass the bounded released-pair
+catalog and invocation proof without rebuilding or importing mutable source.
+This post-publication result shall be a terminal addendum to the same A5-R1
+release manifest/read model. It shall not be required to make the pre-release
+exact-candidate verdict green and shall not reinterpret that earlier verdict.
+
+**REQ-P-QUAL-068**: The ABG 5.0 release process shall open a mutable RC window,
+publish at least one immutable versioned RC cut descended from exact `R5`, and
+qualify the latest accepted RC before the final tap. The RC record shall bind
+its source lineage, allowed version/release-asset delta, branch, tag, package,
+snapshot, checksums, notes, installed identity, operator review, and selected
+qualification evidence. A bounded fix after publication requires a new RC cut.
+
+**REQ-P-QUAL-069**: The G5 release process shall independently open a mutable RC
+window after ABG 5.0 is released, publish at least one immutable versioned G5 RC
+descended from exact `G5`, and qualify it beside exact released ABG 5.0 before
+the G5 final tap. G5 RC qualification shall retain the declarations-only and
+installed data-mapper claims and shall not bundle ABG as product content.
+
+**REQ-P-QUAL-070**: A final tap may change the accepted RC only through the
+assigned final version and reconciled release-scoped assets. Product behavior,
+declarations, public contracts, or dependencies changed at tap shall reopen the
+RC window. The final artifact shall rerun the deterministic, install, identity,
+and bounded behavior gates affected by the final delta before publication.
 
 ---
 
@@ -187,7 +277,13 @@ must refuse bypass. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
 
 **REQ-P-QUAL-021**: Live F_P qualification tests are the **gold standard** for product correctness. Any failure must be root-caused — never dismissed as flaky, pre-existing, or environmental without diagnosis.
 
-**REQ-P-QUAL-022**: Exactly two variables govern live test outcomes: **(a) prompt sufficiency** — the manifest prompt must constrain the agent response tightly enough that it produces the required artifact, and **(b) transport reliability** — delivery of the prompt and collection of the response must be deterministic. Both variables shall be managed within the test parameters.
+**REQ-P-QUAL-022**: Live test diagnosis shall distinguish three product
+boundaries: **(a) transport readiness and reliability**, **(b) declared
+instruction and response-contract sufficiency**, and **(c) the returned F_P
+response or artifact's conformance to that declared contract**. A malformed,
+incomplete, contradictory, or missing post-dispatch result shall remain typed
+response-admission truth; it shall not be rewritten as transport failure or
+explained away solely as prompt insufficiency.
 
 **REQ-P-QUAL-023**: The transport layer shall ensure the agent has **sufficient capability** to execute all operations required by the dispatch contract (read files, write artifacts, run commands). An agent that cannot perform a required operation due to transport configuration is a transport failure, not an agent quality issue.
 

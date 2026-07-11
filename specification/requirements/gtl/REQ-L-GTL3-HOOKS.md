@@ -26,7 +26,9 @@ semantic language.
 
 **REQ-L-GTL3-HOOKS-006**: Governance hook references and opaque configuration shall remain inspectable and replayable through publication, serialization, and interpretation surfaces.
 
-**REQ-L-GTL3-HOOKS-007**: Engines may resolve declared hook references to Python or other executable implementations, but raw injected callables shall not be the constitutional GTL surface.
+**REQ-L-GTL3-HOOKS-007**: Engines may resolve declared hook references to
+host-language executable implementations, but raw injected callables shall not
+be the constitutional GTL surface.
 
 **REQ-L-GTL3-HOOKS-008**: Assurance hook attachments may declare stable hook references and opaque configuration for authority snapshot, evidence adaptation, ambiguity classification, closure policy, and gain-function adaptation, while assurance semantics remain engine-owned.
 

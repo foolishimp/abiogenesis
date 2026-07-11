@@ -104,8 +104,8 @@ change graph topology, program membership, spine kinds, spine order, or spine
 count. The compiler and runtime preserve the declared fibre and never
 reclassify semantic `F_P` work as `F_D` from observed behavior. Replacing a
 prior `F_P` declaration with `F_D` is a declaration-version and annealing
-decision governed by the tuner/equivalence requirements, not a local T-220
-compiler inference.
+decision governed by the tuner/equivalence requirements, not a local compiler
+inference.
 
 **REQ-L-GTL3-C-ALGEBRA-010 - Implementation matching.** A plugin or handler
 binding shall match the enclosing program identity and selected stage role,
@@ -218,7 +218,7 @@ A conformance report is scoped to one admitted submitted root identified by
 declared expected-coverage contract. The compiler checks every declaration
 reachable from that root and reports required rows missing relative to that
 bound coverage contract where the contract carries an applicable inventory
-field. For T-220 execution declarations, the compiler proves declared-reference
+field. For execution declarations, the compiler proves declared-reference
 completeness and internal membership; the current coverage carrier does not
 express a total expected execution-declaration inventory. Product/install
 binding selects the authoritative root and complete release manifest. Those

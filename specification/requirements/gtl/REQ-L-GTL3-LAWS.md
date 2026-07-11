@@ -49,7 +49,15 @@ State the governing language laws of GTL 3.
 
 **REQ-L-GTL3-LAWS-018**: Replayable hook and publication truth — publication, materialization, hook attachment, and derived bundle truth shall remain inspectable and replayable.
 
-**REQ-L-GTL3-LAWS-019**: Typed diagnostic identity — conformance failure is typed truth: every conformance diagnostic carries a stable diagnostic identity from the published closed diagnostic vocabulary, or a declaration-carried identity whose namespace is admitted from declared policy rows. An unknown identity fails closed at the diagnostic constructor boundary; declaration-carried identities are validated against the admitted declaration set as successor law. Diagnostic identities are stable across releases and are removed only by supersession, not by renaming.
+**REQ-L-GTL3-LAWS-019**: Typed diagnostic identity — conformance failure is
+typed truth: every conformance diagnostic carries a stable diagnostic identity
+from the published closed `GTL_PROGRAM_DIAGNOSTIC_ID_VALUES` vocabulary and
+`GtlProgramDiagnosticId` type located by contract group
+`abg.contract.abg.m03`, or a declaration-carried identity whose namespace is
+admitted from declared policy rows. An unknown identity fails closed at the
+diagnostic constructor boundary; declaration-carried identities are validated
+against the admitted declaration set as successor law. Diagnostic identities
+are stable across releases and are removed only by supersession, not by renaming.
 
 **REQ-L-GTL3-LAWS-020**: Admissible repair affordance — a ratified diagnostic may carry a typed admissible-repair set naming the lawful repair moves for that failure: the repair surface, the smallest lawful edit class, and the governing change class when the repair is constitutional. Repair affordances are typed carriers over declared truth, not prose advice, and they do not perform, select, or authorize the repair.
 
@@ -65,7 +73,14 @@ State the governing language laws of GTL 3.
 
 **REQ-L-GTL3-LAWS-026**: Evolution vocabulary — requirement relation kinds include supersession; contract and declaration evolution is expressed through the existing relation-kind family rather than a second relation vocabulary. Removal of ratified identities happens only by supersession.
 
-**REQ-L-GTL3-LAWS-027**: Language conformance corpus — the language publishes a ratified conformance corpus pairing programs with expected diagnostic identities. The corpus is the implementation-independent oracle: a conforming toolchain replays every corpus entry to the exact expected identities. It is distinct from the requirements corpus and from qualification evidence.
+**REQ-L-GTL3-LAWS-027**: Language conformance corpus — the language publishes
+one canonical, content-addressed corpus pairing programs with expected
+diagnostic identities. The exact product public contract catalog locates its
+schema, asset, digest, and diagnostic-vocabulary dependency under
+`abg.asset.gtl.language-conformance-corpus`. The corpus is the
+implementation-independent oracle: a conforming toolchain replays every entry
+to the exact expected identities. A test-only fixture is not publication. The
+corpus is distinct from the requirements corpus and qualification evidence.
 
 **REQ-L-GTL3-LAWS-028**: Constitutional surfaces are witnessed data and
 drift is a typed conformance failure. A loader witnesses constitutional

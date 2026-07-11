@@ -25,7 +25,12 @@ downward control path.
 
 **REQ-R-ABG3-TUNER-002**: The tuner's read surface shall be replay-derived read models only: replay event streams, per-configuration cost projection, closure-point/temporal verdicts, witness truth (halt-diagnosis, reprice admissions, hygiene stamps, citability), and progress/stagnation ledgers. The tuner shall not own a second truth store and shall not consume unattributed telemetry.
 
-**REQ-R-ABG3-TUNER-003**: The tuner verb surface shall be CLI verbs emitting admitted events: `tune report` (read-only projection rendering), `tune propose` (admits declaration drafts), `tune ratify` (the ratification gate). No tuner act exists outside these admitted verbs.
+**REQ-R-ABG3-TUNER-003**: The tuner verb surface shall be `tune report`
+(read-only projection rendering), `tune propose` (admits declaration drafts),
+`tune ratify` (the ratification gate), and `tune reject` (admits rejection of a
+draft). `tune report` shall emit no event or mutation. The three mutation verbs
+shall enter through ordinary admitted actor or policy truth. No tuner act exists
+outside these public operations.
 
 **REQ-R-ABG3-TUNER-004**: The tuner shall write declaration drafts ONLY. It shall not mutate live declarations, code, workspace assets, or runtime state. A ratified draft re-enters the system as ordinary admitted work through the owning ticket and change class. Solve and optimize shall remain separated: solve loops write candidates, optimize loops write terms, and no program does both in one judgment. The tuner shall not perform defect diagnosis or triage within an optimisation judgment; observer and tuner exchange truth only through admitted records (intake records, telemetry read models), never inside one judgment.
 
@@ -45,6 +50,6 @@ downward control path.
 
 **REQ-R-ABG3-TUNER-012**: Catalog visibility (what-is-visible-from-where per view, as abstraction grows the vocabulary) shall be a tuner curation surface: visibility changes are declaration drafts on the same ratification path.
 
-**REQ-R-ABG3-TUNER-013**: Deterministic tests shall cover read-only `tune report` behavior (no event append beyond the verb's own admitted act), draft admission and state transitions, F_H versus declared auto-ratify paths, annealing-proposal rejection without an equivalence contract, post-ratification divergence intake and demotion, lay-rail/pull-up/abstraction draft shapes over composition-entropy fixtures, rail-break mode-signal projection, rejection of promotion/demotion proposals lacking cited admitted signal rows, judgment separation (a tune episode emitting triage output is rejected), and the write-boundary law (no live-surface mutation by any tuner path) before runtime/live closure can be claimed.
+**REQ-R-ABG3-TUNER-013**: Deterministic tests shall cover read-only `tune report` behavior (no event append), draft admission and ratified/rejected state transitions, F_H versus declared auto-ratify paths, annealing-proposal rejection without an equivalence contract, post-ratification divergence intake and demotion, lay-rail/pull-up/abstraction draft shapes over composition-entropy fixtures, rail-break mode-signal projection, rejection of promotion/demotion proposals lacking cited admitted signal rows, judgment separation (a tune episode emitting triage output is rejected), and the write-boundary law (no live-surface mutation by any tuner path) before runtime/live closure can be claimed.
 
 **REQ-R-ABG3-TUNER-014**: Tuner event kinds that initiate, terminate, clip, or declip runtime fluent truth shall declare Event Calculus effects before implementation closure. Draft state and entropy projections are replay-derived truth, never primary event authority.

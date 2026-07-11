@@ -1,98 +1,110 @@
-# abiogenesis Goals
+# ABIogenesis Goals
 
 ## Position
 
-`GOALS.md` names the bounded current work wave. Completed or superseded waves
-remain in git history and release evidence; they do not remain active here.
+`GOALS.md` names the bounded current work wave. It does not replace INTENT,
+PRODUCT, requirements, design, tickets, or release evidence.
 
-Authority flows from this wave into intent, product definition, requirements,
-design, realization, proof, and release. Candidate intake does not promote
-product truth by itself.
+## Current Wave: ABIogenesis 5.0 Full-Product Delivery
 
-## Current Wave: ABG 5.0 Target Admission
+`GOAL-035` is the current goal.
 
-`GOAL-034` is the current goal.
+Deliver one exact source-independent ABIogenesis 5.0 product for a trusted
+developer desktop, plus one independently released odd_glc `0.2.0` catalog
+product, through the complete accepted product contract:
 
-The immediate objective is to finish candidate gathering and F_H target
-admission for ABG 5.0, then emit independently closeable delivery leaves in a
-dependency order that supports design before realization. T-218 owns this
-target-admission boundary. It is not the compound implementation or release
-ticket for 5.0.
+- immutable product/catalog resolution, verification, installation, binding,
+  admission, inspection, allowlisting, and GraphFunction invocation;
+- the complete seven-term typed C runtime and declared worker-result path;
+- one versioned public SDK and thin `abg.cli` graph shell covering the complete
+  current operator contract and interactive loop;
+- ABIogenesis builder self-conformance and current observer/tuner proof;
+- installed two-stage self-hosting and fixed-point equivalence;
+- declarations-only G5 and a fresh full data-mapper campaign;
+- native operation plus one bounded Codex compatibility projection; and
+- exact immutable candidate qualification, ordered release, and
+  released-over-released pair verification.
 
-The accepted target pending constitutional promotion and leaf emission combines:
+T-218 completed target admission and decomposed this wave. Delivery does not
+reopen its candidate register. A new product capability re-enters through the
+smallest lawful goal, intent, product, or requirement reprice.
 
-- an installed, source-independent GTL/ABG product and public conformance
-  surface;
-- lawful published GraphFunctions, a native catalog, and `abg.cli` as the
-  native graph shell;
-- two-stage installed self-hosting with an explicit equivalence proof;
-- an independently released odd_glc catalog product;
-- the truthful current observer/tuner through the same typed C algebra; new
-  Review/Consensus/GF2 composition remains future product scope;
-- native operation independent of Claude, Codex, or another marketplace host,
-  with selected hosts tested only as compatibility adapters; and
-- one exact immutable 5.0 qualification and release cut.
+## Operating Boundary
 
-T-218 gives every intake candidate a terminal disposition and promotes this
-accepted set through the constitutional chain before implementation begins.
+The supported environment is one trusted developer desktop. Native in-process
+code, the local filesystem, and repository/Git transport are trusted.
 
-## Entry Evidence And Owners
+The delivery wave defends:
 
-| Surface | Current role | Owner |
-|---|---|---|
-| T-219 | Landed the first current-specification reconciliation pass and named remaining specification gaps; its review/closure remains separate. | abiogenesis |
-| T-220 | Completed typed C-algebra authoring, admission, semantic-compiler, compiled-handoff, and malformed F_P response boundary. | abiogenesis |
-| T-217 | Closed as a superseded-and-split consolidation boundary. Its deterministic observer/tuner and kernel substrate are predecessor evidence; it did not earn its original live-campaign or release exits. | abiogenesis |
-| T-221 | Completed `abandoned_and_rebound`. Final 4.6.0 will not be tapped. Exact published `4.6.0-rc.3` is P4 and its exact installed product identity is I4; DS-1F owns a fresh clean workspace selection of that installed product. | abiogenesis |
-| odd_glc T-033 | Owns downstream declarations-only adoption and fresh campaign proof; it may not invent vector routing or product-local runtime authority. | odd_glc |
-| T-218 | Owns candidate dispositions, accepted target promotion, singular leaf decomposition, and the dependent delivery plan. | abiogenesis |
+1. malformed authored or serialized GTL through native types, raw admission,
+   lint, and semantic compilation;
+2. malformed, incomplete, or contradictory F_P output through declared
+   response admission before materialization or closure;
+3. exact product identity, dependency lock, catalog membership, allowlist,
+   capability, replay, continuation, and closure truth; and
+4. exact candidate/release coherence and source independence.
 
-## Operating Scope
+It does not add hostile-workstation tamper resistance, signing, hosted
+marketplaces, multi-user administration, external scheduling, automatic wake,
+or a portfolio of host adapters.
 
-The current product runs on one developer desktop. Native in-process code and
-the local filesystem are trusted for this wave. Defensive work is allocated to
-the likely boundaries:
+## Dependent Delivery Sequence
 
-1. malformed authored GTL is rejected by native types, raw admission, lint,
-   and the semantic compiler;
-2. malformed, incomplete, or contradictory F_P output is rejected or made
-   non-close at response admission; and
-3. hostile local-object forgery, cryptographic substitution, filesystem
-   tamper-proofing, hosted multi-tenant isolation, and marketplace-service
-   operation are not current release work.
+```text
+DS-0R -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-4Q -> DS-5 -> DS-6 -> DS-7 -> DS-8
+```
 
-This constraint does not weaken type matching, catalog membership, declared
-authority, replay truth, or closure predicates. It prevents low-probability
-hostile-local defenses from displacing the product's constructive path.
+| Phase | Authority/design owner | Realization/proof owner | Exit dependency |
+|---|---|---|---|
+| `DS-0R` specification closure | T-219 | T-219 walkthrough/review | Public contracts have an addressable manifest catalog and owner chain; zoom/foldback/type-wiring law is constitutional; remaining QUAL gaps route to T-239; the spec-only tenant-builder walkthrough passes. |
+| `DS-1` installed catalog/Hello World | T-222 | T-223 | Packed installed SDK/CLI and live Hello World steel thread. |
+| `DS-1F` bootstrap feasibility | T-224 | T-225 | Exact I4 admits frozen B5 through its actual public surface. |
+| `DS-2` complete C/runtime | T-226 and narrowed T-179 | T-227 and T-228 | Seven C terms, declared result path, residuals, node/overlay application. |
+| `DS-3` complete operator product | T-229 | T-230 | Exact SDK/CLI grammar, interactive loop, native/Codex projection. |
+| `DS-4` self-conformance/observer | T-231 | T-232 | Real-tree and seeded-negative self-conformance plus observer/tuner proof. |
+| `DS-4Q` qualification enforcement | REQ-P-QUAL | T-239 | General executable diff witnessing is complete, every retained live proof uses a packed-and-installed substrate, the legacy exemption list is empty, and release-grade bypass/red refusal is fail-closed. |
+| `DS-5` installed fixed point | T-233 | T-234 | `I4+B5+S5 -> C1`, `I1+B5+S5 -> C2`, equivalence, `R5 := C1`. |
+| `DS-6` G5 migration/campaign | odd_glc T-033 | odd_glc T-038 | Frozen declarations-only G5 candidate and full data-mapper proof over R5/I1. |
+| `DS-7` exact candidate gate | T-238 | T-235 | One A5-R1 candidate verdict returns green over exact R5/G5 bytes. |
+| `DS-8` ordered release | RELEASE_METHOD | T-240 -> T-236 -> odd_glc T-039 -> T-037 -> T-237 | Published and qualified RC lineage, released ABG 5.0, released odd_glc 0.2.0, verified immutable pair. |
 
-## Delivery Order
-
-The current order is:
-
-1. preserve completed T-221's published `4.6.0-rc.3` P4/I4 predecessor;
-2. complete T-218 constitutional promotion and leaf decomposition;
-3. open and close the accepted authority and design leaves in T-218's
-   dependency order;
-4. realize and qualify the immutable install, catalog, GraphFunction, CLI,
-   odd_glc, self-hosting, and compatibility paths; and
-5. cut one exact 5.0 release only after the integrated proof gate is green.
-
-Design may drill down after its exact authority gate closes. Realization does
-not begin from an under-review candidate row.
+T-219 completed the specification-only entry prerequisite. T-222 is the active
+first executable design leaf.
+T-179 is active only as the accepted DS-2 owner and remains queued behind
+T-225. A realization leaf is non-admissible until its named design predecessor
+is completed and current.
 
 ## Current Goal
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-034` | Admit the ABG 5.0 target and decompose it into a lawful dependent delivery sequence. | Every candidate has a terminal disposition; accepted claims are promoted through GOALS/PRODUCT/requirements; every delivery concern has one owner, change class, design handoff, proof contract, and leaf; prior-release and cross-repo dependencies are explicit. | T-218 candidate ledger, phase register, closure handoff, T-219 baseline, T-220 proof, T-221, odd_glc T-033. | Active |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 product and independently released G5 catalog product in the declared dependency order. | T-219, T-179, and T-222 through T-240 plus odd_glc T-033/T-038/T-039/T-037 close at their objective gates; R5 is self-hosted and immutable; both products pass published RC windows before tap; released ABG/G5 install and verify without rebuild; no admitted product claim is deferred or supplied by a second controller. | Leaf closure records, exact installed archives, C1/C2 equivalence, complete qualification enforcement, self-conformance result, data-mapper campaign, A5-R1 manifest, RC and final remote branches/tags/checksums, released-pair proof. | Active |
 
-## Superseded Wave Boundary
+## Invalidation Law
 
-GOAL-032 and GOAL-033 are no longer current work-wave contracts. T-217 records
-the exact delivered deterministic subset and the named successors. This reprice
-does not claim that its original Phase 5 campaign, declarations-only odd_glc
-adoption, sticky-session optimization, or 4.6 final release completed.
+R5 becomes immutable at DS-5 after T-239 closes. Any later finding that requires ABIogenesis code,
+declaration, public-contract, or release-significant input changes routes to its
+owning leaf and invalidates DS-5 through DS-7 evidence. Qualification and
+release may consume or reject frozen bytes; they may not patch them.
 
-The Python tenant remains a paused reference line. odd_sdlc is archaeology and
-feature evidence only; it is not a future owner, runtime, builder dependency,
-or product.
+Each phase ends with an authority-first self-review against PRODUCT, its owning
+requirements/design, the phase ticket, the trusted-desktop boundary, and the
+next phase's input contract. A review finding blocks only when it is reachable
+on a supported path, corrupts truth, violates authority, or falsifies closure.
+Other findings return to triage and do not create an unbounded reviewer gate.
+
+## Deferred Product Decisions
+
+The following are not hidden 5.0 dependencies:
+
+- new Review, Consensus, or homeostatic GF2 composition;
+- ABG-owned watchers, schedulers, recurrence, or automatic wake;
+- update, disable, unbind, uninstall, retirement, revocation, or supersession;
+- hosted registry/storefront, ranking, billing, signing, license, or RBAC services;
+- multiple host adapters or generic pass@k/harness products;
+- hostile local-object, filesystem, or cryptographic tamper defense; and
+- universal proof-carry-through witness migration for every legacy edge while
+  PRODUCT makes no universal coverage-gated-closure claim; and
+- Python tenant reactivation or retired odd_sdlc/odd_chat products.
+
+They re-enter only through the product triggers recorded in completed T-218.

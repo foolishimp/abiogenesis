@@ -4,7 +4,7 @@
 **Category**: Capability
 **Date**: 2026-04-27
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)
-**Wave**: Shared product toolchain install-resolution reprice
+**Wave**: Shared product toolchain install-resolution reprice; ABG 5.0 product binding
 
 ---
 
@@ -23,8 +23,9 @@ scripts, source-tree imports, or ticket commentary.
 each released build tenant that claims installed substrate behavior.
 
 **REQ-P-INSTALL-002**: The installer shall create a target workspace binding to
-an immutable released ABG product payload without treating the mutable
-abiogenesis source project or the target workspace as the installed product.
+one or more immutable released product payloads, including the selected ABG
+product, without treating a mutable source project or the target workspace as
+an installed product.
 
 **REQ-P-INSTALL-003**: The installed substrate root shall be `.abiogenesis/`.
 Downstream products may install product-owned payload beneath
@@ -32,8 +33,9 @@ Downstream products may install product-owned payload beneath
 substrate root.
 
 **REQ-P-INSTALL-004**: The installer shall not encode downstream domain HOW.
-Downstream products own domain meaning, graph catalogs, policy overlays,
-acceptance interpretation, and product-specific instruction sections.
+Downstream products own domain meaning, catalog contribution content, policy
+overlays, acceptance interpretation, and product-specific instruction sections.
+ABG owns shared catalog admission and runtime authority.
 
 ## Shared Toolchain Binding
 
@@ -59,6 +61,13 @@ root, observer/control state root, executor state root, event log path, runtime
 state root, projection root, archive root, selected toolchain root, selected
 product payloads, product root, package root, command paths, product manifest
 path, and product manifest digest.
+
+**REQ-P-INSTALL-008A**: The selected ABG product manifest shall contain the
+bootstrap and `publicContractCatalog` fields required by
+`REQ-P-PUBLIC-CONTRACTS`. Installation and binding shall preserve the catalog
+identity/version/digest and its product-relative schema/asset locators. A
+product manifest without an admissible contract catalog shall not become a
+bound or catalog-admissible ABG product.
 
 **REQ-P-INSTALL-009**: The shared toolchain root shall not become the mutable
 event/projection/archive owner for a target workspace run unless explicitly
@@ -98,8 +107,10 @@ and shall not be overwritten by reporting projections such as build labels or
 test-run names.
 
 **REQ-P-INSTALL-013**: Re-running the installer against an already populated
-target workspace shall either refresh admitted installed state
-deterministically or return a precise stale-install remediation result.
+target workspace for the same exact selected identities shall either refresh
+installer-owned state deterministically or return a precise stale-install
+remediation result. This same-identity behavior shall not imply cross-version
+update, disable, unbind, uninstall, retirement, revocation, or supersession.
 
 **REQ-P-INSTALL-014**: The installer shall emit or persist an install
 provenance record into the installed runtime truth. The record shall identify
@@ -191,8 +202,8 @@ in installer manifest or provenance truth.
 
 **REQ-P-INSTALL-034**: The installer shall refresh installer-owned ABG/GTL
 context sections in cold-agent instruction files such as `AGENTS.md` and
-`CLAUDE.md` on fresh install and upgrade/refresh. Refresh shall be
-marker-governed, idempotent, and shall preserve unrelated project-owned
+`CLAUDE.md` on fresh install and same-identity installer refresh. Refresh shall
+be marker-governed, idempotent, and shall preserve unrelated project-owned
 guidance.
 
 **REQ-P-INSTALL-035**: Downstream projects shall not be required to hand-edit
@@ -223,6 +234,107 @@ summary.
 harness-created runtime files, or manually copied `.abiogenesis` folders are
 not sufficient proof of installed substrate behavior.
 
+## Supplied Artifact Verification And Installation
+
+**REQ-P-INSTALL-043**: The public installer shall accept an immutable supplied
+product artifact together with its expected product descriptor, contribution
+manifest, dependency lock, and content identity. Installation shall not require
+access to the product's mutable source project.
+
+**REQ-P-INSTALL-044**: Before materializing or binding a supplied artifact, the
+installer shall verify its content digest, package and product identity,
+descriptor identity, contribution-manifest identity, declared dependencies,
+resolved-lock membership, and compatibility with the selected ABG product.
+
+**REQ-P-INSTALL-045**: Artifact verification failure shall return a typed
+refusal that distinguishes at least content mismatch, identity mismatch,
+descriptor mismatch, contribution mismatch, unresolved dependency,
+incompatible dependency, and unsupported contract. A refused artifact shall
+not become installed, bound, admitted, or callable.
+
+**REQ-P-INSTALL-046**: A verified artifact shall be installed under an immutable
+product identity that includes publisher or product namespace, product version,
+and content identity. Different bytes shall not overwrite or reuse the same
+installed identity.
+
+**REQ-P-INSTALL-047**: Re-installing the same exact artifact and identity may be
+idempotent. Reusing an existing product/version location for different content,
+descriptor, contribution, or dependency-lock identity shall fail as a typed
+conflict.
+
+**REQ-P-INSTALL-048**: A source-blind downstream consumer shall be able to
+verify, install, and import the supplied release artifact using only published
+product contracts and release evidence. A mutable source path, private module,
+test harness helper, or source-built compatibility shim shall not be required.
+
+## Multi-Product Workspace Binding
+
+**REQ-P-INSTALL-049**: One workspace binding shall support an ordered set of
+exact installed product identities. The set shall include one selected ABG
+runtime product and may include independently released catalog products such as
+odd_glc.
+
+**REQ-P-INSTALL-050**: Each bound product row shall record its publisher or
+product namespace, product and package identity, exact version, content digest,
+product descriptor and contribution-manifest identities, product-manifest path
+and digest, installed roots, dependency-lock identity, compatibility result,
+and public command or contract references when applicable.
+
+**REQ-P-INSTALL-051**: The workspace binding shall preserve the resolved
+dependency graph and exact lock used for the selected product set. An unbound,
+unresolved, incompatible, ambiguous, or content-mismatched product shall not be
+substituted from another workspace, a source checkout, an ambient package, or a
+previous lock.
+
+**REQ-P-INSTALL-052**: Installation and binding shall remain distinct. A product
+may be installed without being selected by a workspace, and installation shall
+not silently alter an existing workspace binding.
+
+**REQ-P-INSTALL-053**: Binding and catalog admission shall remain distinct. A
+bound product supplies candidate contribution truth; ABG admission determines
+whether its rows are compatible, ready, visible, eligible, or callable.
+
+**REQ-P-INSTALL-054**: Binding a catalog product shall not give that product
+control of workspace runtime roots, event admission, traversal, continuation,
+worker invocation, retry, or closure. Those authorities remain with the
+selected ABG runtime product.
+
+**REQ-P-INSTALL-055**: An existing workspace binding shall not change through
+automatic re-resolution. ABG 5.0 conformance requires initial exact install and
+bind; a different lock may be resolved for a new binding, but changing an
+existing binding through update, disable, unbind, uninstall, retirement,
+revocation, or supersession is not required.
+
+**REQ-P-INSTALL-056**: Install provenance shall record the supplied artifact
+digest, verification disposition, descriptor and contribution identities,
+resolved lock, selected dependency graph, installed identity, workspace-binding
+identity, and result sufficient to reproduce the install without source access.
+
+**REQ-P-INSTALL-057**: Public install verification shall compare the bound rows
+with the exact installed artifacts, product manifests, descriptors,
+contribution manifests, content digests, dependency lock, and command or public
+contract references. It shall distinguish installed-but-unbound from missing,
+stale, incompatible, or content-mismatched state.
+
+**REQ-P-INSTALL-058**: ABG 5.0 installation shall not require a hosted package
+registry, storefront, signing service, license service, organization RBAC, or
+multi-user administration. A caller-supplied immutable repository or Git
+release artifact is a lawful distribution input when its expected identities
+and digests are provided.
+
+## Workspace Create And Open
+
+**REQ-P-INSTALL-059**: The public product shall distinguish workspace creation
+from product installation, product binding, catalog admission, and project
+scaffolding. Creating a clean workspace shall produce one inspectable workspace
+identity and explicit authority/scaffold state without selecting mutable source
+or manufacturing project-owned constitutional truth.
+
+**REQ-P-INSTALL-060**: Opening an existing workspace shall admit and report its
+workspace identity, authority mode, selected binding/configuration refs, and
+typed readiness or stale/malformed condition. Opening shall not silently
+install, change a binding, resolve a new lock, admit a catalog, or start work.
+
 ## Acceptance
 
 A released tenant's installer is not release-candidate complete until a clean
@@ -252,3 +364,11 @@ target workspace proves:
   marker-refreshed in cold-agent instruction files
 - repeat install behavior is deterministic or fails with precise remediation
 - sandbox/archive proof is persistent and target-workspace inspectable
+- immutable supplied artifacts verify before install or binding without source
+  access
+- a multi-product binding records exact ABG and catalog-product identities,
+  content digests, manifests, compatibility results, and one resolved lock
+- installed, bound, admitted, session-visible, and callable states remain
+  distinct
+- initial exact install and bind do not imply broader product or registry-entry
+  lifecycle behavior

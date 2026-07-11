@@ -43,6 +43,7 @@ This requirement indexes and depends on:
 - `REQ-L-GTL3-EVALUATOR`
 - `REQ-L-GTL3-RULE`
 - `REQ-L-GTL3-GRAPHFUNCTION`
+- `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT`
 - `REQ-L-GTL3-COMPOSE`
 - `REQ-L-GTL3-C-ALGEBRA`
 - `REQ-L-GTL3-SUBSTITUTE`
@@ -83,19 +84,9 @@ This requirement indexes and depends on:
 - `REQ-R-ABG3-JOB-WORKER`
 - `REQ-R-ABG3-SAGA-FRONTIER`
 
-Index gaps (realized-but-unspecified language capability):
-
-- Gap: the `GraphFunction` zoom family (zoom declaration and its zoomed
-  obligation/slice surface) is realized language capability with no owning
-  GTL requirement family in this index. Owner: T-219 follow-up.
-- Gap: the `GraphFunction` foldback-declaration surface (declared graph-span
-  foldback contracts beyond core `recurse` foldback law) is realized language
-  capability with no owning GTL requirement family in this index.
-  Owner: T-219 follow-up.
-- Gap: the `GraphFunction` type-wiring surface (typed wiring between declared
-  node/asset types across composed graph functions) is realized language
-  capability with no owning GTL requirement family in this index.
-  Owner: T-219 follow-up.
+The realized GraphFunction zoom, recursive foldback, and typed-composition
+surfaces are governed by `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT`. Runtime zoom,
+lineage, foldback evaluation, and parent re-evaluation remain ABG law.
 
 ## Acceptance Criteria
 

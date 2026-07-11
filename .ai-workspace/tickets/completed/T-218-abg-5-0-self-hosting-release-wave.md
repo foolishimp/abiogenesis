@@ -4,20 +4,21 @@
 - title: ABG 5.0 proportional target admission and delivery handoff
 - type: feature
 - ticket_category: ordinary
-- status: active
-- revision: 4
-- previous_revision_ref: `git:328accb729001d105559f0d4934f24be42dc72e0:.ai-workspace/tickets/active/T-218-abg-5-0-self-hosting-release-wave.md`
-- goal: abg-5-0-self-hosting
-- goal_authority_state: live `GOAL-034` authorizes target admission and leaf decomposition; accepted product claims still require constitutional promotion
+- status: completed
+- closed_at: 2026-07-11
+- revision: 5
+- previous_revision_ref: `git:67388b45bb9c799bd47b191764eacef0447ceb81:.ai-workspace/tickets/active/T-218-abg-5-0-self-hosting-release-wave.md`
+- goal: GOAL-034 target admission completed; GOAL-035 owns full-product delivery
+- goal_authority_state: live GOAL-035 carries the promoted target and exact leaf dependency graph
 - priority: high
 - governance_scope: STDO Method
 - ticket_role: target-admission, proportional-scope, and delivery-handoff ticket; not a compound implementation or release ticket
-- current_phase: accepted target promotion, prior-product rebind, and singular leaf creation
-- execution_contract_state: candidate disposition, constitutional promotion, and leaf decomposition only
+- current_phase: completed DS-0 target promotion and delivery handoff
+- execution_contract_state: completed; implementation is assigned only to successor leaves
 - candidate_scope_state: proportionally sequenced by `DEC-5.0-PROP-001`, with live-product completeness restored by `DEC-5.0-FULL-001`
-- target_admission_state: selected pending constitutional promotion and leaf creation
-- constitutional_admission_state: pending
-- scope_freeze_state: pending constitutional promotion and leaf DAG; T-219 rc.3 reconciliation and T-221 terminal rebind are landed
+- target_admission_state: selected and promoted
+- constitutional_admission_state: current
+- scope_freeze_state: frozen by GOAL-035, promoted requirements, T-219/T-179/T-222 through T-240, and odd_glc T-033/T-038/T-039/T-037
 - implementation_authorization: none; this ticket does not authorize design or realization work
 - change_intent: >-
     Replace revision 3's holistic delivery plan with a trusted-desktop target,
@@ -48,14 +49,18 @@
   - completed T-221 records abandoned-and-rebound for final 4.6 and binds P4/I4 to exact 4.6.0-rc.3
   - completed T-220 supplies the typed seven-term C algebra, raw admission, semantic diagnostics, and malformed F_P boundary
   - completed T-217 supplies only scoped predecessor evidence and its successor map
-  - odd_glc T-033 owns declarations-only G5 adoption and the fresh data-mapper campaign
+  - odd_glc T-033 owns G5 migration design; T-038 owns declarations-only adoption and the fresh data-mapper campaign; T-039 owns the G5 RC window
   - a narrowed T-179 successor owns public inspect/application semantics for retained non-GraphFunction catalog kinds
+  - odd_glc design/migration/RC/tap split is committed at `f8e99fd`
 - links:
-  - `.ai-workspace/tickets/active/T-219-spec-reconciliation-what-from-realized-how.md`
+  - `.ai-workspace/tickets/completed/T-219-spec-reconciliation-what-from-realized-how.md`
   - `.ai-workspace/tickets/completed/T-221-close-exact-4-6-prior-release-boundary.md`
   - `.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md`
   - `.ai-workspace/tickets/completed/T-220-close-typed-gtl-c-algebra-authoring-loop.md`
   - `/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-033-adopt-standard-declarations-only-path.md`
+  - `/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/backlog/T-038-realize-standard-declarations-only-path.md`
+  - `/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/backlog/T-039-publish-and-qualify-g5-0-2-rc.md`
+  - `/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/backlog/T-037-release-g5-catalog-product.md`
   - `/Users/jim/src/apps/odd_glc/release_snapshots/odd-glc-route-one-typescript/0.1.0/release-snapshot-manifest.json`
 
 ## Revision 4 Ruling
@@ -108,7 +113,7 @@ GF2, scheduler, hosted-marketplace, multi-host, or hostile-local-tamper scope.
 | Surface | Current identity or state |
 |---|---|
 | T-217 | Completed as a superseded-and-split boundary; deterministic predecessor evidence only. |
-| T-219 | First reconciliation commit exists; the current follow-up specification diff remains under review and is not yet target authority. |
+| T-219 | Completed after the specification-only tenant-builder walkthrough closed; T-239 owns its code-bearing QUAL-025/026/056 residuals before R5 freeze. |
 | T-220 | Completed at `014448f`; seven-term typed C authoring and compiler boundary are available. `workflow.C` runtime execution remains a named gap. |
 | P4 predecessor | `@abiogenesis/typescript-tenant@4.6.0-rc.3`, source `5213301cdbfd35952badf19c27519caa9e7e6968`, publication `f4f081f66ef8d3ce0c737ddb9d7530176711279a`, tag `v4.6.0-rc.3`. |
 | P4 tarball | SHA-256 `9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`. |
@@ -116,8 +121,8 @@ GF2, scheduler, hosted-marketplace, multi-host, or hostile-local-tamper scope.
 | G0 predecessor | Released `@odd-glc/route-one-typescript@0.1.0`, release commit `a878475e4609e2d74d3260eb36ee05c4657b1879`, tag `v0.1.0`. |
 | G0 tarball | SHA-256 `7e548f92ecd6b4442f9c9f1feb46dd2edd7e9610a7dae8706482fc65d80fa578`. |
 | G0 proof | Installed packed-product Basic CLI run `20260711T042644380Z_pid39224`: eight accepted vectors, two passing subject tests, 602 events, converged. |
-| G5 | Future declarations-only odd_glc release owned by odd_glc T-033 and qualified as an independent ABG 5 catalog product. |
-| Public operator truth | PRODUCT now records the realized control plane. The remaining work is exact per-operation inputs, outputs, defaults, errors, and public-versus-internal disposition. |
+| G5 | Future declarations-only G5 source-candidate design is owned by odd_glc T-033, candidate freeze/campaign by T-038, RC window by T-039, and final `0.2.0` tap by T-037. |
+| Public operator truth | PRODUCT and REQ-P-POLICY now define the complete public SDK/CLI operation contract; T-229/T-230 own its design and realization. |
 | Operating boundary | One trusted developer desktop; malformed GTL, malformed F_P output, exact membership, binding, replay, and closure truth are defended. |
 
 The G0 live proof is test-harness-mediated compatibility proof. It does not
@@ -296,7 +301,7 @@ terminal only when every named successor has its own terminal state.
 
 ### T-219 runtime-law residuals
 
-T-219 routed seven still-open predecessor residuals to T-218 for explicit
+T-219 routed predecessor and reconciliation residuals to T-218 for explicit
 adjudication. `PAYLOAD-028` and `PLUGIN-SEAMS-006` are already retained under
 `CR-GF-10` through `CR-GF-12` and are not duplicated here.
 
@@ -308,10 +313,12 @@ adjudication. `PAYLOAD-028` and `PLUGIN-SEAMS-006` are already retained under
 | `CR-RL-04` | `PLUGIN-SEAMS-005` | `admitted_to_target` | `DEC-5.0-FULL-001` | DS-3 binds each approval, assessment, and response to the pending interaction, actor, and capability provenance. This is single-developer truth attribution, not multi-user RBAC. |
 | `CR-RL-05` | `ITERATION-013` | `admitted_to_target` | `DEC-5.0-PROP-001` | DS-2 removes or reconciles the rival exported continuation-transition adapter so the accepted traversal/continuation contract is singular. |
 | `CR-RL-06` | `WITNESS-017` | `admitted_to_target` | `DEC-5.0-PROP-001` | DS-2 returns the existing basis-fork condition as a typed route outcome rather than a raw thrown `TypeError`. |
-| `CR-RL-07` | `QUAL-056` | `admitted_to_target` | `DEC-5.0-PROP-001` | DS-7/DS-8 release qualification refuses a red mandatory gate; no unconditional release-grade bypass may produce R5. |
+| `CR-RL-07` | `QUAL-056` | `admitted_to_target` | `DEC-5.0-PROP-001` | T-239 designs and realizes pre-freeze release-grade admission: every mandatory-gate/exact-cut bypass and red mandatory result refuses snapshot creation; non-release diagnostic bypasses remain null and non-promotable. |
 | `CR-RL-08` | T-219 `D-03` | `admitted_to_target` | `DEC-5.0-FULL-001` | DS-0 performs the owning intent reprice: remove retired Python-carrier and `gen-*` reach-downs while preserving GTL-first self-hosting and the complete interactive operator direction. |
-| `CR-RL-09` | T-219 `D-11` | `admitted_to_target` | `DEC-5.0-FULL-001` | DS-0 makes the released package's versioned exported carrier modules normative; DS-1 through DS-3 publish exact descriptor, catalog, invocation, result, replay, action, F_H, and operator-operation contracts. No generic hosted `schema://` service is required. |
+| `CR-RL-09` | T-219 `D-11` | `admitted_to_target` | `DEC-5.0-FULL-001` | `REQ-P-PUBLIC-CONTRACTS` makes `product-toolchain-manifest.json` the bootstrap for an addressable versioned contract catalog over native exports, static canonical schemas, event/diagnostic rosters, corpus, operation/capability identities, and exact locators/digests. DS-1 through DS-4 complete owned rows; no hosted schema service is required. |
 | `CR-RL-10` | T-219 `D-14` | `admitted_to_target` | `DEC-5.0-FULL-001` | DS-0 activates the tenant conformance-manifest requirement; A5-SH0 and A5-R1 realize and prove the one versioned manifest over exact public capability and contract identities. |
+| `CR-RL-11` | T-219 `D-21` / `CCALL` strangler | `admitted_to_target` | `DEC-5.0-FULL-001` | T-226/T-227 close the structural compute envelope: every 5.0-reachable arm enters one spine/enclosure, gate antecedents bind selection truth, program declarations publish, site brackets retire, and archive/replay audit equality passes. |
+| `CR-RL-12` | T-219 `D-25` / `PROOF-CARRY-THROUGH-038` | `deferred` | `DEC-5.0-PROP-001` | Preserve the requirement's typed transitional semantics on undeclared legacy edges and narrow 5.0 to no universal legacy-edge coverage-gated-closure claim. New 5.0/G5 proof-bearing paths declare carry-through when they claim it. Re-enter on admission of a universal migration/product claim. |
 
 ## Capability Package Dispositions
 
@@ -332,7 +339,7 @@ adjudication. `PAYLOAD-028` and `PLUGIN-SEAMS-006` are already retained under
 | `A5-EX1` | `admitted_to_target` | `DEC-5.0-PROP-001` | Narrow to exact immutable repository/Git artifact identity, verification, install, and binding. No hosted registry, license program, signing, or product-lifecycle breadth. |
 | `A5-EX2` | `admitted_to_target` | `DEC-5.0-FULL-001` | Native catalog and public SDK cover every current public ingress, read, action, F_H, result, replay, observer, tuner, and lifecycle operation with explicit ownership and no private runtime authority. |
 | `A5-EX3` | `admitted_to_target` | `DEC-5.0-FULL-001` | Thin `abg.cli` exposes the complete current tenant-invariant operator grammar over the same public SDK, including start/resume, gaps/lawful actions, F_H, result/replay, assess-result, witness, observe, tune, typecheck, and install-time families. |
-| `A5-EX4` | `admitted_to_target` | `DEC-5.0-PROP-001` | G0 is already released predecessor evidence. odd_glc T-033 owns G5 declarations-only adoption, full data-mapper proof, exact candidate freeze, later tap, and released-pair verification. G0/G5 do not participate in the ABG C1/C2 compiler equivalence. |
+| `A5-EX4` | `admitted_to_target` | `DEC-5.0-PROP-001` | G0 is already released predecessor evidence. odd_glc T-033 owns G5 migration design; T-038 owns declarations-only adoption, full data-mapper proof, and digest-bound source-candidate freeze; T-039 owns RC publication/qualification; T-037 owns final tap; ABI T-237 owns released-pair verification. G0/G5 do not participate in ABG C1/C2 compiler equivalence. |
 | `A5-CX1` | `admitted_to_target` | `DEC-5.0-PROP-001` | Native no-host gate plus the Codex CLI/skill projection over the same public CLI/SDK. No host portfolio or host-specific runtime work. |
 | `A5-R1` | `admitted_to_target` | `DEC-5.0-PROP-001` | Exact frozen-byte qualification and one release manifest/read model. It reruns or aggregates owning-leaf evidence; it creates no second checker, schema, or harness architecture. |
 | `A5-Q1`, `A5-Q2` | `deferred` | `DEC-5.0-PROP-001` | pass@k and generic harness characterization remain supporting research and do not block 5.0. |
@@ -377,7 +384,7 @@ release-wide process product.
 | `C1` | First 5.0 candidate produced by installed `I4 + B5 + S5`. |
 | `I1` | Installed C1 with no mutable S5 import or source fallback. |
 | `C2` | Second candidate produced by installed `I1 + same B5 + same S5`. |
-| `R5` | Exact C1 bytes, frozen as the 5.0 release candidate only after C1/C2 equivalence passes. C2 is the fixed-point witness, not a second release candidate. |
+| `R5` | Exact C1 content, frozen as the 5.0 self-hosted source candidate only after C1/C2 equivalence passes. T-240 assigns and qualifies the published RC identity; C2 is the fixed-point witness, not a second source candidate. |
 | `G0` | Released odd_glc `0.1.0` predecessor/compatibility evidence. It is not an ABG compiler component. |
 | `G5` | Future immutable declarations-only odd_glc catalog product owned by T-033 and qualified over exact I1/R5 after ABG self-host equivalence is established. |
 
@@ -407,23 +414,25 @@ opens the smallest necessary authority, design, realization, and proof leaves;
 each leaf has one owner, change class, re-entry point, and closure contract.
 
 ```text
-DS-0 -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-5 -> DS-6 -> DS-7 -> DS-8
+DS-0 -> DS-0R -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-4Q -> DS-5 -> DS-6 -> DS-7 -> DS-8
 ```
 
 | Phase | Purpose | Hard prerequisite | Exit |
 |---|---|---|---|
 | `DS-0` | Reconcile and freeze entry authority. | T-219 rc.3 reconciliation and completed T-221 exact P4/I4 rebind are landed; odd_glc 0.1 release evidence is available. | This target is promoted; singular leaves and the release ticket exist; T-218 closes. |
-| `DS-1` | First installed vertical steel thread over existing lawful scalar GraphFunction behavior. | DS-0 authority plus only the catalog/install/SDK/CLI design needed by the thread. | Exact candidate artifact installs; the ABG SYSTEM catalog plus one minimal publisher-authored fixture product bind; retained rows list/describe; allowlist narrows; Hello World invokes through public SDK/CLI; typed result and replay are readable; no source/private import or second controller. The fixture is contract proof, not a release product. |
+| `DS-0R` | Close residual specification sufficiency before executable design. | T-218 target admission is complete; T-219 owns only specification work. | D-11 has an addressable public-contract-catalog bootstrap and owner chain; D-12 law is constitutional; code-bearing QUAL gaps route to T-239; the specification-only tenant-builder walkthrough passes; T-219 closes. |
+| `DS-1` | First installed vertical steel thread over existing lawful scalar GraphFunction behavior. | T-222 design after DS-0R; T-223 realization after T-222. | A source-blind workspace creates/opens; exact candidate artifact installs; the ABG SYSTEM catalog plus one minimal publisher-authored fixture product resolve, verify, bind, and admit; retained rows list/describe; allowlist narrows; the host-neutral descriptor invokes Hello World through public SDK/CLI; typed result and replay are readable; one packed-product live sandbox passes; no source/private import or second controller. The fixture is contract proof, not a release product. |
 | `DS-1F` | Prove the bootstrap carrier is feasible before runtime expansion. | DS-1 installed public path plus exact P4/I4. | Freeze B5 manifest identity/version/digest/schema and prove exact I4 can parse, bind, list, and start it against a bounded fixture root to produce one known artifact, with no executable S5 import or private shim. |
-| `DS-2` | Close the constructive C/runtime and current conformance-enforcement gaps. | DS-1F proves the exact bootstrap carrier and DS-1 supplies the concrete consumer contract. | `workflow.C` and all seven terms execute; declared `(role, fibre, arm)` selects the stage interior; CR-GF-10 through CR-GF-12, all current hook-attachment scopes, admitted runtime-law residuals, and A5-SP3 close; malformed F_P and deterministic config negatives pass; the DS-1 path reruns as a multi-stage declared program. |
+| `DS-2` | Close the constructive C/runtime and current conformance-enforcement gaps. | T-226 and narrowed T-179 design after T-225; T-227/T-228 realize those designs. | `workflow.C` and all seven terms execute; every reachable C arm uses one uniform spine/enclosure and passes archive/replay audit equality; declared `(program, role, fibre, arm)` selects the stage interior; serialized zoom/foldback/type-wiring declarations receive stable semantic diagnostics; CR-GF-10 through CR-GF-12, all current hook-attachment scopes, admitted runtime-law residuals, node/overlay application, and A5-SP3 close; malformed F_P and deterministic config negatives pass; the DS-1 path reruns as a multi-stage declared program. |
 | `DS-3` | Complete the installed public operator product. | DS-2 supplies the complete constructive runtime and public consumer contract. | Publish exact per-operation contracts for every current public verb family; complete SDK and thin `abg.cli` start/resume, status/result/replay, gaps/lawful-actions, F_H, assess-result, witness, observe, tune, typecheck, and install-time paths; prove actor attribution and read/write separation; and pass an installed `start -> truthful stop/hold/gap -> inspect/actions -> agent edit or typed F_H response -> resume/start -> converged` workflow without private imports or a second controller. |
 | `DS-4` | Complete all remaining code-bearing ABG self-conformance and observer/tuner work. | DS-3 completes the current public product surface. | A5-SH0's exact method/rule inventory, typed diagnostics/dispositions, real-tree gate, and seeded negatives are realized through the existing compiler/rule path; A5-SH4's current observer/tuner behavior passes truthful halt, grounded-draft, attribution, ratification, replay, and injected-negative proofs on the development candidate. No mandatory ABG code-bearing work remains after this phase. |
+| `DS-4Q` | Close complete qualification enforcement before self-host freeze. | T-239 enters after T-232 with T-219/QUAL authority current. | The general executable census and witness gate are designed and realized; every retained live proof uses the public packed-and-installed substrate; the legacy exemption list is empty; release-grade bypass/red refusal is fail-closed; phase review passes. |
 | `DS-5` | Installed ABG two-stage self-host and final R5 freeze. | DS-4 closes every mandatory code-bearing ABG leaf; exact P4/I4, B5, and final S5 are frozen. | `I4 + B5 + S5 -> C1`; install I1; admit the exact same B5 under its 5.0 compatibility leg; `I1 + same B5 + same S5 -> C2`; both converge; source isolation and the admitted C1/C2 equivalence comparison pass; freeze `R5 := C1`. |
-| `DS-6` | Migrate, qualify, and freeze odd_glc G5. | DS-2 contracts plus exact self-hosted R5/I1 from DS-5. | T-033 removes local dispatch/evaluator/materializer/consequence authority, passes ODD 11.5B, freezes exact G5 bytes, and completes one fresh full data-mapper campaign through installed I1/R5. |
-| `DS-7` | Exact-candidate self-conformance and bounded integrated qualification. | DS-1 through DS-6 frozen R5/G5 bytes and owning-leaf evidence. | Rerun A5-SH0 and A5-SH4 against exact installed R5; rerun or aggregate existing owning-leaf proofs into the one A5-R1 manifest/read model; installed static/runtime conformance, full operator workflow, native no-host, Codex projection, Hello World, data mapper, self-host, and exact identity gates return one citable verdict. A structural differential proves the adapter has no direct worker, event, traversal, continuation, or orchestration path. No second checker or new release-wide harness is introduced. |
-| `DS-8` | Ordered exact release. | DS-7 green over immutable R5 and G5 bytes. | Pack/fresh-install exact R5, rerun Hello World and the primary operator loop, tap/install R5, tap/install the already-qualified G5, verify the released pair without rebuild, then reconcile packages, manifests, checksums, notes, branch, tag, installs, and campaigns. |
+| `DS-6` | Migrate, qualify, and freeze odd_glc G5. | T-033 design plus DS-2 contracts and exact self-hosted R5/I1 from DS-5. | T-038 removes local dispatch/evaluator/materializer/consequence authority, passes ODD 11.5B, freezes exact G5 bytes, and completes one fresh full data-mapper campaign through installed I1/R5. |
+| `DS-7` | Exact-candidate self-conformance and bounded integrated qualification. | T-238 designs A5-R1 after DS-1 through DS-6 freeze R5/G5 bytes and owning-leaf evidence; T-235 realizes the pre-release verdict. | Rerun A5-SH0 and A5-SH4 against exact installed R5; rerun or aggregate existing owning-leaf proofs into the one A5-R1 candidate verdict; installed static/runtime conformance, full operator workflow, native no-host, Codex projection, Hello World, data mapper, self-host, and exact identity gates return one citable release-eligible verdict. A structural differential proves the adapter has no direct worker, event, traversal, continuation, or orchestration path. No second checker or new release-wide harness is introduced. |
+| `DS-8` | Ordered RC publication, qualification, and final release. | T-235 is green over immutable R5/G5 source candidates. | T-240 publishes and qualifies an immutable ABG RC; T-236 taps final ABG 5.0; odd_glc T-039 publishes and qualifies an immutable G5 RC beside released ABG; T-037 taps final 0.2.0; T-237 fresh-installs and verifies the released pair without rebuild. |
 
-R5 is immutable after DS-5. Any DS-6 or DS-7 finding that requires an ABG code,
+R5 is immutable after DS-5, which is non-admissible until T-239 closes. Any DS-6 or DS-7 finding that requires an ABG code,
 declaration, or release-significant input change invalidates R5 and routes to the
 owning leaf; DS-5, DS-6, and DS-7 then rerun over the new frozen S5. Later-phase
 qualification may consume or reject R5, never patch it.
@@ -434,6 +443,8 @@ DS-1 is the first implementation target:
 
 ```text
 exact tarball
+  -> create/open workspace
+  -> resolve exact dependency lock
   -> verify
   -> install
   -> bind ABG + catalog product
@@ -530,8 +541,13 @@ remains a bounded retry/non-close concern.
 - ABG-owned watchers, schedulers, cadence, recurrence, or automatic wake:
   re-enter with an admitted external-trigger product requirement.
 - Update, disable, unbind, uninstall, retirement, revocation, and
-  supersession: re-enter with a concrete product/registry lifecycle and the
-  correct T-178/T-179 owners.
+  supersession: re-enter as new product-lifecycle intake; use T-178 only where
+  registry-entry retirement/revocation/supersession law applies. Narrowed T-179
+  does not own lifecycle mutation.
+- Universal migration of every legacy obligation-bearing edge to declared
+  proof-carry-through witnesses: re-enter only when 5.x admits a universal
+  coverage-gated-closure claim. Typed transitional edges remain visible and
+  cannot evidence that claim.
 - Hosted npm/marketplace discovery, storefront metadata, ranking, billing,
   organization RBAC, license programs, and signing services: re-enter with a
   public hosted-distribution goal.
@@ -548,24 +564,54 @@ remains a bounded retry/non-close concern.
   tenants: retain their existing post-5.0 triggers.
 - odd_sdlc and odd_chat: archaeology only, never owners or future products.
 
-## Remaining Work To Close T-218
+## Revision 5 Closure Handoff
 
-1. Review and land T-219's current specification reconciliation without
-   importing HOW into constitutional WHAT.
-2. Promote the accepted target through GOALS, PRODUCT, and the minimum owning
-   requirement families. INTENT already owns self-hosting; it needs only its
-   stale carrier contradiction reconciled by the owning reprice.
-3. Create independently closeable repo-local leaf tickets for DS-1, DS-1F, and
-   DS-2 through DS-8,
-   splitting authority, design, realization, and release effects where their
-   change classes differ.
-4. Activate the narrowed T-179 successor for retained `node_type`/`overlay`
-   public inspection and non-callable application semantics.
-5. Update odd_glc T-033 only in the odd_glc repository with the frozen ABG
-   dependencies and G5 proof contract.
-6. Create one exact 5.0 release-gate ticket consuming DS-1 through DS-7 evidence.
-7. Record final leaf IDs, promotion refs, deferred triggers, and the accepted
-   dependency graph here, then close T-218 before implementation begins.
+### Constitutional Promotion
+
+The accepted target is current in:
+
+- `specification/GOALS.md` (`GOAL-035`);
+- `specification/INTENT.md` and `specification/PRODUCT.md`;
+- `REQ-P-CATALOG`, `REQ-P-INSTALL`, `REQ-P-POLICY`,
+  `REQ-P-PUBLIC-CONTRACTS`, `REQ-P-SELF-CONFORMANCE`, `REQ-P-QUAL`, and `REQ-P-SCENARIOS`;
+- `REQ-M-GTL3-CAPABILITY`;
+- `REQ-R-ABG3-SELFHOSTING` and the reconciled event, iteration, payload,
+  plugin, policy, witness, and tuner families; and
+- tenant-neutral GTL language, hook, and typed C-algebra requirements.
+
+### Leaf Ownership
+
+| Phase | Design/authority leaf | Realization/proof/release leaf |
+|---|---|---|
+| DS-0R | T-219 | T-219 specification walkthrough/review |
+| DS-1 | T-222 | T-223 |
+| DS-1F | T-224 | T-225 |
+| DS-2 | T-226 and active narrowed T-179 | T-227 and T-228 |
+| DS-3 | T-229 | T-230 |
+| DS-4 | T-231 | T-232 |
+| DS-4Q | REQ-P-QUAL/T-239 design | T-239 migration/proof |
+| DS-5 | T-233 | T-234 |
+| DS-6 | odd_glc T-033 | odd_glc T-038 |
+| DS-7 | T-238 | T-235 |
+| DS-8 | RELEASE_METHOD | T-240, T-236, odd_glc T-039, odd_glc T-037, then T-237 |
+
+T-219 is the specification-only prerequisite and T-222 is the first executable
+design leaf. T-179 is active as the accepted
+DS-2 owner but explicitly queued behind T-225. Every realization leaf is
+non-admissible until its design predecessor closes. Each phase ends with the
+authority-first self-review required by GOAL-035 and the leaf ticket.
+
+The odd_glc design/release handoff began at `99619b1`; its singular DS-6 and
+release-method split is committed at `f8e99fd` across T-033/T-038/T-039/T-037. Deferred candidates and their
+re-entry triggers remain in the Explicit 5.0 Exclusions section. T-235 is the
+one exact-source-candidate A5-R1 gate; T-240/T-236/T-039/T-037/T-237 perform
+ordered RC and final release effects only after it closes.
+
+### Closure Evaluation
+
+All nine closure-law conditions below are satisfied. No design,
+implementation, qualification, campaign, or release effect remains assigned to
+T-218.
 
 ## Closure Law
 
@@ -578,9 +624,9 @@ Close T-218 when:
    authority;
 5. every accepted delivery concern has a repo-local singular-class owner and
    leaf ticket;
-6. odd_glc T-033 owns G5 and its campaign in the odd_glc repository;
+6. odd_glc T-033 owns G5 design, T-038 owns adoption/campaign, T-039 owns its RC window, and T-037 owns final tap in the odd_glc repository;
 7. deferred candidates name the re-entry triggers above;
-8. the DS-0, DS-1, DS-1F, and DS-2 through DS-8 dependency graph and exact
+8. the DS-0, DS-0R, DS-1, DS-1F, DS-2 through DS-4, DS-4Q, and DS-5 through DS-8 dependency graph and exact
    release-gate ticket are current; and
 9. no implementation or final-release work remains assigned to T-218.
 

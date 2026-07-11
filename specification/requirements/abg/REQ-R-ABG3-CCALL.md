@@ -142,7 +142,8 @@ operative gate point on new runs); resolveCCall delegation replacing
 the site brackets (pre-P5; the brackets are the delegation's parity
 oracle); GTL catalog publication of program declarations (P2g/P3).
 This clause retires when -001 holds unconditionally; a release note may
-not claim envelope universality while it stands.
+not claim envelope universality while it stands. Owner: T-227, under the
+T-226 complete-C design.
 
 ## Non-closure
 

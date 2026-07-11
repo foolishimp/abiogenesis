@@ -67,19 +67,26 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 
 **REQ-R-ABG3-EVENTS-027**: The canonical event envelope shall carry a store-assigned admission ordinal. Any fold over replayed events that selects latest or current truth shall be decided by admission ordinal, never by array order, file order, or caller order. Ordinal collisions among candidate events, and candidate sets that admission ordinal cannot totally order, shall fail closed at ingest rather than resolve by incidental order.
 
-Gap: latest-selecting folds still decide by array/caller order rather than admission ordinal — at minimum `deriveConstructionPressureProjection` (latest package ref taken in event-array order) and the runner's `latestSelectedGraphFunctionEvent` (reverse array scan). Collision/unorderable-candidate fail-closed ingest is likewise not realized in those folds. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
+Gap: latest-selecting folds still decide by array/caller order rather than admission ordinal — at minimum `deriveConstructionPressureProjection` (latest package ref taken in event-array order) and the runner's `latestSelectedGraphFunctionEvent` (reverse array scan). Collision/unorderable-candidate fail-closed ingest is likewise not realized in those folds. Owner: T-227.
 
 **REQ-R-ABG3-EVENTS-028**: Admission ordinal shall be per-store emitter-context state. A live emitter context shall reject an externally pre-stamped canonical envelope as inadmissible: canonical stamping authority belongs to the admitting store alone, and accepting a foreign stamp is envelope forgery. A replay-tolerant emitter context shall admit previously admitted canonical truth forward-only: already-stamped events re-enter in admission-ordinal order, and the context shall not restamp, reorder, or rewind them.
 
-Gap: the default emitter context is a module-level replay-tolerant singleton, not per-store state; emission paths that do not adopt a seeded live context inherit it, so live-forgery rejection is realized only where a live context is explicitly adopted (the persisted-store append path), not universally. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
+Gap: the default emitter context is a module-level replay-tolerant singleton, not per-store state; emission paths that do not adopt a seeded live context inherit it, so live-forgery rejection is realized only where a live context is explicitly adopted (the persisted-store append path), not universally. Owner: T-227.
 
-**REQ-R-ABG3-EVENTS-029**: The complete runtime event-kind union shall be a published, versioned conformance contract of the substrate. A conformant tenant shall produce exactly the census kinds under the canonical envelope: no missing kinds, no undeclared extra kinds, and no rival envelope. The authoritative kind roster is the published `RuntimeEvent` contract of the released substrate package; the family enumeration in the census section below is a normative map into that contract, not a substitute roster.
+**REQ-R-ABG3-EVENTS-029**: The complete runtime event-kind union shall be a
+published, versioned conformance contract of the substrate. A conformant tenant
+shall produce exactly the census kinds under the canonical envelope: no missing
+kinds, no undeclared extra kinds, and no rival envelope. The authoritative
+machine-readable roster is the named `RUNTIME_EVENT_KIND_VALUES` symbol and the
+`RuntimeEvent`/`CanonicalRuntimeEvent` type symbols located by contract group
+`abg.contract.abg.m03` in the exact product's public contract catalog. The
+family enumeration below is a normative map into that roster, not a substitute.
 
 ## Canonical Runtime Event-Kind Census
 
 The runtime event union decomposes into these families. Example kinds are
 illustrative members drawn from the published `RuntimeEvent` contract; the
-published contract owns the complete roster.
+published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 
 - lifecycle/basis: `basis_admitted`, `run_segment_opened`, `graph_call_opened`, `frame_opened`
 - advancement/regime: `fd_advance_ready`, `fp_dispatch_requested`, `lever_resolution_admitted`

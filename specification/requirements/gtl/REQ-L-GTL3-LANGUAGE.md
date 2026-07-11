@@ -10,13 +10,19 @@
 ## Purpose
 
 Define GTL 3 as an LLM-first, graph-first, algebraic governance control
-language with Python-native declarative syntax and a clear GTL/ABG boundary.
+language with host-language-native typed declarative syntax and a clear
+GTL/ABG boundary.
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-LANGUAGE-001**: GTL shall be an LLM-first, graph-first, algebraic governance control language with Python-native declarative syntax.
+**REQ-L-GTL3-LANGUAGE-001**: GTL shall be an LLM-first, graph-first,
+algebraic governance control language with host-language-native typed
+declarative syntax.
 
-**REQ-L-GTL3-LANGUAGE-002**: GTL shall remain an embedded Python declaration surface. It shall not require a standalone parser or separate syntax family.
+**REQ-L-GTL3-LANGUAGE-002**: Each conformant build tenant shall publish GTL as
+an embedded typed declaration surface in its host language plus an equivalent
+serialized admission carrier. GTL shall not require a separate free-form
+programming syntax or parser family beyond those published contracts.
 
 **REQ-L-GTL3-LANGUAGE-003**: GTL shall be declarative. It shall declare lawful structure, contracts, hook attachment points, and semantic work surfaces rather than constructive tactics or hidden strategy.
 
