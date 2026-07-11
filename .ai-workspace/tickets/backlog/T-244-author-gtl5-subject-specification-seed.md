@@ -53,3 +53,16 @@ engine-generality test on a framework-shaped subject).
 The seed specification is admitted through SPEC_METHOD and is scenario-
 declarable: T-245's scaffold can bind it as campaign subject input without
 interpretation gaps. Wave execution is explicitly out of scope.
+
+## R4 Alignment (2026-07-12)
+
+Per T-242's R4 Decision Record: the subject specification seed is the
+**ABIogenesis 5.0 feature-complete register**, not a minimal GTL increment.
+Source: the original F1-F27 vision, each feature admitted or excluded by the
+**odd_glc-enablement test** (ODD_METHOD SS6: does the method assign this
+surface to the installed product, and does odd_glc 1.0 - shipping domain
+declarations only per the three-layer ownership law - or the
+5.0.0-as-project run require it?). GTL 5.* language features are part of this
+register, not a separate product. Wave one remains `workflow.C`. The register
+also prices each T-247-held claim (self-conformance, qualification, operator
+surface) through the same test, feeding the T-249 dispositions.

@@ -94,6 +94,8 @@ engine, release harness, or hidden manual interpretation.
   supervision with REQ-P-SELF-CONFORMANCE's constitutional-surface audit —
   independent guarantees. The observer/tuner does NOT inventory and audit
   constitutional, design, public-contract, proof, and release surfaces as
-  REQ-P-SELF-CONFORMANCE-001 requires, and the builder has no exemption.
+  REQ-P-SELF-CONFORMANCE-002 requires (the complete frozen subject
+  inventory; -001 binds the exact subject identity and rule basis), and
+  the builder has no exemption. [id corrected per codex re-review]
   The requirement remains live; interim claim owner T-247; retain/narrow/
   remove at the T-249 reprice.

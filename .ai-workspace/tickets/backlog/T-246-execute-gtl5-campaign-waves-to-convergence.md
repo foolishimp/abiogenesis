@@ -46,3 +46,12 @@ lawfully admitted wave additions) is delivered and proven per the campaign's
 earned-depth evidence, with committed per-wave evidence ledgers; residual gaps
 are explicitly repriced out by F_H or carried to a named successor. Hands the
 converged source candidate to T-248.
+
+## R4 Alignment (2026-07-12)
+
+Convergence target per T-242's R4 Decision Record: the T-244 feature-complete
+register (odd_glc-enablement test), delivered wave by wave. The output this
+ticket hands to T-248 is the **feature-complete source candidate for the 5.0
+RC cut** - rung one of the R4 release ladder. The 5.0.0-final-as-project run
+(rung two) belongs to T-248, executed over the installed released RC + GLC
+1.0 pair per ODD_METHOD SS7.

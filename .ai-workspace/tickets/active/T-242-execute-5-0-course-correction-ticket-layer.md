@@ -140,10 +140,12 @@ ticket. Entries are pointers, not obligations.
   T-096 framing, INTENT/GOALS carrier language (tickets withdrawn `8ea0310`);
   folds into T-249's span.
 - R3: settle the 4.6 predecessor line — T-243 (F_H decision).
-- R4: product identity and scope — **F_H must define what 5.0 IS before T-249
-  can be drafted**: ABIogenesis 5.0 (full product per current GOAL-035), GTL 5
-  over a settled ABG 4.6 line, or another boundary; and EX + SP-product in or
-  out. This decision gates T-249, T-247's final scope, and T-248's identity.
+- R4: product identity and scope — **DECIDED 2026-07-12, see R4 Decision
+  Record below.** 5.0 = feature-complete ABIogenesis whose feature test is
+  odd_glc enablement; release ladder = 5.0 RC released → GLC 1.0 over it →
+  5.0.0 final brought as an odd_glc 1.0 project. T-249 is now admissible;
+  T-247 claims and T-248 identity resolve against the odd_glc-enablement
+  test.
 - R5: odd_glc cross-repo — T-033/T-037/T-038/T-039 G5-chain coupling to the
   dropped R5/I1 identities needs retargeting in odd_glc's own tree.
 - R6: codex's four untracked self-build carrier drafts — archive as
@@ -169,6 +171,49 @@ ticket. Entries are pointers, not obligations.
   per R4). [rev 2]
 - T-249 — Constitutional reprice of the 5.0 target (intent_reprice; gated on
   R4). [rev 2]
+
+## R4 Decision Record (2026-07-12) — F_H product identity and scope
+
+F_H verbatim: *"my intent was for 5.0 to be feature complete vision that
+enabled those features within odd_glc, in addition 5.0 the RELEASED version of
+5.0 RC + glc 1.0 - would be used to bring 5.0.0 as an odd_glc 1.0 project"* —
+adding: *"these definitions are in the odd methodology."*
+
+Interpreted in the methodology's own ratified vocabulary:
+
+1. **Identity**: ABIogenesis 5.0 is the released graph-native ODD product
+   (SPEC_METHOD Recursive Product Taxonomy: "Product"). **Feature-complete**
+   has the ODD_METHOD §6 meaning: 5.0 owns every installed-product surface —
+   method, runtime, carrier, command, and release-managed surfaces — that an
+   odd_glc 1.0 target project requires, so odd_glc 1.0 ships domain
+   declarations only (three-layer ownership law). The feature register derives
+   from the original F1–F27 vision, each feature admitted or excluded by the
+   **odd_glc-enablement test**: does the method assign this surface to the
+   installed product, and does odd_glc 1.0 or the 5.0.0-as-project run require
+   it?
+2. **Release ladder** (SPEC_METHOD compiler analogy instantiated:
+   `release P0 → install P0 → use P0 to build source for P1 → release P1`):
+   - current line (rc.3 predecessor + GLC 0.1) + campaign discipline builds
+     the feature-complete source → **release cut: 5.0 RC** (published,
+     qualified);
+   - **odd_glc matures to 1.0** (declarations-only) over the installed 5.0 RC
+     (odd_glc tree, residual R5);
+   - **installed released 5.0 RC + GLC 1.0 = the installed released builder**
+     (ODD_METHOD §7), used to **bring 5.0.0 final in as an odd_glc 1.0 target
+     project** (ODD_METHOD §6 clean-install steps: author the 5.0.0 project's
+     constitutional surfaces, traverse to build) → **release P1: 5.0.0**.
+3. **Self-host boundary**: the post's §8.1 substrate/subject rule is not new
+   law to ratify — it is ODD_METHOD §7 ("the installed product under use
+   remains distinct from the product under development; the two must not
+   collapse into one mixed authority surface"). T-249 cites it.
+4. **What this resolves**: the scope question is NOT increment-vs-milestone —
+   5.0 is the feature-complete milestone, delivered by the campaign
+   discipline; EX/SP and every T-247 claim resolve per-feature against the
+   odd_glc-enablement test at T-244/T-249. The 5.0.0-final-as-project run is
+   the operational self-hosting proof ("gcc v1 builds gcc v2") and the
+   final's qualification-through-use.
+
+Closure condition 1 is satisfied by this record.
 
 ## Review Amendment (2026-07-12) — codex governance review of 34d7f56
 

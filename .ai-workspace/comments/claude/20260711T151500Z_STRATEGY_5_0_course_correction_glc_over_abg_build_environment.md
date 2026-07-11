@@ -83,9 +83,9 @@ delivery** under the campaign model.
 |---|---|---|---|---|---|
 | 1 | Build engine (spec → real software via AI worker turns) | full campaign converged on the rc.2-era line (**64/64** verified-restore kills, real Scala/sbt); T-221 grades that `predecessor_evidence_only` for rc.3, which carries the bounded odd_glc 0.1 live proof | campaign demoted to a DS-6 **qualification test**; "build" re-cast as the deterministic B5 packaging carrier (DS-1F/T-224) | use the campaign as the engine; **wave one doubles as the exact-substrate pilot** that upgrades or refutes readiness on the exact installed line | **engine candidate-ready, not zero-gap**: the missing pieces are the subject-side authoring (rows 6–7) plus the exact-substrate pilot |
 | 2 | Dev environment (released stack installed as builder: GLC over ABG) | odd_glc **0.1 installed over rc.3**, digest-verified chain (peerDep `4.6.0-rc.3` / `9cffb372…`) | DS-1 install/bind/catalog (T-222/T-223) — correct, committed | keep DS-1 exactly | **closed** — this codex work is KEEP |
-| 3 | Self-hosting (stack builds its successor) | campaign can target **any** subject, incl. the next GTL/ABG source | `I4+B5+S5→C1`, `I1+B5+S5→C2` over **frozen S5**, prove `C1≡C2`; `R5:=C1` (DS-5/T-233/234) | point the campaign at the **GTL-5 source**: the stack *authors* its successor | **none in 4.6.** Codex's loop certifies packaging of pre-authored source — the authoring capability sits outside it entirely (§3) |
-| 4 | C runtime / `workflow.C` | 4 of 7 C terms execute; `workflow.C` returns honest `semantic_not_realized` **typed gap events**; strangler window stands; rc.2 exercised 86/86 c_call arms enclosed *on that scenario's paths* | full rewrite up front — retire strangler, rebind M03 stage kernel, realize `workflow.C` (DS-2/T-227, one mega-leaf, no partial checkpoint) | **demand-driven via the gap events** — realize `workflow.C` when campaign ledgers surface the typed gaps (§7.2); strong candidate for the **first GTL-5 subject item** (§9) | **small, real, demand-signalled**; codex delta = premature big-bang |
-| 5 | Authoring grammar (typed GTL/C algebra + guard) | T-220 landed (`014448f`, 1430/1430, 19 negatives) | T-220 — correct work | keep; its typed unrealized-gap identities are the demand mechanism | **closed by committed work** |
+| 3 | Self-hosting (stack builds its successor) | campaign is the **candidate** engine for any *declared* subject (one domain proven, rc.2-era; framework-shaped subjects unproven until the wave-one pilot) | `I4+B5+S5→C1`, `I1+B5+S5→C2` over **frozen S5**, prove `C1≡C2`; `R5:=C1` (DS-5/T-233/234) | point the campaign at the **5.0 subject source**: the stack *authors* its successor | **no missing apparatus; readiness is candidate-grade.** Codex's loop certifies packaging of pre-authored source — the authoring capability sits outside it entirely (§3) |
+| 4 | C runtime / `workflow.C` | 4 of 7 C terms execute; `workflow.C` returns honest `semantic_not_realized` **typed diagnostics (pending the T-245 admission bridge — no ledger producer yet, §7.2)**; strangler window stands; rc.2 exercised 86/86 c_call arms enclosed *on that scenario's paths* | full rewrite up front — retire strangler, rebind M03 stage kernel, realize `workflow.C` (DS-2/T-227, one mega-leaf, no partial checkpoint) | **demand-driven via the §7.2 loop** — realize `workflow.C` when the T-245 bridge admits the typed diagnostics as campaign evidence; the **first 5.0 subject item** (§9) | **small, real, demand-signalled once the bridge lands**; codex delta = premature big-bang |
+| 5 | Authoring grammar (typed GTL/C algebra + guard) | T-220 landed (`014448f`, 1430/1430, 19 negatives) | T-220 — correct work | keep; its typed diagnostics become the demand signal once T-245's bridge admits them | **closed by committed work** |
 | 6 | **The GTL-5 spec (the build subject)** | **does not exist** | never written as a subject spec; buried under the bootstrap | **write it** — seed content in §9 | **REAL — unaddressed** |
 | 7 | **Run GTL-5 through the campaign (the delivery)** | engine ready; the **subject-side authoring** is missing: F25 scenario pack (SCN-ABG-SOFTWARE-BUILD declarations) + F26 supervisor-seat config for this subject | gated behind `C1/C2` | author the F25 pack + F26 seat, then run waves; earned-depth + evidence ledger (rc.2 pattern) | **REAL — the delivery.** Two named authoring artifacts + campaign waves, not just "run it" |
 | 8 | Release GTL-5 | pack→install→live-proof→digest→tag discipline proven (rc.3, odd_glc 0.1) | `R5:=C1` — release identity coupled to the packaging fixed point | release via the **proven discipline**; salvage C1/C2's one real kernel as a cheap packaging-determinism gate (§3.3) | **none in 4.6**; codex delta = coupled to the wrong artifact |
@@ -96,10 +96,11 @@ delivery** under the campaign model.
 
 **Reading the gap.**
 
-- **Rows 1–3, 8 — the engine-side gap between 4.6 and the correct goal is zero.** 4.6
-  already builds software, already hosts an installed GLC, can already target its
-  successor, already knows how to release. Codex's machinery there (B5 carrier, `C1≡C2`,
-  `R5:=C1`) spans a gap that isn't where the machinery is (§3).
+- **Rows 1–3, 8 — no bootstrap apparatus is missing on the engine side.** 4.6 builds
+  software (candidate-grade evidence, row 1), hosts an installed GLC, can declare its
+  successor as a subject, and knows how to release. What IS open there is readiness
+  *confirmation* — the wave-one exact-substrate pilot — not machinery. Codex's machinery
+  (B5 carrier, `C1≡C2`, `R5:=C1`) spans a gap that isn't where any gap is (§3).
 - **Rows 6–7 — the only gaps that deliver 5.0**, and they are *subject-side authoring*:
   the GTL-5 spec, the F25 scenario pack, the F26 seat, then campaign waves. Codex buried
   all of it under the bootstrap.
@@ -320,11 +321,11 @@ item (§9 nominates `workflow.C`), not the whole GTL-5 surface in wave one.
 Of the DROP leaves **only T-224 is live** — the rest are unstarted, so the DROP is mostly
 "do not open," not "unwind."
 
-### DEMAND-DRIVEN — pulled through the §7.2 loop (gap event → intent → ticket)
+### DEMAND-DRIVEN — pulled through the §7.2 loop (typed diagnostic → admitted evidence via the T-245 bridge → intent → ticket)
 
-- `workflow.C` runtime — pulled by `semantic_not_realized` gap events in GTL-5 campaign
-  ledgers; nominated as the **seed subject item** (§10), which converts the pull from
-  "wait and see" to "first wave."
+- `workflow.C` runtime — pulled by `semantic_not_realized` diagnostics admitted through
+  the T-245 bridge; nominated as the **seed subject item** (§10), which converts the pull
+  from "wait and see" to "first wave."
 - node_type/overlay public application (T-228) — pulled if GTL-5 programs declare those
   kinds.
 - SP campaign-subset (F7 suite extraction, F10 harness, F11 F_D-leak gate) — likely
@@ -380,6 +381,15 @@ itself (§9). The true up-front F_H scope call is **EX (F16–F22) + SP's produc
 - **5.0 = the productization milestone** (the original one-sentence definition): keep EX
   + SP-product so a stranger can consume the substrate. The original 27 minus the drift.
 
+**RESOLVED 2026-07-12 (T-242 R4 Decision Record).** F_H ruled **feature-complete** — 5.0
+is the milestone, with the feature register derived from the original F1–F27 vision under
+the **odd_glc-enablement test** (ODD_METHOD §6: the installed product owns every method/
+runtime/carrier/command/release surface an odd_glc 1.0 target project needs, so odd_glc
+1.0 ships domain declarations only), and the release ladder: **5.0 RC released → GLC 1.0
+over the installed RC → 5.0.0 final brought in as an odd_glc 1.0 target project** — the
+operational self-host per ODD_METHOD §7, and the final's qualification-through-use.
+Per-feature admission happens at T-244; per-claim rulings at T-249.
+
 ## 12. Concrete retarget actions — ordered by decay rate
 
 1. **Perishable (hours): stand codex down on T-224.** Until the reprice lands, T-218's
@@ -416,14 +426,15 @@ line.
 1. ~~Pause T-224~~ — executed: T-224 retired under T-242 (`34d7f56`).
 2. Confirm the retarget: campaign-as-builder over packaging-fixed-point (§0, §3) — the
    ticket layer is executed under T-242 and awaits ratification.
-3. **Define the exact 5.0 product and release identity** (review finding 2; T-242 R4):
-   ABIogenesis 5.0 full product per current GOAL-035, GTL 5 over a settled ABG 4.6 line,
-   or another declared boundary. This gates the T-249 constitutional reprice, T-247's
-   claim dispositions, and T-248's release identity.
-4. Settle 4.6 — qualify a serviceable `4.6.0` line vs rc.3-permanent (§8.2; T-243).
-5. EX + SP-product in 5.0, or lift to 5.1 (§11) — with the self-conformance and
-   qualification claims (REQ-P-SELF-CONFORMANCE, REQ-P-QUAL) each explicitly retained,
-   narrowed, or removed at T-249, never deferred by silence (review finding 5; T-247).
+3. ~~Define the exact 5.0 product and release identity~~ — **DECIDED 2026-07-12** (T-242
+   R4 Decision Record): feature-complete ABIogenesis 5.0 per the odd_glc-enablement test;
+   ladder = 5.0 RC → GLC 1.0 over the installed RC → 5.0.0 final as an odd_glc 1.0
+   target project. T-249 is now admissible.
+4. Settle 4.6 — qualify a serviceable `4.6.0` line vs rc.3-permanent (§8.2; T-243) — the
+   remaining governing decision.
+5. EX + SP-product scope — **resolved in mechanism by R4**: each feature and each
+   T-247-held claim (REQ-P-SELF-CONFORMANCE, REQ-P-QUAL) is admitted or excluded by the
+   odd_glc-enablement test at T-244/T-249, never deferred by silence (review finding 5).
 6. Ratify consciously: the §8.1 substrate/subject rule and the provenance-not-
    reproducibility trade (§4) — folded into T-249's span.
 7. Ratify the Python constitutional reconciliation (§13; T-249 span).

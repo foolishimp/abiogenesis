@@ -50,3 +50,22 @@ One exact immutable release of the F_H-declared 5.0 artifact: published RC
 window passed, qualification evidence cited per surviving claims, final tap
 recorded, fresh install verified without rebuild. Or an explicit F_H terminal
 disposition of the release window (T-221's one-honest-disposition standard).
+
+## R4 Alignment (2026-07-12) - the two-rung release ladder
+
+Per T-242's R4 Decision Record, this ticket owns both rungs:
+
+1. **Rung one - 5.0 RC**: publish and qualify the release cut from T-246's
+   feature-complete converged candidate (pack -> install -> live-proof ->
+   digest chain -> tag), over the settled predecessor line (T-243).
+2. **Rung two - 5.0.0 final as an odd_glc 1.0 target project**: the installed
+   released 5.0 RC + GLC 1.0 pair is the installed released builder
+   (ODD_METHOD SS7); 5.0.0 final is brought in as an odd_glc 1.0 target
+   project (ODD_METHOD SS6 clean-install steps: author the 5.0.0 project's
+   constitutional surfaces, traverse to build). **The project run is the
+   final's qualification-through-use** - the operational self-hosting proof.
+   Cross-repo dependency: odd_glc maturation 0.1 -> 1.0 over the installed RC
+   (odd_glc tree, T-242 R5).
+
+The closure condition reads over both rungs: final tap of 5.0.0 requires the
+rung-two project evidence, not only rung-one qualification.

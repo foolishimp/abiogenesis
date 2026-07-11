@@ -78,3 +78,22 @@ Every surface in the affected span carries its explicit edit or recorded
 no-change decision; the consistency gate passes over the span (no active
 surface requires retired work; no downstream artifact contradicts the new
 upstream truth); F_H ratifies the resulting constitutional text.
+
+## R4 Alignment (2026-07-12)
+
+Admission condition SATISFIED: F_H recorded the R4 product-identity and scope
+decision on 2026-07-12 (T-242 R4 Decision Record). Drafting starts on F_H's
+word at the review pause. Drafting brief updates:
+
+- GOAL-035 rewrite target: the R4 release ladder (feature-complete 5.0 RC ->
+  GLC 1.0 over installed RC -> 5.0.0 final brought as an odd_glc 1.0 target
+  project) with the T-243..T-248 chain as the closure gate.
+- INTENT item 12 replacement: self-hosting defined operationally per
+  ODD_METHOD SS7 (installed released builder distinct from in-development
+  product; the released pair brings the next release as a target project) -
+  replacing the two-stage packaging fixed point.
+- PRODUCT fixed-point section replacement: the R4 ladder; the substrate/
+  subject boundary is CITED from ODD_METHOD SS7, not ratified as new law
+  (F_H: "these definitions are in the odd methodology").
+- Feature scope law: the odd_glc-enablement test governs feature admission
+  (T-244 register) and the T-247 claim dispositions.

@@ -53,12 +53,15 @@ The campaign scaffold that points the proven engine at the GTL-5 subject:
   typed `semantic_not_realized` diagnostics stop at compile/conformance level
   (`GtlProgramConformanceIssue`); no producer admits them as ledger events.
   The scaffold must make unrealized-construct attempts land as ADMITTED typed
-  evidence — preferred path: the scenario declares the conformance run inside
-  worker turns so diagnostics ride the admitted typed result (EXECUTION
-  DEFAULT law); a code-level event producer is in scope only if declaration
-  cannot carry it. Without this bridge the demand loop is supervisor-mediated
-  reading of diagnostics, not admitted evidence — the earned-depth law then
-  cannot count gap closure.
+  evidence via the declarative path: the scenario declares the conformance run
+  inside worker turns so diagnostics ride the admitted typed result (EXECUTION
+  DEFAULT law). **Boundary law (codex re-review item 3): if declaration cannot
+  carry the bridge, the code-level event producer is OUT of this ticket's
+  declarations-only boundary — that finding closes this deliverable as
+  `blocked_by_realization_gap` and opens a separate ABG ticket at its lawful
+  re-entry point (smallest change class in the runtime).** Without the bridge
+  the demand loop is supervisor-mediated reading of diagnostics, not admitted
+  evidence — the earned-depth law then cannot count gap closure.
 - Placement (odd_glc catalog vs abiogenesis scenario surface) is a design-time
   decision under the three-layer ownership law; whichever home is chosen ships
   declarations only.
@@ -68,7 +71,11 @@ The campaign scaffold that points the proven engine at the GTL-5 subject:
 The scaffold binds and starts over the installed stack against the T-244 seed
 through admitted GTL program and workspace startup, and wave one reaches a
 truthful terminal state (converged, or typed gap/hold) with a committed
-evidence ledger in the rc.2 pattern. **Wave one is also the exact-substrate
+evidence ledger in the rc.2 pattern. **The bridge is proven live, not assumed:
+closure requires at least one replay-citable ADMITTED `semantic_not_realized`
+result in that ledger** (natural to wave one, whose subject is the unrealized
+`workflow.C` — authoring toward it produces exactly that diagnostic), or the
+recorded `blocked_by_realization_gap` disposition with its successor ticket. **Wave one is also the exact-substrate
 engine pilot** (per codex review finding 7: the full data-mapper campaign is
 rc.2-era `predecessor_evidence_only`; no full campaign has run on the exact
 current predecessor line) — its evidence upgrades or refutes the engine-
