@@ -164,3 +164,7 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
 - 2026-07-11: opened by T-217's superseded-and-split close. No terminal path
   has been selected and no release action is authorized before the common gate
   and F_H disposition.
+- 2026-07-11: F_H directed publication of a fresh `4.6.0-rc.3`, downstream
+  odd_glc migration to its immutable tarball, and at least one live hello-world
+  sandbox run on that binding. This selects an RC publication checkpoint, not
+  either terminal T-221 outcome. The final `4.6.0` tap remains open.
