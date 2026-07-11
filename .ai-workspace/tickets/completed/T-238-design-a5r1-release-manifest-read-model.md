@@ -4,7 +4,10 @@
 - title: Design the A5-R1 candidate verdict and release addendum read model
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: GOAL-035
 - phase: DS-7
 - priority: high
@@ -94,3 +97,13 @@ verdict, or candidate/post-release dependency cycle remains.
 - red/missing/stale/bypass negative design
 - dependency-cycle and immutability review
 - phase-end authority-first design review against T-218, PRODUCT, QUAL, SCENARIOS, and M05
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Designs the A5-R1 candidate-verdict and release-addendum read-model framework. The campaign's committed earned-depth evidence ledger is the qualification surface; a framework above it is the overbuild.
+- Re-entry: The lightweight self-certifying release snapshot (build/lint/test summary embedded in the release manifest - the gap found in the odd_glc 0.1 review) stays on T-242's demand register.
+- No code, specification, design, or release surface changed by this closure.

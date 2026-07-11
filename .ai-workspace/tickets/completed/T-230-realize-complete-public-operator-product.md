@@ -4,7 +4,10 @@
 - title: Realize the complete public operator product
 - type: feature
 - ticket_category: implementation_migration
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_demand_driven_reentry
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-3
 - priority: high
@@ -166,3 +169,13 @@ existing gates remain green.
 - native no-host and Codex projection equivalence/structural tests
 - fixed-result digest and live schema/replay-invariant Codex comparison
 - full deterministic gates and phase-end code review against T-229, T-218, and PRODUCT
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_demand_driven_reentry
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Realizes the complete public operator product designed by T-229.
+- Re-entry: Same demand channel as T-229.
+- No code, specification, design, or release surface changed by this closure.

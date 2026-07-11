@@ -4,7 +4,10 @@
 - title: Design the complete public operator contract
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_demand_driven_reentry
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-3
 - priority: high
@@ -80,3 +83,13 @@ verbs, mutability, actor semantics, or runtime authority.
 - read/write and actor-attribution review
 - adapter structural-boundary review
 - phase-end independent review against T-218, PRODUCT, and requirements
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_demand_driven_reentry
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Designs the complete public operator contract (DS-3) ahead of any consumer demand; genesis-ts start/gaps/witness/tune already drives campaigns end-to-end.
+- Re-entry: Demand-driven: pulled per-verb when the GTL-5 campaign surface needs an operation the current CLI/SDK lacks.
+- No code, specification, design, or release surface changed by this closure.

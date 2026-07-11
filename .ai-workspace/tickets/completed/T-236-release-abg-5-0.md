@@ -4,7 +4,10 @@
 - title: Release ABG 5.0
 - type: chore
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-8
 - priority: high
@@ -74,3 +77,13 @@ release claim is backed by the immutable release record.
 - release snapshot and checksum validation
 - frozen G5 descriptor/binding and affected installed campaign compatibility
 - phase-end release/code review against T-218, PRODUCT, RELEASE_METHOD, T-235, and T-240
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Taps final ABG 5.0 as the self-host output; the release identity was coupled to the C1 fixed point.
+- Re-entry: A successor release ticket is cut when a converged GTL-5 artifact exists; the release discipline itself is unchanged and kept.
+- No code, specification, design, or release surface changed by this closure.

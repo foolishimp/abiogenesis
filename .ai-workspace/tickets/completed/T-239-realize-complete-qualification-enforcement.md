@@ -4,7 +4,10 @@
 - title: Design and realize complete pre-freeze qualification enforcement
 - type: feature
 - ticket_category: implementation_migration
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-4Q
 - priority: high
@@ -154,3 +157,13 @@ harness or unsupported hardening scope.
 - public-contract-catalog row/schema/digest and stale-installed-row differentials
 - complete deterministic and required live qualification gates
 - phase-end code/evidence review against PRODUCT, QUAL, INSTALL, T-219, and T-232
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: DS-4Q complete pre-freeze qualification enforcement; there is no self-host freeze to gate.
+- Re-entry: Executable-census and witness-gate ideas re-enter on demand at release-qualification time.
+- No code, specification, design, or release surface changed by this closure.

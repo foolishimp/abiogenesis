@@ -4,7 +4,10 @@
 - title: Design ABG self-conformance and observer/tuner proof
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-4
 - priority: high
@@ -74,3 +77,13 @@ engine, release harness, or hidden manual interpretation.
 - self-subject inventory review
 - observer/tuner authority-flow review
 - phase-end independent design review against T-218 and PRODUCT
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Designs the formal ABG self-conformance and observer/tuner proof for the self-host path. The shipped observer/tuner already supervises campaigns; the runtime-over-its-own-build proof path died with the bootstrap.
+- Re-entry: A5-SH0-style conformance packaging re-enters on demand if a release or tenant requires a citable self-conformance package.
+- No code, specification, design, or release surface changed by this closure.

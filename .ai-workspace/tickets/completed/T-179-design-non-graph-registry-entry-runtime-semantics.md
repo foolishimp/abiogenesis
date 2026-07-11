@@ -4,7 +4,10 @@
 - title: Design non-callable node-type and overlay catalog semantics
 - type: feature
 - ticket_category: ordinary
-- status: active
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_demand_driven_reentry
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - execution_state: queued_after_T225
 - goal: abg-5-0-full-product-delivery
 - phase: DS-2
@@ -104,3 +107,13 @@ implement the design without importing odd_glc domain meaning or inventing a loa
 - per-kind IACS and application-consumer review
 - callable-selection and product-local-activation negative design
 - phase-end independent review against T-218, PRODUCT, and ODD ownership law
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_demand_driven_reentry
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Narrowed node_type/overlay catalog-semantics design queued behind the dropped T-225 gate (phase DS-2, source T-218). No current program demands the kinds.
+- Re-entry: Demand-driven: re-enters via gap event -> intent -> ticket when a GTL-5 program (or the G5 catalog line) declares node_type/overlay kinds. T-218's narrowing law (public kinds limited to graph_function/node_type/overlay) survives as the scoping constraint for any re-entry.
+- No code, specification, design, or release surface changed by this closure.

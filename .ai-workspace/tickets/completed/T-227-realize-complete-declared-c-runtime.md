@@ -4,7 +4,10 @@
 - title: Realize complete declared C runtime and response path
 - type: feature
 - ticket_category: implementation_migration
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-2
 - priority: high
@@ -207,3 +210,13 @@ or made unreachable before closure. Mixed old/new proof is inadmissible.
 - focused CR-RL and A5-SP3 regressions
 - full deterministic TypeScript gates and semantic lint
 - phase-end code review against T-226, T-218, PRODUCT, and the GTL axioms
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: The DS-2 kernel mega-leaf: retire the strangler window, rebind the M03 stage kernel, realize workflow.C up front with no partial checkpoint. Overblown form for demand-sized work.
+- Re-entry: Same channel as T-226: campaign subject content, sized and ordered by admitted gap events.
+- No code, specification, design, or release surface changed by this closure.

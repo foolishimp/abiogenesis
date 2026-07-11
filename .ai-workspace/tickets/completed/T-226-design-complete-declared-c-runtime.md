@@ -4,7 +4,10 @@
 - title: Design complete declared C runtime and response path
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-2
 - priority: high
@@ -95,3 +98,13 @@ vector routers, prompt schemas, proof frameworks, or controllers.
 - result-path single-authority walk
 - residual-by-residual closure matrix
 - phase-end independent design review against T-218 and PRODUCT
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Up-front design of the complete declared C runtime (DS-2 design half). The premise that the C runtime must complete before forward work is contradicted by live campaign results (post S6).
+- Re-entry: Design content becomes reference input to GTL-5 subject waves; realization is pulled by typed semantic_not_realized gap events (wave-one candidate: workflow.C), per T-242's demand register.
+- No code, specification, design, or release surface changed by this closure.

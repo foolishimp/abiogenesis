@@ -4,7 +4,10 @@
 - title: Realize non-callable catalog kind semantics
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_demand_driven_reentry
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-2
 - priority: high
@@ -74,3 +77,13 @@ public contract/capability rows resolve from the installed product catalog.
 - installed publisher-neutral fixture
 - full relevant registry/runtime gates
 - phase-end code review against T-179, T-218, PRODUCT, and ODD ownership axioms
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_demand_driven_reentry
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Realization half of the node_type/overlay kinds; no demand signal exists.
+- Re-entry: Same demand channel and scoping constraint as T-179.
+- No code, specification, design, or release surface changed by this closure.

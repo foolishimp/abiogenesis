@@ -4,7 +4,10 @@
 - title: Realize self-build program feasibility
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-1F
 - priority: high
@@ -68,3 +71,13 @@ replay evidence recorded for later use.
 - public catalog list/start fixture proof
 - exact output and replay digest record
 - phase-end code review against T-224, T-218, PRODUCT, and SELFHOSTING
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Realizes DS-1F feasibility of the B5 carrier dropped with T-224.
+- Re-entry: None. If a packaging-determinism check is ever wanted it re-enters as the one-gate release-discipline assertion (post S3.3), via T-242's demand register.
+- No code, specification, design, or release surface changed by this closure.

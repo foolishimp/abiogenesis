@@ -4,7 +4,10 @@
 - title: Publish and qualify the ABG 5 release candidate
 - type: chore
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-8
 - priority: high
@@ -79,3 +82,13 @@ review is recorded; and no behavioral fix remains unqualified in the RC window.
 - frozen G5 descriptor/binding and affected installed campaign compatibility
 - RC snapshot/checksums/notes and remote branch/tag verification
 - phase-end review against PRODUCT, QUAL, SCENARIOS, T-235, and RELEASE_METHOD
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Publishes and qualifies the ABG 5 RC as the self-host candidate; superseded with the R5 identity.
+- Re-entry: RC publication re-enters per artifact under the release discipline.
+- No code, specification, design, or release surface changed by this closure.

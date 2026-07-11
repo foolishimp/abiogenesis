@@ -4,7 +4,10 @@
 - title: Design the self-build program carrier
 - type: feature
 - ticket_category: ordinary
-- status: active
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - activated_at: 2026-07-11
 - goal: abg-5-0-full-product-delivery
 - phase: DS-1F
@@ -90,3 +93,13 @@ depending on unfinished 5.0 behavior.
 - P4/I4 API reachability walk
 - source-isolation threat-to-supported-path review
 - phase-end authority/design self-review
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Designs the B5 self-build packaging carrier, the formal self-host's entry leaf. The certified C1/C2 loop packages frozen S5 and never witnesses authoring (post S3.1); under the campaign model the builder is the campaign itself and needs no B5 carrier.
+- Re-entry: None as a carrier. Codex's in-flight untracked carrier design drafts (build_tenants/abiogenesis/typescript/design/M02_M04_SELF_BUILD_PROGRAM_*.md) remain uncommitted working papers; their archive-as-reference disposition is residual R6 on T-242.
+- No code, specification, design, or release surface changed by this closure.

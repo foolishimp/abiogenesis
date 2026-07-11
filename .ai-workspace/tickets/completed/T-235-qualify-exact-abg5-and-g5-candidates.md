@@ -4,7 +4,10 @@
 - title: Qualify exact ABG 5 and G5 candidates
 - type: chore
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-7
 - priority: high
@@ -91,3 +94,13 @@ host matrix was introduced.
 - CAPABILITY-010..013 positive and negative conformance-enforcement evidence
 - release-manifest admission and red-refusal tests
 - phase-end code/evidence review against T-218, PRODUCT, QUAL, and SCENARIOS
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Qualifies the exact ABG5+G5 candidate pair; both identities (R5, G5-over-I1) are artifacts of the dropped bootstrap.
+- Re-entry: GTL-5 artifacts qualify per-release under the proven pack->install->live-proof->digest->tag discipline.
+- No code, specification, design, or release surface changed by this closure.

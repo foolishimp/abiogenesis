@@ -4,7 +4,10 @@
 - title: Verify the released ABG 5 and G5 pair
 - type: chore
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-8
 - priority: high
@@ -72,3 +75,13 @@ entered the proof.
 - released catalog inspection and bounded invocation
 - pair manifest/provenance reconciliation
 - phase-end release review against T-218, PRODUCT, QUAL, and RELEASE_METHOD
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Verifies the released R5/G5 pair; the pair identities are dropped.
+- Re-entry: Released-pair verification re-enters naturally per release under the discipline, as already done for rc.3 + odd_glc 0.1.
+- No code, specification, design, or release surface changed by this closure.

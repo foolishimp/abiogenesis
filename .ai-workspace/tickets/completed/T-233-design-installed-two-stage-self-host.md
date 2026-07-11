@@ -4,7 +4,10 @@
 - title: Design installed two-stage self-host and equivalence gate
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: superseded
+- closed_at: 2026-07-12
+- terminal_disposition: superseded_by_course_correction
+- disposition_authority: F_H course-correction ruling 2026-07-12, carried by T-242
 - goal: abg-5-0-full-product-delivery
 - phase: DS-5
 - priority: high
@@ -67,3 +70,13 @@ private compiler, odd_glc substrate, or manual equivalence judgment.
 - equivalence-surface census
 - invalidation/rerun review
 - phase-end independent design review against T-218, PRODUCT, and SELFHOSTING
+
+## Course-Correction Closure Record (2026-07-12)
+
+- Disposition: superseded_by_course_correction
+- Authority: F_H ruling 2026-07-12 ("run the course correction ... retire anything
+  overblown"), carried by T-242; analysis: rev 3 of
+  `.ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md`.
+- Reason: Designs the installed two-stage self-host and C1/C2 equivalence gate - a packaging fixed point over frozen source (post S3.1): provable precisely because it certifies nothing about how the software was built.
+- Re-entry: The salvageable kernel - pack frozen source on predecessor and candidate installs, compare release-significant digests - re-enters as a single release-discipline gate (post S3.3) on demand.
+- No code, specification, design, or release surface changed by this closure.
