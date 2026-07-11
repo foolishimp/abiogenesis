@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-PROVENANCE.md](./REQ-R-ABG3-PROVENANCE.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [T-217](../../../.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-215](../../../.ai-workspace/tickets/completed/T-215-supervisor-as-admitted-actor.md))
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md) (the reflective boundary), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-PROVENANCE.md](./REQ-R-ABG3-PROVENANCE.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (absorbing [T-215](../../../.ai-workspace/tickets/completed/T-215-supervisor-as-admitted-actor.md))
 
 ---
 

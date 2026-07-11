@@ -2,138 +2,99 @@
 
 ## Position
 
-`GOALS.md` holds the current work-wave focus above intent, product
-definition, requirements, and design. It is the bounded current surface:
-completed waves live in git history and release notes, not here.
+`GOALS.md` names the bounded current work wave. Completed or superseded waves
+remain in git history and release evidence; they do not remain active here.
 
-This wave continues the strict inside-out migration rule from
-`SPEC_METHOD.md`: reprice the public contract first, remove superseded
-bridge authority, migrate producers and consumers, prove only after the
-old contract is no longer authoritative.
+Authority flows from this wave into intent, product definition, requirements,
+design, realization, proof, and release. Candidate intake does not promote
+product truth by itself.
 
-## Current Wave: Foundation Release (goal_reprice 2026-07-09, user-approved plan)
+## Current Wave: ABG 5.0 Target Admission
 
-The consciousness tier (tuner, intent observer) is the OPTIMISATION over
-the system layers and is deferred. This wave completes and releases the
-FOUNDATION: typed F_P workers EXECUTE processes into typed nodes on the
-standard declarations-only path.
+`GOAL-034` is the current goal.
 
-Foundation laws (to be constitutionally repriced in Phase 1):
-- GTL declares (syntax); ABG interprets, admits, derives, and gates (the
-  kernel); odd_* products ship domain declarations only — odd_* owns no
-  systems functionality.
-- Execution defaults to TYPED F_P worker turns: the edge declares the
-  worker runs the built unit / tests / generation and returns a typed
-  execution-result node; F_D mechanical checks and admission make it
-  truth. F_D-specific interiors arrive only by ratified annealing
-  (deferred consciousness tier).
-- Depth is EARNED: derived from admitted intermediate assets and
-  executed reports, with adversarial mutation-kill evidence admitted;
-  the intermediate computation discovers the proof topology (obligations
-  derive from admitted intermediate assets, never static enumeration).
+The immediate objective is to finish candidate gathering and F_H target
+admission for ABG 5.0, then emit independently closeable delivery leaves in a
+dependency order that supports design before realization. T-218 owns this
+target-admission boundary. It is not the compound implementation or release
+ticket for 5.0.
 
-### Phases
+The target under review combines:
 
-| Phase | Work | Exit criterion |
-| --- | --- | --- |
-| 0 | T-195 forensic close review (active-lane honesty) | every C1-C7/P0/P1 item classified accepted-with-evidence, repriced, or superseded; ticket completed or successor opened |
-| 1 | Constitutional repricing of the three foundation laws into their specification homes (PRODUCT.md / requirement families; odd_glc PRODUCT.md sharpening) | release claims grounded in live specification, not ticket prose |
-| 2 (DONE 2026-07-09) | T-210 (+T-197 riding): kernel source carriers — depth-map admission, -034 earned-depth derivation, kill-obligation projection from admitted maps, adversarial + full ProofStrengthAdmission | inside-out break order complete; hollow declaration fails closed; suites green; rc cut + artifact-verified |
-| 3 (execution-authority core DONE 2026-07-09; declarations-only adoption remains) | T-209: standard-path adoption + T-212 installer-bootstrap constitutional compression RESCHEDULED here (user reprice 2026-07-09: the rc.15 installer-driven workspace refresh delivers the new bootstrap and the Phase 4 campaign is its live test — workers run UNDER the boundary-bearing context; shipping it at Phase 6 would mean zero runs under it) — binding worker-loop code deleted for declarations + standard pipeline handler; execution stages become typed F_P worker turns returning typed execution-result nodes; the failed prose-safeguard pattern replaced with mechanical enforcement (execution-result provenance gated at admission; standing no-framework-execution conformance differential) per the 2026-07-09 governance-failure ruling | 11.5B execution-authority audit clean; proxy prohibition holds; no worker-loop step downstream; framework-assembled execution evidence inadmissible by construction |
-| 4 (DONE 2026-07-09) | odd_glc T-032: depth node types + declarations; the proving campaign — CLOSED: citable run converged, 8/8 folds eligible under derived depth, 16/16 mutants killed, zero survived, reviews D-interim/D-final passed | a live data-mapper run closes with folds satisfied, depth EARNED, zero survived mutants, canary clean |
-| 5 (DEFERRED 2026-07-09, user adjudication at Phase 6 entry) | T-110 session economics + T-208 items 1-2 + T-213/T-214 riders — post-release hardening, not foundation claims; they ride the Consciousness Wave runway | (deferred) |
-| 6 (ACTIVE) | Foundation Release cut — 4.5.1 is the release-grade candidate (4.5.0 superseded; T-216 mutation-soundness patch CLOSED; T-212 bootstrap landed rc.15; artifact-verified; odd_glc repinned to 4.5.1). ONLY REMAINING GATE: the frozen-law cold proving run on the 4.5.1 artifact — everything else (D3 kernel eviction via T-209, Phase 5 economics, T-213/214/215) moves downstream to the Consciousness build. | frozen-law cold proving run converges on 4.5.1 with zero monitor law-repairs — now MECHANICAL: WITNESS-004's frozen-law predicate + the citability predicate (converged AND zero reprices AND hygiene clean) classify the run from replay => release-grade classification granted |
+- an installed, source-independent GTL/ABG product and public conformance
+  surface;
+- lawful published GraphFunctions, a native catalog, and `abg.cli` as the
+  native graph shell;
+- two-stage installed self-hosting with an explicit equivalence proof;
+- an independently released odd_glc catalog product;
+- truthful observer/tuner and optional Review/Consensus composition through
+  the same typed C algebra;
+- native operation independent of Claude, Codex, or another marketplace host,
+  with selected hosts tested only as compatibility adapters; and
+- one exact immutable 5.0 qualification and release cut.
 
-### Current Build Wave (consolidated 2026-07-09): The Consciousness Wave — T-217
+These are candidate claims until T-218 gives each a terminal disposition and
+promotes the accepted set through the constitutional chain.
 
-STATUS (2026-07-09): Phase 0 DELIVERED; Phase 1 CLOSED (F_H ruling
-2026-07-09 — exit met on semantic-lane evidence; live/sandbox proof
-deferred by ruling to the functionally-complete gate after Phase 4);
-Phase 2 ACTIVE (the kernel boundary: grammar realization, T-209
-remainder, closure-gating, carrier cleanup).
+## Entry Evidence And Owners
 
-ONE STDO-governed multiphasal ticket now carries the whole build:
-`.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md`
-(GOAL-033). It consolidates and SUPERSEDES nine partial/overlapping
-tickets (T-206, T-207, T-215, T-213, T-214, T-211, T-110, T-208,
-T-209-remainder) under the nothing-lost law — every absorbed acceptance
-is delivered or explicitly retired by its owning phase. Phases:
-0 constitutional repricing (session laws + two new requirement
-families) -> 1 sense organs + trustworthy telemetry -> 2 clean kernel
-boundary (T-209 migration verbatim + T-208 riders) -> 3 the Observer
-(FPC law; ticket drafts behind F_H) -> 4 the Tuner + session economics
-(T-110) -> 5 the tier's proving campaign (zero out-of-framework
-interventions) -> 6 the 4.6 release. Out of scope and untouched:
-Python trio, T-178/T-179, B-010.
+| Surface | Current role | Owner |
+|---|---|---|
+| T-219 | Landed the first current-specification reconciliation pass and named remaining specification gaps; its review/closure remains separate. | abiogenesis |
+| T-220 | Completed typed C-algebra authoring, admission, semantic-compiler, compiled-handoff, and malformed F_P response boundary. | abiogenesis |
+| T-217 | Closed as a superseded-and-split consolidation boundary. Its deterministic observer/tuner and kernel substrate are predecessor evidence; it did not earn its original live-campaign or release exits. | abiogenesis |
+| T-221 | Owns the exact prior-release/bootstrap-product boundary required before a frozen 5.0 self-hosting proof. | abiogenesis |
+| odd_glc T-033 | Owns downstream declarations-only adoption and fresh campaign proof; it may not invent vector routing or product-local runtime authority. | odd_glc |
+| T-218 | Owns candidate dispositions, accepted target promotion, singular leaf decomposition, and the dependent delivery plan. | abiogenesis |
 
-The Foundation wave's ONE remaining gate (the 4.5.1 frozen-law proving
-run, Phase 6 above) stays open in parallel; it is T-217's entry gate
-for Phase 5, not absorbed by it.
+## Operating Scope
 
-### Wave rationale (ratified 2026-07-09): build the regulator, let it tune the reflexes
+The current product runs on one developer desktop. Native in-process code and
+the local filesystem are trusted for this wave. Defensive work is allocated to
+the likely boundaries:
 
-CROSSROADS ADJUDICATION (user, 2026-07-09): tighten the local loops
-(evaluator.C.F_P as a micro-consciousness honed by hand) OR accept
-nature's imperfections and build the higher-order system from the same
-substrate tools, then optimise. DECISION: the higher-order system —
-option 2 subsumes option 1 in the lawful order.
+1. malformed authored GTL is rejected by native types, raw admission, lint,
+   and the semantic compiler;
+2. malformed, incomplete, or contradictory F_P output is rejected or made
+   non-close at response admission; and
+3. hostile local-object forgery, cryptographic substitution, filesystem
+   tamper-proofing, hosted multi-tenant isolation, and marketplace-service
+   operation are not current release work.
 
-Evidence basis (the T-032 campaign as controlled experiment): all 12
-ledgered defects were invisible to the local evaluator IN PRINCIPLE —
-each was a defect in the law the evaluator enforces, not in its
-enforcement; the evaluators had a flawless campaign. The gaps lived
-BETWEEN laws, visible only to an observer whose manifold spans runs,
-ledgers, tickets, releases. Precondition verified: the lower layer
-does not lie, it HALTS (truthful refusals/reds, fail-closed terminals,
-zero false closures across 15 runs) — honest telemetry is the substrate
-a regulator can be built on.
+This constraint does not weaken type matching, catalog membership, declared
+authority, replay truth, or closure predicates. It prevents low-probability
+hostile-local defenses from displacing the product's constructive path.
 
-Wave shape (follows Phase 6):
-1. Activate T-207 (intent observer) as a DECLARED product over
-   telemetry observables — same manifold, different observables (the
-   ratified design principle): node types over replay streams,
-   gap_stops, folds, cost rows, constitutional-vs-projected drift;
-   internal model = the constitutional surface; SOLE EFFECTOR = the
-   ticket (the ratified intent-generation loop: model + telemetry ->
-   gap -> intent -> solutioning -> TICKET -> ticket action).
-2. Activate T-206 (tuner) as the optimisation half: annealing F_D
-   interiors and evaluator calibration FROM observed replay + cost,
-   with equivalence contracts (SS13.1 ratification).
-3. T-215 rows 1-7 land as the tier's sense organs and audit trail
-   (halt-diagnosis projection, defect-intake, reprice admission,
-   operator F_H events, hygiene stamps, mechanical citability).
-4. FIRST PROVING CAMPAIGN of the tier: generate the evaluator-honing
-   tickets from telemetry (which stages burn retries, which contracts
-   leak shape variance, which evaluator prompts need calibration) —
-   local-loop tightening arrives as the tier's OUTPUT, never as
-   hand-tuning (anti-F_D-drift law guarded).
-5. Recursion terminates at the human F_H seat reading the top layer's
-   replay.
+## Delivery Order
 
-Deep-insight commentary: .ai-workspace/comments/claude/
-20260709T110000Z_ANALYSIS_t215_supervisor_actions_fix_table.md
+The current order is:
 
-### Deferred from this wave
+1. continue T-218 candidate disposition while T-221 runs its independent
+   prior-release common gate;
+2. close T-221's exact prior-release disposition, then close T-218 target
+   admission and leaf decomposition;
+3. open and close the accepted authority and design leaves in T-218's
+   dependency order;
+4. realize and qualify the immutable install, catalog, GraphFunction, CLI,
+   odd_glc, self-hosting, and compatibility paths; and
+5. cut one exact 5.0 release only after the integrated proof gate is green.
 
-T-206 and T-207 (the consciousness tier — T-206 becomes the annealing
-authority when activated), T-178/T-179 (registry lifecycle semantics —
-the release does not claim them), B-010 (blocked on a stable governing
-substrate), the Python tenant trio (paused reference line).
+Design may drill down after its exact authority gate closes. Realization does
+not begin from an under-review candidate row.
 
-## Current Goals
+## Current Goal
 
-| Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
-| --- | --- | --- | --- | --- | --- |
-| `GOAL-032` | `GTL` + `ABG Runtime` + `Requirements` + `Release` + `Downstream Proof` | Cut the Foundation Release: typed F_P execution into typed nodes on the declarations-only standard path, with earned depth and adversarial admission, consciousness deferred. | The Phase 0-6 exit criteria above, in order; the release note claims exactly what the odd_glc proving campaign demonstrated on the released artifact. | Phases table above; T-195, T-210, T-197, T-209, odd_glc T-032, T-110, T-208 | Active |
+| Goal ID | Goal | Success signal | Proving surface | Status |
+|---|---|---|---|---|
+| `GOAL-034` | Admit the ABG 5.0 target and decompose it into a lawful dependent delivery sequence. | Every candidate has a terminal disposition; accepted claims are promoted through GOALS/PRODUCT/requirements; every delivery concern has one owner, change class, design handoff, proof contract, and leaf; prior-release and cross-repo dependencies are explicit. | T-218 candidate ledger, phase register, closure handoff, T-219 baseline, T-220 proof, T-221, odd_glc T-033. | Active |
 
-| `GOAL-033` | `ABG Runtime` + `Requirements` + `Product` + `odd_glc consumer` | Build the consciousness layer as system content: observer + tuner over the system's own telemetry, ticket as sole effector, same substrate manifold. | T-217 phases 0-6 exit in order; Phase 5 closes a campaign with zero out-of-framework supervisor acts. | T-217 (consolidation of nine) | Active |
+## Superseded Wave Boundary
 
-Goals GOAL-003 through GOAL-031 are completed waves; their rows moved to
-git history with this reprice (see release notes and completed tickets
-for their evidence). GOAL-001/GOAL-002 remain recorded in PRODUCT.md.
+GOAL-032 and GOAL-033 are no longer current work-wave contracts. T-217 records
+the exact delivered deterministic subset and the named successors. This reprice
+does not claim that its original Phase 5 campaign, declarations-only odd_glc
+adoption, sticky-session optimization, or 4.6 final release completed.
 
-## Wave Boundary
-
-Python tenant work remains paused by the tenant registry: existing
-Python evidence is reference material; Python parity is not an active RC
-gate while the release line is TS-primary.
+The Python tenant remains a paused reference line. odd_sdlc is archaeology and
+feature evidence only; it is not a future owner, runtime, builder dependency,
+or product.

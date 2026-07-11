@@ -5,14 +5,14 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- revision: 2
-- previous_revision_ref: `git:ad0c1cda87782c5d6b9d0a0821e0de55a88809e3:.ai-workspace/tickets/active/T-218-abg-5-0-self-hosting-release-wave.md`
+- revision: 3
+- previous_revision_ref: `git:c59de6cc4c88fd548089fa2578c46d535e5f720d:.ai-workspace/tickets/active/T-218-abg-5-0-self-hosting-release-wave.md`
 - goal: abg-5-0-self-hosting
-- goal_authority_state: proposed `GOAL-034`; no live goal identity exists until target admission promotes it through `specification/GOALS.md`
+- goal_authority_state: live `GOAL-034` authorizes candidate admission and leaf decomposition; it does not admit the candidate product target
 - priority: high
 - governance_scope: STDO Method
 - ticket_role: master candidate-requirement register and 5.0 target-admission ticket; not the execution contract for the full release
-- ticket_revision_state: revision-2 candidate-intake register; second review complete at `8832cc1`; scope remains under F_H vetting
+- ticket_revision_state: revision-3 candidate-intake register; revision-2 baseline reviewed at `8832cc1` and checkpointed at `c59de6c`; first-pass dependent delivery/design plan and T-217/T-220 reconciliation under review; scope remains under F_H vetting
 - current_phase: candidate requirements gathering and vetting
 - execution_contract_state: authorized for candidate intake, verification, conflict analysis, F_H adjudication, and leaf decomposition only
 - execution_state: current-tree research, candidate normalization, ownership classification, conflict review, and target adjudication only
@@ -33,7 +33,7 @@
 - re_entry_point: specification/GOALS.md
 - triaged_at: 2026-07-10
 - created_at: 2026-07-10
-- updated_at: 2026-07-10
+- updated_at: 2026-07-11
 - release_scope: candidate ABG/GTL 5.0 target; no release boundary is frozen by this ticket revision
 - intake_source: >-
     F_H 5.0 direction discussion; T-217 closure state; original T-218 feature
@@ -51,19 +51,24 @@
     T-218 closes its candidate-admission phase; accepted scope is promoted into
     live authority; every accepted 5.0 delivery concern has an independently
     closeable leaf ticket with one change class, owner, re-entry point,
-    dependency edge, and proof contract; A5-P0 and A5-P1 have resolved through
-    existing T-217/4.6 ownership and evidence; and the relevant prior-release
-    prerequisites are true.
+    dependency edge, and proof contract; T-217's delivered predecessor evidence
+    and split residuals are reconciled; T-221 closes the exact prior-release
+    product boundary; and the relevant prior-release prerequisites are true.
 - dependencies:
-  - T-217 and the 4.6 final boundary close affirmatively before 5.0 realization
-  - current 4.6 runtime-law residuals close or the 4.6 claim is narrowed with durable successors
+  - completed T-217 contributes only its delivered deterministic predecessor evidence and named successor map
+  - T-221 closes the exact prior-release/bootstrap-product boundary before frozen 5.0 realization
+  - completed T-220 supplies the typed C-algebra/compiler baseline and its explicit runtime residuals
+  - current prior-release runtime-law residuals close or the prior-release claim is narrowed with durable successors
   - F_H gives every candidate in this register a terminal disposition
   - odd_glc accepts repo-local product/release work for every retained GLC claim
   - T-179 is activated if the admitted catalog exposes non-GraphFunction contribution kinds
   - a product/REQ-P-INSTALL lifecycle leaf is activated if explicit update, disable, unbind, or uninstall is accepted
   - T-178 is activated if registry-entry retirement, revocation, or supersession is accepted
 - links:
-  - `.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md`
+  - `.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md`
+  - `.ai-workspace/tickets/completed/T-220-close-typed-gtl-c-algebra-authoring-loop.md`
+  - `.ai-workspace/tickets/active/T-221-close-exact-4-6-prior-release-boundary.md`
+  - `/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-033-adopt-standard-declarations-only-path.md`
   - `.ai-workspace/tickets/backlog/T-178-design-event-sourced-registry-entry-retirement-supersession.md`
   - `.ai-workspace/tickets/backlog/T-179-design-non-graph-registry-entry-runtime-semantics.md`
   - `.ai-workspace/comments/claude/20260710T131500Z_ANALYSIS_5_0_forgotten_opportunities_mining_consolidated.md`
@@ -100,8 +105,9 @@
     retained candidate is duplicate, contradictory, unsupported, or unowned;
     accepted scope is promoted through GOALS and the required PRODUCT and
     requirement surfaces; each accepted 5.0 delivery concern has a
-    singular-class leaf ticket; A5-P0 and A5-P1 resolve through existing
-    T-217/4.6 ownership and evidence; cross-repo work has repo-local ownership;
+    singular-class leaf ticket; A5-P0 and A5-P1 resolve through T-217's scoped
+    delivered evidence plus T-221's exact prior-release result; cross-repo work
+    has repo-local ownership;
     exclusions and deferred triggers are explicit; and the resulting dependency
     graph plus release-gate ticket are current. T-218 does not remain open until
     implementation or the final 5.0 cut; those close under the admitted leaf
@@ -135,16 +141,21 @@ review at `35b491c`, including:
 - definition-bearing truth is not debt-eligible;
 - a separately tapped GLC release is explicit when retained.
 
-The commit containing this body is the revision-2 checkpoint. It incorporates
-the second review at `8832cc1` and corrects the prior body's use of "admitted"
-as if F_H baseline selection were constitutional promotion or a frozen complete
-target. Candidate gathering and vetting remain the active contract. Baseline
-rows that retain `admitted_to_target` record only the revision-2 F_H scope
-decision; their constitutional promotion and leaf decomposition remain pending
-where applicable. A5-P0 and A5-P1 instead resolve through their existing T-217
-owner and 4.6 closure evidence, never new 5.0 promotion or leaves. The
-revision-2 baseline is retained as candidate input, not silently discarded. The
-following later intake is now registered for adjudication:
+Commit `c59de6c` is the revision-2 candidate-register checkpoint. That
+checkpoint incorporates the second review at `8832cc1` and corrects the prior
+body's use of "admitted" as if F_H baseline selection were constitutional
+promotion or a frozen complete target. Revision 3 keeps that baseline and adds
+the first dependent delivery/design plan, the GOAL-034 current-wave promotion,
+and the T-217/T-220 closure reconciliation. The plan remains under review;
+revision 3 does not promote an under-review product candidate or authorize
+realization. Candidate gathering and vetting remain the active contract.
+Baseline rows that retain
+`admitted_to_target` record only the revision-2 F_H scope decision; their
+constitutional promotion and leaf decomposition remain pending where
+applicable. A5-P0 and A5-P1 instead resolve through T-217's scoped delivered
+evidence and T-221's exact prior-release disposition, never new 5.0 promotion
+or leaves. The revision-2 baseline is retained as candidate input, not silently
+discarded. The following later intake is now registered for adjudication:
 
 1. the homeostatic intent-refinement mechanism inventory;
 2. T-131 and other odd_sdlc tickets as archaeology for lost capabilities;
@@ -154,7 +165,16 @@ following later intake is now registered for adjudication:
 6. `abg.cli` as the native operator graph shell;
 7. a marketplace-shaped product/catalog/install/bind model;
 8. Claude, Codex, and third-party skills as optional adapter projections;
-9. native catalog sovereignty and adapter-equivalence evaluation gates.
+9. native catalog sovereignty and adapter-equivalence evaluation gates;
+10. a first-pass dependent delivery sequence with A/D/R phase gates and a
+    module-bounded design drill-down order;
+11. T-217's superseded-and-split closure, including withdrawal of the invented
+    vector-local dispatch route and separation of prior-release, odd_glc, and
+    live observer/tuner owners;
+12. completed T-220's seven-term C algebra, trusted-desktop risk allocation,
+    compiler/admission boundary, and explicitly reported runtime gaps; and
+13. odd_glc T-033 as the repo-local owner of declarations-only adoption and a
+    fresh post-adoption campaign.
 
 Comments remain intake evidence and reasoning. This ticket is work authority
 for candidate admission only. It does not bypass the constitutional chain.
@@ -219,8 +239,9 @@ split, narrowed, deferred, or rejected before scope freeze.
 2. `REQ-R-ABG3-SELFHOSTING.md` governs derived-artifact and drift behavior. The
    build-next-release predicate, two-stage equivalence, and release proof remain
    missing target work.
-3. T-217 remains active. Its live/adoption tails, Phase 5 campaign, release
-   hygiene, artifact verification, and repin remain named closure work.
+3. T-217 is closed as a superseded-and-split consolidation boundary. Its
+   deterministic substrate is predecessor evidence; T-221, odd_glc T-033,
+   A5-SH4, A5-GF1, A5-GF2, and A5-EX4 own the explicit residuals.
 4. Current 4.6 handler, scope, admission, ordinal, and emitter-context residuals
    must close or narrow the 4.6 claim before 5.0 realization.
 5. T-142's no-publish statement was a scoped snapshot-ticket non-goal, not
@@ -269,6 +290,50 @@ split, narrowed, deferred, or rejected before scope freeze.
     disable, unbind, and uninstall require their own PRODUCT/REQ-P-INSTALL
     authority. T-178 becomes required only if registry-entry retirement,
     revocation, or supersession remains in the accepted lifecycle.
+19. T-220 now publishes and proves the seven-term typed C algebra, raw
+    admission, semantic diagnostics, compiled execution-declaration handoff,
+    and malformed F_P response boundary. It deliberately adds no vector router
+    or downstream-specific execution carrier.
+20. `workflow.C` is lawful typed syntax but remains
+    `semantic_not_realized`. A downstream stage census cannot close that gap by
+    mutating GraphVector topology or branching inside `fpDispatch`.
+21. odd_glc's current live data-mapper binding is not declarations-only. It
+    still generates local dispatch/evaluator, prompt/schema parsing,
+    materialization/archive, and consequence/re-entry mechanisms. Its prior
+    rc.2 campaign is valid historical evidence but predates standard-path
+    adoption.
+22. The current operating environment is one trusted developer desktop.
+    Malformed GTL and malformed/contradictory F_P output are the defended
+    boundaries; hostile in-process forgery, cryptographic substitution, and
+    filesystem tamper-proofing are outside the 5.0 floor unless evidence
+    reprices their probability.
+
+## Risk-Weighted Defensive Floor
+
+These are T-220 planning priors per LLM-authored or worker-mediated change, not
+measured production frequencies. T-218 leaves may revise them from replay
+evidence, but may not silently promote the low-probability classes into release
+gates.
+
+| Failure class | Directional prior | Required defensive move |
+|---|---:|---|
+| native GTL carrier/category mismatch | 15-35% | native typed constructors, generics, discriminated unions, and type tests |
+| malformed serialized GTL shape/value/duplicate | 10-25% | closed raw admission plus exact diagnostics |
+| unresolved ref or catalog/program membership | 8-20% | semantic compiler over the authoritative submitted root |
+| role/fibre/arm or implementation mismatch | 5-15% | semantic compilation and compiled execution-declaration admission |
+| missing, truncated, or invalid F_P JSON | 3-10% | response extraction/admission to a typed blocked result |
+| valid F_P JSON with wrong shape or missing evidence | 2-8% | closed response/artifact admission before replay projection |
+| wrong F_P edge or assessment membership | 1-5% | exact identity and expected-membership admission |
+| contradictory F_P disposition or omitted attestation | 1-5% | one close-eligibility predicate plus corroboration checks |
+| misspelled optional F_P response field | 0.5-3% | exact response-key admission |
+| duplicate authored execution authority | 0.5-3% | duplicate key/authority rejection during admission |
+| accidental stale local basis | 0.1-1% | ordinary construction-time coherence, not adversarial hardening |
+| hostile reflected-symbol/local-object forgery or cryptographic/filesystem tamper | <0.01% | outside the trusted-desktop target unless observed evidence reprices it |
+
+The allocation rule is type matching first, semantic compilation for global
+relations, and response admission for F_P output. It does not add runtime
+tamper-proofing to compensate for malformed GTL that the compiler should have
+rejected.
 
 ## Ownership Model Under Review
 
@@ -368,22 +433,25 @@ not be collapsed into one generic API package.
 | Identity | Candidate meaning |
 |---|---|
 | `S5` | Mutable abiogenesis 5.0 source project under development. |
-| `P4` | Immutable tapped ABG 4.6 product used as bootstrap substrate. |
-| `I4` | Installed P4 product selected by manifest, never by source checkout. |
-| `G` | Separately tapped and installed odd_glc catalog product contributing lifecycle-flavoured overlays, node types, bindings, policy, queries, and specialization-proven GraphFunctions. G is not the ABG runtime. The current bootstrap clause requires one exact immutable G identity and digest whose declared compatibility admits both P4/I4 and C1/I1 without retapping or widening G. Replacing that clause with distinct G4/G5 identities requires an explicit F_H reprice and declared catalog-equivalence contract. |
-| `C1` | First 5.0 candidate artifact produced when I4 executes the selected self-build program with G bound over frozen S5. |
+| `P4` | Working handle for the exact immutable tapped prior ABG product used as bootstrap substrate. It is 4.6.0 only if T-221 releases that cut; an `abandoned_and_rebound` disposition must replace the bound version explicitly before target freeze. The handle is not proof that 4.6 exists. |
+| `I4` | Installed P4 product selected by exact manifest, never by source checkout. |
+| `G_boot` | Exact immutable odd_glc/bootstrap catalog product executable lawfully by P4/I4. It is bootstrap input, not automatically the final declarations-only GLC product, but it still may not own traversal, continuation, closure, or product-local runtime. The current odd_glc wrapper is not tappable as G_boot. |
+| `G_next` | Exact immutable declarations-only odd_glc catalog product executable by C1/I1 and qualified as the 5.0 companion product. `G_boot = G_next` is admissible only if the exact P4/I4 selected by T-221 already proves CR-GF-09 through CR-GF-12. Current rc.2 does not. Otherwise the target needs distinct identities plus an admitted catalog/build-contract equivalence relation. |
+| `C1` | First 5.0 candidate artifact produced when I4 executes the selected P4-compatible self-build program with G_boot bound over frozen S5. |
 | `I1` | Installed C1 candidate isolated from S5 authoring paths. |
-| `C2` | Second candidate artifact produced when I1 executes the same selected program with the same G identity over the same frozen S5. |
+| `C2` | Second candidate artifact produced when I1 executes the admitted equivalent self-build program with G_next over the same frozen S5. |
 | `R5` | Exact immutable 5.0 RC cut accepted only after C1/C2 equivalence and qualification. |
 
 Provisional bootstrap sequence:
 
-1. freeze source, scenario authority, product manifests, and catalog identities;
-2. bind G into a workspace using I4 as the ABG runtime;
-3. run `I4 + G + S5 -> C1` through a published GraphFunction/program;
+1. freeze source, scenario authority, product manifests, bootstrap-model
+   decision, and exact catalog identities;
+2. bind G_boot into a workspace using I4 as the ABG runtime;
+3. run `I4 + G_boot + S5 -> C1` through a P4-compatible published program;
 4. install C1 as I1 without source fallback;
-5. run `I1 + same G + same S5 -> C2`;
-6. compare C1 and C2 under the admitted equivalence contract;
+5. bind G_next and run `I1 + G_next + same S5 -> C2`;
+6. compare G_boot/G_next build-contract meaning and C1/C2 outputs under the
+   admitted equivalence contracts;
 7. qualify and publish one exact immutable candidate.
 
 Equivalence covers package identity, exports, compiled behavior, conformance,
@@ -408,7 +476,7 @@ digests. Declared nondeterminism must be narrow and proven irrelevant.
 
 | ID | Candidate requirement | Proposed contract | Proposed owner and re-entry | Register posture |
 |---|---|---|---|---|
-| `CR-M-01` | Versioned catalog-product descriptor. | Publisher/product identity, version, ABG compatibility range including prerelease semantics, dependencies, license, digest/signature, provenance, contribution-manifest ref, effects/capabilities summary. The current self-hosting clause requires the same exact G identity and digest to bind and admit against P4/I4 and C1/I1 without retap or compatibility widening; a two-G fallback requires an explicit reprice and equivalence contract. | abiogenesis `requirement_reprice` over REQ-P-INSTALL | `directed_candidate` |
+| `CR-M-01` | Versioned catalog-product descriptor. | Publisher/product identity, version, exact ABG compatibility range including prerelease semantics, dependencies, license, content digest, provenance, contribution-manifest ref, and effects/capabilities summary. The descriptor participates in the explicit bootstrap-model decision: one G identity only if exact P4/I4 proves every required runtime contract; otherwise exact G_boot/G_next identities carry an admitted equivalence relation. | abiogenesis `requirement_reprice` over REQ-P-INSTALL | `under_review` |
 | `CR-M-02` | Marketplace lifecycle gates remain distinct. | `discover -> resolve -> verify -> install -> bind -> admit -> allow -> invoke -> replay`; no earlier step implies a later authority. | abiogenesis `requirement_reprice` | `directed_candidate` |
 | `CR-M-03` | Public multi-product workspace binding. | Create/open workspace and bind/list/resolve/load multiple exact installed products as separate acts. | abiogenesis `requirement_reprice` | `directed_candidate` |
 | `CR-M-04` | Unified admitted catalog preserves contribution provenance. | Query by product, module, version, kind, interface, readiness, effects, policy, and source digest. | abiogenesis `requirement_reprice` | `directed_candidate` |
@@ -437,6 +505,10 @@ effect, or capability law.
 | `CR-GF-06` | Operator-facing F_H interaction is public and typed. | Select, approve, reject, assess, answer escalation, and resume with actor attribution. | abiogenesis `requirement_reprice` | `directed_candidate` |
 | `CR-GF-07` | Worker invocation occurs only through the selected GraphFunction and declared operator binding. | CLI, SDK, and skills cannot call a worker/provider directly. | abiogenesis `requirement_reprice` at operator/invocation requirements | `directed_candidate` |
 | `CR-GF-08` | No second controller. | Consumers cannot emit events, construct continuations, retry traversal, choose unpublished actions, or decide closure. | abiogenesis `requirement_reprice` at public-consumer authority requirements | `directed_candidate` |
+| `CR-GF-09` | The complete typed C algebra is executable without topology invention. | ABG executes admitted `C.of`, `C.id`, `C.compose`, `C.edge`, `workflow.C`, `C.batch`, and `C.retry`; a stage selects its declared `(role, fibre, arm)` and implementation interior while GraphFunction, GraphVector, and traversal identities remain unchanged. | abiogenesis `requirement_reprice` over the T-220 C-algebra requirement, followed by a singular design leaf | `under_review` |
+| `CR-GF-10` | One declared worker-result contract governs instruction, response admission, and materialization. | A compiled per-stage artifact schema renders the F_P output contract, admits the returned payload, and governs allowed target materialization; malformed output becomes typed non-close truth before writes. | abiogenesis `requirement_reprice` at artifact-schema/result-interface families | `under_review` |
+| `CR-GF-11` | Standard F_D result assessment is a declared C-stage interior. | A declared F_D handler/evaluator applies finite schema, report, digest, and evidence predicates over admitted results. It does not execute the subject or infer semantic acceptance. | abiogenesis `requirement_reprice` at handler/evaluator families | `under_review` |
+| `CR-GF-12` | Consequence and re-entry projection is ABG-owned and declaration-consumed. | Declared policy and allowed-action catalogs combine with admitted replay facts to project fold, residual, continuation, or re-entry proposals. Catalog products keep no writable continuation state and mint no actions/events. | abiogenesis `requirement_reprice` at consequence/continuation families | `under_review` |
 
 ### `abg.cli` Graph-Shell Candidates
 
@@ -526,8 +598,8 @@ remains provisional until that controlling decision is terminal.
 
 | ID | Candidate capability | Candidate deliverables | Proposed evaluation | Register posture |
 |---|---|---|---|---|
-| `A5-P0` | Close the 4.6/T-217 boundary | Every affirmative T-217 phase exit, live/adoption tail, F_H campaign, C-2/C-6 hygiene item, exact snapshot, installer repin, and release note. | No T-217 non-closure condition remains and no 4.6 law debt is silently relabeled as 5.0. | `retained_baseline` |
-| `A5-P1` | Adjudicate current runtime-law residuals | Handler authority, EVENTS-025 scope behavior, assembly fail-closed engine differential, cross-process pre-stamp rejection, ordinal tie behavior, and emitter-context adoption are fixed or the 4.6 claim is narrowed with durable successors. | Every named residual has current evidence and an explicit disposition before 4.6 final. | `retained_baseline` |
+| `A5-P0` | Resolve the prior-release/T-217 boundary | Completed T-217 scoped evidence and successor map plus T-221's exact release or accepted abandonment/rebind disposition. | No original T-217 completion is implied; P4/I4 names one exact released product before frozen 5.0 realization; no prior-release work is relabeled as a 5.0 leaf. | `retained_baseline + owner_corrected` |
+| `A5-P1` | Adjudicate current runtime-law residuals | T-221's claim ledger binds every retained prior-release assertion to exact-cut proof, rejection, or a durable successor. | Every named residual has current evidence and a terminal disposition before T-218 freezes P4/I4. | `retained_baseline + owner_corrected` |
 | `A5-P2` | Admit the 5.0 target | GOAL decision; public-consumption PRODUCT promotion under current intent; stale Python-carrier reconciliation; PRODUCT reprice; candidate package disposition; requirement/design and repo-local leaves. | Accepted scope is current, singularly owned, traceable, constitutionally promoted, and frozen. | `retained_baseline + expansion_under_review` |
 | `A5-SH0` | SPEC_METHOD self-conformance | Ratified ABG verification requirement and design; exact governing SPEC_METHOD and rule-catalog digests; complete witnessed inventory of GOALS, INTENT, PRODUCT, requirement families, owning design, realization, proof, tickets, public seams, and release claims; typed diagnostics and admissible repairs; machine-readable finding/disposition ledger; standing real-tree and exact-cut gates. | Every retained deviation is corrected through one singular smallest-reentry ticket or the contradicted claim is removed/narrowed; positive real-tree and seeded negative differentials pass for every diagnostic family; no generic debt, unchecked surface, builder exemption, prose-only checklist, or second checker; the gate passes the frozen candidate. | `retained_baseline` |
 | `A5-SH1` | Self-hosting law and maturity | Build-next-release closure invariant, staged maturity/enforcement model, F_D predicate, and frozen `SCN-ABG-SOFTWARE-BUILD` authority. | The invariant is ratified before scenario admission, evaluates real replay, and the qualifying scenario stays frozen during proof. | `retained_baseline` |
@@ -537,14 +609,14 @@ remains provisional until that controlling decision is terminal.
 | `A5-SP1` | Implementation-independent conformance product | Constitutional corpus and diagnostic identities, tenant-neutral protocol, TypeScript adapter, and versioned manifest. | Static conformance passes installed-only with exact expected identities; the corpus imports no tenant realization. | `retained_baseline` |
 | `A5-SP2` | Runtime campaign certification | Citable verdict carrier over frozen law, hygiene, attestation, replay, and exact release identity. | Every runtime claim names its predicates and replay evidence; test counts alone never certify. | `retained_baseline` |
 | `A5-SP3` | Conformance enforcement hardening | Behavioral F_D leak gate and causal-predecessor law limited to causal, derived, transition, and closure-bearing carriers. | Undeclared deterministic closure checks fail; applicable carriers reject missing predecessor truth; root/declaration carriers are not falsely rejected. | `retained_baseline` |
-| `A5-GF1` | GraphFunctions as lawful executable programs | Discovery, description, typed invocation/resume/result/replay, allowlist, lawful actions, F_H operations, trigger-neutral start, and admitted, ready, public-startable, replayable exposure for the ABG executive-observer GraphFunction already required by `REQ-L-GTL3-GRAPHFUNCTION-020`, independent of optional A5-GF2. | Source-blind interactive GraphCall completes with no private imports, direct worker/event/continuation access, or second controller; the executive observer supplies the native-system gate's concrete callable subject even if A5-GF2 is rejected. | `directed_candidate` |
+| `A5-GF1` | GraphFunctions as lawful executable programs | Discovery, description, typed invocation/resume/result/replay, allowlist, lawful actions, F_H operations, trigger-neutral start, complete seven-term C execution including `workflow.C`, declaration-consumed stage interiors, and admitted, ready, public-startable, replayable exposure for the ABG executive-observer GraphFunction already required by `REQ-L-GTL3-GRAPHFUNCTION-020`, independent of optional A5-GF2. | Source-blind interactive GraphCall completes with no private imports, direct worker/event/continuation access, vector-local router, or second controller; every selected stage interior traces to admitted `(role, fibre, arm)` and compiled declarations; the executive observer supplies the native-system gate's concrete callable subject even if A5-GF2 is rejected. | `directed_candidate + T-220_runtime_residuals_under_review` |
 | `A5-GF2` | Review, Consensus, and intent refinement | Executable reserved families, bounded recursion, typed rulings/outcome, reference composition, host-admission boundary. | One-round close, multi-round refinement, exhaustion to F_H, deterministic reconstruction and projection from admitted events, and no ticket mutation; live F_P re-execution is not required to reproduce generated text. | `directed_candidate` |
 | `A5-EX1` | Marketplace distribution and product lifecycle | Approved license, namespace/publisher identity, package metadata, semver/stable-tag policy, publisher/product manifest, registry discovery, dependency resolution, verification, immutable install, snapshot-to-publication lineage; installed-product lifecycle only if CR-M-10A is accepted. | A clean machine resolves exact public bytes and provenance; published bytes trace to the immutable snapshot; no private package, source path, or `file:` hash dependency. | `retained_baseline + expansion_under_review` |
 | `A5-EX2` | Native admitted catalog and public SDK | Explicit curated exports, contribution manifest, multi-product workspace API, qualified entry kinds, mandatory SYSTEM-catalog admission and ready/public-startable exposure of the `REQ-L-GTL3-GRAPHFUNCTION-020` executive observer, read-only catalog query/composition, invocation, action/F_H/read APIs, requirement-owned runtime ingress, SDK entry, sourcemap, and compatibility policy. | Source-blind consumers and CLI use declared exports only; exports equal the declared list; the executive observer is discoverable and callable without GF2 or an external product; downstream products emit zero ABG events locally; every ingress/read/write class has positive and negative proof. | `retained_baseline + expansion_under_review` |
 | `A5-EX3` | `abg.cli` native graph shell and consumer bootstrap | Workspace/product operations, catalog inspection, allowlist, GraphFunction invocation/resume, lawful actions, F_H, result/replay, host-descriptor surface, injected agent transports, typed missing-capability result, portable docs, onboarding pack, and fresh-tenant skeleton. | T-131-shaped installed fixture completes through public API only; a machine without a configured worker/agent capability fails typed with setup contract; a fresh-context consumer builds and runs a tenant skeleton from published artifacts. | `retained_baseline + replacement_under_review` |
-| `A5-EX4` | Released odd_glc catalog product | odd_glc-local product/release tickets, one immutable G artifact and digest, lifecycle-flavoured contribution manifest, exact ABG binding, committed campaign, and a declared compatibility range spanning P4/I4 and C1/I1. | The same G release binds, admits, and executes its declared campaign through the public path under both exact bootstrap runtimes without retap or compatibility widening. A two-G fallback is valid only after explicit F_H reprice and declared equivalence. GLC neither republishes generic functions nor acquires runtime authority. | `retained_baseline + boundary_corrected` |
+| `A5-EX4` | Released odd_glc catalog product | odd_glc-local product/release tickets including T-033, exact G_boot/G_next identities under the admitted bootstrap model, lifecycle-flavoured contribution manifests, declarations-only G_next binding, exact ABG compatibility, committed campaigns, and an explicit equivalence contract when the identities differ. | G_boot is tapped and proven under P4/I4 before bootstrap. G_next remains an immutable candidate through I1/C1 qualification, is tapped only after the exact ABG 5 product exists, then passes a released-over-released bind/admit/campaign check. One unchanged already-tapped G may replace the pair only if exact P4/I4 proves CR-GF-09 through CR-GF-12. | `retained_baseline + bootstrap_model_needs_F_H + T-033_registered` |
 | `A5-CX1` | Native sovereignty and host-adapter compatibility | Host-neutral descriptor, F_H-selected real/reference adapter set, conformance, and negative portfolio. | Native no-host lane passes; every selected adapter lane preserves invocation semantics; each host failure is isolated. | `directed_candidate` |
-| `A5-R1` | Exact-cut qualification and release | Snapshot, build, zero-warning lint, full suite, self-audit, conformance, campaigns, native catalog/CLI/adapter gates, dual review, install proof, and reconciled release assets. | Every retained proof binds the same immutable cut; branch, tag, package, manifests, notes, installs, catalog identities, and evidence all agree. | `retained_baseline + expansion_under_review` |
+| `A5-R1` | Exact-cut qualification and release | Snapshot, build, zero-warning lint, full suite, self-audit, conformance, campaigns, native catalog/CLI/adapter gates, dual review, install proof, ordered ABG-then-G_next taps, released-over-released post-tap verification, and reconciled release assets. | Every retained proof binds the prequalified immutable bytes; ABG is tapped first, distinct G_next second, then the released pair is verified without rebuilding or retapping; branches, tags, packages, manifests, notes, installs, catalog identities, and evidence agree. | `retained_baseline + expansion_under_review` |
 | `A5-Q1` | pass@k/pass^k characterization | Supporting worker/backend qualification evidence only. | Cannot be cited as tenant conformance truth. | `supporting_candidate` |
 | `A5-Q2` | Generic test-harness family | Supporting adapter/harness capability. | Alternate workload does not prove an alternate ABG tenant. | `supporting_candidate` |
 
@@ -552,8 +624,10 @@ remains provisional until that controlling decision is terminal.
 semantic-compiler path. It does not create an independent checker. Shared-method
 changes remain specification_methodology-owned.
 
-`A5-P0` and `A5-P1` are admitted prior-release entry gates with existing T-217
-and 4.6 ownership, not 5.0 realization packages. They never open new 5.0 leaves.
+`A5-P0` and `A5-P1` are admitted prior-release entry gates. Completed T-217
+supplies only its scoped delivered evidence and successor map; T-221 owns the
+exact prior-release disposition. They are not 5.0 realization packages and
+never open new 5.0 leaves.
 If a 4.6 claim is narrowed into later work, the durable successor must enter
 this register under its own candidate identity, owner, and singular change
 class; it cannot be relabeled as A5-P0 or A5-P1 work.
@@ -578,12 +652,16 @@ realization work must still receive separate leaf tickets.
 | `CR-P-05` | abiogenesis/F_H | `goal_reprice` | `specification/GOALS.md` | Current odd_glc authority and archaeology inventory | Nothing-lost archaeology map; reject every future odd_sdlc owner/dependency reference. |
 | `CR-P-06` | abiogenesis | `product_reprice` | `specification/PRODUCT.md` | CR-P-01, CR-X-01 through CR-X-07 | Native-sovereignty and adapter gates; reject host authority or native dependency. |
 | `CR-P-07` | abiogenesis | `product_reprice` | `specification/PRODUCT.md` | Existing GraphFunction sole-callable law | Catalog/SDK/CLI lawful-program gate; reject new Script/Skill ontology and non-GraphFunction invocation. |
-| `CR-M-01`, `CR-M-02`, `CR-M-03`, `CR-M-08` | abiogenesis | `requirement_reprice` | `specification/requirements/product/REQ-P-INSTALL.md` | CR-P-01, A5-EX1/A5-EX2, A5-EX4 | Manifest, lifecycle-transition, multi-product binding, exact-version, tamper, no-auto-upgrade, and P4/C1 GLC-compatibility gates; reject an unbindable second bootstrap stage or undeclared cross-G equivalence. |
+| `CR-M-01`, `CR-M-02`, `CR-M-03`, `CR-M-08` | abiogenesis | `requirement_reprice` | `specification/requirements/product/REQ-P-INSTALL.md` | CR-P-01, A5-EX1/A5-EX2, A5-EX4 | Manifest, lifecycle-transition, multi-product binding, exact-version/content-digest, no-auto-upgrade, and bootstrap GLC-compatibility gates; reject an unbindable second stage or undeclared cross-G equivalence. |
 | `CR-M-04`, `CR-M-06`, `CR-M-07`, `CR-M-09` | abiogenesis | `requirement_reprice` | proposed `specification/requirements/product/REQ-P-CATALOG-PRODUCT.md` | CR-P-01, CR-P-07, T-177, A5-EX2 | Catalog provenance, conflict, authorization, shadowing, and non-authoritative-metadata gates. |
 | `CR-M-05` | abiogenesis/T-179 | `design_reframe` | `build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md` | Accepted qualified-kind requirement and T-177 | Every current kind has a consumer and negative invocation proof; no undeclared registry kinds. |
 | `CR-M-10A` | abiogenesis | `product_reprice` | `specification/PRODUCT.md` | F_H marketplace-lifecycle decision and REQ-P-INSTALL | Explicit update/disable/unbind/uninstall contract and proof; reject auto-upgrade, implicit deletion, or mutable fallback. |
 | `CR-M-10B` | abiogenesis/T-178 | `design_reframe` | `build_tenants/abiogenesis/typescript/design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md` | F_H registry-lifecycle decision and T-177 | Replay-derived retirement/revocation/supersession; reject stale eligibility and erased history. |
 | `CR-GF-01`, `CR-GF-02`, `CR-GF-07`, `CR-GF-08` | abiogenesis | `requirement_reprice` | proposed `specification/requirements/product/REQ-P-PUBLIC-GRAPH-PROGRAM.md` | CR-P-07, A5-EX2, existing GraphFunction law | Lawful-program and source-blind invocation gates; reject direct worker/event/continuation access and second controllers. |
+| `CR-GF-09` | abiogenesis | `requirement_reprice` | `specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md` | completed T-220, A5-GF1 | Seven-term runtime and same-topology stage-selection gates; reject `semantic_not_realized`, observed-vector routing, and fibre-to-topology coercion. |
+| `CR-GF-10` | abiogenesis | `requirement_reprice` | artifact-schema and result-interface requirement families | completed T-220, CR-GF-09, odd_glc T-033 evidence | One-schema/three-duties plus malformed-output gates; reject downstream parsers, materializers, and post-admission schema drift. |
+| `CR-GF-11` | abiogenesis | `requirement_reprice` | handler/evaluator requirement families | CR-GF-09/-10 and existing report-verification surfaces | Declared finite-assessment gates; reject subject execution, semantic F_D claims, and downstream evaluator bodies. |
+| `CR-GF-12` | abiogenesis | `requirement_reprice` | consequence, continuation, and re-entry requirement families | CR-GF-09, existing allowed-traversal catalog, odd_glc T-033 evidence | Replay-derived projection gates; reject downstream writable state, action minting, event emission, and traversal selection. |
 | `CR-GF-03` | abiogenesis | `requirement_reprice` | `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md` | Public-start law and trigger provenance | Manual/event trigger-equivalence gate; reject scheduler ownership in ABG. |
 | `CR-GF-04` | abiogenesis | `requirement_reprice` | `specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md` | Existing session allowlist realization | Narrowing, widening, unmatched, and source-blind session gates. |
 | `CR-GF-05` | abiogenesis | `requirement_reprice` | proposed `specification/requirements/abg/REQ-R-ABG3-PUBLIC-ACTION-PROJECTION.md` | Internal consequence action projection | Full replay-derived action rows; reject query mutation or private ranking. |
@@ -602,8 +680,8 @@ metadata. A terminal scope disposition must record decision date and rationale.
 An `admitted_to_target` 5.0 delivery row may temporarily retain `promotion
 pending`, but T-218 cannot close until that marker is replaced by the promoting
 constitutional surface and independently closeable leaf ticket. A5-P0 and
-A5-P1 are the explicit exception: they resolve against their existing T-217
-owner and 4.6 closure evidence. Rejected and deferred rows must name their
+A5-P1 are the explicit exception: they resolve against T-217's scoped evidence
+and T-221's exact prior-release disposition. Rejected and deferred rows must name their
 rationale and any durable trigger. Split and superseded rows must name their
 successors.
 
@@ -640,6 +718,10 @@ disposition. A missing successor keeps T-218 open.
 | `CR-GF-06` | `under_review` | pending | pending |
 | `CR-GF-07` | `under_review` | pending | pending |
 | `CR-GF-08` | `under_review` | pending | pending |
+| `CR-GF-09` | `under_review` | completed T-220 proves the typed syntax and reports `workflow.C` runtime absence | pending requirement/design leaf disposition |
+| `CR-GF-10` | `under_review` | T-217/odd_glc audit proves response schema/admission/materialization authority remains local | pending singular requirement/design leaves |
+| `CR-GF-11` | `under_review` | T-217/odd_glc audit proves deterministic result assessment remains a local plugin interior | pending singular requirement/design leaves |
+| `CR-GF-12` | `under_review` | T-217/odd_glc audit proves consequence/re-entry state and projection remain local | pending singular requirement/design leaves |
 | `CR-C-01` | `under_review` | pending | pending |
 | `CR-C-02` | `under_review` | pending | pending |
 | `CR-C-03` | `under_review` | pending | pending |
@@ -668,8 +750,8 @@ disposition. A missing successor keeps T-218 open.
 | `CR-X-06` | `under_review` | pending | pending |
 | `CR-X-07` | `under_review` | pending | pending |
 | `CR-SM-01` | `needs_F_H` | pending shared-method scope decision | pending specification_methodology ticket |
-| `A5-P0` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10; prior-release prerequisite only | T-217 Phase 6 closure and exact 4.6 release-cut evidence; existing owner, no new 5.0 leaf |
-| `A5-P1` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10; prior-release prerequisite only | T-217 residual dispositions and 4.6 closure evidence, or named durable successors if the claim narrows; no 5.0 relabeling |
+| `A5-P0` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10; prior-release prerequisite only | completed T-217 scoped evidence plus T-221 exact release or accepted abandonment/rebind; no new 5.0 leaf |
+| `A5-P1` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10; prior-release prerequisite only | completed T-217 successor map plus T-221 terminal disposition; no 5.0 relabeling |
 | `A5-P2` | `under_review` | baseline retained; expansion pending | this ticket closure |
 | `A5-SH0` | `admitted_to_target` | revision-2 F_H baseline plus Claude D1, 2026-07-10 | leaf ticket pending |
 | `A5-SH1` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10 | leaf ticket pending |
@@ -679,12 +761,12 @@ disposition. A missing successor keeps T-218 open.
 | `A5-SP1` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10 | leaf ticket pending |
 | `A5-SP2` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10 | leaf ticket pending |
 | `A5-SP3` | `admitted_to_target` | revision-2 F_H baseline, 2026-07-10 | leaf ticket pending |
-| `A5-GF1` | `admitted_to_target` | operator lawful-program ruling, 2026-07-10; named definition-bearing closure package selected over diffuse EX2 riders | CR-GF contract dispositions, constitutional promotion, and singular requirement/design leaves pending |
+| `A5-GF1` | `admitted_to_target` | operator lawful-program ruling, 2026-07-10; named definition-bearing closure package selected over diffuse EX2 riders | CR-GF dispositions including T-220/adoption residuals CR-GF-09 through CR-GF-12, constitutional promotion, and singular requirement/design leaves pending |
 | `A5-GF2` | `under_review` | pending | pending |
 | `A5-EX1` | `under_review` | publication baseline retained; marketplace expansion pending | pending |
 | `A5-EX2` | `under_review` | public-API baseline retained; catalog expansion pending | pending |
 | `A5-EX3` | `admitted_to_target` | corrected codex baseline plus operator graph-shell ruling, 2026-07-10; `abg.cli` selected as the native shell | CR-C contract dispositions, legacy-verb positions, constitutional promotion, and singular leaves pending |
-| `A5-EX4` | `admitted_to_target` | corrected codex target adopted after review, 2026-07-10; separately tapped GLC package retained | pending odd_glc-owned product/release ticket, compatibility confirmation, and qualification-sequence ruling |
+| `A5-EX4` | `admitted_to_target` | corrected codex target adopted after review, 2026-07-10; separately tapped GLC package retained | odd_glc T-033 registered; G_boot/G_next model, product/release leaves, equivalence, and qualification sequence need F_H |
 | `A5-CX1` | `admitted_to_target` | operator third-party compatibility-constraint and evaluation-gate ruling, 2026-07-10 | CR-X predicate dispositions, real host-target selection, constitutional promotion, and singular leaves pending |
 | `A5-R1` | `under_review` | exact-cut baseline retained; new gates pending | pending release-gate ticket |
 | `A5-Q1` | `needs_F_H` | pending supporting-scope decision | pending |
@@ -769,7 +851,7 @@ replaceable delivery concern.
 | Runtime law | Positive and negative proof covers handler authority, scope, causal law, admission, emitter contexts, ingress, and closure. |
 | Execution authority | The 11.5B audit is clean across catalog products, installer/binding, SDK, `abg.cli`, host adapters, self-build, workers, evidence, and replay; no boundary performs another owner's work. |
 | Bootstrap | C1/C2 evidence proves source isolation, identical frozen authority, installed runtime selection, equivalence, and admitted artifacts. |
-| Marketplace lifecycle | Clean machine resolves and verifies exact products/dependencies, binds at least two products, admits contributions, and rejects invalid signature/digest, dependency tampering, ambiguity, unauthorized shadowing, and incompatibility. A transition matrix separately rejects installed-but-unbound, bound-but-unadmitted, admitted-but-session-hidden, visible-but-unauthorized, and authorized-but-interface-incompatible execution. |
+| Marketplace lifecycle | Clean machine resolves exact products/dependencies, verifies content identity, binds at least two products, admits contributions, and rejects digest/lock mismatch, unresolved dependency, ambiguity, unauthorized shadowing, and incompatibility. A transition matrix separately rejects installed-but-unbound, bound-but-unadmitted, admitted-but-session-hidden, visible-but-unauthorized, and authorized-but-interface-incompatible execution. |
 | Native system sovereignty | ABG starts with no external catalog product or host, lists/describes the executive-observer GraphFunction required by `REQ-L-GTL3-GRAPHFUNCTION-020` and exposed through A5-GF1 independently of optional A5-GF2, narrows the system catalog, invokes that function through the public contract, and replays the result. |
 | Native product sovereignty | ABG plus released GLC lists, narrows, invokes, handles F_H, returns results, and replays with no Claude, Codex, or third-party host installed. |
 | Operator shell | Source-blind fixture creates/opens a workspace, binds products, lists functions, selects one separately, reads lawful actions, responds to F_H, and completes through public APIs. |
@@ -778,10 +860,10 @@ replaceable delivery concern.
 | Adapter equivalence | Native CLI, Claude-style adapter, and Codex/generic adapter agree on product/GF/interface/input identities, allowlist, effects, disposition, and replay-significant causal shape. |
 | Deterministic adapter equality | Deterministic or fixed-worker-result fixture also agrees on typed output digest. |
 | Probabilistic adapter equivalence | Live F_P lanes compare schema, invocation, admission, capability/effect, disposition, and replay invariants rather than requiring identical generated text. |
-| Negative compatibility | Stale descriptor, incompatible API version, invalid product digest/signature, dependency tampering, unbound or unadmitted product, session-hidden or disallowed handle, interface mismatch, malformed input, missing capability, direct-worker bypass, event injection, unauthorized shadowing, and allowlist widening fail typed. |
+| Negative compatibility | Stale descriptor, incompatible API version, product digest/lock mismatch, unresolved dependency, unbound or unadmitted product, session-hidden or disallowed handle, interface mismatch, malformed input, missing capability, direct-worker bypass, event injection, unauthorized shadowing, and allowlist widening fail typed. |
 | Host outage isolation | External host failure affects only that adapter lane; native operation remains green. |
-| Released-over-released | Immutable GLC and ABG identities, public binding, contribution manifest, and committed GLC campaign agree. The current clause uses one G identity compatible with both P4/I4 and C1/I1; two exact G identities are valid only after explicit F_H reprice and must carry the admitted equivalence relation used by the bootstrap proof. |
-| Exact cut | Snapshot, package, manifests, catalog identities, build, zero-warning lint, suite, reviews, campaigns, notes, branch, tag, and installed identities name one cut. |
+| Released-over-released | Candidate proof freezes ABG 5 and G_next bytes first. PH-11 then taps ABG 5, taps the distinct prequalified G_next second, and verifies their public bind/admit/campaign path without rebuilding either. G_boot/G_next equivalence remains part of bootstrap evidence, not a substitute for the post-tap pair check. |
+| Exact cut | ABG snapshot/package/manifests/build/lint/suite/reviews/notes/branch/tag/install name one ABG cut; the separately tapped G_next snapshot/package/manifest/tag/install names its own exact cut; the coordinated release record binds both immutable identities and the post-tap campaigns. |
 
 ## Candidate Definition-Bearing Claims
 
@@ -963,16 +1045,23 @@ The queue is the active work of this ticket:
 12. admit, narrow, split, or reject the deterministic versus probabilistic
     adapter-equivalence predicates;
 13. choose public registry/distribution source, package namespace, publication
-    owner, publisher identity, signature/digest policy, and license;
+    owner, publisher identity, content-digest/provenance policy, and license;
+    signing and hostile-tamper defense are outside the trusted desktop 5.0
+    floor;
 14. admit, narrow, split, or reject the runtime ingress, public read, public
     mutation, and adapter contract families;
 15. admit, narrow, split, or reject C1/C2 equivalence fields and nondeterminism
     exclusions;
-16. `[scope decided 2026-07-10]` A separately tapped odd_glc catalog product is
-    mandatory. F_H must still select the pre/post-tap qualification sequence and
-    confirm the current one-G clause with compatibility spanning P4/I4 and C1/I1
-    or explicitly reprice the bootstrap to two exact G identities with a
-    declared equivalence relation;
+16. `[reopened by verified incompatibility 2026-07-11]` A separately tapped
+    odd_glc catalog product remains mandatory. Current rc.2 cannot execute
+    CR-GF-09 through CR-GF-12, so the one-G clause is not a viable default. F_H
+    must choose either (a) separate prior-release leaves that make exact P4/I4
+    prove those contracts before one G is frozen, or (b) an independently
+    proven P4-compatible lawful G_boot plus exact G_next with declared
+    catalog/build-contract equivalence. The current local odd_glc wrapper is
+    not an admissible G_boot. If neither branch is feasible, the bootstrap
+    target must re-enter rather than proceed; then select the pre/post-tap
+    qualification sequence;
 17. decide pass@k and generic harness disposition;
 18. admit, defer, split, or reject CR-SM-01 and, if admitted, require a
     specification_methodology-owned ticket and accepted upstream cut;
@@ -1016,9 +1105,10 @@ T-218 does not close when any of these is true:
 15. External host availability is required for native ABG catalog operation.
 16. Cross-repo odd_glc or methodology work is assigned or closed without its
     owning repo's accepted ticket.
-17. The bootstrap reuses one G identity without compatibility with both P4 and
-    C1, or substitutes two G identities without explicit F_H reprice and a
-    declared equivalence relation.
+17. The bootstrap reuses one G identity when exact P4/I4 lacks any required
+    runtime contract, or uses distinct G_boot/G_next identities without an
+    admitted equivalence relation, or taps the current product-local odd_glc
+    wrapper as G_boot.
 18. The native-system sovereignty gate lacks public A5-GF1 exposure of the
     `REQ-L-GTL3-GRAPHFUNCTION-020` executive-observer GraphFunction independent
     of optional A5-GF2.
@@ -1026,6 +1116,266 @@ T-218 does not close when any of these is true:
     generic debt.
 20. T-218 is made responsible for closing all realization and release work
     instead of terminating at target admission and leaf decomposition.
+
+## First-Pass Dependent Delivery Plan
+
+This plan is a provisional scheduling and decomposition read model. Phase
+assignment does not admit a candidate, promote constitutional truth, authorize
+implementation, or create a ticket identity. The candidate disposition ledger
+remains the only target-admission control surface in T-218.
+
+### Phase Control Law
+
+- `PH-*` handles are dependency groups over independently closeable leaf
+  tickets, not compound execution tickets or candidate states.
+- Every leaf retains one owner, one smallest change class, one re-entry point,
+  and one proof contract. Cross-repo and shared-method work closes in its owning
+  repository.
+- Every package has one primary delivery phase. A5-SH0 may audit every phase,
+  A5-SP2 may certify evidence from earlier phases, and A5-R1 may consume every
+  mandatory exit without acquiring those packages.
+- Every CR has one primary design handoff below. PH-01 gives every CR a terminal
+  disposition, but that admission act does not duplicate downstream design
+  ownership.
+- Optional or under-review scope enters a phase only after a terminal admission
+  decision. Rejection or deferment produces an explicit skipped branch; it does
+  not leave a hidden dependency.
+- No phase reopens an upstream frozen identity, requirement, interface, or
+  scenario in order to make its own proof pass. Re-entry follows the declared
+  change class and invalidates affected downstream evidence.
+
+Every 5.0 delivery phase follows three gates:
+
+1. `A` - authority gate: accepted WHAT, exact CR/package scope, owner, leaf
+   split, dependencies, and positive/negative closure predicates are current;
+2. `D` - design gate: reference/current design is mapped to target design, the
+   module boundary and carriers are explicit, and proof can be derived without
+   implementation invention;
+3. `R` - realization gate: implementation, module-owned tests, integration
+   proof, installed proof where applicable, and immutable evidence satisfy the
+   accepted design.
+
+Additional suffixes such as `B`, `C`, `Q`, `T`, and `F` name aggregate
+bootstrap/foundation, candidate, qualification, tap, or final checkpoints over
+underlying leaf A/D/R exits. `PH-11-A` and `PH-11-G` name the ordered ABG and
+GLC tap acts. They are not candidate states and do not let a leaf skip A/D/R.
+
+`PH-n-D` is an aggregate: it closes only when every admitted design leaf in the
+phase is closed. Every realization leaf names the exact design leaf, surfaces,
+and immutable design revision it consumes. Downstream design may begin after
+the exact upstream leaf `D` gate it needs; downstream realization waits for the
+exact authoritative source-carrier leaf `R` gate. A phase may remain open for a
+later qualification leaf after an independently closeable source-carrier leaf
+has reached `R`. Exploratory code cannot be cited as a phase exit or as a
+substitute for missing authority or design.
+
+### Dependency Graph
+
+```text
+PH-00 -> PH-01 -> PH-02-B -> PH-03-D -> PH-04-D
+PH-03-D + PH-04-D -> PH-03-C -> PH-03-R -> PH-02-F -> PH-04-R
+PH-04-R -> PH-05 -> PH-07-C
+PH-04-R -> PH-06-B, if admitted
+PH-05 + PH-04-B -> PH-08-B + PH-08-C
+PH-06-B -> PH-08-C -> PH-06-F when odd_glc owns the routed composition
+PH-08-B + PH-08-C + (PH-06-F or terminal skip) -> PH-09 -> PH-08-Q
+(PH-06-F or terminal skip) + PH-07-C + PH-08-Q + PH-09 -> PH-10
+PH-10 -> PH-11-A -> PH-11-G -> PH-08-F + PH-07-F -> PH-11-F
+```
+
+PH-02-B closes the SH0/SH1/SH2/SP3 foundation plus SP1 protocol, corpus, and
+adapter design. It unlocks PH-03 without pretending that SP1 installed proof
+already exists. After PH-03-R supplies the target install substrate, PH-02-F
+runs the TypeScript conformance adapter installed-only and closes A5-SP1; PH-04
+waits for that final gate.
+
+PH-06-B closes reusable Review/Consensus atoms and contracts. Under the generic
+ABG composition allocation, PH-06-F closes inside PH-06. Under the odd_glc
+allocation, PH-08-C realizes the required G_next candidate composition before
+returning evidence to PH-06-F. A rejected/deferred GF2 records a terminal skip.
+
+PH-08-B taps only lawful P4-compatible G_boot and proves it against P4/I4.
+PH-08-C freezes G_next candidate bytes, manifest, campaign, and the
+G_boot/G_next equivalence contract; it is not a release tap. PH-09 proves those
+exact G_next bytes under I1/C1 and yields PH-08-Q. After PH-10 qualifies all
+candidate bytes, PH-11-A taps/installs ABG 5, PH-11-G taps/installs the already
+qualified G_next bytes, and PH-08-F verifies the released pair without a
+rebuild. One unchanged identity is allowed only when T-221's exact P4/I4
+already proves CR-GF-09 through CR-GF-12; PH-11-G then verifies the existing
+tap rather than retapping it.
+
+PH-04-B is a fail-closed bootstrap-carrier gate over immutable P4/I4. It proves
+that I4 can parse the selected descriptor and compatibility version, bind the
+contribution manifest, admit every required kind, and public-start the selected
+GraphFunction. A compatibility declaration is insufficient. If I4 fails this
+gate, G_boot is not tapped and bootstrap does not start; the target must re-enter
+at the owning authority/substrate decision rather than add a source shim, widen
+G_boot, or mutate I4.
+
+PH-03-C prevents that failure from being discovered after the install substrate
+is built. After PH-03-D1 through D5 and the applicable PH-04-D publication,
+admission, kind, and public-start contracts close, PH-03-C proves against exact
+public P4/I4 surfaces that immutable I4 can consume the complete proposed model
+without a private/source shim. PH-03-R cannot begin if this feasibility proof
+fails. PH-04-B remains the installed integration confirmation over the realized
+contracts.
+
+PH-07 adapter design and candidate realization may proceed after PH-05,
+including the native SYSTEM no-host lane; PH-07-C is the frozen-candidate gate
+consumed by PH-10. PH-07-F runs the released-G_next no-host lane only after
+PH-11-G and joins PH-08-F before PH-11-F closes.
+
+PH-01 also decides whether the reference intent-refinement composition is
+generic ABG system content or ABG Review/Consensus atoms plus an odd_glc-owned
+lifecycle composition. CR-H-03 keeps its primary design handoff in PH-06 in
+either case. If the second allocation is selected, PH-06-B closes the reusable
+atoms/contracts, PH-08-C realizes the odd_glc-local composition candidate,
+and that evidence closes PH-06-F; no CR ownership moves across repositories.
+
+### Phase Register
+
+The primary assignments cover all 21 A5 packages and all 58 CR candidates
+exactly once. Existing ledger states remain unchanged by this table.
+
+| Phase | Purpose and primary package ownership | Primary CR design handoff | Hard prerequisite | Phase exit |
+|---|---|---|---|---|
+| `PH-00` | Prior-release entry evidence: A5-P0, A5-P1. | None; completed T-217 supplies scoped predecessor evidence and T-221 owns the exact disposition. | T-217 is closed with a successor map; T-221 may proceed independently of T-218 planning. | T-221 supplies an exact P4/I4 identity or an accepted abandonment/rebind; every residual is closed, rejected, or narrowed to a named successor; T-218 opens no 5.0 realization leaf for prior-release work. |
+| `PH-01` | Target admission, constitutional promotion, and leaf DAG: A5-P2. | CR-P-01, CR-P-02, CR-P-03, CR-P-04, CR-P-05, CR-P-06, CR-P-07, CR-SM-01; every other CR receives its terminal disposition here before downstream handoff. | Candidate intake complete enough for F_H decision; PH-00 evidence is required for final exit. | Accepted target sentence, exclusions, definition-bearing claims, GOALS, PRODUCT, requirements, repo-local owners, singular leaves, and dependency graph are frozen; T-218 closes. |
+| `PH-02` | Method, conformance, self-hosting-law, and safety spine: A5-SH0, A5-SH1, A5-SH2, A5-SP1, A5-SP3. | No additional CR owner; consumes the PH-01 authority set. | PH-01. An admitted CR-SM-01 also requires an accepted upstream method cut and downstream pin. | PH-02-B closes standing self-audit, SH1 maturity/invariant law, typed source/install/materialization safety, SP3 differentials, and SP1 protocol/corpus/design. PH-02-F closes SP1 only after PH-03-R supplies installed target bytes. C1/C2 protocol/equivalence remains PH-09-owned. |
+| `PH-03` | Immutable public distribution, product identity, install, and workspace substrate: A5-EX1. | CR-M-01, CR-M-02, CR-M-03, CR-M-08, CR-M-10A. | PH-02-B. CR-M-10A remains a conditional slice. | Approved namespace/publisher/license and stable-tag policy; public registry discovery; exact descriptor and resolved lock; content-digest/provenance verification; clean-machine resolution of exact public bytes; immutable install identity; multi-product binding; snapshot-to-publication lineage; path/effect safety; accepted lifecycle semantics; and no `file:`, source-path, install-implies-bind, or automatic-upgrade fallback. PH-03-R waits for PH-03-C. |
+| `PH-04` | Native catalog, public SDK, and lawful GraphFunction program: A5-GF1, A5-EX2. | CR-M-04, CR-M-05, CR-M-06, CR-M-07, CR-M-09, CR-M-10B, CR-GF-01, CR-GF-02, CR-GF-03, CR-GF-04, CR-GF-05, CR-GF-06, CR-GF-07, CR-GF-08, CR-GF-09, CR-GF-10, CR-GF-11, CR-GF-12. | Applicable PH-04-D leaves may start after PH-03-D; PH-04-R waits for PH-03-R and PH-02-F. T-179 and T-178 activate only under their accepted triggers. | M02 publication, M03 admission/execution/projection, and M04 public binding agree; all seven C terms execute through admitted GraphFunctions; stage interiors derive from compiled `(role, fibre, arm)` plus declared result, assessment, and consequence law without vector routing; catalog ambiguity, incompatibility, unauthorized shadowing, and authoritative metadata fail closed; source-blind discovery/invocation/replay, executive-observer SYSTEM start, allowlist, every retained lawful action/F_H operation, ingress/read/mutation separation, native no-host proof, and PH-04-B P4/I4 capability proof pass. |
+| `PH-05` | Native installed operator shell and consumer bootstrap: A5-EX3. | CR-C-01, CR-C-02, CR-C-03, CR-C-04, CR-C-05, CR-C-06, CR-C-07, CR-C-08, CR-C-09, CR-C-10, CR-C-11. | PH-04-R. | `abg.cli` completes the T-131-shaped public-only flow; every legacy/current verb has a disposition; host-neutral descriptor, typed capability absence, docs, and fresh-tenant bootstrap pass without private imports or a second controller. |
+| `PH-06` | Conditional Review/Consensus atoms, admitted intent-refinement composition allocation, and external ignition: A5-GF2. | CR-H-01, CR-H-02, CR-H-03, CR-H-04, CR-H-05, CR-H-06, CR-H-07, CR-H-08, CR-H-09. | PH-04-R plus terminal GF2 admission and PH-01's CR-H-03 content-allocation ruling. If GF2 is rejected or deferred, record the skip and preserve baseline SH4 ownership. | PH-06-B closes reusable atoms/contracts, one-round close, recursive refinement, exhaustion to F_H, typed outcome, replay projection, harness-owned ignition, and host-admission law. PH-06-F closes the generic ABG composition here when selected, or waits for PH-08-C odd_glc candidate-composition evidence. H09 links the final GF2 capability to SH4 without moving ownership. |
+| `PH-07` | Native sovereignty and selected third-party compatibility: A5-CX1. | CR-X-01, CR-X-02, CR-X-03, CR-X-04, CR-X-05, CR-X-06, CR-X-07. | PH-05 plus F_H selection of real/reference hosts and equivalence predicates. PH-07-C closes candidate lanes before PH-10; PH-07-F waits for PH-11-G. | Candidate SYSTEM/adapter lanes pass at PH-07-C. After taps, released ABG+G_next no-host and selected adapter lanes pass at PH-07-F without host authority or rebuilt bytes. |
+| `PH-08` | Bootstrap GLC, G_next candidate, and independently released odd_glc catalog product: A5-EX4 and odd_glc T-033. | No duplicate CR owner; consumes the PH-01 bootstrap-model ruling, accepted compatibility law from PH-03, CR-GF-09 through CR-GF-12 from PH-04, and PH-06 atoms/contracts when required. | PH-08-B requires PH-04-B and exact lawful G_boot/P4 proof. PH-08-C freezes G_next only after PH-04-R/PH-05 and PH-06-B when required. PH-08-Q waits for PH-09. PH-08-F waits for PH-11-G. | PH-08-B taps G_boot only. PH-08-C freezes, but does not tap, exact G_next bytes and campaign. PH-08-Q closes T-033's PAYLOAD-028/CR-GF-10, CR-GF-11/-12, ODD 11.5B, and I1/C1 campaign proof. PH-08-F binds/adopts the later released G_next through released ABG 5 and reruns the post-tap identity/campaign check. |
+| `PH-09` | Installed two-stage self-build and self-regulation: A5-SH3, A5-SH4. | No additional CR owner; consumes the accepted self-hosting and optional H09 contracts. | PH-02-B, PH-03-R, PH-02-F, PH-04-R, PH-08-B, PH-08-C, and PH-06-F or terminal skip when GF2 affects SH4. | Freeze S5 and all candidate identities; run I4+G_boot+S5 to C1; install I1; run I1+G_next+same S5 to C2; compare G meaning and C1/C2 outputs; execute the committed G_next campaign under I1/C1; close path safety, replay, observer/tuner truth, and PH-08-Q without tapping G_next. |
+| `PH-10` | Integrated runtime certification and optional supporting characterization: A5-SP2, A5-Q1, A5-Q2. | No additional CR owner. Q1/Q2 remain nonblocking unless separately admitted and never become conformance truth. | PH-05, PH-07-C, PH-08-Q, PH-09, PH-06-F or terminal skip, and every other mandatory candidate branch. | Static/runtime, native catalog, CLI, candidate G_next, bootstrap, homeostatic if retained, adapter, negative, outage, and identity gates produce a citable verdict over frozen bytes. |
+| `PH-11` | Ordered exact immutable ABG 5 and G_next qualification/release: A5-R1, final A5-EX4/A5-CX1 gates. | No additional CR owner. | PH-10. | PH-11-A taps/installs the prequalified ABG 5 bytes; PH-11-G taps/installs the prequalified distinct G_next bytes (or verifies the already-tapped one-G identity); PH-08-F and PH-07-F verify the released pair; PH-11-F reconciles snapshots, packages, manifests, notes, branches, tags, installs, audits, and campaigns without rebuild or identity drift. |
+
+### Design Gate Contract
+
+Before a phase may claim its `D` gate or any realization leaf begins, the
+applicable design pack must contain:
+
+1. cited constitutional WHAT, accepted candidate IDs, and singular requirement
+   owner;
+2. named reference/current design inputs and an explicit target mapping of what
+   is preserved, reshaped, deferred, superseded, or reduced to delivery binding;
+3. tenant-neutral common-design ownership where genuinely shared and a separate
+   TypeScript target mapping for realization/effect/proof detail;
+4. a module-bounded placement naming the owning module, Prime Law,
+   collaborators, and deferred/out-of-scope families against the live M01
+   through M06 schedule; only a dedicated topology design may re-decide the
+   whole schedule, and M04 cannot become a bucket for catalog truth, runtime
+   admission, replay reads, operator mutation, CLI, and host adapters;
+5. for ODD-governed construction, outcome-first assets naming source and target
+   typed assets, GraphFunction/composition identity, closure/evaluation,
+   lineage/gap truth, F_D/F_P/F_H bindings, GTL module/nodes/vectors, and ABG
+   selection/continuation/closure ownership;
+6. an Irreducible Architectural Carrier Set that distinguishes prime,
+   subordinate, effect-edge, downstream, and deferred carriers, plus Promotion
+   Test justification for every promoted top-level carrier;
+7. one complete module-bounded Mermaid structural carrier diagram for every
+   active module boundary, with visibility, ownership, composition, and
+   authoritative/downstream roles;
+8. distinct ingress, read, mutation, CLI, and adapter contracts; source truth,
+   admission, semantic transforms, effects, and fail-closed outcomes remain
+   separately owned;
+9. producer, consumer, projection, proof, migration, and superseded-interface
+   inventories, including the required break order and mixed-state behavior for
+   a core interface migration;
+10. a complete operational-lifecycle table in which every canonical phase is
+    answered, marked not applicable with reason, or recorded as a named Gap
+    with an owner and re-entry trigger;
+11. module-owned positive and negative unit proof, integration/scenario proof,
+    bypass and structural-drift differentials, the 11.5B execution-authority
+    audit for affected runtime/CLI/adapter paths, and 11.5C projection-source
+    structural-coherence proof; and
+12. Design Module Method and ODD review sign-off over the complete design pack.
+
+The required evidence route is:
+
+```text
+constitutional WHAT
+  -> reference/current design
+  -> target design mapping
+  -> target module IACS and structural carrier diagram
+  -> implementation and module-derived unit tests
+  -> integration, installed, campaign, and release proof
+```
+
+### First Design Drill-Down
+
+The first design work after PH-01 is one governance leaf plus an inside-out
+functional sequence, not one release-wide design document:
+
+1. `PH-02-DG` - A5-SH0 standing self-conformance design. It establishes the
+   exact method/rule digests, audited surface inventory, typed findings and
+   repairs, immutable report, negative differentials, and phase-gate audit. Its
+   design closes before any 5.0 realization begins and then remains a standing
+   gate.
+2. `PH-03-D1` - immutable publisher-authored catalog-product descriptor and
+   identity contract, the first functional source-carrier design leaf. Its
+   change class is `design_reframe`. It defines publisher/product/version
+   identity, compatibility and dependency predicates, license identity/policy,
+   content-digest/provenance refs, contribution-manifest ref, and
+   effects/capabilities summary. Before D1 closes, a feasibility probe against
+   exact public P4/I4 surfaces proves that the proposed descriptor syntax,
+   identity, and compatibility fields can be parsed without a private or source
+   shim. D1 excludes discovery, resolver output, verification, installation,
+   workspace binding, runtime admission, and invocation.
+3. `PH-03-D2` - public discovery/resolution and immutable resolved-lock carrier.
+   Its change class is `design_reframe`; it consumes PH-03-D1 and owns registry
+   resolution input/output, exact dependency selection, compatibility result,
+   and clean-machine lock identity. It excludes verification admission,
+   installation effects, and workspace binding.
+4. `PH-03-D3` - artifact identity verification admission. Its change class is
+   `design_reframe`; it consumes PH-03-D2 and owns content-digest/provenance
+   coherence, typed verification outcomes, and the verified-artifact carrier. It
+   excludes installation effects and workspace binding.
+5. `PH-03-D4` - immutable installation effect and installed-product identity.
+   Its change class is `design_reframe`; it consumes PH-03-D3 and the closed
+   A5-SH2 design. It owns install-root/write plans, installed identity,
+   snapshot-to-publication lineage, and no-source-fallback proof. It excludes
+   workspace binding and runtime admission.
+6. `PH-03-D5` - exact multi-product workspace binding, explicit re-resolution,
+   and accepted installed-product lifecycle transitions. Its change class is
+   `design_reframe` and its ticket category is `implementation_migration`
+   because it supersedes the single-selected-product authority path. It
+   consumes PH-03-D1 through D4 as immutable design inputs and names new and
+   superseded contracts, every producer/consumer/projection/proof, required
+   break order, mixed-state negative proof, and the conditional CR-M-10A slice.
+   Disable, unbind, uninstall, and related actions remain in one leaf only if
+   design proves one closed workspace-binding transition algebra; any separate
+   payload-mutation/effect boundary splits again. D5 excludes runtime registry
+   admission/projection, GraphFunction invocation, CLI/adapters, and
+   registry-entry retirement.
+
+The PH-03-D2, D3, and D4 target mappings must classify whether they supersede a
+current resolver, file-package, verification, or installer authority path. Any
+such leaf uses `ticket_category: implementation_migration`, names new and
+superseded authoritative contracts, and carries the required break order plus
+mixed-state negative proof. Prime Law may split these working handles further;
+it may merge them only when one module/IACS demonstrably owns the whole pure
+boundary without authority or effect bleed.
+
+PH-02-DG and PH-03-D1 design exploration may proceed in parallel after PH-01,
+but no realization begins before PH-02-DG closes. PH-03-D2 through D5 path and
+effect design consumes the applicable closed A5-SH2 design. Each active module
+boundary receives its own complete IACS and structural carrier diagram; if any
+working leaf crosses more than one irreducible boundary, split it again rather
+than placing multiple module packs behind one closure state.
+
+PH-03-D1 cannot close without the early public P4/I4 descriptor-feasibility
+proof; PH-03-C separately owns complete bind/admit/public-start feasibility.
+PH-03-D2 cannot close with ambiguous, mutable, or host-local resolved identity.
+PH-03-D3 cannot close with unverifiable or untyped artifact truth. PH-03-D4
+cannot close with `file:`, source-path, or install-root fallback. PH-03-D5
+cannot close when install implies bind, binding implies admission, automatic
+upgrade can alter bound truth, or the old single-selected-product path remains
+a rival authority. Existing TypeScript installer and T-177 registry designs
+are reference inputs only; newly promoted product/install law must be
+re-derived into common target design before tenant realization consumes it.
 
 ## T-218 Closure And Handoff
 
@@ -1035,23 +1385,16 @@ T-218 closes after:
 2. the accepted target sentence and definition-bearing claims are explicit;
 3. accepted scope is promoted into GOALS and the required PRODUCT/requirements;
 4. each accepted 5.0 delivery concern has one independently closeable leaf
-   ticket and smallest lawful change class, while A5-P0/A5-P1 bind to existing
-   T-217/4.6 closure evidence;
+   ticket and smallest lawful change class, while A5-P0/A5-P1 bind to completed
+   T-217 scoped evidence and T-221's terminal prior-release disposition;
 5. odd_glc and specification_methodology dependencies have repo-local owners;
 6. exclusions, conditional dependencies, and deferred triggers are explicit;
 7. the dependency graph identifies authority, design, realization, proof,
    released-product, and exact-cut release gates;
 8. one release-gate ticket owns final 5.0 qualification.
 
-Provisional delivery ordering after T-218 closes:
-
-1. close the 4.6/T-217 boundary;
-2. establish accepted 5.0 authority and A5-SH0 standing audit;
-3. ratify self-hosting, conformance, catalog, marketplace, CLI, GF, adapter, and
-   safety law and design;
-4. build distribution, SDK/catalog, `abg.cli`, GF2 if accepted, adapters, and
-   odd_glc release under their owning tickets;
-5. run C1/C2 self-hosting, native-sovereignty, operator-shell, GLC,
-   homeostatic, and adapter gates;
-6. qualify and tap one exact immutable 5.0 cut through A5-R1 or its admitted
-   successor ticket.
+PH-00 and PH-01 are the entry/admission handoff. After T-218 closes, delivery
+starts at PH-02 and follows the phase register above. The register may be
+refined as candidate decisions settle, but refinement cannot weaken package/CR
+coverage, singular leaf ownership, A/D/R gate order, the odd_glc/bootstrap
+identity handshake, or exact-cut proof.

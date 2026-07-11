@@ -1,8 +1,9 @@
-> **SUPERSEDED (2026-07-09) by T-217 — The Consciousness Wave**
-> (.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md)
-> Content carried at: Phase 4 (session economics: sticky pool over traced call-out). Per the consolidation's nothing-lost law,
-> every acceptance below is delivered or explicitly retired by the owning
-> phase; this file is preserved as history.
+> **RETURNED TO BACKLOG (2026-07-11).** T-217 closed as a
+> superseded-and-split consolidation boundary without implementing this
+> optional optimization. The current trusted single-developer-desktop release
+> floor does not require sticky pooling. Reactivation requires observed
+> latency/cost evidence and fresh intake triage; no 5.0 definition-bearing
+> claim depends on this ticket.
 
 ---
 id: T-110
@@ -10,20 +11,25 @@ title: Sticky-session agent pool executor over the universal traced agent call-o
 type: feature
 ticket_category: substrate_executor_extension
 status: backlog
-review_status: pending
-backlog_reason: Substrate enhancement that depends on T-108 and T-109 having stabilised the universal call-out interface, and on T-111 establishing a literal PTY/xterm executor seam. Local-spawn executor remains lawful; this ticket adds sticky pooling and affinity over executor backends rather than replacing the first.
-goal: enable-sticky-session-agent-pool-execution-over-universal-traced-callout
-goal_status: active
+review_status: deferred
+backlog_reason: >-
+  Optional session-economics optimization returned from T-217 at split close.
+  The trusted single-developer-desktop 5.0 floor does not require pooling.
+  Reactivate only when measured latency, token-cost, or quality evidence makes
+  the optimization material and T-111 or its current successor supplies the
+  required executor seam.
+goal: deferred-session-economics-optimization
+goal_status: deferred
 build_tenant: typescript
-release_scope: post-RC7
+release_scope: not in the admitted 5.0 floor; evidence-triggered future work
 change_intent: Extend the traced agent call-out substrate so framework-owned `agent.actor` and `agent.worker` invocations within a single traversal share a primed agent session by default. The substrate selects executor backend from a typed session affinity key derived from the GTL/ABG carrier identity. Local-spawn remains the default for test isolation and contexts without an active pool.
 change_class: design_reframe
 re_entry_point: design
 affected_boundary: traced process substrate, agent transport adapter, supervised actor invocation, ActorInvocation carrier, AgentTransportFailureClass, prompt-cache discipline contract, test isolation policy, pool executor backend
-priority: medium
+priority: low
 triaged_at: 2026-05-03T20:30:00+10:00
 created_at: 2026-05-03T20:30:00+10:00
-updated_at: 2026-05-04
+updated_at: 2026-07-11
 governance_scope: STDO Method
 dependencies:
   - T-108 traced process substrate (completed)

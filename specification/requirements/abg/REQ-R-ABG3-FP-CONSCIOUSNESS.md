@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability / Constraint
 **Date**: 2026-05-07
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-RETRY.md](./REQ-R-ABG3-RETRY.md), [REQ-R-ABG3-SAGA-FRONTIER.md](./REQ-R-ABG3-SAGA-FRONTIER.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-127](../../../.ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md), [T-217](../../../.ai-workspace/tickets/active/T-217-consciousness-wave-higher-order-regulation.md) (FPC-018/-019 observer-tier refinement)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-RETRY.md](./REQ-R-ABG3-RETRY.md), [REQ-R-ABG3-SAGA-FRONTIER.md](./REQ-R-ABG3-SAGA-FRONTIER.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-127](../../../.ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md), [T-217](../../../.ai-workspace/tickets/completed/T-217-consciousness-wave-higher-order-regulation.md) (FPC-018/-019 observer-tier refinement)
 
 ---
 

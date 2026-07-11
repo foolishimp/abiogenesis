@@ -2,9 +2,11 @@
 
 - id: T-217
 - type: feature
-- ticket_category: consolidation (supersedes 9 partial/overlapping tickets; multiphasal)
-- status: active
-- goal: GOAL-033 (the Consciousness Wave — see GOALS.md)
+- ticket_category: consolidation (superseded and split at close)
+- status: completed
+- closure_disposition: superseded_and_split; not original-feature completion
+- closed_at: 2026-07-11
+- goal: GOAL-033 (superseded by the GOAL-034 target-admission wave)
 - change_intent: >-
     Build the consciousness layer as SYSTEM CONTENT: the higher-order
     regulator over GTL/ABG/odd_* — same machinery, same F_P worker
@@ -26,6 +28,63 @@
   run on 4.5.1 (GOALS Phase 6) remains the OPEN closing gate of the
   prior wave; it is not absorbed here. The tier's own proving (Phase 5
   below) may observe that run when it executes.
+
+## Closure Disposition (2026-07-11)
+
+F_H repriced the work boundary after the monolithic ticket caused a category
+error and displaced the release sequence. T-217 is closed as a consolidation
+boundary whose delivered deterministic substrate is retained and whose
+unearned claims have explicit successors. This is not a claim that the
+original Phase 5 campaign, declarations-only odd_glc adoption, sticky-session
+optimization, or 4.6 final release passed.
+
+Delivered and retained:
+
+- Phase 0 constitutional repricing;
+- Phase 1 deterministic sense organs and witness authority under its recorded
+  F_H scope;
+- Phase 2 S2.1, S2.2, S2.4, and the D3/kernel adoption surfaces;
+- the deterministic observer, 12-case observer fixture, and deterministic
+  tuner constructions from Phases 3 and 4;
+- the finite R5 plugin repair gate; and
+- T-220's typed C algebra, authoring/admission/compiler loop, compiled
+  execution-declaration handoff, and malformed F_P response boundary.
+
+Current-tree closure evidence for the retained body is the green T-217 focused
+suite (`199/199`) plus T-220's full semantic suite (`1430/1430`) and zero
+semantic lint findings. Historical rc.2 data-mapper evidence remains valid for
+the path it actually ran; it does not prove post-adoption S2.3 closure.
+
+Named successors and dispositions:
+
+| Residual | Owner after close | Disposition |
+|---|---|---|
+| exact prior released/bootstrap product and immutable snapshot/install/note/tag/version identity | abiogenesis T-221 | prior-release entry gate; not a 5.0 implementation leaf |
+| C-2 monolith splitting and C-6 barrel pruning | no active owner | rejected from the retained release claim as non-definition-bearing cleanup with no observed desktop defect; fresh evidence requires new intake |
+| declarations-only standard path, one-schema worker result, 11.5B audit, and fresh unmodified campaign/archive proof | odd_glc T-033, with upstream candidates routed through T-218 A5-GF1/A5-EX4 | cross-repo owner; no local runtime or vector router |
+| live observer/tuner and integrated zero-out-of-framework campaign | T-218 A5-SH4; optional Review/Consensus composition remains A5-GF2 | candidate admission and singular leaf split required |
+| `workflow.C` execution and declaration-consumed response/materialization/F_D assessment/consequence composition needed by downstream adoption | T-218 A5-GF1/A5-EX4 | candidate runtime/design gap; T-220 intentionally reported rather than invented it |
+| sticky-session pool and cache economics | T-110 backlog | optional optimization, outside the trusted single-desktop release floor |
+| review/consensus executable composition | T-218 A5-GF2 | remains separately adjudicated; not restored to 4.6 |
+
+The T-217 plan for a new vector-local dispatch-intent router is withdrawn. It
+was the initiating category error for T-220. The lawful structure is:
+
+```text
+published GraphFunction / workflow.C composition
+  -> admitted C stage program
+  -> declared (stage role, fibre, arm)
+  -> declared handler/plugin for that selected interior
+  -> unchanged ABG traversal, event, continuation, and closure law
+```
+
+Runtime observations and a downstream stage census do not author that
+structure. A missing `workflow.C` or standard stage interior is a typed
+language/runtime gap, not permission to add vector routing.
+
+The detailed ledger below is preserved as historical execution evidence. Any
+forward-looking `NEXT PHASE`, `remains open`, or original Phase 5/6 text below
+is superseded by this closure disposition and its named owners.
 
 ## Intake Triage (performed — the upward walk)
 
@@ -1572,20 +1631,18 @@ merged tree: semantic build green; semantic lint 0; semantic suite
 1393/1393; diff-execution witness base=HEAD witnessed=2286,
 non-executable=431, violations=0. The broader test-harness lint still
 reports ten pre-existing unused-symbol rows already present at HEAD; no
-new R5 test lint violation remains. This closes the finite R5 repair
-gate only. S2.3 remains open on vector dispatch-intent routing,
-pack/install, odd_glc declarations-only demotion, deterministic
-preflight, the unmodified live campaign, -012, T-213, 11.5B, and archive
-reconciliation.
+new R5 test lint violation remains. This closes the finite R5 repair gate
+only. The remaining S2.3 adoption, pack/install, preflight, campaign, T-213,
+11.5B, and archive work was split at ticket close to odd_glc T-033 and the
+upstream T-218 A5-GF1/A5-EX4 candidates.
 
-NEXT PHASE (the demotion): the odd_glc STAGE_PLAN branches
-deterministic-vs-live PER VECTOR — the lawful mapping is vector-level
-dispatch-intent declarations (PRODUCT.md: GraphVector carries dispatch
-intent), a kernel routing increment the selection seam does not yet
-express. Design decision for the phase: per-vector dispatch routing
-(vector declarations choose the dispatch path), then bodies -> plugin
-selection + declared specs, then the campaign rerun with -012 green,
-the 11.5B audit on the adopted binding, and T-213 schema landing.
+WITHDRAWN DESIGN (2026-07-11): the planned vector dispatch-intent router was a
+category error. T-220 proves role and fibre are interior C-stage data. The
+successor compiles published GraphFunction/`workflow.C` composition, selects
+the declared `(role, fibre, arm)`, and resolves the declared handler/plugin for
+that interior without changing vector topology or traversal routing. Missing
+runtime support remains a typed candidate gap; downstream census does not
+authorize a new carrier.
 
 F_H RULING (2026-07-10): APPROVED — narrowings (1)-(3) and the closure
 campaign's course, conditional on PRODUCT.md compliance, which was
@@ -1738,7 +1795,7 @@ OUT OF SCOPE (not consciousness; remain in backlog untouched):
 T-092/T-094/T-095 (paused Python reference line), T-178/T-179
 (registry lifecycle semantics), B-010 (conformance induction).
 
-## Non-closure conditions
+## Historical Non-Closure Conditions (superseded at split close)
 
 - Any absorbed acceptance not delivered or not explicitly retired with
   reasons at the phase that owns it (the nothing-lost law).
