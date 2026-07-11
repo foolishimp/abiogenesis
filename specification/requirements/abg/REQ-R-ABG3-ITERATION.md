@@ -46,7 +46,7 @@ selects the outcome.
 
 **REQ-R-ABG3-ITERATION-013**: The iteration-boundary transition path shall carry exactly one outcome projection. Every consumer shall derive next-transition truth from the one outcome projection or from source-row projection; no adapter, wrapper, or intermediate outcome surface shall stand between them.
 
-Gap: `RuntimeContinuationTransitionProjection` remains a publicly exported adapter surface on this path — it adapts `IterationOutcomeProjection` into a separate disposition algebra that consumers derive transition truth from, so the one-projection law is not yet realized. Owner: T-217 (the active 4.6 wave).
+Gap: `RuntimeContinuationTransitionProjection` remains a publicly exported adapter surface on this path — it adapts `IterationOutcomeProjection` into a separate disposition algebra that consumers derive transition truth from, so the one-projection law is not yet realized. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
 
 **REQ-R-ABG3-ITERATION-014**: A caller-provided close-eligible flag may only act as compact evidence that the current active or preserved/rebased satisfaction set is fully satisfied. It shall not converge a boundary when any current satisfaction row is unsatisfied, deferred, orphan-bound, or blocked by runtime facts.
 

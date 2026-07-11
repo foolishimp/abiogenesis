@@ -8,6 +8,8 @@
 - goal: abg-5-0-self-hosting (preparatory; feeds T-218 target admission)
 - priority: high
 - governance_scope: STDO Method
+- change_class: product_reprice
+- re_entry_point: specification/PRODUCT.md
 - created_at: 2026-07-11
 - updated_at: 2026-07-11
 - owner: claude
@@ -36,13 +38,13 @@
   proposed GOAL-034). First missing layer: requirements (constitutional
   requirement truth no longer names realized law), with PRODUCT drift where
   public contracts changed (CLI verbs, install layout, observation surfaces).
-- derived change class: `requirement_reprice` (primary) +
-  `product_reprice` (where the public product contract drifted). Direction
-  is stable; this admits realized truth into the constitution, it does not
-  change direction.
-- re-entry point: specification/requirements/ (abg/, gtl/) and
-  specification/PRODUCT.md. GOALS untouched except cross-reference checks
-  (GOALS ownership stays with T-218).
+- derived change class: `product_reprice`, the earliest changed layer. Its
+  accepted product corrections flow into requirement reconciliation. Direction
+  is stable; this admits realized truth into the constitution and does not
+  change the goal.
+- re-entry point: specification/PRODUCT.md, followed by the owning
+  specification/requirements/ families. GOALS remains untouched except for
+  cross-reference review; GOALS ownership stays with T-218.
 - affected span: specification/PRODUCT.md, specification/requirements/abg/*,
   specification/requirements/gtl/*, specification/requirements/mapping,
   specification/scenarios where they name obligations; no code changes; no
@@ -264,7 +266,7 @@ F_H review of register and spec diff remains open.
   COMPUTE-NOTATION-014 tenant-neutral; INSTALL tenant-neutralized with
   labeled TS reference examples.
 - PRODUCT: public operator contract repriced to the realized control
-  plane (12 verb families; adapter-bindings law preserved); conformance
+  plane (11 top-level verb families; adapter-bindings law preserved); conformance
   proof-surface contract admitted; wire-schema pointer law + Gap;
   methodology-inputs paragraph; current-shape section labeled read model;
   proving surfaces tenant-neutral. TESTCASE_AUTHORITY off the python map.
@@ -363,3 +365,61 @@ against cited code sites and repaired, uncommitted):
   published subpath exports (./gtl/m01, ./gtl/m02, ./abg/m03,
   ./abg/m03/transport); Gap kept for version/digest semantics and the
   resolvable schema:// registry (Owner: T-218).
+
+2026-07-11 (rc.3 reconciliation pass — T-217 closed superseded-and-split,
+4.6.0-rc.3 published at `f4f081f`, T-220 completed at `014448f`, T-221
+active as the prior-release qualification boundary):
+- Every specification Gap block naming Owner: T-217 was re-verified
+  against HEAD code. NONE is fully realized; none retired. All nine were
+  removed from the closed owner and routed to T-218 intake for DS-0 leaf
+  adjudication. Two align with named T-217 successors; seven use the default
+  residual intake rule:
+  - EVENTS-027 array-order latest folds STILL OPEN
+    (`deriveConstructionPressureProjection` folds in event-array order at
+    construction_pressure_package.ts:477; `latestSelectedGraphFunctionEvent`
+    reverse array scan at engine_runner.ts:857) → Owner: T-218.
+  - EVENTS-028 singleton default emitter context STILL OPEN
+    (module-level replay-tolerant `defaultEmitterContext` at
+    events/emit.ts:44) → Owner: T-218.
+  - PAYLOAD-028 universal one-schema obligation STILL OPEN
+    (`artifactSchemas` optional at instruction_assembly.ts:284; ingress
+    checks declared schemas only) → Owner: T-218 A5-GF1/A5-EX4 intake;
+    downstream adoption odd_glc T-033.
+  - PLUGIN-SEAMS-003 five unconsumed HOOKS scopes STILL OPEN (selection
+    compiles from `graphFunction.declarations` only,
+    execution_declaration_compiler.ts:363; the R5 driverRequirement
+    admission and repair gate did not add attachment scopes) → T-218.
+  - PLUGIN-SEAMS-005 per-instance approval attribution STILL OPEN
+    (`resolveLiveCapabilityProvenance` carries flag/env value sources,
+    no actor/approval identity, cli/command.ts:1876) → T-218.
+  - PLUGIN-SEAMS-006 STILL OPEN but NARROWED by T-220: review admission
+    is now closed-key (unknown fields, malformed dispositions, duplicate
+    and unexpected assessmentIds rejected,
+    standard_live_plugins.ts:503-566,680-696); still open: no manifest
+    rendering of expected identities (no assessment surface in
+    instruction_assembly.ts), private free-text JSON extraction,
+    closeDisposition defaulted from accepted, empty-expected bare
+    `{accepted:true}` close-eligible. Gap text repriced to present truth
+    → Owner: T-218 A5-GF1/A5-EX4 intake.
+  - ITERATION-013 adapter STILL OPEN (`RuntimeContinuationTransitionProjection`
+    still defined and barrel-exported, continuation_transition.ts:69,
+    contracts/index.ts:200-208) → T-218.
+  - WITNESS-017 typed route fork results STILL OPEN (routes throw raw
+    TypeError carrying `basis_fork_detected`,
+    runtime_authoring_routes.ts:189) → T-218.
+  - QUAL-056 red-refuses-to-cut STILL OPEN (bypass booleans honored
+    unconditionally at release_snapshot.ts:243,532,547; when gates run
+    they do refuse red and the rc.3 snapshot manifest embeds the
+    evidence, so the gap text was narrowed to the release-grade bypass
+    distinction) → T-218.
+- Routing note flagged for F_H: the T-217 successor map names owners
+  only for the one-schema and declaration-consumed-response residuals
+  (A5-GF1/A5-EX4). The other seven runtime-law residuals are unnamed in
+  the map and were routed to T-218 (5.0 target admission) by the default
+  residual rule; T-221 authorizes no runtime work, so none route there.
+  F_H may re-adjudicate these seven into named leaves.
+- GOALS cross-reference review found that the published immutable
+  4.6.0-rc.3 checkpoint and terminal T-221 disposition must enter through
+  T-218's DS-0 `goal_reprice`; no GOALS edit belongs to T-219. No `rc.2` or
+  version facts exist elsewhere in specification/ (swept; requirement law
+  stays version-silent per the T-219 rule).

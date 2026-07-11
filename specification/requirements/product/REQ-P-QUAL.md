@@ -176,10 +176,10 @@ green. The snapshot request surface carries declared bypass booleans
 records null evidence, never fabricated green.
 
 Gap: mechanical red-refuses-to-cut enforcement for release-grade cuts is not
-yet realized — the bypass booleans are honored unconditionally, so a snapshot
-can be cut with build, lint, and test skipped and nothing distinguishes a
-release-grade request that must refuse bypass. Owner: T-217 (the active 4.6
-wave).
+yet realized — a gate that runs red does refuse the cut, but the bypass
+booleans are honored unconditionally, so a snapshot can be cut with build,
+lint, and test skipped and nothing distinguishes a release-grade request that
+must refuse bypass. Owner: T-218 intake pending DS-0 delivery-leaf assignment.
 
 ---
 
