@@ -66,3 +66,23 @@ declarations only per the three-layer ownership law - or the
 register, not a separate product. Wave one remains `workflow.C`. The register
 also prices each T-247-held claim (self-conformance, qualification, operator
 surface) through the same test, feeding the T-249 dispositions.
+
+## Mandatory Feature Register Input - `A5-CONSENSUS-01`
+
+| Feature | Authority status | Use-case and built evidence | Remaining 5.0 work | Owner | Release gate |
+|---|---|---|---|---|---|
+| Agent-invocable governed Consensus GraphFunction through `abg.cli` | Mandatory ticket target by the T-242 CR-H decision and its 2026-07-12 review supplement. Generic GraphFunction, composition, recursion, public invocation, and replay law already applies. Exact Consensus product/requirement authority is pending T-249. | Use case: `20260710T180000Z_ANALYSIS_homeostatic_intent_loop_mechanism_inventory.md` and `20260712T210000Z_STRATEGY_consensus_panel_realizes_the_homeostatic_loop_middle.md`. Built atoms: T-217 declared-only ABG SYSTEM entries and closed vocabularies; T-223 packed workspace/catalog/invoke/result/replay path; T-104 cross-workspace allocation law. | Narrow the constitutional exclusion; author the design; publish one executable Consensus graph body and strict input/output schemas; bind an attributed heterogeneous reviewer panel; admit malformed F_P output as typed failure; realize convergence, governed verification rounds, dissent, budget exhaustion, and F_H escalation; project an ordinary typed Consensus result bound to the input ticket ref/digest without status authority; expose a typed ruling/next action usable by normal TICKET_METHOD triage without automatic invocation or mutation; prove installed invocation and replay. Split design and realization into singular ABIogenesis-owned leaves before execution. | ABIogenesis owns the reusable ABG SYSTEM function and runtime truth. Catalog products/hosts own only reviewer profiles, subject bindings, policies, and overlays. odd_sdlc T-166/T-167 are mined evidence, not delivery owners. | From a packed 5.0 candidate, a calling agent uses `abg.cli` to invoke the published function over a real ticket with at least two differently attributed admitted worker profiles; one fixture converges, one recurses after a disputed finding, and one reaches the declared round limit or F_H escalation. Typed decision, dissent, worker identity, evidence, lineage, result, replay, and triage-ready next action are readable. The same public path is proved against an existing bound workspace, another independently bound explicit workspace root, and a caller-created temporary workspace. No shell-owned panel orchestration, automatic scheduler, or ticket mutation supplies closure. |
+
+The two cited posts are demand and gap evidence, not constitutional authority.
+`A5-CONSENSUS-01` cannot be marked constitutionally admitted until T-249 lands,
+and it cannot be marked realized until the installed release gate passes.
+Existing generic authority is `specification/INTENT.md` (GraphFunction and
+higher-order composition), `REQ-L-GTL3-GRAPHFUNCTION.md`,
+`REQ-R-ABG3-FRAME.md`, `specification/PRODUCT.md` (public SDK/`abg.cli`), and
+`REQ-P-PUBLIC-CONTRACTS.md` (`catalog.invoke`, result, and replay). T-249 must
+add the exact Consensus product/requirement authority; these generic laws do
+not override the current explicit exclusion.
+Current/alternate/caller-created temporary invocation roots use the same public
+workspace contract. A distinct W2 output root or a different temporary root per
+reviewer is not claimed; it enters the design leaf only if the feature's exact
+output or isolation contract requires it.

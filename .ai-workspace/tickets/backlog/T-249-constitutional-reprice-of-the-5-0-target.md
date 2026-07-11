@@ -18,6 +18,7 @@
   - T-242 disposition set (the ticket-layer state this reprice legalizes)
   - F_H R4 decision (product identity; EX + SP-product scope)
   - T-243 ruling (the predecessor-line dependency the goal text must name)
+  - T-244 feature register (the exact per-feature admission/disposition input)
 
 ## Intake Triage
 
@@ -59,6 +60,20 @@
    re-reprices.
 7. R2: TENANT_REGISTRY.md and any remaining "Python paused" constitutional
    language → withdrawn.
+8. Consensus re-entry: `specification/GOALS.md` deferred-product line,
+   `specification/INTENT.md` explicit exclusion, and `specification/PRODUCT.md`
+   native/release exclusion shall admit the bounded
+   `A5-CONSENSUS-01` free-construction feature while retaining the exclusions
+   for ABG-owned scheduling, automatic wake, direct ticket mutation, and
+   unrelated Review or homeostatic compositions. Add exact requirement
+   authority for the Consensus subject/panel/round/result contracts, workspace
+   binding, ticket-bound read projection, ownership boundary, and release
+   qualification, plus a bounded scenario in `REQ-P-SCENARIOS.md`. Record
+   `REQ-P-PUBLIC-CONTRACTS.md` as no-change for operation identity: Consensus
+   uses existing `catalog.invoke`, result, and replay operations rather than a
+   new Consensus verb. The direct F_H decision in T-242 is authority; the
+   2026-07-10 mechanism inventory and 2026-07-12 Consensus strategy posts are
+   use-case and design evidence only.
 
 ## Method Law For This Reprice
 
@@ -97,3 +112,13 @@ word at the review pause. Drafting brief updates:
   (F_H: "these definitions are in the odd methodology").
 - Feature scope law: the odd_glc-enablement test governs feature admission
   (T-244 register) and the T-247 claim dispositions.
+- Consensus scope: `A5-CONSENSUS-01` is a mandatory 5.0 ticket target whose
+  constitutional admission is owned by this reprice. Admit the ABG SYSTEM-owned,
+  agent-invocable Consensus GraphFunction through `abg.cli`; do not admit a
+  scheduler, automatic ticket mutation, or a blanket Review/homeostatic product
+  expansion. Reviewer assessment and reduction required inside this bounded
+  Consensus composition are admitted; a generic standalone Review-to-ticket
+  product remains excluded. Existing workspace create/open, explicit-root
+  selection, catalog invocation, result/replay, and cross-workspace allocation
+  are substrate inputs whose composition is qualified by the feature's
+  installed release gate.

@@ -12,7 +12,7 @@
 - change_class: goal_reprice
 - re_entry_point: specification/GOALS.md
 - created_at: 2026-07-12
-- updated_at: 2026-07-12 (revision 2 — codex governance review of 34d7f56 incorporated; see Review Amendment)
+- updated_at: 2026-07-12 (revision 3 - Consensus use-case and workspace-binding review supplement)
 - decision_ref: F_H ruling 2026-07-12 — "run the course correction, redo the tickets, retire anything overblown, then pause and review"
 - analysis_ref: .ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md (rev 4)
 - review_ref: codex governance review of commit 34d7f56 (findings 1–8, all confirmed; dispositions below)
@@ -270,6 +270,94 @@ Routing (pen-holder executes):
 3. Interim (before the panel exists): the tier-1 process protocol (typed
    finding schema + confirmed/disputed/unique merge record + F_H adjudicates
    disputes only) is usable immediately and becomes the panel's input schema.
+
+## CR-H Record Review Supplement (2026-07-12) - use-case and workspace binding
+
+This supplement preserves the committed CR-H record above while correcting its
+scope, ownership, and proof classification. It is the current ticket-layer
+interpretation for the Consensus feature.
+
+### Use-case references
+
+- `.ai-workspace/comments/claude/20260710T180000Z_ANALYSIS_homeostatic_intent_loop_mechanism_inventory.md`
+  records the governing sequence and identifies the declared-only middle:
+  `admit ticket -> graph function Consensus -> ticket.consensus -> triage`.
+- `.ai-workspace/comments/claude/20260712T210000Z_STRATEGY_consensus_panel_realizes_the_homeostatic_loop_middle.md`
+  records the concrete dual-agent demand and maps it to the subsumed ABG
+  Review/Consensus declarations.
+
+Both posts are commentary and demand evidence. The direct F_H ruling recorded
+above is the target authority. Completed T-218 remains historical intake; its
+"after 5.0" timing is superseded for this bounded Consensus feature, not for
+unrelated Review, homeostatic, scheduling, or mutation work.
+
+### Exact 5.0 feature
+
+A calling agentic builder invokes the published ABG Consensus GraphFunction
+through `abg.cli` over a ticket or other typed subject. The function binds a
+declared reviewer panel, fans out attributed reviewer work, admits typed
+findings, reduces agreement and dissent, permits governed verification rounds,
+and returns one typed `closed_done | recurse_next_round | escalate_fh` outcome
+with decision evidence, lineage, result, and replay references. Consensus never
+owns ticket status or writes a ticket; the calling agent or F_H admits any
+subsequent ticket mutation.
+
+For the ticket use case, `ticket.consensus` is the ordinary typed Consensus
+result bound to the input ticket ref and digest. It exposes a typed ruling or
+next-action surface that the caller can take through normal TICKET_METHOD
+triage. It does not require a new runtime ticket entity, automatic triage
+invocation, or ticket mutation. F_D validates envelopes and classifies exact
+agreement; reviewer findings, disputed semantic judgment, and submitter
+response remain F_P, with unresolved judgment routed to F_H.
+
+The same public workspace path must support:
+
+1. an existing explicitly selected bound workspace;
+2. another independently bound, explicitly selected workspace root; and
+3. a caller-created temporary workspace root.
+
+These are applications of one workspace contract, not three runtime modes.
+`abg.cli` already requires `--workspace-root`; public workspace create/open
+mints or admits the workspace identity; catalog bind/admit/invoke and
+result/replay operate on that explicit bound identity. REQ-R-ABG3-BINDING-015
+and completed T-104 additionally provide distinct input/output-workspace
+allocation law where a GraphFunction declares it.
+
+Current public `catalog.invoke` does not expose a separate W2 output-workspace
+request, and it does not select a different workspace per reviewer. The bounded
+5.0 use case therefore requires the caller to select and bind the invocation
+workspace, including a temporary root when wanted, and returns Consensus truth
+through result/replay. Per-reviewer workspace isolation or W2 artifact
+materialization is additional design work only if the Consensus contract
+declares that need.
+
+### Built substrate versus missing feature
+
+Built substrate evidence is T-223's packed public `workspace.create/open ->
+catalog.bind/admit/invoke -> read.result/replay` steel thread, T-104's
+cross-workspace allocation carrier, and T-217's installed ABG SYSTEM-scoped
+Review/Consensus declarations and closed vocabularies. A temporary directory is
+a lawful explicit workspace root; temporary storage does not waive workspace
+identity, binding, event, result, replay, or persistent proof law.
+
+This evidence proves that the required atoms exist. It does **not** prove the
+Consensus feature. The current declared entries have no published executable
+Consensus graph body, concrete input/output schemas, panel execution carrier,
+governed recursive-round realization, typed ticket-bound consensus projection,
+or packed installed Consensus invocation proof. The earlier phrase
+"Feasibility verified" means **building-block feasibility verified**, not
+feature closure.
+
+The reusable functions under reserved `gtl://abg/review/*` and
+`gtl://abg/consensus/*` refs are ABG SYSTEM-owned. Downstream catalog products
+or hosts may contribute reviewer profiles, subject bindings, policies, and
+overlays; they do not own or replace the core function. The old odd_sdlc
+T-166/T-167 tickets are mined design evidence only and must not remain delivery
+owners for ABIogenesis 5.0.
+
+T-244 must carry the mandatory feature row and split its remaining design and
+realization work to singular ABIogenesis-owned leaves. T-249 must admit the
+bounded feature constitutionally before release closure.
 
 ## Review Amendment (2026-07-12) — codex governance review of 34d7f56
 
