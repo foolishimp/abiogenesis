@@ -2,6 +2,7 @@
 
 **Author**: codex
 **Date**: 2026-07-11T18:11:33Z
+**Updated**: 2026-07-11T18:18:04Z
 **Addresses**: ABIogenesis 5.0 execution-plan approval; the evolving
 probabilistic compute model; T-242/T-244/T-249; F_H and Claude risk review in
 session on 2026-07-12
@@ -24,8 +25,10 @@ assessment that can lawfully inform proportional treatment, review, or F_H
 escalation.
 
 This is not a proposal for a new ABG primitive or proof framework. It is a
-candidate missing evaluation relation. The 5.0 execution risks are its first
-concrete use case.
+candidate missing evaluation relation. Risk management then selects and
+maintains a hedge against a named exposure. A hedge at the wrong boundary, with
+no current risk basis, or retained after its basis expires is technical debt.
+The 5.0 execution risks are the first concrete use case.
 
 ## Current Reality
 
@@ -81,7 +84,7 @@ new F_H ruling reprices them.
 | `R-5.0-05` | Consensus arrives only at final-candidate qualification even though the use case is governing the build with Claude and Codex now. | High under the current single final gate | High loss of the requested capability during construction | Split delivery from final qualification: land the smallest invocable Consensus leaf early on the development line, use it during 5.0 work, then rerun the full packed-candidate gate at RC. Give the interim typed dual-review protocol an owner immediately. |
 | `R-5.0-06` | Consensus becomes voting, generic Review-to-ticket automation, a scheduler, or automatic ticket mutation. | Medium | High product-boundary drift | Exact contract: attributed panel, governed rounds, typed consensus/dissent/escalation, ticket-ref/digest-bound result, caller/F_H-owned triage and mutation. |
 | `R-5.0-07` | ABG/odd_glc ownership collapses again. | Medium | High rival-controller or wrong-product placement | ABG owns runtime, `abg.cli`, SYSTEM GraphFunctions, workspace/catalog invocation, events, continuation, result, and replay. odd_glc contributes profiles, bindings, policies, overlays, and catalog declarations only. |
-| `R-5.0-08` | A trusted single-developer desktop is overbuilt for hostile-process, tamper, W2, per-reviewer isolation, signing, or distributed threats. | High given the T-217 review loop | High time loss and architectural distortion | Defend malformed GTL at native typing/admission/compiler boundaries and malformed F_P output at response admission. Other defenses require concrete evidence and explicit admission. |
+| `R-5.0-08` | A trusted single-developer desktop is overbuilt for hostile-process, tamper, W2, per-reviewer isolation, signing, or distributed threats. | High given the T-217 review loop | High time loss, architectural distortion, and misplaced-hedge technical debt | Defend malformed GTL at native typing/admission/compiler boundaries and malformed F_P output at response admission. Every further defense must name its risk, placement, expected reduction, cost, and retirement trigger. |
 | `R-5.0-09` | T-249 becomes one concentrated approval event that constitutionalizes interpretations by summary. | High without a read gate | Critical constitutional mismatch | Present a per-surface decision table and diff. F_H personally reads the new GOAL-035 closure paragraph; that paragraph is the operative definition of 5.0. |
 | `R-5.0-10` | Qualification closes because owner tickets exist rather than because product gates pass. | Medium | Critical false release | T-248 depends on executed row gates and retained-claim successor closure, never ticket creation alone. |
 | `R-5.0-11` | Shell, adapter, or test code becomes a second controller while proving the product. | Medium | High false public-product proof | Packed qualification drives public SDK/`abg.cli`; graph composition owns panel/workflow shape and ABG owns runtime truth. |
@@ -213,6 +216,118 @@ admit ticket
 Consensus reduces uncertainty and produces attributed evidence. It does not own
 risk appetite, make an inadmissible action lawful, or bind product status.
 
+## Risk Management Produces Hedges
+
+A risk assessment does not manage risk by itself. Management either accepts the
+exposure or selects a hedge: a deliberate cost, constraint, redundancy, check,
+fallback, review, or proof obligation intended to reduce one named risk.
+
+A lawful hedge must state:
+
+- the risk and protected claim or use context;
+- whether it reduces likelihood, consequence, exposure, detection time, or
+  recovery cost;
+- the boundary and owner that can produce that reduction;
+- its one-time and recurring cost;
+- any new risk or lost capability it introduces;
+- the evidence expected to show that it works;
+- the residual risk and its decision owner; and
+- a review or retirement trigger.
+
+The candidate treatment relation therefore needs one more explicit step:
+
+```text
+HedgeAssessment := select_hedge(
+  RiskAssessment,
+  lawful_control_catalog,
+  protected_claim,
+  boundary_authority,
+  expected_risk_reduction,
+  implementation_and_recurring_cost,
+  introduced_risk_or_constraint,
+  evidence_refs,
+  review_or_retirement_trigger
+)
+
+HedgeDisposition :=
+    proportionate
+  | under_hedged
+  | over_hedged
+  | misplaced
+  | duplicate
+  | expired
+```
+
+This is not a universal numeric optimization. Likelihood, impact, reduction,
+and cost can be ordinal or partially unknown. Hard authority and irreversible
+effect gates still override arithmetic.
+
+Placement is part of correctness. The hedge belongs at the earliest lawful
+boundary that can actually prevent, detect, contain, or recover from the named
+failure, under the owner that possesses the necessary semantics. Moving it
+deeper does not make it stronger when the deeper layer cannot interpret the
+risk. Moving it upward can create a second controller or duplicate a native
+guarantee.
+
+For the present product:
+
+- malformed GTL is hedged first by native typed interfaces, constructors, the
+  linter, and semantic compiler;
+- malformed F_P output is hedged by strict declared-result admission and typed
+  nonterminal outcomes;
+- attributed Consensus results, a declared round limit, and F_H escalation are
+  hedges at the Consensus GraphFunction contract; and
+- hostile-process tamper resistance, per-reviewer sandboxes, signing, or
+  distributed coordination are not justified hedges for the current trusted
+  single-developer desktop unless concrete evidence changes the use context.
+
+## Misplaced Hedging Is Technical Debt
+
+A hedge is misplaced when any of these holds:
+
+- it has no named, current risk or evidence basis;
+- it sits at a boundary that cannot reduce the risk or does not own the meaning;
+- it duplicates a stronger native or lower-level guarantee;
+- it protects an out-of-scope or very unlikely threat while degrading the
+  probable product path;
+- its recurring complexity and maintenance cost are disproportionate to its
+  current reduction in exposure;
+- it permanently encodes a temporary uncertainty; or
+- it lacks a review and retirement trigger.
+
+Such a hedge is technical debt at introduction. A once-proportionate hedge also
+becomes technical debt when its risk basis expires, the use context changes, a
+native guarantee supersedes it, or replay shows that its cost exceeds its
+benefit and it remains in place.
+
+The debt is multidimensional rather than a single score:
+
+```text
+HedgeDebtAssessment :=
+  recurring maintenance and cognitive cost
+  + constrained product capability and delivery delay
+  + risk introduced by the hedge itself
+  - current evidence-backed risk reduction
+```
+
+The minus sign is intuition, not a scalar law. The important claim is that
+defensive structure has to keep earning its place. Technical debt therefore
+includes not only missing or expedient implementation, but defensive machinery
+whose named risk basis is absent, misplaced, duplicated, or expired.
+
+Replay closes the treatment loop:
+
+```text
+probability + consequence -> risk assessment
+risk assessment + lawful controls -> hedge candidates
+expected reduction + cost + authority -> proportional hedge
+replay-observed failures, reduction, and cost
+  -> retain | tune | move | remove | reprice
+```
+
+An observer or tuner may propose that disposition from admitted evidence. It
+does not mutate the hedge, risk appetite, or product boundary by itself.
+
 ## Computational Placement
 
 The preferred first interpretation is a free construction over existing atoms:
@@ -243,6 +358,14 @@ Ownership remains:
 | F_H | Risk appetite and decisions over definition-bearing, catastrophic, ambiguous, or high-residual exposure |
 | Linter / semantic compiler | Reject malformed or missing declarations, unknown refs, illegal authority transitions, and unhandled result variants; never manufacture real-world likelihood or consequence judgment |
 
+Hedge ownership follows the same split. The product or method owns the
+protected claim, risk tolerance, and control semantics. GTL and GraphFunctions
+compose assessment and treatment. ABG supplies admitted facts, execution,
+lineage, replay, and enforcement; it does not invent hedges. F_D can prove
+mechanical placement and effectiveness claims, F_P can propose or assess
+contextual controls, and F_H accepts high residual risk or irreversible
+treatment.
+
 The existing `workspace_risk` axis and `risk` traversal affect remain useful
 policy inputs. They are not substitutes for the assessment relation.
 
@@ -257,6 +380,8 @@ Risk modeling can reproduce the same overreach it is intended to prevent.
   proportionality.
 - A risk label without evidence would only rename intuition.
 - A mitigation checklist could become unbounded defensive work.
+- A hedge without a named basis, placement, measured reduction, and retirement
+  trigger would institutionalize technical debt as assurance.
 
 Therefore this post does not make risk a 5.0 engine feature. It identifies a
 candidate method/product relation for intake. Promotion requires a concrete
@@ -267,9 +392,10 @@ policy, and F_D/F_P/F_H atoms cannot already express the needed use cases.
 
 1. Correct the stable-first ticket DAG before any constitutional or product
    implementation work.
-2. Add `material risks`, `bounded controls`, and `residual/F_H disposition` to
-   each T-244 register row. These fields guide approval; they do not authorize
-   the row.
+2. Add `material risks`, `hedges/controls`, `placement and owner`, `one-time and
+   recurring cost`, `expected reduction`, `residual/F_H disposition`, and
+   `review/retirement trigger` to each T-244 register row. These fields guide
+   approval; they do not authorize the row.
 3. Make the F_H read set an explicit T-244/T-249 approval gate.
 4. Split Consensus delivery from final qualification: make the smallest
    invocable function an early 5.0 leaf, use it during the build, and retain the
@@ -291,7 +417,9 @@ The 5.0 plan becomes safe to execute only when every admitted feature row has:
 - singular owner;
 - inherited release gate;
 - material failure modes;
-- bounded controls proportional to likelihood and consequence; and
+- bounded hedges proportional to likelihood and consequence, placed at the
+  lawful boundary that can reduce the named risk;
+- explicit cost, residual risk, and review or retirement trigger; and
 - explicit F_H disposition where residual risk changes product scope.
 
 This post remains commentary until a separate intake decision promotes any
