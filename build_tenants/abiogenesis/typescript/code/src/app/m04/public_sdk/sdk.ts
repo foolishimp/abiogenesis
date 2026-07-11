@@ -10,15 +10,19 @@ import {
   workspaceOpen
 } from "../workspace/operations.js";
 import type {
+  AdapterIdentity,
   AbiogenesisPublicSdk,
   AnyPublicOperationInvocationEnvelope,
+  Ds1PublicOperationContractMap,
   ProductIntakeContext,
+  PublicContractCatalog,
   PublicOperationId,
   PublicOperationInvocationEnvelope,
   WorkspaceBindingContext,
   WorkspacePathContext
 } from "./carriers.js";
 import {
+  admitDs1OperationRequest,
   admitPublicOperationInvocationEnvelope
 } from "./operation_admission.js";
 import { resolvePublicOperationContract } from "./carrier_admission.js";
@@ -31,6 +35,76 @@ import {
   readReplay,
   readResult
 } from "./runtime_operations.js";
+
+export interface PublicOperationInvocationConstruction<
+  K extends PublicOperationId
+> {
+  readonly operationId: K;
+  readonly request: Ds1PublicOperationContractMap[K]["request"];
+  readonly publicContractCatalog: PublicContractCatalog;
+  readonly invocationId: string;
+  readonly requestId: string;
+  readonly actorRef: string | null;
+  readonly adapter: AdapterIdentity;
+  readonly provenanceRefs?: readonly string[];
+  readonly correlationId?: string;
+}
+
+export function constructPublicOperationInvocation<
+  K extends PublicOperationId
+>(
+  input: PublicOperationInvocationConstruction<K>
+): PublicOperationInvocationEnvelope<K> {
+  const resolvedOperation = resolvePublicOperationContract(
+    input.publicContractCatalog,
+    input.operationId
+  );
+  const operation = resolvedOperation.row.operationContract;
+  if (operation === null) {
+    throw new TypeError(
+      `public contract row has no operation metadata for ${input.operationId}`
+    );
+  }
+  const request = admitDs1OperationRequest(
+    input.operationId,
+    input.request,
+    `${input.operationId}.request`
+  );
+  const admitted = admitPublicOperationInvocationEnvelope(
+    Object.freeze({
+      schemaVersion: 1,
+      invocationSchemaId: operation.invocationSchemaId,
+      invocationSchemaVersion: operation.invocationSchemaVersion,
+      invocationSchemaDigest: operation.invocationSchemaDigest,
+      invocationId: input.invocationId,
+      operationId: input.operationId,
+      operationContractVersion: operation.operationVersion,
+      operationContractDigest: operation.operationDigest,
+      requestId: input.requestId,
+      requestSchemaId: operation.requestSchemaId,
+      requestSchemaVersion: operation.requestSchemaVersion,
+      requestSchemaDigest: operation.requestSchemaDigest,
+      resultSchemaId: operation.resultSchemaId,
+      resultSchemaVersion: operation.resultSchemaVersion,
+      resultSchemaDigest: operation.resultSchemaDigest,
+      refusalSchemaId: operation.refusalSchemaId,
+      refusalSchemaVersion: operation.refusalSchemaVersion,
+      refusalSchemaDigest: operation.refusalSchemaDigest,
+      request,
+      actorRef: input.actorRef,
+      provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
+      adapter: input.adapter,
+      correlationId: input.correlationId ?? input.invocationId
+    }),
+    resolvedOperation
+  );
+  if (admitted.operationId !== input.operationId) {
+    throw new TypeError(
+      `constructed invocation changed operation identity from ${input.operationId}`
+    );
+  }
+  return admitted;
+}
 
 function admitEnvelope(
   input: PublicOperationInvocationEnvelope<"abg.operation.workspace.create">,

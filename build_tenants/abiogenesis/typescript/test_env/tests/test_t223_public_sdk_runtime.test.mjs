@@ -1438,6 +1438,73 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
   assert.equal(selected?.selectedEntryRef, GRAPH_HANDLE);
 });
 
+test("T-223 capability construction failure is typed preflight before GraphCall", async () => {
+  const capabilityRef = "abg.capability.catalog.invoke-graph-function@5";
+  const fixture = createFixture({
+    module: buildT223HelloWorldModule(),
+    graphCapabilityRefs: [capabilityRef],
+    runtimeSystemProfile: {
+      kind: "abg_runtime_system_profile",
+      runtimeIdentity: {
+        workerId: "worker:abg",
+        backendId: "backend:abg",
+        buildId: "build:abg",
+        resolvedRuntimeRef: "runtime:abg:5.0.0"
+      },
+      resolvedPolicy: {
+        resolvedPolicyBundleRef: "policy:abg:live",
+        defaultRegime: "F_P",
+        dispatchRef: "dispatch://abg/fp/live",
+        approvalSubjectRef: null
+      },
+      standardPluginRefs: [
+        "plugin://abg/fp-dispatch-live",
+        "plugin://abg/fp-evaluator-live"
+      ],
+      profileDigest: CONTRACT_DIGEST
+    }
+  });
+  fixture.context.effects.operatorCapabilityFactories[capabilityRef] = () => {
+    throw new TypeError("live transport command is unavailable: missing-worker");
+  };
+  const admission = await admitFixture(fixture);
+  assert.equal(admission.kind, "accepted", JSON.stringify(admission));
+  const graphView = await abiogenesisPublicSdk.catalogAllow(
+    fixture.context,
+    envelope("abg.operation.catalog.allow", {
+      workspaceId: WORKSPACE_ID,
+      catalogId: admission.value.catalogId,
+      handles: [GRAPH_HANDLE]
+    })
+  );
+  assert.equal(graphView.kind, "accepted", JSON.stringify(graphView));
+  const invocation = hostDescriptor(
+    fixture,
+    admission.value,
+    graphView.value,
+    GRAPH_HANDLE,
+    INTERFACE_REF
+  );
+  const beforeInvoke = fixture.events.length;
+  const result = await abiogenesisPublicSdk.catalogInvoke(fixture.context, {
+    ...invocation,
+    request: {
+      ...invocation.request,
+      requiredCapabilityRefs: [capabilityRef],
+      transportSteering: {
+        agent: "generic",
+        model: null,
+        profile: "local-spawn",
+        timeoutMs: 30000
+      }
+    }
+  });
+  assert.equal(result.kind, "refused");
+  assert.equal(result.code, "preflight_failure");
+  assert.match(result.message, /missing-worker/u);
+  assert.equal(fixture.events.length, beforeInvoke);
+});
+
 test("T-223 pre-machine plugin refusal preserves store ordinal monotonicity", async () => {
   const fixture = createFixture();
   const admission = await admitFixture(fixture);

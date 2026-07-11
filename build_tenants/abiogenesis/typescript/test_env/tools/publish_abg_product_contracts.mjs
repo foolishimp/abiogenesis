@@ -19,7 +19,17 @@ import {
   buildDs1ProductPublication,
   publicContractAssetDigest
 } from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
-import { canonicalizeIJson } from "../../build/semantic/code/src/app/m04/public_sdk/index.js";
+import {
+  canonicalizeIJson,
+  constructGraph,
+  constructGraphFunction,
+  constructModule,
+  constructNode,
+  constructTemplateRef,
+  emptySerializedAttrs,
+  identity,
+  serializeModule
+} from "../../build/semantic/code/src/index.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const PACKAGE_ROOT = path.resolve(HERE, "../..");
@@ -28,6 +38,10 @@ const MANIFEST_PATH = "product-toolchain-manifest.json";
 const CATALOG_PATH = "contracts/public-contract-catalog.json";
 const VOCABULARY_ID = "abg.vocabulary.runtime-event-kind";
 const VOCABULARY_PATH = "contracts/vocabularies/runtime-event-kind.json";
+export const T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE =
+  "graph-function://abiogenesis/system/gtl-graph-function-identity/v1";
+export const T223_ABG_SYSTEM_MODULE_PATH =
+  "contracts/catalog/abiogenesis-system.module.json";
 const EXPECTED_PACKAGE_FILES = Object.freeze([
   "build/semantic/**",
   "config/**",
@@ -153,6 +167,73 @@ function runtimeEventVocabularyAsset() {
     relativePath: VOCABULARY_PATH,
     mediaType: "application/json",
     bytes
+  });
+}
+
+export function buildAbgSystemCatalogModule() {
+  const node = constructNode({
+    name: "GtlGraphFunction",
+    schema: {
+      kind: "symbolic",
+      ref: "abg.schema.gtl-graph-function"
+    },
+    typeRef: null,
+    markov: ["catalog:admitted"],
+    assetSurface: {
+      kind: "gtl_graph_function",
+      standardsRefs: [
+        "specification/requirements/product/REQ-P-CATALOG.md"
+      ],
+      outputContractRefs: ["abg.schema.gtl-graph-function"],
+      proofObligationRefs: ["proof://t223/abg-system-catalog-identity"]
+    },
+    tags: ["abiogenesis", "catalog", "identity"],
+    id: "node://abiogenesis/system/gtl-graph-function"
+  });
+  const authored = identity([node], {
+    name: T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE,
+    tags: ["abiogenesis", "catalog", "identity"]
+  });
+  if (authored.template.kind !== "inline_graph") {
+    throw new TypeError("ABG system identity GraphFunction must have an inline graph");
+  }
+  const graph = constructGraph({
+    ...authored.template.graph,
+    id: "graph://abiogenesis/system/gtl-graph-function-identity/v1"
+  });
+  const graphFunction = constructGraphFunction({
+    ...authored,
+    template: constructTemplateRef({
+      ...authored.template,
+      graph
+    }),
+    id: "graph-function-id://abiogenesis/system/gtl-graph-function-identity/v1"
+  });
+  return serializeModule(constructModule({
+    name: "abiogenesis-system-catalog",
+    graphs: [],
+    graphFunctions: [graphFunction],
+    refinementBoundaries: [],
+    candidateFamilies: [],
+    jobs: [],
+    roles: [],
+    operators: [],
+    evaluators: [],
+    rules: [],
+    imports: [],
+    policyHooks: emptySerializedAttrs(),
+    metadata: emptySerializedAttrs()
+  }));
+}
+
+function abgSystemCatalogModuleAsset() {
+  const bytes = new TextEncoder().encode(
+    canonicalizeIJson(buildAbgSystemCatalogModule())
+  );
+  return Object.freeze({
+    relativePath: T223_ABG_SYSTEM_MODULE_PATH,
+    bytes,
+    digest: publicContractAssetDigest(bytes)
   });
 }
 
@@ -388,7 +469,11 @@ async function publicationRuntimeProfile() {
 
 export async function prepareAbgProductPublication() {
   const manifest = await packageJson();
-  const basePayloadAssets = await censusBasePayload();
+  const systemCatalogModule = abgSystemCatalogModuleAsset();
+  const basePayloadAssets = Object.freeze([
+    ...await censusBasePayload(),
+    systemCatalogModule
+  ]);
   const schemaAssets = await loadStaticSchemaAssets();
   const vocabulary = runtimeEventVocabularyAsset();
   const nativeInventories = await deriveNativeDeclarationInventories({
@@ -411,6 +496,7 @@ export async function prepareAbgProductPublication() {
     digest: publicContractAssetDigest(vocabulary.bytes)
   });
   const outputs = Object.freeze([
+    systemCatalogModule,
     vocabularyOutput,
     ...publication.generatedAssets
   ].sort((left, right) => compareText(left.relativePath, right.relativePath)));
@@ -430,6 +516,7 @@ function isOwnedGeneratedPath(relativePath) {
     relativePath === CATALOG_PATH ||
     relativePath === VOCABULARY_PATH ||
     relativePath.startsWith("contracts/native/") ||
+    relativePath.startsWith("contracts/catalog/") ||
     relativePath.startsWith("contracts/capabilities/") ||
     relativePath.startsWith("contracts/operations/")
   );
@@ -437,6 +524,7 @@ function isOwnedGeneratedPath(relativePath) {
 
 async function currentGeneratedPaths() {
   const paths = [
+    ...await walkFiles("contracts/catalog", { optional: true }),
     ...await walkFiles("contracts/native", { optional: true }),
     ...await walkFiles("contracts/capabilities", { optional: true }),
     ...await walkFiles("contracts/operations", { optional: true }),

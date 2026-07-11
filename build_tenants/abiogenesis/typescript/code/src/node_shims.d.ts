@@ -58,6 +58,9 @@ declare module "node:child_process" {
 }
 
 declare module "node:fs" {
+  export const constants: {
+    readonly X_OK: number;
+  };
   interface Stats {
     isDirectory(): boolean;
     isFile(): boolean;
@@ -68,6 +71,7 @@ declare module "node:fs" {
     data: string,
     encoding: "utf8"
   ): void;
+  export function accessSync(path: string, mode?: number): void;
   export function mkdirSync(
     path: string,
     options: { readonly recursive: true }
@@ -169,6 +173,7 @@ declare module "node:fs/promises" {
 }
 
 declare module "node:path" {
+  export const delimiter: string;
   export function dirname(path: string): string;
   export function isAbsolute(path: string): boolean;
   export function join(...paths: readonly string[]): string;

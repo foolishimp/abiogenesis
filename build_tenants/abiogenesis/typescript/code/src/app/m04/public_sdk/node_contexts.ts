@@ -1,6 +1,7 @@
 // Implements: T-223 DS-1 Node effect contexts for the source-blind public SDK
 
-import { dirname, isAbsolute, join, resolve } from "node:path";
+import { accessSync, constants } from "node:fs";
+import { delimiter, dirname, isAbsolute, join, resolve } from "node:path";
 import {
   mkdir,
   readFile,
@@ -264,10 +265,30 @@ function contractForSteering(steering: TransportSteering) {
   });
 }
 
+function assertExecutableCommand(command: string): void {
+  const candidates = isAbsolute(command) || command.includes("/")
+    ? [resolve(command)]
+    : (process.env["PATH"] ?? "")
+        .split(delimiter)
+        .filter((entry) => entry.length > 0)
+        .map((entry) => join(entry, command));
+  for (const candidate of candidates) {
+    try {
+      accessSync(candidate, constants.X_OK);
+      return;
+    } catch {
+      // Continue through the bounded PATH candidates.
+    }
+  }
+  throw new TypeError(`live transport command is unavailable: ${command}`);
+}
+
 export function createNodeStandardLiveCapabilityFactory(): OperatorCapabilityFactory {
   return ({ workspaceRoot, archiveRoot, steering }) => {
+    const agentContract = contractForSteering(steering);
+    assertExecutableCommand(agentContract.command);
     const capability = Object.freeze({
-      agentContract: contractForSteering(steering),
+      agentContract,
       archiveRoot,
       cwd: workspaceRoot,
       timeoutMs: steering.timeoutMs,

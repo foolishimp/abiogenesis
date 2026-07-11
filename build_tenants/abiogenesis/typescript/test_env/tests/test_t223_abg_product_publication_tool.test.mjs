@@ -6,6 +6,7 @@ import test from "node:test";
 
 import { assertDs1ContractRoster } from "../../build/semantic/code/src/app/m04/product_intake/index.js";
 import {
+  T223_ABG_SYSTEM_MODULE_PATH,
   checkAbgProductPublication,
   deriveNativeDeclarationInventories,
   prepareAbgProductPublication
@@ -22,7 +23,7 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
     assertDs1ContractRoster(prepared.publication.catalog),
     prepared.publication.catalog
   );
-  assert.equal(prepared.outputs.length, 32);
+  assert.equal(prepared.outputs.length, 33);
   assert.equal(
     prepared.publication.manifest.packageVersion,
     prepared.packageManifest.version
@@ -44,7 +45,10 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
     true
   );
   assert.equal(basePaths.some((entry) => entry.startsWith("build/semantic/")), true);
-  assert.equal(basePaths.some((entry) => entry.startsWith("contracts/")), false);
+  assert.deepEqual(
+    basePaths.filter((entry) => entry.startsWith("contracts/")),
+    [T223_ABG_SYSTEM_MODULE_PATH]
+  );
   assert.equal(basePaths.includes("product-toolchain-manifest.json"), false);
 
   const payloadPaths = prepared.publication.productContentInventory.map(
@@ -65,6 +69,7 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
   );
   assert.equal(payloadPaths.includes("product-toolchain-manifest.json"), false);
   assert.equal(payloadPaths.includes("contracts/public-contract-catalog.json"), true);
+  assert.equal(payloadPaths.includes(T223_ABG_SYSTEM_MODULE_PATH), true);
   assert.equal(
     payloadPaths.includes("contracts/vocabularies/runtime-event-kind.json"),
     true

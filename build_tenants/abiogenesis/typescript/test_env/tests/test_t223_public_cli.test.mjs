@@ -15,6 +15,7 @@ import test from "node:test";
 import {
   admitPublicContractCatalog,
   constructAbgCliInvocation,
+  constructPublicOperationInvocation,
   resolveAbgCliOperationId,
   runAbgCli
 } from "../../build/semantic/code/src/app/m04/index.js";
@@ -197,6 +198,66 @@ test("abg.cli constructs the bound SDK envelope and renders its exact outcome", 
   });
   assert.deepEqual(JSON.parse(output.stdout[0]), accepted);
   assert.deepEqual(output.stderr, []);
+});
+
+test("T-223 native SDK and CLI construct the same catalog-bound operation contract", async () => {
+  const catalog = await contractCatalog();
+  const request = { targetRoot: workspaceRoot };
+  const native = constructPublicOperationInvocation({
+    operationId: "abg.operation.workspace.open",
+    request,
+    publicContractCatalog: catalog,
+    invocationId: "sdk-invocation:t223",
+    requestId: "sdk-request:t223",
+    actorRef: null,
+    adapter: { kind: "native_sdk", ref: "sdk://t223/consumer" },
+    provenanceRefs: ["proof://t223/native-constructor"]
+  });
+  const cli = constructAbgCliInvocation({
+    operationId: "abg.operation.workspace.open",
+    request,
+    publicContractCatalog: catalog,
+    actorRef: null,
+    identity: "cli-constructor-t223"
+  });
+
+  assert.deepEqual(
+    {
+      operationId: native.operationId,
+      operationContractVersion: native.operationContractVersion,
+      operationContractDigest: native.operationContractDigest,
+      requestSchemaId: native.requestSchemaId,
+      requestSchemaVersion: native.requestSchemaVersion,
+      requestSchemaDigest: native.requestSchemaDigest,
+      resultSchemaId: native.resultSchemaId,
+      resultSchemaVersion: native.resultSchemaVersion,
+      resultSchemaDigest: native.resultSchemaDigest,
+      refusalSchemaId: native.refusalSchemaId,
+      refusalSchemaVersion: native.refusalSchemaVersion,
+      refusalSchemaDigest: native.refusalSchemaDigest,
+      request: native.request
+    },
+    {
+      operationId: cli.operationId,
+      operationContractVersion: cli.operationContractVersion,
+      operationContractDigest: cli.operationContractDigest,
+      requestSchemaId: cli.requestSchemaId,
+      requestSchemaVersion: cli.requestSchemaVersion,
+      requestSchemaDigest: cli.requestSchemaDigest,
+      resultSchemaId: cli.resultSchemaId,
+      resultSchemaVersion: cli.resultSchemaVersion,
+      resultSchemaDigest: cli.resultSchemaDigest,
+      refusalSchemaId: cli.refusalSchemaId,
+      refusalSchemaVersion: cli.refusalSchemaVersion,
+      refusalSchemaDigest: cli.refusalSchemaDigest,
+      request: cli.request
+    }
+  );
+  assert.deepEqual(native.adapter, {
+    kind: "native_sdk",
+    ref: "sdk://t223/consumer"
+  });
+  assert.deepEqual(native.provenanceRefs, ["proof://t223/native-constructor"]);
 });
 
 test("abg.cli rejects malformed request truth before context or SDK effects", async () => {

@@ -1191,11 +1191,21 @@ export async function catalogInvoke(
           "capability factories require admitted transport steering"
         );
       }
-      const bindings = factories.map((factory) => factory({
-        workspaceRoot: context.workspaceManifest.root,
-        archiveRoot: context.binding.mutableStateRoots.archiveRoot,
-        steering
-      }));
+      let bindings;
+      try {
+        bindings = factories.map((factory) => factory({
+          workspaceRoot: context.workspaceManifest.root,
+          archiveRoot: context.binding.mutableStateRoots.archiveRoot,
+          steering
+        }));
+      } catch (error: unknown) {
+        throw new BoundCatalogFailure(
+          "preflight_failure",
+          `operator capability preflight failed: ${
+            error instanceof Error ? error.message : "capability construction failed"
+          }`
+        );
+      }
       const first = bindings[0];
       if (
         first === undefined ||

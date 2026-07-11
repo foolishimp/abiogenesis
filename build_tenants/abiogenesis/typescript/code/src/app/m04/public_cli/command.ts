@@ -7,8 +7,8 @@ import { resolve } from "node:path";
 import {
   abiogenesisPublicSdk,
   admitDs1OperationRequest,
-  admitPublicOperationInvocationEnvelope,
   canonicalizeIJson,
+  constructPublicOperationInvocation,
   createNodeBoundWorkspaceContext,
   createNodeProductIntakeContext,
   createNodeWorkspaceBindingContext,
@@ -23,6 +23,7 @@ import {
   type ProductIntakeContext,
   type PublicContractCatalog,
   type PublicOperationId,
+  type PublicOperationInvocationEnvelope,
   type PublicOperationOutcome,
   type WorkspaceBindingContext,
   type WorkspacePathContext
@@ -234,6 +235,33 @@ function parseCommand(
   });
 }
 
+function constructAbgCliInvocationFor<K extends PublicOperationId>(
+  operationId: K,
+  input: {
+  readonly request: unknown;
+  readonly publicContractCatalog: PublicContractCatalog;
+  readonly actorRef: string | null;
+  },
+  identity: string
+): PublicOperationInvocationEnvelope<K> {
+  const request = admitDs1OperationRequest(
+    operationId,
+    input.request,
+    `${operationId}.request`
+  );
+  return constructPublicOperationInvocation({
+    operationId,
+    request,
+    publicContractCatalog: input.publicContractCatalog,
+    invocationId: `abg-cli-invocation:${identity}`,
+    requestId: `abg-cli-request:${identity}`,
+    actorRef: input.actorRef,
+    adapter: Object.freeze({ kind: "abg_cli", ref: "abg.cli" }),
+    provenanceRefs: Object.freeze([]),
+    correlationId: `abg-cli-invocation:${identity}`
+  });
+}
+
 export function constructAbgCliInvocation(input: {
   readonly operationId: PublicOperationId;
   readonly request: unknown;
@@ -241,58 +269,35 @@ export function constructAbgCliInvocation(input: {
   readonly actorRef: string | null;
   readonly identity?: string;
 }): AnyPublicOperationInvocationEnvelope {
-  const resolvedOperation = resolvePublicOperationContract(
-    input.publicContractCatalog,
-    input.operationId
-  );
-  const operation = resolvedOperation.row.operationContract;
-  if (operation === null) {
-    throw new AbgCliInputError(
-      `public contract row has no operation metadata for ${input.operationId}`
-    );
-  }
-  if (
-    (operation.actorPolicy === "required" && input.actorRef === null) ||
-    (operation.actorPolicy === "forbidden" && input.actorRef !== null)
-  ) {
-    throw new AbgCliInputError(
-      `${input.operationId} actor policy is ${operation.actorPolicy}`
-    );
-  }
   const identity = input.identity ?? randomUUID();
-  const request = admitDs1OperationRequest(
-    input.operationId,
-    input.request,
-    `${input.operationId}.request`
-  );
-  return admitPublicOperationInvocationEnvelope(
-    Object.freeze({
-      schemaVersion: 1,
-      invocationSchemaId: operation.invocationSchemaId,
-      invocationSchemaVersion: operation.invocationSchemaVersion,
-      invocationSchemaDigest: operation.invocationSchemaDigest,
-      invocationId: `abg-cli-invocation:${identity}`,
-      operationId: input.operationId,
-      operationContractVersion: operation.operationVersion,
-      operationContractDigest: operation.operationDigest,
-      requestId: `abg-cli-request:${identity}`,
-      requestSchemaId: operation.requestSchemaId,
-      requestSchemaVersion: operation.requestSchemaVersion,
-      requestSchemaDigest: operation.requestSchemaDigest,
-      resultSchemaId: operation.resultSchemaId,
-      resultSchemaVersion: operation.resultSchemaVersion,
-      resultSchemaDigest: operation.resultSchemaDigest,
-      refusalSchemaId: operation.refusalSchemaId,
-      refusalSchemaVersion: operation.refusalSchemaVersion,
-      refusalSchemaDigest: operation.refusalSchemaDigest,
-      request,
-      actorRef: input.actorRef,
-      provenanceRefs: Object.freeze([]),
-      adapter: Object.freeze({ kind: "abg_cli", ref: "abg.cli" }),
-      correlationId: `abg-cli-invocation:${identity}`
-    }),
-    resolvedOperation
-  );
+  switch (input.operationId) {
+    case "abg.operation.workspace.create":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.workspace.open":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.resolve":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.verify":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.install.install":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.bind":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.admit":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.list":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.describe":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.allow":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.catalog.invoke":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.read.result":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+    case "abg.operation.read.replay":
+      return constructAbgCliInvocationFor(input.operationId, input, identity);
+  }
 }
 
 function workspaceRoot(command: ParsedAbgCliCommand): string {

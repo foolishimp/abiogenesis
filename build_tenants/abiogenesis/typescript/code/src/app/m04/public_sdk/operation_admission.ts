@@ -735,6 +735,11 @@ export function admitReadReplayRequest(
   });
 }
 
+export function admitDs1OperationRequest<K extends PublicOperationId>(
+  id: K,
+  input: unknown,
+  label?: string
+): Ds1PublicOperationContractMap[K]["request"];
 export function admitDs1OperationRequest(
   id: PublicOperationId,
   input: unknown,
@@ -1049,6 +1054,18 @@ function assertBoundOperationContract(
   }
 }
 
+export function admitPublicOperationInvocationEnvelope<
+  K extends PublicOperationId
+>(
+  input: PublicOperationInvocationEnvelope<K>,
+  resolvedOperation: ResolvedPublicOperationContract,
+  label?: string
+): PublicOperationInvocationEnvelope<K>;
+export function admitPublicOperationInvocationEnvelope(
+  input: unknown,
+  resolvedOperation: ResolvedPublicOperationContract,
+  label?: string
+): AnyPublicOperationInvocationEnvelope;
 export function admitPublicOperationInvocationEnvelope(
   input: unknown,
   resolvedOperation: ResolvedPublicOperationContract,
