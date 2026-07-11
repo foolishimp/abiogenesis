@@ -751,6 +751,8 @@ export function deriveRetryFrontierProjection(input: {
       case "c_call_judged":
       case "registry_plugin_advice_admitted":
       case "registry_plugin_advice_rejected":
+      case "catalog_asset_admitted":
+      case "catalog_asset_rejected":
       case "graph_function_selected":
       case "graph_function_selection_rejected":
       case "workspace_installation_admitted":

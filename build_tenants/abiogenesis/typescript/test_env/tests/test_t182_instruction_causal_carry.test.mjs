@@ -190,6 +190,42 @@ function secondVectorFpInput(basis, events) {
   });
 }
 
+test("T-223 artifact digest basis omits only absent legacy optional fields", () => {
+  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
+  const invocation = actorInvocation(basis, 0, "result://t223/optional-artifact");
+  const basePayload = { kind: "t223_optional_artifact" };
+  const baseline = constructActorResultArtifactObservedEvent({
+    invocation,
+    artifactRef: "result://t223/optional-artifact/baseline",
+    artifactPayload: basePayload
+  });
+
+  for (const optionalKey of [
+    "selected_worker_id",
+    "selected_backend",
+    "resolved_runtime_ref",
+    "depthProofMap"
+  ]) {
+    const observed = constructActorResultArtifactObservedEvent({
+      invocation,
+      artifactRef: `result://t223/optional-artifact/${optionalKey}`,
+      artifactPayload: { ...basePayload, [optionalKey]: undefined }
+    });
+    assert.equal(observed.artifactContentDigest, baseline.artifactContentDigest);
+    assert.equal(observed.artifactContentExcerpt, baseline.artifactContentExcerpt);
+  }
+
+  assert.throws(
+    () =>
+      constructActorResultArtifactObservedEvent({
+        invocation,
+        artifactRef: "result://t223/optional-artifact/invalid",
+        artifactPayload: { ...basePayload, unrecognized_optional: undefined }
+      }),
+    /unrecognized_optional: expected an I-JSON value/u
+  );
+});
+
 test("T-182 binds prior admitted output into the next F_P instruction context", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const events = firstVectorOutputEvents(basis);

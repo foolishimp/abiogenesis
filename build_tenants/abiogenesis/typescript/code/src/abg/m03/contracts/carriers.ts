@@ -2871,6 +2871,88 @@ export interface RegistryEntryRejectedRuntimeEvent {
   readonly correlationId: string;
 }
 
+export const CATALOG_ASSET_REJECTION_REASON_VALUES = Object.freeze([
+  "malformed_asset",
+  "unsupported_asset_kind",
+  "scope_mismatch",
+  "identity_conflict",
+  "descriptor_mismatch",
+  "lock_mismatch",
+  "readiness_invalid",
+  "duplicate_handle"
+] as const);
+
+export type CatalogAssetRejectionReason =
+  (typeof CATALOG_ASSET_REJECTION_REASON_VALUES)[number];
+
+export interface CatalogAssetAdmittedRuntimeEvent {
+  readonly kind: "catalog_asset_admitted";
+  readonly workspaceId: string;
+  readonly bindingId: string;
+  readonly catalogId: string;
+  readonly entryRef: string;
+  readonly declarationRef: string;
+  readonly declarationDigest: string;
+  readonly libraryScope: "system" | "product";
+  readonly assetKind: "overlay";
+  readonly namespace: string;
+  readonly ownerRef: string;
+  readonly version: string;
+  readonly descriptorRef: string;
+  readonly contributionManifestRef: string;
+  readonly resolvedLockRef: string;
+  readonly assetPath: string;
+  readonly schemaId: string;
+  readonly schemaVersion: string;
+  readonly schemaDigest: string;
+  readonly assetDigest: string;
+  readonly authorityRefs: readonly string[];
+  readonly provenanceRefs: readonly string[];
+  readonly readinessRefs: readonly string[];
+  readonly proofRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+  readonly refinementOfEntryRef: string | null;
+  readonly overrideOfEntryRef: string | null;
+  readonly sourceEventRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface CatalogAssetRejectedRuntimeEvent {
+  readonly kind: "catalog_asset_rejected";
+  readonly workspaceId: string;
+  readonly bindingId: string;
+  readonly catalogId: string;
+  readonly entryRef: string;
+  readonly declarationRef: string;
+  readonly declarationDigest: string;
+  readonly libraryScope: "system" | "product";
+  readonly assetKind: "overlay";
+  readonly namespace: string;
+  readonly ownerRef: string;
+  readonly version: string;
+  readonly descriptorRef: string;
+  readonly contributionManifestRef: string;
+  readonly resolvedLockRef: string;
+  readonly assetPath: string;
+  readonly schemaId: string;
+  readonly schemaVersion: string;
+  readonly schemaDigest: string;
+  readonly assetDigest: string;
+  readonly authorityRefs: readonly string[];
+  readonly provenanceRefs: readonly string[];
+  readonly readinessRefs: readonly string[];
+  readonly proofRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+  readonly refinementOfEntryRef: string | null;
+  readonly overrideOfEntryRef: string | null;
+  readonly rejectionReason: CatalogAssetRejectionReason;
+  readonly conflictingEntryRefs: readonly string[];
+  readonly sourceEventRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface RegistryPluginAdviceAdmittedRuntimeEvent {
   readonly kind: "registry_plugin_advice_admitted";
   readonly adviceRef: string;
@@ -3046,6 +3128,8 @@ export type RuntimeEvent =
   | NodeTypeSatisfactionProjectedRuntimeEvent
   | RegistryEntryAdmittedRuntimeEvent
   | RegistryEntryRejectedRuntimeEvent
+  | CatalogAssetAdmittedRuntimeEvent
+  | CatalogAssetRejectedRuntimeEvent
   | RegistryPluginAdviceAdmittedRuntimeEvent
   | RegistryPluginAdviceRejectedRuntimeEvent
   | GraphFunctionSelectedRuntimeEvent
@@ -3191,6 +3275,8 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "node_type_satisfaction_projected",
   "registry_entry_admitted",
   "registry_entry_rejected",
+  "catalog_asset_admitted",
+  "catalog_asset_rejected",
   "registry_plugin_advice_admitted",
   "registry_plugin_advice_rejected",
   "graph_function_selected",

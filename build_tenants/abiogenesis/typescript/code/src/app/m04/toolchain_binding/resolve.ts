@@ -13,6 +13,8 @@ import type {
   ToolchainSelectionSource,
   ToolchainWorkspaceBinding
 } from "./carriers.js";
+import type { ToolchainWorkspaceBindingV3 } from "../public_sdk/carriers.js";
+import type { ResolvedToolchainRootV3 } from "./v3_carriers.js";
 
 export const ABG_TOOLCHAIN_ROOT_ENV = "ABG_TOOLCHAIN_ROOT";
 
@@ -79,6 +81,36 @@ export function resolveToolchainRoot(input: {
 
   throw new TypeError(
     `toolchain root is required: pass --toolchain-root or set ${ABG_TOOLCHAIN_ROOT_ENV}`
+  );
+}
+
+export function resolveInstallToolchainRoot(input: {
+  readonly explicitToolchainRoot?: string | null;
+  readonly workspaceBinding?: ToolchainWorkspaceBindingV3 | null;
+  readonly environment?: Readonly<Record<string, string | undefined>>;
+}): ResolvedToolchainRootV3 {
+  if (input.explicitToolchainRoot !== undefined && input.explicitToolchainRoot !== null) {
+    return Object.freeze({
+      root: resolve(input.explicitToolchainRoot),
+      source: "explicit"
+    });
+  }
+  if (input.workspaceBinding !== undefined && input.workspaceBinding !== null) {
+    return Object.freeze({
+      root: resolve(input.workspaceBinding.toolchainRoot),
+      source: "workspace_binding"
+    });
+  }
+  const environment = input.environment ?? process.env;
+  const environmentRoot = environment[ABG_TOOLCHAIN_ROOT_ENV];
+  if (environmentRoot !== undefined && environmentRoot.trim().length > 0) {
+    return Object.freeze({
+      root: resolve(environmentRoot),
+      source: "environment"
+    });
+  }
+  throw new TypeError(
+    `toolchain root is required: supply an explicit root, admitted workspace binding, or ${ABG_TOOLCHAIN_ROOT_ENV}`
   );
 }
 

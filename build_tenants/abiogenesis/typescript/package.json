@@ -97,7 +97,8 @@
   },
   "files": [
     "build/semantic/**",
-    "config/**"
+    "config/**",
+    "contracts/**"
   ],
   "engines": {
     "node": ">=20"
@@ -293,9 +294,12 @@
     "gate:diff-witness": "npm run build:semantic && rm -rf .v8-coverage && NODE_V8_COVERAGE=.v8-coverage npm run test:semantic:built && node test_env/gates/diff_execution_witness.mjs --base HEAD~1 --coverage .v8-coverage"
   },
   "dependencies": {
+    "jsonc-parser": "3.3.1",
+    "semver": "7.7.4",
     "valibot": "1.3.1"
   },
   "devDependencies": {
+    "@types/semver": "7.7.1",
     "@typescript-eslint/eslint-plugin": "8.59.0",
     "@typescript-eslint/parser": "8.59.0",
     "eslint": "10.2.1",

@@ -128,8 +128,13 @@ that implementation against the RFC 8785 conformance vectors, including number
 formatting, UTF-16 property ordering, invalid Unicode scalar values, non-finite
 numbers, duplicate raw object names, and unsupported values. If the existing
 implementation fails a vector, it is corrected behind that one API; no second
-digest law is introduced. Each carrier that stores its own digest omits only
-that field from its digest basis. Product versions are valid SemVer.
+digest law is introduced. Each carrier that stores its own digest omits that
+field from its digest basis. The contribution-manifest digest also omits its
+`descriptorDigest` back-reference so the descriptor/contribution pair is
+constructible without a hash fixed point: the descriptor digest covers the
+contribution digest, and verification separately requires the contribution's
+descriptor identity and digest to equal the supplied descriptor. Product
+versions are valid SemVer.
 Compatibility constraints are canonical SemVer ranges admitted and evaluated
 by the standard `semver` parser; prerelease compatibility must be explicit in
 the range. A range never performs package discovery or selection outside the
@@ -443,8 +448,13 @@ emit events, run workers, select continuations, or retry traversal.
 Contract-catalog structural validity and full 5.0 release completeness are
 distinct. The DS-1 candidate publishes profile `abg-5-ds1`, a new catalog
 version/digest, all nine current addressable native contract groups, the
-baseline manifest/GTL/Module/descriptor/contribution/lock/workspace/install/
-catalog/invocation/event/result/replay schemas, and the 13 DS-1 operation rows.
+baseline manifest/public-operation/native-inventory/capability/GTL/Module/
+descriptor/contribution/lock/workspace/install/catalog/invocation/event/result/
+replay schemas, and the 13 DS-1 operation rows.
+An independently versioned catalog product publishes `catalog-product-v1`
+instead; that profile locates only the publisher-owned contracts and assets
+needed to verify and admit its declared contributions and never claims the ABG
+native-group or operation roster.
 
 The final release profile `abg-5-release` is admitted only when the catalog has
 the exact complete operation roster and all mandatory capability/schema rows.

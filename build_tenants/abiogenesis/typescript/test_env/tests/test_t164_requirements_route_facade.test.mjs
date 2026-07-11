@@ -312,14 +312,16 @@ function attachedArtifact(input) {
 }
 
 test("T-164 admitted ref digest canonicalization is environment invariant", () => {
-  assert.equal(
-    stableJson({ b: 2, a: undefined, Z: 1 }),
-    "{\"Z\":1,\"b\":2}"
+  assert.throws(
+    () => stableJson({ b: 2, a: undefined, Z: 1 }),
+    /expected an I-JSON value/u
   );
-  assert.equal(
-    stableJson({ nested: { keep: true, drop: undefined } }),
-    "{\"nested\":{\"keep\":true}}"
+  assert.throws(
+    () => stableJson({ nested: { keep: true, drop: undefined } }),
+    /expected an I-JSON value/u
   );
+  assert.equal(stableJson({ b: 2, Z: 1 }), "{\"Z\":1,\"b\":2}");
+  assert.equal(stableJson({ nested: { keep: true } }), "{\"nested\":{\"keep\":true}}");
 });
 
 function fpDispatchContract(ref) {

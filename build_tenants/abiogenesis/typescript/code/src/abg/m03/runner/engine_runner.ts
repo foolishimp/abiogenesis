@@ -49,6 +49,7 @@ import {
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
   constructActorResultArtifactObservedEvent,
+  actorResultArtifactDigestBasis,
   constructAmbiguityObservationAdmittedEvent,
   constructAuthoritySnapshotAdmittedEvent,
   constructBasisAdmittedEvent,
@@ -942,7 +943,10 @@ function runtimeBindingFactsForInstructionAssembly(input: {
     );
   }
   if (input.pluginInput.attachedResultArtifact !== null) {
-    const content = stableJson(input.pluginInput.attachedResultArtifact);
+    const artifactDigestBasis = actorResultArtifactDigestBasis(
+      input.pluginInput.attachedResultArtifact
+    );
+    const content = stableJson(artifactDigestBasis);
     facts.push(
       runtimeBindingFact({
         slotClass: "payload",
@@ -953,7 +957,7 @@ function runtimeBindingFactsForInstructionAssembly(input: {
           input.actorInvocation.actorInvocationId
         ].join(":"),
         sourceEventRefs: [input.pluginInput.sourceProjectionRef],
-        payloadDigest: stableSha256Digest(input.pluginInput.attachedResultArtifact),
+        payloadDigest: stableSha256Digest(artifactDigestBasis),
         contentRef: input.pluginInput.actorInvocationRef?.resultRef ?? null,
         contentDigest: stableSha256Digest(content),
         // T-030 campaign bug #3a (second ceiling): the fact-construction
@@ -3072,7 +3076,7 @@ function targetCarrierPayloadForFpEvaluation(input: {
   });
   const identity = mintTargetCarrierPayloadIdentity({
     resultRef: invocationRef.resultRef,
-    artifactPayload: artifact,
+    artifactPayload: actorResultArtifactDigestBasis(artifact),
     targetCarrierContractRef: targetCarrierContract.contractRef,
     targetCarrierContractDigest: targetCarrierContract.configDigest
   });

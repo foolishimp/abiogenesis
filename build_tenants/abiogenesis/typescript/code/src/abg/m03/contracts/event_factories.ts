@@ -294,9 +294,12 @@ export function constructActorResultArtifactObservedEvent(input: {
   readonly artifactRef: string;
   readonly artifactPayload?: unknown;
 }): ActorResultArtifactObservedEvent {
+  const artifactDigestBasis = input.artifactPayload === undefined
+    ? undefined
+    : actorResultArtifactDigestBasis(input.artifactPayload);
   const artifactContent = input.artifactPayload === undefined
     ? null
-    : stableJson(input.artifactPayload);
+    : stableJson(artifactDigestBasis);
   const artifactExcerpt = input.artifactPayload === undefined
     ? null
     : artifactContentExcerptFor(input.artifactPayload, artifactContent);
@@ -309,6 +312,40 @@ export function constructActorResultArtifactObservedEvent(input: {
       artifactContent === null ? null : sha256DigestForText(artifactContent),
     artifactContentExcerpt: artifactExcerpt
   });
+}
+
+const ABSENT_OPTIONAL_ACTOR_ARTIFACT_KEYS = Object.freeze([
+  "selected_worker_id",
+  "selected_backend",
+  "resolved_runtime_ref",
+  "depthProofMap"
+] as const);
+
+export function actorResultArtifactDigestBasis(payload: unknown): unknown {
+  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) {
+    return payload;
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(payload);
+  let omitted = false;
+  for (const key of ABSENT_OPTIONAL_ACTOR_ARTIFACT_KEYS) {
+    const descriptor = descriptors[key];
+    if (
+      descriptor !== undefined &&
+      descriptor.get === undefined &&
+      descriptor.set === undefined &&
+      descriptor.value === undefined
+    ) {
+      delete descriptors[key];
+      omitted = true;
+    }
+  }
+  const prototype: unknown = Object.getPrototypeOf(payload);
+  if (prototype !== null && typeof prototype !== "object") {
+    throw new TypeError("ActorResultArtifact.payload: invalid prototype");
+  }
+  return omitted
+    ? Object.create(prototype, descriptors)
+    : payload;
 }
 
 const MAX_ACTOR_ARTIFACT_EXCERPT_CHARS = 60000;

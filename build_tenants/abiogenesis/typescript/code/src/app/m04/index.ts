@@ -16,8 +16,11 @@ export {
   type LiveCapabilityValueSource
 } from "./live_capability.js";
 export * from "./max_autonomy/index.js";
+export * from "./public_sdk/index.js";
+export * from "./product_intake/index.js";
 export * from "./result_assessment/index.js";
 export * from "./toolchain_binding/index.js";
+export * from "./workspace/index.js";
 export {
   publicStart,
   publicStartAsync

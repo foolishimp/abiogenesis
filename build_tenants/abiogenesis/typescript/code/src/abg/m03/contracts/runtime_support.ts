@@ -151,6 +151,8 @@ export const RUN_INDEPENDENT_EVENT_SCOPE_CLASSES = Object.freeze({
   // basis-fork scan lean on this deliberately)
   registry_entry_admitted: "workspace",
   registry_entry_rejected: "workspace",
+  catalog_asset_admitted: "workspace",
+  catalog_asset_rejected: "workspace",
   registry_plugin_advice_admitted: "workspace",
   registry_plugin_advice_rejected: "workspace",
   graph_function_selected: "workspace",

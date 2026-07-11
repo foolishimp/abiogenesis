@@ -93,3 +93,43 @@ approved design without private imports or a second controller.
 - typed result and replay assertions
 - seven bounded negative differentials
 - phase-end code review against T-222, T-218, and PRODUCT
+
+## Execution Record
+
+### Foundation checkpoint - 2026-07-11
+
+Implemented and reviewed the DS-1 lower boundary before publication and adapter
+work:
+
+- strict I-JSON/JCS identity and closed public carrier admission;
+- exact product resolution, verification, installation, workspace create/open,
+  multi-product binding, and durable verification records;
+- M03-owned catalog admission, replay projection, session narrowing, and exact
+  GraphFunction execution binding;
+- complete DS-1 operation metadata and lookup-bound resolved operation
+  contracts; and
+- typed refusal paths for malformed serialized assets, stale or incompatible
+  identities, unresolved declarations, duplicate/shadow conflicts, and
+  allowlist widening.
+
+Self-review against T-222, T-218, and `PRODUCT.md` found no duplicated worker,
+event, continuation, traversal, or closure authority and no hostile-local
+hardening. Review findings repaired before checkpoint: whole-log ordinal
+admission, Module lookup authority, exact catalog execution basis, product-root
+layout, complete installed inventory verification, profile sovereignty,
+operation-contract parent binding, lookup-only resolved-contract construction,
+native declaration-inventory verification, catalog-schema JSON admission, and
+typed workspace read failures.
+
+Verification at this checkpoint:
+
+- host build: pass;
+- semantic build and GTL guard: pass;
+- focused T-223 suite: 25/25 pass;
+- semantic lint and diff check: pass;
+- all 1,456 semantic behavior tests pass; four pack/install tests that collided
+  under parallel build-output mutation were rerun serially and passed.
+
+The ticket remains active. Static contract publication, generated schemas,
+publisher-authored Hello World, public SDK implementation, `abg.cli`, packed
+consumer proofs, and the one preflighted live sandbox remain required.

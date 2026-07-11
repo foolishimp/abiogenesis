@@ -808,6 +808,8 @@ export function deriveRuntimeAggregateProjection(
       case "node_type_satisfaction_projected":
       case "registry_entry_admitted":
       case "registry_entry_rejected":
+      case "catalog_asset_admitted":
+      case "catalog_asset_rejected":
       case "registry_plugin_advice_admitted":
       case "registry_plugin_advice_rejected":
       case "graph_function_selected":
