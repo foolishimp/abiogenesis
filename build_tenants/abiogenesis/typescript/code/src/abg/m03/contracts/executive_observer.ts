@@ -296,7 +296,10 @@ function pressureDisposition(input: {
   ) {
     return "close_candidate";
   }
-  if (input.finding.closeDisposition === "human_required") {
+  if (
+    input.finding.closeDisposition === "human_required" ||
+    input.finding.closeDisposition === "human_gate_required"
+  ) {
     return "reprice";
   }
   if (input.attenuation === "unchanged") {

@@ -62,6 +62,141 @@ export interface PublishedClosedVocabulary {
   readonly values: readonly string[];
 }
 
+export interface PublishedConsensusReviewerProfile {
+  readonly kind: "consensus_reviewer_profile";
+  readonly profileRef: string;
+  readonly profileConfigDigest: string;
+  readonly workerRef: string;
+  readonly resultSchemaRef: string;
+}
+
+export interface PublishedConsensusRequest {
+  readonly kind: "consensus_request";
+  readonly requestRef: string;
+  readonly subjectRef: string;
+  readonly subject: IJsonValue;
+  readonly subjectDigest: string;
+  readonly submitterRef: string;
+  readonly submitterWorkerRef: string;
+  readonly panelRef: string;
+  readonly policyRef: string;
+  readonly roundIndex: number;
+  readonly maxRounds: number;
+  readonly reviewerProfiles: readonly PublishedConsensusReviewerProfile[];
+}
+
+export interface PublishedConsensusReviewerFinding {
+  readonly kind: "consensus_reviewer_finding";
+  readonly findingRef: string;
+  readonly claimRef: string;
+  readonly findingKind: "support" | "objection" | "unresolved";
+  readonly summary: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface PublishedConsensusRulingProposal {
+  readonly kind: "consensus_ruling_proposal";
+  readonly rulingKind:
+    | "decision_row"
+    | "draft_ticket"
+    | "split_ticket"
+    | "deferment"
+    | "rejected_finding";
+  readonly summary: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface PublishedConsensusReviewerResponse {
+  readonly kind: "consensus_reviewer_response";
+  readonly responseRef: string;
+  readonly requestRef: string;
+  readonly subjectRef: string;
+  readonly subjectDigest: string;
+  readonly roundIndex: number;
+  readonly reviewerProfileRef: string;
+  readonly reviewerProfileDigest: string;
+  readonly invocationRef: string;
+  readonly outputDigest: string;
+  readonly disposition: "accept" | "revise" | "escalate";
+  readonly findings: readonly PublishedConsensusReviewerFinding[];
+  readonly ruling: PublishedConsensusRulingProposal;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface PublishedConsensusSubmitterResponse {
+  readonly kind: "consensus_submitter_response";
+  readonly responseRef: string;
+  readonly requestRef: string;
+  readonly subjectRef: string;
+  readonly subjectDigest: string;
+  readonly roundIndex: number;
+  readonly decisionRef: string;
+  readonly submitterRef: string;
+  readonly submitterWorkerRef: string;
+  readonly invocationRef: string;
+  readonly outputDigest: string;
+  readonly summary: string;
+  readonly addressedFindingRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface PublishedConsensusRoundDecision {
+  readonly kind: "consensus_round_decision";
+  readonly decisionRef: string;
+  readonly requestRef: string;
+  readonly subjectRef: string;
+  readonly subjectDigest: string;
+  readonly roundIndex: number;
+  readonly maxRounds: number;
+  readonly outcome: "closed_done" | "recurse_next_round" | "escalate_fh";
+  readonly reviewerProfileRefs: readonly string[];
+  readonly reviewerResponseRefs: readonly string[];
+  readonly findingRefs: readonly string[];
+  readonly dissentFindingRefs: readonly string[];
+  readonly dissentResponseRefs: readonly string[];
+  readonly rulingKind: PublishedConsensusRulingProposal["rulingKind"] | null;
+  readonly nextAction:
+    | "admit_ruling"
+    | "verify_next_round"
+    | "fh_adjudicate";
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface PublishedConsensusRoundRecord {
+  readonly kind: "consensus_round_record";
+  readonly request: PublishedConsensusRequest;
+  readonly responses: readonly PublishedConsensusReviewerResponse[];
+  readonly decision: PublishedConsensusRoundDecision;
+  readonly submitterResponse: PublishedConsensusSubmitterResponse | null;
+  readonly frontierRef: string;
+  readonly batchCount: number;
+  readonly completedBranchRefs: readonly string[];
+}
+
+export interface PublishedConsensusResult {
+  readonly kind: "consensus_result";
+  readonly contractRef: "abg.schema.consensus-result";
+  readonly initialRequestRef: string;
+  readonly subjectRef: string;
+  readonly subjectDigest: string;
+  readonly submitterRef: string;
+  readonly panelRef: string;
+  readonly policyRef: string;
+  readonly finalOutcome:
+    | "closed_done"
+    | "recurse_next_round"
+    | "escalate_fh";
+  readonly rulingKind: PublishedConsensusRulingProposal["rulingKind"] | null;
+  readonly nextAction:
+    | "admit_ruling"
+    | "verify_next_round"
+    | "fh_adjudicate";
+  readonly rounds: readonly PublishedConsensusRoundRecord[];
+  readonly priorRoundRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly resultDigest: string;
+}
+
 export interface Ds1NativeDeclarationInventory {
   readonly contractId: string;
   readonly rows: readonly NativeDeclarationInventoryRow[];
@@ -259,7 +394,10 @@ const SCHEMA_CONTRACT_ROWS = Object.freeze([
   ["abg.schema.host-invocation", "host-invocation.schema.json", "HostInvocationDescriptor"],
   ["abg.schema.runtime-event", "runtime-event.schema.json", "CanonicalRuntimeEvent"],
   ["abg.schema.runtime-result", "runtime-result.schema.json", "PublicResultProjection"],
-  ["abg.schema.runtime-replay", "runtime-replay.schema.json", "PublicReplayProjection"]
+  ["abg.schema.runtime-replay", "runtime-replay.schema.json", "PublicReplayProjection"],
+  ["abg.schema.consensus-request", "consensus-request.schema.json", "PublishedConsensusRequest"],
+  ["abg.schema.consensus-reviewer-response", "consensus-reviewer-response.schema.json", "PublishedConsensusReviewerResponse"],
+  ["abg.schema.consensus-result", "consensus-result.schema.json", "PublishedConsensusResult"]
 ] satisfies readonly (readonly [string, string, string])[]);
 
 const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
@@ -286,6 +424,10 @@ const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
                 contractId === "abg.schema.workspace-binding" ||
                 contractId === "abg.schema.install-manifest"
               ? ["abg.capability.install.bind-products@5"]
+              : contractId === "abg.schema.consensus-request" ||
+                  contractId === "abg.schema.consensus-reviewer-response" ||
+                  contractId === "abg.schema.consensus-result"
+                ? ["abg.capability.catalog.invoke-graph-function@5"]
               : []
   )
   }))

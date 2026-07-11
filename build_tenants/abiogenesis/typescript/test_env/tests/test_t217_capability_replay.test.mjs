@@ -7,11 +7,18 @@ import assert from "node:assert/strict";
 import {
   admitModule,
   assertRuntimeEvent,
+  CONSENSUS_FP_DISPATCH_PLUGIN_REF,
+  CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
   constructGraphFunction,
-  publicCallableStartAsync
+  LIVE_FP_DISPATCH_PLUGIN_REF,
+  LIVE_FP_EVALUATOR_PLUGIN_REF,
+  publicCallableStartAsync,
+  resolveDeclaredPluginSelection,
+  standardPluginCatalogWithCapabilities
 } from "../../build/semantic/code/src/index.js";
 import {
   constructLiveCapabilityBinding,
+  liveCapabilityDigest,
   projectLiveCapability
 } from "../../build/semantic/code/src/app/m04/index.js";
 import * as m04PublicApi from "../../build/semantic/code/src/app/m04/index.js";
@@ -164,8 +171,10 @@ test("R5-6: one frozen digest-backed binding owns catalog, replay, and output tr
     assert.equal(Object.isFrozen(binding.pluginCapabilities), true);
     assert.strictEqual(projectLiveCapability(binding), binding.projection);
     assert.deepStrictEqual(binding.projection.availableLivePluginRefs, [
-      "plugin://abg/fp-dispatch-live",
-      "plugin://abg/fp-evaluator-live"
+      CONSENSUS_FP_DISPATCH_PLUGIN_REF,
+      CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
+      LIVE_FP_DISPATCH_PLUGIN_REF,
+      LIVE_FP_EVALUATOR_PLUGIN_REF
     ]);
     assert.equal(binding.projection.agentKey, "claude");
     assert.equal(binding.projection.agentKeySource, "flag");
@@ -181,6 +190,32 @@ test("R5-6: one frozen digest-backed binding owns catalog, replay, and output tr
     assert.equal(
       binding.projection.capabilityRef,
       `capability:live:${binding.projection.capabilityDigest}`
+    );
+    const digestInput = {
+      workspaceRoot: "/workspace/t217-capability",
+      executionContractDigest: binding.projection.executionContractDigest,
+      agentKey: binding.projection.agentKey,
+      agentKeySource: binding.projection.agentKeySource,
+      executorProfile: binding.projection.executorProfile,
+      executorProfileSource: binding.projection.executorProfileSource,
+      timeoutMs: binding.projection.timeoutMs,
+      timeoutMsSource: binding.projection.timeoutMsSource,
+      availableLivePluginRefs: binding.projection.availableLivePluginRefs
+    };
+    assert.equal(
+      liveCapabilityDigest(digestInput),
+      binding.projection.capabilityDigest
+    );
+    assert.notEqual(
+      liveCapabilityDigest({
+        ...digestInput,
+        availableLivePluginRefs: digestInput.availableLivePluginRefs.filter(
+          (ref) =>
+            ref !== CONSENSUS_FP_DISPATCH_PLUGIN_REF &&
+            ref !== CONSENSUS_FP_EVALUATOR_PLUGIN_REF
+        )
+      }),
+      binding.projection.capabilityDigest
     );
     assert.notStrictEqual(
       binding.pluginCapabilities.liveFpDispatch,
@@ -207,6 +242,68 @@ test("R5-6: one frozen digest-backed binding owns catalog, replay, and output tr
       );
     }
   });
+});
+
+test("A5 Consensus live plugin refs require capability-backed catalog rows", () => {
+  const selectionRows = [
+    ["fpDispatch", CONSENSUS_FP_DISPATCH_PLUGIN_REF],
+    ["fpEvaluator", CONSENSUS_FP_EVALUATOR_PLUGIN_REF]
+  ];
+  const catalogWithoutLiveCapability = standardPluginCatalogWithCapabilities(
+    undefined
+  );
+  for (const [seam, ref] of selectionRows) {
+    assert.throws(
+      () =>
+        resolveDeclaredPluginSelection({
+          selection: { [seam]: ref },
+          sourceRef: "graph-function://fixture/consensus",
+          catalog: catalogWithoutLiveCapability
+        }),
+      /plugin_selection_unresolvable/u
+    );
+  }
+});
+
+test("A5 one live dispatch capability resolves both Consensus plugin contracts", () => {
+  const catalog = standardPluginCatalogWithCapabilities({
+    liveFpDispatch: mutableCapabilityRow()
+  });
+  const resolved = resolveDeclaredPluginSelection({
+    selection: {
+      fpDispatch: CONSENSUS_FP_DISPATCH_PLUGIN_REF,
+      fpEvaluator: CONSENSUS_FP_EVALUATOR_PLUGIN_REF
+    },
+    sourceRef: "graph-function://fixture/consensus",
+    catalog
+  });
+  assert.equal(
+    catalog[CONSENSUS_FP_DISPATCH_PLUGIN_REF]?.seam,
+    "fpDispatch"
+  );
+  assert.equal(
+    catalog[CONSENSUS_FP_EVALUATOR_PLUGIN_REF]?.seam,
+    "fpEvaluator"
+  );
+  assert.equal(
+    resolved.fpDispatch?.contract.ref,
+    CONSENSUS_FP_DISPATCH_PLUGIN_REF
+  );
+  assert.equal(resolved.fpDispatch?.contract.pluginKind, "fp_dispatch");
+  assert.equal(resolved.fpDispatch?.contract.driverRequirement, "async_required");
+  assert.equal(resolved.fpDispatch?.contract.inputCarrier, "EnginePluginInput");
+  assert.equal(resolved.fpDispatch?.contract.outputCarrier, "FpDispatchOutcome");
+  assert.equal(
+    resolved.fpEvaluator?.contract.ref,
+    CONSENSUS_FP_EVALUATOR_PLUGIN_REF
+  );
+  assert.equal(resolved.fpEvaluator?.contract.pluginKind, "fp_evaluator");
+  assert.equal(resolved.fpEvaluator?.contract.driverRequirement, "sync_compatible");
+  assert.equal(resolved.fpEvaluator?.contract.inputCarrier, "EnginePluginInput");
+  assert.equal(
+    resolved.fpEvaluator?.contract.outputCarrier,
+    "FpEvaluationOutcome"
+  );
 });
 
 test("R5-6: executable rows are snapshotted and caller facts cannot contradict them", () => {
@@ -631,6 +728,17 @@ test("R5-6: capability event precedes a later typed plugin-selection block", asy
           executionContractDigest: `sha256:${"0".repeat(64)}`
         }),
       /liveCapabilityDigest does not match/u
+    );
+    assert.throws(
+      () =>
+        assertRuntimeEvent({
+          ...events[0],
+          availableLivePluginRefs: [
+            ...events[0].availableLivePluginRefs,
+            "plugin://abg/consensus/unregistered"
+          ]
+        }),
+      /availableLivePluginRefs must equal one of/u
     );
   });
 });

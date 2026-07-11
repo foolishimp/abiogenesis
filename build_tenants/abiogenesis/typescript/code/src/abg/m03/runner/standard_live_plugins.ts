@@ -41,6 +41,12 @@ import {
   type LivePluginArchiveOpenResult
 } from "./live_plugin_archive.js";
 import { hasEngineCCallResumeAuthority } from "./c_call_resume_authority.js";
+import {
+  CONSENSUS_FP_DISPATCH_PLUGIN_REF,
+  CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
+  standardConsensusFpDispatchPlugin,
+  standardConsensusFpEvaluatorPlugin
+} from "./standard_consensus_plugins.js";
 
 export const LIVE_FP_DISPATCH_PLUGIN_REF = "plugin://abg/fp-dispatch-live";
 
@@ -463,6 +469,20 @@ export function standardPluginCatalogWithCapabilities(
           [LIVE_FP_DISPATCH_PLUGIN_REF]: Object.freeze({
             seam: "fpDispatch" as const,
             plugin: standardLiveFpDispatchPlugin(capabilities.liveFpDispatch)
+          })
+        }),
+    ...(capabilities.liveFpDispatch === undefined
+      ? {}
+      : {
+          [CONSENSUS_FP_DISPATCH_PLUGIN_REF]: Object.freeze({
+            seam: "fpDispatch" as const,
+            plugin: standardConsensusFpDispatchPlugin(
+              capabilities.liveFpDispatch
+            )
+          }),
+          [CONSENSUS_FP_EVALUATOR_PLUGIN_REF]: Object.freeze({
+            seam: "fpEvaluator" as const,
+            plugin: standardConsensusFpEvaluatorPlugin()
           })
         }),
     ...(capabilities.liveFpEvaluator === undefined

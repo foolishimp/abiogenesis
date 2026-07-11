@@ -57,6 +57,12 @@ export type {
   EnginePluginCapabilities,
   LiveFpDispatchCapability
 } from "./runner/standard_live_plugins.js";
+export {
+  CONSENSUS_FP_DISPATCH_PLUGIN_REF,
+  CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
+  standardConsensusFpDispatchPlugin,
+  standardConsensusFpEvaluatorPlugin
+} from "./runner/standard_consensus_plugins.js";
 export { assembleHandlerRegistry } from "./runner/c_call_handlers.js";
 export {
   HOG_HANDLER_BINDINGS_DECLARATION_KEY,
