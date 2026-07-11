@@ -87,3 +87,13 @@ engine, release harness, or hidden manual interpretation.
 - Reason: Designs the formal ABG self-conformance and observer/tuner proof for the self-host path. The shipped observer/tuner already supervises campaigns; the runtime-over-its-own-build proof path died with the bootstrap.
 - Re-entry: A5-SH0-style conformance packaging re-enters on demand if a release or tenant requires a citable self-conformance package.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- Correction (review finding 5): the original reason conflated campaign
+  supervision with REQ-P-SELF-CONFORMANCE's constitutional-surface audit —
+  independent guarantees. The observer/tuner does NOT inventory and audit
+  constitutional, design, public-contract, proof, and release surfaces as
+  REQ-P-SELF-CONFORMANCE-001 requires, and the builder has no exemption.
+  The requirement remains live; interim claim owner T-247; retain/narrow/
+  remove at the T-249 reprice.

@@ -87,3 +87,9 @@ scope entered the product.
 - Reason: Realization half of T-231.
 - Re-entry: Same as T-231.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- Correction (review finding 5): same as T-231 — the self-conformance
+  requirement claim is live and owned by T-247 pending T-249; this record
+  retires the realization shape only.

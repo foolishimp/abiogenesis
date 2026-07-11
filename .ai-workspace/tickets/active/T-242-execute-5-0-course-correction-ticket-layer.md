@@ -5,144 +5,217 @@
 - type: reprice
 - ticket_category: governance_reprice
 - status: active
-- goal: abg-5-0-full-product-delivery (retargeted to the campaign model; constitutional text reprice registered as residual R1)
+- goal: GOAL-035 (ABIogenesis 5.0 full-product delivery — retarget in progress; GOAL-035's closure gate names the retired leaves and is unsatisfiable as written, so the T-249 reprice must rewrite it before any goal-level closure claim)
 - owner: abiogenesis
 - priority: critical
 - governance_scope: SPEC_METHOD, TICKET_METHOD
 - change_class: goal_reprice
 - re_entry_point: specification/GOALS.md
 - created_at: 2026-07-12
-- updated_at: 2026-07-12
+- updated_at: 2026-07-12 (revision 2 — codex governance review of 34d7f56 incorporated; see Review Amendment)
 - decision_ref: F_H ruling 2026-07-12 — "run the course correction, redo the tickets, retire anything overblown, then pause and review"
-- analysis_ref: .ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md (rev 3)
+- analysis_ref: .ai-workspace/comments/claude/20260711T151500Z_STRATEGY_5_0_course_correction_glc_over_abg_build_environment.md (rev 4)
+- review_ref: codex governance review of commit 34d7f56 (findings 1–8, all confirmed; dispositions below)
 - implementation_authorization: >-
     Ticket-layer dispositions and successor ticket creation only. No code,
     specification, design, requirement, release, or constitutional surface
-    changes are authorized under this ticket. The GOALS/INTENT text reprice is
-    residual R1 and follows the announced review pause.
+    changes are authorized under this ticket. The constitutional reprice is
+    intent-class work carried by successor T-249, not by this ticket.
 
-## Intake Triage
+## Intake Triage (revision 2 — span corrected per review finding 1)
 
 1. Substantive: yes. This retargets the 5.0 delivery from the T-218 revision-5
    formal self-host leaf DAG (B5 carrier, C1/C2 packaging fixed point, DS-2
    kernel mega-leaf, front-loaded DS-3/DS-4/DS-7/DS-8 chains) to the campaign
    model (installed 4.6-line + GLC 0.1 discipline authoring GTL 5.* as a
    data-mapper-pattern campaign subject). Not editorial.
-2. Boundary: `.ai-workspace/tickets/` only. No code, specification, design,
-   or release surface changes in this ticket's execution.
-3. Upward-propagation walk to the first missing layer: code (unchanged) →
-   design (unchanged; four untracked self-build carrier drafts flagged as
-   residual R6, unratified) → requirements (unchanged; T-241's completed
-   bootstrap-serving reprice flagged as residual R7) → PRODUCT (unchanged) →
-   INTENT (unchanged) → **GOALS: GOAL-034's promoted delivery target no longer
-   reflects F_H direction** ⇒ derived change class `goal_reprice` ⇒ re-entry
-   point `specification/GOALS.md` ⇒ affected span: the 5.0 leaf DAG (18 ticket
-   dispositions) plus the successor set (T-243, T-244, T-245) ⇒ release scope:
-   none now; GTL-5 releases are cut per converged artifact later.
-4. Ordering rationale: F_H's ruling is the standing authority; this ticket
-   executes its ticket-layer consequence first so no agent continues deepening
-   dropped leaves under T-218's DAG. The constitutional text reprice (R1) lands
-   after the review pause to avoid editing GOALS.md mid-correction.
+2. Boundary of THIS ticket's execution: `.ai-workspace/tickets/` only.
+3. Upward-propagation walk to the first affected layer — **corrected**: the
+   original revision claimed INTENT/PRODUCT unchanged and named GOALS (stale
+   GOAL-034) as the first affected layer. That understated the span. In fact
+   INTENT item 12 mandates the two-stage self-hosting fixed point, PRODUCT
+   carries the "ABG Self-Hosting Fixed Point" section (P4/I4/B5/S5/C1/C2), and
+   GOAL-035's closure gate names T-179 and T-222 through T-241 with "R5 is
+   self-hosted and immutable." **The first affected layer is INTENT** ⇒ the
+   constitutional retarget is `intent_reprice`-class work ⇒ carried by
+   successor **T-249** (singular change class per method; this ticket stays
+   goal-layer/ticket-layer) ⇒ affected span: INTENT items 11–12, PRODUCT
+   fixed-point and operator/self-conformance/qualification claims,
+   REQ-R-ABG3-SELFHOSTING, REQ-P-SELF-CONFORMANCE, REQ-P-QUAL (incl. its
+   documented gap owner pointer), GOAL-035, plus the 18 ticket dispositions
+   and successor set ⇒ release scope: none until the reprice and a converged
+   artifact exist.
+4. Sequencing rationale: F_H's ruling is the standing authority for the
+   ticket-layer dispositions; the consistency gate (SPEC_METHOD: "No gate may
+   close while the affected active surfaces are internally inconsistent")
+   binds this ticket's CLOSURE, not the F_H-directed execution order
+   ("redo the tickets ... then pause and review"). Between execution and
+   closure the tree is in a declared transitional state: constitutional
+   surfaces still carry the superseded mandate and say so via this ticket.
 
 ## Authority
 
-F_H ruled the retarget directly in session on 2026-07-12 after the rev-3
-analysis post. The defining findings relied on (post §§):
+F_H ruled the retarget directly in session on 2026-07-12 after the rev-3/4
+analysis post. History corrected per review finding 8: the fixed-point target
+was NOT unilateral codex drift — codex proposed it, claude reviewed and
+explicitly endorsed it (2026-07-10 verdict: "all CONFIRMED as improvements"),
+and the constitution was lawfully repriced to mandate it. This correction is a
+**changed F_H decision** reversing that jointly-ratified target, on the rev-3
+finding that the certified loop is a packaging fixed point over frozen S5 and
+never witnesses the authoring capability 5.0 is named for (post §3), plus the
+live evidence that the campaign converges on the current line (§6, bounded per
+finding 7).
 
-- §3.1 the T-218 self-host loop is a packaging fixed point over frozen S5 —
-  the authoring capability 5.0 targets sits outside the certified loop;
-- §0/§3.2 the inversion: codex's plan makes the campaign a test the new
-  runtime must pass; F_H's model makes the campaign the builder;
-- §6 live evidence: the campaign converges on ABG 4.6 as-is;
-- §7 constitutional form: obligations derive from admitted assets (gap event →
-  intent → ticket), never static enumeration.
-
-## Disposition Table (executed under this ticket)
+## Disposition Table (executed 34d7f56; amendments per review appended to each record)
 
 | Ticket | Was | Disposition | One-line reason |
 |---|---|---|---|
-| T-224 | active (codex) | superseded_by_course_correction | B5 packaging-carrier design; the bootstrap's entry leaf |
+| T-224 | active (codex) | superseded_by_course_correction | B5 packaging-carrier design; the bootstrap's entry leaf; carrier docs archive as reusable reference (R6) |
 | T-225 | backlog | superseded_by_course_correction | B5 feasibility realization for the dropped carrier |
 | T-226 | backlog | superseded_by_course_correction | up-front DS-2 C-runtime design; content → reference for campaign waves |
 | T-227 | backlog | superseded_by_course_correction | DS-2 kernel mega-leaf; work re-enters demand-sized as campaign subject content |
 | T-179 | active (queued after T-225) | superseded_by_demand_driven_reentry | node_type/overlay design behind the dropped gate; no demand signal |
 | T-228 | backlog | superseded_by_demand_driven_reentry | node_type/overlay realization; no demand signal |
-| T-229 | backlog | superseded_by_demand_driven_reentry | complete-operator-contract design; current CLI already drives campaigns |
-| T-230 | backlog | superseded_by_demand_driven_reentry | complete-operator-product realization; same |
-| T-231 | backlog | superseded_by_course_correction | formal self-conformance/observer proof on the self-host path |
-| T-232 | backlog | superseded_by_course_correction | realization half of T-231 |
+| T-229 | backlog | superseded_by_demand_driven_reentry | operator-contract design ticket shape; the PRODUCT claim itself is disposed at T-249, not here |
+| T-230 | backlog | superseded_by_demand_driven_reentry | operator-product realization ticket shape; same claim boundary |
+| T-231 | backlog | superseded_by_course_correction | self-conformance ticket shape; REQ-P-SELF-CONFORMANCE claim stays live, interim owner T-247 |
+| T-232 | backlog | superseded_by_course_correction | realization half of T-231; same claim boundary |
 | T-233 | backlog | superseded_by_course_correction | two-stage self-host + C1/C2 equivalence design (packaging fixed point) |
 | T-234 | backlog | superseded_by_course_correction | self-host realization + R5:=C1 freeze; R5 identity dropped |
 | T-235 | backlog | superseded_by_course_correction | exact ABG5+G5 pair qualification; pair identities dropped |
-| T-236 | backlog | superseded_by_course_correction | final 5.0 tap coupled to the fixed point |
+| T-236 | backlog | superseded_by_course_correction | final 5.0 tap coupled to the fixed point; release ownership moves to T-248 |
 | T-237 | backlog | superseded_by_course_correction | released-pair verification for dropped identities |
-| T-238 | backlog | superseded_by_course_correction | A5-R1 verdict framework; ledger evidence is the qualification surface |
-| T-239 | backlog | superseded_by_course_correction | DS-4Q pre-freeze enforcement; no freeze exists to gate |
-| T-240 | backlog | superseded_by_course_correction | ABG 5 RC publication as self-host candidate |
+| T-238 | backlog | superseded_by_course_correction | A5-R1 framework shape; qualification claims stay live, interim owner T-247 |
+| T-239 | backlog | superseded_by_course_correction | DS-4Q ticket shape; its documented REQ-P-QUAL gap ownership transfers to T-247 |
+| T-240 | backlog | superseded_by_course_correction | ABG 5 RC publication as self-host candidate; RC ownership moves to T-248 |
 
 Kept untouched: T-218/T-220/T-221/T-222/T-223/T-241 (completed history closes
-by its stated conditions), T-219 (spec reconciliation, independent), B-010
-(aligns with the campaign model — it is the discipline-induction backlog item),
+by its stated conditions), T-219 (spec reconciliation, independent), B-010,
 T-110, T-178 (independent backlog).
+
+**Claim/shape boundary (per review findings 2 and 5):** retiring a ticket
+retires its WORK SHAPE only. Live constitutional claims the retired tickets
+served — the PRODUCT operator contract, REQ-P-SELF-CONFORMANCE (the builder
+has no exemption), REQ-P-QUAL including its documented witness-gate gap
+(owner pointer currently naming T-239) — remain in force and owned: interim
+claim owner T-247 (self-conformance + qualification) and T-248 (release
+claims), with retain/narrow/remove decided at the T-249 reprice by F_H. No
+requirement claim is deferred by silence.
 
 ## Demand-Driven Register
 
-Re-entry mechanism for every entry: typed gap event in admitted campaign
-ledgers (e.g. `semantic_not_realized` identities `gtl-c-unrealized-workflow-*`)
-→ intent → ticket. Entries are pointers, not obligations; nothing below is
-scheduled work.
+Re-entry mechanism, stated honestly (review finding 4): today the typed
+`semantic_not_realized` diagnostics (`gtl-c-unrealized-workflow-*`) exist at
+compile/conformance level (`GtlProgramConformanceIssue`, ruleRef
+`abg://gtl-program/c-algebra/semantic-not-realized`) — **no producer admits
+them as ledger events yet**. The admissibility bridge is a named T-245
+scaffold deliverable (scenario declares the conformance run inside worker
+turns so diagnostics ride the admitted typed result; code-level producer only
+if declaration cannot carry it). Until the bridge lands, the loop runs
+supervisor-mediated: diagnostics read from campaign results → intent →
+ticket. Entries are pointers, not obligations.
 
 1. `workflow.C` runtime realization — wave-one subject candidate (from
    T-226/T-227 content; T-226's design is reference input).
 2. node_type/overlay catalog kinds — from T-179/T-228; T-218's narrowing law
-   (public kinds limited to graph_function/node_type/overlay) survives as the
-   scoping constraint for any re-entry.
+   survives as the scoping constraint.
 3. Public operator completions — per-verb, from T-229/T-230, when the campaign
-   surface needs an operation the current CLI/SDK lacks.
+   surface needs an operation the current CLI/SDK lacks (claim disposition at
+   T-249 governs whether "complete contract" remains a 5.0 claim).
 4. SP campaign subset — F7 suite extraction, F10 generic harness, F11 F_D-leak
-   gate — likely pulled early (a language/runtime subject's UAT surface is the
-   conformance suite).
-5. Packaging-determinism gate — the DS-5 salvage (post §3.3): pack frozen
-   source on predecessor and candidate installs, compare release-significant
-   digests; one release-discipline assertion.
-6. Lightweight self-certifying release snapshot — from T-238's kernel; closes
-   the odd_glc 0.1 manifest gap (build:null/lint:null/no test summary).
-7. odd_glc T-033 declarations-only demotion — convenient cleanup, odd_glc pen.
+   gate — likely pulled early.
+5. Packaging-determinism gate — the DS-5 salvage (post §3.3); codex's carrier
+   docs (R6) supply reusable equivalence/source-isolation contracts for it.
+6. Lightweight self-certifying release snapshot — from T-238's kernel.
+7. odd_glc T-033 declarations-only demotion — odd_glc pen.
 
 ## Residual Register (review-pause queue)
 
-- R1: constitutional reprice — GOALS.md GOAL-034 (and any INTENT 5.0 language)
-  to the campaign model; folds in the §8.1 substrate/subject immutability rule
-  and the §4 provenance-not-reproducibility trade for explicit ratification.
+- R1: constitutional reprice — now carried by **T-249** (intent_reprice):
+  INTENT items 11–12, PRODUCT fixed-point/operator/self-conformance/
+  qualification claims, REQ-R-ABG3-SELFHOSTING, REQ-P-SELF-CONFORMANCE and
+  REQ-P-QUAL dispositions (incl. the T-239 owner pointer), GOAL-035 rewrite;
+  folds in the §8.1 substrate/subject rule and the §4 provenance trade.
 - R2: Python "paused" → "withdrawn" reconciliation — TENANT_REGISTRY.md,
-  completed T-096 framing, INTENT/GOALS carrier language (parity tickets
-  already withdrawn at `8ea0310`).
-- R3: settle the 4.6 predecessor line — carried by T-243 (F_H decision).
-- R4: EX + SP-product scope call (in 5.0 vs lift to 5.1) — F_H decision; this
-  sizes the release.
+  T-096 framing, INTENT/GOALS carrier language (tickets withdrawn `8ea0310`);
+  folds into T-249's span.
+- R3: settle the 4.6 predecessor line — T-243 (F_H decision).
+- R4: product identity and scope — **F_H must define what 5.0 IS before T-249
+  can be drafted**: ABIogenesis 5.0 (full product per current GOAL-035), GTL 5
+  over a settled ABG 4.6 line, or another boundary; and EX + SP-product in or
+  out. This decision gates T-249, T-247's final scope, and T-248's identity.
 - R5: odd_glc cross-repo — T-033/T-037/T-038/T-039 G5-chain coupling to the
-  dropped R5/I1 identities needs retargeting in odd_glc's own tree (not edited
-  from this repo per workspace rule).
-- R6: codex's four untracked self-build carrier drafts
-  (`build_tenants/abiogenesis/typescript/design/M02_M04_SELF_BUILD_PROGRAM_*.md`)
-  — archive-as-reference or delete; codex/F_H call at review. Not touched here.
-- R7: T-241's completed requirement reprice (REQ-P-INSTALL / I4 bootstrap
-  compatibility profile, REQ-R-ABG3-SELFHOSTING references) served the dropped
-  bootstrap — R1 reviews whether that text stands on its own or re-reprices.
+  dropped R5/I1 identities needs retargeting in odd_glc's own tree.
+- R6: codex's four untracked self-build carrier drafts — archive as
+  **superseded reference** (they contain careful carrier/common-public-surface/
+  source-isolation/result-equivalence contracts, reusable for register item 5;
+  the feasibility contract explicitly avoids claiming full self-hosting).
+  Codex/F_H call at review; not touched here.
+- R7: T-241's completed requirement reprice served the dropped bootstrap —
+  T-249 reviews whether that text stands or re-reprices.
 
-## Successor Set (created under this ticket)
+## Successor Set
 
-- T-243 — Settle the 4.6 predecessor line (reopen the T-221 fork). Backlog;
-  awaits F_H ruling at the review pause.
+- T-243 — Settle the 4.6 predecessor line (F_H ruling at review). [34d7f56]
 - T-244 — Author the GTL-5 subject specification seed (wave one: workflow.C).
-  Backlog; blocked on this ticket's ratification.
-- T-245 — Author the SCN-ABG-SOFTWARE-BUILD campaign scaffold (F25 scenario
-  pack + F26 supervisor seat). Backlog; blocked on T-242 + T-244.
+  [34d7f56]
+- T-245 — Author the SCN-ABG-SOFTWARE-BUILD campaign scaffold (F25 pack +
+  F26 seat + substrate/subject rule + **gap-admissibility bridge**; wave one
+  doubles as the exact-substrate engine pilot). [34d7f56, amended rev 2]
+- T-246 — Execute GTL-5 campaign waves to convergence (delivery owner). [rev 2]
+- T-247 — Own self-conformance and qualification claims through the retarget
+  (interim claim owner; final scope at T-249). [rev 2]
+- T-248 — Qualify and release the 5.0 artifact (release/RC/tap owner; identity
+  per R4). [rev 2]
+- T-249 — Constitutional reprice of the 5.0 target (intent_reprice; gated on
+  R4). [rev 2]
 
-## Closure Condition
+## Review Amendment (2026-07-12) — codex governance review of 34d7f56
 
-This ticket closes when F_H's announced review pause ratifies (or amends) the
-executed dispositions and the successor set. The residual register items are
-successor work, not closure conditions of this ticket. Objective artifacts:
-the 18 disposition records committed, the three successor tickets committed,
-this register committed.
+All eight findings verified against the cited surfaces and **confirmed**:
+
+1. Consistency gate (CONFIRMED): GOAL-035/INTENT-12/PRODUCT still mandate the
+   retired work. Repair: closure condition strengthened below; T-249 created;
+   triage walk corrected (first affected layer is INTENT, not GOALS).
+2. Open product decision pre-empted (CONFIRMED): operator/self-conformance/
+   qualification/release retirements executed one option de facto. Repair:
+   claim/shape boundary declared; interim owners T-247/T-248 created; R4
+   sharpened to the product-identity decision; stale GOAL-034 refs fixed.
+3. Discovery-law category error (CONFIRMED): the law governs proof-obligation
+   instances, not delivery plans. Repair: post §7.1 corrected — the DAG was
+   oversized, not unconstitutional.
+4. Gap-event pipeline overstated (CONFIRMED in code): diagnostics stop at
+   conformance issues; no ledger producer. Repair: register wording corrected;
+   bridge scoped into T-245.
+5. Independent guarantees (CONFIRMED): campaign observation ≠
+   REQ-P-SELF-CONFORMANCE audit; earned depth ≠ REQ-P-QUAL gap closure; T-239
+   orphaning was a traceability defect. Repair: T-247 interim ownership;
+   explicit retain/remove at T-249; affected closure records amended.
+6. No delivery owner (CONFIRMED): T-244/245 end before convergence,
+   qualification, release. Repair: T-246/T-247/T-248 created.
+7. Engine readiness overstated (CONFIRMED): full-campaign proof is rc.2-era
+   (`predecessor_evidence_only` per T-221); rc.3 carries the bounded odd_glc
+   0.1 live proof. Repair: post corrected; wave one named the exact-substrate
+   pilot.
+8. History mischaracterized (CONFIRMED): claude's 2026-07-10 review adopted
+   the fixed point as an improvement. Repair: reframed everywhere as a changed
+   F_H decision reversing a reviewed adoption; codex drafts marked reusable
+   reference.
+
+## Closure Condition (revision 2 — strengthened per findings 1/2/6)
+
+This ticket closes only when ALL of the following hold, restoring the
+SPEC_METHOD consistency gate over the affected span:
+
+1. F_H has recorded the product-identity and scope decision (R4).
+2. T-249 has executed the constitutional reprice so no active GOALS, INTENT,
+   PRODUCT, or requirement surface mandates retired work — each affected
+   claim explicitly retained (with owner), narrowed, or removed.
+3. The delivery chain has owners: T-246 (waves to convergence), T-247
+   (self-conformance/qualification claims), T-248 (release) admitted or
+   consciously replaced by F_H.
+4. F_H ratifies (or amends) the 18 dispositions and this register.
+
+The dispositions themselves remain in force during the transitional state
+under F_H's direct 2026-07-12 ruling; what this gate forbids is CLOSING the
+correction while the constitution still contradicts it.

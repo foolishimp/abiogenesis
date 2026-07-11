@@ -103,3 +103,14 @@ depending on unfinished 5.0 behavior.
 - Reason: Designs the B5 self-build packaging carrier, the formal self-host's entry leaf. The certified C1/C2 loop packages frozen S5 and never witnesses authoring (post S3.1); under the campaign model the builder is the campaign itself and needs no B5 carrier.
 - Re-entry: None as a carrier. Codex's in-flight untracked carrier design drafts (build_tenants/abiogenesis/typescript/design/M02_M04_SELF_BUILD_PROGRAM_*.md) remain uncommitted working papers; their archive-as-reference disposition is residual R6 on T-242.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- The four untracked carrier design drafts contain careful carrier,
+  common-public-surface, source-isolation, and result/equivalence contracts,
+  and the feasibility contract explicitly avoids claiming full self-hosting.
+  They archive as SUPERSEDED REFERENCE (T-242 R6) and are the reuse input for
+  the packaging-determinism gate (demand register item 5) if that gate is
+  adopted. The prior record's framing stands corrected: the fixed-point target
+  was a reviewed, claude-endorsed decision (2026-07-10 verdict) reversed by
+  F_H — not unilateral codex drift.

@@ -93,3 +93,11 @@ verbs, mutability, actor semantics, or runtime authority.
 - Reason: Designs the complete public operator contract (DS-3) ahead of any consumer demand; genesis-ts start/gaps/witness/tune already drives campaigns end-to-end.
 - Re-entry: Demand-driven: pulled per-verb when the GTL-5 campaign surface needs an operation the current CLI/SDK lacks.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- Claim/shape boundary: this retirement supersedes the TICKET SHAPE only.
+  The PRODUCT complete-operator-contract claim remains live constitutional law
+  until the T-249 reprice disposes it (retain/narrow/remove — F_H's R4
+  decision). Interim: per-verb demand re-entry stands; the claim disposition
+  is NOT decided by this record.

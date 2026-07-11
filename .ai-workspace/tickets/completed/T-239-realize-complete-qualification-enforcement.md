@@ -167,3 +167,13 @@ harness or unsupported hardening scope.
 - Reason: DS-4Q complete pre-freeze qualification enforcement; there is no self-host freeze to gate.
 - Re-entry: Executable-census and witness-gate ideas re-enter on demand at release-qualification time.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- Correction (review finding 5): REQ-P-QUAL documents a live witness-gate
+  gap ("the gate witnesses only .ts files under code/src...") whose owner
+  pointer names T-239 — this retirement orphaned it. Ownership of that
+  documented gap transfers to T-247 effective this amendment; the requirement
+  text's owner pointer updates at the T-249 reprice. Earned-depth campaign
+  evidence does not by itself repair the witnessing, live-test-exemption, or
+  bypass-acceptance gaps.

@@ -179,3 +179,9 @@ existing gates remain green.
 - Reason: Realizes the complete public operator product designed by T-229.
 - Re-entry: Same demand channel as T-229.
 - No code, specification, design, or release surface changed by this closure.
+
+### Review Amendment (2026-07-12, codex governance review of 34d7f56)
+
+- Claim/shape boundary: same as T-229 — the PRODUCT operator-product claim
+  remains live until T-249 disposes it; this record retires the work shape
+  only.

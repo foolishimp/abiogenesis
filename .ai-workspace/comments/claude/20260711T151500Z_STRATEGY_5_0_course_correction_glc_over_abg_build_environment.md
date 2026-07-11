@@ -9,7 +9,10 @@ verbatim-grounded analysis of **what the plan's self-host actually proves** (§3
 governing rule** (§8), and (6) the KEEP/DROP/DEMAND-DRIVEN retarget with recovery
 accounting. Commentary for F_H adjudication — it changes no live authority until repriced.
 **Author:** claude · 2026-07-11 · rev 3 2026-07-12 (adversarial re-review pass: §3, §7, §8
-added; overreaches in the earlier revision corrected in place and noted where material).
+added) · rev 4 2026-07-12 (repairs from the codex governance review of `34d7f56`, all eight
+findings confirmed: §7.1 discovery-law scope corrected, §7.2 mechanism status corrected to
+code reality, engine readiness bounded to the T-221 evidence grade, and the history reframed
+as a changed F_H decision reversing a reviewed adoption — not codex drift).
 **Reader:** whoever picks up 5.0 next (codex, a fresh agent, or F_H). §2–§3 are the
 diagnostic spine; §12–§13 are the actions.
 
@@ -17,13 +20,18 @@ diagnostic spine; §12–§13 are the actions.
 
 ## 0. The correction in one paragraph
 
-The 5.0 plan drifted from the target F_H scoped, and the drift turns on one word. The
-original 5.0 framed self-hosting as F2/F25: **ABG *builds* ABG — the data-mapper–style
+The 5.0 plan diverged from the target F_H scoped, and the divergence turns on one word.
+The original 5.0 framed self-hosting as F2/F25: **ABG *builds* ABG — the data-mapper–style
 campaign AUTHORS the next generation** (spec → F_P worker turns → F_D admission →
 earned-depth proof → converged artifact). T-218 reinterpreted "build" as **"run the build
 step"**: a deterministic packaging pipeline over *already-authored, frozen* source
 (`I4 + B5 + S5 → C1`, `I1 + B5 + S5 → C2`, prove `C1 ≡ C2`), plus a core C-runtime
-rewrite (DS-2) that was never in the original feature set. The inversion is total: **in
+rewrite (DS-2) that was never in the original feature set. Provenance, owned honestly:
+codex proposed that reinterpretation, **claude reviewed and endorsed it as an improvement**
+(2026-07-10 verdict: "all CONFIRMED as improvements... my single-run version was the weaker
+claim wearing the stronger name" — a judgment §3 now shows was backwards), and the
+constitution was lawfully repriced to mandate it. This correction is therefore a **changed
+F_H decision reversing a jointly-ratified target**, not the repair of unilateral drift. The inversion is total: **in
 codex's plan the campaign is a test the new runtime must pass (DS-6); in F_H's model the
 campaign is the builder that authors the new runtime.** F_H's restated intent: ABG/GTL
 4.6 is good enough; GLC 0.1 is installed over it; use the GLC spec-driven/ODD discipline —
@@ -59,8 +67,10 @@ the substrate without reading the source tree.
 **Load-bearing recovery fact:** read F2 and F25 verbatim — *"a software-build scenario
 whose subject is the abiogenesis tenant itself… declared in the data-mapper pattern…
 committed evidence ledger (rc.2 pattern)."* **The original self-hosting chain WAS the
-campaign model** — worker turns and earned depth are named in the feature text. The drift
-is not in the original scope; it entered at promotion.
+campaign model** — worker turns and earned depth are named in the feature text. The
+divergence is not in the original scope; it entered at promotion, as a reviewed and
+endorsed decision (§0), and was then constitutionally ratified — which is exactly why the
+retarget needs a constitutional reprice (T-249), not just ticket dispositions.
 
 ## 2. The three-way gap: 4.6 today · codex's 5.0 · correct delivery
 
@@ -71,7 +81,7 @@ delivery** under the campaign model.
 
 | # | Capability | ABG/GTL 4.6 today | Codex's 5.0 plan (T-218) | Correct 5.0 delivery | Gap verdict |
 |---|---|---|---|---|---|
-| 1 | Build engine (spec → real software via AI worker turns) | data-mapper campaign runs on rc.3, converges (rc.1/rc.2, **64/64** verified-restore kills), real Scala/sbt | campaign demoted to a DS-6 **qualification test**; "build" re-cast as the deterministic B5 packaging carrier (DS-1F/T-224) | use the campaign **as-is** — it *is* the engine | **engine gap: none.** What's missing is the subject-side authoring (rows 6–7), not engine work |
+| 1 | Build engine (spec → real software via AI worker turns) | full campaign converged on the rc.2-era line (**64/64** verified-restore kills, real Scala/sbt); T-221 grades that `predecessor_evidence_only` for rc.3, which carries the bounded odd_glc 0.1 live proof | campaign demoted to a DS-6 **qualification test**; "build" re-cast as the deterministic B5 packaging carrier (DS-1F/T-224) | use the campaign as the engine; **wave one doubles as the exact-substrate pilot** that upgrades or refutes readiness on the exact installed line | **engine candidate-ready, not zero-gap**: the missing pieces are the subject-side authoring (rows 6–7) plus the exact-substrate pilot |
 | 2 | Dev environment (released stack installed as builder: GLC over ABG) | odd_glc **0.1 installed over rc.3**, digest-verified chain (peerDep `4.6.0-rc.3` / `9cffb372…`) | DS-1 install/bind/catalog (T-222/T-223) — correct, committed | keep DS-1 exactly | **closed** — this codex work is KEEP |
 | 3 | Self-hosting (stack builds its successor) | campaign can target **any** subject, incl. the next GTL/ABG source | `I4+B5+S5→C1`, `I1+B5+S5→C2` over **frozen S5**, prove `C1≡C2`; `R5:=C1` (DS-5/T-233/234) | point the campaign at the **GTL-5 source**: the stack *authors* its successor | **none in 4.6.** Codex's loop certifies packaging of pre-authored source — the authoring capability sits outside it entirely (§3) |
 | 4 | C runtime / `workflow.C` | 4 of 7 C terms execute; `workflow.C` returns honest `semantic_not_realized` **typed gap events**; strangler window stands; rc.2 exercised 86/86 c_call arms enclosed *on that scenario's paths* | full rewrite up front — retire strangler, rebind M03 stage kernel, realize `workflow.C` (DS-2/T-227, one mega-leaf, no partial checkpoint) | **demand-driven via the gap events** — realize `workflow.C` when campaign ledgers surface the typed gaps (§7.2); strong candidate for the **first GTL-5 subject item** (§9) | **small, real, demand-signalled**; codex delta = premature big-bang |
@@ -166,7 +176,7 @@ Codex's plan offered a reproducibility-flavored guarantee, but only over packagi
 (§3.1) — the choice was never actually reproducible-authoring vs provenance; it is
 provenance vs provenance-plus-ceremony.
 
-## 5. Where the plan drifted (now four precisely-located moves)
+## 5. Where the plan diverged (four precisely-located moves — a reviewed decision, not unilateral drift)
 
 0. **The semantic pivot (root cause).** "ABG builds ABG" reinterpreted from *the campaign
    authors the next source* (F2/F25 verbatim: worker turns, earned depth, rc.2-pattern
@@ -187,10 +197,15 @@ provenance vs provenance-plus-ceremony.
 The plan's load-bearing premise — "complete/rewrite the C runtime and formally self-host
 before you can build forward" — against measured facts:
 
-1. **The campaign runs on ABG 4.6 as-is and gets good results** — real Scala, real sbt,
-   mutation-tested, converged (rc.1: 3 retries/~56 min; rc.2: 2/~81 min; 64/64
+1. **The campaign runs on the 4.6 line as-is and gets good results** — real Scala, real
+   sbt, mutation-tested, converged (rc.1: 3 retries/~56 min; rc.2: 2/~81 min; 64/64
    verified-restore kills). It needed neither `workflow.C` realized nor the strangler
-   retired. You are already building real software forward over 4.6.
+   retired. *Bounded honestly (T-221's own evidence grade, review finding 7):* the
+   full-campaign proof is rc.2-era `predecessor_evidence_only`; exact rc.3 carries Hello
+   World plus the bounded odd_glc 0.1 live proof. The defensible claim is **candidate
+   engine, ready for a bounded framework-shaped pilot** — which is what wave one is scoped
+   to be. The plan's premise fails either way: nothing in this evidence says the C runtime
+   must be rewritten before forward building.
 2. **The capabilities exist and ran** — 31 source files carry the working
    spine/dispatch/consequence/foldback/handlers; four of seven C terms execute today.
 3. **The deferred-strictness surface is small** — 7 files in `code/src` (9
@@ -208,26 +223,33 @@ before you can build forward" — against measured facts:
 The correction is not merely lighter — it is the **law-conformant shape** under already-
 ratified method, and the plan's form contradicts that method twice.
 
-**7.1 Static enumeration vs discovered obligations.** Ratified discovery law: proof
-obligations derive from **admitted intermediate assets**, never static enumeration
-(installed context: *"Proof obligations are DISCOVERED from admitted assets… deliver the
-map and the obligations follow"*). T-218 is a statically enumerated DS-0→DS-8 proof
-topology — 18 leaves pre-computed before any campaign asset exists — for a goal whose
-substance is construction under discovery. The campaign model derives what to build next
-from admitted campaign assets (gap events, depth maps, ledger evidence). The plan's
-*form* — not just its size — is the violation.
+**7.1 Static enumeration vs discovered obligations — scope corrected (review finding 3).**
+The discovery law governs **proof-surface obligation instances** whose cardinality depends
+on delivered artifacts — PRODUCT.md verbatim: *"which tests instantiate a depth class,
+which adversarial checks a delivered map implies"*. It does not prohibit planned
+requirements, phases, or tickets; an 18-leaf delivery plan is **not unconstitutional by
+form**, and rev 3 of this post overclaimed that. What survives, correctly scoped: the plan
+pre-committed heavy leaves (the DS-2 mega-leaf, DS-4Q, A5-R1) whose right size is exactly
+the kind of thing campaign evidence discovers, and the campaign model prices that work by
+admitted demand instead. Oversized, not unlawful — the retarget stands on §3 and §6, not
+on a constitutional-form charge.
 
-**7.2 "Demand-driven" is the ratified intent loop, not a vibe.** A fair objection to
-"build `workflow.C` only if a GTL-5 program uses it": programs *can't* use it — T-220's
-guard honestly rejects it — so demand could be suppressed by the gap itself. The
-mechanism that resolves this already shipped: the unrealized constructors return
-**stable typed gap identities** (`gtl-c-unrealized-workflow-lift` / `-batch` / `-retry`,
-classification `semantic_not_realized`). When a campaign worker authors toward an
-unrealized construct, the attempt lands in the ledger as a typed gap event. Demand is
-therefore **observed, admitted evidence**, and its conversion is the ratified
-homeostatic loop: *gap event → intent → ticket*, the ticket as the only action carrier.
-"Demand-driven" throughout this post means exactly that pipeline — measurable,
-non-circular, and already governed.
+**7.2 "Demand-driven" is the ratified intent loop — with its missing link named (review
+finding 4).** A fair objection to "build `workflow.C` only if a GTL-5 program uses it":
+programs *can't* use it — T-220's guard honestly rejects it — so demand could be
+suppressed by the gap itself. The typed identities that resolve this exist:
+`gtl-c-unrealized-workflow-lift` / `-batch` / `-retry`, classification
+`semantic_not_realized`. **Honest status of the pipeline, verified in code:** the compiler
+emits these as diagnostics and conformance projects them to `GtlProgramConformanceIssue`
+rows (ruleRef `abg://gtl-program/c-algebra/semantic-not-realized`) — **no producer yet
+admits them as ledger events**. Rev 3 overstated this as already-admitted evidence. The
+bridge is therefore a named T-245 scaffold deliverable: the scenario declares the
+conformance run inside worker turns so diagnostics ride the **admitted typed result** (the
+EXECUTION DEFAULT path), with a code-level producer only if declaration cannot carry it.
+Until the bridge lands, the loop runs supervisor-mediated — diagnostics read from campaign
+results → intent → ticket — which is lawful but weaker: the earned-depth law cannot count
+gap closure until gaps are admitted evidence. "Demand-driven" throughout this post means
+that pipeline, at its honestly-stated maturity.
 
 **7.3 F_D/F_P boundary.** The campaign model keeps authoring in F_P turns under F_D
 admission — the constitutional seam. The formal loop achieves determinism by *excluding
@@ -367,7 +389,8 @@ itself (§9). The true up-front F_H scope call is **EX (F16–F22) + SP's produc
 2. **Structural (days): settle 4.6** — revisit the T-221 fork per §8.2 (the campaign
    model needs a serviceable 4.6.x floor; rc.3-permanent gives substrate fixes no lawful
    home). Goal-reprice decision.
-3. **The reprice:** GOAL-034 / T-218-successor to the campaign model; ratify the §8.1
+3. **The reprice (T-249, intent_reprice):** GOAL-035 / INTENT items 11–12 / PRODUCT
+   fixed-point section / affected requirements to the campaign model; ratify the §8.1
    substrate/subject rule and the §4 provenance trade; reclassify DROP leaves
    (T-224/225, T-227, T-231–234, T-238/239) as dropped-or-demand-driven; keep
    DS-0/DS-1/T-219/T-220 as landed foundation.
@@ -388,17 +411,24 @@ and *pause* Python"), and any INTENT/GOALS Python-carrier language move from
 "paused/reactivatable" to "withdrawn." The TypeScript tenant is the primary and only
 line.
 
-## 14. Decisions for F_H (the queue, decay-ordered)
+## 14. Decisions for F_H (the queue, decay-ordered; updated at rev 4)
 
-1. **Now:** pause T-224 pending reprice (one line; §12.1).
-2. Confirm the retarget: campaign-as-builder over packaging-fixed-point (§0, §3).
-3. Settle 4.6 — qualify a serviceable `4.6.0` line vs rc.3-permanent (§8.2).
-4. EX + SP-product in 5.0, or lift to 5.1 (§11) — this sizes the release.
-5. Ratify consciously: the §8.1 substrate/subject rule and the provenance-not-
-   reproducibility trade (§4).
-6. Ratify the Python constitutional reconciliation (§13).
-7. On your word: I draft the GOAL-034 / T-218-successor reprice, the leaf
-   reclassifications, and the GTL-5 subject-spec seed.
+1. ~~Pause T-224~~ — executed: T-224 retired under T-242 (`34d7f56`).
+2. Confirm the retarget: campaign-as-builder over packaging-fixed-point (§0, §3) — the
+   ticket layer is executed under T-242 and awaits ratification.
+3. **Define the exact 5.0 product and release identity** (review finding 2; T-242 R4):
+   ABIogenesis 5.0 full product per current GOAL-035, GTL 5 over a settled ABG 4.6 line,
+   or another declared boundary. This gates the T-249 constitutional reprice, T-247's
+   claim dispositions, and T-248's release identity.
+4. Settle 4.6 — qualify a serviceable `4.6.0` line vs rc.3-permanent (§8.2; T-243).
+5. EX + SP-product in 5.0, or lift to 5.1 (§11) — with the self-conformance and
+   qualification claims (REQ-P-SELF-CONFORMANCE, REQ-P-QUAL) each explicitly retained,
+   narrowed, or removed at T-249, never deferred by silence (review finding 5; T-247).
+6. Ratify consciously: the §8.1 substrate/subject rule and the provenance-not-
+   reproducibility trade (§4) — folded into T-249's span.
+7. Ratify the Python constitutional reconciliation (§13; T-249 span).
+8. On your word: T-249 drafting begins (after decision 3), then T-244's subject-spec
+   seed.
 
 ## 15. Artifact boundary
 
