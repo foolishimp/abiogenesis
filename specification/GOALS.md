@@ -43,7 +43,7 @@ accepted set through the constitutional chain before implementation begins.
 | T-219 | Landed the first current-specification reconciliation pass and named remaining specification gaps; its review/closure remains separate. | abiogenesis |
 | T-220 | Completed typed C-algebra authoring, admission, semantic-compiler, compiled-handoff, and malformed F_P response boundary. | abiogenesis |
 | T-217 | Closed as a superseded-and-split consolidation boundary. Its deterministic observer/tuner and kernel substrate are predecessor evidence; it did not earn its original live-campaign or release exits. | abiogenesis |
-| T-221 | Records the selected `abandoned_and_rebound` prior-release disposition. Final 4.6.0 will not be tapped. Exact published `4.6.0-rc.3` is P4 and its exact installed product identity is I4; DS-1F owns a fresh clean workspace selection of that installed product. | abiogenesis |
+| T-221 | Completed `abandoned_and_rebound`. Final 4.6.0 will not be tapped. Exact published `4.6.0-rc.3` is P4 and its exact installed product identity is I4; DS-1F owns a fresh clean workspace selection of that installed product. | abiogenesis |
 | odd_glc T-033 | Owns downstream declarations-only adoption and fresh campaign proof; it may not invent vector routing or product-local runtime authority. | odd_glc |
 | T-218 | Owns candidate dispositions, accepted target promotion, singular leaf decomposition, and the dependent delivery plan. | abiogenesis |
 
@@ -69,8 +69,7 @@ hostile-local defenses from displacing the product's constructive path.
 
 The current order is:
 
-1. preserve published `4.6.0-rc.3` as the exact P4/I4 predecessor and record
-   T-221's selected `abandoned_and_rebound` terminal disposition;
+1. preserve completed T-221's published `4.6.0-rc.3` P4/I4 predecessor;
 2. complete T-218 constitutional promotion and leaf decomposition;
 3. open and close the accepted authority and design leaves in T-218's
    dependency order;

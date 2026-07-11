@@ -4,7 +4,7 @@
 - title: Resolve the ABG 4.6 prior-release boundary
 - type: release
 - ticket_category: release_qualification
-- status: active
+- status: completed
 - goal: GOAL-034 prior-release entry gate
 - owner: abiogenesis
 - priority: critical
@@ -13,6 +13,10 @@
 - re_entry_point: release_candidate
 - created_at: 2026-07-11
 - updated_at: 2026-07-11
+- closed_at: 2026-07-11
+- terminal_disposition: abandoned_and_rebound
+- decision_ref: DEC-5.0-PROP-001
+- reprice_commit: 67388b45bb9c799bd47b191764eacef0447ceb81
 - release_scope: ABG TypeScript tenant 4.6.0 only
 - implementation_authorization: >-
     Qualification, release-claim reconciliation, release-scoped asset updates,
@@ -27,10 +31,12 @@
   - `released_4_6_0`
   - `abandoned_and_rebound`
 - current_truth: >-
-    T-217 and T-220 own completed capability and language-safety evidence. The
-    source tree is beyond the 4.6.0-rc.2 snapshot, the package still names
-    4.6.0-rc.2, and no final 4.6.0 cut exists. Prior RC runs and artifacts are
-    predecessor evidence, not proof of a later final cut.
+    Published 4.6.0-rc.3 is the exact immutable predecessor product. No final
+    4.6.0 identity exists. F_H abandoned the final 4.6 tap and T-218 rebound
+    the 5.0 bootstrap prerequisite to exact rc.3 as P4 and its exact installed
+    product identity as I4. The shared workspace currently selecting 4.5.1 is
+    not claimed as an rc.3 workspace binding; DS-1F owns a fresh clean I4
+    selection.
 - target_truth: >-
     The 4.6 window has exactly one honest terminal disposition: either one
     immutable 4.6.0 cut is qualified, tapped, and recorded coherently, or F_H
@@ -47,7 +53,79 @@
    changes opens a separately triaged ticket at its smallest lawful re-entry.
 4. Abandoning 4.6 changes the work-wave dependency. T-218 or another named
    `goal_reprice` successor performs that rebind; T-221 records the release
-   disposition and does not absorb the second change class.
+    disposition and does not absorb the second change class.
+
+## Terminal Disposition
+
+`DEC-5.0-PROP-001`, recorded by goal-reprice commit
+`67388b45bb9c799bd47b191764eacef0447ceb81`, selects
+`abandoned_and_rebound`:
+
+- final `4.6.0` will not be tapped;
+- historical `4.6.0-rc.3` branch, tag, snapshot, tarball, note, and install
+  remain immutable RC identities;
+- exact rc.3 is P4, the released predecessor product for the 5.0 bootstrap;
+- the exact installed rc.3 product identity is I4; and
+- DS-1F creates and preserves a fresh clean workspace selection of I4 before
+  bootstrap feasibility is claimed.
+
+Path A `released_4_6_0` is `not_selected`. Path B
+`abandoned_and_rebound` is `selected_complete`.
+
+### Exact P4 identity
+
+| Surface | Exact identity |
+|---|---|
+| package | `@abiogenesis/typescript-tenant@4.6.0-rc.3` |
+| source candidate | `5213301cdbfd35952badf19c27519caa9e7e6968` |
+| publication / tag peel | `f4f081f66ef8d3ce0c737ddb9d7530176711279a` |
+| RC branch | `origin/rc/4.6.0` at `f4f081f66ef8d3ce0c737ddb9d7530176711279a` |
+| annotated tag object | `v4.6.0-rc.3` at `2f546972b69e14a023baac10ca59bfa05687b955` |
+| snapshot manifest SHA-256 | `941d9a00198914120db7d7a1f466f4b3e2efe0fbd9659a71540267ca0f899bf4` |
+| tarball SHA-256 | `9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113` |
+| release-note SHA-256 | `d2201ab5e537a224e702c2db76891777ad2a50abbc19c6bcd2dfaba56c3de29a` |
+| deterministic qualification | build/lint green; semantic suite `1430/1430`; snapshot checksums green |
+
+### Exact I4 identity
+
+| Surface | Exact identity |
+|---|---|
+| runtime ref | `package:@abiogenesis/typescript-tenant@4.6.0-rc.3` |
+| product root | `/Users/jim/src/apps/.abg-toolchains/abiogenesis-typescript-tenant/products/abiogenesis/4.6.0-rc.3` |
+| package root | `/Users/jim/src/apps/.abg-toolchains/abiogenesis-typescript-tenant/products/abiogenesis/4.6.0-rc.3/lib/node_modules/@abiogenesis/typescript-tenant` |
+| product manifest | `product-toolchain-manifest.json`, SHA-256 `92b3f94dd32bca9368a9511d823cc8b6e2eae75cd7168c9e901d3cbe8eadf07d` |
+| stored tarball | release tarball SHA-256 `9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113` |
+| command paths | `bin/abiogenesis-ts`, `bin/genesis-ts`, `bin/abg.install` under the exact product root |
+
+This table binds an installed-product identity. It does not claim that the
+mutable shared toolchain workspace currently selects rc.3.
+
+### Final-identity absence proof
+
+At closure:
+
+- no local or remote `v4.6.0` tag exists;
+- no local or remote `release/4.6.0` branch exists;
+- no `release_snapshots/abiogenesis-typescript-tenant/4.6.0/` cut exists;
+- no package metadata names exact final `4.6.0`; and
+- no live release note or status surface claims final 4.6.0 was released.
+
+### Terminal claim ledger
+
+| Claim | Disposition | Evidence or successor |
+|---|---|---|
+| rc.3 deterministic T-217/T-220 substrate | `qualified_on_cut` | rc.3 manifest, note, and `1430/1430` suite |
+| packed install and command topology | `qualified_on_cut` | exact I4 manifest, product roots, three command paths, matching tarball digest |
+| odd_glc 0.1 consumption and Hello World over rc.3 | `qualified_on_cut` | odd_glc 0.1 release plus run `20260711T042644380Z_pid39224` |
+| older rc.2 full data-mapper evidence | `predecessor_evidence_only` | not exact rc.3 or final-cut proof |
+| declarations-only G5 and fresh full data mapper | `excluded_with_successor` | odd_glc T-033 and T-218 DS-6 |
+| `workflow.C`, declared result/materialization/F_D/consequence closure | `excluded_with_successor` | T-218 DS-2 |
+| complete public operator product | `excluded_with_successor` | T-218 DS-3 |
+| ABG self-conformance and current observer/tuner self-build proof | `excluded_with_successor` | T-218 DS-4 and DS-7 |
+| T-217 C-2 monolith splitting and C-6 barrel pruning | `rejected` | Non-definition-bearing cleanup with no observed trusted-desktop defect; fresh evidence requires new intake. |
+| sticky sessions | `excluded_with_successor` | backlog T-110; optional post-5.0 capability |
+| new Review/Consensus/GF2 composition | `deferred` | T-218 A5-GF2 re-entry trigger |
+| final 4.6 product identity | `abandoned` | P4/I4 rebound to rc.3; next release target is T-218 A5-R1/DS-8 |
 
 ## Boundary Ownership
 
@@ -92,7 +170,7 @@
    residuals, and T-220 behavior.
 4. Present the ledger and readiness result for F_H disposition.
 
-### Path A - Release 4.6.0
+### Path A - Release 4.6.0 (`not_selected`)
 
 1. Qualify one exact candidate with no source drift or mid-run law change.
 2. Run `build:semantic`, `lint:semantic`, the full semantic suite, applicable
@@ -108,7 +186,7 @@
 7. Record `terminal_disposition: released_4_6_0` and bind T-218 A5-P0/A5-P1
    to that evidence.
 
-### Path B - Abandon And Rebind
+### Path B - Abandon And Rebind (`selected_complete`)
 
 1. Record an explicit F_H decision that 4.6.0 will not be tapped.
 2. Mark the RC window abandoned or superseded without mutating historical RC
@@ -166,8 +244,9 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
   and F_H disposition.
 - 2026-07-11: F_H directed publication of a fresh `4.6.0-rc.3`, downstream
   odd_glc migration to its immutable tarball, and at least one live hello-world
-  sandbox run on that binding. This selects an RC publication checkpoint, not
-  either terminal T-221 outcome. The final `4.6.0` tap remains open.
+  sandbox run on that binding. At that checkpoint this selected an RC
+  publication, not either terminal T-221 outcome; the final `4.6.0` tap was
+  still open.
 - 2026-07-11: rc.3 source candidate `5213301cdbfd35952badf19c27519caa9e7e6968`
   qualified clean on `rc/4.6.0`: semantic build and lint exited zero; the full
   suite passed `1430/1430`; snapshot manifest SHA-256 is
@@ -179,8 +258,8 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
   bindings, and passed topology verification. Publication branch/tag evidence
   is recorded by the following release-assets commit and `v4.6.0-rc.3` tag.
 - 2026-07-11: published RC commit `f4f081f66ef8d3ce0c737ddb9d7530176711279a`
-  is present on origin as `main`, `rc/4.6.0`, and peeled tag
-  `v4.6.0-rc.3`. odd_glc repinned to that RC at `c39c711` and corrected its
+  is the exact `origin/rc/4.6.0` and peeled `v4.6.0-rc.3` commit and remains an
+  ancestor of current `origin/main`. odd_glc repinned to that RC at `c39c711` and corrected its
   three plugin driver declarations at `d055a15`; its deterministic suite then
   passed `83/83` with eight env-gated live cases skipped. The canonical
   snapshot-installed GLC Hello World live gate converged from clean source
@@ -192,3 +271,10 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
   `20cb9fd65e9277ad5e8da78bae445ec714fc16ba2309d08bbb2147cc05b28dca`.
   This is RC/live compatibility evidence only. It does not tap final 4.6.0 or
   close odd_glc T-033.
+- 2026-07-11: F_H selected `abandoned_and_rebound`; goal-reprice commit
+  `67388b45bb9c799bd47b191764eacef0447ceb81` binds exact rc.3 as P4/I4 and
+  states that final 4.6.0 will not be tapped. Remote/local ref and filesystem
+  checks found no final tag, branch, snapshot, package identity, or release
+  claim. Exact rc.3 checksums and I4 manifest/package/command identities were
+  revalidated without rebuilding or mutating the historical cut. Path A is
+  not selected; Path B is selected complete; T-221 closes.
