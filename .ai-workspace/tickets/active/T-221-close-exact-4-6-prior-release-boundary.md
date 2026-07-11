@@ -168,3 +168,13 @@ Completed T-217/T-220 work alone does not constitute a 4.6 release.
   odd_glc migration to its immutable tarball, and at least one live hello-world
   sandbox run on that binding. This selects an RC publication checkpoint, not
   either terminal T-221 outcome. The final `4.6.0` tap remains open.
+- 2026-07-11: rc.3 source candidate `5213301cdbfd35952badf19c27519caa9e7e6968`
+  qualified clean on `rc/4.6.0`: semantic build and lint exited zero; the full
+  suite passed `1430/1430`; snapshot manifest SHA-256 is
+  `941d9a00198914120db7d7a1f466f4b3e2efe0fbd9659a71540267ca0f899bf4`;
+  tarball SHA-256 is
+  `9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`.
+  An independent install from that exact tarball resolved runtime
+  `package:@abiogenesis/typescript-tenant@4.6.0-rc.3`, wrote all three command
+  bindings, and passed topology verification. Publication branch/tag evidence
+  is recorded by the following release-assets commit and `v4.6.0-rc.3` tag.
