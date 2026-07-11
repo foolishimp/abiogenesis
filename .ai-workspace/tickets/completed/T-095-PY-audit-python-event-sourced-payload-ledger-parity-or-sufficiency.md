@@ -3,9 +3,11 @@ id: T-095-PY
 title: Audit Python event-sourced payload ledger parity or sufficiency
 type: spike
 ticket_category: ordinary
-status: backlog
-review_status: suspended_by_tenant_registry
-backlog_reason: Python tenant paused by T-096 and TENANT_REGISTRY; retained as reactivation authority, not a TS-primary RC gate.
+status: rejected
+review_status: withdrawn_python_parity_line
+rejected_at: 2026-07-11
+disposition: withdrawn_python_parity_line
+backlog_reason: SUPERSEDED — withdrawn 2026-07-11 (F_H: no python parity). Python is abandoned, not retained for reactivation.
 source_ticket: T-095
 build_tenant: python
 goal: abg-total-assurance-calculus
@@ -135,3 +137,15 @@ comparison evidence, not an active RC gate"). Activation requires a
 prior product-level decision to revive the Python tenant
 (product_reprice), not just ticket work. Remains lawful backlog;
 tenant-locality per multi-tenant ticket law is intact.
+
+## Withdrawal Record
+
+- 2026-07-11: WITHDRAWN by F_H ruling "there should not be any python parity."
+  The Python tenant is ABANDONED, not paused; this ticket is no longer retained
+  as reactivation authority. The `abg-total-assurance-calculus` capability it
+  named is realized in the TypeScript tenant (the primary and only line); it is
+  not owed a Python parity implementation. Terminal disposition: `rejected`
+  (`withdrawn_python_parity_line`). Constitutional surfaces still framing Python
+  as "paused/reactivatable" (TENANT_REGISTRY, completed T-096, and any INTENT/
+  GOALS Python carrier language) require a separate reconciliation to
+  "withdrawn"; they are not edited here.
