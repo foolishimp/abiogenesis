@@ -348,7 +348,7 @@ export function createNodeProductIntakeEffects(
     ): Promise<void> {
       const recordPath = absolutePath(absoluteRecordPath, "record path");
       await mkdir(dirname(recordPath), { recursive: true });
-      await writeFile(recordPath, `${canonicalizeIJson(value)}\n`, "utf8");
+      await writeFile(recordPath, canonicalizeIJson(value), "utf8");
     },
     async materializeVerifiedArtifact(
       artifact: VerifiedProductArtifact,

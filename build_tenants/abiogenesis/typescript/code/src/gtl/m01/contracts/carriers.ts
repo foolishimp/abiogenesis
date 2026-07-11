@@ -164,6 +164,7 @@ export interface GraphVector {
   readonly declarations: GraphVectorDeclarations;
   readonly tags: readonly string[];
   readonly id: string;
+  /** @hidden */
   readonly [GTL_GRAPH_VECTOR_ADMISSION]: true;
 }
 
@@ -210,6 +211,7 @@ export interface GraphFunction {
   readonly declarations: GraphFunctionDeclarations;
   readonly tags: readonly string[];
   readonly id: string;
+  /** @hidden */
   readonly [GTL_GRAPH_FUNCTION_ADMISSION]: true;
 }
 

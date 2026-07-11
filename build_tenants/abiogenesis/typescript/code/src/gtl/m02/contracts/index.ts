@@ -8,6 +8,16 @@ export type {
   Role
 } from "./carriers.js";
 export type {
+  GraphFunctionHandleBinding,
+  ModuleLookupAuthority,
+  SemanticJobBinding
+} from "./lookup.js";
+export {
+  constructModuleLookupAuthority,
+  resolvePublishedGraphFunction,
+  resolveSemanticJobForGraphFunction
+} from "./lookup.js";
+export type {
   GtlAdmittedStateRef,
   GtlCandidate,
   GtlCompositionHostBinding,

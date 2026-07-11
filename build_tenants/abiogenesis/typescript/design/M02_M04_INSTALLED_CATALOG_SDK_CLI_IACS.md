@@ -110,9 +110,9 @@ subordinate members of these families.
 | `WorkspaceCatalogProjection` | M04 downstream projection | pure join over M04 binding/records/contributions and M03 runtime-catalog projection | none | list, describe, public allow view |
 | `PublicSessionCatalogView` | M04 downstream projection | joins exact workspace/product refs onto `RegistrySessionView` | none | SDK/CLI/host descriptor |
 | `CatalogExecutionBinding` | M03 | derived from admitted Module locator, selected handle, and exact catalog state | none | M03 invocation only, private; not a Job or basis constructor |
-| `CatalogInvocationAssembly` | M03 | admits host descriptor/input and joins Module/target, bound ABG runtime-system profile, M03 plugin capabilities, replay, and the existing engine-start request | none by itself | `invokeAdmittedCatalogGraphFunction`; `runEngineStartAsync` remains sole Job/basis constructor |
+| `CatalogInvocationAssembly` | M03 | admits host descriptor/input and joins Module/target, bound ABG runtime-system profile, M03 plugin capabilities, replay, and the existing engine-start request | none by itself | `invokeAdmittedCatalogGraphFunction`; `runEngineStartAsync` remains sole Job/basis constructor and derives default instruction startup from the admitted catalog entry after that one basis admission |
 | `PublicOperationInvocationEnvelope<K>` | M04 SDK | exact operation schema admission | none by itself | operation handler, CLI/host adapters |
-| `HostInvocationDescriptor` | M04 SDK, admitted by M03 | specialization for invoke/start | none by itself | M03 invocation, public transportable data |
+| `HostInvocationDescriptor` | M04 SDK, admitted by M03 | internally derived specialization for invoke/start from an admitted generic envelope plus exact bound/session truth | none by itself | M03 invocation; never caller- or CLI-assembled authority |
 | `PublicOperationOutcome<K>` | owning operation module | accepted or refused result constructor | reflects operation effects only | SDK/CLI/host adapters |
 | `PublicSdkExecutionContext` | M04 effect boundary | native caller or CLI supplies one exact `workspace_path | product_intake | workspace_binding | bound_workspace` arm | only the arm-specific filesystem/transport effects invoked by an admitted operation | SDK handlers; never serialized product or runtime truth |
 | `AdmittedWorkspaceReplay` | M03 | admits M04-supplied `WorkspaceRuntimeEventBytes`, canonicalizes events, and orders by ordinal | none; M04 owns the preceding filesystem read | M03 result/replay projections |
@@ -190,7 +190,7 @@ authority, a second unchanged consumer boundary, and an update to this IACS.
 | admitted | runtime-catalog projection | ready row | compatibility and declared prerequisites satisfied | presence as readiness |
 | ready | `catalog.allow` | registry and public session views | intersection only | widening or fallback to unrestricted |
 | session-visible | M03 lookup | eligible row | identity/interface/input/capability/proof/policy match | adapter choice or display name |
-| eligible GraphFunction | `catalog.invoke` | selected GraphFunction and GraphCall | M03 selection event before GraphCall | non-GraphFunction call or direct runner call |
+| eligible GraphFunction | `catalog.invoke` | public-operation attribution, selected GraphFunction, and GraphCall | M03 `public_operation_admitted` then selection before GraphCall | non-GraphFunction call, caller-supplied host basis, or direct runner call |
 
 ## Public Operation Carrier Matrix
 
@@ -213,7 +213,7 @@ dispositions, schema paths, or exits.
 | catalog.list | workspace catalog and optional view | public rows | catalog missing/stale/view mismatch | M04 read model |
 | catalog.describe | exact handle and optional view | public description | unknown, ambiguous, hidden, stale | M04 read model |
 | catalog.allow | catalog and allowlist | `PublicSessionCatalogView` | duplicate, unknown, unauthorized, inadmissible, unready | M03 runtime-catalog view plus M04 wrapper |
-| catalog.invoke | `HostInvocationDescriptor` | GraphCall/run/result-or-stop/replay refs | disallowed, non-callable, unready, interface/input/capability/preflight/runtime block | M03 runtime |
+| catalog.invoke | generic envelope plus `CatalogInvokeRequest`; SDK derives and separately admits `HostInvocationDescriptor` | GraphCall/run/result-or-stop/replay refs | disallowed, non-callable, unready, interface/input/capability/preflight/runtime block | M03 runtime |
 | read.result | result or GraphCall identity | `PublicResultProjection` | unknown, stale basis, malformed replay | M03 read |
 | read.replay | workspace/run/GraphCall identity and explicit range | `PublicReplayProjection` | unknown, invalid range, corrupt/unorderable replay | M03 read |
 
@@ -223,14 +223,14 @@ The `abg-5-ds1` profile publishes:
 
 | Row class | Mandatory DS-1 content |
 | --- | --- |
-| native groups | all nine native `REQ-P-PUBLIC-CONTRACTS-005` group identities and exact package export/declaration inventories |
+| native groups | all nine native `REQ-P-PUBLIC-CONTRACTS-005` group identities, exact package export/declaration inventories, and the inventory schema |
 | manifest/catalog | product toolchain manifest and public contract catalog schemas |
 | GTL publication | GraphFunction and Module schemas plus native admit/serialize symbol pairs |
 | product intake | descriptor, contribution, resolved lock, workspace manifest/binding schemas |
 | install | install and TypeScript installer manifest schemas/native symbols |
 | catalog | catalog admission and public row/description/session-view schemas |
-| invocation | generic operation envelope and host invocation descriptor schemas |
-| runtime reads | canonical runtime event, result, and replay schemas/vocabularies |
+| invocation | public operation-definition, capability-definition, generic operation-envelope, and host invocation-descriptor schemas |
+| runtime reads | canonical runtime event, result, replay, and closed-vocabulary schemas plus the event-kind vocabulary |
 | operations | exact request/result/refusal/envelope rows for the 13 DS-1 identities |
 | capabilities | only the seven DS-1 capabilities mapped in the public operation register |
 

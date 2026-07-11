@@ -30,6 +30,27 @@ The runtime invocation specialization is:
 - path: `contracts/schemas/host-invocation.schema.json`
 - native symbol: `HostInvocationDescriptor`
 
+It is not a public-operation invocation alternative. All 13 public operation
+rows, including `catalog.invoke`, bind the generic invocation schema. The SDK
+admits that outer envelope and its `CatalogInvokeRequest`, derives the host
+descriptor from the admitted invocation plus exact bound catalog/session truth,
+and independently admits the derived carrier against the host-invocation schema
+row. CLI and host adapters cannot supply session, runtime-catalog, or product
+basis fields directly.
+
+Each operation row also locates one canonical serialized operation definition:
+
+- contract id: `abg.schema.public-operation-contract`
+- version: `1.0.0`
+- path: `contracts/operations/<slug>.json`
+- media type: `application/json`
+
+The serialized definition carries every field of the operation metadata except
+`operationDigest`. Its exact bytes establish the row and operation digest; the
+resolved catalog row supplies that digest alongside the admitted definition.
+This omission breaks the otherwise recursive self-digest and follows the common
+rule that no digest includes its own field.
+
 `HostInvocationDescriptor` adds these required closed fields to the common
 envelope:
 
@@ -115,7 +136,7 @@ the invocation carrier are all located by the native contract row.
 | `abg.operation.catalog.list` | `catalog.list` | `catalogList` | `CatalogListRequest` / `CatalogListResult` / `CatalogListRefusal` | `PublicOperationInvocationEnvelope` |
 | `abg.operation.catalog.describe` | `catalog.describe` | `catalogDescribe` | `CatalogDescribeRequest` / `CatalogDescribeResult` / `CatalogDescribeRefusal` | `PublicOperationInvocationEnvelope` |
 | `abg.operation.catalog.allow` | `catalog.allow` | `catalogAllow` | `CatalogAllowRequest` / `CatalogAllowResult` / `CatalogAllowRefusal` | `PublicOperationInvocationEnvelope` |
-| `abg.operation.catalog.invoke` | `catalog.invoke` | `catalogInvoke` | `CatalogInvokeRequest` / `CatalogInvokeResult` / `CatalogInvokeRefusal` | `HostInvocationDescriptor` |
+| `abg.operation.catalog.invoke` | `catalog.invoke` | `catalogInvoke` | `CatalogInvokeRequest` / `CatalogInvokeResult` / `CatalogInvokeRefusal` | `PublicOperationInvocationEnvelope`; SDK derives `HostInvocationDescriptor` internally |
 | `abg.operation.read.result` | `read.result` | `readResult` | `ReadResultRequest` / `ReadResultResult` / `ReadResultRefusal` | `PublicOperationInvocationEnvelope` |
 | `abg.operation.read.replay` | `read.replay` | `readReplay` | `ReadReplayRequest` / `ReadReplayResult` / `ReadReplayRefusal` | `PublicOperationInvocationEnvelope` |
 
@@ -207,7 +228,8 @@ to every exact slug above and admits no optional naming choice.
 - request fields: `workspaceId`, `bindingId`, `resolvedLockId`, `productSetDigest`
 - all are required and resolve bound detached records; raw contribution rows
   cannot be injected in the request
-- actor: required and recorded as causation/provenance on the admission batch
+- actor: required and recorded in one preceding `public_operation_admitted`
+  event; the admission batch cites that event id as causation
 - accepted result: `CatalogAdmissionResult`, disposition `admitted`
 - any required row rejection returns disposition `refused` with every per-row
   disposition; DS-1 has no optional contribution rows
@@ -271,14 +293,24 @@ to every exact slug above and admits no optional naming choice.
 - before M03 invocation the SDK always derives or admits a concrete
   `RegistrySessionView`; the resulting host descriptor carries its non-null
   `effectiveSessionViewId` and canonical `allowedHandles`
+- the SDK derives the host descriptor only after admitting the generic outer
+  envelope and request, and separately validates it against the published
+  `abg.schema.host-invocation` row; adapters cannot submit this carrier
 - `transportSteering` defaults to null; when present it uses the closed standard
   agent/model/profile/timeout carrier admitted by the ABG capability boundary
 - mode is fixed `invoke`; scope is fixed `graph_function`; until defaults
   `converged`; target derives from the canonical handle
-- actor: required in both envelope and host descriptor and must agree
+- actor: required in the request and generic envelope, must agree, and is copied
+  into the derived host descriptor
+- M03 appends `public_operation_admitted` before selection; the event owns the
+  actor and admitted operation identity, while `graph_function_selected` cites
+  only that event id in `causationEventRefs`
 - accepted result dispositions: `converged | stopped | yielded | blocked | human_gate_required`
 - refusals: `catalog_stale | view_mismatch | disallowed | non_callable | unready | interface_mismatch | input_invalid | missing_capability | preflight_failure | runtime_refused`
-- effects: M03 registry selection then ordinary GraphCall/start-to-iterate events
+- effects: M03 public-operation attribution, registry selection, then ordinary
+  GraphCall/start-to-iterate events; after the sole engine basis admission,
+  absent explicit instruction startup is derived from the exact admitted
+  catalog entry without `runtimeRegistryStartup` or catalog re-admission
 - exits: converged `0`; typed refusal/preflight `1`; invalid `2`; lawful
   non-terminal stop/yield/block/human gate `3`
 

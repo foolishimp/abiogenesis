@@ -8,6 +8,37 @@ export {
   runEngineStart,
   runEngineStartAsync
 } from "./engine_runner.js";
+export {
+  assembleCatalogInvocation,
+  invokeAdmittedCatalogGraphFunction
+} from "./catalog_invocation.js";
+export { admitCatalogGraphFunctionInput } from "./catalog_input_admission.js";
+export type {
+  CatalogGraphFunctionInvocationRefusalCode,
+  CatalogGraphFunctionInvocationResult,
+  CatalogInvocationAssembly,
+  CatalogInvocationAssemblyInput,
+  CatalogInvocationAssemblyResult
+} from "./catalog_invocation.js";
+export type {
+  CatalogInputSchemaAdmission,
+  CatalogInputSchemaIssue
+} from "./catalog_input_admission.js";
+export {
+  admitWorkspaceRuntimeEventBytes,
+  projectRuntimePublicReplay,
+  projectRuntimePublicResult
+} from "./public_runtime_projections.js";
+export { admitPublicOperationAttribution } from "./public_operation_admission.js";
+export type {
+  PublicOperationAttributionInput
+} from "./public_operation_admission.js";
+export type {
+  AdmittedWorkspaceReplay,
+  RuntimePublicReplayProjection,
+  RuntimePublicResultProjection,
+  RuntimeReplaySubject
+} from "./public_runtime_projections.js";
 export type { EngineStartPassthroughFields } from "./engine_runner.js";
 export {
   constructNotEvaluatedAssuranceGate,

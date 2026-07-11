@@ -64,6 +64,7 @@ export const DS1_SCHEMA_CONTRACT_IDS = Object.freeze([
   "abg.schema.public-operation-contract",
   "abg.schema.native-contract-inventory",
   "abg.schema.capability-contract",
+  "abg.schema.closed-vocabulary",
   "abg.schema.gtl-graph-function",
   "abg.schema.gtl-module",
   "abg.schema.catalog-product-descriptor",

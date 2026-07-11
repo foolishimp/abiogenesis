@@ -27,6 +27,23 @@ export interface PublicInstallBootstrapRequest {
   readonly runtimePackage: InstalledRuntimePackageContract;
 }
 
+export interface AbgTypescriptInstallManifest {
+  readonly installedPackageName: string;
+  readonly targetRoot: string;
+  readonly bootstrapEntry: "./bootstrap/index.mjs";
+  readonly workspaceRoots: {
+    readonly eventsLog: ".ai-workspace/events/events.jsonl";
+    readonly runtimeDirectory: ".ai-workspace/runtime";
+  };
+  readonly runtimePackage: {
+    readonly packageName: string;
+    readonly packageVersion: string;
+    readonly dependencyRef: string;
+    readonly appExportSubpath: string;
+    readonly requiredExports: readonly string[];
+  };
+}
+
 export interface InstallVerification {
   readonly packageManifest: boolean;
   readonly installManifest: boolean;

@@ -1,0 +1,1 @@
+{"$id":"abg.schema.operation.workspace.create.request","$ref":"#/definitions/*","$schema":"http://json-schema.org/draft-07/schema#","definitions":{"*":{"additionalProperties":false,"properties":{"authorityMode":{"enum":["clean_no_project_authority","imported"],"type":"string"},"targetRoot":{"type":"string"}},"required":["targetRoot","authorityMode"],"type":"object"}}}

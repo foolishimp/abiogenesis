@@ -28,6 +28,8 @@ import {
   identity
 } from "../../build/semantic/code/src/gtl/m01/index.js";
 import {
+  constructContractRef,
+  constructJob,
   constructGtlLibraryEntryDeclaration,
   constructModule,
   constructProductRegistryStartupConfig
@@ -86,7 +88,20 @@ function publishedModule(name, graphFunctions) {
     graphFunctions,
     refinementBoundaries: [],
     candidateFamilies: [],
-    jobs: [],
+    jobs: graphFunctions.map((graphFunction, index) =>
+      constructJob({
+        name: `${name}-job-${String(index)}`,
+        contracts: [
+          constructContractRef({
+            kind: "graph_function",
+            targetId: graphFunction.id
+          })
+        ],
+        roles: [],
+        tags: ["t223"],
+        policyHooks: emptySerializedAttrs()
+      })
+    ),
     roles: [],
     operators: [],
     evaluators: [],
@@ -297,6 +312,10 @@ test("T-223 admits one projection-threaded catalog and derives an all-kind non-w
     result.admissionEvents.map((event) => event.kind),
     ["registry_entry_admitted", "registry_entry_admitted", "catalog_asset_admitted"]
   );
+  assert.deepEqual(
+    result.admissionEvents.at(-1).causationEventRefs,
+    ["event://t223/binding-admitted"]
+  );
   assert.deepEqual(result.admissionEvents, captured.events);
   assert.equal(result.projection.runtimeRegistryProjection.entries.length, 2);
   assert.equal(result.projection.opaqueAssetEntries.length, 1);
@@ -359,6 +378,82 @@ test("T-223 admits one projection-threaded catalog and derives an all-kind non-w
   });
   assert.equal(missingExecutionBinding.accepted, false);
   assert.equal(missingExecutionBinding.residuals[0].reason, "inadmissible");
+});
+
+test("T-223 admits one exact catalog invocation assembly and rejects forged view or dual basis", async () => {
+  const captured = captureSink();
+  const result = admitBoundWorkspaceCatalog(catalogBatch(), captured.sink);
+  assert.equal(result.accepted, true);
+  assert.notEqual(result.basis, null);
+  const session = deriveRegistrySessionView({
+    basis: result.basis,
+    allowedEntryRefs: ["catalog-entry://t223/system/hello-world"]
+  });
+  assert.equal(session.accepted, true);
+  assert.notEqual(session.view, null);
+  const input = {
+    basis: result.basis,
+    sessionView: session.view,
+    entryRef: "catalog-entry://t223/system/hello-world",
+    interfaceRef: "interface://t223/hello-world",
+    workspaceRoot: "/tmp/t223-runtime-catalog",
+    inputBinding: {
+      assetRef: "input://t223/hello",
+      assetType: "schema://t223/hello",
+      uri: "data:application/json,%7B%7D"
+    },
+    inputSchema: {
+      $schema: "http://json-schema.org/draft-07/schema#",
+      type: "object",
+      additionalProperties: false
+    },
+    inputValue: {},
+    until: "converged",
+    runtimeIdentity: {
+      workerId: "worker://t223",
+      backendId: "backend://t223",
+      buildId: "build://t223",
+      resolvedRuntimeRef: "runtime://t223"
+    },
+    resolvedPolicy: {
+      resolvedPolicyBundleRef: "policy://t223/default",
+      defaultRegime: "F_D",
+      dispatchRef: null,
+      approvalSubjectRef: null
+    },
+    runtimeEvents: captured.events,
+    eventSink: () => {},
+    standardPluginRefs: [],
+    capabilityProvenanceRefs: [],
+    actorRef: "actor://t223/operator",
+    invocationId: "invocation://t223/catalog",
+    requestId: "request://t223/catalog",
+    correlationId: "correlation://t223/invoke"
+  };
+  const admitted = m03Public.assembleCatalogInvocation(input);
+  assert.equal(admitted.accepted, true, JSON.stringify(admitted));
+
+  const forged = m03Public.assembleCatalogInvocation({
+    ...input,
+    sessionView: {
+      ...session.view,
+      entries: []
+    }
+  });
+  assert.equal(forged.accepted, false);
+  assert.equal(forged.code, "view_mismatch");
+
+  await assert.rejects(
+    m03Public.runEngineStartAsync({
+      ...admitted.assembly.engineStartRequest,
+      runtimeRegistryStartup: {
+        systemDeclarations: [],
+        productDeclarations: [],
+        correlationId: "correlation://t223/dual-basis"
+      }
+    }),
+    /mutually exclusive/u
+  );
 });
 
 test("T-223 validates node-type identity before runtime-registry admission", () => {
@@ -488,6 +583,10 @@ test("T-223 preserves cross-arm conflicts, exact idempotence, and ordinal replay
   );
   assert.equal(conflict.accepted, false);
   assert.equal(conflict.admissionEvents.at(-1).kind, "catalog_asset_rejected");
+  assert.deepEqual(
+    conflict.admissionEvents.at(-1).causationEventRefs,
+    ["event://t223/binding-admitted"]
+  );
   assert.equal(conflict.rowDispositions.at(-1).rejectionReason, "identity_conflict");
   assert.equal(conflict.projection.opaqueAssetEntries.length, 0);
 
@@ -521,6 +620,61 @@ test("T-223 preserves cross-arm conflicts, exact idempotence, and ordinal replay
   });
   assert.equal(replayed.projectionRef, withRejected.projection.projectionRef);
   assert.deepEqual(replayed.sourceEventRefs, withRejected.projection.sourceEventRefs);
+});
+
+test("T-223 routes duplicate product handles through M03 rejection event truth", () => {
+  const published = graphFunction();
+  const shared = {
+    entryRef: "catalog-entry://t223/product/duplicate",
+    libraryScope: "product",
+    namespace: "t223.fixture",
+    ownerRef: "owner://t223/fixture",
+    version: "0.0.1",
+    graphFunctionRef: published.id,
+    interfaceRef: "interface://t223/duplicate",
+    sourceContractRef: "contract://t223/duplicate-input",
+    targetContractRef: "contract://t223/duplicate-output",
+    authorityRefs: ["authority://t223/duplicate"],
+    provenanceRefs: ["provenance://t223/fixture"],
+    readinessRefs: ["readiness://t223/ready"],
+    policyRefs: ["policy://t223/default"],
+    declarationSourceRefs: ["gtl-module://t223/duplicate"]
+  };
+  const first = runtimeDeclaration({
+    ...shared,
+    declarationRef: "declaration://t223/product/duplicate-a",
+    proofRefs: ["proof://t223/duplicate-a"]
+  });
+  const shadow = runtimeDeclaration({
+    ...shared,
+    declarationRef: "declaration://t223/product/duplicate-b",
+    proofRefs: ["proof://t223/duplicate-b"]
+  });
+  const row = (declaration) => ({
+    kind: "runtime_library_entry",
+    declaration,
+    moduleRef: "gtl-module://t223/duplicate",
+    module: publishedModule("t223-duplicate", [published])
+  });
+  const captured = captureSink();
+  const result = admitBoundWorkspaceCatalog(
+    catalogBatch({
+      systemDeclarations: [],
+      orderedProductBatches: [
+        productBatch([row(first)]),
+        productBatch([row(shadow)])
+      ]
+    }),
+    captured.sink
+  );
+
+  assert.equal(result.accepted, false);
+  assert.deepEqual(
+    result.admissionEvents.map((event) => event.kind),
+    ["registry_entry_admitted", "registry_entry_rejected"]
+  );
+  assert.equal(result.admissionEvents[1].rejectionReason, "identity_conflict");
+  assert.deepEqual(captured.events, result.admissionEvents);
 });
 
 test("T-223 publishes and admits both workspace-scoped event kinds", () => {

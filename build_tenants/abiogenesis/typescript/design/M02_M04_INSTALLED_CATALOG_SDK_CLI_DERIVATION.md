@@ -104,9 +104,16 @@ does not claim `abg.capability.operator.public-contract@5`.
 
 Every DS-1 operation row locates one exact request, result, refusal, and generic
 `PublicOperationInvocationEnvelope` schema. `HostInvocationDescriptor` is the
-strict specialization used only by `catalog.invoke` here and by `run.start`
-later. This preserves the general per-operation invocation requirement without
-mislabeling every product operation as a runtime host invocation.
+strict runtime specialization derived by the SDK for `catalog.invoke` here and
+by `run.start` later. The public SDK and CLI accept only the generic envelope;
+they do not accept caller-assembled host descriptors. For `catalog.invoke`, M04
+admits the generic envelope and request first, derives the host descriptor from
+that truth plus the exact bound catalog and session view, then independently
+admits the derived carrier against the published
+`abg.schema.host-invocation` row before M03 invocation. This preserves the
+general per-operation invocation requirement without mislabeling every product
+operation as a runtime host invocation or giving adapters runtime-basis
+authority.
 The exact fields, defaults, actor rules, closed domains, schema ids/paths,
 effects, dispositions, and adapter exit classes are fixed in
 `M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md`.
@@ -411,6 +418,15 @@ transport-steering identities. It contains no
 worker call, frame, frontier, continuation, event payload authority, retry
 loop, or closure decision.
 
+The two actor-bearing M03 write paths, `catalog.admit` and `catalog.invoke`,
+first append one workspace-scoped `public_operation_admitted` event. That event
+owns the admitted operation, invocation, request, actor, workspace, binding,
+catalog, capability-provenance, correlation, and prior-event causation fields.
+Catalog-row admission events and `graph_function_selected` cite only that
+event's `eventId` as their operation-attribution cause. `actorRef` is an owning
+field of the attribution event; it is never placed in `causationEventRefs`,
+whose members are canonical event identities only.
+
 An outer `CatalogInvokeRequest` may omit `allowedHandles`, meaning the full
 workspace catalog. The SDK always derives a concrete `RegistrySessionView` and
 places its non-null identity and canonical allowlist in the admitted host
@@ -427,6 +443,14 @@ its provenance projection; only its admitted M03-owned
 `CatalogInvocationAssembly`.
 Missing or inconsistent capability data refuses before GraphCall. Catalog
 product data cannot provide a factory or executable capability.
+
+For catalog invocation, `runEngineStart*` remains the sole execution-basis and
+Job construction path. Immediately after that one basis admission, M03 derives
+the existing default instruction-assembly startup when the caller supplied no
+explicit startup. The derived plans bind the exact catalog execution entry and
+its replay source refs; they do not introduce `runtimeRegistryStartup`, re-admit
+the catalog, or create a second planner. An explicit caller-supplied instruction
+startup retains its existing precedence.
 
 `abg.cli` maps one-to-one to the SDK:
 
@@ -448,7 +472,7 @@ emit events, run workers, select continuations, or retry traversal.
 Contract-catalog structural validity and full 5.0 release completeness are
 distinct. The DS-1 candidate publishes profile `abg-5-ds1`, a new catalog
 version/digest, all nine current addressable native contract groups, the
-baseline manifest/public-operation/native-inventory/capability/GTL/Module/
+baseline manifest/public-operation/native-inventory/capability/vocabulary/GTL/Module/
 descriptor/contribution/lock/workspace/install/catalog/invocation/event/result/
 replay schemas, and the 13 DS-1 operation rows.
 An independently versioned catalog product publishes `catalog-product-v1`

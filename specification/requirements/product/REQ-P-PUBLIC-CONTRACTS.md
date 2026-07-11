@@ -103,6 +103,10 @@ identity, version, digest, authority refs, and locator:
 
 - `abg.schema.product-toolchain-manifest`
 - `abg.schema.public-contract-catalog`
+- `abg.schema.public-operation-contract`
+- `abg.schema.native-contract-inventory`
+- `abg.schema.capability-contract`
+- `abg.schema.closed-vocabulary`
 - `abg.schema.gtl-graph-function`
 - `abg.schema.gtl-module`
 - `abg.schema.gtl-c-program`

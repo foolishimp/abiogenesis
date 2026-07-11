@@ -819,7 +819,9 @@ export function projectRuntimeCatalog(input: {
 }
 
 function catalogAssetEventFields(
-  declaration: OpaqueCatalogAssetDeclaration
+  declaration: OpaqueCatalogAssetDeclaration,
+  causationEventRefs: readonly string[],
+  correlationId: string
 ): Omit<CatalogAssetAdmittedRuntimeEvent, "kind" | "sourceEventRefs"> {
   return Object.freeze({
     workspaceId: declaration.workspaceId,
@@ -848,18 +850,25 @@ function catalogAssetEventFields(
     policyRefs: declaration.policyRefs,
     refinementOfEntryRef: declaration.refinementOfEntryRef,
     overrideOfEntryRef: declaration.overrideOfEntryRef,
-    causationEventRefs: declaration.causationEventRefs,
-    correlationId: declaration.correlationId
+    causationEventRefs: Object.freeze([...causationEventRefs]),
+    correlationId
   });
 }
 
-function admittedCatalogAssetEvent(
-  declaration: OpaqueCatalogAssetDeclaration
+function admittedCatalogAssetEvent(input: {
+  readonly declaration: OpaqueCatalogAssetDeclaration;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
 ): CatalogAssetAdmittedRuntimeEvent {
   return Object.freeze({
     kind: "catalog_asset_admitted",
-    ...catalogAssetEventFields(declaration),
-    sourceEventRefs: declaration.causationEventRefs
+    ...catalogAssetEventFields(
+      input.declaration,
+      input.causationEventRefs,
+      input.correlationId
+    ),
+    sourceEventRefs: input.declaration.causationEventRefs
   });
 }
 
@@ -867,10 +876,16 @@ function rejectedCatalogAssetEvent(input: {
   readonly declaration: OpaqueCatalogAssetDeclaration;
   readonly rejectionReason: CatalogAssetRejectionReason;
   readonly conflictingEntryRefs?: readonly string[] | undefined;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }): CatalogAssetRejectedRuntimeEvent {
   return Object.freeze({
     kind: "catalog_asset_rejected",
-    ...catalogAssetEventFields(input.declaration),
+    ...catalogAssetEventFields(
+      input.declaration,
+      input.causationEventRefs,
+      input.correlationId
+    ),
     rejectionReason: input.rejectionReason,
     conflictingEntryRefs: Object.freeze([...(input.conflictingEntryRefs ?? [])]),
     sourceEventRefs: input.declaration.causationEventRefs
@@ -1579,7 +1594,9 @@ export function admitBoundWorkspaceCatalog(
           rejectedCatalogAssetEvent({
             declaration,
             rejectionReason: rejection.reason,
-            conflictingEntryRefs: rejection.conflictingEntryRefs
+            conflictingEntryRefs: rejection.conflictingEntryRefs,
+            causationEventRefs: batch.causationEventRefs,
+            correlationId: batch.correlationId
           })
         );
         rowDispositions.push(
@@ -1609,7 +1626,11 @@ export function admitBoundWorkspaceCatalog(
         );
         continue;
       }
-      const emitted = emitAdmission(admittedCatalogAssetEvent(declaration));
+      const emitted = emitAdmission(admittedCatalogAssetEvent({
+        declaration,
+        causationEventRefs: batch.causationEventRefs,
+        correlationId: batch.correlationId
+      }));
       rowDispositions.push(
         rowDisposition({
           entryRef: declaration.entryRef,

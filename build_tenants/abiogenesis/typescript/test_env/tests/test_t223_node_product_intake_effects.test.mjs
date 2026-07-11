@@ -321,7 +321,7 @@ test("node product intake reads canonical records and admitted workspace binding
     canonicalizeIJson(await effects.readRecord(recordPath)),
     canonicalizeIJson(record)
   );
-  assert.equal(await readFile(recordPath, "utf8"), `${canonicalizeIJson(record)}\n`);
+  assert.equal(await readFile(recordPath, "utf8"), canonicalizeIJson(record));
   assert.equal(
     await effects.readRecord(path.join(root, "records", "missing.json")),
     null

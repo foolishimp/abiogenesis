@@ -283,11 +283,13 @@ export function constructDefaultInstructionAssemblyStartupForBasis(
         productNamespace: options.namespace ?? prefix,
         ownerRef: options.ownerRef ?? `owner://${prefix}`,
         version: options.version ?? "default",
-        enabledLibraryRefs: [
-          registryEntryRef(options),
-          declarationRef(options),
-          `gtl://${prefix}/default`
-        ],
+        enabledLibraryRefs: Object.freeze([
+          ...new Set([
+            registryEntryRef(options),
+            declarationRef(options),
+            `gtl://${prefix}/default`
+          ])
+        ]),
         overlayRefs: options.overlayRefs ?? [`overlay://${prefix}/default`],
         pluginRefs: options.pluginRefs ?? [`plugin://${prefix}/fp-worker`],
         readinessRefs:

@@ -462,6 +462,7 @@ const GTL_DECLARATION_HOST = Symbol("gtl.declaration.host");
 
 export interface HostedGtlDeclarations<Host extends GtlDeclarationHost>
   extends SerializedAttrs {
+  /** @hidden */
   readonly [GTL_DECLARATION_HOST]: Host;
 }
 

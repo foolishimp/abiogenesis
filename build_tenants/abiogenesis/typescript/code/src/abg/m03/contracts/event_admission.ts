@@ -3316,6 +3316,26 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
+  public_operation_admitted: applyFieldRules(
+    "PublicOperationAdmittedRuntimeEvent",
+    {
+      operationId: {
+        oneOf: [
+          "abg.operation.catalog.admit",
+          "abg.operation.catalog.invoke"
+        ]
+      },
+      invocationId: "non_empty_string",
+      requestId: "non_empty_string",
+      actorRef: "non_empty_string",
+      workspaceId: "non_empty_string",
+      bindingId: "non_empty_string",
+      catalogId: "non_empty_string",
+      capabilityProvenanceRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",
     {

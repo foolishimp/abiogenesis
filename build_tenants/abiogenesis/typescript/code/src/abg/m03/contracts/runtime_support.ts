@@ -157,6 +157,7 @@ export const RUN_INDEPENDENT_EVENT_SCOPE_CLASSES = Object.freeze({
   registry_plugin_advice_rejected: "workspace",
   graph_function_selected: "workspace",
   graph_function_selection_rejected: "workspace",
+  public_operation_admitted: "workspace",
   node_type_satisfaction_projected: "workspace",
   workspace_installation_admitted: "workspace",
   lever_resolution_admitted: "workspace",

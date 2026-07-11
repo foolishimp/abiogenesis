@@ -2772,7 +2772,7 @@ export interface RequirementRouteFactProjectedRuntimeEvent {
   readonly routePayloadKind: string;
   readonly routePayloadRef: string;
   readonly routePayloadDigest: string;
-  readonly requirementPayload: unknown;
+  readonly requirementPayload: object;
   readonly sourceEventRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
   readonly causationEventRefs: readonly string[];
@@ -2793,7 +2793,7 @@ export interface ExecutivePressureFactProjectedRuntimeEvent {
   readonly observationRef: string;
   readonly pressureFactRef: string;
   readonly pressureFactDigest: string;
-  readonly executivePressureFact: unknown;
+  readonly executivePressureFact: object;
   readonly sourceEventRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
   readonly causationEventRefs: readonly string[];
@@ -2811,7 +2811,7 @@ export interface NodeTypeSatisfactionProjectedRuntimeEvent {
   readonly typeNodeRef: string | null;
   readonly nodeTypeGraphFunctionRefs: readonly string[];
   readonly satisfactionDigest: string;
-  readonly satisfactionPayload: unknown;
+  readonly satisfactionPayload: object;
   readonly sourceEventRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
   readonly causationEventRefs: readonly string[];
@@ -3005,6 +3005,22 @@ export interface GraphFunctionSelectionRejectedRuntimeEvent {
   readonly correlationId: string;
 }
 
+export interface PublicOperationAdmittedRuntimeEvent {
+  readonly kind: "public_operation_admitted";
+  readonly operationId:
+    | "abg.operation.catalog.admit"
+    | "abg.operation.catalog.invoke";
+  readonly invocationId: string;
+  readonly requestId: string;
+  readonly actorRef: string;
+  readonly workspaceId: string;
+  readonly bindingId: string;
+  readonly catalogId: string;
+  readonly capabilityProvenanceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | LeverResolutionAdmittedEvent
@@ -3134,6 +3150,7 @@ export type RuntimeEvent =
   | RegistryPluginAdviceRejectedRuntimeEvent
   | GraphFunctionSelectedRuntimeEvent
   | GraphFunctionSelectionRejectedRuntimeEvent
+  | PublicOperationAdmittedRuntimeEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
 
 export interface CanonicalRuntimeEventEnvelope {
@@ -3281,6 +3298,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "registry_plugin_advice_rejected",
   "graph_function_selected",
   "graph_function_selection_rejected",
+  "public_operation_admitted",
   "workspace_installation_admitted"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 

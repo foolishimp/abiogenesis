@@ -105,3 +105,4 @@ published `RUNTIME_EVENT_KIND_VALUES` roster owns the complete set.
 - timer: `timer_intent_admitted`, `deadline_breach_admitted`, `scheduled_continuation_reopened`
 - construction: `construction_episode_started`, `construction_intent_selected`, `construction_delta_observed`
 - registry/projection: `registry_entry_admitted`, `graph_function_selected`, `node_type_satisfaction_projected`
+- public-operation attribution: `public_operation_admitted`

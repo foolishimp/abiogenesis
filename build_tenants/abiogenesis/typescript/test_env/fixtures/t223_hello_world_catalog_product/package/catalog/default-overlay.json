@@ -1,0 +1,1 @@
+{"graphFunctionRefs":["graph-function://fixture/hello-world"],"kind":"catalog_overlay_declaration","overlayRef":"overlay://fixture/default","policyRefs":["policy://fixture/default"],"provenanceRefs":["fixture://t223/hello-world"],"schemaVersion":1}

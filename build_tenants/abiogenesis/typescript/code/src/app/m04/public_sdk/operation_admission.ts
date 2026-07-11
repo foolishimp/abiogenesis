@@ -58,6 +58,7 @@ import type {
   InstallProductRequest,
   InvocationInput,
   PublicCatalogKind,
+  PublicContractRow,
   PublicOperationId,
   PublicOperationInvocationEnvelope,
   ReadReplayRequest,
@@ -1366,26 +1367,46 @@ export function parseHostInvocationDescriptorText(
 export function admitHostInvocationDescriptor(
   input: unknown,
   resolvedOperation: ResolvedPublicOperationContract,
+  hostSchemaInput: PublicContractRow,
   label = "HostInvocationDescriptor"
 ): HostInvocationDescriptor {
   const descriptor = parseHostInvocationDescriptor(input, label);
   assertBoundOperationContract(
     descriptor,
     resolvedOperation,
-    "abg.schema.host-invocation",
+    "abg.schema.public-operation-invocation",
     label
   );
+  const hostSchema = admitPublicContractRow(
+    hostSchemaInput,
+    `${label}.hostSchemaContract`
+  );
+  if (
+    hostSchema.contractId !== "abg.schema.host-invocation" ||
+    hostSchema.contractKind !== "schema_asset" ||
+    hostSchema.version !== "1.0.0" ||
+    hostSchema.assetLocator === null ||
+    hostSchema.assetLocator.schemaId !== "abg.schema.host-invocation" ||
+    hostSchema.assetLocator.schemaVersion !== "1.0.0" ||
+    hostSchema.assetLocator.digest !== hostSchema.digest
+  ) {
+    throw new TypeError(
+      `${label}: host specialization is not bound to the exact host-invocation schema row`
+    );
+  }
   return descriptor;
 }
 
 export function admitHostInvocationDescriptorText(
   input: string,
   resolvedOperation: ResolvedPublicOperationContract,
+  hostSchema: PublicContractRow,
   label = "HostInvocationDescriptor"
 ): HostInvocationDescriptor {
   return admitHostInvocationDescriptor(
     admitIJsonText(input, label),
     resolvedOperation,
+    hostSchema,
     label
   );
 }

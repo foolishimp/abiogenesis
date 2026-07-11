@@ -22,7 +22,7 @@ import type {
 import {
   admitToolchainWorkspaceBindingV3,
   admitPublicSdkWorkspaceManifest
-} from "../public_sdk/index.js";
+} from "../public_sdk/carrier_admission.js";
 import {
   assertToolchainWorkspaceBindingV3Coherence,
   TOOLCHAIN_BINDING_RELATIVE_PATH

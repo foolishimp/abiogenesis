@@ -7,8 +7,9 @@ import type { LiveCapabilityBinding } from "../live_capability.js";
 import type { RuntimeEventSink } from "../../../abg/m03/index.js";
 import type { IJsonValue } from "./canonical.js";
 
+/** @pattern ^sha256:[0-9a-f]{64}$ */
 export type Sha256Digest = `sha256:${string}`;
-export const DS1_PUBLIC_OPERATION_IDS = Object.freeze([
+export const DS1_PUBLIC_OPERATION_IDS = [
   "abg.operation.workspace.create",
   "abg.operation.workspace.open",
   "abg.operation.catalog.resolve",
@@ -22,7 +23,8 @@ export const DS1_PUBLIC_OPERATION_IDS = Object.freeze([
   "abg.operation.catalog.invoke",
   "abg.operation.read.result",
   "abg.operation.read.replay"
-] as const);
+] as const;
+Object.freeze(DS1_PUBLIC_OPERATION_IDS);
 export type PublicOperationId = (typeof DS1_PUBLIC_OPERATION_IDS)[number];
 export type PublicCatalogKind = "graph_function" | "node_type" | "overlay";
 export type WorkspaceAuthorityMode =
@@ -971,6 +973,7 @@ export interface WorkspacePathEffects {
 export interface WorkspacePathContext {
   readonly kind: "workspace_path";
   readonly targetRoot: string;
+  readonly publicContractCatalog: PublicContractCatalog;
   readonly effects: WorkspacePathEffects;
 }
 
@@ -994,6 +997,7 @@ export interface ProductIntakeEffects {
 
 export interface ProductIntakeContext {
   readonly kind: "product_intake";
+  readonly publicContractCatalog: PublicContractCatalog;
   readonly effects: ProductIntakeEffects;
 }
 
@@ -1009,6 +1013,7 @@ export interface WorkspaceBindingEffects {
 export interface WorkspaceBindingContext {
   readonly kind: "workspace_binding";
   readonly workspaceManifest: WorkspaceManifest;
+  readonly publicContractCatalog: PublicContractCatalog;
   readonly effects: WorkspaceBindingEffects;
 }
 
@@ -1020,6 +1025,7 @@ export type OperatorCapabilityFactory = (input: {
 
 export interface BoundWorkspaceEffects {
   readonly readRecord: (absolutePath: string) => Promise<IJsonValue | null>;
+  readonly readInputAsset: (inputRef: string) => Promise<IJsonValue | null>;
   readonly readRuntimeEventBytes: () => Promise<Uint8Array>;
   readonly createRuntimeEventSink: () => RuntimeEventSink;
   readonly operatorCapabilityFactories: Readonly<Record<string, OperatorCapabilityFactory>>;
@@ -1029,6 +1035,7 @@ export interface BoundWorkspaceContext {
   readonly kind: "bound_workspace";
   readonly workspaceManifest: WorkspaceManifest;
   readonly binding: ToolchainWorkspaceBindingV3;
+  readonly publicContractCatalog: PublicContractCatalog;
   readonly effects: BoundWorkspaceEffects;
 }
 
@@ -1088,7 +1095,7 @@ export interface AbiogenesisPublicSdk {
   ) => Promise<Ds1PublicOperationOutcome<"abg.operation.catalog.allow">>;
   readonly catalogInvoke: (
     context: BoundWorkspaceContext,
-    invocation: HostInvocationDescriptor
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.catalog.invoke">
   ) => Promise<Ds1PublicOperationOutcome<"abg.operation.catalog.invoke">>;
   readonly readResult: (
     context: BoundWorkspaceContext,

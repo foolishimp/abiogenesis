@@ -133,3 +133,54 @@ Verification at this checkpoint:
 The ticket remains active. Static contract publication, generated schemas,
 publisher-authored Hello World, public SDK implementation, `abg.cli`, packed
 consumer proofs, and the one preflighted live sandbox remain required.
+
+### Public SDK and CLI checkpoint - 2026-07-11
+
+Implemented and reviewed the DS-1 upper public surface over the installed
+catalog foundation:
+
+- 63 strict generated JSON schemas and one 54-row DS-1 public contract catalog,
+  with checked-in publication parity and package-export locator verification;
+- the host-neutral public SDK for all 13 DS-1 operations, including generic
+  invocation admission and SDK-owned derivation of the runtime host descriptor;
+- one M03-owned catalog invocation path with exact catalog-basis execution,
+  input admission, instruction startup, operation attribution, typed result,
+  and bounded replay projection;
+- a thin `abg.cli` with the exact DS-1 grammar, explicit workspace and request
+  inputs, SDK-equivalent result rendering, and contract exit codes;
+- a deterministic declarations-only Hello World fixture with detached product
+  descriptor and contribution sidecars, one callable GraphFunction, and
+  non-callable node and overlay catalog rows; and
+- the standard live F_P dispatch and evaluator profile, selected by governed
+  GraphFunction declarations and constructed only by the bound Node context.
+
+Self-review repaired the following drift before checkpoint: CLI ownership of
+live capability construction, missing fixture plugin declarations, a
+catalog-specific request carrier exposed as the generic public operation
+contract, actor attribution outside durable event truth, opaque-overlay
+causation loss, a second execution-basis admission, and instruction startup
+that did not preserve the exact catalog binding. The fake transport
+differential now reaches both standard F_P seams, emits both prompt manifests,
+and performs no registry re-admission.
+
+The deterministic fake invocation truthfully returns the existing typed
+non-terminal `assurance_block` after both F_P effects. DS-1 does not invent an
+assurance provider to turn that into convergence: T-218 assigns the complete
+runtime and current hook scopes, as well as the distinct A5-SP3 conformance
+gate, to DS-2. The packed live proof must still show the worker response and
+runtime evidence before accepting that typed stop.
+
+Verification at this checkpoint:
+
+- focused T-223 suite: 58/58 pass;
+- T-220 algebra, compiler, execution-basis, and malformed-F_P gate: 35/35 pass;
+- semantic lint, schema parity (63/63), publication parity, and diff check:
+  pass;
+- package dry-run: `5.0.0-dev.0`, 1,002 files, closed published contract
+  assets present; and
+- production dependency audit: zero known advisories.
+
+The ticket remains active. The exact ABG candidate tarball and detached
+sidecars, the design-mandated Module-backed SYSTEM GraphFunction contribution,
+fresh packed SDK/CLI equivalence, all seven bounded negative families, and the
+preflighted packed-product live Hello World sandbox remain required.

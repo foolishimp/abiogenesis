@@ -75,6 +75,11 @@ import {
 import { assertCanonicalRuntimeEventSequence } from "../contracts/event_admission.js";
 import { sortReplayByAdmissionOrdinalFailClosed } from "../contracts/admission_hygiene.js";
 import {
+  projectRuntimeCatalog,
+  type AdmittedRuntimeCatalogBasis,
+  type CatalogExecutionBinding
+} from "../contracts/runtime_catalog.js";
+import {
   deriveAdvancementTransition,
   deriveIterationOutcomeFromRows,
   runtimeEventsForIterationDecision
@@ -253,6 +258,9 @@ import {
   type RuntimeBindingFact
 } from "../contracts/instruction_assembly.js";
 import {
+  constructDefaultInstructionAssemblyStartupForBasis
+} from "../contracts/default_instruction_startup.js";
+import {
   constructExecutivePressureFactProjectedEvent,
   type ExecutiveContinuationInputProjection,
   type ProjectExecutiveObservationViewInput
@@ -297,7 +305,11 @@ import {
   type TraversalNonProgressCarrier,
   type TraversalContinuationSummary
 } from "../contracts/traversal_non_progress.js";
-import { emit, type RuntimeEventSink } from "../events/index.js";
+import {
+  emit,
+  seedRuntimeEventAdmissionOrdinal,
+  type RuntimeEventSink
+} from "../events/index.js";
 import {
   admitTemporalPropertyStartup,
   deriveTemporalVerdictEvents,
@@ -337,7 +349,11 @@ import {
   type ConstructionIntentRunnerRequest,
   type ConstructionRunnerStepOutcome
 } from "./construction_runner.js";
-import { stableJson, stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  stableJson,
+  stableJsonEquals,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 
 export interface EngineIterateRequest {
@@ -345,6 +361,7 @@ export interface EngineIterateRequest {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly runtimeCatalogBasis?: AdmittedRuntimeCatalogBasis | undefined;
   readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
@@ -395,6 +412,7 @@ export interface EngineIterateRequest {
 export interface EngineStartPassthroughFields {
   readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly runtimeRegistryStartup?: EngineIterateRequest["runtimeRegistryStartup"];
+  readonly runtimeCatalogBasis?: EngineIterateRequest["runtimeCatalogBasis"];
   readonly instructionAssemblyStartup?: EngineIterateRequest["instructionAssemblyStartup"];
   readonly requirementProofCarryThroughStartup?: EngineIterateRequest["requirementProofCarryThroughStartup"];
   readonly requirementRouteDeclarationBundle?: EngineIterateRequest["requirementRouteDeclarationBundle"];
@@ -403,6 +421,7 @@ export interface EngineStartPassthroughFields {
 export const ENGINE_START_PASSTHROUGH_KEYS = Object.freeze([
   "temporalPropertyStartup",
   "runtimeRegistryStartup",
+  "runtimeCatalogBasis",
   "instructionAssemblyStartup",
   "requirementProofCarryThroughStartup",
   "requirementRouteDeclarationBundle"
@@ -424,6 +443,7 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly runtimeCatalogBasis?: AdmittedRuntimeCatalogBasis | undefined;
   readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
@@ -764,19 +784,23 @@ function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
 function instructionAssemblyRuntimeForStartup(input: {
   readonly startup: EngineInstructionAssemblyStartupInput | undefined;
   readonly registryStartup: RuntimeRegistryStartupAdmissionResult | null;
+  readonly runtimeCatalogBasis: AdmittedRuntimeCatalogBasis | undefined;
 }): EngineInstructionAssemblyRuntime | null {
   if (input.startup === undefined) {
     return null;
   }
+  const catalogEntries =
+    input.runtimeCatalogBasis?.projection.runtimeRegistryProjection.entries ??
+    Object.freeze([]);
   const startupEventRefs = Object.freeze(
     input.registryStartup?.admissionEvents.map((event) =>
       event.kind === "registry_entry_admitted"
         ? event.entryRef
         : event.declarationRef
-    ) ?? []
+    ) ?? catalogEntries.flatMap((entry) => entry.sourceEventRefs)
   );
-  const registryEntryRefs =
-    input.registryStartup?.admittedEntryRefs ?? Object.freeze([]);
+  const registryEntryRefs = input.registryStartup?.admittedEntryRefs ??
+    Object.freeze(catalogEntries.map((entry) => entry.entryRef));
   const plans = Object.freeze(
     input.startup.compiledPromptPlans.map((plan) =>
       Object.freeze({
@@ -5638,7 +5662,8 @@ function* runEngineIterateMachine(input: {
   }
   const instructionAssemblyRuntime = instructionAssemblyRuntimeForStartup({
     startup: request.instructionAssemblyStartup,
-    registryStartup
+    registryStartup,
+    runtimeCatalogBasis: request.runtimeCatalogBasis
   });
 
   while (true) {
@@ -10795,11 +10820,165 @@ function handlerAssemblyFailClosedResult(
   });
 }
 
+function exactRuntimeCatalogExecutionBinding(input: {
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly targetHandle: string;
+  readonly runtimeEvents: readonly RuntimeEvent[];
+}): CatalogExecutionBinding {
+  const runtimeEvents = [...input.runtimeEvents];
+  assertCanonicalRuntimeEventSequence(
+    runtimeEvents,
+    "EngineRuntimeCatalogBasis.runtimeEvents"
+  );
+  const projection = projectRuntimeCatalog({
+    workspaceId: input.catalogBasis.workspaceId,
+    bindingId: input.catalogBasis.bindingId,
+    catalogId: input.catalogBasis.catalogId,
+    events: runtimeEvents
+  });
+  if (
+    input.catalogBasis.runtimeCatalogProjectionRef !== projection.projectionRef ||
+    input.catalogBasis.runtimeRegistryProjectionRef !==
+      projection.runtimeRegistryProjection.projectionRef ||
+    !stableJsonEquals(input.catalogBasis.projection, projection)
+  ) {
+    throw new TypeError(
+      "runtimeCatalogBasis does not match canonical replay projection truth"
+    );
+  }
+  const bindings = input.catalogBasis.executionBindings.filter(
+    (binding) => binding.graphFunctionHandle === input.targetHandle
+  );
+  const binding = bindings[0];
+  if (bindings.length !== 1 || binding === undefined) {
+    throw new TypeError(
+      "runtimeCatalogBasis must have one exact execution binding for the start target"
+    );
+  }
+  const selected = runtimeEvents.some(
+    (event) =>
+      event.kind === "graph_function_selected" &&
+      event.runtimeBasisRef === input.catalogBasis.basisRef &&
+      event.selectedEntryRef === binding.entryRef
+  );
+  if (!selected) {
+    throw new TypeError(
+      "runtimeCatalogBasis requires prior exact graph-function selection truth"
+    );
+  }
+  return binding;
+}
+
+function assertEngineStartRuntimeCatalogBasis(
+  request: EngineStartRequest
+): CatalogExecutionBinding | null {
+  if (
+    request.runtimeRegistryStartup !== undefined &&
+    request.runtimeCatalogBasis !== undefined
+  ) {
+    throw new TypeError(
+      "runtimeRegistryStartup and runtimeCatalogBasis are mutually exclusive"
+    );
+  }
+  if (request.runtimeCatalogBasis === undefined) {
+    return null;
+  }
+  const binding = exactRuntimeCatalogExecutionBinding({
+    catalogBasis: request.runtimeCatalogBasis,
+    targetHandle: request.startIntent.target.handle,
+    runtimeEvents: request.runtimeEvents ?? Object.freeze([])
+  });
+  if (
+    binding.moduleName !== request.module.name ||
+    binding.moduleDigest !== stableSha256Digest(request.module) ||
+    binding.graphFunctionHandle !== request.startIntent.target.handle ||
+    binding.moduleName !== request.startIntent.scope.moduleName
+  ) {
+    throw new TypeError(
+      "runtimeCatalogBasis execution binding does not match the engine start request"
+    );
+  }
+  return binding;
+}
+
+function defaultCatalogInstructionAssemblyStartup(input: {
+  readonly basis: ExecutionBasis;
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly binding: CatalogExecutionBinding;
+}): EngineInstructionAssemblyStartupInput {
+  const entry = input.catalogBasis.projection.runtimeRegistryProjection.entries.find(
+    (candidate) =>
+      candidate.entryRef === input.binding.entryRef &&
+      candidate.declarationRef === input.binding.declarationRef
+  );
+  if (entry === undefined) {
+    throw new TypeError(
+      "runtimeCatalogBasis instruction startup requires the exact admitted registry entry"
+    );
+  }
+  const prefix = `catalog-${stableSha256Digest({
+    basisRef: input.catalogBasis.basisRef,
+    entryRef: input.binding.entryRef,
+    declarationRef: input.binding.declarationRef
+  }).slice("sha256:".length, "sha256:".length + 16)}`;
+  return constructDefaultInstructionAssemblyStartupForBasis(input.basis, {
+    prefix,
+    namespace: entry.namespace,
+    ownerRef: entry.ownerRef,
+    version: entry.version,
+    registryEntryRef: entry.entryRef,
+    declarationRef: input.binding.declarationRef,
+    interfaceRef: entry.interfaceRef,
+    sourceContractRef: entry.sourceContractRef,
+    targetContractRef: entry.targetContractRef,
+    contextRefs: entry.contextRefs,
+    authorityRefs: entry.authorityRefs,
+    overlayRefs: entry.overlayRefs,
+    provenanceRefs: entry.provenanceRefs,
+    readinessRefs: entry.readinessRefs,
+    proofRefs: entry.proofRefs,
+    policyRefs: entry.policyRefs,
+    declarationSourceRefs: entry.sourceEventRefs
+  }).instructionAssemblyStartup;
+}
+
+function assertEngineIterateRuntimeCatalogBasis(
+  request: EngineIterateRequest
+): void {
+  if (
+    request.runtimeRegistryStartup !== undefined &&
+    request.runtimeCatalogBasis !== undefined
+  ) {
+    throw new TypeError(
+      "runtimeRegistryStartup and runtimeCatalogBasis are mutually exclusive"
+    );
+  }
+  if (request.runtimeCatalogBasis === undefined) {
+    return;
+  }
+  const binding = exactRuntimeCatalogExecutionBinding({
+    catalogBasis: request.runtimeCatalogBasis,
+    targetHandle: request.basis.startIntent.target.handle,
+    runtimeEvents: request.runtimeEvents ?? Object.freeze([])
+  });
+  if (
+    binding.moduleName !== request.basis.moduleName ||
+    binding.graphFunctionId !== request.basis.graphFunction.id ||
+    binding.graphFunctionDigest !== stableSha256Digest(request.basis.graphFunction)
+  ) {
+    throw new TypeError(
+      "runtimeCatalogBasis execution binding does not match the admitted execution basis"
+    );
+  }
+}
+
 export function runEngineIterate(
   request: EngineIterateRequest
 ): EngineIterateResult {
+  seedRuntimeEventAdmissionOrdinal(request.runtimeEvents ?? Object.freeze([]));
   let plugins: ResolvedRunnerPlugins;
   try {
+    assertEngineIterateRuntimeCatalogBasis(request);
     plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins), "sync");
   } catch (error) {
     return handlerAssemblyFailClosedResult(request, error);
@@ -10823,8 +11002,10 @@ export function runEngineIterate(
 export async function runEngineIterateAsync(
   request: EngineIterateRequest
 ): Promise<EngineIterateResult> {
+  seedRuntimeEventAdmissionOrdinal(request.runtimeEvents ?? Object.freeze([]));
   let plugins: ResolvedRunnerPlugins;
   try {
+    assertEngineIterateRuntimeCatalogBasis(request);
     plugins = effectiveRunnerPlugins(request, resolveRunnerPlugins(request.plugins), "async");
   } catch (error) {
     return handlerAssemblyFailClosedResult(request, error);
@@ -10844,12 +11025,24 @@ export async function runEngineIterateAsync(
 }
 
 export function runEngineStart(request: EngineStartRequest): EngineIterateResult {
+  const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
   const basis = admitExecutionBasis(request);
+  const instructionAssemblyStartup = request.instructionAssemblyStartup ??
+    (catalogBinding === null || request.runtimeCatalogBasis === undefined
+      ? undefined
+      : defaultCatalogInstructionAssemblyStartup({
+          basis,
+          catalogBasis: request.runtimeCatalogBasis,
+          binding: catalogBinding
+        }));
   return runEngineIterate({
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
     ...engineStartPassthrough(request),
+    ...(instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup }),
     plugins: request.plugins,
     pluginCapabilities: request.pluginCapabilities,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
@@ -10869,12 +11062,24 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
 export async function runEngineStartAsync(
   request: EngineStartRequest
 ): Promise<EngineIterateResult> {
+  const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
   const basis = admitExecutionBasis(request);
+  const instructionAssemblyStartup = request.instructionAssemblyStartup ??
+    (catalogBinding === null || request.runtimeCatalogBasis === undefined
+      ? undefined
+      : defaultCatalogInstructionAssemblyStartup({
+          basis,
+          catalogBasis: request.runtimeCatalogBasis,
+          binding: catalogBinding
+        }));
   return await runEngineIterateAsync({
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
     ...engineStartPassthrough(request),
+    ...(instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup }),
     plugins: request.plugins,
     pluginCapabilities: request.pluginCapabilities,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,

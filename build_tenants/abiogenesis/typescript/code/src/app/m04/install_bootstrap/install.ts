@@ -16,6 +16,7 @@ import {
 } from "../../../shared/abg_delivery_library/index.js";
 import { parsePlainObject } from "../../../shared/validation/primitives.js";
 import type {
+  AbgTypescriptInstallManifest,
   InstallVerification,
   PublicInstallBootstrapOutcome,
   PublicInstallBootstrapRequest
@@ -56,16 +57,16 @@ function derivePackageManifest(
   });
 }
 
-function deriveInstallManifest(
+export function deriveInstallManifest(
   request: PublicInstallBootstrapRequest
-): string {
-  return stringifyJson({
+): AbgTypescriptInstallManifest {
+  return Object.freeze({
     installedPackageName: request.installedPackageName,
     targetRoot: request.targetRoot.rootPath,
-    bootstrapEntry: "./bootstrap/index.mjs",
+    bootstrapEntry: "./bootstrap/index.mjs" as const,
     workspaceRoots: {
-      eventsLog: ".ai-workspace/events/events.jsonl",
-      runtimeDirectory: ".ai-workspace/runtime"
+      eventsLog: ".ai-workspace/events/events.jsonl" as const,
+      runtimeDirectory: ".ai-workspace/runtime" as const
     },
     runtimePackage: {
       packageName: request.runtimePackage.packageName,
@@ -105,7 +106,7 @@ export function deriveInstallBootstrapPlan(
       {
         kind: "install_manifest",
         relativePath: ".abiogenesis/install-manifest.json",
-        content: deriveInstallManifest(request)
+        content: stringifyJson(deriveInstallManifest(request))
       },
       {
         kind: "bootstrap_entry",

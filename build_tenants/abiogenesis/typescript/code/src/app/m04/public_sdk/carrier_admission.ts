@@ -339,10 +339,7 @@ function admitPublicOperationContractMetadata(
     requiredField(value, "invocationSchemaId", label),
     `${label}.invocationSchemaId`
   );
-  const expectedInvocationSchemaId =
-    operationId === "abg.operation.catalog.invoke"
-      ? "abg.schema.host-invocation"
-      : "abg.schema.public-operation-invocation";
+  const expectedInvocationSchemaId = "abg.schema.public-operation-invocation";
   const requestSchemaPath = relativePath(
     requiredField(value, "requestSchemaPath", label),
     `${label}.requestSchemaPath`
@@ -360,9 +357,7 @@ function admitPublicOperationContractMetadata(
     `${label}.invocationSchemaPath`
   );
   const expectedInvocationSchemaPath =
-    operationId === "abg.operation.catalog.invoke"
-      ? "contracts/schemas/host-invocation.schema.json"
-      : "contracts/schemas/public-operation-invocation.schema.json";
+    "contracts/schemas/public-operation-invocation.schema.json";
   if (
     requestSchemaId !== `abg.schema.operation.${slug}.request` ||
     resultSchemaId !== `abg.schema.operation.${slug}.result` ||

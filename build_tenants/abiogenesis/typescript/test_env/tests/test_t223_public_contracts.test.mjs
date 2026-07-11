@@ -516,10 +516,7 @@ function requestFixtures() {
 
 function operationContractRow(operationId) {
   const slug = operationId.slice("abg.operation.".length);
-  const invocationSchemaId =
-    operationId === "abg.operation.catalog.invoke"
-      ? "abg.schema.host-invocation"
-      : "abg.schema.public-operation-invocation";
+  const invocationSchemaId = "abg.schema.public-operation-invocation";
   const actorPolicy = new Set([
     "abg.operation.workspace.create",
     "abg.operation.install.install",
@@ -605,9 +602,7 @@ function operationContractRow(operationId) {
       invocationSchemaVersion: "1.0.0",
       invocationSchemaDigest: CONTRACT_DIGEST,
       invocationSchemaPath:
-        operationId === "abg.operation.catalog.invoke"
-          ? "contracts/schemas/host-invocation.schema.json"
-          : "contracts/schemas/public-operation-invocation.schema.json",
+        "contracts/schemas/public-operation-invocation.schema.json",
       defaults: [],
       closedDomains: [
         {
@@ -680,6 +675,28 @@ function resolvedOperationContract(
   );
 }
 
+function hostInvocationSchemaRow(digest = CONTRACT_DIGEST) {
+  return {
+    contractId: "abg.schema.host-invocation",
+    contractKind: "schema_asset",
+    owningProductId: "abiogenesis",
+    version: "1.0.0",
+    digest,
+    authorityRefs: ["REQ-P-PUBLIC-CONTRACTS"],
+    capabilityRefs: ["abg.capability.catalog.invoke-graph-function@5"],
+    nativeLocator: null,
+    assetLocator: {
+      kind: "asset",
+      relativePath: "contracts/schemas/host-invocation.schema.json",
+      schemaId: "abg.schema.host-invocation",
+      schemaVersion: "1.0.0",
+      mediaType: "application/schema+json",
+      digest
+    },
+    operationContract: null
+  };
+}
+
 function envelope(operationId, request) {
   const slug = operationId.slice("abg.operation.".length);
   const actorRequired = new Set([
@@ -691,10 +708,7 @@ function envelope(operationId, request) {
   ]).has(operationId);
   return {
     schemaVersion: 1,
-    invocationSchemaId:
-      operationId === "abg.operation.catalog.invoke"
-        ? "abg.schema.host-invocation"
-        : "abg.schema.public-operation-invocation",
+    invocationSchemaId: "abg.schema.public-operation-invocation",
     invocationSchemaVersion: "1.0.0",
     invocationSchemaDigest: CONTRACT_DIGEST,
     invocationId: `invocation:${slug}`,
@@ -1198,7 +1212,12 @@ test("T-223 host invocation specialization retains one complete admitted basis",
   const invokeOperation = resolvedOperationContract(
     "abg.operation.catalog.invoke"
   );
-  const admitted = admitHostInvocationDescriptor(host, invokeOperation);
+  const hostSchema = hostInvocationSchemaRow();
+  const admitted = admitHostInvocationDescriptor(
+    host,
+    invokeOperation,
+    hostSchema
+  );
   assert.equal(admitted.operationId, "abg.operation.catalog.invoke");
   assert.equal(admitted.actorRef, ACTOR_REF);
   assert.equal(admitted.target, HANDLE);
@@ -1208,7 +1227,8 @@ test("T-223 host invocation specialization retains one complete admitted basis",
     () =>
       admitHostInvocationDescriptor(
         { ...host, target: "graph-function://wrong" },
-        invokeOperation
+        invokeOperation,
+        hostSchema
       ),
     /must equal graphFunctionHandle/u
   );
@@ -1216,7 +1236,8 @@ test("T-223 host invocation specialization retains one complete admitted basis",
     () =>
       admitHostInvocationDescriptor(
         { ...host, input: { greeting: "elsewhere" } },
-        invokeOperation
+        invokeOperation,
+        hostSchema
       ),
     /input: request mismatch/u
   );
@@ -1224,7 +1245,8 @@ test("T-223 host invocation specialization retains one complete admitted basis",
     () =>
       admitHostInvocationDescriptor(
         { ...host, productBindingRefs: [] },
-        invokeOperation
+        invokeOperation,
+        hostSchema
       ),
     /non-empty array/u
   );
@@ -1232,7 +1254,8 @@ test("T-223 host invocation specialization retains one complete admitted basis",
     () =>
       admitHostInvocationDescriptor(
         { ...host, effectiveSessionViewId: "registry-session-view:arbitrary" },
-        invokeOperation
+        invokeOperation,
+        hostSchema
       ),
     /derived identity mismatch/u
   );
@@ -1243,8 +1266,25 @@ test("T-223 host invocation specialization retains one complete admitted basis",
         resolvedOperationContract(
           "abg.operation.catalog.invoke",
           sha("e")
-        )
+        ),
+        hostSchema
       ),
     /contract catalog basis mismatch/u
+  );
+  assert.throws(
+    () =>
+      admitHostInvocationDescriptor(
+        host,
+        invokeOperation,
+        {
+          ...hostSchema,
+          contractId: "abg.schema.not-host-invocation",
+          assetLocator: {
+            ...hostSchema.assetLocator,
+            schemaId: "abg.schema.not-host-invocation"
+          }
+        }
+      ),
+    /host specialization is not bound to the exact host-invocation schema row/u
   );
 });
