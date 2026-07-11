@@ -4,7 +4,8 @@
 - title: Realize installed catalog, SDK, and CLI steel thread
 - type: feature
 - ticket_category: ordinary
-- status: backlog
+- status: active
+- activated_at: 2026-07-11
 - goal: abg-5-0-full-product-delivery
 - phase: DS-1
 - priority: high
@@ -27,8 +28,12 @@
   - specification/requirements/product/REQ-P-INSTALL.md
   - specification/requirements/product/REQ-P-POLICY.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
-  - build_tenants/abiogenesis/typescript/design
-  - .ai-workspace/tickets/active/T-222-design-installed-catalog-sdk-cli-steel-thread.md
+  - specification/requirements/abg/REQ-R-ABG3-EVENTS.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md
+  - .ai-workspace/tickets/completed/T-222-design-installed-catalog-sdk-cli-steel-thread.md
 
 ## Target Truth
 

@@ -4,7 +4,8 @@
 - title: Design installed catalog, SDK, and CLI steel thread
 - type: feature
 - ticket_category: ordinary
-- status: active
+- status: completed
+- closed_at: 2026-07-11
 - activated_at: 2026-07-11
 - admission_condition: satisfied by completed T-219 specification-only walkthrough
 - goal: abg-5-0-full-product-delivery
@@ -15,7 +16,7 @@
     catalog, public SDK, and thin CLI boundary needed to invoke one published
     Hello World GraphFunction from an exact installed product.
 - change_class: design_reframe
-- re_entry_point: build_tenants/common/design/modules/M02-work-publication.yml
+- re_entry_point: build_tenants/common/design/modules/M04-app-bootstrap.yml
 - triaged_at: 2026-07-11
 - created_at: 2026-07-11
 - updated_at: 2026-07-11
@@ -31,11 +32,20 @@
   - specification/requirements/product/REQ-P-INSTALL.md
   - specification/requirements/product/REQ-P-POLICY.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
+  - specification/requirements/abg/REQ-R-ABG3-EVENTS.md
   - specification/requirements/gtl/REQ-L-GTL3-MODULE.md
   - specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md
+  - specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md
+  - specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md
+  - specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md
   - build_tenants/common/design/modules/M02-work-publication.yml
   - build_tenants/common/design/modules/M03-engine-kernel.yml
   - build_tenants/common/design/modules/M04-app-bootstrap.yml
+- design_refs:
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md
+  - build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md
 
 ## Target Truth
 
@@ -111,3 +121,30 @@ inventing product, catalog, runtime, or CLI semantics.
 - carrier/IACS completeness review
 - explicit reuse-versus-new inventory
 - independent self-review against T-218, PRODUCT, and the proportional defense budget
+
+## Execution Record
+
+- 2026-07-11: reuse-mapped the current M02 publication, M03 registry/runtime,
+  M04 installer/binding/start, event, result, replay, capability, and CLI
+  surfaces before defining new carriers.
+- 2026-07-11: fixed the 13-operation DS-1 contract register, product/artifact/
+  lock/binding state machine, public-contract catalog profile, four-arm SDK
+  effect context, host descriptor, reconstructible session view, and thin CLI
+  grammar.
+- 2026-07-11: preserved M03 authority by separating GraphFunction-backed
+  registry rows from opaque overlay catalog events, retaining
+  `runEngineStartAsync -> admitExecutionBasis` as the sole basis/Job
+  construction path, and crossing only `EnginePluginCapabilities` from M04.
+- 2026-07-11: bounded digest work to the constitutional RFC 8785 law through
+  one exported API plus I-JSON/conformance admission; corpus publication stays
+  with T-226/T-227 and hostile-local hardening stays out of DS-1.
+- 2026-07-11: three independent closure reviews returned APPROVE with no
+  supported-path, authority, implementation, or proportionality blocker.
+- 2026-07-11: objective gates passed: `git diff --check`, M01-M04 YAML parsing,
+  local reference checks, operation-set parity, and Mermaid 11.3.0 rendering.
+
+## Closure Disposition
+
+T-222 is complete. T-223 may realize only this approved DS-1 boundary. Later
+operator, C-runtime, node/overlay application, conformance, self-host, and
+release functionality remains assigned to its dependent T-218 phases.

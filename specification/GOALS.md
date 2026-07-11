@@ -68,8 +68,8 @@ DS-0R -> DS-1 -> DS-1F -> DS-2 -> DS-3 -> DS-4 -> DS-4Q -> DS-5 -> DS-6 -> DS-7 
 | `DS-7` exact candidate gate | T-238 | T-235 | One A5-R1 candidate verdict returns green over exact R5/G5 bytes. |
 | `DS-8` ordered release | RELEASE_METHOD | T-240 -> T-236 -> odd_glc T-039 -> T-037 -> T-237 | Published and qualified RC lineage, released ABG 5.0, released odd_glc 0.2.0, verified immutable pair. |
 
-T-219 completed the specification-only entry prerequisite. T-222 is the active
-first executable design leaf.
+T-219 completed the specification-only entry prerequisite. T-222 completed the
+first executable design leaf; T-223 is the active DS-1 realization leaf.
 T-179 is active only as the accepted DS-2 owner and remains queued behind
 T-225. A realization leaf is non-admissible until its named design predecessor
 is completed and current.

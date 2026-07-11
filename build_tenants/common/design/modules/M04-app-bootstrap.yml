@@ -1,52 +1,80 @@
 module: M04-app-bootstrap
 status: active
 owns:
-  - app-facing orchestration services
-  - operator-facing entry boundary
+  - public SDK operation admission and app-edge effect adapters
+  - operator-facing entry and projection boundary
   - event/assessment ingress over the canonical kernel emission surface
   - installer and workspace bootstrap
   - bootloader carrier and project-facing operations
-  - engine-driven auto progression loop
-  - proxy approval handling above the kernel
+  - exact product resolution, verification, installation, and workspace binding
+  - thin CLI and host-adapter bindings over public SDK contracts
+  - explicit SDK effect context and ABG-standard operator capability composition
+  - F_H request admission above the kernel
   - runtime identity projection and configured worker resolution from the runtime contract
 implements_features:
   - REQ-P-POLICY
+  - REQ-P-INSTALL
+  - REQ-P-CATALOG
+  - REQ-P-PUBLIC-CONTRACTS
   - REQ-P-QUAL
 interfaces:
-  - public start operator with auto progression
-  - public start operator with proxy approval
+  - versioned public SDK operation contract with the DS-1 operation profile
+  - workspace create/open operations
+  - product resolve/verify/install/bind operations
+  - catalog admit/list/describe/allow/invoke operations
+  - public start operation
+  - result and replay projections
+  - thin native CLI adapter
+  - PublicSdkExecutionContext
+  - AbgRuntimeSystemProfile
+  - composeOperatorCapabilities(...)
   - event ingress command surface
   - result assessment ingress surface
-  - auto progression loop surface
-  - human proxy approval surface
   - configured worker resolution surface
   - runtime identity projection surface
+phased_target_interfaces:
+  - public resume and F_H admission operations
+  - evidence, gap, lawful-action, observer, and tuner projections
+  - complete configuration, conformance, and release operation rows
 primary_surfaces:
   - app-bootstrap.identity-projection-surface
   - app-bootstrap.operator-entry-surface
   - app-bootstrap.event-ingress-surface
   - app-bootstrap.install-bootstrap-surface
   - app-bootstrap.bootloader-surface
+  - app-bootstrap.public-sdk-surface
+  - app-bootstrap.product-intake-verification-surface
+  - app-bootstrap.workspace-binding-surface
+  - app-bootstrap.public-catalog-projection-surface
+  - app-bootstrap.workspace-event-store-reader-surface
+  - app-bootstrap.operator-capability-composition-surface
 invariants:
-  - the engine-facing advancement surface remains one-step progression and does not absorb app-owned orchestration policy
-  - app orchestration may loop and proxy approvals, but it must not redefine GTL or ABG kernel semantics
+  - public invoke, start, and resume are admission and ignition boundaries; replay-derived iteration, continuation, retry, and advancement remain M03-owned
+  - SDK, CLI, and host adapters may parse, admit, delegate, and render but shall not own a second orchestration loop or runtime truth model
+  - product install, workspace binding, catalog admission, session view, and invocation remain distinct states and operations
+  - joined public catalog rows are downstream read models over exact M04 product/binding truth and the M03 runtime catalog projection, whose GraphFunction-backed arm is the runtime registry subprojection; they do not become registry authority
+  - workspace replay readers resolve the event path from admitted binding truth and delegate event admission and ordinal ordering to M03
+  - each SDK process receives the exact workspace_path, product_intake, workspace_binding, or bound_workspace effect-context arm required by the operation; current working directory and publisher source are never implicit selectors or capability factories
+  - LiveCapabilityBinding and its provenance stay in M04; only admitted EnginePluginCapabilities and provenance refs cross into the M03 invocation assembly
   - event and assessment ingress may validate and annotate payloads, but they shall still route through the canonical ABG emit surface rather than append directly to runtime truth
   - runtime identity and configured worker resolution are explicit inputs, not hidden build defaults
   - when runtime build identity is absent, the app layer preserves the kernel's neutral build projection rather than reintroducing a tenant-specific default
 composes_with:
-  - M03-engine-kernel provides the one-step engine progression and runtime truth being orchestrated
+  - M03-engine-kernel owns registry admission, selection, graph calls, replay-derived iteration, continuation, retry, events, result, and closure truth
   - M02-work-publication provides installed module and runtime-config surfaces
-  - M05-qualification-scenarios proves the auto/proxy loop against fake and live scenario harnesses
+  - M05-qualification-scenarios proves public SDK and installed CLI behavior against fake and live scenario harnesses
 test_obligations:
-  - operator auto-loop regression tests for repeated fp-dispatch and proxy approval flow
+  - SDK and CLI equivalence tests over exact public operation contracts
+  - negative tests proving adapters cannot bypass catalog selection or kernel iteration
   - runtime identity projection tests that preserve worker/build/backend/authority truth
   - installer/bootstrap tests that keep orchestration separate from kernel semantics
   - installer completeness tests that prove every declared runtime surface is present in the installed delivery root
   - installed-runtime smoke tests that invoke the tenant's installed public runtime entrypoint rather than only through source-only imports
+  - product-intake tests distinguish generic verified product materialization from the ABG npm-package payload adapter
+  - public catalog tests prove joined product/runtime provenance without making M03 depend on M04 carriers
 notes:
-  - the engine-facing one-step progression surface remains below app-owned orchestration
-  - auto mode is a higher-order orchestration layer above one-step progression
+  - there is no app-owned auto-progression authority; repeated advancement is kernel iteration or a new actor-attributed public invocation over replay truth
   - event ingress remains app-owned, but event persistence is kernel-owned through the canonical emit surface
-  - `F_P` handling is engine-owned through dispatch-runtime policy resolution; `F_H` proxy approval remains an app concern
+  - "F_P handling is engine-owned through dispatch-runtime policy resolution; M04 only admits typed F_H requests for M03 consumption"
   - runtime contract worker identity is first-class input; the app layer must not silently replace it with a build default
   - absent explicit runtime build identity, the neutral `build` projection resolves through engine/worker runtime truth rather than a historical tenant fallback

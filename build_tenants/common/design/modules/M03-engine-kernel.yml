@@ -2,6 +2,7 @@ module: M03-engine-kernel
 status: active
 owns:
   - ABG kernel runtime and replay model
+  - bound-catalog union-row admission, runtime catalog and GraphFunction-registry projection, session eligibility, and GraphFunction invocation admission
   - execution binding, canonical graph-function materialization, provenance, convergence, selection, transport, and selfhosting
   - recursive zoom/materialize/fold-back protocol over stable outer contracts
   - graph-derived evaluator-bundle derivation from refined structure
@@ -26,6 +27,8 @@ implements_features:
   - REQ-R-ABG3-TRANSPORT
   - REQ-R-ABG3-INTERPRET
   - REQ-R-ABG3-SELFHOSTING
+  - REQ-P-CATALOG
+  - REQ-P-PUBLIC-CONTRACTS
   - REQ-M-GTL3-MAPPING
   - REQ-M-GTL3-PROVENANCE
 primary_surfaces:
@@ -45,6 +48,11 @@ primary_surfaces:
   - engine-kernel.selfhosting-surface
   - engine-kernel.materialization-surface
   - engine-kernel.gtl-program-conformance-surface
+  - engine-kernel.catalog-admission-surface
+  - engine-kernel.runtime-catalog-projection-surface
+  - engine-kernel.runtime-registry-projection-surface
+  - engine-kernel.registry-session-view-surface
+  - engine-kernel.catalog-invocation-surface
 interfaces:
   - EventContext
   - EventStream
@@ -65,6 +73,13 @@ interfaces:
   - admitGtlProgramConformanceInput(...)
   - typecheckGtlProgram(...)
   - formatGtlProgramConformanceIssues(...)
+  - admitBoundWorkspaceCatalog(...)
+  - RuntimeCatalogProjection
+  - CatalogAssetAdmissionEvent
+  - AdmittedRuntimeCatalogBasis
+  - RegistrySessionView
+  - CatalogInvocationAssembly
+  - invokeAdmittedCatalogGraphFunction(...)
   - Traversal
   - TraversalOutcome
   - traverse(traversal, runtime, surface)
@@ -81,6 +96,12 @@ invariants:
   - downstream GTL/ABG program conformance is admitted through one ABG-owned static gate over admitted inventory, feature coverage, owner classification, and evidence-bound report identity
   - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
   - public start/resume is an ignition boundary only; replay-derived graph-function iteration and next-edge advancement remain kernel-owned beneath it
+  - an already-admitted runtime catalog basis is distinct from startup declaration admission; invocation consumes the basis without re-admitting or re-emitting its declarations
+  - bound multi-product catalog admission threads one projection across system declarations and one config-scoped batch per product so cross-product conflicts remain visible
+  - only GraphFunction-backed graph_function and validated effect-free identity node_type rows enter the runtime GraphFunction registry; opaque overlay assets enter catalog-only replay truth and remain non-callable
+  - catalog-only overlay admission emits exact workspace-scoped catalog_asset_admitted or catalog_asset_rejected events included in the canonical RuntimeEvent roster and ordinal projection fold
+  - catalog invocation assembles the existing EngineStartRequest after selection; runEngineStartAsync and admitExecutionBasis remain the sole GraphFunction, Job, graph, and ExecutionBasis construction path
+  - catalog invocation admits input and standard ABG capability bindings, emits registry selection before GraphCall, and enters the ordinary start-to-iterate runner
   - next-edge selection is derived from event truth over graph-call, frame, vector-local traversal, evaluation, proof, and closure facts rather than package-local loop state or fixed first-vector shortcuts
   - retry/repair mints fresh attempt identity and regenerates prompt/manifest truth from current projection rather than redispatching stale controller state
   - bounded leaf-task execution remains parent-bound runtime work and not a rival top-level workflow ontology
@@ -91,7 +112,7 @@ invariants:
 composes_with:
   - M01-gtl-core supplies the declared graph, algebra, and evaluation surfaces being interpreted
   - M02-work-publication supplies the published module and graph-function truth being materialized
-  - M04-app-bootstrap owns command orchestration and other app-edge effects above the kernel
+  - M04-app-bootstrap owns public operation admission and app-edge effects above the kernel; it does not own iteration or continuation
   - M05-qualification-scenarios proves replay, refinement, and convergence behavior against scenario harnesses
 test_obligations:
   - explicit request/record materialization tests with replayable provenance
@@ -107,6 +128,7 @@ test_obligations:
   - provenance tests that preserve graph-function, materialization, bundle, and refined-boundary identity across execution
   - structural selfhosting tests that fail when bootloader sections drift from the exported GTL surface even if names still appear elsewhere in the document
   - GTL program conformance tests reject malformed raw input, partial feature manifests, spoofed feature owners, lossy target-carrier rows, stale active source identities, and proxy observations that infer hooks or F-star composition from unrelated rows
+  - catalog tests prove projection-threaded multi-product admission, startup-versus-admitted-basis exclusivity, no duplicate re-admission on invoke, non-GraphFunction refusal, and selection-before-GraphCall ordering
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - the internal iteration engine is part of the kernel; M04 public start, resume, and control-loop surfaces may admit or resume work but do not substitute for graph traversal advancement
