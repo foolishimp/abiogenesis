@@ -215,6 +215,62 @@ Interpreted in the methodology's own ratified vocabulary:
 
 Closure condition 1 is satisfied by this record.
 
+## CR-H Re-Entry Decision Record (2026-07-12) — Consensus admitted as a key 5.0.0 feature
+
+F_H verbatim (in session, during review of the consensus question): the
+agent-invocable Consensus panel — *"i want to be able to invoke it as a graph
+function through the abg.cli, which allows the calling agentic builder to use
+it directly"* — *"this is a key 5.0.0 feature"* *"and hence a core usecase."*
+
+Standing law this re-enters through, all verified this session:
+
+- T-218 CR-H-01..09 deferral clause: "re-enter after 5.0 **when a concrete
+  product use case needs them**" — the use case is stated (dual-agent
+  claude+codex build work) and evidenced (this week's manual verdict-merge
+  rounds).
+- PRODUCT atom criterion (PRODUCT.md ~1161): consensus panels are **free
+  constructions over the atoms, without new engine law** — so admission does
+  NOT reverse the engine-composition exclusion; it instances the atom
+  criterion. The core use case is the general pattern: **a calling agentic
+  builder invokes published GraphFunctions directly through the public
+  abg.cli contract** — Consensus is its flagship instance.
+- Feasibility verified in code 2026-07-12: the published capability set is
+  exactly the required spine — `gtl.declare@5`, `gtl.admit@5`,
+  `gtl.serialize@5`, `module.publish@5`, `catalog.contribute@5`,
+  `install.bind-products@5`, `catalog.invoke-graph-function@5` (7/7 of the
+  published capabilities) — and the DS-1 steel thread (T-223, rerun green
+  70/70 today) already qualifies agent-driven `catalog.invoke` +
+  `read.result`/`read.replay` on the packed install.
+- Honest gap, priced into the feature: `module.publish`/`catalog.contribute`
+  exist as published CAPABILITIES but are not among the 13 published CLI
+  OPERATIONS — v1 therefore ships the panel as domain declarations through
+  the product/module build path (odd_* side, three-layer law: declarations
+  only), agents consume via `catalog.invoke`; agent-driven
+  publish-through-CLI arrives with the 36-operation operator-surface
+  completion.
+- Boundary constraints that STAND: no scheduler, no ticket mutation (T-218
+  CR-H clause) — the panel derives a typed consensus/dissent surface over
+  admitted agent-verdict artifacts (F_D total functions: tally, agreement
+  classification); disputes surface as gaps to F_H; ticket writes stay with
+  agents/F_H. F_D/F_P boundary preserved.
+
+Routing (pen-holder executes):
+
+1. **T-244 register**: named must-have row — feature: agent-invocable
+   Consensus panel through `abg.cli`; the typed agent-verdict/finding schema
+   (the dual-review protocol schema) is the function's input contract;
+   qualification gate: an agent invokes the published panel over the packed
+   install and reads the typed consensus result + replay.
+2. **T-249 span addition**: narrow the blanket exclusions at GOALS.md:100,
+   INTENT.md:199, PRODUCT.md:168 (and T-218's CR-H framing as historical
+   record) from "no new Review/Consensus/homeostatic composition" to "no new
+   ENGINE composition, scheduler, or ticket mutation" — admitting
+   free-construction panels invoked through the public contract as 5.0
+   features.
+3. Interim (before the panel exists): the tier-1 process protocol (typed
+   finding schema + confirmed/disputed/unique merge record + F_H adjudicates
+   disputes only) is usable immediately and becomes the panel's input schema.
+
 ## Review Amendment (2026-07-12) — codex governance review of 34d7f56
 
 All eight findings verified against the cited surfaces and **confirmed**:
