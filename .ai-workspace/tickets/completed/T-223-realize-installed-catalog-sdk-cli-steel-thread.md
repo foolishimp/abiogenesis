@@ -4,7 +4,8 @@
 - title: Realize installed catalog, SDK, and CLI steel thread
 - type: feature
 - ticket_category: ordinary
-- status: active
+- status: completed
+- closed_at: 2026-07-11
 - activated_at: 2026-07-11
 - goal: abg-5-0-full-product-delivery
 - phase: DS-1
@@ -130,7 +131,7 @@ Verification at this checkpoint:
 - all 1,456 semantic behavior tests pass; four pack/install tests that collided
   under parallel build-output mutation were rerun serially and passed.
 
-The ticket remains active. Static contract publication, generated schemas,
+At this checkpoint, the ticket remained active. Static contract publication, generated schemas,
 publisher-authored Hello World, public SDK implementation, `abg.cli`, packed
 consumer proofs, and the one preflighted live sandbox remain required.
 
@@ -180,7 +181,79 @@ Verification at this checkpoint:
   assets present; and
 - production dependency audit: zero known advisories.
 
-The ticket remains active. The exact ABG candidate tarball and detached
+At this checkpoint, the ticket remained active. The exact ABG candidate tarball and detached
 sidecars, the design-mandated Module-backed SYSTEM GraphFunction contribution,
 fresh packed SDK/CLI equivalence, all seven bounded negative families, and the
 preflighted packed-product live Hello World sandbox remain required.
+
+### Installed vertical and phase closure - 2026-07-11
+
+Completed the exact packed-product vertical and repaired every supported-path
+finding exposed by the final regression pass:
+
+- packed the exact ABG candidate with one Module-backed SYSTEM GraphFunction,
+  installed it with the declarations-only Hello World fixture into isolated
+  fresh consumers, and proved public SDK/`abg.cli` outcome equivalence without
+  source or private package imports;
+- made public SDK invocation construction preserve the operation/request type
+  correlation and made CLI construction exhaustive over the same 13 operation
+  contracts;
+- ordered allowlist, interface, input-schema, and capability preflight checks
+  before runtime effects, while leaving M03 as the only selection, GraphCall,
+  event, traversal, continuation, and closure authority;
+- projected admitted JSON input bindings into instruction manifests, published
+  the standard transform/review response protocols, derived assessment
+  identities from the selected vector, and kept worker-supplied identity out of
+  ABG-owned artifact provenance;
+- passed the seven bounded negative families: incompatible identity/range/
+  digest/interface, unresolved dependency/handle, SYSTEM shadow, allowlist
+  widening, malformed input, missing capability, and source/private import;
+  and
+- made the existing source-independent TypeScript installer copy the declared
+  runtime dependency tree, reconciling Ajv's transitive runtime dependencies
+  without hard-coded package exceptions. The 5.0 M02 lookup-contract promotion
+  and the intentional `abg.cli` package binary were reconciled with their
+  superseded tests/design rows.
+
+The final packed live proof is preserved at
+`build_tenants/abiogenesis/typescript/test_env/test_runs/t223_packed_hello_world_live/20260711T142701571Z_pid38388`.
+It installed ABG candidate digest
+`sha256:f632feea2057604f0664663388214619cafbaa9a0c520dd39c4cb8de9c13ffc2`
+and fixture digest
+`sha256:575066d6e9916e434643d7fd0265c1fa44ebcb6fe411b2ef2f0ff26ffab55eca`,
+ran Claude through the standard local-spawn transport, admitted `hello world`
+from the ABG-bound worker identity, archived both F_P calls, and linked 54
+replay events to the public result. Its accepted non-terminal result is the
+existing truthful `runtime_continuation_transition:block:assurance_block`.
+
+Final verification:
+
+- `npm run test:t223`: 70/70 pass, including the packed installed vertical,
+  type gate, publication parity, and all seven negative families;
+- T-220 algebra/compiler/execution-basis/malformed-F_P gate: 35/35 pass;
+- focused T-014, M04 CLI, and TypeScript installer regression set: 15/15 pass;
+- semantic lint, test-harness lint, 63-schema parity, 33 generated publication
+  assets over 1,002 immutable payload files, fixture parity, and
+  `git diff --check`: pass;
+- package dry-run: `5.0.0-dev.0`, 1,003 files, closed contract assets present;
+- packed live gate: 1/1 pass over the exact candidate above; and
+- full semantic behavior suite: 1,499/1,501 pass. The two deliberate standing
+  reds compare the 5.0 development source identity with the still-released
+  4.6.0-rc.3 bootstrap/release-note identities. T-218 assigns the real-tree
+  conformance reconciliation to DS-4 and release reconciliation to DS-8; they
+  are not hidden or relabeled as DS-1 failures.
+
+Phase-end review against T-222, T-218, and `PRODUCT.md` returned APPROVE with no
+actionable finding. It confirmed that the consumer remains public-only and no
+second worker, event, traversal, continuation, or closure authority was added.
+
+## Closure Disposition
+
+T-223 is complete and DS-1 is closed. The installed product can resolve,
+verify, install, bind, admit, list, describe, narrow, invoke, and read typed
+result/replay truth through its public SDK and thin CLI from packed artifacts.
+The live proof earns only its admitted non-terminal assurance stop and the
+specific Hello World response/evidence chain. It does not claim convergence,
+universal output-schema admission, the complete C/runtime, node/overlay
+application, or the full operator workflow; those remain with T-227/T-228 and
+the later T-218 phases. T-224 may activate for DS-1F.

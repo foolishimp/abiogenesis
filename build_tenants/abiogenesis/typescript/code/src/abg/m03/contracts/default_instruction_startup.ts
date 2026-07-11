@@ -82,8 +82,48 @@ function runtimeBindingSlots(prefix: string) {
       required: true,
       sourceTruthKind: "replay_event",
       evidenceRefs: [`evidence://${prefix}/slot/worker`]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: `slot://${prefix}/input-asset`,
+      slotClass: "input_asset",
+      required: false,
+      sourceTruthKind: "projection",
+      evidenceRefs: [`evidence://${prefix}/slot/input-asset`]
     })
   ]);
+}
+
+function defaultInstructionSectionText(input: {
+  readonly vectorName: string;
+  readonly computeStageRole: InstructionAssemblyComputeStageRole;
+  readonly expectedAssessmentIds: readonly string[];
+}): string {
+  const heading =
+    `Run ${input.computeStageRole} for ${input.vectorName} without carrying an answer marker.`;
+  const expectedAssessmentIds = JSON.stringify(input.expectedAssessmentIds);
+  if (input.computeStageRole === "transform") {
+    return [
+      heading,
+      "Standard live dispatch response protocol:",
+      "Return exactly one JSON object and no prose.",
+      `Set edge to ${JSON.stringify(input.vectorName)}.`,
+      "Carry a non-empty actor string. Runtime worker, backend, role, assignment, and resolved-runtime identity are ABG-owned and must not be supplied by the worker.",
+      "Carry fulfillment_assessments as a non-empty array. Each row uses only id, evaluator, fulfillment_status, fulfillment_detail, blocking_reasons, and evidence_refs; a fulfilled row has no blocking reasons and has at least one evidence ref.",
+      `Expected assessment ids derived from this vector: ${expectedAssessmentIds}. When this list is non-empty, the fulfillment assessment ids must match it exactly. When it is empty, carry one evidence-backed instruction response assessment.`,
+      "Carry the fields required by the target output contract as top-level fields in the same JSON object."
+    ].join("\n");
+  }
+  if (input.computeStageRole === "evaluate") {
+    return [
+      heading,
+      "Standard live review response protocol:",
+      "Return exactly one JSON object and no prose, using only accepted, closeDisposition, assessmentIds, and reasons.",
+      "accepted is boolean; closeDisposition is close or retry; assessmentIds and reasons are arrays of strings.",
+      `assessmentIds must equal the expected ids derived from this vector: ${expectedAssessmentIds}.`,
+      "Use accepted true with closeDisposition close only when every expected assessment is satisfied; otherwise use accepted false with closeDisposition retry and state the reasons."
+    ].join("\n");
+  }
+  return heading;
 }
 
 function registryEntryRef(options: DefaultInstructionStartupOptions): string {
@@ -139,7 +179,8 @@ function compiledInstructionPlanFor(input: {
         "frame",
         "vector",
         "event_log",
-        "worker_invocation"
+        "worker_invocation",
+        "input_asset"
       ],
       policyRefs: [`policy://${prefix}`],
       evidenceRefs: [`evidence://${prefix}/rule`]
@@ -180,7 +221,13 @@ function compiledInstructionPlanFor(input: {
           vector.target.id
         ],
         compressionMode: "digest",
-        text: `Run ${input.computeStageRole} for ${vector.name} without carrying an answer marker.`,
+        text: defaultInstructionSectionText({
+          vectorName: vector.name,
+          computeStageRole: input.computeStageRole,
+          expectedAssessmentIds: vector.evaluators.map(
+            (evaluator) => evaluator.name
+          )
+        }),
         digestRef: sha256DigestForText(`${prefix}-vector-${input.vectorIndex}-${input.computeStageRole}`),
         excerptDigest: null,
         fullContentAdmitted: false,

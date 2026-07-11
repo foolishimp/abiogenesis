@@ -36,11 +36,7 @@ import {
   readResult
 } from "./runtime_operations.js";
 
-export interface PublicOperationInvocationConstruction<
-  K extends PublicOperationId
-> {
-  readonly operationId: K;
-  readonly request: Ds1PublicOperationContractMap[K]["request"];
+export interface PublicOperationInvocationConstructionCommon {
   readonly publicContractCatalog: PublicContractCatalog;
   readonly invocationId: string;
   readonly requestId: string;
@@ -50,11 +46,29 @@ export interface PublicOperationInvocationConstruction<
   readonly correlationId?: string;
 }
 
+export type PublicOperationInvocationConstruction<
+  K extends PublicOperationId
+> = K extends PublicOperationId
+  ? PublicOperationInvocationConstructionCommon & {
+      readonly operationId: K;
+      readonly request: Ds1PublicOperationContractMap[K]["request"];
+    }
+  : never;
+
+export type AnyPublicOperationInvocationConstruction =
+  PublicOperationInvocationConstruction<PublicOperationId>;
+
 export function constructPublicOperationInvocation<
   K extends PublicOperationId
 >(
   input: PublicOperationInvocationConstruction<K>
-): PublicOperationInvocationEnvelope<K> {
+): PublicOperationInvocationEnvelope<K>;
+export function constructPublicOperationInvocation(
+  input: AnyPublicOperationInvocationConstruction
+): AnyPublicOperationInvocationEnvelope;
+export function constructPublicOperationInvocation(
+  input: AnyPublicOperationInvocationConstruction
+): AnyPublicOperationInvocationEnvelope {
   const resolvedOperation = resolvePublicOperationContract(
     input.publicContractCatalog,
     input.operationId
@@ -70,8 +84,7 @@ export function constructPublicOperationInvocation<
     input.request,
     `${input.operationId}.request`
   );
-  const admitted = admitPublicOperationInvocationEnvelope(
-    Object.freeze({
+  const envelopeInput: unknown = Object.freeze({
       schemaVersion: 1,
       invocationSchemaId: operation.invocationSchemaId,
       invocationSchemaVersion: operation.invocationSchemaVersion,
@@ -95,7 +108,9 @@ export function constructPublicOperationInvocation<
       provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
       adapter: input.adapter,
       correlationId: input.correlationId ?? input.invocationId
-    }),
+    });
+  const admitted = admitPublicOperationInvocationEnvelope(
+    envelopeInput,
     resolvedOperation
   );
   if (admitted.operationId !== input.operationId) {

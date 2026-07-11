@@ -3,7 +3,7 @@
 
 import assert from "node:assert/strict";
 import test from "node:test";
-import { mkdir, readFile, rm } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { TextEncoder } from "node:util";
 
@@ -1308,6 +1308,7 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
     "  : {",
     "      edge: 'hello-input-to-output',",
     "      actor: 'fake-agent',",
+    "      message: 'Hello, world!',",
     "      fulfillment_assessments: [{",
     "        id: 'instruction_response_admitted',",
     "        evaluator: 'instruction_response_admitted',",
@@ -1426,6 +1427,39 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
     ).length,
     2
   );
+  const archiveEntries = await readdir(
+    path.join(WORKSPACE_ROOT, ".ai-workspace/archives/by-c-call")
+  );
+  const prompts = await Promise.all(
+    archiveEntries.map((entry) =>
+      readFile(
+        path.join(
+          WORKSPACE_ROOT,
+          ".ai-workspace/archives/by-c-call",
+          entry,
+          "prompt.txt"
+        ),
+        "utf8"
+      )
+    )
+  );
+  const transformPrompt = prompts.find((prompt) =>
+    prompt.includes("Run transform")
+  );
+  const evaluatePrompt = prompts.find((prompt) =>
+    prompt.includes("Run evaluate")
+  );
+  assert.notEqual(transformPrompt, undefined);
+  assert.match(transformPrompt, /Standard live dispatch response protocol:/u);
+  assert.match(transformPrompt, /Expected assessment ids derived from this vector: \[\]/u);
+  assert.match(transformPrompt, /identity are ABG-owned/u);
+  assert.doesNotMatch(transformPrompt, /selected_worker_id/u);
+  assert.match(transformPrompt, /slot: input_asset/u);
+  assert.match(transformPrompt, /contentRef: fixture\.schema\.hello/u);
+  assert.match(transformPrompt, /contentExcerpt: "\{\\"greeting\\":\\"world\\"\}"/u);
+  assert.notEqual(evaluatePrompt, undefined);
+  assert.match(evaluatePrompt, /Standard live review response protocol:/u);
+  assert.match(evaluatePrompt, /assessmentIds must equal the expected ids derived from this vector: \[\]/u);
   assert.equal(
     invokeEvents.some(
       (event) => event.kind.startsWith("registry_entry_")
@@ -1436,6 +1470,17 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
     (event) => event.kind === "graph_function_selected"
   );
   assert.equal(selected?.selectedEntryRef, GRAPH_HANDLE);
+  const actorStarted = invokeEvents.find(
+    (event) => event.kind === "actor_invocation_started"
+  );
+  const targetPayload = invokeEvents.find(
+    (event) =>
+      event.kind === "payload_observed" &&
+      event.payloadClass === "hellooutput"
+  );
+  assert.notEqual(actorStarted, undefined);
+  assert.equal(targetPayload?.producerRef, actorStarted?.workerId);
+  assert.notEqual(targetPayload?.producerRef, "worker://t223/fake");
 });
 
 test("T-223 capability construction failure is typed preflight before GraphCall", async () => {

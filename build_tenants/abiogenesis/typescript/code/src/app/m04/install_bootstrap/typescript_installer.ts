@@ -842,19 +842,23 @@ async function locateDependencySource(
   throw new Error(`dependency ${packageName} is not installed near package source`);
 }
 
-async function linkPackageDependency(
+async function copyPackageDependencyTree(
   input: {
-    readonly packageSourceRoot: string;
-    readonly installRoot: string;
+    readonly sourceSearchRoot: string;
+    readonly targetPackageParentRoot: string;
   },
-  packageName: string
+  packageName: string,
+  ancestorSourceRoots: ReadonlySet<string>
 ): Promise<void> {
   const sourceRoot = await locateDependencySource(
-    input.packageSourceRoot,
+    input.sourceSearchRoot,
     packageName
   );
+  if (ancestorSourceRoots.has(sourceRoot)) {
+    return;
+  }
   const targetRootPath = join(
-    input.installRoot,
+    input.targetPackageParentRoot,
     "node_modules",
     ...packageName.split("/")
   );
@@ -867,6 +871,23 @@ async function linkPackageDependency(
   // copy the real payload (locateDependencySource resolves to a real
   // directory in the builder's node_modules).
   await cp(sourceRoot, targetRootPath, { recursive: true });
+
+  const dependencyPackageJson = parsePlainObject(
+    JSON.parse(await readFile(join(sourceRoot, "package.json"), "utf8")),
+    `${packageName}.package.json`
+  );
+  const nextAncestors = new Set(ancestorSourceRoots);
+  nextAncestors.add(sourceRoot);
+  for (const dependency of dependencyNames(dependencyPackageJson)) {
+    await copyPackageDependencyTree(
+      {
+        sourceSearchRoot: sourceRoot,
+        targetPackageParentRoot: targetRootPath
+      },
+      dependency,
+      nextAncestors
+    );
+  }
 }
 
 async function linkPackageDependencies(
@@ -877,7 +898,14 @@ async function linkPackageDependencies(
   identity: PackageIdentity
 ): Promise<void> {
   for (const dependency of identity.dependencies) {
-    await linkPackageDependency(input, dependency);
+    await copyPackageDependencyTree(
+      {
+        sourceSearchRoot: input.packageSourceRoot,
+        targetPackageParentRoot: input.installRoot
+      },
+      dependency,
+      new Set()
+    );
   }
 }
 

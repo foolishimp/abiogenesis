@@ -71,7 +71,7 @@ It remains subordinate to `Module` and is consumed by `M03` only.
 | `SemanticJobBinding` | subordinate | lookup bucket only; no standalone public or persisted authority | derived once from admitted `Module.jobs` |
 | `GraphFunctionHandleResolution` | subordinate | local resolution outcome over one lookup call, not a durable carrier family | derived only inside `M02 -> M03` lookup helpers |
 | `SemanticJobResolution` | subordinate | local resolution outcome over one lookup call, not a durable carrier family | derived only inside `M02 -> M03` lookup helpers |
-| exported package-level lookup API | deferred | this wave does not widen tenant package exports for internal lookup detail | successor ticket only |
+| exported package-level lookup API | promoted by T-222/T-223 | ABG 5.0 publishes the Module-owned lookup contracts through `abg.contract.gtl.m02` | `REQ-P-PUBLIC-CONTRACTS-005` and the DS-1 native contract inventory |
 | runtime caching policy | deferred | outside current lookup-authority repricing | separate ticket only |
 
 ## Lookup Rules
@@ -90,8 +90,10 @@ It remains subordinate to `Module` and is consumed by `M03` only.
   - if no published job targets the resolved graph function, resolution fails closed
 - `M03` execution-basis construction must consume the lookup authority rather
   than directly scanning `module.graphFunctions` or `module.jobs`.
-- this wave may add internal source-level exports needed for `M03` to consume
-  lookup authority, but it must not widen the tenant package export surface.
+- T-014 added only the internal source-level exports needed for `M03` to consume
+  lookup authority. The approved T-222/T-223 successor wave publishes those
+  Module-owned contracts through the versioned `abg.contract.gtl.m02` group;
+  that promotion does not make lookup authority a rival publication carrier.
 
 ## Promotion Rule
 
@@ -100,3 +102,10 @@ No subordinate lookup payload may be promoted during `T-014` unless:
 1. it acquires independent public or persisted authority,
 2. it crosses more than one module boundary unchanged, and
 3. the promotion is recorded here and in `T-014` before code lands.
+
+DS-1 records the successor disposition here: `REQ-P-PUBLIC-CONTRACTS-005`
+provides the independent versioned public-contract authority, the lookup
+contracts cross the M02 publication and M03 execution boundary unchanged, and
+T-222/T-223 bind their exact package-export symbols in the native contract
+inventory. The original T-014 non-export assertion is therefore superseded for
+the 5.0 product line.

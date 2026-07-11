@@ -23,6 +23,7 @@ import {
 } from "../../../abg/m03/contracts/admission_hygiene.js";
 import {
   admitWorkspaceRuntimeEventBytes,
+  admitCatalogGraphFunctionInput,
   assembleCatalogInvocation,
   admitPublicOperationAttribution,
   invokeAdmittedCatalogGraphFunction,
@@ -1112,6 +1113,12 @@ export async function catalogInvoke(
       allowedHandles: request.allowedHandles,
       suppliedView: request.sessionView
     });
+    if (!session.allowedHandles.includes(request.graphFunctionHandle)) {
+      throw new BoundCatalogFailure(
+        "disallowed",
+        "selected GraphFunction is outside the effective session view"
+      );
+    }
     const hostSchema = state.abg.manifest.publicContractCatalog.rows.find(
       (row) => row.contractId === "abg.schema.host-invocation"
     );
@@ -1164,6 +1171,94 @@ export async function catalogInvoke(
       ),
       hostSchema
     );
+    const profile = state.abg.manifest.runtimeSystemProfile;
+    if (profile === null) {
+      throw new BoundCatalogFailure("runtime_refused", "ABG runtime profile is absent");
+    }
+    const selectedRow = state.rowsByHandle.get(descriptor.graphFunctionHandle);
+    if (selectedRow === undefined) {
+      throw new BoundCatalogFailure("disallowed", "selected catalog handle is unresolved");
+    }
+    const selectedPublicRow = session.rows.find(
+      (row) => row.canonicalHandle === descriptor.graphFunctionHandle
+    );
+    if (selectedPublicRow === undefined) {
+      throw new BoundCatalogFailure(
+        "disallowed",
+        "selected GraphFunction is outside the effective session view"
+      );
+    }
+    if (!selectedPublicRow.callable) {
+      throw new BoundCatalogFailure(
+        "non_callable",
+        "only an admitted GraphFunction contribution may be invoked"
+      );
+    }
+    if (selectedRow.row.interfaceRef !== descriptor.interfaceRef) {
+      throw new BoundCatalogFailure(
+        "interface_mismatch",
+        "requested interface does not match admitted catalog truth"
+      );
+    }
+    const undeclaredCapabilityRefs = selectedRow.row.capabilityRefs.filter(
+      (ref) => !descriptor.requiredCapabilityRefs.includes(ref)
+    );
+    if (undeclaredCapabilityRefs.length > 0) {
+      throw new BoundCatalogFailure(
+        "missing_capability",
+        `invoke omits contribution-required capabilities: ${undeclaredCapabilityRefs.join(",")}`
+      );
+    }
+    const inputContract = selectedRow.source.manifest.publicContractCatalog.rows.find(
+      (row) => row.contractId === selectedRow.row.contractRef
+    );
+    if (
+      inputContract?.assetLocator === null ||
+      inputContract?.assetLocator === undefined ||
+      inputContract.assetLocator.schemaId !== descriptor.inputSchemaId ||
+      inputContract.assetLocator.schemaVersion !== descriptor.inputSchemaVersion ||
+      inputContract.assetLocator.digest !== descriptor.inputSchemaDigest
+    ) {
+      throw new BoundCatalogFailure(
+        "input_invalid",
+        "input schema identity does not match the selected contribution contract"
+      );
+    }
+    const inputSchema = await requireRecord(
+      context,
+      join(
+        selectedRow.source.binding.productRoot,
+        inputContract.assetLocator.relativePath
+      ),
+      `input schema for ${descriptor.graphFunctionHandle}`
+    );
+    if (stableSha256Digest(inputSchema) !== descriptor.inputSchemaDigest) {
+      throw new BoundCatalogFailure(
+        "input_invalid",
+        "installed input schema content does not match its bound digest"
+      );
+    }
+    const inputValue = "input" in descriptor
+      ? descriptor.input
+      : await context.effects.readInputAsset(descriptor.inputRef);
+    if (inputValue === null) {
+      throw new BoundCatalogFailure(
+        "input_invalid",
+        `input reference is unreadable: ${descriptor.inputRef}`
+      );
+    }
+    const inputAdmission = admitCatalogGraphFunctionInput({
+      schema: inputSchema,
+      value: inputValue
+    });
+    if (!inputAdmission.accepted) {
+      throw new BoundCatalogFailure(
+        "input_invalid",
+        `catalog input admission failed: ${inputAdmission.issues
+          .map((issue) => `${issue.instancePath || "/"} ${issue.message}`)
+          .join("; ")}`
+      );
+    }
     let pluginCapabilities;
     let availableLivePluginRefs: readonly string[] = Object.freeze([]);
     let capabilityProvenanceRefs: readonly string[] = Object.freeze([]);
@@ -1225,70 +1320,6 @@ export async function catalogInvoke(
         first.projection.capabilityDigest,
         first.projection.executionContractDigest
       ]);
-    }
-    const profile = state.abg.manifest.runtimeSystemProfile;
-    if (profile === null) {
-      throw new BoundCatalogFailure("runtime_refused", "ABG runtime profile is absent");
-    }
-    const selectedRow = state.rowsByHandle.get(descriptor.graphFunctionHandle);
-    if (selectedRow === undefined) {
-      throw new BoundCatalogFailure("disallowed", "selected catalog handle is unresolved");
-    }
-    const selectedPublicRow = session.rows.find(
-      (row) => row.canonicalHandle === descriptor.graphFunctionHandle
-    );
-    if (selectedPublicRow === undefined || !selectedPublicRow.callable) {
-      throw new BoundCatalogFailure(
-        "non_callable",
-        "only an admitted GraphFunction contribution may be invoked"
-      );
-    }
-    const undeclaredCapabilityRefs = selectedRow.row.capabilityRefs.filter(
-      (ref) => !descriptor.requiredCapabilityRefs.includes(ref)
-    );
-    if (undeclaredCapabilityRefs.length > 0) {
-      throw new BoundCatalogFailure(
-        "missing_capability",
-        `invoke omits contribution-required capabilities: ${undeclaredCapabilityRefs.join(",")}`
-      );
-    }
-    const inputContract = selectedRow.source.manifest.publicContractCatalog.rows.find(
-      (row) => row.contractId === selectedRow.row.contractRef
-    );
-    if (
-      inputContract?.assetLocator === null ||
-      inputContract?.assetLocator === undefined ||
-      inputContract.assetLocator.schemaId !== descriptor.inputSchemaId ||
-      inputContract.assetLocator.schemaVersion !== descriptor.inputSchemaVersion ||
-      inputContract.assetLocator.digest !== descriptor.inputSchemaDigest
-    ) {
-      throw new BoundCatalogFailure(
-        "input_invalid",
-        "input schema identity does not match the selected contribution contract"
-      );
-    }
-    const inputSchema = await requireRecord(
-      context,
-      join(
-        selectedRow.source.binding.productRoot,
-        inputContract.assetLocator.relativePath
-      ),
-      `input schema for ${descriptor.graphFunctionHandle}`
-    );
-    if (stableSha256Digest(inputSchema) !== descriptor.inputSchemaDigest) {
-      throw new BoundCatalogFailure(
-        "input_invalid",
-        "installed input schema content does not match its bound digest"
-      );
-    }
-    const inputValue = "input" in descriptor
-      ? descriptor.input
-      : await context.effects.readInputAsset(descriptor.inputRef);
-    if (inputValue === null) {
-      throw new BoundCatalogFailure(
-        "input_invalid",
-        `input reference is unreadable: ${descriptor.inputRef}`
-      );
     }
     const foreignPluginRefs = availableLivePluginRefs.filter(
       (ref) => !profile.standardPluginRefs.includes(ref)

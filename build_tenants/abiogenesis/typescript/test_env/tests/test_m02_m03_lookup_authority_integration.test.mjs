@@ -227,6 +227,9 @@ test("T-014 integration: execution-basis admission resolves published callable t
   assert.equal(typeof root.admitExecutionBasis, "function");
   assert.equal(root.admitModule, m02.admitModule);
   assert.equal(root.admitExecutionBasis, m03.admitExecutionBasis);
-  assert.equal("constructModuleLookupAuthority" in root, false);
-  assert.equal("constructModuleLookupAuthority" in m02, false);
+  assert.equal(typeof m02.constructModuleLookupAuthority, "function");
+  assert.equal(
+    root.constructModuleLookupAuthority,
+    m02.constructModuleLookupAuthority
+  );
 });

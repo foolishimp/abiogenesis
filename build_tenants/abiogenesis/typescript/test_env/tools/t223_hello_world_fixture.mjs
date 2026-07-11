@@ -149,7 +149,17 @@ function compactGraphFunctionIdentity(graphFunction, graphId, graphFunctionId) {
   });
 }
 
-export function buildT223HelloWorldModule() {
+export function buildT223HelloWorldModule(options = {}) {
+  const graphFunctionHandle =
+    options.shadowSystemGraphFunctionHandle ?? T223_FIXTURE_GRAPH_HANDLE;
+  if (
+    typeof graphFunctionHandle !== "string" ||
+    !graphFunctionHandle.startsWith("graph-function://")
+  ) {
+    throw new TypeError(
+      "shadowSystemGraphFunctionHandle must be a canonical GraphFunction handle"
+    );
+  }
   const input = helloNode("HelloInput", FIXTURE_CONTRACTS.input);
   const output = helloNode("HelloOutput", FIXTURE_CONTRACTS.output);
   const vector = edge([input], output, {
@@ -162,7 +172,7 @@ export function buildT223HelloWorldModule() {
     throw new TypeError("Hello World edge did not materialize one vector");
   }
   const graphFunction = compactGraphFunctionIdentity(graphFunctionForVector(vector, {
-    name: T223_FIXTURE_GRAPH_HANDLE,
+    name: graphFunctionHandle,
     declarations: graphFunctionDeclarations([
       ...constructAbgFnCompositionDeclarations({
       contractRef: "abg.fn_composition://fixture/hello-world",
@@ -231,7 +241,7 @@ export function buildT223HelloWorldModule() {
       })
     ]),
     tags: ["t223", "hello-world"]
-  }), "graph://fixture/hello-world", T223_FIXTURE_GRAPH_HANDLE);
+  }), "graph://fixture/hello-world", graphFunctionHandle);
   const nodeType = compactGraphFunctionIdentity(constructNodeTypeGraphFunction(
     helloNode(
       "HelloInputType",
@@ -399,14 +409,18 @@ function productContentDigest(files) {
   return digestCanonicalIJson(inventory);
 }
 
-async function writeProductFiles(packageRoot) {
+async function writeProductFiles(packageRoot, graphFunctionHandle) {
   const declaredSchemas = schemas();
-  const module = buildT223HelloWorldModule();
+  const module = buildT223HelloWorldModule({
+    ...(graphFunctionHandle === T223_FIXTURE_GRAPH_HANDLE
+      ? {}
+      : { shadowSystemGraphFunctionHandle: graphFunctionHandle })
+  });
   const overlay = {
     kind: "catalog_overlay_declaration",
     schemaVersion: 1,
     overlayRef: T223_FIXTURE_OVERLAY_HANDLE,
-    graphFunctionRefs: [T223_FIXTURE_GRAPH_HANDLE],
+    graphFunctionRefs: [graphFunctionHandle],
     policyRefs: ["policy://fixture/default"],
     provenanceRefs: ["fixture://t223/hello-world"]
   };
@@ -425,7 +439,7 @@ async function writeProductFiles(packageRoot) {
     kind: "graph_function_interface",
     schemaVersion: 1,
     interfaceRef: T223_FIXTURE_INTERFACE_REF,
-    graphFunctionRef: T223_FIXTURE_GRAPH_HANDLE,
+    graphFunctionRef: graphFunctionHandle,
     inputSchema: {
       contractRef: FIXTURE_CONTRACTS.input,
       digest: sha256(inputSchemaBytes),
@@ -637,9 +651,9 @@ async function writeSidecars(input) {
     rows: [
       contributionRow(
         {
-          handle: T223_FIXTURE_GRAPH_HANDLE,
+          handle: input.graphFunctionHandle,
           kind: "graph_function",
-          declarationRef: T223_FIXTURE_GRAPH_HANDLE,
+          declarationRef: input.graphFunctionHandle,
           contractRef: FIXTURE_CONTRACTS.input,
           interfaceRef: T223_FIXTURE_INTERFACE_REF
         },
@@ -728,16 +742,27 @@ async function writeSidecars(input) {
 
 export async function generateT223HelloWorldFixture(input) {
   const abgVersion = canonicalSemverArgument(input.abgVersion);
+  const graphFunctionHandle =
+    input.shadowSystemGraphFunctionHandle ?? T223_FIXTURE_GRAPH_HANDLE;
+  if (
+    typeof graphFunctionHandle !== "string" ||
+    !graphFunctionHandle.startsWith("graph-function://")
+  ) {
+    throw new TypeError(
+      "shadowSystemGraphFunctionHandle must be a canonical GraphFunction handle"
+    );
+  }
   const root = path.resolve(input.root);
   await rm(root, { recursive: true, force: true });
   const packageRoot = path.join(root, "package");
   const artifactRoot = path.join(root, ".artifacts");
   await mkdir(artifactRoot, { recursive: true });
-  const product = await writeProductFiles(packageRoot);
+  const product = await writeProductFiles(packageRoot, graphFunctionHandle);
   const artifactPath = packNpmPackage(packageRoot, artifactRoot);
   const sidecars = await writeSidecars({
     abgVersion,
     artifactPath,
+    graphFunctionHandle,
     packageRoot,
     product,
     root

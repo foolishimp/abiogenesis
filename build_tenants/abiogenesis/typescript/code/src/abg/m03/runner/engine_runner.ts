@@ -879,6 +879,23 @@ function runtimeBindingFact(input: {
   });
 }
 
+function canonicalJsonContentFromDataUri(uri: string): string | null {
+  const match =
+    /^data:application\/json(?:;charset=utf-8)?,(.*)$/u.exec(uri);
+  if (match === null) {
+    return null;
+  }
+  const encoded = match[1];
+  if (encoded === undefined) {
+    return null;
+  }
+  try {
+    return stableJson(JSON.parse(decodeURIComponent(encoded)));
+  } catch {
+    return null;
+  }
+}
+
 function latestSelectedGraphFunctionEvent(input: {
   readonly basis: ExecutionBasis;
   readonly replayEvents: readonly RuntimeEvent[];
@@ -963,6 +980,24 @@ function runtimeBindingFactsForInstructionAssembly(input: {
         slotClass: "target_node",
         ref: vector.target.id,
         sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+      })
+    );
+  }
+  for (const binding of input.basis.startIntent.inputBindings ?? []) {
+    const content = canonicalJsonContentFromDataUri(binding.uri);
+    facts.push(
+      runtimeBindingFact({
+        slotClass: "input_asset",
+        ref: binding.assetRef,
+        sourceEventRefs: [input.pluginInput.sourceProjectionRef],
+        payloadDigest: stableSha256Digest({
+          assetRef: binding.assetRef,
+          assetType: binding.assetType,
+          uri: binding.uri
+        }),
+        contentRef: binding.assetType,
+        contentDigest: content === null ? null : stableSha256Digest(content),
+        contentExcerpt: content
       })
     );
   }

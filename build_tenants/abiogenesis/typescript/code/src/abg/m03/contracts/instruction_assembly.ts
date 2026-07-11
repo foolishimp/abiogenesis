@@ -90,6 +90,7 @@ export type RuntimeBindingSlotClass =
   | "selected_graph_function"
   | "source_node"
   | "target_node"
+  | "input_asset"
   | "payload"
   | "evidence"
   | "prior_artifact"

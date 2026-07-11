@@ -272,9 +272,7 @@ function payloadEventsForAcceptedResult(input: {
       payloadClass: targetCarrierContract.outputCarrierKind,
       contractRef: targetCarrierContract.contractRef,
       digest: `digest:target_carrier:${targetPayloadDigest}`,
-      producerRef:
-        input.artifact.artifactPayload?.workerId ??
-        input.transformRequest.workerId,
+      producerRef: input.transformRequest.workerId,
       sourceEventRef: input.artifact.resultRef,
       actorInvocationId: input.transformRequest.actorInvocationId,
       authorityRef: input.transformRequest.resultRef,
