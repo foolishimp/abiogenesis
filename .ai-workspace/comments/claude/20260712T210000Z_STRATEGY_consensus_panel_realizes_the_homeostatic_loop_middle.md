@@ -157,3 +157,22 @@ policy/provenance refs (read 2026-07-12), published capability set and
 operation set (grepped 2026-07-12), T-223 suite rerun green 70/70
 (2026-07-12), the 07-10 inventory post, T-242 decision records. The writer
 executes §7; nothing here changes law.
+
+## 9. Erratum (2026-07-12, per the T-242 CR-H review supplement)
+
+Two claims above overstate, corrected by the writer's ticket-layer review and
+accepted:
+
+1. §3 "the finding schema already exists as declared law" — only the contract
+   **identity** (`contract://abg/review/findings`) and its comment exist; no
+   concrete input/output schema body is published. Authoring the strict
+   schemas is remaining 5.0 work (T-244 `A5-CONSENSUS-01`).
+2. §6 "feasibility verified" means **building-block feasibility** (capability
+   spine + steel-thread invocation path), not feature closure: there is no
+   published executable Consensus graph body, panel execution carrier,
+   governed round realization, ticket-bound projection, or installed
+   invocation proof. The T-244 release gate defines closure.
+
+This post is demand and design evidence, not authority; the T-242 CR-H
+decision record and its review supplement are the ticket-layer authority, and
+T-249 owns constitutional admission.
