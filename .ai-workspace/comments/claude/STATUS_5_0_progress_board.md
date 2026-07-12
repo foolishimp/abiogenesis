@@ -33,7 +33,7 @@ depth, live lanes.
 | 3c | Body + compile census | ⛔ after 3b | ~30–60m est |
 | 4 | Invocation spine (4 leaves) | ⛔ 3–4 design reworks + accepts first (register: 6 blocked/4 candidate) | ~2.5–5h est + rework cycles |
 | 5 | Runtime atoms: workflow.C/C.batch/C.retry + census-discovered HOF/recurse runtime leaves (count TBD) | ⛔ sized by 3c census | ~2–6h+; re-based at census |
-| 6 | Consensus as GTL function | ⛔ after 4+5 | ~1–2h est |
+| 6 | Atom-uplift proof: Consensus as first free construction (stdlib guarantee: public atoms only) | ⛔ after 4+5 | ~1–2h est |
 | 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~4–8h est |
 | 8 | Compliance (T-247) | ⛔ after features | ~2.5–5h est |
 | 9 | Release 5.0.0 (T-248) | ⛔ last 5.0 step | ~1.5–3h est |
