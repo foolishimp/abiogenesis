@@ -73,6 +73,25 @@ one-sided variance.
 - **F5 → Phase 10:** odd_glc T-033/037/038/039 still target dropped R5/I1;
   pre-stage the retarget before RC week.
 
+## T-253 Phase-B reconciliation criteria (pre-published; review runs these verbatim)
+
+1. Scope fence: M01 typed witnesses + raw admission + serialization +
+   compiler recognition ONLY. `gtl-hof-unrealized-fan-out` emitted as the
+   honest gap. NO runtime interpreter (own leaf). NO partial-failure
+   semantics (fenced by the Phase-A correction).
+2. Zero consensus vocabulary in m01/m03 additions (declared watch item).
+3. Requirement conformance, each with a negative test: Vector[T] joins an
+   explicit member contract (spelling ≠ admission); cardinality + ordinal
+   pairing preserved through authoring/serialization/admission/compilation;
+   no inference from name/label/tag/node-identity/hidden cardinality.
+4. Scenario-09 non-Consensus fixture present as a compiling test.
+5. Design-diagram comparison: code entities ↔ domain stereotypes; admission
+   states realized; focused mermaid gate green.
+6. Gates: full suite green; focused t253 lane; lint lanes; no changes
+   outside declared files.
+7. Census effect: the typed fan-out becomes AUTHORABLE (compiles to the
+   honest gap) instead of unrepresentable — the Current Defect closes.
+
 ## Next checkpoints claude verifies
 
 1. T-250 lands → 7 differentials, rc.3 bytes untouched, suite fully green.
