@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-25
-**Derives from**: INT-001 (self-hosting and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 2
 
 ---
@@ -137,7 +137,7 @@ diff-execution witness gate. Never-committed executable surfaces in that census
 are witnessed in full. Every public binding export shall be referenced by the
 unit lane.
 
-Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-239.
+Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-247.
 
 ---
 
@@ -145,7 +145,7 @@ Gap: the gate witnesses only `.ts` files under `code/src`; the general obligatio
 
 **REQ-P-QUAL-026**: Every NEW or MIGRATED live proof run shall execute on a **packed-and-installed sandbox substrate** driving the installed surface, never the repo build tree — conformant from birth.
 
-Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-239. The list shall be empty before the R5 self-host freeze.
+Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-247. The list shall be empty before the ABIogenesis 5.0 exact-candidate gate freezes its qualification input.
 
 ---
 
@@ -188,49 +188,63 @@ explicitly non-release snapshot; a bypassed gate records null evidence and
 shall never be represented as green or promotable.
 
 Gap: the current release-snapshot request still accepts build, lint, and test
-bypass booleans for a release-grade request. T-239 shall make release-grade
+bypass booleans for a release-grade request. T-247 shall make release-grade
 admission reject every mandatory-gate or exact-cut bypass and pin the red and
-bypassed differentials before R5 freezes.
+bypassed differentials before the ABIogenesis 5.0 exact-candidate gate freezes
+its qualification input.
 
 ## ABIogenesis 5.0 Exact-Cut Qualification
 
 **REQ-P-QUAL-057**: ABIogenesis 5.0 pre-RC qualification shall bind the exact
-installed `R5` and `G5` source-candidate identities, content and install-artifact
-digests, product-manifest digests, workspace binding, and tenant-conformance
-manifest identity and digest. Source-tree execution or evidence from different
-candidate content shall not satisfy the source-candidate gate. RC and final
-versions are assigned only by the release process.
+installed ABIogenesis candidate identity, content and install-artifact digests,
+product-manifest digest, workspace binding, and tenant-conformance manifest
+identity and digest. Source-tree execution or evidence from different candidate
+content shall not satisfy the source-candidate gate. RC and final versions are
+assigned only by the release process. An odd_glc candidate or successor dogfood
+workspace shall not be part of this 5.0 candidate identity.
 
-**REQ-P-QUAL-058**: The exact installed `R5` shall run one Hello World GraphFunction through the public SDK or CLI, produce the declared typed result, and expose the corresponding admitted catalog, selection, GraphCall, closure, and replay truth.
+**REQ-P-QUAL-058**: The exact installed ABIogenesis 5.0 candidate shall run one Hello World GraphFunction through the public SDK or CLI, produce the declared typed result, and expose the corresponding admitted catalog, selection, GraphCall, closure, and replay truth.
 
-**REQ-P-QUAL-059**: The exact installed `R5` shall complete the primary public operator loop: start, report one truthful stop, hold, or gap, expose the replay-derived frontier and lawful actions, admit an agent edit or typed F_H response, resume or start again, and converge without a second controller or private import.
+**REQ-P-QUAL-059**: The exact installed ABIogenesis 5.0 candidate shall complete the primary public operator loop: start, report one truthful stop, hold, or gap, expose the replay-derived frontier and lawful actions, admit an agent edit or typed F_H response, resume or start again, and converge without a second controller or private import.
 
-**REQ-P-QUAL-060**: The exact installed `R5` shall satisfy
+**REQ-P-QUAL-060**: The exact installed ABIogenesis 5.0 candidate shall satisfy
 `REQ-P-SELF-CONFORMANCE` over its complete frozen constitutional, design,
 realization, proof, ticket/execution-contract, public-seam, manifest,
 qualification, and release-claim inventory under the exact declared
 method/rule/source basis. The real-tree and seeded-negative gates shall pass,
-findings and dispositions shall be typed, and the builder shall receive no
+findings and dispositions shall be typed, and the product shall receive no
 conformance exemption.
 
-**REQ-P-QUAL-060A**: The exact installed `R5` shall run the current observer and
-tuner over the self-build path and prove truthful halt classification,
-replay-grounded findings and drafts, actor/policy attribution, ratification and
-rejection without direct authority mutation, replay-visible acts, and one
-injected negative that returns the expected non-green typed result.
+**REQ-P-QUAL-060A**: The exact installed ABIogenesis 5.0 candidate shall run the
+current observer and tuner over the frozen candidate and release path and prove
+truthful halt classification, replay-grounded findings and drafts, actor/policy
+attribution, ratification and rejection without direct authority mutation,
+replay-visible acts, and one injected negative that returns the expected
+non-green typed result.
 
-**REQ-P-QUAL-061**: The exact-cut gate shall admit the installed two-stage self-host and fixed-point evidence required by `REQ-R-ABG3-SELFHOSTING`, including exact bootstrap identities, convergence, source isolation, and `C1`/`C2` equivalence.
+**REQ-P-QUAL-061**: The exact installed ABIogenesis 5.0 candidate shall satisfy
+`REQ-P-CONSENSUS`. Qualification shall invoke its published SYSTEM-owned
+Consensus GraphFunction through `abg.cli` over one real ticket and at least two
+differently attributed reviewer profiles; prove agreement closure, dispute
+recursion, and round-limit or unresolved-dispute F_H escalation; exercise the
+existing, alternate, and temporary workspace applications; and expose the typed
+result and replay without source import, feature-specific engine code, or
+shell-owned orchestration.
 
-**REQ-P-QUAL-062**: Exact `G5` shall qualify as a declarations-only catalog product over exact installed `R5` by completing one fresh full data-mapper campaign through ABG-owned catalog, traversal, worker, materialization, consequence, result, and replay contracts. A `G5`-local controller or runtime authority shall fail this gate.
+**REQ-P-QUAL-062**: An odd_glc release, downstream data-mapper campaign, or
+installed 5.0 product authoring the distinct 5.0.1 successor is post-5.0
+evidence. It shall have its own exact product identities, requirements, design,
+qualification, and release gate and shall not be required to make the
+ABIogenesis 5.0 candidate or final release green.
 
-**REQ-P-QUAL-063**: The exact installed `R5` shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
+**REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
 
 **REQ-P-QUAL-064**: One exact-cut verdict shall cite the owning qualification
 evidence for installed Hello World, the seven-term declared C program and its
 malformed GTL/F_P differentials, the bounded conformance-enforcement gate, the
-public operator loop, self-conformance, observer/tuner truth, self-hosting, the
-`G5` data-mapper campaign, native operation, the Codex projection, and
-exact product identity. It shall aggregate those owning proofs rather than
+public operator loop, self-conformance, observer/tuner truth, the installed
+Consensus GraphFunction, native operation, the Codex projection, and exact
+product identity. It shall aggregate those owning proofs rather than
 introduce a second semantic checker, runtime, or release-wide qualification harness.
 
 **REQ-P-QUAL-065**: Qualification on the supported trusted-developer-desktop boundary shall defend malformed GTL and F_P results, unresolved or incompatible contracts and capabilities, incorrect product identity or binding, source/private-import dependence, and false convergence or release claims. It shall not require hostile-local tamper resistance, a signing service, remote attestation, a hosted marketplace, or repeated adversarial campaigns.
@@ -243,27 +257,28 @@ paths may consume one identical recorded admitted result when the gate is
 explicitly a transport-independent projection test. Textual output equality is
 not required unless the public contract declares it.
 
-**REQ-P-QUAL-067**: Release closure shall fresh-install the independently
-published ABG 5.0 and G5 release artifacts by their verified remote identities,
-bind their exact released descriptors, manifests, versions, digests, dependency
-lock, and tenant-conformance identities, and pass the bounded released-pair
-catalog and invocation proof without rebuilding or importing mutable source.
-This post-publication result shall be a terminal addendum to the same A5-R1
-release manifest/read model. It shall not be required to make the pre-release
-exact-candidate verdict green and shall not reinterpret that earlier verdict.
+**REQ-P-QUAL-067**: Release closure shall fresh-install the published
+ABIogenesis 5.0 release artifact by its verified remote identity, bind its exact
+released descriptor, manifest, version, digest, and tenant-conformance identity,
+and pass the bounded installed catalog, public invocation, Consensus, and replay
+proof without rebuilding or importing mutable source. This post-publication
+result shall be a terminal addendum to the same A5-R1 release manifest/read
+model. It shall not be required to make the pre-release exact-candidate verdict
+green and shall not reinterpret that earlier verdict.
 
 **REQ-P-QUAL-068**: The ABG 5.0 release process shall open a mutable RC window,
-publish at least one immutable versioned RC cut descended from exact `R5`, and
-qualify the latest accepted RC before the final tap. The RC record shall bind
-its source lineage, allowed version/release-asset delta, branch, tag, package,
-snapshot, checksums, notes, installed identity, operator review, and selected
-qualification evidence. A bounded fix after publication requires a new RC cut.
+publish at least one immutable versioned RC cut descended from the exact
+accepted ABIogenesis candidate, and qualify the latest accepted RC before the
+final tap. The RC record shall bind its source lineage, allowed
+version/release-asset delta, branch, tag, package, snapshot, checksums, notes,
+installed identity, operator review, and selected qualification evidence. A
+bounded fix after publication requires a new RC cut.
 
-**REQ-P-QUAL-069**: The G5 release process shall independently open a mutable RC
-window after ABG 5.0 is released, publish at least one immutable versioned G5 RC
-descended from exact `G5`, and qualify it beside exact released ABG 5.0 before
-the G5 final tap. G5 RC qualification shall retain the declarations-only and
-installed data-mapper claims and shall not bundle ABG as product content.
+**REQ-P-QUAL-069**: An odd_glc release or 5.0.1 dogfood campaign may begin only
+after stable ABIogenesis 5.0 is available as an exact installed development
+product. Its failure shall block its own claim and may re-enter ABIogenesis when
+it exposes a retained 5.0 product defect, but it shall not be a deferred
+prerequisite or terminal addendum required for the ABIogenesis 5.0 release.
 
 **REQ-P-QUAL-070**: A final tap may change the accepted RC only through the
 assigned final version and reconciled release-scoped assets. Product behavior,

@@ -1,11 +1,11 @@
-# B-010 Induct ABG Source Development Under odd_sdlc Governance
+# B-010 Induct ABG Source Development Under Installed ODD Governance
 
 - id: B-010
-- title: Induct ABG source development under odd_sdlc governance (without boundary collapse)
+- title: Induct ABG source development under installed ODD governance (without boundary collapse)
 - type: methodology
 - status: blocked
-- goal: abg-self-governance
-- change_intent: Run ABG 2.0 source development under a released odd_sdlc product as the governing runtime, without collapsing the boundary between the mutable source project and the released product.
+- goal: future ABIogenesis 5.0.1 dogfood wave; not GOAL-035
+- change_intent: Run ABIogenesis successor development under installed released ABIogenesis plus a released declarations-only ODD catalog product, without collapsing the mutable source project into either installed product.
 - change_class: intent_reprice
 - re_entry_point: goals
 - priority: low
@@ -13,15 +13,16 @@
 - affected_boundary: ABG development process, test qualification authority
 - triaged_at: 2026-04-17
 - created_at: 2026-04-17
-- updated_at: 2026-04-26
+- updated_at: 2026-07-13 (stable-first 5.0.1 deferral)
 - reopened_at: 2026-04-26
 - blocked_at: 2026-04-26
-- blocking_dependency: stable released ODD SDLC product selected as governing
-  source-development substrate
-- blocked_reason: ABG source induction cannot be actioned until an ODD SDLC
-  release candidate is stable enough to govern ABG source development without
-  reintroducing root `.genesis` residue or collapsing source/install/product
-  boundaries.
+- blocking_dependency: stable released ABIogenesis 5.0 plus independently
+  released odd_glc 1.0 selected as the 5.0.1 development product
+- blocked_reason: >-
+    F_H ruled that ABIogenesis 5.0 is authored directly under STDO and accepted
+    design gates, then released as the stable baseline before dogfooding begins.
+    Full installed-product governance induction therefore re-enters only for
+    the 5.0.1 successor wave after T-248 and odd_glc 1.0.
 
 ## Correction from prior version
 
@@ -148,3 +149,36 @@ lawful (blocking dependency named: a stable released ODD SDLC governing
 substrate). One update: the self-hosting maturity evidence has grown —
 the odd_glc line now closes typed-requirement lifecycles end to end
 (T-031) — but the blocking dependency is unchanged. No action.
+
+## Stable-First Deferral (2026-07-13)
+
+F_H approved the stable-first 5.0 plan. The earlier odd_sdlc/ABG-2.0 framing
+above remains historical intake; odd_sdlc is not a current delivery product or
+governance dependency.
+
+Current disposition:
+
+1. ABIogenesis 5.0 is authored in the mutable source project under STDO,
+   accepted three-view design, GTL admission, semantic compilation, focused
+   proof, and phase self-review.
+2. That manual governance is sufficient for the 5.0 construction wave. It is
+   not represented as installed-product dogfood or completed B-010 induction.
+3. T-248 releases the stable 5.0 product directly. B-010 is not a T-248 gate.
+4. After stable 5.0 and odd_glc 1.0 exist, T-245/T-246 use those installed
+   released products to govern the mutable 5.0.1 subject. That is B-010's next
+   lawful re-entry.
+5. The installed products, target workspace, mutable source, event/projection
+   state, and generated artifacts remain distinct. No root `.genesis` or local
+   residue becomes constitutional authority.
+
+Re-entry requires all of:
+
+- completed T-248 stable 5.0 release;
+- independently released compatible odd_glc 1.0;
+- an admitted ABIogenesis 5.0.1 goal and subject; and
+- accepted T-245 campaign design preserving the product/install/source split.
+
+The optional mechanical commit/push guard proposed as stable-plan amendment A5
+remains pending F_H choice. Its absence does not authorize code-first work;
+ticket reference, accepted design reference, and phase self-review remain
+mandatory process gates.

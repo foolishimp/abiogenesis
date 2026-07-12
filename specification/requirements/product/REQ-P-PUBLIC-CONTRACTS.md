@@ -28,15 +28,6 @@ equal to `abg_product_toolchain_manifest`, `schemaVersion`, `productId`,
 `publicContractCatalog` object. A missing, malformed, duplicate, or
 digest-incoherent bootstrap field shall fail product verification.
 
-**REQ-P-PUBLIC-CONTRACTS-001A**: Exact P4/I4 under
-`REQ-R-ABG3-SELFHOSTING-004` is a released predecessor, not a product claiming
-conformance to this 5.0 public-contract family. Its exact bootstrap selection is
-governed by the ordinary applicable install law. Its absence of a 5.0 contract
-catalog is governed specifically by `REQ-P-INSTALL-008B` and
-`REQ-R-ABG3-SELFHOSTING-004`, `-006`, `-007`, and `-013`. That absence shall not
-be filled by inference, a compatibility facade, or mutable repackaging, and I4
-shall not thereby become catalog-admissible as a 5.0 product.
-
 **REQ-P-PUBLIC-CONTRACTS-002**: `publicContractCatalog` shall carry
 `schemaVersion`, `catalogId`, `catalogVersion`, `catalogDigest`,
 `catalogSchemaPath`, `catalogSchemaDigest`, and `rows`. Paths shall be relative
@@ -135,12 +126,22 @@ identity, version, digest, authority refs, and locator:
 - `abg.schema.fh-interaction`
 - `abg.schema.tenant-conformance-manifest`
 - `abg.schema.self-conformance-result`
-- `abg.schema.self-build-program-manifest`
+- `abg.schema.consensus-subject`
+- `abg.schema.consensus-panel`
+- `abg.schema.consensus-reviewer-profile`
+- `abg.schema.review-findings`
+- `abg.schema.review-rulings`
+- `abg.schema.consensus-round-policy`
+- `abg.schema.consensus-round-outcome`
+- `abg.schema.consensus-result`
+- `abg.schema.ticket-consensus-projection`
 - `abg.schema.release-snapshot`
 - `abg.schema.a5-r1-release-manifest`
 - `abg.vocabulary.runtime-event-kind`
 - `abg.vocabulary.gtl-program-diagnostic-id`
 - `abg.vocabulary.gtl-program-repair-edit-class`
+- `abg.vocabulary.review-ruling-kind`
+- `abg.vocabulary.consensus-round-outcome`
 - `abg.asset.gtl.language-conformance-corpus`
 
 **REQ-P-PUBLIC-CONTRACTS-007**: The language conformance corpus shall be one
@@ -224,7 +225,8 @@ capabilities for GTL declaration/admission/serialization, Module publication,
 catalog contribution and GraphFunction invocation, node-type and overlay
 application, seven-term C execution, F_P result admission/materialization,
 runtime events/replay/continuation, the complete public operator contract,
-installed-product binding, qualification, self-conformance, and self-hosting.
+installed-product binding, qualification, self-conformance, and the published
+SYSTEM-owned Consensus GraphFunction.
 
 The mandatory ABIogenesis 5.0 capability identities are:
 
@@ -243,7 +245,7 @@ The mandatory ABIogenesis 5.0 capability identities are:
 - `abg.capability.operator.public-contract@5`
 - `abg.capability.install.bind-products@5`
 - `abg.capability.qualification.self-conformance@5`
-- `abg.capability.qualification.self-host@5`
+- `abg.capability.graph-function.consensus@5`
 
 **REQ-P-PUBLIC-CONTRACTS-012**: The tenant-conformance manifest shall reference
 only contract and capability identities present in the exact product's public

@@ -1,0 +1,180 @@
+# REQ-P-CONSENSUS - Agent-Invocable Consensus GraphFunction
+
+**Status**: Active
+**Category**: Capability / Constraint / Verification
+**Date**: 2026-07-12
+**Derives from**: [PRODUCT.md](../../PRODUCT.md),
+[REQ-L-GTL3-GRAPHFUNCTION.md](../gtl/REQ-L-GTL3-GRAPHFUNCTION.md),
+[REQ-L-GTL3-HOF.md](../gtl/REQ-L-GTL3-HOF.md),
+[REQ-L-GTL3-RECURSE.md](../gtl/REQ-L-GTL3-RECURSE.md),
+[REQ-L-GTL3-C-ALGEBRA.md](../gtl/REQ-L-GTL3-C-ALGEBRA.md),
+[REQ-P-PUBLIC-CONTRACTS.md](REQ-P-PUBLIC-CONTRACTS.md),
+[REQ-P-CATALOG.md](REQ-P-CATALOG.md),
+[REQ-P-INSTALL.md](REQ-P-INSTALL.md),
+[TICKET_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md)
+**Wave**: ABIogenesis 5.0
+
+---
+
+## Purpose
+
+Publish one bounded, agent-invocable Consensus capability as a SYSTEM-owned GTL
+free construction. A calling agent invokes the function through `abg.cli`, and
+ABG executes its declared reviewer fan-out, reduction, bounded verification
+rounds, result admission, and replay without a feature-specific engine service,
+plugin controller, or shell loop.
+
+## Identity And Ownership
+
+**REQ-P-CONSENSUS-001**: ABIogenesis 5.0 shall publish exactly one canonical
+Consensus GraphFunction under handle
+`gtl://abg/consensus/submitter-reviewer-rounds`, graph-function ref
+`graph-function://abg/consensus/submitter-reviewer-rounds`, and SYSTEM owner
+`owner://abg/substrate`. It shall be an admitted callable `graph_function` row in
+the ABIogenesis product catalog.
+
+**REQ-P-CONSENSUS-002**: The canonical Consensus function shall have one
+published executable GTL graph body admitted through raw GTL admission and the
+ABG semantic compiler. A catalog declaration, contract nameplate, engine plugin,
+imperative service method, host-language reviewer loop, or adapter interception
+without that executable graph body shall not satisfy this requirement.
+
+**REQ-P-CONSENSUS-003**: ABIogenesis owns the reusable function, its outer
+contracts, and its closed result vocabularies. Downstream products and hosts may
+contribute reviewer profiles, subject bindings, policies, and overlays through
+declared catalog surfaces. They shall not replace the graph body, execute a
+second panel loop, emit ABG truth, or decide Consensus closure.
+
+## Public Contracts
+
+**REQ-P-CONSENSUS-004**: The public contract catalog shall locate canonical
+schemas for `abg.schema.consensus-subject`,
+`abg.schema.consensus-panel`, `abg.schema.consensus-reviewer-profile`,
+`abg.schema.review-findings`, `abg.schema.review-rulings`,
+`abg.schema.consensus-round-policy`, `abg.schema.consensus-round-outcome`,
+`abg.schema.consensus-result`, and
+`abg.schema.ticket-consensus-projection`. Their native and serialized forms
+shall have the same field and value-domain meaning.
+
+**REQ-P-CONSENSUS-005**: A Consensus subject shall bind an exact subject
+contract, subject ref and digest, submitting actor, selected reviewer-panel ref,
+round-policy ref, and explicit invocation workspace identity. A ticket subject
+shall bind the ticket ref and digest; path presence or mutable prose alone shall
+not identify the reviewed subject.
+
+**REQ-P-CONSENSUS-006**: Each reviewer profile shall carry a stable profile
+identity, role or worker-selection contract, configuration digest, instruction
+and result-contract refs, and declared capability requirements. Each admitted
+finding set shall carry the profile identity and configuration digest,
+invocation ref, output digest, evidence refs, typed findings, and typed residuals
+or refusal. Reviewer attribution shall not be inferred from completion order or
+adapter position. A panel shall resolve to an explicit non-empty reviewer vector;
+duplicate profile identities shall fail admission, and the product shall not
+hard-code one panel cardinality.
+
+**REQ-P-CONSENSUS-007**: Review reduction shall emit only the closed ruling
+kinds `decision_row`, `draft_ticket`, `split_ticket`, `deferment`, and
+`rejected_finding`. A ruling is result data for the caller and never owns ticket
+status. The public contract catalog shall publish this roster as
+`abg.vocabulary.review-ruling-kind`.
+
+**REQ-P-CONSENSUS-008**: Consensus round policy shall declare a positive round
+budget, convergence rule, disagreement rule, escalation rule, and foldback
+contract. Each admitted round shall return exactly one outcome from
+`closed_done | recurse_next_round | escalate_fh`, published as
+`abg.vocabulary.consensus-round-outcome`. Exhaustion shall produce typed
+`escalate_fh`; it shall not silently accept or start another round.
+
+**REQ-P-CONSENSUS-008A**: The final Consensus result shall bind the subject,
+panel, policy, round identities, admitted finding sets, ruling rows, consensus
+and dissent classification, terminal round outcome, evidence and lineage refs,
+and result and replay refs. It shall distinguish unanimous agreement, partial
+agreement with dissent, unresolved disagreement, and typed contract failure
+without collapsing those states into one accepted boolean.
+
+## Constructive And Runtime Law
+
+**REQ-P-CONSENSUS-009**: The GTL body shall express the declared reviewer vector
+through lawful higher-order fan-out, collect attributed results through an
+explicit vector boundary, reduce them through declared evaluation and rule
+surfaces, and express another verification round through declared bounded
+recursion and foldback. Prompts, reviewer selection, merge policy, round control,
+and closure classification shall be declarations or referenced contracts, not
+host-language orchestration.
+
+**REQ-P-CONSENSUS-010**: ABG shall execute Consensus through ordinary catalog
+selection, GraphCall, frame, C-call, worker, result-admission, event, replay,
+continuation, retry, and F_H boundaries. Consensus shall introduce no new
+runtime truth writer, scheduler, automatic wake mechanism, retry loop, or
+closure authority.
+
+**REQ-P-CONSENSUS-011**: Deterministic admission owns schema, digest,
+attribution, panel membership, budget, exact-agreement classification, and
+envelope checks. Deterministic reduction shall use declared panel ordinal and
+profile identity rather than worker completion order. F_P owns reviewer
+findings, disputed semantic judgment, and submitter response. Unresolved
+judgment routes to F_H. F_D shall not manufacture semantic agreement, and F_P
+shall not waive a failed deterministic envelope.
+
+**REQ-P-CONSENSUS-012**: For a ticket subject, `ticket.consensus` shall be the
+ordinary typed Consensus result bound to the ticket ref and digest. The function
+shall not change ticket status, write or split a ticket, invoke triage
+automatically, or admit its own ruling as governance truth. The caller or F_H
+may take a returned ruling through ordinary TICKET_METHOD triage and mutation.
+
+## Workspace And Public Invocation
+
+**REQ-P-CONSENSUS-013**: Consensus shall use one public workspace contract. The
+same contract shall support an existing explicitly selected workspace, another
+independently bound explicitly selected workspace root, and a caller-created
+temporary workspace root. These are three applications of one contract, not
+three runtime modes. A temporary root still requires admitted workspace,
+binding, catalog, event, result, replay, and proof identities.
+
+**REQ-P-CONSENSUS-014**: Per-reviewer workspace isolation and a distinct output
+workspace are not implied. If a later Consensus contract requires either, it
+shall declare the authority through the ordinary input/output-workspace binding
+law before realization.
+
+**REQ-P-CONSENSUS-015**: `abg.cli` shall invoke Consensus through the existing
+`abg.operation.catalog.invoke` operation and shall read its result and replay
+through `abg.operation.read.result` and `abg.operation.read.replay`. Consensus
+shall not add a feature-specific CLI verb or host-owned orchestration path.
+Session allowlisting may narrow the admitted catalog to the Consensus function
+and its declared dependencies; it shall not widen catalog authority.
+
+## Qualification
+
+**REQ-P-CONSENSUS-016**: The 5.0 release gate shall invoke the packed and
+installed candidate's published Consensus function over one real ticket subject
+using at least two differently attributed reviewer profiles. The proof shall
+read the typed result and replay and shall run through the existing, alternate,
+and temporary workspace applications without source imports or shell-owned
+panel orchestration.
+
+**REQ-P-CONSENSUS-017**: Qualification shall include three controlled fixture
+families: agreement reaches `closed_done`; a material dispute reaches
+`recurse_next_round` and rebinds the next round through declared foldback; and
+round exhaustion or an unresolved dispute reaches `escalate_fh`. Malformed
+subjects, profiles, findings, rulings, policies, and round outcomes shall remain
+typed non-close truth.
+
+**REQ-P-CONSENSUS-018**: Consensus is not release-complete until the executable
+GTL body, semantic-compiler admission, installed catalog row, addressable public
+schemas and vocabularies, all three fixture families, all three workspace
+applications, actor attribution, result, and replay evidence pass over the exact
+5.0 candidate. A declaration-only entry or imperative implementation shall fail
+the gate.
+
+## Bounded Scope
+
+**REQ-P-CONSENSUS-019**: The bounded feature may compose reviewer assessment and
+reduction inside Consensus. It does not publish a generic standalone
+Review-to-ticket product, scheduler, watcher, recurrence service, automatic
+ticket mutation, generic portfolio consensus service, or new engine law.
+
+Gap: the current line publishes reserved Review/Consensus declarations and
+closed vocabularies but no executable Consensus GTL body or canonical schemas,
+and it has no packed installed Consensus invocation proof. Owner: T-244 routing;
+design and realization require separate singular leaves carrying
+`REQ-P-CONSENSUS-016..018` unchanged.

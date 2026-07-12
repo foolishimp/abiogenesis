@@ -1,83 +1,77 @@
-# T-245 - Author The SCN-ABG-SOFTWARE-BUILD Campaign Scaffold
+# T-245 - Author The ABIogenesis 5.0.1 Dogfood Campaign Scaffold
 
 - id: T-245
-- title: Author the SCN-ABG-SOFTWARE-BUILD campaign scaffold (F25 scenario pack + F26 supervisor seat)
+- title: Author the ABIogenesis 5.0.1 dogfood campaign scaffold
 - type: feature
 - ticket_category: ordinary
 - status: backlog
-- goal: abg-5-0-full-product-delivery (campaign model, per T-242)
+- goal: future ABIogenesis 5.0.1 dogfood wave; not GOAL-035
 - owner: abiogenesis
-- priority: high
+- priority: medium
 - governance_scope: ODD_METHOD, three-layer ownership law
 - change_class: design_reframe
-- re_entry_point: campaign scenario surface (placement decided at design time; declarations only)
+- re_entry_point: successor campaign scenario surface (declarations only)
 - created_at: 2026-07-12
+- updated_at: 2026-07-13 (retargeted after stable-first ruling)
 - source_ticket: T-242
-- admission_condition: blocked on T-242 ratification and T-244 seed admission
+- admission_condition: >-
+    ABIogenesis 5.0.0 is released by T-248, odd_glc 1.0 is independently
+    released and compatible, and F_H opens the 5.0.1 dogfood goal
 - dependencies:
-  - T-242 course-correction ratification
-  - T-244 GTL-5 subject specification seed
-  - installed predecessor line (per T-243 ruling) + odd_glc 0.1
+  - completed T-248 stable ABIogenesis 5.0 release
+  - independently released odd_glc 1.0 catalog product
+  - admitted ABIogenesis 5.0.1 subject goals and constitutional surfaces
+  - B-010 stable-first deferral record (boundary input, not B-010 closure)
 
 ## Intake Triage
 
-1. Substantive: yes — the second real delivery gap (post rev 3 §2 row 7): the
-   engine exists, the subject-side authoring does not.
-2. Boundary: scenario declarations and supervisor-seat configuration only —
-   domain declarations in the data-mapper pattern. No ABG systems
-   functionality, no local prompt shells, registries, ledgers, or traversal
-   loops (three-layer ownership law).
-3. Upward walk: with the seed (T-244) admitted, the missing layer is the
-   scenario/binding surface that lets the campaign run against it ⇒
-   `design_reframe` ⇒ affected span: scenario pack + seat config ⇒ release
-   scope: none.
+1. Substantive: yes. The previous ticket made an installed 4.6 plus GLC 0.1
+   campaign part of building ABIogenesis 5.0.
+2. F_H instead ruled that 5.0 is the stable, specification-method-compliant
+   baseline before dogfooding begins. The first governed self-use is the
+   successor 5.0.1 wave.
+3. This ticket therefore remains `design_reframe` work over a future campaign
+   scenario. It has no authority over 5.0 requirements, runtime atoms, source,
+   qualification, or release closure.
 
 ## Deliverable
 
-The campaign scaffold that points the proven engine at the GTL-5 subject:
+Author the declarations-only `SCN-ABG-SOFTWARE-BUILD` scaffold that uses the
+installed released 5.0 product plus independently released odd_glc 1.0 as the
+development product for the mutable ABIogenesis 5.0.1 source project.
 
-- **F25 — SCN-ABG-SOFTWARE-BUILD scenario pack**: scenario declarations in the
-  data-mapper pattern (scenario declarations + worker turns + earned depth),
-  binding the T-244 seed as subject over the installed predecessor line +
-  GLC 0.1. Original feature text is the authority for shape: "declared in the
-  data-mapper pattern... committed evidence ledger (rc.2 pattern)."
-- **F26 — observer/tuner supervisor seat** configured over this subject using
-  the shipped 4.6 observer/tuner (no new supervisor machinery).
-- **Substrate/subject rule encoded as scenario law (post §8.1)**: during a
-  campaign run the installed substrate is immutable; all authoring lands in
-  the subject source tree; substrate defects found mid-run are admitted as
-  evidence and become tickets on the predecessor service line (T-243's
-  outcome), never live patches; capability gaps surface as typed gap events
-  and route through the demand register.
-- **Gap-admissibility bridge (added per codex review finding 4)**: today the
-  typed `semantic_not_realized` diagnostics stop at compile/conformance level
-  (`GtlProgramConformanceIssue`); no producer admits them as ledger events.
-  The scaffold must make unrealized-construct attempts land as ADMITTED typed
-  evidence via the declarative path: the scenario declares the conformance run
-  inside worker turns so diagnostics ride the admitted typed result (EXECUTION
-  DEFAULT law). **Boundary law (codex re-review item 3): if declaration cannot
-  carry the bridge, the code-level event producer is OUT of this ticket's
-  declarations-only boundary — that finding closes this deliverable as
-  `blocked_by_realization_gap` and opens a separate ABG ticket at its lawful
-  re-entry point (smallest change class in the runtime).** Without the bridge
-  the demand loop is supervisor-mediated reading of diagnostics, not admitted
-  evidence — the earned-depth law then cannot count gap closure.
-- Placement (odd_glc catalog vs abiogenesis scenario surface) is a design-time
-  decision under the three-layer ownership law; whichever home is chosen ships
-  declarations only.
+The scaffold shall declare:
+
+- the exact installed ABG and odd_glc product identities and compatibility;
+- the mutable 5.0.1 subject root, rule basis, and output/proof roots;
+- the source-project versus installed-development-product boundary;
+- attributed worker profiles, budgets, observer/tuner policy, and truthful
+  terminal outcomes;
+- typed gap/result/replay consumption through released 5.0 public contracts;
+- the rule that installed product payloads remain immutable during a run; and
+- a small first wave with an explicit go/no-go reading rather than an automatic
+  continue-and-fix default.
+
+The scaffold consumes stable 5.0 GraphFunction, compiler, runtime, result,
+replay, operator, and qualification atoms. It may not implement a missing 5.0
+atom, add a local prompt shell, directly invoke workers, emit ABG events,
+construct continuations, own traversal, or decide closure. A missing released
+capability yields a typed 5.0.1 intake gap; it never authorizes patching the
+installed 5.0 product inside the run.
+
+## Explicit Non-Scope
+
+- No ABIogenesis 5.0 feature, compliance, RC, or final-release gate.
+- No `workflow.C`, `C.batch`, `C.retry`, F_P-admission, instruction-protocol,
+  public F_H, or gap-admission realization; those are 5.0 product atoms when
+  retained by T-244.
+- No requirement that odd_glc or this campaign build ABIogenesis 5.0.
+- No automatic scheduler, wake, ticket mutation, or second controller.
 
 ## Closure Condition
 
-The scaffold binds and starts over the installed stack against the T-244 seed
-through admitted GTL program and workspace startup, and wave one reaches a
-truthful terminal state (converged, or typed gap/hold) with a committed
-evidence ledger in the rc.2 pattern. **The bridge is proven live, not assumed:
-closure requires at least one replay-citable ADMITTED `semantic_not_realized`
-result in that ledger** (natural to wave one, whose subject is the unrealized
-`workflow.C` — authoring toward it produces exactly that diagnostic), or the
-recorded `blocked_by_realization_gap` disposition with its successor ticket. **Wave one is also the exact-substrate
-engine pilot** (per codex review finding 7: the full data-mapper campaign is
-rc.2-era `predecessor_evidence_only`; no full campaign has run on the exact
-current predecessor line) — its evidence upgrades or refutes the engine-
-readiness claim on the exact installed substrate. Full GTL-5 delivery is out
-of scope — that is T-246's job, wave by wave.
+Over exact installed released 5.0 plus released odd_glc 1.0, the declarations
+bind and start against an admitted 5.0.1 subject. One deliberately small pilot
+reaches a truthful `converged`, typed gap/hold, or F_H escalation with citable
+result and replay evidence. T-246 can then execute later waves without
+interpreting missing orchestration from this ticket.

@@ -27,7 +27,8 @@ related engine behavior.
   runtime-bound instruction envelopes, prompt manifests, and semantic compiler
   checks
 - replay-stable ABG.Fn regime composition grammar
-- correction, supersession, and self-hosting behavior
+- correction, supersession, derived-artifact governance, and post-release
+  successor-use behavior
 - one replay-derived active-iteration outcome algebra
 - supervisor/operator witness law: halt diagnosis, defect intake, reprice
   admission, substrate stamps, operator lifecycle, workspace hygiene,

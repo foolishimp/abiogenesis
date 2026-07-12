@@ -1,4 +1,4 @@
-# REQ-R-ABG3-SELFHOSTING — Self-Hosting And Fixed-Point Governance
+# REQ-R-ABG3-SELFHOSTING — Successor Use And Derived-Artifact Governance
 
 **Status**: Active
 **Category**: Constraint / Guarantee
@@ -9,9 +9,10 @@
 
 ## Purpose
 
-Define the installed two-stage bootstrap by which ABIogenesis builds and proves
-its next release candidate. Apply the same runtime discipline to derived
-artifacts and bootstrap surfaces as to all other governed work.
+Apply ordinary graph-function and runtime discipline to derived artifacts and
+to post-release successor use. ABIogenesis 5.0 is the stable installed baseline;
+using that released product to author or build 5.0.1 is a distinct successor
+activity and is not a gate on the 5.0 release.
 
 ## Acceptance Criteria
 
@@ -21,51 +22,62 @@ artifacts and bootstrap surfaces as to all other governed work.
 
 **REQ-R-ABG3-SELFHOSTING-003**: Derived artifact governance is ordinary graph-function application and runtime truth, not special bootstrap magic.
 
-**REQ-R-ABG3-SELFHOSTING-004**: The ABIogenesis 5.0 bootstrap predecessor,
-`P4`, shall be the exact released
-`@abiogenesis/typescript-tenant@4.6.0-rc.3` product whose release-tarball
-SHA-256 is
-`9cffb372c0dfc00983a5d0e882efbc3d0c3ac937a56f313000f35a4473358113`.
-`I4` shall be an installed `P4` selected by that package identity,
-release-tarball digest, and `product-toolchain-manifest.json` SHA-256
-`92b3f94dd32bca9368a9511d823cc8b6e2eae75cd7168c9e901d3cbe8eadf07d`.
+**REQ-R-ABG3-SELFHOSTING-004**: ABIogenesis 5.0 shall be authored under manual
+STDO governance through accepted design gates, GTL admission, the ABIogenesis
+semantic compiler, and ordinary in-tree implementation. It shall close through
+its specification-method, public-contract, qualification, RC, and release
+gates. A predecessor-builds-candidate bootstrap, candidate fixed point, or
+downstream catalog-product campaign shall not be required to qualify or release
+5.0.
 
-**REQ-R-ABG3-SELFHOSTING-005**: `S5` shall be one frozen ABIogenesis 5.0 source project used as the declared build input for both bootstrap stages.
+**REQ-R-ABG3-SELFHOSTING-005**: After stable 5.0 and a compatible independently
+released odd_glc 1.0 are available, exact installs of those products may act
+together as the development product used to author or build the distinct 5.0.1
+source project. The installed builder products and the mutable successor source
+project shall retain separate product, source, workspace, authority, and
+provenance identities.
 
-**REQ-R-ABG3-SELFHOSTING-006**: `B5` shall be one immutable ABG-owned,
-specialized serialized GTL Module governed by
-`abg.schema.self-build-program-manifest`. Its Module metadata shall declare
-kind `self_build_program_manifest`, schema version, identity, version, digest,
-selected GraphFunction reference and digest, compatibility with exact `P4`/`I4`
-and the ABIogenesis 5.0 candidate line, the `S5` input-root contract, result and
-equivalence surfaces, and required plugin and capability references. B5 shall
-not introduce a rival executable envelope around the GTL Module.
+**REQ-R-ABG3-SELFHOSTING-006**: Successor work performed through installed 5.0
+shall enter through published GTL modules and graph functions plus the ordinary
+installed catalog, SDK, CLI, runtime, result, and replay contracts. It shall not
+introduce a bootstrap-specific controller, private traversal loop, hidden build
+service, or mutable-source import into the installed product.
 
-**REQ-R-ABG3-SELFHOSTING-007**: Exact I4 shall admit the frozen B5 Module bytes
-through its released public Module, StartIntent, execution-basis, event, and
-callable-start contracts. An installed 5.0 candidate shall re-admit those exact
-same B5 bytes as declaration and data through its public catalog and source-
-product input. Neither leg may import executable runtime, provider, plugin,
-controller, or private helper code from `S5`; no adapter may make I4 appear to
-implement a 5.0 catalog operation it does not publish.
+**REQ-R-ABG3-SELFHOSTING-007**: A successor-use invocation shall bind the exact
+installed builder identity, exact successor source/input identity, selected
+GraphFunction and declaration identities, workspace authority, result contract,
+and replay basis. Package presence, an ambient source path, or an adapter hint
+shall not supply missing binding truth.
 
-**REQ-R-ABG3-SELFHOSTING-008**: The first bootstrap stage shall execute `I4 + B5 + S5` to convergence and produce candidate `C1`. `I1` shall be an installation of exact `C1` with no mutable `S5` import or source fallback.
+**REQ-R-ABG3-SELFHOSTING-008**: Material produced by successor use shall remain
+ordinary typed output with lineage to the installed builder, source/input,
+GraphCall, worker, result, and replay identities. Successor output shall not
+silently replace either the installed builder product or the mutable source
+project that was used as input.
 
-**REQ-R-ABG3-SELFHOSTING-009**: The second bootstrap stage shall execute `I1 + same B5 + same S5` to convergence and produce candidate `C2`. The stage-two invocation shall re-admit the exact `B5` identity and digest under its declared 5.0 compatibility predicate.
+**REQ-R-ABG3-SELFHOSTING-009**: Successor use is a composition over the public
+GTL and ABG atom set. ABIogenesis 5.0 shall not publish a special self-host
+operation, engine capability, event authority, or closure path whose semantics
+duplicate ordinary graph-function execution.
 
-**REQ-R-ABG3-SELFHOSTING-010**: `C1` and `C2` shall be equivalent across release-significant package identity, exports, compiled behavior, tenant-conformance result, install and catalog manifests, runtime binding meaning, and declared `B5` input and output meaning. Nondeterministic fields shall be declared and shown irrelevant; surfaces declared deterministic shall compare byte for byte.
+**REQ-R-ABG3-SELFHOSTING-010**: Evidence from installed 5.0 authoring or building
+5.0.1 may qualify the 5.0.1 successor and the installed-product development
+workflow. It shall not retroactively become release evidence required for the
+already qualified stable 5.0 product.
 
-**REQ-R-ABG3-SELFHOSTING-011**: `R5` shall be the exact `C1` content frozen as
-the ABIogenesis 5.0 self-hosted source candidate only after both stages converge,
-source isolation passes, and `C1`/`C2` equivalence passes. `R5` enters the
-release-candidate window; it is not itself a published versioned RC or tapped
-release. `C2` is the fixed-point witness and shall not become a second source candidate.
+**REQ-R-ABG3-SELFHOSTING-011**: Missing or incompatible builder identity,
+workspace binding, declaration, input, result, replay, source-isolation, or
+provenance truth shall block the successor-use claim. It shall not block the
+stable 5.0 release unless the same defect independently falsifies a retained 5.0
+product claim.
 
-**REQ-R-ABG3-SELFHOSTING-012**: A missing or incompatible bootstrap identity, manifest, capability, input root, result, convergence fact, source-isolation fact, or equivalence fact shall block the self-hosting claim and the release cut. It shall not be waived, inferred from package presence, or repaired by a bootstrap-specific controller.
+**REQ-R-ABG3-SELFHOSTING-012**: A successor workspace may bind an independently
+released compatible catalog product, including odd_glc, through the ordinary
+multi-product workspace contract. That catalog product remains distinct from
+the ABG builder and contributes no runtime, traversal, event, continuation,
+retry, or closure authority. Its release or campaign is not a 5.0 release gate.
 
-**REQ-R-ABG3-SELFHOSTING-013**: The `P4`/`I4` compatibility obligation is
-bounded to admitting and executing the frozen B5 Module/GraphFunction through
-the public GTL/runtime semantics shared with the 5.0 candidate line. I4 binds
-and starts through its released public contracts; the 5.0 candidate additionally
-uses its catalog/SDK contract. Stage-one success shall not imply that `P4`
-implements any DS-1 operation or the complete ABIogenesis 5.0 contract.
+**REQ-R-ABG3-SELFHOSTING-013**: Any later fixed-point, reproducibility, or
+equivalence claim over successor builds shall declare its compared subjects,
+inputs, deterministic and nondeterministic fields, equivalence relation, and
+proof surface before execution. Stable 5.0 makes no such claim by implication.

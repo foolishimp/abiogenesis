@@ -17,7 +17,7 @@ Use [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blo
 - Use deterministic REQ headers inside each family file.
 - Preserve the split between constitutional truth in `specification/` and realization detail in `build_tenants/`.
 - Treat `build_tenants/abiogenesis/typescript/` as the primary release
-  realization, `build_tenants/abiogenesis/python/` as a paused released
+  realization, `build_tenants/abiogenesis/python/` as a withdrawn released
   reference line, and `build_tenants/abiogenesis/codex/` as a paused partial
   alternate realization unless explicitly repriced.
 

@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-24
-**Derives from**: INT-001 (self-hosting and installed product behavior), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (installed product behavior and public invocation), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 1
 
 ---
@@ -49,20 +49,20 @@ scenarios:
 | `ABG5-S01` | Exact installed catalog and Hello World | Install and bind exact product artifacts without mutable-source imports; list and describe retained catalog rows; narrow the session allowlist; invoke one published Hello World GraphFunction through the public SDK or CLI; read its typed result and replay. |
 | `ABG5-S02` | Declared constructive program | Execute one multi-stage GTL program using the complete seven-term C algebra through declared stage interiors; reject malformed GTL before execution and malformed, incomplete, or contradictory F_P output before materialization or closure. |
 | `ABG5-S03` | Primary public operator loop | Start, receive one truthful stop, hold, or gap, inspect the replay-derived frontier and lawful actions, remove one ambiguity through an agent edit or typed F_H act, resume or start again, and converge through the public contract. |
-| `ABG5-S04` | ABIogenesis self-conformance and reflective path | Apply the published self-conformance contract to the exact candidate's complete frozen builder inventory under its exact method/rule/source basis, pass the real-tree and seeded-negative gates, and prove observer/tuner truthful halt, grounded drafts, attribution, ratification, rejection, replay, and one injected negative on the self-build path without a builder exemption or silent authority mutation. |
-| `ABG5-S05` | Installed two-stage self-host | Execute `I4 + B5 + S5 -> C1`, install exact `I1`, execute `I1 + same B5 + same S5 -> C2`, and establish convergence, source isolation, and the declared fixed-point equivalence before freezing `R5 := C1`. |
-| `ABG5-S06` | odd_glc declarations-only consumption | Bind exact `G5` to exact installed `R5` and complete one fresh full data-mapper campaign through ABG-owned runtime contracts without a `G5`-local controller. |
-| `ABG5-S07` | Native and Codex public projections | Complete one public-contract invocation with no marketplace host, then complete the equivalent invocation through the Codex CLI or skill projection with no adapter-owned runtime behavior. |
-| `ABG5-S08` | Exact release reproduction | Publish and qualify immutable ABG and G5 RC cuts descended from frozen `R5` and `G5`; tap independent final versions with only reconciled version/release-asset deltas; then fresh-install and verify the released-over-released pair, manifests, checksums, identities, dependency lock, lineage, and release records without rebuilding or mutable-source fallback. |
+| `ABG5-S04` | ABIogenesis self-conformance and reflective path | Apply the published self-conformance contract to the exact candidate's complete frozen subject inventory under its exact method/rule/source basis, pass the real-tree and seeded-negative gates, and prove observer/tuner truthful halt, grounded drafts, attribution, ratification, rejection, replay, and one injected negative on the frozen candidate and release path without a product exemption or silent authority mutation. |
+| `ABG5-S05` | Agent-invocable Consensus | Through `abg.cli`, invoke the packed candidate's published SYSTEM-owned Consensus GraphFunction over one real ticket and at least two differently attributed reviewer profiles; prove agreement closure, dispute recursion, and round-limit or unresolved-dispute F_H escalation through typed result and replay in existing, alternate, and temporary workspace applications, without shell-owned orchestration or ticket mutation. |
+| `ABG5-S06` | Native and Codex public projections | Complete one public-contract invocation with no marketplace host, then complete the equivalent invocation through the Codex CLI or skill projection with no adapter-owned runtime behavior. |
+| `ABG5-S07` | Exact release reproduction | Publish and qualify an immutable ABIogenesis 5.0 RC cut descended from the accepted exact candidate; tap the final version with only reconciled version/release-asset deltas; then fresh-install and verify the released ABG product, manifests, checksums, identity, lineage, and release records without rebuilding or mutable-source fallback. |
 
 **REQ-P-SCENARIOS-008**: ABIogenesis 5.0 delivery shall close every scenario in
 the bounded catalog above. The pre-RC exact-source-candidate gate shall close
-`ABG5-S01` through `ABG5-S07` and establish release eligibility. `ABG5-S08`
-closes only after publication and shall append its terminal released-pair
+`ABG5-S01` through `ABG5-S06` and establish release eligibility. `ABG5-S07`
+closes only after publication and shall append its terminal released-product
 result to the same release read model; it shall not be a prerequisite for the
-pre-release verdict. Adding another definition-bearing 5.0 release scenario
-requires product/scenario repricing; it shall not be implied by a broad
-headline or an unrelated test.
+pre-release verdict. A post-5.0 odd_glc or 5.0.1 dogfood campaign is successor
+evidence, not another 5.0 scenario. Adding another definition-bearing 5.0
+release scenario requires product/scenario repricing; it shall not be implied
+by a broad headline or an unrelated test.
 
 **REQ-P-SCENARIOS-009**: Each bounded scenario shall identify the exact installed product and tenant-conformance manifest identities it exercises, its public GraphFunction or operator entry, its expected typed result and replay evidence, and its non-closure conditions.
 

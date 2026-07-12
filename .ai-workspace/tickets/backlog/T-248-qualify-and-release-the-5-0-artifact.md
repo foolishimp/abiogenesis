@@ -1,71 +1,84 @@
-# T-248 - Qualify And Release The 5.0 Artifact
+# T-248 - Qualify And Release Stable ABIogenesis 5.0
 
 - id: T-248
-- title: Qualify and release the 5.0 artifact (release owner)
+- title: Qualify and release stable ABIogenesis 5.0
 - type: release
 - ticket_category: release_qualification
 - status: backlog
-- goal: GOAL-035 successor (campaign model; goal text rewritten by T-249)
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - owner: abiogenesis
 - priority: high
 - governance_scope: RELEASE_METHOD, STDO Method
 - change_class: realization_refactor
 - re_entry_point: release_candidate
 - created_at: 2026-07-12
-- source_ticket: T-242 (created under review amendment, codex finding 6)
-- admission_condition: T-246 hands over a converged source candidate; release identity fixed by F_H's R4 decision at/for T-249
+- updated_at: 2026-07-13 (direct stable-release reprice)
+- source_ticket: T-242
+- admission_condition: >-
+    T-249 is complete, every T-244 row admitted to 5.0 has closure evidence,
+    and T-247 supplies one green exact-candidate compliance result
 - dependencies:
-  - T-246 converged candidate
-  - T-247 claim dispositions (a release may only claim what survived T-249)
-  - T-243 settled predecessor line
+  - completed T-244 exact 5.0 feature register
+  - closure evidence for every retained T-244 row
+  - completed T-247 self-conformance and qualification result
+  - completed T-249 stable-baseline constitutional reprice
 
 ## Purpose
 
-Own RC publication, qualification, and the final tap for the retargeted 5.0
-artifact — the ownership formerly spread across T-235/T-236/T-237/T-240,
-which were coupled to the dropped R5/G5 fixed-point identities. Created
-because review finding 6 confirmed nothing owned a release cut after the
-retirements.
+Own the immutable RC window, qualification, and direct final tap for the
+feature-complete stable ABIogenesis 5.0 product.
+
+The mutable 5.0 source project is authored and realized under STDO, accepted
+three-view designs, GTL admission, the ABG semantic compiler, and the retained
+T-244 feature gates. Release does not require ABIogenesis or odd_glc to build
+5.0. Dogfooding begins only after stable 5.0 and belongs to the 5.0.1 wave.
 
 ## Scope
 
-- **Release identity comes from F_H's R4 decision** (ABIogenesis 5.0 full
-  product, GTL 5 over a settled ABG 4.6 line, or another declared boundary).
-  This ticket does not presume one.
-- Uses the proven discipline: pack → install → live-proof → digest chain →
-  tag, over the settled predecessor line (T-243).
-- Release claims are exactly the claims that survived T-249/T-247 — no claim
-  is asserted that was removed, and none deferred by silence (definition-
-  bearing truth is not debt-eligible).
-- Demand-register candidates at qualification time: the packaging-determinism
-  gate (reusing the archived carrier equivalence/source-isolation contracts)
-  and the self-certifying release snapshot (build/lint/test summaries embedded
-  in the manifest — closing the gap found in the odd_glc 0.1 review).
-- Released-pair verification with any odd_glc counterpart re-enters here per
-  release, as done for rc.3 + odd_glc 0.1.
+- Freeze one exact candidate whose source, package, public-contract catalog,
+  schemas, generated assets, conformance manifest, proof inventory, and release
+  metadata identify the same content.
+- Run the T-244 row gates and T-247 compliance gate against those exact bytes.
+- Pack and fresh-install without mutable-source imports or rebuild fallback.
+- Prove the retained installed public paths, including Hello World, declared C
+  execution, malformed GTL and F_P differentials, the complete operator loop,
+  Consensus, result/replay, native operation, and the bounded Codex projection
+  exactly as their constitutional requirements and accepted designs define
+  them, with closure traced by T-244.
+- Publish at least one immutable versioned RC, hold a bounded mutable RC window,
+  and publish a new RC after any product-significant fix.
+- Tap final `5.0.0` only through the reconciled version/release-asset delta
+  allowed by RELEASE_METHOD, then rerun every affected deterministic, install,
+  identity, and bounded behavior gate.
+
+T-244 is the sole derived feature/gate traceability inventory over
+constitutional scope. This ticket may aggregate or rerun owning evidence; it
+may not reinterpret a missing row, create a second checker, or waive a
+definition-bearing claim.
+
+## No Second Rung
+
+The following are expressly not dependencies of the 5.0 final tap:
+
+- T-243 or any new 4.6 release;
+- T-245/T-246 campaign evidence;
+- odd_glc 1.0 maturation or release;
+- a data-mapper campaign;
+- released-over-released ABG/GLC pair evidence; or
+- a self-host, self-build, or 5.0.0-as-odd_glc-project run.
+
+Downstream compatibility required by an admitted T-244 row may use a bounded
+fixture or currently released catalog evidence. It does not create a
+cross-repository release dependency. Installed stable 5.0 plus later released
+odd_glc 1.0 becomes the development product for 5.0.1 only after this ticket
+closes.
 
 ## Closure Condition
 
-One exact immutable release of the F_H-declared 5.0 artifact: published RC
-window passed, qualification evidence cited per surviving claims, final tap
-recorded, fresh install verified without rebuild. Or an explicit F_H terminal
-disposition of the release window (T-221's one-honest-disposition standard).
-
-## R4 Alignment (2026-07-12) - the two-rung release ladder
-
-Per T-242's R4 Decision Record, this ticket owns both rungs:
-
-1. **Rung one - 5.0 RC**: publish and qualify the release cut from T-246's
-   feature-complete converged candidate (pack -> install -> live-proof ->
-   digest chain -> tag), over the settled predecessor line (T-243).
-2. **Rung two - 5.0.0 final as an odd_glc 1.0 target project**: the installed
-   released 5.0 RC + GLC 1.0 pair is the installed released builder
-   (ODD_METHOD SS7); 5.0.0 final is brought in as an odd_glc 1.0 target
-   project (ODD_METHOD SS6 clean-install steps: author the 5.0.0 project's
-   constitutional surfaces, traverse to build). **The project run is the
-   final's qualification-through-use** - the operational self-hosting proof.
-   Cross-repo dependency: odd_glc maturation 0.1 -> 1.0 over the installed RC
-   (odd_glc tree, T-242 R5).
-
-The closure condition reads over both rungs: final tap of 5.0.0 requires the
-rung-two project evidence, not only rung-one qualification.
+One exact immutable ABIogenesis `5.0.0` release exists after a passed RC window.
+Its Git ref, remote tag, tarball, manifest, checksums, public contracts,
+installed identity, qualification snapshot, and cited row evidence identify
+the same cut; a source-blind fresh install succeeds without rebuild; all
+retained T-244 and T-247 gates are green; and the final release record is
+pushed and independently addressable. Alternatively, F_H records one explicit
+terminal release-window disposition under T-221's honesty standard.

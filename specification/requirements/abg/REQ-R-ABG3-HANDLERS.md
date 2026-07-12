@@ -105,11 +105,12 @@ handler configuration; it does not implement a standard-path worker loop.
   prompts, contracts, and policies live as typed declarations that
   support systems consume.
   Gap: `FpTransportConfig.prompt` violates this boundary — a prompt
-  living in handler config instead of GTL. Owner: T-227.
-  Non-closure condition: the gap stays open, and T-227
-  cannot close, until prompts re-home to GTL (instruction categories
-  via the stage's instructionCategoryRefs and the section machinery)
-  when extra F_P stages bind to the manifest pipeline.
+  living in handler config instead of GTL. Owner: T-244 routing;
+  implementation requires a singular realization leaf.
+  Non-closure condition: the gap stays open until that leaf re-homes
+  prompts to GTL (instruction categories via the stage's
+  instructionCategoryRefs and the section machinery) when extra F_P
+  stages bind to the manifest pipeline.
 - **-016 The default is a catalog citizen (user law 2026-07-07).** The
   substrate's default program (the bootstrap triple) is a TYPED,
   LABELLED entry in the effective catalog under a reserved ref, marked

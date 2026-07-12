@@ -21,6 +21,6 @@ truth, then detect and surface drift through deterministic consistency checks.
 
 ## Expected Outcomes
 
-1. self-hosting artifacts remain under ordinary ABG law
+1. derived artifacts remain under ordinary ABG law
 2. drift is detectable without special bootstrap exceptions
 3. derived artifacts remain traceable to source runtime/design truth

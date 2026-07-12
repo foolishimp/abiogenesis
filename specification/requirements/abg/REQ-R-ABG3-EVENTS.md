@@ -67,11 +67,11 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 
 **REQ-R-ABG3-EVENTS-027**: The canonical event envelope shall carry a store-assigned admission ordinal. Any fold over replayed events that selects latest or current truth shall be decided by admission ordinal, never by array order, file order, or caller order. Ordinal collisions among candidate events, and candidate sets that admission ordinal cannot totally order, shall fail closed at ingest rather than resolve by incidental order.
 
-Gap: latest-selecting folds still decide by array/caller order rather than admission ordinal — at minimum `deriveConstructionPressureProjection` (latest package ref taken in event-array order) and the runner's `latestSelectedGraphFunctionEvent` (reverse array scan). Collision/unorderable-candidate fail-closed ingest is likewise not realized in those folds. Owner: T-227.
+Gap: latest-selecting folds still decide by array/caller order rather than admission ordinal — at minimum `deriveConstructionPressureProjection` (latest package ref taken in event-array order) and the runner's `latestSelectedGraphFunctionEvent` (reverse array scan). Collision/unorderable-candidate fail-closed ingest is likewise not realized in those folds. Owner: T-244 routing; implementation requires a singular realization leaf.
 
 **REQ-R-ABG3-EVENTS-028**: Admission ordinal shall be per-store emitter-context state. A live emitter context shall reject an externally pre-stamped canonical envelope as inadmissible: canonical stamping authority belongs to the admitting store alone, and accepting a foreign stamp is envelope forgery. A replay-tolerant emitter context shall admit previously admitted canonical truth forward-only: already-stamped events re-enter in admission-ordinal order, and the context shall not restamp, reorder, or rewind them.
 
-Gap: the default emitter context is a module-level replay-tolerant singleton, not per-store state; emission paths that do not adopt a seeded live context inherit it, so live-forgery rejection is realized only where a live context is explicitly adopted (the persisted-store append path), not universally. Owner: T-227.
+Gap: the default emitter context is a module-level replay-tolerant singleton, not per-store state; emission paths that do not adopt a seeded live context inherit it, so live-forgery rejection is realized only where a live context is explicitly adopted (the persisted-store append path), not universally. Owner: T-244 routing; implementation requires a singular realization leaf.
 
 **REQ-R-ABG3-EVENTS-029**: The complete runtime event-kind union shall be a
 published, versioned conformance contract of the substrate. A conformant tenant

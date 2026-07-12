@@ -53,6 +53,6 @@ it introduces no new runtime store and no supervisor node kind.
 
 **REQ-R-ABG3-WITNESS-017**: Admission of a new basis identity onto a spine previously run under a different basis identity shall fail closed as a typed block (`basis_fork_detected`) unless a covering declaration reprice names the exact basis-identity pair being crossed. At the runner the block is a typed fail-closed startup result; the guard applies at the runner and at every operator route; no operator surface may continue a run across a basis fork without the covering admitted reprice.
 
-Gap: typed basis-fork results at operator routes are unrealized — the routes refuse the fork but fail untyped (a raw thrown error carrying the `basis_fork_detected` reason) rather than returning typed blocked truth. Owner: T-227.
+Gap: typed basis-fork results at operator routes are unrealized — the routes refuse the fork but fail untyped (a raw thrown error carrying the `basis_fork_detected` reason) rather than returning typed blocked truth. Owner: T-244 routing; implementation requires a singular realization leaf.
 
 **REQ-R-ABG3-WITNESS-018**: A route-grade basis reconstructable from replay may act on an existing run's spine without traversing it, carrying only admitted identity fields. Full traversal requires an execution basis carrying graph, module, and intent. Operator routes that only read, diagnose, attest, or route shall not be forced to reconstruct an execution basis, and a route-grade basis shall never advance, close, or materialize traversal truth.

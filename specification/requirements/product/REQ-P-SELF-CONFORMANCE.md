@@ -1,4 +1,4 @@
-# REQ-P-SELF-CONFORMANCE - ABIogenesis Builder Self-Conformance
+# REQ-P-SELF-CONFORMANCE - ABIogenesis Product Self-Conformance
 
 **Status**: Active
 **Category**: Constraint / Verification
@@ -14,9 +14,9 @@
 ## Purpose
 
 Define the product law by which ABIogenesis applies its published method,
-contract, conformance, proof, and release rules to its own frozen builder. The
-builder has no exemption and no ticket, reviewer, or release adapter may become
-a second conformance authority.
+contract, conformance, proof, and release rules to its own frozen source and
+candidate-product subject. The product has no exemption and no ticket, reviewer,
+or release adapter may become a second conformance authority.
 
 ## Subject And Basis
 
@@ -53,7 +53,7 @@ for the whole run. At minimum, dispositions shall distinguish passed, failed,
 inapplicable-with-reason, blocked/incomplete, and accepted re-entry work.
 
 **REQ-P-SELF-CONFORMANCE-006**: A waiver, exclusion, or inapplicable
-disposition shall name the governing authority and reason. Builder identity,
+disposition shall name the governing authority and reason. Product identity,
 release pressure, ticket closure, prior review, or historical acceptance shall
 not waive an applicable rule.
 
@@ -66,7 +66,7 @@ execution contract.
 ## Proof And Exact-Cut Gate
 
 **REQ-P-SELF-CONFORMANCE-008**: Qualification shall run the self-conformance
-contract against the real complete ABIogenesis builder tree and shall prove a
+contract against the real complete ABIogenesis candidate tree and shall prove a
 green result only when every applicable required surface and rule has a typed
 terminal disposition.
 
@@ -77,10 +77,10 @@ release-identity mismatch defects. Each seed shall produce its expected stable
 diagnostic and non-green disposition.
 
 **REQ-P-SELF-CONFORMANCE-010**: The release-grade self-conformance result shall
-bind exact installed `R5`, its tenant-conformance manifest, the frozen subject
-inventory, and the exact method/rule/source basis. A result over different
-bytes, an incomplete inventory, an unresolvable basis, or a seeded defect that
-passes shall refuse the release gate.
+bind the exact installed ABIogenesis 5.0 candidate, its tenant-conformance
+manifest, the frozen subject inventory, and the exact method/rule/source basis.
+A result over different bytes, an incomplete inventory, an unresolvable basis,
+or a seeded defect that passes shall refuse the release gate.
 
 **REQ-P-SELF-CONFORMANCE-011**: The bounded A5-R1 release manifest may cite the
 exact self-conformance result. It shall not reinterpret findings, replace their

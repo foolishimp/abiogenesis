@@ -50,7 +50,7 @@ not the GTL + ABG product itself.
 Abiogenesis is one source-independent installed GTL and ABG product for a
 trusted developer desktop. It publishes immutable product identity, public
 contracts, a native catalog, a public SDK, a thin native CLI, replay-citable
-runtime truth, self-conformance, self-hosting, and exact release evidence.
+runtime truth, bounded Consensus, self-conformance, and exact release evidence.
 
 ### Installed And Catalog Product
 
@@ -109,6 +109,16 @@ inspect the lawful frontier, remove one ambiguity or submit one typed F_H
 response, and resume or start again. ABG resolves the continuation and remains
 the sole owner of traversal and closure.
 
+ABIogenesis 5.0 also publishes one bounded ABG SYSTEM-owned Consensus
+GraphFunction. A calling agent invokes it through the existing
+`catalog.invoke` operation and reads its typed decision, dissent, result,
+lineage, and replay truth through the existing `read.result` and `read.replay`
+operations. The graph function binds declared reviewer profiles, admits
+attributed findings, and returns one declared `closed_done`,
+`recurse_next_round`, or `escalate_fh` outcome. It is a free construction over
+the ordinary GTL and ABG atom set, not a new CLI verb, engine loop, scheduler,
+ticket-status authority, or automatic ticket mutation.
+
 ### Conformance And Reflective Product
 
 The released product publishes the GTL and ABG capability and contract surface
@@ -117,40 +127,41 @@ Native types own locally decidable authoring validity, raw admission owns
 serialized validity, the semantic compiler owns whole-program relations, and
 runtime admission owns environmental facts and probabilistic results.
 
-ABG applies the same specification-method, contract, semantic, runtime, proof,
-and release rules to its own frozen builder surfaces. Self-conformance returns
-typed findings and dispositions through the ordinary conformance path. The
-builder has no exemption and no second checker defines release truth.
+ABIogenesis applies the same specification-method, contract, semantic, runtime,
+proof, and release rules to its own frozen specification, design, realization,
+ticket or execution-contract, public-contract, proof, qualification, and
+release-candidate surfaces. Self-conformance returns typed findings and
+dispositions through the ordinary conformance path. The product has no
+exemption and no second checker defines release truth.
 
 The current observer and tuner are product capabilities over ABG replay truth.
 The observer diagnoses pressure and may draft lawful re-entry work. The tuner
 may draft policy or declaration changes. Drafts do not mutate effective truth;
 attributed ratification and ordinary constitutional re-entry remain required.
 
-### ABG Self-Hosting Fixed Point
+### Stable Baseline And Successor Dogfood
 
-Self-hosting is an ABG-only two-stage installed product proof:
+ABIogenesis 5.0 is the stable, SPEC_METHOD-compliant full-product baseline. Its
+mutable source project is authored and built through manual STDO governance,
+accepted design gates, GTL admission, the ABG semantic compiler, and ordinary
+in-tree implementation. Its release cut is qualified against the same
+specification, design, public-contract, proof, and release law that the
+installed product publishes. The 5.0 release does not claim self-hosting and
+does not require a prior installed ABG product, GLC product, or odd_glc product
+to build or qualify it.
 
-- `P4` is the exact released Abiogenesis `4.6.0-rc.3` product and `I4` is its
-  exact installed form;
-- `B5` is one immutable ABG-owned self-build program contract, and `S5` is one
-  frozen Abiogenesis source input;
-- `I4 + B5 + S5` produces candidate `C1`, which is installed as `I1`;
-- `I1 + the same B5 + the same S5` produces candidate `C2`; and
-- `C1` and `C2` must satisfy the declared release-significant equivalence
-  contract before exact `C1` content may freeze as self-hosted source candidate
-  `R5` for the release-candidate window.
+Recursive dogfooding begins after the stable 5.0 product is released. odd_glc
+may first mature to 1.0 over exact installed 5.0. The installed 5.0 product and
+odd_glc 1.0 may then act together as the development product used to author and
+build the 5.0.1 source project through declared graph functions and public
+contracts. That 5.0.1 successor run is the first dogfood proof. It is not
+retroactive evidence for the 5.0 release and cannot block or redefine the 5.0
+stable tap.
 
-Both stages use installed public product contracts and declared graph functions.
-Neither stage imports executable runtime, provider, plugin, or controller code
-from mutable `S5`. `C2` is the fixed-point witness, not a second release
-candidate.
-
-odd_glc does not participate in this compiler equivalence. Its `G5` source
-candidate is independently frozen as declarations-only content and qualified
-over exact installed `R5`. Its downstream campaign proves catalog consumption
-and domain use, not ABG self-hosting. RC and final product versions are assigned
-only by each product's independent release process.
+odd_glc remains an independently versioned downstream catalog product. It may
+bind and consume released ABIogenesis contracts under the ordinary installed
+catalog law, but it is not the ABIogenesis compiler, runtime substrate, builder,
+or release dependency. Each product owns its own RC and final release process.
 
 ### Native And Release Boundary
 
@@ -165,9 +176,10 @@ qualification evidence. It does not require a hosted package registry,
 storefront, signing service, license system, scheduler, multiple-host portfolio,
 multi-user administration, or hostile-workstation tamper defense.
 
-New Review, Consensus, and homeostatic intent-refinement composition are not
-part of this product contract. The current observer and tuner remain in scope;
-automatic wake and ABG-owned scheduling do not.
+A generic Review product and homeostatic intent-refinement composition beyond
+the bounded Consensus GraphFunction are not part of this product contract. The
+current observer and tuner remain in scope; automatic wake, ABG-owned
+scheduling, and direct ticket mutation do not.
 
 ---
 
@@ -453,9 +465,9 @@ proof-carry-through contract. ABIogenesis 5.0 does not claim that every legacy
 edge has been migrated to that declaration. An edge with active obligations but
 no declared carry-through contract retains the typed transitional semantics of
 `REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-038`; it cannot be cited as proof of
-universal coverage-gated closure. New 5.0 and G5 proof-bearing paths declare the
-contract when they claim coverage-gated closure. Universal legacy-edge
-migration re-enters only with an explicit universal product claim.
+universal coverage-gated closure. New ABIogenesis and downstream proof-bearing
+paths declare the contract when they claim coverage-gated closure. Universal
+legacy-edge migration re-enters only with an explicit universal product claim.
 
 Requirements are the product-level carrier for that conservation boundary.
 A requirement is not only a prose row or a downstream-local obligation id. It is
@@ -737,7 +749,8 @@ It owns the runtime control truth for:
 - outcome-compute iteration over current projections, cumulative context, and
   evaluator truth
 - replayable provenance over traversal invocation and runtime identity
-- transport invocation, result ingestion, and self-hosting control behavior
+- ordinary graph-function transport, result ingestion, and runtime behavior
+  when an installed product acts as a development product
 
 Runtime identity in ABG remains structured. Reporting projections such as
 `build` must not overwrite canonical worker/backend/authority truth.
@@ -1057,15 +1070,15 @@ A release claim should answer, at minimum:
 5. What qualification and scenario evidence proves the claim?
 6. Which downstream proving domains were in scope for the cut?
 
-The 5.0 release claim also identifies the exact immutable ABG product, the exact
-independently released odd_glc catalog product, their compatibility and binding
-truth, the C1/C2 self-host equivalence result, the native and Codex-projection
-results, and the installed scenario evidence. Git ref, tarball, manifest,
-checksums, product identity, and qualification evidence must identify the same
-bytes. A rebuilt or source-importing approximation is not release evidence for
-that cut.
+The 5.0 release claim identifies the exact immutable ABIogenesis product, its
+complete public operator and bounded Consensus contracts, self-conformance,
+native and Codex-projection results, and installed scenario evidence. Git ref,
+tarball, manifest, checksums, product identity, and qualification evidence must
+identify the same bytes. A rebuilt or source-importing approximation is not
+release evidence for that cut. An odd_glc release, a self-host equivalence
+result, and 5.0.1 dogfood evidence are not 5.0 release dependencies.
 
-Both products follow `RELEASE_METHOD`: a mutable RC window publishes and
+ABIogenesis follows `RELEASE_METHOD`: a mutable RC window publishes and
 qualifies at least one immutable versioned RC cut before final tap. The final
 tap assigns the final version and reconciles release-scoped assets. Any product
 behavior, declaration, public-contract, or dependency change after the accepted

@@ -77,6 +77,13 @@ vocabulary, overlays, policy, schemas, and specialization-owned GraphFunctions;
 ABG owns admission, readiness, selection, GraphCall, traversal, replay, and
 closure.
 
+**REQ-P-CATALOG-009A**: The ABIogenesis product may publish SYSTEM-owned reusable
+GraphFunctions in its own native catalog when PRODUCT names them as product
+capabilities. The canonical Consensus function is such a row. Downstream
+products may bind declared reviewer profiles, subject contracts, policies, and
+overlays to that function, but shall not republish or shadow its canonical
+handle, graph body, outer contracts, or SYSTEM ownership.
+
 ## Dependencies And Resolved Locks
 
 **REQ-P-CATALOG-010**: Product dependencies shall be declared in the product

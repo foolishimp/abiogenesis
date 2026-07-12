@@ -2,7 +2,7 @@
 
 **Intent ID**: INT-001
 **Date**: 2026-03-15
-**Updated**: 2026-07-11
+**Updated**: 2026-07-12
 **Status**: Approved
 
 ---
@@ -47,21 +47,29 @@ Abiogenesis is the reference GTL and ABG product. It:
 9. rejects malformed GTL through native type constraints, raw admission, lint,
    and semantic compilation, and rejects malformed or contradictory
    probabilistic output before it can materialize or close work;
-10. provides the current observer and tuner as graph-native, replay-grounded
+10. publishes one bounded ABG SYSTEM-owned Consensus GraphFunction as a free
+    construction over the ordinary atom set, invocable through the existing
+    `abg.cli` catalog invocation, result, and replay contract without scheduler
+    or ticket-mutation authority;
+11. provides the current observer and tuner as graph-native, replay-grounded
     product capabilities whose proposals remain drafts until lawful
     ratification and re-entry;
-11. applies its specification and conformance law to its own frozen builder,
-    public-contract, proof, and release surfaces without a builder exemption;
-12. builds the next installed ABG product through a two-stage self-hosting
-    fixed point in which the prior installed product builds a candidate and the
-    installed candidate builds an equivalent successor from the same declared
-    build program and source input;
-13. treats odd_glc as an independently released catalog product and downstream
-    proving domain, never as hidden ABG compiler or runtime substrate;
-14. operates natively without Claude, Codex, or another marketplace host, while
+12. applies its specification and conformance law to its own frozen
+    specification, design, realization, ticket or execution-contract,
+    public-contract, proof, qualification, and release-candidate surfaces
+    without a product exemption;
+13. releases 5.0 as the stable, SPEC_METHOD-compliant full-product baseline
+    before recursive dogfooding begins, then permits the installed 5.0 product
+    and a separately matured odd_glc 1.0 catalog product to act together as the
+    development product for the 5.0.1 source project without making either
+    successor step a 5.0 release condition;
+14. treats odd_glc as an independently released catalog product and downstream
+    proving domain, never as hidden ABG compiler, runtime substrate, builder, or
+    5.0 release dependency;
+15. operates natively without Claude, Codex, or another marketplace host, while
     allowing a Codex CLI or skill to project the same public contract without
     copied graph or orchestration logic; and
-15. releases exact immutable Git and tarball products with identity, manifests,
+16. releases exact immutable Git and tarball products with identity, manifests,
     checksums, installed proof, and replay-citable qualification aligned to one
     cut.
 
@@ -196,8 +204,8 @@ mechanics remain external.
 
 The current product does not include:
 
-- new Review, Consensus, or homeostatic intent-refinement composition beyond
-  the current observer and tuner contract;
+- a generic Review product or homeostatic intent-refinement composition beyond
+  the bounded Consensus GraphFunction and the current observer/tuner contract;
 - ABG-owned watchers, schedulers, cadence, recurrence, or automatic wake;
 - hosted marketplace discovery, storefronts, ranking, billing, organization
   administration, or license services;
@@ -208,7 +216,8 @@ The current product does not include:
 - IAM, authentication, credential, or token management.
 
 These are separate future product decisions. They do not hide inside the
-current native catalog, CLI, self-hosting, observer, tuner, or release claims.
+current native catalog, CLI, bounded Consensus, observer, tuner, successor
+dogfood, or release claims.
 
 ## Success Criteria
 
@@ -218,22 +227,28 @@ current native catalog, CLI, self-hosting, observer, tuner, or release claims.
    only a published graph function.
 3. A Hello World graph function runs through the public SDK or native CLI and
    exposes typed result and replay truth.
-4. A multi-stage declared compute program runs without graph-vector routing or
+4. A calling agent invokes the bounded Consensus GraphFunction through the same
+   public catalog contract and reads typed consensus, dissent, result, lineage,
+   and replay truth without automatic ticket mutation.
+5. A multi-stage declared compute program runs without graph-vector routing or
    product-local orchestration.
-5. Malformed GTL fails before execution, and malformed or contradictory
+6. Malformed GTL fails before execution, and malformed or contradictory
    probabilistic output remains typed non-close truth.
-6. The primary interactive start, inspect, human-response, and resume loop is
+7. The primary interactive start, inspect, human-response, and resume loop is
    usable through the public contract without a second controller.
-7. The observer and tuner remain replay-grounded, draft-producing, and subject
+8. The observer and tuner remain replay-grounded, draft-producing, and subject
    to attributed ratification and ordinary re-entry.
-8. ABG's own frozen builder surfaces pass the same published conformance law
-   applied to downstream products.
-9. The prior installed ABG product builds a candidate, the installed candidate
-   builds an equivalent successor from the same inputs, and the equivalence
-   result is citable.
-10. An independently released odd_glc catalog product completes its declared
-    downstream campaign over the frozen ABG candidate.
-11. Native operation succeeds with no marketplace host, and the Codex
+9. ABG's own frozen specification, design, realization, ticket or
+   execution-contract, public-contract, proof, qualification, and
+   release-candidate surfaces pass the same applicable published conformance
+   law used for downstream products.
+10. ABIogenesis 5.0 reaches a stable source-independent release without a
+    self-host or odd_glc dependency; after release, odd_glc may mature to 1.0
+    over stable 5.0 and the installed pair may act as the development product
+    for the 5.0.1 dogfood successor.
+11. A bounded downstream catalog fixture can bind and consume the released
+    public product without becoming part of the ABIogenesis release.
+12. Native operation succeeds with no marketplace host, and the Codex
     projection delegates to the same public contract.
-12. Release identity, Git ref, tarball, manifests, checksums, installed proof,
+13. Release identity, Git ref, tarball, manifests, checksums, installed proof,
     and qualification evidence all identify the same immutable cut.
