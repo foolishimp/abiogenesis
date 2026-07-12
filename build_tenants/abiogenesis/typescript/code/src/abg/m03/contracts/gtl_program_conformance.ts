@@ -481,6 +481,7 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/input/golden-instance-row",
   "abg://gtl-program/input/underdetermined-owner-route-field",
   "abg://gtl-program/input/underdetermined-row",
+  "abg://gtl-program/constitution/version-basis-unresolved",
   "abg://gtl-program/constitution/version-line-drift",
   "abg://gtl-program/constitution/release-claim-cites-active-ticket",
   "abg://gtl-program/constitution/surface-digest-missing",
@@ -1139,15 +1140,101 @@ export interface GtlProgramDeclarationSourceRow {
 // ref, digest, declared version, cited ticket refs) plus live facts; the
 // compiler JUDGES drift as typed diagnostics with repair affordances.
 // Drift is delta, not a review catch.
-export interface GtlProgramConstitutionalSurfaceRow {
+export type SourceProjectRef = `source-project://${string}`;
+
+export type PublishedRcCutRef = `published-rc-cut://${string}`;
+
+export type ReleaseCutRef = `release-cut://${string}`;
+
+export type ProductRef = `product://${string}`;
+
+export type InstalledProductRef = `installed-product://${string}`;
+
+export const CONSTITUTIONAL_VERSION_SUBJECT_KIND_VALUES = Object.freeze([
+  "source_project",
+  "published_rc_cut",
+  "release_cut",
+  "product",
+  "installed_product"
+] as const);
+
+export type ConstitutionalVersionSubject =
+  | {
+      readonly kind: "source_project";
+      readonly subjectRef: SourceProjectRef;
+    }
+  | {
+      readonly kind: "published_rc_cut";
+      readonly subjectRef: PublishedRcCutRef;
+    }
+  | {
+      readonly kind: "release_cut";
+      readonly subjectRef: ReleaseCutRef;
+    }
+  | {
+      readonly kind: "product";
+      readonly subjectRef: ProductRef;
+    }
+  | {
+      readonly kind: "installed_product";
+      readonly subjectRef: InstalledProductRef;
+    };
+
+interface GtlProgramConstitutionalSurfaceRowBase {
   readonly surfaceRef: string;
   readonly digest: string;
-  readonly declaredVersion: string | null;
   readonly citedTicketRefs: readonly string[];
 }
 
+export type GtlProgramConstitutionalSurfaceRow =
+  GtlProgramConstitutionalSurfaceRowBase &
+    (
+      | {
+          readonly versionDisposition: "unversioned";
+          readonly declaredVersion: null;
+          readonly versionBindingRef: null;
+        }
+      | {
+          readonly versionDisposition: "versioned";
+          readonly declaredVersion: string;
+          readonly versionBindingRef: string;
+        }
+    );
+
+export interface GtlProgramConstitutionalSurfaceVersionBinding {
+  readonly bindingRef: string;
+  readonly surfaceRef: string;
+  readonly subject: ConstitutionalVersionSubject;
+  readonly authorityRef: string;
+}
+
+export interface GtlProgramConstitutionalVersionFact {
+  readonly subject: ConstitutionalVersionSubject;
+  readonly version: string;
+  readonly authorityRef: string;
+}
+
+type ConstitutionalVersionBasisReason =
+  | "subject_kind_ref_incoherent"
+  | "surface_binding_missing"
+  | "surface_binding_ambiguous"
+  | "version_fact_missing"
+  | "version_fact_ambiguous";
+
+const VERSION_BASIS_REPAIR_EDIT_CLASS = Object.freeze({
+  subject_kind_ref_incoherent: "correct_reference",
+  surface_binding_missing: "add_missing_declaration",
+  surface_binding_ambiguous: "remove_duplicate_declaration",
+  version_fact_missing: "add_missing_declaration",
+  version_fact_ambiguous: "remove_duplicate_declaration"
+} as const satisfies Readonly<
+  Record<ConstitutionalVersionBasisReason, GtlProgramRepairEditClass>
+>);
+
 export interface GtlProgramConstitutionalLiveFacts {
-  readonly packageVersion: string;
+  readonly surfaceVersionBindings:
+    readonly GtlProgramConstitutionalSurfaceVersionBinding[];
+  readonly versionFacts: readonly GtlProgramConstitutionalVersionFact[];
   readonly activeTicketRefs: readonly string[];
   readonly passthroughKeys: readonly string[];
   readonly seamKeySets: readonly {
@@ -6641,10 +6728,29 @@ function admitGoldenInstanceBindingRows(
   );
 }
 
+function isStringArrayWithNonEmptyEntries(
+  value: unknown
+): value is readonly string[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (entry) => typeof entry === "string" && entry.trim().length > 0
+    )
+  );
+}
+
 function admitConstitutionalSurfaceRows(
   input: readonly unknown[],
   issues: GtlProgramConformanceIssue[]
 ): readonly GtlProgramConstitutionalSurfaceRow[] {
+  const allowedKeys = new Set([
+    "surfaceRef",
+    "digest",
+    "versionDisposition",
+    "declaredVersion",
+    "versionBindingRef",
+    "citedTicketRefs"
+  ]);
   return Object.freeze(
     input.flatMap((row, index) => {
       const surfaceRef = `constitutionalSurfaceRows[${index}]`;
@@ -6659,19 +6765,70 @@ function admitConstitutionalSurfaceRows(
         );
         return [];
       }
-      const admitted: GtlProgramConstitutionalSurfaceRow = Object.freeze({
-        surfaceRef: String(row["surfaceRef"] ?? surfaceRef),
-        digest: String(row["digest"] ?? ""),
-        declaredVersion:
-          row["declaredVersion"] === null || row["declaredVersion"] === undefined
-            ? null
-            : String(row["declaredVersion"]),
-        citedTicketRefs: Object.freeze(
-          Array.isArray(row["citedTicketRefs"])
-            ? row["citedTicketRefs"].map((ref) => String(ref))
-            : []
-        )
-      });
+      const hasOnlyKnownKeys = Object.keys(row).every((key) =>
+        allowedKeys.has(key)
+      );
+      const admittedSurfaceRef = row["surfaceRef"];
+      const digest = row["digest"];
+      const citedTicketRefs = row["citedTicketRefs"];
+      const disposition = row["versionDisposition"];
+      const commonShapeIsValid =
+        hasOnlyKnownKeys &&
+        typeof admittedSurfaceRef === "string" &&
+        admittedSurfaceRef.trim().length > 0 &&
+        typeof digest === "string" &&
+        isStringArrayWithNonEmptyEntries(citedTicketRefs);
+      const versionShapeIsValid =
+        (disposition === "unversioned" &&
+          row["declaredVersion"] === null &&
+          row["versionBindingRef"] === null) ||
+        (disposition === "versioned" &&
+          typeof row["declaredVersion"] === "string" &&
+          row["declaredVersion"].trim().length > 0 &&
+          typeof row["versionBindingRef"] === "string" &&
+          row["versionBindingRef"].trim().length > 0);
+      if (!commonShapeIsValid || !versionShapeIsValid) {
+        issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef:
+              typeof admittedSurfaceRef === "string"
+                ? admittedSurfaceRef
+                : surfaceRef,
+            ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+            message: `${surfaceRef} must be a closed versioned or unversioned constitutional surface row`
+          })
+        );
+        return [];
+      }
+      let admitted: GtlProgramConstitutionalSurfaceRow;
+      if (disposition === "unversioned") {
+        admitted = Object.freeze({
+          surfaceRef: admittedSurfaceRef,
+          digest,
+          versionDisposition: "unversioned",
+          declaredVersion: null,
+          versionBindingRef: null,
+          citedTicketRefs: Object.freeze([...citedTicketRefs])
+        });
+      } else {
+        const declaredVersion = row["declaredVersion"];
+        const versionBindingRef = row["versionBindingRef"];
+        if (
+          typeof declaredVersion !== "string" ||
+          typeof versionBindingRef !== "string"
+        ) {
+          return [];
+        }
+        admitted = Object.freeze({
+          surfaceRef: admittedSurfaceRef,
+          digest,
+          versionDisposition: "versioned",
+          declaredVersion,
+          versionBindingRef,
+          citedTicketRefs: Object.freeze([...citedTicketRefs])
+        });
+      }
       if (admitted.digest.trim().length === 0) {
         issues.push(
           issue({
@@ -6685,6 +6842,274 @@ function admitConstitutionalSurfaceRows(
       }
       return [admitted];
     })
+  );
+}
+
+const CONSTITUTIONAL_VERSION_SUBJECT_PREFIX: Readonly<
+  Record<ConstitutionalVersionSubject["kind"], string>
+> = Object.freeze({
+  source_project: "source-project://",
+  published_rc_cut: "published-rc-cut://",
+  release_cut: "release-cut://",
+  product: "product://",
+  installed_product: "installed-product://"
+});
+
+function isConstitutionalVersionSubjectKind(
+  value: unknown
+): value is ConstitutionalVersionSubject["kind"] {
+  return (
+    typeof value === "string" &&
+    CONSTITUTIONAL_VERSION_SUBJECT_KIND_VALUES.some(
+      (knownKind) => knownKind === value
+    )
+  );
+}
+
+function versionBasisIssue(input: {
+  readonly surfaceRef: string;
+  readonly reason: ConstitutionalVersionBasisReason;
+  readonly detail: string;
+}): GtlProgramConformanceIssue {
+  const editClass = VERSION_BASIS_REPAIR_EDIT_CLASS[input.reason];
+  return issue({
+    surfaceKind: "constitutional_surface",
+    surfaceRef: input.surfaceRef,
+    ruleRef: "abg://gtl-program/constitution/version-basis-unresolved",
+    message: `version basis unresolved (${input.reason}): ${input.detail}`,
+    admissibleRepairs: Object.freeze([
+      Object.freeze({
+        kind: "gtl_program_admissible_repair" as const,
+        editClass,
+        repairSurfaceRef: input.surfaceRef,
+        changeClassRef: null
+      })
+    ])
+  });
+}
+
+function admitConstitutionalVersionSubject(input: {
+  readonly candidate: unknown;
+  readonly surfaceRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): ConstitutionalVersionSubject | null {
+  const candidate = input.candidate;
+  if (
+    !isRecord(candidate) ||
+    Object.keys(candidate).length !== 2 ||
+    !("kind" in candidate) ||
+    !("subjectRef" in candidate)
+  ) {
+    input.issues.push(
+      versionBasisIssue({
+        surfaceRef: input.surfaceRef,
+        reason: "subject_kind_ref_incoherent",
+        detail: "subject must contain exactly kind and subjectRef"
+      })
+    );
+    return null;
+  }
+  const kind = candidate["kind"];
+  const subjectRef = candidate["subjectRef"];
+  if (
+    !isConstitutionalVersionSubjectKind(kind) ||
+    typeof subjectRef !== "string" ||
+    !subjectRef.startsWith(CONSTITUTIONAL_VERSION_SUBJECT_PREFIX[kind]) ||
+    subjectRef.length ===
+      CONSTITUTIONAL_VERSION_SUBJECT_PREFIX[kind].length
+  ) {
+    input.issues.push(
+      versionBasisIssue({
+        surfaceRef: input.surfaceRef,
+        reason: "subject_kind_ref_incoherent",
+        detail: `subject kind ${String(kind)} does not match ref ${String(subjectRef)}`
+      })
+    );
+    return null;
+  }
+  switch (kind) {
+    case "source_project": {
+      const admittedRef: SourceProjectRef = `source-project://${subjectRef.slice(
+        CONSTITUTIONAL_VERSION_SUBJECT_PREFIX.source_project.length
+      )}`;
+      return Object.freeze({
+        kind,
+        subjectRef: admittedRef
+      });
+    }
+    case "published_rc_cut": {
+      const admittedRef: PublishedRcCutRef = `published-rc-cut://${subjectRef.slice(
+        CONSTITUTIONAL_VERSION_SUBJECT_PREFIX.published_rc_cut.length
+      )}`;
+      return Object.freeze({
+        kind,
+        subjectRef: admittedRef
+      });
+    }
+    case "release_cut": {
+      const admittedRef: ReleaseCutRef = `release-cut://${subjectRef.slice(
+        CONSTITUTIONAL_VERSION_SUBJECT_PREFIX.release_cut.length
+      )}`;
+      return Object.freeze({ kind, subjectRef: admittedRef });
+    }
+    case "product": {
+      const admittedRef: ProductRef = `product://${subjectRef.slice(
+        CONSTITUTIONAL_VERSION_SUBJECT_PREFIX.product.length
+      )}`;
+      return Object.freeze({ kind, subjectRef: admittedRef });
+    }
+    case "installed_product": {
+      const admittedRef: InstalledProductRef = `installed-product://${subjectRef.slice(
+        CONSTITUTIONAL_VERSION_SUBJECT_PREFIX.installed_product.length
+      )}`;
+      return Object.freeze({
+        kind,
+        subjectRef: admittedRef
+      });
+    }
+    default:
+      return null;
+  }
+}
+
+function admitConstitutionalSurfaceVersionBindings(input: {
+  readonly candidate: unknown;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly GtlProgramConstitutionalSurfaceVersionBinding[] {
+  if (!Array.isArray(input.candidate)) {
+    input.issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts.surfaceVersionBindings",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts.surfaceVersionBindings must be an array"
+      })
+    );
+    return Object.freeze([]);
+  }
+  const allowedKeys = new Set([
+    "bindingRef",
+    "surfaceRef",
+    "subject",
+    "authorityRef"
+  ]);
+  return Object.freeze(
+    input.candidate.flatMap((candidate, index) => {
+      const rowRef = `constitutionalLiveFacts.surfaceVersionBindings[${index}]`;
+      if (
+        !isRecord(candidate) ||
+        !Object.keys(candidate).every((key) => allowedKeys.has(key)) ||
+        typeof candidate["bindingRef"] !== "string" ||
+        candidate["bindingRef"].trim().length === 0 ||
+        typeof candidate["surfaceRef"] !== "string" ||
+        candidate["surfaceRef"].trim().length === 0 ||
+        typeof candidate["authorityRef"] !== "string" ||
+        candidate["authorityRef"].trim().length === 0
+      ) {
+        input.issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef: rowRef,
+            ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+            message: `${rowRef} must be a closed binding row with non-empty refs`
+          })
+        );
+        return [];
+      }
+      const subject = admitConstitutionalVersionSubject({
+        candidate: candidate["subject"],
+        surfaceRef: rowRef,
+        issues: input.issues
+      });
+      if (subject === null) {
+        return [];
+      }
+      return [
+        Object.freeze({
+          bindingRef: candidate["bindingRef"],
+          surfaceRef: candidate["surfaceRef"],
+          subject,
+          authorityRef: candidate["authorityRef"]
+        })
+      ];
+    })
+  );
+}
+
+function admitConstitutionalVersionFacts(input: {
+  readonly candidate: unknown;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly GtlProgramConstitutionalVersionFact[] {
+  if (!Array.isArray(input.candidate)) {
+    input.issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts.versionFacts",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts.versionFacts must be an array"
+      })
+    );
+    return Object.freeze([]);
+  }
+  const allowedKeys = new Set(["subject", "version", "authorityRef"]);
+  return Object.freeze(
+    input.candidate.flatMap((candidate, index) => {
+      const rowRef = `constitutionalLiveFacts.versionFacts[${index}]`;
+      if (
+        !isRecord(candidate) ||
+        !Object.keys(candidate).every((key) => allowedKeys.has(key)) ||
+        typeof candidate["version"] !== "string" ||
+        candidate["version"].trim().length === 0 ||
+        typeof candidate["authorityRef"] !== "string" ||
+        candidate["authorityRef"].trim().length === 0
+      ) {
+        input.issues.push(
+          issue({
+            surfaceKind: "constitutional_surface",
+            surfaceRef: rowRef,
+            ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+            message: `${rowRef} must be a closed version-fact row with non-empty values`
+          })
+        );
+        return [];
+      }
+      const subject = admitConstitutionalVersionSubject({
+        candidate: candidate["subject"],
+        surfaceRef: rowRef,
+        issues: input.issues
+      });
+      if (subject === null) {
+        return [];
+      }
+      return [
+        Object.freeze({
+          subject,
+          version: candidate["version"],
+          authorityRef: candidate["authorityRef"]
+        })
+      ];
+    })
+  );
+}
+
+function isConstitutionalSeamKeySetArray(
+  value: unknown
+): value is readonly {
+  readonly seamRef: string;
+  readonly keys: readonly string[];
+}[] {
+  return (
+    Array.isArray(value) &&
+    value.every(
+      (seam) =>
+        isRecord(seam) &&
+        Object.keys(seam).length === 2 &&
+        "seamRef" in seam &&
+        "keys" in seam &&
+        typeof seam["seamRef"] === "string" &&
+        seam["seamRef"].trim().length > 0 &&
+        isStringArrayWithNonEmptyEntries(seam["keys"])
+    )
   );
 }
 
@@ -6706,33 +7131,88 @@ function admitConstitutionalLiveFacts(
     );
     return null;
   }
-  const seams = Array.isArray(input["seamKeySets"]) ? input["seamKeySets"] : [];
-  return Object.freeze({
-    packageVersion: String(input["packageVersion"] ?? ""),
-    activeTicketRefs: Object.freeze(
-      Array.isArray(input["activeTicketRefs"])
-        ? input["activeTicketRefs"].map((ref) => String(ref))
-        : []
-    ),
-    passthroughKeys: Object.freeze(
-      Array.isArray(input["passthroughKeys"])
-        ? input["passthroughKeys"].map((key) => String(key))
-        : []
-    ),
-    seamKeySets: Object.freeze(
-      seams.flatMap((seam) => {
-        if (!isRecord(seam)) {
-          return [];
-        }
-        return [
-          Object.freeze({
-            seamRef: String(seam["seamRef"] ?? "seam"),
-            keys: Object.freeze(
-              Array.isArray(seam["keys"]) ? seam["keys"].map((key) => String(key)) : []
-            )
-          })
-        ];
+  const allowedKeys = new Set([
+    "surfaceVersionBindings",
+    "versionFacts",
+    "activeTicketRefs",
+    "passthroughKeys",
+    "seamKeySets"
+  ]);
+  const activeTicketRefs = input["activeTicketRefs"];
+  const passthroughKeys = input["passthroughKeys"];
+  const seamKeySets = input["seamKeySets"];
+  if (
+    !Object.keys(input).every((key) => allowedKeys.has(key)) ||
+    Object.keys(input).length !== allowedKeys.size
+  ) {
+    issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message:
+          "constitutionalLiveFacts must be the closed binding, fact, ticket, passthrough, and seam carrier"
       })
+    );
+  }
+  const admittedActiveTicketRefs = isStringArrayWithNonEmptyEntries(activeTicketRefs)
+    ? activeTicketRefs
+    : [];
+  if (!isStringArrayWithNonEmptyEntries(activeTicketRefs)) {
+    issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts.activeTicketRefs",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts.activeTicketRefs must be a string array"
+      })
+    );
+  }
+  const admittedPassthroughKeys = isStringArrayWithNonEmptyEntries(passthroughKeys)
+    ? passthroughKeys
+    : [];
+  if (!isStringArrayWithNonEmptyEntries(passthroughKeys)) {
+    issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts.passthroughKeys",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts.passthroughKeys must be a string array"
+      })
+    );
+  }
+  const admittedSeamKeySets = isConstitutionalSeamKeySetArray(seamKeySets)
+    ? seamKeySets
+    : [];
+  if (!isConstitutionalSeamKeySetArray(seamKeySets)) {
+    issues.push(
+      issue({
+        surfaceKind: "constitutional_surface",
+        surfaceRef: "constitutionalLiveFacts.seamKeySets",
+        ruleRef: "abg://gtl-program/input/constitutional-surface-row",
+        message: "constitutionalLiveFacts.seamKeySets must be closed seam rows"
+      })
+    );
+  }
+  return Object.freeze({
+    surfaceVersionBindings: admitConstitutionalSurfaceVersionBindings({
+      candidate: input["surfaceVersionBindings"],
+      issues
+    }),
+    versionFacts: admitConstitutionalVersionFacts({
+      candidate: input["versionFacts"],
+      issues
+    }),
+    activeTicketRefs: Object.freeze([...admittedActiveTicketRefs]),
+    passthroughKeys: Object.freeze([...admittedPassthroughKeys]),
+    seamKeySets: Object.freeze(
+      admittedSeamKeySets.map(
+        (seam) =>
+          Object.freeze({
+            seamRef: seam.seamRef,
+            keys: Object.freeze([...seam.keys])
+          })
+      )
     )
   });
 }
@@ -6744,26 +7224,70 @@ function checkConstitutionalDrift(input: {
   readonly liveFacts: GtlProgramConstitutionalLiveFacts | null;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
-  if (input.liveFacts === null) {
-    return;
-  }
+  const surfaceVersionBindings = input.liveFacts?.surfaceVersionBindings ?? [];
+  const versionFacts = input.liveFacts?.versionFacts ?? [];
   for (const row of input.rows) {
-    if (
-      row.declaredVersion !== null &&
-      input.liveFacts.packageVersion.length > 0 &&
-      row.declaredVersion !== input.liveFacts.packageVersion
-    ) {
-      input.issues.push(
-        issue({
-          surfaceKind: "constitutional_surface",
-          surfaceRef: row.surfaceRef,
-          ruleRef: "abg://gtl-program/constitution/version-line-drift",
-          message: `surface declares version ${row.declaredVersion} but the live package is ${input.liveFacts.packageVersion}`
-        })
+    if (row.versionDisposition === "versioned") {
+      const bindings = surfaceVersionBindings.filter(
+        (binding) =>
+          binding.bindingRef === row.versionBindingRef &&
+          binding.surfaceRef === row.surfaceRef
       );
+      if (bindings.length === 0) {
+        input.issues.push(
+          versionBasisIssue({
+            surfaceRef: row.surfaceRef,
+            reason: "surface_binding_missing",
+            detail: `no exact binding ${row.versionBindingRef} names this surface`
+          })
+        );
+      } else if (bindings.length > 1) {
+        input.issues.push(
+          versionBasisIssue({
+            surfaceRef: row.surfaceRef,
+            reason: "surface_binding_ambiguous",
+            detail: `${bindings.length} exact bindings ${row.versionBindingRef} name this surface`
+          })
+        );
+      } else {
+        const binding = bindings[0];
+        if (binding !== undefined) {
+          const facts = versionFacts.filter(
+            (fact) =>
+              fact.subject.kind === binding.subject.kind &&
+              fact.subject.subjectRef === binding.subject.subjectRef
+          );
+          if (facts.length === 0) {
+            input.issues.push(
+              versionBasisIssue({
+                surfaceRef: row.surfaceRef,
+                reason: "version_fact_missing",
+                detail: `no version fact resolves ${binding.subject.kind} ${binding.subject.subjectRef}`
+              })
+            );
+          } else if (facts.length > 1) {
+            input.issues.push(
+              versionBasisIssue({
+                surfaceRef: row.surfaceRef,
+                reason: "version_fact_ambiguous",
+                detail: `${facts.length} version facts resolve ${binding.subject.kind} ${binding.subject.subjectRef}`
+              })
+            );
+          } else if (facts[0]?.version !== row.declaredVersion) {
+            input.issues.push(
+              issue({
+                surfaceKind: "constitutional_surface",
+                surfaceRef: row.surfaceRef,
+                ruleRef: "abg://gtl-program/constitution/version-line-drift",
+                message: `surface declares version ${row.declaredVersion} but exact ${binding.subject.kind} ${binding.subject.subjectRef} is ${facts[0]?.version}`
+              })
+            );
+          }
+        }
+      }
     }
     for (const cited of row.citedTicketRefs) {
-      if (input.liveFacts.activeTicketRefs.includes(cited)) {
+      if (input.liveFacts?.activeTicketRefs.includes(cited) === true) {
         input.issues.push(
           issue({
             surfaceKind: "constitutional_surface",
@@ -6776,8 +7300,10 @@ function checkConstitutionalDrift(input: {
       }
     }
   }
-  for (const seam of input.liveFacts.seamKeySets) {
-    const expected = [...input.liveFacts.passthroughKeys].sort().join(",");
+  for (const seam of input.liveFacts?.seamKeySets ?? []) {
+    const expected = [...(input.liveFacts?.passthroughKeys ?? [])]
+      .sort()
+      .join(",");
     const actual = [...seam.keys].sort().join(",");
     if (expected !== actual) {
       input.issues.push(

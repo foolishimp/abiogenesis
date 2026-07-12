@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.5.1 release line
+**Status**: Current single human guide for GTL 3 / ABG 3 over the latest published TypeScript 4.6.0-rc.3 line
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -219,7 +219,7 @@ requirements functions under product namespaces, mint peer ledgers for
 requirement evidence, folds, residuals, dispositions, or treat lifecycle views
 as writable closure authority.
 
-In the 4.1 line, this route is a downstream-consumable GTL/ABG substrate:
+In the latest published TypeScript RC, this route is a downstream-consumable GTL/ABG substrate:
 
 - GTL declares requirement terms, relations, traversal spans, staged context,
   destination topology, test relations, and lifecycle-composition refs without
@@ -487,9 +487,9 @@ Avoid these mistakes:
 - creating product-local requirement compilers, closure ledgers, residual
   ledgers, or next-action routers that shadow the GTL/ABG route
 
-## ABG 4.5.1 Runtime Boundary
+## Published ABG 4.6.0-rc.3 Runtime Boundary
 
-The ABG 4.5.1 TypeScript line keeps runtime law carrier and event owned.
+The published ABG 4.6.0-rc.3 TypeScript line keeps runtime law carrier and event owned.
 It carries the read-only F_P construction evaluator/gaps projection and the
 downstream-consumable requirements route as query surfaces over replay-derived
 runtime truth.

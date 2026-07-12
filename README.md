@@ -12,11 +12,12 @@ The repo is organized around spec-driven development:
   realization
 - `build_tenants/abiogenesis/typescript/test_env/` is the primary TS RC proof
   harness
-- `build_tenants/abiogenesis/python/` is a paused released reference line
+- `build_tenants/abiogenesis/python/` is a withdrawn historical reference line
 
-The active TypeScript release line is `@abiogenesis/typescript-tenant`
-`4.6.0-rc.3`. The constitutional language/runtime requirement families remain
-GTL 3 / ABG 3. The fast reload authority for GTL contract-law/API review is
+The latest published TypeScript RC is `@abiogenesis/typescript-tenant`
+`4.6.0-rc.3`; the mutable source package advances independently toward 5.0.
+The constitutional language/runtime requirement families remain GTL 3 / ABG
+3. The fast reload authority for GTL contract-law/API review is
 [`REQ-L-GTL3-CONTRACT-LAW-API.md`](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
 
 The active engine and language surface is:
@@ -141,9 +142,8 @@ The primary release line is the package-first TypeScript realization under
 `build_tenants/abiogenesis/typescript/`.
 
 The Python realization under `build_tenants/abiogenesis/python/` is retained as
-a paused released reference line. Python tests and archives remain useful
-evidence, but Python work is not part of the TS-primary RC gate while the tenant
-registry keeps Python paused.
+a withdrawn historical reference line. Python tests and archives remain useful
+evidence, but Python work is not part of the TS-primary release gate.
 
 Relevant directories:
 

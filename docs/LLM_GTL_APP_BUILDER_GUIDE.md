@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical guide for GTL 3 / ABG 3 over the TypeScript 4.5.1 release line
+**Status**: Current compressed technical guide for GTL 3 / ABG 3 over the latest published TypeScript 4.6.0-rc.3 line
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -67,7 +67,7 @@ Use this section as the one-surface ABG/GTL ontology and epistemology handoff.
 Current source package identity:
 
 ```text
-@abiogenesis/typescript-tenant@4.5.1
+@abiogenesis/typescript-tenant@5.0.0-dev.0
 ```
 
 Current model shape:
@@ -196,7 +196,7 @@ functions under `glc.*`, `sdlc.*`, or another product namespace, and do not
 mint product-local requirement ledgers for evidence, folds, residuals,
 dispositions, or next action.
 
-The 4.1 requirements route keeps a strict visibility split:
+The current requirements route keeps a strict visibility split:
 
 - downstream-public authoring uses GTL requirement declaration and lifecycle
   composition refs;
@@ -2590,13 +2590,13 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current TypeScript source package version is `4.5.1`.
+The current TypeScript source package version is `5.0.0-dev.0`.
 
 ### Run from source
 
 See the appendices for source-run commands in Python and TypeScript.
 
-The TypeScript 4.1 binary exposes these public commands:
+The current TypeScript source binary exposes these public commands:
 
 - `install`
 - `start`
@@ -3697,7 +3697,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-4.5.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-5.0.0-dev.0.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3711,8 +3711,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "4.5.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-4.5.1.tgz",
+      packageVersion: "5.0.0-dev.0",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-5.0.0-dev.0.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

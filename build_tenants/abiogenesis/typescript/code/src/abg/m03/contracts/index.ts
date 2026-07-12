@@ -1085,6 +1085,7 @@ export {
   constructAbgSemanticCompilerFpReviewResult,
   formatGtlProgramConformanceIssues,
   assertRatifiedGtlProgramDiagnosticId,
+  CONSTITUTIONAL_VERSION_SUBJECT_KIND_VALUES,
   GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
   GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS,
   GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES,
@@ -1101,7 +1102,12 @@ export type {
   AbgSemanticCompilerFpReviewResult,
   AbgSemanticCompilerFpReviewResultAdmission,
   AbgSemanticCompilerFpReviewRunResult,
+  ConstitutionalVersionSubject,
   GtlProgramCoverageCounts,
+  GtlProgramConstitutionalLiveFacts,
+  GtlProgramConstitutionalSurfaceRow,
+  GtlProgramConstitutionalSurfaceVersionBinding,
+  GtlProgramConstitutionalVersionFact,
   GtlProgramFeatureCoverageManifest,
   GtlProgramFeatureCoverageRow,
   GtlProgramFeatureDisposition,
@@ -1150,7 +1156,12 @@ export type {
   GtlProgramTraversalBindConservationRow,
   GtlProgramTraversalEntryUnitProjectionRow,
   GtlProgramTraversalUnitProjection,
-  GtlProgramTraversalUnitProjectionRow
+  GtlProgramTraversalUnitProjectionRow,
+  InstalledProductRef,
+  ProductRef,
+  PublishedRcCutRef,
+  ReleaseCutRef,
+  SourceProjectRef
 } from "./gtl_program_conformance.js";
 export {
   constructDefaultInstructionAssemblyStartupForBasis

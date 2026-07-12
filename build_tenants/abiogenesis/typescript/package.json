@@ -123,6 +123,7 @@
     "test:t220": "npm run build:semantic",
     "test:t223": "npm run build:semantic && tsc -p test_env/type_tests/tsconfig.t223.json && node --test --test-concurrency=1 test_env/tests/test_t223*.test.mjs",
     "test:t223:live": "npm run build:semantic && ABG_TS_T223_PACKED_HELLO_WORLD_LIVE=1 node --test --test-concurrency=1 test_env/live/test_t223_packed_hello_world_live.test.mjs",
+    "test:t250": "npm run build:semantic && tsc -p test_env/type_tests/tsconfig.t250.json && node --test --test-concurrency=1 test_env/tests/test_t193_constitutional_drift.test.mjs test_env/tests/test_t195_docs_drift.test.mjs",
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "test:design-mermaid": "node --test --test-concurrency=1 test_env/tests/test_t251_design_mermaid_gate.test.mjs",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",

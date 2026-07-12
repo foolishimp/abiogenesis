@@ -7,11 +7,11 @@ Use this root for explanatory, operational, or supporting material that is not i
 The constitutional source remains `specification/`. These docs are operator and
 builder guidance over that source.
 
-The current TypeScript release line is `@abiogenesis/typescript-tenant`
-`4.5.1`. For GTL contract-law/API reload, start from
+The latest published TypeScript RC is `@abiogenesis/typescript-tenant`
+`4.6.0-rc.3`. For GTL contract-law/API reload, start from
 [`REQ-L-GTL3-CONTRACT-LAW-API.md`](../specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
 
-The current 4.1 line includes the downstream-consumable requirements route:
+The latest published TypeScript RC includes the downstream-consumable requirements route:
 GTL publishes requirement declaration and lifecycle-composition surfaces,
 ABG publishes read-only `abg.requirements` query facades, and ABG keeps
 declaration admission, evidence binding, fold, residual, and lifecycle
@@ -34,7 +34,7 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Release Notes
 
 - [ABIOGENESIS_RC_RELEASE_NOTE.md](./ABIOGENESIS_RC_RELEASE_NOTE.md) records
-  the current 4.5.1 release-candidate boundary.
+  the latest published 4.6.0-rc.3 boundary.
 - [ABIOGENESIS_RC_NOTES.md](./ABIOGENESIS_RC_NOTES.md) records historical
   release-candidate behavior and caveats across earlier release lines.
 

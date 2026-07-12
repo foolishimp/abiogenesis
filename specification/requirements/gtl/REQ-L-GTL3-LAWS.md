@@ -84,18 +84,27 @@ corpus is distinct from the requirements corpus and qualification evidence.
 
 **REQ-L-GTL3-LAWS-028**: Constitutional surfaces are witnessed data and
 drift is a typed conformance failure. A loader witnesses constitutional
-surfaces (surface ref, content digest, declared version line, cited ticket
-refs) together with live facts (package version, active ticket refs,
-public-seam key sets against the engine passthrough authority); the
-semantic compiler judges the gap. A declared version line that disagrees
-with the live package is `version-line-drift`; a release-bearing surface
-citing an active ticket is `release-claim-cites-active-ticket`; a
-witnessed surface without a content digest is `surface-digest-missing`; a
-public seam whose key set diverges from the passthrough authority is
-`seam-parity-drift`. Each drift diagnostic carries a ratified identity and
-a default admissible repair. Drift detection shall not be a second checker
-outside the semantic compiler, and drift rules shall not be prose review
-checklists.
+surfaces (surface ref, content digest, version disposition, declared version
+line, separate version-binding ref, and cited ticket refs), separately
+authorized surface-to-subject bindings, and live facts. Version subjects are a
+closed tagged family: mutable source project, immutable published RC cut,
+tapped release cut, released product, and stamped installed product. These
+subjects never substitute for one another. For every versioned surface the
+semantic compiler shall resolve exactly one binding by binding ref and surface
+ref, then exactly one version fact for that binding's exact tagged subject,
+before comparing values. Missing, duplicate, or kind-incoherent basis is
+`version-basis-unresolved`; a declared version that disagrees with its resolved
+same-subject fact is `version-line-drift`. A surface, its path, its version text,
+or an inferred latest cut shall not select or fabricate its own version basis.
+Active ticket refs and public-seam key sets against the engine passthrough
+authority remain live facts: a release-bearing surface citing an active ticket
+is `release-claim-cites-active-ticket`; a witnessed surface without a content
+digest is `surface-digest-missing`; and a public seam whose key set diverges
+from the passthrough authority is `seam-parity-drift`. Version-basis failure
+shall not suppress ticket or seam assessment. Each drift diagnostic carries a
+ratified identity and an admissible repair from the existing repair vocabulary.
+Drift detection shall not be a second checker outside the semantic compiler,
+and drift rules shall not be prose review checklists.
 
 ## Amendment (T-200 P0)
 

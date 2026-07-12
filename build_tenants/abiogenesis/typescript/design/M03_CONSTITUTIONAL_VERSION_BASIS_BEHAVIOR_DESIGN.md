@@ -203,11 +203,11 @@ stateDiagram-v2
 ## Carrier Contract
 
 ```ts
-type SourceProjectRef = string & { readonly kind: "source_project_ref" };
-type PublishedRcCutRef = string & { readonly kind: "published_rc_cut_ref" };
-type ReleaseCutRef = string & { readonly kind: "release_cut_ref" };
-type ProductRef = string & { readonly kind: "product_ref" };
-type InstalledProductRef = string & { readonly kind: "installed_product_ref" };
+type SourceProjectRef = `source-project://${string}`;
+type PublishedRcCutRef = `published-rc-cut://${string}`;
+type ReleaseCutRef = `release-cut://${string}`;
+type ProductRef = `product://${string}`;
+type InstalledProductRef = `installed-product://${string}`;
 
 type ConstitutionalVersionSubject =
   | { readonly kind: "source_project"; readonly subjectRef: SourceProjectRef }
@@ -273,7 +273,14 @@ const VERSION_BASIS_REPAIR_EDIT_CLASS = {
 >;
 ```
 
-Raw admission brands kind-specific refs once and rejects a kind/prefix mismatch
+**Accepted realization refinement**: the implementation uses prefix-constrained
+template-literal ref types rather than nominal string intersections. This is a
+native-enforcement strengthening discovered during lint/type realization: a
+literal with the wrong subject prefix is rejected without a cast, while the
+tagged subject identity and every domain, sequence, and state relation remain
+unchanged.
+
+Raw admission constructs kind-specific prefix-constrained refs once and rejects a kind/prefix mismatch
 with `version-basis-unresolved`; its compiler-internal reason is
 `subject_kind_ref_incoherent`. The compiler owns relation cardinality: exactly
 one separate binding must resolve by `versionBindingRef + surfaceRef`, then
@@ -310,7 +317,7 @@ The reason-to-repair mapping is exact in declaration order:
 
 | Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|
-| Five version subjects remain distinct | SPEC_METHOD; RELEASE_METHOD | Tagged subject union has source, published RC, tapped release, product, install | Judge compares one identical tagged subject only | `Comparable` follows exact binding and fact resolution | Discriminated union plus kind-specific branded refs | Raw admission validates kind/ref coherence | pass | T-250 |
+| Five version subjects remain distinct | SPEC_METHOD; RELEASE_METHOD | Tagged subject union has source, published RC, tapped release, product, install | Judge compares one identical tagged subject only | `Comparable` follows exact binding and fact resolution | Discriminated union plus prefix-constrained ref types | Raw admission validates kind/ref coherence | pass | T-250 |
 | Loaders witness and the compiler judges | LAWS-028 | `WitnessLoader`, `RawAdmission`, and `ConstitutionalDriftJudge` are separate | Loader/admission messages precede the one judge call | Admission issues are retained before row assessment | Loader constructs data only | Compiler alone owns relation resolution and drift | pass | T-250 |
 | Surface-to-subject authority is separate | No-inference law | Binding row is distinct from surface row and version fact | Judge resolves binding by binding ref and surface ref | `ResolvingBinding` precedes `ResolvingFact` | Versioned row carries binding ref, not subject | Exact binding multiplicity and authority ref are compiler-checked | pass | T-250 |
 | Missing or ambiguous basis is non-green | No-inference law | Versioned row, binding, and fact are subordinate typed payloads | Admission maps local incoherence; the judge maps zero/multiple binding or fact into the existing issue shape | Basis issue flows to independent checks then aggregate, including zero-row seam path | Native union forbids partial versioned rows | One diagnostic; compiler-internal reasons map to existing public repair edit classes | pass | T-250 |
@@ -321,8 +328,8 @@ The reason-to-repair mapping is exact in declaration order:
 
 **Design verdict**: `accepted`. The views are internally aligned, render, and
 passed independent and F_H review. T-251 closed the ordered entry-proof
-prerequisite at `338ba7b`; active realization must preserve this carrier and
-ownership boundary.
+prerequisite at `338ba7b`; the completed realization preserves this carrier
+and ownership boundary.
 
 ## Required Differentials
 
@@ -406,5 +413,6 @@ No intermediate checkpoint may make missing basis fall back to
 ## Non-Scope
 
 No release artifact mutation, universal identity framework, installed fact by
-inference, or weakening of ticket/seam drift checks. Implementation remains
-blocked until this design and the LAWS-028 reprice are accepted.
+inference, or weakening of ticket/seam drift checks. The implementation gate
+was satisfied by the recorded independent and F_H acceptance before
+realization began.

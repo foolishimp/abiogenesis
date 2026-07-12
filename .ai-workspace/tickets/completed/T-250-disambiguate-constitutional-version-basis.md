@@ -4,9 +4,9 @@
 - title: Disambiguate constitutional version basis across source, published RC, release, product, and install
 - type: requirements_realization
 - ticket_category: constitutional_drift_detection
-- status: active
-- phase_status: implementation_active
-- review_status: accepted
+- status: completed
+- phase_status: complete
+- review_status: independent_review_passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: high
 - owner: abiogenesis
@@ -26,13 +26,14 @@
 - triaged_at: 2026-07-12
 - created_at: 2026-07-12
 - updated_at: 2026-07-12
+- closed_at: 2026-07-12
 - source_ticket: T-242
 - dependencies:
   - completed T-251 entry-proof gate restoration (`338ba7b`)
   - completed T-193 constitutional drift detection
   - completed T-195 docs and release-note drift gate
   - completed T-243 4.6 predecessor disposition
-  - active T-249 stable-first constitutional reprice
+  - completed T-249 stable-first constitutional reprice
 - authority_refs:
   - specification/GOALS.md
   - specification/PRODUCT.md
@@ -142,8 +143,45 @@ Satisfied. Independent review `f7148c6` recommended acceptance, and F_H
 directed execution to continue. The accepted carrier, diagrams, axiom matrix,
 current-tree binding table, proof matrix, and non-scope remain binding.
 T-251 closed the ordered entry-proof prerequisite at `338ba7b`; bounded T-250
-requirement and realization work is active. Acceptance does not authorize
-release publication or any change to rc.3 history.
+requirement and realization work then completed under this accepted design.
+Acceptance did not authorize release publication or any change to rc.3 history.
+
+## Execution And Closure Evidence
+
+Completed on 2026-07-12 under the accepted M03 behavior design.
+
+1. LAWS-028 and its contract-law index now distinguish mutable source,
+   published RC, tapped release, product, and installed-product subjects.
+2. The one M03 semantic-compiler judge admits prefix-constrained tagged
+   subjects, separate authority bindings and version facts, and closed
+   versioned/unversioned surface rows. Missing, ambiguous, or kind-incoherent
+   basis emits the one ratified `version-basis-unresolved` diagnostic with its
+   reason-specific existing repair. Version, ticket, and seam issues aggregate.
+3. T-193/T-195 now prove all five constructed subject kinds, native type
+   mismatch refusal, exact binding/fact multiplicity, malformed-input
+   conservation, inventory digest coverage, a 12-claim source-versus-published
+   documentation census, and immutable rc.3 release integrity.
+4. Current guide labels now distinguish the latest published
+   `4.6.0-rc.3` from mutable source `5.0.0-dev.0`. No tapped-release, product,
+   or installed-product fact was inferred. The root README Python
+   `paused`-to-`withdrawn` correction is propagation of already-ratified T-249
+   truth, not T-250 version-basis scope; no Python realization changed.
+5. The canonical T-223 publisher refreshed only the six native inventories,
+   public catalog, and product-toolchain manifest required by the deliberate
+   M03 type export.
+
+Closure gates:
+
+- `npm run test:t250`: 13/13, including the native T-250 type proof
+- `npm run lint:semantic`: zero findings
+- `npm run test:semantic`: 1512/1512
+- `npm run check:abg-product-publication`: 33/33 generated assets verified
+- `npm run check:design-mermaid`: 9 files and 27 ordered views rendered
+- `npm run test:design-mermaid`: 5/5 mutation proofs
+- independent implementation review: pass, no remaining findings
+- immutable boundary: no diff in `AGENTS.md`, `CLAUDE.md`, the rc.3 release
+  note, or the rc.3 snapshot directory; the focused proof also pins those
+  release bytes to tag `v4.6.0-rc.3`
 
 ## Closure Law
 
