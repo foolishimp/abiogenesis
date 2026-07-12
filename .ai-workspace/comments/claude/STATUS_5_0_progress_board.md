@@ -4,7 +4,7 @@
 claude at each monitoring checkpoint). Authority: T-244 register, T-242, the
 approved nine-phase plan.
 **Last updated:** 2026-07-13 · after Consensus GTL design review (`00e74f5`)
-· board fully green · 3b Phase A ratified, Phase B in flight
+· board fully green · 3b Phase B verified; suite 1,523/1,523; 3c next
 
 **Estimates are a planning read model — re-based at each checkpoint, not
 delivery commitments. The runtime bucket (item 5) re-bases materially at the
@@ -28,7 +28,7 @@ depth, live lanes.
 | 2a | Lint + render gate (T-251) | ✅ done, verified | 25m actual |
 | 2b | Version-basis fix (T-250) | ✅ done, verified | 32m actual |
 | 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
-| 3b | Typed HOF relation (T-253) | 🔄 Phase A done (REQ-L-GTL3-HOF ratified); Phase B realizing | 68m+33m actual; ~1h realize est |
+| 3b | Typed HOF relation (T-253) | ✅ Phase B verified 7/7 criteria; ticket closure pending | 68m+33m+38m actual |
 | 3c | Body + compile census | ⛔ after 3b | ~30–60m est |
 | 4 | Invocation spine (4 leaves) | ⛔ 3–4 design reworks + accepts first (register: 6 blocked/4 candidate) | ~2.5–5h est + rework cycles |
 | 5 | Runtime atoms: workflow.C/C.batch/C.retry + census-discovered HOF/recurse runtime leaves (count TBD) | ⛔ sized by 3c census | ~2–6h+; re-based at census |
@@ -50,7 +50,7 @@ one-sided variance.
 
 ## Gates and evidence (short)
 
-- Suite: **1,512/1,512 — fully green** (first time on the 5.0 line).
+- Suite: **1,523/1,523 — fully green** (+11 T-253 tests).
 - Expanded t193/t195 differentials: 13/13; rc.3 bytes untouched.
 - Design gate green (pinned 11.3.0); lint lanes green; pack census clean.
 
