@@ -1706,6 +1706,11 @@ The canonical active files are:
 - Design: [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](../design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md),
   [T-253](../../../../.ai-workspace/tickets/completed/T-253-close-typed-fan-out-vector-relation.md)
 - Command: `npm run test:t253`, included in `npm run test:gtl-law`
+- Authority class: compiler classification proof. It proves structural
+  declaration observation, exact ref and contract resolution, malformed
+  `invalid_program` refusal, and lawful-but-unrealized
+  `semantic_not_realized` truth. Names and tags alone do not establish HOF
+  authority, and this lane invokes no runtime consumer.
 - Authority class: native type/admission proof. It covers invariant witnesses,
   exact `A -> B` plus `Vector<A> -> Vector<B>` joins, canonical independently
   authored raw admission, closed tagged-object syntax, and exact node identity.
@@ -1721,11 +1726,37 @@ The canonical active files are:
 - Design: [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](../design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md),
   [T-253](../../../../.ai-workspace/tickets/completed/T-253-close-typed-fan-out-vector-relation.md)
 - Command: `npm run test:t253`, included in `npm run test:gtl-law`
-- Authority class: compiler classification proof. It proves structural
-  declaration observation, exact ref and contract resolution, malformed
-  `invalid_program` refusal, and lawful-but-unrealized
-  `semantic_not_realized` truth. Names and tags alone do not establish HOF
-  authority, and this lane invokes no runtime consumer.
+
+### test_t254_graph_vector_c_program_selection.test.mjs
+
+- Status: completed T-254 generic relation proof
+- Module alignment: `M01-gtl-core` native/raw declaration law and
+  `M03-engine-kernel` semantic compilation
+- Requirements: `REQ-L-GTL3-C-ALGEBRA-011/-014/-016`,
+  `REQ-L-GTL3-GRAPHVECTOR-005/-007`, `REQ-R-ABG3-CCALL-016`
+- Design:
+  [M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md](../design/M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md)
+- Ticket:
+  [T-254](../../../../.ai-workspace/tickets/completed/T-254-close-graph-vector-c-program-selection.md)
+- Command: `npm run test:t254`, included in `npm run test:gtl-law`
+- Boundary: ordered Node-interface C carriers, existing selector host law,
+  raw catalog origin, exact GraphFunction/GraphVector/program binding, staged
+  nested diagnostics, and truthful pre-runtime semantic gap
+- Authority class: generic M01/M03 relation proof. It proves exact containing
+  catalog selection and boundary identity while stopping before runtime
+  consumption, effects, or product-specific Consensus behavior.
+
+### t254_graph_vector_c_program_selection_types.ts
+
+- Status: completed T-254 native type-law proof
+- Module alignment: `M01-gtl-core`
+- Requirements: `REQ-L-GTL3-C-ALGEBRA-011/-012`
+- Command: `tsc -p test_env/type_tests/tsconfig.t254.json`, included in
+  `npm run test:gtl-law`
+- Boundary: GraphVector host-indexed selector legality, GraphFunction-only
+  definition keys, duplicate authority refusal, and invariant `CCarrier<Type>`
+- Authority class: native type-law proof; it proves impossible host and carrier
+  substitutions are rejected before semantic compilation.
 
 ## Live Sandbox UAT Provenance
 

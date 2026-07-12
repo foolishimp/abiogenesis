@@ -1,9 +1,9 @@
 # M01/M03 GraphVector C-Program Selection Behavior Design
 
-**Design verdict**: `candidate_pending_fh_review`
-**Implementation admission**: `blocked_until_accepted`
-**Independent review**: `accepted`; no findings remain, direct F_H review pending
-**Ticket**: [T-254](../../../../.ai-workspace/tickets/active/T-254-close-graph-vector-c-program-selection.md)
+**Design verdict**: `fh_accepted`
+**Implementation admission**: `admitted_for_t254_singular_boundary`
+**Independent review**: `accepted`; no findings remain
+**Ticket**: [T-254](../../../../.ai-workspace/tickets/completed/T-254-close-graph-vector-c-program-selection.md)
 **Owning modules**: M01 GTL authoring/admission and M03 semantic compilation
 **Change class**: `design_reframe`
 **Delivery phase**: DS-1 prerequisite to T-252
@@ -622,8 +622,7 @@ acceptance of this three-view design. T-254 then closes only when:
 
 ## Candidate Verdict
 
-`candidate_pending_fh_review`. The design realizes existing constitutional law
-at the smallest generic M01/M03 boundary. It preserves the accepted Consensus
-topology but authorizes no Consensus body or runtime work. T-252 remains blocked
-until this design is accepted and T-254 closes with
-`semantic_not_realized` as its truthful runtime boundary.
+`closed_as_designed`. The realization closes existing constitutional law at the
+smallest generic M01/M03 boundary and retains `semantic_not_realized` as its
+truthful runtime boundary. It authorizes no runtime work; T-252 may now re-enter
+its separately accepted Consensus body-authoring and compiler-census boundary.

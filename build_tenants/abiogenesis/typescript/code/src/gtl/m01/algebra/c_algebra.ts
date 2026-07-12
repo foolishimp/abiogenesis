@@ -3,9 +3,13 @@
 // are authored GTL data. ABG owns admission into executable runtime truth.
 
 import {
+  interfaceContract,
   isAdmittedGraphFunction,
-  type GraphFunction
+  type GraphFunction,
+  type Node
 } from "../contracts/carriers.js";
+import { admitNode } from "../admission/carriers.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const C_ALGEBRA_SYNTAX_VERSION = "gtl-c-algebra/1" as const;
 
@@ -19,25 +23,29 @@ export type CAlgebraRegime = (typeof C_ALGEBRA_REGIME_VALUES)[number];
 
 export type CAlgebraResultCardinality = "zero" | "one" | "many" | "unknown";
 
+export const C_ALGEBRA_DIAGNOSTIC_ID_VALUES = Object.freeze([
+  "gtl-c-invalid-json",
+  "gtl-c-invalid-syntax",
+  "gtl-c-unknown-field",
+  "gtl-c-empty-ref",
+  "gtl-c-invalid-regime",
+  "gtl-c-carrier-mismatch",
+  "gtl-c-edge-role-mismatch",
+  "gtl-c-empty-batch",
+  "gtl-c-batch-cardinality-mismatch",
+  "gtl-c-invalid-retry-budget",
+  "gtl-c-empty-executable-program",
+  "gtl-c-no-result-bearing-stage",
+  "gtl-c-multiple-result-bearing-stages",
+  "gtl-c-duplicate-stage-role",
+  "gtl-c-unrealized-workflow-lift",
+  "gtl-c-unrealized-batch",
+  "gtl-c-unrealized-retry",
+  "gtl-c-hog-admission-failed"
+] as const);
+
 export type CAlgebraDiagnosticId =
-  | "gtl-c-invalid-json"
-  | "gtl-c-invalid-syntax"
-  | "gtl-c-unknown-field"
-  | "gtl-c-empty-ref"
-  | "gtl-c-invalid-regime"
-  | "gtl-c-carrier-mismatch"
-  | "gtl-c-edge-role-mismatch"
-  | "gtl-c-empty-batch"
-  | "gtl-c-batch-cardinality-mismatch"
-  | "gtl-c-invalid-retry-budget"
-  | "gtl-c-empty-executable-program"
-  | "gtl-c-no-result-bearing-stage"
-  | "gtl-c-multiple-result-bearing-stages"
-  | "gtl-c-duplicate-stage-role"
-  | "gtl-c-unrealized-workflow-lift"
-  | "gtl-c-unrealized-batch"
-  | "gtl-c-unrealized-retry"
-  | "gtl-c-hog-admission-failed";
+  (typeof C_ALGEBRA_DIAGNOSTIC_ID_VALUES)[number];
 
 export type CAlgebraRepairAffordance =
   | "fix_declaration_shape"
@@ -471,6 +479,24 @@ export function cCarrier<Type>(ref: string): CCarrier<Type> {
   };
   Object.defineProperty(carrier, C_CARRIER_TYPE, { enumerable: false });
   return Object.freeze(carrier);
+}
+
+export function cInterfaceContractRef(nodes: readonly Node[]): string {
+  if (nodes.length === 0) {
+    throw new TypeError("C interface carrier requires at least one Node");
+  }
+  const admittedNodes = Object.freeze(
+    nodes.map((node, index) => admitNode(node, `C interface Node[${index}]`))
+  );
+  return `gtl.c.interface-contract:${stableSha256Digest({
+    orderedNodeContractKeys: interfaceContract(admittedNodes)
+  })}`;
+}
+
+export function cInterfaceCarrier<Type>(
+  nodes: readonly Node[]
+): CCarrier<Type> {
+  return cCarrier<Type>(cInterfaceContractRef(nodes));
 }
 
 export function cGraphFunctionRef<Input, Output>(input: {

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "../../code/src/node_shims.d.ts",
+    "./t254_graph_vector_c_program_selection_types.ts"
+  ]
+}

@@ -4,10 +4,10 @@
 - title: Close the generic GraphVector-to-declared-C-program selection relation
 - type: bug
 - ticket_category: gtl_c_program_selection_relation
-- status: active
-- phase_status: design_complete_pending_fh_review
-- review_status: independent_review_accepted
-- implementation_admission: blocked_until_design_accepted
+- status: completed
+- phase_status: closed_after_self_review
+- review_status: self_review_clean
+- implementation_admission: completed_as_designed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1 prerequisite
 - priority: critical
@@ -20,6 +20,7 @@
 - triaged_at: 2026-07-12
 - created_at: 2026-07-12
 - updated_at: 2026-07-12
+- closed_at: 2026-07-12
 - source_ticket: T-252
 - dependencies:
   - completed T-220 typed C-algebra authoring and semantic compiler
@@ -229,6 +230,26 @@ Only after F_H acceptance:
 
 ## Current Disposition
 
-`design_complete_pending_fh_review`. The ticket and three-view design are ready
-for independent review. No implementation is authorized. T-252 remains blocked
-and no canonical Consensus body digest is claimed.
+`closed_as_designed`, after direct F_H acceptance, realization, two independent
+self-review passes, and the complete closure gate on 2026-07-12. T-254 derives
+the exact contained-vector/catalog/program relation and stops at the truthful
+vector-indexed runtime gap. T-252 may re-enter canonical body authoring and the
+compiler census; no T-254 runtime consumption is implied.
+
+## Closure Evidence
+
+- `abg.hog_program_ref` remains the only selector and is now host-indexed for
+  GraphVector without moving any definition key off GraphFunction.
+- ordered Node-interface carriers, raw candidate origins, exact containment,
+  catalog membership, and boundary identity compile into one derived binding;
+  callers cannot supply a second catalog authority or erase a contained
+  selector through a detached clone.
+- mixed C/non-C catalog failures retain both typed C diagnostics and the
+  residual execution-admission error; nested invalid `workflow.C` truth cannot
+  coexist with the vector runtime gap.
+- every vector diagnostic carries a closed `GV-C-*` axiom reference, and the
+  Scenario 09 proof remains generic, non-Consensus, and effect-free.
+- focused GTL law: 54/54; direct T-254: 6/6; full semantic: 1531/1531.
+- lint, GTL authority guard, 9-file/27-diagram Mermaid render, generated
+  publication over 33 assets/1014 payload files, and `git diff --check` pass.
+- self-review: `.ai-workspace/comments/codex/20260712T122749Z_SELF_REVIEW_t254_graph_vector_c_program_selection_closure.md`.

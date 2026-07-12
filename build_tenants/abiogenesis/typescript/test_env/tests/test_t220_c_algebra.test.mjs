@@ -5,12 +5,23 @@ import {
   C,
   admitCProgramSyntax,
   cCarrier,
+  cInterfaceCarrier,
+  cInterfaceContractRef,
   cGraphFunctionRef,
   declareCProgram,
   isAdmittedCProgramDeclaration,
   serializeCProgramCanonical,
   workflow
 } from "../../build/semantic/code/src/gtl/m01/algebra/c_algebra.js";
+import {
+  constructNode
+} from "../../build/semantic/code/src/gtl/m01/contracts/constructors.js";
+import {
+  interfaceContract
+} from "../../build/semantic/code/src/gtl/m01/contracts/carriers.js";
+import {
+  stableSha256Digest
+} from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
   buildThreeStageBasis
 } from "./support/m03-iteration-fixtures.mjs";
@@ -75,6 +86,43 @@ function declaration(term, programRef = "gtl://t220/c-algebra") {
 function mutableClone(value) {
   return JSON.parse(JSON.stringify(value));
 }
+
+function interfaceNode(name) {
+  return constructNode({
+    name,
+    schema: { kind: "symbolic", ref: `schema://scenario-09/${name}` },
+    markov: ["admitted"],
+    assetSurface: { kind: `scenario_09_${name}` },
+    tags: ["scenario-09"]
+  });
+}
+
+test("T-254: ordered Node interfaces derive invariant C carrier identities", () => {
+  const observation = interfaceNode("LabObservation");
+  const normalized = interfaceNode("NormalizedObservation");
+  const forward = cInterfaceContractRef([observation, normalized]);
+  const repeated = cInterfaceContractRef([observation, normalized]);
+  const reversed = cInterfaceContractRef([normalized, observation]);
+  const independentlyDerived =
+    `gtl.c.interface-contract:${stableSha256Digest({
+      orderedNodeContractKeys: interfaceContract([observation, normalized])
+    })}`;
+
+  assert.equal(forward, repeated);
+  assert.equal(forward, independentlyDerived);
+  assert.equal(
+    forward,
+    cInterfaceContractRef([
+      structuredClone(observation),
+      structuredClone(normalized)
+    ])
+  );
+  assert.match(forward, /^gtl\.c\.interface-contract:sha256:[0-9a-f]{64}$/u);
+  assert.notEqual(forward, reversed);
+  assert.equal(cInterfaceCarrier([observation, normalized]).ref, forward);
+  assert.throws(() => cInterfaceContractRef([]), /at least one Node/u);
+  assert.throws(() => cInterfaceCarrier([]), /at least one Node/u);
+});
 
 test("T-220: all seven C generators have distinct authored discriminants", () => {
   const { transform, evaluate, consequence: project } = leaves();

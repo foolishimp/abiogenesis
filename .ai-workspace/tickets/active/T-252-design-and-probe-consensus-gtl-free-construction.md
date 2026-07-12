@@ -5,10 +5,10 @@
 - type: feature
 - ticket_category: executable_design_probe
 - status: active
-- phase_status: blocked_on_graph_vector_c_program_selection
+- phase_status: body_authoring_and_census_active
 - review_status: fh_target_accepted
 - target_architecture_disposition: accepted_by_fh
-- implementation_admission: blocked_pending_t254_design_and_realization
+- implementation_admission: admitted_after_t254_closure
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1
 - priority: critical
@@ -39,7 +39,7 @@
   - completed T-250 constitutional version-basis repair
   - completed T-251 entry-proof gate restoration
   - completed T-253 generic typed HOF vector relation prerequisite
-  - active T-254 generic GraphVector-to-declared-C-program selection prerequisite
+  - completed T-254 generic GraphVector-to-declared-C-program selection prerequisite
 - authority_refs:
   - specification/GOALS.md DS-1 and GOAL-035
   - specification/PRODUCT.md bounded Consensus and atom criterion
@@ -58,13 +58,11 @@
   - build_tenants/abiogenesis/typescript/design/M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md
   - rejected commit 945b5a2 and revert 2c85a88
 - admission_condition: >-
-    F_H accepted the three-view target and T-253 closed the exact typed fan-out
-    relation. The bounded re-entry then exposed a second native-language gap:
-    the current declaration law and compiler cannot bind each C-program-
-    executing transition GraphVector to its distinct declared program in the containing
-    GraphFunction catalog. T-252 body authoring remains blocked until T-254 has
-    an accepted three-view design and closes that generic relation. No generic
-    runtime repair, schema publication, CLI change, or invocation is authorized.
+    Satisfied 2026-07-12. F_H accepted the three-view target; T-253 closed the
+    exact typed fan-out relation; T-254 closed the exact contained GraphVector
+    to declared C-program compiler relation at semantic_not_realized. T-252 is
+    admitted only for canonical body authoring, raw admission, and the
+    effect-free compiler census. No reported runtime gap may be repaired here.
 
 ## Intake Triage
 
@@ -343,6 +341,8 @@ T-253 closed the generic typed HOF prerequisite, and the bounded design re-entry
 verified the realized API, raw identity, M03 semantic gap, and `workflow.C`
 lift without changing the topology. The same re-entry exposed the missing
 generic GraphVector-to-declared-C-program selection relation before body code.
-T-252 is blocked on T-254. This ruling does not authorize a global-program lie,
-`operator.binding`, helper-GraphFunction topology rewrite, Consensus-specific
-workaround, or any reported generic runtime fix.
+T-254 has now closed that generic relation without changing the topology, so
+T-252 re-enters canonical body authoring and the exact compiler census. This
+ruling does not authorize a global-program lie, `operator.binding`, helper-
+GraphFunction topology rewrite, Consensus-specific workaround, or any reported
+generic runtime fix.

@@ -98,7 +98,7 @@ export const GTL_REGISTERED_DECLARATION_LAWS = Object.freeze([
   },
   {
     key: "abg.hog_program_ref",
-    hosts: ["graph_function"],
+    hosts: ["graph_function", "graph_vector"],
     valueKinds: ["scalar"],
     duplicatePolicy: "forbidden"
   },
@@ -270,6 +270,7 @@ export interface GtlExecutionDeclarationLaw {
     | "single_program_exclusive_with_catalog_mode"
     | "catalog_requires_exactly_one_selector"
     | "fixed_selector_exclusive_with_ladder"
+    | "graph_function_fixed_exclusive_with_ladder_and_graph_vector_fixed_local_exact_else_graph_function_plan"
     | "ladder_selector_exclusive_with_fixed_selector"
     | "selected_program_attachment"
     | "declared_seam_conflicts_with_caller_authority";
@@ -344,7 +345,8 @@ export const GTL_EXECUTION_DECLARATION_LAWS = Object.freeze([
   },
   {
     key: "abg.hog_program_ref",
-    precedenceRule: "fixed_selector_exclusive_with_ladder",
+    precedenceRule:
+      "graph_function_fixed_exclusive_with_ladder_and_graph_vector_fixed_local_exact_else_graph_function_plan",
     compositionRule: "selects_one_catalog_member",
     interpretationOwner: GTL_EXECUTION_DECLARATION_INTERPRETATION_OWNER
   },
@@ -485,7 +487,8 @@ export const GTL_DECLARATION_LAW_VIOLATION_KIND_VALUES = Object.freeze([
   "duplicate_key",
   "unregistered_reserved_key",
   "host_mismatch",
-  "value_kind_mismatch"
+  "value_kind_mismatch",
+  "value_constraint_mismatch"
 ] as const);
 
 export type GtlDeclarationLawViolationKind =
@@ -577,6 +580,24 @@ export function inspectGtlHostDeclarations(input: {
           actualValueKind: entry.value.kind,
           expectedValueKinds: law.valueKinds,
           message: `${input.host} declaration ${JSON.stringify(entry.key)} must use ${law.valueKinds.join(" or ")}, received ${entry.value.kind}`
+        })
+      );
+    }
+    if (
+      input.host === "graph_vector" &&
+      entry.key === "abg.hog_program_ref" &&
+      entry.value.kind === "scalar" &&
+      (typeof entry.value.value !== "string" || entry.value.value.length === 0)
+    ) {
+      violations.push(
+        Object.freeze({
+          kind: "value_constraint_mismatch",
+          host: input.host,
+          key: entry.key,
+          actualValueKind: entry.value.kind,
+          expectedValueKinds: law.valueKinds,
+          message:
+            "gtl-c-vector-program-empty-ref: graph_vector abg.hog_program_ref must be a non-empty string"
         })
       );
     }

@@ -26,6 +26,7 @@ import {
   graphFunctionDeclarations,
   graphFunctionForVector,
   graphVectorDeclarations,
+  hogProgramRefDeclarationEntry,
   registeredGtlExecutionDeclarationLaw,
   typecheckGtlProgram
 } from "../../build/semantic/code/src/index.js";
@@ -169,6 +170,10 @@ test("T-220 publishes precedence, composition, and owner for compiled execution 
     "single_program_exclusive_with_catalog_mode"
   );
   assert.equal(
+    registeredGtlExecutionDeclarationLaw("abg.hog_program_ref")?.precedenceRule,
+    "graph_function_fixed_exclusive_with_ladder_and_graph_vector_fixed_local_exact_else_graph_function_plan"
+  );
+  assert.equal(
     registeredGtlExecutionDeclarationLaw("abg.plugin_selection")?.compositionRule,
     "merge_distinct_seams_only"
   );
@@ -243,6 +248,48 @@ test("T-220 GraphVector admission enforces registered declaration law", () => {
         }
       }),
     /reserved abg\.\/gtl\./u
+  );
+});
+
+test("T-254 GraphVector admits only a non-empty existing program selector", () => {
+  const declarations = graphVectorDeclarations([
+    hogProgramRefDeclarationEntry("program://scenario-09/normalize")
+  ]);
+  assert.equal(declarations.entries[0]?.key, "abg.hog_program_ref");
+  assert.equal(
+    declarations.entries[0]?.value.value,
+    "program://scenario-09/normalize"
+  );
+
+  assert.throws(
+    () =>
+      admitGraphVector({
+        ...vectorFixture(),
+        declarations: {
+          entries: [
+            {
+              key: "abg.hog_program_ref",
+              value: { kind: "scalar", value: "" }
+            }
+          ]
+        }
+      }),
+    /gtl-c-vector-program-empty-ref/u
+  );
+  assert.throws(
+    () =>
+      admitGraphVector({
+        ...vectorFixture(),
+        declarations: {
+          entries: [
+            {
+              key: "abg.hog_program_ref",
+              value: { kind: "scalar", value: 1 }
+            }
+          ]
+        }
+      }),
+    /gtl-c-vector-program-empty-ref/u
   );
 });
 

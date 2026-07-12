@@ -1703,6 +1703,25 @@ export type {
 } from "./hof_relation_compiler.js";
 
 export {
+  GRAPH_VECTOR_C_PROGRAM_DIAGNOSTIC_ID_VALUES,
+  collectRawCProgramCandidates,
+  compileGraphVectorCProgramSelection,
+  rawCProgramCandidateIdentity,
+  rawCProgramCandidatePath
+} from "./graph_vector_c_program_compiler.js";
+export type {
+  CompiledGraphVectorCProgramBinding,
+  GraphVectorBoundaryProjection,
+  GraphVectorCProgramCompilation,
+  GraphVectorCProgramDiagnostic,
+  GraphVectorCProgramAxiomRef,
+  GraphVectorCProgramDiagnosticId,
+  GraphVectorCProgramRepairAffordance,
+  RawCProgramCandidate,
+  RawCProgramCandidateCollection
+} from "./graph_vector_c_program_compiler.js";
+
+export {
   CATALOG_ASSET_REJECTION_REASON_VALUES
 } from "./carriers.js";
 export type {

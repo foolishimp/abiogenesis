@@ -48,11 +48,14 @@ export type {
 } from "./core.js";
 export {
   C,
+  C_ALGEBRA_DIAGNOSTIC_ID_VALUES,
   C_ALGEBRA_REGIME_VALUES,
   C_ALGEBRA_SYNTAX_VERSION,
   admitCProgramSyntax,
   cBatch,
   cCarrier,
+  cInterfaceCarrier,
+  cInterfaceContractRef,
   cCompose,
   cEdge,
   cGraphFunctionRef,
