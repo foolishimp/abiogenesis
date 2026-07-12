@@ -1,7 +1,7 @@
 # M01/M03 Consensus GTL Free Construction Behavior Design
 
 **Design verdict**: `candidate`
-**Review status**: `pending_fh_design_review`
+**Review status**: `fh_target_accepted`; implementation design remains blocked
 **Probe and runtime disposition**: `blocked` first on the native HOF
 input/output carrier relation, then on compiler coverage and generic
 HOF/recursion/C-algebra realization
@@ -1326,12 +1326,12 @@ interior and a singular design proves reuse.
 
 ## Pre-Code Verdict
 
-`candidate`, with product implementation blocked by the confirmed native HOF
-carrier gap as well as pending F_H review. F_H may accept the target architecture
-and its routing decision, but that does not make this design `accepted` for body
-implementation. Acceptance first routes the singular generic HOF prerequisite.
-After that prerequisite closes, T-252 re-enters design review; only then may an
-accepted revision author the exact body and run the no-effects compiler probe.
-It must stop after persisting the body digest and diagnostic census. Any further
-generic atom returns to its own accepted design before code; no reported gap may
-be fixed inside T-252.
+`candidate`, with the target architecture and its routing decision accepted by
+direct F_H ruling on 2026-07-12. This is not an `accepted` implementation design:
+the two failed current-line axiom rows remain failed, and product implementation
+is blocked by the confirmed native HOF carrier and compiler-coverage gaps. T-253
+owns that generic prerequisite. After it closes, T-252 re-enters design review;
+only then may an accepted revision author the exact body and run the no-effects
+compiler probe. The probe must stop after persisting the body digest and
+diagnostic census. Any further generic atom returns to its own accepted design
+before code; no reported gap may be fixed inside T-252.

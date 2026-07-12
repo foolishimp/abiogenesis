@@ -5,8 +5,10 @@
 - type: feature
 - ticket_category: executable_design_probe
 - status: active
-- phase_status: ready_for_fh_review
-- review_status: pending_fh_design_review
+- phase_status: blocked_on_typed_hof_prerequisite
+- review_status: fh_target_accepted
+- target_architecture_disposition: accepted_by_fh
+- implementation_admission: blocked
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1
 - priority: critical
@@ -36,6 +38,7 @@
   - completed T-249 stable-first constitutional reprice
   - completed T-250 constitutional version-basis repair
   - completed T-251 entry-proof gate restoration
+  - active T-253 generic typed HOF vector relation prerequisite
 - authority_refs:
   - specification/GOALS.md DS-1 and GOAL-035
   - specification/PRODUCT.md bounded Consensus and atom criterion
@@ -296,7 +299,11 @@ compiler, execution-basis, or runtime gaps are real.
 
 ## Design Disposition
 
-`pending_fh_design_review`. The target architecture is reviewable, but the
-executable GTL body remains blocked by both F_H disposition and the current
-native HOF input/output-carrier gap. Acceptance authorizes routing that generic
-prerequisite; it does not authorize a Consensus-specific workaround.
+`fh_target_accepted`, by direct F_H ruling on 2026-07-12 after the independent
+review in
+`.ai-workspace/comments/claude/20260713T190000Z_REVIEW_consensus_gtl_design_00e74f5.md`.
+The accepted disposition is the target architecture and its routing decision:
+T-253 closes the generic typed HOF prerequisite first. The executable GTL body
+remains blocked, both failed axiom rows remain failed, and T-252 must re-enter
+design review after T-253 closes. This ruling does not authorize body
+implementation or a Consensus-specific workaround.
