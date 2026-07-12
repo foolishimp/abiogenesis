@@ -4,7 +4,7 @@
 claude at each monitoring checkpoint). Authority: T-244 register, T-242, the
 approved nine-phase plan.
 **Last updated:** 2026-07-13 · after Consensus GTL design review (`00e74f5`)
-· board fully green · CENSUS LANDED (40aa35a): 12 leaves T-255–266; GOALS transcribed lawfully; body held pending 3c1
+· board fully green · ROUTING census landed (12 leaves); COMPILER census pending corrected body; T-265/266 accepts pending (recommendation ≠ authority)
 
 **Estimates are a planning read model — re-based at each checkpoint, not
 delivery commitments. The runtime bucket (item 5) re-bases materially at the
@@ -32,9 +32,9 @@ depth, live lanes.
 | 3b2 | Vector→C-program selection (T-254) | ✅ verified | 48m+74m actual |
 | 3c1 | Combinator applications (T-265) + node/interface witnesses (T-266) | 🔍 designs landed, accept pending | ~2–4h est |
 | 3c2 | Body admitted + typed gap census persisted (T-252) | ⛔ after 3c1 | ~30–60m est |
-| 4 | Spine joins: exec handoff, context join, F_P result admission, public F_H (T-255–258) | ⛔ census-routed | ~4–8h est |
-| 5 | Runtime atoms: workflow.C, HOF batch, C.retry, typed recurse (T-259–262) | ⛔ census-routed; recompile oracle per atom | ~5–8h est |
-| 5b | Admission + conformance closure (T-263–264) | ⛔ census-routed | ~1.5–3h est |
+| 4 | Admission + conformance closure (T-263→T-264) | ⛔ FIRST: T-255 depends on T-264 | ~1.5–3h est |
+| 5 | Spine joins: exec handoff, context join, F_P result admission, public F_H (T-255–258) | ⛔ after 4 | ~4–8h est |
+| 5b | Runtime atoms: workflow.C, HOF batch, C.retry, typed recurse (T-259–262) | ⛔ oracle per atom | ~5–8h est |
 | 6 | Atom-uplift proof: Consensus as first free construction (stdlib guarantee: public atoms only) | ⛔ after 4+5 | ~1–2h est |
 | 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~4–8h est |
 | 8 | Compliance (T-247) | ⛔ after features | ~2.5–5h est |
@@ -43,13 +43,13 @@ depth, live lanes.
 | 11 | Dogfood scaffold + pilot (T-245) | ⛔ post-release | ~1–2h est |
 | 12 | 5.0.1 as GLC project (T-246) | ⛔ dogfood proof | open (waves) |
 
-**Projected totals (recalibrated after 2b actual 32m vs 1–2h est):** stable
-5.0.0 ≈ 14–30 agent-hours; review/F_H gate pipeline adds ~8–15h wall (now the
-dominant term; ~15 gated checkpoints remain) → ≈ 2.5–5 focused days. To
-5.0.1-start ≈ +1 day. Calibration is continuous: each item records
-est-vs-actual and remaining ranges re-scale each checkpoint. Deep-semantic
-singletons (workflow.C, F_P G1–G5) keep wide high ends: n=0 evidence,
-one-sided variance.
+**Projected totals (re-based at routing census, itemized per the dual-review
+chain):** stable 5.0.0 ≈ 22–42 implementation hours; with mandatory review
+cadence ≈ 30–57 focused wall-hours ≈ **4–7 working days**. Next
+uncertainty-collapse point: the corrected-body COMPILER census (~3–5h after
+T-265/266 acceptance). Least-grounded segment: phase 7 surface (execution
+leaves not yet admitted). A one-day stable release is not credible under
+ratified scope and gates. Calibration continuous.
 
 ## Gates and evidence (short)
 
