@@ -1690,6 +1690,19 @@ export {
 export type { EffectiveHogProgramCatalog, HogProgramLadderRung } from "./hog_program_syntax.js";
 
 export {
+  HOF_RELATION_DIAGNOSTIC_ID_VALUES,
+  compileHofRelation,
+  graphFunctionDeclaresHofApplication,
+  graphFunctionHasHofApplicationDeclarationKey
+} from "./hof_relation_compiler.js";
+export type {
+  HofRelationCompilation,
+  HofRelationDiagnostic,
+  HofRelationDiagnosticId,
+  HofRelationRepairAffordance
+} from "./hof_relation_compiler.js";
+
+export {
   CATALOG_ASSET_REJECTION_REASON_VALUES
 } from "./carriers.js";
 export type {

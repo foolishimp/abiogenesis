@@ -4,8 +4,8 @@
 - title: Close the explicit typed fan-out input/output vector relation
 - type: requirements_realization
 - ticket_category: gtl_higher_order_type_law
-- status: active
-- phase_status: phase_c_semantic_compilation
+- status: completed
+- phase_status: closed
 - phase_a_status: complete_after_review_correction
 - phase_a_evidence: >-
     REQ-L-GTL3-HOF-001 exact relation ratified; contract-law API index verified;
@@ -20,6 +20,16 @@
     collapse before checkpoint.
 - phase_b_review_ref: >-
     .ai-workspace/comments/codex/20260712T101500Z_SELF_REVIEW_t253_phase_b_native_hof.md
+- phase_c_status: complete_after_self_review
+- phase_c_evidence: >-
+    M03 observes only canonical gtl.hof_application data; validates exact child,
+    member, vector, wrapper, graph, environment, and host joins by ref plus
+    contract; emits typed invalid_program versus semantic_not_realized truth;
+    carries exact repair affordances; and removes name/tag feature authority.
+    Generated public inventories are current and the full semantic suite is
+    green at 1523/1523.
+- phase_c_review_ref: >-
+    .ai-workspace/comments/codex/20260712T102500Z_SELF_REVIEW_t253_phase_c_compiler_closure.md
 - review_status: fh_design_accepted
 - design_disposition: accepted_by_fh
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -42,6 +52,7 @@
 - triaged_at: 2026-07-12
 - created_at: 2026-07-12
 - updated_at: 2026-07-12
+- closed_at: 2026-07-12
 - source_ticket: T-252
 - dependencies:
   - completed T-220 typed C-algebra authoring and semantic compiler
@@ -249,8 +260,25 @@ Only after F_H accepts the T-253 design:
 
 ## Candidate Design Verdict
 
-`accepted_for_t253_realization`. Direct F_H acceptance on 2026-07-12 admits the
+`closed_as_designed`. Direct F_H acceptance on 2026-07-12 admitted the
 requirement reprice and the bounded M01/M03 realization described above. The
-implementation must stop at typed authoring plus `semantic_not_realized`;
-runtime execution belongs to a separately reviewed leaf driven by the later
-T-252 compiler census.
+implementation stops at typed authoring plus `semantic_not_realized`; runtime
+execution belongs to separately reviewed leaves driven by the T-252 compiler
+census.
+
+## Closure Evidence
+
+- Phase A ratified exact HOF-001 law and Scenario 09 authority trace.
+- Phase B checkpoint `47490d2` published invariant native witnesses, the exact
+  explicit `fan_out` relation, closed canonical raw admission, and the generic
+  non-Consensus fixture after independent review.
+- Phase C publishes structural M03 validation and typed gap truth without a
+  runtime consumer.
+- `npm run test:t253`: green.
+- `npm run test:semantic`: 1523/1523 green.
+- direct pinned render of the T-253 design: 1 file and 3 ordered diagrams green,
+  digest `sha256:70c25b8dd2fffd986d81eb49670bd3e7e534438ac8ccc179feb76922a9410cfa`.
+- standing registered-design gate: 9 files and 27 diagrams green.
+- generated public publication and native inventories match the current build.
+- phase self-reviews found no scheduler, worker, event, replay, archive,
+  C-algebra, fan-in, runtime fan-out, or Consensus realization drift.

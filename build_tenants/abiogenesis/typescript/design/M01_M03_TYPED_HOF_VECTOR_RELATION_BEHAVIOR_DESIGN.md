@@ -3,11 +3,12 @@
 **Design verdict**: `accepted`
 **Review status**: `fh_accepted` on 2026-07-12 after independent review
 **Implementation admission**: `accepted_for_t253_only`
-**Ticket**: [T-253](../../../../.ai-workspace/tickets/active/T-253-close-typed-fan-out-vector-relation.md)
+**Ticket**: [T-253](../../../../.ai-workspace/tickets/completed/T-253-close-typed-fan-out-vector-relation.md)
 **Owning modules**: M01 GTL authoring/admission and M03 semantic compilation
 **Requirement re-entry**: `REQ-L-GTL3-HOF`
 **Product authority**: GTL graph-function algebra and atom criterion
 **Method authority**: `DESIGN_MODULE_METHOD` section 5E
+**Realization status**: `complete_and_verified`
 
 ## Boundary
 
@@ -27,15 +28,15 @@ inline wrapper graph, raw relation preservation, and compiler validation. It
 does not own ABG interpretation of fan-out. A valid relation therefore
 ends at a typed `semantic_not_realized` diagnostic in this slice.
 
-## Current Defect
+## Pre-Realization Defect
 
-Current `fan_out(graphFunction, over)` sets `requires`, `provides`, `carries`,
-`inputs`, and `outputs` to the same `over` node. A scalar child `A -> B` becomes
-`Vector<A> -> Vector<A>`. The function emits no structural HOF declaration and
-M03 recognizes it only from a `fan_out(` name prefix. Canonical raw roundtrip
-preserves the false outer relation.
+Before T-253, `fan_out(graphFunction, over)` set `requires`, `provides`, `carries`,
+`inputs`, and `outputs` to the same `over` node. A scalar child `A -> B` became
+`Vector<A> -> Vector<A>`. The function emitted no structural HOF declaration and
+M03 recognized it only from a `fan_out(` name prefix. Canonical raw roundtrip
+preserved the false outer relation.
 
-The current M01 test obscures the defect by applying `promote` after a same-node
+The prior M01 test obscured the defect by applying `promote` after a same-node
 fan-out. Promotion cannot prove that a child transformed `A` into `B`; it is not
 part of this repair.
 
@@ -649,7 +650,7 @@ the semantic carrier model.
 
 | Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|
-| fan-out maps `A -> B` over explicit vectors | HOF-001/005/007 proposed clarification | child, member, input/output vector refs are irreducible fields | explicit `over` and `into` enter Native | mismatch reaches NativeRefused | invariant generic witnesses | exact structural relation validation | `pass` | T-253 |
+| fan-out maps `A -> B` over explicit vectors | HOF-001/005/007 | child, member, input/output vector refs are irreducible fields | explicit `over` and `into` enter Native | mismatch reaches NativeRefused | invariant generic witnesses | exact structural relation validation | `pass` | T-253 |
 | GraphFunction outer interface remains exact | GRAPHFUNCTION-002/008/017; INTERFACE-002/006 | wrapper GraphFunction owns exact interface and graph | Builder constructs ordinary GraphFunction | DerivedFunction precedes serialization | existing GraphFunction constructor plus HOF witnesses | wrapper and outer refs revalidated | `pass` | T-253 |
 | cumulative environment effects and context authority are preserved | GRAPHFUNCTION-005/016/017/018; LANGUAGE-005 | requires over, provides into, carries stable union, effects copy exactly, child ref retains context authority, wrapper contexts are empty | Builder owns all surfaces before serialization | DerivedFunction cannot omit or duplicate an owned surface | existing EnvRef and Graph constructors | M03 validates child ref, outer environment, effects, and empty wrapper contexts | `pass` | T-253 |
 | vector schema and member contract agree structurally | NODE-007/008; LANGUAGE-009; HOF-005 | VectorSchemaRelation joins closed parse to explicit member witness | Native parses and compares before Builder | mismatch reaches NativeRefused | invariant witness plus closed parser | M03 repeats parse/ref/contract equality | `pass` | T-253 |
@@ -667,7 +668,7 @@ the semantic carrier model.
 
 | Lifecycle phase | Disposition | Owner and authority |
 |---|---|---|
-| upstream intent and requirement | answered by PRODUCT atom criterion and the T-253 candidate HOF reprice | F_H ratifies `REQ-L-GTL3-HOF`; design cannot self-ratify |
+| upstream intent and requirement | answered by PRODUCT atom criterion and ratified HOF-001 | F_H-ratified `REQ-L-GTL3-HOF`; design did not self-ratify |
 | build / realization | M01 typed witnesses, wrapper builder, declaration law and M03 compiler validation in the TypeScript tenant | T-253 accepted design and named code scope |
 | assurance / proof | native positive/negative type lane, raw mutation pins, compiler diagnostics, Scenario 09 non-Consensus fixture, full semantic regression | TypeScript tenant test surfaces; tests prove but do not define law |
 | release / packaging | included in the ordinary ABIogenesis 5.0 TypeScript package; no new package or artifact kind | T-248 later proves package census and exact candidate |
@@ -683,7 +684,7 @@ the semantic carrier model.
 |---|---|---|
 | HOF output-vector requirement was incomplete | ratified as exact HOF-001 law in Phase A | closed by T-253 Phase A |
 | prior `fan_out` lied `Vector<A> -> Vector<A>` | replaced by the exact typed M01 relation and independently reviewed | closed by T-253 Phase B |
-| current compiler trusts names and emits no HOF diagnostic | Phase C implementation and review pending | T-253 Phase C |
+| prior compiler trusted names and emitted no HOF diagnostic | replaced by exact structural M03 validation and typed diagnostics | closed by T-253 Phase C |
 | HOF runtime interpretation | explicitly absent; valid declarations end semantic-not-realized | census-driven generic successor after T-252 probe |
 | `workflow.C`, `C.batch`, retry, recursion execution | unrelated generic atoms | later singular accepted designs |
 | Consensus body | no code in this ticket | T-252 re-entry after T-253 closure |
@@ -692,7 +693,7 @@ the semantic carrier model.
 
 ## Design Verdict
 
-`accepted`. Direct F_H acceptance on 2026-07-12 admits T-253 Phase A, then
-Phase B, then Phase C with a self-review after each. The relation, authority,
-failure classes, and non-runtime boundary remain binding. Acceptance does not
-authorize HOF runtime execution or Consensus implementation.
+`accepted_and_realized`. Direct F_H acceptance on 2026-07-12 admitted T-253
+Phase A, then Phase B, then Phase C with a self-review after each. The relation,
+authority, failure classes, and non-runtime boundary remain binding. Closure
+does not authorize HOF runtime execution or Consensus implementation.

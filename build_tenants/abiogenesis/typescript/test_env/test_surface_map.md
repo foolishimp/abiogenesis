@@ -1697,6 +1697,36 @@ The canonical active files are:
   `20260429T114404387Z` and `20260429T115446555Z` record the auth and sandbox
   timeout failures that failed closed with transport evidence.
 
+### test_t253_hof_vector_relation.test.mjs
+
+- Status: canonical M01 typed HOF authoring and raw-admission lane
+- Module alignment: `M01-gtl-core` exact `fan_out` vector relation
+- Requirements: `REQ-L-GTL3-HOF-001`, `REQ-L-GTL3-HOF-005`,
+  `REQ-L-GTL3-HOF-006`
+- Design: [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](../design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md),
+  [T-253](../../../../.ai-workspace/tickets/completed/T-253-close-typed-fan-out-vector-relation.md)
+- Command: `npm run test:t253`, included in `npm run test:gtl-law`
+- Authority class: native type/admission proof. It covers invariant witnesses,
+  exact `A -> B` plus `Vector<A> -> Vector<B>` joins, canonical independently
+  authored raw admission, closed tagged-object syntax, and exact node identity.
+  It does not prove runtime fan-out, partial-failure behavior, or Scenario 09
+  runtime lineage.
+
+### test_t253_hof_relation_compiler.test.mjs
+
+- Status: canonical M03 HOF semantic-compilation lane
+- Module alignment: `M03-engine-kernel` structural HOF relation judgment
+- Requirements: `REQ-L-GTL3-HOF-001`, `REQ-L-GTL3-HOF-005`,
+  `REQ-L-GTL3-HOF-006`
+- Design: [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](../design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md),
+  [T-253](../../../../.ai-workspace/tickets/completed/T-253-close-typed-fan-out-vector-relation.md)
+- Command: `npm run test:t253`, included in `npm run test:gtl-law`
+- Authority class: compiler classification proof. It proves structural
+  declaration observation, exact ref and contract resolution, malformed
+  `invalid_program` refusal, and lawful-but-unrealized
+  `semantic_not_realized` truth. Names and tags alone do not establish HOF
+  authority, and this lane invokes no runtime consumer.
+
 ## Live Sandbox UAT Provenance
 
 ### test_env/live/test_m05_rc_live_uat.test.mjs

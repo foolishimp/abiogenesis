@@ -66,6 +66,11 @@ import {
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import { compileExecutionDeclarations } from "./execution_declaration_compiler.js";
 import {
+  compileHofRelation,
+  graphFunctionDeclaresHofApplication,
+  type HofRelationDiagnostic
+} from "./hof_relation_compiler.js";
+import {
   HOG_PROGRAM_CATALOG_DECLARATION_KEY,
   HOG_PROGRAM_DECLARATION_KEY
 } from "./hog_program_syntax.js";
@@ -208,6 +213,8 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/graph-vector/target-carrier-required",
   "abg://gtl-program/graph-vector/target-node-declared",
   "abg://gtl-program/graph-vector/unique-ref",
+  "abg://gtl-program/hof/invalid-program",
+  "abg://gtl-program/hof/semantic-not-realized",
   "abg://gtl-program/graph/input-node-declared",
   "abg://gtl-program/graph/node-reachable-or-bound",
   "abg://gtl-program/graph/output-derivable",
@@ -570,7 +577,10 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/c-algebra/semantic-not-realized":
     "realize_declared_semantics",
   "abg://gtl-program/c-algebra/unresolved-graph-function":
-    "correct_reference"
+    "correct_reference",
+  "abg://gtl-program/hof/invalid-program": "correct_field_shape",
+  "abg://gtl-program/hof/semantic-not-realized":
+    "realize_declared_semantics"
 });
 
 export interface GtlProgramConformanceIssue {
@@ -1824,6 +1834,56 @@ function cAlgebraCandidates(attrs: SerializedAttrs): readonly unknown[] {
     candidates.push(plain);
   }
   return Object.freeze(candidates);
+}
+
+function pushHofRelationDiagnostic(input: {
+  readonly graphFunction: GraphFunction;
+  readonly row: HofRelationDiagnostic;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const semanticGap = input.row.classification === "semantic_not_realized";
+  input.issues.push(
+    issue({
+      surfaceKind: "graph_function",
+      surfaceRef: `${input.graphFunction.name}${input.row.path}`,
+      ruleRef: semanticGap
+        ? "abg://gtl-program/hof/semantic-not-realized"
+        : "abg://gtl-program/hof/invalid-program",
+      message:
+        `${input.row.diagnosticId}: expected ${input.row.expectedRelation}; ` +
+        `actual ${input.row.actualRelation}`,
+      evidenceRefs: Object.freeze([
+        ...input.row.evidenceRefs,
+        `hof-relation-diagnostic:${input.row.diagnosticId}`
+      ]),
+      admissibleRepairs: Object.freeze([
+        Object.freeze({
+          kind: "gtl_program_admissible_repair" as const,
+          editClass: input.row.repairAffordance,
+          repairSurfaceRef: input.graphFunction.name,
+          changeClassRef: semanticGap ? "design_reframe" : null
+        })
+      ])
+    })
+  );
+}
+
+function checkHofRelationDeclarations(input: {
+  readonly graphFunction: GraphFunction;
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const compilation = compileHofRelation({
+    graphFunction: input.graphFunction,
+    graphFunctions: input.graphFunctions
+  });
+  for (const row of compilation.diagnostics) {
+    pushHofRelationDiagnostic({
+      graphFunction: input.graphFunction,
+      row,
+      issues: input.issues
+    });
+  }
 }
 
 function pushCAlgebraDiagnostic(input: {
@@ -9701,6 +9761,7 @@ function materializeGraphVectors(
       attrs: graphFunction.declarations,
       issues
     });
+    checkHofRelationDeclarations({ graphFunction, graphFunctions, issues });
     checkCAlgebraDeclarations({ graphFunction, graphFunctions, issues });
     checkCompiledExecutionDeclarations({ graphFunction, issues });
     checkGraphFunctionInterface({ graphFunction, issues });
@@ -14114,7 +14175,7 @@ function observedFeatureKinds(input: {
   }
   if (
     input.graphFunctions.some((graphFunction) =>
-      graphFunctionNameStartsWith(graphFunction, "fan_out(")
+      graphFunctionDeclaresHofApplication(graphFunction)
     )
   ) {
     observed.add("graph_algebra_fan_out");

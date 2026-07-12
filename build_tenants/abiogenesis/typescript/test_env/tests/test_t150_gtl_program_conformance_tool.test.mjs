@@ -54,6 +54,9 @@ import {
   GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF,
   GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS,
   GTL_PROGRAM_T153_FEATURE_KINDS,
+  hofContract,
+  hofUnaryRef,
+  hofVector,
   identity,
   materializeGraphFunction,
   promote,
@@ -3656,7 +3659,17 @@ test("T-152 GTL program typechecker observes GTL algebra operation carriers", ()
     inputName: "AlgebraDirectInput",
     outputName: "AlgebraDirectOutput"
   });
-  const vectorBoundary = vectorBoundaryNode("AlgebraCandidateVector");
+  const fanOutMember = node("AlgebraFanOutMember");
+  const vectorBoundary = constructNode({
+    name: "AlgebraCandidateVector",
+    schema: {
+      kind: fanOutMember.schema.kind,
+      ref: `Vector[${fanOutMember.schema.ref}]`
+    },
+    markov: ["AlgebraCandidateVector:declared"],
+    assetSurface: assetSurface(),
+    tags: ["t150-program-conformance-tool", "vector-boundary"]
+  });
   const source = node("AlgebraSource");
   const target = node("AlgebraTarget");
   const outer = edge([source], target, {
@@ -3670,6 +3683,17 @@ test("T-152 GTL program typechecker observes GTL algebra operation carriers", ()
   assert.notEqual(contractVector, undefined);
   const substituted = substitute(outer, contractVector.id, inner);
   const vectorIdentity = identity([vectorBoundary]);
+  const fanOutMemberIdentity = identity([fanOutMember]);
+  const fanOutMemberContract = hofContract(fanOutMember);
+  const fanOutVector = hofVector(vectorBoundary, fanOutMemberContract);
+  const fanOutIdentity = fan_out(
+    hofUnaryRef(
+      fanOutMemberIdentity,
+      fanOutMemberContract,
+      fanOutMemberContract
+    ),
+    { over: fanOutVector, into: fanOutVector }
+  ).graphFunction;
   const graphFunctions = [
     compose(aToB, bToC),
     identity([node("AlgebraIdentityNode")]),
@@ -3678,7 +3702,8 @@ test("T-152 GTL program typechecker observes GTL algebra operation carriers", ()
       mode: "rebind",
       requiresParentEvaluation: true
     }),
-    fan_out(vectorIdentity, vectorBoundary),
+    fanOutMemberIdentity,
+    fanOutIdentity,
     fan_in(vectorIdentity, vectorBoundary),
     gate(direct, rule("algebra_gate"), [evaluator("algebra_gate_eval")]),
     promote(node("AlgebraPromoteSource"), node("AlgebraPromoteTarget"))
