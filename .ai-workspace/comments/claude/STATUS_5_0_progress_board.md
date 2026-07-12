@@ -6,6 +6,10 @@ approved nine-phase plan.
 **Last updated:** 2026-07-13 · after Consensus GTL design review (`00e74f5`)
 · board fully green · 3b Phase A ratified, Phase B in flight
 
+**Estimates are a planning read model — re-based at each checkpoint, not
+delivery commitments. The runtime bucket (item 5) re-bases materially at the
+3c census.**
+
 ## Velocity basis (observed, commit-stamped)
 
 Designed-and-gated items land in 25–70 min each: 9 retro designs = 70m;
@@ -26,13 +30,13 @@ depth, live lanes.
 | 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
 | 3b | Typed HOF relation (T-253) | 🔄 Phase A done (REQ-L-GTL3-HOF ratified); Phase B realizing | 68m+33m actual; ~1h realize est |
 | 3c | Body + compile census | ⛔ after 3b | ~30–60m est |
-| 4 | Invocation spine (4 leaves) | ⛔ design rework first | ~2.5–5h est |
-| 5 | 3 C-atoms (recompile oracle) | ⛔ after probe | ~2–6h est |
+| 4 | Invocation spine (4 leaves) | ⛔ 3–4 design reworks + accepts first (register: 6 blocked/4 candidate) | ~2.5–5h est + rework cycles |
+| 5 | Runtime atoms: workflow.C/C.batch/C.retry + census-discovered HOF/recurse runtime leaves (count TBD) | ⛔ sized by 3c census | ~2–6h+; re-based at census |
 | 6 | Consensus as GTL function | ⛔ after 4+5 | ~1–2h est |
 | 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~4–8h est |
 | 8 | Compliance (T-247) | ⛔ after features | ~2.5–5h est |
 | 9 | Release 5.0.0 (T-248) | ⛔ last 5.0 step | ~1.5–3h est |
-| 10 | odd_glc 1.0 over 5.0 | ⛔ post-release | ~2.5–5h est |
+| 10 | odd_glc 1.0 over 5.0 | ⛔ ticket chain stale (T-038 cites retired R5/I1); 0.2.0→1.0 naming decision needed | placeholder est, ungrounded |
 | 11 | Dogfood scaffold + pilot (T-245) | ⛔ post-release | ~1–2h est |
 | 12 | 5.0.1 as GLC project (T-246) | ⛔ dogfood proof | open (waves) |
 
