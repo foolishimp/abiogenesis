@@ -23,20 +23,24 @@ depth, live lanes.
 | 1 | Stable-first authority (T-249) | ✅ done, closed | 48m actual |
 | 2a | Lint + render gate (T-251) | ✅ done, verified | 25m actual |
 | 2b | Version-basis fix (T-250) | ✅ done, verified | 32m actual |
-| 3 | Consensus GTL design probe | ⏳ next | ~1–2h est |
-| 4 | Invocation spine (4 leaves) | ⛔ design rework first | ~4–8h est |
-| 5 | 3 C-atoms (recompile oracle) | ⛔ after probe | ~4–8h est |
-| 6 | Consensus as GTL function | ⛔ after 4+5 | ~2–4h est |
-| 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~8–16h est |
-| 8 | Compliance (T-247) | ⛔ after features | ~4–8h est |
-| 9 | Release 5.0.0 (T-248) | ⛔ last 5.0 step | ~2–4h est |
-| 10 | odd_glc 1.0 over 5.0 | ⛔ post-release | ~4–8h est |
-| 11 | Dogfood scaffold + pilot (T-245) | ⛔ post-release | ~2–4h est |
+| 3 | Consensus GTL design probe | ⏳ next | ~45–90m est |
+| 4 | Invocation spine (4 leaves) | ⛔ design rework first | ~2.5–5h est |
+| 5 | 3 C-atoms (recompile oracle) | ⛔ after probe | ~2–6h est |
+| 6 | Consensus as GTL function | ⛔ after 4+5 | ~1–2h est |
+| 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~4–8h est |
+| 8 | Compliance (T-247) | ⛔ after features | ~2.5–5h est |
+| 9 | Release 5.0.0 (T-248) | ⛔ last 5.0 step | ~1.5–3h est |
+| 10 | odd_glc 1.0 over 5.0 | ⛔ post-release | ~2.5–5h est |
+| 11 | Dogfood scaffold + pilot (T-245) | ⛔ post-release | ~1–2h est |
 | 12 | 5.0.1 as GLC project (T-246) | ⛔ dogfood proof | open (waves) |
 
-**Projected totals at current cadence:** to stable 5.0.0 ≈ 25–50 agent-hours
-(≈ 3–7 focused days with review gates); to 5.0.1-start ≈ +1–2 days; 5.0.1
-itself is campaign-paced.
+**Projected totals (recalibrated after 2b actual 32m vs 1–2h est):** stable
+5.0.0 ≈ 14–30 agent-hours; review/F_H gate pipeline adds ~8–15h wall (now the
+dominant term; ~15 gated checkpoints remain) → ≈ 2.5–5 focused days. To
+5.0.1-start ≈ +1 day. Calibration is continuous: each item records
+est-vs-actual and remaining ranges re-scale each checkpoint. Deep-semantic
+singletons (workflow.C, F_P G1–G5) keep wide high ends: n=0 evidence,
+one-sided variance.
 
 ## Gates and evidence (short)
 
