@@ -17,15 +17,19 @@ import {
   compose,
   edge,
   fan_in,
-  fan_out,
   gate,
   graphFunctionForVector,
   identity,
-  promote,
   recurse,
   sameObject,
   substitute
 } from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
+import {
+  fan_out,
+  hofContract,
+  hofUnaryRef,
+  hofVector
+} from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
 import {
   interfaceContract,
   materializeGraphFunction,
@@ -734,6 +738,19 @@ test("M01 integration: composition regrouping preserves contract and canonical i
 });
 
 test("M01 integration: higher-order graph operators preserve explicit vector boundaries and inspectable gate declarations", () => {
+  const candidateBranch = admitNode({
+    id: "node-candidate-branch",
+    name: "CandidateBranch",
+    schema: { kind: "symbolic", ref: "CandidateBranch" },
+    markov: ["proposed"],
+    assetSurface: {
+      kind: "candidate_branch",
+      requiredContexts: ["workspace"],
+      standardsRefs: [],
+      outputContractRefs: []
+    },
+    tags: ["member"]
+  });
   const candidateBranches = admitNode({
     id: "node-candidate-branches",
     name: "candidate_branches",
@@ -746,6 +763,19 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
       outputContractRefs: []
     },
     tags: ["vector"]
+  });
+  const judgment = admitNode({
+    id: "node-judgment",
+    name: "Judgment",
+    schema: { kind: "symbolic", ref: "Judgment" },
+    markov: ["judged"],
+    assetSurface: {
+      kind: "judgment",
+      requiredContexts: ["workspace"],
+      standardsRefs: [],
+      outputContractRefs: []
+    },
+    tags: ["member"]
   });
   const judgmentVector = admitNode({
     id: "node-judgment-vector",
@@ -778,12 +808,12 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
     id: "graph-function-worker-branch",
     name: "worker_branch",
     environment: {
-      requires: [candidateBranches],
-      provides: [candidateBranches],
-      carries: [candidateBranches]
+      requires: [candidateBranch],
+      provides: [judgment],
+      carries: [candidateBranch, judgment]
     },
-    inputs: [candidateBranches],
-    outputs: [candidateBranches],
+    inputs: [candidateBranch],
+    outputs: [judgment],
     template: {
       kind: "symbolic",
       ref: "worker_branch_template",
@@ -841,20 +871,30 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
     })
   ).rule;
 
+  const candidateBranchContract = hofContract(candidateBranch);
+  const judgmentContract = hofContract(judgment);
+  const workerFanOut = fan_out(
+    hofUnaryRef(workerBranch, candidateBranchContract, judgmentContract),
+    {
+      over: hofVector(candidateBranches, candidateBranchContract),
+      into: hofVector(judgmentVector, judgmentContract)
+    }
+  ).graphFunction;
+
   const harvestProgram = compose(
-    fan_out(workerBranch, candidateBranches),
-    promote(candidateBranches, judgmentVector),
+    workerFanOut,
     gate(fan_in(harvestReducer, judgmentVector), harvestGate, [harvestAcceptance])
   );
 
   assert.deepStrictEqual(harvestProgram.inputs, [candidateBranches]);
   assert.deepStrictEqual(harvestProgram.outputs, [selectedCandidate]);
-  assert.ok(harvestProgram.tags.includes("over:candidate_branches"));
-  assert.ok(harvestProgram.tags.includes("source:candidate_branches"));
-  assert.ok(harvestProgram.tags.includes("to:judgment_vector"));
+  assert.ok(harvestProgram.tags.includes("operator:fan_out"));
+  assert.ok(harvestProgram.tags.includes("over:judgment_vector"));
   assert.ok(harvestProgram.tags.includes("rule:harvest_gate"));
   assert.ok(harvestProgram.effects.includes("worker_pass"));
   assert.ok(harvestProgram.effects.includes("reduce"));
+
+  assert.ok(declarationEntry(harvestProgram.declarations, "gtl.hof_application"));
 
   const gateDecl = declarationEntry(harvestProgram.declarations, "gate");
   assert.ok(gateDecl);

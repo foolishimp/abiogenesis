@@ -1689,32 +1689,6 @@ export function recurse(
   });
 }
 
-export function fan_out(
-  graphFunction: GraphFunction,
-  over: Node
-): GraphFunction {
-  if (!isVectorBoundary(over)) {
-    throw new TypeError(
-      `fan_out(${graphFunction.name}): over must declare an explicit Vector[...] boundary`
-    );
-  }
-
-  return constructGraphFunction({
-    name: `fan_out(${graphFunction.name})`,
-    environment: constructEnvRef({
-      requires: [over],
-      provides: [over],
-      carries: [over]
-    }),
-    inputs: [over],
-    outputs: [over],
-    template: graphFunction.template,
-    effects: graphFunction.effects,
-    declarations: graphFunction.declarations,
-    tags: stableUnion([graphFunction.tags, [`over:${over.name}`]])
-  });
-}
-
 export function fan_in(
   reducer: GraphFunction,
   over: Node

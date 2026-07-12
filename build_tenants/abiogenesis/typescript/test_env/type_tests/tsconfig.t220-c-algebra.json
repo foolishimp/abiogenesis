@@ -5,6 +5,7 @@
     "rootDir": "../.."
   },
   "include": [
+    "../../code/src/node_shims.d.ts",
     "./t220_c_algebra_types.ts"
   ]
 }

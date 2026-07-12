@@ -7,6 +7,10 @@ import type {
   SerializedAttrs,
   SerializedAttrValue
 } from "./carriers.js";
+import {
+  canonicalizeHofApplicationDeclarationValue,
+  HOF_APPLICATION_DECLARATION_KEY
+} from "./hof_application.js";
 
 export const GTL_DECLARATION_HOST_VALUES = Object.freeze([
   "graph_function",
@@ -138,6 +142,12 @@ export const GTL_REGISTERED_DECLARATION_LAWS = Object.freeze([
     key: "abg.traversal_strategy",
     hosts: ["graph_vector"],
     valueKinds: ["hook_ref"],
+    duplicatePolicy: "forbidden"
+  },
+  {
+    key: "gtl.hof_application",
+    hosts: ["graph_function"],
+    valueKinds: ["json_blob"],
     duplicatePolicy: "forbidden"
   },
   {
@@ -598,7 +608,28 @@ function constructHostedDeclarations<Host extends GtlDeclarationHost>(
   host: Host,
   entries: readonly SerializedAttrEntry[]
 ): HostedGtlDeclarations<Host> {
-  const attrs = Object.freeze({ entries: Object.freeze([...entries]) });
+  const normalizedEntries = entries.map((entry) => {
+    if (
+      host !== "graph_function" ||
+      entry.key !== HOF_APPLICATION_DECLARATION_KEY ||
+      entry.value.kind !== "json_blob"
+    ) {
+      return entry;
+    }
+    return Object.freeze({
+      key: entry.key,
+      value: Object.freeze({
+        kind: "json_blob" as const,
+        value: canonicalizeHofApplicationDeclarationValue(
+          entry.value.value,
+          `graph_function.${HOF_APPLICATION_DECLARATION_KEY}`
+        )
+      })
+    });
+  });
+  const attrs = Object.freeze({
+    entries: Object.freeze(normalizedEntries)
+  });
   const violations = inspectGtlHostDeclarations({ host, attrs });
   if (violations.length > 0) {
     throw new TypeError(

@@ -6,6 +6,6 @@
   },
   "include": [
     "../../code/src/node_shims.d.ts",
-    "./t220_declaration_law_types.ts"
+    "./t253_hof_types.ts"
   ]
 }

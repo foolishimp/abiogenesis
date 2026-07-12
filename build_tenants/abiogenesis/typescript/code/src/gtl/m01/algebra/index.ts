@@ -7,7 +7,6 @@ export {
   composeNodeTypes,
   edge,
   fan_in,
-  fan_out,
   gate,
   GRAPH_FUNCTION_ZOOM_CANDIDATE_FAMILY_DECLARATION_KEY,
   GRAPH_FUNCTION_ZOOM_PUBLISHED_TRAVERSAL_TARGET_DECLARATION_KEY,
@@ -22,6 +21,18 @@ export {
   substitute,
   zoomGraphFunction
 } from "./core.js";
+export {
+  fan_out,
+  hofContract,
+  hofUnaryRef,
+  hofVector
+} from "./hof.js";
+export type {
+  HofBoundary,
+  HofContract,
+  HofUnaryRef,
+  HofVector
+} from "./hof.js";
 export type {
   GraphFunctionZoomApplyInput,
   GraphFunctionZoomAuthority,

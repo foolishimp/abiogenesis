@@ -5,11 +5,21 @@
 - type: requirements_realization
 - ticket_category: gtl_higher_order_type_law
 - status: active
-- phase_status: phase_b_native_realization
+- phase_status: phase_c_semantic_compilation
 - phase_a_status: complete_after_review_correction
 - phase_a_evidence: >-
     REQ-L-GTL3-HOF-001 exact relation ratified; contract-law API index verified;
     GTL authority guard and 35-law suite green; phase self-review posted.
+- phase_b_status: complete_after_self_review
+- phase_b_evidence: >-
+    Exact invariant native witnesses, explicit over/into fan_out, canonical
+    gtl.hof_application raw admission, closed tagged-object syntax, exact node
+    ref plus contract joins, non-Consensus Scenario 09 fixture, strict native
+    type negatives, and independent raw equivalence are green. Focused Phase B
+    review found and repaired raw sibling-field loss and same-contract node-ref
+    collapse before checkpoint.
+- phase_b_review_ref: >-
+    .ai-workspace/comments/codex/20260712T101500Z_SELF_REVIEW_t253_phase_b_native_hof.md
 - review_status: fh_design_accepted
 - design_disposition: accepted_by_fh
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -89,7 +99,7 @@ fan_out(f, over, into) : Vector<A> -> Vector<B>
 ```
 
 The relation is explicit authored GTL data. On a wholly successful vector
-relation it preserves one result slot per input ordinal, output ordinal `i`
+application it preserves one result slot per input ordinal, output ordinal `i`
 corresponds to input ordinal `i`, and completion order cannot alter vector order
 or cardinality. Blocked-task lineage and partial-failure behavior remain wholly
 outside this ticket. The relation is not
@@ -109,11 +119,17 @@ criterion:
 > `fan_out(f, *, over, into)` shall accept an element GraphFunction relation
 > `f:A->B`, an explicit input-vector relation `over:Vector<A>`, and an explicit
 > output-vector relation `into:Vector<B>`, and shall produce a GraphFunction
-> relation `Vector<A>->Vector<B>`. The admitted relation shall preserve input
-> cardinality and stable input ordinal, pairing output member `i` only with
-> input member `i`. Native authoring, canonical serialization, raw admission,
+> relation `Vector<A>->Vector<B>`. The admitted relation shall join each
+> structured `Vector<T>` schema to an explicit member contract; schema spelling
+> alone is not type admission. On a wholly successful vector application, the
+> relation shall preserve input cardinality and stable input ordinal, pairing
+> output member `i` only with input member `i`. Native authoring, canonical
+> serialization, raw admission,
 > and semantic compilation shall preserve the same first-class relation and
-> shall not infer it from a function name, label, tag, or shared node identity.
+> shall not infer it from a function name, label, tag, shared node identity, or
+> hidden cardinality. Blocked-member lineage and partial-failure behavior are
+> runtime semantics and require their own requirement and design before
+> implementation.
 
 This wording is the accepted Phase A target. It becomes live constitutional
 law when the requirement edit lands in the same checkpoint.
@@ -188,9 +204,11 @@ Only after F_H accepts the T-253 design:
    diagnostic until a separately designed generic runtime atom exists.
    T-253 does not publish or invoke that relation and does not claim the
    compiler is an integrated runtime gate.
-8. Stable cardinality and ordinal policy are explicit declaration values:
-   output cardinality equals admitted input cardinality and output ordinal `i`
-   is bound to input ordinal `i`, independent of completion order.
+8. Stable cardinality and ordinal policy are explicit declaration values. On a
+   wholly successful vector application, output cardinality equals admitted
+   input cardinality and output ordinal `i` is bound to input ordinal `i`,
+   independent of completion order. Blocked-member and partial-failure runtime
+   behavior remains outside T-253.
 9. A non-Consensus Scenario 09 fixture proves the atom is generic. Consensus
    may consume the closed atom later but is not the only proof.
 10. The full semantic suite remains green, and a phase self-review finds no

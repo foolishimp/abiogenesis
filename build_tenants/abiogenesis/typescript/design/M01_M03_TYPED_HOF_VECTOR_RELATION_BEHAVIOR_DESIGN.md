@@ -128,8 +128,8 @@ classDiagram
     +outputMemberContractKey
     +inputVectorContractKey
     +outputVectorContractKey
-    +ordering_preserve_input_ordinal
-    +cardinality_one_slot_per_input
+    +ordering_preserve_input_ordinal_when_wholly_successful
+    +cardinality_one_slot_per_input_when_wholly_successful
   }
   class ExactGraphFunction {
     <<prime>>
@@ -681,9 +681,9 @@ the semantic carrier model.
 
 | Gap or exclusion | Disposition | Owner and re-entry |
 |---|---|---|
-| HOF output-vector requirement is incomplete | candidate reprice in T-253 | F_H accepts exact judgment, then Phase A ratifies it |
-| current `fan_out` lies `Vector<A> -> Vector<A>` | implementation blocked pending design acceptance | T-253 Phase B |
-| current compiler trusts names and emits no HOF diagnostic | implementation blocked pending design acceptance | T-253 Phase C |
+| HOF output-vector requirement was incomplete | ratified as exact HOF-001 law in Phase A | closed by T-253 Phase A |
+| prior `fan_out` lied `Vector<A> -> Vector<A>` | replaced by the exact typed M01 relation and independently reviewed | closed by T-253 Phase B |
+| current compiler trusts names and emits no HOF diagnostic | Phase C implementation and review pending | T-253 Phase C |
 | HOF runtime interpretation | explicitly absent; valid declarations end semantic-not-realized | census-driven generic successor after T-252 probe |
 | `workflow.C`, `C.batch`, retry, recursion execution | unrelated generic atoms | later singular accepted designs |
 | Consensus body | no code in this ticket | T-252 re-entry after T-253 closure |

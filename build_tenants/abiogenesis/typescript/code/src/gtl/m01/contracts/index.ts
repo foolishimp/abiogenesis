@@ -35,6 +35,23 @@ export type {
   HostedGtlDeclarations,
   RegisteredGtlDeclarationEntry
 } from "./declaration_law.js";
+export type {
+  HofApplicationDeclaration,
+  HofApplicationDeclarationEntry,
+  HofApplicationDeclarationInit
+} from "./hof_application.js";
+export {
+  HOF_APPLICATION_CARDINALITY_LAW,
+  HOF_APPLICATION_DECLARATION_KEY,
+  HOF_APPLICATION_ORDERING_LAW,
+  HOF_APPLICATION_SYNTAX_VERSION,
+  admitHofApplicationDeclaration,
+  canonicalizeHofApplicationDeclarationValue,
+  constructHofApplicationDeclaration,
+  constructHofApplicationDeclarationEntry,
+  hofApplicationDeclarationFromDeclarations,
+  serializeHofApplicationDeclaration
+} from "./hof_application.js";
 export {
   GTL_DECLARATION_HOST_VALUES,
   GTL_DECLARATION_LAW_VIOLATION_KIND_VALUES,

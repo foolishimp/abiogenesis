@@ -23,6 +23,7 @@ import {
   type GraphFunctionDeclarations,
   type GraphVectorDeclarations
 } from "./declaration_law.js";
+import { HOF_APPLICATION_DECLARATION_KEY } from "./hof_application.js";
 
 export interface AssetSurfaceAuthoritySlotInit {
   readonly authorityKindRef: string;
@@ -648,6 +649,33 @@ export function constructGraphFunction(input: GraphFunctionInit): GraphFunction 
     }
   }
 
+  const declarations = admitGraphFunctionDeclarations(input.declarations);
+  const derivedId = deriveIdentity("graph_function", {
+    name: input.name,
+    environment: {
+      requires: input.environment.requires.map(canonicalNode),
+      provides: input.environment.provides.map(canonicalNode),
+      carries: input.environment.carries.map(canonicalNode)
+    },
+    inputs: input.inputs.map(canonicalNode),
+    outputs: input.outputs.map(canonicalNode),
+    template: canonicalTemplateRef(input.template),
+    effects: [...input.effects],
+    declarations: canonicalSerializedAttrs(declarations),
+    tags: [...input.tags]
+  });
+  if (
+    input.id !== undefined &&
+    declarations.entries.some(
+      (entry) => entry.key === HOF_APPLICATION_DECLARATION_KEY
+    ) &&
+    input.id !== derivedId
+  ) {
+    throw new TypeError(
+      "GraphFunction.id: HOF application host identity must equal its canonical derived identity"
+    );
+  }
+
   const graphFunction = {
     name: input.name,
     environment: input.environment,
@@ -655,24 +683,9 @@ export function constructGraphFunction(input: GraphFunctionInit): GraphFunction 
     outputs: freezeNodes(input.outputs),
     template: input.template,
     effects: freezeStrings(input.effects),
-    declarations: admitGraphFunctionDeclarations(input.declarations),
+    declarations,
     tags: freezeStrings(input.tags),
-    id:
-      input.id ??
-      deriveIdentity("graph_function", {
-        name: input.name,
-        environment: {
-          requires: input.environment.requires.map(canonicalNode),
-          provides: input.environment.provides.map(canonicalNode),
-          carries: input.environment.carries.map(canonicalNode)
-        },
-        inputs: input.inputs.map(canonicalNode),
-        outputs: input.outputs.map(canonicalNode),
-        template: canonicalTemplateRef(input.template),
-        effects: [...input.effects],
-        declarations: canonicalSerializedAttrs(input.declarations),
-        tags: [...input.tags]
-      }),
+    id: input.id ?? derivedId,
     [GTL_GRAPH_FUNCTION_ADMISSION]: true as const
   };
   Object.defineProperty(graphFunction, GTL_GRAPH_FUNCTION_ADMISSION, {
