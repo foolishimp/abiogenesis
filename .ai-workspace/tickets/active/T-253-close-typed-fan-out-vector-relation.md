@@ -6,7 +6,7 @@
 - ticket_category: gtl_higher_order_type_law
 - status: active
 - phase_status: phase_b_native_realization
-- phase_a_status: complete
+- phase_a_status: complete_after_review_correction
 - phase_a_evidence: >-
     REQ-L-GTL3-HOF-001 exact relation ratified; contract-law API index verified;
     GTL authority guard and 35-law suite green; phase self-review posted.

@@ -17,11 +17,15 @@ Define higher-order graph-function combinators in GTL 3.
 graph-function relation `f:A->B`, an explicit input-vector relation
 `over:Vector<A>`, and an explicit output-vector relation `into:Vector<B>`, and
 shall produce a graph-function relation `Vector<A>->Vector<B>`. The admitted
-relation shall preserve input cardinality and stable input ordinal, pairing
-output member `i` only with input member `i`. Native authoring, canonical
-serialization, raw admission, and semantic compilation shall preserve the same
-first-class relation and shall not infer it from a function name, label, tag,
-shared node identity, or hidden cardinality.
+relation shall join each structured `Vector[T]` schema to an explicit member
+contract; schema spelling alone is not type admission. On a wholly successful
+vector application, the relation shall preserve input cardinality and stable
+input ordinal, pairing output member `i` only with input member `i`. Native
+authoring, canonical serialization, raw admission, and semantic compilation
+shall preserve the same first-class relation and shall not infer it from a
+function name, label, tag, shared node identity, or hidden cardinality.
+Blocked-member lineage and partial-failure behavior are runtime semantics and
+require their own requirement and design before implementation.
 
 **REQ-L-GTL3-HOF-002**: `fan_in(reducer, *, over=node)` shall reduce an explicit vector boundary into one synthesized result.
 

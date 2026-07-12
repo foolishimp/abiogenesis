@@ -673,7 +673,8 @@ Canonical topology notation:
 ```text
 review_panel: GraphFunction<ReviewerAssignmentVector, AttributedFindingsVector> = fan_out(
   review_one_profile,
-  over = ReviewerAssignmentVector
+  over = ReviewerAssignmentVector,
+  into = AttributedFindingsVector
 )
 
 round_graph = Graph {

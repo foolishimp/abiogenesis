@@ -48,7 +48,7 @@ GTL/ABG/ODD carriers, not into a second imperative framework.
 | Extract | `GraphFunction(Source, Pattern) -> Vector[Item]` | source-input lineage for every extracted item |
 | Synthesis | `GraphFunction(Evidence, InferenceRules) -> Vector[InferredItem]` | inference-rule authority and ambiguity preservation |
 | Transform | `GraphFunction(A) -> A_t` | declared transform and evaluator surfaces |
-| Fan-out | `fan_out(GraphFunction(A_i) -> A_t_i, over=Vector[A])` | per-item traversal/projection evidence |
+| Fan-out | `fan_out(GraphFunction(A_i -> A_t_i), over=Vector[A], into=Vector[A_t])` | per-item traversal/projection evidence |
 | Ambiguity | evaluator-result or candidate-result vector | no hidden merge or LLM-only choice |
 | Gap evaluation | `GraphFunction(GapProjection, ProductPolicy) -> TriageDecision` | ABG read-only gap truth plus downstream work decision |
 
