@@ -54,6 +54,19 @@ one-sided variance.
 - 4 `blocked` → rework → accepted (spine, SDK/CLI, F_P, vertical).
 - 1 `rejected` (consensus as-built; calibration case, stays rejected).
 
+## Forward flags (pre-emptive, full detail in 20260713T170000Z_PREEMPTIVE)
+
+- **F1 time-critical → Phase 2:** Consensus design must declare PER-PROFILE
+  transport binding (F_H ruling: two different LLMs between worker and
+  manager seats; today one agentContract serves all profiles).
+- **F2 → Phases 2/4:** unrealized-gap census is a FRONTIER census (compiler
+  doesn't recurse into unrealized terms); oracle must expect cascading gap
+  emergence, not monotone decrease.
+- **F3 → Phase 4:** `instruction_set` kind exists — verify publishability in
+  the rework's first hour.
+- **F5 → Phase 10:** odd_glc T-033/037/038/039 still target dropped R5/I1;
+  pre-stage the retarget before RC week.
+
 ## Next checkpoints claude verifies
 
 1. T-250 lands → 7 differentials, rc.3 bytes untouched, suite fully green.
