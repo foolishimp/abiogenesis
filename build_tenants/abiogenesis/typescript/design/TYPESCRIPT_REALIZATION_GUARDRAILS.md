@@ -90,10 +90,14 @@ The minimum acceptable sequence is:
 2. declare the carrier set
 3. declare the role matrix
 4. declare the subordinate payload register
-5. declare the structural carrier diagram
-6. declare the strict typing lane
-7. derive implementation and unit tests from that module boundary
-8. only then implement and close
+5. declare the Mermaid domain model
+6. declare the Mermaid execution sequence
+7. declare the Mermaid lifecycle state machine
+8. evaluate the three views against every applicable axiom
+9. record an explicit `accepted` design verdict
+10. declare the strict typing lane
+11. derive implementation and unit tests from that module boundary
+12. only then implement and close
 
 ## TypeScript Typing Law
 
@@ -237,22 +241,86 @@ The TypeScript line must reject these shapes immediately:
 - strategy-bearing runtime contexts that tell the builder how to repair
 - a second local adapter path beside the declared authoritative ingress path
 
-## Structural Sign-Off Requirement
+## Three-View Behavioral Sign-Off Requirement
 
-Every active TypeScript module boundary must publish one Mermaid UML structural
-carrier diagram before implementation starts.
+Every active TypeScript semantic boundary must publish one Mermaid design asset
+containing all three views before implementation starts:
 
-That diagram must show:
+1. `classDiagram` - the domain model, ownership, cardinality, prime carriers,
+   subordinate payloads, effect-edge payloads, deferred families, authority,
+   and visibility;
+2. `sequenceDiagram` - the supported execution path, decision owners, effect
+   boundaries, malformed input/output, retry, recursion, fan-out/fan-in, nested
+   workflow, and F_H paths where applicable; and
+3. `stateDiagram-v2` - every admitted, refused, blocked, continuation, retry,
+   escalation, and terminal lifecycle state and its transition owner.
 
-- prime carriers
-- subordinate payloads
-- effect-edge-only payloads
-- deferred families
-- authoritative versus downstream role
-- public versus module-local visibility
+The three views must carry a cross-view axiom matrix with these columns:
 
-The TypeScript line may not use code or tests as the first place where that
-structure becomes visible.
+| Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
+|---|---|---|---|---|---|---|---|---|
+
+Every applicable axiom receives `pass`, `fail`, or reasoned `not_applicable`.
+The design verdict must be `accepted` before implementation enters the active
+product line. A failed axiom or a relied-on `semantic_not_realized` constructor
+blocks implementation; neither may be bypassed by a plugin, handler, shell,
+service, script, fixture, or private loop.
+
+Every sequence participant must exist in the domain model or be explicitly
+external. Every sequence message must name a typed transform, declared graph/C
+constructor, interpreter act, or effect-handler boundary. Every state
+transition must derive from admitted carrier, compiler, event, or projection
+truth.
+
+The TypeScript line may not use code or tests as the first place where domain,
+behavior, lifecycle, or authority becomes visible. Existing code under
+retrospective review is frozen until the three views and axiom verdict are
+accepted; diagrams may not be rewritten to rationalize unlawful code.
+
+### GTL/ABG Calibration Checks
+
+For an ODD-shaped GTL/ABG boundary, the three views must additionally prove:
+
+- every entity names its owning layer: GTL declaration, ABG runtime aggregate,
+  ABG contract/atom, downstream domain declaration, F_P artifact, or F_H act;
+- every published `GraphFunction` decomposes into its Graph, GraphVector, Node,
+  declared composition, and policy/effect boundaries rather than remaining a
+  catalog nameplate;
+- every new ABG runtime entity states which missing atom it supplies and why a
+  free construction over existing atoms is insufficient;
+- policies, profiles, panels, prompts, and budgets are declared data consumed
+  by the runtime, not code objects that own behavior;
+- prompt rendering follows declared instruction surfaces and the standard
+  engine/handler path, with no feature-local prompt shell;
+- fan-out and fan-in appear as engine-traversed declared subwork, not a loop
+  inside a plugin, product service, shell, or fixture;
+- artifacts cross admission before any semantic consumer reads them;
+- only ABG or an explicit F_H act owns closure/status transitions;
+- recursion uses declared graph/C recursion with explicit termination and
+  foldback rather than incidental retry re-entry; and
+- every F_H gate is an explicit lifecycle state whose exits are typed F_H acts.
+
+Failure of any applicable calibration check blocks acceptance. Use `rejected`
+when the proposed boundary is the wrong category and should not be retained;
+use `blocked` when a potentially lawful boundary has an explicit unsatisfied
+axiom or realization dependency. These checks
+are calibrated by the reverted `945b5a2` Consensus implementation documented
+in [M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md](./M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md).
+
+### GTL/ABG Executable Design Gate
+
+Any boundary whose constructive carrier is a `GraphFunction` must accompany
+the three views with an executable GTL Module or graph-body fixture, its GTL
+admission result, and the current ABG semantic-compiler result before product
+code starts. The design must retain every typed compiler gap as a blocking
+gap. A missing body, a rejected body, or a relied-on
+`semantic_not_realized` constructor prevents an `accepted` verdict.
+
+This is prospective design validation using the existing language toolchain.
+It does not decide the release or recursive-build ladder. A GLC product may be
+used as an optional downstream-consumer fixture, but GLC does not own GTL,
+ABG semantic compilation, or generic systems GraphFunctions. The gate exposes
+a category or algebra gap before imperative TypeScript can hide it.
 
 ## Module-Derived Unit Test Requirement
 
@@ -285,7 +353,14 @@ No initial TypeScript code wave is lawful until all of the following are true:
 - [ ] the TypeScript slice names its irreducible architectural carrier set
 - [ ] the TypeScript slice names its authoritative/downstream role matrix
 - [ ] the TypeScript slice names its subordinate payload register
-- [ ] the TypeScript slice names one module-bounded structural carrier diagram
+- [ ] the TypeScript slice names one module-bounded Mermaid domain model
+- [ ] the TypeScript slice names one Mermaid execution sequence
+- [ ] the TypeScript slice names one Mermaid lifecycle state machine
+- [ ] every sequence participant and state carrier exists in the domain model
+- [ ] every message and transition names its declared owner
+- [ ] the slice carries a complete cross-view axiom matrix
+- [ ] no relied-on constructor is `semantic_not_realized`
+- [ ] the design verdict is explicitly `accepted`
 - [ ] the TypeScript slice names one bounded strict typing lane
 - [ ] the TypeScript slice names one module-derived unit-test lane
 - [ ] the TypeScript slice names its governance-versus-builder boundary
@@ -309,3 +384,10 @@ No initial TypeScript code wave is lawful until all of the following are true:
 7. Did this change keep package and adapter code below the semantic center?
 8. Did this change preserve governance and observability without drifting into
    builder strategy law?
+9. Do distinct domain, sequence, and state-machine views describe one coherent
+   boundary rather than three incompatible abstractions?
+10. Does every batch, retry, recursion, or nested workflow use declared graph/C
+    algebra rather than imperative orchestration?
+11. Does every state transition derive from admitted or replay-derived truth?
+12. Has every applicable axiom received an explicit verdict, and are all
+    failures or realization gaps blocking implementation?

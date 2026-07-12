@@ -39,6 +39,8 @@ paused.
 For the current TypeScript line, the governing runtime design decisions are:
 
 - [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
+- [DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md](./DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md)
+- [A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md](./A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md)
 - [ADR-040](./adrs/ADR-040-typescript-tenant-as-package-first-realization.md)
 - [ADR-041](./adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md)
 - [ADR-042](./adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md)
@@ -77,6 +79,9 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `GTL_3_IMPLEMENTATION_PLAN.md`
 - `M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md`
 - `M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md`
+- `M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md`
+- `M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md`
 - `ABG_3_MODULE_DESIGN.md`
 - `ABG_3_FIRST_SLICE_IACS.md`
 - `ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -255,6 +260,12 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md`
 - `M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md`
 - `M02_M04_INSTALLED_CATALOG_SDK_CLI_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md`
+- `M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md`
+- `M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md`
+- `M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md`
+- `M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md`
+- `M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md`
 - `adrs/`
 
 The first implementation wave was completed by:
