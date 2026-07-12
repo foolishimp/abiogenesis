@@ -1267,7 +1267,6 @@ export type {
   EnginePluginContract,
   EnginePluginEventAuthority,
   EnginePluginInput,
-  EnginePriorAttemptResultArtifact,
   EnginePluginInventoryEntry,
   EnginePluginKind,
   EnginePluginOutcome,
@@ -1448,32 +1447,6 @@ export type {
   ConsensusRoundOutcome,
   ReviewRulingKind
 } from "./review_consensus_modules.js";
-export {
-  admitConsensusRequest,
-  admitConsensusReviewerFinding,
-  admitConsensusReviewerProfile,
-  admitConsensusReviewerResponse,
-  admitConsensusSubmitterResponse,
-  bindConsensusSubmitterResponse,
-  CONSENSUS_FINDING_KIND_VALUES,
-  CONSENSUS_REQUEST_SCHEMA_REF,
-  CONSENSUS_REVIEWER_DISPOSITION_VALUES,
-  CONSENSUS_REVIEWER_RESPONSE_SCHEMA_REF,
-  CONSENSUS_RESULT_SCHEMA_REF,
-  reduceConsensusRound
-} from "./consensus.js";
-export type {
-  ConsensusFindingKind,
-  ConsensusRequest,
-  ConsensusReviewerDisposition,
-  ConsensusReviewerFinding,
-  ConsensusReviewerProfile,
-  ConsensusReviewerResponse,
-  ConsensusSubmitterResponse,
-  ConsensusResult,
-  ConsensusRoundRecord,
-  ConsensusRoundDecision
-} from "./consensus.js";
 export {
   ABG_TUNER_MODULE_DECLARATIONS,
   constructTunerDraftAdmittedEvent,

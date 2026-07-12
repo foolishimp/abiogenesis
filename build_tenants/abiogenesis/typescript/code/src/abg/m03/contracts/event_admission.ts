@@ -92,15 +92,9 @@ const LIVE_CAPABILITY_EXECUTOR_PROFILE_VALUES = Object.freeze([
   "pty-terminal"
 ] as const);
 
-const PRIOR_AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS = Object.freeze([
+const AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS = Object.freeze([
   "plugin://abg/fp-dispatch-live",
   "plugin://abg/fp-evaluator-live"
-] as const);
-
-const AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS = Object.freeze([
-  "plugin://abg/consensus/fp-dispatch-live",
-  "plugin://abg/consensus/fp-evaluator",
-  ...PRIOR_AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS
 ] as const);
 
 function isPlainObject(input: unknown): input is RuntimeEventRecord {
@@ -866,11 +860,7 @@ const admitLeverResolutionAdmittedEvent: RuntimeEventAdmitter = (event) => {
       nullable: true
     },
     availableLivePluginRefs: {
-      equalsOneOfArrays: [
-        [],
-        PRIOR_AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS,
-        AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS
-      ]
+      equalsOneOfArrays: [[], AVAILABLE_LIVE_CAPABILITY_PLUGIN_REFS]
     },
     selectedLeverKeys: {
       equalsOneOfArrays: [

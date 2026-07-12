@@ -9,7 +9,6 @@ import assert from "node:assert/strict";
 import {
   assertRuntimeEvent,
   constructActorResultArtifactObservedEvent,
-  constructActorInvocationStartedEvent,
   constructEnginePluginInput,
   constructEvidenceAdmittedEvent,
   constructInstructionCausalContextBoundEvent,
@@ -190,131 +189,6 @@ function secondVectorFpInput(basis, events) {
     targetCarrierDefaults
   });
 }
-
-test("EnginePluginInput carries an immutable snapshot of declared input assets", () => {
-  const admittedBasis = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const subject = Object.freeze({
-    kind: "declared_input_subject",
-    subjectRef: "subject://t182/plugin-input",
-    subjectDigest: `sha256:${"a".repeat(64)}`
-  });
-  const declaredUri =
-    `data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(subject))}`;
-  const mutableBinding = {
-    assetRef: "asset://t182/declared-input",
-    assetType: "contract://t182/declared-input",
-    uri: declaredUri
-  };
-  const mutableBindings = [mutableBinding];
-  const basis = {
-    ...admittedBasis,
-    startIntent: {
-      ...admittedBasis.startIntent,
-      inputBindings: mutableBindings
-    }
-  };
-  const input = constructEnginePluginInput({
-    contract: defaultFpDispatchPlugin.contract,
-    basis,
-    projection: deriveRuntimeAggregateProjection(basis, []),
-    replayEvents: [],
-    vectorIndex: 0,
-    edge: basis.graph.vectors[0].name,
-    regime: "F_P",
-    actorInvocationRef: actorInvocationRef(0),
-    targetCarrierDefaults
-  });
-
-  assert.deepEqual(input.inputAssetBindings, [
-    {
-      assetRef: "asset://t182/declared-input",
-      assetType: "contract://t182/declared-input",
-      uri: declaredUri
-    }
-  ]);
-  assert.deepEqual(
-    JSON.parse(decodeURIComponent(input.inputAssetBindings[0].uri.split(",")[1])),
-    subject
-  );
-  assert.equal(Object.isFrozen(input.inputAssetBindings), true);
-  assert.equal(Object.isFrozen(input.inputAssetBindings[0]), true);
-
-  mutableBinding.assetRef = "asset://t182/mutated";
-  mutableBinding.uri = "data:application/json,%7B%22mutated%22%3Atrue%7D";
-  mutableBindings.push({
-    assetRef: "asset://t182/late",
-    assetType: "contract://t182/late",
-    uri: "data:application/json,%7B%7D"
-  });
-
-  assert.equal(input.inputAssetBindings.length, 1);
-  assert.equal(input.inputAssetBindings[0].assetRef, "asset://t182/declared-input");
-  assert.equal(input.inputAssetBindings[0].uri, declaredUri);
-});
-
-test("EnginePluginInput carries only complete prior artifacts from the current actor scope", () => {
-  const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
-  const vectorIndex = 0;
-  const priorInvocation = Object.freeze({
-    ...actorInvocation(basis, vectorIndex, "result://t182/prior"),
-    actorInvocationId: "actor-invocation://t182/prior",
-    attemptIndex: 1
-  });
-  const otherGraphInvocation = Object.freeze({
-    ...actorInvocation(basis, vectorIndex, "result://t182/other-graph"),
-    actorInvocationId: "actor-invocation://t182/other-graph",
-    graphCallId: "graph-call://t182/other",
-    frameId: "frame://t182/other",
-    attemptIndex: 1
-  });
-  const replayEvents = [
-    constructActorInvocationStartedEvent(priorInvocation),
-    constructActorResultArtifactObservedEvent({
-      invocation: priorInvocation,
-      artifactRef: "artifact://t182/prior/complete",
-      artifactPayload: { kind: "complete_prior_result", value: 1 }
-    }),
-    constructActorResultArtifactObservedEvent({
-      invocation: priorInvocation,
-      artifactRef: "artifact://t182/prior/truncated",
-      artifactPayload: { kind: "large_prior_result", value: "x".repeat(61_000) }
-    }),
-    constructActorInvocationStartedEvent(otherGraphInvocation),
-    constructActorResultArtifactObservedEvent({
-      invocation: otherGraphInvocation,
-      artifactRef: "artifact://t182/other-graph",
-      artifactPayload: { kind: "unrelated_prior_result", value: 2 }
-    })
-  ];
-  const input = constructEnginePluginInput({
-    contract: defaultFpDispatchPlugin.contract,
-    basis,
-    projection: deriveRuntimeAggregateProjection(basis, []),
-    replayEvents,
-    vectorIndex,
-    edge: basis.graph.vectors[vectorIndex].name,
-    regime: "F_P",
-    actorInvocationRef: Object.freeze({
-      actorInvocationId: "actor-invocation://t182/current",
-      attemptIndex: 2,
-      dispatchRef: "dispatch://m03-iteration",
-      resultRef: "result://t182/current"
-    }),
-    targetCarrierDefaults
-  });
-
-  assert.deepEqual(input.priorAttemptResultArtifacts, [
-    {
-      kind: "engine_prior_attempt_result_artifact",
-      actorInvocationId: priorInvocation.actorInvocationId,
-      attemptIndex: 1,
-      resultRef: priorInvocation.resultRef,
-      artifactRef: "artifact://t182/prior/complete",
-      artifactDigest: input.priorAttemptResultArtifacts[0].artifactDigest,
-      body: { kind: "complete_prior_result", value: 1 }
-    }
-  ]);
-});
 
 test("T-223 artifact digest basis omits only absent legacy optional fields", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });

@@ -136,7 +136,7 @@ test("T-223 publisher produces one deterministic exact DS-1 catalog", () => {
   const second = buildDs1ProductPublication(input);
 
   assert.equal(first.catalog.profile, "abg-5-ds1");
-  assert.equal(first.catalog.rows.length, 57);
+  assert.equal(first.catalog.rows.length, 54);
   assert.deepEqual(
     first.catalog.rows.reduce((counts, row) => {
       counts[row.contractKind] = (counts[row.contractKind] ?? 0) + 1;
@@ -146,7 +146,7 @@ test("T-223 publisher produces one deterministic exact DS-1 catalog", () => {
       capability: 7,
       native_contract: 9,
       operation: 13,
-      schema_asset: 27,
+      schema_asset: 24,
       vocabulary_asset: 1
     }
   );
@@ -205,12 +205,6 @@ test("T-223 publisher produces one deterministic exact DS-1 catalog", () => {
       );
     }
   }
-  assert.equal(schemaIds.has("abg.schema.consensus-request"), true);
-  assert.equal(
-    schemaIds.has("abg.schema.consensus-reviewer-response"),
-    true
-  );
-  assert.equal(schemaIds.has("abg.schema.consensus-result"), true);
 
   const invoke = first.catalog.rows.find(
     (row) => row.contractId === "abg.operation.catalog.invoke"

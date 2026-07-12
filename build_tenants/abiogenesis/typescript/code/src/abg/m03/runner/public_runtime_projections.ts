@@ -4,7 +4,6 @@
 import {
   admitIJsonText,
   admitIJsonValue,
-  stableSha256Digest,
   type IJsonValue
 } from "../../../shared/runtime_identity.js";
 import {
@@ -30,16 +29,6 @@ export type RuntimeReplaySubject =
   | { readonly kind: "graph_call"; readonly graphCallId: string }
   | { readonly kind: "subordinate"; readonly subjectId: string };
 
-export interface RuntimePublicAdmittedResultArtifact {
-  readonly resultRef: string;
-  readonly artifactRef: string;
-  readonly body: IJsonValue;
-  readonly artifactDigest: `sha256:${string}`;
-  readonly contractRef: string;
-  readonly schemaRef: string | null;
-  readonly outputContractRefs: readonly string[];
-}
-
 export interface RuntimePublicResultProjection {
   readonly resultId: string;
   readonly graphCallId: string;
@@ -50,7 +39,6 @@ export interface RuntimePublicResultProjection {
     | "blocked"
     | "human_gate_required";
   readonly result: IJsonValue;
-  readonly admittedArtifact?: RuntimePublicAdmittedResultArtifact;
   readonly evidenceRefs: readonly string[];
   readonly replayRefs: readonly string[];
 }
@@ -105,29 +93,17 @@ function graphCallRows(replay: AdmittedWorkspaceReplay): readonly {
   readonly basisId: string;
   readonly runId: string | null;
 }[] {
-  const rows = new Map<string, {
-    readonly graphCallId: string;
-    readonly basisId: string;
-    readonly runId: string | null;
-  }>();
-  for (const event of replay.orderedEvents) {
-    if (event.kind !== "graph_call_opened") {
-      continue;
-    }
-    const prior = rows.get(event.graphCallId);
-    if (prior === undefined) {
-      rows.set(event.graphCallId, Object.freeze({
-        graphCallId: event.graphCallId,
-        basisId: event.basisId,
-        runId: event.runId
-      }));
-      continue;
-    }
-    if (prior.basisId !== event.basisId || prior.runId !== event.runId) {
-      throw new TypeError("public GraphCall identity is ambiguous");
-    }
-  }
-  return Object.freeze([...rows.values()]);
+  return Object.freeze(
+    replay.orderedEvents.flatMap((event) =>
+      event.kind === "graph_call_opened"
+        ? [Object.freeze({
+            graphCallId: event.graphCallId,
+            basisId: event.basisId,
+            runId: event.runId
+          })]
+        : []
+    )
+  );
 }
 
 function eventResultRefs(event: RuntimeEvent): readonly string[] {
@@ -225,119 +201,6 @@ function resultDisposition(
   return "stopped";
 }
 
-function isSha256Digest(value: string): value is `sha256:${string}` {
-  return /^sha256:[0-9a-f]{64}$/u.test(value);
-}
-
-function admittedArtifactBody(input: {
-  readonly excerpt: string | null;
-  readonly digest: string | null;
-}): {
-  readonly body: IJsonValue;
-  readonly digest: `sha256:${string}`;
-} | null {
-  if (
-    input.excerpt === null ||
-    input.digest === null ||
-    !isSha256Digest(input.digest)
-  ) {
-    return null;
-  }
-  try {
-    const body = admitIJsonText(input.excerpt, "PublicAdmittedResultArtifact.body");
-    if (stableSha256Digest(body) !== input.digest) {
-      return null;
-    }
-    return Object.freeze({
-      body,
-      digest: input.digest
-    });
-  } catch {
-    // A legitimate replay may carry only a bounded human-readable excerpt.
-    return null;
-  }
-}
-
-function projectAdmittedResultArtifact(
-  events: readonly CanonicalRuntimeEvent[]
-): RuntimePublicAdmittedResultArtifact | undefined {
-  const validations = [...events]
-    .reverse()
-    .filter(
-      (event) =>
-        event.kind === "payload_validated" &&
-        event.contractRef !== null
-    );
-  for (const validation of validations) {
-    if (validation.kind !== "payload_validated" || validation.contractRef === null) {
-      continue;
-    }
-    const payload = [...events]
-      .reverse()
-      .find(
-        (event) =>
-          event.eventAdmissionOrdinal < validation.eventAdmissionOrdinal &&
-          event.kind === "payload_observed" &&
-          event.payloadRef === validation.payloadRef &&
-          event.digest === validation.digest &&
-          event.contractRef === validation.contractRef &&
-          event.schemaRef === validation.schemaRef &&
-          event.sourceEventRef !== null &&
-          event.actorInvocationId !== null
-      );
-    if (
-      payload?.kind !== "payload_observed" ||
-      payload.sourceEventRef === null ||
-      payload.actorInvocationId === null
-    ) {
-      continue;
-    }
-    const responseAdmission = [...events]
-      .reverse()
-      .find(
-        (event) =>
-          event.eventAdmissionOrdinal < validation.eventAdmissionOrdinal &&
-          event.kind === "instruction_response_contract_admitted" &&
-          event.resultRef === payload.sourceEventRef &&
-          event.actorInvocationId === payload.actorInvocationId
-      );
-    if (responseAdmission?.kind !== "instruction_response_contract_admitted") {
-      continue;
-    }
-    const artifact = [...events]
-      .reverse()
-      .find(
-        (event) =>
-          event.eventAdmissionOrdinal < responseAdmission.eventAdmissionOrdinal &&
-          event.kind === "actor_result_artifact_observed" &&
-          event.resultRef === responseAdmission.resultRef &&
-          event.artifactRef === responseAdmission.artifactRef &&
-          event.actorInvocationId === responseAdmission.actorInvocationId &&
-          event.artifactContentDigest === responseAdmission.artifactContentDigest
-      );
-    if (artifact?.kind !== "actor_result_artifact_observed") {
-      continue;
-    }
-    const admittedBody = admittedArtifactBody({
-      excerpt: artifact.artifactContentExcerpt,
-      digest: artifact.artifactContentDigest
-    });
-    if (admittedBody === null) {
-      continue;
-    }
-    return Object.freeze({
-      resultRef: artifact.resultRef,
-      artifactRef: artifact.artifactRef,
-      body: admittedBody.body,
-      artifactDigest: admittedBody.digest,
-      contractRef: validation.contractRef,
-      schemaRef: validation.schemaRef,
-      outputContractRefs: responseAdmission.outputContractRefs
-    });
-  }
-  return undefined;
-}
-
 export function projectRuntimePublicResult(input: {
   readonly replay: AdmittedWorkspaceReplay;
   readonly resultId?: string | undefined;
@@ -395,7 +258,6 @@ export function projectRuntimePublicResult(input: {
     resultRefs
   }));
   const replayRefs = Object.freeze(events.map(eventRef));
-  const admittedArtifact = projectAdmittedResultArtifact(events);
   const evidenceRefs = Object.freeze(
     events
       .filter((event) =>
@@ -412,7 +274,6 @@ export function projectRuntimePublicResult(input: {
     graphCallId: call.graphCallId,
     disposition: resultDisposition(events),
     result,
-    ...(admittedArtifact === undefined ? {} : { admittedArtifact }),
     evidenceRefs,
     replayRefs
   });

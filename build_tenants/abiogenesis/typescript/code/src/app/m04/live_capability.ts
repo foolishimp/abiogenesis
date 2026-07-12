@@ -2,8 +2,6 @@
 // Implements: REQ-R-ABG3-WITNESS-010
 
 import {
-  CONSENSUS_FP_DISPATCH_PLUGIN_REF,
-  CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
   LIVE_FP_DISPATCH_PLUGIN_REF,
   LIVE_FP_EVALUATOR_PLUGIN_REF,
   type EnginePluginCapabilities,
@@ -255,8 +253,6 @@ export function constructLiveCapabilityBinding(input: {
   );
   const timeoutMsSource = valueSource(input.timeoutMsSource, "timeoutMsSource");
   const availableLivePluginRefs = Object.freeze([
-    CONSENSUS_FP_DISPATCH_PLUGIN_REF,
-    CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
     LIVE_FP_DISPATCH_PLUGIN_REF,
     LIVE_FP_EVALUATOR_PLUGIN_REF
   ]);

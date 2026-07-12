@@ -3035,7 +3035,6 @@ function fpEvaluationFindingAmbiguityStatus(input: {
       return "partial";
     case "qualified_defer":
     case "human_required":
-    case "human_gate_required":
       return "deferred";
     case "reprice":
       return "contradictory_authority";
@@ -3161,7 +3160,6 @@ function fpEvaluationCoreEvents(input: {
     input.outcome.findings
       .filter((finding) =>
         finding.closeDisposition === "human_required" ||
-        finding.closeDisposition === "human_gate_required" ||
         finding.closeDisposition === "qualified_defer"
       )
       .flatMap((finding) => finding.authorityRefs)
@@ -9106,18 +9104,8 @@ function* runEngineIterateMachine(input: {
                   basis: request.basis,
                   projection: requirementRouteContinuationTransition
                 });
-              const humanRequired = fpEvaluationOutcome.findings.some(
-                (finding) =>
-                  finding.closeDisposition === "human_gate_required"
-              );
-              const terminalTransitionToEmit = humanRequired
-                ? terminalTransition(
-                    request.basis,
-                    "human_gate_required",
-                    fpEvaluationOutcome.reason ??
-                      "F_P evaluation requires human adjudication"
-                  )
-                : continuationTerminal ?? assuranceTerminal;
+              const terminalTransitionToEmit =
+                continuationTerminal ?? assuranceTerminal;
               eventState = emitRunnerEvents(
                 eventState,
                 constructTerminalReachedEvent(terminalTransitionToEmit)

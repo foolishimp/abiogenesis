@@ -554,22 +554,11 @@ export interface PublicCatalogAdmission {
   readonly rows: readonly PublicCatalogAdmissionRow[];
 }
 
-export interface PublicAdmittedResultArtifact {
-  readonly resultRef: string;
-  readonly artifactRef: string;
-  readonly body: IJsonValue;
-  readonly artifactDigest: Sha256Digest;
-  readonly contractRef: string;
-  readonly schemaRef: string | null;
-  readonly outputContractRefs: readonly string[];
-}
-
 export interface PublicResultProjection {
   readonly resultId: string;
   readonly graphCallId: string;
   readonly disposition: "converged" | "stopped" | "yielded" | "blocked" | "human_gate_required";
   readonly result: IJsonValue;
-  readonly admittedArtifact?: PublicAdmittedResultArtifact;
   readonly evidenceRefs: readonly string[];
   readonly replayRefs: readonly string[];
 }

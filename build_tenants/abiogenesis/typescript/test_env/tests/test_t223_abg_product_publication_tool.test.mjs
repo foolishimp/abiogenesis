@@ -16,9 +16,9 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
   const prepared = await prepareAbgProductPublication();
   const repeated = await prepareAbgProductPublication();
 
-  assert.equal(prepared.schemaAssets.length, 66);
+  assert.equal(prepared.schemaAssets.length, 63);
   assert.equal(prepared.nativeInventories.length, 9);
-  assert.equal(prepared.publication.catalog.rows.length, 57);
+  assert.equal(prepared.publication.catalog.rows.length, 54);
   assert.equal(
     assertDs1ContractRoster(prepared.publication.catalog),
     prepared.publication.catalog

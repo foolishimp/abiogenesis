@@ -20,27 +20,14 @@ import {
   publicContractAssetDigest
 } from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
 import {
-  CONSENSUS_FP_DISPATCH_PLUGIN_REF,
-  CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
-  CONSENSUS_REQUEST_SCHEMA_REF,
-  CONSENSUS_REVIEWER_RESPONSE_SCHEMA_REF,
-  CONSENSUS_RESULT_SCHEMA_REF,
   canonicalizeIJson,
-  constructAbgFnCompositionDeclarations,
-  constructContractRef,
   constructGraph,
   constructGraphFunction,
-  constructJob,
   constructModule,
   constructNode,
-  constructRole,
   constructTemplateRef,
-  edge,
   emptySerializedAttrs,
-  graphFunctionDeclarations,
-  graphFunctionForVector,
   identity,
-  pluginSelectionDeclarationEntry,
   serializeModule
 } from "../../build/semantic/code/src/index.js";
 
@@ -53,10 +40,6 @@ const VOCABULARY_ID = "abg.vocabulary.runtime-event-kind";
 const VOCABULARY_PATH = "contracts/vocabularies/runtime-event-kind.json";
 export const T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE =
   "graph-function://abiogenesis/system/gtl-graph-function-identity/v1";
-export const T223_ABG_CONSENSUS_CANONICAL_HANDLE =
-  "gtl://abg/consensus/submitter-reviewer-rounds";
-export const T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF =
-  "graph-function://abg/consensus/submitter-reviewer-rounds";
 export const T223_ABG_SYSTEM_MODULE_PATH =
   "contracts/catalog/abiogenesis-system.module.json";
 const EXPECTED_PACKAGE_FILES = Object.freeze([
@@ -226,192 +209,14 @@ export function buildAbgSystemCatalogModule() {
     }),
     id: "graph-function-id://abiogenesis/system/gtl-graph-function-identity/v1"
   });
-  const consensusRequest = constructNode({
-    name: "ConsensusRequest",
-    schema: {
-      kind: "symbolic",
-      ref: CONSENSUS_REQUEST_SCHEMA_REF
-    },
-    typeRef: null,
-    markov: ["consensus:request-admitted"],
-    assetSurface: {
-      kind: "consensus_request",
-      standardsRefs: [
-        "specification/requirements/product/REQ-P-CATALOG.md"
-      ],
-      outputContractRefs: [CONSENSUS_REQUEST_SCHEMA_REF],
-      proofObligationRefs: [
-        "proof://a5/consensus/request-admission"
-      ]
-    },
-    tags: ["abiogenesis", "consensus", "request"],
-    id: "node://abg/consensus/request"
-  });
-  const consensusResult = constructNode({
-    name: "ConsensusResult",
-    schema: {
-      kind: "symbolic",
-      ref: CONSENSUS_RESULT_SCHEMA_REF
-    },
-    typeRef: null,
-    markov: ["consensus:terminal"],
-    assetSurface: {
-      kind: "consensus_result",
-      standardsRefs: [
-        "specification/requirements/product/REQ-P-CATALOG.md"
-      ],
-      outputContractRefs: [CONSENSUS_RESULT_SCHEMA_REF],
-      proofObligationRefs: [
-        "proof://a5/consensus/exact-claim-agreement"
-      ]
-    },
-    tags: ["abiogenesis", "consensus", "result"],
-    id: "node://abg/consensus/result"
-  });
-  const consensusVector = edge([consensusRequest], consensusResult, {
-    name: "submitter-reviewer-rounds",
-    id: "graph-vector://abg/consensus/submitter-reviewer-rounds",
-    allowsSubwork: true,
-    declarations: { entries: [] },
-    tags: ["abiogenesis", "consensus", "governed-rounds"]
-  }).vectors[0];
-  if (consensusVector === undefined) {
-    throw new TypeError("ABG Consensus GraphFunction requires one vector");
-  }
-  const authoredConsensus = graphFunctionForVector(consensusVector, {
-    name: T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF,
-    declarations: graphFunctionDeclarations([
-      ...constructAbgFnCompositionDeclarations({
-        contractRef:
-          "abg.fn_composition://abg/consensus/submitter-reviewer-rounds",
-        hookRef: "hook://abg/consensus/submitter-reviewer-rounds",
-        regimes: [
-          {
-            bindingRef: "regime-binding://abg/consensus/transform/fp",
-            stageRole: "transform",
-            regime: "F_P",
-            role: "construct",
-            order: 0,
-            authority: "evidence",
-            inputCarrierRefs: ["EnginePluginInput"],
-            outputCarrierRefs: ["FpDispatchOutcome"],
-            evidenceRefs: ["evidence://abg/consensus/reviewer-rounds"]
-          },
-          {
-            bindingRef: "regime-binding://abg/consensus/evaluate/fd",
-            stageRole: "evaluate",
-            regime: "F_D",
-            role: "validate",
-            order: 1,
-            authority: "closure",
-            inputCarrierRefs: ["EnginePluginInput"],
-            outputCarrierRefs: ["FdEvaluationOutcome"],
-            evidenceRefs: ["evidence://abg/consensus/result-envelope"]
-          },
-          {
-            bindingRef: "regime-binding://abg/consensus/evaluate/fp",
-            stageRole: "evaluate",
-            regime: "F_P",
-            role: "validate",
-            order: 2,
-            authority: "judgment",
-            inputCarrierRefs: ["EnginePluginInput"],
-            outputCarrierRefs: ["FpEvaluationOutcome"],
-            evidenceRefs: ["evidence://abg/consensus/round-decision"]
-          },
-          {
-            bindingRef: "regime-binding://abg/consensus/consequence/fd",
-            stageRole: "consequence",
-            regime: "F_D",
-            role: "observe",
-            order: 3,
-            authority: "evidence",
-            inputCarrierRefs: ["EnginePluginInput"],
-            outputCarrierRefs: ["ConsequenceProjectionOutcome"],
-            evidenceRefs: ["evidence://abg/consensus/terminal-outcome"]
-          }
-        ],
-        standardsContextRefs: [
-          "specification/requirements/product/REQ-P-CATALOG.md"
-        ],
-        policyContextRefs: [
-          "policy://abg/consensus/recursion-stops-by-declared-law"
-        ],
-        carrierContextRefs: [
-          CONSENSUS_REQUEST_SCHEMA_REF,
-          CONSENSUS_REVIEWER_RESPONSE_SCHEMA_REF,
-          CONSENSUS_RESULT_SCHEMA_REF
-        ],
-        assuranceContextRefs: [
-          "proof://a5/consensus/exact-claim-agreement"
-        ],
-        closureContractRef:
-          "closure://abg/consensus/exact-claim-agreement"
-      }).entries,
-      pluginSelectionDeclarationEntry({
-        fdEvaluator: "plugin://abg/fd-evaluator",
-        fpEvaluator: CONSENSUS_FP_EVALUATOR_PLUGIN_REF,
-        fpDispatch: CONSENSUS_FP_DISPATCH_PLUGIN_REF,
-        consequenceProjection: "plugin://abg/consequence-projection"
-      })
-    ]),
-    tags: ["abiogenesis", "consensus", "governed-rounds"]
-  });
-  if (authoredConsensus.template.kind !== "inline_graph") {
-    throw new TypeError("ABG Consensus GraphFunction must have an inline graph");
-  }
-  const consensusGraph = constructGraph({
-    ...authoredConsensus.template.graph,
-    id: "graph://abg/consensus/submitter-reviewer-rounds"
-  });
-  const consensusGraphFunction = constructGraphFunction({
-    ...authoredConsensus,
-    template: constructTemplateRef({
-      ...authoredConsensus.template,
-      graph: consensusGraph
-    }),
-    id: "graph-function-id://abg/consensus/submitter-reviewer-rounds"
-  });
-  const systemRole = constructRole({
-    name: "abiogenesis_system_graph_function_role",
-    tags: ["abiogenesis", "system", "catalog"],
-    policyHooks: emptySerializedAttrs(),
-    id: "role://abiogenesis/system/graph-function"
-  });
-  const identityJob = constructJob({
-    name: "abiogenesis_system_identity_job",
-    contracts: [
-      constructContractRef({
-        kind: "graph_function",
-        targetId: graphFunction.id
-      })
-    ],
-    roles: [systemRole],
-    tags: ["abiogenesis", "catalog", "identity"],
-    policyHooks: emptySerializedAttrs(),
-    id: "job://abiogenesis/system/gtl-graph-function-identity/v1"
-  });
-  const consensusJob = constructJob({
-    name: "abiogenesis_system_consensus_job",
-    contracts: [
-      constructContractRef({
-        kind: "graph_function",
-        targetId: consensusGraphFunction.id
-      })
-    ],
-    roles: [systemRole],
-    tags: ["abiogenesis", "consensus", "governed-rounds"],
-    policyHooks: emptySerializedAttrs(),
-    id: "job://abg/consensus/submitter-reviewer-rounds"
-  });
   return serializeModule(constructModule({
     name: "abiogenesis-system-catalog",
     graphs: [],
-    graphFunctions: [graphFunction, consensusGraphFunction],
+    graphFunctions: [graphFunction],
     refinementBoundaries: [],
     candidateFamilies: [],
-    jobs: [identityJob, consensusJob],
-    roles: [systemRole],
+    jobs: [],
+    roles: [],
     operators: [],
     evaluators: [],
     rules: [],

@@ -890,12 +890,6 @@ test("T-144 F_P evaluation close dispositions cannot close by omission", () => {
       expectedAmbiguityStatus: "deferred",
       expectedDecision: "qualified_defer",
       expectedTerminalKind: "yielded"
-    },
-    {
-      disposition: "human_gate_required",
-      expectedAmbiguityStatus: "deferred",
-      expectedDecision: "qualified_defer",
-      expectedTerminalKind: "human_gate_required"
     }
   ];
 

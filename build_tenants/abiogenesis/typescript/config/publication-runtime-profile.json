@@ -14,8 +14,6 @@
     "approvalSubjectRef": null
   },
   "standardPluginRefs": [
-    "plugin://abg/consensus/fp-dispatch-live",
-    "plugin://abg/consensus/fp-evaluator",
     "plugin://abg/fp-dispatch-live",
     "plugin://abg/fp-evaluator-live"
   ]

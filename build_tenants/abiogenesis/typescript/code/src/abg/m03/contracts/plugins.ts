@@ -12,8 +12,7 @@ import type {
   PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
-  RuntimeRegime,
-  StartInputAssetBinding
+  RuntimeRegime
 } from "./carriers.js";
 import {
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
@@ -268,7 +267,6 @@ export interface EnginePluginInput {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly sourceProjectionRef: string;
-  readonly inputAssetBindings: readonly StartInputAssetBinding[];
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
   readonly consumedFieldRefs: readonly string[];
@@ -284,7 +282,6 @@ export interface EnginePluginInput {
   readonly assessedEdges: readonly string[];
   readonly retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"];
   readonly retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"];
-  readonly priorAttemptResultArtifacts: readonly EnginePriorAttemptResultArtifact[];
   readonly retryContext: FreshRetryContextProjection;
   readonly retryFrontier: RetryFrontierProjection;
   readonly outputAuthorityProjections: readonly AdmittedOutputAuthorityProjection[];
@@ -301,16 +298,6 @@ export interface EnginePluginInput {
   readonly allowedConsequenceTraversalCatalog: AllowedConsequenceTraversalCatalog;
   readonly traversalStrategySelection: TraversalStrategySelection | null;
   readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
-}
-
-export interface EnginePriorAttemptResultArtifact {
-  readonly kind: "engine_prior_attempt_result_artifact";
-  readonly actorInvocationId: string;
-  readonly attemptIndex: number;
-  readonly resultRef: string;
-  readonly artifactRef: string;
-  readonly artifactDigest: string;
-  readonly body: Readonly<Record<string, unknown>>;
 }
 
 export interface EnginePluginOutcomeBase {
@@ -332,8 +319,7 @@ export interface FdEvaluationOutcome extends EnginePluginOutcomeBase {
 export type FpEvaluationCloseDisposition =
   | PayloadClosureDecisionKind
   | "no_close"
-  | "human_required"
-  | "human_gate_required";
+  | "human_required";
 
 export type FpExecutiveDisposition =
   | "local_repair"
@@ -796,11 +782,7 @@ function assertFpEvaluationCloseDisposition(
   input: string,
   label: string
 ): FpEvaluationCloseDisposition {
-  if (
-    input === "no_close" ||
-    input === "human_required" ||
-    input === "human_gate_required"
-  ) {
+  if (input === "no_close" || input === "human_required") {
     return input;
   }
   return assertPayloadClosureDecisionKind(input, label);
@@ -1396,86 +1378,12 @@ export function constructEnginePluginInput(input: {
     input.actorInvocationRef === undefined ||
     input.actorInvocationRef === null
       ? null
-        : Object.freeze({
-            actorInvocationId: input.actorInvocationRef.actorInvocationId,
-            attemptIndex: input.actorInvocationRef.attemptIndex,
-            dispatchRef: input.actorInvocationRef.dispatchRef,
-            resultRef: input.actorInvocationRef.resultRef
-          });
-  const currentGraphCallId =
-    input.projection.graphCallId ?? graphCallIdForBasis(input.basis);
-  const currentFrameId =
-    input.projection.frameId ?? frameIdForBasis(input.basis);
-  const isCurrentActorScope = (event: {
-    readonly basisId: string;
-    readonly graphFunctionId: string;
-    readonly graphCallId: string;
-    readonly frameId: string;
-    readonly vectorIndex: number;
-    readonly edge: string;
-  }): boolean =>
-    event.basisId === input.basis.id &&
-    event.graphFunctionId === input.basis.graphFunction.id &&
-    event.graphCallId === currentGraphCallId &&
-    event.frameId === currentFrameId &&
-    event.vectorIndex === input.vectorIndex &&
-    event.edge === input.edge;
-  const invocationAttempts = new Map<string, number>();
-  for (const event of replayEvents) {
-    if (
-      event.kind === "actor_invocation_started" &&
-      isCurrentActorScope(event)
-    ) {
-      invocationAttempts.set(event.actorInvocationId, event.attemptIndex);
-    }
-  }
-  const priorAttemptResultArtifacts: EnginePriorAttemptResultArtifact[] = [];
-  for (const event of replayEvents) {
-    if (
-      event.kind !== "actor_result_artifact_observed" ||
-      !isCurrentActorScope(event) ||
-      event.artifactContentExcerpt === null ||
-      event.artifactContentDigest === null
-    ) {
-      continue;
-    }
-    const attemptIndex = invocationAttempts.get(event.actorInvocationId);
-    if (
-      attemptIndex === undefined ||
-      (normalizedActorInvocationRef !== null &&
-        attemptIndex >= normalizedActorInvocationRef.attemptIndex)
-    ) {
-      continue;
-    }
-    let body: Readonly<Record<string, unknown>>;
-    try {
-      body = parsePlainObject(
-        JSON.parse(event.artifactContentExcerpt),
-        "EnginePluginInput.priorAttemptResultArtifacts.body"
-      );
-    } catch {
-      // Replay excerpts may be intentionally truncated. Only complete,
-      // digest-backed bodies enter the prior-attempt carrier.
-      continue;
-    }
-    if (stableSha256Digest(body) !== event.artifactContentDigest) {
-      continue;
-    }
-    priorAttemptResultArtifacts.push(
-      Object.freeze({
-        kind: "engine_prior_attempt_result_artifact",
-        actorInvocationId: event.actorInvocationId,
-        attemptIndex,
-        resultRef: event.resultRef,
-        artifactRef: event.artifactRef,
-        artifactDigest: event.artifactContentDigest,
-        body
-      })
-    );
-  }
-  priorAttemptResultArtifacts.sort(
-    (left, right) => left.attemptIndex - right.attemptIndex
-  );
+      : Object.freeze({
+          actorInvocationId: input.actorInvocationRef.actorInvocationId,
+          attemptIndex: input.actorInvocationRef.attemptIndex,
+          dispatchRef: input.actorInvocationRef.dispatchRef,
+          resultRef: input.actorInvocationRef.resultRef
+        });
   const normalizedCCallRef =
     input.cCallRef === undefined || input.cCallRef === null
       ? null
@@ -1500,25 +1408,6 @@ export function constructEnginePluginInput(input: {
         });
   const regimeBindingRef = selectedRegimeBinding?.bindingRef ?? null;
   const sourceRef = sourceProjectionRef(input.projection);
-  const inputAssetBindings = Object.freeze(
-    (input.basis.startIntent.inputBindings ?? Object.freeze([])).map(
-      (binding, index) =>
-        Object.freeze({
-          assetRef: parseNonEmptyString(
-            binding.assetRef,
-            `EnginePluginInput.inputAssetBindings[${String(index)}].assetRef`
-          ),
-          assetType: parseNonEmptyString(
-            binding.assetType,
-            `EnginePluginInput.inputAssetBindings[${String(index)}].assetType`
-          ),
-          uri: parseNonEmptyString(
-            binding.uri,
-            `EnginePluginInput.inputAssetBindings[${String(index)}].uri`
-          )
-        })
-    )
-  );
   const priorStageProjectionRefs = freezeStringArray(
     input.priorStageProjectionRefs ?? Object.freeze([])
   );
@@ -1623,7 +1512,6 @@ export function constructEnginePluginInput(input: {
     edge: input.edge,
     regime: input.regime,
     sourceProjectionRef: sourceRef,
-    inputAssetBindings,
     expectedEdge: input.edge,
     expectedAssessmentIds: freezeStringArray(
       vector.evaluators.map((evaluator) => evaluator.name)
@@ -1650,7 +1538,6 @@ export function constructEnginePluginInput(input: {
     assessedEdges: freezeStringArray(input.projection.assessedEdges),
     retryAttemptRefs: Object.freeze([...input.projection.retryAttemptRefs]),
     retryProgressRefs: Object.freeze([...input.projection.retryProgressRefs]),
-    priorAttemptResultArtifacts: Object.freeze(priorAttemptResultArtifacts),
     retryContext,
     retryFrontier,
     outputAuthorityProjections,

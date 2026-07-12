@@ -82,10 +82,7 @@ export const DS1_SCHEMA_CONTRACT_IDS = Object.freeze([
   "abg.schema.host-invocation",
   "abg.schema.runtime-event",
   "abg.schema.runtime-result",
-  "abg.schema.runtime-replay",
-  "abg.schema.consensus-request",
-  "abg.schema.consensus-reviewer-response",
-  "abg.schema.consensus-result"
+  "abg.schema.runtime-replay"
 ]);
 
 export const DS1_OPERATION_IDS = Object.freeze([

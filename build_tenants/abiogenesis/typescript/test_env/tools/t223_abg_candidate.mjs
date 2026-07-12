@@ -7,7 +7,6 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  CONSENSUS_REQUEST_SCHEMA_REF,
   admitCatalogContributionManifest,
   admitCatalogProductDescriptor,
   canonicalizeIJson,
@@ -16,8 +15,6 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import {
   PACKAGE_ROOT,
-  T223_ABG_CONSENSUS_CANONICAL_HANDLE,
-  T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF,
   T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE,
   T223_ABG_SYSTEM_MODULE_PATH,
   checkAbgProductPublication,
@@ -109,41 +106,6 @@ function systemContributionRow(input) {
   });
 }
 
-function consensusContributionRow(input) {
-  const systemRow = systemContributionRow(input);
-  return Object.freeze({
-    ...systemRow,
-    canonicalHandle: T223_ABG_CONSENSUS_CANONICAL_HANDLE,
-    declarationRef: T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF,
-    contractRef: CONSENSUS_REQUEST_SCHEMA_REF,
-    interfaceRef: "interface://abg/consensus/governed-rounds",
-    locator: Object.freeze({
-      ...systemRow.locator,
-      declarationRef: T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF
-    }),
-    compatibility: Object.freeze({
-      ...systemRow.compatibility,
-      requiredContractRefs: Object.freeze([
-        ...systemRow.compatibility.requiredContractRefs,
-        "abg.schema.consensus-request",
-        "abg.schema.consensus-reviewer-response",
-        "abg.schema.consensus-result"
-      ])
-    }),
-    readinessRefs: Object.freeze([
-      "readiness://abiogenesis/consensus/a5"
-    ]),
-    proofRefs: Object.freeze([
-      "proof://a5/consensus/exact-claim-agreement",
-      "proof://a5/consensus/system-publication"
-    ]),
-    policyRefs: Object.freeze([
-      input.resolvedPolicyRef,
-      "policy://abg/consensus/recursion-stops-by-declared-law"
-    ])
-  });
-}
-
 function catalogSummaries(catalog) {
   return Object.freeze({
     contractRefs: Object.freeze(
@@ -179,19 +141,15 @@ async function detachedSidecars(input) {
     productId: PRODUCT_ID,
     productVersion: version,
     artifactDigest,
-    rows: (() => {
-      const rowInput = {
+    rows: [
+      systemContributionRow({
         moduleDigest,
         resolvedPolicyRef:
           input.publication.publication.manifest.runtimeSystemProfile
             .resolvedPolicy.resolvedPolicyBundleRef,
         version
-      };
-      return [
-        systemContributionRow(rowInput),
-        consensusContributionRow(rowInput)
-      ];
-    })()
+      })
+    ]
   };
   const contributionDigest = contributionManifestDigest(contributionBasis);
   const summaries = catalogSummaries(input.publication.publication.catalog);

@@ -13,14 +13,11 @@ import {
   admitModule,
   catalogResolve,
   catalogVerify,
-  compileExecutionDeclarations,
   constructModuleLookupAuthority,
   createNodeProductIntakeEffects,
   resolvePublishedGraphFunction
 } from "../../build/semantic/code/src/index.js";
 import {
-  T223_ABG_CONSENSUS_CANONICAL_HANDLE,
-  T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF,
   T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE,
   T223_ABG_SYSTEM_MODULE_PATH
 } from "../tools/publish_abg_product_contracts.mjs";
@@ -50,10 +47,8 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
     candidate.descriptor.distributionArtifactDigest,
     candidate.artifact.expectedArtifactDigest
   );
-  assert.equal(candidate.contribution.rows.length, 2);
-  const systemRow = candidate.contribution.rows.find(
-    (row) => row.canonicalHandle === T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE
-  );
+  assert.equal(candidate.contribution.rows.length, 1);
+  const systemRow = candidate.contribution.rows[0];
   assert.ok(systemRow);
   assert.equal(systemRow.canonicalHandle, T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE);
   assert.equal(systemRow.publicKind, "graph_function");
@@ -61,21 +56,6 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
   assert.equal(systemRow.locator.kind, "module_declaration");
   assert.equal(systemRow.locator.modulePath, T223_ABG_SYSTEM_MODULE_PATH);
   assert.equal(systemRow.locator.declarationRef, systemRow.declarationRef);
-  const consensusRow = candidate.contribution.rows.find(
-    (row) => row.canonicalHandle === T223_ABG_CONSENSUS_CANONICAL_HANDLE
-  );
-  assert.ok(consensusRow);
-  assert.equal(consensusRow.publicKind, "graph_function");
-  assert.equal(consensusRow.ownerProductId, "abiogenesis");
-  assert.equal(consensusRow.declarationRef, T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF);
-  assert.equal(consensusRow.contractRef, "abg.schema.consensus-request");
-  assert.equal(
-    consensusRow.interfaceRef,
-    "interface://abg/consensus/governed-rounds"
-  );
-  assert.equal(consensusRow.locator.kind, "module_declaration");
-  assert.equal(consensusRow.locator.modulePath, T223_ABG_SYSTEM_MODULE_PATH);
-  assert.equal(consensusRow.locator.declarationRef, consensusRow.declarationRef);
 
   const contractRefs = catalog.rows
     .filter((row) => row.contractKind !== "capability")
@@ -115,54 +95,6 @@ test("T-223 ABG candidate packs one Module-backed SYSTEM GraphFunction and verif
     ["abg.schema.gtl-graph-function"]
   );
   assert.deepEqual(graphFunction.outputs, graphFunction.inputs);
-
-  const consensus = resolvePublishedGraphFunction(
-    constructModuleLookupAuthority(module),
-    T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF
-  );
-  assert.equal(consensus.name, T223_ABG_CONSENSUS_GRAPH_FUNCTION_REF);
-  assert.equal(consensus.template.kind, "inline_graph");
-  assert.equal(consensus.template.graph.vectors.length, 1);
-  assert.equal(consensus.template.graph.vectors[0]?.allowsSubwork, true);
-  assert.deepEqual(
-    consensus.inputs.map((node) => node.schema.ref),
-    ["abg.schema.consensus-request"]
-  );
-  assert.deepEqual(
-    consensus.outputs.map((node) => node.schema.ref),
-    ["abg.schema.consensus-result"]
-  );
-  const compiledConsensus = compileExecutionDeclarations(consensus);
-  assert.deepEqual(compiledConsensus.pluginSelection, {
-    fdEvaluator: "plugin://abg/fd-evaluator",
-    fpEvaluator: "plugin://abg/consensus/fp-evaluator",
-    fpDispatch: "plugin://abg/consensus/fp-dispatch-live",
-    consequenceProjection: "plugin://abg/consequence-projection"
-  });
-  const composition = consensus.declarations.entries.find(
-    (entry) => entry.key === "abg.fn_composition"
-  );
-  assert.equal(composition?.value.kind, "hook_ref");
-  const regimeBindings = composition.value.value.config.entries.find(
-    (entry) => entry.key === "regime_bindings"
-  );
-  assert.equal(regimeBindings?.value.kind, "json_blob");
-  assert.equal(regimeBindings.value.value.kind, "array");
-  assert.deepEqual(
-    regimeBindings.value.value.items.map((item) => {
-      assert.equal(item.kind, "object");
-      const fields = Object.fromEntries(
-        item.entries.map((entry) => [entry.key, entry.value])
-      );
-      return [fields.stageRole, fields.regime, fields.role];
-    }),
-    [
-      ["transform", "F_P", "construct"],
-      ["evaluate", "F_D", "validate"],
-      ["evaluate", "F_P", "validate"],
-      ["consequence", "F_D", "observe"]
-    ]
-  );
 
   const resolution = catalogResolve(
     {

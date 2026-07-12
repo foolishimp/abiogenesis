@@ -409,9 +409,9 @@ function validate(id, value) {
   );
 }
 
-test("T-223 all 66 generated schemas compile strictly without fallback or brands", () => {
-  assert.equal(schemas.length, 66);
-  assert.equal(schemaById.size, 66);
+test("T-223 all 63 generated schemas compile strictly without fallback or brands", () => {
+  assert.equal(schemas.length, 63);
+  assert.equal(schemaById.size, 63);
   const compiler = ajv();
   for (const entry of schemas) {
     assert.equal(

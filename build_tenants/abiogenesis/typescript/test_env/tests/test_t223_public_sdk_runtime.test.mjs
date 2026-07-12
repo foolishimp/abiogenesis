@@ -1343,8 +1343,6 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
         approvalSubjectRef: null
       },
       standardPluginRefs: [
-        "plugin://abg/consensus/fp-dispatch-live",
-        "plugin://abg/consensus/fp-evaluator",
         "plugin://abg/fp-dispatch-live",
         "plugin://abg/fp-evaluator-live"
       ],
@@ -1483,51 +1481,6 @@ test("T-223 catalog invoke derives instruction startup and reaches the standard 
   assert.notEqual(actorStarted, undefined);
   assert.equal(targetPayload?.producerRef, actorStarted?.workerId);
   assert.notEqual(targetPayload?.producerRef, "worker://t223/fake");
-  assert.equal(targetPayload?.schemaRef, null);
-  const admittedArtifact = result.value.admittedArtifact;
-  assert.notEqual(admittedArtifact, undefined);
-  assert.equal(admittedArtifact.body.message, "Hello, world!");
-  assert.equal(admittedArtifact.contractRef, targetPayload?.contractRef);
-  assert.equal(admittedArtifact.schemaRef, targetPayload?.schemaRef);
-  const observedArtifact = invokeEvents.find(
-    (event) =>
-      event.kind === "actor_result_artifact_observed" &&
-      event.resultRef === admittedArtifact.resultRef
-  );
-  assert.equal(admittedArtifact.artifactRef, observedArtifact?.artifactRef);
-  assert.equal(
-    admittedArtifact.artifactDigest,
-    observedArtifact?.artifactContentDigest
-  );
-  const responseAdmission = invokeEvents.find(
-    (event) =>
-      event.kind === "instruction_response_contract_admitted" &&
-      event.resultRef === admittedArtifact.resultRef
-  );
-  assert.equal(admittedArtifact.outputContractRefs.length > 0, true);
-  assert.deepEqual(
-    admittedArtifact.outputContractRefs,
-    responseAdmission?.outputContractRefs
-  );
-  const reread = await abiogenesisPublicSdk.readResult(
-    fixture.context,
-    envelope("abg.operation.read.result", {
-      workspaceId: WORKSPACE_ID,
-      graphCallId: result.value.graphCallId
-    })
-  );
-  assert.equal(reread.kind, "accepted", JSON.stringify(reread));
-  assert.deepEqual(reread.value.admittedArtifact, admittedArtifact);
-  const withoutPayloadAdmission = projectRuntimePublicResult({
-    replay: {
-      kind: "admitted_workspace_replay",
-      orderedEvents: invokeEvents.filter(
-        (event) => event.kind !== "payload_validated"
-      )
-    },
-    graphCallId: result.value.graphCallId
-  });
-  assert.equal(withoutPayloadAdmission?.admittedArtifact, undefined);
 });
 
 test("T-223 capability construction failure is typed preflight before GraphCall", async () => {
@@ -1722,7 +1675,7 @@ test("T-223 SDK reads typed result and bounded replay projections", async () => 
   assert.equal(replay.value.returnedThroughOrdinal !== null, true);
 });
 
-test("T-223 result projection collapses retry opens and excludes sibling GraphCall facts", () => {
+test("T-223 result projection excludes sibling GraphCall facts on the same basis", () => {
   const canonical = (event, ordinal) => ({
     ...event,
     eventId: `event://t223-sdk/${ordinal}`,
@@ -1776,20 +1729,11 @@ test("T-223 result projection collapses retry opens and excludes sibling GraphCa
       outputPayloadRef: "payload://b"
     }, 3),
     canonical({
-      kind: "graph_call_opened",
-      basisId: "basis://shared",
-      graphCallId: "graph-call://a",
-      graphFunctionId: GRAPH_HANDLE,
-      jobId: "job://fixture",
-      runId: "run://shared",
-      workKey: null
-    }, 4),
-    canonical({
       kind: "terminal_reached",
       basisId: "basis://shared",
       terminalKind: "converged",
       reason: "complete"
-    }, 5)
+    }, 4)
   ];
   const replay = admitWorkspaceRuntimeEventBytes(
     new TextEncoder().encode(events.map((event) => JSON.stringify(event)).join("\n"))
