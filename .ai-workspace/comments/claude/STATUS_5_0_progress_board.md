@@ -30,7 +30,7 @@ depth, live lanes.
 | 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
 | 3b | Typed HOF relation (T-253) | ✅ closed | 139m actual |
 | 3b2 | Vector→C-program selection (T-254) | ✅ verified | 48m+74m actual |
-| 3c | Body + compile census | ⛔ after 3b | ~30–60m est |
+| 3c | Body + compile census (T-252) | 🔄 in flight; census paused for declaration corrections; stdlib gate adopted | ~30–60m est |
 | 4 | Invocation spine (4 leaves) | ⛔ 3–4 design reworks + accepts first (register: 6 blocked/4 candidate) | ~2.5–5h est + rework cycles |
 | 5 | Runtime atoms: workflow.C/C.batch/C.retry + census-discovered HOF/recurse runtime leaves (count TBD) | ⛔ sized by 3c census | ~2–6h+; re-based at census |
 | 6 | Atom-uplift proof: Consensus as first free construction (stdlib guarantee: public atoms only) | ⛔ after 4+5 | ~1–2h est |
