@@ -1,47 +1,58 @@
 # STATUS: 5.0 → 5.0.1 Progress Board (living)
 
-**Type:** STATUS read-model (derived view, non-authoritative; revised in place
-by claude at every monitoring checkpoint). Authority: T-244 register, T-242,
-the approved nine-phase plan.
-**Last updated:** 2026-07-13 · after T-251 PASS (`2442cd3`) · watching T-250
+**Type:** STATUS read-model (derived, non-authoritative; revised in place by
+claude at each monitoring checkpoint). Authority: T-244 register, T-242, the
+approved nine-phase plan.
+**Last updated:** 2026-07-13 · after `b6a7e87` (alignment closed; T-250
+implementation_active) · watching T-250
+
+## Velocity basis (observed, commit-stamped)
+
+Designed-and-gated items land in 25–70 min each: 9 retro designs = 70m;
+constitutional rewrite = 48m; 2 forward designs = 39m; T-251 execution = 25m.
+The one UNDESIGNED item (945b5a2) took ~1.5h to build wrong and ~7h to unwind.
+Review adds ~15–40m per checkpoint. Estimate ranges below widen with semantic
+depth; variance drivers: F_H latency, design-rework loops, workflow.C kernel
+depth, live lanes.
 
 ## Board
 
-| # | Item | Carrier | Status |
+| # | Item | Status | Time |
 |---|---|---|---|
-| 0 | Design back-fill (9 designs) | register | ✅ done |
-| 1 | Stable-first authority (T-249) | T-242/249 | ✅ done, PASS 8/8 |
-| 2a | Lint + design-render gate | T-251 | ✅ done, verified |
-| 2b | Version-basis fix (t193/t195) | T-250 | 🔄 executing |
-| 3 | Consensus GTL design probe | new leaf | ⏳ next after 2b |
-| 4 | Invocation spine (4 leaves) | F03/F04/F07 | ⛔ needs design rework |
-| 5 | workflow.C → C.batch → C.retry | F03 | ⛔ after probe census |
-| 6 | Consensus as GTL function | F08 | ⛔ after 4+5 |
-| 7 | Retained surface (36 ops, 16 caps) | F05/06/07/09/10 | ⛔ after 3–6 |
-| 8 | Compliance (self-conf, witness) | T-247 | ⛔ after features |
-| 9 | Release 5.0.0 (RC → tag) | T-248 | ⛔ last 5.0 step |
-| 10 | odd_glc 1.0 over 5.0 | odd_glc repo | ⛔ post-release |
-| 11 | Dogfood scaffold + pilot | T-245 | ⛔ post-release |
-| 12 | 5.0.1 built as GLC project | T-246+B-010 | ⛔ the dogfood proof |
+| 0 | Design back-fill (9 designs) | ✅ done | 70m actual |
+| 1 | Stable-first authority (T-249) | ✅ done, closed | 48m actual |
+| 2a | Lint + render gate (T-251) | ✅ done, verified | 25m actual |
+| 2b | Version-basis fix (T-250) | 🔄 implementing | ~1–2h est |
+| 3 | Consensus GTL design probe | ⏳ next | ~1–2h est |
+| 4 | Invocation spine (4 leaves) | ⛔ design rework first | ~4–8h est |
+| 5 | 3 C-atoms (recompile oracle) | ⛔ after probe | ~4–8h est |
+| 6 | Consensus as GTL function | ⛔ after 4+5 | ~2–4h est |
+| 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~8–16h est |
+| 8 | Compliance (T-247) | ⛔ after features | ~4–8h est |
+| 9 | Release 5.0.0 (T-248) | ⛔ last 5.0 step | ~2–4h est |
+| 10 | odd_glc 1.0 over 5.0 | ⛔ post-release | ~4–8h est |
+| 11 | Dogfood scaffold + pilot (T-245) | ⛔ post-release | ~2–4h est |
+| 12 | 5.0.1 as GLC project (T-246) | ⛔ dogfood proof | open (waves) |
+
+**Projected totals at current cadence:** to stable 5.0.0 ≈ 25–50 agent-hours
+(≈ 3–7 focused days with review gates); to 5.0.1-start ≈ +1–2 days; 5.0.1
+itself is campaign-paced.
 
 ## Gates and evidence (short)
 
-- Suite now: 1,504/1,506. Only reds = t193/t195 (T-250's scope).
-- Design gate: `check:design-mermaid` green (9 files / 27 views, pinned 11.3.0).
-- Lint lanes: all green. Pack census: clean.
-- Code freeze: holds for product code; only T-251's test/gate work landed.
+- Suite: 1,504/1,506. Only reds = t193/t195 (T-250's scope).
+- Design gate: `check:design-mermaid` green (9/27, pinned 11.3.0).
+- Lint lanes green; pack census clean; product-code freeze holds.
 
 ## Design verdicts (gate Phase 3–7 entry)
 
-| Verdict | Count | Meaning |
-|---|---|---|
-| candidate | 3 (+1 split) | need F_H `accepted` before their code |
-| blocked | 4 | need rework → accepted (spine, SDK/CLI, F_P, vertical) |
-| rejected | 1 | consensus as-built (calibration case; stays rejected) |
+- 3 `candidate` (+1 split) → need F_H accept before their code.
+- 4 `blocked` → rework → accepted (spine, SDK/CLI, F_P, vertical).
+- 1 `rejected` (consensus as-built; calibration case, stays rejected).
 
-## Next checkpoints I will verify
+## Next checkpoints claude verifies
 
 1. T-250 lands → 7 differentials, rc.3 bytes untouched, suite fully green.
-2. Phase-2 probe design → three-view review + typed gap census.
-3. Each atom (Phase 5) → recompile oracle: expected gap vanishes, no
+2. Phase-2 probe → three-view review + typed gap census.
+3. Each C-atom → recompile oracle: expected gap vanishes, zero
    feature-specific code.
