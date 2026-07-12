@@ -109,11 +109,6 @@ async function extractSnapshotPackage(input) {
   return path.join(extractRoot, "package");
 }
 
-function stableList(values) {
-  return `[${[...new Set(values)].sort().map((value) => JSON.stringify(value)).join(", ")}]`;
-}
-
-
 async function writeGlcRuntimeBinding(input) {
   const { workspaceRoot, ...sourceOptions } = input;
   const runtimeBindingPath = path.join(

@@ -20,19 +20,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  admitRequirementProofCarryThroughOutput,
-  constructDerivedDependencyInstructionTruth,
-  constructDerivedProofDepthInstructionTruth,
   constructRequirementProofCandidateClassificationTable,
   constructRequirementProofCarryThroughContract,
-  constructRequirementProofCarryThroughOutputEnvelope,
-  projectRequirementProofCoverage,
-  requirementAbgTruthRefFromRequirementProofCoverage
+  constructRequirementProofCarryThroughOutputEnvelope
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
-import {
-  foldRequirementEvidence,
-  requirementAbgTruthRefFromAssuranceClosureDecision
-} from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
 import {
   constructGtlContractFulfillmentBinding
 } from "../../build/semantic/code/src/gtl/m02/contracts/index.js";
@@ -216,153 +207,6 @@ function carryEnvelope(input) {
   });
 }
 
-function dependencyTruth() {
-  return constructDerivedDependencyInstructionTruth({
-    truthRef: "dependency-instruction-truth://t188/live/source-to-test",
-    workKind: "target_work",
-    dependencyGraphRef: null,
-    dependencyGraphDigest: null,
-    targetRefs: ["target://t188/live/source"],
-    prerequisiteNodeRefs: [],
-    prerequisiteEdgeRefs: [],
-    dependencyClosed: true,
-    typedPrerequisiteGapRefs: [],
-    noDependencyPolicyRef: "policy://t188/live/no-dependency-graph-required",
-    sourceProjectionRefs: ["projection://t188/live/no-dependency-policy"]
-  });
-}
-
-function proofDepthTruth(input) {
-  return constructDerivedProofDepthInstructionTruth({
-    truthRef: `proof-depth-instruction-truth://t188/live/${input.label}`,
-    depthPolicyRef: "proof-depth-policy://t188/live/software-build",
-    depthPolicyDigest: "sha256:t188-live-depth-policy",
-    targetRefs: ["target://t188/live/source"],
-    requiredDepthClassRefs: ["depth-class://positive", "depth-class://negative"],
-    declaredDepthClassRefs: input.depthClassRefs,
-    declaredDepthObligationRefs: input.depthClassRefs.map((ref) =>
-      ref.replace("depth-class://", "proof-obligation://t188/live/depth/")
-    ),
-    notApplicableDepthClassRefs: [],
-    typedDepthGapRefs: input.typedDepthGapRefs,
-    proofStrengthAdmissionRefs: ["proof-strength-admission://t188/live/source-test"],
-    fdStrengthCriterionRefs: ["fd-strength-criterion://t188/live/execution-strength"],
-    adversarialVerificationRefs: [],
-    adversarialCounterexampleRefs: [],
-    sourceProjectionRefs: ["proof-coverage-projection://t188/live/source"]
-  });
-}
-
-function foldFixture() {
-  const requirementId = "requirement://t188/live/r1";
-  const projectionRef = "requirement-projection://t188/live/r1/source";
-  return {
-    requirementId,
-    environment: {
-      kind: "edge_requirement_environment",
-      environmentRef: "edge-requirement-environment://t188/live/source-to-test",
-      edge: {
-        graphFunctionRef: "graph-function://t188/live/software-build",
-        graphVectorRef: "vector://t188/live/source-to-test",
-        vectorIndex: 0,
-        edge: "edge://t188/live/source-to-test"
-      },
-      activeTerms: [
-        {
-          kind: "requirement_term",
-          requirementId,
-          termKind: "requirement",
-          stableId: "REQ-T188-LIVE-R1",
-          sourceRef: "requirement-source://t188/live/r1",
-          sourceDigest: "sha256:t188-live-r1",
-          text: "Build source and proof for the selected live slice.",
-          relationRefs: [],
-          spanRefs: ["span://t188/live/source-to-test"],
-          contextRefs: [],
-          evidencePolicyRefs: ["proof-policy://t188/live/positive-negative"],
-          projectionRefs: [projectionRef]
-        }
-      ],
-      activeRelations: [],
-      activeSpans: [
-        {
-          kind: "traversal_span",
-          spanId: "span://t188/live/source-to-test",
-          graphFunctionRef: "graph-function://t188/live/software-build",
-          graphVectorRefs: ["vector://t188/live/source-to-test"],
-          vectorIndexes: [0],
-          sourceNodeRef: "node://t188/live/requirement",
-          targetNodeRef: "node://t188/live/source",
-          frameRefs: [],
-          zoomRefs: [],
-          foldbackRefs: [],
-          aliasRefs: []
-        }
-      ],
-      activeContextFragments: [],
-      activeDestinationTopologies: [],
-      activeTestRelations: [],
-      priorFolds: [],
-      carriedResiduals: []
-    },
-    projections: [
-      {
-        kind: "requirement_projection",
-        projectionRef,
-        requirementId,
-        spanId: "span://t188/live/source-to-test",
-        projectionRole: "obligation",
-        authorityRole: "requirement",
-        targetPath: null,
-        command: null,
-        fallbackCommand: null,
-        evidenceRole: "asset",
-        current: true,
-        sourceRefs: ["requirement-source://t188/live/r1"],
-        supersedesProjectionRefs: []
-      }
-    ],
-    evidenceBindings: [
-      {
-        kind: "requirement_evidence_binding",
-        evidenceRef: "evidence://t188/live/source/artifact",
-        requirementId,
-        projectionRef,
-        evidenceRole: "asset",
-        bindingStatus: "admitted",
-        path: null,
-        digest: "sha256:t188-live-source-artifact",
-        current: true,
-        supersedesEvidenceRefs: [],
-        reason: "admitted live plugin output proof carry-through"
-      }
-    ]
-  };
-}
-
-function assuranceCloseTruthRef() {
-  return requirementAbgTruthRefFromAssuranceClosureDecision({
-    kind: "assurance_closure_decision",
-    decision: "close",
-    projectionRef: "assurance-projection://t188/live/source-to-test"
-  });
-}
-
-function foldWithCoverage(input) {
-  return foldRequirementEvidence({
-    environment: input.fixture.environment,
-    projections: input.fixture.projections,
-    evidenceBindings: input.fixture.evidenceBindings,
-    sourceAbgTruthRefs: [],
-    sourceAbgTruthRefsByRequirementId: {
-      [input.fixture.requirementId]: [
-        requirementAbgTruthRefFromRequirementProofCoverage(input.coverage),
-        assuranceCloseTruthRef()
-      ]
-    }
-  });
-}
-
 test("T-188 live F_P output closes only with admitted depth and preserves residual when depth is incomplete", async (t) => {
   if (!liveEnabled()) {
     t.skip("set ABG_TS_T188_REQUIREMENT_PROOF_LIVE=1 or CODEX_LIVE_FP=1 to run T-188 live proof");
@@ -415,11 +259,6 @@ test("T-188 live F_P output closes only with admitted depth and preserves residu
 
   const realizationEvidenceRef = `file://${sourcePath}`;
   const executionEvidenceRef = `file://${verifierPath}`;
-  const contract = carryContract({
-    realizationEvidenceRef,
-    executionEvidenceRef,
-    evaluatorFindingRef: "evaluator-finding://t188/live/source-build"
-  });
   // Engine-driven (B3): both scenarios run through runEngineIterate with the
   // REAL worker evidence — the verifier execution ref is the strength
   // evidence; nothing below hand-calls admission, coverage, or fold.

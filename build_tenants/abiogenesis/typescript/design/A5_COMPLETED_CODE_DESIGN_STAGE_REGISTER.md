@@ -55,7 +55,13 @@ stage:
 
 ## Evaluation Order
 
-1. Verify each Mermaid asset parses.
+The standing structural/render command is `npm run check:design-mermaid` from
+the TypeScript tenant root. It discovers only the nine links above, requires
+the ordered domain/sequence/state views, renders with the pinned local Mermaid
+CLI into temporary output, and removes that output. A green render remains
+syntax evidence; it does not replace independent axiom or F_H review.
+
+1. Run the standing Mermaid structural/render command.
 2. Apply its cross-view invariants.
 3. Evaluate its axiom matrix against live PRODUCT, requirements, Design Module,
    and ODD law.

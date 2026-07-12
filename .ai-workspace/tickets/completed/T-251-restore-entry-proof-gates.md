@@ -4,8 +4,8 @@
 - title: Restore the M05 entry-proof gates for test-harness lint and registered Mermaid designs
 - type: realization
 - ticket_category: qualification_gate_restoration
-- status: active
-- phase_status: design_ready_for_fh_review
+- status: completed
+- phase_status: closed
 - goal: GOAL-035 DS-0 design and entry-gate integrity
 - owner: abiogenesis
 - priority: critical
@@ -14,6 +14,7 @@
 - re_entry_point: build_tenants/abiogenesis/typescript/test_env
 - created_at: 2026-07-12
 - updated_at: 2026-07-12
+- closed_at: 2026-07-12
 - source_ticket: T-242
 - dependencies:
   - T-242 amendments A1 and A6
@@ -34,6 +35,14 @@
 4. The design authority is
    `M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md`. Implementation remains closed
    until that design is independently reviewed and accepted.
+
+## F_H Design Disposition
+
+- disposition: `accepted`
+- authority: direct F_H instruction on 2026-07-12 following independent review
+  `f7148c6`
+- implementation_authorized: true
+- execution_order: T-251 before T-250
 
 ## Exact Scope
 
@@ -112,8 +121,13 @@ step with a stable checker-owned error classification.
 4. Add exact dev-only renderer dependencies and lockfile entries.
 5. Add `check:design-mermaid` and `test:design-mermaid` package scripts. Do not
    add the browser-backed gate to ordinary `build:semantic`.
-6. Record the executable command in the A5 design-stage register.
-7. Run the focused gates, semantic regression gates, package-boundary check,
+6. Refresh only the generator-owned `product-toolchain-manifest.json` content
+   digest entailed by the changed root `package.json`. The T-223 publication
+   generator treats that npm metadata as immutable payload input; no catalog,
+   schema, vocabulary, native inventory, operation, capability, or runtime
+   output may change under this reconciliation.
+7. Record the executable command in the A5 design-stage register.
+8. Run the focused gates, semantic regression gates, package-boundary check,
    and a drift self-review before checkpointing.
 
 ## Closure Conditions
@@ -137,6 +151,10 @@ step with a stable checker-owned error classification.
   browser dependency payload.
 - `npm run build:semantic`, `npm run test:t220`, and `npm run test:t223` remain
   green after the bounded realization.
+- The generated-publication reconciliation changes only
+  `product-toolchain-manifest.json.productContentDigest`, reflecting the exact
+  root package-metadata bytes; every other generated publication value and
+  file remains byte-identical.
 - The phase self-review confirms no product semantics, public contract,
   runtime path, or test assertion changed.
 
@@ -147,7 +165,9 @@ step with a stable checker-owned error classification.
 - The gate claims that parseable diagrams satisfy axioms or agree with code.
 - Rendered SVGs, pixel snapshots, font hashes, screenshots, or a browser matrix
   become release artifacts.
-- Renderer logic enters ABIogenesis product code or the published package.
+- Renderer logic enters ABIogenesis product code or the published package. The
+  mandatory generator-owned package-content digest reconciliation is metadata
+  truth, not renderer logic or product behavior.
 - Lint is made green by suppression, underscore-renaming, weakening ESLint, or
   deleting a test assertion.
 - Hostile-process, multi-host, tamper-proofing, network, or browser-compatibility
@@ -155,19 +175,61 @@ step with a stable checker-owned error classification.
 - T-251 changes GTL, ABG runtime behavior, Consensus design, operator behavior,
   or any 5.0 feature definition.
 
-## Current Evidence
+## Intake Evidence
 
-- `npm run lint:test-harness`: red with exactly 10 `no-unused-vars` errors in
+- At intake, `npm run lint:test-harness` was red with exactly 10
+  `no-unused-vars` errors in
   the three files and names enumerated above.
-- Ambient `mmdc 11.3.0` exploratory run: all nine registered documents render
-  three SVGs each. This establishes feasibility only; it does not close A6
-  until the local pinned command is committed and rerun.
-- Product implementation remains frozen. This ticket and its candidate design
-  authorize review only.
+- At intake, an ambient `mmdc 11.3.0` exploratory run rendered all nine
+  registered documents. That established feasibility only; the execution
+  record below carries the reproducible closure evidence.
+- F_H accepted the design after independent review; the bounded T-251
+  realization is authorized before product implementation resumes.
 
 ## Design Module Review
 
-- outcome: independent_pass_pending_fh
+- outcome: accepted
 - design:
   `build_tenants/abiogenesis/typescript/design/M05_ENTRY_PROOF_GATES_BEHAVIOR_DESIGN.md`
-- implementation_authorized: false
+- implementation_authorized: true
+
+## Execution Record
+
+- Deleted the exact ten reported lint residues and the six transitive-only
+  T-188 symbols. No assertion, live-enable condition, fixture meaning, runtime
+  call, or evidence claim changed.
+- Added the local pinned Mermaid gate, strict deterministic config, malformed
+  three-view fixture, and structural/renderer differentials under `test_env`.
+- `npm ci` installed `@mermaid-js/mermaid-cli@11.3.0` and
+  `puppeteer@23.6.1`; the gate admitted the local renderer and ignored ambient
+  global state.
+- `npm run check:design-mermaid`: passed with nine files, 27 non-empty SVGs,
+  renderer `11.3.0`, and source-set digest
+  `sha256:c31f6eb6a8efbee41aa6272b951aa3e83612963a4daead62d92d4048238b031a`.
+- `npm run test:design-mermaid`: 5/5 passed, covering missing/extra/reordered
+  views, a missing registered file, real malformed Mermaid rejection, and
+  truthful unavailable/mismatched renderer admission.
+- `npm run lint:test-harness`: zero errors and warnings.
+- Semantic regression: T-220 35/35; T-223 70/70; focused T-180/T-188
+  regression set 79/79.
+- The publication generator changed only
+  `product-toolchain-manifest.json.productContentDigest`, from
+  `sha256:6b110cd01d399667bb487faba556c91fafe31c677c363114ed685040ea0e97f3`
+  to
+  `sha256:8225db2a91e0a822d414723aaecafa1913aaacf70dc5a6fdf0b600017e8b6a36`.
+- `npm pack --dry-run` reported 1,003 entries and no `test_env`,
+  `node_modules`, Mermaid, Puppeteer, or generated SVG entry paths. No
+  transient render output remained in the worktree.
+- Phase self-review: pass. The diff remains deletion-only in the three lint
+  targets; proof logic remains under `test_env`; no product runtime, public
+  contract, GTL, Consensus, or test assertion changed.
+
+## Closure Disposition
+
+- disposition: `completed`
+- independent_realization_review: `pass`
+- closure_basis: every closure condition above is observed green; the only
+  generator-owned publication change is the exact package-content digest
+  entailed by the accepted development metadata.
+- remaining_work: none in T-251. Product implementation may proceed to the
+  separately accepted T-250 prerequisite.

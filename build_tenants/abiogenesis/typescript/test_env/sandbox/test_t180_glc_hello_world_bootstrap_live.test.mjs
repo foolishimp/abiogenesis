@@ -17,7 +17,7 @@ import {
 } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { runtimeBindingSource } from "./support/glc-binding-source.mjs";
 
 import {
@@ -108,11 +108,6 @@ async function extractSnapshotPackage(input) {
   );
   return path.join(extractRoot, "package");
 }
-
-function stableList(values) {
-  return `[${[...new Set(values)].sort().map((value) => JSON.stringify(value)).join(", ")}]`;
-}
-
 
 async function writeGlcRuntimeBinding(input) {
   const { workspaceRoot, ...sourceOptions } = input;

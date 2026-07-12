@@ -1,6 +1,6 @@
 # M05 Entry Proof Gates Behavior Design
 
-**Status**: Candidate - independent and F_H review required before implementation
+**Status**: Accepted by F_H for T-251 implementation
 **Ticket**: T-251
 **Authority**: T-242 amendments A1 and A6; TypeScript realization guardrails
 
@@ -44,7 +44,7 @@ classDiagram
     +status value
     +failureClass string_or_null
     +failurePath string_or_null
-    +rendererVersion string
+    +rendererVersion string_or_null
     +fileCount integer
     +diagramCount integer
     +sourceSetDigest sha256
@@ -161,9 +161,8 @@ stateDiagram-v2
 | Proof tooling is excluded from the product package | Product package allowlist | Gate/config/fixtures/tests remain under `test_env` | Pack proof runs after gate proof | Package leakage is non-green closure truth | Existing `files` allowlist plus dev-only dependencies | `npm pack --dry-run` path census | pass | T-251 |
 | GTL/GraphFunction calibration | ODD executable design gate | This is proof tooling, not an ODD constructive carrier | No graph, worker, prompt, traversal, or closure messages | No ABG runtime states exist | No product code or catalog row | Not admitted by GTL/ABG runtime | not_applicable | none |
 
-**Design verdict**: `candidate`. The proof boundary is internally aligned and
-renderable; implementation remains closed until the required independent/F_H
-review accepts it.
+**Design verdict**: `accepted`. Independent review and F_H accepted this proof
+boundary for the bounded T-251 realization.
 
 ## Exact Proof Contract
 
@@ -177,7 +176,8 @@ review accepts it.
   one view; the gate returns nonzero without asserting vendor stack text.
 - Stable output: status, renderer version, counts, and digest of ordered source
   paths and contents. Digest input uses design-root-relative POSIX paths plus
-  exact source bytes; absolute workspace paths never enter the digest.
+  exact source bytes; absolute workspace paths never enter the digest. The
+  renderer version remains null unless local version admission succeeds.
 - The local renderer version must equal `11.3.0`; missing or different local
   tooling is non-green and ambient global `mmdc` is ignored.
 - Checker-owned failure classes are `design_register_invalid`,
@@ -188,7 +188,10 @@ review accepts it.
   detail, not the asserted contract.
 - Gate and config live under `test_env/gates`; fixtures and tests remain under
   `test_env`. Only package scripts and dev-dependency metadata change outside
-  that excluded proof tree.
+  that excluded proof tree, except the generator-owned
+  `product-toolchain-manifest.json` content digest necessarily derived from
+  those root `package.json` bytes. No other generated-publication output may
+  change.
 - Rendering is fail-fast after the first checker-owned render/output failure,
   but terminal reporting waits for the mandatory cleanup finally-path.
 
@@ -214,7 +217,9 @@ their transitive-only imports would manufacture a new lint failure.
   proof tooling under the TypeScript tenant.
 - Product package boundary: applicable. All gate/config/fixture/test files stay
   beneath excluded `test_env/**`, dev dependencies remain unbundled, and
-  `npm pack --dry-run` proves no proof-tool payload enters the product.
+  `npm pack --dry-run` proves no proof-tool payload enters the product. Because
+  the published payload includes root `package.json`, the existing T-223
+  generator refreshes only its manifest-level product-content digest.
 - Irreducible carriers: register row, behavior design, renderer, temporary root,
   lifecycle, and gate summary.
 - Strict lane: ESLint for dead residue plus the pinned real Mermaid renderer.
