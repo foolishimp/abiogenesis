@@ -16,14 +16,14 @@ design below receives an independent axiom review and an F_H `accepted` or
 explicit rework disposition. Retrospective diagrams describe the current code
 against prior authority; they may not normalize a code-first category error.
 
-## Authority Conflict For Review
+## Stable-First Authority Basis
 
-The direct F_H ruling says ABIogenesis 5.0 is the stable baseline and recursive
-dogfooding begins with its successor. Live T-242, PRODUCT, and GOALS surfaces
-still retain a 5.0 self-host/GLC campaign ladder. This design package does not
-silently choose between them and does not treat a downstream GLC product as a
-compiler. F_H review must disposition and persist that authority conflict
-before any affected design is accepted or implementation resumes.
+The stable-first ruling is persisted by checkpoint `7107604`: ABIogenesis 5.0
+is the complete stable baseline, and recursive dogfooding begins with the 5.0.1
+successor after odd_glc 1.0 matures over exact installed 5.0. The retired
+self-host/GLC campaign ladder is not a 5.0 qualification or release gate. This
+register remains a derived design-review surface; GOALS, INTENT, PRODUCT, and
+requirements own product scope, while T-244 traces feature closure.
 
 ## Registered Stages
 
