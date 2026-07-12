@@ -14,6 +14,8 @@ import {
   cProgramCatalogDeclarationEntry,
   declareCProgram,
   serializeCProgramCanonical,
+  typedInterface,
+  typedNode,
   workflow
 } from "../../build/semantic/code/src/gtl/m01/algebra/index.js";
 import {
@@ -62,9 +64,20 @@ function labNode(name) {
   });
 }
 
+function typedBoundary(nodes) {
+  return typedInterface(
+    ...nodes.map((node) => typedNode({ node, decode: (raw) => raw }))
+  );
+}
+
+function interfaceCarrier(nodes) {
+  return cInterfaceCarrier(typedBoundary(nodes));
+}
+
 function edgeProgram(input) {
-  const candidate = cCarrier(`${input.programRef}/candidate`);
-  const assessment = cCarrier(`${input.programRef}/assessment`);
+  const stem = input.programRef.replaceAll(/[^a-zA-Z0-9]/gu, "_");
+  const candidate = interfaceCarrier([labNode(`${stem}_Candidate`)]);
+  const assessment = interfaceCarrier([labNode(`${stem}_Assessment`)]);
   return declareCProgram({
     programRef: input.programRef,
     term: C.edge({
@@ -158,13 +171,13 @@ function scenarioFixture(input = {}) {
   const synthesizeRef = "program://scenario-09/synthesize";
   const normalize = edgeProgram({
     programRef: normalizeRef,
-    input: cInterfaceCarrier([observation]),
-    output: cInterfaceCarrier([normalized])
+    input: interfaceCarrier([observation]),
+    output: interfaceCarrier([normalized])
   });
   const synthesize = edgeProgram({
     programRef: synthesizeRef,
-    input: cInterfaceCarrier([normalized]),
-    output: cInterfaceCarrier([finding])
+    input: interfaceCarrier([normalized]),
+    output: interfaceCarrier([finding])
   });
   const normalizeVector = vector({
     name: "normalize_observation",
@@ -631,8 +644,8 @@ test("T-254 exact containment and ordered multi-source interfaces fail closed", 
   const programRef = "program://scenario-09/join";
   const reversedProgram = edgeProgram({
     programRef,
-    input: cInterfaceCarrier([right, left]),
-    output: cInterfaceCarrier([target])
+    input: interfaceCarrier([right, left]),
+    output: interfaceCarrier([target])
   });
   const joinVector = vector({
     name: "join_observations",
@@ -666,11 +679,13 @@ test("T-254 exact containment and ordered multi-source interfaces fail closed", 
 function batchFixture(mismatched) {
   const source = labNode("BatchSource");
   const target = labNode("BatchTarget");
-  const expectedInput = cInterfaceCarrier([source]);
+  const expectedInput = interfaceCarrier([source]);
   const actualInput = mismatched
     ? cCarrier("gtl.c.interface-contract:sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff")
     : expectedInput;
-  const output = cInterfaceCarrier([target]);
+  const output = mismatched
+    ? cCarrier(cInterfaceContractRef([target]))
+    : interfaceCarrier([target]);
   const task = C.of({
     input: actualInput,
     output,
@@ -740,17 +755,31 @@ test("T-254 stages selected nested diagnostics behind outer boundary validity", 
 
   const fixture = scenarioFixture({ name: "unresolved_selected_workflow" });
   const missingGraphFunction = constructGraphFunction({
-    ...fixture.host,
     name: "graph-function://scenario-09/missing-workflow-target",
-    id: undefined
+    environment: constructEnvRef({
+      requires: [fixture.observation],
+      provides: [fixture.normalized],
+      carries: [fixture.observation, fixture.normalized]
+    }),
+    inputs: [fixture.observation],
+    outputs: [fixture.normalized],
+    template: constructTemplateRef({
+      kind: "symbolic",
+      ref: "template://scenario-09/missing-workflow-target",
+      graph: null,
+      version: null
+    }),
+    effects: [],
+    declarations: graphFunctionDeclarations([]),
+    tags: ["scenario-09"]
   });
   const workflowProgram = declareCProgram({
     programRef: "program://scenario-09/unresolved-workflow",
     term: workflow.C(
       cGraphFunctionRef({
         graphFunction: missingGraphFunction,
-        input: cInterfaceCarrier([fixture.observation]),
-        output: cInterfaceCarrier([fixture.normalized])
+        input: typedBoundary([fixture.observation]),
+        output: typedBoundary([fixture.normalized])
       })
     ),
     proportionalityClass: "P1"

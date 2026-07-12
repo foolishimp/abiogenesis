@@ -6,7 +6,6 @@ export {
   constructNodeTypeGraphFunction,
   composeNodeTypes,
   edge,
-  fan_in,
   gate,
   GRAPH_FUNCTION_ZOOM_CANDIDATE_FAMILY_DECLARATION_KEY,
   GRAPH_FUNCTION_ZOOM_PUBLISHED_TRAVERSAL_TARGET_DECLARATION_KEY,
@@ -22,6 +21,7 @@ export {
   zoomGraphFunction
 } from "./core.js";
 export {
+  fan_in,
   fan_out,
   hofContract,
   hofUnaryRef,
@@ -29,10 +29,32 @@ export {
 } from "./hof.js";
 export type {
   HofBoundary,
+  HofBoundaryBase,
   HofContract,
+  HofValueOf,
   HofUnaryRef,
   HofVector
 } from "./hof.js";
+export {
+  typedInterface,
+  typedNode,
+  typedVectorNode
+} from "./native_node_witness.js";
+export type {
+  ConcreteDecoded,
+  InterfaceValue,
+  NodeValues,
+  NonEmptyTypedNodeTuple,
+  TrustedNativeDecoder,
+  TupleNodeContractKeys,
+  TupleNodeRefs,
+  TypedInterface,
+  TypedNode,
+  TypedNodeBase,
+  TypedScalarNode,
+  TypedVectorNode,
+  ValueOf
+} from "./native_node_witness.js";
 export type {
   GraphFunctionZoomApplyInput,
   GraphFunctionZoomAuthority,
@@ -52,6 +74,7 @@ export {
   C_ALGEBRA_REGIME_VALUES,
   C_ALGEBRA_SYNTAX_VERSION,
   admitCProgramSyntax,
+  bindGraphVectorCProgram,
   cBatch,
   cCarrier,
   cInterfaceCarrier,
@@ -83,15 +106,17 @@ export type {
   CAlgebraResultCardinality,
   CBatchNode,
   CCarrier,
-  CGraphFunctionRef,
-  CTermWitness,
   CComposeNode,
   CEdgeNode,
+  CGraphFunctionRef,
   CIdentityNode,
+  CInputNodesOf,
+  CInterfaceCarrier,
   CInputOf,
   COfNode,
   COfTerm,
   COutputOf,
+  COutputNodesOf,
   CProgramAdmission,
   CProgramDeclaration,
   CProgramDeclarationNode,
@@ -100,5 +125,10 @@ export type {
   CRetryNode,
   CRolesOf,
   CResultCardinalityOf,
-  CWorkflowNode
+  CTermWitness,
+  CWorkflowNode,
+  NodeBackedCGraphFunctionRef,
+  NodeBackedCOfTerm,
+  NodeBackedCProgramBinding,
+  NodeBackedCProgramTerm
 } from "./c_algebra.js";

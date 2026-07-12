@@ -1808,6 +1808,59 @@ The canonical active files are:
 - Authority class: native type-law proof; impossible application states refuse
   before semantic compilation.
 
+### test_t266_native_node_interface_witness.test.mjs
+
+- Status: T-266 native/raw/compiler realization proof
+- Module alignment: `M01-gtl-core`, M02 canonical admission, and M03 semantic
+  compilation
+- Requirements: `REQ-L-GTL3-NODE-001/-002/-013..015`,
+  `REQ-L-GTL3-INTERFACE-001..004`, `REQ-L-GTL3-HOF-001/-002/-005/-006`,
+  and `REQ-L-GTL3-C-ALGEBRA-004/-006/-012..017`
+- Design:
+  [M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md](../design/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md)
+- Ticket:
+  [T-266](../../../../.ai-workspace/tickets/active/T-266-close-native-node-interface-type-witness.md)
+- Command: `npm run test:t266`, with the focused runtime file included in
+  `npm run test:gtl-law`
+- Boundary: trusted concrete decoder projection, exact full Node identity,
+  scalar/vector witnesses, ordered tuple interfaces, all seven Node-backed C
+  generators, exact GraphFunction/GraphVector/HOF joins, unchanged ordinary
+  bytes, M02 Module replay, and symbolic fan-in contradiction classification
+- Authority class: generic Scenario 09 native and raw identity proof. It does
+  not certify decoders, publish schemas, validate worker payloads, or realize
+  C/HOF runtime behavior.
+
+### t266_native_node_witness_types.ts
+
+- Status: T-266 native type-law proof
+- Module alignment: `M01-gtl-core`
+- Requirements: `REQ-L-GTL3-NODE-001/-002`,
+  `REQ-L-GTL3-INTERFACE-001..004`, `REQ-L-GTL3-HOF-001/-002/-005/-006`, and
+  `REQ-L-GTL3-C-ALGEBRA-004/-006/-012/-013`
+- Command: `tsc -p test_env/type_tests/tsconfig.t266.json`, included in
+  `npm run test:gtl-law`
+- Boundary: refusal of `any`, `unknown`, and `never`; constructor-only brands;
+  exact scalar/vector inference; invariant three-source tuple order and
+  cardinality; generic-carrier and ordinary-term refusal; all-seven brand
+  preservation; singleton target law; and exact fan-out/fan-in relations
+- Authority class: compile-time impossibility proof over actual public
+  constructors and Nodes, not detached type aliases.
+
+### test_t266_packed_public_api.proof.mjs
+
+- Status: T-266 source-blind packed-package proof
+- Module alignment: public `@abiogenesis/typescript-tenant/gtl/m01` export
+- Requirements: `REQ-L-GTL3-CONTRACT-LAW-API-009..013` and
+  `REQ-L-GTL3-C-ALGEBRA-012/-013`
+- Command: `npm run test:t266`; intentionally excluded from the parallel
+  `test_env/tests/*.test.mjs` wildcard so package installation is a separate
+  deterministic gate
+- Boundary: packed installation, positive typed Node/interface/C consumption,
+  private authority import refusal, structural witness refusal, and absence of
+  internal raw fan-in construction from declared and runtime package exports
+- Authority class: source-blind public API containment proof. Private symbols
+  remain declaration-internal and are not package exports.
+
 ## Live Sandbox UAT Provenance
 
 ### test_env/live/test_m05_rc_live_uat.test.mjs

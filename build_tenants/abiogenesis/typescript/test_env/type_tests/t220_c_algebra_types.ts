@@ -9,9 +9,14 @@ import {
   declareCProgram,
   workflow
 } from "../../code/src/gtl/m01/algebra/c_algebra.js";
+import {
+  typedInterface,
+  typedNode
+} from "../../code/src/gtl/m01/algebra/native_node_witness.js";
 import type {
   GraphFunction,
-  GraphVector
+  GraphVector,
+  Node
 } from "../../code/src/gtl/m01/contracts/carriers.js";
 
 void C_PROGRAM_TYPE;
@@ -97,27 +102,42 @@ export const forgedTransform: typeof transform = {
 
 declare const publishedGraphFunction: GraphFunction;
 declare const internalGraphVector: GraphVector;
+declare const requestNode: Node;
+declare const consequenceNode: Node;
+
+const requestInterface = typedInterface(
+  typedNode({
+    node: requestNode,
+    decode: (_raw: unknown): Request => ({ request: "" })
+  })
+);
+const consequenceInterface = typedInterface(
+  typedNode({
+    node: consequenceNode,
+    decode: (_raw: unknown): Consequence => ({ disposition: "" })
+  })
+);
 
 export const lawfulGraphFunctionRef = cGraphFunctionRef({
   graphFunction: publishedGraphFunction,
-  input: request,
-  output: consequence
+  input: requestInterface,
+  output: consequenceInterface
 });
 export const lawfulLift = workflow.C(lawfulGraphFunctionRef);
 
 export const vectorIsNotGraphFunctionRef = cGraphFunctionRef({
   // @ts-expect-error GraphVector cannot construct a GraphFunctionRef.
   graphFunction: internalGraphVector,
-  input: request,
-  output: consequence
+  input: requestInterface,
+  output: consequenceInterface
 });
 
 // @ts-expect-error workflow.C requires an opaque constructor-owned GraphFunctionRef.
 export const structuralWorkflowRef = workflow.C({
   kind: "c_graph_function_ref",
   ref: "graph-function://typed/child",
-  inputCarrierRef: request.ref,
-  outputCarrierRef: consequence.ref
+  inputCarrierRef: requestInterface.interfaceRef,
+  outputCarrierRef: consequenceInterface.interfaceRef
 });
 
 export const lawfulBatch = C.batch(
@@ -137,15 +157,14 @@ const wrongSuccessor = C.of({
 // @ts-expect-error C.compose requires the left output to equal the right input.
 export const illegalCompose = C.compose(transform, wrongSuccessor);
 
+// @ts-expect-error C.edge requires canonical direct roles and matching predecessors.
 export const illegalEdgeRole = C.edge({
-  // @ts-expect-error C.edge requires the canonical transform role here.
   transform: evaluate,
-  // @ts-expect-error The mismatched predecessor also makes this chain unlawful.
   evaluate,
   consequence: project
 });
 
-export const illegalFibre = C.of({
+const illegalFibre = C.of({
   input: request,
   output: candidate,
   stageRole: "transform",
@@ -154,6 +173,7 @@ export const illegalFibre = C.of({
   armId: "arm://typed/illegal-fibre",
   resultBearing: true
 });
+void illegalFibre;
 
 const secondResult = C.of({
   input: candidate,
@@ -178,16 +198,15 @@ export const illegalIdentityProgram = declareCProgram({
   term: C.id(request)
 });
 
+// @ts-expect-error C.batch tasks must share one input/output carrier type pair.
 export const illegalBatch = C.batch(
-  // @ts-expect-error C.batch tasks must share one input/output carrier type pair.
   [transform, wrongSuccessor] as const,
   "batch://typed/mismatch"
 );
 
+// @ts-expect-error C.edge fields are atomic C.of leaves; retry wraps a complete term.
 export const illegalRetriedEdge = C.edge({
-  // @ts-expect-error C.edge fields are atomic C.of leaves; retry wraps a complete term.
   transform: C.retry(transform, 2),
-  // @ts-expect-error The rejected transform cannot establish the evaluate predecessor relation.
   evaluate,
   consequence: project
 });

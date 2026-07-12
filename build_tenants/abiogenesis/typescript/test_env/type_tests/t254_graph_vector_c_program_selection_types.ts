@@ -9,6 +9,10 @@ import {
   cProgramCatalogDeclarationEntry,
   cProgramDeclarationEntry
 } from "../../code/src/gtl/m01/algebra/c_algebra_declarations.js";
+import {
+  typedInterface,
+  typedNode
+} from "../../code/src/gtl/m01/algebra/native_node_witness.js";
 import type { Node } from "../../code/src/gtl/m01/contracts/carriers.js";
 import type {
   GraphFunction,
@@ -47,12 +51,22 @@ export const lawfulVectorDeclarations = graphVectorDeclarations([
   arbitrarySelector
 ]);
 
-const observationCarrier = cInterfaceCarrier<LabObservation>([
-  observationNode
-]);
-const normalizedCarrier = cInterfaceCarrier<NormalizedObservation>([
-  normalizedNode
-]);
+const observationCarrier = cInterfaceCarrier(
+  typedInterface(
+    typedNode({
+      node: observationNode,
+      decode: (_raw: unknown): LabObservation => ({ sample: "" })
+    })
+  )
+);
+const normalizedCarrier = cInterfaceCarrier(
+  typedInterface(
+    typedNode({
+      node: normalizedNode,
+      decode: (_raw: unknown): NormalizedObservation => ({ normalized: "" })
+    })
+  )
+);
 
 export const exactObservationCarrier: CCarrier<LabObservation> =
   observationCarrier;

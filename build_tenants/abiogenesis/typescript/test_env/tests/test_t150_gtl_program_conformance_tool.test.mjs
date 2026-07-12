@@ -63,6 +63,8 @@ import {
   recurse,
   runAbgSemanticCompilerFpReviewGraphFunction,
   substitute,
+  typedNode,
+  typedVectorNode,
   typecheckGtlProgram,
   formatGtlProgramConformanceIssues
 } from "../../build/semantic/code/src/index.js";
@@ -3682,18 +3684,57 @@ test("T-152 GTL program typechecker observes GTL algebra operation carriers", ()
   const contractVector = outer.vectors[0];
   assert.notEqual(contractVector, undefined);
   const substituted = substitute(outer, contractVector.id, inner);
-  const vectorIdentity = identity([vectorBoundary]);
   const fanOutMemberIdentity = identity([fanOutMember]);
-  const fanOutMemberContract = hofContract(fanOutMember);
-  const fanOutVector = hofVector(vectorBoundary, fanOutMemberContract);
+  const fanOutMemberWitness = typedNode({
+    node: fanOutMember,
+    decode: (raw) => raw
+  });
+  const fanOutMemberContract = hofContract(fanOutMemberWitness);
+  const fanOutVector = hofVector(
+    typedVectorNode({
+      node: vectorBoundary,
+      member: fanOutMemberWitness,
+      decode: (raw) => raw
+    })
+  );
   const fanOutIdentity = fan_out(
-    hofUnaryRef(
-      fanOutMemberIdentity,
-      fanOutMemberContract,
-      fanOutMemberContract
-    ),
+    hofUnaryRef({
+      graphFunction: fanOutMemberIdentity,
+      input: fanOutMemberContract,
+      output: fanOutMemberContract
+    }),
     { over: fanOutVector, into: fanOutVector }
   ).graphFunction;
+  const fanInResult = node("AlgebraFanInResult");
+  const fanInReducer = constructGraphFunction({
+    name: "algebra_fan_in_reducer",
+    environment: constructEnvRef({
+      requires: [vectorBoundary],
+      provides: [fanInResult],
+      carries: [vectorBoundary, fanInResult]
+    }),
+    inputs: [vectorBoundary],
+    outputs: [fanInResult],
+    template: constructTemplateRef({
+      kind: "symbolic",
+      ref: "template://t150/algebra-fan-in-reducer",
+      graph: null,
+      version: null
+    }),
+    effects: [],
+    declarations: { entries: [] },
+    tags: ["t150-program-conformance-tool"]
+  });
+  const fanInFunction = fan_in(
+    hofUnaryRef({
+      graphFunction: fanInReducer,
+      input: fanOutVector,
+      output: hofContract(
+        typedNode({ node: fanInResult, decode: (raw) => raw })
+      )
+    }),
+    fanOutVector
+  );
   const graphFunctions = [
     compose(aToB, bToC),
     identity([node("AlgebraIdentityNode")]),
@@ -3704,7 +3745,8 @@ test("T-152 GTL program typechecker observes GTL algebra operation carriers", ()
     }),
     fanOutMemberIdentity,
     fanOutIdentity,
-    fan_in(vectorIdentity, vectorBoundary),
+    fanInReducer,
+    fanInFunction,
     gate(direct, rule("algebra_gate"), [evaluator("algebra_gate_eval")]),
     promote(node("AlgebraPromoteSource"), node("AlgebraPromoteTarget"))
   ];

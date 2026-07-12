@@ -10,6 +10,10 @@ import {
   hofVector
 } from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
 import {
+  typedNode,
+  typedVectorNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
+import {
   admitGraphFunction,
   admitNode
 } from "../../build/semantic/code/src/gtl/m01/admission/carriers.js";
@@ -104,15 +108,35 @@ function fixture() {
     },
     tags: ["lab"]
   });
-  const observationContract = hofContract(observation);
-  const normalizedContract = hofContract(normalized);
-  const over = hofVector(observations, observationContract);
-  const into = hofVector(normalizedObservations, normalizedContract);
-  const childRef = hofUnaryRef(
-    child,
-    observationContract,
-    normalizedContract
+  const observationWitness = typedNode({
+    node: observation,
+    decode: (raw) => raw
+  });
+  const normalizedWitness = typedNode({
+    node: normalized,
+    decode: (raw) => raw
+  });
+  const observationContract = hofContract(observationWitness);
+  const normalizedContract = hofContract(normalizedWitness);
+  const over = hofVector(
+    typedVectorNode({
+      node: observations,
+      member: observationWitness,
+      decode: (raw) => raw
+    })
   );
+  const into = hofVector(
+    typedVectorNode({
+      node: normalizedObservations,
+      member: normalizedWitness,
+      decode: (raw) => raw
+    })
+  );
+  const childRef = hofUnaryRef({
+    graphFunction: child,
+    input: observationContract,
+    output: normalizedContract
+  });
   const derived = fan_out(childRef, { over, into });
   return {
     observation,
@@ -277,7 +301,8 @@ test("T-253 native fan_out constructs one exact typed vector wrapper", () => {
 });
 
 test("T-253 vector witnesses require closed Vector member syntax and an exact schema join", () => {
-  const member = hofContract(labNode("Sample", "Sample"));
+  const memberNode = labNode("Sample", "Sample");
+  const member = typedNode({ node: memberNode, decode: (raw) => raw });
   for (const schemaRef of [
     "VectorSample",
     "Vector[]",
@@ -287,35 +312,49 @@ test("T-253 vector witnesses require closed Vector member syntax and an exact sc
     "Vector[Sample] "
   ]) {
     assert.throws(
-      () => hofVector(labNode(`Rejected_${schemaRef}`, schemaRef), member),
+      () =>
+        typedVectorNode({
+          node: labNode(`Rejected_${schemaRef}`, schemaRef),
+          member,
+          decode: (raw) => raw
+        }),
       /expected exactly one canonical Vector\[member\] boundary/u
     );
   }
   assert.throws(
-    () => hofVector(labNode("WrongVector", "Vector[Other]"), member),
-    /Vector member schema does not match/u
-  );
-  assert.throws(
     () =>
-      hofVector(
-        labNode("RuntimeVector", "Vector[Sample]"),
-        hofContract(
-          labNode("RuntimeSample", "Sample", {
-            schema: { kind: "runtime_ref", ref: "Sample" }
-          })
-        )
-      ),
-    /Vector member schema does not match/u
-  );
-  assert.throws(
-    () =>
-      hofVector(labNode("ForgedVector", "Vector[Sample]"), {
-        kind: "hof_contract",
-        node: member.node,
-        nodeRef: member.nodeRef,
-        nodeContractKey: member.nodeContractKey
+      typedVectorNode({
+        node: labNode("WrongVector", "Vector[Other]"),
+        member,
+        decode: (raw) => raw
       }),
-    /constructor-owned HOF boundary/u
+    /Vector member schema does not match/u
+  );
+  assert.throws(
+    () =>
+      typedVectorNode({
+        node: labNode("RuntimeVector", "Vector[Sample]"),
+        member: typedNode({
+          node: labNode("RuntimeSample", "Sample", {
+            schema: { kind: "runtime_ref", ref: "Sample" }
+          }),
+          decode: (raw) => raw
+        }),
+        decode: (raw) => raw
+      }),
+    /Vector member schema does not match/u
+  );
+  assert.throws(
+    () =>
+      hofVector({
+        kind: "typed_vector_node",
+        node: labNode("ForgedVector", "Vector[Sample]"),
+        nodeRef: "node://forged",
+        nodeContractKey: "forged",
+        nodeContractDigest: "sha256:forged",
+        member
+      }),
+    /constructor-owned TypedNode/u
   );
 });
 
@@ -339,7 +378,8 @@ test("T-253 raw HOF tagged objects reject unknown sibling fields", () => {
 
 test("T-253 native relation retains distinct node refs with equal contracts", () => {
   const memberNode = labNode("SharedMember", "SharedMember");
-  const member = hofContract(memberNode);
+  const memberWitness = typedNode({ node: memberNode, decode: (raw) => raw });
+  const member = hofContract(memberWitness);
   const overNode = labNode("SharedVector", "Vector[SharedMember]", {
     id: "node-shared-vector-over"
   });
@@ -364,9 +404,17 @@ test("T-253 native relation retains distinct node refs with equal contracts", ()
     declarations: { entries: [] },
     tags: []
   });
-  const derived = fan_out(hofUnaryRef(child, member, member), {
-    over: hofVector(overNode, member),
-    into: hofVector(intoNode, member)
+  const derived = fan_out(hofUnaryRef({
+    graphFunction: child,
+    input: member,
+    output: member
+  }), {
+    over: hofVector(
+      typedVectorNode({ node: overNode, member: memberWitness, decode: (raw) => raw })
+    ),
+    into: hofVector(
+      typedVectorNode({ node: intoNode, member: memberWitness, decode: (raw) => raw })
+    )
   }).graphFunction;
   const graph = materializeGraphFunction(derived);
 
@@ -382,17 +430,29 @@ test("T-253 native relation retains distinct node refs with equal contracts", ()
 
 test("T-253 erased native values cannot join a child to different vector members", () => {
   const value = fixture();
-  const otherOutput = hofContract(labNode("OtherOutput", "OtherOutput"));
+  const otherOutputNode = labNode("OtherOutput", "OtherOutput");
+  const otherOutputWitness = typedNode({
+    node: otherOutputNode,
+    decode: (raw) => raw
+  });
   const wrongInto = hofVector(
-    labNode("OtherOutputVector", "Vector[OtherOutput]"),
-    otherOutput
+    typedVectorNode({
+      node: labNode("OtherOutputVector", "Vector[OtherOutput]"),
+      member: otherOutputWitness,
+      decode: (raw) => raw
+    })
   );
   assert.throws(
     () => fan_out(value.childRef, { over: value.over, into: wrongInto }),
     /child element contracts do not match/u
   );
   assert.throws(
-    () => hofUnaryRef(value.child, value.normalizedContract, value.normalizedContract),
+    () =>
+      hofUnaryRef({
+        graphFunction: value.child,
+        input: value.normalizedContract,
+        output: value.normalizedContract
+      }),
     /one exact witnessed input and output/u
   );
 });

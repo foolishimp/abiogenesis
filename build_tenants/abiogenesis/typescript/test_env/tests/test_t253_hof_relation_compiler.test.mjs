@@ -11,6 +11,10 @@ import {
   hofVector
 } from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
 import {
+  typedNode,
+  typedVectorNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
+import {
   admitGraphFunction
 } from "../../build/semantic/code/src/gtl/m01/admission/carriers.js";
 import {
@@ -80,12 +84,36 @@ function fixture() {
   const childGraphFunction = graphFunctionForVector(childVector, {
     name: "normalize:LabObservation->NormalizedObservation"
   });
-  const inputMember = hofContract(inputMemberNode);
-  const outputMember = hofContract(outputMemberNode);
-  const child = hofUnaryRef(childGraphFunction, inputMember, outputMember);
+  const inputWitness = typedNode({
+    node: inputMemberNode,
+    decode: (raw) => raw
+  });
+  const outputWitness = typedNode({
+    node: outputMemberNode,
+    decode: (raw) => raw
+  });
+  const inputMember = hofContract(inputWitness);
+  const outputMember = hofContract(outputWitness);
+  const child = hofUnaryRef({
+    graphFunction: childGraphFunction,
+    input: inputMember,
+    output: outputMember
+  });
   const hostGraphFunction = fan_out(child, {
-    over: hofVector(inputVectorNode, inputMember),
-    into: hofVector(outputVectorNode, outputMember)
+    over: hofVector(
+      typedVectorNode({
+        node: inputVectorNode,
+        member: inputWitness,
+        decode: (raw) => raw
+      })
+    ),
+    into: hofVector(
+      typedVectorNode({
+        node: outputVectorNode,
+        member: outputWitness,
+        decode: (raw) => raw
+      })
+    )
   }).graphFunction;
   return Object.freeze({ childGraphFunction, hostGraphFunction });
 }

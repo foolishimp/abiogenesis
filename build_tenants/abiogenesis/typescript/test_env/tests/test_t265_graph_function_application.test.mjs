@@ -6,10 +6,19 @@ import test from "node:test";
 
 import {
   compose,
-  fan_in,
   gate,
   recurse
 } from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
+import {
+  fan_in,
+  hofContract,
+  hofUnaryRef,
+  hofVector
+} from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
+import {
+  typedNode,
+  typedVectorNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
 import {
   constructEnvRef,
   constructGraphFunction,
@@ -99,7 +108,26 @@ function fixture() {
   const normalized = node("Normalized");
   const vector = node("NormalizedVector", "Vector[schema://scenario-09/Normalized]");
   const base = graphFunction("normalize", observation, normalized);
-  return { observation, normalized, vector, base };
+  const reducer = graphFunction("reduce_normalized", vector, normalized);
+  return { observation, normalized, vector, base, reducer };
+}
+
+function witnessedFanIn(reducer, vector, member) {
+  const memberWitness = typedNode({ node: member, decode: (raw) => raw });
+  const over = hofVector(
+    typedVectorNode({
+      node: vector,
+      member: memberWitness,
+      decode: (raw) => raw
+    })
+  );
+  const output = hofContract(
+    typedNode({ node: reducer.outputs[0], decode: (raw) => raw })
+  );
+  return fan_in(
+    hofUnaryRef({ graphFunction: reducer, input: over, output }),
+    over
+  );
 }
 
 function application(graphFunctionValue) {
@@ -126,7 +154,7 @@ function taggedField(value, key) {
 }
 
 test("T-265 native applications own one complete immediate relation", () => {
-  const { base, vector } = fixture();
+  const { base, vector, normalized, reducer } = fixture();
   const termination = evaluator("complete");
   const recursive = recurse(base, termination, {
     binding: "binding://scenario-09/foldback",
@@ -136,7 +164,7 @@ test("T-265 native applications own one complete immediate relation", () => {
       entries: [{ key: "round_limit", value: { kind: "scalar", value: 2 } }]
     }
   });
-  const reduced = fan_in(base, vector);
+  const reduced = witnessedFanIn(reducer, vector, normalized);
   const gated = gate(base, rule("accepted"), [termination]);
 
   const recurseApplication = application(recursive);
@@ -147,7 +175,7 @@ test("T-265 native applications own one complete immediate relation", () => {
 
   const fanInApplication = application(reduced);
   assert.equal(fanInApplication?.operatorKind, "fan_in");
-  assert.equal(fanInApplication?.operandGraphFunctionRef, base.id);
+  assert.equal(fanInApplication?.operandGraphFunctionRef, reducer.id);
   assert.equal(fanInApplication?.overVectorNodeRef, vector.id);
   assert.equal(fanInApplication?.overVectorContractKey, nodeContractKey(vector));
 
@@ -165,17 +193,20 @@ test("T-265 native applications own one complete immediate relation", () => {
     assert.deepEqual(applied.template, base.template);
   }
   assert.deepEqual(reduced.environment.requires, [vector]);
-  assert.deepEqual(reduced.environment.provides, base.environment.provides);
+  assert.deepEqual(reduced.environment.provides, reducer.environment.provides);
   assert.deepEqual(reduced.environment.carries, [
     vector,
-    ...base.environment.provides
+    ...reducer.environment.provides
   ]);
   assert.deepEqual(reduced.inputs, [vector]);
-  assert.deepEqual(reduced.outputs, base.outputs);
-  assert.deepEqual(reduced.template, base.template);
+  assert.deepEqual(reduced.outputs, reducer.outputs);
+  assert.deepEqual(reduced.template, reducer.template);
 
-  for (const applied of [recursive, reduced, gated]) {
+  for (const applied of [recursive, gated]) {
     assert.deepEqual(applied.effects, base.effects);
+  }
+  assert.deepEqual(reduced.effects, reducer.effects);
+  for (const applied of [recursive, reduced, gated]) {
     assert.equal(
       applied.declarations.entries.filter(
         (entry) => entry.key === GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY
@@ -268,23 +299,28 @@ test("T-265 native canonical data ignores object insertion order", () => {
 });
 
 test("T-265 fan-in refuses a blank Vector member", () => {
-  const { base } = fixture();
+  const { normalized } = fixture();
   const blankVector = node("BlankVector", "Vector[ ]");
+  const blankReducer = graphFunction(
+    "blank_vector_reducer",
+    blankVector,
+    normalized
+  );
   assert.throws(
-    () => fan_in(base, blankVector),
+    () => witnessedFanIn(blankReducer, blankVector, normalized),
     /expected exactly one canonical Vector\[member\] boundary/u
   );
 });
 
 test("T-265 all serialized application variants round-trip with canonical host identity", () => {
-  const { base, vector } = fixture();
+  const { base, vector, normalized, reducer } = fixture();
   const appliedValues = [
     recurse(base, evaluator("roundtrip_recurse"), {
       binding: "binding://scenario-09/roundtrip-recurse",
       mode: "rebind",
       requiresParentEvaluation: true
     }),
-    fan_in(base, vector),
+    witnessedFanIn(reducer, vector, normalized),
     gate(base, rule("roundtrip_gate"), [evaluator("roundtrip_gate")])
   ];
 
@@ -378,7 +414,7 @@ test("T-265 raw application admission rejects field, identity, and legacy drift"
 });
 
 test("T-265 altered operator-specific values cannot retain application identity", () => {
-  const { base, vector } = fixture();
+  const { base, vector, normalized, reducer } = fixture();
   const recursive = rawApplication(
     recurse(base, evaluator("altered_recurse"), {
       binding: "binding://scenario-09/altered-recurse",
@@ -389,7 +425,9 @@ test("T-265 altered operator-specific values cannot retain application identity"
   taggedField(taggedField(recursive.value, "foldback").value, "binding").value =
     "binding://scenario-09/forged";
 
-  const reduced = rawApplication(fan_in(base, vector));
+  const reduced = rawApplication(
+    witnessedFanIn(reducer, vector, normalized)
+  );
   taggedField(reduced.value, "over_vector_contract_key").value =
     "node-contract://scenario-09/forged";
 

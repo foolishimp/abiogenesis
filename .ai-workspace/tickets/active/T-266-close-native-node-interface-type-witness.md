@@ -2,9 +2,10 @@
 
 - id: T-266
 - status: active
-- phase_status: accepted_design_realization_active
-- review_status: accepted_by_fh
-- implementation_admission: admitted
+- phase_status: realization_complete_closure_review_pending
+- review_status: self_review_clean_user_review_pending
+- implementation_admission: realized_as_designed
+- proof_status: all_declared_gates_green
 - delivery_phase: DS-1 prerequisite
 - change_class: design_reframe
 - owner: abiogenesis
@@ -233,3 +234,37 @@ Only after direct F_H acceptance:
 Accepted by F_H on 2026-07-13 after independent review found no remaining
 design defect. Realization is admitted against
 `M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md`.
+
+## Realization Disposition
+
+`realization_complete` on 2026-07-13. The implementation closes the admitted
+native witness and exact-join relation without adding serialized GTL or runtime
+behavior. The accepted design's cross-view and axiom evaluations now pass.
+
+Closure remains gated on the user's/independent review. The ticket stays in
+`active/`; self-review does not substitute for that review.
+
+## Realization Evidence
+
+- `native_node_witness.ts` owns the private TypedNode, TypedVectorNode, and
+  exact TypedInterface construction boundary and the single interface-ref
+  derivation.
+- `c_algebra.ts` owns nominal C interface carriers, exact GraphFunction refs,
+  all-seven Node-backed term preservation, and native-only GraphVector binding.
+- `hof.ts` derives scalar/vector HOF relations from witnesses and exposes only
+  the witnessed public fan-in route.
+- M03 rejects a symbolic fan-in reducer/input contradiction as
+  `invalid_program` before the separately owned runtime gap.
+- Scenario 09 compile/runtime proofs cover concrete decoder refusal, exact
+  tuple law, all seven C constructors, HOF relations, raw parity, M02 Module
+  replay, and malformed identity relations.
+- The packed consumer proves private authority names cannot be imported or
+  observed through the public M01 package export.
+- Focused T-266 125/125; standing GTL law 82/82; full semantic 1559/1559;
+  T-223 70/70; T-250 13/13; lint, publication, Mermaid, package dry-run,
+  zero-Consensus, and diff checks pass.
+- The commit-relative diff-execution witness classifies 698 changed executable
+  lines as witnessed, 691 changed lines as non-executable, and reports zero
+  violations.
+- Self-review:
+  `.ai-workspace/comments/codex/20260712T191224Z_SELF_REVIEW_t266_native_node_interface_witness.md`.

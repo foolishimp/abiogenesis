@@ -6,11 +6,20 @@ import test from "node:test";
 
 import {
   edge,
-  fan_in,
   gate,
   graphFunctionForVector,
   recurse
 } from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
+import {
+  fan_in,
+  hofContract,
+  hofUnaryRef,
+  hofVector
+} from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
+import {
+  typedNode,
+  typedVectorNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
 import {
   constructEnvRef,
   constructGraph,
@@ -109,6 +118,24 @@ function fixture() {
   });
   const outer = gate(first, rule("accepted"), [evaluator("accepted")]);
   return { input, output, base, first, outer };
+}
+
+function witnessedFanIn(reducer, vector, member) {
+  const memberWitness = typedNode({ node: member, decode: (raw) => raw });
+  const over = hofVector(
+    typedVectorNode({
+      node: vector,
+      member: memberWitness,
+      decode: (raw) => raw
+    })
+  );
+  const output = hofContract(
+    typedNode({ node: reducer.outputs[0], decode: (raw) => raw })
+  );
+  return fan_in(
+    hofUnaryRef({ graphFunction: reducer, input: over, output }),
+    over
+  );
 }
 
 test("T-265 compiler treats declaration omission as ordinary function truth", () => {
@@ -236,7 +263,8 @@ test("T-265 compiler rejects missing and ambiguous operands by opaque id", () =>
 });
 
 test("T-265 compiler admits the canonical fan-in relation only to the T-255 gap", () => {
-  const { base } = fixture();
+  const { output } = fixture();
+  const member = node("LabObservation");
   const vector = node("CompilerVector");
   const admittedVector = constructNode({
     name: vector.name,
@@ -245,17 +273,22 @@ test("T-265 compiler admits the canonical fan-in relation only to the T-255 gap"
     assetSurface: vector.assetSurface,
     tags: vector.tags
   });
-  const applied = fan_in(base, admittedVector);
+  const reducer = symbolicFunction(
+    "reduce_lab_observations",
+    admittedVector,
+    output
+  );
+  const applied = witnessedFanIn(reducer, admittedVector, member);
   const compiled = compileGraphFunctionApplication({
     graphFunction: applied,
-    graphFunctions: [applied, base]
+    graphFunctions: [applied, reducer]
   });
 
   assert.equal(compiled.lineage?.orderedSteps.length, 1);
   assert.equal(compiled.lineage?.orderedSteps[0]?.operatorKind, "fan_in");
   assert.equal(
     compiled.lineage?.orderedSteps[0]?.operandGraphFunctionRef,
-    base.id
+    reducer.id
   );
   assert.equal(
     compiled.diagnostics[0]?.diagnosticId,

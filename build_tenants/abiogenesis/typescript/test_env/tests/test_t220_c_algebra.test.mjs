@@ -14,6 +14,10 @@ import {
   workflow
 } from "../../build/semantic/code/src/gtl/m01/algebra/c_algebra.js";
 import {
+  typedInterface,
+  typedNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
+import {
   constructNode
 } from "../../build/semantic/code/src/gtl/m01/contracts/constructors.js";
 import {
@@ -41,7 +45,17 @@ const childGraphFunction = buildThreeStageBasis({
   dispatchRef: null
 }).graphFunction;
 
-function childWorkflowRef(input, output) {
+function childWorkflowRef() {
+  const input = typedInterface(
+    ...childGraphFunction.inputs.map((node) =>
+      typedNode({ node, decode: (raw) => raw })
+    )
+  );
+  const output = typedInterface(
+    ...childGraphFunction.outputs.map((node) =>
+      typedNode({ node, decode: (raw) => raw })
+    )
+  );
   return cGraphFunctionRef({ graphFunction: childGraphFunction, input, output });
 }
 
@@ -119,9 +133,13 @@ test("T-254: ordered Node interfaces derive invariant C carrier identities", () 
   );
   assert.match(forward, /^gtl\.c\.interface-contract:sha256:[0-9a-f]{64}$/u);
   assert.notEqual(forward, reversed);
-  assert.equal(cInterfaceCarrier([observation, normalized]).ref, forward);
+  const boundary = typedInterface(
+    typedNode({ node: observation, decode: (raw) => raw }),
+    typedNode({ node: normalized, decode: (raw) => raw })
+  );
+  assert.equal(cInterfaceCarrier(boundary).ref, forward);
   assert.throws(() => cInterfaceContractRef([]), /at least one Node/u);
-  assert.throws(() => cInterfaceCarrier([]), /at least one Node/u);
+  assert.throws(() => cInterfaceCarrier([]), /constructor-owned TypedInterface/u);
 });
 
 test("T-220: all seven C generators have distinct authored discriminants", () => {
@@ -132,7 +150,7 @@ test("T-220: all seven C generators have distinct authored discriminants", () =>
       C.id(request).kind,
       C.compose(transform, evaluate).kind,
       C.edge({ transform, evaluate, consequence: project }).kind,
-      workflow.C(childWorkflowRef(request, consequence)).kind,
+      workflow.C(childWorkflowRef()).kind,
       C.batch([transform, transform], "batch://t220/discriminants").kind,
       C.retry(transform, 2).kind
     ],
@@ -266,7 +284,7 @@ test("T-220: unrealized lawful constructors return distinct stable gaps", () => 
   const cases = [
     [
       declaration(
-        workflow.C(childWorkflowRef(request, consequence)),
+        workflow.C(childWorkflowRef()),
         "gtl://t220/workflow"
       ),
       "gtl-c-unrealized-workflow-lift"

@@ -3,13 +3,21 @@
 // are authored GTL data. ABG owns admission into executable runtime truth.
 
 import {
-  interfaceContract,
+  GTL_GRAPH_VECTOR_ADMISSION,
   isAdmittedGraphFunction,
+  nodeContractKey,
   type GraphFunction,
+  type GraphVector,
   type Node
 } from "../contracts/carriers.js";
 import { admitNode } from "../admission/carriers.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  assertTypedInterface,
+  deriveNodeInterfaceContractRef,
+  type NonEmptyTypedNodeTuple,
+  type TypedInterface,
+  type TypedNode
+} from "./native_node_witness.js";
 
 export const C_ALGEBRA_SYNTAX_VERSION = "gtl-c-algebra/1" as const;
 
@@ -84,11 +92,31 @@ const C_PROGRAM_ADMISSION: unique symbol = Symbol("gtl.c.program.admission");
 const C_GRAPH_FUNCTION_REF_TYPE: unique symbol = Symbol(
   "gtl.c.graph_function_ref.type"
 );
+const C_INTERFACE_AUTHORITY: unique symbol = Symbol(
+  "gtl.c.interface.authority"
+);
+const NODE_BACKED_C_AUTHORITY: unique symbol = Symbol(
+  "gtl.c.node_backed.authority"
+);
+const NODE_BACKED_C_REF_AUTHORITY: unique symbol = Symbol(
+  "gtl.c.node_backed.graph_function_ref.authority"
+);
+const NODE_BACKED_C_BINDING_AUTHORITY: unique symbol = Symbol(
+  "gtl.c.node_backed.graph_vector_binding.authority"
+);
 
 export interface CCarrier<Type> {
   readonly kind: "c_carrier";
   readonly ref: string;
   readonly [C_CARRIER_TYPE]: (value: Type) => Type;
+}
+
+export interface CInterfaceCarrier<
+  Value,
+  Nodes extends NonEmptyTypedNodeTuple
+> extends CCarrier<Value> {
+  readonly interface: TypedInterface<Value, Nodes>;
+  readonly [C_INTERFACE_AUTHORITY]: true;
 }
 
 export interface CGraphFunctionRef<Input, Output> {
@@ -99,6 +127,18 @@ export interface CGraphFunctionRef<Input, Output> {
   readonly [C_GRAPH_FUNCTION_REF_TYPE]: {
     readonly input: (value: Input) => Input;
     readonly output: (value: Output) => Output;
+  };
+}
+
+export interface NodeBackedCGraphFunctionRef<
+  Input,
+  Output,
+  InputNodes extends NonEmptyTypedNodeTuple,
+  OutputNodes extends NonEmptyTypedNodeTuple
+> extends CGraphFunctionRef<Input, Output> {
+  readonly [NODE_BACKED_C_REF_AUTHORITY]: {
+    readonly input: CInterfaceCarrier<Input, InputNodes>;
+    readonly output: CInterfaceCarrier<Output, OutputNodes>;
   };
 }
 
@@ -184,6 +224,44 @@ export type CProgramTerm<
   readonly [C_TERM_TYPE]: CTermWitness<Input, Output, Roles, Cardinality>;
 };
 
+export type NodeBackedCProgramTerm<
+  Input,
+  Output,
+  InputNodes extends NonEmptyTypedNodeTuple,
+  OutputNodes extends NonEmptyTypedNodeTuple,
+  Roles extends string = string,
+  Cardinality extends CAlgebraResultCardinality = CAlgebraResultCardinality
+> = CProgramTerm<Input, Output, Roles, Cardinality> & {
+  readonly [NODE_BACKED_C_AUTHORITY]: {
+    readonly input: CInterfaceCarrier<Input, InputNodes>;
+    readonly output: CInterfaceCarrier<Output, OutputNodes>;
+  };
+};
+
+export interface NodeBackedCProgramBinding<
+  Input,
+  Output,
+  SourceNodes extends NonEmptyTypedNodeTuple,
+  TargetNode extends TypedNode<Output>,
+  Roles extends string = string,
+  Cardinality extends CAlgebraResultCardinality = CAlgebraResultCardinality
+> {
+  readonly kind: "node_backed_c_program_binding";
+  readonly graphVector: GraphVector;
+  readonly graphVectorRef: string;
+  readonly source: TypedInterface<Input, SourceNodes>;
+  readonly target: TypedInterface<Output, readonly [TargetNode]>;
+  readonly program: NodeBackedCProgramTerm<
+    Input,
+    Output,
+    SourceNodes,
+    readonly [TargetNode],
+    Roles,
+    Cardinality
+  >;
+  readonly [NODE_BACKED_C_BINDING_AUTHORITY]: true;
+}
+
 export type COfTerm<
   Input,
   Output,
@@ -194,11 +272,46 @@ export type COfTerm<
   readonly fibre: Fibre;
 };
 
+export type NodeBackedCOfTerm<
+  Input,
+  Output,
+  InputNodes extends NonEmptyTypedNodeTuple,
+  OutputNodes extends NonEmptyTypedNodeTuple,
+  Role extends string,
+  Fibre extends CAlgebraRegime,
+  Cardinality extends "zero" | "one"
+> = COfTerm<Input, Output, Role, Fibre, Cardinality> &
+  NodeBackedCProgramTerm<
+    Input,
+    Output,
+    InputNodes,
+    OutputNodes,
+    Role,
+    Cardinality
+  >;
+
 type SomeCProgramTerm = CProgramNode & {
   readonly [C_TERM_TYPE]: object;
 };
 
+type SomeNodeBackedCProgramTerm = SomeCProgramTerm & {
+  readonly [NODE_BACKED_C_AUTHORITY]: object;
+};
+
+type OrdinaryCProgramTerm = SomeCProgramTerm & {
+  readonly [NODE_BACKED_C_AUTHORITY]?: never;
+};
+
+type NonNodeCCarrier<Type> = CCarrier<Type> & {
+  readonly [C_INTERFACE_AUTHORITY]?: never;
+};
+
+type ExactTypedNodeTuple<Nodes extends NonEmptyTypedNodeTuple> =
+  NonEmptyTypedNodeTuple extends Nodes ? never : unknown;
+
 type SomeCOfTerm = COfNode & SomeCProgramTerm;
+
+type SomeNodeBackedCOfTerm = COfNode & SomeNodeBackedCProgramTerm;
 
 export type CInputOf<Term> = Term extends {
   readonly [C_TERM_TYPE]: {
@@ -230,6 +343,26 @@ export type CResultCardinalityOf<Term> = Term extends {
   };
 }
   ? Extract<Cardinality, CAlgebraResultCardinality>
+  : never;
+
+export type CInputNodesOf<Term> = Term extends {
+  readonly [NODE_BACKED_C_AUTHORITY]: {
+    readonly input: CInterfaceCarrier<infer Value, infer Nodes>;
+  };
+}
+  ? [Value] extends [unknown]
+    ? Nodes
+    : never
+  : never;
+
+export type COutputNodesOf<Term> = Term extends {
+  readonly [NODE_BACKED_C_AUTHORITY]: {
+    readonly output: CInterfaceCarrier<infer Value, infer Nodes>;
+  };
+}
+  ? [Value] extends [unknown]
+    ? Nodes
+    : never
   : never;
 
 type NonEmptyLiteral<Value extends string> = string extends Value
@@ -425,14 +558,210 @@ function assertNativeCCarrier(value: object, label: string): void {
   }
 }
 
+function isCInterfaceCarrier(value: object): boolean {
+  return Object.hasOwn(value, C_INTERFACE_AUTHORITY);
+}
+
+function assertCInterfaceCarrier<
+  Value,
+  Nodes extends NonEmptyTypedNodeTuple
+>(
+  value: CInterfaceCarrier<Value, Nodes>,
+  label: string
+): void {
+  assertNativeCCarrier(value, label);
+  if (!isCInterfaceCarrier(value)) {
+    throw new TypeError(
+      `${label} must be created from a constructor-owned TypedInterface`
+    );
+  }
+  assertTypedInterface(value.interface, `${label}.interface`);
+  if (value.ref !== value.interface.interfaceRef) {
+    throw new TypeError(`${label} ref does not match its typed interface`);
+  }
+}
+
+function sameTypedInterface(
+  left: {
+    readonly interfaceRef: string;
+    readonly orderedNodeRefs: readonly string[];
+    readonly orderedNodeContractKeys: readonly string[];
+  },
+  right: {
+    readonly interfaceRef: string;
+    readonly orderedNodeRefs: readonly string[];
+    readonly orderedNodeContractKeys: readonly string[];
+  }
+): boolean {
+  return (
+    left.interfaceRef === right.interfaceRef &&
+    JSON.stringify(left.orderedNodeRefs) ===
+      JSON.stringify(right.orderedNodeRefs) &&
+    JSON.stringify(left.orderedNodeContractKeys) ===
+      JSON.stringify(right.orderedNodeContractKeys)
+  );
+}
+
+function exactInterfaceNodes(
+  nodes: readonly Node[],
+  boundary: {
+    readonly orderedNodeRefs: readonly string[];
+    readonly orderedNodeContractKeys: readonly string[];
+  }
+): boolean {
+  return (
+    nodes.length === boundary.orderedNodeRefs.length &&
+    nodes.every(
+      (node, index) =>
+        node.id === boundary.orderedNodeRefs[index] &&
+        nodeContractKey(admitNode(node, "C exact interface Node")) ===
+          boundary.orderedNodeContractKeys[index]
+    )
+  );
+}
+
 function assertNativeCTerm(value: object, label: string): void {
   if (!Object.hasOwn(value, C_TERM_TYPE)) {
     throw new TypeError(`${label} must be created by a C constructor`);
   }
 }
 
-function freezeNativeCTerm<Term extends SomeCProgramTerm>(term: Term): Term {
+function isNodeBackedCTerm(value: object): boolean {
+  return Object.hasOwn(value, NODE_BACKED_C_AUTHORITY);
+}
+
+function assertNodeBackedCTerm<
+  Input,
+  Output,
+  InputNodes extends NonEmptyTypedNodeTuple,
+  OutputNodes extends NonEmptyTypedNodeTuple,
+  Roles extends string,
+  Cardinality extends CAlgebraResultCardinality
+>(
+  value: NodeBackedCProgramTerm<
+    Input,
+    Output,
+    InputNodes,
+    OutputNodes,
+    Roles,
+    Cardinality
+  >,
+  label: string
+): void {
+  assertNativeCTerm(value, label);
+  if (!isNodeBackedCTerm(value)) {
+    throw new TypeError(
+      `${label} must be created by a Node-backed C constructor`
+    );
+  }
+  const authority = value[NODE_BACKED_C_AUTHORITY];
+  assertCInterfaceCarrier(authority.input, `${label}.input`);
+  assertCInterfaceCarrier(authority.output, `${label}.output`);
+  if (
+    value.inputCarrierRef !== authority.input.ref ||
+    value.outputCarrierRef !== authority.output.ref
+  ) {
+    throw new TypeError(`${label} carrier refs do not match its Node witnesses`);
+  }
+}
+
+function assertMatchingNodeBackedMode(
+  values: readonly object[],
+  label: string
+): boolean {
+  const modes = values.map(isNodeBackedCTerm);
+  if (modes.some(Boolean) && !modes.every(Boolean)) {
+    throw new TypeError(
+      `${label} cannot mix ordinary and Node-backed C terms`
+    );
+  }
+  return modes.every(Boolean);
+}
+
+interface RuntimeNodeBackedAuthority {
+  readonly input: object;
+  readonly output: object;
+}
+
+interface RuntimeTypedInterfaceIdentity {
+  readonly interfaceRef: string;
+  readonly orderedNodeRefs: readonly string[];
+  readonly orderedNodeContractKeys: readonly string[];
+}
+
+function interfaceIdentityFromCarrier(
+  carrier: object,
+  label: string
+): RuntimeTypedInterfaceIdentity {
+  if (!isCInterfaceCarrier(carrier)) {
+    throw new TypeError(`${label} is not a C interface carrier`);
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(carrier, "interface");
+  const boundary: unknown = descriptor?.value;
+  if (!isPlainRecord(boundary)) {
+    throw new TypeError(`${label} has no typed interface`);
+  }
+  const interfaceRef = boundary["interfaceRef"];
+  const orderedNodeRefs = boundary["orderedNodeRefs"];
+  const orderedNodeContractKeys = boundary["orderedNodeContractKeys"];
+  if (
+    typeof interfaceRef !== "string" ||
+    !Array.isArray(orderedNodeRefs) ||
+    !orderedNodeRefs.every((value) => typeof value === "string") ||
+    !Array.isArray(orderedNodeContractKeys) ||
+    !orderedNodeContractKeys.every((value) => typeof value === "string")
+  ) {
+    throw new TypeError(`${label} has an invalid typed interface identity`);
+  }
+  return Object.freeze({
+    interfaceRef,
+    orderedNodeRefs: Object.freeze([...orderedNodeRefs]),
+    orderedNodeContractKeys: Object.freeze([...orderedNodeContractKeys])
+  });
+}
+
+function nodeBackedAuthority(
+  value: object,
+  label: string
+): RuntimeNodeBackedAuthority {
+  if (!isNodeBackedCTerm(value)) {
+    throw new TypeError(`${label} is not a Node-backed C term`);
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(
+    value,
+    NODE_BACKED_C_AUTHORITY
+  );
+  const candidate: unknown = descriptor?.value;
+  if (!isPlainRecord(candidate)) {
+    throw new TypeError(`${label} has invalid Node-backed authority`);
+  }
+  const input = candidate["input"];
+  const output = candidate["output"];
+  if (
+    typeof input !== "object" ||
+    input === null ||
+    typeof output !== "object" ||
+    output === null
+  ) {
+    throw new TypeError(`${label} has invalid Node-backed interfaces`);
+  }
+  return Object.freeze({ input, output });
+}
+
+function freezeNativeCTerm<Term extends SomeCProgramTerm>(
+  term: Term,
+  nodeAuthority?: {
+    readonly input: object;
+    readonly output: object;
+  }
+): Term {
   Object.defineProperty(term, C_TERM_TYPE, { enumerable: false });
+  if (nodeAuthority !== undefined) {
+    Object.defineProperty(term, NODE_BACKED_C_AUTHORITY, {
+      value: Object.freeze(nodeAuthority),
+      enumerable: false
+    });
+  }
   return Object.freeze(term);
 }
 
@@ -482,51 +811,136 @@ export function cCarrier<Type>(ref: string): CCarrier<Type> {
 }
 
 export function cInterfaceContractRef(nodes: readonly Node[]): string {
-  if (nodes.length === 0) {
-    throw new TypeError("C interface carrier requires at least one Node");
-  }
-  const admittedNodes = Object.freeze(
-    nodes.map((node, index) => admitNode(node, `C interface Node[${index}]`))
-  );
-  return `gtl.c.interface-contract:${stableSha256Digest({
-    orderedNodeContractKeys: interfaceContract(admittedNodes)
-  })}`;
+  return deriveNodeInterfaceContractRef(nodes, "C interface carrier");
 }
 
-export function cInterfaceCarrier<Type>(
-  nodes: readonly Node[]
-): CCarrier<Type> {
-  return cCarrier<Type>(cInterfaceContractRef(nodes));
+export function cInterfaceCarrier<
+  Value,
+  const Nodes extends NonEmptyTypedNodeTuple
+>(
+  boundary: TypedInterface<Value, Nodes> & ExactTypedNodeTuple<Nodes>
+): CInterfaceCarrier<Value, Nodes> {
+  assertTypedInterface(boundary, "cInterfaceCarrier.boundary");
+  const carrier: CInterfaceCarrier<Value, Nodes> = {
+    kind: "c_carrier",
+    ref: boundary.interfaceRef,
+    interface: boundary,
+    [C_CARRIER_TYPE]: (value: Value): Value => value,
+    [C_INTERFACE_AUTHORITY]: true
+  };
+  Object.defineProperty(carrier, C_CARRIER_TYPE, { enumerable: false });
+  Object.defineProperty(carrier, C_INTERFACE_AUTHORITY, { enumerable: false });
+  return Object.freeze(carrier);
 }
 
-export function cGraphFunctionRef<Input, Output>(input: {
+export function cGraphFunctionRef<
+  Input,
+  Output,
+  const InputNodes extends NonEmptyTypedNodeTuple,
+  const OutputNodes extends NonEmptyTypedNodeTuple
+>(input: {
   readonly graphFunction: GraphFunction;
-  readonly input: CCarrier<Input>;
-  readonly output: CCarrier<Output>;
-}): CGraphFunctionRef<Input, Output> {
+  readonly input: TypedInterface<Input, InputNodes> &
+    ExactTypedNodeTuple<InputNodes>;
+  readonly output: TypedInterface<Output, OutputNodes> &
+    ExactTypedNodeTuple<OutputNodes>;
+}): NodeBackedCGraphFunctionRef<
+  Input,
+  Output,
+  InputNodes,
+  OutputNodes
+> {
   if (!isAdmittedGraphFunction(input.graphFunction)) {
     throw new TypeError(
       "C graph-function ref requires a constructor-admitted GraphFunction"
     );
   }
-  assertNativeCCarrier(input.input, "C graph-function ref input");
-  assertNativeCCarrier(input.output, "C graph-function ref output");
-  const reference: CGraphFunctionRef<Input, Output> = {
+  assertTypedInterface(input.input, "C graph-function ref input");
+  assertTypedInterface(input.output, "C graph-function ref output");
+  if (
+    !exactInterfaceNodes(input.graphFunction.inputs, input.input) ||
+    !exactInterfaceNodes(input.graphFunction.outputs, input.output)
+  ) {
+    throw new TypeError(
+      "C graph-function ref requires exact ordered input and output Node witnesses"
+    );
+  }
+  const inputCarrier = cInterfaceCarrier(input.input);
+  const outputCarrier = cInterfaceCarrier(input.output);
+  const reference: NodeBackedCGraphFunctionRef<
+    Input,
+    Output,
+    InputNodes,
+    OutputNodes
+  > = {
     kind: "c_graph_function_ref",
     ref: input.graphFunction.id,
-    inputCarrierRef: input.input.ref,
-    outputCarrierRef: input.output.ref,
+    inputCarrierRef: inputCarrier.ref,
+    outputCarrierRef: outputCarrier.ref,
     [C_GRAPH_FUNCTION_REF_TYPE]: Object.freeze({
       input: (value: Input): Input => value,
       output: (value: Output): Output => value
+    }),
+    [NODE_BACKED_C_REF_AUTHORITY]: Object.freeze({
+      input: inputCarrier,
+      output: outputCarrier
     })
   };
   Object.defineProperty(reference, C_GRAPH_FUNCTION_REF_TYPE, {
     enumerable: false
   });
+  Object.defineProperty(reference, NODE_BACKED_C_REF_AUTHORITY, {
+    enumerable: false
+  });
   return Object.freeze(reference);
 }
 
+export function cOf<
+  Input,
+  Output,
+  const InputNodes extends NonEmptyTypedNodeTuple,
+  const OutputNodes extends NonEmptyTypedNodeTuple,
+  const Role extends string,
+  const Fibre extends CAlgebraRegime,
+  const ResultBearing extends boolean
+>(input: {
+  readonly input: CInterfaceCarrier<Input, InputNodes>;
+  readonly output: CInterfaceCarrier<Output, OutputNodes>;
+  readonly stageRole: NonEmptyLiteral<Role>;
+  readonly fibre: Fibre;
+  readonly armId: string;
+  readonly resultBearing: ResultBearing;
+  readonly instructionCategoryRefs?: readonly string[] | undefined;
+}): NodeBackedCOfTerm<
+  Input,
+  Output,
+  InputNodes,
+  OutputNodes,
+  Role,
+  Fibre,
+  ResultBearing extends true ? "one" : "zero"
+>;
+export function cOf<
+  Input,
+  Output,
+  const Role extends string,
+  const Fibre extends CAlgebraRegime,
+  const ResultBearing extends boolean
+>(input: {
+  readonly input: NonNodeCCarrier<Input>;
+  readonly output: NonNodeCCarrier<Output>;
+  readonly stageRole: NonEmptyLiteral<Role>;
+  readonly fibre: Fibre;
+  readonly armId: string;
+  readonly resultBearing: ResultBearing;
+  readonly instructionCategoryRefs?: readonly string[] | undefined;
+}): COfTerm<
+  Input,
+  Output,
+  Role,
+  Fibre,
+  ResultBearing extends true ? "one" : "zero"
+>;
 export function cOf<
   Input,
   Output,
@@ -550,6 +964,13 @@ export function cOf<
 > {
   assertNativeCCarrier(input.input, "C.of input");
   assertNativeCCarrier(input.output, "C.of output");
+  const inputIsNodeBacked = isCInterfaceCarrier(input.input);
+  const outputIsNodeBacked = isCInterfaceCarrier(input.output);
+  if (inputIsNodeBacked !== outputIsNodeBacked) {
+    throw new TypeError(
+      "C.of cannot mix ordinary and Node-backed interface carriers"
+    );
+  }
   const stageRole = requireNonEmpty(input.stageRole, "C.of stageRole");
   const armId = requireNonEmpty(input.armId, "C.of armId");
   if (!C_ALGEBRA_REGIME_VALUES.includes(input.fibre)) {
@@ -587,9 +1008,23 @@ export function cOf<
       ResultBearing extends true ? "one" : "zero"
     >()
   };
-  return freezeNativeCTerm(term);
+  return freezeNativeCTerm(
+    term,
+    inputIsNodeBacked
+      ? { input: input.input, output: input.output }
+      : undefined
+  );
 }
 
+export function cIdentity<
+  Type,
+  const Nodes extends NonEmptyTypedNodeTuple
+>(
+  carrier: CInterfaceCarrier<Type, Nodes>
+): NodeBackedCProgramTerm<Type, Type, Nodes, Nodes, never, "zero">;
+export function cIdentity<Type>(
+  carrier: NonNodeCCarrier<Type>
+): CProgramTerm<Type, Type, never, "zero">;
 export function cIdentity<Type>(
   carrier: CCarrier<Type>
 ): CProgramTerm<Type, Type, never, "zero"> {
@@ -600,9 +1035,48 @@ export function cIdentity<Type>(
     outputCarrierRef: carrier.ref,
     [C_TERM_TYPE]: cTermWitness<Type, Type, never, "zero">()
   };
-  return freezeNativeCTerm(term);
+  return freezeNativeCTerm(
+    term,
+    isCInterfaceCarrier(carrier)
+      ? { input: carrier, output: carrier }
+      : undefined
+  );
 }
 
+export function cCompose<
+  Left extends SomeNodeBackedCProgramTerm,
+  Right extends SomeNodeBackedCProgramTerm
+>(
+  left: Left,
+  right: Right &
+    ExactType<COutputOf<Left>, CInputOf<Right>> &
+    ExactType<COutputNodesOf<Left>, CInputNodesOf<Right>>
+): NodeBackedCProgramTerm<
+  CInputOf<Left>,
+  COutputOf<Right>,
+  CInputNodesOf<Left>,
+  COutputNodesOf<Right>,
+  CRolesOf<Left> | CRolesOf<Right>,
+  CombineResultCardinality<
+    CResultCardinalityOf<Left>,
+    CResultCardinalityOf<Right>
+  >
+>;
+export function cCompose<
+  Left extends OrdinaryCProgramTerm,
+  Right extends OrdinaryCProgramTerm
+>(
+  left: Left,
+  right: Right & ExactType<COutputOf<Left>, CInputOf<Right>>
+): CProgramTerm<
+  CInputOf<Left>,
+  COutputOf<Right>,
+  CRolesOf<Left> | CRolesOf<Right>,
+  CombineResultCardinality<
+    CResultCardinalityOf<Left>,
+    CResultCardinalityOf<Right>
+  >
+>;
 export function cCompose<
   Left extends SomeCProgramTerm,
   Right extends SomeCProgramTerm
@@ -620,6 +1094,10 @@ export function cCompose<
 > {
   assertNativeCTerm(left, "C.compose left");
   assertNativeCTerm(right, "C.compose right");
+  const nodeBacked = assertMatchingNodeBackedMode(
+    [left, right],
+    "C.compose"
+  );
   if (left.outputCarrierRef !== right.inputCarrierRef) {
     throw new TypeError(
       `C.compose carrier mismatch: ${left.outputCarrierRef} != ${right.inputCarrierRef}`
@@ -649,9 +1127,83 @@ export function cCompose<
       >
     >()
   };
-  return freezeNativeCTerm(term);
+  if (!nodeBacked) {
+    return freezeNativeCTerm(term);
+  }
+  const leftAuthority = nodeBackedAuthority(left, "C.compose left");
+  const rightAuthority = nodeBackedAuthority(right, "C.compose right");
+  if (
+    !sameTypedInterface(
+      interfaceIdentityFromCarrier(
+        leftAuthority.output,
+        "C.compose left output"
+      ),
+      interfaceIdentityFromCarrier(
+        rightAuthority.input,
+        "C.compose right input"
+      )
+    )
+  ) {
+    throw new TypeError("C.compose typed middle interfaces do not match");
+  }
+  return freezeNativeCTerm(term, {
+    input: leftAuthority.input,
+    output: rightAuthority.output
+  });
 }
 
+export function cEdge<
+  Transform extends SomeNodeBackedCOfTerm,
+  Evaluate extends SomeNodeBackedCOfTerm,
+  Consequence extends SomeNodeBackedCOfTerm
+>(input: {
+  readonly transform: Transform & ExactRole<Transform, "transform">;
+  readonly evaluate: Evaluate &
+    ExactRole<Evaluate, "evaluate"> &
+    ExactType<COutputOf<Transform>, CInputOf<Evaluate>> &
+    ExactType<COutputNodesOf<Transform>, CInputNodesOf<Evaluate>>;
+  readonly consequence: Consequence &
+    ExactRole<Consequence, "consequence"> &
+    ExactType<COutputOf<Evaluate>, CInputOf<Consequence>> &
+    ExactType<COutputNodesOf<Evaluate>, CInputNodesOf<Consequence>>;
+}): NodeBackedCProgramTerm<
+  CInputOf<Transform>,
+  COutputOf<Consequence>,
+  CInputNodesOf<Transform>,
+  COutputNodesOf<Consequence>,
+  "transform" | "evaluate" | "consequence",
+  CombineResultCardinality<
+    CombineResultCardinality<
+      CResultCardinalityOf<Transform>,
+      CResultCardinalityOf<Evaluate>
+    >,
+    CResultCardinalityOf<Consequence>
+  >
+>;
+export function cEdge<
+  Transform extends SomeCOfTerm & OrdinaryCProgramTerm,
+  Evaluate extends SomeCOfTerm & OrdinaryCProgramTerm,
+  Consequence extends SomeCOfTerm & OrdinaryCProgramTerm
+>(input: {
+  readonly transform: Transform & ExactRole<Transform, "transform">;
+  readonly evaluate: Evaluate &
+    ExactRole<Evaluate, "evaluate"> &
+    ExactType<COutputOf<Transform>, CInputOf<Evaluate>>;
+  readonly consequence: Consequence &
+    ExactRole<Consequence, "consequence"> &
+    ExactType<COutputOf<Evaluate>, CInputOf<Consequence>>;
+}): CProgramTerm<
+  CInputOf<Transform>,
+  COutputOf<Consequence>,
+  "transform" | "evaluate" | "consequence",
+  CombineResultCardinality<
+    CombineResultCardinality<
+      CResultCardinalityOf<Transform>,
+      CResultCardinalityOf<Evaluate>
+    >,
+    CResultCardinalityOf<Consequence>
+  >
+>;
 export function cEdge<
   Transform extends SomeCOfTerm,
   Evaluate extends SomeCOfTerm,
@@ -681,6 +1233,10 @@ export function cEdge<
     ["evaluate", input.evaluate],
     ["consequence", input.consequence]
   ] as const;
+  const nodeBacked = assertMatchingNodeBackedMode(
+    roleTerms.map(([, term]) => term),
+    "C.edge"
+  );
   for (const [role, term] of roleTerms) {
     assertNativeCTerm(term, `C.edge ${role}`);
     if (term.stageRole !== role) {
@@ -726,17 +1282,83 @@ export function cEdge<
       >
     >()
   };
-  return freezeNativeCTerm(term);
+  if (!nodeBacked) {
+    return freezeNativeCTerm(term);
+  }
+  const transformAuthority = nodeBackedAuthority(
+    input.transform,
+    "C.edge transform"
+  );
+  const evaluateAuthority = nodeBackedAuthority(
+    input.evaluate,
+    "C.edge evaluate"
+  );
+  const consequenceAuthority = nodeBackedAuthority(
+    input.consequence,
+    "C.edge consequence"
+  );
+  if (
+    !sameTypedInterface(
+      interfaceIdentityFromCarrier(transformAuthority.output, "C.edge transform output"),
+      interfaceIdentityFromCarrier(evaluateAuthority.input, "C.edge evaluate input")
+    ) ||
+    !sameTypedInterface(
+      interfaceIdentityFromCarrier(evaluateAuthority.output, "C.edge evaluate output"),
+      interfaceIdentityFromCarrier(consequenceAuthority.input, "C.edge consequence input")
+    )
+  ) {
+    throw new TypeError("C.edge adjacent typed interfaces do not match");
+  }
+  return freezeNativeCTerm(term, {
+    input: transformAuthority.input,
+    output: consequenceAuthority.output
+  });
 }
 
-export function cWorkflow<Input, Output>(
-  graphFunction: CGraphFunctionRef<Input, Output>
+export function cWorkflow<
+  Input,
+  Output,
+  const InputNodes extends NonEmptyTypedNodeTuple,
+  const OutputNodes extends NonEmptyTypedNodeTuple
+>(
+  graphFunction: NodeBackedCGraphFunctionRef<
+    Input,
+    Output,
+    InputNodes,
+    OutputNodes
+  >
+): NodeBackedCProgramTerm<
+  Input,
+  Output,
+  InputNodes,
+  OutputNodes,
+  never,
+  "unknown"
+>;
+export function cWorkflow<
+  Input,
+  Output,
+  const InputNodes extends NonEmptyTypedNodeTuple,
+  const OutputNodes extends NonEmptyTypedNodeTuple
+>(
+  graphFunction: NodeBackedCGraphFunctionRef<
+    Input,
+    Output,
+    InputNodes,
+    OutputNodes
+  >
 ): CProgramTerm<Input, Output, never, "unknown"> {
-  if (!Object.hasOwn(graphFunction, C_GRAPH_FUNCTION_REF_TYPE)) {
+  if (
+    !Object.hasOwn(graphFunction, C_GRAPH_FUNCTION_REF_TYPE) ||
+    !Object.hasOwn(graphFunction, NODE_BACKED_C_REF_AUTHORITY)
+  ) {
     throw new TypeError(
-      "workflow.C requires a ref created by cGraphFunctionRef"
+      "workflow.C requires a Node-backed ref created by cGraphFunctionRef"
     );
   }
+  const authority = graphFunction[NODE_BACKED_C_REF_AUTHORITY];
+  assertCInterfaceCarrier(authority.input, "workflow.C input");
+  assertCInterfaceCarrier(authority.output, "workflow.C output");
   const term: CProgramTerm<Input, Output, never, "unknown"> = {
     kind: "c_workflow",
     inputCarrierRef: graphFunction.inputCarrierRef,
@@ -744,7 +1366,7 @@ export function cWorkflow<Input, Output>(
     graphFunctionRef: requireNonEmpty(graphFunction.ref, "workflow.C ref"),
     [C_TERM_TYPE]: cTermWitness<Input, Output, never, "unknown">()
   };
-  return freezeNativeCTerm(term);
+  return freezeNativeCTerm(term, authority);
 }
 
 type CompatibleBatchRest<
@@ -760,11 +1382,54 @@ type CompatibleBatchRest<
     >;
 };
 
+type CompatibleNodeBackedBatchRest<
+  First extends SomeNodeBackedCProgramTerm,
+  Rest extends readonly SomeNodeBackedCProgramTerm[]
+> = {
+  readonly [Index in keyof Rest]: Rest[Index] &
+    ExactType<CInputOf<First>, CInputOf<Rest[Index]>> &
+    ExactType<COutputOf<First>, COutputOf<Rest[Index]>> &
+    ExactType<CInputNodesOf<First>, CInputNodesOf<Rest[Index]>> &
+    ExactType<COutputNodesOf<First>, COutputNodesOf<Rest[Index]>> &
+    ExactType<
+      CResultCardinalityOf<First>,
+      CResultCardinalityOf<Rest[Index]>
+    >;
+};
+
 type BatchRoles<
   First extends SomeCProgramTerm,
   Rest extends readonly SomeCProgramTerm[]
 > = CRolesOf<First> | CRolesOf<Rest[number]>;
 
+export function cBatch<
+  First extends SomeNodeBackedCProgramTerm,
+  const Rest extends readonly SomeNodeBackedCProgramTerm[]
+>(
+  tasks: readonly [First, ...Rest] &
+    readonly [First, ...CompatibleNodeBackedBatchRest<First, Rest>],
+  batchRef: string
+): NodeBackedCProgramTerm<
+  CInputOf<First>,
+  COutputOf<First>,
+  CInputNodesOf<First>,
+  COutputNodesOf<First>,
+  BatchRoles<First, Rest>,
+  CResultCardinalityOf<First>
+>;
+export function cBatch<
+  First extends OrdinaryCProgramTerm,
+  const Rest extends readonly OrdinaryCProgramTerm[]
+>(
+  tasks: readonly [First, ...Rest] &
+    readonly [First, ...CompatibleBatchRest<First, Rest>],
+  batchRef: string
+): CProgramTerm<
+  CInputOf<First>,
+  COutputOf<First>,
+  BatchRoles<First, Rest>,
+  CResultCardinalityOf<First>
+>;
 export function cBatch<
   First extends SomeCProgramTerm,
   const Rest extends readonly SomeCProgramTerm[]
@@ -781,6 +1446,7 @@ export function cBatch<
   if (tasks.length === 0) {
     throw new TypeError("C.batch tasks must be non-empty");
   }
+  const nodeBacked = assertMatchingNodeBackedMode(tasks, "C.batch");
   const head = tasks[0];
   for (const [index, task] of tasks.entries()) {
     assertNativeCTerm(task, `C.batch tasks[${index}]`);
@@ -820,9 +1486,67 @@ export function cBatch<
       CResultCardinalityOf<First>
     >()
   };
-  return freezeNativeCTerm(term);
+  if (!nodeBacked) {
+    return freezeNativeCTerm(term);
+  }
+  const headAuthority = nodeBackedAuthority(head, "C.batch tasks[0]");
+  const inputIdentity = interfaceIdentityFromCarrier(
+    headAuthority.input,
+    "C.batch tasks[0] input"
+  );
+  const outputIdentity = interfaceIdentityFromCarrier(
+    headAuthority.output,
+    "C.batch tasks[0] output"
+  );
+  for (const [index, task] of tasks.entries()) {
+    const authority = nodeBackedAuthority(
+      task,
+      `C.batch tasks[${String(index)}]`
+    );
+    if (
+      !sameTypedInterface(
+        inputIdentity,
+        interfaceIdentityFromCarrier(
+          authority.input,
+          `C.batch tasks[${String(index)}] input`
+        )
+      ) ||
+      !sameTypedInterface(
+        outputIdentity,
+        interfaceIdentityFromCarrier(
+          authority.output,
+          `C.batch tasks[${String(index)}] output`
+        )
+      )
+    ) {
+      throw new TypeError(
+        `C.batch tasks[${String(index)}] typed interfaces do not match tasks[0]`
+      );
+    }
+  }
+  return freezeNativeCTerm(term, headAuthority);
 }
 
+export function cRetry<Term extends SomeCProgramTerm>(
+  term: Term,
+  budget: number
+): Term extends SomeNodeBackedCProgramTerm
+  ? NodeBackedCProgramTerm<
+      CInputOf<Term>,
+      COutputOf<Term>,
+      CInputNodesOf<Term>,
+      COutputNodesOf<Term>,
+      CRolesOf<Term>,
+      CResultCardinalityOf<Term>
+    >
+  : Term extends OrdinaryCProgramTerm
+    ? CProgramTerm<
+        CInputOf<Term>,
+        COutputOf<Term>,
+        CRolesOf<Term>,
+        CResultCardinalityOf<Term>
+      >
+    : never;
 export function cRetry<Term extends SomeCProgramTerm>(
   term: Term,
   budget: number
@@ -854,7 +1578,12 @@ export function cRetry<Term extends SomeCProgramTerm>(
       CResultCardinalityOf<Term>
     >()
   };
-  return freezeNativeCTerm(result);
+  return freezeNativeCTerm(
+    result,
+    isNodeBackedCTerm(term)
+      ? nodeBackedAuthority(term, "C.retry term")
+      : undefined
+  );
 }
 
 type AdmissibleProgramTerm<Term extends SomeCProgramTerm> =
@@ -896,6 +1625,88 @@ export function declareCProgram<Term extends SomeCProgramTerm>(input: {
   };
   Object.defineProperty(program, C_PROGRAM_TYPE, { enumerable: false });
   return freezeAdmittedCProgram(program);
+}
+
+export function bindGraphVectorCProgram<
+  Input,
+  Output,
+  const SourceNodes extends NonEmptyTypedNodeTuple,
+  TargetNode extends TypedNode<Output>,
+  Roles extends string,
+  Cardinality extends CAlgebraResultCardinality
+>(input: {
+  readonly graphVector: GraphVector;
+  readonly source: TypedInterface<Input, SourceNodes> &
+    ExactTypedNodeTuple<SourceNodes>;
+  readonly target: TypedInterface<Output, readonly [TargetNode]>;
+  readonly program: NodeBackedCProgramTerm<
+    Input,
+    Output,
+    SourceNodes,
+    readonly [TargetNode],
+    Roles,
+    Cardinality
+  >;
+}): NodeBackedCProgramBinding<
+  Input,
+  Output,
+  SourceNodes,
+  TargetNode,
+  Roles,
+  Cardinality
+> {
+  if (!Object.hasOwn(input.graphVector, GTL_GRAPH_VECTOR_ADMISSION)) {
+    throw new TypeError(
+      "bindGraphVectorCProgram.graphVector must be constructor-admitted"
+    );
+  }
+  assertTypedInterface(input.source, "bindGraphVectorCProgram.source");
+  assertTypedInterface(input.target, "bindGraphVectorCProgram.target");
+  if (input.target.cardinality !== 1) {
+    throw new TypeError(
+      "bindGraphVectorCProgram.target must contain exactly one TypedNode"
+    );
+  }
+  assertNodeBackedCTerm(input.program, "bindGraphVectorCProgram.program");
+  if (
+    !exactInterfaceNodes(input.graphVector.source, input.source) ||
+    !exactInterfaceNodes([input.graphVector.target], input.target)
+  ) {
+    throw new TypeError(
+      "bindGraphVectorCProgram GraphVector Nodes do not match the witnessed source and target"
+    );
+  }
+  const authority = input.program[NODE_BACKED_C_AUTHORITY];
+  if (
+    !sameTypedInterface(authority.input.interface, input.source) ||
+    !sameTypedInterface(authority.output.interface, input.target) ||
+    input.program.inputCarrierRef !== input.source.interfaceRef ||
+    input.program.outputCarrierRef !== input.target.interfaceRef
+  ) {
+    throw new TypeError(
+      "bindGraphVectorCProgram program interfaces do not match the GraphVector boundary"
+    );
+  }
+  const binding: NodeBackedCProgramBinding<
+    Input,
+    Output,
+    SourceNodes,
+    TargetNode,
+    Roles,
+    Cardinality
+  > = {
+    kind: "node_backed_c_program_binding",
+    graphVector: input.graphVector,
+    graphVectorRef: input.graphVector.id,
+    source: input.source,
+    target: input.target,
+    program: input.program,
+    [NODE_BACKED_C_BINDING_AUTHORITY]: true
+  };
+  Object.defineProperty(binding, NODE_BACKED_C_BINDING_AUTHORITY, {
+    enumerable: false
+  });
+  return Object.freeze(binding);
 }
 
 export const C = Object.freeze({

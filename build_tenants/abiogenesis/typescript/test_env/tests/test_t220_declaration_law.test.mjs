@@ -5,7 +5,6 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  cCarrier,
   cGraphFunctionRef,
   cProgramGraphFunctionDeclarations,
   declareCProgram,
@@ -28,6 +27,8 @@ import {
   graphVectorDeclarations,
   hogProgramRefDeclarationEntry,
   registeredGtlExecutionDeclarationLaw,
+  typedInterface,
+  typedNode,
   typecheckGtlProgram
 } from "../../build/semantic/code/src/index.js";
 import { workflow } from "../../build/semantic/code/src/gtl/m01/algebra/c_algebra.js";
@@ -43,6 +44,12 @@ function node(name) {
     assetSurface: { kind: `t220_${name}` },
     tags: ["t220"]
   });
+}
+
+function typedGraphFunctionBoundary(nodes) {
+  return typedInterface(
+    ...nodes.map((value) => typedNode({ node: value, decode: (raw) => raw }))
+  );
 }
 
 function vectorFixture(declarations = graphVectorDeclarations([])) {
@@ -433,8 +440,8 @@ test("T-220 declaration-law type surface rejects impossible host states", () => 
 
 test("T-220 semantic compiler reports lawful unrealized C algebra to the LLM repair loop", () => {
   const graphFunction = graphFunctionFixture();
-  const input = cCarrier("carrier://t220/compiler-input");
-  const output = cCarrier("carrier://t220/compiler-output");
+  const input = typedGraphFunctionBoundary(graphFunction.inputs);
+  const output = typedGraphFunctionBoundary(graphFunction.outputs);
   const program = declareCProgram({
     programRef: "gtl://t220/compiler-workflow",
     term: workflow.C(cGraphFunctionRef({ graphFunction, input, output }))
@@ -465,8 +472,8 @@ test("T-220 semantic compiler reports lawful unrealized C algebra to the LLM rep
 
 test("T-220 semantic compiler rejects unresolved workflow refs before realization", () => {
   const graphFunction = graphFunctionFixture();
-  const input = cCarrier("carrier://t220/unresolved-input");
-  const output = cCarrier("carrier://t220/unresolved-output");
+  const input = typedGraphFunctionBoundary(graphFunction.inputs);
+  const output = typedGraphFunctionBoundary(graphFunction.outputs);
   const missingGraphFunction = constructGraphFunction({
     ...graphFunction,
     name: "graph-function://t220/missing",

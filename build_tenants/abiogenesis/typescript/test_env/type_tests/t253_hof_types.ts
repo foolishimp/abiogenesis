@@ -10,6 +10,10 @@ import type {
   HofContract,
   HofUnaryRef
 } from "../../code/src/gtl/m01/algebra/hof.js";
+import {
+  typedNode,
+  typedVectorNode
+} from "../../code/src/gtl/m01/algebra/native_node_witness.js";
 import type {
   GraphFunction,
   Node
@@ -36,17 +40,43 @@ declare const unrelatedVectorNode: Node;
 declare const childGraphFunction: GraphFunction;
 declare const identityGraphFunction: GraphFunction;
 
-const inputContract = hofContract<LabObservation>(inputNode);
-const outputContract = hofContract<NormalizedObservation>(outputNode);
-const unrelatedContract = hofContract<UnrelatedObservation>(unrelatedNode);
-const inputVector = hofVector(inputVectorNode, inputContract);
-const outputVector = hofVector(outputVectorNode, outputContract);
-const unrelatedVector = hofVector(unrelatedVectorNode, unrelatedContract);
-const child = hofUnaryRef(
-  childGraphFunction,
-  inputContract,
-  outputContract
-);
+const inputWitness = typedNode({
+  node: inputNode,
+  decode: (_raw: unknown): LabObservation => ({ sample: "" })
+});
+const outputWitness = typedNode({
+  node: outputNode,
+  decode: (_raw: unknown): NormalizedObservation => ({ normalized: "" })
+});
+const unrelatedWitness = typedNode({
+  node: unrelatedNode,
+  decode: (_raw: unknown): UnrelatedObservation => ({ unrelated: true })
+});
+const inputContract = hofContract(inputWitness);
+const outputContract = hofContract(outputWitness);
+const inputVectorWitness = typedVectorNode({
+  node: inputVectorNode,
+  member: inputWitness,
+  decode: (_raw: unknown): readonly LabObservation[] => []
+});
+const outputVectorWitness = typedVectorNode({
+  node: outputVectorNode,
+  member: outputWitness,
+  decode: (_raw: unknown): readonly NormalizedObservation[] => []
+});
+const unrelatedVectorWitness = typedVectorNode({
+  node: unrelatedVectorNode,
+  member: unrelatedWitness,
+  decode: (_raw: unknown): readonly UnrelatedObservation[] => []
+});
+const inputVector = hofVector(inputVectorWitness);
+const outputVector = hofVector(outputVectorWitness);
+const unrelatedVector = hofVector(unrelatedVectorWitness);
+const child = hofUnaryRef({
+  graphFunction: childGraphFunction,
+  input: inputContract,
+  output: outputContract
+});
 
 export const lawfulFanOut = fan_out(child, {
   over: inputVector,
@@ -85,15 +115,17 @@ export const mismatchedOutputVector = fan_out<
 // @ts-expect-error fan_out requires an explicit output vector boundary.
 export const missingOutputVector = fan_out(child, { over: inputVector });
 
-export const mismatchedVectorMember = hofVector<LabObservation>(
-  inputVectorNode,
-  // @ts-expect-error an output contract cannot witness the input vector member.
-  outputContract
-);
+typedVectorNode({
+  node: inputVectorNode,
+  member: outputWitness,
+  // @ts-expect-error the decoder cannot contradict the explicit member witness.
+  decode: (_raw: unknown): readonly LabObservation[] => []
+});
 
 // @ts-expect-error HOF contracts are constructor-owned and carry a private invariant brand.
 export const forgedContract: HofContract<LabObservation> = {
   kind: "hof_contract",
+  witness: inputWitness,
   node: inputNode,
   nodeRef: "node://forged",
   nodeContractKey: "forged"
@@ -111,11 +143,11 @@ export const forgedUnaryRef: HofUnaryRef<
   output: outputContract
 };
 
-const identityChild = hofUnaryRef(
-  identityGraphFunction,
-  inputContract,
-  inputContract
-);
+const identityChild = hofUnaryRef({
+  graphFunction: identityGraphFunction,
+  input: inputContract,
+  output: inputContract
+});
 
 export const explicitSameTypeRelation = fan_out(identityChild, {
   over: inputVector,

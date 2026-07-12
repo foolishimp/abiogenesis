@@ -793,43 +793,43 @@ constructor, diagnostic, or compiler names.
 
 ## Cross-View Invariants
 
-These are target design judgments. They remain `candidate` until F_H accepts
-the design and realization proves them.
+F_H accepted these design judgments before realization. T-266 realization and
+the declared proof corpus now evaluate them as `pass`.
 
 | Check | Domain evidence | Sequence evidence | State evidence | Verdict |
 |---|---|---|---|---|
-| One explicit concrete native assertion introduces `T` | TrustedNativeDecoder and TypedNode | decoder enters only M01TypedNodeConstructor | Node to TypedNode or refusal | candidate |
-| Vector member and array type join before interfaces | TypedVectorNode and M01TypedVectorNodeConstructor | VectorCtor returns exact vector witness or refusal | TypedNode to TypedVectorNode or refusal | candidate |
-| Private brands make witnesses constructor-only | private fields on witness family | constructors return or refuse branded values | refusal precedes every later state | candidate |
-| Ordinary Node remains canonical truth | Node and CanonicalGtlRoot | serializer emits ordinary GTL only | native relation erases into canonical root | candidate |
-| Multi-source order and cardinality are invariant type truth | TypedInterface's private brand consumes and returns the exact witness tuple | InterfaceCtor returns scalar or readonly tuple that cannot widen through carrier/binding APIs | TypedNode or TypedVectorNode to TypedInterface | candidate |
-| GraphVector target is singleton | exact target interface and NodeBackedCProgramBinding | AlgebraCtor compares singleton target | term binds or refuses target mismatch | candidate |
-| Node-backed C brands survive all seven generators | NodeBackedCProgramTerm | AlgebraCtor constructs and preserves interface brands | term self-transition then binding | candidate |
-| C/HOF types derive from actual Nodes | nominal carriers and exact join | AlgebraCtor compares refs keys and order | TypedInterface to NativeNodeBackedRelation | candidate |
-| Raw data cannot mint native proof | AdmittedGtlRoot has no native brand | Raw sends ordinary root only | no AdmittedGtlRoot to TypedNode path | candidate |
-| Compiler validates serialized identity only | CompilerInterfaceJudgment | M03 recomputes keys and refs | admitted root reaches accepted invalid or gap | candidate |
-| No runtime or effect boundary is added | no runtime entity | no runner or effect participant | no running state | candidate |
-| Generic proof is not demand-specific | Scenario09LabFixture | same public constructor path | same lifecycle | candidate |
+| One explicit concrete native assertion introduces `T` | TrustedNativeDecoder and TypedNode | decoder enters only M01TypedNodeConstructor | Node to TypedNode or refusal | pass |
+| Vector member and array type join before interfaces | TypedVectorNode and M01TypedVectorNodeConstructor | VectorCtor returns exact vector witness or refusal | TypedNode to TypedVectorNode or refusal | pass |
+| Private brands make witnesses constructor-only | private fields on witness family | constructors return or refuse branded values | refusal precedes every later state | pass |
+| Ordinary Node remains canonical truth | Node and CanonicalGtlRoot | serializer emits ordinary GTL only | native relation erases into canonical root | pass |
+| Multi-source order and cardinality are invariant type truth | TypedInterface's private brand consumes and returns the exact witness tuple | InterfaceCtor returns scalar or readonly tuple that cannot widen through carrier/binding APIs | TypedNode or TypedVectorNode to TypedInterface | pass |
+| GraphVector target is singleton | exact target interface and NodeBackedCProgramBinding | AlgebraCtor compares singleton target | term binds or refuses target mismatch | pass |
+| Node-backed C brands survive all seven generators | NodeBackedCProgramTerm | AlgebraCtor constructs and preserves interface brands | term self-transition then binding | pass |
+| C/HOF types derive from actual Nodes | nominal carriers and exact join | AlgebraCtor compares refs keys and order | TypedInterface to NativeNodeBackedRelation | pass |
+| Raw data cannot mint native proof | AdmittedGtlRoot has no native brand | Raw sends ordinary root only | no AdmittedGtlRoot to TypedNode path | pass |
+| Compiler validates serialized identity only | CompilerInterfaceJudgment | M03 recomputes keys and refs | admitted root reaches accepted invalid or gap | pass |
+| No runtime or effect boundary is added | no runtime entity | no runner or effect participant | no running state | pass |
+| Generic proof is not demand-specific | Scenario09LabFixture | same public constructor path | same lifecycle | pass |
 
 ## Axiom Evaluation
 
 | Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|
-| Node is the typed locus, not a rival interface ontology | NODE-001/-002; INTERFACE-001 | TypedNode wraps ordinary Node; interface is subordinate | Node precedes interface | Node to TypedNode to TypedInterface | private invariant projection | ordinary Node admission | candidate | T-266 realization |
-| `typeRef` remains optional strengthening | NODE-013..015 | witness does not alter Node | Node enters with present or absent typeRef | no typeRef-required transition | binds full present contract only | existing NODE-015 compiler law | candidate | T-266 realization |
-| Native language decides locally knowable relations | C-ALGEBRA-012 | private-branded invariant carriers | any unknown never or relation mismatch refuses before serialization | NativeTypeRefusal terminal | concrete inferred generics exact tuples nominal brands | M03 owns erased/global facts | candidate | T-266 realization |
-| Canonical authored data and raw admission preserve ordinary identity | C-ALGEBRA-013 | native projection is nonserialized | one ordinary root enters M02 | canonical to admitted | serialization projection | closed raw admission and identity recomputation | candidate | T-266 realization |
-| Raw compilation does not claim TypeScript type truth | C-ALGEBRA-013/-014 | compiler judgment has refs/keys only | decoder never reaches M02/M03 | no raw-to-native transition | native-only inference | serialized identity checks only | candidate | T-266 realization |
-| Composition middle contracts match | C-ALGEBRA-004; INTERFACE-002 | C carriers derive from exact interface | AlgebraCtor joins inferred types | mismatch to NativeTypeRefusal | compile-time invariant generics | exact interface ref comparison | candidate | T-266 realization |
-| Node-backed C closure spans all seven generators | C-ALGEBRA-001..008/-012 | NodeBackedCProgramTerm owns exact interfaces | AlgebraCtor preserves brands through of id compose edge workflow batch retry | branded term persists or refuses | nominal term family and exact middle/batch types | ordinary serialized generator set unchanged | candidate | T-266 realization |
-| GraphVector source is nonempty and target singleton | GRAPHVECTOR-003; INTERFACE-001 | TypedInterface retains tuple cardinality | binding compares source tuple and one target | wrong cardinality to NativeTypeRefusal | exact tuple and singleton generics | M03 recomputes ordinary source/target relation | candidate | T-266 realization |
-| TypedInterface tuple identity is invariant | C-ALGEBRA-012; INTERFACE-001/-002 | private brand consumes and returns exact `Nodes` | widened carrier/binding attempts refuse before serialization | no widening transition exists | invariant unique-symbol member plus negative compilation | raw route preserves exact ordered identities only | candidate | T-266 realization |
-| GraphFunction boundaries match exact ordered Nodes | C-ALGEBRA-006; GRAPHFUNCTION-002 | GraphFunction and TypedInterface both modeled | AlgebraCtor compares refs keys and order | mismatch to NativeTypeRefusal | nominal interface inputs | M03 serialized outer-boundary check | candidate | T-266 realization |
-| HOF preserves element/vector type truth | HOF-001/-005/-006 | HOF boundaries derive from TypedNode | fan-out/in consume exact witnessed relations | mismatch to NativeTypeRefusal | member/vector inference | existing HOF compiler plus exact refs | candidate | T-266 realization |
-| Generic C carrier or ordinary C term cannot impersonate Node-backed relation | C-ALGEBRA-012; one-truth law | CInterfaceCarrier and NodeBackedCProgramTerm have private nominal brands | AlgebraCtor refuses both fallbacks | fallback to NativeTypeRefusal | nonassignable nominal carrier and term types | serialized Node join still checked | candidate | T-266 realization |
-| One serialized truth surface per seam | Design Module Method | ordinary GTL is sole serialized authority | native projection erased before publication | no raw-to-native transition | one private enforcement view | one ordinary identity derivation | candidate | T-266 realization |
-| Malformed LLM-authored GTL fails before effects | C-ALGEBRA-015..017 | refusal and diagnostics modeled | native or M03 refusal | refusal/invalid terminal | negative compile corpus | negative raw corpus | candidate | T-266 realization |
-| Atom is generic | PRODUCT atom criterion; ODD Method | Scenario09LabFixture | same constructors | same states | zero demand-specific symbols | same compiler law | candidate | T-266 realization |
+| Node is the typed locus, not a rival interface ontology | NODE-001/-002; INTERFACE-001 | TypedNode wraps ordinary Node; interface is subordinate | Node precedes interface | Node to TypedNode to TypedInterface | private invariant projection | ordinary Node admission | pass | none |
+| `typeRef` remains optional strengthening | NODE-013..015 | witness does not alter Node | Node enters with present or absent typeRef | no typeRef-required transition | binds full present contract only | existing NODE-015 compiler law | pass | none |
+| Native language decides locally knowable relations | C-ALGEBRA-012 | private-branded invariant carriers | any unknown never or relation mismatch refuses before serialization | NativeTypeRefusal terminal | concrete inferred generics exact tuples nominal brands | M03 owns erased/global facts | pass | none |
+| Canonical authored data and raw admission preserve ordinary identity | C-ALGEBRA-013 | native projection is nonserialized | one ordinary root enters M02 | canonical to admitted | serialization projection | closed raw admission and identity recomputation | pass | none |
+| Raw compilation does not claim TypeScript type truth | C-ALGEBRA-013/-014 | compiler judgment has refs/keys only | decoder never reaches M02/M03 | no raw-to-native transition | native-only inference | serialized identity checks only | pass | none |
+| Composition middle contracts match | C-ALGEBRA-004; INTERFACE-002 | C carriers derive from exact interface | AlgebraCtor joins inferred types | mismatch to NativeTypeRefusal | compile-time invariant generics | exact interface ref comparison | pass | none |
+| Node-backed C closure spans all seven generators | C-ALGEBRA-001..008/-012 | NodeBackedCProgramTerm owns exact interfaces | AlgebraCtor preserves brands through of id compose edge workflow batch retry | branded term persists or refuses | nominal term family and exact middle/batch types | ordinary serialized generator set unchanged | pass | none |
+| GraphVector source is nonempty and target singleton | GRAPHVECTOR-003; INTERFACE-001 | TypedInterface retains tuple cardinality | binding compares source tuple and one target | wrong cardinality to NativeTypeRefusal | exact tuple and singleton generics | M03 recomputes ordinary source/target relation | pass | none |
+| TypedInterface tuple identity is invariant | C-ALGEBRA-012; INTERFACE-001/-002 | private brand consumes and returns exact `Nodes` | widened carrier/binding attempts refuse before serialization | no widening transition exists | invariant unique-symbol member plus negative compilation | raw route preserves exact ordered identities only | pass | none |
+| GraphFunction boundaries match exact ordered Nodes | C-ALGEBRA-006; GRAPHFUNCTION-002 | GraphFunction and TypedInterface both modeled | AlgebraCtor compares refs keys and order | mismatch to NativeTypeRefusal | nominal interface inputs | M03 serialized outer-boundary check | pass | none |
+| HOF preserves element/vector type truth | HOF-001/-005/-006 | HOF boundaries derive from TypedNode | fan-out/in consume exact witnessed relations | mismatch to NativeTypeRefusal | member/vector inference | existing HOF compiler plus exact refs | pass | none |
+| Generic C carrier or ordinary C term cannot impersonate Node-backed relation | C-ALGEBRA-012; one-truth law | CInterfaceCarrier and NodeBackedCProgramTerm have private nominal brands | AlgebraCtor refuses both fallbacks | fallback to NativeTypeRefusal | nonassignable nominal carrier and term types | serialized Node join still checked | pass | none |
+| One serialized truth surface per seam | Design Module Method | ordinary GTL is sole serialized authority | native projection erased before publication | no raw-to-native transition | one private enforcement view | one ordinary identity derivation | pass | none |
+| Malformed LLM-authored GTL fails before effects | C-ALGEBRA-015..017 | refusal and diagnostics modeled | native or M03 refusal | refusal/invalid terminal | negative compile corpus | negative raw corpus | pass | none |
+| Atom is generic | PRODUCT atom criterion; ODD Method | Scenario09LabFixture | same constructors | same states | zero demand-specific symbols | same compiler law | pass | none |
 | Public schema and decoder certification are outside this atom | REQ-P-PUBLIC-CONTRACTS; ticket boundary | no schema catalog carrier | no schema publication participant | no schema-certified state | trusted native assertion only | DS-4 later publishes schemas | not_applicable | T252 DS-4 |
 | Runtime behavior is unchanged | ticket boundary | no runtime carrier | no runtime participant | no running state | not applicable | semantic gap remains separate | not_applicable | runtime successor tickets |
 
@@ -867,6 +867,9 @@ binding API requires both exact nominal families.
 ## Design Verdict
 
 `accepted_by_fh` on 2026-07-13.
+
+`realization_evaluated_pass` on 2026-07-13 against the T-266 focused native,
+raw, compiler, packed-package, full semantic, publication, and Mermaid gates.
 
 The revised design removes the false pre-DS-4 schema-contract authority,
 retains one explicit trusted native assertion point, binds every Node-backed

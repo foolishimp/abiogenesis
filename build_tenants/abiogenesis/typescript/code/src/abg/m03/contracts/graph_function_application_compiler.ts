@@ -485,6 +485,14 @@ function fanInEquationDiagnostic(input: {
       }
     });
   }
+  if (!exactNodes(input.operand.inputs, [over])) {
+    return equationFailure({
+      ...input,
+      path: "$.operand.inputs",
+      expected: [over],
+      actual: input.operand.inputs
+    });
+  }
   const relations: readonly {
     readonly path: string;
     readonly expected: unknown;

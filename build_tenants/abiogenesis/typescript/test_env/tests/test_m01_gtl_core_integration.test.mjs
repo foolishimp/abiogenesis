@@ -16,7 +16,6 @@ import assert from "node:assert/strict";
 import {
   compose,
   edge,
-  fan_in,
   gate,
   graphFunctionForVector,
   identity,
@@ -25,11 +24,16 @@ import {
   substitute
 } from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
 import {
+  fan_in,
   fan_out,
   hofContract,
   hofUnaryRef,
   hofVector
 } from "../../build/semantic/code/src/gtl/m01/algebra/hof.js";
+import {
+  typedNode,
+  typedVectorNode
+} from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
 import {
   interfaceContract,
   materializeGraphFunction,
@@ -874,17 +878,51 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
     })
   ).rule;
 
-  const candidateBranchContract = hofContract(candidateBranch);
-  const judgmentContract = hofContract(judgment);
+  const candidateBranchWitness = typedNode({
+    node: candidateBranch,
+    decode: (raw) => raw
+  });
+  const judgmentWitness = typedNode({ node: judgment, decode: (raw) => raw });
+  const selectedCandidateWitness = typedNode({
+    node: selectedCandidate,
+    decode: (raw) => raw
+  });
+  const candidateBranchContract = hofContract(candidateBranchWitness);
+  const judgmentContract = hofContract(judgmentWitness);
+  const candidateBranchesBoundary = hofVector(
+    typedVectorNode({
+      node: candidateBranches,
+      member: candidateBranchWitness,
+      decode: (raw) => raw
+    })
+  );
+  const judgmentVectorBoundary = hofVector(
+    typedVectorNode({
+      node: judgmentVector,
+      member: judgmentWitness,
+      decode: (raw) => raw
+    })
+  );
   const workerFanOut = fan_out(
-    hofUnaryRef(workerBranch, candidateBranchContract, judgmentContract),
+    hofUnaryRef({
+      graphFunction: workerBranch,
+      input: candidateBranchContract,
+      output: judgmentContract
+    }),
     {
-      over: hofVector(candidateBranches, candidateBranchContract),
-      into: hofVector(judgmentVector, judgmentContract)
+      over: candidateBranchesBoundary,
+      into: judgmentVectorBoundary
     }
   ).graphFunction;
 
-  const harvestFanIn = fan_in(harvestReducer, judgmentVector);
+  const harvestFanIn = fan_in(
+    hofUnaryRef({
+      graphFunction: harvestReducer,
+      input: judgmentVectorBoundary,
+      output: hofContract(selectedCandidateWitness)
+    }),
+    judgmentVectorBoundary
+  );
   const harvestGated = gate(harvestFanIn, harvestGate, [harvestAcceptance]);
   const harvestProgram = compose(workerFanOut, harvestGated);
 

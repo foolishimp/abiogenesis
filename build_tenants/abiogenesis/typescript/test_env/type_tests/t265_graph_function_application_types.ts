@@ -1,10 +1,19 @@
 // Native type-law proof for canonical GraphFunction applications.
 
 import {
-  fan_in,
   gate,
   recurse
 } from "../../code/src/gtl/m01/algebra/core.js";
+import {
+  fan_in,
+  hofContract,
+  hofUnaryRef,
+  hofVector
+} from "../../code/src/gtl/m01/algebra/hof.js";
+import {
+  typedNode,
+  typedVectorNode
+} from "../../code/src/gtl/m01/algebra/native_node_witness.js";
 import {
   constructGraphFunctionApplicationDeclaration,
   type GraphFunctionApplicationDeclarationInput
@@ -18,6 +27,8 @@ import type {
 
 declare const operand: GraphFunction;
 declare const vectorNode: Node;
+declare const vectorMemberNode: Node;
+declare const outputNode: Node;
 declare const evaluator: Evaluator;
 declare const rule: Rule;
 
@@ -34,7 +45,31 @@ recurse(operand, evaluator, {
   requiresParentEvaluation: false
 });
 
-export const reduced = fan_in(operand, vectorNode);
+const vectorMember = typedNode({
+  node: vectorMemberNode,
+  decode: (_raw: unknown): { readonly member: string } => ({ member: "" })
+});
+const vectorBoundary = hofVector(
+  typedVectorNode({
+    node: vectorNode,
+    member: vectorMember,
+    decode: (_raw: unknown): readonly { readonly member: string }[] => []
+  })
+);
+const outputBoundary = hofContract(
+  typedNode({
+    node: outputNode,
+    decode: (_raw: unknown): { readonly result: string } => ({ result: "" })
+  })
+);
+export const reduced = fan_in(
+  hofUnaryRef({
+    graphFunction: operand,
+    input: vectorBoundary,
+    output: outputBoundary
+  }),
+  vectorBoundary
+);
 export const gated = gate(operand, rule, [evaluator]);
 
 // @ts-expect-error gate requires a statically non-empty evaluator tuple.

@@ -1729,7 +1729,7 @@ export function recurse(
   });
 }
 
-export function fan_in(
+export function constructFanInGraphFunction(
   reducer: GraphFunction,
   over: Node,
   options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
