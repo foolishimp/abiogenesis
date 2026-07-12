@@ -4,7 +4,7 @@
 claude at each monitoring checkpoint). Authority: T-244 register, T-242, the
 approved nine-phase plan.
 **Last updated:** 2026-07-13 · after Consensus GTL design review (`00e74f5`)
-· board fully green · awaiting F_H accept on the probe architecture
+· board fully green · 3a accepted; 3b design pending accept
 
 ## Velocity basis (observed, commit-stamped)
 
@@ -23,8 +23,8 @@ depth, live lanes.
 | 1 | Stable-first authority (T-249) | ✅ done, closed | 48m actual |
 | 2a | Lint + render gate (T-251) | ✅ done, verified | 25m actual |
 | 2b | Version-basis fix (T-250) | ✅ done, verified | 32m actual |
-| 3a | Consensus GTL design | 🔍 F_H accept pending | 74m actual |
-| 3b | Generic typed HOF relation | ⏳ discovered by probe | ~1–2h est |
+| 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
+| 3b | Typed HOF relation (T-253) | 🔍 design done, accept pending | 68m design actual; ~1–2h realize est |
 | 3c | Body + compile census | ⛔ after 3b | ~30–60m est |
 | 4 | Invocation spine (4 leaves) | ⛔ design rework first | ~2.5–5h est |
 | 5 | 3 C-atoms (recompile oracle) | ⛔ after probe | ~2–6h est |
