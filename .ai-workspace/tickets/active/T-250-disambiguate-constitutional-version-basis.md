@@ -4,8 +4,9 @@
 - title: Disambiguate constitutional version basis across source, published RC, release, product, and install
 - type: requirements_realization
 - ticket_category: constitutional_drift_detection
-- status: blocked
-- review_status: pending_fh_design_review
+- status: active
+- phase_status: implementation_active
+- review_status: accepted
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: high
 - owner: abiogenesis
@@ -27,6 +28,7 @@
 - updated_at: 2026-07-12
 - source_ticket: T-242
 - dependencies:
+  - completed T-251 entry-proof gate restoration (`338ba7b`)
   - completed T-193 constitutional drift detection
   - completed T-195 docs and release-note drift gate
   - completed T-243 4.6 predecessor disposition
@@ -45,9 +47,9 @@
 - design_refs:
   - build_tenants/abiogenesis/typescript/design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md
 - admission_condition: >-
-    F_H accepts the requirement direction and the three-view behavior design;
-    until then no requirement, compiler, test, documentation, release asset,
-    branch, or tag edit is authorized by this ticket.
+    Satisfied by F_H continuation after independent review f7148c6; the
+    requirement direction and three-view behavior design are accepted. T-251
+    closed the ordered entry-proof prerequisite at `338ba7b`.
 
 ## Intake Triage
 
@@ -136,11 +138,12 @@ reviewable. The design must include:
 
 ## Design Review Gate
 
-The ticket remains `blocked` until F_H reviews the exact carrier, diagrams,
-axiom matrix, current-tree binding table, proof matrix, and non-scope in
-`M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md`. Acceptance opens the
-requirement edit; it does not itself authorize release publication or any
-change to rc.3 history.
+Satisfied. Independent review `f7148c6` recommended acceptance, and F_H
+directed execution to continue. The accepted carrier, diagrams, axiom matrix,
+current-tree binding table, proof matrix, and non-scope remain binding.
+T-251 closed the ordered entry-proof prerequisite at `338ba7b`; bounded T-250
+requirement and realization work is active. Acceptance does not authorize
+release publication or any change to rc.3 history.
 
 ## Closure Law
 

@@ -1,6 +1,6 @@
 # M03 Constitutional Version Basis Behavior Design
 
-**Status**: Candidate - F_H review required before implementation
+**Status**: Accepted - F_H continuation after independent review `f7148c6`
 **Ticket**: T-250
 **Requirement re-entry**: `REQ-L-GTL3-LAWS-028`
 **IACS**: [M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md](./M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md), [ABG_3_FIRST_SLICE_IACS.md](./ABG_3_FIRST_SLICE_IACS.md)
@@ -319,8 +319,10 @@ The reason-to-repair mapping is exact in declaration order:
 | Installed facts require stamped install evidence | SPEC_METHOD install taxonomy | Installed subject is a distinct tagged kind and no current fact is proposed | Loader cannot supply it without an install authority ref | Missing installed basis remains non-green | Closed kind does not imply existence | Binding/fact authority admission requires exact install evidence | pass | T-250 |
 | GraphFunction construction checks | ODD/GTL executable design gate | This is a conformance meta-carrier, not a GraphFunction | No traversal, worker, prompt, recursion, or closure path exists | No ABG runtime lifecycle is introduced | No graph carrier added | Existing semantic compiler boundary only | not_applicable | none |
 
-**Design verdict**: `candidate`. The views are internally aligned and render,
-but requirement reprice and F_H acceptance are still required before code.
+**Design verdict**: `accepted`. The views are internally aligned, render, and
+passed independent and F_H review. T-251 closed the ordered entry-proof
+prerequisite at `338ba7b`; active realization must preserve this carrier and
+ownership boundary.
 
 ## Required Differentials
 

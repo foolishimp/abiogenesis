@@ -4,7 +4,7 @@
 - title: Author the exact ABIogenesis 5.0 feature register
 - type: planning
 - ticket_category: feature_register
-- status: active
+- status: completed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - owner: abiogenesis
 - priority: critical
@@ -13,6 +13,7 @@
 - re_entry_point: GOAL-035 feature and closure register
 - created_at: 2026-07-12
 - updated_at: 2026-07-13 (stable-first exact register)
+- closed_at: 2026-07-13
 - source_ticket: T-242
 - admission_condition: T-242 Stable-First Superseding Decision Record is present
 - dependencies:
@@ -145,3 +146,11 @@ law later; it is not a release feature or prerequisite.
    may author candidate propagation while both tickets remain active, but
    neither ticket closes before that confirmation. This ticket itself changes
    no specification, design, code, or release surface.
+
+## Closure Record
+
+F_H confirmation is satisfied by the direct stable-first plan approval
+persisted in T-242, the exact register checkpoint `7107604`, independent Phase
+1 review `d5aaa3f` (8/8), and the subsequent instruction to continue execution.
+The live register contains 17 retained feature rows and 10 explicit successor
+or non-5.0 dispositions. No competing live 5.0 feature list remains.

@@ -4,10 +4,8 @@
 - title: Execute the 5.0 course correction at the ticket layer
 - type: reprice
 - ticket_category: governance_reprice
-- status: active
-- goal: GOAL-035 (ABIogenesis 5.0 full-product delivery; T-249's candidate
-  constitutional reprice is present and remains subject to the F_H ratification
-  gate)
+- status: completed
+- goal: GOAL-035 ABIogenesis 5.0 full-product delivery
 - owner: abiogenesis
 - priority: critical
 - governance_scope: SPEC_METHOD, TICKET_METHOD
@@ -15,6 +13,7 @@
 - re_entry_point: specification/GOALS.md
 - created_at: 2026-07-12
 - updated_at: 2026-07-13 (revision 4 - stable-first superseding decision and execution-plan alignment)
+- closed_at: 2026-07-13
 - decision_ref: >-
     F_H rulings 2026-07-12/13 — "5.0 is our stable baseline before dog
     fooding begins" and "ok plan approved, triage and execute - STDO governance"
@@ -476,3 +475,14 @@ The dispositions themselves remain in force during the transitional state
 under F_H's direct rulings; what this gate forbids is CLOSING the correction
 while the constitution still contradicts stable-first or the complete 5.0
 feature set.
+
+## Closure Record
+
+All six closure conditions are satisfied. T-244 carries the sole exact feature
+register and is completed; T-249 propagated and ratified the stable-first
+constitution and is completed; T-243 is terminal predecessor evidence;
+T-247/T-248 own qualification and direct release; T-245/T-246/B-010 remain
+explicit successor-era work. Authority is the direct F_H plan approval,
+checkpoint `7107604`, independent review `d5aaa3f`, and the subsequent F_H
+instruction to continue. No new ticket or constitutional change is introduced
+by this closure bookkeeping.

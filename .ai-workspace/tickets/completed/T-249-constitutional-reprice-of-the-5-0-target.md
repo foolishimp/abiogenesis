@@ -4,9 +4,8 @@
 - title: Constitutional reprice of 5.0 to the stable baseline before dogfood
 - type: reprice
 - ticket_category: constitutional_reprice
-- status: active
-- goal: GOAL-035 (candidate constitutional reprice present; F_H ratification
-  pending)
+- status: completed
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - owner: abiogenesis
 - priority: critical
 - governance_scope: SPEC_METHOD, ODD_METHOD
@@ -14,15 +13,16 @@
 - re_entry_point: specification/INTENT.md
 - created_at: 2026-07-12
 - updated_at: 2026-07-13 (stable-first drafting brief)
+- closed_at: 2026-07-13
 - source_ticket: T-242
 - admission_condition: >-
     T-242 records the stable-first superseding decision and T-244 carries the
-    exact full-product register candidate. Candidate constitutional propagation
-    may be authored while T-244 remains active; both tickets require F_H
-    confirmation before closure.
+    exact full-product register. Constitutional propagation is ratified by the
+    direct plan approval, independent Phase 1 review, and subsequent F_H
+    instruction to continue execution.
 - dependencies:
   - T-242 Stable-First Superseding Decision Record
-  - active T-244 exact 5.0 feature-register candidate; completed before T-249 closure
+  - completed T-244 exact 5.0 feature register
   - completed T-243 rc.3 predecessor-evidence disposition (context only, not a build dependency)
 
 ## Intake Triage
@@ -226,13 +226,11 @@ Candidate self-review evidence:
   1.0, T-245/T-246, a data-mapper campaign, released-pair evidence, or the
   obsolete self-host capability.
 
-Two standing gates remain red outside this candidate's edited implementation
-span and are already bound by T-242 amendment A1: T-193/T-195 reports the
-pre-existing 4.6 bootstrap/release-note version against `5.0.0-dev.0`, and
-`lint:test-harness` reports ten pre-existing unused-variable errors. They require
-a bounded fix or lawful reprice before release evidence; neither weakens or
-expands this constitutional reprice. Product code remains paused while the F_H
-confirmation gate below is open.
+At candidate review, two standing gates remained red outside this ticket's
+edited implementation span. T-251 subsequently closed the ten lint residues at
+`338ba7b`; accepted T-250 owns the T-193/T-195 version-subject correction.
+Neither downstream entry-gate item weakens or expands this constitutional
+reprice.
 
 ## Closure Condition
 
@@ -249,3 +247,12 @@ confirmation gate below is open.
 5. F_H confirms the T-244 register and ratifies the resulting load-bearing
    constitutional diff. No product-code implementation begins while this
    consistency gate is open.
+
+## Ratification And Closure Record
+
+The stable-first propagation at `7107604` is ratified. Independent review
+`d5aaa3f` passed every Phase 1 checkpoint, and F_H subsequently directed the
+accepted execution plan to continue. The constitutional census remains green:
+the full operator workflow, Consensus, self-conformance, observer/tuner,
+qualification, compatibility, and direct release remain 5.0 requirements;
+only operational dogfood/self-use evidence moves to the successor era.
