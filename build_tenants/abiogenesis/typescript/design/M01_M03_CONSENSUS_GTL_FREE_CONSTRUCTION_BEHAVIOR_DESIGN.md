@@ -1,10 +1,11 @@
 # M01/M03 Consensus GTL Free Construction Behavior Design
 
-**Design verdict**: `candidate`
-**Review status**: `fh_target_accepted`; implementation design remains blocked
-**Probe and runtime disposition**: `blocked` first on the native HOF
-input/output carrier relation, then on compiler coverage and generic
-HOF/recursion/C-algebra realization
+**Design verdict**: `accepted_target_blocked_on_vector_c_program_selection`
+**Review status**: `fh_target_accepted`; bounded post-T-253 re-entry found the
+next native-language prerequisite before body code
+**Probe and runtime disposition**: body authoring is blocked on T-254's generic
+GraphVector-to-declared-C-program selection relation; runtime remains blocked
+on generic HOF/recursion/C-algebra realization
 **Delivery phase**: DS-1 executable Consensus design probe
 **Ticket**: [T-252](../../../../.ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md)
 **Owning modules**: M01 GTL language carriers and M03 semantic compilation
@@ -19,14 +20,22 @@ This design defines one lawful target GTL program shape and the effect-free
 compiler probe used to discover what prevents that shape from executing today.
 It does not design or authorize the missing generic language or runtime atoms.
 
-The current target cannot yet be authored honestly through the published native
-HOF API. `fan_out(graphFunction, over)` preserves the same vector-boundary node
-as both input and output, while Consensus requires
-`ReviewerAssignmentVector -> AttributedFindingsVector`.
-This is a pre-admission typed-authoring gap. Until a generic HOF carrier can
-express and raw admission can preserve that relation, no canonical Consensus
-body exists to submit to the semantic compiler. A handwritten name/tag,
-same-node lie, cast, or `promote` workaround is forbidden.
+T-253 closed the native typed HOF prerequisite. The published HOF API now
+admits the exact `ReviewerAssignment -> ReviewFindings` child and explicit
+`ReviewerAssignmentVector -> AttributedFindingsVector` relation, preserves it
+through raw admission, and reports the absent generic runtime consumer as
+`gtl-hof-unrealized-fan-out`. A handwritten name/tag, same-node lie, cast, or
+`promote` workaround remains forbidden.
+
+The complete target body is still not natively authorable. Its
+C-program-executing transition GraphVectors require distinct declared C
+programs, but
+`abg.hog_program_catalog`, `abg.hog_program_ref`, and the current compiled plan
+are GraphFunction-wide. No current native/raw/compiler carrier proves
+`(GraphFunction, GraphVector) |- selected declared C`. T-254 owns that generic
+relation. A global program, `operator.binding`, `abg.fn_composition`, opaque
+configuration, name/tag inference, or helper-GraphFunction rewrite is not an
+admissible substitute.
 
 The prior implementation failed at the category boundary: a catalog
 GraphFunction name selected an imperative Consensus plugin whose TypeScript
@@ -452,8 +461,54 @@ classDiagram
   }
   class NativeHofAuthoring {
     <<authoritative>>
-    +inputVectorType
-    +outputVectorType
+    +hofContract(memberNode)
+    +hofVector(vectorNode member)
+    +hofUnaryRef(child input output)
+    +fan_out(child boundaries_over_into)
+  }
+  class HofApplicationDeclaration {
+    <<prime>>
+    +syntaxVersion
+    +relationRef
+    +operatorKind_fan_out
+    +childGraphFunctionRef
+    +inputMemberNodeRef
+    +inputMemberContractKey
+    +outputMemberNodeRef
+    +outputMemberContractKey
+    +inputVectorNodeRef
+    +inputVectorContractKey
+    +outputVectorNodeRef
+    +outputVectorContractKey
+    +wrapperGraphVectorRef
+    +whollySuccessfulOrdinalLaw
+    +whollySuccessfulCardinalityLaw
+  }
+  class GraphFunctionProgramCatalog {
+    <<prime>>
+    +hostGraphFunctionRef
+    +declaredCProgramsByRef
+  }
+  class GraphVectorProgramSelectionDeclaration {
+    <<subordinate absent relation>>
+    +declarationKey_abg_hog_program_ref
+    +hostGraphVectorRef
+    +selectedProgramRef
+  }
+  class CompiledGraphVectorCProgramBinding {
+    <<downstream absent relation>>
+    +hostGraphFunctionRef
+    +hostGraphVectorRef
+    +selectedProgramRef
+    +orderedSourceNodeContractKeys
+    +targetNodeContractKey
+    +programInputCarrierRef
+    +programOutputCarrierRef
+  }
+  class VectorProgramSelectionAuthoring {
+    <<authoritative missing boundary>>
+    +deriveCanonicalNodeInterfaceCarriers
+    +declareExistingSelectorRef
   }
   class M01RawGtlAdmission {
     <<authoritative>>
@@ -567,8 +622,15 @@ classDiagram
   ConsensusResult --> TicketConsensusProjection : read-only projection
   ReviewOneProfile --> SameContractRetryPolicy : mandatory same-call recovery
   ConsensusGraphFunction --> NativeHofAuthoring : must type before body exists
-  NativeHofAuthoring --> M01RawGtlAdmission : submits canonical serialized body
+  NativeHofAuthoring --> HofApplicationDeclaration : produces sole structural HOF relation
+  HofApplicationDeclaration --> ReviewPanelFunction : governs exact wrapper
+  ConsensusGraphFunction --> GraphFunctionProgramCatalog : owns declared programs
+  ConsensusGraphFunction --> VectorProgramSelectionAuthoring : requires authored carriers and selectors before serialization
+  VectorProgramSelectionAuthoring --> GraphVectorProgramSelectionDeclaration : emits existing scalar selector
+  GraphVectorProgramSelectionDeclaration --> GraphFunctionProgramCatalog : names candidate member resolved only by M03
+  VectorProgramSelectionAuthoring --> M01RawGtlAdmission : serializes canonical declarations
   M01RawGtlAdmission --> M03SemanticCompiler : admits root and reachable declarations
+  M03SemanticCompiler --> CompiledGraphVectorCProgramBinding : validates containment catalog and boundary then derives exact join
   M03SemanticCompiler --> Ds1CompilerProbe : supplies diagnostics and compiled identity
   ConsensusGraphFunction --> Ds1CompilerProbe : coverage subject remains unchanged
   Ds1CompilerProbe ..> AbgRuntime : reads consumer inventory only
@@ -636,6 +698,21 @@ Domain invariants:
     Only `PostSubmitterSemanticAssessment`, joined to the exact admitted
     `SubmitterResponse`, can reach `recurse_next_round`; an initial assessment
     cannot bypass the submitter turn and type a foldback disposition.
+16. The T-253 HOF relation is one hosted `HofApplicationDeclaration`; exact
+    child, member, vector, wrapper, ordinal, and wholly-successful cardinality
+    joins are structural authority. Names and tags are not.
+17. `GraphVectorProgramSelectionDeclaration` is the missing authored relation
+    for C-program-executing transition vectors.
+    `CompiledGraphVectorCProgramBinding` is derived compiler truth, not a second
+    selector. Program definitions and catalogs remain on the containing
+    GraphFunction; `abg.fn_composition` remains separate regime/closure
+    governance and cannot select a C program. The structural T-253 HOF wrapper
+    remains declaration-empty and is governed by the host
+    `gtl.hof_application` relation instead.
+18. The canonical public GraphFunction has exactly one input Node for
+    `ConsensusSubject` and one output Node for `ConsensusResult`. Panel, profile,
+    policy, actor, workspace, and binding identities are fields reached from the
+    subject and then carried cumulatively; they are not extra public inputs.
 
 ## Exact GTL Body Topology
 
@@ -646,13 +723,19 @@ module-local functions is a separately published catalog row, and the design
 does not publish the reserved `gtl://abg/review/*` declarations as a generic
 Review product.
 
+This remains the accepted target topology, not a claim that canonical body
+bytes exist. T-253 can now construct the exact fan-out host. Body construction
+still stops before raw serialization because the current language cannot bind
+the distinct vector-local programs below to their C-program-executing
+transition GraphVectors.
+
 | GraphFunction boundary | Input -> output | Why it is a GraphFunction |
 |---|---|---|
 | canonical Consensus | `ConsensusSubject -> ConsensusResult` | sole public callable carrier; inline graph owns seed, recursive lift, and terminal projection vectors |
 | `consensus.round` | `ConsensusRoundExecution -> ConsensusRoundDisposition` | recursion preserves this exact success interface for closed/recurse; ordinary runtime blocked or F_H-held truth stops outside it |
 | `consensus.review-one-profile` | `ReviewerAssignment -> ReviewFindings` | reusable per-element function consumed by `fan_out`; its one vector carries `C.retry(C.of(F_P), 2)` and ordinary ABG result admission |
 | `consensus.exact-panel-facts` | `AttributedFindingsVector -> RoundExactProjection` | explicit deterministic vector reducer consumed by `fan_in` |
-| derived `fan_out(consensus.review-one-profile)` | `ReviewerAssignmentVector -> AttributedFindingsVector` | higher-order reviewer-vector application lifted into the round only by `workflow.C`; any task failure remains ordinary ABG blocked truth; current native carrier gap blocks authorship |
+| derived `fan_out(consensus.review-one-profile)` | `ReviewerAssignmentVector -> AttributedFindingsVector` | exact T-253 typed relation lifted into the round only by `workflow.C`; any task failure remains ordinary ABG blocked truth; current runtime absence is retained by the compiler |
 | derived `fan_in(consensus.exact-panel-facts)` | `AttributedFindingsVector -> RoundExactProjection` | higher-order exact-fact reduction lifted into the round only by `workflow.C` |
 | derived `recurse(consensus.round)` | `ConsensusRoundExecution -> ConsensusRoundDisposition` | bounded semantic rounds with declared termination and foldback |
 
@@ -724,6 +807,15 @@ Consensus = GraphFunction(
 )
 ```
 
+DS-1 freezes the exact scalar member Nodes, vector Nodes, schema refs,
+`nodeContractKey` values, child GraphFunction ref, wrapper ref, HOF relation ref,
+and host GraphFunction identity used by this body. Native serialization and raw
+module admission include the scalar reviewer child and derived fan-out host
+exactly once so M03 resolves one child authority. DS-4 may publish the schema
+bodies and catalog rows for those identities; it may not alter an
+identity-bearing Node contract without changing the canonical body digest and
+re-entering this design.
+
 The alternatives are admitted `GraphVector` plus evaluator/rule declarations.
 They may not become an `if` in an adapter or service. On no material dispute,
 the F_P reducer admits an `InitialSemanticAssessment` with agreement and the
@@ -755,13 +847,33 @@ the body is later published; DS-1 records this join and does not publish it.
 
 ### C-Program Placement
 
-Each internal GraphVector selects a declared C program. Deterministic seed,
+Each C-program-executing transition GraphVector selects a declared C program.
+The T-253 structural HOF wrapper is not such a transition: its vector
+declarations stay empty and its host `gtl.hof_application` declaration owns the
+structural relation. Deterministic seed,
 expansion, exact-envelope/equality projection, routing, and result projection
 are ordinary `C.of`/flat `C.compose` programs. Semantic reduction, reviewer,
 submitter, and reassessment turns are F_P `C.of` leaves with declared
 role/worker, instruction, and result-contract refs. Their raw outputs remain
 effect-edge data until the standard ABG F_P result-admission boundary returns
 the corresponding prime carrier.
+
+The selected program and the vector-local `abg.fn_composition` contract are
+different authorities. `abg.hog_program_ref` selects one program from the
+containing GraphFunction's catalog. `abg.fn_composition` selects the regime,
+carrier, assurance, and closure-governance contract for the vector boundary.
+Neither may be inferred from the other.
+
+The current published declaration host law permits `abg.hog_program_ref` only
+on `GraphFunction`, and the current execution-declaration compiler receives
+only that GraphFunction. T-254 must retain the program catalog on the containing
+function, admit the existing selector key on a C-program-executing transition
+GraphVector, derive its C input/output carriers from the exact ordered Node
+interfaces, and let M03 derive one exact binding over function ref, vector ref,
+program ref, ordered source-node contracts, target-node contract, and program
+input/output carriers. Missing, duplicate, unresolvable, or mismatched bindings
+are invalid programs. A valid binding remains `semantic_not_realized` until a
+separately designed runtime handoff consumes vector-indexed compiled selection.
 
 Named child GraphFunctions enter a parent vector only through `workflow.C`.
 The explicit reviewer vector is graph-level `fan_out`; its M03 execution
@@ -794,18 +906,22 @@ outside that interior and judges every attempt before `C.retry` may re-enter the
 same leaf. The design does not split those standard boundaries into extra
 C-call spines or make an `admit` C stage a second truth authority.
 
-`fan_out` describes graph topology. For this target its generic execution must
+`fan_out` describes graph topology. T-253 now authors and compiles the exact
+`ReviewerAssignmentVector -> AttributedFindingsVector` relation through
+`hofContract`, `hofVector`, `hofUnaryRef`, and
+`fan_out(child, {over, into})`. The derived host carries one canonical
+`gtl.hof_application` declaration and owns one wrapper GraphVector. Its generic execution must
 lower by an explicit type-preserving projection to `C.batch`, preserving one
 ordered task/spine per panel ordinal. A separate HOF scheduler or interpreter
 would not exercise the retained `C.batch` atom and would create competing
 execution ownership. Name/tag recognition is not proof. The target relation is
 `ReviewerAssignmentVector -> AttributedFindingsVector`.
-The current `fan_out` facade preserves one same-node input/output boundary and
-cannot express that relation; this is a retained HOF/type/compiler gap. A
-`promote` workaround is forbidden because promotion cannot turn assignments
-into findings or failure truth. The unchanged Consensus body exercises the
+The pre-T-253 same-node facade is retired. A `promote` workaround remains
+forbidden because promotion cannot turn assignments into findings or failure
+truth. The unchanged Consensus body exercises the
 `C.batch` requirement through the mandatory vector-to-task projection without
-encoding a fixed two-reviewer tuple.
+encoding a fixed two-reviewer tuple. The current typed compiler result is
+`semantic_not_realized`; it is the runtime gap, not an authoring gap.
 
 `fan_in` is deterministic only for
 `AttributedFindingsVector -> RoundExactProjection`. The separate F_P
@@ -819,7 +935,7 @@ not the `fan_in` reducer.
 
 | GraphFunction | `environment.requires` | `environment.provides` | `environment.carries` |
 |---|---|---|---|
-| canonical Consensus | `ConsensusSubject`, selected `ConsensusPanel`, profiles, `ConsensusRoundPolicy`, semantic-reducer, submitter-turn, and F_H-interaction bindings, explicit workspace/binding/catalog identity | `ConsensusResult` | subject/panel/policy identities, submitting actor, workspace, findings, rulings, all round outcomes, dissent, residuals, evidence, lineage |
+| canonical Consensus | exactly one `ConsensusSubject`; panel, profile, policy, actor, workspace, catalog, semantic-reducer, submitter-turn, and F_H-interaction refs are fields reached from that subject | exactly one `ConsensusResult` | subject/panel/policy identities, submitting actor, workspace, findings, rulings, all round outcomes, dissent, residuals, evidence, lineage |
 | `consensus.round` | `ConsensusRoundExecution` with current ordinal and all cumulative carried refs | exactly one graph-success `ConsensusRoundDisposition` containing `closed_done` or `recurse_next_round` plus applicable foldback; runtime blocked/F_H-held truth stops outside this interface | prior round outcomes including recurse, admitted findings/rulings, dissent, residuals, submitter responses, evidence, lineage |
 | `consensus.review-one-profile` | one assignment plus exact profile and result/instruction contracts | one admitted `ReviewFindings` or typed retry/failure judgment | subject/round/task/profile/config/actor identities and evidence lineage |
 | `consensus.reduce-round` | exact facts, attributed findings, and `SemanticReducerBinding` | admitted `InitialSemanticAssessment` and `ReviewRulings` only after standard F_P admission | round/profile identities, dissent, residuals, evidence, lineage |
@@ -838,6 +954,7 @@ sequenceDiagram
   actor Author
   actor Caller
   participant Native as M01 Typed HOF Authoring
+  participant VectorC as M01 Vector C Program Selection
   participant M01 as M01 Raw GTL Admission
   participant M03 as M03 Semantic Compiler
   participant Coverage as DS1 Coverage Oracle
@@ -860,80 +977,98 @@ sequenceDiagram
   participant FH as Ordinary FH Boundary
 
   Author->>Native: construct assignment vector to findings vector fan_out relation
-  alt current native HOF relation cannot type distinct output
-    Native-->>Author: typed authoring gap, no canonical body exists
-  else native target body is expressible
-    Native->>M01: canonical serialized Consensus module root
-    alt malformed or category-invalid GTL
-      M01-->>Author: typed invalid_program diagnostics
-    else raw body admitted
-      M01->>M03: admitted root and reachable declarations
-      M03->>Coverage: root result plus path-addressed subprobes
-      Coverage->>Coverage: compare relied-on constructors with runtime consumers or proved projections
-      alt semantic diagnostics or silently accepted declarations
-        Coverage-->>Author: exact blocking gap census, no effects
-      else executable coverage is total
-        Coverage-->>Author: no-effects compile evidence, body remains non-published
-        opt deferred DS4 after generic atoms contracts and publication gates close
-        Publication->>Catalog: publish exact admitted body schemas and catalog row
-        Caller->>CLI: catalog.invoke request and explicit workspace root
-        CLI->>SDK: abg.operation.catalog.invoke
-        SDK->>Public: request workspace context session allowlist actor capability
-        Public->>Runtime: admitted catalog.invoke operation
-        Runtime->>Catalog: resolve exact workspace product module and body
-        Catalog-->>Runtime: admitted catalog row module and body identity
-        Runtime->>Basis: exact compiled program schema allowlist capability identities
-        Basis->>Runtime: admitted ExecutionBasis with compiled program identity
-        loop declared GTL recurse while prior disposition is recurse_next_round
-          Runtime->>Round: open GraphCall and round frame
-          Round->>FanOut: explicit ordered ReviewerAssignmentVector
-          loop panel ordinal, not completion order
-            FanOut->>Runtime: resolve this profile reviewerExecutionSelectionRef
-            alt profile selection refuses or lacks capability
-              Runtime->>Runtime: ordinary C-call blocked truth, no reviewer transport
-            else worker assignment admitted
-              Runtime->>Reviewer: one attributed task with backend and transport derived from assignment
-            Reviewer->>Admission: raw FP output plus selected result contract
-            alt retryable standard failure and budget remains
-              Admission-->>Runtime: typed same-contract retry judgment
-              Runtime->>Reviewer: C.retry same task under budget 2
-            else nonretryable or retry exhausted
-              Admission-->>Runtime: ordinary C-call blocked truth, no graph value
-            else admitted finding set
-              Admission-->>FanOut: profile and config digest bound ReviewFindings
-            end
-            end
-          end
-          alt any reviewer C-call is blocked
-            Runtime->>Runtime: stop graph invocation, no fan_in or round disposition
-          else complete attributed findings vector
-            FanOut->>FanIn: ordered AttributedFindingsVector
-            FanIn->>FanIn: FD envelope and exact-row-equality facts only
-            FanIn->>Reducer: exact facts findings and SemanticReducerBinding
-            Reducer->>Admission: raw semantic assessment and ruling rows
-            alt reducer output malformed or unattributed
-              Admission-->>Runtime: ordinary C-call blocked truth, no round disposition
-            else initial semantic assessment admitted
-              Admission-->>Round: admitted InitialSemanticAssessment and ReviewRulings
-              alt admitted semantic agreement
-                Round-->>Runtime: closed_done ConsensusRoundDisposition
-              else admitted semantic dispute and budget remains
-                Round->>Submitter: disputed refs and SubmitterTurnBinding
-                Submitter->>Admission: raw attributed submitter response
-                alt submitter output malformed or unattributed
-                  Admission-->>Runtime: ordinary C-call blocked truth, no round disposition
-                else submitter response admitted
-                  Admission->>Reassessor: admitted response facts findings and SemanticReducerBinding
-                  Reassessor->>Admission: raw semantic reassessment and ruling rows
-                  alt reassessment output malformed or unattributed
+  alt exact member vector or child relation is malformed
+    Native-->>Author: typed authoring refusal, no canonical body exists
+  else T-253 exact target relation is admitted
+    Author->>VectorC: derive canonical interface carriers and declare each transition vector selector
+    alt current native host or carrier law cannot represent the declarations
+      VectorC-->>Author: blocking T-254 authoring gap, no canonical body exists
+    else canonical selector and C-program declarations exist
+      VectorC->>M01: canonical serialized Consensus module root
+      alt malformed or category-invalid GTL
+        M01-->>Author: typed invalid_program diagnostics
+      else raw body admitted
+        M01->>M03: admitted root and reachable declarations
+        M03->>M03: validate each local selector against containment catalog membership and exact Node-interface carriers
+        alt T-254 relation is invalid
+          M03-->>Author: typed vector-program invalid_program diagnostic, no effects
+        else exact bindings are compiler-visible
+          M03->>Coverage: root result plus path-addressed subprobes
+          Coverage->>Coverage: compare relied-on constructors with runtime consumers or proved projections
+          alt semantic diagnostics or silently accepted declarations
+            Coverage-->>Author: exact blocking gap census, no effects
+          else executable coverage is total
+            Coverage-->>Author: no-effects compile evidence, body remains non-published
+            opt deferred DS4 after generic atoms contracts and publication gates close
+              Publication->>Catalog: publish exact admitted body schemas and catalog row
+              Caller->>CLI: catalog.invoke request and explicit workspace root
+              CLI->>SDK: abg.operation.catalog.invoke
+              SDK->>Public: request workspace context session allowlist actor capability
+              Public->>Runtime: admitted catalog.invoke operation
+              Runtime->>Catalog: resolve exact workspace product module and body
+              Catalog-->>Runtime: admitted catalog row module and body identity
+              Runtime->>Basis: exact compiled program schema allowlist capability identities
+              Basis->>Runtime: admitted ExecutionBasis with compiled program identity
+              loop declared GTL recurse while prior disposition is recurse_next_round
+                Runtime->>Round: open GraphCall and round frame
+                Round->>FanOut: explicit ordered ReviewerAssignmentVector
+                loop panel ordinal, not completion order
+                  FanOut->>Runtime: resolve this profile reviewerExecutionSelectionRef
+                  alt profile selection refuses or lacks capability
+                    Runtime->>Runtime: ordinary C-call blocked truth, no reviewer transport
+                  else worker assignment admitted
+                    Runtime->>Reviewer: one attributed task with backend and transport derived from assignment
+                    Reviewer->>Admission: raw FP output plus selected result contract
+                    alt retryable standard failure and budget remains
+                      Admission-->>Runtime: typed same-contract retry judgment
+                      Runtime->>Reviewer: C.retry same task under budget 2
+                    else nonretryable or retry exhausted
+                      Admission-->>Runtime: ordinary C-call blocked truth, no graph value
+                    else admitted finding set
+                      Admission-->>FanOut: profile and config digest bound ReviewFindings
+                    end
+                  end
+                end
+                alt any reviewer C-call is blocked
+                  Runtime->>Runtime: stop graph invocation, no fan_in or round disposition
+                else complete attributed findings vector
+                  FanOut->>FanIn: ordered AttributedFindingsVector
+                  FanIn->>FanIn: FD envelope and exact-row-equality facts only
+                  FanIn->>Reducer: exact facts findings and SemanticReducerBinding
+                  Reducer->>Admission: raw semantic assessment and ruling rows
+                  alt reducer output malformed or unattributed
                     Admission-->>Runtime: ordinary C-call blocked truth, no round disposition
-                  else post-submitter assessment admitted with exact response ref
-                    Admission-->>Round: admitted PostSubmitterSemanticAssessment and ReviewRulings
-                    alt agreement reached
+                  else initial semantic assessment admitted
+                    Admission-->>Round: admitted InitialSemanticAssessment and ReviewRulings
+                    alt admitted semantic agreement
                       Round-->>Runtime: closed_done ConsensusRoundDisposition
-                    else another verification round required
-                      Round-->>Runtime: recurse_next_round disposition with FoldbackMaterial
-                    else unresolved judgment
+                    else admitted semantic dispute and budget remains
+                      Round->>Submitter: disputed refs and SubmitterTurnBinding
+                      Submitter->>Admission: raw attributed submitter response
+                      alt submitter output malformed or unattributed
+                        Admission-->>Runtime: ordinary C-call blocked truth, no round disposition
+                      else submitter response admitted
+                        Admission->>Reassessor: admitted response facts findings and SemanticReducerBinding
+                        Reassessor->>Admission: raw semantic reassessment and ruling rows
+                        alt reassessment output malformed or unattributed
+                          Admission-->>Runtime: ordinary C-call blocked truth, no round disposition
+                        else post-submitter assessment admitted with exact response ref
+                          Admission-->>Round: admitted PostSubmitterSemanticAssessment and ReviewRulings
+                          alt agreement reached
+                            Round-->>Runtime: closed_done ConsensusRoundDisposition
+                          else another verification round required
+                            Round-->>Runtime: recurse_next_round disposition with FoldbackMaterial
+                          else unresolved judgment
+                            alt FH interaction binding refuses
+                              Round-->>Runtime: typed blocked truth before FH call
+                            else FH binding admitted
+                              Round->>FH: exact invocation round subject and FhInteractionBinding
+                              FH-->>Runtime: GraphCall held pending FH, no graph disposition
+                            end
+                          end
+                        end
+                      end
+                    else unresolved judgment or round budget exhausted
                       alt FH interaction binding refuses
                         Round-->>Runtime: typed blocked truth before FH call
                       else FH binding admitted
@@ -943,42 +1078,34 @@ sequenceDiagram
                     end
                   end
                 end
-              else unresolved judgment or round budget exhausted
-                alt FH interaction binding refuses
-                  Round-->>Runtime: typed blocked truth before FH call
-                else FH binding admitted
-                  Round->>FH: exact invocation round subject and FhInteractionBinding
-                  FH-->>Runtime: GraphCall held pending FH, no graph disposition
+                alt runtime is blocked or held for FH
+                  Runtime->>Runtime: retain typed non-close stop, no foldback or downstream vector
+                else disposition is recurse_next_round
+                  Runtime->>Round: admitted foldback rebinds next round input
+                else disposition is closed_done
+                  Runtime->>Runtime: retain closed round disposition
                 end
               end
+              alt runtime stopped blocked or held
+                Runtime-->>Public: non-close invocation and result projection refs
+              else closed graph disposition exists
+                Runtime->>Project: closed_done ConsensusRoundDisposition after recursion
+                Project-->>Runtime: admitted ConsensusClosedResult
+                Runtime-->>Public: invocation and result refs
+              end
+              Public-->>SDK: admitted catalog.invoke outcome
+              SDK-->>CLI: catalog.invoke result refs
+              CLI-->>Caller: render refs only
+              Caller->>CLI: read.result and read.replay using returned refs
+              CLI->>SDK: public read operations
+              SDK->>Public: read envelopes workspace actor and refs
+              Public->>Runtime: admitted read.result and read.replay operations
+              Runtime-->>Public: closed or replay-derived escalated or contract-failure ConsensusResult and replay
+              Public-->>SDK: admitted read projections
+              SDK-->>CLI: public operation results
+              CLI-->>Caller: render only, no panel or round orchestration
             end
           end
-          alt runtime is blocked or held for FH
-            Runtime->>Runtime: retain typed non-close stop, no foldback or downstream vector
-          else disposition is recurse_next_round
-            Runtime->>Round: admitted foldback rebinds next round input
-          else disposition is closed_done
-            Runtime->>Runtime: retain closed round disposition
-          end
-        end
-        alt runtime stopped blocked or held
-          Runtime-->>Public: non-close invocation and result projection refs
-        else closed graph disposition exists
-          Runtime->>Project: closed_done ConsensusRoundDisposition after recursion
-          Project-->>Runtime: admitted ConsensusClosedResult
-          Runtime-->>Public: invocation and result refs
-        end
-        Public-->>SDK: admitted catalog.invoke outcome
-        SDK-->>CLI: catalog.invoke result refs
-        CLI-->>Caller: render refs only
-        Caller->>CLI: read.result and read.replay using returned refs
-        CLI->>SDK: public read operations
-        SDK->>Public: read envelopes workspace actor and refs
-        Public->>Runtime: admitted read.result and read.replay operations
-        Runtime-->>Public: closed or replay-derived escalated or contract-failure ConsensusResult and replay
-        Public-->>SDK: admitted read projections
-        SDK-->>CLI: public operation results
-        CLI-->>Caller: render only, no panel or round orchestration
         end
       end
     end
@@ -990,7 +1117,7 @@ Sequence participant mapping:
 | Sequence participant | Domain-model carrier or boundary |
 |---|---|
 | `Author`, `Caller` | explicitly external actors |
-| `Native`, `M01`, `M03`, `Coverage` | `NativeHofAuthoring`, `M01RawGtlAdmission`, `M03SemanticCompiler`, `Ds1CompilerProbe` |
+| `Native`, `VectorC`, `M01`, `M03`, `Coverage` | `NativeHofAuthoring`, `VectorProgramSelectionAuthoring`, `M01RawGtlAdmission`, `M03SemanticCompiler`, `Ds1CompilerProbe` |
 | `Publication`, `CLI`, `SDK`, `Public` | `DeferredDs4Publication`, `AbgCli`, `PublicSdk`, `PublicOperationAdmission` |
 | `Catalog`, `Basis`, `Runtime`, `FH` | `CatalogModuleBodyResolver`, `ExecutionBasisJoin`, `AbgRuntime`, `OrdinaryFhBoundary` |
 | `Round`, `FanOut`, `Reviewer`, `Admission`, `FanIn` | `ConsensusRoundGraphFunction`, `ReviewPanelFunction`, `ReviewOneProfile`, `StandardFpAdmission`, `ExactPanelFactsFunction` |
@@ -1000,8 +1127,10 @@ Sequence invariants:
 
 - M01 owns raw admission; M03 owns semantic compilation. Neither path has a
   Runtime, worker, event, archive, or workspace effect.
-- A native HOF type failure precedes raw admission and leaves no canonical body
-  for the compiler. DS-1 compile evidence does not publish into the catalog;
+- A native HOF or vector-selector/carrier authoring failure precedes raw
+  admission and leaves no canonical body for the compiler. Catalog membership,
+  containment, and exact boundary binding are instead M03 judgments after raw
+  admission. DS-1 compile evidence does not publish into the catalog;
   the publication and invocation segment is explicitly deferred to DS-4.
 - An admitted finding set returns from the standard F_P admission boundary,
   never directly from a reviewer transport.
@@ -1032,14 +1161,20 @@ Sequence invariants:
 ```mermaid
 stateDiagram-v2
   [*] --> NativeTarget: FH target review opens M01 authoring
-  NativeTarget --> AuthoringGap: M01 type checker refuses HOF relation
-  NativeTarget --> RawBody: M01 type checker admits target relation
-  AuthoringGap --> [*]: DS1 disposition retains prerequisite and no body
+  NativeTarget --> AuthoringRefused: M01 type checker refuses an invalid HOF relation
+  NativeTarget --> HofRelationReady: M01 type checker admits exact T253 relation
+  AuthoringRefused --> [*]: invalid authored relation is terminal
+  HofRelationReady --> VectorSelectionAuthoringGap: current native language cannot author exact carriers or selectors
+  HofRelationReady --> RawBody: T254 native carriers and selectors permit canonical serialization
+  VectorSelectionAuthoringGap --> [*]: DS1 retains prerequisite and no body
   RawBody --> BodyRefused: M01 invalid_program
   RawBody --> BodyAdmitted: M01 raw admission passes
   BodyRefused --> [*]: M01 refusal is terminal
-  BodyAdmitted --> CompileGap: M03 compiler or coverage oracle finds gap
-  BodyAdmitted --> CompiledProgram: M03 and coverage are total
+  BodyAdmitted --> VectorProgramBindingRefused: M03 rejects containment catalog membership or carrier identity
+  BodyAdmitted --> VectorProgramsCompiled: M03 derives exact local bindings
+  VectorProgramBindingRefused --> [*]: typed invalid_program is terminal
+  VectorProgramsCompiled --> CompileGap: M03 compiler or coverage oracle finds unrealized semantics
+  VectorProgramsCompiled --> CompiledProgram: M03 and coverage are total
   CompileGap --> [*]: DS1 disposition retains census and routes successors
   CompiledProgram --> ProbeComplete: DS1 coverage oracle retains no-effects evidence
   ProbeComplete --> PublicationAdmitted: deferred DS4 publication admits exact body
@@ -1089,7 +1224,9 @@ stateDiagram-v2
 
 State invariants:
 
-1. `AuthoringGap` and `CompileGap` are terminal for DS-1; neither can fall
+1. `AuthoringRefused`, `VectorSelectionAuthoringGap`,
+   `VectorProgramBindingRefused`, and `CompileGap` are terminal for DS-1; none
+   can fall
    through to product publication or runtime.
 2. `SameTaskRetry` preserves round identity and task contract.
 3. `FoldbackPending` creates the next round identity through GTL recursion.
@@ -1125,8 +1262,10 @@ feature-specific result store.
 
 | Interface | Input | Output | Owner | Refusal law |
 |---|---|---|---|---|
-| `typeConsensusHofRelation` | accepted assignment-vector and findings-vector contracts | typed HOF relation or blocking authoring gap | M01 authoring | current same-node output is non-conforming; no body is minted |
-| `authorConsensusModule` | accepted design plus a closed typed HOF relation and published GTL constructors | native admitted module root | M01 authoring | native type/constructor refusal |
+| `typeConsensusHofRelation` | exact assignment/findings member Nodes plus explicit vector Nodes | T-253 typed HOF relation | M01 authoring | invalid member/schema/ref/contract join refuses before a body is minted |
+| `authorGraphVectorCProgramSelection` | C-program-executing transition GraphVector Node boundary, existing selector ref, and C program built with canonical ordered Node-interface carriers | canonical scalar selector plus program/catalog declarations ready for serialization | T-254 M01 authoring | empty/malformed interface or ref and wrong native host/value shape refuse before a body is minted; catalog membership is not claimed here |
+| `compileGraphVectorCProgramBinding` | raw-admitted containing GraphFunction, MaterializedGraph, catalog, transition GraphVector, local selector, and selected candidate | exact compiler-derived vector/program binding or typed conformance issue | T-254 M03 compiler | containment, catalog, membership, selected-program admission/interface, or boundary mismatch refuses after raw admission and before effects |
+| `authorConsensusModule` | accepted design, closed typed HOF relation, available vector selector/carrier authoring, and published GTL constructors | native canonical module root | M01 authoring | native type/constructor refusal |
 | `admitConsensusModule` | canonical serialized root | admitted GTL root or typed invalid-program diagnostics | M01 raw admission | closed fields, refs, carrier relations, vector and recursion declarations |
 | `compileConsensusModule` | admitted root and reachable declarations | compiled program or ordered typed gap census | M03 semantic compiler | no effects; no omitted unknown/unrealized term |
 | `invokeConsensus` | later DS-4 public catalog request | result/replay refs | existing SDK/ABG boundary | unavailable during DS-1 while any relied-on gap remains |
@@ -1135,6 +1274,7 @@ feature-specific result store.
 
 | Join | Required equality | Failure disposition |
 |---|---|---|
+| containing GraphFunction and C-program-executing GraphVector to declared C program | vector belongs to the function's materialized graph; selector names one program in that function's catalog; compiled binding preserves exact function/vector/program identity, ordered source contracts, target contract, and C input/output carriers; structural HOF wrapper remains declaration-empty | blocking T-254 authoring/admission/compiler refusal; no global selector, `operator.binding`, `abg.fn_composition`, or helper GraphFunction substitution |
 | catalog row to graph body | graph-function identity and outer input/output contracts | invalid program; nameplate never substitutes |
 | subject to reviewed asset | subject contract, ref, and digest | typed non-admission |
 | subject to panel | exact non-empty panel ref and ordered unique profile identities | typed non-admission |
@@ -1154,11 +1294,11 @@ feature-specific result store.
 
 ## Compiler Gap Oracle
 
-The probe begins only after the generic native HOF input/output-carrier
-prerequisite closes. Today the type check stops before a body digest exists;
-that is a blocking authoring result, not an empty compiler census. Once the
-relation closes, the probe uses the canonical serialized body digest as its
-fixed experimental subject. Its report is an ordered projection with at least:
+The generic native HOF input/output-carrier prerequisite is closed. The
+GraphVector-to-declared-C-program prerequisite is not. No honest canonical body
+digest exists until T-254 closes and the complete native construction succeeds.
+After that relation closes, the probe uses the canonical serialized body digest as its fixed experimental subject.
+Its report is an ordered projection with at least:
 
 ```text
 bodyDigest
@@ -1199,14 +1339,15 @@ planned answer. The following are hypotheses the probe must decide:
 
 | Hypothesis | Lawful evidence | Routing if present |
 |---|---|---|
+| C-program-executing transition GraphVector cannot select its declared C program | native/raw refusal or missing M03 `(GraphFunction, GraphVector) -> CProgram` relation before a body digest exists | prerequisite T-254; not part of the post-body runtime census |
 | named child GraphFunction lift is unrealized | existing `gtl-c-unrealized-workflow-lift` at the exact program path | singular `workflow.C` design/realization leaf |
-| reviewer vector cannot map assignments to findings or one ordered task/spine family | the currently confirmed native typed relation gap covering input/output vectors, panel ordinal, task identity, carriers, cardinality, and C.batch projection; never `promote` or a fixed two-task workaround | blocking generic HOF plus C batch/vector mapping prerequisite before body authorship |
+| reviewer vector has no executable ordered task/spine projection | admitted T-253 HOF relation plus `gtl-hof-unrealized-fan-out`, with missing panel-ordinal/task/cardinality to C.batch runtime mapping retained; never `promote` or a fixed two-task workaround | singular generic fan-out-to-batch runtime design after body census |
 | graph `fan_out`/`fan_in` is declaration-visible but not executable | typed semantic gap at the GraphFunction/vector boundary | generic HOF interpreter design, not Consensus code |
 | graph recursion/foldback is declaration-visible but not executable | typed semantic gap at `recurse` termination/foldback join | generic recursion interpreter design, not `C.retry` |
 | child outer wire contract is uncertified | typed ref/carrier relation gap | outer-contract identity owner |
 | compiler accepts a relied-on construct but runtime has no lawful interpreter | missing-diagnostic test failure | semantic compiler owner; runtime remains blocked |
 | mandatory reviewer same-contract retry is unrealized | `gtl-c-unrealized-retry` at the reviewer program path with budget 2 and standard allowlist evidence | singular generic `C.retry` design/realization; semantic rounds still use `recurse` |
-| current compiler reports graph-algebra presence but no executable-consumer gap | non-empty `silentlyAcceptedConstructs` for `recurse`, `fan_out`, or `fan_in` | compiler-coverage design/realization; body stays non-executable |
+| current compiler reports graph-algebra presence but no executable-consumer gap | non-empty `silentlyAcceptedConstructs` for `recurse` or `fan_in`; `fan_out` must instead retain its T-253 semantic gap until realized | compiler-coverage design/realization; body stays non-executable |
 | current declaration outer target is round outcome | target-contract mismatch against `ConsensusResult` | DS-4 publication/contracts after body admission |
 
 The oracle must not assert that `workflow.C`, `C.batch`, and `C.retry` are the
@@ -1215,14 +1356,15 @@ not to make a prewritten plan appear correct and never to encode a semantic
 round. Generic atom priority is repriced from the exact census and product
 dependencies after this probe.
 
-Live baseline fact: current `recurse`, `fan_out`, and `fan_in` constructors
-produce or merge GTL GraphFunction declarations, and the conformance surface
-can count those declaration features, but no ABG runtime path consumes them as
-these operators and the current compiler emits no corresponding
-`semantic_not_realized` diagnostic. Therefore a zero-diagnostic compiler result
-is not sufficient. The probe's coverage comparison must report these operators
-as silent compiler-coverage gaps until both a diagnostic and a generic runtime
-consumer exist. Generic realization requires either a singular interpreter
+Live baseline fact: T-253 gives `fan_out` canonical structural declaration
+truth and a `semantic_not_realized` diagnostic, but no ABG runtime consumer.
+The current live line still lacks the vector-local C-program selection carrier,
+so T-252 is pre-body and cannot yet run this oracle.
+Current `recurse` and `fan_in` declarations remain unconsumed and may still be
+silently accepted. Therefore a zero-diagnostic compiler result is not
+sufficient. The probe's coverage comparison must retain `fan_out` as an
+explicit runtime gap and report silent `recurse`/`fan_in` coverage gaps until a
+diagnostic and generic runtime consumer exist. Generic realization requires either a singular interpreter
 leaf for each operator or an explicit, type-preserving compiler projection onto
 already-realized C terms. A name prefix, tag, declaration-count feature, or
 test-harness traversal is not executable proof.
@@ -1276,7 +1418,7 @@ Consensus-specific branch and with a separate non-Consensus consumer proof.
 | Outer callable result is not an internal round outcome | ConsensusResult is a closed public variant family; internal disposition preserves closed/recurse graph truth | project-result runs only after closed recursion; reads derive held escalation and blocked failure | closed graph result and replay-derived escalated/failure variants remain distinct | `pass` |
 | Contract failure never becomes graph-success data | ABG Runtime owns blocked truth; no panel-failure or failure-disposition carrier exists | admission failure stops Runtime and never returns to fan_out | RuntimeBlocked cannot reach FindingsComplete, disposition, foldback, or ProjectResult | `pass` |
 | Ticket status is never Consensus truth | result carries ticket ref/digest only | caller receives data; no mutation participant | terminal states do not write ticket | `pass` |
-| Authoring and compiler gaps stop execution | native HOF relation and compiled body are distinct gates | Native and compiler alternatives precede publication/invocation | AuthoringGap and CompileGap are terminal for DS-1 | `pass` |
+| Authoring and compiler gaps stop execution | native HOF, authored vector selector, compiler-derived vector/program binding, and compiled body are distinct gates | Native and VectorC author before raw admission; M03 validates binding after it; all alternatives precede publication/invocation | AuthoringRefused, VectorSelectionAuthoringGap, VectorProgramBindingRefused, and CompileGap are terminal for DS-1 | `pass` |
 
 ## Cross-View Axiom Matrix
 
@@ -1284,19 +1426,20 @@ Consensus-specific branch and with a separate non-Consensus consumer proof.
 |---|---|---|---|---|---|---|---|---|
 | GraphFunction is the primary constructive carrier | PRODUCT; ODD method; `REQ-P-CONSENSUS-002` | canonical function owns inline body and module-local helpers | runtime receives compiled program, never selects a plugin body | BodyAdmitted precedes CompiledProgram | admitted `GraphFunction` and module constructors | root reachability and executable-body relation | `pass` | T-252 probe |
 | Consensus is a free construction over generic atoms | PRODUCT atom criterion | no Consensus controller or service class | only GTL functions and ordinary ABG boundaries act | no feature-specific engine state | closed GTL and C constructors | each missing generic construct is a typed gap | `pass` | exact census successors |
-| Reviewer fan-out and reduction use explicit vectors | HOF-001/002; CONSENSUS-006/009 | ordered assignment and finding vectors | fan_out and fan_in preserve panel ordinal | PanelRunning reaches FindingsComplete only with total admission | current `fan_out` preserves one same-node input/output and cannot type the target relation | raw/semantic admission cannot repair an untypeable native relation | `fail` | generic HOF input/output carrier prerequisite |
+| Every C-program-executing transition vector selects one declared C program without becoming a plugin route | C-ALGEBRA sort chain; GRAPHVECTOR transition-governance law; CCALL labelled-program law | target `GraphVectorProgramSelectionDeclaration` and derived compiled binding are distinct from `abg.fn_composition` and plugin selection; T-253 wrapper remains declaration-empty | VectorC must author carriers/selectors before raw admission; M03 derives the exact binding after admission | VectorSelectionAuthoringGap and VectorProgramBindingRefused are distinct terminal states | current host-indexed API cannot express the relation | current M03 compiler reads only GraphFunction-wide selection | `fail` | T-254 generic design and realization |
+| Reviewer fan-out and reduction use explicit vectors | HOF-001/002; CONSENSUS-006/009 | ordered assignment and finding vectors | fan_out and fan_in preserve declared vector boundaries | PanelRunning reaches FindingsComplete only with total admission | T-253 enforces exact fan-out members and vectors; fan-in takes the explicit findings vector | raw admission preserves fan-out; runtime/ordinal execution remains a census gap | `pass` | T-252 body; generic runtime successors |
 | Semantic verification rounds use declared recursion and foldback | RECURSE-001/003/004; CONSENSUS-008/009 | RoundRecursionLaw owns next-round rebind | Runtime opens next round only after recurse_next_round | FoldbackPending alone reaches RoundOpened | `recurse` requires termination, rebind, parent evaluation | compiler proves refs, termination, budget, foldback relation | `pass` | generic recursion interpreter if unrealized |
 | `C.retry` defends one reviewer contract and never stands for a semantic round | C-ALGEBRA-008; CONSENSUS-008/017 | budget-2 standard retry policy cannot mint round execution | retry returns to same Reviewer task | SameTaskRetry is disjoint from FoldbackPending | distinct C term and recursion carriers | category-crossing relation must fail | `pass` | generic C.retry owner |
 | Submitter actor identity never selects the F_P worker | CONSENSUS-005/011; GraphFunction declaration law | separate actor and SubmitterTurnBinding carriers | declared role/worker/instruction/result binding enters the call | SubmitterBindingAdmitted gates execution | distinct typed refs; no caller default | admission resolves exact binding and capabilities | `pass` | DS-2/DS-4 execution binding |
 | Public outer target is ConsensusResult | CONSENSUS-008A/018 | ConsensusResult closed variants and ConsensusRoundOutcome are distinct public primes | ProjectResult handles closed graph disposition; reads derive held escalation and blocked failure | recurse is nonterminal; RuntimeHeld/RuntimeBlocked never reach graph projection | distinct closed/escalated/replay-failure variants | catalog/body outer-contract equality and replay-derived held/blocked projection | `pass` | DS-4 publication |
 | Helper GraphFunctions remain module-local | CONSENSUS-003/019; PRODUCT bounded feature | helpers are contained by ConsensusGraphFunction | caller selects only canonical Consensus | no helper invocation state is public | module root owns reachable helpers | catalog publication census excludes helper rows | `pass` | T-252 body and DS-4 catalog |
-| Compiler coverage includes executable realization, not declaration presence | C-ALGEBRA-014/016; PRODUCT atom robustness | native authoring relation and compiler coverage are separate from body/runtime | no publication or Runtime message follows authoring or compiler gaps | AuthoringGap and CompileGap are terminal | exhaustive typed relations and relied-on constructor set | compare compiler diagnostics and runtime-consumer census only after native body exists | `fail` | HOF authoring prerequisite, then compiler owner successors |
+| Compiler coverage includes executable realization, not declaration presence | C-ALGEBRA-014/016; PRODUCT atom robustness | native authoring relation and compiler coverage are separate from body/runtime | no publication or Runtime message follows compiler gaps | CompileGap is terminal | exhaustive typed relations and relied-on constructor set | compare compiler diagnostics and runtime-consumer census over the admitted native body | `fail` | exact compiler/runtime census successors |
 | Nested fail-fast compilation cannot hide an inner gap | C-ALGEBRA-014/016; GOALS DS-1 exact census | canonical body owns a path-addressed probe manifest | root and subterm probes execute before any Runtime message | CompileGap remains terminal until all manifest rows reconcile | immutable canonical term extraction | whole-root plus per-path diagnostics and coverage totality | `pass` | T-252 probe harness |
 | Each reviewer result is attributed before use | CONSENSUS-006/011; F_P admission law | ReviewFindings joins task/profile/config/output/evidence | Admission precedes FanIn | no FindingsComplete before total admission | typed finding carrier after ingress | raw/schema/digest/membership/cardinality checks | `pass` | DS-2/DS-4 result contracts |
 | F_D does not manufacture semantic agreement | CONSENSUS-011 | RoundExactProjection has envelope/exact equality only; initial and post-submitter assessments are F_P | FanIn supplies facts to admitted F_P C programs | ExactFactsProjected precedes InitialAssessmentAdmitted | separate F_D and F_P C-program declarations | compiler checks regime and carrier declarations | `pass` | Consensus declarations and F_P path |
 | F_D does not manufacture F_H stop truth | CONSENSUS-008/010/011 | initial/post-submitter routing selects an F_H vector; FhPendingProgram owns the regime boundary | FH holds Runtime with admitted pending interaction; no graph disposition follows | RuntimeHeld follows FhPendingAdmission and cannot reach ResultProjected | distinct F_D routing and F_H C-program declarations | runtime admission owns held truth; replay/read derives escalate outcome and result | `pass` | DS-2 F_H public/runtime path |
 | ABG alone owns runtime truth and closure | PRODUCT runtime boundary; CCALL/HANDLERS | runtime is external interpreter; payloads have no authority methods | events, continuation, F_H and result are ABG messages | terminal state follows admitted runtime transition | no event/continuation API in GTL payload types | execution admission and replay proofs later | `pass` | DS-2/DS-4 |
-| Malformed GTL and F_P fail before effects or closure | GOALS operating boundary; C-ALGEBRA-013/014; CONSENSUS-017 | admitted and raw payload states are distinct | M01/M03 and every FP failure branch stop | AuthoringGap, BodyRefused, CompileGap, and RuntimeBlocked cannot close | constructor-only authored state | raw admission, semantic compiler, response admission | `pass` | T-252 for GTL; DS-2/DS-4 for F_P |
+| Malformed GTL and F_P fail before effects or closure | GOALS operating boundary; C-ALGEBRA-013/014; CONSENSUS-017 | admitted and raw payload states are distinct | M01/M03 and every FP failure branch stop | AuthoringRefused, BodyRefused, CompileGap, and RuntimeBlocked cannot close | constructor-only authored state | raw admission, semantic compiler, response admission | `pass` | T-252 for GTL; DS-2/DS-4 for F_P |
 | Consensus returns governance input, never ticket authority | CONSENSUS-007/012/019; TICKET_METHOD | TicketConsensusProjection is read-only | no ticket writer exists | ResultReadable terminates without mutation | result/projection expose no mutation capability | public operation and replay proof later | `pass` | DS-4 qualification |
 | Supported workspace forms share one contract | CONSENSUS-013/014 | one workspaceRef on ConsensusSubject | no workspace-mode branch | state machine is workspace-shape invariant | one subject carrier | later public admission uses exact bound identity | `not_applicable` | DS-1 is effect-free; DS-4 owns invocation proof |
 
@@ -1304,8 +1447,9 @@ Consensus-specific branch and with a separate non-Consensus consumer proof.
 
 | Gap or exclusion | Current disposition | Re-entry condition |
 |---|---|---|
-| native HOF assignment-vector to findings-vector relation | `blocked`, confirmed by the current `fan_out` same-node input/output carrier | singular generic HOF authoring/admission design and realization; no name/tag, cast, `promote`, or hand-built GraphFunction workaround |
-| executable body and actual compiler census | T-252 remains blocked behind the native HOF prerequisite | after that prerequisite closes, re-review this design, then submit the native + raw admitted canonical root without effects |
+| native HOF assignment-vector to findings-vector relation | `closed` by T-253 exact native/raw relation and structural compiler diagnostic | body uses that unchanged API and identity-bearing contract set |
+| GraphVector-to-declared-C-program selection | `blocking` pre-body gap; current key and compiler plan are GraphFunction-wide | T-254 accepted three-view design plus generic native/raw/M03 relation, with a non-Consensus proof and no runtime claim |
+| executable body and actual compiler census | blocked behind T-254 | after T-254, submit the native plus raw-admitted canonical root without effects and retain the exact frontier census |
 | generic `workflow.C`, vector/batch, HOF, or recursion runtime gaps | forbidden in this ticket | singular accepted design per exact retained diagnostic |
 | execution-basis join and runtime interpreter | DS-2/DS-3 | accepted generic designs, never Consensus branch code |
 | malformed F_P admission and declared protocol completion | DS-2 | accepted existing three-view designs and focused realization |
@@ -1318,21 +1462,23 @@ Consensus-specific branch and with a separate non-Consensus consumer proof.
 
 ## Non-Scope
 
-This design does not authorize product code, an executable body, compiler
-changes, runtime atoms, schemas, generated public contracts, CLI changes,
-worker calls, installed scenarios, or release evidence. It does not promote
+This design does not currently authorize body code. T-254 may realize only the
+generic GraphVector-to-declared-C-program authoring/admission/compiler relation
+after its own three-view design is accepted. This design does not authorize generic compiler/runtime
+repairs, schemas, generated public contracts, CLI changes, worker calls,
+installed scenarios, or release evidence. It does not promote
 the rejected plugin's types or parser by presumption. Any later deterministic
 reducer or schema may be mined only after the GTL body identifies its lawful
 interior and a singular design proves reuse.
 
 ## Pre-Code Verdict
 
-`candidate`, with the target architecture and its routing decision accepted by
-direct F_H ruling on 2026-07-12. This is not an `accepted` implementation design:
-the two failed current-line axiom rows remain failed, and product implementation
-is blocked by the confirmed native HOF carrier and compiler-coverage gaps. T-253
-owns that generic prerequisite. After it closes, T-252 re-enters design review;
-only then may an accepted revision author the exact body and run the no-effects
-compiler probe. The probe must stop after persisting the body digest and
-diagnostic census. Any further generic atom returns to its own accepted design
-before code; no reported gap may be fixed inside T-252.
+`accepted_target_blocked_on_vector_c_program_selection`, preserving the target
+architecture accepted by direct F_H ruling on 2026-07-12. T-253 closed the HOF
+authoring gap and the bounded re-entry verified its exact public API, raw
+identity, M03 semantic diagnostic, and `workflow.C` lift. The same re-entry then
+found the missing generic vector-to-program relation before body code. T-252
+cannot mint a canonical body or run the no-effects compiler probe until T-254
+closes under an accepted three-view design. No global-program lie,
+`operator.binding`, `abg.fn_composition`, helper-GraphFunction rewrite, or
+Consensus-specific workaround is authorized.
