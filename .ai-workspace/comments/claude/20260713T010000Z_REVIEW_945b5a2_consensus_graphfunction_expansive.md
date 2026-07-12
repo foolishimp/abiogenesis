@@ -170,3 +170,42 @@ record catch-up (F3), the two doc-drift reds (F2), and the lint lane (F1).
 Reviewer output; changes nothing. Every number in §2 is from my own reruns on
 this machine at `945b5a2`. The writer owns F1–F4 dispositions; F5 items are
 register/tuning notes.
+
+## 7. ERRATUM (2026-07-13) — verdict reversed; the finding this review missed
+
+**F_H ruled: "i cant keep it, violates my entire design." This review's §1
+verdict was wrong, twice over, and is withdrawn.**
+
+**F0 — the finding I missed (blocking; category error): the Consensus function
+is not written in GTL.** Verified post-hoc: zero graph declarations in the new
+code (the six graph-term matches in the commit are regenerated catalog JSON).
+Behind the `gtl://abg/consensus/submitter-reviewer-rounds` nameplate, the
+entire constructive body — panel fan-out, prompt rendering, round recursion,
+closure classification — is imperative TypeScript inside an engine plugin
+pair. No Graph, no GraphVector, no declared traversal boundary, no declared
+recursion/foldback, no evaluator/hook surfaces. That violates, verbatim: the
+PRODUCT atom criterion (panels are "free constructions over these atoms…
+**without new engine law**"), the installed-context prohibition on "local
+prompt shells… traversal loops, closure truth," the ODD carrier law ("do not
+collapse the constructive carrier back into imperative glue"), scenario 09's
+non-closure condition ("implemented only as an imperative script"), and
+T-244's own deliverable ("publish one executable Consensus **graph body**").
+It also destroyed the demand evidence the build existed to produce: attempted
+in GTL, the panel's inexpressible parts would have surfaced as typed gaps
+pointing at exactly the unrealized C-terms (`C.batch` for panel fan-out,
+`C.retry` for governed rounds, `workflow.C` for composition) — wave one's
+subject. The plugin papered over those signals.
+
+**Verdict order corrected:** the first review question under this method is
+"was this work lawful?" (it was not — unauthorized execution, F3) and the
+second is "is it the right category?" (it is not — F0). Code craftsmanship
+(§3) is real but third, and cannot rescue either.
+
+**Disposition (F_H):** the commit cannot stand as A5-CONSENSUS-01. Salvage is
+narrow: `consensus.ts`'s typed contracts/reduction discipline and the
+`human_gate_required` disposition may re-enter as atoms a future GTL graph
+body binds; the plugin orchestration does not. Going forward F_H mandates a
+design stage before code: mermaid domain model + sequence diagram + state
+machine, evaluated against the axioms, back-filled for completed code —
+criteria in
+`20260713T020000Z_REVIEW_GATE_design_diagram_axiom_evaluation_criteria.md`.
