@@ -1703,6 +1703,21 @@ export type {
 } from "./hof_relation_compiler.js";
 
 export {
+  GRAPH_FUNCTION_APPLICATION_DIAGNOSTIC_ID_VALUES,
+  compileGraphFunctionApplication,
+  graphFunctionHasApplicationDeclarationKey
+} from "./graph_function_application_compiler.js";
+export type {
+  GraphFunctionApplicationCompilation,
+  GraphFunctionApplicationDiagnostic,
+  GraphFunctionApplicationDiagnosticId,
+  GraphFunctionApplicationLineageProjection,
+  GraphFunctionApplicationLineageStep,
+  GraphFunctionApplicationRepairAffordance,
+  ProvisionalDerivedCompositionBinding
+} from "./graph_function_application_compiler.js";
+
+export {
   GRAPH_VECTOR_C_PROGRAM_DIAGNOSTIC_ID_VALUES,
   collectRawCProgramCandidates,
   compileGraphVectorCProgramSelection,

@@ -31,6 +31,7 @@ import {
 import {
   GTL_NODE_TYPE_GRAPH_FUNCTION_TAG,
   interfaceContract,
+  isAdmittedGraphFunction,
   materializeGraphFunction,
   nodeContractKey
 } from "../contracts/carriers.js";
@@ -41,6 +42,11 @@ import {
   type GraphFunctionDeclarations,
   type GraphVectorDeclarations
 } from "../contracts/declaration_law.js";
+import {
+  GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY,
+  constructGraphFunctionApplicationDeclaration,
+  constructGraphFunctionApplicationDeclarationEntry
+} from "../contracts/graph_function_application.js";
 
 export const GRAPH_FUNCTION_ZOOM_REFINEMENT_BOUNDARY_DECLARATION_KEY =
   "gtl.zoom.refinement_boundary_ref";
@@ -655,6 +661,42 @@ function mergeGraphFunctionDeclarations(
   return graphFunctionDeclarations(merged);
 }
 
+function graphFunctionDeclarationsWithoutApplication(
+  declarations: GraphFunctionDeclarations,
+  label: string
+): GraphFunctionDeclarations {
+  if (
+    declarations.entries.some(
+      (entry) => entry.key === "recursion" || entry.key === "gate"
+    )
+  ) {
+    throw new TypeError(
+      `${label}: legacy recursion/gate application authority is not admitted`
+    );
+  }
+  return graphFunctionDeclarations(
+    declarations.entries.filter(
+      (entry) => entry.key !== GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY
+    )
+  );
+}
+
+function graphFunctionLocalDeclarations(
+  declarations: GraphFunctionDeclarations,
+  label: string
+): GraphFunctionDeclarations {
+  if (
+    declarations.entries.some(
+      (entry) => entry.key === GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY
+    )
+  ) {
+    throw new TypeError(
+      `${label}: result-local declarations cannot author graph-function application authority`
+    );
+  }
+  return graphFunctionDeclarationsWithoutApplication(declarations, label);
+}
+
 function graphFunctionDeclarationsFromEntries(
   entries: readonly SerializedAttrEntry[]
 ): GraphFunctionDeclarations {
@@ -959,23 +1001,6 @@ function stableRules(values: readonly (readonly Rule[])[]): readonly Rule[] {
   return Object.freeze(merged);
 }
 
-function evaluatorDeclaration(evaluator: Evaluator): SerializedJsonValue {
-  return jsonObjectValue([
-    { key: "name", value: evaluator.name },
-    { key: "regime", value: evaluator.regime },
-    { key: "binding", value: evaluator.binding },
-    { key: "description", value: evaluator.description }
-  ]);
-}
-
-function ruleDeclaration(rule: Rule): SerializedJsonValue {
-  return jsonObjectValue([
-    { key: "name", value: rule.name },
-    { key: "kind", value: rule.kind },
-    { key: "config", value: serializedAttrsToJsonObject(rule.config) }
-  ]);
-}
-
 function isVectorBoundary(node: Node): boolean {
   const ref = node.schema.ref.trim();
   return ref.startsWith("Vector[") && ref.endsWith("]");
@@ -1170,7 +1195,10 @@ function adaptGraphFunctionRequiredNodes(
     outputs: replaceRequiredNodes(graphFunction.outputs, replacements),
     template,
     effects: graphFunction.effects,
-    declarations: graphFunction.declarations,
+    declarations: graphFunctionDeclarationsWithoutApplication(
+      graphFunction.declarations,
+      "adaptGraphFunctionRequiredNodes"
+    ),
     tags: graphFunction.tags
   });
 }
@@ -1598,8 +1626,18 @@ export function applyGraphFunctionZoomPlan(
     }),
     effects: stableUnion([input.parent.effects, input.refinement.effects]),
     declarations: mergeGraphFunctionDeclarations([
-      input.parent.declarations,
-      input.declarations ?? emptyGraphFunctionDeclarations(),
+      graphFunctionDeclarationsWithoutApplication(
+        input.parent.declarations,
+        "applyGraphFunctionZoomPlan.parent"
+      ),
+      graphFunctionDeclarationsWithoutApplication(
+        input.refinement.declarations,
+        "applyGraphFunctionZoomPlan.refinement"
+      ),
+      graphFunctionDeclarationsWithoutApplication(
+        input.declarations ?? emptyGraphFunctionDeclarations(),
+        "applyGraphFunctionZoomPlan.declarations"
+      ),
       graphFunctionZoomDeclaration(input.plan)
     ]),
     tags: stableUnion([
@@ -1632,15 +1670,19 @@ export function zoomGraphFunction(
 export interface FoldbackDeclaration {
   readonly binding: string;
   readonly mode: "rebind";
-  readonly requiresParentEvaluation: boolean;
+  readonly requiresParentEvaluation: true;
   readonly additional?: SerializedAttrs;
 }
 
 export function recurse(
   graphFunction: GraphFunction,
   termination: Evaluator,
-  foldback: FoldbackDeclaration
+  foldback: FoldbackDeclaration,
+  options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
 ): GraphFunction {
+  if (!isAdmittedGraphFunction(graphFunction)) {
+    throw new TypeError("recurse(...): expected an admitted operand GraphFunction");
+  }
   if (foldback.mode !== "rebind") {
     throw new TypeError("recurse(...): foldback.mode must be 'rebind'");
   }
@@ -1653,18 +1695,12 @@ export function recurse(
     );
   }
 
-  const foldbackEntries: readonly {
-    readonly key: string;
-    readonly value: SerializedJsonValue;
-  }[] = [
-    { key: "mode", value: "rebind" },
-    { key: "binding", value: foldback.binding },
-    { key: "requires_parent_evaluation", value: true },
-    ...((foldback.additional?.entries ?? []).map((entry) => ({
-      key: entry.key,
-      value: serializedAttrValueToJson(entry.value)
-    })))
-  ];
+  const application = constructGraphFunctionApplicationDeclaration({
+    operatorKind: "recurse",
+    operandGraphFunction: graphFunction,
+    terminationEvaluator: termination,
+    foldback
+  });
 
   return constructGraphFunction({
     name: `recurse(${graphFunction.name})`,
@@ -1674,12 +1710,16 @@ export function recurse(
     template: graphFunction.template,
     effects: graphFunction.effects,
     declarations: mergeGraphFunctionDeclarations([
-      graphFunction.declarations,
+      graphFunctionDeclarationsWithoutApplication(
+        graphFunction.declarations,
+        "recurse.operand"
+      ),
+      graphFunctionLocalDeclarations(
+        options?.declarations ?? emptyGraphFunctionDeclarations(),
+        "recurse.local"
+      ),
       graphFunctionDeclarationsFromEntries([
-        jsonBlobEntry("recursion", [
-          { key: "termination", value: evaluatorDeclaration(termination) },
-          { key: "foldback", value: jsonObjectValue(foldbackEntries) }
-        ])
+        constructGraphFunctionApplicationDeclarationEntry(application)
       ])
     ]),
     tags: stableUnion([
@@ -1691,13 +1731,23 @@ export function recurse(
 
 export function fan_in(
   reducer: GraphFunction,
-  over: Node
+  over: Node,
+  options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
 ): GraphFunction {
+  if (!isAdmittedGraphFunction(reducer)) {
+    throw new TypeError("fan_in(...): expected an admitted reducer GraphFunction");
+  }
   if (!isVectorBoundary(over)) {
     throw new TypeError(
       `fan_in(${reducer.name}): over must declare an explicit Vector[...] boundary`
     );
   }
+
+  const application = constructGraphFunctionApplicationDeclaration({
+    operatorKind: "fan_in",
+    operandGraphFunction: reducer,
+    overVectorNode: over
+  });
 
   return constructGraphFunction({
     name: `fan_in(${reducer.name})`,
@@ -1710,7 +1760,19 @@ export function fan_in(
     outputs: reducer.outputs,
     template: reducer.template,
     effects: reducer.effects,
-    declarations: reducer.declarations,
+    declarations: mergeGraphFunctionDeclarations([
+      graphFunctionDeclarationsWithoutApplication(
+        reducer.declarations,
+        "fan_in.operand"
+      ),
+      graphFunctionLocalDeclarations(
+        options?.declarations ?? emptyGraphFunctionDeclarations(),
+        "fan_in.local"
+      ),
+      graphFunctionDeclarationsFromEntries([
+        constructGraphFunctionApplicationDeclarationEntry(application)
+      ])
+    ]),
     tags: stableUnion([reducer.tags, [`over:${over.name}`]])
   });
 }
@@ -1718,11 +1780,22 @@ export function fan_in(
 export function gate(
   target: GraphFunction,
   rule: Rule,
-  evaluators: readonly Evaluator[]
+  evaluators: readonly [Evaluator, ...Evaluator[]],
+  options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
 ): GraphFunction {
+  if (!isAdmittedGraphFunction(target)) {
+    throw new TypeError("gate(...): expected an admitted target GraphFunction");
+  }
   if (evaluators.length === 0) {
     throw new TypeError("gate(): requires at least one evaluator");
   }
+
+  const application = constructGraphFunctionApplicationDeclaration({
+    operatorKind: "gate",
+    operandGraphFunction: target,
+    rule,
+    evaluators
+  });
 
   return constructGraphFunction({
     name: `gate(${target.name})`,
@@ -1732,17 +1805,16 @@ export function gate(
     template: target.template,
     effects: target.effects,
     declarations: mergeGraphFunctionDeclarations([
-      target.declarations,
+      graphFunctionDeclarationsWithoutApplication(
+        target.declarations,
+        "gate.operand"
+      ),
+      graphFunctionLocalDeclarations(
+        options?.declarations ?? emptyGraphFunctionDeclarations(),
+        "gate.local"
+      ),
       graphFunctionDeclarationsFromEntries([
-        jsonBlobEntry("gate", [
-          { key: "target", value: target.name },
-          { key: "target_kind", value: "GraphFunction" },
-          { key: "rule", value: ruleDeclaration(rule) },
-          {
-            key: "evaluators",
-            value: jsonArrayValue(evaluators.map(evaluatorDeclaration))
-          }
-        ])
+        constructGraphFunctionApplicationDeclarationEntry(application)
       ])
     ]),
     tags: stableUnion([target.tags, [`rule:${rule.name}`]])
@@ -1809,8 +1881,14 @@ function composePair(left: GraphFunction, right: GraphFunction): GraphFunction {
     template: mergeGraphTemplates(left, right),
     effects: stableUnion([left.effects, right.effects]),
     declarations: mergeGraphFunctionDeclarations([
-      left.declarations,
-      right.declarations
+      graphFunctionDeclarationsWithoutApplication(
+        left.declarations,
+        "compose.left"
+      ),
+      graphFunctionDeclarationsWithoutApplication(
+        right.declarations,
+        "compose.right"
+      )
     ]),
     tags: stableUnion([left.tags, right.tags])
   });

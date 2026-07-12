@@ -14,8 +14,7 @@ import {
   type SerializedAttrEntry,
   type SerializedAttrs,
   type SerializedAttrValue,
-  type SerializedJsonValue,
-  type SerializedScalar
+  type SerializedJsonValue
 } from "./carriers.js";
 
 export const GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY =
@@ -90,7 +89,7 @@ export interface CanonicalGraphFunctionFoldbackDeclaration {
 export interface GraphFunctionFoldbackDeclarationInit {
   readonly mode: "rebind";
   readonly binding: string;
-  readonly requiresParentEvaluation: boolean;
+  readonly requiresParentEvaluation: true;
   readonly additional?: SerializedAttrs | undefined;
 }
 
@@ -143,7 +142,7 @@ export type GraphFunctionApplicationDeclarationInput =
       readonly operatorKind: "gate";
       readonly operandGraphFunction: GraphFunction;
       readonly rule: Rule;
-      readonly evaluators: readonly Evaluator[];
+      readonly evaluators: readonly [Evaluator, ...Evaluator[]];
     };
 
 export interface GraphFunctionApplicationDeclarationEntry
@@ -161,6 +160,7 @@ export type GraphFunctionApplicationAdmissionDiagnosticId =
   | "gtl-application-duplicate-authority"
   | "gtl-application-invalid-operator"
   | "gtl-application-identity-mismatch"
+  | "gtl-application-result-identity-mismatch"
   | "gtl-application-contract-mismatch";
 
 export class GraphFunctionApplicationAdmissionError extends TypeError {
@@ -205,38 +205,28 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-function assertOwnKeyOrder(
+function assertExactOwnKeys(
   value: Readonly<Record<string, unknown>>,
   expected: readonly string[],
   label: string
 ): void {
-  const actual = Object.keys(value);
-  if (actual.length !== expected.length) {
-    for (const key of actual) {
-      if (!expected.includes(key)) {
-        admissionError(
-          "gtl-application-unknown-field",
-          `${label}.${key}`,
-          "field is not admitted"
-        );
-      }
-    }
-    for (const key of expected) {
-      if (!Object.hasOwn(value, key)) {
-        admissionError(
-          "gtl-application-missing-field",
-          `${label}.${key}`,
-          "required field is absent"
-        );
-      }
+  for (const key of Object.keys(value)) {
+    if (!expected.includes(key)) {
+      admissionError(
+        "gtl-application-unknown-field",
+        `${label}.${key}`,
+        "field is not admitted"
+      );
     }
   }
-  if (actual.some((key, index) => key !== expected[index])) {
-    admissionError(
-      "gtl-application-contract-mismatch",
-      label,
-      `expected exact field order ${expected.join(",")}`
-    );
+  for (const key of expected) {
+    if (!Object.hasOwn(value, key)) {
+      admissionError(
+        "gtl-application-missing-field",
+        `${label}.${key}`,
+        "required field is absent"
+      );
+    }
   }
 }
 
@@ -332,7 +322,7 @@ function canonicalSerializedJsonValue(
   }
   const kind = value["kind"];
   if (kind === "array") {
-    assertOwnKeyOrder(value, ["kind", "items"], path);
+    assertExactOwnKeys(value, ["kind", "items"], path);
     const items = value["items"];
     if (!Array.isArray(items)) {
       return admissionError(
@@ -368,7 +358,7 @@ function readTaggedEntries(
       "expected a tagged object"
     );
   }
-  assertOwnKeyOrder(input, ["kind", "entries"], label);
+  assertExactOwnKeys(input, ["kind", "entries"], label);
   if (input["kind"] !== "object" || !Array.isArray(input["entries"])) {
     return admissionError(
       "gtl-application-contract-mismatch",
@@ -387,7 +377,7 @@ function readTaggedEntries(
           "expected a tagged-object field entry"
         );
       }
-      assertOwnKeyOrder(candidate, ["key", "value"], entryLabel);
+      assertExactOwnKeys(candidate, ["key", "value"], entryLabel);
       const key = nonEmptyString(candidate["key"], `${entryLabel}.key`);
       if (seen.has(key)) {
         return admissionError(
@@ -470,7 +460,7 @@ function canonicalSerializedAttrValue(
       "expected a serialized attribute value"
     );
   }
-  assertOwnKeyOrder(value, ["kind", "value"], path);
+  assertExactOwnKeys(value, ["kind", "value"], path);
   const kind = value["kind"];
   const raw = value["value"];
   if (kind === "scalar") {
@@ -482,7 +472,7 @@ function canonicalSerializedAttrValue(
         "expected a serialized scalar"
       );
     }
-    return Object.freeze({ kind, value: scalar as SerializedScalar });
+    return Object.freeze({ kind, value: scalar });
   }
   if (kind === "string_list") {
     return Object.freeze({
@@ -504,7 +494,7 @@ function canonicalSerializedAttrValue(
         "expected a hook-ref value"
       );
     }
-    assertOwnKeyOrder(raw, ["ref", "config"], `${path}.value`);
+    assertExactOwnKeys(raw, ["ref", "config"], `${path}.value`);
     return Object.freeze({
       kind,
       value: Object.freeze({
@@ -528,7 +518,7 @@ function canonicalSerializedAttrs(value: unknown, path: string): SerializedAttrs
       "expected serialized attributes"
     );
   }
-  assertOwnKeyOrder(value, ["entries"], path);
+  assertExactOwnKeys(value, ["entries"], path);
   const entries = value["entries"];
   if (!Array.isArray(entries)) {
     return admissionError(
@@ -549,7 +539,7 @@ function canonicalSerializedAttrs(value: unknown, path: string): SerializedAttrs
             "expected an attribute entry"
           );
         }
-        assertOwnKeyOrder(entry, ["key", "value"], entryPath);
+        assertExactOwnKeys(entry, ["key", "value"], entryPath);
         const key = nonEmptyString(entry["key"], `${entryPath}.key`);
         if (seen.has(key)) {
           return admissionError(
@@ -705,7 +695,7 @@ function attrsFromJson(value: unknown, label: string): SerializedAttrs {
   );
 }
 
-function canonicalEvaluator(value: Evaluator, label: string): Evaluator {
+function canonicalEvaluator(value: unknown, label: string): Evaluator {
   if (!isRecord(value)) {
     return admissionError(
       "gtl-application-contract-mismatch",
@@ -713,7 +703,7 @@ function canonicalEvaluator(value: Evaluator, label: string): Evaluator {
       "expected an evaluator"
     );
   }
-  assertOwnKeyOrder(value, [
+  assertExactOwnKeys(value, [
     "name",
     "regime",
     "description",
@@ -787,12 +777,12 @@ function evaluatorFromJson(value: unknown, label: string): Evaluator {
       binding: requiredField(fields, "binding", label),
       consumedFieldRefs: consumed.items,
       tags: tags.items
-    } as Evaluator,
+    },
     label
   );
 }
 
-function canonicalRule(value: Rule, label: string): Rule {
+function canonicalRule(value: unknown, label: string): Rule {
   if (!isRecord(value)) {
     return admissionError(
       "gtl-application-contract-mismatch",
@@ -800,7 +790,7 @@ function canonicalRule(value: Rule, label: string): Rule {
       "expected a rule"
     );
   }
-  assertOwnKeyOrder(value, ["name", "kind", "config", "tags"], label);
+  assertExactOwnKeys(value, ["name", "kind", "config", "tags"], label);
   return Object.freeze({
     name: nonEmptyString(value["name"], `${label}.name`),
     kind: stringValue(value["kind"], `${label}.kind`),
@@ -834,13 +824,13 @@ function ruleFromJson(value: unknown, label: string): Rule {
       kind: requiredField(fields, "kind", label),
       config: attrsFromJson(requiredField(fields, "config", label), `${label}.config`),
       tags: tags.items
-    } as Rule,
+    },
     label
   );
 }
 
 function canonicalFoldback(
-  value: GraphFunctionFoldbackDeclarationInit,
+  value: unknown,
   label: string
 ): CanonicalGraphFunctionFoldbackDeclaration {
   if (!isRecord(value)) {
@@ -853,7 +843,7 @@ function canonicalFoldback(
   const expected = value["additional"] === undefined
     ? ["mode", "binding", "requiresParentEvaluation"]
     : ["mode", "binding", "requiresParentEvaluation", "additional"];
-  assertOwnKeyOrder(value, expected, label);
+  assertExactOwnKeys(value, expected, label);
   if (value["mode"] !== "rebind") {
     return admissionError(
       "gtl-application-contract-mismatch",
@@ -897,13 +887,13 @@ function foldbackFromJson(
   const fields = closedTaggedFields(value, FOLDBACK_FIELD_ORDER, label);
   return canonicalFoldback(
     {
-      mode: requiredField(fields, "mode", label) as "rebind",
-      binding: requiredField(fields, "binding", label) as string,
+      mode: requiredField(fields, "mode", label),
+      binding: requiredField(fields, "binding", label),
       requiresParentEvaluation: requiredField(
         fields,
         "requires_parent_evaluation",
         label
-      ) as boolean,
+      ),
       additional: attrsFromJson(
         requiredField(fields, "additional", label),
         `${label}.additional`
@@ -1123,6 +1113,7 @@ export function constructGraphFunctionApplicationDeclaration(
     if (
       match?.[1] === undefined ||
       match[1].length === 0 ||
+      match[1] !== match[1].trim() ||
       over.schema.ref !== over.schema.ref.trim()
     ) {
       return admissionError(
@@ -1214,17 +1205,16 @@ export function admitGraphFunctionApplicationDeclaration(
       `expected ${GRAPH_FUNCTION_APPLICATION_SYNTAX_VERSION}`
     );
   }
-  const operandGraphFunctionRef = requiredField(
-    fields,
-    "operand_graph_function_ref",
-    label
+  const operandGraphFunctionRef = nonEmptyString(
+    requiredField(fields, "operand_graph_function_ref", label),
+    `${label}.operand_graph_function_ref`
   );
   let canonical: GraphFunctionApplicationDeclaration;
   if (operatorKind === "recurse") {
     canonical = constructCanonicalApplication(
       {
         operatorKind,
-        operandGraphFunctionRef: operandGraphFunctionRef as string,
+        operandGraphFunctionRef,
         terminationEvaluator: evaluatorFromJson(
           requiredField(fields, "termination_evaluator", label),
           `${label}.termination_evaluator`
@@ -1240,17 +1230,15 @@ export function admitGraphFunctionApplicationDeclaration(
     canonical = constructCanonicalApplication(
       {
         operatorKind,
-        operandGraphFunctionRef: operandGraphFunctionRef as string,
-        overVectorNodeRef: requiredField(
-          fields,
-          "over_vector_node_ref",
-          label
-        ) as string,
-        overVectorContractKey: requiredField(
-          fields,
-          "over_vector_contract_key",
-          label
-        ) as string
+        operandGraphFunctionRef,
+        overVectorNodeRef: nonEmptyString(
+          requiredField(fields, "over_vector_node_ref", label),
+          `${label}.over_vector_node_ref`
+        ),
+        overVectorContractKey: nonEmptyString(
+          requiredField(fields, "over_vector_contract_key", label),
+          `${label}.over_vector_contract_key`
+        )
       },
       label
     );
@@ -1270,7 +1258,7 @@ export function admitGraphFunctionApplicationDeclaration(
     canonical = constructCanonicalApplication(
       {
         operatorKind,
-        operandGraphFunctionRef: operandGraphFunctionRef as string,
+        operandGraphFunctionRef,
         rule: ruleFromJson(
           requiredField(fields, "rule", label),
           `${label}.rule`

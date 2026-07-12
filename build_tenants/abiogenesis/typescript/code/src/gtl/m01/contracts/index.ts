@@ -52,6 +52,31 @@ export {
   hofApplicationDeclarationFromDeclarations,
   serializeHofApplicationDeclaration
 } from "./hof_application.js";
+export type {
+  CanonicalGraphFunctionFoldbackDeclaration,
+  FanInGraphFunctionApplicationDeclaration,
+  GateGraphFunctionApplicationDeclaration,
+  GraphFunctionApplicationAdmissionDiagnosticId,
+  GraphFunctionApplicationDeclaration,
+  GraphFunctionApplicationDeclarationEntry,
+  GraphFunctionApplicationDeclarationInput,
+  GraphFunctionApplicationOperatorKind,
+  GraphFunctionFoldbackDeclarationInit,
+  RecurseGraphFunctionApplicationDeclaration
+} from "./graph_function_application.js";
+export {
+  GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY,
+  GRAPH_FUNCTION_APPLICATION_FIELD_ORDER,
+  GRAPH_FUNCTION_APPLICATION_OPERATOR_KINDS,
+  GRAPH_FUNCTION_APPLICATION_SYNTAX_VERSION,
+  GraphFunctionApplicationAdmissionError,
+  admitGraphFunctionApplicationDeclaration,
+  canonicalizeGraphFunctionApplicationDeclarationValue,
+  constructGraphFunctionApplicationDeclaration,
+  constructGraphFunctionApplicationDeclarationEntry,
+  graphFunctionApplicationDeclarationFromDeclarations,
+  serializeGraphFunctionApplicationDeclaration
+} from "./graph_function_application.js";
 export {
   GTL_DECLARATION_HOST_VALUES,
   GTL_DECLARATION_LAW_VIOLATION_KIND_VALUES,

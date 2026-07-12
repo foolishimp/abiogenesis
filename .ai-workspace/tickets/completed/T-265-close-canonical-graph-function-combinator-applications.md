@@ -1,10 +1,11 @@
 # T-265 - Close Canonical GraphFunction Combinator Applications
 
 - id: T-265
-- status: active
-- phase_status: accepted_design_realization_active
-- review_status: accepted_by_fh
-- implementation_admission: admitted
+- status: completed
+- phase_status: closed_after_self_and_independent_review
+- review_status: closure_review_clean
+- implementation_admission: completed_as_designed
+- closed_at: 2026-07-13
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
@@ -154,3 +155,39 @@ provisional non-closure evidence.
 Accepted by F_H on 2026-07-13 after independent review found no remaining
 design defect. Realization is admitted against
 `M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md`.
+
+## Closure Disposition
+
+`closed_as_designed` on 2026-07-13. M01 publishes one closed canonical
+`gtl.graph_function_application` family for `recurse`, `fan_in`, and `gate`;
+M02 applies equivalent raw admission and canonical result identity; M03 derives
+the exact application lineage and provisional composition-owner candidates,
+then stops at `semantic_not_realized` pending T-255. No runtime consumer,
+Consensus-specific path, scheduler, event, replay, archive, or workspace
+mutation entered this ticket.
+
+## Closure Evidence
+
+- Native and raw positives cover all three variants, same-kind and mixed
+  nesting, complete operator values, exact vector boundaries, non-empty
+  declared effects, canonical host identity, and object-order-independent
+  native carrier admission.
+- Negative proofs cover missing, duplicate, mixed, stale, altered, blank, and
+  legacy declaration truth; exact opaque operand lookup; complete result
+  equations; cross-host composition without an application path; copied
+  ownership without an explicit source host; outside and duplicate-vector
+  ownership; and result-local second-application refusal.
+- Current-result-local, inherited GraphFunction-local, and inherited
+  vector-local composition candidates preserve declaration owner and execution
+  subject as separate roles. `owning_declaration_ref` remains explicitly
+  provisional with both T-255 pending joins.
+- Canonical `D(R)` includes the complete application declaration, making direct
+  and multi-hop authored application cycles structurally unrepresentable. The
+  compiler visited-set remains a bounded defensive check.
+- Focused T-265: 21/21. Standing GTL law: 75/75. Full semantic: 1552/1552.
+  Lint, GTL authority guard, generated publication, packed-candidate checks,
+  package dry-run, zero-Consensus scan, and `git diff --check` pass.
+- Self-review:
+  `.ai-workspace/comments/codex/20260712T175525Z_SELF_REVIEW_t265_canonical_graph_function_applications.md`.
+- Independent closure review found no remaining blocker, high, or medium
+  finding against the accepted design.

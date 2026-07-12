@@ -24,6 +24,10 @@ import {
   type GraphVectorDeclarations
 } from "./declaration_law.js";
 import { HOF_APPLICATION_DECLARATION_KEY } from "./hof_application.js";
+import {
+  GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY,
+  GraphFunctionApplicationAdmissionError
+} from "./graph_function_application.js";
 
 export interface AssetSurfaceAuthoritySlotInit {
   readonly authorityKindRef: string;
@@ -664,15 +668,30 @@ export function constructGraphFunction(input: GraphFunctionInit): GraphFunction 
     declarations: canonicalSerializedAttrs(declarations),
     tags: [...input.tags]
   });
+  const hasGraphFunctionApplication = declarations.entries.some(
+    (entry) => entry.key === GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY
+  );
+  const hasHofApplication = declarations.entries.some(
+    (entry) => entry.key === HOF_APPLICATION_DECLARATION_KEY
+  );
   if (
     input.id !== undefined &&
-    declarations.entries.some(
-      (entry) => entry.key === HOF_APPLICATION_DECLARATION_KEY
-    ) &&
+    hasGraphFunctionApplication &&
+    input.id !== derivedId
+  ) {
+    throw new GraphFunctionApplicationAdmissionError({
+      diagnosticId: "gtl-application-result-identity-mismatch",
+      path: "GraphFunction.id",
+      message: `expected canonical derived identity ${derivedId}`
+    });
+  }
+  if (
+    input.id !== undefined &&
+    hasHofApplication &&
     input.id !== derivedId
   ) {
     throw new TypeError(
-      "GraphFunction.id: HOF application host identity must equal its canonical derived identity"
+      "GraphFunction.id: applied host identity must equal its canonical derived identity"
     );
   }
 

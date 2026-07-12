@@ -884,6 +884,12 @@ function contractFromHookRef(hookRef: HookRef): AbgFnCompositionContract {
   });
 }
 
+export function decodeAbgFnCompositionContract(
+  hookRef: HookRef
+): AbgFnCompositionContract {
+  return contractFromHookRef(hookRef);
+}
+
 function validateHost(input: {
   readonly contract: AbgFnCompositionContract;
   readonly vector: GraphVector;

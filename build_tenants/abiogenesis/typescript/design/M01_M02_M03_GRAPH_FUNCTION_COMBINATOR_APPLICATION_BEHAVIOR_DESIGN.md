@@ -1,9 +1,9 @@
 # M01/M02/M03 GraphFunction Combinator Application Behavior Design
 
 **Design verdict**: `accepted_by_fh`
-**Implementation status**: `admitted`
+**Implementation status**: `completed_as_designed`
 **Delivery phase**: DS-1 authoring prerequisite
-**Ticket**: [T-265](../../../../.ai-workspace/tickets/active/T-265-close-canonical-graph-function-combinator-applications.md)
+**Ticket**: [T-265](../../../../.ai-workspace/tickets/completed/T-265-close-canonical-graph-function-combinator-applications.md)
 **Owning modules**: M01 GTL algebra authoring, M02 serialized module admission,
 and M03 whole-program semantic compilation
 **Requirement authority**: `REQ-L-GTL3-GRAPHFUNCTION-004/-006/-007/-009/-011/-012`,
@@ -657,9 +657,10 @@ stateDiagram-v2
   RuntimeGap --> [*]: semantic not realized and zero execution effects
 ```
 
-Current evidence stops before `ApplicationAuthored`: this file is a design
-candidate awaiting F_H acceptance. The state machine describes target behavior,
-not implementation status.
+Current evidence reaches `RuntimeGap`: native and raw authoring, canonical host
+identity, result equations, derived lineage, and provisional composition-owner
+truth are implemented and verified. Runtime execution and final ownership joins
+remain absent as the state machine requires.
 
 ### State Invariants
 
@@ -682,21 +683,22 @@ not implementation status.
 
 | Axiom | Domain evidence | Sequence evidence | State evidence | Native target | M02/M03 target | Verdict |
 |---|---|---|---|---|---|---|
-| One application authority | one contained discriminated declaration | builder replaces copied application before raw admission | duplicate authority reaches RawRefused | one constructor-owned entry | duplicate and legacy-parallel checks | `candidate` |
-| Operand uses opaque id | declaration points to OperandGraphFunction | operand value precedes derived relation | missing or duplicate id reaches OperandRefused | derive `.id`; no override | exact root lookup | `candidate` |
-| Operator semantics are complete | closed variant owns every argument | no M02 fill or interpreter reconstruction | partial relation reaches RawRefused or RelationRefused | exhaustive discriminated builders | closed variant admission and comparison | `candidate` |
-| Same-kind nesting is lossless | each source object retains its own application | compiler follows one operand object at a time | repeated refs refuse; valid chain projects | replace only new host application | ordered acyclic source-object traversal | `candidate` |
-| Native and raw are equivalent | one canonical serialized relation and applied host identity | native serialization enters same M02 path | both converge on ApplicationAdmitted or ResultIdentityRefused | canonical builder and `D(R)` | recompute refs, host id, and admit same variant | `candidate` |
-| Per-variant result equations are exact | result exposes environment interface template effects and non-application declarations | compiler checks complete result before operand traversal | mismatch reaches ResultEquationRefused | closed equations for recurse fan-in gate | exact canonical equality | `candidate` |
-| Names and tags have no authority | no label field targets operand | no name lookup message | OrdinaryGraphFunction remains ordinary | descriptive output only | no prefix or tag inference | `candidate` |
-| Lineage is derived | projection is M03-owned | projection follows admitted applications | LineageProjected has no authored predecessor | no lineage constructor | compiler-only projection | `candidate` |
-| Owner and execution subject may equal or differ | eligible owner set contains result plus operands | resolver returns current-local or inherited owner to outer compiler | outside-set owner reaches CompositionOwnerRefused | no runtime binding | exact containment or operand-chain membership; provisional join only | `candidate` |
-| Composition precedence is unchanged | application has no selector fields | existing source resolver is called after lineage | no application selection state | closed fields exclude precedence | existing precedence path | `candidate` |
-| FN-COMP admission is not overclaimed | final binding belongs to T255 | sequence stops before Handoff | RuntimeGap is terminal | no final binding API | provisional status and pending joins | `candidate` |
-| Genericity is non-Consensus | Scenario09ApplicationFixture is a domain entity | same public path for fixtures | same states and diagnostics | same constructors | same admission/compiler code | `candidate` |
-| Declared effects differ from execution | applied result preserves exact possibly non-empty operand effects | no runtime participant receives a call | RuntimeGap terminates with zero execution effects | effect equation adds none | exact effect equality plus no event/archive/workspace output | `candidate` |
+| One application authority | one contained discriminated declaration | builder replaces copied application before raw admission | duplicate authority reaches RawRefused | one constructor-owned entry | duplicate and legacy-parallel checks | `pass` |
+| Operand uses opaque id | declaration points to OperandGraphFunction | operand value precedes derived relation | missing or duplicate id reaches OperandRefused | derive `.id`; no override | exact root lookup | `pass` |
+| Operator semantics are complete | closed variant owns every argument | no M02 fill or interpreter reconstruction | partial relation reaches RawRefused or RelationRefused | exhaustive discriminated builders | closed variant admission and comparison | `pass` |
+| Same-kind nesting is lossless | each source object retains its own application | compiler follows one operand object at a time | repeated refs refuse; valid chain projects | replace only new host application | ordered acyclic source-object traversal | `pass` |
+| Native and raw are equivalent | one canonical serialized relation and applied host identity | native serialization enters same M02 path | both converge on ApplicationAdmitted or ResultIdentityRefused | canonical builder and `D(R)` | recompute refs, host id, and admit same variant | `pass` |
+| Per-variant result equations are exact | result exposes environment interface template effects and non-application declarations | compiler checks complete result before operand traversal | mismatch reaches ResultEquationRefused | closed equations for recurse fan-in gate | exact canonical equality | `pass` |
+| Names and tags have no authority | no label field targets operand | no name lookup message | OrdinaryGraphFunction remains ordinary | descriptive output only | no prefix or tag inference | `pass` |
+| Lineage is derived | projection is M03-owned | projection follows admitted applications | LineageProjected has no authored predecessor | no lineage constructor | compiler-only projection | `pass` |
+| Owner and execution subject may equal or differ | eligible owner set contains result plus operands | resolver returns current-local or inherited owner to outer compiler | outside-set owner reaches CompositionOwnerRefused | no runtime binding | exact containment or operand-chain membership; provisional join only | `pass` |
+| Composition precedence is unchanged | application has no selector fields | existing source resolver is called after lineage | no application selection state | closed fields exclude precedence | existing precedence path | `pass` |
+| FN-COMP admission is not overclaimed | final binding belongs to T255 | sequence stops before Handoff | RuntimeGap is terminal | no final binding API | provisional status and pending joins | `pass` |
+| Genericity is non-Consensus | Scenario09ApplicationFixture is a domain entity | same public path for fixtures | same states and diagnostics | same constructors | same admission/compiler code | `pass` |
+| Declared effects differ from execution | applied result preserves exact possibly non-empty operand effects | no runtime participant receives a call | RuntimeGap terminates with zero execution effects | effect equation adds none | exact effect equality plus no event/archive/workspace output | `pass` |
 
-No row becomes `pass` before F_H acceptance and implementation evidence.
+Every row is backed by accepted design, implementation evidence, the T-265
+proof corpus, and closure self-review.
 
 ## Required Proof Corpus
 

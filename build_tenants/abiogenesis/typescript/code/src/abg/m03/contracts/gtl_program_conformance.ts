@@ -39,6 +39,10 @@ import {
   type GtlDeclarationLawViolation,
   type GtlDeclarationLawViolationKind
 } from "../../../gtl/m01/contracts/declaration_law.js";
+import {
+  graphFunctionApplicationDeclarationFromDeclarations,
+  type GraphFunctionApplicationOperatorKind
+} from "../../../gtl/m01/contracts/graph_function_application.js";
 import type {
   GtlAuthorityContextFragmentDeclaration,
   GtlDestinationTopologyDeclaration,
@@ -71,6 +75,11 @@ import {
   graphFunctionDeclaresHofApplication,
   type HofRelationDiagnostic
 } from "./hof_relation_compiler.js";
+import {
+  compileGraphFunctionApplication,
+  type GraphFunctionApplicationDiagnostic,
+  type GraphFunctionApplicationRepairAffordance
+} from "./graph_function_application_compiler.js";
 import {
   collectRawCProgramCandidates,
   compileGraphVectorCProgramSelection,
@@ -228,6 +237,8 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/graph-vector/unique-ref",
   "abg://gtl-program/hof/invalid-program",
   "abg://gtl-program/hof/semantic-not-realized",
+  "abg://gtl-program/graph-function-application/invalid-program",
+  "abg://gtl-program/graph-function-application/semantic-not-realized",
   "abg://gtl-program/graph/input-node-declared",
   "abg://gtl-program/graph/node-reachable-or-bound",
   "abg://gtl-program/graph/output-derivable",
@@ -593,6 +604,10 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
     "correct_reference",
   "abg://gtl-program/hof/invalid-program": "correct_field_shape",
   "abg://gtl-program/hof/semantic-not-realized":
+    "realize_declared_semantics",
+  "abg://gtl-program/graph-function-application/invalid-program":
+    "correct_field_shape",
+  "abg://gtl-program/graph-function-application/semantic-not-realized":
     "realize_declared_semantics"
 });
 
@@ -1866,6 +1881,79 @@ function checkHofRelationDeclarations(input: {
   });
   for (const row of compilation.diagnostics) {
     pushHofRelationDiagnostic({
+      graphFunction: input.graphFunction,
+      row,
+      issues: input.issues
+    });
+  }
+}
+
+function graphFunctionApplicationRepairEditClass(
+  affordance: GraphFunctionApplicationRepairAffordance
+): GtlProgramRepairEditClass {
+  switch (affordance) {
+    case "add_missing_declaration":
+      return "add_missing_declaration";
+    case "remove_duplicate_authority":
+      return "remove_duplicate_declaration";
+    case "correct_reference":
+    case "break_application_cycle":
+    case "correct_composition_owner":
+      return "correct_reference";
+    case "complete_t255_execution_join":
+      return "realize_declared_semantics";
+    case "correct_field_shape":
+    case "correct_result_identity":
+    case "correct_result_equation":
+      return "correct_field_shape";
+  }
+}
+
+function pushGraphFunctionApplicationDiagnostic(input: {
+  readonly graphFunction: GraphFunction;
+  readonly row: GraphFunctionApplicationDiagnostic;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const semanticGap = input.row.classification === "semantic_not_realized";
+  input.issues.push(
+    issue({
+      surfaceKind: "graph_function",
+      surfaceRef: `${input.graphFunction.name}${input.row.path}`,
+      ruleRef: semanticGap
+        ? "abg://gtl-program/graph-function-application/semantic-not-realized"
+        : "abg://gtl-program/graph-function-application/invalid-program",
+      message:
+        `${input.row.diagnosticId}: expected ${input.row.expectedRelation}; ` +
+        `actual ${input.row.actualRelation}`,
+      evidenceRefs: Object.freeze([
+        ...input.row.evidenceRefs,
+        `graph-function-application-diagnostic:${input.row.diagnosticId}`
+      ]),
+      admissibleRepairs: Object.freeze([
+        Object.freeze({
+          kind: "gtl_program_admissible_repair" as const,
+          editClass: graphFunctionApplicationRepairEditClass(
+            input.row.repairAffordance
+          ),
+          repairSurfaceRef: input.graphFunction.name,
+          changeClassRef: semanticGap ? "design_reframe" : null
+        })
+      ])
+    })
+  );
+}
+
+function checkGraphFunctionApplicationDeclarations(input: {
+  readonly graphFunction: GraphFunction;
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const compilation = compileGraphFunctionApplication({
+    graphFunction: input.graphFunction,
+    graphFunctions: input.graphFunctions
+  });
+  for (const row of compilation.diagnostics) {
+    pushGraphFunctionApplicationDiagnostic({
       graphFunction: input.graphFunction,
       row,
       issues: input.issues
@@ -9864,6 +9952,11 @@ function materializeGraphVectors(
       attrs: graphFunction.declarations,
       issues
     });
+    checkGraphFunctionApplicationDeclarations({
+      graphFunction,
+      graphFunctions,
+      issues
+    });
     checkHofRelationDeclarations({ graphFunction, graphFunctions, issues });
     checkGraphFunctionInterface({ graphFunction, issues });
     const rawCandidates = collectRawCProgramCandidates(
@@ -14297,6 +14390,20 @@ function graphFunctionNameStartsWith(
   return graphFunction.name.startsWith(prefix);
 }
 
+function graphFunctionApplicationKind(
+  graphFunction: GraphFunction
+): GraphFunctionApplicationOperatorKind | null {
+  try {
+    return (
+      graphFunctionApplicationDeclarationFromDeclarations(
+        graphFunction.declarations
+      )?.operatorKind ?? null
+    );
+  } catch {
+    return null;
+  }
+}
+
 function moduleGraphTagStartsWith(
   modules: readonly Module[],
   prefix: string
@@ -14353,8 +14460,7 @@ function observedFeatureKinds(input: {
   }
   if (
     input.graphFunctions.some((graphFunction) =>
-      graphFunctionDeclarationHasKey(graphFunction, "recursion") ||
-      graphFunctionNameStartsWith(graphFunction, "recurse(")
+      graphFunctionApplicationKind(graphFunction) === "recurse"
     )
   ) {
     observed.add("graph_algebra_recurse");
@@ -14368,15 +14474,14 @@ function observedFeatureKinds(input: {
   }
   if (
     input.graphFunctions.some((graphFunction) =>
-      graphFunctionNameStartsWith(graphFunction, "fan_in(")
+      graphFunctionApplicationKind(graphFunction) === "fan_in"
     )
   ) {
     observed.add("graph_algebra_fan_in");
   }
   if (
     input.graphFunctions.some((graphFunction) =>
-      graphFunctionDeclarationHasKey(graphFunction, "gate") ||
-      graphFunctionNameStartsWith(graphFunction, "gate(")
+      graphFunctionApplicationKind(graphFunction) === "gate"
     )
   ) {
     observed.add("graph_algebra_gate");

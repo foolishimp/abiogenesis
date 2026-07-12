@@ -46,6 +46,9 @@ import {
   serializeGraphVector,
   serializeNode
 } from "../../build/semantic/code/src/gtl/m01/serialization/carriers.js";
+import {
+  graphFunctionApplicationDeclarationFromDeclarations
+} from "../../build/semantic/code/src/gtl/m01/contracts/graph_function_application.js";
 
 function intentNode(overrides = {}) {
   return {
@@ -881,10 +884,9 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
     }
   ).graphFunction;
 
-  const harvestProgram = compose(
-    workerFanOut,
-    gate(fan_in(harvestReducer, judgmentVector), harvestGate, [harvestAcceptance])
-  );
+  const harvestFanIn = fan_in(harvestReducer, judgmentVector);
+  const harvestGated = gate(harvestFanIn, harvestGate, [harvestAcceptance]);
+  const harvestProgram = compose(workerFanOut, harvestGated);
 
   assert.deepStrictEqual(harvestProgram.inputs, [candidateBranches]);
   assert.deepStrictEqual(harvestProgram.outputs, [selectedCandidate]);
@@ -896,13 +898,22 @@ test("M01 integration: higher-order graph operators preserve explicit vector bou
 
   assert.ok(declarationEntry(harvestProgram.declarations, "gtl.hof_application"));
 
-  const gateDecl = declarationEntry(harvestProgram.declarations, "gate");
-  assert.ok(gateDecl);
-  const ruleDecl = jsonObjectField(gateDecl, "rule");
-  assert.equal(scalarFieldValue(gateDecl, "target"), "fan_in(harvest_reducer)");
-  assert.equal(scalarFieldValue(gateDecl, "target_kind"), "GraphFunction");
-  assert.equal(ruleDecl.value.kind, "object");
-  assert.equal(scalarObjectValueField(ruleDecl.value, "name"), "harvest_gate");
+  assert.equal(
+    graphFunctionApplicationDeclarationFromDeclarations(harvestProgram.declarations),
+    null
+  );
+  const fanInApplication = graphFunctionApplicationDeclarationFromDeclarations(
+    harvestFanIn.declarations
+  );
+  assert.equal(fanInApplication?.operatorKind, "fan_in");
+  assert.equal(fanInApplication?.operandGraphFunctionRef, harvestReducer.id);
+  assert.equal(fanInApplication?.overVectorNodeRef, judgmentVector.id);
+  const gateApplication = graphFunctionApplicationDeclarationFromDeclarations(
+    harvestGated.declarations
+  );
+  assert.equal(gateApplication?.operatorKind, "gate");
+  assert.equal(gateApplication?.operandGraphFunctionRef, harvestFanIn.id);
+  assert.equal(gateApplication?.rule.name, "harvest_gate");
 });
 
 test("M01 integration: recurse preserves outer contract and exposes inspectable recursion truth", () => {
@@ -970,19 +981,14 @@ test("M01 integration: recurse preserves outer contract and exposes inspectable 
   assert.ok(recursive.tags.includes("termination:done"));
   assert.ok(recursive.tags.includes("foldback:outer_contract"));
 
-  const recursionDecl = declarationEntry(recursive.declarations, "recursion");
-  assert.ok(recursionDecl);
-  const terminationDecl = jsonObjectField(recursionDecl, "termination");
-  const foldbackDecl = jsonObjectField(recursionDecl, "foldback");
-  assert.equal(scalarObjectValueField(terminationDecl.value, "name"), "done");
-  assert.equal(
-    scalarObjectValueField(foldbackDecl.value, "binding"),
-    "outer_contract"
+  const recursion = graphFunctionApplicationDeclarationFromDeclarations(
+    recursive.declarations
   );
-  assert.equal(
-    scalarObjectValueField(foldbackDecl.value, "requires_parent_evaluation"),
-    true
-  );
+  assert.equal(recursion?.operatorKind, "recurse");
+  assert.equal(recursion?.operandGraphFunctionRef, direct.id);
+  assert.equal(recursion?.terminationEvaluator.name, "done");
+  assert.equal(recursion?.foldback.binding, "outer_contract");
+  assert.equal(recursion?.foldback.requiresParentEvaluation, true);
 
   assert.throws(
     () =>
@@ -1108,15 +1114,12 @@ test("M01 integration: recurse preserves cumulative environment for a composed c
     ["Intent", "Requirements", "Design", "Code"]
   );
 
-  const recursionDecl = declarationEntry(recursive.declarations, "recursion");
-  assert.ok(recursionDecl);
-  const terminationDecl = jsonObjectField(recursionDecl, "termination");
-  const foldbackDecl = jsonObjectField(recursionDecl, "foldback");
-  assert.equal(scalarObjectValueField(terminationDecl.value, "name"), "done");
-  assert.equal(
-    scalarObjectValueField(foldbackDecl.value, "binding"),
-    "outer_contract"
+  const recursion = graphFunctionApplicationDeclarationFromDeclarations(
+    recursive.declarations
   );
+  assert.equal(recursion?.operatorKind, "recurse");
+  assert.equal(recursion?.terminationEvaluator.name, "done");
+  assert.equal(recursion?.foldback.binding, "outer_contract");
 });
 
 test("M01 integration: public GTL carrier surfaces are frozen immutable values", () => {

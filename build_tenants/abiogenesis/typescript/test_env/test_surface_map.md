@@ -1758,6 +1758,56 @@ The canonical active files are:
 - Authority class: native type-law proof; it proves impossible host and carrier
   substitutions are rejected before semantic compilation.
 
+### test_t265_graph_function_application.test.mjs
+
+- Status: completed T-265 native/raw application proof
+- Module alignment: `M01-gtl-core` and M02 canonical declaration admission
+- Requirements: `REQ-L-GTL3-GRAPHFUNCTION-004/-006/-007/-009/-011/-012`,
+  `REQ-L-GTL3-HOF-002/-003/-005/-006`, `REQ-L-GTL3-RECURSE-001..008`
+- Design:
+  [M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md](../design/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md)
+- Ticket:
+  [T-265](../../../../.ai-workspace/tickets/completed/T-265-close-canonical-graph-function-combinator-applications.md)
+- Command: `npm run test:t265`, included in `npm run test:gtl-law`
+- Boundary: one closed canonical immediate application for `recurse`, `fan_in`,
+  and `gate`; opaque operand identity; complete operator values; derived
+  application and host identities; same-kind/mixed nesting; native/raw parity;
+  strict malformed declaration refusal; and zero execution behavior
+- Authority class: generic native and raw admission proof. Scenario 09 names
+  differ from opaque ids and contain no Consensus vocabulary.
+
+### test_t265_graph_function_application_compiler.test.mjs
+
+- Status: completed T-265 M03 lineage and provisional-owner proof
+- Module alignment: `M03-engine-kernel` whole-program semantic compilation
+- Requirements: `REQ-L-GTL3-GRAPHFUNCTION-011/-012`,
+  `REQ-R-ABG3-FN-COMPOSITION-001..014`
+- Design:
+  [M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md](../design/M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md)
+- Ticket:
+  [T-265](../../../../.ai-workspace/tickets/completed/T-265-close-canonical-graph-function-combinator-applications.md)
+- Command: `npm run test:t265`, included in `npm run test:gtl-law`
+- Boundary: exact result equations, opaque operand resolution, ordered derived
+  lineage, current-result-local and inherited source ownership, cross-host and
+  duplicate-vector refusal, and explicit `provisional_pending_t255` truth
+- Authority class: compiler classification proof. Valid applications stop at
+  `semantic_not_realized`; malformed ownership is `invalid_program`; no final
+  binding or runtime consumer is claimed.
+
+### t265_graph_function_application_types.ts
+
+- Status: completed T-265 native type-law proof
+- Module alignment: `M01-gtl-core`
+- Requirements: `REQ-L-GTL3-GRAPHFUNCTION-004/-006/-007`,
+  `REQ-L-GTL3-RECURSE-001..008`
+- Command: `tsc -p test_env/type_tests/tsconfig.t265.json`, included in
+  `npm run test:gtl-law`
+- Boundary: closed operator discriminants, operand-value-only identity,
+  literal foldback requirement, non-empty gate evaluators, and no authored
+  lineage or mixed-variant fields
+- Authority class: native type-law proof; impossible application states refuse
+  before semantic compilation.
+
 ## Live Sandbox UAT Provenance
 
 ### test_env/live/test_m05_rc_live_uat.test.mjs

@@ -420,7 +420,7 @@ test("T-253 raw HOF admission refuses noncanonical identity and mutated relation
   staleIdentity.name = `${staleIdentity.name}:changed`;
   assert.throws(
     () => admitGraphFunction(staleIdentity),
-    /HOF application host identity must equal its canonical derived identity/u
+    /applied host identity must equal its canonical derived identity/u
   );
 
   const wrongRelation = structuredClone(serialized);

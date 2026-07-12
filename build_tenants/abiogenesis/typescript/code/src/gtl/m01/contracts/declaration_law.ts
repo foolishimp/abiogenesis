@@ -11,6 +11,10 @@ import {
   canonicalizeHofApplicationDeclarationValue,
   HOF_APPLICATION_DECLARATION_KEY
 } from "./hof_application.js";
+import {
+  canonicalizeGraphFunctionApplicationDeclarationValue,
+  GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY
+} from "./graph_function_application.js";
 
 export const GTL_DECLARATION_HOST_VALUES = Object.freeze([
   "graph_function",
@@ -146,6 +150,12 @@ export const GTL_REGISTERED_DECLARATION_LAWS = Object.freeze([
   },
   {
     key: "gtl.hof_application",
+    hosts: ["graph_function"],
+    valueKinds: ["json_blob"],
+    duplicatePolicy: "forbidden"
+  },
+  {
+    key: "gtl.graph_function_application",
     hosts: ["graph_function"],
     valueKinds: ["json_blob"],
     duplicatePolicy: "forbidden"
@@ -629,12 +639,31 @@ function constructHostedDeclarations<Host extends GtlDeclarationHost>(
   host: Host,
   entries: readonly SerializedAttrEntry[]
 ): HostedGtlDeclarations<Host> {
+  if (
+    host === "graph_function" &&
+    entries.some((entry) => entry.key === "recursion" || entry.key === "gate")
+  ) {
+    throw new TypeError(
+      "gtl-application-duplicate-authority: legacy recursion/gate declarations are not admitted beside the canonical graph-function application relation"
+    );
+  }
   const normalizedEntries = entries.map((entry) => {
-    if (
-      host !== "graph_function" ||
-      entry.key !== HOF_APPLICATION_DECLARATION_KEY ||
-      entry.value.kind !== "json_blob"
-    ) {
+    if (host !== "graph_function" || entry.value.kind !== "json_blob") {
+      return entry;
+    }
+    if (entry.key === GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY) {
+      return Object.freeze({
+        key: entry.key,
+        value: Object.freeze({
+          kind: "json_blob" as const,
+          value: canonicalizeGraphFunctionApplicationDeclarationValue(
+            entry.value.value,
+            `graph_function.${GRAPH_FUNCTION_APPLICATION_DECLARATION_KEY}`
+          )
+        })
+      });
+    }
+    if (entry.key !== HOF_APPLICATION_DECLARATION_KEY) {
       return entry;
     }
     return Object.freeze({
