@@ -13,7 +13,15 @@ Define higher-order graph-function combinators in GTL 3.
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-HOF-001**: `fan_out(f, *, over=node)` shall apply a graph function across an explicit `Vector[T]` boundary. Hidden cardinality inference is not lawful.
+**REQ-L-GTL3-HOF-001**: `fan_out(f, *, over, into)` shall accept an element
+graph-function relation `f:A->B`, an explicit input-vector relation
+`over:Vector<A>`, and an explicit output-vector relation `into:Vector<B>`, and
+shall produce a graph-function relation `Vector<A>->Vector<B>`. The admitted
+relation shall preserve input cardinality and stable input ordinal, pairing
+output member `i` only with input member `i`. Native authoring, canonical
+serialization, raw admission, and semantic compilation shall preserve the same
+first-class relation and shall not infer it from a function name, label, tag,
+shared node identity, or hidden cardinality.
 
 **REQ-L-GTL3-HOF-002**: `fan_in(reducer, *, over=node)` shall reduce an explicit vector boundary into one synthesized result.
 

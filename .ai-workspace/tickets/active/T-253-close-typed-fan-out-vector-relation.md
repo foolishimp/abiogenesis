@@ -5,8 +5,13 @@
 - type: requirements_realization
 - ticket_category: gtl_higher_order_type_law
 - status: active
-- phase_status: candidate_design
-- review_status: pending_fh_design_review
+- phase_status: phase_b_native_realization
+- phase_a_status: complete
+- phase_a_evidence: >-
+    REQ-L-GTL3-HOF-001 exact relation ratified; contract-law API index verified;
+    GTL authority guard and 35-law suite green; phase self-review posted.
+- review_status: fh_design_accepted
+- design_disposition: accepted_by_fh
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1 prerequisite
 - priority: critical
@@ -45,9 +50,9 @@
 - design_refs:
   - build_tenants/abiogenesis/typescript/design/M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md
 - admission_condition: >-
-    F_H accepts the three-view behavior design and the exact candidate law.
-    No requirement, native API, admission, serialization, or compiler change
-    is authorized by this candidate package alone.
+    Satisfied 2026-07-12 by direct F_H acceptance after the independent review
+    at comments/claude/20260713T210000Z_REVIEW_typed_hof_design_e279e1a.md.
+    Realization remains bounded by the accepted design and this ticket.
 
 ## Intake Triage
 
@@ -98,7 +103,8 @@ fan-in execution.
 
 ## Candidate Requirement Law
 
-After F_H acceptance, amend `REQ-L-GTL3-HOF.md` with one explicit criterion:
+The accepted requirement reprice amends `REQ-L-GTL3-HOF.md` with one explicit
+criterion:
 
 > `fan_out(f, *, over, into)` shall accept an element GraphFunction relation
 > `f:A->B`, an explicit input-vector relation `over:Vector<A>`, and an explicit
@@ -109,8 +115,8 @@ After F_H acceptance, amend `REQ-L-GTL3-HOF.md` with one explicit criterion:
 > and semantic compilation shall preserve the same first-class relation and
 > shall not infer it from a function name, label, tag, or shared node identity.
 
-This is proposed wording under T-253. It is not live constitutional law until
-the accepted requirement reprice lands in the specification.
+This wording is the accepted Phase A target. It becomes live constitutional
+law when the requirement edit lands in the same checkpoint.
 
 ## Proposed T-252 Disposition Reference
 
@@ -225,8 +231,8 @@ Only after F_H accepts the T-253 design:
 
 ## Candidate Design Verdict
 
-`candidate_pending_fh`. The referenced design makes the exact relation and its
-admission/compiler boundary reviewable. It authorizes no code. After F_H
-acceptance, the implementation must stop at typed authoring plus
-`semantic_not_realized`; runtime execution belongs to a separately reviewed
-leaf driven by the later T-252 compiler census.
+`accepted_for_t253_realization`. Direct F_H acceptance on 2026-07-12 admits the
+requirement reprice and the bounded M01/M03 realization described above. The
+implementation must stop at typed authoring plus `semantic_not_realized`;
+runtime execution belongs to a separately reviewed leaf driven by the later
+T-252 compiler census.

@@ -1,8 +1,8 @@
 # M01/M03 Typed HOF Vector Relation Behavior Design
 
-**Design verdict**: `candidate`
-**Review status**: `pending_fh_design_review`
-**Implementation admission**: `blocked`
+**Design verdict**: `accepted`
+**Review status**: `fh_accepted` on 2026-07-12 after independent review
+**Implementation admission**: `accepted_for_t253_only`
 **Ticket**: [T-253](../../../../.ai-workspace/tickets/active/T-253-close-typed-fan-out-vector-relation.md)
 **Owning modules**: M01 GTL authoring/admission and M03 semantic compilation
 **Requirement re-entry**: `REQ-L-GTL3-HOF`
@@ -692,8 +692,7 @@ the semantic carrier model.
 
 ## Design Verdict
 
-`candidate`. The relation, authority, failure classes, and non-runtime boundary
-are fully specified, but F_H has not accepted the requirement reprice or this
-design. No specification or code change is authorized. Acceptance permits
-T-253 Phase A, then Phase B, then Phase C with a self-review after each. It does
-not authorize HOF runtime execution or Consensus implementation.
+`accepted`. Direct F_H acceptance on 2026-07-12 admits T-253 Phase A, then
+Phase B, then Phase C with a self-review after each. The relation, authority,
+failure classes, and non-runtime boundary remain binding. Acceptance does not
+authorize HOF runtime execution or Consensus implementation.
