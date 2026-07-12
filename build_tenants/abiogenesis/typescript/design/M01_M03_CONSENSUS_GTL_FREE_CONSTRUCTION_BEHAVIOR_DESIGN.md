@@ -1,8 +1,8 @@
 # M01/M02/M03 Consensus GTL Free Construction Behavior Design
 
-**Design verdict**: `fh_target_reopened_candidate_blocked_on_t265_t266_and_six_body_defects`
-**Review status**: prior target ruling reopened for corrected three-view F_H
-review; T-265 combinator-application design remains a separate prerequisite
+**Design verdict**: `corrected_three_view_design_accepted_by_fh`
+**Review status**: accepted by F_H on 2026-07-13; body realization remains
+blocked on T-265 and T-266 realization closure
 **Probe and runtime disposition**: the candidate body is invalid on T-265/T-266 plus
 vector-context, effect, operator-registry, ownership, execution-binding, and
 declaration-versus-observation defects; final body, census, and runtime remain blocked
@@ -2029,14 +2029,14 @@ interior and a singular design proves reuse.
 
 ## Post-Probe Verdict
 
-`fh_target_reopened_candidate_blocked_on_t265_t266_and_six_body_defects`.
-The 2026-07-12 target ruling remains provenance but is not acceptance of this
-corrected body design. T-253 remains closed only for structural HOF identity,
+`corrected_three_view_design_accepted_by_fh`. F_H accepted this corrected body
+design on 2026-07-13 after independent review found no remaining design defect.
+The 2026-07-12 target ruling remains provenance. T-253 remains closed only for structural HOF identity,
 canonical `gtl.hof_application` data, and constructor ownership; T-254 remains closed.
-T-265 and T-266 are candidate generic prerequisites, with T-266 responsible for
+T-265 and T-266 are accepted generic prerequisites, with T-266 responsible for
 replacing and re-proving T-253's unsafe native type route. The prior body/fixture is non-closure evidence only and
-must not be edited or regenerated during design review. T-252 resumes after F_H
-accepts this design and both prerequisites, then re-authors pure vectors with
+must not be edited or regenerated before both prerequisites close. T-252 then
+re-authors pure vectors with
 parallel context, complete all-regime effect identities, separate capabilities,
 unique operators, exact HOG handlers, per-executable-GraphFunction applicable
 plugin selections, and no DS-1 owner claim. No Consensus-specific runtime repair

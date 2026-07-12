@@ -1,7 +1,7 @@
 # M01/M02/M03 GraphFunction Combinator Application Behavior Design
 
-**Design verdict**: `candidate_pending_fh_review`
-**Implementation status**: `not_admitted`
+**Design verdict**: `accepted_by_fh`
+**Implementation status**: `admitted`
 **Delivery phase**: DS-1 authoring prerequisite
 **Ticket**: [T-265](../../../../.ai-workspace/tickets/active/T-265-close-canonical-graph-function-combinator-applications.md)
 **Owning modules**: M01 GTL algebra authoring, M02 serialized module admission,
@@ -754,8 +754,8 @@ Realization must pin at least:
 
 ## Design Verdict
 
-`candidate_pending_fh_review`. The design replaces the rejected second-authority
+`accepted_by_fh` on 2026-07-13. The design replaces the rejected second-authority
 host-lineage carrier with one complete operator-owned application relation.
 M03 derives acyclic lineage and provisional owner/execution joins from that
-relation. No code is authorized until F_H accepts the domain, sequence, state,
-axioms, and proof corpus.
+relation. F_H accepted the domain, sequence, state, axioms, and proof corpus;
+realization is authorized within this boundary.

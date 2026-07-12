@@ -2,9 +2,9 @@
 
 - id: T-265
 - status: active
-- phase_status: redesigned_three_view_candidate_pending_fh_review
-- review_status: candidate_pending_fh_review
-- implementation_admission: blocked_pending_fh_design_acceptance
+- phase_status: accepted_design_realization_active
+- review_status: accepted_by_fh
+- implementation_admission: admitted
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
@@ -151,5 +151,6 @@ provisional non-closure evidence.
 
 ## Design Disposition
 
-Candidate only. No realization is admitted until F_H accepts
+Accepted by F_H on 2026-07-13 after independent review found no remaining
+design defect. Realization is admitted against
 `M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md`.

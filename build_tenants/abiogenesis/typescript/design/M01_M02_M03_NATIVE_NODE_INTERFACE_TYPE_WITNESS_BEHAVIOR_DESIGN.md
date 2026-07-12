@@ -1,10 +1,10 @@
 # M01/M02/M03 Native Node And Interface Type Witness Behavior Design
 
-**Status**: Revised candidate pending F_H review
+**Status**: Accepted by F_H on 2026-07-13
 **Ticket**: T-266
 **Change class**: `design_reframe`
 **Modules**: M01 GTL core, M02 work publication, M03 engine conformance
-**Implementation admission**: blocked until direct F_H acceptance
+**Implementation admission**: admitted
 
 ## Boundary
 
@@ -866,12 +866,12 @@ binding API requires both exact nominal families.
 
 ## Design Verdict
 
-`revised_candidate_pending_fh_review`.
+`accepted_by_fh` on 2026-07-13.
 
 The revised design removes the false pre-DS-4 schema-contract authority,
 retains one explicit trusted native assertion point, binds every Node-backed
 projection to the exact full ordinary Node contract key, closes structural and
 generic-carrier/ordinary-term bypasses through private nominal brands, preserves
 exact interface tuple cardinality, and keeps ordinary GTL as the sole serialized
-authority. It does not authorize implementation
-until F_H accepts the three views and candidate axiom matrix.
+authority. F_H accepted the three views and axiom matrix; realization is
+authorized within this boundary.

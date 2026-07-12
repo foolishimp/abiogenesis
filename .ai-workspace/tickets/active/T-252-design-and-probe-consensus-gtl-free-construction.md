@@ -5,10 +5,10 @@
 - type: feature
 - ticket_category: executable_design_probe
 - status: active
-- phase_status: candidate_body_blocked_on_t265_t266_and_six_body_design_defects
-- review_status: fh_target_reopened_body_design_corrections_pending
+- phase_status: corrected_design_accepted_body_blocked_on_t265_t266_realization
+- review_status: corrected_three_view_design_accepted_by_fh
 - target_architecture_disposition: accepted_by_fh
-- implementation_admission: blocked_on_fh_design_review_t265_and_t266
+- implementation_admission: blocked_on_t265_and_t266_realization_closure
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1
 - priority: critical
@@ -591,9 +591,11 @@ T-252, and no Consensus runtime is claimed.
 
 ## Design Disposition
 
-`fh_target_reopened_body_design_corrections_pending`. The prior direct F_H target
-ruling on 2026-07-12 remains provenance, not current body-design acceptance,
-after fresh review found six category defects. The review record is in
+`corrected_three_view_design_accepted_by_fh`. F_H accepted the corrected T-252,
+T-265, and T-266 designs on 2026-07-13 by directing execution to continue to the
+next stage after independent review found no remaining design defect. The prior
+direct F_H target ruling on 2026-07-12 remains provenance after fresh review
+found six category defects. The review record is in
 `.ai-workspace/comments/claude/20260713T190000Z_REVIEW_consensus_gtl_design_00e74f5.md`.
 Its original architecture and routing decision remain input to the correction.
 T-253 closed structural HOF child/member/vector identity and constructor
@@ -605,10 +607,10 @@ T-254 then closed the generic GraphVector-to-declared-C-program relation. The
 candidate pure-data body subsequently exposed the generic discriminated
 combinator-application declaration and compiler-derived application-lineage
 prerequisite now designed in T-265. T-252 is blocked until T-265 and T-266
-receive F_H acceptance and close,
-and until F_H accepts the corrected pure-vector, transitive-effect,
-operator-registry, ownership-separation, execution-binding-authority, and
-declaration-versus-observation design. Only then may the body and
+close their now-accepted realizations. F_H has accepted the corrected pure-vector,
+transitive-effect, operator-registry, ownership-separation,
+execution-binding-authority, and declaration-versus-observation design. Only
+after both prerequisites close may the body and
 total census be finalized; T-255 through T-266 carry candidate exact ownership
 sections for the known frontier. No prior ruling authorizes
 a global-program lie, `operator.binding`, helper-GraphFunction topology rewrite,
