@@ -4,7 +4,7 @@
 claude at each monitoring checkpoint). Authority: T-244 register, T-242, the
 approved nine-phase plan.
 **Last updated:** 2026-07-13 · after Consensus GTL design review (`00e74f5`)
-· board fully green · T-254 verified; prerequisite chain CLEAR; 3c census next
+· board fully green · CENSUS LANDED (40aa35a): 12 leaves T-255–266; GOALS transcribed lawfully; body held pending 3c1
 
 **Estimates are a planning read model — re-based at each checkpoint, not
 delivery commitments. The runtime bucket (item 5) re-bases materially at the
@@ -30,9 +30,11 @@ depth, live lanes.
 | 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
 | 3b | Typed HOF relation (T-253) | ✅ closed | 139m actual |
 | 3b2 | Vector→C-program selection (T-254) | ✅ verified | 48m+74m actual |
-| 3c | Body + compile census (T-252) | 🔄 in flight; census paused for declaration corrections; stdlib gate adopted | ~30–60m est |
-| 4 | Invocation spine (4 leaves) | ⛔ 3–4 design reworks + accepts first (register: 6 blocked/4 candidate) | ~2.5–5h est + rework cycles |
-| 5 | Runtime atoms: workflow.C/C.batch/C.retry + census-discovered HOF/recurse runtime leaves (count TBD) | ⛔ sized by 3c census | ~2–6h+; re-based at census |
+| 3c1 | Combinator applications (T-265) + node/interface witnesses (T-266) | 🔍 designs landed, accept pending | ~2–4h est |
+| 3c2 | Body admitted + typed gap census persisted (T-252) | ⛔ after 3c1 | ~30–60m est |
+| 4 | Spine joins: exec handoff, context join, F_P result admission, public F_H (T-255–258) | ⛔ census-routed | ~4–8h est |
+| 5 | Runtime atoms: workflow.C, HOF batch, C.retry, typed recurse (T-259–262) | ⛔ census-routed; recompile oracle per atom | ~5–8h est |
+| 5b | Admission + conformance closure (T-263–264) | ⛔ census-routed | ~1.5–3h est |
 | 6 | Atom-uplift proof: Consensus as first free construction (stdlib guarantee: public atoms only) | ⛔ after 4+5 | ~1–2h est |
 | 7 | Retained surface (36 ops) | ⛔ after 3–6 | ~4–8h est |
 | 8 | Compliance (T-247) | ⛔ after features | ~2.5–5h est |
