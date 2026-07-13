@@ -2,15 +2,32 @@
 
 - id: T-267
 - status: active
-- phase_status: design_required
+- phase_status: design_accepted_implementation_authorized
+- review_status: accepted_by_delegated_fh
 - delivery_phase: DS-3
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260713T211300Z_SELF_REVIEW_t267_traversal_conservation_design.md
+- design_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260713T211400Z_DECISION_delegated_fh_accept_t267_design.md
 - dependencies:
+  - T-255 compiled execution handoff and startup fence
+  - T-256 declared execution-context join
   - T-257 F_P result-contract admission
+  - T-258 public F_H response and resume admission
+  - T-259 workflow.C runtime atom
   - T-260 typed HOF and batch runtime
+  - T-261 bounded C.retry runtime
+  - T-262 typed recurse runtime
+- updated_at: 2026-07-13
 
 ## Boundary
 
