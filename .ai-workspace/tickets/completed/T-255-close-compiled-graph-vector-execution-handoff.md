@@ -1,10 +1,12 @@
 # T-255 - Close Compiled GraphVector Execution Handoff
 
 - id: T-255
-- status: active
-- phase_status: design_accepted_implementation_admitted
+- status: completed
+- phase_status: closed_after_self_review
 - review_status: accepted_by_fh
-- implementation_status: admitted_pending_realization
+- implementation_status: realized_and_verified
+- proof_status: verified
+- closed_at: 2026-07-13
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
@@ -22,6 +24,9 @@
 - correction_proof_ref: .ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md
 - self_review_ref: .ai-workspace/comments/codex/20260713T053506Z_SELF_REVIEW_t255_round2_authority_correction.md
 - decision_ref: .ai-workspace/comments/codex/20260713T053912Z_DECISION_fh_accept_t255_corrected_design.md
+- realization_proof_ref: .ai-workspace/comments/codex/20260713T062700Z_PROOF_t255_compiled_handoff_realization.md
+- implementation_self_review_ref: .ai-workspace/comments/codex/20260713T062800Z_SELF_REVIEW_t255_compiled_handoff_realization.md
+- implementation_commit: d569c0be4bf62ca1a4323d433f73e6afdf04bd44
 
 ## Boundary
 
@@ -93,3 +98,33 @@ does not preserve the admitted manifest basis. Raw manifest input reaching M03,
 an effect-bearing handoff published without exact admitted manifest coverage,
 or any published handoff traversing or causing effects before T-267 closes the
 `TraversalUnit` is also non-closure.
+
+## Current Disposition
+
+`closed_as_designed`. The accepted generic handoff boundary is realized and
+verified. T-252 compiles to 35 typed handoffs, 35 canonical target rows, and 35
+edge-closure rows without changing its body digest. The five T-255-owned census
+families are closed. All published handoffs remain startup-blocked pending
+T-267, and ABG 5.0 tenant-conformance-manifest publication remains owned by
+T-268.
+
+## Closure Evidence
+
+- implementation checkpoint:
+  `d569c0be4bf62ca1a4323d433f73e6afdf04bd44`
+- full semantic suite: 1597/1597
+- focused T-255 suite: 27/27, with GTL law 82/82
+- compile-time raw/admitted seam: passed
+- packed/public API lane: 125/125, with GTL law 82/82
+- T-250 version-basis lane: 13/13
+- final T-252 body/probe lane: 11/11, with GTL law 82/82
+- T-252 body digest:
+  `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`
+- final T-252 probe manifest digest:
+  `sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb`
+- ownership join: zero active-owned but unobserved families, zero duplicate
+  owners, and zero unowned gaps
+- public-contract schemas: 63 verified
+- generated publication assets: 33 verified from 1035 immutable payload files
+- Mermaid design gate: 5/5 across 27 diagrams in 9 files
+- semantic lint and diff checks: passed

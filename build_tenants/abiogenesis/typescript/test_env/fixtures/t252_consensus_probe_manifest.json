@@ -2520,8 +2520,8 @@
     "sources": [
       {
         "ticketId": "T-255",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-255-close-compiled-graph-vector-execution-handoff.md",
         "families": [
           "c_program_runtime_shape_generalization",
           "composition_owning_declaration_join",
@@ -2640,14 +2640,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 12,
-    "activeOwnedButNotObservedFamilyCount": 5,
-    "activeOwnedButNotObservedFamilies": [
-      "c_program_runtime_shape_generalization",
-      "composition_owning_declaration_join",
-      "edge_closure_contract",
-      "graph_vector_program_runtime_selection",
-      "target_carrier_contract"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3189,5 +3183,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:bd5653b32fbcfc77fa668eec3a0d0d90f3b01ae1c5dec5c9e373dadb0ca19a08"
+  "manifestDigest": "sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb"
 }
