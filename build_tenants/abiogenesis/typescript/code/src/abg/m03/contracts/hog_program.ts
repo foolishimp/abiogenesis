@@ -27,12 +27,27 @@ export interface HogWorkflowLift {
   readonly graphFunctionRef: string;
 }
 
+export interface HogBatchStageTask {
+  readonly kind: "hog_batch_stage_task";
+  readonly ordinal: number;
+  readonly stage: HogProgramStage;
+}
+
+export interface HogBatchDeclaration {
+  readonly kind: "hog_batch_declaration";
+  readonly batchRef: string;
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+  readonly tasks: readonly HogBatchStageTask[];
+}
+
 export interface HogFlatProgramDeclaration {
   readonly kind: "hog_program_declaration";
   readonly programRef: string;
   readonly stages: readonly HogProgramStage[];
   readonly proportionalityClass: string | null;
   readonly workflow?: never;
+  readonly batch?: never;
 }
 
 export interface HogWorkflowProgramDeclaration {
@@ -41,11 +56,22 @@ export interface HogWorkflowProgramDeclaration {
   readonly stages: readonly [];
   readonly proportionalityClass: string | null;
   readonly workflow: HogWorkflowLift;
+  readonly batch?: never;
+}
+
+export interface HogBatchProgramDeclaration {
+  readonly kind: "hog_program_declaration";
+  readonly programRef: string;
+  readonly stages: readonly [];
+  readonly proportionalityClass: string | null;
+  readonly workflow?: never;
+  readonly batch: HogBatchDeclaration;
 }
 
 export type HogProgramDeclaration =
   | HogFlatProgramDeclaration
-  | HogWorkflowProgramDeclaration;
+  | HogWorkflowProgramDeclaration
+  | HogBatchProgramDeclaration;
 
 export interface HogProgramAdmission {
   readonly accepted: boolean;
@@ -94,7 +120,8 @@ const HOG_PROGRAM_KEYS = Object.freeze([
   "programRef",
   "stages",
   "proportionalityClass",
-  "workflow"
+  "workflow",
+  "batch"
 ]);
 const HOG_STAGE_KEYS = Object.freeze([
   "stageRole",
@@ -109,6 +136,87 @@ const HOG_WORKFLOW_KEYS = Object.freeze([
   "outputCarrierRef",
   "graphFunctionRef"
 ]);
+const HOG_BATCH_KEYS = Object.freeze([
+  "kind",
+  "batchRef",
+  "inputCarrierRef",
+  "outputCarrierRef",
+  "tasks"
+]);
+const HOG_BATCH_TASK_KEYS = Object.freeze([
+  "kind",
+  "ordinal",
+  "stage"
+]);
+
+function admitStageRaw(
+  stageRaw: unknown,
+  at: string,
+  issues: string[]
+): HogProgramStage | null {
+  if (!isPlainRecord(stageRaw)) {
+    issues.push(`${at} must be an object`);
+    return null;
+  }
+  for (const key of Object.keys(stageRaw)) {
+    if (!HOG_STAGE_KEYS.includes(key)) {
+      issues.push(
+        `${at}: unknown stage field ${JSON.stringify(key)} (closed key set)`
+      );
+    }
+  }
+  const stageRole = stageRaw["stageRole"];
+  if (!isNonEmptyString(stageRole)) {
+    issues.push(`${at}.stageRole must be a non-empty string`);
+  }
+  const defaultRegime = stageRaw["defaultRegime"];
+  const regimeValid = C_CALL_REGIME_VALUES.some(
+    (regime): boolean => regime === defaultRegime
+  );
+  if (!regimeValid) {
+    issues.push(
+      `${at}.defaultRegime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`
+    );
+  }
+  const armId = stageRaw["armId"];
+  if (!isNonEmptyString(armId)) {
+    issues.push(`${at}.armId must be a non-empty string`);
+  }
+  const resultBearing = stageRaw["resultBearing"];
+  if (typeof resultBearing !== "boolean") {
+    issues.push(`${at}.resultBearing must be a boolean`);
+  }
+  const categoryRefsRaw = stageRaw["instructionCategoryRefs"];
+  let instructionCategoryRefs: readonly string[] | undefined;
+  if (categoryRefsRaw !== undefined) {
+    if (
+      !Array.isArray(categoryRefsRaw) ||
+      !categoryRefsRaw.every(isNonEmptyString)
+    ) {
+      issues.push(`${at}.instructionCategoryRefs must be non-empty strings`);
+    } else {
+      instructionCategoryRefs = Object.freeze([...categoryRefsRaw]);
+    }
+  }
+  if (
+    !isNonEmptyString(stageRole) ||
+    !isNonEmptyString(armId) ||
+    typeof resultBearing !== "boolean" ||
+    !regimeValid ||
+    !isCCallRegime(defaultRegime)
+  ) {
+    return null;
+  }
+  return Object.freeze({
+    stageRole,
+    defaultRegime,
+    armId,
+    resultBearing,
+    ...(instructionCategoryRefs === undefined
+      ? {}
+      : { instructionCategoryRefs })
+  });
+}
 
 export function admitHogProgram(input: unknown): HogProgramAdmission {
   const issues: string[] = [];
@@ -173,91 +281,134 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       }
     }
   }
+  const batchRaw = record["batch"];
+  let batch: HogBatchDeclaration | null = null;
+  if (batchRaw !== undefined) {
+    if (!isPlainRecord(batchRaw)) {
+      issues.push("batch must be an object when present");
+    } else {
+      for (const key of Object.keys(batchRaw)) {
+        if (!HOG_BATCH_KEYS.includes(key)) {
+          issues.push(
+            `batch: unknown field ${JSON.stringify(key)} (closed key set)`
+          );
+        }
+      }
+      if (batchRaw["kind"] !== "hog_batch_declaration") {
+        issues.push("batch.kind must be hog_batch_declaration");
+      }
+      const batchRef = batchRaw["batchRef"];
+      const inputCarrierRef = batchRaw["inputCarrierRef"];
+      const outputCarrierRef = batchRaw["outputCarrierRef"];
+      if (!isNonEmptyString(batchRef)) {
+        issues.push("batch.batchRef must be a non-empty string");
+      }
+      if (!isNonEmptyString(inputCarrierRef)) {
+        issues.push("batch.inputCarrierRef must be a non-empty string");
+      }
+      if (!isNonEmptyString(outputCarrierRef)) {
+        issues.push("batch.outputCarrierRef must be a non-empty string");
+      }
+      const tasksRaw = batchRaw["tasks"];
+      const tasks: HogBatchStageTask[] = [];
+      if (!Array.isArray(tasksRaw) || tasksRaw.length === 0) {
+        issues.push("batch.tasks must be a non-empty array");
+      } else {
+        let resultBearing: boolean | null = null;
+        for (const [index, taskRaw] of tasksRaw.entries()) {
+          const at = `batch.tasks[${String(index)}]`;
+          if (!isPlainRecord(taskRaw)) {
+            issues.push(`${at} must be an object`);
+            continue;
+          }
+          for (const key of Object.keys(taskRaw)) {
+            if (!HOG_BATCH_TASK_KEYS.includes(key)) {
+              issues.push(
+                `${at}: unknown field ${JSON.stringify(key)} (closed key set)`
+              );
+            }
+          }
+          if (taskRaw["kind"] !== "hog_batch_stage_task") {
+            issues.push(`${at}.kind must be hog_batch_stage_task`);
+          }
+          if (taskRaw["ordinal"] !== index) {
+            issues.push(`${at}.ordinal must equal its zero-based list position`);
+          }
+          const stage = admitStageRaw(taskRaw["stage"], `${at}.stage`, issues);
+          if (stage === null || taskRaw["ordinal"] !== index) {
+            continue;
+          }
+          if (resultBearing === null) {
+            resultBearing = stage.resultBearing;
+          } else if (stage.resultBearing !== resultBearing) {
+            issues.push(
+              `${at}.stage.resultBearing must match batch.tasks[0]`
+            );
+          }
+          tasks.push(
+            Object.freeze({
+              kind: "hog_batch_stage_task" as const,
+              ordinal: index,
+              stage
+            })
+          );
+        }
+      }
+      if (
+        isNonEmptyString(batchRef) &&
+        isNonEmptyString(inputCarrierRef) &&
+        isNonEmptyString(outputCarrierRef) &&
+        Array.isArray(tasksRaw) &&
+        tasks.length === tasksRaw.length &&
+        tasks.length > 0
+      ) {
+        batch = Object.freeze({
+          kind: "hog_batch_declaration" as const,
+          batchRef,
+          inputCarrierRef,
+          outputCarrierRef,
+          tasks: Object.freeze(tasks)
+        });
+      }
+    }
+  }
+  if (workflowRaw !== undefined && batchRaw !== undefined) {
+    issues.push("workflow and batch program variants are mutually exclusive");
+  }
   if (stages === null) {
     issues.push("stages must be an array");
-  } else if (workflowRaw === undefined && stages.length === 0) {
+  } else if (
+    workflowRaw === undefined &&
+    batchRaw === undefined &&
+    stages.length === 0
+  ) {
     issues.push("flat program stages must be a non-empty array");
-  } else if (workflowRaw !== undefined && stages.length !== 0) {
-    issues.push("workflow program stages must be empty");
+  } else if (
+    (workflowRaw !== undefined || batchRaw !== undefined) &&
+    stages.length !== 0
+  ) {
+    issues.push("workflow and batch program stages must be empty");
   }
   const roles = new Set<string>();
   let resultBearingCount = 0;
-  const admittedStages: {
-    readonly stageRole: string;
-    readonly defaultRegime: (typeof C_CALL_REGIME_VALUES)[number];
-    readonly armId: string;
-    readonly resultBearing: boolean;
-    readonly instructionCategoryRefs?: readonly string[];
-  }[] = [];
-  for (const [index, stageRaw] of (workflowRaw === undefined ? (stages ?? []) : []).entries()) {
+  const admittedStages: HogProgramStage[] = [];
+  for (const [index, stageRaw] of (
+    workflowRaw === undefined && batchRaw === undefined ? (stages ?? []) : []
+  ).entries()) {
     const at = `stages[${index}]`;
-    if (!isPlainRecord(stageRaw)) {
-      issues.push(`${at} must be an object`);
+    const stage = admitStageRaw(stageRaw, at, issues);
+    if (stage === null) {
       continue;
     }
-    const stage = stageRaw;
-    for (const key of Object.keys(stage)) {
-      if (!HOG_STAGE_KEYS.includes(key)) {
-        issues.push(`${at}: unknown stage field ${JSON.stringify(key)} (closed key set)`);
-      }
-    }
-    const stageRole = stage["stageRole"];
-    if (!isNonEmptyString(stageRole)) {
-      issues.push(`${at}.stageRole must be a non-empty string`);
-    } else if (roles.has(stageRole)) {
-      issues.push(`${at}.stageRole duplicates ${JSON.stringify(stageRole)}`);
+    if (roles.has(stage.stageRole)) {
+      issues.push(`${at}.stageRole duplicates ${JSON.stringify(stage.stageRole)}`);
     } else {
-      roles.add(stageRole);
+      roles.add(stage.stageRole);
     }
-    const defaultRegime = stage["defaultRegime"];
-    const regimeValid = C_CALL_REGIME_VALUES.some(
-      (regime): boolean => regime === defaultRegime
-    );
-    if (!regimeValid) {
-      issues.push(`${at}.defaultRegime must be one of ${JSON.stringify(C_CALL_REGIME_VALUES)}`);
-    }
-    const armId = stage["armId"];
-    if (!isNonEmptyString(armId)) {
-      issues.push(`${at}.armId must be a non-empty string`);
-    }
-    const resultBearing = stage["resultBearing"];
-    if (typeof resultBearing !== "boolean") {
-      issues.push(`${at}.resultBearing must be a boolean`);
-    } else if (resultBearing) {
+    if (stage.resultBearing) {
       resultBearingCount += 1;
     }
-    const categoryRefsRaw = stage["instructionCategoryRefs"];
-    let categoryRefs: readonly string[] | undefined;
-    if (categoryRefsRaw !== undefined) {
-      if (
-        !Array.isArray(categoryRefsRaw) ||
-        !categoryRefsRaw.every(isNonEmptyString)
-      ) {
-        issues.push(`${at}.instructionCategoryRefs must be non-empty strings`);
-      } else {
-        const refs: readonly string[] = categoryRefsRaw;
-        categoryRefs = refs;
-      }
-    }
-    if (
-      isNonEmptyString(stageRole) &&
-      isNonEmptyString(armId) &&
-      typeof resultBearing === "boolean" &&
-      regimeValid &&
-      isCCallRegime(defaultRegime)
-    ) {
-      admittedStages.push(
-        Object.freeze({
-          stageRole,
-          defaultRegime,
-          armId,
-          resultBearing,
-          ...(categoryRefs === undefined
-            ? {}
-            : { instructionCategoryRefs: Object.freeze([...categoryRefs]) })
-        })
-      );
-    }
+    admittedStages.push(stage);
   }
   if (
     workflowRaw === undefined &&
@@ -299,6 +450,20 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       issues: Object.freeze([])
     });
   }
+  if (batch !== null) {
+    const program: HogBatchProgramDeclaration = Object.freeze({
+      kind: "hog_program_declaration" as const,
+      programRef: programRefRaw,
+      stages: Object.freeze([] as const),
+      proportionalityClass,
+      batch
+    });
+    return Object.freeze({
+      accepted: true,
+      program,
+      issues: Object.freeze([])
+    });
+  }
   const program: HogFlatProgramDeclaration = Object.freeze({
     kind: "hog_program_declaration" as const,
     programRef: programRefRaw,
@@ -318,6 +483,12 @@ export function isHogWorkflowProgram(
   return Object.hasOwn(program, "workflow");
 }
 
+export function isHogBatchProgram(
+  program: HogProgramDeclaration
+): program is HogBatchProgramDeclaration {
+  return Object.hasOwn(program, "batch");
+}
+
 function isCCallRegime(
   value: unknown
 ): value is (typeof C_CALL_REGIME_VALUES)[number] {
@@ -329,8 +500,11 @@ function isCCallRegime(
 export function hogProgramCensus(
   program: HogProgramDeclaration
 ): ReadonlySet<string> {
+  const stages = isHogBatchProgram(program)
+    ? program.batch.tasks.map((task) => task.stage)
+    : program.stages;
   return new Set(
-    program.stages.map((stage) =>
+    stages.map((stage) =>
       [stage.stageRole, stage.defaultRegime, stage.armId].join("|")
     )
   );

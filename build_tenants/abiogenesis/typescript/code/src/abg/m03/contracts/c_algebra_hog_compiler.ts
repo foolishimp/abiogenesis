@@ -247,6 +247,84 @@ function compileAdmittedProgram(
       diagnostics: Object.freeze([])
     });
   }
+  if (source.term.kind === "c_batch") {
+    const tasks = [];
+    for (const [index, task] of source.term.tasks.entries()) {
+      if (task.kind !== "c_of") {
+        return Object.freeze({
+          accepted: false,
+          program: null,
+          canonicalSource,
+          diagnostics: Object.freeze([
+            constructCAlgebraDiagnostic({
+              diagnosticId: "gtl-c-unrealized-batch",
+              path: `$.term.tasks[${String(index)}]`,
+              message:
+                "T-260 direct C.batch realization accepts one direct C.of " +
+                `leaf per task; observed ${JSON.stringify(task.kind)}`,
+              repairAffordances: Object.freeze([
+                "use_flat_composition",
+                "await_runtime_realization"
+              ])
+            })
+          ])
+        });
+      }
+      const flattened = flattenTerm(task, `$.term.tasks[${String(index)}]`);
+      const stage = flattened.stages[0];
+      if (flattened.diagnostics.length !== 0 || stage === undefined) {
+        return Object.freeze({
+          accepted: false,
+          program: null,
+          canonicalSource,
+          diagnostics: flattened.diagnostics
+        });
+      }
+      tasks.push(
+        Object.freeze({
+          kind: "hog_batch_stage_task" as const,
+          ordinal: index,
+          stage
+        })
+      );
+    }
+    const admission = admitHogProgram({
+      kind: "hog_program_declaration",
+      programRef: source.programRef,
+      stages: Object.freeze([]),
+      proportionalityClass: source.proportionalityClass,
+      batch: Object.freeze({
+        kind: "hog_batch_declaration",
+        batchRef: source.term.batchRef,
+        inputCarrierRef: source.term.inputCarrierRef,
+        outputCarrierRef: source.term.outputCarrierRef,
+        tasks: Object.freeze(tasks)
+      })
+    });
+    if (!admission.accepted || admission.program === null) {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: Object.freeze(
+          admission.issues.map((message, index) =>
+            constructCAlgebraDiagnostic({
+              diagnosticId: "gtl-c-hog-admission-failed",
+              path: `$.compiled.batch[${String(index)}]`,
+              message,
+              repairAffordances: Object.freeze(["fix_declaration_shape"])
+            })
+          )
+        )
+      });
+    }
+    return Object.freeze({
+      accepted: true,
+      program: admission.program,
+      canonicalSource,
+      diagnostics: Object.freeze([])
+    });
+  }
   const flattened = flattenTerm(source.term, "$.term");
   if (flattened.diagnostics.length > 0) {
     return Object.freeze({

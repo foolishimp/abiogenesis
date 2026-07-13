@@ -150,6 +150,7 @@ test("T-265 compiler treats declaration omission as ordinary function truth", ()
       accepted: true,
       declaration: null,
       lineage: null,
+      fanInRelation: null,
       provisionalBindings: [],
       diagnostics: []
     }
@@ -262,7 +263,7 @@ test("T-265 compiler rejects missing and ambiguous operands by opaque id", () =>
   );
 });
 
-test("T-265 compiler admits the canonical fan-in relation only to the T-255 gap", () => {
+test("T-260 compiler admits the canonical fan-in structural relation", () => {
   const { output } = fixture();
   const member = node("LabObservation");
   const vector = node("CompilerVector");
@@ -290,10 +291,11 @@ test("T-265 compiler admits the canonical fan-in relation only to the T-255 gap"
     compiled.lineage?.orderedSteps[0]?.operandGraphFunctionRef,
     reducer.id
   );
-  assert.equal(
-    compiled.diagnostics[0]?.diagnosticId,
-    "gtl-application-runtime-not-realized"
-  );
+  assert.equal(compiled.accepted, true);
+  assert.equal(compiled.diagnostics.length, 0);
+  assert.equal(compiled.fanInRelation.kind, "compiled_fan_in_application_relation");
+  assert.equal(compiled.fanInRelation.reducerGraphFunctionRef, reducer.id);
+  assert.equal(compiled.fanInRelation.inputVectorNodeRef, admittedVector.id);
 });
 
 test("T-265 compiler validates every result equation before handoff", () => {

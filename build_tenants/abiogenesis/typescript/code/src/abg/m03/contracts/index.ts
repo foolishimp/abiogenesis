@@ -1675,9 +1675,13 @@ export {
   HOG_BOOTSTRAP_TRIPLE,
   admitHogProgram,
   hogProgramCensus,
+  isHogBatchProgram,
   isHogWorkflowProgram
 } from "./hog_program.js";
 export type {
+  HogBatchDeclaration,
+  HogBatchProgramDeclaration,
+  HogBatchStageTask,
   HogFlatProgramDeclaration,
   HogProgramDeclaration,
   HogProgramStage,
@@ -1742,6 +1746,7 @@ export {
   graphFunctionHasHofApplicationDeclarationKey
 } from "./hof_relation_compiler.js";
 export type {
+  CompiledHofFanOutRelation,
   HofRelationCompilation,
   HofRelationDiagnostic,
   HofRelationDiagnosticId,
@@ -1754,6 +1759,7 @@ export {
   graphFunctionHasApplicationDeclarationKey
 } from "./graph_function_application_compiler.js";
 export type {
+  CompiledFanInApplicationRelation,
   GraphFunctionApplicationCompilation,
   GraphFunctionApplicationDiagnostic,
   GraphFunctionApplicationDiagnosticId,
@@ -1795,6 +1801,39 @@ export type {
   TenantCapabilityCoverageRow,
   TraversalStartupBlock
 } from "./graph_vector_execution_handoff.js";
+
+export {
+  assertCompiledFanInReductionBinding,
+  assertCompiledHofFanOutBinding,
+  compileFanInReductionBinding,
+  compileHofFanOutBinding
+} from "./hof_batch.js";
+export type {
+  CompiledFanInReductionBinding,
+  CompiledHofFanOutBinding,
+  ExecutionHandoffCarrier
+} from "./hof_batch.js";
+
+export {
+  admitHofVector,
+  admitHofVectorCarrier,
+  assertCompiledCBatchPlan,
+  assertHofVectorCarrier,
+  compileDeclaredCBatchPlan,
+  compileHofCBatchPlan,
+  constructHofOutputVector
+} from "./c_batch.js";
+export type {
+  AdmittedHofVector,
+  CBatchTask,
+  CompiledCBatchPlan,
+  DeclaredCBatchStageTask,
+  HofCBatchTraversalTask,
+  HofOutputVector,
+  HofVectorCarrier,
+  HofVectorAdmissionInput,
+  HofVectorMember
+} from "./c_batch.js";
 export type {
   CompiledGraphVectorCProgramBinding,
   GraphVectorBoundaryProjection,

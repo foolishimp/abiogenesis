@@ -14,6 +14,9 @@ import {
   type GraphVector,
   type Node
 } from "../../../gtl/m01/contracts/carriers.js";
+import {
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 export const HOF_RELATION_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "gtl-hof-missing-field",
@@ -51,7 +54,28 @@ export interface HofRelationCompilation {
   readonly observed: boolean;
   readonly accepted: boolean;
   readonly declaration: HofApplicationDeclaration | null;
+  readonly relation: CompiledHofFanOutRelation | null;
   readonly diagnostics: readonly HofRelationDiagnostic[];
+}
+
+export interface CompiledHofFanOutRelation {
+  readonly kind: "compiled_hof_fan_out_relation";
+  readonly relationBindingRef: string;
+  readonly relationDigest: `sha256:${string}`;
+  readonly declarationRelationRef: string;
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionDigest: `sha256:${string}`;
+  readonly childGraphFunctionRef: string;
+  readonly childGraphFunctionDigest: `sha256:${string}`;
+  readonly wrapperGraphVectorRef: string;
+  readonly inputMemberNodeRef: string;
+  readonly inputMemberContractKey: string;
+  readonly outputMemberNodeRef: string;
+  readonly outputMemberContractKey: string;
+  readonly inputVectorNodeRef: string;
+  readonly inputVectorContractKey: string;
+  readonly outputVectorNodeRef: string;
+  readonly outputVectorContractKey: string;
 }
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
@@ -174,7 +198,39 @@ function rejected(
     observed: true,
     accepted: false,
     declaration,
+    relation: null,
     diagnostics: Object.freeze([row])
+  });
+}
+
+function compiledRelation(input: {
+  readonly host: GraphFunction;
+  readonly child: GraphFunction;
+  readonly declaration: HofApplicationDeclaration;
+}): CompiledHofFanOutRelation {
+  const basis = Object.freeze({
+    kind: "compiled_hof_fan_out_relation" as const,
+    declarationRelationRef: input.declaration.relationRef,
+    hostGraphFunctionRef: input.host.id,
+    hostGraphFunctionDigest: stableSha256Digest(input.host),
+    childGraphFunctionRef: input.child.id,
+    childGraphFunctionDigest: stableSha256Digest(input.child),
+    wrapperGraphVectorRef: input.declaration.wrapperGraphVectorRef,
+    inputMemberNodeRef: input.declaration.inputMemberNodeRef,
+    inputMemberContractKey: input.declaration.inputMemberContractKey,
+    outputMemberNodeRef: input.declaration.outputMemberNodeRef,
+    outputMemberContractKey: input.declaration.outputMemberContractKey,
+    inputVectorNodeRef: input.declaration.inputVectorNodeRef,
+    inputVectorContractKey: input.declaration.inputVectorContractKey,
+    outputVectorNodeRef: input.declaration.outputVectorNodeRef,
+    outputVectorContractKey: input.declaration.outputVectorContractKey
+  });
+  const relationDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    relationBindingRef:
+      `abg://hof/fan-out/relation/${relationDigest.slice("sha256:".length)}`,
+    relationDigest
   });
 }
 
@@ -595,11 +651,13 @@ export function compileHofRelation(input: {
       observed: false,
       accepted: true,
       declaration: null,
+      relation: null,
       diagnostics: Object.freeze([])
     });
   }
 
   let declaration: HofApplicationDeclaration;
+  let child: GraphFunction | null = null;
   try {
     const admitted = hofApplicationDeclarationFromDeclarations(
       input.graphFunction.declarations
@@ -669,6 +727,7 @@ export function compileHofRelation(input: {
           })
       );
     }
+    child = childResult.child;
     const contractFailure = memberAndVectorDiagnostic({
       host: input.graphFunction,
       child: childResult.child,
@@ -699,15 +758,27 @@ export function compileHofRelation(input: {
     );
   }
 
-  return rejected(
+  if (child === null) {
+    return rejected(
+      declaration,
+      diagnostic({
+        diagnosticId: "gtl-hof-unresolved-ref",
+        path: "$.child_graph_function_ref",
+        expectedRelation: "one resolved child GraphFunction",
+        actualRelation: "structural validation completed without a child",
+        evidenceRefs: relationEvidence({ host: input.graphFunction, declaration })
+      })
+    );
+  }
+  return Object.freeze({
+    observed: true,
+    accepted: true,
     declaration,
-    diagnostic({
-      classification: "semantic_not_realized",
-      diagnosticId: "gtl-hof-unrealized-fan-out",
-      path: "$",
-      expectedRelation: "generic HOF runtime consumer",
-      actualRelation: "canonical fan-out relation is admitted but no runtime consumer exists",
-      evidenceRefs: relationEvidence({ host: input.graphFunction, declaration })
-    })
-  );
+    relation: compiledRelation({
+      host: input.graphFunction,
+      child,
+      declaration
+    }),
+    diagnostics: Object.freeze([])
+  });
 }

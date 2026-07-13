@@ -1,3 +1,5 @@
+/* global structuredClone */
+
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
@@ -279,7 +281,7 @@ test("T-220 negative: closed syntax rejects invented siblings", () => {
   ]);
 });
 
-test("T-259: direct workflow.C lowers while later successor constructors retain stable gaps", () => {
+test("T-260: direct workflow.C and C.batch lower while retry retains its typed gap", () => {
   const { transform } = leaves();
   const workflowProgram = compileCAlgebraToHog(
     declaration(workflow.C(childWorkflowRef()), "gtl://t220/workflow")
@@ -290,36 +292,34 @@ test("T-259: direct workflow.C lowers while later successor constructors retain 
   assert.equal(workflowProgram.program.stages.length, 0);
   assert.equal(workflowProgram.program.workflow.kind, "hog_workflow_lift");
 
-  const cases = [
-    [
-      declaration(
-        C.batch([transform, transform], "batch://t220/transform"),
-        "gtl://t220/batch"
-      ),
-      "gtl-c-unrealized-batch"
-    ],
-    [
-      declaration(C.retry(transform, 2), "gtl://t220/retry"),
-      "gtl-c-unrealized-retry"
-    ]
-  ];
+  const batchProgram = compileCAlgebraToHog(
+    declaration(
+      C.batch([transform, transform], "batch://t220/transform"),
+      "gtl://t220/batch"
+    )
+  );
+  assert.equal(batchProgram.accepted, true);
+  assert.equal(batchProgram.diagnostics.length, 0);
+  assert.equal(batchProgram.program.batch.kind, "hog_batch_declaration");
+  assert.equal(batchProgram.program.batch.batchRef, "batch://t220/transform");
+  assert.deepEqual(
+    batchProgram.program.batch.tasks.map((task) => task.ordinal),
+    [0, 1]
+  );
 
-  for (const [source, diagnosticId] of cases) {
-    const compiled = compileCAlgebraToHog(source);
-    assert.equal(compiled.accepted, false);
-    assert.equal(compiled.program, null);
-    assert.equal(compiled.diagnostics.length, 1);
-    assert.equal(compiled.diagnostics[0].diagnosticId, diagnosticId);
-    assert.equal(
-      compiled.diagnostics[0].classification,
-      "semantic_not_realized"
-    );
-    assert.ok(
-      compiled.diagnostics[0].repairAffordances.includes(
-        "await_runtime_realization"
-      )
-    );
-  }
+  const retryProgram = compileCAlgebraToHog(
+    declaration(C.retry(transform, 2), "gtl://t220/retry")
+  );
+  assert.equal(retryProgram.accepted, false);
+  assert.equal(retryProgram.program, null);
+  assert.equal(retryProgram.diagnostics.length, 1);
+  assert.equal(retryProgram.diagnostics[0].diagnosticId, "gtl-c-unrealized-retry");
+  assert.equal(retryProgram.diagnostics[0].classification, "semantic_not_realized");
+  assert.ok(
+    retryProgram.diagnostics[0].repairAffordances.includes(
+      "await_runtime_realization"
+    )
+  );
 });
 
 test("T-220 negative: native builders reject invalid runtime inputs", () => {

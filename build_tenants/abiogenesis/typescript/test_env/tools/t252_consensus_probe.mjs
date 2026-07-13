@@ -14,6 +14,14 @@ import { compileGraphFunctionApplication } from "../../build/semantic/code/src/a
 import { compileGraphVectorExecutionHandoff } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
+import {
+  compileDeclaredCBatchPlan,
+  compileHofCBatchPlan
+} from "../../build/semantic/code/src/abg/m03/contracts/c_batch.js";
+import {
+  compileFanInReductionBinding,
+  compileHofFanOutBinding
+} from "../../build/semantic/code/src/abg/m03/contracts/hof_batch.js";
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
   constructAdmittedInvocationCarrier,
@@ -29,6 +37,8 @@ import {
   projectFhInteraction,
   submitFhInteractionResponse
 } from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
+import { resolveCBatch } from "../../build/semantic/code/src/abg/m03/runner/c_batch_runtime.js";
+import { resolveHofFanIn } from "../../build/semantic/code/src/abg/m03/runner/hof_fan_in_runtime.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
   ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE,
@@ -422,6 +432,8 @@ async function buildManifest() {
         graphFunctionName: graphFunction.name,
         graphFunctionIdentity,
         accepted: hof.accepted,
+        relationRef: hof.relation?.relationBindingRef ?? null,
+        relationDigest: hof.relation?.relationDigest ?? null,
         diagnosticIds: hof.diagnostics.map((row) => row.diagnosticId)
       });
       hof.diagnostics.forEach((diagnostic) =>
@@ -460,6 +472,8 @@ async function buildManifest() {
             : compactRef(application.lineage.lineageRef),
         lineageDigest: application.lineage?.lineageDigest ?? null,
         provisionalBindingCount: application.provisionalBindings.length,
+        fanInRelationRef: application.fanInRelation?.relationRef ?? null,
+        fanInRelationDigest: application.fanInRelation?.relationDigest ?? null,
         diagnosticIds: application.diagnostics.map((row) => row.diagnosticId)
       });
       application.diagnostics.forEach((diagnostic) =>
@@ -981,6 +995,40 @@ async function buildManifest() {
       `T-252 body has structural invalidity: ${JSON.stringify({ structuralIssues, invalidDiagnostics })}`
     );
   }
+  const admittedFanOutRows = hofRows.filter(
+    (row) =>
+      row.accepted &&
+      row.relationRef !== null &&
+      row.relationDigest !== null
+  );
+  const admittedFanInRows = applicationRows.filter(
+    (row) =>
+      row.operatorKinds.includes("fan_in") &&
+      row.accepted &&
+      row.fanInRelationRef !== null &&
+      row.fanInRelationDigest !== null
+  );
+  if (admittedFanOutRows.length !== 1 || admittedFanInRows.length !== 1) {
+    throw new TypeError(
+      `T-260 canonical relation census is not exact: ${JSON.stringify({ admittedFanOutRows, admittedFanInRows })}`
+    );
+  }
+  const t260RuntimeSurface = Object.freeze({
+    compileDeclaredCBatchPlan:
+      typeof compileDeclaredCBatchPlan === "function",
+    compileHofCBatchPlan: typeof compileHofCBatchPlan === "function",
+    compileFanInReductionBinding:
+      typeof compileFanInReductionBinding === "function",
+    compileHofFanOutBinding:
+      typeof compileHofFanOutBinding === "function",
+    resolveCBatch: typeof resolveCBatch === "function",
+    resolveHofFanIn: typeof resolveHofFanIn === "function"
+  });
+  if (Object.values(t260RuntimeSurface).some((observed) => !observed)) {
+    throw new TypeError(
+      `T-260 runtime surface is incomplete: ${JSON.stringify(t260RuntimeSurface)}`
+    );
+  }
 
   const termKindCounts = new Map();
   body.programs.forEach((program) => termKinds(program.term, termKindCounts));
@@ -1020,17 +1068,22 @@ async function buildManifest() {
     {
       constructor: "fan_out",
       authoredCount: hofRows.length,
-      compilerCoverage: "exact_relation",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["typed_fan_out_runtime", "typed_fan_out_batch_projection"]
+      compilerCoverage: "exact_relation_and_runtime_projector",
+      runtimeStatus:
+        "runtime_atom_realized_canonical_child_blocked_by_retry_and_startup_fence",
+      gapFamilies: [
+        "c_retry_runtime_and_policy_join",
+        "traversal_execution_contracts"
+      ]
     },
     {
       constructor: "fan_in",
       authoredCount: applicationRows.filter((row) => row.operatorKinds.includes("fan_in"))
         .length,
-      compilerCoverage: "exact_application_lineage",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["typed_fan_in_structure_and_runtime"]
+      compilerCoverage: "exact_relation_and_runtime_resolver",
+      runtimeStatus:
+        "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
+      gapFamilies: ["traversal_execution_contracts"]
     },
     {
       constructor: "recurse",
@@ -1156,33 +1209,6 @@ async function buildManifest() {
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
       "a canonical F_H join lacks the generic hold, public response, or resume admission path"
-  });
-  const fanOutRows = hofRows
-    .filter((row) => row.diagnosticIds.includes("gtl-hof-unrealized-fan-out"))
-    .map((row) => ({
-      diagnosticId: "gtl-hof-unrealized-fan-out",
-      path: `hof:${row.graphFunctionName}`
-    }));
-  observeGap(observedGapEvidence, "typed_fan_out_runtime", {
-    rows: fanOutRows,
-    observationSources: ["compiler:compileHofRelation"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "canonical typed fan_out relation has no runtime consumer"
-  });
-  observeGap(observedGapEvidence, "typed_fan_out_batch_projection", {
-    rows: fanOutRows.map((row) => ({
-      diagnosticId: "coverage-fan-out-to-batch-projection",
-      path: row.path
-    })),
-    observationSources: ["compiler:compileHofRelation", "structure:c-program-catalog"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "fan_out has no proved ordinal-preserving projection to C.batch task spines"
-  });
-  observeGap(observedGapEvidence, "typed_fan_in_structure_and_runtime", {
-    rows: rowsForApplication("fan_in"),
-    observationSources: ["compiler:compileGraphFunctionApplication"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "fan_in lineage is exact while collection runtime is absent"
   });
   observeGap(observedGapEvidence, "c_retry_runtime_and_policy_join", {
     rows: nestedProgramRows
@@ -1332,6 +1358,7 @@ async function buildManifest() {
             : row.outcome.workflowLiftBinding?.bindingRef ?? null,
         diagnosticIds: row.diagnosticIds
       })),
+      t260RuntimeSurface,
       executionContextJoinRows,
       fpResultContractAdmissionRows,
       fhInteractionRows,

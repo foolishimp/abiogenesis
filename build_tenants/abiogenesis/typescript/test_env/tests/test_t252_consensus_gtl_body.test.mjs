@@ -115,7 +115,7 @@ test("T-252 canonical serialization round-trips through M02 without loss", () =>
   );
 });
 
-test("T-252 HOF arrays are pure and the child relation reaches only its typed runtime gap", () => {
+test("T-260 HOF arrays are pure and compile one exact structural relation", () => {
   const { nodes, graphFunctions: bodyFunctions, nativeWitnesses } =
     ABG_CONSENSUS_GTL_BODY;
   assert.equal(
@@ -141,36 +141,40 @@ test("T-252 HOF arrays are pure and the child relation reaches only its typed ru
     graphFunctions: graphFunctions()
   });
   assert.equal(compilation.observed, true);
-  assert.equal(compilation.accepted, false);
-  assert.deepEqual(
-    compilation.diagnostics.map((row) => [row.classification, row.diagnosticId]),
-    [["semantic_not_realized", "gtl-hof-unrealized-fan-out"]]
-  );
+  assert.equal(compilation.accepted, true);
+  assert.equal(compilation.diagnostics.length, 0);
+  assert.equal(compilation.relation.kind, "compiled_hof_fan_out_relation");
+  assert.equal(compilation.relation.hostGraphFunctionRef, bodyFunctions.reviewPanel.id);
+  assert.equal(compilation.relation.childGraphFunctionRef, bodyFunctions.reviewOneProfile.id);
+  assert.equal(compilation.relation.inputVectorNodeRef, nodes.reviewerAssignments.id);
+  assert.equal(compilation.relation.outputVectorNodeRef, nodes.attributedFindings.id);
 });
 
-test("T-252 fan-in and recursion applications compile exact lineage before runtime gaps", () => {
+test("T-260 fan-in compiles while recursion retains its typed runtime gap", () => {
   const bodyFunctions = ABG_CONSENSUS_GTL_BODY.graphFunctions;
-  const rows = [
-    [bodyFunctions.reducePanelFacts, "fan_in", bodyFunctions.exactPanelFacts.id],
-    [bodyFunctions.boundedRounds, "recurse", bodyFunctions.round.id]
-  ];
-  for (const [graphFunction, operatorKind, operandRef] of rows) {
-    const compilation = compileGraphFunctionApplication({
-      graphFunction,
-      graphFunctions: graphFunctions()
-    });
-    assert.equal(compilation.observed, true);
-    assert.equal(compilation.accepted, false);
-    assert.equal(compilation.lineage.orderedSteps[0].operatorKind, operatorKind);
-    assert.equal(
-      compilation.lineage.orderedSteps[0].operandGraphFunctionRef,
-      operandRef
-    );
-    assert.deepEqual(
-      compilation.diagnostics.map((row) => [row.classification, row.diagnosticId]),
-      [["semantic_not_realized", "gtl-application-runtime-not-realized"]]
-    );
-  }
+  const fanIn = compileGraphFunctionApplication({
+    graphFunction: bodyFunctions.reducePanelFacts,
+    graphFunctions: graphFunctions()
+  });
+  assert.equal(fanIn.observed, true);
+  assert.equal(fanIn.accepted, true);
+  assert.equal(fanIn.diagnostics.length, 0);
+  assert.equal(fanIn.lineage.orderedSteps[0].operatorKind, "fan_in");
+  assert.equal(fanIn.fanInRelation.reducerGraphFunctionRef, bodyFunctions.exactPanelFacts.id);
+
+  const recursion = compileGraphFunctionApplication({
+    graphFunction: bodyFunctions.boundedRounds,
+    graphFunctions: graphFunctions()
+  });
+  assert.equal(recursion.observed, true);
+  assert.equal(recursion.accepted, false);
+  assert.equal(recursion.lineage.orderedSteps[0].operatorKind, "recurse");
+  assert.equal(recursion.lineage.orderedSteps[0].operandGraphFunctionRef, bodyFunctions.round.id);
+  assert.equal(recursion.fanInRelation, null);
+  assert.deepEqual(
+    recursion.diagnostics.map((row) => [row.classification, row.diagnosticId]),
+    [["semantic_not_realized", "gtl-application-runtime-not-realized"]]
+  );
 });
 
 test("T-252 every selected GraphVector resolves one exact local C program", () => {

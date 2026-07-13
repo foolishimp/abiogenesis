@@ -14,6 +14,7 @@
 // with a typed reason (HANDLERS-012) — it never half-runs.
 
 import {
+  isHogBatchProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration,
   type HogProgramStage
@@ -53,6 +54,12 @@ export function assertHogProgramExecutable(
     throw new TypeError(
       `workflow_sub_traversal_required: hog program ${program.programRef} ` +
         "must enter the workflow.C resolver through the traversal startup gate"
+    );
+  }
+  if (isHogBatchProgram(program)) {
+    throw new TypeError(
+      `batch_runtime_required: hog program ${program.programRef} ` +
+        "must enter the T-260 C.batch resolver through the traversal startup gate"
     );
   }
   // BINDING-COMPLETE entry gate (codex MEDIUM): a non-triple stage is

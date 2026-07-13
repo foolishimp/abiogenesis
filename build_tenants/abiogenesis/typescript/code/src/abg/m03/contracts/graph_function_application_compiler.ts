@@ -119,8 +119,26 @@ export interface GraphFunctionApplicationCompilation {
   readonly accepted: boolean;
   readonly declaration: GraphFunctionApplicationDeclaration | null;
   readonly lineage: GraphFunctionApplicationLineageProjection | null;
+  readonly fanInRelation: CompiledFanInApplicationRelation | null;
   readonly provisionalBindings: readonly ProvisionalDerivedCompositionBinding[];
   readonly diagnostics: readonly GraphFunctionApplicationDiagnostic[];
+}
+
+export interface CompiledFanInApplicationRelation {
+  readonly kind: "compiled_fan_in_application_relation";
+  readonly relationRef: string;
+  readonly relationDigest: `sha256:${string}`;
+  readonly applicationRef: string;
+  readonly executionSubjectGraphFunctionRef: string;
+  readonly executionSubjectGraphFunctionDigest: `sha256:${string}`;
+  readonly reducerGraphFunctionRef: string;
+  readonly reducerGraphFunctionDigest: `sha256:${string}`;
+  readonly inputVectorNodeRef: string;
+  readonly inputVectorContractKey: string;
+  readonly outputNodeRef: string;
+  readonly outputContractKey: string;
+  readonly applicationLineageRef: string;
+  readonly applicationLineageDigest: `sha256:${string}`;
 }
 
 interface DerivedLineage {
@@ -247,6 +265,7 @@ function rejected(input: {
     accepted: false,
     declaration: input.declaration,
     lineage: input.lineage ?? null,
+    fanInRelation: null,
     provisionalBindings: Object.freeze([...(input.provisionalBindings ?? [])]),
     diagnostics: Object.freeze([input.diagnostic])
   });
@@ -258,8 +277,49 @@ function noApplication(): GraphFunctionApplicationCompilation {
     accepted: true,
     declaration: null,
     lineage: null,
+    fanInRelation: null,
     provisionalBindings: Object.freeze([]),
     diagnostics: Object.freeze([])
+  });
+}
+
+function compiledFanInRelation(input: {
+  readonly executionSubject: GraphFunction;
+  readonly reducer: GraphFunction;
+  readonly declaration: Extract<
+    GraphFunctionApplicationDeclaration,
+    { readonly operatorKind: "fan_in" }
+  >;
+  readonly lineage: GraphFunctionApplicationLineageProjection;
+}): CompiledFanInApplicationRelation {
+  const output = input.executionSubject.outputs[0];
+  if (input.executionSubject.outputs.length !== 1 || output === undefined) {
+    throw new TypeError(
+      "fan-in execution subject must expose exactly one synthesized output"
+    );
+  }
+  const basis = Object.freeze({
+    kind: "compiled_fan_in_application_relation" as const,
+    applicationRef: input.declaration.applicationRef,
+    executionSubjectGraphFunctionRef: input.executionSubject.id,
+    executionSubjectGraphFunctionDigest: stableSha256Digest(
+      input.executionSubject
+    ),
+    reducerGraphFunctionRef: input.reducer.id,
+    reducerGraphFunctionDigest: stableSha256Digest(input.reducer),
+    inputVectorNodeRef: input.declaration.overVectorNodeRef,
+    inputVectorContractKey: input.declaration.overVectorContractKey,
+    outputNodeRef: output.id,
+    outputContractKey: nodeContractKey(output),
+    applicationLineageRef: input.lineage.lineageRef,
+    applicationLineageDigest: input.lineage.lineageDigest
+  });
+  const relationDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    relationRef:
+      `abg://hof/fan-in/relation/${relationDigest.slice("sha256:".length)}`,
+    relationDigest
   });
 }
 
@@ -1112,6 +1172,65 @@ export function compileGraphFunctionApplication(input: {
       lineage: derived.derived.lineage,
       provisionalBindings: compositions.bindings,
       diagnostic: compositions.diagnostic
+    });
+  }
+
+  if (
+    declaration.operatorKind === "fan_in" &&
+    derived.derived.lineage.orderedSteps.length === 1
+  ) {
+    const reducer = derived.derived.orderedGraphFunctions[1];
+    if (reducer === undefined) {
+      return rejected({
+        declaration,
+        lineage: derived.derived.lineage,
+        provisionalBindings: compositions.bindings,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-application-unresolved-operand",
+          path: "$.operand_graph_function_ref",
+          expectedRelation: "one exact fan-in reducer GraphFunction",
+          actualRelation: "application lineage has no immediate reducer",
+          evidenceRefs: evidenceRefs({
+            graphFunctionRef: input.graphFunction.id,
+            applicationRef: declaration.applicationRef
+          })
+        })
+      });
+    }
+    let fanInRelation: CompiledFanInApplicationRelation;
+    try {
+      fanInRelation = compiledFanInRelation({
+        executionSubject: input.graphFunction,
+        reducer,
+        declaration,
+        lineage: derived.derived.lineage
+      });
+    } catch (error: unknown) {
+      return rejected({
+        declaration,
+        lineage: derived.derived.lineage,
+        provisionalBindings: compositions.bindings,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-application-contract-mismatch",
+          path: "$",
+          expectedRelation: "one exact vector-to-scalar fan-in relation",
+          actualRelation:
+            error instanceof Error ? error.message : "fan-in relation failed",
+          evidenceRefs: evidenceRefs({
+            graphFunctionRef: input.graphFunction.id,
+            applicationRef: declaration.applicationRef
+          })
+        })
+      });
+    }
+    return Object.freeze({
+      observed: true,
+      accepted: true,
+      declaration,
+      lineage: derived.derived.lineage,
+      fanInRelation,
+      provisionalBindings: compositions.bindings,
+      diagnostics: Object.freeze([])
     });
   }
 

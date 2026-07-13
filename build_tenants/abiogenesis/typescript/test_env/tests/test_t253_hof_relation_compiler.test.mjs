@@ -1,5 +1,7 @@
 // Validates: REQ-L-GTL3-HOF-001/-005/-006.
 
+/* global structuredClone */
+
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
@@ -169,20 +171,17 @@ function conformanceInput(graphFunctions, disposition) {
   };
 }
 
-test("T-253 M03 admits the exact structural relation and reports only the runtime gap", () => {
+test("T-260 M03 admits the exact structural HOF relation", () => {
   const { childGraphFunction, hostGraphFunction } = fixture();
   const before = JSON.stringify(hostGraphFunction);
   const result = compile(hostGraphFunction, [childGraphFunction, hostGraphFunction]);
 
   assert.equal(result.observed, true);
-  assert.equal(result.accepted, false);
-  assert.equal(result.diagnostics.length, 1);
-  assert.equal(result.diagnostics[0].classification, "semantic_not_realized");
-  assert.equal(result.diagnostics[0].diagnosticId, "gtl-hof-unrealized-fan-out");
-  assert.equal(
-    result.diagnostics[0].repairAffordance,
-    "realize_declared_semantics"
-  );
+  assert.equal(result.accepted, true);
+  assert.equal(result.diagnostics.length, 0);
+  assert.equal(result.relation.kind, "compiled_hof_fan_out_relation");
+  assert.equal(result.relation.hostGraphFunctionRef, hostGraphFunction.id);
+  assert.equal(result.relation.childGraphFunctionRef, childGraphFunction.id);
   assert.equal(JSON.stringify(hostGraphFunction), before);
 
   const report = typecheckGtlProgram(
@@ -191,8 +190,7 @@ test("T-253 M03 admits the exact structural relation and reports only the runtim
   const rows = report.issues.filter(
     (row) => row.ruleRef === "abg://gtl-program/hof/semantic-not-realized"
   );
-  assert.equal(rows.length, 1);
-  assert.equal(rows[0].admissibleRepairs[0].editClass, "realize_declared_semantics");
+  assert.equal(rows.length, 0);
 });
 
 test("T-253 M03 resolves the child id exactly once across the compilation root", () => {

@@ -2,6 +2,8 @@
 // Validates: REQ-L-GTL3-GRAPHVECTOR-005/-007
 // Validates: REQ-R-ABG3-CCALL-016
 
+/* global structuredClone */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -271,7 +273,6 @@ function messages(report, diagnosticId) {
 
 test("T-254 Scenario 09 derives two exact vector-local program bindings", () => {
   const fixture = scenarioFixture();
-  const candidates = collectRawCProgramCandidates(fixture.host.declarations);
   const normalize = compileGraphVectorCProgramSelection({
     graphFunction: fixture.host,
     graphVector: fixture.normalizeVector
@@ -726,7 +727,7 @@ test("T-254 stages selected nested diagnostics behind outer boundary validity", 
     abiPackageVersion: "5.0.0-dev.0",
     graphFunctions: [lawful.host]
   });
-  assert.equal(messages(lawfulReport, "gtl-c-unrealized-batch").length, 1);
+  assert.equal(messages(lawfulReport, "gtl-c-unrealized-batch").length, 0);
   assert.equal(
     messages(lawfulReport, "gtl-c-unrealized-vector-program-selection").length,
     1

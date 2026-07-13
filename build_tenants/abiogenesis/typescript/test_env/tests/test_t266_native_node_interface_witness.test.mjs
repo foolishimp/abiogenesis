@@ -3,6 +3,8 @@
 // Validates: REQ-L-GTL3-C-ALGEBRA-004/-006/-012..017
 // Validates: REQ-L-GTL3-HOF-001/-002/-005/-006
 
+/* global structuredClone */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -1117,7 +1119,7 @@ test("T-266 HOF constructors preserve witnessed scalar/vector relations and ordi
   assert.equal(JSON.stringify(moduleBytes).includes("nodeContractDigest"), false);
 });
 
-test("T-266 M03 rejects a symbolic fan-in reducer boundary contradiction before the runtime gap", () => {
+test("T-266 M03 admits exact fan-in and rejects a symbolic reducer boundary contradiction", () => {
   const value = fixture();
   const validReducer = graphFunction(
     "valid_symbolic_reducer",
@@ -1132,7 +1134,9 @@ test("T-266 M03 rejects a symbolic fan-in reducer boundary contradiction before 
     graphFunction: valid,
     graphFunctions: [valid, validReducer]
   });
-  assert.equal(validCompilation.diagnostics[0]?.classification, "semantic_not_realized");
+  assert.equal(validCompilation.accepted, true);
+  assert.equal(validCompilation.diagnostics.length, 0);
+  assert.equal(validCompilation.fanInRelation.kind, "compiled_fan_in_application_relation");
 
   const mismatchedReducer = graphFunction(
     "mismatched_symbolic_reducer",

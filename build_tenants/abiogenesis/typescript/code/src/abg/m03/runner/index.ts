@@ -48,6 +48,34 @@ export type {
   WorkflowChildTraversalOutcome,
   WorkflowChildTraversalRequest
 } from "./workflow_c_runtime.js";
+export { resolveCBatch } from "./c_batch_runtime.js";
+export type {
+  CBatchBlockedResolution,
+  CBatchChildTraversalOutcome,
+  CBatchChildTraversalRequest,
+  CBatchCompletedResolution,
+  CBatchInvocation,
+  CBatchResolution,
+  CBatchSourceAuthority,
+  CBatchStageExecutionOutcome,
+  CBatchStageExecutionRequest,
+  CBatchTaskDisposition,
+  CBatchTaskExecutionOutcome,
+  CBatchTaskExecutionRequest,
+  DeclaredCBatchSourceAuthority,
+  HofCBatchCompletedResolution,
+  HofCBatchSourceAuthority
+} from "./c_batch_runtime.js";
+export { resolveHofFanIn } from "./hof_fan_in_runtime.js";
+export type {
+  HofFanInCompletedResolution,
+  HofFanInDisposition,
+  HofFanInInvocation,
+  HofFanInResolution,
+  HofFanInStoppedResolution,
+  HofFanInTraversalOutcome,
+  HofFanInTraversalRequest
+} from "./hof_fan_in_runtime.js";
 export type {
   AdmitFhInteractionResumeInput,
   FhInteractionAdmissionFailureCode,

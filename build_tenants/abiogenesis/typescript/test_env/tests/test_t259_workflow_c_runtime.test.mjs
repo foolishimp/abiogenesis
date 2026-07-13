@@ -417,7 +417,10 @@ test("T-259 normalized workflow admission is closed and mutually exclusive with 
     ]
   });
   assert.equal(dual.accepted, false);
-  assert.match(dual.issues.join("; "), /workflow program stages must be empty/u);
+  assert.match(
+    dual.issues.join("; "),
+    /workflow and batch program stages must be empty/u
+  );
 
   const absentChild = admitHogProgram({
     ...program,
@@ -621,7 +624,7 @@ test("T-259 rejects foreign or stale catalog authority before opening a C call",
   });
   await assert.rejects(
     () => resolveWorkflowC(stale.input),
-    /does not preserve the compiled Module authority/u
+    /selected catalog binding is not exact within the admitted basis/u
   );
   assert.deepEqual(stale.emitted, []);
 

@@ -24,6 +24,7 @@ import {
 import { stableJsonEquals, stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import {
+  isHogBatchProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration
 } from "./hog_program.js";
@@ -39,6 +40,7 @@ import {
 } from "./graph_vector_c_program_compiler.js";
 import {
   compileGraphFunctionApplication,
+  type CompiledFanInApplicationRelation,
   type GraphFunctionApplicationLineageProjection,
   type ProvisionalDerivedCompositionBinding
 } from "./graph_function_application_compiler.js";
@@ -170,13 +172,17 @@ export interface CompiledGraphVectorExecutionHandoff {
   readonly declarationOwnerGraphFunctionRef: string;
   readonly graphRef: string;
   readonly graphVectorRef: string;
-  readonly programDisposition: "flat_executable" | "workflow_sub_traversal";
+  readonly programDisposition:
+    | "flat_executable"
+    | "workflow_sub_traversal"
+    | "batch_task_family";
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly admittedProgram: CProgramDeclarationNode;
   readonly normalizedProgram: HogProgramDeclaration;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
+  readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
   readonly targetCarrierProjection: CompiledGraphVectorTargetCarrierProjection;
   readonly edgeClosureBinding: CompiledGraphVectorEdgeClosureBinding;
@@ -220,11 +226,15 @@ export interface GraphVectorExecutionHandoffCapabilityBlocked {
   readonly status: "blocked_capability";
   readonly boundary: GraphVectorBoundaryProjection;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
-  readonly programDisposition: "flat_executable" | "workflow_sub_traversal";
+  readonly programDisposition:
+    | "flat_executable"
+    | "workflow_sub_traversal"
+    | "batch_task_family";
   readonly normalizedProgram: HogProgramDeclaration;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
+  readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
   readonly targetCarrierProjection: CompiledGraphVectorTargetCarrierProjection;
   readonly edgeClosureBinding: CompiledGraphVectorEdgeClosureBinding;
@@ -532,16 +542,26 @@ function appliedComposition(input: {
   readonly selection: AbgFnCompositionSelection;
   readonly declarationOwnerGraphFunctionRef: string;
   readonly lineage: GraphFunctionApplicationLineageProjection;
+  readonly fanInRelation: CompiledFanInApplicationRelation | null;
 } {
   const expectedDiagnostic = input.compilation.diagnostics[0];
-  if (
-    input.compilation.accepted ||
+  if (input.compilation.accepted) {
+    if (
+      input.compilation.diagnostics.length !== 0 ||
+      input.compilation.fanInRelation === null
+    ) {
+      throw new TypeError(
+        "accepted applied GraphFunction must carry one compiled fan-in relation and no diagnostics"
+      );
+    }
+  } else if (
     input.compilation.diagnostics.length !== 1 ||
     expectedDiagnostic?.classification !== "semantic_not_realized" ||
-    expectedDiagnostic.diagnosticId !== "gtl-application-runtime-not-realized"
+    expectedDiagnostic.diagnosticId !== "gtl-application-runtime-not-realized" ||
+    input.compilation.fanInRelation !== null
   ) {
     throw new TypeError(
-      "applied GraphFunction must carry only the T-265 runtime-not-realized handoff diagnostic"
+      "unrealized applied GraphFunction must carry only the T-265 runtime-not-realized handoff diagnostic"
     );
   }
   if (input.compilation.lineage === null) {
@@ -577,7 +597,8 @@ function appliedComposition(input: {
   return Object.freeze({
     selection,
     declarationOwnerGraphFunctionRef: owner.id,
-    lineage: input.compilation.lineage
+    lineage: input.compilation.lineage,
+    fanInRelation: input.compilation.fanInRelation
   });
 }
 
@@ -585,6 +606,7 @@ function composition(input: CompileGraphVectorExecutionHandoffInput): {
   readonly selection: AbgFnCompositionSelection;
   readonly declarationOwnerGraphFunctionRef: string;
   readonly lineage: GraphFunctionApplicationLineageProjection | null;
+  readonly fanInRelation: CompiledFanInApplicationRelation | null;
 } {
   const application = compileGraphFunctionApplication({
     graphFunction: input.graphFunction,
@@ -594,7 +616,8 @@ function composition(input: CompileGraphVectorExecutionHandoffInput): {
     return Object.freeze({
       selection: directComposition(input),
       declarationOwnerGraphFunctionRef: input.graphFunction.id,
-      lineage: null
+      lineage: null,
+      fanInRelation: null
     });
   }
   return appliedComposition({
@@ -1033,7 +1056,9 @@ export function compileGraphVectorExecutionHandoff(
   }
   const programDisposition = isHogWorkflowProgram(lowered.program)
     ? "workflow_sub_traversal" as const
-    : "flat_executable" as const;
+    : isHogBatchProgram(lowered.program)
+      ? "batch_task_family" as const
+      : "flat_executable" as const;
 
   let compatibility: CapabilityCompatibilityAdmission;
   try {
@@ -1052,6 +1077,7 @@ export function compileGraphVectorExecutionHandoff(
       workflowLiftBinding,
       compositionSelection: compositionJoin.selection,
       applicationLineage: compositionJoin.lineage,
+      fanInApplicationRelation: compositionJoin.fanInRelation,
       targetCarrierBinding: target.binding,
       targetCarrierProjection: target.projection,
       edgeClosureBinding: target.edgeClosure,
@@ -1097,6 +1123,7 @@ export function compileGraphVectorExecutionHandoff(
     workflowLiftBinding,
     compositionSelection: compositionJoin.selection,
     applicationLineage: compositionJoin.lineage,
+    fanInApplicationRelation: compositionJoin.fanInRelation,
     targetCarrierBinding: target.binding,
     targetCarrierProjection: target.projection,
     edgeClosureBinding: target.edgeClosure,

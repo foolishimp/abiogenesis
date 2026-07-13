@@ -40,6 +40,9 @@ import {
   buildCCallSpineClose,
   buildCCallSpineOpen
 } from "./c_call_spine.js";
+import {
+  resolveSelectedCatalogExecutionBinding
+} from "./selected_catalog_execution.js";
 
 export type WorkflowChildTraversalDisposition =
   | "completed"
@@ -152,26 +155,11 @@ function nonEmpty(value: string, label: string): string {
 
 function selectedModuleAuthority(input: WorkflowCInvocation): CatalogExecutionBinding {
   const basis = input.catalogBasis;
-  if (
-    basis.kind !== "admitted_runtime_catalog_basis" ||
-    basis.workspaceId !== basis.projection.workspaceId ||
-    basis.bindingId !== basis.projection.bindingId ||
-    basis.catalogId !== basis.projection.catalogId ||
-    basis.runtimeCatalogProjectionRef !== basis.projection.projectionRef ||
-    basis.runtimeRegistryProjectionRef !==
-      basis.projection.runtimeRegistryProjection.projectionRef
-  ) {
-    throw new TypeError("workflow.C runtime catalog basis is incoherent");
-  }
-  const matches = basis.executionBindings.filter(
-    (candidate) => candidate.entryRef === input.selectedCatalogEntryRef
-  );
-  const selected = matches[0];
-  if (matches.length !== 1 || selected === undefined) {
-    throw new TypeError(
-      `workflow.C selected catalog entry must resolve one execution binding; got ${String(matches.length)}`
-    );
-  }
+  const selected = resolveSelectedCatalogExecutionBinding({
+    catalogBasis: basis,
+    selectedCatalogEntryRef: input.selectedCatalogEntryRef,
+    label: "workflow.C"
+  });
   if (
     selected.workspaceId !== basis.workspaceId ||
     selected.bindingId !== basis.bindingId ||
