@@ -43,6 +43,9 @@ import {
   graphFunctionApplicationDeclarationFromDeclarations,
   type GraphFunctionApplicationOperatorKind
 } from "../../../gtl/m01/contracts/graph_function_application.js";
+import {
+  hofApplicationDeclarationFromDeclarations
+} from "../../../gtl/m01/contracts/hof_application.js";
 import type {
   GtlAuthorityContextFragmentDeclaration,
   GtlDestinationTopologyDeclaration,
@@ -92,10 +95,24 @@ import {
   type RawCProgramCandidateCollection
 } from "./graph_vector_c_program_compiler.js";
 import {
+  HOG_HANDLER_BINDINGS_DECLARATION_KEY,
+  HOG_HANDLER_CONFIGS_DECLARATION_KEY,
+  hogHandlerBindingsFromDeclarationAttrs,
+  hogHandlerConfigsFromDeclarationAttrs,
   hogProgramCatalogFromDeclarationAttrs,
   hogProgramFromDeclarationAttrs,
   HOG_PROGRAM_SELECTION_KEY
 } from "./hog_program_syntax.js";
+import {
+  admitHogHandlerBindings,
+  type CCallHandlerBinding
+} from "./hog_handler_bindings.js";
+import {
+  PLUGIN_SELECTION_SEAM_VALUES,
+  pluginSelectionFromDeclarationAttrs,
+  resolveDeclaredPluginSelection,
+  type PluginSelectionSeam
+} from "./plugin_selection.js";
 import {
   deriveAllowedConsequenceTraversalCatalogFromGtl
 } from "./allowed_consequence_traversal_catalog.js";
@@ -199,6 +216,13 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/declaration/host-ref-resolves",
   "abg://gtl-program/declaration/reserved-key-registered",
   "abg://gtl-program/declaration/value-kind",
+  "abg://gtl-program/declaration-inventory/effect-authority-separation",
+  "abg://gtl-program/declaration-inventory/effect-transitive",
+  "abg://gtl-program/declaration-inventory/effect-unique",
+  "abg://gtl-program/declaration-inventory/handler-config-usage",
+  "abg://gtl-program/declaration-inventory/handler-coverage",
+  "abg://gtl-program/declaration-inventory/operator-binding-not-plugin",
+  "abg://gtl-program/declaration-inventory/plugin-selection-exact",
   "abg://gtl-program/edge-closure/no-orphan-row",
   "abg://gtl-program/edge-closure/target-asset-match",
   "abg://gtl-program/edge-closure/unique-vector-row",
@@ -250,6 +274,7 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/input/array-field",
   "abg://gtl-program/input/boolean-field",
   "abg://gtl-program/input/composition-source-kind-field",
+  "abg://gtl-program/input/conformance-scope-field",
   "abg://gtl-program/input/compute-composition-row",
   "abg://gtl-program/input/compute-stage-binding-row",
   "abg://gtl-program/input/compute-stage-purpose-field",
@@ -562,6 +587,7 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
   "abg://gtl-program/input/module": "add_missing_declaration",
   "abg://gtl-program/input/graph-function": "add_missing_declaration",
   "abg://gtl-program/input/string-field": "correct_field_shape",
+  "abg://gtl-program/input/conformance-scope-field": "correct_field_shape",
   "abg://gtl-program/input/string-array": "correct_field_shape",
   "abg://gtl-program/input/array-field": "correct_field_shape",
   "abg://gtl-program/input/non-negative-integer-array": "correct_field_shape",
@@ -580,6 +606,20 @@ export const GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS: Readonly<
     "correct_reference",
   "abg://gtl-program/declaration/value-kind": "correct_field_shape",
   "abg://gtl-program/execution-declaration/invalid": "correct_field_shape",
+  "abg://gtl-program/declaration-inventory/effect-authority-separation":
+    "correct_reference",
+  "abg://gtl-program/declaration-inventory/effect-transitive":
+    "add_missing_declaration",
+  "abg://gtl-program/declaration-inventory/effect-unique":
+    "remove_duplicate_declaration",
+  "abg://gtl-program/declaration-inventory/handler-config-usage":
+    "remove_duplicate_declaration",
+  "abg://gtl-program/declaration-inventory/handler-coverage":
+    "add_missing_declaration",
+  "abg://gtl-program/declaration-inventory/operator-binding-not-plugin":
+    "correct_reference",
+  "abg://gtl-program/declaration-inventory/plugin-selection-exact":
+    "correct_reference",
   "abg://gtl-program/public-start/overlay-required": "add_missing_declaration",
   "abg://gtl-program/graph-vector/unique-ref": "remove_duplicate_declaration",
   "abg://gtl-program/runtime-reentry/lawful-basis": "correct_reference",
@@ -1467,11 +1507,135 @@ export interface GtlProgramCoverageCounts {
 
 export type GtlProgramExpectedCoverage = GtlProgramCoverageCounts;
 
+export const GTL_PROGRAM_CONFORMANCE_SCOPE_KIND_VALUES = Object.freeze([
+  "submitted_structure",
+  "declared_complete_program"
+] as const);
+
+export type GtlProgramConformanceScopeKind =
+  (typeof GTL_PROGRAM_CONFORMANCE_SCOPE_KIND_VALUES)[number];
+
+export type GtlProgramEffectRequirementSourceKind =
+  | "declared_on_host"
+  | "graph_function_application"
+  | "hof_application"
+  | "workflow_child";
+
+export interface GtlProgramEffectRequirementProjectionRow {
+  readonly kind: "gtl_program_effect_requirement_projection_row";
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionId: string;
+  readonly effectRef: string;
+  readonly sourceKind: GtlProgramEffectRequirementSourceKind;
+  readonly sourceGraphFunctionRef: string | null;
+  readonly declarationPath: string;
+}
+
+export interface GtlProgramPluginSelectionProjectionRow {
+  readonly kind: "gtl_program_plugin_selection_projection_row";
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionId: string;
+  readonly seam: PluginSelectionSeam;
+  readonly pluginRef: string;
+  readonly declarationPath: string;
+}
+
+export interface GtlProgramHogProgramProjectionRow {
+  readonly kind: "gtl_program_hog_program_projection_row";
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionId: string;
+  readonly programRef: string;
+  readonly declarationPath: string;
+}
+
+export interface GtlProgramHogHandlerProjectionRow {
+  readonly kind: "gtl_program_hog_handler_projection_row";
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionId: string;
+  readonly programRef: string;
+  readonly stageRole: string;
+  readonly armId: string;
+  readonly regime: Regime;
+  readonly handlerRef: string;
+  readonly handlerClass: string;
+  readonly handlerConfigRef: string | null;
+  readonly declarationPath: string;
+}
+
+export interface GtlProgramHogHandlerConfigProjectionRow {
+  readonly kind: "gtl_program_hog_handler_config_projection_row";
+  readonly hostGraphFunctionRef: string;
+  readonly hostGraphFunctionId: string;
+  readonly handlerConfigRef: string;
+  readonly configDigest: string;
+  readonly declarationPath: string;
+}
+
+export interface GtlProgramModuleJobProjectionRow {
+  readonly kind: "gtl_program_module_job_projection_row";
+  readonly moduleRef: string;
+  readonly jobRef: string;
+  readonly jobName: string;
+  readonly contractTargetIds: readonly string[];
+  readonly roleRefs: readonly string[];
+}
+
+export interface GtlProgramModuleRoleProjectionRow {
+  readonly kind: "gtl_program_module_role_projection_row";
+  readonly moduleRef: string;
+  readonly roleRef: string;
+  readonly roleName: string;
+}
+
+export interface GtlProgramFeatureApplicabilityProjectionRow {
+  readonly kind: "gtl_program_feature_applicability_projection_row";
+  readonly featureKind: GtlProgramT153FeatureKind;
+  readonly observed: boolean;
+  readonly inventoryBacked: boolean;
+  readonly requirementRefs: readonly string[];
+}
+
+export interface GtlProgramDerivedConformanceInventoryCounts {
+  readonly graphFunctionCount: number;
+  readonly graphVectorCount: number;
+  readonly effectRequirementCount: number;
+  readonly pluginSelectionCount: number;
+  readonly hogProgramCount: number;
+  readonly hogHandlerBindingCount: number;
+  readonly hogHandlerConfigCount: number;
+  readonly moduleJobCount: number;
+  readonly moduleRoleCount: number;
+}
+
+export interface GtlProgramDerivedConformanceInventory {
+  readonly kind: "gtl_program_derived_conformance_inventory";
+  readonly scopeKind: GtlProgramConformanceScopeKind;
+  readonly effectRequirements:
+    readonly GtlProgramEffectRequirementProjectionRow[];
+  readonly pluginSelections:
+    readonly GtlProgramPluginSelectionProjectionRow[];
+  readonly hogPrograms: readonly GtlProgramHogProgramProjectionRow[];
+  readonly hogHandlers: readonly GtlProgramHogHandlerProjectionRow[];
+  readonly hogHandlerConfigs:
+    readonly GtlProgramHogHandlerConfigProjectionRow[];
+  readonly moduleJobs: readonly GtlProgramModuleJobProjectionRow[];
+  readonly moduleRoles: readonly GtlProgramModuleRoleProjectionRow[];
+  readonly featureApplicability:
+    readonly GtlProgramFeatureApplicabilityProjectionRow[];
+  readonly counts: GtlProgramDerivedConformanceInventoryCounts;
+  readonly capabilityCompatibilityStatus:
+    | "deferred_missing_exact_profile"
+    | "not_applicable_no_effect_requirements";
+}
+
 export interface GtlProgramConformanceInput {
   readonly subjectRef: string;
   readonly abiPackageVersion: string;
-  readonly expectedCoverage: GtlProgramExpectedCoverage;
-  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
+  readonly scopeKind: GtlProgramConformanceScopeKind;
+  readonly expectedCoverage?: GtlProgramExpectedCoverage | undefined;
+  readonly featureCoverageManifest?:
+    | GtlProgramFeatureCoverageManifest
+    | undefined;
   readonly catalogGraphFunctionRefs?: readonly string[] | undefined;
   readonly graphFunctions?: readonly GraphFunction[] | undefined;
   readonly modules?: readonly Module[] | undefined;
@@ -1562,6 +1726,7 @@ export interface GtlProgramInventoryDigests {
   readonly goldenInstanceBindings: string;
   readonly underdeterminedDeclarations: string;
   readonly featureCoverageManifest: string;
+  readonly derivedConformanceInventory: string;
   readonly catalogGraphFunctionRefs: string;
   readonly graphFunctions: string;
   readonly modules: string;
@@ -1685,8 +1850,10 @@ export interface GtlProgramConformanceReport {
   readonly reportRef: string;
   readonly subjectRef: string;
   readonly abiPackageVersion: string;
+  readonly scopeKind: GtlProgramConformanceScopeKind;
   readonly inventoryDigest: string;
   readonly inventoryDigests: GtlProgramInventoryDigests;
+  readonly derivedConformanceInventory: GtlProgramDerivedConformanceInventory;
   readonly pluginResultInterfaceCatalog: AdmittedPluginResultInterfaceCatalog;
   readonly requirementsAlgebraProjection: GtlProgramRequirementsAlgebraProjection;
   readonly traversalUnitProjection: GtlProgramTraversalUnitProjection;
@@ -1694,7 +1861,7 @@ export interface GtlProgramConformanceReport {
   readonly issueCount: number;
   readonly issues: readonly GtlProgramConformanceIssue[];
   readonly coverage: GtlProgramConformanceCoverage;
-  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
+  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest | null;
 }
 
 export interface GtlProgramConformanceInputAdmission {
@@ -4127,11 +4294,35 @@ function isNodeLike(input: unknown): input is Node {
   );
 }
 
-function admitExpectedCoverage(
+function admitConformanceScopeKind(
   input: unknown,
   subjectRef: string,
   issues: GtlProgramConformanceIssue[]
-): GtlProgramExpectedCoverage {
+): GtlProgramConformanceScopeKind {
+  if (
+    input === "submitted_structure" ||
+    input === "declared_complete_program"
+  ) {
+    return input;
+  }
+  issues.push(
+    issue({
+      surfaceKind: "program_inventory",
+      surfaceRef: subjectRef,
+      ruleRef: "abg://gtl-program/input/conformance-scope-field",
+      message:
+        "scopeKind must be submitted_structure or declared_complete_program"
+    })
+  );
+  return "declared_complete_program";
+}
+
+function admitExpectedCoverage(
+  input: unknown,
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  required: boolean
+): GtlProgramExpectedCoverage | undefined {
   const admitted: Record<CoverageKey, number> = {
     catalogGraphFunctionCount: 0,
     publishedGraphFunctionCount: 0,
@@ -4144,6 +4335,9 @@ function admitExpectedCoverage(
     pluginContractCount: 0,
     sourceIdentitySurfaceCount: 0
   };
+  if (input === undefined && !required) {
+    return undefined;
+  }
   if (!isRecord(input)) {
     issues.push(
       issue({
@@ -4352,8 +4546,12 @@ function admitFeatureCoverageRows(
 function admitFeatureCoverageManifest(
   input: unknown,
   subjectRef: string,
-  issues: GtlProgramConformanceIssue[]
-): GtlProgramFeatureCoverageManifest {
+  issues: GtlProgramConformanceIssue[],
+  required: boolean
+): GtlProgramFeatureCoverageManifest | undefined {
+  if (input === undefined && !required) {
+    return undefined;
+  }
   if (!isRecord(input)) {
     issues.push(
       issue({
@@ -9051,7 +9249,13 @@ export function admitGtlProgramConformanceInput(
     const input = Object.freeze({
       subjectRef: "unknown",
       abiPackageVersion: "",
-      expectedCoverage: admitExpectedCoverage(undefined, "unknown", issues),
+      scopeKind: "declared_complete_program" as const,
+      expectedCoverage: admitExpectedCoverage(
+        undefined,
+        "unknown",
+        issues,
+        true
+      ),
       featureCoverageManifest: emptyFeatureCoverageManifest("missing"),
       catalogGraphFunctionRefs: Object.freeze([]),
       graphFunctions: Object.freeze([]),
@@ -9105,6 +9309,11 @@ export function admitGtlProgramConformanceInput(
     surfaceKind: "program_inventory",
     issues
   }) || "unknown";
+  const scopeKind = admitConformanceScopeKind(
+    rawInput["scopeKind"],
+    subjectRef,
+    issues
+  );
   const graphFunctionInputs = checkOptionalArrayField({
     record: rawInput,
     key: "graphFunctions",
@@ -9119,6 +9328,7 @@ export function admitGtlProgramConformanceInput(
   });
   const input = Object.freeze({
     subjectRef,
+    scopeKind,
     abiPackageVersion: requiredStringField({
       record: rawInput,
       key: "abiPackageVersion",
@@ -9130,12 +9340,14 @@ export function admitGtlProgramConformanceInput(
     expectedCoverage: admitExpectedCoverage(
       rawInput["expectedCoverage"],
       subjectRef,
-      issues
+      issues,
+      scopeKind === "declared_complete_program"
     ),
     featureCoverageManifest: admitFeatureCoverageManifest(
       rawInput["featureCoverageManifest"],
       subjectRef,
-      issues
+      issues,
+      scopeKind === "declared_complete_program"
     ),
     catalogGraphFunctionRefs: optionalStringArrayField({
       record: rawInput,
@@ -14271,11 +14483,15 @@ const COVERAGE_KEYS: readonly CoverageKey[] = Object.freeze([
 
 function checkExpectedCoverage(input: {
   readonly subjectRef: string;
+  readonly scopeKind: GtlProgramConformanceScopeKind;
   readonly expectedCoverage: GtlProgramExpectedCoverage | undefined;
   readonly coverage: GtlProgramConformanceCoverage;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
   if (input.expectedCoverage === undefined) {
+    if (input.scopeKind === "submitted_structure") {
+      return;
+    }
     input.issues.push(
       issue({
         surfaceKind: "program_inventory",
@@ -14304,16 +14520,6 @@ function checkExpectedCoverage(input: {
         })
       );
       continue;
-    }
-    if (expected === 0 && key !== "overlayCount") {
-      input.issues.push(
-        issue({
-          surfaceKind: "program_inventory",
-          surfaceRef: input.subjectRef,
-          ruleRef: "abg://gtl-program/coverage/expected-count-nonzero",
-          message: `expectedCoverage.${key} must be greater than zero for a complete GTL program scope`
-        })
-      );
     }
     if (input.coverage[key] !== expected) {
       input.issues.push(
@@ -14649,22 +14855,19 @@ function inventoryBackedFeatureKinds(input: {
   if (input.sameObjectProofs.length > 0) {
     backed.add("graph_algebra_same_object");
   }
-  if (input.operatorDeclarations.length > 0) {
+  if (algebraObserved.has("operator_declarations")) {
     backed.add("operator_declarations");
   }
-  if (input.evaluatorDeclarations.length > 0) {
+  if (algebraObserved.has("evaluator_declarations")) {
     backed.add("evaluator_declarations");
   }
-  if (input.ruleDeclarations.length > 0) {
+  if (algebraObserved.has("rule_declarations")) {
     backed.add("rule_declarations");
   }
-  if (
-    input.computeCompositions.length > 0 &&
-    input.computeStageBindings.length > 0
-  ) {
+  if (algebraObserved.has("f_star_compute_composition")) {
     backed.add("f_star_compute_composition");
   }
-  if (input.hookBoundaries.length > 0) {
+  if (algebraObserved.has("hook_boundaries")) {
     backed.add("hook_boundaries");
   }
   if (input.targetCarrierContracts.length > 0) {
@@ -14676,7 +14879,7 @@ function inventoryBackedFeatureKinds(input: {
   if (input.promptAssets.length > 0) {
     backed.add("prompt_typed_asset_law");
   }
-  if (input.selectionBoundaries.length > 0) {
+  if (algebraObserved.has("selection_refinement_synthesis_subwork")) {
     backed.add("selection_refinement_synthesis_subwork");
   }
   if (input.modules.length > 0) {
@@ -14685,10 +14888,10 @@ function inventoryBackedFeatureKinds(input: {
   if (input.publicStartTargets.length > 0 && input.runtimeBindings.length > 0) {
     backed.add("public_start_binding");
   }
-  if (input.jobBindings.length > 0) {
+  if (algebraObserved.has("job_binding")) {
     backed.add("job_binding");
   }
-  if (input.roleBindings.length > 0) {
+  if (algebraObserved.has("role_binding")) {
     backed.add("role_binding");
   }
   if (input.externalToolGates.length > 0) {
@@ -14704,13 +14907,582 @@ function inventoryBackedFeatureKinds(input: {
   return backed;
 }
 
+interface AdmittedProgramInventoryRow {
+  readonly program: NonNullable<
+    ReturnType<typeof admitCProgramSyntax>["program"]
+  >;
+  readonly declarationPath: string;
+}
+
+interface VisibleChildRelation {
+  readonly childRef: string;
+  readonly sourceKind: Exclude<
+    GtlProgramEffectRequirementSourceKind,
+    "declared_on_host"
+  >;
+  readonly declarationPath: string;
+}
+
+function admittedProgramInventory(
+  graphFunction: GraphFunction
+): readonly AdmittedProgramInventoryRow[] {
+  const collection = collectRawCProgramCandidates(graphFunction.declarations);
+  return Object.freeze(
+    collection.candidates.flatMap((candidate) => {
+      try {
+        const admission = admitCProgramSyntax(candidate.candidate);
+        if (!admission.accepted || admission.program === null) {
+          return [];
+        }
+        return [
+          Object.freeze({
+            program: admission.program,
+            declarationPath: rawCProgramCandidatePath(candidate)
+          })
+        ];
+      } catch {
+        return [];
+      }
+    })
+  );
+}
+
+function pluginSeamsForTerm(term: CProgramNode): readonly PluginSelectionSeam[] {
+  switch (term.kind) {
+    case "c_of":
+      return Object.freeze([
+        term.fibre === "F_D"
+          ? "fdEvaluator"
+          : term.fibre === "F_P"
+            ? "fpDispatch"
+            : "fhAdmission"
+      ]);
+    case "c_identity":
+    case "c_workflow":
+      return Object.freeze([]);
+    case "c_compose":
+      return uniquePluginSelectionSeams([
+        ...pluginSeamsForTerm(term.left),
+        ...pluginSeamsForTerm(term.right)
+      ]);
+    case "c_edge":
+      return uniquePluginSelectionSeams([
+        ...pluginSeamsForTerm(term.transform),
+        ...pluginSeamsForTerm(term.evaluate),
+        ...pluginSeamsForTerm(term.consequence)
+      ]);
+    case "c_batch":
+      return uniquePluginSelectionSeams(
+        term.tasks.flatMap((task) => pluginSeamsForTerm(task))
+      );
+    case "c_retry":
+      return pluginSeamsForTerm(term.term);
+  }
+}
+
+function uniquePluginSelectionSeams(
+  seams: readonly PluginSelectionSeam[]
+): readonly PluginSelectionSeam[] {
+  const selected = new Set(seams);
+  return Object.freeze(
+    PLUGIN_SELECTION_SEAM_VALUES.filter((seam) => selected.has(seam))
+  );
+}
+
+interface CProgramLeaf {
+  readonly stageRole: string;
+  readonly regime: Regime;
+  readonly armId: string;
+}
+
+function cProgramLeaves(term: CProgramNode): readonly CProgramLeaf[] {
+  switch (term.kind) {
+    case "c_of":
+      return Object.freeze([
+        Object.freeze({
+          stageRole: term.stageRole,
+          regime: term.fibre,
+          armId: term.armId
+        })
+      ]);
+    case "c_identity":
+    case "c_workflow":
+      return Object.freeze([]);
+    case "c_compose":
+      return Object.freeze([
+        ...cProgramLeaves(term.left),
+        ...cProgramLeaves(term.right)
+      ]);
+    case "c_edge":
+      return Object.freeze([
+        ...cProgramLeaves(term.transform),
+        ...cProgramLeaves(term.evaluate),
+        ...cProgramLeaves(term.consequence)
+      ]);
+    case "c_batch":
+      return Object.freeze(
+        term.tasks.flatMap((task) => cProgramLeaves(task))
+      );
+    case "c_retry":
+      return cProgramLeaves(term.term);
+  }
+}
+
+function visibleChildRelations(
+  graphFunction: GraphFunction,
+  programs: readonly AdmittedProgramInventoryRow[]
+): readonly VisibleChildRelation[] {
+  const rows: VisibleChildRelation[] = [];
+  try {
+    const application = graphFunctionApplicationDeclarationFromDeclarations(
+      graphFunction.declarations
+    );
+    if (application !== null) {
+      rows.push(
+        Object.freeze({
+          childRef: application.operandGraphFunctionRef,
+          sourceKind: "graph_function_application" as const,
+          declarationPath: "$.declarations[\"gtl.graph_function_application\"]"
+        })
+      );
+    }
+  } catch {
+    // Existing application compilation owns malformed declaration diagnostics.
+  }
+  try {
+    const hof = hofApplicationDeclarationFromDeclarations(
+      graphFunction.declarations
+    );
+    if (hof !== null) {
+      rows.push(
+        Object.freeze({
+          childRef: hof.childGraphFunctionRef,
+          sourceKind: "hof_application" as const,
+          declarationPath: "$.declarations[\"gtl.hof_application\"]"
+        })
+      );
+    }
+  } catch {
+    // Existing HOF compilation owns malformed declaration diagnostics.
+  }
+  for (const program of programs) {
+    for (const childRef of workflowGraphFunctionRefs(program.program.term)) {
+      rows.push(
+        Object.freeze({
+          childRef,
+          sourceKind: "workflow_child" as const,
+          declarationPath: `${program.declarationPath}.term`
+        })
+      );
+    }
+  }
+  const seen = new Set<string>();
+  return Object.freeze(
+    rows.filter((row) => {
+      const key = `${row.sourceKind}|${row.childRef}|${row.declarationPath}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+  );
+}
+
+function handlerIdentity(binding: CCallHandlerBinding): string {
+  return `${binding.programRef}|${binding.stageRole}|${binding.armId}`;
+}
+
+function deriveConformanceInventory(input: {
+  readonly scopeKind: GtlProgramConformanceScopeKind;
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly modules: readonly Module[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly observedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
+  readonly inventoryBackedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramDerivedConformanceInventory {
+  const effectRequirements: GtlProgramEffectRequirementProjectionRow[] = [];
+  const pluginSelections: GtlProgramPluginSelectionProjectionRow[] = [];
+  const hogPrograms: GtlProgramHogProgramProjectionRow[] = [];
+  const hogHandlers: GtlProgramHogHandlerProjectionRow[] = [];
+  const hogHandlerConfigs: GtlProgramHogHandlerConfigProjectionRow[] = [];
+  const graphFunctionByRef = new Map<string, GraphFunction>();
+  for (const graphFunction of input.graphFunctions) {
+    graphFunctionByRef.set(graphFunction.name, graphFunction);
+    graphFunctionByRef.set(graphFunction.id, graphFunction);
+  }
+
+  for (const graphFunction of input.graphFunctions) {
+    const seenEffects = new Set<string>();
+    for (const effectRef of graphFunction.effects) {
+      if (seenEffects.has(effectRef)) {
+        input.issues.push(
+          issue({
+            surfaceKind: "graph_function",
+            surfaceRef: graphFunction.name,
+            ruleRef: "abg://gtl-program/declaration-inventory/effect-unique",
+            message: `${graphFunction.name} declares duplicate effect ${effectRef}`
+          })
+        );
+        continue;
+      }
+      seenEffects.add(effectRef);
+      effectRequirements.push(
+        Object.freeze({
+          kind: "gtl_program_effect_requirement_projection_row" as const,
+          hostGraphFunctionRef: graphFunction.name,
+          hostGraphFunctionId: graphFunction.id,
+          effectRef,
+          sourceKind: "declared_on_host" as const,
+          sourceGraphFunctionRef: null,
+          declarationPath: "$.effects"
+        })
+      );
+    }
+
+    const programs = admittedProgramInventory(graphFunction);
+    for (const row of programs) {
+      hogPrograms.push(
+        Object.freeze({
+          kind: "gtl_program_hog_program_projection_row" as const,
+          hostGraphFunctionRef: graphFunction.name,
+          hostGraphFunctionId: graphFunction.id,
+          programRef: row.program.programRef,
+          declarationPath: row.declarationPath
+        })
+      );
+    }
+
+    let selection: Readonly<
+      Partial<Record<PluginSelectionSeam, string>>
+    > | null = null;
+    try {
+      selection = pluginSelectionFromDeclarationAttrs(
+        graphFunction.declarations,
+        graphFunction.name
+      );
+    } catch {
+      // Existing execution-declaration checks own the typed invalidity.
+    }
+    if (selection !== null) {
+      try {
+        resolveDeclaredPluginSelection({
+          selection,
+          sourceRef: graphFunction.name
+        });
+      } catch (error: unknown) {
+        input.issues.push(
+          issue({
+            surfaceKind: "graph_function",
+            surfaceRef: graphFunction.name,
+            ruleRef:
+              "abg://gtl-program/declaration-inventory/plugin-selection-exact",
+            message: errorMessage(error)
+          })
+        );
+      }
+      for (const seam of PLUGIN_SELECTION_SEAM_VALUES) {
+        const pluginRef = selection[seam];
+        if (pluginRef === undefined) continue;
+        pluginSelections.push(
+          Object.freeze({
+            kind: "gtl_program_plugin_selection_projection_row" as const,
+            hostGraphFunctionRef: graphFunction.name,
+            hostGraphFunctionId: graphFunction.id,
+            seam,
+            pluginRef,
+            declarationPath: "$.declarations[\"abg.plugin_selection\"]"
+          })
+        );
+      }
+    }
+    const requiredSeams = new Set<PluginSelectionSeam>(
+      programs.flatMap((row) => pluginSeamsForTerm(row.program.term))
+    );
+    const selectedSeams = new Set<PluginSelectionSeam>(
+      selection === null
+        ? []
+        : PLUGIN_SELECTION_SEAM_VALUES.filter(
+            (seam) => selection[seam] !== undefined
+          )
+    );
+    const missingSeams = [...requiredSeams].filter(
+      (seam) => !selectedSeams.has(seam)
+    );
+    const unusedSeams = [...selectedSeams].filter(
+      (seam) => !requiredSeams.has(seam)
+    );
+    if (missingSeams.length > 0 || unusedSeams.length > 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "graph_function",
+          surfaceRef: graphFunction.name,
+          ruleRef:
+            "abg://gtl-program/declaration-inventory/plugin-selection-exact",
+          message:
+            `${graphFunction.name} plugin selection mismatch; missing ` +
+            `${missingSeams.sort().join(",") || "none"}; unused ` +
+            `${unusedSeams.sort().join(",") || "none"}`
+        })
+      );
+    }
+
+    let bindings: readonly CCallHandlerBinding[] = Object.freeze([]);
+    let configs: Readonly<Record<string, unknown>> | null = null;
+    try {
+      const rawBindings = hogHandlerBindingsFromDeclarationAttrs(
+        graphFunction.declarations,
+        graphFunction.name
+      );
+      bindings =
+        rawBindings === null
+          ? Object.freeze([])
+          : admitHogHandlerBindings(rawBindings, graphFunction.name);
+      configs = hogHandlerConfigsFromDeclarationAttrs(
+        graphFunction.declarations,
+        graphFunction.name
+      );
+    } catch {
+      // Existing execution-declaration checks own the typed invalidity.
+    }
+    for (const binding of bindings) {
+      hogHandlers.push(
+        Object.freeze({
+          kind: "gtl_program_hog_handler_projection_row" as const,
+          hostGraphFunctionRef: graphFunction.name,
+          hostGraphFunctionId: graphFunction.id,
+          programRef: binding.programRef,
+          stageRole: binding.stageRole,
+          armId: binding.armId,
+          regime: binding.regime,
+          handlerRef: binding.handlerRef,
+          handlerClass: binding.handlerClass,
+          handlerConfigRef: binding.handlerConfigRef,
+          declarationPath: `$.declarations[\"${HOG_HANDLER_BINDINGS_DECLARATION_KEY}\"]`
+        })
+      );
+    }
+    if (configs !== null) {
+      for (const handlerConfigRef of Object.keys(configs).sort()) {
+        hogHandlerConfigs.push(
+          Object.freeze({
+            kind: "gtl_program_hog_handler_config_projection_row" as const,
+            hostGraphFunctionRef: graphFunction.name,
+            hostGraphFunctionId: graphFunction.id,
+            handlerConfigRef,
+            configDigest: stableSha256Digest(configs[handlerConfigRef]),
+            declarationPath: `$.declarations[\"${HOG_HANDLER_CONFIGS_DECLARATION_KEY}\"].${handlerConfigRef}`
+          })
+        );
+      }
+      const usedConfigRefs = new Set(
+        bindings.flatMap((binding) =>
+          binding.handlerConfigRef === null ? [] : [binding.handlerConfigRef]
+        )
+      );
+      const unusedConfigRefs = Object.keys(configs).filter(
+        (configRef) => !usedConfigRefs.has(configRef)
+      );
+      if (unusedConfigRefs.length > 0) {
+        input.issues.push(
+          issue({
+            surfaceKind: "graph_function",
+            surfaceRef: graphFunction.name,
+            ruleRef:
+              "abg://gtl-program/declaration-inventory/handler-config-usage",
+            message: `${graphFunction.name} declares unused handler configs ${unusedConfigRefs.sort().join(",")}`
+          })
+        );
+      }
+    }
+    const bindingKeys = new Set(bindings.map(handlerIdentity));
+    const bakedRoles = new Set(["transform", "evaluate", "consequence"]);
+    const missingBindings = programs
+      .flatMap((program) =>
+        cProgramLeaves(program.program.term)
+          .filter(
+            (leaf) =>
+              !bakedRoles.has(leaf.stageRole) && leaf.regime !== "F_D"
+          )
+          .map(
+            (leaf) =>
+              `${program.program.programRef}|${leaf.stageRole}|${leaf.armId}`
+          )
+      )
+      .filter((key) => !bindingKeys.has(key));
+    if (missingBindings.length > 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "graph_function",
+          surfaceRef: graphFunction.name,
+          ruleRef:
+            "abg://gtl-program/declaration-inventory/handler-coverage",
+          message: `${graphFunction.name} lacks handler bindings for ${missingBindings.sort().join(",")}`
+        })
+      );
+    }
+
+    for (const relation of visibleChildRelations(graphFunction, programs)) {
+      const child = graphFunctionByRef.get(relation.childRef);
+      if (child === undefined) continue;
+      for (const effectRef of child.effects) {
+        effectRequirements.push(
+          Object.freeze({
+            kind: "gtl_program_effect_requirement_projection_row" as const,
+            hostGraphFunctionRef: graphFunction.name,
+            hostGraphFunctionId: graphFunction.id,
+            effectRef,
+            sourceKind: relation.sourceKind,
+            sourceGraphFunctionRef: child.name,
+            declarationPath: relation.declarationPath
+          })
+        );
+        if (!seenEffects.has(effectRef)) {
+          input.issues.push(
+            issue({
+              surfaceKind: "graph_function",
+              surfaceRef: graphFunction.name,
+              ruleRef:
+                "abg://gtl-program/declaration-inventory/effect-transitive",
+              message: `${graphFunction.name} omits child effect ${effectRef} from ${child.name}`
+            })
+          );
+        }
+      }
+    }
+  }
+
+  for (const module of input.modules) {
+    const operatorBindings = [
+      ...module.operators.map((operator) => ({
+        binding: operator.binding,
+        surfaceRef: `${module.name}.operators.${operator.name}`
+      })),
+      ...module.graphFunctions.flatMap((graphFunction) =>
+        graphFunction.template.kind !== "inline_graph"
+          ? []
+          : graphFunction.template.graph.vectors.flatMap((vector) =>
+              vector.operators.map((operator) => ({
+                binding: operator.binding,
+                surfaceRef: `${graphFunction.name}.${vector.name}.${operator.name}`
+              }))
+            )
+      )
+    ];
+    for (const row of operatorBindings) {
+      if (row.binding.startsWith("plugin://")) {
+        input.issues.push(
+          issue({
+            surfaceKind: "operator_declaration",
+            surfaceRef: row.surfaceRef,
+            ruleRef:
+              "abg://gtl-program/declaration-inventory/operator-binding-not-plugin",
+            message: `${row.surfaceRef} uses plugin selection authority in Operator.binding`
+          })
+        );
+      }
+    }
+  }
+
+  const selectedPluginRefs = new Set(
+    pluginSelections.map((row) => row.pluginRef)
+  );
+  const handlerRefs = new Set(hogHandlers.map((row) => row.handlerRef));
+  for (const row of effectRequirements.filter(
+    (candidate) => candidate.sourceKind === "declared_on_host"
+  )) {
+    if (selectedPluginRefs.has(row.effectRef) || handlerRefs.has(row.effectRef)) {
+      input.issues.push(
+        issue({
+          surfaceKind: "graph_function",
+          surfaceRef: row.hostGraphFunctionRef,
+          ruleRef:
+            "abg://gtl-program/declaration-inventory/effect-authority-separation",
+          message: `${row.effectRef} cannot be both effect and plugin/handler authority`
+        })
+      );
+    }
+  }
+
+  const moduleJobs = Object.freeze(
+    input.modules.flatMap((module) =>
+      module.jobs.map((job) =>
+        Object.freeze({
+          kind: "gtl_program_module_job_projection_row" as const,
+          moduleRef: module.name,
+          jobRef: job.id,
+          jobName: job.name,
+          contractTargetIds: Object.freeze(
+            job.contracts.map((contract) => contract.targetId)
+          ),
+          roleRefs: Object.freeze(job.roles.map((role) => role.id))
+        })
+      )
+    )
+  );
+  const moduleRoles = Object.freeze(
+    input.modules.flatMap((module) =>
+      module.roles.map((role) =>
+        Object.freeze({
+          kind: "gtl_program_module_role_projection_row" as const,
+          moduleRef: module.name,
+          roleRef: role.id,
+          roleName: role.name
+        })
+      )
+    )
+  );
+  const featureApplicability = Object.freeze(
+    GTL_PROGRAM_T153_FEATURE_KINDS.map((featureKind) =>
+      Object.freeze({
+        kind: "gtl_program_feature_applicability_projection_row" as const,
+        featureKind,
+        observed: input.observedFeatures.has(featureKind),
+        inventoryBacked: input.inventoryBackedFeatures.has(featureKind),
+        requirementRefs: T153_FEATURE_DEFAULT_REQUIREMENT_REFS[featureKind]
+      })
+    )
+  );
+  const counts = Object.freeze({
+    graphFunctionCount: input.graphFunctions.length,
+    graphVectorCount: input.vectors.length,
+    effectRequirementCount: effectRequirements.length,
+    pluginSelectionCount: pluginSelections.length,
+    hogProgramCount: hogPrograms.length,
+    hogHandlerBindingCount: hogHandlers.length,
+    hogHandlerConfigCount: hogHandlerConfigs.length,
+    moduleJobCount: moduleJobs.length,
+    moduleRoleCount: moduleRoles.length
+  });
+  return Object.freeze({
+    kind: "gtl_program_derived_conformance_inventory" as const,
+    scopeKind: input.scopeKind,
+    effectRequirements: Object.freeze(effectRequirements),
+    pluginSelections: Object.freeze(pluginSelections),
+    hogPrograms: Object.freeze(hogPrograms),
+    hogHandlers: Object.freeze(hogHandlers),
+    hogHandlerConfigs: Object.freeze(hogHandlerConfigs),
+    moduleJobs,
+    moduleRoles,
+    featureApplicability,
+    counts,
+    capabilityCompatibilityStatus:
+      effectRequirements.length === 0
+        ? "not_applicable_no_effect_requirements" as const
+        : "deferred_missing_exact_profile" as const
+  });
+}
+
 function checkFeatureCoverage(input: {
   readonly subjectRef: string;
-  readonly manifest: GtlProgramFeatureCoverageManifest;
+  readonly scopeKind: GtlProgramConformanceScopeKind;
+  readonly manifest: GtlProgramFeatureCoverageManifest | null;
   readonly observedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
   readonly inventoryBackedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
+  if (input.manifest === null) {
+    return;
+  }
   const byFeature = new Map<GtlProgramT153FeatureKind, GtlProgramFeatureCoverageRow[]>();
   for (const row of input.manifest.rows) {
     byFeature.set(row.featureKind, [
@@ -14718,7 +15490,11 @@ function checkFeatureCoverage(input: {
       row
     ]);
   }
-  for (const featureKind of GTL_PROGRAM_T153_FEATURE_KINDS) {
+  const checkedFeatureKinds =
+    input.scopeKind === "declared_complete_program"
+      ? GTL_PROGRAM_T153_FEATURE_KINDS
+      : Object.freeze([...byFeature.keys()].sort());
+  for (const featureKind of checkedFeatureKinds) {
     const rows = byFeature.get(featureKind) ?? [];
     if (rows.length === 0) {
       input.issues.push(
@@ -14830,7 +15606,8 @@ function computeInventoryDigests(input: {
   readonly declarationSourceRows: readonly GtlProgramDeclarationSourceRow[];
   readonly goldenInstanceBindings: readonly GtlProgramGoldenInstanceBindingRow[];
   readonly underdeterminedDeclarations: readonly GtlProgramUnderdeterminedDeclarationRow[];
-  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
+  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest | null;
+  readonly derivedConformanceInventory: GtlProgramDerivedConformanceInventory;
   readonly catalogGraphFunctionRefs: readonly string[];
   readonly graphFunctions: readonly GraphFunction[];
   readonly modules: readonly Module[];
@@ -14868,6 +15645,9 @@ function computeInventoryDigests(input: {
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
+    derivedConformanceInventory: stableSha256Digest(
+      input.derivedConformanceInventory
+    ),
     constitutionalSurfaceRows: stableSha256Digest(input.constitutionalSurfaceRows),
     constitutionalLiveFacts: stableSha256Digest(input.constitutionalLiveFacts),
     declarationSourceRows: stableSha256Digest(input.declarationSourceRows),
@@ -15026,7 +15806,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const requirementsAlgebraDeclarations = Object.freeze([
     ...(input.requirementsAlgebraDeclarations ?? [])
   ]);
-  const featureCoverageManifest = input.featureCoverageManifest;
+  const featureCoverageManifest = input.featureCoverageManifest ?? null;
   const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
   const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
   const stageBoundPluginRefs = pluginRefsBoundByStages(computeStageBindings);
@@ -15157,61 +15937,50 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     vectors,
     issues
   });
+  const featureObservationBasis = {
+    graphFunctions,
+    modules,
+    vectors,
+    targetCarrierContracts,
+    edgeClosureContracts,
+    promptAssets,
+    sourceIdentitySurfaces,
+    sourceAuthorityPolicies,
+    semanticReviewGates,
+    sameObjectProofs,
+    operatorDeclarations,
+    evaluatorDeclarations,
+    ruleDeclarations,
+    computeCompositions,
+    computeStageBindings,
+    hookBoundaries,
+    selectionBoundaries,
+    publicStartTargets,
+    jobBindings,
+    roleBindings,
+    externalToolGates,
+    runtimeBindings,
+    installedContextSurfaces,
+    runtimeReentryRoutes
+  };
+  const observedFeatures = observedFeatureKinds(featureObservationBasis);
+  const inventoryBackedFeatures =
+    inventoryBackedFeatureKinds(featureObservationBasis);
+  const derivedConformanceInventory = deriveConformanceInventory({
+    scopeKind: input.scopeKind,
+    graphFunctions,
+    modules,
+    vectors,
+    observedFeatures,
+    inventoryBackedFeatures,
+    issues
+  });
   checkFeatureCoverage({
     subjectRef: input.subjectRef,
+    scopeKind: input.scopeKind,
     manifest: featureCoverageManifest,
-    observedFeatures: observedFeatureKinds({
-      graphFunctions,
-      modules,
-      vectors,
-      targetCarrierContracts,
-      edgeClosureContracts,
-      promptAssets,
-      sourceIdentitySurfaces,
-      sourceAuthorityPolicies,
-      semanticReviewGates,
-      sameObjectProofs,
-      operatorDeclarations,
-      evaluatorDeclarations,
-      ruleDeclarations,
-      computeCompositions,
-      computeStageBindings,
-      hookBoundaries,
-      selectionBoundaries,
-      publicStartTargets,
-      jobBindings,
-      roleBindings,
-      externalToolGates,
-      runtimeBindings,
-      installedContextSurfaces,
-      runtimeReentryRoutes
-    }),
-    inventoryBackedFeatures: inventoryBackedFeatureKinds({
-      graphFunctions,
-      modules,
-      vectors,
-      targetCarrierContracts,
-      edgeClosureContracts,
-      promptAssets,
-      sourceIdentitySurfaces,
-      sourceAuthorityPolicies,
-      semanticReviewGates,
-      sameObjectProofs,
-      operatorDeclarations,
-      evaluatorDeclarations,
-      ruleDeclarations,
-      computeCompositions,
-      computeStageBindings,
-      hookBoundaries,
-      selectionBoundaries,
-      publicStartTargets,
-      jobBindings,
-      roleBindings,
-      externalToolGates,
-      runtimeBindings,
-      installedContextSurfaces,
-      runtimeReentryRoutes
-    }),
+    observedFeatures,
+    inventoryBackedFeatures,
     issues
   });
 
@@ -15229,6 +15998,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   });
   checkExpectedCoverage({
     subjectRef: input.subjectRef,
+    scopeKind: input.scopeKind,
     expectedCoverage: input.expectedCoverage,
     coverage,
     issues
@@ -15245,6 +16015,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     goldenInstanceBindings: Object.freeze([...(input.goldenInstanceBindings ?? [])]),
     underdeterminedDeclarations: Object.freeze([...(input.underdeterminedDeclarations ?? [])]),
     featureCoverageManifest,
+    derivedConformanceInventory,
     catalogGraphFunctionRefs,
     graphFunctions,
     modules,
@@ -15310,10 +16081,12 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const reportBasis = Object.freeze({
     subjectRef: input.subjectRef,
     abiPackageVersion: input.abiPackageVersion,
+    scopeKind: input.scopeKind,
     expectedCoverage: input.expectedCoverage ?? null,
     coverage,
     inventoryDigest,
     inventoryDigests,
+    derivedConformanceInventory,
     pluginResultInterfaceCatalogDigest:
       pluginResultInterfaceCatalog.catalogDigest,
     requirementsAlgebraProjectionDigest:
@@ -15327,8 +16100,10 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     reportRef: `abg://gtl-program-conformance-report/${stableSha256Digest(reportBasis)}`,
     subjectRef: input.subjectRef,
     abiPackageVersion: input.abiPackageVersion,
+    scopeKind: input.scopeKind,
     inventoryDigest,
     inventoryDigests,
+    derivedConformanceInventory,
     pluginResultInterfaceCatalog,
     requirementsAlgebraProjection,
     traversalUnitProjection,

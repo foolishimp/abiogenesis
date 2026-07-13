@@ -481,6 +481,7 @@ async function buildManifest() {
   const conformance = typecheckGtlProgram({
     subjectRef: "workspace://abg/t252/consensus",
     abiPackageVersion: "5.0.0-dev.0",
+    scopeKind: "submitted_structure",
     modules: [admittedModule]
   });
   noExecution.phases.push("full_conformance_completed");
@@ -683,34 +684,6 @@ async function buildManifest() {
         .map((row) => `application:${row.graphFunctionName}`),
       evidenceRefs: commonEvidenceRefs,
       actualRelation: "recurse lineage and foldback data are exact while typed runtime consumption is absent"
-    }),
-    conformance_inventory_extraction: gapEvidenceRow({
-      diagnosticIds: ["conformance-expected-coverage-not-structurally-derived"],
-      bodyPaths: ["conformance.ruleCounts"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "conformance still requires caller-authored coverage beside submitted structure"
-    }),
-    conformance_scope_proportionality: gapEvidenceRow({
-      diagnosticIds: ["conformance-universal-closeability-noise"],
-      bodyPaths: ["conformance.ruleCounts"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "DS-1 structure receives broad closure obligations outside this probe scope"
-    }),
-    effect_declaration_inventory_enforcement: gapEvidenceRow({
-      diagnosticIds: ["coverage-effect-inventory-enforcement"],
-      bodyPaths: graphFunctions.map(
-        (graphFunction) => `effects:${graphFunction.name}`
-      ),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "exact transitive effects are authored but generic conformance does not derive and enforce the inventory"
-    }),
-    plugin_handler_declaration_inventory_enforcement: gapEvidenceRow({
-      diagnosticIds: ["coverage-plugin-handler-inventory-enforcement"],
-      bodyPaths: graphFunctions.map(
-        (graphFunction) => `execution-declarations:${graphFunction.name}`
-      ),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "local plugin selections and exact handler rows exist but generic proportional inventory enforcement is absent"
     })
   };
   const ownership = loadOwnership();
@@ -810,8 +783,15 @@ async function buildManifest() {
       ),
       nestedProgramRows,
       coverageRows,
+      conformanceScopeKind: conformance.scopeKind,
       fullConformanceIssueCount: conformance.issues.length,
-      conformanceRuleCounts: conformanceRuleCounts(conformance.issues)
+      conformanceRuleCounts: conformanceRuleCounts(conformance.issues),
+      derivedConformanceInventoryCounts:
+        conformance.derivedConformanceInventory.counts,
+      derivedConformanceInventoryDigest:
+        conformance.inventoryDigests.derivedConformanceInventory,
+      capabilityCompatibilityStatus:
+        conformance.derivedConformanceInventory.capabilityCompatibilityStatus
     },
     ownership: {
       loadedTicketCount: ownership.sources.length,

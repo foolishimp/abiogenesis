@@ -2,14 +2,14 @@
 
 - id: T-255
 - status: active
-- phase_status: design_rework_required
+- phase_status: unblocked_design_rework_required
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - dependencies:
-  - T-264 proportional conformance inventory closure
+  - completed T-264 proportional conformance inventory closure
   - completed T-265 canonical GraphFunction applications and derived owner lineage
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
 

@@ -239,6 +239,7 @@ test("T-252 explicit context projections make every graph source and output deri
   const report = typecheckGtlProgram({
     subjectRef: "workspace://abg/t252/consensus",
     abiPackageVersion: "5.0.0-dev.0",
+    scopeKind: "submitted_structure",
     modules: [admitted]
   });
   const structuralRules = [

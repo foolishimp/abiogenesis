@@ -7,10 +7,10 @@
       "name": "empty-program",
       "program": {},
       "expectedDiagnosticIds": [
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/version/exact-package-version"
       ]
@@ -27,11 +27,11 @@
         ]
       },
       "expectedDiagnosticIds": [
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/declaration/module-export-round-trip",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/version/exact-package-version"
       ]
@@ -50,10 +50,10 @@
         ]
       },
       "expectedDiagnosticIds": [
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/version/exact-package-version"
       ]
@@ -70,10 +70,10 @@
         ]
       },
       "expectedDiagnosticIds": [
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/input/underdetermined-owner-route-field",
         "abg://gtl-program/version/exact-package-version"
@@ -91,10 +91,10 @@
         ]
       },
       "expectedDiagnosticIds": [
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/version/exact-package-version"
       ]
@@ -117,10 +117,10 @@
       },
       "expectedDiagnosticIds": [
         "abg://gtl-program/contract/golden-instance-digest-required",
-        "abg://gtl-program/coverage/expected-count-nonzero",
         "abg://gtl-program/coverage/expected-coverage-required",
         "abg://gtl-program/feature-coverage/manifest-required",
         "abg://gtl-program/feature-coverage/t153-feature-required",
+        "abg://gtl-program/input/conformance-scope-field",
         "abg://gtl-program/input/string-field",
         "abg://gtl-program/version/exact-package-version"
       ]

@@ -1496,6 +1496,7 @@ export function constructCurrentSdlcGtlProgramConformanceInput(
   return Object.freeze({
     subjectRef: input.subjectRef ?? SDLC_GTL_PROGRAM_CONFORMANCE_SUBJECT_REF,
     abiPackageVersion: ODD_SDLC_ABIOGENESIS_SUBSTRATE_CONTRACT.packageVersion,
+    scopeKind: "declared_complete_program",
     expectedCoverage: Object.freeze({
       catalogGraphFunctionCount: catalogGraphFunctionRefs.length,
       publishedGraphFunctionCount: module.graphFunctions.length,

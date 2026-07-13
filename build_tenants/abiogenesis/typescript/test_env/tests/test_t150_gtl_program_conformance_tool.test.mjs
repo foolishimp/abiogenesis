@@ -1306,6 +1306,7 @@ function compliantInput(overrides = {}, options = {}) {
   return {
     subjectRef: "workspace://t150/program-conformance-tool",
     abiPackageVersion: ABG_VERSION,
+    scopeKind: "declared_complete_program",
     expectedCoverage: expectedCoverage(),
     featureCoverageManifest: featureCoverageManifest(),
     catalogGraphFunctionRefs: [graphFunctionName],
@@ -3410,36 +3411,8 @@ const FIRST_CLASS_T153_INVENTORY_CASES = [
     override: { sameObjectProofs: [] }
   },
   {
-    featureKind: "operator_declarations",
-    override: { operatorDeclarations: [] }
-  },
-  {
-    featureKind: "evaluator_declarations",
-    override: { evaluatorDeclarations: [] }
-  },
-  {
-    featureKind: "rule_declarations",
-    override: { ruleDeclarations: [] }
-  },
-  {
-    featureKind: "f_star_compute_composition",
-    override: { computeCompositions: [] }
-  },
-  {
     featureKind: "hook_boundaries",
     override: { hookBoundaries: [] }
-  },
-  {
-    featureKind: "selection_refinement_synthesis_subwork",
-    override: { selectionBoundaries: [] }
-  },
-  {
-    featureKind: "job_binding",
-    override: { jobBindings: [] }
-  },
-  {
-    featureKind: "role_binding",
-    override: { roleBindings: [] }
   },
   {
     featureKind: "external_tool_gates",
@@ -3467,6 +3440,85 @@ for (const entry of FIRST_CLASS_T153_INVENTORY_CASES) {
     assert.match(messages, new RegExp(entry.featureKind, "u"));
   });
 }
+
+const STRUCTURALLY_BACKED_T153_INVENTORY_CASES = [
+  {
+    featureKind: "operator_declarations",
+    override: { operatorDeclarations: [] }
+  },
+  {
+    featureKind: "evaluator_declarations",
+    override: { evaluatorDeclarations: [] }
+  },
+  {
+    featureKind: "rule_declarations",
+    override: { ruleDeclarations: [] }
+  },
+  {
+    featureKind: "selection_refinement_synthesis_subwork",
+    override: { selectionBoundaries: [] }
+  },
+  {
+    featureKind: "job_binding",
+    override: { jobBindings: [] }
+  },
+  {
+    featureKind: "role_binding",
+    override: { roleBindings: [] }
+  }
+];
+
+for (const entry of STRUCTURALLY_BACKED_T153_INVENTORY_CASES) {
+  test(`T-264 GTL program typechecker derives structural inventory for ${entry.featureKind}`, () => {
+    const report = typecheckGtlProgram(
+      compliantInput({
+        ...entry.override,
+        featureCoverageManifest: featureCoverageManifest({
+          dispositions: {
+            [entry.featureKind]: "present"
+          }
+        })
+      })
+    );
+
+    const applicability = report.derivedConformanceInventory.featureApplicability.find(
+      (row) => row.featureKind === entry.featureKind
+    );
+    const ruleRefs = new Set(report.issues.map((issueEntry) => issueEntry.ruleRef));
+    assert.equal(report.passed, true);
+    assert.equal(applicability?.observed, true);
+    assert.equal(applicability?.inventoryBacked, true);
+    assert.equal(
+      ruleRefs.has("abg://gtl-program/feature-coverage/present-without-inventory"),
+      false
+    );
+  });
+}
+
+test("T-264 structural F-star evidence does not replace its explicit composition contract", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      computeCompositions: [],
+      featureCoverageManifest: featureCoverageManifest({
+        dispositions: {
+          f_star_compute_composition: "present"
+        }
+      })
+    })
+  );
+
+  const applicability = report.derivedConformanceInventory.featureApplicability.find(
+    (row) => row.featureKind === "f_star_compute_composition"
+  );
+  const ruleRefs = new Set(report.issues.map((issueEntry) => issueEntry.ruleRef));
+  assert.equal(report.passed, false);
+  assert.equal(applicability?.observed, true);
+  assert.equal(applicability?.inventoryBacked, true);
+  assert.equal(
+    ruleRefs.has("abg://gtl-program/feature-coverage/present-without-inventory"),
+    false
+  );
+});
 
 test("T-152 GTL program typechecker rejects malformed first-class T-153 inventory rows", () => {
   const base = compliantInput();
@@ -4397,7 +4449,7 @@ test("T-150 GTL program typechecker rejects partial expected coverage", () => {
   const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
   assert.equal(report.passed, false);
   assert(ruleRefs.has("abg://gtl-program/coverage/expected-count-required"));
-  assert(ruleRefs.has("abg://gtl-program/coverage/expected-count-nonzero"));
+  assert(ruleRefs.has("abg://gtl-program/coverage/expected-count"));
 });
 
 test("T-150 GTL program typechecker rejects invalid ABI package versions", () => {

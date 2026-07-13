@@ -357,8 +357,9 @@ runtime controller, DS-4 catalog row, or execution proof is claimed.
    unrealized semantics and identifies missing compiler diagnostics as defects.
 6. Every GraphFunction carries the exact stable union of transitively reachable
    effect identities required by its body, regardless of F_D/F_P/F_H regime.
-   Capability refs remain separate profile and execution-binding rows, and T-264
-   proves required effect-to-capability compatibility. Separately, an observer
+   Capability refs remain separate profile and execution-binding rows. T-264
+   projects exact matchable effect requirements; T-255/DS-4 owns compatibility
+   once an exact tenant capability profile is admitted. Separately, an observer
    armed before M02 proves zero worker/plugin/handler/event/result/replay/archive/
    workspace/product calls and outputs after every invalid, compiler-gap, or
    compiled probe outcome. Empty effects are lawful only when exact reachability
@@ -614,3 +615,17 @@ frontier/probe manifest as their owned generic gaps close.
   closure, and `git diff --check` passed at the checkpoint.
 - Review:
   `.ai-workspace/comments/codex/20260713T023417Z_REVIEW_t252_consensus_gtl_body_checkpoint.md`.
+
+## Successor Recompile - T-264
+
+T-264 closed the proportional conformance and structural declaration-inventory
+families without changing the canonical body. The 2026-07-13 successor
+manifest retains body digest
+`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`,
+records manifest digest
+`sha256:6ba07d11efc6b34b895a30ec6688d2e6e2d3a10871da11f350b41f446edc0b41`,
+and reports 695 real conformance issues across 16 active singularly owned gap
+families. Its derived declaration inventory is pinned by digest
+`sha256:795387deaa63932ea568959cbc322ae926f16eb7bddc66b21129dad8bb20d779`.
+Capability compatibility remains deferred until T-255/DS-4 admits an exact
+tenant profile.

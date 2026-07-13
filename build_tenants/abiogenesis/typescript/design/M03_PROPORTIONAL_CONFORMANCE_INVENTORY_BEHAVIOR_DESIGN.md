@@ -1,8 +1,8 @@
 # M03 Proportional Conformance Inventory Behavior Design
 
 **Design verdict**: `accepted_by_fh_with_capability_boundary_narrowing`
-**Implementation admission**: `not_admitted_before_fh_acceptance_and_t263_closure`
-**Ticket**: [T-264](../../../../.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md)
+**Implementation admission**: `realized_and_self_reviewed`
+**Ticket**: [T-264](../../../../.ai-workspace/tickets/completed/T-264-close-proportional-conformance-inventory.md)
 **Owning module**: M03 engine conformance
 **Change class**: `design_reframe`
 **Delivery phase**: DS-1 conformance foundation
@@ -273,7 +273,10 @@ This is proportionate because:
 - reopening T-252 to add a local effect/capability carrier would create a new
   language authority to solve a missing mapping input.
 
-Until F_H rules, T-264 implementation is blocked.
+F_H accepted this narrowing on 2026-07-13. T-264 realizes the structural
+inventory and matchable effect-requirement projection. T-255/DS-4 retains
+actual effect-to-capability compatibility until an exact tenant profile is
+admitted.
 
 ## Domain Model
 

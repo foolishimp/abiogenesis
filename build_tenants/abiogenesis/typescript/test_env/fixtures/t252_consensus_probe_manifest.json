@@ -1972,31 +1972,12 @@
         ]
       }
     ],
-    "fullConformanceIssueCount": 734,
+    "conformanceScopeKind": "submitted_structure",
+    "fullConformanceIssueCount": 695,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
         "count": 42
-      },
-      {
-        "ruleRef": "abg://gtl-program/coverage/expected-count",
-        "count": 2
-      },
-      {
-        "ruleRef": "abg://gtl-program/coverage/expected-count-nonzero",
-        "count": 9
-      },
-      {
-        "ruleRef": "abg://gtl-program/coverage/expected-coverage-required",
-        "count": 1
-      },
-      {
-        "ruleRef": "abg://gtl-program/feature-coverage/manifest-required",
-        "count": 1
-      },
-      {
-        "ruleRef": "abg://gtl-program/feature-coverage/t153-feature-required",
-        "count": 26
       },
       {
         "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
@@ -2082,7 +2063,20 @@
         "ruleRef": "abg://gtl-program/traversal-unit/target-carrier-required",
         "count": 35
       }
-    ]
+    ],
+    "derivedConformanceInventoryCounts": {
+      "graphFunctionCount": 7,
+      "graphVectorCount": 35,
+      "effectRequirementCount": 93,
+      "pluginSelectionCount": 10,
+      "hogProgramCount": 34,
+      "hogHandlerBindingCount": 11,
+      "hogHandlerConfigCount": 0,
+      "moduleJobCount": 0,
+      "moduleRoleCount": 0
+    },
+    "derivedConformanceInventoryDigest": "sha256:795387deaa63932ea568959cbc322ae926f16eb7bddc66b21129dad8bb20d779",
+    "capabilityCompatibilityStatus": "deferred_missing_exact_profile"
   },
   "ownership": {
     "loadedTicketCount": 12,
@@ -2169,8 +2163,8 @@
       },
       {
         "ticketId": "T-264",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-264-close-proportional-conformance-inventory.md",
         "families": [
           "conformance_inventory_extraction",
           "conformance_scope_proportionality",
@@ -2193,7 +2187,7 @@
         "families": []
       }
     ],
-    "observedActiveGapFamilyCount": 20,
+    "observedActiveGapFamilyCount": 16,
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -2321,56 +2315,6 @@
       "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     },
     {
-      "gapFamily": "conformance_inventory_extraction",
-      "ownerTicket": "T-264",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "conformance-expected-coverage-not-structurally-derived"
-      ],
-      "canonicalBodyPaths": [
-        "conformance.ruleCounts"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-R-ABG3-INTERPRET",
-        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
-        "ticket:T-264"
-      ],
-      "authorityDigest": "sha256:718362b9ae6a34057950ff8072a2b97edd12550fd654140f5390579c14ea9f36",
-      "actualRelation": "conformance still requires caller-authored coverage beside submitted structure",
-      "actualRelationDigest": "sha256:323cb25fcbc32d792b9bf1c063cc5c0e1bb8a4d3648e8ce45d9a172e7a675abc",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "conformance_scope_proportionality",
-      "ownerTicket": "T-264",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "conformance-universal-closeability-noise"
-      ],
-      "canonicalBodyPaths": [
-        "conformance.ruleCounts"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-R-ABG3-INTERPRET",
-        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
-        "ticket:T-264"
-      ],
-      "authorityDigest": "sha256:718362b9ae6a34057950ff8072a2b97edd12550fd654140f5390579c14ea9f36",
-      "actualRelation": "DS-1 structure receives broad closure obligations outside this probe scope",
-      "actualRelationDigest": "sha256:759401c2c45da15408f287971dcfab2f901474bf7b8ca5b688daf6db3fb5fa67",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
       "gapFamily": "declared_instruction_protocol_join",
       "ownerTicket": "T-256",
       "ownerStatus": "active",
@@ -2415,37 +2359,6 @@
       "authorityDigest": "sha256:0db08af61392d106182f307e1ef83f613f82687e4371264444d8927d60ff9a01",
       "actualRelation": "full conformance still requires edge-closure truth for executable vectors",
       "actualRelationDigest": "sha256:04bbfe979f43086fc2c4d974807ccf12b377143e87cf91a85308323e9d2f5c39",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "effect_declaration_inventory_enforcement",
-      "ownerTicket": "T-264",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-effect-inventory-enforcement"
-      ],
-      "canonicalBodyPaths": [
-        "effects:consensus.exact-panel-facts",
-        "effects:consensus.review-one-profile",
-        "effects:consensus.round",
-        "effects:consensus.submitter-reviewer-rounds",
-        "effects:fan_in(consensus.exact-panel-facts)",
-        "effects:fan_out(consensus.review-one-profile)",
-        "effects:recurse(consensus.round)"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-GRAPHFUNCTION-005",
-        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
-        "ticket:T-264"
-      ],
-      "authorityDigest": "sha256:3ae3d43bcc8e8bfd7c8837575487ac00b64ac9aa9e21f97550a97c613a500e05",
-      "actualRelation": "exact transitive effects are authored but generic conformance does not derive and enforce the inventory",
-      "actualRelationDigest": "sha256:dbcda27778aa47346fddc741509c2ae9ed68aeade5749f7fa6f63838fd9fc0cc",
       "evidenceRefs": [
         "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
         "ticket:T-252"
@@ -2559,37 +2472,6 @@
       "authorityDigest": "sha256:82b6b63218fb0a446013b2a4c82c4cb197a1019b1f6af46cc4d96a7d3ac86479",
       "actualRelation": "exact vector/program bindings compile but no runtime consumer exists",
       "actualRelationDigest": "sha256:9bfe733fcda7f691401004f34c78a0bcd82719ad128db7f157cacd9a2c6f379b",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "plugin_handler_declaration_inventory_enforcement",
-      "ownerTicket": "T-264",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-plugin-handler-inventory-enforcement"
-      ],
-      "canonicalBodyPaths": [
-        "execution-declarations:consensus.exact-panel-facts",
-        "execution-declarations:consensus.review-one-profile",
-        "execution-declarations:consensus.round",
-        "execution-declarations:consensus.submitter-reviewer-rounds",
-        "execution-declarations:fan_in(consensus.exact-panel-facts)",
-        "execution-declarations:fan_out(consensus.review-one-profile)",
-        "execution-declarations:recurse(consensus.round)"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-C-ALGEBRA-010/-014/-016",
-        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
-        "ticket:T-264"
-      ],
-      "authorityDigest": "sha256:487032032e342c07f418f46874d99cbe241f52c5f2a7b2029861408339214937",
-      "actualRelation": "local plugin selections and exact handler rows exist but generic proportional inventory enforcement is absent",
-      "actualRelationDigest": "sha256:00e01195400a80cde9774bf4dbd4ad0d39c963d3fb4bcdef12c892ed6bdde3c7",
       "evidenceRefs": [
         "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
         "ticket:T-252"
@@ -2890,5 +2772,5 @@
     },
     "declarationCountsAreExecutionEvidence": false
   },
-  "manifestDigest": "sha256:f3c57a89eb7b1917a7d20c387bbb4ad34d3dffc9d2175d868be99e2df899e4e1"
+  "manifestDigest": "sha256:6ba07d11efc6b34b895a30ec6688d2e6e2d3a10871da11f350b41f446edc0b41"
 }
