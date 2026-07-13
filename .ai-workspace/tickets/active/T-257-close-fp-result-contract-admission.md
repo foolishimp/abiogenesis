@@ -2,13 +2,17 @@
 
 - id: T-257
 - status: active
-- phase_status: design_rework_required
+- phase_status: design_accepted_realization_active
+- review_status: accepted_under_delegated_fh
+- implementation_status: active
+- proof_status: pending
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md
+- design_decision_ref: .ai-workspace/comments/codex/20260713T135216Z_DECISION_delegated_fh_accept_t257_design.md
 - dependency: T-256
 
 ## Boundary
