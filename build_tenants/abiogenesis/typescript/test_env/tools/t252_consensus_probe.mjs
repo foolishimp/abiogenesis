@@ -16,12 +16,22 @@ import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/s
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
-  admitExecutionContextProjectionRule,
-  admitInstructionProtocolRule
+  constructAdmittedInvocationCarrier,
+  constructAdmittedInvocationCarrierSet,
+  constructDeclaredCStageInvocationBasis,
+  joinDeclaredExecutionContext
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
 import {
-  ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE
+  ABG_CONSENSUS_INSTRUCTION_DECLARATION,
+  ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE,
+  CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_instruction_protocol.js";
+import {
+  ABG_CONSENSUS_MODULE_DECLARATIONS
+} from "../../build/semantic/code/src/abg/m03/contracts/review_consensus_modules.js";
+import {
+  admitBoundWorkspaceCatalog
+} from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
 import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts/carriers.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
@@ -598,6 +608,8 @@ async function buildManifest() {
         path: `module.graphFunctions[${graphFunction.name}].vectors[${vectorIndex}:${graphVector.name}]`,
         graphFunctionName: graphFunction.name,
         graphVectorName: graphVector.name,
+        graphFunction,
+        graphVector,
         status: outcome.status,
         diagnosticIds: outcome.diagnostics.map((row) => row.diagnosticId),
         outcome
@@ -626,6 +638,147 @@ async function buildManifest() {
   const edgeClosureContracts = handoffRows.map(
     (row) => row.outcome.edgeClosureBinding.conformanceRow
   );
+
+  const catalogAdmission = admitBoundWorkspaceCatalog(
+    {
+      kind: "bound_catalog_admission_batch",
+      workspaceId: "workspace://abg/t252/consensus-probe",
+      bindingId: "binding://abg/t252/consensus-probe",
+      catalogId: "catalog://abg/t252/consensus-probe",
+      resolvedLockRef: "lock://abg/t252/consensus-probe",
+      systemDeclarations: [
+        {
+          kind: "runtime_library_entry",
+          declaration: ABG_CONSENSUS_MODULE_DECLARATIONS[0],
+          moduleRef: "gtl://module/abg/consensus",
+          module: body.module
+        },
+        {
+          kind: "runtime_library_entry",
+          declaration: ABG_CONSENSUS_INSTRUCTION_DECLARATION,
+          moduleRef: CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF,
+          module: ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE
+        }
+      ],
+      orderedProductBatches: [],
+      causationEventRefs: ["event://abg/t252/consensus-probe/catalog"],
+      correlationId: "correlation://abg/t252/consensus-probe"
+    },
+    () => {}
+  );
+  if (!catalogAdmission.accepted || catalogAdmission.basis === null) {
+    throw new TypeError(
+      `T-252 execution-context catalog admission failed: ${JSON.stringify(catalogAdmission.diagnostics)}`
+    );
+  }
+  const expectedExecutionSlots = (regime) =>
+    regime === "F_P"
+      ? [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ]
+      : [
+          "capability_requirement_refs",
+          "instruction_protocol_ref",
+          "interaction_subject_ref",
+          "result_contract_ref"
+        ];
+  const executionContextJoinRows = handoffRows.flatMap((row) => {
+    if (row.status !== "blocked_capability") return [];
+    const programMatches = body.programs.filter(
+      (program) =>
+        program.programRef === row.outcome.programBinding.selectedProgramRef
+    );
+    const program = programMatches[0];
+    if (programMatches.length !== 1 || program === undefined) {
+      throw new TypeError(
+        `${row.path} selected program resolved ${programMatches.length} times`
+      );
+    }
+    const lowered = compileCAlgebraToHog(program);
+    if (!lowered.accepted || lowered.program === null) {
+      throw new TypeError(`${row.path} selected program did not lower`);
+    }
+    return lowered.program.stages.flatMap((stage, stageIndex) => {
+      if (stage.defaultRegime !== "F_P" && stage.defaultRegime !== "F_H") {
+        return [];
+      }
+      const join = joinDeclaredExecutionContext({
+        sourceOutcome: row.outcome,
+        stageBasis: constructDeclaredCStageInvocationBasis({
+          programBindingDigest: row.outcome.programBinding.bindingDigest,
+          stageIndex,
+          stageRole: stage.stageRole,
+          regime: stage.defaultRegime,
+          termDigest: stableSha256Digest(stage),
+          instructionCategoryRefs: stage.instructionCategoryRefs
+        }),
+        catalogBasis: catalogAdmission.basis,
+        invocationCarriers: constructAdmittedInvocationCarrierSet(
+          row.graphVector.source.map((sourceNode, sourceIndex) =>
+            constructAdmittedInvocationCarrier({
+              sourceNodeRef: sourceNode.id,
+              schemaRef: sourceNode.schema.ref,
+              carrierRef: `carrier://abg/t252/consensus-probe/${encodeURIComponent(row.graphVector.name)}/${String(sourceIndex)}`,
+              admissionRef: `admission://abg/t252/consensus-probe/${encodeURIComponent(row.graphVector.name)}/${String(sourceIndex)}`,
+              value: {
+                kind: "t252_execution_context_join_probe",
+                fields: {}
+              }
+            })
+          )
+        )
+      });
+      const contract =
+        join.status === "invalid" ? null : join.compiledContract;
+      const fieldSlots =
+        contract === null
+          ? []
+          : sortedUnique(contract.fieldRows.map((fieldRow) => fieldRow.slot));
+      const protocolRefs =
+        contract === null
+          ? []
+          : sortedUnique(
+              contract.protocols.map(
+                (protocol) => protocol.instructionProtocolRef
+              )
+            );
+      const fieldClosureObserved =
+        JSON.stringify(fieldSlots) ===
+        JSON.stringify(expectedExecutionSlots(stage.defaultRegime));
+      const protocolRoleObserved =
+        contract !== null &&
+        contract.protocols.some((protocol) =>
+          protocol.allowedStageRoles.includes(stage.stageRole)
+        );
+      return [
+        {
+          path: `${row.path}.stages[${String(stageIndex)}:${stage.stageRole}]`,
+          graphFunctionName: row.graphFunctionName,
+          graphVectorName: row.graphVectorName,
+          stageIndex,
+          domainStageRole: stage.stageRole,
+          computeStageRole:
+            contract === null ? null : contract.selectedComputeStageRole,
+          regime: stage.defaultRegime,
+          status: join.status,
+          diagnosticIds: join.diagnostics.map(
+            (diagnostic) => diagnostic.diagnosticId
+          ),
+          fieldSlots,
+          protocolRefs,
+          fieldClosureObserved,
+          protocolRoleObserved
+        }
+      ];
+    });
+  });
+  if (executionContextJoinRows.length === 0) {
+    throw new TypeError("T-252 probe observed no F_P/F_H execution-context joins");
+  }
 
   const conformance = typecheckGtlProgram({
     subjectRef: "workspace://abg/t252/consensus",
@@ -774,55 +927,35 @@ async function buildManifest() {
     actualRelation:
       "TraversalUnit execution, result-interface, and conservation rows are absent from the submitted structure"
   });
-  const projectionSourceRefs = new Set(
-    ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules
-      .filter((rule) => rule.kind === "gtl.execution_context_projection")
-      .map((rule) => admitExecutionContextProjectionRule(rule).declaration.sourceNodeRef)
-  );
-  const protocolStageRoles = new Set(
-    ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules
-      .filter((rule) => rule.kind === "gtl.instruction_protocol")
-      .flatMap(
-        (rule) => admitInstructionProtocolRule(rule).declaration.allowedStageRoles
-      )
-  );
-  const bindingCarrierRows = graphFunctions.flatMap((graphFunction) =>
-    vectors(graphFunction).flatMap((vector, index) =>
-      vector.source
-        .filter(
-          (node) =>
-            node.name.endsWith("Binding") && !projectionSourceRefs.has(node.id)
-        )
-        .map((node) => ({
-            diagnosticId: "coverage-carrier-field-indirection",
-            path: `module.graphFunctions[${graphFunction.name}].vectors[${index}:${vector.name}].source[${node.name}]`
-          }))
-    )
-  );
+  const bindingCarrierRows = executionContextJoinRows
+    .filter((row) => !row.fieldClosureObserved)
+    .map((row) => ({
+      diagnosticId:
+        row.diagnosticIds[0] ?? "execution-context-field-closure-unobserved",
+      path: row.path
+    }));
   observeGap(observedGapEvidence, "carrier_field_indirection", {
     rows: bindingCarrierRows,
-    observationSources: ["structure:graph-vector-binding-carriers"],
+    observationSources: ["compiler:joinDeclaredExecutionContext"],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
-      "typed binding carriers are graph inputs while no admitted runtime field-resolution contract is present"
+      "the canonical T-252 F_P/F_H consumer path did not compile exact execution-context field closure"
   });
   const fpRows = rowsForFibre("F_P", "coverage-fp-result-contract-admission");
   const fhRows = rowsForFibre("F_H", "coverage-fh-pending-runtime-hold");
   observeGap(observedGapEvidence, "declared_instruction_protocol_join", {
-    rows: [...fpRows, ...fhRows]
-      .filter(
-        (row) =>
-          row.stageRoles.length === 0 ||
-          row.stageRoles.some((role) => !protocolStageRoles.has(role))
-      )
+    rows: executionContextJoinRows
+      .filter((row) => !row.protocolRoleObserved)
       .map((row) => ({
-        diagnosticId: "coverage-declared-instruction-protocol-join",
+        diagnosticId:
+          row.diagnosticIds[0] ??
+          "execution-context-protocol-role-closure-unobserved",
         path: row.path
       })),
-    observationSources: ["structure:declared-fp-fh-c-stages"],
+    observationSources: ["compiler:joinDeclaredExecutionContext"],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
-      "declared F_P and F_H stages have no admitted generic instruction/protocol request join"
+      "the canonical T-252 F_P/F_H consumer path did not resolve an admitted protocol for its exact domain stage role"
   });
   observeGap(observedGapEvidence, "fp_result_contract_admission", {
     rows: fpRows,
@@ -1014,6 +1147,16 @@ async function buildManifest() {
         status: row.status,
         diagnosticIds: row.diagnosticIds
       })),
+      executionContextJoinRows,
+      executionContextJoinStatusCounts: Object.fromEntries(
+        [...new Set(executionContextJoinRows.map((row) => row.status))]
+          .sort()
+          .map((status) => [
+            status,
+            executionContextJoinRows.filter((row) => row.status === status)
+              .length
+          ])
+      ),
       targetCarrierContractCount: targetCarrierContracts.length,
       edgeClosureContractCount: edgeClosureContracts.length,
       coverageRows,

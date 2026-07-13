@@ -45,14 +45,11 @@ import {
   compileCAlgebraToHog
 } from "../../build/semantic/code/src/abg/m03/contracts/c_algebra_hog_compiler.js";
 import {
-  constructInstructionSectionDecision,
-  constructRuntimeBindingSlot
-} from "../../build/semantic/code/src/abg/m03/contracts/instruction_assembly.js";
-import {
   admitBoundWorkspaceCatalog,
   deriveRegistrySessionView
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
 import {
+  ABG_CONSENSUS_GTL_BODY,
   ABG_CONSENSUS_GTL_MODULE
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js";
 import {
@@ -71,7 +68,6 @@ import {
   admitExecutionContextProjectionRule,
   admitInstructionProtocolRule,
   catalogExecutionBindingDeclaresExecutionContext,
-  constructAdmittedInstructionAssemblyRuntimeBasis,
   constructAdmittedInvocationCarrier,
   constructAdmittedInvocationCarrierSet,
   constructDeclaredCStageInvocationBasis,
@@ -259,6 +255,7 @@ function fixture(options = {}) {
     compressionPolicyRef: "policy://t256/compression",
     proportionalityPolicyRef: "policy://t256/proportionality",
     runtimeBindingSlotClasses: ["source_node"],
+    instructionWorkKind: "dependency_disambiguation",
     policyRefs: ["policy://t256/instruction"]
   });
   const programRef = "program://t256/generic-transform";
@@ -500,65 +497,19 @@ function fixture(options = {}) {
         },
         observation: { value: 42 }
       }
-    })
+    }),
+    ...(contextSource === null
+      ? []
+      : [
+          constructAdmittedInvocationCarrier({
+            sourceNodeRef: contextSource.id,
+            schemaRef: contextSource.schema.ref,
+            carrierRef: "carrier://t256/policy-context/1",
+            admissionRef: "admission://t256/policy-context/1",
+            value: { policy: { mode: "bounded" } }
+          })
+        ])
   ]);
-  const stageRef = declaredExecutionStageRef({
-    programBindingDigest: stageBasis.programBindingDigest,
-    stageIndex: stageBasis.stageIndex
-  });
-  const instructionAssemblyBasis = regime === "F_H"
-    ? null
-    : constructAdmittedInstructionAssemblyRuntimeBasis({
-    relevanceRules: [
-      {
-        ruleRef: RELEVANCE_REF,
-        requiredInputRefs: [source.id],
-        allowFutureStageRefs: []
-      }
-    ],
-    sectionDecisions: [
-      constructInstructionSectionDecision({
-        sectionRef: SECTION_REF,
-        disposition: "include",
-        dependencyRefs: [source.id],
-        carrierRefs: ["carrier://t256/observation/1"],
-        compressionMode: "full",
-        text: SECTION_TEXT,
-        digestRef: SECTION_DIGEST,
-        excerptDigest: null,
-        fullContentAdmitted: true,
-        stageRef,
-        gapRefs: []
-      })
-    ],
-    bindingSlots: [
-      constructRuntimeBindingSlot({
-        slotRef: "runtime-slot://t256/source-node",
-        slotClass: "source_node",
-        required: true,
-        sourceTruthKind: "admitted_ref",
-        evidenceRefs: ["admission://t256/observation/1"]
-      })
-    ],
-    runtimeFacts: [
-      {
-        kind: "runtime_binding_fact",
-        slotClass: "source_node",
-        ref: source.id,
-        digest: stableSha256Digest({ sourceNodeRef: source.id }),
-        sourceEventRefs: ["event://t256/observation-admitted"],
-        admitted: true
-      }
-    ],
-    availableInputRefs: [source.id],
-    proportionalityClass: "P1",
-    expectedAnswerMarkers: [],
-    instructionWorkKind: "dependency_disambiguation",
-    dependencyInstructionTruth: null,
-    proofDepthInstructionTruth: null,
-    fpValidationEvidenceRefs: ["evidence://t256/fp-validation"],
-    compilerEvidenceRefs: ["evidence://t256/compiler"]
-      });
   return {
     source,
     contextSource,
@@ -571,8 +522,7 @@ function fixture(options = {}) {
     catalogBasis: catalogResult.basis,
     catalogEvents: catalogResult.admissionEvents,
     stageBasis,
-    invocationCarriers,
-    instructionAssemblyBasis
+    invocationCarriers
   };
 }
 
@@ -582,7 +532,6 @@ function joinFixture(value, overrides = {}) {
     stageBasis: value.stageBasis,
     catalogBasis: value.catalogBasis,
     invocationCarriers: value.invocationCarriers,
-    instructionAssemblyBasis: value.instructionAssemblyBasis,
     ...overrides
   });
 }
@@ -605,15 +554,6 @@ function carriersWithExecution(value, executionOverrides) {
   ]);
 }
 
-function instructionBasisWith(value, overrides) {
-  const { kind: _kind, basisDigest: _basisDigest, ...basis } =
-    value.instructionAssemblyBasis;
-  return constructAdmittedInstructionAssemblyRuntimeBasis({
-    ...basis,
-    ...overrides
-  });
-}
-
 test("T-256 constructs one canonical F_P request through the T-183 carrier path", () => {
   const value = fixture();
   const outcome = joinFixture(value);
@@ -625,6 +565,16 @@ test("T-256 constructs one canonical F_P request through the T-183 carrier path"
   assert.equal(outcome.instructionAssembly.plan.kind, "compiled_prompt_plan");
   assert.equal(outcome.instructionAssembly.startupAdmission.admitted, true);
   assert.equal(outcome.instructionAssembly.envelope.kind, "instruction_envelope");
+  assert.deepEqual(
+    outcome.instructionAssembly.envelope.outputContractRefs,
+    [TARGET_CONTRACT_REF]
+  );
+  assert.equal(
+    outcome.instructionAssembly.envelope.outputContractRefs.includes(
+      "contract://t256/instruction"
+    ),
+    false
+  );
   assert.equal(outcome.request.regime, "F_P");
   assert.equal(outcome.request.planRef, outcome.instructionAssembly.plan.planRef);
   assert.equal(outcome.request.planDigest, outcome.instructionAssembly.plan.planDigest);
@@ -653,6 +603,33 @@ test("T-256 derives schema, type, and regime instead of accepting profile-author
   assert.equal(projectionWireKeys.includes("source_schema_ref"), false);
   assert.equal(projectionWireKeys.includes("source_type_ref"), false);
   assert.equal(projectionWireKeys.includes("applies_to_regime"), false);
+
+  const protocolWireKeys = value.protocolRule.config.entries.map(
+    (entry) => entry.key
+  );
+  assert.deepEqual(protocolWireKeys, [
+    "version",
+    "instruction_asset_node_ref",
+    "allowed_stage_roles",
+    "sections",
+    "relevance_policy_refs",
+    "compression_policy_ref",
+    "proportionality_policy_ref",
+    "runtime_binding_slot_classes",
+    "instruction_work_kind",
+    "policy_refs"
+  ]);
+  const camelCaseWorkKind = structuredClone(value.protocolRule);
+  camelCaseWorkKind.config.entries = camelCaseWorkKind.config.entries.map(
+    (entry) =>
+      entry.key === "instruction_work_kind"
+        ? { ...entry, key: "instructionWorkKind" }
+        : entry
+  );
+  assert.throws(
+    () => admitInstructionProtocolRule(camelCaseWorkKind),
+    /instructionWorkKind is unknown/u
+  );
 
   const widenedProjection = structuredClone(value.projectionRule);
   widenedProjection.config.entries.push({
@@ -696,13 +673,15 @@ test("T-256 derives schema, type, and regime instead of accepting profile-author
   );
 });
 
-test("T-256 fails closed for absent assembly truth, stale module identity, and non-own carrier paths", () => {
+test("T-256 rejects caller-authored assembly truth, stale module identity, and non-own carrier paths", () => {
   const value = fixture();
 
-  const missingBasis = joinFixture(value, { instructionAssemblyBasis: null });
-  assert.equal(missingBasis.status, "invalid");
+  const callerAuthoredBasis = joinFixture(value, {
+    instructionAssemblyBasis: { forged: true }
+  });
+  assert.equal(callerAuthoredBasis.status, "invalid");
   assert.equal(
-    missingBasis.diagnostics[0].diagnosticId,
+    callerAuthoredBasis.diagnostics[0].diagnosticId,
     "execution-context-instruction-rule-invalid"
   );
 
@@ -811,7 +790,7 @@ test("T-256 keeps F_H interaction construction distinct from F_P assembly", () =
   assert.equal(outcome.request.startupBlock.effectsPermitted, false);
 
   const fpBasisOnFh = joinFixture(value, {
-    instructionAssemblyBasis: fixture().instructionAssemblyBasis
+    instructionAssemblyBasis: { forged: true }
   });
   assert.equal(fpBasisOnFh.status, "invalid");
   assert.equal(
@@ -870,22 +849,30 @@ test("T-256 request identity changes with admitted field and source-carrier trut
   assert.notEqual(changed.request.requestDigest, original.request.requestDigest);
 });
 
-test("T-256 maps canonical compiler, startup, and envelope refusal to typed diagnostics", () => {
+test("T-256 derives canonical compiler inputs and maps startup refusal to a typed diagnostic", () => {
   const value = fixture();
-  const { kind: _kind, basisDigest: _basisDigest, ...runtimeBasis } =
-    value.instructionAssemblyBasis;
-
-  const missingRequiredInput = constructAdmittedInstructionAssemblyRuntimeBasis({
-    ...runtimeBasis,
-    availableInputRefs: []
-  });
-  const compilerRejected = joinFixture(value, {
-    instructionAssemblyBasis: missingRequiredInput
-  });
-  assert.equal(compilerRejected.status, "invalid");
-  assert.equal(
-    compilerRejected.diagnostics[0].diagnosticId,
-    "execution-context-prompt-plan-rejected"
+  const outcome = joinFixture(value);
+  assert.equal(outcome.status, "request_constructed", JSON.stringify(outcome));
+  assert.deepEqual(outcome.instructionAssembly.plan.requiredInputRefs, [value.source.id]);
+  assert.deepEqual(outcome.instructionAssembly.plan.sourceNodeRefs, [value.source.id]);
+  assert.equal(outcome.instructionAssembly.plan.proportionalityClass, "P1");
+  assert.deepEqual(outcome.instructionAssembly.plan.fpValidationEvidenceRefs, []);
+  assert.ok(outcome.instructionAssembly.plan.compilerEvidenceRefs.length > 0);
+  assert.deepEqual(
+    outcome.instructionAssembly.plan.bindingSlots.map((slot) => slot.slotClass),
+    ["source_node"]
+  );
+  assert.deepEqual(
+    outcome.instructionAssembly.plan.sectionDecisions.map((section) => section.text),
+    [SECTION_TEXT]
+  );
+  assert.deepEqual(
+    outcome.instructionAssembly.envelope.boundRuntimeRefs.map((fact) => [
+      fact.slotClass,
+      fact.ref,
+      fact.admitted
+    ]),
+    [["source_node", value.source.id, true]]
   );
 
   const startupCatalog = structuredClone(value.catalogBasis);
@@ -895,22 +882,6 @@ test("T-256 maps canonical compiler, startup, and envelope refusal to typed diag
   assert.equal(
     startupRejected.diagnostics[0].diagnosticId,
     "execution-context-prompt-plan-startup-rejected"
-  );
-
-  const unadmittedRuntimeFact = constructAdmittedInstructionAssemblyRuntimeBasis({
-    ...runtimeBasis,
-    runtimeFacts: runtimeBasis.runtimeFacts.map((fact) => ({
-      ...fact,
-      admitted: false
-    }))
-  });
-  const envelopeRejected = joinFixture(value, {
-    instructionAssemblyBasis: unadmittedRuntimeFact
-  });
-  assert.equal(envelopeRejected.status, "invalid");
-  assert.equal(
-    envelopeRejected.diagnostics[0].diagnosticId,
-    "execution-context-instruction-envelope-rejected"
   );
 });
 
@@ -1046,23 +1017,8 @@ test("T-256 refuses protocol, target, capability, and field-value drift before r
   );
 });
 
-test("T-256 refuses mutated protocol decisions and profile content identity", () => {
+test("T-256 refuses mutated protocol profile content identity", () => {
   const value = fixture();
-  const changedDecision = {
-    ...value.instructionAssemblyBasis.sectionDecisions[0],
-    text: `${SECTION_TEXT} changed`
-  };
-  const decisionRejected = joinFixture(value, {
-    instructionAssemblyBasis: instructionBasisWith(value, {
-      sectionDecisions: [changedDecision]
-    })
-  });
-  assert.equal(decisionRejected.status, "invalid");
-  assert.equal(
-    decisionRejected.diagnostics[0].diagnosticId,
-    "execution-context-instruction-rule-invalid"
-  );
-
   assert.throws(
     () =>
       constructInstructionProtocolRule({
@@ -1091,7 +1047,7 @@ test("T-256 refuses mutated protocol decisions and profile content identity", ()
   );
 });
 
-test("T-256 publishes Consensus profiles as a non-invoking companion without changing T-252 bytes", () => {
+test("T-256 joins the unchanged T-252 reduce-round body through its non-invoking companion", () => {
   assert.equal(
     stableSha256Digest(ABG_CONSENSUS_GTL_MODULE),
     "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0"
@@ -1168,6 +1124,61 @@ test("T-256 publishes Consensus profiles as a non-invoking companion without cha
       [CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF, false]
     ]
   );
+
+  const round = ABG_CONSENSUS_GTL_BODY.graphFunctions.round;
+  assert.equal(round.template.kind, "inline_graph");
+  const reduceRound = round.template.graph.vectors.find(
+    (vector) => vector.id === "graph-vector://abg/consensus/reduce-round"
+  );
+  assert.notEqual(reduceRound, undefined);
+  const sourceOutcome = compileGraphVectorExecutionHandoff({
+    graphFunction: round,
+    graphVector: reduceRound,
+    graphFunctions: ABG_CONSENSUS_GTL_MODULE.graphFunctions,
+    module: ABG_CONSENSUS_GTL_MODULE,
+    targetCarrierDefaults,
+    admittedTenantConformanceManifest: null
+  });
+  assert.equal(sourceOutcome.status, "blocked_capability", JSON.stringify(sourceOutcome));
+  const program = ABG_CONSENSUS_GTL_BODY.programs.find(
+    (candidate) => candidate.programRef === sourceOutcome.programBinding.selectedProgramRef
+  );
+  assert.notEqual(program, undefined);
+  const lowered = compileCAlgebraToHog(program);
+  assert.equal(lowered.accepted, true, JSON.stringify(lowered));
+  assert.notEqual(lowered.program, null);
+  const stage = lowered.program.stages[0];
+  assert.notEqual(stage, undefined);
+  const outcome = joinDeclaredExecutionContext({
+    sourceOutcome,
+    stageBasis: constructDeclaredCStageInvocationBasis({
+      programBindingDigest: sourceOutcome.programBinding.bindingDigest,
+      stageIndex: 0,
+      stageRole: stage.stageRole,
+      regime: stage.defaultRegime,
+      termDigest: stableSha256Digest(stage),
+      instructionCategoryRefs: stage.instructionCategoryRefs
+    }),
+    catalogBasis: catalogResult.basis,
+    invocationCarriers: constructAdmittedInvocationCarrierSet(
+      reduceRound.source.map((sourceNode, index) =>
+        constructAdmittedInvocationCarrier({
+          sourceNodeRef: sourceNode.id,
+          schemaRef: sourceNode.schema.ref,
+          carrierRef: `carrier://t256/consensus/reduce-round/${String(index)}`,
+          admissionRef: `admission://t256/consensus/reduce-round/${String(index)}`,
+          value: { kind: "t256_consensus_join_probe", fields: {} }
+        })
+      )
+    )
+  });
+  assert.equal(outcome.status, "blocked_capability", JSON.stringify(outcome));
+  assert.equal(
+    outcome.compiledContract.selectedProgramBinding.hostGraphFunctionRef,
+    round.id
+  );
+  assert.equal(outcome.compiledContract.selectedStageRole, "reduce_round");
+  assert.equal(outcome.compiledContract.selectedComputeStageRole, "transform");
 });
 
 test("T-256 profile-aware catalog work cannot reach legacy instruction synthesis", async () => {

@@ -1,6 +1,6 @@
 # M03 Declared Execution Context And Instruction Protocol Behavior Design
 
-**Status**: Accepted three-view design; implementation realized and pending independent closure review
+**Status**: Accepted boundary; repaired implementation awaiting independent closure review
 **Date**: 2026-07-13
 **Ticket**: T-256
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
@@ -120,10 +120,14 @@ public work merely because its Node hosts `AssetSurface` truth.
 
 `blocked_capability` intentionally carries the exact T-255 program binding but
 not a second normalized program body. T-256 resolves the selected program from
-the selected work `CatalogExecutionBinding.module`, then verifies its
-GraphFunction, program ref, ordered interface, and digest relation against the
-T-255 binding. A caller-supplied program, display-name lookup, or reconstructed
-program body is invalid.
+the selected work `CatalogExecutionBinding.module`. The public catalog entry
+remains the invocation authority, while the exact T-255
+`hostGraphFunctionRef` resolves one contained helper GraphFunction in that
+admitted Module. T-256 then verifies the helper GraphFunction, GraphVector,
+program ref, ordered interface, and digest relation against the T-255 binding.
+A helper need not be separately catalog-published. A caller-supplied program,
+display-name lookup, reconstructed program body, or second helper invocation
+authority is invalid.
 
 This permits the T-252 Consensus `Module` bytes to remain unchanged. Consensus
 field maps and protocol declarations are product data in a separately admitted
@@ -183,6 +187,7 @@ relevance_policy_refs
 compression_policy_ref
 proportionality_policy_ref
 runtime_binding_slot_classes
+instruction_work_kind
 policy_refs
 ```
 
@@ -200,6 +205,7 @@ native TypeScript properties:
 | `compression_policy_ref` | `compressionPolicyRef` |
 | `proportionality_policy_ref` | `proportionalityPolicyRef` |
 | `runtime_binding_slot_classes` | `runtimeBindingSlotClasses` |
+| `instruction_work_kind` | `instructionWorkKind` |
 
 `version` and `sections` retain their names in the decoded representation.
 Nested JSON rows decode under the same rule:
@@ -266,14 +272,17 @@ required
 Field paths reuse the target-carrier contract's dot-separated own-property
 semantics. Empty segments, inherited properties, array indexes, wildcards,
 coercion, aliases, and implicit fallback are invalid. A compiled projection
-may read only a source Node present in the selected C program's exact ordered
-input interface.
+may read only a source Node present in the selected GraphVector and selected C
+program's exact ordered input interface. Module-local vector inputs are lawful
+even when they are carried by, rather than public inputs of, the containing
+GraphFunction.
 
 The Rule does not author source schema, source type, or active regime. The
-compiler resolves `sourceNodeRef` through the selected GraphFunction's exact
-ordered input interface, derives schema and type from that admitted Node, and
-derives active regime from the catalog-bound C program term and selected
-composition. Supplying `source_schema_ref`, `source_type_ref`,
+compiler resolves `sourceNodeRef` through the exact selected GraphVector source
+interface, verifies that interface against the selected C-program binding,
+derives schema and type from that admitted Node, and derives active regime from
+the catalog-bound C program term and selected composition. Supplying
+`source_schema_ref`, `source_type_ref`,
 `applies_to_regime`, or their native spellings is an unknown-field rejection.
 
 The derived regime selects one closed required-slot set. `F_P` requires
@@ -306,6 +315,7 @@ relevancePolicyRefs[]
 compressionPolicyRef
 proportionalityPolicyRef
 runtimeBindingSlotClasses[]
+instructionWorkKind = not_applicable | target_work | dependency_disambiguation
 policyRefs[]
 ```
 
@@ -328,9 +338,12 @@ output contracts, and prompt proof obligations. The Rule cannot redeclare
 those fields.
 
 The profile declares policy refs; it does not declare compiled include/omit or
-compression decisions. The existing instruction-assembly compiler derives
-relevance, compression, proportionality, and non-tautology outcomes from those
-refs plus admitted runtime truth.
+compression decisions. T-256 uses the conservative total projection for this
+boundary: every exact selected source Node is required, every exact declared
+section is included with full admitted content, and no payload is compressed
+or omitted. The policy refs remain in canonical rule/evidence identity. The
+existing instruction-assembly compiler validates proportionality,
+non-tautology, and work-kind constraints over that derived input.
 
 `runtimeBindingSlotClasses` is the profile's only runtime-binding declaration.
 The active `RuntimeBindingSlot` rows, their requiredness, source-truth kinds,
@@ -338,6 +351,10 @@ and evidence refs are derived from the selected GraphFunction, vector, stage,
 admitted carrier values, and replay/startup projections. The profile cannot
 author a source or target type, active regime, result contract, proof,
 authority, renderer, or required carrier class.
+
+`instructionWorkKind` is the protocol's closed T-183 work-class declaration.
+It selects existing compiler law; it does not carry a dependency verdict,
+proof-depth verdict, result contract, or dispatch authority.
 
 Protocol text is declaration data, not an authority source. It may describe
 response grammar, but the worker result contract and target-carrier truth are
@@ -375,20 +392,21 @@ The mapping is exact:
 |---|---|
 | `appliesToGraphFunctionRefs`, `appliesToVectorRefs` | exact T-255 selected GraphFunction and GraphVector |
 | `sectionRules` | protocol sections' `sectionRef`, `required`, and `policyRefs` |
-| `relevanceRules` | protocol `relevancePolicyRefs` resolved through admitted policy truth; missing or ambiguous policy truth blocks |
+| `relevanceRules` | protocol `relevancePolicyRefs` paired with the exact selected source interface; every selected source is required in this boundary |
 | compression and proportionality policy refs | exact protocol Rule refs |
 | `runtimeBindingSlotClasses` | exact protocol Rule declaration |
 | `planRef`, compiler evidence refs | canonical identity over the compiled context, protocol closure, selected stage, and admitted evidence basis |
-| compute stage role | selected C term's exact stage role after closed T-183 role admission; no role inference or fallback |
-| graph function, vector, registry, source Node, and target Node refs | exact T-255 handoff, selected catalog binding, replay registry basis, ordered GraphFunction interface, and target-carrier binding |
+| compute stage role | exact generic role from the selected admitted composition binding; the C term's domain stage role remains separate protocol identity |
+| graph function, vector, registry, source Node, and target Node refs | exact T-255 handoff, selected catalog binding, replay registry basis, ordered selected-GraphVector interface, and target-carrier binding |
 | `DerivedInstructionCarrierTruth` | selected source/target Nodes, their `AssetSurface` values, selected C term, target-carrier binding, and admitted composition; never profile-authored |
 | known algebra refs | the existing closed T-183 algebra constant; the profile cannot add or remove members |
-| required and available input refs | selected GraphFunction interface joined to admitted invocation carriers and replay/startup truth |
-| `InstructionSectionDecision` rows | F_D evaluation of declared sections against admitted relevance, dependency, compression, proportionality, and selected-stage truth |
+| required and available input refs | selected GraphVector/C-program interface joined exactly to admitted invocation carriers and replay/startup truth |
+| `InstructionSectionDecision` rows | deterministic full-content inclusion of exact declared sections against selected-stage, selected-source, and admitted-carrier truth; no omission or compression fallback |
 | `RuntimeBindingSlot` rows | selected GraphFunction/vector/stage plus admitted carrier and replay/startup truth |
-| proportionality class and instruction work kind | admitted policy and dependency truth evaluated by the existing F_D law |
+| proportionality class | selected admitted C-program declaration |
+| instruction work kind | exact closed instruction-protocol declaration; existing T-183 law evaluates its required dependency/proof inputs |
 | expected-answer markers and optional F_P validation evidence | admitted non-tautology policy and validation evidence; absence is passed only where the existing compiler admits absence |
-| `RuntimeBindingFact` rows | `AdmittedExecutionContextValues` joined to existing admitted runtime projections |
+| `RuntimeBindingFact` rows | exact selected source Nodes, admitted source carriers, selected graph/vector/target, protocol, and replay catalog truth according to declared slot classes |
 | dependency and proof-depth truth | existing admitted T-183 compiler inputs; absence or an open typed gap blocks rather than being synthesized |
 | optional calibration, latitude, artifact schema, and excerpt policy | existing admitted GTL/ABG carrier truth; T-256 neither invents defaults nor changes the T-183 optionality rules |
 
@@ -438,10 +456,12 @@ when all of the following hold:
 6. every active projection Rule resolves exactly once, contains only the
    closed wire vocabulary, and does not assert source schema, source type, or
    regime;
-7. each projection source Node is in the selected program's ordered input
-   interface, and its schema and type derive from that exact Node;
-8. active regime derives from the selected C term and composition; its closed
-   required-slot set is present exactly once and value kinds agree;
+7. each projection source Node is in the selected GraphVector and selected
+   program's ordered input interface, and its schema and type derive from that
+   exact Node;
+8. the domain stage role derives from the selected C term, while the generic
+   T-183 compute role derives from the exact regime-matched composition; the
+   closed required-slot set is present exactly once and value kinds agree;
 9. each protocol Rule resolves exactly one instruction-asset Node whose
    `AssetSurface` is complete for the selected renderer-backed prompt policy;
 10. static instruction category refs resolve exactly once to protocol sections,
@@ -469,13 +489,13 @@ T-268 block and stops before invocation binding. Only a
 M03 receives only payloads already admitted against their selected carrier
 schemas. Each admitted carrier row binds one exact source Node ref, schema ref,
 carrier ref, carrier digest, admission ref, and immutable value. The binder
-resolves every projection source Node to exactly one such row; positional,
-display-name, and schema-only matching are invalid. It applies the compiled
-field rows exactly once, validates each value kind, and constructs
-`AdmittedExecutionContextValues`. Every carrier-row Node must belong to the
-selected program's ordered input interface. An input row not selected by a
-projection may remain as work context, but it cannot supply a named execution
-slot implicitly.
+requires an exact one-to-one carrier closure over the selected GraphVector and
+C-program source interface; missing, duplicate, or extra carrier rows fail.
+Positional, display-name, and schema-only matching are invalid. It applies the
+compiled field rows exactly once, validates each value kind, and constructs
+`AdmittedExecutionContextValues`. A selected input not named by a projection
+remains admitted work context and contributes to derived input and runtime-fact
+truth, but it cannot supply a named execution slot implicitly.
 
 The request join then requires:
 
@@ -683,12 +703,19 @@ classDiagram
     +compressionPolicyRef
     +proportionalityPolicyRef
     +runtimeBindingSlotClasses
+    +instructionWorkKind
   }
   class GraphFunction {
     <<subordinate>>
     +id
     +inputs
     +outputs
+  }
+  class GraphVector {
+    <<subordinate>>
+    +id
+    +source
+    +target
   }
   class Node {
     <<subordinate>>
@@ -828,6 +855,7 @@ classDiagram
     -publishedHandoffRef nullable
     -selectedStageDigest
     -selectedStageRole
+    -selectedComputeStageRole
     -selectedRegime
     -declarationClosureDigest
     -fieldRows
@@ -945,6 +973,8 @@ classDiagram
   Module "1" *-- "0..*" InstructionProtocolRule : publishes profile
   InstructionProtocolRule "1" *-- "1..*" ProtocolSection : owns ordered sections
   Module "1" *-- "1..*" GraphFunction : publishes declaration carrier
+  GraphFunction "1" *-- "0..*" GraphVector : contains exact selected vectors
+  GraphVector "1" --> "1..*" Node : owns ordered source interface
   GraphFunction "1" *-- "1..*" Node : hosts typed interface
   Node "1" *-- "1" AssetSurface : owns interface truth
   InstructionProtocolRule "1" --> "1" Node : resolves exact prompt interface
@@ -952,6 +982,8 @@ classDiagram
   ExactT255HandoffOutcome <|-- PublishedT255HandoffOutcome
   ExactT255HandoffOutcome <|-- CapabilityBlockedT255HandoffOutcome
   ExactT255HandoffOutcome "1" --> "1" CatalogExecutionBinding : verified against selected work
+  CatalogExecutionBinding "1" --> "1" GraphFunction : public invocation authority
+  CatalogExecutionBinding "1" --> "0..*" GraphFunction : admitted Module contains helpers
   PublishedT255HandoffOutcome "1" *-- "1" CompiledGraphVectorExecutionHandoff : carries
   CompiledGraphVectorExecutionHandoff "1" *-- "1" TraversalStartupBlock : preserves
   ExecutionContextCompiler "1" --> "1" CompiledExecutionContextContract : constructs
@@ -1032,11 +1064,11 @@ sequenceDiagram
   Caller->>Compiler: join exact T-255 outcome, declared C-stage basis, and admitted catalog basis
   Compiler->>RuntimeCatalog: read selected execution binding and replay-projected declarationSourceRefs
   RuntimeCatalog-->>Compiler: exact execution and canonical declaration-Module bindings
-  Compiler->>Compiler: resolve and verify exact catalog-bound work Module and C program
+  Compiler->>Compiler: resolve catalog authority, contained helper GraphFunction/GraphVector, and C program
   alt ExecutionContextCompiler rejects work Module or program identity
     Compiler-->>Caller: JoinInvalid with typed program-binding diagnostic
   else ExecutionContextCompiler admits exact work program
-    Compiler->>Compiler: validate stage index, role, regime, term digest, and composition
+    Compiler->>Compiler: validate stage index, domain role, regime, term digest, and derive generic compute role from composition
     alt ExecutionContextCompiler rejects stage basis
       Compiler-->>Caller: JoinInvalid with typed stage-basis diagnostic
     else ExecutionContextCompiler admits exact stage basis
@@ -1049,7 +1081,7 @@ sequenceDiagram
           Declarations-->>Caller: JoinInvalid with typed declaration-resolution diagnostic
         else BoundModuleDeclarationResolver returns exact local declarations without retaining an index
           Declarations-->>Compiler: exact Rule and Node declarations only
-          Compiler->>Compiler: decode strict wire profiles and derive Node schema, type, and active regime
+          Compiler->>Compiler: decode strict wire profiles and derive selected-vector Node schema, type, domain/compute roles, and active regime
           Compiler->>Compiler: compile active slots, target contracts, protocol refs, and capability basis
           alt ExecutionContextCompiler rejects malformed or incomplete static join
             Compiler-->>Caller: JoinInvalid with typed static-contract diagnostic
@@ -1189,7 +1221,9 @@ exact T-267 block.
 | GTL remains the protocol source | content and field maps are strict Rule profiles; prompt-interface truth remains on an existing Node AssetSurface | `pass` |
 | Registry selection remains replay-derived | admitted registry events carry declaration source refs into the runtime projection and canonical module bindings | `pass` |
 | No second registry appears | admitted declarationSourceRefs survive into the runtime-catalog basis, then resolve through deduplicated non-invoking declaration-Module bindings and a stateless direct Module scan; no local index is retained and existing M02 callable lookup is unchanged | `pass` |
-| Profile truth is narrow and derived | source schema, source type, and active regime derive from selected Nodes, C program, and composition; strict Rules carry only source ref, field rows, sections, policy refs, and allowed runtime slot classes | `pass` |
+| Profile truth is narrow and derived | source schema, source type, and active regime derive from selected Nodes, C program, and composition; strict Rules carry only source ref, field rows, sections, policy refs, closed instruction work kind, and allowed runtime slot classes | `pass` |
+| Domain and compute roles stay distinct | the selected C term retains the domain protocol role while the exact composition supplies the generic T-183 compute role | `pass` |
+| Module-contained helpers remain catalog-governed | the public catalog entry supplies invocation authority and its admitted Module contains the exact T-255-selected helper GraphFunction and GraphVector | `pass` |
 | F_P instruction authority remains singular | F_P reaches the existing InstructionAssemblyRule, CompiledPromptPlan, startup admission, and InstructionEnvelope carriers before request projection | `pass` |
 | Product field names do not enter M03 code | product-specific mappings are declaration rows; the compiler sees generic slots | `pass` |
 | Target and capability truth are not reconstructed | exact T-255 outcome projections are consumed directly; capability absence stays blocked | `pass` |
@@ -1209,7 +1243,7 @@ exact T-267 block.
 | Instruction assembly adds no second GTL surface | INSTRUCTION-ASSEMBLY-001/-002 | profiles reuse Rule, Node AssetSurface, and Module and omit source/type/regime truth | admitted runtime catalog then direct Rule/Node resolution is singular | no parallel registry state | no new public GTL term, no retained local index, and M02 callable lookup is unchanged | runtime-catalog preserves source refs and non-invoking Module bindings; direct resolution grants no authority | `pass` | T-256 realization |
 | Registry selection is replay-derived | INSTRUCTION-ASSEMBLY-012/-013 | registry event, projection, and execution binding preserve admitted declarationSourceRefs; catalog admission canonically binds source Modules | compiler consumes the admitted catalog basis, not raw startup input | missing projected source truth blocks | projection fields are immutable | event, projection, and binding identities include ordered source refs and exact Module identity; exact duplicates coalesce | `pass` | T-256 realization |
 | Declaration Modules grant no work invocation | ASSET-SURFACE-001; PRODUCT GraphFunction boundary | companion row is `node_type`; identity GraphFunction and declaration binding have no invocation authority | compiler reads declarations but invokes no GraphFunction | no invocation state exists | carrier omits callable handle | catalog enforces node-type identity and keeps declaration and execution bindings distinct | `pass` | T-256 realization |
-| Carrier, target, proof, authority, renderer, and regime truth are derived | INSTRUCTION-ASSEMBLY-003; ASSET-SURFACE-002..011 | T-255 work target, selected source Nodes, C term/composition, and protocol asset Node remain prime | compiler derives schema/type/regime and rejects profile assertions | incompatibility or redeclaration blocks | request and profile types cannot author interface truth | exact prompt-asset, Node, C-term, and target/result derivation checks | `pass` | T-256 realization |
+| Carrier, target, proof, authority, renderer, and regime truth are derived | INSTRUCTION-ASSEMBLY-003; ASSET-SURFACE-002..011 | T-255 work target, selected GraphVector source Nodes, C term/composition, and protocol asset Node remain prime | compiler derives schema/type/regime and rejects profile assertions | incompatibility or redeclaration blocks | request and profile types cannot author interface truth | exact prompt-asset, selected-vector Node, C-term, composition, and target/result derivation checks | `pass` | T-256 realization |
 | F_D decisions are total over a known algebra | INSTRUCTION-ASSEMBLY-004/-004A | closed profiles, slots, paths, and outcomes | every branch returns contract, request, or diagnostic | all refusal states terminate truthfully | discriminated carriers | total compiler and binder issue families | `pass` | T-256 realization |
 | Stage identity derives from the declared C program | C-ALGEBRA-009/-011/-013/-016; CCALL-014/-016 | stage basis carries exact program, index, role, regime, term, and category identity | compiler validates the stage without choosing execution order | invalid basis reaches StageBasisBlocked | closed F_P/F_H regime and stage fields | exact program/composition comparison | `pass` | T-256 realization; T-259 owns sequencing |
 | F_P dispatch requires plan, envelope, and manifest | INSTRUCTION-ASSEMBLY-005/-017 | F_P request projects an admitted canonical plan and envelope but is not a manifest or dispatch authority | absent capability stops before plan; accepted F_P path compiles/admit/binds canonical carriers then stops before rendering or dispatch | plan, admission, envelope refusals terminate; StartupBlocked is terminal | request stores only canonical identities and has no effect method | existing T-183 boundaries enforce plan/admission/envelope; T-267 and later manifest rendering remain required | `pass` | T-256 realization; T-267 retains effect gate |
@@ -1242,9 +1276,9 @@ T-256 boundary and names its retained owner.
 | node-type declaration law | the companion row resolves an admitted identity GraphFunction and grants no callable execution binding |
 | carrier-row identity | source Node refs resolve exactly once to admitted carrier rows; positional, label-only, schema-only, duplicate, and missing matches refuse |
 | field-path law | own-property nested paths resolve; inherited properties, wildcards, arrays, aliases, and coercion refuse |
-| ordered interface law | a projection cannot read a Node outside the selected C program input interface |
-| selected-stage law | wrong program binding, index, role, regime, term digest, or instruction-category order refuses; T-256 does not choose the next stage |
-| blocked-outcome program law | capability-blocked input resolves the program only from the exact catalog-bound Module and rejects any T-255 binding disagreement |
+| ordered interface law | a projection cannot read a Node outside the exact selected GraphVector/C-program input interface; all selected source Nodes require one admitted carrier and extras refuse |
+| selected-stage law | wrong program binding, index, domain role, regime, term digest, or instruction-category order refuses; generic compute role derives only from the exact composition and T-256 does not choose the next stage |
+| blocked-outcome program law | capability-blocked input resolves the exact helper GraphFunction, GraphVector, and program only by containment in the catalog-bound Module and rejects any T-255 binding disagreement |
 | protocol law | missing refs, duplicate refs, role mismatch, mutated text, content-digest mismatch, dangling asset Node, and incomplete prompt AssetSurface refuse |
 | target law | runtime result-contract ref must match the T-255 target/AssetSurface compatibility set |
 | capability law | runtime capability requirements must be covered by the T-255 admitted manifest basis; absent basis remains a T-268 block and produces no request |
@@ -1253,7 +1287,7 @@ T-256 boundary and names its retained owner.
 | startup-block identity | every constructed request preserves the exact T-255 TraversalStartupBlock and its digest; capability-blocked input constructs no request |
 | no fallback | deleting a declaration, carrier field, canonical T-183 compiler input, or startup-admission input blocks; M03 does not call `defaultInstructionSectionText` or read `FpTransportConfig.prompt` |
 | genericity | one non-Consensus single-stage fixture and one multi-source fixture compile without feature branches |
-| T-252 preservation | canonical body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`; the catalog declaration digest changes when its ordered companion source ref is admitted; companion declarations close only the two T-256 census families while the same 28 paths remain T-268 capability blocks |
+| T-252 preservation | canonical body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`; the catalog declaration digest changes when its ordered companion source ref is admitted; the census invokes the real join for every F_P/F_H capability-blocked consumer and closes the two T-256 families only when field and protocol-role closure are observed; the same 28 paths remain T-268 capability blocks |
 | no effects | source closure reaches no runner, plugin, worker, transport, event, archive, continuation, or closure module |
 | packed publication | public exports and packed install preserve the same request and diagnostic surfaces without private imports |
 
@@ -1317,6 +1351,10 @@ exist but code-owned text can still dispatch is non-closure.
   copied into a second request authority;
 - an F_P request, plan, startup admission, or envelope constructed outside the
   canonical T-183 carriers and functions;
+- caller-authored relevance decisions, section decisions, runtime slots,
+  runtime facts, proportionality class, or complete instruction-assembly
+  basis accepted by the public join;
+- prompt-asset output contracts promoted into worker-result contract truth;
 - raw invocation payload inspected after admission by more than one semantic
   path;
 - `defaultInstructionSectionText` or `FpTransportConfig.prompt` remaining
@@ -1328,11 +1366,12 @@ exist but code-owned text can still dispatch is non-closure.
 
 ## Design Verdict
 
-**Accepted; implementation realized.** Explicit F_H acceptance on 2026-07-13
-authorized this bounded design. The realization reuses existing GTL carriers,
-keeps one module/catalog authority path, derives rather than redeclares
-source/type/regime truth, joins the canonical T-183 instruction path, and
-preserves all downstream gates.
+**Accepted design; repaired implementation awaits independent closure
+review.** Explicit F_H acceptance on 2026-07-13 authorized this bounded design.
+The repaired realization reuses existing GTL carriers, keeps one
+module/catalog authority path, derives rather than redeclares
+source/type/regime and instruction-input truth, joins the canonical T-183
+instruction path, and preserves all downstream gates.
 
 Independent closure review must challenge the Rule-profile decision,
 wire/native vocabulary, stateless declaration resolution, canonical T-183

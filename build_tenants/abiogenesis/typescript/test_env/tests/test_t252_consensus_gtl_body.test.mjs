@@ -409,7 +409,7 @@ test("T-252 body dependency closure avoids fenced execution implementation direc
   assert.deepEqual(forbidden, []);
 });
 
-test("T-252 probe derives observations before ownership and makes no runtime-call claim", () => {
+test("T-252 probe derives observations through the real context join without making a runtime-call claim", () => {
   const manifestPath = resolve(
     dirname(fileURLToPath(import.meta.url)),
     "../fixtures/t252_consensus_probe_manifest.json"
@@ -453,6 +453,25 @@ test("T-252 probe derives observations before ownership and makes no runtime-cal
   );
   assert.equal(manifest.ownership.unownedGapCount, 0);
   assert.equal(manifest.ownership.duplicateOwnerCount, 0);
+
+  assert.ok(manifest.compiler.executionContextJoinRows.length > 0);
+  assert.equal(
+    manifest.compiler.executionContextJoinRows.every(
+      (row) =>
+        row.status === "blocked_capability" &&
+        row.fieldClosureObserved === true &&
+        row.protocolRoleObserved === true
+    ),
+    true
+  );
+  assert.equal(
+    manifest.compiler.executionContextJoinRows.some(
+      (row) =>
+        row.domainStageRole === "reduce_round" &&
+        row.computeStageRole === "transform"
+    ),
+    true
+  );
 
   assert.equal(Object.hasOwn(manifest, "noExecutionObservation"), false);
   assert.equal(

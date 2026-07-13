@@ -2,10 +2,10 @@
 
 - id: T-256
 - status: active
-- phase_status: implementation_complete_review_pending
-- review_status: implementation_review_pending
-- implementation_status: realized_and_verified
-- proof_status: self_review_verified
+- phase_status: repair_review_gate
+- review_status: ready_for_independent_re_review
+- implementation_status: repair_complete
+- proof_status: repair_gates_green
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
@@ -16,6 +16,8 @@
 - decision_ref: .ai-workspace/comments/codex/20260713T083400Z_DECISION_fh_accept_t256_repaired_design.md
 - invalid_decision_ref: .ai-workspace/comments/codex/20260713T073149Z_DECISION_fh_accept_t256_design.md
 - rejection_ref: .ai-workspace/comments/codex/20260713T074427Z_REVIEW_GATE_t256_design_rejected.md
+- implementation_rejection_ref: .ai-workspace/comments/codex/20260713T101501Z_REVIEW_GATE_t256_canonical_consumer_rejected.md
+- repair_self_review_ref: .ai-workspace/comments/codex/20260713T104058Z_SELF_REVIEW_t256_canonical_consumer_repair.md
 - dependency: T-255
 
 ## Boundary
@@ -46,7 +48,10 @@ selection, local field-ref conventions, or concrete backend/transport in GTL.
 ## Current Disposition
 
 The human authority accepted the repaired design and authorized implementation
-on 2026-07-13. The bounded realization and self-review are complete. T-256
-remains active pending independent implementation review and explicit closure.
-Every constructed request retains the T-267 startup block, and absent tenant
-capability truth remains the exact T-268 block.
+on 2026-07-13. Independent implementation review then rejected the first
+checkpoint because the unchanged T-252 consumer could not traverse the join,
+instruction derivation was caller-authored, prompt contracts leaked into result
+truth, and the census did not invoke the join. The bounded repair is complete
+and independently self-reviewed; closure remains unearned until external
+re-review accepts the repaired checkpoint. T-257 remains blocked. T-267 and
+T-268 retain their existing ownership.

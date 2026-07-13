@@ -185,6 +185,7 @@ function protocolRule(input: {
     proportionalityPolicyRef:
       "policy://abg/consensus/instruction/proportionality",
     runtimeBindingSlotClasses: ["source_node"],
+    instructionWorkKind: "dependency_disambiguation",
     policyRefs: ["policy://abg/consensus/instruction"]
   });
 }

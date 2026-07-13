@@ -2398,6 +2398,287 @@
         ]
       }
     ],
+    "executionContextJoinRows": [
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "graphFunctionName": "consensus.round",
+        "graphVectorName": "consensus.reduce-round",
+        "stageIndex": 0,
+        "domainStageRole": "reduce_round",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "graphFunctionName": "consensus.round",
+        "graphVectorName": "consensus.submitter-response",
+        "stageIndex": 0,
+        "domainStageRole": "submitter_response",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial].stages[0:hold_initial_for_fh]",
+        "graphFunctionName": "consensus.round",
+        "graphVectorName": "consensus.fh-initial",
+        "stageIndex": 0,
+        "domainStageRole": "hold_initial_for_fh",
+        "computeStageRole": "human_callout",
+        "regime": "F_H",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "instruction_protocol_ref",
+          "interaction_subject_ref",
+          "result_contract_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "graphFunctionName": "consensus.round",
+        "graphVectorName": "consensus.reassess-round",
+        "stageIndex": 0,
+        "domainStageRole": "reassess_round",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter].stages[0:hold_post_for_fh]",
+        "graphFunctionName": "consensus.round",
+        "graphVectorName": "consensus.fh-post-submitter",
+        "stageIndex": 0,
+        "domainStageRole": "hold_post_for_fh",
+        "computeStageRole": "human_callout",
+        "regime": "F_H",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "instruction_protocol_ref",
+          "interaction_subject_ref",
+          "result_contract_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphVectorName": "consensus.reduce-round",
+        "stageIndex": 0,
+        "domainStageRole": "reduce_round",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphVectorName": "consensus.submitter-response",
+        "stageIndex": 0,
+        "domainStageRole": "submitter_response",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial].stages[0:hold_initial_for_fh]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphVectorName": "consensus.fh-initial",
+        "stageIndex": 0,
+        "domainStageRole": "hold_initial_for_fh",
+        "computeStageRole": "human_callout",
+        "regime": "F_H",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "instruction_protocol_ref",
+          "interaction_subject_ref",
+          "result_contract_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphVectorName": "consensus.reassess-round",
+        "stageIndex": 0,
+        "domainStageRole": "reassess_round",
+        "computeStageRole": "transform",
+        "regime": "F_P",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "configuration_digest",
+          "instruction_protocol_ref",
+          "result_contract_ref",
+          "role_or_worker_selection_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter].stages[0:hold_post_for_fh]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphVectorName": "consensus.fh-post-submitter",
+        "stageIndex": 0,
+        "domainStageRole": "hold_post_for_fh",
+        "computeStageRole": "human_callout",
+        "regime": "F_H",
+        "status": "blocked_capability",
+        "diagnosticIds": [
+          "execution-context-capability-incompatible"
+        ],
+        "fieldSlots": [
+          "capability_requirement_refs",
+          "instruction_protocol_ref",
+          "interaction_subject_ref",
+          "result_contract_ref"
+        ],
+        "protocolRefs": [
+          "instruction-protocol://abg/consensus/human",
+          "instruction-protocol://abg/consensus/reducer",
+          "instruction-protocol://abg/consensus/reviewer",
+          "instruction-protocol://abg/consensus/submitter"
+        ],
+        "fieldClosureObserved": true,
+        "protocolRoleObserved": true
+      }
+    ],
+    "executionContextJoinStatusCounts": {
+      "blocked_capability": 10
+    },
     "targetCarrierContractCount": 35,
     "edgeClosureContractCount": 35,
     "coverageRows": [
@@ -3167,5 +3448,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:3886a094fa37e148afd0540f52f796576090b1a6b8663d2892321a1c773193fd"
+  "manifestDigest": "sha256:7059842547d46179d58774acb74182e8b61373cd2f84ba890a0d0bbeff0b943e"
 }

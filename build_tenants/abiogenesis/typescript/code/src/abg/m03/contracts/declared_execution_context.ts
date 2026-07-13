@@ -5,6 +5,7 @@ import {
   nodeContractKey,
   type AssetSurface,
   type GraphFunction,
+  type GraphVector,
   type Node,
   type Rule,
   type SerializedAttrEntry,
@@ -13,7 +14,10 @@ import {
   type SerializedJsonValue
 } from "../../../gtl/m01/contracts/carriers.js";
 import { serializedJsonValueToPlain } from "../../../gtl/m01/contracts/constructors.js";
-import { admitCProgramSyntax } from "../../../gtl/m01/algebra/c_algebra.js";
+import {
+  admitCProgramSyntax,
+  type AdmittedCProgramDeclarationNode
+} from "../../../gtl/m01/algebra/c_algebra.js";
 import type { Module } from "../../../gtl/m02/contracts/carriers.js";
 import {
   stableJsonEquals,
@@ -44,7 +48,9 @@ import {
   admitCompiledPromptPlanAtStartup,
   bindInstructionEnvelope,
   compileInstructionAssemblyPlan,
+  constructInstructionSectionDecision,
   constructInstructionAssemblyRule,
+  constructRuntimeBindingSlot,
   type CompiledPromptPlan,
   type CompiledPromptPlanStartupAdmission,
   type DerivedDependencyInstructionTruth,
@@ -120,6 +126,7 @@ export interface InstructionProtocolDeclaration {
   readonly compressionPolicyRef: string;
   readonly proportionalityPolicyRef: string;
   readonly runtimeBindingSlotClasses: readonly RuntimeBindingSlotClass[];
+  readonly instructionWorkKind: InstructionWorkKind;
   readonly policyRefs: readonly string[];
 }
 
@@ -169,6 +176,7 @@ export interface CompiledInstructionProtocol {
   readonly compressionPolicyRef: string;
   readonly proportionalityPolicyRef: string;
   readonly runtimeBindingSlotClasses: readonly RuntimeBindingSlotClass[];
+  readonly instructionWorkKind: InstructionWorkKind;
   readonly policyRefs: readonly string[];
   readonly sourceModuleRef: string;
   readonly sourceModuleDigest: string;
@@ -187,6 +195,7 @@ export interface CompiledExecutionContextContract {
   readonly selectedStageIndex: number;
   readonly selectedStageDigest: `sha256:${string}`;
   readonly selectedStageRole: string;
+  readonly selectedComputeStageRole: InstructionAssemblyComputeStageRole;
   readonly selectedRegime: "F_P" | "F_H";
   readonly declarationModuleRefs: readonly string[];
   readonly declarationClosureDigest: `sha256:${string}`;
@@ -211,8 +220,8 @@ export interface AdmittedExecutionContextValues {
   readonly valuesDigest: `sha256:${string}`;
 }
 
-export interface AdmittedInstructionAssemblyRuntimeBasis {
-  readonly kind: "admitted_instruction_assembly_runtime_basis";
+interface DerivedInstructionAssemblyRuntimeBasis {
+  readonly kind: "derived_instruction_assembly_runtime_basis";
   readonly relevanceRules: readonly InstructionAssemblyRelevanceRule[];
   readonly sectionDecisions: readonly InstructionSectionDecision[];
   readonly bindingSlots: readonly RuntimeBindingSlot[];
@@ -373,10 +382,6 @@ export interface JoinDeclaredExecutionContextInput {
   readonly stageBasis: DeclaredCStageInvocationBasis;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly invocationCarriers: AdmittedInvocationCarrierSet;
-  readonly instructionAssemblyBasis?:
-    | AdmittedInstructionAssemblyRuntimeBasis
-    | null
-    | undefined;
 }
 
 class ExecutionContextCompilationError extends Error {
@@ -813,6 +818,7 @@ export function constructInstructionProtocolRule(
           "runtime_binding_slot_classes",
           input.runtimeBindingSlotClasses
         ),
+        scalarEntry("instruction_work_kind", input.instructionWorkKind),
         stringListEntry("policy_refs", input.policyRefs)
       ]),
       tags: Object.freeze(["gtl:instruction-protocol"])
@@ -884,6 +890,7 @@ export function admitInstructionProtocolRule(
       "compression_policy_ref",
       "proportionality_policy_ref",
       "runtime_binding_slot_classes",
+      "instruction_work_kind",
       "policy_refs"
     ],
     "InstructionProtocolRule.config"
@@ -906,6 +913,11 @@ export function admitInstructionProtocolRule(
     runtimeBindingSlotClasses: runtimeBindingSlotClasses(
       rule.config,
       "runtime_binding_slot_classes"
+    ),
+    instructionWorkKind: allowedValue(
+      scalarConfig(rule.config, "instruction_work_kind") ?? "",
+      ["not_applicable", "target_work", "dependency_disambiguation"] as const,
+      "InstructionProtocolRule.config.instruction_work_kind"
     ),
     policyRefs: stringListConfig(rule.config, "policy_refs")
   });
@@ -1003,81 +1015,6 @@ export function constructAdmittedInvocationCarrierSet(
     carriers: frozen,
     carrierSetDigest: stableSha256Digest(frozen)
   });
-}
-
-export function constructAdmittedInstructionAssemblyRuntimeBasis(
-  input: Omit<
-    AdmittedInstructionAssemblyRuntimeBasis,
-    "kind" | "basisDigest"
-  >
-): AdmittedInstructionAssemblyRuntimeBasis {
-  const relevanceRuleRefs = freezeUniqueDeclaredStrings(
-    input.relevanceRules.map((row) => row.ruleRef),
-    "InstructionAssemblyRuntimeBasis.relevanceRules"
-  );
-  const sectionRefs = freezeUniqueDeclaredStrings(
-    input.sectionDecisions.map((row) => row.sectionRef),
-    "InstructionAssemblyRuntimeBasis.sectionDecisions"
-  );
-  const bindingSlotRefs = freezeUniqueDeclaredStrings(
-    input.bindingSlots.map((row) => row.slotRef),
-    "InstructionAssemblyRuntimeBasis.bindingSlots"
-  );
-  const bindingSlotClasses = freezeUniqueDeclaredStrings(
-    input.bindingSlots.map((row) => row.slotClass),
-    "InstructionAssemblyRuntimeBasis.bindingSlotClasses"
-  );
-  const runtimeFactRefs = freezeUniqueDeclaredStrings(
-    input.runtimeFacts.map((row) => row.ref),
-    "InstructionAssemblyRuntimeBasis.runtimeFacts"
-  );
-  if (
-    relevanceRuleRefs.length !== input.relevanceRules.length ||
-    sectionRefs.length !== input.sectionDecisions.length ||
-    bindingSlotRefs.length !== input.bindingSlots.length ||
-    bindingSlotClasses.length !== input.bindingSlots.length ||
-    runtimeFactRefs.length !== input.runtimeFacts.length
-  ) {
-    throw new TypeError("InstructionAssemblyRuntimeBasis contains duplicate identity");
-  }
-  if (!(["P0", "P1", "P2", "P3"] as const).includes(input.proportionalityClass)) {
-    throw new TypeError("InstructionAssemblyRuntimeBasis.proportionalityClass is invalid");
-  }
-  if (
-    !(["not_applicable", "target_work", "dependency_disambiguation"] as const).includes(
-      input.instructionWorkKind
-    )
-  ) {
-    throw new TypeError("InstructionAssemblyRuntimeBasis.instructionWorkKind is invalid");
-  }
-  const basis = Object.freeze({
-    kind: "admitted_instruction_assembly_runtime_basis" as const,
-    relevanceRules: Object.freeze([...input.relevanceRules]),
-    sectionDecisions: Object.freeze([...input.sectionDecisions]),
-    bindingSlots: Object.freeze([...input.bindingSlots]),
-    runtimeFacts: Object.freeze([...input.runtimeFacts]),
-    availableInputRefs: freezeUniqueDeclaredStrings(
-      input.availableInputRefs,
-      "InstructionAssemblyRuntimeBasis.availableInputRefs"
-    ),
-    proportionalityClass: input.proportionalityClass,
-    expectedAnswerMarkers: freezeUniqueDeclaredStrings(
-      input.expectedAnswerMarkers,
-      "InstructionAssemblyRuntimeBasis.expectedAnswerMarkers"
-    ),
-    instructionWorkKind: input.instructionWorkKind,
-    dependencyInstructionTruth: input.dependencyInstructionTruth,
-    proofDepthInstructionTruth: input.proofDepthInstructionTruth,
-    fpValidationEvidenceRefs: freezeUniqueDeclaredStrings(
-      input.fpValidationEvidenceRefs,
-      "InstructionAssemblyRuntimeBasis.fpValidationEvidenceRefs"
-    ),
-    compilerEvidenceRefs: freezeUniqueDeclaredStrings(
-      input.compilerEvidenceRefs,
-      "InstructionAssemblyRuntimeBasis.compilerEvidenceRefs"
-    )
-  });
-  return Object.freeze({ ...basis, basisDigest: stableSha256Digest(basis) });
 }
 
 function repairAffordance(
@@ -1196,6 +1133,8 @@ function exactSourceOutcome(
 interface ResolvedWorkProgram {
   readonly executionBinding: CatalogExecutionBinding;
   readonly graphFunction: GraphFunction;
+  readonly graphVector: GraphVector;
+  readonly cProgram: AdmittedCProgramDeclarationNode;
   readonly program: HogProgramDeclaration;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
 }
@@ -1206,14 +1145,18 @@ function resolveWorkProgram(input: {
 }): ResolvedWorkProgram {
   const expectedBinding = sourceProgramBinding(input.outcome);
   const bindings = input.catalogBasis.executionBindings.filter(
-    (binding) => binding.graphFunctionId === expectedBinding.hostGraphFunctionRef
+    (binding) =>
+      binding.module.graphFunctions.some(
+        (graphFunction) => graphFunction.id === expectedBinding.hostGraphFunctionRef
+      )
   );
   if (bindings.length !== 1) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-program-binding-mismatch",
       path: "$.catalogBasis.executionBindings",
-      expectedRelation: "one exact catalog-bound work GraphFunction",
-      actualRelation: `resolved ${String(bindings.length)} bindings`,
+      expectedRelation:
+        "one exact catalog-bound Module containing the selected work GraphFunction",
+      actualRelation: `resolved ${String(bindings.length)} containing bindings`,
       evidenceRefs: [expectedBinding.hostGraphFunctionRef]
     });
   }
@@ -1234,7 +1177,19 @@ function resolveWorkProgram(input: {
       evidenceRefs: [executionBinding.entryRef]
     });
   }
-  const graphFunction = executionBinding.graphFunction;
+  const containedGraphFunctions = executionBinding.module.graphFunctions.filter(
+    (graphFunction) => graphFunction.id === expectedBinding.hostGraphFunctionRef
+  );
+  const graphFunction = containedGraphFunctions[0];
+  if (containedGraphFunctions.length !== 1 || graphFunction === undefined) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-program-binding-mismatch",
+      path: "$.catalogBasis.executionBindings[0].module.graphFunctions",
+      expectedRelation: "one exact selected helper GraphFunction in the admitted Module",
+      actualRelation: `resolved ${String(containedGraphFunctions.length)} helper GraphFunctions`,
+      evidenceRefs: [expectedBinding.hostGraphFunctionRef, executionBinding.entryRef]
+    });
+  }
   if (graphFunction.template.kind !== "inline_graph") {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-program-binding-mismatch",
@@ -1311,6 +1266,8 @@ function resolveWorkProgram(input: {
   return Object.freeze({
     executionBinding,
     graphFunction,
+    graphVector: vector,
+    cProgram: admitted.program,
     program: lowered.program,
     programBinding: selection.binding
   });
@@ -1321,7 +1278,10 @@ function validateStageBasis(input: {
   readonly program: HogProgramDeclaration;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly outcome: GraphVectorExecutionHandoffPublished | GraphVectorExecutionHandoffCapabilityBlocked;
-}): HogProgramStage {
+}): {
+  readonly stage: HogProgramStage;
+  readonly computeStageRole: InstructionAssemblyComputeStageRole;
+} {
   const expectedBasis = Object.freeze({
     kind: input.stageBasis.kind,
     programBindingDigest: input.stageBasis.programBindingDigest,
@@ -1349,7 +1309,7 @@ function validateStageBasis(input: {
   const stage = input.program.stages[input.stageBasis.stageIndex];
   const categoryRefs = Object.freeze([...(stage?.instructionCategoryRefs ?? [])]);
   const compositionRegimes = sourceComposition(input.outcome).contract.regimes.filter(
-    (row) => row.stageRole === input.stageBasis.stageRole
+    (row) => row.regime === stage?.defaultRegime
   );
   if (
     stage === undefined ||
@@ -1357,18 +1317,25 @@ function validateStageBasis(input: {
     stage.defaultRegime !== input.stageBasis.regime ||
     stableSha256Digest(stage) !== input.stageBasis.termDigest ||
     !stableJsonEquals(categoryRefs, input.stageBasis.instructionCategoryRefs) ||
-    compositionRegimes.length !== 1 ||
-    compositionRegimes[0]?.regime !== input.stageBasis.regime
+    compositionRegimes.length !== 1
   ) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-stage-basis-invalid",
       path: "$.stageBasis",
-      expectedRelation: "exact index, role, regime, term digest, categories, and composition binding",
+      expectedRelation:
+        "exact index, domain role, regime, term digest, categories, and one regime-matched composition binding",
       actualRelation: "declared stage basis does not match selected program and composition",
       evidenceRefs: [input.stageBasis.basisDigest, input.programBinding.bindingDigest]
     });
   }
-  return stage;
+  const composition = compositionRegimes[0];
+  if (composition === undefined) {
+    throw new TypeError("composition regime resolution failed");
+  }
+  return Object.freeze({
+    stage,
+    computeStageRole: instructionComputeStageRole(composition.stageRole)
+  });
 }
 
 function declarationClosure(input: {
@@ -1522,6 +1489,7 @@ function profileAdmissionDiagnosticId(
 function compileDeclarationProfiles(input: {
   readonly closure: readonly CatalogDeclarationModuleBinding[];
   readonly graphFunction: GraphFunction;
+  readonly graphVector: GraphVector;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly selectedRegime: "F_P" | "F_H";
   readonly stageRole: string;
@@ -1532,6 +1500,11 @@ function compileDeclarationProfiles(input: {
   const projectionRefs = new Set<string>();
   const protocolRefs = new Set<string>();
   const slotRefs = new Set<string>();
+  const selectedInputNodes = selectedSourceNodes({
+    graphFunction: input.graphFunction,
+    graphVector: input.graphVector,
+    programBinding: input.programBinding
+  });
   const activeSlots =
     input.selectedRegime === "F_P"
       ? new Set<ExecutionContextSlot>([
@@ -1577,7 +1550,7 @@ function compileDeclarationProfiles(input: {
           });
         }
         projectionRefs.add(declaration.projectionRef);
-        const sourceNodes = input.graphFunction.inputs.filter(
+        const sourceNodes = selectedInputNodes.filter(
           (node) => node.id === declaration.sourceNodeRef
         );
         const sourceNode = sourceNodes[0];
@@ -1695,6 +1668,7 @@ function compileDeclarationProfiles(input: {
               admitted.declaration.proportionalityPolicyRef,
             runtimeBindingSlotClasses:
               admitted.declaration.runtimeBindingSlotClasses,
+            instructionWorkKind: admitted.declaration.instructionWorkKind,
             policyRefs: admitted.declaration.policyRefs,
             sourceModuleRef: binding.moduleRef,
             sourceModuleDigest: binding.moduleDigest,
@@ -1837,12 +1811,22 @@ function compileStaticContract(input: {
     outcome: input.outcome,
     catalogBasis: input.catalogBasis
   });
-  const stage = validateStageBasis({
+  const stageSelection = validateStageBasis({
     stageBasis: input.stageBasis,
     program: work.program,
     programBinding: work.programBinding,
     outcome: input.outcome
   });
+  const { stage } = stageSelection;
+  if (stage.defaultRegime !== "F_P" && stage.defaultRegime !== "F_H") {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-stage-basis-invalid",
+      path: "$.stageBasis.regime",
+      expectedRelation: "an F_P or F_H stage owned by the declared execution-context join",
+      actualRelation: `received ${stage.defaultRegime}`,
+      evidenceRefs: [input.stageBasis.basisDigest]
+    });
+  }
   const closure = declarationClosure({
     executionBinding: work.executionBinding,
     catalogBasis: input.catalogBasis
@@ -1850,8 +1834,9 @@ function compileStaticContract(input: {
   const profiles = compileDeclarationProfiles({
     closure,
     graphFunction: work.graphFunction,
+    graphVector: work.graphVector,
     programBinding: work.programBinding,
-    selectedRegime: stage.defaultRegime as "F_P" | "F_H",
+    selectedRegime: stage.defaultRegime,
     stageRole: stage.stageRole,
     instructionCategoryRefs: Object.freeze([...(stage.instructionCategoryRefs ?? [])])
   });
@@ -1880,7 +1865,8 @@ function compileStaticContract(input: {
     selectedStageIndex: input.stageBasis.stageIndex,
     selectedStageDigest: stableSha256Digest(stage),
     selectedStageRole: stage.stageRole,
-    selectedRegime: stage.defaultRegime as "F_P" | "F_H",
+    selectedComputeStageRole: stageSelection.computeStageRole,
+    selectedRegime: stage.defaultRegime,
     declarationModuleRefs: Object.freeze(closure.map((binding) => binding.moduleRef)),
     declarationClosureDigest: profiles.declarationClosureDigest,
     fieldRows: profiles.fieldRows,
@@ -1961,6 +1947,7 @@ function admittedFieldValue(input: {
 function bindInvocationValues(input: {
   readonly contract: CompiledExecutionContextContract;
   readonly carriers: AdmittedInvocationCarrierSet;
+  readonly sourceNodes: readonly Node[];
 }): AdmittedExecutionContextValues {
   if (
     input.carriers.kind !== "admitted_invocation_carrier_set" ||
@@ -1975,9 +1962,45 @@ function bindInvocationValues(input: {
     });
   }
   const values = new Map<ExecutionContextSlot, string | readonly string[]>();
-  const usedCarriers = new Map<string, AdmittedInvocationCarrier>();
+  const orderedCarriers = Object.freeze(
+    input.sourceNodes.map((sourceNode) => {
+      const matches = input.carriers.carriers.filter(
+        (carrier) => carrier.sourceNodeRef === sourceNode.id
+      );
+      const carrier = matches[0];
+      if (
+        matches.length !== 1 ||
+        carrier === undefined ||
+        carrier.kind !== "admitted_invocation_carrier" ||
+        carrier.schemaRef !== sourceNode.schema.ref ||
+        carrier.carrierDigest !== stableSha256Digest(carrier.value) ||
+        carrier.admissionRef.length === 0
+      ) {
+        throw new ExecutionContextCompilationError({
+          diagnosticId: "execution-context-carrier-row-invalid",
+          path: "$.invocationCarriers.carriers",
+          expectedRelation:
+            "one digest-valid admitted carrier for every selected source Node and schema",
+          actualRelation: `carrier resolution failed for ${sourceNode.id}`,
+          evidenceRefs: [sourceNode.id],
+          classification: "invalid_runtime_binding"
+        });
+      }
+      return carrier;
+    })
+  );
+  if (orderedCarriers.length !== input.carriers.carriers.length) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-carrier-row-invalid",
+      path: "$.invocationCarriers.carriers",
+      expectedRelation: "exact selected source-carrier closure without extra carriers",
+      actualRelation: `selected ${String(orderedCarriers.length)} of ${String(input.carriers.carriers.length)} carriers`,
+      evidenceRefs: input.sourceNodes.map((node) => node.id),
+      classification: "invalid_runtime_binding"
+    });
+  }
   for (const row of input.contract.fieldRows) {
-    const matches = input.carriers.carriers.filter(
+    const matches = orderedCarriers.filter(
       (carrier) => carrier.sourceNodeRef === row.sourceNodeRef
     );
     const carrier = matches[0];
@@ -2003,7 +2026,6 @@ function bindInvocationValues(input: {
       row
     });
     values.set(row.slot, value);
-    usedCarriers.set(carrier.carrierRef, carrier);
   }
   const stringValue = (slot: ExecutionContextSlot): string | null => {
     const value = values.get(slot);
@@ -2031,7 +2053,6 @@ function bindInvocationValues(input: {
       classification: "invalid_runtime_binding"
     });
   }
-  const orderedCarriers = Object.freeze([...usedCarriers.values()]);
   const valuesBasis = Object.freeze({
     selectionContractRef: stringValue("role_or_worker_selection_ref"),
     configurationDigest: stringValue("configuration_digest"),
@@ -2182,33 +2203,6 @@ function canonicalUniqueStrings(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)].sort());
 }
 
-function exactInstructionAssemblyRuntimeBasis(
-  basis: AdmittedInstructionAssemblyRuntimeBasis | null | undefined
-): AdmittedInstructionAssemblyRuntimeBasis {
-  if (basis === null || basis === undefined) {
-    throw new ExecutionContextCompilationError({
-      diagnosticId: "execution-context-instruction-rule-invalid",
-      path: "$.instructionAssemblyBasis",
-      expectedRelation: "one digest-valid admitted T-183 runtime basis for F_P",
-      actualRelation: "basis is absent"
-    });
-  }
-  const { basisDigest, ...withoutDigest } = basis;
-  if (
-    basis.kind !== "admitted_instruction_assembly_runtime_basis" ||
-    basisDigest !== stableSha256Digest(withoutDigest)
-  ) {
-    throw new ExecutionContextCompilationError({
-      diagnosticId: "execution-context-instruction-rule-invalid",
-      path: "$.instructionAssemblyBasis",
-      expectedRelation: "one canonical admitted T-183 runtime basis",
-      actualRelation: "basis kind or digest differs",
-      evidenceRefs: [basisDigest]
-    });
-  }
-  return basis;
-}
-
 function instructionComputeStageRole(
   role: string
 ): InstructionAssemblyComputeStageRole {
@@ -2221,13 +2215,20 @@ function instructionComputeStageRole(
 
 function selectedSourceNodes(input: {
   readonly graphFunction: GraphFunction;
+  readonly graphVector: GraphVector;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
 }): readonly Node[] {
-  const nodes = input.graphFunction.inputs.filter((node) =>
-    input.programBinding.orderedSourceNodeContractKeys.includes(nodeContractKey(node))
-  );
+  const containingVectors =
+    input.graphFunction.template.kind === "inline_graph"
+      ? input.graphFunction.template.graph.vectors.filter(
+          (vector) => vector.id === input.graphVector.id
+        )
+      : [];
+  const nodes = input.graphVector.source;
   const actualContractKeys = nodes.map((node) => nodeContractKey(node));
   if (
+    input.graphVector.id !== input.programBinding.graphVectorRef ||
+    containingVectors.length !== 1 ||
     !stableJsonEquals(
       actualContractKeys,
       input.programBinding.orderedSourceNodeContractKeys
@@ -2236,7 +2237,8 @@ function selectedSourceNodes(input: {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-instruction-rule-invalid",
       path: "$.instructionAssembly.sourceNodeRefs",
-      expectedRelation: "exact ordered selected C-program source Node closure",
+      expectedRelation:
+        "exact contained GraphVector and ordered selected C-program source Node closure",
       actualRelation: `resolved ordered contract keys ${JSON.stringify(actualContractKeys)}`,
       evidenceRefs: [input.programBinding.bindingDigest]
     });
@@ -2244,69 +2246,244 @@ function selectedSourceNodes(input: {
   return Object.freeze(nodes);
 }
 
-function validateInstructionAssemblyBasis(input: {
-  readonly basis: AdmittedInstructionAssemblyRuntimeBasis;
+function instructionProportionalityClass(
+  program: AdmittedCProgramDeclarationNode
+): InstructionProportionalityClass {
+  const value = program.proportionalityClass;
+  if (value !== "P0" && value !== "P1" && value !== "P2" && value !== "P3") {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-instruction-rule-invalid",
+      path: "$.selectedProgram.proportionalityClass",
+      expectedRelation: "one declared P0, P1, P2, or P3 proportionality class",
+      actualRelation: value === null ? "proportionality is absent" : `received ${value}`,
+      evidenceRefs: [program.programRef]
+    });
+  }
+  return value;
+}
+
+function derivedRuntimeFacts(input: {
+  readonly slotClass: RuntimeBindingSlotClass;
+  readonly sourceNodes: readonly Node[];
+  readonly targetNode: Node;
+  readonly work: ResolvedWorkProgram;
+  readonly carriers: readonly AdmittedInvocationCarrier[];
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly protocol: CompiledInstructionProtocol;
-  readonly stageRef: string;
-}): void {
-  const relevanceRefs = input.basis.relevanceRules.map((row) => row.ruleRef);
-  if (!stableJsonEquals(relevanceRefs, input.protocol.relevancePolicyRefs)) {
-    throw new ExecutionContextCompilationError({
-      diagnosticId: "execution-context-instruction-rule-invalid",
-      path: "$.instructionAssemblyBasis.relevanceRules",
-      expectedRelation: "exact protocol-declared relevance policy order",
-      actualRelation: "relevance rules differ from the admitted protocol",
-      evidenceRefs: input.protocol.relevancePolicyRefs
-    });
-  }
-  if (input.basis.sectionDecisions.length !== input.protocol.sections.length) {
-    throw new ExecutionContextCompilationError({
-      diagnosticId: "execution-context-instruction-rule-invalid",
-      path: "$.instructionAssemblyBasis.sectionDecisions",
-      expectedRelation: "one exact decision per declared protocol section",
-      actualRelation: `received ${String(input.basis.sectionDecisions.length)} decisions`,
-      evidenceRefs: [input.protocol.instructionProtocolRef]
-    });
-  }
-  for (const section of input.protocol.sections) {
-    const matches = input.basis.sectionDecisions.filter(
-      (decision) => decision.sectionRef === section.sectionRef
-    );
-    const decision = matches[0];
-    if (
-      matches.length !== 1 ||
-      decision === undefined ||
-      decision.text !== section.content ||
-      decision.digestRef !== section.contentDigest ||
-      decision.stageRef !== input.stageRef ||
-      (section.required && decision.disposition !== "include")
-    ) {
+}): readonly RuntimeBindingFact[] {
+  const sourceEventRefs = canonicalUniqueStrings([
+    ...input.catalogBasis.admissionEventRefs,
+    ...input.carriers.map((carrier) => carrier.admissionRef)
+  ]);
+  switch (input.slotClass) {
+    case "source_node":
+      return Object.freeze(
+        input.sourceNodes.map((node) => {
+          const carrier = input.carriers.find(
+            (candidate) => candidate.sourceNodeRef === node.id
+          );
+          if (carrier === undefined) {
+            throw new ExecutionContextCompilationError({
+              diagnosticId: "execution-context-carrier-row-invalid",
+              path: "$.invocationCarriers",
+              expectedRelation: "one admitted carrier for each selected source Node",
+              actualRelation: `carrier is absent for ${node.id}`,
+              evidenceRefs: [node.id]
+            });
+          }
+          return Object.freeze({
+            kind: "runtime_binding_fact" as const,
+            slotClass: "source_node" as const,
+            ref: node.id,
+            digest: stableSha256Digest(node),
+            sourceEventRefs: Object.freeze([carrier.admissionRef]),
+            admitted: true,
+            payloadDigest: carrier.carrierDigest
+          });
+        })
+      );
+    case "selected_graph_function":
+      return Object.freeze([
+        Object.freeze({
+          kind: "runtime_binding_fact" as const,
+          slotClass: input.slotClass,
+          ref: input.work.graphFunction.id,
+          digest: stableSha256Digest(input.work.graphFunction),
+          sourceEventRefs,
+          admitted: true
+        })
+      ]);
+    case "vector":
+      return Object.freeze([
+        Object.freeze({
+          kind: "runtime_binding_fact" as const,
+          slotClass: input.slotClass,
+          ref: input.work.graphVector.id,
+          digest: stableSha256Digest(input.work.graphVector),
+          sourceEventRefs,
+          admitted: true
+        })
+      ]);
+    case "target_node":
+      return Object.freeze([
+        Object.freeze({
+          kind: "runtime_binding_fact" as const,
+          slotClass: input.slotClass,
+          ref: input.targetNode.id,
+          digest: stableSha256Digest(input.targetNode),
+          sourceEventRefs,
+          admitted: true
+        })
+      ]);
+    case "input_asset":
+    case "payload":
+      return Object.freeze(
+        input.carriers.map((carrier) =>
+          Object.freeze({
+            kind: "runtime_binding_fact" as const,
+            slotClass: input.slotClass,
+            ref: carrier.carrierRef,
+            digest: carrier.carrierDigest,
+            sourceEventRefs: Object.freeze([carrier.admissionRef]),
+            admitted: true,
+            payloadDigest: carrier.carrierDigest
+          })
+        )
+      );
+    case "policy":
+      return Object.freeze([
+        Object.freeze({
+          kind: "runtime_binding_fact" as const,
+          slotClass: input.slotClass,
+          ref: input.protocol.instructionProtocolRef,
+          digest: input.protocol.protocolDigest,
+          sourceEventRefs,
+          admitted: true
+        })
+      ]);
+    default:
       throw new ExecutionContextCompilationError({
         diagnosticId: "execution-context-instruction-rule-invalid",
-        path: `$.instructionAssemblyBasis.sectionDecisions[${JSON.stringify(section.sectionRef)}]`,
-        expectedRelation: "one exact selected-stage decision over admitted protocol content",
-        actualRelation: "decision identity, text, digest, stage, or required disposition differs",
-        evidenceRefs: [section.sectionRef, section.contentDigest]
+        path: "$.instructionProtocol.runtimeBindingSlotClasses",
+        expectedRelation:
+          "a slot class derivable from selected graph, vector, Node, carrier, or protocol truth",
+        actualRelation: `no T-256 derivation exists for ${input.slotClass}`,
+        evidenceRefs: [input.protocol.instructionProtocolRef]
       });
-    }
   }
-  const slotClasses = input.basis.bindingSlots.map((slot) => slot.slotClass);
-  if (!stableJsonEquals(slotClasses, input.protocol.runtimeBindingSlotClasses)) {
-    throw new ExecutionContextCompilationError({
-      diagnosticId: "execution-context-instruction-rule-invalid",
-      path: "$.instructionAssemblyBasis.bindingSlots",
-      expectedRelation: "exact protocol-declared runtime binding slot-class order",
-      actualRelation: "binding slot classes differ from the admitted protocol",
-      evidenceRefs: [input.protocol.instructionProtocolRef]
-    });
-  }
+}
+
+function deriveInstructionAssemblyRuntimeBasis(input: {
+  readonly work: ResolvedWorkProgram;
+  readonly sourceNodes: readonly Node[];
+  readonly targetNode: Node;
+  readonly protocol: CompiledInstructionProtocol;
+  readonly values: AdmittedExecutionContextValues;
+  readonly invocationCarriers: AdmittedInvocationCarrierSet;
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly stageRef: string;
+}): DerivedInstructionAssemblyRuntimeBasis {
+  const carriers = Object.freeze(
+    input.values.sourceCarrierRefs.map((carrierRef) => {
+      const matches = input.invocationCarriers.carriers.filter(
+        (carrier) => carrier.carrierRef === carrierRef
+      );
+      const carrier = matches[0];
+      if (matches.length !== 1 || carrier === undefined) {
+        throw new ExecutionContextCompilationError({
+          diagnosticId: "execution-context-carrier-row-invalid",
+          path: "$.invocationCarriers",
+          expectedRelation: "one exact carrier retained by admitted context values",
+          actualRelation: `${carrierRef} resolved ${String(matches.length)} times`,
+          evidenceRefs: [input.values.valuesDigest]
+        });
+      }
+      return carrier;
+    })
+  );
+  const sourceNodeRefs = Object.freeze(input.sourceNodes.map((node) => node.id));
+  const carrierRefs = Object.freeze(carriers.map((carrier) => carrier.carrierRef));
+  const relevanceRules = Object.freeze(
+    input.protocol.relevancePolicyRefs.map((ruleRef) =>
+      Object.freeze({
+        ruleRef,
+        requiredInputRefs: sourceNodeRefs,
+        allowFutureStageRefs: Object.freeze([])
+      })
+    )
+  );
+  const sectionDecisions = Object.freeze(
+    input.protocol.sections.map((section) =>
+      constructInstructionSectionDecision({
+        sectionRef: section.sectionRef,
+        disposition: "include",
+        dependencyRefs: sourceNodeRefs,
+        carrierRefs,
+        compressionMode: "full",
+        text: section.content,
+        digestRef: section.contentDigest,
+        excerptDigest: null,
+        fullContentAdmitted: true,
+        stageRef: input.stageRef,
+        gapRefs: []
+      })
+    )
+  );
+  const bindingSlots = Object.freeze(
+    input.protocol.runtimeBindingSlotClasses.map((slotClass) =>
+      constructRuntimeBindingSlot({
+        slotRef: `abg://instruction-slot/${input.stageRef.slice("abg://c-stage/".length)}/${slotClass}`,
+        slotClass,
+        required: true,
+        sourceTruthKind: "admitted_ref",
+        evidenceRefs: canonicalUniqueStrings([
+          input.values.valuesDigest,
+          ...carriers.map((carrier) => carrier.admissionRef)
+        ])
+      })
+    )
+  );
+  const runtimeFacts = Object.freeze(
+    input.protocol.runtimeBindingSlotClasses.flatMap((slotClass) =>
+      derivedRuntimeFacts({
+        slotClass,
+        sourceNodes: input.sourceNodes,
+        targetNode: input.targetNode,
+        work: input.work,
+        carriers,
+        catalogBasis: input.catalogBasis,
+        protocol: input.protocol
+      })
+    )
+  );
+  const basis = Object.freeze({
+    kind: "derived_instruction_assembly_runtime_basis" as const,
+    relevanceRules,
+    sectionDecisions,
+    bindingSlots,
+    runtimeFacts,
+    availableInputRefs: sourceNodeRefs,
+    proportionalityClass: instructionProportionalityClass(input.work.cProgram),
+    expectedAnswerMarkers: Object.freeze([]),
+    instructionWorkKind: input.protocol.instructionWorkKind,
+    dependencyInstructionTruth: null,
+    proofDepthInstructionTruth: null,
+    fpValidationEvidenceRefs: Object.freeze([]),
+    compilerEvidenceRefs: canonicalUniqueStrings([
+      input.work.executionBinding.entryRef,
+      input.protocol.instructionProtocolRef,
+      input.values.valuesDigest,
+      ...carriers.map((carrier) => carrier.admissionRef)
+    ])
+  });
+  return Object.freeze({ ...basis, basisDigest: stableSha256Digest(basis) });
 }
 
 function derivedInstructionTruth(input: {
   readonly sourceNodes: readonly Node[];
   readonly targetNode: Node;
   readonly protocol: CompiledInstructionProtocol;
-  readonly basis: AdmittedInstructionAssemblyRuntimeBasis;
+  readonly basis: DerivedInstructionAssemblyRuntimeBasis;
 }): DerivedInstructionCarrierTruth {
   return Object.freeze({
     kind: "derived_instruction_carrier_truth" as const,
@@ -2316,10 +2493,9 @@ function derivedInstructionTruth(input: {
     targetTypeRefs: Object.freeze([
       input.targetNode.typeRef ?? input.targetNode.schema.ref
     ]),
-    outputContractRefs: canonicalUniqueStrings([
-      ...input.targetNode.assetSurface.outputContractRefs,
-      ...input.protocol.instructionAssetSurface.outputContractRefs
-    ]),
+    outputContractRefs: canonicalUniqueStrings(
+      input.targetNode.assetSurface.outputContractRefs
+    ),
     proofRefs: canonicalUniqueStrings([
       ...input.targetNode.assetSurface.proofObligationRefs,
       ...input.protocol.instructionAssetSurface.proofObligationRefs
@@ -2350,10 +2526,11 @@ function compileCanonicalFpInstructionAssembly(input: {
   readonly work: ResolvedWorkProgram;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly resolved: ResolvedRequestBasis;
-  readonly runtimeBasis: AdmittedInstructionAssemblyRuntimeBasis;
+  readonly invocationCarriers: AdmittedInvocationCarrierSet;
 }): CanonicalFpInstructionAssembly {
   const sourceNodes = selectedSourceNodes({
     graphFunction: input.work.graphFunction,
+    graphVector: input.work.graphVector,
     programBinding: input.work.programBinding
   });
   const targetNode = resolveTargetNode({
@@ -2364,9 +2541,14 @@ function compileCanonicalFpInstructionAssembly(input: {
     programBindingDigest: input.work.programBinding.bindingDigest,
     stageIndex: input.contract.selectedStageIndex
   });
-  validateInstructionAssemblyBasis({
-    basis: input.runtimeBasis,
+  const runtimeBasis = deriveInstructionAssemblyRuntimeBasis({
+    work: input.work,
+    sourceNodes,
+    targetNode,
     protocol: input.resolved.protocol,
+    values: input.values,
+    invocationCarriers: input.invocationCarriers,
+    catalogBasis: input.catalogBasis,
     stageRef
   });
   let rule;
@@ -2384,7 +2566,7 @@ function compileCanonicalFpInstructionAssembly(input: {
           policyRefs: section.policyRefs
         }))
       ),
-      relevanceRules: input.runtimeBasis.relevanceRules,
+      relevanceRules: runtimeBasis.relevanceRules,
       compressionPolicyRef: input.resolved.protocol.compressionPolicyRef,
       proportionalityPolicyRef: input.resolved.protocol.proportionalityPolicyRef,
       runtimeBindingSlotClasses:
@@ -2393,7 +2575,7 @@ function compileCanonicalFpInstructionAssembly(input: {
       evidenceRefs: canonicalUniqueStrings([
         input.contract.contractRef,
         input.values.valuesDigest,
-        input.runtimeBasis.basisDigest
+        runtimeBasis.basisDigest
       ])
     });
   } catch (error: unknown) {
@@ -2417,13 +2599,13 @@ function compileCanonicalFpInstructionAssembly(input: {
     executionContextValuesDigest: input.values.valuesDigest,
     protocolDigest: input.resolved.protocol.protocolDigest,
     stageDigest: input.contract.selectedStageDigest,
-    runtimeBasisDigest: input.runtimeBasis.basisDigest
+    runtimeBasisDigest: runtimeBasis.basisDigest
   });
   const planDigestBasis = stableSha256Digest(planBasis);
   const compileResult = compileInstructionAssemblyPlan({
     planRef: `abg://compiled-prompt-plan/${planDigestBasis.slice("sha256:".length)}`,
     rule,
-    computeStageRole: instructionComputeStageRole(input.contract.selectedStageRole),
+    computeStageRole: input.contract.selectedComputeStageRole,
     graphFunctionRef: input.work.graphFunction.id,
     vectorRef: input.work.programBinding.graphVectorRef,
     registryEntryRefs,
@@ -2433,26 +2615,26 @@ function compileCanonicalFpInstructionAssembly(input: {
       sourceNodes,
       targetNode,
       protocol: input.resolved.protocol,
-      basis: input.runtimeBasis
+      basis: runtimeBasis
     }),
     knownAlgebraRefs: INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS,
     requiredInputRefs: canonicalUniqueStrings(
-      input.runtimeBasis.relevanceRules.flatMap((row) => row.requiredInputRefs)
+      runtimeBasis.relevanceRules.flatMap((row) => row.requiredInputRefs)
     ),
-    availableInputRefs: input.runtimeBasis.availableInputRefs,
-    sectionDecisions: input.runtimeBasis.sectionDecisions,
-    bindingSlots: input.runtimeBasis.bindingSlots,
-    proportionalityClass: input.runtimeBasis.proportionalityClass,
-    expectedAnswerMarkers: input.runtimeBasis.expectedAnswerMarkers,
-    instructionWorkKind: input.runtimeBasis.instructionWorkKind,
-    dependencyInstructionTruth: input.runtimeBasis.dependencyInstructionTruth,
-    proofDepthInstructionTruth: input.runtimeBasis.proofDepthInstructionTruth,
-    fpValidationEvidenceRefs: input.runtimeBasis.fpValidationEvidenceRefs,
+    availableInputRefs: runtimeBasis.availableInputRefs,
+    sectionDecisions: runtimeBasis.sectionDecisions,
+    bindingSlots: runtimeBasis.bindingSlots,
+    proportionalityClass: runtimeBasis.proportionalityClass,
+    expectedAnswerMarkers: runtimeBasis.expectedAnswerMarkers,
+    instructionWorkKind: runtimeBasis.instructionWorkKind,
+    dependencyInstructionTruth: runtimeBasis.dependencyInstructionTruth,
+    proofDepthInstructionTruth: runtimeBasis.proofDepthInstructionTruth,
+    fpValidationEvidenceRefs: runtimeBasis.fpValidationEvidenceRefs,
     compilerEvidenceRefs: canonicalUniqueStrings([
-      ...input.runtimeBasis.compilerEvidenceRefs,
+      ...runtimeBasis.compilerEvidenceRefs,
       input.contract.contractRef,
       input.values.valuesDigest,
-      input.runtimeBasis.basisDigest
+      runtimeBasis.basisDigest
     ])
   });
   if (!compileResult.accepted || compileResult.plan === null) {
@@ -2484,7 +2666,7 @@ function compileCanonicalFpInstructionAssembly(input: {
     envelopeRef: `abg://instruction-envelope/${planDigestBasis.slice("sha256:".length)}`,
     plan: compileResult.plan,
     startupAdmission,
-    runtimeFacts: input.runtimeBasis.runtimeFacts
+    runtimeFacts: runtimeBasis.runtimeFacts
   });
   if (!envelopeResult.accepted || envelopeResult.envelope === null) {
     throw new ExecutionContextCompilationError({
@@ -2590,6 +2772,16 @@ export function joinDeclaredExecutionContext(
   input: JoinDeclaredExecutionContextInput
 ): DeclaredExecutionContextJoinOutcome {
   try {
+    if (Object.prototype.hasOwnProperty.call(input, "instructionAssemblyBasis")) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-instruction-rule-invalid",
+        path: "$.instructionAssemblyBasis",
+        expectedRelation:
+          "instruction assembly truth derived inside the canonical T-183 adapter",
+        actualRelation: "caller-authored instruction assembly truth was supplied",
+        evidenceRefs: []
+      });
+    }
     const outcome = exactSourceOutcome(input.sourceOutcome);
     const compiled = compileStaticContract({
       outcome,
@@ -2621,7 +2813,12 @@ export function joinDeclaredExecutionContext(
     }
     const values = bindInvocationValues({
       contract: compiled.contract,
-      carriers: input.invocationCarriers
+      carriers: input.invocationCarriers,
+      sourceNodes: selectedSourceNodes({
+        graphFunction: compiled.work.graphFunction,
+        graphVector: compiled.work.graphVector,
+        programBinding: compiled.work.programBinding
+      })
     });
     const resolved = resolveRequestBasis({
       outcome,
@@ -2631,9 +2828,6 @@ export function joinDeclaredExecutionContext(
     let request: DeclaredExecutionRequest;
     let instructionAssembly: CanonicalFpInstructionAssembly | null;
     if (compiled.contract.selectedRegime === "F_P") {
-      const runtimeBasis = exactInstructionAssemblyRuntimeBasis(
-        input.instructionAssemblyBasis
-      );
       instructionAssembly = compileCanonicalFpInstructionAssembly({
         outcome,
         contract: compiled.contract,
@@ -2641,7 +2835,7 @@ export function joinDeclaredExecutionContext(
         work: compiled.work,
         catalogBasis: input.catalogBasis,
         resolved,
-        runtimeBasis
+        invocationCarriers: input.invocationCarriers
       });
       request = constructFpRequest({
         outcome,
@@ -2649,14 +2843,6 @@ export function joinDeclaredExecutionContext(
         assembly: instructionAssembly
       });
     } else {
-      if (input.instructionAssemblyBasis !== null && input.instructionAssemblyBasis !== undefined) {
-        throw new ExecutionContextCompilationError({
-          diagnosticId: "execution-context-instruction-rule-invalid",
-          path: "$.instructionAssemblyBasis",
-          expectedRelation: "no F_P instruction-assembly basis on the F_H branch",
-          actualRelation: "F_P basis was supplied for F_H"
-        });
-      }
       instructionAssembly = null;
       request = constructFhRequest({
         outcome,

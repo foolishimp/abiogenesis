@@ -53,5 +53,5 @@ const redeclaredTruth: ExecutionContextProjectionDeclaration = {
 };
 void redeclaredTruth;
 
-const canonicalBasis = joinInput.instructionAssemblyBasis;
-void canonicalBasis;
+// @ts-expect-error instruction assembly truth is derived inside the join.
+joinInput.instructionAssemblyBasis;

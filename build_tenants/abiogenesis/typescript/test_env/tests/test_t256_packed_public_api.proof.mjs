@@ -90,6 +90,8 @@ import { ExecutionContextCompilationError } from "@abiogenesis/typescript-tenant
 import { compileCanonicalFpInstructionAssembly } from "@abiogenesis/typescript-tenant/abg/m03";
 // @ts-expect-error declaration closure remains internal compiler machinery.
 import { declarationClosure } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error instruction assembly truth is derived and has no public constructor.
+import { constructAdmittedInstructionAssemblyRuntimeBasis } from "@abiogenesis/typescript-tenant/abg/m03";
 
 declare const input: JoinDeclaredExecutionContextInput;
 const outcome: DeclaredExecutionContextJoinOutcome = joinDeclaredExecutionContext(input);
@@ -108,6 +110,7 @@ void ABG_CONSENSUS_INSTRUCTION_DECLARATION;
 void ExecutionContextCompilationError;
 void compileCanonicalFpInstructionAssembly;
 void declarationClosure;
+void constructAdmittedInstructionAssemblyRuntimeBasis;
 `
   );
 
@@ -139,4 +142,8 @@ void declarationClosure;
   assert.equal(Object.hasOwn(runtime, "ExecutionContextCompilationError"), false);
   assert.equal(Object.hasOwn(runtime, "compileCanonicalFpInstructionAssembly"), false);
   assert.equal(Object.hasOwn(runtime, "declarationClosure"), false);
+  assert.equal(
+    Object.hasOwn(runtime, "constructAdmittedInstructionAssemblyRuntimeBasis"),
+    false
+  );
 });
