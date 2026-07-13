@@ -1785,3 +1785,5 @@ export type {
 } from "./carriers.js";
 
 export * from "./runtime_catalog.js";
+export * from "./declared_execution_context.js";
+export * from "./consensus_instruction_protocol.js";

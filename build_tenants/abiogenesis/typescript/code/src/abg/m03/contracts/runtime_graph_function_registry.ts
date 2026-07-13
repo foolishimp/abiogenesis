@@ -55,6 +55,7 @@ export interface RuntimeRegistryEntryProjection {
   readonly readinessRefs: readonly string[];
   readonly proofRefs: readonly string[];
   readonly policyRefs: readonly string[];
+  readonly declarationSourceRefs: readonly string[];
   readonly refinementOfEntryRef: string | null;
   readonly overrideOfEntryRef: string | null;
   readonly sourceEventRefs: readonly string[];
@@ -310,6 +311,7 @@ function entryProjectionFromEvent(
     readinessRefs: Object.freeze([...event.readinessRefs]),
     proofRefs: Object.freeze([...event.proofRefs]),
     policyRefs: Object.freeze([...event.policyRefs]),
+    declarationSourceRefs: Object.freeze([...event.declarationSourceRefs]),
     refinementOfEntryRef: event.refinementOfEntryRef,
     overrideOfEntryRef: event.overrideOfEntryRef,
     sourceEventRefs: Object.freeze([sourceEventRef(event)])
@@ -435,6 +437,7 @@ export function admitGtlLibraryEntryDeclaration(input: {
     readinessRefs: input.declaration.readinessRefs,
     proofRefs: input.declaration.proofRefs,
     policyRefs: input.declaration.policyRefs,
+    declarationSourceRefs: input.declaration.declarationSourceRefs,
     refinementOfEntryRef: input.declaration.refinementOfEntryRef,
     overrideOfEntryRef: input.declaration.overrideOfEntryRef,
     causationEventRefs: Object.freeze([...(input.causationEventRefs ?? [])]),

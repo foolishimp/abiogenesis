@@ -470,7 +470,8 @@ test("T-217 RC gate: the installed package exports the downstream consumption su
   assert.deepEqual(payload.subsumedEntries, [
     "gtl://abg/review/multi-reviewer-assessment",
     "gtl://abg/review/findings-to-rulings",
-    "gtl://abg/consensus/submitter-reviewer-rounds"
+    "gtl://abg/consensus/submitter-reviewer-rounds",
+    "gtl://abg/consensus/instruction-protocol-declarations"
   ]);
   assert.deepEqual(payload.tunerEntries, ["gtl://abg/tuner/default-loop"]);
   assert.deepEqual(payload.observerExports, [

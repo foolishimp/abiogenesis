@@ -1844,6 +1844,9 @@
         "fibres": [
           "F_P"
         ],
+        "stageRoles": [
+          "invoke_attributed_reviewer"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1853,6 +1856,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "project_exact_panel_facts"
         ],
         "instructionCategoryRefs": []
       },
@@ -1864,6 +1870,9 @@
         "fibres": [
           "F_D"
         ],
+        "stageRoles": [
+          "expand_panel"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1873,6 +1882,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "project_reducer_binding"
         ],
         "instructionCategoryRefs": []
       },
@@ -1884,6 +1896,9 @@
         "fibres": [
           "F_D"
         ],
+        "stageRoles": [
+          "project_submitter_binding"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1893,6 +1908,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "project_fh_binding"
         ],
         "instructionCategoryRefs": []
       },
@@ -1904,6 +1922,7 @@
           "gtl-c-unrealized-workflow-lift"
         ],
         "fibres": [],
+        "stageRoles": [],
         "instructionCategoryRefs": []
       },
       {
@@ -1914,6 +1933,7 @@
           "gtl-c-unrealized-workflow-lift"
         ],
         "fibres": [],
+        "stageRoles": [],
         "instructionCategoryRefs": []
       },
       {
@@ -1923,6 +1943,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_P"
+        ],
+        "stageRoles": [
+          "reduce_round"
         ],
         "instructionCategoryRefs": []
       },
@@ -1934,6 +1957,9 @@
         "fibres": [
           "F_D"
         ],
+        "stageRoles": [
+          "route_initial_closed"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1943,6 +1969,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_P"
+        ],
+        "stageRoles": [
+          "submitter_response"
         ],
         "instructionCategoryRefs": []
       },
@@ -1954,6 +1983,9 @@
         "fibres": [
           "F_H"
         ],
+        "stageRoles": [
+          "hold_initial_for_fh"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1963,6 +1995,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_P"
+        ],
+        "stageRoles": [
+          "reassess_round"
         ],
         "instructionCategoryRefs": []
       },
@@ -1974,6 +2009,9 @@
         "fibres": [
           "F_D"
         ],
+        "stageRoles": [
+          "route_post_closed"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -1983,6 +2021,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "route_post_recurse"
         ],
         "instructionCategoryRefs": []
       },
@@ -1994,6 +2035,9 @@
         "fibres": [
           "F_H"
         ],
+        "stageRoles": [
+          "hold_post_for_fh"
+        ],
         "instructionCategoryRefs": []
       },
       {
@@ -2003,6 +2047,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "seed_round"
         ],
         "instructionCategoryRefs": []
       },
@@ -2014,6 +2061,7 @@
           "gtl-c-unrealized-workflow-lift"
         ],
         "fibres": [],
+        "stageRoles": [],
         "instructionCategoryRefs": []
       },
       {
@@ -2023,6 +2071,9 @@
         "diagnosticIds": [],
         "fibres": [
           "F_D"
+        ],
+        "stageRoles": [
+          "project_closed_result"
         ],
         "instructionCategoryRefs": []
       }
@@ -2639,16 +2690,19 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 12,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 10,
+    "activeOwnedButNotObservedFamilyCount": 2,
+    "activeOwnedButNotObservedFamilies": [
+      "carrier_field_indirection",
+      "declared_instruction_protocol_join"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 12,
-    "observedGapEvidenceDigest": "sha256:a46f9e7f624c8f0147ea7aa5fc9a4079d6272392afb5818548ef05f01b2305d6",
+    "observedGapFamilyCount": 10,
+    "observedGapEvidenceDigest": "sha256:839f8fe5bbce94d5a5b4b9d434e854a95efcc190abc9a9874532cfc3b88c7242",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -2680,76 +2734,6 @@
         "ticket:T-252"
       ],
       "evidenceDigest": "sha256:de78f73967dcf78fea34d4b985a36577a089fe5664e5d5fb48df2744b816e758"
-    },
-    {
-      "gapFamily": "carrier_field_indirection",
-      "ownerTicket": "T-256",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-carrier-field-indirection"
-      ],
-      "canonicalBodyPaths": [
-        "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
-        "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
-        "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
-        "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
-        "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
-        "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
-        "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
-        "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
-        "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
-        "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]"
-      ],
-      "observationSources": [
-        "structure:graph-vector-binding-carriers"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-P-CONSENSUS-004..008A",
-        "ticket-source:.ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
-        "ticket:T-256"
-      ],
-      "authorityDigest": "sha256:bceaa6f28306b7177e275b653f81daf376faedadf1e0a269257c601766374287",
-      "actualRelation": "typed binding carriers are graph inputs while no admitted runtime field-resolution contract is present",
-      "actualRelationDigest": "sha256:bfa9809bfeb5444a9354eec0bda7d194b7361e6fcb28100f3b0b288a1989d31d",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "declared_instruction_protocol_join",
-      "ownerTicket": "T-256",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-declared-instruction-protocol-join"
-      ],
-      "canonicalBodyPaths": [
-        "programs[0:program://abg/consensus/review-one-profile]",
-        "programs[10:program://abg/consensus/submitter-response]",
-        "programs[11:program://abg/consensus/fh-initial]",
-        "programs[12:program://abg/consensus/reassess-round]",
-        "programs[15:program://abg/consensus/fh-post-submitter]",
-        "programs[8:program://abg/consensus/reduce-round]"
-      ],
-      "observationSources": [
-        "structure:declared-fp-fh-c-stages"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-P-CONSENSUS-010..012",
-        "ticket-source:.ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
-        "ticket:T-256"
-      ],
-      "authorityDigest": "sha256:6355246ffcc7b634beded671d3cc94c6bbc67e94401394bb467d173c9039141b",
-      "actualRelation": "declared F_P and F_H stages have no admitted generic instruction/protocol request join",
-      "actualRelationDigest": "sha256:805b937bb8cb154f17776630984c9a505d882ac6b5ac35985553e705c0b9743a",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     },
     {
       "gapFamily": "fh_pending_runtime_hold",
@@ -3183,5 +3167,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb"
+  "manifestDigest": "sha256:3886a094fa37e148afd0540f52f796576090b1a6b8663d2892321a1c773193fd"
 }

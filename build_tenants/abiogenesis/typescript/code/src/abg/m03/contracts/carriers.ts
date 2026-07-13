@@ -2845,6 +2845,7 @@ export interface RegistryEntryAdmittedRuntimeEvent {
   readonly readinessRefs: readonly string[];
   readonly proofRefs: readonly string[];
   readonly policyRefs: readonly string[];
+  readonly declarationSourceRefs: readonly string[];
   readonly refinementOfEntryRef: string | null;
   readonly overrideOfEntryRef: string | null;
   readonly causationEventRefs: readonly string[];

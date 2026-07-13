@@ -527,9 +527,9 @@ test("T-217 P3.5: the subsumed families are catalog citizens — system-scope de
     "../../build/semantic/code/src/abg/m03/contracts/runtime_graph_function_registry.js"
   );
 
-  // the declared families: review (assessment + ruling reduction) and
-  // consensus (governed rounds), all system scope under gtl://abg/*
-  assert.equal(ABG_SUBSUMED_MODULE_DECLARATIONS.length, 3);
+  // The three callable review/consensus families and the non-invoking
+  // Consensus instruction declaration carrier are all system catalog citizens.
+  assert.equal(ABG_SUBSUMED_MODULE_DECLARATIONS.length, 4);
   for (const declaration of ABG_SUBSUMED_MODULE_DECLARATIONS) {
     assert.equal(declaration.libraryScope, "system");
     assert.match(declaration.entryRef, /^gtl:\/\/abg\/(review|consensus)\//u);

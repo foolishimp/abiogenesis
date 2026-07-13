@@ -234,10 +234,23 @@ export interface CatalogExecutionBinding {
   readonly graphFunctionHandle: string;
   readonly graphFunctionId: string;
   readonly graphFunctionDigest: string;
+  readonly declarationSourceRefs: readonly string[];
   readonly readinessRefs: readonly string[];
   readonly sourceEventRefs: readonly string[];
   readonly module: Module;
   readonly graphFunction: GraphFunction;
+}
+
+export interface CatalogDeclarationModuleBinding {
+  readonly kind: "catalog_declaration_module_binding";
+  readonly moduleRef: string;
+  readonly moduleName: string;
+  readonly moduleDigest: string;
+  readonly sourceEntryRefs: readonly string[];
+  readonly sourceDeclarationRefs: readonly string[];
+  readonly sourceEventRefs: readonly string[];
+  readonly invocationAuthority: false;
+  readonly module: Module;
 }
 
 export interface AdmittedRuntimeCatalogBasis {
@@ -255,6 +268,7 @@ export interface AdmittedRuntimeCatalogBasis {
   readonly productStartupConfigRefs: readonly string[];
   readonly projection: RuntimeCatalogProjection;
   readonly executionBindings: readonly CatalogExecutionBinding[];
+  readonly declarationModuleBindings: readonly CatalogDeclarationModuleBinding[];
 }
 
 export type CatalogRowDispositionKind =
@@ -1277,6 +1291,7 @@ function catalogExecutionBinding(input: {
     graphFunctionHandle: projected.graphFunctionRef,
     graphFunctionId: input.resolution.graphFunction.id,
     graphFunctionDigest: stableSha256Digest(input.resolution.graphFunction),
+    declarationSourceRefs: projected.declarationSourceRefs,
     readinessRefs: projected.readinessRefs,
     sourceEventRefs: projected.sourceEventRefs,
     module: input.resolution.module,
@@ -1307,6 +1322,7 @@ function catalogExecutionBindingIdentity(
     graphFunctionHandle: binding.graphFunctionHandle,
     graphFunctionId: binding.graphFunctionId,
     graphFunctionDigest: binding.graphFunctionDigest,
+    declarationSourceRefs: binding.declarationSourceRefs,
     readinessRefs: binding.readinessRefs,
     sourceEventRefs: binding.sourceEventRefs
   });
@@ -1338,6 +1354,10 @@ function executionBindingMatchesRegistryEntry(
     binding.declarationRef !== entry.declarationRef ||
     binding.declarationDigest !== entry.declarationDigest ||
     binding.graphFunctionHandle !== entry.graphFunctionRef ||
+    binding.declarationSourceRefs.length !== entry.declarationSourceRefs.length ||
+    binding.declarationSourceRefs.some(
+      (ref, index) => ref !== entry.declarationSourceRefs[index]
+    ) ||
     binding.readinessRefs.length !== entry.readinessRefs.length ||
     binding.readinessRefs.some((ref, index) => ref !== entry.readinessRefs[index]) ||
     binding.moduleDigest !== stableSha256Digest(binding.module) ||
@@ -1359,14 +1379,93 @@ function executionBindingMatchesRegistryEntry(
   }
 }
 
+function freezeSortedUnique(values: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(values)].sort(codepointCompare));
+}
+
+function addDeclarationModuleBinding(input: {
+  readonly bindings: Map<string, CatalogDeclarationModuleBinding>;
+  readonly row: RuntimeLibraryCatalogAdmissionDeclaration;
+  readonly resolution: RuntimeLibraryResolution;
+  readonly projection: RuntimeCatalogProjection;
+}): void {
+  const projected = input.projection.runtimeRegistryProjection.entries.find(
+    (entry) => entry.entryRef === input.row.declaration.entryRef
+  );
+  if (
+    projected === undefined ||
+    projected.declarationRef !== input.row.declaration.declarationRef ||
+    projected.declarationDigest !== stableSha256Digest(input.row.declaration) ||
+    !projected.declarationSourceRefs.includes(input.row.moduleRef)
+  ) {
+    throw new TypeError(
+      `CatalogDeclarationModuleBinding requires matching replay truth for ${JSON.stringify(input.row.moduleRef)}`
+    );
+  }
+  const moduleDigest = stableSha256Digest(input.resolution.module);
+  const existing = input.bindings.get(input.row.moduleRef);
+  if (
+    existing !== undefined &&
+    (existing.moduleName !== input.resolution.module.name ||
+      existing.moduleDigest !== moduleDigest)
+  ) {
+    throw new TypeError(
+      `CatalogDeclarationModuleBinding identity conflicts for ${JSON.stringify(input.row.moduleRef)}`
+    );
+  }
+  input.bindings.set(
+    input.row.moduleRef,
+    Object.freeze({
+      kind: "catalog_declaration_module_binding" as const,
+      moduleRef: input.row.moduleRef,
+      moduleName: input.resolution.module.name,
+      moduleDigest,
+      sourceEntryRefs: freezeSortedUnique([
+        ...(existing?.sourceEntryRefs ?? []),
+        projected.entryRef
+      ]),
+      sourceDeclarationRefs: freezeSortedUnique([
+        ...(existing?.sourceDeclarationRefs ?? []),
+        projected.declarationRef
+      ]),
+      sourceEventRefs: freezeSortedUnique([
+        ...(existing?.sourceEventRefs ?? []),
+        ...projected.sourceEventRefs
+      ]),
+      invocationAuthority: false as const,
+      module: input.resolution.module
+    })
+  );
+}
+
+function declarationModuleBindingIdentity(
+  binding: CatalogDeclarationModuleBinding
+): Readonly<Record<string, unknown>> {
+  return Object.freeze({
+    moduleRef: binding.moduleRef,
+    moduleName: binding.moduleName,
+    moduleDigest: binding.moduleDigest,
+    sourceEntryRefs: binding.sourceEntryRefs,
+    sourceDeclarationRefs: binding.sourceDeclarationRefs,
+    sourceEventRefs: binding.sourceEventRefs,
+    invocationAuthority: binding.invocationAuthority
+  });
+}
+
 function constructAdmittedRuntimeCatalogBasis(input: {
   readonly batch: BoundCatalogAdmissionBatch;
   readonly projection: RuntimeCatalogProjection;
   readonly executionBindings: readonly CatalogExecutionBinding[];
+  readonly declarationModuleBindings: readonly CatalogDeclarationModuleBinding[];
 }): AdmittedRuntimeCatalogBasis {
   const executionBindings = Object.freeze(
     [...input.executionBindings].sort((left, right) =>
       codepointCompare(left.entryRef, right.entryRef)
+    )
+  );
+  const declarationModuleBindings = Object.freeze(
+    [...input.declarationModuleBindings].sort((left, right) =>
+      codepointCompare(left.moduleRef, right.moduleRef)
     )
   );
   const descriptorRefs = Object.freeze(
@@ -1391,7 +1490,10 @@ function constructAdmittedRuntimeCatalogBasis(input: {
     descriptorRefs,
     contributionManifestRefs,
     productStartupConfigRefs,
-    executionBindings: executionBindings.map(catalogExecutionBindingIdentity)
+    executionBindings: executionBindings.map(catalogExecutionBindingIdentity),
+    declarationModuleBindings: declarationModuleBindings.map(
+      declarationModuleBindingIdentity
+    )
   });
   return Object.freeze({
     kind: "admitted_runtime_catalog_basis",
@@ -1407,7 +1509,8 @@ function constructAdmittedRuntimeCatalogBasis(input: {
     contributionManifestRefs,
     productStartupConfigRefs,
     projection: input.projection,
-    executionBindings
+    executionBindings,
+    declarationModuleBindings
   });
 }
 
@@ -1428,6 +1531,10 @@ export function admitBoundWorkspaceCatalog(
   const admissionEvents: CanonicalCatalogAdmissionEvent[] = [];
   const rowDispositions: CatalogRowDisposition[] = [];
   const executionBindings = new Map<string, CatalogExecutionBinding>();
+  const declarationModuleBindings = new Map<
+    string,
+    CatalogDeclarationModuleBinding
+  >();
   let projection = projectRuntimeCatalog({
     workspaceId: batch.workspaceId,
     bindingId: batch.bindingId,
@@ -1521,6 +1628,12 @@ export function admitBoundWorkspaceCatalog(
           })
         );
       }
+      addDeclarationModuleBinding({
+        bindings: declarationModuleBindings,
+        row,
+        resolution,
+        projection
+      });
       return;
     }
     const emitted = emitAdmission(
@@ -1557,6 +1670,14 @@ export function admitBoundWorkspaceCatalog(
           ...(productBatch === undefined ? {} : { productBatch })
         })
       );
+    }
+    if (emitted.kind === "registry_entry_admitted") {
+      addDeclarationModuleBinding({
+        bindings: declarationModuleBindings,
+        row,
+        resolution,
+        projection
+      });
     }
   };
 
@@ -1652,14 +1773,22 @@ export function admitBoundWorkspaceCatalog(
       const binding = executionBindings.get(entry.entryRef);
       return binding !== undefined && executionBindingMatchesRegistryEntry(binding, entry);
     });
+  const declarationSourceCoverage =
+    projection.runtimeRegistryProjection.entries.every((entry) =>
+      entry.declarationSourceRefs.every((sourceRef) =>
+        declarationModuleBindings.has(sourceRef)
+      )
+    );
   const accepted =
     rowDispositions.every((row) => row.disposition !== "rejected") &&
-    bindingCoverage;
+    bindingCoverage &&
+    declarationSourceCoverage;
   const basis = accepted
     ? constructAdmittedRuntimeCatalogBasis({
         batch,
         projection,
-        executionBindings: [...executionBindings.values()]
+        executionBindings: [...executionBindings.values()],
+        declarationModuleBindings: [...declarationModuleBindings.values()]
       })
     : null;
 

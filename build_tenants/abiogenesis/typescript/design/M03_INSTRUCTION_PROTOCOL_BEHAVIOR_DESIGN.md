@@ -1,6 +1,6 @@
 # M03 Declared Execution Context And Instruction Protocol Behavior Design
 
-**Status**: Repaired candidate three-view design; implementation blocked pending independent re-review and explicit F_H acceptance
+**Status**: Accepted three-view design; implementation realized and pending independent closure review
 **Date**: 2026-07-13
 **Ticket**: T-256
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
@@ -1324,19 +1324,18 @@ exist but code-owned text can still dispatch is non-closure.
 - request construction treated as dispatch, F_H admission, event truth,
   traversal closeability, or closure;
 - T-252 body bytes changed merely to host companion declaration data; or
-- implementation beginning before independent review and explicit F_H
-  acceptance.
+- implementation diverging from this accepted design without lawful re-entry.
 
 ## Design Verdict
 
-**Repaired candidate; implementation blocked.** The three views and axiom
-evaluation now define the same bounded relation. The design reuses existing
-GTL carriers, keeps one module/catalog authority path, derives rather than
-redeclares source/type/regime truth, joins the canonical T-183 instruction
-path, and preserves all downstream gates.
+**Accepted; implementation realized.** Explicit F_H acceptance on 2026-07-13
+authorized this bounded design. The realization reuses existing GTL carriers,
+keeps one module/catalog authority path, derives rather than redeclares
+source/type/regime truth, joins the canonical T-183 instruction path, and
+preserves all downstream gates.
 
-Independent re-review must challenge the repaired Rule-profile decision,
-wire/native vocabulary, stateless declaration resolution, canonical T-183 bridge,
-field-path law, target/result compatibility, capability join, lifecycle
-ownership, and unchanged T-252 body claim. Only explicit F_H acceptance may
-change this verdict to `accepted` and admit implementation.
+Independent closure review must challenge the Rule-profile decision,
+wire/native vocabulary, stateless declaration resolution, canonical T-183
+bridge, field-path law, target/result compatibility, capability join,
+lifecycle ownership, unchanged T-252 body claim, and the retained T-267/T-268
+blocks.

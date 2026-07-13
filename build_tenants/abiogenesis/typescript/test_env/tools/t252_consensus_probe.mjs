@@ -15,6 +15,13 @@ import { compileGraphVectorExecutionHandoff } from "../../build/semantic/code/sr
 import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
+import {
+  admitExecutionContextProjectionRule,
+  admitInstructionProtocolRule
+} from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
+import {
+  ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE
+} from "../../build/semantic/code/src/abg/m03/contracts/consensus_instruction_protocol.js";
 import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts/carriers.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
@@ -267,10 +274,14 @@ function gapEvidenceRow(input) {
   });
 }
 
-function cTermFacts(term, facts = { fibres: [], instructionCategoryRefs: [] }) {
+function cTermFacts(
+  term,
+  facts = { fibres: [], instructionCategoryRefs: [], stageRoles: [] }
+) {
   switch (term.kind) {
     case "c_of":
       facts.fibres.push(term.fibre);
+      facts.stageRoles.push(term.stageRole);
       facts.instructionCategoryRefs.push(...(term.instructionCategoryRefs ?? []));
       break;
     case "c_compose":
@@ -567,6 +578,7 @@ async function buildManifest() {
       accepted: compilation.accepted,
       diagnosticIds: compilation.diagnostics.map((row) => row.diagnosticId),
       fibres: sortedUnique(termFacts.fibres),
+      stageRoles: sortedUnique(termFacts.stageRoles),
       instructionCategoryRefs: sortedUnique(termFacts.instructionCategoryRefs)
     };
   });
@@ -725,7 +737,11 @@ async function buildManifest() {
   const rowsForFibre = (fibre, diagnosticId) =>
     nestedProgramRows
       .filter((row) => row.fibres.includes(fibre))
-      .map((row) => ({ diagnosticId, path: row.path }));
+      .map((row) => ({
+        diagnosticId,
+        path: row.path,
+        stageRoles: row.stageRoles
+      }));
 
   observeGap(
     observedGapEvidence,
@@ -758,14 +774,29 @@ async function buildManifest() {
     actualRelation:
       "TraversalUnit execution, result-interface, and conservation rows are absent from the submitted structure"
   });
+  const projectionSourceRefs = new Set(
+    ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules
+      .filter((rule) => rule.kind === "gtl.execution_context_projection")
+      .map((rule) => admitExecutionContextProjectionRule(rule).declaration.sourceNodeRef)
+  );
+  const protocolStageRoles = new Set(
+    ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules
+      .filter((rule) => rule.kind === "gtl.instruction_protocol")
+      .flatMap(
+        (rule) => admitInstructionProtocolRule(rule).declaration.allowedStageRoles
+      )
+  );
   const bindingCarrierRows = graphFunctions.flatMap((graphFunction) =>
     vectors(graphFunction).flatMap((vector, index) =>
-      vector.source.some((node) => node.name.endsWith("Binding"))
-        ? [{
+      vector.source
+        .filter(
+          (node) =>
+            node.name.endsWith("Binding") && !projectionSourceRefs.has(node.id)
+        )
+        .map((node) => ({
             diagnosticId: "coverage-carrier-field-indirection",
-            path: `module.graphFunctions[${graphFunction.name}].vectors[${index}:${vector.name}]`
-          }]
-        : []
+            path: `module.graphFunctions[${graphFunction.name}].vectors[${index}:${vector.name}].source[${node.name}]`
+          }))
     )
   );
   observeGap(observedGapEvidence, "carrier_field_indirection", {
@@ -778,10 +809,16 @@ async function buildManifest() {
   const fpRows = rowsForFibre("F_P", "coverage-fp-result-contract-admission");
   const fhRows = rowsForFibre("F_H", "coverage-fh-pending-runtime-hold");
   observeGap(observedGapEvidence, "declared_instruction_protocol_join", {
-    rows: [...fpRows, ...fhRows].map((row) => ({
-      diagnosticId: "coverage-declared-instruction-protocol-join",
-      path: row.path
-    })),
+    rows: [...fpRows, ...fhRows]
+      .filter(
+        (row) =>
+          row.stageRoles.length === 0 ||
+          row.stageRoles.some((role) => !protocolStageRoles.has(role))
+      )
+      .map((row) => ({
+        diagnosticId: "coverage-declared-instruction-protocol-join",
+        path: row.path
+      })),
     observationSources: ["structure:declared-fp-fh-c-stages"],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:

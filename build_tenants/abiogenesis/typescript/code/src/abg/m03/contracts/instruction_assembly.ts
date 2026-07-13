@@ -83,28 +83,32 @@ export type InstructionAssemblyComputeStageRole =
   | "consequence"
   | "human_callout";
 
-export type RuntimeBindingSlotClass =
-  | "graph_call"
-  | "frame"
-  | "vector"
-  | "selected_graph_function"
-  | "source_node"
-  | "target_node"
-  | "input_asset"
-  | "payload"
-  | "evidence"
-  | "prior_artifact"
-  | "residual"
-  | "continuation"
-  | "reentry"
-  | "policy"
+export const RUNTIME_BINDING_SLOT_CLASS_VALUES = Object.freeze([
+  "graph_call",
+  "frame",
+  "vector",
+  "selected_graph_function",
+  "source_node",
+  "target_node",
+  "input_asset",
+  "payload",
+  "evidence",
+  "prior_artifact",
+  "residual",
+  "continuation",
+  "reentry",
+  "policy",
   // REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH-007 (T-030 reopen): active
   // requirement obligation pressure for the current vector, ENGINE-derived
   // from admitted route + carry-through startup truth — never product-
   // assembled into plans.
-  | "requirement_pressure"
-  | "worker_invocation"
-  | "event_log";
+  "requirement_pressure",
+  "worker_invocation",
+  "event_log"
+] as const);
+
+export type RuntimeBindingSlotClass =
+  (typeof RUNTIME_BINDING_SLOT_CLASS_VALUES)[number];
 
 export type RuntimeBindingSourceTruthKind =
   | "admitted_ref"

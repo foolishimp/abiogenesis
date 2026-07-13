@@ -3160,6 +3160,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       readinessRefs: "string_array",
       proofRefs: "string_array",
       policyRefs: "string_array",
+      declarationSourceRefs: "string_array",
       refinementOfEntryRef: "nullable_string",
       overrideOfEntryRef: "nullable_string",
       causationEventRefs: "string_array",

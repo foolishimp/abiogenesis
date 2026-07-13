@@ -261,6 +261,9 @@ import {
   constructDefaultInstructionAssemblyStartupForBasis
 } from "../contracts/default_instruction_startup.js";
 import {
+  catalogExecutionBindingDeclaresExecutionContext
+} from "../contracts/declared_execution_context.js";
+import {
   constructExecutivePressureFactProjectedEvent,
   type ExecutiveContinuationInputProjection,
   type ProjectExecutiveObservationViewInput
@@ -10936,11 +10939,29 @@ function assertEngineStartRuntimeCatalogBasis(
   return binding;
 }
 
+function assertDeclaredExecutionContextStartupBlocked(input: {
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly binding: CatalogExecutionBinding;
+}): void {
+  if (
+    catalogExecutionBindingDeclaresExecutionContext({
+      executionBinding: input.binding,
+      catalogBasis: input.catalogBasis
+    })
+  ) {
+    throw new TypeError(
+      "declared_execution_context_startup_blocked_awaiting_t267: " +
+        "profile-aware catalog work cannot use code-authored instruction startup"
+    );
+  }
+}
+
 function defaultCatalogInstructionAssemblyStartup(input: {
   readonly basis: ExecutionBasis;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly binding: CatalogExecutionBinding;
 }): EngineInstructionAssemblyStartupInput {
+  assertDeclaredExecutionContextStartupBlocked(input);
   const entry = input.catalogBasis.projection.runtimeRegistryProjection.entries.find(
     (candidate) =>
       candidate.entryRef === input.binding.entryRef &&
@@ -11005,6 +11026,17 @@ function assertEngineIterateRuntimeCatalogBasis(
       "runtimeCatalogBasis execution binding does not match the admitted execution basis"
     );
   }
+  if (
+    catalogExecutionBindingDeclaresExecutionContext({
+      executionBinding: binding,
+      catalogBasis: request.runtimeCatalogBasis
+    })
+  ) {
+    throw new TypeError(
+      "declared_execution_context_startup_blocked_awaiting_t267: " +
+        "profile-aware catalog work cannot enter engine iteration"
+    );
+  }
 }
 
 export function runEngineIterate(
@@ -11061,6 +11093,12 @@ export async function runEngineIterateAsync(
 
 export function runEngineStart(request: EngineStartRequest): EngineIterateResult {
   const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
+  if (catalogBinding !== null && request.runtimeCatalogBasis !== undefined) {
+    assertDeclaredExecutionContextStartupBlocked({
+      catalogBasis: request.runtimeCatalogBasis,
+      binding: catalogBinding
+    });
+  }
   const basis = admitExecutionBasis(request);
   const instructionAssemblyStartup = request.instructionAssemblyStartup ??
     (catalogBinding === null || request.runtimeCatalogBasis === undefined
@@ -11098,6 +11136,12 @@ export async function runEngineStartAsync(
   request: EngineStartRequest
 ): Promise<EngineIterateResult> {
   const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
+  if (catalogBinding !== null && request.runtimeCatalogBasis !== undefined) {
+    assertDeclaredExecutionContextStartupBlocked({
+      catalogBasis: request.runtimeCatalogBasis,
+      binding: catalogBinding
+    });
+  }
   const basis = admitExecutionBasis(request);
   const instructionAssemblyStartup = request.instructionAssemblyStartup ??
     (catalogBinding === null || request.runtimeCatalogBasis === undefined

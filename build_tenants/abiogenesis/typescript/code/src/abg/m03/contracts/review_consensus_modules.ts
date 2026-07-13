@@ -29,6 +29,10 @@
 
 import type { GtlLibraryEntryDeclaration } from "../../../gtl/m02/contracts/runtime_registry.js";
 import { constructGtlLibraryEntryDeclaration } from "../../../gtl/m02/contracts/runtime_registry.js";
+import {
+  ABG_CONSENSUS_INSTRUCTION_DECLARATION,
+  CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
+} from "./consensus_instruction_protocol.js";
 
 export const ABG_REVIEW_MODULE_NAMESPACE = "abg.review";
 export const ABG_CONSENSUS_MODULE_NAMESPACE = "abg.consensus";
@@ -129,12 +133,16 @@ export const ABG_CONSENSUS_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclarat
         "proof://abg/consensus/close-or-recurse-terminates-differential"
       ],
       policyRefs: ["policy://abg/consensus/recursion-stops-by-declared-law"],
-      declarationSourceRefs: ["gtl://module/abg/consensus"]
+      declarationSourceRefs: [
+        "gtl://module/abg/consensus",
+        CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
+      ]
     })
   ]);
 
 export const ABG_SUBSUMED_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclaration[] =
   Object.freeze([
     ...ABG_REVIEW_MODULE_DECLARATIONS,
-    ...ABG_CONSENSUS_MODULE_DECLARATIONS
+    ...ABG_CONSENSUS_MODULE_DECLARATIONS,
+    ABG_CONSENSUS_INSTRUCTION_DECLARATION
   ]);
