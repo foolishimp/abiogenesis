@@ -22,7 +22,7 @@ const REGISTER_PATH = path.join(
 const RENDERER_PATH = path.join(TENANT_ROOT, "node_modules", ".bin", "mmdc");
 const CONFIG_PATH = path.join(GATE_DIR, "mermaid.config.json");
 const EXPECTED_RENDERER_VERSION = "11.3.0";
-const EXPECTED_REGISTERED_FILE_COUNT = 10;
+const EXPECTED_REGISTERED_FILE_COUNT = 11;
 const EXPECTED_VIEW_TYPES = Object.freeze([
   "classDiagram",
   "sequenceDiagram",

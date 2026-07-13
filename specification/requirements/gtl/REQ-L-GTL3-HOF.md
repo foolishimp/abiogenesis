@@ -44,3 +44,40 @@ to existing lawful GTL higher-order operations or be repriced into new
 requirements before implementation. Informal zoom or fold vocabulary shall not
 authorize hidden interpreter heuristics, unowned registers, or duplicate graph
 algebra.
+
+**REQ-L-GTL3-HOF-009**: **Pointwise batch projection.** Runtime realization of an
+admitted `fan_out` relation shall project one admitted non-empty ordered input
+vector into one `C.batch` task per input member. Each task shall preserve the
+declared child GraphFunction, exact member input/output contracts, original
+zero-based ordinal, member lineage, and the enclosing declared C-call program,
+stage, fibre, arm, and composition authority. The batch ref groups tasks but is
+not a call, scheduler, or closure authority. Serial execution is a lawful
+realization of the same projection; concurrency shall not be inferred from
+`fan_out` or `C.batch`.
+
+**REQ-L-GTL3-HOF-010**: **Fan-out result and failure law.** A fan-out output vector
+shall be admitted only when every projected task completes exactly once with
+the declared output-member contract and the output rows preserve input
+cardinality and ordinal. Completion order shall not change output order or
+attribution. If a member is blocked, held, malformed, or runtime-failed, ABG
+shall preserve completed-member evidence, identify the stopping ordinal and
+unstarted tasks, admit no output vector, and permit no downstream fan-in or
+graph-success projection from that invocation.
+
+**REQ-L-GTL3-HOF-011**: **Typed fan-in runtime.** Runtime realization of an
+admitted `fan_in` relation shall consume one complete admitted vector matching
+the declared vector node and contract, preserve its basis, cardinality,
+ordinals, member attribution, and application lineage, and invoke the exact
+declared reducer GraphFunction once. An incomplete, mismatched, duplicated, or
+reordered vector shall stop before reducer traversal. Only an admitted reducer
+completion may become the synthesized result; blocked, held, malformed, or
+runtime-failed reducer truth shall remain non-success.
+
+**REQ-L-GTL3-HOF-012**: **Runtime authority.** HOF runtime bindings shall derive
+from the exact selected catalog entry, admitted Module, structural HOF or
+GraphFunction-application declaration, and opaque GraphFunction and Node
+identities. Names, tags, fixed vector cardinality, promise completion order,
+and caller-authored semantic defaults are not authority. ABG owns task C-call
+spines, traversal evidence, result admission, and failure truth. Product
+effects remain subject to the separately admitted traversal and capability
+gates.

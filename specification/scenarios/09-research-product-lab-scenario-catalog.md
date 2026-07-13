@@ -55,14 +55,23 @@ evidence that the transform result did not come from a hidden service method.
 
 Pattern:
 
-`For every item in A -> T -> List[A_t]`
+`List[A] -> fan_out(T) -> C.batch(T(A_i)) -> List[A_t] -> fan_in(R) -> S`
 
 The graph function applies a declared transform over an explicit vector
-boundary.
+boundary. Runtime realization projects each admitted non-empty input member to
+one ordinal-preserving `C.batch` task and admits the output vector only when
+every task completes under the exact member contract. A declared `fan_in` may
+then reduce that complete admitted vector to one synthesized result.
 
 Closure requires `fan_out` or equivalent lawful GTL higher-order application,
-per-item lineage, stable ordering or declared order irrelevance, and aggregate
-projection over the produced vector.
+projection over the produced vector. Runtime proof must also show one C-call
+spine per invoking task, `batchRef` as grouping rather than call authority,
+cardinality and attribution preservation, and output order independent of
+task completion timing. A blocked, held, malformed, or runtime-failed member
+must preserve completed and unstarted evidence while admitting no output
+vector and invoking no fan-in. Fan-in must reject incomplete, duplicated,
+reordered, foreign-basis, or contract-mismatched vectors before invoking the
+exact declared reducer once.
 
 ### 5. Ambiguity Harvesting
 
@@ -96,6 +105,10 @@ mutation to remain governed by the downstream product and `TICKET_METHOD.md`.
 - A scenario is implemented only as an imperative script.
 - Python SDLC orchestration becomes product law for TypeScript.
 - A scenario emits output without source-input lineage.
+- A partial fan-out is projected as a complete output vector or reaches
+  fan-in.
+- Batch or fan-in meaning is inferred from names, tags, fixed fixture
+  cardinality, or promise completion order.
 - ABG owns downstream ticket process state.
 - Ambiguity is collapsed by hidden LLM reasoning instead of a declared
   evaluator, merge, triage, or repricing surface.

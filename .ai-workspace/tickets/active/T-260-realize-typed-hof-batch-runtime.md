@@ -2,13 +2,22 @@
 
 - id: T-260
 - status: active
-- phase_status: three_view_design_required
+- phase_status: design_accepted_implementation_authorized
 - delivery_phase: DS-3
-- change_class: design_reframe
+- change_class: requirement_reprice
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - dependency: T-259
+- re_entry_point: >-
+    specification/requirements/gtl/REQ-L-GTL3-HOF.md
+    HOF-009 through HOF-012
+- requirement_reprice_status: accepted_under_delegated_fh
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md
+- review_status: delegated_fh_accepted_after_bounded_self_review
+- updated_at: 2026-07-13
 
 ## Boundary
 
