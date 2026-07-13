@@ -27,7 +27,7 @@ exact source + admitted result-interface authority
 | A locally coherent T-255/T-260 carrier could otherwise be copied from a different Module or owner | Made selected Module, exact execution subject, declaration owner, and GraphVector mandatory and required source recompilation before admission | repaired in D1 and proof matrix |
 | A gate that filtered only unit-local issue rows could admit a report with unrelated whole-program invalidity | Required `report.passed === true`, zero issue count, exact inventory digests, and exact projected unit identity | repaired in D7 |
 | A compiler-derived deterministic consequence row could be misread as an extra product-declared composition regime | Scoped it to constitutional ABG system-bind authority with empty plugin/hook sets, target/closure selectors, F_D projection admission, and explicit non-claim of a product regime | repaired in D4 |
-| The selector-free fan-in wrapper could bypass capability checks because T-255 returns `structural_only` before manifest admission | Kept structural fan-in capability-unresolved until T-268 supplies exact canonical coverage | repaired in D1/D8 |
+| The selector-free HOF fan-out wrapper could bypass capability checks because T-255 returns `structural_only` before manifest admission | Kept structural fan-out capability-unresolved until T-268 supplies exact canonical coverage | repaired in D1/D8 |
 | Static result-interface authority could be mistaken for an admitted F_P or F_H payload | Kept source authority and runtime payload admission separate; T-257 and T-258 remain the only raw-result/response admissions | repaired in D2 and lifecycle |
 | A later T-268 manifest could accidentally change the structural contract basis | Required pre/post-manifest structural source and bundle digest equality; only capability disposition may change | repaired in D1/D9 |
 | The old startup-blocked request could be treated as effect-ready after a separate static report passed | Required canonical runtime entry to consume the exact T-267 admission ref/digest with the original request or handoff | repaired in D8 and proof matrix |
@@ -42,7 +42,7 @@ exact source + admitted result-interface authority
 - Every state transition names its owner.
 - No raw probabilistic output reaches accepted or closed truth.
 - No static state discharges an obligation or records runtime closure.
-- The structural fan-in source remains visible and does not gain a local C
+- The structural fan-out source remains visible and does not gain a local C
   selector.
 - Capability admission and traversal conservation remain independent gates.
 - The existing conformance report is the only final static judge.

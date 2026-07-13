@@ -11,7 +11,7 @@ adversarial self-review.
 
 Implementation authority is limited to:
 
-- one generic selected-program or selector-free fan-in source projector that
+- one generic selected-program or selector-free HOF fan-out source projector that
   recompiles exact T-255/T-260 truth inside the selected Module;
 - one closed static result-authority family grounded in T-256/T-257/T-258,
   deterministic target truth, or exact T-259 through T-262 runtime-atom

@@ -14,7 +14,7 @@ projection:
 
 ```text
 T-255 selected-program handoff basis
-  | T-260 selector-free fan-in reduction basis
+  | T-260 selector-free HOF fan-out binding basis
 + admitted stage-result interface authority
 -> exact composition and compute-stage rows
 -> exact plugin-result interface rows
@@ -60,7 +60,7 @@ obligation was discharged, or a terminal projection exists.
 - a Consensus-specific runtime, controller, result parser, conservation rule,
   or imperative traversal loop;
 - changing T-252 body bytes or synthesizing a local C selector for the
-  selector-free fan-in wrapper;
+  selector-free HOF fan-out wrapper;
 - accepting a display name, local file, prompt text, test name, or package path
   as result-interface, stage, lineage, obligation, pressure, or capability
   authority;
@@ -85,9 +85,9 @@ obligation was discharged, or a terminal projection exists.
    `blocked_capability` outcome with exact selected program, composition,
    target carrier, edge closure, optional application lineage, and specialized
    workflow, batch, retry, or recurse relation; or
-2. `structural_fan_in`: a T-255 `structural_only` outcome joined to one exact
-   T-260 `CompiledFanInReductionBinding` and its selected Module-local reducer
-   composition.
+2. `structural_hof_fan_out`: a T-255 `structural_only` outcome joined to one
+   exact T-260 `CompiledHofFanOutBinding` and its selected Module-local child
+   execution handoff and composition.
 
 The projection rederives source identity from opaque refs and full digests. A
 capability-blocked and later manifest-compatible selected-program outcome must
@@ -96,12 +96,12 @@ an orthogonal disposition and is not included in the structural identity.
 
 The selected Module, execution-subject GraphFunction, owning GraphFunction,
 and exact GraphVector are mandatory source-projector inputs. The projector
-recompiles the T-255 handoff or T-260 fan-in binding inside that Module before
+recompiles the T-255 handoff or T-260 fan-out binding inside that Module before
 accepting the supplied carrier. A structurally valid object copied from another
 Module, catalog entry, owner, or vector cannot become source authority merely
 because its local digest is internally coherent.
 
-The structural fan-in source remains capability-unresolved until the canonical
+The structural fan-out source remains capability-unresolved until the canonical
 manifest path supplies exact effect coverage. T-267 cannot use the absence of
 a local selector to bypass T-268.
 
@@ -141,7 +141,7 @@ The compiler projects ordered work stages as follows:
 | `batch_task_family` | exact T-260 batch task bindings |
 | `retry_attempt_family` | exact T-261 retry binding |
 | direct recurse application | exact T-262 recurse binding/plan result contract |
-| selector-free fan-in | exact T-260 fan-in reduction binding |
+| selector-free HOF fan-out | exact T-260 fan-out binding and child execution handoff |
 
 Each work stage maps to exactly one selected composition regime binding by
 regime and exact source carrier relation. The generic compute-stage role comes
@@ -292,7 +292,7 @@ A non-Consensus fixture must prove the same compiler and gate with:
 | Carrier | Visibility | Authority | Role |
 |---|---|---|---|
 | T-255 execution outcome | public M03 | authoritative upstream | selected-program, target, closure, composition, lineage, and capability truth |
-| T-260 fan-in reduction binding | public M03 | authoritative upstream | selector-free structural source and inherited reducer composition |
+| T-260 HOF fan-out binding | public M03 | authoritative upstream | selector-free structural source and exact child composition |
 | `TraversalContractSourceBasis` | module-local projection | prime | capability-independent exact static source identity |
 | `AdmittedTraversalStageResultAuthority` | public M03 | authoritative admission | exact static result contract for one result-bearing work stage |
 | existing compute-composition row | public conformance input | authoritative compiled row | selected composition and stage set |
@@ -319,7 +319,7 @@ classDiagram
     +capability disposition
     +startup block
   }
-  class T260FanInReductionBinding {
+  class T260HofFanOutBinding {
     <<prime>>
     <<authoritative>>
     +relation digest
@@ -400,7 +400,7 @@ classDiagram
   }
 
   T255ExecutionOutcome --> TraversalContractSourceBasis : selected source
-  T260FanInReductionBinding --> TraversalContractSourceBasis : structural fan-in source
+  T260HofFanOutBinding --> TraversalContractSourceBasis : structural fan-out source
   TraversalContractSourceBasis *-- CompiledTraversalExecutionContracts
   AdmittedTraversalStageResultAuthority "1..*" --> CompiledTraversalExecutionContracts : admitted inputs
   CompiledTraversalExecutionContracts *-- ComputeCompositionRow
@@ -426,7 +426,7 @@ sequenceDiagram
   participant Capability as T268 capability authority
   participant Runtime as Existing ABG runtime
 
-  Caller->>Source: exact T255 outcome or structural-only plus T260 fan-in binding
+  Caller->>Source: exact T255 outcome or structural-only plus T260 fan-out binding
   alt malformed, ambiguous, or display-name source
     Source-->>Caller: invalid source diagnostic
   else exact source
@@ -502,7 +502,7 @@ stateDiagram-v2
 | Check | Domain | Sequence | State | Verdict |
 |---|---|---|---|---|
 | every participant has a carrier | source, result, bundle, report, gate, capability, and runtime carriers are explicit | each participant maps to one domain carrier or external caller | every transition names the same owner | pass |
-| selector-free fan-in stays structural | T260 binding is a distinct source variant | source projector consumes binding, never a local selector | malformed join enters `Invalid` | pass |
+| selector-free fan-out stays structural | T260 binding is a distinct source variant | source projector consumes binding, never a local selector | malformed join enters `Invalid` | pass |
 | result interface is not raw output | admitted authority is static and subordinate | result admission precedes compilation; runtime output remains deferred | no static state transitions to result accepted | pass |
 | consequence contract is not closure | consequence row is subordinate | compiler only projects target consequence | addressable state remains `NotClosed` | pass |
 | obligation vector is conserved | conservation row owns non-empty exact refs and all delta families | compiler derives rows before typecheck | no static state discharges obligations | pass |
@@ -530,7 +530,7 @@ stateDiagram-v2
 
 | Proof | Required evidence |
 |---|---|
-| source variants | exact selected-program and selector-free fan-in sources compile; copied, ambiguous, or digest-drifted sources fail |
+| source variants | exact selected-program and selector-free fan-out sources compile; copied, ambiguous, or digest-drifted sources fail |
 | capability independence | blocked and compatible selected-program sources retain one structural source digest and one bundle digest |
 | direct F_P interface | T256 selected stage and contract compile one interface; T257 accepts a canonical sample and rejects contract drift |
 | F_H interface | T256/T258 result and operation authority compile one external-callout interface without response fabrication |
