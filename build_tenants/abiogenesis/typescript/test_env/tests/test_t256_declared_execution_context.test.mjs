@@ -26,7 +26,8 @@ import {
   graphVectorDeclarations
 } from "../../build/semantic/code/src/gtl/m01/contracts/declaration_law.js";
 import {
-  hogProgramRefDeclarationEntry
+  hogProgramRefDeclarationEntry,
+  pluginSelectionDeclarationEntry
 } from "../../build/semantic/code/src/gtl/m01/contracts/execution_declaration_builders.js";
 import {
   constructContractRef,
@@ -79,6 +80,16 @@ import {
 import {
   loadGtlTargetCarrierDefaultsBundle
 } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
+import {
+  typecheckGtlProgram
+} from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
+import {
+  admitDeclaredTraversalStageResultAuthority,
+  admitTraversalExecution,
+  assertTraversalExecutionRuntimeStart,
+  compileTraversalExecutionContracts,
+  projectTraversalContractSourceBasis
+} from "../../build/semantic/code/src/abg/m03/contracts/traversal_execution_contract.js";
 import {
   sha256DigestForText,
   stableSha256Digest
@@ -141,6 +152,37 @@ function typedCarrier(nodes) {
 
 function compositionDeclarations(input) {
   const sourceRef = input.vectorRef;
+  const regimeRows = input.completeProgram === true
+    ? [
+        {
+          stageRole: "transform",
+          regime: "F_P",
+          role: "validate",
+          inputCarrierRefs: input.sources.map((nodeValue) => nodeValue.id)
+        },
+        {
+          stageRole: "evaluate",
+          regime: "F_D",
+          role: "validate",
+          inputCarrierRefs: [input.target.id]
+        },
+        {
+          stageRole: "consequence",
+          regime: "F_D",
+          role: "close",
+          inputCarrierRefs: [input.target.id]
+        }
+      ]
+    : [
+        {
+          stageRole: input.stageRole,
+          regime: input.regime,
+          role:
+            input.compositionRole ??
+            (input.regime === "F_H" ? "construct" : "validate"),
+          inputCarrierRefs: input.sources.map((nodeValue) => nodeValue.id)
+        }
+      ];
   return constructAbgFnCompositionDeclarations({
     contractRef: `abg.fn_composition://${sourceRef}`,
     hookRef: `hook://${sourceRef}/composition`,
@@ -153,19 +195,18 @@ function compositionDeclarations(input) {
       source: "graph_vector_declarations",
       sourceRef
     }),
-    regimes: [
-      {
-        bindingRef: `regime-binding://${sourceRef}/${input.stageRole}/0`,
-        stageRole: input.stageRole,
-        regime: input.regime,
-        role: input.compositionRole ?? (input.regime === "F_H" ? "construct" : "validate"),
-        order: 0,
-        authority: "judgment",
-        inputCarrierRefs: input.sources.map((nodeValue) => nodeValue.id),
-        outputCarrierRefs: [input.target.id],
-        evidenceRefs: [`evidence://${sourceRef}/${input.stageRole}`]
-      }
-    ],
+    regimes: regimeRows.map((row, order) => ({
+      bindingRef:
+        `regime-binding://${sourceRef}/${row.stageRole}/${String(order)}`,
+      stageRole: row.stageRole,
+      regime: row.regime,
+      role: row.role,
+      order,
+      authority: "judgment",
+      inputCarrierRefs: row.inputCarrierRefs,
+      outputCarrierRefs: [input.target.id],
+      evidenceRefs: [`evidence://${sourceRef}/${row.stageRole}`]
+    })),
     standardsContextRefs: ["standard://t256/c-algebra"],
     policyContextRefs: ["policy://t256/proof"],
     carrierContextRefs: [
@@ -179,6 +220,7 @@ function compositionDeclarations(input) {
 
 function fixture(options = {}) {
   const regime = options.regime ?? "F_P";
+  const completeProgram = options.completeProgram === true;
   const stageRole = regime === "F_H" ? "human_callout" : "transform";
   const source = node("Observation", "observation");
   const contextSource = options.multiSource === true
@@ -189,7 +231,9 @@ function fixture(options = {}) {
     outputContractRef: TARGET_CONTRACT_REF,
     outputContractRefs: options.targetOutputContractRefs
   });
-  const instructionAsset = node("TransformInstruction", "instruction");
+  const instructionAsset = completeProgram
+    ? source
+    : node("TransformInstruction", "instruction");
   const projectionRule = constructExecutionContextProjectionRule({
     projectionRef: "execution-context-projection://t256/generic",
     version: "1.0.0",
@@ -289,15 +333,45 @@ function fixture(options = {}) {
   const programRef = "program://t256/generic-transform";
   const program = declareCProgram({
     programRef,
-    term: C.of({
-      input: typedCarrier(sources),
-      output: typedCarrier([target]),
-      stageRole,
-      fibre: regime,
-      armId: "arm://t256/transform",
-      resultBearing: true,
-      instructionCategoryRefs: [SECTION_REF]
-    }),
+    term: completeProgram
+      ? C.compose(
+          C.compose(
+            C.of({
+              input: typedCarrier(sources),
+              output: typedCarrier([target]),
+              stageRole: "transform",
+              fibre: "F_P",
+              armId: "arm://t256/transform",
+              resultBearing: true,
+              instructionCategoryRefs: [SECTION_REF]
+            }),
+            C.of({
+              input: typedCarrier([target]),
+              output: typedCarrier([target]),
+              stageRole: "evaluate",
+              fibre: "F_D",
+              armId: "arm://t256/evaluate",
+              resultBearing: false
+            })
+          ),
+          C.of({
+            input: typedCarrier([target]),
+            output: typedCarrier([target]),
+            stageRole: "consequence",
+            fibre: "F_D",
+            armId: "arm://t256/consequence",
+            resultBearing: false
+          })
+        )
+      : C.of({
+          input: typedCarrier(sources),
+          output: typedCarrier([target]),
+          stageRole,
+          fibre: regime,
+          armId: "arm://t256/transform",
+          resultBearing: true,
+          instructionCategoryRefs: [SECTION_REF]
+        }),
     proportionalityClass: "P1"
   });
   const graphFunctionName = "t256.generic-transform";
@@ -310,6 +384,7 @@ function fixture(options = {}) {
     stageRole,
     regime,
     compositionRole: options.compositionRole,
+    completeProgram,
     target
   });
   const firstVector = constructGraphVector({
@@ -334,6 +409,7 @@ function fixture(options = {}) {
     stageRole,
     regime,
     compositionRole: options.compositionRole,
+    completeProgram,
     target
   });
   const secondVector = constructGraphVector({
@@ -347,7 +423,9 @@ function fixture(options = {}) {
     name: "t256.generic-transform-graph",
     inputs: sources,
     outputs: [target],
-    nodes: [...sources, target, instructionAsset],
+    nodes: completeProgram
+      ? [...sources, target]
+      : [...sources, target, instructionAsset],
     vectors: [secondVector],
     contexts: [],
     rules: [projectionRule, protocolRule],
@@ -371,7 +449,16 @@ function fixture(options = {}) {
     }),
     effects: options.effects === true ? ["effect://t256/decision"] : [],
     declarations: graphFunctionDeclarations([
-      cProgramCatalogDeclarationEntry([program])
+      cProgramCatalogDeclarationEntry([program]),
+      ...(completeProgram
+        ? [
+            hogProgramRefDeclarationEntry(programRef),
+            pluginSelectionDeclarationEntry({
+              fdEvaluator: "plugin://abg/fd-evaluator",
+              fpDispatch: "plugin://abg/fp-dispatch"
+            })
+          ]
+        : [])
     ]),
     tags: ["t256", "generic"]
   });
@@ -382,6 +469,7 @@ function fixture(options = {}) {
     stageRole,
     regime,
     compositionRole: options.compositionRole,
+    completeProgram,
     target
   });
   const vector = constructGraphVector({
@@ -559,6 +647,7 @@ function fixture(options = {}) {
     protocolRule,
     module,
     host,
+    vector,
     sourceOutcome,
     catalogBasis: catalogResult.basis,
     catalogEvents: catalogResult.admissionEvents,
@@ -576,6 +665,108 @@ function joinFixture(value, overrides = {}) {
     invocationCarriers: value.invocationCarriers,
     ...overrides
   });
+}
+
+function traversalSourceInput(value) {
+  return Object.freeze({
+    kind: "selected_program_handoff",
+    module: value.module,
+    executionSubjectGraphFunction: value.host,
+    declarationOwnerGraphFunction: value.host,
+    graphVector: value.vector,
+    targetCarrierDefaults,
+    admittedTenantConformanceManifest: null,
+    outcome: value.sourceOutcome
+  });
+}
+
+function compileFpTraversal(value) {
+  const joined = joinFixture(value);
+  assert.equal(joined.status, "request_constructed", JSON.stringify(joined));
+  const sourceInput = traversalSourceInput(value);
+  const source = projectTraversalContractSourceBasis(sourceInput);
+  const authority = admitDeclaredTraversalStageResultAuthority({
+    source,
+    stageOrdinal: 0,
+    contract: joined.compiledContract,
+    selectedResultContractRef:
+      source.targetCarrierProjection.targetCarrierContractRef,
+    fpWireProfile: "standard_live_review"
+  });
+  const bundle = compileTraversalExecutionContracts({
+    source,
+    resultAuthorities: [authority]
+  });
+  return Object.freeze({ joined, sourceInput, source, authority, bundle });
+}
+
+function gateFpTraversal(value, compiled) {
+  const conformanceInput = Object.freeze({
+    subjectRef: "workspace://abg/t267/non-consensus-fp",
+    abiPackageVersion: "5.0.0-dev.0",
+    scopeKind: "submitted_structure",
+    modules: [value.module],
+    targetCarrierContracts: [compiled.source.targetCarrierProjection],
+    edgeClosureContracts: [compiled.source.edgeClosureBinding.conformanceRow],
+    computeCompositions: [compiled.bundle.computeComposition],
+    computeStageBindings: compiled.bundle.computeStageBindings,
+    pluginResultInterfaces: compiled.bundle.pluginResultInterfaces,
+    traversalBindConservation: [compiled.bundle.traversalBindConservation]
+  });
+  const report = typecheckGtlProgram(conformanceInput);
+  const admission = admitTraversalExecution({
+    sourceInput: compiled.sourceInput,
+    source: compiled.source,
+    resultAuthorities: [compiled.authority],
+    bundle: compiled.bundle,
+    conformanceInput,
+    report
+  });
+  return Object.freeze({ conformanceInput, report, admission });
+}
+
+function catalogInvocationInput(value, sessionView, runtimeEvents, overrides = {}) {
+  const binding = value.catalogBasis.executionBindings[0];
+  return {
+    basis: value.catalogBasis,
+    sessionView,
+    entryRef: binding.entryRef,
+    interfaceRef: "interface://t256/generic-transform",
+    workspaceRoot: "/tmp/t256-profile-aware-start",
+    inputBinding: {
+      assetRef: "input://t256/profile-aware",
+      assetType: value.source.schema.ref,
+      uri: "data:application/json,%7B%7D"
+    },
+    inputSchema: {
+      $schema: "http://json-schema.org/draft-07/schema#",
+      type: "object",
+      additionalProperties: true
+    },
+    inputValue: {},
+    until: "converged",
+    runtimeIdentity: {
+      workerId: "worker://t256",
+      backendId: "backend://t256",
+      buildId: "build://t256",
+      resolvedRuntimeRef: "runtime://t256"
+    },
+    resolvedPolicy: {
+      resolvedPolicyBundleRef: "policy://t256/default",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t256/fp",
+      approvalSubjectRef: null
+    },
+    runtimeEvents,
+    eventSink: (event) => runtimeEvents.push(event),
+    standardPluginRefs: [],
+    capabilityProvenanceRefs: [],
+    actorRef: "actor://t256/operator",
+    invocationId: "invocation://t256/profile-aware",
+    requestId: "request://t256/profile-aware",
+    correlationId: "correlation://t256/profile-aware",
+    ...overrides
+  };
 }
 
 function carriersWithExecution(value, executionOverrides) {
@@ -1399,45 +1590,9 @@ test("T-256 profile-aware catalog work cannot reach legacy instruction synthesis
   assert.equal(session.accepted, true, JSON.stringify(session));
   assert.notEqual(session.view, null);
   const runtimeEvents = [...value.catalogEvents];
-  const assembled = assembleCatalogInvocation({
-    basis: value.catalogBasis,
-    sessionView: session.view,
-    entryRef: binding.entryRef,
-    interfaceRef: "interface://t256/generic-transform",
-    workspaceRoot: "/tmp/t256-profile-aware-start",
-    inputBinding: {
-      assetRef: "input://t256/profile-aware",
-      assetType: value.source.schema.ref,
-      uri: "data:application/json,%7B%7D"
-    },
-    inputSchema: {
-      $schema: "http://json-schema.org/draft-07/schema#",
-      type: "object",
-      additionalProperties: true
-    },
-    inputValue: {},
-    until: "converged",
-    runtimeIdentity: {
-      workerId: "worker://t256",
-      backendId: "backend://t256",
-      buildId: "build://t256",
-      resolvedRuntimeRef: "runtime://t256"
-    },
-    resolvedPolicy: {
-      resolvedPolicyBundleRef: "policy://t256/default",
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://t256/fp",
-      approvalSubjectRef: null
-    },
-    runtimeEvents,
-    eventSink: (event) => runtimeEvents.push(event),
-    standardPluginRefs: [],
-    capabilityProvenanceRefs: [],
-    actorRef: "actor://t256/operator",
-    invocationId: "invocation://t256/profile-aware",
-    requestId: "request://t256/profile-aware",
-    correlationId: "correlation://t256/profile-aware"
-  });
+  const assembled = assembleCatalogInvocation(
+    catalogInvocationInput(value, session.view, runtimeEvents)
+  );
   assert.equal(assembled.accepted, true, JSON.stringify(assembled));
   const invocation = await invokeAdmittedCatalogGraphFunction(
     assembled.assembly
@@ -1446,5 +1601,159 @@ test("T-256 profile-aware catalog work cannot reach legacy instruction synthesis
   assert.match(
     invocation.message,
     /declared_execution_context_startup_blocked_awaiting_t267/u
+  );
+});
+
+test("T-267 admits a real non-Consensus F_P join without hashing current evidence into static identity", () => {
+  const firstValue = fixture({ completeProgram: true });
+  const secondValue = fixture({ completeProgram: true });
+  const first = compileFpTraversal(firstValue);
+  const second = compileFpTraversal(secondValue);
+
+  assert.equal(first.source.sourceDigest, second.source.sourceDigest);
+  assert.notEqual(
+    first.joined.compiledContract.declarationClosureDigest,
+    second.joined.compiledContract.declarationClosureDigest
+  );
+  assert.notEqual(
+    first.authority.currentSourceAuthorityDigest,
+    second.authority.currentSourceAuthorityDigest
+  );
+  assert.deepEqual(first.authority.currentEvidenceRefs, [
+    first.joined.compiledContract.declarationClosureDigest
+  ]);
+  assert.deepEqual(second.authority.currentEvidenceRefs, [
+    second.joined.compiledContract.declarationClosureDigest
+  ]);
+  assert.equal(first.authority.authorityDigest, second.authority.authorityDigest);
+  assert.equal(first.bundle.bundleDigest, second.bundle.bundleDigest);
+
+  const { report, admission: outcome } = gateFpTraversal(firstValue, first);
+
+  assert.equal(
+    report.issues.some((issue) =>
+      issue.ruleRef.startsWith("abg://gtl-program/traversal-unit/")
+    ),
+    false,
+    JSON.stringify(report.issues, null, 2)
+  );
+  assert.equal(
+    outcome.status,
+    "runtime_addressable_not_closed",
+    JSON.stringify(report.issues, null, 2)
+  );
+  assert.equal(outcome.effectsPermitted, true);
+});
+
+test("T-267 runtime start requires the exact addressable admission and declared request", () => {
+  const value = fixture({ completeProgram: true });
+  const compiled = compileFpTraversal(value);
+  const { admission } = gateFpTraversal(value, compiled);
+  assert.equal(admission.status, "runtime_addressable_not_closed");
+  assert.equal(admission.sourceKind, "selected_program_handoff");
+  assert.equal(
+    admission.currentAuthorityRef,
+    compiled.joined.request.handoffRef
+  );
+  assert.equal(
+    admission.startupBlockDigest,
+    compiled.joined.request.startupBlockDigest
+  );
+  assert.deepEqual(
+    admission.currentResultAuthorities,
+    [
+      {
+        sourceKind: "declared_fp_contract",
+        stageOrdinal: 0,
+        domainStageRole: compiled.joined.request.stageRole,
+        currentSourceAuthorityRef:
+          compiled.joined.request.contextContractRef,
+        currentSourceAuthorityDigest:
+          compiled.joined.request.contextContractDigest
+      }
+    ]
+  );
+
+  assert.doesNotThrow(() => assertTraversalExecutionRuntimeStart({
+    request: compiled.joined.request,
+    admission
+  }));
+  assert.throws(
+    () => assertTraversalExecutionRuntimeStart({
+      request: Object.freeze({
+        ...compiled.joined.request,
+        contextContractDigest: stableSha256Digest("stale-context-contract")
+      }),
+      admission
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid"
+  );
+  assert.throws(
+    () => assertTraversalExecutionRuntimeStart({
+      request: compiled.joined.request,
+      admission: Object.freeze({
+        ...admission,
+        admissionDigest: stableSha256Digest("stale-admission")
+      })
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid"
+  );
+  assert.throws(
+    () => assertTraversalExecutionRuntimeStart({
+      request: compiled.joined.request,
+      admission: Object.freeze({
+        ...admission,
+        capabilityDisposition:
+          admission.capabilityDisposition === "compatible_exact_manifest"
+            ? "not_applicable_no_effect_requirements"
+            : "compatible_exact_manifest"
+      })
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid"
+  );
+});
+
+test("T-267 catalog runtime consumes the exact request, plan, and admission", async () => {
+  const value = fixture({ completeProgram: true });
+  const compiled = compileFpTraversal(value);
+  const { admission } = gateFpTraversal(value, compiled);
+  assert.equal(admission.status, "runtime_addressable_not_closed");
+  assert.notEqual(compiled.joined.instructionAssembly, null);
+
+  const binding = value.catalogBasis.executionBindings[0];
+  assert.equal(admission.graphFunctionId, binding.graphFunctionId);
+  assert.equal(admission.graphFunctionId, binding.graphFunctionHandle);
+  assert.equal(admission.graphFunctionDigest, binding.graphFunctionDigest);
+  const session = deriveRegistrySessionView({
+    basis: value.catalogBasis,
+    allowedEntryRefs: [binding.entryRef]
+  });
+  assert.equal(session.accepted, true, JSON.stringify(session));
+  assert.notEqual(session.view, null);
+  const runtimeEvents = [...value.catalogEvents];
+  const assembled = assembleCatalogInvocation(
+    catalogInvocationInput(value, session.view, runtimeEvents, {
+      declaredExecutionRequest: compiled.joined.request,
+      traversalExecutionAdmission: admission,
+      instructionAssemblyStartup: {
+        compiledPromptPlans: [compiled.joined.instructionAssembly.plan],
+        rendererRef: value.source.assetSurface.rendererRefs[0]
+      }
+    })
+  );
+  assert.equal(assembled.accepted, true, JSON.stringify(assembled));
+  const invocation = await invokeAdmittedCatalogGraphFunction(
+    assembled.assembly
+  );
+
+  assert.equal(invocation.accepted, true, JSON.stringify(invocation));
+  assert.equal(
+    invocation.engineResult.transition.reason.includes(
+      "declared_execution_context_startup_blocked_awaiting_t267"
+    ),
+    false
   );
 });

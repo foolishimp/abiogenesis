@@ -30,6 +30,14 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/hof_batch.js";
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
+  admitDeclaredTraversalStageResultAuthority,
+  admitDeterministicTraversalStageResultAuthority,
+  admitRuntimeAtomTraversalStageResultAuthority,
+  admitTraversalExecution,
+  compileTraversalExecutionContracts,
+  projectTraversalContractSourceBasis
+} from "../../build/semantic/code/src/abg/m03/contracts/traversal_execution_contract.js";
+import {
   constructAdmittedInvocationCarrier,
   constructAdmittedInvocationCarrierSet,
   constructDeclaredCStageInvocationBasis,
@@ -1003,6 +1011,7 @@ async function buildManifest() {
           "interaction_subject_ref",
           "result_contract_ref"
         ];
+  const executionContextContracts = [];
   const executionContextJoinRows = handoffRows.flatMap((row) => {
     if (row.status !== "blocked_capability") return [];
     const programMatches = body.programs.filter(
@@ -1052,6 +1061,17 @@ async function buildManifest() {
       });
       const contract =
         join.status === "invalid" ? null : join.compiledContract;
+      if (contract !== null) {
+        executionContextContracts.push(Object.freeze({
+          path: `${row.path}.stages[${String(stageIndex)}:${stage.stageRole}]`,
+          handoffPath: row.path,
+          graphFunctionName: row.graphFunctionName,
+          graphVectorName: row.graphVectorName,
+          stageIndex,
+          regime: stage.defaultRegime,
+          contract
+        }));
+      }
       const fieldSlots =
         contract === null
           ? []
@@ -1228,13 +1248,242 @@ async function buildManifest() {
     throw new TypeError("T-252 probe observed no F_H interaction joins");
   }
 
-  const conformance = typecheckGtlProgram({
+  const selectedHandoffCarrier = (outcome) =>
+    outcome.status === "published_startup_blocked"
+      ? outcome.handoff
+      : outcome;
+  const exactCompositionOwner = (carrier) => {
+    const ownerRef = carrier.compositionSelection.contract.host.graphFunctionRef;
+    const matches = graphFunctions.filter(
+      (graphFunction) => graphFunction.id === ownerRef
+    );
+    if (matches.length !== 1) {
+      throw new TypeError(
+        `T-267 composition owner ${ownerRef} resolved ${matches.length} times`
+      );
+    }
+    return matches[0];
+  };
+  const selectedTraversalRows = handoffRows
+    .filter(
+      (row) =>
+        row.status === "blocked_capability" ||
+        row.status === "published_startup_blocked"
+    )
+    .map((row) => {
+      const carrier = selectedHandoffCarrier(row.outcome);
+      const sourceInput = Object.freeze({
+        kind: "selected_program_handoff",
+        module: admittedModule,
+        executionSubjectGraphFunction: row.graphFunction,
+        declarationOwnerGraphFunction: exactCompositionOwner(carrier),
+        graphVector: row.graphVector,
+        targetCarrierDefaults,
+        admittedTenantConformanceManifest: null,
+        outcome: row.outcome
+      });
+      return Object.freeze({
+        path: row.path,
+        row,
+        carrier,
+        sourceInput,
+        source: projectTraversalContractSourceBasis(sourceInput)
+      });
+    });
+
+  const structuralHandoffRows = handoffRows.filter(
+    (row) => row.status === "structural_only"
+  );
+  if (structuralHandoffRows.length !== 1) {
+    throw new TypeError(
+      `T-267 expected one structural HOF source, found ${structuralHandoffRows.length}`
+    );
+  }
+  const structuralHandoffRow = structuralHandoffRows[0];
+  const structuralRelationCompilation = compileHofRelation({
+    graphFunction: structuralHandoffRow.graphFunction,
+    graphFunctions
+  });
+  if (
+    !structuralRelationCompilation.accepted ||
+    structuralRelationCompilation.relation === null
+  ) {
+    throw new TypeError(
+      `T-267 structural HOF relation did not compile: ${JSON.stringify(structuralRelationCompilation.diagnostics)}`
+    );
+  }
+  const structuralRelation = structuralRelationCompilation.relation;
+  const structuralChildRows = selectedTraversalRows.filter(
+    ({ row }) =>
+      row.graphFunction.id === structuralRelation.childGraphFunctionRef &&
+      row.graphVector.source.length === 1 &&
+      row.graphVector.source[0]?.id === structuralRelation.inputMemberNodeRef &&
+      row.graphVector.target.id === structuralRelation.outputMemberNodeRef
+  );
+  if (structuralChildRows.length !== 1) {
+    throw new TypeError(
+      `T-267 structural HOF child handoff resolved ${structuralChildRows.length} times`
+    );
+  }
+  const structuralChild = structuralChildRows[0];
+  const structuralBinding = compileHofFanOutBinding({
+    module: admittedModule,
+    relation: structuralRelation,
+    childExecutionHandoff: structuralChild.row.outcome
+  });
+  const structuralSourceInput = Object.freeze({
+    kind: "structural_hof_fan_out",
+    module: admittedModule,
+    executionSubjectGraphFunction: structuralHandoffRow.graphFunction,
+    declarationOwnerGraphFunction:
+      structuralChild.sourceInput.declarationOwnerGraphFunction,
+    graphVector: structuralHandoffRow.graphVector,
+    targetCarrierDefaults,
+    admittedTenantConformanceManifest: null,
+    outcome: structuralHandoffRow.outcome,
+    relation: structuralRelation,
+    binding: structuralBinding,
+    childExecutionHandoff: structuralChild.row.outcome
+  });
+  const traversalRows = [
+    ...selectedTraversalRows,
+    Object.freeze({
+      path: structuralHandoffRow.path,
+      row: structuralHandoffRow,
+      carrier: null,
+      sourceInput: structuralSourceInput,
+      source: projectTraversalContractSourceBasis(structuralSourceInput)
+    })
+  ];
+
+  const traversalCompilations = traversalRows.map((entry) => {
+    const stage = entry.source.workStages[0];
+    if (entry.source.workStages.length !== 1 || stage === undefined) {
+      throw new TypeError(
+        `${entry.path} did not project one exact T-267 result-bearing work stage`
+      );
+    }
+    let runtimeAtom = null;
+    if (entry.source.sourceKind === "structural_hof_fan_out") {
+      runtimeAtom = structuralBinding;
+    } else if (entry.carrier.programDisposition === "workflow_sub_traversal") {
+      runtimeAtom = entry.carrier.workflowLiftBinding;
+    } else if (entry.carrier.programDisposition === "retry_attempt_family") {
+      runtimeAtom = entry.carrier.retryBinding;
+    } else if (entry.carrier.fanInApplicationRelation !== null) {
+      runtimeAtom = compileFanInReductionBinding({
+        module: admittedModule,
+        relation: entry.carrier.fanInApplicationRelation,
+        executionHandoff: entry.row.outcome
+      });
+    }
+
+    let authority;
+    if (runtimeAtom !== null) {
+      authority = admitRuntimeAtomTraversalStageResultAuthority({
+        source: entry.source,
+        stageOrdinal: stage.ordinal,
+        atom: runtimeAtom
+      });
+    } else if (stage.regime === "F_P" || stage.regime === "F_H") {
+      const contracts = executionContextContracts.filter(
+        (candidate) =>
+          candidate.handoffPath === entry.path &&
+          candidate.stageIndex === stage.ordinal
+      );
+      const contractRow = contracts[0];
+      if (contracts.length !== 1 || contractRow === undefined) {
+        throw new TypeError(
+          `${entry.path} T-256 result authority resolved ${contracts.length} times`
+        );
+      }
+      authority = admitDeclaredTraversalStageResultAuthority({
+        source: entry.source,
+        stageOrdinal: stage.ordinal,
+        contract: contractRow.contract,
+        selectedResultContractRef:
+          entry.source.targetCarrierProjection.targetCarrierContractRef,
+        fpWireProfile:
+          stage.regime === "F_P" ? "standard_live_review" : null
+      });
+    } else {
+      authority = admitDeterministicTraversalStageResultAuthority({
+        source: entry.source,
+        stageOrdinal: stage.ordinal
+      });
+    }
+    const bundle = compileTraversalExecutionContracts({
+      source: entry.source,
+      resultAuthorities: [authority]
+    });
+    return Object.freeze({ ...entry, authority, bundle });
+  });
+  if (traversalCompilations.length !== handoffRows.length) {
+    throw new TypeError(
+      `T-267 compiled ${traversalCompilations.length} units for ${handoffRows.length} handoffs`
+    );
+  }
+
+  const conformanceInput = Object.freeze({
     subjectRef: "workspace://abg/t252/consensus",
     abiPackageVersion: "5.0.0-dev.0",
     scopeKind: "submitted_structure",
     modules: [admittedModule],
     targetCarrierContracts,
-    edgeClosureContracts
+    edgeClosureContracts,
+    computeCompositions: traversalCompilations.map(
+      (entry) => entry.bundle.computeComposition
+    ),
+    computeStageBindings: traversalCompilations.flatMap(
+      (entry) => entry.bundle.computeStageBindings
+    ),
+    pluginResultInterfaces: traversalCompilations.flatMap(
+      (entry) => entry.bundle.pluginResultInterfaces
+    ),
+    traversalBindConservation: traversalCompilations.map(
+      (entry) => entry.bundle.traversalBindConservation
+    )
+  });
+  const conformance = typecheckGtlProgram(conformanceInput);
+  const traversalConformanceIssues = conformance.issues.filter((issue) =>
+    issue.ruleRef.startsWith("abg://gtl-program/traversal-unit/")
+  );
+  if (traversalConformanceIssues.length > 0) {
+    throw new TypeError(
+      `T-267 canonical traversal rows are nonconformant: ${JSON.stringify(traversalConformanceIssues.map((issue) => ({ surfaceRef: issue.surfaceRef, ruleRef: issue.ruleRef, message: issue.message })))} `
+    );
+  }
+  const traversalAdmissionRows = traversalCompilations.map((entry) => {
+    const admission = admitTraversalExecution({
+      sourceInput: entry.sourceInput,
+      source: entry.source,
+      resultAuthorities: [entry.authority],
+      bundle: entry.bundle,
+      conformanceInput,
+      report: conformance
+    });
+    if (admission.status === "invalid") {
+      throw new TypeError(
+        `${entry.path} T-267 admission failed: ${JSON.stringify(admission.diagnostic)}`
+      );
+    }
+    return Object.freeze({
+      path: entry.path,
+      sourceKind: entry.source.sourceKind,
+      sourceDigest: entry.source.sourceDigest,
+      resultAuthoritySourceKind: entry.authority.sourceKind,
+      resultAuthorityDigest: entry.authority.authorityDigest,
+      resultAuthorityEvidenceRefs: [...entry.authority.evidenceRefs],
+      resultAuthoritySelectorRefs: [...entry.authority.selectorAuthorityRefs],
+      bundleRef: entry.bundle.bundleRef,
+      bundleDigest: entry.bundle.bundleDigest,
+      computeStageRoles: entry.bundle.computeStageBindings.map(
+        (stageBinding) => stageBinding.stageRole
+      ),
+      status: admission.status,
+      runtimeAddressable: admission.runtimeAddressable,
+      effectsPermitted: admission.effectsPermitted
+    });
   });
   const structuralBlockingRules = new Set([
     "abg://gtl-program/graph-vector/source-derivable",
@@ -1348,10 +1597,7 @@ async function buildManifest() {
       authoredCount: termCounts.c_of ?? 0,
       compilerCoverage: "exact_handoff",
       runtimeStatus: "capability_or_successor_blocked_before_traversal",
-      gapFamilies: [
-        "tenant_conformance_manifest_consensus_coverage_missing",
-        "traversal_execution_contracts"
-      ]
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
       constructor: "workflow.C",
@@ -1359,11 +1605,8 @@ async function buildManifest() {
       selectedHandoffCount: realizedWorkflowRows.length,
       compilerCoverage: "exact_static_handoff",
       runtimeStatus:
-        "runtime_atom_realized_but_canonical_invocation_blocked_before_traversal",
-      gapFamilies: [
-        "tenant_conformance_manifest_consensus_coverage_missing",
-        "traversal_execution_contracts"
-      ]
+        "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
       constructor: "C.retry",
@@ -1371,19 +1614,16 @@ async function buildManifest() {
       selectedHandoffCount: realizedRetryRows.length,
       compilerCoverage: "exact_static_handoff_and_runtime_resolver",
       runtimeStatus:
-        "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
-      gapFamilies: [
-        "tenant_conformance_manifest_consensus_coverage_missing",
-        "traversal_execution_contracts"
-      ]
+        "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
       constructor: "fan_out",
       authoredCount: hofRows.length,
       compilerCoverage: "exact_relation_and_runtime_projector",
       runtimeStatus:
-        "runtime_atom_realized_canonical_child_blocked_by_startup_fence",
-      gapFamilies: ["traversal_execution_contracts"]
+        "runtime_atom_and_static_traversal_contract_realized_capability_unresolved",
+      gapFamilies: []
     },
     {
       constructor: "fan_in",
@@ -1391,8 +1631,8 @@ async function buildManifest() {
         .length,
       compilerCoverage: "exact_relation_and_runtime_resolver",
       runtimeStatus:
-        "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
-      gapFamilies: ["traversal_execution_contracts"]
+        "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+      gapFamilies: []
     },
     {
       constructor: "recurse",
@@ -1400,18 +1640,15 @@ async function buildManifest() {
         .length,
       compilerCoverage: "exact_relation_policy_binding_plan_and_runtime_resolver",
       runtimeStatus:
-        "runtime_atom_realized_canonical_public_effects_blocked_before_traversal",
-      gapFamilies: ["traversal_execution_contracts"]
+        "runtime_atom_realized_internal_static_units_capability_blocked",
+      gapFamilies: []
     },
     {
       constructor: "graph_vector_program_selection",
       authoredCount: vectorRows.length,
       compilerCoverage: "exact_handoff",
-      runtimeStatus: "capability_or_successor_blocked_before_traversal",
-      gapFamilies: [
-        "tenant_conformance_manifest_consensus_coverage_missing",
-        "traversal_execution_contracts"
-      ]
+      runtimeStatus: "static_traversal_contract_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     }
   ];
 
@@ -1576,7 +1813,7 @@ async function buildManifest() {
 
   const manifestPayload = {
     kind: "t252_consensus_gtl_probe_manifest",
-    version: 3,
+    version: 4,
     authority: {
       ticketRef:
         ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
@@ -1656,6 +1893,20 @@ async function buildManifest() {
       ),
       targetCarrierContractCount: targetCarrierContracts.length,
       edgeClosureContractCount: edgeClosureContracts.length,
+      traversalExecutionContractCount: traversalCompilations.length,
+      traversalConformanceIssueCount: traversalConformanceIssues.length,
+      traversalAdmissionStatusCounts: Object.fromEntries(
+        [...new Set(traversalAdmissionRows.map((row) => row.status))]
+          .sort()
+          .map((status) => [
+            status,
+            traversalAdmissionRows.filter((row) => row.status === status)
+              .length
+          ])
+      ),
+      traversalAdmissionRows: traversalAdmissionRows.sort((left, right) =>
+        left.path.localeCompare(right.path)
+      ),
       coverageRows,
       conformanceScopeKind: conformance.scopeKind,
       fullConformanceIssueCount: conformance.issues.length,

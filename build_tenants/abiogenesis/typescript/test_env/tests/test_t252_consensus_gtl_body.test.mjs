@@ -435,7 +435,7 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
     "../fixtures/t252_consensus_probe_manifest.json"
   );
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  assert.equal(manifest.version, 3);
+  assert.equal(manifest.version, 4);
   assert.equal(
     manifest.censusDerivation.order,
     "compiler_and_structural_observations_before_ticket_ownership"
@@ -466,9 +466,17 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
   }
   const observed = new Set(manifest.gapCensus.map((gap) => gap.gapFamily));
   assert.deepEqual([...observed].sort(), [
-    "tenant_conformance_manifest_consensus_coverage_missing",
-    "traversal_execution_contracts"
+    "tenant_conformance_manifest_consensus_coverage_missing"
   ]);
+  assert.equal(manifest.compiler.traversalExecutionContractCount, 35);
+  assert.equal(manifest.compiler.traversalConformanceIssueCount, 0);
+  assert.equal(manifest.compiler.traversalAdmissionRows.length, 35);
+  assert.equal(
+    manifest.compiler.traversalAdmissionRows.some(
+      (row) => row.status === "invalid"
+    ),
+    false
+  );
   assert.equal(
     manifest.ownership.activeOwnedButNotObservedFamilies.some((family) =>
       observed.has(family)

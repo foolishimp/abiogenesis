@@ -70,6 +70,12 @@ export interface CatalogInvocationAssemblyInput {
   };
   readonly runtimeEvents: readonly CanonicalRuntimeEvent[];
   readonly eventSink: RuntimeEventSink;
+  readonly declaredExecutionRequest?:
+    EngineStartRequest["declaredExecutionRequest"];
+  readonly traversalExecutionAdmission?:
+    EngineStartRequest["traversalExecutionAdmission"];
+  readonly instructionAssemblyStartup?:
+    EngineStartRequest["instructionAssemblyStartup"];
   readonly pluginCapabilities?: EnginePluginCapabilities | undefined;
   readonly standardPluginRefs: readonly string[];
   readonly capabilityProvenanceRefs: readonly string[];
@@ -266,6 +272,15 @@ export function assembleCatalogInvocation(
     runtimeEvents: Object.freeze([...input.runtimeEvents]),
     eventSink: input.eventSink,
     runtimeCatalogBasis: input.basis,
+    ...(input.declaredExecutionRequest === undefined
+      ? {}
+      : { declaredExecutionRequest: input.declaredExecutionRequest }),
+    ...(input.traversalExecutionAdmission === undefined
+      ? {}
+      : { traversalExecutionAdmission: input.traversalExecutionAdmission }),
+    ...(input.instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: input.instructionAssemblyStartup }),
     ...(input.pluginCapabilities === undefined
       ? {}
       : { pluginCapabilities: input.pluginCapabilities })

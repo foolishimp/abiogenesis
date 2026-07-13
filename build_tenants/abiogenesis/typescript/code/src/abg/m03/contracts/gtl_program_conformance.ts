@@ -11822,6 +11822,46 @@ function checkTraversalUnitProjection(input: {
   }
 }
 
+const TRAVERSAL_ROW_ISSUE_PREFIXES = Object.freeze([
+  "abg://gtl-program/traversal-unit/",
+  "abg://gtl-program/traversal-bind-conservation/",
+  "abg://gtl-program/compute-composition/",
+  "abg://gtl-program/compute-stage/",
+  "abg://gtl-program/plugin-result-interface/"
+]);
+
+function vectorProgramSelectionResolvedByTraversalUnit(input: {
+  readonly issue: GtlProgramConformanceIssue;
+  readonly projection: GtlProgramTraversalUnitProjection;
+  readonly allIssues: readonly GtlProgramConformanceIssue[];
+}): boolean {
+  if (
+    input.issue.ruleRef !==
+      "abg://gtl-program/c-algebra/semantic-not-realized" ||
+    !input.issue.evidenceRefs.includes(
+      "graph-vector-c-program-diagnostic:gtl-c-unrealized-vector-program-selection"
+    )
+  ) {
+    return false;
+  }
+  if (input.allIssues.some((candidate) =>
+    TRAVERSAL_ROW_ISSUE_PREFIXES.some((prefix) =>
+      candidate.ruleRef.startsWith(prefix)
+    )
+  )) {
+    return false;
+  }
+  return input.projection.units.some(
+    (unit) =>
+      input.issue.evidenceRefs.includes(`graph-vector:${unit.graphVectorId}`) &&
+      unit.computeCompositionRefs.length > 0 &&
+      unit.computeStageBindingRefs.length > 0 &&
+      unit.pluginResultInterfaceRefs.length > 0 &&
+      unit.consequencePluginResultInterfaceRefs.length > 0 &&
+      unit.conservationBasisRef !== null
+  );
+}
+
 function checkVectorRows(input: {
   readonly vectors: readonly GraphVectorProjection[];
   readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
@@ -16123,7 +16163,16 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     projection: traversalUnitProjection,
     issues
   });
-  const frozenIssues = Object.freeze([...issues]);
+  const frozenIssues = Object.freeze(
+    issues.filter(
+      (issue) =>
+        !vectorProgramSelectionResolvedByTraversalUnit({
+          issue,
+          projection: traversalUnitProjection,
+          allIssues: issues
+        })
+    )
+  );
   const reportBasis = Object.freeze({
     subjectRef: input.subjectRef,
     abiPackageVersion: input.abiPackageVersion,

@@ -1,6 +1,6 @@
 {
   "kind": "t252_consensus_gtl_probe_manifest",
-  "version": 3,
+  "version": 4,
   "authority": {
     "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
@@ -2887,6 +2887,938 @@
     },
     "targetCarrierContractCount": 35,
     "edgeClosureContractCount": 35,
+    "traversalExecutionContractCount": 35,
+    "traversalConformanceIssueCount": 0,
+    "traversalAdmissionStatusCounts": {
+      "static_contracts_admitted_program_blocked": 35
+    },
+    "traversalAdmissionRows": [
+      {
+        "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:43c470aec9fa593efee71a6874694b2640c34ad6a6c307555530906cfffc38f9",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:2d1c58d685f42521872a9358d66d72f2cad7a21a08a99a33f49454f1440cb24a",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
+          "sha256:5d6320512b21b9df520ef8c0b77d2ec8c63e19a30de06750734dd1abf258af9f"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/exact-panel-facts",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/round-exact-projection"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/411f6aabde41165562b50934abf087c82b7667c4c8f8f20375599767960845b3",
+        "bundleDigest": "sha256:411f6aabde41165562b50934abf087c82b7667c4c8f8f20375599767960845b3",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:0a171664f12f09c45290b459ee1fa4d0ffa36b76ac5673f734cd57ac4601e9fb",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:183bbf110755657345e9e56e6146d589bf8dad15cbf29282dc02fa827fddbd9f",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b",
+          "sha256:180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://c-retry-binding/180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b",
+          "abg://c-retry-binding/180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4acbe84c06918eb5f5c9c954ff6d3925a09be9ca9b5bcb3acc12720acbc15f61",
+        "bundleDigest": "sha256:4acbe84c06918eb5f5c9c954ff6d3925a09be9ca9b5bcb3acc12720acbc15f61",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:e7ff34a21390445886181ba74db04c3d890cf6ebdff459f86c2ad5890b02ea08",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:c679b941cb75c154800929a9ee76ea004193da21f4ae94127e7ef9edf1462644",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
+          "sha256:92c6e9f1cd6951cdcc094882f82a9f5c9d2fafebb0339f0018aa29820bfdce95"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/expand-panel",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/reviewer-assignment-vector"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4b81629435c454c892c971d03d0a3a7274777b95fa2def432b31a264e541ebc8",
+        "bundleDigest": "sha256:4b81629435c454c892c971d03d0a3a7274777b95fa2def432b31a264e541ebc8",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:0ae9a955753b71a14c251d5bd499cbc0b8b58ba0c9c0624c01745445ce05bb54",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:e66fdc1e80b595441dcd02f7e9847458f5d330c24c64248b94050e3129403eed",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
+          "sha256:93df3ff273a8dc8f83578ef94e3da14202c6688ad744410edc8f980f852618bd"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-reducer-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/semantic-reducer-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c4c8fa0c4cfa38537b2489c76a98775f1a11177cd395ff3947094e95ea302dd7",
+        "bundleDigest": "sha256:c4c8fa0c4cfa38537b2489c76a98775f1a11177cd395ff3947094e95ea302dd7",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:de1d336a816f6b15e1fe64b6d5ff28521e358f49e37991f5bd3641b1845a7b4b",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:49af621a07047d91ed2701d3b39e89d3536e3ca933365d3c60ba9f900bf82e1a",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:759539a853fbe646657ee24a3ba7e191841339d3a91bf58908c9bac36ea2f7c4",
+          "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/73129a35b54f0ffe3a02a722a010bd5d90727371c6728e1a3038559361ac7c1e",
+        "bundleDigest": "sha256:73129a35b54f0ffe3a02a722a010bd5d90727371c6728e1a3038559361ac7c1e",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:d25e58f7ae701ba615137daf50467015dcef0eceb31a8a9884b20bf4ba7254c9",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:e9e6e5abfa2ac57155762a463feaaf1c7a37a3ca2363e67e3aa1a92113ec440f",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/close-post-submitter",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9bbdb919ad4277ce836a0fc50635d5523950d55714108920828cb0b7fb469dca",
+        "bundleDigest": "sha256:9bbdb919ad4277ce836a0fc50635d5523950d55714108920828cb0b7fb469dca",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:6650f82e0cb1b79ae9ed2ec4a6a92753edf971e7ca712c767d5e2175d42bb17a",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:3d5e3e051f7773d5592246d39717c5387e488b412fbdde90a6c84e2fd5b94b88",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/recurse-post-submitter",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/80d0916f1ca6fae9ba72ee43338ce8971761e288bcdec0121af732f083dd0a64",
+        "bundleDigest": "sha256:80d0916f1ca6fae9ba72ee43338ce8971761e288bcdec0121af732f083dd0a64",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:2d20980aa1533a99881a6f21496363fdced676fa82dc81b0d520b9b579d5d2e8",
+        "resultAuthoritySourceKind": "declared_fh_contract",
+        "resultAuthorityDigest": "sha256:79fec809d471794c134051d9d770b286e2d471e02412a06de391e3833fb99909",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
+          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "fh-operation:abg.operation.fh.select",
+          "fh-operation:abg.operation.fh.approve",
+          "fh-operation:abg.operation.fh.reject",
+          "fh-operation:abg.operation.fh.assess",
+          "fh-operation:abg.operation.fh.answer-escalation"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/0ac09e0177977c8bcda2643d9e0923a9e3323e523b2d68746afbca67159d20e9",
+        "bundleDigest": "sha256:0ac09e0177977c8bcda2643d9e0923a9e3323e523b2d68746afbca67159d20e9",
+        "computeStageRoles": [
+          "transform",
+          "human_callout",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:1c6109166aeb0ed0e190c72db4bd5c480a3605f3a616cf521d524d1bf866a871",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:715b69d0b8cb3ed8e319752e68401d6199dd229e799400b54b863b8b66615671",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
+          "sha256:928d1191707554a480782ff7f1f7f186b3e6d6138a5ad71d9573c268e4cd741d"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-submitter-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-turn-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/283230994145df84ffea9ecdfa7531598699d75a17659a939ece1b6134e13183",
+        "bundleDigest": "sha256:283230994145df84ffea9ecdfa7531598699d75a17659a939ece1b6134e13183",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:58ccdc975c2c1a0d21681a13aa2cc9a2929e63be54636e0de26a5e1b3275e7da",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:1119de36ee3fe5c5c04478d64f315dc356f144d91911485e5b8bfacb8286d28d",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
+          "sha256:482fbc661a0f1d518b1fca8d8b792aa3b850d72c319d6fd7b83f654d5edee785"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-fh-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-interaction-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c0a10231306f8dffb6bcfa555a3a38d5a86a5930fcea4f10fb9687d0cdc02ee0",
+        "bundleDigest": "sha256:c0a10231306f8dffb6bcfa555a3a38d5a86a5930fcea4f10fb9687d0cdc02ee0",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:ca66498ec5e27e5db0cc4bbd3f7d56bc380f337f48b15b311ed9e716730e8102",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:d0846df04b04857fde996873ff747f4bd8561bf20863e0a4ccd1023760036612",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
+          "sha256:23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
+          "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/1adad0db1ea693848555a80c9512b1713247727fd95957de332f1d35e3b9699d",
+        "bundleDigest": "sha256:1adad0db1ea693848555a80c9512b1713247727fd95957de332f1d35e3b9699d",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:ad65a5db0e9e73ba3adbb640c160789cfb5720eb750aac38ec76dc7cb92365e3",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:b5fc1ab4a1444524a2d3b4f7e1d71b89497eb9073bb57a44e97b041817dcbd3d",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
+          "sha256:4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
+          "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/d302aac9581e7e903d3bc431215c4cfd8ec5ea68a23ae6a250c55210409713b3",
+        "bundleDigest": "sha256:d302aac9581e7e903d3bc431215c4cfd8ec5ea68a23ae6a250c55210409713b3",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:68c3ea4039f5de49e580327dca66a33e874f1307fcc0f81923f0498778992c94",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:80d5ada1098994676be858411e7a0121558bc88e6ce976698679b09354eb0670",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
+          "sha256:e0639824e3b8d87f68572b1dfe3c5f844b45b16ea6d9d9e49768d403956a7a47"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c25b19a07e190535037ebcea46d2596d42fd4dc19a3b768077fa086936adb721",
+        "bundleDigest": "sha256:c25b19a07e190535037ebcea46d2596d42fd4dc19a3b768077fa086936adb721",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:7f17a05a0625331b30bd2c41d0f35b67f0908a7f90f28be02ba30632d902bbac",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:a7da6e0095267a6c8d937e59905a28668936f490b0863ce33788983f0b2faff8",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/close-initial",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/675865d8181c3e75bf4ecc8688f7c0fbd3180294f0382c2ce6e1ab26b6bbc552",
+        "bundleDigest": "sha256:675865d8181c3e75bf4ecc8688f7c0fbd3180294f0382c2ce6e1ab26b6bbc552",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:4a5f71a6a55b0aa1cd01d8e41047402ceeeb43b3d44dcd708bc36cd9d5125b64",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:7fce4e663c554751ad75ed306823da3d8ed0982ae3a0f1d66c1abb67c04db374",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
+          "sha256:f03a0b31efdbb916db121910d47f3bcffa08ca351baa05752808809f2a660b24"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c75d8e62355c75e733bb0a4057e49adb993b2513cf796b7e70b6e71e5287e792",
+        "bundleDigest": "sha256:c75d8e62355c75e733bb0a4057e49adb993b2513cf796b7e70b6e71e5287e792",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:3bc801c5cacd02dc8a82a93dcd3d343b3ea4db4349a839723c7cbb0c91d6b5ba",
+        "resultAuthoritySourceKind": "declared_fh_contract",
+        "resultAuthorityDigest": "sha256:965cadeb631888c8baa9a19abd7693af650d566571a403a1b5f84f163eb9f62e",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
+          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "fh-operation:abg.operation.fh.select",
+          "fh-operation:abg.operation.fh.approve",
+          "fh-operation:abg.operation.fh.reject",
+          "fh-operation:abg.operation.fh.assess",
+          "fh-operation:abg.operation.fh.answer-escalation"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/0da41bf6cecc9ead976d7d2e2c4611e33b2c47a2b2680644db11252c2e5f3fa7",
+        "bundleDigest": "sha256:0da41bf6cecc9ead976d7d2e2c4611e33b2c47a2b2680644db11252c2e5f3fa7",
+        "computeStageRoles": [
+          "transform",
+          "human_callout",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:dfa68b0a1ddc60a3488e79a76d407cdc8e9b28cabc1c9323b70b7aac19dc75bf",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:cbc7f78f1f4087ace9d71a322f08609cab9c1d5d3b89d83526a83d26118f025d",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
+          "sha256:a63992be7bb90889535cd2eec056d427af3d52bba4d87d2f6321d8f985fbb57d"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/seed-round",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-execution"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/188cb62976a4bee76b3d72fc7870dcd8894f2b946d9f8b730a345728f29e2d96",
+        "bundleDigest": "sha256:188cb62976a4bee76b3d72fc7870dcd8894f2b946d9f8b730a345728f29e2d96",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:591cd5662084bc67b34f4b93ca0ad1a881eb92e49e3da5e6ac82f89795aeec0d",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:d8ee89a33ffc1b78b8f3042eb95596f18a3fc0e6fcaa76385a5692322f301d6d",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
+          "sha256:1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
+          "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/59eb985402d120c56cee66be88caa10218133a3cf9ebdffed160e22e9a99ea82",
+        "bundleDigest": "sha256:59eb985402d120c56cee66be88caa10218133a3cf9ebdffed160e22e9a99ea82",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:a0602d96aaf7185a23a6aff6ce09da45a822d7b8eae71b1be446177cfc15fdbf",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:8c0591e01e19758b9ecde71453707937c43cdf58f89073e0bed664a10ffb6f24",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
+          "sha256:a099eaa0a01cd488afe146436b9d77bf03c8b35fb1561841a3692fc0efca1957"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-result",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-result"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/3215f3913728b87d5f583c7716fcbd3c79e6b4b492482910d559a000e8be7ddf",
+        "bundleDigest": "sha256:3215f3913728b87d5f583c7716fcbd3c79e6b4b492482910d559a000e8be7ddf",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:82b302efda9389832fc92b3c76eb902efcfb926f965e2cd95f2b99c46b19a121",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:5f4ace96b5b51e3d74111d4f94256125e8f08d518edbe9bb6dc510a2ff603ca8",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:4750232c10557974542e971f01b1c482153fd579de55e5d79ff830d9fe727f50",
+          "sha256:8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://hof/fan-in/binding/4750232c10557974542e971f01b1c482153fd579de55e5d79ff830d9fe727f50",
+          "abg://hof/fan-in/relation/8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/139a09d6efd26971bd143edb2c57a3b905fc09814b2e5815700cb45ec91773e1",
+        "bundleDigest": "sha256:139a09d6efd26971bd143edb2c57a3b905fc09814b2e5815700cb45ec91773e1",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[fan_out(consensus.review-one-profile)].vectors[0:fan_out(consensus.review-one-profile):wrapper]",
+        "sourceKind": "structural_hof_fan_out",
+        "sourceDigest": "sha256:b83e25a6f4b3700108e941058ef512ba4f26d4f93b24a2e1490b0e9fe8c1fd49",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:a40aab13aa365d8f9e686a9624975a762ef2e86fa4e3d8dbe48b5b1eda9593b6",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af",
+          "sha256:1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://hof/fan-out/binding/1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af",
+          "abg://hof/fan-out/binding/1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4de41474aaf9b7f862517808fff20828ee1b3a28864ea3633076e132d502f6e9",
+        "bundleDigest": "sha256:4de41474aaf9b7f862517808fff20828ee1b3a28864ea3633076e132d502f6e9",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:b167b562ef7685302576e06b17253e6c5af5fad8b343cb7ab4bba916804f7126",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:9b612fbc376d9c39d2d261fcbad839c14f3587ef319a831c5121f7af8dec37eb",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
+          "sha256:92c6e9f1cd6951cdcc094882f82a9f5c9d2fafebb0339f0018aa29820bfdce95"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/expand-panel",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/reviewer-assignment-vector"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/b0fa5081e660705d2404bd6cfeb482a6a9ccbbc8e3daa4e8214a309469001b6a",
+        "bundleDigest": "sha256:b0fa5081e660705d2404bd6cfeb482a6a9ccbbc8e3daa4e8214a309469001b6a",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:c116da5b98bf1da7c5c57bb24fdd74c4ff085067d7c127f972bae45be4a5994c",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:bad16ce7ed34d75de85ec6162cc8b747bbe5e6691924abf3c940528759d7e7cf",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
+          "sha256:93df3ff273a8dc8f83578ef94e3da14202c6688ad744410edc8f980f852618bd"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-reducer-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/semantic-reducer-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/0a27694643bfe8865b146cdc0b9a36d568670eaafdce52dcef92bd722c29b8a6",
+        "bundleDigest": "sha256:0a27694643bfe8865b146cdc0b9a36d568670eaafdce52dcef92bd722c29b8a6",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:672fde24007b7d31693707acfe4031d6234550e31ecb0dc8d914b2d46e08cad6",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:640cdc6b0313837e5a6493be84a0b627cb854000dfa7f26c3be5acd36beb4122",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:759539a853fbe646657ee24a3ba7e191841339d3a91bf58908c9bac36ea2f7c4",
+          "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/86191ae8c68ba5f0004f71a2829ec4cef01096378ce0f9be1a87c240967a9afd",
+        "bundleDigest": "sha256:86191ae8c68ba5f0004f71a2829ec4cef01096378ce0f9be1a87c240967a9afd",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:19867a77d66e4e7105bbd3263104f91316273eb51686e7fa3b4bbf471ed99121",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:ea97775e3ebcd0ac0b013826f0eea8194d3ce2855d7299829289f2e578685f54",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/close-post-submitter",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/b1d5b7a746324d579a4e242f0855d4c027f11c54fd55c9e68171fef40f3a68fb",
+        "bundleDigest": "sha256:b1d5b7a746324d579a4e242f0855d4c027f11c54fd55c9e68171fef40f3a68fb",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:c307ba3cd9de77792e1df907b0b897c8e3ed91370023bcfe4c2e602a5b97cd14",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:9967c36dd5f7fc2e3a07c2e488a9059a97f27cc31714c5dd91ed4a727a13aaae",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/recurse-post-submitter",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c127d2500d41b75e5a7cade24271cd3c33194f29225329ef21e7c67211a09f9a",
+        "bundleDigest": "sha256:c127d2500d41b75e5a7cade24271cd3c33194f29225329ef21e7c67211a09f9a",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:1129c3686f2ae920280c2a569f90def363fc308059eba9b0c462d0a84849a62a",
+        "resultAuthoritySourceKind": "declared_fh_contract",
+        "resultAuthorityDigest": "sha256:ea96bdc24191454d534439b2daf9673e0762445d85569e9cd864f29e3d4595c3",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
+          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "fh-operation:abg.operation.fh.select",
+          "fh-operation:abg.operation.fh.approve",
+          "fh-operation:abg.operation.fh.reject",
+          "fh-operation:abg.operation.fh.assess",
+          "fh-operation:abg.operation.fh.answer-escalation"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/e7d8a8c9d17830d26ad8f201ce5a3833bf015b46af784ca32522379e080bf9e5",
+        "bundleDigest": "sha256:e7d8a8c9d17830d26ad8f201ce5a3833bf015b46af784ca32522379e080bf9e5",
+        "computeStageRoles": [
+          "transform",
+          "human_callout",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:22865d3a0f4ce7964f745b0f0a696eb990ac9ba90b442774c82926bc17e6094a",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:fb42ce28dd100a89bcd47a1d43d33370de8f6666ba7591d37042d047fe1e4951",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
+          "sha256:928d1191707554a480782ff7f1f7f186b3e6d6138a5ad71d9573c268e4cd741d"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-submitter-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-turn-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/eca1620a0d50e28e91f56b46b01762ad22d2157bb9abcbb47c9e2dbaa316ee6a",
+        "bundleDigest": "sha256:eca1620a0d50e28e91f56b46b01762ad22d2157bb9abcbb47c9e2dbaa316ee6a",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:70f2eb3373c6a5b7edef0cb2cfd95ee1035d61aea4a77828032c49814ad1f1ab",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:9a2d9e86a3644c283bc376a32f49f179ddcc2234dae1e271dc996b28b71af246",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
+          "sha256:482fbc661a0f1d518b1fca8d8b792aa3b850d72c319d6fd7b83f654d5edee785"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/project-fh-binding",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-interaction-binding"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/8e05b8dd2bf6c45ab36b86a42da9dfd6c74a64bf5534ab1a952af8f5c518e0a7",
+        "bundleDigest": "sha256:8e05b8dd2bf6c45ab36b86a42da9dfd6c74a64bf5534ab1a952af8f5c518e0a7",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:24058c9f77c39103c894ddded782cdcdc845d65742fb853aa44df439cb69b7c4",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:27da43c4407838345cdaa7829739ef2d43b7085d4e79ab1289621d05c9494d6c",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
+          "sha256:63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
+          "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/b9572ec2a68cffed03b1d0b000fc24228b77a0a6dd1da8ec08c750e0b770d22a",
+        "bundleDigest": "sha256:b9572ec2a68cffed03b1d0b000fc24228b77a0a6dd1da8ec08c750e0b770d22a",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:f2000eccf863755ad2c9c67d17cb8725cc1a9b051528be3e0f154ba64cca0057",
+        "resultAuthoritySourceKind": "runtime_atom_contract",
+        "resultAuthorityDigest": "sha256:39c968c26d1b3b8009b0eea3eafd8ed9307d076f2ae7401f67ead5cb3ff754a8",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
+          "sha256:4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
+          "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/ef486cc75d123647d8e870b765d288b6f4dc5fcae76868c7210fa282472b07ed",
+        "bundleDigest": "sha256:ef486cc75d123647d8e870b765d288b6f4dc5fcae76868c7210fa282472b07ed",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:7410b8487975973fe66a89d1899a705afefa390ba97d22a704de42ff52d4b705",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:255569cf51ad15e3b655b5539427ccf89d8f72b89c49527b1b6e6e08fec5eb91",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
+          "sha256:e0639824e3b8d87f68572b1dfe3c5f844b45b16ea6d9d9e49768d403956a7a47"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/ef58b4e4591fb059c71ece8829feade6610453f9097d406bbe229a07b85c2109",
+        "bundleDigest": "sha256:ef58b4e4591fb059c71ece8829feade6610453f9097d406bbe229a07b85c2109",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:57d0f3ef6e06e9ff55c2741e32a060ed159ff6382fb1caca66a5c227dd4bc203",
+        "resultAuthoritySourceKind": "deterministic_target_contract",
+        "resultAuthorityDigest": "sha256:a04d918fc0b5f04677d8ddffba72f6df584d4d540e0a4a97957d0e3e3ae4eb6f",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
+          "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "program://abg/consensus/close-initial",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/434d6182e9842104c8be356d59d35f8e00c278c9f45243b314874e6e499a0920",
+        "bundleDigest": "sha256:434d6182e9842104c8be356d59d35f8e00c278c9f45243b314874e6e499a0920",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:b74b0be4f2fe0422c5ea07284d397404b817dc45ac13843d70628e5104894891",
+        "resultAuthoritySourceKind": "declared_fp_contract",
+        "resultAuthorityDigest": "sha256:5674270715c431b00a1bab38481f9e338c6743861f63d927c2189c396c7946b1",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
+          "sha256:f03a0b31efdbb916db121910d47f3bcffa08ca351baa05752808809f2a660b24"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+          "fp-result-wire-profile:standard_live_review",
+          "resultContractRef",
+          "accepted",
+          "closeDisposition",
+          "assessmentIds",
+          "reasons"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/6ff5c4213ca566e55ac52d889ebc6311b4c26a8d77a6f0e49596f6ff7e197f0c",
+        "bundleDigest": "sha256:6ff5c4213ca566e55ac52d889ebc6311b4c26a8d77a6f0e49596f6ff7e197f0c",
+        "computeStageRoles": [
+          "transform",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
+        "sourceKind": "selected_program_handoff",
+        "sourceDigest": "sha256:5d7df528dbe34d78e16058cd1bd6286326b5a11a87c4d70e6a69df4eed82a5c1",
+        "resultAuthoritySourceKind": "declared_fh_contract",
+        "resultAuthorityDigest": "sha256:b7ee4c45874d412a545b7b0bdf86475d0aa40d11e2e2793e04363544547a0c31",
+        "resultAuthorityEvidenceRefs": [
+          "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
+          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+        ],
+        "resultAuthoritySelectorRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "fh-operation:abg.operation.fh.select",
+          "fh-operation:abg.operation.fh.approve",
+          "fh-operation:abg.operation.fh.reject",
+          "fh-operation:abg.operation.fh.assess",
+          "fh-operation:abg.operation.fh.answer-escalation"
+        ],
+        "bundleRef": "abg://compiled-traversal-execution-contracts/59ef55b63e64522fe3e7d92a21af3170aaaa27a1ec471f57e0181ff1270e1dd9",
+        "bundleDigest": "sha256:59ef55b63e64522fe3e7d92a21af3170aaaa27a1ec471f57e0181ff1270e1dd9",
+        "computeStageRoles": [
+          "transform",
+          "human_callout",
+          "evaluate",
+          "consequence"
+        ],
+        "status": "static_contracts_admitted_program_blocked",
+        "runtimeAddressable": false,
+        "effectsPermitted": false
+      }
+    ],
     "coverageRows": [
       {
         "constructor": "C.of",
@@ -2894,8 +3826,7 @@
         "compilerCoverage": "exact_handoff",
         "runtimeStatus": "capability_or_successor_blocked_before_traversal",
         "gapFamilies": [
-          "tenant_conformance_manifest_consensus_coverage_missing",
-          "traversal_execution_contracts"
+          "tenant_conformance_manifest_consensus_coverage_missing"
         ]
       },
       {
@@ -2903,10 +3834,9 @@
         "authoredCount": 3,
         "selectedHandoffCount": 5,
         "compilerCoverage": "exact_static_handoff",
-        "runtimeStatus": "runtime_atom_realized_but_canonical_invocation_blocked_before_traversal",
+        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
         "gapFamilies": [
-          "tenant_conformance_manifest_consensus_coverage_missing",
-          "traversal_execution_contracts"
+          "tenant_conformance_manifest_consensus_coverage_missing"
         ]
       },
       {
@@ -2914,124 +3844,52 @@
         "authoredCount": 1,
         "selectedHandoffCount": 1,
         "compilerCoverage": "exact_static_handoff_and_runtime_resolver",
-        "runtimeStatus": "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
+        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
         "gapFamilies": [
-          "tenant_conformance_manifest_consensus_coverage_missing",
-          "traversal_execution_contracts"
+          "tenant_conformance_manifest_consensus_coverage_missing"
         ]
       },
       {
         "constructor": "fan_out",
         "authoredCount": 1,
         "compilerCoverage": "exact_relation_and_runtime_projector",
-        "runtimeStatus": "runtime_atom_realized_canonical_child_blocked_by_startup_fence",
-        "gapFamilies": [
-          "traversal_execution_contracts"
-        ]
+        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_unresolved",
+        "gapFamilies": []
       },
       {
         "constructor": "fan_in",
         "authoredCount": 1,
         "compilerCoverage": "exact_relation_and_runtime_resolver",
-        "runtimeStatus": "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
-        "gapFamilies": [
-          "traversal_execution_contracts"
-        ]
+        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+        "gapFamilies": []
       },
       {
         "constructor": "recurse",
         "authoredCount": 1,
         "compilerCoverage": "exact_relation_policy_binding_plan_and_runtime_resolver",
-        "runtimeStatus": "runtime_atom_realized_canonical_public_effects_blocked_before_traversal",
-        "gapFamilies": [
-          "traversal_execution_contracts"
-        ]
+        "runtimeStatus": "runtime_atom_realized_internal_static_units_capability_blocked",
+        "gapFamilies": []
       },
       {
         "constructor": "graph_vector_program_selection",
         "authoredCount": 34,
         "compilerCoverage": "exact_handoff",
-        "runtimeStatus": "capability_or_successor_blocked_before_traversal",
+        "runtimeStatus": "static_traversal_contract_realized_capability_blocked",
         "gapFamilies": [
-          "tenant_conformance_manifest_consensus_coverage_missing",
-          "traversal_execution_contracts"
+          "tenant_conformance_manifest_consensus_coverage_missing"
         ]
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 619,
+    "fullConformanceIssueCount": 25,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "count": 39
+        "count": 5
       },
       {
         "ruleRef": "abg://gtl-program/graph/node-reachable-or-bound",
         "count": 20
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-carried-obligation",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-downstream-terminal-pressure",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-intent-lineage",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-materialization-binding",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-materialization-coverage",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-required",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-residual-pressure",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-staged-authority",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/compute-composition-required",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/consequence-result-interface-required",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/plugin-result-interface-required",
-        "count": 35
-      },
-      {
-        "ruleRef": "abg://gtl-program/traversal-unit/stage-binding-required",
-        "count": 35
       }
     ],
     "derivedConformanceInventoryCounts": {
@@ -3172,16 +4030,18 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 2,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 1,
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "traversal_execution_contracts"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 2,
-    "observedGapEvidenceDigest": "sha256:043c09bef0cf8cfa142bd7a258484a6905649bf8860507ed103d22022b1c2495",
+    "observedGapFamilyCount": 1,
+    "observedGapEvidenceDigest": "sha256:7abfc15c2be50ed1524b425080f2e25c8a29835a3ca4f610dc388a1f6bb2e37d",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3247,83 +4107,6 @@
         "ticket:T-252"
       ],
       "evidenceDigest": "sha256:ea154c30ef69e0fa01f9dc444475afc0bb2ed5ca803041abdb387bd1b6280005"
-    },
-    {
-      "gapFamily": "traversal_execution_contracts",
-      "ownerTicket": "T-267",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
-        "abg://gtl-program/traversal-unit/bind-conservation-carried-obligation",
-        "abg://gtl-program/traversal-unit/bind-conservation-downstream-terminal-pressure",
-        "abg://gtl-program/traversal-unit/bind-conservation-intent-lineage",
-        "abg://gtl-program/traversal-unit/bind-conservation-materialization-binding",
-        "abg://gtl-program/traversal-unit/bind-conservation-materialization-coverage",
-        "abg://gtl-program/traversal-unit/bind-conservation-required",
-        "abg://gtl-program/traversal-unit/bind-conservation-residual-pressure",
-        "abg://gtl-program/traversal-unit/bind-conservation-staged-authority",
-        "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding",
-        "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage",
-        "abg://gtl-program/traversal-unit/compute-composition-required",
-        "abg://gtl-program/traversal-unit/consequence-result-interface-required",
-        "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage",
-        "abg://gtl-program/traversal-unit/plugin-result-interface-required",
-        "abg://gtl-program/traversal-unit/stage-binding-required"
-      ],
-      "canonicalBodyPaths": [
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:0607a6e5789c7f508874379cd397cfa873a1039dab501974baf1b89407a8c233",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:0d0cc5072bc1c262a4dbee045c1187eeecc81c6efb094ed90008627bbd0b937e",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:15d5babadfb4f111d1339929dc853a4f2636bccfdcce0928766ec29be571802a",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:163cddca5fba3dfbeb93b7921e29bf53300d530273de9a080a75768e9843ef0f",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:1ef59c347b4c3d17b1a68653fb44c5fdaba017a1726e5bb74f9db1071a758efa",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:295aafaaa836e980706c591374f95cba9ae133f48349824c1d54c6762a80df3a",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:2bfa4cbbf679ff054913c46af9e4cc46d06895c59cb2e8658253af685565e5b6",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:32259162875b55d7d8f432d75a32c7560818d0e429483b206c5b7c093dd257a6",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:4bb5fe31b85784a064d75bc1f41643db635fd6350c7dca2b5e9dda17f849795e",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:4e23a40419c8aa9f7e38c7d43f57d57c99b5f2cbe92dc2649c4a533a22ab16c3",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:5b9387c32ea58434a248ec6e7989a90324f0f90f589c508e1afb4b24d4f74539",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:607fc7506e3bd893df83a3f17eb3bdd2bc234b92ea3b52a18f12808cef1a87cb",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:63883d02ab3ac14f65dc09596f10b0ab47f4a9fdadcbb04c3b49b13f5909d886",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:654526c9b27514e44e43b320e300d3c316e71a1fc6bff2ad91aa87d03b336927",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:6cab17825074eb9e79ca37b6e2ad57832342a3216f9dbc7b519a940b052999dc",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:717511913efb3e7175c797392f9d44a497af177262463814dc479b4e0e23d121",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:73d92f4ff1ecaf41336ff1b0a2fcb525d90fc2bcf7000b24eb8deef8df93a9d1",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:822538e31211ca01e5ca590c366f8d23c56e30a5cb2adab797d6e2a9f5fedb20",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:8697e52d021cc069039a6181c77ce8b004102dfe821c4aafae28f89a635da598",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:8ac33932057545ad0b25e56b433ff28a783dbaa3fdbbd45ccdf84f750d636742",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:8b925aa02dd1af190a588cd3c284c245c4a934e6eacf30f3edccaa286f4682f9",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:92904ee638ad67274078ac5c480f5726bed9506d3e33b0e847a70d9c584b754f",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:945e61098237194f98cb2ad97f8e7fd313698b5a84f45ef4ba94a59563df4a6a",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:a1b5047ebf444b532f8facbc7ef411fc798cf6266ce5368f49123036a7b9e731",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:aded51756613382c1b0e7fc3e61088aba068b2215ecd0743aaa7526fc274ae92",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:be900e52cee70d873e93d075007f8684d8ab325e1137b9bd624c42777a6ae55f",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:c0b1013b56df80f8c126069ddcac867b7cb2766f69417f8bda13d0b4bc72bbc8",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:d8718f4c62d55f10e7baf13964f5542dd4edc7199e8f3a4abdf91a5effc2f833",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:d8efd2063378d55a610738dd8261f8ba9d9a7c1caa03c728c6df7c8e6a494ae7",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:daa04ef4f44b294842ede63c7ca4fd2afe0c20d45d0905f4746555995005abcc",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:dd2f6fb4224db9c3f1869d7368e0798e9be6628ace4c7931964a5d44c91ce560",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:eea95f816f1c24226a216a9443873f2fea9af8760e327f8887a44afc94f8cb97",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:ef0e57d3a493350e44c39ea30f7c4bee95496d48592823a27c340212ec7618fa",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:f021e5585be5b7fe708ca5b8e0f63de8088bb6844711c0c0f3fc7f03b0762113",
-        "traversal_unit:abg://gtl-program/traversal-unit/sha256:ff5181ccd51845d62cec25e62cbe973bb8605c294c1895ee2563d6133685b531"
-      ],
-      "observationSources": [
-        "compiler:typecheckGtlProgram"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-R-ABG3-INTERPRET",
-        "ticket-source:.ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
-        "ticket:T-267"
-      ],
-      "authorityDigest": "sha256:7fccf30aa6d66d1f00ff482ca48dbc111908e510962768fcc6f16ca1a5023221",
-      "actualRelation": "TraversalUnit execution, result-interface, and conservation rows are absent from the submitted structure",
-      "actualRelationDigest": "sha256:e029af936fb3dda43d4617eabee0d1ab288a5094bceaf0c82393116dcf883b66",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     }
   ],
   "staticExecutionReachability": {
@@ -3420,5 +4203,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:96b6f53d721444d6ab3622743fd59ed129981c0c0df079a9f532cf83444f9085"
+  "manifestDigest": "sha256:ed420dede144c595ce639aeed4bea9967a822d79208eb28926b8a772378e5875"
 }

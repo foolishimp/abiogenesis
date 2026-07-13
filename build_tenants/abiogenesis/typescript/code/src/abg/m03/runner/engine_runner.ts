@@ -262,8 +262,13 @@ import {
   constructDefaultInstructionAssemblyStartupForBasis
 } from "../contracts/default_instruction_startup.js";
 import {
-  catalogExecutionBindingDeclaresExecutionContext
+  catalogExecutionBindingDeclaresExecutionContext,
+  type DeclaredExecutionRequest
 } from "../contracts/declared_execution_context.js";
+import {
+  assertTraversalExecutionRuntimeStart,
+  type TraversalExecutionAdmissionRuntimeAddressable
+} from "../contracts/traversal_execution_contract.js";
 import {
   constructExecutivePressureFactProjectedEvent,
   type ExecutiveContinuationInputProjection,
@@ -366,6 +371,10 @@ export interface EngineIterateRequest {
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
   readonly runtimeCatalogBasis?: AdmittedRuntimeCatalogBasis | undefined;
+  readonly declaredExecutionRequest?: DeclaredExecutionRequest | undefined;
+  readonly traversalExecutionAdmission?:
+    | TraversalExecutionAdmissionRuntimeAddressable
+    | undefined;
   readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
@@ -448,6 +457,10 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
   readonly runtimeCatalogBasis?: AdmittedRuntimeCatalogBasis | undefined;
+  readonly declaredExecutionRequest?: DeclaredExecutionRequest | undefined;
+  readonly traversalExecutionAdmission?:
+    | TraversalExecutionAdmissionRuntimeAddressable
+    | undefined;
   readonly temporalPropertyStartup?: TemporalPropertyStartupInput | undefined;
   readonly requirementProofCarryThroughStartup?:
     | RequirementProofCarryThroughStartupInput
@@ -10962,19 +10975,72 @@ function assertEngineStartRuntimeCatalogBasis(
   return binding;
 }
 
-function assertDeclaredExecutionContextStartupBlocked(input: {
+function assertDeclaredExecutionContextRuntimeStart(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly binding: CatalogExecutionBinding;
+  readonly declaredExecutionRequest: DeclaredExecutionRequest | undefined;
+  readonly traversalExecutionAdmission:
+    | TraversalExecutionAdmissionRuntimeAddressable
+    | undefined;
+  readonly instructionAssemblyStartup:
+    | EngineInstructionAssemblyStartupInput
+    | undefined;
 }): void {
-  if (
+  const declaresExecutionContext =
     catalogExecutionBindingDeclaresExecutionContext({
       executionBinding: input.binding,
       catalogBasis: input.catalogBasis
-    })
+    });
+  if (!declaresExecutionContext) {
+    if (
+      input.declaredExecutionRequest !== undefined ||
+      input.traversalExecutionAdmission !== undefined
+    ) {
+      throw new TypeError(
+        "traversal_execution_start_authority_unexpected: catalog entry has no declared execution-context profile"
+      );
+    }
+    return;
+  }
+  if (
+    input.declaredExecutionRequest === undefined ||
+    input.traversalExecutionAdmission === undefined
   ) {
     throw new TypeError(
       "declared_execution_context_startup_blocked_awaiting_t267: " +
-        "profile-aware catalog work cannot use code-authored instruction startup"
+        "profile-aware catalog work requires one exact declared request and runtime-addressable traversal admission"
+    );
+  }
+  assertTraversalExecutionRuntimeStart({
+    request: input.declaredExecutionRequest,
+    admission: input.traversalExecutionAdmission
+  });
+  if (
+    input.traversalExecutionAdmission.graphFunctionId !==
+      input.binding.graphFunctionId ||
+    input.traversalExecutionAdmission.graphFunctionId !==
+      input.binding.graphFunctionHandle ||
+    input.traversalExecutionAdmission.graphFunctionDigest !==
+      input.binding.graphFunctionDigest
+  ) {
+    throw new TypeError(
+      "traversal_execution_start_authority_mismatch: T-267 admission does not belong to the selected catalog GraphFunction"
+    );
+  }
+  const declaredRequest = input.declaredExecutionRequest;
+  if (declaredRequest.regime === "F_H") {
+    throw new TypeError(
+      "declared_fh_execution_requires_public_interaction_entry: F_H work cannot enter the prompt-plan engine path"
+    );
+  }
+  const matchingPlans = input.instructionAssemblyStartup?.compiledPromptPlans.filter(
+    (plan) =>
+      plan.planRef === declaredRequest.planRef &&
+      plan.planDigest === declaredRequest.planDigest
+  ) ?? Object.freeze([]);
+  if (matchingPlans.length !== 1) {
+    throw new TypeError(
+      "declared_fp_instruction_plan_mismatch: runtime entry requires the exact T-256 prompt plan"
     );
   }
 }
@@ -10984,7 +11050,6 @@ function defaultCatalogInstructionAssemblyStartup(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly binding: CatalogExecutionBinding;
 }): EngineInstructionAssemblyStartupInput {
-  assertDeclaredExecutionContextStartupBlocked(input);
   const entry = input.catalogBasis.projection.runtimeRegistryProjection.entries.find(
     (candidate) =>
       candidate.entryRef === input.binding.entryRef &&
@@ -11033,6 +11098,14 @@ function assertEngineIterateRuntimeCatalogBasis(
     );
   }
   if (request.runtimeCatalogBasis === undefined) {
+    if (
+      request.declaredExecutionRequest !== undefined ||
+      request.traversalExecutionAdmission !== undefined
+    ) {
+      throw new TypeError(
+        "traversal_execution_start_authority_unexpected: no admitted runtime catalog basis"
+      );
+    }
     return;
   }
   const binding = exactRuntimeCatalogExecutionBinding({
@@ -11055,9 +11128,19 @@ function assertEngineIterateRuntimeCatalogBasis(
       catalogBasis: request.runtimeCatalogBasis
     })
   ) {
+    assertDeclaredExecutionContextRuntimeStart({
+      catalogBasis: request.runtimeCatalogBasis,
+      binding,
+      declaredExecutionRequest: request.declaredExecutionRequest,
+      traversalExecutionAdmission: request.traversalExecutionAdmission,
+      instructionAssemblyStartup: request.instructionAssemblyStartup
+    });
+  } else if (
+    request.declaredExecutionRequest !== undefined ||
+    request.traversalExecutionAdmission !== undefined
+  ) {
     throw new TypeError(
-      "declared_execution_context_startup_blocked_awaiting_t267: " +
-        "profile-aware catalog work cannot enter engine iteration"
+      "traversal_execution_start_authority_unexpected: catalog entry has no declared execution-context profile"
     );
   }
 }
@@ -11114,27 +11197,57 @@ export async function runEngineIterateAsync(
   return step.value;
 }
 
-export function runEngineStart(request: EngineStartRequest): EngineIterateResult {
+function prepareEngineStart(request: EngineStartRequest): {
+  readonly basis: ExecutionBasis;
+  readonly instructionAssemblyStartup:
+    | EngineInstructionAssemblyStartupInput
+    | undefined;
+} {
   const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
   if (catalogBinding !== null && request.runtimeCatalogBasis !== undefined) {
-    assertDeclaredExecutionContextStartupBlocked({
+    assertDeclaredExecutionContextRuntimeStart({
       catalogBasis: request.runtimeCatalogBasis,
-      binding: catalogBinding
+      binding: catalogBinding,
+      declaredExecutionRequest: request.declaredExecutionRequest,
+      traversalExecutionAdmission: request.traversalExecutionAdmission,
+      instructionAssemblyStartup: request.instructionAssemblyStartup
     });
+  } else if (
+    request.declaredExecutionRequest !== undefined ||
+    request.traversalExecutionAdmission !== undefined
+  ) {
+    throw new TypeError(
+      "traversal_execution_start_authority_unexpected: no admitted runtime catalog basis"
+    );
   }
+  const catalogDeclaresExecutionContext =
+    catalogBinding !== null && request.runtimeCatalogBasis !== undefined &&
+    catalogExecutionBindingDeclaresExecutionContext({
+      executionBinding: catalogBinding,
+      catalogBasis: request.runtimeCatalogBasis
+    });
   const basis = admitExecutionBasis(request);
   const instructionAssemblyStartup = request.instructionAssemblyStartup ??
-    (catalogBinding === null || request.runtimeCatalogBasis === undefined
+    (catalogBinding === null ||
+      request.runtimeCatalogBasis === undefined ||
+      catalogDeclaresExecutionContext
       ? undefined
       : defaultCatalogInstructionAssemblyStartup({
           basis,
           catalogBasis: request.runtimeCatalogBasis,
           binding: catalogBinding
         }));
+  return Object.freeze({ basis, instructionAssemblyStartup });
+}
+
+export function runEngineStart(request: EngineStartRequest): EngineIterateResult {
+  const { basis, instructionAssemblyStartup } = prepareEngineStart(request);
   return runEngineIterate({
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
+    declaredExecutionRequest: request.declaredExecutionRequest,
+    traversalExecutionAdmission: request.traversalExecutionAdmission,
     ...engineStartPassthrough(request),
     ...(instructionAssemblyStartup === undefined
       ? {}
@@ -11158,26 +11271,13 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
 export async function runEngineStartAsync(
   request: EngineStartRequest
 ): Promise<EngineIterateResult> {
-  const catalogBinding = assertEngineStartRuntimeCatalogBasis(request);
-  if (catalogBinding !== null && request.runtimeCatalogBasis !== undefined) {
-    assertDeclaredExecutionContextStartupBlocked({
-      catalogBasis: request.runtimeCatalogBasis,
-      binding: catalogBinding
-    });
-  }
-  const basis = admitExecutionBasis(request);
-  const instructionAssemblyStartup = request.instructionAssemblyStartup ??
-    (catalogBinding === null || request.runtimeCatalogBasis === undefined
-      ? undefined
-      : defaultCatalogInstructionAssemblyStartup({
-          basis,
-          catalogBasis: request.runtimeCatalogBasis,
-          binding: catalogBinding
-        }));
+  const { basis, instructionAssemblyStartup } = prepareEngineStart(request);
   return await runEngineIterateAsync({
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
+    declaredExecutionRequest: request.declaredExecutionRequest,
+    traversalExecutionAdmission: request.traversalExecutionAdmission,
     ...engineStartPassthrough(request),
     ...(instructionAssemblyStartup === undefined
       ? {}

@@ -38,6 +38,7 @@ import {
 } from "./hof_relation_compiler.js";
 import {
   isHogBatchProgram,
+  isHogRetryProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration,
   type HogProgramStage
@@ -177,7 +178,7 @@ export function executionHandoffBindingView(
     declarationOwnerGraphFunctionRef:
       declarationOwnerGraphFunctionRef,
     graphVectorRef: capabilityBlocked
-      ? handoff.boundary.graphVectorRef
+      ? handoff.targetCarrierProjection.graphVectorId
       : handoff.graphVectorRef,
     programBindingDigest: handoff.programBinding.bindingDigest,
     programRef: handoff.programBinding.selectedProgramRef,
@@ -192,6 +193,12 @@ function exactSingleStage(
   program: HogProgramDeclaration,
   label: string
 ): HogProgramStage {
+  if (isHogRetryProgram(program)) {
+    if (!program.retry.stage.resultBearing) {
+      throw new TypeError(`${label} retry stage must be result-bearing`);
+    }
+    return program.retry.stage;
+  }
   if (
     isHogWorkflowProgram(program) ||
     isHogBatchProgram(program) ||
