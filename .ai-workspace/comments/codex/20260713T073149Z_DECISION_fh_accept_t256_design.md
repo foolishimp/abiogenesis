@@ -1,12 +1,20 @@
-# F_H Decision: Accept T-256 Design
+# Invalidated Decision Record: T-256 Design Acceptance
+
+**Status**: Invalidated by
+`.ai-workspace/comments/codex/20260713T074427Z_REVIEW_GATE_t256_design_rejected.md`.
+This record is retained only to preserve the correction lineage. It grants no
+design or implementation authority.
 
 ## Decision
 
-The user explicitly approved continuation on 2026-07-13 after the current
-T-256 design checkpoint was presented as the active acceptance gate.
+Continuation was interpreted as F_H acceptance on 2026-07-13 after the current
+T-256 design checkpoint was presented as the active acceptance gate. The next
+review rejected that interpretation and superseded this record before any
+implementation commit or push.
 
-`M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md` is accepted as the realization
-authority for T-256. Implementation may proceed within its declared boundary.
+`M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md` remains a candidate design.
+Implementation is paused pending bounded design repair, independent review,
+and a new explicit F_H decision.
 
 ## Retained Guards
 
