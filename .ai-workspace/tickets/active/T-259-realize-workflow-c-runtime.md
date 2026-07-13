@@ -2,7 +2,9 @@
 
 - id: T-259
 - status: active
-- phase_status: three_view_design_required
+- phase_status: design_accepted_implementation_authorized
+- review_status: design_accepted_delegated_fh
+- design_ref: build_tenants/abiogenesis/typescript/design/M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md
 - delivery_phase: DS-3
 - change_class: design_reframe
 - owner: abiogenesis
