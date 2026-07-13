@@ -587,7 +587,8 @@ sequenceDiagram
   else manifest absent
     Caller->>Caller: establish explicit absence
   end
-  Caller->>T254: GraphFunction, exact GraphVector, and admitted manifest or absence
+  Note over Caller,Capability: Caller retains admitted manifest or explicit absence, raw manifest never enters M03
+  Caller->>T254: GraphFunction and exact contained GraphVector
   alt malformed, absent, or ambiguous selector
     T254-->>Caller: invalid typed diagnostic
   else no local C selector
