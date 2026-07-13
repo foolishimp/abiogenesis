@@ -1,11 +1,12 @@
 # T-266 - Close Native Node And Interface Type Witnesses
 
 - id: T-266
-- status: active
-- phase_status: repair_complete_renewed_closure_review_pending
-- review_status: repaired_findings_user_review_pending
+- status: completed
+- phase_status: closed
+- review_status: accepted_by_fh_after_repair
 - implementation_admission: repaired_as_designed
 - proof_status: repaired_declared_gates_green
+- closed_at: 2026-07-13
 - delivery_phase: DS-1 prerequisite
 - change_class: design_reframe
 - owner: abiogenesis
@@ -259,7 +260,9 @@ witnessed HOF surface. These retained choices are not precedent for promoting
 low-probability, fail-closed findings without an explicit probability, harm,
 existing-control, and rabbit-hole assessment.
 
-Renewed closure review remains pending. The ticket stays in `active/`.
+`closed` on 2026-07-13 by direct F_H continuation ruling after the repaired
+handoff. The ruling accepts the repaired realization and its corrected
+proportionality record. No deferred finding remains a T-266 closure blocker.
 
 ## Realization Evidence
 

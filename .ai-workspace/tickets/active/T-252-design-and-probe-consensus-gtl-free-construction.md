@@ -5,10 +5,10 @@
 - type: feature
 - ticket_category: executable_design_probe
 - status: active
-- phase_status: corrected_design_accepted_body_blocked_on_t265_t266_realization
+- phase_status: corrected_design_accepted_body_authoring_admitted
 - review_status: corrected_three_view_design_accepted_by_fh
 - target_architecture_disposition: accepted_by_fh
-- implementation_admission: blocked_on_t265_and_t266_realization_closure
+- implementation_admission: admitted_after_t265_t266_closure
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1
 - priority: critical
@@ -42,8 +42,8 @@
   - completed T-251 entry-proof gate restoration
   - completed T-253 structural HOF vector/member identity and constructor-ownership prerequisite
   - completed T-254 generic GraphVector-to-declared-C-program selection prerequisite
-  - active T-265 canonical GraphFunction combinator-application prerequisite
-  - active T-266 generic native Node/interface type-witness prerequisite
+  - completed T-265 canonical GraphFunction combinator-application prerequisite
+  - completed T-266 generic native Node/interface type-witness prerequisite
 - authority_refs:
   - specification/GOALS.md DS-1 and GOAL-035
   - specification/PRODUCT.md bounded Consensus and atom criterion
@@ -601,17 +601,16 @@ Its original architecture and routing decision remain input to the correction.
 T-253 closed structural HOF child/member/vector identity and constructor
 ownership, and the bounded design re-entry verified the canonical
 `gtl.hof_application` data, raw identity, and M03 semantic gap without changing
-the topology. `workflow.C` remains a retained census gap. T-266 must still
-rebind the unsafe native type API and its proofs.
+the topology. `workflow.C` remains a retained census gap. T-266 subsequently
+closed the native type API and proof rebind.
 T-254 then closed the generic GraphVector-to-declared-C-program relation. The
 candidate pure-data body subsequently exposed the generic discriminated
 combinator-application declaration and compiler-derived application-lineage
-prerequisite now designed in T-265. T-252 is blocked until T-265 and T-266
-close their now-accepted realizations. F_H has accepted the corrected pure-vector,
+prerequisite now realized in T-265. T-252 body authoring is admitted after T-265
+and T-266 closed their accepted realizations. F_H has accepted the corrected pure-vector,
 transitive-effect, operator-registry, ownership-separation,
-execution-binding-authority, and declaration-versus-observation design. Only
-after both prerequisites close may the body and
-total census be finalized; T-255 through T-266 carry candidate exact ownership
+execution-binding-authority, and declaration-versus-observation design. The body
+and total census may now be finalized; T-255 through T-266 carry candidate exact ownership
 sections for the known frontier. No prior ruling authorizes
 a global-program lie, `operator.binding`, helper-GraphFunction topology rewrite,
 Consensus-specific workaround, or any reported generic runtime fix.
