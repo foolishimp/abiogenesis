@@ -14,6 +14,7 @@
 - decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
 - proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
+- closure_proof_ref: .ai-workspace/comments/codex/20260713T044638Z_PROOF_t252_t263_t264_post_acceptance_closure.md
 - design_ref: build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md
 
 ## Boundary

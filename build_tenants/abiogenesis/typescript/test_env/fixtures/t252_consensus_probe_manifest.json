@@ -2275,16 +2275,16 @@
       },
       {
         "ticketId": "T-263",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-263-close-strict-raw-module-admission.md",
         "families": [
           "strict_raw_module_admission"
         ]
       },
       {
         "ticketId": "T-264",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-264-close-proportional-conformance-inventory.md",
         "families": [
           "conformance_inventory_extraction",
           "conformance_scope_proportionality",
@@ -2316,14 +2316,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 16,
-    "activeOwnedButNotObservedFamilyCount": 5,
-    "activeOwnedButNotObservedFamilies": [
-      "conformance_inventory_extraction",
-      "conformance_scope_proportionality",
-      "effect_declaration_inventory_enforcement",
-      "plugin_handler_declaration_inventory_enforcement",
-      "strict_raw_module_admission"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3051,5 +3045,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:12fb4b5a36a42b23d5c1b5d442b30b60eea4582875b8603e5af89a71abf3eaef"
+  "manifestDigest": "sha256:5a9f6b2599ee4463967cdf475b5ff9be6f340cd69edc86d794eae8dc1ed08915"
 }
