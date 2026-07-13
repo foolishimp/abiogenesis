@@ -4,12 +4,13 @@
 - title: Design and probe the lawful executable Consensus GTL free construction
 - type: feature
 - ticket_category: executable_design_probe
-- status: active
-- phase_status: implementation_complete_review_pending
-- review_status: checkpoint_self_reviewed_fh_review_pending
+- status: completed
+- phase_status: closed
+- review_status: accepted_by_fh
 - target_architecture_disposition: accepted_by_fh
-- implementation_admission: completed_pending_fh_checkpoint_review
-- proof_status: declared_gates_green_pending_fh_review
+- implementation_admission: completed_as_designed
+- proof_status: accepted_checkpoint_evidence
+- closed_at: 2026-07-13
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-1
 - priority: critical
@@ -578,7 +579,38 @@ transitive-effect, operator-registry, ownership-separation,
 execution-binding-authority, and declaration-versus-observation design. The body
 and total census are now fixed at the checkpoint digests recorded above;
 T-255 through T-266 provide exact one-owner coverage for all 21 observed active
-gap families. The checkpoint is self-reviewed and awaits F_H review before
-ticket closure. No prior ruling authorizes
+gap families. The checkpoint was accepted and closed by direct F_H
+continuation ruling on 2026-07-13. No ruling authorizes
 a global-program lie, `operator.binding`, helper-GraphFunction topology rewrite,
 Consensus-specific workaround, or any reported generic runtime fix.
+
+## Closure Disposition
+
+`closed_as_canonical_body_and_gap_frontier_checkpoint` on 2026-07-13. F_H
+accepted the proposed review sequence by directing execution to continue:
+T-252 closes with the canonical body and exact checkpoint census; T-263's
+strict-admission design is admitted; and T-264 is accepted only after actual
+effect-to-capability compatibility is routed to the first boundary carrying an
+exact tenant capability profile.
+
+The checkpoint body digest is
+`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`.
+The checkpoint manifest digest is
+`sha256:01ab36577138acccd5a3d55efae0d11dabfefd3ea02c2c188c80498049f7a470`.
+Successor tickets may recompile the unchanged body and replace only the gap
+frontier/probe manifest as their owned generic gaps close.
+
+## Closure Evidence
+
+- Canonical shape: 7 GraphFunctions, 5 graphs, 19 C programs, 34 selected
+  vectors, 19 operators, 0 Jobs, and 0 Roles.
+- M02 exact canonical round-trip; M03 `semantic_not_realized` with 0 invalid
+  programs, 0 structural blockers, and 41 normalized diagnostics.
+- The checkpoint records 21 active gap families with no duplicate or unowned
+  family. These are successor work, not omitted T-252 implementation.
+- Focused proof: 82 GTL-law tests plus 10 body tests and an exact manifest
+  check. T-223 is 70/70, T-250 is 13/13, and the semantic suite is 1569/1569.
+- Host lint, registered Mermaid, product publication, no-execution dependency
+  closure, and `git diff --check` passed at the checkpoint.
+- Review:
+  `.ai-workspace/comments/codex/20260713T023417Z_REVIEW_t252_consensus_gtl_body_checkpoint.md`.

@@ -1,6 +1,6 @@
 # M03 Proportional Conformance Inventory Behavior Design
 
-**Design verdict**: `candidate_blocked_on_effect_capability_authority_ruling`
+**Design verdict**: `accepted_by_fh_with_capability_boundary_narrowing`
 **Implementation admission**: `not_admitted_before_fh_acceptance_and_t263_closure`
 **Ticket**: [T-264](../../../../.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md)
 **Owning module**: M03 engine conformance
@@ -514,14 +514,14 @@ handler inventory. Separate counts expose those declaration families.
 | Complete-program assurance is not weakened | C-ALGEBRA conformance-root law | complete scope retains claims | complete branch enforces claims | ClaimMismatch reaches report | explicit variant | expected count and manifest checks | `pass` | T-264 realization |
 | Unused families may be zero | proportionality; Module law | Job/Role and optional families remain actual rows | applicability precedes nonzero checks | submitted scope reaches report with lawful zeros | exact arrays | structural references decide requirement | `pass` | T-264 realization |
 | Effects remain visible and transitive | GF-005 | effect requirement rows cite hosts/children | extraction precedes report | missing transitive row is InventoryInvalid | readonly effect refs | structural child/application checks | `pass` | T-264 realization |
-| Effect compatibility uses exact capability profile | CAPABILITY-001..009 | TenantCapabilityProfile is deferred authority | only profile may send compatibility input | compatibility stays deferred without profile | no current carrier | no current input/admission path | `fail` | F_H reprice to T-255/DS-4 or new mapping leaf |
+| Effect compatibility uses exact capability profile | CAPABILITY-001..009 | TenantCapabilityProfile is deferred authority | only profile may send compatibility input | compatibility stays deferred without profile | no current carrier | no current input/admission path | `not_applicable` | T-255/DS-4 first exact-profile boundary |
 | Plugin and handler authorities are separate | PLUGIN-SEAMS-003; HANDLERS-001/-011 | distinct inventory rows | existing compilers emit each family | malformed rows reach InventoryInvalid | closed declaration types | canonical declaration parsers/compilers | `pass` | T-264 realization |
 | Direct plugin Operator binding is invalid | C-ALGEBRA-011; T-252 design | Operator binding and selection rows distinct | inventory checks binding before report | violation is InventoryInvalid | Operator type remains data | conformance rule | `pass` | T-264 realization |
 | Declaration counts do not prove execution | GF-005; compile-before-effects | inventory/report separate from runtime | no effect participant | no runtime lifecycle state | pure transforms | dependency fence | `pass` | T-264 realization |
 | Real T-252 gaps remain | T-252 checkpoint | traversal projection remains downstream | compiler checks still run | ReportReady may be non-passing | unchanged body | exact rule census by owner | `pass` | T-255..T-262 |
 | Runtime execution | outside T-264 | runtime absent | no runtime messages | no runtime states | not applicable | not applicable | `not_applicable` | T-255 onward |
 
-## Proposed F_H Ruling
+## F_H Ruling
 
 Accept the three-view design with one boundary correction:
 
@@ -537,13 +537,13 @@ T-264 does not own:
   actual effect-to-capability compatibility without an admitted tenant profile
 ```
 
-Route compatibility to the first carrier that admits the exact capability
-profile. Do not add a local effect/capability mapping to Consensus or infer one
-from strings.
+F_H accepted this boundary on 2026-07-13. Route compatibility to the first
+carrier that admits the exact capability profile, currently T-255/DS-4. Do not
+add a local effect/capability mapping to Consensus or infer one from strings.
 
 ## Closure Conditions
 
-1. F_H resolves the effect-capability authority gap and accepts all three views.
+1. F_H resolved the effect-capability authority gap and accepted all three views.
 2. T-263 closes strict raw Module admission before T-264 code.
 3. Scope is explicit; bounded and complete claims cannot be confused.
 4. Feature applicability and embedded inventory derive from admitted structure.
@@ -582,10 +582,9 @@ from strings.
 - DS-4 catalog/public-contract publication and installed capability profiles;
 - hostile-desktop or cryptographic conformance claims.
 
-## Candidate Verdict
+## Accepted Verdict
 
-`candidate_blocked_on_effect_capability_authority_ruling`. The structural scope
+`accepted_by_fh_with_capability_boundary_narrowing`. The structural scope
 and inventory design is complete and uses existing admitted carriers and
-compilers. Implementation must not begin until F_H narrows or relocates the
-effect-capability compatibility sentence and accepts the design after T-263
-closure.
+compilers. F_H relocated actual effect-to-capability compatibility to T-255/DS-4
+on 2026-07-13. Implementation remains blocked only until T-263 closes.

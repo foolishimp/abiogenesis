@@ -2007,7 +2007,7 @@ interior and a singular design proves reuse.
 
 ## Post-Probe Verdict
 
-`canonical_body_checkpoint_self_reviewed_fh_review_pending`. F_H accepted the
+`canonical_body_checkpoint_accepted_and_closed`. F_H accepted the
 corrected body design on 2026-07-13. T-253/T-254/T-265/T-266 are closed, and the
 canonical body now carries pure vectors with parallel context, complete
 all-regime effect identities, separate capabilities, unique operators, exact HOG
@@ -2015,5 +2015,6 @@ handlers, per-executable-GraphFunction plugin selections, and no DS-1 owner
 claim. M02 preserves its exact digest. M03 reports zero invalid programs and zero
 structural blockers, then retains 21 exactly-owned generic gap families. The
 static dependency closure and probe phase inventory show no reachable execution
-module or derived runtime call. This checkpoint awaits F_H review; no
+module or derived runtime call. F_H accepted this checkpoint on 2026-07-13 by
+directing the proposed review and execution sequence to continue. No
 Consensus-specific runtime repair or DS-4 publication is authorized.

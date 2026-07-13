@@ -2,9 +2,9 @@
 
 - id: T-264
 - status: active
-- phase_status: candidate_design_authored_blocked_authority_ruling
-- review_status: fh_review_required
-- implementation_admission: blocked_pending_fh_effect_capability_ruling_and_t263_closure
+- phase_status: design_accepted_blocked_on_t263_closure
+- review_status: design_accepted_by_fh_with_boundary_narrowing
+- implementation_admission: blocked_only_on_t263_closure
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
@@ -63,11 +63,12 @@ invocation, treating declaration counts as execution evidence, accepting direct
 plugin URIs in `Operator.binding`, or deleting full-root conformance to make the
 census green.
 
-## Blocking Authority Ruling
+## F_H Authority Ruling
 
 `REQ-M-GTL3-CAPABILITY` places effect compatibility in a separate exact tenant
 capability profile. No admitted profile carrier is available in the current
-conformance input or T-252 Module. F_H must either narrow T-264 to matchable
-effect-requirement projection and route actual compatibility to T-255/DS-4, or
-authorize a separate mapping-carrier re-entry. Name- or URI-based inference is
-non-closure.
+conformance input or T-252 Module. F_H accepted the narrow boundary on
+2026-07-13: T-264 stops at exact matchable effect-requirement projection, and
+actual effect-to-capability compatibility moves to the first boundary that
+admits the exact tenant profile, currently T-255/DS-4. Name- or URI-based
+inference remains non-closure.

@@ -2,9 +2,9 @@
 
 - id: T-263
 - status: active
-- phase_status: three_view_design_authored_review_pending
-- review_status: fh_review_required
-- implementation_admission: blocked_pending_fh_design_acceptance_and_t252_closure
+- phase_status: design_accepted_realization_active
+- review_status: design_accepted_by_fh
+- implementation_admission: admitted_after_t252_closure
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
@@ -40,3 +40,10 @@ canonical body digest remains unchanged. Cover another non-Consensus module.
 
 Post-admission digest comparison as the only guard, permissive stripping, or
 hostile-local tamper controls outside malformed authored GTL.
+
+## Design Disposition
+
+Accepted by F_H on 2026-07-13 through the direct instruction to continue the
+proposed review sequence. T-252 is closed. Realization is admitted against
+`M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md` without a second
+parser, schema authority, raw carrier, or hostile-local hardening expansion.

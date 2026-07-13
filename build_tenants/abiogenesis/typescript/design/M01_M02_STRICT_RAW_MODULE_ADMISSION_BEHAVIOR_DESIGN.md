@@ -1,6 +1,6 @@
 # M01/M02 Strict Raw Module Admission Behavior Design
 
-**Design verdict**: `candidate_three_view_design_review_pending`
+**Design verdict**: `accepted_by_fh_realization_admitted`
 **Implementation admission**: `not_admitted_before_fh_acceptance`
 **Ticket**: [T-263](../../../../.ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md)
 **Owning modules**: M01 GTL carrier admission and M02 work publication
@@ -495,10 +495,10 @@ for open siblings on Module, Graph, Node, or any other carrier.
 - typed non-throwing diagnostic result families; and
 - hostile in-process object forgery or filesystem tamper defense.
 
-## Candidate Verdict
+## Accepted Verdict
 
-`candidate_three_view_design_review_pending`. The design closes the observed
+`accepted_by_fh_realization_admitted`. The design closes the observed
 lossy seam with existing I-JSON, carrier, constructor, and serializer
 authorities. It introduces no competing parser, schema, carrier, or runtime
-path. Implementation remains blocked until F_H accepts the design and T-252's
-checkpoint review closes its dependency.
+path. F_H accepted the design and closed T-252 on 2026-07-13 by directing the
+proposed review and execution sequence to continue. Implementation is admitted.
