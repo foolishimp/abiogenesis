@@ -1676,6 +1676,7 @@ export {
   admitHogProgram,
   hogProgramCensus,
   isHogBatchProgram,
+  isHogRetryProgram,
   isHogWorkflowProgram
 } from "./hog_program.js";
 export type {
@@ -1686,9 +1687,31 @@ export type {
   HogProgramDeclaration,
   HogProgramStage,
   HogProgramAdmission,
+  HogRetryDeclaration,
+  HogRetryProgramDeclaration,
   HogWorkflowLift,
   HogWorkflowProgramDeclaration
 } from "./hog_program.js";
+
+export {
+  C_RETRY_POLICY_REF,
+  assertCRetryPolicyProjection,
+  deriveCRetryPolicyProjection,
+  isRetryableRuntimeFailureClass
+} from "./c_retry_policy.js";
+export type { CRetryPolicyProjection } from "./c_retry_policy.js";
+
+export {
+  assertCompiledCRetryBinding,
+  assertCompiledCRetryPlan,
+  compileCRetryBinding,
+  compileCRetryPlan
+} from "./c_retry.js";
+export type {
+  CompileCRetryBindingInput,
+  CompiledCRetryBinding,
+  CompiledCRetryPlan
+} from "./c_retry.js";
 
 export {
   assertCompiledWorkflowLiftBinding,

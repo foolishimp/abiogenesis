@@ -281,8 +281,8 @@ test("T-220 negative: closed syntax rejects invented siblings", () => {
   ]);
 });
 
-test("T-260: direct workflow.C and C.batch lower while retry retains its typed gap", () => {
-  const { transform } = leaves();
+test("T-261: direct workflow.C, C.batch, and root C.retry lower with mixed retry still gapped", () => {
+  const { transform, evaluate } = leaves();
   const workflowProgram = compileCAlgebraToHog(
     declaration(workflow.C(childWorkflowRef()), "gtl://t220/workflow")
   );
@@ -310,13 +310,31 @@ test("T-260: direct workflow.C and C.batch lower while retry retains its typed g
   const retryProgram = compileCAlgebraToHog(
     declaration(C.retry(transform, 2), "gtl://t220/retry")
   );
-  assert.equal(retryProgram.accepted, false);
-  assert.equal(retryProgram.program, null);
-  assert.equal(retryProgram.diagnostics.length, 1);
-  assert.equal(retryProgram.diagnostics[0].diagnosticId, "gtl-c-unrealized-retry");
-  assert.equal(retryProgram.diagnostics[0].classification, "semantic_not_realized");
+  assert.equal(retryProgram.accepted, true);
+  assert.equal(retryProgram.diagnostics.length, 0);
+  assert.equal(retryProgram.program.retry.kind, "hog_retry_declaration");
+  assert.equal(retryProgram.program.retry.maxAttempts, 2);
+  assert.deepEqual(retryProgram.program.retry.stage, {
+    stageRole: transform.stageRole,
+    defaultRegime: transform.fibre,
+    armId: transform.armId,
+    resultBearing: transform.resultBearing,
+    instructionCategoryRefs: transform.instructionCategoryRefs
+  });
+
+  const mixedRetry = compileCAlgebraToHog(
+    declaration(
+      C.retry(C.compose(transform, evaluate), 2),
+      "gtl://t220/mixed-retry"
+    )
+  );
+  assert.equal(mixedRetry.accepted, false);
+  assert.equal(mixedRetry.program, null);
+  assert.equal(mixedRetry.diagnostics.length, 1);
+  assert.equal(mixedRetry.diagnostics[0].diagnosticId, "gtl-c-unrealized-retry");
+  assert.equal(mixedRetry.diagnostics[0].classification, "semantic_not_realized");
   assert.ok(
-    retryProgram.diagnostics[0].repairAffordances.includes(
+    mixedRetry.diagnostics[0].repairAffordances.includes(
       "await_runtime_realization"
     )
   );

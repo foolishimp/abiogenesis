@@ -20,6 +20,7 @@ import {
 } from "./hog_program_syntax.js";
 import {
   HOG_BOOTSTRAP_TRIPLE,
+  isHogRetryProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration
 } from "./hog_program.js";
@@ -222,7 +223,10 @@ function assertHandlerBindingsMatchPlan(input: {
         `handler_binding_outside_program: ${input.sourceRef} binds undeclared program ${binding.programRef}`
       );
     }
-    const stage = program.stages.find(
+    const programStages = isHogRetryProgram(program)
+      ? [program.retry.stage]
+      : program.stages;
+    const stage = programStages.find(
       (candidate) =>
         candidate.stageRole === binding.stageRole &&
         candidate.armId === binding.armId
@@ -272,7 +276,7 @@ function assertProgramMatchesCurrentInterpreter(
   program: HogProgramDeclaration,
   sourceRef: string
 ): void {
-  if (isHogWorkflowProgram(program)) {
+  if (isHogWorkflowProgram(program) || isHogRetryProgram(program)) {
     return;
   }
   const missingAnchors = HOG_BOOTSTRAP_TRIPLE.stages

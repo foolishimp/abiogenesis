@@ -25,6 +25,7 @@ import { stableJsonEquals, stableSha256Digest } from "../../../shared/runtime_id
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import {
   isHogBatchProgram,
+  isHogRetryProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration
 } from "./hog_program.js";
@@ -32,6 +33,10 @@ import {
   compileWorkflowLiftBinding,
   type CompiledWorkflowLiftBinding
 } from "./workflow_c.js";
+import {
+  compileCRetryBinding,
+  type CompiledCRetryBinding
+} from "./c_retry.js";
 import {
   compileGraphVectorCProgramSelection,
   type CompiledGraphVectorCProgramBinding,
@@ -175,11 +180,13 @@ export interface CompiledGraphVectorExecutionHandoff {
   readonly programDisposition:
     | "flat_executable"
     | "workflow_sub_traversal"
-    | "batch_task_family";
+    | "batch_task_family"
+    | "retry_attempt_family";
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly admittedProgram: CProgramDeclarationNode;
   readonly normalizedProgram: HogProgramDeclaration;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
+  readonly retryBinding: CompiledCRetryBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
@@ -229,9 +236,11 @@ export interface GraphVectorExecutionHandoffCapabilityBlocked {
   readonly programDisposition:
     | "flat_executable"
     | "workflow_sub_traversal"
-    | "batch_task_family";
+    | "batch_task_family"
+    | "retry_attempt_family";
   readonly normalizedProgram: HogProgramDeclaration;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
+  readonly retryBinding: CompiledCRetryBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
@@ -1054,11 +1063,49 @@ export function compileGraphVectorExecutionHandoff(
       });
     }
   }
+  let retryBinding: CompiledCRetryBinding | null = null;
+  if (isHogRetryProgram(lowered.program)) {
+    try {
+      const compositionOwners = input.module.graphFunctions.filter(
+        (candidate) =>
+          candidate.id === compositionJoin.declarationOwnerGraphFunctionRef
+      );
+      const compositionOwner = compositionOwners[0];
+      if (compositionOwners.length !== 1 || compositionOwner === undefined) {
+        throw new TypeError(
+          `C.retry composition owner resolves ${String(compositionOwners.length)} times in the selected Module`
+        );
+      }
+      retryBinding = compileCRetryBinding({
+        module: input.module,
+        graphFunction: input.graphFunction,
+        compositionOwnerGraphFunction: compositionOwner,
+        graphVector: input.graphVector,
+        programBinding: selection.binding,
+        program: lowered.program,
+        composition: compositionJoin.selection
+      });
+    } catch (error: unknown) {
+      return invalid({
+        boundary,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-execution-handoff-program-shape-invalid",
+          path: "$.selectedProgram.term.retry",
+          expectedRelation:
+            "one exact selected-Module C.retry binding with preserved stage, carriers, budget, and shared policy",
+          actualRelation: errorMessage(error),
+          evidenceRefs: [selection.binding.bindingDigest]
+        })
+      });
+    }
+  }
   const programDisposition = isHogWorkflowProgram(lowered.program)
     ? "workflow_sub_traversal" as const
     : isHogBatchProgram(lowered.program)
       ? "batch_task_family" as const
-      : "flat_executable" as const;
+      : isHogRetryProgram(lowered.program)
+        ? "retry_attempt_family" as const
+        : "flat_executable" as const;
 
   let compatibility: CapabilityCompatibilityAdmission;
   try {
@@ -1075,6 +1122,7 @@ export function compileGraphVectorExecutionHandoff(
       programDisposition,
       normalizedProgram: lowered.program,
       workflowLiftBinding,
+      retryBinding,
       compositionSelection: compositionJoin.selection,
       applicationLineage: compositionJoin.lineage,
       fanInApplicationRelation: compositionJoin.fanInRelation,
@@ -1121,6 +1169,7 @@ export function compileGraphVectorExecutionHandoff(
     admittedProgram: admission.program,
     normalizedProgram: lowered.program,
     workflowLiftBinding,
+    retryBinding,
     compositionSelection: compositionJoin.selection,
     applicationLineage: compositionJoin.lineage,
     fanInApplicationRelation: compositionJoin.fanInRelation,

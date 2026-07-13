@@ -15,6 +15,7 @@
 
 import {
   isHogBatchProgram,
+  isHogRetryProgram,
   isHogWorkflowProgram,
   type HogProgramDeclaration,
   type HogProgramStage
@@ -60,6 +61,12 @@ export function assertHogProgramExecutable(
     throw new TypeError(
       `batch_runtime_required: hog program ${program.programRef} ` +
         "must enter the T-260 C.batch resolver through the traversal startup gate"
+    );
+  }
+  if (isHogRetryProgram(program)) {
+    throw new TypeError(
+      `retry_runtime_required: hog program ${program.programRef} ` +
+        "must enter the T-261 C.retry resolver through the traversal startup gate"
     );
   }
   // BINDING-COMPLETE entry gate (codex MEDIUM): a non-triple stage is

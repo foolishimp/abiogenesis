@@ -8,6 +8,10 @@
 import type { CCallRegime, CCallStageRole } from "./carriers.js";
 import { C_CALL_REGIME_VALUES } from "./carriers.js";
 import { isPlainRecord } from "./admission_hygiene.js";
+import {
+  C_RETRY_POLICY_REF,
+  deriveCRetryPolicyProjection
+} from "./c_retry_policy.js";
 
 export interface HogProgramStage {
   readonly stageRole: CCallStageRole;
@@ -41,6 +45,16 @@ export interface HogBatchDeclaration {
   readonly tasks: readonly HogBatchStageTask[];
 }
 
+export interface HogRetryDeclaration {
+  readonly kind: "hog_retry_declaration";
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+  readonly maxAttempts: number;
+  readonly stage: HogProgramStage;
+  readonly retryPolicyRef: typeof C_RETRY_POLICY_REF;
+  readonly retryPolicyDigest: `sha256:${string}`;
+}
+
 export interface HogFlatProgramDeclaration {
   readonly kind: "hog_program_declaration";
   readonly programRef: string;
@@ -48,6 +62,7 @@ export interface HogFlatProgramDeclaration {
   readonly proportionalityClass: string | null;
   readonly workflow?: never;
   readonly batch?: never;
+  readonly retry?: never;
 }
 
 export interface HogWorkflowProgramDeclaration {
@@ -57,6 +72,7 @@ export interface HogWorkflowProgramDeclaration {
   readonly proportionalityClass: string | null;
   readonly workflow: HogWorkflowLift;
   readonly batch?: never;
+  readonly retry?: never;
 }
 
 export interface HogBatchProgramDeclaration {
@@ -66,12 +82,24 @@ export interface HogBatchProgramDeclaration {
   readonly proportionalityClass: string | null;
   readonly workflow?: never;
   readonly batch: HogBatchDeclaration;
+  readonly retry?: never;
+}
+
+export interface HogRetryProgramDeclaration {
+  readonly kind: "hog_program_declaration";
+  readonly programRef: string;
+  readonly stages: readonly [];
+  readonly proportionalityClass: string | null;
+  readonly workflow?: never;
+  readonly batch?: never;
+  readonly retry: HogRetryDeclaration;
 }
 
 export type HogProgramDeclaration =
   | HogFlatProgramDeclaration
   | HogWorkflowProgramDeclaration
-  | HogBatchProgramDeclaration;
+  | HogBatchProgramDeclaration
+  | HogRetryProgramDeclaration;
 
 export interface HogProgramAdmission {
   readonly accepted: boolean;
@@ -121,7 +149,8 @@ const HOG_PROGRAM_KEYS = Object.freeze([
   "stages",
   "proportionalityClass",
   "workflow",
-  "batch"
+  "batch",
+  "retry"
 ]);
 const HOG_STAGE_KEYS = Object.freeze([
   "stageRole",
@@ -147,6 +176,15 @@ const HOG_BATCH_TASK_KEYS = Object.freeze([
   "kind",
   "ordinal",
   "stage"
+]);
+const HOG_RETRY_KEYS = Object.freeze([
+  "kind",
+  "inputCarrierRef",
+  "outputCarrierRef",
+  "maxAttempts",
+  "stage",
+  "retryPolicyRef",
+  "retryPolicyDigest"
 ]);
 
 function admitStageRaw(
@@ -372,28 +410,102 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       }
     }
   }
-  if (workflowRaw !== undefined && batchRaw !== undefined) {
-    issues.push("workflow and batch program variants are mutually exclusive");
+  const retryRaw = record["retry"];
+  let retry: HogRetryDeclaration | null = null;
+  if (retryRaw !== undefined) {
+    if (!isPlainRecord(retryRaw)) {
+      issues.push("retry must be an object when present");
+    } else {
+      for (const key of Object.keys(retryRaw)) {
+        if (!HOG_RETRY_KEYS.includes(key)) {
+          issues.push(
+            `retry: unknown field ${JSON.stringify(key)} (closed key set)`
+          );
+        }
+      }
+      if (retryRaw["kind"] !== "hog_retry_declaration") {
+        issues.push("retry.kind must be hog_retry_declaration");
+      }
+      const inputCarrierRef = retryRaw["inputCarrierRef"];
+      const outputCarrierRef = retryRaw["outputCarrierRef"];
+      const maxAttempts = retryRaw["maxAttempts"];
+      if (!isNonEmptyString(inputCarrierRef)) {
+        issues.push("retry.inputCarrierRef must be a non-empty string");
+      }
+      if (!isNonEmptyString(outputCarrierRef)) {
+        issues.push("retry.outputCarrierRef must be a non-empty string");
+      }
+      if (
+        typeof maxAttempts !== "number" ||
+        !Number.isInteger(maxAttempts) ||
+        maxAttempts < 1
+      ) {
+        issues.push("retry.maxAttempts must be a positive integer");
+      }
+      const stage = admitStageRaw(retryRaw["stage"], "retry.stage", issues);
+      if (stage !== null && stage.resultBearing !== true) {
+        issues.push("retry.stage must be result-bearing");
+      }
+      const policy = deriveCRetryPolicyProjection();
+      if (retryRaw["retryPolicyRef"] !== policy.policyRef) {
+        issues.push("retry.retryPolicyRef must equal the shared C.retry policy ref");
+      }
+      if (retryRaw["retryPolicyDigest"] !== policy.policyDigest) {
+        issues.push(
+          "retry.retryPolicyDigest must equal the shared C.retry policy digest"
+        );
+      }
+      if (
+        isNonEmptyString(inputCarrierRef) &&
+        isNonEmptyString(outputCarrierRef) &&
+        typeof maxAttempts === "number" &&
+        Number.isInteger(maxAttempts) &&
+        maxAttempts >= 1 &&
+        stage !== null &&
+        stage.resultBearing === true &&
+        retryRaw["retryPolicyRef"] === policy.policyRef &&
+        retryRaw["retryPolicyDigest"] === policy.policyDigest
+      ) {
+        retry = Object.freeze({
+          kind: "hog_retry_declaration" as const,
+          inputCarrierRef,
+          outputCarrierRef,
+          maxAttempts,
+          stage,
+          retryPolicyRef: policy.policyRef,
+          retryPolicyDigest: policy.policyDigest
+        });
+      }
+    }
+  }
+  const variantCount = [workflowRaw, batchRaw, retryRaw].filter(
+    (value) => value !== undefined
+  ).length;
+  if (variantCount > 1) {
+    issues.push("workflow, batch, and retry program variants are mutually exclusive");
   }
   if (stages === null) {
     issues.push("stages must be an array");
   } else if (
-    workflowRaw === undefined &&
-    batchRaw === undefined &&
+    variantCount === 0 &&
     stages.length === 0
   ) {
     issues.push("flat program stages must be a non-empty array");
   } else if (
-    (workflowRaw !== undefined || batchRaw !== undefined) &&
+    variantCount > 0 &&
     stages.length !== 0
   ) {
-    issues.push("workflow and batch program stages must be empty");
+    issues.push(
+      retryRaw === undefined
+        ? "workflow and batch program stages must be empty"
+        : "workflow, batch, and retry program stages must be empty"
+    );
   }
   const roles = new Set<string>();
   let resultBearingCount = 0;
   const admittedStages: HogProgramStage[] = [];
   for (const [index, stageRaw] of (
-    workflowRaw === undefined && batchRaw === undefined ? (stages ?? []) : []
+    variantCount === 0 ? (stages ?? []) : []
   ).entries()) {
     const at = `stages[${index}]`;
     const stage = admitStageRaw(stageRaw, at, issues);
@@ -411,7 +523,7 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     admittedStages.push(stage);
   }
   if (
-    workflowRaw === undefined &&
+    variantCount === 0 &&
     stages !== null &&
     stages.length > 0 &&
     resultBearingCount !== 1
@@ -464,6 +576,20 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       issues: Object.freeze([])
     });
   }
+  if (retry !== null) {
+    const program: HogRetryProgramDeclaration = Object.freeze({
+      kind: "hog_program_declaration" as const,
+      programRef: programRefRaw,
+      stages: Object.freeze([] as const),
+      proportionalityClass,
+      retry
+    });
+    return Object.freeze({
+      accepted: true,
+      program,
+      issues: Object.freeze([])
+    });
+  }
   const program: HogFlatProgramDeclaration = Object.freeze({
     kind: "hog_program_declaration" as const,
     programRef: programRefRaw,
@@ -489,6 +615,12 @@ export function isHogBatchProgram(
   return Object.hasOwn(program, "batch");
 }
 
+export function isHogRetryProgram(
+  program: HogProgramDeclaration
+): program is HogRetryProgramDeclaration {
+  return Object.hasOwn(program, "retry");
+}
+
 function isCCallRegime(
   value: unknown
 ): value is (typeof C_CALL_REGIME_VALUES)[number] {
@@ -502,6 +634,8 @@ export function hogProgramCensus(
 ): ReadonlySet<string> {
   const stages = isHogBatchProgram(program)
     ? program.batch.tasks.map((task) => task.stage)
+    : isHogRetryProgram(program)
+      ? [program.retry.stage]
     : program.stages;
   return new Set(
     stages.map((stage) =>

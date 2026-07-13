@@ -709,19 +709,16 @@ test("T-255 partitions the unchanged T-252 body without erasing successor gaps",
     ])
   );
   assert.deepEqual(counts, {
-    blocked_successor_constructor: 1,
     structural_only: 1,
-    blocked_capability: 33
+    blocked_capability: 34
   });
-  const blocked = outcomes.filter(
-    (row) => row.status === "blocked_successor_constructor"
+  const retries = outcomes.filter(
+    (row) =>
+      row.status === "blocked_capability" &&
+      row.programDisposition === "retry_attempt_family"
   );
-  assert.equal(
-    blocked.flatMap((row) => row.sourceDiagnostics).filter(
-      (row) => row.diagnosticId === "gtl-c-unrealized-retry"
-    ).length,
-    1
-  );
+  assert.equal(retries.length, 1);
+  assert.notEqual(retries[0]?.retryBinding, null);
   const workflows = outcomes.filter(
     (row) =>
       row.status === "blocked_capability" &&

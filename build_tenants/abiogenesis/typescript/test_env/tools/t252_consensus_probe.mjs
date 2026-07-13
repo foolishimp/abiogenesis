@@ -18,6 +18,7 @@ import {
   compileDeclaredCBatchPlan,
   compileHofCBatchPlan
 } from "../../build/semantic/code/src/abg/m03/contracts/c_batch.js";
+import { deriveCRetryPolicyProjection } from "../../build/semantic/code/src/abg/m03/contracts/c_retry_policy.js";
 import {
   compileFanInReductionBinding,
   compileHofFanOutBinding
@@ -38,6 +39,7 @@ import {
   submitFhInteractionResponse
 } from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
 import { resolveCBatch } from "../../build/semantic/code/src/abg/m03/runner/c_batch_runtime.js";
+import { resolveCRetry } from "../../build/semantic/code/src/abg/m03/runner/c_retry_runtime.js";
 import { resolveHofFanIn } from "../../build/semantic/code/src/abg/m03/runner/hof_fan_in_runtime.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
@@ -685,6 +687,54 @@ async function buildManifest() {
       `T-259 workflow handoff coverage differs from independently selected workflow programs: ${JSON.stringify({ selectedWorkflowPaths, realizedWorkflowPaths })}`
     );
   }
+  const selectedRetryRows = vectorRows.filter((row) => {
+    const selectedPrograms = body.programs.filter(
+      (program) => program.programRef === row.selectedProgramRef
+    );
+    return (
+      selectedPrograms.length === 1 &&
+      selectedPrograms[0].term.kind === "c_retry"
+    );
+  });
+  const realizedRetryRows = handoffRows.filter((row) => {
+    const disposition =
+      row.status === "published_startup_blocked"
+        ? row.outcome.handoff.programDisposition
+        : row.outcome.programDisposition ?? null;
+    return disposition === "retry_attempt_family";
+  });
+  const retryPolicy = deriveCRetryPolicyProjection();
+  const retryCoverageMismatch = realizedRetryRows.some((row) => {
+    const selected = selectedRetryRows.find(
+      (candidate) => candidate.path === row.path
+    );
+    const sourceProgram = body.programs.find(
+      (program) => program.programRef === selected?.selectedProgramRef
+    );
+    const binding =
+      row.status === "published_startup_blocked"
+        ? row.outcome.handoff.retryBinding
+        : row.outcome.retryBinding;
+    return (
+      sourceProgram?.term.kind !== "c_retry" ||
+      binding === null ||
+      binding === undefined ||
+      binding.maxAttempts !== sourceProgram.term.budget ||
+      binding.stageRole !== sourceProgram.term.term.stageRole ||
+      binding.retryPolicyRef !== retryPolicy.policyRef ||
+      binding.retryPolicyDigest !== retryPolicy.policyDigest
+    );
+  });
+  if (
+    typeof resolveCRetry !== "function" ||
+    JSON.stringify(realizedRetryRows.map((row) => row.path).sort()) !==
+      JSON.stringify(selectedRetryRows.map((row) => row.path).sort()) ||
+    retryCoverageMismatch
+  ) {
+    throw new TypeError(
+      `T-261 retry handoff differs from the independently selected retry programs or shared policy: ${JSON.stringify({ selectedRetryPaths: selectedRetryRows.map((row) => row.path).sort(), realizedRetryPaths: realizedRetryRows.map((row) => row.path).sort(), runtimeResolverPresent: typeof resolveCRetry === "function", retryCoverageMismatch })}`
+    );
+  }
   const targetCarrierContracts = handoffRows.map(
     (row) => row.outcome.targetCarrierProjection
   );
@@ -1029,6 +1079,13 @@ async function buildManifest() {
       `T-260 runtime surface is incomplete: ${JSON.stringify(t260RuntimeSurface)}`
     );
   }
+  const t261RuntimeSurface = Object.freeze({
+    resolveCRetry: typeof resolveCRetry === "function",
+    retryPolicyRef: retryPolicy.policyRef,
+    retryPolicyDigest: retryPolicy.policyDigest,
+    retryableFailureClasses: retryPolicy.retryableFailureClasses,
+    canonicalRetryHandoffCount: realizedRetryRows.length
+  });
 
   const termKindCounts = new Map();
   body.programs.forEach((program) => termKinds(program.term, termKindCounts));
@@ -1061,20 +1118,22 @@ async function buildManifest() {
     {
       constructor: "C.retry",
       authoredCount: termCounts.c_retry ?? 0,
-      compilerCoverage: "path_addressed",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["c_retry_runtime_and_policy_join"]
+      selectedHandoffCount: realizedRetryRows.length,
+      compilerCoverage: "exact_static_handoff_and_runtime_resolver",
+      runtimeStatus:
+        "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
+      gapFamilies: [
+        "tenant_conformance_manifest_consensus_coverage_missing",
+        "traversal_execution_contracts"
+      ]
     },
     {
       constructor: "fan_out",
       authoredCount: hofRows.length,
       compilerCoverage: "exact_relation_and_runtime_projector",
       runtimeStatus:
-        "runtime_atom_realized_canonical_child_blocked_by_retry_and_startup_fence",
-      gapFamilies: [
-        "c_retry_runtime_and_policy_join",
-        "traversal_execution_contracts"
-      ]
+        "runtime_atom_realized_canonical_child_blocked_by_startup_fence",
+      gapFamilies: ["traversal_execution_contracts"]
     },
     {
       constructor: "fan_in",
@@ -1209,17 +1268,6 @@ async function buildManifest() {
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
       "a canonical F_H join lacks the generic hold, public response, or resume admission path"
-  });
-  observeGap(observedGapEvidence, "c_retry_runtime_and_policy_join", {
-    rows: nestedProgramRows
-      .filter((row) => row.diagnosticIds.includes("gtl-c-unrealized-retry"))
-      .map((row) => ({ diagnosticId: "gtl-c-unrealized-retry", path: row.path })),
-    observationSources: ["compiler:compileCAlgebraToHog"],
-    evidenceRefs: [
-      ...commonEvidenceRefs,
-      "policy:transport_failure|no_output|contract_failure"
-    ],
-    actualRelation: "retry budget is canonical data while runtime and allowlist consumption are absent"
   });
   observeGap(observedGapEvidence, "typed_recurse_policy_and_runtime", {
     rows: rowsForApplication("recurse"),
@@ -1359,6 +1407,7 @@ async function buildManifest() {
         diagnosticIds: row.diagnosticIds
       })),
       t260RuntimeSurface,
+      t261RuntimeSurface,
       executionContextJoinRows,
       fpResultContractAdmissionRows,
       fhInteractionRows,

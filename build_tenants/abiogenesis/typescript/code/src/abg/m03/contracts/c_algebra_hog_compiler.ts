@@ -1,8 +1,8 @@
 // Lowers admitted GTL C-algebra data into the normalized HoG program carrier
 // already consumed by ABG. Flat of/id/compose/edge terms are executable now.
 // Direct named workflow lifts and flat of/id/compose/edge terms normalize here.
-// Mixed workflow expressions, grouped batches, and retry wrappers stay typed
-// gaps until their distinct ordering/runtime interpretations are realized.
+// Mixed workflow expressions, grouped batches, and mixed retry wrappers stay
+// typed gaps until their distinct ordering/runtime interpretations are realized.
 
 import type {
   CAlgebraDiagnostic,
@@ -19,6 +19,7 @@ import type {
   HogProgramStage
 } from "./hog_program.js";
 import { admitHogProgram } from "./hog_program.js";
+import { deriveCRetryPolicyProjection } from "./c_retry_policy.js";
 
 export interface CAlgebraHogCompilation {
   readonly accepted: boolean;
@@ -311,6 +312,94 @@ function compileAdmittedProgram(
             constructCAlgebraDiagnostic({
               diagnosticId: "gtl-c-hog-admission-failed",
               path: `$.compiled.batch[${String(index)}]`,
+              message,
+              repairAffordances: Object.freeze(["fix_declaration_shape"])
+            })
+          )
+        )
+      });
+    }
+    return Object.freeze({
+      accepted: true,
+      program: admission.program,
+      canonicalSource,
+      diagnostics: Object.freeze([])
+    });
+  }
+  if (source.term.kind === "c_retry") {
+    if (source.term.term.kind !== "c_of") {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: Object.freeze([
+          constructCAlgebraDiagnostic({
+            diagnosticId: "gtl-c-unrealized-retry",
+            path: "$.term.term",
+            message:
+              "T-261 direct C.retry realization accepts one direct C.of " +
+              `leaf; observed ${JSON.stringify(source.term.term.kind)}`,
+            repairAffordances: Object.freeze([
+              "use_flat_composition",
+              "await_runtime_realization"
+            ])
+          })
+        ])
+      });
+    }
+    const flattened = flattenTerm(source.term.term, "$.term.term");
+    const stage = flattened.stages[0];
+    if (flattened.diagnostics.length !== 0 || stage === undefined) {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: flattened.diagnostics
+      });
+    }
+    if (stage.resultBearing !== true) {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: Object.freeze([
+          constructCAlgebraDiagnostic({
+            diagnosticId: "gtl-c-no-result-bearing-stage",
+            path: "$.term.term.resultBearing",
+            message: "direct root C.retry requires one result-bearing C.of leaf",
+            repairAffordances: Object.freeze([
+              "declare_exactly_one_result_stage"
+            ])
+          })
+        ])
+      });
+    }
+    const policy = deriveCRetryPolicyProjection();
+    const admission = admitHogProgram({
+      kind: "hog_program_declaration",
+      programRef: source.programRef,
+      stages: Object.freeze([]),
+      proportionalityClass: source.proportionalityClass,
+      retry: Object.freeze({
+        kind: "hog_retry_declaration",
+        inputCarrierRef: source.term.inputCarrierRef,
+        outputCarrierRef: source.term.outputCarrierRef,
+        maxAttempts: source.term.budget,
+        stage,
+        retryPolicyRef: policy.policyRef,
+        retryPolicyDigest: policy.policyDigest
+      })
+    });
+    if (!admission.accepted || admission.program === null) {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: Object.freeze(
+          admission.issues.map((message, index) =>
+            constructCAlgebraDiagnostic({
+              diagnosticId: "gtl-c-hog-admission-failed",
+              path: `$.compiled.retry[${String(index)}]`,
               message,
               repairAffordances: Object.freeze(["fix_declaration_shape"])
             })

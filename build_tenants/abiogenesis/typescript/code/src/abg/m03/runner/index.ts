@@ -48,6 +48,17 @@ export type {
   WorkflowChildTraversalOutcome,
   WorkflowChildTraversalRequest
 } from "./workflow_c_runtime.js";
+export { resolveCRetry } from "./c_retry_runtime.js";
+export type {
+  CRetryAttemptBasis,
+  CRetryAttemptDisposition,
+  CRetryAttemptOutcome,
+  CRetryAttemptRecord,
+  CRetryAttemptRequest,
+  CRetryInvocation,
+  CRetryResolution,
+  CRetryStopReason
+} from "./c_retry_runtime.js";
 export { resolveCBatch } from "./c_batch_runtime.js";
 export type {
   CBatchBlockedResolution,

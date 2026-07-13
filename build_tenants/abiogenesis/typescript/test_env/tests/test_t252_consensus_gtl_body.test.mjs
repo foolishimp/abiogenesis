@@ -199,7 +199,7 @@ test("T-252 every selected GraphVector resolves one exact local C program", () =
   assert.equal(selectedVectorCount, 34);
 });
 
-test("T-252 nested C census retains retry while direct workflow programs lower", () => {
+test("T-261 direct retry and workflow programs lower without changing T-252", () => {
   const rows = ABG_CONSENSUS_GTL_BODY.programs.map((program) => ({
     programRef: program.programRef,
     compilation: compileCAlgebraToHog(program)
@@ -215,7 +215,7 @@ test("T-252 nested C census retains retry while direct workflow programs lower",
   );
   assert.equal(
     diagnosticIds.filter((value) => value === "gtl-c-unrealized-retry").length,
-    1
+    0
   );
   assert.equal(
     diagnosticIds.filter((value) => value === "gtl-c-unrealized-workflow-lift")
@@ -229,6 +229,14 @@ test("T-252 nested C census retains retry while direct workflow programs lower",
         row.compilation.program?.workflow?.kind === "hog_workflow_lift"
     ).length,
     3
+  );
+  assert.equal(
+    rows.filter(
+      (row) =>
+        row.compilation.accepted &&
+        row.compilation.program?.retry?.kind === "hog_retry_declaration"
+    ).length,
+    1
   );
 
   const reviewer = JSON.parse(

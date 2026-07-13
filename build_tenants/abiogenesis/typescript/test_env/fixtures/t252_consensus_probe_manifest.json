@@ -1108,31 +1108,6 @@
         "repairAffordances": [
           "realize_declared_semantics"
         ]
-      },
-      {
-        "source": "c_algebra_hog_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-c-unrealized-retry",
-        "canonicalBodyPath": "programs[0:program://abg/consensus/review-one-profile]",
-        "compilerPath": "$.term",
-        "authorityRefs": [
-          "axiom:AX-T220-09",
-          "requirement:REQ-L-GTL3-C-ALGEBRA-008"
-        ],
-        "authorityDigest": "sha256:665a7aa4c2b1df84be200ce3700619a8740b47f6c334b45ebd959a86c5ca4134",
-        "expectedRelation": "selected build tenant realizes the admitted C constructor",
-        "actualRelation": "C.retry budget 2 is lawful algebra but the current normalized HoG carrier cannot retain the declared attempt budget under the one retry law",
-        "actualRelationDigest": "sha256:10524fd1ef6fef0c6f41ba9a33db4a54b74bf8ecb987bad13d57aec606293594",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "c-algebra:gtl-c-unrealized-retry:$.term",
-          "program:program://abg/consensus/review-one-profile"
-        ],
-        "evidenceDigest": "sha256:c680b9dd37a136ff4fdd53f762c768b9f2e1bb8647988f8fd9adf45ae84e5afe",
-        "repairAffordances": [
-          "await_runtime_realization",
-          "use_flat_composition"
-        ]
       }
     ],
     "hofRows": [
@@ -1659,9 +1634,9 @@
       {
         "path": "module.graphFunctions[consensus.review-one-profile].executionDeclarations",
         "graphFunctionName": "consensus.review-one-profile",
-        "accepted": false,
-        "diagnosticId": "gtl-c-unrealized-retry",
-        "actualRelation": "TypeError: abg.hog_program_catalog on consensus.review-one-profile failed admission: catalog[0]: gtl-c-unrealized-retry at $.term: C.retry budget 2 is lawful algebra but the current normalized HoG carrier cannot retain the declared attempt budget under the one retry law"
+        "accepted": true,
+        "diagnosticId": null,
+        "actualRelation": "current execution declaration compiler admitted the GraphFunction"
       },
       {
         "path": "module.graphFunctions[fan_out(consensus.review-one-profile)].executionDeclarations",
@@ -1710,10 +1685,8 @@
       {
         "path": "programs[0:program://abg/consensus/review-one-profile]",
         "programRef": "program://abg/consensus/review-one-profile",
-        "accepted": false,
-        "diagnosticIds": [
-          "gtl-c-unrealized-retry"
-        ],
+        "accepted": true,
+        "diagnosticIds": [],
         "fibres": [
           "F_P"
         ],
@@ -1946,8 +1919,7 @@
       }
     ],
     "handoffStatusCounts": {
-      "blocked_capability": 33,
-      "blocked_successor_constructor": 1,
+      "blocked_capability": 34,
       "structural_only": 1
     },
     "handoffRows": [
@@ -1955,11 +1927,11 @@
         "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "graphFunctionName": "consensus.review-one-profile",
         "graphVectorName": "consensus.review-one-profile",
-        "status": "blocked_successor_constructor",
-        "programDisposition": null,
+        "status": "blocked_capability",
+        "programDisposition": "retry_attempt_family",
         "workflowBindingRef": null,
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
@@ -2342,6 +2314,17 @@
       "compileHofFanOutBinding": true,
       "resolveCBatch": true,
       "resolveHofFanIn": true
+    },
+    "t261RuntimeSurface": {
+      "resolveCRetry": true,
+      "retryPolicyRef": "abg://policy/c-retry/runtime-failure-allowlist/v1",
+      "retryPolicyDigest": "sha256:b9775fed8646958bdc5b1de2170aabc294a4875ca2c5ef760ecc399b272abe72",
+      "retryableFailureClasses": [
+        "transport_failure",
+        "no_output",
+        "contract_failure"
+      ],
+      "canonicalRetryHandoffCount": 1
     },
     "executionContextJoinRows": [
       {
@@ -2925,19 +2908,20 @@
       {
         "constructor": "C.retry",
         "authoredCount": 1,
-        "compilerCoverage": "path_addressed",
-        "runtimeStatus": "semantic_not_realized",
+        "selectedHandoffCount": 1,
+        "compilerCoverage": "exact_static_handoff_and_runtime_resolver",
+        "runtimeStatus": "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
         "gapFamilies": [
-          "c_retry_runtime_and_policy_join"
+          "tenant_conformance_manifest_consensus_coverage_missing",
+          "traversal_execution_contracts"
         ]
       },
       {
         "constructor": "fan_out",
         "authoredCount": 1,
         "compilerCoverage": "exact_relation_and_runtime_projector",
-        "runtimeStatus": "runtime_atom_realized_canonical_child_blocked_by_retry_and_startup_fence",
+        "runtimeStatus": "runtime_atom_realized_canonical_child_blocked_by_startup_fence",
         "gapFamilies": [
-          "c_retry_runtime_and_policy_join",
           "traversal_execution_contracts"
         ]
       },
@@ -2971,11 +2955,11 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 621,
+    "fullConformanceIssueCount": 620,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "count": 40
+        "count": 39
       },
       {
         "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
@@ -3188,48 +3172,21 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 4,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 3,
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "c_retry_runtime_and_policy_join"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 4,
-    "observedGapEvidenceDigest": "sha256:e5c5fdea41f23116f6cbd5d4bb174a2d2b7a7576c8e94b6a0e14ff98ee71e102",
+    "observedGapFamilyCount": 3,
+    "observedGapEvidenceDigest": "sha256:cb45317334b382b7da34de38f745b0ee4e9dd3def2749605828f79942a7cf9a6",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
-    {
-      "gapFamily": "c_retry_runtime_and_policy_join",
-      "ownerTicket": "T-261",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "gtl-c-unrealized-retry"
-      ],
-      "canonicalBodyPaths": [
-        "programs[0:program://abg/consensus/review-one-profile]"
-      ],
-      "observationSources": [
-        "compiler:compileCAlgebraToHog"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-C-ALGEBRA-008",
-        "ticket-source:.ai-workspace/tickets/active/T-261-realize-c-retry-runtime-and-policy.md",
-        "ticket:T-261"
-      ],
-      "authorityDigest": "sha256:40eaf3d230040e94d1c11292f25ff626a582a28784c8af3a94fe38e6c9e932db",
-      "actualRelation": "retry budget is canonical data while runtime and allowlist consumption are absent",
-      "actualRelationDigest": "sha256:494679fcb57be85b0d4c78c234ec1a30db42fe9bea16b8481ca3f0e5601edbb0",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "policy:transport_failure|no_output|contract_failure",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:de78f73967dcf78fea34d4b985a36577a089fe5664e5d5fb48df2744b816e758"
-    },
     {
       "gapFamily": "tenant_conformance_manifest_consensus_coverage_missing",
       "ownerTicket": "T-268",
@@ -3240,6 +3197,7 @@
       ],
       "canonicalBodyPaths": [
         "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
         "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
         "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
@@ -3407,6 +3365,7 @@
       "code/src/abg/m03/contracts/artifact_schemas.ts",
       "code/src/abg/m03/contracts/assurance.ts",
       "code/src/abg/m03/contracts/c_algebra_hog_compiler.ts",
+      "code/src/abg/m03/contracts/c_retry_policy.ts",
       "code/src/abg/m03/contracts/carriers.ts",
       "code/src/abg/m03/contracts/composed_stage_set.ts",
       "code/src/abg/m03/contracts/consensus_gtl_body.ts",
@@ -3491,5 +3450,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:72351e36de5d3a3bd425d5443d6f3ef7283ac0dc5e828ff2505a82c5c50e75ab"
+  "manifestDigest": "sha256:5d0572011824af7cdf09fcf05e73e55382f8d38c083a8a09390b001681bcba76"
 }
