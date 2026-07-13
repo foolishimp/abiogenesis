@@ -31,6 +31,7 @@ exact source + admitted result-interface authority
 | Static result-interface authority could be mistaken for an admitted F_P or F_H payload | Kept source authority and runtime payload admission separate; T-257 and T-258 remain the only raw-result/response admissions | repaired in D2 and lifecycle |
 | A later T-268 manifest could accidentally change the structural contract basis | Required pre/post-manifest structural source and bundle digest equality; only capability disposition may change | repaired in D1/D9 |
 | The old startup-blocked request could be treated as effect-ready after a separate static report passed | Required canonical runtime entry to consume the exact T-267 admission ref/digest with the original request or handoff | repaired in D8 and proof matrix |
+| Selected work plus consequence did not satisfy the existing mandatory transform/evaluate/consequence composition law | Derived authority-denied ABG transform/evaluate boundary rows around the exact selected work authority; no runtime action or product regime is added | repaired in D3-D4 and the mandatory-stage amendment |
 
 ## Cross-View Judgment
 

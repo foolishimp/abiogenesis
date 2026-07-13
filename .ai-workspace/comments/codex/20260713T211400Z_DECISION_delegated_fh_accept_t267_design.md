@@ -42,5 +42,10 @@ submitted-structure issue produces a program-blocked no-effect outcome;
 runtime addressability still requires the whole report to pass with zero
 issues.
 
+The bounded amendment
+`20260713T214200Z_AMENDMENT_t267_mandatory_compute_stage_slots.md` preserves
+the existing transform/evaluate/consequence composition law through static,
+authority-denied ABG boundary rows around the exact selected work authority.
+
 The accepted review is recorded in
 `.ai-workspace/comments/codex/20260713T211300Z_SELF_REVIEW_t267_traversal_conservation_design.md`.

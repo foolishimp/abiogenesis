@@ -149,19 +149,36 @@ from that composition binding. It is never inferred from the domain stage-role
 label. Missing, ambiguous, reordered, or carrier-incompatible mappings fail
 before static admission.
 
-### D4. One deterministic consequence stage completes each bind boundary
+The existing conformance algebra requires every composition to expose
+`transform.C`, `evaluate.C`, and `consequence.C`. T-267 therefore projects the
+selected non-human work authority as `transform.C`, or retains an exact
+`human_callout` stage for F_H, and derives deterministic ABG boundary stages
+for any mandatory slot not supplied by the work authority. The deterministic
+transform prepares an admitted callout carrier; deterministic evaluate binds
+the selected result authority. These rows describe static interfaces only.
+They do not invoke work, admit a runtime payload, or claim an additional
+product-declared regime.
 
-Every traversal contract bundle contains exactly one final deterministic
-`consequence` stage after the ordered work stages. It is an ABG projection
-boundary over the exact target-carrier and edge-closure contracts, not a
-product plugin and not closure truth.
+### D4. Deterministic boundary stages complete each bind boundary
 
-Its result interface derives from the selected target-carrier contract,
+Every traversal contract bundle contains exactly one deterministic
+`evaluate` boundary and one final deterministic `consequence` boundary after
+the selected result-bearing work. An F_H bundle also contains one
+deterministic `transform` boundary before its exact `human_callout` stage.
+These are ABG projection and admission boundaries, not product plugins and not
+runtime truth.
+
+The consequence result interface derives from the selected target-carrier contract,
 envelope contract, target kind, required identity fields, materialization
 policy, and edge-closure basis. It cannot be supplied by a worker and cannot be
 selected from a local result file. This gives the existing conformance
 projection one explicit consequence result interface without pretending that
 the consequence has executed.
+
+The evaluate result interface derives from the exact admitted stage-result
+authority and preserves its output carrier. For F_H, the deterministic
+transform interface derives the admitted request carrier consumed by the
+human-callout stage. Neither boundary can manufacture worker or human output.
 
 The row identifies the constitutional ABG consequence-bind authority and uses
 `F_D` only for deterministic projection admission. It does not claim that the
@@ -455,9 +472,10 @@ sequenceDiagram
         Result-->>Caller: admitted static stage-result authority
       end
     end
-    Caller->>Compiler: source basis and exact result authorities
-    Compiler->>Compiler: derive ordered work stages from program or runtime-atom binding
-    Compiler->>Compiler: append deterministic target consequence stage
+      Caller->>Compiler: source basis and exact result authorities
+      Compiler->>Compiler: derive ordered work stages from program or runtime-atom binding
+      Compiler->>Compiler: fill mandatory deterministic transform/evaluate boundaries
+      Compiler->>Compiler: append deterministic target consequence stage
     Compiler->>Compiler: derive explicit non-empty conservation row
     alt authority missing, duplicated, reordered, or uncovered
       Compiler-->>Caller: invalid contract diagnostic
