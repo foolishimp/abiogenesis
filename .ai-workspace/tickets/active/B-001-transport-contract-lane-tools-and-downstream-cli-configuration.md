@@ -79,6 +79,7 @@
 - Live-proof discovery: `--safe-mode` forces tool approval even under `bypassPermissions` (worker honestly reported "required approval and was not permitted"), so it is execution-gating and lane-owned exactly like `--tools` — both now ride only the closed-prompt lane, and both are protocol-owned (append cannot reintroduce them).
 - Gates: m03 transport lane 18/18 (invariant-form + worker-executes + bounded-append + env-binding cases); `lint:semantic` green; full `test:semantic` 1433/1433.
 - Live lane proof: library-built `claudeStreamJsonArgs(lane: "worker_executes")` dispatched a real claude worker that executed the declared command in its turn (`tool_use` observed, `OBSERVED=42`). The closed-prompt default remains tool-less by test invariant.
+- Scope extension by F_H ruling (2026-07-13, "have a flag to disable it — in corporate world everything already runs in multiple layers of secured sandboxes in the cloud"): `ABG_TS_WORKER_SANDBOX=external` declares that sandboxing is provided by the environment; agent transports drop their own confinement (codex: `--sandbox danger-full-access` replaces `--full-auto`). Agent-specific bindings take precedence; unknown values fail closed; proof-law postures (closed-prompt tool-less lane) unaffected. Commit `db4c4cba`; gates 1434/1434 + lint green. Discovered during the odd_glc B-001 closure ladder (rust-service socket denial, BUG #6 class).
 - Remaining before closure claim: Jim's ruling on the residual (below) and release-scope decision (rc.4 cut timing).
 
 ## Notes
