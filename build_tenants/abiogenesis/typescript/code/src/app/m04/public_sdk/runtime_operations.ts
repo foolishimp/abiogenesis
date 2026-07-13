@@ -23,12 +23,16 @@ import {
 } from "../../../abg/m03/contracts/admission_hygiene.js";
 import {
   admitWorkspaceRuntimeEventBytes,
+  admitFhInteractionResume,
   admitCatalogGraphFunctionInput,
   assembleCatalogInvocation,
   admitPublicOperationAttribution,
   invokeAdmittedCatalogGraphFunction,
   projectRuntimePublicReplay,
   projectRuntimePublicResult,
+  submitFhInteractionResponse,
+  FhInteractionAdmissionError,
+  type FhPublicOperationId,
   type AdmittedWorkspaceReplay
 } from "../../../abg/m03/runner/index.js";
 import { admitModule } from "../../../gtl/m02/admission/carriers.js";
@@ -73,6 +77,8 @@ import type {
   CatalogInvokeResult,
   CatalogListRefusal,
   CatalogListResult,
+  FhInteractionRefusal,
+  FhInteractionResult,
   ProductToolchainManifest,
   PublicCatalogDescription,
   PublicCatalogRow,
@@ -85,6 +91,8 @@ import type {
   ReadReplayResult,
   ReadResultRefusal,
   ReadResultResult,
+  RunResumeRefusal,
+  RunResumeResult,
   ToolchainProductBindingV3
 } from "./carriers.js";
 
@@ -150,6 +158,22 @@ function accepted<K extends PublicOperationId, D extends string, V>(input: {
     value: input.value,
     provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
     exitClassification: "accepted_terminal" as const
+  });
+}
+
+function acceptedNonTerminal<K extends PublicOperationId, D extends string, V>(input: {
+  readonly operationId: K;
+  readonly disposition: D;
+  readonly value: V;
+  readonly provenanceRefs?: readonly string[];
+}) {
+  return Object.freeze({
+    kind: "accepted" as const,
+    operationId: input.operationId,
+    disposition: input.disposition,
+    value: input.value,
+    provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
+    exitClassification: "accepted_non_terminal" as const
   });
 }
 
@@ -544,6 +568,36 @@ function admittedEnvelope(
   operationId: "abg.operation.catalog.invoke"
 ): PublicOperationInvocationEnvelope<"abg.operation.catalog.invoke">;
 function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.fh.select">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.fh.select"
+): PublicOperationInvocationEnvelope<"abg.operation.fh.select">;
+function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.fh.approve">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.fh.approve"
+): PublicOperationInvocationEnvelope<"abg.operation.fh.approve">;
+function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.fh.reject">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.fh.reject"
+): PublicOperationInvocationEnvelope<"abg.operation.fh.reject">;
+function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.fh.assess">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.fh.assess"
+): PublicOperationInvocationEnvelope<"abg.operation.fh.assess">;
+function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.fh.answer-escalation">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.fh.answer-escalation"
+): PublicOperationInvocationEnvelope<"abg.operation.fh.answer-escalation">;
+function admittedEnvelope(
+  input: PublicOperationInvocationEnvelope<"abg.operation.run.resume">,
+  catalog: PublicContractCatalog,
+  operationId: "abg.operation.run.resume"
+): PublicOperationInvocationEnvelope<"abg.operation.run.resume">;
+function admittedEnvelope(
   input: PublicOperationInvocationEnvelope<"abg.operation.read.result">,
   catalog: PublicContractCatalog,
   operationId: "abg.operation.read.result"
@@ -553,6 +607,11 @@ function admittedEnvelope(
   catalog: PublicContractCatalog,
   operationId: "abg.operation.read.replay"
 ): PublicOperationInvocationEnvelope<"abg.operation.read.replay">;
+function admittedEnvelope<K extends PublicOperationId>(
+  input: PublicOperationInvocationEnvelope<K>,
+  catalog: PublicContractCatalog,
+  operationId: K
+): PublicOperationInvocationEnvelope<K>;
 function admittedEnvelope(
   input: unknown,
   catalog: PublicContractCatalog,
@@ -1461,6 +1520,209 @@ async function boundOperationState(
   return state;
 }
 
+function fhResponseRefusalCode(
+  error: unknown
+): FhInteractionRefusal<FhPublicOperationId>["code"] {
+  if (error instanceof BoundCatalogFailure) {
+    return error.code === "workspace_mismatch" ? "workspace_mismatch" : "stale_basis";
+  }
+  if (error instanceof FhInteractionAdmissionError) {
+    switch (error.code) {
+      case "unknown_interaction":
+      case "ambiguous_interaction":
+      case "stale_basis":
+      case "interaction_not_pending":
+      case "operation_not_declared":
+      case "choice_not_declared":
+      case "response_contract_mismatch":
+      case "capability_mismatch":
+      case "capability_provenance_missing":
+      case "evidence_missing":
+      case "replay_invalid":
+        return error.code;
+      case "response_mismatch":
+      case "continuation_mismatch":
+      case "response_not_resume_eligible":
+        return "replay_invalid";
+    }
+  }
+  return "replay_invalid";
+}
+
+async function submitPublicFhResponse<K extends FhPublicOperationId>(
+  context: BoundWorkspaceContext,
+  invocationInput: PublicOperationInvocationEnvelope<K>,
+  operationId: K
+): Promise<FhInteractionResult<K> | FhInteractionRefusal<K>> {
+  admitBoundContext(context);
+  const invocation = admittedEnvelope(
+    invocationInput,
+    context.publicContractCatalog,
+    operationId
+  );
+  try {
+    if (invocation.request.workspaceId !== context.binding.workspaceId) {
+      throw new BoundCatalogFailure(
+        "workspace_mismatch",
+        "F_H response workspace differs from the bound workspace"
+      );
+    }
+    if (invocation.actorRef === null) {
+      throw new FhInteractionAdmissionError(
+        "replay_invalid",
+        "F_H response requires an admitted actor"
+      );
+    }
+    const replay = await readAdmittedReplay(context);
+    const mutation = submitFhInteractionResponse({
+      interactionRef: invocation.request.interactionRef,
+      interactionBasisDigest: invocation.request.interactionBasisDigest,
+      operationId,
+      invocationId: invocation.invocationId,
+      requestId: invocation.requestId,
+      actorRef: invocation.actorRef,
+      responseContractRef: invocation.request.responseContractRef,
+      choiceRef: invocation.request.choiceRef,
+      value: invocation.request.value,
+      evidenceRefs: invocation.request.evidenceRefs,
+      capabilityRefs: invocation.request.capabilityRefs,
+      capabilityProvenanceRefs: invocation.request.capabilityProvenanceRefs,
+      correlationId: invocation.correlationId,
+      priorEvents: replay.orderedEvents,
+      eventSink: context.effects.createRuntimeEventSink()
+    });
+    return acceptedNonTerminal({
+      operationId,
+      disposition: mutation.projection.status === "held" ? "held" : "responded",
+      value: mutation.projection,
+      provenanceRefs: mutation.projection.replayRefs
+    });
+  } catch (error: unknown) {
+    return refusal({
+      operationId,
+      code: fhResponseRefusalCode(error),
+      message: error instanceof Error ? error.message : "F_H response admission failed"
+    });
+  }
+}
+
+export async function fhSelect(
+  context: BoundWorkspaceContext,
+  invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.select">
+) {
+  return submitPublicFhResponse(context, invocation, "abg.operation.fh.select");
+}
+
+export async function fhApprove(
+  context: BoundWorkspaceContext,
+  invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.approve">
+) {
+  return submitPublicFhResponse(context, invocation, "abg.operation.fh.approve");
+}
+
+export async function fhReject(
+  context: BoundWorkspaceContext,
+  invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.reject">
+) {
+  return submitPublicFhResponse(context, invocation, "abg.operation.fh.reject");
+}
+
+export async function fhAssess(
+  context: BoundWorkspaceContext,
+  invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.assess">
+) {
+  return submitPublicFhResponse(context, invocation, "abg.operation.fh.assess");
+}
+
+export async function fhAnswerEscalation(
+  context: BoundWorkspaceContext,
+  invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.answer-escalation">
+) {
+  return submitPublicFhResponse(
+    context,
+    invocation,
+    "abg.operation.fh.answer-escalation"
+  );
+}
+
+function runResumeRefusalCode(error: unknown): RunResumeRefusal["code"] {
+  if (error instanceof BoundCatalogFailure) {
+    return error.code === "workspace_mismatch" ? "workspace_mismatch" : "stale_basis";
+  }
+  if (error instanceof FhInteractionAdmissionError) {
+    switch (error.code) {
+      case "unknown_interaction":
+      case "ambiguous_interaction":
+      case "stale_basis":
+      case "interaction_not_pending":
+      case "response_mismatch":
+      case "continuation_mismatch":
+      case "response_not_resume_eligible":
+      case "replay_invalid":
+        return error.code;
+      case "operation_not_declared":
+      case "choice_not_declared":
+      case "response_contract_mismatch":
+      case "capability_mismatch":
+      case "capability_provenance_missing":
+      case "evidence_missing":
+        return "replay_invalid";
+    }
+  }
+  return "replay_invalid";
+}
+
+export async function runResume(
+  context: BoundWorkspaceContext,
+  invocationInput: PublicOperationInvocationEnvelope<"abg.operation.run.resume">
+): Promise<RunResumeResult | RunResumeRefusal> {
+  admitBoundContext(context);
+  const invocation = admittedEnvelope(
+    invocationInput,
+    context.publicContractCatalog,
+    "abg.operation.run.resume"
+  );
+  try {
+    if (invocation.request.workspaceId !== context.binding.workspaceId) {
+      throw new BoundCatalogFailure(
+        "workspace_mismatch",
+        "resume workspace differs from the bound workspace"
+      );
+    }
+    if (invocation.actorRef === null) {
+      throw new FhInteractionAdmissionError(
+        "replay_invalid",
+        "run.resume requires an admitted actor"
+      );
+    }
+    const replay = await readAdmittedReplay(context);
+    const mutation = admitFhInteractionResume({
+      interactionRef: invocation.request.interactionRef,
+      interactionBasisDigest: invocation.request.interactionBasisDigest,
+      responseRef: invocation.request.responseRef,
+      continuationRef: invocation.request.continuationRef,
+      invocationId: invocation.invocationId,
+      requestId: invocation.requestId,
+      actorRef: invocation.actorRef,
+      correlationId: invocation.correlationId,
+      priorEvents: replay.orderedEvents,
+      eventSink: context.effects.createRuntimeEventSink()
+    });
+    return acceptedNonTerminal({
+      operationId: "abg.operation.run.resume",
+      disposition: "resume_admitted",
+      value: mutation.projection,
+      provenanceRefs: mutation.projection.replayRefs
+    });
+  } catch (error: unknown) {
+    return refusal({
+      operationId: "abg.operation.run.resume",
+      code: runResumeRefusalCode(error),
+      message: error instanceof Error ? error.message : "resume admission failed"
+    });
+  }
+}
+
 export async function readResult(
   context: BoundWorkspaceContext,
   invocationInput: PublicOperationInvocationEnvelope<"abg.operation.read.result">
@@ -1585,6 +1847,12 @@ export type BoundRuntimeSdkMethods = Pick<
   | "catalogDescribe"
   | "catalogAllow"
   | "catalogInvoke"
+  | "fhSelect"
+  | "fhApprove"
+  | "fhReject"
+  | "fhAssess"
+  | "fhAnswerEscalation"
+  | "runResume"
   | "readResult"
   | "readReplay"
 >;

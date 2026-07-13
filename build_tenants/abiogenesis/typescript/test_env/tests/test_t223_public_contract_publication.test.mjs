@@ -8,6 +8,7 @@ import { TextDecoder, TextEncoder } from "node:util";
 import { RUNTIME_EVENT_KIND_VALUES } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
   DS1_BASELINE_SCHEMA_ASSET_REGISTER,
+  DS1_CAPABILITY_CONTRACT_REGISTER,
   DS1_NATIVE_CONTRACT_REGISTER,
   DS1_PUBLIC_OPERATION_DEFINITION_REGISTER,
   buildDs1ProductPublication,
@@ -136,19 +137,23 @@ test("T-223 publisher produces one deterministic exact DS-1 catalog", () => {
   const second = buildDs1ProductPublication(input);
 
   assert.equal(first.catalog.profile, "abg-5-ds1");
-  assert.equal(first.catalog.rows.length, 54);
+  const expectedCounts = {
+    capability: DS1_CAPABILITY_CONTRACT_REGISTER.length,
+    native_contract: DS1_NATIVE_CONTRACT_REGISTER.length,
+    operation: DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length,
+    schema_asset: DS1_BASELINE_SCHEMA_ASSET_REGISTER.length,
+    vocabulary_asset: 1
+  };
+  assert.equal(
+    first.catalog.rows.length,
+    Object.values(expectedCounts).reduce((total, count) => total + count, 0)
+  );
   assert.deepEqual(
     first.catalog.rows.reduce((counts, row) => {
       counts[row.contractKind] = (counts[row.contractKind] ?? 0) + 1;
       return counts;
     }, {}),
-    {
-      capability: 7,
-      native_contract: 9,
-      operation: 13,
-      schema_asset: 24,
-      vocabulary_asset: 1
-    }
+    expectedCounts
   );
   assert.equal(first.catalog.catalogDigest, second.catalog.catalogDigest);
   assert.equal(

@@ -90,7 +90,10 @@ export const EXECUTION_CONTEXT_SLOT_VALUES = Object.freeze([
   "instruction_protocol_ref",
   "result_contract_ref",
   "capability_requirement_refs",
-  "interaction_subject_ref"
+  "interaction_subject_ref",
+  "interaction_operation_ids",
+  "interaction_resume_operation_ids",
+  "interaction_choice_refs"
 ] as const);
 
 export type ExecutionContextSlot =
@@ -237,6 +240,9 @@ export interface AdmittedExecutionContextValues {
   readonly resultContractRef: string;
   readonly capabilityRequirementRefs: readonly string[];
   readonly interactionSubjectRef: string | null;
+  readonly interactionOperationIds: readonly string[];
+  readonly interactionResumeOperationIds: readonly string[];
+  readonly interactionChoiceRefs: readonly string[];
   readonly sourceCarrierRefs: readonly string[];
   readonly sourceCarrierDigests: readonly `sha256:${string}`[];
   readonly valuesDigest: `sha256:${string}`;
@@ -299,6 +305,9 @@ export interface DeclaredFhInteractionRequest
   readonly selectedProtocolSectionRefs: readonly string[];
   readonly protocolClosureDigest: `sha256:${string}`;
   readonly resultContractRef: string;
+  readonly eligibleOperationIds: readonly string[];
+  readonly resumeEligibleOperationIds: readonly string[];
+  readonly declaredChoiceRefs: readonly string[];
   readonly targetBindingDigest: `sha256:${string}`;
   readonly capabilityRefs: readonly string[];
   readonly capabilityBasisDigest: `sha256:${string}`;
@@ -1594,7 +1603,10 @@ function compileDeclarationProfiles(input: {
           "interaction_subject_ref",
           "instruction_protocol_ref",
           "result_contract_ref",
-          "capability_requirement_refs"
+          "capability_requirement_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
+          "interaction_choice_refs"
         ]);
 
   for (const binding of input.closure) {
@@ -1767,7 +1779,10 @@ function compileDeclarationProfiles(input: {
           "interaction_subject_ref",
           "instruction_protocol_ref",
           "result_contract_ref",
-          "capability_requirement_refs"
+          "capability_requirement_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
+          "interaction_choice_refs"
         ];
   if (
     fieldRows.length !== expectedSlots.length ||
@@ -2121,13 +2136,69 @@ function bindInvocationValues(input: {
     }
     return value;
   };
-  const refs = values.get("capability_requirement_refs");
-  if (refs === undefined || typeof refs === "string") {
+  const refListValue = (
+    slot: ExecutionContextSlot,
+    required: boolean
+  ): readonly string[] => {
+    const value = values.get(slot);
+    if (value === undefined) {
+      if (!required) {
+        return Object.freeze([]);
+      }
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-field-value-invalid",
+        path: `$.executionContext.${slot}`,
+        expectedRelation: "one ref list",
+        actualRelation: "missing ref list",
+        classification: "invalid_runtime_binding"
+      });
+    }
+    if (typeof value === "string") {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-field-value-invalid",
+        path: `$.executionContext.${slot}`,
+        expectedRelation: "one ref list",
+        actualRelation: "received scalar value",
+        classification: "invalid_runtime_binding"
+      });
+    }
+    return Object.freeze([...value]);
+  };
+  const capabilityRefs = refListValue("capability_requirement_refs", true);
+  const interactionOperationIds = refListValue(
+    "interaction_operation_ids",
+    input.contract.selectedRegime === "F_H"
+  );
+  const interactionResumeOperationIds = refListValue(
+    "interaction_resume_operation_ids",
+    input.contract.selectedRegime === "F_H"
+  );
+  const interactionChoiceRefs = refListValue(
+    "interaction_choice_refs",
+    input.contract.selectedRegime === "F_H"
+  );
+  if (
+    input.contract.selectedRegime === "F_H" &&
+    interactionOperationIds.length === 0
+  ) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-field-value-invalid",
-      path: "$.executionContext.capability_requirement_refs",
-      expectedRelation: "one ref list",
-      actualRelation: "missing or scalar capability requirements",
+      path: "$.executionContext.interaction_operation_ids",
+      expectedRelation: "at least one declared F_H public operation identity",
+      actualRelation: "received an empty operation set",
+      classification: "invalid_runtime_binding"
+    });
+  }
+  const eligibleOperations = new Set(interactionOperationIds);
+  const foreignResumeOperations = interactionResumeOperationIds.filter(
+    (operationId) => !eligibleOperations.has(operationId)
+  );
+  if (foreignResumeOperations.length > 0) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-field-value-invalid",
+      path: "$.executionContext.interaction_resume_operation_ids",
+      expectedRelation: "a subset of interaction_operation_ids",
+      actualRelation: `undeclared resume operations ${foreignResumeOperations.join(", ")}`,
       classification: "invalid_runtime_binding"
     });
   }
@@ -2136,8 +2207,11 @@ function bindInvocationValues(input: {
     configurationDigest: stringValue("configuration_digest"),
     instructionProtocolRef: stringValue("instruction_protocol_ref"),
     resultContractRef: stringValue("result_contract_ref"),
-    capabilityRequirementRefs: Object.freeze([...refs]),
+    capabilityRequirementRefs: capabilityRefs,
     interactionSubjectRef: stringValue("interaction_subject_ref"),
+    interactionOperationIds,
+    interactionResumeOperationIds,
+    interactionChoiceRefs,
     sourceCarrierRefs: Object.freeze(orderedCarriers.map((carrier) => carrier.carrierRef)),
     sourceCarrierDigests: Object.freeze(
       orderedCarriers.map((carrier) => carrier.carrierDigest)
@@ -2892,6 +2966,9 @@ function constructFhRequest(input: {
     selectedProtocolSectionRefs: input.contract.staticProtocolRefs,
     protocolClosureDigest: input.resolved.protocolClosureDigest,
     resultContractRef: input.values.resultContractRef,
+    eligibleOperationIds: input.values.interactionOperationIds,
+    resumeEligibleOperationIds: input.values.interactionResumeOperationIds,
+    declaredChoiceRefs: input.values.interactionChoiceRefs,
     targetBindingDigest: input.contract.targetBindingDigest,
     capabilityRefs: input.values.capabilityRequirementRefs,
     capabilityBasisDigest: input.resolved.capabilityBasisDigest,

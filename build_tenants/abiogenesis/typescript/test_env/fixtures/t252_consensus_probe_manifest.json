@@ -2480,6 +2480,9 @@
         "fieldSlots": [
           "capability_requirement_refs",
           "instruction_protocol_ref",
+          "interaction_choice_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
           "interaction_subject_ref",
           "result_contract_ref"
         ],
@@ -2545,6 +2548,9 @@
         "fieldSlots": [
           "capability_requirement_refs",
           "instruction_protocol_ref",
+          "interaction_choice_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
           "interaction_subject_ref",
           "result_contract_ref"
         ],
@@ -2643,6 +2649,9 @@
         "fieldSlots": [
           "capability_requirement_refs",
           "instruction_protocol_ref",
+          "interaction_choice_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
           "interaction_subject_ref",
           "result_contract_ref"
         ],
@@ -2708,6 +2717,9 @@
         "fieldSlots": [
           "capability_requirement_refs",
           "instruction_protocol_ref",
+          "interaction_choice_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
           "interaction_subject_ref",
           "result_contract_ref"
         ],
@@ -2870,6 +2882,72 @@
         "status": "admitted",
         "payloadDigest": "sha256:c9625861302729262e260871c7a57ef177dc7fcbfe03dd3238fc17d851c7ce8f",
         "failureClass": null
+      }
+    ],
+    "fhInteractionRows": [
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial].stages[0:hold_initial_for_fh]",
+        "interactionSlotsObserved": true,
+        "publishedFhHandlersObserved": true,
+        "requestAdmissionObserved": true,
+        "fhAtomsObserved": true,
+        "operationIds": [
+          "abg.operation.fh.select",
+          "abg.operation.fh.approve",
+          "abg.operation.fh.reject",
+          "abg.operation.fh.assess",
+          "abg.operation.fh.answer-escalation",
+          "abg.operation.run.resume"
+        ],
+        "status": "public_interaction_path_observed"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter].stages[0:hold_post_for_fh]",
+        "interactionSlotsObserved": true,
+        "publishedFhHandlersObserved": true,
+        "requestAdmissionObserved": true,
+        "fhAtomsObserved": true,
+        "operationIds": [
+          "abg.operation.fh.select",
+          "abg.operation.fh.approve",
+          "abg.operation.fh.reject",
+          "abg.operation.fh.assess",
+          "abg.operation.fh.answer-escalation",
+          "abg.operation.run.resume"
+        ],
+        "status": "public_interaction_path_observed"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial].stages[0:hold_initial_for_fh]",
+        "interactionSlotsObserved": true,
+        "publishedFhHandlersObserved": true,
+        "requestAdmissionObserved": true,
+        "fhAtomsObserved": true,
+        "operationIds": [
+          "abg.operation.fh.select",
+          "abg.operation.fh.approve",
+          "abg.operation.fh.reject",
+          "abg.operation.fh.assess",
+          "abg.operation.fh.answer-escalation",
+          "abg.operation.run.resume"
+        ],
+        "status": "public_interaction_path_observed"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter].stages[0:hold_post_for_fh]",
+        "interactionSlotsObserved": true,
+        "publishedFhHandlersObserved": true,
+        "requestAdmissionObserved": true,
+        "fhAtomsObserved": true,
+        "operationIds": [
+          "abg.operation.fh.select",
+          "abg.operation.fh.approve",
+          "abg.operation.fh.reject",
+          "abg.operation.fh.assess",
+          "abg.operation.fh.answer-escalation",
+          "abg.operation.run.resume"
+        ],
+        "status": "public_interaction_path_observed"
       }
     ],
     "executionContextJoinStatusCounts": {
@@ -3167,16 +3245,18 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 9,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 8,
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "fh_pending_runtime_hold"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 9,
-    "observedGapEvidenceDigest": "sha256:9652dab4714141a43a410b9e7011cd10fb60d89d5e167da97f4a729139de3437",
+    "observedGapFamilyCount": 8,
+    "observedGapEvidenceDigest": "sha256:87d84c9039cb3524e7ca4831cfcfadd78665d4d34d97fd4712884eb2312855ab",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3208,35 +3288,6 @@
         "ticket:T-252"
       ],
       "evidenceDigest": "sha256:de78f73967dcf78fea34d4b985a36577a089fe5664e5d5fb48df2744b816e758"
-    },
-    {
-      "gapFamily": "fh_pending_runtime_hold",
-      "ownerTicket": "T-258",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-fh-pending-runtime-hold"
-      ],
-      "canonicalBodyPaths": [
-        "programs[11:program://abg/consensus/fh-initial]",
-        "programs[15:program://abg/consensus/fh-post-submitter]"
-      ],
-      "observationSources": [
-        "structure:declared-fh-c-stages"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-P-CONSENSUS-010..012",
-        "ticket-source:.ai-workspace/tickets/active/T-258-close-public-fh-hold-act-resume.md",
-        "ticket:T-258"
-      ],
-      "authorityDigest": "sha256:4f39ade165af931f4599b470c040cf1d704a53eec382084991938abb011677c2",
-      "actualRelation": "F_H stages are declared while hold, public act, and resume remain unrealized",
-      "actualRelationDigest": "sha256:6e69ab1fe08c676fe8dc8aa7ad43ae7c19de4fc481411043c06f6b56a43c6357",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     },
     {
       "gapFamily": "tenant_conformance_manifest_consensus_coverage_missing",
@@ -3610,5 +3661,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:70594e4f11a9e51c171500dcd5b5e270b130d56e6489ad5ae641de494c8d10f1"
+  "manifestDigest": "sha256:e27e3e7404dffc813cfe9a6d0612cb848ea0d2480443228e0947404ecb68232f"
 }

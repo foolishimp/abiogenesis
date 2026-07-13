@@ -6,6 +6,12 @@ import test from "node:test";
 
 import { assertDs1ContractRoster } from "../../build/semantic/code/src/app/m04/product_intake/index.js";
 import {
+  DS1_BASELINE_SCHEMA_ASSET_REGISTER,
+  DS1_CAPABILITY_CONTRACT_REGISTER,
+  DS1_NATIVE_CONTRACT_REGISTER,
+  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
+} from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
+import {
   T223_ABG_SYSTEM_MODULE_PATH,
   checkAbgProductPublication,
   deriveNativeDeclarationInventories,
@@ -16,14 +22,32 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
   const prepared = await prepareAbgProductPublication();
   const repeated = await prepareAbgProductPublication();
 
-  assert.equal(prepared.schemaAssets.length, 63);
-  assert.equal(prepared.nativeInventories.length, 9);
-  assert.equal(prepared.publication.catalog.rows.length, 54);
+  const expectedSchemaCount =
+    DS1_BASELINE_SCHEMA_ASSET_REGISTER.length +
+    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length * 3;
+  const expectedCatalogRowCount =
+    DS1_NATIVE_CONTRACT_REGISTER.length +
+    DS1_CAPABILITY_CONTRACT_REGISTER.length +
+    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length +
+    DS1_BASELINE_SCHEMA_ASSET_REGISTER.length +
+    1;
+  assert.equal(prepared.schemaAssets.length, expectedSchemaCount);
+  assert.equal(
+    prepared.nativeInventories.length,
+    DS1_NATIVE_CONTRACT_REGISTER.length
+  );
+  assert.equal(
+    prepared.publication.catalog.rows.length,
+    expectedCatalogRowCount
+  );
   assert.equal(
     assertDs1ContractRoster(prepared.publication.catalog),
     prepared.publication.catalog
   );
-  assert.equal(prepared.outputs.length, 33);
+  assert.equal(
+    prepared.outputs.length,
+    new Set(prepared.outputs.map((output) => output.relativePath)).size
+  );
   assert.equal(
     prepared.publication.manifest.packageVersion,
     prepared.packageManifest.version
@@ -57,9 +81,9 @@ test("T-223 publication tool derives the exact immutable npm payload", async () 
   const expectedPayloadCount =
     prepared.basePayloadAssets.length +
     prepared.schemaAssets.length +
-    9 +
-    7 +
-    13 +
+    DS1_NATIVE_CONTRACT_REGISTER.length +
+    DS1_CAPABILITY_CONTRACT_REGISTER.length +
+    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length +
     1 +
     1;
   assert.equal(payloadPaths.length, expectedPayloadCount);

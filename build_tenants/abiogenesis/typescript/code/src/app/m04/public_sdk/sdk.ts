@@ -30,10 +30,16 @@ import {
   catalogAdmit,
   catalogAllow,
   catalogDescribe,
+  fhAnswerEscalation,
+  fhApprove,
+  fhAssess,
+  fhReject,
+  fhSelect,
   catalogInvoke,
   catalogList,
   readReplay,
-  readResult
+  readResult,
+  runResume
 } from "./runtime_operations.js";
 
 export interface PublicOperationInvocationConstructionCommon {
@@ -242,6 +248,12 @@ export function createAbiogenesisPublicSdk(): AbiogenesisPublicSdk {
     catalogDescribe,
     catalogAllow,
     catalogInvoke,
+    fhSelect,
+    fhApprove,
+    fhReject,
+    fhAssess,
+    fhAnswerEscalation,
+    runResume,
     readResult,
     readReplay
   };

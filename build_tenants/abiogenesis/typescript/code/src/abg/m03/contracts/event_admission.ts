@@ -37,6 +37,7 @@ import {
   REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES
 } from "./requirements_algebra.js";
 import {
+  admitIJsonValue,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import { isPlainRecord } from "./admission_hygiene.js";
@@ -1448,6 +1449,73 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     approvalSubjectRef: "non_empty_string",
     gateReason: "non_empty_string"
   }),
+  fh_interaction_opened: applyFieldRules("FhInteractionOpenedEvent", {
+    basisId: "non_empty_string",
+    graphFunctionId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    cCallRef: "non_empty_string",
+    interactionRef: "non_empty_string",
+    interactionBasisDigest: "non_empty_string",
+    interactionSubjectRef: "non_empty_string",
+    continuationRef: "non_empty_string",
+    requestRef: "non_empty_string",
+    requestDigest: "non_empty_string",
+    responseContractRef: "non_empty_string",
+    eligibleOperationIds: "string_array",
+    resumeEligibleOperationIds: "string_array",
+    declaredChoiceRefs: "string_array",
+    requiredCapabilityRefs: "string_array",
+    capabilityBasisDigest: "non_empty_string",
+    sourceCarrierRefs: "string_array",
+    sourceCarrierDigests: "string_array",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  fh_interaction_responded: (event) => {
+    applyFieldRules("FhInteractionRespondedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      interactionRef: "non_empty_string",
+      interactionBasisDigest: "non_empty_string",
+      continuationRef: "non_empty_string",
+      responseRef: "non_empty_string",
+      responseDigest: "non_empty_string",
+      operationId: "non_empty_string",
+      invocationId: "non_empty_string",
+      requestId: "non_empty_string",
+      actorRef: "non_empty_string",
+      responseContractRef: "non_empty_string",
+      choiceRef: "nullable_string",
+      evidenceRefs: "string_array",
+      capabilityRefs: "string_array",
+      capabilityProvenanceRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    admitIJsonValue(event["value"], "FhInteractionRespondedEvent.value");
+  },
+  fh_interaction_resume_admitted: applyFieldRules(
+    "FhInteractionResumeAdmittedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      interactionRef: "non_empty_string",
+      interactionBasisDigest: "non_empty_string",
+      continuationRef: "non_empty_string",
+      responseRef: "non_empty_string",
+      responseDigest: "non_empty_string",
+      resumeRef: "non_empty_string",
+      resumeDigest: "non_empty_string",
+      invocationId: "non_empty_string",
+      requestId: "non_empty_string",
+      actorRef: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   temporal_property_verdict_projected: applyFieldRules("TemporalPropertyVerdictProjectedEvent", {
     basisId: "non_empty_string",
     runId: "nullable_string",

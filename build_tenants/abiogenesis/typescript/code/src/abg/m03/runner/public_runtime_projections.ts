@@ -17,6 +17,10 @@ import {
   assertCanonicalRuntimeEventSequence,
   assertRuntimeEvent
 } from "../contracts/event_admission.js";
+import {
+  projectFhInteractionForGraphCall,
+  type FhInteractionProjection
+} from "./fh_interaction.js";
 
 export interface AdmittedWorkspaceReplay {
   readonly kind: "admitted_workspace_replay";
@@ -39,6 +43,7 @@ export interface RuntimePublicResultProjection {
     | "blocked"
     | "human_gate_required";
   readonly result: IJsonValue;
+  readonly interaction: FhInteractionProjection | null;
   readonly evidenceRefs: readonly string[];
   readonly replayRefs: readonly string[];
 }
@@ -185,7 +190,13 @@ function resultDisposition(
         return "stopped";
     }
   }
-  if (events.some((event) => event.kind === "fh_escalated")) {
+  if (
+    events.some(
+      (event) =>
+        event.kind === "fh_escalated" ||
+        event.kind === "fh_interaction_opened"
+    )
+  ) {
     return "human_gate_required";
   }
   if (
@@ -258,12 +269,18 @@ export function projectRuntimePublicResult(input: {
     resultRefs
   }));
   const replayRefs = Object.freeze(events.map(eventRef));
+  const interaction = projectFhInteractionForGraphCall(
+    input.replay.orderedEvents,
+    call.graphCallId
+  );
   const evidenceRefs = Object.freeze(
     events
       .filter((event) =>
         event.kind === "terminal_reached" ||
         event.kind === "actor_result_artifact_observed" ||
         event.kind === "actor_invocation_closed" ||
+        event.kind === "fh_interaction_responded" ||
+        event.kind === "fh_interaction_resume_admitted" ||
         event.kind === "leaf_task_completed" ||
         event.kind === "leaf_task_failed"
       )
@@ -274,6 +291,7 @@ export function projectRuntimePublicResult(input: {
     graphCallId: call.graphCallId,
     disposition: resultDisposition(events),
     result,
+    interaction,
     evidenceRefs,
     replayRefs
   });
@@ -287,7 +305,11 @@ const SUBORDINATE_ID_FIELDS = Object.freeze([
   "dispatchRef",
   "eventId",
   "frameId",
+  "interactionRef",
   "leafTaskId",
+  "continuationRef",
+  "responseRef",
+  "resumeRef",
   "resultRef",
   "selectionRef",
   "subjectId"

@@ -54,6 +54,7 @@ import type {
   CatalogResolveRequest,
   CatalogVerifyRequest,
   Ds1PublicOperationContractMap,
+  FhInteractionResponseRequest,
   HostInvocationDescriptor,
   InstallProductRequest,
   InvocationInput,
@@ -63,6 +64,7 @@ import type {
   PublicOperationInvocationEnvelope,
   ReadReplayRequest,
   ReadResultRequest,
+  RunResumeRequest,
   ReplaySubject,
   SessionSelectionInput,
   TransportSteering,
@@ -114,6 +116,12 @@ const OPERATION_SLUGS: Readonly<Record<PublicOperationId, string>> = Object.free
   "abg.operation.catalog.describe": "catalog.describe",
   "abg.operation.catalog.allow": "catalog.allow",
   "abg.operation.catalog.invoke": "catalog.invoke",
+  "abg.operation.fh.select": "fh.select",
+  "abg.operation.fh.approve": "fh.approve",
+  "abg.operation.fh.reject": "fh.reject",
+  "abg.operation.fh.assess": "fh.assess",
+  "abg.operation.fh.answer-escalation": "fh.answer-escalation",
+  "abg.operation.run.resume": "run.resume",
   "abg.operation.read.result": "read.result",
   "abg.operation.read.replay": "read.replay"
 });
@@ -735,6 +743,103 @@ export function admitReadReplayRequest(
   });
 }
 
+export function admitFhInteractionResponseRequest(
+  input: unknown,
+  label = "FhInteractionResponseRequest"
+): FhInteractionResponseRequest {
+  const value = closedObject(
+    input,
+    [
+      "workspaceId",
+      "interactionRef",
+      "interactionBasisDigest",
+      "responseContractRef",
+      "choiceRef",
+      "value",
+      "evidenceRefs",
+      "capabilityRefs",
+      "capabilityProvenanceRefs"
+    ],
+    label
+  );
+  const choiceInput = requiredField(value, "choiceRef", label);
+  return Object.freeze({
+    workspaceId: nonEmptyString(
+      requiredField(value, "workspaceId", label),
+      `${label}.workspaceId`
+    ),
+    interactionRef: nonEmptyString(
+      requiredField(value, "interactionRef", label),
+      `${label}.interactionRef`
+    ),
+    interactionBasisDigest: digest(
+      requiredField(value, "interactionBasisDigest", label),
+      `${label}.interactionBasisDigest`
+    ),
+    responseContractRef: nonEmptyString(
+      requiredField(value, "responseContractRef", label),
+      `${label}.responseContractRef`
+    ),
+    choiceRef:
+      choiceInput === null
+        ? null
+        : nonEmptyString(choiceInput, `${label}.choiceRef`),
+    value: iJson(requiredField(value, "value", label), `${label}.value`),
+    evidenceRefs: uniqueStrings(
+      requiredField(value, "evidenceRefs", label),
+      `${label}.evidenceRefs`,
+      false
+    ),
+    capabilityRefs: uniqueStrings(
+      requiredField(value, "capabilityRefs", label),
+      `${label}.capabilityRefs`
+    ),
+    capabilityProvenanceRefs: uniqueStrings(
+      requiredField(value, "capabilityProvenanceRefs", label),
+      `${label}.capabilityProvenanceRefs`
+    )
+  });
+}
+
+export function admitRunResumeRequest(
+  input: unknown,
+  label = "RunResumeRequest"
+): RunResumeRequest {
+  const value = closedObject(
+    input,
+    [
+      "workspaceId",
+      "interactionRef",
+      "interactionBasisDigest",
+      "responseRef",
+      "continuationRef"
+    ],
+    label
+  );
+  return Object.freeze({
+    workspaceId: nonEmptyString(
+      requiredField(value, "workspaceId", label),
+      `${label}.workspaceId`
+    ),
+    interactionRef: nonEmptyString(
+      requiredField(value, "interactionRef", label),
+      `${label}.interactionRef`
+    ),
+    interactionBasisDigest: digest(
+      requiredField(value, "interactionBasisDigest", label),
+      `${label}.interactionBasisDigest`
+    ),
+    responseRef: nonEmptyString(
+      requiredField(value, "responseRef", label),
+      `${label}.responseRef`
+    ),
+    continuationRef: nonEmptyString(
+      requiredField(value, "continuationRef", label),
+      `${label}.continuationRef`
+    )
+  });
+}
+
 export function admitDs1OperationRequest<K extends PublicOperationId>(
   id: K,
   input: unknown,
@@ -768,6 +873,14 @@ export function admitDs1OperationRequest(
       return admitCatalogAllowRequest(input, label);
     case "abg.operation.catalog.invoke":
       return admitCatalogInvokeRequest(input, label);
+    case "abg.operation.fh.select":
+    case "abg.operation.fh.approve":
+    case "abg.operation.fh.reject":
+    case "abg.operation.fh.assess":
+    case "abg.operation.fh.answer-escalation":
+      return admitFhInteractionResponseRequest(input, label);
+    case "abg.operation.run.resume":
+      return admitRunResumeRequest(input, label);
     case "abg.operation.read.result":
       return admitReadResultRequest(input, label);
     case "abg.operation.read.replay":
@@ -917,7 +1030,13 @@ function operationRequiresActor(id: PublicOperationId): boolean {
     id === "abg.operation.install.install" ||
     id === "abg.operation.catalog.bind" ||
     id === "abg.operation.catalog.admit" ||
-    id === "abg.operation.catalog.invoke"
+    id === "abg.operation.catalog.invoke" ||
+    id === "abg.operation.fh.select" ||
+    id === "abg.operation.fh.approve" ||
+    id === "abg.operation.fh.reject" ||
+    id === "abg.operation.fh.assess" ||
+    id === "abg.operation.fh.answer-escalation" ||
+    id === "abg.operation.run.resume"
   );
 }
 
@@ -972,6 +1091,22 @@ function admitEnvelopeObject(
       }
       return constructEnvelope(common, id, request);
     }
+    case "abg.operation.fh.select":
+    case "abg.operation.fh.approve":
+    case "abg.operation.fh.reject":
+    case "abg.operation.fh.assess":
+    case "abg.operation.fh.answer-escalation":
+      return constructEnvelope(
+        common,
+        id,
+        admitFhInteractionResponseRequest(requestInput, `${label}.request`)
+      );
+    case "abg.operation.run.resume":
+      return constructEnvelope(
+        common,
+        id,
+        admitRunResumeRequest(requestInput, `${label}.request`)
+      );
     case "abg.operation.read.result":
       return constructEnvelope(common, id, admitReadResultRequest(requestInput, `${label}.request`));
     case "abg.operation.read.replay":

@@ -4,7 +4,10 @@
 // Implements: REQ-P-PUBLIC-CONTRACTS
 
 import type { LiveCapabilityBinding } from "../live_capability.js";
-import type { RuntimeEventSink } from "../../../abg/m03/index.js";
+import type {
+  FhInteractionProjection,
+  RuntimeEventSink
+} from "../../../abg/m03/index.js";
 import type { IJsonValue } from "./canonical.js";
 
 /** @pattern ^sha256:[0-9a-f]{64}$ */
@@ -21,6 +24,12 @@ export const DS1_PUBLIC_OPERATION_IDS = [
   "abg.operation.catalog.describe",
   "abg.operation.catalog.allow",
   "abg.operation.catalog.invoke",
+  "abg.operation.fh.select",
+  "abg.operation.fh.approve",
+  "abg.operation.fh.reject",
+  "abg.operation.fh.assess",
+  "abg.operation.fh.answer-escalation",
+  "abg.operation.run.resume",
   "abg.operation.read.result",
   "abg.operation.read.replay"
 ] as const;
@@ -120,13 +129,16 @@ export type PublicOperationEffectClass =
   | "runtime_catalog_projection"
   | "runtime_session_projection"
   | "runtime_graph_function_invoke"
+  | "runtime_fh_response_admission"
+  | "runtime_resume_admission"
   | "runtime_result_projection"
   | "runtime_replay_projection";
 
 export type PublicOperationEventAdmission =
   | "none"
   | "catalog_admission_events"
-  | "runtime_execution_events";
+  | "runtime_execution_events"
+  | "runtime_interaction_events";
 
 export interface PublicOperationAdapterExitMap {
   readonly acceptedTerminal: 0;
@@ -559,9 +571,12 @@ export interface PublicResultProjection {
   readonly graphCallId: string;
   readonly disposition: "converged" | "stopped" | "yielded" | "blocked" | "human_gate_required";
   readonly result: IJsonValue;
+  readonly interaction: FhInteractionProjection | null;
   readonly evidenceRefs: readonly string[];
   readonly replayRefs: readonly string[];
 }
+
+export type PublicFhInteractionProjection = FhInteractionProjection;
 
 export interface PublicReplayProjection {
   readonly subject: ReplaySubject;
@@ -704,6 +719,32 @@ export interface ReadReplayRequest {
   readonly subject: ReplaySubject;
   readonly fromOrdinal: number;
   readonly limit: number;
+}
+
+export interface FhInteractionResponseRequest {
+  readonly workspaceId: string;
+  readonly interactionRef: string;
+  readonly interactionBasisDigest: Sha256Digest;
+  readonly responseContractRef: string;
+  readonly choiceRef: string | null;
+  readonly value: IJsonValue;
+  readonly evidenceRefs: readonly string[];
+  readonly capabilityRefs: readonly string[];
+  readonly capabilityProvenanceRefs: readonly string[];
+}
+
+export type FhSelectRequest = FhInteractionResponseRequest;
+export type FhApproveRequest = FhInteractionResponseRequest;
+export type FhRejectRequest = FhInteractionResponseRequest;
+export type FhAssessRequest = FhInteractionResponseRequest;
+export type FhAnswerEscalationRequest = FhInteractionResponseRequest;
+
+export interface RunResumeRequest {
+  readonly workspaceId: string;
+  readonly interactionRef: string;
+  readonly interactionBasisDigest: Sha256Digest;
+  readonly responseRef: string;
+  readonly continuationRef: string;
 }
 
 export type AdapterExitClassification =
@@ -854,6 +895,62 @@ export type CatalogInvokeRefusal = PublicOperationRefused<
   "catalog_stale" | "view_mismatch" | "disallowed" | "non_callable" | "unready" | "interface_mismatch" | "input_invalid" | "missing_capability" | "preflight_failure" | "runtime_refused"
 >;
 
+export type FhInteractionResult<K extends PublicOperationId> =
+  PublicOperationAccepted<
+    K,
+    "responded" | "held",
+    PublicFhInteractionProjection,
+    "accepted_non_terminal"
+  >;
+
+export type FhInteractionRefusal<K extends PublicOperationId> = PublicOperationRefused<
+  K,
+  | "workspace_mismatch"
+  | "unknown_interaction"
+  | "ambiguous_interaction"
+  | "stale_basis"
+  | "interaction_not_pending"
+  | "operation_not_declared"
+  | "choice_not_declared"
+  | "response_contract_mismatch"
+  | "capability_mismatch"
+  | "capability_provenance_missing"
+  | "evidence_missing"
+  | "replay_invalid"
+>;
+
+export type FhSelectResult = FhInteractionResult<"abg.operation.fh.select">;
+export type FhSelectRefusal = FhInteractionRefusal<"abg.operation.fh.select">;
+export type FhApproveResult = FhInteractionResult<"abg.operation.fh.approve">;
+export type FhApproveRefusal = FhInteractionRefusal<"abg.operation.fh.approve">;
+export type FhRejectResult = FhInteractionResult<"abg.operation.fh.reject">;
+export type FhRejectRefusal = FhInteractionRefusal<"abg.operation.fh.reject">;
+export type FhAssessResult = FhInteractionResult<"abg.operation.fh.assess">;
+export type FhAssessRefusal = FhInteractionRefusal<"abg.operation.fh.assess">;
+export type FhAnswerEscalationResult =
+  FhInteractionResult<"abg.operation.fh.answer-escalation">;
+export type FhAnswerEscalationRefusal =
+  FhInteractionRefusal<"abg.operation.fh.answer-escalation">;
+
+export type RunResumeResult = PublicOperationAccepted<
+  "abg.operation.run.resume",
+  "resume_admitted",
+  PublicFhInteractionProjection,
+  "accepted_non_terminal"
+>;
+export type RunResumeRefusal = PublicOperationRefused<
+  "abg.operation.run.resume",
+  | "workspace_mismatch"
+  | "unknown_interaction"
+  | "ambiguous_interaction"
+  | "stale_basis"
+  | "interaction_not_pending"
+  | "response_mismatch"
+  | "continuation_mismatch"
+  | "response_not_resume_eligible"
+  | "replay_invalid"
+>;
+
 export type ReadResultResult = PublicOperationAccepted<
   "abg.operation.read.result",
   "projected",
@@ -892,6 +989,12 @@ export interface Ds1PublicOperationContractMap {
   readonly "abg.operation.catalog.describe": OperationContract<CatalogDescribeRequest, CatalogDescribeResult, CatalogDescribeRefusal>;
   readonly "abg.operation.catalog.allow": OperationContract<CatalogAllowRequest, CatalogAllowResult, CatalogAllowRefusal>;
   readonly "abg.operation.catalog.invoke": OperationContract<CatalogInvokeRequest, CatalogInvokeResult, CatalogInvokeRefusal>;
+  readonly "abg.operation.fh.select": OperationContract<FhSelectRequest, FhSelectResult, FhSelectRefusal>;
+  readonly "abg.operation.fh.approve": OperationContract<FhApproveRequest, FhApproveResult, FhApproveRefusal>;
+  readonly "abg.operation.fh.reject": OperationContract<FhRejectRequest, FhRejectResult, FhRejectRefusal>;
+  readonly "abg.operation.fh.assess": OperationContract<FhAssessRequest, FhAssessResult, FhAssessRefusal>;
+  readonly "abg.operation.fh.answer-escalation": OperationContract<FhAnswerEscalationRequest, FhAnswerEscalationResult, FhAnswerEscalationRefusal>;
+  readonly "abg.operation.run.resume": OperationContract<RunResumeRequest, RunResumeResult, RunResumeRefusal>;
   readonly "abg.operation.read.result": OperationContract<ReadResultRequest, ReadResultResult, ReadResultRefusal>;
   readonly "abg.operation.read.replay": OperationContract<ReadReplayRequest, ReadReplayResult, ReadReplayRefusal>;
 }
@@ -1097,6 +1200,30 @@ export interface AbiogenesisPublicSdk {
     context: BoundWorkspaceContext,
     invocation: PublicOperationInvocationEnvelope<"abg.operation.catalog.invoke">
   ) => Promise<Ds1PublicOperationOutcome<"abg.operation.catalog.invoke">>;
+  readonly fhSelect: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.select">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.fh.select">>;
+  readonly fhApprove: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.approve">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.fh.approve">>;
+  readonly fhReject: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.reject">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.fh.reject">>;
+  readonly fhAssess: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.assess">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.fh.assess">>;
+  readonly fhAnswerEscalation: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.fh.answer-escalation">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.fh.answer-escalation">>;
+  readonly runResume: (
+    context: BoundWorkspaceContext,
+    invocation: PublicOperationInvocationEnvelope<"abg.operation.run.resume">
+  ) => Promise<Ds1PublicOperationOutcome<"abg.operation.run.resume">>;
   readonly readResult: (
     context: BoundWorkspaceContext,
     invocation: PublicOperationInvocationEnvelope<"abg.operation.read.result">

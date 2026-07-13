@@ -80,6 +80,21 @@ const F_H_FIELD_ROWS: readonly Omit<
     slot: "capability_requirement_refs",
     valueKind: "ref_list",
     required: true
+  }),
+  Object.freeze({
+    slot: "interaction_operation_ids",
+    valueKind: "ref_list",
+    required: true
+  }),
+  Object.freeze({
+    slot: "interaction_resume_operation_ids",
+    valueKind: "ref_list",
+    required: true
+  }),
+  Object.freeze({
+    slot: "interaction_choice_refs",
+    valueKind: "ref_list",
+    required: true
   })
 ]);
 

@@ -16,11 +16,13 @@ import {
 import type {
   IJsonArray,
   IJsonObject,
-  IJsonValue,
+  IJsonValue
+} from "../public_sdk/canonical.js";
+import type {
   NativeContractLocator,
   PublicContractRow,
   Sha256Digest
-} from "../public_sdk/index.js";
+} from "../public_sdk/carriers.js";
 
 const PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 const PRODUCT_ID = "abiogenesis";
@@ -181,12 +183,19 @@ const NATIVE_CONTRACTS = Object.freeze([
       "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES",
       "GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES",
       "GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS",
+      "FhInteractionProjection",
+      "FH_PUBLIC_OPERATION_ID_VALUES",
+      "openFhInteraction",
+      "projectFhInteraction",
+      "submitFhInteractionResponse",
+      "admitFhInteractionResume",
       "admitGtlProgramConformanceInput",
       "typecheckGtlProgram"
     ]),
     capabilityRefs: Object.freeze([
       "abg.capability.catalog.contribute@5",
-      "abg.capability.catalog.invoke-graph-function@5"
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.fh.interact@5"
     ])
   },
   {
@@ -220,7 +229,8 @@ const NATIVE_CONTRACTS = Object.freeze([
     capabilityRefs: Object.freeze([
       "abg.capability.catalog.contribute@5",
       "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.install.bind-products@5"
+      "abg.capability.install.bind-products@5",
+      "abg.capability.fh.interact@5"
     ])
   },
   {
@@ -259,7 +269,8 @@ const SCHEMA_CONTRACT_ROWS = Object.freeze([
   ["abg.schema.host-invocation", "host-invocation.schema.json", "HostInvocationDescriptor"],
   ["abg.schema.runtime-event", "runtime-event.schema.json", "CanonicalRuntimeEvent"],
   ["abg.schema.runtime-result", "runtime-result.schema.json", "PublicResultProjection"],
-  ["abg.schema.runtime-replay", "runtime-replay.schema.json", "PublicReplayProjection"]
+  ["abg.schema.runtime-replay", "runtime-replay.schema.json", "PublicReplayProjection"],
+  ["abg.schema.fh-interaction", "fh-interaction.schema.json", "PublicFhInteractionProjection"]
 ] satisfies readonly (readonly [string, string, string])[]);
 
 const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
@@ -282,11 +293,13 @@ const SCHEMA_CONTRACTS: readonly SchemaContractDefinition[] = Object.freeze(
           ? ["abg.capability.catalog.contribute@5"]
           : contractId === "abg.schema.host-invocation"
             ? ["abg.capability.catalog.invoke-graph-function@5"]
-            : contractId === "abg.schema.resolved-product-lock" ||
-                contractId === "abg.schema.workspace-binding" ||
-                contractId === "abg.schema.install-manifest"
-              ? ["abg.capability.install.bind-products@5"]
-              : []
+            : contractId === "abg.schema.fh-interaction"
+              ? ["abg.capability.fh.interact@5"]
+              : contractId === "abg.schema.resolved-product-lock" ||
+                  contractId === "abg.schema.workspace-binding" ||
+                  contractId === "abg.schema.install-manifest"
+                ? ["abg.capability.install.bind-products@5"]
+                : []
   )
   }))
 );
@@ -350,6 +363,20 @@ const CAPABILITY_CONTRACTS = Object.freeze([
       "abg.schema.resolved-product-lock",
       "abg.schema.install-manifest",
       "abg.schema.workspace-binding"
+    ])
+  },
+  {
+    capabilityId: "abg.capability.fh.interact@5",
+    requiredContractIds: Object.freeze([
+      "abg.contract.abg.m03",
+      "abg.contract.app.m04",
+      "abg.schema.fh-interaction",
+      "abg.operation.fh.select",
+      "abg.operation.fh.approve",
+      "abg.operation.fh.reject",
+      "abg.operation.fh.assess",
+      "abg.operation.fh.answer-escalation",
+      "abg.operation.run.resume"
     ])
   }
 ] as const satisfies readonly CapabilityContractDefinition[]);

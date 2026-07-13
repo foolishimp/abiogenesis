@@ -19,6 +19,7 @@ import {
   projectRuntimePublicResult
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
+  DS1_BASELINE_SCHEMA_ASSET_REGISTER,
   DS1_NATIVE_CONTRACT_REGISTER,
   DS1_PUBLIC_OPERATION_DEFINITION_REGISTER,
   buildDs1ProductPublication,
@@ -409,9 +410,12 @@ function validate(id, value) {
   );
 }
 
-test("T-223 all 63 generated schemas compile strictly without fallback or brands", () => {
-  assert.equal(schemas.length, 63);
-  assert.equal(schemaById.size, 63);
+test("T-223 every registered generated schema compiles without fallback or brands", () => {
+  const expectedSchemaCount =
+    DS1_BASELINE_SCHEMA_ASSET_REGISTER.length +
+    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length * 3;
+  assert.equal(schemas.length, expectedSchemaCount);
+  assert.equal(schemaById.size, expectedSchemaCount);
   const compiler = ajv();
   for (const entry of schemas) {
     assert.equal(
@@ -454,7 +458,6 @@ test("T-223 native-admitted GTL and DS-1 public carriers satisfy their schemas",
 });
 
 test("T-223 every DS-1 operation schema is closed and requires structure", () => {
-  assert.equal(DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.length, 13);
   assert.deepEqual(
     DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.map((row) => row.operationId),
     [...DS1_PUBLIC_OPERATION_IDS]

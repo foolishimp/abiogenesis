@@ -500,6 +500,39 @@ function requestFixtures() {
       { workspaceId: WORKSPACE_ID, catalogId: CATALOG_ID, handles: [] }
     ],
     ["abg.operation.catalog.invoke", invokeRequest()],
+    ...[
+      "abg.operation.fh.select",
+      "abg.operation.fh.approve",
+      "abg.operation.fh.reject",
+      "abg.operation.fh.assess",
+      "abg.operation.fh.answer-escalation"
+    ].map((operationId) => [
+      operationId,
+      {
+        workspaceId: WORKSPACE_ID,
+        interactionRef: "abg://fh-interaction/t223",
+        interactionBasisDigest: CONTRACT_DIGEST,
+        responseContractRef: "contract://t223/fh-response",
+        choiceRef:
+          operationId === "abg.operation.fh.select"
+            ? "choice://t223/selected"
+            : null,
+        value: { kind: "t223_fh_response" },
+        evidenceRefs: ["evidence://t223/fh-response"],
+        capabilityRefs: [],
+        capabilityProvenanceRefs: []
+      }
+    ]),
+    [
+      "abg.operation.run.resume",
+      {
+        workspaceId: WORKSPACE_ID,
+        interactionRef: "abg://fh-interaction/t223",
+        interactionBasisDigest: CONTRACT_DIGEST,
+        responseRef: "abg://fh-response/t223",
+        continuationRef: "abg://fh-continuation/t223"
+      }
+    ],
     [
       "abg.operation.read.result",
       { workspaceId: WORKSPACE_ID, graphCallId: "graph-call:t223" }
@@ -522,7 +555,13 @@ function operationContractRow(operationId) {
     "abg.operation.install.install",
     "abg.operation.catalog.bind",
     "abg.operation.catalog.admit",
-    "abg.operation.catalog.invoke"
+    "abg.operation.catalog.invoke",
+    "abg.operation.fh.select",
+    "abg.operation.fh.approve",
+    "abg.operation.fh.reject",
+    "abg.operation.fh.assess",
+    "abg.operation.fh.answer-escalation",
+    "abg.operation.run.resume"
   ]).has(operationId)
     ? "required"
     : "forbidden";
@@ -538,6 +577,12 @@ function operationContractRow(operationId) {
     "abg.operation.catalog.describe": "runtime_catalog_projection",
     "abg.operation.catalog.allow": "runtime_session_projection",
     "abg.operation.catalog.invoke": "runtime_graph_function_invoke",
+    "abg.operation.fh.select": "runtime_fh_response_admission",
+    "abg.operation.fh.approve": "runtime_fh_response_admission",
+    "abg.operation.fh.reject": "runtime_fh_response_admission",
+    "abg.operation.fh.assess": "runtime_fh_response_admission",
+    "abg.operation.fh.answer-escalation": "runtime_fh_response_admission",
+    "abg.operation.run.resume": "runtime_resume_admission",
     "abg.operation.read.result": "runtime_result_projection",
     "abg.operation.read.replay": "runtime_replay_projection"
   };
@@ -553,13 +598,23 @@ function operationContractRow(operationId) {
     "abg.operation.catalog.describe": ["described"],
     "abg.operation.catalog.allow": ["allowed"],
     "abg.operation.catalog.invoke": ["converged"],
+    "abg.operation.fh.select": [],
+    "abg.operation.fh.approve": [],
+    "abg.operation.fh.reject": [],
+    "abg.operation.fh.assess": [],
+    "abg.operation.fh.answer-escalation": [],
+    "abg.operation.run.resume": [],
     "abg.operation.read.result": ["projected"],
     "abg.operation.read.replay": ["projected"]
   };
   const nonTerminalDispositions =
     operationId === "abg.operation.catalog.invoke"
       ? ["stopped", "yielded", "blocked", "human_gate_required"]
-      : [];
+      : operationId === "abg.operation.run.resume"
+        ? ["resume_admitted"]
+        : operationId.startsWith("abg.operation.fh.")
+          ? ["responded", "held"]
+          : [];
   return {
     contractId: operationId,
     contractKind: "operation",
@@ -632,7 +687,10 @@ function operationContractRow(operationId) {
           ? "catalog_admission_events"
           : operationId === "abg.operation.catalog.invoke"
             ? "runtime_execution_events"
-            : "none",
+            : operationId.startsWith("abg.operation.fh.") ||
+                operationId === "abg.operation.run.resume"
+              ? "runtime_interaction_events"
+              : "none",
       terminalDispositions: terminalDispositionsByOperation[operationId],
       nonTerminalDispositions,
       adapterExitMap: {
@@ -704,7 +762,13 @@ function envelope(operationId, request) {
     "abg.operation.install.install",
     "abg.operation.catalog.bind",
     "abg.operation.catalog.admit",
-    "abg.operation.catalog.invoke"
+    "abg.operation.catalog.invoke",
+    "abg.operation.fh.select",
+    "abg.operation.fh.approve",
+    "abg.operation.fh.reject",
+    "abg.operation.fh.assess",
+    "abg.operation.fh.answer-escalation",
+    "abg.operation.run.resume"
   ]).has(operationId);
   return {
     schemaVersion: 1,
@@ -1038,7 +1102,7 @@ test("T-223 manifest and contract-catalog profiles preserve product sovereignty"
   );
 });
 
-test("T-223 admits the exact 13 request and common-envelope rows", () => {
+test("T-223 admits every registered request and common-envelope row", () => {
   const fixtures = requestFixtures();
   assert.deepEqual([...fixtures.keys()], [...DS1_PUBLIC_OPERATION_IDS]);
 

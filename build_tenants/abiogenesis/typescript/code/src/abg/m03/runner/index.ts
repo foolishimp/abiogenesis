@@ -30,6 +30,25 @@ export {
   projectRuntimePublicResult
 } from "./public_runtime_projections.js";
 export { admitPublicOperationAttribution } from "./public_operation_admission.js";
+export {
+  FH_PUBLIC_OPERATION_ID_VALUES,
+  FhInteractionAdmissionError,
+  admitFhInteractionResume,
+  openFhInteraction,
+  projectFhInteraction,
+  projectFhInteractionForGraphCall,
+  submitFhInteractionResponse
+} from "./fh_interaction.js";
+export type {
+  AdmitFhInteractionResumeInput,
+  FhInteractionAdmissionFailureCode,
+  FhInteractionMutationResult,
+  FhInteractionProjection,
+  FhInteractionStatus,
+  FhPublicOperationId,
+  OpenFhInteractionInput,
+  SubmitFhInteractionResponseInput
+} from "./fh_interaction.js";
 export type {
   PublicOperationAttributionInput
 } from "./public_operation_admission.js";

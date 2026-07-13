@@ -36,6 +36,12 @@ import type {
   SuppliedProductArtifactEntry,
   VerifiedProductArtifact
 } from "../public_sdk/carriers.js";
+import {
+  DS1_BASELINE_SCHEMA_ASSET_REGISTER,
+  DS1_CAPABILITY_CONTRACT_REGISTER,
+  DS1_NATIVE_CONTRACT_REGISTER
+} from "../public_contracts/foundation.js";
+import { DS1_PUBLIC_OPERATION_DEFINITION_REGISTER } from "../public_contracts/operations.js";
 import { accepted, refused } from "./outcomes.js";
 import {
   assertResolvedProductLockCoherence,
@@ -46,204 +52,77 @@ const PRODUCT_MANIFEST_PATH = "product-toolchain-manifest.json";
 const ABG_PRODUCT_ID = "abiogenesis";
 const ABG_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 
-export const DS1_NATIVE_CONTRACT_IDS = Object.freeze([
-  "abg.contract.gtl.m01",
-  "abg.contract.gtl.m02",
-  "abg.contract.gtl.requirements",
-  "abg.contract.abg.requirements",
-  "abg.contract.abg.executive",
-  "abg.contract.abg.m03",
-  "abg.contract.abg.transport",
-  "abg.contract.app.m04",
-  "abg.contract.qualification.m05"
-]);
+export const DS1_NATIVE_CONTRACT_IDS: readonly string[] = Object.freeze(
+  DS1_NATIVE_CONTRACT_REGISTER.map((definition) => definition.contractId)
+);
 
-export const DS1_SCHEMA_CONTRACT_IDS = Object.freeze([
-  "abg.schema.product-toolchain-manifest",
-  "abg.schema.public-contract-catalog",
-  "abg.schema.public-operation-contract",
-  "abg.schema.native-contract-inventory",
-  "abg.schema.capability-contract",
-  "abg.schema.closed-vocabulary",
-  "abg.schema.gtl-graph-function",
-  "abg.schema.gtl-module",
-  "abg.schema.catalog-product-descriptor",
-  "abg.schema.catalog-contribution-manifest",
-  "abg.schema.resolved-product-lock",
-  "abg.schema.workspace-manifest",
-  "abg.schema.workspace-binding",
-  "abg.schema.install-manifest",
-  "abg.schema.installer-manifest",
-  "abg.schema.catalog-admission",
-  "abg.schema.public-catalog-row",
-  "abg.schema.public-catalog-description",
-  "abg.schema.public-session-catalog-view",
-  "abg.schema.public-operation-invocation",
-  "abg.schema.host-invocation",
-  "abg.schema.runtime-event",
-  "abg.schema.runtime-result",
-  "abg.schema.runtime-replay"
-]);
+export const DS1_SCHEMA_CONTRACT_IDS: readonly string[] = Object.freeze(
+  DS1_BASELINE_SCHEMA_ASSET_REGISTER.map((definition) => definition.contractId)
+);
 
-export const DS1_OPERATION_IDS = Object.freeze([
-  "abg.operation.workspace.create",
-  "abg.operation.workspace.open",
-  "abg.operation.catalog.resolve",
-  "abg.operation.catalog.verify",
-  "abg.operation.install.install",
-  "abg.operation.catalog.bind",
-  "abg.operation.catalog.admit",
-  "abg.operation.catalog.list",
-  "abg.operation.catalog.describe",
-  "abg.operation.catalog.allow",
-  "abg.operation.catalog.invoke",
-  "abg.operation.read.result",
-  "abg.operation.read.replay"
-]);
+export const DS1_OPERATION_IDS: readonly string[] = Object.freeze(
+  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.map(
+    (definition) => definition.operationId
+  )
+);
 
-export const DS1_CAPABILITY_IDS = Object.freeze([
-  "abg.capability.gtl.declare@5",
-  "abg.capability.gtl.admit@5",
-  "abg.capability.gtl.serialize@5",
-  "abg.capability.module.publish@5",
-  "abg.capability.catalog.contribute@5",
-  "abg.capability.catalog.invoke-graph-function@5",
-  "abg.capability.install.bind-products@5"
-]);
+export const DS1_CAPABILITY_IDS: readonly string[] = Object.freeze(
+  DS1_CAPABILITY_CONTRACT_REGISTER.map((definition) => definition.capabilityId)
+);
 
 export const DS1_VOCABULARY_IDS = Object.freeze([
   "abg.vocabulary.runtime-event-kind"
 ]);
 
-const DS1_NATIVE_EXPORTS: Readonly<Record<string, string>> = Object.freeze({
-  "abg.contract.gtl.m01": "@abiogenesis/typescript-tenant/gtl/m01",
-  "abg.contract.gtl.m02": "@abiogenesis/typescript-tenant/gtl/m02",
-  "abg.contract.gtl.requirements": "@abiogenesis/typescript-tenant/gtl/requirements",
-  "abg.contract.abg.requirements": "@abiogenesis/typescript-tenant/abg/requirements",
-  "abg.contract.abg.executive": "@abiogenesis/typescript-tenant/abg/executive",
-  "abg.contract.abg.m03": "@abiogenesis/typescript-tenant/abg/m03",
-  "abg.contract.abg.transport": "@abiogenesis/typescript-tenant/abg/m03/transport",
-  "abg.contract.app.m04": "@abiogenesis/typescript-tenant/app/m04",
-  "abg.contract.qualification.m05": "@abiogenesis/typescript-tenant/qualification/m05"
-});
-
-const DS1_REQUIRED_NATIVE_SYMBOLS: Readonly<Record<string, readonly string[]>> =
-  Object.freeze({
-    "abg.contract.gtl.m01": Object.freeze([
-      "admitGraphFunction",
-      "serializeGraphFunction",
-      "admitCProgramSyntax",
-      "serializeCProgramCanonical"
-    ]),
-    "abg.contract.gtl.m02": Object.freeze(["admitModule", "serializeModule"]),
-    "abg.contract.abg.m03": Object.freeze([
-      "RuntimeEvent",
-      "CanonicalRuntimeEvent",
-      "RUNTIME_EVENT_KIND_VALUES",
-      "GtlProgramDiagnosticId",
-      "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES",
-      "GTL_PROGRAM_REPAIR_EDIT_CLASS_VALUES",
-      "GTL_PROGRAM_DEFAULT_ADMISSIBLE_REPAIRS",
-      "admitGtlProgramConformanceInput",
-      "typecheckGtlProgram"
+const DS1_NATIVE_EXPORTS: Readonly<Record<string, string>> = Object.freeze(
+  Object.fromEntries(
+    DS1_NATIVE_CONTRACT_REGISTER.map((definition) => [
+      definition.contractId,
+      definition.packageExport
     ])
-  });
+  )
+);
+
+const DS1_REQUIRED_NATIVE_SYMBOLS: Readonly<
+  Record<string, readonly string[]>
+> = Object.freeze(
+  Object.fromEntries(
+    DS1_NATIVE_CONTRACT_REGISTER.map((definition) => [
+      definition.contractId,
+      definition.symbols
+    ])
+  )
+);
 
 const DS1_OPERATION_NATIVE_SYMBOLS: Readonly<
   Record<string, readonly string[]>
-> = Object.freeze({
-  "abg.operation.workspace.create": Object.freeze([
-    "workspaceCreate", "WorkspaceCreateRequest", "WorkspaceCreateResult",
-    "WorkspaceCreateRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.workspace.open": Object.freeze([
-    "workspaceOpen", "WorkspaceOpenRequest", "WorkspaceOpenResult",
-    "WorkspaceOpenRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.resolve": Object.freeze([
-    "catalogResolve", "CatalogResolveRequest", "CatalogResolveResult",
-    "CatalogResolveRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.verify": Object.freeze([
-    "catalogVerify", "CatalogVerifyRequest", "CatalogVerifyResult",
-    "CatalogVerifyRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.install.install": Object.freeze([
-    "installProduct", "InstallProductRequest", "InstallProductResult",
-    "InstallProductRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.bind": Object.freeze([
-    "catalogBind", "CatalogBindRequest", "CatalogBindResult",
-    "CatalogBindRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.admit": Object.freeze([
-    "catalogAdmit", "CatalogAdmitRequest", "CatalogAdmitResult",
-    "CatalogAdmitRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.list": Object.freeze([
-    "catalogList", "CatalogListRequest", "CatalogListResult",
-    "CatalogListRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.describe": Object.freeze([
-    "catalogDescribe", "CatalogDescribeRequest", "CatalogDescribeResult",
-    "CatalogDescribeRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.allow": Object.freeze([
-    "catalogAllow", "CatalogAllowRequest", "CatalogAllowResult",
-    "CatalogAllowRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.catalog.invoke": Object.freeze([
-    "catalogInvoke", "CatalogInvokeRequest", "CatalogInvokeResult",
-    "CatalogInvokeRefusal", "HostInvocationDescriptor"
-  ]),
-  "abg.operation.read.result": Object.freeze([
-    "readResult", "ReadResultRequest", "ReadResultResult",
-    "ReadResultRefusal", "PublicOperationInvocationEnvelope"
-  ]),
-  "abg.operation.read.replay": Object.freeze([
-    "readReplay", "ReadReplayRequest", "ReadReplayResult",
-    "ReadReplayRefusal", "PublicOperationInvocationEnvelope"
-  ])
-});
+> = Object.freeze(
+  Object.fromEntries(
+    DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.map((definition) => [
+      definition.operationId,
+      Object.freeze([
+        definition.handlerSymbol,
+        definition.requestSymbol,
+        definition.resultSymbol,
+        definition.refusalSymbol,
+        "PublicOperationInvocationEnvelope",
+        ...(definition.operationId === "abg.operation.catalog.invoke"
+          ? ["HostInvocationDescriptor"]
+          : [])
+      ])
+    ])
+  )
+);
 
 const DS1_CAPABILITY_REQUIRED_ROWS: Readonly<Record<string, readonly string[]>> =
-  Object.freeze({
-    "abg.capability.gtl.declare@5": Object.freeze([
-      "abg.contract.gtl.m01", "abg.schema.gtl-graph-function"
-    ]),
-    "abg.capability.gtl.admit@5": Object.freeze([
-      "abg.contract.gtl.m01", "abg.schema.gtl-graph-function"
-    ]),
-    "abg.capability.gtl.serialize@5": Object.freeze([
-      "abg.contract.gtl.m01", "abg.schema.gtl-graph-function"
-    ]),
-    "abg.capability.module.publish@5": Object.freeze([
-      "abg.contract.gtl.m02", "abg.schema.gtl-module"
-    ]),
-    "abg.capability.catalog.contribute@5": Object.freeze([
-      "abg.schema.catalog-product-descriptor",
-      "abg.schema.catalog-contribution-manifest",
-      "abg.schema.catalog-admission",
-      "abg.operation.catalog.admit",
-      "abg.operation.catalog.list",
-      "abg.operation.catalog.describe"
-    ]),
-    "abg.capability.catalog.invoke-graph-function@5": Object.freeze([
-      "abg.operation.catalog.allow",
-      "abg.operation.catalog.invoke",
-      "abg.schema.host-invocation",
-      "abg.contract.abg.m03"
-    ]),
-    "abg.capability.install.bind-products@5": Object.freeze([
-      "abg.operation.catalog.resolve",
-      "abg.operation.catalog.verify",
-      "abg.operation.install.install",
-      "abg.operation.catalog.bind",
-      "abg.schema.resolved-product-lock",
-      "abg.schema.install-manifest",
-      "abg.schema.workspace-binding"
-    ])
-  });
+  Object.freeze(
+    Object.fromEntries(
+      DS1_CAPABILITY_CONTRACT_REGISTER.map((definition) => [
+        definition.capabilityId,
+        definition.requiredContractIds
+      ])
+    )
+  );
 
 type VerificationFailureCode = CatalogVerifyRefusal["code"];
 

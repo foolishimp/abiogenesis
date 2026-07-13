@@ -216,6 +216,24 @@ function fixture(options = {}) {
               fieldPath: "execution.interaction_subject_ref",
               valueKind: "ref",
               required: true
+            },
+            {
+              slot: "interaction_operation_ids",
+              fieldPath: "execution.interaction_operation_ids",
+              valueKind: "ref_list",
+              required: true
+            },
+            {
+              slot: "interaction_resume_operation_ids",
+              fieldPath: "execution.interaction_resume_operation_ids",
+              valueKind: "ref_list",
+              required: true
+            },
+            {
+              slot: "interaction_choice_refs",
+              fieldPath: "execution.interaction_choice_refs",
+              valueKind: "ref_list",
+              required: true
             }
           ]),
       {
@@ -502,7 +520,17 @@ function fixture(options = {}) {
                 configuration_digest: CONFIGURATION_DIGEST
               }
             : {
-                interaction_subject_ref: "interaction-subject://t256/review"
+                interaction_subject_ref: "interaction-subject://t256/review",
+                interaction_operation_ids: [
+                  "abg.operation.fh.approve",
+                  "abg.operation.fh.reject",
+                  "abg.operation.fh.assess"
+                ],
+                interaction_resume_operation_ids: [
+                  "abg.operation.fh.approve",
+                  "abg.operation.fh.reject"
+                ],
+                interaction_choice_refs: []
               }),
           instruction_protocol_ref: PROTOCOL_REF,
           result_contract_ref: TARGET_CONTRACT_REF,
@@ -892,6 +920,16 @@ test("T-256 keeps F_H interaction construction distinct from F_P assembly", () =
     outcome.request.interactionSubjectRef,
     "interaction-subject://t256/review"
   );
+  assert.deepEqual(outcome.request.eligibleOperationIds, [
+    "abg.operation.fh.approve",
+    "abg.operation.fh.reject",
+    "abg.operation.fh.assess"
+  ]);
+  assert.deepEqual(outcome.request.resumeEligibleOperationIds, [
+    "abg.operation.fh.approve",
+    "abg.operation.fh.reject"
+  ]);
+  assert.deepEqual(outcome.request.declaredChoiceRefs, []);
   assert.equal("planRef" in outcome.request, false);
   assert.equal("envelopeRef" in outcome.request, false);
   assert.equal(outcome.request.startupBlock.effectsPermitted, false);
@@ -903,6 +941,33 @@ test("T-256 keeps F_H interaction construction distinct from F_P assembly", () =
   assert.equal(
     fpBasisOnFh.diagnostics[0].diagnosticId,
     "execution-context-instruction-rule-invalid"
+  );
+});
+
+test("T-256 rejects empty F_H operation authority and a widened resume subset", () => {
+  const value = fixture({ regime: "F_H" });
+  const emptyOperations = joinFixture(value, {
+    invocationCarriers: carriersWithExecution(value, {
+      interaction_operation_ids: [],
+      interaction_resume_operation_ids: []
+    })
+  });
+  assert.equal(emptyOperations.status, "invalid");
+  assert.equal(
+    emptyOperations.diagnostics[0].diagnosticId,
+    "execution-context-field-value-invalid"
+  );
+
+  const widenedResume = joinFixture(value, {
+    invocationCarriers: carriersWithExecution(value, {
+      interaction_operation_ids: ["abg.operation.fh.approve"],
+      interaction_resume_operation_ids: ["abg.operation.fh.reject"]
+    })
+  });
+  assert.equal(widenedResume.status, "invalid");
+  assert.equal(
+    widenedResume.diagnostics[0].diagnosticId,
+    "execution-context-field-value-invalid"
   );
 });
 

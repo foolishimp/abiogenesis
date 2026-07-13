@@ -1,11 +1,9 @@
 // Implements: REQ-P-PUBLIC-CONTRACTS-008 through REQ-P-PUBLIC-CONTRACTS-010
 
-import {
-  admitPublicContractRow,
-  canonicalizeIJson
-} from "../public_sdk/index.js";
+import { admitPublicContractRow } from "../public_sdk/carrier_admission.js";
+import { canonicalizeIJson } from "../public_sdk/canonical.js";
+import type { IJsonValue } from "../public_sdk/canonical.js";
 import type {
-  IJsonValue,
   PublicContractRow,
   PublicOperationAuthorityClass,
   PublicOperationContractMetadata,
@@ -15,7 +13,7 @@ import type {
   PublicOperationId,
   PublicOperationValueDomain,
   PublicOperationValueDomainKind
-} from "../public_sdk/index.js";
+} from "../public_sdk/carriers.js";
 import {
   admitDs1StaticContractAsset,
   publicContractAssetDigest,
@@ -104,6 +102,70 @@ function closedRequest(): PublicOperationValueDomain {
 
 function operation(input: Ds1OperationDefinition): Ds1OperationDefinition {
   return Object.freeze(input);
+}
+
+type FhResponseOperationId =
+  | "abg.operation.fh.select"
+  | "abg.operation.fh.approve"
+  | "abg.operation.fh.reject"
+  | "abg.operation.fh.assess"
+  | "abg.operation.fh.answer-escalation";
+
+function fhResponseOperation(input: {
+  readonly operationId: FhResponseOperationId;
+  readonly handlerSymbol: string;
+  readonly requestSymbol: string;
+  readonly resultSymbol: string;
+  readonly refusalSymbol: string;
+}): Ds1OperationDefinition {
+  return operation({
+    ...input,
+    capabilityRefs: Object.freeze(["abg.capability.fh.interact@5"]),
+    defaults: Object.freeze([]),
+    closedDomains: Object.freeze([
+      closedRequest(),
+      domain({ fieldPath: "request.workspaceId", kind: "non_empty_string", required: true }),
+      domain({ fieldPath: "request.interactionRef", kind: "non_empty_string", required: true }),
+      domain({
+        fieldPath: "request.interactionBasisDigest",
+        kind: "sha256_digest",
+        required: true
+      }),
+      domain({
+        fieldPath: "request.responseContractRef",
+        kind: "non_empty_string",
+        required: true
+      }),
+      domain({
+        fieldPath: "request.choiceRef",
+        kind: "non_empty_string",
+        required: true,
+        nullable: true
+      }),
+      domain({ fieldPath: "request.value", kind: "i_json", required: true }),
+      domain({
+        fieldPath: "request.evidenceRefs",
+        kind: "non_empty_unique_array",
+        required: true
+      }),
+      domain({
+        fieldPath: "request.capabilityRefs",
+        kind: "unique_string_array",
+        required: true
+      }),
+      domain({
+        fieldPath: "request.capabilityProvenanceRefs",
+        kind: "unique_string_array",
+        required: true
+      })
+    ]),
+    actorPolicy: "required",
+    authorityClass: "write",
+    effectClass: "runtime_fh_response_admission",
+    eventAdmission: "runtime_interaction_events",
+    terminalDispositions: Object.freeze([]),
+    nonTerminalDispositions: Object.freeze(["responded", "held"])
+  });
 }
 
 const DS1_OPERATIONS = Object.freeze([
@@ -527,6 +589,72 @@ const DS1_OPERATIONS = Object.freeze([
       "blocked",
       "human_gate_required"
     ])
+  }),
+  fhResponseOperation({
+    operationId: "abg.operation.fh.select",
+    handlerSymbol: "fhSelect",
+    requestSymbol: "FhSelectRequest",
+    resultSymbol: "FhSelectResult",
+    refusalSymbol: "FhSelectRefusal"
+  }),
+  fhResponseOperation({
+    operationId: "abg.operation.fh.approve",
+    handlerSymbol: "fhApprove",
+    requestSymbol: "FhApproveRequest",
+    resultSymbol: "FhApproveResult",
+    refusalSymbol: "FhApproveRefusal"
+  }),
+  fhResponseOperation({
+    operationId: "abg.operation.fh.reject",
+    handlerSymbol: "fhReject",
+    requestSymbol: "FhRejectRequest",
+    resultSymbol: "FhRejectResult",
+    refusalSymbol: "FhRejectRefusal"
+  }),
+  fhResponseOperation({
+    operationId: "abg.operation.fh.assess",
+    handlerSymbol: "fhAssess",
+    requestSymbol: "FhAssessRequest",
+    resultSymbol: "FhAssessResult",
+    refusalSymbol: "FhAssessRefusal"
+  }),
+  fhResponseOperation({
+    operationId: "abg.operation.fh.answer-escalation",
+    handlerSymbol: "fhAnswerEscalation",
+    requestSymbol: "FhAnswerEscalationRequest",
+    resultSymbol: "FhAnswerEscalationResult",
+    refusalSymbol: "FhAnswerEscalationRefusal"
+  }),
+  operation({
+    operationId: "abg.operation.run.resume",
+    handlerSymbol: "runResume",
+    requestSymbol: "RunResumeRequest",
+    resultSymbol: "RunResumeResult",
+    refusalSymbol: "RunResumeRefusal",
+    capabilityRefs: Object.freeze(["abg.capability.fh.interact@5"]),
+    defaults: Object.freeze([]),
+    closedDomains: Object.freeze([
+      closedRequest(),
+      domain({ fieldPath: "request.workspaceId", kind: "non_empty_string", required: true }),
+      domain({ fieldPath: "request.interactionRef", kind: "non_empty_string", required: true }),
+      domain({
+        fieldPath: "request.interactionBasisDigest",
+        kind: "sha256_digest",
+        required: true
+      }),
+      domain({ fieldPath: "request.responseRef", kind: "non_empty_string", required: true }),
+      domain({
+        fieldPath: "request.continuationRef",
+        kind: "non_empty_string",
+        required: true
+      })
+    ]),
+    actorPolicy: "required",
+    authorityClass: "write",
+    effectClass: "runtime_resume_admission",
+    eventAdmission: "runtime_interaction_events",
+    terminalDispositions: Object.freeze([]),
+    nonTerminalDispositions: Object.freeze(["resume_admitted"])
   }),
   operation({
     operationId: "abg.operation.read.result",

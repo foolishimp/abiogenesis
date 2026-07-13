@@ -135,6 +135,23 @@ export function resolveAbgCliOperationId(
         break;
     }
   }
+  if (command === "fh") {
+    switch (subcommand) {
+      case "select":
+        return "abg.operation.fh.select";
+      case "approve":
+        return "abg.operation.fh.approve";
+      case "reject":
+        return "abg.operation.fh.reject";
+      case "assess":
+        return "abg.operation.fh.assess";
+      case "answer-escalation":
+        return "abg.operation.fh.answer-escalation";
+      case null:
+      default:
+        break;
+    }
+  }
   if (subcommand === null) {
     if (command === "install") {
       return "abg.operation.install.install";
@@ -145,12 +162,17 @@ export function resolveAbgCliOperationId(
     if (command === "replay") {
       return "abg.operation.read.replay";
     }
+    if (command === "resume") {
+      return "abg.operation.run.resume";
+    }
   }
   throw new AbgCliInputError("command is outside the DS-1 abg.cli grammar");
 }
 
 function commandWordCount(command: string): number {
-  return command === "workspace" || command === "catalog" ? 2 : 1;
+  return command === "workspace" || command === "catalog" || command === "fh"
+    ? 2
+    : 1;
 }
 
 function operationNeedsWorkspace(operationId: PublicOperationId): boolean {
@@ -163,6 +185,12 @@ function operationNeedsWorkspace(operationId: PublicOperationId): boolean {
     operationId === "abg.operation.catalog.describe" ||
     operationId === "abg.operation.catalog.allow" ||
     operationId === "abg.operation.catalog.invoke" ||
+    operationId === "abg.operation.fh.select" ||
+    operationId === "abg.operation.fh.approve" ||
+    operationId === "abg.operation.fh.reject" ||
+    operationId === "abg.operation.fh.assess" ||
+    operationId === "abg.operation.fh.answer-escalation" ||
+    operationId === "abg.operation.run.resume" ||
     operationId === "abg.operation.read.result" ||
     operationId === "abg.operation.read.replay"
   );
@@ -319,6 +347,42 @@ export function constructAbgCliInvocation(input: {
         operationId: input.operationId,
         request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
       });
+    case "abg.operation.fh.select":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
+    case "abg.operation.fh.approve":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
+    case "abg.operation.fh.reject":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
+    case "abg.operation.fh.assess":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
+    case "abg.operation.fh.answer-escalation":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
+    case "abg.operation.run.resume":
+      return constructPublicOperationInvocation({
+        ...common,
+        operationId: input.operationId,
+        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
+      });
     case "abg.operation.read.result":
       return constructPublicOperationInvocation({
         ...common,
@@ -431,6 +495,54 @@ async function invokeSdk(input: {
       );
     case "abg.operation.catalog.invoke":
       return await input.runtime.sdk.catalogInvoke(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.fh.select":
+      return await input.runtime.sdk.fhSelect(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.fh.approve":
+      return await input.runtime.sdk.fhApprove(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.fh.reject":
+      return await input.runtime.sdk.fhReject(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.fh.assess":
+      return await input.runtime.sdk.fhAssess(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.fh.answer-escalation":
+      return await input.runtime.sdk.fhAnswerEscalation(
+        await input.runtime.createBoundWorkspaceContext({
+          workspaceRoot: workspaceRoot(input.command),
+          publicContractCatalog: input.catalog
+        }),
+        invocation
+      );
+    case "abg.operation.run.resume":
+      return await input.runtime.sdk.runResume(
         await input.runtime.createBoundWorkspaceContext({
           workspaceRoot: workspaceRoot(input.command),
           publicContractCatalog: input.catalog

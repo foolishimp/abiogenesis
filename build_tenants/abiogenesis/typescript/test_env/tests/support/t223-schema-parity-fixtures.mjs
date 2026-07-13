@@ -355,6 +355,39 @@ function rawOperationRequests() {
       { workspaceId: WORKSPACE_ID, catalogId: CATALOG_ID, handles: [] }
     ],
     ["abg.operation.catalog.invoke", invokeRequest()],
+    ...[
+      "abg.operation.fh.select",
+      "abg.operation.fh.approve",
+      "abg.operation.fh.reject",
+      "abg.operation.fh.assess",
+      "abg.operation.fh.answer-escalation"
+    ].map((operationId) => [
+      operationId,
+      {
+        workspaceId: WORKSPACE_ID,
+        interactionRef: "abg://fh-interaction/t223-schema",
+        interactionBasisDigest: CONTRACT_DIGEST,
+        responseContractRef: "contract://t223-schema/fh-response",
+        choiceRef:
+          operationId === "abg.operation.fh.select"
+            ? "choice://t223-schema/selected"
+            : null,
+        value: { kind: "t223_schema_fh_response" },
+        evidenceRefs: ["evidence://t223-schema/fh-response"],
+        capabilityRefs: [],
+        capabilityProvenanceRefs: []
+      }
+    ]),
+    [
+      "abg.operation.run.resume",
+      {
+        workspaceId: WORKSPACE_ID,
+        interactionRef: "abg://fh-interaction/t223-schema",
+        interactionBasisDigest: CONTRACT_DIGEST,
+        responseRef: "abg://fh-response/t223-schema",
+        continuationRef: "abg://fh-continuation/t223-schema"
+      }
+    ],
     [
       "abg.operation.read.result",
       { workspaceId: WORKSPACE_ID, graphCallId: "graph-call:t223-schema" }

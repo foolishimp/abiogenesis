@@ -11,6 +11,7 @@ import type {
 } from "../../../gtl/m01/contracts/carriers.js";
 import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 import type { CompiledExecutionDeclarations } from "./execution_declaration_compiler.js";
+import type { IJsonValue } from "../../../shared/runtime_identity.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
@@ -881,6 +882,74 @@ export interface FhEscalatedEvent {
   readonly basisId: string;
   readonly approvalSubjectRef: string;
   readonly gateReason: string;
+}
+
+export interface FhInteractionOpenedEvent {
+  readonly kind: "fh_interaction_opened";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly cCallRef: string;
+  readonly interactionRef: string;
+  readonly interactionBasisDigest: string;
+  readonly interactionSubjectRef: string;
+  readonly continuationRef: string;
+  readonly requestRef: string;
+  readonly requestDigest: string;
+  readonly responseContractRef: string;
+  readonly eligibleOperationIds: readonly string[];
+  readonly resumeEligibleOperationIds: readonly string[];
+  readonly declaredChoiceRefs: readonly string[];
+  readonly requiredCapabilityRefs: readonly string[];
+  readonly capabilityBasisDigest: string;
+  readonly sourceCarrierRefs: readonly string[];
+  readonly sourceCarrierDigests: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface FhInteractionRespondedEvent {
+  readonly kind: "fh_interaction_responded";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly interactionRef: string;
+  readonly interactionBasisDigest: string;
+  readonly continuationRef: string;
+  readonly responseRef: string;
+  readonly responseDigest: string;
+  readonly operationId: string;
+  readonly invocationId: string;
+  readonly requestId: string;
+  readonly actorRef: string;
+  readonly responseContractRef: string;
+  readonly choiceRef: string | null;
+  readonly value: IJsonValue;
+  readonly evidenceRefs: readonly string[];
+  readonly capabilityRefs: readonly string[];
+  readonly capabilityProvenanceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface FhInteractionResumeAdmittedEvent {
+  readonly kind: "fh_interaction_resume_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly interactionRef: string;
+  readonly interactionBasisDigest: string;
+  readonly continuationRef: string;
+  readonly responseRef: string;
+  readonly responseDigest: string;
+  readonly resumeRef: string;
+  readonly resumeDigest: string;
+  readonly invocationId: string;
+  readonly requestId: string;
+  readonly actorRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }
 
 // Implements: REQ-L-GTL3-TEMPORAL-PROPERTIES-008 — verdicts are typed,
@@ -3047,6 +3116,9 @@ export type RuntimeEvent =
   | InstructionPromptManifestProjectedEvent
   | InstructionResponseContractAdmittedEvent
   | FhEscalatedEvent
+  | FhInteractionOpenedEvent
+  | FhInteractionRespondedEvent
+  | FhInteractionResumeAdmittedEvent
   | TemporalPropertyVerdictProjectedEvent
   | DeclarationRepriceAdmittedEvent
   | RunSegmentOpenedEvent
@@ -3195,6 +3267,9 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "instruction_prompt_manifest_projected",
   "instruction_response_contract_admitted",
   "fh_escalated",
+  "fh_interaction_opened",
+  "fh_interaction_responded",
+  "fh_interaction_resume_admitted",
   "temporal_property_verdict_projected",
   "declaration_reprice_admitted",
   "run_segment_opened",

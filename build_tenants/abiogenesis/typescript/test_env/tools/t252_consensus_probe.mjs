@@ -23,6 +23,13 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
 import { admitFpResultContractEnvelope } from "../../build/semantic/code/src/abg/m03/contracts/fp_result_contract_admission.js";
 import {
+  FH_PUBLIC_OPERATION_ID_VALUES,
+  admitFhInteractionResume,
+  openFhInteraction,
+  projectFhInteraction,
+  submitFhInteractionResponse
+} from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
+import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
   ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE,
   CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
@@ -38,6 +45,9 @@ import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts
 import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
 import { serializeModule } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
 import { stableSha256Digest } from "../../build/semantic/code/src/shared/runtime_identity.js";
+import { DS1_PUBLIC_OPERATION_IDS } from "../../build/semantic/code/src/app/m04/public_sdk/carriers.js";
+import { admitDs1OperationRequest } from "../../build/semantic/code/src/app/m04/public_sdk/operation_admission.js";
+import { DS1_PUBLIC_OPERATION_DEFINITION_REGISTER } from "../../build/semantic/code/src/app/m04/public_contracts/operations.js";
 
 const TOOL_PATH = fileURLToPath(import.meta.url);
 const TENANT_ROOT = resolve(dirname(TOOL_PATH), "../..");
@@ -684,6 +694,9 @@ async function buildManifest() {
       : [
           "capability_requirement_refs",
           "instruction_protocol_ref",
+          "interaction_choice_refs",
+          "interaction_operation_ids",
+          "interaction_resume_operation_ids",
           "interaction_subject_ref",
           "result_contract_ref"
         ];
@@ -817,6 +830,100 @@ async function buildManifest() {
       "T-252 probe observed no compiler-derived F_P result-contract admission"
     );
   }
+  const expectedFhHandlerSymbols = Object.freeze({
+    "abg.operation.fh.select": "fhSelect",
+    "abg.operation.fh.approve": "fhApprove",
+    "abg.operation.fh.reject": "fhReject",
+    "abg.operation.fh.assess": "fhAssess",
+    "abg.operation.fh.answer-escalation": "fhAnswerEscalation",
+    "abg.operation.run.resume": "runResume"
+  });
+  const requiredFhOperationIds = Object.freeze([
+    ...FH_PUBLIC_OPERATION_ID_VALUES,
+    "abg.operation.run.resume"
+  ]);
+  const publishedFhDefinitions = DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.filter(
+    (definition) => requiredFhOperationIds.includes(definition.operationId)
+  );
+  const publishedFhHandlersObserved = requiredFhOperationIds.every(
+    (operationId) => {
+      const matches = publishedFhDefinitions.filter(
+        (definition) => definition.operationId === operationId
+      );
+      return (
+        matches.length === 1 &&
+        matches[0]?.handlerSymbol === expectedFhHandlerSymbols[operationId] &&
+        DS1_PUBLIC_OPERATION_IDS.includes(operationId)
+      );
+    }
+  );
+  const fhAtomsObserved =
+    typeof openFhInteraction === "function" &&
+    typeof projectFhInteraction === "function" &&
+    typeof submitFhInteractionResponse === "function" &&
+    typeof admitFhInteractionResume === "function" &&
+    projectFhInteraction([], "abg://fh-interaction/t252-absent") === null;
+  const fhInteractionRows = executionContextJoinRows
+    .filter((row) => row.regime === "F_H")
+    .map((row) => {
+      const interactionSlotsObserved = [
+        "interaction_choice_refs",
+        "interaction_operation_ids",
+        "interaction_resume_operation_ids"
+      ].every((slot) => row.fieldSlots.includes(slot));
+      let requestAdmissionObserved = true;
+      try {
+        for (const operationId of FH_PUBLIC_OPERATION_ID_VALUES) {
+          admitDs1OperationRequest(operationId, {
+            workspaceId: "workspace:t252-consensus-probe",
+            interactionRef: "abg://fh-interaction/t252-probe",
+            interactionBasisDigest: stableSha256Digest({
+              path: row.path,
+              operationId
+            }),
+            responseContractRef:
+              row.targetCompatibilityRefs[0] ??
+              "contract://abg/t252/fh-response",
+            choiceRef:
+              operationId === "abg.operation.fh.select"
+                ? "choice://abg/t252/probe"
+                : null,
+            value: { kind: "t252_fh_public_admission_probe" },
+            evidenceRefs: ["evidence://abg/t252/fh-public-admission"],
+            capabilityRefs: [],
+            capabilityProvenanceRefs: []
+          });
+        }
+        admitDs1OperationRequest("abg.operation.run.resume", {
+          workspaceId: "workspace:t252-consensus-probe",
+          interactionRef: "abg://fh-interaction/t252-probe",
+          interactionBasisDigest: stableSha256Digest({ path: row.path }),
+          responseRef: "abg://fh-response/t252-probe",
+          continuationRef: "abg://fh-continuation/t252-probe"
+        });
+      } catch {
+        requestAdmissionObserved = false;
+      }
+      const publicPathObserved =
+        interactionSlotsObserved &&
+        publishedFhHandlersObserved &&
+        requestAdmissionObserved &&
+        fhAtomsObserved;
+      return {
+        path: row.path,
+        interactionSlotsObserved,
+        publishedFhHandlersObserved,
+        requestAdmissionObserved,
+        fhAtomsObserved,
+        operationIds: [...requiredFhOperationIds],
+        status: publicPathObserved
+          ? "public_interaction_path_observed"
+          : "public_interaction_path_unobserved"
+      };
+    });
+  if (fhInteractionRows.length === 0) {
+    throw new TypeError("T-252 probe observed no F_H interaction joins");
+  }
 
   const conformance = typecheckGtlProgram({
     subjectRef: "workspace://abg/t252/consensus",
@@ -925,15 +1032,6 @@ async function buildManifest() {
         diagnosticId: "gtl-application-runtime-not-realized",
         path: `application:${row.graphFunctionName}`
       }));
-  const rowsForFibre = (fibre, diagnosticId) =>
-    nestedProgramRows
-      .filter((row) => row.fibres.includes(fibre))
-      .map((row) => ({
-        diagnosticId,
-        path: row.path,
-        stageRoles: row.stageRoles
-      }));
-
   observeGap(
     observedGapEvidence,
     "tenant_conformance_manifest_consensus_coverage_missing",
@@ -979,7 +1077,6 @@ async function buildManifest() {
     actualRelation:
       "the canonical T-252 F_P/F_H consumer path did not compile exact execution-context field closure"
   });
-  const fhRows = rowsForFibre("F_H", "coverage-fh-pending-runtime-hold");
   observeGap(observedGapEvidence, "declared_instruction_protocol_join", {
     rows: executionContextJoinRows
       .filter((row) => !row.protocolRoleObserved)
@@ -1011,11 +1108,21 @@ async function buildManifest() {
       "a compiler-derived F_P result-contract ref did not pass the canonical result admission atom"
   });
   observeGap(observedGapEvidence, "fh_pending_runtime_hold", {
-    rows: fhRows,
-    observationSources: ["structure:declared-fh-c-stages"],
+    rows: fhInteractionRows
+      .filter((row) => row.status !== "public_interaction_path_observed")
+      .map((row) => ({
+        diagnosticId: "fh-public-interaction-path-unobserved",
+        path: row.path
+      })),
+    observationSources: [
+      "compiler:joinDeclaredExecutionContext",
+      "admission:admitDs1OperationRequest",
+      "publication:DS1_PUBLIC_OPERATION_DEFINITION_REGISTER",
+      "projection:projectFhInteraction"
+    ],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
-      "F_H stages are declared while hold, public act, and resume remain unrealized"
+      "a canonical F_H join lacks the generic hold, public response, or resume admission path"
   });
   observeGap(observedGapEvidence, "workflow_c_runtime", {
     rows: diagnosticRows(
@@ -1195,6 +1302,7 @@ async function buildManifest() {
       })),
       executionContextJoinRows,
       fpResultContractAdmissionRows,
+      fhInteractionRows,
       executionContextJoinStatusCounts: Object.fromEntries(
         [...new Set(executionContextJoinRows.map((row) => row.status))]
           .sort()

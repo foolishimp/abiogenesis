@@ -1,0 +1,1 @@
+{"capabilityId":"abg.capability.fh.interact@5","kind":"abg_capability_contract","requiredContractIds":["abg.contract.abg.m03","abg.contract.app.m04","abg.schema.fh-interaction","abg.operation.fh.select","abg.operation.fh.approve","abg.operation.fh.reject","abg.operation.fh.assess","abg.operation.fh.answer-escalation","abg.operation.run.resume"],"schemaVersion":1}

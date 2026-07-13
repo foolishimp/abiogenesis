@@ -777,6 +777,9 @@ export function deriveRuntimeAggregateProjection(
       case "fd_advance_ready":
       case "fp_dispatch_requested":
       case "fh_escalated":
+      case "fh_interaction_opened":
+      case "fh_interaction_responded":
+      case "fh_interaction_resume_admitted":
       case "terminal_reached":
       case "approved":
       case "revoked":

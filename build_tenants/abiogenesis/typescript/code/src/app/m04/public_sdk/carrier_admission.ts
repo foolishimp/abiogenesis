@@ -402,7 +402,13 @@ function admitPublicOperationContractMetadata(
     operationId === "abg.operation.install.install" ||
     operationId === "abg.operation.catalog.bind" ||
     operationId === "abg.operation.catalog.admit" ||
-    operationId === "abg.operation.catalog.invoke";
+    operationId === "abg.operation.catalog.invoke" ||
+    operationId === "abg.operation.fh.select" ||
+    operationId === "abg.operation.fh.approve" ||
+    operationId === "abg.operation.fh.reject" ||
+    operationId === "abg.operation.fh.assess" ||
+    operationId === "abg.operation.fh.answer-escalation" ||
+    operationId === "abg.operation.run.resume";
   if ((actorPolicy === "required") !== actorRequired) {
     throw new TypeError(`${label}.actorPolicy: operation actor rule mismatch`);
   }
@@ -424,6 +430,8 @@ function admitPublicOperationContractMetadata(
       "runtime_catalog_projection",
       "runtime_session_projection",
       "runtime_graph_function_invoke",
+      "runtime_fh_response_admission",
+      "runtime_resume_admission",
       "runtime_result_projection",
       "runtime_replay_projection"
     ] as const,
@@ -431,7 +439,12 @@ function admitPublicOperationContractMetadata(
   );
   const eventAdmission: PublicOperationEventAdmission = oneOf(
     requiredField(value, "eventAdmission", label),
-    ["none", "catalog_admission_events", "runtime_execution_events"] as const,
+    [
+      "none",
+      "catalog_admission_events",
+      "runtime_execution_events",
+      "runtime_interaction_events"
+    ] as const,
     `${label}.eventAdmission`
   );
   const expectedEventAdmission =
@@ -439,19 +452,28 @@ function admitPublicOperationContractMetadata(
       ? "catalog_admission_events"
       : operationId === "abg.operation.catalog.invoke"
         ? "runtime_execution_events"
+        : operationId === "abg.operation.fh.select" ||
+            operationId === "abg.operation.fh.approve" ||
+            operationId === "abg.operation.fh.reject" ||
+            operationId === "abg.operation.fh.assess" ||
+            operationId === "abg.operation.fh.answer-escalation" ||
+            operationId === "abg.operation.run.resume"
+          ? "runtime_interaction_events"
         : "none";
   if (eventAdmission !== expectedEventAdmission) {
     throw new TypeError(`${label}.eventAdmission: operation event rule mismatch`);
   }
   const terminalDispositions = uniqueStrings(
     requiredField(value, "terminalDispositions", label),
-    `${label}.terminalDispositions`,
-    false
+    `${label}.terminalDispositions`
   );
   const nonTerminalDispositions = uniqueStrings(
     requiredField(value, "nonTerminalDispositions", label),
     `${label}.nonTerminalDispositions`
   );
+  if (terminalDispositions.length === 0 && nonTerminalDispositions.length === 0) {
+    throw new TypeError(`${label}: at least one disposition is required`);
+  }
   if (
     terminalDispositions.some((disposition) =>
       nonTerminalDispositions.includes(disposition)
