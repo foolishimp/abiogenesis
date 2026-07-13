@@ -30,9 +30,9 @@ requirements own product scope, while T-244 traces feature closure.
 
 | Stage | Ticket and commits | Three-view design | Current verdict | Coding consequence |
 |---|---|---|---|---|
-| Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The base authoring/compiler code is frozen. Direct `workflow.C` is realized by T-259; `C.batch`, `C.retry`, and mixed workflow expressions retain explicit successor gaps. |
+| Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The base authoring/compiler code is frozen. Direct `workflow.C` is realized by T-259; direct root `C.batch` and typed HOF projection are realized by T-260; `C.retry` and mixed expressions retain explicit successor gaps. |
 | Direct `workflow.C` static binding and child-traversal runtime atom | T-259 | [M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md](./M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | One direct module-contained child workflow is realized without a child catalog entry. Canonical product traversal remains startup-blocked by T-267. |
-| Typed fan-out, ordinal `C.batch`, and exact fan-in runtime | T-260 | [M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | The bounded requirement reprice and three-view design are accepted. Implementation must preserve structural/runtime authority separation and the T-267 startup fence. |
+| Typed fan-out, ordinal `C.batch`, and exact fan-in runtime | T-260; `398f254` | [M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` and `closed` under delegated F_H | Direct root batch, runtime-cardinality fan-out, and exact fan-in are realized with structural/runtime authority separation. Nested and mixed batches remain gaps, and the T-267 startup fence remains authoritative. |
 | Execution-declaration compilation and basis-owned runtime handoff | T-220 P4; `014448f` | [M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md](./M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md) | `candidate` | The handoff code is frozen. It cannot certify a constructive C body because the separate C-conformance result is not bound into `ExecutionBasis`. |
 | Malformed and contradictory F_P output admission plus ABG-owned producer attribution | T-220 P4 and T-223; `014448f`, `28da030` | [M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md](./M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) | `blocked` | Producer attribution is a passing subclaim; admission remains frozen because G1-G5 require disposition and raw-to-close impossibility is not yet proven. |
 | Installed product, workspace, binding, and catalog foundation | T-223 foundation; `f572ee9` | [M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md](./M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md) | `candidate` | Foundation code is frozen pending cross-view axiom review. |
@@ -80,7 +80,7 @@ syntax evidence; it does not replace independent axiom or F_H review.
 ## Next-Code Boundary
 
 No Consensus rebuild or other dependent feature may enter code while
-`C.batch` or `C.retry` is a relied-on unrealized constructor.
+`C.retry` is a relied-on unrealized constructor.
 The lawful next design must author its GraphFunction body in GTL. Compiler gaps
 are demand evidence for the missing algebra; they are not permission to move
 workflow, prompt, traversal, recursion, or closure into a plugin.
