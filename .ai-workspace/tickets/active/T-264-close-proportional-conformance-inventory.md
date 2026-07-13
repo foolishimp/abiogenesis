@@ -2,13 +2,26 @@
 
 - id: T-264
 - status: active
-- phase_status: three_view_design_required
+- phase_status: candidate_design_authored_blocked_authority_ruling
+- review_status: fh_review_required
+- implementation_admission: blocked_pending_fh_effect_capability_ruling_and_t263_closure
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: high
 - source_ticket: T-252
 - dependency: T-263
+- design_ref: build_tenants/abiogenesis/typescript/design/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md
+- review_ref: .ai-workspace/comments/codex/20260713T025317Z_REVIEW_t264_proportional_conformance_design.md
+- authority_refs:
+  - specification/GOALS.md DS-1
+  - specification/PRODUCT.md compiler owns whole-program conformance
+  - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
+  - specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md
+  - specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md
+  - specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md
+  - specification/requirements/abg/REQ-R-ABG3-HANDLERS.md
+  - specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md
 
 ## Boundary
 
@@ -29,7 +42,8 @@ invented nonzero inventory.
 
 ## Entry And Exit
 
-Accept a three-view conformance design before code. The T-252 root must retain
+Resolve the design's effect-capability authority gap and accept the three-view
+conformance design before code. The T-252 root must retain
 real atom/runtime gaps while losing only unsupported present-without-inventory
 and universal-nonzero noise. A broader non-Consensus program must prove that
 actual missing mandatory inventory still fails. Inventory must distinguish and
@@ -48,3 +62,12 @@ declarations exist, requiring invented nonzero Job/Role counts for direct catalo
 invocation, treating declaration counts as execution evidence, accepting direct
 plugin URIs in `Operator.binding`, or deleting full-root conformance to make the
 census green.
+
+## Blocking Authority Ruling
+
+`REQ-M-GTL3-CAPABILITY` places effect compatibility in a separate exact tenant
+capability profile. No admitted profile carrier is available in the current
+conformance input or T-252 Module. F_H must either narrow T-264 to matchable
+effect-requirement projection and route actual compatibility to T-255/DS-4, or
+authorize a separate mapping-carrier re-entry. Name- or URI-based inference is
+non-closure.
