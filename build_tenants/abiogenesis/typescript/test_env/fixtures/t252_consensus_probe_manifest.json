@@ -2079,7 +2079,7 @@
     "capabilityCompatibilityStatus": "deferred_missing_exact_profile"
   },
   "ownership": {
-    "loadedTicketCount": 12,
+    "loadedTicketCount": 13,
     "sources": [
       {
         "ticketId": "T-255",
@@ -2090,8 +2090,7 @@
           "composition_owning_declaration_join",
           "edge_closure_contract",
           "graph_vector_program_runtime_selection",
-          "target_carrier_contract",
-          "traversal_execution_contracts"
+          "target_carrier_contract"
         ]
       },
       {
@@ -2185,6 +2184,14 @@
         "status": "completed",
         "sourceRef": ".ai-workspace/tickets/completed/T-266-close-native-node-interface-type-witness.md",
         "families": []
+      },
+      {
+        "ticketId": "T-267",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
+        "families": [
+          "traversal_execution_contracts"
+        ]
       }
     ],
     "observedActiveGapFamilyCount": 16,
@@ -2505,7 +2512,7 @@
     },
     {
       "gapFamily": "traversal_execution_contracts",
-      "ownerTicket": "T-255",
+      "ownerTicket": "T-267",
       "ownerStatus": "active",
       "classification": "semantic_not_realized",
       "diagnosticIds": [
@@ -2516,10 +2523,10 @@
       ],
       "authorityRefs": [
         "requirement:REQ-R-ABG3-INTERPRET",
-        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
-        "ticket:T-255"
+        "ticket-source:.ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
+        "ticket:T-267"
       ],
-      "authorityDigest": "sha256:a397a5cce75a4e06e9568a05b5125a48a51f8dc09dad71949232eebfd631c3e7",
+      "authorityDigest": "sha256:7fccf30aa6d66d1f00ff482ca48dbc111908e510962768fcc6f16ca1a5023221",
       "actualRelation": "TraversalUnit execution basis is not yet derived from the compiled vector/program relation",
       "actualRelationDigest": "sha256:abfbf71ffa458224c339214679cd86780cb14b19a698f8b050cea7aab23691f0",
       "evidenceRefs": [
@@ -2772,5 +2779,5 @@
     },
     "declarationCountsAreExecutionEvidence": false
   },
-  "manifestDigest": "sha256:6ba07d11efc6b34b895a30ec6688d2e6e2d3a10871da11f350b41f446edc0b41"
+  "manifestDigest": "sha256:9f58392a3104ad25e1b24670d5c059920d04124bfff66f9a45187f069d8efc22"
 }

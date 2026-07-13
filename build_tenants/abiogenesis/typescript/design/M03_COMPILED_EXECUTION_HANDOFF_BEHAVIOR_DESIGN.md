@@ -1,68 +1,122 @@
-# M03 Compiled Execution Handoff Behavior Design
+# M03 Compiled GraphVector Execution Handoff Behavior Design
 
-**Status**: Retrospective three-view design gate
-**Design date**: 2026-07-12
-**Checkpoint assessed**: `014448f` (`T-220: close typed GTL C algebra authoring loop`)
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
-**Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
-**Retrospective subject**: T-220 P4 execution-declaration compilation and typed runtime handoff
-
-This design reconstructs one completed code boundary: graph-function execution
-declarations are compiled before an `ExecutionBasis` exists, and the runner,
-HoG selector, plugin resolver, and handler registry consume only that compiled
-handoff. It does not redesign the runner and does not claim execution support
-for any C constructor that the semantic compiler reports as unrealized.
+**Design verdict**: `accepted_under_direct_fh_continuation_with_proportional_reprice`
+**Implementation admission**: `admitted_after_t264_closure`
+**Ticket**: [T-255](../../../../.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md)
+**Owning module**: M03 graph-vector compilation
+**Change class**: `design_reframe`
+**Delivery phase**: DS-2 execution spine
 
 ## Boundary
 
-- **Design verdict**: `candidate`. Retain the compiled-handoff structure only
-  if independent axiom review and F_H ratification accept all three views.
-- **Owning module**: M03 owns execution-declaration compilation,
-  `ExecutionBasis`, runtime program selection, plugin resolution, handler
-  binding, and fail-closed startup admission. M01 owns the published
-  host-indexed declaration law and native declaration builders.
-- **Requirements**: `REQ-L-GTL3-C-ALGEBRA-010..-016`,
-  `REQ-R-ABG3-HANDLERS-001..-016`, `REQ-R-ABG3-CCALL-001..-017`,
-  `REQ-R-ABG3-INTERPRET`, and `PRODUCT.md` Heart of Gold atom and program
-  configuration law.
-- **Ticket or intake**:
-  `.ai-workspace/tickets/completed/T-220-close-typed-gtl-c-algebra-authoring-loop.md`,
-  specifically P4.
-- **Code scope assessed**:
-  `gtl/m01/contracts/declaration_law.ts`,
-  `gtl/m01/contracts/execution_declaration_builders.ts`,
-  `abg/m03/contracts/execution_declaration_compiler.ts`,
-  `abg/m03/contracts/hog_handler_bindings.ts`,
-  `abg/m03/contracts/constructors.ts`,
-  `abg/m03/contracts/carriers.ts`,
-  `abg/m03/runner/hog_program_resolution.ts`,
-  `abg/m03/runner/c_call_handlers.ts`, the typed consumption sites in
-  `engine_runner.ts`, and `gtl_algebra_authority_guard.mjs`.
-- **Dependencies**: admitted `Module` and `GraphFunction` lookup; the published
-  seven-key execution-declaration law; HoG syntax admission; plugin seam
-  admission; handler implementation registry; `ExecutionBasis` and uniform
-  C-call spine law.
-- **Explicit exclusions**: C-program authoring and semantic compilation;
-  `workflow.C`, `C.batch`, and `C.retry` runtime realization; GraphFunction
-  traversal and continuation design; F_P response admission; handler interior
-  schemas; event and result projection; public SDK/CLI behavior; release-root
-  completeness; and product-specific graph functions.
+T-255 closes one generic relation:
 
-The seven execution declaration keys in this boundary are not the seven C
-constructors. They are configuration attached to one admitted
-`GraphFunction`: HoG program, catalog, fixed selector, ladder, handler
-bindings, handler configs, and plugin selection. This boundary may select and
-bind already-realized program terms. It cannot turn an unrealized C
-constructor into runtime behavior.
+```text
+admitted GraphFunction + exact contained GraphVector
+  + compiled T-254 vector/program binding
+  + admitted flat C program or identity
+  + effective ABG.Fn composition under existing precedence
+  + optional T-265 application lineage
+  + exact target-carrier defaults
+    -> CompiledGraphVectorExecutionHandoff | typed blocked outcome
+```
 
-The candidate claim is deliberately narrow:
+The handoff is the first runtime-addressable carrier that joins program shape,
+composition authority, target-carrier identity, and edge-closure contract for
+one exact GraphVector. It is derived data. It does not become another GTL
+declaration, selector, composition owner, capability profile, or closure
+verdict.
 
-1. authored execution declarations are admitted and compiled at one M03
-   boundary before runtime effects;
-2. one closed compiled payload is owned by `ExecutionBasis`;
-3. runtime consumers select from that payload without reparsing authored
-   declarations; and
-4. an invalid or unexecutable selection stops before a handler interior runs.
+The prior design was a retrospective of the GraphFunction-wide HoG plan. It
+explicitly excluded GraphVector program selection, generalized flat C shape,
+target/closure contracts, and application-lineage composition ownership. Those
+are now T-255's boundary, so the retrospective design is superseded rather
+than extended.
+
+## Proportional Reprice
+
+T-255 owns these five T-252 families:
+
+```text
+c_program_runtime_shape_generalization
+graph_vector_program_runtime_selection
+target_carrier_contract
+edge_closure_contract
+composition_owning_declaration_join
+```
+
+The original ticket also owned the broad `traversal_execution_contracts`
+family. That family requires admitted plugin result-interface truth and bind
+conservation inputs that are not present at this compiler boundary. The HOF
+wrapper also intentionally has no local C selector. Creating those rows here
+would fabricate assurance or reintroduce a selector.
+
+T-267 therefore owns final traversal result-interface and bind-conservation
+closure. T-255 produces the exact handoff T-267 will consume. This is a design
+reframe, not a requirement reprice: target-carrier, composition, result
+admission, and conservation requirements remain unchanged.
+
+## Authority
+
+- `REQ-L-GTL3-C-ALGEBRA-011/-014/-016` requires exact vector-local program
+  selection, compiler-owned interpretation, and compile-before-effects.
+- `REQ-L-GTL3-GRAPHVECTOR` preserves ordered source and exact target identity.
+- `REQ-R-ABG3-FN-COMP-001..007` owns composition precedence, host matching,
+  carrier context, assurance context, and deterministic closure contracts.
+- `REQ-R-ABG3-INTERPRET-010/-013/-022/-023/-027` requires typed traversal
+  units, `no_compute_basis` for absent compute, opaque identities, and exact
+  target/closure rows.
+- `REQ-M-GTL3-CAPABILITY` keeps effect compatibility behind a versioned exact
+  tenant capability profile.
+- T-254 owns `CompiledGraphVectorCProgramBinding`.
+- T-265 owns application lineage and provisional inherited-composition
+  projections.
+- T-264 owns static declaration inventory and matchable effect requirements.
+
+Direct F_H continuation on 2026-07-13 admitted the next planned implementation
+after T-264 closure, subject to the standing proportionality rule: do not widen
+the base algebra or fabricate missing authority to perfect a local seam.
+
+## Current Evidence
+
+The unchanged T-252 body contains 35 materialized GraphVectors and 34 exact
+T-254 vector/program bindings.
+
+| Current relation | Count | T-255 disposition |
+|---|---:|---|
+| exact vector/program bindings | 34 | consume without a second selector |
+| flat C programs lowerable to normalized HoG | 28 | admit into execution handoffs |
+| `workflow.C` selected programs | 5 | retain typed T-259 gaps |
+| `C.retry` selected programs | 1 | retain typed T-261 gap |
+| structural HOF wrapper with no local selector | 1 | compile boundary/target truth only; T-260 owns runtime |
+| direct composition selections | 19 | join directly |
+| inherited applied-host composition selections | 15 | join through T-265 lineage |
+| target-carrier bindings resolvable from exact defaults | 35 | project exact target/edge rows |
+
+The compiler target is not `all 35 execute`. It is:
+
+```text
+28 flat or identity vector handoffs become runtime-addressable
+5 workflow selections remain workflow gaps
+1 retry selection remains a retry gap
+1 selector-free structural HOF vector remains a HOF runtime gap
+```
+
+## Irreducible Carrier Set
+
+| Carrier | Role | Visibility | Authority |
+|---|---|---|---|
+| `GraphFunction` | prime authored host | public GTL | GTL declaration truth |
+| `GraphVector` | prime typed edge | public GTL | ordered source/target and vector declarations |
+| `CompiledGraphVectorCProgramBinding` | subordinate exact join | public M03 | T-254 compiler result |
+| `GraphFunctionApplicationLineageProjection` | subordinate lineage | public M03 | T-265 derived application truth |
+| `AbgFnCompositionSelection` | subordinate composition | public M03 | existing precedence resolver |
+| `TargetCarrierContractBinding` | subordinate target contract | public GTL/M03 | vector declaration or exact defaults |
+| `CompiledGraphVectorEdgeClosureBinding` | downstream contract projection | public M03 | derived from vector and target contract |
+| `CompiledGraphVectorExecutionHandoff` | prime runtime handoff | public M03 | this compiler's accepted result |
+| `GraphVectorExecutionHandoffOutcome` | closed result family | public M03 | accepted, structural-only, blocked, or invalid |
+| tenant capability profile | deferred authority | DS-4 | effect compatibility owner |
+| result-interface and bind-conservation contract | deferred authority | T-267 | final TraversalUnit closeability |
 
 ## Domain Model
 
@@ -70,395 +124,369 @@ The candidate claim is deliberately narrow:
 classDiagram
   direction LR
 
-  class ExternalAuthor {
-    <<effect-edge>>
-    +authors typed or serialized GTL
-  }
-
-  class ExecutionDeclarationLaw {
-    <<prime>>
-    <<authoritative>>
-    +key
-    +allowedHost
-    +valueKind
-    +precedenceRule
-    +compositionRule
-    +interpretationOwner
-  }
-
   class GraphFunction {
     <<prime>>
     <<authoritative>>
     +id
-    +name
     +declarations
   }
 
-  class ExecutionDeclarationEntry {
-    <<subordinate>>
-    +key
-    +typedValue
-  }
-
-  class RawSerializedDeclaration {
-    <<effect-edge>>
-    +unknown shape
-  }
-
-  class ExecutionDeclarationCompiler {
-    <<authoritative boundary>>
-    +compileExecutionDeclarations(graphFunction)
-    -compileHogProgramPlan()
-    -admitHandlerBindings()
-    -compilePluginSelection()
-    -assertBindingsMatchPlan()
-  }
-
-  class CompiledExecutionDeclarations {
-    <<subordinate>>
-    <<authoritative in basis>>
-    +kind
-    +sourceRef
-    +hogProgramPlan
-    +handlerBindingRows
-    +handlerConfigs
-    +pluginSelection
-  }
-
-  class CompiledHogProgramPlan {
-    <<subordinate closed union>>
-    +mode default or single or catalog or ladder
-  }
-
-  class CCallHandlerBinding {
-    <<subordinate>>
-    +programRef
-    +stageRole
-    +armId
-    +regime
-    +handlerRef
-    +handlerClass
-    +handlerConfigRef
-  }
-
-  class DeclaredHandlerConfig {
-    <<effect-edge subordinate>>
-    +configRef
-    +opaque unreviewed config data
-  }
-
-  class CompiledPluginSelection {
-    <<subordinate>>
-    +seam to pluginRef
-  }
-
-  class ExecutionBasis {
+  class GraphVector {
     <<prime>>
     <<authoritative>>
-    +basisId
-    +graphFunction
-    +graph
-    +job
-    +compiledExecutionDeclarations
+    +id
+    +ordered source
+    +target
+    +declarations
   }
 
-  class ExecutionBasisAdmission {
-    <<authoritative boundary>>
-    +constructExecutionBasis()
-    +resolve GraphFunction, Job, and Graph
+  class CompiledGraphVectorCProgramBinding {
+    <<subordinate>>
+    <<authoritative>>
+    +graphVectorRef
+    +selectedProgramRef
+    +bindingDigest
   }
 
-  class RunnerEntryAdmission {
-    <<authoritative boundary>>
-    +resolve effective plugins
-    +assemble typed handler registry
-    +assert plan executable
-  }
-
-  class ResolvedHogProgram {
-    <<downstream>>
-    +program
-    +source
-  }
-
-  class CompiledHogResolver {
-    <<interpreter boundary>>
-    +resolveCompiledHogProgram()
-    +assertCompiledHogPlanExecutable()
-  }
-
-  class CCallHandlerRegistry {
-    <<downstream>>
-    +typedBindings
-    +handlerImplementations
-  }
-
-  class CCallSelection {
-    <<downstream>>
+  class AdmittedCProgram {
+    <<subordinate>>
     +programRef
-    +stageRole
-    +armId
-    +regime
+    +term
+    +canonicalDigest
   }
 
-  class CCallSelectionHandoff {
-    <<prime downstream handoff>>
+  class NormalizedFlatProgram {
+    <<subordinate>>
     +programRef
-    +stageRole
-    +armId
-    +regime
-    +handlerRef
-    +handlerConfigRef
+    +ordered stages
   }
 
-  class DownstreamHandlerInvocation {
-    <<deferred dependency>>
-    +instruction protocol must be declared
+  class ApplicationLineage {
+    <<subordinate>>
+    +executionSubjectRef
+    +declarationOwnerRefs
+    +lineageDigest
   }
 
-  class DownstreamResultAdmission {
-    <<deferred dependency>>
-    +F_P response admission must be accepted
+  class CompositionSelection {
+    <<subordinate>>
+    <<authoritative>>
+    +sourceRef
+    +selectionRef
+    +contractDigest
+    +owningDeclarationRef
   }
 
-  class WorkflowCRuntime {
+  class TargetCarrierDefaults {
+    <<effect-edge>>
+    <<authoritative>>
+    +bundleRef
+    +bundleDigest
+  }
+
+  class TargetCarrierBinding {
+    <<subordinate>>
+    <<authoritative>>
+    +contractRef
+    +configDigest
+    +materializationPolicyRef
+    +closurePreconditionRef
+  }
+
+  class EdgeClosureBinding {
+    <<downstream>>
+    +edgeClosureRef
+    +edgeAssuranceBindingRef
+    +closurePreconditionRef
+    +bindingDigest
+  }
+
+  class ExecutionHandoff {
+    <<prime>>
+    <<downstream>>
+    +handoffRef
+    +handoffDigest
+    +programDisposition
+    +capabilityCompatibilityStatus
+  }
+
+  class HandoffOutcome {
+    <<prime>>
+    +accepted
+    +structural_only
+    +blocked_successor_constructor
+    +invalid
+  }
+
+  class RuntimeConsumer {
+    <<downstream>>
+    +consume exact handoff
+  }
+
+  class TraversalConservation {
     <<deferred>>
-    +transparent child traversal
+    +result interfaces
+    +bind conservation
   }
 
-  class CBatchRuntime {
-    <<deferred>>
-    +ordered task spines
-  }
-
-  class CRetryRuntime {
-    <<deferred>>
-    +declared budget and one retry law
-  }
-
-  ExternalAuthor --> RawSerializedDeclaration : may supply
-  ExternalAuthor --> ExecutionDeclarationEntry : constructs through typed API
-  ExecutionDeclarationLaw "1" --> "1" ExecutionDeclarationEntry : governs
-  GraphFunction "1" *-- "0..7" ExecutionDeclarationEntry : owns unique keys
-  RawSerializedDeclaration --> GraphFunction : only after declaration admission
-  ExecutionDeclarationCompiler --> GraphFunction : consumes admitted source
-  ExecutionDeclarationCompiler --> ExecutionDeclarationLaw : applies
-  ExecutionDeclarationCompiler --> CompiledExecutionDeclarations : produces once
-  CompiledExecutionDeclarations "1" *-- "1" CompiledHogProgramPlan : owns
-  CompiledExecutionDeclarations "1" *-- "0..*" CCallHandlerBinding : owns
-  CompiledExecutionDeclarations "1" *-- "0..*" DeclaredHandlerConfig : addresses
-  CompiledExecutionDeclarations "1" *-- "0..1" CompiledPluginSelection : owns
-  ExecutionBasisAdmission --> ExecutionDeclarationCompiler : invokes once
-  ExecutionBasisAdmission --> ExecutionBasis : constructs
-  ExecutionBasis "1" *-- "1" CompiledExecutionDeclarations : freezes handoff
-  RunnerEntryAdmission --> ExecutionBasis : consumes only
-  RunnerEntryAdmission --> CompiledHogResolver : delegates compiled selection
-  CompiledHogResolver --> ResolvedHogProgram : selects compiled term
-  RunnerEntryAdmission --> CCallHandlerRegistry : joins bindings to implementations
-  ResolvedHogProgram --> CCallSelection : supplies program membership
-  CCallHandlerRegistry --> CCallSelection : resolves one implementation
-  CCallSelection --> CCallSelectionHandoff : produces exact pre-invocation selection
-  CCallSelectionHandoff ..> DownstreamHandlerInvocation : outside candidate
-  DownstreamHandlerInvocation ..> DownstreamResultAdmission : outside candidate
-  CompiledHogProgramPlan ..> WorkflowCRuntime : does not realize
-  CompiledHogProgramPlan ..> CBatchRuntime : does not realize
-  CompiledHogProgramPlan ..> CRetryRuntime : does not realize
+  GraphFunction "1" *-- "1..*" GraphVector : contains
+  GraphVector --> CompiledGraphVectorCProgramBinding : selected by T254
+  CompiledGraphVectorCProgramBinding --> AdmittedCProgram : identifies exactly
+  AdmittedCProgram --> NormalizedFlatProgram : lowers when flat
+  GraphFunction --> ApplicationLineage : derives when applied
+  ApplicationLineage --> CompositionSelection : admits inherited owner
+  GraphVector --> CompositionSelection : admits direct owner
+  TargetCarrierDefaults --> TargetCarrierBinding : supplies declared defaults
+  GraphVector --> TargetCarrierBinding : resolves exact target
+  TargetCarrierBinding --> EdgeClosureBinding : projects contract
+  CompiledGraphVectorCProgramBinding --> ExecutionHandoff : owned subordinate
+  CompositionSelection --> ExecutionHandoff : owned subordinate
+  TargetCarrierBinding --> ExecutionHandoff : owned subordinate
+  EdgeClosureBinding --> ExecutionHandoff : owned subordinate
+  ExecutionHandoff --> HandoffOutcome : accepted result
+  HandoffOutcome --> RuntimeConsumer : only accepted handoff
+  ExecutionHandoff ..> TraversalConservation : T267 consumes
 ```
 
-### Carrier And Authority Reading
+## Compiler Contract
 
-`GraphFunction` is the authored GTL authority. Its execution declaration rows
-are subordinate configuration under the published declaration law.
-`CompiledExecutionDeclarations` is not a second authored program. It is the
-single normalized runtime handoff owned by one immutable `ExecutionBasis`.
-The runner may select a program or ladder rung from that handoff; it may not
-reopen `GraphFunction.declarations` to recover authored meaning.
+### Exact vector/program binding
 
-`CCallHandlerBinding` is admitted configuration, not an implementation and not
-runtime truth. `CCallHandlerRegistry` joins those typed rows to supplied
-implementations and produces one exact pre-invocation selection. This
-candidate stops there. It does not accept the selected handler's instruction
-protocol, opaque config content, response admission, event emission, or
-closure path; those are separately blocked designs.
+The compiler calls T-254 first. It accepts only one exact binding whose host,
+graph, vector, ordered source interface, target interface, and selected program
+match the submitted GraphFunction and GraphVector. It does not read a
+GraphFunction-global fixed selector and does not synthesize a selection from
+program order.
 
-The three deferred classes are negative structure. They make clear that a HoG
-plan, plugin selection, handler config, or runner loop cannot stand in for
-`workflow.C`, `C.batch`, or `C.retry`. Their absence remains visible to the C
-semantic compiler as `semantic_not_realized`.
+### C-program disposition
+
+The selected C term receives one closed disposition:
+
+```text
+flat_executable
+identity_passthrough
+blocked_successor_constructor
+```
+
+`C.of`, flat `C.compose`, and flat `C.edge` lower through the existing
+`compileCAlgebraToHog` compiler. Whole-program `C.id` is an explicit
+identity-passthrough handoff and cannot be relabelled as an empty HoG program.
+`workflow.C`, `C.batch`, and `C.retry` retain their exact typed diagnostics and
+owners. A blocked nested constructor does not discard the accepted T-254
+binding, target contract, or diagnostic lineage.
+
+### Composition ownership
+
+For an ordinary GraphFunction, existing vector-local then GraphFunction-local
+precedence resolves the composition directly.
+
+For an applied GraphFunction, T-265 must first return one accepted lineage and
+one provisional binding matching the exact GraphVector declaration host. The
+handoff compiler verifies:
+
+```text
+execution subject = submitted GraphFunction
+declaration owner is in eligible lineage owners
+declaration host = exact selected vector or owning GraphFunction
+composition ref/digest = T-265 projection
+owning declaration ref = canonical declaration identity for that exact host
+```
+
+Canonical declaration identity is derived from opaque host identity and the
+registered `abg.fn_composition` key through one shared function. Display names,
+tags, URI parsing, and the selected program ref are not declaration identity.
+The function must reproduce current T-252 bytes; changing body serialization
+to satisfy the compiler is forbidden.
+
+### Target and edge closure
+
+The compiler requires an admitted target-carrier defaults bundle. Existing
+vector-local declaration precedence remains authoritative. The resulting
+`TargetCarrierContractBinding` must match the exact vector target.
+
+`CompiledGraphVectorEdgeClosureBinding` is a derived contract projection over:
+
+```text
+graph function / graph / vector identity
+target node contract key
+target carrier contract ref and digest
+materialization policy ref
+edge assurance binding ref
+closure precondition ref
+composition closure contract ref when compute is present
+```
+
+This binding says which closure contract governs. It does not say the edge is
+closed. Runtime events and T-267 conservation remain the source of closure
+truth.
+
+### Capability boundary
+
+The handoff carries T-264 effect-requirement refs and one status:
+
+```text
+deferred_missing_exact_profile
+not_applicable_no_effect_requirements
+```
+
+No package version, plugin ref, handler ref, URI spelling, or passing test may
+stand in for the exact DS-4 tenant capability profile.
 
 ## Execution Sequence
 
-The external caller is the only external participant. Every other participant
-is a domain boundary above. Compilation and entry admission end at the exact
-selection handoff, before the first handler interior can execute.
-
 ```mermaid
 sequenceDiagram
-  actor Caller as External caller
-  participant Basis as ExecutionBasisAdmission
-  participant Compiler as ExecutionDeclarationCompiler
-  participant Entry as RunnerEntryAdmission
-  participant Hog as CompiledHogResolver
-  participant Registry as CCallHandlerRegistry
+  actor Caller as M03 caller
+  participant T254 as VectorProgramCompiler
+  participant C as CAlgebraCompiler
+  participant T265 as ApplicationCompiler
+  participant Fn as CompositionResolver
+  participant Target as TargetCarrierResolver
+  participant Handoff as HandoffCompiler
+  participant Runtime as RuntimeConsumer
 
-  Caller->>Basis: submit StartIntent and admitted Module
-  Basis->>Basis: resolve GraphFunction, Job, and materialized Graph
-  Basis->>Compiler: compile admitted GraphFunction declarations
-  alt malformed host, value, shape, or duplicate
-    Compiler-->>Caller: typed declaration refusal before ExecutionBasis
-  else contradictory program or selector authority
-    Compiler-->>Caller: hog_program_authority_conflict before effects
-  else unresolved program, binding, config, regime, or interpreter anchor
-    Compiler-->>Caller: typed admission or semantic_not_realized refusal
-  else declarations compile
-    Compiler-->>Basis: CompiledExecutionDeclarations
-    Basis-->>Caller: immutable ExecutionBasis
-  end
-
-  Caller->>Entry: start or iterate using ExecutionBasis
-  Entry->>Entry: resolve plugin refs from compiled selection
-  alt declared seam conflicts with caller authority
-    Entry-->>Caller: typed plugin-authority startup refusal
-  else plugin authority is singular
-    Entry->>Registry: assemble already-typed binding rows with implementations
-    Entry->>Hog: assert every reachable compiled program is executable
-    alt handler registry or selected arm is unresolvable
-      Entry-->>Caller: typed implementation-resolution startup refusal
-    else startup is executable
-      Entry->>Hog: resolve plan for admitted attempt
-      Hog-->>Entry: ResolvedHogProgram
-      Entry->>Registry: resolve program, role, arm, and regime
-      Registry-->>Entry: one admitted handler binding
-      Entry-->>Caller: exact CCallSelectionHandoff before effect invocation
+  Caller->>T254: GraphFunction and exact contained GraphVector
+  alt malformed, absent, or ambiguous selector
+    T254-->>Caller: invalid typed diagnostic
+  else no local C selector
+    T254-->>Handoff: structural vector boundary
+    Handoff->>Target: resolve target and closure contract
+    Handoff-->>Caller: structural_only outcome
+  else exact selector and binding
+    T254-->>C: exact binding and selected raw program
+    alt workflow, batch, or retry term
+      C-->>Handoff: successor-owned typed diagnostic
+      Handoff->>Target: preserve target and closure contract
+      Handoff-->>Caller: blocked_successor_constructor outcome
+    else flat or identity term
+      C-->>Handoff: normalized flat program or identity disposition
+      Handoff->>T265: derive optional application lineage
+      alt applied host
+        T265-->>Fn: exact inherited declaration owner projection
+      else ordinary host
+        Handoff->>Fn: resolve existing declaration precedence
+      end
+      Fn-->>Handoff: exact composition selection and owner
+      Handoff->>Target: resolve exact target-carrier binding
+      Target-->>Handoff: target and edge-closure contracts
+      Handoff-->>Runtime: immutable CompiledGraphVectorExecutionHandoff
+      Runtime-->>Caller: accepted handoff consumption or typed startup block
     end
   end
 
-  Note over Compiler,Registry: No participant reparses GraphFunction declarations after basis construction
-  Note over Compiler,Registry: Handler invocation and result admission are blocked downstream dependencies
-  Note over Compiler,Registry: No path here implements workflow.C, C.batch, or C.retry
+  Note over T254,Runtime: No participant reads display names or creates a second selector
+  Note over Handoff,Runtime: Accepted handoff is not an edge-closed verdict
 ```
 
-This sequence does not place the C semantic compiler inside `ExecutionBasis`
-construction because the assessed code does not do so. The T-220 C conformance
-gate is a separate upstream proof. A dependent design must not infer from this
-compiled handoff that a C term passed that gate or that an unrealized
-constructor executes.
-
-## Lifecycle State Machine
+## Lifecycle State Model
 
 ```mermaid
 stateDiagram-v2
-  [*] --> AuthoredGraphFunction: M01 API or serialized admission produces declaration data
-  AuthoredGraphFunction --> DeclarationCompiling: M03 basis construction resolves GraphFunction
-  DeclarationCompiling --> BasisRefused: malformed or contradictory declaration
-  DeclarationCompiling --> SemanticRefused: binding or current interpreter relation absent
-  DeclarationCompiling --> CompiledHandoff: all execution declarations compile
-  CompiledHandoff --> BasisAdmitted: ExecutionBasis owns frozen handoff
-  BasisAdmitted --> RuntimeBinding: start or iterate resolves effective implementations
-  RuntimeBinding --> StartupBlocked: plugin authority conflict
-  RuntimeBinding --> StartupBlocked: handler registry or reachable arm unresolvable
-  RuntimeBinding --> Executable: compiled plan and implementation registry agree
-  Executable --> ProgramSelected: compiled fixed selector or attempt ladder selects
-  ProgramSelected --> HandlerBindingSelected: exact program, role, arm, and regime match
-  HandlerBindingSelected --> SelectionHandoffReady: pre-invocation handoff produced
-  BasisRefused --> [*]: no ExecutionBasis and no runtime effect
-  SemanticRefused --> [*]: no ExecutionBasis and no runtime effect
-  StartupBlocked --> [*]: typed startup refusal before effect invocation
-  SelectionHandoffReady --> [*]: downstream invocation remains outside candidate
-
-  state UnrealizedCConstructors {
-    [*] --> WorkflowGap
-    [*] --> BatchGap
-    [*] --> RetryGap
-  }
-  WorkflowGap --> [*]: semantic_not_realized outside this handoff
-  BatchGap --> [*]: semantic_not_realized outside this handoff
-  RetryGap --> [*]: semantic_not_realized outside this handoff
+  [*] --> Submitted
+  Submitted --> Invalid: host or containment admission fails
+  Submitted --> BoundaryCompiled: exact vector boundary admitted
+  BoundaryCompiled --> StructuralOnly: no local C selector
+  BoundaryCompiled --> ProgramBound: T254 exact binding admitted
+  ProgramBound --> Invalid: selected program or carrier mismatch
+  ProgramBound --> SuccessorBlocked: workflow batch or retry retained
+  ProgramBound --> ProgramNormalized: flat or identity disposition admitted
+  ProgramNormalized --> LineageResolving: applied host observed
+  ProgramNormalized --> CompositionResolving: ordinary host
+  LineageResolving --> Invalid: lineage or declaration owner mismatch
+  LineageResolving --> CompositionResolving: inherited owner admitted
+  CompositionResolving --> Invalid: host or owning declaration mismatch
+  CompositionResolving --> TargetResolving: exact composition admitted
+  TargetResolving --> Invalid: target defaults or vector target mismatch
+  TargetResolving --> HandoffAccepted: target and edge contracts compiled
+  HandoffAccepted --> RuntimeAddressable: runtime consumes immutable handoff
+  RuntimeAddressable --> StartupBlocked: runtime capability or implementation absent
+  RuntimeAddressable --> AwaitingTraversalConservation: execution may proceed under existing stage support
+  StructuralOnly --> [*]: successor HOF owner retains runtime
+  SuccessorBlocked --> [*]: named constructor owner retains runtime
+  Invalid --> [*]: no effect
+  StartupBlocked --> [*]: no effect
+  AwaitingTraversalConservation --> [*]: T267 owns final closeability
 ```
-
-The unrealized constructor states are not reachable by coercion from
-`CompiledHandoff`. They are terminal outcomes of the separate C semantic
-compiler. A runner loop, plugin, or handler cannot transition them to
-`Executable`.
 
 ## Cross-View Invariants
 
-| Check | Evidence | Verdict |
-|---|---|---|
-| Every sequence participant exists in the domain model or is external | Basis admission, compiler, runner admission, HoG resolver, and registry are modeled; caller is explicitly external. | pass |
-| Every lifecycle carrier exists in the domain model | GraphFunction, compiled handoff, basis, resolved program, binding/registry, and exact selection handoff appear in the domain view. Refused states are compiler or entry dispositions. | pass |
-| Every message names a typed transform or interpreter act | Lookup, compile, assemble, executability assertion, exact selection, and handoff are named operations. No effect is invoked. | pass |
-| Every transition has an admission, compiler, interpreter, event, or external owner | No transition depends on controller-local memory or an untyped declaration bag. | pass |
-| Authored execution declarations are interpreted once | `compileExecutionDeclarations` is called during `constructExecutionBasis`; runtime receives `basis.compiledExecutionDeclarations`. The runner source guard rejects declaration-attribute parser APIs. | pass |
-| Runtime does not parse raw declaration meaning | HoG resolution accepts `CompiledHogProgramPlan`; registry assembly accepts `CCallHandlerBinding[]`; plugin selection reads the compiled map. | pass |
-| Invalid declarations cannot produce worker/plugin/handler effects | Compilation must return before `ExecutionBasis`; implementation resolution is checked before the selection handoff. This candidate invokes no effect. | pass |
-| Plugin and handler implementations own interiors only | The candidate ends before invocation and claims no handler-result, event, continuation, or closure behavior. | not_applicable |
-| Opaque handler config does not become program meaning in this handoff | The compiler proves config-ref existence and never interprets config as program shape. Whether current config content lawfully excludes prompt/protocol truth is a blocked downstream instruction concern. | pass |
-| The bootstrap default is a catalog citizen | `default` mode resolves the reserved effective-catalog default rather than an unlabelled runner program. | pass |
-| Ladder selection ranges only over compiled declared terms | Basis compilation verifies every rung names a program in the compiled catalog; runtime selects by admitted attempt and cannot invent a program. | pass |
-| Raw F_P output cannot transition directly to accepted or closed | The candidate ends before handler invocation and receives no F_P output. | not_applicable |
-| Batch, retry, recursion, and nested workflow use declared algebra | This handoff contains no realization path for `workflow.C`, `C.batch`, or `C.retry`; all remain separate terminal gaps. | pass |
-| A missing C interpreter cannot be replaced by HoG config or imperative glue | The compiled plan configures already-realized stages only. The views contain no plugin-owned traversal, batch loop, or retry loop. | pass |
+| Invariant | Domain | Sequence | State | Verdict |
+|---|---|---|---|---|
+| one vector-local selector | T-254 binding is singular | T-254 runs first | ambiguity enters `Invalid` | pass |
+| arbitrary flat C shape is preserved | normalized program retains ordered stages | compiler lowers the selected term | flat shape reaches `ProgramNormalized` | pass |
+| identity is not an empty program | identity has a distinct disposition | no HoG fabrication occurs | identity reaches `ProgramNormalized` | pass |
+| applied composition ownership uses lineage | lineage and composition are separate carriers | T-265 precedes inherited resolution | mismatch enters `Invalid` | pass |
+| program and composition remain distinct authorities | handoff owns both subordinates | neither selects the other | both required before target resolution | pass |
+| target/closure contract is not closure truth | edge binding is downstream contract data | compiler only projects it | final state awaits conservation | pass |
+| missing capability truth is not inferred | capability profile is deferred | no name or plugin inference message | startup may block | pass |
+| successor constructors remain visible | workflow/batch/retry are deferred variants | typed diagnostic returns | `SuccessorBlocked` is terminal here | pass |
+| structural HOF vector remains selector-free | structural-only outcome exists | no selector is synthesized | `StructuralOnly` is terminal here | pass |
+| no product-specific path | all carriers are generic GTL/M03 identities | no Consensus participant exists | no Consensus state exists | pass |
 
 ## Axiom Evaluation
 
-| Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
-|---|---|---|---|---|---|---|---|---|
-| GTL declarations author program shape; ABG interprets admitted data | `PRODUCT.md` GTL/ABG layer law; `REQ-L-GTL3-C-ALGEBRA-011` | `GraphFunction` and declaration law precede the compiler and basis | Compiler consumes declarations once; runtime consumes compiled output | Authored, compiled, admitted-basis, and runtime states remain distinct | Host-indexed key/value builders and closed plan union | Host, kind, duplicate, precedence, selection, and binding checks occur before effects | pass | none |
-| Execution declarations have one interpretation owner | `REQ-L-GTL3-C-ALGEBRA-011`; `REQ-R-ABG3-HANDLERS-011` | One `ExecutionDeclarationCompiler` owns the seven-key family | No runner participant receives raw declaration attrs | Only `DeclarationCompiling` can create `CompiledHandoff` | Typed compiler input/output and source guard | Runner parser APIs and direct declaration-entry reads are prohibited by the gate | pass | none |
-| Runtime advancement truth is carried by `ExecutionBasis` | `ADR-043`; `TYPESCRIPT_REALIZATION_GUARDRAILS.md` | Basis is the prime runtime carrier and owns the compiled subordinate | Every runtime selection begins from the basis-owned handoff | `BasisAdmitted` precedes runtime binding | Required readonly `compiledExecutionDeclarations` field | Basis construction cannot finish if compilation throws | pass | none |
-| Compile before effects | `REQ-L-GTL3-C-ALGEBRA-016` | Compiler sits before downstream effect edges | Invalid declarations return before basis; unresolvable implementation binding stops before selection handoff | Refused states cannot reach `SelectionHandoffReady` | Closed result and required basis field | Compiler and startup resolution gates fail closed | pass | none |
-| Runtime may select among compiled declared terms but may not author or repair terms | `REQ-L-GTL3-C-ALGEBRA-014..-016`; `REQ-R-ABG3-CCALL-017` | Compiled plan is a closed default/single/catalog/ladder union | Attempt selects only an admitted ladder rung | `ProgramSelected` follows `Executable` and never rewrites handoff | Exhaustive plan switch | Catalog membership, selector conflict, and rung membership checked once | pass | none |
-| Handler matching is exact on program, role, arm, and fibre | `REQ-L-GTL3-C-ALGEBRA-010`; `REQ-R-ABG3-HANDLERS-001/-012` | Typed binding carries all four identity dimensions | Registry resolves the selected tuple before invocation | Unresolvable selection enters `StartupBlocked` | Closed regime and handler-class unions | Binding-plan, regime, arm, config-ref, and implementation presence checks | pass | none |
-| Handlers realize one interior and do not own truth or continuation | `REQ-R-ABG3-HANDLERS-002..-010` | Handler invocation and result admission are explicit downstream dependencies | Sequence stops at selection handoff | No handler lifecycle appears | The selected handler API is outside this candidate | No response or truth claim is made | not_applicable | blocked instruction and F_P designs |
-| Duplicate selection authorities fail closed | `REQ-L-GTL3-C-ALGEBRA-011`; T-220 `AX-T220-06` | Declared plugin selection is one compiled subordinate | Declared and caller-supplied authority conflict at entry | Conflict enters `StartupBlocked` | Partial seam map has one value per seam | Compiler rejects declaration duplicates; entry rejects caller/declaration collision | pass | none |
-| Default program remains labelled catalog data | `REQ-R-ABG3-HANDLERS-016`; `REQ-R-ABG3-CCALL-016` | Default mode points to effective catalog membership | HoG resolver returns the reserved default member | Default follows the same executable/program-selected states | Closed `default` plan variant | Effective catalog must contain its declared default ref | pass | none |
-| Higher-order workflows remain free constructions, not feature-specific engine law | `PRODUCT.md` atom criterion; `ODD_METHOD.md` | The handoff contains general program/binding atoms only | No product-specific orchestration appears in the sequence | No feature-specific state exists | General closed carriers only | Missing constructor remains a typed gap | pass | all dependent feature owners |
-| `workflow.C` executes as a transparent child traversal | `REQ-L-GTL3-C-ALGEBRA-006`; `REQ-R-ABG3-CCALL-013` | Runtime carrier is explicitly deferred and absent from the handoff | No child traversal path is drawn | `WorkflowGap` is terminal | Typed syntax exists outside this boundary | Current semantic compiler reports `semantic_not_realized` | not_applicable | M03 workflow-lift design and realization |
-| `C.batch` preserves ordered task identity and one spine per task | `REQ-L-GTL3-C-ALGEBRA-007`; `REQ-R-ABG3-CCALL-005` | Runtime carrier is explicitly deferred and absent from the handoff | No fan-out/fan-in path is drawn | `BatchGap` is terminal | Typed syntax exists outside this boundary | Current semantic compiler reports `semantic_not_realized` | not_applicable | M03 batch design and realization |
-| `C.retry` preserves contract under one declared retry law | `REQ-L-GTL3-C-ALGEBRA-008`; `REQ-R-ABG3-CCALL-009` | Runtime carrier is explicitly deferred and absent from the handoff | No runner-local retry loop is drawn | `RetryGap` is terminal | Typed syntax and positive budget exist outside this boundary | Current semantic compiler reports `semantic_not_realized` | not_applicable | M03 retry design and realization |
-| Native-language enforcement is proportional to the desktop threat model | `REQ-L-GTL3-C-ALGEBRA-012` and Operating Trust Boundary | Closed plan/binding carriers protect likely authoring errors; hostile-object defense is absent | Foreign serialized declarations admit before basis; typed local values are trusted | Malformed input stops at the earliest capable boundary | Discriminated unions, readonly fields, host-indexed builders | Raw admission and semantic checks cover malformed authored data | pass | none |
-
-## Gap And Exclusion Register
-
-| Gap or exclusion | Why outside or blocking | Owner | Re-entry condition |
+| Axiom | Evaluation | Verdict | Owner |
 |---|---|---|---|
-| `workflow.C` runtime realization | This handoff has no child-basis, graph-call/frame, sub-traversal evidence, or foldback carrier. A HoG plan or handler cannot substitute for the named lift. | M03 algebra interpreter | Separate accepted three-view design, implementation, and replay proof for transparent child traversal and C-call audit equality. |
-| `C.batch` runtime realization | This handoff has no ordered task-family carrier, per-task spine/cardinality identity, or traversal-owned fan-out/fan-in. A TypeScript loop in the runner or plugin is forbidden. | M03 algebra interpreter | Separate accepted three-view design and proof preserving order, identity, one spine and judgment per task, and pointwise composition. |
-| `C.retry` runtime realization | A HoG attempt ladder selects configuration; it is not `C.retry`. This handoff does not bind a C term, declared retry budget, replay-derived continuation, and one retry allowlist into one carrier. | M03 algebra interpreter | Separate accepted three-view design and proof for the declared retry constructor. |
-| C conformance result is not attached to `ExecutionBasis` | The assessed code compiles GraphFunction execution declarations but does not carry the separate C-program compilation or realization census into basis admission. Therefore this design cannot certify that the running GraphFunction's constructive body passed C conformance. | M01/M03 mapping design | A requirement-authorized design decides whether and how one admitted C compilation identity joins the authoritative product/install root and `ExecutionBasis`, without creating a second program authority. |
-| Release-authoritative declaration inventory | Basis compilation proves declarations that are present and their internal references; it cannot prove which declarations an authoritative release root required but omitted. | Product/install binding | Release manifest and expected-coverage carrier bind one complete authoritative root. |
-| Opaque handler config schema | The handoff proves only ref existence and keeps config at the effect edge. Each concrete handler still owns admission of its published system/environment config contract. | Handler seam owners; prompt placement residual T-227 | Each selected handler admits its config before effect; prompts and domain policy remain typed GTL, not opaque handler config. |
-| F_P output admission | Malformed worker output is probable, but its schema, contradiction, and closure laws are downstream of this declaration handoff. | M03 payload/result admission | Independent three-view review proves closed response admission before accepted assessment or closure. |
-| Declared instruction protocol and handler-config placement | The handoff resolves a config ref but does not prove that its content excludes code-owned prompt/protocol truth. | GTL instruction declaration and M03 compiler | The blocked instruction design is repaired and accepted before any selected handler is invoked. |
-| Source guard completeness | The regex guard is a bounded anti-regression signal, not a proof against every possible alias or dynamically constructed parser. The structural guarantee primarily comes from typed runner APIs. | M03 maintenance | Keep the guard and require independent code review whenever runner APIs or declaration parser exports change. |
-| Plugin, handler, runner, shell, service, or script used to realize an absent C constructor | Such a workaround would create a rival interpreter, hide the semantic gap, and violate the atom criterion. | All implementation owners | No workaround re-entry. Realize the declared constructor or keep the dependent feature blocked. |
+| GTL declares; ABG interprets | compiler consumes admitted declarations and emits derived handoff | pass | T-255 |
+| compile before effects | every invalid or blocked outcome precedes runtime consumption | pass | T-255 |
+| vector-local program selection is exact | T-254 binding is required unchanged | pass | T-254/T-255 |
+| ABG.Fn host binding fails closed | direct or lineage-derived owner is checked before handoff | pass | T-255 |
+| target satisfaction uses selected carrier identity | exact target binding and digest are handoff fields | pass | T-255 |
+| edge assurance does not become closure | edge binding names contracts only | pass | T-255 |
+| effect compatibility requires exact profile | status remains deferred without DS-4 profile | pass | DS-4 |
+| raw F_P output is admitted before closure | not available at this boundary | not_applicable | T-257 |
+| bind conservation covers obligations and pressure | not available at this boundary | not_applicable | T-267 |
+| workflow, batch, retry, and recurse are declared algebra | typed successor gaps remain | pass | T-259..T-262 |
 
-## Design Verdict
+## Proof Matrix
 
-`candidate` for the bounded compiled-handoff claim:
+| Proof | Required evidence |
+|---|---|
+| ordinary flat program | non-Consensus one-stage and multi-stage programs compile without fixed triple coercion |
+| identity | exact carrier-preserving identity compiles without handler or fake stage |
+| vector selection | mutated host/vector/program refs fail before handoff |
+| direct composition | vector-local precedence and owner identity are exact |
+| inherited composition | T-265 applied lineage admits exact owner and rejects copied or ambiguous owner |
+| target/closure | all T-252 vectors project one exact target and edge contract from pinned defaults |
+| successor blocking | workflow and retry preserve their current diagnostic ids and owners |
+| structural vector | selector-free HOF wrapper remains structural-only |
+| runtime consumption | current runtime receives the exact handoff or fails before effects; no GraphFunction-global fallback |
+| body immutability | T-252 body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0` |
 
-1. `compileExecutionDeclarations` is the one runtime interpretation boundary
-   for the seven GraphFunction execution-declaration keys;
-2. `constructExecutionBasis` compiles those declarations before publishing an
-   immutable basis;
-3. HoG selection, plugin resolution, handler configuration, and handler
-   registry assembly consume the basis-owned typed payload rather than raw
-   declaration attributes; and
-4. declaration and startup incoherence stops before the exact pre-invocation
-   selection handoff is returned.
+## Non-Closure
 
-This is not acceptance of T-220 as seven-term runtime closure. In particular,
-the handoff cannot certify or execute `workflow.C`, `C.batch`, or `C.retry`,
-and it does not automatically bind the separate C conformance result into the
-runtime basis. Handler invocation remains downstream of blocked instruction
-and F_P response-admission designs. Any feature depending on those boundaries
-or constructors remains blocked.
+- changing T-252 body bytes;
+- adding a Consensus branch;
+- selecting a program from GraphFunction-global `abg.hog_program_ref`;
+- inferring composition from program selection or vice versa;
+- accepting authored `owning_declaration_ref` without compiler-derived host
+  identity and lineage;
+- coercing every program to transform/evaluate/consequence;
+- running an identity through a fabricated handler stage;
+- flattening workflow, batch, retry, HOF, or recurse into local imperative
+  control flow;
+- reporting an edge closed because its closure contract was derived;
+- minting plugin-result interfaces or bind-conservation truth without their
+  admitted authorities;
+- inferring effect capability from names, refs, package version, or tests.
 
-The candidate evidence is the live implementation descended from `014448f`,
-the focused execution-basis coherence corpus, the declaration-law type/runtime
-corpus, the HoG/handler tests, and the runner source guard. An independent
-reviewer must evaluate the domain, sequence, and state views against the axiom
-matrix. F_H must then explicitly accept, reject, or reprice the design. Until
-both occur, this retrospective design freezes the completed code boundary and
-authorizes no dependent implementation.
+## Operational Lifecycle
+
+| Phase | Disposition |
+|---|---|
+| upstream authority | active requirements and T-252 successor census |
+| realization | M03 compiler and bounded runtime consumption |
+| proof | module tests, T-252 recompile, non-Consensus fixtures, full semantic and packed gates |
+| release/package | generated public M03 declaration inventory and product publication |
+| install | existing ABG product install; no new product-local carrier |
+| live use | runtime consumes exact per-vector handoff where current stage support exists |
+| telemetry | existing runtime events retain basis, vector, composition, target, and result refs |
+| retirement | old GraphFunction-wide selection path retires only after all runtime consumers use the handoff |
+
+## Final Design Position
+
+T-255 is an incremental strangler step, not a runtime rewrite. It introduces
+one per-vector compiled handoff and migrates current consumers to that carrier.
+It closes only relations available from current admitted inputs. T-267 remains
+the explicit final static TraversalUnit closeability owner, and T-259 through
+T-262 retain constructor-specific runtime semantics.

@@ -33,7 +33,7 @@ const TICKET_ROOTS = [
   resolve(REPO_ROOT, ".ai-workspace/tickets/active"),
   resolve(REPO_ROOT, ".ai-workspace/tickets/completed")
 ];
-const TICKET_IDS = Array.from({ length: 12 }, (_, index) => `T-${255 + index}`);
+const TICKET_IDS = Array.from({ length: 13 }, (_, index) => `T-${255 + index}`);
 
 const GAP_REQUIREMENTS = Object.freeze({
   c_program_runtime_shape_generalization: [

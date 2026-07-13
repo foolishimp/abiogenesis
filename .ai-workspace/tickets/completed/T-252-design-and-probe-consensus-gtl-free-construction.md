@@ -629,3 +629,15 @@ families. Its derived declaration inventory is pinned by digest
 `sha256:795387deaa63932ea568959cbc322ae926f16eb7bddc66b21129dad8bb20d779`.
 Capability compatibility remains deferred until T-255/DS-4 admits an exact
 tenant profile.
+
+## Successor Design Reprice - T-255
+
+T-255's current three-view review found that final plugin result-interface and
+bind-conservation closeability require authorities outside the compiled
+GraphVector handoff. The broad `traversal_execution_contracts` family moved to
+T-267 while T-255 retained the five program-selection, flat-shape,
+target-carrier, edge-closure, and composition-owner families it can prove.
+The active family count remains 16 with no duplicate or unowned family. The
+ownership-only recompile retains the canonical body digest and records manifest
+digest
+`sha256:9f58392a3104ad25e1b24670d5c059920d04124bfff66f9a45187f069d8efc22`.
