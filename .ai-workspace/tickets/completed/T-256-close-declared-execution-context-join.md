@@ -1,11 +1,12 @@
 # T-256 - Close Declared Execution Context Join
 
 - id: T-256
-- status: active
-- phase_status: repair_review_gate
-- review_status: ready_for_independent_re_review
-- implementation_status: proportional_repair_complete
-- proof_status: repair_gates_green
+- status: completed
+- phase_status: closed_after_proportional_repair
+- review_status: accepted_by_fh
+- implementation_status: realized_and_verified
+- proof_status: verified
+- closed_at: 2026-07-13
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
@@ -18,6 +19,9 @@
 - rejection_ref: .ai-workspace/comments/codex/20260713T074427Z_REVIEW_GATE_t256_design_rejected.md
 - implementation_rejection_ref: .ai-workspace/comments/codex/20260713T101501Z_REVIEW_GATE_t256_canonical_consumer_rejected.md
 - repair_self_review_ref: .ai-workspace/comments/codex/20260713T104058Z_SELF_REVIEW_t256_canonical_consumer_repair.md
+- final_repair_self_review_ref: .ai-workspace/comments/codex/20260713T131436Z_SELF_REVIEW_t256_proportional_authority_repair.md
+- final_decision_ref: .ai-workspace/comments/codex/20260713T133957Z_DECISION_fh_accept_and_close_t256.md
+- implementation_commit: 5577a31
 - dependency: T-255
 
 ## Boundary
@@ -47,13 +51,22 @@ selection, local field-ref conventions, or concrete backend/transport in GTL.
 
 ## Current Disposition
 
-The human authority accepted the repaired design and authorized implementation
-on 2026-07-13. Independent review rejected the first implementation checkpoint,
-then accepted its canonical-consumer repair subject to a further authority and
-derivation review. That review found four bounded defects: selected catalog
-authority was not preserved, relevance and compression were defaulted,
-protocol-authored work class could bypass dependency sufficiency, and the exact
-selected result contract was lost after validation. The proportional repair is
-complete and self-reviewed. Closure remains unearned until independent
-re-review accepts this checkpoint. T-257 remains blocked. T-267 and T-268
-retain their existing ownership.
+`closed_as_designed`. The human authority accepted the proportional repair at
+`5577a31` on 2026-07-13. The join preserves exact selected catalog authority,
+derives relevance, compression, and work class from admitted declarations and
+composition truth, rejects dependency-disambiguation without candidate or gap
+truth, and conserves the exact selected result contract through plan, envelope,
+manifest, and F_P request. T-257 is unblocked. T-267 still owns traversal
+conservation and T-268 still owns tenant-conformance admission.
+
+## Closure Evidence
+
+- implementation checkpoint: `5577a31`
+- full semantic suite: 1,618/1,618
+- focused T-256 suite: 55/55, packed API 1/1, GTL law 82/82
+- shared instruction compiler: 70/70
+- T-252 body/probe: 11/11; body digest unchanged
+- semantic lint and diff checks: passed
+- Mermaid design gate: 27 diagrams across 9 files
+- public-contract schemas: 63 verified
+- generated publication assets: 33 verified from 1,041 immutable payload files
