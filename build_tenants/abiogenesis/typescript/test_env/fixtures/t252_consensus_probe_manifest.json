@@ -3154,8 +3154,8 @@
       },
       {
         "ticketId": "T-259",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-259-realize-workflow-c-runtime.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-259-realize-workflow-c-runtime.md",
         "families": [
           "workflow_c_runtime"
         ]
@@ -3237,10 +3237,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 7,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "workflow_c_runtime"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3627,5 +3625,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:9646183e920c70846b8c382cdbbbed633d74c43dc0be94a8105913fd67d34ff2"
+  "manifestDigest": "sha256:f19a0615137536ceb4ff33161b0b6eea5679c9ec613d548f5e4ec546e47c9f99"
 }
