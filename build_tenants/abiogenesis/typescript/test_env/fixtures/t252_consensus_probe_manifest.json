@@ -3155,8 +3155,8 @@
       },
       {
         "ticketId": "T-258",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-258-close-public-fh-hold-act-resume.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-258-close-public-fh-hold-act-resume.md",
         "families": [
           "fh_pending_runtime_hold"
         ]
@@ -3246,10 +3246,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 8,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "fh_pending_runtime_hold"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3661,5 +3659,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:e27e3e7404dffc813cfe9a6d0612cb848ea0d2480443228e0947404ecb68232f"
+  "manifestDigest": "sha256:258651ab60ce8af9da725b8d6efc56605505bd5517d799d76691c6e9e3ac59e7"
 }
