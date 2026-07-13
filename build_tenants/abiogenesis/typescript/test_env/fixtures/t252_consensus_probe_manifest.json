@@ -2,7 +2,7 @@
   "kind": "t252_consensus_gtl_probe_manifest",
   "version": 1,
   "authority": {
-    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
     "abiPackageVersion": "5.0.0-dev.0"
   },
@@ -137,9 +137,10 @@
     "serializedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
     "admittedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
     "unknownFieldMutation": {
-      "accepted": true,
+      "accepted": false,
       "retained": false,
-      "gapFamily": "strict_raw_module_admission"
+      "error": "TypeError: Module.unknownT252Field: unknown field",
+      "gapFamily": null
     }
   },
   "compiler": {
@@ -2160,8 +2161,8 @@
       },
       {
         "ticketId": "T-263",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-263-close-strict-raw-module-admission.md",
         "families": [
           "strict_raw_module_admission"
         ]
@@ -2192,7 +2193,7 @@
         "families": []
       }
     ],
-    "observedActiveGapFamilyCount": 21,
+    "observedActiveGapFamilyCount": 20,
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -2596,31 +2597,6 @@
       "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     },
     {
-      "gapFamily": "strict_raw_module_admission",
-      "ownerTicket": "T-263",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "m02-unknown-field-accepted-and-dropped"
-      ],
-      "canonicalBodyPaths": [
-        "m02.unknownFieldMutation"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-MODULE",
-        "ticket-source:.ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md",
-        "ticket:T-263"
-      ],
-      "authorityDigest": "sha256:afd024fc64748280d91abaa5014665da101708b1d6eb062aca9a90342b9dcd98",
-      "actualRelation": "M02 accepts an unknown Module field and drops it during construction",
-      "actualRelationDigest": "sha256:f08ebad6281bc67a793a76576135d40999155e359f65bfb51d31db35e9fe3f03",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
       "gapFamily": "target_carrier_contract",
       "ownerTicket": "T-255",
       "ownerStatus": "active",
@@ -2881,6 +2857,7 @@
       "code/src/gtl/m01/contracts/hof_application.ts",
       "code/src/gtl/m01/contracts/index.ts",
       "code/src/gtl/m01/contracts/requirements_algebra.ts",
+      "code/src/gtl/m01/contracts/serialized_shape.ts",
       "code/src/gtl/m01/contracts/target_carrier_contract.ts",
       "code/src/gtl/m01/serialization/carriers.ts",
       "code/src/gtl/m02/contracts/carriers.ts",
@@ -2913,5 +2890,5 @@
     },
     "declarationCountsAreExecutionEvidence": false
   },
-  "manifestDigest": "sha256:01ab36577138acccd5a3d55efae0d11dabfefd3ea02c2c188c80498049f7a470"
+  "manifestDigest": "sha256:f3c57a89eb7b1917a7d20c387bbb4ad34d3dffc9d2175d868be99e2df899e4e1"
 }

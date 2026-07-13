@@ -316,9 +316,9 @@ async function buildManifest() {
       gapFamily: null
     };
   }
-  if (!unknownFieldMutation.accepted || unknownFieldMutation.retained) {
+  if (unknownFieldMutation.accepted) {
     throw new TypeError(
-      "T-252 expects the named T-263 lossiness gap until strict M02 admission closes"
+      "strict M02 admission must refuse the T-252 unknown-field mutation"
     );
   }
 
@@ -684,12 +684,6 @@ async function buildManifest() {
       evidenceRefs: commonEvidenceRefs,
       actualRelation: "recurse lineage and foldback data are exact while typed runtime consumption is absent"
     }),
-    strict_raw_module_admission: gapEvidenceRow({
-      diagnosticIds: ["m02-unknown-field-accepted-and-dropped"],
-      bodyPaths: ["m02.unknownFieldMutation"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "M02 accepts an unknown Module field and drops it during construction"
-    }),
     conformance_inventory_extraction: gapEvidenceRow({
       diagnosticIds: ["conformance-expected-coverage-not-structurally-derived"],
       bodyPaths: ["conformance.ruleCounts"],
@@ -719,7 +713,6 @@ async function buildManifest() {
       actualRelation: "local plugin selections and exact handler rows exist but generic proportional inventory enforcement is absent"
     })
   };
-
   const ownership = loadOwnership();
   const activeOwnedFamilies = [...ownership.byFamily]
     .filter(([, owner]) => owner.status === "active")
@@ -773,7 +766,7 @@ async function buildManifest() {
     version: 1,
     authority: {
       ticketRef:
-        ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
       designRef:
         "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
       abiPackageVersion: "5.0.0-dev.0"

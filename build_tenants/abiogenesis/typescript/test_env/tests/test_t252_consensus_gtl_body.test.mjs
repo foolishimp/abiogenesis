@@ -108,12 +108,10 @@ test("T-252 canonical serialization round-trips through M02 without loss", () =>
 
   const malformed = cloneJson(serialized);
   malformed.unknownT252Field = "must-not-survive";
-  const currentlyAdmitted = admitModule(malformed);
-  assert.equal(Object.hasOwn(currentlyAdmitted, "unknownT252Field"), false);
-  assert.deepEqual(
-    serializeModule(currentlyAdmitted),
-    serialized,
-    "T-263 owns the currently lossy unknown-field admission gap"
+  assert.throws(
+    () => admitModule(malformed),
+    /Module\.unknownT252Field: unknown field/u,
+    "T-263 closes the previously lossy unknown-field admission gap"
   );
 });
 

@@ -43,6 +43,30 @@ import {
   type TemplateRef
 } from "../contracts/carriers.js";
 import {
+  ASSET_SURFACE_AUTHORITY_SLOT_FIELDS,
+  ASSET_SURFACE_FIELDS,
+  CONTEXT_FIELDS,
+  ENV_REF_FIELDS,
+  EVALUATOR_FIELDS,
+  GRAPH_FIELDS,
+  GRAPH_FUNCTION_FIELDS,
+  GRAPH_VECTOR_FIELDS,
+  HOOK_REF_FIELDS,
+  INLINE_TEMPLATE_REF_FIELDS,
+  NODE_FIELDS,
+  OPERATOR_FIELDS,
+  RULE_FIELDS,
+  SCHEMA_REF_FIELDS,
+  SERIALIZED_ATTR_ENTRY_FIELDS,
+  SERIALIZED_ATTR_VALUE_FIELDS,
+  SERIALIZED_ATTRS_FIELDS,
+  SERIALIZED_JSON_ARRAY_FIELDS,
+  SERIALIZED_JSON_OBJECT_ENTRY_FIELDS,
+  SERIALIZED_JSON_OBJECT_FIELDS,
+  SYMBOLIC_TEMPLATE_REF_FIELDS
+} from "../contracts/serialized_shape.js";
+import {
+  assertKnownFields,
   parseBoolean,
   parseNonEmptyString,
   parseNullableString,
@@ -54,19 +78,6 @@ import {
 } from "../../../shared/validation/primitives.js";
 
 const CONTEXT_SCHEMES = ["git://", "workspace://", "event://", "registry://"];
-
-function assertKnownFields(
-  input: Readonly<Record<string, unknown>>,
-  allowed: readonly string[],
-  label: string
-): void {
-  const allowedSet = new Set(allowed);
-  for (const key of Object.keys(input)) {
-    if (!allowedSet.has(key)) {
-      throw new TypeError(`${label}.${key}: unknown field`);
-    }
-  }
-}
 
 function isAssetSurfaceAuthoritySlotDisposition(
   value: string
@@ -116,11 +127,7 @@ export function admitSerializedJsonValue(
   const kind = parseString(valueObject["kind"], `${label}.kind`);
 
   if (kind === "array") {
-    for (const key of Object.keys(valueObject)) {
-      if (key !== "kind" && key !== "items") {
-        throw new TypeError(`${label}.${key}: unknown serialized array field`);
-      }
-    }
+    assertKnownFields(valueObject, SERIALIZED_JSON_ARRAY_FIELDS, label);
     const itemsInput = parseUnknownArray(valueObject["items"], `${label}.items`);
     const items = Object.freeze(
       itemsInput.map((item, index) =>
@@ -134,11 +141,7 @@ export function admitSerializedJsonValue(
   }
 
   if (kind === "object") {
-    for (const key of Object.keys(valueObject)) {
-      if (key !== "kind" && key !== "entries") {
-        throw new TypeError(`${label}.${key}: unknown serialized object field`);
-      }
-    }
+    assertKnownFields(valueObject, SERIALIZED_JSON_OBJECT_FIELDS, label);
     const entriesInput = parseUnknownArray(valueObject["entries"], `${label}.entries`);
     const entries = Object.freeze(
       entriesInput.map((entryInput, index) => {
@@ -146,13 +149,11 @@ export function admitSerializedJsonValue(
           entryInput,
           `${label}.entries[${index}]`
         );
-        for (const key of Object.keys(entryObject)) {
-          if (key !== "key" && key !== "value") {
-            throw new TypeError(
-              `${label}.entries[${index}].${key}: unknown serialized object-entry field`
-            );
-          }
-        }
+        assertKnownFields(
+          entryObject,
+          SERIALIZED_JSON_OBJECT_ENTRY_FIELDS,
+          `${label}.entries[${index}]`
+        );
         return Object.freeze({
           key: parseNonEmptyString(entryObject["key"], `${label}.entries[${index}].key`),
           value: admitSerializedJsonValue(
@@ -182,6 +183,7 @@ export function admitSerializedJsonValue(
 
 export function admitHookRef(input: unknown, label = "HookRef"): HookRef {
   const hookObject = parsePlainObject(input, label);
+  assertKnownFields(hookObject, HOOK_REF_FIELDS, label);
   return Object.freeze({
     ref: parseNonEmptyString(hookObject["ref"], `${label}.ref`),
     config: admitSerializedAttrs(hookObject["config"], `${label}.config`)
@@ -193,7 +195,7 @@ export function admitSerializedAttrValue(
   label = "SerializedAttrValue"
 ): SerializedAttrValue {
   const valueObject = parsePlainObject(input, label);
-  assertKnownFields(valueObject, ["kind", "value"], label);
+  assertKnownFields(valueObject, SERIALIZED_ATTR_VALUE_FIELDS, label);
   const kind = parseString(valueObject["kind"], `${label}.kind`);
 
   if (kind === "scalar") {
@@ -232,7 +234,7 @@ export function admitSerializedAttrEntry(
   label = "SerializedAttrEntry"
 ): SerializedAttrEntry {
   const entryObject = parsePlainObject(input, label);
-  assertKnownFields(entryObject, ["key", "value"], label);
+  assertKnownFields(entryObject, SERIALIZED_ATTR_ENTRY_FIELDS, label);
   return Object.freeze({
     key: parseNonEmptyString(entryObject["key"], `${label}.key`),
     value: admitSerializedAttrValue(entryObject["value"], `${label}.value`)
@@ -248,7 +250,7 @@ export function admitSerializedAttrs(
   // "entries" is silently dead to every reader (typed entries only) —
   // authoring input must not vanish without a diagnostic.
   for (const key of Object.keys(attrsObject)) {
-    if (key !== "entries") {
+    if (!SERIALIZED_ATTRS_FIELDS.some((field) => field === key)) {
       throw new TypeError(
         `${label}.${key}: unknown SerializedAttrs key — declarations carry typed entries only (use { entries: [{ key, value }] })`
       );
@@ -274,6 +276,7 @@ export function admitSerializedAttrs(
 
 export function admitContext(input: unknown, label = "Context"): Context {
   const contextObject = parsePlainObject(input, label);
+  assertKnownFields(contextObject, CONTEXT_FIELDS, label);
   const locator = parseNonEmptyString(contextObject["locator"], `${label}.locator`);
   const digest = parseNonEmptyString(contextObject["digest"], `${label}.digest`);
 
@@ -293,6 +296,7 @@ export function admitContext(input: unknown, label = "Context"): Context {
 
 export function admitSchemaRef(input: unknown, label = "SchemaRef"): SchemaRef {
   const schemaObject = parsePlainObject(input, label);
+  assertKnownFields(schemaObject, SCHEMA_REF_FIELDS, label);
   const kind = parseString(schemaObject["kind"], `${label}.kind`);
   const ref = parseString(schemaObject["ref"], `${label}.ref`);
 
@@ -308,6 +312,7 @@ export function admitAssetSurface(
   label = "AssetSurface"
 ): AssetSurface {
   const assetObject = parsePlainObject(input, label);
+  assertKnownFields(assetObject, ASSET_SURFACE_FIELDS, label);
   const authoritySlotsInput = parseUnknownArray(
     parseOptionalField(assetObject, "authoritySlots") ?? [],
     `${label}.authoritySlots`
@@ -356,6 +361,11 @@ export function admitAssetSurface(
           slotInput,
           `${label}.authoritySlots[${index}]`
         );
+        assertKnownFields(
+          slotObject,
+          ASSET_SURFACE_AUTHORITY_SLOT_FIELDS,
+          `${label}.authoritySlots[${index}]`
+        );
         const disposition = parseString(
           slotObject["disposition"],
           `${label}.authoritySlots[${index}].disposition`
@@ -387,6 +397,7 @@ export function admitAssetSurface(
 
 export function admitNode(input: unknown, label = "Node"): Node {
   const nodeObject = parsePlainObject(input, label);
+  assertKnownFields(nodeObject, NODE_FIELDS, label);
   return constructNode({
     name: parseNonEmptyString(nodeObject["name"], `${label}.name`),
     schema: admitSchemaRef(nodeObject["schema"], `${label}.schema`),
@@ -417,6 +428,7 @@ export function admitRegime(input: unknown, label = "Regime"): Regime {
 
 export function admitOperator(input: unknown, label = "Operator"): Operator {
   const operatorObject = parsePlainObject(input, label);
+  assertKnownFields(operatorObject, OPERATOR_FIELDS, label);
   return Object.freeze({
     name: parseNonEmptyString(operatorObject["name"], `${label}.name`),
     regime: admitRegime(
@@ -436,6 +448,7 @@ export function admitOperator(input: unknown, label = "Operator"): Operator {
 
 export function admitEvaluator(input: unknown, label = "Evaluator"): Evaluator {
   const evaluatorObject = parsePlainObject(input, label);
+  assertKnownFields(evaluatorObject, EVALUATOR_FIELDS, label);
   return Object.freeze({
     name: parseNonEmptyString(evaluatorObject["name"], `${label}.name`),
     regime: admitRegime(
@@ -463,6 +476,7 @@ export function admitEvaluator(input: unknown, label = "Evaluator"): Evaluator {
 
 export function admitRule(input: unknown, label = "Rule"): Rule {
   const ruleObject = parsePlainObject(input, label);
+  assertKnownFields(ruleObject, RULE_FIELDS, label);
   return Object.freeze({
     name: parseNonEmptyString(ruleObject["name"], `${label}.name`),
     kind: parseString(parseOptionalField(ruleObject, "kind") ?? "policy", `${label}.kind`),
@@ -503,23 +517,7 @@ export function admitGraphVector(
   label = "GraphVector"
 ): GraphVector {
   const vectorObject = parsePlainObject(input, label);
-  assertKnownFields(
-    vectorObject,
-    [
-      "name",
-      "source",
-      "target",
-      "operators",
-      "evaluators",
-      "contexts",
-      "rule",
-      "allowsSubwork",
-      "declarations",
-      "tags",
-      "id"
-    ],
-    label
-  );
+  assertKnownFields(vectorObject, GRAPH_VECTOR_FIELDS, label);
   return constructGraphVector({
     name: parseNonEmptyString(vectorObject["name"], `${label}.name`),
     source: admitNonEmptyNodeBoundary(vectorObject["source"], `${label}.source`),
@@ -561,6 +559,7 @@ export function admitGraphVector(
 
 export function admitGraph(input: unknown, label = "Graph"): Graph {
   const graphObject = parsePlainObject(input, label);
+  assertKnownFields(graphObject, GRAPH_FIELDS, label);
   return constructGraph({
     name: parseNonEmptyString(graphObject["name"], `${label}.name`),
     inputs: admitNodeArray(parseOptionalField(graphObject, "inputs") ?? [], `${label}.inputs`),
@@ -589,6 +588,7 @@ export function admitGraph(input: unknown, label = "Graph"): Graph {
 
 export function admitEnvRef(input: unknown, label = "EnvRef"): EnvRef {
   const environmentObject = parsePlainObject(input, label);
+  assertKnownFields(environmentObject, ENV_REF_FIELDS, label);
   return constructEnvRef({
     requires: admitNodeArray(environmentObject["requires"], `${label}.requires`),
     provides: admitNodeArray(environmentObject["provides"], `${label}.provides`),
@@ -602,21 +602,22 @@ export function admitTemplateRef(
 ): TemplateRef {
   const templateObject = parsePlainObject(input, label);
   const kind = parseString(templateObject["kind"], `${label}.kind`);
-  const ref = parseNonEmptyString(templateObject["ref"], `${label}.ref`);
 
   if (kind === "inline_graph") {
+    assertKnownFields(templateObject, INLINE_TEMPLATE_REF_FIELDS, label);
     return constructTemplateRef({
       kind: "inline_graph",
-      ref,
+      ref: parseNonEmptyString(templateObject["ref"], `${label}.ref`),
       graph: admitGraph(templateObject["graph"], `${label}.graph`),
       version: null
     });
   }
 
   if (kind === "symbolic") {
+    assertKnownFields(templateObject, SYMBOLIC_TEMPLATE_REF_FIELDS, label);
     return constructTemplateRef({
       kind: "symbolic",
-      ref,
+      ref: parseNonEmptyString(templateObject["ref"], `${label}.ref`),
       graph: null,
       version: parseNullableString(
         parseOptionalField(templateObject, "version") ?? null,
@@ -633,21 +634,7 @@ export function admitGraphFunction(
   label = "GraphFunction"
 ): GraphFunction {
   const functionObject = parsePlainObject(input, label);
-  assertKnownFields(
-    functionObject,
-    [
-      "name",
-      "environment",
-      "inputs",
-      "outputs",
-      "template",
-      "effects",
-      "declarations",
-      "tags",
-      "id"
-    ],
-    label
-  );
+  assertKnownFields(functionObject, GRAPH_FUNCTION_FIELDS, label);
   const name = parseNonEmptyString(functionObject["name"], `${label}.name`);
   const environment = admitEnvRef(functionObject["environment"], `${label}.environment`);
   const inputs = admitNodeArray(parseOptionalField(functionObject, "inputs") ?? [], `${label}.inputs`);

@@ -79,6 +79,19 @@ export function parsePlainObject(input: unknown, label: string): PlainObject {
   return input;
 }
 
+export function assertKnownFields(
+  input: Readonly<Record<string, unknown>>,
+  allowed: readonly string[],
+  label: string
+): void {
+  const allowedSet = new Set(allowed);
+  for (const key of Object.keys(input)) {
+    if (!allowedSet.has(key)) {
+      throw new TypeError(`${label}.${key}: unknown field`);
+    }
+  }
+}
+
 export function parseOptionalField(
   input: PlainObject,
   field: string

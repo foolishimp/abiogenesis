@@ -32,6 +32,16 @@ import {
   type Role
 } from "../contracts/carriers.js";
 import {
+  CANDIDATE_FAMILY_FIELDS,
+  CONTRACT_REF_FIELDS,
+  JOB_FIELDS,
+  MODULE_FIELDS,
+  MODULE_IMPORT_FIELDS,
+  REFINEMENT_BOUNDARY_FIELDS,
+  ROLE_FIELDS
+} from "../contracts/serialized_shape.js";
+import {
+  assertKnownFields,
   parseNonEmptyString,
   parseOptionalField,
   parsePlainObject,
@@ -39,6 +49,10 @@ import {
   parseStringArray,
   parseUnknownArray
 } from "../../../shared/validation/primitives.js";
+import {
+  admitIJsonText,
+  admitIJsonValue
+} from "../../../shared/runtime_identity.js";
 
 function parseOptionalId(input: unknown, label: string): string | undefined {
   if (input === undefined) {
@@ -60,6 +74,7 @@ export function admitContractRef(
   label = "ContractRef"
 ): ContractRef {
   const contractObject = parsePlainObject(input, label);
+  assertKnownFields(contractObject, CONTRACT_REF_FIELDS, label);
   const kind = parseString(contractObject["kind"], `${label}.kind`);
   if (kind !== "graph_function") {
     throw new TypeError(
@@ -74,6 +89,7 @@ export function admitContractRef(
 
 export function admitRole(input: unknown, label = "Role"): Role {
   const roleObject = parsePlainObject(input, label);
+  assertKnownFields(roleObject, ROLE_FIELDS, label);
   return constructRole({
     name: parseNonEmptyString(roleObject["name"], `${label}.name`),
     tags: parseStringArray(roleObject["tags"], `${label}.tags`),
@@ -84,6 +100,7 @@ export function admitRole(input: unknown, label = "Role"): Role {
 
 export function admitJob(input: unknown, label = "Job"): Job {
   const jobObject = parsePlainObject(input, label);
+  assertKnownFields(jobObject, JOB_FIELDS, label);
   const contractsInput = parseUnknownArray(jobObject["contracts"], `${label}.contracts`);
   const rolesInput = parseUnknownArray(jobObject["roles"], `${label}.roles`);
 
@@ -113,6 +130,7 @@ export function admitRefinementBoundary(
   label = "RefinementBoundary"
 ): RefinementBoundary {
   const boundaryObject = parsePlainObject(input, label);
+  assertKnownFields(boundaryObject, REFINEMENT_BOUNDARY_FIELDS, label);
   const inputsInput = parseUnknownArray(boundaryObject["inputs"], `${label}.inputs`);
   const outputsInput = parseUnknownArray(boundaryObject["outputs"], `${label}.outputs`);
 
@@ -139,6 +157,7 @@ export function admitCandidateFamily(
   label = "CandidateFamily"
 ): CandidateFamily {
   const familyObject = parsePlainObject(input, label);
+  assertKnownFields(familyObject, CANDIDATE_FAMILY_FIELDS, label);
   const inputsInput = parseUnknownArray(familyObject["inputs"], `${label}.inputs`);
   const outputsInput = parseUnknownArray(familyObject["outputs"], `${label}.outputs`);
   const candidatesInput = parseUnknownArray(
@@ -177,6 +196,7 @@ export function admitModuleImport(
   label = "ModuleImport"
 ): ModuleImport {
   const importObject = parsePlainObject(input, label);
+  assertKnownFields(importObject, MODULE_IMPORT_FIELDS, label);
   return constructModuleImport({
     source: parseNonEmptyString(importObject["source"], `${label}.source`),
     names: parseStringArray(importObject["names"], `${label}.names`),
@@ -185,7 +205,8 @@ export function admitModuleImport(
 }
 
 export function admitModule(input: unknown, label = "Module"): Module {
-  const moduleObject = parsePlainObject(input, label);
+  const moduleObject = parsePlainObject(admitIJsonValue(input, label), label);
+  assertKnownFields(moduleObject, MODULE_FIELDS, label);
   const graphsInput = parseUnknownArray(moduleObject["graphs"], `${label}.graphs`);
   const graphFunctionsInput = parseUnknownArray(
     moduleObject["graphFunctions"],
@@ -276,4 +297,11 @@ export function admitModule(input: unknown, label = "Module"): Module {
     ),
     metadata: admitSerializedAttrs(moduleObject["metadata"], `${label}.metadata`)
   });
+}
+
+export function admitSerializedModuleText(
+  input: string,
+  label = "SerializedModuleText"
+): Module {
+  return admitModule(admitIJsonText(input, label), label);
 }

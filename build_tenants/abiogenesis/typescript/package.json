@@ -127,6 +127,7 @@
     "generate:t252-consensus-probe": "npm run build:semantic && node test_env/tools/t252_consensus_probe.mjs --write",
     "check:t252-consensus-probe": "npm run build:semantic && node test_env/tools/t252_consensus_probe.mjs --check",
     "test:t252": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t252_consensus_gtl_body.test.mjs && node test_env/tools/t252_consensus_probe.mjs --check",
+    "test:t263": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t263_strict_raw_module_admission.test.mjs test_env/tests/test_t252_consensus_gtl_body.test.mjs",
     "test:t253": "npm run build:semantic && node --test test_env/tests/test_m01_gtl_core_integration.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
     "test:t254": "npm run build:semantic && node --test test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs",
     "test:t265": "npm run build:semantic && node --test test_env/tests/test_t265_graph_function_application.test.mjs test_env/tests/test_t265_graph_function_application_compiler.test.mjs",

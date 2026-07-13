@@ -2,9 +2,9 @@
 
 - id: T-264
 - status: active
-- phase_status: design_accepted_blocked_on_t263_closure
+- phase_status: design_accepted_realization_active
 - review_status: design_accepted_by_fh_with_boundary_narrowing
-- implementation_admission: blocked_only_on_t263_closure
+- implementation_admission: admitted_after_t263_closure
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis

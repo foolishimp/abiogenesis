@@ -5,5 +5,6 @@ export {
   admitModule,
   admitModuleImport,
   admitRefinementBoundary,
-  admitRole
+  admitRole,
+  admitSerializedModuleText
 } from "./carriers.js";
