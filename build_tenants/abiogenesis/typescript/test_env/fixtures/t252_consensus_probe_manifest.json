@@ -3069,8 +3069,8 @@
       },
       {
         "ticketId": "T-257",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-257-close-fp-result-contract-admission.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-257-close-fp-result-contract-admission.md",
         "families": [
           "fp_result_contract_admission"
         ]
@@ -3168,10 +3168,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 9,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "fp_result_contract_admission"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3612,5 +3610,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:06b9c9e54e40b085c90d6e293b73c8d053a5a2dfdf2450bc03376c98797079e1"
+  "manifestDigest": "sha256:70594e4f11a9e51c171500dcd5b5e270b130d56e6489ad5ae641de494c8d10f1"
 }
