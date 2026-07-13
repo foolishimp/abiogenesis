@@ -25,11 +25,11 @@ post-closure ownership read model is sealed at
 `sha256:f19a0615137536ceb4ff33161b0b6eea5679c9ec613d548f5e4ec546e47c9f99`
 with no active-owned-but-unobserved, duplicate-owner, or unowned gap.
 
-This decision does not accept mixed workflow expressions, recursive workflow,
-retry, child public-wire certification, canonical Consensus startup, product
-effects, or traversal-result conservation. T-260 retains retry ownership,
-T-262 retains recursion ownership, and T-267 retains startup and conservation
-authority.
+This decision does not accept mixed workflow expressions, typed HOF/batch,
+recursive workflow, retry, child public-wire certification, canonical
+Consensus startup, product effects, or traversal-result conservation. T-260
+retains typed HOF/batch ownership, T-261 retains retry ownership, T-262 retains
+recursion ownership, and T-267 retains startup and conservation authority.
 
 Evidence is recorded in
 `.ai-workspace/comments/codex/20260713T173404Z_SELF_REVIEW_t259_workflow_c_runtime.md`.

@@ -46,7 +46,8 @@ No additional closure blocker was found in the final changed-file review.
   resolver proof does not claim canonical product startup or effect admission.
 - The canonical T-252 paths remain `startup_blocked_awaiting_t267`; no product
   effect executes in this slice.
-- Recursive workflow and retry remain separately owned by T-262 and T-260.
+- Typed HOF/batch, retry, and recursive workflow remain separately owned by
+  T-260, T-261, and T-262.
 
 ## Observed Proof
 
