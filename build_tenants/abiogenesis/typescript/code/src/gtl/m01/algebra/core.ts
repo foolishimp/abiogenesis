@@ -144,7 +144,9 @@ export interface GraphFunctionZoomResult {
   readonly graphFunction: GraphFunction;
 }
 
-function stableUnion(values: readonly (readonly string[])[]): readonly string[] {
+export function stableUnion(
+  values: readonly (readonly string[])[]
+): readonly string[] {
   const seen = new Set<string>();
   const merged: string[] = [];
   for (const group of values) {
@@ -638,7 +640,7 @@ function entriesEqual(left: SerializedAttrEntry, right: SerializedAttrEntry): bo
   );
 }
 
-function mergeGraphFunctionDeclarations(
+export function mergeGraphFunctionDeclarations(
   values: readonly GraphFunctionDeclarations[]
 ): GraphFunctionDeclarations {
   const merged: SerializedAttrEntry[] = [];
@@ -661,7 +663,7 @@ function mergeGraphFunctionDeclarations(
   return graphFunctionDeclarations(merged);
 }
 
-function graphFunctionDeclarationsWithoutApplication(
+export function graphFunctionDeclarationsWithoutApplication(
   declarations: GraphFunctionDeclarations,
   label: string
 ): GraphFunctionDeclarations {
@@ -681,7 +683,7 @@ function graphFunctionDeclarationsWithoutApplication(
   );
 }
 
-function graphFunctionLocalDeclarations(
+export function graphFunctionLocalDeclarations(
   declarations: GraphFunctionDeclarations,
   label: string
 ): GraphFunctionDeclarations {
@@ -697,7 +699,7 @@ function graphFunctionLocalDeclarations(
   return graphFunctionDeclarationsWithoutApplication(declarations, label);
 }
 
-function graphFunctionDeclarationsFromEntries(
+export function graphFunctionDeclarationsFromEntries(
   entries: readonly SerializedAttrEntry[]
 ): GraphFunctionDeclarations {
   return graphFunctionDeclarations(entries);
@@ -968,7 +970,9 @@ function assertSameInterface(
   }
 }
 
-function stableNodes(values: readonly (readonly Node[])[]): readonly Node[] {
+export function stableNodes(
+  values: readonly (readonly Node[])[]
+): readonly Node[] {
   const seen = new Set<string>();
   const merged: Node[] = [];
 
@@ -999,11 +1003,6 @@ function stableRules(values: readonly (readonly Rule[])[]): readonly Rule[] {
   }
 
   return Object.freeze(merged);
-}
-
-function isVectorBoundary(node: Node): boolean {
-  const ref = node.schema.ref.trim();
-  return ref.startsWith("Vector[") && ref.endsWith("]");
 }
 
 function mergeContexts(values: readonly (readonly Context[])[]): readonly Context[] {
@@ -1726,54 +1725,6 @@ export function recurse(
       graphFunction.tags,
       [`termination:${termination.name}`, `foldback:${foldback.binding}`]
     ])
-  });
-}
-
-export function constructFanInGraphFunction(
-  reducer: GraphFunction,
-  over: Node,
-  options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
-): GraphFunction {
-  if (!isAdmittedGraphFunction(reducer)) {
-    throw new TypeError("fan_in(...): expected an admitted reducer GraphFunction");
-  }
-  if (!isVectorBoundary(over)) {
-    throw new TypeError(
-      `fan_in(${reducer.name}): over must declare an explicit Vector[...] boundary`
-    );
-  }
-
-  const application = constructGraphFunctionApplicationDeclaration({
-    operatorKind: "fan_in",
-    operandGraphFunction: reducer,
-    overVectorNode: over
-  });
-
-  return constructGraphFunction({
-    name: `fan_in(${reducer.name})`,
-    environment: constructEnvRef({
-      requires: [over],
-      provides: reducer.environment.provides,
-      carries: stableNodes([[over], reducer.environment.provides])
-    }),
-    inputs: [over],
-    outputs: reducer.outputs,
-    template: reducer.template,
-    effects: reducer.effects,
-    declarations: mergeGraphFunctionDeclarations([
-      graphFunctionDeclarationsWithoutApplication(
-        reducer.declarations,
-        "fan_in.operand"
-      ),
-      graphFunctionLocalDeclarations(
-        options?.declarations ?? emptyGraphFunctionDeclarations(),
-        "fan_in.local"
-      ),
-      graphFunctionDeclarationsFromEntries([
-        constructGraphFunctionApplicationDeclarationEntry(application)
-      ])
-    ]),
-    tags: stableUnion([reducer.tags, [`over:${over.name}`]])
   });
 }
 

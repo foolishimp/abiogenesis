@@ -2,10 +2,10 @@
 
 - id: T-266
 - status: active
-- phase_status: realization_complete_closure_review_pending
-- review_status: self_review_clean_user_review_pending
-- implementation_admission: realized_as_designed
-- proof_status: all_declared_gates_green
+- phase_status: repair_complete_renewed_closure_review_pending
+- review_status: repaired_findings_user_review_pending
+- implementation_admission: repaired_as_designed
+- proof_status: repaired_declared_gates_green
 - delivery_phase: DS-1 prerequisite
 - change_class: design_reframe
 - owner: abiogenesis
@@ -237,12 +237,29 @@ design defect. Realization is admitted against
 
 ## Realization Disposition
 
-`realization_complete` on 2026-07-13. The implementation closes the admitted
-native witness and exact-join relation without adding serialized GTL or runtime
-behavior. The accepted design's cross-view and axiom evaluations now pass.
+`checkpoint_rejected` on 2026-07-13 after external review confirmed three
+realization defects: branded terms could be statically widened before entering
+canonical constructors, open variadic witness tuples escaped the fixed-tuple
+guard, and the retired raw fan-in route remained internally callable under a
+new name. These findings violate the accepted design without repricing it.
 
-Closure remains gated on the user's/independent review. The ticket stays in
-`active/`; self-review does not substitute for that review.
+At rejection, the prior green evidence became execution history rather than
+closure evidence because its proof set omitted the three review cases.
+
+`repair_complete` on 2026-07-13. The reviewer subsequently repriced branded
+explicit upcasting and the package-private raw fan-in primitive as non-blocking
+under the trusted-desktop threat model; only the variadic tuple hole required a
+proportionate repair. Because the broader repairs were already complete, the
+user directed that they not be unwound and that no further redesign follow.
+
+The retained repair therefore adds one non-serialized native term mode
+partition, closes open tuple cardinality both at construction and downstream
+joins, and makes the sole production fan-in constructor private to the
+witnessed HOF surface. These retained choices are not precedent for promoting
+low-probability, fail-closed findings without an explicit probability, harm,
+existing-control, and rabbit-hole assessment.
+
+Renewed closure review remains pending. The ticket stays in `active/`.
 
 ## Realization Evidence
 
@@ -263,8 +280,10 @@ Closure remains gated on the user's/independent review. The ticket stays in
 - Focused T-266 125/125; standing GTL law 82/82; full semantic 1559/1559;
   T-223 70/70; T-250 13/13; lint, publication, Mermaid, package dry-run,
   zero-Consensus, and diff checks pass.
-- The commit-relative diff-execution witness classifies 698 changed executable
-  lines as witnessed, 691 changed lines as non-executable, and reports zero
+- The origin/main-relative diff-execution witness classifies 798 changed
+  executable lines as witnessed, 724 changed lines as non-executable, and reports zero
   violations.
-- Self-review:
+- Superseded self-review:
   `.ai-workspace/comments/codex/20260712T191224Z_SELF_REVIEW_t266_native_node_interface_witness.md`.
+- Repair review:
+  `.ai-workspace/comments/codex/20260713T012503Z_REPAIR_REVIEW_t266_proportional_findings.md`.

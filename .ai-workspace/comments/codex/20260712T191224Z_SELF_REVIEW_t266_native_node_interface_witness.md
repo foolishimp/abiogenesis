@@ -3,8 +3,8 @@
 - ticket: T-266
 - review_kind: implementation self-review
 - reviewed_at: 2026-07-13 Australia/Sydney
-- verdict: clean_for_closure_review
-- closure_state: realization complete; user/independent review pending
+- verdict: superseded_checkpoint_blocked
+- closure_state: three confirmed external-review findings under repair
 - accepted_design:
   `build_tenants/abiogenesis/typescript/design/M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md`
 
@@ -93,3 +93,13 @@ GraphVector bindings are non-enumerable or remain outside serialization.
   desktop threat model.
 - Closure review remains pending. This record is self-review evidence and does
   not impersonate the user's or an independent review verdict.
+
+## External Review Invalidation
+
+The 2026-07-13 external review rejected this self-review. It confirmed that the
+proof set missed three accepted-design violations: static widening of a
+Node-backed term to `CProgramTerm` before reuse by a canonical constructor,
+open variadic TypedNode tuples admitted by the fixed-tuple guard, and the raw
+fan-in constructor remaining internally callable under a new name. The prior
+green counts do not admit the checkpoint. A successor repair review must
+replace this verdict.

@@ -17,6 +17,7 @@ import {
   constructTemplateRef
 } from "../contracts/constructors.js";
 import {
+  emptyGraphFunctionDeclarations,
   emptyGraphVectorDeclarations,
   graphFunctionDeclarations,
   type GraphFunctionDeclarations
@@ -25,7 +26,18 @@ import {
   constructHofApplicationDeclaration,
   constructHofApplicationDeclarationEntry
 } from "../contracts/hof_application.js";
-import { constructFanInGraphFunction } from "./core.js";
+import {
+  constructGraphFunctionApplicationDeclaration,
+  constructGraphFunctionApplicationDeclarationEntry
+} from "../contracts/graph_function_application.js";
+import {
+  graphFunctionDeclarationsFromEntries,
+  graphFunctionDeclarationsWithoutApplication,
+  graphFunctionLocalDeclarations,
+  mergeGraphFunctionDeclarations,
+  stableNodes,
+  stableUnion
+} from "./core.js";
 import {
   assertTypedNode,
   type TypedNodeBase,
@@ -387,9 +399,55 @@ export function fan_in<Item, Output>(
       "fan_in.reducer must consume the exact witnessed vector boundary"
     );
   }
-  return constructFanInGraphFunction(
-    reducer.graphFunction,
-    over.node,
-    options
-  );
+  return constructWitnessedFanInGraphFunction(reducer, over, options);
+}
+
+function constructWitnessedFanInGraphFunction<Item, Output>(
+  reducer: HofUnaryRef<
+    readonly Item[],
+    Output,
+    HofVector<Item>,
+    HofContract<Output>
+  >,
+  over: HofVector<Item>,
+  options?: { readonly declarations?: GraphFunctionDeclarations | undefined }
+): GraphFunction {
+  const application = constructGraphFunctionApplicationDeclaration({
+    operatorKind: "fan_in",
+    operandGraphFunction: reducer.graphFunction,
+    overVectorNode: over.node
+  });
+
+  return constructGraphFunction({
+    name: `fan_in(${reducer.graphFunction.name})`,
+    environment: constructEnvRef({
+      requires: [over.node],
+      provides: reducer.graphFunction.environment.provides,
+      carries: stableNodes([
+        [over.node],
+        reducer.graphFunction.environment.provides
+      ])
+    }),
+    inputs: [over.node],
+    outputs: reducer.graphFunction.outputs,
+    template: reducer.graphFunction.template,
+    effects: reducer.graphFunction.effects,
+    declarations: mergeGraphFunctionDeclarations([
+      graphFunctionDeclarationsWithoutApplication(
+        reducer.graphFunction.declarations,
+        "fan_in.operand"
+      ),
+      graphFunctionLocalDeclarations(
+        options?.declarations ?? emptyGraphFunctionDeclarations(),
+        "fan_in.local"
+      ),
+      graphFunctionDeclarationsFromEntries([
+        constructGraphFunctionApplicationDeclarationEntry(application)
+      ])
+    ]),
+    tags: stableUnion([
+      reducer.graphFunction.tags,
+      [`over:${over.node.name}`]
+    ])
+  });
 }

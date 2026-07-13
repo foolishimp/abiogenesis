@@ -15,6 +15,7 @@ import {
   typedNode,
   typedVectorNode,
   workflow,
+  type CProgramTerm,
   type NodeBackedCProgramTerm,
   type NonEmptyTypedNodeTuple,
   type TypedInterface
@@ -109,6 +110,16 @@ declare const preWidenedThreeSource: TypedInterface<
   readonly [readonly NormalizedObservation[], LabPolicy, LabEvidence],
   NonEmptyTypedNodeTuple
 >;
+declare const variadicObservationNodes: readonly [
+  typeof observation,
+  ...(typeof observation)[]
+];
+// @ts-expect-error TypedInterface construction requires fixed tuple cardinality.
+typedInterface(...variadicObservationNodes);
+declare const preWidenedVariadicInterface: TypedInterface<
+  readonly [LabObservation, ...LabObservation[]],
+  readonly [typeof observation, ...(typeof observation)[]]
+>;
 
 export const scalarInference: TypedInterface<
   LabObservation,
@@ -147,6 +158,8 @@ void widenedThreeSource;
 
 // @ts-expect-error A widened interface cannot enter a nominal C interface carrier.
 cInterfaceCarrier(preWidenedThreeSource);
+// @ts-expect-error An open variadic tuple cannot enter a nominal C interface carrier.
+cInterfaceCarrier(preWidenedVariadicInterface);
 
 const observationCarrier = cInterfaceCarrier(observationInterface);
 const normalizedCarrier = cInterfaceCarrier(normalizedInterface);
@@ -185,6 +198,21 @@ const threeSourceTerm = C.of({
   armId: "arm://scenario-09/multi-source",
   resultBearing: true
 });
+
+type OrdinaryTransformTerm = CProgramTerm<
+  LabObservation,
+  NormalizedObservation,
+  "transform",
+  "one"
+>;
+// @ts-expect-error A Node-backed term cannot widen to the ordinary term mode.
+const widenedNodeBackedTerm: OrdinaryTransformTerm = transform;
+void widenedNodeBackedTerm;
+function retryOrdinary(term: OrdinaryTransformTerm): OrdinaryTransformTerm {
+  return C.retry(term, 2);
+}
+// @ts-expect-error Ordinary-mode reuse cannot accept a Node-backed term.
+retryOrdinary(transform);
 
 export const nodeBackedIdentity = C.id(observationCarrier);
 export const nodeBackedCompose = C.compose(transform, evaluate);

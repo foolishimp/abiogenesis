@@ -25,9 +25,7 @@ import {
 import {
   typedInterfaceNodes
 } from "../../build/semantic/code/src/gtl/m01/algebra/native_node_witness.js";
-import {
-  constructFanInGraphFunction
-} from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
+import * as coreAlgebra from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
 import {
   admitGraphFunction
 } from "../../build/semantic/code/src/gtl/m01/admission/carriers.js";
@@ -53,9 +51,12 @@ import {
 } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
 import {
   emptyGraphFunctionDeclarations,
-  emptyGraphVectorDeclarations
+  emptyGraphVectorDeclarations,
+  graphFunctionDeclarations
 } from "../../build/semantic/code/src/gtl/m01/contracts/declaration_law.js";
 import {
+  constructGraphFunctionApplicationDeclaration,
+  constructGraphFunctionApplicationDeclarationEntry,
   graphFunctionApplicationDeclarationFromDeclarations
 } from "../../build/semantic/code/src/gtl/m01/contracts/graph_function_application.js";
 import {
@@ -118,6 +119,30 @@ function graphVector(name, source, target) {
     allowsSubwork: false,
     declarations: emptyGraphVectorDeclarations(),
     tags: ["scenario-09"]
+  });
+}
+
+function rawSymbolicFanIn(reducer, over) {
+  const application = constructGraphFunctionApplicationDeclaration({
+    operatorKind: "fan_in",
+    operandGraphFunction: reducer,
+    overVectorNode: over
+  });
+  return constructGraphFunction({
+    name: `raw_symbolic_fan_in(${reducer.name})`,
+    environment: constructEnvRef({
+      requires: [over],
+      provides: reducer.environment.provides,
+      carries: [over, ...reducer.environment.provides]
+    }),
+    inputs: [over],
+    outputs: reducer.outputs,
+    template: reducer.template,
+    effects: reducer.effects,
+    declarations: graphFunctionDeclarations([
+      constructGraphFunctionApplicationDeclarationEntry(application)
+    ]),
+    tags: ["scenario-09", "raw-adversarial-fixture"]
   });
 }
 
@@ -502,6 +527,26 @@ test("T-266 all seven C generators preserve one private Node-backed boundary", (
     armId: "arm://scenario-09/ordinary-evaluate",
     resultBearing: false
   });
+  assert.equal(transform.nativeMode, "node_backed");
+  assert.equal(ordinary.nativeMode, "ordinary");
+  assert.equal(Object.keys(transform).includes("nativeMode"), false);
+  assert.equal(Object.keys(ordinary).includes("nativeMode"), false);
+  assert.equal(
+    Object.getOwnPropertySymbols(ordinary).some(
+      (symbol) => symbol.description === "gtl.c.node_backed.authority"
+    ),
+    false
+  );
+  assert.throws(
+    () => C.retry(cloneWith(transform, [["nativeMode", "ordinary"]]), 2),
+    /must be created by a C constructor/u
+  );
+  const modeLess = mutableClone(ordinary);
+  assert.equal(delete modeLess.nativeMode, true);
+  assert.throws(
+    () => C.retry(Object.freeze(modeLess), 2),
+    /must be created by a C constructor/u
+  );
   assert.equal(JSON.stringify(transform), JSON.stringify(ordinary));
   assert.throws(
     () =>
@@ -981,6 +1026,10 @@ test("T-266 HOF constructors preserve witnessed scalar/vector relations and ordi
   const observationVector = hofVector(value.observationVector);
   const normalizedVector = hofVector(value.normalizedVector);
   const foreignVector = hofVector(value.foreignVector);
+  assert.equal(
+    Object.hasOwn(coreAlgebra, "constructFanInGraphFunction"),
+    false
+  );
   const normalize = graphFunction(
     "normalize_hof",
     [value.observationNode],
@@ -1075,7 +1124,7 @@ test("T-266 M03 rejects a symbolic fan-in reducer boundary contradiction before 
     [value.normalizedVectorNode],
     [value.findingNode]
   );
-  const valid = constructFanInGraphFunction(
+  const valid = rawSymbolicFanIn(
     validReducer,
     value.normalizedVectorNode
   );
@@ -1090,7 +1139,7 @@ test("T-266 M03 rejects a symbolic fan-in reducer boundary contradiction before 
     [value.foreignVectorNode],
     [value.findingNode]
   );
-  const malformed = constructFanInGraphFunction(
+  const malformed = rawSymbolicFanIn(
     mismatchedReducer,
     value.normalizedVectorNode
   );

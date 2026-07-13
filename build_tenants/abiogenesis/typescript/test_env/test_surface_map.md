@@ -1825,7 +1825,9 @@ The canonical active files are:
 - Boundary: trusted concrete decoder projection, exact full Node identity,
   scalar/vector witnesses, ordered tuple interfaces, all seven Node-backed C
   generators, exact GraphFunction/GraphVector/HOF joins, unchanged ordinary
-  bytes, M02 Module replay, and symbolic fan-in contradiction classification
+  bytes, M02 Module replay, symbolic fan-in contradiction classification,
+  disjoint non-enumerable native term modes, and absence of the raw fan-in
+  constructor from the internal core module
 - Authority class: generic Scenario 09 native and raw identity proof. It does
   not certify decoders, publish schemas, validate worker payloads, or realize
   C/HOF runtime behavior.
@@ -1841,7 +1843,8 @@ The canonical active files are:
   `npm run test:gtl-law`
 - Boundary: refusal of `any`, `unknown`, and `never`; constructor-only brands;
   exact scalar/vector inference; invariant three-source tuple order and
-  cardinality; generic-carrier and ordinary-term refusal; all-seven brand
+  cardinality including open-variadic refusal; generic-carrier and ordinary-term
+  refusal including Node-backed-to-ordinary widening; all-seven brand
   preservation; singleton target law; and exact fan-out/fan-in relations
 - Authority class: compile-time impossibility proof over actual public
   constructors and Nodes, not detached type aliases.

@@ -871,6 +871,13 @@ binding API requires both exact nominal families.
 `realization_evaluated_pass` on 2026-07-13 against the T-266 focused native,
 raw, compiler, packed-package, full semantic, publication, and Mermaid gates.
 
+`repair_evaluated_pass` on 2026-07-13 after renewed review added fixed-cardinality
+refusal for open variadic witness tuples. The already-completed term-mode and
+internal fan-in containment repairs were retained by user direction after the
+reviewer repriced them as non-blocking under the trusted-desktop threat model.
+No further algebra or constructor redesign is authorized by those retained
+repairs.
+
 The revised design removes the false pre-DS-4 schema-contract authority,
 retains one explicit trusted native assertion point, binds every Node-backed
 projection to the exact full ordinary Node contract key, closes structural and

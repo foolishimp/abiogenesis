@@ -215,13 +215,22 @@ export type CProgramNode =
   | CBatchNode
   | CRetryNode;
 
-export type CProgramTerm<
+type NativeCProgramTerm<
   Input,
   Output,
   Roles extends string = string,
   Cardinality extends CAlgebraResultCardinality = CAlgebraResultCardinality
 > = CProgramNode & {
   readonly [C_TERM_TYPE]: CTermWitness<Input, Output, Roles, Cardinality>;
+};
+
+export type CProgramTerm<
+  Input,
+  Output,
+  Roles extends string = string,
+  Cardinality extends CAlgebraResultCardinality = CAlgebraResultCardinality
+> = NativeCProgramTerm<Input, Output, Roles, Cardinality> & {
+  readonly nativeMode: "ordinary";
 };
 
 export type NodeBackedCProgramTerm<
@@ -231,11 +240,12 @@ export type NodeBackedCProgramTerm<
   OutputNodes extends NonEmptyTypedNodeTuple,
   Roles extends string = string,
   Cardinality extends CAlgebraResultCardinality = CAlgebraResultCardinality
-> = CProgramTerm<Input, Output, Roles, Cardinality> & {
+> = NativeCProgramTerm<Input, Output, Roles, Cardinality> & {
   readonly [NODE_BACKED_C_AUTHORITY]: {
     readonly input: CInterfaceCarrier<Input, InputNodes>;
     readonly output: CInterfaceCarrier<Output, OutputNodes>;
   };
+  readonly nativeMode: "node_backed";
 };
 
 export interface NodeBackedCProgramBinding<
@@ -272,6 +282,16 @@ export type COfTerm<
   readonly fibre: Fibre;
 };
 
+type UnbrandedCOfTerm<
+  Input,
+  Output,
+  Role extends string,
+  Fibre extends CAlgebraRegime,
+  Cardinality extends "zero" | "one"
+> = COfNode & NativeCProgramTerm<Input, Output, Role, Cardinality> & {
+  readonly fibre: Fibre;
+};
+
 export type NodeBackedCOfTerm<
   Input,
   Output,
@@ -280,7 +300,7 @@ export type NodeBackedCOfTerm<
   Role extends string,
   Fibre extends CAlgebraRegime,
   Cardinality extends "zero" | "one"
-> = COfTerm<Input, Output, Role, Fibre, Cardinality> &
+> = COfNode &
   NodeBackedCProgramTerm<
     Input,
     Output,
@@ -288,26 +308,32 @@ export type NodeBackedCOfTerm<
     OutputNodes,
     Role,
     Cardinality
-  >;
+  > & {
+    readonly fibre: Fibre;
+  };
 
-type SomeCProgramTerm = CProgramNode & {
+type UnbrandedCProgramTerm = CProgramNode & {
   readonly [C_TERM_TYPE]: object;
 };
 
-type SomeNodeBackedCProgramTerm = SomeCProgramTerm & {
+type SomeNodeBackedCProgramTerm = UnbrandedCProgramTerm & {
   readonly [NODE_BACKED_C_AUTHORITY]: object;
+  readonly nativeMode: "node_backed";
 };
 
-type OrdinaryCProgramTerm = SomeCProgramTerm & {
+type OrdinaryCProgramTerm = UnbrandedCProgramTerm & {
+  readonly nativeMode: "ordinary";
   readonly [NODE_BACKED_C_AUTHORITY]?: never;
 };
+
+type SomeCProgramTerm = OrdinaryCProgramTerm | SomeNodeBackedCProgramTerm;
 
 type NonNodeCCarrier<Type> = CCarrier<Type> & {
   readonly [C_INTERFACE_AUTHORITY]?: never;
 };
 
 type ExactTypedNodeTuple<Nodes extends NonEmptyTypedNodeTuple> =
-  NonEmptyTypedNodeTuple extends Nodes ? never : unknown;
+  number extends Nodes["length"] ? never : unknown;
 
 type SomeCOfTerm = COfNode & SomeCProgramTerm;
 
@@ -621,7 +647,16 @@ function exactInterfaceNodes(
 }
 
 function assertNativeCTerm(value: object, label: string): void {
-  if (!Object.hasOwn(value, C_TERM_TYPE)) {
+  const nodeBacked = Object.hasOwn(value, NODE_BACKED_C_AUTHORITY);
+  const mode: unknown = Object.getOwnPropertyDescriptor(
+    value,
+    "nativeMode"
+  )?.value;
+  if (
+    !Object.hasOwn(value, C_TERM_TYPE) ||
+    (mode !== "ordinary" && mode !== "node_backed") ||
+    (mode === "node_backed") !== nodeBacked
+  ) {
     throw new TypeError(`${label} must be created by a C constructor`);
   }
 }
@@ -748,21 +783,47 @@ function nodeBackedAuthority(
   return Object.freeze({ input, output });
 }
 
-function freezeNativeCTerm<Term extends SomeCProgramTerm>(
+function freezeOrdinaryCTerm<Term extends UnbrandedCProgramTerm>(
+  term: Term
+): Term & { readonly nativeMode: "ordinary" } {
+  const branded: Term & {
+    readonly nativeMode: "ordinary";
+  } = { ...term, nativeMode: "ordinary" };
+  Object.defineProperty(branded, C_TERM_TYPE, { enumerable: false });
+  Object.defineProperty(branded, "nativeMode", { enumerable: false });
+  return Object.freeze(branded);
+}
+
+function freezeNodeBackedCTerm<Term extends UnbrandedCProgramTerm>(
   term: Term,
-  nodeAuthority?: {
+  nodeAuthority: {
     readonly input: object;
     readonly output: object;
   }
-): Term {
-  Object.defineProperty(term, C_TERM_TYPE, { enumerable: false });
-  if (nodeAuthority !== undefined) {
-    Object.defineProperty(term, NODE_BACKED_C_AUTHORITY, {
-      value: Object.freeze(nodeAuthority),
-      enumerable: false
-    });
-  }
-  return Object.freeze(term);
+): Term & {
+  readonly nativeMode: "node_backed";
+  readonly [NODE_BACKED_C_AUTHORITY]: {
+    readonly input: object;
+    readonly output: object;
+  };
+} {
+  const branded: Term & {
+    readonly nativeMode: "node_backed";
+    readonly [NODE_BACKED_C_AUTHORITY]: {
+      readonly input: object;
+      readonly output: object;
+    };
+  } = {
+    ...term,
+    nativeMode: "node_backed",
+    [NODE_BACKED_C_AUTHORITY]: Object.freeze(nodeAuthority)
+  };
+  Object.defineProperty(branded, C_TERM_TYPE, { enumerable: false });
+  Object.defineProperty(branded, "nativeMode", { enumerable: false });
+  Object.defineProperty(branded, NODE_BACKED_C_AUTHORITY, {
+    enumerable: false
+  });
+  return Object.freeze(branded);
 }
 
 function freezeAdmittedCProgram<Program extends CProgramDeclarationNode>(
@@ -961,7 +1022,7 @@ export function cOf<
   Role,
   Fibre,
   ResultBearing extends true ? "one" : "zero"
-> {
+> | SomeNodeBackedCOfTerm {
   assertNativeCCarrier(input.input, "C.of input");
   assertNativeCCarrier(input.output, "C.of output");
   const inputIsNodeBacked = isCInterfaceCarrier(input.input);
@@ -982,7 +1043,7 @@ export function cOf<
     input.instructionCategoryRefs,
     "C.of instructionCategoryRefs"
   );
-  const term: COfTerm<
+  const term: UnbrandedCOfTerm<
     Input,
     Output,
     Role,
@@ -1008,12 +1069,12 @@ export function cOf<
       ResultBearing extends true ? "one" : "zero"
     >()
   };
-  return freezeNativeCTerm(
-    term,
-    inputIsNodeBacked
-      ? { input: input.input, output: input.output }
-      : undefined
-  );
+  return inputIsNodeBacked
+    ? freezeNodeBackedCTerm(term, {
+        input: input.input,
+        output: input.output
+      })
+    : freezeOrdinaryCTerm(term);
 }
 
 export function cIdentity<
@@ -1027,20 +1088,17 @@ export function cIdentity<Type>(
 ): CProgramTerm<Type, Type, never, "zero">;
 export function cIdentity<Type>(
   carrier: CCarrier<Type>
-): CProgramTerm<Type, Type, never, "zero"> {
+): SomeCProgramTerm {
   assertNativeCCarrier(carrier, "C.id carrier");
-  const term: CProgramTerm<Type, Type, never, "zero"> = {
+  const term: NativeCProgramTerm<Type, Type, never, "zero"> = {
     kind: "c_identity",
     inputCarrierRef: carrier.ref,
     outputCarrierRef: carrier.ref,
     [C_TERM_TYPE]: cTermWitness<Type, Type, never, "zero">()
   };
-  return freezeNativeCTerm(
-    term,
-    isCInterfaceCarrier(carrier)
-      ? { input: carrier, output: carrier }
-      : undefined
-  );
+  return isCInterfaceCarrier(carrier)
+    ? freezeNodeBackedCTerm(term, { input: carrier, output: carrier })
+    : freezeOrdinaryCTerm(term);
 }
 
 export function cCompose<
@@ -1083,15 +1141,7 @@ export function cCompose<
 >(
   left: Left,
   right: Right & ExactType<COutputOf<Left>, CInputOf<Right>>
-): CProgramTerm<
-  CInputOf<Left>,
-  COutputOf<Right>,
-  CRolesOf<Left> | CRolesOf<Right>,
-  CombineResultCardinality<
-    CResultCardinalityOf<Left>,
-    CResultCardinalityOf<Right>
-  >
-> {
+): SomeCProgramTerm {
   assertNativeCTerm(left, "C.compose left");
   assertNativeCTerm(right, "C.compose right");
   const nodeBacked = assertMatchingNodeBackedMode(
@@ -1103,7 +1153,7 @@ export function cCompose<
       `C.compose carrier mismatch: ${left.outputCarrierRef} != ${right.inputCarrierRef}`
     );
   }
-  const term: CProgramTerm<
+  const term: NativeCProgramTerm<
     CInputOf<Left>,
     COutputOf<Right>,
     CRolesOf<Left> | CRolesOf<Right>,
@@ -1128,7 +1178,7 @@ export function cCompose<
     >()
   };
   if (!nodeBacked) {
-    return freezeNativeCTerm(term);
+    return freezeOrdinaryCTerm(term);
   }
   const leftAuthority = nodeBackedAuthority(left, "C.compose left");
   const rightAuthority = nodeBackedAuthority(right, "C.compose right");
@@ -1146,7 +1196,7 @@ export function cCompose<
   ) {
     throw new TypeError("C.compose typed middle interfaces do not match");
   }
-  return freezeNativeCTerm(term, {
+  return freezeNodeBackedCTerm(term, {
     input: leftAuthority.input,
     output: rightAuthority.output
   });
@@ -1216,18 +1266,7 @@ export function cEdge<
   readonly consequence: Consequence &
     ExactRole<Consequence, "consequence"> &
     ExactType<COutputOf<Evaluate>, CInputOf<Consequence>>;
-}): CProgramTerm<
-  CInputOf<Transform>,
-  COutputOf<Consequence>,
-  "transform" | "evaluate" | "consequence",
-  CombineResultCardinality<
-    CombineResultCardinality<
-      CResultCardinalityOf<Transform>,
-      CResultCardinalityOf<Evaluate>
-    >,
-    CResultCardinalityOf<Consequence>
-  >
-> {
+}): SomeCProgramTerm {
   const roleTerms = [
     ["transform", input.transform],
     ["evaluate", input.evaluate],
@@ -1251,7 +1290,7 @@ export function cEdge<
   if (input.evaluate.outputCarrierRef !== input.consequence.inputCarrierRef) {
     throw new TypeError("C.edge evaluate output does not match consequence input");
   }
-  const term: CProgramTerm<
+  const term: NativeCProgramTerm<
     CInputOf<Transform>,
     COutputOf<Consequence>,
     "transform" | "evaluate" | "consequence",
@@ -1283,7 +1322,7 @@ export function cEdge<
     >()
   };
   if (!nodeBacked) {
-    return freezeNativeCTerm(term);
+    return freezeOrdinaryCTerm(term);
   }
   const transformAuthority = nodeBackedAuthority(
     input.transform,
@@ -1309,7 +1348,7 @@ export function cEdge<
   ) {
     throw new TypeError("C.edge adjacent typed interfaces do not match");
   }
-  return freezeNativeCTerm(term, {
+  return freezeNodeBackedCTerm(term, {
     input: transformAuthority.input,
     output: consequenceAuthority.output
   });
@@ -1347,7 +1386,7 @@ export function cWorkflow<
     InputNodes,
     OutputNodes
   >
-): CProgramTerm<Input, Output, never, "unknown"> {
+): SomeNodeBackedCProgramTerm {
   if (
     !Object.hasOwn(graphFunction, C_GRAPH_FUNCTION_REF_TYPE) ||
     !Object.hasOwn(graphFunction, NODE_BACKED_C_REF_AUTHORITY)
@@ -1359,14 +1398,14 @@ export function cWorkflow<
   const authority = graphFunction[NODE_BACKED_C_REF_AUTHORITY];
   assertCInterfaceCarrier(authority.input, "workflow.C input");
   assertCInterfaceCarrier(authority.output, "workflow.C output");
-  const term: CProgramTerm<Input, Output, never, "unknown"> = {
+  const term: NativeCProgramTerm<Input, Output, never, "unknown"> = {
     kind: "c_workflow",
     inputCarrierRef: graphFunction.inputCarrierRef,
     outputCarrierRef: graphFunction.outputCarrierRef,
     graphFunctionRef: requireNonEmpty(graphFunction.ref, "workflow.C ref"),
     [C_TERM_TYPE]: cTermWitness<Input, Output, never, "unknown">()
   };
-  return freezeNativeCTerm(term, authority);
+  return freezeNodeBackedCTerm(term, authority);
 }
 
 type CompatibleBatchRest<
@@ -1437,12 +1476,7 @@ export function cBatch<
   tasks: readonly [First, ...Rest] &
     readonly [First, ...CompatibleBatchRest<First, Rest>],
   batchRef: string
-): CProgramTerm<
-  CInputOf<First>,
-  COutputOf<First>,
-  BatchRoles<First, Rest>,
-  CResultCardinalityOf<First>
-> {
+): SomeCProgramTerm {
   if (tasks.length === 0) {
     throw new TypeError("C.batch tasks must be non-empty");
   }
@@ -1468,7 +1502,7 @@ export function cBatch<
       );
     }
   }
-  const term: CProgramTerm<
+  const term: NativeCProgramTerm<
     CInputOf<First>,
     COutputOf<First>,
     BatchRoles<First, Rest>,
@@ -1487,7 +1521,7 @@ export function cBatch<
     >()
   };
   if (!nodeBacked) {
-    return freezeNativeCTerm(term);
+    return freezeOrdinaryCTerm(term);
   }
   const headAuthority = nodeBackedAuthority(head, "C.batch tasks[0]");
   const inputIdentity = interfaceIdentityFromCarrier(
@@ -1524,7 +1558,7 @@ export function cBatch<
       );
     }
   }
-  return freezeNativeCTerm(term, headAuthority);
+  return freezeNodeBackedCTerm(term, headAuthority);
 }
 
 export function cRetry<Term extends SomeCProgramTerm>(
@@ -1550,17 +1584,12 @@ export function cRetry<Term extends SomeCProgramTerm>(
 export function cRetry<Term extends SomeCProgramTerm>(
   term: Term,
   budget: number
-): CProgramTerm<
-  CInputOf<Term>,
-  COutputOf<Term>,
-  CRolesOf<Term>,
-  CResultCardinalityOf<Term>
-> {
+): SomeCProgramTerm {
   assertNativeCTerm(term, "C.retry term");
   if (!Number.isInteger(budget) || budget < 1) {
     throw new TypeError("C.retry budget must be a positive integer");
   }
-  const result: CProgramTerm<
+  const result: NativeCProgramTerm<
     CInputOf<Term>,
     COutputOf<Term>,
     CRolesOf<Term>,
@@ -1578,12 +1607,12 @@ export function cRetry<Term extends SomeCProgramTerm>(
       CResultCardinalityOf<Term>
     >()
   };
-  return freezeNativeCTerm(
-    result,
-    isNodeBackedCTerm(term)
-      ? nodeBackedAuthority(term, "C.retry term")
-      : undefined
-  );
+  return term.nativeMode === "node_backed"
+    ? freezeNodeBackedCTerm(
+        result,
+        nodeBackedAuthority(term, "C.retry term")
+      )
+    : freezeOrdinaryCTerm(result);
 }
 
 type AdmissibleProgramTerm<Term extends SomeCProgramTerm> =

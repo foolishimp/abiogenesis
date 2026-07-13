@@ -75,6 +75,9 @@ export type NonEmptyTypedNodeTuple = readonly [
   ...TypedNodeBase[]
 ];
 
+type FixedTypedNodeTuple<Nodes extends NonEmptyTypedNodeTuple> =
+  number extends Nodes["length"] ? never : unknown;
+
 export type ValueOf<Witness extends TypedNodeBase> =
   Witness extends TypedNode<infer Value> ? Value : never;
 
@@ -224,7 +227,9 @@ export function typedVectorNode(input: {
 
 export function typedInterface<
   const Nodes extends NonEmptyTypedNodeTuple
->(...nodes: Nodes): TypedInterface<InterfaceValue<Nodes>, Nodes>;
+>(
+  ...nodes: Nodes & FixedTypedNodeTuple<Nodes>
+): TypedInterface<InterfaceValue<Nodes>, Nodes>;
 export function typedInterface(...nodes: readonly TypedNodeBase[]): object {
   if (nodes.length === 0) {
     throw new TypeError("typedInterface requires at least one TypedNode");

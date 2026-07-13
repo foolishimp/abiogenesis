@@ -1,11 +1,11 @@
-# HANDOFF: T-266 Realization Complete, Closure Review Pending
+# HANDOFF: T-266 Checkpoint Rejected, Repair In Progress
 
 - ticket: T-266
 - branch: `codex/t266-stage`
 - implementation_commit: `1fe1142`
 - base_commit: `9340725` (`origin/main` at handoff)
-- state: realization complete; ticket remains active
-- next authority: user/independent closure review
+- state: checkpoint rejected; three confirmed findings under repair
+- next authority: repaired realization and renewed closure review
 
 ## Boundary
 
@@ -78,3 +78,12 @@ Do not move T-266 to `completed/` or merge the review branch solely from this
 self-review. Closure requires the pending user/independent verdict. Any defect
 found there re-enters at the smallest affected realization or accepted-design
 surface.
+
+## Superseding Review Result
+
+The pending review subsequently rejected this checkpoint. It confirmed three
+missing proof and realization cases: branded-term widening through
+`CProgramTerm`, open variadic tuple cardinality, and the internally callable raw
+fan-in constructor. The evidence above is historical and must not be used to
+close T-266. Repair proceeds on the same branch without changing the accepted
+design.
