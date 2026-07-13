@@ -77,6 +77,7 @@ import type { Module } from "../../../gtl/m02/contracts/carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES } from "./carriers.js";
 import {
+  abgFnCompositionDeclarationRef,
   constructAbgFnCompositionDeclarations,
   type AbgFnRegimeAuthority,
   type AbgFnRegimeRole
@@ -433,7 +434,10 @@ function vectorDeclarations(input: {
     hostSourceNodeRefs: input.source.map((node) => node.id),
     hostTargetNodeRef: input.target.id,
     hostTargetSchemaRef: input.target.schema.ref,
-    owningDeclarationRef: `declaration://${input.vectorRef}/composition`,
+    owningDeclarationRef: abgFnCompositionDeclarationRef({
+      source: "graph_vector_declarations",
+      sourceRef: input.vectorRef
+    }),
     regimes: [
       Object.freeze({
         bindingRef: `regime-binding://${input.vectorRef}/${input.regime}`,

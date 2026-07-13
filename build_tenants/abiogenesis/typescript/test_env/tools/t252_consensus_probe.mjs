@@ -11,11 +11,13 @@ import { fileURLToPath } from "node:url";
 import { compileCAlgebraToHog } from "../../build/semantic/code/src/abg/m03/contracts/c_algebra_hog_compiler.js";
 import { compileExecutionDeclarations } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
 import { compileGraphFunctionApplication } from "../../build/semantic/code/src/abg/m03/contracts/graph_function_application_compiler.js";
+import { compileGraphVectorExecutionHandoff } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts/carriers.js";
+import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
 import { serializeModule } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
 import { stableSha256Digest } from "../../build/semantic/code/src/shared/runtime_identity.js";
 
@@ -34,7 +36,7 @@ const TICKET_ROOTS = [
   resolve(REPO_ROOT, ".ai-workspace/tickets/active"),
   resolve(REPO_ROOT, ".ai-workspace/tickets/completed")
 ];
-const TICKET_IDS = Array.from({ length: 13 }, (_, index) => `T-${255 + index}`);
+const TICKET_IDS = Array.from({ length: 14 }, (_, index) => `T-${255 + index}`);
 
 const GAP_REQUIREMENTS = Object.freeze({
   c_program_runtime_shape_generalization: [
@@ -49,6 +51,10 @@ const GAP_REQUIREMENTS = Object.freeze({
   edge_closure_contract: ["REQ-L-GTL3-GRAPHVECTOR"],
   traversal_execution_contracts: ["REQ-R-ABG3-INTERPRET"],
   composition_owning_declaration_join: ["REQ-R-ABG3-FN-COMP-003"],
+  tenant_conformance_manifest_consensus_coverage_missing: [
+    "REQ-M-GTL3-CAPABILITY-010..015",
+    "REQ-P-PUBLIC-CONTRACTS"
+  ],
   carrier_field_indirection: ["REQ-P-CONSENSUS-004..008A"],
   declared_instruction_protocol_join: ["REQ-P-CONSENSUS-010..012"],
   fp_result_contract_admission: ["REQ-P-CONSENSUS-010..012"],
@@ -565,11 +571,57 @@ async function buildManifest() {
     };
   });
 
+  const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
+  const handoffRows = graphFunctions.flatMap((graphFunction) =>
+    vectors(graphFunction).map((graphVector, vectorIndex) => {
+      const outcome = compileGraphVectorExecutionHandoff({
+        graphFunction,
+        graphVector,
+        graphFunctions,
+        module: admittedModule,
+        targetCarrierDefaults,
+        admittedTenantConformanceManifest: null
+      });
+      return {
+        path: `module.graphFunctions[${graphFunction.name}].vectors[${vectorIndex}:${graphVector.name}]`,
+        graphFunctionName: graphFunction.name,
+        graphVectorName: graphVector.name,
+        status: outcome.status,
+        diagnosticIds: outcome.diagnostics.map((row) => row.diagnosticId),
+        outcome
+      };
+    })
+  );
+  const invalidHandoffRows = handoffRows.filter(
+    (row) => row.status === "invalid"
+  );
+  if (invalidHandoffRows.length > 0) {
+    throw new TypeError(
+      `T-255 handoff compilation is structurally invalid: ${JSON.stringify(invalidHandoffRows.map((row) => ({ path: row.path, diagnosticIds: row.diagnosticIds })))}`
+    );
+  }
+  const handoffStatusCounts = Object.fromEntries(
+    [...new Set(handoffRows.map((row) => row.status))]
+      .sort()
+      .map((status) => [
+        status,
+        handoffRows.filter((row) => row.status === status).length
+      ])
+  );
+  const targetCarrierContracts = handoffRows.map(
+    (row) => row.outcome.targetCarrierProjection
+  );
+  const edgeClosureContracts = handoffRows.map(
+    (row) => row.outcome.edgeClosureBinding.conformanceRow
+  );
+
   const conformance = typecheckGtlProgram({
     subjectRef: "workspace://abg/t252/consensus",
     abiPackageVersion: "5.0.0-dev.0",
     scopeKind: "submitted_structure",
-    modules: [admittedModule]
+    modules: [admittedModule],
+    targetCarrierContracts,
+    edgeClosureContracts
   });
   const structuralBlockingRules = new Set([
     "abg://gtl-program/graph-vector/source-derivable",
@@ -601,9 +653,12 @@ async function buildManifest() {
     {
       constructor: "C.of",
       authoredCount: termCounts.c_of ?? 0,
-      compilerCoverage: "path_addressed",
-      runtimeStatus: "partial_current_interpreter_shape_only",
-      gapFamilies: ["c_program_runtime_shape_generalization"]
+      compilerCoverage: "exact_handoff",
+      runtimeStatus: "capability_or_successor_blocked_before_traversal",
+      gapFamilies: [
+        "tenant_conformance_manifest_consensus_coverage_missing",
+        "traversal_execution_contracts"
+      ]
     },
     {
       constructor: "workflow.C",
@@ -645,9 +700,12 @@ async function buildManifest() {
     {
       constructor: "graph_vector_program_selection",
       authoredCount: vectorRows.length,
-      compilerCoverage: "exact_binding",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["graph_vector_program_runtime_selection"]
+      compilerCoverage: "exact_handoff",
+      runtimeStatus: "capability_or_successor_blocked_before_traversal",
+      gapFamilies: [
+        "tenant_conformance_manifest_consensus_coverage_missing",
+        "traversal_execution_contracts"
+      ]
     }
   ];
 
@@ -669,46 +727,24 @@ async function buildManifest() {
       .filter((row) => row.fibres.includes(fibre))
       .map((row) => ({ diagnosticId, path: row.path }));
 
-  observeGap(observedGapEvidence, "c_program_runtime_shape_generalization", {
-    rows: executionDeclarationRows
-      .filter((row) => row.diagnosticId === "current-interpreter-anchor-shape")
-      .map((row) => ({ diagnosticId: row.diagnosticId, path: row.path })),
-    observationSources: ["compiler:compileExecutionDeclarations"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation:
-      "the current execution-declaration compiler rejects lawful programs outside its fixed interpreter anchor shape"
-  });
-  observeGap(observedGapEvidence, "graph_vector_program_runtime_selection", {
-    rows: vectorRows
-      .filter((row) =>
-        row.diagnosticIds.includes("gtl-c-unrealized-vector-program-selection")
-      )
-      .map((row) => ({
-        diagnosticId: "gtl-c-unrealized-vector-program-selection",
-        path: row.path
-      })),
-    observationSources: ["compiler:compileGraphVectorCProgramSelection"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "exact vector/program bindings compile but no runtime consumer exists"
-  });
-  observeGap(observedGapEvidence, "target_carrier_contract", {
-    rows: conformanceRows(
-      conformance.issues,
-      (issue) => issue.ruleRef === "abg://gtl-program/graph-vector/target-carrier-required"
-    ),
-    observationSources: ["compiler:typecheckGtlProgram"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "full conformance requires target-carrier truth for each materialized GraphVector"
-  });
-  observeGap(observedGapEvidence, "edge_closure_contract", {
-    rows: conformanceRows(
-      conformance.issues,
-      (issue) => issue.ruleRef === "abg://gtl-program/graph-vector/edge-closure-required"
-    ),
-    observationSources: ["compiler:typecheckGtlProgram"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "full conformance requires edge-closure truth for each materialized GraphVector"
-  });
+  observeGap(
+    observedGapEvidence,
+    "tenant_conformance_manifest_consensus_coverage_missing",
+    {
+      rows: handoffRows
+        .filter((row) => row.status === "blocked_capability")
+        .flatMap((row) =>
+          row.diagnosticIds.map((diagnosticId) => ({
+            diagnosticId,
+            path: row.path
+          }))
+        ),
+      observationSources: ["compiler:compileGraphVectorExecutionHandoff"],
+      evidenceRefs: [...commonEvidenceRefs, "schema:abg.schema.tenant-conformance-manifest"],
+      actualRelation:
+        "effect-bearing Consensus handoffs lack one M04-admitted canonical tenant-conformance manifest with exact supported capability coverage"
+    }
+  );
   observeGap(observedGapEvidence, "traversal_execution_contracts", {
     rows: conformanceRows(
       conformance.issues,
@@ -722,19 +758,6 @@ async function buildManifest() {
     actualRelation:
       "TraversalUnit execution, result-interface, and conservation rows are absent from the submitted structure"
   });
-  observeGap(observedGapEvidence, "composition_owning_declaration_join", {
-    rows: diagnosticRows(
-      diagnostics,
-      (row) =>
-        row.source === "graph_function_application_compiler" &&
-        row.diagnosticId === "gtl-application-runtime-not-realized"
-    ),
-    observationSources: ["compiler:compileGraphFunctionApplication"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation:
-      "application lineage compiles while the final owning-declaration execution join remains provisional"
-  });
-
   const bindingCarrierRows = graphFunctions.flatMap((graphFunction) =>
     vectors(graphFunction).flatMap((vector, index) =>
       vector.source.some((node) => node.name.endsWith("Binding"))
@@ -946,6 +969,16 @@ async function buildManifest() {
       ),
       executionDeclarationRows,
       nestedProgramRows,
+      handoffStatusCounts,
+      handoffRows: handoffRows.map((row) => ({
+        path: row.path,
+        graphFunctionName: row.graphFunctionName,
+        graphVectorName: row.graphVectorName,
+        status: row.status,
+        diagnosticIds: row.diagnosticIds
+      })),
+      targetCarrierContractCount: targetCarrierContracts.length,
+      edgeClosureContractCount: edgeClosureContracts.length,
       coverageRows,
       conformanceScopeKind: conformance.scopeKind,
       fullConformanceIssueCount: conformance.issues.length,

@@ -305,6 +305,10 @@ test("T-133 target carrier candidate admission enforces the generic envelope con
     payloadRef: "payload://t133/admitted-candidate",
     candidate: {
       kind: binding.outputCarrierKind,
+      targetAssetType: vector.target.assetSurface.kind,
+      edgeRef: "edge://t133/admitted-candidate",
+      contractRef: binding.contractRef,
+      contractDigest: binding.configDigest,
       payload: {
         value: "worker-filled"
       }
@@ -340,6 +344,10 @@ test("T-133 target carrier candidate admission enforces the generic envelope con
     payloadRef: "payload://t133/wrong-literal",
     candidate: {
       kind: "not-the-target-carrier-kind",
+      targetAssetType: vector.target.assetSurface.kind,
+      edgeRef: "edge://t133/wrong-literal",
+      contractRef: binding.contractRef,
+      contractDigest: binding.configDigest,
       payload: {}
     }
   });

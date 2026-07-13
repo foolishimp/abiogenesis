@@ -150,6 +150,14 @@ export interface AbgFnCompositionModulePolicySource {
   readonly policyHooks: SerializedAttrs;
 }
 
+export function abgFnCompositionDeclarationRef(input: {
+  readonly source: AbgFnCompositionSource;
+  readonly sourceRef: string;
+}): string {
+  assertNonEmptyString(input.sourceRef, "ABGFnCompositionDeclaration.sourceRef");
+  return `declaration://${input.sourceRef}/composition`;
+}
+
 interface HookMatch {
   readonly source: AbgFnCompositionSource;
   readonly sourceRef: string;

@@ -1321,6 +1321,7 @@ export type {
 export {
   ABG_FN_COMPOSITION_DECLARATION_KEY,
   ABG_FN_COMPOSITION_SOURCE_VALUES,
+  abgFnCompositionDeclarationRef,
   constructAbgFnCompositionDeclarations,
   constructDefaultAbgFnCompositionDeclarations,
   resolveAbgFnCompositionSelection,
@@ -1737,6 +1738,31 @@ export {
   rawCProgramCandidateIdentity,
   rawCProgramCandidatePath
 } from "./graph_vector_c_program_compiler.js";
+
+export {
+  GRAPH_VECTOR_EXECUTION_HANDOFF_DIAGNOSTIC_ID_VALUES,
+  compileGraphVectorExecutionHandoff,
+  projectTenantCapabilityCoverage
+} from "./graph_vector_execution_handoff.js";
+export type {
+  CapabilityCompatibilityAdmission,
+  CompileGraphVectorExecutionHandoffInput,
+  CompiledGraphVectorEdgeClosureBinding,
+  CompiledGraphVectorExecutionHandoff,
+  CompiledGraphVectorTargetCarrierProjection,
+  GraphVectorExecutionHandoffBlocked,
+  GraphVectorExecutionHandoffCapabilityBlocked,
+  GraphVectorExecutionHandoffDiagnostic,
+  GraphVectorExecutionHandoffDiagnosticId,
+  GraphVectorExecutionHandoffInvalid,
+  GraphVectorExecutionHandoffOutcome,
+  GraphVectorExecutionHandoffPublished,
+  GraphVectorExecutionHandoffRepairAffordance,
+  GraphVectorExecutionHandoffStructuralOnly,
+  TenantCapabilityCoverageProjection,
+  TenantCapabilityCoverageRow,
+  TraversalStartupBlock
+} from "./graph_vector_execution_handoff.js";
 export type {
   CompiledGraphVectorCProgramBinding,
   GraphVectorBoundaryProjection,

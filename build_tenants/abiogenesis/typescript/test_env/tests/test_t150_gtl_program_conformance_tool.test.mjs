@@ -332,7 +332,8 @@ function graphFunctionIdentity(options = {}) {
 
 function targetCarrierContractRow(input) {
   const edgeRef = input.edgeRef ?? input.vector.name;
-  const targetAssetType = input.targetAssetType ?? input.vector.target.name;
+  const targetAssetType =
+    input.targetAssetType ?? input.vector.target.assetSurface.kind;
   const targetCarrierContractRef =
     input.targetCarrierContractRef ??
     `gtl://target-carrier-contract/t150/${edgeRef}/${targetAssetType}`;
@@ -474,7 +475,7 @@ function helloWorldRequirementsAlgebraDeclarations({ graphFunction, vector }) {
     graphVectorRefs: [vector.name],
     vectorIndexes: [0],
     sourceNodeRef: "HelloWorldIntent",
-    targetNodeRef: "HelloWorldJsProgram"
+    targetNodeRef: vector.target.assetSurface.kind
   });
   return [
     constructGtlRequirementsAlgebraDeclarationBundle({
@@ -1297,7 +1298,7 @@ function compliantInput(overrides = {}, options = {}) {
       graphFunction,
       graph,
       vector,
-      targetAssetType: outputName,
+      targetAssetType: vector.target.assetSurface.kind,
       targetCarrierContractRef:
         options.targetCarrierContractRef ??
         "gtl://target-carrier-contract/t150/prompt-invocation"
@@ -1318,7 +1319,7 @@ function compliantInput(overrides = {}, options = {}) {
         graphFunctionId: graphFunction.id,
         graphId: graph.id,
         graphVectorId: vector.id,
-        targetAssetType: outputName
+        targetAssetType: vector.target.assetSurface.kind
       }
     ],
     overlays: [
@@ -1530,7 +1531,7 @@ function multiVectorCompliantInput(overrides = {}) {
       graphFunction,
       graph,
       vector,
-      targetAssetType: vector.target.name,
+      targetAssetType: vector.target.assetSurface.kind,
       targetCarrierContractRef:
         `gtl://target-carrier-contract/t159/${vector.name}`
     })
@@ -1540,7 +1541,7 @@ function multiVectorCompliantInput(overrides = {}) {
     graphFunctionId: graphFunction.id,
     graphId: graph.id,
     graphVectorId: vector.id,
-    targetAssetType: vector.target.name
+    targetAssetType: vector.target.assetSurface.kind
   }));
   return compliantInput({
     expectedCoverage: expectedCoverage({
@@ -1617,7 +1618,7 @@ function syntheticDownstreamEntryUnitInput() {
       graphFunction: bootstrap.graphFunction,
       graph: bootstrap.graph,
       vector: bootstrap.vector,
-      targetAssetType: bootstrap.vector.target.name,
+      targetAssetType: bootstrap.vector.target.assetSurface.kind,
       targetCarrierContractRef:
         "gtl://target-carrier-contract/t159/bootstrap-conformant"
     }),
@@ -1627,7 +1628,7 @@ function syntheticDownstreamEntryUnitInput() {
       graphFunction: ticket.graphFunction,
       graph: ticket.graph,
       vector: ticket.vector,
-      targetAssetType: ticket.vector.target.name,
+      targetAssetType: ticket.vector.target.assetSurface.kind,
       targetCarrierContractRef:
         "gtl://target-carrier-contract/t159/ticket-triage"
     })
@@ -1638,14 +1639,14 @@ function syntheticDownstreamEntryUnitInput() {
       graphFunctionId: bootstrap.graphFunction.id,
       graphId: bootstrap.graph.id,
       graphVectorId: bootstrap.vector.id,
-      targetAssetType: bootstrap.vector.target.name
+      targetAssetType: bootstrap.vector.target.assetSurface.kind
     },
     {
       edgeRef: ticket.vector.name,
       graphFunctionId: ticket.graphFunction.id,
       graphId: ticket.graph.id,
       graphVectorId: ticket.vector.id,
-      targetAssetType: ticket.vector.target.name
+      targetAssetType: ticket.vector.target.assetSurface.kind
     }
   ];
   return compliantInput({
@@ -1860,7 +1861,7 @@ test("T-159 GTL program typechecker projects traversal-unit law", () => {
     "gtl://target-carrier-contract/t150/prompt-invocation"
   ]);
   assert.deepEqual(unit.materializationPolicyRefs, [
-    "materialization://t150/target-carrier/PromptInvocationAsset"
+    "materialization://t150/target-carrier/prompt_invocation_asset"
   ]);
   assert.equal(unit.edgeClosureRef, "construct_prompt_invocation");
   assert.deepEqual(unit.edgeClosureRefs, ["construct_prompt_invocation"]);
@@ -1875,7 +1876,7 @@ test("T-159 GTL program typechecker projects traversal-unit law", () => {
     "gtl://target-carrier-contract/t150/prompt-invocation"
   ]);
   assert.deepEqual(unit.materializationBindingRefs, [
-    "materialization://t150/target-carrier/PromptInvocationAsset"
+    "materialization://t150/target-carrier/prompt_invocation_asset"
   ]);
   assert.deepEqual(
     unit.allowedObligationDeltaFamilies,
@@ -1944,12 +1945,12 @@ test("T-159 GTL program typechecker admits a JS hello-world materialization unit
   assert.equal(unit?.graphFunctionRef, "construct_hello_world_js");
   assert.equal(unit?.graphVectorRef, "intent_to_hello_world_js");
   assert.deepEqual(unit?.sourceAssetTypes, ["HelloWorldIntent"]);
-  assert.equal(unit?.targetAssetType, "HelloWorldJsProgram");
+  assert.equal(unit?.targetAssetType, "javascript_program");
   assert.deepEqual(unit?.targetCarrierContractRefs, [
     "gtl://target-carrier-contract/t159/hello-world-js/index-js"
   ]);
   assert.deepEqual(unit?.materializationPolicyRefs, [
-    "materialization://t150/target-carrier/HelloWorldJsProgram"
+    "materialization://t150/target-carrier/javascript_program"
   ]);
   assert.deepEqual(unit?.requirementRefs, [
     T162_HELLO_WORLD_REQUIREMENT_ID
@@ -2895,7 +2896,7 @@ test("T-159 GTL program typechecker reports ambiguous target carrier as incomple
     graphFunction,
     graph,
     vector,
-    targetAssetType: "PromptInvocationAsset",
+    targetAssetType: vector.target.assetSurface.kind,
     targetCarrierContractRef:
       "gtl://target-carrier-contract/t159/ambiguous-prompt-invocation"
   });
@@ -3853,7 +3854,7 @@ test("T-152 GTL program typechecker rejects lossy target-carrier contract rows",
           graphFunctionId: graphFunction.id,
           graphId: graph.id,
           graphVectorId: vector.id,
-          targetAssetType: vector.target.name,
+          targetAssetType: vector.target.assetSurface.kind,
           targetCarrierContractRef:
             "gtl://target-carrier-contract/t150/prompt-invocation"
         }
@@ -4480,7 +4481,7 @@ test("T-150 GTL program typechecker rejects unsatisfied graph dependencies", () 
           graphFunction,
           graph,
           vector,
-          targetAssetType: "PromptInvocationAsset",
+          targetAssetType: vector.target.assetSurface.kind,
           targetCarrierContractRef: "gtl://target-carrier-contract/t150/prompt-invocation"
         })
       ],
@@ -4490,7 +4491,7 @@ test("T-150 GTL program typechecker rejects unsatisfied graph dependencies", () 
           graphFunctionId: graphFunction.id,
           graphId: graph.id,
           graphVectorId: vector.id,
-          targetAssetType: "PromptInvocationAsset"
+          targetAssetType: vector.target.assetSurface.kind
         }
       ],
       overlays: [
@@ -4605,7 +4606,7 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
       graphFunction: first.graphFunction,
       graph: first.graph,
       vector: first.vector,
-      targetAssetType: first.vector.target.name,
+      targetAssetType: first.vector.target.assetSurface.kind,
       targetCarrierContractRef:
         "gtl://target-carrier-contract/t150/prompt-invocation/one"
     }),
@@ -4615,7 +4616,7 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
       graphFunction: second.graphFunction,
       graph: second.graph,
       vector: second.vector,
-      targetAssetType: second.vector.target.name,
+      targetAssetType: second.vector.target.assetSurface.kind,
       targetCarrierContractRef:
         "gtl://target-carrier-contract/t150/prompt-invocation/two"
     })
@@ -4641,14 +4642,14 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
           graphFunctionId: first.graphFunction.id,
           graphId: first.graph.id,
           graphVectorId: first.vector.id,
-          targetAssetType: first.vector.target.name
+          targetAssetType: first.vector.target.assetSurface.kind
         },
         {
           edgeRef: second.graphFunction.name,
           graphFunctionId: second.graphFunction.id,
           graphId: second.graph.id,
           graphVectorId: second.vector.id,
-          targetAssetType: second.vector.target.name
+          targetAssetType: second.vector.target.assetSurface.kind
         }
       ],
       traversalBindConservation: traversalBindConservationRows({

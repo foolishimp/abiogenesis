@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "../../code/src/node_shims.d.ts",
+    "./t255_graph_vector_execution_handoff_types.ts"
+  ]
+}

@@ -10150,6 +10150,37 @@ function checkCatalogPublication(input: {
   }
 }
 
+function projectGraphVector(input: {
+  readonly graphFunction: GraphFunction;
+  readonly graph: Graph;
+  readonly vector: GraphVector;
+  readonly vectorIndex: number;
+}): GraphVectorProjection {
+  return Object.freeze({
+    graphFunctionId: input.graphFunction.id,
+    graphFunctionRef: input.graphFunction.name,
+    graphId: input.graph.id,
+    graphRef: input.graph.name,
+    graphVectorId: input.vector.id,
+    vectorIndex: input.vectorIndex,
+    vectorRef: input.vector.name,
+    sourceAssetTypes: Object.freeze(
+      input.vector.source.map((source) => source.name)
+    ),
+    sourceNodeContracts: interfaceContract(input.vector.source),
+    targetAssetType: input.vector.target.assetSurface.kind,
+    targetSchemaRef: input.vector.target.schema.ref,
+    targetNodeContract: nodeContractKey(input.vector.target),
+    operatorCount: input.vector.operators.length,
+    evaluatorCount: input.vector.evaluators.length,
+    hasRule: input.vector.rule !== null,
+    allowsSubwork: input.vector.allowsSubwork,
+    declarationKeyRefs: Object.freeze(
+      input.vector.declarations.entries.map((entry) => entry.key)
+    )
+  });
+}
+
 function materializeGraphVectors(
   graphFunctions: readonly GraphFunction[],
   issues: GtlProgramConformanceIssue[]
@@ -10282,29 +10313,9 @@ function materializeGraphVectors(
       issues
     });
     graph.vectors.forEach((vector, vectorIndex) => {
-        vectors.push(
-          Object.freeze({
-            graphFunctionId: graphFunction.id,
-            graphFunctionRef: graphFunction.name,
-            graphId: graph.id,
-            graphRef: graph.name,
-            graphVectorId: vector.id,
-            vectorIndex,
-            vectorRef: vector.name,
-            sourceAssetTypes: Object.freeze(vector.source.map((source) => source.name)),
-            sourceNodeContracts: interfaceContract(vector.source),
-            targetAssetType: vector.target.name,
-            targetSchemaRef: vector.target.schema.ref,
-            targetNodeContract: nodeContractKey(vector.target),
-            operatorCount: vector.operators.length,
-            evaluatorCount: vector.evaluators.length,
-            hasRule: vector.rule !== null,
-            allowsSubwork: vector.allowsSubwork,
-            declarationKeyRefs: Object.freeze(
-              vector.declarations.entries.map((entry) => entry.key)
-            )
-          })
-        );
+      vectors.push(
+        projectGraphVector({ graphFunction, graph, vector, vectorIndex })
+      );
     });
   }
   return Object.freeze(vectors);
@@ -11957,6 +11968,41 @@ function checkVectorRows(input: {
       );
     }
   }
+}
+
+export function typecheckGtlProgramVectorContracts(input: {
+  readonly graphFunction: GraphFunction;
+  readonly graphVector: GraphVector;
+  readonly targetCarrierContract: GtlProgramTargetCarrierRow;
+  readonly edgeClosureContract: GtlProgramEdgeClosureRow;
+}): readonly GtlProgramConformanceIssue[] {
+  const graph = materializeGraphFunction(input.graphFunction);
+  const matches = graph.vectors
+    .map((vector, vectorIndex) => ({ vector, vectorIndex }))
+    .filter(({ vector }) => vector.id === input.graphVector.id);
+  if (
+    matches.length !== 1 ||
+    stableJson(matches[0]!.vector) !== stableJson(input.graphVector)
+  ) {
+    throw new TypeError(
+      `GraphVector ${input.graphVector.id} must occur exactly once and byte-equivalent in ${input.graphFunction.id}`
+    );
+  }
+  const issues: GtlProgramConformanceIssue[] = [];
+  checkVectorRows({
+    vectors: [
+      projectGraphVector({
+        graphFunction: input.graphFunction,
+        graph,
+        vector: matches[0]!.vector,
+        vectorIndex: matches[0]!.vectorIndex
+      })
+    ],
+    targetCarrierContracts: [input.targetCarrierContract],
+    edgeClosureContracts: [input.edgeClosureContract],
+    issues
+  });
+  return Object.freeze(issues);
 }
 
 function traversalBindConservationIdentityRef(

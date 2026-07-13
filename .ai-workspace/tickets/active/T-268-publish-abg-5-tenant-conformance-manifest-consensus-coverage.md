@@ -1,8 +1,8 @@
 # T-268 - Publish ABG 5 Tenant-Conformance Manifest Consensus Coverage
 
 - id: T-268
-- status: backlog
-- phase_status: deferred_to_ds4
+- status: active
+- phase_status: active_design_pending_t255_closure
 - review_status: design_required
 - delivery_phase: DS-4
 - change_class: design_reframe
@@ -37,13 +37,14 @@ existing public contract catalog. T-255 derives a basis-preserving capability-
 coverage projection and decides effect compatibility. T-268 does not self-admit
 the manifest and does not own handoff publication or runtime admission.
 
-## Deferred Gap Ownership
+## T-252 Census Gap Ownership
 
 - gap_family: tenant_conformance_manifest_consensus_coverage_missing
 
-This family becomes an active T-252 compiler gap only when T-255 replaces its
-current false deferred acceptance with a typed canonical-manifest block.
-Promote this ticket to active before that regenerated census is admitted.
+This family is active because T-255 now emits a typed canonical-manifest block
+for each effect-bearing Consensus handoff. T-268 owns publication of the
+missing canonical manifest coverage; it does not own M04 admission, T-255
+projection, or T-267 traversal authority.
 
 ## Entry And Exit
 
