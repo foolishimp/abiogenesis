@@ -1,0 +1,67 @@
+# T-268 - Publish ABG 5 Tenant-Conformance Manifest Consensus Coverage
+
+- id: T-268
+- status: backlog
+- phase_status: deferred_to_ds4
+- review_status: design_required
+- delivery_phase: DS-4
+- change_class: design_reframe
+- owner: abiogenesis
+- build_tenant: typescript
+- priority: critical
+- source_ticket: T-252
+- dependency: T-255 canonical-manifest admission and capability-coverage contract
+- authority_refs:
+  - specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md
+  - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
+  - specification/GOALS.md DS-4
+- design_input_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+
+## Boundary
+
+Publish the ABG 5.0 `abg.schema.tenant-conformance-manifest` with exact
+Consensus coverage required by DS-4. This extends one canonical engine/build-
+tenant manifest; it does not create a Consensus-owned manifest or a second
+capability-profile authority.
+
+The canonical manifest binds its schema, manifest, engine, and public-contract-
+catalog identities and digests; publishes exact capability claims and
+dependencies; and maps every Consensus GraphFunction effect ref to one
+supported public capability identity. It also publishes the carrier
+classifications, applicable conformance-rule identities, causal predecessor
+refs, and owning bounded-proof refs required by
+`REQ-M-GTL3-CAPABILITY-010..015`.
+
+T-268 publishes canonical manifest truth. M04 admits that manifest against the
+existing public contract catalog. T-255 derives a basis-preserving capability-
+coverage projection and decides effect compatibility. T-268 does not self-admit
+the manifest and does not own handoff publication or runtime admission.
+
+## Deferred Gap Ownership
+
+- gap_family: tenant_conformance_manifest_consensus_coverage_missing
+
+This family becomes an active T-252 compiler gap only when T-255 replaces its
+current false deferred acceptance with a typed canonical-manifest block.
+Promote this ticket to active before that regenerated census is admitted.
+
+## Entry And Exit
+
+Enter during DS-4 after the Consensus public schemas and public contract catalog
+are stable enough to supply exact identity/version/digest rows. Accept a
+three-view design before code. Exit requires the published ABG 5.0 manifest to
+pass M04 canonical admission, cover every exact T-264 effect requirement through
+catalog-resolved capabilities, preserve dependent-capability closure, and make
+the otherwise eligible T-252 handoffs publishable without changing body bytes.
+Those handoffs remain startup-blocked until T-267 independently closes
+traversal result-interface and bind-conservation authority. Release
+qualification must resolve the manifest's required bounded-proof refs; T-268
+may not convert their presence into fabricated proof success.
+
+## Non-Closure
+
+A Consensus-owned manifest, a second tenant capability profile, package
+presence, plugin refs, test names, source paths, unversioned feature labels, a
+locally minted catalog, a manifest that omits dependency closure, a coverage
+projection submitted as authority, a manifest that admits itself, or any claim
+that manifest coverage authorizes traversal before T-267.

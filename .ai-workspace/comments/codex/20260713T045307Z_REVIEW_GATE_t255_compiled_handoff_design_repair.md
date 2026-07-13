@@ -1,5 +1,8 @@
 # T-255 Compiled Handoff Design Repair Review
 
+**Superseded by**:
+`.ai-workspace/comments/codex/20260713T052506Z_REVIEW_GATE_t255_round2_authority_correction.md`
+
 ## Verdict
 
 `candidate_repaired_pending_explicit_fh`. The generic per-vector handoff is the

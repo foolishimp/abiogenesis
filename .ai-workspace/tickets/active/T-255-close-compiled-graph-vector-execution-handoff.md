@@ -2,7 +2,7 @@
 
 - id: T-255
 - status: active
-- phase_status: design_repaired_after_adversarial_review_pending_explicit_fh
+- phase_status: design_repaired_round_2_pending_explicit_fh
 - review_status: pending_explicit_fh_acceptance
 - implementation_status: provisional_uncommitted_not_admitted
 - delivery_phase: DS-2
@@ -17,13 +17,14 @@
   - completed T-265 canonical GraphFunction applications and derived owner lineage
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
 - upstream_decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
-- review_ref: .ai-workspace/comments/codex/20260713T045307Z_REVIEW_GATE_t255_compiled_handoff_design_repair.md
+- previous_review_ref: .ai-workspace/comments/codex/20260713T045307Z_REVIEW_GATE_t255_compiled_handoff_design_repair.md
+- review_ref: .ai-workspace/comments/codex/20260713T052506Z_REVIEW_GATE_t255_round2_authority_correction.md
 
 ## Boundary
 
 Close one generic relation:
 
-`admitted (GraphFunction, GraphVector, selected C program, effective composition selection, target binding, optional exact capability profile) -> execution handoff | typed blocked outcome`
+`admitted (GraphFunction, GraphVector, selected C program, effective composition selection, target binding, canonical tenant-conformance manifest or absence) -> published startup-blocked handoff | typed blocked outcome`
 
 This owner absorbs the census families
 `graph_vector_program_runtime_selection`, `c_program_runtime_shape_generalization`,
@@ -61,17 +62,22 @@ silently. Exit requires the unchanged T-252 body to lose only the five owned
 handoff diagnostics and non-Consensus single-stage and multi-stage fixtures to
 pass.
 
-For an effect-bearing GraphFunction, T-255 also admits an exact versioned tenant
-capability profile and decides compatibility against T-264 effect-requirement
-projections. DS-4 supplies the published Consensus profile. Missing profile
-truth blocks an accepted effect-bearing handoff; it is not an accepted deferred
-status. T-268 owns that DS-4 publication. A non-Consensus exact-profile fixture
-proves the generic admission law; the 28 structurally eligible T-252 handoffs
-remain typed profile blocks until T-268 lands.
+For an effect-bearing GraphFunction, M04 admits the canonical versioned
+`abg.schema.tenant-conformance-manifest` before M03 is called. T-255 receives
+only that admitted carrier or explicit absence, derives a basis-preserving
+capability-coverage projection, and decides compatibility against T-264
+effect-requirement projections. DS-4 supplies ABG 5.0 manifest coverage
+including Consensus. Missing manifest truth blocks publication; it is not a
+deferred status. T-268 owns that DS-4 publication. A non-Consensus canonical
+manifest fixture proves the generic admission law; the 28 structurally eligible
+T-252 handoffs remain typed manifest blocks until T-268 lands.
 
 Final plugin result-interface and bind-conservation closeability require
-authorities not present at this boundary and are owned by T-267. The
-selector-free structural HOF wrapper remains T-260 runtime work.
+authorities not present at this boundary and are owned by T-267. Every handoff
+published by T-255 remains startup-blocked before traversal, worker/plugin
+invocation, archive writes, successful assessment, or closure truth until
+T-267 supplies that authority. The selector-free structural HOF wrapper remains
+T-260 runtime work.
 
 ## Non-Closure
 
@@ -79,6 +85,9 @@ GraphFunction-global selection, canonical-three-stage coercion, inferred target
 or closure truth, composition inferred from program selection, feature-specific
 runtime code, a second selector, a second composition owner, a test-only target
 row builder, silent repair of malformed target defaults, an M03 dependency on
-M04 application code, or a duplicated public-contract catalog carrier/admitter.
-An accepted effect-bearing handoff with no exact admitted capability profile is
-also non-closure.
+M04 application code, a duplicated public-contract catalog carrier/admitter, a
+second tenant profile or manifest authority, or a capability projection that
+does not preserve the admitted manifest basis. Raw manifest input reaching M03,
+an effect-bearing handoff published without exact admitted manifest coverage,
+or any published handoff traversing or causing effects before T-267 closes the
+`TraversalUnit` is also non-closure.

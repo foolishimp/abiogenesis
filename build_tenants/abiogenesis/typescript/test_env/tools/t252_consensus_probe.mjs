@@ -902,7 +902,7 @@ async function buildManifest() {
     version: 2,
     authority: {
       ticketRef:
-        ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
       designRef:
         "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
       abiPackageVersion: "5.0.0-dev.0"
