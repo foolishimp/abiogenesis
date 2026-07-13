@@ -30,8 +30,8 @@ depth, live lanes.
 | 3a | Consensus GTL design | ✅ accepted by F_H | 74m actual |
 | 3b | Typed HOF relation (T-253) | ✅ closed | 139m actual |
 | 3b2 | Vector→C-program selection (T-254) | ✅ verified | 48m+74m actual |
-| 3c1 | Combinator applications (T-265) + node/interface witnesses (T-266) | ✅ T-265 closed clean (my red call RETRACTED — dirty-tree false positive); 🔄 T-266 next | T-265: 58m actual |
-| 3c2 | Body admitted + typed gap census persisted (T-252) | ⛔ after 3c1 | ~30–60m est |
+| 3c1 | Combinator applications (T-265) + node/interface witnesses (T-266) | ✅ both closed; T-266 verified in clean worktree, suite 1,559/1,559 | T-265: 58m; T-266: ~2h incl. self-review fix cycle |
+| 3c2 | Body admitted + typed gap census persisted (T-252) | ⏳ NEXT — unblocked | ~30–60m est |
 | 4 | Admission + conformance closure (T-263→T-264) | ⛔ FIRST: T-255 depends on T-264 | ~1.5–3h est |
 | 5 | Spine joins: exec handoff, context join, F_P result admission, public F_H (T-255–258) | ⛔ after 4 | ~4–8h est |
 | 5b | Runtime atoms: workflow.C, HOF batch, C.retry, typed recurse (T-259–262) | ⛔ oracle per atom | ~5–8h est |
