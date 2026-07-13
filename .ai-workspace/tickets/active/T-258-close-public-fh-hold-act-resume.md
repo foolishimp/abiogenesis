@@ -2,13 +2,15 @@
 
 - id: T-258
 - status: active
-- phase_status: three_view_design_required
+- phase_status: implementation_authorized
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - dependency: T-257
+- accepted_design: build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md
+- fh_design_decision: .ai-workspace/comments/codex/20260713T151415Z_DECISION_delegated_fh_accept_t258_design.md
 
 ## Boundary
 
