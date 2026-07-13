@@ -83,23 +83,124 @@ test("M03 transport unit: Claude default contract preserves OAuth auth while str
   });
 });
 
+// B-001 (support/4.6.x): protocol proof is INVARIANT-shaped, not exact-argv.
+// Downstream installs lawfully localize argv through the declared append
+// binding; an exact-match assertion here froze the tool-less shape as law and
+// blocked a consumer's release-snapshot repack over `--append-system-prompt`.
+function assertClaudeStreamProtocolInvariants(args, prompt) {
+  for (const [flag, value] of [
+    ["--output-format", "stream-json"],
+    ["--permission-mode", "bypassPermissions"]
+  ]) {
+    const index = args.indexOf(flag);
+    assert.notEqual(index, -1, `missing required flag ${flag}`);
+    assert.equal(args[index + 1], value, `${flag} must carry ${value}`);
+  }
+  for (const flag of [
+    "-p",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--verbose"
+  ]) {
+    assert.ok(args.includes(flag), `missing required flag ${flag}`);
+  }
+  assert.ok(!args.includes(prompt), "prompt must not leak into argv");
+}
+
 test("M03 transport unit: Claude stream transport disables tools for closed prompt proofs", () => {
   const args = claudeStreamJsonArgs("return-json");
 
-  assert.deepStrictEqual(args, [
-    "-p",
-    "--safe-mode",
-    "--disable-slash-commands",
-    "--no-session-persistence",
-    "--output-format",
-    "stream-json",
-    "--verbose",
-    "--permission-mode",
-    "bypassPermissions",
-    "--tools",
-    ""
+  assertClaudeStreamProtocolInvariants(args, "return-json");
+  const toolsIndex = args.indexOf("--tools");
+  assert.notEqual(toolsIndex, -1, "closed-prompt lane must disable tools");
+  assert.equal(args[toolsIndex + 1], "");
+  assert.ok(
+    args.includes("--safe-mode"),
+    "closed-prompt lane keeps the execution-gating safe mode"
+  );
+});
+
+test("M03 transport unit: Claude worker-executes lane keeps tools (execution-default law)", () => {
+  const args = claudeStreamJsonArgs("return-json", undefined, {
+    lane: "worker_executes"
+  });
+
+  assertClaudeStreamProtocolInvariants(args, "return-json");
+  assert.ok(
+    !args.includes("--tools"),
+    "worker-executes lane must not disable tools"
+  );
+  assert.ok(
+    !args.includes("--safe-mode"),
+    "worker-executes lane must not carry execution-gating safe mode"
+  );
+});
+
+test("M03 transport unit: downstream append args are admitted and bounded", () => {
+  const localized = claudeStreamJsonArgs("return-json", undefined, {
+    appendArgs: ["--append-system-prompt", "corp operator guardrail"]
+  });
+
+  assertClaudeStreamProtocolInvariants(localized, "return-json");
+  assert.ok(localized.includes("--append-system-prompt"));
+  const toolsIndex = localized.indexOf("--tools");
+  assert.notEqual(toolsIndex, -1, "append args must not change lane posture");
+  assert.equal(localized[toolsIndex + 1], "");
+
+  assert.throws(
+    () =>
+      claudeStreamJsonArgs("return-json", undefined, {
+        appendArgs: ["--tools", "Bash"]
+      }),
+    /protocol-owned flag --tools/u
+  );
+  assert.throws(
+    () =>
+      claudeStreamJsonArgs("return-json", undefined, {
+        appendArgs: ["{prompt}"]
+      }),
+    /template placeholders/u
+  );
+});
+
+test("M03 transport unit: contract append env binding localizes argv without breaking placeholders", () => {
+  process.env.ABG_TS_CODEX_APPEND_ARGS = JSON.stringify([
+    "--append-system-prompt",
+    "corp operator guardrail"
   ]);
-  assert.ok(!args.includes("return-json"));
+  try {
+    const contract = contractForKnownAgent("codex");
+    const template = contract.argsTemplate;
+    assert.ok(template.includes("--append-system-prompt"));
+    assert.ok(
+      template.indexOf("--append-system-prompt") < template.indexOf("-o"),
+      "append args must land before the output flag/placeholder pair"
+    );
+    assert.equal(template.at(-1), "{prompt}");
+    assert.ok(template.includes("{output_path}"));
+  } finally {
+    delete process.env.ABG_TS_CODEX_APPEND_ARGS;
+  }
+
+  process.env.ABG_TS_CODEX_APPEND_ARGS = JSON.stringify(["--model", "other"]);
+  try {
+    assert.throws(
+      () => contractForKnownAgent("codex"),
+      /protocol-owned flag --model/u
+    );
+  } finally {
+    delete process.env.ABG_TS_CODEX_APPEND_ARGS;
+  }
+
+  process.env.ABG_TS_CODEX_APPEND_ARGS = "not-json";
+  try {
+    assert.throws(
+      () => contractForKnownAgent("codex"),
+      /JSON array of strings/u
+    );
+  } finally {
+    delete process.env.ABG_TS_CODEX_APPEND_ARGS;
+  }
 });
 
 test("M03 transport unit: Codex default contract pins the live model", () => {

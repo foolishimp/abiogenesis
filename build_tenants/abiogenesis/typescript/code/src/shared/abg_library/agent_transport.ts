@@ -9,6 +9,7 @@ import {
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 
 import type { AgentTransportContract } from "./carriers.js";
+import { admitTransportAppendArgs } from "./transport_contracts.js";
 import {
   runAgentActorWorkerCallout,
   type TracedProcessExecutorProfile,
@@ -113,27 +114,51 @@ export function renderAgentTransportArgs(
   );
 }
 
+// Lane law (B-001 support/4.6.x): tool posture belongs to the dispatching
+// stage's declared capability lane, not to the transport shape. A
+// closed-prompt proof stays tool-less; a worker-executes stage must carry
+// tools or the execution-default law ("run the declared command yourself")
+// is structurally unsatisfiable — an honest worker can only report that no
+// execution tool was available, and a dishonest one fabricates results.
+export type TransportCapabilityLane = "closed_prompt_proof" | "worker_executes";
+
 export function claudeStreamJsonArgs(
   prompt: string,
-  responseJsonSchema?: unknown
+  responseJsonSchema?: unknown,
+  options?: {
+    readonly lane?: TransportCapabilityLane;
+    readonly appendArgs?: readonly string[];
+  }
 ): readonly string[] {
   void prompt;
+  const lane = options?.lane ?? "closed_prompt_proof";
   const args = [
     "-p",
-    "--safe-mode",
     "--disable-slash-commands",
     "--no-session-persistence",
     "--output-format",
     "stream-json",
     "--verbose",
     "--permission-mode",
-    "bypassPermissions",
-    "--tools",
-    ""
+    "bypassPermissions"
   ];
+  // Both execution-gating flags are lane-owned: `--safe-mode` forces tool
+  // approval even under bypassPermissions, so a worker-executes dispatch
+  // carrying it is as unsatisfiable as one carrying `--tools ""`.
+  if (lane === "closed_prompt_proof") {
+    args.push("--safe-mode", "--tools", "");
+  }
   if (responseJsonSchema !== undefined) {
     args.push("--json-schema", JSON.stringify(responseJsonSchema));
   }
+  args.push(
+    ...admitTransportAppendArgs({
+      agentKey: "claude",
+      ...(options?.appendArgs !== undefined
+        ? { explicitArgs: options.appendArgs }
+        : {})
+    })
+  );
   return Object.freeze(args);
 }
 
