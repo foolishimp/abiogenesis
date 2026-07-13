@@ -662,34 +662,6 @@
         ]
       },
       {
-        "source": "graph_function_application_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-application-runtime-not-realized",
-        "canonicalBodyPath": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].application",
-        "compilerPath": "$",
-        "authorityRefs": [
-          "constructor:gtl.graph_function_application",
-          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011/-012"
-        ],
-        "authorityDigest": "sha256:47b6769c20e7ebb8659aa9a8b2eb87901b5c19b324aa5f30f3dc2600bbcec03f",
-        "expectedRelation": "T-255 final execution binding with complete FN-COMP-003 and owning_declaration_ref joins",
-        "actualRelation": "application lineage and provisional composition joins compiled without runtime admission",
-        "actualRelationDigest": "sha256:7a0138702fde47c202617b657d50acc683e2f2ca7f9c86e29f2e0e3d86865874",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
-          "graph-function-application:gtl://graph-function/application/2d06535070e193834c5b96b0c7ce255a9f14832a9db6b3dd6d65570e5b41e0ba",
-          "graph-function:digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
-          "lineage:gtl://graph-function/application-lineage/b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
-          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011",
-          "requirement:REQ-R-ABG3-FN-COMP-003"
-        ],
-        "evidenceDigest": "sha256:63754b238724737acdef431eece59cf69fa1d093a7d3de91ff40a718c50e5a28",
-        "repairAffordances": [
-          "complete_t255_execution_join"
-        ]
-      },
-      {
         "source": "graph_vector_c_program_compiler",
         "classification": "semantic_not_realized",
         "diagnosticId": "gtl-c-unrealized-vector-program-selection",
@@ -713,32 +685,6 @@
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
         "evidenceDigest": "sha256:12d73e2043c46949321b07ed6058428af6e3f686773b180e871ce1ae29c5221e",
-        "repairAffordances": [
-          "realize_declared_semantics"
-        ]
-      },
-      {
-        "source": "hof_relation_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-hof-unrealized-fan-out",
-        "canonicalBodyPath": "module.graphFunctions[fan_out(consensus.review-one-profile)].hof",
-        "compilerPath": "$",
-        "authorityRefs": [
-          "constructor:gtl.hof_application",
-          "requirement:REQ-L-GTL3-HOF"
-        ],
-        "authorityDigest": "sha256:86b9180e975f3c99608479bf40f6c404fe337407e2a7fd847ed73ce43bd927cf",
-        "expectedRelation": "generic HOF runtime consumer",
-        "actualRelation": "canonical fan-out relation is admitted but no runtime consumer exists",
-        "actualRelationDigest": "sha256:64f24455eff87ec1048233d1b32daf43e8ccaed21e7fe0b130d68d67d6906d61",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "digest-ref:sha256:c4561f6903dc35453e50710b3b1434ea6fc0f3019728de76de78c2274b865010",
-          "graph-function:digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
-          "hof-relation:gtl://hof/application/4384058a7ca957af016fa88007722bd57669013b0a1073cff61def566d257e50",
-          "requirement:REQ-L-GTL3-HOF-001"
-        ],
-        "evidenceDigest": "sha256:2f9d16ed1cf7df1031c0697643d2ee9c3103ce96d0c2d42e082c9abd78886b2e",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -1193,26 +1139,26 @@
       {
         "graphFunctionName": "fan_out(consensus.review-one-profile)",
         "graphFunctionIdentity": "digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
-        "accepted": false,
-        "diagnosticIds": [
-          "gtl-hof-unrealized-fan-out"
-        ]
+        "accepted": true,
+        "relationRef": "abg://hof/fan-out/relation/089764851aae625188558e1a158d13fd622f4f5c9ed4cc63546b807043fcde36",
+        "relationDigest": "sha256:089764851aae625188558e1a158d13fd622f4f5c9ed4cc63546b807043fcde36",
+        "diagnosticIds": []
       }
     ],
     "applicationRows": [
       {
         "graphFunctionName": "fan_in(consensus.exact-panel-facts)",
         "graphFunctionIdentity": "digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
-        "accepted": false,
+        "accepted": true,
         "operatorKinds": [
           "fan_in"
         ],
         "lineageRef": "gtl://graph-function/application-lineage/b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
         "lineageDigest": "sha256:b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
         "provisionalBindingCount": 1,
-        "diagnosticIds": [
-          "gtl-application-runtime-not-realized"
-        ]
+        "fanInRelationRef": "abg://hof/fan-in/relation/8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935",
+        "fanInRelationDigest": "sha256:8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935",
+        "diagnosticIds": []
       },
       {
         "graphFunctionName": "recurse(consensus.round)",
@@ -1224,6 +1170,8 @@
         "lineageRef": "gtl://graph-function/application-lineage/26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
         "lineageDigest": "sha256:26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
         "provisionalBindingCount": 14,
+        "fanInRelationRef": null,
+        "fanInRelationDigest": null,
         "diagnosticIds": [
           "gtl-application-runtime-not-realized"
         ]
@@ -2387,6 +2335,14 @@
         ]
       }
     ],
+    "t260RuntimeSurface": {
+      "compileDeclaredCBatchPlan": true,
+      "compileHofCBatchPlan": true,
+      "compileFanInReductionBinding": true,
+      "compileHofFanOutBinding": true,
+      "resolveCBatch": true,
+      "resolveHofFanIn": true
+    },
     "executionContextJoinRows": [
       {
         "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
@@ -2978,20 +2934,20 @@
       {
         "constructor": "fan_out",
         "authoredCount": 1,
-        "compilerCoverage": "exact_relation",
-        "runtimeStatus": "semantic_not_realized",
+        "compilerCoverage": "exact_relation_and_runtime_projector",
+        "runtimeStatus": "runtime_atom_realized_canonical_child_blocked_by_retry_and_startup_fence",
         "gapFamilies": [
-          "typed_fan_out_runtime",
-          "typed_fan_out_batch_projection"
+          "c_retry_runtime_and_policy_join",
+          "traversal_execution_contracts"
         ]
       },
       {
         "constructor": "fan_in",
         "authoredCount": 1,
-        "compilerCoverage": "exact_application_lineage",
-        "runtimeStatus": "semantic_not_realized",
+        "compilerCoverage": "exact_relation_and_runtime_resolver",
+        "runtimeStatus": "runtime_atom_realized_canonical_invocation_blocked_before_traversal",
         "gapFamilies": [
-          "typed_fan_in_structure_and_runtime"
+          "traversal_execution_contracts"
         ]
       },
       {
@@ -3015,7 +2971,7 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 623,
+    "fullConformanceIssueCount": 621,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
@@ -3023,15 +2979,11 @@
       },
       {
         "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
-        "count": 2
+        "count": 1
       },
       {
         "ruleRef": "abg://gtl-program/graph/node-reachable-or-bound",
         "count": 20
-      },
-      {
-        "ruleRef": "abg://gtl-program/hof/semantic-not-realized",
-        "count": 1
       },
       {
         "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
@@ -3162,8 +3114,8 @@
       },
       {
         "ticketId": "T-260",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-260-realize-typed-hof-batch-runtime.md",
         "families": [
           "typed_fan_in_structure_and_runtime",
           "typed_fan_out_batch_projection",
@@ -3236,7 +3188,7 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 7,
+    "observedActiveGapFamilyCount": 4,
     "activeOwnedButNotObservedFamilyCount": 0,
     "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
@@ -3244,8 +3196,8 @@
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 7,
-    "observedGapEvidenceDigest": "sha256:1e4798dd958d9d9d5abcd3ef91a833ea4b157723166d87c7637afffd4d693b65",
+    "observedGapFamilyCount": 4,
+    "observedGapEvidenceDigest": "sha256:e5c5fdea41f23116f6cbd5d4bb174a2d2b7a7576c8e94b6a0e14ff98ee71e102",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3418,92 +3370,6 @@
       "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     },
     {
-      "gapFamily": "typed_fan_in_structure_and_runtime",
-      "ownerTicket": "T-260",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "gtl-application-runtime-not-realized"
-      ],
-      "canonicalBodyPaths": [
-        "application:fan_in(consensus.exact-panel-facts)"
-      ],
-      "observationSources": [
-        "compiler:compileGraphFunctionApplication"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-HOF",
-        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
-        "ticket:T-260"
-      ],
-      "authorityDigest": "sha256:120595aafcb756ef4eaf5af0880d4c6b877d407b1aacbf83bd663b5ddc7ff45c",
-      "actualRelation": "fan_in lineage is exact while collection runtime is absent",
-      "actualRelationDigest": "sha256:d1d381a0a9d69b27fc46416a8ad4b0b8843ca61da162aed15ffbe4375802058d",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "typed_fan_out_batch_projection",
-      "ownerTicket": "T-260",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-fan-out-to-batch-projection"
-      ],
-      "canonicalBodyPaths": [
-        "hof:fan_out(consensus.review-one-profile)"
-      ],
-      "observationSources": [
-        "compiler:compileHofRelation",
-        "structure:c-program-catalog"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-C-ALGEBRA-007",
-        "requirement:REQ-L-GTL3-HOF",
-        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
-        "ticket:T-260"
-      ],
-      "authorityDigest": "sha256:59745e52f35c6ea0139344fc733bd6560e75bfd92546d1f738b11f5c2f51e1f5",
-      "actualRelation": "fan_out has no proved ordinal-preserving projection to C.batch task spines",
-      "actualRelationDigest": "sha256:683a967e7d19867e8a214255f8d3ff241ec4f6c8063f6277fac832cbb6ae4b4d",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "typed_fan_out_runtime",
-      "ownerTicket": "T-260",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "gtl-hof-unrealized-fan-out"
-      ],
-      "canonicalBodyPaths": [
-        "hof:fan_out(consensus.review-one-profile)"
-      ],
-      "observationSources": [
-        "compiler:compileHofRelation"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-HOF",
-        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
-        "ticket:T-260"
-      ],
-      "authorityDigest": "sha256:120595aafcb756ef4eaf5af0880d4c6b877d407b1aacbf83bd663b5ddc7ff45c",
-      "actualRelation": "canonical typed fan_out relation has no runtime consumer",
-      "actualRelationDigest": "sha256:a340563eb49846702cd8d4a030e3fa1c6e83a208f2ad88c5fee3ee389e45c24c",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
       "gapFamily": "typed_recurse_policy_and_runtime",
       "ownerTicket": "T-262",
       "ownerStatus": "active",
@@ -3625,5 +3491,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:f19a0615137536ceb4ff33161b0b6eea5679c9ec613d548f5e4ec546e47c9f99"
+  "manifestDigest": "sha256:72351e36de5d3a3bd425d5443d6f3ef7283ac0dc5e828ff2505a82c5c50e75ab"
 }
