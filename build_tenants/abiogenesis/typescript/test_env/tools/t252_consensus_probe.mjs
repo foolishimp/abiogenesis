@@ -716,6 +716,7 @@ async function buildManifest() {
           termDigest: stableSha256Digest(stage),
           instructionCategoryRefs: stage.instructionCategoryRefs
         }),
+        selectedCatalogEntryRef: ABG_CONSENSUS_MODULE_DECLARATIONS[0].entryRef,
         catalogBasis: catalogAdmission.basis,
         invocationCarriers: constructAdmittedInvocationCarrierSet(
           row.graphVector.source.map((sourceNode, sourceIndex) =>

@@ -178,14 +178,19 @@ function protocolRule(input: {
         policyRefs: ["policy://abg/consensus/instruction/full-content"]
       }
     ],
-    relevancePolicyRefs: [
-      `relevance://abg/consensus/${input.slug}/current-stage`
+    relevancePolicies: [
+      {
+        policyRef: `relevance://abg/consensus/${input.slug}/current-stage`,
+        mode: "selected_vector_source_closure"
+      }
     ],
-    compressionPolicyRef: "policy://abg/consensus/instruction/compression",
+    compressionPolicy: {
+      policyRef: "policy://abg/consensus/instruction/compression",
+      mode: "full_admitted_content"
+    },
     proportionalityPolicyRef:
       "policy://abg/consensus/instruction/proportionality",
     runtimeBindingSlotClasses: ["source_node"],
-    instructionWorkKind: "dependency_disambiguation",
     policyRefs: ["policy://abg/consensus/instruction"]
   });
 }

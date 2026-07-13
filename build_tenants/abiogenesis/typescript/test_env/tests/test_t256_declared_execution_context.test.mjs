@@ -100,7 +100,9 @@ function assetSurface(kind, options = {}) {
     kind,
     requiredContexts: ["context://t256/workspace"],
     standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
-    outputContractRefs: [options.outputContractRef ?? `contract://t256/${kind}`],
+    outputContractRefs: options.outputContractRefs ?? [
+      options.outputContractRef ?? `contract://t256/${kind}`
+    ],
     constructorRefs: [`constructor://t256/${kind}`],
     constructorInputAssetKinds: ["source"],
     rendererRefs: [`renderer://t256/${kind}`],
@@ -156,7 +158,7 @@ function compositionDeclarations(input) {
         bindingRef: `regime-binding://${sourceRef}/${input.stageRole}/0`,
         stageRole: input.stageRole,
         regime: input.regime,
-        role: input.regime === "F_H" ? "construct" : "validate",
+        role: input.compositionRole ?? (input.regime === "F_H" ? "construct" : "validate"),
         order: 0,
         authority: "judgment",
         inputCarrierRefs: input.sources.map((nodeValue) => nodeValue.id),
@@ -184,7 +186,8 @@ function fixture(options = {}) {
     : null;
   const sources = contextSource === null ? [source] : [source, contextSource];
   const target = node("Decision", "decision", {
-    outputContractRef: TARGET_CONTRACT_REF
+    outputContractRef: TARGET_CONTRACT_REF,
+    outputContractRefs: options.targetOutputContractRefs
   });
   const instructionAsset = node("TransformInstruction", "instruction");
   const projectionRule = constructExecutionContextProjectionRule({
@@ -247,15 +250,22 @@ function fixture(options = {}) {
         sectionKindRef: "section-kind://t256/body",
         content: SECTION_TEXT,
         contentDigest: SECTION_DIGEST,
-        required: true,
+        required: options.optionalProtocolSection !== true,
         policyRefs: ["policy://t256/full-content"]
       }
     ],
-    relevancePolicyRefs: [RELEVANCE_REF],
-    compressionPolicyRef: "policy://t256/compression",
+    relevancePolicies: [
+      {
+        policyRef: RELEVANCE_REF,
+        mode: "selected_vector_source_closure"
+      }
+    ],
+    compressionPolicy: {
+      policyRef: "policy://t256/compression",
+      mode: "full_admitted_content"
+    },
     proportionalityPolicyRef: "policy://t256/proportionality",
     runtimeBindingSlotClasses: ["source_node"],
-    instructionWorkKind: "dependency_disambiguation",
     policyRefs: ["policy://t256/instruction"]
   });
   const programRef = "program://t256/generic-transform";
@@ -281,6 +291,7 @@ function fixture(options = {}) {
     sources,
     stageRole,
     regime,
+    compositionRole: options.compositionRole,
     target
   });
   const firstVector = constructGraphVector({
@@ -304,6 +315,7 @@ function fixture(options = {}) {
     sources,
     stageRole,
     regime,
+    compositionRole: options.compositionRole,
     target
   });
   const secondVector = constructGraphVector({
@@ -351,6 +363,7 @@ function fixture(options = {}) {
     sources,
     stageRole,
     regime,
+    compositionRole: options.compositionRole,
     target
   });
   const vector = constructGraphVector({
@@ -530,6 +543,7 @@ function joinFixture(value, overrides = {}) {
   return joinDeclaredExecutionContext({
     sourceOutcome: value.sourceOutcome,
     stageBasis: value.stageBasis,
+    selectedCatalogEntryRef: ENTRY_REF,
     catalogBasis: value.catalogBasis,
     invocationCarriers: value.invocationCarriers,
     ...overrides
@@ -559,12 +573,27 @@ test("T-256 constructs one canonical F_P request through the T-183 carrier path"
   const outcome = joinFixture(value);
   assert.equal(outcome.status, "request_constructed", JSON.stringify(outcome));
   assert.equal(outcome.compiledContract.selectedRegime, "F_P");
+  assert.equal(outcome.compiledContract.selectedCompositionRole, "validate");
   assert.equal(outcome.compiledContract.fieldRows[0].sourceSchemaRef, value.source.schema.ref);
   assert.equal(outcome.compiledContract.fieldRows[0].sourceTypeRef, value.source.typeRef);
   assert.notEqual(outcome.instructionAssembly, null);
   assert.equal(outcome.instructionAssembly.plan.kind, "compiled_prompt_plan");
+  assert.equal(outcome.instructionAssembly.plan.instructionWorkKind, "semantic_work");
+  assert.deepEqual(outcome.instructionAssembly.plan.requiredInputRefs, [value.source.id]);
+  assert.equal(
+    outcome.instructionAssembly.plan.sectionDecisions[0].compressionMode,
+    "full"
+  );
+  assert.equal(
+    outcome.instructionAssembly.plan.derivedTruth.selectedOutputContractRef,
+    TARGET_CONTRACT_REF
+  );
   assert.equal(outcome.instructionAssembly.startupAdmission.admitted, true);
   assert.equal(outcome.instructionAssembly.envelope.kind, "instruction_envelope");
+  assert.equal(
+    outcome.instructionAssembly.envelope.selectedOutputContractRef,
+    TARGET_CONTRACT_REF
+  );
   assert.deepEqual(
     outcome.instructionAssembly.envelope.outputContractRefs,
     [TARGET_CONTRACT_REF]
@@ -584,8 +613,30 @@ test("T-256 constructs one canonical F_P request through the T-183 carrier path"
   assert.equal(outcome.request.startupBlock.effectsPermitted, false);
   assert.equal("prompt" in outcome.request, false);
   assert.equal("instructionProtocol" in outcome.request, false);
-  assert.equal("resultContractRef" in outcome.request, false);
+  assert.equal(outcome.request.resultContractRef, TARGET_CONTRACT_REF);
   assert.equal("capabilityRefs" in outcome.request, false);
+});
+
+test("T-256 preserves one selected result contract within a larger target contract set", () => {
+  const alternateContractRef = "contract://t256/decision-alternate";
+  const value = fixture({
+    targetOutputContractRefs: [TARGET_CONTRACT_REF, alternateContractRef]
+  });
+  const outcome = joinFixture(value);
+  assert.equal(outcome.status, "request_constructed", JSON.stringify(outcome));
+  assert.deepEqual(
+    outcome.instructionAssembly.plan.derivedTruth.outputContractRefs,
+    [TARGET_CONTRACT_REF, alternateContractRef].sort()
+  );
+  assert.equal(
+    outcome.instructionAssembly.plan.derivedTruth.selectedOutputContractRef,
+    TARGET_CONTRACT_REF
+  );
+  assert.equal(
+    outcome.instructionAssembly.envelope.selectedOutputContractRef,
+    TARGET_CONTRACT_REF
+  );
+  assert.equal(outcome.request.resultContractRef, TARGET_CONTRACT_REF);
 });
 
 test("T-256 derives schema, type, and regime instead of accepting profile-authored truth", () => {
@@ -612,23 +663,32 @@ test("T-256 derives schema, type, and regime instead of accepting profile-author
     "instruction_asset_node_ref",
     "allowed_stage_roles",
     "sections",
-    "relevance_policy_refs",
-    "compression_policy_ref",
+    "relevance_policies",
+    "compression_policy",
     "proportionality_policy_ref",
     "runtime_binding_slot_classes",
-    "instruction_work_kind",
     "policy_refs"
   ]);
-  const camelCaseWorkKind = structuredClone(value.protocolRule);
-  camelCaseWorkKind.config.entries = camelCaseWorkKind.config.entries.map(
+  const camelCaseCompressionPolicy = structuredClone(value.protocolRule);
+  camelCaseCompressionPolicy.config.entries = camelCaseCompressionPolicy.config.entries.map(
     (entry) =>
-      entry.key === "instruction_work_kind"
-        ? { ...entry, key: "instructionWorkKind" }
+      entry.key === "compression_policy"
+        ? { ...entry, key: "compressionPolicy" }
         : entry
   );
   assert.throws(
-    () => admitInstructionProtocolRule(camelCaseWorkKind),
-    /instructionWorkKind is unknown/u
+    () => admitInstructionProtocolRule(camelCaseCompressionPolicy),
+    /compressionPolicy is unknown/u
+  );
+
+  const legacyWorkKind = structuredClone(value.protocolRule);
+  legacyWorkKind.config.entries.push({
+    key: "instruction_work_kind",
+    value: { kind: "scalar", value: "dependency_disambiguation" }
+  });
+  assert.throws(
+    () => admitInstructionProtocolRule(legacyWorkKind),
+    /instruction_work_kind is unknown/u
   );
 
   const widenedProjection = structuredClone(value.projectionRule);
@@ -671,6 +731,53 @@ test("T-256 derives schema, type, and regime instead of accepting profile-author
     () => admitExecutionContextProjectionRule(camelCaseRow),
     /fieldPath is unknown/u
   );
+});
+
+test("T-256 rejects unsupported policy modes instead of applying engine defaults", () => {
+  const value = fixture();
+  const declaration = admitInstructionProtocolRule(value.protocolRule).declaration;
+  assert.throws(
+    () =>
+      constructInstructionProtocolRule({
+        ...declaration,
+        relevancePolicies: [
+          {
+            policyRef: RELEVANCE_REF,
+            mode: "ambient_context_guess"
+          }
+        ]
+      }),
+    /unsupported value "ambient_context_guess"/u
+  );
+  assert.throws(
+    () =>
+      constructInstructionProtocolRule({
+        ...declaration,
+        compressionPolicy: {
+          policyRef: declaration.compressionPolicy.policyRef,
+          mode: "implicit_excerpt"
+        }
+      }),
+    /unsupported value "implicit_excerpt"/u
+  );
+
+  const optional = joinFixture(fixture({ optionalProtocolSection: true }));
+  assert.equal(optional.status, "invalid");
+  assert.equal(
+    optional.diagnostics[0].diagnosticId,
+    "execution-context-instruction-rule-invalid"
+  );
+});
+
+test("T-256 derives work class and blocks dependency disambiguation without typed truth", () => {
+  const value = fixture({ compositionRole: "diagnose" });
+  const outcome = joinFixture(value);
+  assert.equal(outcome.status, "invalid");
+  assert.equal(
+    outcome.diagnostics[0].diagnosticId,
+    "execution-context-prompt-plan-rejected"
+  );
+  assert.match(outcome.diagnostics[0].actualRelation, /requires derived dependency/u);
 });
 
 test("T-256 rejects caller-authored assembly truth, stale module identity, and non-own carrier paths", () => {
@@ -965,6 +1072,41 @@ test("T-256 derives declaration closure only from replay-projected module identi
   );
 });
 
+test("T-256 preserves selected catalog authority instead of selecting by helper containment", () => {
+  const value = fixture();
+  const selected = value.catalogBasis.executionBindings[0];
+  assert.notEqual(selected, undefined);
+  const sibling = {
+    ...selected,
+    entryRef: "catalog-entry://t256/unrelated-sibling",
+    declarationRef: "gtl-declaration://t256/unrelated-sibling"
+  };
+
+  const substituted = joinFixture(value, {
+    catalogBasis: {
+      ...value.catalogBasis,
+      executionBindings: [sibling]
+    }
+  });
+  assert.equal(substituted.status, "invalid");
+  assert.equal(
+    substituted.diagnostics[0].diagnosticId,
+    "execution-context-program-binding-mismatch"
+  );
+
+  const twoEntriesOneModule = joinFixture(value, {
+    catalogBasis: {
+      ...value.catalogBasis,
+      executionBindings: [selected, sibling]
+    }
+  });
+  assert.equal(
+    twoEntriesOneModule.status,
+    "request_constructed",
+    JSON.stringify(twoEntriesOneModule)
+  );
+});
+
 test("T-256 refuses protocol, target, capability, and field-value drift before request construction", () => {
   const value = fixture();
 
@@ -1159,6 +1301,7 @@ test("T-256 joins the unchanged T-252 reduce-round body through its non-invoking
       termDigest: stableSha256Digest(stage),
       instructionCategoryRefs: stage.instructionCategoryRefs
     }),
+    selectedCatalogEntryRef: ABG_CONSENSUS_MODULE_DECLARATIONS[0].entryRef,
     catalogBasis: catalogResult.basis,
     invocationCarriers: constructAdmittedInvocationCarrierSet(
       reduceRound.source.map((sourceNode, index) =>

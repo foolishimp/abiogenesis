@@ -350,6 +350,37 @@ test("T-188 allows dependency-disambiguation traversal before dependency suffici
   assert.equal(result.plan.dependencyInstructionTruth.workKind, "dependency_disambiguation");
 });
 
+test("T-188 rejects dependency-disambiguation classification without candidate or typed-gap truth", () => {
+  const absentTruth = compileInstructionAssemblyPlan(
+    compileInput({
+      vectorRef: "vector://t188/software-build/dependency-disambiguation",
+      instructionWorkKind: "dependency_disambiguation",
+      dependencyInstructionTruth: null
+    })
+  );
+  assert.equal(absentTruth.accepted, false);
+  assert.equal(issueKinds(absentTruth).includes("dependency_sufficiency_gap"), true);
+
+  const emptyTruth = compileInstructionAssemblyPlan(
+    compileInput({
+      vectorRef: "vector://t188/software-build/dependency-disambiguation",
+      instructionWorkKind: "dependency_disambiguation",
+      dependencyInstructionTruth: dependencyTruth({
+        workKind: "dependency_disambiguation",
+        dependencyGraphRef: null,
+        dependencyGraphDigest: null,
+        targetRefs: ["target://t188/dependency-graph"],
+        prerequisiteNodeRefs: [],
+        prerequisiteEdgeRefs: [],
+        typedPrerequisiteGapRefs: [],
+        sourceProjectionRefs: ["requirement-graph-projection://t188/bootstrap"]
+      })
+    })
+  );
+  assert.equal(emptyTruth.accepted, false);
+  assert.equal(issueKinds(emptyTruth).includes("dependency_sufficiency_gap"), true);
+});
+
 test("T-188 rejects target work with typed missing node and edge gaps", () => {
   const result = compileInstructionAssemblyPlan(
     compileInput({

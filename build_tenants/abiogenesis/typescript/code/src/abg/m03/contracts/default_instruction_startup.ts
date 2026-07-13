@@ -197,6 +197,8 @@ function compiledInstructionPlanFor(input: {
       outputContractRefs: [
         `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
       ],
+      selectedOutputContractRef:
+        `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
       proofRefs: [
         `proof://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
       ],

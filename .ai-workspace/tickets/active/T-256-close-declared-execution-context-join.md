@@ -4,7 +4,7 @@
 - status: active
 - phase_status: repair_review_gate
 - review_status: ready_for_independent_re_review
-- implementation_status: repair_complete
+- implementation_status: proportional_repair_complete
 - proof_status: repair_gates_green
 - delivery_phase: DS-2
 - change_class: design_reframe
@@ -12,7 +12,7 @@
 - priority: critical
 - source_ticket: T-252
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md
-- self_review_ref: .ai-workspace/comments/codex/20260713T093255Z_SELF_REVIEW_t256_implementation.md
+- self_review_ref: .ai-workspace/comments/codex/20260713T131436Z_SELF_REVIEW_t256_proportional_authority_repair.md
 - decision_ref: .ai-workspace/comments/codex/20260713T083400Z_DECISION_fh_accept_t256_repaired_design.md
 - invalid_decision_ref: .ai-workspace/comments/codex/20260713T073149Z_DECISION_fh_accept_t256_design.md
 - rejection_ref: .ai-workspace/comments/codex/20260713T074427Z_REVIEW_GATE_t256_design_rejected.md
@@ -48,10 +48,12 @@ selection, local field-ref conventions, or concrete backend/transport in GTL.
 ## Current Disposition
 
 The human authority accepted the repaired design and authorized implementation
-on 2026-07-13. Independent implementation review then rejected the first
-checkpoint because the unchanged T-252 consumer could not traverse the join,
-instruction derivation was caller-authored, prompt contracts leaked into result
-truth, and the census did not invoke the join. The bounded repair is complete
-and independently self-reviewed; closure remains unearned until external
-re-review accepts the repaired checkpoint. T-257 remains blocked. T-267 and
-T-268 retain their existing ownership.
+on 2026-07-13. Independent review rejected the first implementation checkpoint,
+then accepted its canonical-consumer repair subject to a further authority and
+derivation review. That review found four bounded defects: selected catalog
+authority was not preserved, relevance and compression were defaulted,
+protocol-authored work class could bypass dependency sufficiency, and the exact
+selected result contract was lost after validation. The proportional repair is
+complete and self-reviewed. Closure remains unearned until independent
+re-review accepts this checkpoint. T-257 remains blocked. T-267 and T-268
+retain their existing ownership.

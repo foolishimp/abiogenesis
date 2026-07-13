@@ -74,6 +74,7 @@ export type InstructionProportionalityClass = "P0" | "P1" | "P2" | "P3";
 
 export type InstructionWorkKind =
   | "not_applicable"
+  | "semantic_work"
   | "target_work"
   | "dependency_disambiguation";
 
@@ -212,6 +213,7 @@ export interface DerivedInstructionCarrierTruth {
   readonly sourceTypeRefs: readonly string[];
   readonly targetTypeRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
+  readonly selectedOutputContractRef: string | null;
   readonly proofRefs: readonly string[];
   readonly authorityRefs: readonly string[];
   readonly rendererRefs: readonly string[];
@@ -415,6 +417,7 @@ export interface InstructionEnvelope {
   readonly vectorRef: string;
   readonly boundRuntimeRefs: readonly RuntimeBindingFact[];
   readonly outputContractRefs: readonly string[];
+  readonly selectedOutputContractRef: string | null;
   readonly shouldDispatchFp: boolean;
 }
 
@@ -463,6 +466,7 @@ export interface PromptManifest {
   // derived from the envelope's requirement_pressure runtime binding facts.
   readonly requirementPressureRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
+  readonly selectedOutputContractRef: string | null;
   readonly renderedPrompt: string;
 }
 
@@ -934,6 +938,7 @@ function normalizeInstructionWorkKind(input: InstructionWorkKind | undefined): I
     case undefined:
       return "not_applicable";
     case "not_applicable":
+    case "semantic_work":
     case "target_work":
     case "dependency_disambiguation":
       return input;
@@ -1398,6 +1403,20 @@ export function compileInstructionAssemblyPlan(
       })
     );
   }
+  const selectedOutputContractRef = input.derivedTruth.selectedOutputContractRef ?? null;
+  if (
+    selectedOutputContractRef !== null &&
+    !input.derivedTruth.outputContractRefs.includes(selectedOutputContractRef)
+  ) {
+    issues.push(
+      issue({
+        issueKind: "output_contract_gap",
+        algebraRef: "output_contract_derivation",
+        message: `selected output contract ${selectedOutputContractRef} is not in derived target contracts`,
+        evidenceRefs: [selectedOutputContractRef, input.targetNodeRef]
+      })
+    );
+  }
   if (input.derivedTruth.proofRefs.length === 0) {
     issues.push(
       issue({
@@ -1732,19 +1751,38 @@ export function compileInstructionAssemblyPlan(
         );
       }
     }
-  } else if (
-    instructionWorkKind === "dependency_disambiguation" &&
-    dependencyInstructionTruth !== null &&
-    dependencyInstructionTruth.workKind !== "dependency_disambiguation"
-  ) {
-    issues.push(
-      issue({
-        issueKind: "dependency_sufficiency_gap",
-        algebraRef: "dependency_sufficiency",
-        message: "dependency-disambiguation dispatch requires matching dependency truth classification",
-        evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
-      })
-    );
+  } else if (instructionWorkKind === "dependency_disambiguation") {
+    if (dependencyInstructionTruth === null) {
+      issues.push(
+        issue({
+          issueKind: "dependency_sufficiency_gap",
+          algebraRef: "dependency_sufficiency",
+          message:
+            "dependency-disambiguation dispatch requires derived dependency candidate or typed-gap truth",
+          evidenceRefs: [input.planRef, input.vectorRef]
+        })
+      );
+    } else {
+      const hasCandidateOrGap =
+        dependencyInstructionTruth.prerequisiteNodeRefs.length > 0 ||
+        dependencyInstructionTruth.prerequisiteEdgeRefs.length > 0 ||
+        dependencyInstructionTruth.typedPrerequisiteGapRefs.length > 0;
+      if (
+        dependencyInstructionTruth.workKind !== "dependency_disambiguation" ||
+        dependencyInstructionTruth.targetRefs.length === 0 ||
+        !hasCandidateOrGap
+      ) {
+        issues.push(
+          issue({
+            issueKind: "dependency_sufficiency_gap",
+            algebraRef: "dependency_sufficiency",
+            message:
+              "dependency-disambiguation dispatch requires matching target-scoped candidate node, candidate edge, or typed-gap truth",
+            evidenceRefs: [dependencyInstructionTruth.truthRef, input.vectorRef]
+          })
+        );
+      }
+    }
   }
   if (issues.length > 0) {
     return Object.freeze({
@@ -1773,6 +1811,7 @@ export function compileInstructionAssemblyPlan(
       sourceTypeRefs: uniqueSorted(input.derivedTruth.sourceTypeRefs),
       targetTypeRefs: uniqueSorted(input.derivedTruth.targetTypeRefs),
       outputContractRefs: uniqueSorted(input.derivedTruth.outputContractRefs),
+      selectedOutputContractRef,
       proofRefs: uniqueSorted(input.derivedTruth.proofRefs),
       authorityRefs: uniqueSorted(input.derivedTruth.authorityRefs),
       rendererRefs: uniqueSorted(input.derivedTruth.rendererRefs),
@@ -1915,6 +1954,7 @@ export function bindInstructionEnvelope(input: {
     vectorRef: input.plan.vectorRef,
     boundRuntimeRefs: Object.freeze([...input.runtimeFacts]),
     outputContractRefs: uniqueSorted(input.plan.derivedTruth.outputContractRefs),
+    selectedOutputContractRef: input.plan.derivedTruth.selectedOutputContractRef,
     shouldDispatchFp: input.plan.shouldDispatchFp
   });
   const envelope = Object.freeze({
@@ -1986,6 +2026,7 @@ export function renderPromptManifest(input: {
     ),
     requirementPressureRefs: requirementPressureRefsFromEnvelope(input.envelope),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
+    selectedOutputContractRef: input.envelope.selectedOutputContractRef,
     renderedPrompt
   });
   const manifest = Object.freeze({
@@ -2042,6 +2083,7 @@ export function replayPromptManifest(input: {
     ),
     requirementPressureRefs: requirementPressureRefsFromEnvelope(input.envelope),
     outputContractRefs: uniqueSorted(input.envelope.outputContractRefs),
+    selectedOutputContractRef: input.envelope.selectedOutputContractRef,
     renderedPrompt: expectedPrompt
   });
   const expectedManifestDigest = manifestDigest(withoutDigest);

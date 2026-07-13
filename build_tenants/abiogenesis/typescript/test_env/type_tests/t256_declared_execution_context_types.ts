@@ -14,14 +14,19 @@ declare const joinInput: JoinDeclaredExecutionContextInput;
 const fpRegime: "F_P" = fpRequest.regime;
 const fpPlanRef: string = fpRequest.planRef;
 const fpEnvelopeRef: string = fpRequest.envelopeRef;
+const fpResultContractRef: string = fpRequest.resultContractRef;
 const startupBlocked: "startup_blocked_awaiting_t267" =
   fpRequest.startupBlock.status;
 const effectsPermitted: false = fpRequest.startupBlock.effectsPermitted;
 void fpRegime;
 void fpPlanRef;
 void fpEnvelopeRef;
+void fpResultContractRef;
 void startupBlocked;
 void effectsPermitted;
+
+const selectedCatalogEntryRef: string = joinInput.selectedCatalogEntryRef;
+void selectedCatalogEntryRef;
 
 const fhRegime: "F_H" = fhRequest.regime;
 const interactionSubjectRef: string = fhRequest.interactionSubjectRef;
