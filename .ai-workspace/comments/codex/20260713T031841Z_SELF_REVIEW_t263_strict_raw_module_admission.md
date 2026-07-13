@@ -1,5 +1,9 @@
 # T-263 Strict Raw Module Admission Self-Review
 
+> **Evidence only; closure retracted.** The implementation remains reviewable,
+> but its admission depended on the invalid T-252 F_H inference. See
+> `20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md`.
+
 **Date**: 2026-07-13
 **Verdict**: `clean_after_proof_repairs`
 

@@ -1,8 +1,8 @@
 # M03 Proportional Conformance Inventory Behavior Design
 
-**Design verdict**: `accepted_by_fh_with_capability_boundary_narrowing`
-**Implementation admission**: `realized_and_self_reviewed`
-**Ticket**: [T-264](../../../../.ai-workspace/tickets/completed/T-264-close-proportional-conformance-inventory.md)
+**Design verdict**: `sound_pending_explicit_fh_acceptance`
+**Implementation admission**: `provisional_implementation_landed_for_review`
+**Ticket**: [T-264](../../../../.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md)
 **Owning module**: M03 engine conformance
 **Change class**: `design_reframe`
 **Delivery phase**: DS-1 conformance foundation
@@ -236,8 +236,9 @@ local Jobs and Roles. A nonzero universal minimum is forbidden.
 ### Declaration inventory is not execution evidence
 
 All rows above are static declaration truth. Counts prove neither invocation
-nor non-invocation. T-252's no-execution result remains a separate static source
-dependency closure plus probe-phase inventory.
+nor non-invocation. T-252 separately proves only that the canonical body source
+dependency closure reaches none of its fenced execution or product
+implementation directories; it performs no runtime-call observation.
 
 ## Effect-Capability Authority Gap
 
@@ -256,13 +257,13 @@ declared effect ref is supported by selected engine capability profile
 from package version, plugin ref, handler ref, effect URI spelling, or test
 presence. Any such conclusion would fabricate the missing authority.
 
-### Recommended F_H ruling
+### Required F_H ruling
 
 Narrow T-264 closure to structural scope, exact declaration inventory,
 transitive effect visibility, and matchable effect-requirement projection.
-Route actual effect-to-capability compatibility to the first slice that admits
-the exact tenant capability profile, likely the T-255 execution-basis or DS-4
-installed-product boundary.
+Keep the ownership relation explicit: T-264 projects effect requirements, DS-4
+supplies the published exact tenant capability profile, and T-255 admits that
+profile and performs effect-to-capability compatibility admission.
 
 This is proportionate because:
 
@@ -273,10 +274,9 @@ This is proportionate because:
 - reopening T-252 to add a local effect/capability carrier would create a new
   language authority to solve a missing mapping input.
 
-F_H accepted this narrowing on 2026-07-13. T-264 realizes the structural
-inventory and matchable effect-requirement projection. T-255/DS-4 retains
-actual effect-to-capability compatibility until an exact tenant profile is
-admitted.
+The provisional implementation realizes the structural inventory and matchable
+effect-requirement projection only. Explicit F_H acceptance of this boundary is
+still required.
 
 ## Domain Model
 
@@ -503,7 +503,7 @@ handler inventory. Separate counts expose those declaration families.
 | plugin inventory | exact GraphFunction-local seam rows extracted | duplicate/unknown/missing/unused seam or direct plugin Operator binding fails when applicability is decidable |
 | handler inventory | exact program/stage/arm/regime/config rows extracted | duplicate, conflict, unresolved program, wrong host, or missing applicable row fails |
 | authority separation | plugin contracts, selections, handlers, and effects have separate counts | one count or declaration satisfying another family fails |
-| no execution | declaration inventory coexists with static no-execution evidence | declaration count used as call/no-call evidence fails |
+| static reachability | declaration inventory coexists with source-import closure evidence | declaration count used as call/no-call evidence fails |
 | capability honesty | effect requirement rows remain matchable and profile gap explicit | name/package/plugin based compatibility pass is impossible |
 | T-252 oracle | body digest remains fixed; T-264 families leave active census after implementation | traversal/C/HOF/runtime families remain owned and visible |
 | non-Consensus proof | broad fixture uses optional and present families together | hard-coded Consensus feature exception is absent |
@@ -517,14 +517,14 @@ handler inventory. Separate counts expose those declaration families.
 | Complete-program assurance is not weakened | C-ALGEBRA conformance-root law | complete scope retains claims | complete branch enforces claims | ClaimMismatch reaches report | explicit variant | expected count and manifest checks | `pass` | T-264 realization |
 | Unused families may be zero | proportionality; Module law | Job/Role and optional families remain actual rows | applicability precedes nonzero checks | submitted scope reaches report with lawful zeros | exact arrays | structural references decide requirement | `pass` | T-264 realization |
 | Effects remain visible and transitive | GF-005 | effect requirement rows cite hosts/children | extraction precedes report | missing transitive row is InventoryInvalid | readonly effect refs | structural child/application checks | `pass` | T-264 realization |
-| Effect compatibility uses exact capability profile | CAPABILITY-001..009 | TenantCapabilityProfile is deferred authority | only profile may send compatibility input | compatibility stays deferred without profile | no current carrier | no current input/admission path | `not_applicable` | T-255/DS-4 first exact-profile boundary |
+| Effect compatibility uses exact capability profile | CAPABILITY-001..009 | DS-4 TenantCapabilityProfile is deferred authority | DS-4 publishes; T-255 admits and decides compatibility | compatibility stays deferred without profile | no current carrier | no current input/admission path | `not_applicable` | DS-4 profile plus T-255 admission |
 | Plugin and handler authorities are separate | PLUGIN-SEAMS-003; HANDLERS-001/-011 | distinct inventory rows | existing compilers emit each family | malformed rows reach InventoryInvalid | closed declaration types | canonical declaration parsers/compilers | `pass` | T-264 realization |
 | Direct plugin Operator binding is invalid | C-ALGEBRA-011; T-252 design | Operator binding and selection rows distinct | inventory checks binding before report | violation is InventoryInvalid | Operator type remains data | conformance rule | `pass` | T-264 realization |
 | Declaration counts do not prove execution | GF-005; compile-before-effects | inventory/report separate from runtime | no effect participant | no runtime lifecycle state | pure transforms | dependency fence | `pass` | T-264 realization |
 | Real T-252 gaps remain | T-252 checkpoint | traversal projection remains downstream | compiler checks still run | ReportReady may be non-passing | unchanged body | exact rule census by owner | `pass` | T-255..T-262 |
 | Runtime execution | outside T-264 | runtime absent | no runtime messages | no runtime states | not applicable | not applicable | `not_applicable` | T-255 onward |
 
-## F_H Ruling
+## Proposed F_H Ruling
 
 Accept the three-view design with one boundary correction:
 
@@ -540,13 +540,14 @@ T-264 does not own:
   actual effect-to-capability compatibility without an admitted tenant profile
 ```
 
-F_H accepted this boundary on 2026-07-13. Route compatibility to the first
-carrier that admits the exact capability profile, currently T-255/DS-4. Do not
-add a local effect/capability mapping to Consensus or infer one from strings.
+Accept this boundary only with the three-owner split: T-264 projects exact
+requirements, DS-4 publishes the exact profile, and T-255 admits the profile and
+decides compatibility. Do not add a local effect/capability mapping to Consensus
+or infer one from strings.
 
 ## Closure Conditions
 
-1. F_H resolved the effect-capability authority gap and accepted all three views.
+1. F_H explicitly resolves the effect-capability authority gap and accepts all three views.
 2. T-263 closes strict raw Module admission before T-264 code.
 3. Scope is explicit; bounded and complete claims cannot be confused.
 4. Feature applicability and embedded inventory derive from admitted structure.
@@ -579,15 +580,16 @@ add a local effect/capability mapping to Consensus or infer one from strings.
 ## Non-Scope
 
 - T-263 raw admission implementation;
-- T-255 execution basis and actual capability admission;
+- T-255 exact capability-profile admission and compatibility decision;
 - T-256 request construction, T-257 F_P result admission, or T-258 F_H resume;
 - T-259..T-262 runtime atoms;
 - DS-4 catalog/public-contract publication and installed capability profiles;
 - hostile-desktop or cryptographic conformance claims.
 
-## Accepted Verdict
+## Review Verdict
 
-`accepted_by_fh_with_capability_boundary_narrowing`. The structural scope
-and inventory design is complete and uses existing admitted carriers and
-compilers. F_H relocated actual effect-to-capability compatibility to T-255/DS-4
-on 2026-07-13. Implementation remains blocked only until T-263 closes.
+`sound_pending_explicit_fh_acceptance`. The structural scope and inventory
+design uses existing admitted carriers and compilers. The provisional
+implementation is ready for review after T-263 acceptance. Compatibility
+remains split across T-264 requirement projection, the DS-4 published profile,
+and T-255 admission.

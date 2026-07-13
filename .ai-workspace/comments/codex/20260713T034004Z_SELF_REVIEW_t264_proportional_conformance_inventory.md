@@ -1,5 +1,9 @@
 # T-264 Self-Review - Proportional Conformance Inventory
 
+> **Evidence only; closure retracted.** The implementation remains reviewable,
+> but its admission depended on the invalid T-252 F_H inference. See
+> `20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md`.
+
 ## Verdict
 
 Pass at the F_H-narrowed structural boundary. T-264 closes proportional scope,

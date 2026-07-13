@@ -9,6 +9,7 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { compileCAlgebraToHog } from "../../build/semantic/code/src/abg/m03/contracts/c_algebra_hog_compiler.js";
+import { compileExecutionDeclarations } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
 import { compileGraphFunctionApplication } from "../../build/semantic/code/src/abg/m03/contracts/graph_function_application_compiler.js";
 import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
@@ -254,17 +255,74 @@ function gapEvidenceRow(input) {
   return Object.freeze({
     diagnosticIds: sortedUnique(input.diagnosticIds),
     bodyPaths: sortedUnique(input.bodyPaths),
+    observationSources: sortedUnique(input.observationSources),
     evidenceRefs: sortedUnique(input.evidenceRefs),
     actualRelation: bounded(input.actualRelation)
   });
 }
 
+function cTermFacts(term, facts = { fibres: [], instructionCategoryRefs: [] }) {
+  switch (term.kind) {
+    case "c_of":
+      facts.fibres.push(term.fibre);
+      facts.instructionCategoryRefs.push(...(term.instructionCategoryRefs ?? []));
+      break;
+    case "c_compose":
+      cTermFacts(term.left, facts);
+      cTermFacts(term.right, facts);
+      break;
+    case "c_edge":
+      cTermFacts(term.transform, facts);
+      cTermFacts(term.evaluate, facts);
+      cTermFacts(term.consequence, facts);
+      break;
+    case "c_batch":
+      term.tasks.forEach((task) => cTermFacts(task, facts));
+      break;
+    case "c_retry":
+      cTermFacts(term.term, facts);
+      break;
+    case "c_identity":
+    case "c_workflow":
+      break;
+  }
+  return facts;
+}
+
+function conformanceRows(issues, predicate) {
+  return issues.filter(predicate).map((issue) => ({
+    diagnosticId: issue.ruleRef,
+    path: `${issue.surfaceKind}:${issue.surfaceRef}`
+  }));
+}
+
+function diagnosticRows(diagnostics, predicate) {
+  return diagnostics.filter(predicate).map((row) => ({
+    diagnosticId: row.diagnosticId,
+    path: row.canonicalBodyPath
+  }));
+}
+
+function observeGap(target, gapFamily, input) {
+  const diagnosticIds = sortedUnique(input.rows.map((row) => row.diagnosticId));
+  const bodyPaths = sortedUnique(input.rows.map((row) => row.path));
+  if (diagnosticIds.length === 0 || bodyPaths.length === 0) return;
+  if (target.has(gapFamily)) {
+    throw new TypeError(`duplicate compiler observation for gap family ${gapFamily}`);
+  }
+  target.set(
+    gapFamily,
+    gapEvidenceRow({
+      diagnosticIds,
+      bodyPaths,
+      observationSources: input.observationSources,
+      evidenceRefs: input.evidenceRefs,
+      actualRelation: input.actualRelation
+    })
+  );
+}
+
 async function buildManifest() {
-  const noExecution = {
-    armed: true,
-    armedBefore: "body_import_and_m02_admission",
-    phases: []
-  };
   const sourceClosure = sourceImportClosure(BODY_SOURCE);
   const forbiddenSegments = [
     "/runner/",
@@ -283,16 +341,13 @@ async function buildManifest() {
     );
   }
 
-  noExecution.phases.push("observer_armed");
   const bodyModule = await import(
     "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js"
   );
-  noExecution.phases.push("body_authored");
   const body = bodyModule.ABG_CONSENSUS_GTL_BODY;
   const serializedModule = serializeModule(body.module);
   const bodyDigest = stableSha256Digest(serializedModule);
   const admittedModule = admitModule(cloneJson(serializedModule));
-  noExecution.phases.push("m02_admitted");
   const roundTrip = serializeModule(admittedModule);
   if (JSON.stringify(roundTrip) !== JSON.stringify(serializedModule)) {
     throw new TypeError("canonical Consensus module changed under M02 round-trip");
@@ -454,10 +509,40 @@ async function buildManifest() {
       );
     });
   }
-  noExecution.phases.push("focused_m03_compilers_completed");
+
+  const executionDeclarationRows = graphFunctions.map((graphFunction) => {
+    const path = `module.graphFunctions[${graphFunction.name}].executionDeclarations`;
+    try {
+      compileExecutionDeclarations(graphFunction);
+      return {
+        path,
+        graphFunctionName: graphFunction.name,
+        accepted: true,
+        diagnosticId: null,
+        actualRelation: "current execution declaration compiler admitted the GraphFunction"
+      };
+    } catch (error) {
+      const actualRelation = bounded(error, 320);
+      const diagnosticId = actualRelation.includes("omits current interpreter anchors")
+        ? "current-interpreter-anchor-shape"
+        : actualRelation.includes("gtl-c-unrealized-retry")
+          ? "gtl-c-unrealized-retry"
+          : actualRelation.includes("gtl-c-unrealized-workflow-lift")
+            ? "gtl-c-unrealized-workflow-lift"
+            : "execution-declaration-compiler-blocked";
+      return {
+        path,
+        graphFunctionName: graphFunction.name,
+        accepted: false,
+        diagnosticId,
+        actualRelation
+      };
+    }
+  });
 
   const nestedProgramRows = body.programs.map((program, index) => {
     const compilation = compileCAlgebraToHog(program);
+    const termFacts = cTermFacts(program.term);
     const path = `programs[${index}:${program.programRef}]`;
     compilation.diagnostics.forEach((diagnostic) =>
       diagnostics.push(
@@ -474,7 +559,9 @@ async function buildManifest() {
       path,
       programRef: program.programRef,
       accepted: compilation.accepted,
-      diagnosticIds: compilation.diagnostics.map((row) => row.diagnosticId)
+      diagnosticIds: compilation.diagnostics.map((row) => row.diagnosticId),
+      fibres: sortedUnique(termFacts.fibres),
+      instructionCategoryRefs: sortedUnique(termFacts.instructionCategoryRefs)
     };
   });
 
@@ -484,7 +571,6 @@ async function buildManifest() {
     scopeKind: "submitted_structure",
     modules: [admittedModule]
   });
-  noExecution.phases.push("full_conformance_completed");
   const structuralBlockingRules = new Set([
     "abg://gtl-program/graph-vector/source-derivable",
     "abg://gtl-program/graph/output-derivable",
@@ -566,143 +652,219 @@ async function buildManifest() {
   ];
 
   const commonEvidenceRefs = [`body:${bodyDigest}`, "ticket:T-252"];
-  const directDiagnosticIds = diagnostics.map((row) => row.diagnosticId);
-  const directPaths = diagnostics.map((row) => row.canonicalBodyPath);
-  const activeGapEvidence = {
-    c_program_runtime_shape_generalization: gapEvidenceRow({
-      diagnosticIds: ["current-interpreter-anchor-shape"],
-      bodyPaths: body.programs.map((program) => `program:${program.programRef}`),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "lawful single-stage and wrapper C programs exceed the current fixed interpreter anchor shape"
-    }),
-    graph_vector_program_runtime_selection: gapEvidenceRow({
-      diagnosticIds: directDiagnosticIds.filter(
-        (id) => id === "gtl-c-unrealized-vector-program-selection"
-      ),
-      bodyPaths: vectorRows.map((row) => row.path),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "exact vector/program bindings compile but no runtime consumer exists"
-    }),
-    target_carrier_contract: gapEvidenceRow({
-      diagnosticIds: ["abg://gtl-program/traversal-unit/target-carrier-required"],
-      bodyPaths: ["conformance.traversalUnits"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "full conformance still requires target-carrier truth for executable vectors"
-    }),
-    edge_closure_contract: gapEvidenceRow({
-      diagnosticIds: ["abg://gtl-program/traversal-unit/edge-closure-required"],
-      bodyPaths: ["conformance.traversalUnits"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "full conformance still requires edge-closure truth for executable vectors"
-    }),
-    traversal_execution_contracts: gapEvidenceRow({
-      diagnosticIds: ["abg://gtl-program/traversal-unit/stage-binding-required"],
-      bodyPaths: ["conformance.traversalUnits"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "TraversalUnit execution basis is not yet derived from the compiled vector/program relation"
-    }),
-    composition_owning_declaration_join: gapEvidenceRow({
-      diagnosticIds: ["gtl-application-runtime-not-realized"],
-      bodyPaths: applicationRows.map(
-        (row) => `application:${row.graphFunctionName}`
-      ),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "application lineage is compiled while the final owning-declaration execution join remains provisional"
-    }),
-    carrier_field_indirection: gapEvidenceRow({
-      diagnosticIds: ["coverage-carrier-field-indirection"],
-      bodyPaths: ["nodes.ReviewerAssignment", "nodes.SemanticReducerBinding"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "typed binding carriers exist but generic field-path resolution into runtime requests is absent"
-    }),
-    declared_instruction_protocol_join: gapEvidenceRow({
-      diagnosticIds: ["coverage-declared-instruction-protocol-join"],
-      bodyPaths: ["nodes.ReviewerAssignment", "nodes.SubmitterTurnBinding"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "instruction and protocol refs remain carrier data without a generic runtime request join"
-    }),
-    fp_result_contract_admission: gapEvidenceRow({
-      diagnosticIds: ["coverage-fp-result-contract-admission"],
-      bodyPaths: [
-        "vectors.review-one-profile",
-        "vectors.reduce-round",
-        "vectors.submitter-response",
-        "vectors.reassess-round"
-      ],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "F_P result contracts are declared by typed boundaries but raw output admission is not on the runtime path"
-    }),
-    fh_pending_runtime_hold: gapEvidenceRow({
-      diagnosticIds: ["coverage-fh-pending-runtime-hold"],
-      bodyPaths: ["vectors.fh-initial", "vectors.fh-post-submitter"],
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "F_H vectors target pending interaction truth but hold, public act, and resume are not realized"
-    }),
-    workflow_c_runtime: gapEvidenceRow({
-      diagnosticIds: directDiagnosticIds.filter(
-        (id) => id === "gtl-c-unrealized-workflow-lift"
-      ),
-      bodyPaths: directPaths.filter((path) => path.includes("programs[")),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "workflow.C boundaries are authored and compiler-visible without a runtime lowering"
-    }),
-    typed_fan_out_runtime: gapEvidenceRow({
-      diagnosticIds: ["gtl-hof-unrealized-fan-out"],
-      bodyPaths: hofRows.map((row) => `hof:${row.graphFunctionName}`),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "canonical typed fan_out relation has no runtime consumer"
-    }),
-    typed_fan_out_batch_projection: gapEvidenceRow({
-      diagnosticIds: ["coverage-fan-out-to-batch-projection"],
-      bodyPaths: hofRows.map((row) => `hof:${row.graphFunctionName}`),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "fan_out has no proved ordinal-preserving projection to C.batch task spines"
-    }),
-    typed_fan_in_structure_and_runtime: gapEvidenceRow({
-      diagnosticIds: ["gtl-application-runtime-not-realized"],
-      bodyPaths: applicationRows
-        .filter((row) => row.operatorKinds.includes("fan_in"))
-        .map((row) => `application:${row.graphFunctionName}`),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "fan_in application lineage is exact while collection runtime is absent"
-    }),
-    c_retry_runtime_and_policy_join: gapEvidenceRow({
-      diagnosticIds: ["gtl-c-unrealized-retry"],
-      bodyPaths: nestedProgramRows
-        .filter((row) => row.diagnosticIds.includes("gtl-c-unrealized-retry"))
-        .map((row) => row.path),
-      evidenceRefs: [
-        ...commonEvidenceRefs,
-        "policy:transport_failure|no_output|contract_failure"
-      ],
-      actualRelation: "retry budget 2 is canonical data but runtime and allowlist consumption are absent"
-    }),
-    typed_recurse_policy_and_runtime: gapEvidenceRow({
-      diagnosticIds: ["gtl-application-runtime-not-realized"],
-      bodyPaths: applicationRows
-        .filter((row) => row.operatorKinds.includes("recurse"))
-        .map((row) => `application:${row.graphFunctionName}`),
-      evidenceRefs: commonEvidenceRefs,
-      actualRelation: "recurse lineage and foldback data are exact while typed runtime consumption is absent"
-    })
-  };
+  const observedGapEvidence = new Map();
+  const rowsForApplication = (operatorKind) =>
+    applicationRows
+      .filter(
+        (row) =>
+          row.operatorKinds.includes(operatorKind) &&
+          row.diagnosticIds.includes("gtl-application-runtime-not-realized")
+      )
+      .map((row) => ({
+        diagnosticId: "gtl-application-runtime-not-realized",
+        path: `application:${row.graphFunctionName}`
+      }));
+  const rowsForFibre = (fibre, diagnosticId) =>
+    nestedProgramRows
+      .filter((row) => row.fibres.includes(fibre))
+      .map((row) => ({ diagnosticId, path: row.path }));
+
+  observeGap(observedGapEvidence, "c_program_runtime_shape_generalization", {
+    rows: executionDeclarationRows
+      .filter((row) => row.diagnosticId === "current-interpreter-anchor-shape")
+      .map((row) => ({ diagnosticId: row.diagnosticId, path: row.path })),
+    observationSources: ["compiler:compileExecutionDeclarations"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "the current execution-declaration compiler rejects lawful programs outside its fixed interpreter anchor shape"
+  });
+  observeGap(observedGapEvidence, "graph_vector_program_runtime_selection", {
+    rows: vectorRows
+      .filter((row) =>
+        row.diagnosticIds.includes("gtl-c-unrealized-vector-program-selection")
+      )
+      .map((row) => ({
+        diagnosticId: "gtl-c-unrealized-vector-program-selection",
+        path: row.path
+      })),
+    observationSources: ["compiler:compileGraphVectorCProgramSelection"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "exact vector/program bindings compile but no runtime consumer exists"
+  });
+  observeGap(observedGapEvidence, "target_carrier_contract", {
+    rows: conformanceRows(
+      conformance.issues,
+      (issue) => issue.ruleRef === "abg://gtl-program/graph-vector/target-carrier-required"
+    ),
+    observationSources: ["compiler:typecheckGtlProgram"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "full conformance requires target-carrier truth for each materialized GraphVector"
+  });
+  observeGap(observedGapEvidence, "edge_closure_contract", {
+    rows: conformanceRows(
+      conformance.issues,
+      (issue) => issue.ruleRef === "abg://gtl-program/graph-vector/edge-closure-required"
+    ),
+    observationSources: ["compiler:typecheckGtlProgram"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "full conformance requires edge-closure truth for each materialized GraphVector"
+  });
+  observeGap(observedGapEvidence, "traversal_execution_contracts", {
+    rows: conformanceRows(
+      conformance.issues,
+      (issue) =>
+        issue.ruleRef.startsWith("abg://gtl-program/traversal-unit/") &&
+        issue.ruleRef !== "abg://gtl-program/traversal-unit/target-carrier-required" &&
+        issue.ruleRef !== "abg://gtl-program/traversal-unit/edge-closure-required"
+    ),
+    observationSources: ["compiler:typecheckGtlProgram"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "TraversalUnit execution, result-interface, and conservation rows are absent from the submitted structure"
+  });
+  observeGap(observedGapEvidence, "composition_owning_declaration_join", {
+    rows: diagnosticRows(
+      diagnostics,
+      (row) =>
+        row.source === "graph_function_application_compiler" &&
+        row.diagnosticId === "gtl-application-runtime-not-realized"
+    ),
+    observationSources: ["compiler:compileGraphFunctionApplication"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "application lineage compiles while the final owning-declaration execution join remains provisional"
+  });
+
+  const bindingCarrierRows = graphFunctions.flatMap((graphFunction) =>
+    vectors(graphFunction).flatMap((vector, index) =>
+      vector.source.some((node) => node.name.endsWith("Binding"))
+        ? [{
+            diagnosticId: "coverage-carrier-field-indirection",
+            path: `module.graphFunctions[${graphFunction.name}].vectors[${index}:${vector.name}]`
+          }]
+        : []
+    )
+  );
+  observeGap(observedGapEvidence, "carrier_field_indirection", {
+    rows: bindingCarrierRows,
+    observationSources: ["structure:graph-vector-binding-carriers"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "typed binding carriers are graph inputs while no admitted runtime field-resolution contract is present"
+  });
+  const fpRows = rowsForFibre("F_P", "coverage-fp-result-contract-admission");
+  const fhRows = rowsForFibre("F_H", "coverage-fh-pending-runtime-hold");
+  observeGap(observedGapEvidence, "declared_instruction_protocol_join", {
+    rows: [...fpRows, ...fhRows].map((row) => ({
+      diagnosticId: "coverage-declared-instruction-protocol-join",
+      path: row.path
+    })),
+    observationSources: ["structure:declared-fp-fh-c-stages"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "declared F_P and F_H stages have no admitted generic instruction/protocol request join"
+  });
+  observeGap(observedGapEvidence, "fp_result_contract_admission", {
+    rows: fpRows,
+    observationSources: ["structure:declared-fp-c-stages"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "F_P stages are declared while raw output admission is absent from the runtime path"
+  });
+  observeGap(observedGapEvidence, "fh_pending_runtime_hold", {
+    rows: fhRows,
+    observationSources: ["structure:declared-fh-c-stages"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "F_H stages are declared while hold, public act, and resume remain unrealized"
+  });
+  observeGap(observedGapEvidence, "workflow_c_runtime", {
+    rows: diagnosticRows(
+      diagnostics,
+      (row) => row.diagnosticId === "gtl-c-unrealized-workflow-lift"
+    ),
+    observationSources: ["compiler:compileCAlgebraToHog"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "workflow.C boundaries are compiler-visible without a runtime lowering"
+  });
+  const fanOutRows = hofRows
+    .filter((row) => row.diagnosticIds.includes("gtl-hof-unrealized-fan-out"))
+    .map((row) => ({
+      diagnosticId: "gtl-hof-unrealized-fan-out",
+      path: `hof:${row.graphFunctionName}`
+    }));
+  observeGap(observedGapEvidence, "typed_fan_out_runtime", {
+    rows: fanOutRows,
+    observationSources: ["compiler:compileHofRelation"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "canonical typed fan_out relation has no runtime consumer"
+  });
+  observeGap(observedGapEvidence, "typed_fan_out_batch_projection", {
+    rows: fanOutRows.map((row) => ({
+      diagnosticId: "coverage-fan-out-to-batch-projection",
+      path: row.path
+    })),
+    observationSources: ["compiler:compileHofRelation", "structure:c-program-catalog"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "fan_out has no proved ordinal-preserving projection to C.batch task spines"
+  });
+  observeGap(observedGapEvidence, "typed_fan_in_structure_and_runtime", {
+    rows: rowsForApplication("fan_in"),
+    observationSources: ["compiler:compileGraphFunctionApplication"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "fan_in lineage is exact while collection runtime is absent"
+  });
+  observeGap(observedGapEvidence, "c_retry_runtime_and_policy_join", {
+    rows: nestedProgramRows
+      .filter((row) => row.diagnosticIds.includes("gtl-c-unrealized-retry"))
+      .map((row) => ({ diagnosticId: "gtl-c-unrealized-retry", path: row.path })),
+    observationSources: ["compiler:compileCAlgebraToHog"],
+    evidenceRefs: [
+      ...commonEvidenceRefs,
+      "policy:transport_failure|no_output|contract_failure"
+    ],
+    actualRelation: "retry budget is canonical data while runtime and allowlist consumption are absent"
+  });
+  observeGap(observedGapEvidence, "typed_recurse_policy_and_runtime", {
+    rows: rowsForApplication("recurse"),
+    observationSources: ["compiler:compileGraphFunctionApplication"],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation: "recurse lineage and foldback data are exact while runtime consumption is absent"
+  });
+
+  const observedFamilies = [...observedGapEvidence.keys()].sort();
+  const observedGapEvidenceDigest = stableSha256Digest(
+    observedFamilies.map((family) => ({
+      gapFamily: family,
+      evidence: observedGapEvidence.get(family)
+    }))
+  );
   const ownership = loadOwnership();
   const activeOwnedFamilies = [...ownership.byFamily]
     .filter(([, owner]) => owner.status === "active")
     .map(([family]) => family)
     .sort();
-  const observedFamilies = Object.keys(activeGapEvidence).sort();
-  if (JSON.stringify(activeOwnedFamilies) !== JSON.stringify(observedFamilies)) {
+  const unownedObservedFamilies = observedFamilies.filter((family) => {
+    const owner = ownership.byFamily.get(family);
+    return owner === undefined || owner.status !== "active";
+  });
+  if (unownedObservedFamilies.length > 0) {
     throw new TypeError(
-      `active ownership and observed gap census differ: ${JSON.stringify({ activeOwnedFamilies, observedFamilies })}`
+      `compiler-observed gaps lack one active owner: ${JSON.stringify(unownedObservedFamilies)}`
     );
   }
+  const activeOwnedButNotObservedFamilies = activeOwnedFamilies.filter(
+    (family) => !observedGapEvidence.has(family)
+  );
   const gapCensus = observedFamilies.map((gapFamily) => {
     const owner = ownership.byFamily.get(gapFamily);
     if (owner === undefined || owner.status !== "active") {
       throw new TypeError(`${gapFamily} lacks one active successor owner`);
     }
-    const evidence = activeGapEvidence[gapFamily];
+    const evidence = observedGapEvidence.get(gapFamily);
+    if (evidence === undefined || GAP_REQUIREMENTS[gapFamily] === undefined) {
+      throw new TypeError(`${gapFamily} lacks compiler evidence or requirement authority`);
+    }
     const authorityRefs = [
       ...GAP_REQUIREMENTS[gapFamily].map((ref) => `requirement:${ref}`),
       `ticket:${owner.ticketId}`,
@@ -715,6 +877,7 @@ async function buildManifest() {
       classification: "semantic_not_realized",
       diagnosticIds: evidence.diagnosticIds,
       canonicalBodyPaths: evidence.bodyPaths,
+      observationSources: evidence.observationSources,
       authorityRefs,
       authorityDigest: stableSha256Digest(authorityRefs),
       actualRelation: evidence.actualRelation,
@@ -736,10 +899,10 @@ async function buildManifest() {
 
   const manifestPayload = {
     kind: "t252_consensus_gtl_probe_manifest",
-    version: 1,
+    version: 2,
     authority: {
       ticketRef:
-        ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
       designRef:
         "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
       abiPackageVersion: "5.0.0-dev.0"
@@ -781,6 +944,7 @@ async function buildManifest() {
       vectorProgramRows: vectorRows.sort((left, right) =>
         left.path.localeCompare(right.path)
       ),
+      executionDeclarationRows,
       nestedProgramRows,
       coverageRows,
       conformanceScopeKind: conformance.scopeKind,
@@ -797,33 +961,27 @@ async function buildManifest() {
       loadedTicketCount: ownership.sources.length,
       sources: ownership.sources,
       observedActiveGapFamilyCount: gapCensus.length,
+      activeOwnedButNotObservedFamilyCount:
+        activeOwnedButNotObservedFamilies.length,
+      activeOwnedButNotObservedFamilies,
       duplicateOwnerCount: 0,
       unownedGapCount: 0
     },
+    censusDerivation: {
+      order: "compiler_and_structural_observations_before_ticket_ownership",
+      observedGapFamilyCount: observedFamilies.length,
+      observedGapEvidenceDigest,
+      ownershipJoinChangesObservedFamilySet: false
+    },
     gapCensus,
-    noExecutionObservation: {
-      armedBefore: noExecution.armedBefore,
-      finalizedAfter: "full_conformance_terminal_outcome",
-      outcome: "semantic_not_realized",
-      evidenceMethod:
-        "static_source_dependency_closure_plus_probe_phase_inventory",
-      phases: noExecution.phases,
+    staticExecutionReachability: {
+      claim:
+        "the canonical body source dependency closure reaches none of the fenced runner, transport, events, app, qualification, or bin implementation directories",
+      evidenceMethod: "static_source_import_closure",
       bodySourceClosure: sourceClosure.map((path) => relative(TENANT_ROOT, path)),
       forbiddenReachableModules,
-      derivedCallCounts: {
-        runner: 0,
-        worker: 0,
-        plugin: 0,
-        handler: 0,
-        transport: 0,
-        event: 0,
-        result: 0,
-        replay: 0,
-        archive: 0,
-        workspaceMutation: 0,
-        productArtifact: 0
-      },
-      declarationCountsAreExecutionEvidence: false
+      runtimeCallObservation: "not_performed",
+      declarationCountsAreRuntimeEvidence: false
     }
   };
   return {

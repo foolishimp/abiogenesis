@@ -2,15 +2,18 @@
 
 - id: T-255
 - status: active
-- phase_status: design_reworked_implementation_admitted
-- review_status: accepted_under_direct_fh_continuation_with_proportional_reprice
+- phase_status: design_rework_paused_at_upstream_review_gate
+- review_status: pending_explicit_fh_acceptance
+- implementation_status: provisional_uncommitted_checkpoint
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - dependencies:
-  - completed T-264 proportional conformance inventory closure
+  - T-252 explicitly accepted
+  - T-263 explicitly accepted and closed
+  - T-264 explicitly accepted and closed
   - completed T-265 canonical GraphFunction applications and derived owner lineage
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
 
@@ -52,6 +55,12 @@ without a Consensus branch or second declaration owner. Exit requires the
 unchanged T-252 body to lose only the owned handoff diagnostics and a non-
 Consensus multi-stage fixture to pass.
 
+For an effect-bearing GraphFunction, T-255 also admits an exact versioned tenant
+capability profile and decides compatibility against T-264 effect-requirement
+projections. DS-4 supplies the published Consensus profile. Missing profile
+truth blocks an accepted effect-bearing handoff; it is not an accepted deferred
+status. A non-Consensus exact-profile fixture proves the generic admission law.
+
 Final plugin result-interface and bind-conservation closeability require
 authorities not present at this boundary and are owned by T-267. The
 selector-free structural HOF wrapper remains T-260 runtime work.
@@ -61,3 +70,5 @@ selector-free structural HOF wrapper remains T-260 runtime work.
 GraphFunction-global selection, canonical-three-stage coercion, inferred target
 or closure truth, composition inferred from program selection, feature-specific
 runtime code, a second selector, or a second composition owner.
+An accepted effect-bearing handoff with no exact admitted capability profile is
+also non-closure.

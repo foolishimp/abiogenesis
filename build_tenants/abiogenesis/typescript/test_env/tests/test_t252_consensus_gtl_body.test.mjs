@@ -393,7 +393,7 @@ test("T-252 module operator registry deduplicates exact copies and refuses confl
   );
 });
 
-test("T-252 body dependency closure cannot reach execution or product modules", () => {
+test("T-252 body dependency closure avoids fenced execution implementation directories", () => {
   const sourcePath = fileURLToPath(
     new URL(
       "../../code/src/abg/m03/contracts/consensus_gtl_body.ts",
@@ -407,4 +407,64 @@ test("T-252 body dependency closure cannot reach execution or product modules", 
     )
   );
   assert.deepEqual(forbidden, []);
+});
+
+test("T-252 probe derives observations before ownership and makes no runtime-call claim", () => {
+  const manifestPath = resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    "../fixtures/t252_consensus_probe_manifest.json"
+  );
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  assert.equal(manifest.version, 2);
+  assert.equal(
+    manifest.censusDerivation.order,
+    "compiler_and_structural_observations_before_ticket_ownership"
+  );
+  assert.equal(
+    manifest.censusDerivation.observedGapFamilyCount,
+    manifest.gapCensus.length
+  );
+  assert.equal(
+    manifest.censusDerivation.ownershipJoinChangesObservedFamilySet,
+    false
+  );
+  assert.match(
+    manifest.censusDerivation.observedGapEvidenceDigest,
+    /^sha256:[0-9a-f]{64}$/u
+  );
+
+  for (const gap of manifest.gapCensus) {
+    assert.equal(gap.ownerStatus, "active", gap.gapFamily);
+    assert.ok(gap.diagnosticIds.length > 0, gap.gapFamily);
+    assert.ok(gap.canonicalBodyPaths.length > 0, gap.gapFamily);
+    assert.ok(gap.observationSources.length > 0, gap.gapFamily);
+    assert.equal(
+      gap.observationSources.some((source) => source.startsWith("ticket:")),
+      false,
+      gap.gapFamily
+    );
+  }
+  const observed = new Set(manifest.gapCensus.map((gap) => gap.gapFamily));
+  assert.equal(
+    manifest.ownership.activeOwnedButNotObservedFamilies.some((family) =>
+      observed.has(family)
+    ),
+    false
+  );
+  assert.equal(manifest.ownership.unownedGapCount, 0);
+  assert.equal(manifest.ownership.duplicateOwnerCount, 0);
+
+  assert.equal(Object.hasOwn(manifest, "noExecutionObservation"), false);
+  assert.equal(
+    manifest.staticExecutionReachability.evidenceMethod,
+    "static_source_import_closure"
+  );
+  assert.equal(
+    manifest.staticExecutionReachability.runtimeCallObservation,
+    "not_performed"
+  );
+  assert.equal(
+    Object.hasOwn(manifest.staticExecutionReachability, "derivedCallCounts"),
+    false
+  );
 });

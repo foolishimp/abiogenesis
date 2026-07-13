@@ -1,5 +1,9 @@
 # F_H Decision: T-252 Closure And T-263/T-264 Admission
 
+> **Retracted as authority.** This post incorrectly interpreted a generic
+> instruction to continue as F_H acceptance. See
+> `20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md`.
+
 **Timestamp**: 2026-07-13T03:00:24Z
 **Decision source**: direct F_H instruction to continue the proposed review and
 execution sequence

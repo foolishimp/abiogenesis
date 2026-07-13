@@ -1,7 +1,7 @@
 # M03 Compiled GraphVector Execution Handoff Behavior Design
 
-**Design verdict**: `accepted_under_direct_fh_continuation_with_proportional_reprice`
-**Implementation admission**: `admitted_after_t264_closure`
+**Design verdict**: `candidate_reworked_pending_explicit_fh_acceptance`
+**Implementation admission**: `paused_at_t252_t263_t264_review_gate`
 **Ticket**: [T-255](../../../../.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md)
 **Owning module**: M03 graph-vector compilation
 **Change class**: `design_reframe`
@@ -14,10 +14,11 @@ T-255 closes one generic relation:
 ```text
 admitted GraphFunction + exact contained GraphVector
   + compiled T-254 vector/program binding
-  + admitted flat C program or identity
+  + admitted flat result-bearing C program
   + effective ABG.Fn composition under existing precedence
   + optional T-265 application lineage
   + exact target-carrier defaults
+  + exact admitted tenant capability profile when effects are required
     -> CompiledGraphVectorExecutionHandoff | typed blocked outcome
 ```
 
@@ -66,16 +67,17 @@ admission, and conservation requirements remain unchanged.
 - `REQ-R-ABG3-INTERPRET-010/-013/-022/-023/-027` requires typed traversal
   units, `no_compute_basis` for absent compute, opaque identities, and exact
   target/closure rows.
-- `REQ-M-GTL3-CAPABILITY` keeps effect compatibility behind a versioned exact
-  tenant capability profile.
+- `REQ-M-GTL3-CAPABILITY` requires T-255 to admit a versioned exact tenant
+  capability profile before accepting an effect-bearing handoff.
 - T-254 owns `CompiledGraphVectorCProgramBinding`.
 - T-265 owns application lineage and provisional inherited-composition
   projections.
 - T-264 owns static declaration inventory and matchable effect requirements.
 
-Direct F_H continuation on 2026-07-13 admitted the next planned implementation
-after T-264 closure, subject to the standing proportionality rule: do not widen
-the base algebra or fabricate missing authority to perfect a local seam.
+The earlier inference that direct continuation admitted implementation was
+invalid. T-255 remains paused until T-252, T-263, and T-264 receive explicit F_H
+disposition. The proportionality rule still applies: do not widen the base
+algebra or fabricate missing authority to perfect a local seam.
 
 ## Current Evidence
 
@@ -96,7 +98,7 @@ T-254 vector/program bindings.
 The compiler target is not `all 35 execute`. It is:
 
 ```text
-28 flat or identity vector handoffs become runtime-addressable
+28 flat vector handoffs become structurally compilable
 5 workflow selections remain workflow gaps
 1 retry selection remains a retry gap
 1 selector-free structural HOF vector remains a HOF runtime gap
@@ -115,7 +117,7 @@ The compiler target is not `all 35 execute`. It is:
 | `CompiledGraphVectorEdgeClosureBinding` | downstream contract projection | public M03 | derived from vector and target contract |
 | `CompiledGraphVectorExecutionHandoff` | prime runtime handoff | public M03 | this compiler's accepted result |
 | `GraphVectorExecutionHandoffOutcome` | closed result family | public M03 | accepted, structural-only, blocked, or invalid |
-| tenant capability profile | deferred authority | DS-4 | effect compatibility owner |
+| tenant capability profile | authoritative input | DS-4 publication, T-255 admission | exact effect compatibility basis |
 | result-interface and bind-conservation contract | deferred authority | T-267 | final TraversalUnit closeability |
 
 ## Domain Model
@@ -207,7 +209,7 @@ classDiagram
     +handoffRef
     +handoffDigest
     +programDisposition
-    +capabilityCompatibilityStatus
+    +capabilityAdmissionDisposition
   }
 
   class HandoffOutcome {
@@ -215,6 +217,7 @@ classDiagram
     +accepted
     +structural_only
     +blocked_successor_constructor
+    +blocked_capability
     +invalid
   }
 
@@ -264,13 +267,13 @@ The selected C term receives one closed disposition:
 
 ```text
 flat_executable
-identity_passthrough
 blocked_successor_constructor
 ```
 
 `C.of`, flat `C.compose`, and flat `C.edge` lower through the existing
-`compileCAlgebraToHog` compiler. Whole-program `C.id` is an explicit
-identity-passthrough handoff and cannot be relabelled as an empty HoG program.
+`compileCAlgebraToHog` compiler. `C.id` remains the left and right unit of
+composition; under `REQ-L-GTL3-C-ALGEBRA-003` it cannot make an otherwise empty
+executable program complete and receives no standalone execution handoff.
 `workflow.C`, `C.batch`, and `C.retry` retain their exact typed diagnostics and
 owners. A blocked nested constructor does not discard the accepted T-254
 binding, target contract, or diagnostic lineage.
@@ -322,15 +325,19 @@ truth.
 
 ### Capability boundary
 
-The handoff carries T-264 effect-requirement refs and one status:
+T-255 joins T-264 effect-requirement refs to an admitted exact capability
+profile. The result is one closed disposition:
 
 ```text
-deferred_missing_exact_profile
 not_applicable_no_effect_requirements
+compatible_exact_profile
+blocked_missing_exact_profile
+blocked_incompatible_profile
 ```
 
 No package version, plugin ref, handler ref, URI spelling, or passing test may
-stand in for the exact DS-4 tenant capability profile.
+stand in for the exact DS-4 tenant capability profile. Only compatible or
+not-applicable handoffs can be accepted.
 
 ## Execution Sequence
 
@@ -342,6 +349,7 @@ sequenceDiagram
   participant T265 as ApplicationCompiler
   participant Fn as CompositionResolver
   participant Target as TargetCarrierResolver
+  participant Profile as CapabilityProfileAdmission
   participant Handoff as HandoffCompiler
   participant Runtime as RuntimeConsumer
 
@@ -358,8 +366,8 @@ sequenceDiagram
       C-->>Handoff: successor-owned typed diagnostic
       Handoff->>Target: preserve target and closure contract
       Handoff-->>Caller: blocked_successor_constructor outcome
-    else flat or identity term
-      C-->>Handoff: normalized flat program or identity disposition
+    else admitted flat result-bearing term
+      C-->>Handoff: normalized flat program
       Handoff->>T265: derive optional application lineage
       alt applied host
         T265-->>Fn: exact inherited declaration owner projection
@@ -369,8 +377,14 @@ sequenceDiagram
       Fn-->>Handoff: exact composition selection and owner
       Handoff->>Target: resolve exact target-carrier binding
       Target-->>Handoff: target and edge-closure contracts
-      Handoff-->>Runtime: immutable CompiledGraphVectorExecutionHandoff
-      Runtime-->>Caller: accepted handoff consumption or typed startup block
+      Handoff->>Profile: admit profile and match effect requirements
+      alt profile missing or incompatible
+        Profile-->>Caller: blocked_capability outcome
+      else exact compatibility admitted
+        Profile-->>Handoff: compatible or not-applicable disposition
+        Handoff-->>Runtime: immutable CompiledGraphVectorExecutionHandoff
+        Runtime-->>Caller: accepted handoff consumption or typed implementation block
+      end
     end
   end
 
@@ -389,7 +403,7 @@ stateDiagram-v2
   BoundaryCompiled --> ProgramBound: T254 exact binding admitted
   ProgramBound --> Invalid: selected program or carrier mismatch
   ProgramBound --> SuccessorBlocked: workflow batch or retry retained
-  ProgramBound --> ProgramNormalized: flat or identity disposition admitted
+  ProgramBound --> ProgramNormalized: flat result-bearing program admitted
   ProgramNormalized --> LineageResolving: applied host observed
   ProgramNormalized --> CompositionResolving: ordinary host
   LineageResolving --> Invalid: lineage or declaration owner mismatch
@@ -397,12 +411,15 @@ stateDiagram-v2
   CompositionResolving --> Invalid: host or owning declaration mismatch
   CompositionResolving --> TargetResolving: exact composition admitted
   TargetResolving --> Invalid: target defaults or vector target mismatch
-  TargetResolving --> HandoffAccepted: target and edge contracts compiled
+  TargetResolving --> CapabilityResolving: target and edge contracts compiled
+  CapabilityResolving --> CapabilityBlocked: profile missing or incompatible
+  CapabilityResolving --> HandoffAccepted: compatible or no effects required
   HandoffAccepted --> RuntimeAddressable: runtime consumes immutable handoff
-  RuntimeAddressable --> StartupBlocked: runtime capability or implementation absent
+  RuntimeAddressable --> StartupBlocked: runtime implementation absent
   RuntimeAddressable --> AwaitingTraversalConservation: execution may proceed under existing stage support
   StructuralOnly --> [*]: successor HOF owner retains runtime
   SuccessorBlocked --> [*]: named constructor owner retains runtime
+  CapabilityBlocked --> [*]: DS4 profile or compatibility repair required
   Invalid --> [*]: no effect
   StartupBlocked --> [*]: no effect
   AwaitingTraversalConservation --> [*]: T267 owns final closeability
@@ -414,11 +431,11 @@ stateDiagram-v2
 |---|---|---|---|---|
 | one vector-local selector | T-254 binding is singular | T-254 runs first | ambiguity enters `Invalid` | pass |
 | arbitrary flat C shape is preserved | normalized program retains ordered stages | compiler lowers the selected term | flat shape reaches `ProgramNormalized` | pass |
-| identity is not an empty program | identity has a distinct disposition | no HoG fabrication occurs | identity reaches `ProgramNormalized` | pass |
+| identity cannot create executable work | standalone identity fails C-program admission | no handoff is fabricated | identity remains a compositional unit | pass |
 | applied composition ownership uses lineage | lineage and composition are separate carriers | T-265 precedes inherited resolution | mismatch enters `Invalid` | pass |
 | program and composition remain distinct authorities | handoff owns both subordinates | neither selects the other | both required before target resolution | pass |
 | target/closure contract is not closure truth | edge binding is downstream contract data | compiler only projects it | final state awaits conservation | pass |
-| missing capability truth is not inferred | capability profile is deferred | no name or plugin inference message | startup may block | pass |
+| missing capability truth blocks acceptance | profile is a distinct admitted input | admission precedes handoff acceptance | missing or incompatible profile blocks | pending F_H |
 | successor constructors remain visible | workflow/batch/retry are deferred variants | typed diagnostic returns | `SuccessorBlocked` is terminal here | pass |
 | structural HOF vector remains selector-free | structural-only outcome exists | no selector is synthesized | `StructuralOnly` is terminal here | pass |
 | no product-specific path | all carriers are generic GTL/M03 identities | no Consensus participant exists | no Consensus state exists | pass |
@@ -433,7 +450,7 @@ stateDiagram-v2
 | ABG.Fn host binding fails closed | direct or lineage-derived owner is checked before handoff | pass | T-255 |
 | target satisfaction uses selected carrier identity | exact target binding and digest are handoff fields | pass | T-255 |
 | edge assurance does not become closure | edge binding names contracts only | pass | T-255 |
-| effect compatibility requires exact profile | status remains deferred without DS-4 profile | pass | DS-4 |
+| effect compatibility requires exact profile | DS-4 publishes; T-255 admits and decides | pending F_H | DS-4/T-255 |
 | raw F_P output is admitted before closure | not available at this boundary | not_applicable | T-257 |
 | bind conservation covers obligations and pressure | not available at this boundary | not_applicable | T-267 |
 | workflow, batch, retry, and recurse are declared algebra | typed successor gaps remain | pass | T-259..T-262 |
@@ -443,7 +460,7 @@ stateDiagram-v2
 | Proof | Required evidence |
 |---|---|
 | ordinary flat program | non-Consensus one-stage and multi-stage programs compile without fixed triple coercion |
-| identity | exact carrier-preserving identity compiles without handler or fake stage |
+| identity exclusion | standalone identity cannot become an executable handoff or fake stage |
 | vector selection | mutated host/vector/program refs fail before handoff |
 | direct composition | vector-local precedence and owner identity are exact |
 | inherited composition | T-265 applied lineage admits exact owner and rejects copied or ambiguous owner |
@@ -462,7 +479,7 @@ stateDiagram-v2
 - accepting authored `owning_declaration_ref` without compiler-derived host
   identity and lineage;
 - coercing every program to transform/evaluate/consequence;
-- running an identity through a fabricated handler stage;
+- turning compositional identity into an executable handoff or fabricated handler stage;
 - flattening workflow, batch, retry, HOF, or recurse into local imperative
   control flow;
 - reporting an edge closed because its closure contract was derived;

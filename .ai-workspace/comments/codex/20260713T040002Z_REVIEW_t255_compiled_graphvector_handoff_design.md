@@ -1,5 +1,11 @@
 # T-255 Design Review - Compiled GraphVector Execution Handoff
 
+> Superseded for authority on 2026-07-13 by
+> `20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md` and the
+> corrected live T-255 design. The continuation instruction cited below was not
+> F_H acceptance. Standalone `C.id` is also not an executable program, and
+> effect-bearing handoffs require T-255 admission of the exact DS-4 profile.
+
 ## Verdict
 
 Accepted for incremental realization under the direct F_H continuation ruling,
