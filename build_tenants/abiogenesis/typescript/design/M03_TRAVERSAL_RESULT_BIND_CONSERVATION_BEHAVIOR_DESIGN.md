@@ -21,7 +21,7 @@ T-255 selected-program handoff basis
 -> exact bind-conservation row
 -> existing typecheckGtlProgram(...) TraversalUnit projection
 -> static contract admission
--> capability-blocked static truth
+-> program-blocked or capability-blocked static truth
   | runtime-addressable, explicitly not-closed truth
 ```
 
@@ -216,24 +216,32 @@ occurred. Runtime payload and bind admission must still account for each
 obligation through admitted evidence. The static compiler cannot clear or
 rewrite an obligation.
 
-### D7. The existing conformance report is the final static judge
+### D7. The existing conformance report remains the judge
 
 The caller combines compiled bundles with the exact module, target-carrier,
 and edge-closure inventory, then calls `typecheckGtlProgram(...)`. T-267 does
 not copy its rules into a local validator.
 
-`admitTraversalExecution(...)` accepts only:
+`admitTraversalExecution(...)` first proves T-267 static closure from:
 
 - one exact source basis and compiled bundle;
 - one conformance report over the same subject and inventory digests;
 - exactly one projected unit matching the source graph function, graph,
   vector, target, composition, stage, result-interface, and conservation refs;
-- `report.passed === true`, `issueCount === 0`, and no issue row anywhere in
-  the admitted whole-program inventory;
+- no issue row in the exact projected unit or in any T-267-owned traversal
+  result-interface, stage-binding, composition, or conservation rule; and
 - the original T-255 startup block digest when the source was published.
 
 A report assembled from another module, stale row set, wider result authority,
 or mutated source is rejected.
+
+Static unit closure does not erase unrelated diagnostics in a proportional
+`submitted_structure` report. Runtime addressability is the stronger gate: it
+requires `report.passed === true`, `issueCount === 0`, and no issue row anywhere
+in the admitted whole-program inventory. A report with exact T-267 rows plus
+pre-existing C-algebra or graph-declaration residuals proves the T-267 bundle
+but remains startup-blocked. T-267 neither suppresses nor reclassifies those
+residuals.
 
 ### D8. Static admission and runtime closure are separate states
 
@@ -241,9 +249,15 @@ The closed `TraversalExecutionAdmissionOutcome` family is:
 
 ```text
 invalid
+static_contracts_admitted_program_blocked
 static_contracts_admitted_capability_blocked
 runtime_addressable_not_closed
 ```
+
+`static_contracts_admitted_program_blocked` proves the exact T-267 unit rows
+while preserving every non-T-267 conformance issue. It records
+`runtimeAddressable: false` and `effectsPermitted: false` and identifies the
+unchanged blocking report.
 
 `static_contracts_admitted_capability_blocked` proves that result-interface and
 conservation law close statically while preserving `runtimeAddressable: false`
@@ -275,7 +289,9 @@ The canonical T-252 body digest remains fixed. Its probe supplies the exact
 T-255/T-260 source outcomes and compiler-derived T-256/T-257/T-258 or runtime-
 atom result authorities to the generic T-267 compiler. The full conformance
 report must lose only `traversal_execution_contracts`; the independent T-268
-capability gap remains.
+capability gap and any pre-existing submitted-structure diagnostics remain
+visible. Those residuals cannot block T-267 static closure, but they continue
+to block runtime addressability and complete-program release admission.
 
 A non-Consensus fixture must prove the same compiler and gate with:
 
@@ -300,8 +316,8 @@ A non-Consensus fixture must prove the same compiler and gate with:
 | existing plugin-result-interface row | public conformance input | subordinate compiled row | static output admission contract, not output truth |
 | existing bind-conservation row | public conformance input | authoritative compiled row | lineage, obligation, pressure, and disposition conservation basis |
 | `CompiledTraversalExecutionContracts` | public M03 projection | prime | immutable join of source, result authorities, and existing conformance rows |
-| existing conformance report and unit projection | public M03 | authoritative judge | final whole-program static typecheck |
-| `TraversalExecutionAdmissionOutcome` | public M03 projection | downstream gate result | invalid, capability-blocked static admission, or addressable-not-closed admission |
+| existing conformance report and unit projection | public M03 | authoritative judge | exact static-unit judgment plus stronger whole-program runtime gate |
+| `TraversalExecutionAdmissionOutcome` | public M03 projection | downstream gate result | invalid, program-blocked static admission, capability-blocked static admission, or addressable-not-closed admission |
 | T-268 canonical manifest admission | deferred external authority | authoritative capability input | exact effect compatibility only |
 | runtime events and payload ledgers | existing ABG runtime | deferred from this slice | actual attempts, outputs, closure, dispositions, and replay truth |
 
@@ -455,7 +471,9 @@ sequenceDiagram
         Typecheck-->>Caller: closeable static unit projection
         Caller->>Gate: source, bundle, and exact report
         Gate->>Gate: rederive source, bundle, unit, report, and startup-block joins
-        alt source capability is absent or unresolved
+        alt report retains non-T267 submitted-structure issues
+          Gate-->>Caller: static contracts admitted, program blocked, no effects
+        else source capability is absent or unresolved
           Gate-->>Caller: static contracts admitted, capability blocked, no effects
         else exact compatible or no-effect capability truth
           Gate->>Capability: consume admitted compatibility projection only
@@ -480,11 +498,15 @@ stateDiagram-v2
   SourceProjected --> ResultAuthoritiesAdmitted: result admission closes every result-bearing stage authority
   ResultAuthoritiesAdmitted --> ContractInvalid: traversal compiler rejects missing, duplicate, reordered, or uncovered rows
   ResultAuthoritiesAdmitted --> ContractsCompiled: traversal compiler derives exact existing row family
-  ContractsCompiled --> StaticNonconformant: typecheckGtlProgram reports unit or row issues
+  ContractsCompiled --> StaticNonconformant: typecheckGtlProgram reports exact unit or row issues
   ContractsCompiled --> StaticCloseable: typecheckGtlProgram admits the exact unit projection
   StaticCloseable --> GateInvalid: traversal gate rejects stale source, bundle, report, or startup block
+  StaticCloseable --> ProgramBlocked: traversal gate preserves unrelated submitted-structure issues
   StaticCloseable --> CapabilityBlocked: traversal gate preserves absent or incompatible capability truth
   StaticCloseable --> RuntimeAddressableNotClosed: traversal gate admits exact compatible or no-effect capability truth
+  ProgramBlocked --> ProgramBlocked: replay or recheck preserves the same static bundle and report issues
+  ProgramBlocked --> CapabilityBlocked: complete-program repair removes unrelated issues while capability remains absent
+  ProgramBlocked --> RuntimeAddressableNotClosed: complete-program repair and exact capability admission close without structural drift
   CapabilityBlocked --> CapabilityBlocked: replay or recheck preserves the same static bundle
   CapabilityBlocked --> RuntimeAddressableNotClosed: T268 and M04 provide exact capability admission without structural drift
   RuntimeAddressableNotClosed --> AttemptMayOpen: existing ABG runtime consumes exact admission
@@ -539,10 +561,10 @@ stateDiagram-v2
 | stage derivation | domain roles never select generic roles; regime/composition mismatch and order drift fail |
 | conservation | target, materialization, result, stage, obligation, pressure, admission-strength, and all eight delta families are exact and non-empty |
 | existing judge | complete bundles pass existing `typecheckGtlProgram`; missing or changed rows produce existing rule refs |
-| gate truth | capability-blocked remains no-effect; compatible source becomes addressable with `runtimeClosed: false` |
+| gate truth | unrelated program issues and capability absence remain no-effect; only a zero-issue compatible source becomes addressable with `runtimeClosed: false` |
 | request join | canonical effect entry requires the exact admission ref/digest in addition to the original startup-blocked request or handoff |
 | replay-safe identity | repeated compilation is byte-equivalent; source, result, row, report, or startup-block mutation fails |
-| canonical T252 | body digest unchanged; `traversal_execution_contracts` disappears; only T268 remains |
+| canonical T252 | body digest unchanged; `traversal_execution_contracts` disappears; T268 and pre-existing submitted-structure residuals remain explicit |
 | non-Consensus reuse | generic F_P fixture proves the same compile/typecheck/gate path |
 | package surface | packed consumer sees only public compile/admission carriers, not private constructors |
 
@@ -576,7 +598,7 @@ stateDiagram-v2
 | proof | focused generic and canonical fixtures, existing conformance suite, source-blind package gates, full semantic suite |
 | release/package | public M03 contract exports and regenerated product publication |
 | install | existing ABG package install; no new CLI or service |
-| live use | capability-blocked until T268; later addressable but never statically closed |
+| live use | program-blocked or capability-blocked until every stronger gate closes; later addressable but never runtime-closed by static proof |
 | telemetry | no new telemetry; existing runtime events and ledgers own actual use |
 | retirement | T255 startup block is superseded only by exact T267 admission over its digest; source history remains immutable |
 

@@ -19,8 +19,8 @@ Implementation authority is limited to:
 - one compiler over the existing composition, stage, plugin-result-interface,
   and traversal-bind-conservation row types;
 - the existing `typecheckGtlProgram(...)` report as sole final static judge;
-- one closed admission gate separating capability-blocked static truth from
-  runtime-addressable, explicitly not-closed truth;
+- one closed admission gate separating program-blocked and capability-blocked
+  static truth from runtime-addressable, explicitly not-closed truth;
 - canonical T-252 and non-Consensus proof integration; and
 - required package/publication regeneration.
 
@@ -34,6 +34,13 @@ T-268 remains the singular owner of canonical tenant-conformance manifest
 publication and effect-capability truth. Until it closes, canonical T-252
 sources may become statically closeable but must remain not runtime-addressable
 and effect-denied.
+
+The bounded amendment
+`20260713T213600Z_AMENDMENT_t267_static_vs_runtime_conformance.md` further
+separates exact T-267 static unit closure from runtime admission. A retained
+submitted-structure issue produces a program-blocked no-effect outcome;
+runtime addressability still requires the whole report to pass with zero
+issues.
 
 The accepted review is recorded in
 `.ai-workspace/comments/codex/20260713T211300Z_SELF_REVIEW_t267_traversal_conservation_design.md`.
