@@ -3116,8 +3116,8 @@
       },
       {
         "ticketId": "T-262",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-262-realize-typed-recurse-policy-runtime.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-262-realize-typed-recurse-policy-runtime.md",
         "families": [
           "typed_recurse_policy_and_runtime"
         ]
@@ -3173,10 +3173,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 2,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "typed_recurse_policy_and_runtime"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3422,5 +3420,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:f15d26726e48fe44511da6db4454441752faa12fc0525950201fa1043a596f0e"
+  "manifestDigest": "sha256:96b6f53d721444d6ab3622743fd59ed129981c0c0df079a9f532cf83444f9085"
 }
