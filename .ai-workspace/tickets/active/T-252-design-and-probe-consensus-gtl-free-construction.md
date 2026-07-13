@@ -5,12 +5,13 @@
 - phase_status: body_implemented_probe_correction_ready_for_review
 - review_status: pending_explicit_fh_acceptance
 - implementation_admission: body_landed_probe_corrected_without_runtime_realization
-- proof_status: fresh_gates_required_after_correction
+- proof_status: fresh_clean_gates_green_pending_explicit_fh
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
+- proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
 - design_ref: build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md
 
 ## Boundary

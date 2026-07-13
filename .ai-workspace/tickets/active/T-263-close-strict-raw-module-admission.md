@@ -5,7 +5,7 @@
 - phase_status: implementation_landed_pending_explicit_review
 - review_status: design_sound_fh_acceptance_pending
 - implementation_admission: provisional_after_invalid_gate
-- proof_status: fresh_reproof_required
+- proof_status: fresh_clean_gates_green_pending_explicit_fh
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
@@ -14,6 +14,7 @@
 - dependency: T-252 explicit acceptance
 - design_ref: build_tenants/abiogenesis/typescript/design/M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
+- proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
 
 ## Boundary
 
