@@ -157,7 +157,9 @@ not lawful.
 `compileTypedRecursePlan` joins one binding, selected catalog entry, and one
 admitted policy. The plan digest covers all structural and policy truth. The
 plan is a projection, not a second policy authority; admission rederives both
-binding and policy identity before effects.
+binding and policy identity before effects. Runtime also requires the exact
+selected registry entry to name the admitted policy ref; another entry cannot
+authorize policy for this invocation.
 
 One plan represents one recursive invocation lineage. It does not contain the
 current ordinal, remaining budget, next input, child output, or terminal
@@ -172,6 +174,7 @@ typed_recurse_application_opened
 typed_recurse_child_result_admitted
 typed_recurse_termination_evaluated
 typed_recurse_foldback_admitted
+typed_recurse_foldback_rejected
 typed_recurse_parent_rebind_evaluated
 ```
 
@@ -266,6 +269,8 @@ foldbackEvidenceRefs non-empty
 
 ABG rejects a changed binding, carrier pair, source payload, policy identity,
 budget-source ref, missing prior evidence, malformed target, or stale lineage.
+Rejection is itself admitted as terminal recurse truth, so replay cannot invoke
+the rejected foldback adapter again.
 An admitted foldback event is necessary but not sufficient to open the next
 child application.
 

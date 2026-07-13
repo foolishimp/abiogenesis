@@ -20,6 +20,11 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/c_batch.js";
 import { deriveCRetryPolicyProjection } from "../../build/semantic/code/src/abg/m03/contracts/c_retry_policy.js";
 import {
+  admitTypedRecursePolicy,
+  compileTypedRecurseBinding,
+  compileTypedRecursePlan
+} from "../../build/semantic/code/src/abg/m03/contracts/typed_recurse.js";
+import {
   compileFanInReductionBinding,
   compileHofFanOutBinding
 } from "../../build/semantic/code/src/abg/m03/contracts/hof_batch.js";
@@ -40,6 +45,7 @@ import {
 } from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
 import { resolveCBatch } from "../../build/semantic/code/src/abg/m03/runner/c_batch_runtime.js";
 import { resolveCRetry } from "../../build/semantic/code/src/abg/m03/runner/c_retry_runtime.js";
+import { resolveTypedRecurse } from "../../build/semantic/code/src/abg/m03/runner/typed_recurse_runtime.js";
 import { resolveHofFanIn } from "../../build/semantic/code/src/abg/m03/runner/hof_fan_in_runtime.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
@@ -476,6 +482,8 @@ async function buildManifest() {
         provisionalBindingCount: application.provisionalBindings.length,
         fanInRelationRef: application.fanInRelation?.relationRef ?? null,
         fanInRelationDigest: application.fanInRelation?.relationDigest ?? null,
+        recurseRelationRef: application.recurseRelation?.relationRef ?? null,
+        recurseRelationDigest: application.recurseRelation?.relationDigest ?? null,
         diagnosticIds: application.diagnostics.map((row) => row.diagnosticId)
       });
       application.diagnostics.forEach((diagnostic) =>
@@ -772,6 +780,209 @@ async function buildManifest() {
   if (!catalogAdmission.accepted || catalogAdmission.basis === null) {
     throw new TypeError(
       `T-252 execution-context catalog admission failed: ${JSON.stringify(catalogAdmission.diagnostics)}`
+    );
+  }
+
+  const canonicalRecurseFunction = body.graphFunctions.boundedRounds;
+  const canonicalRecurseCompilation = compileGraphFunctionApplication({
+    graphFunction: canonicalRecurseFunction,
+    graphFunctions
+  });
+  if (
+    !canonicalRecurseCompilation.accepted ||
+    canonicalRecurseCompilation.recurseRelation === null
+  ) {
+    throw new TypeError(
+      `T-262 canonical recurse relation did not compile: ${JSON.stringify(canonicalRecurseCompilation.diagnostics)}`
+    );
+  }
+  const canonicalRecurseBinding = compileTypedRecurseBinding({
+    module: admittedModule,
+    graphFunction: canonicalRecurseFunction,
+    relation: canonicalRecurseCompilation.recurseRelation
+  });
+  const canonicalRecurseInputPayloadRef =
+    "payload://abg/t252/consensus-probe/round-execution/1";
+  const canonicalRecursePolicyRef =
+    ABG_CONSENSUS_MODULE_DECLARATIONS[0].policyRefs[0];
+  if (canonicalRecursePolicyRef === undefined) {
+    throw new TypeError(
+      "T-262 canonical Consensus declaration lacks recurse policy authority"
+    );
+  }
+  const canonicalRecursePolicy = admitTypedRecursePolicy({
+    kind: "typed_recurse_policy",
+    policyRef: canonicalRecursePolicyRef,
+    policyVersion: "1.0.0",
+    sourceInputCarrierRef: canonicalRecurseBinding.inputCarrierRef,
+    sourceInputPayloadRef: canonicalRecurseInputPayloadRef,
+    budgetSourceFieldRef: "field://abg/consensus/round/policy-budget",
+    maxApplications: 2,
+    evidenceRefs: [
+      `body:${bodyDigest}`,
+      "graph-vector:graph-vector://abg/consensus/recurse-post-submitter",
+      "context:context://abg/consensus/round-policy"
+    ]
+  });
+  const canonicalRecursePlan = compileTypedRecursePlan({
+    binding: canonicalRecurseBinding,
+    policy: canonicalRecursePolicy,
+    selectedCatalogEntryRef: ABG_CONSENSUS_MODULE_DECLARATIONS[0].entryRef
+  });
+
+  const routeRows = vectors(body.graphFunctions.round)
+    .filter((vector) => vector.target.id === body.nodes.roundDisposition.id)
+    .map((vector) => {
+      const outcomeEntry = vector.rule?.config.entries.find(
+        (entry) => entry.key === "outcome"
+      );
+      const outcome =
+        outcomeEntry?.value.kind === "scalar"
+          ? outcomeEntry.value.value
+          : null;
+      return {
+        vectorRef: vector.id,
+        vectorName: vector.name,
+        outcome,
+        sourceNodeRefs: vector.source.map((source) => source.id),
+        evaluatorConsumedFieldRefs: vector.evaluators.flatMap(
+          (evaluator) => evaluator.consumedFieldRefs
+        )
+      };
+    });
+  const recurseRouteRows = routeRows.filter(
+    (row) => row.outcome === "recurse_next_round"
+  );
+  if (
+    recurseRouteRows.length !== 1 ||
+    recurseRouteRows[0].vectorRef !==
+      "graph-vector://abg/consensus/recurse-post-submitter" ||
+    !recurseRouteRows[0].sourceNodeRefs.includes(
+      body.nodes.postSubmitterAssessment.id
+    ) ||
+    !recurseRouteRows[0].evaluatorConsumedFieldRefs.includes(
+      canonicalRecursePolicy.budgetSourceFieldRef
+    )
+  ) {
+    throw new TypeError(
+      `T-262 recurse route is not uniquely post-submitter and budget-bound: ${JSON.stringify(recurseRouteRows)}`
+    );
+  }
+
+  const canonicalRecurseEvents = [];
+  const canonicalRecurseChildRequests = [];
+  const canonicalRecurseTerminationRequests = [];
+  const canonicalRecurseFoldbackRequests = [];
+  const canonicalRecurseResolution = await resolveTypedRecurse({
+    kind: "typed_recurse_invocation",
+    binding: canonicalRecurseBinding,
+    plan: canonicalRecursePlan,
+    policy: canonicalRecursePolicy,
+    catalogBasis: catalogAdmission.basis,
+    selectedCatalogEntryRef: ABG_CONSENSUS_MODULE_DECLARATIONS[0].entryRef,
+    parentBasisId: "basis://abg/t252/consensus-probe",
+    parentGraphCallId: "graph-call://abg/t252/consensus-probe",
+    parentFrameId: "frame://abg/t252/consensus-probe",
+    inputPayloadRef: canonicalRecurseInputPayloadRef,
+    causationEventRefs: ["event://abg/t252/consensus-probe/recurse-ready"],
+    replayEvents: [],
+    emit(events) {
+      canonicalRecurseEvents.push(...events);
+    },
+    async invokeChild(request) {
+      canonicalRecurseChildRequests.push(request);
+      return {
+        kind: "typed_recurse_child_outcome",
+        planRef: request.planRef,
+        bindingRef: request.bindingRef,
+        applicationOrdinal: request.applicationOrdinal,
+        childInvocationRef: request.childInvocationRef,
+        childGraphCallId: request.childGraphCallId,
+        childFrameId: request.childFrameId,
+        disposition: "completed",
+        outputCarrierRef: request.outputCarrierRef,
+        outputPayloadRef:
+          `payload://abg/t252/consensus-probe/round-disposition/${String(request.applicationOrdinal)}`,
+        responseContractRef: request.outputCarrierRef,
+        reasonRef: null,
+        evidenceRefs: [
+          `evidence://abg/t252/consensus-probe/round/${String(request.applicationOrdinal)}`
+        ]
+      };
+    },
+    async evaluateTermination(request) {
+      canonicalRecurseTerminationRequests.push(request);
+      const decision =
+        request.applicationOrdinal === 1 ? "foldback" : "terminate";
+      return {
+        kind: "typed_recurse_termination_outcome",
+        planRef: request.planRef,
+        bindingRef: request.bindingRef,
+        applicationOrdinal: request.applicationOrdinal,
+        childInvocationRef: request.childInvocationRef,
+        childGraphCallId: request.childGraphCallId,
+        childFrameId: request.childFrameId,
+        outputPayloadRef: request.outputPayloadRef,
+        evaluatorBinding: request.evaluatorBinding,
+        evaluatorDigest: request.evaluatorDigest,
+        decision,
+        reasonRef:
+          decision === "foldback"
+            ? "reason://abg/consensus/recurse-next-round"
+            : "reason://abg/consensus/closed-done",
+        evidenceRefs: [
+          `evidence://abg/t252/consensus-probe/termination/${decision}`
+        ]
+      };
+    },
+    async applyFoldback(request) {
+      canonicalRecurseFoldbackRequests.push(request);
+      return {
+        kind: "typed_recurse_foldback_outcome",
+        planRef: request.planRef,
+        bindingRef: request.bindingRef,
+        applicationOrdinal: request.applicationOrdinal,
+        childInvocationRef: request.childInvocationRef,
+        childGraphCallId: request.childGraphCallId,
+        childFrameId: request.childFrameId,
+        frameLineageId: request.frameLineageId,
+        foldbackBinding: request.foldbackBinding,
+        sourceOutputCarrierRef: request.sourceOutputCarrierRef,
+        sourceOutputPayloadRef: request.sourceOutputPayloadRef,
+        targetInputCarrierRef: request.targetInputCarrierRef,
+        targetInputPayloadRef:
+          "payload://abg/t252/consensus-probe/round-execution/2",
+        policyRef: request.policyRef,
+        policyDigest: request.policyDigest,
+        budgetSourceFieldRef: request.budgetSourceFieldRef,
+        preservedEvidenceRefs: [...request.requiredPreservedEvidenceRefs],
+        foldbackEvidenceRefs: [
+          "evidence://abg/t252/consensus-probe/foldback/1"
+        ]
+      };
+    }
+  });
+  const canonicalPriorEvidencePreserved =
+    canonicalRecurseFoldbackRequests.length === 1 &&
+    canonicalRecursePolicy.evidenceRefs.every((evidenceRef) =>
+      canonicalRecurseFoldbackRequests[0].requiredPreservedEvidenceRefs.includes(
+        evidenceRef
+      )
+    ) &&
+    canonicalRecurseChildRequests.length === 2 &&
+    canonicalRecurseChildRequests[1].priorEvidenceRefs.includes(
+      "evidence://abg/t252/consensus-probe/foldback/1"
+    );
+  if (
+    canonicalRecurseResolution.status !== "completed" ||
+    canonicalRecurseResolution.applicationsOpened !== 2 ||
+    canonicalRecurseChildRequests.length !== 2 ||
+    canonicalRecurseTerminationRequests.length !== 2 ||
+    canonicalRecurseFoldbackRequests.length !== 1 ||
+    !canonicalPriorEvidencePreserved
+  ) {
+    throw new TypeError(
+      `T-262 canonical recurse probe did not preserve bounded policy and evidence: ${JSON.stringify({ resolution: canonicalRecurseResolution, childCount: canonicalRecurseChildRequests.length, terminationCount: canonicalRecurseTerminationRequests.length, foldbackCount: canonicalRecurseFoldbackRequests.length, canonicalPriorEvidencePreserved })}`
     );
   }
   const expectedExecutionSlots = (regime) =>
@@ -1086,6 +1297,45 @@ async function buildManifest() {
     retryableFailureClasses: retryPolicy.retryableFailureClasses,
     canonicalRetryHandoffCount: realizedRetryRows.length
   });
+  const canonicalRecurseHandoffRows = handoffRows.filter(
+    (row) => row.graphFunctionName === canonicalRecurseFunction.name
+  );
+  if (canonicalRecurseHandoffRows.length === 0) {
+    throw new TypeError("T-262 observed no canonical recurse handoff rows");
+  }
+  const canonicalRecurseHandoffStatuses = sortedUnique(
+    canonicalRecurseHandoffRows.map((row) => row.status)
+  );
+  const canonicalPublicEffectsPermitted = canonicalRecurseHandoffRows.some(
+    (row) =>
+      row.status === "published_startup_blocked" &&
+      row.outcome.handoff.startupBlock.effectsPermitted
+  );
+  if (canonicalPublicEffectsPermitted) {
+    throw new TypeError(
+      "T-262 canonical recurse handoff permitted effects before T-267"
+    );
+  }
+  const t262RuntimeSurface = Object.freeze({
+    resolveTypedRecurse: typeof resolveTypedRecurse === "function",
+    relationRef: canonicalRecurseCompilation.recurseRelation.relationRef,
+    relationDigest: canonicalRecurseCompilation.recurseRelation.relationDigest,
+    bindingRef: canonicalRecurseBinding.bindingRef,
+    bindingDigest: canonicalRecurseBinding.bindingDigest,
+    planRef: canonicalRecursePlan.planRef,
+    planDigest: canonicalRecursePlan.planDigest,
+    policyRef: canonicalRecursePolicy.policyRef,
+    policyDigest: canonicalRecursePolicy.policyDigest,
+    maxApplications: canonicalRecursePolicy.maxApplications,
+    uniquePostSubmitterRecurseRouteRef: recurseRouteRows[0].vectorRef,
+    canonicalApplicationsObserved:
+      canonicalRecurseResolution.applicationsOpened,
+    canonicalEventKinds: canonicalRecurseEvents.map((event) => event.kind),
+    priorEvidencePreserved: canonicalPriorEvidencePreserved,
+    canonicalHandoffStatuses: canonicalRecurseHandoffStatuses,
+    publicEffectsPermitted: canonicalPublicEffectsPermitted,
+    observationKind: "isolated_subordinate_adapter_probe"
+  });
 
   const termKindCounts = new Map();
   body.programs.forEach((program) => termKinds(program.term, termKindCounts));
@@ -1148,9 +1398,10 @@ async function buildManifest() {
       constructor: "recurse",
       authoredCount: applicationRows.filter((row) => row.operatorKinds.includes("recurse"))
         .length,
-      compilerCoverage: "exact_application_lineage",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["typed_recurse_policy_and_runtime"]
+      compilerCoverage: "exact_relation_policy_binding_plan_and_runtime_resolver",
+      runtimeStatus:
+        "runtime_atom_realized_canonical_public_effects_blocked_before_traversal",
+      gapFamilies: ["traversal_execution_contracts"]
     },
     {
       constructor: "graph_vector_program_selection",
@@ -1166,17 +1417,6 @@ async function buildManifest() {
 
   const commonEvidenceRefs = [`body:${bodyDigest}`, "ticket:T-252"];
   const observedGapEvidence = new Map();
-  const rowsForApplication = (operatorKind) =>
-    applicationRows
-      .filter(
-        (row) =>
-          row.operatorKinds.includes(operatorKind) &&
-          row.diagnosticIds.includes("gtl-application-runtime-not-realized")
-      )
-      .map((row) => ({
-        diagnosticId: "gtl-application-runtime-not-realized",
-        path: `application:${row.graphFunctionName}`
-      }));
   observeGap(
     observedGapEvidence,
     "tenant_conformance_manifest_consensus_coverage_missing",
@@ -1269,13 +1509,6 @@ async function buildManifest() {
     actualRelation:
       "a canonical F_H join lacks the generic hold, public response, or resume admission path"
   });
-  observeGap(observedGapEvidence, "typed_recurse_policy_and_runtime", {
-    rows: rowsForApplication("recurse"),
-    observationSources: ["compiler:compileGraphFunctionApplication"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "recurse lineage and foldback data are exact while runtime consumption is absent"
-  });
-
   const observedFamilies = [...observedGapEvidence.keys()].sort();
   const observedGapEvidenceDigest = stableSha256Digest(
     observedFamilies.map((family) => ({
@@ -1408,6 +1641,7 @@ async function buildManifest() {
       })),
       t260RuntimeSurface,
       t261RuntimeSurface,
+      t262RuntimeSurface,
       executionContextJoinRows,
       fpResultContractAdmissionRows,
       fhInteractionRows,

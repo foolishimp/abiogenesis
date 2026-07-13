@@ -151,6 +151,7 @@ test("T-265 compiler treats declaration omission as ordinary function truth", ()
       declaration: null,
       lineage: null,
       fanInRelation: null,
+      recurseRelation: null,
       provisionalBindings: [],
       diagnostics: []
     }

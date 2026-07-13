@@ -1658,7 +1658,10 @@ export type {
 export {
   C_CALL_DEFAULT_PROGRAM_STAGE_ROLES,
   C_CALL_JUDGMENT_VALUES,
-  C_CALL_REGIME_VALUES
+  C_CALL_REGIME_VALUES,
+  TYPED_RECURSE_CHILD_DISPOSITION_VALUES,
+  TYPED_RECURSE_PARENT_REBIND_DECISION_VALUES,
+  TYPED_RECURSE_TERMINATION_DECISION_VALUES
 } from "./carriers.js";
 export type {
   CCallOpenedEvent,
@@ -1668,7 +1671,16 @@ export type {
   CCallJudgedEvent,
   CCallStageRole,
   CCallJudgment,
-  CCallRegime
+  CCallRegime,
+  TypedRecurseApplicationOpenedEvent,
+  TypedRecurseChildDisposition,
+  TypedRecurseChildResultAdmittedEvent,
+  TypedRecurseFoldbackAdmittedEvent,
+  TypedRecurseFoldbackRejectedEvent,
+  TypedRecurseParentRebindDecision,
+  TypedRecurseParentRebindEvaluatedEvent,
+  TypedRecurseTerminationDecision,
+  TypedRecurseTerminationEvaluatedEvent
 } from "./carriers.js";
 
 export {
@@ -1783,6 +1795,7 @@ export {
 } from "./graph_function_application_compiler.js";
 export type {
   CompiledFanInApplicationRelation,
+  CompiledRecurseApplicationRelation,
   GraphFunctionApplicationCompilation,
   GraphFunctionApplicationDiagnostic,
   GraphFunctionApplicationDiagnosticId,
@@ -1791,6 +1804,20 @@ export type {
   GraphFunctionApplicationRepairAffordance,
   ProvisionalDerivedCompositionBinding
 } from "./graph_function_application_compiler.js";
+
+export {
+  admitTypedRecursePolicy,
+  assertAdmittedTypedRecursePolicy,
+  assertCompiledTypedRecurseBinding,
+  assertCompiledTypedRecursePlan,
+  compileTypedRecurseBinding,
+  compileTypedRecursePlan
+} from "./typed_recurse.js";
+export type {
+  AdmittedTypedRecursePolicy,
+  CompiledTypedRecurseBinding,
+  CompiledTypedRecursePlan
+} from "./typed_recurse.js";
 
 export {
   GRAPH_VECTOR_C_PROGRAM_DIAGNOSTIC_ID_VALUES,

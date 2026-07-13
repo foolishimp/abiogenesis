@@ -1283,6 +1283,117 @@ export interface CCallJudgedEvent {
   readonly reasonRef: string | null;
 }
 
+export const TYPED_RECURSE_CHILD_DISPOSITION_VALUES = Object.freeze([
+  "completed",
+  "held",
+  "blocked",
+  "runtime_failed"
+] as const);
+export type TypedRecurseChildDisposition =
+  (typeof TYPED_RECURSE_CHILD_DISPOSITION_VALUES)[number];
+
+export const TYPED_RECURSE_TERMINATION_DECISION_VALUES = Object.freeze([
+  "terminate",
+  "foldback",
+  "blocked"
+] as const);
+export type TypedRecurseTerminationDecision =
+  (typeof TYPED_RECURSE_TERMINATION_DECISION_VALUES)[number];
+
+export const TYPED_RECURSE_PARENT_REBIND_DECISION_VALUES = Object.freeze([
+  "admitted",
+  "blocked"
+] as const);
+export type TypedRecurseParentRebindDecision =
+  (typeof TYPED_RECURSE_PARENT_REBIND_DECISION_VALUES)[number];
+
+interface TypedRecurseRuntimeEventBase {
+  readonly basisId: string;
+  readonly planRef: string;
+  readonly bindingRef: string;
+  readonly selectedCatalogEntryRef: string;
+  readonly parentGraphCallId: string;
+  readonly parentFrameId: string;
+  readonly frameLineageId: string;
+  readonly applicationOrdinal: number;
+  readonly childInvocationRef: string;
+  readonly childGraphCallId: string;
+  readonly childFrameId: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TypedRecurseApplicationOpenedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_application_opened";
+  readonly inputCarrierRef: string;
+  readonly inputPayloadRef: string;
+}
+
+export interface TypedRecurseChildResultAdmittedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_child_result_admitted";
+  readonly disposition: TypedRecurseChildDisposition;
+  readonly outputCarrierRef: string;
+  readonly outputPayloadRef: string | null;
+  readonly responseContractRef: string | null;
+  readonly reasonRef: string | null;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface TypedRecurseTerminationEvaluatedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_termination_evaluated";
+  readonly outputPayloadRef: string;
+  readonly evaluatorBinding: string;
+  readonly evaluatorDigest: `sha256:${string}`;
+  readonly decision: TypedRecurseTerminationDecision;
+  readonly reasonRef: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface TypedRecurseFoldbackAdmittedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_foldback_admitted";
+  readonly foldbackBinding: string;
+  readonly sourceOutputCarrierRef: string;
+  readonly sourceOutputPayloadRef: string;
+  readonly targetInputCarrierRef: string;
+  readonly targetInputPayloadRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: `sha256:${string}`;
+  readonly budgetSourceFieldRef: string;
+  readonly preservedEvidenceRefs: readonly string[];
+  readonly foldbackEvidenceRefs: readonly string[];
+}
+
+export interface TypedRecurseFoldbackRejectedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_foldback_rejected";
+  readonly foldbackBinding: string;
+  readonly sourceOutputCarrierRef: string;
+  readonly sourceOutputPayloadRef: string;
+  readonly targetInputCarrierRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: `sha256:${string}`;
+  readonly budgetSourceFieldRef: string;
+  readonly reasonRef: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface TypedRecurseParentRebindEvaluatedEvent
+  extends TypedRecurseRuntimeEventBase {
+  readonly kind: "typed_recurse_parent_rebind_evaluated";
+  readonly targetInputCarrierRef: string;
+  readonly targetInputPayloadRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: `sha256:${string}`;
+  readonly budgetSourceFieldRef: string;
+  readonly decision: TypedRecurseParentRebindDecision;
+  readonly reasonRef: string | null;
+  readonly evidenceRefs: readonly string[];
+}
+
 // T-195 P0-4: a perimeter failure is EVENTS, not a swallowed wrapper —
 // the CLI records the failure into replay truth before reporting it.
 export interface RuntimeFailureObservedEvent {
@@ -3135,6 +3246,12 @@ export type RuntimeEvent =
   | CCallEvidencedEvent
   | CCallResultAdmittedEvent
   | CCallJudgedEvent
+  | TypedRecurseApplicationOpenedEvent
+  | TypedRecurseChildResultAdmittedEvent
+  | TypedRecurseTerminationEvaluatedEvent
+  | TypedRecurseFoldbackAdmittedEvent
+  | TypedRecurseFoldbackRejectedEvent
+  | TypedRecurseParentRebindEvaluatedEvent
   | RuntimeFailureObservedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -3287,6 +3404,12 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "c_call_evidenced",
   "c_call_result_admitted",
   "c_call_judged",
+  "typed_recurse_application_opened",
+  "typed_recurse_child_result_admitted",
+  "typed_recurse_termination_evaluated",
+  "typed_recurse_foldback_admitted",
+  "typed_recurse_foldback_rejected",
+  "typed_recurse_parent_rebind_evaluated",
   "terminal_reached",
   "graph_call_opened",
   "frame_opened",

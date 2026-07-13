@@ -836,6 +836,12 @@ export function deriveRuntimeAggregateProjection(
       case "c_call_evidenced":
       case "c_call_result_admitted":
       case "c_call_judged":
+      case "typed_recurse_application_opened":
+      case "typed_recurse_child_result_admitted":
+      case "typed_recurse_termination_evaluated":
+      case "typed_recurse_foldback_admitted":
+      case "typed_recurse_foldback_rejected":
+      case "typed_recurse_parent_rebind_evaluated":
       // tuner drafts are workspace-level authoring truth — inert to the
       // per-basis aggregate projection
       case "tuner_draft_admitted":

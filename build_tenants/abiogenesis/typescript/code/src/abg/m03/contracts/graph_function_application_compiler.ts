@@ -120,6 +120,7 @@ export interface GraphFunctionApplicationCompilation {
   readonly declaration: GraphFunctionApplicationDeclaration | null;
   readonly lineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInRelation: CompiledFanInApplicationRelation | null;
+  readonly recurseRelation: CompiledRecurseApplicationRelation | null;
   readonly provisionalBindings: readonly ProvisionalDerivedCompositionBinding[];
   readonly diagnostics: readonly GraphFunctionApplicationDiagnostic[];
 }
@@ -137,6 +138,28 @@ export interface CompiledFanInApplicationRelation {
   readonly inputVectorContractKey: string;
   readonly outputNodeRef: string;
   readonly outputContractKey: string;
+  readonly applicationLineageRef: string;
+  readonly applicationLineageDigest: `sha256:${string}`;
+}
+
+export interface CompiledRecurseApplicationRelation {
+  readonly kind: "compiled_recurse_application_relation";
+  readonly relationRef: string;
+  readonly relationDigest: `sha256:${string}`;
+  readonly applicationRef: string;
+  readonly executionSubjectGraphFunctionRef: string;
+  readonly executionSubjectGraphFunctionDigest: `sha256:${string}`;
+  readonly operandGraphFunctionRef: string;
+  readonly operandGraphFunctionDigest: `sha256:${string}`;
+  readonly inputNodeContractKeys: readonly string[];
+  readonly outputNodeContractKeys: readonly string[];
+  readonly terminationEvaluatorBinding: string;
+  readonly terminationEvaluatorDigest: `sha256:${string}`;
+  readonly terminationConsumedFieldRefs: readonly string[];
+  readonly foldbackMode: "rebind";
+  readonly foldbackBinding: string;
+  readonly foldbackRequiresParentEvaluation: true;
+  readonly foldbackAdditionalDigest: `sha256:${string}`;
   readonly applicationLineageRef: string;
   readonly applicationLineageDigest: `sha256:${string}`;
 }
@@ -266,6 +289,7 @@ function rejected(input: {
     declaration: input.declaration,
     lineage: input.lineage ?? null,
     fanInRelation: null,
+    recurseRelation: null,
     provisionalBindings: Object.freeze([...(input.provisionalBindings ?? [])]),
     diagnostics: Object.freeze([input.diagnostic])
   });
@@ -278,6 +302,7 @@ function noApplication(): GraphFunctionApplicationCompilation {
     declaration: null,
     lineage: null,
     fanInRelation: null,
+    recurseRelation: null,
     provisionalBindings: Object.freeze([]),
     diagnostics: Object.freeze([])
   });
@@ -319,6 +344,76 @@ function compiledFanInRelation(input: {
     ...basis,
     relationRef:
       `abg://hof/fan-in/relation/${relationDigest.slice("sha256:".length)}`,
+    relationDigest
+  });
+}
+
+function compiledRecurseRelation(input: {
+  readonly executionSubject: GraphFunction;
+  readonly operand: GraphFunction;
+  readonly declaration: Extract<
+    GraphFunctionApplicationDeclaration,
+    { readonly operatorKind: "recurse" }
+  >;
+  readonly lineage: GraphFunctionApplicationLineageProjection;
+}): CompiledRecurseApplicationRelation {
+  const evaluator = input.declaration.terminationEvaluator;
+  if (evaluator.binding.length === 0) {
+    throw new TypeError("recurse termination evaluator binding is required");
+  }
+  if (
+    evaluator.consumedFieldRefs.length === 0 ||
+    evaluator.consumedFieldRefs.some((fieldRef) => fieldRef.length === 0) ||
+    new Set(evaluator.consumedFieldRefs).size !==
+      evaluator.consumedFieldRefs.length
+  ) {
+    throw new TypeError(
+      "recurse termination evaluator requires unique non-empty consumed field refs"
+    );
+  }
+  const foldback = input.declaration.foldback;
+  if (
+    foldback.mode !== "rebind" ||
+    foldback.binding.length === 0 ||
+    foldback.requiresParentEvaluation !== true
+  ) {
+    throw new TypeError(
+      "recurse foldback requires one rebind binding and parent evaluation"
+    );
+  }
+  const basis = Object.freeze({
+    kind: "compiled_recurse_application_relation" as const,
+    applicationRef: input.declaration.applicationRef,
+    executionSubjectGraphFunctionRef: input.executionSubject.id,
+    executionSubjectGraphFunctionDigest: stableSha256Digest(
+      input.executionSubject
+    ),
+    operandGraphFunctionRef: input.operand.id,
+    operandGraphFunctionDigest: stableSha256Digest(input.operand),
+    inputNodeContractKeys: Object.freeze(
+      input.executionSubject.inputs.map(nodeContractKey)
+    ),
+    outputNodeContractKeys: Object.freeze(
+      input.executionSubject.outputs.map(nodeContractKey)
+    ),
+    terminationEvaluatorBinding: evaluator.binding,
+    terminationEvaluatorDigest: stableSha256Digest(evaluator),
+    terminationConsumedFieldRefs: Object.freeze([
+      ...evaluator.consumedFieldRefs
+    ]),
+    foldbackMode: foldback.mode,
+    foldbackBinding: foldback.binding,
+    foldbackRequiresParentEvaluation:
+      foldback.requiresParentEvaluation,
+    foldbackAdditionalDigest: stableSha256Digest(foldback.additional),
+    applicationLineageRef: input.lineage.lineageRef,
+    applicationLineageDigest: input.lineage.lineageDigest
+  });
+  const relationDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    relationRef:
+      `abg://graph-function/recurse/relation/${relationDigest.slice("sha256:".length)}`,
     relationDigest
   });
 }
@@ -1176,6 +1271,67 @@ export function compileGraphFunctionApplication(input: {
   }
 
   if (
+    declaration.operatorKind === "recurse" &&
+    derived.derived.lineage.orderedSteps.length === 1
+  ) {
+    const operand = derived.derived.orderedGraphFunctions[1];
+    if (operand === undefined) {
+      return rejected({
+        declaration,
+        lineage: derived.derived.lineage,
+        provisionalBindings: compositions.bindings,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-application-unresolved-operand",
+          path: "$.operand_graph_function_ref",
+          expectedRelation: "one exact recursive operand GraphFunction",
+          actualRelation: "application lineage has no immediate operand",
+          evidenceRefs: evidenceRefs({
+            graphFunctionRef: input.graphFunction.id,
+            applicationRef: declaration.applicationRef
+          })
+        })
+      });
+    }
+    let recurseRelation: CompiledRecurseApplicationRelation;
+    try {
+      recurseRelation = compiledRecurseRelation({
+        executionSubject: input.graphFunction,
+        operand,
+        declaration,
+        lineage: derived.derived.lineage
+      });
+    } catch (error: unknown) {
+      return rejected({
+        declaration,
+        lineage: derived.derived.lineage,
+        provisionalBindings: compositions.bindings,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-application-contract-mismatch",
+          path: "$",
+          expectedRelation:
+            "one direct recurse relation with exact termination and foldback law",
+          actualRelation:
+            error instanceof Error ? error.message : "recurse relation failed",
+          evidenceRefs: evidenceRefs({
+            graphFunctionRef: input.graphFunction.id,
+            applicationRef: declaration.applicationRef
+          })
+        })
+      });
+    }
+    return Object.freeze({
+      observed: true,
+      accepted: true,
+      declaration,
+      lineage: derived.derived.lineage,
+      fanInRelation: null,
+      recurseRelation,
+      provisionalBindings: compositions.bindings,
+      diagnostics: Object.freeze([])
+    });
+  }
+
+  if (
     declaration.operatorKind === "fan_in" &&
     derived.derived.lineage.orderedSteps.length === 1
   ) {
@@ -1229,6 +1385,7 @@ export function compileGraphFunctionApplication(input: {
       declaration,
       lineage: derived.derived.lineage,
       fanInRelation,
+      recurseRelation: null,
       provisionalBindings: compositions.bindings,
       diagnostics: Object.freeze([])
     });

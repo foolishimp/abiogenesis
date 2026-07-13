@@ -46,6 +46,7 @@ import {
 import {
   compileGraphFunctionApplication,
   type CompiledFanInApplicationRelation,
+  type CompiledRecurseApplicationRelation,
   type GraphFunctionApplicationLineageProjection,
   type ProvisionalDerivedCompositionBinding
 } from "./graph_function_application_compiler.js";
@@ -190,6 +191,7 @@ export interface CompiledGraphVectorExecutionHandoff {
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
+  readonly recurseApplicationRelation: CompiledRecurseApplicationRelation | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
   readonly targetCarrierProjection: CompiledGraphVectorTargetCarrierProjection;
   readonly edgeClosureBinding: CompiledGraphVectorEdgeClosureBinding;
@@ -244,6 +246,7 @@ export interface GraphVectorExecutionHandoffCapabilityBlocked {
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInApplicationRelation: CompiledFanInApplicationRelation | null;
+  readonly recurseApplicationRelation: CompiledRecurseApplicationRelation | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
   readonly targetCarrierProjection: CompiledGraphVectorTargetCarrierProjection;
   readonly edgeClosureBinding: CompiledGraphVectorEdgeClosureBinding;
@@ -552,22 +555,27 @@ function appliedComposition(input: {
   readonly declarationOwnerGraphFunctionRef: string;
   readonly lineage: GraphFunctionApplicationLineageProjection;
   readonly fanInRelation: CompiledFanInApplicationRelation | null;
+  readonly recurseRelation: CompiledRecurseApplicationRelation | null;
 } {
   const expectedDiagnostic = input.compilation.diagnostics[0];
   if (input.compilation.accepted) {
+    const compiledRelationCount =
+      (input.compilation.fanInRelation === null ? 0 : 1) +
+      (input.compilation.recurseRelation === null ? 0 : 1);
     if (
       input.compilation.diagnostics.length !== 0 ||
-      input.compilation.fanInRelation === null
+      compiledRelationCount !== 1
     ) {
       throw new TypeError(
-        "accepted applied GraphFunction must carry one compiled fan-in relation and no diagnostics"
+        "accepted applied GraphFunction must carry one compiled application relation and no diagnostics"
       );
     }
   } else if (
     input.compilation.diagnostics.length !== 1 ||
     expectedDiagnostic?.classification !== "semantic_not_realized" ||
     expectedDiagnostic.diagnosticId !== "gtl-application-runtime-not-realized" ||
-    input.compilation.fanInRelation !== null
+    input.compilation.fanInRelation !== null ||
+    input.compilation.recurseRelation !== null
   ) {
     throw new TypeError(
       "unrealized applied GraphFunction must carry only the T-265 runtime-not-realized handoff diagnostic"
@@ -607,7 +615,8 @@ function appliedComposition(input: {
     selection,
     declarationOwnerGraphFunctionRef: owner.id,
     lineage: input.compilation.lineage,
-    fanInRelation: input.compilation.fanInRelation
+    fanInRelation: input.compilation.fanInRelation,
+    recurseRelation: input.compilation.recurseRelation
   });
 }
 
@@ -616,6 +625,7 @@ function composition(input: CompileGraphVectorExecutionHandoffInput): {
   readonly declarationOwnerGraphFunctionRef: string;
   readonly lineage: GraphFunctionApplicationLineageProjection | null;
   readonly fanInRelation: CompiledFanInApplicationRelation | null;
+  readonly recurseRelation: CompiledRecurseApplicationRelation | null;
 } {
   const application = compileGraphFunctionApplication({
     graphFunction: input.graphFunction,
@@ -626,7 +636,8 @@ function composition(input: CompileGraphVectorExecutionHandoffInput): {
       selection: directComposition(input),
       declarationOwnerGraphFunctionRef: input.graphFunction.id,
       lineage: null,
-      fanInRelation: null
+      fanInRelation: null,
+      recurseRelation: null
     });
   }
   return appliedComposition({
@@ -1126,6 +1137,7 @@ export function compileGraphVectorExecutionHandoff(
       compositionSelection: compositionJoin.selection,
       applicationLineage: compositionJoin.lineage,
       fanInApplicationRelation: compositionJoin.fanInRelation,
+      recurseApplicationRelation: compositionJoin.recurseRelation,
       targetCarrierBinding: target.binding,
       targetCarrierProjection: target.projection,
       edgeClosureBinding: target.edgeClosure,
@@ -1173,6 +1185,7 @@ export function compileGraphVectorExecutionHandoff(
     compositionSelection: compositionJoin.selection,
     applicationLineage: compositionJoin.lineage,
     fanInApplicationRelation: compositionJoin.fanInRelation,
+    recurseApplicationRelation: compositionJoin.recurseRelation,
     targetCarrierBinding: target.binding,
     targetCarrierProjection: target.projection,
     edgeClosureBinding: target.edgeClosure,

@@ -690,34 +690,6 @@
         ]
       },
       {
-        "source": "graph_function_application_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-application-runtime-not-realized",
-        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].application",
-        "compilerPath": "$",
-        "authorityRefs": [
-          "constructor:gtl.graph_function_application",
-          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011/-012"
-        ],
-        "authorityDigest": "sha256:47b6769c20e7ebb8659aa9a8b2eb87901b5c19b324aa5f30f3dc2600bbcec03f",
-        "expectedRelation": "T-255 final execution binding with complete FN-COMP-003 and owning_declaration_ref joins",
-        "actualRelation": "application lineage and provisional composition joins compiled without runtime admission",
-        "actualRelationDigest": "sha256:7a0138702fde47c202617b657d50acc683e2f2ca7f9c86e29f2e0e3d86865874",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function-application:gtl://graph-function/application/84f850a0f8826a8f72cbfa232c81fbbb504d169d34b783c2de856c5be5d7c660",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
-          "lineage:gtl://graph-function/application-lineage/26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
-          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011",
-          "requirement:REQ-R-ABG3-FN-COMP-003"
-        ],
-        "evidenceDigest": "sha256:1f5624c71fa6c061cd95b5e00b48afd7b467eb155bf6feeb270b51aeb8c3264e",
-        "repairAffordances": [
-          "complete_t255_execution_join"
-        ]
-      },
-      {
         "source": "graph_vector_c_program_compiler",
         "classification": "semantic_not_realized",
         "diagnosticId": "gtl-c-unrealized-vector-program-selection",
@@ -1133,12 +1105,14 @@
         "provisionalBindingCount": 1,
         "fanInRelationRef": "abg://hof/fan-in/relation/8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935",
         "fanInRelationDigest": "sha256:8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935",
+        "recurseRelationRef": null,
+        "recurseRelationDigest": null,
         "diagnosticIds": []
       },
       {
         "graphFunctionName": "recurse(consensus.round)",
         "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
-        "accepted": false,
+        "accepted": true,
         "operatorKinds": [
           "recurse"
         ],
@@ -1147,9 +1121,9 @@
         "provisionalBindingCount": 14,
         "fanInRelationRef": null,
         "fanInRelationDigest": null,
-        "diagnosticIds": [
-          "gtl-application-runtime-not-realized"
-        ]
+        "recurseRelationRef": "abg://graph-function/recurse/relation/7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
+        "recurseRelationDigest": "sha256:7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
+        "diagnosticIds": []
       }
     ],
     "vectorProgramRows": [
@@ -2326,6 +2300,36 @@
       ],
       "canonicalRetryHandoffCount": 1
     },
+    "t262RuntimeSurface": {
+      "resolveTypedRecurse": true,
+      "relationRef": "abg://graph-function/recurse/relation/7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
+      "relationDigest": "sha256:7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
+      "bindingRef": "abg://typed-recurse/binding/6f607045c64262f0c81865738d511e2302473d853d6a1255db477b27c165e4fd",
+      "bindingDigest": "sha256:6f607045c64262f0c81865738d511e2302473d853d6a1255db477b27c165e4fd",
+      "planRef": "abg://typed-recurse/plan/d04c28e44ee14b035fe61925c35289836cd9ab92c7bcb875421f0a21f7ab7163",
+      "planDigest": "sha256:d04c28e44ee14b035fe61925c35289836cd9ab92c7bcb875421f0a21f7ab7163",
+      "policyRef": "policy://abg/consensus/recursion-stops-by-declared-law",
+      "policyDigest": "sha256:c0bc469f9e47ec58fc3d8121ebdd4ee10846ec5d1983ae659534120d642a49f5",
+      "maxApplications": 2,
+      "uniquePostSubmitterRecurseRouteRef": "graph-vector://abg/consensus/recurse-post-submitter",
+      "canonicalApplicationsObserved": 2,
+      "canonicalEventKinds": [
+        "typed_recurse_application_opened",
+        "typed_recurse_child_result_admitted",
+        "typed_recurse_termination_evaluated",
+        "typed_recurse_foldback_admitted",
+        "typed_recurse_parent_rebind_evaluated",
+        "typed_recurse_application_opened",
+        "typed_recurse_child_result_admitted",
+        "typed_recurse_termination_evaluated"
+      ],
+      "priorEvidencePreserved": true,
+      "canonicalHandoffStatuses": [
+        "blocked_capability"
+      ],
+      "publicEffectsPermitted": false,
+      "observationKind": "isolated_subordinate_adapter_probe"
+    },
     "executionContextJoinRows": [
       {
         "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
@@ -2937,10 +2941,10 @@
       {
         "constructor": "recurse",
         "authoredCount": 1,
-        "compilerCoverage": "exact_application_lineage",
-        "runtimeStatus": "semantic_not_realized",
+        "compilerCoverage": "exact_relation_policy_binding_plan_and_runtime_resolver",
+        "runtimeStatus": "runtime_atom_realized_canonical_public_effects_blocked_before_traversal",
         "gapFamilies": [
-          "typed_recurse_policy_and_runtime"
+          "traversal_execution_contracts"
         ]
       },
       {
@@ -2955,15 +2959,11 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 620,
+    "fullConformanceIssueCount": 619,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
         "count": 39
-      },
-      {
-        "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
-        "count": 1
       },
       {
         "ruleRef": "abg://gtl-program/graph/node-reachable-or-bound",
@@ -3172,16 +3172,18 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 3,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 2,
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "typed_recurse_policy_and_runtime"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 3,
-    "observedGapEvidenceDigest": "sha256:cb45317334b382b7da34de38f745b0ee4e9dd3def2749605828f79942a7cf9a6",
+    "observedGapFamilyCount": 2,
+    "observedGapEvidenceDigest": "sha256:043c09bef0cf8cfa142bd7a258484a6905649bf8860507ed103d22022b1c2495",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3324,34 +3326,6 @@
         "ticket:T-252"
       ],
       "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "typed_recurse_policy_and_runtime",
-      "ownerTicket": "T-262",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "gtl-application-runtime-not-realized"
-      ],
-      "canonicalBodyPaths": [
-        "application:recurse(consensus.round)"
-      ],
-      "observationSources": [
-        "compiler:compileGraphFunctionApplication"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-RECURSE",
-        "ticket-source:.ai-workspace/tickets/active/T-262-realize-typed-recurse-policy-runtime.md",
-        "ticket:T-262"
-      ],
-      "authorityDigest": "sha256:1de24026f2fd50081c0a6815630b3fd430e52650bd162e1b69b5ee5e5b72a778",
-      "actualRelation": "recurse lineage and foldback data are exact while runtime consumption is absent",
-      "actualRelationDigest": "sha256:6d284bdf4b1624c8f7cc882cb3fcc29578c089e50b25a64c8ce469f5983449bf",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     }
   ],
   "staticExecutionReachability": {
@@ -3448,5 +3422,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:abbee54abc804e9741ace33ad6c7bf1d9bdb233a9abd7bc9e4f761ec0cb26175"
+  "manifestDigest": "sha256:f15d26726e48fe44511da6db4454441752faa12fc0525950201fa1043a596f0e"
 }

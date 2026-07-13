@@ -752,6 +752,12 @@ export function deriveRetryFrontierProjection(input: {
       case "c_call_evidenced":
       case "c_call_result_admitted":
       case "c_call_judged":
+      case "typed_recurse_application_opened":
+      case "typed_recurse_child_result_admitted":
+      case "typed_recurse_termination_evaluated":
+      case "typed_recurse_foldback_admitted":
+      case "typed_recurse_foldback_rejected":
+      case "typed_recurse_parent_rebind_evaluated":
       case "registry_plugin_advice_admitted":
       case "registry_plugin_advice_rejected":
       case "catalog_asset_admitted":

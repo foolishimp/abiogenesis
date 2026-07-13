@@ -59,6 +59,19 @@ export type {
   CRetryResolution,
   CRetryStopReason
 } from "./c_retry_runtime.js";
+export { resolveTypedRecurse } from "./typed_recurse_runtime.js";
+export type {
+  TypedRecurseChildOutcome,
+  TypedRecurseChildRequest,
+  TypedRecurseFoldbackOutcome,
+  TypedRecurseFoldbackRequest,
+  TypedRecurseInvocation,
+  TypedRecurseResolution,
+  TypedRecurseRuntimeEvent,
+  TypedRecurseStopReason,
+  TypedRecurseTerminationOutcome,
+  TypedRecurseTerminationRequest
+} from "./typed_recurse_runtime.js";
 export { resolveCBatch } from "./c_batch_runtime.js";
 export type {
   CBatchBlockedResolution,

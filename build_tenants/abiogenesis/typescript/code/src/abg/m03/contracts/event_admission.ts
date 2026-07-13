@@ -30,6 +30,9 @@ import {
   WORKSPACE_HYGIENE_CLASSIFICATION_VALUES,
   RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
+  TYPED_RECURSE_CHILD_DISPOSITION_VALUES,
+  TYPED_RECURSE_PARENT_REBIND_DECISION_VALUES,
+  TYPED_RECURSE_TERMINATION_DECISION_VALUES,
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
 import { PLUGIN_TRAVERSAL_KIND_VALUES } from "./plugin_traversal_observer.js";
@@ -774,6 +777,84 @@ function spineClosedKeys(
     inner(event);
   };
 }
+
+function closedRuntimeEventKeys(
+  label: string,
+  fields: readonly string[],
+  inner: (event: RuntimeEventRecord) => void
+): (event: RuntimeEventRecord) => void {
+  const allowed = new Set([...fields, ...SPINE_ENVELOPE_KEYS]);
+  return (event: RuntimeEventRecord): void => {
+    for (const key of Object.keys(event)) {
+      if (!allowed.has(key)) {
+        throw new TypeError(
+          `${label}: event is a closed surface; unexpected field ${JSON.stringify(key)}`
+        );
+      }
+    }
+    inner(event);
+  };
+}
+
+const TYPED_RECURSE_COMMON_RULES = Object.freeze({
+  basisId: "non_empty_string",
+  planRef: "non_empty_string",
+  bindingRef: "non_empty_string",
+  selectedCatalogEntryRef: "non_empty_string",
+  parentGraphCallId: "non_empty_string",
+  parentFrameId: "non_empty_string",
+  frameLineageId: "non_empty_string",
+  applicationOrdinal: "non_negative_integer",
+  childInvocationRef: "non_empty_string",
+  childGraphCallId: "non_empty_string",
+  childFrameId: "non_empty_string",
+  causationEventRefs: "string_array",
+  correlationId: "non_empty_string"
+} satisfies RuntimeEventFieldRules);
+
+function admitTypedRecurseEvent(input: {
+  readonly label: string;
+  readonly fields: readonly string[];
+  readonly rules: RuntimeEventFieldRules;
+  readonly crossCheck?: ((event: RuntimeEventRecord) => void) | undefined;
+}): RuntimeEventAdmitter {
+  return closedRuntimeEventKeys(
+    input.label,
+    input.fields,
+    (event): void => {
+      applyFieldRules(input.label, {
+        ...TYPED_RECURSE_COMMON_RULES,
+        ...input.rules
+      })(event);
+      if (
+        typeof event["applicationOrdinal"] !== "number" ||
+        event["applicationOrdinal"] < 1
+      ) {
+        throw new TypeError(
+          `${input.label}.applicationOrdinal must be a positive integer`
+        );
+      }
+      input.crossCheck?.(event);
+    }
+  );
+}
+
+const TYPED_RECURSE_COMMON_FIELDS = Object.freeze([
+  "kind",
+  "basisId",
+  "planRef",
+  "bindingRef",
+  "selectedCatalogEntryRef",
+  "parentGraphCallId",
+  "parentFrameId",
+  "frameLineageId",
+  "applicationOrdinal",
+  "childInvocationRef",
+  "childGraphCallId",
+  "childFrameId",
+  "causationEventRefs",
+  "correlationId"
+]);
 
 const C_CALL_OPENED_ADMISSION = (event: RuntimeEventRecord): void => {
     // REQ-R-ABG3-CCALL-002: the spine is LOCUS-ONLY, enforced as a
@@ -1900,6 +1981,204 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       judgment: { oneOf: C_CALL_JUDGMENT_VALUES },
       reasonRef: "nullable_string"
     })),
+  typed_recurse_application_opened: admitTypedRecurseEvent({
+    label: "TypedRecurseApplicationOpenedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "inputCarrierRef",
+      "inputPayloadRef"
+    ],
+    rules: {
+      inputCarrierRef: "non_empty_string",
+      inputPayloadRef: "non_empty_string"
+    }
+  }),
+  typed_recurse_child_result_admitted: admitTypedRecurseEvent({
+    label: "TypedRecurseChildResultAdmittedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "disposition",
+      "outputCarrierRef",
+      "outputPayloadRef",
+      "responseContractRef",
+      "reasonRef",
+      "evidenceRefs"
+    ],
+    rules: {
+      disposition: { oneOf: TYPED_RECURSE_CHILD_DISPOSITION_VALUES },
+      outputCarrierRef: "non_empty_string",
+      outputPayloadRef: "nullable_string",
+      responseContractRef: "nullable_string",
+      reasonRef: "nullable_string",
+      evidenceRefs: "string_array"
+    },
+    crossCheck(event): void {
+      assertNullableNonEmptyString(
+        event["outputPayloadRef"],
+        "TypedRecurseChildResultAdmittedEvent.outputPayloadRef"
+      );
+      assertNullableNonEmptyString(
+        event["responseContractRef"],
+        "TypedRecurseChildResultAdmittedEvent.responseContractRef"
+      );
+      assertNullableNonEmptyString(
+        event["reasonRef"],
+        "TypedRecurseChildResultAdmittedEvent.reasonRef"
+      );
+      const completed = event["disposition"] === "completed";
+      if (
+        completed !== (typeof event["outputPayloadRef"] === "string") ||
+        completed !== (typeof event["responseContractRef"] === "string") ||
+        completed === (typeof event["reasonRef"] === "string") ||
+        !Array.isArray(event["evidenceRefs"]) ||
+        event["evidenceRefs"].length === 0
+      ) {
+        throw new TypeError(
+          "TypedRecurseChildResultAdmittedEvent disposition fields are inconsistent"
+        );
+      }
+    }
+  }),
+  typed_recurse_termination_evaluated: admitTypedRecurseEvent({
+    label: "TypedRecurseTerminationEvaluatedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "outputPayloadRef",
+      "evaluatorBinding",
+      "evaluatorDigest",
+      "decision",
+      "reasonRef",
+      "evidenceRefs"
+    ],
+    rules: {
+      outputPayloadRef: "non_empty_string",
+      evaluatorBinding: "non_empty_string",
+      evaluatorDigest: "non_empty_string",
+      decision: { oneOf: TYPED_RECURSE_TERMINATION_DECISION_VALUES },
+      reasonRef: "non_empty_string",
+      evidenceRefs: "string_array"
+    },
+    crossCheck(event): void {
+      if (!Array.isArray(event["evidenceRefs"]) || event["evidenceRefs"].length === 0) {
+        throw new TypeError(
+          "TypedRecurseTerminationEvaluatedEvent requires evidence"
+        );
+      }
+    }
+  }),
+  typed_recurse_foldback_admitted: admitTypedRecurseEvent({
+    label: "TypedRecurseFoldbackAdmittedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "foldbackBinding",
+      "sourceOutputCarrierRef",
+      "sourceOutputPayloadRef",
+      "targetInputCarrierRef",
+      "targetInputPayloadRef",
+      "policyRef",
+      "policyDigest",
+      "budgetSourceFieldRef",
+      "preservedEvidenceRefs",
+      "foldbackEvidenceRefs"
+    ],
+    rules: {
+      foldbackBinding: "non_empty_string",
+      sourceOutputCarrierRef: "non_empty_string",
+      sourceOutputPayloadRef: "non_empty_string",
+      targetInputCarrierRef: "non_empty_string",
+      targetInputPayloadRef: "non_empty_string",
+      policyRef: "non_empty_string",
+      policyDigest: "non_empty_string",
+      budgetSourceFieldRef: "non_empty_string",
+      preservedEvidenceRefs: "string_array",
+      foldbackEvidenceRefs: "string_array"
+    },
+    crossCheck(event): void {
+      if (
+        !Array.isArray(event["preservedEvidenceRefs"]) ||
+        event["preservedEvidenceRefs"].length === 0 ||
+        !Array.isArray(event["foldbackEvidenceRefs"]) ||
+        event["foldbackEvidenceRefs"].length === 0
+      ) {
+        throw new TypeError(
+          "TypedRecurseFoldbackAdmittedEvent requires preserved and foldback evidence"
+        );
+      }
+    }
+  }),
+  typed_recurse_foldback_rejected: admitTypedRecurseEvent({
+    label: "TypedRecurseFoldbackRejectedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "foldbackBinding",
+      "sourceOutputCarrierRef",
+      "sourceOutputPayloadRef",
+      "targetInputCarrierRef",
+      "policyRef",
+      "policyDigest",
+      "budgetSourceFieldRef",
+      "reasonRef",
+      "evidenceRefs"
+    ],
+    rules: {
+      foldbackBinding: "non_empty_string",
+      sourceOutputCarrierRef: "non_empty_string",
+      sourceOutputPayloadRef: "non_empty_string",
+      targetInputCarrierRef: "non_empty_string",
+      policyRef: "non_empty_string",
+      policyDigest: "non_empty_string",
+      budgetSourceFieldRef: "non_empty_string",
+      reasonRef: "non_empty_string",
+      evidenceRefs: "string_array"
+    },
+    crossCheck(event): void {
+      if (!Array.isArray(event["evidenceRefs"]) || event["evidenceRefs"].length === 0) {
+        throw new TypeError(
+          "TypedRecurseFoldbackRejectedEvent requires evidence"
+        );
+      }
+    }
+  }),
+  typed_recurse_parent_rebind_evaluated: admitTypedRecurseEvent({
+    label: "TypedRecurseParentRebindEvaluatedEvent",
+    fields: [
+      ...TYPED_RECURSE_COMMON_FIELDS,
+      "targetInputCarrierRef",
+      "targetInputPayloadRef",
+      "policyRef",
+      "policyDigest",
+      "budgetSourceFieldRef",
+      "decision",
+      "reasonRef",
+      "evidenceRefs"
+    ],
+    rules: {
+      targetInputCarrierRef: "non_empty_string",
+      targetInputPayloadRef: "non_empty_string",
+      policyRef: "non_empty_string",
+      policyDigest: "non_empty_string",
+      budgetSourceFieldRef: "non_empty_string",
+      decision: { oneOf: TYPED_RECURSE_PARENT_REBIND_DECISION_VALUES },
+      reasonRef: "nullable_string",
+      evidenceRefs: "string_array"
+    },
+    crossCheck(event): void {
+      assertNullableNonEmptyString(
+        event["reasonRef"],
+        "TypedRecurseParentRebindEvaluatedEvent.reasonRef"
+      );
+      const admitted = event["decision"] === "admitted";
+      if (
+        admitted === (typeof event["reasonRef"] === "string") ||
+        !Array.isArray(event["evidenceRefs"]) ||
+        event["evidenceRefs"].length === 0
+      ) {
+        throw new TypeError(
+          "TypedRecurseParentRebindEvaluatedEvent decision fields are inconsistent"
+        );
+      }
+    }
+  }),
   runtime_failure_observed: applyFieldRules("RuntimeFailureObservedEvent", {
     basisId: "nullable_string",
     surface: "non_empty_string",

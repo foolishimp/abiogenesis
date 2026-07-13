@@ -150,7 +150,7 @@ test("T-260 HOF arrays are pure and compile one exact structural relation", () =
   assert.equal(compilation.relation.outputVectorNodeRef, nodes.attributedFindings.id);
 });
 
-test("T-260 fan-in compiles while recursion retains its typed runtime gap", () => {
+test("T-262 fan-in and direct recursion compile to distinct structural relations", () => {
   const bodyFunctions = ABG_CONSENSUS_GTL_BODY.graphFunctions;
   const fanIn = compileGraphFunctionApplication({
     graphFunction: bodyFunctions.reducePanelFacts,
@@ -167,14 +167,14 @@ test("T-260 fan-in compiles while recursion retains its typed runtime gap", () =
     graphFunctions: graphFunctions()
   });
   assert.equal(recursion.observed, true);
-  assert.equal(recursion.accepted, false);
+  assert.equal(recursion.accepted, true);
   assert.equal(recursion.lineage.orderedSteps[0].operatorKind, "recurse");
   assert.equal(recursion.lineage.orderedSteps[0].operandGraphFunctionRef, bodyFunctions.round.id);
   assert.equal(recursion.fanInRelation, null);
-  assert.deepEqual(
-    recursion.diagnostics.map((row) => [row.classification, row.diagnosticId]),
-    [["semantic_not_realized", "gtl-application-runtime-not-realized"]]
-  );
+  assert.equal(recursion.recurseRelation.operandGraphFunctionRef, bodyFunctions.round.id);
+  assert.equal(recursion.recurseRelation.foldbackMode, "rebind");
+  assert.equal(recursion.recurseRelation.foldbackRequiresParentEvaluation, true);
+  assert.deepEqual(recursion.diagnostics, []);
 });
 
 test("T-252 every selected GraphVector resolves one exact local C program", () => {
@@ -429,7 +429,7 @@ test("T-252 body dependency closure avoids fenced execution implementation direc
   assert.deepEqual(forbidden, []);
 });
 
-test("T-252 probe derives observations through the real context join without making a runtime-call claim", () => {
+test("T-252 probe derives compiler and isolated runtime observations without widening the static claim", () => {
   const manifestPath = resolve(
     dirname(fileURLToPath(import.meta.url)),
     "../fixtures/t252_consensus_probe_manifest.json"
@@ -465,6 +465,10 @@ test("T-252 probe derives observations through the real context join without mak
     );
   }
   const observed = new Set(manifest.gapCensus.map((gap) => gap.gapFamily));
+  assert.deepEqual([...observed].sort(), [
+    "tenant_conformance_manifest_consensus_coverage_missing",
+    "traversal_execution_contracts"
+  ]);
   assert.equal(
     manifest.ownership.activeOwnedButNotObservedFamilies.some((family) =>
       observed.has(family)
@@ -473,6 +477,31 @@ test("T-252 probe derives observations through the real context join without mak
   );
   assert.equal(manifest.ownership.unownedGapCount, 0);
   assert.equal(manifest.ownership.duplicateOwnerCount, 0);
+
+  assert.equal(manifest.compiler.t262RuntimeSurface.resolveTypedRecurse, true);
+  assert.equal(
+    manifest.compiler.t262RuntimeSurface.uniquePostSubmitterRecurseRouteRef,
+    "graph-vector://abg/consensus/recurse-post-submitter"
+  );
+  assert.equal(
+    manifest.compiler.t262RuntimeSurface.canonicalApplicationsObserved,
+    2
+  );
+  assert.equal(
+    manifest.compiler.t262RuntimeSurface.priorEvidencePreserved,
+    true
+  );
+  assert.equal(
+    manifest.compiler.t262RuntimeSurface.publicEffectsPermitted,
+    false
+  );
+  assert.ok(
+    manifest.compiler.t262RuntimeSurface.canonicalHandoffStatuses.every(
+      (status) =>
+        status === "blocked_capability" ||
+        status === "published_startup_blocked"
+    )
+  );
 
   assert.ok(manifest.compiler.executionContextJoinRows.length > 0);
   assert.equal(
