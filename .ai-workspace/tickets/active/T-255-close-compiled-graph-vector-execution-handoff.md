@@ -2,9 +2,9 @@
 
 - id: T-255
 - status: active
-- phase_status: design_repaired_round_2_pending_explicit_fh
-- review_status: pending_explicit_fh_acceptance
-- implementation_status: provisional_uncommitted_not_admitted
+- phase_status: design_accepted_implementation_admitted
+- review_status: accepted_by_fh
+- implementation_status: admitted_pending_realization
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
@@ -21,6 +21,7 @@
 - review_ref: .ai-workspace/comments/codex/20260713T052506Z_REVIEW_GATE_t255_round2_authority_correction.md
 - correction_proof_ref: .ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md
 - self_review_ref: .ai-workspace/comments/codex/20260713T053506Z_SELF_REVIEW_t255_round2_authority_correction.md
+- decision_ref: .ai-workspace/comments/codex/20260713T053912Z_DECISION_fh_accept_t255_corrected_design.md
 
 ## Boundary
 
@@ -51,9 +52,8 @@ T-254 vector/program binding; authored equality alone is not enforcement.
 
 ## Entry And Exit
 
-The candidate three-view design has been reworked against the accepted T-252
-body and now requires its own explicit F_H acceptance before implementation is
-admitted. Runtime must consume the exact T-254 binding, preserve arbitrary
+The corrected three-view design has been accepted explicitly by F_H. Bounded
+implementation is admitted. Runtime must consume the exact T-254 binding, preserve arbitrary
 lawful C-program shape, join the effective exact `abg.fn_composition` selection,
 enforce any `owningDeclarationRef` against the T-254 binding, and derive one
 canonical target row, edge-closure contract, and execution-handoff outcome

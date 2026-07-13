@@ -1,7 +1,7 @@
 # M03 Compiled GraphVector Execution Handoff Behavior Design
 
-**Design verdict**: `candidate_repaired_round_2_pending_explicit_fh`
-**Implementation admission**: `paused_pending_own_explicit_fh_acceptance`
+**Design verdict**: `accepted_by_explicit_fh_2026_07_13`
+**Implementation admission**: `admitted_within_accepted_boundary`
 **Ticket**: [T-255](../../../../.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md)
 **Owning modules**: M04 canonical manifest admission, shared admitted-manifest
 carrier, and M03 graph-vector compilation
@@ -90,10 +90,10 @@ admission, and conservation requirements remain unchanged.
 
 The earlier inference that direct continuation admitted implementation was
 invalid. T-252, T-263, and T-264 received explicit F_H acceptance on 2026-07-13.
-T-255 remains paused at its own design gate; that upstream ruling did not admit
-this design or its uncommitted prototype. The proportionality rule still
-applies: do not widen the base algebra or fabricate missing authority to
-perfect a local seam.
+T-255 received its own explicit F_H design acceptance on 2026-07-13. That
+ruling admits bounded implementation but does not accept the provisional
+prototype or waive proof. The proportionality rule still applies: do not widen
+the base algebra or fabricate missing authority to perfect a local seam.
 
 ## Current Evidence
 
