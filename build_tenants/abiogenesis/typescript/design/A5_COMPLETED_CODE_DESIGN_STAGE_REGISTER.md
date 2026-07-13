@@ -33,6 +33,7 @@ requirements own product scope, while T-244 traces feature closure.
 | Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The base authoring/compiler code is frozen. Direct `workflow.C` is realized by T-259; direct root `C.batch` and typed HOF projection are realized by T-260; `C.retry` and mixed expressions retain explicit successor gaps. |
 | Direct `workflow.C` static binding and child-traversal runtime atom | T-259 | [M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md](./M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | One direct module-contained child workflow is realized without a child catalog entry. Canonical product traversal remains startup-blocked by T-267. |
 | Typed fan-out, ordinal `C.batch`, and exact fan-in runtime | T-260; `398f254` | [M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` and `closed` under delegated F_H | Direct root batch, runtime-cardinality fan-out, and exact fan-in are realized with structural/runtime authority separation. Nested and mixed batches remain gaps, and the T-267 startup fence remains authoritative. |
+| Bounded `C.retry` runtime and one-policy join | T-261 | [M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md](./M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | Implementation is authorized for one direct root retry over one C.of leaf, with replay-derived attempt identity, a positive max-attempt budget, and the single shared retryable-failure allowlist. |
 | Execution-declaration compilation and basis-owned runtime handoff | T-220 P4; `014448f` | [M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md](./M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md) | `candidate` | The handoff code is frozen. It cannot certify a constructive C body because the separate C-conformance result is not bound into `ExecutionBasis`. |
 | Malformed and contradictory F_P output admission plus ABG-owned producer attribution | T-220 P4 and T-223; `014448f`, `28da030` | [M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md](./M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) | `blocked` | Producer attribution is a passing subclaim; admission remains frozen because G1-G5 require disposition and raw-to-close impossibility is not yet proven. |
 | Installed product, workspace, binding, and catalog foundation | T-223 foundation; `f572ee9` | [M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md](./M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md) | `candidate` | Foundation code is frozen pending cross-view axiom review. |
@@ -59,7 +60,7 @@ stage:
 ## Evaluation Order
 
 The standing structural/render command is `npm run check:design-mermaid` from
-the TypeScript tenant root. It discovers only the eleven links above, requires
+the TypeScript tenant root. It discovers only the twelve links above, requires
 the ordered domain/sequence/state views, renders with the pinned local Mermaid
 CLI into temporary output, and removes that output. A green render remains
 syntax evidence; it does not replace independent axiom or F_H review.

@@ -57,7 +57,7 @@ function threeViewSource(order = [
   ).join("\n\n")}\n`;
 }
 
-test("T-251 renders exactly the eleven registered three-view designs", () => {
+test("T-251 renders exactly the twelve registered three-view designs", () => {
   const result = runGate();
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(result.summary, {
@@ -65,8 +65,8 @@ test("T-251 renders exactly the eleven registered three-view designs", () => {
     failureClass: null,
     failurePath: null,
     rendererVersion: "11.3.0",
-    fileCount: 11,
-    diagramCount: 33,
+    fileCount: 12,
+    diagramCount: 36,
     sourceSetDigest: result.summary.sourceSetDigest
   });
   assert.match(result.summary.sourceSetDigest, /^sha256:[a-f0-9]{64}$/u);
