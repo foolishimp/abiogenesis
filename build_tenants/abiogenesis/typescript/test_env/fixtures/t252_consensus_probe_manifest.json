@@ -1,0 +1,2917 @@
+{
+  "kind": "t252_consensus_gtl_probe_manifest",
+  "version": 1,
+  "authority": {
+    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
+    "abiPackageVersion": "5.0.0-dev.0"
+  },
+  "body": {
+    "bodyDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+    "canonicalTargetRef": "graph-function://abg/consensus/submitter-reviewer-rounds",
+    "moduleName": "abg.consensus.ds1",
+    "graphFunctionCount": 7,
+    "uniqueGraphCount": 5,
+    "authoredProgramCount": 19,
+    "selectedVectorPathCount": 34,
+    "moduleOperatorCount": 19,
+    "moduleJobCount": 0,
+    "moduleRoleCount": 0,
+    "nodeContracts": [
+      {
+        "name": "attributedFindings",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "schemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "nodeContractKey": "{\"name\":\"AttributedFindingsVector\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"Vector[schema://abg/consensus/review-findings]\"},\"markov\":[\"boundary://abg/consensus/attributed-findings-vector\"],\"assetSurface\":{\"kind\":\"abg_consensus_attributed_findings_vector\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/attributed-findings-vector\"}",
+        "nodeContractDigest": "sha256:46a5f00b9d4935f672d33a5565421e524f77182eabb66eec885a59dc1459124f"
+      },
+      {
+        "name": "exactProjection",
+        "nodeRef": "node://abg/consensus/round-exact-projection",
+        "schemaRef": "schema://abg/consensus/round-exact-projection",
+        "nodeContractKey": "{\"name\":\"RoundExactProjection\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/round-exact-projection\"},\"markov\":[\"boundary://abg/consensus/round-exact-projection\"],\"assetSurface\":{\"kind\":\"abg_consensus_round_exact_projection\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/round-exact-projection\"}",
+        "nodeContractDigest": "sha256:79b06e76d51cc4c21d33a77435acdb3ca8610f3a388f7fdebfaba0a412c6a7e8"
+      },
+      {
+        "name": "fhInteractionBinding",
+        "nodeRef": "node://abg/consensus/fh-interaction-binding",
+        "schemaRef": "schema://abg/consensus/fh-interaction-binding",
+        "nodeContractKey": "{\"name\":\"FhInteractionBinding\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/fh-interaction-binding\"},\"markov\":[\"boundary://abg/consensus/fh-interaction-binding\"],\"assetSurface\":{\"kind\":\"abg_consensus_fh_interaction_binding\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/fh-interaction-binding\"}",
+        "nodeContractDigest": "sha256:386b12899cc82bc5678de217218ce45b2a25314b69ab9a7186955e2609b1743d"
+      },
+      {
+        "name": "fhPendingInteraction",
+        "nodeRef": "node://abg/consensus/fh-pending-interaction",
+        "schemaRef": "schema://abg/consensus/fh-pending-interaction",
+        "nodeContractKey": "{\"name\":\"FhPendingInteraction\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/fh-pending-interaction\"},\"markov\":[\"boundary://abg/consensus/fh-pending-interaction\"],\"assetSurface\":{\"kind\":\"abg_consensus_fh_pending_interaction\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/fh-pending-interaction\"}",
+        "nodeContractDigest": "sha256:8228cadae6f107985e27fb957a76d4f1713ca60d698aadfaa27b026a04e54757"
+      },
+      {
+        "name": "initialAssessment",
+        "nodeRef": "node://abg/consensus/initial-semantic-assessment",
+        "schemaRef": "schema://abg/consensus/initial-semantic-assessment",
+        "nodeContractKey": "{\"name\":\"InitialSemanticAssessment\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/initial-semantic-assessment\"},\"markov\":[\"boundary://abg/consensus/initial-semantic-assessment\"],\"assetSurface\":{\"kind\":\"abg_consensus_initial_semantic_assessment\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/initial-semantic-assessment\"}",
+        "nodeContractDigest": "sha256:a4acdd6880143d0e02f840667f35c24a57ee6db920757918bef666f4d442f11b"
+      },
+      {
+        "name": "postSubmitterAssessment",
+        "nodeRef": "node://abg/consensus/post-submitter-semantic-assessment",
+        "schemaRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "nodeContractKey": "{\"name\":\"PostSubmitterSemanticAssessment\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/post-submitter-semantic-assessment\"},\"markov\":[\"boundary://abg/consensus/post-submitter-semantic-assessment\"],\"assetSurface\":{\"kind\":\"abg_consensus_post_submitter_semantic_assessment\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/post-submitter-semantic-assessment\"}",
+        "nodeContractDigest": "sha256:ce0e553ec7f1e7cb143f94b7edf02c20ea6b5de4d64de375b4a1823316d7f92a"
+      },
+      {
+        "name": "result",
+        "nodeRef": "node://abg/consensus/consensus-result",
+        "schemaRef": "schema://abg/consensus/result",
+        "nodeContractKey": "{\"name\":\"ConsensusResult\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/result\"},\"markov\":[\"boundary://abg/consensus/consensus-result\"],\"assetSurface\":{\"kind\":\"abg_consensus_consensus_result\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/consensus-result\"}",
+        "nodeContractDigest": "sha256:5670868186b17b27a061508338f044d60e45f81aca9aa0678db9337a0572c5f5"
+      },
+      {
+        "name": "reviewerAssignment",
+        "nodeRef": "node://abg/consensus/reviewer-assignment",
+        "schemaRef": "schema://abg/consensus/reviewer-assignment",
+        "nodeContractKey": "{\"name\":\"ReviewerAssignment\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/reviewer-assignment\"},\"markov\":[\"boundary://abg/consensus/reviewer-assignment\"],\"assetSurface\":{\"kind\":\"abg_consensus_reviewer_assignment\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/reviewer-assignment\"}",
+        "nodeContractDigest": "sha256:f73803fbf7496981ff58d6940571ea553ea5c06ae342c4645d4cda3fc03488b3"
+      },
+      {
+        "name": "reviewerAssignments",
+        "nodeRef": "node://abg/consensus/reviewer-assignment-vector",
+        "schemaRef": "Vector[schema://abg/consensus/reviewer-assignment]",
+        "nodeContractKey": "{\"name\":\"ReviewerAssignmentVector\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"Vector[schema://abg/consensus/reviewer-assignment]\"},\"markov\":[\"boundary://abg/consensus/reviewer-assignment-vector\"],\"assetSurface\":{\"kind\":\"abg_consensus_reviewer_assignment_vector\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/reviewer-assignment-vector\"}",
+        "nodeContractDigest": "sha256:e1a2cde2251e51c1a9184c3487068ed35f7126f17c2b0e6e15a8f82072eb2ea0"
+      },
+      {
+        "name": "reviewFindings",
+        "nodeRef": "node://abg/consensus/review-findings",
+        "schemaRef": "schema://abg/consensus/review-findings",
+        "nodeContractKey": "{\"name\":\"ReviewFindings\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/review-findings\"},\"markov\":[\"boundary://abg/consensus/review-findings\"],\"assetSurface\":{\"kind\":\"abg_consensus_review_findings\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/review-findings\"}",
+        "nodeContractDigest": "sha256:9acd35eb067ca8c92684ffac9ca6e783d7b3eeba43a029489c6a971928354037"
+      },
+      {
+        "name": "roundDisposition",
+        "nodeRef": "node://abg/consensus/consensus-round-disposition",
+        "schemaRef": "schema://abg/consensus/round-disposition",
+        "nodeContractKey": "{\"name\":\"ConsensusRoundDisposition\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/round-disposition\"},\"markov\":[\"boundary://abg/consensus/consensus-round-disposition\"],\"assetSurface\":{\"kind\":\"abg_consensus_consensus_round_disposition\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/consensus-round-disposition\"}",
+        "nodeContractDigest": "sha256:5f5d7b703a2f3e5830835785fcb55669a351fe72c0bc077801cd63a3b7677d0f"
+      },
+      {
+        "name": "roundExecution",
+        "nodeRef": "node://abg/consensus/consensus-round-execution",
+        "schemaRef": "schema://abg/consensus/round-execution",
+        "nodeContractKey": "{\"name\":\"ConsensusRoundExecution\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/round-execution\"},\"markov\":[\"boundary://abg/consensus/consensus-round-execution\"],\"assetSurface\":{\"kind\":\"abg_consensus_consensus_round_execution\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/consensus-round-execution\"}",
+        "nodeContractDigest": "sha256:6822307d41afab05dcbc1cf02fa1385ed12a6e187f265f7e1b69aa79b4272c87"
+      },
+      {
+        "name": "semanticReducerBinding",
+        "nodeRef": "node://abg/consensus/semantic-reducer-binding",
+        "schemaRef": "schema://abg/consensus/semantic-reducer-binding",
+        "nodeContractKey": "{\"name\":\"SemanticReducerBinding\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/semantic-reducer-binding\"},\"markov\":[\"boundary://abg/consensus/semantic-reducer-binding\"],\"assetSurface\":{\"kind\":\"abg_consensus_semantic_reducer_binding\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/semantic-reducer-binding\"}",
+        "nodeContractDigest": "sha256:40a04f613a045748cbb1e8260d812f8f9ceb3d016caf06bf1e87c68381cb5478"
+      },
+      {
+        "name": "subject",
+        "nodeRef": "node://abg/consensus/consensus-subject",
+        "schemaRef": "schema://abg/consensus/subject",
+        "nodeContractKey": "{\"name\":\"ConsensusSubject\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/subject\"},\"markov\":[\"boundary://abg/consensus/consensus-subject\"],\"assetSurface\":{\"kind\":\"abg_consensus_consensus_subject\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/consensus-subject\"}",
+        "nodeContractDigest": "sha256:1395354e17cd412570c1383cc0e9dece86803c33ee7fd2dd4c0519832b89de96"
+      },
+      {
+        "name": "submitterResponse",
+        "nodeRef": "node://abg/consensus/submitter-response",
+        "schemaRef": "schema://abg/consensus/submitter-response",
+        "nodeContractKey": "{\"name\":\"SubmitterResponse\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/submitter-response\"},\"markov\":[\"boundary://abg/consensus/submitter-response\"],\"assetSurface\":{\"kind\":\"abg_consensus_submitter_response\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/submitter-response\"}",
+        "nodeContractDigest": "sha256:0e65bff3ec446428e7d3ad3c02b460216fb18e7e9d807bdfc6dd786256bb6737"
+      },
+      {
+        "name": "submitterTurnBinding",
+        "nodeRef": "node://abg/consensus/submitter-turn-binding",
+        "schemaRef": "schema://abg/consensus/submitter-turn-binding",
+        "nodeContractKey": "{\"name\":\"SubmitterTurnBinding\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/submitter-turn-binding\"},\"markov\":[\"boundary://abg/consensus/submitter-turn-binding\"],\"assetSurface\":{\"kind\":\"abg_consensus_submitter_turn_binding\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/submitter-turn-binding\"}",
+        "nodeContractDigest": "sha256:9a9988b9e4076cbc864e945328cfb3df4136af04dd4d99658c68b8cda3e6a8e3"
+      }
+    ]
+  },
+  "m02": {
+    "canonicalRoundTripExact": true,
+    "serializedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+    "admittedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+    "unknownFieldMutation": {
+      "accepted": true,
+      "retained": false,
+      "gapFamily": "strict_raw_module_admission"
+    }
+  },
+  "compiler": {
+    "outcome": "semantic_not_realized",
+    "invalidProgramCount": 0,
+    "structuralBlockingIssueCount": 0,
+    "normalizedDiagnostics": [
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
+          "graph-function:graph-function://abg/consensus/exact-panel-facts",
+          "graph-vector:graph-vector://abg/consensus/exact-panel-facts",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:570b9fda9982baefdae82d9006ff48e15a500fd54b9aa9e243fb090c2a2fd5fa",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
+          "graph-function:graph-function://abg/consensus/review-one-profile",
+          "graph-vector:graph-vector://abg/consensus/review-one-profile",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:9c8eda3b22857f8ace917467d85d741efcfb5ede6c01f76aba61ff1875d8293a",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/expand-panel",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:835781a973abc0348000b45115758d9f98f8f3adac89af6cf4cc13b9c51b911f",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
+        "compilerPath": "$.template.graph.vectors[1].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/project-reducer-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:779bcb63f05ddeed6355aaccc86c4f16fcf60eeab5369bc5eedff0fb75c36821",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
+        "compilerPath": "$.template.graph.vectors[10].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:47603016c5983f141cd0244cbde67357ce90aba5e0d8b353bd3b10537adbcfc2",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/reassess-round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:176dc9568a511a527a7a6d0490d49727565339224677f62b505e5d4214b178d8",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[11].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/close-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:b312fd954f66493f41e4f6d876f1ac1a0546b12e5aa7f3ac75331047a6d1db0a",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[12].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/recurse-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:6045a93168217f223d427527075ae4a48679d073d6d86195e2e5a3bfcbb8412e",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[13].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/fh-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:5f54d7c93e57ede78e4fe253e2669736fe7e628b10a668ce7212e0a00298b7eb",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
+        "compilerPath": "$.template.graph.vectors[2].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/project-submitter-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:ec3ec19f68551152387e35daaadeaf7a902bdce3a835cda923df16ccdcd651a0",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "compilerPath": "$.template.graph.vectors[3].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/project-fh-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:2ace9763a443bf0015932dd3a97a2b83430a461f579321826c54c7c021de6759",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "compilerPath": "$.template.graph.vectors[4].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:48be5b77e4a2422b4383d6c8809ce9151f4f936d845dd24f73b023158e11ed34",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/review-panel",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:2914566f6d0ca25379b656981747a503aa445f9408545cbef33738bfb77ab693",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
+        "compilerPath": "$.template.graph.vectors[5].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:bd7b6f7377d5e19e4b60f17cb398c3dded2084d76e78a2369a22e28533f11273",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/reduce-panel-facts",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:5acfa35090dd939f621f70b27a1d3a86c7676921211f06196822c0742bbe684f",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
+        "compilerPath": "$.template.graph.vectors[6].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:4a00b7f25937e9eca06971460b46c458ab169a36432edea869f6ee0bc8dbc327",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/reduce-round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:6b94a62959afb711b38abf68c4673c31f8e1c7c1a08e33acbdb4086c1aa3fc8c",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
+        "compilerPath": "$.template.graph.vectors[7].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/close-initial",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:0c33cc2b41ff0af245fe2dd06a93f84b18751dc4c577b3db63fb59589562add5",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
+        "compilerPath": "$.template.graph.vectors[8].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:98ecfc7a48148c0776bb25fce079ccd68806b29d4ad75486053f0476b9ffedcb",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/submitter-response",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:dfad1ba16c6f4696f778fc14049f5670592899bcceb427b727f173cd16c7e6fe",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
+        "compilerPath": "$.template.graph.vectors[9].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
+          "graph-function:graph-function://abg/consensus/round",
+          "graph-vector:graph-vector://abg/consensus/fh-initial",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:4019aadc4f87db1428888083f02aeda1e00a17239b86270d1e898ee19e54215b",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
+          "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
+          "graph-vector:graph-vector://abg/consensus/seed-round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:90ca6ac9e2e5186bbc17826b3d3f38380533bc20413ff48747355a6f1242c220",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
+        "compilerPath": "$.template.graph.vectors[1].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:f49251731760212359febd7935fc182c8222d8ffb08d1eec2823451c54eaf8a4",
+          "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
+          "graph-vector:graph-vector://abg/consensus/bounded-rounds",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:d6fa51aa93b15b19e37d1b0f1cc6eaa8d05e6262d8f05896aa70ecf870e1368b",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
+        "compilerPath": "$.template.graph.vectors[2].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
+          "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
+          "graph-vector:graph-vector://abg/consensus/project-result",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:ba700f7b6173b622341c6e8e30d10acc75c1a86ea67d2b894db5cf33359ffc82",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_function_application_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-application-runtime-not-realized",
+        "canonicalBodyPath": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].application",
+        "compilerPath": "$",
+        "authorityRefs": [
+          "constructor:gtl.graph_function_application",
+          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011/-012"
+        ],
+        "authorityDigest": "sha256:47b6769c20e7ebb8659aa9a8b2eb87901b5c19b324aa5f30f3dc2600bbcec03f",
+        "expectedRelation": "T-255 final execution binding with complete FN-COMP-003 and owning_declaration_ref joins",
+        "actualRelation": "application lineage and provisional composition joins compiled without runtime admission",
+        "actualRelationDigest": "sha256:7a0138702fde47c202617b657d50acc683e2f2ca7f9c86e29f2e0e3d86865874",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
+          "graph-function-application:gtl://graph-function/application/2d06535070e193834c5b96b0c7ce255a9f14832a9db6b3dd6d65570e5b41e0ba",
+          "graph-function:digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+          "lineage:gtl://graph-function/application-lineage/b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
+          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011",
+          "requirement:REQ-R-ABG3-FN-COMP-003"
+        ],
+        "evidenceDigest": "sha256:63754b238724737acdef431eece59cf69fa1d093a7d3de91ff40a718c50e5a28",
+        "repairAffordances": [
+          "complete_t255_execution_join"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:de93e1bf42182425268ec14a3ba85a0663f3a0b284086debddbd7c54f9c747da",
+          "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
+          "graph-function:digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+          "graph-vector:graph-vector://abg/consensus/exact-panel-facts",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:12d73e2043c46949321b07ed6058428af6e3f686773b180e871ce1ae29c5221e",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "hof_relation_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-hof-unrealized-fan-out",
+        "canonicalBodyPath": "module.graphFunctions[fan_out(consensus.review-one-profile)].hof",
+        "compilerPath": "$",
+        "authorityRefs": [
+          "constructor:gtl.hof_application",
+          "requirement:REQ-L-GTL3-HOF"
+        ],
+        "authorityDigest": "sha256:86b9180e975f3c99608479bf40f6c404fe337407e2a7fd847ed73ce43bd927cf",
+        "expectedRelation": "generic HOF runtime consumer",
+        "actualRelation": "canonical fan-out relation is admitted but no runtime consumer exists",
+        "actualRelationDigest": "sha256:64f24455eff87ec1048233d1b32daf43e8ccaed21e7fe0b130d68d67d6906d61",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "digest-ref:sha256:c4561f6903dc35453e50710b3b1434ea6fc0f3019728de76de78c2274b865010",
+          "graph-function:digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
+          "hof-relation:gtl://hof/application/4384058a7ca957af016fa88007722bd57669013b0a1073cff61def566d257e50",
+          "requirement:REQ-L-GTL3-HOF-001"
+        ],
+        "evidenceDigest": "sha256:2f9d16ed1cf7df1031c0697643d2ee9c3103ce96d0c2d42e082c9abd78886b2e",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_function_application_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-application-runtime-not-realized",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].application",
+        "compilerPath": "$",
+        "authorityRefs": [
+          "constructor:gtl.graph_function_application",
+          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011/-012"
+        ],
+        "authorityDigest": "sha256:47b6769c20e7ebb8659aa9a8b2eb87901b5c19b324aa5f30f3dc2600bbcec03f",
+        "expectedRelation": "T-255 final execution binding with complete FN-COMP-003 and owning_declaration_ref joins",
+        "actualRelation": "application lineage and provisional composition joins compiled without runtime admission",
+        "actualRelationDigest": "sha256:7a0138702fde47c202617b657d50acc683e2f2ca7f9c86e29f2e0e3d86865874",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function-application:gtl://graph-function/application/84f850a0f8826a8f72cbfa232c81fbbb504d169d34b783c2de856c5be5d7c660",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "lineage:gtl://graph-function/application-lineage/26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
+          "requirement:REQ-L-GTL3-GRAPHFUNCTION-011",
+          "requirement:REQ-R-ABG3-FN-COMP-003"
+        ],
+        "evidenceDigest": "sha256:1f5624c71fa6c061cd95b5e00b48afd7b467eb155bf6feeb270b51aeb8c3264e",
+        "repairAffordances": [
+          "complete_t255_execution_join"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "compilerPath": "$.template.graph.vectors[0].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/expand-panel",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:787b58576df41be4966bc989e2ba8bfa2a3bc0d0227606b1e7681902652a3a8f",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "compilerPath": "$.template.graph.vectors[1].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/project-reducer-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:5644b9f97dba745d08abeb8f8d80d6d8d8134e106b21d9bd52f6571553c8645a",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "compilerPath": "$.template.graph.vectors[10].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:91cf80fe3f847aeeaac023ccd2422e3de8a46cd6ee63441a9dd86a1d02e80194",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/reassess-round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:f85cb9a6a288895112f471350ae2f391f92d1d21559cd78a862a54a9cd3ebb52",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[11].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/close-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:718b7431f769eac8cf90a9804a4f8ceb5abff7e70ade30373ae3a9be780be090",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[12].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/recurse-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:e3a1175b248ff0a133a056e380842ca17fd158a03b7e997e257d2b89e03d4649",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "compilerPath": "$.template.graph.vectors[13].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:8d78c975dfd6fb5f6d97d6cafb64252eb147504685ddf5edff5c55e1c208ae71",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/fh-post-submitter",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:4c9bab15c3bb88922ebeea3987f1ee99e53e1e476eb8aea1c8a195fd7645760b",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "compilerPath": "$.template.graph.vectors[2].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/project-submitter-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:8336b0973f7fb044097eef5951eda9faf7b3050622538ea5a1bd5e344cb16399",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "compilerPath": "$.template.graph.vectors[3].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/project-fh-binding",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:0078a40345a5ace27ac1e412a35525e7281640cb2c9d1126b08075a57ce4594b",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "compilerPath": "$.template.graph.vectors[4].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:b0a51c7e709b2cb8a1fa791a5c38a344b0ad4390b75b46e1bdca1cc4c5fa6f05",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/review-panel",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:23498d27a255b470110da88b88c371a98a455ad62fc63c14c12ae4d897c006f9",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "compilerPath": "$.template.graph.vectors[5].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:d81c43e3d4aa588f71fcda8903f952fb2b4c13fef613e0f49c8a7ac25731660f",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/reduce-panel-facts",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:529b83e4526214cf126d5e6f5d014228ef8c521a9a13fb459afafdecfb802e0c",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "compilerPath": "$.template.graph.vectors[6].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:b008b0e7a206f233a5961b8b02abf523345305975f9847c22d0ad87cd099b278",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/reduce-round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:8df66f15ef071ed04d0c93c4d5b4aa34a3a233dd7446b9e8d6f8979c8c3d5e8b",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "compilerPath": "$.template.graph.vectors[7].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/close-initial",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:c7ba5c0bae015bf92fbafb38b351b2c9a48ac957f8f5467b48f8b9797e2a678e",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "compilerPath": "$.template.graph.vectors[8].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:99d1400cc999cc416c3b71861d86fcb9be3e390e8d82abe58e7d943972667342",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/submitter-response",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:a571c4996de05f831a31a6d3677cad2b15f369443db7eccbb28c33b18f0b611c",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "graph_vector_c_program_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-vector-program-selection",
+        "canonicalBodyPath": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
+        "compilerPath": "$.template.graph.vectors[9].declarations[\"abg.hog_program_ref\"]",
+        "authorityRefs": [
+          "axiom:GV-C-08",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016"
+        ],
+        "authorityDigest": "sha256:2c5e0cfac9dc8cac9204e8a95f1ae2a5a1b7128f3679c00db1bbba57f6a36c60",
+        "expectedRelation": "vector-indexed compiled runtime program selection",
+        "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
+        "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "compiled-graph-vector-c-program-binding:sha256:e93f26f9f9c91319c55c54f7b7024d9b1bfb71bbcf26e5cc5ad2ad421ece88fe",
+          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
+          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "graph-vector:graph-vector://abg/consensus/fh-initial",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-011",
+          "requirement:REQ-R-ABG3-CCALL-016"
+        ],
+        "evidenceDigest": "sha256:9e2de6d303676da97984d9bc9f1485f527dfea133effca97d9f682e7f6a59bbb",
+        "repairAffordances": [
+          "realize_declared_semantics"
+        ]
+      },
+      {
+        "source": "c_algebra_hog_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-retry",
+        "canonicalBodyPath": "programs[0:program://abg/consensus/review-one-profile]",
+        "compilerPath": "$.term",
+        "authorityRefs": [
+          "axiom:AX-T220-09",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-008"
+        ],
+        "authorityDigest": "sha256:665a7aa4c2b1df84be200ce3700619a8740b47f6c334b45ebd959a86c5ca4134",
+        "expectedRelation": "selected build tenant realizes the admitted C constructor",
+        "actualRelation": "C.retry budget 2 is lawful algebra but the current normalized HoG carrier cannot retain the declared attempt budget under the one retry law",
+        "actualRelationDigest": "sha256:10524fd1ef6fef0c6f41ba9a33db4a54b74bf8ecb987bad13d57aec606293594",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "c-algebra:gtl-c-unrealized-retry:$.term",
+          "program:program://abg/consensus/review-one-profile"
+        ],
+        "evidenceDigest": "sha256:c680b9dd37a136ff4fdd53f762c768b9f2e1bb8647988f8fd9adf45ae84e5afe",
+        "repairAffordances": [
+          "await_runtime_realization",
+          "use_flat_composition"
+        ]
+      },
+      {
+        "source": "c_algebra_hog_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-workflow-lift",
+        "canonicalBodyPath": "programs[17:program://abg/consensus/bounded-rounds]",
+        "compilerPath": "$.term",
+        "authorityRefs": [
+          "axiom:AX-T220-09",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
+        ],
+        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
+        "expectedRelation": "selected build tenant realizes the admitted C constructor",
+        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"recurse(consensus.round)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ConsensusRoundExecution\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"schema://abg/consensus/round-execution\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/consensus-round-execution\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_consensus_round_execution\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectionKindRefs\\\":[],\\\"clauseKindR...",
+        "actualRelationDigest": "sha256:e1942e4c250e10b52ffcf4c49996aa334a547967a3b2342d6e05e7609764da01",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
+          "program:program://abg/consensus/bounded-rounds"
+        ],
+        "evidenceDigest": "sha256:79410daffac89270a99b6b5c565cc03aebe3fc2916d9ad27d7dff1f9c3e59027",
+        "repairAffordances": [
+          "await_runtime_realization",
+          "use_flat_composition"
+        ]
+      },
+      {
+        "source": "c_algebra_hog_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-workflow-lift",
+        "canonicalBodyPath": "programs[6:program://abg/consensus/review-panel]",
+        "compilerPath": "$.term",
+        "authorityRefs": [
+          "axiom:AX-T220-09",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
+        ],
+        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
+        "expectedRelation": "selected build tenant realizes the admitted C constructor",
+        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_out(consensus.review-one-profile)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ReviewerAssignmentVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"Vector[schema://abg/consensus/reviewer-assignment]\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/reviewer-assignment-vector\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_reviewer_assignment_vector\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectio...",
+        "actualRelationDigest": "sha256:0fd8d139a6091037a77badebeacd6abd82ac62fef83d1eb8589e8b3bb7aa065a",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
+          "program:program://abg/consensus/review-panel"
+        ],
+        "evidenceDigest": "sha256:88ddfc524775c717cda3868eff864df7b40ce9f9b1c1b07c136a10c60fde1589",
+        "repairAffordances": [
+          "await_runtime_realization",
+          "use_flat_composition"
+        ]
+      },
+      {
+        "source": "c_algebra_hog_compiler",
+        "classification": "semantic_not_realized",
+        "diagnosticId": "gtl-c-unrealized-workflow-lift",
+        "canonicalBodyPath": "programs[7:program://abg/consensus/reduce-panel-facts]",
+        "compilerPath": "$.term",
+        "authorityRefs": [
+          "axiom:AX-T220-09",
+          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
+        ],
+        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
+        "expectedRelation": "selected build tenant realizes the admitted C constructor",
+        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_in(consensus.exact-panel-facts)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"AttributedFindingsVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"Vector[schema://abg/consensus/review-findings]\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/attributed-findings-vector\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_attributed_findings_vector\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectionKindR...",
+        "actualRelationDigest": "sha256:7a4598d7444bdce0ce990e1505293a1a2646c3edfb7115a4921a888b3bab973a",
+        "evidenceRefs": [
+          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
+          "program:program://abg/consensus/reduce-panel-facts"
+        ],
+        "evidenceDigest": "sha256:74da9624d7fcc8caf317a3043ff589f7892f5a0ed5fd0443b2e064cfc49638e7",
+        "repairAffordances": [
+          "await_runtime_realization",
+          "use_flat_composition"
+        ]
+      }
+    ],
+    "hofRows": [
+      {
+        "graphFunctionName": "fan_out(consensus.review-one-profile)",
+        "graphFunctionIdentity": "digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-hof-unrealized-fan-out"
+        ]
+      }
+    ],
+    "applicationRows": [
+      {
+        "graphFunctionName": "fan_in(consensus.exact-panel-facts)",
+        "graphFunctionIdentity": "digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+        "accepted": false,
+        "operatorKinds": [
+          "fan_in"
+        ],
+        "lineageRef": "gtl://graph-function/application-lineage/b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
+        "lineageDigest": "sha256:b031c5b801eb9d75e8665f6426bdf1f6d358d46133cfd0db4f68f5ac8ac26673",
+        "provisionalBindingCount": 1,
+        "diagnosticIds": [
+          "gtl-application-runtime-not-realized"
+        ]
+      },
+      {
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "accepted": false,
+        "operatorKinds": [
+          "recurse"
+        ],
+        "lineageRef": "gtl://graph-function/application-lineage/26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
+        "lineageDigest": "sha256:26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
+        "provisionalBindingCount": 14,
+        "diagnosticIds": [
+          "gtl-application-runtime-not-realized"
+        ]
+      }
+    ],
+    "vectorProgramRows": [
+      {
+        "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "graphFunctionName": "consensus.exact-panel-facts",
+        "graphFunctionIdentity": "graph-function://abg/consensus/exact-panel-facts",
+        "graphVectorName": "consensus.exact-panel-facts",
+        "graphVectorIdentity": "graph-vector://abg/consensus/exact-panel-facts",
+        "selectedProgramRef": "program://abg/consensus/exact-panel-facts",
+        "bindingDigest": "sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
+        "graphFunctionName": "consensus.review-one-profile",
+        "graphFunctionIdentity": "graph-function://abg/consensus/review-one-profile",
+        "graphVectorName": "consensus.review-one-profile",
+        "graphVectorIdentity": "graph-vector://abg/consensus/review-one-profile",
+        "selectedProgramRef": "program://abg/consensus/review-one-profile",
+        "bindingDigest": "sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.expand-panel",
+        "graphVectorIdentity": "graph-vector://abg/consensus/expand-panel",
+        "selectedProgramRef": "program://abg/consensus/expand-panel",
+        "bindingDigest": "sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.project-reducer-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-reducer-binding",
+        "selectedProgramRef": "program://abg/consensus/project-reducer-binding",
+        "bindingDigest": "sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.reassess-round",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reassess-round",
+        "selectedProgramRef": "program://abg/consensus/reassess-round",
+        "bindingDigest": "sha256:47603016c5983f141cd0244cbde67357ce90aba5e0d8b353bd3b10537adbcfc2",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.close-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/close-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/close-post-submitter",
+        "bindingDigest": "sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.recurse-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/recurse-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/recurse-post-submitter",
+        "bindingDigest": "sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.fh-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/fh-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/fh-post-submitter",
+        "bindingDigest": "sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.project-submitter-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-submitter-binding",
+        "selectedProgramRef": "program://abg/consensus/project-submitter-binding",
+        "bindingDigest": "sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.project-fh-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-fh-binding",
+        "selectedProgramRef": "program://abg/consensus/project-fh-binding",
+        "bindingDigest": "sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.review-panel",
+        "graphVectorIdentity": "graph-vector://abg/consensus/review-panel",
+        "selectedProgramRef": "program://abg/consensus/review-panel",
+        "bindingDigest": "sha256:48be5b77e4a2422b4383d6c8809ce9151f4f936d845dd24f73b023158e11ed34",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.reduce-panel-facts",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reduce-panel-facts",
+        "selectedProgramRef": "program://abg/consensus/reduce-panel-facts",
+        "bindingDigest": "sha256:bd7b6f7377d5e19e4b60f17cb398c3dded2084d76e78a2369a22e28533f11273",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.reduce-round",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reduce-round",
+        "selectedProgramRef": "program://abg/consensus/reduce-round",
+        "bindingDigest": "sha256:4a00b7f25937e9eca06971460b46c458ab169a36432edea869f6ee0bc8dbc327",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.close-initial",
+        "graphVectorIdentity": "graph-vector://abg/consensus/close-initial",
+        "selectedProgramRef": "program://abg/consensus/close-initial",
+        "bindingDigest": "sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.submitter-response",
+        "graphVectorIdentity": "graph-vector://abg/consensus/submitter-response",
+        "selectedProgramRef": "program://abg/consensus/submitter-response",
+        "bindingDigest": "sha256:98ecfc7a48148c0776bb25fce079ccd68806b29d4ad75486053f0476b9ffedcb",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
+        "graphFunctionName": "consensus.round",
+        "graphFunctionIdentity": "graph-function://abg/consensus/round",
+        "graphVectorName": "consensus.fh-initial",
+        "graphVectorIdentity": "graph-vector://abg/consensus/fh-initial",
+        "selectedProgramRef": "program://abg/consensus/fh-initial",
+        "bindingDigest": "sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "graphFunctionName": "consensus.submitter-reviewer-rounds",
+        "graphFunctionIdentity": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "graphVectorName": "consensus.seed-round",
+        "graphVectorIdentity": "graph-vector://abg/consensus/seed-round",
+        "selectedProgramRef": "program://abg/consensus/seed-round",
+        "bindingDigest": "sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
+        "graphFunctionName": "consensus.submitter-reviewer-rounds",
+        "graphFunctionIdentity": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "graphVectorName": "consensus.bounded-rounds",
+        "graphVectorIdentity": "graph-vector://abg/consensus/bounded-rounds",
+        "selectedProgramRef": "program://abg/consensus/bounded-rounds",
+        "bindingDigest": "sha256:f49251731760212359febd7935fc182c8222d8ffb08d1eec2823451c54eaf8a4",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
+        "graphFunctionName": "consensus.submitter-reviewer-rounds",
+        "graphFunctionIdentity": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "graphVectorName": "consensus.project-result",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-result",
+        "selectedProgramRef": "program://abg/consensus/project-result",
+        "bindingDigest": "sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
+        "graphFunctionName": "fan_in(consensus.exact-panel-facts)",
+        "graphFunctionIdentity": "digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+        "graphVectorName": "consensus.exact-panel-facts",
+        "graphVectorIdentity": "graph-vector://abg/consensus/exact-panel-facts",
+        "selectedProgramRef": "program://abg/consensus/exact-panel-facts",
+        "bindingDigest": "sha256:de93e1bf42182425268ec14a3ba85a0663f3a0b284086debddbd7c54f9c747da",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.expand-panel",
+        "graphVectorIdentity": "graph-vector://abg/consensus/expand-panel",
+        "selectedProgramRef": "program://abg/consensus/expand-panel",
+        "bindingDigest": "sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.project-reducer-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-reducer-binding",
+        "selectedProgramRef": "program://abg/consensus/project-reducer-binding",
+        "bindingDigest": "sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.reassess-round",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reassess-round",
+        "selectedProgramRef": "program://abg/consensus/reassess-round",
+        "bindingDigest": "sha256:91cf80fe3f847aeeaac023ccd2422e3de8a46cd6ee63441a9dd86a1d02e80194",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.close-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/close-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/close-post-submitter",
+        "bindingDigest": "sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.recurse-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/recurse-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/recurse-post-submitter",
+        "bindingDigest": "sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.fh-post-submitter",
+        "graphVectorIdentity": "graph-vector://abg/consensus/fh-post-submitter",
+        "selectedProgramRef": "program://abg/consensus/fh-post-submitter",
+        "bindingDigest": "sha256:8d78c975dfd6fb5f6d97d6cafb64252eb147504685ddf5edff5c55e1c208ae71",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.project-submitter-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-submitter-binding",
+        "selectedProgramRef": "program://abg/consensus/project-submitter-binding",
+        "bindingDigest": "sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.project-fh-binding",
+        "graphVectorIdentity": "graph-vector://abg/consensus/project-fh-binding",
+        "selectedProgramRef": "program://abg/consensus/project-fh-binding",
+        "bindingDigest": "sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.review-panel",
+        "graphVectorIdentity": "graph-vector://abg/consensus/review-panel",
+        "selectedProgramRef": "program://abg/consensus/review-panel",
+        "bindingDigest": "sha256:b0a51c7e709b2cb8a1fa791a5c38a344b0ad4390b75b46e1bdca1cc4c5fa6f05",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.reduce-panel-facts",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reduce-panel-facts",
+        "selectedProgramRef": "program://abg/consensus/reduce-panel-facts",
+        "bindingDigest": "sha256:d81c43e3d4aa588f71fcda8903f952fb2b4c13fef613e0f49c8a7ac25731660f",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.reduce-round",
+        "graphVectorIdentity": "graph-vector://abg/consensus/reduce-round",
+        "selectedProgramRef": "program://abg/consensus/reduce-round",
+        "bindingDigest": "sha256:b008b0e7a206f233a5961b8b02abf523345305975f9847c22d0ad87cd099b278",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.close-initial",
+        "graphVectorIdentity": "graph-vector://abg/consensus/close-initial",
+        "selectedProgramRef": "program://abg/consensus/close-initial",
+        "bindingDigest": "sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.submitter-response",
+        "graphVectorIdentity": "graph-vector://abg/consensus/submitter-response",
+        "selectedProgramRef": "program://abg/consensus/submitter-response",
+        "bindingDigest": "sha256:99d1400cc999cc416c3b71861d86fcb9be3e390e8d82abe58e7d943972667342",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
+        "graphFunctionName": "recurse(consensus.round)",
+        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphVectorName": "consensus.fh-initial",
+        "graphVectorIdentity": "graph-vector://abg/consensus/fh-initial",
+        "selectedProgramRef": "program://abg/consensus/fh-initial",
+        "bindingDigest": "sha256:e93f26f9f9c91319c55c54f7b7024d9b1bfb71bbcf26e5cc5ad2ad421ece88fe",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-vector-program-selection"
+        ],
+        "selectedProgramDiagnosticIds": []
+      }
+    ],
+    "nestedProgramRows": [
+      {
+        "path": "programs[0:program://abg/consensus/review-one-profile]",
+        "programRef": "program://abg/consensus/review-one-profile",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-retry"
+        ]
+      },
+      {
+        "path": "programs[1:program://abg/consensus/exact-panel-facts]",
+        "programRef": "program://abg/consensus/exact-panel-facts",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[2:program://abg/consensus/expand-panel]",
+        "programRef": "program://abg/consensus/expand-panel",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[3:program://abg/consensus/project-reducer-binding]",
+        "programRef": "program://abg/consensus/project-reducer-binding",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[4:program://abg/consensus/project-submitter-binding]",
+        "programRef": "program://abg/consensus/project-submitter-binding",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[5:program://abg/consensus/project-fh-binding]",
+        "programRef": "program://abg/consensus/project-fh-binding",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[6:program://abg/consensus/review-panel]",
+        "programRef": "program://abg/consensus/review-panel",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-workflow-lift"
+        ]
+      },
+      {
+        "path": "programs[7:program://abg/consensus/reduce-panel-facts]",
+        "programRef": "program://abg/consensus/reduce-panel-facts",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-workflow-lift"
+        ]
+      },
+      {
+        "path": "programs[8:program://abg/consensus/reduce-round]",
+        "programRef": "program://abg/consensus/reduce-round",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[9:program://abg/consensus/close-initial]",
+        "programRef": "program://abg/consensus/close-initial",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[10:program://abg/consensus/submitter-response]",
+        "programRef": "program://abg/consensus/submitter-response",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[11:program://abg/consensus/fh-initial]",
+        "programRef": "program://abg/consensus/fh-initial",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[12:program://abg/consensus/reassess-round]",
+        "programRef": "program://abg/consensus/reassess-round",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[13:program://abg/consensus/close-post-submitter]",
+        "programRef": "program://abg/consensus/close-post-submitter",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[14:program://abg/consensus/recurse-post-submitter]",
+        "programRef": "program://abg/consensus/recurse-post-submitter",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[15:program://abg/consensus/fh-post-submitter]",
+        "programRef": "program://abg/consensus/fh-post-submitter",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[16:program://abg/consensus/seed-round]",
+        "programRef": "program://abg/consensus/seed-round",
+        "accepted": true,
+        "diagnosticIds": []
+      },
+      {
+        "path": "programs[17:program://abg/consensus/bounded-rounds]",
+        "programRef": "program://abg/consensus/bounded-rounds",
+        "accepted": false,
+        "diagnosticIds": [
+          "gtl-c-unrealized-workflow-lift"
+        ]
+      },
+      {
+        "path": "programs[18:program://abg/consensus/project-result]",
+        "programRef": "program://abg/consensus/project-result",
+        "accepted": true,
+        "diagnosticIds": []
+      }
+    ],
+    "coverageRows": [
+      {
+        "constructor": "C.of",
+        "authoredCount": 16,
+        "compilerCoverage": "path_addressed",
+        "runtimeStatus": "partial_current_interpreter_shape_only",
+        "gapFamilies": [
+          "c_program_runtime_shape_generalization"
+        ]
+      },
+      {
+        "constructor": "workflow.C",
+        "authoredCount": 3,
+        "compilerCoverage": "path_addressed",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "workflow_c_runtime"
+        ]
+      },
+      {
+        "constructor": "C.retry",
+        "authoredCount": 1,
+        "compilerCoverage": "path_addressed",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "c_retry_runtime_and_policy_join"
+        ]
+      },
+      {
+        "constructor": "fan_out",
+        "authoredCount": 1,
+        "compilerCoverage": "exact_relation",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "typed_fan_out_runtime",
+          "typed_fan_out_batch_projection"
+        ]
+      },
+      {
+        "constructor": "fan_in",
+        "authoredCount": 1,
+        "compilerCoverage": "exact_application_lineage",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "typed_fan_in_structure_and_runtime"
+        ]
+      },
+      {
+        "constructor": "recurse",
+        "authoredCount": 1,
+        "compilerCoverage": "exact_application_lineage",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "typed_recurse_policy_and_runtime"
+        ]
+      },
+      {
+        "constructor": "graph_vector_program_selection",
+        "authoredCount": 34,
+        "compilerCoverage": "exact_binding",
+        "runtimeStatus": "semantic_not_realized",
+        "gapFamilies": [
+          "graph_vector_program_runtime_selection"
+        ]
+      }
+    ],
+    "fullConformanceIssueCount": 734,
+    "conformanceRuleCounts": [
+      {
+        "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "count": 42
+      },
+      {
+        "ruleRef": "abg://gtl-program/coverage/expected-count",
+        "count": 2
+      },
+      {
+        "ruleRef": "abg://gtl-program/coverage/expected-count-nonzero",
+        "count": 9
+      },
+      {
+        "ruleRef": "abg://gtl-program/coverage/expected-coverage-required",
+        "count": 1
+      },
+      {
+        "ruleRef": "abg://gtl-program/feature-coverage/manifest-required",
+        "count": 1
+      },
+      {
+        "ruleRef": "abg://gtl-program/feature-coverage/t153-feature-required",
+        "count": 26
+      },
+      {
+        "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
+        "count": 2
+      },
+      {
+        "ruleRef": "abg://gtl-program/graph-vector/edge-closure-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/graph-vector/target-carrier-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/graph/node-reachable-or-bound",
+        "count": 20
+      },
+      {
+        "ruleRef": "abg://gtl-program/hof/semantic-not-realized",
+        "count": 1
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-carried-obligation",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-downstream-terminal-pressure",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-intent-lineage",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-materialization-binding",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-residual-pressure",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-staged-authority",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/compute-composition-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/consequence-result-interface-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/edge-closure-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/plugin-result-interface-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/stage-binding-required",
+        "count": 35
+      },
+      {
+        "ruleRef": "abg://gtl-program/traversal-unit/target-carrier-required",
+        "count": 35
+      }
+    ]
+  },
+  "ownership": {
+    "loadedTicketCount": 12,
+    "sources": [
+      {
+        "ticketId": "T-255",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "families": [
+          "c_program_runtime_shape_generalization",
+          "composition_owning_declaration_join",
+          "edge_closure_contract",
+          "graph_vector_program_runtime_selection",
+          "target_carrier_contract",
+          "traversal_execution_contracts"
+        ]
+      },
+      {
+        "ticketId": "T-256",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
+        "families": [
+          "carrier_field_indirection",
+          "declared_instruction_protocol_join"
+        ]
+      },
+      {
+        "ticketId": "T-257",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-257-close-fp-result-contract-admission.md",
+        "families": [
+          "fp_result_contract_admission"
+        ]
+      },
+      {
+        "ticketId": "T-258",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-258-close-public-fh-hold-act-resume.md",
+        "families": [
+          "fh_pending_runtime_hold"
+        ]
+      },
+      {
+        "ticketId": "T-259",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-259-realize-workflow-c-runtime.md",
+        "families": [
+          "workflow_c_runtime"
+        ]
+      },
+      {
+        "ticketId": "T-260",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
+        "families": [
+          "typed_fan_in_structure_and_runtime",
+          "typed_fan_out_batch_projection",
+          "typed_fan_out_runtime"
+        ]
+      },
+      {
+        "ticketId": "T-261",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-261-realize-c-retry-runtime-and-policy.md",
+        "families": [
+          "c_retry_runtime_and_policy_join"
+        ]
+      },
+      {
+        "ticketId": "T-262",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-262-realize-typed-recurse-policy-runtime.md",
+        "families": [
+          "typed_recurse_policy_and_runtime"
+        ]
+      },
+      {
+        "ticketId": "T-263",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md",
+        "families": [
+          "strict_raw_module_admission"
+        ]
+      },
+      {
+        "ticketId": "T-264",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "families": [
+          "conformance_inventory_extraction",
+          "conformance_scope_proportionality",
+          "effect_declaration_inventory_enforcement",
+          "plugin_handler_declaration_inventory_enforcement"
+        ]
+      },
+      {
+        "ticketId": "T-265",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-265-close-canonical-graph-function-combinator-applications.md",
+        "families": [
+          "graph_function_combinator_application_lineage"
+        ]
+      },
+      {
+        "ticketId": "T-266",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-266-close-native-node-interface-type-witness.md",
+        "families": []
+      }
+    ],
+    "observedActiveGapFamilyCount": 21,
+    "duplicateOwnerCount": 0,
+    "unownedGapCount": 0
+  },
+  "gapCensus": [
+    {
+      "gapFamily": "c_program_runtime_shape_generalization",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "current-interpreter-anchor-shape"
+      ],
+      "canonicalBodyPaths": [
+        "program:program://abg/consensus/bounded-rounds",
+        "program:program://abg/consensus/close-initial",
+        "program:program://abg/consensus/close-post-submitter",
+        "program:program://abg/consensus/exact-panel-facts",
+        "program:program://abg/consensus/expand-panel",
+        "program:program://abg/consensus/fh-initial",
+        "program:program://abg/consensus/fh-post-submitter",
+        "program:program://abg/consensus/project-fh-binding",
+        "program:program://abg/consensus/project-reducer-binding",
+        "program:program://abg/consensus/project-result",
+        "program:program://abg/consensus/project-submitter-binding",
+        "program:program://abg/consensus/reassess-round",
+        "program:program://abg/consensus/recurse-post-submitter",
+        "program:program://abg/consensus/reduce-panel-facts",
+        "program:program://abg/consensus/reduce-round",
+        "program:program://abg/consensus/review-one-profile",
+        "program:program://abg/consensus/review-panel",
+        "program:program://abg/consensus/seed-round",
+        "program:program://abg/consensus/submitter-response"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA",
+        "requirement:REQ-R-ABG3-CCALL-016",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:f3881c14b4e12bbd516ea313a4f893d9d3a8a53dbf83c090cf7926337eee69bf",
+      "actualRelation": "lawful single-stage and wrapper C programs exceed the current fixed interpreter anchor shape",
+      "actualRelationDigest": "sha256:ebfcde9075a81868030dbbc9db7b5b0a06ebcf75eea1a5470e8254520aca28fe",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "c_retry_runtime_and_policy_join",
+      "ownerTicket": "T-261",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-c-unrealized-retry"
+      ],
+      "canonicalBodyPaths": [
+        "programs[0:program://abg/consensus/review-one-profile]"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-008",
+        "ticket-source:.ai-workspace/tickets/active/T-261-realize-c-retry-runtime-and-policy.md",
+        "ticket:T-261"
+      ],
+      "authorityDigest": "sha256:40eaf3d230040e94d1c11292f25ff626a582a28784c8af3a94fe38e6c9e932db",
+      "actualRelation": "retry budget 2 is canonical data but runtime and allowlist consumption are absent",
+      "actualRelationDigest": "sha256:e47423c2ef351d5828fa5c3e3b59a5cf8540b234d37299b910cceeb38cc90eb1",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "policy:transport_failure|no_output|contract_failure",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:de78f73967dcf78fea34d4b985a36577a089fe5664e5d5fb48df2744b816e758"
+    },
+    {
+      "gapFamily": "carrier_field_indirection",
+      "ownerTicket": "T-256",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-carrier-field-indirection"
+      ],
+      "canonicalBodyPaths": [
+        "nodes.ReviewerAssignment",
+        "nodes.SemanticReducerBinding"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-P-CONSENSUS-004..008A",
+        "ticket-source:.ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
+        "ticket:T-256"
+      ],
+      "authorityDigest": "sha256:bceaa6f28306b7177e275b653f81daf376faedadf1e0a269257c601766374287",
+      "actualRelation": "typed binding carriers exist but generic field-path resolution into runtime requests is absent",
+      "actualRelationDigest": "sha256:84a6b467d9e44a641e18fc3f5fe4775a2edb5032b53a5752404991438d51d493",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "composition_owning_declaration_join",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-application-runtime-not-realized"
+      ],
+      "canonicalBodyPaths": [
+        "application:fan_in(consensus.exact-panel-facts)",
+        "application:recurse(consensus.round)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-R-ABG3-FN-COMP-003",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:9253d31760901c8518a1025725122efbeed9703198ea7f30391144ab85363aa8",
+      "actualRelation": "application lineage is compiled while the final owning-declaration execution join remains provisional",
+      "actualRelationDigest": "sha256:0fcb9045937a0af9b41a87aea5f9bcaa6a89d4d3a1f9daf7eb5e8ed40d72f5e8",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "conformance_inventory_extraction",
+      "ownerTicket": "T-264",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "conformance-expected-coverage-not-structurally-derived"
+      ],
+      "canonicalBodyPaths": [
+        "conformance.ruleCounts"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-R-ABG3-INTERPRET",
+        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "ticket:T-264"
+      ],
+      "authorityDigest": "sha256:718362b9ae6a34057950ff8072a2b97edd12550fd654140f5390579c14ea9f36",
+      "actualRelation": "conformance still requires caller-authored coverage beside submitted structure",
+      "actualRelationDigest": "sha256:323cb25fcbc32d792b9bf1c063cc5c0e1bb8a4d3648e8ce45d9a172e7a675abc",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "conformance_scope_proportionality",
+      "ownerTicket": "T-264",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "conformance-universal-closeability-noise"
+      ],
+      "canonicalBodyPaths": [
+        "conformance.ruleCounts"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-R-ABG3-INTERPRET",
+        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "ticket:T-264"
+      ],
+      "authorityDigest": "sha256:718362b9ae6a34057950ff8072a2b97edd12550fd654140f5390579c14ea9f36",
+      "actualRelation": "DS-1 structure receives broad closure obligations outside this probe scope",
+      "actualRelationDigest": "sha256:759401c2c45da15408f287971dcfab2f901474bf7b8ca5b688daf6db3fb5fa67",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "declared_instruction_protocol_join",
+      "ownerTicket": "T-256",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-declared-instruction-protocol-join"
+      ],
+      "canonicalBodyPaths": [
+        "nodes.ReviewerAssignment",
+        "nodes.SubmitterTurnBinding"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-P-CONSENSUS-010..012",
+        "ticket-source:.ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
+        "ticket:T-256"
+      ],
+      "authorityDigest": "sha256:6355246ffcc7b634beded671d3cc94c6bbc67e94401394bb467d173c9039141b",
+      "actualRelation": "instruction and protocol refs remain carrier data without a generic runtime request join",
+      "actualRelationDigest": "sha256:c73160a6f052cf113971c3c1dc5fe8e497f7d4890d65f187c7a0ff01d8352e6d",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "edge_closure_contract",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "abg://gtl-program/traversal-unit/edge-closure-required"
+      ],
+      "canonicalBodyPaths": [
+        "conformance.traversalUnits"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-GRAPHVECTOR",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:0db08af61392d106182f307e1ef83f613f82687e4371264444d8927d60ff9a01",
+      "actualRelation": "full conformance still requires edge-closure truth for executable vectors",
+      "actualRelationDigest": "sha256:04bbfe979f43086fc2c4d974807ccf12b377143e87cf91a85308323e9d2f5c39",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "effect_declaration_inventory_enforcement",
+      "ownerTicket": "T-264",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-effect-inventory-enforcement"
+      ],
+      "canonicalBodyPaths": [
+        "effects:consensus.exact-panel-facts",
+        "effects:consensus.review-one-profile",
+        "effects:consensus.round",
+        "effects:consensus.submitter-reviewer-rounds",
+        "effects:fan_in(consensus.exact-panel-facts)",
+        "effects:fan_out(consensus.review-one-profile)",
+        "effects:recurse(consensus.round)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-GRAPHFUNCTION-005",
+        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "ticket:T-264"
+      ],
+      "authorityDigest": "sha256:3ae3d43bcc8e8bfd7c8837575487ac00b64ac9aa9e21f97550a97c613a500e05",
+      "actualRelation": "exact transitive effects are authored but generic conformance does not derive and enforce the inventory",
+      "actualRelationDigest": "sha256:dbcda27778aa47346fddc741509c2ae9ed68aeade5749f7fa6f63838fd9fc0cc",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "fh_pending_runtime_hold",
+      "ownerTicket": "T-258",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-fh-pending-runtime-hold"
+      ],
+      "canonicalBodyPaths": [
+        "vectors.fh-initial",
+        "vectors.fh-post-submitter"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-P-CONSENSUS-010..012",
+        "ticket-source:.ai-workspace/tickets/active/T-258-close-public-fh-hold-act-resume.md",
+        "ticket:T-258"
+      ],
+      "authorityDigest": "sha256:4f39ade165af931f4599b470c040cf1d704a53eec382084991938abb011677c2",
+      "actualRelation": "F_H vectors target pending interaction truth but hold, public act, and resume are not realized",
+      "actualRelationDigest": "sha256:9bc3dbeb7e2ea759b24a4c2e67374a418f8a473093b455fca75ec4423f933dd5",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "fp_result_contract_admission",
+      "ownerTicket": "T-257",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-fp-result-contract-admission"
+      ],
+      "canonicalBodyPaths": [
+        "vectors.reassess-round",
+        "vectors.reduce-round",
+        "vectors.review-one-profile",
+        "vectors.submitter-response"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-P-CONSENSUS-010..012",
+        "ticket-source:.ai-workspace/tickets/active/T-257-close-fp-result-contract-admission.md",
+        "ticket:T-257"
+      ],
+      "authorityDigest": "sha256:6dbbd78b6c60541de6199d16d00f6bbd758af3cd3eba2d7e63ae9abb5bdca094",
+      "actualRelation": "F_P result contracts are declared by typed boundaries but raw output admission is not on the runtime path",
+      "actualRelationDigest": "sha256:f2852a2be4730e3a38eb171677fbcfeb1fdf4201ba8c9d37b34b50261b9b3343",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "graph_vector_program_runtime_selection",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-c-unrealized-vector-program-selection"
+      ],
+      "canonicalBodyPaths": [
+        "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
+        "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
+        "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
+        "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
+        "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
+        "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
+        "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
+        "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
+        "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
+        "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
+        "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
+        "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
+        "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
+        "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
+        "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
+        "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-011/-014/-016",
+        "requirement:REQ-R-ABG3-CCALL-016",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:82b6b63218fb0a446013b2a4c82c4cb197a1019b1f6af46cc4d96a7d3ac86479",
+      "actualRelation": "exact vector/program bindings compile but no runtime consumer exists",
+      "actualRelationDigest": "sha256:9bfe733fcda7f691401004f34c78a0bcd82719ad128db7f157cacd9a2c6f379b",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "plugin_handler_declaration_inventory_enforcement",
+      "ownerTicket": "T-264",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-plugin-handler-inventory-enforcement"
+      ],
+      "canonicalBodyPaths": [
+        "execution-declarations:consensus.exact-panel-facts",
+        "execution-declarations:consensus.review-one-profile",
+        "execution-declarations:consensus.round",
+        "execution-declarations:consensus.submitter-reviewer-rounds",
+        "execution-declarations:fan_in(consensus.exact-panel-facts)",
+        "execution-declarations:fan_out(consensus.review-one-profile)",
+        "execution-declarations:recurse(consensus.round)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-010/-014/-016",
+        "ticket-source:.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md",
+        "ticket:T-264"
+      ],
+      "authorityDigest": "sha256:487032032e342c07f418f46874d99cbe241f52c5f2a7b2029861408339214937",
+      "actualRelation": "local plugin selections and exact handler rows exist but generic proportional inventory enforcement is absent",
+      "actualRelationDigest": "sha256:00e01195400a80cde9774bf4dbd4ad0d39c963d3fb4bcdef12c892ed6bdde3c7",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "strict_raw_module_admission",
+      "ownerTicket": "T-263",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "m02-unknown-field-accepted-and-dropped"
+      ],
+      "canonicalBodyPaths": [
+        "m02.unknownFieldMutation"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-MODULE",
+        "ticket-source:.ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md",
+        "ticket:T-263"
+      ],
+      "authorityDigest": "sha256:afd024fc64748280d91abaa5014665da101708b1d6eb062aca9a90342b9dcd98",
+      "actualRelation": "M02 accepts an unknown Module field and drops it during construction",
+      "actualRelationDigest": "sha256:f08ebad6281bc67a793a76576135d40999155e359f65bfb51d31db35e9fe3f03",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "target_carrier_contract",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "abg://gtl-program/traversal-unit/target-carrier-required"
+      ],
+      "canonicalBodyPaths": [
+        "conformance.traversalUnits"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-GRAPHVECTOR",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:0db08af61392d106182f307e1ef83f613f82687e4371264444d8927d60ff9a01",
+      "actualRelation": "full conformance still requires target-carrier truth for executable vectors",
+      "actualRelationDigest": "sha256:aa7c09892eb8dc801866546b55e662eaed5d33ce82fd1986ae2f609d7418083f",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "traversal_execution_contracts",
+      "ownerTicket": "T-255",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "abg://gtl-program/traversal-unit/stage-binding-required"
+      ],
+      "canonicalBodyPaths": [
+        "conformance.traversalUnits"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-R-ABG3-INTERPRET",
+        "ticket-source:.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md",
+        "ticket:T-255"
+      ],
+      "authorityDigest": "sha256:a397a5cce75a4e06e9568a05b5125a48a51f8dc09dad71949232eebfd631c3e7",
+      "actualRelation": "TraversalUnit execution basis is not yet derived from the compiled vector/program relation",
+      "actualRelationDigest": "sha256:abfbf71ffa458224c339214679cd86780cb14b19a698f8b050cea7aab23691f0",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "typed_fan_in_structure_and_runtime",
+      "ownerTicket": "T-260",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-application-runtime-not-realized"
+      ],
+      "canonicalBodyPaths": [
+        "application:fan_in(consensus.exact-panel-facts)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-HOF",
+        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
+        "ticket:T-260"
+      ],
+      "authorityDigest": "sha256:120595aafcb756ef4eaf5af0880d4c6b877d407b1aacbf83bd663b5ddc7ff45c",
+      "actualRelation": "fan_in application lineage is exact while collection runtime is absent",
+      "actualRelationDigest": "sha256:4ebf123d2792e0c8f64f88cae6805aa1d036a2a181240325c12e62a65bad1301",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "typed_fan_out_batch_projection",
+      "ownerTicket": "T-260",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "coverage-fan-out-to-batch-projection"
+      ],
+      "canonicalBodyPaths": [
+        "hof:fan_out(consensus.review-one-profile)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-007",
+        "requirement:REQ-L-GTL3-HOF",
+        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
+        "ticket:T-260"
+      ],
+      "authorityDigest": "sha256:59745e52f35c6ea0139344fc733bd6560e75bfd92546d1f738b11f5c2f51e1f5",
+      "actualRelation": "fan_out has no proved ordinal-preserving projection to C.batch task spines",
+      "actualRelationDigest": "sha256:683a967e7d19867e8a214255f8d3ff241ec4f6c8063f6277fac832cbb6ae4b4d",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "typed_fan_out_runtime",
+      "ownerTicket": "T-260",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-hof-unrealized-fan-out"
+      ],
+      "canonicalBodyPaths": [
+        "hof:fan_out(consensus.review-one-profile)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-HOF",
+        "ticket-source:.ai-workspace/tickets/active/T-260-realize-typed-hof-batch-runtime.md",
+        "ticket:T-260"
+      ],
+      "authorityDigest": "sha256:120595aafcb756ef4eaf5af0880d4c6b877d407b1aacbf83bd663b5ddc7ff45c",
+      "actualRelation": "canonical typed fan_out relation has no runtime consumer",
+      "actualRelationDigest": "sha256:a340563eb49846702cd8d4a030e3fa1c6e83a208f2ad88c5fee3ee389e45c24c",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "typed_recurse_policy_and_runtime",
+      "ownerTicket": "T-262",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-application-runtime-not-realized"
+      ],
+      "canonicalBodyPaths": [
+        "application:recurse(consensus.round)"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-RECURSE",
+        "ticket-source:.ai-workspace/tickets/active/T-262-realize-typed-recurse-policy-runtime.md",
+        "ticket:T-262"
+      ],
+      "authorityDigest": "sha256:1de24026f2fd50081c0a6815630b3fd430e52650bd162e1b69b5ee5e5b72a778",
+      "actualRelation": "recurse lineage and foldback data are exact while typed runtime consumption is absent",
+      "actualRelationDigest": "sha256:b6cc6b15b34ae2535565fa90cbf617a2df502bcf03766f41443fd0a7a5cdd2af",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    },
+    {
+      "gapFamily": "workflow_c_runtime",
+      "ownerTicket": "T-259",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "gtl-c-unrealized-workflow-lift"
+      ],
+      "canonicalBodyPaths": [
+        "programs[0:program://abg/consensus/review-one-profile]",
+        "programs[17:program://abg/consensus/bounded-rounds]",
+        "programs[6:program://abg/consensus/review-panel]",
+        "programs[7:program://abg/consensus/reduce-panel-facts]"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-006",
+        "ticket-source:.ai-workspace/tickets/active/T-259-realize-workflow-c-runtime.md",
+        "ticket:T-259"
+      ],
+      "authorityDigest": "sha256:9b9b0a23d44287cbafc17163120fb0ff3674a53c7a084c2abc151aade96e6b2a",
+      "actualRelation": "workflow.C boundaries are authored and compiler-visible without a runtime lowering",
+      "actualRelationDigest": "sha256:05a3a9971ead23c6506de77e27f6fc3e7248cebc5abf81cd4ab2ea00c3b4dcf8",
+      "evidenceRefs": [
+        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
+    }
+  ],
+  "noExecutionObservation": {
+    "armedBefore": "body_import_and_m02_admission",
+    "finalizedAfter": "full_conformance_terminal_outcome",
+    "outcome": "semantic_not_realized",
+    "evidenceMethod": "static_source_dependency_closure_plus_probe_phase_inventory",
+    "phases": [
+      "observer_armed",
+      "body_authored",
+      "m02_admitted",
+      "focused_m03_compilers_completed",
+      "full_conformance_completed"
+    ],
+    "bodySourceClosure": [
+      "code/src/abg/m03/contracts/admission_hygiene.ts",
+      "code/src/abg/m03/contracts/allowed_consequence_traversal_catalog.ts",
+      "code/src/abg/m03/contracts/artifact_schemas.ts",
+      "code/src/abg/m03/contracts/assurance.ts",
+      "code/src/abg/m03/contracts/c_algebra_hog_compiler.ts",
+      "code/src/abg/m03/contracts/carriers.ts",
+      "code/src/abg/m03/contracts/composed_stage_set.ts",
+      "code/src/abg/m03/contracts/consensus_gtl_body.ts",
+      "code/src/abg/m03/contracts/consequence_traversal_action.ts",
+      "code/src/abg/m03/contracts/construction_action_catalog.ts",
+      "code/src/abg/m03/contracts/construction_action_kinds.ts",
+      "code/src/abg/m03/contracts/construction_event_causality.ts",
+      "code/src/abg/m03/contracts/construction_hook_resolution.ts",
+      "code/src/abg/m03/contracts/construction_intent.ts",
+      "code/src/abg/m03/contracts/construction_observation.ts",
+      "code/src/abg/m03/contracts/construction_pressure_package.ts",
+      "code/src/abg/m03/contracts/construction_priority.ts",
+      "code/src/abg/m03/contracts/construction_progress.ts",
+      "code/src/abg/m03/contracts/construction_projection.ts",
+      "code/src/abg/m03/contracts/construction_runtime_events.ts",
+      "code/src/abg/m03/contracts/construction_validation.ts",
+      "code/src/abg/m03/contracts/edge_assurance_contract.ts",
+      "code/src/abg/m03/contracts/evaluation_set.ts",
+      "code/src/abg/m03/contracts/event_admission.ts",
+      "code/src/abg/m03/contracts/event_calculus.ts",
+      "code/src/abg/m03/contracts/event_factories.ts",
+      "code/src/abg/m03/contracts/execution_declaration_compiler.ts",
+      "code/src/abg/m03/contracts/fn_composition.ts",
+      "code/src/abg/m03/contracts/fp_stages.ts",
+      "code/src/abg/m03/contracts/graph_function_application_compiler.ts",
+      "code/src/abg/m03/contracts/graph_vector_c_program_compiler.ts",
+      "code/src/abg/m03/contracts/gtl_program_conformance.ts",
+      "code/src/abg/m03/contracts/hof_relation_compiler.ts",
+      "code/src/abg/m03/contracts/hog_handler_bindings.ts",
+      "code/src/abg/m03/contracts/hog_program.ts",
+      "code/src/abg/m03/contracts/hog_program_syntax.ts",
+      "code/src/abg/m03/contracts/hook_actions.ts",
+      "code/src/abg/m03/contracts/instruction_assembly.ts",
+      "code/src/abg/m03/contracts/iteration_state_action.ts",
+      "code/src/abg/m03/contracts/observed_state.ts",
+      "code/src/abg/m03/contracts/overlay_frame.ts",
+      "code/src/abg/m03/contracts/payload_ledger.ts",
+      "code/src/abg/m03/contracts/plugin_result_interface_contract.ts",
+      "code/src/abg/m03/contracts/plugin_selection.ts",
+      "code/src/abg/m03/contracts/plugin_traversal_observer.ts",
+      "code/src/abg/m03/contracts/plugins.ts",
+      "code/src/abg/m03/contracts/projection.ts",
+      "code/src/abg/m03/contracts/regime_resolution.ts",
+      "code/src/abg/m03/contracts/requirement_proof_carry_through.ts",
+      "code/src/abg/m03/contracts/requirements_algebra.ts",
+      "code/src/abg/m03/contracts/retry_frontier.ts",
+      "code/src/abg/m03/contracts/runtime_support.ts",
+      "code/src/abg/m03/contracts/traversal_modulation.ts",
+      "code/src/gtl/m01/admission/carriers.ts",
+      "code/src/gtl/m01/algebra/c_algebra.ts",
+      "code/src/gtl/m01/algebra/c_algebra_declarations.ts",
+      "code/src/gtl/m01/algebra/core.ts",
+      "code/src/gtl/m01/algebra/hof.ts",
+      "code/src/gtl/m01/algebra/index.ts",
+      "code/src/gtl/m01/algebra/native_node_witness.ts",
+      "code/src/gtl/m01/contracts/carriers.ts",
+      "code/src/gtl/m01/contracts/constructors.ts",
+      "code/src/gtl/m01/contracts/declaration_law.ts",
+      "code/src/gtl/m01/contracts/execution_declaration_builders.ts",
+      "code/src/gtl/m01/contracts/graph_function_application.ts",
+      "code/src/gtl/m01/contracts/hof_application.ts",
+      "code/src/gtl/m01/contracts/index.ts",
+      "code/src/gtl/m01/contracts/requirements_algebra.ts",
+      "code/src/gtl/m01/contracts/target_carrier_contract.ts",
+      "code/src/gtl/m01/serialization/carriers.ts",
+      "code/src/gtl/m02/contracts/carriers.ts",
+      "code/src/gtl/m02/contracts/compute_notation.ts",
+      "code/src/gtl/m02/contracts/constructors.ts",
+      "code/src/gtl/m02/contracts/index.ts",
+      "code/src/gtl/m02/contracts/lookup.ts",
+      "code/src/gtl/m02/contracts/runtime_registry.ts",
+      "code/src/shared/abg_config/load.ts",
+      "code/src/shared/abg_library/carriers.ts",
+      "code/src/shared/abg_library/transport_contracts.ts",
+      "code/src/shared/engine_authority_fields.ts",
+      "code/src/shared/runtime_identity.ts",
+      "code/src/shared/validation/governed_enums.ts",
+      "code/src/shared/validation/primitives.ts"
+    ],
+    "forbiddenReachableModules": [],
+    "derivedCallCounts": {
+      "runner": 0,
+      "worker": 0,
+      "plugin": 0,
+      "handler": 0,
+      "transport": 0,
+      "event": 0,
+      "result": 0,
+      "replay": 0,
+      "archive": 0,
+      "workspaceMutation": 0,
+      "productArtifact": 0
+    },
+    "declarationCountsAreExecutionEvidence": false
+  },
+  "manifestDigest": "sha256:01ab36577138acccd5a3d55efae0d11dabfefd3ea02c2c188c80498049f7a470"
+}

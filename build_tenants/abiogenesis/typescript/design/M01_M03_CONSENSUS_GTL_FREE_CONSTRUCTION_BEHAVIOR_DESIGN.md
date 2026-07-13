@@ -1,11 +1,11 @@
 # M01/M02/M03 Consensus GTL Free Construction Behavior Design
 
 **Design verdict**: `corrected_three_view_design_accepted_by_fh`
-**Review status**: accepted by F_H on 2026-07-13; body realization remains
-blocked on T-265 and T-266 realization closure
-**Probe and runtime disposition**: the candidate body is invalid on T-265/T-266 plus
-vector-context, effect, operator-registry, ownership, execution-binding, and
-declaration-versus-observation defects; final body, census, and runtime remain blocked
+**Review status**: accepted by F_H on 2026-07-13; canonical body and probe
+checkpoint self-reviewed; F_H checkpoint review pending
+**Probe and runtime disposition**: canonical body and exact no-execution census
+complete; 21 generic compiler/runtime/conformance gaps retained; runtime and
+DS-4 publication remain out of scope
 **Delivery phase**: DS-1 executable Consensus design probe
 **Ticket**: [T-252](../../../../.ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md)
 **Owning modules**: M01 GTL language carriers, M02 serialized module admission,
@@ -17,19 +17,17 @@ and M03 semantic compilation
 
 ## Boundary And Verdict
 
-This design defines one lawful target GTL program shape and the no-execution
-compiler probe used to discover what prevents that shape from executing today.
-It does not design or authorize the missing generic language or runtime atoms.
+This design defines the lawful target GTL program shape and the no-execution
+compiler probe that now fixes its first canonical gap census. It does not design
+or authorize the missing generic language or runtime atoms.
 
 T-253 closed structural HOF child/member/vector identity, canonical
 `gtl.hof_application` data, constructor ownership, raw admission, and the absent-runtime diagnostic
 for `ReviewerAssignment -> ReviewFindings` over
-`ReviewerAssignmentVector -> AttributedFindingsVector`. It did not close native
-type matching: its caller-selected `T` can disagree with the supplied plain
-Nodes. T-266 must rebind the T-253 native entry points and proofs to
-constructor-inferred Node/interface witnesses before this body may claim native
-type safety. A handwritten name/tag, same-node lie, cast, or `promote`
-workaround remains forbidden.
+`ReviewerAssignmentVector -> AttributedFindingsVector`. T-266 subsequently
+rebound the native entry points and proofs to constructor-inferred
+Node/interface witnesses. The canonical body consumes that relation without a
+handwritten name/tag, same-node lie, cast, or `promote` workaround.
 
 T-254 now makes the complete target body natively authorable: each
 C-program-executing transition GraphVector carries the existing scalar
@@ -39,16 +37,16 @@ unrealized. A global program, `operator.binding`, `abg.fn_composition` used as a
 program selector, opaque configuration, name/tag inference, or helper-
 GraphFunction rewrite remains an inadmissible substitute.
 
-The candidate body then exposed one further generic atom gap before closure:
+The earlier candidate body exposed one further generic atom gap before closure:
 `recurse`, `fan_in`, and `gate` create new GraphFunction identities without
 complete discriminated `gtl.graph_function_application` declarations, while selected source composition
 remains owned by its source GraphFunction or vector. T-265 owns one canonical
 operator application declaration across M01 construction and M02 admission;
 M03 derives its acyclic operand lineage and provisional owner/execution join.
-The Consensus body may consume that atom after closure; it may not rehost or
+The canonical Consensus body now consumes that closed atom; it does not rehost or
 clone composition declarations, infer identity from names/tags, author a second
 host-lineage carrier, or add a private compiler path. Every pre-T-265 body digest
-and census value is provisional.
+and census value remains historical non-closure evidence.
 
 Fresh review found six independent body-design defects:
 
@@ -76,18 +74,18 @@ Fresh review found six independent body-design defects:
    conformance inventories them; only absence of runtime calls/outputs proves the
    probe executed nothing.
 
-All six body corrections use existing public serialized carriers. They do not
-authorize a new Consensus engine atom. Their missing generic enforcement remains
-compiler/conformance evidence for existing successor owners. They do not solve
-the separate native type-witness defect routed to T-266.
+All six body corrections use existing public serialized carriers and are present
+in the canonical body. They do not authorize a new Consensus engine atom. Their
+remaining generic enforcement appears as compiler/conformance evidence for the
+existing successor owners.
 
-One native-language defect does require a generic prerequisite. Current
+One native-language defect required a generic prerequisite. The former
 `hofContract<T>(plainNode)` and `cInterfaceCarrier<T>(plainNodes)` APIs let the
-caller choose a phantom `T`; the plain Node does not infer it. T-266 introduces a
+caller choose a phantom `T`; the plain Node did not infer it. T-266 introduced a
 constructor-owned native projection from one trusted decoder over the exact full
 Node contract key, used by HOF and ordered C interfaces.
 Pure arrays and parallel GraphVector sources do not themselves need new algebra,
-but T-252 cannot claim native type safety until T-266 compile-time negatives pass.
+and T-266's compile-time negatives now protect the consumed relation.
 
 The prior implementation failed at the category boundary: a catalog
 GraphFunction name selected an imperative Consensus plugin whose TypeScript
@@ -895,9 +893,9 @@ Domain invariants:
     cannot bypass the submitter turn and type a foldback disposition.
 16. The T-253 HOF relation is one hosted `HofApplicationDeclaration`; child,
     member, vector, wrapper, ordinal, and wholly-successful cardinality joins
-    are structural authority owned by the constructor. T-253 does not prove the
-    caller-selected native `T`; T-266 must rebind and re-prove that API against
-    actual Node/interface witnesses. Names and tags are not authority.
+    are structural authority owned by the constructor. T-266 rebinds and
+    re-proves the former caller-selected native `T` API against actual
+    Node/interface witnesses. Names and tags are not authority.
 17. `GraphVectorProgramSelectionDeclaration` is the missing authored relation
     for C-program-executing transition vectors.
     `CompiledGraphVectorCProgramBinding` is derived compiler truth, not a second
@@ -952,13 +950,13 @@ module-local functions is a separately published catalog row, and the design
 does not publish the reserved `gtl://abg/review/*` declarations as a generic
 Review product.
 
-This accepted topology has candidate pure-data bytes, but no canonical body
-digest is frozen. T-253 constructs the canonical structural fan-out application
-and T-266 must rebind its unsafe native type API; T-254 binds each
-C-program-executing transition GraphVector to its exact containing-catalog
-member. The candidate then exposes the T-265 incomplete-application and derived-
-lineage gap on its recurse and fan-in functions. Final bytes exist only after
-both generic prerequisites close and the same topology passes M02/M03 again.
+This topology now has canonical pure-data bytes with body digest
+`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`.
+T-253 constructs the canonical structural fan-out application, T-266 supplies
+its native type witnesses, T-254 binds each C-program-executing transition
+GraphVector to its exact containing-catalog member, and T-265 preserves
+application lineage for recurse and fan-in. The same bytes pass M02 and produce
+the M03 census fixed below.
 
 ### Public-atom stdlib guarantee
 
@@ -1202,9 +1200,9 @@ execution ownership. Name/tag recognition is not proof. The target structural re
 `readonly ReviewerAssignment[] -> readonly ReviewFindings[]`.
 The pre-T-253 same-node facade is retired. A `promote` workaround remains
 forbidden because promotion cannot turn assignments into findings or failure
-truth. T-266 must first replace the caller-selected native `T` at these T-253
-entry points with constructor-inferred Node/interface witnesses. The re-authored
-Consensus body then exercises the
+truth. T-266 replaces the caller-selected native `T` at these T-253 entry points
+with constructor-inferred Node/interface witnesses. The canonical Consensus body
+then exercises the
 `C.batch` requirement through the mandatory vector-to-task projection without
 encoding a fixed two-reviewer tuple. The current typed compiler result is
 `semantic_not_realized`; it is the runtime gap, not an authoring gap.
@@ -1746,14 +1744,10 @@ feature-specific result store.
 
 ## Compiler Gap Oracle
 
-The T-253 structural HOF application and T-254 GraphVector-to-declared-C-program
-prerequisites are closed. T-253's unsafe native type API and proofs remain open
-under T-266. The current candidate is invalid on T-265, T-266, and the six
-corrected body relations before a final compiler census. No
-canonical body digest is fixed. After T-265/T-266 and the corrected design close,
-T-252 must re-author the same accepted topology, pass M02 and M03, then freeze
-those exact bytes as the experimental subject.
-Its report is an ordered projection with at least:
+The T-253/T-254/T-265/T-266 prerequisites are closed. The canonical body includes
+the six corrected body relations, passes exact M02 round-trip admission, and is
+the fixed experimental subject for the M03 census. Its report is an ordered
+projection with at least:
 
 ```text
 bodyDigest
@@ -1885,9 +1879,7 @@ inner diagnostics. That is forward progress, not regression. Closure is proved
 by path-addressed reconciliation of every relied-on term and runtime consumer,
 not by requiring the raw number of diagnostics to decrease after each atom.
 
-After T-265/T-266 and the six corrected relations yield a valid admitted body,
-the probe derives an immutable
-manifest by walking that canonical body
+The probe derives an immutable manifest by walking the canonical body
 and listing each relied-on GraphFunction operator and C term at its original
 body path. For each C term, it compiles an extracted canonical subterm with the
 same refs, carriers, declarations, and bytes. For each GraphFunction operator,
@@ -1909,39 +1901,27 @@ After a singular atom lands, the same body digest is recompiled. Closure for
 that atom requires exactly its owned diagnostic to disappear without a
 Consensus-specific branch and with a separate non-Consensus consumer proof.
 
-### Provisional pre-T-265 candidate census
+### Canonical checkpoint census
 
-The current provisional snapshot identifies body digest
-`sha256:28edf21a9f68cda111308db4bb1030dda3c68441554210991f2b1c1657506b5e`
+The checkpoint identifies body digest
+`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`
 and manifest digest
-`sha256:a79aae12b11f833ea617701affd7c5ec10511e5ba87c0701297e40d93fdf600b`.
-Those identities describe the invalid pre-T-265 candidate only; neither is the
-DS-3 recompile oracle.
-
-The candidate was useful but is not a final census subject. Its recurse function
-exposes 14 source-hosted vector compositions and its fan-in function exposes one;
-their current constructor declarations do not carry complete operand relations,
-and M03 correctly reports 15 `host_graph_function_ref mismatch` failures when
-those declarations are resolved as though the applied functions owned them.
-T-265 is the generic discriminated `gtl.graph_function_application` and
-compiler-derived `GraphFunctionApplicationLineageProjection` repair.
+`sha256:01ab36577138acccd5a3d55efae0d11dabfefd3ea02c2c188c80498049f7a470`.
+These identities are the recompile oracle for the successor atom work.
 
 | Observation | Current result | Disposition |
 |---|---|---|
-| native construction and M02 admission | candidate pure-data body is `raw_admitted`, but lacks complete discriminated recurse/fan-in `gtl.graph_function_application` declarations | `blocked_t265` |
-| M03 composition admission | 21 authored-source compositions resolve under their exact hosts; 15 derived-host attempts fail across recurse and fan-in copied vectors | `invalid_program`; no census closure |
-| GraphFunction-local composition defaults | require T-265 compiler-derived application lineage plus provisional source-owner/derived-execution bindings under existing precedence and remain provisional until T-255 completes host joins | `blocked_t265` |
-| provisional compiler frontier | useful discovery evidence only; every prior digest and count must be regenerated from the post-T-265/T-266 corrected body | `provisional_nonclosure` |
-| no-execution observation | candidate probe observed no runtime calls/outputs only on its reached path and incorrectly used declaration counts as corroboration; final observation must be armed before work and finalize invalid, gap, and compiled outcomes independently | `candidate_observation_only` |
-| declaration completeness | candidate has empty transitive effects, direct plugin Operator bindings, no per-executable-GraphFunction exact used-seam selections, and incomplete plugin/handler/capability inventory | `invalid_body_design`; T-264 enforcement |
-| pure vectors and context | candidate schemas/topology permit metadata-bearing vectors and omit explicit parallel sources | `invalid_body_design` |
-| native type witness | caller-chosen phantom types are not tied to actual Nodes | `blocked_t266` |
-| successor ownership schema | pre-reopen fixture had 20/20; T-264 adds two inventory families and T-266 owns the native witness family, while the current loader pattern ends at T-265 | `rerun_after_reauthor`; extend loader only after design acceptance, no census edit now |
-| closure eligibility | fixture reports `false` with 15 host diagnostics; six additional design blockers and T-266 are outside that old fixture | `blocked_design_and_t265_t266` |
+| canonical body | 7 GraphFunctions, 5 unique graphs, 19 C programs, 34 selected vector paths, 19 unique module operators, 0 Jobs, 0 Roles | `canonical_ds1_body` |
+| M02 admission | exact canonical round trip; serialized and admitted digests equal the body digest | `raw_admitted_exact` |
+| unknown-field mutation | accepted then dropped | `strict_raw_module_admission`; T-263 |
+| M03 semantic compilation | `semantic_not_realized`; 0 invalid programs; 0 structural blocking issues; 41 normalized diagnostics | `canonical_gap_frontier` |
+| proportional conformance | 734 retained issues categorized by the census; not represented as a green full-conformance result | `successor_inventory` |
+| ownership | 21 observed active families; 0 duplicate owners; 0 unowned families; T-255 through T-266 loaded | `exact_one_owner` |
+| no-execution observation | static source-dependency closure plus probe phase inventory; no reachable execution module and zero derived calls across runner, worker, plugin, handler, transport, event, result, replay, archive, workspace mutation, and product artifact | `no_execution_observed` |
 
-No manifest digest, body digest, structure count, diagnostic count, or compiler
-gate from the invalid candidate is a closure value. The post-T-265/T-266 valid body
-and its regenerated manifest become the DS-3 recompile oracle.
+The canonical census proves body validity and routes unrealized generic
+semantics. It is not runtime execution, DS-4 publication, or full-conformance
+closure. No retained family is repaired by T-252.
 
 ## Cross-View Invariants
 
@@ -1949,11 +1929,11 @@ and its regenerated manifest become the DS-3 recompile oracle.
 |---|---|---|---|---|
 | Every participant is a carrier, GTL function, compiler/runtime boundary, or actor | all participants map to named classes or external ABG/F_H | no hidden service participant | no controller state | `pass` |
 | Reviewer cardinality is explicit and not hard-coded | ordered non-empty panel and vector payloads | loop is panel ordinal | PanelRunning derives from admitted vector | `pass` |
-| HOF vectors are pure and context is parallel | vector carriers are readonly member arrays only; context has separate Nodes | FanOut/FanIn carry arrays; reducer/reassessor/FH messages list context sources | joined-source states gate effects | `fail_candidate`; corrected target |
-| Native type follows actual Node contract | T-266 typed Node witness is a named carrier | TypeWitness precedes HOF/C authoring | TypeWitnessRefused reaches ProbeInvalidObserved | `fail`; T-266 |
-| Declared effects differ from observed execution | all-regime effect identities, separate capabilities, and no-execution observation are distinct | Effects precedes M02; NoExec is armed first and finalizes invalid, gap, and compiled outcomes | EffectDeclarationRefused differs from ProbeInvalidObserved, ProbeGapObserved, and ProbeCompiledObserved | `fail_candidate`; corrected target |
-| Operator publication and execution authorities are singular | module registry, domain binding, HOG rows, and each applicable non-empty local used-seam selection are separate carriers | Registry and ExecDecl gates precede M02 | collision/authority refusals route through observed invalid outcome | `fail_candidate`; corrected target |
-| SYSTEM ownership is publication truth | body target and DS4 catalog admission are separate | owner appears only in Publication message | CatalogOwnershipAdmitted follows ProbeCompiledObserved | `pass_target`; candidate tests must narrow |
+| HOF vectors are pure and context is parallel | vector carriers are readonly member arrays only; context has separate Nodes | FanOut/FanIn carry arrays; reducer/reassessor/FH messages list context sources | joined-source states gate effects | `pass_body`; runtime gap retained |
+| Native type follows actual Node contract | T-266 typed Node witness is a named carrier | TypeWitness precedes HOF/C authoring | TypeWitnessRefused reaches ProbeInvalidObserved | `pass`; T-266 closed |
+| Declared effects differ from observed execution | all-regime effect identities, separate capabilities, and no-execution observation are distinct | Effects precedes M02; NoExec is armed first and finalizes after conformance | EffectDeclarationRefused differs from ProbeGapObserved | `pass_body`; T-264 enforcement retained |
+| Operator publication and execution authorities are singular | module registry, domain binding, HOG rows, and each applicable non-empty local used-seam selection are separate carriers | Registry and ExecDecl gates precede M02 | collision/authority refusals route through observed invalid outcome | `pass_body`; T-264 enforcement retained |
+| SYSTEM ownership is publication truth | body target and DS4 catalog admission are separate | owner appears only in Publication message | CatalogOwnershipAdmitted follows ProbeCompiledObserved | `pass_target`; DS-4 deferred |
 | Reviewer execution selection is profile-local | authored assignment carries only its profile execution-selection ref; ABG owns the task `FpTransformRequest` | carrier-field indirection is declared but has no generic compiler/runtime join | ReviewerSelectionPending cannot yet prove request admission or block | `fail` |
 | Every F_P output crosses standard admission before use | ReviewFindings, InitialSemanticAssessment, PostSubmitterSemanticAssessment, ReviewRulings, and SubmitterResponse are distinct target carriers | body cites standard result admission; DS-2 must prove every raw output crosses it | F_P pending-to-admitted-or-blocked is not yet executable proof | `fail` |
 | Semantic recursion requires the submitter-response join | initial and post-submitter assessment types are disjoint; only the latter carries submitterResponseRef | recurse route follows admitted submitter response and reassessment only | FoldbackPending is reachable only from PostSubmitterAssessmentAdmitted | `pass` |
@@ -1971,12 +1951,12 @@ and its regenerated manifest become the DS-3 recompile oracle.
 | GraphFunction is the primary constructive carrier | PRODUCT; ODD method; `REQ-P-CONSENSUS-002` | canonical function owns inline body and module-local helpers | runtime receives compiled program, never selects a plugin body | BodyAdmitted precedes CompiledProgram | admitted `GraphFunction` and module constructors | root reachability and executable-body relation | `pass` | T-252 probe |
 | Consensus is a free construction over generic atoms | PRODUCT atom criterion | no Consensus controller or service class | only GTL functions and ordinary ABG boundaries act | no feature-specific engine state | closed GTL and C constructors | each missing generic construct is a typed gap | `pass` | exact census successors |
 | Every C-program-executing transition vector selects one declared C program without becoming a plugin route | C-ALGEBRA sort chain; GRAPHVECTOR transition-governance law; CCALL labelled-program law | `GraphVectorProgramSelectionDeclaration` and derived compiled binding are distinct from `abg.fn_composition` and plugin selection; T-253 wrapper remains declaration-empty | VectorC authors carriers/selectors before raw admission; M03 derives the exact binding after admission | invalid outer relations terminate; lawful relations retain the runtime gap | T-254 host-indexed selector plus ordered interface carriers | T-254 exact contained catalog and boundary compiler judgment | `pass` | T-252 body consumes the closed relation unchanged |
-| Applied GraphFunctions preserve complete combinator semantics and source-owned composition without rehosting | GRAPHFUNCTION; HOF; RECURSE; IDENTITY; FN-COMPOSITION | one discriminated `gtl.graph_function_application` is separate from compiler-derived `GraphFunctionApplicationLineageProjection` | Application authors before M02; M03 resolves operand chains by opaque id before provisional source-owner/derived-execution bindings | current candidate terminates at ApplicationLineageCompilerRefused | T-265 complete discriminated relation emitted by recurse, fan_in, and gate | M02 closed variants plus M03 same-kind/mixed-kind cycle, operator, and source-host checks | `fail` | T-265 |
-| Native HOF and C types derive from actual Node contracts | C-ALGEBRA-012; HOF-001/005 | T-266 trusted-decoder/full-Node-key witness | TypeWitness precedes all boundaries | mismatch terminates at TypeWitnessRefused | constructor-only nominal witnesses, no caller phantom | M02/M03 recompute ordinary Node/interface identities without reconstructing `T` | `fail` | T-266 |
-| Reviewer fan-out and reduction use pure explicit vectors | HOF-001/002; CONSENSUS-006/009 | readonly assignment/findings arrays and separate context Nodes | fan_out/fan_in preserve arrays; consuming vectors list parallel sources | source-join states precede F_P/F_H work | T-253 relation plus T-266 witnesses | raw admission preserves exact sources; runtime remains a gap | `fail_candidate` | T-252 body correction; generic runtime successors |
-| GraphFunction effects are transitively complete | GRAPHFUNCTION-005; C-ALGEBRA-011 | stable reachable effect identities across F_D/F_P/F_H; capabilities remain separate | Effects gate precedes M02 | EffectDeclarationRefused routes to observed invalid outcome | existing effects field and separate binding/profile refs | M03/T-264 inventory equality plus effect-capability compatibility | `fail_candidate` | T-264 enforcement |
-| Operator and execution declarations keep one authority each | C-ALGEBRA-010/011; PLUGIN-SEAMS-003 | domain binding, exact HOG rows, conditional local selection iff the used scalar-seam set is non-empty, and module registry are distinct | ExecDecl and Registry gates precede M02 | authority/collision refusal reaches observed invalid outcome | host-indexed public builders | M02/M03/T-264 inventory and applicability check | `fail_candidate` | T-264 enforcement |
-| No-execution proof is observational | GF-005; GOALS trusted desktop | declarations and observation are distinct | NoExec arms before work and reads calls/outputs after invalid, gap, or compiled outcome | three observed outcome states do not require zero declarations | no runtime API in authoring | T-264 inventories declarations separately | `fail_candidate_proof` | T-252 probe/T-264 |
+| Applied GraphFunctions preserve complete combinator semantics and source-owned composition without rehosting | GRAPHFUNCTION; HOF; RECURSE; IDENTITY; FN-COMPOSITION | one discriminated `gtl.graph_function_application` is separate from compiler-derived `GraphFunctionApplicationLineageProjection` | Application authors before M02; M03 resolves operand chains by opaque id before provisional source-owner/derived-execution bindings | malformed application terminates at ApplicationLineageCompilerRefused | T-265 complete discriminated relation emitted by recurse, fan_in, and gate | M02 closed variants plus M03 same-kind/mixed-kind cycle, operator, and source-host checks | `pass` | T-265 closed; body consumes it |
+| Native HOF and C types derive from actual Node contracts | C-ALGEBRA-012; HOF-001/005 | T-266 trusted-decoder/full-Node-key witness | TypeWitness precedes all boundaries | mismatch terminates at TypeWitnessRefused | constructor-only nominal witnesses, no caller phantom | M02/M03 recompute ordinary Node/interface identities without reconstructing `T` | `pass` | T-266 closed; body consumes it |
+| Reviewer fan-out and reduction use pure explicit vectors | HOF-001/002; CONSENSUS-006/009 | readonly assignment/findings arrays and separate context Nodes | fan_out/fan_in preserve arrays; consuming vectors list parallel sources | source-join states precede F_P/F_H work | T-253 relation plus T-266 witnesses | raw admission preserves exact sources; runtime remains a gap | `pass_body_runtime_gap` | generic runtime successors |
+| GraphFunction effects are transitively complete | GRAPHFUNCTION-005; C-ALGEBRA-011 | stable reachable effect identities across F_D/F_P/F_H; capabilities remain separate | Effects gate precedes M02 | EffectDeclarationRefused routes to observed invalid outcome | existing effects field and separate binding/profile refs | canonical body derives exact transitive sets; T-264 retains generic enforcement | `pass_body_enforcement_gap` | T-264 enforcement |
+| Operator and execution declarations keep one authority each | C-ALGEBRA-010/011; PLUGIN-SEAMS-003 | domain binding, exact HOG rows, conditional local selection iff the used scalar-seam set is non-empty, and module registry are distinct | ExecDecl and Registry gates precede M02 | authority/collision refusal reaches observed invalid outcome | host-indexed public builders | canonical body separates all authorities; T-264 retains generic inventory enforcement | `pass_body_enforcement_gap` | T-264 enforcement |
+| No-execution proof is observational | GF-005; GOALS trusted desktop | declarations and observation are distinct | NoExec arms before body import and M02 and finalizes after conformance | observed semantic-not-realized outcome does not require zero declarations | no runtime API is reachable from the authoring dependency closure | T-264 inventories declarations separately | `pass_probe` | T-252 probe/T-264 |
 | SYSTEM ownership begins at DS4 | CONSENSUS-001; CATALOG | body has target identity but no owner | Publication supplies owner after probe | CatalogOwnershipAdmitted is deferred | no owner body field | DS4 catalog admission | `pass_target` | DS-4 |
 | Semantic verification rounds use declared recursion and foldback | RECURSE-001/003/004; CONSENSUS-008/009 | RoundRecursionLaw owns next-round rebind | target Runtime opens next round only after recurse_next_round | FoldbackPending alone may reach RoundOpened | `recurse` proves mode, binding, and parent evaluation only | compiler does not yet join policy budget/foldback or interpret recursion | `fail` | generic recursion policy/compiler/runtime owner |
 | `C.retry` defends one reviewer contract and never stands for a semantic round | C-ALGEBRA-008; CONSENSUS-008/017 | budget-2 standard retry policy cannot mint round execution | retry returns to same Reviewer task | SameTaskRetry is disjoint from FoldbackPending | distinct C term and recursion carriers | category-crossing relation must fail | `pass` | generic C.retry owner |
@@ -1989,7 +1969,7 @@ and its regenerated manifest become the DS-3 recompile oracle.
 | F_D does not manufacture semantic agreement | CONSENSUS-011 | RoundExactProjection has envelope/exact equality only; initial and post-submitter assessments are F_P | FanIn supplies facts to admitted F_P C programs | ExactFactsProjected precedes InitialAssessmentAdmitted | separate F_D and F_P C-program declarations | compiler checks regime and carrier declarations | `pass` | Consensus declarations and F_P path |
 | F_D does not manufacture F_H stop truth | CONSENSUS-008/010/011 | initial/post-submitter routing selects an F_H vector; FhPendingProgram owns the regime boundary | target FH holds Runtime with admitted pending interaction | runtime-held interpretation is not yet compiler/runtime truth | distinct F_D routing and `human_callout/F_H` declarations | compiler reports no hold judgment; replay projection is later | `fail` | DS-2 F_H public/runtime path |
 | ABG alone owns runtime truth and closure | PRODUCT runtime boundary; CCALL/HANDLERS | runtime is external interpreter; payloads have no authority methods | target events, continuation, F_H and result are ABG messages | terminal state requires admitted runtime transition | no event/continuation API in GTL payload types | execution/traversal proof rows are absent in first census | `fail` | DS-2/DS-4 |
-| Malformed GTL and F_P fail before execution or closure | GOALS operating boundary; C-ALGEBRA-013/014; CONSENSUS-017 | admitted and raw payload states are distinct | M02/M03 refusal is target; F_P failure routing remains target | design/compiler refusals end at ProbeInvalidObserved; F_P RuntimeBlocked remains unproved | constructor and M02 raw admission | T-265/T-266 and F_P admission remain blockers | `fail` | T-265/T-266; DS-2/DS-4 own F_P |
+| Malformed GTL and F_P fail before execution or closure | GOALS operating boundary; C-ALGEBRA-013/014; CONSENSUS-017 | admitted and raw payload states are distinct | M02/M03 refusal is realized; F_P failure routing remains target | design/compiler refusals end at ProbeInvalidObserved; F_P RuntimeBlocked remains unproved | constructor and M02 raw admission | GTL construction is closed; F_P admission remains a successor gap | `fail_runtime` | DS-2/DS-4 own F_P |
 | Consensus returns governance input, never ticket authority | CONSENSUS-007/012/019; TICKET_METHOD | TicketConsensusProjection is read-only | no ticket writer exists | ResultReadable terminates without mutation | result/projection expose no mutation capability | public operation and replay proof later | `pass` | DS-4 qualification |
 | Supported workspace forms share one contract | CONSENSUS-013/014 | one workspaceRef on ConsensusSubject | no workspace-mode branch | state machine is workspace-shape invariant | one subject carrier | later public admission uses exact bound identity | `not_applicable` | DS-1 is no-execution; DS-4 owns invocation proof |
 
@@ -1997,14 +1977,14 @@ and its regenerated manifest become the DS-3 recompile oracle.
 
 | Gap or exclusion | Current disposition | Re-entry condition |
 |---|---|---|
-| HOF assignment-vector to findings-vector structural relation | `closed` by T-253 for child/member/vector identity, constructor ownership, raw admission, and structural compiler diagnostic; native `T` remains unsafe | T-266 rebinds and re-proves the native entry points before the body consumes the canonical structural relation |
+| HOF assignment-vector to findings-vector structural relation | `closed` by T-253 for structure and by T-266 for constructor-inferred native witnesses | body consumes the exact closed relation; runtime remains T-260 work |
 | GraphVector-to-declared-C-program selection | `closed` by T-254 native/raw/M03 relation, with non-Consensus proof and no runtime claim | body uses the exact closed relation; runtime gap remains census input |
-| GraphFunction combinator applications and compiler-derived lineage | candidate T-265 three-view design; realization not admitted before F_H acceptance | close one discriminated recurse/fan-in/gate `gtl.graph_function_application` family plus M03 `GraphFunctionApplicationLineageProjection` and provisional composition bindings using non-Consensus same-kind, mixed-kind, vector-local, and function-local proofs |
-| native Node/interface type witness | candidate T-266 three-view design; current caller phantom is unsafe | close trusted-decoder/full-Node-key native projection with nominal Node-backed C/HOF relations and compile-time negatives; raw M02/M03 retain identity-only parity |
-| pure vectors and explicit parallel context | corrected T-252 topology; no new algebra | re-author after F_H accepts this design |
-| transitive effects and plugin/handler/operator inventory | body invalid; T-264 owns generic conformance enforcement | re-author declarations, then T-264 inventories exact applicable truth independently of no-execution observation |
-| executable body and actual compiler census | `blocked`; pre-reopen candidate has T-265/T-266 plus six design blockers | re-author after accepted corrections, then freeze valid body/manifest as DS-3 oracle |
-| generic algebra, HOF, recursion, carrier, traversal, F_H-hold, conformance, and raw-admission gaps | pre-reopen 20/20 fixture is stale after T-264/T-266 ownership additions | reload exact ownership only from the re-authored valid body |
+| GraphFunction combinator applications and compiler-derived lineage | `closed` by T-265 | body consumes the exact public application family; provisional runtime composition joins remain T-255 work |
+| native Node/interface type witness | `closed` by T-266 | body consumes constructor-inferred Node/interface witnesses without local type erasure |
+| pure vectors and explicit parallel context | present in canonical body | runtime interpretation remains with generic successors |
+| transitive effects and plugin/handler/operator inventory | present in canonical body; T-264 owns generic conformance enforcement | retain exact declarations while T-264 closes applicable inventory enforcement |
+| executable body and actual compiler census | canonical body and manifest fixed at checkpoint digests | unchanged body is the successor recompile oracle |
+| generic algebra, HOF, recursion, carrier, traversal, F_H-hold, conformance, and raw-admission gaps | 21 active families, exactly one owner each, no duplicate or unowned family | T-255 through T-264 realize or reprice only their owned generic families |
 | execution-basis join and runtime interpreter | DS-2/DS-3 | accepted generic designs, never Consensus branch code |
 | malformed F_P admission and declared protocol completion | DS-2 | accepted existing three-view designs and focused realization |
 | per-profile selection to per-task `FpTransformRequest` | target join declared; current runtime realization is not claimed by DS-1 | DS-2 generic selection/ExecutionBasis design and realization, never Consensus-specific dispatch |
@@ -2016,11 +1996,9 @@ and its regenerated manifest become the DS-3 recompile oracle.
 
 ## Non-Scope
 
-This reopened design authorizes no body change before F_H acceptance. After
-T-265/T-266 close, it authorizes canonical body authoring, M02 admission, and the
-no-execution compiler probe. It does not authorize either prerequisite realization
-before its own F_H design acceptance, nor does it
-authorize generic compiler/runtime repairs, schemas, generated public
+This design authorized canonical body authoring, M02 admission, and the
+no-execution compiler probe after F_H acceptance and T-265/T-266 closure. The
+checkpoint does not authorize generic compiler/runtime repairs, schemas, generated public
 contracts, CLI changes, worker calls, installed scenarios, or release
 evidence. It does not promote
 the rejected plugin's types or parser by presumption. Any later deterministic
@@ -2029,15 +2007,13 @@ interior and a singular design proves reuse.
 
 ## Post-Probe Verdict
 
-`corrected_three_view_design_accepted_by_fh`. F_H accepted this corrected body
-design on 2026-07-13 after independent review found no remaining design defect.
-The 2026-07-12 target ruling remains provenance. T-253 remains closed only for structural HOF identity,
-canonical `gtl.hof_application` data, and constructor ownership; T-254 remains closed.
-T-265 and T-266 are accepted generic prerequisites, with T-266 responsible for
-replacing and re-proving T-253's unsafe native type route. The prior body/fixture is non-closure evidence only and
-must not be edited or regenerated before both prerequisites close. T-252 then
-re-authors pure vectors with
-parallel context, complete all-regime effect identities, separate capabilities,
-unique operators, exact HOG handlers, per-executable-GraphFunction applicable
-plugin selections, and no DS-1 owner claim. No Consensus-specific runtime repair
-is authorized.
+`canonical_body_checkpoint_self_reviewed_fh_review_pending`. F_H accepted the
+corrected body design on 2026-07-13. T-253/T-254/T-265/T-266 are closed, and the
+canonical body now carries pure vectors with parallel context, complete
+all-regime effect identities, separate capabilities, unique operators, exact HOG
+handlers, per-executable-GraphFunction plugin selections, and no DS-1 owner
+claim. M02 preserves its exact digest. M03 reports zero invalid programs and zero
+structural blockers, then retains 21 exactly-owned generic gap families. The
+static dependency closure and probe phase inventory show no reachable execution
+module or derived runtime call. This checkpoint awaits F_H review; no
+Consensus-specific runtime repair or DS-4 publication is authorized.
