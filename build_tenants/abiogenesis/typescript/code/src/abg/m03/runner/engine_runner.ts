@@ -132,6 +132,7 @@ import {
   type FhAdmissionPlugin,
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
+import { bindFpTransformRequestResultContract } from "../contracts/fp_stages.js";
 import {
   admitEvaluationRuleOutcome,
   constructEvaluationRuleDeclaration,
@@ -1415,16 +1416,38 @@ function deriveFpDispatchAttemptInput(input: {
   });
 }
 
+function bindInstructionPromptManifest(
+  input: EnginePluginInput,
+  instructionPromptManifest: PromptManifest
+): EnginePluginInput {
+  const selectedResultContractRef =
+    instructionPromptManifest.selectedOutputContractRef;
+  return Object.freeze({
+    ...input,
+    instructionPromptManifest,
+    fpTransformRequest:
+      input.fpTransformRequest === null || selectedResultContractRef === null
+        ? input.fpTransformRequest
+        : bindFpTransformRequestResultContract(
+            input.fpTransformRequest,
+            selectedResultContractRef
+          )
+  });
+}
+
 function bindPluginInputToCCall(
   input: EnginePluginInput,
   cCallRef: string,
   instructionPromptManifest: PromptManifest,
   resumeExistingCCall: boolean
 ): EnginePluginInput {
-  const bound = Object.freeze({
-    ...input,
-    cCallRef,
+  const manifestBound = bindInstructionPromptManifest(
+    input,
     instructionPromptManifest
+  );
+  const bound = Object.freeze({
+    ...manifestBound,
+    cCallRef
   });
   return resumeExistingCCall
     ? admitEngineCCallResumeAuthority(bound)
@@ -6077,10 +6100,10 @@ function* runEngineIterateMachine(input: {
                   constructActorInvocationStartedEvent(ruleActorInvocation)
                 ]
               );
-              ruleInput = Object.freeze({
-                ...ruleInput,
-                instructionPromptManifest: ruleInstructionBinding.manifest
-              });
+              ruleInput = bindInstructionPromptManifest(
+                ruleInput,
+                ruleInstructionBinding.manifest
+              );
             }
             plannedBatchWithInputs.push({
               declaration,
@@ -6757,10 +6780,10 @@ function* runEngineIterateMachine(input: {
                   constructActorInvocationStartedEvent(taskActorInvocation)
                 ]
               );
-              taskInput = Object.freeze({
-                ...taskInput,
-                instructionPromptManifest: taskInstructionBinding.manifest
-              });
+              taskInput = bindInstructionPromptManifest(
+                taskInput,
+                taskInstructionBinding.manifest
+              );
             }
             plannedBatchWithInputs.push({
               declaration,
@@ -7350,10 +7373,10 @@ function* runEngineIterateMachine(input: {
                   constructActorInvocationStartedEvent(taskActorInvocation)
                 ]
               );
-              taskInput = Object.freeze({
-                ...taskInput,
-                instructionPromptManifest: taskInstructionBinding.manifest
-              });
+              taskInput = bindInstructionPromptManifest(
+                taskInput,
+                taskInstructionBinding.manifest
+              );
             }
             plannedBatchWithInputs.push({
               declaration,
@@ -8314,10 +8337,10 @@ function* runEngineIterateMachine(input: {
                       constructActorInvocationStartedEvent(ruleActorInvocation)
                     ]
                   );
-                  ruleInput = Object.freeze({
-                    ...ruleInput,
-                    instructionPromptManifest: ruleInstructionBinding.manifest
-                  });
+                  ruleInput = bindInstructionPromptManifest(
+                    ruleInput,
+                    ruleInstructionBinding.manifest
+                  );
                 }
                 plannedBatchWithInputs.push({
                   declaration,
@@ -9410,10 +9433,10 @@ function* runEngineIterateMachine(input: {
                       constructActorInvocationStartedEvent(taskActorInvocation)
                     ]
                   );
-                  taskInput = Object.freeze({
-                    ...taskInput,
-                    instructionPromptManifest: taskInstructionBinding.manifest
-                  });
+                  taskInput = bindInstructionPromptManifest(
+                    taskInput,
+                    taskInstructionBinding.manifest
+                  );
                 }
                 plannedBatchWithInputs.push({
                   declaration,

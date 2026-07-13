@@ -26,6 +26,7 @@ export interface DispatchRequest {
   readonly workerId: string;
   readonly backendId: string;
   readonly resultRef: string;
+  readonly selectedResultContractRef: string | null;
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
   readonly traversalAttemptEnvelopeRef: string | null;
@@ -43,6 +44,7 @@ export interface ResultArtifact {
   readonly basisId: string;
   readonly dispatchRef: string;
   readonly resultRef: string;
+  readonly resultContractRef: string | null;
   readonly artifactPayload: {
     readonly edge: string;
     readonly actor: string;
@@ -106,6 +108,7 @@ export interface DispatchRequestInit {
   readonly workerId: string;
   readonly backendId: string;
   readonly resultRef: string;
+  readonly selectedResultContractRef?: string | null;
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
   readonly traversalAttemptEnvelopeRef?: string | null;
@@ -140,6 +143,7 @@ export interface ResultArtifactInit {
   readonly basisId: string;
   readonly dispatchRef: string;
   readonly resultRef: string;
+  readonly resultContractRef?: string | null;
   readonly artifactPayload: ResultArtifactPayloadInit | null;
   readonly identityIssues: readonly string[];
   readonly runtimeFailure: {

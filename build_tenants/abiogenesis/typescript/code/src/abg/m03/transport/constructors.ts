@@ -42,6 +42,7 @@ export function constructDispatchRequest(
     workerId: input.workerId,
     backendId: input.backendId,
     resultRef: input.resultRef,
+    selectedResultContractRef: input.selectedResultContractRef ?? null,
     expectedEdge: input.expectedEdge,
     expectedAssessmentIds: freezeStringArray(input.expectedAssessmentIds),
     traversalAttemptEnvelopeRef: input.traversalAttemptEnvelopeRef ?? null,
@@ -78,6 +79,7 @@ export function constructResultArtifact(
     basisId: input.basisId,
     dispatchRef: input.dispatchRef,
     resultRef: input.resultRef,
+    resultContractRef: input.resultContractRef ?? null,
     artifactPayload:
       input.artifactPayload === null
         ? null
@@ -143,7 +145,8 @@ function deriveTransportContract(
 }
 
 export function dispatchRequestsForTransition(
-  transition: AdvancementTransition
+  transition: AdvancementTransition,
+  selectedResultContractRef: string | null = null
 ): readonly DispatchRequest[] {
   if (transition.kind !== "fp_dispatch") {
     return Object.freeze([]);
@@ -162,6 +165,7 @@ export function dispatchRequestsForTransition(
       workerId: basis.runtimeIdentity.workerId,
       backendId: basis.runtimeIdentity.backendId,
       resultRef: deriveDispatchResultRef(basis.id, transition.dispatchRef),
+      selectedResultContractRef,
       expectedEdge: projectDispatchExpectedEdge(expectation),
       expectedAssessmentIds: projectDispatchAssessmentIds(expectation),
       transportContract: deriveTransportContract(transition)

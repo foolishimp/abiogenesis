@@ -289,6 +289,7 @@ export {
   FP_TRANSFORM_STATUS_VALUES,
   admitFpTransformResult,
   admitFpTransformResultForRequest,
+  bindFpTransformRequestResultContract,
   constructFpTransformRequest,
   constructFpTransformResult,
   runtimeEventsForFpTransformResult
@@ -299,6 +300,21 @@ export type {
   FpTransformResult,
   FpTransformStatus
 } from "./fp_stages.js";
+export {
+  FP_RESULT_CONTRACT_FAILURE_CLASS_VALUES,
+  FP_RESULT_WIRE_PROFILE_VALUES,
+  admitFpResultContractEnvelope,
+  requireFpResultContractEnvelope
+} from "./fp_result_contract_admission.js";
+export type {
+  AdmittedFpResultContractEnvelope,
+  FpResultContractAdmissionAccepted,
+  FpResultContractAdmissionOutcome,
+  FpResultContractAdmissionRejected,
+  FpResultContractFailure,
+  FpResultContractFailureClass,
+  FpResultWireProfile
+} from "./fp_result_contract_admission.js";
 export {
   COMPOSED_STAGE_ROLE_VALUES,
   COMPOSED_STAGE_TASK_ROLE_VALUES,

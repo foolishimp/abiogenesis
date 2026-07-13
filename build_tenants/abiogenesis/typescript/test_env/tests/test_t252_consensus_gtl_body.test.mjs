@@ -415,7 +415,7 @@ test("T-252 probe derives observations through the real context join without mak
     "../fixtures/t252_consensus_probe_manifest.json"
   );
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  assert.equal(manifest.version, 2);
+  assert.equal(manifest.version, 3);
   assert.equal(
     manifest.censusDerivation.order,
     "compiler_and_structural_observations_before_ticket_ownership"
@@ -471,6 +471,21 @@ test("T-252 probe derives observations through the real context join without mak
         row.computeStageRole === "transform"
     ),
     true
+  );
+  assert.ok(manifest.compiler.fpResultContractAdmissionRows.length > 0);
+  assert.equal(
+    manifest.compiler.fpResultContractAdmissionRows.every(
+      (row) =>
+        row.profile === "standard_live_review" &&
+        row.status === "admitted" &&
+        row.failureClass === null &&
+        /^sha256:[0-9a-f]{64}$/u.test(row.payloadDigest)
+    ),
+    true
+  );
+  assert.equal(
+    observed.has("fp_result_contract_admission"),
+    false
   );
 
   assert.equal(Object.hasOwn(manifest, "noExecutionObservation"), false);

@@ -46,10 +46,45 @@ function pluginInput(manifest, cCallRef = "c-call://t217/live-fp-pin/default") {
   };
 }
 
+const RESULT_CONTRACT_REF = "contract://t217/standard-result";
+
 const MANIFEST = Object.freeze({
   renderedPrompt: "return a JSON object with ok=true",
-  manifestRef: "manifest://t217/pin"
+  manifestRef: "manifest://t217/pin",
+  selectedOutputContractRef: RESULT_CONTRACT_REF
 });
+
+function reviewScript(overrides = {}) {
+  const review = {
+    resultContractRef: RESULT_CONTRACT_REF,
+    accepted: true,
+    closeDisposition: "close",
+    assessmentIds: [],
+    reasons: [],
+    ...overrides
+  };
+  return `console.log(${JSON.stringify(JSON.stringify(review))})`;
+}
+
+function dispatchScript(prefix = "") {
+  const artifact = {
+    result_contract_ref: RESULT_CONTRACT_REF,
+    edge: "source->target",
+    actor: "worker://t217",
+    fulfillment_assessments: [
+      {
+        id: "assessment://t217",
+        evaluator: "assessment://t217",
+        fulfillment_status: "fulfilled",
+        fulfillment_detail: "standard live dispatch fixture",
+        blocking_reasons: [],
+        evidence_refs: ["evidence://t217/dispatch"]
+      }
+    ]
+  };
+  const emit = `console.log(${JSON.stringify(JSON.stringify(artifact))})`;
+  return prefix.length === 0 ? emit : `${prefix};${emit}`;
+}
 
 test("live fp dispatch: contract ref is the catalog identity", () => {
   const plugin = standardLiveFpDispatchPlugin(capabilityWith("process.exit(0)"));
@@ -91,13 +126,16 @@ test("live fp dispatch: unparsable worker output is typed blocked contract_failu
 
 test("live fp dispatch: worker JSON object dispatches with the parsed artifact attached", async () => {
   const plugin = standardLiveFpDispatchPlugin(
-    capabilityWith("console.log(JSON.stringify({ ok: true, stage: 'pin' }))")
+    capabilityWith(dispatchScript())
   );
   const outcome = await plugin.dispatch(pluginInput(MANIFEST));
   assert.equal(outcome.status, "dispatched");
   assert.match(outcome.resultRef, /^result:live_fp_dispatch:live-fp-dispatch-[0-9a-f]{64}$/u);
-  assert.equal(outcome.attachedResultArtifact.ok, true);
-  assert.equal(outcome.attachedResultArtifact.stage, "pin");
+  assert.equal(
+    outcome.attachedResultArtifact.result_contract_ref,
+    RESULT_CONTRACT_REF
+  );
+  assert.equal(outcome.attachedResultArtifact.edge, "source->target");
 });
 
 test("live fp dispatch: capability time budget is admitted (HANDLERS-008)", () => {
@@ -134,7 +172,7 @@ function evaluatorInput(
 
 test("live fp evaluator: accepted review with attested ids evaluates fulfilled/close", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(
-    capabilityWith("console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1'] }))")
+    capabilityWith(reviewScript({ assessmentIds: ["a1"] }))
   );
   assert.equal(plugin.contract.ref, LIVE_FP_EVALUATOR_PLUGIN_REF);
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1"]));
@@ -146,7 +184,7 @@ test("live fp evaluator: accepted review with attested ids evaluates fulfilled/c
 
 test("live fp evaluator: a worker cannot accept by omission — unattested expected ids force retry", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(
-    capabilityWith("console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))")
+    capabilityWith(reviewScript())
   );
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1", "a2"]));
   assert.equal(outcome.status, "evaluated");
@@ -160,7 +198,7 @@ test("live fp evaluator: a worker cannot accept by omission — unattested expec
 
 test("live fp evaluator: malformed review is typed blocked contract_failure", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(
-    capabilityWith("console.log(JSON.stringify({ accepted: 'yes' }))")
+    capabilityWith(reviewScript({ accepted: "yes" }))
   );
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
   assert.equal(outcome.status, "blocked");
@@ -171,30 +209,27 @@ test("live fp evaluator: malformed review is typed blocked contract_failure", as
 test("live fp evaluator: a misspelled response field is rejected, never defaulted to close", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(
     capabilityWith(
-      "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1'], closeDispostion: 'retry' }))"
+      reviewScript({ assessmentIds: ["a1"], closeDispostion: "retry" })
     )
   );
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, ["a1"]));
   assert.equal(outcome.status, "blocked");
-  assert.match(outcome.reason, /unknown fields: closeDispostion/u);
+  assert.match(outcome.reason, /undeclared fields: closeDispostion/u);
   assert.match(outcome.reason, /contract_failure/u);
 });
 
 test("live fp evaluator: unexpected, duplicate, or empty assessment ids are malformed", async () => {
   const cases = [
     {
-      script:
-        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'bogus'] }))",
+      script: reviewScript({ assessmentIds: ["a1", "bogus"] }),
       expectedReason: /unexpected ids: bogus/u
     },
     {
-      script:
-        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'a1'] }))",
+      script: reviewScript({ assessmentIds: ["a1", "a1"] }),
       expectedReason: /must not contain duplicates/u
     },
     {
-      script:
-        "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', ''] }))",
+      script: reviewScript({ assessmentIds: ["a1", ""] }),
       expectedReason: /array of non-empty strings/u
     }
   ];
@@ -231,7 +266,7 @@ test("F1: the live dispatch plugin declares async_required (admission refuses it
 });
 
 test("F2: distinct invocations never collide — attempt and invocation id key the archive", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const cap = capabilityWith(dispatchScript());
   const plugin = standardLiveFpDispatchPlugin(cap);
   const { readdirSync } = await import("node:fs");
   const inputA = {
@@ -249,18 +284,14 @@ test("F2: distinct invocations never collide — attempt and invocation id key t
   assert.equal(bundles.length, 2, "each canonical c-call keeps its own archive");
 });
 
-test("F4: accepted-with-retry is NOT close-eligible — one decision drives every field", async () => {
+test("F4: contradictory accepted-with-retry output is typed blocked", async () => {
   const plugin = standardLiveFpEvaluatorPlugin(
-    capabilityWith("console.log(JSON.stringify({ accepted: true, closeDisposition: 'retry' }))")
+    capabilityWith(reviewScript({ closeDisposition: "retry" }))
   );
   const outcome = await plugin.evaluate(evaluatorInput(MANIFEST, []));
-  assert.equal(outcome.status, "evaluated");
-  assert.equal(outcome.ambiguityStatus, "partial");
-  const finding = outcome.findings[0];
-  assert.equal(finding.closeDisposition, "retry");
-  assert.equal(finding.executiveDisposition, "local_repair");
-  assert.notEqual(finding.residualPressureRefs.length, 0, "retry carries residual pressure");
-  assert.notEqual(finding.continuationRefs.length, 0, "retry carries a continuation");
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /contradictory/u);
+  assert.match(outcome.reason, /contract_failure/u);
 });
 
 test("F6: failed transports reconcile to their session — archive refs ride the blocked outcome", async () => {
@@ -279,7 +310,7 @@ test("F7: hostile labelPrefix fails typed; capability mutation cannot change exe
     () => standardLiveFpDispatchPlugin(capabilityWith("process.exit(0)", { labelPrefix: "../escape" })),
     /path-safe label component/u
   );
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const cap = capabilityWith(dispatchScript());
   const originalRoot = cap.archiveRoot;
   const plugin = standardLiveFpDispatchPlugin(cap);
   cap.archiveRoot = "/tmp/hijacked-root-must-not-be-used";
@@ -351,7 +382,7 @@ test("F3: CLI capability admission is strict — no hints, no suffixes, no silen
 
 test("R5-3: identical c-call verifies and reuses its completed bundle without rerunning", async () => {
   const cap = capabilityWith(
-    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').appendFileSync('worker-count','x')")
   );
   const plugin = standardLiveFpDispatchPlugin(cap);
   const { readFileSync, readdirSync } = await import("node:fs");
@@ -367,7 +398,7 @@ test("R5-3: identical c-call verifies and reuses its completed bundle without re
 
 test("R5-3: completion refuses an unknown sibling without rerunning", async () => {
   const cap = capabilityWith(
-    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').appendFileSync('worker-count','x')")
   );
   const plugin = standardLiveFpDispatchPlugin(cap);
   const cCallRef = "c-call://t217/completion-unknown-sibling";
@@ -396,7 +427,7 @@ test("R5-3: completion refuses an unknown sibling without rerunning", async () =
 
 test("R5-3: a structural caller cannot forge engine resume authority", async () => {
   const cap = capabilityWith(
-    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').appendFileSync('worker-count','x')")
   );
   const plugin = standardLiveFpDispatchPlugin(cap);
   const bare = pluginInput(MANIFEST, "c-call://t217/resume-request");
@@ -422,10 +453,10 @@ test("R5-3: a structural caller cannot forge engine resume authority", async () 
 
 test("R5-3: same c-call with changed effect truth blocks without running a second worker", async () => {
   const first = capabilityWith(
-    "require('fs').writeFileSync('first-ran','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').writeFileSync('first-ran','x')")
   );
   const second = capabilityWith(
-    "require('fs').writeFileSync('second-ran','x');console.log(JSON.stringify({ ok: false }))",
+    dispatchScript("require('fs').writeFileSync('second-ran','x')"),
     { archiveRoot: first.archiveRoot, cwd: first.cwd }
   );
   const cCallRef = "c-call://t217/identity-conflict";
@@ -444,7 +475,7 @@ test("R5-3: same c-call with changed effect truth blocks without running a secon
 
 test("R5-3: incomplete and tampered bundles block without repeating external work", async () => {
   const cap = capabilityWith(
-    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').appendFileSync('worker-count','x')")
   );
   const plugin = standardLiveFpDispatchPlugin(cap);
   const cCallRef = "c-call://t217/incomplete";
@@ -489,7 +520,7 @@ test("R5-3: incomplete and tampered bundles block without repeating external wor
   );
 
   const cap2 = capabilityWith(
-    "require('fs').appendFileSync('worker-count','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').appendFileSync('worker-count','x')")
   );
   const plugin2 = standardLiveFpDispatchPlugin(cap2);
   const tamperRef = "c-call://t217/tamper";
@@ -506,7 +537,7 @@ test("R5-3: incomplete and tampered bundles block without repeating external wor
 
 test("R5-2: null c-call refuses before archive or worker effects", async () => {
   const cap = capabilityWith(
-    "require('fs').writeFileSync('worker-ran','x');console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').writeFileSync('worker-ran','x')")
   );
   const plugin = standardLiveFpDispatchPlugin(cap);
   const outcome = await plugin.dispatch(pluginInput(MANIFEST, null));
@@ -520,13 +551,13 @@ test("R5-2: null c-call refuses before archive or worker effects", async () => {
 test("R5-4: post-launch archive exception is contract_failure with existing evidence only", async () => {
   const cap = capabilityWith("process.exit(0)");
   cap.agentContract = fakeAgentContract(
-    "require('fs').mkdirSync(process.argv[1]);console.log(JSON.stringify({ ok: true }))"
+    dispatchScript("require('fs').mkdirSync(process.argv[1])")
   );
   cap.agentContract = Object.freeze({
     ...cap.agentContract,
     argsTemplate: Object.freeze([
       "-e",
-      "require('fs').mkdirSync(process.argv[1]);console.log(JSON.stringify({ ok: true }))",
+      dispatchScript("require('fs').mkdirSync(process.argv[1])"),
       "{output_path}"
     ])
   });
@@ -558,7 +589,7 @@ test("R5-5: worker-created output symlink is rejected before archive read or wri
     "const fs=require('fs')",
     `fs.writeFileSync(${JSON.stringify(outsidePath)},'outside')`,
     `fs.symlinkSync(${JSON.stringify(outsidePath)},process.argv[1])`,
-    "console.log(JSON.stringify({ok:true}))"
+    dispatchScript()
   ].join(";");
   cap.agentContract = Object.freeze({
     ...fakeAgentContract(workerScript),
@@ -580,7 +611,7 @@ test("R5-5: worker-created output symlink is rejected before archive read or wri
 });
 
 test("R5-2/R5-3: cCallRef alone keys the bundle and request identity", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const cap = capabilityWith(dispatchScript());
   const plugin = standardLiveFpDispatchPlugin(cap);
   const { readFileSync } = await import("node:fs");
   const pathMod = await import("node:path");
@@ -598,7 +629,7 @@ test("R5-2/R5-3: cCallRef alone keys the bundle and request identity", async () 
 });
 
 test("R5-5: a pre-planted per-call symlink blocks before worker execution", async () => {
-  const cap = capabilityWith("console.log(JSON.stringify({ ok: true }))");
+  const cap = capabilityWith(dispatchScript());
   const plugin = standardLiveFpDispatchPlugin(cap);
   const { existsSync, mkdirSync, symlinkSync } = await import("node:fs");
   const pathMod = await import("node:path");

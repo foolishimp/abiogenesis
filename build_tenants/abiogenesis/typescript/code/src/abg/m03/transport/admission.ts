@@ -5,6 +5,7 @@ import {
   projectDispatchExpectedEdge
 } from "../../../shared/abg_library/index.js";
 import {
+  isPlainObject,
   parseNonEmptyString,
   parseOptionalField,
   parsePlainObject,
@@ -21,6 +22,7 @@ import type {
   RuntimeFailureClass
 } from "./carriers.js";
 import { RUNTIME_FAILURE_CLASS_VALUES } from "../contracts/index.js";
+import { requireFpResultContractEnvelope } from "../contracts/fp_result_contract_admission.js";
 
 const FULFILLMENT_STATUSES = Object.freeze([
   "fulfilled",
@@ -231,7 +233,19 @@ function parseNormalizedArtifactPayload(
   input: unknown,
   label: string
 ): ResultArtifact {
-  const payload = parsePlainObject(input, label);
+  const contractIdentitySubmitted =
+    isPlainObject(input) && Object.hasOwn(input, "result_contract_ref");
+  const admittedEnvelope =
+    request.selectedResultContractRef === null || !contractIdentitySubmitted
+      ? null
+      : requireFpResultContractEnvelope({
+          profile: "attached_result_artifact",
+          selectedResultContractRef: request.selectedResultContractRef,
+          rawResult: input,
+          label
+        });
+  const payload =
+    admittedEnvelope?.payload ?? parsePlainObject(input, label);
   const edge = parseNonEmptyString(payload["edge"], `${label}.edge`);
   const rawAssessments = parseOptionalField(payload, "fulfillment_assessments");
   if (rawAssessments === undefined) {
@@ -258,6 +272,8 @@ function parseNormalizedArtifactPayload(
     basisId: request.basisId,
     dispatchRef: request.dispatchRef,
     resultRef: request.resultRef,
+    resultContractRef:
+      admittedEnvelope?.resultContractRef ?? request.selectedResultContractRef,
     artifactPayload: {
       edge,
       actor: parseNonEmptyString(payload["actor"], `${label}.actor`),
@@ -313,6 +329,7 @@ function parseRuntimeFailureArtifact(
     basisId: request.basisId,
     dispatchRef: request.dispatchRef,
     resultRef: request.resultRef,
+    resultContractRef: request.selectedResultContractRef,
     artifactPayload: null,
     identityIssues: [],
     runtimeFailure: {
@@ -359,6 +376,10 @@ export function admitDispatchRequest(
     parseOptionalField(request, "traversalAttemptEnvelopeRef"),
     `${label}.traversalAttemptEnvelopeRef`
   );
+  const selectedResultContractRef = parseNullableNonEmptyString(
+    parseOptionalField(request, "selectedResultContractRef"),
+    `${label}.selectedResultContractRef`
+  );
   return constructDispatchRequest({
     basisId: parseNonEmptyString(request["basisId"], `${label}.basisId`),
     graphFunctionId: parseNonEmptyString(
@@ -373,6 +394,7 @@ export function admitDispatchRequest(
     workerId: parseNonEmptyString(request["workerId"], `${label}.workerId`),
     backendId: parseNonEmptyString(request["backendId"], `${label}.backendId`),
     resultRef: parseNonEmptyString(request["resultRef"], `${label}.resultRef`),
+    selectedResultContractRef,
     expectedEdge: projectDispatchExpectedEdge(expectation),
     expectedAssessmentIds: projectDispatchAssessmentIds(expectation),
     traversalAttemptEnvelopeRef,

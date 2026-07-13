@@ -321,6 +321,41 @@ import {
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { fulfilledAttachedArtifactFor } from "./support/m03-iteration-fixtures.mjs";
 
+function standardLiveDispatchArtifactFor(input) {
+  const artifact = fulfilledAttachedArtifactFor(input);
+  return {
+    edge: artifact.edge,
+    actor: artifact.actor,
+    fulfillment_assessments: artifact.fulfillment_assessments
+  };
+}
+
+function promptBoundDispatchScript(artifact, prefix = "") {
+  const script = [
+    "const prompt=process.argv[1]??''",
+    "const marker='Set result_contract_ref to '",
+    "const line=prompt.split('\\n').find((row)=>row.startsWith(marker))",
+    "if(line===undefined||!line.endsWith('.'))throw new Error('missing result contract in prompt')",
+    "const resultContractRef=JSON.parse(line.slice(marker.length,-1))",
+    `const artifact=${JSON.stringify(artifact)}`,
+    "console.log(JSON.stringify({result_contract_ref:resultContractRef,...artifact}))"
+  ].join(";");
+  return prefix.length === 0 ? script : `${prefix};${script}`;
+}
+
+function promptBoundReviewScript(review, prefix = "") {
+  const script = [
+    "const prompt=process.argv[1]??''",
+    "const marker='Set resultContractRef to '",
+    "const line=prompt.split('\\n').find((row)=>row.startsWith(marker))",
+    "if(line===undefined||!line.endsWith('.'))throw new Error('missing result contract in prompt')",
+    "const resultContractRef=JSON.parse(line.slice(marker.length,-1))",
+    `const review=${JSON.stringify(review)}`,
+    "console.log(JSON.stringify({resultContractRef,...review}))"
+  ].join(";");
+  return prefix.length === 0 ? script : `${prefix};${script}`;
+}
+
 function runEngineIterate(input) {
   const basis = readmitThreeStageBasis(input.basis);
   return runEngineIterateBase({
@@ -1844,7 +1879,7 @@ test("S2.3 live selection: evaluator archive binds the emitted evaluation c-call
   const expectedAssessmentIds = firstVector.evaluators.map(
     (evaluator) => evaluator.name
   );
-  const dispatchArtifact = fulfilledAttachedArtifactFor({
+  const dispatchArtifact = standardLiveDispatchArtifactFor({
     expectedAssessmentIds,
     expectedEdge: firstVector.name,
     edge: firstVector.name,
@@ -1856,7 +1891,7 @@ test("S2.3 live selection: evaluator archive binds the emitted evaluation c-call
     agentContract: {
       agentKey: "generic",
       command: process.execPath,
-      argsTemplate: ["-e", script],
+      argsTemplate: ["-e", script, "{prompt}"],
       sanitizedEnvironmentPolicy: { prefixes: [] }
     },
     archiveRoot,
@@ -1870,10 +1905,15 @@ test("S2.3 live selection: evaluator archive binds the emitted evaluation c-call
     ...m03InstructionAssemblyRequestFields(liveBasis),
     pluginCapabilities: {
       liveFpDispatch: capability(
-        `console.log(JSON.stringify(${JSON.stringify(dispatchArtifact)}))`
+        promptBoundDispatchScript(dispatchArtifact)
       ),
       liveFpEvaluator: capability(
-        "console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))"
+        promptBoundReviewScript({
+          accepted: false,
+          closeDisposition: "retry",
+          assessmentIds: expectedAssessmentIds,
+          reasons: ["fixture review requests retry"]
+        })
       )
     }
   });
@@ -1946,7 +1986,7 @@ test("S2.3 live evaluator incomplete resume blocks without repeating uncertain w
   const expectedAssessmentIds = firstVector.evaluators.map(
     (evaluator) => evaluator.name
   );
-  const dispatchArtifact = fulfilledAttachedArtifactFor({
+  const dispatchArtifact = standardLiveDispatchArtifactFor({
     expectedAssessmentIds,
     expectedEdge: firstVector.name,
     edge: firstVector.name,
@@ -1958,7 +1998,7 @@ test("S2.3 live evaluator incomplete resume blocks without repeating uncertain w
     agentContract: {
       agentKey: "generic",
       command: process.execPath,
-      argsTemplate: ["-e", script],
+      argsTemplate: ["-e", script, "{prompt}"],
       sanitizedEnvironmentPolicy: { prefixes: [] }
     },
     archiveRoot,
@@ -1974,10 +2014,18 @@ test("S2.3 live evaluator incomplete resume blocks without repeating uncertain w
       ...m03InstructionAssemblyRequestFields(liveBasis),
       pluginCapabilities: {
         liveFpDispatch: capability(
-          `console.log(JSON.stringify(${JSON.stringify(dispatchArtifact)}))`
+          promptBoundDispatchScript(dispatchArtifact)
         ),
         liveFpEvaluator: capability(
-          "require('fs').appendFileSync('evaluator-worker-count','x');console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))"
+          promptBoundReviewScript(
+            {
+              accepted: true,
+              closeDisposition: "close",
+              assessmentIds: expectedAssessmentIds,
+              reasons: []
+            },
+            "require('fs').appendFileSync('evaluator-worker-count','x')"
+          )
         )
       }
     });

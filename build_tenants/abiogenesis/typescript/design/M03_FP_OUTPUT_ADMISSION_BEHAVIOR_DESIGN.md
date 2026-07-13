@@ -32,7 +32,8 @@ closure.
 ### Explicit exclusions
 
 - arbitrary domain-extension schema execution, which remains the named
-  `REQ-R-ABG3-PAYLOAD-028` / `T-244` gap;
+  `REQ-R-ABG3-PAYLOAD-028` gap routed by the T-244 feature register; its
+  singular realization leaf is not yet admitted;
 - hostile in-process object forgery or filesystem tamper resistance;
 - semantic truth inferred from worker prose;
 - traversal-result conservation, owned by `T-267`;
@@ -251,7 +252,7 @@ classDiagram
   }
   class DeclaredArtifactSchemaExecution {
     <<deferred>>
-    +T-244
+    +unadmitted realization leaf
   }
 
   DeclaredFpExecutionRequest --> PromptManifest : conserves selection
@@ -369,7 +370,7 @@ projection. There is no raw-output-to-close transition.
 | Raw F_P output cannot become accepted or closed directly | contract envelope and lane admission precede events; replay precedes close | `pass` |
 | Contract identity remains exact | one selected ref is conserved and checked against the worker response | `pass` |
 | Incomplete or contradictory output remains non-closing | closed status/review tables produce blocked or contract failure | `pass` |
-| Arbitrary domain extension schema execution is claimed | explicitly deferred to T-244 and undeclared fields fail | `not_applicable` |
+| Arbitrary domain extension schema execution is claimed | explicitly deferred to a singular realization leaf routed by the T-244 register, and undeclared fields fail | `not_applicable` |
 
 ## Axiom Evaluation
 
@@ -378,19 +379,19 @@ projection. There is no raw-output-to-close transition.
 | F_P output is data, not closure truth | `C-ALGEBRA-018`; `PAYLOAD-012` | raw output is effect-edge-only | admission and replay are mandatory | no raw-to-close edge | distinct carriers | closed ingress plus event folds | `pass` | none |
 | Selected result contract is exact and addressable | `INSTRUCTION-ASSEMBLY-005/-014` | selected ref is prime request truth | same ref reaches admission | wrong ref enters refusal | required carrier field on declared path | equality check at one atom | `pass` | none |
 | Standard response schemas are closed | `C-ALGEBRA-018` | fixed profiles and admitted envelope | profile precedes lane parser | unknown key enters refusal | readonly closed normalized carriers | exact allowed/required key checks | `pass` | none |
-| Contract-ref echo is not domain validation | `PAYLOAD-024/-028` | admitted envelope separates lineage from deferred domain schema | only standard profile fields proceed | domain content enters refusal | no fabricated schema-success field | selected-ref equality plus explicit T-244 deferral | `pass` | none |
+| Contract-ref echo is not domain validation | `PAYLOAD-024/-028` | admitted envelope separates lineage from deferred domain schema | only standard profile fields proceed | domain content enters refusal | no fabricated schema-success field | selected-ref equality plus explicit deferral to an unadmitted realization leaf | `pass` | none |
 | Status families are contradiction-free | `C-ALGEBRA-018` | four transform variants have explicit relations | contradictions refuse before events | contradiction state is non-closing | discriminant plus field invariants | constructor and raw admission share checks | `pass` | none |
 | Incomplete evaluation cannot close by omission | `PAYLOAD-006`; `INSTRUCTION-ASSEMBLY-014` | review keys and assessment identity are required | no defaults are introduced | incomplete enters blocked | required normalized fields | exact expected-set and cross-field checks | `pass` | none |
 | Plugins do not own runtime truth | `PAYLOAD-010/-021` | plugin outputs are subordinate | runtime owns events and replay | only replay projects continuation/close | plugin API has no emit/close capability | engine event admission | `pass` | none |
 | Producer and result identity are request-owned | `PAYLOAD-002/-003` | request carriers own actor/result/contract identity | worker echo is checked, not trusted | mismatch refuses | required refs | request-result equality checks | `pass` | none |
-| Domain extensions use declared schemas | `PAYLOAD-028` | future schema execution is deferred | standard profiles reject extensions | extension enters shape refusal | no extension carrier in this slice | universal adoption remains named | `not_applicable` | T-244 |
+| Domain extensions use declared schemas | `PAYLOAD-028` | future schema execution is deferred | standard profiles reject extensions | extension enters shape refusal | no extension carrier in this slice | universal adoption remains named | `not_applicable` | unadmitted realization leaf routed by T-244 |
 | Defensive scope is proportional | operating trust boundary | external raw data defended; typed in-process values trusted | no hostile-local branch | no tamper states | ordinary readonly carriers | response-boundary checks only | `pass` | none |
 
 ## G1-G5 Disposition
 
 | Gap | Proportional disposition | Closure evidence |
 |---|---|---|
-| G1 | close standard base vocabularies; reject undeclared extensions; leave universal declared-schema execution to T-244 | unknown top-level and closure-like fields fail on both profiles |
+| G1 | close standard base vocabularies; reject undeclared extensions; leave universal declared-schema execution to a singular realization leaf routed by T-244 | unknown top-level and closure-like fields fail on both profiles |
 | G2 | enforce the four-status relation table in construction and raw admission | contradictory status/reason/evidence combinations fail |
 | G3 | exercise malformed, incomplete, contradictory, unattributed, nonretryable, exhausted, and valid results through the supported attached/live path | focused runtime differential plus absence of accepted payload/close facts on refusal |
 | G4 | carry the T-256 selected contract through request, admission, result, and evidence | wrong/missing contract fails; admitted result preserves exact ref |

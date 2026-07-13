@@ -96,9 +96,13 @@ interface BlockedAttachedResult {
 }
 
 function dispatchRequestForTransition(
-  transition: FpDispatchTransition
+  transition: FpDispatchTransition,
+  transformRequest: FpTransformRequest
 ): DispatchRequest {
-  const request = dispatchRequestsForTransition(transition)[0];
+  const request = dispatchRequestsForTransition(
+    transition,
+    transformRequest.selectedResultContractRef
+  )[0];
   if (request === undefined) {
     throw new TypeError("attached F_P loop requires a dispatch request");
   }
@@ -194,10 +198,13 @@ function scopedTransformResult(input: {
       artifactRef: input.artifact.resultRef,
       status: input.status,
       reason: input.reason ?? null,
-      evidenceCandidates: evidenceCandidatesForArtifact({
-        transformRequest: input.transformRequest,
-        artifact: input.artifact
-      })
+      evidenceCandidates:
+        input.status === "returned" || input.status === "blocked"
+          ? evidenceCandidatesForArtifact({
+              transformRequest: input.transformRequest,
+              artifact: input.artifact
+            })
+          : Object.freeze([])
     })
   );
 }
@@ -326,6 +333,7 @@ function admitAttachedResultArtifact(input: {
       basisId: input.request.basisId,
       dispatchRef: input.request.dispatchRef,
       resultRef: input.request.resultRef,
+      resultContractRef: input.request.selectedResultContractRef,
       artifactPayload: null,
       identityIssues: [],
       runtimeFailure: {
@@ -586,7 +594,10 @@ export function deriveAttachedFpResultDecision(input: {
   readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
   readonly maxAttempts?: number | undefined;
 }): AttachedFpResultDecision {
-  const request = dispatchRequestForTransition(input.transition);
+  const request = dispatchRequestForTransition(
+    input.transition,
+    input.transformRequest
+  );
   const artifact = admitAttachedResultArtifact({
     request,
     outcome: input.outcome

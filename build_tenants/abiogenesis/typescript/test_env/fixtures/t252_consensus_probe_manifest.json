@@ -1,6 +1,6 @@
 {
   "kind": "t252_consensus_gtl_probe_manifest",
-  "version": 2,
+  "version": 3,
   "authority": {
     "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
@@ -2424,6 +2424,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/initial-semantic-assessment"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2452,6 +2457,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/submitter-response"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2478,6 +2488,11 @@
           "instruction-protocol://abg/consensus/reducer",
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
+        ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/fh-pending-interaction"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -2507,6 +2522,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/post-submitter-semantic-assessment"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2533,6 +2553,11 @@
           "instruction-protocol://abg/consensus/reducer",
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
+        ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/fh-pending-interaction"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -2562,6 +2587,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/initial-semantic-assessment"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2590,6 +2620,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/submitter-response"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2616,6 +2651,11 @@
           "instruction-protocol://abg/consensus/reducer",
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
+        ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/fh-pending-interaction"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -2645,6 +2685,11 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/post-submitter-semantic-assessment"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
       },
@@ -2672,8 +2717,159 @@
           "instruction-protocol://abg/consensus/reviewer",
           "instruction-protocol://abg/consensus/submitter"
         ],
+        "targetCompatibilityRefs": [
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-envelope/generic",
+          "schema://abg/consensus/fh-pending-interaction"
+        ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
+      }
+    ],
+    "fpResultContractAdmissionRows": [
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:642ee4666989208f91f5c283a75cc033669bda20bb6730959263c13b2d838884",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "schema://abg/consensus/initial-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:aba9675305de86f935b64f24b3558900edceec077aeb0f33721d3e6b7ebd716d",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:8c87fe0ae7e0b15172884791aa3020df9161e69959968495c5c8b409c92dc7f5",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "schema://abg/consensus/submitter-response",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:e10a821d739e25eb85c6e5afbdfe778996261403f513dcf683760f6ff45d19d3",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:d3ee6f01f988108bd8fc6f3ae82bfcfd33213273781bb3535121a0d0711f29d9",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:c9625861302729262e260871c7a57ef177dc7fcbfe03dd3238fc17d851c7ce8f",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/initial-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:642ee4666989208f91f5c283a75cc033669bda20bb6730959263c13b2d838884",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round].stages[0:reduce_round]",
+        "selectedResultContractRef": "schema://abg/consensus/initial-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:aba9675305de86f935b64f24b3558900edceec077aeb0f33721d3e6b7ebd716d",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-response",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:8c87fe0ae7e0b15172884791aa3020df9161e69959968495c5c8b409c92dc7f5",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response].stages[0:submitter_response]",
+        "selectedResultContractRef": "schema://abg/consensus/submitter-response",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:e10a821d739e25eb85c6e5afbdfe778996261403f513dcf683760f6ff45d19d3",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "gtl://target-carrier-contract/generic-output:node://abg/consensus/post-submitter-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:d3ee6f01f988108bd8fc6f3ae82bfcfd33213273781bb3535121a0d0711f29d9",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "gtl://target-carrier-envelope/generic",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:bf6d7fe322dea492d694cfea0d425dde1c2b3d5e1cd010837dd9070dfe2eb019",
+        "failureClass": null
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round].stages[0:reassess_round]",
+        "selectedResultContractRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "profile": "standard_live_review",
+        "status": "admitted",
+        "payloadDigest": "sha256:c9625861302729262e260871c7a57ef177dc7fcbfe03dd3238fc17d851c7ce8f",
+        "failureClass": null
       }
     ],
     "executionContextJoinStatusCounts": {
@@ -2864,8 +3060,8 @@
       },
       {
         "ticketId": "T-256",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-256-close-declared-execution-context-join.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-256-close-declared-execution-context-join.md",
         "families": [
           "carrier_field_indirection",
           "declared_instruction_protocol_join"
@@ -2971,19 +3167,18 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 10,
-    "activeOwnedButNotObservedFamilyCount": 2,
+    "observedActiveGapFamilyCount": 9,
+    "activeOwnedButNotObservedFamilyCount": 1,
     "activeOwnedButNotObservedFamilies": [
-      "carrier_field_indirection",
-      "declared_instruction_protocol_join"
+      "fp_result_contract_admission"
     ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 10,
-    "observedGapEvidenceDigest": "sha256:839f8fe5bbce94d5a5b4b9d434e854a95efcc190abc9a9874532cfc3b88c7242",
+    "observedGapFamilyCount": 9,
+    "observedGapEvidenceDigest": "sha256:9652dab4714141a43a410b9e7011cd10fb60d89d5e167da97f4a729139de3437",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3039,37 +3234,6 @@
       "authorityDigest": "sha256:4f39ade165af931f4599b470c040cf1d704a53eec382084991938abb011677c2",
       "actualRelation": "F_H stages are declared while hold, public act, and resume remain unrealized",
       "actualRelationDigest": "sha256:6e69ab1fe08c676fe8dc8aa7ad43ae7c19de4fc481411043c06f6b56a43c6357",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "fp_result_contract_admission",
-      "ownerTicket": "T-257",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "coverage-fp-result-contract-admission"
-      ],
-      "canonicalBodyPaths": [
-        "programs[0:program://abg/consensus/review-one-profile]",
-        "programs[10:program://abg/consensus/submitter-response]",
-        "programs[12:program://abg/consensus/reassess-round]",
-        "programs[8:program://abg/consensus/reduce-round]"
-      ],
-      "observationSources": [
-        "structure:declared-fp-c-stages"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-P-CONSENSUS-010..012",
-        "ticket-source:.ai-workspace/tickets/active/T-257-close-fp-result-contract-admission.md",
-        "ticket:T-257"
-      ],
-      "authorityDigest": "sha256:6dbbd78b6c60541de6199d16d00f6bbd758af3cd3eba2d7e63ae9abb5bdca094",
-      "actualRelation": "F_P stages are declared while raw output admission is absent from the runtime path",
-      "actualRelationDigest": "sha256:20885fbab3db0838fdc17440ba814cbd493fe3284fa2ba49d1c1b13e1ef936d0",
       "evidenceRefs": [
         "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
         "ticket:T-252"
@@ -3448,5 +3612,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:7059842547d46179d58774acb74182e8b61373cd2f84ba890a0d0bbeff0b943e"
+  "manifestDigest": "sha256:06b9c9e54e40b085c90d6e293b73c8d053a5a2dfdf2450bc03376c98797079e1"
 }

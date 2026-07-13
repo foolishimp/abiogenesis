@@ -9,15 +9,31 @@ if (callLog === undefined || callLog.length === 0) {
 } else {
   appendFileSync(callLog, "called\n", "utf8");
   const prompt = process.argv[2] ?? "";
-  const output = prompt.includes("Run evaluate")
+  const evaluate = prompt.includes("Run evaluate");
+  const marker = evaluate
+    ? "Set resultContractRef to "
+    : "Set result_contract_ref to ";
+  const contractLine = prompt
+    .split("\n")
+    .find((line) => line.startsWith(marker));
+  if (contractLine === undefined || !contractLine.endsWith(".")) {
+    throw new TypeError("prompt does not carry one selected result contract");
+  }
+  const resultContractRef = JSON.parse(
+    contractLine.slice(marker.length, -1)
+  );
+  const output = evaluate
     ? {
+        resultContractRef,
         accepted: true,
-        assessmentIds: []
+        closeDisposition: "close",
+        assessmentIds: [],
+        reasons: []
       }
     : {
+        result_contract_ref: resultContractRef,
         edge: "hello-input-to-output",
         actor: "t223-packed-fake-agent",
-        message: "Hello, world!",
         fulfillment_assessments: [
           {
             id: "instruction_response_admitted",

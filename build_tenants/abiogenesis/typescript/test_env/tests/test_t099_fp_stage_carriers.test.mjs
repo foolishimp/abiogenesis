@@ -305,8 +305,16 @@ test("T-099 negative: request-scoped transform admission rejects mismatched resu
             requestRef: "fp-transform-request://wrong",
             actorInvocationId: input.fpTransformRequest.actorInvocationId,
             resultRef: input.fpTransformRequest.resultRef,
+            artifactRef: "artifact://t099/mismatch",
             status: "returned",
-            evidenceCandidates: []
+            evidenceCandidates: [
+              {
+                candidateRef: "candidate://t099/mismatch",
+                authorityRef: "authority://t099/mismatch",
+                evidenceRefs: ["evidence://t099/mismatch"],
+                providerRefs: ["provider://t099/mismatch"]
+              }
+            ]
           }),
         /active request/i
       );
@@ -317,8 +325,16 @@ test("T-099 negative: request-scoped transform admission rejects mismatched resu
             requestRef: input.fpTransformRequest.requestRef,
             actorInvocationId: "actor-invocation://wrong",
             resultRef: input.fpTransformRequest.resultRef,
+            artifactRef: "artifact://t099/mismatch",
             status: "returned",
-            evidenceCandidates: []
+            evidenceCandidates: [
+              {
+                candidateRef: "candidate://t099/mismatch",
+                authorityRef: "authority://t099/mismatch",
+                evidenceRefs: ["evidence://t099/mismatch"],
+                providerRefs: ["provider://t099/mismatch"]
+              }
+            ]
           }),
         /active actor invocation/i
       );
@@ -329,8 +345,16 @@ test("T-099 negative: request-scoped transform admission rejects mismatched resu
             requestRef: input.fpTransformRequest.requestRef,
             actorInvocationId: input.fpTransformRequest.actorInvocationId,
             resultRef: "result://wrong",
+            artifactRef: "artifact://t099/mismatch",
             status: "returned",
-            evidenceCandidates: []
+            evidenceCandidates: [
+              {
+                candidateRef: "candidate://t099/mismatch",
+                authorityRef: "authority://t099/mismatch",
+                evidenceRefs: ["evidence://t099/mismatch"],
+                providerRefs: ["provider://t099/mismatch"]
+              }
+            ]
           }),
         /active result ref/i
       );

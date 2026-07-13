@@ -21,6 +21,7 @@ import {
   constructDeclaredCStageInvocationBasis,
   joinDeclaredExecutionContext
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
+import { admitFpResultContractEnvelope } from "../../build/semantic/code/src/abg/m03/contracts/fp_result_contract_admission.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
   ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE,
@@ -771,6 +772,8 @@ async function buildManifest() {
           ),
           fieldSlots,
           protocolRefs,
+          targetCompatibilityRefs:
+            contract === null ? [] : [...contract.targetCompatibilityRefs],
           fieldClosureObserved,
           protocolRoleObserved
         }
@@ -779,6 +782,40 @@ async function buildManifest() {
   });
   if (executionContextJoinRows.length === 0) {
     throw new TypeError("T-252 probe observed no F_P/F_H execution-context joins");
+  }
+  const fpResultContractAdmissionRows = executionContextJoinRows
+    .filter((row) => row.regime === "F_P")
+    .flatMap((row) =>
+      row.targetCompatibilityRefs.map((selectedResultContractRef) => {
+        const outcome = admitFpResultContractEnvelope({
+          profile: "standard_live_review",
+          selectedResultContractRef,
+          rawResult: {
+            resultContractRef: selectedResultContractRef,
+            accepted: true,
+            closeDisposition: "close",
+            assessmentIds: [],
+            reasons: []
+          }
+        });
+        return {
+          path: row.path,
+          selectedResultContractRef,
+          profile: "standard_live_review",
+          status: outcome.accepted ? "admitted" : "rejected",
+          payloadDigest: outcome.accepted
+            ? outcome.envelope.payloadDigest
+            : null,
+          failureClass: outcome.accepted
+            ? null
+            : outcome.failure.failureClass
+        };
+      })
+    );
+  if (fpResultContractAdmissionRows.length === 0) {
+    throw new TypeError(
+      "T-252 probe observed no compiler-derived F_P result-contract admission"
+    );
   }
 
   const conformance = typecheckGtlProgram({
@@ -942,7 +979,6 @@ async function buildManifest() {
     actualRelation:
       "the canonical T-252 F_P/F_H consumer path did not compile exact execution-context field closure"
   });
-  const fpRows = rowsForFibre("F_P", "coverage-fp-result-contract-admission");
   const fhRows = rowsForFibre("F_H", "coverage-fh-pending-runtime-hold");
   observeGap(observedGapEvidence, "declared_instruction_protocol_join", {
     rows: executionContextJoinRows
@@ -959,11 +995,20 @@ async function buildManifest() {
       "the canonical T-252 F_P/F_H consumer path did not resolve an admitted protocol for its exact domain stage role"
   });
   observeGap(observedGapEvidence, "fp_result_contract_admission", {
-    rows: fpRows,
-    observationSources: ["structure:declared-fp-c-stages"],
+    rows: fpResultContractAdmissionRows
+      .filter((row) => row.status !== "admitted")
+      .map((row) => ({
+        diagnosticId:
+          row.failureClass ?? "fp-result-contract-admission-unobserved",
+        path: row.path
+      })),
+    observationSources: [
+      "compiler:joinDeclaredExecutionContext",
+      "admission:admitFpResultContractEnvelope"
+    ],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
-      "F_P stages are declared while raw output admission is absent from the runtime path"
+      "a compiler-derived F_P result-contract ref did not pass the canonical result admission atom"
   });
   observeGap(observedGapEvidence, "fh_pending_runtime_hold", {
     rows: fhRows,
@@ -1093,7 +1138,7 @@ async function buildManifest() {
 
   const manifestPayload = {
     kind: "t252_consensus_gtl_probe_manifest",
-    version: 2,
+    version: 3,
     authority: {
       ticketRef:
         ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
@@ -1149,6 +1194,7 @@ async function buildManifest() {
         diagnosticIds: row.diagnosticIds
       })),
       executionContextJoinRows,
+      fpResultContractAdmissionRows,
       executionContextJoinStatusCounts: Object.fromEntries(
         [...new Set(executionContextJoinRows.map((row) => row.status))]
           .sort()

@@ -208,7 +208,6 @@ test("T-223 packed candidate gives isolated source-blind SDK and CLI lanes the s
       workerResponse: {
         edge: "hello-input-to-output",
         actor: "t223-packed-fake-agent",
-        message: "Hello, world!",
         fulfillment_assessments: [
           {
             id: "instruction_response_admitted",
@@ -220,7 +219,7 @@ test("T-223 packed candidate gives isolated source-blind SDK and CLI lanes the s
           }
         ]
       },
-      helloWorldMessage: "Hello, world!",
+      selectedResultContractPreserved: true,
       responseContractAdmitted: true,
       actorClosedWithArtifact: true,
       transformEvidenceAdmitted: true,

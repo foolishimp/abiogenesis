@@ -30,7 +30,10 @@ import {
   constructFpEvaluationFinding,
   constructFpEvaluationOutcome
 } from "../contracts/plugins.js";
+import { requireFpResultContractEnvelope } from "../contracts/fp_result_contract_admission.js";
 import { createHash } from "node:crypto";
+import { admitIJsonText } from "../../../shared/runtime_identity.js";
+import { isPlainObject } from "../../../shared/validation/primitives.js";
 import { admitTimeoutBudgetMs } from "./standard_handlers.js";
 import type { StandardCatalogRow } from "../contracts/plugin_selection.js";
 import { STANDARD_ENGINE_PLUGIN_CATALOG } from "../contracts/plugin_selection.js";
@@ -265,20 +268,14 @@ const liveFpDispatchContract = constructEnginePluginContract({
 
 // Worker output law (T-030 builder bug #5): output is a JSON object; byte
 // corruption or prose wrapping is a CONTRACT FAILURE for the retry
-// allowlist — blocked truth, never a crash. The extraction is the
-// first-"{"-to-last-"}" slice, matching the campaign-proven grammar.
+// allowlist — blocked truth, never a crash. Only one complete JSON object,
+// surrounded by whitespace, is the standard response grammar.
 function extractJsonObjectText(text: string): Readonly<Record<string, unknown>> {
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start === -1 || end === -1 || end <= start) {
-    throw new TypeError("worker output carries no JSON object");
-  }
-  const parsed: unknown = JSON.parse(text.slice(start, end + 1));
-  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+  const parsed = admitIJsonText(text, "live F_P worker output");
+  if (!isPlainObject(parsed)) {
     throw new TypeError("worker output JSON is not an object");
   }
-  const record: Readonly<Record<string, unknown>> = { ...parsed };
-  return record;
+  return parsed;
 }
 
 export function standardLiveFpDispatchPlugin(
@@ -302,6 +299,19 @@ export function standardLiveFpDispatchPlugin(
           status: "blocked",
           reason:
             "live fp dispatch requires the ABG instruction prompt manifest (contract_failure)",
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
+      const selectedResultContractRef =
+        input.instructionPromptManifest.selectedOutputContractRef;
+      if (
+        typeof selectedResultContractRef !== "string" ||
+        selectedResultContractRef.trim().length === 0
+      ) {
+        return constructFpDispatchOutcome({
+          status: "blocked",
+          reason:
+            "live fp dispatch requires one selected result contract before effects (contract_failure)",
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
@@ -338,6 +348,29 @@ export function standardLiveFpDispatchPlugin(
               "live fp dispatch archive completion carries the wrong outcome kind (contract_failure)",
             evidenceRefs: [input.sourceProjectionRef]
           });
+        }
+        if (outcome.status === "dispatched") {
+          try {
+            const envelope = requireFpResultContractEnvelope({
+              profile: "attached_result_artifact",
+              selectedResultContractRef,
+              rawResult: outcome.attachedResultArtifact,
+              label: "live fp dispatch cached result"
+            });
+            outcome = constructFpDispatchOutcome({
+              status: "dispatched",
+              resultRef: outcome.resultRef,
+              attachedResultArtifact: envelope.payload,
+              evidenceRefs: outcome.evidenceRefs
+            });
+          } catch {
+            return constructFpDispatchOutcome({
+              status: "blocked",
+              reason:
+                "live fp dispatch archive completion carries the wrong result contract (contract_failure)",
+              evidenceRefs: [input.sourceProjectionRef]
+            });
+          }
         }
         return outcome;
       }
@@ -401,7 +434,13 @@ export function standardLiveFpDispatchPlugin(
         });
       } else {
         try {
-          const artifact = extractJsonObjectText(transport.text);
+          const rawArtifact = extractJsonObjectText(transport.text);
+          const artifact = requireFpResultContractEnvelope({
+            profile: "attached_result_artifact",
+            selectedResultContractRef,
+            rawResult: rawArtifact,
+            label: "live fp dispatch result"
+          }).payload;
           outcome = constructFpDispatchOutcome({
             status: "dispatched",
             resultRef: `result:live_fp_dispatch:${label}`,
@@ -489,12 +528,14 @@ const liveFpEvaluatorContract = constructEnginePluginContract({
 });
 
 // The STANDARD REVIEW CONTRACT the live evaluator worker returns:
-//   { accepted: boolean, closeDisposition?: "close"|"retry",
-//     assessmentIds?: string[], reasons?: string[] }
+//   { resultContractRef: string, accepted: boolean,
+//     closeDisposition: "close"|"retry", assessmentIds: string[],
+//     reasons: string[] }
 // Acceptance corroboration is MECHANICAL: when the manifest declared
 // expected assessment ids, the review must attest every one — a worker
 // cannot accept by omission (the T-032 lesson at the evaluator seam).
 interface StandardLiveReview {
+  readonly resultContractRef: string;
   readonly accepted: boolean;
   readonly closeDisposition: "close" | "retry";
   readonly assessmentIds: readonly string[];
@@ -502,33 +543,25 @@ interface StandardLiveReview {
 }
 
 function admitStandardLiveReview(
-  artifact: Readonly<Record<string, unknown>>
+  rawArtifact: Readonly<Record<string, unknown>>,
+  selectedResultContractRef: string
 ): StandardLiveReview {
-  const allowedKeys = new Set([
-    "accepted",
-    "closeDisposition",
-    "assessmentIds",
-    "reasons"
-  ]);
-  const unknownKeys = Object.keys(artifact).filter((key) => !allowedKeys.has(key));
-  if (unknownKeys.length > 0) {
-    throw new TypeError(
-      `review contains unknown fields: ${unknownKeys.sort().join(", ")}`
-    );
-  }
+  const envelope = requireFpResultContractEnvelope({
+    profile: "standard_live_review",
+    selectedResultContractRef,
+    rawResult: rawArtifact,
+    label: "live fp evaluation review"
+  });
+  const artifact = envelope.payload;
   const accepted = artifact["accepted"];
   if (typeof accepted !== "boolean") {
     throw new TypeError("review.accepted must be a boolean");
   }
   const dispositionRaw = artifact["closeDisposition"];
   const closeDisposition =
-    dispositionRaw === undefined
-      ? accepted
-        ? "close"
-        : "retry"
-      : dispositionRaw === "close" || dispositionRaw === "retry"
-        ? dispositionRaw
-        : null;
+    dispositionRaw === "close" || dispositionRaw === "retry"
+      ? dispositionRaw
+      : null;
   if (closeDisposition === null) {
     throw new TypeError(
       `review.closeDisposition must be "close" or "retry", got ${JSON.stringify(dispositionRaw)}`
@@ -536,14 +569,12 @@ function admitStandardLiveReview(
   }
   const idsRaw = artifact["assessmentIds"];
   const assessmentIds =
-    idsRaw === undefined
-      ? Object.freeze([])
-      : Array.isArray(idsRaw) &&
-          idsRaw.every(
-            (row): row is string => typeof row === "string" && row.length > 0
-          )
-        ? Object.freeze([...idsRaw])
-        : null;
+    Array.isArray(idsRaw) &&
+    idsRaw.every(
+      (row): row is string => typeof row === "string" && row.length > 0
+    )
+      ? Object.freeze([...idsRaw])
+      : null;
   if (assessmentIds === null) {
     throw new TypeError(
       "review.assessmentIds must be an array of non-empty strings when present"
@@ -554,16 +585,33 @@ function admitStandardLiveReview(
   }
   const reasonsRaw = artifact["reasons"];
   const reasons =
-    reasonsRaw === undefined
-      ? Object.freeze([])
-      : Array.isArray(reasonsRaw) &&
-          reasonsRaw.every((row): row is string => typeof row === "string")
-        ? Object.freeze([...reasonsRaw])
-        : null;
+    Array.isArray(reasonsRaw) &&
+    reasonsRaw.every(
+      (row): row is string => typeof row === "string" && row.length > 0
+    )
+      ? Object.freeze([...reasonsRaw])
+      : null;
   if (reasons === null) {
-    throw new TypeError("review.reasons must be an array of strings when present");
+    throw new TypeError("review.reasons must be an array of non-empty strings");
   }
-  return Object.freeze({ accepted, closeDisposition, assessmentIds, reasons });
+  if (
+    (accepted && closeDisposition !== "close") ||
+    (!accepted && closeDisposition !== "retry")
+  ) {
+    throw new TypeError(
+      "review.accepted and review.closeDisposition are contradictory"
+    );
+  }
+  if (!accepted && reasons.length === 0) {
+    throw new TypeError("review rejected result requires at least one reason");
+  }
+  return Object.freeze({
+    resultContractRef: envelope.resultContractRef,
+    accepted,
+    closeDisposition,
+    assessmentIds,
+    reasons
+  });
 }
 
 function sha256Hex(text: string): string {
@@ -594,6 +642,19 @@ export function standardLiveFpEvaluatorPlugin(
           evidenceRefs: [input.sourceProjectionRef]
         });
       }
+      const selectedResultContractRef =
+        input.instructionPromptManifest.selectedOutputContractRef;
+      if (
+        typeof selectedResultContractRef !== "string" ||
+        selectedResultContractRef.trim().length === 0
+      ) {
+        return constructFpEvaluationOutcome({
+          status: "blocked",
+          reason:
+            "live fp evaluation requires one selected result contract before effects (contract_failure)",
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
       let archive: LivePluginArchiveOpenResult;
       try {
         archive = openEffectArchive(
@@ -606,6 +667,7 @@ export function standardLiveFpEvaluatorPlugin(
       } catch (error) {
         return constructFpEvaluationOutcome({
           status: "blocked",
+          resultContractRef: selectedResultContractRef,
           reason: `live fp evaluation archive refused: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: archiveErrorEvidence(error, input.sourceProjectionRef)
         });
@@ -623,8 +685,18 @@ export function standardLiveFpEvaluatorPlugin(
         if (outcome === null) {
           return constructFpEvaluationOutcome({
             status: "blocked",
+            resultContractRef: selectedResultContractRef,
             reason:
               "live fp evaluation archive completion carries the wrong outcome kind (contract_failure)",
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+        if (outcome.resultContractRef !== selectedResultContractRef) {
+          return constructFpEvaluationOutcome({
+            status: "blocked",
+            resultContractRef: selectedResultContractRef,
+            reason:
+              "live fp evaluation archive completion carries the wrong result contract (contract_failure)",
             evidenceRefs: [input.sourceProjectionRef]
           });
         }
@@ -636,6 +708,7 @@ export function standardLiveFpEvaluatorPlugin(
       } catch (error) {
         return constructFpEvaluationOutcome({
           status: "blocked",
+          resultContractRef: selectedResultContractRef,
           reason: `live fp evaluation archive preparation failed: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
@@ -653,6 +726,7 @@ export function standardLiveFpEvaluatorPlugin(
       } catch (transportError) {
         const outcome = constructFpEvaluationOutcome({
           status: "blocked",
+          resultContractRef: selectedResultContractRef,
           reason: `live fp evaluation transport threw after launch: ${archiveErrorText(transportError)} (contract_failure)`,
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });
@@ -667,6 +741,7 @@ export function standardLiveFpEvaluatorPlugin(
       if (transport.status !== 0 || transport.failureClass !== null) {
         outcome = constructFpEvaluationOutcome({
           status: "blocked",
+          resultContractRef: selectedResultContractRef,
           reason: [
             "live fp evaluation transport failed",
             `status=${String(transport.status)}`,
@@ -677,7 +752,10 @@ export function standardLiveFpEvaluatorPlugin(
         });
       } else {
         try {
-          const review = admitStandardLiveReview(extractJsonObjectText(transport.text));
+          const review = admitStandardLiveReview(
+            extractJsonObjectText(transport.text),
+            selectedResultContractRef
+          );
           const missing = input.expectedAssessmentIds.filter(
             (id) => !review.assessmentIds.includes(id)
           );
@@ -700,6 +778,7 @@ export function standardLiveFpEvaluatorPlugin(
           const evidenceRefs = evidenceFor(archive, input.sourceProjectionRef);
           outcome = constructFpEvaluationOutcome({
             status: "evaluated",
+            resultContractRef: review.resultContractRef,
             ambiguityStatus: accepted ? "fulfilled" : "partial",
             findings: [
               constructFpEvaluationFinding({
@@ -744,6 +823,7 @@ export function standardLiveFpEvaluatorPlugin(
           const message = archiveErrorText(error).slice(0, 160);
           outcome = constructFpEvaluationOutcome({
             status: "blocked",
+            resultContractRef: selectedResultContractRef,
             reason: `live fp evaluation review unparsable: ${message} (contract_failure)`,
             evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
           });
@@ -755,6 +835,7 @@ export function standardLiveFpEvaluatorPlugin(
       } catch (error) {
         return constructFpEvaluationOutcome({
           status: "blocked",
+          resultContractRef: selectedResultContractRef,
           reason: `live fp evaluation archive finalization failed after launch: ${archiveErrorText(error)} (contract_failure)`,
           evidenceRefs: evidenceFor(archive, input.sourceProjectionRef)
         });

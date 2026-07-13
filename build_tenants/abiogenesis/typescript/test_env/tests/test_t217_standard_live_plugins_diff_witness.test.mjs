@@ -16,10 +16,38 @@ import {
   standardLiveFpEvaluatorPlugin
 } from "../../build/semantic/code/src/abg/m03/index.js";
 
+const RESULT_CONTRACT_REF = "contract://t217/diff-witness";
+
 const MANIFEST = Object.freeze({
   renderedPrompt: "return a JSON object",
-  manifestRef: "manifest://t217/diff-witness"
+  manifestRef: "manifest://t217/diff-witness",
+  selectedOutputContractRef: RESULT_CONTRACT_REF
 });
+
+const VALID_REVIEW_SCRIPT = `console.log(${JSON.stringify(
+  JSON.stringify({
+    resultContractRef: RESULT_CONTRACT_REF,
+    accepted: true,
+    closeDisposition: "close",
+    assessmentIds: [],
+    reasons: []
+  })
+)})`;
+
+const VALID_DISPATCH_SCRIPT = `console.log(${JSON.stringify(
+  JSON.stringify({
+    result_contract_ref: RESULT_CONTRACT_REF,
+    edge: "source->target",
+    actor: "worker://t217/diff-witness",
+    fulfillment_assessments: [
+      {
+        id: "assessment://t217/diff-witness",
+        fulfillment_status: "fulfilled",
+        evidence_refs: ["evidence://t217/diff-witness"]
+      }
+    ]
+  })
+)})`;
 
 function fakeAgentContract(script, argsTemplate = ["-e", script]) {
   return Object.freeze({
@@ -143,7 +171,8 @@ function preparationFailureManifest(message) {
       }
       return "return a JSON object";
     },
-    manifestRef: `manifest://t217/${message}`
+    manifestRef: `manifest://t217/${message}`,
+    selectedOutputContractRef: RESULT_CONTRACT_REF
   };
 }
 
@@ -163,6 +192,7 @@ test("standard live plugins: non-archive errors refuse with source-only evidence
   const thrown = { toString: () => "non-error manifest refusal" };
   const manifest = {
     manifestRef: "manifest://t217/non-error-refusal",
+    selectedOutputContractRef: RESULT_CONTRACT_REF,
     get renderedPrompt() {
       throw thrown;
     }
@@ -182,7 +212,7 @@ test("standard live plugins: non-archive errors refuse with source-only evidence
 
 test("standard live plugins: malformed cached outcomes fail closed at each seam", async () => {
   const dispatchCapability = capability(
-    "console.log(JSON.stringify({ ok: true }))"
+    VALID_DISPATCH_SCRIPT
   );
   const dispatchPlugin = standardLiveFpDispatchPlugin(dispatchCapability);
   const dispatchRef = "c-call://t217/live-plugin-witness/cached-dispatch";
@@ -196,7 +226,7 @@ test("standard live plugins: malformed cached outcomes fail closed at each seam"
   assert.match(dispatchOutcome.reason, /wrong outcome kind/u);
 
   const evaluatorCapability = capability(
-    "console.log(JSON.stringify({ accepted: true }))"
+    VALID_REVIEW_SCRIPT
   );
   const evaluatorPlugin = standardLiveFpEvaluatorPlugin(evaluatorCapability);
   const evaluatorRef = "c-call://t217/live-plugin-witness/cached-evaluator";
@@ -249,7 +279,7 @@ test("standard live plugins: prelaunch artifact failures block before transport"
 });
 
 test("standard live evaluator: null identity and archive conflict refuse before effects", async () => {
-  const cap = capability("console.log(JSON.stringify({ accepted: true }))");
+  const cap = capability(VALID_REVIEW_SCRIPT);
   const plugin = standardLiveFpEvaluatorPlugin(cap);
   const nullIdentity = await plugin.evaluate(evaluatorInput(MANIFEST, null));
   assert.equal(nullIdentity.status, "blocked");

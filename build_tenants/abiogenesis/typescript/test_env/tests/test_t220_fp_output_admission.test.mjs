@@ -23,6 +23,20 @@ const TRANSFORM_RESULT = Object.freeze({
 });
 
 let evaluatorInvocation = 0;
+const RESULT_CONTRACT_REF = "contract://t220/fp-output";
+
+function reviewScript(overrides = {}) {
+  return `console.log(${JSON.stringify(
+    JSON.stringify({
+      resultContractRef: RESULT_CONTRACT_REF,
+      accepted: true,
+      closeDisposition: "close",
+      assessmentIds: [],
+      reasons: [],
+      ...overrides
+    })
+  )})`;
+}
 
 function capabilityWith(script) {
   const root = mkdtempSync(path.join(tmpdir(), "t220-fp-output-"));
@@ -48,7 +62,8 @@ function evaluatorInput(expectedAssessmentIds) {
     sourceProjectionRef: "projection://t220/fp-output",
     instructionPromptManifest: Object.freeze({
       renderedPrompt: "return the declared review JSON object",
-      manifestRef: "manifest://t220/fp-output"
+      manifestRef: "manifest://t220/fp-output",
+      selectedOutputContractRef: RESULT_CONTRACT_REF
     }),
     expectedAssessmentIds,
     selectedCompositionRef: "composition://t220/fp-output",
@@ -175,16 +190,16 @@ test("T-220 attached F_P artifact admission closes assessment and failure rows",
 test("T-220 live evaluator blocks malformed assessment identity and unknown fields", async () => {
   const cases = [
     [
-      "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'bogus'] }))",
+      reviewScript({ assessmentIds: ["a1", "bogus"] }),
       /unexpected ids: bogus/u
     ],
     [
-      "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1', 'a1'] }))",
+      reviewScript({ assessmentIds: ["a1", "a1"] }),
       /must not contain duplicates/u
     ],
     [
-      "console.log(JSON.stringify({ accepted: true, assessmentIds: ['a1'], closeDispostion: 'retry' }))",
-      /unknown fields: closeDispostion/u
+      reviewScript({ assessmentIds: ["a1"], closeDispostion: "retry" }),
+      /undeclared fields: closeDispostion/u
     ]
   ];
   for (const [script, expectedReason] of cases) {
@@ -199,9 +214,7 @@ test("T-220 live evaluator blocks malformed assessment identity and unknown fiel
 
 test("T-220 live evaluator treats missing expected assessment as retry, not closure", async () => {
   const outcome = await standardLiveFpEvaluatorPlugin(
-    capabilityWith(
-      "console.log(JSON.stringify({ accepted: true, assessmentIds: [] }))"
-    )
+    capabilityWith(reviewScript())
   ).evaluate(evaluatorInput(["a1"]));
   assert.equal(outcome.status, "evaluated");
   assert.equal(outcome.ambiguityStatus, "partial");

@@ -63,6 +63,7 @@ export interface FpTransformRequest {
   readonly workerId: string;
   readonly backendId: string;
   readonly resultRef: string;
+  readonly selectedResultContractRef: string | null;
   readonly sourceProjectionRef: string;
   readonly expectedAssessmentIds: readonly string[];
   readonly retryFrontierRef: string;
@@ -107,6 +108,7 @@ export interface FpTransformResult {
   readonly requestRef: string;
   readonly actorInvocationId: string;
   readonly resultRef: string;
+  readonly resultContractRef: string | null;
   readonly artifactRef: string | null;
   readonly status: FpTransformStatus;
   readonly reason: string | null;
@@ -125,15 +127,37 @@ const FORBIDDEN_FP_RESULT_AUTHORITY_FIELDS = Object.freeze([
 ] as const);
 
 function fpTransformRequestRef(input: {
-  readonly basis: ExecutionBasis;
+  readonly basisId: string;
   readonly vectorIndex: number;
-  readonly actorInvocationRef: ActorInvocationRef;
+  readonly actorInvocationId: string;
+  readonly selectedResultContractRef: string | null;
 }): string {
   return `fp-transform-request:${stableSha256HexDigest({
-    basisId: input.basis.id,
+    basisId: input.basisId,
     vectorIndex: input.vectorIndex,
-    actorInvocationId: input.actorInvocationRef.actorInvocationId
+    actorInvocationId: input.actorInvocationId,
+    selectedResultContractRef: input.selectedResultContractRef
   })}`;
+}
+
+export function bindFpTransformRequestResultContract(
+  request: FpTransformRequest,
+  selectedResultContractRef: string
+): FpTransformRequest {
+  const normalized = parseNonEmptyString(
+    selectedResultContractRef,
+    "FpTransformRequest.selectedResultContractRef"
+  );
+  return Object.freeze({
+    ...request,
+    requestRef: fpTransformRequestRef({
+      basisId: request.basisId,
+      vectorIndex: request.vectorIndex,
+      actorInvocationId: request.actorInvocationId,
+      selectedResultContractRef: normalized
+    }),
+    selectedResultContractRef: normalized
+  });
 }
 
 function parseNullableNonEmptyString(input: unknown, label: string): string | null {
@@ -292,6 +316,55 @@ function assertTransformStatus(
   throw new TypeError(`${label}: expected F_P transform status`);
 }
 
+function assertFpTransformResultStatusRelation(
+  result: FpTransformResult,
+  label: string
+): void {
+  switch (result.status) {
+    case "returned":
+      if (result.reason !== null) {
+        throw new TypeError(`${label}.reason: returned result requires null`);
+      }
+      if (result.artifactRef === null) {
+        throw new TypeError(`${label}.artifactRef: returned result requires an artifact`);
+      }
+      if (result.evidenceCandidates.length === 0) {
+        throw new TypeError(
+          `${label}.evidenceCandidates: returned result requires evidence`
+        );
+      }
+      if (
+        result.evidenceCandidates.some(
+          (candidate) =>
+            !candidate.complete ||
+            candidate.contradictsAuthority ||
+            candidate.deferred
+        )
+      ) {
+        throw new TypeError(
+          `${label}.evidenceCandidates: returned result requires complete, non-contradictory, non-deferred evidence`
+        );
+      }
+      return;
+    case "blocked":
+      if (result.reason === null) {
+        throw new TypeError(`${label}.reason: blocked result requires a reason`);
+      }
+      return;
+    case "runtime_failed":
+    case "contract_failed":
+      if (result.reason === null) {
+        throw new TypeError(`${label}.reason: failed result requires a reason`);
+      }
+      if (result.evidenceCandidates.length > 0) {
+        throw new TypeError(
+          `${label}.evidenceCandidates: failed result cannot admit evidence candidates`
+        );
+      }
+      return;
+  }
+}
+
 function assertFpTransformResultMatchesRequest(input: {
   readonly request: FpTransformRequest;
   readonly result: FpTransformResult;
@@ -310,6 +383,14 @@ function assertFpTransformResultMatchesRequest(input: {
   if (input.result.resultRef !== input.request.resultRef) {
     throw new TypeError(
       `${input.label}.resultRef: transform result does not match active result ref`
+    );
+  }
+  if (
+    input.result.resultContractRef !==
+    input.request.selectedResultContractRef
+  ) {
+    throw new TypeError(
+      `${input.label}.resultContractRef: transform result does not match selected result contract`
     );
   }
 }
@@ -373,6 +454,7 @@ export function constructFpTransformRequest(input: {
   readonly sourceProjectionRef: string;
   readonly expectedAssessmentIds: readonly string[];
   readonly retryFrontier: RetryFrontierProjection;
+  readonly selectedResultContractRef?: string | null | undefined;
   readonly pluginTraversalObserverBinding?: PluginTraversalObserverBindingSelection | null;
   readonly instructionCausalContext?: InstructionCausalContextProjection | null;
 }): FpTransformRequest {
@@ -384,10 +466,19 @@ export function constructFpTransformRequest(input: {
   if (input.retryFrontier.vectorIndex !== input.vectorIndex) {
     throw new TypeError("FpTransformRequest retry frontier vector mismatch");
   }
+  const selectedResultContractRef =
+    input.selectedResultContractRef === undefined ||
+    input.selectedResultContractRef === null
+      ? null
+      : parseNonEmptyString(
+          input.selectedResultContractRef,
+          "FpTransformRequest.selectedResultContractRef"
+        );
   const requestRef = fpTransformRequestRef({
-    basis: input.basis,
+    basisId: input.basis.id,
     vectorIndex: input.vectorIndex,
-    actorInvocationRef: input.actorInvocationRef
+    actorInvocationId: input.actorInvocationRef.actorInvocationId,
+    selectedResultContractRef
   });
   return Object.freeze({
     kind: "fp_transform_request",
@@ -405,6 +496,7 @@ export function constructFpTransformRequest(input: {
     workerId: input.basis.runtimeIdentity.workerId,
     backendId: input.basis.runtimeIdentity.backendId,
     resultRef: input.actorInvocationRef.resultRef,
+    selectedResultContractRef,
     sourceProjectionRef: input.sourceProjectionRef,
     expectedAssessmentIds: freezeStringArray(input.expectedAssessmentIds),
     retryFrontierRef: input.retryFrontier.frontierRef,
@@ -485,11 +577,12 @@ export function constructFpTransformResult(input: {
       "FpTransformResult.resultRef: transform result does not match active request"
     );
   }
-  return Object.freeze({
+  const result: FpTransformResult = Object.freeze({
     kind: "fp_transform_result",
     requestRef: input.request.requestRef,
     actorInvocationId: input.request.actorInvocationId,
     resultRef,
+    resultContractRef: input.request.selectedResultContractRef,
     artifactRef: input.artifactRef ?? null,
     status: input.status,
     reason: input.reason ?? null,
@@ -513,6 +606,8 @@ export function constructFpTransformResult(input: {
       )
     )
   });
+  assertFpTransformResultStatusRelation(result, "FpTransformResult");
+  return result;
 }
 
 export function admitFpTransformResult(
@@ -528,6 +623,7 @@ export function admitFpTransformResult(
       "requestRef",
       "actorInvocationId",
       "resultRef",
+      "resultContractRef",
       "artifactRef",
       "status",
       "reason",
@@ -549,7 +645,7 @@ export function admitFpTransformResult(
   if (candidatesRaw !== undefined && !Array.isArray(candidatesRaw)) {
     throw new TypeError(`${label}.evidenceCandidates: expected list`);
   }
-  return Object.freeze({
+  const admitted: FpTransformResult = Object.freeze({
     kind: "fp_transform_result",
     requestRef: parseNonEmptyString(result["requestRef"], `${label}.requestRef`),
     actorInvocationId: parseNonEmptyString(
@@ -557,6 +653,10 @@ export function admitFpTransformResult(
       `${label}.actorInvocationId`
     ),
     resultRef: parseNonEmptyString(result["resultRef"], `${label}.resultRef`),
+    resultContractRef: parseNullableNonEmptyString(
+      parseOptionalField(result, "resultContractRef"),
+      `${label}.resultContractRef`
+    ),
     artifactRef: parseNullableNonEmptyString(
       parseOptionalField(result, "artifactRef"),
       `${label}.artifactRef`
@@ -572,6 +672,8 @@ export function admitFpTransformResult(
       )
     )
   });
+  assertFpTransformResultStatusRelation(admitted, label);
+  return admitted;
 }
 
 export function admitFpTransformResultForRequest(

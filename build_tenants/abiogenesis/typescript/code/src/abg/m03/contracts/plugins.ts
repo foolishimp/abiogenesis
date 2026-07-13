@@ -351,6 +351,7 @@ export interface FpEvaluationFinding {
 export interface FpEvaluationOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fp_evaluation";
   readonly status: "evaluated" | "blocked";
+  readonly resultContractRef: string | null;
   readonly findings: readonly FpEvaluationFinding[];
   readonly ambiguityStatus: PayloadAmbiguityStatus;
   readonly diagnosticRefs: readonly string[];
@@ -1473,6 +1474,8 @@ export function constructEnginePluginInput(input: {
             (evaluator) => evaluator.name
           ),
           retryFrontier,
+          selectedResultContractRef:
+            input.instructionPromptManifest?.selectedOutputContractRef ?? null,
           pluginTraversalObserverBinding,
           instructionCausalContext
         })
@@ -1703,6 +1706,7 @@ export function constructFpEvaluationFinding(input: {
 
 export function constructFpEvaluationOutcome(input: {
   readonly status: FpEvaluationOutcome["status"];
+  readonly resultContractRef?: string | null | undefined;
   readonly findings?: readonly FpEvaluationFinding[] | undefined;
   readonly ambiguityStatus?: PayloadAmbiguityStatus | undefined;
   readonly diagnosticRefs?: readonly string[] | undefined;
@@ -1730,6 +1734,13 @@ export function constructFpEvaluationOutcome(input: {
   return Object.freeze({
     kind: "fp_evaluation",
     status: input.status,
+    resultContractRef:
+      input.resultContractRef === undefined || input.resultContractRef === null
+        ? null
+        : parseNonEmptyString(
+            input.resultContractRef,
+            "FpEvaluationOutcome.resultContractRef"
+          ),
     findings,
     ambiguityStatus,
     diagnosticRefs: freezeStringArray(input.diagnosticRefs ?? Object.freeze([])),
@@ -1991,8 +2002,19 @@ export function admitFpEvaluationOutcome(
     throw new TypeError(`${label}.findings: expected list`);
   }
   const ambiguityStatusRaw = parseOptionalField(outcomeObject, "ambiguityStatus");
+  const resultContractRefRaw = parseOptionalField(
+    outcomeObject,
+    "resultContractRef"
+  );
   return constructFpEvaluationOutcome({
     status,
+    resultContractRef:
+      resultContractRefRaw === undefined || resultContractRefRaw === null
+        ? null
+        : parseNonEmptyString(
+            resultContractRefRaw,
+            `${label}.resultContractRef`
+          ),
     findings: Object.freeze(
       findingsRaw.map((finding, index) =>
         admitFpEvaluationFinding(finding, `${label}.findings[${index}]`)

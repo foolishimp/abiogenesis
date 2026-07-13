@@ -7,6 +7,7 @@ import {
 } from "../../../gtl/m02/contracts/runtime_registry.js";
 import { sha256DigestForText } from "../../../shared/runtime_identity.js";
 import type { ExecutionBasis } from "./carriers.js";
+import { internalFpResultWireProfileFields } from "./fp_result_contract_admission.js";
 import {
   compileInstructionAssemblyPlan,
   constructDerivedDependencyInstructionTruth,
@@ -97,27 +98,36 @@ function defaultInstructionSectionText(input: {
   readonly vectorName: string;
   readonly computeStageRole: InstructionAssemblyComputeStageRole;
   readonly expectedAssessmentIds: readonly string[];
+  readonly selectedResultContractRef: string;
 }): string {
   const heading =
     `Run ${input.computeStageRole} for ${input.vectorName} without carrying an answer marker.`;
   const expectedAssessmentIds = JSON.stringify(input.expectedAssessmentIds);
   if (input.computeStageRole === "transform") {
+    const responseFields = internalFpResultWireProfileFields(
+      "attached_result_artifact"
+    ).join(", ");
     return [
       heading,
       "Standard live dispatch response protocol:",
       "Return exactly one JSON object and no prose.",
+      `Set result_contract_ref to ${JSON.stringify(input.selectedResultContractRef)}.`,
       `Set edge to ${JSON.stringify(input.vectorName)}.`,
       "Carry a non-empty actor string. Runtime worker, backend, role, assignment, and resolved-runtime identity are ABG-owned and must not be supplied by the worker.",
       "Carry fulfillment_assessments as a non-empty array. Each row uses only id, evaluator, fulfillment_status, fulfillment_detail, blocking_reasons, and evidence_refs; a fulfilled row has no blocking reasons and has at least one evidence ref.",
       `Expected assessment ids derived from this vector: ${expectedAssessmentIds}. When this list is non-empty, the fulfillment assessment ids must match it exactly. When it is empty, carry one evidence-backed instruction response assessment.`,
-      "Carry the fields required by the target output contract as top-level fields in the same JSON object."
+      `Use only ${responseFields}.`
     ].join("\n");
   }
   if (input.computeStageRole === "evaluate") {
+    const responseFields = internalFpResultWireProfileFields(
+      "standard_live_review"
+    ).join(", ");
     return [
       heading,
       "Standard live review response protocol:",
-      "Return exactly one JSON object and no prose, using only accepted, closeDisposition, assessmentIds, and reasons.",
+      `Return exactly one JSON object and no prose, using only ${responseFields}.`,
+      `Set resultContractRef to ${JSON.stringify(input.selectedResultContractRef)}.`,
       "accepted is boolean; closeDisposition is close or retry; assessmentIds and reasons are arrays of strings.",
       `assessmentIds must equal the expected ids derived from this vector: ${expectedAssessmentIds}.`,
       "Use accepted true with closeDisposition close only when every expected assessment is satisfied; otherwise use accepted false with closeDisposition retry and state the reasons."
@@ -149,6 +159,8 @@ function compiledInstructionPlanFor(input: {
     throw new Error(`no vector at index ${input.vectorIndex}`);
   }
   const prefix = prefixFor(input.options);
+  const selectedResultContractRef =
+    `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`;
   const planRef =
     `compiled-prompt-plan://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`;
   const result = compileInstructionAssemblyPlan({
@@ -195,10 +207,9 @@ function compiledInstructionPlanFor(input: {
       sourceTypeRefs: vector.source.map((entry) => entry.schema.ref),
       targetTypeRefs: [vector.target.schema.ref],
       outputContractRefs: [
-        `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
+        selectedResultContractRef
       ],
-      selectedOutputContractRef:
-        `contract://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`,
+      selectedOutputContractRef: selectedResultContractRef,
       proofRefs: [
         `proof://${prefix}/vector-${input.vectorIndex}/${input.computeStageRole}`
       ],
@@ -228,7 +239,8 @@ function compiledInstructionPlanFor(input: {
           computeStageRole: input.computeStageRole,
           expectedAssessmentIds: vector.evaluators.map(
             (evaluator) => evaluator.name
-          )
+          ),
+          selectedResultContractRef
         }),
         digestRef: sha256DigestForText(`${prefix}-vector-${input.vectorIndex}-${input.computeStageRole}`),
         excerptDigest: null,

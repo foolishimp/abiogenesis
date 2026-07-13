@@ -137,7 +137,9 @@ async function callCount(callLogPath) {
 
 function assertCanonicalEqual(actual, expected, label) {
   if (canonicalizeIJson(actual) !== canonicalizeIJson(expected)) {
-    throw new TypeError(`${label} do not match`);
+    throw new TypeError(
+      `${label} do not match: actual=${canonicalizeIJson(actual)} expected=${canonicalizeIJson(expected)}`
+    );
   }
 }
 
@@ -256,10 +258,19 @@ function workerAndAssuranceSemantics(events, expectPackedFake) {
     throw new TypeError("worker result artifact has no admitted content");
   }
   const workerResponse = JSON.parse(artifact.artifactContentExcerpt);
+  const selectedResultContractRef = workerResponse.result_contract_ref;
+  if (
+    typeof selectedResultContractRef !== "string" ||
+    !/^contract:\/\/catalog-[0-9a-f]{16}\/vector-0\/transform$/u.test(
+      selectedResultContractRef
+    )
+  ) {
+    throw new TypeError("worker response lost the compiler-selected result contract");
+  }
   const expectedWorkerResponse = {
+    result_contract_ref: selectedResultContractRef,
     edge: "hello-input-to-output",
     actor: "t223-packed-fake-agent",
-    message: "Hello, world!",
     fulfillment_assessments: [
       {
         id: "instruction_response_admitted",
@@ -290,9 +301,6 @@ function workerAndAssuranceSemantics(events, expectPackedFake) {
     workerResponse.edge !== "hello-input-to-output" ||
     typeof workerResponse.actor !== "string" ||
     workerResponse.actor.length === 0 ||
-    typeof workerResponse.message !== "string" ||
-    workerResponse.message.length === 0 ||
-    !workerResponse.message.toLowerCase().includes("world") ||
     typeof assessment?.id !== "string" ||
     assessment.id.length === 0 ||
     typeof assessment.evaluator !== "string" ||
@@ -316,7 +324,9 @@ function workerAndAssuranceSemantics(events, expectPackedFake) {
     responseAdmission.resultRef !== artifact.resultRef ||
     responseAdmission.artifactRef !== artifact.artifactRef ||
     responseAdmission.artifactContentDigest !== artifact.artifactContentDigest ||
-    responseAdmission.outputContractRefs.length === 0
+    !responseAdmission.outputContractRefs.includes(
+      workerResponse.result_contract_ref
+    )
   ) {
     throw new TypeError("instruction response admission lost worker artifact truth");
   }
@@ -398,8 +408,12 @@ function workerAndAssuranceSemantics(events, expectPackedFake) {
     throw new TypeError("assurance block transition is incomplete");
   }
   return {
-    workerResponse,
-    helloWorldMessage: workerResponse.message,
+    workerResponse: {
+      edge: workerResponse.edge,
+      actor: workerResponse.actor,
+      fulfillment_assessments: workerResponse.fulfillment_assessments
+    },
+    selectedResultContractPreserved: true,
     responseContractAdmitted: true,
     actorClosedWithArtifact: true,
     transformEvidenceAdmitted: true,
