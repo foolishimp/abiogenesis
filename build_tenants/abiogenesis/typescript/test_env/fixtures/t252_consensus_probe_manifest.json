@@ -4015,8 +4015,8 @@
       },
       {
         "ticketId": "T-267",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-267-close-traversal-result-interface-and-bind-conservation.md",
         "families": [
           "traversal_execution_contracts"
         ]
@@ -4031,10 +4031,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 1,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "traversal_execution_contracts"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -4203,5 +4201,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:ed420dede144c595ce639aeed4bea9967a822d79208eb28926b8a772378e5875"
+  "manifestDigest": "sha256:0d14768a8f622b2e40e10bffa81dfbe46edd41219bf0a1aa2a7767dac9b8736f"
 }
