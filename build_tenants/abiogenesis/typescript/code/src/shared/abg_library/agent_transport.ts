@@ -169,11 +169,11 @@ export function claudeStreamJsonArgs(
   return Object.freeze(args);
 }
 
-// The dispatch-path argv composition is one exported seam so the lane wiring
-// is provable at the surface runAgentTransport actually uses — a direct
+// Keep dispatch-path argv composition at one internal seam. The lane wiring is
+// proven through runAgentTransport itself; a direct
 // claudeStreamJsonArgs proof does not witness this path (B-001 downstream
 // RCA: codex's tooled template masked the unconnected claude lane).
-export function composeAgentTransportArgs(
+function composeAgentTransportArgs(
   request: Pick<
     AgentTransportRequest,
     "contract" | "prompt" | "responseJsonSchema" | "lane"

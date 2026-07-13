@@ -9,7 +9,6 @@ import {
 } from "../../build/semantic/code/src/abg/m03/transport/index.js";
 import {
   claudeStreamJsonArgs,
-  composeAgentTransportArgs,
   contractForKnownAgent
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
 
@@ -135,42 +134,6 @@ test("M03 transport unit: Claude worker-executes lane keeps tools (execution-def
     !args.includes("--safe-mode"),
     "worker-executes lane must not carry execution-gating safe mode"
   );
-});
-
-test("M03 transport unit: the dispatch-path composition carries the lane (B-001 downstream RCA — plumbed-but-unconnected lane)", () => {
-  const claude = contractForKnownAgent("claude");
-
-  // default request: closed-prompt proof, tool-less
-  const defaulted = composeAgentTransportArgs(
-    { contract: claude, prompt: "return-json", responseJsonSchema: { type: "object" } },
-    "/tmp/out.txt"
-  );
-  assert.ok(defaulted.includes("--tools"), "default lane must stay tool-less");
-  assert.ok(defaulted.includes("--safe-mode"));
-
-  // worker-executes request: both execution-gating flags absent
-  const executing = composeAgentTransportArgs(
-    {
-      contract: claude,
-      prompt: "return-json",
-      responseJsonSchema: { type: "object" },
-      lane: "worker_executes"
-    },
-    "/tmp/out.txt"
-  );
-  assert.ok(
-    !executing.includes("--tools") && !executing.includes("--safe-mode"),
-    "worker-executes lane must reach the dispatch argv"
-  );
-  assert.ok(executing.includes("--json-schema"));
-
-  // non-claude agents: lane is inert, template renders placeholders
-  const codex = composeAgentTransportArgs(
-    { contract: contractForKnownAgent("codex"), prompt: "p", lane: "worker_executes" },
-    "/tmp/out.txt"
-  );
-  assert.ok(codex.includes("/tmp/out.txt"));
-  assert.ok(codex.includes("p"));
 });
 
 test("M03 transport unit: downstream append args are admitted and bounded", () => {
