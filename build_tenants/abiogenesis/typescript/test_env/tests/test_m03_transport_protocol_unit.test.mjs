@@ -163,6 +163,52 @@ test("M03 transport unit: downstream append args are admitted and bounded", () =
   );
 });
 
+test("M03 transport unit: ABG_TS_WORKER_SANDBOX=external drops agent confinement (layered external sandboxes)", () => {
+  process.env.ABG_TS_WORKER_SANDBOX = "external";
+  try {
+    const contract = contractForKnownAgent("codex");
+    assert.ok(contract.argsTemplate.includes("--sandbox"));
+    assert.ok(contract.argsTemplate.includes("danger-full-access"));
+    assert.ok(!contract.argsTemplate.includes("--full-auto"));
+  } finally {
+    delete process.env.ABG_TS_WORKER_SANDBOX;
+  }
+
+  // agent-specific binding wins over the generic declaration
+  process.env.ABG_TS_WORKER_SANDBOX = "external";
+  process.env.ABG_TS_CODEX_SANDBOX = "workspace-write";
+  try {
+    const contract = contractForKnownAgent("codex");
+    assert.ok(contract.argsTemplate.includes("workspace-write"));
+    assert.ok(!contract.argsTemplate.includes("danger-full-access"));
+  } finally {
+    delete process.env.ABG_TS_WORKER_SANDBOX;
+    delete process.env.ABG_TS_CODEX_SANDBOX;
+  }
+
+  // unknown value fails closed with a governed diagnostic
+  process.env.ABG_TS_WORKER_SANDBOX = "off";
+  try {
+    assert.throws(
+      () => contractForKnownAgent("codex"),
+      /ABG_TS_WORKER_SANDBOX must be 'agent_default' or 'external'/u
+    );
+  } finally {
+    delete process.env.ABG_TS_WORKER_SANDBOX;
+  }
+
+  // proof-law posture unaffected: claude closed-prompt lane stays tool-less
+  process.env.ABG_TS_WORKER_SANDBOX = "external";
+  try {
+    const args = claudeStreamJsonArgs("return-json");
+    const toolsIndex = args.indexOf("--tools");
+    assert.notEqual(toolsIndex, -1);
+    assert.equal(args[toolsIndex + 1], "");
+  } finally {
+    delete process.env.ABG_TS_WORKER_SANDBOX;
+  }
+});
+
 test("M03 transport unit: contract append env binding localizes argv without breaking placeholders", () => {
   process.env.ABG_TS_CODEX_APPEND_ARGS = JSON.stringify([
     "--append-system-prompt",

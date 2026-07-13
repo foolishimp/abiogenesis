@@ -44,6 +44,33 @@ export function transportAppendArgsEnvVar(
   return `ABG_TS_${agentKey.toUpperCase()}_APPEND_ARGS`;
 }
 
+// Adapter/bootstrap ingress (runtime truth rule 11; B-001 F_H ruling
+// 2026-07-13): corporate/cloud installs already run workers inside layered
+// external sandboxes (VM, container, network policy) — the agent CLI's inner
+// sandbox is redundant confinement there and breaks socket-binding subject
+// toolchains (the BUG #6 class: services, sbt forked transports, Netty).
+// ABG_TS_WORKER_SANDBOX=external declares that sandboxing is provided by the
+// environment: agent transports drop their own confinement. The default
+// (agent_default) keeps each agent's native sandbox. Agent-specific bindings
+// (ABG_TS_CODEX_SANDBOX) take precedence over this generic declaration.
+// Proof-law postures are unaffected: the claude closed-prompt lane stays
+// tool-less regardless — that is evidence law, not confinement.
+export type WorkerSandboxDeclaration = "agent_default" | "external";
+
+export function declaredWorkerSandbox(): WorkerSandboxDeclaration {
+  const raw = process.env["ABG_TS_WORKER_SANDBOX"];
+  if (raw === undefined || raw === "" || raw === "agent_default") {
+    return "agent_default";
+  }
+  if (raw === "external") {
+    return "external";
+  }
+  throw new TypeError(
+    "ABG_TS_WORKER_SANDBOX must be 'agent_default' or 'external' (governed install binding); got: " +
+      raw
+  );
+}
+
 function parseAppendArgsJson(
   envVar: string,
   rawValue: string | undefined
@@ -221,7 +248,9 @@ export function contractForKnownAgent(
             ...(process.env["ABG_TS_CODEX_SANDBOX"] !== undefined &&
             process.env["ABG_TS_CODEX_SANDBOX"] !== ""
               ? ["--sandbox", process.env["ABG_TS_CODEX_SANDBOX"]]
-              : ["--full-auto"]),
+              : declaredWorkerSandbox() === "external"
+                ? ["--sandbox", "danger-full-access"]
+                : ["--full-auto"]),
             "--skip-git-repo-check",
             "-o",
             "{output_path}",
