@@ -15,6 +15,7 @@
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
 - proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
 - closure_proof_ref: .ai-workspace/comments/codex/20260713T044638Z_PROOF_t252_t263_t264_post_acceptance_closure.md
+- authority_repair_ref: .ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md
 - design_ref: build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md
 
 ## Boundary
@@ -56,14 +57,18 @@ The corrected probe:
 - T-263 owns strict raw Module admission.
 - T-264 projects exact effect requirements and proportional structural
   conformance inventory.
-- T-255 admits an exact capability profile and performs compatibility
-  admission.
-- DS-4 supplies the published tenant capability profile used by T-255.
+- M04 admits the canonical tenant-conformance manifest; T-255 derives its
+  basis-preserving capability coverage and performs compatibility admission.
+- DS-4 supplies ABG 5.0 tenant-conformance-manifest coverage including
+  Consensus.
 - ABG runtime owners retain traversal, effects, events, replay, and closure.
 
 ## Closure Evidence
 
 - body digest remains unchanged;
+- sealed manifest authority cites this completed ticket path and its regenerated
+  digest is
+  `sha256:d3abc30c985327851c958711afac85514c1db6283a9aca4a94a72b3b9e706439`;
 - canonical serialization round-trips through strict M02 admission;
 - structural invalidity count is zero;
 - every observed gap has compiler or structural observation evidence before

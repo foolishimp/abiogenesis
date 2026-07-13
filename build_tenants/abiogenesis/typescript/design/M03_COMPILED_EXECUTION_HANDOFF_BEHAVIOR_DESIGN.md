@@ -617,7 +617,7 @@ sequenceDiagram
         Capability-->>Handoff: not_applicable disposition
         Handoff-->>Caller: immutable published handoff
         Caller->>Fence: submit exact published handoff
-        Fence-->>Caller: startup_blocked awaiting T267; no traversal or effects
+        Fence-->>Caller: startup_blocked awaiting T267, no traversal or effects
       else effect requirements and admitted manifest absent
         Handoff-->>Caller: blocked_missing_exact_manifest outcome
       else admitted manifest supplied by caller
@@ -629,13 +629,13 @@ sequenceDiagram
           Capability-->>Handoff: compatible_exact_manifest disposition
           Handoff-->>Caller: immutable published handoff
           Caller->>Fence: submit exact published handoff
-          Fence-->>Caller: startup_blocked awaiting T267; no traversal or effects
+          Fence-->>Caller: startup_blocked awaiting T267, no traversal or effects
         end
       end
     end
   end
 
-  Note over M04Manifest,Fence: M04 admits before M03; M03 never calls M04
+  Note over M04Manifest,Fence: M04 admits before M03, M03 never calls M04
   Note over T254,Fence: No participant reads display names or creates a second selector
   Note over Handoff,Fence: Published handoff is not runtime admission or an edge-closed verdict
 ```
@@ -664,7 +664,7 @@ stateDiagram-v2
   CapabilityResolving --> CapabilityBlocked: admitted manifest missing or incompatible
   CapabilityResolving --> HandoffPublished: compatible or no effects required
   HandoffPublished --> StartupBlocked: T267 traversal authority unresolved
-  StartupBlocked --> AwaitingTraversalConservation: retain exact handoff; no traversal or effects
+  StartupBlocked --> AwaitingTraversalConservation: retain exact handoff, no traversal or effects
   StructuralOnly --> [*]: successor HOF owner retains runtime
   SuccessorBlocked --> [*]: named constructor owner retains runtime
   CapabilityBlocked --> [*]: DS4 manifest coverage or compatibility repair required

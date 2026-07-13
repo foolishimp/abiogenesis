@@ -19,6 +19,7 @@
 - upstream_decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
 - previous_review_ref: .ai-workspace/comments/codex/20260713T045307Z_REVIEW_GATE_t255_compiled_handoff_design_repair.md
 - review_ref: .ai-workspace/comments/codex/20260713T052506Z_REVIEW_GATE_t255_round2_authority_correction.md
+- correction_proof_ref: .ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md
 
 ## Boundary
 

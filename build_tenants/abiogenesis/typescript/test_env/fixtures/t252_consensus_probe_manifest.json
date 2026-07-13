@@ -2,7 +2,7 @@
   "kind": "t252_consensus_gtl_probe_manifest",
   "version": 2,
   "authority": {
-    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
     "abiPackageVersion": "5.0.0-dev.0"
   },
@@ -3045,5 +3045,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:5a9f6b2599ee4463967cdf475b5ff9be6f340cd69edc86d794eae8dc1ed08915"
+  "manifestDigest": "sha256:d3abc30c985327851c958711afac85514c1db6283a9aca4a94a72b3b9e706439"
 }

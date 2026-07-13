@@ -68,7 +68,19 @@ semantic, manifest, and diff gates before this review is presented.
 
 ## Verification
 
-Pending clean detached regeneration and gates.
+Clean detached proof is recorded at
+`.ai-workspace/comments/codex/20260713T053229Z_PROOF_t255_round2_t252_authority_repair.md`:
+
+- T-252 11/11 and GTL 82/82;
+- Mermaid 5/5 across nine registered three-view designs;
+- full semantic 1588/1588;
+- strict TypeScript and GTL law guard green; and
+- `git diff --check` green.
+
+The T-252 body digest remains
+`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`.
+The corrected sealed manifest digest is
+`sha256:d3abc30c985327851c958711afac85514c1db6283a9aca4a94a72b3b9e706439`.
 
 ## F_H Gate
 
