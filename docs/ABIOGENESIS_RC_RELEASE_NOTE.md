@@ -1,12 +1,27 @@
-# abiogenesis 4.6.0-rc.4 Release Candidate Note
+# abiogenesis 4.6.0-rc.5 Release Candidate Note
 
-It follows `4.6.0-rc.3` and publishes the 4.6 support-line candidate as one
+It follows `4.6.0-rc.4` and publishes the 4.6 support-line candidate as one
 immutable downstream-consumable cut. This is an RC publication, not the final
-4.6.0 tap. The cut carries one bounded change family: the B-001 worker
-transport repricing, intaken from a corporate downstream consumer of
-`4.6.0-rc.3` and `odd_glc 0.1.0`.
+4.6.0 tap. The cut carries one bounded correction to the B-001 worker transport
+family after a corporate downstream Claude run exposed that rc.4 declared the
+capability lane without carrying it through the real dispatch path.
 
-## B-001: worker transport lanes and downstream command-line configuration
+## RC5 correction: connect the declared lane end to end
+
+- `AgentTransportRequest.lane` reaches the Claude argv composition used by
+  `runAgentTransport`; the default remains `closed_prompt_proof`.
+- Result classification applies the no-tool contract only to the closed-prompt
+  lane. Tool activity in `worker_executes` remains process evidence and does
+  not become a transport contract failure merely because execution occurred.
+- The deterministic regression now crosses the real `runAgentTransport`
+  subprocess, stream parser, tool-event counter, and classifier in both
+  postures; it also checks the written transport artifact on the
+  `worker_executes` path. The proof-only argv composer is not a published API.
+- Downstream graph products remain responsible for deriving the lane from
+  their declared execution-stage truth. This cut adds no graph semantics,
+  scheduler, retry controller, or public operator verb.
+
+## Retained B-001 transport contract
 
 - The claude stream-json transport carries a declared capability lane.
   Closed-prompt proof dispatches stay tool-less (`--safe-mode --tools ""`).
@@ -33,7 +48,7 @@ transport repricing, intaken from a corporate downstream consumer of
 
 ## Retained 4.6 substrate
 
-The `4.6.0-rc.3` substrate is retained unchanged outside the B-001 boundary:
+The `4.6.0-rc.4` substrate is retained unchanged outside the B-001 boundary:
 the T-217 witness/operator/observer/tuner substrate, capability-gated plugin
 selection and admission, the finite R5 repair gate, T-219 specification
 reconciliation, and the T-220 typed GTL and C authoring boundary with its
@@ -47,19 +62,20 @@ suite summary, package identity, packed tarball identity, checksums, and this
 RC note. Downstream qualification must consume that tarball rather than a
 mutable source path.
 
-Cut-scoped proof beyond the snapshot gates: the worker-executes claude lane
-was proven live (library-built argv, real claude worker executing the declared
-command in its turn with tool use observed), and the socket-binding posture
-was proven live through the odd_glc hello-world rust-service scenario running
-against the installed `4.6.0-rc.3` substrate with the unconfined sandbox
-binding. The B-001 ticket on this line carries the evidence record.
+Pre-snapshot proof beyond the deterministic gates crossed `runAgentTransport`
+with a real Claude worker: the dispatched argv carried neither execution gate,
+one tool call was observed, the command output returned, and failure
+classification was null. Packed downstream qualification is a publication
+gate for this candidate and is not pre-claimed by this embedded note.
 
 ## Predecessor lineage
 
-The `4.6.0-rc.3` qualification lineage remains valid predecessor evidence for
-the paths that actually ran on rc.3. The six-scenario odd_glc hello-world live
-ladder that motivated this cut is recorded on the `odd_glc` support line
-(`0.1.1` RC cycle) and proves the paired stack, not this cut alone.
+The rc.3 and rc.4 qualification lineages remain valid predecessor evidence only
+for the paths that actually ran on those cuts. In particular, rc.4 does not
+qualify Claude execution-stage dispatch because its lane stopped before
+`runAgentTransport`. The paired odd_glc qualification for rc.5 must be recorded
+on the odd_glc support line before publication and remains outside this
+immutable snapshot note.
 
 ## Explicit exclusions
 

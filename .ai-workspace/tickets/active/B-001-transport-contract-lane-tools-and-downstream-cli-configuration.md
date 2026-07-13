@@ -31,7 +31,7 @@
    - Design layer: **first missing layer.** No design decision reconciles (i) per-lane tool posture (closed-prompt fixture lanes are lawfully tool-less; execution-evidence lanes must have tools) and (ii) bounded downstream argv configuration. The hardwired argv + exact-match assertions are accidental law.
    - ⇒ `design_reframe`, re-enter at transport-contract design, flow to code, tests, release gate expectations.
 4. **Affected span:** `code/src/shared/abg_library/agent_transport.ts` (`claudeStreamJsonArgs`, lines ~116–137), `code/src/shared/abg_library/transport_contracts.ts` (per-agent `argsTemplate`s), m03 dispatch/actor seam consumers, `test_env/tests/test_m03_transport_protocol_unit.test.mjs` (+ any deepStrictEqual argv assertions), release-snapshot `test:semantic` gate expectations, install-binding docs.
-5. **Release scope:** contained in `support/4.6.x` → `v4.6.0-rc.4`. Propagation of the ratified design to `main` (5.0 line) is a separate follow-up ticket after Jim's ruling.
+5. **Release scope:** contained in `support/4.6.x` → `v4.6.0-rc.5`; `v4.6.0-rc.4` remains immutable with the unconnected dispatch lane. Propagation of the ratified design to `main` (5.0 line) is a separate follow-up ticket after Jim's ruling.
 
 ## Evidence
 
@@ -87,4 +87,4 @@
 ## Notes
 
 - Consumer bugs #3 (their monorepo .gitignore swallowing repacked tarballs) and the remainder of #4 were fixed downstream; no upstream action beyond this ticket.
-- Coordination: odd_glc `substrate.provenance.json` pins abg `4.6.0-rc.3` exactly (tarball sha). If this ticket lands in `v4.6.0-rc.4`, the odd_glc 0.1 support line must reprice its compatibility pin in its own ticket.
+- Coordination: odd_glc `substrate.provenance.json` pins abg `4.6.0-rc.3` exactly (tarball sha). For this ticket to land in `v4.6.0-rc.5`, the odd_glc 0.1 support line must reprice its compatibility pin in its own ticket.
