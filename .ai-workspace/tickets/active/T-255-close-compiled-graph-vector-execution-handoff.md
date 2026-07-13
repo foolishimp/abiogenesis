@@ -2,20 +2,21 @@
 
 - id: T-255
 - status: active
-- phase_status: design_rework_paused_at_upstream_review_gate
+- phase_status: reworked_design_ready_for_explicit_fh_review
 - review_status: pending_explicit_fh_acceptance
-- implementation_status: provisional_uncommitted_checkpoint
+- implementation_status: provisional_uncommitted_not_admitted
 - delivery_phase: DS-2
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
 - dependencies:
-  - T-252 explicitly accepted
-  - T-263 explicitly accepted and closed
-  - T-264 explicitly accepted and closed
+  - completed T-252 corrected construction checkpoint
+  - completed T-263 strict raw Module admission
+  - completed T-264 proportional conformance inventory
   - completed T-265 canonical GraphFunction applications and derived owner lineage
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+- upstream_decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
 
 ## Boundary
 
@@ -46,8 +47,9 @@ T-254 vector/program binding; authored equality alone is not enforcement.
 
 ## Entry And Exit
 
-Rework the candidate three-view design against the T-252 body and obtain F_H
-acceptance before code. Runtime must consume the exact T-254 binding, preserve
+The candidate three-view design has been reworked against the accepted T-252
+body and now requires its own explicit F_H acceptance before implementation is
+admitted. Runtime must consume the exact T-254 binding, preserve
 arbitrary lawful C-program shape, join the effective exact
 `abg.fn_composition` selection, enforce any `owningDeclarationRef` against the
 T-254 binding, and derive target, edge-closure-contract, and execution-handoff truth

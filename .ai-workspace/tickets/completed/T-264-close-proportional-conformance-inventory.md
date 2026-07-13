@@ -1,17 +1,19 @@
 # T-264 - Close Proportional Conformance Inventory
 
 - id: T-264
-- status: active
-- phase_status: implementation_landed_pending_explicit_review
-- review_status: design_sound_fh_acceptance_pending
-- implementation_admission: provisional_after_invalid_gate
-- proof_status: fresh_clean_gates_green_pending_explicit_fh
+- status: completed
+- phase_status: closed_after_explicit_fh
+- review_status: accepted_by_fh
+- implementation_admission: completed_as_designed
+- proof_status: fresh_clean_gates_green
 - delivery_phase: DS-1
 - change_class: design_reframe
 - owner: abiogenesis
 - priority: high
 - source_ticket: T-252
-- dependency: T-263 accepted and closed
+- dependency: completed T-263
+- closed_at: 2026-07-13
+- decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
 - design_ref: build_tenants/abiogenesis/typescript/design/M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
 - proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
@@ -34,7 +36,7 @@ legitimately unused families do not require invented nonzero rows.
 
 ## Capability Ownership
 
-The ownership split is exact:
+The accepted ownership split is exact:
 
 - T-264 projects matchable effect requirements from admitted GTL structure.
 - DS-4 supplies the published, versioned tenant capability profile.
@@ -45,28 +47,24 @@ T-264 does not admit a capability profile and cannot report compatibility.
 Names, URI shape, package presence, plugin refs, and tests cannot substitute for
 the DS-4 profile or T-255 admission.
 
-## Current State
+## Closed State
 
-The structural implementation landed after the invalid `ebe0eea` gate and is
-preserved for review. It derives explicit conformance scope, structural feature
-applicability, effects, plugin selections, HOG programs, handler bindings and
-configs, Jobs, and Roles. It retains real traversal/runtime gaps and does not
-claim effect compatibility.
+The accepted structural implementation derives explicit conformance scope,
+structural feature applicability, effects, plugin selections, HOG programs,
+handler bindings and configs, Jobs, and Roles. It retains real
+traversal/runtime gaps and does not claim effect compatibility. The corrected
+T-252 probe no longer observes the four T-264 families.
 
-The corrected T-252 probe no longer observes the four T-264 families. They
-remain active closure candidates until explicit acceptance rather than being
-reintroduced as expected gaps.
+## Closure Evidence
 
-## Exit
-
-- T-263 explicitly accepted and closed;
-- T-264 design and implementation explicitly accepted;
+- T-263 is accepted and closed;
+- T-264 design and implementation are explicitly accepted;
 - submitted-structure and complete-program scopes remain distinct and strict;
 - inventory derives from admitted structure and permits lawful zero families;
 - effect requirements remain exact, transitive, and distinct from capability,
   plugin, and handler identity;
 - malformed or missing mandatory inventory fails closed;
-- non-Consensus fixtures and full proof lanes pass;
+- non-Consensus fixtures and full proof lanes pass; and
 - the T-252 body digest remains unchanged.
 
 ## Non-Closure

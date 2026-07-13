@@ -1,9 +1,9 @@
 # M01/M02/M03 Consensus GTL Free Construction Behavior Design
 
-**Design verdict**: `candidate_corrected_three_view_pending_explicit_fh`
+**Design verdict**: `accepted_by_explicit_fh`
 **Implementation disposition**: canonical body landed; observation-first probe
 corrected; runtime realization out of scope
-**Ticket**: [T-252](../../../../.ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md)
+**Ticket**: [T-252](../../../../.ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md)
 **Owning modules**: M01 GTL carriers, M02 Module admission, M03 semantic
 compilation
 **Change class**: `design_reframe`
@@ -346,8 +346,7 @@ stateDiagram-v2
 
 ## Review Decision
 
-The body and corrected probe are ready for adversarial review. This design and
-T-252 remain active until F_H explicitly accepts or reprices them. T-263 and
-T-264 implementations are preserved as provisional evidence and are reviewed
-separately; their implementation must not be retroactively treated as authority
-for this design.
+F_H explicitly accepted this corrected three-view design, the unchanged
+pure-data body, the observation-first census, and the bounded static-reachability
+claim on 2026-07-13. The decision does not claim runtime-call observation or
+admit downstream runtime realization.

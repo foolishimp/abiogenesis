@@ -1,8 +1,8 @@
 # M01/M02 Strict Raw Module Admission Behavior Design
 
-**Design verdict**: `sound_pending_explicit_fh_acceptance`
-**Implementation admission**: `provisional_implementation_landed_for_review`
-**Ticket**: [T-263](../../../../.ai-workspace/tickets/active/T-263-close-strict-raw-module-admission.md)
+**Design verdict**: `accepted_by_explicit_fh`
+**Implementation admission**: `completed_as_designed`
+**Ticket**: [T-263](../../../../.ai-workspace/tickets/completed/T-263-close-strict-raw-module-admission.md)
 **Owning modules**: M01 GTL carrier admission and M02 work publication
 **Change class**: `design_reframe`
 **Delivery phase**: DS-1 admission foundation
@@ -497,9 +497,7 @@ for open siblings on Module, Graph, Node, or any other carrier.
 
 ## Realization Verdict
 
-`provisional_implementation_matches_design_pending_explicit_fh`. The landed
-realization closes the observed lossy seam with existing I-JSON, carrier,
-constructor, and serializer authorities. It introduces no competing parser,
-schema, carrier, or runtime path. The prior inference that an instruction to
-continue accepted this design is void. Fresh proofs and explicit F_H acceptance
-remain required before T-263 closes.
+`completed_as_designed_after_explicit_fh`. The accepted realization closes the
+observed lossy seam with existing I-JSON, carrier, constructor, and serializer
+authorities. It introduces no competing parser, schema, carrier, or runtime
+path. F_H accepted the corrected design and landed implementation on 2026-07-13.

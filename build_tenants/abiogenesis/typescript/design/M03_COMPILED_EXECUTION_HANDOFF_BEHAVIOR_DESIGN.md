@@ -1,7 +1,7 @@
 # M03 Compiled GraphVector Execution Handoff Behavior Design
 
 **Design verdict**: `candidate_reworked_pending_explicit_fh_acceptance`
-**Implementation admission**: `paused_at_t252_t263_t264_review_gate`
+**Implementation admission**: `paused_pending_own_explicit_fh_acceptance`
 **Ticket**: [T-255](../../../../.ai-workspace/tickets/active/T-255-close-compiled-graph-vector-execution-handoff.md)
 **Owning module**: M03 graph-vector compilation
 **Change class**: `design_reframe`
@@ -75,9 +75,11 @@ admission, and conservation requirements remain unchanged.
 - T-264 owns static declaration inventory and matchable effect requirements.
 
 The earlier inference that direct continuation admitted implementation was
-invalid. T-255 remains paused until T-252, T-263, and T-264 receive explicit F_H
-disposition. The proportionality rule still applies: do not widen the base
-algebra or fabricate missing authority to perfect a local seam.
+invalid. T-252, T-263, and T-264 received explicit F_H acceptance on 2026-07-13.
+T-255 remains paused at its own design gate; that upstream ruling did not admit
+this design or its uncommitted prototype. The proportionality rule still
+applies: do not widen the base algebra or fabricate missing authority to
+perfect a local seam.
 
 ## Current Evidence
 

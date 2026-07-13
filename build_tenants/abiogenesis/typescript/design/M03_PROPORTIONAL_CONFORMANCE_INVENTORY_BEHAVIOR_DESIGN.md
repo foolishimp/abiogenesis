@@ -1,8 +1,8 @@
 # M03 Proportional Conformance Inventory Behavior Design
 
-**Design verdict**: `sound_pending_explicit_fh_acceptance`
-**Implementation admission**: `provisional_implementation_landed_for_review`
-**Ticket**: [T-264](../../../../.ai-workspace/tickets/active/T-264-close-proportional-conformance-inventory.md)
+**Design verdict**: `accepted_by_explicit_fh`
+**Implementation admission**: `completed_as_designed`
+**Ticket**: [T-264](../../../../.ai-workspace/tickets/completed/T-264-close-proportional-conformance-inventory.md)
 **Owning module**: M03 engine conformance
 **Change class**: `design_reframe`
 **Delivery phase**: DS-1 conformance foundation
@@ -588,8 +588,8 @@ or infer one from strings.
 
 ## Review Verdict
 
-`sound_pending_explicit_fh_acceptance`. The structural scope and inventory
-design uses existing admitted carriers and compilers. The provisional
-implementation is ready for review after T-263 acceptance. Compatibility
+`completed_as_designed_after_explicit_fh`. The structural scope and inventory
+design uses existing admitted carriers and compilers. F_H accepted the design
+and landed implementation after T-263 closure on 2026-07-13. Compatibility
 remains split across T-264 requirement projection, the DS-4 published profile,
 and T-255 admission.
