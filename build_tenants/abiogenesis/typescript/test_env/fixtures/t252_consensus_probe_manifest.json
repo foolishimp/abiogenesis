@@ -3108,8 +3108,8 @@
       },
       {
         "ticketId": "T-261",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-261-realize-c-retry-runtime-and-policy.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-261-realize-c-retry-runtime-and-policy.md",
         "families": [
           "c_retry_runtime_and_policy_join"
         ]
@@ -3173,10 +3173,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 3,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "c_retry_runtime_and_policy_join"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -3450,5 +3448,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:5d0572011824af7cdf09fcf05e73e55382f8d38c083a8a09390b001681bcba76"
+  "manifestDigest": "sha256:abbee54abc804e9741ace33ad6c7bf1d9bdb233a9abd7bc9e4f761ec0cb26175"
 }
