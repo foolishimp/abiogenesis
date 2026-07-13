@@ -23,7 +23,14 @@ import {
 } from "../../../gtl/m01/algebra/c_algebra.js";
 import { stableJsonEquals, stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
-import type { HogProgramDeclaration } from "./hog_program.js";
+import {
+  isHogWorkflowProgram,
+  type HogProgramDeclaration
+} from "./hog_program.js";
+import {
+  compileWorkflowLiftBinding,
+  type CompiledWorkflowLiftBinding
+} from "./workflow_c.js";
 import {
   compileGraphVectorCProgramSelection,
   type CompiledGraphVectorCProgramBinding,
@@ -163,10 +170,11 @@ export interface CompiledGraphVectorExecutionHandoff {
   readonly declarationOwnerGraphFunctionRef: string;
   readonly graphRef: string;
   readonly graphVectorRef: string;
-  readonly programDisposition: "flat_executable";
+  readonly programDisposition: "flat_executable" | "workflow_sub_traversal";
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly admittedProgram: CProgramDeclarationNode;
   readonly normalizedProgram: HogProgramDeclaration;
+  readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
@@ -212,6 +220,9 @@ export interface GraphVectorExecutionHandoffCapabilityBlocked {
   readonly status: "blocked_capability";
   readonly boundary: GraphVectorBoundaryProjection;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
+  readonly programDisposition: "flat_executable" | "workflow_sub_traversal";
+  readonly normalizedProgram: HogProgramDeclaration;
+  readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
   readonly applicationLineage: GraphFunctionApplicationLineageProjection | null;
   readonly targetCarrierBinding: TargetCarrierContractBinding;
@@ -984,6 +995,46 @@ export function compileGraphVectorExecutionHandoff(
     });
   }
 
+  let workflowLiftBinding: CompiledWorkflowLiftBinding | null = null;
+  if (isHogWorkflowProgram(lowered.program)) {
+    try {
+      const compositionOwners = input.module.graphFunctions.filter(
+        (candidate) =>
+          candidate.id === compositionJoin.declarationOwnerGraphFunctionRef
+      );
+      const compositionOwner = compositionOwners[0];
+      if (compositionOwners.length !== 1 || compositionOwner === undefined) {
+        throw new TypeError(
+          `workflow.C composition owner resolves ${String(compositionOwners.length)} times in the selected Module`
+        );
+      }
+      workflowLiftBinding = compileWorkflowLiftBinding({
+        module: input.module,
+        parentGraphFunction: input.graphFunction,
+        compositionOwnerGraphFunction: compositionOwner,
+        parentGraphVector: input.graphVector,
+        programBinding: selection.binding,
+        program: lowered.program,
+        composition: compositionJoin.selection
+      });
+    } catch (error: unknown) {
+      return invalid({
+        boundary,
+        diagnostic: diagnostic({
+          diagnosticId: "gtl-execution-handoff-program-shape-invalid",
+          path: "$.selectedProgram.term.workflow",
+          expectedRelation:
+            "one exact module-contained child GraphFunction with preserved interfaces and composition locus",
+          actualRelation: errorMessage(error),
+          evidenceRefs: [selection.binding.bindingDigest]
+        })
+      });
+    }
+  }
+  const programDisposition = isHogWorkflowProgram(lowered.program)
+    ? "workflow_sub_traversal" as const
+    : "flat_executable" as const;
+
   let compatibility: CapabilityCompatibilityAdmission;
   try {
     compatibility = capabilityCompatibility(input);
@@ -996,6 +1047,9 @@ export function compileGraphVectorExecutionHandoff(
       status: "blocked_capability" as const,
       boundary,
       programBinding: selection.binding,
+      programDisposition,
+      normalizedProgram: lowered.program,
+      workflowLiftBinding,
       compositionSelection: compositionJoin.selection,
       applicationLineage: compositionJoin.lineage,
       targetCarrierBinding: target.binding,
@@ -1036,10 +1090,11 @@ export function compileGraphVectorExecutionHandoff(
       compositionJoin.declarationOwnerGraphFunctionRef,
     graphRef: boundary.graphRef,
     graphVectorRef: input.graphVector.id,
-    programDisposition: "flat_executable" as const,
+    programDisposition,
     programBinding: selection.binding,
     admittedProgram: admission.program,
     normalizedProgram: lowered.program,
+    workflowLiftBinding,
     compositionSelection: compositionJoin.selection,
     applicationLineage: compositionJoin.lineage,
     targetCarrierBinding: target.binding,

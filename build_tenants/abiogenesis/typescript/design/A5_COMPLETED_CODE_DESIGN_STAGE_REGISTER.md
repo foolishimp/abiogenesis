@@ -7,9 +7,10 @@
 
 ## Scope
 
-This register covers every code-bearing 5.0 candidate stage completed before
-the rejected Consensus implementation. It groups code by durable semantic
-checkpoint, not by file or mechanical commit.
+This register covers the reviewed code-bearing 5.0 stages, including the
+retrospective stages completed before the rejected Consensus implementation
+and the accepted replacement stages added afterward. It groups code by durable
+semantic checkpoint, not by file or mechanical commit.
 
 The code line is frozen for new product implementation until every non-accepted
 design below receives an independent axiom review and an F_H `accepted` or
@@ -29,7 +30,8 @@ requirements own product scope, while T-244 traces feature closure.
 
 | Stage | Ticket and commits | Three-view design | Current verdict | Coding consequence |
 |---|---|---|---|---|
-| Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The authoring/compiler code is frozen. Any dependent feature requiring `workflow.C`, `C.batch`, or `C.retry` remains blocked because those runtime terms are `semantic_not_realized`. |
+| Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The base authoring/compiler code is frozen. Direct `workflow.C` is realized by T-259; `C.batch`, `C.retry`, and mixed workflow expressions retain explicit successor gaps. |
+| Direct `workflow.C` static binding and child-traversal runtime atom | T-259 | [M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md](./M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | One direct module-contained child workflow is realized without a child catalog entry. Canonical product traversal remains startup-blocked by T-267. |
 | Execution-declaration compilation and basis-owned runtime handoff | T-220 P4; `014448f` | [M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md](./M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md) | `candidate` | The handoff code is frozen. It cannot certify a constructive C body because the separate C-conformance result is not bound into `ExecutionBasis`. |
 | Malformed and contradictory F_P output admission plus ABG-owned producer attribution | T-220 P4 and T-223; `014448f`, `28da030` | [M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md](./M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) | `blocked` | Producer attribution is a passing subclaim; admission remains frozen because G1-G5 require disposition and raw-to-close impossibility is not yet proven. |
 | Installed product, workspace, binding, and catalog foundation | T-223 foundation; `f572ee9` | [M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md](./M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md) | `candidate` | Foundation code is frozen pending cross-view axiom review. |
@@ -56,7 +58,7 @@ stage:
 ## Evaluation Order
 
 The standing structural/render command is `npm run check:design-mermaid` from
-the TypeScript tenant root. It discovers only the nine links above, requires
+the TypeScript tenant root. It discovers only the ten links above, requires
 the ordered domain/sequence/state views, renders with the pinned local Mermaid
 CLI into temporary output, and removes that output. A green render remains
 syntax evidence; it does not replace independent axiom or F_H review.
@@ -77,7 +79,7 @@ syntax evidence; it does not replace independent axiom or F_H review.
 ## Next-Code Boundary
 
 No Consensus rebuild or other dependent feature may enter code while
-`workflow.C`, `C.batch`, or `C.retry` is a relied-on unrealized constructor.
+`C.batch` or `C.retry` is a relied-on unrealized constructor.
 The lawful next design must author its GraphFunction body in GTL. Compiler gaps
 are demand evidence for the missing algebra; they are not permission to move
 workflow, prompt, traversal, recursion, or closure into a plugin.

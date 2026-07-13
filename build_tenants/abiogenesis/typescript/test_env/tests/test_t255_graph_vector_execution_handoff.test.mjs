@@ -709,18 +709,12 @@ test("T-255 partitions the unchanged T-252 body without erasing successor gaps",
     ])
   );
   assert.deepEqual(counts, {
-    blocked_successor_constructor: 6,
+    blocked_successor_constructor: 1,
     structural_only: 1,
-    blocked_capability: 28
+    blocked_capability: 33
   });
   const blocked = outcomes.filter(
     (row) => row.status === "blocked_successor_constructor"
-  );
-  assert.equal(
-    blocked.flatMap((row) => row.sourceDiagnostics).filter(
-      (row) => row.diagnosticId === "gtl-c-unrealized-workflow-lift"
-    ).length,
-    5
   );
   assert.equal(
     blocked.flatMap((row) => row.sourceDiagnostics).filter(
@@ -728,13 +722,23 @@ test("T-255 partitions the unchanged T-252 body without erasing successor gaps",
     ).length,
     1
   );
+  const workflows = outcomes.filter(
+    (row) =>
+      row.status === "blocked_capability" &&
+      row.programDisposition === "workflow_sub_traversal"
+  );
+  assert.equal(workflows.length, 5);
+  assert.equal(
+    workflows.every((row) => row.workflowLiftBinding !== null),
+    true
+  );
   assert.equal(
     outcomes.filter(
       (row) =>
         row.status === "blocked_capability" &&
         row.applicationLineage !== null
     ).length,
-    13
+    15
   );
   assert.equal(
     stableSha256Digest(serializeModule(ABG_CONSENSUS_GTL_MODULE)),

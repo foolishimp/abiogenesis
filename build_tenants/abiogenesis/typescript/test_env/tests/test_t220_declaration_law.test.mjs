@@ -438,7 +438,7 @@ test("T-220 declaration-law type surface rejects impossible host states", () => 
   });
 });
 
-test("T-220 semantic compiler reports lawful unrealized C algebra to the LLM repair loop", () => {
+test("T-259 semantic compiler no longer reports direct workflow.C as unrealized", () => {
   const graphFunction = graphFunctionFixture();
   const input = typedGraphFunctionBoundary(graphFunction.inputs);
   const output = typedGraphFunctionBoundary(graphFunction.outputs);
@@ -456,18 +456,16 @@ test("T-220 semantic compiler reports lawful unrealized C algebra to the LLM rep
     abiPackageVersion: "4.0.0-rc.3",
     graphFunctions: [withCProgram]
   });
-  const gap = report.issues.find(
-    (row) =>
-      row.ruleRef ===
-      "abg://gtl-program/c-algebra/semantic-not-realized"
+  assert.equal(
+    report.issues.some(
+      (row) =>
+        row.ruleRef ===
+          "abg://gtl-program/c-algebra/semantic-not-realized" &&
+        /gtl-c-unrealized-workflow-lift/u.test(row.message)
+    ),
+    false,
+    JSON.stringify(report.issues, null, 2)
   );
-  assert.ok(gap, JSON.stringify(report.issues, null, 2));
-  assert.match(gap.message, /gtl-c-unrealized-workflow-lift/u);
-  const realizationRepair = gap.admissibleRepairs.find(
-    (repair) => repair.editClass === "realize_declared_semantics"
-  );
-  assert.ok(realizationRepair);
-  assert.equal(realizationRepair.changeClassRef, "design_reframe");
 });
 
 test("T-220 semantic compiler rejects unresolved workflow refs before realization", () => {

@@ -1674,13 +1674,26 @@ export type {
 export {
   HOG_BOOTSTRAP_TRIPLE,
   admitHogProgram,
-  hogProgramCensus
+  hogProgramCensus,
+  isHogWorkflowProgram
 } from "./hog_program.js";
 export type {
+  HogFlatProgramDeclaration,
   HogProgramDeclaration,
   HogProgramStage,
-  HogProgramAdmission
+  HogProgramAdmission,
+  HogWorkflowLift,
+  HogWorkflowProgramDeclaration
 } from "./hog_program.js";
+
+export {
+  assertCompiledWorkflowLiftBinding,
+  compileWorkflowLiftBinding
+} from "./workflow_c.js";
+export type {
+  CompiledWorkflowLiftBinding,
+  CompileWorkflowLiftBindingInput
+} from "./workflow_c.js";
 
 export {
   HOG_PROGRAM_SYNTAX_VERSIONS,

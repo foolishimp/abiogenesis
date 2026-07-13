@@ -1187,81 +1187,6 @@
           "await_runtime_realization",
           "use_flat_composition"
         ]
-      },
-      {
-        "source": "c_algebra_hog_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "canonicalBodyPath": "programs[17:program://abg/consensus/bounded-rounds]",
-        "compilerPath": "$.term",
-        "authorityRefs": [
-          "axiom:AX-T220-09",
-          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
-        ],
-        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
-        "expectedRelation": "selected build tenant realizes the admitted C constructor",
-        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"recurse(consensus.round)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ConsensusRoundExecution\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"schema://abg/consensus/round-execution\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/consensus-round-execution\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_consensus_round_execution\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectionKindRefs\\\":[],\\\"clauseKindR...",
-        "actualRelationDigest": "sha256:e1942e4c250e10b52ffcf4c49996aa334a547967a3b2342d6e05e7609764da01",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
-          "program:program://abg/consensus/bounded-rounds"
-        ],
-        "evidenceDigest": "sha256:79410daffac89270a99b6b5c565cc03aebe3fc2916d9ad27d7dff1f9c3e59027",
-        "repairAffordances": [
-          "await_runtime_realization",
-          "use_flat_composition"
-        ]
-      },
-      {
-        "source": "c_algebra_hog_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "canonicalBodyPath": "programs[6:program://abg/consensus/review-panel]",
-        "compilerPath": "$.term",
-        "authorityRefs": [
-          "axiom:AX-T220-09",
-          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
-        ],
-        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
-        "expectedRelation": "selected build tenant realizes the admitted C constructor",
-        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_out(consensus.review-one-profile)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ReviewerAssignmentVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"Vector[schema://abg/consensus/reviewer-assignment]\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/reviewer-assignment-vector\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_reviewer_assignment_vector\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectio...",
-        "actualRelationDigest": "sha256:0fd8d139a6091037a77badebeacd6abd82ac62fef83d1eb8589e8b3bb7aa065a",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
-          "program:program://abg/consensus/review-panel"
-        ],
-        "evidenceDigest": "sha256:88ddfc524775c717cda3868eff864df7b40ce9f9b1c1b07c136a10c60fde1589",
-        "repairAffordances": [
-          "await_runtime_realization",
-          "use_flat_composition"
-        ]
-      },
-      {
-        "source": "c_algebra_hog_compiler",
-        "classification": "semantic_not_realized",
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "canonicalBodyPath": "programs[7:program://abg/consensus/reduce-panel-facts]",
-        "compilerPath": "$.term",
-        "authorityRefs": [
-          "axiom:AX-T220-09",
-          "requirement:REQ-L-GTL3-C-ALGEBRA-006"
-        ],
-        "authorityDigest": "sha256:18ae5e45583c3839102aa0be3f2d57024e81295922e89c165efac7787bfe8eba",
-        "expectedRelation": "selected build tenant realizes the admitted C constructor",
-        "actualRelation": "workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_in(consensus.exact-panel-facts)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"AttributedFindingsVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"Vector[schema://abg/consensus/review-findings]\\\"},\\\"markov\\\":[\\\"boundary://abg/consensus/attributed-findings-vector\\\"],\\\"assetSurface\\\":{\\\"kind\\\":\\\"abg_consensus_attributed_findings_vector\\\",\\\"requiredContexts\\\":[],\\\"standardsRefs\\\":[\\\"REQ-P-CONSENSUS\\\"],\\\"outputContractRefs\\\":[],\\\"constructorRefs\\\":[],\\\"constructorInputAssetKinds\\\":[],\\\"rendererRefs\\\":[],\\\"renderedViewDigestPolicyRef\\\":null,\\\"sectionKindR...",
-        "actualRelationDigest": "sha256:7a4598d7444bdce0ce990e1505293a1a2646c3edfb7115a4921a888b3bab973a",
-        "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "c-algebra:gtl-c-unrealized-workflow-lift:$.term",
-          "program:program://abg/consensus/reduce-panel-facts"
-        ],
-        "evidenceDigest": "sha256:74da9624d7fcc8caf317a3043ff589f7892f5a0ed5fd0443b2e064cfc49638e7",
-        "repairAffordances": [
-          "await_runtime_realization",
-          "use_flat_composition"
-        ]
       }
     ],
     "hofRows": [
@@ -1815,22 +1740,22 @@
         "path": "module.graphFunctions[consensus.round].executionDeclarations",
         "graphFunctionName": "consensus.round",
         "accepted": false,
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "actualRelation": "TypeError: abg.hog_program_catalog on consensus.round failed admission: catalog[4]: gtl-c-unrealized-workflow-lift at $.term: workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_out(consensus.review-one-profile)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ReviewerAssignmentVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref\\\":\\\"V..."
+        "diagnosticId": "current-interpreter-anchor-shape",
+        "actualRelation": "TypeError: semantic_not_realized: consensus.round program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].executionDeclarations",
         "graphFunctionName": "recurse(consensus.round)",
         "accepted": false,
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "actualRelation": "TypeError: abg.hog_program_catalog on recurse(consensus.round) failed admission: catalog[4]: gtl-c-unrealized-workflow-lift at $.term: workflow.C(\"graph_function:{\\\"name\\\":\\\"fan_out(consensus.review-one-profile)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ReviewerAssignmentVector\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"..."
+        "diagnosticId": "current-interpreter-anchor-shape",
+        "actualRelation": "TypeError: semantic_not_realized: recurse(consensus.round) program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence"
       },
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].executionDeclarations",
         "graphFunctionName": "consensus.submitter-reviewer-rounds",
         "accepted": false,
-        "diagnosticId": "gtl-c-unrealized-workflow-lift",
-        "actualRelation": "TypeError: abg.hog_program_catalog on consensus.submitter-reviewer-rounds failed admission: catalog[1]: gtl-c-unrealized-workflow-lift at $.term: workflow.C(\"graph_function:{\\\"name\\\":\\\"recurse(consensus.round)\\\",\\\"environment\\\":{\\\"requires\\\":[{\\\"name\\\":\\\"ConsensusRoundExecution\\\",\\\"schema\\\":{\\\"kind\\\":\\\"symbolic\\\",\\\"ref..."
+        "diagnosticId": "current-interpreter-anchor-shape",
+        "actualRelation": "TypeError: semantic_not_realized: consensus.submitter-reviewer-rounds program program://abg/consensus/seed-round omits current interpreter anchors transform, evaluate, consequence"
       }
     ],
     "nestedProgramRows": [
@@ -1917,10 +1842,8 @@
       {
         "path": "programs[6:program://abg/consensus/review-panel]",
         "programRef": "program://abg/consensus/review-panel",
-        "accepted": false,
-        "diagnosticIds": [
-          "gtl-c-unrealized-workflow-lift"
-        ],
+        "accepted": true,
+        "diagnosticIds": [],
         "fibres": [],
         "stageRoles": [],
         "instructionCategoryRefs": []
@@ -1928,10 +1851,8 @@
       {
         "path": "programs[7:program://abg/consensus/reduce-panel-facts]",
         "programRef": "program://abg/consensus/reduce-panel-facts",
-        "accepted": false,
-        "diagnosticIds": [
-          "gtl-c-unrealized-workflow-lift"
-        ],
+        "accepted": true,
+        "diagnosticIds": [],
         "fibres": [],
         "stageRoles": [],
         "instructionCategoryRefs": []
@@ -2056,10 +1977,8 @@
       {
         "path": "programs[17:program://abg/consensus/bounded-rounds]",
         "programRef": "program://abg/consensus/bounded-rounds",
-        "accepted": false,
-        "diagnosticIds": [
-          "gtl-c-unrealized-workflow-lift"
-        ],
+        "accepted": true,
+        "diagnosticIds": [],
         "fibres": [],
         "stageRoles": [],
         "instructionCategoryRefs": []
@@ -2079,8 +1998,8 @@
       }
     ],
     "handoffStatusCounts": {
-      "blocked_capability": 28,
-      "blocked_successor_constructor": 6,
+      "blocked_capability": 33,
+      "blocked_successor_constructor": 1,
       "structural_only": 1
     },
     "handoffRows": [
@@ -2089,6 +2008,8 @@
         "graphFunctionName": "consensus.review-one-profile",
         "graphVectorName": "consensus.review-one-profile",
         "status": "blocked_successor_constructor",
+        "programDisposition": null,
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-successor-constructor-blocked"
         ]
@@ -2098,6 +2019,8 @@
         "graphFunctionName": "fan_out(consensus.review-one-profile)",
         "graphVectorName": "fan_out(consensus.review-one-profile):wrapper",
         "status": "structural_only",
+        "programDisposition": null,
+        "workflowBindingRef": null,
         "diagnosticIds": []
       },
       {
@@ -2105,6 +2028,8 @@
         "graphFunctionName": "consensus.exact-panel-facts",
         "graphVectorName": "consensus.exact-panel-facts",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2114,6 +2039,8 @@
         "graphFunctionName": "fan_in(consensus.exact-panel-facts)",
         "graphVectorName": "consensus.exact-panel-facts",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2123,6 +2050,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.expand-panel",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2132,6 +2061,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.project-reducer-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2141,6 +2072,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.project-submitter-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2150,6 +2083,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.project-fh-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2158,18 +2093,22 @@
         "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.review-panel",
-        "status": "blocked_successor_constructor",
+        "status": "blocked_capability",
+        "programDisposition": "workflow_sub_traversal",
+        "workflowBindingRef": "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
         "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.reduce-panel-facts",
-        "status": "blocked_successor_constructor",
+        "status": "blocked_capability",
+        "programDisposition": "workflow_sub_traversal",
+        "workflowBindingRef": "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
@@ -2177,6 +2116,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.reduce-round",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2186,6 +2127,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.close-initial",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2195,6 +2138,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.submitter-response",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2204,6 +2149,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.fh-initial",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2213,6 +2160,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.reassess-round",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2222,6 +2171,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.close-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2231,6 +2182,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.recurse-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2240,6 +2193,8 @@
         "graphFunctionName": "consensus.round",
         "graphVectorName": "consensus.fh-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2249,6 +2204,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.expand-panel",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2258,6 +2215,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.project-reducer-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2267,6 +2226,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.project-submitter-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2276,6 +2237,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.project-fh-binding",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2284,18 +2247,22 @@
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.review-panel",
-        "status": "blocked_successor_constructor",
+        "status": "blocked_capability",
+        "programDisposition": "workflow_sub_traversal",
+        "workflowBindingRef": "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.reduce-panel-facts",
-        "status": "blocked_successor_constructor",
+        "status": "blocked_capability",
+        "programDisposition": "workflow_sub_traversal",
+        "workflowBindingRef": "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
@@ -2303,6 +2270,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.reduce-round",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2312,6 +2281,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.close-initial",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2321,6 +2292,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.submitter-response",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2330,6 +2303,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.fh-initial",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2339,6 +2314,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.reassess-round",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2348,6 +2325,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.close-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2357,6 +2336,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.recurse-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2366,6 +2347,8 @@
         "graphFunctionName": "recurse(consensus.round)",
         "graphVectorName": "consensus.fh-post-submitter",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2375,6 +2358,8 @@
         "graphFunctionName": "consensus.submitter-reviewer-rounds",
         "graphVectorName": "consensus.seed-round",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2383,9 +2368,11 @@
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
         "graphFunctionName": "consensus.submitter-reviewer-rounds",
         "graphVectorName": "consensus.bounded-rounds",
-        "status": "blocked_successor_constructor",
+        "status": "blocked_capability",
+        "programDisposition": "workflow_sub_traversal",
+        "workflowBindingRef": "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
         "diagnosticIds": [
-          "gtl-execution-handoff-successor-constructor-blocked"
+          "gtl-execution-handoff-capability-manifest-missing"
         ]
       },
       {
@@ -2393,6 +2380,8 @@
         "graphFunctionName": "consensus.submitter-reviewer-rounds",
         "graphVectorName": "consensus.project-result",
         "status": "blocked_capability",
+        "programDisposition": "flat_executable",
+        "workflowBindingRef": null,
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2969,10 +2958,12 @@
       {
         "constructor": "workflow.C",
         "authoredCount": 3,
-        "compilerCoverage": "path_addressed",
-        "runtimeStatus": "semantic_not_realized",
+        "selectedHandoffCount": 5,
+        "compilerCoverage": "exact_static_handoff",
+        "runtimeStatus": "runtime_atom_realized_but_canonical_invocation_blocked_before_traversal",
         "gapFamilies": [
-          "workflow_c_runtime"
+          "tenant_conformance_manifest_consensus_coverage_missing",
+          "traversal_execution_contracts"
         ]
       },
       {
@@ -3024,11 +3015,11 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 625,
+    "fullConformanceIssueCount": 623,
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "count": 42
+        "count": 40
       },
       {
         "ruleRef": "abg://gtl-program/graph-function-application/semantic-not-realized",
@@ -3245,16 +3236,18 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 8,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 7,
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "workflow_c_runtime"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 8,
-    "observedGapEvidenceDigest": "sha256:87d84c9039cb3524e7ca4831cfcfadd78665d4d34d97fd4712884eb2312855ab",
+    "observedGapFamilyCount": 7,
+    "observedGapEvidenceDigest": "sha256:1e4798dd958d9d9d5abcd3ef91a833ea4b157723166d87c7637afffd4d693b65",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3305,11 +3298,14 @@
         "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
         "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
         "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
         "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
         "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
         "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
         "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
         "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
         "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
         "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
         "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
@@ -3320,6 +3316,8 @@
         "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
@@ -3534,36 +3532,6 @@
         "ticket:T-252"
       ],
       "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
-    },
-    {
-      "gapFamily": "workflow_c_runtime",
-      "ownerTicket": "T-259",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "gtl-c-unrealized-workflow-lift"
-      ],
-      "canonicalBodyPaths": [
-        "programs[17:program://abg/consensus/bounded-rounds]",
-        "programs[6:program://abg/consensus/review-panel]",
-        "programs[7:program://abg/consensus/reduce-panel-facts]"
-      ],
-      "observationSources": [
-        "compiler:compileCAlgebraToHog"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-C-ALGEBRA-006",
-        "ticket-source:.ai-workspace/tickets/active/T-259-realize-workflow-c-runtime.md",
-        "ticket:T-259"
-      ],
-      "authorityDigest": "sha256:9b9b0a23d44287cbafc17163120fb0ff3674a53c7a084c2abc151aade96e6b2a",
-      "actualRelation": "workflow.C boundaries are compiler-visible without a runtime lowering",
-      "actualRelationDigest": "sha256:7e56fb4e5bbbae2ea6f61c75e081dfe8c0cffdc07ccf635cf3686a002a19a8fe",
-      "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:512afd86d2d7885b1ec98ad072ff7576b4c7be5a00e9e460f1581a728320a2d9"
     }
   ],
   "staticExecutionReachability": {
@@ -3659,5 +3627,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:258651ab60ce8af9da725b8d6efc56605505bd5517d799d76691c6e9e3ac59e7"
+  "manifestDigest": "sha256:9646183e920c70846b8c382cdbbbed633d74c43dc0be94a8105913fd67d34ff2"
 }

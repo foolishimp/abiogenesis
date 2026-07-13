@@ -39,6 +39,15 @@ export {
   projectFhInteractionForGraphCall,
   submitFhInteractionResponse
 } from "./fh_interaction.js";
+export { resolveWorkflowC } from "./workflow_c_runtime.js";
+export type {
+  WorkflowCInvocation,
+  WorkflowCResolution,
+  WorkflowCResolutionStatus,
+  WorkflowChildTraversalDisposition,
+  WorkflowChildTraversalOutcome,
+  WorkflowChildTraversalRequest
+} from "./workflow_c_runtime.js";
 export type {
   AdmitFhInteractionResumeInput,
   FhInteractionAdmissionFailureCode,

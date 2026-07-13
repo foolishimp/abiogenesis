@@ -13,7 +13,11 @@
 // A lawfully admitted but not-yet-executable program FAILS CLOSED here
 // with a typed reason (HANDLERS-012) — it never half-runs.
 
-import type { HogProgramDeclaration, HogProgramStage } from "../contracts/hog_program.js";
+import {
+  isHogWorkflowProgram,
+  type HogProgramDeclaration,
+  type HogProgramStage
+} from "../contracts/hog_program.js";
 import type { CompiledHogProgramPlan } from "../contracts/execution_declaration_compiler.js";
 import {
   effectiveHogProgramCatalog,
@@ -45,6 +49,12 @@ export function assertHogProgramExecutable(
   } | null
 ): void {
   const program = resolved.program;
+  if (isHogWorkflowProgram(program)) {
+    throw new TypeError(
+      `workflow_sub_traversal_required: hog program ${program.programRef} ` +
+        "must enter the workflow.C resolver through the traversal startup gate"
+    );
+  }
   // BINDING-COMPLETE entry gate (codex MEDIUM): a non-triple stage is
   // executable IFF exactly the full binding holds — program × stage ×
   // arm match, REGIME equals the stage's declared regime, and the

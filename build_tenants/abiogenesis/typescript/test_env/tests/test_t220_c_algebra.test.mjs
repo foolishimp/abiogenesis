@@ -279,16 +279,18 @@ test("T-220 negative: closed syntax rejects invented siblings", () => {
   ]);
 });
 
-test("T-220: unrealized lawful constructors return distinct stable gaps", () => {
+test("T-259: direct workflow.C lowers while later successor constructors retain stable gaps", () => {
   const { transform } = leaves();
+  const workflowProgram = compileCAlgebraToHog(
+    declaration(workflow.C(childWorkflowRef()), "gtl://t220/workflow")
+  );
+  assert.equal(workflowProgram.accepted, true);
+  assert.equal(workflowProgram.diagnostics.length, 0);
+  assert.equal(workflowProgram.program.kind, "hog_program_declaration");
+  assert.equal(workflowProgram.program.stages.length, 0);
+  assert.equal(workflowProgram.program.workflow.kind, "hog_workflow_lift");
+
   const cases = [
-    [
-      declaration(
-        workflow.C(childWorkflowRef()),
-        "gtl://t220/workflow"
-      ),
-      "gtl-c-unrealized-workflow-lift"
-    ],
     [
       declaration(
         C.batch([transform, transform], "batch://t220/transform"),

@@ -334,13 +334,6 @@ function conformanceRows(issues, predicate) {
   }));
 }
 
-function diagnosticRows(diagnostics, predicate) {
-  return diagnostics.filter(predicate).map((row) => ({
-    diagnosticId: row.diagnosticId,
-    path: row.canonicalBodyPath
-  }));
-}
-
 function observeGap(target, gapFamily, input) {
   const diagnosticIds = sortedUnique(input.rows.map((row) => row.diagnosticId));
   const bodyPaths = sortedUnique(input.rows.map((row) => row.path));
@@ -643,6 +636,41 @@ async function buildManifest() {
         handoffRows.filter((row) => row.status === status).length
       ])
   );
+  const selectedWorkflowPaths = vectorRows
+    .filter((row) => {
+      const selectedPrograms = body.programs.filter(
+        (program) => program.programRef === row.selectedProgramRef
+      );
+      return (
+        selectedPrograms.length === 1 &&
+        selectedPrograms[0].term.kind === "c_workflow"
+      );
+    })
+    .map((row) => row.path)
+    .sort();
+  const realizedWorkflowRows = handoffRows.filter((row) => {
+    const disposition = row.status === "published_startup_blocked"
+      ? row.outcome.handoff.programDisposition
+      : row.outcome.programDisposition ?? null;
+    return disposition === "workflow_sub_traversal";
+  });
+  const realizedWorkflowPaths = realizedWorkflowRows
+    .map((row) => row.path)
+    .sort();
+  if (
+    JSON.stringify(realizedWorkflowPaths) !==
+      JSON.stringify(selectedWorkflowPaths) ||
+    realizedWorkflowRows.some((row) => {
+      const binding = row.status === "published_startup_blocked"
+        ? row.outcome.handoff.workflowLiftBinding
+        : row.outcome.workflowLiftBinding;
+      return binding === null || binding === undefined;
+    })
+  ) {
+    throw new TypeError(
+      `T-259 workflow handoff coverage differs from independently selected workflow programs: ${JSON.stringify({ selectedWorkflowPaths, realizedWorkflowPaths })}`
+    );
+  }
   const targetCarrierContracts = handoffRows.map(
     (row) => row.outcome.targetCarrierProjection
   );
@@ -973,9 +1001,14 @@ async function buildManifest() {
     {
       constructor: "workflow.C",
       authoredCount: termCounts.c_workflow ?? 0,
-      compilerCoverage: "path_addressed",
-      runtimeStatus: "semantic_not_realized",
-      gapFamilies: ["workflow_c_runtime"]
+      selectedHandoffCount: realizedWorkflowRows.length,
+      compilerCoverage: "exact_static_handoff",
+      runtimeStatus:
+        "runtime_atom_realized_but_canonical_invocation_blocked_before_traversal",
+      gapFamilies: [
+        "tenant_conformance_manifest_consensus_coverage_missing",
+        "traversal_execution_contracts"
+      ]
     },
     {
       constructor: "C.retry",
@@ -1123,15 +1156,6 @@ async function buildManifest() {
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
       "a canonical F_H join lacks the generic hold, public response, or resume admission path"
-  });
-  observeGap(observedGapEvidence, "workflow_c_runtime", {
-    rows: diagnosticRows(
-      diagnostics,
-      (row) => row.diagnosticId === "gtl-c-unrealized-workflow-lift"
-    ),
-    observationSources: ["compiler:compileCAlgebraToHog"],
-    evidenceRefs: commonEvidenceRefs,
-    actualRelation: "workflow.C boundaries are compiler-visible without a runtime lowering"
   });
   const fanOutRows = hofRows
     .filter((row) => row.diagnosticIds.includes("gtl-hof-unrealized-fan-out"))
@@ -1298,6 +1322,14 @@ async function buildManifest() {
         graphFunctionName: row.graphFunctionName,
         graphVectorName: row.graphVectorName,
         status: row.status,
+        programDisposition:
+          row.status === "published_startup_blocked"
+            ? row.outcome.handoff.programDisposition
+            : row.outcome.programDisposition ?? null,
+        workflowBindingRef:
+          row.status === "published_startup_blocked"
+            ? row.outcome.handoff.workflowLiftBinding?.bindingRef ?? null
+            : row.outcome.workflowLiftBinding?.bindingRef ?? null,
         diagnosticIds: row.diagnosticIds
       })),
       executionContextJoinRows,

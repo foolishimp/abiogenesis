@@ -1,7 +1,8 @@
 // Lowers admitted GTL C-algebra data into the normalized HoG program carrier
 // already consumed by ABG. Flat of/id/compose/edge terms are executable now.
-// Named workflow lifts, grouped batches, and retry wrappers stay typed gaps
-// until their runtime interpretations are realized.
+// Direct named workflow lifts and flat of/id/compose/edge terms normalize here.
+// Mixed workflow expressions, grouped batches, and retry wrappers stay typed
+// gaps until their distinct ordering/runtime interpretations are realized.
 
 import type {
   CAlgebraDiagnostic,
@@ -97,8 +98,8 @@ function flattenTerm(term: CProgramNode, path: string): FlattenResult {
             path,
             message:
               `workflow.C(${JSON.stringify(term.graphFunctionRef)}) is lawful ` +
-              "algebra but the current normalized HoG carrier cannot retain " +
-              "the named sub-traversal boundary",
+              "algebra but this mixed expression requires a normalized " +
+              "ordering carrier beyond the direct workflow runtime",
             repairAffordances: Object.freeze([
               "use_flat_composition",
               "await_runtime_realization"
@@ -209,6 +210,43 @@ function compileAdmittedProgram(
   source: CProgramDeclarationNode
 ): CAlgebraHogCompilation {
   const canonicalSource = serializeCProgramCanonical(source);
+  if (source.term.kind === "c_workflow") {
+    const admission = admitHogProgram({
+      kind: "hog_program_declaration",
+      programRef: source.programRef,
+      stages: Object.freeze([]),
+      proportionalityClass: source.proportionalityClass,
+      workflow: Object.freeze({
+        kind: "hog_workflow_lift",
+        inputCarrierRef: source.term.inputCarrierRef,
+        outputCarrierRef: source.term.outputCarrierRef,
+        graphFunctionRef: source.term.graphFunctionRef
+      })
+    });
+    if (!admission.accepted || admission.program === null) {
+      return Object.freeze({
+        accepted: false,
+        program: null,
+        canonicalSource,
+        diagnostics: Object.freeze(
+          admission.issues.map((message, index) =>
+            constructCAlgebraDiagnostic({
+              diagnosticId: "gtl-c-hog-admission-failed",
+              path: `$.compiled[${index}]`,
+              message,
+              repairAffordances: Object.freeze(["fix_declaration_shape"])
+            })
+          )
+        )
+      });
+    }
+    return Object.freeze({
+      accepted: true,
+      program: admission.program,
+      canonicalSource,
+      diagnostics: Object.freeze([])
+    });
+  }
   const flattened = flattenTerm(source.term, "$.term");
   if (flattened.diagnostics.length > 0) {
     return Object.freeze({

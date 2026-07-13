@@ -20,6 +20,7 @@ import {
 } from "./hog_program_syntax.js";
 import {
   HOG_BOOTSTRAP_TRIPLE,
+  isHogWorkflowProgram,
   type HogProgramDeclaration
 } from "./hog_program.js";
 import {
@@ -271,6 +272,9 @@ function assertProgramMatchesCurrentInterpreter(
   program: HogProgramDeclaration,
   sourceRef: string
 ): void {
+  if (isHogWorkflowProgram(program)) {
+    return;
+  }
   const missingAnchors = HOG_BOOTSTRAP_TRIPLE.stages
     .map((stage) => stage.stageRole)
     .filter(

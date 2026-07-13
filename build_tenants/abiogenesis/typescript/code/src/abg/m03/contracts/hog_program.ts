@@ -20,12 +20,32 @@ export interface HogProgramStage {
   readonly instructionCategoryRefs?: readonly string[] | undefined;
 }
 
-export interface HogProgramDeclaration {
+export interface HogWorkflowLift {
+  readonly kind: "hog_workflow_lift";
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+  readonly graphFunctionRef: string;
+}
+
+export interface HogFlatProgramDeclaration {
   readonly kind: "hog_program_declaration";
   readonly programRef: string;
   readonly stages: readonly HogProgramStage[];
   readonly proportionalityClass: string | null;
+  readonly workflow?: never;
 }
+
+export interface HogWorkflowProgramDeclaration {
+  readonly kind: "hog_program_declaration";
+  readonly programRef: string;
+  readonly stages: readonly [];
+  readonly proportionalityClass: string | null;
+  readonly workflow: HogWorkflowLift;
+}
+
+export type HogProgramDeclaration =
+  | HogFlatProgramDeclaration
+  | HogWorkflowProgramDeclaration;
 
 export interface HogProgramAdmission {
   readonly accepted: boolean;
@@ -73,7 +93,8 @@ const HOG_PROGRAM_KEYS = Object.freeze([
   "kind",
   "programRef",
   "stages",
-  "proportionalityClass"
+  "proportionalityClass",
+  "workflow"
 ]);
 const HOG_STAGE_KEYS = Object.freeze([
   "stageRole",
@@ -81,6 +102,12 @@ const HOG_STAGE_KEYS = Object.freeze([
   "armId",
   "resultBearing",
   "instructionCategoryRefs"
+]);
+const HOG_WORKFLOW_KEYS = Object.freeze([
+  "kind",
+  "inputCarrierRef",
+  "outputCarrierRef",
+  "graphFunctionRef"
 ]);
 
 export function admitHogProgram(input: unknown): HogProgramAdmission {
@@ -106,8 +133,52 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
   }
   const stagesRaw = record["stages"];
   const stages: readonly unknown[] | null = Array.isArray(stagesRaw) ? stagesRaw : null;
-  if (stages === null || stages.length === 0) {
-    issues.push("stages must be a non-empty array");
+  const workflowRaw = record["workflow"];
+  let workflow: HogWorkflowLift | null = null;
+  if (workflowRaw !== undefined) {
+    if (!isPlainRecord(workflowRaw)) {
+      issues.push("workflow must be an object when present");
+    } else {
+      for (const key of Object.keys(workflowRaw)) {
+        if (!HOG_WORKFLOW_KEYS.includes(key)) {
+          issues.push(`workflow: unknown field ${JSON.stringify(key)} (closed key set)`);
+        }
+      }
+      if (workflowRaw["kind"] !== "hog_workflow_lift") {
+        issues.push("workflow.kind must be hog_workflow_lift");
+      }
+      const inputCarrierRef = workflowRaw["inputCarrierRef"];
+      const outputCarrierRef = workflowRaw["outputCarrierRef"];
+      const graphFunctionRef = workflowRaw["graphFunctionRef"];
+      if (!isNonEmptyString(inputCarrierRef)) {
+        issues.push("workflow.inputCarrierRef must be a non-empty string");
+      }
+      if (!isNonEmptyString(outputCarrierRef)) {
+        issues.push("workflow.outputCarrierRef must be a non-empty string");
+      }
+      if (!isNonEmptyString(graphFunctionRef)) {
+        issues.push("workflow.graphFunctionRef must be a non-empty string");
+      }
+      if (
+        isNonEmptyString(inputCarrierRef) &&
+        isNonEmptyString(outputCarrierRef) &&
+        isNonEmptyString(graphFunctionRef)
+      ) {
+        workflow = Object.freeze({
+          kind: "hog_workflow_lift" as const,
+          inputCarrierRef,
+          outputCarrierRef,
+          graphFunctionRef
+        });
+      }
+    }
+  }
+  if (stages === null) {
+    issues.push("stages must be an array");
+  } else if (workflowRaw === undefined && stages.length === 0) {
+    issues.push("flat program stages must be a non-empty array");
+  } else if (workflowRaw !== undefined && stages.length !== 0) {
+    issues.push("workflow program stages must be empty");
   }
   const roles = new Set<string>();
   let resultBearingCount = 0;
@@ -118,7 +189,7 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     readonly resultBearing: boolean;
     readonly instructionCategoryRefs?: readonly string[];
   }[] = [];
-  for (const [index, stageRaw] of (stages ?? []).entries()) {
+  for (const [index, stageRaw] of (workflowRaw === undefined ? (stages ?? []) : []).entries()) {
     const at = `stages[${index}]`;
     if (!isPlainRecord(stageRaw)) {
       issues.push(`${at} must be an object`);
@@ -188,7 +259,12 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
       );
     }
   }
-  if (stages !== null && stages.length > 0 && resultBearingCount !== 1) {
+  if (
+    workflowRaw === undefined &&
+    stages !== null &&
+    stages.length > 0 &&
+    resultBearingCount !== 1
+  ) {
     issues.push(`exactly one result-bearing stage required, got ${resultBearingCount}`);
   }
   const proportionalityRaw = record["proportionalityClass"];
@@ -206,18 +282,40 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
   if (!isNonEmptyString(programRefRaw)) {
     return Object.freeze({ accepted: false, program: null, issues: Object.freeze(["programRef must be a non-empty string"]) });
   }
-  return Object.freeze({
-    accepted: true,
-    program: Object.freeze({
+  const proportionalityClass = isNonEmptyString(proportionalityRaw)
+    ? proportionalityRaw
+    : null;
+  if (workflow !== null) {
+    const program: HogWorkflowProgramDeclaration = Object.freeze({
       kind: "hog_program_declaration" as const,
       programRef: programRefRaw,
-      stages: Object.freeze(admittedStages.map((stage) => Object.freeze(stage))),
-      proportionalityClass: isNonEmptyString(proportionalityRaw)
-        ? proportionalityRaw
-        : null
-    }),
+      stages: Object.freeze([] as const),
+      proportionalityClass,
+      workflow
+    });
+    return Object.freeze({
+      accepted: true,
+      program,
+      issues: Object.freeze([])
+    });
+  }
+  const program: HogFlatProgramDeclaration = Object.freeze({
+    kind: "hog_program_declaration" as const,
+    programRef: programRefRaw,
+    stages: Object.freeze(admittedStages.map((stage) => Object.freeze(stage))),
+    proportionalityClass
+  });
+  return Object.freeze({
+    accepted: true,
+    program,
     issues: Object.freeze([])
   });
+}
+
+export function isHogWorkflowProgram(
+  program: HogProgramDeclaration
+): program is HogWorkflowProgramDeclaration {
+  return Object.hasOwn(program, "workflow");
 }
 
 function isCCallRegime(

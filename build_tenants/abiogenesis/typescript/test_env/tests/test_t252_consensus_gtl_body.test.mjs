@@ -195,7 +195,7 @@ test("T-252 every selected GraphVector resolves one exact local C program", () =
   assert.equal(selectedVectorCount, 34);
 });
 
-test("T-252 nested C census retains retry and workflow as typed gaps", () => {
+test("T-252 nested C census retains retry while direct workflow programs lower", () => {
   const rows = ABG_CONSENSUS_GTL_BODY.programs.map((program) => ({
     programRef: program.programRef,
     compilation: compileCAlgebraToHog(program)
@@ -216,6 +216,14 @@ test("T-252 nested C census retains retry and workflow as typed gaps", () => {
   assert.equal(
     diagnosticIds.filter((value) => value === "gtl-c-unrealized-workflow-lift")
       .length,
+    0
+  );
+  assert.equal(
+    rows.filter(
+      (row) =>
+        row.compilation.accepted &&
+        row.compilation.program?.workflow?.kind === "hog_workflow_lift"
+    ).length,
     3
   );
 
