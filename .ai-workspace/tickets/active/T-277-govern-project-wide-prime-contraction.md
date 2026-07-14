@@ -57,6 +57,9 @@
 - pc006_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T160900Z_SELF_REVIEW_t277_pc006_capability_disposition.md
+- pc008_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T162000Z_SELF_REVIEW_t277_pc008_scenario_factorization.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -208,7 +211,9 @@ Every census row must end in exactly one state:
 - `PC-006`: live audit disproved the need for a new commonization carrier;
   T-268 has an accepted prospective design requiring all future capability and
   manifest projections to consume the existing register
-- next implementation boundary: PC-008 installed-scenario factorization
+- `PC-008`: no duplicated scenario code exists; T-276 has an accepted
+  prospective design fixing one source-blind driver before realization
+- next boundary: final source census, full gates, and review handoff
 
 ## Exit
 

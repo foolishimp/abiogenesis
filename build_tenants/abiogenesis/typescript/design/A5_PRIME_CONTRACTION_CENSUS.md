@@ -277,6 +277,12 @@ but no cross-ticket contraction pass joined the designs.
   executions remain `3..9` as required by the accepted qualification design.
 - **Negative proof**: no workspace or outcome branch imports source, invokes a
   worker directly, emits events, constructs continuation, or mutates tickets.
+- **Accepted prospective design**:
+  `M04_M05_INSTALLED_CONSENSUS_SCENARIO_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
+- **Implementation status**: no scenario implementations exist to refactor.
+  The accepted shape uses three paired primary executions plus a structural
+  parameter-invariance proof, with all nine available through the same driver
+  if independent review requires Cartesian behavioral evidence.
 
 ### PC-009 - Qualification proof journeys
 
