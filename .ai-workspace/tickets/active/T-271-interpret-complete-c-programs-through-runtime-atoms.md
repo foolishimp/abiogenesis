@@ -5,6 +5,10 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- phase_status: design_accepted_implementation_authorized
+- implementation_status: not_started
+- proof_status: pending
+- review_status: design_accepted_under_delegated_fh
 - delivery_phase: DS-3 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -21,6 +25,15 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-259
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_COMPLETE_C_PROGRAM_INTERPRETER_BEHAVIOR_DESIGN.md
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T040000Z_SELF_REVIEW_t271_complete_c_program_interpreter_design.md
+- design_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T040100Z_DECISION_delegated_fh_accept_t271_design.md
 - priority: critical
 - dependencies:
   - completed T-259 direct workflow.C atom
