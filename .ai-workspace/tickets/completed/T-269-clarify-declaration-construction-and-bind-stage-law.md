@@ -4,11 +4,11 @@
 - title: Clarify canonical declaration construction and internal bind-stage law
 - type: bug
 - ticket_category: ordinary
-- status: active
-- phase_status: requirement_reprice_repaired_proof_pending
+- status: completed
+- phase_status: closed_after_independent_review_repair
 - implementation_status: specification_and_proof_only
-- proof_status: pending
-- review_status: self_review_pending
+- proof_status: verified
+- review_status: accepted_under_delegated_fh_after_independent_review
 - delivery_phase: DS-0
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -20,6 +20,7 @@
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
 - updated_at: 2026-07-14
+- closed_at: 2026-07-14
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
@@ -30,6 +31,13 @@
   - specification/requirements/gtl/REQ-L-GTL3-LAWS.md
   - specification/requirements/abg/REQ-R-ABG3-CCALL.md
   - specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md
+- implementation_commit: 1105c391
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T030500Z_SELF_REVIEW_t269_open_program_law_repair.md
+- decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T030700Z_DECISION_delegated_fh_close_t269.md
 
 ## Boundary
 
@@ -55,3 +63,12 @@ before this requirement reprice is reviewed.
 the exact admitted open program. They may name `transform.C`, `evaluate.C`, and
 `consequence.C` as lawful categories but may not require that fixed chain or
 allow interpreter bind rows to replace authored stages.
+
+## Current Disposition
+
+`closed_after_independent_review_repair`. `FN-COMP-015/-021` now apply one
+stage-set law to the exact ordered admitted program and explicitly forbid a
+fixed three-stage replacement. Dedicated proof exercises the real native
+constructor, canonical serializer, raw admission, digest equivalence,
+ambient-input instability negative, and authored-stage/bind-stage law. No
+runtime implementation changed.
