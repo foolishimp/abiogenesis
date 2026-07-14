@@ -264,11 +264,14 @@ targetInputPayloadRef next A
 policyRef and policyDigest unchanged
 budgetSourceFieldRef unchanged
 preservedEvidenceRefs non-empty superset of prior round evidence
-foldbackEvidenceRefs non-empty
+foldbackEvidenceRefs include a content-derived parent-rebind witness
 ```
 
 ABG rejects a changed binding, carrier pair, source payload, policy identity,
 budget-source ref, missing prior evidence, malformed target, or stale lineage.
+The witness binds the exact child output, proposed next input, foldback
+declaration digest, policy, budget, lineage, and preserved evidence. Generic or
+unrelated evidence cannot authorize the proposed next input.
 Rejection is itself admitted as terminal recurse truth, so replay cannot invoke
 the rejected foldback adapter again.
 An admitted foldback event is necessary but not sufficient to open the next
@@ -281,7 +284,9 @@ The declared `requiresParentEvaluation: true` is realized by a separate
 projection, not another product callback. It checks the exact foldback event,
 next A carrier and payload, unchanged policy ref/digest and budget-source ref,
 stable lineage, preserved evidence, and the declaration's mandatory
-parent-evaluation flag. Its closed result is `admitted` or `blocked`.
+parent-evaluation flag. It independently re-derives the parent-rebind witness
+from admitted event truth; an absent or stale witness produces `blocked`
+before another child effect. Its closed result is `admitted` or `blocked`.
 
 Only an admitted parent-rebind event can advance replay to the next ordinal.
 The next child request consumes exactly the event's A payload and preserved

@@ -166,6 +166,27 @@ export interface TypedRecurseFoldbackOutcome {
   readonly foldbackEvidenceRefs: readonly string[];
 }
 
+export interface TypedRecurseParentRebindEvidenceInput {
+  readonly planRef: string;
+  readonly bindingRef: string;
+  readonly applicationOrdinal: number;
+  readonly childInvocationRef: string;
+  readonly childGraphCallId: string;
+  readonly childFrameId: string;
+  readonly frameLineageId: string;
+  readonly foldbackBinding: string;
+  readonly foldbackAdditionalDigest: `sha256:${string}`;
+  readonly sourceOutputCarrierRef: string;
+  readonly sourceOutputPayloadRef: string;
+  readonly targetInputCarrierRef: string;
+  readonly targetInputPayloadRef: string;
+  readonly policyRef: string;
+  readonly policyDigest: `sha256:${string}`;
+  readonly budgetSourceFieldRef: string;
+  readonly maxApplications: number;
+  readonly preservedEvidenceRefs: readonly string[];
+}
+
 export type TypedRecurseStopReason =
   | "held"
   | "child_blocked"
@@ -375,6 +396,59 @@ function stableUnion(groups: readonly (readonly string[])[]): readonly string[] 
     }
   }
   return Object.freeze(output);
+}
+
+export function deriveTypedRecurseParentRebindEvidenceRef(
+  input: TypedRecurseParentRebindEvidenceInput
+): string {
+  const digest = stableSha256Digest({
+    kind: "typed_recurse_parent_rebind_evidence",
+    planRef: input.planRef,
+    bindingRef: input.bindingRef,
+    applicationOrdinal: input.applicationOrdinal,
+    childInvocationRef: input.childInvocationRef,
+    childGraphCallId: input.childGraphCallId,
+    childFrameId: input.childFrameId,
+    frameLineageId: input.frameLineageId,
+    foldbackBinding: input.foldbackBinding,
+    foldbackAdditionalDigest: input.foldbackAdditionalDigest,
+    sourceOutputCarrierRef: input.sourceOutputCarrierRef,
+    sourceOutputPayloadRef: input.sourceOutputPayloadRef,
+    targetInputCarrierRef: input.targetInputCarrierRef,
+    targetInputPayloadRef: input.targetInputPayloadRef,
+    policyRef: input.policyRef,
+    policyDigest: input.policyDigest,
+    budgetSourceFieldRef: input.budgetSourceFieldRef,
+    maxApplications: input.maxApplications,
+    preservedEvidenceRefs: [...input.preservedEvidenceRefs]
+  });
+  return `evidence://abg/typed-recurse/parent-rebind/${digest.slice("sha256:".length)}`;
+}
+
+function parentRebindEvidenceRef(input: {
+  readonly invocation: TypedRecurseInvocation;
+  readonly foldback: TypedRecurseFoldbackAdmittedEvent;
+}): string {
+  return deriveTypedRecurseParentRebindEvidenceRef({
+    planRef: input.foldback.planRef,
+    bindingRef: input.foldback.bindingRef,
+    applicationOrdinal: input.foldback.applicationOrdinal,
+    childInvocationRef: input.foldback.childInvocationRef,
+    childGraphCallId: input.foldback.childGraphCallId,
+    childFrameId: input.foldback.childFrameId,
+    frameLineageId: input.foldback.frameLineageId,
+    foldbackBinding: input.foldback.foldbackBinding,
+    foldbackAdditionalDigest: input.invocation.plan.foldbackAdditionalDigest,
+    sourceOutputCarrierRef: input.foldback.sourceOutputCarrierRef,
+    sourceOutputPayloadRef: input.foldback.sourceOutputPayloadRef,
+    targetInputCarrierRef: input.foldback.targetInputCarrierRef,
+    targetInputPayloadRef: input.foldback.targetInputPayloadRef,
+    policyRef: input.foldback.policyRef,
+    policyDigest: input.foldback.policyDigest,
+    budgetSourceFieldRef: input.foldback.budgetSourceFieldRef,
+    maxApplications: input.invocation.plan.maxApplications,
+    preservedEvidenceRefs: input.foldback.preservedEvidenceRefs
+  });
 }
 
 function selectedModuleAuthority(
@@ -798,6 +872,16 @@ function projectReplay(
       ]);
       stage = "parent";
     } else if (stage === "parent") {
+      const expectedParentRebindEvidenceRef =
+        foldback === null
+          ? null
+          : parentRebindEvidenceRef({ invocation, foldback });
+      const parentRebindAdmitted =
+        expectedParentRebindEvidenceRef !== null &&
+        foldback !== null &&
+        foldback.foldbackEvidenceRefs.includes(
+          expectedParentRebindEvidenceRef
+        );
       if (
         event.kind !== "typed_recurse_parent_rebind_evaluated" ||
         foldback === null ||
@@ -806,7 +890,8 @@ function projectReplay(
         event.policyRef !== invocation.plan.policyRef ||
         event.policyDigest !== invocation.plan.policyDigest ||
         event.budgetSourceFieldRef !== invocation.plan.budgetSourceFieldRef ||
-        !containsEvery(event.evidenceRefs, priorEvidenceRefs)
+        !containsEvery(event.evidenceRefs, priorEvidenceRefs) ||
+        (event.decision === "admitted") !== parentRebindAdmitted
       ) {
         throw new TypeError("typed recurse replay expected exact parent rebind truth");
       }
@@ -1419,9 +1504,27 @@ export async function resolveTypedRecurse(
       if (foldback === null) {
         throw new TypeError("typed recurse parent evaluation lacks foldback");
       }
+      const expectedParentRebindEvidenceRef = parentRebindEvidenceRef({
+        invocation,
+        foldback
+      });
+      const admitted = foldback.foldbackEvidenceRefs.includes(
+        expectedParentRebindEvidenceRef
+      );
+      const reasonRef = admitted
+        ? null
+        : `reason://abg/typed-recurse/parent-rebind-evidence-missing/${stableSha256Digest({
+            expectedParentRebindEvidenceRef,
+            actualFoldbackEvidenceRefs: foldback.foldbackEvidenceRefs
+          }).slice("sha256:".length)}`;
       const evidenceRefs = stableUnion([
         projection.priorEvidenceRefs,
-        [eventRef(foldback)]
+        [eventRef(foldback)],
+        reasonRef === null
+          ? []
+          : [
+              `evidence://abg/typed-recurse/parent-rebind-blocked/${stableSha256Digest({ reasonRef }).slice("sha256:".length)}`
+            ]
       ]);
       emitEvent({
         invocation,
@@ -1434,8 +1537,8 @@ export async function resolveTypedRecurse(
           policyRef: invocation.plan.policyRef,
           policyDigest: invocation.plan.policyDigest,
           budgetSourceFieldRef: invocation.plan.budgetSourceFieldRef,
-          decision: "admitted" as const,
-          reasonRef: null,
+          decision: admitted ? "admitted" as const : "blocked" as const,
+          reasonRef,
           evidenceRefs
         })
       });

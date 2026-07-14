@@ -38,6 +38,7 @@ import {
   compileTypedRecursePlan
 } from "../../build/semantic/code/src/abg/m03/contracts/typed_recurse.js";
 import {
+  deriveTypedRecurseParentRebindEvidenceRef,
   resolveTypedRecurse
 } from "../../build/semantic/code/src/abg/m03/runner/typed_recurse_runtime.js";
 
@@ -260,7 +261,7 @@ function terminationOutcome(request, decision, overrides = {}) {
 }
 
 function foldbackOutcome(request, overrides = {}) {
-  return Object.freeze({
+  const outcome = {
     kind: "typed_recurse_foldback_outcome",
     planRef: request.planRef,
     bindingRef: request.bindingRef,
@@ -279,10 +280,33 @@ function foldbackOutcome(request, overrides = {}) {
     policyDigest: request.policyDigest,
     budgetSourceFieldRef: request.budgetSourceFieldRef,
     preservedEvidenceRefs: [...request.requiredPreservedEvidenceRefs],
-    foldbackEvidenceRefs: [
-      `evidence://t262/foldback/${String(request.applicationOrdinal)}`
-    ],
     ...overrides
+  };
+  return Object.freeze({
+    ...outcome,
+    foldbackEvidenceRefs: overrides.foldbackEvidenceRefs ?? [
+      `evidence://t262/foldback/${String(request.applicationOrdinal)}`,
+      deriveTypedRecurseParentRebindEvidenceRef({
+        planRef: outcome.planRef,
+        bindingRef: outcome.bindingRef,
+        applicationOrdinal: outcome.applicationOrdinal,
+        childInvocationRef: outcome.childInvocationRef,
+        childGraphCallId: outcome.childGraphCallId,
+        childFrameId: outcome.childFrameId,
+        frameLineageId: outcome.frameLineageId,
+        foldbackBinding: outcome.foldbackBinding,
+        foldbackAdditionalDigest: request.foldbackAdditionalDigest,
+        sourceOutputCarrierRef: outcome.sourceOutputCarrierRef,
+        sourceOutputPayloadRef: outcome.sourceOutputPayloadRef,
+        targetInputCarrierRef: outcome.targetInputCarrierRef,
+        targetInputPayloadRef: outcome.targetInputPayloadRef,
+        policyRef: outcome.policyRef,
+        policyDigest: outcome.policyDigest,
+        budgetSourceFieldRef: outcome.budgetSourceFieldRef,
+        maxApplications: request.maxApplications,
+        preservedEvidenceRefs: outcome.preservedEvidenceRefs
+      })
+    ]
   });
 }
 
@@ -681,25 +705,32 @@ test("T-262 replay rejects lineage, ordinal, causation, input, and evidence drif
   }
 });
 
-test("T-262 blocked parent rebind is terminal replay truth", async () => {
+test("T-262 parent rebind rejects unwitnessed next input before round two", async () => {
   const value = fixture();
   const catalog = admittedCatalog(value);
   const run = invocation(value, catalog, {
     evaluateTermination(request) {
       return terminationOutcome(request, "foldback");
+    },
+    applyFoldback(request) {
+      return foldbackOutcome(request, {
+        targetInputPayloadRef: "payload://t262/unrelated/injected",
+        foldbackEvidenceRefs: ["evidence://t262/unrelated"]
+      });
     }
   });
-  await resolveTypedRecurse(run.input);
+  const liveResult = await resolveTypedRecurse(run.input);
+  assert.equal(liveResult.status, "blocked");
+  assert.equal(liveResult.stopReason, "parent_rebind_blocked");
+  assert.equal(run.calls.child.length, 1);
+  assert.equal(run.emitted.at(-1).kind, "typed_recurse_parent_rebind_evaluated");
   const parent = run.emitted[4];
   assert.equal(parent.kind, "typed_recurse_parent_rebind_evaluated");
-  const blockedParent = {
-    ...parent,
-    decision: "blocked",
-    reasonRef: "reason://t262/parent-rebind-blocked"
-  };
-  assertRuntimeEvent(blockedParent);
+  assert.equal(parent.decision, "blocked");
+  assert.match(parent.reasonRef, /parent-rebind-evidence-missing/u);
+  assertRuntimeEvent(parent);
   const replay = invocation(value, catalog, {
-    replayEvents: [...run.emitted.slice(0, 4), blockedParent],
+    replayEvents: run.emitted,
     invokeChild() { throw new Error("blocked parent must not recurse"); },
     evaluateTermination() { throw new Error("blocked parent must not evaluate"); },
     applyFoldback() { throw new Error("blocked parent must not fold back"); }
