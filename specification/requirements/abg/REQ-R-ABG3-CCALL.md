@@ -27,7 +27,12 @@ structure around it.
   vectorIndex, stageRole, taskOrdinal|null, attempt. No spine event
   carries a fibre name OR fibre-dependent material (instruction
   manifests are fibre evidence, not locus identity); fibre-freedom is
-  structural.
+  structural. A call interpreted from a compiled open C program also carries
+  `programLocusRef` and the complete `retryPath`, represented as a possibly
+  empty sequence of positive integers. Those fields identify the authored
+  structural locus and nested attempt path; they carry no fibre or handler
+  truth. Calls produced by the retained flat
+  compatibility path may omit both fields until that path is migrated.
 - **-003 Fibre selection is admitted truth.** `c_call_fibre_selected`
   {cCallRef, regime, armId, compositionRef|null} is the first interior
   row. The (stageRole × fibre) arm census is registry data asserted at
@@ -38,7 +43,11 @@ structure around it.
   by construction (delimiter encodings collide across ":"-bearing
   fields); the READABLE locus is retained on `c_call_opened` itself.
   Recursive frames, repeated graph calls, and composed tasks shall not
-  collide. (Absorbs the T-198 frame-identity successor.)
+  collide. For a compiled open C program, the typed tuple additionally
+  includes {programLocusRef, retryPath}; serial same-role loci and nested
+  attempts therefore cannot collapse onto the flat compatibility identity.
+  The two fields appear together or not at all. (Absorbs the T-198
+  frame-identity successor.)
 - **-005 Spine per invoking task.** Any stage-task that can invoke a
   worker or plugin gets its own spine; a composed batch is a parent
   grouping ref (batchRef), never the counted call.

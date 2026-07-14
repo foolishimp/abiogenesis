@@ -1374,23 +1374,53 @@ export function mintCCallRef(input: {
   readonly stageRole: CCallStageRole;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
+  readonly programLocusRef?: string | undefined;
+  readonly retryPath?: readonly number[] | undefined;
 }): string {
+  const { programLocusRef, retryPath } = input;
+  const hasProgramLocus = programLocusRef !== undefined;
+  const hasRetryPath = retryPath !== undefined;
+  if (hasProgramLocus !== hasRetryPath) {
+    throw new TypeError(
+      "C-call programLocusRef and retryPath must be supplied together"
+    );
+  }
+  if (
+    programLocusRef !== undefined &&
+    retryPath !== undefined &&
+    (programLocusRef.length === 0 ||
+      !retryPath.every(
+        (coordinate) => Number.isInteger(coordinate) && coordinate > 0
+      ))
+  ) {
+    throw new TypeError(
+      "C-call complete-program locus requires a non-empty ref and positive retry path"
+    );
+  }
   // INJECTIVE by construction: identity fields may themselves contain
   // ":" so a delimiter join collides across field splits (codex round 4
   // reproduced it). The digest of the typed tuple cannot; the readable
   // locus lives on c_call_opened itself.
-  return `c-call:${stableSha256Digest({
+  const basis = {
     basisId: input.basisId,
     graphCallId: input.graphCallId,
     frameId: input.frameId,
     vectorIndex: input.vectorIndex,
     stageRole: input.stageRole,
     taskOrdinal: input.taskOrdinal,
-    attempt: input.attempt
-  })}`;
+    attempt: input.attempt,
+    ...(programLocusRef !== undefined && retryPath !== undefined
+      ? {
+          programLocusRef,
+          retryPath: Object.freeze([...retryPath])
+        }
+      : {})
+  };
+  return `c-call:${stableSha256Digest(basis)}`;
 }
 
 export function constructCCallOpenedEvent(input: Omit<CCallOpenedEvent, "kind" | "cCallRef">): CCallOpenedEvent {
+  const hasProgramLocus = input.programLocusRef !== undefined;
   return Object.freeze({
     kind: "c_call_opened",
     cCallRef: mintCCallRef(input),
@@ -1403,7 +1433,13 @@ export function constructCCallOpenedEvent(input: Omit<CCallOpenedEvent, "kind" |
     stageRole: input.stageRole,
     taskOrdinal: input.taskOrdinal,
     attempt: input.attempt,
-    batchRef: input.batchRef
+    batchRef: input.batchRef,
+    ...(hasProgramLocus
+      ? {
+          programLocusRef: input.programLocusRef,
+          retryPath: Object.freeze([...(input.retryPath ?? [])])
+        }
+      : {})
   });
 }
 

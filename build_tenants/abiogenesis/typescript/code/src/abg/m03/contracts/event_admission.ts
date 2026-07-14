@@ -863,7 +863,7 @@ const C_CALL_OPENED_ADMISSION = (event: RuntimeEventRecord): void => {
     const allowed = new Set([
       "kind", "cCallRef", "basisId", "graphFunctionId", "graphCallId",
       "frameId", "edge", "vectorIndex", "stageRole", "taskOrdinal",
-      "attempt", "batchRef",
+      "attempt", "batchRef", "programLocusRef", "retryPath",
       "eventId", "eventTime", "eventTimeUnixMs", "eventAdmissionOrdinal"
     ]);
     for (const key of Object.keys(event)) {
@@ -886,6 +886,33 @@ const C_CALL_OPENED_ADMISSION = (event: RuntimeEventRecord): void => {
       attempt: "non_negative_integer",
       batchRef: "nullable_string"
     })(event);
+    const hasProgramLocus = event["programLocusRef"] !== undefined;
+    const hasRetryPath = event["retryPath"] !== undefined;
+    if (hasProgramLocus !== hasRetryPath) {
+      throw new TypeError(
+        "CCallOpenedEvent complete-program locus fields must appear together"
+      );
+    }
+    if (hasProgramLocus) {
+      assertNonEmptyString(
+        event["programLocusRef"],
+        "CCallOpenedEvent.programLocusRef"
+      );
+      const path = event["retryPath"];
+      if (
+        !Array.isArray(path) ||
+        !path.every(
+          (coordinate) =>
+            typeof coordinate === "number" &&
+            Number.isInteger(coordinate) &&
+            coordinate > 0
+        )
+      ) {
+        throw new TypeError(
+          "CCallOpenedEvent.retryPath must contain positive integer coordinates"
+        );
+      }
+    }
   };
 
 const admitLeverResolutionAdmittedEvent: RuntimeEventAdmitter = (event) => {

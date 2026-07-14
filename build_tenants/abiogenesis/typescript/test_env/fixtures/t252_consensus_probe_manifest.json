@@ -1289,8 +1289,8 @@
       {
         "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "programRef": "program://abg/consensus/review-one-profile",
-        "planRef": "abg://compiled-c-program/99185a11e2a2e20e6a8b05b1ccc0673c27fefd286d0384872c43aa17bd7783ba",
-        "planDigest": "sha256:99185a11e2a2e20e6a8b05b1ccc0673c27fefd286d0384872c43aa17bd7783ba",
+        "planRef": "abg://compiled-c-program/347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
+        "planDigest": "sha256:347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
         "programBindingDigest": "sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
         "authoredNodeCount": 2,
         "invokingLocusCount": 1,
@@ -3642,5 +3642,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:212c5dedc93b8ed1a65ff15dbf0fbe9f3178547a35181336ac776deb369e1d35"
+  "manifestDigest": "sha256:2f7987957ae1e3143b6ef98e9cbb0f4fa5642d2222e9a6fee9ef1e60dc16eeb6"
 }

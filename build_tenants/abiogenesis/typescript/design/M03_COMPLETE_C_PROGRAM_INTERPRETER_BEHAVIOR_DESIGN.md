@@ -143,7 +143,11 @@ The compiler derives two orthogonal ordinals:
 Retry attempts remain replay-derived runtime ordinals and never enter static
 program identity. Workflow child frames retain child GraphFunction and frame
 identity. These coordinates join the existing C-call identity without
-inventing a parallel call namespace.
+inventing a parallel call namespace: complete-program calls extend the
+canonical digest tuple with `programLocusRef = compiledNodeRef` and the full,
+possibly empty sequence of positive-integer `retryPath` coordinates. The
+retained flat compatibility path omits both fields and preserves its existing
+identity form.
 
 ### D3. Carrier continuity and result cardinality close before effects
 
@@ -224,6 +228,10 @@ grouping/control law with the sole direct leaf's C-call construction. T-271
 must factor those implementations at the existing atom boundary:
 
 - the batch coordinator owns stable task order and all-or-block folding;
+- the complete-program batch projection derives separate content-addressed
+  output and result refs from the ordered admitted task outputs and task
+  results, seals that derivation in a replay receipt, and accepts no caller-
+  supplied projection callback;
 - the retry coordinator owns replay-derived attempt eligibility, budget, and
   the retry judgment over the exact terminal child call; and
 - the stage/workflow atoms own every C-call open, fibre selection, evidence,

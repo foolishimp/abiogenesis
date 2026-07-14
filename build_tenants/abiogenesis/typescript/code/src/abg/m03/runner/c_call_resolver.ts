@@ -29,6 +29,8 @@ export interface CCallLocus {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly batchRef: string | null;
+  readonly programLocusRef?: string | undefined;
+  readonly retryPath?: readonly number[] | undefined;
 }
 
 export interface CCallEvidenceRow {
@@ -83,6 +85,8 @@ export async function resolveCCall(
     taskOrdinal: locus.taskOrdinal,
     attempt: locus.attempt,
     batchRef: locus.batchRef,
+    programLocusRef: locus.programLocusRef,
+    retryPath: locus.retryPath,
     regime,
     armId: stage.armId,
     programRef: input.programRef,
@@ -172,6 +176,8 @@ export function mintCCallRefForStage(
     vectorIndex: locus.vectorIndex,
     stageRole: stage.stageRole,
     taskOrdinal: locus.taskOrdinal,
-    attempt: locus.attempt
+    attempt: locus.attempt,
+    programLocusRef: locus.programLocusRef,
+    retryPath: locus.retryPath
   });
 }

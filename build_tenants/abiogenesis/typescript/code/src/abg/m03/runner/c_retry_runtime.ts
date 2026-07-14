@@ -851,6 +851,14 @@ export interface CRetryAttemptDecision {
   readonly stopReason: CRetryStopReason | null;
 }
 
+export interface CRetryCoordinatedAttempt {
+  readonly judgment: CCallJudgment;
+  readonly stopReason: CRetryStopReason | null;
+  readonly policyRef: string;
+  readonly policyDigest: `sha256:${string}`;
+  readonly closeEvents: readonly RuntimeEvent[];
+}
+
 export function deriveCRetryAttemptDecision(input: {
   readonly disposition: CRetryAttemptDisposition;
   readonly failureClass: RuntimeFailureClass | null;
@@ -909,6 +917,57 @@ export function deriveCRetryAttemptDecision(input: {
   });
 }
 
+export function coordinateCRetryAttempt(input: {
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly cCallRef: string;
+  readonly basisId: string;
+  readonly disposition: CRetryAttemptDisposition;
+  readonly failureClass: RuntimeFailureClass | null;
+  readonly failureSignalRef: string | null;
+  readonly attempt: number;
+  readonly maxAttempts: number;
+  readonly priorFailureClass: RuntimeFailureClass | null;
+  readonly priorFailureSignalRef: string | null;
+  readonly outcomeStatus: string;
+  readonly payloadRef: string | null;
+  readonly responseContractRef: string | null;
+  readonly reasonRef: string | null;
+  readonly evidenceRefs: readonly string[];
+}): CRetryCoordinatedAttempt {
+  const policy = deriveCRetryPolicyProjection();
+  const decision = deriveCRetryAttemptDecision({
+    disposition: input.disposition,
+    failureClass: input.failureClass,
+    failureSignalRef: input.failureSignalRef,
+    attempt: input.attempt,
+    maxAttempts: input.maxAttempts,
+    priorFailureClass: input.priorFailureClass,
+    priorFailureSignalRef: input.priorFailureSignalRef
+  });
+  const closeEvents = buildCCallSpineCloseOrResume(input.replayEvents, {
+    cCallRef: input.cCallRef,
+    basisId: input.basisId,
+    evidenceClass: "c_retry_attempt",
+    evidenceRefs: Object.freeze([
+      `retry-policy:${policy.policyRef}`,
+      `retry-policy-digest:${policy.policyDigest}`,
+      ...input.evidenceRefs
+    ]),
+    outcomeStatus: input.outcomeStatus,
+    payloadRef: input.payloadRef,
+    responseContractRef: input.responseContractRef,
+    judgment: decision.judgment,
+    reasonRef: input.reasonRef
+  });
+  return Object.freeze({
+    judgment: decision.judgment,
+    stopReason: decision.stopReason,
+    policyRef: policy.policyRef,
+    policyDigest: policy.policyDigest,
+    closeEvents
+  });
+}
+
 function emitRows(input: {
   readonly invocation: CRetryInvocation;
   readonly runtimeEvents: RuntimeEvent[];
@@ -935,8 +994,6 @@ export async function resolveCRetry(
     stageRole: input.plan.stageRole,
     taskOrdinal: input.taskOrdinal
   });
-  const policy = deriveCRetryPolicyProjection();
-
   for (;;) {
     const records = projectAttemptRecords(input, runtimeEvents);
     validateReplayTransitions(input, records);
@@ -1040,43 +1097,37 @@ export async function resolveCRetry(
       });
     }
 
-    const decision = deriveCRetryAttemptDecision({
+    const coordinated = coordinateCRetryAttempt({
+      replayEvents: runtimeEvents,
+      cCallRef: spine.cCallRef,
+      basisId: input.parentBasisId,
       disposition: outcome.disposition,
       failureClass: outcome.failureClass,
       failureSignalRef: outcome.failureSignalRef,
       attempt,
       maxAttempts: input.plan.maxAttempts,
       priorFailureClass: prior?.failureClass ?? null,
-      priorFailureSignalRef: prior?.failureSignalRef ?? null
-    });
-    const judgment = decision.judgment;
-    const stopReason = decision.stopReason;
-    const reasonRef = outcome.disposition === "runtime_failed"
-      ? outcome.failureSignalRef
-      : outcome.reasonRef;
-    const closeRows = buildCCallSpineCloseOrResume(runtimeEvents, {
-      cCallRef: spine.cCallRef,
-      basisId: input.parentBasisId,
-      evidenceClass: "c_retry_attempt",
+      priorFailureSignalRef: prior?.failureSignalRef ?? null,
+      outcomeStatus: outcome.failureClass ?? outcome.disposition,
+      payloadRef: outcome.outputPayloadRef,
+      responseContractRef: outcome.responseContractRef,
+      reasonRef: outcome.disposition === "runtime_failed"
+        ? outcome.failureSignalRef
+        : outcome.reasonRef,
       evidenceRefs: Object.freeze([
         `attempt-run:${outcome.attemptRunRef}`,
         `attempt-manifest:${outcome.attemptManifestRef}`,
         `attempt-state:${outcome.attemptStateRef}`,
-        `retry-policy:${policy.policyRef}`,
-        `retry-policy-digest:${policy.policyDigest}`,
         ...outcome.evidenceRefs
-      ]),
-      outcomeStatus: outcome.failureClass ?? outcome.disposition,
-      payloadRef: outcome.outputPayloadRef,
-      responseContractRef: outcome.responseContractRef,
-      judgment,
-      reasonRef
+      ])
     });
+    const judgment = coordinated.judgment;
+    const stopReason = coordinated.stopReason;
     emitRows({
       invocation: input,
       runtimeEvents,
       emittedEvents,
-      rows: closeRows
+      rows: coordinated.closeEvents
     });
     if (judgment === "retry") continue;
 

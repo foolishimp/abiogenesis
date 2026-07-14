@@ -48,6 +48,9 @@ import {
   compileGraphVectorExecutionHandoff
 } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import {
+  mintCCallRef
+} from "../../build/semantic/code/src/abg/m03/contracts/event_factories.js";
+import {
   admitBoundWorkspaceCatalog
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
 import {
@@ -216,6 +219,26 @@ function fixture(kind = "mixed") {
       { stageRole: "transform", regime: "F_D" },
       { stageRole: "consequence", regime: "F_P" }
     ];
+  } else if (kind === "batch_results") {
+    const task = (suffix) => C.compose(
+      stage(
+        observationCarrier,
+        preparedCarrier,
+        `result_${suffix}`,
+        true
+      ),
+      stage(preparedCarrier, projectionCarrier, `finish_${suffix}`)
+    );
+    term = C.batch(
+      [task("first"), task("second")],
+      "batch://t271/result-continuity"
+    );
+    rows = [
+      { stageRole: "transform", regime: "F_D" },
+      { stageRole: "evaluate", regime: "F_D" },
+      { stageRole: "transform", regime: "F_D" },
+      { stageRole: "consequence", regime: "F_D" }
+    ];
   } else if (kind === "retry") {
     term = C.retry(mixed("prepare_retry"), 3);
     rows = [
@@ -236,6 +259,15 @@ function fixture(kind = "mixed") {
     ];
   } else if (kind === "identity_right") {
     term = C.compose(mixed("prepare_identity_right"), C.id(projectionCarrier));
+    rows = [
+      { stageRole: "transform", regime: "F_D" },
+      { stageRole: "evaluate", regime: "F_P" }
+    ];
+  } else if (kind === "multiple_results") {
+    term = C.compose(
+      stage(observationCarrier, preparedCarrier, "explicit_result", true),
+      workflow.C(childRef)
+    );
     rows = [
       { stageRole: "transform", regime: "F_D" },
       { stageRole: "evaluate", regime: "F_P" }
@@ -378,7 +410,9 @@ function fixture(kind = "mixed") {
     handoffOutcome.status,
     kind === "self"
       ? "blocked_successor_constructor"
-      : kind === "missing_fibre" || kind === "ambiguous_composition"
+      : kind === "missing_fibre" ||
+          kind === "ambiguous_composition" ||
+          kind === "multiple_results"
         ? "invalid"
         : "published_startup_blocked",
     JSON.stringify(handoffOutcome.diagnostics)
@@ -458,7 +492,7 @@ function completedAtom(request, suffix = "completed") {
     reasonRef: null,
     failureClass: null,
     evidenceRefs: [`evidence://t271/${suffix}/${request.sourcePath}`],
-    cCallRef: `c-call://t271/${suffix}/${request.sourcePath}`,
+    cCallRef: request.cCallRef,
     sourceEventRefs: [`event://t271/${suffix}/${request.sourcePath}`]
   });
 }
@@ -477,7 +511,7 @@ function runtimeFailure(request, attempt) {
     reasonRef: `reason://t271/transport/${String(attempt)}`,
     failureClass: "transport_failure",
     evidenceRefs: [`evidence://t271/failure/${String(attempt)}`],
-    cCallRef: `c-call://t271/failure/${String(attempt)}`,
+    cCallRef: request.cCallRef,
     sourceEventRefs: [`event://t271/failure/${String(attempt)}`]
   });
 }
@@ -495,6 +529,20 @@ function resealReceipt(receipt, changes) {
   });
 }
 
+function resealBatchReceipt(receipt, changes) {
+  const { receiptRef: _receiptRef, receiptDigest: _receiptDigest, ...basis } = {
+    ...receipt,
+    ...changes
+  };
+  const receiptDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    receiptRef:
+      `abg://c-program-batch-projection-receipt/${receiptDigest.slice("sha256:".length)}`,
+    receiptDigest
+  });
+}
+
 function resealPlan(plan, changes) {
   const { planRef: _planRef, planDigest: _planDigest, ...basis } = {
     ...plan,
@@ -505,21 +553,6 @@ function resealPlan(plan, changes) {
     ...basis,
     planRef: `abg://compiled-c-program/${planDigest.slice("sha256:".length)}`,
     planDigest
-  });
-}
-
-function projectBatch(request) {
-  return Object.freeze({
-    kind: "c_program_batch_projection_result",
-    planRef: request.planRef,
-    nodeRef: request.nodeRef,
-    batchRef: request.batchRef,
-    outputCarrierRef: request.outputCarrierRef,
-    outputPayloadRef: `payload://t271/batch/${request.completedTasks
-      .map((task) => task.taskOrdinal)
-      .join("-")}`,
-    outputLineageRef: `lineage://t271/batch/${request.completedTasks.length}`,
-    evidenceRefs: request.completedTasks.flatMap((task) => task.evidenceRefs)
   });
 }
 
@@ -537,8 +570,7 @@ function invocation(value, options = {}) {
     inputLineageRef: "lineage://t271/observation",
     replayReceipts: options.replayReceipts ?? [],
     invokeAdmittedAtom: options.invokeAdmittedAtom ?? (async (request) =>
-      completedAtom(request)),
-    projectBatch: options.projectBatch ?? (async (request) => projectBatch(request))
+      completedAtom(request))
   };
 }
 
@@ -662,6 +694,88 @@ test("T-271 nested retry re-enters the child plan under the shared retry law", a
       ["c_program_workflow_atom_request", 2]
     ]
   );
+  const retryReceipt = result.replayReceipts.find(
+    (receipt) =>
+      receipt.kind === "c_program_atom_receipt" &&
+      receipt.judgment === "retry"
+  );
+  assert.notEqual(retryReceipt, undefined);
+  assert.equal(retryReceipt.retryPolicyRef, value.handoffOutcome.handoff
+    .completeProgramPlan.root.retryPolicyRef);
+  assert.equal(
+    retryReceipt.runtimeEvents.some(
+      (event) => event.kind === "c_call_judged" && event.judgment === "retry"
+    ),
+    true
+  );
+});
+
+test("T-271 malformed retry output records canonical retry truth and replays without effects", async () => {
+  const value = fixture("retry");
+  let calls = 0;
+  const first = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => {
+      calls += 1;
+      if (calls === 1) return {};
+      return completedAtom(request, `malformed-repair-${String(calls)}`);
+    }
+  }));
+  assert.equal(first.status, "completed");
+  const failed = first.replayReceipts.find(
+    (receipt) =>
+      receipt.kind === "c_program_atom_receipt" &&
+      receipt.status === "runtime_failed"
+  );
+  assert.notEqual(failed, undefined);
+  assert.equal(failed.judgment, "retry");
+  assert.equal(failed.failureClass, "contract_failure");
+  assert.equal(
+    failed.runtimeEvents.some(
+      (event) => event.kind === "c_call_judged" && event.judgment === "retry"
+    ),
+    true
+  );
+
+  let repeated = 0;
+  const replayed = await interpretCompleteCProgram(invocation(value, {
+    replayReceipts: first.replayReceipts,
+    invokeAdmittedAtom: async () => {
+      repeated += 1;
+      throw new Error("malformed retry replay repeated an effect");
+    }
+  }));
+  assert.equal(replayed.status, "completed");
+  assert.equal(repeated, 0);
+
+  const forgedPolicyRef = "policy://t271/forged-retry";
+  const forgedPolicyDigest = `sha256:${"0".repeat(64)}`;
+  const forgedPolicyReceipt = resealReceipt(failed, {
+    retryPolicyRef: forgedPolicyRef,
+    retryPolicyDigest: forgedPolicyDigest,
+    runtimeEvents: failed.runtimeEvents.map((event) =>
+      event.kind === "c_call_evidenced"
+        ? {
+            ...event,
+            evidenceRefs: [
+              `retry-policy:${forgedPolicyRef}`,
+              `retry-policy-digest:${forgedPolicyDigest}`
+            ]
+          }
+        : event)
+  });
+  let forgedEffects = 0;
+  await assert.rejects(
+    interpretCompleteCProgram(invocation(value, {
+      replayReceipts: first.replayReceipts.map((receipt) =>
+        receipt === failed ? forgedPolicyReceipt : receipt),
+      invokeAdmittedAtom: async () => {
+        forgedEffects += 1;
+        throw new Error("forged retry policy repeated an effect");
+      }
+    })),
+    /retry receipt differs from shared policy/u
+  );
+  assert.equal(forgedEffects, 0);
 });
 
 test("T-271 nested retry coordinates remain distinct and replay exact", async () => {
@@ -685,6 +799,7 @@ test("T-271 nested retry coordinates remain distinct and replay exact", async ()
     [[1, 1], [2, 1], [2, 1]]
   );
   assert.equal(new Set(requests.map((request) => request.cursorRef)).size, 3);
+  assert.equal(new Set(requests.map((request) => request.cCallRef)).size, 3);
 
   let repeated = 0;
   const replayed = await interpretCompleteCProgram(invocation(value, {
@@ -696,6 +811,29 @@ test("T-271 nested retry coordinates remain distinct and replay exact", async ()
   }));
   assert.equal(replayed.status, "completed");
   assert.equal(repeated, 0);
+});
+
+test("T-271 canonical C-call identity separates serial same-role loci", () => {
+  const locus = {
+    basisId: "basis://t271/same-role",
+    graphCallId: "graph-call://t271/same-role",
+    frameId: "frame://t271/same-role",
+    vectorIndex: 0,
+    stageRole: "repeat",
+    taskOrdinal: null,
+    attempt: 1,
+    retryPath: []
+  };
+  const first = mintCCallRef({
+    ...locus,
+    programLocusRef: "abg://compiled-c-node/first"
+  });
+  const second = mintCCallRef({
+    ...locus,
+    programLocusRef: "abg://compiled-c-node/second"
+  });
+  assert.notEqual(first, second);
+
 });
 
 test("T-271 C.id is effect-free and canonical path identity remains exact", async () => {
@@ -771,6 +909,133 @@ test("T-271 carrier and composition failures stop in compilation", () => {
   assert.equal(
     ambiguous.handoffOutcome.sourceDiagnostics[0].diagnosticId,
     "gtl-c-program-composition-binding-ambiguous"
+  );
+});
+
+test("T-271 preserves explicit and terminal-workflow result cardinality", () => {
+  const value = fixture("multiple_results");
+  assert.equal(value.handoffOutcome.status, "invalid");
+  assert.equal(
+    value.handoffOutcome.sourceDiagnostics.some(
+      (diagnostic) =>
+        diagnostic.diagnosticId === "gtl-c-program-result-cardinality-invalid" &&
+        diagnostic.actualRelation === "many"
+    ),
+    true
+  );
+});
+
+test("T-271 batch projection preserves task results and replays one sealed projection", async () => {
+  const value = fixture("batch");
+  const first = await interpretCompleteCProgram(invocation(value));
+  assert.equal(first.status, "completed");
+  assert.notEqual(first.resultPayloadRef, first.outputPayloadRef);
+  const projectionReceipt = first.replayReceipts.find(
+    (receipt) => receipt.kind === "c_program_batch_projection_receipt"
+  );
+  assert.notEqual(projectionReceipt, undefined);
+  assert.equal(
+    projectionReceipt.evidenceRefs.some((ref) =>
+      ref.startsWith("batch-projection-basis:sha256:")),
+    true
+  );
+  let replayEffects = 0;
+  const replayed = await interpretCompleteCProgram(invocation(value, {
+    replayReceipts: first.replayReceipts,
+    invokeAdmittedAtom: async () => {
+      replayEffects += 1;
+      throw new Error("batch task replayed");
+    }
+  }));
+  assert.equal(replayed.status, "completed");
+  assert.equal(replayed.outputPayloadRef, first.outputPayloadRef);
+  assert.equal(replayed.resultPayloadRef, first.resultPayloadRef);
+  assert.equal(replayEffects, 0);
+});
+
+test("T-271 batch result projection changes independently from stable terminal output", async () => {
+  const value = fixture("batch_results");
+  const execute = async (resultSuffix) => interpretCompleteCProgram(
+    invocation(value, {
+      invokeAdmittedAtom: async (request) => completedAtom(
+        request,
+        request.resultBearing ? resultSuffix : "stable-terminal"
+      )
+    })
+  );
+  const first = await execute("result-one");
+  const second = await execute("result-two");
+  assert.equal(first.status, "completed");
+  assert.equal(second.status, "completed");
+  assert.equal(first.outputPayloadRef, second.outputPayloadRef);
+  assert.notEqual(first.resultPayloadRef, second.resultPayloadRef);
+});
+
+test("T-271 replay rederives batch projection instead of trusting a resealed receipt", async () => {
+  const value = fixture("batch");
+  const first = await interpretCompleteCProgram(invocation(value));
+  const projection = first.replayReceipts.find(
+    (receipt) => receipt.kind === "c_program_batch_projection_receipt"
+  );
+  assert.notEqual(projection, undefined);
+  const forged = resealBatchReceipt(projection, {
+    resultPayloadRef: "result://t271/forged-batch-projection"
+  });
+  let effects = 0;
+  await assert.rejects(
+    interpretCompleteCProgram(invocation(value, {
+      replayReceipts: first.replayReceipts.map((receipt) =>
+        receipt === projection ? forged : receipt),
+      invokeAdmittedAtom: async () => {
+        effects += 1;
+        throw new Error("forged projection repeated an effect");
+      }
+    })),
+    /batch projection receipt differs from deterministic task truth/u
+  );
+  assert.equal(effects, 0);
+});
+
+test("T-271 compiler rederives the complete T-254 selected binding", () => {
+  const value = fixture("mixed");
+  const alternate = declareCProgram({
+    programRef: "program://t271/alternate-unselected",
+    term: value.program.term,
+    proportionalityClass: "P1"
+  });
+  const parent = constructGraphFunction({
+    ...value.parent,
+    declarations: graphFunctionDeclarations([
+      cProgramCatalogDeclarationEntry([value.program, alternate])
+    ])
+  });
+  const module = constructModule({
+    ...value.module,
+    graphFunctions: [parent, value.child]
+  });
+  const selected = value.handoffOutcome.handoff.programBinding;
+  const { bindingDigest: _bindingDigest, ...bindingBasis } = selected;
+  const forgedBasis = {
+    ...bindingBasis,
+    selectedProgramRef: alternate.programRef
+  };
+  const forgedBinding = {
+    ...forgedBasis,
+    bindingDigest: stableSha256Digest(forgedBasis)
+  };
+  const compiled = compileCompleteCProgram({
+    module,
+    executionGraphFunction: parent,
+    compositionOwnerGraphFunction: parent,
+    graphVector: value.vector,
+    programBinding: forgedBinding,
+    program: alternate,
+    composition: value.handoffOutcome.handoff.compositionSelection
+  });
+  assert.equal(compiled.status, "invalid");
+  assert.equal(
+    compiled.diagnostics[0].diagnosticId,
+    "gtl-c-program-authority-mismatch"
   );
 });
 
@@ -871,7 +1136,7 @@ test("T-271 rejects resealed stale replay coordinates and plan authority before 
     () => interpretCompleteCProgram(invocation(retry, {
       replayReceipts: [invalidRetryPath]
     })),
-    /stale plan, node, task, or retry path/u
+    /stale plan, node, task, or retry path|C-call spine differs/u
   );
 
   const batch = fixture("batch");

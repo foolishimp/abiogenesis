@@ -1244,6 +1244,8 @@ export interface CCallOpenedEvent {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly batchRef: string | null;
+  readonly programLocusRef?: string | undefined;
+  readonly retryPath?: readonly number[] | undefined;
 }
 
 export interface CCallFibreSelectedEvent {

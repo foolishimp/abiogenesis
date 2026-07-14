@@ -15,10 +15,10 @@
     Turn the verified direct-form atoms into one closed interpreter over
     admitted C program syntax without narrowing lawful composition to the
     canonical body shapes.
-- change_class: design_reframe
+- change_class: requirement_reprice
 - re_entry_point: >-
-    build_tenants/abiogenesis/typescript/design M03 C-program interpreter
-    boundary
+    specification/requirements/abg/REQ-R-ABG3-CCALL.md -002/-004 complete
+    program locus identity, then the M03 C-program interpreter boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
 - updated_at: 2026-07-14
@@ -97,3 +97,13 @@ until independent post-implementation review accepts the compiler,
 interpreter, replay, and proof surfaces. T-267 still owns whole-program
 conservation, T-270 owns public routing, and T-268 owns capability admission;
 this checkpoint does not permit public effects or close those gaps.
+
+## Review Re-Entry
+
+The post-implementation review rejected checkpoint `f4ab3d4f`. In addition
+to four realization defects, it proved that CCALL-002/-004's flat identity
+tuple cannot distinguish serial same-role compiled loci or complete nested
+retry paths. The bounded requirement reprice adds `programLocusRef` and
+`retryPath` only for complete-program calls while preserving the retained flat
+compatibility identity. T-271 remains active and T-267 remains blocked until
+the repaired implementation receives independent acceptance.

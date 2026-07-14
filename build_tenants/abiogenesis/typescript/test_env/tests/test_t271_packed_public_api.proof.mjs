@@ -122,10 +122,13 @@ import { admitAtomResult } from "@abiogenesis/typescript-tenant/abg/m03";
 import { coordinateCBatchTaskFamily } from "@abiogenesis/typescript-tenant/abg/m03";
 // @ts-expect-error retry decisions remain subordinate to the public atom.
 import { deriveCRetryAttemptDecision } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error retry coordination remains interpreter-internal.
+import { coordinateCRetryAttempt } from "@abiogenesis/typescript-tenant/abg/m03";
 void sealNode;
 void admitAtomResult;
 void coordinateCBatchTaskFamily;
 void deriveCRetryAttemptDecision;
+void coordinateCRetryAttempt;
 `
   );
 
@@ -153,7 +156,8 @@ void deriveCRetryAttemptDecision;
     "sealNode",
     "admitAtomResult",
     "coordinateCBatchTaskFamily",
-    "deriveCRetryAttemptDecision"
+    "deriveCRetryAttemptDecision",
+    "coordinateCRetryAttempt"
   ]) {
     assert.equal(Object.hasOwn(m03, name), false, name);
   }

@@ -19,7 +19,8 @@ import {
 } from "../../../shared/runtime_identity.js";
 import type { RuntimeRegime } from "./carriers.js";
 import {
-  collectRawCProgramCandidates
+  collectRawCProgramCandidates,
+  compileGraphVectorCProgramSelection
 } from "./graph_vector_c_program_compiler.js";
 import type {
   CompiledGraphVectorCProgramBinding
@@ -30,6 +31,9 @@ import {
   type AbgFnComputeStageRole,
   type AbgFnRegimeBinding
 } from "./fn_composition.js";
+import {
+  deriveCRetryPolicyProjection
+} from "./c_retry_policy.js";
 
 export const COMPLETE_C_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "gtl-c-program-admission-invalid",
@@ -857,9 +861,6 @@ function refreshCardinality(node: DraftNode): CompleteCProgramResultCardinality 
 function resolveResultScope(root: DraftNode): void {
   prepareBatchScopes(root);
   const loci = serialLoci(root);
-  const fixedResult = loci.some(
-    (locus) => locus.kind !== "workflow" && locus.resultCardinality !== "zero"
-  );
   const workflows = loci.filter(
     (locus): locus is DraftWorkflow => locus.kind === "workflow"
   );
@@ -867,7 +868,7 @@ function resolveResultScope(root: DraftNode): void {
     workflow.resultCardinality = "zero";
   });
   const terminal = loci.at(-1);
-  if (!fixedResult && terminal?.kind === "workflow") {
+  if (terminal?.kind === "workflow") {
     terminal.resultCardinality = "one";
   }
   refreshCardinality(root);
@@ -962,16 +963,13 @@ function sealNode(node: DraftNode): CompiledCPlanNode {
     }
     case "retry": {
       const maxAttempts = node.source.kind === "c_retry" ? node.source.budget : 0;
-      const retryPolicyDigest = stableSha256Digest({
-        policy: "abg.c-retry-policy/1",
-        maxAttempts
-      });
+      const retryPolicy = deriveCRetryPolicyProjection();
       return sealedNode({
         kind: "compiled_c_complete_retry" as const,
         ...common,
         maxAttempts,
-        retryPolicyRef: "abg://c-retry-policy/shared",
-        retryPolicyDigest,
+        retryPolicyRef: retryPolicy.policyRef,
+        retryPolicyDigest: retryPolicy.policyDigest,
         child: sealNode(node.child)
       });
     }
@@ -984,48 +982,31 @@ function assertBinding(input: {
   readonly graphVector: GraphVector;
   readonly program: CProgramDeclarationNode;
 }): void {
+  const selection = compileGraphVectorCProgramSelection({
+    graphFunction: input.executionGraphFunction,
+    graphVector: input.graphVector
+  });
+  const selectedRawProgram = selection.selectedCandidates[0]?.candidate;
+  const selectedProgram = selectedRawProgram === undefined
+    ? null
+    : admitCProgramSyntax(selectedRawProgram);
   if (
-    input.binding.hostGraphFunctionRef !== input.executionGraphFunction.id ||
-    input.binding.graphVectorRef !== input.graphVector.id ||
-    input.binding.selectedProgramRef !== input.program.programRef ||
-    input.binding.programInputCarrierRef !== input.program.term.inputCarrierRef ||
-    input.binding.programOutputCarrierRef !== input.program.term.outputCarrierRef
+    selection.binding === null ||
+    selection.selectedCandidates.length !== 1 ||
+    selectedProgram === null ||
+    !selectedProgram.accepted ||
+    selectedProgram.program === null ||
+    !stableJsonEquals(selection.binding, input.binding) ||
+    !stableJsonEquals(selectedProgram.program, input.program)
   ) {
     fail({
       diagnosticId: "gtl-c-program-authority-mismatch",
       path: "$.programBinding",
-      expectedRelation: "exact selected GraphVector C-program binding",
-      actualRelation: "binding identity or outer carrier pair differs",
-      evidenceRefs: [input.binding.bindingDigest]
-    });
-  }
-}
-
-function assertSelectedProgramAuthority(input: {
-  readonly graphFunction: GraphFunction;
-  readonly program: CProgramDeclarationNode;
-}): void {
-  const matches = collectRawCProgramCandidates(input.graphFunction.declarations)
-    .candidates
-    .map((candidate) => admitCProgramSyntax(candidate.candidate))
-    .filter(
-      (admission) =>
-        admission.accepted &&
-        admission.program?.programRef === input.program.programRef
-    )
-    .map((admission) => admission.program!);
-  if (
-    matches.length !== 1 ||
-    !stableJsonEquals(matches[0], input.program)
-  ) {
-    fail({
-      diagnosticId: "gtl-c-program-authority-mismatch",
-      path: "$.program",
       expectedRelation:
-        "one exact selected program declaration from the execution GraphFunction",
+        "exact T-254 GraphVector-selected C-program binding and declaration",
       actualRelation:
-        `${String(matches.length)} matching declarations or submitted bytes differ`,
-      evidenceRefs: [input.graphFunction.id, input.program.programRef]
+        "binding or submitted program does not rederive from the selected GraphVector",
+      evidenceRefs: [input.binding.bindingDigest]
     });
   }
 }
@@ -1062,10 +1043,6 @@ export function compileCompleteCProgram(
       binding: input.programBinding,
       executionGraphFunction: input.executionGraphFunction,
       graphVector: input.graphVector,
-      program: admission.program
-    });
-    assertSelectedProgramAuthority({
-      graphFunction: input.executionGraphFunction,
       program: admission.program
     });
     const state: CompilationState = {
@@ -1366,15 +1343,12 @@ function assertNodeStructure(input: {
       return node.resultCardinality;
     }
     case "compiled_c_complete_retry": {
-      const expectedPolicyDigest = stableSha256Digest({
-        policy: "abg.c-retry-policy/1",
-        maxAttempts: node.maxAttempts
-      });
+      const expectedPolicy = deriveCRetryPolicyProjection();
       if (
         !Number.isInteger(node.maxAttempts) ||
         node.maxAttempts < 1 ||
-        node.retryPolicyRef !== "abg://c-retry-policy/shared" ||
-        node.retryPolicyDigest !== expectedPolicyDigest ||
+        node.retryPolicyRef !== expectedPolicy.policyRef ||
+        node.retryPolicyDigest !== expectedPolicy.policyDigest ||
         node.child.sourcePath !== `${node.sourcePath}.term` ||
         node.child.inputCarrierRef !== node.inputCarrierRef ||
         node.child.outputCarrierRef !== node.outputCarrierRef

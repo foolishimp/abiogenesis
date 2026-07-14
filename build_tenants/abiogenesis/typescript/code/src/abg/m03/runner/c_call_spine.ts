@@ -37,6 +37,8 @@ export function nextCCallAttempt(
     readonly vectorIndex: number;
     readonly stageRole: string;
     readonly taskOrdinal: number | null;
+    readonly programLocusRef?: string | undefined;
+    readonly retryPath?: readonly number[] | undefined;
   }
 ): number {
   let count = 0;
@@ -49,7 +51,11 @@ export function nextCCallAttempt(
       opened.frameId === locus.frameId &&
       opened.vectorIndex === locus.vectorIndex &&
       opened.stageRole === locus.stageRole &&
-      opened.taskOrdinal === locus.taskOrdinal
+      opened.taskOrdinal === locus.taskOrdinal &&
+      (opened.programLocusRef ?? null) ===
+        (locus.programLocusRef ?? null) &&
+      JSON.stringify(opened.retryPath ?? []) ===
+        JSON.stringify(locus.retryPath ?? [])
     ) {
       count += 1;
     }
@@ -68,6 +74,8 @@ export interface CCallSpineOpenInput {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly batchRef: string | null;
+  readonly programLocusRef?: string | undefined;
+  readonly retryPath?: readonly number[] | undefined;
   readonly regime: CCallRegime;
   readonly armId: string;
   readonly programRef?: string | undefined;
@@ -103,6 +111,8 @@ interface CCallSpineLocus {
   readonly vectorIndex: number;
   readonly stageRole: string;
   readonly taskOrdinal: number | null;
+  readonly programLocusRef?: string | undefined;
+  readonly retryPath?: readonly number[] | undefined;
 }
 
 function openedMatchesLocus(
@@ -115,7 +125,9 @@ function openedMatchesLocus(
     opened.frameId === locus.frameId &&
     opened.vectorIndex === locus.vectorIndex &&
     opened.stageRole === locus.stageRole &&
-    opened.taskOrdinal === locus.taskOrdinal
+    opened.taskOrdinal === locus.taskOrdinal &&
+    (opened.programLocusRef ?? null) === (locus.programLocusRef ?? null) &&
+    JSON.stringify(opened.retryPath ?? []) === JSON.stringify(locus.retryPath ?? [])
   );
 }
 
@@ -165,7 +177,13 @@ export function projectResumableCCallSpine(
     stageRole: opened.stageRole,
     taskOrdinal: opened.taskOrdinal,
     attempt: opened.attempt,
-    batchRef: opened.batchRef
+    batchRef: opened.batchRef,
+    ...(opened.programLocusRef === undefined
+      ? {}
+      : {
+          programLocusRef: opened.programLocusRef,
+          retryPath: opened.retryPath
+        })
   });
   if (reminted.cCallRef !== opened.cCallRef) {
     throw new TypeError(`c-call resume identity is invalid for ${opened.cCallRef}`);
@@ -237,7 +255,13 @@ export function buildCCallSpineOpen(input: CCallSpineOpenInput): CCallSpineOpen 
     stageRole: input.stageRole,
     taskOrdinal: input.taskOrdinal,
     attempt: input.attempt,
-    batchRef: input.batchRef
+    batchRef: input.batchRef,
+    ...(input.programLocusRef === undefined
+      ? {}
+      : {
+          programLocusRef: input.programLocusRef,
+          retryPath: input.retryPath
+        })
   });
   const selected = constructCCallFibreSelectedEvent({
     cCallRef: opened.cCallRef,
