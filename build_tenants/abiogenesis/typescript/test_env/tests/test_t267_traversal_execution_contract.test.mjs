@@ -50,7 +50,7 @@ import {
   typecheckGtlProgram
 } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
-  admitDeterministicTraversalStageResultAuthority,
+  admitProgramLocusTraversalStageResultAuthority,
   admitTraversalExecution,
   compileTraversalExecutionContracts,
   projectTraversalContractSourceBasis
@@ -121,15 +121,17 @@ function compositionDeclarations(input) {
   });
 }
 
-function fixture({ effects = true, resultBearingRole = "transform" } = {}) {
+function fixture({
+  effects = true,
+  resultBearingRole = "transform",
+  programShape = "triple"
+} = {}) {
   const observation = node("Observation");
   const candidate = node("Candidate");
   const assessment = node("Assessment");
   const decision = node("Decision");
   const programRef = "program://t267/generic-decision";
-  const program = declareCProgram({
-    programRef,
-    term: C.compose(
+  const triple = C.compose(
       C.compose(
         C.of({
           input: carrier([observation]),
@@ -156,7 +158,41 @@ function fixture({ effects = true, resultBearingRole = "transform" } = {}) {
         armId: "arm://t267/consequence",
         resultBearing: false
       })
-    ),
+    );
+  const single = C.of({
+    input: carrier([observation]),
+    output: carrier([decision]),
+    stageRole: "inspect",
+    fibre: "F_D",
+    armId: "arm://t267/inspect",
+    resultBearing: true
+  });
+  const repeated = C.compose(
+    C.of({
+      input: carrier([observation]),
+      output: carrier([candidate]),
+      stageRole: "refine",
+      fibre: "F_D",
+      armId: "arm://t267/refine-first",
+      resultBearing: false
+    }),
+    C.of({
+      input: carrier([candidate]),
+      output: carrier([decision]),
+      stageRole: "refine",
+      fibre: "F_D",
+      armId: "arm://t267/refine-second",
+      resultBearing: true
+    })
+  );
+  const term = programShape === "single"
+    ? single
+    : programShape === "repeated"
+      ? repeated
+      : triple;
+  const program = declareCProgram({
+    programRef,
+    term,
     proportionalityClass: "P1"
   });
   const graphFunctionName = "t267.generic-decision";
@@ -421,15 +457,17 @@ function compile(value, manifest) {
   );
   const input = sourceInput(value, outcome, manifest);
   const source = projectTraversalContractSourceBasis(input);
-  const authority = admitDeterministicTraversalStageResultAuthority({
-    source,
-    stageOrdinal: source.workStages[0].ordinal
-  });
+  const authorities = Object.freeze(source.workStages.map((stage) =>
+    admitProgramLocusTraversalStageResultAuthority({
+      source,
+      programLocusRef: stage.programLocusRef
+    })
+  ));
   const bundle = compileTraversalExecutionContracts({
     source,
-    resultAuthorities: [authority]
+    resultAuthorities: authorities
   });
-  return Object.freeze({ outcome, input, source, authority, bundle });
+  return Object.freeze({ outcome, input, source, authorities, bundle });
 }
 
 function conformanceInput(value, bundles, staleSourceIdentity = false) {
@@ -473,7 +511,7 @@ function gate(value, compiled, inputOverride = null) {
     outcome: admitTraversalExecution({
       sourceInput: compiled.input,
       source: compiled.source,
-      resultAuthorities: [compiled.authority],
+      resultAuthorities: compiled.authorities,
       bundle: compiled.bundle,
       conformanceInput: input,
       report
@@ -513,6 +551,46 @@ test("T-267 compiles one exact non-Consensus TraversalUnit", () => {
   assert.equal(outcome.obligationsDischarged, false);
 });
 
+test("T-267 preserves open programs and repeated domain roles without synthetic stages", () => {
+  const singleValue = fixture({ effects: false, programShape: "single" });
+  const single = compile(singleValue, null);
+  const singleGate = gate(singleValue, single);
+
+  assert.equal(singleGate.report.passed, true);
+  assert.deepEqual(
+    single.bundle.computeStageBindings.map((row) => row.domainStageRole),
+    ["inspect"]
+  );
+  assert.deepEqual(
+    single.bundle.computeStageBindings.map((row) => row.stageRole),
+    ["transform"]
+  );
+  assert.equal(
+    single.bundle.pluginResultInterfaces[0].resultBearing,
+    true
+  );
+
+  const repeatedValue = fixture({
+    effects: false,
+    programShape: "repeated"
+  });
+  const repeated = compile(repeatedValue, null);
+  const repeatedGate = gate(repeatedValue, repeated);
+  const stages = repeated.bundle.computeStageBindings;
+
+  assert.equal(repeatedGate.report.passed, true);
+  assert.deepEqual(stages.map((row) => row.domainStageRole), ["refine", "refine"]);
+  assert.equal(new Set(stages.map((row) => row.programLocusRef)).size, 2);
+  assert.equal(new Set(stages.map((row) => row.stageBindingRef)).size, 2);
+  assert.deepEqual(stages[1].predecessorStageBindingRefs, [
+    stages[0].stageBindingRef
+  ]);
+  assert.deepEqual(
+    repeated.bundle.computeComposition.resultBearingProgramLocusRefs,
+    [stages[1].programLocusRef]
+  );
+});
+
 test("T-267 deterministic boundary preserves carrier continuity for evaluate-owned work", () => {
   const value = fixture({
     effects: false,
@@ -540,7 +618,10 @@ test("T-267 preserves capability as an orthogonal gate", () => {
   const compatibleGate = gate(value, compatible);
 
   assert.equal(blocked.source.sourceDigest, compatible.source.sourceDigest);
-  assert.equal(blocked.authority.authorityDigest, compatible.authority.authorityDigest);
+  assert.deepEqual(
+    blocked.authorities.map((authority) => authority.authorityDigest),
+    compatible.authorities.map((authority) => authority.authorityDigest)
+  );
   assert.equal(blocked.bundle.bundleDigest, compatible.bundle.bundleDigest);
   assert.equal(
     blockedGate.outcome.status,
@@ -551,7 +632,7 @@ test("T-267 preserves capability as an orthogonal gate", () => {
     "runtime_addressable_not_closed"
   );
   assert.equal(blockedGate.outcome.effectsPermitted, false);
-  assert.equal(compatibleGate.outcome.effectsPermitted, true);
+  assert.equal(compatibleGate.outcome.effectsPermitted, false);
 });
 
 test("T-267 preserves unrelated program failure without erasing static closure", () => {
@@ -585,7 +666,7 @@ test("T-267 incomplete rows fail on actual missing authority without a stale sel
   const outcome = admitTraversalExecution({
     sourceInput: compiled.input,
     source: compiled.source,
-    resultAuthorities: [compiled.authority],
+    resultAuthorities: compiled.authorities,
     bundle: compiled.bundle,
     conformanceInput: incompleteInput,
     report
@@ -630,6 +711,90 @@ test("T-267 incomplete rows fail on actual missing authority without a stale sel
     ),
     false
   );
+
+  const duplicateLocusInput = Object.freeze({
+    ...completeInput,
+    computeCompositions: [Object.freeze({
+      ...compiled.bundle.computeComposition,
+      invokingProgramLocusRefs: Object.freeze([
+        ...compiled.bundle.computeComposition.invokingProgramLocusRefs,
+        compiled.bundle.computeComposition.invokingProgramLocusRefs[0]
+      ])
+    })]
+  });
+  const duplicateLocusReport = typecheckGtlProgram(duplicateLocusInput);
+  assert.ok(duplicateLocusReport.issues.some((issue) =>
+    issue.ruleRef ===
+      "abg://gtl-program/compute-composition/invokingProgramLocusRefs-unique"
+  ));
+
+  const mismatchedInterfaceInput = Object.freeze({
+    ...completeInput,
+    pluginResultInterfaces: [
+      Object.freeze({
+        ...compiled.bundle.pluginResultInterfaces[0],
+        programLocusRef: "abg://compiled-c-node/foreign"
+      }),
+      ...compiled.bundle.pluginResultInterfaces.slice(1)
+    ]
+  });
+  const mismatchedInterfaceReport = typecheckGtlProgram(
+    mismatchedInterfaceInput
+  );
+  assert.ok(mismatchedInterfaceReport.issues.some((issue) =>
+    issue.ruleRef ===
+      "abg://gtl-program/plugin-result-interface/program-locus"
+  ));
+
+  const {
+    programPlanRef: omittedCompositionPlanRef,
+    ...partialComposition
+  } = compiled.bundle.computeComposition;
+  const {
+    programPlanRef: omittedStagePlanRef,
+    ...partialStage
+  } = compiled.bundle.computeStageBindings[0];
+  const {
+    programLocusRef: omittedInterfaceLocusRef,
+    ...partialInterface
+  } = compiled.bundle.pluginResultInterfaces[0];
+  const {
+    programPlanRef: omittedConservationPlanRef,
+    ...partialConservation
+  } = compiled.bundle.traversalBindConservation;
+  assert.notEqual(omittedCompositionPlanRef, undefined);
+  assert.notEqual(omittedStagePlanRef, undefined);
+  assert.notEqual(omittedInterfaceLocusRef, undefined);
+  assert.notEqual(omittedConservationPlanRef, undefined);
+  const partialRawReport = typecheckGtlProgram(Object.freeze({
+    ...completeInput,
+    computeCompositions: Object.freeze([Object.freeze(partialComposition)]),
+    computeStageBindings: Object.freeze([
+      Object.freeze(partialStage),
+      ...compiled.bundle.computeStageBindings.slice(1)
+    ]),
+    pluginResultInterfaces: Object.freeze([
+      Object.freeze(partialInterface),
+      ...compiled.bundle.pluginResultInterfaces.slice(1)
+    ]),
+    traversalBindConservation: Object.freeze([
+      Object.freeze(partialConservation)
+    ])
+  }));
+  const partialRawMessages = partialRawReport.issues.map(
+    (issue) => issue.message
+  );
+  for (const expected of [
+    "computeCompositions[0].programPlanRef",
+    "computeStageBindings[0].programPlanRef",
+    "pluginResultInterfaces[0].programLocusRef",
+    "traversalBindConservation[0].programPlanRef"
+  ]) {
+    assert.ok(
+      partialRawMessages.some((message) => message.includes(expected)),
+      expected
+    );
+  }
 });
 
 test("T-267 rejects source, bundle, report, and conservation drift", () => {
@@ -639,13 +804,31 @@ test("T-267 rejects source, bundle, report, and conservation drift", () => {
   const report = typecheckGtlProgram(input);
 
   const mutatedAuthority = Object.freeze({
-    ...compiled.authority,
+    ...compiled.authorities[0],
     selectedResultContractRef: "schema://t267/forged-result"
   });
   assert.throws(
     () => compileTraversalExecutionContracts({
       source: compiled.source,
-      resultAuthorities: [mutatedAuthority]
+      resultAuthorities: [mutatedAuthority, ...compiled.authorities.slice(1)]
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId ===
+        "traversal-result-authority-invalid"
+  );
+  const mutatedCurrentAuthority = Object.freeze({
+    ...compiled.authorities[0],
+    currentSourceAuthorityDigest: stableSha256Digest(
+      "mutated-current-authority"
+    )
+  });
+  assert.throws(
+    () => compileTraversalExecutionContracts({
+      source: compiled.source,
+      resultAuthorities: [
+        mutatedCurrentAuthority,
+        ...compiled.authorities.slice(1)
+      ]
     }),
     (error) =>
       error?.diagnostic?.diagnosticId ===
@@ -700,7 +883,7 @@ test("T-267 rejects source, bundle, report, and conservation drift", () => {
     const outcome = admitTraversalExecution({
       sourceInput: compiled.input,
       source: candidate.source,
-      resultAuthorities: [compiled.authority],
+      resultAuthorities: compiled.authorities,
       bundle: candidate.bundle,
       conformanceInput: candidate.conformanceInput,
       report: candidate.report

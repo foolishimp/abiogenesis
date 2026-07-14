@@ -183,6 +183,16 @@ export type GtlProgramConformanceSurfaceKind =
 export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/allowed-consequence-traversal/declaration",
   "abg://gtl-program/compute-composition/digest",
+  "abg://gtl-program/compute-composition/complete-program-basis",
+  "abg://gtl-program/compute-composition/program-plan-digest",
+  "abg://gtl-program/compute-composition/authoredProgramNodeRefs",
+  "abg://gtl-program/compute-composition/authoredProgramNodeRefs-unique",
+  "abg://gtl-program/compute-composition/invokingProgramLocusRefs",
+  "abg://gtl-program/compute-composition/invokingProgramLocusRefs-unique",
+  "abg://gtl-program/compute-composition/resultBearingProgramLocusRefs",
+  "abg://gtl-program/compute-composition/resultBearingProgramLocusRefs-unique",
+  "abg://gtl-program/compute-composition/result-frontier-membership",
+  "abg://gtl-program/compute-composition/authored-locus-coverage",
   "abg://gtl-program/compute-composition/notation-ref",
   "abg://gtl-program/compute-composition/regime-bindings",
   "abg://gtl-program/compute-composition/required-stage-row",
@@ -192,6 +202,7 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/compute-stage/composition-digest",
   "abg://gtl-program/compute-stage/composition-resolves",
   "abg://gtl-program/compute-stage/composition-stage-membership",
+  "abg://gtl-program/compute-stage/authored-program-locus",
   "abg://gtl-program/compute-stage/input-carriers",
   "abg://gtl-program/compute-stage/nonparticipation-reason",
   "abg://gtl-program/compute-stage/notation-ref",
@@ -273,6 +284,9 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/hook-boundary/unique-host-hook",
   "abg://gtl-program/input/array-field",
   "abg://gtl-program/input/boolean-field",
+  "abg://gtl-program/input/nullable-string-field",
+  "abg://gtl-program/input/nullable-non-negative-integer-field",
+  "abg://gtl-program/input/authored-program-stage-kind",
   "abg://gtl-program/input/composition-source-kind-field",
   "abg://gtl-program/input/conformance-scope-field",
   "abg://gtl-program/input/compute-composition-row",
@@ -358,6 +372,8 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/plugin-result-interface/no-local-file-selector",
   "abg://gtl-program/plugin-result-interface/output-carrier-covers-stage",
   "abg://gtl-program/plugin-result-interface/output-carrier-stage-member",
+  "abg://gtl-program/plugin-result-interface/program-locus",
+  "abg://gtl-program/plugin-result-interface/program-locus-identity-field",
   "abg://gtl-program/plugin-result-interface/output-carriers",
   "abg://gtl-program/plugin-result-interface/produced-carriers",
   "abg://gtl-program/plugin-result-interface/required-identity-field",
@@ -495,6 +511,9 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/traversal-bind-conservation/graph-function-ref-match",
   "abg://gtl-program/traversal-bind-conservation/graph-ref-match",
   "abg://gtl-program/traversal-bind-conservation/graph-vector-ref-match",
+  "abg://gtl-program/traversal-bind-conservation/complete-program-basis",
+  "abg://gtl-program/traversal-bind-conservation/program-plan-digest",
+  "abg://gtl-program/traversal-bind-conservation/program-inventory",
   "abg://gtl-program/traversal-bind-conservation/no-orphan-row",
   "abg://gtl-program/traversal-bind-conservation/unique-conservation-ref",
   "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
@@ -504,6 +523,13 @@ export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
   "abg://gtl-program/traversal-unit/bind-conservation-stage-coverage",
   "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage",
   "abg://gtl-program/traversal-unit/compute-composition-required",
+  "abg://gtl-program/traversal-unit/complete-program-plan-exact",
+  "abg://gtl-program/traversal-unit/complete-program-authored-node",
+  "abg://gtl-program/traversal-unit/complete-program-invoking-locus",
+  "abg://gtl-program/traversal-unit/complete-program-result-frontier",
+  "abg://gtl-program/traversal-unit/complete-program-application-conservation",
+  "abg://gtl-program/traversal-unit/complete-program-result-interface",
+  "abg://gtl-program/traversal-unit/complete-program-locus-conservation",
   "abg://gtl-program/traversal-unit/consequence-result-interface-required",
   "abg://gtl-program/traversal-unit/edge-closure-ambiguous",
   "abg://gtl-program/traversal-unit/edge-closure-required",
@@ -1049,6 +1075,11 @@ export interface GtlProgramComputeCompositionRow {
   readonly regimeBindingRefs: readonly string[];
   readonly stageBindingRefs: readonly string[];
   readonly closureContractRef: string;
+  readonly programPlanRef?: string;
+  readonly programPlanDigest?: string;
+  readonly authoredProgramNodeRefs?: readonly string[];
+  readonly invokingProgramLocusRefs?: readonly string[];
+  readonly resultBearingProgramLocusRefs?: readonly string[];
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -1084,6 +1115,16 @@ export interface GtlProgramComputeStageBindingRow {
   readonly maySelectTraversal: false;
   readonly mayCloseTraversal: false;
   readonly mayOwnIterationLoop: false;
+  readonly stageKind?: "authored_program_stage";
+  readonly programPlanRef?: string;
+  readonly programPlanDigest?: string;
+  readonly programLocusRef?: string;
+  readonly programLocusDigest?: string;
+  readonly sourcePath?: string;
+  readonly domainStageRole?: string | null;
+  readonly sequenceOrdinal?: number;
+  readonly taskOrdinal?: number | null;
+  readonly resultBearing?: boolean;
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -1106,6 +1147,9 @@ export interface GtlProgramPluginResultInterfaceRow {
   readonly maySelectTraversal: false;
   readonly mayCloseTraversal: false;
   readonly mayOwnIterationLoop: false;
+  readonly programLocusRef?: string;
+  readonly programLocusDigest?: string;
+  readonly resultBearing?: boolean;
 }
 
 export type GtlProgramHookDeclarationSourceKind =
@@ -1431,6 +1475,12 @@ export interface GtlProgramTraversalBindConservationRow {
   readonly stagedAuthorityRefs: readonly string[];
   readonly admissionStrengthRefs: readonly string[];
   readonly downstreamTerminalPressureRefs: readonly string[];
+  readonly programPlanRef?: string;
+  readonly programPlanDigest?: string;
+  readonly authoredProgramNodeRefs?: readonly string[];
+  readonly invokingProgramLocusRefs?: readonly string[];
+  readonly resultBearingProgramLocusRefs?: readonly string[];
+  readonly applicationConservationRefs?: readonly string[];
   readonly allowedObligationDeltaFamilies:
     readonly GtlProgramObligationDeltaFamily[];
   readonly evidenceRefs?: readonly string[] | undefined;
@@ -1779,6 +1829,13 @@ export interface GtlProgramTraversalUnitProjectionRow {
   readonly computeStageBindingRefs: readonly string[];
   readonly pluginResultInterfaceRefs: readonly string[];
   readonly consequencePluginResultInterfaceRefs: readonly string[];
+  readonly resultBearingPluginResultInterfaceRefs: readonly string[];
+  readonly programPlanRefs: readonly string[];
+  readonly programPlanDigests: readonly string[];
+  readonly authoredProgramNodeRefs: readonly string[];
+  readonly invokingProgramLocusRefs: readonly string[];
+  readonly resultBearingProgramLocusRefs: readonly string[];
+  readonly applicationConservationRefs: readonly string[];
   readonly conservationBasisRef: string | null;
   readonly conservationBasisRefs: readonly string[];
   readonly intentLineageRefs: readonly string[];
@@ -2926,6 +2983,190 @@ function requiredStringField(input: {
     })
   );
   return "";
+}
+
+function optionalBooleanField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): boolean | undefined {
+  if (!Object.hasOwn(input.record, input.key)) {
+    return undefined;
+  }
+  const value = input.record[input.key];
+  if (typeof value === "boolean") {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/boolean-field",
+      message: `${input.label}.${input.key} must be a boolean`
+    })
+  );
+  return false;
+}
+
+function requiredAnyBooleanField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): boolean {
+  const value = optionalBooleanField(input);
+  if (value !== undefined) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/boolean-field",
+      message: `${input.label}.${input.key} is required and must be a boolean`
+    })
+  );
+  return false;
+}
+
+function optionalNullableStringField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): string | null | undefined {
+  if (!Object.hasOwn(input.record, input.key)) {
+    return undefined;
+  }
+  const value = input.record[input.key];
+  if (value === null || (typeof value === "string" && value.length > 0)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/nullable-string-field",
+      message: `${input.label}.${input.key} must be null or a non-empty string`
+    })
+  );
+  return null;
+}
+
+function requiredNullableStringField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): string | null {
+  const value = optionalNullableStringField(input);
+  if (value !== undefined) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/nullable-string-field",
+      message: `${input.label}.${input.key} is required and must be null or a non-empty string`
+    })
+  );
+  return null;
+}
+
+function optionalNullableNonNegativeIntegerField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): number | null | undefined {
+  if (!Object.hasOwn(input.record, input.key)) {
+    return undefined;
+  }
+  if (input.record[input.key] === null) {
+    return null;
+  }
+  return requiredNonNegativeIntegerField(input);
+}
+
+function requiredNullableNonNegativeIntegerField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): number | null {
+  const value = optionalNullableNonNegativeIntegerField(input);
+  if (value !== undefined) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/nullable-non-negative-integer-field",
+      message: `${input.label}.${input.key} is required and must be null or a non-negative integer`
+    })
+  );
+  return null;
+}
+
+function optionalAuthoredProgramStageKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): "authored_program_stage" | undefined {
+  if (!Object.hasOwn(input.record, input.key)) {
+    return undefined;
+  }
+  if (input.record[input.key] === "authored_program_stage") {
+    return "authored_program_stage";
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "compute_stage_binding",
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/authored-program-stage-kind",
+      message: `${input.label}.${input.key} must be authored_program_stage`
+    })
+  );
+  return "authored_program_stage";
+}
+
+function requiredAuthoredProgramStageKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): "authored_program_stage" {
+  const value = optionalAuthoredProgramStageKindField(input);
+  if (value !== undefined) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "compute_stage_binding",
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/authored-program-stage-kind",
+      message: `${input.label}.${input.key} is required and must be authored_program_stage`
+    })
+  );
+  return "authored_program_stage";
 }
 
 function requiredNonNegativeIntegerField(input: {
@@ -6117,6 +6358,52 @@ function admitComputeCompositionRows(
             surfaceKind: "compute_composition",
             issues
           }),
+          ...(["programPlanRef", "programPlanDigest", "authoredProgramNodeRefs",
+            "invokingProgramLocusRefs", "resultBearingProgramLocusRefs"]
+            .some((key) => Object.hasOwn(row, key))
+            ? {
+                programPlanRef: requiredStringField({
+                  record: row,
+                  key: "programPlanRef",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_composition",
+                  issues
+                }),
+                programPlanDigest: requiredStringField({
+                  record: row,
+                  key: "programPlanDigest",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_composition",
+                  issues
+                }),
+                authoredProgramNodeRefs: requiredStringArrayField({
+                  record: row,
+                  key: "authoredProgramNodeRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_composition",
+                  issues
+                }),
+                invokingProgramLocusRefs: requiredStringArrayField({
+                  record: row,
+                  key: "invokingProgramLocusRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_composition",
+                  issues
+                }),
+                resultBearingProgramLocusRefs: requiredStringArrayField({
+                  record: row,
+                  key: "resultBearingProgramLocusRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_composition",
+                  issues
+                })
+              }
+            : {}),
           evidenceRefs: optionalStringArrayField({
             record: row,
             key: "evidenceRefs",
@@ -6372,6 +6659,92 @@ function admitComputeStageBindingRows(
             surfaceKind: "compute_stage_binding",
             issues
           }),
+          ...(["stageKind", "programPlanRef", "programPlanDigest",
+            "programLocusRef", "programLocusDigest", "sourcePath",
+            "domainStageRole", "sequenceOrdinal", "taskOrdinal",
+            "resultBearing"].some((key) => Object.hasOwn(row, key))
+            ? {
+                stageKind: requiredAuthoredProgramStageKindField({
+                  record: row,
+                  key: "stageKind",
+                  label: surfaceRef,
+                  subjectRef,
+                  issues
+                }),
+                programPlanRef: requiredStringField({
+                  record: row,
+                  key: "programPlanRef",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                programPlanDigest: requiredStringField({
+                  record: row,
+                  key: "programPlanDigest",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                programLocusRef: requiredStringField({
+                  record: row,
+                  key: "programLocusRef",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                programLocusDigest: requiredStringField({
+                  record: row,
+                  key: "programLocusDigest",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                sourcePath: requiredStringField({
+                  record: row,
+                  key: "sourcePath",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                domainStageRole: requiredNullableStringField({
+                  record: row,
+                  key: "domainStageRole",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                sequenceOrdinal: requiredNonNegativeIntegerField({
+                  record: row,
+                  key: "sequenceOrdinal",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                taskOrdinal: requiredNullableNonNegativeIntegerField({
+                  record: row,
+                  key: "taskOrdinal",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                }),
+                resultBearing: requiredAnyBooleanField({
+                  record: row,
+                  key: "resultBearing",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "compute_stage_binding",
+                  issues
+                })
+              }
+            : {}),
           evidenceRefs: optionalStringArrayField({
             record: row,
             key: "evidenceRefs",
@@ -6555,7 +6928,36 @@ function admitPluginResultInterfaceRows(
             subjectRef,
             surfaceKind: "plugin_result_interface",
             issues
-          })
+          }),
+          ...(["programLocusRef", "programLocusDigest", "resultBearing"]
+            .some((key) => Object.hasOwn(row, key))
+            ? {
+                programLocusRef: requiredStringField({
+                  record: row,
+                  key: "programLocusRef",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "plugin_result_interface",
+                  issues
+                }),
+                programLocusDigest: requiredStringField({
+                  record: row,
+                  key: "programLocusDigest",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "plugin_result_interface",
+                  issues
+                }),
+                resultBearing: requiredAnyBooleanField({
+                  record: row,
+                  key: "resultBearing",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "plugin_result_interface",
+                  issues
+                })
+              }
+            : {})
         })
       ];
     })
@@ -8265,6 +8667,61 @@ function admitTraversalBindConservationRows(
             surfaceKind: "traversal_unit",
             issues
           }),
+          ...(["programPlanRef", "programPlanDigest", "authoredProgramNodeRefs",
+            "invokingProgramLocusRefs", "resultBearingProgramLocusRefs",
+            "applicationConservationRefs"]
+            .some((key) => Object.hasOwn(row, key))
+            ? {
+                programPlanRef: requiredStringField({
+                  record: row,
+                  key: "programPlanRef",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                }),
+                programPlanDigest: requiredStringField({
+                  record: row,
+                  key: "programPlanDigest",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                }),
+                authoredProgramNodeRefs: requiredStringArrayField({
+                  record: row,
+                  key: "authoredProgramNodeRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                }),
+                invokingProgramLocusRefs: requiredStringArrayField({
+                  record: row,
+                  key: "invokingProgramLocusRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                }),
+                resultBearingProgramLocusRefs: requiredStringArrayField({
+                  record: row,
+                  key: "resultBearingProgramLocusRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                }),
+                applicationConservationRefs: requiredStringArrayField({
+                  record: row,
+                  key: "applicationConservationRefs",
+                  label: surfaceRef,
+                  subjectRef,
+                  surfaceKind: "traversal_unit",
+                  issues
+                })
+              }
+            : {}),
           allowedObligationDeltaFamilies,
           evidenceRefs: optionalStringArrayField({
             record: row,
@@ -11355,6 +11812,11 @@ function constructTraversalUnitProjection(input: {
           .filter((row) => row.stageRole === "consequence")
           .map((row) => row.resultInterfaceRef)
       );
+      const resultBearingPluginResultInterfaceRefs = uniqueSorted(
+        pluginResultInterfaces
+          .filter((row) => row.resultBearing === true)
+          .map((row) => row.resultInterfaceRef)
+      );
       const catalog = catalogsByIdentity.get(vectorKey) ?? null;
       const requirementRows =
         input.requirementsAlgebraProjection.edgeRows.filter(
@@ -11384,6 +11846,43 @@ function constructTraversalUnitProjection(input: {
         computeStageBindingRefs: stageBindingRefs,
         pluginResultInterfaceRefs,
         consequencePluginResultInterfaceRefs,
+        resultBearingPluginResultInterfaceRefs,
+        programPlanRefs: uniqueSorted(
+          [
+            ...compositions.flatMap((row) =>
+              row.programPlanRef === undefined ? [] : [row.programPlanRef]
+            ),
+            ...conservationRows.flatMap((row) =>
+              row.programPlanRef === undefined ? [] : [row.programPlanRef]
+            )
+          ]
+        ),
+        programPlanDigests: uniqueSorted(
+          [
+            ...compositions.flatMap((row) =>
+              row.programPlanDigest === undefined ? [] : [row.programPlanDigest]
+            ),
+            ...conservationRows.flatMap((row) =>
+              row.programPlanDigest === undefined ? [] : [row.programPlanDigest]
+            )
+          ]
+        ),
+        authoredProgramNodeRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.authoredProgramNodeRefs ?? [])
+        ),
+        invokingProgramLocusRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.invokingProgramLocusRefs ?? [])
+        ),
+        resultBearingProgramLocusRefs: uniqueSorted(
+          conservationRows.flatMap(
+            (row) => row.resultBearingProgramLocusRefs ?? []
+          )
+        ),
+        applicationConservationRefs: uniqueSorted(
+          conservationRows.flatMap(
+            (row) => row.applicationConservationRefs ?? []
+          )
+        ),
         conservationBasisRef:
           conservationRows.length === 1
             ? conservationRows[0]!.conservationRef
@@ -11627,7 +12126,10 @@ function checkTraversalUnitProjection(input: {
         issues: input.issues
       });
     }
-    if (unit.consequencePluginResultInterfaceRefs.length === 0) {
+    if (
+      unit.programPlanRefs.length === 0 &&
+      unit.consequencePluginResultInterfaceRefs.length === 0
+    ) {
       pushRowIssue({
         surfaceKind: "traversal_unit",
         surfaceRef: unit.unitRef,
@@ -11640,6 +12142,50 @@ function checkTraversalUnitProjection(input: {
         ],
         issues: input.issues
       });
+    }
+    if (unit.programPlanRefs.length > 0) {
+      if (
+        unit.programPlanRefs.length !== 1 ||
+        unit.programPlanDigests.length !== 1
+      ) {
+        pushRowIssue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: unit.unitRef,
+          ruleRef: "abg://gtl-program/traversal-unit/complete-program-plan-exact",
+          message: `TraversalUnit ${JSON.stringify(unit.unitRef)} must preserve one exact complete-program plan`,
+          issues: input.issues
+        });
+      }
+      for (const [fieldKey, refs] of [
+        ["authored-node", unit.authoredProgramNodeRefs],
+        ["invoking-locus", unit.invokingProgramLocusRefs],
+        ["result-frontier", unit.resultBearingProgramLocusRefs],
+        ["application-conservation", unit.applicationConservationRefs],
+        ["result-interface", unit.resultBearingPluginResultInterfaceRefs]
+      ] as const) {
+        if (refs.length === 0) {
+          pushRowIssue({
+            surfaceKind: "traversal_unit",
+            surfaceRef: unit.unitRef,
+            ruleRef: `abg://gtl-program/traversal-unit/complete-program-${fieldKey}`,
+            message: `TraversalUnit ${JSON.stringify(unit.unitRef)} complete-program conservation is missing ${fieldKey} truth`,
+            issues: input.issues
+          });
+        }
+      }
+      const missingInvokingLoci = missingRefs({
+        actual: unit.stagedAuthorityRefs,
+        required: unit.invokingProgramLocusRefs
+      });
+      if (missingInvokingLoci.length > 0) {
+        pushRowIssue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: unit.unitRef,
+          ruleRef: "abg://gtl-program/traversal-unit/complete-program-locus-conservation",
+          message: `TraversalUnit ${JSON.stringify(unit.unitRef)} does not conserve invoking loci ${missingInvokingLoci.join(", ")}`,
+          issues: input.issues
+        });
+      }
     }
     if (unit.conservationBasisRefs.length === 0) {
       pushRowIssue({
@@ -12095,6 +12641,67 @@ function checkTraversalBindConservationRows(input: {
     GtlProgramTraversalBindConservationRow
   >();
   for (const row of input.traversalBindConservation) {
+    const completeProgramFields = [
+      row.programPlanRef,
+      row.programPlanDigest,
+      row.authoredProgramNodeRefs,
+      row.invokingProgramLocusRefs,
+      row.resultBearingProgramLocusRefs,
+      row.applicationConservationRefs
+    ];
+    const presentCompleteProgramFieldCount = completeProgramFields.filter(
+      (value) => value !== undefined
+    ).length;
+    if (
+      presentCompleteProgramFieldCount !== 0 &&
+      presentCompleteProgramFieldCount !== completeProgramFields.length
+    ) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: row.conservationRef,
+        ruleRef:
+          "abg://gtl-program/traversal-bind-conservation/complete-program-basis",
+        message:
+          "plan-pinned traversal bind conservation must declare the complete program basis",
+        issues: input.issues
+      });
+    }
+    if (presentCompleteProgramFieldCount === completeProgramFields.length) {
+      checkDigestField({
+        surfaceKind: "traversal_unit",
+        surfaceRef: row.conservationRef,
+        ruleRef:
+          "abg://gtl-program/traversal-bind-conservation/program-plan-digest",
+        fieldName: "programPlanDigest",
+        value: row.programPlanDigest!,
+        issues: input.issues
+      });
+      const inventories = [
+        row.authoredProgramNodeRefs!,
+        row.invokingProgramLocusRefs!,
+        row.resultBearingProgramLocusRefs!,
+        row.applicationConservationRefs!
+      ];
+      const invokingLoci = new Set(row.invokingProgramLocusRefs);
+      if (
+        inventories.some(
+          (refs) => refs.length === 0 || new Set(refs).size !== refs.length
+        ) ||
+        row.resultBearingProgramLocusRefs!.some(
+          (ref) => !invokingLoci.has(ref)
+        )
+      ) {
+        pushRowIssue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/program-inventory",
+          message:
+            "complete-program conservation inventories must be non-empty, unique, and preserve the result frontier inside invoking loci",
+          issues: input.issues
+        });
+      }
+    }
     const prior = seenConservationRefs.get(row.conservationRef);
     if (prior !== undefined) {
       input.issues.push(
@@ -13402,24 +14009,76 @@ function checkComputeCompositionRows(input: {
       values: row.regimeBindingRefs,
       issues: input.issues
     });
-    for (const requiredNotation of ["fn<", "transform.C", "evaluate.C", "consequence.C"]) {
-      if (!row.notationRefs.some((ref) => ref.includes(requiredNotation))) {
-        pushRowIssue({
+    if (!row.notationRefs.some((ref) => ref.includes("fn<"))) {
+      pushRowIssue({
+        surfaceKind: "compute_composition",
+        surfaceRef: row.compositionRef,
+        ruleRef: "abg://gtl-program/compute-composition/notation-ref",
+        message: "notationRefs must include fn<A,B> notation",
+        issues: input.issues
+      });
+    }
+    const planFields = [
+      row.programPlanRef,
+      row.programPlanDigest,
+      row.authoredProgramNodeRefs,
+      row.invokingProgramLocusRefs,
+      row.resultBearingProgramLocusRefs
+    ];
+    const presentPlanFieldCount = planFields.filter(
+      (value) => value !== undefined
+    ).length;
+    if (presentPlanFieldCount !== 0 && presentPlanFieldCount !== planFields.length) {
+      pushRowIssue({
+        surfaceKind: "compute_composition",
+        surfaceRef: row.compositionRef,
+        ruleRef: "abg://gtl-program/compute-composition/complete-program-basis",
+        message: "plan-pinned composition must declare the complete program basis",
+        issues: input.issues
+      });
+    }
+    if (presentPlanFieldCount === planFields.length) {
+      checkDigestField({
+        surfaceKind: "compute_composition",
+        surfaceRef: row.compositionRef,
+        ruleRef: "abg://gtl-program/compute-composition/program-plan-digest",
+        fieldName: "programPlanDigest",
+        value: row.programPlanDigest!,
+        issues: input.issues
+      });
+      for (const [fieldName, values] of [
+        ["authoredProgramNodeRefs", row.authoredProgramNodeRefs!],
+        ["invokingProgramLocusRefs", row.invokingProgramLocusRefs!],
+        ["resultBearingProgramLocusRefs", row.resultBearingProgramLocusRefs!]
+      ] as const) {
+        checkNonEmptyArray({
           surfaceKind: "compute_composition",
           surfaceRef: row.compositionRef,
-          ruleRef: "abg://gtl-program/compute-composition/notation-ref",
-          message: `notationRefs must include ${requiredNotation}`,
+          ruleRef: `abg://gtl-program/compute-composition/${fieldName}`,
+          fieldName,
+          values,
           issues: input.issues
         });
+        if (new Set(values).size !== values.length) {
+          pushRowIssue({
+            surfaceKind: "compute_composition",
+            surfaceRef: row.compositionRef,
+            ruleRef: `abg://gtl-program/compute-composition/${fieldName}-unique`,
+            message: `${fieldName} must not contain duplicate refs`,
+            issues: input.issues
+          });
+        }
       }
-    }
-    for (const requiredStage of ["transform", "evaluate", "consequence"]) {
-      if (!row.stageBindingRefs.some((ref) => ref.includes(requiredStage))) {
+      const invokingSet = new Set(row.invokingProgramLocusRefs);
+      const resultOutsideProgram = row.resultBearingProgramLocusRefs!.filter(
+        (ref) => !invokingSet.has(ref)
+      );
+      if (resultOutsideProgram.length > 0) {
         pushRowIssue({
           surfaceKind: "compute_composition",
           surfaceRef: row.compositionRef,
-          ruleRef: "abg://gtl-program/compute-composition/stage-binding",
-          message: `stageBindingRefs must include ${requiredStage}.C`,
+          ruleRef: "abg://gtl-program/compute-composition/result-frontier-membership",
+          message: `result-bearing loci are not invoking program loci: ${resultOutsideProgram.join(", ")}`,
           issues: input.issues
         });
       }
@@ -13529,18 +14188,27 @@ function checkComputeStageBindingRows(input: {
         });
       }
     }
-    for (const requiredStage of ["transform", "evaluate", "consequence"] as const) {
-      const hasStage = input.computeStageBindings.some(
-        (row) =>
-          row.compositionRef === composition.compositionRef &&
-          row.stageRole === requiredStage
+    if (composition.programPlanRef !== undefined) {
+      const rows = input.computeStageBindings.filter(
+        (row) => row.compositionRef === composition.compositionRef
       );
-      if (!hasStage) {
+      const locusRefs = rows.flatMap((row) =>
+        row.programLocusRef === undefined ? [] : [row.programLocusRef]
+      );
+      const expectedLocusRefs = composition.invokingProgramLocusRefs ?? [];
+      const missing = expectedLocusRefs.filter((ref) => !locusRefs.includes(ref));
+      const extra = locusRefs.filter((ref) => !expectedLocusRefs.includes(ref));
+      if (
+        rows.length !== expectedLocusRefs.length ||
+        new Set(locusRefs).size !== locusRefs.length ||
+        missing.length > 0 ||
+        extra.length > 0
+      ) {
         pushRowIssue({
           surfaceKind: "compute_composition",
           surfaceRef: composition.compositionRef,
-          ruleRef: "abg://gtl-program/compute-composition/required-stage-row",
-          message: `${composition.compositionRef} must supply a ${requiredStage}.C computeStageBindings row`,
+          ruleRef: "abg://gtl-program/compute-composition/authored-locus-coverage",
+          message: `authored stage rows must cover the exact invoking program loci; missing=${missing.join(",")}; extra=${extra.join(",")}`,
           issues: input.issues
         });
       }
@@ -13573,6 +14241,63 @@ function checkComputeStageBindingRows(input: {
           surfaceRef: row.stageBindingRef,
           ruleRef: "abg://gtl-program/compute-stage/composition-stage-membership",
           message: `${row.stageBindingRef} is not listed by ${composition.compositionRef}.stageBindingRefs`,
+          issues: input.issues
+        });
+      }
+    }
+    const rowHasProgramLocus = [
+      row.stageKind,
+      row.programPlanRef,
+      row.programPlanDigest,
+      row.programLocusRef,
+      row.programLocusDigest,
+      row.sourcePath,
+      row.domainStageRole,
+      row.sequenceOrdinal,
+      row.taskOrdinal,
+      row.resultBearing
+    ].some((value) => value !== undefined);
+    if (
+      rowHasProgramLocus &&
+      composition?.programPlanRef === undefined
+    ) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/authored-program-locus",
+        message: `${row.stageBindingRef} declares an authored program locus without a plan-pinned composition`,
+        issues: input.issues
+      });
+    } else if (composition?.programPlanRef !== undefined) {
+      const missingProgramFields = [
+        row.stageKind,
+        row.programPlanRef,
+        row.programPlanDigest,
+        row.programLocusRef,
+        row.programLocusDigest,
+        row.sourcePath,
+        row.domainStageRole,
+        row.sequenceOrdinal,
+        row.taskOrdinal,
+        row.resultBearing
+      ].filter((value) => value === undefined);
+      if (
+        missingProgramFields.length > 0 ||
+        row.stageKind !== "authored_program_stage" ||
+        row.programPlanRef !== composition.programPlanRef ||
+        row.programPlanDigest !== composition.programPlanDigest ||
+        !composition.invokingProgramLocusRefs?.includes(
+          row.programLocusRef ?? ""
+        ) ||
+        row.resultBearing !== composition.resultBearingProgramLocusRefs?.includes(
+          row.programLocusRef ?? ""
+        )
+      ) {
+        pushRowIssue({
+          surfaceKind: "compute_stage_binding",
+          surfaceRef: row.stageBindingRef,
+          ruleRef: "abg://gtl-program/compute-stage/authored-program-locus",
+          message: `${row.stageBindingRef} does not preserve its exact authored program locus and result-frontier disposition`,
           issues: input.issues
         });
       }
@@ -13692,7 +14417,8 @@ function checkPluginResultInterfaceRows(input: {
       compositionRef: row.compositionRef,
       compositionDigest: row.compositionDigest,
       stageRole: row.stageRole,
-      computeMeans: row.computeMeans
+      computeMeans: row.computeMeans,
+      programLocusRef: row.programLocusRef ?? null
     });
     rowsByRuntimeSelector.set(
       selectorKey,
@@ -13779,6 +14505,28 @@ function checkPluginResultInterfaceRows(input: {
           issues: input.issues
         });
       }
+      const stageHasProgramLocus = stage.programLocusRef !== undefined;
+      const rowHasProgramLocus = [
+        row.programLocusRef,
+        row.programLocusDigest,
+        row.resultBearing
+      ].some((value) => value !== undefined);
+      if (
+        (stageHasProgramLocus || rowHasProgramLocus) &&
+        (
+          row.programLocusRef !== stage.programLocusRef ||
+          row.programLocusDigest !== stage.programLocusDigest ||
+          row.resultBearing !== stage.resultBearing
+        )
+      ) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/program-locus",
+          message: `${row.resultInterfaceRef} does not preserve its exact authored program locus and result-frontier disposition`,
+          issues: input.issues
+        });
+      }
       for (const outputCarrierRef of stage.outputCarrierRefs) {
         if (!row.outputCarrierRefs.includes(outputCarrierRef)) {
           pushRowIssue({
@@ -13847,6 +14595,18 @@ function checkPluginResultInterfaceRows(input: {
           issues: input.issues
         });
       }
+    }
+    if (
+      row.programLocusRef !== undefined &&
+      !identityFields.has("programLocusRef")
+    ) {
+      pushRowIssue({
+        surfaceKind: "plugin_result_interface",
+        surfaceRef: row.resultInterfaceRef,
+        ruleRef: "abg://gtl-program/plugin-result-interface/program-locus-identity-field",
+        message: "plan-pinned result interfaces must require programLocusRef identity",
+        issues: input.issues
+      });
     }
     for (const selectorAuthorityRef of row.selectorAuthorityRefs) {
       if (selectorAuthorityLooksLikeLocalFileRef(selectorAuthorityRef)) {

@@ -57,7 +57,7 @@ test("basis compilation rejects malformed handler-binding output", () => {
   );
 });
 
-test("basis compilation refuses a declared triple the current interpreter cannot honor", () => {
+test("basis compilation preserves authored regimes for downstream composition judgment", () => {
   const stages = ["transform", "evaluate", "consequence"].map((stageRole) => ({
     kind: "object",
     entries: [
@@ -67,7 +67,7 @@ test("basis compilation refuses a declared triple the current interpreter cannot
       { key: "resultBearing", value: stageRole === "transform" }
     ]
   }));
-  assert.throws(
+  assert.doesNotThrow(
     () =>
       buildThreeStageBasis({
         defaultRegime: "F_D",
@@ -89,13 +89,12 @@ test("basis compilation refuses a declared triple the current interpreter cannot
             }
           }
         ]
-      }),
-    /semantic_not_realized/u
+      })
   );
 });
 
-test("basis compilation refuses an open program that omits required interpreter anchors", () => {
-  assert.throws(
+test("basis compilation preserves an open program without invented interpreter anchors", () => {
+  assert.doesNotThrow(
     () =>
       buildThreeStageBasis({
         defaultRegime: "F_D",
@@ -133,8 +132,7 @@ test("basis compilation refuses an open program that omits required interpreter 
             }
           }
         ]
-      }),
-    /semantic_not_realized:.*omits current interpreter anchors/u
+      })
   );
 });
 
@@ -150,7 +148,7 @@ test("HoG ladder admission rejects invented rung semantics", () => {
   assert.match(result.issues.join("; "), /untilAttempt: unknown rung field/u);
 });
 
-test("basis compilation refuses reordered interpreter anchors", () => {
+test("basis compilation preserves authored stage order without imposing a canonical chain", () => {
   const stages = ["evaluate", "transform", "consequence"].map((stageRole) => ({
     kind: "object",
     entries: [
@@ -160,7 +158,7 @@ test("basis compilation refuses reordered interpreter anchors", () => {
       { key: "resultBearing", value: stageRole === "transform" }
     ]
   }));
-  assert.throws(
+  assert.doesNotThrow(
     () =>
       buildThreeStageBasis({
         defaultRegime: "F_D",
@@ -182,7 +180,6 @@ test("basis compilation refuses reordered interpreter anchors", () => {
             }
           }
         ]
-      }),
-    /must order current interpreter anchors as transform, evaluate, consequence/u
+      })
   );
 });

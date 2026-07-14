@@ -160,20 +160,6 @@ function programShapeDiagnostics(
     );
     return Object.freeze(diagnostics);
   }
-  const roles = new Set<string>();
-  for (const [index, stage] of stages.entries()) {
-    if (roles.has(stage.stageRole)) {
-      diagnostics.push(
-        constructCAlgebraDiagnostic({
-          diagnosticId: "gtl-c-duplicate-stage-role",
-          path: `$.term.stages[${index}].stageRole`,
-          message: `stage role ${JSON.stringify(stage.stageRole)} is duplicated`,
-          repairAffordances: Object.freeze(["rename_duplicate_stage_role"])
-        })
-      );
-    }
-    roles.add(stage.stageRole);
-  }
   const resultBearingCount = stages.filter(
     (stage) => stage.resultBearing
   ).length;

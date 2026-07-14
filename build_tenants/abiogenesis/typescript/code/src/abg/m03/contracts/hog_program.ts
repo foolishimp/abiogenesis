@@ -501,7 +501,6 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
         : "workflow, batch, and retry program stages must be empty"
     );
   }
-  const roles = new Set<string>();
   let resultBearingCount = 0;
   const admittedStages: HogProgramStage[] = [];
   for (const [index, stageRaw] of (
@@ -511,11 +510,6 @@ export function admitHogProgram(input: unknown): HogProgramAdmission {
     const stage = admitStageRaw(stageRaw, at, issues);
     if (stage === null) {
       continue;
-    }
-    if (roles.has(stage.stageRole)) {
-      issues.push(`${at}.stageRole duplicates ${JSON.stringify(stage.stageRole)}`);
-    } else {
-      roles.add(stage.stageRole);
     }
     if (stage.resultBearing) {
       resultBearingCount += 1;

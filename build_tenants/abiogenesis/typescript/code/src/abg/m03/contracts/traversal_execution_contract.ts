@@ -24,7 +24,6 @@ import {
   assertCompiledHofFanOutBinding,
   assertCompiledFanInReductionBinding,
   compileHofFanOutBinding,
-  executionHandoffBindingView,
   type CompiledFanInReductionBinding,
   type CompiledHofFanOutBinding,
   type ExecutionHandoffCarrier
@@ -51,16 +50,14 @@ import {
 } from "./typed_recurse.js";
 import type {
   AbgFnCompositionSelection,
-  AbgFnComputeStageRole,
-  AbgFnRegimeBinding
+  AbgFnComputeStageRole
 } from "./fn_composition.js";
 import {
-  isHogBatchProgram,
-  isHogRetryProgram,
-  isHogWorkflowProgram,
-  type HogProgramDeclaration,
-  type HogProgramStage
-} from "./hog_program.js";
+  assertCompiledCProgramPlan,
+  type CompiledCPlanNode,
+  type CompiledCProgramPlan,
+  type CompositionLocusBinding
+} from "./complete_c_program.js";
 import type { RuntimeRegime } from "./carriers.js";
 import {
   FH_PUBLIC_OPERATION_ID_VALUES
@@ -139,10 +136,20 @@ export interface TraversalSourceRegimeBinding {
 export interface TraversalContractWorkStage {
   readonly kind: "traversal_contract_work_stage";
   readonly ordinal: number;
-  readonly domainStageRole: string;
+  readonly programLocusRef: string;
+  readonly programLocusDigest: `sha256:${string}`;
+  readonly sourcePath: string;
+  readonly declaredStageIndex: number | null;
+  readonly domainStageRole: string | null;
+  readonly instructionCategoryRefs: readonly string[];
   readonly compositionStageRole: AbgFnComputeStageRole;
   readonly regime: RuntimeRegime;
+  readonly compositionRegimeBindingRef: string;
   readonly armId: string;
+  readonly sequenceOrdinal: number;
+  readonly taskOrdinal: number | null;
+  readonly predecessorProgramLocusRefs: readonly string[];
+  readonly resultBearing: boolean;
   readonly inputCarrierRefs: readonly string[];
   readonly outputCarrierRefs: readonly string[];
   readonly sourceAuthorityRef: string;
@@ -175,6 +182,13 @@ export interface TraversalContractSourceBasis {
   readonly sourceOutputCarrierRef: string;
   readonly selectedProgramRef: string;
   readonly selectedProgramBindingDigest: `sha256:${string}`;
+  readonly completeProgramPlan: CompiledCProgramPlan;
+  readonly authoredProgramNodeRefs: readonly string[];
+  readonly invokingProgramLocusRefs: readonly string[];
+  readonly resultBearingProgramLocusRefs: readonly string[];
+  readonly planExecutionGraphFunctionRef: string;
+  readonly applicationKind: "direct" | "fan_out" | "fan_in" | "recurse";
+  readonly applicationConservationRefs: readonly string[];
   readonly compositionSelectionRef: string;
   readonly compositionRef: string;
   readonly compositionDigest: string;
@@ -227,6 +241,7 @@ export type ProjectTraversalContractSourceInput =
   | ProjectStructuralHofTraversalContractSourceInput;
 
 export type TraversalResultAuthoritySourceKind =
+  | "program_locus_contract"
   | "declared_fp_contract"
   | "declared_fh_contract"
   | "deterministic_target_contract"
@@ -241,9 +256,12 @@ export interface AdmittedTraversalStageResultAuthority {
   readonly currentSourceAuthorityRef: string;
   readonly currentSourceAuthorityDigest: `sha256:${string}`;
   readonly currentEvidenceRefs: readonly string[];
+  readonly currentAuthorityWitnessDigest: `sha256:${string}`;
   readonly stageOrdinal: number;
+  readonly programLocusRef: string;
+  readonly programLocusDigest: `sha256:${string}`;
   readonly sourceStageDigest: `sha256:${string}`;
-  readonly domainStageRole: string;
+  readonly domainStageRole: string | null;
   readonly compositionStageRole: AbgFnComputeStageRole;
   readonly regime: RuntimeRegime;
   readonly selectedResultContractRef: string;
@@ -303,7 +321,8 @@ interface TraversalExecutionAdmissionSourceIdentity {
 export interface TraversalExecutionAdmissionResultAuthorityIdentity {
   readonly sourceKind: TraversalResultAuthoritySourceKind;
   readonly stageOrdinal: number;
-  readonly domainStageRole: string;
+  readonly programLocusRef: string;
+  readonly domainStageRole: string | null;
   readonly currentSourceAuthorityRef: string;
   readonly currentSourceAuthorityDigest: `sha256:${string}`;
 }
@@ -343,7 +362,7 @@ export interface TraversalExecutionAdmissionRuntimeAddressable
   readonly bundleDigest: `sha256:${string}`;
   readonly reportRef: string;
   readonly runtimeAddressable: true;
-  readonly effectsPermitted: true;
+  readonly effectsPermitted: false;
   readonly runtimeClosed: false;
   readonly resultAdmitted: false;
   readonly obligationsDischarged: false;
@@ -457,85 +476,6 @@ function selectedComposition(
   return carrier.compositionSelection;
 }
 
-function selectedProgram(
-  carrier: ReturnType<typeof selectedCarrier>
-): HogProgramDeclaration {
-  if (carrier.normalizedProgram === null) {
-    fail({
-      diagnosticId: "traversal-source-invalid",
-      actualRelation:
-        "complete C-program traversal conservation is owned by the reframed T-267 contract",
-      evidenceRefs: [carrier.completeProgramPlan.planRef]
-    });
-  }
-  return carrier.normalizedProgram;
-}
-
-function exactCompositionRole(input: {
-  readonly composition: AbgFnCompositionSelection;
-  readonly stage: HogProgramStage;
-  readonly ordinal: number;
-}): AbgFnRegimeBinding {
-  const sameRegime = input.composition.contract.regimes.filter(
-    (row) => row.regime === input.stage.defaultRegime
-  );
-  const exactOrder = sameRegime.filter((row) => row.order === input.ordinal);
-  const candidates = exactOrder.length === 1 ? exactOrder : sameRegime;
-  const selected = candidates[0];
-  if (candidates.length !== 1 || selected === undefined) {
-    fail({
-      diagnosticId: "traversal-source-invalid",
-      actualRelation:
-        `stage ${JSON.stringify(input.stage.stageRole)} does not resolve one exact composition regime binding`,
-      evidenceRefs: [
-        input.composition.selectionRef,
-        input.composition.contract.contractRef
-      ]
-    });
-  }
-  return selected;
-}
-
-function resultBearingStage(program: HogProgramDeclaration): {
-  readonly stage: HogProgramStage;
-  readonly ordinal: number;
-} {
-  if (isHogWorkflowProgram(program)) {
-    fail({
-      diagnosticId: "traversal-source-invalid",
-      actualRelation: "workflow.C result authority must derive from its compiled lift binding",
-      evidenceRefs: [program.programRef]
-    });
-  }
-  if (isHogBatchProgram(program)) {
-    const tasks = program.batch.tasks.filter((task) => task.stage.resultBearing);
-    const task = tasks[0];
-    if (tasks.length !== 1 || task === undefined) {
-      fail({
-        diagnosticId: "traversal-source-invalid",
-        actualRelation: "C.batch must expose one exact result-bearing task family",
-        evidenceRefs: [program.programRef, program.batch.batchRef]
-      });
-    }
-    return Object.freeze({ stage: task.stage, ordinal: task.ordinal });
-  }
-  if (isHogRetryProgram(program)) {
-    return Object.freeze({ stage: program.retry.stage, ordinal: 0 });
-  }
-  const stages = program.stages
-    .map((stage, ordinal) => ({ stage, ordinal }))
-    .filter((row) => row.stage.resultBearing);
-  const selected = stages[0];
-  if (stages.length !== 1 || selected === undefined) {
-    fail({
-      diagnosticId: "traversal-source-invalid",
-      actualRelation: "flat C program must expose one exact result-bearing stage",
-      evidenceRefs: [program.programRef]
-    });
-  }
-  return Object.freeze(selected);
-}
-
 function regimeBindingProjection(
   composition: AbgFnCompositionSelection
 ): readonly TraversalSourceRegimeBinding[] {
@@ -552,149 +492,200 @@ function regimeBindingProjection(
   );
 }
 
-function selectedWorkStage(input: {
-  readonly carrier: ReturnType<typeof selectedCarrier>;
-  readonly composition: AbgFnCompositionSelection;
-}): TraversalContractWorkStage {
-  const program = selectedProgram(input.carrier);
-  let stage: HogProgramStage;
-  let ordinal: number;
-  let inputCarrierRefs: readonly string[];
-  let outputCarrierRefs: readonly string[];
-  let sourceAuthorityRef: string;
-  let sourceAuthorityDigest: `sha256:${string}`;
-  let evidenceRefs: readonly string[];
+interface TraversalPlanInventory {
+  readonly authoredProgramNodeRefs: readonly string[];
+  readonly workStages: readonly TraversalContractWorkStage[];
+  readonly resultBearingProgramLocusRefs: readonly string[];
+}
 
-  if (isHogWorkflowProgram(program)) {
-    const binding = input.carrier.workflowLiftBinding;
-    if (binding === null) {
-      fail({
-        diagnosticId: "traversal-source-invalid",
-        actualRelation: "workflow.C source lacks its compiled lift binding",
-        evidenceRefs: [program.programRef]
-      });
-    }
-    assertCompiledWorkflowLiftBinding(binding);
-    stage = Object.freeze({
-      stageRole: binding.stageRole,
-      defaultRegime: binding.regime,
+function uniqueRefs(refs: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(refs)]);
+}
+
+function planInventory(plan: CompiledCProgramPlan): TraversalPlanInventory {
+  assertCompiledCProgramPlan(plan);
+  const authoredProgramNodeRefs: string[] = [];
+  const workStages: TraversalContractWorkStage[] = [];
+  let declaredStageIndex = 0;
+
+  const invokingStage = (
+    node: Extract<
+      CompiledCPlanNode,
+      { readonly kind: "compiled_c_stage_leaf" | "compiled_c_workflow_lift" }
+    >,
+    binding: CompositionLocusBinding,
+    predecessorProgramLocusRefs: readonly string[]
+  ): TraversalContractWorkStage => {
+    const isStageLeaf = node.kind === "compiled_c_stage_leaf";
+    const domainStageRole = isStageLeaf ? node.domainStageRole : null;
+    const stageIndex = isStageLeaf ? declaredStageIndex++ : null;
+    const instructionCategoryRefs = isStageLeaf
+      ? node.instructionCategoryRefs
+      : Object.freeze([]);
+    const resultBearing =
+      node.kind === "compiled_c_stage_leaf"
+        ? node.resultBearing
+        : node.resultCardinality === "one";
+    const stageBasis = Object.freeze({
+      kind: "traversal_contract_work_stage" as const,
+      ordinal: workStages.length,
+      programLocusRef: node.nodeRef,
+      programLocusDigest: node.nodeDigest,
+      sourcePath: node.sourcePath,
+      declaredStageIndex: stageIndex,
+      domainStageRole,
+      instructionCategoryRefs: Object.freeze([...instructionCategoryRefs]),
+      compositionStageRole: binding.compositionStageRole,
+      regime: binding.regime,
+      compositionRegimeBindingRef: binding.regimeBindingRef,
       armId: binding.armId,
-      resultBearing: true
+      sequenceOrdinal: binding.sequenceOrdinal,
+      taskOrdinal: binding.taskOrdinal,
+      predecessorProgramLocusRefs: uniqueRefs(predecessorProgramLocusRefs),
+      resultBearing,
+      inputCarrierRefs: Object.freeze([node.inputCarrierRef]),
+      outputCarrierRefs: Object.freeze([node.outputCarrierRef]),
+      sourceAuthorityRef: node.nodeRef,
+      sourceAuthorityDigest: node.nodeDigest,
+      declaredStageDigest: node.sourceNodeDigest,
+      evidenceRefs: Object.freeze([
+        plan.planRef,
+        plan.planDigest,
+        binding.bindingRef,
+        binding.bindingDigest
+      ])
     });
-    ordinal = 0;
-    inputCarrierRefs = Object.freeze([binding.inputCarrierRef]);
-    outputCarrierRefs = Object.freeze([binding.outputCarrierRef]);
-    sourceAuthorityRef = binding.bindingRef;
-    sourceAuthorityDigest = binding.bindingDigest;
-    evidenceRefs = Object.freeze([binding.programBindingDigest, binding.childGraphFunctionRef]);
-  } else if (isHogRetryProgram(program)) {
-    const binding = input.carrier.retryBinding;
-    if (binding === null) {
-      fail({
-        diagnosticId: "traversal-source-invalid",
-        actualRelation: "C.retry source lacks its compiled retry binding",
-        evidenceRefs: [program.programRef]
-      });
-    }
-    assertCompiledCRetryBinding(binding);
-    stage = program.retry.stage;
-    ordinal = 0;
-    inputCarrierRefs = Object.freeze([binding.inputCarrierRef]);
-    outputCarrierRefs = Object.freeze([binding.outputCarrierRef]);
-    sourceAuthorityRef = binding.bindingRef;
-    sourceAuthorityDigest = binding.bindingDigest;
-    evidenceRefs = Object.freeze([binding.retryPolicyRef, binding.retryPolicyDigest]);
-  } else {
-    const selected = resultBearingStage(program);
-    stage = selected.stage;
-    ordinal = selected.ordinal;
-    inputCarrierRefs = Object.freeze([
-      input.carrier.programBinding.programInputCarrierRef
-    ]);
-    outputCarrierRefs = Object.freeze([
-      input.carrier.programBinding.programOutputCarrierRef
-    ]);
-    if (input.carrier.fanInApplicationRelation !== null) {
-      inputCarrierRefs = Object.freeze([
-        input.carrier.fanInApplicationRelation.inputVectorContractKey
-      ]);
-      outputCarrierRefs = Object.freeze([
-        input.carrier.fanInApplicationRelation.outputContractKey
-      ]);
-      sourceAuthorityRef = input.carrier.fanInApplicationRelation.relationRef;
-      sourceAuthorityDigest = input.carrier.fanInApplicationRelation.relationDigest;
-    } else {
-      sourceAuthorityRef = input.carrier.programBinding.selectedProgramRef;
-      sourceAuthorityDigest = input.carrier.programBinding.bindingDigest;
-    }
-    evidenceRefs = Object.freeze([
-      input.carrier.programBinding.bindingDigest,
-      ...(input.carrier.applicationLineage === null
-        ? []
-        : [input.carrier.applicationLineage.lineageRef])
-    ]);
-  }
+    return Object.freeze({
+      ...stageBasis,
+      sourceStageDigest: stableSha256Digest(stageBasis)
+    });
+  };
 
-  const regimeBinding = exactCompositionRole({
-    composition: input.composition,
-    stage,
-    ordinal
-  });
-  const stageBasis = Object.freeze({
-    kind: "traversal_contract_work_stage" as const,
-    ordinal,
-    domainStageRole: stage.stageRole,
-    compositionStageRole: regimeBinding.stageRole,
-    regime: stage.defaultRegime,
-    armId: stage.armId,
-    inputCarrierRefs,
-    outputCarrierRefs,
-    sourceAuthorityRef,
-    sourceAuthorityDigest,
-    declaredStageDigest: stableSha256Digest(stage),
-    evidenceRefs
-  });
+  const visit = (
+    node: CompiledCPlanNode,
+    predecessorProgramLocusRefs: readonly string[]
+  ): readonly string[] => {
+    authoredProgramNodeRefs.push(node.nodeRef);
+    switch (node.kind) {
+      case "compiled_c_stage_leaf":
+      case "compiled_c_workflow_lift": {
+        const stage = invokingStage(
+          node,
+          node.compositionBinding,
+          predecessorProgramLocusRefs
+        );
+        workStages.push(stage);
+        return Object.freeze([stage.programLocusRef]);
+      }
+      case "compiled_c_identity":
+        return uniqueRefs(predecessorProgramLocusRefs);
+      case "compiled_c_sequence": {
+        let frontier = uniqueRefs(predecessorProgramLocusRefs);
+        for (const child of node.children) {
+          frontier = visit(child, frontier);
+        }
+        return frontier;
+      }
+      case "compiled_c_complete_batch":
+        return uniqueRefs(
+          node.tasks.flatMap((task) =>
+            visit(task.child, predecessorProgramLocusRefs)
+          )
+        );
+      case "compiled_c_complete_retry":
+        return visit(node.child, predecessorProgramLocusRefs);
+    }
+  };
+
+  visit(plan.root, Object.freeze([]));
+  if (
+    authoredProgramNodeRefs.length !== plan.authoredNodeCount ||
+    workStages.length !== plan.invokingLocusCount ||
+    new Set(authoredProgramNodeRefs).size !== authoredProgramNodeRefs.length ||
+    new Set(workStages.map((stage) => stage.programLocusRef)).size !==
+      workStages.length
+  ) {
+    fail({
+      diagnosticId: "traversal-source-invalid",
+      actualRelation:
+        "complete C-program plan inventory does not match its authored-node and invoking-locus census",
+      evidenceRefs: [plan.planRef, plan.planDigest]
+    });
+  }
+  const resultBearingProgramLocusRefs = Object.freeze(
+    workStages
+      .filter((stage) => stage.resultBearing)
+      .map((stage) => stage.programLocusRef)
+  );
+  if (resultBearingProgramLocusRefs.length === 0) {
+    fail({
+      diagnosticId: "traversal-source-invalid",
+      actualRelation: "complete C-program plan has no result-bearing frontier",
+      evidenceRefs: [plan.planRef, plan.planDigest]
+    });
+  }
   return Object.freeze({
-    ...stageBasis,
-    sourceStageDigest: stableSha256Digest(stageBasis)
+    authoredProgramNodeRefs: Object.freeze(authoredProgramNodeRefs),
+    workStages: Object.freeze(workStages),
+    resultBearingProgramLocusRefs
   });
 }
 
-function structuralWorkStage(input: {
-  readonly binding: CompiledHofFanOutBinding;
-  readonly composition: AbgFnCompositionSelection;
-}): TraversalContractWorkStage {
-  const stage: HogProgramStage = Object.freeze({
-    stageRole: input.binding.stageRole,
-    defaultRegime: input.binding.regime,
-    armId: input.binding.armId,
-    resultBearing: true
-  });
-  const regimeBinding = exactCompositionRole({
-    composition: input.composition,
-    stage,
-    ordinal: 0
-  });
-  const basis = Object.freeze({
-    kind: "traversal_contract_work_stage" as const,
-    ordinal: 0,
-    domainStageRole: input.binding.stageRole,
-    compositionStageRole: regimeBinding.stageRole,
-    regime: input.binding.regime,
-    armId: input.binding.armId,
-    inputCarrierRefs: Object.freeze([input.binding.inputVectorContractKey]),
-    outputCarrierRefs: Object.freeze([input.binding.outputVectorContractKey]),
-    sourceAuthorityRef: input.binding.bindingRef,
-    sourceAuthorityDigest: input.binding.bindingDigest,
-    declaredStageDigest: stableSha256Digest(stage),
-    evidenceRefs: Object.freeze([
-      input.binding.relationBindingRef,
-      input.binding.childProgramBindingDigest
-    ])
-  });
+function selectedApplication(input: {
+  readonly carrier: ReturnType<typeof selectedCarrier>;
+  readonly plan: CompiledCProgramPlan;
+}): {
+  readonly kind: TraversalContractSourceBasis["applicationKind"];
+  readonly refs: readonly string[];
+} {
+  const recurse = input.carrier.recurseApplicationRelation;
+  if (recurse !== null) {
+    return Object.freeze({
+      kind: "recurse" as const,
+      refs: Object.freeze([
+        recurse.relationRef,
+        recurse.relationDigest,
+        recurse.applicationRef,
+        recurse.applicationLineageRef,
+        recurse.applicationLineageDigest,
+        recurse.executionSubjectGraphFunctionRef,
+        recurse.executionSubjectGraphFunctionDigest,
+        recurse.operandGraphFunctionRef,
+        recurse.operandGraphFunctionDigest,
+        recurse.terminationEvaluatorBinding,
+        recurse.terminationEvaluatorDigest,
+        ...recurse.terminationConsumedFieldRefs,
+        recurse.foldbackBinding,
+        recurse.foldbackAdditionalDigest
+      ])
+    });
+  }
+  const fanIn = input.carrier.fanInApplicationRelation;
+  if (fanIn !== null) {
+    return Object.freeze({
+      kind: "fan_in" as const,
+      refs: Object.freeze([
+        fanIn.relationRef,
+        fanIn.relationDigest,
+        fanIn.applicationRef,
+        fanIn.applicationLineageRef,
+        fanIn.applicationLineageDigest,
+        fanIn.executionSubjectGraphFunctionRef,
+        fanIn.executionSubjectGraphFunctionDigest,
+        fanIn.reducerGraphFunctionRef,
+        fanIn.reducerGraphFunctionDigest,
+        fanIn.inputVectorContractKey,
+        fanIn.outputContractKey
+      ])
+    });
+  }
   return Object.freeze({
-    ...basis,
-    sourceStageDigest: stableSha256Digest(basis)
+    kind: "direct" as const,
+    refs: Object.freeze([
+      input.plan.planRef,
+      input.plan.planDigest,
+      input.plan.executionGraphFunctionRef
+    ])
   });
 }
 
@@ -709,6 +700,12 @@ function sourceBasis(input: {
   readonly graphVector: GraphVector;
   readonly selectedProgramRef: string;
   readonly selectedProgramBindingDigest: `sha256:${string}`;
+  readonly completeProgramPlan: CompiledCProgramPlan;
+  readonly authoredProgramNodeRefs: readonly string[];
+  readonly resultBearingProgramLocusRefs: readonly string[];
+  readonly planExecutionGraphFunctionRef: string;
+  readonly applicationKind: TraversalContractSourceBasis["applicationKind"];
+  readonly applicationConservationRefs: readonly string[];
   readonly composition: AbgFnCompositionSelection;
   readonly applicationLineageRefs: readonly string[];
   readonly targetCarrierProjection:
@@ -750,6 +747,19 @@ function sourceBasis(input: {
     sourceOutputCarrierRef: input.graphVector.target.id,
     selectedProgramRef: input.selectedProgramRef,
     selectedProgramBindingDigest: input.selectedProgramBindingDigest,
+    completeProgramPlan: input.completeProgramPlan,
+    authoredProgramNodeRefs: Object.freeze([
+      ...input.authoredProgramNodeRefs
+    ]),
+    invokingProgramLocusRefs: Object.freeze(
+      input.workStages.map((stage) => stage.programLocusRef)
+    ),
+    resultBearingProgramLocusRefs: Object.freeze([
+      ...input.resultBearingProgramLocusRefs
+    ]),
+    planExecutionGraphFunctionRef: input.planExecutionGraphFunctionRef,
+    applicationKind: input.applicationKind,
+    applicationConservationRefs: uniqueRefs(input.applicationConservationRefs),
     compositionSelectionRef: input.composition.selectionRef,
     compositionRef: input.composition.contract.contractRef,
     compositionDigest: input.composition.contract.contractDigest,
@@ -832,6 +842,10 @@ export function projectTraversalContractSourceBasis(
       recompiled.status === "published_startup_blocked"
         ? recompiled.handoff.capabilityCompatibility.disposition
         : "unresolved";
+    const plan = carrier.completeProgramPlan;
+    assertCompiledCProgramPlan(plan);
+    const inventory = planInventory(plan);
+    const application = selectedApplication({ carrier, plan });
     return sourceBasis({
       sourceKind: input.kind,
       sourceRef: carrier.programBinding.selectedProgramRef,
@@ -846,6 +860,13 @@ export function projectTraversalContractSourceBasis(
       graphVector,
       selectedProgramRef: carrier.programBinding.selectedProgramRef,
       selectedProgramBindingDigest: carrier.programBinding.bindingDigest,
+      completeProgramPlan: plan,
+      authoredProgramNodeRefs: inventory.authoredProgramNodeRefs,
+      resultBearingProgramLocusRefs:
+        inventory.resultBearingProgramLocusRefs,
+      planExecutionGraphFunctionRef: plan.executionGraphFunctionRef,
+      applicationKind: application.kind,
+      applicationConservationRefs: application.refs,
       composition,
       applicationLineageRefs:
         carrier.applicationLineage === null
@@ -857,9 +878,7 @@ export function projectTraversalContractSourceBasis(
       targetCarrierProjection: carrier.targetCarrierProjection,
       edgeClosureBinding: carrier.edgeClosureBinding,
       effectRequirementRefs: Object.freeze([...graphFunction.effects]),
-      workStages: Object.freeze([
-        selectedWorkStage({ carrier, composition })
-      ]),
+      workStages: inventory.workStages,
       capabilityDisposition,
       startupBlockDigest:
         recompiled.status === "published_startup_blocked"
@@ -903,7 +922,6 @@ export function projectTraversalContractSourceBasis(
     });
   }
   assertCompiledHofFanOutBinding(binding);
-  const childView = executionHandoffBindingView(input.childExecutionHandoff);
   const childCarrier = selectedCarrier(input.childExecutionHandoff);
   const composition = selectedComposition(childCarrier);
   if (composition.contract.host.graphFunctionRef !== declarationOwner.id) {
@@ -913,6 +931,22 @@ export function projectTraversalContractSourceBasis(
       evidenceRefs: [composition.selectionRef, declarationOwner.id]
     });
   }
+  const plan = childCarrier.completeProgramPlan;
+  assertCompiledCProgramPlan(plan);
+  const inventory = planInventory(plan);
+  const fanOutApplicationRefs = Object.freeze([
+    input.relation.relationBindingRef,
+    input.relation.declarationRelationRef,
+    input.relation.relationDigest,
+    input.binding.bindingRef,
+    input.binding.bindingDigest,
+    input.binding.relationBindingRef,
+    input.binding.childGraphFunctionRef,
+    input.binding.childGraphFunctionDigest,
+    input.binding.childProgramBindingDigest,
+    input.binding.inputVectorContractKey,
+    input.binding.outputVectorContractKey
+  ]);
   return sourceBasis({
     sourceKind: input.kind,
     sourceRef: binding.bindingRef,
@@ -922,8 +956,15 @@ export function projectTraversalContractSourceBasis(
     graphFunction,
     declarationOwnerGraphFunction: declarationOwner,
     graphVector,
-    selectedProgramRef: childView.programRef,
-    selectedProgramBindingDigest: childView.programBindingDigest,
+    selectedProgramRef: childCarrier.programBinding.selectedProgramRef,
+    selectedProgramBindingDigest: childCarrier.programBinding.bindingDigest,
+    completeProgramPlan: plan,
+    authoredProgramNodeRefs: inventory.authoredProgramNodeRefs,
+    resultBearingProgramLocusRefs:
+      inventory.resultBearingProgramLocusRefs,
+    planExecutionGraphFunctionRef: plan.executionGraphFunctionRef,
+    applicationKind: "fan_out",
+    applicationConservationRefs: fanOutApplicationRefs,
     composition,
     applicationLineageRefs: Object.freeze([
       binding.relationBindingRef,
@@ -932,9 +973,7 @@ export function projectTraversalContractSourceBasis(
     targetCarrierProjection: recompiled.targetCarrierProjection,
     edgeClosureBinding: recompiled.edgeClosureBinding,
     effectRequirementRefs: Object.freeze([...graphFunction.effects]),
-    workStages: Object.freeze([
-      structuralWorkStage({ binding, composition })
-    ]),
+    workStages: inventory.workStages,
     capabilityDisposition: "unresolved",
     startupBlockDigest: null
   });
@@ -966,6 +1005,7 @@ function resultAuthorityBasis(
     | "currentSourceAuthorityRef"
     | "currentSourceAuthorityDigest"
     | "currentEvidenceRefs"
+    | "currentAuthorityWitnessDigest"
   >
 ) {
   return Object.freeze({
@@ -973,6 +1013,8 @@ function resultAuthorityBasis(
     sourceKind: authority.sourceKind,
     sourceDigest: authority.sourceDigest,
     stageOrdinal: authority.stageOrdinal,
+    programLocusRef: authority.programLocusRef,
+    programLocusDigest: authority.programLocusDigest,
     sourceStageDigest: authority.sourceStageDigest,
     domainStageRole: authority.domainStageRole,
     compositionStageRole: authority.compositionStageRole,
@@ -987,16 +1029,46 @@ function resultAuthorityBasis(
   });
 }
 
+function currentAuthorityWitnessBasis(
+  authority: Pick<
+    AdmittedTraversalStageResultAuthority,
+    | "kind"
+    | "sourceKind"
+    | "sourceDigest"
+    | "programLocusRef"
+    | "sourceStageDigest"
+    | "currentSourceAuthorityRef"
+    | "currentSourceAuthorityDigest"
+    | "currentEvidenceRefs"
+  >
+) {
+  return Object.freeze({
+    kind: authority.kind,
+    sourceKind: authority.sourceKind,
+    sourceDigest: authority.sourceDigest,
+    programLocusRef: authority.programLocusRef,
+    sourceStageDigest: authority.sourceStageDigest,
+    currentSourceAuthorityRef: authority.currentSourceAuthorityRef,
+    currentSourceAuthorityDigest: authority.currentSourceAuthorityDigest,
+    currentEvidenceRefs: Object.freeze([...authority.currentEvidenceRefs])
+  });
+}
+
 function assertAdmittedTraversalStageResultAuthority(
   authority: AdmittedTraversalStageResultAuthority
 ): void {
   const expectedDigest = stableSha256Digest(resultAuthorityBasis(authority));
+  const expectedCurrentAuthorityWitnessDigest = stableSha256Digest(
+    currentAuthorityWitnessBasis(authority)
+  );
   const expectedRef =
     `abg://traversal-stage-result-authority/${expectedDigest.slice("sha256:".length)}`;
   if (
     authority.kind !== "admitted_traversal_stage_result_authority" ||
     authority.authorityDigest !== expectedDigest ||
-    authority.authorityRef !== expectedRef
+    authority.authorityRef !== expectedRef ||
+    authority.currentAuthorityWitnessDigest !==
+      expectedCurrentAuthorityWitnessDigest
   ) {
     fail({
       diagnosticId: "traversal-result-authority-invalid",
@@ -1031,6 +1103,8 @@ function sealResultAuthority(input: {
     sourceKind: input.sourceKind,
     sourceDigest: input.source.sourceDigest,
     stageOrdinal: input.stage.ordinal,
+    programLocusRef: input.stage.programLocusRef,
+    programLocusDigest: input.stage.programLocusDigest,
     sourceStageDigest: input.stage.sourceStageDigest,
     domainStageRole: input.stage.domainStageRole,
     compositionStageRole: input.stage.compositionStageRole,
@@ -1043,15 +1117,73 @@ function sealResultAuthority(input: {
     selectorAuthorityRefs: Object.freeze([...input.selectorAuthorityRefs]),
     evidenceRefs: Object.freeze([...input.evidenceRefs])
   }));
+  const currentAuthority = Object.freeze({
+    kind: structural.kind,
+    sourceKind: structural.sourceKind,
+    sourceDigest: structural.sourceDigest,
+    programLocusRef: structural.programLocusRef,
+    sourceStageDigest: structural.sourceStageDigest,
+    currentSourceAuthorityRef: input.currentSourceAuthorityRef,
+    currentSourceAuthorityDigest: input.currentSourceAuthorityDigest,
+    currentEvidenceRefs: Object.freeze([...input.currentEvidenceRefs])
+  });
   const authorityDigest = stableSha256Digest(structural);
   return Object.freeze({
     ...structural,
     authorityRef:
       `abg://traversal-stage-result-authority/${authorityDigest.slice("sha256:".length)}`,
     authorityDigest,
-    currentSourceAuthorityRef: input.currentSourceAuthorityRef,
-    currentSourceAuthorityDigest: input.currentSourceAuthorityDigest,
-    currentEvidenceRefs: Object.freeze([...input.currentEvidenceRefs])
+    currentSourceAuthorityRef: currentAuthority.currentSourceAuthorityRef,
+    currentSourceAuthorityDigest: currentAuthority.currentSourceAuthorityDigest,
+    currentEvidenceRefs: currentAuthority.currentEvidenceRefs,
+    currentAuthorityWitnessDigest: stableSha256Digest(currentAuthority)
+  });
+}
+
+export function admitProgramLocusTraversalStageResultAuthority(input: {
+  readonly source: TraversalContractSourceBasis;
+  readonly programLocusRef: string;
+}): AdmittedTraversalStageResultAuthority {
+  const matches = input.source.workStages.filter(
+    (stage) => stage.programLocusRef === input.programLocusRef
+  );
+  const stage = matches[0];
+  if (matches.length !== 1 || stage === undefined) {
+    fail({
+      diagnosticId: "traversal-result-authority-invalid",
+      actualRelation:
+        "program locus result authority must resolve one exact invoking locus",
+      evidenceRefs: [input.source.completeProgramPlan.planRef, input.programLocusRef]
+    });
+  }
+  const selectedResultContractRef = stage.resultBearing
+    ? input.source.targetCarrierProjection.targetCarrierContractRef
+    : stage.outputCarrierRefs[0]!;
+  const resultEnvelopeContractRef = stage.resultBearing
+    ? input.source.targetCarrierProjection.envelopeContractRef
+    : stage.outputCarrierRefs[0]!;
+  return sealResultAuthority({
+    source: input.source,
+    stage,
+    sourceKind: "program_locus_contract",
+    currentSourceAuthorityRef: input.source.completeProgramPlan.planRef,
+    currentSourceAuthorityDigest: input.source.completeProgramPlan.planDigest,
+    selectedResultContractRef,
+    resultEnvelopeContractRef,
+    selectorAuthorityRefs: Object.freeze([
+      input.source.completeProgramPlan.planRef,
+      stage.programLocusRef,
+      stage.sourceAuthorityRef
+    ]),
+    evidenceRefs: Object.freeze([
+      input.source.completeProgramPlan.planDigest,
+      stage.programLocusDigest,
+      stage.sourceStageDigest
+    ]),
+    currentEvidenceRefs: Object.freeze([
+      input.source.selectedProgramBindingDigest,
+      input.source.compositionSelectionRef
+    ])
   });
 }
 
@@ -1063,10 +1195,20 @@ export function admitDeclaredTraversalStageResultAuthority(input: {
   readonly fpWireProfile: FpResultWireProfile | null;
 }): AdmittedTraversalStageResultAuthority {
   const stage = exactSourceStage(input);
+  const selectedStage = input.contract.selectedStage;
   if (
     (stage.regime !== "F_P" && stage.regime !== "F_H") ||
+    stage.declaredStageIndex === null ||
+    input.contract.selectedStageIndex !== stage.declaredStageIndex ||
     input.contract.selectedRegime !== stage.regime ||
-    input.contract.selectedStageDigest !== stage.declaredStageDigest ||
+    selectedStage.stageRole !== stage.domainStageRole ||
+    selectedStage.defaultRegime !== stage.regime ||
+    selectedStage.armId !== stage.armId ||
+    selectedStage.resultBearing !== stage.resultBearing ||
+    !stableJsonEquals(
+      selectedStage.instructionCategoryRefs ?? Object.freeze([]),
+      stage.instructionCategoryRefs
+    ) ||
     input.contract.selectedProgramBinding.bindingDigest !==
       input.source.selectedProgramBindingDigest ||
     !input.contract.targetCompatibilityRefs.includes(
@@ -1076,7 +1218,13 @@ export function admitDeclaredTraversalStageResultAuthority(input: {
     fail({
       diagnosticId: "traversal-result-authority-invalid",
       actualRelation: "declared execution-context contract does not match the exact traversal source stage",
-      evidenceRefs: [input.source.sourceDigest, input.contract.contractRef]
+      evidenceRefs: [
+        input.source.sourceDigest,
+        input.contract.contractRef,
+        stage.programLocusRef,
+        stage.sourceStageDigest,
+        input.contract.selectedStageDigest
+      ]
     });
   }
   if (
@@ -1136,7 +1284,9 @@ export function admitDeterministicTraversalStageResultAuthority(input: {
       evidenceRefs: [stage.sourceStageDigest]
     });
   }
-  const selectedResultContractRef = stage.outputCarrierRefs[0]!;
+  const selectedResultContractRef = stage.resultBearing
+    ? input.source.targetCarrierProjection.targetCarrierContractRef
+    : stage.outputCarrierRefs[0]!;
   return sealResultAuthority({
     source: input.source,
     stage,
@@ -1144,8 +1294,9 @@ export function admitDeterministicTraversalStageResultAuthority(input: {
     currentSourceAuthorityRef: stage.sourceAuthorityRef,
     currentSourceAuthorityDigest: stage.sourceAuthorityDigest,
     selectedResultContractRef,
-    resultEnvelopeContractRef:
-      input.source.targetCarrierProjection.envelopeContractRef,
+    resultEnvelopeContractRef: stage.resultBearing
+      ? input.source.targetCarrierProjection.envelopeContractRef
+      : stage.outputCarrierRefs[0]!,
     selectorAuthorityRefs: Object.freeze([
       stage.sourceAuthorityRef,
       input.source.targetCarrierProjection.targetCarrierContractRef
@@ -1313,6 +1464,14 @@ function regimeDispositions(input: {
 interface CompiledStageSeed {
   readonly role: EngineComputeStageRole;
   readonly regime: RuntimeRegime;
+  readonly programLocusRef: string;
+  readonly programLocusDigest: `sha256:${string}`;
+  readonly sourcePath: string;
+  readonly domainStageRole: string | null;
+  readonly sequenceOrdinal: number;
+  readonly taskOrdinal: number | null;
+  readonly predecessorProgramLocusRefs: readonly string[];
+  readonly resultBearing: boolean;
   readonly inputCarrierRefs: readonly string[];
   readonly outputCarrierRefs: readonly string[];
   readonly regimeBindingRef: string;
@@ -1322,184 +1481,77 @@ interface CompiledStageSeed {
   readonly sourceEvidenceRefs: readonly string[];
 }
 
-function boundaryCarrierRef(input: {
-  readonly sourceDigest: `sha256:${string}`;
-  readonly boundary: "transform" | "evaluate";
-}): string {
-  return `carrier://abg/traversal/${input.boundary}/${input.sourceDigest.slice("sha256:".length)}`;
-}
-
 function stageSeeds(input: {
   readonly source: TraversalContractSourceBasis;
-  readonly authority: AdmittedTraversalStageResultAuthority;
+  readonly authorities: readonly AdmittedTraversalStageResultAuthority[];
 }): readonly CompiledStageSeed[] {
-  const work = exactSourceStage({
-    source: input.source,
-    stageOrdinal: input.authority.stageOrdinal
-  });
-  if (work.sourceStageDigest !== input.authority.sourceStageDigest) {
-    fail({
-      diagnosticId: "traversal-contract-bundle-invalid",
-      actualRelation: "result authority source stage differs from the projected work stage",
-      evidenceRefs: [work.sourceStageDigest, input.authority.sourceStageDigest]
-    });
-  }
-  if (work.compositionStageRole === "consequence") {
-    fail({
-      diagnosticId: "traversal-contract-bundle-invalid",
-      actualRelation: "selected work cannot consume the reserved deterministic consequence boundary",
-      evidenceRefs: [work.sourceStageDigest]
-    });
-  }
-  const selectedRegimeBinding = input.source.compositionRegimeBindings.find(
-    (binding) => binding.stageRole === work.compositionStageRole &&
-      binding.regime === work.regime
-  );
-  if (selectedRegimeBinding === undefined) {
-    fail({
-      diagnosticId: "traversal-contract-bundle-invalid",
-      actualRelation: "selected work stage lost its exact composition regime binding",
-      evidenceRefs: [work.sourceStageDigest]
-    });
-  }
-  const seeds: CompiledStageSeed[] = [];
-  let evaluatedInputCarrier: string;
-  if (work.compositionStageRole === "human_callout") {
-    const requestCarrier = boundaryCarrierRef({
-      sourceDigest: input.source.sourceDigest,
-      boundary: "transform"
-    });
-    seeds.push(Object.freeze({
-      role: "transform",
-      regime: "F_D",
-      inputCarrierRefs: work.inputCarrierRefs,
-      outputCarrierRefs: Object.freeze([requestCarrier]),
-      regimeBindingRef: `regime-binding://abg/traversal/${input.source.sourceDigest}/transform`,
-      selectorAuthorityRefs: Object.freeze([
-        input.source.sourceRef,
-        input.authority.authorityRef
-      ]),
-      resultEnvelopeContractRef: requestCarrier,
-      resultCarrierKind: requestCarrier,
-      sourceEvidenceRefs: Object.freeze([
-        input.source.sourceDigest,
-        input.authority.authorityDigest
-      ])
-    }));
-    seeds.push(Object.freeze({
-      role: "human_callout",
-      regime: "F_H",
-      inputCarrierRefs: Object.freeze([requestCarrier]),
-      outputCarrierRefs: input.authority.outputCarrierRefs,
-      regimeBindingRef: selectedRegimeBinding.bindingRef,
-      selectorAuthorityRefs: input.authority.selectorAuthorityRefs,
-      resultEnvelopeContractRef: input.authority.resultEnvelopeContractRef,
-      resultCarrierKind: input.authority.resultCarrierKind,
-      sourceEvidenceRefs: Object.freeze([
-        input.authority.authorityRef,
-        input.authority.authorityDigest
-      ])
-    }));
-    evaluatedInputCarrier = input.authority.resultCarrierKind;
-  } else {
-    seeds.push(Object.freeze({
-      role: work.compositionStageRole,
-      regime: work.regime,
-      inputCarrierRefs: work.inputCarrierRefs,
-      outputCarrierRefs: input.authority.outputCarrierRefs,
-      regimeBindingRef: selectedRegimeBinding.bindingRef,
-      selectorAuthorityRefs: input.authority.selectorAuthorityRefs,
-      resultEnvelopeContractRef: input.authority.resultEnvelopeContractRef,
-      resultCarrierKind: input.authority.resultCarrierKind,
-      sourceEvidenceRefs: Object.freeze([
-        input.authority.authorityRef,
-        input.authority.authorityDigest
-      ])
-    }));
-    evaluatedInputCarrier = input.authority.resultCarrierKind;
-  }
-
-  if (!seeds.some((seed) => seed.role === "transform")) {
-    const transformed = work.inputCarrierRefs[0];
-    if (transformed === undefined) {
+  return Object.freeze(input.source.workStages.map((work) => {
+    const authorities = input.authorities.filter(
+      (authority) => authority.programLocusRef === work.programLocusRef
+    );
+    const authority = authorities[0];
+    const regimeBinding = input.source.compositionRegimeBindings.find(
+      (binding) => binding.bindingRef === work.compositionRegimeBindingRef
+    );
+    if (
+      authorities.length !== 1 ||
+      authority === undefined ||
+      authority.programLocusDigest !== work.programLocusDigest ||
+      authority.sourceStageDigest !== work.sourceStageDigest ||
+      authority.compositionStageRole !== work.compositionStageRole ||
+      authority.regime !== work.regime ||
+      regimeBinding === undefined ||
+      regimeBinding.stageRole !== work.compositionStageRole ||
+      regimeBinding.regime !== work.regime
+    ) {
       fail({
         diagnosticId: "traversal-contract-bundle-invalid",
-        actualRelation: "work stage has no input carrier for the deterministic transform boundary",
-        evidenceRefs: [work.sourceStageDigest]
+        actualRelation:
+          "authored program locus lost its exact result authority or composition regime binding",
+        evidenceRefs: [
+          input.source.completeProgramPlan.planRef,
+          work.programLocusRef,
+          work.sourceStageDigest,
+          work.compositionRegimeBindingRef
+        ]
       });
     }
-    seeds.unshift(Object.freeze({
-      role: "transform",
-      regime: "F_D",
-      inputCarrierRefs: input.source.sourceInputCarrierRefs,
-      outputCarrierRefs: work.inputCarrierRefs,
-      regimeBindingRef: `regime-binding://abg/traversal/${input.source.sourceDigest}/transform`,
-      selectorAuthorityRefs: Object.freeze([input.source.sourceRef]),
-      resultEnvelopeContractRef: transformed,
-      resultCarrierKind: transformed,
-      sourceEvidenceRefs: Object.freeze([input.source.sourceDigest])
-    }));
-  }
-
-  if (!seeds.some((seed) => seed.role === "evaluate")) {
-    const evaluated = boundaryCarrierRef({
-      sourceDigest: input.source.sourceDigest,
-      boundary: "evaluate"
-    });
-    seeds.push(Object.freeze({
-      role: "evaluate",
-      regime: "F_D",
-      inputCarrierRefs: Object.freeze([evaluatedInputCarrier]),
-      outputCarrierRefs: Object.freeze([evaluated]),
-      regimeBindingRef: `regime-binding://abg/traversal/${input.source.sourceDigest}/evaluate`,
-      selectorAuthorityRefs: Object.freeze([
-        input.authority.authorityRef,
-        input.authority.selectedResultContractRef
+    return Object.freeze({
+      role: work.compositionStageRole,
+      regime: work.regime,
+      programLocusRef: work.programLocusRef,
+      programLocusDigest: work.programLocusDigest,
+      sourcePath: work.sourcePath,
+      domainStageRole: work.domainStageRole,
+      sequenceOrdinal: work.sequenceOrdinal,
+      taskOrdinal: work.taskOrdinal,
+      predecessorProgramLocusRefs: Object.freeze([
+        ...work.predecessorProgramLocusRefs
       ]),
-      resultEnvelopeContractRef: input.authority.resultEnvelopeContractRef,
-      resultCarrierKind: evaluated,
+      resultBearing: work.resultBearing,
+      inputCarrierRefs: Object.freeze([...work.inputCarrierRefs]),
+      outputCarrierRefs: Object.freeze([...authority.outputCarrierRefs]),
+      regimeBindingRef: work.compositionRegimeBindingRef,
+      selectorAuthorityRefs: Object.freeze([
+        ...authority.selectorAuthorityRefs
+      ]),
+      resultEnvelopeContractRef: authority.resultEnvelopeContractRef,
+      resultCarrierKind: authority.resultCarrierKind,
       sourceEvidenceRefs: Object.freeze([
-        input.authority.authorityDigest,
-        input.authority.selectedResultContractRef
+        work.sourceStageDigest,
+        authority.authorityRef,
+        authority.authorityDigest
       ])
-    }));
-  }
-
-  const consequenceInput = seeds[seeds.length - 1]?.resultCarrierKind;
-  if (consequenceInput === undefined) {
-    fail({
-      diagnosticId: "traversal-contract-bundle-invalid",
-      actualRelation: "traversal contract has no stage before consequence",
-      evidenceRefs: [input.source.sourceDigest]
     });
-  }
-  const target = input.source.targetCarrierProjection;
-  seeds.push(Object.freeze({
-    role: "consequence",
-    regime: "F_D",
-    inputCarrierRefs: Object.freeze([consequenceInput]),
-    outputCarrierRefs: Object.freeze([target.targetCarrierContractRef]),
-    regimeBindingRef: `regime-binding://abg/traversal/${input.source.sourceDigest}/consequence`,
-    selectorAuthorityRefs: Object.freeze([
-      target.targetCarrierContractRef,
-      input.source.edgeClosureBinding.edgeRef
-    ]),
-    resultEnvelopeContractRef: target.envelopeContractRef,
-    resultCarrierKind: target.targetCarrierContractRef,
-    sourceEvidenceRefs: Object.freeze([
-      target.targetCarrierContractDigest,
-      input.source.edgeClosureBinding.bindingDigest
-    ])
   }));
-  return Object.freeze(seeds);
 }
 
 function stageBindingRef(input: {
   readonly compositionRef: string;
-  readonly role: EngineComputeStageRole;
-  readonly ordinal: number;
+  readonly programLocusRef: string;
+  readonly programLocusDigest: `sha256:${string}`;
 }): string {
-  return `abg://traversal-stage/${input.role}.C/${stableSha256Digest(input).slice("sha256:".length)}`;
+  return `abg://traversal-stage/${stableSha256Digest(input).slice("sha256:".length)}`;
 }
 
 function traversalVectorIdentityRef(
@@ -1513,7 +1565,7 @@ function traversalVectorIdentityRef(
 
 function compileRows(input: {
   readonly source: TraversalContractSourceBasis;
-  readonly authority: AdmittedTraversalStageResultAuthority;
+  readonly authorities: readonly AdmittedTraversalStageResultAuthority[];
 }): Omit<
   CompiledTraversalExecutionContracts,
   "kind" | "bundleRef" | "bundleDigest" | "sourceDigest" |
@@ -1528,11 +1580,14 @@ function compileRows(input: {
     selectedCompositionDigest: input.source.compositionDigest,
     stageSeeds: seeds
   });
-  const stageRefs = seeds.map((seed, ordinal) => stageBindingRef({
+  const stageRefs = seeds.map((seed) => stageBindingRef({
     compositionRef,
-    role: seed.role,
-    ordinal
+    programLocusRef: seed.programLocusRef,
+    programLocusDigest: seed.programLocusDigest
   }));
+  const stageRefByLocus = new Map(
+    seeds.map((seed, ordinal) => [seed.programLocusRef, stageRefs[ordinal]!])
+  );
   const computeStageBindings = Object.freeze(
     seeds.map((seed, ordinal): GtlProgramComputeStageBindingRow =>
       Object.freeze({
@@ -1545,10 +1600,20 @@ function compileRows(input: {
         computeMeans: seed.regime,
         inputCarrierRefs: Object.freeze([...seed.inputCarrierRefs]),
         outputCarrierRefs: Object.freeze([...seed.outputCarrierRefs]),
-        predecessorStageBindingRefs:
-          ordinal === 0
-            ? Object.freeze([])
-            : Object.freeze([stageRefs[ordinal - 1]!] as const),
+        predecessorStageBindingRefs: Object.freeze(
+          seed.predecessorProgramLocusRefs.map((programLocusRef) => {
+            const stageRef = stageRefByLocus.get(programLocusRef);
+            if (stageRef === undefined) {
+              fail({
+                diagnosticId: "traversal-contract-bundle-invalid",
+                actualRelation:
+                  "authored predecessor locus does not resolve to a compiled stage binding",
+                evidenceRefs: [seed.programLocusRef, programLocusRef]
+              });
+            }
+            return stageRef;
+          })
+        ),
         pluginContractRefs: Object.freeze([]),
         hookRefs: Object.freeze([]),
         regimeDispositions: regimeDispositions({
@@ -1561,6 +1626,16 @@ function compileRows(input: {
         maySelectTraversal: false,
         mayCloseTraversal: false,
         mayOwnIterationLoop: false,
+        stageKind: "authored_program_stage",
+        programPlanRef: input.source.completeProgramPlan.planRef,
+        programPlanDigest: input.source.completeProgramPlan.planDigest,
+        programLocusRef: seed.programLocusRef,
+        programLocusDigest: seed.programLocusDigest,
+        sourcePath: seed.sourcePath,
+        domainStageRole: seed.domainStageRole,
+        sequenceOrdinal: seed.sequenceOrdinal,
+        taskOrdinal: seed.taskOrdinal,
+        resultBearing: seed.resultBearing,
         evidenceRefs: Object.freeze([
           input.source.sourceDigest,
           ...seed.sourceEvidenceRefs
@@ -1575,20 +1650,27 @@ function compileRows(input: {
     hostRef: traversalVectorIdentityRef(input.source),
     declarationSourceKind: "graph_vector_declaration",
     declarationSourceRef: input.source.compositionRef,
-    notationRefs: Object.freeze([
+    notationRefs: uniqueRefs([
       "notation://abg/fn<A,B>",
-      "notation://abg/transform.C",
-      "notation://abg/evaluate.C",
-      "notation://abg/consequence.C"
+      ...seeds.map((seed) => `notation://abg/${seed.role}.C`)
     ]),
-    regimeBindingRefs: Object.freeze([
+    regimeBindingRefs: uniqueRefs([
       ...input.source.compositionRegimeBindings.map((row) => row.bindingRef),
-      ...seeds
-        .filter((seed) => seed.regime === "F_D")
-        .map((seed) => seed.regimeBindingRef)
+      ...seeds.map((seed) => seed.regimeBindingRef)
     ]),
     stageBindingRefs: Object.freeze(stageRefs),
     closureContractRef: input.source.compositionClosureContractRef,
+    programPlanRef: input.source.completeProgramPlan.planRef,
+    programPlanDigest: input.source.completeProgramPlan.planDigest,
+    authoredProgramNodeRefs: Object.freeze([
+      ...input.source.authoredProgramNodeRefs
+    ]),
+    invokingProgramLocusRefs: Object.freeze([
+      ...input.source.invokingProgramLocusRefs
+    ]),
+    resultBearingProgramLocusRefs: Object.freeze([
+      ...input.source.resultBearingProgramLocusRefs
+    ]),
     evidenceRefs: Object.freeze([
       input.source.compositionSelectionRef,
       input.source.compositionRef,
@@ -1599,6 +1681,7 @@ function compileRows(input: {
     "compositionRef",
     "compositionDigest",
     "compositionSelectionRef",
+    "programLocusRef",
     "stageRole",
     "computeMeans",
     "outputCarrierRefs",
@@ -1610,6 +1693,8 @@ function compileRows(input: {
         sourceDigest: input.source.sourceDigest,
         stageBindingRef: stageRefs[ordinal],
         role: seed.role,
+        programLocusRef: seed.programLocusRef,
+        programLocusDigest: seed.programLocusDigest,
         resultEnvelopeContractRef: seed.resultEnvelopeContractRef,
         resultCarrierKind: seed.resultCarrierKind,
         selectorAuthorityRefs: seed.selectorAuthorityRefs
@@ -1636,7 +1721,10 @@ function compileRows(input: {
         mayEmitRuntimeEvents: false,
         maySelectTraversal: false,
         mayCloseTraversal: false,
-        mayOwnIterationLoop: false
+        mayOwnIterationLoop: false,
+        programLocusRef: seed.programLocusRef,
+        programLocusDigest: seed.programLocusDigest,
+        resultBearing: seed.resultBearing
       });
     })
   );
@@ -1645,7 +1733,9 @@ function compileRows(input: {
   const carriedObligationRefs = Object.freeze([
     target.targetCarrierContractRef,
     closure.closurePreconditionRef,
-    input.authority.selectedResultContractRef,
+    ...uniqueRefs(input.authorities.map(
+      (authority) => authority.selectedResultContractRef
+    )),
     ...input.source.effectRequirementRefs
   ]);
   const residualPressureRefs = Object.freeze([
@@ -1659,7 +1749,12 @@ function compileRows(input: {
     materializationPolicyRef: target.materializationPolicyRef,
     carriedObligationRefs,
     residualPressureRefs,
-    stagedAuthorityRefs: stageRefs,
+    stagedAuthorityRefs: uniqueRefs([
+      ...stageRefs,
+      ...input.source.authoredProgramNodeRefs,
+      ...input.source.invokingProgramLocusRefs,
+      ...input.authorities.map((authority) => authority.authorityRef)
+    ]),
     downstreamTerminalPressureRefs: Object.freeze([
       input.source.compositionClosureContractRef,
       closure.edgeRef,
@@ -1690,17 +1785,32 @@ function compileRows(input: {
       ]),
       carriedObligationRefs,
       residualPressureRefs,
-      stagedAuthorityRefs: Object.freeze(stageRefs),
+      stagedAuthorityRefs: conservationBasis.stagedAuthorityRefs,
       admissionStrengthRefs: Object.freeze([
         GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF
       ]),
       downstreamTerminalPressureRefs:
         conservationBasis.downstreamTerminalPressureRefs,
+      programPlanRef: input.source.completeProgramPlan.planRef,
+      programPlanDigest: input.source.completeProgramPlan.planDigest,
+      authoredProgramNodeRefs: Object.freeze([
+        ...input.source.authoredProgramNodeRefs
+      ]),
+      invokingProgramLocusRefs: Object.freeze([
+        ...input.source.invokingProgramLocusRefs
+      ]),
+      resultBearingProgramLocusRefs: Object.freeze([
+        ...input.source.resultBearingProgramLocusRefs
+      ]),
+      applicationConservationRefs: Object.freeze([
+        ...input.source.applicationConservationRefs
+      ]),
       allowedObligationDeltaFamilies:
         GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES,
       evidenceRefs: Object.freeze([
         input.source.sourceDigest,
-        input.authority.authorityDigest,
+        input.source.completeProgramPlan.planDigest,
+        ...input.authorities.map((authority) => authority.authorityDigest),
         target.targetCarrierContractDigest,
         closure.bindingDigest
       ])
@@ -1737,7 +1847,7 @@ export function compileTraversalExecutionContracts(input: {
     input.resultAuthorities.length !== input.source.workStages.length ||
     input.source.workStages.some((stage) =>
       input.resultAuthorities.filter(
-        (authority) => authority.sourceStageDigest === stage.sourceStageDigest
+        (authority) => authority.programLocusRef === stage.programLocusRef
       ).length !== 1
     )
   ) {
@@ -1750,7 +1860,7 @@ export function compileTraversalExecutionContracts(input: {
   const orderedAuthorities = Object.freeze(
     input.source.workStages.map((stage) =>
       input.resultAuthorities.find(
-        (authority) => authority.sourceStageDigest === stage.sourceStageDigest
+        (authority) => authority.programLocusRef === stage.programLocusRef
       )!
     )
   );
@@ -1764,16 +1874,9 @@ export function compileTraversalExecutionContracts(input: {
       });
     }
   }
-  if (orderedAuthorities.length !== 1) {
-    fail({
-      diagnosticId: "traversal-contract-bundle-invalid",
-      actualRelation: "T-267 currently requires one aggregate result-bearing work authority per TraversalUnit",
-      evidenceRefs: [input.source.sourceDigest]
-    });
-  }
   const rows = compileRows({
     source: input.source,
-    authority: orderedAuthorities[0]!
+    authorities: orderedAuthorities
   });
   const basis = bundleBasis(Object.freeze({
     kind: "compiled_traversal_execution_contracts" as const,
@@ -1866,6 +1969,7 @@ function admissionBasis<Status extends
       input.resultAuthorities.map((authority) => Object.freeze({
         sourceKind: authority.sourceKind,
         stageOrdinal: authority.stageOrdinal,
+        programLocusRef: authority.programLocusRef,
         domainStageRole: authority.domainStageRole,
         currentSourceAuthorityRef: authority.currentSourceAuthorityRef,
         currentSourceAuthorityDigest: authority.currentSourceAuthorityDigest
@@ -1960,11 +2064,14 @@ export function admitTraversalExecution(input: {
         evidenceRefs: [report.reportRef, input.report.reportRef]
       });
     }
-    const unitMatches = report.traversalUnitProjection.units.filter(
+    const candidateUnits = report.traversalUnitProjection.units.filter(
       (unit) =>
         unit.graphFunctionId === source.graphFunctionId &&
         unit.graphId === source.graphId &&
-        unit.graphVectorId === source.graphVectorId &&
+        unit.graphVectorId === source.graphVectorId
+    );
+    const unitMatches = candidateUnits.filter(
+      (unit) =>
         unit.targetCarrierContractRef ===
           source.targetCarrierProjection.targetCarrierContractRef &&
         unit.edgeClosureRef === source.edgeClosureBinding.edgeRef &&
@@ -1986,16 +2093,90 @@ export function admitTraversalExecution(input: {
           bundle.pluginResultInterfaces
             .filter((row) => row.stageRole === "consequence")
             .map((row) => row.resultInterfaceRef)
+        ) &&
+        sameStringMembers(
+          unit.resultBearingPluginResultInterfaceRefs,
+          bundle.pluginResultInterfaces
+            .filter((row) => row.resultBearing === true)
+            .map((row) => row.resultInterfaceRef)
+        ) &&
+        sameStringMembers(unit.programPlanRefs, [
+          source.completeProgramPlan.planRef
+        ]) &&
+        sameStringMembers(unit.programPlanDigests, [
+          source.completeProgramPlan.planDigest
+        ]) &&
+        sameStringMembers(
+          unit.authoredProgramNodeRefs,
+          source.authoredProgramNodeRefs
+        ) &&
+        sameStringMembers(
+          unit.invokingProgramLocusRefs,
+          source.invokingProgramLocusRefs
+        ) &&
+        sameStringMembers(
+          unit.resultBearingProgramLocusRefs,
+          source.resultBearingProgramLocusRefs
+        ) &&
+        sameStringMembers(
+          unit.applicationConservationRefs,
+          source.applicationConservationRefs
         )
     );
     if (unitMatches.length !== 1 || report.issues.some(t267Issue)) {
+      const candidateComparisons = candidateUnits.map((unit) => ({
+        unitRef: unit.unitRef,
+        targetCarrier: unit.targetCarrierContractRef ===
+          source.targetCarrierProjection.targetCarrierContractRef,
+        edgeClosure: unit.edgeClosureRef === source.edgeClosureBinding.edgeRef,
+        composition: sameStringMembers(unit.computeCompositionRefs, [
+          bundle.computeComposition.compositionRef
+        ]),
+        conservation: unit.conservationBasisRef ===
+          bundle.traversalBindConservation.conservationRef,
+        stages: sameStringMembers(
+          unit.computeStageBindingRefs,
+          bundle.computeStageBindings.map((row) => row.stageBindingRef)
+        ),
+        interfaces: sameStringMembers(
+          unit.pluginResultInterfaceRefs,
+          bundle.pluginResultInterfaces.map((row) => row.resultInterfaceRef)
+        ),
+        plan: sameStringMembers(unit.programPlanRefs, [
+          source.completeProgramPlan.planRef
+        ]),
+        authoredNodes: sameStringMembers(
+          unit.authoredProgramNodeRefs,
+          source.authoredProgramNodeRefs
+        ),
+        invokingLoci: sameStringMembers(
+          unit.invokingProgramLocusRefs,
+          source.invokingProgramLocusRefs
+        ),
+        resultFrontier: sameStringMembers(
+          unit.resultBearingProgramLocusRefs,
+          source.resultBearingProgramLocusRefs
+        ),
+        application: sameStringMembers(
+          unit.applicationConservationRefs,
+          source.applicationConservationRefs
+        )
+      }));
       fail({
         diagnosticId: "traversal-static-unit-nonconformant",
-        actualRelation: "exact TraversalUnit projection retains T-267 conformance issues",
+        actualRelation:
+          "exact TraversalUnit projection retains T-267 conformance issues: " +
+          JSON.stringify(candidateComparisons),
         evidenceRefs: [
           source.sourceDigest,
           bundle.bundleDigest,
           report.reportRef,
+          ...candidateUnits.flatMap((unit) => [
+            unit.unitRef,
+            ...unit.programPlanRefs,
+            ...unit.programPlanDigests,
+            ...unit.applicationConservationRefs
+          ]),
           ...report.issues.filter(t267Issue).map((issue) => issue.ruleRef)
         ]
       });
@@ -2063,7 +2244,7 @@ export function admitTraversalExecution(input: {
         `abg://traversal-execution-admission/${admissionDigest.slice("sha256:".length)}`,
       admissionDigest,
       runtimeAddressable: true,
-      effectsPermitted: true,
+      effectsPermitted: false,
       runtimeClosed: false,
       resultAdmitted: false,
       obligationsDischarged: false,
@@ -2147,7 +2328,7 @@ export function assertTraversalExecutionRuntimeStart(input: {
     input.admission.kind !== "traversal_execution_admission_outcome" ||
     input.admission.status !== "runtime_addressable_not_closed" ||
     input.admission.runtimeAddressable !== true ||
-    input.admission.effectsPermitted !== true ||
+    input.admission.effectsPermitted !== false ||
     input.admission.runtimeClosed !== false ||
     input.admission.resultAdmitted !== false ||
     input.admission.obligationsDischarged !== false ||
@@ -2185,4 +2366,14 @@ export function assertTraversalExecutionRuntimeStart(input: {
       ]
     });
   }
+  fail({
+    diagnosticId: "traversal-runtime-start-invalid",
+    actualRelation:
+      "static T-267 conservation is addressable but startup remains blocked awaiting T-270 public routing authority",
+    evidenceRefs: [
+      input.request.requestRef,
+      input.admission.admissionRef,
+      input.admission.bundleDigest
+    ]
+  });
 }

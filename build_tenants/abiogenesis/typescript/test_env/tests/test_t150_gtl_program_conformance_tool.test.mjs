@@ -3239,32 +3239,45 @@ test("T-152 GTL program typechecker does not infer hooks or F-star composition f
   );
 });
 
-test("T-152 GTL program typechecker requires selected transform/evaluate/consequence stage rows", () => {
-  const report = typecheckGtlProgram(
-    compliantInput({
-      computeStageBindings: [],
-      runtimeBindings: [],
-      featureCoverageManifest: featureCoverageManifest({
-        dispositions: {
-          f_star_compute_composition: "present",
-          public_start_binding: "present"
-        }
-      })
+test("T-152 GTL program typechecker requires every exact plan locus stage row", () => {
+  const base = compliantInput({
+    runtimeBindings: [],
+    featureCoverageManifest: featureCoverageManifest({
+      dispositions: {
+        f_star_compute_composition: "present",
+        public_start_binding: "present"
+      }
     })
+  });
+  const composition = base.computeCompositions[0];
+  assert.notEqual(composition, undefined);
+  const report = typecheckGtlProgram(
+    {
+      ...base,
+      computeCompositions: [{
+        ...composition,
+        programPlanRef: "plan://t152/open-program",
+        programPlanDigest: "sha256:t152-open-program",
+        authoredProgramNodeRefs: ["plan-node://t152/root"],
+        invokingProgramLocusRefs: ["plan-node://t152/stage"],
+        resultBearingProgramLocusRefs: ["plan-node://t152/stage"],
+        stageBindingRefs: []
+      }],
+      computeStageBindings: [],
+      runtimeBindings: []
+    }
   );
 
   const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
   const messages = report.issues.map((entry) => entry.message).join("\n");
   assert.equal(report.passed, false);
   assert(
-    ruleRefs.has("abg://gtl-program/compute-composition/required-stage-row")
+    ruleRefs.has("abg://gtl-program/compute-composition/authored-locus-coverage")
   );
   assert(
     ruleRefs.has("abg://gtl-program/feature-coverage/present-without-inventory")
   );
-  assert.match(messages, /transform\.C/u);
-  assert.match(messages, /evaluate\.C/u);
-  assert.match(messages, /consequence\.C/u);
+  assert.match(messages, /plan-node:\/\/t152\/stage/u);
 });
 
 test("T-152 GTL program typechecker rejects plugin contracts without stage and ABG runtime binding", () => {
@@ -3581,7 +3594,7 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
       {
         ...computeComposition,
         compositionDigest: "not-a-digest",
-        notationRefs: ["fn<PromptAuthorityPacket,PromptInvocationAsset>.C"],
+        notationRefs: ["dispatch.C"],
         regimeBindingRefs: [],
         stageBindingRefs: ["stage-binding://t150/transform.C"]
       }
@@ -3666,7 +3679,6 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
     "abg://gtl-program/compute-composition/digest",
     "abg://gtl-program/compute-composition/regime-bindings",
     "abg://gtl-program/compute-composition/notation-ref",
-    "abg://gtl-program/compute-composition/stage-binding",
     "abg://gtl-program/compute-stage/composition-resolves",
     "abg://gtl-program/compute-stage/notation-ref",
     "abg://gtl-program/compute-stage/input-carriers",

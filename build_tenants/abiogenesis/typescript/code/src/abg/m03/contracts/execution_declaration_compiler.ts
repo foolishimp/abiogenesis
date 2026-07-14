@@ -19,9 +19,7 @@ import {
   type HogProgramLadderRung
 } from "./hog_program_syntax.js";
 import {
-  HOG_BOOTSTRAP_TRIPLE,
   isHogRetryProgram,
-  isHogWorkflowProgram,
   type HogProgramDeclaration
 } from "./hog_program.js";
 import {
@@ -211,9 +209,6 @@ function assertHandlerBindingsMatchPlan(input: {
   readonly configs: Readonly<Record<string, unknown>> | null;
 }): void {
   const programs = programsInPlan(input.plan);
-  const bakedRoles = new Set(
-    HOG_BOOTSTRAP_TRIPLE.stages.map((stage) => stage.stageRole)
-  );
   for (const binding of input.bindings) {
     const program = programs.find(
       (candidate) => candidate.programRef === binding.programRef
@@ -241,11 +236,6 @@ function assertHandlerBindingsMatchPlan(input: {
         `handler_binding_regime_mismatch: ${input.sourceRef} binds ${binding.programRef}/${binding.stageRole}/${binding.armId} as ${binding.regime}, declared ${stage.defaultRegime}`
       );
     }
-    if (bakedRoles.has(binding.stageRole)) {
-      throw new TypeError(
-        `handler_binding_baked_authority_conflict: ${input.sourceRef} binds baked stage role ${binding.stageRole}; the current runtime does not consume a handler binding for that role`
-      );
-    }
     if (
       binding.handlerConfigRef !== null &&
       (input.configs === null ||
@@ -253,76 +243,6 @@ function assertHandlerBindingsMatchPlan(input: {
     ) {
       throw new TypeError(
         `handler_config_unresolvable: ${input.sourceRef} binding ${binding.handlerRef} names missing config ${binding.handlerConfigRef}`
-      );
-    }
-  }
-  for (const program of programs) {
-    assertProgramMatchesCurrentInterpreter(
-      program,
-      input.sourceRef
-    );
-  }
-}
-
-const BAKED_STAGE_REGIMES: Readonly<
-  Record<string, readonly ("F_D" | "F_P" | "F_H")[]>
-> = Object.freeze({
-  transform: Object.freeze(["F_D", "F_P", "F_H"] as const),
-  evaluate: Object.freeze(["F_D", "F_P"] as const),
-  consequence: Object.freeze(["F_D"] as const)
-});
-
-function assertProgramMatchesCurrentInterpreter(
-  program: HogProgramDeclaration,
-  sourceRef: string
-): void {
-  if (isHogWorkflowProgram(program) || isHogRetryProgram(program)) {
-    return;
-  }
-  const missingAnchors = HOG_BOOTSTRAP_TRIPLE.stages
-    .map((stage) => stage.stageRole)
-    .filter(
-      (stageRole) =>
-        !program.stages.some((stage) => stage.stageRole === stageRole)
-    );
-  if (missingAnchors.length > 0) {
-    throw new TypeError(
-      `semantic_not_realized: ${sourceRef} program ${program.programRef} omits current interpreter anchors ${missingAnchors.join(", ")}`
-    );
-  }
-  const transformAt = program.stages.findIndex(
-    (stage) => stage.stageRole === "transform"
-  );
-  const evaluateAt = program.stages.findIndex(
-    (stage) => stage.stageRole === "evaluate"
-  );
-  const consequenceAt = program.stages.findIndex(
-    (stage) => stage.stageRole === "consequence"
-  );
-  if (!(transformAt < evaluateAt && evaluateAt < consequenceAt)) {
-    throw new TypeError(
-      `semantic_not_realized: ${sourceRef} program ${program.programRef} must order current interpreter anchors as transform, evaluate, consequence`
-    );
-  }
-  for (const [index, stage] of program.stages.entries()) {
-    const baked = HOG_BOOTSTRAP_TRIPLE.stages.find(
-      (candidate) => candidate.stageRole === stage.stageRole
-    );
-    if (baked !== undefined) {
-      const admittedRegimes = BAKED_STAGE_REGIMES[stage.stageRole] ?? [];
-      if (!admittedRegimes.includes(stage.defaultRegime)) {
-        throw new TypeError(
-          `semantic_not_realized: ${sourceRef} program ${program.programRef} declares ${stage.stageRole}.${stage.defaultRegime}; the current baked interpreter admits ${JSON.stringify(admittedRegimes)}`
-        );
-      }
-      continue;
-    }
-    if (
-      (transformAt !== -1 && index < transformAt) ||
-      (consequenceAt !== -1 && index > consequenceAt)
-    ) {
-      throw new TypeError(
-        `semantic_not_realized: ${sourceRef} program ${program.programRef} places ${stage.stageRole} outside the current lawful handler anchors`
       );
     }
   }

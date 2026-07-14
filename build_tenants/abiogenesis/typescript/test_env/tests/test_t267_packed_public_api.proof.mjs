@@ -72,6 +72,7 @@ test("T-267 packed M03 exposes traversal contracts without row-authoring helpers
     `import {
   admitDeclaredTraversalStageResultAuthority,
   admitDeterministicTraversalStageResultAuthority,
+  admitProgramLocusTraversalStageResultAuthority,
   admitRuntimeAtomTraversalStageResultAuthority,
   admitTraversalExecution,
   assertCompiledTraversalExecutionContracts,
@@ -97,6 +98,7 @@ void bundle;
 void admission;
 void admitDeclaredTraversalStageResultAuthority;
 void admitDeterministicTraversalStageResultAuthority;
+void admitProgramLocusTraversalStageResultAuthority;
 void admitRuntimeAtomTraversalStageResultAuthority;
 void admitTraversalExecution;
 void assertCompiledTraversalExecutionContracts;
@@ -128,6 +130,7 @@ void compileRows;
   for (const name of [
     "admitDeclaredTraversalStageResultAuthority",
     "admitDeterministicTraversalStageResultAuthority",
+    "admitProgramLocusTraversalStageResultAuthority",
     "admitRuntimeAtomTraversalStageResultAuthority",
     "admitTraversalExecution",
     "assertCompiledTraversalExecutionContracts",

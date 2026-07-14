@@ -354,15 +354,10 @@ test("T-252 effects, handlers, plugins, and domain operators remain separate", (
     for (const binding of handlers) {
       assert.ok(binding.handlerRef.startsWith("handler://abg/"));
     }
-    try {
-      compileExecutionDeclarations(graphFunction);
-    } catch (error) {
-      assert.match(
-        String(error),
-        /(?:gtl-c-unrealized-|omits current interpreter anchors)/u,
-        `${graphFunction.name} must stop only on a named realization gap`
-      );
-    }
+    assert.doesNotThrow(
+      () => compileExecutionDeclarations(graphFunction),
+      `${graphFunction.name} must preserve its open authored C program`
+    );
   }
 
   for (const operator of ABG_CONSENSUS_GTL_MODULE.operators) {
@@ -464,7 +459,6 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
   }
   const observed = new Set(manifest.gapCensus.map((gap) => gap.gapFamily));
   assert.deepEqual([...observed].sort(), [
-    "declared_program_conservation",
     "tenant_conformance_manifest_consensus_coverage_missing"
   ]);
   assert.equal(
@@ -518,6 +512,14 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
     ),
     false
   );
+  assert.equal(
+    manifest.compiler.traversalAdmissionRows.every(
+      (row) => row.effectsPermitted === false
+    ),
+    true
+  );
+  assert.equal(observed.has("declared_program_conservation"), false);
+  assert.equal(observed.has("traversal_execution_contracts"), false);
   assert.equal(
     manifest.ownership.activeOwnedButNotObservedFamilies.some((family) =>
       observed.has(family)

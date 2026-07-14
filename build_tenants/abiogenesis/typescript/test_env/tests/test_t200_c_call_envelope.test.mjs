@@ -179,8 +179,9 @@ test("T-200 P2a: declared programs admit fail-closed (-014)", () => {
     proportionalityClass: "P2"
   });
   assert.equal(richer.accepted, true, JSON.stringify(richer.issues));
-  // negatives: duplicate role, zero result-bearing, unlawful regime
-  assert.equal(admitHogProgram({
+  // Repeated domain roles are lawful declarations but require the complete
+  // program-locus runtime rather than the legacy role-indexed runner.
+  const repeatedRoleAdmission = admitHogProgram({
     kind: "hog_program_declaration",
     programRef: "gtl://x",
     stages: [
@@ -188,7 +189,15 @@ test("T-200 P2a: declared programs admit fail-closed (-014)", () => {
       { stageRole: "transform", defaultRegime: "F_D", armId: "arm://b", resultBearing: false }
     ],
     proportionalityClass: null
-  }).accepted, false);
+  });
+  assert.equal(repeatedRoleAdmission.accepted, true);
+  assert.throws(
+    () => assertHogProgramExecutable(
+      { program: repeatedRoleAdmission.program, source: "declared" },
+      null
+    ),
+    /complete_c_program_runtime_required/u
+  );
   assert.equal(admitHogProgram({
     kind: "hog_program_declaration",
     programRef: "gtl://x",
@@ -651,15 +660,26 @@ test("T-205 B2: resolution order — default, declared single, catalog+selection
   assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ regime: "F_D" })), /unsupported_stage_set/);
   // unregistered handlerRef: fails closed (codex MEDIUM)
   assert.throws(() => assertHogProgramExecutable(deepResolved, completeRegistry({ handlerRef: "handler://nope" })), /unsupported_stage_set/);
-  // POSITION LAW: an extra stage after consequence has no lawful anchor
+  // Declaration construction preserves open order. The compatibility runner
+  // still fails closed until T-270 routes it through the complete interpreter.
   const misplaced = TRIPLE_SYNTAX("gtl://t205/misplaced", "arm://m");
   misplaced.entries.find((e) => e.key === "stages").value.items.push(critiqueStage);
+  const misplacedResolved = resolveDeclaredProgram(gfWith([
+    { key: "abg.hog_program", value: { kind: "json_blob", value: misplaced } }
+  ]));
+  const misplacedRegistry = {
+    bindings: [{
+      programRef: "gtl://t205/misplaced",
+      stageRole: "critique",
+      armId: "arm://d/k",
+      regime: "F_P",
+      handlerRef: "handler://t205/critique"
+    }],
+    handlers: new Map([["handler://t205/critique", critiqueHandler]])
+  };
   assert.throws(
-    () =>
-      resolveDeclaredProgram(gfWith([
-        { key: "abg.hog_program", value: { kind: "json_blob", value: misplaced } }
-      ])),
-    /outside the current lawful handler anchors/
+    () => assertHogProgramExecutable(misplacedResolved, misplacedRegistry),
+    /unsupported_stage_position/u
   );
 });
 

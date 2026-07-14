@@ -69,6 +69,21 @@ export function assertHogProgramExecutable(
         "must enter the T-261 C.retry resolver through the traversal startup gate"
     );
   }
+  const seenStageRoles = new Set<string>();
+  const repeatedStageRoles = new Set<string>();
+  for (const stage of program.stages) {
+    if (seenStageRoles.has(stage.stageRole)) {
+      repeatedStageRoles.add(stage.stageRole);
+    }
+    seenStageRoles.add(stage.stageRole);
+  }
+  if (repeatedStageRoles.size > 0) {
+    throw new TypeError(
+      `complete_c_program_runtime_required: hog program ${program.programRef} ` +
+        `contains repeated stage roles ${JSON.stringify([...repeatedStageRoles])}; ` +
+        "the legacy role-indexed runner cannot conserve distinct program loci"
+    );
+  }
   // BINDING-COMPLETE entry gate (codex MEDIUM): a non-triple stage is
   // executable IFF exactly the full binding holds — program × stage ×
   // arm match, REGIME equals the stage's declared regime, and the

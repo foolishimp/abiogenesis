@@ -713,7 +713,7 @@ test("T-205 B2: a DECLARED program drives the engine — selection rows carry it
   assert.equal(arms.has("arm://abg/hog/transform"), false, "baked arm must NOT appear");
 });
 
-test("T-220/T-205: an unexecutable authored program is refused during compilation before replay", () => {
+test("T-220/T-205: an open authored program is admitted then blocked by the legacy runtime before effects", () => {
   const basis = buildThreeStageBasis({ defaultRegime: "F_P" });
   const deepSyntax = {
     kind: "object",
@@ -753,17 +753,27 @@ test("T-220/T-205: an unexecutable authored program is refused during compilatio
     })
   });
   const events = [];
-  assert.throws(
-    () =>
-      runEngineIterate({
-        basis: declaredBasis,
-        eventSink: (event) => events.push(event),
-        ...m03InstructionAssemblyRequestFields(declaredBasis),
-        plugins: {}
-      }),
-    /semantic_not_realized/u
+  const result = runEngineIterate({
+    basis: declaredBasis,
+    eventSink: (event) => events.push(event),
+    ...m03InstructionAssemblyRequestFields(declaredBasis),
+    plugins: {}
+  });
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason, /hog_program_unresolvable/u);
+  assert.match(result.transition.reason, /unsupported_stage_set/u);
+  assert.equal(
+    result.replayEvents.some((event) => event.kind === "c_call_fibre_selected"),
+    false
   );
-  assert.deepEqual(events, []);
+  assert.equal(
+    result.replayEvents.some((event) => event.kind === "fp_dispatch_requested"),
+    false
+  );
+  assert.equal(
+    events.some((event) => event.kind === "runtime_failure_observed"),
+    true
+  );
 });
 
 test("T-205 B3 KEYSTONE: a declared 4-stage program EXECUTES — admit stage runs spine-enclosed at anchor A; blocked admit stops the run lawfully", () => {

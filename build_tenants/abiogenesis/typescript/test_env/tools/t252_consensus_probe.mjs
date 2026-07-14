@@ -35,8 +35,7 @@ import {
 import { typecheckGtlProgram } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
   admitDeclaredTraversalStageResultAuthority,
-  admitDeterministicTraversalStageResultAuthority,
-  admitRuntimeAtomTraversalStageResultAuthority,
+  admitProgramLocusTraversalStageResultAuthority,
   admitTraversalExecution,
   compileTraversalExecutionContracts,
   projectTraversalContractSourceBasis
@@ -649,9 +648,7 @@ async function buildManifest() {
       };
     } catch (error) {
       const actualRelation = bounded(error, 320);
-      const diagnosticId = actualRelation.includes("omits current interpreter anchors")
-        ? "current-interpreter-anchor-shape"
-        : actualRelation.includes("gtl-c-unrealized-retry")
+      const diagnosticId = actualRelation.includes("gtl-c-unrealized-retry")
           ? "gtl-c-unrealized-retry"
           : actualRelation.includes("gtl-c-unrealized-workflow-lift")
             ? "gtl-c-unrealized-workflow-lift"
@@ -1482,66 +1479,46 @@ async function buildManifest() {
   ];
 
   const traversalCompilations = traversalRows.map((entry) => {
-    const stage = entry.source.workStages[0];
-    if (entry.source.workStages.length !== 1 || stage === undefined) {
+    if (entry.source.workStages.length === 0) {
       throw new TypeError(
-        `${entry.path} did not project one exact T-267 result-bearing work stage`
+        `${entry.path} did not project any exact T-267 program locus`
       );
     }
-    let runtimeAtom = null;
-    if (entry.source.sourceKind === "structural_hof_fan_out") {
-      runtimeAtom = structuralBinding;
-    } else if (entry.carrier.programDisposition === "workflow_sub_traversal") {
-      runtimeAtom = entry.carrier.workflowLiftBinding;
-    } else if (entry.carrier.programDisposition === "retry_attempt_family") {
-      runtimeAtom = entry.carrier.retryBinding;
-    } else if (entry.carrier.fanInApplicationRelation !== null) {
-      runtimeAtom = compileFanInReductionBinding({
-        module: admittedModule,
-        relation: entry.carrier.fanInApplicationRelation,
-        executionHandoff: entry.row.outcome
-      });
-    }
-
-    let authority;
-    if (runtimeAtom !== null) {
-      authority = admitRuntimeAtomTraversalStageResultAuthority({
-        source: entry.source,
-        stageOrdinal: stage.ordinal,
-        atom: runtimeAtom
-      });
-    } else if (stage.regime === "F_P" || stage.regime === "F_H") {
-      const contracts = executionContextContracts.filter(
-        (candidate) =>
-          candidate.handoffPath === entry.path &&
-          candidate.stageIndex === stage.ordinal
-      );
-      const contractRow = contracts[0];
-      if (contracts.length !== 1 || contractRow === undefined) {
-        throw new TypeError(
-          `${entry.path} T-256 result authority resolved ${contracts.length} times`
+    const authorities = Object.freeze(entry.source.workStages.map((stage) => {
+      if (stage.regime === "F_P" || stage.regime === "F_H") {
+        const contracts = executionContextContracts.filter(
+          (candidate) =>
+            candidate.handoffPath === entry.path &&
+            candidate.stageIndex === stage.declaredStageIndex
         );
+        const contractRow = contracts[0];
+        if (contracts.length > 1) {
+          throw new TypeError(
+            `${entry.path} T-256 result authority resolved ${contracts.length} times for ${stage.programLocusRef}`
+          );
+        }
+        if (contractRow !== undefined) {
+          return admitDeclaredTraversalStageResultAuthority({
+            source: entry.source,
+            stageOrdinal: stage.ordinal,
+            contract: contractRow.contract,
+            selectedResultContractRef:
+              entry.source.targetCarrierProjection.targetCarrierContractRef,
+            fpWireProfile:
+              stage.regime === "F_P" ? "standard_live_review" : null
+          });
+        }
       }
-      authority = admitDeclaredTraversalStageResultAuthority({
+      return admitProgramLocusTraversalStageResultAuthority({
         source: entry.source,
-        stageOrdinal: stage.ordinal,
-        contract: contractRow.contract,
-        selectedResultContractRef:
-          entry.source.targetCarrierProjection.targetCarrierContractRef,
-        fpWireProfile:
-          stage.regime === "F_P" ? "standard_live_review" : null
+        programLocusRef: stage.programLocusRef
       });
-    } else {
-      authority = admitDeterministicTraversalStageResultAuthority({
-        source: entry.source,
-        stageOrdinal: stage.ordinal
-      });
-    }
+    }));
     const bundle = compileTraversalExecutionContracts({
       source: entry.source,
-      resultAuthorities: [authority]
+      resultAuthorities: authorities
     });
-    return Object.freeze({ ...entry, authority, bundle });
+    return Object.freeze({ ...entry, authorities, bundle });
   });
   if (traversalCompilations.length !== handoffRows.length) {
     throw new TypeError(
@@ -1582,7 +1559,7 @@ async function buildManifest() {
     const admission = admitTraversalExecution({
       sourceInput: entry.sourceInput,
       source: entry.source,
-      resultAuthorities: [entry.authority],
+      resultAuthorities: entry.authorities,
       bundle: entry.bundle,
       conformanceInput,
       report: conformance
@@ -1596,10 +1573,18 @@ async function buildManifest() {
       path: entry.path,
       sourceKind: entry.source.sourceKind,
       sourceDigest: entry.source.sourceDigest,
-      resultAuthoritySourceKind: entry.authority.sourceKind,
-      resultAuthorityDigest: entry.authority.authorityDigest,
-      resultAuthorityEvidenceRefs: [...entry.authority.evidenceRefs],
-      resultAuthoritySelectorRefs: [...entry.authority.selectorAuthorityRefs],
+      resultAuthoritySourceKinds: entry.authorities.map(
+        (authority) => authority.sourceKind
+      ),
+      resultAuthorityDigests: entry.authorities.map(
+        (authority) => authority.authorityDigest
+      ),
+      resultAuthorityEvidenceRefs: sortedUnique(
+        entry.authorities.flatMap((authority) => authority.evidenceRefs)
+      ),
+      resultAuthoritySelectorRefs: sortedUnique(
+        entry.authorities.flatMap((authority) => authority.selectorAuthorityRefs)
+      ),
       bundleRef: entry.bundle.bundleRef,
       bundleDigest: entry.bundle.bundleDigest,
       computeStageRoles: entry.bundle.computeStageBindings.map(
@@ -1923,10 +1908,7 @@ async function buildManifest() {
       entry.source.workStages.length === authoredStageCount;
     const applicationIdentityPreserved = applicationRelationRefs.every(
       (relationRef) =>
-        entry.source.applicationLineageRefs.includes(relationRef) ||
-        entry.source.workStages.some(
-          (stage) => stage.sourceAuthorityRef === relationRef
-        )
+        entry.source.applicationConservationRefs.includes(relationRef)
     );
     if (stageCountPreserved && applicationIdentityPreserved) return [];
     return [{
@@ -1946,7 +1928,7 @@ async function buildManifest() {
     ],
     evidenceRefs: commonEvidenceRefs,
     actualRelation:
-      "the traversal projection selects one result-bearing stage and can omit authored C stages or the outer higher-order application identity"
+      "the traversal projection must conserve every authored C node, invoking locus, result frontier, and outer application identity"
   });
 
   observeGap(

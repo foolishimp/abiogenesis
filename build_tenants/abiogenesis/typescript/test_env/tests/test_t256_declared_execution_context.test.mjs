@@ -85,6 +85,7 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/gtl_program_conformance.js";
 import {
   admitDeclaredTraversalStageResultAuthority,
+  admitProgramLocusTraversalStageResultAuthority,
   admitTraversalExecution,
   assertTraversalExecutionRuntimeStart,
   compileTraversalExecutionContracts,
@@ -685,19 +686,39 @@ function compileFpTraversal(value) {
   assert.equal(joined.status, "request_constructed", JSON.stringify(joined));
   const sourceInput = traversalSourceInput(value);
   const source = projectTraversalContractSourceBasis(sourceInput);
+  const declaredStage = source.workStages.find(
+    (stage) =>
+      stage.declaredStageIndex === joined.compiledContract.selectedStageIndex
+  );
+  assert.notEqual(declaredStage, undefined);
   const authority = admitDeclaredTraversalStageResultAuthority({
     source,
-    stageOrdinal: 0,
+    stageOrdinal: declaredStage.ordinal,
     contract: joined.compiledContract,
     selectedResultContractRef:
       source.targetCarrierProjection.targetCarrierContractRef,
     fpWireProfile: "standard_live_review"
   });
+  const authorities = Object.freeze(source.workStages.map((stage) =>
+    stage.programLocusRef === declaredStage.programLocusRef
+      ? authority
+      : admitProgramLocusTraversalStageResultAuthority({
+          source,
+          programLocusRef: stage.programLocusRef
+        })
+  ));
   const bundle = compileTraversalExecutionContracts({
     source,
-    resultAuthorities: [authority]
+    resultAuthorities: authorities
   });
-  return Object.freeze({ joined, sourceInput, source, authority, bundle });
+  return Object.freeze({
+    joined,
+    sourceInput,
+    source,
+    authority,
+    authorities,
+    bundle
+  });
 }
 
 function gateFpTraversal(value, compiled) {
@@ -717,7 +738,7 @@ function gateFpTraversal(value, compiled) {
   const admission = admitTraversalExecution({
     sourceInput: compiled.sourceInput,
     source: compiled.source,
-    resultAuthorities: [compiled.authority],
+    resultAuthorities: compiled.authorities,
     bundle: compiled.bundle,
     conformanceInput,
     report
@@ -1642,7 +1663,7 @@ test("T-267 admits a real non-Consensus F_P join without hashing current evidenc
     "runtime_addressable_not_closed",
     JSON.stringify(report.issues, null, 2)
   );
-  assert.equal(outcome.effectsPermitted, true);
+  assert.equal(outcome.effectsPermitted, false);
 });
 
 test("T-267 runtime start requires the exact addressable admission and declared request", () => {
@@ -1661,23 +1682,24 @@ test("T-267 runtime start requires the exact addressable admission and declared 
   );
   assert.deepEqual(
     admission.currentResultAuthorities,
-    [
-      {
-        sourceKind: "declared_fp_contract",
-        stageOrdinal: 0,
-        domainStageRole: compiled.joined.request.stageRole,
-        currentSourceAuthorityRef:
-          compiled.joined.request.contextContractRef,
-        currentSourceAuthorityDigest:
-          compiled.joined.request.contextContractDigest
-      }
-    ]
+    compiled.authorities.map((authority) => ({
+      sourceKind: authority.sourceKind,
+      stageOrdinal: authority.stageOrdinal,
+      programLocusRef: authority.programLocusRef,
+      domainStageRole: authority.domainStageRole,
+      currentSourceAuthorityRef: authority.currentSourceAuthorityRef,
+      currentSourceAuthorityDigest: authority.currentSourceAuthorityDigest
+    }))
   );
 
-  assert.doesNotThrow(() => assertTraversalExecutionRuntimeStart({
-    request: compiled.joined.request,
-    admission
-  }));
+  assert.throws(
+    () => assertTraversalExecutionRuntimeStart({
+      request: compiled.joined.request,
+      admission
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid"
+  );
   assert.throws(
     () => assertTraversalExecutionRuntimeStart({
       request: Object.freeze({
@@ -1749,11 +1771,9 @@ test("T-267 catalog runtime consumes the exact request, plan, and admission", as
     assembled.assembly
   );
 
-  assert.equal(invocation.accepted, true, JSON.stringify(invocation));
-  assert.equal(
-    invocation.engineResult.transition.reason.includes(
-      "declared_execution_context_startup_blocked_awaiting_t267"
-    ),
-    false
+  assert.equal(invocation.accepted, false, JSON.stringify(invocation));
+  assert.match(
+    invocation.message,
+    /startup remains blocked awaiting T-270/u
   );
 });
