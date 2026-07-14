@@ -4,11 +4,11 @@
 - title: Repair the canonical Consensus topology and exhaustive compiler census
 - type: bug
 - ticket_category: ordinary
-- status: active
-- phase_status: reopened_after_holistic_supported_path_review
-- review_status: external_review_rejected_closure
-- implementation_admission: blocked_pending_topology_and_census_repair
-- proof_status: invalidated_by_reproduced_conformance_residuals
+- status: completed
+- phase_status: closed_after_topology_and_census_repair
+- review_status: accepted
+- implementation_admission: admitted
+- proof_status: passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Preserve one lawful canonical Consensus GTL free construction while making
@@ -22,6 +22,8 @@
 - triaged_at: 2026-07-14
 - created_at: 2026-07-12
 - updated_at: 2026-07-14
+- completed_at: 2026-07-14
+- implementation_commit: abed6a0a
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
@@ -47,7 +49,7 @@ capability, execution, event, replay, or closure truth.
 
 - gap_family: consensus_topology_integrity
 
-## Closed State
+## Superseded Closed State
 
 The prior closed state below is retained as superseded evidence. It is not the
 current disposition. External review reproduced non-zero whole-program
@@ -92,12 +94,18 @@ The corrected probe:
 
 ## Closure Evidence
 
-- body digest remains unchanged;
-- sealed manifest authority cites this completed ticket path and its regenerated
-  digest is
-  `sha256:d3abc30c985327851c958711afac85514c1db6283a9aca4a94a72b3b9e706439`;
+- body digest after the topology correction is
+  `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`;
+- the sealed manifest authority is regenerated from this ticket's live path;
+- final manifest digest is
+  `sha256:dc087130d37f375ec72f60961b2ca57b1f2b74ce5fb0cf062580f6bfe1a37107`;
 - canonical serialization round-trips through strict M02 admission;
 - structural invalidity count is zero;
+- all five remaining full-conformance issues are mapped to
+  `complete_c_program_interpreter` before ticket ownership is loaded;
+- fourteen program-conservation failures are separately observed and assigned
+  to T-267;
+- tenant-manifest coverage remains assigned to T-268;
 - every observed gap has compiler or structural observation evidence before
   ownership is joined;
 - every observed gap has exactly one active successor owner;
@@ -105,7 +113,8 @@ The corrected probe:
   closure decisions;
 - static source reachability is reported without runtime-call claims;
 - focused GTL, body, manifest, strict TypeScript, and diff gates pass; and
-- explicit F_H acceptance is recorded.
+- the explicit standing F_H delegation authorized this bounded closure pending
+  the owner's return review.
 
 ## Non-Closure
 
