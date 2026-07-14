@@ -32,8 +32,8 @@
     catalog_invocation.ts
 - dependencies:
   - completed T-252
-  - active T-267
-  - T-271
+  - completed T-267
+  - completed T-271
   - T-268 canonical manifest publication for packed closure
 - authority_refs:
   - specification/GOALS.md DS-2

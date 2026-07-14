@@ -1,6 +1,6 @@
 # ABIogenesis 5.0 Prime Contraction Census
 
-**Status**: T-277-owned contraction complete; independent closure review pending
+**Status**: T-277-owned contraction accepted and closed by direct F_H
 
 **Owner**: T-277
 
@@ -418,18 +418,19 @@ because the package declaration census gained the native Consensus family.
 9. Run the final source-removal, mixed-state, parity, and holistic review.
 
 Steps 1 through 8 are complete for T-277-owned work and prospective owner
-design. Step 9 has passed self-review and remains open for independent holistic
-review. T-270, T-272, T-268, T-274, T-275, and T-276 retain their feature
-delivery authority; T-277 does not claim those features complete.
+design. Step 9 passed full-tree review and direct F_H closure adjudication.
+T-270, T-272, T-268, T-274, T-275, and T-276 retain their feature delivery
+authority; T-277 does not claim those features complete.
 
-T-267 is not reopened by this census. Its current independent review remains
-the runtime gate. Re-entry is allowed only if a concrete row demonstrates a
-reachable duplicate authority in that boundary.
+T-267 is closed and is not reopened by this census. T-270 remains the runtime
+entry gate. Re-entry is allowed only if a concrete row demonstrates a
+reachable duplicate authority in the T-267 boundary.
 
 ## Acceptance
 
-This census is not self-ratifying. Independent review must verify each
-evidence path, the distinction between identity and authorship, the
-proportionality of each target, and the assignment to existing semantic
-owners. The accepted version becomes T-277's migration ledger; rejected or
-unproven rows must be repaired or marked `not_a_candidate` before code.
+This census is not self-ratifying. Full-tree review evaluated each evidence
+path, the distinction between identity and authorship, the proportionality of
+each target, and the assignment to existing semantic owners. Direct F_H then
+admitted the ledger without representing agent self-review as independent.
+Rejected or unproven future rows must be repaired or marked
+`not_a_candidate` before code.

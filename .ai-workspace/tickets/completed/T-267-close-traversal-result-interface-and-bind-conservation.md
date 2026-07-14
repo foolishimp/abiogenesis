@@ -4,11 +4,11 @@
 - title: Preserve declared C programs through traversal conservation
 - type: bug
 - ticket_category: ordinary
-- status: active
-- phase_status: repair_checkpoint_pending_independent_re_review
-- implementation_status: review_findings_repaired_checkpoint_pending_re_review
-- proof_status: repair_self_review_verified_independent_re_review_pending
-- review_status: independent_re_review_required
+- status: completed
+- phase_status: closed_after_direct_fh_re_review
+- implementation_status: repaired_checkpoint_accepted
+- proof_status: deterministic_gates_verified
+- review_status: direct_fh_accepted_after_adversarial_re_review
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Compile traversal contracts over every authored C stage and exact
@@ -54,8 +54,12 @@
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T114843Z_SELF_REVIEW_t267_authority_conservation_repair.md
+- final_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T173300Z_DECISION_direct_fh_accept_and_close_t267.md
 - superseded_implementation_commit: 0ce492fa
 - implementation_commit: ce354ea7
+- closed_at: 2026-07-14
 - dependencies:
   - T-255 compiled execution handoff and startup fence
   - T-256 declared execution-context join
@@ -95,7 +99,7 @@ selector, or deriving obligations and pressure from display names.
 
 ## Current Disposition
 
-`repair_checkpoint_pending_independent_re_review`. Commit `ce354ea7` retains
+`closed_after_direct_fh_re_review`. Commit `ce354ea7` retains
 the whole-program conservation realized at `0ce492fa` and repairs the five
 findings from its independent authority-path review:
 
@@ -119,8 +123,9 @@ coverage, and records 42 rejected recurse-component mutations. Every admitted
 T-267 outcome still records `effectsPermitted: false`, and runtime start fails
 closed awaiting T-270 public routing authority.
 
-The bounded repair and self-review are complete. Ticket closure is not earned
-until an independent re-review accepts this checkpoint.
+The bounded repair and adversarial re-review are complete. Direct owner F_H
+delegation admits the checkpoint without representing Codex as an independent
+reviewer of its own work.
 
 ## Closure Evidence
 
@@ -143,4 +148,12 @@ until an independent re-review accepts this checkpoint.
 - public-contract schemas: 82 verified
 - generated publication assets: 40 verified from 1118 immutable payload files
 - package dry run: 1119 files; passed
-- independent repair re-review: pending; closure blocked
+- direct F_H repair re-review: accepted; T-270 remains the runtime-start gate
+
+## Closure Decision
+
+The owner-approved execution plan delegated F_H authority for bounded review,
+remediation, and continuation. The closure decision traces all five prior
+independent findings to current implementation and negative proof, preserves
+the unconditional T-270 effects fence, and makes no false independent-review
+claim. T-267 is closed; T-270 and T-268 remain open owner boundaries.

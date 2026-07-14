@@ -32,7 +32,7 @@
     fh_interaction.ts
 - dependencies:
   - completed T-258 carrier admission
-  - active T-267
+  - completed T-267
   - T-270
 - authority_refs:
   - specification/INTENT.md interactive start and gaps loop

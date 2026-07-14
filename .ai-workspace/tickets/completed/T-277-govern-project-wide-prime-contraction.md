@@ -4,10 +4,10 @@
 - title: Govern ABIogenesis 5.0 project-wide Prime contraction
 - type: chore
 - ticket_category: implementation_migration
-- status: active
-- phase_status: implementation_complete_independent_closure_review_pending
-- review_status: fh_accepted_for_implementation_independent_closure_review_pending
-- proof_status: deterministic_gates_passed_independent_review_pending
+- status: completed
+- phase_status: closed_after_direct_fh_holistic_review
+- review_status: direct_fh_accepted_after_full_tree_review
+- proof_status: deterministic_gates_verified
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 through DS-6
 - change_intent: >-
@@ -45,6 +45,9 @@
 - checkpoint_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T170452Z_REVIEW_full_tree_checkpoint_self_review.md
+- closure_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T173400Z_DECISION_direct_fh_accept_and_close_t277.md
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
@@ -87,6 +90,7 @@
   - T-244 retained-feature successors
 - reviewed_without_reentry:
   - T-267 unless a concrete census finding demonstrates reachable duplicate authority
+- closed_at: 2026-07-14
 
 ## Authority
 
@@ -181,7 +185,8 @@ Every census row must end in exactly one state:
   wrapper over the old paths
 - [x] producer, consumer, projection, and proof surfaces are required per row
 - [x] ADR-044 is explicitly F_H-authorized for implementation
-- [ ] ADR-044 and the resulting implementation receive independent closure review
+- [x] ADR-044 and the resulting implementation receive full-tree review and
+  direct F_H closure adjudication; no independent-actor claim is made
 - [x] every migration row names its exact old and new path
 - [x] every existing consumer is moved before the old source is retired
 - [x] mixed old/new authority fails the row's negative proof
@@ -189,14 +194,13 @@ Every census row must end in exactly one state:
 - [x] no test fixture continues to author retired truth
 - [x] each recurrence consumes or establishes the ledger-named local
   commonization surface
-- [x] all affected ticket and proof claims agree with the final tree at
-  self-review; independent closure review remains required
+- [x] all affected ticket and proof claims agree with the final tree at review
 - [x] post-migration census proves the before-and-after contraction counts
 
 ## Implementation Progress
 
 - `PC-011`: implemented at `be287765`; focused positive and negative proof is
-  green; independent closure review remains pending
+  green and accepted with the final T-277 closure
 - `PC-004`: implemented at `b3cd1003`; seven operation roster/branch authoring
   surfaces contract to the definition register plus the retained exact typed
   SDK behavior boundary; all 19 realized operation identities remain stable
@@ -204,7 +208,7 @@ Every census row must end in exactly one state:
   consume one tenant-local operation-schema projector; all 57 operation schema
   projection identities and paths remain stable
 - `PC-004` and `PC-005`: focused and aggregate gates are green from the exact
-  implementation commit; independent closure review remains pending
+  implementation commit and accepted with the final T-277 closure
 - `PC-007`: T-270 and T-272 now have accepted authority-contraction designs;
   implementation remains with those owner tickets
 - `PC-001`: one strict native family now authors nine public projections and
@@ -213,8 +217,8 @@ Every census row must end in exactly one state:
   its compatibility projection derives from the exact admitted T-252 Module
 - `PC-003`: all open `ConsensusCarrier<Kind>` aliases are retired; public and
   private graph-locus variants admit through one closed schema family
-- `PC-001..003`: focused and adjacent T-252/T-256 gates are green; independent
-  closure review remains pending and T-274/T-275 are not feature-complete
+- `PC-001..003`: focused and adjacent T-252/T-256 gates are green and accepted
+  as contraction work; T-274/T-275 are not feature-complete
 - `PC-006`: live audit disproved the need for a new commonization carrier;
   T-268 has an accepted prospective design requiring all future capability and
   manifest projections to consume the existing register
@@ -230,13 +234,14 @@ Every census row must end in exactly one state:
   seven tickets/seven accepted designs, Mermaid 30 files/90 diagrams,
   governance 19 tickets, publication 40 assets from 1,124 immutable payload
   files, and package dry-run green
-- next boundary: independent holistic closure review; T-277 remains active
+- closure boundary: direct F_H accepted the holistic review; future semantic
+  delivery remains with the existing owner tickets
 
 ## Exit
 
 T-277 closes only when:
 
-- ADR-044 has independent design acceptance
+- ADR-044 has F_H design acceptance and closure adjudication
 - every in-scope boundary has a recorded Irreducible Architectural Carrier Set
 - every census candidate has one evidenced disposition
 - every confirmed contraction is implemented by its existing owner or is
@@ -246,7 +251,16 @@ T-277 closes only when:
 - before-and-after counts demonstrate actual contraction
 - all affected focused, semantic, GTL, packed-publication, governance, and
   design gates pass from the same tree
-- an independent holistic review accepts the final contraction ledger
+- F_H adjudication accepts the final contraction ledger after holistic review
 
 Release closure is not a substitute for these conditions, and T-277 closure
 does not itself release ABIogenesis 5.0.
+
+## Closure Decision
+
+The owner-approved execution plan delegated F_H authority to continue through
+bounded review and remediation. The full-tree review found no new P0 or P1
+defect and all exact-tree gates passed. Direct F_H accepts the contraction
+ledger without claiming that the implementing agent supplied independent
+review. T-277 closes as design-governance work; T-268, T-270, T-272, T-274,
+T-275, T-276, T-247, and T-248 retain their own delivery and admission gates.

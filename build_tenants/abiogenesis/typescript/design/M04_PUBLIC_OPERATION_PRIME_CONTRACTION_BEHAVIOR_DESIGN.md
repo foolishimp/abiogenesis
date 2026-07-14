@@ -1,6 +1,6 @@
 # M04 Public Operation Prime Contraction Behavior Design
 
-**Status**: F_H-authorized for implementation under T-277; independent closure review pending
+**Status**: Accepted; closed with T-277 after full-tree review
 
 **Date**: 2026-07-15
 

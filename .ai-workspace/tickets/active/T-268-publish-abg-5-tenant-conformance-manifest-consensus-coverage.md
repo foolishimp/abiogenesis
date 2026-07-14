@@ -28,7 +28,7 @@
   - completed T-255 canonical-manifest admission and capability-coverage contract
   - completed T-252 topology and exhaustive census repair
   - completed T-262 parent-rebind repair
-  - active T-267 declared-program conservation repair
+  - completed T-267 declared-program conservation repair
   - T-270 public catalog/start integration
   - T-271 complete C-program interpretation
   - T-272 F_H lifecycle integration
@@ -103,10 +103,11 @@ three-view design before code. Exit requires the published ABG 5.0 manifest to
 pass M04 canonical admission, cover every exact T-264 effect requirement through
 catalog-resolved capabilities, preserve dependent-capability closure, and make
 the otherwise eligible T-252 handoffs publishable without changing body bytes.
-Those handoffs remain startup-blocked until T-267 independently closes
-traversal result-interface and bind-conservation authority. Release
-qualification must resolve the manifest's required bounded-proof refs; T-268
-may not convert their presence into fabricated proof success.
+T-267 traversal result-interface and bind-conservation authority is closed.
+Those handoffs remain runtime-blocked until T-270 admits the exact public
+catalog/start authority. Release qualification must resolve the manifest's
+required bounded-proof refs; T-268 may not convert their presence into
+fabricated proof success.
 
 ## Non-Closure
 
@@ -114,4 +115,5 @@ A Consensus-owned manifest, a second tenant capability profile, package
 presence, plugin refs, test names, source paths, unversioned feature labels, a
 locally minted catalog, a manifest that omits dependency closure, a coverage
 projection submitted as authority, a manifest that admits itself, or any claim
-that manifest coverage authorizes traversal before T-267.
+that manifest coverage substitutes for T-267 conservation or T-270 runtime
+entry authority.
