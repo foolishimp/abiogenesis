@@ -198,32 +198,42 @@ but no cross-ticket contraction pass joined the designs.
 
 ### PC-006 - Capability declaration graph
 
-- **Evidence**: requirements name 16 mandatory 5.0 capability identities.
-  The current product contains eight capability JSON assets: seven overlap the
-  required roster, nine required identities are absent, and
-  `abg.capability.fh.interact@5` is outside the exact required roster. The
-  tenant-conformance manifest is a separate future publication.
-- **Finding**: continuing with hand-authored assets and a separately authored
-  manifest would create multiple capability rosters and dependency graphs.
-- **Proposed disposition**: `migrate_authority`.
-- **Target**: one closed capability declaration graph supplies public
-  capability assets, catalog rows, dependency edges, tenant-manifest claims,
-  effect bindings, and exact coverage projections. M04 admission remains a
-  separate boundary and T-255 remains the coverage evaluator.
+- **Evidence**: requirements name 16 mandatory 5.0 capability identities. The
+  current `DS1_CAPABILITY_CONTRACT_REGISTER` already generates eight
+  capability assets and catalog rows, and product verification derives its
+  capability ID and required-contract projections from the same register.
+  Seven current identities overlap the required roster;
+  `abg.capability.fh.interact@5` is outside it. The tenant-conformance manifest
+  publication is not yet authored.
+- **Finding**: the suspected current duplicate authoring graph does not exist.
+  The risk is prospective: T-268 could author manifest claims, dependency
+  edges, and effect bindings as a second roster instead of extending the
+  existing register.
+- **Proposed disposition**: `consume_existing`.
+- **Target**: extend the closed capability declaration register so its direct
+  projectors also supply tenant-manifest claims, dependency edges, effect
+  bindings, and exact coverage projections. M04 admission remains a separate
+  boundary and T-255 remains the coverage evaluator.
 - **Proportionality stop**: the graph is a closed typed data register plus
   direct deterministic projectors, not a new capability engine, DSL, plugin
   framework, or runtime registry.
 - **Owner**: T-268 establishes Consensus coverage over the common graph; the
-  DS-5 F05 owner completes the 16-row release roster. T-277 may commonize the
-  asset projector after ADR acceptance.
-- **Measure**: capability authoring graph `multiple static/future rosters -> 1`;
-  public capability identities remain `16` unless requirements are repriced.
+  DS-5 F05 owner completes the 16-row release roster.
+- **Measure**: capability authoring graphs remain `1 -> 1`; projected asset,
+  catalog, manifest, effect, and coverage rosters grow without becoming
+  authoring sources. Public capability identities remain `16` unless
+  requirements are repriced.
 - **Stop**: the extra F_H identity must map lawfully to a retained required
   capability or enter requirement reprice; it cannot silently enlarge the
   exact roster.
 - **Negative proof**: missing dependency, duplicate identity, unsupported
   effect, stale catalog basis, or manifest/asset divergence fails before
   affected execution.
+- **Accepted prospective design**:
+  `M02_M04_CAPABILITY_DECLARATION_GRAPH_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
+- **Implementation status**: no new commonization code is justified. The
+  existing register is confirmed as the Prime carrier; T-268 must extend and
+  consume it when capability publication begins.
 
 ### PC-007 - Runtime execution and continuation basis
 
@@ -350,7 +360,7 @@ but no cross-ticket contraction pass joined the designs.
 | Current operation realization roster/branch surfaces | 7 | 2 |
 | Operation schema-definition algorithms | 2 | 1 |
 | Mandatory capability identities | 16 | 16 |
-| Capability authoring graphs | fragmented/static plus future manifest | 1 |
+| Capability authoring graphs | 1 current register | 1 extended register |
 | Consensus primary workspace/outcome executions | potential Cartesian 9 | 3..9, set by accepted proof of workspace invariance |
 | Consensus scenario orchestration implementations | potential 9 | 1 |
 | Substantive automated Prime gates | 0 | 1 |

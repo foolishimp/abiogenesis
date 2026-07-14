@@ -54,6 +54,9 @@
 - pc001_pc003_realization_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
+- pc006_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T160900Z_SELF_REVIEW_t277_pc006_capability_disposition.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -202,7 +205,10 @@ Every census row must end in exactly one state:
   private graph-locus variants admit through one closed schema family
 - `PC-001..003`: focused and adjacent T-252/T-256 gates are green; independent
   closure review remains pending and T-274/T-275 are not feature-complete
-- next implementation boundary: PC-006 capability declaration graph
+- `PC-006`: live audit disproved the need for a new commonization carrier;
+  T-268 has an accepted prospective design requiring all future capability and
+  manifest projections to consume the existing register
+- next implementation boundary: PC-008 installed-scenario factorization
 
 ## Exit
 
