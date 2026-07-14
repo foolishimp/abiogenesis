@@ -87,8 +87,11 @@ but no cross-ticket contraction pass joined the designs.
   findings/rulings, round-outcome/final-result, and result/ticket-projection.
 - **Accepted design**:
   `M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
-- **Implementation status**: native-family and publication migration active;
-  feature-complete T-274 publication remains separately gated.
+- **Implementation status**: one strict Valibot-authored native family now
+  derives native types, admission, nine public projection definitions, and
+  both vocabularies. The rejected first pass duplicated field rosters between
+  types and decoders; that duplicate model did not enter a checkpoint.
+  Feature-complete T-274 asset publication remains separately gated.
 
 ### PC-002 - Rival Consensus catalog declaration
 
@@ -111,7 +114,10 @@ but no cross-ticket contraction pass joined the designs.
   the legacy declaration cannot reconstruct it.
 - **Accepted design**:
   `M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
-- **Implementation status**: duplicate-source retirement active.
+- **Implementation status**: realized. The compatibility declaration is now a
+  projection of the exact admitted T-252 Module and outer GraphFunction. The
+  canonical serialized body digest remains
+  `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`.
 
 ### PC-003 - Open internal Consensus carrier aliases
 
@@ -131,7 +137,10 @@ but no cross-ticket contraction pass joined the designs.
   private locus variants fail admission or compilation.
 - **Accepted design**:
   `M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
-- **Implementation status**: closed-family migration active.
+- **Implementation status**: realized. The 14 open aliases and permissive
+  `fields` payload are absent. Twenty exact public and graph-private variants
+  share one schema map and one recursive freeze/admission mechanism; no
+  graph-private variant is added to the package export surface.
 
 ### PC-004 - Public operation realization rosters
 

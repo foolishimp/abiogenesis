@@ -51,6 +51,9 @@
 - pc001_pc003_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T160200Z_SELF_REVIEW_t277_pc001_pc003_consensus_designs.md
+- pc001_pc003_realization_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -191,10 +194,15 @@ Every census row must end in exactly one state:
   implementation commit; independent closure review remains pending
 - `PC-007`: T-270 and T-272 now have accepted authority-contraction designs;
   implementation remains with those owner tickets
-- `PC-001..003`: T-274 and T-275 now have accepted publication and closed
-  domain-family designs; bounded migration is active
-- next implementation boundary: close the existing Consensus open-carrier and
-  duplicate-catalog sources without claiming T-274/T-275 feature closure
+- `PC-001`: one strict native family now authors nine public projections and
+  both vocabularies; installed schema publication remains T-274 work
+- `PC-002`: the maintained rival Consensus callable declaration is retired;
+  its compatibility projection derives from the exact admitted T-252 Module
+- `PC-003`: all open `ConsensusCarrier<Kind>` aliases are retired; public and
+  private graph-locus variants admit through one closed schema family
+- `PC-001..003`: focused and adjacent T-252/T-256 gates are green; independent
+  closure review remains pending and T-274/T-275 are not feature-complete
+- next implementation boundary: PC-006 capability declaration graph
 
 ## Exit
 

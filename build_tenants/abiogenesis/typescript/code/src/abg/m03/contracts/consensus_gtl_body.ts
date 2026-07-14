@@ -77,6 +77,13 @@ import type { Module } from "../../../gtl/m02/contracts/carriers.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES } from "./carriers.js";
 import {
+  admitConsensusDomainValue,
+  type ConsensusDomainValueByKind,
+  type ConsensusResult,
+  type ConsensusSubject,
+  type ReviewFindings
+} from "./consensus_contract_family.js";
+import {
   abgFnCompositionDeclarationRef,
   constructAbgFnCompositionDeclarations,
   type AbgFnRegimeAuthority,
@@ -108,52 +115,28 @@ const STANDARD_HANDLER_REFS = Object.freeze({
   fhGate: "handler://abg/fh/gate"
 } as const);
 
-type CarrierKind =
-  | "consensus_subject"
-  | "consensus_result"
-  | "consensus_round_execution"
-  | "consensus_round_disposition"
-  | "reviewer_assignment"
-  | "review_findings"
-  | "round_exact_projection"
-  | "semantic_reducer_binding"
-  | "initial_semantic_assessment"
-  | "submitter_turn_binding"
-  | "submitter_response"
-  | "post_submitter_semantic_assessment"
-  | "fh_interaction_binding"
-  | "fh_pending_interaction";
-
-export type ConsensusCarrier<Kind extends CarrierKind> = Readonly<
-  {
-    readonly kind: Kind;
-    readonly fields: Readonly<Record<string, unknown>>;
-  }
->;
-
-export type ConsensusSubject = ConsensusCarrier<"consensus_subject">;
-export type ConsensusResult = ConsensusCarrier<"consensus_result">;
-export type ConsensusRoundExecution =
-  ConsensusCarrier<"consensus_round_execution">;
-export type ConsensusRoundDisposition =
-  ConsensusCarrier<"consensus_round_disposition">;
-export type ReviewerAssignment = ConsensusCarrier<"reviewer_assignment">;
-export type ReviewFindings = ConsensusCarrier<"review_findings">;
-export type RoundExactProjection =
-  ConsensusCarrier<"round_exact_projection">;
-export type SemanticReducerBinding =
-  ConsensusCarrier<"semantic_reducer_binding">;
-export type InitialSemanticAssessment =
-  ConsensusCarrier<"initial_semantic_assessment">;
-export type SubmitterTurnBinding =
-  ConsensusCarrier<"submitter_turn_binding">;
-export type SubmitterResponse = ConsensusCarrier<"submitter_response">;
-export type PostSubmitterSemanticAssessment =
-  ConsensusCarrier<"post_submitter_semantic_assessment">;
-export type FhInteractionBinding =
-  ConsensusCarrier<"fh_interaction_binding">;
-export type FhPendingInteraction =
-  ConsensusCarrier<"fh_pending_interaction">;
+type ConsensusRoundExecution =
+  ConsensusDomainValueByKind["consensus_round_execution"];
+type ConsensusRoundDisposition =
+  ConsensusDomainValueByKind["consensus_round_disposition"];
+type ReviewerAssignment =
+  ConsensusDomainValueByKind["reviewer_assignment"];
+type RoundExactProjection =
+  ConsensusDomainValueByKind["round_exact_projection"];
+type SemanticReducerBinding =
+  ConsensusDomainValueByKind["semantic_reducer_binding"];
+type InitialSemanticAssessment =
+  ConsensusDomainValueByKind["initial_semantic_assessment"];
+type SubmitterTurnBinding =
+  ConsensusDomainValueByKind["submitter_turn_binding"];
+type SubmitterResponse =
+  ConsensusDomainValueByKind["submitter_response"];
+type PostSubmitterSemanticAssessment =
+  ConsensusDomainValueByKind["post_submitter_semantic_assessment"];
+type FhInteractionBinding =
+  ConsensusDomainValueByKind["fh_interaction_binding"];
+type FhPendingInteraction =
+  ConsensusDomainValueByKind["fh_pending_interaction"];
 
 export interface ConsensusGtlNodes {
   readonly subject: Node;
@@ -248,20 +231,6 @@ interface AuthoredProgramVector {
   readonly regime: Regime;
   readonly stageRole: string | null;
   readonly armId: string | null;
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-function decodeCarrier<Kind extends CarrierKind>(
-  raw: unknown,
-  kind: Kind
-): ConsensusCarrier<Kind> {
-  if (!isRecord(raw) || raw["kind"] !== kind) {
-    throw new TypeError(`expected ${kind} carrier`);
-  }
-  return Object.freeze({ kind, fields: Object.freeze({ ...raw }) });
 }
 
 function vectorDecoder<Item>(
@@ -835,35 +804,35 @@ function constructConsensusBody(): ConsensusGtlBody {
   const nodes = constructNodes();
 
   const decodeSubject = (raw: unknown): ConsensusSubject =>
-    decodeCarrier(raw, "consensus_subject");
+    admitConsensusDomainValue(raw, "consensus_subject");
   const decodeResult = (raw: unknown): ConsensusResult =>
-    decodeCarrier(raw, "consensus_result");
+    admitConsensusDomainValue(raw, "consensus_result");
   const decodeRound = (raw: unknown): ConsensusRoundExecution =>
-    decodeCarrier(raw, "consensus_round_execution");
+    admitConsensusDomainValue(raw, "consensus_round_execution");
   const decodeDisposition = (raw: unknown): ConsensusRoundDisposition =>
-    decodeCarrier(raw, "consensus_round_disposition");
+    admitConsensusDomainValue(raw, "consensus_round_disposition");
   const decodeReviewerAssignment = (raw: unknown): ReviewerAssignment =>
-    decodeCarrier(raw, "reviewer_assignment");
+    admitConsensusDomainValue(raw, "reviewer_assignment");
   const decodeReviewFindings = (raw: unknown): ReviewFindings =>
-    decodeCarrier(raw, "review_findings");
+    admitConsensusDomainValue(raw, "review_findings");
   const decodeExactProjection = (raw: unknown): RoundExactProjection =>
-    decodeCarrier(raw, "round_exact_projection");
+    admitConsensusDomainValue(raw, "round_exact_projection");
   const decodeReducerBinding = (raw: unknown): SemanticReducerBinding =>
-    decodeCarrier(raw, "semantic_reducer_binding");
+    admitConsensusDomainValue(raw, "semantic_reducer_binding");
   const decodeInitialAssessment = (raw: unknown): InitialSemanticAssessment =>
-    decodeCarrier(raw, "initial_semantic_assessment");
+    admitConsensusDomainValue(raw, "initial_semantic_assessment");
   const decodeSubmitterBinding = (raw: unknown): SubmitterTurnBinding =>
-    decodeCarrier(raw, "submitter_turn_binding");
+    admitConsensusDomainValue(raw, "submitter_turn_binding");
   const decodeSubmitterResponse = (raw: unknown): SubmitterResponse =>
-    decodeCarrier(raw, "submitter_response");
+    admitConsensusDomainValue(raw, "submitter_response");
   const decodePostAssessment = (
     raw: unknown
   ): PostSubmitterSemanticAssessment =>
-    decodeCarrier(raw, "post_submitter_semantic_assessment");
+    admitConsensusDomainValue(raw, "post_submitter_semantic_assessment");
   const decodeFhBinding = (raw: unknown): FhInteractionBinding =>
-    decodeCarrier(raw, "fh_interaction_binding");
+    admitConsensusDomainValue(raw, "fh_interaction_binding");
   const decodeFhPending = (raw: unknown): FhPendingInteraction =>
-    decodeCarrier(raw, "fh_pending_interaction");
+    admitConsensusDomainValue(raw, "fh_pending_interaction");
 
   const subjectWitness = typedNode({
     node: nodes.subject,

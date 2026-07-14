@@ -3862,6 +3862,7 @@
       "code/src/abg/m03/contracts/c_retry_policy.ts",
       "code/src/abg/m03/contracts/carriers.ts",
       "code/src/abg/m03/contracts/composed_stage_set.ts",
+      "code/src/abg/m03/contracts/consensus_contract_family.ts",
       "code/src/abg/m03/contracts/consensus_gtl_body.ts",
       "code/src/abg/m03/contracts/consequence_traversal_action.ts",
       "code/src/abg/m03/contracts/construction_action_catalog.ts",
@@ -3944,5 +3945,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:0122e8646c563fdef0c2508080afad6629aef4dc17dc255ca3a17129fc1d9681"
+  "manifestDigest": "sha256:d6f5378794c51a09e9fccf3156e6a352e946f483703873cb23103b05615a9cec"
 }

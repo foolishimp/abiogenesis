@@ -5,7 +5,7 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: design_accepted_implementation_pending
+- phase_status: closed_domain_family_migration_complete_feature_realization_pending
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
@@ -43,6 +43,9 @@
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T154500Z_DECISION_fh_authorize_remaining_t277_refactor.md
+- prime_migration_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
 
 ## Boundary
 
@@ -74,3 +77,11 @@ unattributed findings, and forged ticket digest fail closed. The result
 projection preserves subject, panel, policy, rounds, dissent, evidence,
 lineage, result, and replay refs while producing no ticket mutation. Accept one
 three-view domain design before code.
+
+## Prime Migration Status
+
+The open `ConsensusCarrier<Kind>` family is retired in favor of one closed,
+schema-authored domain family. Full profile selection, serialized admission,
+stale-configuration checks, replay-derived ticket projection, and the ticket
+exit matrix remain T-275 work. This ticket is not closed by the migration
+checkpoint.

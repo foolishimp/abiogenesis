@@ -29,36 +29,29 @@
 
 import type { GtlLibraryEntryDeclaration } from "../../../gtl/m02/contracts/runtime_registry.js";
 import { constructGtlLibraryEntryDeclaration } from "../../../gtl/m02/contracts/runtime_registry.js";
+import type { Module } from "../../../gtl/m02/contracts/carriers.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  CONSENSUS_GRAPH_FUNCTION_REF,
+  ABG_CONSENSUS_GTL_MODULE
+} from "./consensus_gtl_body.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
   CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
 } from "./consensus_instruction_protocol.js";
+export {
+  CONSENSUS_ROUND_OUTCOME_VALUES,
+  REVIEW_RULING_KIND_VALUES
+} from "./consensus_contract_family.js";
+export type {
+  ConsensusRoundOutcomeValue,
+  ReviewRulingKind
+} from "./consensus_contract_family.js";
 
 export const ABG_REVIEW_MODULE_NAMESPACE = "abg.review";
 export const ABG_CONSENSUS_MODULE_NAMESPACE = "abg.consensus";
 const ABG_MODULE_OWNER_REF = "owner://abg/substrate";
 const ABG_MODULE_VERSION = "4.6.0-dev";
-
-// the decision vocabularies are DATA — hosts consume them, prompts
-// render them, and admission closes over them
-export const REVIEW_RULING_KIND_VALUES = Object.freeze([
-  "decision_row",
-  "draft_ticket",
-  "split_ticket",
-  "deferment",
-  "rejected_finding"
-] as const);
-
-export type ReviewRulingKind = (typeof REVIEW_RULING_KIND_VALUES)[number];
-
-export const CONSENSUS_ROUND_OUTCOME_VALUES = Object.freeze([
-  "closed_done",
-  "recurse_next_round",
-  "escalate_fh"
-] as const);
-
-export type ConsensusRoundOutcome =
-  (typeof CONSENSUS_ROUND_OUTCOME_VALUES)[number];
 
 export const ABG_REVIEW_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclaration[] =
   Object.freeze([
@@ -108,37 +101,81 @@ export const ABG_REVIEW_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclaration
     })
   ]);
 
+function exactOuterConsensusFunction(module: Module) {
+  const matches = module.graphFunctions.filter(
+    (graphFunction) => graphFunction.id === CONSENSUS_GRAPH_FUNCTION_REF
+  );
+  if (matches.length !== 1) {
+    throw new TypeError(
+      `Consensus Module must publish exactly one ${CONSENSUS_GRAPH_FUNCTION_REF}`
+    );
+  }
+  const graphFunction = matches[0];
+  if (graphFunction === undefined ||
+      graphFunction.inputs.length !== 1 ||
+      graphFunction.outputs.length !== 1) {
+    throw new TypeError(
+      "Consensus outer GraphFunction must have one source and one target"
+    );
+  }
+  return graphFunction;
+}
+
+export function deriveConsensusModuleDeclaration(
+  module: Module = ABG_CONSENSUS_GTL_MODULE
+): GtlLibraryEntryDeclaration {
+  const moduleDigest = stableSha256Digest(module);
+  const canonicalModuleDigest = stableSha256Digest(ABG_CONSENSUS_GTL_MODULE);
+  if (moduleDigest !== canonicalModuleDigest) {
+    throw new TypeError(
+      "Consensus callable publication requires the exact admitted T-252 Module"
+    );
+  }
+  const graphFunction = exactOuterConsensusFunction(module);
+  const source = graphFunction.inputs[0];
+  const target = graphFunction.outputs[0];
+  if (source === undefined || target === undefined) {
+    throw new TypeError("Consensus outer interface is incomplete");
+  }
+  const suffix = graphFunction.id.slice("graph-function://".length);
+  if (`graph-function://${suffix}` !== graphFunction.id || suffix.length === 0) {
+    throw new TypeError("Consensus GraphFunction has a noncanonical identity");
+  }
+  return constructGtlLibraryEntryDeclaration({
+    declarationRef: `gtl-declaration://${suffix}`,
+    entryRef: `gtl://${suffix}`,
+    libraryScope: "system",
+    entryKind: "graph_function",
+    namespace: ABG_CONSENSUS_MODULE_NAMESPACE,
+    ownerRef: ABG_MODULE_OWNER_REF,
+    version: "5.0.0",
+    graphFunctionRef: graphFunction.id,
+    interfaceRef: "interface://abg/consensus/governed-rounds",
+    sourceContractRef: source.schema.ref,
+    targetContractRef: target.schema.ref,
+    contextRefs: ["context://abg/consensus/round-policy"],
+    authorityRefs: [
+      "authority://abg/consensus/declared-round-budget",
+      `authority://abg/consensus/module/${moduleDigest}`
+    ],
+    overlayRefs: [],
+    provenanceRefs: ["provenance://abiogenesis/T-252"],
+    readinessRefs: [],
+    proofRefs: [
+      "proof://abg/consensus/close-or-recurse-terminates-differential"
+    ],
+    policyRefs: ["policy://abg/consensus/recursion-stops-by-declared-law"],
+    declarationSourceRefs: [
+      "gtl://module/abg/consensus",
+      CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
+    ]
+  });
+}
+
+// Compatibility projection. The declaration is derived from the exact admitted
+// T-252 Module and is not a second Consensus authoring source.
 export const ABG_CONSENSUS_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclaration[] =
-  Object.freeze([
-    constructGtlLibraryEntryDeclaration({
-      declarationRef:
-        "gtl-declaration://abg/consensus/submitter-reviewer-rounds",
-      entryRef: "gtl://abg/consensus/submitter-reviewer-rounds",
-      libraryScope: "system",
-      entryKind: "graph_function",
-      namespace: ABG_CONSENSUS_MODULE_NAMESPACE,
-      ownerRef: ABG_MODULE_OWNER_REF,
-      version: ABG_MODULE_VERSION,
-      graphFunctionRef:
-        "graph-function://abg/consensus/submitter-reviewer-rounds",
-      interfaceRef: "interface://abg/consensus/governed-rounds",
-      sourceContractRef: "contract://abg/consensus/subject", // submitter subject + panel + declared round policy
-      targetContractRef: "contract://abg/consensus/round-outcome", // decision alternatives + closed_done | recurse_next_round | escalate_fh
-      contextRefs: ["context://abg/consensus/round-policy"],
-      authorityRefs: ["authority://abg/consensus/declared-round-budget"],
-      overlayRefs: [],
-      provenanceRefs: ["provenance://odd_sdlc/T-166-subsumption"],
-      readinessRefs: [],
-      proofRefs: [
-        "proof://abg/consensus/close-or-recurse-terminates-differential"
-      ],
-      policyRefs: ["policy://abg/consensus/recursion-stops-by-declared-law"],
-      declarationSourceRefs: [
-        "gtl://module/abg/consensus",
-        CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF
-      ]
-    })
-  ]);
+  Object.freeze([deriveConsensusModuleDeclaration()]);
 
 export const ABG_SUBSUMED_MODULE_DECLARATIONS: readonly GtlLibraryEntryDeclaration[] =
   Object.freeze([

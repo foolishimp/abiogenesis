@@ -1485,12 +1485,43 @@ export {
   ABG_REVIEW_MODULE_DECLARATIONS,
   ABG_SUBSUMED_MODULE_DECLARATIONS,
   CONSENSUS_ROUND_OUTCOME_VALUES,
+  deriveConsensusModuleDeclaration,
   REVIEW_RULING_KIND_VALUES
 } from "./review_consensus_modules.js";
 export type {
-  ConsensusRoundOutcome,
+  ConsensusRoundOutcomeValue,
   ReviewRulingKind
 } from "./review_consensus_modules.js";
+export {
+  admitConsensusPanel,
+  admitConsensusResult,
+  admitConsensusReviewerProfile,
+  admitConsensusRoundOutcome,
+  admitConsensusRoundPolicy,
+  admitConsensusSubject,
+  admitReviewFindings,
+  admitReviewRulings,
+  admitTicketConsensusProjection,
+  CONSENSUS_CLASSIFICATION_VALUES,
+  CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS
+} from "./consensus_contract_family.js";
+export type {
+  ConsensusClassification,
+  ConsensusDigest,
+  ConsensusPanel,
+  ConsensusResult,
+  ConsensusReviewerProfile,
+  ConsensusRoundOutcome,
+  ConsensusRoundPolicy,
+  ConsensusSubject,
+  ReviewFinding,
+  ReviewFindings,
+  ReviewRefusal,
+  ReviewResidual,
+  ReviewRuling,
+  ReviewRulings,
+  TicketConsensusProjection
+} from "./consensus_contract_family.js";
 export {
   ABG_TUNER_MODULE_DECLARATIONS,
   constructTunerDraftAdmittedEvent,

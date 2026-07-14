@@ -5,7 +5,7 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: design_accepted_implementation_pending
+- phase_status: prime_family_and_callable_migration_complete_publication_pending
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
@@ -45,6 +45,9 @@
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T154500Z_DECISION_fh_authorize_remaining_t277_refactor.md
+- prime_migration_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
 
 ## Boundary
 
@@ -90,3 +93,10 @@ installed Module round-trips without source import; the callable row resolves
 the exact T-252 GraphFunction and SYSTEM owner; malformed or digest-divergent
 assets fail before catalog admission. Accept one three-view publication design
 before code.
+
+## Prime Migration Status
+
+The native contract family and callable-source contraction are realized under
+T-277. Nine schema assets, embedded resource locators, installed publication,
+and packed catalog admission remain T-274 work. This ticket is not closed by
+the migration checkpoint.
