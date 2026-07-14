@@ -4,8 +4,8 @@
 - title: Repair typed recurse parent-rebind admission
 - type: bug
 - ticket_category: ordinary
-- status: active
-- phase_status: ready_for_external_reverification
+- status: completed
+- phase_status: closed_after_external_reverification
 - implementation_status: repaired_checkpoint
 - proof_status: focused_passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -39,11 +39,18 @@
 - final_decision_ref: >-
     .ai-workspace/comments/codex/
     20260713T205700Z_DECISION_delegated_fh_accept_and_close_t262.md
-- review_status: self_review_passed_external_reverification_pending
+- review_status: externally_verified_and_accepted
 - implementation_commit: 7a9cfb01
 - repair_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T020153Z_SELF_REVIEW_t262_parent_rebind_repair.md
+- external_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T031000Z_REVIEW_GATE_t262_external_acceptance.md
+- closure_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T031200Z_DECISION_close_t262_after_external_acceptance.md
+- closed_at: 2026-07-14
 
 ## Boundary
 
@@ -69,10 +76,11 @@ imperative loop, or foldback without exact admitted rebind material.
 
 ## Current Disposition
 
-`reopened_for_bounded_repair`. The structural compiler, budget, termination,
-foldback, and replay boundaries remain retained. The parent-stage code emits
-`admitted` after only a null check and therefore does not realize accepted
-design D9. The former disposition follows as superseded evidence.
+`closed_after_external_reverification`. The structural compiler, budget,
+termination, foldback, and replay boundaries remain retained. The repaired
+parent stage independently derives and verifies the exact rebind witness before
+another recursive effect. The former disposition follows as superseded
+evidence.
 
 One direct recurse application lowers to a typed
 structural relation and binds the exact selected Module, catalog entry, wrapper,
@@ -126,3 +134,7 @@ live foldback path and observe deterministic rejection before round two.
 - packed M03 proof: 1/1;
 - GTL law: 82/82;
 - `git diff --check`: passed.
+
+The independent review accepted this repair as proportional to the trusted-
+desktop threat model and confirmed that the live negative rejects the forged
+next payload before round two. The fresh full semantic lane passed 1696/1696.
