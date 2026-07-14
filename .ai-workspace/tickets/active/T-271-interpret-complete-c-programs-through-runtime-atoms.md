@@ -5,10 +5,10 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: implementation_complete_independent_review_pending
-- implementation_status: complete
-- proof_status: self_review_passed_independent_review_pending
-- review_status: independent_post_implementation_review_pending
+- phase_status: remediation_complete_independent_rereview_pending
+- implementation_status: repair_complete
+- proof_status: remediation_self_review_passed_independent_rereview_pending
+- review_status: independent_post_implementation_rereview_pending
 - delivery_phase: DS-3 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -37,7 +37,11 @@
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T065100Z_SELF_REVIEW_t271_complete_c_program_interpreter.md
+- remediation_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T075722Z_SELF_REVIEW_t271_post_review_remediation.md
 - implementation_commit: f4ab3d4f
+- repair_implementation_commit: 3e726aa1
 - priority: critical
 - dependencies:
   - completed T-259 direct workflow.C atom
@@ -69,7 +73,10 @@ carrier mismatch, stale replay, undeclared role, and unsupported recursive
 shape fail as typed compiler or runtime gaps before effects. The canonical
 Consensus program is one consumer, not a special branch.
 
-## Implementation Evidence
+## Original Checkpoint Evidence
+
+The following evidence described `f4ab3d4f`. The independent review rejected
+that checkpoint; these counts are historical and do not admit closure.
 
 - `f4ab3d4f` compiles the closed seven-constructor C family into one sealed
   plan and interprets that plan through the retained workflow, batch, retry,
@@ -107,3 +114,25 @@ retry paths. The bounded requirement reprice adds `programLocusRef` and
 `retryPath` only for complete-program calls while preserving the retained flat
 compatibility identity. T-271 remains active and T-267 remains blocked until
 the repaired implementation receives independent acceptance.
+
+## Remediation Evidence
+
+Checkpoint `3e726aa1` repairs all five review findings without adding a public
+router, Consensus branch, graph-recurse constructor, or second runtime:
+
+1. complete and direct retry now share one policy/judgment coordinator;
+2. canonical C-call identity includes the compiled node and full nested retry
+   path while retaining the flat compatibility tuple;
+3. explicit and terminal-workflow results cannot erase each other, and batch
+   results derive from task result payloads rather than terminal outputs;
+4. batch output/result projection is deterministic, receipt-sealed, and
+   rederived on replay; and
+5. compilation rederives the complete T-254 selected binding and program.
+
+The remediation self-review also rejected forged shared retry policy evidence
+and resealed but altered batch projections before effects. Final proof is
+`1717/1717` semantic tests; `56/56` focused T-271 integration tests; `82/82`
+GTL tests; packed API `1/1`; exact T-252 body/census check with two remaining
+gap families; and green lint, publication, schema, governance, Mermaid, pack,
+and diff checks. The ticket remains active for independent re-review. T-267 is
+still blocked.
