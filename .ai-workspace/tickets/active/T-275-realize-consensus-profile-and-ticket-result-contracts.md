@@ -31,6 +31,12 @@
 - authority_refs:
   - specification/requirements/product/REQ-P-CONSENSUS-005..012
   - specification/requirements/product/REQ-P-CONSENSUS-019
+- prime_contraction_refs:
+  - PC-001
+  - PC-003
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -42,6 +48,17 @@ policies, rulings, and terminal results. Project `ticket.consensus` and
 The projection is result data. It cannot mutate, close, split, create, or triage
 a ticket and cannot infer reviewer identity from array position, completion
 order, or adapter identity.
+
+## Prime Contraction Input
+
+Consume the T-274 `ConsensusContractFamily` as the one native public authoring
+model. Replace open `ConsensusCarrier<Kind>` payload authority with one closed
+discriminated internal domain family. Public members project through T-274;
+graph-only bindings remain private subordinate variants and create no schema
+identity.
+
+The local design must record its IACS, Promotion Test, recurrence result,
+public/private classification, and before/after authoring counts under ADR-044.
 
 ## Exit
 

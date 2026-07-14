@@ -35,6 +35,11 @@
   - specification/INTENT.md interactive start and gaps loop
   - specification/requirements/abg/REQ-R-ABG3-CCALL.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
+- prime_contraction_refs:
+  - PC-007
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -43,6 +48,17 @@ request, source carriers, causation, and continuation from current admitted
 runtime truth. Public operations supply only actor-attributed response data.
 `run.resume` admits and then consumes one exact response into the held
 continuation; replay makes repeat calls idempotent and mismatched calls fail.
+
+## Prime Contraction Input
+
+Consume the existing admitted `ExecutionBasis`, interaction, C-call, and held
+continuation carriers. Do not create a merged session controller or a second
+execution-basis family. F_H open, response admission, resume admission, and
+continuation consumption remain separate lifecycle transitions over the same
+authority.
+
+The local design must record its IACS, Promotion Test, recurrence result, and
+before/after authority counts under ADR-044 before implementation.
 
 ## Migration Checklist
 

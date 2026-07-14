@@ -33,6 +33,12 @@
   - specification/requirements/product/REQ-P-CONSENSUS-007..008A
   - specification/requirements/product/REQ-P-CATALOG-009A
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
+- prime_contraction_refs:
+  - PC-001
+  - PC-002
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -63,6 +69,11 @@ tenant-capability admission.
 - Findings cannot substitute for rulings, round outcome cannot substitute for
   final result, and Consensus result cannot substitute for ticket projection.
   Every other cross-projection substitution also fails closed.
+- `ABG_CONSENSUS_MODULE_DECLARATIONS` cannot remain a second authoring source
+  for the callable. The SYSTEM catalog row derives from the exact admitted
+  T-252 Module and outer GraphFunction.
+- The accepted local design must record IACS, Promotion Test, recurrence, and
+  before/after source counts under ADR-044.
 
 ## Exit
 

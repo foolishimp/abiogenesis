@@ -46,6 +46,12 @@ For the current TypeScript line, the governing runtime design decisions are:
 - [ADR-042](./adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md)
 - [ADR-043](./adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md)
 
+Candidate cross-boundary design, not operative until independent review and
+explicit acceptance:
+
+- [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
+- [A5 Prime Contraction Census](./A5_PRIME_CONTRACTION_CENSUS.md)
+
 Read those ADRs first when judging:
 
 - upfront carrier, typing, and governance guardrails

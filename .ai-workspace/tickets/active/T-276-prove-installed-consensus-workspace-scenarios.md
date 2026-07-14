@@ -35,6 +35,11 @@
   - specification/requirements/product/REQ-P-CONSENSUS-013..018
   - specification/requirements/product/REQ-P-SCENARIOS-005
   - specification/requirements/product/REQ-P-QUAL-061
+- prime_contraction_refs:
+  - PC-008
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -47,6 +52,18 @@ temporary workspace applications of one public contract.
 Fixtures provide inputs and attributed external ignition only. They do not
 orchestrate the panel, invoke workers directly, emit events, construct
 continuations, retry traversal, mutate tickets, or import mutable source.
+
+## Prime Contraction Input
+
+Use one source-blind parameterized installed scenario driver. Existing,
+alternate, and temporary workspaces are applications of one contract; outcome
+families are fixture parameters, not separate orchestrators. The proof design
+must decide whether three paired runs prove workspace invariance or whether all
+nine combinations are required. Either way, one driver owns setup and
+observation while every execution retains its own archive and exact basis.
+
+The local design must record its IACS, Promotion Test, recurrence result, and
+implementation/execution counts under ADR-044 before scenario code.
 
 ## Exit
 

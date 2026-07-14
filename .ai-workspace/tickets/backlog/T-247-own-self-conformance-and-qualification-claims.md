@@ -12,7 +12,7 @@
 - change_class: realization_refactor
 - re_entry_point: retained self-conformance and qualification proof surfaces
 - created_at: 2026-07-12
-- updated_at: 2026-07-13 (stable-first realization-gate reprice)
+- updated_at: 2026-07-14 (Prime contraction input added)
 - source_ticket: T-242
 - admission_condition: >-
     T-249 has retained and aligned the claims, T-244 identifies their exact
@@ -72,6 +72,15 @@ self-build path.
   imperative compliance script may replace product behavior.
 - Every phase compares code and evidence against the accepted domain, sequence,
   and state diagrams before its checkpoint.
+
+## Prime Contraction Input
+
+On activation, consume T-277 `PC-009`. Measure the actual proof graph before
+selecting a common harness. Preserve all 17 T-244 claim identities and their
+row-specific closure gates while commonizing authority-neutral product setup,
+evidence acquisition, and replay traversal. The current five-journey grouping
+is a hypothesis, not an accepted count. One qualification read model may cite
+owning proofs but may not recompute their semantic verdicts.
 
 ## Explicit Non-Scope
 

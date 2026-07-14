@@ -35,6 +35,11 @@
   - specification/GOALS.md DS-2
   - specification/INTENT.md public invocation spine
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
+- prime_contraction_refs:
+  - PC-007
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -44,6 +49,17 @@ derives the execution request and traversal admission; M04 transports the
 accepted carrier. Profile-aware entries fail before engine start when any
 required carrier is missing or stale. Legacy entries without an execution
 profile remain explicitly separate compatibility behavior.
+
+## Prime Contraction Input
+
+Consume the existing admitted `ExecutionBasis`, declared execution request,
+traversal admission, and selected catalog binding. Do not introduce a public
+invocation session carrier, reconstructed capability profile, or second start
+router. Catalog invocation remains a distinct transition from F_H response and
+resume; PC-007 commonizes authority consumption, not semantic behavior.
+
+The local design must record its IACS, Promotion Test, recurrence result, and
+before/after authority counts under ADR-044 before implementation.
 
 ## Migration Checklist
 

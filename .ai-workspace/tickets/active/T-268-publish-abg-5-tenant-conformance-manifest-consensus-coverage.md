@@ -39,6 +39,11 @@
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
   - specification/GOALS.md DS-4
 - design_input_ref: build_tenants/abiogenesis/typescript/design/M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+- prime_contraction_refs:
+  - PC-006
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 
 ## Boundary
 
@@ -59,6 +64,13 @@ T-268 publishes canonical manifest truth. M04 admits that manifest against the
 existing public contract catalog. T-255 derives a basis-preserving capability-
 coverage projection and decides effect compatibility. T-268 does not self-admit
 the manifest and does not own handoff publication or runtime admission.
+
+Capability claims, public capability assets, dependency edges, effect
+bindings, and manifest rows must derive from the one PC-006 capability
+declaration graph. T-268 may add Consensus coverage to that graph; it may not
+author a manifest-only capability roster. The local design must reconcile the
+current extra `abg.capability.fh.interact@5` identity against the exact required
+16-row roster rather than silently publishing a seventeenth identity.
 
 T-268 does not own the Consensus schema bodies, installed Module/catalog row,
 reviewer-profile admission, ticket-result projection, or installed workspace

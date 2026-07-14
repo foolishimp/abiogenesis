@@ -12,7 +12,7 @@
 - change_class: realization_refactor
 - re_entry_point: release_candidate
 - created_at: 2026-07-12
-- updated_at: 2026-07-13 (direct stable-release reprice)
+- updated_at: 2026-07-14 (Prime contraction input added)
 - source_ticket: T-242
 - admission_condition: >-
     T-249 is complete, every T-244 row admitted to 5.0 has closure evidence,
@@ -55,6 +55,14 @@ T-244 is the sole derived feature/gate traceability inventory over
 constitutional scope. This ticket may aggregate or rerun owning evidence; it
 may not reinterpret a missing row, create a second checker, or waive a
 definition-bearing claim.
+
+## Prime Contraction Input
+
+On activation, consume T-277 `PC-009` and the T-247 measured proof topology.
+Reuse accepted source-blind product/install/catalog, runtime/operator,
+Consensus, conformance, and release journeys without collapsing Git ref,
+artifact, manifest, checksum, install, proof, or T-244 claim identity. Release
+aggregation remains a read model over owning proof, not a new semantic checker.
 
 ## No Second Rung
 
