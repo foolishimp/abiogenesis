@@ -45,6 +45,9 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 - census_ref: >-
     build_tenants/abiogenesis/typescript/design/
     A5_PRIME_CONTRACTION_CENSUS.md

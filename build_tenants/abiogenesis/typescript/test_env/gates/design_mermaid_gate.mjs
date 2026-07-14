@@ -133,9 +133,9 @@ export async function acceptedDsDesignLabels({ ticketRoots = TICKET_ROOTS } = {}
     const designFields = ["design_ref", "design_refs", "accepted_design"]
       .flatMap((key) => metadata.values.get(key) ?? [])
       .join("\n")
-      .replace(/design\/\s+/gu, "design/");
+      .replace(/\/\s+/gu, "/");
     for (const match of designFields.matchAll(
-      /build_tenants\/abiogenesis\/typescript\/design\/([A-Za-z0-9_.-]+\.md)/gu
+      /build_tenants\/abiogenesis\/typescript\/design\/([A-Za-z0-9_.\/-]+\.md)/gu
     )) {
       labels.add(match[1]);
     }
@@ -185,7 +185,7 @@ export async function discoverRegisteredDesigns({
     );
   }
 
-  const registeredLabels = new Set(links.map((link) => path.basename(link)));
+  const registeredLabels = new Set(links.map((link) => toPosix(link.slice(2))));
   const missingAcceptedDesigns = (await acceptedDsDesignLabels({ ticketRoots })).filter(
     (label) => !registeredLabels.has(label)
   );

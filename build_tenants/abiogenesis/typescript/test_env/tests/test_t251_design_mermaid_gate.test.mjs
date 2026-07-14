@@ -98,6 +98,29 @@ test("T-273 rejects a register that omits a completed DS design carrier", async 
   );
 });
 
+test("T-277 requires a nested active accepted ADR in the design register", async (t) => {
+  const fixtureRoot = await mkdtemp(path.join(tmpdir(), "abg-t277-register-"));
+  t.after(async () => {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  });
+  const registerSource = await readFile(REGISTER_PATH, "utf8");
+  const omittedSource = registerSource
+    .split(/\r?\n/u)
+    .filter((line) => !line.includes("ADR-044-prime-contraction"))
+    .join("\n");
+  assert.notEqual(omittedSource, registerSource);
+  const fixturePath = path.join(fixtureRoot, "register.md");
+  await writeFile(fixturePath, omittedSource, "utf8");
+  await assert.rejects(
+    discoverRegisteredDesigns({ registerPath: fixturePath }),
+    (error) =>
+      error.failureClass === "design_register_incomplete" &&
+      error.message.includes(
+        "adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md"
+      )
+  );
+});
+
 test("T-273 requires an active accepted design in the registered inventory", async (t) => {
   const fixtureRoot = await mkdtemp(path.join(tmpdir(), "abg-t273-active-design-"));
   t.after(async () => {

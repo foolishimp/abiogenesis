@@ -52,6 +52,7 @@ requirements own product scope, while T-244 traces feature closure.
 | Instruction startup, declared protocol source, rendering, and live-plugin prompt handoff | T-223 instruction path; `b445eb1`, `28da030` | [M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md](./M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md) | `blocked` | The manifest/render/transport tail is reusable, but M03 currently authors protocol text and asserted refs that GTL must declare. |
 | Packed candidate, clean install, bounded negatives, and installed live proof | T-223 installed vertical; `779eb07`, `28da030` | [M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md](./M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md) | `blocked` | Two-product packaging and observed evidence are candidate subclaims; F_P admission and instruction placement prevent acceptance of the full live vertical. |
 | Reverted imperative Consensus implementation | rejected `945b5a2`; revert `2c85a88` | [M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md](./M03_CONSENSUS_REJECTED_AS_BUILT_BEHAVIOR_DESIGN.md) | `rejected` | No code or contract salvage by presumption. A future GTL design must expose missing atoms as gaps before implementation. |
+| Project-wide Prime contraction gate and migration | T-277 | [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md) | F_H-authorized for implementation; independent closure review pending | T-277 may implement its measured contractions in bounded checkpoints. The gate and ledger remain design authority only and cannot become product runtime truth. |
 
 ## Non-Code Dispositions
 
@@ -69,12 +70,14 @@ stage:
 
 ## Evaluation Order
 
-The standing structural/render command is `npm run check:design-mermaid` from
-the TypeScript tenant root. It derives its source set from the register above,
+The standing design command is `npm run check:design` from the TypeScript
+tenant root. Its Mermaid lane derives its source set from the register above,
 checks that completed DS-1 through DS-3 ticket design carriers are represented,
 requires the ordered domain/sequence/state views, renders with the pinned local
-Mermaid CLI into temporary output, and removes that output. A green render
-remains syntax evidence; it does not replace independent axiom or F_H review.
+Mermaid CLI into temporary output, and removes that output. Its prospective
+Prime lane validates T-277-governed accepted designs against ADR-044. A green
+render or Prime block remains deterministic evidence; neither replaces
+independent axiom or F_H review.
 
 1. Run the standing Mermaid structural/render command.
 2. Apply its cross-view invariants.

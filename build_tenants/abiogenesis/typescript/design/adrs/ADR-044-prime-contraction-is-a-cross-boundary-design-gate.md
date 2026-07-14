@@ -93,6 +93,51 @@ later passes the Promotion Test.
 Existing product authorities remain external to this design carrier. T-277
 may reference them and migrate consumers, but it cannot replace them.
 
+## Prime Contraction Review
+
+```json prime-contraction
+{
+  "schemaVersion": 1,
+  "iacs": [
+    "PrimeContractionLedger"
+  ],
+  "authoritativeCarriers": [
+    "PrimeContractionLedger"
+  ],
+  "subordinatePayloads": [
+    "BoundaryObservation",
+    "PromotionAssessment",
+    "ContractionDisposition",
+    "MigrationMeasure",
+    "PostTicketReview"
+  ],
+  "promotionTests": [
+    {
+      "candidate": "PrimeContractionLedger",
+      "verdict": "promote",
+      "reason": "The ledger is the singular accepted cross-boundary disposition and proof record for T-277."
+    }
+  ],
+  "recurrenceReview": {
+    "status": "commonize_tenant",
+    "ref": "build_tenants/abiogenesis/typescript/design/A5_PRIME_CONTRACTION_CENSUS.md#pc-011---prime-design-enforcement"
+  },
+  "authoritySourceCount": {
+    "before": 0,
+    "after": 1
+  },
+  "authoringSourceCount": {
+    "before": 0,
+    "after": 1
+  },
+  "disposition": "retain_prime",
+  "ownerTicket": "T-277"
+}
+```
+
+This block is the deterministic projection of the prose IACS and PC-011
+decision. It does not replace the surrounding design or census.
+
 ## Promotion Test
 
 A proposed top-level type, registry, schema family, module, helper, or proof
