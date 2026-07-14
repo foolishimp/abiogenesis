@@ -4,7 +4,11 @@
 - title: Restore ticket, design, and public-contract governance coverage
 - type: chore
 - ticket_category: ordinary
-- status: active
+- status: completed
+- phase_status: closed_after_full_self_review
+- review_status: accepted_under_explicit_standing_delegation
+- implementation_status: realized_and_verified
+- proof_status: passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Make the mechanical governance surfaces observe every current DS-1 through
@@ -17,6 +21,14 @@
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
 - updated_at: 2026-07-14
+- completed_at: 2026-07-14
+- implementation_commit: 09e4864d
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T023220Z_SELF_REVIEW_t273_governance_gate_repair.md
+- decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T023400Z_DECISION_delegated_fh_close_t273.md
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: high
@@ -41,3 +53,10 @@ Ticket and design gates fail when a required field or accepted design is
 missing. The Mermaid gate derives its expected set from the register rather
 than a numeric constant. Public metadata, schema, and runtime agree on null.
 No closure record cites a review artifact that does not exist.
+
+## Closure
+
+Closed under the owner's explicit standing delegation after full semantic
+verification. The current gate observes 16 DS-1 through DS-3 tickets, 13
+required fields per ticket, 57 local commentary references, and 21 registered
+three-view designs. The full semantic suite passes 1,693/1,693.
