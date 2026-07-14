@@ -42,6 +42,9 @@
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
+- pc011_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T141237Z_SELF_REVIEW_t277_pc011_prime_gate.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -165,6 +168,12 @@ Every census row must end in exactly one state:
   commonization surface
 - [ ] all affected ticket and proof claims agree with the final tree
 - [ ] post-migration census proves the before-and-after contraction counts
+
+## Implementation Progress
+
+- `PC-011`: implemented at `be287765`; focused positive and negative proof is
+  green; independent closure review remains pending
+- `PC-004` and `PC-005`: next bounded implementation slice
 
 ## Exit
 

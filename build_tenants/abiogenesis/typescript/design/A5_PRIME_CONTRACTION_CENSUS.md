@@ -280,6 +280,9 @@ but no cross-ticket contraction pass joined the designs.
 - **Negative proof**: annotation-only Prime, duplicate authoring source,
   missing recurrence disposition, missing count, or unreviewed acceptance is
   rejected.
+- **Implementation status**: realized at `be287765`. The standing aggregate
+  gate now covers 23 rendered designs and seven T-277-governed tickets; seven
+  focused Prime negatives pass. Independent closure review remains pending.
 
 ### PC-012 - Generated operation schema multiplicity
 
