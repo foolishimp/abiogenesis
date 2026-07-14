@@ -5,8 +5,8 @@
 - type: chore
 - ticket_category: implementation_migration
 - status: active
-- phase_status: census_and_adr_in_progress
-- review_status: pending
+- phase_status: implementation_authorized
+- review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - proof_status: pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 through DS-6
@@ -21,7 +21,7 @@
     authority and cross-boundary commonization
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-14
+- updated_at: 2026-07-15
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-244
@@ -39,6 +39,9 @@
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T134327Z_SELF_REVIEW_t277_prime_contraction_design_packet.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -148,7 +151,8 @@ Every census row must end in exactly one state:
 - [x] the target is one authority plus explicit derived projections, not a
   wrapper over the old paths
 - [x] producer, consumer, projection, and proof surfaces are required per row
-- [ ] ADR-044 is independently accepted
+- [x] ADR-044 is explicitly F_H-authorized for implementation
+- [ ] ADR-044 and the resulting implementation receive independent closure review
 - [ ] every migration row names its exact old and new path
 - [ ] every existing consumer is moved before the old source is retired
 - [ ] mixed old/new authority fails the row's negative proof

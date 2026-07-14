@@ -2,7 +2,7 @@
 
 **Series**: abiogenesis / typescript build
 
-**Status**: Candidate - independent review required
+**Status**: F_H-authorized for implementation; independent closure review pending
 
 **Date**: 2026-07-14
 
@@ -312,8 +312,8 @@ Negative:
 
 ## Acceptance Gate
 
-This ADR remains `Candidate`. It authorizes no runtime or public realization
-change until independent review confirms the counting law, IACS, dispositions,
-three views, scope, and stop conditions. The owner must then explicitly accept
-the design. T-277 may complete documentary census and ticket routing before
-that acceptance but may not implement code.
+The owner explicitly authorized implementation on 2026-07-15 after receiving
+the candidate packet and its implementation block. Independent review has not
+been fabricated and remains mandatory before T-277 closure. Any independent
+finding may re-enter the counting law, IACS, disposition, owner routing, or
+bounded implementation before closure.

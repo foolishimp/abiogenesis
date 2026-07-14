@@ -1,6 +1,6 @@
 # ABIogenesis 5.0 Prime Contraction Census
 
-**Status**: Candidate baseline
+**Status**: F_H-authorized implementation baseline; independent closure review pending
 
 **Owner**: T-277
 
