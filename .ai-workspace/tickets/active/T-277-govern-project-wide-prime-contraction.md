@@ -5,7 +5,7 @@
 - type: chore
 - ticket_category: implementation_migration
 - status: active
-- phase_status: implementation_authorized
+- phase_status: implementation_active
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - proof_status: pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -45,6 +45,9 @@
 - pc011_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T141237Z_SELF_REVIEW_t277_pc011_prime_gate.md
+- pc004_pc005_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T144820Z_SELF_REVIEW_t277_pc004_pc005_operation_schema_contraction.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -175,8 +178,16 @@ Every census row must end in exactly one state:
 
 - `PC-011`: implemented at `be287765`; focused positive and negative proof is
   green; independent closure review remains pending
-- `PC-004` and `PC-005`: focused three-view design is F_H-authorized under the
-  T-277 implementation decision; implementation is active
+- `PC-004`: implemented at `b3cd1003`; seven operation roster/branch authoring
+  surfaces contract to the definition register plus the retained exact typed
+  SDK behavior boundary; all 19 realized operation identities remain stable
+- `PC-005`: implemented at `b3cd1003`; schema generation and publication now
+  consume one tenant-local operation-schema projector; all 57 operation schema
+  projection identities and paths remain stable
+- `PC-004` and `PC-005`: focused and aggregate gates are green from the exact
+  implementation commit; independent closure review remains pending
+- next implementation boundary: apply `PC-007` to the open T-270 and T-272
+  designs before either runtime route is realized
 
 ## Exit
 

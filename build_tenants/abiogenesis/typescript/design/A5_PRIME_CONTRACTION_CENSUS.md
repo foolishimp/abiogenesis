@@ -151,6 +151,11 @@ but no cross-ticket contraction pass joined the designs.
   operation identities remain `36`.
 - **Negative proof**: missing, duplicate, or extra definition/handler keys fail
   the exact census; CLI and SDK outcomes remain equal per operation.
+- **Implementation status**: realized at `b3cd1003` for the current 19
+  operations. Identity, CLI coordinates, workspace policy, and invocation
+  construction derive from the definition register. The explicit typed SDK
+  effect dispatch remains the second lawful surface; exact branch coverage is
+  gated. Independent closure review remains pending.
 
 ### PC-005 - Public schema-definition projection recurrence
 
@@ -168,6 +173,9 @@ but no cross-ticket contraction pass joined the designs.
 - **Measure**: operation schema-definition algorithms `2 -> 1`.
 - **Negative proof**: generator and publisher cannot accept different path or
   contract-ID projections for the same operation register.
+- **Implementation status**: realized at `b3cd1003`. Generation and publication
+  consume `project_public_operation_schemas.mjs`; 57 projection identities and
+  paths remain unchanged. Independent closure review remains pending.
 
 ### PC-006 - Capability declaration graph
 
@@ -314,7 +322,7 @@ but no cross-ticket contraction pass joined the designs.
 | Consensus callable declaration sources | 2 | 1 |
 | Consensus public contract authoring families | not yet implemented | 1 for 9 schema and 2 vocabulary projections |
 | Public operation identities | 36 | 36 |
-| Current operation realization roster/branch surfaces | 6 | at most 2 |
+| Current operation realization roster/branch surfaces | 7 | 2 |
 | Operation schema-definition algorithms | 2 | 1 |
 | Mandatory capability identities | 16 | 16 |
 | Capability authoring graphs | fragmented/static plus future manifest | 1 |
