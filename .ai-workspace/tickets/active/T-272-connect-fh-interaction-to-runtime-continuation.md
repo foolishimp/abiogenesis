@@ -5,8 +5,8 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: pc007_design_candidate
-- review_status: design_review_pending
+- phase_status: design_accepted_implementation_pending
+- review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - proof_status: pending
 - delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -46,6 +46,12 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T150622Z_SELF_REVIEW_t277_pc007_runtime_authority_designs.md
 
 ## Boundary
 

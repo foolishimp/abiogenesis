@@ -1,6 +1,6 @@
 # M03-M04 Public Catalog Invocation Authority Behavior Design
 
-**Status**: Candidate for PC-007 review
+**Status**: F_H-authorized for PC-007 implementation; independent closure review pending
 **Date**: 2026-07-15
 **Ticket**: `T-270`
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
@@ -445,7 +445,7 @@ Implementation acceptance requires:
 
 ## Design Verdict
 
-`candidate`. The design is structurally complete and intentionally introduces
-no new public carrier. Implementation remains blocked until the PC-007 review
-confirms the multi-vector authority table, `ExecutionBasis` join, and T-271
-production path.
+`accepted` for bounded implementation under the explicit T-277 F_H decision.
+The design introduces no new public carrier. Independent review must still
+confirm the realized multi-vector authority table, `ExecutionBasis` join, and
+T-271 production path before T-270 closes.

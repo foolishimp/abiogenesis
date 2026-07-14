@@ -1,6 +1,6 @@
 # M03-M04 F_H Runtime Continuation Behavior Design
 
-**Status**: Candidate for PC-007 review
+**Status**: F_H-authorized for PC-007 implementation; independent closure review pending
 **Date**: 2026-07-15
 **Ticket**: `T-272`
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
@@ -426,7 +426,8 @@ Implementation acceptance requires:
 
 ## Design Verdict
 
-`candidate`. The design preserves existing execution, interaction, event, and
-receipt families and introduces no session/controller carrier. Implementation
-remains blocked until PC-007 review confirms the replay-seed proportionality,
-successor-receipt relation, and exact T-270 dependency.
+`accepted` for bounded implementation under the explicit T-277 F_H decision.
+The design preserves existing execution, interaction, event, and receipt
+families and introduces no session/controller carrier. Independent review must
+still confirm the realized replay-seed proportionality, successor-receipt
+relation, and exact T-270 dependency before T-272 closes.
