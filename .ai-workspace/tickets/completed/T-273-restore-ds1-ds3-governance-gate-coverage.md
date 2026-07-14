@@ -5,7 +5,7 @@
 - type: chore
 - ticket_category: ordinary
 - status: completed
-- phase_status: closed_after_full_self_review
+- phase_status: closed_after_post_review_repair
 - review_status: accepted_under_explicit_standing_delegation
 - implementation_status: realized_and_verified
 - proof_status: passed
@@ -23,6 +23,10 @@
 - updated_at: 2026-07-14
 - completed_at: 2026-07-14
 - implementation_commit: 09e4864d
+- post_review_repair_commit: b1d24cf5
+- post_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T035000Z_SELF_REVIEW_t273_governance_discovery_repair.md
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T023220Z_SELF_REVIEW_t273_governance_gate_repair.md
@@ -56,7 +60,10 @@ No closure record cites a review artifact that does not exist.
 
 ## Closure
 
-Closed under the owner's explicit standing delegation after full semantic
-verification. The current gate observes 16 DS-1 through DS-3 tickets, 13
-required fields per ticket, 57 local commentary references, and 21 registered
-three-view designs. The full semantic suite passes 1,693/1,693.
+Closed under the owner's explicit standing delegation after post-review repair.
+The current gate discovers the T-252 delivery lineage independently of
+`delivery_phase`, observes 19 DS-1 through DS-3 tickets, validates 13 required
+fields per ticket and 59 local commentary references, rejects duplicate
+metadata, and includes active accepted designs in the 21-design register. The
+pre-repair full semantic suite passed 1,693/1,693; the post-repair focused gates
+are recorded in the cited review.

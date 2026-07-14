@@ -5,7 +5,7 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: blocked_by_ds1_ds3_review_remediation
+- phase_status: blocked_by_runtime_integration_and_ds4_publication
 - review_status: design_required
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -26,12 +26,14 @@
 - source_ticket: T-252
 - dependencies:
   - completed T-255 canonical-manifest admission and capability-coverage contract
-  - active T-252 topology and exhaustive census repair
-  - active T-262 parent-rebind repair
+  - completed T-252 topology and exhaustive census repair
+  - completed T-262 parent-rebind repair
   - active T-267 declared-program conservation repair
   - T-270 public catalog/start integration
   - T-271 complete C-program interpretation
   - T-272 F_H lifecycle integration
+  - T-274 Consensus public schemas and installed catalog publication
+  - T-275 attributed reviewer profiles and ticket-result projection
 - authority_refs:
   - specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md
@@ -57,6 +59,11 @@ T-268 publishes canonical manifest truth. M04 admits that manifest against the
 existing public contract catalog. T-255 derives a basis-preserving capability-
 coverage projection and decides effect compatibility. T-268 does not self-admit
 the manifest and does not own handoff publication or runtime admission.
+
+T-268 does not own the Consensus schema bodies, installed Module/catalog row,
+reviewer-profile admission, ticket-result projection, or installed workspace
+qualification. T-274 owns publication, T-275 owns the domain carriers and
+projection, and T-276 owns the three-workspace installed scenario evidence.
 
 ## T-252 Census Gap Ownership
 

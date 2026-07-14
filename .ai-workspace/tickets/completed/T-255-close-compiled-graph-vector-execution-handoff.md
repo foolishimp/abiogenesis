@@ -146,3 +146,8 @@ T-268.
 - generated publication assets: 33 verified from 1035 immutable payload files
 - Mermaid design gate: 5/5 across 27 diagrams in 9 files
 - semantic lint and diff checks: passed
+
+Post-review selection reconciliation checkpoint: `a644b8eb`. The exact
+vector/program selector now returns an accepted binding with no residual T-254
+placeholder diagnostic, and T-255 proves all 34 canonical selections before
+partitioning handoff outcomes.

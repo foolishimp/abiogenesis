@@ -173,8 +173,12 @@ reduction inside Consensus. It does not publish a generic standalone
 Review-to-ticket product, scheduler, watcher, recurrence service, automatic
 ticket mutation, generic portfolio consensus service, or new engine law.
 
-Gap: the current line publishes reserved Review/Consensus declarations and
-closed vocabularies but no executable Consensus GTL body or canonical schemas,
-and it has no packed installed Consensus invocation proof. Owner: T-244 routing;
-design and realization require separate singular leaves carrying
-`REQ-P-CONSENSUS-016..018` unchanged.
+Gap: the current line has an admitted executable Consensus GTL body and direct
+runtime atoms, but complete mixed-program interpretation, whole-program
+conservation, public invocation, F_H continuation, canonical public schemas,
+installed catalog publication, attributed reviewer-profile admission,
+ticket-result projection, tenant-conformance coverage, and packed installed
+invocation proof remain open. T-267 and T-270..T-272 own runtime integration;
+T-274 owns public schema and installed catalog publication; T-275 owns profiles
+and ticket-result projection; T-268 owns tenant-conformance coverage; and T-276
+owns `REQ-P-CONSENSUS-016..018` installed scenario evidence.

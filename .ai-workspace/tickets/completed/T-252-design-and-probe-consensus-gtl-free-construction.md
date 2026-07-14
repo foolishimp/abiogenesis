@@ -119,6 +119,10 @@ The corrected probe:
 - the explicit standing F_H delegation authorized this bounded closure pending
   the owner's return review.
 
+Post-review census reconciliation checkpoint: `a644b8eb`. It removes the 34
+superseded vector-selection diagnostics and makes normalized semantic
+diagnostics independently exhaustive before ownership is joined.
+
 ## Non-Closure
 
 Hard-coded successor expectations presented as compiler output, ticket status
