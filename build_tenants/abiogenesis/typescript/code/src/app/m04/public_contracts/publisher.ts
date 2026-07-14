@@ -26,7 +26,7 @@ import {
   type Ds1StaticContractAssetDefinition,
   type PublishedContractAsset
 } from "./foundation.js";
-import { buildDs1OperationPublication } from "./operations.js";
+import { buildDs1OperationPublication } from "./operation_publication.js";
 
 const CATALOG_PATH = "contracts/public-contract-catalog.json";
 const CATALOG_SCHEMA_ID = "abg.schema.public-contract-catalog";

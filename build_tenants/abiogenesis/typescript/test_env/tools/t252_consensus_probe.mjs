@@ -78,7 +78,7 @@ import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts
 import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
 import { serializeModule } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
 import { stableSha256Digest } from "../../build/semantic/code/src/shared/runtime_identity.js";
-import { DS1_PUBLIC_OPERATION_IDS } from "../../build/semantic/code/src/app/m04/public_sdk/carriers.js";
+import { DS1_PUBLIC_OPERATION_IDS } from "../../build/semantic/code/src/app/m04/public_contracts/operations.js";
 import { admitDs1OperationRequest } from "../../build/semantic/code/src/app/m04/public_sdk/operation_admission.js";
 import { DS1_PUBLIC_OPERATION_DEFINITION_REGISTER } from "../../build/semantic/code/src/app/m04/public_contracts/operations.js";
 

@@ -36,7 +36,10 @@ import {
   canonicalizeIJson,
   type IJsonValue
 } from "./canonical.js";
-import { DS1_PUBLIC_OPERATION_IDS } from "./carriers.js";
+import {
+  DS1_PUBLIC_OPERATION_IDS,
+  publicOperationSlug
+} from "../public_contracts/operations.js";
 import {
   canonicalStringList,
   deriveRegistrySessionViewRef
@@ -103,28 +106,6 @@ const ENVELOPE_KEYS = Object.freeze([
   "adapter",
   "correlationId"
 ]);
-
-const OPERATION_SLUGS: Readonly<Record<PublicOperationId, string>> = Object.freeze({
-  "abg.operation.workspace.create": "workspace.create",
-  "abg.operation.workspace.open": "workspace.open",
-  "abg.operation.catalog.resolve": "catalog.resolve",
-  "abg.operation.catalog.verify": "catalog.verify",
-  "abg.operation.install.install": "install.install",
-  "abg.operation.catalog.bind": "catalog.bind",
-  "abg.operation.catalog.admit": "catalog.admit",
-  "abg.operation.catalog.list": "catalog.list",
-  "abg.operation.catalog.describe": "catalog.describe",
-  "abg.operation.catalog.allow": "catalog.allow",
-  "abg.operation.catalog.invoke": "catalog.invoke",
-  "abg.operation.fh.select": "fh.select",
-  "abg.operation.fh.approve": "fh.approve",
-  "abg.operation.fh.reject": "fh.reject",
-  "abg.operation.fh.assess": "fh.assess",
-  "abg.operation.fh.answer-escalation": "fh.answer-escalation",
-  "abg.operation.run.resume": "run.resume",
-  "abg.operation.read.result": "read.result",
-  "abg.operation.read.replay": "read.replay"
-});
 
 function operationId(input: unknown, label: string): PublicOperationId {
   return oneOf(input, DS1_PUBLIC_OPERATION_IDS, label);
@@ -917,7 +898,7 @@ function admitEnvelopeCommon(
   id: PublicOperationId,
   label: string
 ): AdmittedEnvelopeCommon {
-  const slug = OPERATION_SLUGS[id];
+  const slug = publicOperationSlug(id);
   const expectedRequestSchemaId = `abg.schema.operation.${slug}.request`;
   const expectedResultSchemaId = `abg.schema.operation.${slug}.result`;
   const expectedRefusalSchemaId = `abg.schema.operation.${slug}.refusal`;

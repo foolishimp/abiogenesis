@@ -30,6 +30,7 @@ import {
   identity,
   serializeModule
 } from "../../build/semantic/code/src/index.js";
+import { projectPublicOperationSchemaDefinitions } from "./project_public_operation_schemas.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const PACKAGE_ROOT = path.resolve(HERE, "../..");
@@ -110,20 +111,12 @@ async function contractAsset(relativePath) {
   });
 }
 
-function operationSchemaDefinitions() {
-  return DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.flatMap((operation) => {
-    const slug = operation.operationId.slice("abg.operation.".length);
-    return ["request", "result", "refusal"].map((member) => Object.freeze({
-      contractId: `abg.schema.operation.${slug}.${member}`,
-      relativePath: `contracts/schemas/operations/${slug}/${member}.schema.json`
-    }));
-  });
-}
-
 function expectedSchemaDefinitions() {
   return Object.freeze([
     ...DS1_BASELINE_SCHEMA_ASSET_REGISTER,
-    ...operationSchemaDefinitions()
+    ...projectPublicOperationSchemaDefinitions(
+      DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
+    )
   ].sort((left, right) => compareText(left.contractId, right.contractId)));
 }
 

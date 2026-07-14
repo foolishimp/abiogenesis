@@ -64,16 +64,14 @@ export type PublicOperationInvocationConstruction<
 export type AnyPublicOperationInvocationConstruction =
   PublicOperationInvocationConstruction<PublicOperationId>;
 
-export function constructPublicOperationInvocation<
-  K extends PublicOperationId
->(
-  input: PublicOperationInvocationConstruction<K>
-): PublicOperationInvocationEnvelope<K>;
-export function constructPublicOperationInvocation(
-  input: AnyPublicOperationInvocationConstruction
-): AnyPublicOperationInvocationEnvelope;
-export function constructPublicOperationInvocation(
-  input: AnyPublicOperationInvocationConstruction
+export interface DynamicPublicOperationInvocationConstruction
+  extends PublicOperationInvocationConstructionCommon {
+  readonly operationId: PublicOperationId;
+  readonly request: unknown;
+}
+
+export function constructDynamicPublicOperationInvocation(
+  input: DynamicPublicOperationInvocationConstruction
 ): AnyPublicOperationInvocationEnvelope {
   const resolvedOperation = resolvePublicOperationContract(
     input.publicContractCatalog,
@@ -91,30 +89,30 @@ export function constructPublicOperationInvocation(
     `${input.operationId}.request`
   );
   const envelopeInput: unknown = Object.freeze({
-      schemaVersion: 1,
-      invocationSchemaId: operation.invocationSchemaId,
-      invocationSchemaVersion: operation.invocationSchemaVersion,
-      invocationSchemaDigest: operation.invocationSchemaDigest,
-      invocationId: input.invocationId,
-      operationId: input.operationId,
-      operationContractVersion: operation.operationVersion,
-      operationContractDigest: operation.operationDigest,
-      requestId: input.requestId,
-      requestSchemaId: operation.requestSchemaId,
-      requestSchemaVersion: operation.requestSchemaVersion,
-      requestSchemaDigest: operation.requestSchemaDigest,
-      resultSchemaId: operation.resultSchemaId,
-      resultSchemaVersion: operation.resultSchemaVersion,
-      resultSchemaDigest: operation.resultSchemaDigest,
-      refusalSchemaId: operation.refusalSchemaId,
-      refusalSchemaVersion: operation.refusalSchemaVersion,
-      refusalSchemaDigest: operation.refusalSchemaDigest,
-      request,
-      actorRef: input.actorRef,
-      provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
-      adapter: input.adapter,
-      correlationId: input.correlationId ?? input.invocationId
-    });
+    schemaVersion: 1,
+    invocationSchemaId: operation.invocationSchemaId,
+    invocationSchemaVersion: operation.invocationSchemaVersion,
+    invocationSchemaDigest: operation.invocationSchemaDigest,
+    invocationId: input.invocationId,
+    operationId: input.operationId,
+    operationContractVersion: operation.operationVersion,
+    operationContractDigest: operation.operationDigest,
+    requestId: input.requestId,
+    requestSchemaId: operation.requestSchemaId,
+    requestSchemaVersion: operation.requestSchemaVersion,
+    requestSchemaDigest: operation.requestSchemaDigest,
+    resultSchemaId: operation.resultSchemaId,
+    resultSchemaVersion: operation.resultSchemaVersion,
+    resultSchemaDigest: operation.resultSchemaDigest,
+    refusalSchemaId: operation.refusalSchemaId,
+    refusalSchemaVersion: operation.refusalSchemaVersion,
+    refusalSchemaDigest: operation.refusalSchemaDigest,
+    request,
+    actorRef: input.actorRef,
+    provenanceRefs: Object.freeze([...(input.provenanceRefs ?? [])]),
+    adapter: input.adapter,
+    correlationId: input.correlationId ?? input.invocationId
+  });
   const admitted = admitPublicOperationInvocationEnvelope(
     envelopeInput,
     resolvedOperation
@@ -125,6 +123,20 @@ export function constructPublicOperationInvocation(
     );
   }
   return admitted;
+}
+
+export function constructPublicOperationInvocation<
+  K extends PublicOperationId
+>(
+  input: PublicOperationInvocationConstruction<K>
+): PublicOperationInvocationEnvelope<K>;
+export function constructPublicOperationInvocation(
+  input: AnyPublicOperationInvocationConstruction
+): AnyPublicOperationInvocationEnvelope;
+export function constructPublicOperationInvocation(
+  input: AnyPublicOperationInvocationConstruction
+): AnyPublicOperationInvocationEnvelope {
+  return constructDynamicPublicOperationInvocation(input);
 }
 
 function admitEnvelope(

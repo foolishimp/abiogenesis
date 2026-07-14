@@ -1,12 +1,8 @@
 // Implements: REQ-P-PUBLIC-CONTRACTS-008 through REQ-P-PUBLIC-CONTRACTS-010
 
-import { admitPublicContractRow } from "../public_sdk/carrier_admission.js";
-import { canonicalizeIJson } from "../public_sdk/canonical.js";
 import type { IJsonValue } from "../public_sdk/canonical.js";
 import type {
-  PublicContractRow,
   PublicOperationAuthorityClass,
-  PublicOperationContractMetadata,
   PublicOperationDefault,
   PublicOperationEffectClass,
   PublicOperationEventAdmission,
@@ -14,20 +10,16 @@ import type {
   PublicOperationValueDomain,
   PublicOperationValueDomainKind
 } from "../public_sdk/carriers.js";
-import {
-  admitDs1StaticContractAsset,
-  publicContractAssetDigest,
-  type Ds1StaticContractAssetDefinition,
-  type PublishedContractAsset
-} from "./foundation.js";
 
-const PACKAGE_NAME = "@abiogenesis/typescript-tenant";
-const PRODUCT_ID = "abiogenesis";
-const CONTRACT_VERSION = "1.0.0";
-const OPERATION_DEFINITION_SCHEMA_ID = "abg.schema.public-operation-contract";
+export interface PublicOperationCliCoordinate {
+  readonly command: string;
+  readonly subcommand: string | null;
+  readonly workspacePolicy: "required" | "forbidden";
+}
 
-interface Ds1OperationDefinition {
+export interface Ds1OperationDefinition {
   readonly operationId: PublicOperationId;
+  readonly cli: PublicOperationCliCoordinate;
   readonly handlerSymbol: string;
   readonly requestSymbol: string;
   readonly resultSymbol: string;
@@ -41,17 +33,6 @@ interface Ds1OperationDefinition {
   readonly eventAdmission: PublicOperationEventAdmission;
   readonly terminalDispositions: readonly string[];
   readonly nonTerminalDispositions: readonly string[];
-}
-
-export interface Ds1OperationPublication {
-  readonly rows: readonly PublicContractRow[];
-  readonly generatedAssets: readonly PublishedContractAsset[];
-}
-
-export interface PublicOperationDefinitionAsset
-  extends Omit<PublicOperationContractMetadata, "operationDigest"> {
-  readonly kind: "abg_public_operation_contract";
-  readonly schemaVersion: 1;
 }
 
 function literalDefault(
@@ -100,7 +81,21 @@ function closedRequest(): PublicOperationValueDomain {
   });
 }
 
-function operation(input: Ds1OperationDefinition): Ds1OperationDefinition {
+function cli(
+  command: string,
+  subcommand: string | null,
+  workspacePolicy: "required" | "forbidden"
+): PublicOperationCliCoordinate {
+  if (
+    command.trim() === "" ||
+    (subcommand !== null && subcommand.trim() === "")
+  ) {
+    throw new TypeError("public operation CLI coordinates must be non-empty");
+  }
+  return Object.freeze({ command, subcommand, workspacePolicy });
+}
+
+function operation<const T extends Ds1OperationDefinition>(input: T): T {
   return Object.freeze(input);
 }
 
@@ -111,15 +106,20 @@ type FhResponseOperationId =
   | "abg.operation.fh.assess"
   | "abg.operation.fh.answer-escalation";
 
-function fhResponseOperation(input: {
+function fhResponseOperation<const T extends {
   readonly operationId: FhResponseOperationId;
   readonly handlerSymbol: string;
   readonly requestSymbol: string;
   readonly resultSymbol: string;
   readonly refusalSymbol: string;
-}): Ds1OperationDefinition {
+}>(input: T) {
   return operation({
     ...input,
+    cli: cli(
+      "fh",
+      input.operationId.slice("abg.operation.fh.".length),
+      "required"
+    ),
     capabilityRefs: Object.freeze(["abg.capability.fh.interact@5"]),
     defaults: Object.freeze([]),
     closedDomains: Object.freeze([
@@ -176,6 +176,7 @@ function fhResponseOperation(input: {
 const DS1_OPERATIONS = Object.freeze([
   operation({
     operationId: "abg.operation.workspace.create",
+    cli: cli("workspace", "create", "required"),
     handlerSymbol: "workspaceCreate",
     requestSymbol: "WorkspaceCreateRequest",
     resultSymbol: "WorkspaceCreateResult",
@@ -201,6 +202,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.workspace.open",
+    cli: cli("workspace", "open", "required"),
     handlerSymbol: "workspaceOpen",
     requestSymbol: "WorkspaceOpenRequest",
     resultSymbol: "WorkspaceOpenResult",
@@ -228,6 +230,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.resolve",
+    cli: cli("catalog", "resolve", "forbidden"),
     handlerSymbol: "catalogResolve",
     requestSymbol: "CatalogResolveRequest",
     resultSymbol: "CatalogResolveResult",
@@ -258,6 +261,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.verify",
+    cli: cli("catalog", "verify", "forbidden"),
     handlerSymbol: "catalogVerify",
     requestSymbol: "CatalogVerifyRequest",
     resultSymbol: "CatalogVerifyResult",
@@ -286,6 +290,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.install.install",
+    cli: cli("install", null, "forbidden"),
     handlerSymbol: "installProduct",
     requestSymbol: "InstallProductRequest",
     resultSymbol: "InstallProductResult",
@@ -329,6 +334,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.bind",
+    cli: cli("catalog", "bind", "required"),
     handlerSymbol: "catalogBind",
     requestSymbol: "CatalogBindRequest",
     resultSymbol: "CatalogBindResult",
@@ -369,6 +375,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.admit",
+    cli: cli("catalog", "admit", "required"),
     handlerSymbol: "catalogAdmit",
     requestSymbol: "CatalogAdmitRequest",
     resultSymbol: "CatalogAdmitResult",
@@ -401,6 +408,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.list",
+    cli: cli("catalog", "list", "required"),
     handlerSymbol: "catalogList",
     requestSymbol: "CatalogListRequest",
     resultSymbol: "CatalogListResult",
@@ -439,6 +447,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.describe",
+    cli: cli("catalog", "describe", "required"),
     handlerSymbol: "catalogDescribe",
     requestSymbol: "CatalogDescribeRequest",
     resultSymbol: "CatalogDescribeResult",
@@ -471,6 +480,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.allow",
+    cli: cli("catalog", "allow", "required"),
     handlerSymbol: "catalogAllow",
     requestSymbol: "CatalogAllowRequest",
     resultSymbol: "CatalogAllowResult",
@@ -498,6 +508,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.catalog.invoke",
+    cli: cli("catalog", "invoke", "required"),
     handlerSymbol: "catalogInvoke",
     requestSymbol: "CatalogInvokeRequest",
     resultSymbol: "CatalogInvokeResult",
@@ -632,6 +643,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.run.resume",
+    cli: cli("resume", null, "required"),
     handlerSymbol: "runResume",
     requestSymbol: "RunResumeRequest",
     resultSymbol: "RunResumeResult",
@@ -663,6 +675,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.read.result",
+    cli: cli("result", null, "required"),
     handlerSymbol: "readResult",
     requestSymbol: "ReadResultRequest",
     resultSymbol: "ReadResultResult",
@@ -688,6 +701,7 @@ const DS1_OPERATIONS = Object.freeze([
   }),
   operation({
     operationId: "abg.operation.read.replay",
+    cli: cli("replay", null, "required"),
     handlerSymbol: "readReplay",
     requestSymbol: "ReadReplayRequest",
     resultSymbol: "ReadReplayResult",
@@ -725,213 +739,76 @@ const DS1_OPERATIONS = Object.freeze([
   })
 ] satisfies readonly Ds1OperationDefinition[]);
 
-function compareText(left: string, right: string): number {
-  return left < right ? -1 : left > right ? 1 : 0;
-}
-
-function assetMap(
-  assets: readonly Ds1StaticContractAssetDefinition[]
-): ReadonlyMap<string, Ds1StaticContractAssetDefinition> {
-  const byId = new Map<string, Ds1StaticContractAssetDefinition>();
-  for (const rawAsset of assets) {
-    const asset = admitDs1StaticContractAsset(rawAsset);
-    if (byId.has(asset.contractId)) {
-      throw new TypeError(`operation schema assets: duplicate ${asset.contractId}`);
-    }
-    byId.set(asset.contractId, asset);
-  }
-  return byId;
-}
-
-function requiredSchemaAsset(input: {
-  readonly assets: ReadonlyMap<string, Ds1StaticContractAssetDefinition>;
-  readonly schemaId: string;
-  readonly schemaPath: string;
-}): Ds1StaticContractAssetDefinition {
-  const asset = input.assets.get(input.schemaId);
-  if (asset === undefined) {
-    throw new TypeError(`operation schema assets: missing ${input.schemaId}`);
-  }
-  if (
-    asset.relativePath !== input.schemaPath ||
-    asset.mediaType !== "application/schema+json"
-  ) {
-    throw new TypeError(`operation schema assets: locator mismatch for ${input.schemaId}`);
-  }
-  return asset;
-}
-
-function operationMetadataBasis(input: {
-  readonly definition: Ds1OperationDefinition;
-  readonly assets: ReadonlyMap<string, Ds1StaticContractAssetDefinition>;
-}): Omit<PublicOperationContractMetadata, "operationDigest"> {
-  const slug = input.definition.operationId.slice("abg.operation.".length);
-  const requestSchemaId = `abg.schema.operation.${slug}.request`;
-  const resultSchemaId = `abg.schema.operation.${slug}.result`;
-  const refusalSchemaId = `abg.schema.operation.${slug}.refusal`;
-  const requestSchemaPath =
-    `contracts/schemas/operations/${slug}/request.schema.json`;
-  const resultSchemaPath =
-    `contracts/schemas/operations/${slug}/result.schema.json`;
-  const refusalSchemaPath =
-    `contracts/schemas/operations/${slug}/refusal.schema.json`;
-  const invocationSchemaId = "abg.schema.public-operation-invocation";
-  const invocationSchemaPath =
-    "contracts/schemas/public-operation-invocation.schema.json";
-  const requestAsset = requiredSchemaAsset({
-    assets: input.assets,
-    schemaId: requestSchemaId,
-    schemaPath: requestSchemaPath
-  });
-  const resultAsset = requiredSchemaAsset({
-    assets: input.assets,
-    schemaId: resultSchemaId,
-    schemaPath: resultSchemaPath
-  });
-  const refusalAsset = requiredSchemaAsset({
-    assets: input.assets,
-    schemaId: refusalSchemaId,
-    schemaPath: refusalSchemaPath
-  });
-  const invocationAsset = requiredSchemaAsset({
-    assets: input.assets,
-    schemaId: invocationSchemaId,
-    schemaPath: invocationSchemaPath
-  });
-  return Object.freeze({
-    operationId: input.definition.operationId,
-    operationVersion: CONTRACT_VERSION,
-    requestSchemaId,
-    requestSchemaVersion: CONTRACT_VERSION,
-    requestSchemaDigest: publicContractAssetDigest(requestAsset.bytes),
-    requestSchemaPath,
-    resultSchemaId,
-    resultSchemaVersion: CONTRACT_VERSION,
-    resultSchemaDigest: publicContractAssetDigest(resultAsset.bytes),
-    resultSchemaPath,
-    refusalSchemaId,
-    refusalSchemaVersion: CONTRACT_VERSION,
-    refusalSchemaDigest: publicContractAssetDigest(refusalAsset.bytes),
-    refusalSchemaPath,
-    invocationSchemaId,
-    invocationSchemaVersion: CONTRACT_VERSION,
-    invocationSchemaDigest: publicContractAssetDigest(invocationAsset.bytes),
-    invocationSchemaPath,
-    defaults: input.definition.defaults,
-    closedDomains: input.definition.closedDomains,
-    actorPolicy: input.definition.actorPolicy,
-    authorityClass: input.definition.authorityClass,
-    effectClass: input.definition.effectClass,
-    eventAdmission: input.definition.eventAdmission,
-    terminalDispositions: input.definition.terminalDispositions,
-    nonTerminalDispositions: input.definition.nonTerminalDispositions,
-    adapterExitMap: Object.freeze({
-      acceptedTerminal: 0,
-      refused: 1,
-      invalidInvocation: 2,
-      acceptedNonTerminal:
-        input.definition.nonTerminalDispositions.length === 0 ? null : 3,
-      adapterFailure: 70
-    })
-  });
-}
-
-function operationAsset(input: {
-  readonly operationId: PublicOperationId;
-  readonly metadata: Omit<PublicOperationContractMetadata, "operationDigest">;
-}): PublishedContractAsset {
-  const slug = input.operationId.slice("abg.operation.".length);
-  const definition: PublicOperationDefinitionAsset = Object.freeze({
-    kind: "abg_public_operation_contract",
-    schemaVersion: 1,
-    ...input.metadata
-  });
-  const bytes = new TextEncoder().encode(
-    canonicalizeIJson(definition)
-  );
-  return Object.freeze({
-    relativePath: `contracts/operations/${slug}.json`,
-    bytes,
-    digest: publicContractAssetDigest(bytes)
-  });
-}
-
-function operationRow(input: {
-  readonly definition: Ds1OperationDefinition;
-  readonly metadata: Omit<PublicOperationContractMetadata, "operationDigest">;
-  readonly asset: PublishedContractAsset;
-}): PublicContractRow {
-  const invocationSymbols =
-    input.definition.operationId === "abg.operation.catalog.invoke"
-      ? ["PublicOperationInvocationEnvelope", "HostInvocationDescriptor"]
-      : ["PublicOperationInvocationEnvelope"];
-  return admitPublicContractRow({
-    contractId: input.definition.operationId,
-    contractKind: "operation",
-    owningProductId: PRODUCT_ID,
-    version: CONTRACT_VERSION,
-    digest: input.asset.digest,
-    authorityRefs: [
-      "specification/requirements/product/REQ-P-POLICY.md",
-      "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
-      "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_PUBLIC_OPERATION_REGISTER.md"
-    ],
-    capabilityRefs: input.definition.capabilityRefs,
-    nativeLocator: {
-      kind: "native",
-      packageName: PACKAGE_NAME,
-      packageExport: `${PACKAGE_NAME}/app/m04`,
-      symbols: [
-        input.definition.handlerSymbol,
-        input.definition.requestSymbol,
-        input.definition.resultSymbol,
-        input.definition.refusalSymbol,
-        ...invocationSymbols
-      ]
-    },
-    assetLocator: {
-      kind: "asset",
-      relativePath: input.asset.relativePath,
-      schemaId: OPERATION_DEFINITION_SCHEMA_ID,
-      schemaVersion: CONTRACT_VERSION,
-      mediaType: "application/json",
-      digest: input.asset.digest
-    },
-    operationContract: {
-      ...input.metadata,
-      operationDigest: input.asset.digest
-    }
-  });
-}
-
 export const DS1_PUBLIC_OPERATION_DEFINITION_REGISTER = DS1_OPERATIONS;
+export const DS1_PUBLIC_OPERATION_IDS: readonly PublicOperationId[] =
+  Object.freeze(DS1_OPERATIONS.map((definition) => definition.operationId));
 
-export function buildDs1OperationPublication(input: {
-  readonly schemaAssets: readonly Ds1StaticContractAssetDefinition[];
-}): Ds1OperationPublication {
-  const assets = assetMap(input.schemaAssets);
-  requiredSchemaAsset({
-    assets,
-    schemaId: OPERATION_DEFINITION_SCHEMA_ID,
-    schemaPath: "contracts/schemas/public-operation-contract.schema.json"
-  });
-  const rows: PublicContractRow[] = [];
-  const generatedAssets: PublishedContractAsset[] = [];
-  for (const definition of DS1_OPERATIONS) {
-    const metadata = operationMetadataBasis({ definition, assets });
-    const asset = operationAsset({
-      operationId: definition.operationId,
-      metadata
-    });
-    generatedAssets.push(asset);
-    rows.push(operationRow({ definition, metadata, asset }));
+type RegisteredPublicOperationId =
+  (typeof DS1_OPERATIONS)[number]["operationId"];
+type ExactPublicOperationRegister =
+  Exclude<PublicOperationId, RegisteredPublicOperationId> extends never
+    ? Exclude<RegisteredPublicOperationId, PublicOperationId> extends never
+      ? true
+      : never
+    : never;
+const EXACT_PUBLIC_OPERATION_REGISTER: ExactPublicOperationRegister = true;
+void EXACT_PUBLIC_OPERATION_REGISTER;
+
+const DS1_PUBLIC_OPERATION_DEFINITIONS_BY_ID = new Map<
+  PublicOperationId,
+  Ds1OperationDefinition
+>();
+const DS1_PUBLIC_OPERATION_DEFINITIONS_BY_CLI = new Map<
+  string,
+  Ds1OperationDefinition
+>();
+
+function cliCoordinateKey(
+  command: string,
+  subcommand: string | null
+): string {
+  return JSON.stringify([command, subcommand]);
+}
+
+for (const definition of DS1_OPERATIONS) {
+  if (DS1_PUBLIC_OPERATION_DEFINITIONS_BY_ID.has(definition.operationId)) {
+    throw new TypeError(`duplicate public operation ${definition.operationId}`);
   }
-  rows.sort((left, right) => compareText(left.contractId, right.contractId));
-  generatedAssets.sort((left, right) =>
-    compareText(left.relativePath, right.relativePath)
+  const cliKey = cliCoordinateKey(
+    definition.cli.command,
+    definition.cli.subcommand
   );
-  return Object.freeze({
-    rows: Object.freeze(rows),
-    generatedAssets: Object.freeze(generatedAssets)
-  });
+  if (DS1_PUBLIC_OPERATION_DEFINITIONS_BY_CLI.has(cliKey)) {
+    throw new TypeError(
+      `duplicate public operation CLI coordinate ${definition.cli.command} ${definition.cli.subcommand ?? ""}`
+    );
+  }
+  DS1_PUBLIC_OPERATION_DEFINITIONS_BY_ID.set(
+    definition.operationId,
+    definition
+  );
+  DS1_PUBLIC_OPERATION_DEFINITIONS_BY_CLI.set(cliKey, definition);
+}
+
+export function resolveDs1PublicOperationDefinition(
+  operationId: PublicOperationId
+): Ds1OperationDefinition {
+  const definition = DS1_PUBLIC_OPERATION_DEFINITIONS_BY_ID.get(operationId);
+  if (definition === undefined) {
+    throw new TypeError(`unknown public operation ${operationId}`);
+  }
+  return definition;
+}
+
+export function resolveDs1PublicOperationCliDefinition(
+  command: string,
+  subcommand: string | null
+): Ds1OperationDefinition | null {
+  return DS1_PUBLIC_OPERATION_DEFINITIONS_BY_CLI.get(
+    cliCoordinateKey(command, subcommand)
+  ) ?? null;
+}
+
+export function publicOperationSlug(operationId: PublicOperationId): string {
+  return operationId.slice("abg.operation.".length);
 }

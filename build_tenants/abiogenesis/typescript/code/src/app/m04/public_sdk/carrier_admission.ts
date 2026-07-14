@@ -22,8 +22,9 @@ import {
   uniqueStrings
 } from "./admission_primitives.js";
 import {
-  DS1_PUBLIC_OPERATION_IDS
-} from "./carriers.js";
+  DS1_PUBLIC_OPERATION_IDS,
+  publicOperationSlug
+} from "../public_contracts/operations.js";
 import {
   canonicalStringList,
   deriveRegistrySessionViewRef
@@ -322,7 +323,7 @@ function admitPublicOperationContractMetadata(
     DS1_PUBLIC_OPERATION_IDS,
     `${label}.operationId`
   );
-  const slug = operationId.slice("abg.operation.".length);
+  const slug = publicOperationSlug(operationId);
   const requestSchemaId = nonEmptyString(
     requiredField(value, "requestSchemaId", label),
     `${label}.requestSchemaId`

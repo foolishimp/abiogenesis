@@ -17,6 +17,7 @@ export {
 } from "./live_capability.js";
 export * from "./max_autonomy/index.js";
 export * from "./public_sdk/index.js";
+export { DS1_PUBLIC_OPERATION_IDS } from "./public_contracts/operations.js";
 export * from "./public_cli/index.js";
 export * from "./product_intake/index.js";
 export * from "./result_assessment/index.js";

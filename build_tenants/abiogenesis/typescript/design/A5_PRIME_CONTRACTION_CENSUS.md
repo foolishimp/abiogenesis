@@ -128,8 +128,8 @@ but no cross-ticket contraction pass joined the designs.
 - **Evidence**: constitutional truth lists 36 operation identities; the
   current realization covers 19. Those 19 are repeated through
   `DS1_PUBLIC_OPERATION_IDS`, `DS1_OPERATIONS`, CLI command resolution,
-  workspace classification, invocation construction, and SDK invocation
-  dispatch.
+  workspace classification, invocation construction, the operation-slug
+  table, and SDK invocation dispatch.
 - **Finding**: the operation contract register already owns most metadata, but
   identity and adapter projections are rebuilt in several places. Adding the
   remaining 17 operations would multiply switch and roster toil.
@@ -147,7 +147,7 @@ but no cross-ticket contraction pass joined the designs.
   coverage.
 - **Owner**: T-277 migrates the existing 19 without behavior change; the
   singular DS-5 F05/F06 owner extends the same register to 36.
-- **Measure**: realization roster/branch surfaces `6 -> at most 2`; public
+- **Measure**: realization roster/branch surfaces `7 -> 2`; public
   operation identities remain `36`.
 - **Negative proof**: missing, duplicate, or extra definition/handler keys fail
   the exact census; CLI and SDK outcomes remain equal per operation.

@@ -12,29 +12,7 @@ import type { IJsonValue } from "./canonical.js";
 
 /** @pattern ^sha256:[0-9a-f]{64}$ */
 export type Sha256Digest = `sha256:${string}`;
-export const DS1_PUBLIC_OPERATION_IDS = [
-  "abg.operation.workspace.create",
-  "abg.operation.workspace.open",
-  "abg.operation.catalog.resolve",
-  "abg.operation.catalog.verify",
-  "abg.operation.install.install",
-  "abg.operation.catalog.bind",
-  "abg.operation.catalog.admit",
-  "abg.operation.catalog.list",
-  "abg.operation.catalog.describe",
-  "abg.operation.catalog.allow",
-  "abg.operation.catalog.invoke",
-  "abg.operation.fh.select",
-  "abg.operation.fh.approve",
-  "abg.operation.fh.reject",
-  "abg.operation.fh.assess",
-  "abg.operation.fh.answer-escalation",
-  "abg.operation.run.resume",
-  "abg.operation.read.result",
-  "abg.operation.read.replay"
-] as const;
-Object.freeze(DS1_PUBLIC_OPERATION_IDS);
-export type PublicOperationId = (typeof DS1_PUBLIC_OPERATION_IDS)[number];
+export type PublicOperationId = keyof Ds1PublicOperationContractMap;
 export type PublicCatalogKind = "graph_function" | "node_type" | "overlay";
 export type WorkspaceAuthorityMode =
   | "clean_no_project_authority"

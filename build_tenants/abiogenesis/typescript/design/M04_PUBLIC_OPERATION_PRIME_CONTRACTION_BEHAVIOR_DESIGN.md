@@ -105,8 +105,8 @@ publication rows, and generated assets.
     "after": 3
   },
   "authoringSourceCount": {
-    "before": 8,
-    "after": 2
+    "before": 9,
+    "after": 3
   },
   "disposition": "migrate_authority",
   "ownerTicket": "T-277"
@@ -234,6 +234,12 @@ owns `Dispatched`; operation-specific SDK methods own `Completed` and
    definition register.
 6. Replace both operation schema algorithms with one tenant-local projector.
 7. Regenerate and compare every current public operation asset.
+
+The measured combined contraction is `9 -> 3`: PC-004 reduces seven repeated
+roster and branch surfaces to the definition register and typed effect
+dispatch; PC-005 reduces two schema-definition algorithms to one subordinate
+projector. The independent static contract map is retained outside that
+recurrence count.
 
 ## Negative Proof
 

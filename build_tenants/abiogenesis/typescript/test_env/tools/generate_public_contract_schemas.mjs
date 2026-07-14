@@ -10,6 +10,7 @@ import {
   DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
 } from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
 import { canonicalizeIJson } from "../../build/semantic/code/src/app/m04/public_sdk/index.js";
+import { projectPublicOperationSchemaDefinitions } from "./project_public_operation_schemas.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(HERE, "../..");
@@ -20,26 +21,12 @@ const DECLARATION_GLOB = path.join(
 const TSCONFIG_PATH = path.join(PACKAGE_ROOT, "tsconfig.semantic-strict.json");
 const DRAFT_07 = "http://json-schema.org/draft-07/schema#";
 
-function operationSchemaDefinitions() {
-  return DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.flatMap((operation) => {
-    const slug = operation.operationId.slice("abg.operation.".length);
-    return [
-      ["request", operation.requestSymbol],
-      ["result", operation.resultSymbol],
-      ["refusal", operation.refusalSymbol]
-    ].map(([member, nativeType]) => Object.freeze({
-      contractId: `abg.schema.operation.${slug}.${member}`,
-      relativePath:
-        `contracts/schemas/operations/${slug}/${member}.schema.json`,
-      nativeType
-    }));
-  });
-}
-
 function schemaDefinitions() {
   const definitions = [
     ...DS1_BASELINE_SCHEMA_ASSET_REGISTER,
-    ...operationSchemaDefinitions()
+    ...projectPublicOperationSchemaDefinitions(
+      DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
+    )
   ];
   const contractIds = new Set();
   const relativePaths = new Set();
@@ -54,6 +41,46 @@ function schemaDefinitions() {
     relativePaths.add(definition.relativePath);
   }
   return definitions;
+}
+
+function createSchemaGenerator() {
+  return createGenerator({
+    path: DECLARATION_GLOB,
+    tsconfig: TSCONFIG_PATH,
+    type: "*",
+    expose: "none",
+    jsDoc: "extended",
+    functions: "fail",
+    strictTuples: true,
+    additionalProperties: false,
+    skipTypeCheck: false
+  });
+}
+
+function schemaGenerationSegments(definitions) {
+  // The generator mutates its alias graph between calls. Isolate the host
+  // specialization and reset afterward so no schema loses shared definitions.
+  const hostIndex = definitions.findIndex(
+    ({ nativeType }) => nativeType === "HostInvocationDescriptor"
+  );
+  if (hostIndex === -1) {
+    throw new TypeError("host invocation schema definition is missing");
+  }
+  return [
+    definitions.slice(0, hostIndex),
+    definitions.slice(hostIndex, hostIndex + 1),
+    definitions.slice(hostIndex + 1)
+  ].filter((segment) => segment.length > 0);
+}
+
+function generateSchemas(definitions) {
+  return schemaGenerationSegments(definitions).flatMap((segment) => {
+    const generator = createSchemaGenerator();
+    return segment.map((definition) => Object.freeze({
+      ...definition,
+      bytes: schemaBytes(generator, definition)
+    }));
+  });
 }
 
 function assertNoUnconstrainedSchema(value, location) {
@@ -129,21 +156,7 @@ async function main() {
   if (mode !== "--write" && mode !== "--check") {
     throw new TypeError("expected --write or --check");
   }
-  const generator = createGenerator({
-    path: DECLARATION_GLOB,
-    tsconfig: TSCONFIG_PATH,
-    type: "*",
-    expose: "none",
-    jsDoc: "extended",
-    functions: "fail",
-    strictTuples: true,
-    additionalProperties: false,
-    skipTypeCheck: false
-  });
-  const generated = schemaDefinitions().map((definition) => Object.freeze({
-    ...definition,
-    bytes: schemaBytes(generator, definition)
-  }));
+  const generated = generateSchemas(schemaDefinitions());
   if (mode === "--write") {
     await writeSchemas(generated);
   } else {

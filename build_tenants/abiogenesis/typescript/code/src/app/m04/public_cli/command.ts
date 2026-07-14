@@ -5,10 +5,13 @@ import { randomUUID } from "node:crypto";
 import { resolve } from "node:path";
 
 import {
+  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER,
+  resolveDs1PublicOperationCliDefinition,
+  resolveDs1PublicOperationDefinition
+} from "../public_contracts/operations.js";
+import {
   abiogenesisPublicSdk,
-  admitDs1OperationRequest,
   canonicalizeIJson,
-  constructPublicOperationInvocation,
   createNodeBoundWorkspaceContext,
   createNodeProductIntakeContext,
   createNodeWorkspaceBindingContext,
@@ -27,6 +30,7 @@ import {
   type WorkspaceBindingContext,
   type WorkspacePathContext
 } from "../public_sdk/index.js";
+import { constructDynamicPublicOperationInvocation } from "../public_sdk/sdk.js";
 
 const REQUEST_FLAG = "request";
 const CONTRACT_CATALOG_FLAG = "contract-catalog";
@@ -104,96 +108,32 @@ export function resolveAbgCliOperationId(
   command: string,
   subcommand: string | null
 ): PublicOperationId {
-  if (command === "workspace") {
-    if (subcommand === "create") {
-      return "abg.operation.workspace.create";
-    }
-    if (subcommand === "open") {
-      return "abg.operation.workspace.open";
-    }
-  }
-  if (command === "catalog") {
-    switch (subcommand) {
-      case "resolve":
-        return "abg.operation.catalog.resolve";
-      case "verify":
-        return "abg.operation.catalog.verify";
-      case "bind":
-        return "abg.operation.catalog.bind";
-      case "admit":
-        return "abg.operation.catalog.admit";
-      case "list":
-        return "abg.operation.catalog.list";
-      case "describe":
-        return "abg.operation.catalog.describe";
-      case "allow":
-        return "abg.operation.catalog.allow";
-      case "invoke":
-        return "abg.operation.catalog.invoke";
-      case null:
-      default:
-        break;
-    }
-  }
-  if (command === "fh") {
-    switch (subcommand) {
-      case "select":
-        return "abg.operation.fh.select";
-      case "approve":
-        return "abg.operation.fh.approve";
-      case "reject":
-        return "abg.operation.fh.reject";
-      case "assess":
-        return "abg.operation.fh.assess";
-      case "answer-escalation":
-        return "abg.operation.fh.answer-escalation";
-      case null:
-      default:
-        break;
-    }
-  }
-  if (subcommand === null) {
-    if (command === "install") {
-      return "abg.operation.install.install";
-    }
-    if (command === "result") {
-      return "abg.operation.read.result";
-    }
-    if (command === "replay") {
-      return "abg.operation.read.replay";
-    }
-    if (command === "resume") {
-      return "abg.operation.run.resume";
-    }
+  const definition = resolveDs1PublicOperationCliDefinition(command, subcommand);
+  if (definition !== null) {
+    return definition.operationId;
   }
   throw new AbgCliInputError("command is outside the DS-1 abg.cli grammar");
 }
 
 function commandWordCount(command: string): number {
-  return command === "workspace" || command === "catalog" || command === "fh"
-    ? 2
-    : 1;
+  const matches = DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.filter(
+    (definition) => definition.cli.command === command
+  );
+  if (matches.length === 0) return 1;
+  const wordCounts = new Set(
+    matches.map((definition) => definition.cli.subcommand === null ? 1 : 2)
+  );
+  if (wordCounts.size !== 1) {
+    throw new AbgCliInputError(
+      `command ${command} has ambiguous DS-1 CLI coordinates`
+    );
+  }
+  return wordCounts.values().next().value ?? 1;
 }
 
 function operationNeedsWorkspace(operationId: PublicOperationId): boolean {
-  return (
-    operationId === "abg.operation.workspace.create" ||
-    operationId === "abg.operation.workspace.open" ||
-    operationId === "abg.operation.catalog.bind" ||
-    operationId === "abg.operation.catalog.admit" ||
-    operationId === "abg.operation.catalog.list" ||
-    operationId === "abg.operation.catalog.describe" ||
-    operationId === "abg.operation.catalog.allow" ||
-    operationId === "abg.operation.catalog.invoke" ||
-    operationId === "abg.operation.fh.select" ||
-    operationId === "abg.operation.fh.approve" ||
-    operationId === "abg.operation.fh.reject" ||
-    operationId === "abg.operation.fh.assess" ||
-    operationId === "abg.operation.fh.answer-escalation" ||
-    operationId === "abg.operation.run.resume" ||
-    operationId === "abg.operation.read.result" ||
-    operationId === "abg.operation.read.replay"
-  );
+  return resolveDs1PublicOperationDefinition(operationId).cli.workspacePolicy ===
+    "required";
 }
 
 function parseFlags(argv: readonly string[]): ReadonlyMap<string, string> {
@@ -279,123 +219,11 @@ export function constructAbgCliInvocation(input: {
     provenanceRefs: Object.freeze([]),
     correlationId: `abg-cli-invocation:${identity}`
   });
-  const requestLabel = `${input.operationId}.request`;
-  switch (input.operationId) {
-    case "abg.operation.workspace.create":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.workspace.open":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.resolve":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.verify":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.install.install":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.bind":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.admit":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.list":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.describe":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.allow":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.catalog.invoke":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.fh.select":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.fh.approve":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.fh.reject":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.fh.assess":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.fh.answer-escalation":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.run.resume":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.read.result":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-    case "abg.operation.read.replay":
-      return constructPublicOperationInvocation({
-        ...common,
-        operationId: input.operationId,
-        request: admitDs1OperationRequest(input.operationId, input.request, requestLabel)
-      });
-  }
+  return constructDynamicPublicOperationInvocation({
+    ...common,
+    operationId: input.operationId,
+    request: input.request
+  });
 }
 
 function workspaceRoot(command: ParsedAbgCliCommand): string {
