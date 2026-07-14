@@ -1,6 +1,6 @@
 # ABIogenesis 5.0 Prime Contraction Census
 
-**Status**: F_H-authorized implementation baseline; independent closure review pending
+**Status**: T-277-owned contraction complete; independent closure review pending
 
 **Owner**: T-277
 
@@ -30,7 +30,7 @@ outside the baseline unless current 5.0 imports them.
 
 The completed-code design register links 23 design or guardrail documents:
 
-| Evidence in linked documents | Current count |
+| Evidence in linked documents | Baseline count |
 |---|---:|
 | Mentions IACS or Irreducible Architectural Carrier Set | 14 |
 | Mentions Promotion Test | 2 |
@@ -43,6 +43,11 @@ Promotion Tests, recurrence, authority counts, or commonization ownership.
 
 This explains the observed failure mode: local carrier discipline existed,
 but no cross-ticket contraction pass joined the designs.
+
+The current tree adds one substantive Prime gate over seven governed tickets
+and seven accepted designs. The Mermaid gate now covers 30 files and 90
+diagrams. These are prospective recurrence guards; they do not replace the
+source-removal and before/after evidence below.
 
 ## Retained-Feature Coverage
 
@@ -91,6 +96,10 @@ but no cross-ticket contraction pass joined the designs.
   derives native types, admission, nine public projection definitions, and
   both vocabularies. The rejected first pass duplicated field rosters between
   types and decoders; that duplicate model did not enter a checkpoint.
+  Public variants use one schema-indexed public dispatcher. Graph-private
+  variants use one separate schema-indexed internal dispatcher, so private
+  loci do not enter the package surface. No per-kind overload, switch, or
+  wrapper roster remains.
   Feature-complete T-274 asset publication remains separately gated.
 
 ### PC-002 - Rival Consensus catalog declaration
@@ -139,8 +148,10 @@ but no cross-ticket contraction pass joined the designs.
   `M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
 - **Implementation status**: realized. The 14 open aliases and permissive
   `fields` payload are absent. Twenty exact public and graph-private variants
-  share one schema map and one recursive freeze/admission mechanism; no
-  graph-private variant is added to the package export surface.
+  share one recursive freeze/admission mechanism; no graph-private variant is
+  added to the package export surface. The final recurrence review removed 20
+  overloads, 20 switch cases, and nine named wrapper admitters from the first
+  checkpoint shape.
 
 ### PC-004 - Public operation realization rosters
 
@@ -331,7 +342,9 @@ but no cross-ticket contraction pass joined the designs.
   rejected.
 - **Implementation status**: realized at `be287765`. The standing aggregate
   gate now covers 23 rendered designs and seven T-277-governed tickets; seven
-  focused Prime negatives pass. Independent closure review remains pending.
+  focused Prime negatives pass. The current aggregate Mermaid gate has since
+  grown to 30 design files and 90 diagrams. Independent closure review remains
+  pending.
 
 ### PC-012 - Generated operation schema multiplicity
 
@@ -358,22 +371,39 @@ but no cross-ticket contraction pass joined the designs.
 
 ## Before-And-After Measures
 
-| Surface | Baseline | Accepted target |
-|---|---:|---:|
-| Consensus callable declaration sources | 2 | 1 |
-| Consensus public contract authoring families | not yet implemented | 1 for 9 schema and 2 vocabulary projections |
-| Public operation identities | 36 | 36 |
-| Current operation realization roster/branch surfaces | 7 | 2 |
-| Operation schema-definition algorithms | 2 | 1 |
-| Mandatory capability identities | 16 | 16 |
-| Capability authoring graphs | 1 current register | 1 extended register |
-| Consensus primary workspace/outcome executions | potential Cartesian 9 | 3..9, set by accepted proof of workspace invariance |
-| Consensus scenario orchestration implementations | potential 9 | 1 |
-| Substantive automated Prime gates | 0 | 1 |
-| T-244 retained claim identities | 17 | 17 |
+| Surface | Baseline | Accepted target | Current observed tree |
+|---|---:|---:|---:|
+| Consensus callable declaration sources | 2 | 1 | 1 |
+| Consensus public contract authoring families | not implemented | 1 for 9 schema and 2 vocabulary projections | 1 native family; publication remains T-274 |
+| Manual Consensus admission overloads/cases/wrappers | not implemented | 0 | 0; two visibility-bounded indexed dispatchers |
+| Public operation identities | 36 constitutional / 19 realized | 36 | unchanged; 19 realized |
+| Current operation realization roster/branch surfaces | 7 | 2 | 2 |
+| Operation schema-definition algorithms | 2 | 1 | 1 |
+| Mandatory capability identities | 16 | 16 | unchanged; T-268/DS-5 remain owners |
+| Capability authoring graphs | 1 current register | 1 extended register | 1; no new carrier added |
+| Consensus primary workspace/outcome executions | no implementation | 3..9, set by proof of workspace invariance | no implementation; T-276 design accepted |
+| Consensus scenario orchestration implementations | no implementation | 1 | no implementation; one-driver design accepted |
+| Substantive automated Prime gates | 0 | 1 | 1 |
+| T-244 retained claim identities | 17 | 17 | 17 |
 
-Targets describe architecture, not closure claims. Final counts must be
-recomputed from the migrated tree.
+From baseline commit `d018272f8fb729057aad170aca52b0ad8ac30662`,
+maintained TypeScript under `code/src` changes by `+1,174/-640`, net `+534`.
+The newly required `consensus_contract_family.ts` contributes 574 lines for
+20 closed variants, nine public identities, two vocabularies, and both
+visibility-bounded admission paths. Excluding that previously absent product
+surface, the refactor changes maintained TypeScript by `+600/-640`, net
+`-40`. Capability and scenario dispositions add no product code.
+
+The meaningful contraction is update fan-out: operation metadata changes now
+touch one definition register plus the irreducible typed behavior boundary;
+operation schema projection changes touch one projector; Consensus shape
+changes touch their schema definition rather than a parallel decoder, switch,
+and wrapper roster. Public identity counts remain unchanged.
+
+Generated projections were regenerated after the final source contraction.
+The public schema count remains 82; no T-274 Consensus schema was prematurely
+published. Three native inventories and their catalog/manifest digests changed
+because the package declaration census gained the native Consensus family.
 
 ## Dependency Order
 
@@ -386,6 +416,11 @@ recomputed from the migrated tree.
 7. Apply PC-008 before T-276 scenario code.
 8. Re-measure PC-009 when T-247/T-248 activate.
 9. Run the final source-removal, mixed-state, parity, and holistic review.
+
+Steps 1 through 8 are complete for T-277-owned work and prospective owner
+design. Step 9 has passed self-review and remains open for independent holistic
+review. T-270, T-272, T-268, T-274, T-275, and T-276 retain their feature
+delivery authority; T-277 does not claim those features complete.
 
 T-267 is not reopened by this census. Its current independent review remains
 the runtime gate. Re-entry is allowed only if a concrete row demonstrates a

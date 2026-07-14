@@ -446,6 +446,14 @@ export const CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS = Object.freeze(
   )
 );
 
+export type ConsensusPublicContractKind =
+  keyof typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY;
+export type ConsensusPublicContractValueByKind = {
+  readonly [Kind in ConsensusPublicContractKind]: v.InferOutput<
+    (typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY)[Kind]["schema"]
+  >;
+};
+
 export const CONSENSUS_DOMAIN_SCHEMAS = Object.freeze({
   consensus_subject: CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_subject.schema,
   consensus_panel: CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_panel.schema,
@@ -537,114 +545,30 @@ function parseConsensusSchema<
   }
 }
 
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_subject", label?: string): ConsensusDomainValueByKind["consensus_subject"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_panel", label?: string): ConsensusDomainValueByKind["consensus_panel"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_reviewer_profile", label?: string): ConsensusDomainValueByKind["consensus_reviewer_profile"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "review_findings", label?: string): ConsensusDomainValueByKind["review_findings"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "review_rulings", label?: string): ConsensusDomainValueByKind["review_rulings"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_round_policy", label?: string): ConsensusDomainValueByKind["consensus_round_policy"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_round_outcome", label?: string): ConsensusDomainValueByKind["consensus_round_outcome"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_result", label?: string): ConsensusDomainValueByKind["consensus_result"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "ticket_consensus_projection", label?: string): ConsensusDomainValueByKind["ticket_consensus_projection"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_round_execution", label?: string): ConsensusDomainValueByKind["consensus_round_execution"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "consensus_round_disposition", label?: string): ConsensusDomainValueByKind["consensus_round_disposition"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "reviewer_assignment", label?: string): ConsensusDomainValueByKind["reviewer_assignment"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "round_exact_projection", label?: string): ConsensusDomainValueByKind["round_exact_projection"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "semantic_reducer_binding", label?: string): ConsensusDomainValueByKind["semantic_reducer_binding"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "initial_semantic_assessment", label?: string): ConsensusDomainValueByKind["initial_semantic_assessment"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "submitter_turn_binding", label?: string): ConsensusDomainValueByKind["submitter_turn_binding"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "submitter_response", label?: string): ConsensusDomainValueByKind["submitter_response"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "post_submitter_semantic_assessment", label?: string): ConsensusDomainValueByKind["post_submitter_semantic_assessment"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "fh_interaction_binding", label?: string): ConsensusDomainValueByKind["fh_interaction_binding"];
-export function admitConsensusDomainValue(value: unknown, expectedKind: "fh_pending_interaction", label?: string): ConsensusDomainValueByKind["fh_pending_interaction"];
-export function admitConsensusDomainValue(
+export function admitConsensusPublicContract<
+  const Kind extends ConsensusPublicContractKind
+>(
   value: unknown,
-  expectedKind: ConsensusDomainKind,
+  expectedKind: Kind,
+  label = `ConsensusPublicContract.${expectedKind}`
+): v.InferOutput<
+  (typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY)[Kind]["schema"]
+> {
+  return parseConsensusSchema(
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY[expectedKind].schema,
+    value,
+    label
+  );
+}
+
+export function admitConsensusDomainValue<const Kind extends ConsensusDomainKind>(
+  value: unknown,
+  expectedKind: Kind,
   label = `ConsensusDomainValue.${expectedKind}`
-): ConsensusDomainValue {
-  switch (expectedKind) {
-    case "consensus_subject": return parseConsensusSchema(consensusSubjectSchema, value, label);
-    case "consensus_panel": return parseConsensusSchema(consensusPanelSchema, value, label);
-    case "consensus_reviewer_profile": return parseConsensusSchema(consensusReviewerProfileSchema, value, label);
-    case "review_findings": return parseConsensusSchema(reviewFindingsSchema, value, label);
-    case "review_rulings": return parseConsensusSchema(reviewRulingsSchema, value, label);
-    case "consensus_round_policy": return parseConsensusSchema(consensusRoundPolicySchema, value, label);
-    case "consensus_round_outcome": return parseConsensusSchema(consensusRoundOutcomeSchema, value, label);
-    case "consensus_result": return parseConsensusSchema(consensusResultSchema, value, label);
-    case "ticket_consensus_projection": return parseConsensusSchema(ticketConsensusProjectionSchema, value, label);
-    case "consensus_round_execution": return parseConsensusSchema(consensusRoundExecutionSchema, value, label);
-    case "consensus_round_disposition": return parseConsensusSchema(consensusRoundDispositionSchema, value, label);
-    case "reviewer_assignment": return parseConsensusSchema(reviewerAssignmentSchema, value, label);
-    case "round_exact_projection": return parseConsensusSchema(roundExactProjectionSchema, value, label);
-    case "semantic_reducer_binding": return parseConsensusSchema(semanticReducerBindingSchema, value, label);
-    case "initial_semantic_assessment": return parseConsensusSchema(initialSemanticAssessmentSchema, value, label);
-    case "submitter_turn_binding": return parseConsensusSchema(submitterTurnBindingSchema, value, label);
-    case "submitter_response": return parseConsensusSchema(submitterResponseSchema, value, label);
-    case "post_submitter_semantic_assessment": return parseConsensusSchema(postSubmitterSemanticAssessmentSchema, value, label);
-    case "fh_interaction_binding": return parseConsensusSchema(fhInteractionBindingSchema, value, label);
-    case "fh_pending_interaction": return parseConsensusSchema(fhPendingInteractionSchema, value, label);
-  }
-}
-
-export function admitConsensusReviewerProfile(
-  value: unknown,
-  label = "ConsensusReviewerProfile"
-): ConsensusReviewerProfile {
-  return parseConsensusSchema(consensusReviewerProfileSchema, value, label);
-}
-
-export function admitConsensusPanel(
-  value: unknown,
-  label = "ConsensusPanel"
-): ConsensusPanel {
-  return parseConsensusSchema(consensusPanelSchema, value, label);
-}
-
-export function admitConsensusRoundPolicy(
-  value: unknown,
-  label = "ConsensusRoundPolicy"
-): ConsensusRoundPolicy {
-  return parseConsensusSchema(consensusRoundPolicySchema, value, label);
-}
-
-export function admitConsensusSubject(
-  value: unknown,
-  label = "ConsensusSubject"
-): ConsensusSubject {
-  return parseConsensusSchema(consensusSubjectSchema, value, label);
-}
-
-export function admitReviewFindings(
-  value: unknown,
-  label = "ReviewFindings"
-): ReviewFindings {
-  return parseConsensusSchema(reviewFindingsSchema, value, label);
-}
-
-export function admitReviewRulings(
-  value: unknown,
-  label = "ReviewRulings"
-): ReviewRulings {
-  return parseConsensusSchema(reviewRulingsSchema, value, label);
-}
-
-export function admitConsensusRoundOutcome(
-  value: unknown,
-  label = "ConsensusRoundOutcome"
-): ConsensusRoundOutcome {
-  return parseConsensusSchema(consensusRoundOutcomeSchema, value, label);
-}
-
-export function admitConsensusResult(
-  value: unknown,
-  label = "ConsensusResult"
-): ConsensusResult {
-  return parseConsensusSchema(consensusResultSchema, value, label);
-}
-
-export function admitTicketConsensusProjection(
-  value: unknown,
-  label = "TicketConsensusProjection"
-): TicketConsensusProjection {
-  return parseConsensusSchema(ticketConsensusProjectionSchema, value, label);
+): v.InferOutput<(typeof CONSENSUS_DOMAIN_SCHEMAS)[Kind]> {
+  return parseConsensusSchema(
+    CONSENSUS_DOMAIN_SCHEMAS[expectedKind],
+    value,
+    label
+  );
 }

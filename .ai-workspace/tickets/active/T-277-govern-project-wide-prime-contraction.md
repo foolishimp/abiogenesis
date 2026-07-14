@@ -5,9 +5,9 @@
 - type: chore
 - ticket_category: implementation_migration
 - status: active
-- phase_status: implementation_active
+- phase_status: implementation_complete_independent_closure_review_pending
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
-- proof_status: pending
+- proof_status: deterministic_gates_passed_independent_review_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 through DS-6
 - change_intent: >-
@@ -36,9 +36,12 @@
 - decision_ref: >-
     .ai-workspace/comments/codex/
     20260714T131953Z_DECISION_project_wide_prime_contraction.md
-- self_review_ref: >-
+- design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T134327Z_SELF_REVIEW_t277_prime_contraction_design_packet.md
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T164759Z_SELF_REVIEW_t277_final_prime_contraction.md
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
@@ -176,15 +179,16 @@ Every census row must end in exactly one state:
 - [x] producer, consumer, projection, and proof surfaces are required per row
 - [x] ADR-044 is explicitly F_H-authorized for implementation
 - [ ] ADR-044 and the resulting implementation receive independent closure review
-- [ ] every migration row names its exact old and new path
-- [ ] every existing consumer is moved before the old source is retired
-- [ ] mixed old/new authority fails the row's negative proof
-- [ ] generated artifacts are regenerated from the new source
-- [ ] no test fixture continues to author retired truth
-- [ ] each recurrence consumes or establishes the ledger-named local
+- [x] every migration row names its exact old and new path
+- [x] every existing consumer is moved before the old source is retired
+- [x] mixed old/new authority fails the row's negative proof
+- [x] generated artifacts are regenerated from the new source
+- [x] no test fixture continues to author retired truth
+- [x] each recurrence consumes or establishes the ledger-named local
   commonization surface
-- [ ] all affected ticket and proof claims agree with the final tree
-- [ ] post-migration census proves the before-and-after contraction counts
+- [x] all affected ticket and proof claims agree with the final tree at
+  self-review; independent closure review remains required
+- [x] post-migration census proves the before-and-after contraction counts
 
 ## Implementation Progress
 
@@ -213,7 +217,17 @@ Every census row must end in exactly one state:
   manifest projections to consume the existing register
 - `PC-008`: no duplicated scenario code exists; T-276 has an accepted
   prospective design fixing one source-blind driver before realization
-- next boundary: final source census, full gates, and review handoff
+- final recurrence review removed the new Consensus family's per-kind overload,
+  switch, and wrapper rosters; public and graph-private visibility boundaries
+  each use one schema-indexed dispatcher
+- maintained TypeScript is `+1,174/-640`, net `+534`, from the T-277 baseline;
+  excluding the newly required 574-line Consensus contract family, the
+  refactor is `+600/-640`, net `-40`
+- full gates from the final tree: semantic `1,740/1,740`, GTL `82/82`, Prime
+  seven tickets/seven accepted designs, Mermaid 30 files/90 diagrams,
+  governance 19 tickets, publication 40 assets from 1,124 immutable payload
+  files, and package dry-run green
+- next boundary: independent holistic closure review; T-277 remains active
 
 ## Exit
 

@@ -1,16 +1,13 @@
 // Validates: T-277 PC-001, PC-002, and PC-003.
 
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
 
 import {
   admitConsensusDomainValue,
-  admitConsensusPanel,
-  admitConsensusResult,
-  admitConsensusSubject,
-  admitReviewFindings,
-  admitReviewRulings,
-  admitTicketConsensusProjection,
+  admitConsensusPublicContract,
   CONSENSUS_PUBLIC_CONTRACT_FAMILY,
   CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS,
   CONSENSUS_ROUND_OUTCOME_VALUES,
@@ -26,6 +23,11 @@ import {
 
 const DIGEST_A = `sha256:${"a".repeat(64)}`;
 const DIGEST_B = `sha256:${"b".repeat(64)}`;
+const TENANT_ROOT = path.resolve(import.meta.dirname, "../..");
+
+async function source(relativePath) {
+  return await readFile(path.join(TENANT_ROOT, relativePath), "utf8");
+}
 
 function profile(profileRef = "profile://reviewer/one") {
   return {
@@ -126,27 +128,36 @@ test("T-277 PC-001 exposes nine projections and one source for both vocabularies
 });
 
 test("T-277 PC-003 admits exact public variants and rejects open or duplicate payloads", () => {
-  const admitted = admitConsensusSubject({
-    kind: "consensus_subject",
-    subjectContractRef: "contract://ticket",
-    subjectRef: "ticket://T-900",
-    subjectDigest: DIGEST_A,
-    submittingActorRef: "actor://submitter",
-    panelRef: "panel://one",
-    roundPolicyRef: "policy://rounds/one",
-    workspaceRef: "workspace://one",
-    ticketRef: "ticket://T-900",
-    ticketDigest: DIGEST_A
-  });
+  const admitted = admitConsensusPublicContract(
+    {
+      kind: "consensus_subject",
+      subjectContractRef: "contract://ticket",
+      subjectRef: "ticket://T-900",
+      subjectDigest: DIGEST_A,
+      submittingActorRef: "actor://submitter",
+      panelRef: "panel://one",
+      roundPolicyRef: "policy://rounds/one",
+      workspaceRef: "workspace://one",
+      ticketRef: "ticket://T-900",
+      ticketDigest: DIGEST_A
+    },
+    "consensus_subject"
+  );
   assert.equal(admitted.subjectRef, "ticket://T-900");
   assert.equal(Object.prototype.hasOwnProperty.call(admitted, "fields"), false);
 
   assert.throws(
-    () => admitConsensusSubject({ ...admitted, invented: true }),
+    () => admitConsensusPublicContract(
+      { ...admitted, invented: true },
+      "consensus_subject"
+    ),
     /expected exact keys/u
   );
   assert.throws(
-    () => admitConsensusSubject({ ...admitted, ticketDigest: null }),
+    () => admitConsensusPublicContract(
+      { ...admitted, ticketDigest: null },
+      "consensus_subject"
+    ),
     /jointly present or absent/u
   );
 
@@ -156,40 +167,67 @@ test("T-277 PC-003 admits exact public variants and rejects open or duplicate pa
     panelDigest: DIGEST_B,
     profiles: [profile()]
   };
-  assert.equal(admitConsensusPanel(validPanel).profiles.length, 1);
-  const frozenPanel = admitConsensusPanel(validPanel);
+  assert.equal(
+    admitConsensusPublicContract(validPanel, "consensus_panel").profiles.length,
+    1
+  );
+  const frozenPanel = admitConsensusPublicContract(validPanel, "consensus_panel");
   assert.equal(Object.isFrozen(frozenPanel), true);
   assert.equal(Object.isFrozen(frozenPanel.profiles), true);
   assert.equal(Object.isFrozen(frozenPanel.profiles[0]), true);
   assert.throws(
-    () => admitConsensusPanel({
-      ...validPanel,
-      profiles: [profile(), profile()]
-    }),
+    () => admitConsensusPublicContract(
+      {
+        ...validPanel,
+        profiles: [profile(), profile()]
+      },
+      "consensus_panel"
+    ),
     /duplicate profile identity/u
   );
 });
 
 test("T-277 PC-001 closes cross-projection substitution", () => {
-  const admittedFindings = admitReviewFindings(findings());
-  const admittedRulings = admitReviewRulings(rulings());
+  const admittedFindings = admitConsensusPublicContract(
+    findings(),
+    "review_findings"
+  );
+  const admittedRulings = admitConsensusPublicContract(
+    rulings(),
+    "review_rulings"
+  );
   assert.equal(admittedFindings.kind, "review_findings");
   assert.equal(admittedRulings.kind, "review_rulings");
-  assert.throws(() => admitReviewRulings(findings()), /exact keys|Expected "/u);
-  assert.throws(() => admitConsensusResult(outcome()), /exact keys|Expected "/u);
+  assert.throws(
+    () => admitConsensusPublicContract(findings(), "review_rulings"),
+    /exact keys|Expected "/u
+  );
+  assert.throws(
+    () => admitConsensusPublicContract(outcome(), "consensus_result"),
+    /exact keys|Expected "/u
+  );
 
-  const admittedResult = admitConsensusResult(result());
-  const projection = admitTicketConsensusProjection({
-    kind: "ticket_consensus_projection",
-    projectionRef: "projection://ticket/T-900/consensus",
-    projectionDigest: DIGEST_B,
-    ticketRef: "ticket://T-900",
-    ticketDigest: DIGEST_A,
-    result: admittedResult
-  });
+  const admittedResult = admitConsensusPublicContract(
+    result(),
+    "consensus_result"
+  );
+  const projection = admitConsensusPublicContract(
+    {
+      kind: "ticket_consensus_projection",
+      projectionRef: "projection://ticket/T-900/consensus",
+      projectionDigest: DIGEST_B,
+      ticketRef: "ticket://T-900",
+      ticketDigest: DIGEST_A,
+      result: admittedResult
+    },
+    "ticket_consensus_projection"
+  );
   assert.equal(projection.result.resultRef, "result://consensus/one");
   assert.throws(
-    () => admitTicketConsensusProjection({ ...projection, ticketRef: "ticket://T-901" }),
+    () => admitConsensusPublicContract(
+      { ...projection, ticketRef: "ticket://T-901" },
+      "ticket_consensus_projection"
+    ),
     /does not match/u
   );
 });
@@ -209,6 +247,26 @@ test("T-277 PC-003 closes graph-only variants without promoting them", () => {
     () => admitConsensusDomainValue({ ...assignment, fields: {} }, "reviewer_assignment"),
     /expected exact keys/u
   );
+});
+
+test("T-277 PC-003 admits each visibility boundary through one indexed dispatcher", async () => {
+  const [family, packageIndex] = await Promise.all([
+    source("code/src/abg/m03/contracts/consensus_contract_family.ts"),
+    source("code/src/abg/m03/contracts/index.ts")
+  ]);
+  assert.match(family, /CONSENSUS_DOMAIN_SCHEMAS\[expectedKind\]/u);
+  assert.match(
+    family,
+    /CONSENSUS_PUBLIC_CONTRACT_FAMILY\[expectedKind\]\.schema/u
+  );
+  assert.doesNotMatch(family, /switch\s*\(expectedKind\)/u);
+  assert.doesNotMatch(
+    family,
+    /export function admit(?:Consensus(?:Subject|Panel|Result)|Review)/u
+  );
+  assert.match(packageIndex, /admitConsensusPublicContract/u);
+  assert.doesNotMatch(packageIndex, /admitConsensusDomainValue/u);
+  assert.doesNotMatch(packageIndex, /admitConsensusSubject/u);
 });
 
 test("T-277 PC-002 derives the only Consensus declaration from the exact T-252 Module", () => {

@@ -1493,15 +1493,7 @@ export type {
   ReviewRulingKind
 } from "./review_consensus_modules.js";
 export {
-  admitConsensusPanel,
-  admitConsensusResult,
-  admitConsensusReviewerProfile,
-  admitConsensusRoundOutcome,
-  admitConsensusRoundPolicy,
-  admitConsensusSubject,
-  admitReviewFindings,
-  admitReviewRulings,
-  admitTicketConsensusProjection,
+  admitConsensusPublicContract,
   CONSENSUS_CLASSIFICATION_VALUES,
   CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS
 } from "./consensus_contract_family.js";
@@ -1509,6 +1501,8 @@ export type {
   ConsensusClassification,
   ConsensusDigest,
   ConsensusPanel,
+  ConsensusPublicContractKind,
+  ConsensusPublicContractValueByKind,
   ConsensusResult,
   ConsensusReviewerProfile,
   ConsensusRoundOutcome,
