@@ -10,9 +10,10 @@
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
-    Publish the canonical Consensus contract assets and SYSTEM-owned callable
-    catalog row from the admitted T-252 Module without creating another body or
-    runtime authority.
+    Publish nine canonical Consensus schema identities as projections of one
+    authoritative Consensus contract family, plus the SYSTEM-owned callable
+    catalog row from the admitted T-252 Module, without creating another body
+    or runtime authority.
 - change_class: design_reframe
 - re_entry_point: >-
     build_tenants/abiogenesis/typescript/design M02/M04 Consensus publication
@@ -35,7 +36,8 @@
 
 ## Boundary
 
-Publish the nine canonical Consensus schemas, the ruling and round-outcome
+Publish nine canonical Consensus schema identities as projections of one
+authoritative Consensus contract family. Publish the ruling and round-outcome
 vocabularies, the exact installed Module, and one SYSTEM-owned callable catalog
 row for `gtl://abg/consensus/submitter-reviewer-rounds`. Native locators,
 serialized assets, package files, catalog identity, and Module/body digest must
@@ -45,10 +47,29 @@ This ticket publishes assets. It does not interpret C programs, invoke a
 reviewer, admit findings, project ticket results, write runtime events, or own
 tenant-capability admission.
 
+## Prime Compression
+
+- `ConsensusContractFamily` is the single authoring model. It is not a tenth
+  public contract identity.
+- One schema document contains nine closed `$defs` and addressable projections.
+  It is not one permissive object whose optional fields emulate all nine
+  contracts.
+- Each catalog row retains its own identity, version, authority refs, locator,
+  and projection-specific digest.
+- One native module may expose nine typed admitters or one closed discriminated
+  dispatcher. No projection owns a parallel decoder or generator.
+- `review-ruling-kind` and `consensus-round-outcome` vocabularies derive from
+  the same native enum definitions used by admission and schema generation.
+- Findings cannot substitute for rulings, round outcome cannot substitute for
+  final result, and Consensus result cannot substitute for ticket projection.
+  Every other cross-projection substitution also fails closed.
+
 ## Exit
 
-Every required schema and vocabulary resolves through the packed public
-contract catalog; the installed Module round-trips without source import; the
-callable row resolves the exact T-252 GraphFunction and SYSTEM owner; malformed
-or digest-divergent assets fail before catalog admission. Accept one three-view
-publication design before code.
+Every required schema identity and vocabulary resolves through the packed
+public contract catalog from the one authoritative contract family; each
+projection remains closed and cross-projection substitution fails. The
+installed Module round-trips without source import; the callable row resolves
+the exact T-252 GraphFunction and SYSTEM owner; malformed or digest-divergent
+assets fail before catalog admission. Accept one three-view publication design
+before code.
