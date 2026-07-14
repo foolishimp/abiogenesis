@@ -5,6 +5,11 @@
 - type: bug
 - ticket_category: ordinary
 - status: active
+- phase_status: requirement_reprice_repaired_proof_pending
+- implementation_status: specification_and_proof_only
+- proof_status: pending
+- review_status: self_review_pending
+- delivery_phase: DS-0
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Remove the contradiction between LAWS-022 and the native canonical
@@ -24,6 +29,7 @@
   - specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md
   - specification/requirements/gtl/REQ-L-GTL3-LAWS.md
   - specification/requirements/abg/REQ-R-ABG3-CCALL.md
+  - specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md
 
 ## Boundary
 
@@ -44,3 +50,8 @@ PRODUCT, LAWS-022, C-ALGEBRA, and CCALL use one taxonomy. A native constructor
 positive, a host-dependent declaration negative, and a whole-program
 conservation negative prove the distinction. No implementation changes enter
 before this requirement reprice is reviewed.
+
+`FN-COMP-015` and `FN-COMP-021` must apply the event-sourced stage-set law to
+the exact admitted open program. They may name `transform.C`, `evaluate.C`, and
+`consequence.C` as lawful categories but may not require that fixed chain or
+allow interpreter bind rows to replace authored stages.
