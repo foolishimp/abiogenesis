@@ -498,7 +498,7 @@ test("T-259 refuses a child effect absent from the public parent capability boun
   );
   assert.match(
     value.handoffOutcome.diagnostics[0].actualRelation,
-    /child effects must be declared by the public parent/u
+    /uncovered child effects/u
   );
 });
 

@@ -464,10 +464,25 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
   }
   const observed = new Set(manifest.gapCensus.map((gap) => gap.gapFamily));
   assert.deepEqual([...observed].sort(), [
-    "complete_c_program_interpreter",
     "declared_program_conservation",
     "tenant_conformance_manifest_consensus_coverage_missing"
   ]);
+  assert.equal(
+    manifest.compiler.completeProgramPlanCount,
+    manifest.body.selectedVectorPathCount
+  );
+  assert.equal(
+    manifest.compiler.completeProgramRows.length,
+    manifest.body.selectedVectorPathCount
+  );
+  assert.deepEqual(manifest.compiler.t271RuntimeSurface, {
+    completeProgramCompiler: true,
+    completeProgramPlanAssertion: true,
+    completeProgramInterpreter: true,
+    everySelectedVectorHasExactPlan: true,
+    everyAuthoredProgramIsSelectedAndPlanned: true
+  });
+  assert.equal(observed.has("complete_c_program_interpreter"), false);
   assert.equal(
     manifest.compiler.mappedFullConformanceIssueCount,
     manifest.compiler.fullConformanceIssueCount

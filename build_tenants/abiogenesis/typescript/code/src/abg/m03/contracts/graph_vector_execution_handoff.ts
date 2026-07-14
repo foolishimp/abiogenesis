@@ -24,6 +24,11 @@ import {
 import { stableJsonEquals, stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
 import {
+  compileCompleteCProgram,
+  type CompiledCProgramPlan,
+  type CompleteCProgramDiagnostic
+} from "./complete_c_program.js";
+import {
   isHogBatchProgram,
   isHogRetryProgram,
   isHogWorkflowProgram,
@@ -182,10 +187,12 @@ export interface CompiledGraphVectorExecutionHandoff {
     | "flat_executable"
     | "workflow_sub_traversal"
     | "batch_task_family"
-    | "retry_attempt_family";
+    | "retry_attempt_family"
+    | "complete_c_program";
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly admittedProgram: CProgramDeclarationNode;
-  readonly normalizedProgram: HogProgramDeclaration;
+  readonly completeProgramPlan: CompiledCProgramPlan;
+  readonly normalizedProgram: HogProgramDeclaration | null;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly retryBinding: CompiledCRetryBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
@@ -226,7 +233,10 @@ export interface GraphVectorExecutionHandoffBlocked {
   readonly targetCarrierBinding: TargetCarrierContractBinding;
   readonly targetCarrierProjection: CompiledGraphVectorTargetCarrierProjection;
   readonly edgeClosureBinding: CompiledGraphVectorEdgeClosureBinding;
-  readonly sourceDiagnostics: readonly CAlgebraDiagnostic[];
+  readonly sourceDiagnostics: readonly (
+    | CAlgebraDiagnostic
+    | CompleteCProgramDiagnostic
+  )[];
   readonly diagnostics: readonly GraphVectorExecutionHandoffDiagnostic[];
 }
 
@@ -239,8 +249,11 @@ export interface GraphVectorExecutionHandoffCapabilityBlocked {
     | "flat_executable"
     | "workflow_sub_traversal"
     | "batch_task_family"
-    | "retry_attempt_family";
-  readonly normalizedProgram: HogProgramDeclaration;
+    | "retry_attempt_family"
+    | "complete_c_program";
+  readonly admittedProgram: CProgramDeclarationNode;
+  readonly completeProgramPlan: CompiledCProgramPlan;
+  readonly normalizedProgram: HogProgramDeclaration | null;
   readonly workflowLiftBinding: CompiledWorkflowLiftBinding | null;
   readonly retryBinding: CompiledCRetryBinding | null;
   readonly compositionSelection: AbgFnCompositionSelection;
@@ -261,6 +274,7 @@ export interface GraphVectorExecutionHandoffInvalid {
   readonly sourceDiagnostics: readonly (
     | CAlgebraDiagnostic
     | GraphVectorCProgramDiagnostic
+    | CompleteCProgramDiagnostic
   )[];
   readonly diagnostics: readonly GraphVectorExecutionHandoffDiagnostic[];
 }
@@ -339,6 +353,7 @@ function invalid(input: {
   readonly sourceDiagnostics?: readonly (
     | CAlgebraDiagnostic
     | GraphVectorCProgramDiagnostic
+    | CompleteCProgramDiagnostic
   )[];
   readonly diagnostic: GraphVectorExecutionHandoffDiagnostic;
 }): GraphVectorExecutionHandoffInvalid {
@@ -993,14 +1008,34 @@ export function compileGraphVectorExecutionHandoff(
     });
   }
 
-  const lowered = compileCAlgebraToHog(admission.program);
-  if (!lowered.accepted || lowered.program === null) {
-    const successorBlocked =
-      lowered.diagnostics.length > 0 &&
-      lowered.diagnostics.every((row) =>
-        SUCCESSOR_DIAGNOSTIC_IDS.has(row.diagnosticId)
-      );
-    if (successorBlocked) {
+  const compositionOwners = input.module.graphFunctions.filter(
+    (candidate) =>
+      candidate.id === compositionJoin.declarationOwnerGraphFunctionRef
+  );
+  const compositionOwner = compositionOwners[0];
+  if (compositionOwners.length !== 1 || compositionOwner === undefined) {
+    return invalid({
+      boundary,
+      diagnostic: diagnostic({
+        diagnosticId: "gtl-execution-handoff-program-shape-invalid",
+        path: "$.compositionOwnerGraphFunction",
+        expectedRelation: "one exact composition owner in the selected Module",
+        actualRelation: `composition owner resolves ${String(compositionOwners.length)} times`,
+        evidenceRefs: [selection.binding.bindingDigest]
+      })
+    });
+  }
+  const complete = compileCompleteCProgram({
+    module: input.module,
+    executionGraphFunction: input.graphFunction,
+    compositionOwnerGraphFunction: compositionOwner,
+    graphVector: input.graphVector,
+    programBinding: selection.binding,
+    program: admission.program,
+    composition: compositionJoin.selection
+  });
+  if (complete.status !== "compiled") {
+    if (complete.status === "semantic_not_realized") {
       return Object.freeze({
         kind: "graph_vector_execution_handoff_outcome" as const,
         status: "blocked_successor_constructor" as const,
@@ -1009,16 +1044,16 @@ export function compileGraphVectorExecutionHandoff(
         targetCarrierBinding: target.binding,
         targetCarrierProjection: target.projection,
         edgeClosureBinding: target.edgeClosure,
-        sourceDiagnostics: lowered.diagnostics,
+        sourceDiagnostics: complete.diagnostics,
         diagnostics: Object.freeze([
           diagnostic({
             classification: "semantic_not_realized",
             diagnosticId:
               "gtl-execution-handoff-successor-constructor-blocked",
             path: "$.selectedProgram.term",
-            expectedRelation: "successor-owned constructor runtime",
-            actualRelation: lowered.diagnostics
-              .map((row) => row.message)
+            expectedRelation: "one acyclic complete C-program plan",
+            actualRelation: complete.diagnostics
+              .map((row) => row.actualRelation)
               .join("; "),
             evidenceRefs: [selection.binding.bindingDigest]
           })
@@ -1027,37 +1062,54 @@ export function compileGraphVectorExecutionHandoff(
     }
     return invalid({
       boundary,
-      sourceDiagnostics: lowered.diagnostics,
+      sourceDiagnostics: complete.diagnostics,
       diagnostic: diagnostic({
         diagnosticId: "gtl-execution-handoff-program-shape-invalid",
         path: "$.selectedProgram.term",
-        expectedRelation: "one admitted flat executable C program",
-        actualRelation: lowered.diagnostics.map((row) => row.message).join("; "),
+        expectedRelation: "one admitted complete C program",
+        actualRelation: complete.diagnostics
+          .map((row) => row.actualRelation)
+          .join("; "),
         evidenceRefs: [selection.binding.bindingDigest]
       })
     });
   }
 
+  const lowered = compileCAlgebraToHog(admission.program);
+  const successorProjectionAbsent =
+    (!lowered.accepted || lowered.program === null) &&
+    lowered.diagnostics.length > 0 &&
+    lowered.diagnostics.every((row) =>
+      SUCCESSOR_DIAGNOSTIC_IDS.has(row.diagnosticId)
+    );
+  if (
+    (!lowered.accepted || lowered.program === null) &&
+    !successorProjectionAbsent
+  ) {
+    return invalid({
+      boundary,
+      sourceDiagnostics: lowered.diagnostics,
+      diagnostic: diagnostic({
+        diagnosticId: "gtl-execution-handoff-program-shape-invalid",
+        path: "$.selectedProgram.term",
+        expectedRelation: "one admitted C program and lawful compatibility projection",
+        actualRelation: lowered.diagnostics.map((row) => row.message).join("; "),
+        evidenceRefs: [selection.binding.bindingDigest]
+      })
+    });
+  }
+  const normalizedProgram = lowered.accepted ? lowered.program : null;
+
   let workflowLiftBinding: CompiledWorkflowLiftBinding | null = null;
-  if (isHogWorkflowProgram(lowered.program)) {
+  if (normalizedProgram !== null && isHogWorkflowProgram(normalizedProgram)) {
     try {
-      const compositionOwners = input.module.graphFunctions.filter(
-        (candidate) =>
-          candidate.id === compositionJoin.declarationOwnerGraphFunctionRef
-      );
-      const compositionOwner = compositionOwners[0];
-      if (compositionOwners.length !== 1 || compositionOwner === undefined) {
-        throw new TypeError(
-          `workflow.C composition owner resolves ${String(compositionOwners.length)} times in the selected Module`
-        );
-      }
       workflowLiftBinding = compileWorkflowLiftBinding({
         module: input.module,
         parentGraphFunction: input.graphFunction,
         compositionOwnerGraphFunction: compositionOwner,
         parentGraphVector: input.graphVector,
         programBinding: selection.binding,
-        program: lowered.program,
+        program: normalizedProgram,
         composition: compositionJoin.selection
       });
     } catch (error: unknown) {
@@ -1075,25 +1127,15 @@ export function compileGraphVectorExecutionHandoff(
     }
   }
   let retryBinding: CompiledCRetryBinding | null = null;
-  if (isHogRetryProgram(lowered.program)) {
+  if (normalizedProgram !== null && isHogRetryProgram(normalizedProgram)) {
     try {
-      const compositionOwners = input.module.graphFunctions.filter(
-        (candidate) =>
-          candidate.id === compositionJoin.declarationOwnerGraphFunctionRef
-      );
-      const compositionOwner = compositionOwners[0];
-      if (compositionOwners.length !== 1 || compositionOwner === undefined) {
-        throw new TypeError(
-          `C.retry composition owner resolves ${String(compositionOwners.length)} times in the selected Module`
-        );
-      }
       retryBinding = compileCRetryBinding({
         module: input.module,
         graphFunction: input.graphFunction,
         compositionOwnerGraphFunction: compositionOwner,
         graphVector: input.graphVector,
         programBinding: selection.binding,
-        program: lowered.program,
+        program: normalizedProgram,
         composition: compositionJoin.selection
       });
     } catch (error: unknown) {
@@ -1110,13 +1152,15 @@ export function compileGraphVectorExecutionHandoff(
       });
     }
   }
-  const programDisposition = isHogWorkflowProgram(lowered.program)
-    ? "workflow_sub_traversal" as const
-    : isHogBatchProgram(lowered.program)
-      ? "batch_task_family" as const
-      : isHogRetryProgram(lowered.program)
-        ? "retry_attempt_family" as const
-        : "flat_executable" as const;
+  const programDisposition = normalizedProgram === null
+    ? "complete_c_program" as const
+    : isHogWorkflowProgram(normalizedProgram)
+      ? "workflow_sub_traversal" as const
+      : isHogBatchProgram(normalizedProgram)
+        ? "batch_task_family" as const
+        : isHogRetryProgram(normalizedProgram)
+          ? "retry_attempt_family" as const
+          : "flat_executable" as const;
 
   let compatibility: CapabilityCompatibilityAdmission;
   try {
@@ -1131,7 +1175,9 @@ export function compileGraphVectorExecutionHandoff(
       boundary,
       programBinding: selection.binding,
       programDisposition,
-      normalizedProgram: lowered.program,
+      admittedProgram: admission.program,
+      completeProgramPlan: complete.plan,
+      normalizedProgram,
       workflowLiftBinding,
       retryBinding,
       compositionSelection: compositionJoin.selection,
@@ -1179,7 +1225,8 @@ export function compileGraphVectorExecutionHandoff(
     programDisposition,
     programBinding: selection.binding,
     admittedProgram: admission.program,
-    normalizedProgram: lowered.program,
+    completeProgramPlan: complete.plan,
+    normalizedProgram,
     workflowLiftBinding,
     retryBinding,
     compositionSelection: compositionJoin.selection,

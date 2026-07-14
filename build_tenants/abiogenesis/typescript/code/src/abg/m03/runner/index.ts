@@ -90,6 +90,22 @@ export type {
   HofCBatchCompletedResolution,
   HofCBatchSourceAuthority
 } from "./c_batch_runtime.js";
+export { interpretCompleteCProgram } from "./complete_c_program_runtime.js";
+export type {
+  CProgramAtomReceipt,
+  CProgramAtomRequest,
+  CProgramAtomResult,
+  CProgramAtomStatus,
+  CProgramBatchProjectionRequest,
+  CProgramBatchProjectionResult,
+  CProgramExecutionCompleted,
+  CProgramExecutionCursor,
+  CProgramExecutionOutcome,
+  CProgramExecutionStopped,
+  CProgramInterpreterInvocation,
+  CProgramStageAtomRequest,
+  CProgramWorkflowAtomRequest
+} from "./complete_c_program_runtime.js";
 export { resolveHofFanIn } from "./hof_fan_in_runtime.js";
 export type {
   HofFanInCompletedResolution,

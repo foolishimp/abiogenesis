@@ -12,6 +12,10 @@ import { compileCAlgebraToHog } from "../../build/semantic/code/src/abg/m03/cont
 import { compileExecutionDeclarations } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
 import { compileGraphFunctionApplication } from "../../build/semantic/code/src/abg/m03/contracts/graph_function_application_compiler.js";
 import { compileGraphVectorExecutionHandoff } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
+import {
+  assertCompiledCProgramPlan,
+  compileCompleteCProgram
+} from "../../build/semantic/code/src/abg/m03/contracts/complete_c_program.js";
 import { compileGraphVectorCProgramSelection } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
 import { compileHofRelation } from "../../build/semantic/code/src/abg/m03/contracts/hof_relation_compiler.js";
 import {
@@ -53,6 +57,7 @@ import {
 } from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
 import { resolveCBatch } from "../../build/semantic/code/src/abg/m03/runner/c_batch_runtime.js";
 import { resolveCRetry } from "../../build/semantic/code/src/abg/m03/runner/c_retry_runtime.js";
+import { interpretCompleteCProgram } from "../../build/semantic/code/src/abg/m03/runner/complete_c_program_runtime.js";
 import {
   deriveTypedRecurseParentRebindEvidenceRef,
   resolveTypedRecurse
@@ -328,6 +333,26 @@ function termKinds(term, counts = new Map()) {
     case "c_of":
     case "c_identity":
     case "c_workflow":
+      break;
+  }
+  return counts;
+}
+
+function compiledPlanKinds(node, counts = new Map()) {
+  counts.set(node.kind, (counts.get(node.kind) ?? 0) + 1);
+  switch (node.kind) {
+    case "compiled_c_sequence":
+      node.children.forEach((child) => compiledPlanKinds(child, counts));
+      break;
+    case "compiled_c_complete_batch":
+      node.tasks.forEach((task) => compiledPlanKinds(task.child, counts));
+      break;
+    case "compiled_c_complete_retry":
+      compiledPlanKinds(node.child, counts);
+      break;
+    case "compiled_c_stage_leaf":
+    case "compiled_c_identity":
+    case "compiled_c_workflow_lift":
       break;
   }
   return counts;
@@ -706,6 +731,60 @@ async function buildManifest() {
         handoffRows.filter((row) => row.status === status).length
       ])
   );
+  const completeProgramRows = handoffRows.flatMap((row) => {
+    const carrier = row.status === "published_startup_blocked"
+      ? row.outcome.handoff
+      : row.status === "blocked_capability"
+        ? row.outcome
+        : null;
+    if (carrier === null) return [];
+    assertCompiledCProgramPlan(carrier.completeProgramPlan);
+    const selectedRows = vectorRows.filter((candidate) => candidate.path === row.path);
+    const selected = selectedRows[0];
+    if (
+      selectedRows.length !== 1 ||
+      selected === undefined ||
+      selected.accepted !== true ||
+      selected.bindingDigest === null ||
+      selected.selectedProgramRef === null ||
+      carrier.completeProgramPlan.programBindingDigest !== selected.bindingDigest ||
+      carrier.completeProgramPlan.programBindingDigest !== carrier.programBinding.bindingDigest ||
+      carrier.completeProgramPlan.programRef !== selected.selectedProgramRef ||
+      carrier.completeProgramPlan.executionGraphFunctionRef !== row.graphFunction.id ||
+      carrier.completeProgramPlan.graphVectorRef !== row.graphVector.id
+    ) {
+      throw new TypeError(
+        `T-271 complete-program plan does not preserve the selected vector authority: ${JSON.stringify({ path: row.path, selectedRows: selectedRows.length, planRef: carrier.completeProgramPlan.planRef })}`
+      );
+    }
+    return [Object.freeze({
+      path: row.path,
+      programRef: carrier.completeProgramPlan.programRef,
+      planRef: carrier.completeProgramPlan.planRef,
+      planDigest: carrier.completeProgramPlan.planDigest,
+      programBindingDigest: carrier.completeProgramPlan.programBindingDigest,
+      authoredNodeCount: carrier.completeProgramPlan.authoredNodeCount,
+      invokingLocusCount: carrier.completeProgramPlan.invokingLocusCount,
+      rootKind: carrier.completeProgramPlan.root.kind,
+      plan: carrier.completeProgramPlan
+    })];
+  });
+  const selectedVectorPaths = vectorRows.map((row) => row.path).sort();
+  const plannedVectorPaths = completeProgramRows.map((row) => row.path).sort();
+  const authoredProgramRefs = body.programs.map((program) => program.programRef).sort();
+  const plannedProgramRefs = sortedUnique(
+    completeProgramRows.map((row) => row.programRef)
+  );
+  if (
+    typeof compileCompleteCProgram !== "function" ||
+    typeof interpretCompleteCProgram !== "function" ||
+    JSON.stringify(plannedVectorPaths) !== JSON.stringify(selectedVectorPaths) ||
+    JSON.stringify(plannedProgramRefs) !== JSON.stringify(authoredProgramRefs)
+  ) {
+    throw new TypeError(
+      `T-271 complete-program coverage differs from the independently selected canonical programs: ${JSON.stringify({ selectedVectorPaths, plannedVectorPaths, authoredProgramRefs, plannedProgramRefs, compilerPresent: typeof compileCompleteCProgram === "function", interpreterPresent: typeof interpretCompleteCProgram === "function" })}`
+    );
+  }
   const selectedWorkflowPaths = vectorRows
     .filter((row) => {
       const selectedPrograms = body.programs.filter(
@@ -1637,30 +1716,83 @@ async function buildManifest() {
   const termCounts = Object.fromEntries(
     [...termKindCounts].sort(([left], [right]) => left.localeCompare(right))
   );
+  const compiledPlanKindCountsMap = new Map();
+  completeProgramRows.forEach((row) =>
+    compiledPlanKinds(row.plan.root, compiledPlanKindCountsMap)
+  );
+  const compiledPlanKindCounts = Object.fromEntries(
+    [...compiledPlanKindCountsMap].sort(([left], [right]) =>
+      left.localeCompare(right)
+    )
+  );
+  const t271RuntimeSurface = Object.freeze({
+    completeProgramCompiler: typeof compileCompleteCProgram === "function",
+    completeProgramPlanAssertion: typeof assertCompiledCProgramPlan === "function",
+    completeProgramInterpreter: typeof interpretCompleteCProgram === "function",
+    everySelectedVectorHasExactPlan:
+      completeProgramRows.length === vectorRows.length,
+    everyAuthoredProgramIsSelectedAndPlanned:
+      JSON.stringify(plannedProgramRefs) === JSON.stringify(authoredProgramRefs)
+  });
+  if (Object.values(t271RuntimeSurface).some((observed) => !observed)) {
+    throw new TypeError(
+      `T-271 compiler/runtime surface is incomplete: ${JSON.stringify(t271RuntimeSurface)}`
+    );
+  }
   const coverageRows = [
     {
       constructor: "C.of",
       authoredCount: termCounts.c_of ?? 0,
-      compilerCoverage: "exact_handoff",
-      runtimeStatus: "capability_or_successor_blocked_before_traversal",
+      selectedPlanNodeCount: compiledPlanKindCounts.compiled_c_stage_leaf ?? 0,
+      compilerCoverage: "exact_complete_program_plan",
+      runtimeStatus: "structural_interpreter_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
+    },
+    {
+      constructor: "C.id",
+      authoredCount: termCounts.c_identity ?? 0,
+      selectedPlanNodeCount: compiledPlanKindCounts.compiled_c_identity ?? 0,
+      compilerCoverage: "exact_complete_program_plan",
+      runtimeStatus: "effect_free_structural_interpreter_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
+    },
+    {
+      constructor: "C.compose/C.edge",
+      authoredCount: (termCounts.c_compose ?? 0) + (termCounts.c_edge ?? 0),
+      selectedPlanNodeCount: compiledPlanKindCounts.compiled_c_sequence ?? 0,
+      compilerCoverage: "exact_ordered_complete_program_plan",
+      runtimeStatus: "structural_interpreter_realized_capability_blocked",
       gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
       constructor: "workflow.C",
       authoredCount: termCounts.c_workflow ?? 0,
       selectedHandoffCount: realizedWorkflowRows.length,
-      compilerCoverage: "exact_static_handoff",
+      selectedPlanNodeCount:
+        compiledPlanKindCounts.compiled_c_workflow_lift ?? 0,
+      compilerCoverage: "exact_complete_program_plan_and_direct_compatibility_handoff",
       runtimeStatus:
-        "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+        "runtime_atom_and_structural_interpreter_realized_capability_blocked",
+      gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
+    },
+    {
+      constructor: "C.batch",
+      authoredCount: termCounts.c_batch ?? 0,
+      selectedPlanNodeCount:
+        compiledPlanKindCounts.compiled_c_complete_batch ?? 0,
+      compilerCoverage: "exact_task_family_complete_program_plan",
+      runtimeStatus: "shared_batch_atom_and_structural_interpreter_realized_capability_blocked",
       gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
       constructor: "C.retry",
       authoredCount: termCounts.c_retry ?? 0,
       selectedHandoffCount: realizedRetryRows.length,
-      compilerCoverage: "exact_static_handoff_and_runtime_resolver",
+      selectedPlanNodeCount:
+        compiledPlanKindCounts.compiled_c_complete_retry ?? 0,
+      compilerCoverage: "exact_complete_program_plan_and_runtime_resolver",
       runtimeStatus:
-        "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+        "shared_retry_atom_and_structural_interpreter_realized_capability_blocked",
       gapFamilies: ["tenant_conformance_manifest_consensus_coverage_missing"]
     },
     {
@@ -2038,6 +2170,10 @@ async function buildManifest() {
             : row.outcome.workflowLiftBinding?.bindingRef ?? null,
         diagnosticIds: row.diagnosticIds
       })),
+      completeProgramPlanCount: completeProgramRows.length,
+      completeProgramPlanKindCounts: compiledPlanKindCounts,
+      completeProgramRows: completeProgramRows.map(({ plan: _plan, ...row }) => row),
+      t271RuntimeSurface,
       t260RuntimeSurface,
       t261RuntimeSurface,
       t262RuntimeSurface,

@@ -300,7 +300,10 @@ test("T-264 inventories the T-252 declarations without erasing real gaps", () =>
     report.issues.some((row) => row.ruleRef.includes("coverage/expected")),
     false
   );
-  assert(refs.has("abg://gtl-program/c-algebra/semantic-not-realized"));
+  assert.equal(
+    refs.has("abg://gtl-program/c-algebra/semantic-not-realized"),
+    false
+  );
   assert(refs.has("abg://gtl-program/graph-vector/target-carrier-required"));
   assert.equal(
     stableSha256Digest(serializeModule(ABG_CONSENSUS_GTL_MODULE)),

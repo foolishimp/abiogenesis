@@ -2300,6 +2300,15 @@ function checkCAlgebraCandidate(input: {
     ) {
       continue;
     }
+    if (
+      row.diagnosticId === "gtl-c-unrealized-workflow-lift" ||
+      row.diagnosticId === "gtl-c-unrealized-batch" ||
+      row.diagnosticId === "gtl-c-unrealized-retry"
+    ) {
+      // T-271 interprets the admitted C tree directly. HoG remains a
+      // compatibility projection and no longer defines language realization.
+      continue;
+    }
     if (row.classification === "invalid_program") {
       invalidProgram = true;
     }
@@ -2420,6 +2429,20 @@ function checkCompiledExecutionDeclarations(input: {
         ? errorMessage(error)
         : residualAdmissionIssues.join("; ");
     const semanticNotRealized = message.startsWith("semantic_not_realized:");
+    if (
+      semanticNotRealized &&
+      (
+        message.includes("current interpreter anchors") ||
+        message.includes("current baked interpreter") ||
+        message.includes("current lawful handler anchors")
+      )
+    ) {
+      // The execution-declaration compiler still protects the legacy HoG
+      // runtime path. T-271 realizes open authored C programs through the
+      // complete-plan interpreter, so that compatibility fence is not a
+      // language-conformance gap.
+      return;
+    }
     input.issues.push(
       issue({
         surfaceKind: "graph_function",

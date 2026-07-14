@@ -1828,6 +1828,31 @@ export {
 } from "./graph_vector_c_program_compiler.js";
 
 export {
+  COMPLETE_C_PROGRAM_DIAGNOSTIC_ID_VALUES,
+  assertCompiledCProgramPlan,
+  compileCompleteCProgram
+} from "./complete_c_program.js";
+export type {
+  CompileCompleteCProgramInput,
+  CompiledCBatchTask,
+  CompiledCCompleteBatch,
+  CompiledCCompleteRetry,
+  CompiledCIdentity,
+  CompiledCPlanNode,
+  CompiledCProgramPlan,
+  CompiledCSequence,
+  CompiledCStageLeaf,
+  CompiledCWorkflowLift,
+  CompleteCProgramCompilation,
+  CompleteCProgramCompiled,
+  CompleteCProgramDiagnostic,
+  CompleteCProgramDiagnosticId,
+  CompleteCProgramRefused,
+  CompleteCProgramResultCardinality,
+  CompositionLocusBinding
+} from "./complete_c_program.js";
+
+export {
   GRAPH_VECTOR_EXECUTION_HANDOFF_DIAGNOSTIC_ID_VALUES,
   compileGraphVectorExecutionHandoff,
   projectTenantCapabilityCoverage

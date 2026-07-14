@@ -170,6 +170,11 @@ export function executionHandoffBindingView(
       "execution handoff composition must identify its declaration owner"
     );
   }
+  if (handoff.normalizedProgram === null) {
+    throw new TypeError(
+      "direct HOF projection requires a normalized compatibility program; complete C programs use the T-271 interpreter"
+    );
+  }
   return Object.freeze({
     executionSubjectGraphFunctionRef:
       capabilityBlocked

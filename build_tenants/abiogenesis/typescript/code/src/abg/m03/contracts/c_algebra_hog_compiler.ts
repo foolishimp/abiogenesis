@@ -1,8 +1,6 @@
-// Lowers admitted GTL C-algebra data into the normalized HoG program carrier
-// already consumed by ABG. Flat of/id/compose/edge terms are executable now.
-// Direct named workflow lifts and flat of/id/compose/edge terms normalize here.
-// Mixed workflow expressions, grouped batches, and mixed retry wrappers stay
-// typed gaps until their distinct ordering/runtime interpretations are realized.
+// Projects admitted GTL C-algebra data into the legacy normalized HoG carrier.
+// T-271 interprets the complete C tree; this lowerer remains the compatibility
+// surface for direct forms that older consumers still understand.
 
 import type {
   CAlgebraDiagnostic,

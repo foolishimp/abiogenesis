@@ -1279,6 +1279,361 @@
         ]
       }
     ],
+    "completeProgramPlanCount": 34,
+    "completeProgramPlanKindCounts": {
+      "compiled_c_complete_retry": 1,
+      "compiled_c_stage_leaf": 29,
+      "compiled_c_workflow_lift": 5
+    },
+    "completeProgramRows": [
+      {
+        "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
+        "programRef": "program://abg/consensus/review-one-profile",
+        "planRef": "abg://compiled-c-program/99185a11e2a2e20e6a8b05b1ccc0673c27fefd286d0384872c43aa17bd7783ba",
+        "planDigest": "sha256:99185a11e2a2e20e6a8b05b1ccc0673c27fefd286d0384872c43aa17bd7783ba",
+        "programBindingDigest": "sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
+        "authoredNodeCount": 2,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_complete_retry"
+      },
+      {
+        "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
+        "programRef": "program://abg/consensus/exact-panel-facts",
+        "planRef": "abg://compiled-c-program/59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf",
+        "planDigest": "sha256:59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf",
+        "programBindingDigest": "sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
+        "programRef": "program://abg/consensus/exact-panel-facts",
+        "planRef": "abg://compiled-c-program/c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e",
+        "planDigest": "sha256:c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e",
+        "programBindingDigest": "sha256:de93e1bf42182425268ec14a3ba85a0663f3a0b284086debddbd7c54f9c747da",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
+        "programRef": "program://abg/consensus/expand-panel",
+        "planRef": "abg://compiled-c-program/09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e",
+        "planDigest": "sha256:09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e",
+        "programBindingDigest": "sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
+        "programRef": "program://abg/consensus/project-reducer-binding",
+        "planRef": "abg://compiled-c-program/af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a",
+        "planDigest": "sha256:af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a",
+        "programBindingDigest": "sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
+        "programRef": "program://abg/consensus/project-submitter-binding",
+        "planRef": "abg://compiled-c-program/d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802",
+        "planDigest": "sha256:d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802",
+        "programBindingDigest": "sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
+        "programRef": "program://abg/consensus/project-fh-binding",
+        "planRef": "abg://compiled-c-program/92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b",
+        "planDigest": "sha256:92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b",
+        "programBindingDigest": "sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
+        "programRef": "program://abg/consensus/review-panel",
+        "planRef": "abg://compiled-c-program/23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550",
+        "planDigest": "sha256:23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550",
+        "programBindingDigest": "sha256:48be5b77e4a2422b4383d6c8809ce9151f4f936d845dd24f73b023158e11ed34",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_workflow_lift"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
+        "programRef": "program://abg/consensus/reduce-panel-facts",
+        "planRef": "abg://compiled-c-program/e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19",
+        "planDigest": "sha256:e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19",
+        "programBindingDigest": "sha256:bd7b6f7377d5e19e4b60f17cb398c3dded2084d76e78a2369a22e28533f11273",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_workflow_lift"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
+        "programRef": "program://abg/consensus/reduce-round",
+        "planRef": "abg://compiled-c-program/711fd946cfe0b8b00d9551e0c7e1600a26e2257a88f26058ce124c4f87c86970",
+        "planDigest": "sha256:711fd946cfe0b8b00d9551e0c7e1600a26e2257a88f26058ce124c4f87c86970",
+        "programBindingDigest": "sha256:4a00b7f25937e9eca06971460b46c458ab169a36432edea869f6ee0bc8dbc327",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
+        "programRef": "program://abg/consensus/close-initial",
+        "planRef": "abg://compiled-c-program/7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80",
+        "planDigest": "sha256:7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80",
+        "programBindingDigest": "sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
+        "programRef": "program://abg/consensus/submitter-response",
+        "planRef": "abg://compiled-c-program/0d4ee0ded2ac50c07a96dc61dcd8cabb7da7ae0f12ce40da3a35ae59588d13cd",
+        "planDigest": "sha256:0d4ee0ded2ac50c07a96dc61dcd8cabb7da7ae0f12ce40da3a35ae59588d13cd",
+        "programBindingDigest": "sha256:98ecfc7a48148c0776bb25fce079ccd68806b29d4ad75486053f0476b9ffedcb",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
+        "programRef": "program://abg/consensus/fh-initial",
+        "planRef": "abg://compiled-c-program/93a86b78f34172f95bff4b24c356060abf1ab81bd8d6f429f955195457a30d5f",
+        "planDigest": "sha256:93a86b78f34172f95bff4b24c356060abf1ab81bd8d6f429f955195457a30d5f",
+        "programBindingDigest": "sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
+        "programRef": "program://abg/consensus/reassess-round",
+        "planRef": "abg://compiled-c-program/6028289316110c0444a47c824cb6b0fb66839239ff50a3038696ec5d4e4160f2",
+        "planDigest": "sha256:6028289316110c0444a47c824cb6b0fb66839239ff50a3038696ec5d4e4160f2",
+        "programBindingDigest": "sha256:47603016c5983f141cd0244cbde67357ce90aba5e0d8b353bd3b10537adbcfc2",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
+        "programRef": "program://abg/consensus/close-post-submitter",
+        "planRef": "abg://compiled-c-program/d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb",
+        "planDigest": "sha256:d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb",
+        "programBindingDigest": "sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
+        "programRef": "program://abg/consensus/recurse-post-submitter",
+        "planRef": "abg://compiled-c-program/543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee",
+        "planDigest": "sha256:543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee",
+        "programBindingDigest": "sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
+        "programRef": "program://abg/consensus/fh-post-submitter",
+        "planRef": "abg://compiled-c-program/9f33b701826aba66931015c485fb88916ecb44e1d8268c184959ba231e18320f",
+        "planDigest": "sha256:9f33b701826aba66931015c485fb88916ecb44e1d8268c184959ba231e18320f",
+        "programBindingDigest": "sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "programRef": "program://abg/consensus/expand-panel",
+        "planRef": "abg://compiled-c-program/f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0",
+        "planDigest": "sha256:f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0",
+        "programBindingDigest": "sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "programRef": "program://abg/consensus/project-reducer-binding",
+        "planRef": "abg://compiled-c-program/afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25",
+        "planDigest": "sha256:afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25",
+        "programBindingDigest": "sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "programRef": "program://abg/consensus/project-submitter-binding",
+        "planRef": "abg://compiled-c-program/2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68",
+        "planDigest": "sha256:2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68",
+        "programBindingDigest": "sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "programRef": "program://abg/consensus/project-fh-binding",
+        "planRef": "abg://compiled-c-program/ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a",
+        "planDigest": "sha256:ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a",
+        "programBindingDigest": "sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "programRef": "program://abg/consensus/review-panel",
+        "planRef": "abg://compiled-c-program/756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026",
+        "planDigest": "sha256:756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026",
+        "programBindingDigest": "sha256:0b758bc53624967e597b9f4818548c9a70a5abbc35bc4577844f2f26da5ac793",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_workflow_lift"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "programRef": "program://abg/consensus/reduce-panel-facts",
+        "planRef": "abg://compiled-c-program/5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6",
+        "planDigest": "sha256:5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6",
+        "programBindingDigest": "sha256:ab63f44919fcb830a96f56a07348ca4d68cbe9cfb72f63629e3c33b33419e31d",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_workflow_lift"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "programRef": "program://abg/consensus/reduce-round",
+        "planRef": "abg://compiled-c-program/8a9aee7677bc9cb13356ed714b5cd777ee6be9c69d4bb9d90bbc589ff756fa72",
+        "planDigest": "sha256:8a9aee7677bc9cb13356ed714b5cd777ee6be9c69d4bb9d90bbc589ff756fa72",
+        "programBindingDigest": "sha256:2bdd247c73a5bdb6695eb9b4eebf7fe32d6314163cd1e82d05affe3087a72406",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "programRef": "program://abg/consensus/close-initial",
+        "planRef": "abg://compiled-c-program/eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718",
+        "planDigest": "sha256:eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718",
+        "programBindingDigest": "sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "programRef": "program://abg/consensus/submitter-response",
+        "planRef": "abg://compiled-c-program/a4dd902e6359769b1fe23175ee2982d98b946977f59a69c53c420a75a8c09bc5",
+        "planDigest": "sha256:a4dd902e6359769b1fe23175ee2982d98b946977f59a69c53c420a75a8c09bc5",
+        "programBindingDigest": "sha256:a21b8168d4e58bad411ea5fce425584c2ff33a3ff5f883e949e6a5d59bf93af6",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
+        "programRef": "program://abg/consensus/fh-initial",
+        "planRef": "abg://compiled-c-program/ebe66419c0405af729192e95b1c239c5751325cb33e2dee4ebcb962404fdf492",
+        "planDigest": "sha256:ebe66419c0405af729192e95b1c239c5751325cb33e2dee4ebcb962404fdf492",
+        "programBindingDigest": "sha256:8c86e273de72d4291ae5d86d32d6b1e4f63b21ffd3458ec7af42c5a68c953a5a",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "programRef": "program://abg/consensus/reassess-round",
+        "planRef": "abg://compiled-c-program/309eb618dce280d85e0bbc79560c1606ca23071f674f72c5aaeb5919a03f13b9",
+        "planDigest": "sha256:309eb618dce280d85e0bbc79560c1606ca23071f674f72c5aaeb5919a03f13b9",
+        "programBindingDigest": "sha256:828ce4ffaefd7c2c35de4628a30d9cb22e33aec6e4662642b6804478a8a1026d",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "programRef": "program://abg/consensus/close-post-submitter",
+        "planRef": "abg://compiled-c-program/ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712",
+        "planDigest": "sha256:ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712",
+        "programBindingDigest": "sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "programRef": "program://abg/consensus/recurse-post-submitter",
+        "planRef": "abg://compiled-c-program/6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439",
+        "planDigest": "sha256:6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439",
+        "programBindingDigest": "sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "programRef": "program://abg/consensus/fh-post-submitter",
+        "planRef": "abg://compiled-c-program/bebf94c449fbf95a5814827a245f2b1a380066a67e7422b195c806c55163dbfb",
+        "planDigest": "sha256:bebf94c449fbf95a5814827a245f2b1a380066a67e7422b195c806c55163dbfb",
+        "programBindingDigest": "sha256:d0ba9aa915dda6a550f980bfbdaab3c3e87dcd519c51fbcd817b7d4d7b81058b",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
+        "programRef": "program://abg/consensus/seed-round",
+        "planRef": "abg://compiled-c-program/2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298",
+        "planDigest": "sha256:2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298",
+        "programBindingDigest": "sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
+        "programRef": "program://abg/consensus/bounded-rounds",
+        "planRef": "abg://compiled-c-program/73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687",
+        "planDigest": "sha256:73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687",
+        "programBindingDigest": "sha256:f49251731760212359febd7935fc182c8222d8ffb08d1eec2823451c54eaf8a4",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_workflow_lift"
+      },
+      {
+        "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
+        "programRef": "program://abg/consensus/project-result",
+        "planRef": "abg://compiled-c-program/1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d",
+        "planDigest": "sha256:1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d",
+        "programBindingDigest": "sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
+        "authoredNodeCount": 1,
+        "invokingLocusCount": 1,
+        "rootKind": "compiled_c_stage_leaf"
+      }
+    ],
+    "t271RuntimeSurface": {
+      "completeProgramCompiler": true,
+      "completeProgramPlanAssertion": true,
+      "completeProgramInterpreter": true,
+      "everySelectedVectorHasExactPlan": true,
+      "everyAuthoredProgramIsSelectedAndPlanned": true
+    },
     "t260RuntimeSurface": {
       "compileDeclaredCBatchPlan": true,
       "compileHofCBatchPlan": true,
@@ -1888,7 +2243,7 @@
     "traversalExecutionContractCount": 35,
     "traversalConformanceIssueCount": 0,
     "traversalAdmissionStatusCounts": {
-      "static_contracts_admitted_program_blocked": 35
+      "static_contracts_admitted_capability_blocked": 35
     },
     "traversalAdmissionRows": [
       {
@@ -1912,7 +2267,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -1937,7 +2292,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -1962,7 +2317,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -1987,7 +2342,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2017,7 +2372,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2042,7 +2397,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2067,7 +2422,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2097,7 +2452,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2122,7 +2477,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2147,7 +2502,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2172,7 +2527,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2197,7 +2552,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2227,7 +2582,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2252,7 +2607,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2282,7 +2637,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2312,7 +2667,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2337,7 +2692,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2362,7 +2717,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2387,7 +2742,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2412,7 +2767,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2437,7 +2792,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2462,7 +2817,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2487,7 +2842,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2517,7 +2872,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2542,7 +2897,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2567,7 +2922,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2597,7 +2952,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2622,7 +2977,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2647,7 +3002,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2672,7 +3027,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2697,7 +3052,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2727,7 +3082,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2752,7 +3107,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2782,7 +3137,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       },
@@ -2812,7 +3167,7 @@
           "evaluate",
           "consequence"
         ],
-        "status": "static_contracts_admitted_program_blocked",
+        "status": "static_contracts_admitted_capability_blocked",
         "runtimeAddressable": false,
         "effectsPermitted": false
       }
@@ -2821,8 +3176,29 @@
       {
         "constructor": "C.of",
         "authoredCount": 16,
-        "compilerCoverage": "exact_handoff",
-        "runtimeStatus": "capability_or_successor_blocked_before_traversal",
+        "selectedPlanNodeCount": 29,
+        "compilerCoverage": "exact_complete_program_plan",
+        "runtimeStatus": "structural_interpreter_realized_capability_blocked",
+        "gapFamilies": [
+          "tenant_conformance_manifest_consensus_coverage_missing"
+        ]
+      },
+      {
+        "constructor": "C.id",
+        "authoredCount": 0,
+        "selectedPlanNodeCount": 0,
+        "compilerCoverage": "exact_complete_program_plan",
+        "runtimeStatus": "effect_free_structural_interpreter_realized_capability_blocked",
+        "gapFamilies": [
+          "tenant_conformance_manifest_consensus_coverage_missing"
+        ]
+      },
+      {
+        "constructor": "C.compose/C.edge",
+        "authoredCount": 0,
+        "selectedPlanNodeCount": 0,
+        "compilerCoverage": "exact_ordered_complete_program_plan",
+        "runtimeStatus": "structural_interpreter_realized_capability_blocked",
         "gapFamilies": [
           "tenant_conformance_manifest_consensus_coverage_missing"
         ]
@@ -2831,8 +3207,19 @@
         "constructor": "workflow.C",
         "authoredCount": 3,
         "selectedHandoffCount": 5,
-        "compilerCoverage": "exact_static_handoff",
-        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+        "selectedPlanNodeCount": 5,
+        "compilerCoverage": "exact_complete_program_plan_and_direct_compatibility_handoff",
+        "runtimeStatus": "runtime_atom_and_structural_interpreter_realized_capability_blocked",
+        "gapFamilies": [
+          "tenant_conformance_manifest_consensus_coverage_missing"
+        ]
+      },
+      {
+        "constructor": "C.batch",
+        "authoredCount": 0,
+        "selectedPlanNodeCount": 0,
+        "compilerCoverage": "exact_task_family_complete_program_plan",
+        "runtimeStatus": "shared_batch_atom_and_structural_interpreter_realized_capability_blocked",
         "gapFamilies": [
           "tenant_conformance_manifest_consensus_coverage_missing"
         ]
@@ -2841,8 +3228,9 @@
         "constructor": "C.retry",
         "authoredCount": 1,
         "selectedHandoffCount": 1,
-        "compilerCoverage": "exact_static_handoff_and_runtime_resolver",
-        "runtimeStatus": "runtime_atom_and_static_traversal_contract_realized_capability_blocked",
+        "selectedPlanNodeCount": 1,
+        "compilerCoverage": "exact_complete_program_plan_and_runtime_resolver",
+        "runtimeStatus": "shared_retry_atom_and_structural_interpreter_realized_capability_blocked",
         "gapFamilies": [
           "tenant_conformance_manifest_consensus_coverage_missing"
         ]
@@ -2879,71 +3267,15 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 5,
-    "mappedFullConformanceIssueCount": 5,
+    "fullConformanceIssueCount": 0,
+    "mappedFullConformanceIssueCount": 0,
     "unmappedFullConformanceIssueCount": 0,
-    "fullConformanceIssues": [
-      {
-        "gapFamily": "complete_c_program_interpreter",
-        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "path": "graph_function:consensus.exact-panel-facts#execution-declarations",
-        "message": "semantic_not_realized: consensus.exact-panel-facts program program://abg/consensus/exact-panel-facts omits current interpreter anchors transform, evaluate, consequence",
-        "evidenceRefs": [
-          "graph-function:graph-function://abg/consensus/exact-panel-facts",
-          "requirement:REQ-L-GTL3-C-ALGEBRA"
-        ]
-      },
-      {
-        "gapFamily": "complete_c_program_interpreter",
-        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "path": "graph_function:fan_in(consensus.exact-panel-facts)#execution-declarations",
-        "message": "semantic_not_realized: fan_in(consensus.exact-panel-facts) program program://abg/consensus/exact-panel-facts omits current interpreter anchors transform, evaluate, consequence",
-        "evidenceRefs": [
-          "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
-          "requirement:REQ-L-GTL3-C-ALGEBRA"
-        ]
-      },
-      {
-        "gapFamily": "complete_c_program_interpreter",
-        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "path": "graph_function:consensus.round#execution-declarations",
-        "message": "semantic_not_realized: consensus.round program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence",
-        "evidenceRefs": [
-          "graph-function:graph-function://abg/consensus/round",
-          "requirement:REQ-L-GTL3-C-ALGEBRA"
-        ]
-      },
-      {
-        "gapFamily": "complete_c_program_interpreter",
-        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "path": "graph_function:recurse(consensus.round)#execution-declarations",
-        "message": "semantic_not_realized: recurse(consensus.round) program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence",
-        "evidenceRefs": [
-          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
-          "requirement:REQ-L-GTL3-C-ALGEBRA"
-        ]
-      },
-      {
-        "gapFamily": "complete_c_program_interpreter",
-        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "path": "graph_function:consensus.submitter-reviewer-rounds#execution-declarations",
-        "message": "semantic_not_realized: consensus.submitter-reviewer-rounds program program://abg/consensus/seed-round omits current interpreter anchors transform, evaluate, consequence",
-        "evidenceRefs": [
-          "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
-          "requirement:REQ-L-GTL3-C-ALGEBRA"
-        ]
-      }
-    ],
+    "fullConformanceIssues": [],
     "normalizedSemanticIssueCount": 0,
     "mappedNormalizedSemanticIssueCount": 0,
     "unmappedNormalizedSemanticIssueCount": 0,
     "normalizedSemanticIssues": [],
-    "conformanceRuleCounts": [
-      {
-        "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
-        "count": 5
-      }
-    ],
+    "conformanceRuleCounts": [],
     "derivedConformanceInventoryCounts": {
       "graphFunctionCount": 7,
       "graphVectorCount": 35,
@@ -3093,9 +3425,10 @@
         ]
       }
     ],
-    "observedActiveGapFamilyCount": 3,
-    "activeOwnedButNotObservedFamilyCount": 1,
+    "observedActiveGapFamilyCount": 2,
+    "activeOwnedButNotObservedFamilyCount": 2,
     "activeOwnedButNotObservedFamilies": [
+      "complete_c_program_interpreter",
       "traversal_execution_contracts"
     ],
     "duplicateOwnerCount": 0,
@@ -3103,50 +3436,11 @@
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 3,
-    "observedGapEvidenceDigest": "sha256:c225f58ad4f164ec677d9fe4ee294cb85a976299d19c20f969e28a1f44f12fea",
+    "observedGapFamilyCount": 2,
+    "observedGapEvidenceDigest": "sha256:390b2d37f19be6aa672c1951e624184b261abe14d16fb6ef25ff2a49e22c3e8d",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
-    {
-      "gapFamily": "complete_c_program_interpreter",
-      "ownerTicket": "T-271",
-      "ownerStatus": "active",
-      "classification": "semantic_not_realized",
-      "diagnosticIds": [
-        "abg://gtl-program/c-algebra/semantic-not-realized"
-      ],
-      "canonicalBodyPaths": [
-        "graph_function:consensus.exact-panel-facts#execution-declarations",
-        "graph_function:consensus.round#execution-declarations",
-        "graph_function:consensus.submitter-reviewer-rounds#execution-declarations",
-        "graph_function:fan_in(consensus.exact-panel-facts)#execution-declarations",
-        "graph_function:recurse(consensus.round)#execution-declarations"
-      ],
-      "observationSources": [
-        "compiler:typecheckGtlProgram:full-report"
-      ],
-      "authorityRefs": [
-        "requirement:REQ-L-GTL3-C-ALGEBRA-006..016",
-        "requirement:REQ-R-ABG3-CCALL-016",
-        "ticket-source:.ai-workspace/tickets/active/T-271-interpret-complete-c-programs-through-runtime-atoms.md",
-        "ticket:T-271"
-      ],
-      "authorityDigest": "sha256:4eeca568ff5f408cbf7beeb6f2484b2dad0f77590eb0c0225b6c32763f0cd1f8",
-      "actualRelation": "the admitted C program syntax contains lawful compositions that the current generic runtime interpreter cannot yet realize",
-      "actualRelationDigest": "sha256:c57c20427e56bbadbc513ae2dd86bcf14615b619f893683e1a9f1f4b04b0f39e",
-      "evidenceRefs": [
-        "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
-        "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
-        "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
-        "graph-function:graph-function://abg/consensus/exact-panel-facts",
-        "graph-function:graph-function://abg/consensus/round",
-        "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
-        "requirement:REQ-L-GTL3-C-ALGEBRA",
-        "ticket:T-252"
-      ],
-      "evidenceDigest": "sha256:9f2c84d8137e7f12454b624014a39dc1bdfdae9bbbab3e63f155d76b351dd9e1"
-    },
     {
       "gapFamily": "declared_program_conservation",
       "ownerTicket": "T-267",
@@ -3348,5 +3642,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:9075f2f3bffc3c3b67d9746e61e306fb59fa697f87ea113a03c68c9ffa4c0556"
+  "manifestDigest": "sha256:212c5dedc93b8ed1a65ff15dbf0fbe9f3178547a35181336ac776deb369e1d35"
 }

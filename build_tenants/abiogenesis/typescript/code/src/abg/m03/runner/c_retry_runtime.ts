@@ -846,30 +846,66 @@ function synthesizedFailure(input: {
   });
 }
 
-function failureSignalDigest(outcome: CRetryAttemptOutcome): string | null {
-  if (
-    outcome.failureClass === null ||
-    outcome.failureSignalRef === null
-  ) {
-    return null;
-  }
-  return stableSha256Digest({
-    failureClass: outcome.failureClass,
-    failureSignalRef: outcome.failureSignalRef
-  });
+export interface CRetryAttemptDecision {
+  readonly judgment: CCallJudgment;
+  readonly stopReason: CRetryStopReason | null;
 }
 
-function priorSignalDigest(record: CRetryAttemptRecord | null): string | null {
-  if (
-    record?.failureClass === null ||
-    record?.failureClass === undefined ||
-    record.failureSignalRef === null
-  ) {
-    return null;
+export function deriveCRetryAttemptDecision(input: {
+  readonly disposition: CRetryAttemptDisposition;
+  readonly failureClass: RuntimeFailureClass | null;
+  readonly failureSignalRef: string | null;
+  readonly attempt: number;
+  readonly maxAttempts: number;
+  readonly priorFailureClass: RuntimeFailureClass | null;
+  readonly priorFailureSignalRef: string | null;
+}): CRetryAttemptDecision {
+  positiveInteger(input.attempt, "C.retry decision attempt");
+  positiveInteger(input.maxAttempts, "C.retry decision maxAttempts");
+  if (input.attempt > input.maxAttempts) {
+    throw new TypeError("C.retry decision attempt exceeds its budget");
   }
-  return stableSha256Digest({
-    failureClass: record.failureClass,
-    failureSignalRef: record.failureSignalRef
+  if (input.disposition === "completed") {
+    return Object.freeze({ judgment: "advance" as const, stopReason: null });
+  }
+  if (input.disposition === "held") {
+    return Object.freeze({ judgment: "pending" as const, stopReason: null });
+  }
+  if (input.disposition === "semantic_blocked") {
+    return Object.freeze({
+      judgment: "blocked" as const,
+      stopReason: "semantic_blocked" as const
+    });
+  }
+  if (input.failureClass === null || input.failureSignalRef === null) {
+    throw new TypeError("runtime-failed C.retry decision lacks failure truth");
+  }
+  const retryable = isRetryableRuntimeFailureClass(input.failureClass);
+  const remaining = input.attempt < input.maxAttempts;
+  const currentSignal = stableSha256Digest({
+    failureClass: input.failureClass,
+    failureSignalRef: input.failureSignalRef
+  });
+  const priorSignal =
+    input.priorFailureClass === null || input.priorFailureSignalRef === null
+      ? null
+      : stableSha256Digest({
+          failureClass: input.priorFailureClass,
+          failureSignalRef: input.priorFailureSignalRef
+        });
+  const stationary = priorSignal !== null && currentSignal === priorSignal;
+  if (retryable && remaining && !stationary) {
+    return Object.freeze({ judgment: "retry" as const, stopReason: null });
+  }
+  return Object.freeze({
+    judgment: "blocked" as const,
+    stopReason: !retryable
+      ? input.failureClass === "runtime_failure"
+        ? "runtime_failure" as const
+        : "non_retryable_failure" as const
+      : !remaining
+        ? "retry_budget_exhausted" as const
+        : "stationary_failure" as const
   });
 }
 
@@ -1004,34 +1040,17 @@ export async function resolveCRetry(
       });
     }
 
-    let judgment: CCallJudgment;
-    let stopReason: CRetryStopReason | null = null;
-    if (outcome.disposition === "completed") {
-      judgment = "advance";
-    } else if (outcome.disposition === "held") {
-      judgment = "pending";
-    } else if (outcome.disposition === "semantic_blocked") {
-      judgment = "blocked";
-      stopReason = "semantic_blocked";
-    } else {
-      const failureClass = outcome.failureClass!;
-      const retryable = isRetryableRuntimeFailureClass(failureClass);
-      const remaining = attempt < input.plan.maxAttempts;
-      const stationary = failureSignalDigest(outcome) === priorSignalDigest(prior) &&
-        priorSignalDigest(prior) !== null;
-      if (retryable && remaining && !stationary) {
-        judgment = "retry";
-      } else {
-        judgment = "blocked";
-        stopReason = !retryable
-          ? failureClass === "runtime_failure"
-            ? "runtime_failure"
-            : "non_retryable_failure"
-          : !remaining
-            ? "retry_budget_exhausted"
-            : "stationary_failure";
-      }
-    }
+    const decision = deriveCRetryAttemptDecision({
+      disposition: outcome.disposition,
+      failureClass: outcome.failureClass,
+      failureSignalRef: outcome.failureSignalRef,
+      attempt,
+      maxAttempts: input.plan.maxAttempts,
+      priorFailureClass: prior?.failureClass ?? null,
+      priorFailureSignalRef: prior?.failureSignalRef ?? null
+    });
+    const judgment = decision.judgment;
+    const stopReason = decision.stopReason;
     const reasonRef = outcome.disposition === "runtime_failed"
       ? outcome.failureSignalRef
       : outcome.reasonRef;

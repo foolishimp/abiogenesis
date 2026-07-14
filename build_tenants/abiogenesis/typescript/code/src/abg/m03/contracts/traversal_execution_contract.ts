@@ -460,6 +460,14 @@ function selectedComposition(
 function selectedProgram(
   carrier: ReturnType<typeof selectedCarrier>
 ): HogProgramDeclaration {
+  if (carrier.normalizedProgram === null) {
+    fail({
+      diagnosticId: "traversal-source-invalid",
+      actualRelation:
+        "complete C-program traversal conservation is owned by the reframed T-267 contract",
+      evidenceRefs: [carrier.completeProgramPlan.planRef]
+    });
+  }
   return carrier.normalizedProgram;
 }
 

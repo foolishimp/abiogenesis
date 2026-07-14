@@ -188,6 +188,81 @@ export type CBatchResolution =
   | HofCBatchCompletedResolution
   | CBatchBlockedResolution;
 
+export type CBatchCoordinationDisposition =
+  | "completed"
+  | "blocked"
+  | "held"
+  | "runtime_failed";
+
+export interface CBatchCoordinationItem {
+  readonly taskRef: string;
+  readonly ordinal: number;
+}
+
+export interface CBatchCoordinationStep<Value> {
+  readonly disposition: CBatchCoordinationDisposition;
+  readonly value: Value | null;
+  readonly reasonRef: string | null;
+}
+
+export interface CBatchCoordinationResult<Task, Value> {
+  readonly status: CBatchCoordinationDisposition;
+  readonly completed: readonly {
+    readonly task: Task;
+    readonly value: Value;
+  }[];
+  readonly stoppingTask: Task | null;
+  readonly stoppingValue: Value | null;
+  readonly reasonRef: string | null;
+}
+
+export async function coordinateCBatchTaskFamily<
+  Task extends CBatchCoordinationItem,
+  Value
+>(input: {
+  readonly tasks: readonly Task[];
+  readonly execute: (task: Task) => Promise<CBatchCoordinationStep<Value>>;
+}): Promise<CBatchCoordinationResult<Task, Value>> {
+  if (input.tasks.length === 0) {
+    throw new TypeError("C.batch coordinator requires a non-empty task family");
+  }
+  const refs = new Set<string>();
+  const completed: { task: Task; value: Value }[] = [];
+  for (const [ordinal, task] of input.tasks.entries()) {
+    if (task.ordinal !== ordinal || refs.has(task.taskRef)) {
+      throw new TypeError(
+        "C.batch coordinator requires stable ordinals and unique task refs"
+      );
+    }
+    refs.add(task.taskRef);
+    const step = await input.execute(task);
+    if (step.disposition === "completed") {
+      if (step.value === null || step.reasonRef !== null) {
+        throw new TypeError("completed C.batch coordination step is not exact");
+      }
+      completed.push({ task, value: step.value });
+      continue;
+    }
+    if (step.reasonRef === null) {
+      throw new TypeError("stopped C.batch coordination step requires a reason");
+    }
+    return Object.freeze({
+      status: step.disposition,
+      completed: Object.freeze([...completed]),
+      stoppingTask: task,
+      stoppingValue: step.value,
+      reasonRef: step.reasonRef
+    });
+  }
+  return Object.freeze({
+    status: "completed" as const,
+    completed: Object.freeze([...completed]),
+    stoppingTask: null,
+    stoppingValue: null,
+    reasonRef: null
+  });
+}
+
 const STAGE_OUTCOME_KEYS = Object.freeze([
   "kind",
   "planRef",
@@ -538,120 +613,134 @@ export async function resolveCBatch(
   input: CBatchInvocation
 ): Promise<CBatchResolution> {
   const selected = validateInvocation(input);
-  const completedTasks: CBatchTaskExecutionOutcome[] = [];
   const emittedEvents: RuntimeEvent[] = [];
   const outputPayloadRefs = new Set<string>();
-
-  for (const task of input.plan.tasks) {
-    const spine = buildCCallSpineOpen({
-      basisId: input.parentBasisId,
-      graphFunctionId: input.parentGraphFunctionRef,
-      graphCallId: input.parentGraphCallId,
-      frameId: input.parentFrameId,
-      edge: input.edge,
-      vectorIndex: input.vectorIndex,
-      stageRole: task.stageRole,
-      taskOrdinal: task.ordinal,
-      attempt: input.attempt,
-      batchRef: input.plan.batchRef,
-      regime: task.regime,
-      armId: task.armId,
-      programRef: input.plan.programRef,
-      compositionRef: input.plan.compositionRef
-    });
-    emittedEvents.push(...spine.events);
-    input.emit(spine.events);
-    const request = requestForTask({
-      invocation: input,
-      selected,
-      task,
-      cCallRef: spine.cCallRef
-    });
-    let outcome: CBatchTaskExecutionOutcome;
-    try {
-      outcome = admitTaskOutcome({
-        request,
-        raw: await input.executeTask(request)
+  const coordination = await coordinateCBatchTaskFamily({
+    tasks: input.plan.tasks,
+    execute: async (task): Promise<CBatchCoordinationStep<CBatchTaskExecutionOutcome>> => {
+      const spine = buildCCallSpineOpen({
+        basisId: input.parentBasisId,
+        graphFunctionId: input.parentGraphFunctionRef,
+        graphCallId: input.parentGraphCallId,
+        frameId: input.parentFrameId,
+        edge: input.edge,
+        vectorIndex: input.vectorIndex,
+        stageRole: task.stageRole,
+        taskOrdinal: task.ordinal,
+        attempt: input.attempt,
+        batchRef: input.plan.batchRef,
+        regime: task.regime,
+        armId: task.armId,
+        programRef: input.plan.programRef,
+        compositionRef: input.plan.compositionRef
       });
-      if (
-        input.plan.sourceKind === "hof_projection" &&
-        outcome.disposition === "completed" &&
-        outcome.outputPayloadRef !== null &&
-        outputPayloadRefs.has(outcome.outputPayloadRef)
-      ) {
-        throw new TypeError("C.batch completed task payload identities must be unique");
+      emittedEvents.push(...spine.events);
+      input.emit(spine.events);
+      const request = requestForTask({
+        invocation: input,
+        selected,
+        task,
+        cCallRef: spine.cCallRef
+      });
+      let outcome: CBatchTaskExecutionOutcome;
+      try {
+        outcome = admitTaskOutcome({
+          request,
+          raw: await input.executeTask(request)
+        });
+        if (
+          input.plan.sourceKind === "hof_projection" &&
+          outcome.disposition === "completed" &&
+          outcome.outputPayloadRef !== null &&
+          outputPayloadRefs.has(outcome.outputPayloadRef)
+        ) {
+          throw new TypeError(
+            "C.batch completed task payload identities must be unique"
+          );
+        }
+      } catch (error: unknown) {
+        const reasonRef = runtimeFailureReason({
+          planRef: input.plan.planRef,
+          taskRef: task.taskRef,
+          error
+        });
+        const tail = buildCCallSpineClose({
+          cCallRef: spine.cCallRef,
+          basisId: input.parentBasisId,
+          evidenceClass: "fibre_failure",
+          evidenceRefs: Object.freeze([reasonRef]),
+          outcomeStatus: "runtime_failed",
+          payloadRef: null,
+          responseContractRef: null,
+          judgment: "blocked",
+          reasonRef
+        });
+        emittedEvents.push(...tail);
+        input.emit(tail);
+        return Object.freeze({
+          disposition: "runtime_failed" as const,
+          value: null,
+          reasonRef
+        });
       }
-    } catch (error: unknown) {
-      const reasonRef = runtimeFailureReason({
-        planRef: input.plan.planRef,
-        taskRef: task.taskRef,
-        error
-      });
+
+      const judgment: CCallJudgment = outcome.disposition === "completed"
+        ? "advance"
+        : outcome.disposition === "held"
+          ? "pending"
+          : "blocked";
       const tail = buildCCallSpineClose({
         cCallRef: spine.cCallRef,
         basisId: input.parentBasisId,
-        evidenceClass: "fibre_failure",
-        evidenceRefs: Object.freeze([reasonRef]),
-        outcomeStatus: "runtime_failed",
-        payloadRef: null,
-        responseContractRef: null,
-        judgment: "blocked",
-        reasonRef
+        evidenceClass: task.kind === "hof_c_batch_traversal_task"
+          ? "sub_traversal"
+          : "batch_task",
+        evidenceRefs: Object.freeze([
+          `task:${task.taskRef}`,
+          `terminal:${outcome.terminalRef}`,
+          `input-lineage:${task.inputLineageRef}`,
+          ...outcome.evidenceRefs
+        ]),
+        outcomeStatus: outcome.disposition,
+        payloadRef: outcome.outputPayloadRef,
+        responseContractRef: outcome.responseContractRef,
+        judgment,
+        reasonRef: outcome.reasonRef
       });
       emittedEvents.push(...tail);
       input.emit(tail);
-      return blockedResolution({
-        invocation: input,
-        completedTasks,
-        stoppingTask: task,
-        stoppingOutcome: null,
-        status: "runtime_failed",
-        reasonRef,
-        emittedEvents
+      if (
+        outcome.disposition === "completed" &&
+        input.plan.sourceKind === "hof_projection"
+      ) {
+        outputPayloadRefs.add(outcome.outputPayloadRef!);
+      }
+      return Object.freeze({
+        disposition: outcome.disposition,
+        value: outcome,
+        reasonRef: outcome.reasonRef
       });
     }
-
-    const judgment: CCallJudgment = outcome.disposition === "completed"
-      ? "advance"
-      : outcome.disposition === "held"
+  });
+  const completedTasks = coordination.completed.map((row) => row.value);
+  if (coordination.status !== "completed") {
+    const stoppingTask = coordination.stoppingTask;
+    if (stoppingTask === null || coordination.reasonRef === null) {
+      throw new TypeError("stopped C.batch coordination lacks its exact locus");
+    }
+    return blockedResolution({
+      invocation: input,
+      completedTasks,
+      stoppingTask,
+      stoppingOutcome: coordination.stoppingValue,
+      status: coordination.status === "held"
         ? "pending"
-        : "blocked";
-    const tail = buildCCallSpineClose({
-      cCallRef: spine.cCallRef,
-      basisId: input.parentBasisId,
-      evidenceClass: task.kind === "hof_c_batch_traversal_task"
-        ? "sub_traversal"
-        : "batch_task",
-      evidenceRefs: Object.freeze([
-        `task:${task.taskRef}`,
-        `terminal:${outcome.terminalRef}`,
-        `input-lineage:${task.inputLineageRef}`,
-        ...outcome.evidenceRefs
-      ]),
-      outcomeStatus: outcome.disposition,
-      payloadRef: outcome.outputPayloadRef,
-      responseContractRef: outcome.responseContractRef,
-      judgment,
-      reasonRef: outcome.reasonRef
+        : coordination.status === "runtime_failed"
+          ? "runtime_failed"
+          : "blocked",
+      reasonRef: coordination.reasonRef,
+      emittedEvents
     });
-    emittedEvents.push(...tail);
-    input.emit(tail);
-
-    if (outcome.disposition !== "completed") {
-      return blockedResolution({
-        invocation: input,
-        completedTasks,
-        stoppingTask: task,
-        stoppingOutcome: outcome,
-        status: outcome.disposition === "held" ? "pending" : "blocked",
-        reasonRef: outcome.reasonRef!,
-        emittedEvents
-      });
-    }
-    completedTasks.push(outcome);
-    if (input.plan.sourceKind === "hof_projection") {
-      outputPayloadRefs.add(outcome.outputPayloadRef!);
-    }
   }
 
   if (input.sourceAuthority.kind === "hof_projection_source_authority") {
