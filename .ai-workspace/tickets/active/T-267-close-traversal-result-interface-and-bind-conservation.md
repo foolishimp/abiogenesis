@@ -5,10 +5,10 @@
 - type: bug
 - ticket_category: ordinary
 - status: active
-- phase_status: reopened_after_program_conservation_review
-- implementation_status: design_reframe_required
-- proof_status: invalidated
-- review_status: external_review_rejected_closure
+- phase_status: reframed_design_accepted_implementation_authorized
+- implementation_status: superseded_checkpoint_repair_pending
+- proof_status: invalidated_pending_repair
+- review_status: delegated_fh_design_accepted_independent_implementation_review_required
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Compile traversal contracts over every authored C stage and exact
@@ -30,12 +30,18 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md
-- design_self_review_ref: >-
+- superseded_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260713T211300Z_SELF_REVIEW_t267_traversal_conservation_design.md
-- design_decision_ref: >-
+- superseded_design_decision_ref: >-
     .ai-workspace/comments/codex/
     20260713T211400Z_DECISION_delegated_fh_accept_t267_design.md
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T085500Z_SELF_REVIEW_t267_whole_program_conservation_design.md
+- design_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T085600Z_DECISION_delegated_fh_accept_t267_reframed_design.md
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260713T225800Z_SELF_REVIEW_t267_traversal_conservation.md
