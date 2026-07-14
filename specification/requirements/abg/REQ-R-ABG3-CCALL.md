@@ -92,7 +92,10 @@ structure around it.
   router and retry law. Spine admission accepts any non-empty role;
   program MEMBERSHIP is enforced at enclosure/conformance where the
   declared program is in scope — a role outside the admitted program is
-  drift.
+  drift. ABG may project separate call-preparation, result-admission, and
+  materialization bind rows around those stages. Such rows are interpreter
+  mechanics, not C stages: they never satisfy declared stage cardinality,
+  result-bearing-role, program-order, or fibre-substitution law.
 
 - **-015 Gate invariance under compression.** A cognitive stage (plan,
   critique, repair guidance) is reifiable as an explicit program stage

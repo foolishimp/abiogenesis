@@ -143,7 +143,11 @@ canonical pure data. Untyped files, generated data, package input, and API
 payloads enter through raw admission that applies the same sort and relation
 judgments as the native typed API. Native callers use the published typed
 constructors; serialized callers use raw admission. Authored, admitted,
-compiled, and runtime values remain distinct language states.
+compiled, and runtime values remain distinct language states. A deterministic
+native constructor is lawful only as a projection into that canonical data:
+serialization plus raw readmission must preserve the exact value and digest.
+Its loops, branching, and string construction do not become declaration
+authority and may not consult ambient or runtime truth.
 
 **REQ-L-GTL3-C-ALGEBRA-014 - Semantic gap ownership.** The ABG-owned semantic
 compiler and execution-admission boundary shall decide facts that a local host
@@ -171,7 +175,12 @@ worker/plugin invocation, archive writes, traversal, or successful assessment
 or closure truth. Diagnostic fail-closed events may report the typed refusal
 and terminal stop. Runtime may select among compiled declared terms. It shall
 not parse authored program meaning, infer types from observed behavior, or
-repair declarations.
+repair declarations. Compilation and traversal admission preserve every
+authored C stage, its order, role, fibre, arm, carriers, and result-bearing
+designation. Interpreter-owned call preparation, result admission, evidence
+binding, and materialization rows are distinct bind stages: they may surround
+an authored stage in a runtime plan but may not replace, rename, reorder, or
+count as authored program membership.
 
 **REQ-L-GTL3-C-ALGEBRA-017 - Conformance corpus.** The language conformance
 corpus shall pair canonical positive and negative LLM-authored programs with

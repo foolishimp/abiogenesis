@@ -63,7 +63,17 @@ are stable across releases and are removed only by supersession, not by renaming
 
 **REQ-L-GTL3-LAWS-021**: Canonical authored form — an authored GTL program has one canonical data serialization with stable ordering and content-addressable digest identity. Identity canonicalization for digests and the canonical authored form are the same serialization law; alternate orderings or spellings are not rival authored truth.
 
-**REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declarations are pure data in the canonical form. Host-language control flow, computation, or string assembly that produces declaration content at authoring time is drift, not authored truth; conformance rejects computed declarations at the declaration boundary.
+**REQ-L-GTL3-LAWS-022**: Declarations are data — authored GTL declaration
+truth is pure data in the canonical form. A published native constructor may
+use total deterministic host-language computation to assemble that data from
+explicit typed inputs when the result serializes to the one canonical form,
+round-trips through raw admission without loss, and derives the same content
+digest. The constructor is authoring syntax, not a second declaration
+authority. Declaration content derived from ambient process state, runtime
+events, filesystem discovery, randomness, clock time, unstable iteration, or
+hidden defaults is drift; so is a module export without an exact canonical
+round-trip witness. Conformance rejects those sources at the declaration
+boundary.
 
 **REQ-L-GTL3-LAWS-023**: Golden instance binding — a contract declaration may bind ratified example and counterexample instances as admitted data with content digests, promoting the existing evidence-shape and counterexample ref families rather than minting a rival surface. Golden instances calibrate evaluators and supply non-tautology mutation material; they are data, never closure authority.
 

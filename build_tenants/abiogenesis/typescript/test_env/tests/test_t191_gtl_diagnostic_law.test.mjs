@@ -138,6 +138,23 @@ test("T-191 witnessed declaration-source rows enforce the pure-data law (LAWS-02
     clean.issues.filter((row) => row.surfaceKind === "declaration_source").length,
     0
   );
+  // A deterministic native constructor is authoring syntax, not a rival
+  // authority, when its module export carries the canonical round-trip digest.
+  const witnessedConstructor = typecheckGtlProgram({
+    declarationSourceRows: [
+      {
+        sourceRef: "decl://product/native-constructor",
+        sourceKind: "module_export",
+        canonicalDigest: "sha256:canonical-round-trip"
+      }
+    ]
+  });
+  assert.equal(
+    witnessedConstructor.issues.filter(
+      (row) => row.surfaceKind === "declaration_source"
+    ).length,
+    0
+  );
   // unknown sourceKind -> typed field diagnostic (fail-closed enum).
   const badKind = typecheckGtlProgram({
     declarationSourceRows: [
@@ -260,4 +277,3 @@ test("T-191 repair edit-class vocabulary is closed and frozen", () => {
     true
   );
 });
-

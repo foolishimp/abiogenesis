@@ -1163,6 +1163,17 @@ verification gates remain explicit at every compression level
 declared class reconciles against replay-observed cost, and sustained
 divergence is a typed signal.
 
+### Authored stages and runtime binds
+
+The selected C program remains the complete ordered authored stage set. ABG
+may compile call preparation, result admission, evidence binding, and
+materialization boundaries around that set. Those are interpreter-owned bind
+stages, not hidden C stages and not a canonical triple imposed on an open
+program. A traversal contract is valid only when it preserves every authored
+stage and separately identifies every ABG bind stage. Proving the bind stages
+while omitting, renaming, or reordering authored stages proves a different
+program and cannot authorize traversal.
+
 ### The atom criterion
 
 The product's deliverable is its ATOM SET, judged on exactly two
