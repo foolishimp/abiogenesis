@@ -149,6 +149,11 @@ const CONFORMANCE_GAP_FAMILY_BY_RULE = Object.freeze({
     "consensus_topology_integrity"
 });
 
+const NORMALIZED_DIAGNOSTIC_GAP_FAMILY = Object.freeze({
+  "gtl-c-unrealized-vector-program-selection":
+    "graph_vector_program_runtime_selection"
+});
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -1735,6 +1740,45 @@ async function buildManifest() {
     });
   }
 
+  const normalizedSemanticGapRows = diagnostics
+    .filter((diagnostic) => diagnostic.classification === "semantic_not_realized")
+    .map((diagnostic) => {
+      const gapFamily =
+        NORMALIZED_DIAGNOSTIC_GAP_FAMILY[diagnostic.diagnosticId];
+      if (gapFamily === undefined) {
+        throw new TypeError(
+          `normalized semantic diagnostic lacks a census mapping: ${JSON.stringify({
+            diagnosticId: diagnostic.diagnosticId,
+            canonicalBodyPath: diagnostic.canonicalBodyPath,
+            source: diagnostic.source
+          })}`
+        );
+      }
+      return Object.freeze({
+        gapFamily,
+        diagnosticId: diagnostic.diagnosticId,
+        path: diagnostic.canonicalBodyPath,
+        evidenceRefs: diagnostic.evidenceRefs
+      });
+    });
+  for (const gapFamily of sortedUnique(
+    normalizedSemanticGapRows.map((row) => row.gapFamily)
+  )) {
+    const rows = normalizedSemanticGapRows.filter(
+      (row) => row.gapFamily === gapFamily
+    );
+    observeGap(observedGapEvidence, gapFamily, {
+      rows,
+      observationSources: ["compiler:normalized-diagnostics"],
+      evidenceRefs: sortedUnique([
+        ...commonEvidenceRefs,
+        ...rows.flatMap((row) => row.evidenceRefs)
+      ]),
+      actualRelation:
+        "a compiler-owned semantic diagnostic remains unresolved after its declared successor boundary"
+    });
+  }
+
   const programConservationRows = selectedTraversalRows.flatMap((entry) => {
     const authoredStageCount = authoredProgramStageCount(
       entry.carrier.normalizedProgram
@@ -2031,6 +2075,10 @@ async function buildManifest() {
       mappedFullConformanceIssueCount: conformanceGapRows.length,
       unmappedFullConformanceIssueCount: 0,
       fullConformanceIssues: conformanceGapRows,
+      normalizedSemanticIssueCount: normalizedSemanticGapRows.length,
+      mappedNormalizedSemanticIssueCount: normalizedSemanticGapRows.length,
+      unmappedNormalizedSemanticIssueCount: 0,
+      normalizedSemanticIssues: normalizedSemanticGapRows,
       conformanceRuleCounts: conformanceRuleCounts(conformance.issues),
       derivedConformanceInventoryCounts:
         conformance.derivedConformanceInventory.counts,

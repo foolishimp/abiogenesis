@@ -305,15 +305,10 @@ test("T-254 Scenario 09 derives two exact vector-local program bindings", () => 
   );
   assert.equal(normalize.binding?.selectionSource, "graph_vector");
   assert.equal(synthesize.binding?.selectionSource, "graph_vector");
-  assert.deepEqual(
-    normalize.diagnostics.map((row) => row.diagnosticId),
-    ["gtl-c-unrealized-vector-program-selection"]
-  );
-  assert.equal(normalize.diagnostics[0]?.axiomRef, "GV-C-08");
-  assert.deepEqual(
-    synthesize.diagnostics.map((row) => row.diagnosticId),
-    ["gtl-c-unrealized-vector-program-selection"]
-  );
+  assert.equal(normalize.accepted, true);
+  assert.equal(synthesize.accepted, true);
+  assert.deepEqual(normalize.diagnostics, []);
+  assert.deepEqual(synthesize.diagnostics, []);
 
   const report = typecheckGtlProgram({
     subjectRef: "program://scenario-09/t254",
@@ -322,7 +317,7 @@ test("T-254 Scenario 09 derives two exact vector-local program bindings", () => 
   });
   assert.equal(
     messages(report, "gtl-c-unrealized-vector-program-selection").length,
-    2
+    0
   );
   assert.equal(messages(report, "gtl-c-vector-program-carrier-mismatch").length, 0);
 
@@ -730,7 +725,7 @@ test("T-254 stages selected nested diagnostics behind outer boundary validity", 
   assert.equal(messages(lawfulReport, "gtl-c-unrealized-batch").length, 0);
   assert.equal(
     messages(lawfulReport, "gtl-c-unrealized-vector-program-selection").length,
-    1
+    0
   );
 
   const mismatched = batchFixture(true);

@@ -40,6 +40,9 @@ import {
   projectTenantCapabilityCoverage
 } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import {
+  compileGraphVectorCProgramSelection
+} from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_c_program_compiler.js";
+import {
   admitTenantConformanceManifest,
   tenantConformanceManifestDigest
 } from "../../build/semantic/code/src/app/m04/product_intake/tenant_conformance_manifest.js";
@@ -701,6 +704,26 @@ test("T-255 refuses malformed defaults and standalone identity before handoff", 
 });
 
 test("T-255 partitions the unchanged T-252 body without erasing successor gaps", () => {
+  const selectedPrograms = ABG_CONSENSUS_GTL_MODULE.graphFunctions.flatMap(
+    (graphFunction) =>
+      graphFunction.template.kind !== "inline_graph"
+        ? []
+        : graphFunction.template.graph.vectors.flatMap((graphVector) => {
+            const selection = compileGraphVectorCProgramSelection({
+              graphFunction,
+              graphVector
+            });
+            return selection.observed ? [selection] : [];
+          })
+  );
+  assert.equal(selectedPrograms.length, 34);
+  assert.equal(
+    selectedPrograms.every(
+      (selection) => selection.accepted && selection.diagnostics.length === 0
+    ),
+    true
+  );
+
   const outcomes = allConsensusOutcomes();
   const counts = Object.fromEntries(
     [...new Set(outcomes.map((row) => row.status))].map((status) => [

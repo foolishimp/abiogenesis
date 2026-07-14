@@ -187,13 +187,11 @@ test("T-252 every selected GraphVector resolves one exact local C program", () =
       });
       if (!compilation.observed) continue;
       selectedVectorCount += 1;
+      assert.equal(compilation.accepted, true);
       assert.ok(compilation.binding, `${graphFunction.name}/${vector.name}`);
       assert.equal(compilation.selectedCandidates.length, 1);
       assert.equal(compilation.selectedProgramDiagnostics.length, 0);
-      assert.deepEqual(
-        compilation.diagnostics.map((row) => [row.classification, row.diagnosticId]),
-        [["semantic_not_realized", "gtl-c-unrealized-vector-program-selection"]]
-      );
+      assert.deepEqual(compilation.diagnostics, []);
     }
   }
   assert.equal(selectedVectorCount, 34);
@@ -481,6 +479,17 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
   );
   assert.equal(
     manifest.compiler.fullConformanceIssues.every((issue) =>
+      observed.has(issue.gapFamily)
+    ),
+    true
+  );
+  assert.equal(
+    manifest.compiler.mappedNormalizedSemanticIssueCount,
+    manifest.compiler.normalizedSemanticIssueCount
+  );
+  assert.equal(manifest.compiler.unmappedNormalizedSemanticIssueCount, 0);
+  assert.equal(
+    manifest.compiler.normalizedSemanticIssues.every((issue) =>
       observed.has(issue.gapFamily)
     ),
     true

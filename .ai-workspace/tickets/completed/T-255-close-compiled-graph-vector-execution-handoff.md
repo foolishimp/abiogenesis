@@ -115,10 +115,12 @@ or any published handoff traversing or causing effects before T-267 closes the
 
 ## Current Disposition
 
-`closed_as_designed`. The accepted generic handoff boundary is realized and
+`closed_as_designed_with_post_closure_selection_reconciliation`. The accepted generic handoff boundary is realized and
 verified. T-252 compiles to 35 typed handoffs, 35 canonical target rows, and 35
 edge-closure rows without changing its body digest. The five T-255-owned census
-families are closed. All published handoffs remain startup-blocked pending
+families are closed. The exact 34 vector/program selections now return accepted
+bindings without retaining T-254's superseded
+`gtl-c-unrealized-vector-program-selection` diagnostic. All published handoffs remain startup-blocked pending
 T-267, and ABG 5.0 tenant-conformance-manifest publication remains owned by
 T-268.
 
@@ -136,6 +138,8 @@ T-268.
   `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`
 - final T-252 probe manifest digest:
   `sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb`
+  at original T-255 closure; post-review census reconciliation regenerates it
+  as `sha256:9075f2f3bffc3c3b67d9746e61e306fb59fa697f87ea113a03c68c9ffa4c0556`
 - ownership join: zero active-owned but unobserved families, zero duplicate
   owners, and zero unowned gaps
 - public-contract schemas: 63 verified

@@ -573,7 +573,7 @@ test("T-267 preserves unrelated program failure without erasing static closure",
   assert.equal(outcome.effectsPermitted, false);
 });
 
-test("T-267 incomplete rows preserve the original semantic gap and fail closed", () => {
+test("T-267 incomplete rows fail on actual missing authority without a stale selection gap", () => {
   const value = fixture({ effects: false });
   const compiled = compile(value, null);
   const completeInput = conformanceInput(value, [compiled]);
@@ -596,12 +596,14 @@ test("T-267 incomplete rows preserve the original semantic gap and fail closed",
     issue.ruleRef ===
       "abg://gtl-program/traversal-unit/plugin-result-interface-required"
   ));
-  assert.ok(report.issues.some((issue) =>
-    issue.ruleRef === "abg://gtl-program/c-algebra/semantic-not-realized" &&
+  assert.equal(
+    report.issues.some((issue) =>
       issue.evidenceRefs.includes(
         "graph-vector-c-program-diagnostic:gtl-c-unrealized-vector-program-selection"
       )
-  ));
+    ),
+    false
+  );
   assert.equal(outcome.status, "invalid");
   assert.equal(outcome.runtimeAddressable, false);
   assert.equal(outcome.effectsPermitted, false);
@@ -620,12 +622,14 @@ test("T-267 incomplete rows preserve the original semantic gap and fail closed",
     issue.ruleRef ===
       "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage"
   ));
-  assert.ok(malformedReport.issues.some((issue) =>
-    issue.ruleRef === "abg://gtl-program/c-algebra/semantic-not-realized" &&
+  assert.equal(
+    malformedReport.issues.some((issue) =>
       issue.evidenceRefs.includes(
         "graph-vector-c-program-diagnostic:gtl-c-unrealized-vector-program-selection"
       )
-  ));
+    ),
+    false
+  );
 });
 
 test("T-267 rejects source, bundle, report, and conservation drift", () => {

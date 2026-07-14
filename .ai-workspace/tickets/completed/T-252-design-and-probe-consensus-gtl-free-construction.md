@@ -98,11 +98,14 @@ The corrected probe:
   `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`;
 - the sealed manifest authority is regenerated from this ticket's live path;
 - final manifest digest is
-  `sha256:dc087130d37f375ec72f60961b2ca57b1f2b74ce5fb0cf062580f6bfe1a37107`;
+  `sha256:9075f2f3bffc3c3b67d9746e61e306fb59fa697f87ea113a03c68c9ffa4c0556`;
 - canonical serialization round-trips through strict M02 admission;
 - structural invalidity count is zero;
 - all five remaining full-conformance issues are mapped to
   `complete_c_program_interpreter` before ticket ownership is loaded;
+- all normalized compiler diagnostics are also enumerated before ownership is
+  loaded; the current normalized semantic count is zero after the T-255
+  vector-program-selection repair;
 - fourteen program-conservation failures are separately observed and assigned
   to T-267;
 - tenant-manifest coverage remains assigned to T-268;

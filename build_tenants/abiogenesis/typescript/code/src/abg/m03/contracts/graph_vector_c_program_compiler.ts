@@ -1,6 +1,6 @@
 // Implements: REQ-L-GTL3-C-ALGEBRA-011/-014/-016.
 // Compiles the declared (GraphFunction, GraphVector) -> C program relation.
-// Runtime consumption of the derived binding is intentionally outside T-254.
+// T-255 consumes the derived binding through the compiled execution handoff.
 
 import {
   cInterfaceContractRef,
@@ -574,23 +574,9 @@ export function compileGraphVectorCProgramSelection(input: {
   });
   return result({
     observed: true,
-    accepted: false,
+    accepted: true,
     boundary,
     binding,
-    selectedCandidates: matches,
-    diagnostics: [
-      diagnostic({
-        classification: "semantic_not_realized",
-        diagnosticId: "gtl-c-unrealized-vector-program-selection",
-        path: selectorPath,
-        expectedRelation: "vector-indexed compiled runtime program selection",
-        actualRelation:
-          "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
-        evidenceRefs: Object.freeze([
-          ...evidenceRefs,
-          `compiled-graph-vector-c-program-binding:${binding.bindingDigest}`
-        ])
-      })
-    ]
+    selectedCandidates: matches
   });
 }
