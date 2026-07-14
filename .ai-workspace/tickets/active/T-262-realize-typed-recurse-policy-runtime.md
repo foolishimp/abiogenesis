@@ -5,9 +5,9 @@
 - type: bug
 - ticket_category: ordinary
 - status: active
-- phase_status: reopened_after_exploitable_parent_rebind_review
-- implementation_status: repair_required
-- proof_status: invalidated
+- phase_status: ready_for_external_reverification
+- implementation_status: repaired_checkpoint
+- proof_status: focused_passed
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Replace the unconditional parent-rebind admission with a deterministic
@@ -39,9 +39,11 @@
 - final_decision_ref: >-
     .ai-workspace/comments/codex/
     20260713T205700Z_DECISION_delegated_fh_accept_and_close_t262.md
-- review_status: accepted_by_delegated_fh
-- implementation_commit: e09d3b65
-- updated_at: 2026-07-13
+- review_status: self_review_passed_external_reverification_pending
+- implementation_commit: 7a9cfb01
+- repair_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T020153Z_SELF_REVIEW_t262_parent_rebind_repair.md
 
 ## Boundary
 
@@ -107,3 +109,20 @@ live foldback path and observe deterministic rejection before round two.
 - Mermaid design gate: 39 diagrams across 13 files
 - public-contract schemas: 82 verified
 - generated publication assets: 40 verified from 1109 immutable payload files
+
+## Repair Evidence
+
+- the foldback adapter must provide a content-derived witness binding the exact
+  child output, proposed next input, foldback declaration digest, policy,
+  budget, lineage, and preserved evidence;
+- the parent stage independently re-derives that witness from admitted event
+  truth and emits `blocked` before round two when it is absent or stale;
+- replay rejects an admitted parent event whose foldback lacks that exact
+  witness;
+- a live negative injects an unrelated payload with generic evidence and
+  observes one child call, `parent_rebind_blocked`, and no round-two effect;
+- focused T-262 tests: 10/10;
+- adjacent T-252/T-255/T-262 lane: 42/42;
+- packed M03 proof: 1/1;
+- GTL law: 82/82;
+- `git diff --check`: passed.
