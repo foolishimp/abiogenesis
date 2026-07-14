@@ -42,6 +42,9 @@
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T164759Z_SELF_REVIEW_t277_final_prime_contraction.md
+- checkpoint_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T170452Z_REVIEW_full_tree_checkpoint_self_review.md
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
