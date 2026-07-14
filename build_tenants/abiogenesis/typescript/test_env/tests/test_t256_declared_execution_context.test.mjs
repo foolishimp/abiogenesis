@@ -343,7 +343,7 @@ function fixture(options = {}) {
               stageRole: "transform",
               fibre: "F_P",
               armId: "arm://t256/transform",
-              resultBearing: true,
+              resultBearing: options.fpResultBearing !== false,
               instructionCategoryRefs: [SECTION_REF]
             }),
             C.of({
@@ -352,7 +352,7 @@ function fixture(options = {}) {
               stageRole: "evaluate",
               fibre: "F_D",
               armId: "arm://t256/evaluate",
-              resultBearing: false
+              resultBearing: options.fpResultBearing === false
             })
           ),
           C.of({
@@ -696,7 +696,9 @@ function compileFpTraversal(value) {
     stageOrdinal: declaredStage.ordinal,
     contract: joined.compiledContract,
     selectedResultContractRef:
-      source.targetCarrierProjection.targetCarrierContractRef,
+      declaredStage.resultBearing
+        ? source.targetCarrierProjection.targetCarrierContractRef
+        : declaredStage.outputCarrierRefs[0],
     fpWireProfile: "standard_live_review"
   });
   const authorities = Object.freeze(source.workStages.map((stage) =>
@@ -718,6 +720,40 @@ function compileFpTraversal(value) {
     authority,
     authorities,
     bundle
+  });
+}
+
+function resealExecutionContextContract(contract, overrides) {
+  const {
+    contractRef: ignoredContractRef,
+    contractDigest: ignoredContractDigest,
+    ...basis
+  } = { ...contract, ...overrides };
+  assert.notEqual(ignoredContractRef, undefined);
+  assert.notEqual(ignoredContractDigest, undefined);
+  const contractDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    contractRef:
+      `abg://execution-context-contract/${contractDigest.slice("sha256:".length)}`,
+    contractDigest
+  });
+}
+
+function resealDeclaredExecutionRequest(request, overrides) {
+  const {
+    requestRef: ignoredRequestRef,
+    requestDigest: ignoredRequestDigest,
+    ...basis
+  } = { ...request, ...overrides };
+  assert.notEqual(ignoredRequestRef, undefined);
+  assert.notEqual(ignoredRequestDigest, undefined);
+  const requestDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    ...basis,
+    requestRef:
+      `abg://declared-execution-request/${requestDigest.slice("sha256:".length)}`,
+    requestDigest
   });
 }
 
@@ -1666,6 +1702,117 @@ test("T-267 admits a real non-Consensus F_P join without hashing current evidenc
   assert.equal(outcome.effectsPermitted, false);
 });
 
+test("T-267 rejects forged or stale declared execution-context authority", () => {
+  const value = fixture({ completeProgram: true });
+  const compiled = compileFpTraversal(value);
+  const declaredStage = compiled.source.workStages.find(
+    (stage) => stage.declaredStageIndex === 0
+  );
+  assert.notEqual(declaredStage, undefined);
+  const admissionInput = {
+    source: compiled.source,
+    stageOrdinal: declaredStage.ordinal,
+    selectedResultContractRef:
+      compiled.source.targetCarrierProjection.targetCarrierContractRef,
+    fpWireProfile: "standard_live_review"
+  };
+
+  assert.throws(
+    () => admitDeclaredTraversalStageResultAuthority({
+      ...admissionInput,
+      contract: Object.freeze({
+        ...compiled.joined.compiledContract,
+        contractRef: "abg://execution-context-contract/forged"
+      })
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId ===
+        "traversal-result-authority-invalid"
+  );
+  for (const contract of [
+    resealExecutionContextContract(compiled.joined.compiledContract, {
+      publishedHandoffRef: "abg://compiled-graph-vector-execution-handoff/stale"
+    }),
+    resealExecutionContextContract(compiled.joined.compiledContract, {
+      sourceBasisDigest: stableSha256Digest("stale-t255-handoff")
+    })
+  ]) {
+    assert.throws(
+      () => admitDeclaredTraversalStageResultAuthority({
+        ...admissionInput,
+        contract
+      }),
+      (error) =>
+        error?.diagnostic?.diagnosticId ===
+          "traversal-result-authority-invalid"
+    );
+  }
+});
+
+test("T-267 keeps an intermediate declared stage on its locus output contract", () => {
+  const value = fixture({
+    completeProgram: true,
+    fpResultBearing: false
+  });
+  const joined = joinFixture(value);
+  assert.equal(joined.status, "request_constructed", JSON.stringify(joined));
+  const source = projectTraversalContractSourceBasis(traversalSourceInput(value));
+  const stage = source.workStages.find(
+    (candidate) =>
+      candidate.declaredStageIndex === joined.compiledContract.selectedStageIndex
+  );
+  assert.notEqual(stage, undefined);
+  assert.equal(stage.resultBearing, false);
+  assert.notEqual(
+    stage.outputCarrierRefs[0],
+    source.targetCarrierProjection.targetCarrierContractRef
+  );
+
+  assert.throws(
+    () => admitDeclaredTraversalStageResultAuthority({
+      source,
+      stageOrdinal: stage.ordinal,
+      contract: joined.compiledContract,
+      selectedResultContractRef:
+        source.targetCarrierProjection.targetCarrierContractRef,
+      fpWireProfile: "standard_live_review"
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId ===
+        "traversal-result-authority-invalid"
+  );
+  const authority = admitDeclaredTraversalStageResultAuthority({
+    source,
+    stageOrdinal: stage.ordinal,
+    contract: joined.compiledContract,
+    selectedResultContractRef: stage.outputCarrierRefs[0],
+    fpWireProfile: "standard_live_review"
+  });
+  assert.equal(authority.selectedResultContractRef, stage.outputCarrierRefs[0]);
+  assert.equal(authority.resultEnvelopeContractRef, stage.outputCarrierRefs[0]);
+});
+
+test("T-267 canonicalizes result-authority order before admission identity", () => {
+  const value = fixture({ completeProgram: true });
+  const compiled = compileFpTraversal(value);
+  const canonical = gateFpTraversal(value, compiled);
+  const reversedAuthorities = Object.freeze([...compiled.authorities].reverse());
+  const permuted = admitTraversalExecution({
+    sourceInput: compiled.sourceInput,
+    source: compiled.source,
+    resultAuthorities: reversedAuthorities,
+    bundle: compiled.bundle,
+    conformanceInput: canonical.conformanceInput,
+    report: canonical.report
+  });
+
+  assert.deepEqual(permuted, canonical.admission);
+  assert.deepEqual(
+    permuted.currentResultAuthorities.map((authority) => authority.programLocusRef),
+    compiled.source.workStages.map((stage) => stage.programLocusRef)
+  );
+});
+
 test("T-267 runtime start requires the exact addressable admission and declared request", () => {
   const value = fixture({ completeProgram: true });
   const compiled = compileFpTraversal(value);
@@ -1686,6 +1833,7 @@ test("T-267 runtime start requires the exact addressable admission and declared 
       sourceKind: authority.sourceKind,
       stageOrdinal: authority.stageOrdinal,
       programLocusRef: authority.programLocusRef,
+      declaredStageTermDigest: authority.declaredStageTermDigest,
       domainStageRole: authority.domainStageRole,
       currentSourceAuthorityRef: authority.currentSourceAuthorityRef,
       currentSourceAuthorityDigest: authority.currentSourceAuthorityDigest
@@ -1699,6 +1847,19 @@ test("T-267 runtime start requires the exact addressable admission and declared 
     }),
     (error) =>
       error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid"
+  );
+  assert.throws(
+    () => assertTraversalExecutionRuntimeStart({
+      request: resealDeclaredExecutionRequest(compiled.joined.request, {
+        stageTermDigest: stableSha256Digest("stale-stage-term")
+      }),
+      admission
+    }),
+    (error) =>
+      error?.diagnostic?.diagnosticId === "traversal-runtime-start-invalid" &&
+      /do not preserve one exact handoff and result authority/u.test(
+        error.message
+      )
   );
   assert.throws(
     () => assertTraversalExecutionRuntimeStart({

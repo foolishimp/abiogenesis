@@ -66,9 +66,10 @@ import {
   internalFpResultWireProfileFields,
   type FpResultWireProfile
 } from "./fp_result_contract_admission.js";
-import type {
-  CompiledExecutionContextContract,
-  DeclaredExecutionRequest
+import {
+  assertCompiledExecutionContextContract,
+  type CompiledExecutionContextContract,
+  type DeclaredExecutionRequest
 } from "./declared_execution_context.js";
 import {
   GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF,
@@ -261,6 +262,7 @@ export interface AdmittedTraversalStageResultAuthority {
   readonly programLocusRef: string;
   readonly programLocusDigest: `sha256:${string}`;
   readonly sourceStageDigest: `sha256:${string}`;
+  readonly declaredStageTermDigest: `sha256:${string}` | null;
   readonly domainStageRole: string | null;
   readonly compositionStageRole: AbgFnComputeStageRole;
   readonly regime: RuntimeRegime;
@@ -322,6 +324,7 @@ export interface TraversalExecutionAdmissionResultAuthorityIdentity {
   readonly sourceKind: TraversalResultAuthoritySourceKind;
   readonly stageOrdinal: number;
   readonly programLocusRef: string;
+  readonly declaredStageTermDigest: `sha256:${string}` | null;
   readonly domainStageRole: string | null;
   readonly currentSourceAuthorityRef: string;
   readonly currentSourceAuthorityDigest: `sha256:${string}`;
@@ -633,7 +636,6 @@ function planInventory(plan: CompiledCProgramPlan): TraversalPlanInventory {
 
 function selectedApplication(input: {
   readonly carrier: ReturnType<typeof selectedCarrier>;
-  readonly plan: CompiledCProgramPlan;
 }): {
   readonly kind: TraversalContractSourceBasis["applicationKind"];
   readonly refs: readonly string[];
@@ -679,12 +681,20 @@ function selectedApplication(input: {
       ])
     });
   }
+  const directApplicationBasis = Object.freeze({
+    kind: "direct_graph_vector_program_application" as const,
+    executionSubjectGraphFunctionRef:
+      input.carrier.programBinding.hostGraphFunctionRef,
+    graphRef: input.carrier.programBinding.graphRef,
+    graphVectorRef: input.carrier.programBinding.graphVectorRef,
+    selectedProgramRef: input.carrier.programBinding.selectedProgramRef
+  });
+  const directApplicationDigest = stableSha256Digest(directApplicationBasis);
   return Object.freeze({
     kind: "direct" as const,
     refs: Object.freeze([
-      input.plan.planRef,
-      input.plan.planDigest,
-      input.plan.executionGraphFunctionRef
+      `abg://graph-function-application/direct/${directApplicationDigest.slice("sha256:".length)}`,
+      directApplicationDigest
     ])
   });
 }
@@ -845,7 +855,7 @@ export function projectTraversalContractSourceBasis(
     const plan = carrier.completeProgramPlan;
     assertCompiledCProgramPlan(plan);
     const inventory = planInventory(plan);
-    const application = selectedApplication({ carrier, plan });
+    const application = selectedApplication({ carrier });
     return sourceBasis({
       sourceKind: input.kind,
       sourceRef: carrier.programBinding.selectedProgramRef,
@@ -853,7 +863,10 @@ export function projectTraversalContractSourceBasis(
         recompiled.status === "published_startup_blocked"
           ? recompiled.handoff.handoffRef
           : carrier.programBinding.selectedProgramRef,
-      currentAuthorityDigest: stableSha256Digest(recompiled),
+      currentAuthorityDigest:
+        recompiled.status === "published_startup_blocked"
+          ? recompiled.handoff.handoffDigest
+          : stableSha256Digest(recompiled),
       module: input.module,
       graphFunction,
       declarationOwnerGraphFunction: declarationOwner,
@@ -1016,6 +1029,7 @@ function resultAuthorityBasis(
     programLocusRef: authority.programLocusRef,
     programLocusDigest: authority.programLocusDigest,
     sourceStageDigest: authority.sourceStageDigest,
+    declaredStageTermDigest: authority.declaredStageTermDigest,
     domainStageRole: authority.domainStageRole,
     compositionStageRole: authority.compositionStageRole,
     regime: authority.regime,
@@ -1084,6 +1098,7 @@ function sealResultAuthority(input: {
   readonly sourceKind: TraversalResultAuthoritySourceKind;
   readonly currentSourceAuthorityRef: string;
   readonly currentSourceAuthorityDigest: `sha256:${string}`;
+  readonly declaredStageTermDigest: `sha256:${string}` | null;
   readonly selectedResultContractRef: string;
   readonly resultEnvelopeContractRef: string;
   readonly selectorAuthorityRefs: readonly string[];
@@ -1106,6 +1121,7 @@ function sealResultAuthority(input: {
     programLocusRef: input.stage.programLocusRef,
     programLocusDigest: input.stage.programLocusDigest,
     sourceStageDigest: input.stage.sourceStageDigest,
+    declaredStageTermDigest: input.declaredStageTermDigest,
     domainStageRole: input.stage.domainStageRole,
     compositionStageRole: input.stage.compositionStageRole,
     regime: input.stage.regime,
@@ -1168,6 +1184,7 @@ export function admitProgramLocusTraversalStageResultAuthority(input: {
     sourceKind: "program_locus_contract",
     currentSourceAuthorityRef: input.source.completeProgramPlan.planRef,
     currentSourceAuthorityDigest: input.source.completeProgramPlan.planDigest,
+    declaredStageTermDigest: null,
     selectedResultContractRef,
     resultEnvelopeContractRef,
     selectorAuthorityRefs: Object.freeze([
@@ -1196,9 +1213,34 @@ export function admitDeclaredTraversalStageResultAuthority(input: {
 }): AdmittedTraversalStageResultAuthority {
   const stage = exactSourceStage(input);
   const selectedStage = input.contract.selectedStage;
+  try {
+    assertCompiledExecutionContextContract(input.contract);
+  } catch (error: unknown) {
+    fail({
+      diagnosticId: "traversal-result-authority-invalid",
+      actualRelation:
+        "declared execution-context contract identity is not current: " +
+        errorMessage(error),
+      evidenceRefs: [input.contract.contractRef, input.contract.contractDigest]
+    });
+  }
+  const publishedSource = input.source.startupBlockDigest !== null;
+  const expectedSourceOutcomeStatus = publishedSource
+    ? "published_startup_blocked"
+    : "blocked_capability";
+  const expectedPublishedHandoffRef = publishedSource
+    ? input.source.currentAuthorityRef
+    : null;
+  const expectedResultContractRef = stage.resultBearing
+    ? input.selectedResultContractRef
+    : stage.outputCarrierRefs[0];
   if (
+    input.source.sourceKind !== "selected_program_handoff" ||
     (stage.regime !== "F_P" && stage.regime !== "F_H") ||
     stage.declaredStageIndex === null ||
+    input.contract.sourceOutcomeStatus !== expectedSourceOutcomeStatus ||
+    input.contract.sourceBasisDigest !== input.source.currentAuthorityDigest ||
+    input.contract.publishedHandoffRef !== expectedPublishedHandoffRef ||
     input.contract.selectedStageIndex !== stage.declaredStageIndex ||
     input.contract.selectedRegime !== stage.regime ||
     selectedStage.stageRole !== stage.domainStageRole ||
@@ -1211,9 +1253,12 @@ export function admitDeclaredTraversalStageResultAuthority(input: {
     ) ||
     input.contract.selectedProgramBinding.bindingDigest !==
       input.source.selectedProgramBindingDigest ||
-    !input.contract.targetCompatibilityRefs.includes(
-      input.selectedResultContractRef
-    )
+    expectedResultContractRef === undefined ||
+    input.selectedResultContractRef !== expectedResultContractRef ||
+    (stage.resultBearing &&
+      !input.contract.targetCompatibilityRefs.includes(
+        input.selectedResultContractRef
+      ))
   ) {
     fail({
       diagnosticId: "traversal-result-authority-invalid",
@@ -1259,6 +1304,7 @@ export function admitDeclaredTraversalStageResultAuthority(input: {
         : "declared_fh_contract",
     currentSourceAuthorityRef: input.contract.contractRef,
     currentSourceAuthorityDigest: input.contract.contractDigest,
+    declaredStageTermDigest: input.contract.selectedStageDigest,
     selectedResultContractRef: input.selectedResultContractRef,
     resultEnvelopeContractRef: input.selectedResultContractRef,
     selectorAuthorityRefs,
@@ -1293,6 +1339,7 @@ export function admitDeterministicTraversalStageResultAuthority(input: {
     sourceKind: "deterministic_target_contract",
     currentSourceAuthorityRef: stage.sourceAuthorityRef,
     currentSourceAuthorityDigest: stage.sourceAuthorityDigest,
+    declaredStageTermDigest: null,
     selectedResultContractRef,
     resultEnvelopeContractRef: stage.resultBearing
       ? input.source.targetCarrierProjection.envelopeContractRef
@@ -1398,6 +1445,7 @@ export function admitRuntimeAtomTraversalStageResultAuthority(input: {
     sourceKind: "runtime_atom_contract",
     currentSourceAuthorityRef: atom.ref,
     currentSourceAuthorityDigest: atom.digest,
+    declaredStageTermDigest: null,
     selectedResultContractRef: atom.outputCarrierRef,
     resultEnvelopeContractRef: atom.outputCarrierRef,
     selectorAuthorityRefs: Object.freeze([
@@ -1838,11 +1886,11 @@ function bundleBasis(bundle: Omit<
   });
 }
 
-export function compileTraversalExecutionContracts(input: {
+function orderResultAuthorities(input: {
   readonly source: TraversalContractSourceBasis;
   readonly resultAuthorities:
     readonly AdmittedTraversalStageResultAuthority[];
-}): CompiledTraversalExecutionContracts {
+}): readonly AdmittedTraversalStageResultAuthority[] {
   if (
     input.resultAuthorities.length !== input.source.workStages.length ||
     input.source.workStages.some((stage) =>
@@ -1857,13 +1905,21 @@ export function compileTraversalExecutionContracts(input: {
       evidenceRefs: [input.source.sourceDigest]
     });
   }
-  const orderedAuthorities = Object.freeze(
+  return Object.freeze(
     input.source.workStages.map((stage) =>
       input.resultAuthorities.find(
         (authority) => authority.programLocusRef === stage.programLocusRef
       )!
     )
   );
+}
+
+export function compileTraversalExecutionContracts(input: {
+  readonly source: TraversalContractSourceBasis;
+  readonly resultAuthorities:
+    readonly AdmittedTraversalStageResultAuthority[];
+}): CompiledTraversalExecutionContracts {
+  const orderedAuthorities = orderResultAuthorities(input);
   for (const authority of orderedAuthorities) {
     assertAdmittedTraversalStageResultAuthority(authority);
     if (authority.sourceDigest !== input.source.sourceDigest) {
@@ -1970,6 +2026,7 @@ function admissionBasis<Status extends
         sourceKind: authority.sourceKind,
         stageOrdinal: authority.stageOrdinal,
         programLocusRef: authority.programLocusRef,
+        declaredStageTermDigest: authority.declaredStageTermDigest,
         domainStageRole: authority.domainStageRole,
         currentSourceAuthorityRef: authority.currentSourceAuthorityRef,
         currentSourceAuthorityDigest: authority.currentSourceAuthorityDigest
@@ -2016,9 +2073,13 @@ export function admitTraversalExecution(input: {
         evidenceRefs: [source.sourceDigest, input.source.sourceDigest]
       });
     }
-    const bundle = compileTraversalExecutionContracts({
+    const orderedResultAuthorities = orderResultAuthorities({
       source,
       resultAuthorities: input.resultAuthorities
+    });
+    const bundle = compileTraversalExecutionContracts({
+      source,
+      resultAuthorities: orderedResultAuthorities
     });
     assertCompiledTraversalExecutionContracts(input.bundle);
     if (!stableJsonEquals(bundle, input.bundle)) {
@@ -2186,7 +2247,7 @@ export function admitTraversalExecution(input: {
       const basis = admissionBasis({
         status: "static_contracts_admitted_program_blocked",
         source,
-        resultAuthorities: input.resultAuthorities,
+        resultAuthorities: orderedResultAuthorities,
         bundle,
         report
       });
@@ -2211,7 +2272,7 @@ export function admitTraversalExecution(input: {
       const basis = admissionBasis({
         status: "static_contracts_admitted_capability_blocked",
         source,
-        resultAuthorities: input.resultAuthorities,
+        resultAuthorities: orderedResultAuthorities,
         bundle,
         report
       });
@@ -2233,7 +2294,7 @@ export function admitTraversalExecution(input: {
     const basis = admissionBasis({
       status: "runtime_addressable_not_closed",
       source,
-      resultAuthorities: input.resultAuthorities,
+      resultAuthorities: orderedResultAuthorities,
       bundle,
       report
     });
@@ -2298,6 +2359,7 @@ export function assertTraversalExecutionRuntimeStart(input: {
     (authority) =>
       authority.sourceKind === expectedAuthorityKind &&
       authority.domainStageRole === input.request.stageRole &&
+      authority.declaredStageTermDigest === input.request.stageTermDigest &&
       authority.currentSourceAuthorityRef ===
         input.request.contextContractRef &&
       authority.currentSourceAuthorityDigest ===

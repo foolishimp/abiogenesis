@@ -1412,6 +1412,62 @@ async function buildManifest() {
         source: projectTraversalContractSourceBasis(sourceInput)
       });
     });
+  const recurseApplicationMutationRows = selectedTraversalRows.flatMap(
+    (entry) => {
+      const relation = entry.carrier.recurseApplicationRelation;
+      if (relation === null) return [];
+      return [
+        "operandGraphFunctionDigest",
+        "terminationEvaluatorDigest",
+        "foldbackAdditionalDigest"
+      ].map((field) => {
+        const mutatedRelation = Object.freeze({
+          ...relation,
+          [field]: stableSha256Digest({
+            path: entry.path,
+            field,
+            mutation: "t267-recurse-authority-drift"
+          })
+        });
+        const mutatedCarrier = Object.freeze({
+          ...entry.carrier,
+          recurseApplicationRelation: mutatedRelation
+        });
+        const mutatedOutcome =
+          entry.row.outcome.status === "published_startup_blocked"
+            ? Object.freeze({
+                ...entry.row.outcome,
+                handoff: mutatedCarrier
+              })
+            : mutatedCarrier;
+        let rejected = false;
+        try {
+          projectTraversalContractSourceBasis(Object.freeze({
+            ...entry.sourceInput,
+            outcome: mutatedOutcome
+          }));
+        } catch {
+          rejected = true;
+        }
+        if (!rejected) {
+          throw new TypeError(
+            `${entry.path} accepted mutated recurse field ${field}`
+          );
+        }
+        return Object.freeze({
+          path: entry.path,
+          relationRef: relation.relationRef,
+          mutatedField: field,
+          status: "rejected"
+        });
+      });
+    }
+  );
+  if (recurseApplicationMutationRows.length === 0) {
+    throw new TypeError(
+      "T-267 recurse authority proof observed no canonical recurse application"
+    );
+  }
 
   const structuralHandoffRows = handoffRows.filter(
     (row) => row.status === "structural_only"
@@ -1503,7 +1559,9 @@ async function buildManifest() {
             stageOrdinal: stage.ordinal,
             contract: contractRow.contract,
             selectedResultContractRef:
-              entry.source.targetCarrierProjection.targetCarrierContractRef,
+              stage.resultBearing
+                ? entry.source.targetCarrierProjection.targetCarrierContractRef
+                : stage.outputCarrierRefs[0],
             fpWireProfile:
               stage.regime === "F_P" ? "standard_live_review" : null
           });
@@ -2187,6 +2245,7 @@ async function buildManifest() {
       traversalAdmissionRows: traversalAdmissionRows.sort((left, right) =>
         left.path.localeCompare(right.path)
       ),
+      recurseApplicationMutationRows,
       coverageRows,
       conformanceScopeKind: conformance.scopeKind,
       fullConformanceIssueCount: conformance.issues.length,

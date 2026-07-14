@@ -232,6 +232,47 @@ export interface CompiledExecutionContextContract {
   readonly capabilityBasisDigest: `sha256:${string}` | null;
 }
 
+function compiledExecutionContextContractBasis(
+  contract: CompiledExecutionContextContract
+): Omit<CompiledExecutionContextContract, "contractRef" | "contractDigest"> {
+  const { contractRef, contractDigest, ...basis } = contract;
+  void contractRef;
+  void contractDigest;
+  return Object.freeze(basis);
+}
+
+function compiledProgramBindingBasis(
+  contract: CompiledExecutionContextContract
+): Omit<CompiledGraphVectorCProgramBinding, "bindingDigest"> {
+  const { bindingDigest, ...basis } = contract.selectedProgramBinding;
+  void bindingDigest;
+  return Object.freeze(basis);
+}
+
+export function assertCompiledExecutionContextContract(
+  contract: CompiledExecutionContextContract
+): void {
+  const expectedContractDigest = stableSha256Digest(
+    compiledExecutionContextContractBasis(contract)
+  );
+  const expectedBindingDigest = stableSha256Digest(
+    compiledProgramBindingBasis(contract)
+  );
+  const expectedContractRef =
+    `abg://execution-context-contract/${expectedContractDigest.slice("sha256:".length)}`;
+  if (
+    contract.kind !== "compiled_execution_context_contract" ||
+    contract.contractDigest !== expectedContractDigest ||
+    contract.contractRef !== expectedContractRef ||
+    contract.selectedProgramBinding.bindingDigest !== expectedBindingDigest ||
+    contract.selectedStageDigest !== stableSha256Digest(contract.selectedStage)
+  ) {
+    throw new TypeError(
+      "CompiledExecutionContextContract identity does not match its canonical basis"
+    );
+  }
+}
+
 export interface AdmittedExecutionContextValues {
   readonly kind: "admitted_execution_context_values";
   readonly selectionContractRef: string | null;
@@ -1973,13 +2014,15 @@ function compileStaticContract(input: {
         : null
   });
   const contractDigest = stableSha256Digest(contractBasis);
+  const contract = Object.freeze({
+    ...contractBasis,
+    contractRef: `abg://execution-context-contract/${contractDigest.slice("sha256:".length)}`,
+    contractDigest
+  });
+  assertCompiledExecutionContextContract(contract);
   return Object.freeze({
     work,
-    contract: Object.freeze({
-      ...contractBasis,
-      contractRef: `abg://execution-context-contract/${contractDigest.slice("sha256:".length)}`,
-      contractDigest
-    })
+    contract
   });
 }
 

@@ -544,6 +544,24 @@ test("T-267 compiles one exact non-Consensus TraversalUnit", () => {
       "terminal_projected"
     ]
   );
+  assert.equal(compiled.source.applicationKind, "direct");
+  assert.equal(compiled.source.applicationConservationRefs.length, 2);
+  assert.match(
+    compiled.source.applicationConservationRefs[0],
+    /^abg:\/\/graph-function-application\/direct\//u
+  );
+  assert.equal(
+    compiled.source.applicationConservationRefs.includes(
+      compiled.source.completeProgramPlan.planRef
+    ),
+    false
+  );
+  assert.equal(
+    compiled.source.applicationConservationRefs.includes(
+      compiled.source.completeProgramPlan.planDigest
+    ),
+    false
+  );
   assert.equal(outcome.status, "runtime_addressable_not_closed");
   assert.equal(outcome.runtimeAddressable, true);
   assert.equal(outcome.runtimeClosed, false);
@@ -840,6 +858,61 @@ test("T-267 rejects source, bundle, report, and conservation drift", () => {
       source: Object.freeze({
         ...compiled.source,
         currentAuthorityDigest: stableSha256Digest("mutated-source")
+      }),
+      bundle: compiled.bundle,
+      conformanceInput: input,
+      report
+    },
+    {
+      source: Object.freeze({
+        ...compiled.source,
+        authoredProgramNodeRefs: Object.freeze([
+          ...compiled.source.authoredProgramNodeRefs.slice(1)
+        ])
+      }),
+      bundle: compiled.bundle,
+      conformanceInput: input,
+      report
+    },
+    {
+      source: Object.freeze({
+        ...compiled.source,
+        authoredProgramNodeRefs: Object.freeze([
+          ...compiled.source.authoredProgramNodeRefs,
+          compiled.source.authoredProgramNodeRefs[0]
+        ])
+      }),
+      bundle: compiled.bundle,
+      conformanceInput: input,
+      report
+    },
+    {
+      source: Object.freeze({
+        ...compiled.source,
+        resultBearingProgramLocusRefs: Object.freeze([
+          "abg://compiled-c-node/forged-frontier"
+        ])
+      }),
+      bundle: compiled.bundle,
+      conformanceInput: input,
+      report
+    },
+    {
+      source: Object.freeze({
+        ...compiled.source,
+        resultBearingProgramLocusRefs: Object.freeze([])
+      }),
+      bundle: compiled.bundle,
+      conformanceInput: input,
+      report
+    },
+    {
+      source: Object.freeze({
+        ...compiled.source,
+        applicationConservationRefs: Object.freeze([
+          ...compiled.source.applicationConservationRefs.slice(0, 1),
+          stableSha256Digest("forged-direct-application")
+        ])
       }),
       bundle: compiled.bundle,
       conformanceInput: input,
