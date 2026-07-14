@@ -4,11 +4,11 @@
 - title: Interpret complete C programs through the generic runtime atoms
 - type: feature
 - ticket_category: ordinary
-- status: active
-- phase_status: remediation_complete_independent_rereview_pending
-- implementation_status: repair_complete
-- proof_status: remediation_self_review_passed_independent_rereview_pending
-- review_status: independent_post_implementation_rereview_pending
+- status: completed
+- phase_status: closed_after_fh_remediation_acceptance
+- implementation_status: repaired_checkpoint
+- proof_status: verified
+- review_status: fh_accepted_after_remediation_review
 - delivery_phase: DS-3 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -42,6 +42,10 @@
     20260714T075722Z_SELF_REVIEW_t271_post_review_remediation.md
 - implementation_commit: f4ab3d4f
 - repair_implementation_commit: 3e726aa1
+- closure_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T082119Z_DECISION_fh_accept_and_close_t271_remediation.md
+- closed_at: 2026-07-14
 - priority: critical
 - dependencies:
   - completed T-259 direct workflow.C atom
@@ -97,13 +101,12 @@ that checkpoint; these counts are historical and do not admit closure.
   public schema/publication verification, T-252 manifest check, and
   `git diff --check` pass.
 
-## Non-Closure
+## Closure Boundary
 
-The implementation checkpoint is complete, but the ticket remains active
-until independent post-implementation review accepts the compiler,
-interpreter, replay, and proof surfaces. T-267 still owns whole-program
-conservation, T-270 owns public routing, and T-268 owns capability admission;
-this checkpoint does not permit public effects or close those gaps.
+T-271 closes only the generic complete-program compiler/interpreter and replay
+boundary. T-267 still owns whole-program conservation, T-270 owns public
+routing, and T-268 owns capability admission. Closure does not permit public
+effects or close those successor gaps.
 
 ## Review Re-Entry
 
@@ -112,8 +115,9 @@ to four realization defects, it proved that CCALL-002/-004's flat identity
 tuple cannot distinguish serial same-role compiled loci or complete nested
 retry paths. The bounded requirement reprice adds `programLocusRef` and
 `retryPath` only for complete-program calls while preserving the retained flat
-compatibility identity. T-271 remains active and T-267 remains blocked until
-the repaired implementation receives independent acceptance.
+compatibility identity. Checkpoint `3e726aa1` received explicit F_H acceptance
+after the remediation review; the former block is discharged for T-267 design
+re-entry only.
 
 ## Remediation Evidence
 
@@ -134,5 +138,5 @@ and resealed but altered batch projections before effects. Final proof is
 `1717/1717` semantic tests; `56/56` focused T-271 integration tests; `82/82`
 GTL tests; packed API `1/1`; exact T-252 body/census check with two remaining
 gap families; and green lint, publication, schema, governance, Mermaid, pack,
-and diff checks. The ticket remains active for independent re-review. T-267 is
-still blocked.
+and diff checks. Explicit F_H acceptance closes T-271. T-267 remains a
+separate design and implementation gate.
