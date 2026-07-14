@@ -5,6 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- phase_status: pc007_design_candidate
+- review_status: design_review_pending
+- proof_status: pending
 - delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -31,6 +34,7 @@
   - completed T-252
   - active T-267
   - T-271
+  - T-268 canonical manifest publication for packed closure
 - authority_refs:
   - specification/GOALS.md DS-2
   - specification/INTENT.md public invocation spine
@@ -40,6 +44,9 @@
 - governing_prime_design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md
 
 ## Boundary
 

@@ -219,6 +219,12 @@ but no cross-ticket contraction pass joined the designs.
   continuation carriers through separate local designs. Catalog start and F_H
   response remain separate semantic transitions.
 - **Owner**: T-270 and T-272.
+- **Design candidates**:
+  `M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md` and
+  `M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md`.
+- **Measure**: public-route caller-supplied execution authority fields `3 ->
+  0`; active F_H opening producers `2 -> 1`; public start/resume routes remain
+  `2 -> 2`; execution-basis and continuation authority families do not grow.
 - **Negative proof**: neither route accepts caller-authored or reconstructed
   execution, frame, C-call, interaction, or continuation identity.
 

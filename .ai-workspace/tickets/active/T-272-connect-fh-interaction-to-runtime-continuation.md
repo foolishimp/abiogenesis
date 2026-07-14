@@ -5,6 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- phase_status: pc007_design_candidate
+- review_status: design_review_pending
+- proof_status: pending
 - delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -40,6 +43,9 @@
 - governing_prime_design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md
 
 ## Boundary
 
