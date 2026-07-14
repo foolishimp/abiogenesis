@@ -5,6 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Replace profile-aware catalog invocation without execution carriers with
@@ -27,7 +28,7 @@
     build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/
     catalog_invocation.ts
 - dependencies:
-  - active T-252
+  - completed T-252
   - active T-267
   - T-271
 - authority_refs:

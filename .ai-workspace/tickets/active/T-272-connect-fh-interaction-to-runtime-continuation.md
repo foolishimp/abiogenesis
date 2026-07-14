@@ -5,6 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Replace the disconnected legacy escalation and caller-seeded interaction

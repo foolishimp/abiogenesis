@@ -5,6 +5,7 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- delivery_phase: DS-3 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Turn the verified direct-form atoms into one closed interpreter over
@@ -25,8 +26,8 @@
   - completed T-259 direct workflow.C atom
   - completed T-260 direct HOF and batch atoms
   - completed T-261 direct retry atom
-  - active T-262 recurse repair
-  - T-269
+  - completed T-262 recurse repair
+  - completed T-269 declaration and bind-stage law
 - authority_refs:
   - specification/PRODUCT.md atom criterion
   - specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md

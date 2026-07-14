@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const GATE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TENANT_ROOT = path.resolve(GATE_DIR, "../..");
 const PROJECT_ROOT = path.resolve(TENANT_ROOT, "../../..");
+const DELIVERY_ROOT_TICKET_IDS = Object.freeze(["T-252"]);
 const REQUIRED_FIELDS = Object.freeze([
   "id",
   "title",
@@ -25,11 +26,15 @@ function metadata(source) {
   const firstHeading = source.search(/^##\s/mu);
   const header = firstHeading === -1 ? source : source.slice(0, firstHeading);
   const values = new Map();
+  const duplicateKeys = new Set();
   let activeKey = null;
   for (const line of header.split(/\r?\n/u)) {
     const field = /^- ([a-z_]+):(?:\s*(.*))?$/u.exec(line);
     if (field !== null) {
       activeKey = field[1];
+      if (values.has(activeKey)) {
+        duplicateKeys.add(activeKey);
+      }
       const inline = field[2]?.trim() ?? "";
       values.set(activeKey, inline === "|-" || inline === ">-" ? [] : [inline]);
       continue;
@@ -43,11 +48,11 @@ function metadata(source) {
     }
     activeKey = null;
   }
-  return values;
+  return Object.freeze({ values, duplicateKeys: Object.freeze([...duplicateKeys].sort()) });
 }
 
 function value(fields, key) {
-  return (fields.get(key) ?? []).join(" ").trim();
+  return (fields.values.get(key) ?? []).join(" ").trim();
 }
 
 function ticketFiles(ticketRoot) {
@@ -70,25 +75,48 @@ export function inspectDsGovernance({
   const failures = [];
   let checkedTickets = 0;
   let checkedCommentRefs = 0;
-  for (const ticket of ticketFiles(ticketRoot)) {
+  const inventory = ticketFiles(ticketRoot).map((ticket) => {
     const source = readFileSync(ticket.filePath, "utf8");
     const fields = metadata(source);
-    if (!/^DS-[123](?:\s|$)/u.test(value(fields, "delivery_phase"))) {
+    return Object.freeze({ ...ticket, source, fields, id: value(fields, "id") });
+  });
+  const deliveryIds = new Set(DELIVERY_ROOT_TICKET_IDS);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const ticket of inventory) {
+      if (
+        !deliveryIds.has(ticket.id) &&
+        deliveryIds.has(value(ticket.fields, "source_ticket"))
+      ) {
+        deliveryIds.add(ticket.id);
+        changed = true;
+      }
+    }
+  }
+
+  for (const ticket of inventory) {
+    if (!deliveryIds.has(ticket.id)) {
       continue;
     }
+    const phase = value(ticket.fields, "delivery_phase");
+    if (phase !== "" && !/^DS-[123](?:\s|$)/u.test(phase)) continue;
     checkedTickets += 1;
     const label = path.relative(projectRoot, ticket.filePath).split(path.sep).join("/");
+    for (const duplicateKey of ticket.fields.duplicateKeys) {
+      failures.push(`${label}: duplicate ${duplicateKey}`);
+    }
     for (const field of REQUIRED_FIELDS) {
-      if (value(fields, field) === "") {
+      if (value(ticket.fields, field) === "") {
         failures.push(`${label}: missing ${field}`);
       }
     }
-    if (value(fields, "status") !== ticket.state) {
+    if (value(ticket.fields, "status") !== ticket.state) {
       failures.push(
-        `${label}: status ${value(fields, "status") || "<missing>"} disagrees with ${ticket.state}/`
+        `${label}: status ${value(ticket.fields, "status") || "<missing>"} disagrees with ${ticket.state}/`
       );
     }
-    const normalizedSource = source.replace(/\/\s+/gu, "/");
+    const normalizedSource = ticket.source.replace(/\/\s+/gu, "/");
     const refs = new Set(
       [...normalizedSource.matchAll(
         /\.ai-workspace\/comments\/[A-Za-z0-9_.\/-]+\.md/gu
@@ -104,6 +132,7 @@ export function inspectDsGovernance({
   return Object.freeze({
     status: failures.length === 0 ? "passed" : "failed",
     checkedTickets,
+    deliveryRootTicketIds: DELIVERY_ROOT_TICKET_IDS,
     checkedCommentRefs,
     requiredFields: REQUIRED_FIELDS.length,
     failures: Object.freeze(failures)

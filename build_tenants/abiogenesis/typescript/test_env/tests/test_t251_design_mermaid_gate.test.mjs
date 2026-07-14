@@ -3,7 +3,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -95,6 +95,32 @@ test("T-273 rejects a register that omits a completed DS design carrier", async 
       error.message.includes(
         "M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md"
       )
+  );
+});
+
+test("T-273 requires an active accepted design in the registered inventory", async (t) => {
+  const fixtureRoot = await mkdtemp(path.join(tmpdir(), "abg-t273-active-design-"));
+  t.after(async () => {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  });
+  const activeRoot = path.join(fixtureRoot, "active");
+  const completedRoot = path.join(fixtureRoot, "completed");
+  await mkdir(activeRoot, { recursive: true });
+  await mkdir(completedRoot, { recursive: true });
+  await writeFile(
+    path.join(activeRoot, "T-900-active-design.md"),
+    `# Active design\n\n- id: T-900\n- status: active\n- delivery_phase: DS-3\n- design_ref: build_tenants/abiogenesis/typescript/design/MISSING_ACTIVE_ACCEPTED_DESIGN.md\n- design_decision_ref: .ai-workspace/comments/codex/accepted.md\n\n## Boundary\n`,
+    "utf8"
+  );
+
+  await assert.rejects(
+    discoverRegisteredDesigns({
+      registerPath: REGISTER_PATH,
+      ticketRoots: [activeRoot, completedRoot]
+    }),
+    (error) =>
+      error.failureClass === "design_register_incomplete" &&
+      error.message.includes("MISSING_ACTIVE_ACCEPTED_DESIGN.md")
   );
 });
 

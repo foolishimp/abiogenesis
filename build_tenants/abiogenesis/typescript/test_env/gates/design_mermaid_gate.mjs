@@ -16,12 +16,10 @@ const GATE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TENANT_ROOT = path.resolve(GATE_DIR, "../..");
 const PROJECT_ROOT = path.resolve(TENANT_ROOT, "../../..");
 const DESIGN_ROOT = path.join(TENANT_ROOT, "design");
-const COMPLETED_TICKET_ROOT = path.join(
-  PROJECT_ROOT,
-  ".ai-workspace",
-  "tickets",
-  "completed"
-);
+const TICKET_ROOTS = Object.freeze([
+  path.join(PROJECT_ROOT, ".ai-workspace", "tickets", "active"),
+  path.join(PROJECT_ROOT, ".ai-workspace", "tickets", "completed")
+]);
 const REGISTER_PATH = path.join(
   DESIGN_ROOT,
   "A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md"
@@ -69,11 +67,13 @@ function ticketMetadata(source) {
   const firstHeading = source.search(/^##\s/mu);
   const header = firstHeading === -1 ? source : source.slice(0, firstHeading);
   const values = new Map();
+  const duplicateKeys = new Set();
   let activeKey = null;
   for (const line of header.split(/\r?\n/u)) {
     const field = /^- ([a-z_]+):(?:\s*(.*))?$/u.exec(line);
     if (field !== null) {
       activeKey = field[1];
+      if (values.has(activeKey)) duplicateKeys.add(activeKey);
       const inline = field[2]?.trim() ?? "";
       values.set(activeKey, inline === "|-" || inline === ">-" ? [] : [inline]);
       continue;
@@ -87,34 +87,51 @@ function ticketMetadata(source) {
     }
     activeKey = null;
   }
-  return values;
+  return Object.freeze({ values, duplicateKeys: Object.freeze([...duplicateKeys].sort()) });
 }
 
 function metadataText(metadata, key) {
-  return (metadata.get(key) ?? []).join(" ").trim();
+  return (metadata.values.get(key) ?? []).join(" ").trim();
 }
 
-async function completedDsDesignLabels() {
+export async function acceptedDsDesignLabels({ ticketRoots = TICKET_ROOTS } = {}) {
   const labels = new Set();
-  const ticketNames = (await readdir(COMPLETED_TICKET_ROOT))
-    .filter((name) => /^T-\d+-.+\.md$/u.test(name))
-    .sort();
-  for (const ticketName of ticketNames) {
-    const ticketPath = path.join(COMPLETED_TICKET_ROOT, ticketName);
+  const ticketPaths = [];
+  for (const ticketRoot of ticketRoots) {
+    const ticketNames = (await readdir(ticketRoot))
+      .filter((name) => /^T-\d+-.+\.md$/u.test(name))
+      .sort();
+    ticketPaths.push(...ticketNames.map((name) => path.join(ticketRoot, name)));
+  }
+  for (const ticketPath of ticketPaths.sort()) {
     const source = await readText(
       ticketPath,
       "design_ticket_inventory_invalid",
       toPosix(path.relative(PROJECT_ROOT, ticketPath))
     );
     const metadata = ticketMetadata(source);
+    const ticketLabel = toPosix(path.relative(PROJECT_ROOT, ticketPath));
+    if (metadata.duplicateKeys.length > 0) {
+      fail(
+        "design_ticket_inventory_invalid",
+        ticketLabel,
+        `duplicate ticket metadata: ${metadata.duplicateKeys.join(", ")}`
+      );
+    }
+    const status = metadataText(metadata, "status");
+    const activeAcceptance = [
+      "design_decision_ref",
+      "design_acceptance_ref",
+      "accepted_design_decision_ref"
+    ].some((key) => metadataText(metadata, key) !== "");
     if (
-      metadataText(metadata, "status") !== "completed" ||
+      (status !== "completed" && !(status === "active" && activeAcceptance)) ||
       !/^DS-[123](?:\s|$)/u.test(metadataText(metadata, "delivery_phase"))
     ) {
       continue;
     }
     const designFields = ["design_ref", "design_refs", "accepted_design"]
-      .flatMap((key) => metadata.get(key) ?? [])
+      .flatMap((key) => metadata.values.get(key) ?? [])
       .join("\n")
       .replace(/design\/\s+/gu, "design/");
     for (const match of designFields.matchAll(
@@ -127,7 +144,8 @@ async function completedDsDesignLabels() {
 }
 
 export async function discoverRegisteredDesigns({
-  registerPath = REGISTER_PATH
+  registerPath = REGISTER_PATH,
+  ticketRoots = TICKET_ROOTS
 } = {}) {
   const registerLabel = designPathLabel(registerPath);
   const source = await readText(
@@ -168,14 +186,14 @@ export async function discoverRegisteredDesigns({
   }
 
   const registeredLabels = new Set(links.map((link) => path.basename(link)));
-  const missingAcceptedDesigns = (await completedDsDesignLabels()).filter(
+  const missingAcceptedDesigns = (await acceptedDsDesignLabels({ ticketRoots })).filter(
     (label) => !registeredLabels.has(label)
   );
   if (missingAcceptedDesigns.length > 0) {
     fail(
       "design_register_incomplete",
       registerLabel,
-      `completed DS-1 through DS-3 design carriers are unregistered: ${missingAcceptedDesigns.join(", ")}`
+      `accepted DS-1 through DS-3 design carriers are unregistered: ${missingAcceptedDesigns.join(", ")}`
     );
   }
 

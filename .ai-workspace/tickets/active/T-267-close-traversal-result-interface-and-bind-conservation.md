@@ -52,7 +52,6 @@
   - T-260 typed HOF and batch runtime
   - T-261 bounded C.retry runtime
   - T-262 typed recurse runtime
-- updated_at: 2026-07-13
 
 ## Boundary
 

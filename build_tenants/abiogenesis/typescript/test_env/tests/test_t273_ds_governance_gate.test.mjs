@@ -16,6 +16,7 @@ function ticketSource(overrides = {}) {
     ticket_category: "ordinary",
     status: "active",
     goal: "GOAL-035",
+    source_ticket: "T-252",
     delivery_phase: "DS-2",
     change_intent: "Exercise the governance fixture.",
     change_class: "realization_refactor",
@@ -42,8 +43,9 @@ async function fixtureProject(t) {
 test("T-273 current DS-1 through DS-3 ticket inventory is governed", () => {
   const result = inspectDsGovernance();
   assert.equal(result.status, "passed", result.failures.join("\n"));
-  assert.equal(result.checkedTickets, 16);
+  assert.equal(result.checkedTickets, 19);
   assert.equal(result.requiredFields, 13);
+  assert.deepEqual(result.deliveryRootTicketIds, ["T-252"]);
 });
 
 test("T-273 fails closed on a missing intake field", async (t) => {
@@ -70,4 +72,37 @@ test("T-273 fails closed on a missing local commentary reference", async (t) => 
   const result = inspectDsGovernance({ projectRoot: root });
   assert.equal(result.status, "failed");
   assert.match(result.failures[0], /missing commentary reference/u);
+});
+
+test("T-273 discovers a delivery descendant before validating its missing phase", async (t) => {
+  const root = await fixtureProject(t);
+  await writeFile(
+    path.join(root, ".ai-workspace/tickets/active/T-900-fixture.md"),
+    ticketSource({ delivery_phase: null }),
+    "utf8"
+  );
+  const result = inspectDsGovernance({ projectRoot: root });
+  assert.equal(result.checkedTickets, 1);
+  assert.deepEqual(result.failures, [
+    ".ai-workspace/tickets/active/T-900-fixture.md: missing delivery_phase"
+  ]);
+});
+
+test("T-273 fails closed on duplicate ticket metadata", async (t) => {
+  const root = await fixtureProject(t);
+  const source = ticketSource().replace(
+    "\n\n## Boundary",
+    "\n- updated_at: 2026-07-15\n\n## Boundary"
+  );
+  await writeFile(
+    path.join(root, ".ai-workspace/tickets/active/T-900-fixture.md"),
+    source,
+    "utf8"
+  );
+  const result = inspectDsGovernance({ projectRoot: root });
+  assert.equal(result.status, "failed");
+  assert.equal(
+    result.failures.some((failure) => failure.endsWith("duplicate updated_at")),
+    true
+  );
 });
