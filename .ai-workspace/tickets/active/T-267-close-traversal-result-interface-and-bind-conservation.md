@@ -5,10 +5,10 @@
 - type: bug
 - ticket_category: ordinary
 - status: active
-- phase_status: reframed_design_accepted_implementation_authorized
-- implementation_status: superseded_checkpoint_repair_pending
-- proof_status: invalidated_pending_repair
-- review_status: delegated_fh_design_accepted_independent_implementation_review_required
+- phase_status: implementation_checkpoint_pending_independent_review
+- implementation_status: implemented_checkpoint_pending_independent_review
+- proof_status: self_review_verified_independent_review_pending
+- review_status: independent_authority_path_review_required
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Compile traversal contracts over every authored C stage and exact
@@ -42,13 +42,16 @@
 - design_decision_ref: >-
     .ai-workspace/comments/codex/
     20260714T085600Z_DECISION_delegated_fh_accept_t267_reframed_design.md
-- self_review_ref: >-
+- superseded_implementation_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260713T225800Z_SELF_REVIEW_t267_traversal_conservation.md
-- final_decision_ref: >-
+- superseded_final_decision_ref: >-
     .ai-workspace/comments/codex/
     20260713T225900Z_DECISION_delegated_fh_accept_and_close_t267.md
-- implementation_commit: f85bee83
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T095525Z_SELF_REVIEW_t267_whole_program_conservation_implementation.md
+- implementation_commit: 0ce492fa
 - dependencies:
   - T-255 compiled execution handoff and startup fence
   - T-256 declared execution-context join
@@ -88,44 +91,38 @@ selector, or deriving obligations and pressure from display names.
 
 ## Current Disposition
 
-`reopened_for_design_reframe`. The former compiler selects only one
-result-bearing stage, then publishes synthesized transform/evaluate/consequence
-rows. It therefore proves a bind projection rather than conservation of the
-whole authored C program, and it does not represent the outer typed-recurse
-application identity. The following former disposition is superseded.
+`implementation_checkpoint_pending_independent_review`. Commit `0ce492fa`
+projects exact T-255 handoffs and selector-free T-260 fan-out bindings through
+the exact T-271 plan. It conserves every authored node, every invoking locus,
+the plan-derived result frontier, and the outer application relation without
+synthesizing stage categories or changing T-252 body bytes.
 
-One generic compiler projects exact T-255 selected
-handoffs or a T-260 selector-free fan-out binding into the existing
-compute-composition, compute-stage, plugin-result-interface,
-bind-conservation, and TraversalUnit conformance families. All 35 canonical
-Consensus sources close the T-267 static contract without changing T-252 body
-bytes.
+All 35 canonical Consensus sources now close the T-267 static contract. The
+census reports one remaining product gap, T-268 tenant-conformance-manifest
+coverage. Every admitted T-267 outcome still records `effectsPermitted: false`,
+and runtime start fails closed awaiting T-270 public routing authority.
 
-The final gate keeps static closure, whole-program validity, capability, and
-runtime closure separate. The canonical units remain program-blocked by 25
-unrelated submitted-structure issues, and T-268 still blocks effect-bearing
-handoffs until a canonical tenant-conformance manifest is published and
-admitted. No result, obligation discharge, vector closure, or effect is
-fabricated.
+The implementation and self-review are complete. Ticket closure is not
+earned until an independent review traces the supported authority path and
+accepts or remediates this checkpoint.
 
 ## Closure Evidence
 
-The evidence below remains regression evidence for the local static carrier,
-but it no longer proves program conservation or DS-3 closure.
-
-- implementation checkpoint: `f85bee83`
-- full semantic suite: 1688/1688
-- focused T-267 lane: 50/50; packed public API proof 1/1; GTL law 82/82
-- canonical T-252 projection: 35 static traversal contracts, zero T-267
+- implementation checkpoint: `0ce492fa`
+- full semantic suite: 1718/1718
+- focused T-267 lane: 51/51; packed public API proof 1/1; GTL law 82/82
+- canonical T-252 projection: 35 static traversal admissions, zero T-267
   conformance issues, unchanged body digest, and one T-268 product gap
+- T-252 body digest:
+  `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`
+- T-252 manifest digest:
+  `sha256:1899ba4d15cd734c2af504524a023566b25f8fa35d46badf15d98342289c1a38`
 - source-blind T-223 suite: 70/70
 - T-250 version-basis and documentation drift: 13/13
 - semantic lint and `git diff --check`: passed
-- Mermaid design gate: 42 diagrams across 14 files; 5/5 gate tests
+- DS governance: 19 tickets, 67 comment refs, 13 required fields; passed
+- Mermaid design gate: 7/7 inventory/render tests; governance tests 5/5
 - public-contract schemas: 82 verified
-- generated publication assets: 40 verified from 1112 immutable payload files
-- pre-closure ownership manifest:
-  `sha256:ed420dede144c595ce639aeed4bea9967a822d79208eb28926b8a772378e5875`
-- post-closure ownership manifest:
-  `sha256:0d14768a8f622b2e40e10bffa81dfbe46edd41219bf0a1aa2a7767dac9b8736f`;
-  zero unowned, duplicate, or active-owned-but-not-observed families
+- generated publication assets: 40 verified from 1118 immutable payload files
+- package dry run: 1119 files; passed
+- independent authority-path review: pending; closure blocked
