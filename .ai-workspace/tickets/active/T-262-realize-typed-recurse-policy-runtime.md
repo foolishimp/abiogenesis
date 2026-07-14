@@ -1,14 +1,29 @@
 # T-262 - Realize Typed Recurse Policy And Runtime
 
 - id: T-262
-- status: completed
-- phase_status: closed_after_self_review
-- implementation_status: realized_and_verified
-- proof_status: verified
-- closed_at: 2026-07-13
+- title: Repair typed recurse parent-rebind admission
+- type: bug
+- ticket_category: ordinary
+- status: active
+- phase_status: reopened_after_exploitable_parent_rebind_review
+- implementation_status: repair_required
+- proof_status: invalidated
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Replace the unconditional parent-rebind admission with a deterministic
+    cross-check over exact admitted foldback, next-input, policy, budget,
+    lineage, and preserved-evidence truth before another recursive effect.
+- change_class: realization_refactor
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/
+    typed_recurse_runtime.ts parent-stage admission
+- triaged_at: 2026-07-14
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
+- reopened_at: 2026-07-14
 - delivery_phase: DS-3
-- change_class: design_reframe
 - owner: abiogenesis
+- build_tenant: typescript
 - priority: critical
 - source_ticket: T-252
 - dependency: T-261
@@ -52,7 +67,12 @@ imperative loop, or foldback without exact admitted rebind material.
 
 ## Current Disposition
 
-`closed_as_designed`. One direct recurse application lowers to a typed
+`reopened_for_bounded_repair`. The structural compiler, budget, termination,
+foldback, and replay boundaries remain retained. The parent-stage code emits
+`admitted` after only a null check and therefore does not realize accepted
+design D9. The former disposition follows as superseded evidence.
+
+One direct recurse application lowers to a typed
 structural relation and binds the exact selected Module, catalog entry, wrapper,
 operand, input/output contracts, termination evaluator, foldback relation,
 parent rebind, lineage, admitted positive budget, and policy.
@@ -69,6 +89,10 @@ and tenant conformance remain owned by T-267 and T-268, and public effects stay
 startup-blocked until those authorities close.
 
 ## Closure Evidence
+
+The evidence below is historical and no longer closes this ticket. A new
+negative must inject a mismatched next payload or evidence basis through the
+live foldback path and observe deterministic rejection before round two.
 
 - implementation checkpoint: `e09d3b65`
 - full semantic suite: 1679/1679

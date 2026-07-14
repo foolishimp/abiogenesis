@@ -1,15 +1,30 @@
 # T-267 - Close Traversal Result Interface And Bind Conservation
 
 - id: T-267
-- status: completed
-- phase_status: closed_after_self_review
-- implementation_status: realized_and_verified
-- proof_status: verified
-- closed_at: 2026-07-13
-- review_status: accepted_by_delegated_fh
-- delivery_phase: DS-3
+- title: Preserve declared C programs through traversal conservation
+- type: bug
+- ticket_category: ordinary
+- status: active
+- phase_status: reopened_after_program_conservation_review
+- implementation_status: design_reframe_required
+- proof_status: invalidated
+- review_status: external_review_rejected_closure
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Compile traversal contracts over every authored C stage and exact
+    higher-order application identity while keeping ABG bind stages distinct
+    from product-declared program stages.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
+- reopened_at: 2026-07-14
+- delivery_phase: DS-3
 - owner: abiogenesis
+- build_tenant: typescript
 - priority: critical
 - source_ticket: T-252
 - design_ref: >-
@@ -67,7 +82,13 @@ selector, or deriving obligations and pressure from display names.
 
 ## Current Disposition
 
-`closed_as_designed`. One generic compiler projects exact T-255 selected
+`reopened_for_design_reframe`. The former compiler selects only one
+result-bearing stage, then publishes synthesized transform/evaluate/consequence
+rows. It therefore proves a bind projection rather than conservation of the
+whole authored C program, and it does not represent the outer typed-recurse
+application identity. The following former disposition is superseded.
+
+One generic compiler projects exact T-255 selected
 handoffs or a T-260 selector-free fan-out binding into the existing
 compute-composition, compute-stage, plugin-result-interface,
 bind-conservation, and TraversalUnit conformance families. All 35 canonical
@@ -82,6 +103,9 @@ admitted. No result, obligation discharge, vector closure, or effect is
 fabricated.
 
 ## Closure Evidence
+
+The evidence below remains regression evidence for the local static carrier,
+but it no longer proves program conservation or DS-3 closure.
 
 - implementation checkpoint: `f85bee83`
 - full semantic suite: 1688/1688

@@ -1,16 +1,37 @@
 # T-268 - Publish ABG 5 Tenant-Conformance Manifest Consensus Coverage
 
 - id: T-268
+- title: Publish ABG 5 tenant-conformance manifest Consensus coverage
+- type: feature
+- ticket_category: ordinary
 - status: active
-- phase_status: active_design_pending_t255_closure
+- phase_status: blocked_by_ds1_ds3_review_remediation
 - review_status: design_required
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Publish exact canonical ABG 5 capability coverage only after the selected
+    Consensus program, traversal contract, public router, and F_H continuation
+    path conserve the same admitted truth.
 - delivery_phase: DS-4
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design canonical tenant-conformance
+    manifest publication boundary
+- triaged_at: 2026-07-14
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
 - source_ticket: T-252
-- dependency: T-255 canonical-manifest admission and capability-coverage contract
+- dependencies:
+  - completed T-255 canonical-manifest admission and capability-coverage contract
+  - active T-252 topology and exhaustive census repair
+  - active T-262 parent-rebind repair
+  - active T-267 declared-program conservation repair
+  - T-270 public catalog/start integration
+  - T-271 complete C-program interpretation
+  - T-272 F_H lifecycle integration
 - authority_refs:
   - specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md

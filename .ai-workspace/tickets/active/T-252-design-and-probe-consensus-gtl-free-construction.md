@@ -1,16 +1,34 @@
 # T-252 - Design And Probe Consensus GTL Free Construction
 
 - id: T-252
-- status: completed
-- phase_status: closed_after_corrected_probe_and_explicit_fh
-- review_status: accepted_by_fh
-- implementation_admission: completed_without_runtime_realization
-- proof_status: fresh_clean_gates_green
+- title: Repair the canonical Consensus topology and exhaustive compiler census
+- type: bug
+- ticket_category: ordinary
+- status: active
+- phase_status: reopened_after_holistic_supported_path_review
+- review_status: external_review_rejected_closure
+- implementation_admission: blocked_pending_topology_and_census_repair
+- proof_status: invalidated_by_reproduced_conformance_residuals
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Preserve one lawful canonical Consensus GTL free construction while making
+    every declared node reachable or bound and retaining every compiler issue
+    in the independently observed gap census.
 - delivery_phase: DS-1
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- created_at: 2026-07-12
+- updated_at: 2026-07-14
 - owner: abiogenesis
+- build_tenant: typescript
 - priority: critical
-- closed_at: 2026-07-13
+- reopened_at: 2026-07-14
+- closure_invalidated_by:
+  - 20 observed graph/node-reachable-or-bound errors omitted from the gap census
+  - 5 observed c-algebra/semantic-not-realized errors omitted from the gap census
 - decision_ref: .ai-workspace/comments/codex/20260713T044119Z_DECISION_fh_accept_t252_t263_t264_corrected_checkpoint.md
 - correction_ref: .ai-workspace/comments/codex/20260713T041830Z_REVIEW_GATE_t252_t263_t264_authority_correction.md
 - proof_ref: .ai-workspace/comments/codex/20260713T043615Z_PROOF_t252_t263_t264_clean_correction_gates.md
@@ -26,6 +44,11 @@ realize a reported gap, introduce a Consensus runtime, or infer catalog-owner,
 capability, execution, event, replay, or closure truth.
 
 ## Closed State
+
+The prior closed state below is retained as superseded evidence. It is not the
+current disposition. External review reproduced non-zero whole-program
+conformance errors while the sealed census exposed only the T-268 capability
+gap. T-252 is reopened until topology and census truth agree.
 
 The canonical body is implemented at
 `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/consensus_gtl_body.ts`.
