@@ -85,6 +85,8 @@ import { TYPED_NODE_AUTHORITY } from "@abiogenesis/typescript-tenant/gtl/m01";
 import { NODE_BACKED_C_AUTHORITY } from "@abiogenesis/typescript-tenant/gtl/m01";
 // @ts-expect-error the raw fan-in constructor is not public authoring API.
 import { constructFanInGraphFunction } from "@abiogenesis/typescript-tenant/gtl/m01";
+// @ts-expect-error the retained witnessed fan-in helper is module-private.
+import { constructWitnessedFanInGraphFunction } from "@abiogenesis/typescript-tenant/gtl/m01";
 
 interface LabObservation { readonly sample: string }
 declare const node: Node;
@@ -115,6 +117,7 @@ void forged;
 void TYPED_NODE_AUTHORITY;
 void NODE_BACKED_C_AUTHORITY;
 void constructFanInGraphFunction;
+void constructWitnessedFanInGraphFunction;
 `
   );
 

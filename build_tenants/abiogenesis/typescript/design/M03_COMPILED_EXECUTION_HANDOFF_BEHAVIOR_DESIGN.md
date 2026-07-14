@@ -724,7 +724,7 @@ stateDiagram-v2
 | successor blocking | workflow and retry preserve their current diagnostic ids and owners |
 | structural vector | selector-free HOF wrapper remains structural-only |
 | T-267 startup fence | every published handoff reaches a typed startup block; no traversal, worker/plugin invocation, archive write, successful assessment, or closure truth occurs |
-| body immutability | T-252 body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0` |
+| body immutability | T-252 body digest remains `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695` |
 
 ## Non-Closure
 

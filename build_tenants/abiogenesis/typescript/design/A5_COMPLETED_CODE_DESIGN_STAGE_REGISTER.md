@@ -31,11 +31,18 @@ requirements own product scope, while T-244 traces feature closure.
 | Stage | Ticket and commits | Three-view design | Current verdict | Coding consequence |
 |---|---|---|---|---|
 | Typed C-algebra authoring, raw admission, and semantic compilation | T-220; `014448f` | [M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_C_ALGEBRA_BEHAVIOR_DESIGN.md) | `candidate` | The base authoring/compiler code is frozen. Direct `workflow.C` is realized by T-259; direct root `C.batch` and typed HOF projection are realized by T-260; direct root `C.retry` is realized by T-261. Mixed expressions retain explicit successor gaps. |
+| Exact typed HOF vector relation | T-253 | [M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md](./M01_M03_TYPED_HOF_VECTOR_RELATION_BEHAVIOR_DESIGN.md) | `accepted` | Native vector boundaries and fan-out relations preserve exact admitted member and vector contracts. Runtime interpretation remains separately owned. |
+| GraphVector-to-declared-C-program selection | T-254 | [M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md](./M01_M03_GRAPH_VECTOR_C_PROGRAM_SELECTION_BEHAVIOR_DESIGN.md) | `accepted` | One admitted GraphVector selects one declared C program without adding a second execution key or runtime controller. |
+| Canonical GraphFunction combinator applications | T-265 | [M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md](./M01_M02_M03_GRAPH_FUNCTION_COMBINATOR_APPLICATION_BEHAVIOR_DESIGN.md) | `accepted` | Recurse, fan-in, and gate retain canonical first-class application declarations across M01/M02/M03. |
+| Native Node and interface type witnesses | T-266 | [M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md](./M01_M02_M03_NATIVE_NODE_INTERFACE_TYPE_WITNESS_BEHAVIOR_DESIGN.md) | `accepted` | Public constructors preserve native inferred type relations while private witness authority remains outside the packed API. |
+| Strict raw Module admission | T-263 | [M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md](./M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md) | `accepted` | Duplicate, unknown, malformed, and lossy raw Module fields fail before canonical admission. |
+| Proportional conformance inventory | T-264 | [M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md](./M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md) | `accepted` | Conformance coverage derives from submitted structure and does not invent nonzero coverage for unused feature families. |
+| Canonical Consensus GTL free construction and observed census | T-252; `abed6a0a` | [M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md](./M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md) | `accepted` after topology and census repair | The canonical body remains pure data. Its current compiler gaps are exhaustively mapped to active owners; body closure does not imply runtime realization. |
 | Direct `workflow.C` static binding and child-traversal runtime atom | T-259 | [M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md](./M03_WORKFLOW_C_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | One direct module-contained child workflow is realized without a child catalog entry. Canonical product traversal remains startup-blocked by T-267. |
 | Typed fan-out, ordinal `C.batch`, and exact fan-in runtime | T-260; `398f254` | [M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_HOF_BATCH_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` and `closed` under delegated F_H | Direct root batch, runtime-cardinality fan-out, and exact fan-in are realized with structural/runtime authority separation. Nested and mixed batches remain gaps, and the T-267 startup fence remains authoritative. |
 | Bounded `C.retry` runtime and one-policy join | T-261; `848a0b81` | [M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md](./M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` and `closed` under delegated F_H | One direct root retry over one C.of leaf is realized with selected-Module authority, replay-derived attempt identity, bounded budget, exact historical-transition validation, and the single shared retryable-failure allowlist. Nested and mixed retry remain gaps; the T-267/T-268 startup fences remain authoritative. |
-| Typed recurse policy, foldback, and replay runtime | T-262; `e09d3b65` | [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md) | `accepted` and `closed` under delegated F_H | One direct recurse application is authorized as a selected-Module, positive-policy, replay-owned tail loop with exact child result, termination, B-to-A foldback, deterministic parent rebind admission, and lineage truth. T-267/T-268 remain authoritative fences. |
-| Traversal result-interface and bind-conservation static admission | T-267 | [M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md](./M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md) | `accepted` under delegated F_H | One generic compiler joins exact T-255/T-260 source truth to admitted result-interface authority and the existing conformance row family. Static closeability remains distinct from runtime closure, and T-268 capability truth remains an orthogonal gate. |
+| Typed recurse policy, foldback, and replay runtime | T-262; `e09d3b65`, `7a9cfb01` | [M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md](./M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN.md) | repaired; external reverification pending | One direct recurse application is retained. The former unconditional parent-rebind admission is replaced by an exact deterministic witness and a live rejection test. T-262 remains open pending independent reverification. |
+| Traversal result-interface and bind-conservation static admission | T-267 | [M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md](./M03_TRAVERSAL_RESULT_BIND_CONSERVATION_BEHAVIOR_DESIGN.md) | `rework_required` | The prior design selected one authored stage and synthesized bind stages. It is frozen until the reframe preserves every authored stage and keeps ABG bind stages distinct. |
 | Execution-declaration compilation and basis-owned runtime handoff | T-220 P4; `014448f` | [M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md](./M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md) | `candidate` | The handoff code is frozen. It cannot certify a constructive C body because the separate C-conformance result is not bound into `ExecutionBasis`. |
 | Malformed and contradictory F_P output admission plus ABG-owned producer attribution | T-220 P4 and T-223; `014448f`, `28da030` | [M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md](./M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md) | `blocked` | Producer attribution is a passing subclaim; admission remains frozen because G1-G5 require disposition and raw-to-close impossibility is not yet proven. |
 | Installed product, workspace, binding, and catalog foundation | T-223 foundation; `f572ee9` | [M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md](./M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md) | `candidate` | Foundation code is frozen pending cross-view axiom review. |
@@ -62,10 +69,11 @@ stage:
 ## Evaluation Order
 
 The standing structural/render command is `npm run check:design-mermaid` from
-the TypeScript tenant root. It discovers only the fourteen links above, requires
-the ordered domain/sequence/state views, renders with the pinned local Mermaid
-CLI into temporary output, and removes that output. A green render remains
-syntax evidence; it does not replace independent axiom or F_H review.
+the TypeScript tenant root. It derives its source set from the register above,
+checks that completed DS-1 through DS-3 ticket design carriers are represented,
+requires the ordered domain/sequence/state views, renders with the pinned local
+Mermaid CLI into temporary output, and removes that output. A green render
+remains syntax evidence; it does not replace independent axiom or F_H review.
 
 1. Run the standing Mermaid structural/render command.
 2. Apply its cross-view invariants.
@@ -82,8 +90,7 @@ syntax evidence; it does not replace independent axiom or F_H review.
 
 ## Next-Code Boundary
 
-No Consensus rebuild or other dependent feature may enter code while
-`C.retry` is a relied-on unrealized constructor.
-The lawful next design must author its GraphFunction body in GTL. Compiler gaps
-are demand evidence for the missing algebra; they are not permission to move
-workflow, prompt, traversal, recursion, or closure into a plugin.
+T-271 owns complete C-program interpretation over the retained runtime atoms.
+T-267 then owns whole-program conservation without replacing authored stages
+with runtime bind stages. T-268 capability publication remains blocked until
+those paths, the public start router, and F_H continuation are integrated.

@@ -1,13 +1,26 @@
 # T-261 - Realize C.retry Runtime And Policy Join
 
 - id: T-261
+- title: Realize the direct C.retry runtime and policy join
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_review
 - implementation_status: realized_and_verified
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-3
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Repeat one direct C.of term only within its admitted positive budget and
+    the shared retryable-failure policy while preserving replay truth.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_C_RETRY_RUNTIME_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
@@ -26,7 +39,7 @@
     20260713T195900Z_DECISION_delegated_fh_accept_and_close_t261.md
 - review_status: accepted_by_delegated_fh
 - implementation_commit: 848a0b81
-- updated_at: 2026-07-13
+- updated_at: 2026-07-14
 
 ## Boundary
 

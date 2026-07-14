@@ -14,7 +14,14 @@ import { fileURLToPath } from "node:url";
 
 const GATE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TENANT_ROOT = path.resolve(GATE_DIR, "../..");
+const PROJECT_ROOT = path.resolve(TENANT_ROOT, "../../..");
 const DESIGN_ROOT = path.join(TENANT_ROOT, "design");
+const COMPLETED_TICKET_ROOT = path.join(
+  PROJECT_ROOT,
+  ".ai-workspace",
+  "tickets",
+  "completed"
+);
 const REGISTER_PATH = path.join(
   DESIGN_ROOT,
   "A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md"
@@ -22,7 +29,6 @@ const REGISTER_PATH = path.join(
 const RENDERER_PATH = path.join(TENANT_ROOT, "node_modules", ".bin", "mmdc");
 const CONFIG_PATH = path.join(GATE_DIR, "mermaid.config.json");
 const EXPECTED_RENDERER_VERSION = "11.3.0";
-const EXPECTED_REGISTERED_FILE_COUNT = 14;
 const EXPECTED_VIEW_TYPES = Object.freeze([
   "classDiagram",
   "sequenceDiagram",
@@ -59,6 +65,67 @@ async function readText(filePath, failureClass, failurePath) {
   }
 }
 
+function ticketMetadata(source) {
+  const firstHeading = source.search(/^##\s/mu);
+  const header = firstHeading === -1 ? source : source.slice(0, firstHeading);
+  const values = new Map();
+  let activeKey = null;
+  for (const line of header.split(/\r?\n/u)) {
+    const field = /^- ([a-z_]+):(?:\s*(.*))?$/u.exec(line);
+    if (field !== null) {
+      activeKey = field[1];
+      const inline = field[2]?.trim() ?? "";
+      values.set(activeKey, inline === "|-" || inline === ">-" ? [] : [inline]);
+      continue;
+    }
+    if (activeKey !== null && /^ {2,}/u.test(line)) {
+      const value = line.trim().replace(/^-\s+/u, "");
+      if (value !== "") {
+        values.get(activeKey)?.push(value);
+      }
+      continue;
+    }
+    activeKey = null;
+  }
+  return values;
+}
+
+function metadataText(metadata, key) {
+  return (metadata.get(key) ?? []).join(" ").trim();
+}
+
+async function completedDsDesignLabels() {
+  const labels = new Set();
+  const ticketNames = (await readdir(COMPLETED_TICKET_ROOT))
+    .filter((name) => /^T-\d+-.+\.md$/u.test(name))
+    .sort();
+  for (const ticketName of ticketNames) {
+    const ticketPath = path.join(COMPLETED_TICKET_ROOT, ticketName);
+    const source = await readText(
+      ticketPath,
+      "design_ticket_inventory_invalid",
+      toPosix(path.relative(PROJECT_ROOT, ticketPath))
+    );
+    const metadata = ticketMetadata(source);
+    if (
+      metadataText(metadata, "status") !== "completed" ||
+      !/^DS-[123](?:\s|$)/u.test(metadataText(metadata, "delivery_phase"))
+    ) {
+      continue;
+    }
+    const designFields = ["design_ref", "design_refs", "accepted_design"]
+      .flatMap((key) => metadata.get(key) ?? [])
+      .join("\n")
+      .replace(/design\/\s+/gu, "design/");
+    for (const match of designFields.matchAll(
+      /build_tenants\/abiogenesis\/typescript\/design\/([A-Za-z0-9_.-]+\.md)/gu
+    )) {
+      labels.add(match[1]);
+    }
+  }
+  return [...labels].sort();
+}
+
 export async function discoverRegisteredDesigns({
   registerPath = REGISTER_PATH
 } = {}) {
@@ -85,11 +152,11 @@ export async function discoverRegisteredDesigns({
   const links = [...section.matchAll(
     /\[[^\]]+\]\((\.\/[^)]+\.md)\)/gu
   )].map((match) => match[1]);
-  if (links.length !== EXPECTED_REGISTERED_FILE_COUNT) {
+  if (links.length === 0) {
     fail(
       "design_register_invalid",
       registerLabel,
-      `expected ${EXPECTED_REGISTERED_FILE_COUNT} registered design links, found ${links.length}`
+      "registered design links are missing"
     );
   }
   if (new Set(links).size !== links.length) {
@@ -97,6 +164,18 @@ export async function discoverRegisteredDesigns({
       "design_register_invalid",
       registerLabel,
       "registered design links must be unique"
+    );
+  }
+
+  const registeredLabels = new Set(links.map((link) => path.basename(link)));
+  const missingAcceptedDesigns = (await completedDsDesignLabels()).filter(
+    (label) => !registeredLabels.has(label)
+  );
+  if (missingAcceptedDesigns.length > 0) {
+    fail(
+      "design_register_incomplete",
+      registerLabel,
+      `completed DS-1 through DS-3 design carriers are unregistered: ${missingAcceptedDesigns.join(", ")}`
     );
   }
 

@@ -1,6 +1,9 @@
 # T-257 - Close F_P Result-Contract Admission
 
 - id: T-257
+- title: Close F_P result-contract admission
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_review
 - review_status: accepted_by_delegated_fh
@@ -8,7 +11,18 @@
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-2
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Admit raw F_P reviewer, reducer, and submitter outputs against the exact
+    selected result contract before routing, materialization, or closure.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
@@ -21,9 +35,10 @@
 
 ## Boundary
 
-Close `fp_result_contract_admission`: every raw F_P reviewer, reducer,
-submitter, and reassessment output reaches exactly one admitted result or typed
-blocked/retry truth before any routing, materialization, or closure.
+Close `fp_result_contract_admission`: every raw F_P reviewer, reducer, and
+submitter output reaches exactly one admitted result or typed blocked/retry
+truth before any routing, materialization, or closure. Public M04 result
+reassessment remains outside this ticket.
 
 ## T-252 Census Gap Ownership
 

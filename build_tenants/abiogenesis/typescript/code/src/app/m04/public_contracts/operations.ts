@@ -142,7 +142,12 @@ function fhResponseOperation(input: {
         required: true,
         nullable: true
       }),
-      domain({ fieldPath: "request.value", kind: "i_json", required: true }),
+      domain({
+        fieldPath: "request.value",
+        kind: "i_json",
+        required: true,
+        nullable: true
+      }),
       domain({
         fieldPath: "request.evidenceRefs",
         kind: "non_empty_unique_array",

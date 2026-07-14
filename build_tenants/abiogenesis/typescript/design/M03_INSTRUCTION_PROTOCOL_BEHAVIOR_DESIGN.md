@@ -1304,7 +1304,7 @@ T-256 boundary and names its retained owner.
 | startup-block identity | every constructed request preserves the exact T-255 TraversalStartupBlock and its digest; capability-blocked input constructs no request |
 | no fallback | deleting a declaration, carrier field, canonical T-183 compiler input, or startup-admission input blocks; M03 does not call `defaultInstructionSectionText` or read `FpTransportConfig.prompt` |
 | genericity | one non-Consensus single-stage fixture and one multi-source fixture compile without feature branches |
-| T-252 preservation | canonical body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`; the catalog declaration digest changes when its ordered companion source ref is admitted; the census invokes the real join for every F_P/F_H capability-blocked consumer and closes the two T-256 families only when field and protocol-role closure are observed; the same 28 paths remain T-268 capability blocks |
+| T-252 preservation | canonical body digest remains `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`; the catalog declaration digest changes when its ordered companion source ref is admitted; the census invokes the real join for every F_P/F_H capability-blocked consumer and closes the two T-256 families only when field and protocol-role closure are observed; the same 28 paths remain T-268 capability blocks |
 | no effects | source closure reaches no runner, plugin, worker, transport, event, archive, continuation, or closure module |
 | packed publication | public exports and packed install preserve the same request and diagnostic surfaces without private imports |
 

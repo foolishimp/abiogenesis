@@ -1,13 +1,27 @@
 # T-264 - Close Proportional Conformance Inventory
 
 - id: T-264
+- title: Close the proportional conformance inventory
+- type: bug
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_explicit_fh
 - review_status: accepted_by_fh
 - implementation_admission: completed_as_designed
 - proof_status: fresh_clean_gates_green
 - delivery_phase: DS-1
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Derive conformance obligations from admitted submitted structure and avoid
+    invented nonzero coverage for feature families that are not present.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_PROPORTIONAL_CONFORMANCE_INVENTORY_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: high
 - source_ticket: T-252

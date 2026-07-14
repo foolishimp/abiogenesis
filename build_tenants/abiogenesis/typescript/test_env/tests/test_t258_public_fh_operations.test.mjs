@@ -17,6 +17,9 @@ import {
   resolveAbgCliOperationId
 } from "../../build/semantic/code/src/app/m04/index.js";
 import {
+  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
+} from "../../build/semantic/code/src/app/m04/public_contracts/operations.js";
+import {
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 
@@ -283,6 +286,27 @@ test("T-258 publishes exact generic F_H and resume CLI operation identities", ()
       "abg.operation.run.resume"
     ]
   );
+});
+
+test("T-273 F_H i_json response metadata admits the schema-valid null value", () => {
+  const definitions = DS1_PUBLIC_OPERATION_DEFINITION_REGISTER.filter(
+    (definition) => definition.operationId.startsWith("abg.operation.fh.")
+  );
+  assert.equal(definitions.length, 5);
+  for (const definition of definitions) {
+    const valueDomain = definition.closedDomains.find(
+      (domain) => domain.fieldPath === "request.value"
+    );
+    assert.deepEqual(valueDomain, {
+      fieldPath: "request.value",
+      kind: "i_json",
+      required: true,
+      nullable: true,
+      values: [],
+      minimum: null,
+      maximum: null
+    });
+  }
 });
 
 test("T-258 SDK admits one response and one nonterminal resume with exact replay", async () => {

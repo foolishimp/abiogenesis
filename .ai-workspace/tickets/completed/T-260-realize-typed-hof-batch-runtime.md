@@ -1,12 +1,19 @@
 # T-260 - Realize Typed HOF And C.batch Runtime
 
 - id: T-260
+- title: Realize typed HOF and direct C.batch runtime atoms
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_review
 - implementation_status: realized_and_verified
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-3
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Realize exact typed fan-out, ordinal direct-root C.batch execution, and
+    witnessed fan-in without collapsing structural and runtime authority.
 - change_class: requirement_reprice
 - owner: abiogenesis
 - priority: critical
@@ -15,6 +22,9 @@
 - re_entry_point: >-
     specification/requirements/gtl/REQ-L-GTL3-HOF.md
     HOF-009 through HOF-012
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
 - requirement_reprice_status: accepted_under_delegated_fh
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
@@ -30,7 +40,7 @@
     20260713T190500Z_DECISION_delegated_fh_accept_and_close_t260.md
 - review_status: accepted_by_delegated_fh
 - implementation_commit: 398f254
-- updated_at: 2026-07-13
+- updated_at: 2026-07-14
 
 ## Boundary
 

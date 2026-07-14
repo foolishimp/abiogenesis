@@ -1,13 +1,27 @@
 # T-263 - Close Strict Raw Module Admission
 
 - id: T-263
+- title: Close strict raw Module admission
+- type: bug
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_explicit_fh
 - review_status: accepted_by_fh
 - implementation_admission: completed_as_designed
 - proof_status: fresh_clean_gates_green
 - delivery_phase: DS-1
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Reject unknown, duplicate, malformed, or lossy serialized Module fields
+    before the canonical immutable carrier is admitted.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M01_M02_STRICT_RAW_MODULE_ADMISSION_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: high
 - source_ticket: T-252

@@ -480,7 +480,7 @@ test("T-263 leaves the canonical T-252 body digest unchanged and refuses its mut
   const canonical = serializeModule(ABG_CONSENSUS_GTL_MODULE);
   assert.equal(
     stableSha256Digest(canonical),
-    "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0"
+    "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695"
   );
   assert.deepEqual(serializeModule(admitModule(cloneJson(canonical))), canonical);
   const malformed = cloneJson(canonical);

@@ -1,6 +1,9 @@
 # T-255 - Close Compiled GraphVector Execution Handoff
 
 - id: T-255
+- title: Close the compiled GraphVector execution handoff
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_review
 - review_status: accepted_by_fh
@@ -8,7 +11,18 @@
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-2
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Join the selected GraphVector, declared C program, target binding, and
+    canonical capability truth into one startup-governed execution handoff.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252
@@ -118,7 +132,7 @@ T-268.
 - packed/public API lane: 125/125, with GTL law 82/82
 - T-250 version-basis lane: 13/13
 - final T-252 body/probe lane: 11/11, with GTL law 82/82
-- T-252 body digest:
+- T-252 body digest at T-255 closure, superseded by the later T-252 topology repair:
   `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`
 - final T-252 probe manifest digest:
   `sha256:6b6e1f39294cfc6735d0fb1206a50ea2f70ba75d2dbc3de30321232387619adb`

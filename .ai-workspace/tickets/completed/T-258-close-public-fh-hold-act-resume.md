@@ -1,6 +1,9 @@
 # T-258 - Close Public F_H Hold, Act, And Resume
 
 - id: T-258
+- title: Close the public F_H hold, act, and resume carriers
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_self_review
 - review_status: accepted_by_delegated_fh
@@ -8,7 +11,18 @@
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-2
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Publish typed F_H interaction, response, and resume carriers without
+    fabricating graph success or assigning orchestration authority to callers.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_M04_PUBLIC_SDK_CLI_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252

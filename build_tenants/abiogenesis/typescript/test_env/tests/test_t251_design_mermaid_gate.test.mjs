@@ -57,7 +57,8 @@ function threeViewSource(order = [
   ).join("\n\n")}\n`;
 }
 
-test("T-251 renders exactly the fourteen registered three-view designs", () => {
+test("T-251 derives and renders the registered three-view design inventory", async () => {
+  const registered = await discoverRegisteredDesigns();
   const result = runGate();
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(result.summary, {
@@ -65,11 +66,36 @@ test("T-251 renders exactly the fourteen registered three-view designs", () => {
     failureClass: null,
     failurePath: null,
     rendererVersion: "11.3.0",
-    fileCount: 14,
-    diagramCount: 42,
+    fileCount: registered.length,
+    diagramCount: registered.length * 3,
     sourceSetDigest: result.summary.sourceSetDigest
   });
   assert.match(result.summary.sourceSetDigest, /^sha256:[a-f0-9]{64}$/u);
+});
+
+test("T-273 rejects a register that omits a completed DS design carrier", async (t) => {
+  const fixtureRoot = await mkdtemp(path.join(tmpdir(), "abg-t273-register-"));
+  t.after(async () => {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  });
+  const registerSource = await readFile(REGISTER_PATH, "utf8");
+  const omittedSource = registerSource
+    .split(/\r?\n/u)
+    .filter((line) =>
+      !line.includes("M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md")
+    )
+    .join("\n");
+  assert.notEqual(omittedSource, registerSource);
+  const fixturePath = path.join(fixtureRoot, "register.md");
+  await writeFile(fixturePath, omittedSource, "utf8");
+  await assert.rejects(
+    discoverRegisteredDesigns({ registerPath: fixturePath }),
+    (error) =>
+      error.failureClass === "design_register_incomplete" &&
+      error.message.includes(
+        "M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md"
+      )
+  );
 });
 
 test("T-251 rejects missing, extra, and reordered Mermaid views before rendering", async (t) => {

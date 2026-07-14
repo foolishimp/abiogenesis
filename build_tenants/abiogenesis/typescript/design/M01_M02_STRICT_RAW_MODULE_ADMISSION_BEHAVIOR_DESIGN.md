@@ -70,7 +70,7 @@ shape.
 | M01 subordinate admitters | SerializedAttrs, GraphVector, GraphFunction, and tagged serialized values are substantially closed; Context, SchemaRef, AssetSurface, Node, Operator, Evaluator, Rule, Graph, EnvRef, TemplateRef, HookRef, and authority-slot payloads remain open | repair recursively |
 | Module constructors | already reject duplicate declaration ids and duplicate named operator/evaluator/rule/import-style authorities where applicable | preserve |
 | canonical serializers | already emit the canonical M01/M02 carrier fields | preserve as emitted-shape authority |
-| T-252 body | exact canonical round-trip succeeds at body digest `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0` | bytes must remain unchanged |
+| T-252 body | exact canonical round-trip succeeds at body digest `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695` | bytes must remain unchanged |
 
 ## Irreducible Architectural Carrier Set
 
@@ -434,7 +434,7 @@ for open siblings on Module, Graph, Node, or any other carrier.
 | optional/default law | declared optional omission normalizes through existing defaults | missing required field and malformed present optional field refuse |
 | semantic duplicates | unique ids/names/Attr keys admit | duplicate declaration id/name and duplicate Attr entry key retain existing refusal |
 | canonical parity | native serialization, object admission, and text admission converge on one canonical Module | no accepted input serializes with a supplied key missing |
-| T-252 oracle | body digest remains `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0` | `unknownT252Field` becomes refusal and `strict_raw_module_admission` leaves the census |
+| T-252 oracle | body digest remains `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695` | `unknownT252Field` becomes refusal and `strict_raw_module_admission` leaves the census |
 | effect fence | source dependency closure remains inside M01/M02/shared deterministic admission | runner, transport, event, app, qualification, workspace, or product dependency fails |
 
 ## Cross-View Axiom Matrix

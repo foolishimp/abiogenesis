@@ -1,6 +1,9 @@
 # T-256 - Close Declared Execution Context Join
 
 - id: T-256
+- title: Close the declared execution-context join
+- type: feature
+- ticket_category: ordinary
 - status: completed
 - phase_status: closed_after_proportional_repair
 - review_status: accepted_by_fh
@@ -8,7 +11,18 @@
 - proof_status: verified
 - closed_at: 2026-07-13
 - delivery_phase: DS-2
+- goal: GOAL-035 stable ABIogenesis 5.0 baseline
+- change_intent: >-
+    Derive one selected, catalog-bound execution request from admitted
+    protocol, instruction, result-contract, and capability truth.
 - change_class: design_reframe
+- re_entry_point: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md
+- triaged_at: 2026-07-14
+- triage_provenance: retrospective_backfill_from_ticket_boundary_and_accepted_design
+- created_at: 2026-07-13
+- updated_at: 2026-07-14
 - owner: abiogenesis
 - priority: critical
 - source_ticket: T-252

@@ -4,6 +4,21 @@ Date: 2026-07-14
 Reviewer: Codex
 Scope: T-252 through T-268 on `codex/t266-stage`
 
+## External Review Inputs
+
+- Holistic DS-1 through DS-3 span audit:
+  `abiogenesis/.ai-workspace/comments/claude/20260714T010000Z_REVIEW_holistic_ds1_ds3_span_audit.md`
+  at sibling-repository commit `b7de010c`.
+- The owner-supplied supported-path review covering false DS-1 census closure,
+  whole-program conservation, public invocation, F_H lifecycle, composability,
+  governance gates, and F_H null metadata.
+- The owner-supplied follow-up review proving the T-262 parent-rebind bypass and
+  narrowing the T-257 reassessment overclaim.
+
+These are review evidence, not specification authority. Confirmed findings
+re-enter at the live requirement, design, realization, or governance surface
+named below.
+
 ## F_H Ruling
 
 The owner's standing delegation was explicit in the live session: continue

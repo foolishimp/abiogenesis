@@ -59,7 +59,7 @@ gap. T-252 is reopened until topology and census truth agree.
 The canonical body is implemented at
 `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/consensus_gtl_body.ts`.
 Its serialized body digest is
-`sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`.
+`sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`.
 The body is pure GTL data and its static source-import closure reaches none of
 the fenced runner, transport, events, app, qualification, or bin implementation
 directories. Pure contract modules remain visible in that closure.

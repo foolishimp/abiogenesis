@@ -108,6 +108,7 @@
   "scripts": {
     "build:host": "tsc -p tsconfig.semantic-strict.json",
     "check:design-mermaid": "node test_env/gates/design_mermaid_gate.mjs",
+    "check:ds-governance": "node test_env/gates/ds_governance_gate.mjs",
     "generate:public-contract-schemas": "npm run build:host && node test_env/tools/generate_public_contract_schemas.mjs --write",
     "check:public-contract-schemas": "npm run build:host && node test_env/tools/generate_public_contract_schemas.mjs --check",
     "generate:abg-product-publication": "npm run check:public-contract-schemas && node test_env/tools/publish_abg_product_contracts.mjs --write",
@@ -144,6 +145,7 @@
     "test:t267": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t267_traversal_execution_contract.test.mjs test_env/tests/test_t256_declared_execution_context.test.mjs test_env/tests/test_t252_consensus_gtl_body.test.mjs test_env/tests/test_t260_hof_batch_runtime.test.mjs && node test_env/tools/t252_consensus_probe.mjs --check && node --test --test-concurrency=1 test_env/tests/test_t267_packed_public_api.proof.mjs",
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "test:design-mermaid": "node --test --test-concurrency=1 test_env/tests/test_t251_design_mermaid_gate.test.mjs",
+    "test:t273": "npm run check:ds-governance && npm run test:design-mermaid && node --test --test-concurrency=1 test_env/tests/test_t273_ds_governance_gate.test.mjs",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
     "test:t156": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs",

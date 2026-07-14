@@ -406,7 +406,7 @@ Closure requires all of the following:
 3. every canonical T-252 F_P stage invokes the same atom against its compiled
    target result-contract compatibility surface;
 4. T-252 body bytes remain at
-   `sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0`;
+   `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`;
 5. malformed, incomplete, contradictory, unattributed, nonretryable, and
    exhausted cases remain non-closing on the supported path;
 6. exact valid output reaches admitted payload/finding facts but does not mint

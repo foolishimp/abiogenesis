@@ -13,6 +13,13 @@ const declarationLawPath = path.join(
   "contracts",
   "declaration_law.ts"
 );
+const hofAlgebraPath = path.join(
+  sourceRoot,
+  "gtl",
+  "m01",
+  "algebra",
+  "hof.ts"
+);
 
 function filesBelow(root, suffix) {
   const files = [];
@@ -49,6 +56,31 @@ assert.deepEqual(
   runnerViolations,
   [],
   `runner code must consume typed declaration APIs, not raw authored data:\n${runnerViolations.join("\n")}`
+);
+
+const privateFanInHelper = "constructWitnessedFanInGraphFunction";
+const hofAlgebraSource = readFileSync(hofAlgebraPath, "utf8");
+assert.match(
+  hofAlgebraSource,
+  new RegExp(`function ${privateFanInHelper}\\b`, "u"),
+  "the retained witnessed fan-in helper must remain module-private"
+);
+assert.doesNotMatch(
+  hofAlgebraSource,
+  new RegExp(
+    `export\\s+(?:function\\s+${privateFanInHelper}\\b|\\{[^}]*\\b${privateFanInHelper}\\b)`,
+    "u"
+  ),
+  "the retained witnessed fan-in helper must not be exported"
+);
+const privateFanInImportViolations = filesBelow(sourceRoot, ".ts")
+  .filter((file) => file !== hofAlgebraPath)
+  .filter((file) => readFileSync(file, "utf8").includes(privateFanInHelper))
+  .map((file) => path.relative(tenantRoot, file));
+assert.deepEqual(
+  privateFanInImportViolations,
+  [],
+  `the retained witnessed fan-in helper must not be imported by production code:\n${privateFanInImportViolations.join("\n")}`
 );
 
 const declarationLawSource = readFileSync(declarationLawPath, "utf8");
@@ -105,6 +137,7 @@ process.stdout.write(
     status: "passed",
     registeredReservedDeclarationKeys: registeredReservedKeys.size,
     runnerFilesChecked: filesBelow(runnerRoot, ".ts").length,
-    cAlgebraConstructors: 7
+    cAlgebraConstructors: 7,
+    privateFanInImports: 0
   })}\n`
 );
