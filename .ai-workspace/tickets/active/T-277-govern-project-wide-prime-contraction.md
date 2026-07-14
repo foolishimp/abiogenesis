@@ -48,6 +48,8 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- design_refs:
+  - build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
 - governing_prime_design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -173,7 +175,8 @@ Every census row must end in exactly one state:
 
 - `PC-011`: implemented at `be287765`; focused positive and negative proof is
   green; independent closure review remains pending
-- `PC-004` and `PC-005`: next bounded implementation slice
+- `PC-004` and `PC-005`: focused three-view design is F_H-authorized under the
+  T-277 implementation decision; implementation is active
 
 ## Exit
 

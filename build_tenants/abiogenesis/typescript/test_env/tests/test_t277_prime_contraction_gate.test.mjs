@@ -180,3 +180,66 @@ test("T-277 rejects an accepted design without an acceptance record", async (t) 
     true
   );
 });
+
+test("T-277 inspects every accepted design_refs entry", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "abg-t277-prime-multi-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const activeRoot = path.join(root, ".ai-workspace/tickets/active");
+  const completedRoot = path.join(root, ".ai-workspace/tickets/completed");
+  const commentsRoot = path.join(root, ".ai-workspace/comments/codex");
+  const designRoot = path.join(root, "build_tenants/abiogenesis/typescript/design");
+  const adrRoot = path.join(designRoot, "adrs");
+  await mkdir(activeRoot, { recursive: true });
+  await mkdir(completedRoot, { recursive: true });
+  await mkdir(commentsRoot, { recursive: true });
+  await mkdir(adrRoot, { recursive: true });
+  await writeFile(
+    path.join(designRoot, "A5_PRIME_CONTRACTION_CENSUS.md"),
+    "# Census\n\n### PC-001 - Fixture\n",
+    "utf8"
+  );
+  await writeFile(
+    path.join(adrRoot, "ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md"),
+    designSource(validReview({ ownerTicket: "T-900" })),
+    "utf8"
+  );
+  await writeFile(
+    path.join(designRoot, "SECOND_DESIGN.md"),
+    designSource(validReview({
+      iacs: [],
+      authoritativeCarriers: [],
+      ownerTicket: "T-900"
+    })),
+    "utf8"
+  );
+  await writeFile(
+    path.join(commentsRoot, "accept.md"),
+    "# Explicit acceptance\n",
+    "utf8"
+  );
+  await writeFile(
+    path.join(activeRoot, "T-900-fixture.md"),
+    `# Fixture
+
+- id: T-900
+- status: active
+- governing_prime_design_ref: build_tenants/abiogenesis/typescript/design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+- prime_contraction_refs:
+  - PC-001
+- design_acceptance_ref: .ai-workspace/comments/codex/accept.md
+- design_refs:
+  - build_tenants/abiogenesis/typescript/design/adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+  - build_tenants/abiogenesis/typescript/design/SECOND_DESIGN.md
+
+## Boundary
+`,
+    "utf8"
+  );
+
+  const result = inspectPrimeContractionGovernance({ projectRoot: root });
+  assert.equal(result.status, "failed");
+  assert.equal(
+    result.failures.some((failure) => failure.includes("SECOND_DESIGN.md") && failure.includes("iacs")),
+    true
+  );
+});

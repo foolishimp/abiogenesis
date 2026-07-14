@@ -19,6 +19,11 @@ const ACCEPTANCE_FIELDS = Object.freeze([
   "design_decision_ref",
   "accepted_design_decision_ref"
 ]);
+const DESIGN_FIELDS = Object.freeze([
+  "design_ref",
+  "design_refs",
+  "accepted_design"
+]);
 const REVIEW_KEYS = Object.freeze([
   "schemaVersion",
   "iacs",
@@ -387,11 +392,16 @@ export function inspectPrimeContractionGovernance({
     const acceptanceRefs = ACCEPTANCE_FIELDS.flatMap((key) =>
       metadataRefs(metadata, key, /\.ai-workspace\/comments\/[A-Za-z0-9_.\/-]+\.md/gu)
     );
-    const designRefs = metadataRefs(
-      metadata,
-      "design_ref",
-      /build_tenants\/abiogenesis\/typescript\/design\/[A-Za-z0-9_.\/-]+\.md/gu
+    const designRefs = DESIGN_FIELDS.flatMap((key) =>
+      metadataRefs(
+        metadata,
+        key,
+        /build_tenants\/abiogenesis\/typescript\/design\/[A-Za-z0-9_.\/-]+\.md/gu
+      )
     );
+    if (new Set(designRefs).size !== designRefs.length) {
+      failures.push(`${label}: design references must be unique`);
+    }
     for (const acceptanceRef of acceptanceRefs) {
       localPath(projectRoot, acceptanceRef, label, failures);
     }
@@ -411,7 +421,7 @@ export function inspectPrimeContractionGovernance({
 
     acceptedDesigns += 1;
     if (designRefs.length === 0) {
-      failures.push(`${label}: accepted Prime-governed ticket has no design_ref`);
+      failures.push(`${label}: accepted Prime-governed ticket has no design reference`);
       continue;
     }
     for (const designRef of designRefs) {
