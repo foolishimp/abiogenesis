@@ -2,12 +2,12 @@
   "kind": "t252_consensus_gtl_probe_manifest",
   "version": 4,
   "authority": {
-    "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
     "abiPackageVersion": "5.0.0-dev.0"
   },
   "body": {
-    "bodyDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+    "bodyDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
     "canonicalTargetRef": "graph-function://abg/consensus/submitter-reviewer-rounds",
     "moduleName": "abg.consensus.ds1",
     "graphFunctionCount": 7,
@@ -134,8 +134,8 @@
   },
   "m02": {
     "canonicalRoundTripExact": true,
-    "serializedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-    "admittedModuleDigest": "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+    "serializedModuleDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+    "admittedModuleDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
     "unknownFieldMutation": {
       "accepted": false,
       "retained": false,
@@ -163,14 +163,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
           "graph-function:graph-function://abg/consensus/exact-panel-facts",
           "graph-vector:graph-vector://abg/consensus/exact-panel-facts",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:570b9fda9982baefdae82d9006ff48e15a500fd54b9aa9e243fb090c2a2fd5fa",
+        "evidenceDigest": "sha256:4df8d070e757ad276e06e18d2b270b61624af2da1a58226460a983ad00447e90",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -190,14 +190,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
           "graph-function:graph-function://abg/consensus/review-one-profile",
           "graph-vector:graph-vector://abg/consensus/review-one-profile",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:9c8eda3b22857f8ace917467d85d741efcfb5ede6c01f76aba61ff1875d8293a",
+        "evidenceDigest": "sha256:2fcd2b160682cadd60b3f3602145fdb50de219110c99b6b3f86a4797246b91ca",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -217,14 +217,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/expand-panel",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:835781a973abc0348000b45115758d9f98f8f3adac89af6cf4cc13b9c51b911f",
+        "evidenceDigest": "sha256:f10d7c61314b31d090d2f15ec3ff26f0b2819dadc54c53c210a91c4b9ea67d89",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -244,14 +244,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/project-reducer-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:779bcb63f05ddeed6355aaccc86c4f16fcf60eeab5369bc5eedff0fb75c36821",
+        "evidenceDigest": "sha256:b2f718b84bfed981905cda51904fc3ebd7746e86a1d0caecc17a32d261eb4295",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -271,14 +271,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:47603016c5983f141cd0244cbde67357ce90aba5e0d8b353bd3b10537adbcfc2",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/reassess-round",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:176dc9568a511a527a7a6d0490d49727565339224677f62b505e5d4214b178d8",
+        "evidenceDigest": "sha256:2eb7de6d8c4a148e980261a5431a4f12859922ae3f2ae4d7a28cb5acfba05991",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -298,14 +298,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/close-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:b312fd954f66493f41e4f6d876f1ac1a0546b12e5aa7f3ac75331047a6d1db0a",
+        "evidenceDigest": "sha256:92f1c2d7319e511663d4cc9be3e5c78f29fb0ecdcd6ae577679b03df8a5aec22",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -325,14 +325,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/recurse-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:6045a93168217f223d427527075ae4a48679d073d6d86195e2e5a3bfcbb8412e",
+        "evidenceDigest": "sha256:21206ec6e7811c6db2483df1410952ad9f2d654fc979712d6d1e63094c41bd76",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -352,14 +352,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/fh-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:5f54d7c93e57ede78e4fe253e2669736fe7e628b10a668ce7212e0a00298b7eb",
+        "evidenceDigest": "sha256:db82763adc7410caf8016874e111e20d8201f91ef44d3830ee2b048d9eed02f1",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -379,14 +379,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/project-submitter-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:ec3ec19f68551152387e35daaadeaf7a902bdce3a835cda923df16ccdcd651a0",
+        "evidenceDigest": "sha256:7395265b03c7cf869154931e82e0be10f9483cd2702499bc964c4eea8cffd474",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -406,14 +406,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/project-fh-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:2ace9763a443bf0015932dd3a97a2b83430a461f579321826c54c7c021de6759",
+        "evidenceDigest": "sha256:3c651fb608a0b03bd0606c283d0d9b8bfe4118a443181523a53cbb0941d66f44",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -433,14 +433,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:48be5b77e4a2422b4383d6c8809ce9151f4f936d845dd24f73b023158e11ed34",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/review-panel",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:2914566f6d0ca25379b656981747a503aa445f9408545cbef33738bfb77ab693",
+        "evidenceDigest": "sha256:698362c8827f2a70fd33be8c34e84bc042d1f383a4fc4ccfbeba790413b509ae",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -460,14 +460,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:bd7b6f7377d5e19e4b60f17cb398c3dded2084d76e78a2369a22e28533f11273",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/reduce-panel-facts",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:5acfa35090dd939f621f70b27a1d3a86c7676921211f06196822c0742bbe684f",
+        "evidenceDigest": "sha256:5d9b7244b6d15ea22a85bf90cf56633c8e55ef6ceca6cf88d9f3bca5fc5b7272",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -487,14 +487,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:4a00b7f25937e9eca06971460b46c458ab169a36432edea869f6ee0bc8dbc327",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/reduce-round",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:6b94a62959afb711b38abf68c4673c31f8e1c7c1a08e33acbdb4086c1aa3fc8c",
+        "evidenceDigest": "sha256:e4f3737b20d7b90fc328c3cfb184e305fe2b0ef1eea0571c3491fb83168e9e52",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -514,14 +514,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/close-initial",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:0c33cc2b41ff0af245fe2dd06a93f84b18751dc4c577b3db63fb59589562add5",
+        "evidenceDigest": "sha256:707b4df47f4d2d761a1dd8d8def80431ec60a3942c7101d14579bb4f86befc19",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -541,14 +541,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:98ecfc7a48148c0776bb25fce079ccd68806b29d4ad75486053f0476b9ffedcb",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/submitter-response",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:dfad1ba16c6f4696f778fc14049f5670592899bcceb427b727f173cd16c7e6fe",
+        "evidenceDigest": "sha256:8f97069948b0512747aeaa7f1580b1d15cc0debe3f6aeddae9aa1be5e6bc27ec",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -568,14 +568,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
           "graph-function:graph-function://abg/consensus/round",
           "graph-vector:graph-vector://abg/consensus/fh-initial",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:4019aadc4f87db1428888083f02aeda1e00a17239b86270d1e898ee19e54215b",
+        "evidenceDigest": "sha256:bd99b1b4ce309eaf4bed19c8f8b414edb8cd1b1def8be1d0bdd7bbec92bacf7c",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -595,14 +595,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
           "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
           "graph-vector:graph-vector://abg/consensus/seed-round",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:90ca6ac9e2e5186bbc17826b3d3f38380533bc20413ff48747355a6f1242c220",
+        "evidenceDigest": "sha256:e8a64911f6bd43b9858d122852ae9130c1e5dbe0f538cc8fe874800522ad71bd",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -622,14 +622,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:f49251731760212359febd7935fc182c8222d8ffb08d1eec2823451c54eaf8a4",
           "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
           "graph-vector:graph-vector://abg/consensus/bounded-rounds",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:d6fa51aa93b15b19e37d1b0f1cc6eaa8d05e6262d8f05896aa70ecf870e1368b",
+        "evidenceDigest": "sha256:faccd1abdc335b16b152941afbc423edf86b8acefa5f97a3889123bdc37007bd",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -649,14 +649,14 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
           "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
           "graph-vector:graph-vector://abg/consensus/project-result",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:ba700f7b6173b622341c6e8e30d10acc75c1a86ea67d2b894db5cf33359ffc82",
+        "evidenceDigest": "sha256:a137021c2edde6e4a519ce661afd0a2bf174dfd3a81f1c6e5455044132f06afc",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -676,7 +676,7 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
           "compiled-graph-vector-c-program-binding:sha256:de93e1bf42182425268ec14a3ba85a0663f3a0b284086debddbd7c54f9c747da",
           "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
           "graph-function:digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
@@ -684,7 +684,7 @@
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:12d73e2043c46949321b07ed6058428af6e3f686773b180e871ce1ae29c5221e",
+        "evidenceDigest": "sha256:9f1462c95164724c1a00e669cdb0b3187b08b5f672be3baecd4381d21bcbdc85",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -704,15 +704,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/expand-panel",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:787b58576df41be4966bc989e2ba8bfa2a3bc0d0227606b1e7681902652a3a8f",
+        "evidenceDigest": "sha256:5aca2466b627db57316d092d279e382aafd355ae82d865ed5dcaf35af700bdbb",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -732,15 +732,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/project-reducer-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:5644b9f97dba745d08abeb8f8d80d6d8d8134e106b21d9bd52f6571553c8645a",
+        "evidenceDigest": "sha256:07d51836b00b77463e0aa220c88027e0633c7540a59d967bcf4ec6a8e3f55376",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -760,15 +760,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:91cf80fe3f847aeeaac023ccd2422e3de8a46cd6ee63441a9dd86a1d02e80194",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:828ce4ffaefd7c2c35de4628a30d9cb22e33aec6e4662642b6804478a8a1026d",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/reassess-round",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:f85cb9a6a288895112f471350ae2f391f92d1d21559cd78a862a54a9cd3ebb52",
+        "evidenceDigest": "sha256:39d62c2f6bdebb614795dbd95285899226a14d4882bee7d60cc41ef5bd349b04",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -788,15 +788,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/close-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:718b7431f769eac8cf90a9804a4f8ceb5abff7e70ade30373ae3a9be780be090",
+        "evidenceDigest": "sha256:259f38dad0b75a77b7533d8e2fe9fea8584f8e4d15e755a733e8f4b659d29ba5",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -816,15 +816,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/recurse-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:e3a1175b248ff0a133a056e380842ca17fd158a03b7e997e257d2b89e03d4649",
+        "evidenceDigest": "sha256:c54fbb76d252575acbbfc8b04680625bfcd3daedc41a0b9fba4771f141fb7ea8",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -844,15 +844,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:8d78c975dfd6fb5f6d97d6cafb64252eb147504685ddf5edff5c55e1c208ae71",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:d0ba9aa915dda6a550f980bfbdaab3c3e87dcd519c51fbcd817b7d4d7b81058b",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/fh-post-submitter",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:4c9bab15c3bb88922ebeea3987f1ee99e53e1e476eb8aea1c8a195fd7645760b",
+        "evidenceDigest": "sha256:3c29cf261c71c3c36136fa42b4d17e5d110f202873cd97efa4a69e87ec877124",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -872,15 +872,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/project-submitter-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:8336b0973f7fb044097eef5951eda9faf7b3050622538ea5a1bd5e344cb16399",
+        "evidenceDigest": "sha256:d0bc6f3267f10ef7fd05e11346dc297bf7149a3adc543f83fbe4b7d74a0671a3",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -900,15 +900,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/project-fh-binding",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:0078a40345a5ace27ac1e412a35525e7281640cb2c9d1126b08075a57ce4594b",
+        "evidenceDigest": "sha256:09343fd449556ab6734e1413280eb0548e2cefc166821ab2dd238f602af3ac73",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -928,15 +928,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:b0a51c7e709b2cb8a1fa791a5c38a344b0ad4390b75b46e1bdca1cc4c5fa6f05",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:0b758bc53624967e597b9f4818548c9a70a5abbc35bc4577844f2f26da5ac793",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/review-panel",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:23498d27a255b470110da88b88c371a98a455ad62fc63c14c12ae4d897c006f9",
+        "evidenceDigest": "sha256:46d77541df72b9ab56b82027bc112d480cb498e7f094b32bc17b88508c63c374",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -956,15 +956,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:d81c43e3d4aa588f71fcda8903f952fb2b4c13fef613e0f49c8a7ac25731660f",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:ab63f44919fcb830a96f56a07348ca4d68cbe9cfb72f63629e3c33b33419e31d",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/reduce-panel-facts",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:529b83e4526214cf126d5e6f5d014228ef8c521a9a13fb459afafdecfb802e0c",
+        "evidenceDigest": "sha256:85ec30d346a566af60ece5ebf7d7ffbd42825bd3e9e02cad79a0dd8b3fe98ab0",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -984,15 +984,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:b008b0e7a206f233a5961b8b02abf523345305975f9847c22d0ad87cd099b278",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:2bdd247c73a5bdb6695eb9b4eebf7fe32d6314163cd1e82d05affe3087a72406",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/reduce-round",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:8df66f15ef071ed04d0c93c4d5b4aa34a3a233dd7446b9e8d6f8979c8c3d5e8b",
+        "evidenceDigest": "sha256:d25f34a8cc2272d9ff201722682ef277d53c1686d0edce865b9856ccc3a57eb6",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -1012,15 +1012,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/close-initial",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:c7ba5c0bae015bf92fbafb38b351b2c9a48ac957f8f5467b48f8b9797e2a678e",
+        "evidenceDigest": "sha256:09d8efca9ebcf0d6195a023549dab0f240ee4b2db1490c77e8859834b9d58c14",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -1040,15 +1040,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:99d1400cc999cc416c3b71861d86fcb9be3e390e8d82abe58e7d943972667342",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:a21b8168d4e58bad411ea5fce425584c2ff33a3ff5f883e949e6a5d59bf93af6",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/submitter-response",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:a571c4996de05f831a31a6d3677cad2b15f369443db7eccbb28c33b18f0b611c",
+        "evidenceDigest": "sha256:fe0f438640a13399d6f81fb580e35a77be678bc1986c301b0c5cd8a692ecad5f",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -1068,15 +1068,15 @@
         "actualRelation": "exact vector/program binding is admitted but the runtime plan remains GraphFunction-wide",
         "actualRelationDigest": "sha256:9b3cf4cc4c3d18bda32c49b16f299b445d6a96fdb33d49579fce1295d74ad536",
         "evidenceRefs": [
-          "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
-          "compiled-graph-vector-c-program-binding:sha256:e93f26f9f9c91319c55c54f7b7024d9b1bfb71bbcf26e5cc5ad2ad421ece88fe",
-          "digest-ref:sha256:fbdfaaf36b3264e4e84871776d7b68a47d4e46dd7a6550265af254e102e9dff2",
-          "graph-function:digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+          "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+          "compiled-graph-vector-c-program-binding:sha256:8c86e273de72d4291ae5d86d32d6b1e4f63b21ffd3458ec7af42c5a68c953a5a",
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "graph-function:digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
           "graph-vector:graph-vector://abg/consensus/fh-initial",
           "requirement:REQ-L-GTL3-C-ALGEBRA-011",
           "requirement:REQ-R-ABG3-CCALL-016"
         ],
-        "evidenceDigest": "sha256:9e2de6d303676da97984d9bc9f1485f527dfea133effca97d9f682e7f6a59bbb",
+        "evidenceDigest": "sha256:8c14666415efc37bf210c261715d699c195c5caa7370e5df729b44fe72c0b545",
         "repairAffordances": [
           "realize_declared_semantics"
         ]
@@ -1111,18 +1111,18 @@
       },
       {
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "accepted": true,
         "operatorKinds": [
           "recurse"
         ],
-        "lineageRef": "gtl://graph-function/application-lineage/26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
-        "lineageDigest": "sha256:26c277ed952dd68526153e9fffcbdb11e2db7f81c515568a11d0823f5ce51f6e",
+        "lineageRef": "gtl://graph-function/application-lineage/fe8737bbb31cf9a2f5a3f9544ba206e6157650a42ccb1587edf64daec4034513",
+        "lineageDigest": "sha256:fe8737bbb31cf9a2f5a3f9544ba206e6157650a42ccb1587edf64daec4034513",
         "provisionalBindingCount": 14,
         "fanInRelationRef": null,
         "fanInRelationDigest": null,
-        "recurseRelationRef": "abg://graph-function/recurse/relation/7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
-        "recurseRelationDigest": "sha256:7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
+        "recurseRelationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "recurseRelationDigest": "sha256:71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
         "diagnosticIds": []
       }
     ],
@@ -1410,11 +1410,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.expand-panel",
         "graphVectorIdentity": "graph-vector://abg/consensus/expand-panel",
         "selectedProgramRef": "program://abg/consensus/expand-panel",
-        "bindingDigest": "sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
+        "bindingDigest": "sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1424,11 +1424,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.project-reducer-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-reducer-binding",
         "selectedProgramRef": "program://abg/consensus/project-reducer-binding",
-        "bindingDigest": "sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
+        "bindingDigest": "sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1438,11 +1438,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.reassess-round",
         "graphVectorIdentity": "graph-vector://abg/consensus/reassess-round",
         "selectedProgramRef": "program://abg/consensus/reassess-round",
-        "bindingDigest": "sha256:91cf80fe3f847aeeaac023ccd2422e3de8a46cd6ee63441a9dd86a1d02e80194",
+        "bindingDigest": "sha256:828ce4ffaefd7c2c35de4628a30d9cb22e33aec6e4662642b6804478a8a1026d",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1452,11 +1452,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.close-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/close-post-submitter",
         "selectedProgramRef": "program://abg/consensus/close-post-submitter",
-        "bindingDigest": "sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
+        "bindingDigest": "sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1466,11 +1466,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.recurse-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/recurse-post-submitter",
         "selectedProgramRef": "program://abg/consensus/recurse-post-submitter",
-        "bindingDigest": "sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
+        "bindingDigest": "sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1480,11 +1480,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.fh-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-post-submitter",
         "selectedProgramRef": "program://abg/consensus/fh-post-submitter",
-        "bindingDigest": "sha256:8d78c975dfd6fb5f6d97d6cafb64252eb147504685ddf5edff5c55e1c208ae71",
+        "bindingDigest": "sha256:d0ba9aa915dda6a550f980bfbdaab3c3e87dcd519c51fbcd817b7d4d7b81058b",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1494,11 +1494,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.project-submitter-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-submitter-binding",
         "selectedProgramRef": "program://abg/consensus/project-submitter-binding",
-        "bindingDigest": "sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
+        "bindingDigest": "sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1508,11 +1508,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.project-fh-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-fh-binding",
         "selectedProgramRef": "program://abg/consensus/project-fh-binding",
-        "bindingDigest": "sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
+        "bindingDigest": "sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1522,11 +1522,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.review-panel",
         "graphVectorIdentity": "graph-vector://abg/consensus/review-panel",
         "selectedProgramRef": "program://abg/consensus/review-panel",
-        "bindingDigest": "sha256:b0a51c7e709b2cb8a1fa791a5c38a344b0ad4390b75b46e1bdca1cc4c5fa6f05",
+        "bindingDigest": "sha256:0b758bc53624967e597b9f4818548c9a70a5abbc35bc4577844f2f26da5ac793",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1536,11 +1536,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.reduce-panel-facts",
         "graphVectorIdentity": "graph-vector://abg/consensus/reduce-panel-facts",
         "selectedProgramRef": "program://abg/consensus/reduce-panel-facts",
-        "bindingDigest": "sha256:d81c43e3d4aa588f71fcda8903f952fb2b4c13fef613e0f49c8a7ac25731660f",
+        "bindingDigest": "sha256:ab63f44919fcb830a96f56a07348ca4d68cbe9cfb72f63629e3c33b33419e31d",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1550,11 +1550,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.reduce-round",
         "graphVectorIdentity": "graph-vector://abg/consensus/reduce-round",
         "selectedProgramRef": "program://abg/consensus/reduce-round",
-        "bindingDigest": "sha256:b008b0e7a206f233a5961b8b02abf523345305975f9847c22d0ad87cd099b278",
+        "bindingDigest": "sha256:2bdd247c73a5bdb6695eb9b4eebf7fe32d6314163cd1e82d05affe3087a72406",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1564,11 +1564,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.close-initial",
         "graphVectorIdentity": "graph-vector://abg/consensus/close-initial",
         "selectedProgramRef": "program://abg/consensus/close-initial",
-        "bindingDigest": "sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
+        "bindingDigest": "sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1578,11 +1578,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.submitter-response",
         "graphVectorIdentity": "graph-vector://abg/consensus/submitter-response",
         "selectedProgramRef": "program://abg/consensus/submitter-response",
-        "bindingDigest": "sha256:99d1400cc999cc416c3b71861d86fcb9be3e390e8d82abe58e7d943972667342",
+        "bindingDigest": "sha256:a21b8168d4e58bad411ea5fce425584c2ff33a3ff5f883e949e6a5d59bf93af6",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1592,11 +1592,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:00a61a1c7ce496567b059872b130c3ccf185aea83ddae102cbdf11fe124b181d",
+        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
         "graphVectorName": "consensus.fh-initial",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-initial",
         "selectedProgramRef": "program://abg/consensus/fh-initial",
-        "bindingDigest": "sha256:e93f26f9f9c91319c55c54f7b7024d9b1bfb71bbcf26e5cc5ad2ad421ece88fe",
+        "bindingDigest": "sha256:8c86e273de72d4291ae5d86d32d6b1e4f63b21ffd3458ec7af42c5a68c953a5a",
         "accepted": false,
         "diagnosticIds": [
           "gtl-c-unrealized-vector-program-selection"
@@ -1989,7 +1989,7 @@
         "graphVectorName": "consensus.review-panel",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
+        "workflowBindingRef": "abg://workflow-c-binding/baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2000,7 +2000,7 @@
         "graphVectorName": "consensus.reduce-panel-facts",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
+        "workflowBindingRef": "abg://workflow-c-binding/cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2143,7 +2143,7 @@
         "graphVectorName": "consensus.review-panel",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
+        "workflowBindingRef": "abg://workflow-c-binding/6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2154,7 +2154,7 @@
         "graphVectorName": "consensus.reduce-panel-facts",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
+        "workflowBindingRef": "abg://workflow-c-binding/5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2264,7 +2264,7 @@
         "graphVectorName": "consensus.bounded-rounds",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
+        "workflowBindingRef": "abg://workflow-c-binding/1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -2302,14 +2302,14 @@
     },
     "t262RuntimeSurface": {
       "resolveTypedRecurse": true,
-      "relationRef": "abg://graph-function/recurse/relation/7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
-      "relationDigest": "sha256:7ac0a1caa3f203a5b4138d3d42dcd215aa792f08b6659b3e438f8fa8df0e2330",
-      "bindingRef": "abg://typed-recurse/binding/6f607045c64262f0c81865738d511e2302473d853d6a1255db477b27c165e4fd",
-      "bindingDigest": "sha256:6f607045c64262f0c81865738d511e2302473d853d6a1255db477b27c165e4fd",
-      "planRef": "abg://typed-recurse/plan/d04c28e44ee14b035fe61925c35289836cd9ab92c7bcb875421f0a21f7ab7163",
-      "planDigest": "sha256:d04c28e44ee14b035fe61925c35289836cd9ab92c7bcb875421f0a21f7ab7163",
+      "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+      "relationDigest": "sha256:71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+      "bindingRef": "abg://typed-recurse/binding/635e11fc401e308d98b97b928bb8aa98920076c4a16cb2bd78d28541a544419a",
+      "bindingDigest": "sha256:635e11fc401e308d98b97b928bb8aa98920076c4a16cb2bd78d28541a544419a",
+      "planRef": "abg://typed-recurse/plan/488104e4880b8aa999ebb493317e7c1d4e386f3d9f8fa87301ce136e7d54b5fb",
+      "planDigest": "sha256:488104e4880b8aa999ebb493317e7c1d4e386f3d9f8fa87301ce136e7d54b5fb",
       "policyRef": "policy://abg/consensus/recursion-stops-by-declared-law",
-      "policyDigest": "sha256:c0bc469f9e47ec58fc3d8121ebdd4ee10846ec5d1983ae659534120d642a49f5",
+      "policyDigest": "sha256:a2641f7c87d5b3415b38268e87228aa42919d723d95572b9e4c3fe8332290d80",
       "maxApplications": 2,
       "uniquePostSubmitterRecurseRouteRef": "graph-vector://abg/consensus/recurse-post-submitter",
       "canonicalApplicationsObserved": 2,
@@ -2896,9 +2896,9 @@
       {
         "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:43c470aec9fa593efee71a6874694b2640c34ad6a6c307555530906cfffc38f9",
+        "sourceDigest": "sha256:2c6ddcf5ed13a6951f0ca0192c3db15a0018f569513c47f7316f571a47a2b240",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:2d1c58d685f42521872a9358d66d72f2cad7a21a08a99a33f49454f1440cb24a",
+        "resultAuthorityDigest": "sha256:23d64b621d7cf1755fb6c4f5128e9d8e3aede7411f4af018346b0a46e1dd1619",
         "resultAuthorityEvidenceRefs": [
           "sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
           "sha256:5d6320512b21b9df520ef8c0b77d2ec8c63e19a30de06750734dd1abf258af9f"
@@ -2907,8 +2907,8 @@
           "program://abg/consensus/exact-panel-facts",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/round-exact-projection"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/411f6aabde41165562b50934abf087c82b7667c4c8f8f20375599767960845b3",
-        "bundleDigest": "sha256:411f6aabde41165562b50934abf087c82b7667c4c8f8f20375599767960845b3",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/2d0afbbbe7c8fa1dda31594d50a5257adc1502f37a1101f2aff8ad49d17da879",
+        "bundleDigest": "sha256:2d0afbbbe7c8fa1dda31594d50a5257adc1502f37a1101f2aff8ad49d17da879",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -2921,19 +2921,19 @@
       {
         "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:0a171664f12f09c45290b459ee1fa4d0ffa36b76ac5673f734cd57ac4601e9fb",
+        "sourceDigest": "sha256:9a2842b622f95c1425805a31bd8effd3bd809933f36b3cbca192c947d6a24016",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:183bbf110755657345e9e56e6146d589bf8dad15cbf29282dc02fa827fddbd9f",
+        "resultAuthorityDigest": "sha256:4d1832450546a9b3c7c61aa680e40aea78ea8f94fcd5c6b1861b6794e8210a46",
         "resultAuthorityEvidenceRefs": [
-          "sha256:180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b",
-          "sha256:180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b"
+          "sha256:0aa06a5b81a418ed8295e1e0b27bf23436a77d6f61b14d53623eb5f91079e7e6",
+          "sha256:0aa06a5b81a418ed8295e1e0b27bf23436a77d6f61b14d53623eb5f91079e7e6"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://c-retry-binding/180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b",
-          "abg://c-retry-binding/180ead1142543429bedc9f5bb2d261ebbfd5de3663d8ba1109a41626c88f9b7b"
+          "abg://c-retry-binding/0aa06a5b81a418ed8295e1e0b27bf23436a77d6f61b14d53623eb5f91079e7e6",
+          "abg://c-retry-binding/0aa06a5b81a418ed8295e1e0b27bf23436a77d6f61b14d53623eb5f91079e7e6"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/4acbe84c06918eb5f5c9c954ff6d3925a09be9ca9b5bcb3acc12720acbc15f61",
-        "bundleDigest": "sha256:4acbe84c06918eb5f5c9c954ff6d3925a09be9ca9b5bcb3acc12720acbc15f61",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c331b3104728119e8c4aed927f15336bc8ec531897ff3be77086913a997b2b90",
+        "bundleDigest": "sha256:c331b3104728119e8c4aed927f15336bc8ec531897ff3be77086913a997b2b90",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -2946,9 +2946,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:e7ff34a21390445886181ba74db04c3d890cf6ebdff459f86c2ad5890b02ea08",
+        "sourceDigest": "sha256:1b7640acc89fc53fbacea994e9d7c7b56a6b71040c8323afda18f3f7b7e851f6",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:c679b941cb75c154800929a9ee76ea004193da21f4ae94127e7ef9edf1462644",
+        "resultAuthorityDigest": "sha256:0b4f3280c7f91c7ab2d5bceefc65abb443cd79883eac3b61255b7308dad8b247",
         "resultAuthorityEvidenceRefs": [
           "sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
           "sha256:92c6e9f1cd6951cdcc094882f82a9f5c9d2fafebb0339f0018aa29820bfdce95"
@@ -2957,8 +2957,8 @@
           "program://abg/consensus/expand-panel",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/reviewer-assignment-vector"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/4b81629435c454c892c971d03d0a3a7274777b95fa2def432b31a264e541ebc8",
-        "bundleDigest": "sha256:4b81629435c454c892c971d03d0a3a7274777b95fa2def432b31a264e541ebc8",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/e0c7330bce597f76d8b4e99dded8329698f0ae1ed8eb3d7ffb5f1c6a69b2cb7a",
+        "bundleDigest": "sha256:e0c7330bce597f76d8b4e99dded8329698f0ae1ed8eb3d7ffb5f1c6a69b2cb7a",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -2971,9 +2971,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:0ae9a955753b71a14c251d5bd499cbc0b8b58ba0c9c0624c01745445ce05bb54",
+        "sourceDigest": "sha256:2833770bcd727742899594300e29352b16ef7cd79b43dfbbfd002f846b905824",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:e66fdc1e80b595441dcd02f7e9847458f5d330c24c64248b94050e3129403eed",
+        "resultAuthorityDigest": "sha256:2d6ae2ccddac75be102785755d38d8241cf0309934ae56d02a9ff083444af838",
         "resultAuthorityEvidenceRefs": [
           "sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
           "sha256:93df3ff273a8dc8f83578ef94e3da14202c6688ad744410edc8f980f852618bd"
@@ -2982,8 +2982,8 @@
           "program://abg/consensus/project-reducer-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/semantic-reducer-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c4c8fa0c4cfa38537b2489c76a98775f1a11177cd395ff3947094e95ea302dd7",
-        "bundleDigest": "sha256:c4c8fa0c4cfa38537b2489c76a98775f1a11177cd395ff3947094e95ea302dd7",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/da1924c53ae853abdfe743ec185ec85bb95e6493e6d9de8977b49e8192653d03",
+        "bundleDigest": "sha256:da1924c53ae853abdfe743ec185ec85bb95e6493e6d9de8977b49e8192653d03",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -2996,9 +2996,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:de1d336a816f6b15e1fe64b6d5ff28521e358f49e37991f5bd3641b1845a7b4b",
+        "sourceDigest": "sha256:3517c08a6fa68942d41561db36f434eb5c8b858020c3fb8f8c646868a55a6ae9",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:49af621a07047d91ed2701d3b39e89d3536e3ca933365d3c60ba9f900bf82e1a",
+        "resultAuthorityDigest": "sha256:8d9a88baeeea4acc79b425039c1583b6d35ce78e6bda00ac38215d0b8a4e0fe3",
         "resultAuthorityEvidenceRefs": [
           "sha256:759539a853fbe646657ee24a3ba7e191841339d3a91bf58908c9bac36ea2f7c4",
           "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f"
@@ -3012,8 +3012,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/73129a35b54f0ffe3a02a722a010bd5d90727371c6728e1a3038559361ac7c1e",
-        "bundleDigest": "sha256:73129a35b54f0ffe3a02a722a010bd5d90727371c6728e1a3038559361ac7c1e",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/667a61433489c3c1ece202ee1a1b37784d6a66d09d77655a1f616c8fb26273c1",
+        "bundleDigest": "sha256:667a61433489c3c1ece202ee1a1b37784d6a66d09d77655a1f616c8fb26273c1",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3026,9 +3026,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:d25e58f7ae701ba615137daf50467015dcef0eceb31a8a9884b20bf4ba7254c9",
+        "sourceDigest": "sha256:80e9389d338d51c5f0014f126724df498ae0159cfa2acda867381ff8ce597b14",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:e9e6e5abfa2ac57155762a463feaaf1c7a37a3ca2363e67e3aa1a92113ec440f",
+        "resultAuthorityDigest": "sha256:6c4e0f1cab6e4d4dd7d62a3f638dff18805f794aac9bd3d999ef7dbd3cd0a27b",
         "resultAuthorityEvidenceRefs": [
           "sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
@@ -3037,8 +3037,8 @@
           "program://abg/consensus/close-post-submitter",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/9bbdb919ad4277ce836a0fc50635d5523950d55714108920828cb0b7fb469dca",
-        "bundleDigest": "sha256:9bbdb919ad4277ce836a0fc50635d5523950d55714108920828cb0b7fb469dca",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4d65456f6bf8345165003cfa338192ea68ca4808222c34b354b44483e41cd467",
+        "bundleDigest": "sha256:4d65456f6bf8345165003cfa338192ea68ca4808222c34b354b44483e41cd467",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3051,9 +3051,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:6650f82e0cb1b79ae9ed2ec4a6a92753edf971e7ca712c767d5e2175d42bb17a",
+        "sourceDigest": "sha256:27def585737086859a0dada1ec011c3d267f84b7f737a3546e99b6776329b262",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:3d5e3e051f7773d5592246d39717c5387e488b412fbdde90a6c84e2fd5b94b88",
+        "resultAuthorityDigest": "sha256:bb1ba9b65868fa8ff5e241961fdb661fe060bf3c006fd72c6e03f31d903b661d",
         "resultAuthorityEvidenceRefs": [
           "sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
@@ -3062,8 +3062,8 @@
           "program://abg/consensus/recurse-post-submitter",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/80d0916f1ca6fae9ba72ee43338ce8971761e288bcdec0121af732f083dd0a64",
-        "bundleDigest": "sha256:80d0916f1ca6fae9ba72ee43338ce8971761e288bcdec0121af732f083dd0a64",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/693523f77c41aeca476786b72d2bb8ecc0ff3c9b940cd99cfa3a1e42820561ff",
+        "bundleDigest": "sha256:693523f77c41aeca476786b72d2bb8ecc0ff3c9b940cd99cfa3a1e42820561ff",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3076,9 +3076,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:2d20980aa1533a99881a6f21496363fdced676fa82dc81b0d520b9b579d5d2e8",
+        "sourceDigest": "sha256:64f268db922b15ca40ab4da1184d8d3cee5d858968b0e8d25ed3b83f233fb37f",
         "resultAuthoritySourceKind": "declared_fh_contract",
-        "resultAuthorityDigest": "sha256:79fec809d471794c134051d9d770b286e2d471e02412a06de391e3833fb99909",
+        "resultAuthorityDigest": "sha256:938c2884759ffa3c8c496804461dcc8cb56f152d3bd3713dccd5996010eef57e",
         "resultAuthorityEvidenceRefs": [
           "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
           "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
@@ -3091,8 +3091,8 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.answer-escalation"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/0ac09e0177977c8bcda2643d9e0923a9e3323e523b2d68746afbca67159d20e9",
-        "bundleDigest": "sha256:0ac09e0177977c8bcda2643d9e0923a9e3323e523b2d68746afbca67159d20e9",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/cebf6d7bb5583a1df27beda98f7e653883843173325bcc8ea9150f753595b383",
+        "bundleDigest": "sha256:cebf6d7bb5583a1df27beda98f7e653883843173325bcc8ea9150f753595b383",
         "computeStageRoles": [
           "transform",
           "human_callout",
@@ -3106,9 +3106,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:1c6109166aeb0ed0e190c72db4bd5c480a3605f3a616cf521d524d1bf866a871",
+        "sourceDigest": "sha256:2b58d4fb13514ae648b2e29182bd53affad915c1b0a9106c58c3e87350c490ba",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:715b69d0b8cb3ed8e319752e68401d6199dd229e799400b54b863b8b66615671",
+        "resultAuthorityDigest": "sha256:8de7a79ad094d42fafd9cf321dcfc01af66ff84c5d1764f4f896031d416d2dc2",
         "resultAuthorityEvidenceRefs": [
           "sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
           "sha256:928d1191707554a480782ff7f1f7f186b3e6d6138a5ad71d9573c268e4cd741d"
@@ -3117,8 +3117,8 @@
           "program://abg/consensus/project-submitter-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-turn-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/283230994145df84ffea9ecdfa7531598699d75a17659a939ece1b6134e13183",
-        "bundleDigest": "sha256:283230994145df84ffea9ecdfa7531598699d75a17659a939ece1b6134e13183",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/ff4886a8b0bc68581fe64cd6a2cc1d3054acd002fb515b2d5994959945166d21",
+        "bundleDigest": "sha256:ff4886a8b0bc68581fe64cd6a2cc1d3054acd002fb515b2d5994959945166d21",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3131,9 +3131,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:58ccdc975c2c1a0d21681a13aa2cc9a2929e63be54636e0de26a5e1b3275e7da",
+        "sourceDigest": "sha256:29dc68e9c7de1ddc570f19e8dbaffc2420a0cde1139859f46d67b94ad6f5d0cd",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:1119de36ee3fe5c5c04478d64f315dc356f144d91911485e5b8bfacb8286d28d",
+        "resultAuthorityDigest": "sha256:bee515052e22fea2fff4db730bb3eb0786929e9d8c27ced59a907b2a18f6e541",
         "resultAuthorityEvidenceRefs": [
           "sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
           "sha256:482fbc661a0f1d518b1fca8d8b792aa3b850d72c319d6fd7b83f654d5edee785"
@@ -3142,8 +3142,8 @@
           "program://abg/consensus/project-fh-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-interaction-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c0a10231306f8dffb6bcfa555a3a38d5a86a5930fcea4f10fb9687d0cdc02ee0",
-        "bundleDigest": "sha256:c0a10231306f8dffb6bcfa555a3a38d5a86a5930fcea4f10fb9687d0cdc02ee0",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/74fd1ed258d9e22a418ef7ec4838289354c74c527088e44a37123d71de6b4aff",
+        "bundleDigest": "sha256:74fd1ed258d9e22a418ef7ec4838289354c74c527088e44a37123d71de6b4aff",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3156,19 +3156,19 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:ca66498ec5e27e5db0cc4bbd3f7d56bc380f337f48b15b311ed9e716730e8102",
+        "sourceDigest": "sha256:e14a0869e3b36511f14a2b6e04e5138dc3333ff3ec2decc8c54a971dc5194414",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:d0846df04b04857fde996873ff747f4bd8561bf20863e0a4ccd1023760036612",
+        "resultAuthorityDigest": "sha256:ee177a62c56b9fcd6d62871c5a4f8a2482dda33b04f9d04f933ed54b1d00a011",
         "resultAuthorityEvidenceRefs": [
-          "sha256:23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
-          "sha256:23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36"
+          "sha256:baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037",
+          "sha256:baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36",
-          "abg://workflow-c-binding/23805edf18f0b5575a9776a12f83a5300008460a1bae35cb56922d60c9484f36"
+          "abg://workflow-c-binding/baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037",
+          "abg://workflow-c-binding/baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/1adad0db1ea693848555a80c9512b1713247727fd95957de332f1d35e3b9699d",
-        "bundleDigest": "sha256:1adad0db1ea693848555a80c9512b1713247727fd95957de332f1d35e3b9699d",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/603def131e0e0fa4ca8137a68359e7e6879d5ae70f6c5e919eca2748d942e00c",
+        "bundleDigest": "sha256:603def131e0e0fa4ca8137a68359e7e6879d5ae70f6c5e919eca2748d942e00c",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3181,19 +3181,19 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:ad65a5db0e9e73ba3adbb640c160789cfb5720eb750aac38ec76dc7cb92365e3",
+        "sourceDigest": "sha256:64e2c2f9b163f44811db661db96a82752be7287ddc044b96b6a695261a6aa9ff",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:b5fc1ab4a1444524a2d3b4f7e1d71b89497eb9073bb57a44e97b041817dcbd3d",
+        "resultAuthorityDigest": "sha256:d78336eb5da74bb2c37f078c9ee5b6643c85102d62d5e9d891aad9aedf67a15e",
         "resultAuthorityEvidenceRefs": [
-          "sha256:4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
-          "sha256:4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3"
+          "sha256:cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574",
+          "sha256:cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3",
-          "abg://workflow-c-binding/4d8a8419ebedd98ff152d6c9d6d8005b551cfb2cb15cc1535db818e06609b9c3"
+          "abg://workflow-c-binding/cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574",
+          "abg://workflow-c-binding/cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/d302aac9581e7e903d3bc431215c4cfd8ec5ea68a23ae6a250c55210409713b3",
-        "bundleDigest": "sha256:d302aac9581e7e903d3bc431215c4cfd8ec5ea68a23ae6a250c55210409713b3",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/761c183bae0ebcdb7c2eaa4d2372a54aebc7dd8afd4b9eab507cfd0a69df546c",
+        "bundleDigest": "sha256:761c183bae0ebcdb7c2eaa4d2372a54aebc7dd8afd4b9eab507cfd0a69df546c",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3206,9 +3206,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:68c3ea4039f5de49e580327dca66a33e874f1307fcc0f81923f0498778992c94",
+        "sourceDigest": "sha256:c16591fcdf3b12515731b8cffbf45bc7218052951380f3a07f98af73231f87a8",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:80d5ada1098994676be858411e7a0121558bc88e6ce976698679b09354eb0670",
+        "resultAuthorityDigest": "sha256:00dda327fe393d9aa2db4c619a92f0ad15ed563dae7a406bcc3888d323d58aec",
         "resultAuthorityEvidenceRefs": [
           "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
           "sha256:e0639824e3b8d87f68572b1dfe3c5f844b45b16ea6d9d9e49768d403956a7a47"
@@ -3222,8 +3222,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c25b19a07e190535037ebcea46d2596d42fd4dc19a3b768077fa086936adb721",
-        "bundleDigest": "sha256:c25b19a07e190535037ebcea46d2596d42fd4dc19a3b768077fa086936adb721",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/d1f5d90fdfcdb71b120e4f5ce31166e5d7ab49a10e1a9856f93381d5db6d88b1",
+        "bundleDigest": "sha256:d1f5d90fdfcdb71b120e4f5ce31166e5d7ab49a10e1a9856f93381d5db6d88b1",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3236,9 +3236,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:7f17a05a0625331b30bd2c41d0f35b67f0908a7f90f28be02ba30632d902bbac",
+        "sourceDigest": "sha256:ddf2a570fc6225534c7a666c066fe19196fe576c19ad99c138c708f8ecf9f262",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:a7da6e0095267a6c8d937e59905a28668936f490b0863ce33788983f0b2faff8",
+        "resultAuthorityDigest": "sha256:3d768bfda50e7b196fad10f24c9319219dffe33bf265e60e251f00ce34ff5a3f",
         "resultAuthorityEvidenceRefs": [
           "sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
@@ -3247,8 +3247,8 @@
           "program://abg/consensus/close-initial",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/675865d8181c3e75bf4ecc8688f7c0fbd3180294f0382c2ce6e1ab26b6bbc552",
-        "bundleDigest": "sha256:675865d8181c3e75bf4ecc8688f7c0fbd3180294f0382c2ce6e1ab26b6bbc552",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/7c3d74087384ce09f361bb3620fe8691228824a4f14e52507a8e199644d931b3",
+        "bundleDigest": "sha256:7c3d74087384ce09f361bb3620fe8691228824a4f14e52507a8e199644d931b3",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3261,9 +3261,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:4a5f71a6a55b0aa1cd01d8e41047402ceeeb43b3d44dcd708bc36cd9d5125b64",
+        "sourceDigest": "sha256:066285d805eba2a332552de2363e10ff384ff1167701278734419ef846bee3a6",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:7fce4e663c554751ad75ed306823da3d8ed0982ae3a0f1d66c1abb67c04db374",
+        "resultAuthorityDigest": "sha256:fbc07196132f1d44ce5ab0ca2173fc92a5f11754cc698aa42da5b1a474cf93b7",
         "resultAuthorityEvidenceRefs": [
           "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
           "sha256:f03a0b31efdbb916db121910d47f3bcffa08ca351baa05752808809f2a660b24"
@@ -3277,8 +3277,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c75d8e62355c75e733bb0a4057e49adb993b2513cf796b7e70b6e71e5287e792",
-        "bundleDigest": "sha256:c75d8e62355c75e733bb0a4057e49adb993b2513cf796b7e70b6e71e5287e792",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/70e2e7f6d1b9ab21a243ab0e4443dc4ac80091aa94e517f481628e13e47b2bf0",
+        "bundleDigest": "sha256:70e2e7f6d1b9ab21a243ab0e4443dc4ac80091aa94e517f481628e13e47b2bf0",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3291,9 +3291,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:3bc801c5cacd02dc8a82a93dcd3d343b3ea4db4349a839723c7cbb0c91d6b5ba",
+        "sourceDigest": "sha256:27d487e2ea654c72f0460468942be3ca99a63c5c8c1ea20b9c2d48dbb0526315",
         "resultAuthoritySourceKind": "declared_fh_contract",
-        "resultAuthorityDigest": "sha256:965cadeb631888c8baa9a19abd7693af650d566571a403a1b5f84f163eb9f62e",
+        "resultAuthorityDigest": "sha256:89e07412048c365cc17ad5749ccbd2ab3e3db42b3f5e44e245dc97a7722aa043",
         "resultAuthorityEvidenceRefs": [
           "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
           "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
@@ -3306,8 +3306,8 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.answer-escalation"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/0da41bf6cecc9ead976d7d2e2c4611e33b2c47a2b2680644db11252c2e5f3fa7",
-        "bundleDigest": "sha256:0da41bf6cecc9ead976d7d2e2c4611e33b2c47a2b2680644db11252c2e5f3fa7",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/ca70cf72614978b87d1a3317078c8c9477c6449628c10c7756d469dd338c6798",
+        "bundleDigest": "sha256:ca70cf72614978b87d1a3317078c8c9477c6449628c10c7756d469dd338c6798",
         "computeStageRoles": [
           "transform",
           "human_callout",
@@ -3321,9 +3321,9 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:dfa68b0a1ddc60a3488e79a76d407cdc8e9b28cabc1c9323b70b7aac19dc75bf",
+        "sourceDigest": "sha256:ecab063597e685cbb9976b1ec757f4d5f53130b930bac4fcfd1d38625789bccd",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:cbc7f78f1f4087ace9d71a322f08609cab9c1d5d3b89d83526a83d26118f025d",
+        "resultAuthorityDigest": "sha256:e3026ec518a9a9767df58394291abe869930575d5c87c34caceeb0f7cb173a42",
         "resultAuthorityEvidenceRefs": [
           "sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
           "sha256:a63992be7bb90889535cd2eec056d427af3d52bba4d87d2f6321d8f985fbb57d"
@@ -3332,8 +3332,8 @@
           "program://abg/consensus/seed-round",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-execution"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/188cb62976a4bee76b3d72fc7870dcd8894f2b946d9f8b730a345728f29e2d96",
-        "bundleDigest": "sha256:188cb62976a4bee76b3d72fc7870dcd8894f2b946d9f8b730a345728f29e2d96",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9733a5f5a5d10e9797dd2dded0d1114f516dd9290067da2f32bc0662cea3ac8f",
+        "bundleDigest": "sha256:9733a5f5a5d10e9797dd2dded0d1114f516dd9290067da2f32bc0662cea3ac8f",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3346,19 +3346,19 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:591cd5662084bc67b34f4b93ca0ad1a881eb92e49e3da5e6ac82f89795aeec0d",
+        "sourceDigest": "sha256:18d733cb910f5b2f19c53a2b3a7ea64d4dc08076f30086f8fcc3e3f3c90bc3ef",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:d8ee89a33ffc1b78b8f3042eb95596f18a3fc0e6fcaa76385a5692322f301d6d",
+        "resultAuthorityDigest": "sha256:75c1d15654d088f7e3672237edcf3b89753e51d62bf2adee14161e542b7b5c75",
         "resultAuthorityEvidenceRefs": [
-          "sha256:1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
-          "sha256:1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4"
+          "sha256:1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b",
+          "sha256:1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4",
-          "abg://workflow-c-binding/1e743efbef3bd0aa547aa13a2ef0641c3a46edb3c524fcc357ca78d79840c6c4"
+          "abg://workflow-c-binding/1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b",
+          "abg://workflow-c-binding/1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/59eb985402d120c56cee66be88caa10218133a3cf9ebdffed160e22e9a99ea82",
-        "bundleDigest": "sha256:59eb985402d120c56cee66be88caa10218133a3cf9ebdffed160e22e9a99ea82",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9bc53899d49da995ad06436b7d22dc12759d2220fa3529faf5e8d0217ead02f0",
+        "bundleDigest": "sha256:9bc53899d49da995ad06436b7d22dc12759d2220fa3529faf5e8d0217ead02f0",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3371,9 +3371,9 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:a0602d96aaf7185a23a6aff6ce09da45a822d7b8eae71b1be446177cfc15fdbf",
+        "sourceDigest": "sha256:ba5d020a9878463e85d1784a203787918a16c077a47086678e8e261cfeb9fae8",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:8c0591e01e19758b9ecde71453707937c43cdf58f89073e0bed664a10ffb6f24",
+        "resultAuthorityDigest": "sha256:94c54a87ff5bc0d3f9e5b3ed294540bb39bae33f18607b189de8585f0b86803e",
         "resultAuthorityEvidenceRefs": [
           "sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
           "sha256:a099eaa0a01cd488afe146436b9d77bf03c8b35fb1561841a3692fc0efca1957"
@@ -3382,8 +3382,8 @@
           "program://abg/consensus/project-result",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-result"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/3215f3913728b87d5f583c7716fcbd3c79e6b4b492482910d559a000e8be7ddf",
-        "bundleDigest": "sha256:3215f3913728b87d5f583c7716fcbd3c79e6b4b492482910d559a000e8be7ddf",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/fd4fda1345ed70dd47174a162d83d944ea7f740e84ee914e60e3c45afa053889",
+        "bundleDigest": "sha256:fd4fda1345ed70dd47174a162d83d944ea7f740e84ee914e60e3c45afa053889",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3396,19 +3396,19 @@
       {
         "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:82b302efda9389832fc92b3c76eb902efcfb926f965e2cd95f2b99c46b19a121",
+        "sourceDigest": "sha256:5e6e593320ab6e3f71e1e77d7bd24f923a7bc3de0ae0234d74f1cdb2fcf16eab",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:5f4ace96b5b51e3d74111d4f94256125e8f08d518edbe9bb6dc510a2ff603ca8",
+        "resultAuthorityDigest": "sha256:718704440009b8c4aef282785c6e271623afed5f84ba5a0505003f991bd921ea",
         "resultAuthorityEvidenceRefs": [
-          "sha256:4750232c10557974542e971f01b1c482153fd579de55e5d79ff830d9fe727f50",
+          "sha256:34651258d6f2c90553358a3740e973becc8a1553fd15d2ccbd66ac5ae14c5dd8",
           "sha256:8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://hof/fan-in/binding/4750232c10557974542e971f01b1c482153fd579de55e5d79ff830d9fe727f50",
+          "abg://hof/fan-in/binding/34651258d6f2c90553358a3740e973becc8a1553fd15d2ccbd66ac5ae14c5dd8",
           "abg://hof/fan-in/relation/8a0008b590aa075ddca91d7261484b3e8b3997ee395454a09d8468ef39204935"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/139a09d6efd26971bd143edb2c57a3b905fc09814b2e5815700cb45ec91773e1",
-        "bundleDigest": "sha256:139a09d6efd26971bd143edb2c57a3b905fc09814b2e5815700cb45ec91773e1",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/f87ccdca4589dc2475837323ad2788668f7595eb55c48ec89cc5bcbb04d4ef1f",
+        "bundleDigest": "sha256:f87ccdca4589dc2475837323ad2788668f7595eb55c48ec89cc5bcbb04d4ef1f",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3421,19 +3421,19 @@
       {
         "path": "module.graphFunctions[fan_out(consensus.review-one-profile)].vectors[0:fan_out(consensus.review-one-profile):wrapper]",
         "sourceKind": "structural_hof_fan_out",
-        "sourceDigest": "sha256:b83e25a6f4b3700108e941058ef512ba4f26d4f93b24a2e1490b0e9fe8c1fd49",
+        "sourceDigest": "sha256:3923dcdbb6c4c0484accda4ac05e39e1c440a1589ea73a2b30ffaee2e1dd9b01",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:a40aab13aa365d8f9e686a9624975a762ef2e86fa4e3d8dbe48b5b1eda9593b6",
+        "resultAuthorityDigest": "sha256:7f3e2af012c23ee7c1042a2d81ba3069f946090945c62ae0242fc425752b6a89",
         "resultAuthorityEvidenceRefs": [
-          "sha256:1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af",
-          "sha256:1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af"
+          "sha256:66e04ce4584a9f544cf1ac4882b49825390369d31bda8352be5fe9faf8ff6a3f",
+          "sha256:66e04ce4584a9f544cf1ac4882b49825390369d31bda8352be5fe9faf8ff6a3f"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://hof/fan-out/binding/1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af",
-          "abg://hof/fan-out/binding/1467270b350effe625a7b40680d6babef0d0919c6491d405870b258a72c0c4af"
+          "abg://hof/fan-out/binding/66e04ce4584a9f544cf1ac4882b49825390369d31bda8352be5fe9faf8ff6a3f",
+          "abg://hof/fan-out/binding/66e04ce4584a9f544cf1ac4882b49825390369d31bda8352be5fe9faf8ff6a3f"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/4de41474aaf9b7f862517808fff20828ee1b3a28864ea3633076e132d502f6e9",
-        "bundleDigest": "sha256:4de41474aaf9b7f862517808fff20828ee1b3a28864ea3633076e132d502f6e9",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4bbf290c263d0e9290e1c54088605e49919645df0b437818143c8f37d497deb5",
+        "bundleDigest": "sha256:4bbf290c263d0e9290e1c54088605e49919645df0b437818143c8f37d497deb5",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3446,19 +3446,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:b167b562ef7685302576e06b17253e6c5af5fad8b343cb7ab4bba916804f7126",
+        "sourceDigest": "sha256:39c4ea1cdbe9cafc12eb2fe9a0012cf75fd7b2eaa721ad8b8131844796f919da",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:9b612fbc376d9c39d2d261fcbad839c14f3587ef319a831c5121f7af8dec37eb",
+        "resultAuthorityDigest": "sha256:2b9c7df19883c7dada5cac502365b0fef423570cab240d6602797e5b7800d31a",
         "resultAuthorityEvidenceRefs": [
-          "sha256:165272284f65192d6219ac54882f68bf8ed5b93f049648b0850b69792e18772d",
+          "sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
           "sha256:92c6e9f1cd6951cdcc094882f82a9f5c9d2fafebb0339f0018aa29820bfdce95"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/expand-panel",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/reviewer-assignment-vector"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/b0fa5081e660705d2404bd6cfeb482a6a9ccbbc8e3daa4e8214a309469001b6a",
-        "bundleDigest": "sha256:b0fa5081e660705d2404bd6cfeb482a6a9ccbbc8e3daa4e8214a309469001b6a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/c89ce8d5d112d6d6c4a68bc8fff85883a8a3a4aae0a777a8c8428a90976a2716",
+        "bundleDigest": "sha256:c89ce8d5d112d6d6c4a68bc8fff85883a8a3a4aae0a777a8c8428a90976a2716",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3471,19 +3471,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:c116da5b98bf1da7c5c57bb24fdd74c4ff085067d7c127f972bae45be4a5994c",
+        "sourceDigest": "sha256:9854eb943a877d3a660ea52291e4f6ac9994246781e90a94e08dba2d4d43923c",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:bad16ce7ed34d75de85ec6162cc8b747bbe5e6691924abf3c940528759d7e7cf",
+        "resultAuthorityDigest": "sha256:777b8ed1efe42999ac337fefaecbdefb1f1a901833311db3c4d4b563dccd8d19",
         "resultAuthorityEvidenceRefs": [
-          "sha256:176ba6743f71ebcf561d3a770f8a0740fb56c01e04c38861fdaeeba516e8235d",
+          "sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
           "sha256:93df3ff273a8dc8f83578ef94e3da14202c6688ad744410edc8f980f852618bd"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/project-reducer-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/semantic-reducer-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/0a27694643bfe8865b146cdc0b9a36d568670eaafdce52dcef92bd722c29b8a6",
-        "bundleDigest": "sha256:0a27694643bfe8865b146cdc0b9a36d568670eaafdce52dcef92bd722c29b8a6",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/11885ed8040f33ead7679ab41ec41cd6ed6393c026823d7142c598c42cf66189",
+        "bundleDigest": "sha256:11885ed8040f33ead7679ab41ec41cd6ed6393c026823d7142c598c42cf66189",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3496,9 +3496,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:672fde24007b7d31693707acfe4031d6234550e31ecb0dc8d914b2d46e08cad6",
+        "sourceDigest": "sha256:d6ddec44181558a5098b346791a6ff6e849345064e3c522e0e92cc306b52c4f4",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:640cdc6b0313837e5a6493be84a0b627cb854000dfa7f26c3be5acd36beb4122",
+        "resultAuthorityDigest": "sha256:802f7e89254745ae4c8ae21fa844e413133fee2e05e03197c25c6bd73e0e2c18",
         "resultAuthorityEvidenceRefs": [
           "sha256:759539a853fbe646657ee24a3ba7e191841339d3a91bf58908c9bac36ea2f7c4",
           "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f"
@@ -3512,8 +3512,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/86191ae8c68ba5f0004f71a2829ec4cef01096378ce0f9be1a87c240967a9afd",
-        "bundleDigest": "sha256:86191ae8c68ba5f0004f71a2829ec4cef01096378ce0f9be1a87c240967a9afd",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/e9f84d012f38102f169883dd21ff8b81bec5f0a737a32c3f1f8e8e5d763131a1",
+        "bundleDigest": "sha256:e9f84d012f38102f169883dd21ff8b81bec5f0a737a32c3f1f8e8e5d763131a1",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3526,19 +3526,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:19867a77d66e4e7105bbd3263104f91316273eb51686e7fa3b4bbf471ed99121",
+        "sourceDigest": "sha256:dc1950f02f7fb8c3c53aff9814fbee484d7a86e8e6b8cf51776d26b44ee7d2b0",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:ea97775e3ebcd0ac0b013826f0eea8194d3ce2855d7299829289f2e578685f54",
+        "resultAuthorityDigest": "sha256:04458c0a4901543438c32b611498c45f56e329ed0cf45f7c2b96d9d44a321200",
         "resultAuthorityEvidenceRefs": [
-          "sha256:8f83afde6c17ec9fa42b81f4be896e61ed111ee323d92538e21ec96825a856f9",
+          "sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/close-post-submitter",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/b1d5b7a746324d579a4e242f0855d4c027f11c54fd55c9e68171fef40f3a68fb",
-        "bundleDigest": "sha256:b1d5b7a746324d579a4e242f0855d4c027f11c54fd55c9e68171fef40f3a68fb",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/92a5b67e8193d320060bb52e7e4f7d63ea017ca7f308d59317697ac6a087df83",
+        "bundleDigest": "sha256:92a5b67e8193d320060bb52e7e4f7d63ea017ca7f308d59317697ac6a087df83",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3551,19 +3551,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:c307ba3cd9de77792e1df907b0b897c8e3ed91370023bcfe4c2e602a5b97cd14",
+        "sourceDigest": "sha256:c86e12ac8427fe4346892449fc8f747c92577631d9b51f58758a08ee5ef6b6b9",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:9967c36dd5f7fc2e3a07c2e488a9059a97f27cc31714c5dd91ed4a727a13aaae",
+        "resultAuthorityDigest": "sha256:09e5b3766f53db51d174933459ffb15b0b0c21390773e3246392da6be0caa97f",
         "resultAuthorityEvidenceRefs": [
-          "sha256:50c93b6fc3f2b7eb871786b1af603d7018deb12a73b6fa3fab246c18955aa34b",
+          "sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/recurse-post-submitter",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c127d2500d41b75e5a7cade24271cd3c33194f29225329ef21e7c67211a09f9a",
-        "bundleDigest": "sha256:c127d2500d41b75e5a7cade24271cd3c33194f29225329ef21e7c67211a09f9a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9e5838ba50aa49b15ab8e8ef776e1b2d93e672356fa73609ee3e7cd96b6c2b16",
+        "bundleDigest": "sha256:9e5838ba50aa49b15ab8e8ef776e1b2d93e672356fa73609ee3e7cd96b6c2b16",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3576,9 +3576,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:1129c3686f2ae920280c2a569f90def363fc308059eba9b0c462d0a84849a62a",
+        "sourceDigest": "sha256:e1f1e744da5ad5eace6ec4c1091a66446611bc8f451d76151ec669977e214ce8",
         "resultAuthoritySourceKind": "declared_fh_contract",
-        "resultAuthorityDigest": "sha256:ea96bdc24191454d534439b2daf9673e0762445d85569e9cd864f29e3d4595c3",
+        "resultAuthorityDigest": "sha256:9b2a7a1b32653402d9eb8d87a1c81c23f07bb937511415288436c727dd65c57c",
         "resultAuthorityEvidenceRefs": [
           "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
           "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
@@ -3591,8 +3591,8 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.answer-escalation"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/e7d8a8c9d17830d26ad8f201ce5a3833bf015b46af784ca32522379e080bf9e5",
-        "bundleDigest": "sha256:e7d8a8c9d17830d26ad8f201ce5a3833bf015b46af784ca32522379e080bf9e5",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/aec6819e54b686d8b5bf623c9326b6a0847913e26b8f9d19f66680043148f900",
+        "bundleDigest": "sha256:aec6819e54b686d8b5bf623c9326b6a0847913e26b8f9d19f66680043148f900",
         "computeStageRoles": [
           "transform",
           "human_callout",
@@ -3606,19 +3606,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:22865d3a0f4ce7964f745b0f0a696eb990ac9ba90b442774c82926bc17e6094a",
+        "sourceDigest": "sha256:b7a982ff813866e77f8232f863d144830cb57f55289799e1492be350880ca938",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:fb42ce28dd100a89bcd47a1d43d33370de8f6666ba7591d37042d047fe1e4951",
+        "resultAuthorityDigest": "sha256:d47ae6e5895052e8727d986211ef976be0b570517005f1f6247382a91bd6387e",
         "resultAuthorityEvidenceRefs": [
-          "sha256:981747afb6b564643937f73b6a23249e044654fff6fa0c2ef2f3261f72d8dc09",
+          "sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
           "sha256:928d1191707554a480782ff7f1f7f186b3e6d6138a5ad71d9573c268e4cd741d"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/project-submitter-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/submitter-turn-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/eca1620a0d50e28e91f56b46b01762ad22d2157bb9abcbb47c9e2dbaa316ee6a",
-        "bundleDigest": "sha256:eca1620a0d50e28e91f56b46b01762ad22d2157bb9abcbb47c9e2dbaa316ee6a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/bd495b4edfee5a285978d7428c34d82df3cefe0c2396841ff85e1158fa38cd56",
+        "bundleDigest": "sha256:bd495b4edfee5a285978d7428c34d82df3cefe0c2396841ff85e1158fa38cd56",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3631,19 +3631,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:70f2eb3373c6a5b7edef0cb2cfd95ee1035d61aea4a77828032c49814ad1f1ab",
+        "sourceDigest": "sha256:a41525b15ee38e9a2225473cee43c11acea8a7e7e3c02844bc76c05a9608d0fe",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:9a2d9e86a3644c283bc376a32f49f179ddcc2234dae1e271dc996b28b71af246",
+        "resultAuthorityDigest": "sha256:68078fd8da559d90a8b8eef27cd8483dd3d5dca480649a2d2a19d4d980eb7985",
         "resultAuthorityEvidenceRefs": [
-          "sha256:1774474e1d3270b44f91204091da222053487393ef252eb336117b8c9e4c4081",
+          "sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
           "sha256:482fbc661a0f1d518b1fca8d8b792aa3b850d72c319d6fd7b83f654d5edee785"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/project-fh-binding",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-interaction-binding"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/8e05b8dd2bf6c45ab36b86a42da9dfd6c74a64bf5534ab1a952af8f5c518e0a7",
-        "bundleDigest": "sha256:8e05b8dd2bf6c45ab36b86a42da9dfd6c74a64bf5534ab1a952af8f5c518e0a7",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/96945b57a3d46c5d357e71c40f3fb9e2c931e028aeed9cad50eba6c20fd2a99c",
+        "bundleDigest": "sha256:96945b57a3d46c5d357e71c40f3fb9e2c931e028aeed9cad50eba6c20fd2a99c",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3656,19 +3656,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:24058c9f77c39103c894ddded782cdcdc845d65742fb853aa44df439cb69b7c4",
+        "sourceDigest": "sha256:5a79836d16b07d078b5d204d75904e82a41d6dcbd5b7166d7749b45d54e1bc0c",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:27da43c4407838345cdaa7829739ef2d43b7085d4e79ab1289621d05c9494d6c",
+        "resultAuthorityDigest": "sha256:63bd3f62294eff2d4fa096550da3a2c5de74e1f835494194a2220443fc8cc90d",
         "resultAuthorityEvidenceRefs": [
-          "sha256:63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
-          "sha256:63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7"
+          "sha256:6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f",
+          "sha256:6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7",
-          "abg://workflow-c-binding/63a4e54ccf1dd0e60e99c9e3ac6025cae530b7c072f8d2e76b4269a299cf92c7"
+          "abg://workflow-c-binding/6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f",
+          "abg://workflow-c-binding/6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/b9572ec2a68cffed03b1d0b000fc24228b77a0a6dd1da8ec08c750e0b770d22a",
-        "bundleDigest": "sha256:b9572ec2a68cffed03b1d0b000fc24228b77a0a6dd1da8ec08c750e0b770d22a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/85b7b4b98cf6472ce2364d70ca37dfae888080351a387d24d5478208426f9f1d",
+        "bundleDigest": "sha256:85b7b4b98cf6472ce2364d70ca37dfae888080351a387d24d5478208426f9f1d",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3681,19 +3681,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:f2000eccf863755ad2c9c67d17cb8725cc1a9b051528be3e0f154ba64cca0057",
+        "sourceDigest": "sha256:e0006a0ed86f6960daa7f5d23994116597a946e69d57b2eac3148d877be571d3",
         "resultAuthoritySourceKind": "runtime_atom_contract",
-        "resultAuthorityDigest": "sha256:39c968c26d1b3b8009b0eea3eafd8ed9307d076f2ae7401f67ead5cb3ff754a8",
+        "resultAuthorityDigest": "sha256:ac2f8382d9b26a66baff4dc652523ab01eacab56cf118d99f2fce0ae6852edef",
         "resultAuthorityEvidenceRefs": [
-          "sha256:4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
-          "sha256:4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e"
+          "sha256:5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6",
+          "sha256:5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e",
-          "abg://workflow-c-binding/4aaecb9305987720190ac011e7314e417ef14129eff42e440dbeca5675d0120e"
+          "abg://workflow-c-binding/5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6",
+          "abg://workflow-c-binding/5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/ef486cc75d123647d8e870b765d288b6f4dc5fcae76868c7210fa282472b07ed",
-        "bundleDigest": "sha256:ef486cc75d123647d8e870b765d288b6f4dc5fcae76868c7210fa282472b07ed",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/3e07aa9c48b1841d794bbd10fa9ca543a107e8dfc5496bcfd2a129a675f2dd57",
+        "bundleDigest": "sha256:3e07aa9c48b1841d794bbd10fa9ca543a107e8dfc5496bcfd2a129a675f2dd57",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3706,9 +3706,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:7410b8487975973fe66a89d1899a705afefa390ba97d22a704de42ff52d4b705",
+        "sourceDigest": "sha256:d40b801aa1fa1e16a1c590125788ec2e7647838af5075e77dab43676f42461ee",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:255569cf51ad15e3b655b5539427ccf89d8f72b89c49527b1b6e6e08fec5eb91",
+        "resultAuthorityDigest": "sha256:4df496e4c12c55ea83ffbb4cb2427a11f9fb128883a68bcea346468d8d45c049",
         "resultAuthorityEvidenceRefs": [
           "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
           "sha256:e0639824e3b8d87f68572b1dfe3c5f844b45b16ea6d9d9e49768d403956a7a47"
@@ -3722,8 +3722,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/ef58b4e4591fb059c71ece8829feade6610453f9097d406bbe229a07b85c2109",
-        "bundleDigest": "sha256:ef58b4e4591fb059c71ece8829feade6610453f9097d406bbe229a07b85c2109",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/7428975937238e6d2284755d343e2deb5664c79c5ac91a0de3b60fb0dc77e21d",
+        "bundleDigest": "sha256:7428975937238e6d2284755d343e2deb5664c79c5ac91a0de3b60fb0dc77e21d",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3736,19 +3736,19 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:57d0f3ef6e06e9ff55c2741e32a060ed159ff6382fb1caca66a5c227dd4bc203",
+        "sourceDigest": "sha256:e64f2332b8e7c3a2fe85892883b30ed604dad335b00676d418c5968b2fc3c5c8",
         "resultAuthoritySourceKind": "deterministic_target_contract",
-        "resultAuthorityDigest": "sha256:a04d918fc0b5f04677d8ddffba72f6df584d4d540e0a4a97957d0e3e3ae4eb6f",
+        "resultAuthorityDigest": "sha256:7e05fd181ee6e226005cb0367d9a88c9044c4c9c351e265e223823fa633701ef",
         "resultAuthorityEvidenceRefs": [
-          "sha256:273434a0b514b04ec77ab1e6bc3e5108e67626830f8a2362e8d876cafa4801ee",
+          "sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
           "sha256:74fdfbd8dbedc90d35397c5352e22f9eac5477339ef0c20232c38da3ff56044c"
         ],
         "resultAuthoritySelectorRefs": [
           "program://abg/consensus/close-initial",
           "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/434d6182e9842104c8be356d59d35f8e00c278c9f45243b314874e6e499a0920",
-        "bundleDigest": "sha256:434d6182e9842104c8be356d59d35f8e00c278c9f45243b314874e6e499a0920",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/765244fae20a0fd6cef5f2465b008c6ea3ce6ae7b421d3d339236e4d58d68f36",
+        "bundleDigest": "sha256:765244fae20a0fd6cef5f2465b008c6ea3ce6ae7b421d3d339236e4d58d68f36",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3761,9 +3761,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:b74b0be4f2fe0422c5ea07284d397404b817dc45ac13843d70628e5104894891",
+        "sourceDigest": "sha256:5c872711dccbfd3076506a4af59d7fb839e83568221e3f22a885a75b59a262b1",
         "resultAuthoritySourceKind": "declared_fp_contract",
-        "resultAuthorityDigest": "sha256:5674270715c431b00a1bab38481f9e338c6743861f63d927c2189c396c7946b1",
+        "resultAuthorityDigest": "sha256:e6905522c617cec2faf59644a28746313ba9c502ccc3a5f52c5ca7ce3af27879",
         "resultAuthorityEvidenceRefs": [
           "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
           "sha256:f03a0b31efdbb916db121910d47f3bcffa08ca351baa05752808809f2a660b24"
@@ -3777,8 +3777,8 @@
           "assessmentIds",
           "reasons"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/6ff5c4213ca566e55ac52d889ebc6311b4c26a8d77a6f0e49596f6ff7e197f0c",
-        "bundleDigest": "sha256:6ff5c4213ca566e55ac52d889ebc6311b4c26a8d77a6f0e49596f6ff7e197f0c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/8bb7131350798bab6738a91448777bac930c0ef207d29b2fe008723c0a11a787",
+        "bundleDigest": "sha256:8bb7131350798bab6738a91448777bac930c0ef207d29b2fe008723c0a11a787",
         "computeStageRoles": [
           "transform",
           "evaluate",
@@ -3791,9 +3791,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:5d7df528dbe34d78e16058cd1bd6286326b5a11a87c4d70e6a69df4eed82a5c1",
+        "sourceDigest": "sha256:ffbc190fd181992b7a10cd81d0e14f6805985d33e068ed7412f6630e77d2b6e4",
         "resultAuthoritySourceKind": "declared_fh_contract",
-        "resultAuthorityDigest": "sha256:b7ee4c45874d412a545b7b0bdf86475d0aa40d11e2e2793e04363544547a0c31",
+        "resultAuthorityDigest": "sha256:9881ba20c9045f3c512594e2529f87b887e86545a3b5809aafed01aef78dce32",
         "resultAuthorityEvidenceRefs": [
           "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
           "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
@@ -3806,8 +3806,8 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.answer-escalation"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/59ef55b63e64522fe3e7d92a21af3170aaaa27a1ec471f57e0181ff1270e1dd9",
-        "bundleDigest": "sha256:59ef55b63e64522fe3e7d92a21af3170aaaa27a1ec471f57e0181ff1270e1dd9",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/e9848225edf2c370252e1f31360ec540a20a9ecc0d9b09f533cd3d658fa01b1b",
+        "bundleDigest": "sha256:e9848225edf2c370252e1f31360ec540a20a9ecc0d9b09f533cd3d658fa01b1b",
         "computeStageRoles": [
           "transform",
           "human_callout",
@@ -3881,15 +3881,65 @@
       }
     ],
     "conformanceScopeKind": "submitted_structure",
-    "fullConformanceIssueCount": 25,
+    "fullConformanceIssueCount": 5,
+    "mappedFullConformanceIssueCount": 5,
+    "unmappedFullConformanceIssueCount": 0,
+    "fullConformanceIssues": [
+      {
+        "gapFamily": "complete_c_program_interpreter",
+        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "path": "graph_function:consensus.exact-panel-facts#execution-declarations",
+        "message": "semantic_not_realized: consensus.exact-panel-facts program program://abg/consensus/exact-panel-facts omits current interpreter anchors transform, evaluate, consequence",
+        "evidenceRefs": [
+          "graph-function:graph-function://abg/consensus/exact-panel-facts",
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ]
+      },
+      {
+        "gapFamily": "complete_c_program_interpreter",
+        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "path": "graph_function:fan_in(consensus.exact-panel-facts)#execution-declarations",
+        "message": "semantic_not_realized: fan_in(consensus.exact-panel-facts) program program://abg/consensus/exact-panel-facts omits current interpreter anchors transform, evaluate, consequence",
+        "evidenceRefs": [
+          "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ]
+      },
+      {
+        "gapFamily": "complete_c_program_interpreter",
+        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "path": "graph_function:consensus.round#execution-declarations",
+        "message": "semantic_not_realized: consensus.round program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence",
+        "evidenceRefs": [
+          "graph-function:graph-function://abg/consensus/round",
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ]
+      },
+      {
+        "gapFamily": "complete_c_program_interpreter",
+        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "path": "graph_function:recurse(consensus.round)#execution-declarations",
+        "message": "semantic_not_realized: recurse(consensus.round) program program://abg/consensus/expand-panel omits current interpreter anchors transform, evaluate, consequence",
+        "evidenceRefs": [
+          "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ]
+      },
+      {
+        "gapFamily": "complete_c_program_interpreter",
+        "diagnosticId": "abg://gtl-program/c-algebra/semantic-not-realized",
+        "path": "graph_function:consensus.submitter-reviewer-rounds#execution-declarations",
+        "message": "semantic_not_realized: consensus.submitter-reviewer-rounds program program://abg/consensus/seed-round omits current interpreter anchors transform, evaluate, consequence",
+        "evidenceRefs": [
+          "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
+          "requirement:REQ-L-GTL3-C-ALGEBRA"
+        ]
+      }
+    ],
     "conformanceRuleCounts": [
       {
         "ruleRef": "abg://gtl-program/c-algebra/semantic-not-realized",
         "count": 5
-      },
-      {
-        "ruleRef": "abg://gtl-program/graph/node-reachable-or-bound",
-        "count": 20
       }
     ],
     "derivedConformanceInventoryCounts": {
@@ -3903,12 +3953,20 @@
       "moduleJobCount": 0,
       "moduleRoleCount": 0
     },
-    "derivedConformanceInventoryDigest": "sha256:27367e78502f3218e787311ce9b6e3fa316ac936850cfa7f362c8a85e48dd3cc",
+    "derivedConformanceInventoryDigest": "sha256:46639ff883f52ed31a6677a4eeb9410422ba11114804de082dedec0aeffbe814",
     "capabilityCompatibilityStatus": "deferred_missing_exact_profile"
   },
   "ownership": {
-    "loadedTicketCount": 14,
+    "loadedTicketCount": 15,
     "sources": [
+      {
+        "ticketId": "T-252",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        "families": [
+          "consensus_topology_integrity"
+        ]
+      },
       {
         "ticketId": "T-255",
         "status": "completed",
@@ -3974,8 +4032,8 @@
       },
       {
         "ticketId": "T-262",
-        "status": "completed",
-        "sourceRef": ".ai-workspace/tickets/completed/T-262-realize-typed-recurse-policy-runtime.md",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-262-realize-typed-recurse-policy-runtime.md",
         "families": [
           "typed_recurse_policy_and_runtime"
         ]
@@ -4008,16 +4066,11 @@
         ]
       },
       {
-        "ticketId": "T-266",
-        "status": "completed",
-        "sourceRef": ".ai-workspace/tickets/completed/T-266-close-native-node-interface-type-witness.md",
-        "families": []
-      },
-      {
         "ticketId": "T-267",
-        "status": "completed",
-        "sourceRef": ".ai-workspace/tickets/completed/T-267-close-traversal-result-interface-and-bind-conservation.md",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
         "families": [
+          "declared_program_conservation",
           "traversal_execution_contracts"
         ]
       },
@@ -4028,21 +4081,115 @@
         "families": [
           "tenant_conformance_manifest_consensus_coverage_missing"
         ]
+      },
+      {
+        "ticketId": "T-271",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-271-interpret-complete-c-programs-through-runtime-atoms.md",
+        "families": [
+          "complete_c_program_interpreter"
+        ]
       }
     ],
-    "observedActiveGapFamilyCount": 1,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "observedActiveGapFamilyCount": 3,
+    "activeOwnedButNotObservedFamilyCount": 3,
+    "activeOwnedButNotObservedFamilies": [
+      "consensus_topology_integrity",
+      "traversal_execution_contracts",
+      "typed_recurse_policy_and_runtime"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
-    "observedGapFamilyCount": 1,
-    "observedGapEvidenceDigest": "sha256:7abfc15c2be50ed1524b425080f2e25c8a29835a3ca4f610dc388a1f6bb2e37d",
+    "observedGapFamilyCount": 3,
+    "observedGapEvidenceDigest": "sha256:c225f58ad4f164ec677d9fe4ee294cb85a976299d19c20f969e28a1f44f12fea",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
+    {
+      "gapFamily": "complete_c_program_interpreter",
+      "ownerTicket": "T-271",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "abg://gtl-program/c-algebra/semantic-not-realized"
+      ],
+      "canonicalBodyPaths": [
+        "graph_function:consensus.exact-panel-facts#execution-declarations",
+        "graph_function:consensus.round#execution-declarations",
+        "graph_function:consensus.submitter-reviewer-rounds#execution-declarations",
+        "graph_function:fan_in(consensus.exact-panel-facts)#execution-declarations",
+        "graph_function:recurse(consensus.round)#execution-declarations"
+      ],
+      "observationSources": [
+        "compiler:typecheckGtlProgram:full-report"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-006..016",
+        "requirement:REQ-R-ABG3-CCALL-016",
+        "ticket-source:.ai-workspace/tickets/active/T-271-interpret-complete-c-programs-through-runtime-atoms.md",
+        "ticket:T-271"
+      ],
+      "authorityDigest": "sha256:4eeca568ff5f408cbf7beeb6f2484b2dad0f77590eb0c0225b6c32763f0cd1f8",
+      "actualRelation": "the admitted C program syntax contains lawful compositions that the current generic runtime interpreter cannot yet realize",
+      "actualRelationDigest": "sha256:c57c20427e56bbadbc513ae2dd86bcf14615b619f893683e1a9f1f4b04b0f39e",
+      "evidenceRefs": [
+        "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+        "digest-ref:sha256:3ab3e00c106a73c69936ae824325ccc48806fe084868aea37c931284e190a0da",
+        "digest-ref:sha256:f5aed1f43d5209a6de6da211a8d7510c3403dbd58de6f401c8aae0ec8a0f2c16",
+        "graph-function:graph-function://abg/consensus/exact-panel-facts",
+        "graph-function:graph-function://abg/consensus/round",
+        "graph-function:graph-function://abg/consensus/submitter-reviewer-rounds",
+        "requirement:REQ-L-GTL3-C-ALGEBRA",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:9f2c84d8137e7f12454b624014a39dc1bdfdae9bbbab3e63f155d76b351dd9e1"
+    },
+    {
+      "gapFamily": "declared_program_conservation",
+      "ownerTicket": "T-267",
+      "ownerStatus": "active",
+      "classification": "semantic_not_realized",
+      "diagnosticIds": [
+        "declared-c-program-not-conserved"
+      ],
+      "canonicalBodyPaths": [
+        "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
+        "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]"
+      ],
+      "observationSources": [
+        "compiler:compileTraversalExecutionContracts",
+        "projection:projectTraversalContractSourceBasis"
+      ],
+      "authorityRefs": [
+        "requirement:REQ-L-GTL3-C-ALGEBRA-016",
+        "requirement:REQ-R-ABG3-CCALL-014",
+        "ticket-source:.ai-workspace/tickets/active/T-267-close-traversal-result-interface-and-bind-conservation.md",
+        "ticket:T-267"
+      ],
+      "authorityDigest": "sha256:5c3373d3bf9de5abf72126d10149d9cb4eb1ee389e2733faced9fd28a4f67d88",
+      "actualRelation": "the traversal projection selects one result-bearing stage and can omit authored C stages or the outer higher-order application identity",
+      "actualRelationDigest": "sha256:3cf6f8ad504a318823cb6bf2be76730e2566b1313ee67f516f392e9ba2bafd6c",
+      "evidenceRefs": [
+        "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+        "ticket:T-252"
+      ],
+      "evidenceDigest": "sha256:62e89df5db0fa8b01555cf2d103e5bf40d2a108891c18de71e48218a08d080d7"
+    },
     {
       "gapFamily": "tenant_conformance_manifest_consensus_coverage_missing",
       "ownerTicket": "T-268",
@@ -4100,11 +4247,11 @@
       "actualRelation": "effect-bearing Consensus handoffs lack one M04-admitted canonical tenant-conformance manifest with exact supported capability coverage",
       "actualRelationDigest": "sha256:50e0244c8638089472f7b95312a4f8d95936d5ce6f2e2061e12e81cc5a8f4466",
       "evidenceRefs": [
-        "body:sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0",
+        "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
         "schema:abg.schema.tenant-conformance-manifest",
         "ticket:T-252"
       ],
-      "evidenceDigest": "sha256:ea154c30ef69e0fa01f9dc444475afc0bb2ed5ca803041abdb387bd1b6280005"
+      "evidenceDigest": "sha256:bdcd024349d8ff61f3f6e1a3b289cc6990b7955e9295f1ea3af0bab90a8a5f00"
     }
   ],
   "staticExecutionReachability": {
@@ -4201,5 +4348,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:0d14768a8f622b2e40e10bffa81dfbe46edd41219bf0a1aa2a7767dac9b8736f"
+  "manifestDigest": "sha256:9aa8e8e42289ebabcaedb12a777163ded71da75a00e25e63b93510f248f0a292"
 }

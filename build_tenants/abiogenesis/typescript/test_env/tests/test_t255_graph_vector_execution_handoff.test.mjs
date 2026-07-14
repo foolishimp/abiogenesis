@@ -739,7 +739,7 @@ test("T-255 partitions the unchanged T-252 body without erasing successor gaps",
   );
   assert.equal(
     stableSha256Digest(serializeModule(ABG_CONSENSUS_GTL_MODULE)),
-    "sha256:e4555c21cdb4292b64f7f4d5a625c2a520195aa8d6e9c759498eed4bf28d0ea0"
+    "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695"
   );
 });
 

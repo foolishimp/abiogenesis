@@ -40,6 +40,10 @@ resolvers. Preserve declared order, carriers, fibres, result-bearing role,
 retry/recurse budgets, lineage, and replay. No Consensus vocabulary, service
 controller, or second traversal loop enters the interpreter.
 
+## T-252 Census Gap Ownership
+
+- gap_family: complete_c_program_interpreter
+
 ## Exit
 
 Mixed and nested positive fixtures exercise each lawful constructor family;

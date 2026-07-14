@@ -1306,7 +1306,7 @@ function constructConsensusBody(): ConsensusGtlBody {
     name: "consensus.round",
     inputs: [nodes.roundExecution],
     outputs: [nodes.roundDisposition],
-    carries: Object.values(nodes),
+    carries: [nodes.roundExecution, nodes.roundDisposition],
     vectors: roundAuthored.map((entry) => entry.vector),
     effects: roundEffects,
     declarations: graphFunctionDeclarationsFor({
@@ -1405,7 +1405,7 @@ function constructConsensusBody(): ConsensusGtlBody {
     name: "consensus.submitter-reviewer-rounds",
     inputs: [nodes.subject],
     outputs: [nodes.result],
-    carries: Object.values(nodes),
+    carries: [nodes.subject, nodes.result],
     vectors: outerAuthored.map((entry) => entry.vector),
     effects: consensusEffects,
     declarations: graphFunctionDeclarationsFor({

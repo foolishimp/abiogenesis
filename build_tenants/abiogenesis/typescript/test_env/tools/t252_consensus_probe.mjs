@@ -53,7 +53,10 @@ import {
 } from "../../build/semantic/code/src/abg/m03/runner/fh_interaction.js";
 import { resolveCBatch } from "../../build/semantic/code/src/abg/m03/runner/c_batch_runtime.js";
 import { resolveCRetry } from "../../build/semantic/code/src/abg/m03/runner/c_retry_runtime.js";
-import { resolveTypedRecurse } from "../../build/semantic/code/src/abg/m03/runner/typed_recurse_runtime.js";
+import {
+  deriveTypedRecurseParentRebindEvidenceRef,
+  resolveTypedRecurse
+} from "../../build/semantic/code/src/abg/m03/runner/typed_recurse_runtime.js";
 import { resolveHofFanIn } from "../../build/semantic/code/src/abg/m03/runner/hof_fan_in_runtime.js";
 import {
   ABG_CONSENSUS_INSTRUCTION_DECLARATION,
@@ -90,9 +93,20 @@ const TICKET_ROOTS = [
   resolve(REPO_ROOT, ".ai-workspace/tickets/active"),
   resolve(REPO_ROOT, ".ai-workspace/tickets/completed")
 ];
-const TICKET_IDS = Array.from({ length: 14 }, (_, index) => `T-${255 + index}`);
 
 const GAP_REQUIREMENTS = Object.freeze({
+  consensus_topology_integrity: [
+    "REQ-L-GTL3-GRAPH",
+    "REQ-L-GTL3-GRAPHFUNCTION"
+  ],
+  complete_c_program_interpreter: [
+    "REQ-L-GTL3-C-ALGEBRA-006..016",
+    "REQ-R-ABG3-CCALL-016"
+  ],
+  declared_program_conservation: [
+    "REQ-L-GTL3-C-ALGEBRA-016",
+    "REQ-R-ABG3-CCALL-014"
+  ],
   c_program_runtime_shape_generalization: [
     "REQ-L-GTL3-C-ALGEBRA",
     "REQ-R-ABG3-CCALL-016"
@@ -126,6 +140,13 @@ const GAP_REQUIREMENTS = Object.freeze({
   plugin_handler_declaration_inventory_enforcement: [
     "REQ-L-GTL3-C-ALGEBRA-010/-014/-016"
   ]
+});
+
+const CONFORMANCE_GAP_FAMILY_BY_RULE = Object.freeze({
+  "abg://gtl-program/c-algebra/semantic-not-realized":
+    "complete_c_program_interpreter",
+  "abg://gtl-program/graph/node-reachable-or-bound":
+    "consensus_topology_integrity"
 });
 
 function sha256(value) {
@@ -194,19 +215,25 @@ function ticketPath(ticketId) {
 function loadOwnership() {
   const sources = [];
   const byFamily = new Map();
-  for (const ticketId of TICKET_IDS) {
-    const path = ticketPath(ticketId);
+  const paths = TICKET_ROOTS.flatMap((root) =>
+    readdirSync(root)
+      .filter((name) => /^T-[0-9]+-.*\.md$/u.test(name))
+      .map((name) => resolve(root, name))
+  ).sort();
+  for (const path of paths) {
     const source = readFileSync(path, "utf8");
     const section = /## T-252 Census Gap Ownership\n([\s\S]*?)(?=\n## |$)/u.exec(
       source
     )?.[1];
-    if (section === undefined && ticketId !== "T-266") {
-      throw new TypeError(`${ticketId} lacks T-252 Census Gap Ownership`);
+    if (section === undefined) continue;
+    const ticketId = /^T-[0-9]+/u.exec(path.split("/").at(-1) ?? "")?.[0];
+    if (ticketId === undefined) {
+      throw new TypeError(`ownership ticket path lacks an id: ${path}`);
     }
     const families = [
-      ...(section ?? "").matchAll(/^- gap_family: ([a-z0-9_]+)$/gmu)
+      ...section.matchAll(/^- gap_family: ([a-z0-9_]+)$/gmu)
     ].map((match) => match[1]);
-    if (families.length === 0 && ticketId !== "T-266") {
+    if (families.length === 0) {
       throw new TypeError(`${ticketId} ownership section is empty`);
     }
     const status = path.includes("/completed/") ? "completed" : "active";
@@ -309,6 +336,12 @@ function conformanceRuleCounts(issues) {
   return [...counts]
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([ruleRef, count]) => ({ ruleRef, count }));
+}
+
+function authoredProgramStageCount(program) {
+  if (program.workflow !== undefined || program.retry !== undefined) return 1;
+  if (program.batch !== undefined) return program.batch.tasks.length;
+  return program.stages.length;
 }
 
 function gapEvidenceRow(input) {
@@ -945,7 +978,7 @@ async function buildManifest() {
     },
     async applyFoldback(request) {
       canonicalRecurseFoldbackRequests.push(request);
-      return {
+      const outcome = {
         kind: "typed_recurse_foldback_outcome",
         planRef: request.planRef,
         bindingRef: request.bindingRef,
@@ -964,8 +997,16 @@ async function buildManifest() {
         policyDigest: request.policyDigest,
         budgetSourceFieldRef: request.budgetSourceFieldRef,
         preservedEvidenceRefs: [...request.requiredPreservedEvidenceRefs],
+      };
+      return {
+        ...outcome,
         foldbackEvidenceRefs: [
-          "evidence://abg/t252/consensus-probe/foldback/1"
+          "evidence://abg/t252/consensus-probe/foldback/1",
+          deriveTypedRecurseParentRebindEvidenceRef({
+            ...outcome,
+            foldbackAdditionalDigest: request.foldbackAdditionalDigest,
+            maxApplications: request.maxApplications
+          })
         ]
       };
     }
@@ -1654,6 +1695,84 @@ async function buildManifest() {
 
   const commonEvidenceRefs = [`body:${bodyDigest}`, "ticket:T-252"];
   const observedGapEvidence = new Map();
+
+  const conformanceGapRows = conformance.issues.map((issue) => {
+    const gapFamily = CONFORMANCE_GAP_FAMILY_BY_RULE[issue.ruleRef];
+    if (gapFamily === undefined) {
+      throw new TypeError(
+        `full conformance issue lacks a census mapping: ${JSON.stringify({
+          ruleRef: issue.ruleRef,
+          surfaceKind: issue.surfaceKind,
+          surfaceRef: issue.surfaceRef
+        })}`
+      );
+    }
+    return Object.freeze({
+      gapFamily,
+      diagnosticId: issue.ruleRef,
+      path: `${issue.surfaceKind}:${issue.surfaceRef}`,
+      message: bounded(issue.message),
+      evidenceRefs: sortedUnique(issue.evidenceRefs.map(compactRef))
+    });
+  });
+  for (const gapFamily of sortedUnique(
+    conformanceGapRows.map((row) => row.gapFamily)
+  )) {
+    const rows = conformanceGapRows.filter(
+      (row) => row.gapFamily === gapFamily
+    );
+    observeGap(observedGapEvidence, gapFamily, {
+      rows,
+      observationSources: ["compiler:typecheckGtlProgram:full-report"],
+      evidenceRefs: sortedUnique([
+        ...commonEvidenceRefs,
+        ...rows.flatMap((row) => row.evidenceRefs)
+      ]),
+      actualRelation:
+        gapFamily === "consensus_topology_integrity"
+          ? "the canonical Consensus graph contains declared nodes that are neither reachable nor explicitly carried"
+          : "the admitted C program syntax contains lawful compositions that the current generic runtime interpreter cannot yet realize"
+    });
+  }
+
+  const programConservationRows = selectedTraversalRows.flatMap((entry) => {
+    const authoredStageCount = authoredProgramStageCount(
+      entry.carrier.normalizedProgram
+    );
+    const applicationRelationRefs = [
+      entry.carrier.fanInApplicationRelation?.relationRef,
+      entry.carrier.recurseApplicationRelation?.relationRef
+    ].filter((value) => value !== undefined);
+    const stageCountPreserved =
+      entry.source.workStages.length === authoredStageCount;
+    const applicationIdentityPreserved = applicationRelationRefs.every(
+      (relationRef) =>
+        entry.source.applicationLineageRefs.includes(relationRef) ||
+        entry.source.workStages.some(
+          (stage) => stage.sourceAuthorityRef === relationRef
+        )
+    );
+    if (stageCountPreserved && applicationIdentityPreserved) return [];
+    return [{
+      diagnosticId: "declared-c-program-not-conserved",
+      path: entry.path,
+      authoredStageCount,
+      projectedStageCount: entry.source.workStages.length,
+      applicationRelationRefs,
+      applicationIdentityPreserved
+    }];
+  });
+  observeGap(observedGapEvidence, "declared_program_conservation", {
+    rows: programConservationRows,
+    observationSources: [
+      "projection:projectTraversalContractSourceBasis",
+      "compiler:compileTraversalExecutionContracts"
+    ],
+    evidenceRefs: commonEvidenceRefs,
+    actualRelation:
+      "the traversal projection selects one result-bearing stage and can omit authored C stages or the outer higher-order application identity"
+  });
+
   observeGap(
     observedGapEvidence,
     "tenant_conformance_manifest_consensus_coverage_missing",
@@ -1815,8 +1934,7 @@ async function buildManifest() {
     kind: "t252_consensus_gtl_probe_manifest",
     version: 4,
     authority: {
-      ticketRef:
-        ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
+      ticketRef: relative(REPO_ROOT, ticketPath("T-252")),
       designRef:
         "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
       abiPackageVersion: "5.0.0-dev.0"
@@ -1910,6 +2028,9 @@ async function buildManifest() {
       coverageRows,
       conformanceScopeKind: conformance.scopeKind,
       fullConformanceIssueCount: conformance.issues.length,
+      mappedFullConformanceIssueCount: conformanceGapRows.length,
+      unmappedFullConformanceIssueCount: 0,
+      fullConformanceIssues: conformanceGapRows,
       conformanceRuleCounts: conformanceRuleCounts(conformance.issues),
       derivedConformanceInventoryCounts:
         conformance.derivedConformanceInventory.counts,

@@ -64,6 +64,7 @@ without claiming a runtime edge is already closed.
 ## T-252 Census Gap Ownership
 
 - gap_family: traversal_execution_contracts
+- gap_family: declared_program_conservation
 
 ## Entry And Exit
 

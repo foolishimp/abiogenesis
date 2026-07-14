@@ -43,6 +43,10 @@ GTL atoms, plus an independently derived first compiler-gap census. It does not
 realize a reported gap, introduce a Consensus runtime, or infer catalog-owner,
 capability, execution, event, replay, or closure truth.
 
+## T-252 Census Gap Ownership
+
+- gap_family: consensus_topology_integrity
+
 ## Closed State
 
 The prior closed state below is retained as superseded evidence. It is not the
