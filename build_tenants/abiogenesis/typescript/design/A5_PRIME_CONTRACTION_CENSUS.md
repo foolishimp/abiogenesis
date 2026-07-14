@@ -85,6 +85,10 @@ but no cross-ticket contraction pass joined the designs.
 - **Owner**: T-274 publication; T-275 consumes the same native family.
 - **Negative proof**: every cross-projection substitution fails, especially
   findings/rulings, round-outcome/final-result, and result/ticket-projection.
+- **Accepted design**:
+  `M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
+- **Implementation status**: native-family and publication migration active;
+  feature-complete T-274 publication remains separately gated.
 
 ### PC-002 - Rival Consensus catalog declaration
 
@@ -105,6 +109,9 @@ but no cross-ticket contraction pass joined the designs.
 - **Measure**: Consensus callable declaration sources `2 -> 1`.
 - **Negative proof**: removing the canonical Module makes publication fail;
   the legacy declaration cannot reconstruct it.
+- **Accepted design**:
+  `M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
+- **Implementation status**: duplicate-source retirement active.
 
 ### PC-003 - Open internal Consensus carrier aliases
 
@@ -122,6 +129,9 @@ but no cross-ticket contraction pass joined the designs.
 - **Owner**: T-275, with T-274 family dependency.
 - **Negative proof**: unknown fields, wrong variant payloads, and public use of
   private locus variants fail admission or compilation.
+- **Accepted design**:
+  `M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`.
+- **Implementation status**: closed-family migration active.
 
 ### PC-004 - Public operation realization rosters
 

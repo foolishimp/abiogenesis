@@ -48,6 +48,9 @@
 - pc004_pc005_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T144820Z_SELF_REVIEW_t277_pc004_pc005_operation_schema_contraction.md
+- pc001_pc003_design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T160200Z_SELF_REVIEW_t277_pc001_pc003_consensus_designs.md
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/adrs/
     ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
@@ -186,8 +189,12 @@ Every census row must end in exactly one state:
   projection identities and paths remain stable
 - `PC-004` and `PC-005`: focused and aggregate gates are green from the exact
   implementation commit; independent closure review remains pending
-- next implementation boundary: apply `PC-007` to the open T-270 and T-272
-  designs before either runtime route is realized
+- `PC-007`: T-270 and T-272 now have accepted authority-contraction designs;
+  implementation remains with those owner tickets
+- `PC-001..003`: T-274 and T-275 now have accepted publication and closed
+  domain-family designs; bounded migration is active
+- next implementation boundary: close the existing Consensus open-carrier and
+  duplicate-catalog sources without claiming T-274/T-275 feature closure
 
 ## Exit
 
