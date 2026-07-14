@@ -5,10 +5,10 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: design_accepted_implementation_authorized
-- implementation_status: not_started
-- proof_status: pending
-- review_status: design_accepted_under_delegated_fh
+- phase_status: implementation_complete_independent_review_pending
+- implementation_status: complete
+- proof_status: self_review_passed_independent_review_pending
+- review_status: independent_post_implementation_review_pending
 - delivery_phase: DS-3 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -34,6 +34,10 @@
 - design_decision_ref: >-
     .ai-workspace/comments/codex/
     20260714T040100Z_DECISION_delegated_fh_accept_t271_design.md
+- self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260714T065100Z_SELF_REVIEW_t271_complete_c_program_interpreter.md
+- implementation_commit: f4ab3d4f
 - priority: critical
 - dependencies:
   - completed T-259 direct workflow.C atom
@@ -64,3 +68,32 @@ Mixed and nested positive fixtures exercise each lawful constructor family;
 carrier mismatch, stale replay, undeclared role, and unsupported recursive
 shape fail as typed compiler or runtime gaps before effects. The canonical
 Consensus program is one consumer, not a special branch.
+
+## Implementation Evidence
+
+- `f4ab3d4f` compiles the closed seven-constructor C family into one sealed
+  plan and interprets that plan through the retained workflow, batch, retry,
+  and C-call atom boundaries.
+- Native and canonical raw syntax produce the same plan digest; mixed
+  sequence, nested batch, nested retry, identity, and edge fixtures execute
+  without flattening authored structure.
+- Replay admission rejects stale seals, non-contiguous future receipts,
+  predecessor drift, invalid task/retry coordinates, caller-substituted
+  catalog authority, and resealed plan-authority drift before effects.
+- The T-252 probe derives exact plans for all 34 selected vectors and covers
+  all 19 authored programs. Its body digest remains unchanged and only the
+  T-267 conservation and T-268 capability-manifest gaps remain.
+- Full semantic suite: 1710/1710.
+- Focused T-271/T-260/T-261/T-255/T-252 lane: 49/49; GTL law: 82/82;
+  packed installed proof: 1/1.
+- Semantic lint, GTL authority guard, DS governance, 66 Mermaid diagrams,
+  public schema/publication verification, T-252 manifest check, and
+  `git diff --check` pass.
+
+## Non-Closure
+
+The implementation checkpoint is complete, but the ticket remains active
+until independent post-implementation review accepts the compiler,
+interpreter, replay, and proof surfaces. T-267 still owns whole-program
+conservation, T-270 owns public routing, and T-268 owns capability admission;
+this checkpoint does not permit public effects or close those gaps.
