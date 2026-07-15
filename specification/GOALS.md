@@ -45,24 +45,26 @@ odd_glc 1.0 may subsequently act together as the development product for the
 
 ## Managed Plan State
 
-The current delivery position is `DS-0` consistency re-entry under T-278. The
-stable-first full-product scope remains current. The target public-control
-shape is not yet ratified.
+The current delivery position is `DS-0` constitutional propagation under
+T-278. The stable-first full-product scope remains current. F_H accepted the
+exact `/9-candidate` target at checkpoint `83c87dec`; the Ontology remains a
+candidate until propagation, T-244 regeneration, basis recomputation, and final
+design review are complete.
 
 | Plan fact | Current truth |
 |---|---|
-| Current phase | `DS-0` T-278 fourth bounded authority-binding repair independent review |
-| Current decision | Independent Prime review accepts the direct typed-vector algebra and repeatedly reproduces 27 atoms, seven compositions, and 19 operations. Authority review accepts that repair and identifies two field-level omissions: qualification must bind its exact method/rule/source law basis, and prospective-final truth must bind the exact installed-RC qualification basis plus green verdict that authorize final derivation. The fourth bounded repair adds only those refs/digests and AF-22/AF-25 equality checks; it adds no atom, composition, public operation, controller, scheduler, or proof framework. The target remains unaccepted until fresh reviewer-authored review and explicit F_H disposition. |
+| Current phase | `DS-0` T-278 accepted-target constitutional propagation |
+| Current decision | Two reviewer-authored reviews accept the exact `/9-candidate` and reproduce the 30-source basis, 38 behaviors, 27 atoms and authority rows, seven compositions, 19 operations, 17 features, and 16 capabilities. F_H accepts that exact target: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. This authorizes constitutional propagation only. |
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
 | Derived register | T-244 is stale until one post-acceptance regeneration |
 | Runtime work | The T-270/T-272 integration is preserved as provisional evidence and remains frozen until constitutional propagation and affected-design acceptance |
-| Next executable owner | Independent reviewers verify the exact fourth repaired T-278 subject, including subject/law-basis conservation through `C.of(AF-22)` and accepted-RC/installed-RC qualification lineage through `AF-25`. Constitutional propagation and One Surface realization remain blocked. |
+| Next executable owner | T-278 propagates the accepted target through INTENT, PRODUCT, requirements, and this managed plan in authority order; T-244 regeneration and Ontology basis recomputation follow before runtime reconciliation. |
 | Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
 | Detailed current read model | `.ai-workspace/comments/codex/20260715T150050Z_PLAN_abiogenesis_5_0_repriced_end_to_end.md` |
 
-F_H acceptance of this goal plan does not silently accept T-278's four target
-claims. The T-278 ruling remains explicit because it changes INTENT, PRODUCT,
-requirements, the public operation projection, and affected design authority.
+F_H acceptance of this goal plan did not silently accept T-278's four target
+claims. The separate explicit ruling recorded on 2026-07-16 accepts the exact
+`/9-candidate` target and authorizes constitutional propagation only.
 
 ## Retained Feature Families
 
@@ -134,8 +136,8 @@ DS-0 -> DS-1 -> DS-2 -> DS-3 -> DS-4 -> DS-5 -> DS-6 -> DS-7
 
 ```mermaid
 flowchart TD
-  A[T-278 release-lifecycle and binding-cardinality repair] --> A2[Reviewer-authored independent review]
-  A2 --> A3[Explicit F_H target-shape ruling]
+  A[T-278 exact /9 candidate] --> A2[Reviewer-authored independent acceptance]
+  A2 --> A3[Explicit F_H target-shape acceptance]
   A3 --> S[Checkpoint and push the accepted plan and T-278 slice]
   S --> B[INTENT to PRODUCT to requirements to GOALS]
   B --> C[Regenerate and reclose T-244]
@@ -224,7 +226,7 @@ do not authorize an imperative workaround.
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-0` T-278 fourth bounded authority-binding review gate |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-0` accepted-target constitutional propagation |
 
 ## Plan Management
 

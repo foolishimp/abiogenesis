@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: fourth_bounded_authority_binding_repair_complete_independent_review_pending
-- review_status: five_reviewer_authored_rejections_and_one_prime_acceptance_received
-- proof_status: 27_7_19_census_reproduced_fourth_repair_pending_rereview
+- phase_status: target_shape_fh_accepted_constitutional_propagation_active
+- review_status: exact_v9_independently_accepted_and_fh_target_accepted
+- proof_status: 27_7_19_exact_candidate_accepted_propagation_pending
 - delivery_phase: DS-0 consistency re-entry before DS-5 public-product completion
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -102,6 +102,15 @@
 - third_prime_census_review_ref: >-
     .ai-workspace/comments/codex/
     20260715T190352Z_REVIEW_t278_v8_prime_census_ontology.md
+- fourth_prime_census_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260715T193518Z_REVIEW_t278_v9_field_authority_prime_count.md
+- fourth_release_authority_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260715T193530Z_REVIEW_t278_v9_qualification_authority_rereview.md
+- fh_target_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260715T234641Z_DECISION_fh_accept_t278_v9_target_shape.md
 - managed_delivery_plan_ref: specification/GOALS.md
 - current_plan_read_model_ref: >-
     .ai-workspace/comments/codex/
@@ -134,106 +143,26 @@
 
 ## Current Review Disposition
 
-The relayed external review accepts the program/GraphFunction correction and
-the four distinct One Surface authorities in substance. It rejects the
-27-atom/seven-composition claim pending repair of a cyclic release lifecycle,
-holds the 19-operation projection until that repair is repriced, and identifies
-an invocation/binding cardinality contradiction. The linked target therefore
-remains rejected. Runtime remains frozen.
+The exact `/9-candidate` at checkpoint `83c87dec` passed two reviewer-authored
+independent reviews over the same six frozen subject digests. Those reviews
+accept the program/GraphFunction distinction, four distinct One Surface
+authorities, stable workspace-authority versus mutable-observation boundary,
+one `ExactCandidateQualification<K>` family, direct typed result-vector path
+through `C.of(AF-22)`, installed-RC authorization lineage, 27 atomic function
+families, seven higher-order compositions, and 19-operation external
+projection. They found no residual target-shape blocker.
 
-The prior `/5-candidate` applied two earlier bounded repairs:
-
-1. `WorkspaceAuthorityBasis` and `WorkspaceBinding` carry stable authority and
-   installed-product/root truth. Mutable worksite, runtime, and replay
-   observation belongs only to `ObservationSnapshot`. Only a changed ABG
-   `ExecutionBasis` on the same spine is a basis-fork question.
-2. Public ingress admits and hands off a `PublicInvocation`. The admitted GTL
-   One Surface program owns AF-11 through AF-17, and ABG interprets that
-   declaration and owns runtime truth.
-
-The repaired Ontology introduces one Prime `ExactCandidateQualification`
-contract family with separately addressable basis and verdict projections.
-T-247 binds and qualifies exact pre-RC truth. AF-25 creates a `ReleaseCut` and
-`ReleaseSnapshotManifest` only from a same-basis green non-bypassed verdict.
-This is a carrier correction inside the existing qualification composition,
-not a new semantic atom or public operation. The target counts remain proposals
-until the repaired whole-family census is rerun.
-
-The repaired Ontology makes `WorkspaceBinding` cardinality a closed property
-of each public function/variant: `forbidden | exactly_one`. The aggregate
-`0..1` relation is a discriminated sum, not a freely optional binding.
-Workspace/execution invocations require one binding; pre-binding variants
-forbid one.
-
-The prior `ontology_candidate_independently_reviewed` and
-`bounded_repair_independently_accepted` statuses were unsupported. The durable
-artifact was a pen-holder synthesis over unpersisted internal reviewer relays.
-The latest external findings are preserved by `latest_review_intake_ref`, but
-their reviewer identity was not supplied and that intake is not acceptance. A
-reviewer-authored independent review over the exact repaired subject remains
-mandatory before F_H can accept the linked target claims.
-
-Two reviewer-authored independent reviews of the first repaired candidate both
-reproduced the 30-source basis and 38/27/7/19/17/16 censuses, accepted the
-binding-cardinality repair and One Surface/hard-break model, and rejected two
-remaining release details:
-
-1. an undeclared generic verdict `fold` was outside the closed seven-constructor
-   GTL algebra; the second repair replaced it with the existing declared
-   `C.of(AF-22 evaluateConformance(exact_candidate_qualification, ...))` leaf;
-2. the tapped-release variant did not bind a prospective final candidate,
-   allowed final-only delta, and affected deterministic/install/identity/bounded
-   gates before publication; the repaired final basis now owns those inputs and
-   AF-25 refuses until their same-basis verdict is green.
-
-Two fresh reviewer-authored reviews accepted those release-cycle, final-tap,
-binding-cardinality, identity, and 27/7/19 repairs, then found one remaining
-carrier discontinuity: qualification-specific `C.batch` named neither the
-common task carriers/cardinality required by `C-ALGEBRA-007` nor a lawful
-complete-vector boundary into `AF-22`.
-
-The third bounded repair removes that unnecessary realization assumption.
-Heterogeneous owning gates execute under their existing contracts and retain
-their assessment authority. One subordinate
-`QualificationGateResultVector<K>` carries the exact basis, frozen inventory,
-complete ordered owning-result citations, evidence, dispositions, bypass truth,
-and vector digest. Structural admission verifies only exact roster, basis,
-ordinal, identity, type, and digest conservation. One
-`C.of(AF-22 evaluateConformance(exact_candidate_qualification, ...))` stage
-consumes that carrier and emits exactly one verdict. No qualification-local
-`C.batch`, HOF dispatcher, scheduler, selector, filesystem scan, or second
-checker remains.
-
-This is the smaller Prime repair: native `C.of` already accepts arbitrary
-typed input/output carriers, while the current direct-batch runtime does not
-produce the HOF vector required by `fan_in`. Adding that bridge would create
-new runtime mechanism without product demand. The repair changes no atom,
-composition, or public operation. The updated exact subject requires fresh
-reviewer-authored review.
-
-Fresh `/8-candidate` Prime review accepts that direct vector algebra and
-reproduces the unchanged 27/7/19 target. The parallel release-authority review
-also accepts the algebra and finds two remaining field-level omissions:
-
-1. the qualification family did not content-address the exact method,
-   rule-catalog, and source basis required by self-conformance law; and
-2. the prospective-final basis cited the accepted RC and final delta but not
-   the distinct installed-RC basis and green non-bypassed verdict that authorize
-   final derivation.
-
-The fourth bounded repair adds one subordinate `QualificationLawBasis` value
-and binds its ref/digest through the exact basis, result vector, AF-22 argument,
-and verdict. A `final_tap_candidate` basis now also binds the exact installed-RC
-qualification basis and green-verdict refs/digests, and AF-25 verifies that they
-identify the accepted RC bytes and installed identity. These are authority
-fields on the existing contract family. They add no semantic atom, composition,
-public operation, controller, scheduler, or proof framework. The updated exact
-subject requires one focused reviewer-authored authority re-review.
+F_H accepted that exact target on 2026-07-16 and authorized constitutional
+propagation only. The candidate Ontology is not yet ratified. INTENT, PRODUCT,
+requirements, and GOALS must now be reconciled in authority order; T-244 must
+then be regenerated once; the Ontology basis must be recomputed over those
+current sources and pass final independent design review. Runtime remains
+frozen until those steps and affected-design acceptance are complete.
 
 The existing Prime regression gate proves only that the earlier T-277 governed
-design set remains green. T-278's 27/7 target is supported by its explicit
+design set remains green. T-278's target is supported by its explicit
 whole-family matrices, Promotion Tests, and independently reproduced census;
-the gate is not presented as proof of that target.
+the regression gate is not presented as proof of that target.
 
 ## Target Truth
 
@@ -336,15 +265,14 @@ This ticket closes only when:
 
 ## Current Freeze
 
-Until the bounded authority-binding repair passes auditable independent
-review and F_H accepts the target shape:
+During constitutional propagation and final Ontology ratification:
 
 - do not implement any of the 17 missing roster entries;
 - do not claim DS-5 completion from operation-count parity;
-- preserve the current dirty T-270/T-272 work as unaccepted realization
+- preserve the current dirty T-270/T-272 work as provisional realization
   evidence and do not checkpoint it as 5.0 closure;
-- T-270 and T-272 may be reconciled as projections only after their public and
-  runtime functions are mapped to the accepted Ontology; and
+- T-270 and T-272 may be reconciled only after their public and runtime
+  functions are mapped to the accepted Ontology and affected designs pass; and
 - T-274 through T-276 remain active but cannot use the current exact operation
   roster as architectural authority.
 
@@ -372,8 +300,8 @@ authoritative.
 - [x] reviewer-authored Prime acceptance of the direct typed-vector algebra
 - [x] reviewer-authored authority rejection of missing law-basis and installed-RC lineage fields
 - [x] bounded qualification-law and installed-RC authorization binding repair
-- [ ] focused reviewer-authored authority review over the exact repaired subject
-- [ ] explicit F_H target-shape acceptance
+- [x] focused reviewer-authored authority review over the exact repaired subject
+- [x] explicit F_H target-shape acceptance
 - [ ] INTENT, PRODUCT, requirement, and GOALS propagation
 - [ ] T-244 and active-ticket reconciliation
 - [ ] exact basis recomputation and final Ontology ratification
