@@ -2,6 +2,7 @@
 
 **Product ID**: PROD-001
 **Date**: 2026-07-11
+**Updated**: 2026-07-16
 **Status**: Approved
 **Derives from**: INT-001, INT-005, INT-006, INT-007
 
@@ -81,7 +82,7 @@ The public product covers:
 - source-blind workspace creation and opening;
 - exact product resolution, verification, installation, binding, catalog
   admission, and inspection;
-- graph-function invocation, start, and resume;
+- admitted-program GraphFunction invocation, start, and continuation;
 - status, result, evidence, and replay reads;
 - gaps and replay-derived lawful-action reads;
 - typed F_H selection, approval, rejection, assessment, escalation response,
@@ -89,32 +90,37 @@ The public product covers:
 - assessed-result admission and witnessed operator acts;
 - observer reports and tuner report, proposal, ratification, and rejection;
 - GTL program conformance; and
-- exact release qualification and snapshot operations.
+- exact candidate qualification and release snapshot materialization.
 
-Every operation publishes typed inputs, outputs, defaults, errors, actor
-attribution, and read-versus-write semantics. Read operations project replay
-truth and do not mutate it. Mutating operations enter through ABG admission and
-record attributed events. The SDK, CLI, and host projections cannot select
-private traversal state or become a second controller.
+Every operation is a derived projection of one public function-definition
+family and publishes typed inputs, outputs, defaults, errors, actor attribution,
+workspace-binding cardinality, and read-versus-write semantics. Read operations
+project admitted truth and do not mutate it. Mutating operations enter through
+the owning admission boundary and record attributed truth. The SDK, CLI, and
+host projections cannot order One Surface, select private traversal state, or
+become a second controller.
 
 A host-neutral invocation descriptor may carry one public invoke/start request
 between native, CLI, and host adapters. It binds the public operation-contract
-version, exact workspace/product/catalog identities, GraphFunction and input
-contracts, session allowlist, capabilities, and declared steering inputs. It is
-data for public admission, not a worker call, continuation, or controller.
+version, admitted GTL program, exact workspace authority and binding when the
+operation requires one, exact product and catalog identities, selected
+GraphFunction membership and input contracts, session allowlist, capabilities,
+and declared steering inputs. Mutable observation and replay truth remain
+separate inputs. The descriptor is data for public admission, not a worker call,
+continuation, or controller.
 
-The primary operator workflow is an interactive loop over that public contract:
-start admitted work, receive one truthful stop, hold, gap, or terminal result,
-inspect the lawful frontier, remove one ambiguity or submit one typed F_H
-response, and resume or start again. ABG resolves the continuation and remains
-the sole owner of traversal and closure.
+The primary operator workflow is an interactive application of the admitted GTL
+One Surface program: invoke or start admitted work, receive one truthful stop,
+hold, gap, or terminal result, inspect the lawful frontier, remove one ambiguity
+or submit one typed F_H response, and continue. ABG interprets the program,
+resolves continuation, and remains the sole owner of traversal and closure.
 
 ABIogenesis 5.0 also publishes one bounded ABG SYSTEM-owned Consensus
 GraphFunction. A calling agent invokes it through the existing
-`catalog.invoke` operation and reads its typed decision, dissent, result,
-lineage, and replay truth through the existing `read.result` and `read.replay`
-operations. The graph function binds declared reviewer profiles, admits
-attributed findings, and returns one declared `closed_done`,
+`run.invoke` operation and reads its typed decision, dissent, result, lineage,
+and replay truth through the `project.read` operation. The graph function binds
+declared reviewer profiles, admits attributed findings, and returns one declared
+`closed_done`,
 `recurse_next_round`, or `escalate_fh` outcome. It is a free construction over
 the ordinary GTL and ABG atom set, not a new CLI verb, engine loop, scheduler,
 ticket-status authority, or automatic ticket mutation.
@@ -130,9 +136,10 @@ runtime admission owns environmental facts and probabilistic results.
 ABIogenesis applies the same specification-method, contract, semantic, runtime,
 proof, and release rules to its own frozen specification, design, realization,
 ticket or execution-contract, public-contract, proof, qualification, and
-release-candidate surfaces. Self-conformance returns typed findings and
-dispositions through the ordinary conformance path. The product has no
-exemption and no second checker defines release truth.
+release-candidate surfaces. Self-conformance and candidate qualification bind
+the exact subject and explicit qualification-law basis. They return typed
+findings and dispositions through the ordinary conformance path. The product
+has no exemption and no second checker defines release truth.
 
 The current observer and tuner are product capabilities over ABG replay truth.
 The observer diagnoses pressure and may draft lawful re-entry work. The tuner
@@ -393,6 +400,47 @@ The ABG runtime ontology is the interpreter-owned truth surface: selected
 `Continuation`, payload admission, payload ledgers, assurance projection,
 closure fold, traversal transition, and replay projection.
 
+The product control-plane ontology joins installed product and operator
+interaction to those two existing ontologies without recreating either. Its
+prime carriers include immutable product, release, artifact, install, workspace,
+workspace-binding, catalog, public-contract, capability, invocation-authority,
+model, gap, intent, closure-decision, qualification, and public outcome truth.
+Public command names, schemas, adapter metadata, and rendered projections derive
+from those carriers; they are not additional semantic authorities.
+
+`WorkspaceAuthorityBasis` contains stable workspace identity, canonical root,
+authority mode, and authority-bearing manifest or configuration truth.
+`WorkspaceBinding` immutably joins that basis to the exact installed product set,
+lock, and declared roots. Mutable file, process, runtime, and replay observations
+belong to replaceable `ObservationSnapshot` values. Ordinary worksite progress
+may stale a model, gap, or next-action projection, but it does not mutate the
+binding or create `basis_fork_detected`. A different authority basis requires a
+separately admitted binding and, on an existing execution spine, an exact
+covering reprice.
+
+Whole-family Prime contracts the current 38 public behavior labels plus the
+three required internal publication lifecycles to 27 atomic function families,
+then composes them through the existing GTL algebra as seven product
+applications:
+
+1. prepare an installed workspace;
+2. perform one One Surface constructive action;
+3. converge a supervised root through published refinement;
+4. admit and continue an interactive F_H hold;
+5. project and transition tuning drafts through ordinary re-entry;
+6. qualify and materialize an exact release cut; and
+7. publish the immutable Product.
+
+`ExactCandidateQualification<K>` is one of those Prime atomic families, with
+closed basis and verdict projections. Its qualification-law basis, ordered
+owning-gate result vector, and final-tap delta are subordinate typed values, not
+additional functions or public operations. The 27/7 census and the derived
+19-operation projection are conformance checks over the semantic relations,
+not independent sources of authority. The current 17 retained feature families
+and 16 capability identities remain no-silence projections over the same
+product truth; contraction may not delete them or let them preserve a legacy
+operation identity by count.
+
 `TraversalUnit<A, B>` is the formal unit ABG opens, attempts, admits, closes,
 and binds inside that runtime truth. It is a notation over the GTL/ABG carriers
 above, not a separate runtime aggregate.
@@ -628,56 +676,92 @@ next lawful consequence of that human judgment.
 
 ### Outcome Compute Contract
 
-ABG is the compact runtime motor for outcome compute.
-
-Its primitive is one governed iteration over a current projection, cumulative
-context, and evaluator set:
+Outcome compute is one admitted GTL One Surface composition interpreted by ABG.
+Its four semantic authorities remain distinct:
 
 ```text
-iterate(
-  current_surface_projection,
-  cumulative_context,
-  evaluators
-) -> runtime_events
+synthesizeModel(intentLineage, priorModel, admittedProductTruth)
+  -> ProductAssetModel
+
+evalGap(workspaceBinding, model, eventLog, runtimeProjection, worksite)
+  -> ObservationSnapshot + GapPressureRow[]
+
+evaluateNext(nextBasis, freshGap, targetObligations, actionCatalog,
+             runtimeFrontier, policy)
+  -> TargetObligationBinding[] + PriorityProjection + NextActionProjection
+
+evaluateAction(intent, admittedEvidence, workspaceBinding, policy)
+  -> EdgeFulfillmentLedger + EdgeClosureDecision
 ```
 
-The current surface is a replay-derived projection over runtime truth. It is
-not private mutable controller state.
+These authorities may share subordinate libraries, but none may perform or
+author the result of another. Model synthesis owns desired and known product-
+asset truth. Gap evaluation owns a fresh observation and typed pressure under a
+stable workspace binding. Next-action evaluation owns current eligibility,
+total lawful selection, and selected-or-no-action projection. Action evaluation
+owns the complete evidence ledger and the closed
+`close | yield | retry | repair | re-enter | reprice | block` disposition. A
+worker result, F_P assessment, F_H response, liveness signal, or single evidence
+row cannot create closure truth by itself.
 
-The cumulative context is the declared constraint and history pressure
-available to the traversal. It includes the edge contract, required context,
-carried environment, prior edge evidence, intermediate ledgers, retry gap
-dossiers, and current delta.
+The admitted program declares the composition:
 
-ABG does not certify a domain result merely because a worker produced an asset.
-ABG admits lawful runtime events, projects the next current surface from those
-events, and advances through declared evaluation, retry, continuation, hold,
-gap, completion, or stop law.
+```text
+synthesize model
+-> evaluate fresh gap
+-> derive the admitted program's action catalog
+-> evaluate next action
+-> admit a new construction intent or cite the current intent
+-> invoke or continue through ABG
+-> admit evidence
+-> evaluate the action
+-> derive the exact next-action basis
+-> refresh the model
+-> evaluate a fresh gap
+-> evaluate the next action
+-> project result and lawful frontier
+```
 
-Downstream products provide the graph function, domain contexts, evaluator
-implementations, and worker bindings. ABG provides the replayable control loop
-that makes outcome compute auditable and capable of lawful re-entry.
+The next-action basis is one of `initial_selection`, `post_yield_resume`,
+`post_close_graph_continuation`, `post_retry`, `post_repair`, `post_reenter`,
+`post_reprice`, or `post_block`, with exact causal references. Newer observation
+or replay truth under the same execution authority reruns the affected model,
+gap, and selection functions. It does not create a workspace or execution-basis
+fork. A changed authority basis requires a separately admitted binding where
+applicable and an exact covering reprice.
+
+Public ingress validates and admits a typed invocation, and public egress
+transports the resulting projection. Neither orders this composition. ABG
+interprets the admitted program, admits its facts, and owns graph calls, frames,
+events, continuation, correction, replay, and closure. Downstream products own
+their model, gap, selection, and action-evaluation meaning as declarations; they
+do not replace the composition with a product-local service loop.
 
 ### Higher-Order F_P Construction Episodes
 
 One edge traversal remains the bounded runtime unit of probabilistic compute.
-ABG may also support a higher-order `F_P` construction episode that composes
-those bounded invocations through event-sourced tail recursion:
+A higher-order `F_P` construction episode is an admitted GTL application of One
+Surface that composes those bounded invocations through ABG-interpreted,
+event-sourced tail recursion:
 
 ```text
-observe current linked asset state
--> evaluate admissible construction outcomes
+refresh the admitted product model
+-> evaluate a fresh gap and lawful outcomes
 -> admit one construction intent
 -> invoke the selected graph function through ABG
--> project the runtime and asset delta
--> recur, yield progress, close, block, or escalate
+-> admit evidence and evaluate the action
+-> refresh model, gap, and next action
+-> recur, yield progress, close, block, or escalate through typed truth
 ```
 
-The construction episode does not make ABG the domain strategy decider. The
-product-owned `F_P` evaluator chooses the highest-value lawful outcome from the
-declared graph/action catalog. ABG admits or rejects that evaluator intent,
-binds it to graph-call, frame, continuation, lineage, event, ledger, and
-projection truth, and exposes one public construction-progress projection.
+The construction episode does not make ABG the domain strategy decider and does
+not make public ingress the controller. The product-owned evaluators construct
+model, gap, selection, and action-evaluation truth through their distinct
+contracts. ABG admits or rejects the resulting intent and evidence, binds them
+to graph-call, frame, continuation, lineage, event, ledger, and projection
+truth, and exposes the public result and lawful frontier. Every published inner
+refinement receives the same visible One Surface chain; opaque worker-internal
+HOW remains inside one bounded action.
 
 When a downstream product declares a steel thread or dependency fan-out from its
 own content, that declaration is admitted product authority, not a runtime
@@ -746,8 +830,8 @@ It owns the runtime control truth for:
 - graph-function materialization and selection application
 - worker, binding, run, and lineage semantics
 - event emission, projection, correction, and convergence
-- outcome-compute iteration over current projections, cumulative context, and
-  evaluator truth
+- interpretation of the admitted One Surface composition while preserving its
+  distinct model, gap, next-action, and action-evaluation authorities
 - replayable provenance over traversal invocation and runtime identity
 - ordinary graph-function transport, result ingestion, and runtime behavior
   when an installed product acts as a development product
@@ -832,162 +916,143 @@ them as declared inputs.
 
 ## Public Operator Contract
 
-Abiogenesis publishes one public control plane. Its verb families are:
+Abiogenesis publishes one public control plane derived from one versioned
+`PublicFunctionDefinition<K>` family. That relation owns the operation identity,
+closed variant, input, result, refusal, effect class, authority, operation-
+variant-specific `workspaceBindingRequirement: forbidden | exactly_one`, and
+adapter coordinates. SDK types, schemas, catalog rows, CLI paths, capability
+claims, and tests project the same relation; none maintains an authored roster.
 
-- workspace `create` and `open`
-- catalog operations — resolve, verify, bind, admit, list, describe, and allow
-- `start` and invoke — advancement over the product-owned traversal request
-  grammar
-- `resume` — replay-derived continuation of an existing admitted run
-- status, result, evidence, and replay — read-only runtime projections
-- `gaps` and lawful actions — read-only frontier projections
-- F_H operations — typed selection, approval, rejection, assessment,
-  escalation response, and continuation
-- `assess-result` — admission of assessed F_P result truth
-- `witness <act>` — operator-witnessed acts admitted as events
-- `observe report|drafts` — replay-derived observer read models
-- `tune report|propose|ratify|reject` — drafts-only tuning mutation
-- `typecheck-gtl-program` — the conformance proof verb
-- install and release operations — context bootstrap, install, configuration,
-  verification, and release snapshot
+The derived external projection contains 19 public operation identities:
 
-Those verb families are the public named-composition truth.
+| Public operation identity | Semantic authority | Closed variation |
+| --- | --- | --- |
+| `abg.operation.workspace.create` | workspace construction | target plus explicit clean/import policy |
+| `abg.operation.workspace.open` | workspace authority admission and readiness projection | expected stable workspace authority basis |
+| `abg.operation.project.read` | typed projection over admitted source truth | closed source/projection relation |
+| `abg.operation.product.verify` | artifact verification | artifact format and contract |
+| `abg.operation.product.resolve` | exact dependency resolution | product requirements |
+| `abg.operation.product.install` | immutable product installation | install target policy |
+| `abg.operation.workspace.bind` | immutable workspace/product binding | exact product set, lock, and roots |
+| `abg.operation.catalog.admit` | contribution admission | admitted contribution family |
+| `abg.operation.catalog.view` | narrowing catalog view | allowlist |
+| `abg.operation.catalog.apply` | typed declaration application | `node_type | overlay`; both non-callable |
+| `abg.operation.run.invoke` | admitted GTL One Surface program interpreted by ABG | `invoke | start` |
+| `abg.operation.run.continue` | replay-derived continuation interpreted by ABG | current-intent continuation or a newly admitted selected action |
+| `abg.operation.interaction.respond` | typed F_H response admission | `select | approve | reject | assess | answer_escalation` |
+| `abg.operation.result.assess` | assessed F_P result admission | declared result-assessment contract |
+| `abg.operation.witness.admit` | witnessed-act event admission | `reprice | attest | hygiene-stamp | intake | run-resumed | run-stopped` |
+| `abg.operation.tuning.transition` | tuning-draft lifecycle | `propose | ratify | reject` |
+| `abg.operation.conformance.evaluate` | typed conformance evaluation | public `gtl_program`; self-conformance remains qualification-bound |
+| `abg.operation.product.materialize` | content-addressed product-asset materialization | `context_bootstrap | configuration` |
+| `abg.operation.release.snapshot` | qualified release-cut and snapshot materialization | `published_rc | tapped_release` |
 
-Each operation has one tenant-invariant public contract for input, defaults,
-value domains, result, errors, actor attribution, mutation semantics, and
-terminal or non-terminal disposition. Literal executable names and host
-bindings may differ, but they do not define rival operation semantics.
+The 19 identities are a derived projection, not axioms selected by count. The
+contraction preserves every retained public behavior, feature family, and
+capability definition. Those no-silence censuses verify the projection but do
+not authorize a legacy identity, a second public definition register, or
+separately authored adapter behavior.
 
-`start` accepts one product-owned traversal request grammar:
+`project.read` covers the closed read relations for catalog list and describe,
+workspace or runtime status, result, evidence, replay, gaps, lawful actions,
+observer reports and drafts, and tuning reports. It is not an untyped universal
+query: each source/projection pair has one declared result and refusal contract.
+Reads admit no events, select no action, and own no continuation or retry.
+Lawful-action projection exposes only the replay-derived current frontier.
 
-- `scope`
-- `target`
-- `until`
+`catalog.apply` is the only public application relation for retained node-type
+and overlay declarations. Both are non-callable. A GraphFunction is invoked only
+through `run.invoke`, and the selected function must belong to the exact admitted
+GTL program and narrowed catalog view. Raw graph vectors, unpublished helpers,
+and implicit candidate-family choices are not public targets.
 
-`start` also accepts declared session arguments above that grammar: a session
-allowlist narrowing argument (`--allow`) that restricts lawful work for one
-session without changing published program law, and declared transport steering
-arguments that select transport behavior for the session's probabilistic
-workers. Session arguments are declared start ingress. They are not members of
-the `scope + target + until` request grammar.
-
-The currently published target families are:
-
-- `next`
-- `graph_function:<published_handle>`
-- `asset:<published_handle>` when the selected runtime publishes one operator
-  asset registry and ownership surface
-
-`graph_function:<published_handle>` must resolve through a published target
-catalog to one canonical callable-carrier identity. It does not target raw
-graph vectors, unpublished helpers, or implicit candidate-family choice.
-
-`gaps` is a read-only evaluator projection surface. It may expose
-replay-derived open work, typed asset gaps, candidate completion or induction
-recommendations, blocking reasons, the highest-ranked asset, the implicated
-graph function, and ranking reasons from the same evaluator surface used for
-construction action selection. It does not start traversal, mutate runtime
-truth, admit construction intent, dispatch graph work, or own a retry loop.
-Under REQ-R-ABG3-WITNESS-009's operator-command/event grammar it is a pure
-read verb: it projects replay-derived read models and admits no events; event
-admission belongs to the commands that change or attest runtime truth.
-
-Status, result, evidence, replay, and lawful-action operations are also
-replay-derived reads. The lawful-action projection exposes only actions admitted
-at the current frontier. A caller may render or select a published action but
-may not construct private continuation or traversal state.
-
-`resume` continues an existing admitted run or continuation identity. ABG
-checks product and declaration compatibility, resolves the replay frontier, and
-records actor-attributed lifecycle truth. A caller cannot choose a private
-cursor or bypass the ordinary start and continuation law.
-
-Typed F_H operations bind a human selection, approval, rejection, assessment,
-or escalation response to the pending interaction, actor, capability, and run
-identity. Human input does not override deterministic failure and does not emit
-events or decide closure outside ABG admission.
-
-`assess-result` admits externally assessed F_P result truth back into runtime
-truth. It is an admission verb: what becomes truth is governed by admission and
-replay law, not by the assessing agent's prose.
-
-`witness <act>` records an operator-witnessed act as an admitted event. The
-published acts are `reprice`, `attest`, `hygiene-stamp`, `intake`,
-`run-resumed`, and `run-stopped`. Every witnessed act is an admitted event in
-the same append-only stream; witnessing does not mutate projections directly.
-
-`observe report` and `observe drafts` expose replay-derived observer read
-models only. They do not admit intent or mutate runtime truth; as pure read
-verbs under REQ-R-ABG3-WITNESS-009's operator-command/event grammar they
-admit no events.
-
-`tune report|propose|ratify|reject` is the tuning surface. Tuning mutation is
-drafts-only: proposals accumulate as drafts, and F_H ratification (or a
-declared ratification policy) admits the draft as ratified. Per
-REQ-R-ABG3-TUNER-004, ratification does not itself change effective
-configuration: a ratified draft re-enters the system as ordinary admitted work
-through the owning ticket and change class.
-
-`typecheck-gtl-program` is the conformance proof verb over submitted GTL
-programs. It is the operator binding of the programmatic conformance surface
-named in the GTL Contract-Law API Reload Anchor.
-
-The install-time verbs — `context-bootstrap`, `install`, `gen-config`, and
-`release-snapshot` — own workspace context bootstrap, installed substrate
-creation, configuration generation, and release snapshot cuts. They are verbs
-of the same one control plane, not a second toolchain.
-
-`asset:<published_handle>` must resolve through one published operator asset
-registry and ownership surface. That surface must publish the asset handle and
-one governing traversal boundary. In the current ABG cut, the governing
-boundary must resolve to one published graph-function carrier identity.
-Unresolved, unowned, unsupported, or ambiguously owned asset handles fail
+`run.invoke` has `invoke` and `start` variants over one admitted invocation
+relation. `invoke` constrains one exact published GraphFunction. `start` carries
+the traversal request grammar `scope + target + until`. Its current target
+families are `next`, `graph_function:<published_handle>`, and
+`asset:<published_handle>` when the admitted program publishes one operator-
+asset ownership registry. An asset handle resolves to one governing published
+GraphFunction; unresolved, unowned, unsupported, or ambiguous handles fail
 closed.
 
-Their literal delivery spellings are adapter and build bindings, not rival
-product law. Every binding resolves through the installed product manifest and
-the same public operation contracts.
+The admitted GTL program, interpreted by ABG, owns the initial One Surface
+composition through model synthesis, gap evaluation, next-action evaluation,
+intent admission, invocation, evidence admission, and action evaluation. These
+four semantic authorities do not become four public operations. Public ingress
+admits invocation and authority; it does not select or order work.
 
-Lower-level traversal and status hooks may still exist structurally where the
-runtime or install line needs them, but they sit below the public operator
-contract. They must not be taught as co-equal human commands beside the public
-verb families above.
+`run.continue` consumes one replay-derived continuation and current admitted
+intent after typed input or F_H response. When a post-action evaluation selects
+a new action, that action crosses ordinary intent admission before invocation.
+Newer observation or replay truth under the same execution basis reruns the
+program's affected model, gap, and selection functions. A changed authority
+basis requires a separately admitted workspace binding when applicable and an
+exact covering reprice; otherwise continuation refuses as
+`basis_fork_detected`. A caller cannot choose a private cursor, relabel the
+current intent, or construct traversal state.
 
-Orthogonal control modes such as F_H proxying or root supervision are product
-policy around `start`. They are not members of the `scope + target + until`
-request grammar.
+`interaction.respond` binds typed selection, approval, rejection, assessment,
+or escalation response to the pending F_H interaction, actor, capability, and
+run identity. Human input does not override deterministic failure and does not
+emit events or decide closure outside ABG admission. `result.assess` separately
+admits assessed F_P output; prose is never truth by itself.
 
-The current public control-mode families are:
+`witness.admit` records an attributed external act in the append-only event
+stream. `tuning.transition` keeps proposals as drafts; ratification or rejection
+is attributed event truth. Ratification does not mutate effective configuration:
+the draft re-enters as ordinary admitted work through the owning change class.
 
-- `fh_mode`
-- `root_mode`
+`conformance.evaluate(gtl_program)` is the public program-conformance binding.
+ABIogenesis self-conformance uses the same evaluator atom under its own exact
+qualification law and is not another public mode. Tenant-conformance manifest
+publication and release qualification remain distinct publication and
+qualification authorities, not hidden variants.
 
-Their current public values are:
+`product.materialize` owns context bootstrap and configuration generation.
+Product verification, resolution, installation, workspace binding, catalog
+admission, and narrowing remain distinct operations because their identities,
+authority, effects, and failure law differ.
 
-- `fh_mode = direct | human-proxy`
-- `root_mode = direct | supervised`
+`release.snapshot` accepts an exact qualification basis, matching
+qualification-law basis, same-basis green non-bypassed verdict, and requested RC
+or final release identity. The final variant additionally requires the accepted
+RC, its exact installed-RC qualification basis and green non-bypassed verdict,
+and a basis-bound `FinalTapDelta` whose affected gates passed over the
+prospective final bytes. It returns the immutable cut and authoritative snapshot
+manifest; its own output cannot qualify its input.
 
-`fh_mode` defaults to `direct`; `root_mode` defaults to `supervised`. Both are
-public control-mode truth above the adapter.
-Literal bindings such as `--fh-mode` and `--root-mode` are delivery bindings
-for those same mode families, not rival product law. In the current cut, both
-mode families are lawful only when `start` is operating with
-`until = converged`.
+Every multi-variant operation is a closed discriminated request/result/refusal
+relation. One schema family may publish addressable definitions, but a
+permissive optional-field mega-schema is not the product contract. Actor
+attribution, capability definitions, per-basis capability grants, invocation
+policy, catalog view, and transport steering remain separate inputs. Steering
+has provenance and cannot widen authority.
 
-The primary operator surface is the native CLI graph shell over the public SDK.
-Downstream websites, services, agentic coders, and marketplace skills may
-project the same contract, but they remain adapters. The core operator loop is:
+`run.invoke(start)` retains the two current control-mode families outside the
+`scope + target + until` grammar:
 
-1. define or refine the current project assets and constraints
-2. trigger `start`
-3. accept one truthful stop, hold, or gap signal from substrate truth
-4. work interactively with the agent to remove one ambiguity, missing
-   capability, or roadblock
-5. run `gaps`, inspect lawful actions, or submit the typed human response
-6. invoke `resume` or trigger `start` again
+- `fh_mode = direct | human-proxy`, default `direct`
+- `root_mode = direct | supervised`, default `supervised`
 
-That loop is product truth. It must be projection over ABG truth rather than a
-second controller or local runtime replacement in downstream wrappers.
+Both are lawful only when `until = converged`. A session allowlist narrows the
+already admitted catalog; it cannot change published program law. Existing,
+alternate explicit, and caller-created temporary workspaces are applications of
+the same operations, not separate modes.
+
+The native `abg.cli` graph shell and every host projection are adapters over this
+one public relation. Literal command spellings may remain ergonomic, but each
+binds exactly one operation and closed variant and owns no semantic defaults.
+The primary interactive path is:
+
+1. invoke or start an admitted GTL program;
+2. read one truthful result, hold, gap, or lawful frontier projection;
+3. remove one ambiguity or admit one typed human response; and
+4. continue the admitted execution.
+
+The hard break is mandatory: every non-derived legacy operation identity,
+facade, alias, and parallel register is retired. Lower-level runtime hooks may
+remain internal implementation, but they are not public compatibility surfaces
+and cannot be taught or invoked as co-equal operator contracts.
 
 ---
 
@@ -1078,11 +1143,38 @@ identify the same bytes. A rebuilt or source-importing approximation is not
 release evidence for that cut. An odd_glc release, a self-host equivalence
 result, and 5.0.1 dogfood evidence are not 5.0 release dependencies.
 
-ABIogenesis follows `RELEASE_METHOD`: a mutable RC window publishes and
-qualifies at least one immutable versioned RC cut before final tap. The final
-tap assigns the final version and reconciles release-scoped assets. Any product
-behavior, declaration, public-contract, or dependency change after the accepted
-RC reopens that product's RC window; it is not hidden in the final tap.
+ABIogenesis follows `RELEASE_METHOD` through one acyclic exact-candidate
+lifecycle:
+
+1. Product-contract publication creates the exact toolchain manifest and public
+   contract catalog; tenant-conformance publication separately states realized
+   contract and capability support with evidence.
+2. One content-addressed `ExactCandidateQualification<K>` basis binds the exact
+   subject kind, source, artifact, toolchain manifest, installed-product and
+   workspace-binding truth, tenant manifest, frozen gate inventory, and
+   `QualificationLawBasis` containing the exact method, rule catalog, source
+   refs, and content digests.
+3. Each owning gate retains its own execution and semantic authority. One
+   subordinate ordered result vector conserves their same-subject and same-law-
+   basis citations without reinterpreting them. The ordinary conformance
+   evaluator reduces that vector to exactly one typed verdict.
+4. Only a green verdict with an empty bypass set materializes the immutable
+   versioned RC cut and authoritative snapshot. The snapshot is output evidence;
+   it cannot qualify the cut that creates it.
+5. The exact installed RC is qualified under its own content-addressed basis.
+6. A prospective final basis binds the accepted RC, that exact installed-RC
+   basis and green non-bypassed verdict, and a typed `FinalTapDelta` limited to
+   final version assignment and release-scoped asset reconciliation. Every gate
+   affected by that delta reruns against the prospective final bytes before the
+   final cut and snapshot are materialized.
+7. The immutable final cut, exact artifacts, and toolchain manifest publish the
+   tapped Product; a later install remains a distinct product instance.
+
+Any behavior, declaration, public-contract, dependency, or non-release-only
+change after the accepted RC is not representable as `FinalTapDelta` and reopens
+the RC window. Qualification basis, verdict, RC, snapshot, final cut, Product,
+artifact, and install remain distinct identities; no surface may relabel one as
+another or select its own authority.
 
 The purpose of this document in the release process is to define what the
 release is releasing.
