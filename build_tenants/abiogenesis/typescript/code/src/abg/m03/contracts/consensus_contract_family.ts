@@ -24,6 +24,18 @@ export const CONSENSUS_CLASSIFICATION_VALUES = Object.freeze([
   "contract_failure"
 ] as const);
 
+const CONSENSUS_NATIVE_CHECK_FAMILY_REF =
+  "contract-family://abg/consensus@5";
+
+function hasUniqueTextValues(values: string[]): boolean {
+  return new Set(values).size === values.length;
+}
+
+const UNIQUE_TEXT_VALUES_ACTION = Object.freeze(v.check(
+  hasUniqueTextValues,
+  "duplicate values are forbidden"
+));
+
 const nonEmptyTextSchema = v.pipe(
   v.string(),
   v.minLength(1, "expected a non-empty string")
@@ -40,19 +52,13 @@ const positiveIntegerSchema = v.pipe(
 );
 const uniqueTextArraySchema = v.pipe(
   v.array(nonEmptyTextSchema),
-  v.check(
-    (values) => new Set(values).size === values.length,
-    "duplicate values are forbidden"
-  ),
+  UNIQUE_TEXT_VALUES_ACTION,
   v.readonly()
 );
 const nonEmptyUniqueTextArraySchema = v.pipe(
   v.array(nonEmptyTextSchema),
   v.minLength(1, "expected a non-empty array"),
-  v.check(
-    (values) => new Set(values).size === values.length,
-    "duplicate values are forbidden"
-  ),
+  UNIQUE_TEXT_VALUES_ACTION,
   v.readonly()
 );
 const reviewRulingKindSchema = v.picklist(REVIEW_RULING_KIND_VALUES);
@@ -76,22 +82,26 @@ const consensusReviewerProfileSchema = v.pipe(
   v.readonly()
 );
 
+const UNIQUE_PROFILE_IDENTITIES_ACTION = Object.freeze(v.check(
+  (profiles: v.InferOutput<typeof consensusReviewerProfileSchema>[]) =>
+    new Set(profiles.map((profile) => profile.profileRef)).size ===
+    profiles.length,
+  "duplicate profile identity"
+));
+
+const consensusPanelProfilesSchema = v.pipe(
+  v.array(consensusReviewerProfileSchema),
+  v.minLength(1, "expected a non-empty array"),
+  UNIQUE_PROFILE_IDENTITIES_ACTION,
+  v.readonly()
+);
+
 const consensusPanelSchema = v.pipe(
   exactObject({
     kind: v.literal("consensus_panel"),
     panelRef: nonEmptyTextSchema,
     panelDigest: consensusDigestSchema,
-    profiles: v.pipe(
-      v.array(consensusReviewerProfileSchema),
-      v.minLength(1, "expected a non-empty array"),
-      v.check(
-        (profiles) =>
-          new Set(profiles.map((profile) => profile.profileRef)).size ===
-          profiles.length,
-        "duplicate profile identity"
-      ),
-      v.readonly()
-    )
+    profiles: consensusPanelProfilesSchema
   }),
   v.readonly()
 );
@@ -110,23 +120,28 @@ const consensusRoundPolicySchema = v.pipe(
   v.readonly()
 );
 
+const consensusSubjectCarrierSchema = exactObject({
+  kind: v.literal("consensus_subject"),
+  subjectContractRef: nonEmptyTextSchema,
+  subjectRef: nonEmptyTextSchema,
+  subjectDigest: consensusDigestSchema,
+  submittingActorRef: nonEmptyTextSchema,
+  panelRef: nonEmptyTextSchema,
+  roundPolicyRef: nonEmptyTextSchema,
+  workspaceRef: nonEmptyTextSchema,
+  ticketRef: v.nullable(nonEmptyTextSchema),
+  ticketDigest: v.nullable(consensusDigestSchema)
+});
+
+const JOINT_TICKET_IDENTITY_ACTION = Object.freeze(v.check(
+  (subject: v.InferOutput<typeof consensusSubjectCarrierSchema>) =>
+    (subject.ticketRef === null) === (subject.ticketDigest === null),
+  "ticketRef and ticketDigest must be jointly present or absent"
+));
+
 const consensusSubjectSchema = v.pipe(
-  exactObject({
-    kind: v.literal("consensus_subject"),
-    subjectContractRef: nonEmptyTextSchema,
-    subjectRef: nonEmptyTextSchema,
-    subjectDigest: consensusDigestSchema,
-    submittingActorRef: nonEmptyTextSchema,
-    panelRef: nonEmptyTextSchema,
-    roundPolicyRef: nonEmptyTextSchema,
-    workspaceRef: nonEmptyTextSchema,
-    ticketRef: v.nullable(nonEmptyTextSchema),
-    ticketDigest: v.nullable(consensusDigestSchema)
-  }),
-  v.check(
-    (subject) => (subject.ticketRef === null) === (subject.ticketDigest === null),
-    "ticketRef and ticketDigest must be jointly present or absent"
-  ),
+  consensusSubjectCarrierSchema,
+  JOINT_TICKET_IDENTITY_ACTION,
   v.readonly()
 );
 
@@ -158,25 +173,29 @@ const reviewRefusalSchema = v.pipe(
   v.readonly()
 );
 
+const reviewFindingsCarrierSchema = exactObject({
+  kind: v.literal("review_findings"),
+  profileRef: nonEmptyTextSchema,
+  configurationDigest: consensusDigestSchema,
+  invocationRef: nonEmptyTextSchema,
+  outputDigest: consensusDigestSchema,
+  evidenceRefs: uniqueTextArraySchema,
+  findings: v.pipe(v.array(reviewFindingSchema), v.readonly()),
+  residuals: v.pipe(v.array(reviewResidualSchema), v.readonly()),
+  refusal: v.nullable(reviewRefusalSchema)
+});
+
+const REVIEW_CONTENT_REQUIRED_ACTION = Object.freeze(v.check(
+  (findings: v.InferOutput<typeof reviewFindingsCarrierSchema>) =>
+    findings.findings.length > 0 ||
+    findings.residuals.length > 0 ||
+    findings.refusal !== null,
+  "findings, residuals, or refusal is required"
+));
+
 const reviewFindingsSchema = v.pipe(
-  exactObject({
-    kind: v.literal("review_findings"),
-    profileRef: nonEmptyTextSchema,
-    configurationDigest: consensusDigestSchema,
-    invocationRef: nonEmptyTextSchema,
-    outputDigest: consensusDigestSchema,
-    evidenceRefs: uniqueTextArraySchema,
-    findings: v.pipe(v.array(reviewFindingSchema), v.readonly()),
-    residuals: v.pipe(v.array(reviewResidualSchema), v.readonly()),
-    refusal: v.nullable(reviewRefusalSchema)
-  }),
-  v.check(
-    (findings) =>
-      findings.findings.length > 0 ||
-      findings.residuals.length > 0 ||
-      findings.refusal !== null,
-    "findings, residuals, or refusal is required"
-  ),
+  reviewFindingsCarrierSchema,
+  REVIEW_CONTENT_REQUIRED_ACTION,
   v.readonly()
 );
 
@@ -212,51 +231,96 @@ const consensusRoundOutcomeSchema = v.pipe(
   v.readonly()
 );
 
+const consensusResultCarrierSchema = exactObject({
+  kind: v.literal("consensus_result"),
+  subjectRef: nonEmptyTextSchema,
+  subjectDigest: consensusDigestSchema,
+  panelRef: nonEmptyTextSchema,
+  policyRef: nonEmptyTextSchema,
+  roundRefs: nonEmptyUniqueTextArraySchema,
+  findingSetRefs: uniqueTextArraySchema,
+  rulings: reviewRulingsSchema,
+  classification: classificationSchema,
+  dissentProfileRefs: uniqueTextArraySchema,
+  terminalOutcome: consensusRoundOutcomeSchema,
+  evidenceRefs: uniqueTextArraySchema,
+  lineageRefs: nonEmptyUniqueTextArraySchema,
+  resultRef: nonEmptyTextSchema,
+  replayRef: nonEmptyTextSchema,
+  contractFailureRef: v.nullable(nonEmptyTextSchema)
+});
+
+const MATCHING_CONTRACT_FAILURE_ACTION = Object.freeze(v.check(
+  (result: v.InferOutput<typeof consensusResultCarrierSchema>) =>
+    (result.classification === "contract_failure") ===
+    (result.contractFailureRef !== null),
+  "contractFailureRef must match contract_failure classification"
+));
+
 const consensusResultSchema = v.pipe(
-  exactObject({
-    kind: v.literal("consensus_result"),
-    subjectRef: nonEmptyTextSchema,
-    subjectDigest: consensusDigestSchema,
-    panelRef: nonEmptyTextSchema,
-    policyRef: nonEmptyTextSchema,
-    roundRefs: nonEmptyUniqueTextArraySchema,
-    findingSetRefs: uniqueTextArraySchema,
-    rulings: reviewRulingsSchema,
-    classification: classificationSchema,
-    dissentProfileRefs: uniqueTextArraySchema,
-    terminalOutcome: consensusRoundOutcomeSchema,
-    evidenceRefs: uniqueTextArraySchema,
-    lineageRefs: nonEmptyUniqueTextArraySchema,
-    resultRef: nonEmptyTextSchema,
-    replayRef: nonEmptyTextSchema,
-    contractFailureRef: v.nullable(nonEmptyTextSchema)
-  }),
-  v.check(
-    (result) =>
-      (result.classification === "contract_failure") ===
-      (result.contractFailureRef !== null),
-    "contractFailureRef must match contract_failure classification"
-  ),
+  consensusResultCarrierSchema,
+  MATCHING_CONTRACT_FAILURE_ACTION,
   v.readonly()
 );
 
+const ticketConsensusProjectionCarrierSchema = exactObject({
+  kind: v.literal("ticket_consensus_projection"),
+  projectionRef: nonEmptyTextSchema,
+  projectionDigest: consensusDigestSchema,
+  ticketRef: nonEmptyTextSchema,
+  ticketDigest: consensusDigestSchema,
+  result: consensusResultSchema
+});
+
+const MATCHING_TICKET_SUBJECT_ACTION = Object.freeze(v.check(
+  (projection: v.InferOutput<typeof ticketConsensusProjectionCarrierSchema>) =>
+    projection.result.subjectRef === projection.ticketRef &&
+    projection.result.subjectDigest === projection.ticketDigest,
+  "ticket identity does not match Consensus result subject"
+));
+
 const ticketConsensusProjectionSchema = v.pipe(
-  exactObject({
-    kind: v.literal("ticket_consensus_projection"),
-    projectionRef: nonEmptyTextSchema,
-    projectionDigest: consensusDigestSchema,
-    ticketRef: nonEmptyTextSchema,
-    ticketDigest: consensusDigestSchema,
-    result: consensusResultSchema
-  }),
-  v.check(
-    (projection) =>
-      projection.result.subjectRef === projection.ticketRef &&
-      projection.result.subjectDigest === projection.ticketDigest,
-    "ticket identity does not match Consensus result subject"
-  ),
+  ticketConsensusProjectionCarrierSchema,
+  MATCHING_TICKET_SUBJECT_ACTION,
   v.readonly()
 );
+
+/** @internal */
+export const CONSENSUS_NATIVE_CHECK_REGISTRY = Object.freeze({
+  familyRef: CONSENSUS_NATIVE_CHECK_FAMILY_REF,
+  checks: Object.freeze([
+    Object.freeze({
+      checkId: "unique_text_values",
+      action: UNIQUE_TEXT_VALUES_ACTION,
+      relationRef: null
+    }),
+    Object.freeze({
+      checkId: "unique_profile_identities",
+      action: UNIQUE_PROFILE_IDENTITIES_ACTION,
+      relationRef: "REQ-P-CONSENSUS-006"
+    }),
+    Object.freeze({
+      checkId: "joint_ticket_identity",
+      action: JOINT_TICKET_IDENTITY_ACTION,
+      relationRef: "REQ-P-CONSENSUS-005"
+    }),
+    Object.freeze({
+      checkId: "review_content_required",
+      action: REVIEW_CONTENT_REQUIRED_ACTION,
+      relationRef: "REQ-P-CONSENSUS-006"
+    }),
+    Object.freeze({
+      checkId: "matching_contract_failure",
+      action: MATCHING_CONTRACT_FAILURE_ACTION,
+      relationRef: "REQ-P-CONSENSUS-008A"
+    }),
+    Object.freeze({
+      checkId: "matching_ticket_subject",
+      action: MATCHING_TICKET_SUBJECT_ACTION,
+      relationRef: "REQ-P-CONSENSUS-012"
+    })
+  ])
+});
 
 const consensusRoundExecutionSchema = v.pipe(
   exactObject({

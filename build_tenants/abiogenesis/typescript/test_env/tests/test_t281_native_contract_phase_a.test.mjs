@@ -221,7 +221,7 @@ function fixture() {
   };
 }
 
-test("T-281 Phase A maps exactly the seven admitted native actions", () => {
+test("T-281 Phase A preserves the original seven native-action mappings", () => {
   const refProjection = projectNativeJsonSchema(refSchema);
   assert.equal(refProjection["x-abg-native-brand"], "Ref");
   assert.equal(refProjection["x-abg-native-regex-flags"], "u");
@@ -310,6 +310,27 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
   assert.equal(
     definition.nativeSymbol,
     "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
+  );
+  const { witnessDigest, ...witnessBasis } = definition.projectionWitness;
+  assert.equal(
+    witnessDigest,
+    stableSha256Digest(witnessBasis)
+  );
+  assert.equal(
+    definition.projectionWitness.projectionDigest,
+    stableSha256Digest(definition.projectedSchema)
+  );
+  assert.equal(
+    definition.projectedSchema["x-abg-native-projector-basis-digest"],
+    definition.projectionWitness.projectorBasisDigest
+  );
+  assert.deepEqual(
+    definition.projectionWitness.sourceLocator,
+    contractIdentity("request").nativeLocator
+  );
+  assert.equal(
+    Object.isFrozen(definition.projectionWitness.sourceLocator.memberPath),
+    true
   );
   assert.throws(
     () => defineNativeContract({

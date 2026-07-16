@@ -1,11 +1,6 @@
 // Implements the private T-281 Phase A native-contract proof boundary.
 
-import {
-  toJsonSchema,
-  type JsonSchema,
-  type OverrideActionContext,
-  type OverrideSchemaContext
-} from "@valibot/to-json-schema";
+import type { JsonSchema } from "@valibot/to-json-schema";
 import * as v from "valibot";
 
 import {
@@ -16,18 +11,10 @@ import {
   type IJsonValue
 } from "../../../shared/runtime_identity.js";
 import {
-  ABSOLUTE_POSIX_PATH_ACTION,
-  CANONICAL_IJSON_ACTION,
-  MINIMUM_ONE_ACTION,
-  POSITIVE_INTEGER_ACTION,
-  SAFE_INTEGER_ACTION,
-  SEMANTIC_VERSION_ACTION,
-  SEMANTIC_VERSION_PATTERN,
   absolutePosixPathSchema as sharedAbsolutePosixPathSchema,
   canonicalIJsonSchema as sharedCanonicalIJsonSchema,
   capabilityIdSchema as sharedCapabilityIdSchema,
   contractIdSchema as sharedContractIdSchema,
-  hasUniqueNativeIdentity,
   nonEmptyTextSchema as sharedNonEmptyTextSchema,
   refSchema as sharedRefSchema,
   refTextSchema,
@@ -36,6 +23,17 @@ import {
   sha256DigestSchema as sharedSha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
+import {
+  deriveCanonicalNativeSchemaProjection,
+  nativeExportNameSchema,
+  privateNativeSchemaSourceLocatorSchema,
+  projectCanonicalNativeJsonSchema,
+  type NativeSchemaProjectionWitness
+} from "../../../shared/validation/canonical_native_schema_projector.js";
+import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import {
+  type NativeNamedCheckRegistry
+} from "../../../shared/validation/native_named_check_registry.js";
 
 type NativeSchema = v.GenericSchema;
 
@@ -60,10 +58,6 @@ export const absolutePosixPathSchema = sharedAbsolutePosixPathSchema;
 export const safePositiveIntegerSchema = sharedSafePositiveIntegerSchema;
 /** @internal */
 export const canonicalIJsonSchema = sharedCanonicalIJsonSchema;
-
-const NATIVE_SYMBOL_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/u;
-const PRIVATE_MODULE_PATH_PATTERN =
-  /^code\/src\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.js$/u;
 
 /** @internal */
 export const PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES = Object.freeze({
@@ -97,246 +91,14 @@ function compareCodePoints(left: string, right: string): number {
 /** @internal */
 export const uniqueByIdentityArray = uniqueByNativeIdentityArray;
 
-const ALLOWED_SCHEMA_TYPES = new Set([
-  "array",
-  "boolean",
-  "literal",
-  "null",
-  "nullable",
-  "number",
-  "picklist",
-  "strict_object",
-  "string",
-  "tuple",
-  "union",
-  "unknown"
-]);
-
-interface AbgJsonSchema extends JsonSchema {
-  readonly "x-abg-native-brand"?: string;
-  readonly "x-abg-native-regex-flags"?: string;
-  readonly "x-abg-native-check"?: string;
-}
-
-const IJSON_VALUE_DEFINITION: JsonSchema = {
-  anyOf: [
-    { type: "null" },
-    { type: "boolean" },
-    { type: "number" },
-    { type: "string" },
-    { type: "array", items: { $ref: "#/$defs/IJsonValue" } },
-    {
-      type: "object",
-      additionalProperties: { $ref: "#/$defs/IJsonValue" }
-    }
-  ]
-};
-
-function iJsonProjection(): AbgJsonSchema {
-  return {
-    $ref: "#/$defs/IJsonValue",
-    $defs: { IJsonValue: IJSON_VALUE_DEFINITION },
-    "x-abg-native-check": "canonical_ijson"
-  };
-}
-
-function hoistIJsonDefinition(schema: JsonSchema): JsonSchema {
-  const projected = structuredClone(schema);
-  let foundCanonicalIJson = false;
-
-  function visit(input: unknown): void {
-    if (Array.isArray(input)) {
-      for (const value of input) {
-        visit(value);
-      }
-      return;
-    }
-    if (typeof input !== "object" || input === null) {
-      return;
-    }
-    if (Reflect.get(input, "x-abg-native-check") === "canonical_ijson") {
-      const definitions: unknown = Reflect.get(input, "$defs");
-      if (
-        typeof definitions !== "object" ||
-        definitions === null ||
-        !stableJsonEquals(
-          Reflect.get(definitions, "IJsonValue"),
-          IJSON_VALUE_DEFINITION
-        )
-      ) {
-        throw new TypeError(
-          "native contract projector: canonical_ijson definition mismatch"
-        );
-      }
-      Reflect.deleteProperty(input, "$defs");
-      foundCanonicalIJson = true;
-    }
-    for (const value of Object.values(input)) {
-      visit(value);
-    }
-  }
-
-  visit(projected);
-  if (!foundCanonicalIJson) {
-    return projected;
-  }
-  const currentDefinitions: unknown = Reflect.get(projected, "$defs");
-  if (
-    currentDefinitions !== undefined &&
-    (typeof currentDefinitions !== "object" || currentDefinitions === null)
-  ) {
-    throw new TypeError("native contract projector: malformed global definitions");
-  }
-  const existingIJson: unknown =
-    currentDefinitions === undefined
-      ? undefined
-      : Reflect.get(currentDefinitions, "IJsonValue");
-  if (
-    existingIJson !== undefined &&
-    !stableJsonEquals(existingIJson, IJSON_VALUE_DEFINITION)
-  ) {
-    throw new TypeError(
-      "native contract projector: conflicting IJsonValue definition"
-    );
-  }
-  Reflect.set(projected, "$defs", {
-    ...(currentDefinitions ?? {}),
-    IJsonValue: IJSON_VALUE_DEFINITION
-  });
-  return projected;
-}
-
-function projectSchemaOverride(context: OverrideSchemaContext): undefined {
-  if (!ALLOWED_SCHEMA_TYPES.has(context.valibotSchema.type)) {
-    throw new TypeError(
-      `native contract projector: unsupported schema ${context.valibotSchema.type}`
-    );
-  }
-  if (
-    context.valibotSchema.type === "unknown" &&
-    context.valibotSchema !== canonicalIJsonSchema.pipe[0]
-  ) {
-    throw new TypeError(
-      "native contract projector: unknown is reserved for canonical_ijson"
-    );
-  }
-  return undefined;
-}
-
-function withExtension(
-  schema: JsonSchema,
-  extension: Pick<
-    AbgJsonSchema,
-    | "x-abg-native-brand"
-    | "x-abg-native-check"
-    | "x-abg-native-regex-flags"
-  >
-): AbgJsonSchema {
-  return Object.freeze({ ...schema, ...extension });
-}
-
-function projectActionOverride(context: OverrideActionContext): AbgJsonSchema {
-  const action = context.valibotAction;
-  if (action.type === "brand") {
-    const name: unknown = Reflect.get(action, "name");
-    if (typeof name !== "string" || name.length === 0) {
-      throw new TypeError("native contract projector: invalid type_brand");
-    }
-    return withExtension(
-      context.jsonSchema,
-      { "x-abg-native-brand": name }
-    );
-  }
-  if (action.type === "regex") {
-    const requirement: unknown = Reflect.get(action, "requirement");
-    if (!(requirement instanceof RegExp) || requirement.flags !== "u") {
-      throw new TypeError(
-        "native contract projector: unicode_regex requires the sole flag u"
-      );
-    }
-    return withExtension(
-      context.jsonSchema,
-      { "x-abg-native-regex-flags": "u" }
-    );
-  }
-  if (action === ABSOLUTE_POSIX_PATH_ACTION) {
-    return withExtension(
-      context.jsonSchema,
-      { "x-abg-native-check": "absolute_posix_path" }
-    );
-  }
-  if (action === SEMANTIC_VERSION_ACTION) {
-    return {
-      ...context.jsonSchema,
-      pattern: SEMANTIC_VERSION_PATTERN.source,
-      "x-abg-native-check": "semantic_version"
-    };
-  }
-  if (action === CANONICAL_IJSON_ACTION) {
-    return iJsonProjection();
-  }
-  if (
-    action.type === "check" &&
-    Reflect.get(action, "requirement") === hasUniqueNativeIdentity
-  ) {
-    return {
-      ...context.jsonSchema,
-      "x-abg-native-check": "unique_by_identity"
-    };
-  }
-  if (
-    action === POSITIVE_INTEGER_ACTION ||
-    action === SAFE_INTEGER_ACTION
-  ) {
-    return context.jsonSchema;
-  }
-  if (action === MINIMUM_ONE_ACTION) {
-    return withExtension(
-      context.jsonSchema,
-      { "x-abg-native-check": "safe_positive_integer" }
-    );
-  }
-  throw new TypeError(
-    `native contract projector: unsupported action ${action.type}`
-  );
-}
-
-function deepFreeze<T>(input: T, ancestors = new Set<object>()): T {
-  if (typeof input !== "object" || input === null || ancestors.has(input)) {
-    return input;
-  }
-  ancestors.add(input);
-  try {
-    for (const key of Reflect.ownKeys(input)) {
-      const descriptor = Object.getOwnPropertyDescriptor(input, key);
-      if (descriptor !== undefined && "value" in descriptor) {
-        deepFreeze(descriptor.value, ancestors);
-      }
-    }
-    if (!Object.isFrozen(input)) {
-      Object.freeze(input);
-    }
-    return input;
-  } finally {
-    ancestors.delete(input);
-  }
-}
-
 /** @internal */
 export function projectNativeJsonSchema<S extends NativeSchema>(
-  schema: S
+  schema: S,
+  options: {
+    readonly namedCheckRegistry?: NativeNamedCheckRegistry | undefined;
+  } = {}
 ): JsonSchema {
-  return deepFreeze(
-    hoistIJsonDefinition(
-      toJsonSchema(schema, {
-        target: "draft-2020-12",
-        typeMode: "ignore",
-        errorMode: "throw",
-        overrideSchema: projectSchemaOverride,
-        overrideAction: projectActionOverride
-      })
-    )
-  );
+  return projectCanonicalNativeJsonSchema(schema, options);
 }
 
 /** @internal */
@@ -344,21 +106,8 @@ export function admitNative<S extends NativeSchema>(
   schema: S,
   input: unknown
 ): NativeType<S> {
-  return deepFreeze(v.parse(schema, input));
+  return freezeNativeValue(v.parse(schema, input));
 }
-
-const nativeExportNameSchema = v.pipe(
-  v.string(),
-  v.regex(NATIVE_SYMBOL_PATTERN)
-);
-
-const privateSourceModuleLocatorSchema = v.strictObject({
-  kind: v.literal("private_source_module"),
-  sourceRoot: v.literal("semantic_build"),
-  modulePath: v.pipe(v.string(), v.regex(PRIVATE_MODULE_PATH_PATTERN)),
-  exportName: nativeExportNameSchema,
-  memberPath: v.array(nativeExportNameSchema)
-});
 
 const publicPackageExportLocatorSchema = v.strictObject({
   kind: v.literal("public_package_export"),
@@ -369,7 +118,7 @@ const publicPackageExportLocatorSchema = v.strictObject({
 
 /** @internal */
 export const nativeContractLocatorSchema = v.variant("kind", [
-  privateSourceModuleLocatorSchema,
+  privateNativeSchemaSourceLocatorSchema,
   publicPackageExportLocatorSchema
 ]);
 
@@ -513,6 +262,7 @@ export interface NativeContractDefinition<S extends NativeSchema> {
   readonly schemaCoordinate: PublicContractCoordinate;
   readonly schema: S;
   readonly projectedSchema: JsonSchema;
+  readonly projectionWitness: NativeSchemaProjectionWitness;
 }
 
 const nativeContractIdentitySchema = v.strictObject({
@@ -520,36 +270,41 @@ const nativeContractIdentitySchema = v.strictObject({
   contractVersion: semanticVersionSchema,
   schemaId: contractIdSchema,
   schemaVersion: semanticVersionSchema,
-  nativeLocator: nativeContractLocatorSchema
+  nativeLocator: privateNativeSchemaSourceLocatorSchema
 });
 
 /** @internal */
 export function defineNativeContract<S extends NativeSchema>(input: {
   readonly identity: v.InferInput<typeof nativeContractIdentitySchema>;
   readonly schema: S;
+  readonly namedCheckRegistry?: NativeNamedCheckRegistry | undefined;
 }): NativeContractDefinition<S> {
   const identity = admitNative(nativeContractIdentitySchema, input.identity);
-  const projectedSchema = deepFreeze({
-    ...projectNativeJsonSchema(input.schema),
-    $id: identity.schemaId
-  });
+  const { projectedSchema, witness: projectionWitness } =
+    deriveCanonicalNativeSchemaProjection({
+      schema: input.schema,
+      schemaRef: identity.schemaId,
+      schemaVersion: identity.schemaVersion,
+      sourceLocator: identity.nativeLocator,
+      namedCheckRegistry: input.namedCheckRegistry
+    });
   if (
     projectedSchema.$schema !==
     "https://json-schema.org/draft/2020-12/schema"
   ) {
     throw new TypeError("native contract: unsupported JSON Schema dialect");
   }
-  const schemaDigest = stableSha256Digest(projectedSchema);
   const schemaCoordinate = admitPublicContractCoordinate({
     ...identity,
-    contractDigest: schemaDigest,
-    schemaDigest
+    contractDigest: projectionWitness.projectionDigest,
+    schemaDigest: projectionWitness.projectionDigest
   });
-  return deepFreeze({
+  return freezeNativeValue({
     nativeSymbol: identity.nativeLocator.exportName,
     schemaCoordinate,
     schema: input.schema,
-    projectedSchema
+    projectedSchema,
+    projectionWitness
   });
 }
 
@@ -1302,7 +1057,7 @@ export function admitPublicOutcome<
       candidate: input.raw
     });
   }
-  const outcome = deepFreeze(parsed.output);
+  const outcome = freezeNativeValue(parsed.output);
   try {
     admitPublicContractCoordinate(outcome.payloadContract);
   } catch {
@@ -1413,7 +1168,7 @@ export function constructPublicOutcome(input: {
   readonly correlationRef: string;
   readonly provenanceRefs: readonly string[];
 }): Record<string, unknown> {
-  const basis = deepFreeze({
+  const basis = freezeNativeValue({
     kind: "public_outcome" as const,
     outcomeRef: input.outcomeRef,
     invocationRef: input.invocationRef,
@@ -1429,7 +1184,10 @@ export function constructPublicOutcome(input: {
     payloadContract: input.payloadContract,
     value: admitIJsonValue(input.value)
   });
-  return deepFreeze({ ...basis, outcomeDigest: stableSha256Digest(basis) });
+  return freezeNativeValue({
+    ...basis,
+    outcomeDigest: stableSha256Digest(basis)
+  });
 }
 
 /** @internal */
