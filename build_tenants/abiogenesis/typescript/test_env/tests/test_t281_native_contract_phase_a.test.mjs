@@ -22,7 +22,7 @@ import {
   constructPublicInvocation,
   constructPublicOutcome,
   defineNativeContract,
-  nonEmptyTextSchema,
+  PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES,
   projectNativeJsonSchema,
   publicContractCatalogCoordinate,
   refSchema,
@@ -38,51 +38,52 @@ import {
 
 const OPERATION_KEY = "abg.operation.workspace.create(clean)";
 
-const requestSchema = v.strictObject({
-  targetRoot: absolutePosixPathSchema,
-  createPolicy: v.literal("clean")
-});
-const resultSchema = v.strictObject({
-  workspaceRef: refSchema,
-  creationManifestRef: refSchema,
-  provenanceRefs: uniqueByIdentityArray(refSchema)
-});
-const refusalSchema = v.strictObject({
-  code: v.picklist([
-    "invalid_target",
-    "workspace_exists",
-    "workspace_identity_conflict",
-    "filesystem_failure"
-  ]),
-  message: nonEmptyTextSchema,
-  residualRefs: uniqueByIdentityArray(refSchema)
-});
+const {
+  request: requestSchema,
+  result: resultSchema,
+  refusal: refusalSchema
+} = PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean;
 
-function contractIdentity(kind, symbol) {
+function contractIdentity(kind) {
   return {
     contractId: `abg.contract.phase-a.workspace-create-clean.${kind}`,
     contractVersion: "5.0.0",
     schemaId: `abg.schema.phase-a.workspace-create-clean.${kind}`,
     schemaVersion: "5.0.0",
     nativeLocator: {
-      packageName: "@abiogenesis/typescript-tenant",
-      packageExport: "@abiogenesis/typescript-tenant/private/t281-phase-a",
-      symbol
+      kind: "private_source_module",
+      moduleSpecifier: "./native_contract_phase_a.js",
+      exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
+      memberPath: ["workspace_create_clean", kind]
     }
   };
 }
 
+function resolveFixtureLocator(definition) {
+  const locator = definition.schemaCoordinate.nativeLocator;
+  assert.equal(locator.kind, "private_source_module");
+  assert.equal(locator.moduleSpecifier, "./native_contract_phase_a.js");
+  assert.equal(
+    locator.exportName,
+    "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
+  );
+  return locator.memberPath.reduce(
+    (value, member) => Reflect.get(value, member),
+    PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES
+  );
+}
+
 function fixture() {
   const requestDefinition = defineNativeContract({
-    identity: contractIdentity("request", "WorkspaceCreateCleanRequest"),
+    identity: contractIdentity("request"),
     schema: requestSchema
   });
   const resultDefinition = defineNativeContract({
-    identity: contractIdentity("result", "WorkspaceCreateCleanResult"),
+    identity: contractIdentity("result"),
     schema: resultSchema
   });
   const refusalDefinition = defineNativeContract({
-    identity: contractIdentity("refusal", "WorkspaceCreateCleanRefusal"),
+    identity: contractIdentity("refusal"),
     schema: refusalSchema
   });
   const rows = [
@@ -294,9 +295,27 @@ test("T-281 Phase A maps exactly the seven admitted native actions", () => {
 
 test("T-281 Phase A derives admission, canonical schema bytes, and digest from one schema", () => {
   const definition = defineNativeContract({
-    identity: contractIdentity("request", "WorkspaceCreateCleanRequest"),
+    identity: contractIdentity("request"),
     schema: requestSchema
   });
+  assert.equal(resolveFixtureLocator(definition), definition.schema);
+  assert.equal(
+    definition.nativeSymbol,
+    "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
+  );
+  assert.throws(
+    () => defineNativeContract({
+      identity: {
+        ...contractIdentity("request"),
+        nativeLocator: {
+          ...contractIdentity("request").nativeLocator,
+          packageName: "@abiogenesis/typescript-tenant"
+        }
+      },
+      schema: requestSchema
+    }),
+    /Invalid key/u
+  );
   const admitted = admitNative(requestSchema, {
     targetRoot: "/tmp/abg-native",
     createPolicy: "clean"
@@ -459,8 +478,11 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
         rows: current.contractCatalogPacket.rows.map((row, index) =>
           index === 0
             ? {
-                ...row,
-                nativeLocator: { ...row.nativeLocator, symbol: "ForgedContract" }
+              ...row,
+                nativeLocator: {
+                  ...row.nativeLocator,
+                  memberPath: [...row.nativeLocator.memberPath, "forged"]
+                }
               }
             : row
         )
@@ -508,7 +530,7 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
         ...current.requestDefinition.schemaCoordinate,
         nativeLocator: {
           ...current.requestDefinition.schemaCoordinate.nativeLocator,
-          symbol: "DivergentContract"
+          memberPath: ["workspace_create_clean", "result"]
         }
       }
     }),

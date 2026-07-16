@@ -676,6 +676,35 @@ owners. Its output is either one admitted private 19-operation family with
 derived private projections, or one typed non-empty gap set. It has no public
 or runtime output.
 
+Pre-P1 owner sources do not claim a package export that does not yet exist.
+They identify one actual source module export and an exact member path:
+
+```text
+NeutralOwnerContractSource<S> = {
+  authority: { owner, subject, carrierRevision, lawBasis }
+  identity: { contractId, contractVersion, schemaId, schemaVersion }
+  sourceLocator: {
+    kind: "private_source_module"
+    moduleSpecifier: "./one_surface_operation_contracts.js"
+    exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES"
+    memberPath
+  }
+  schema: S
+}
+```
+
+P1 directly imports that source module, proves that `memberPath` resolves to
+the same frozen source, and only then constructs a private
+`NativeContractDefinition<S>`. The Phase A locator vocabulary distinguishes
+`private_source_module { kind, moduleSpecifier, exportName, memberPath[] }`
+from
+`public_package_export { kind, packageName, packageExport, exportName }`. A
+`packageExport` is lawful only after that exact package export and exported
+name exist; P2 alone may derive the public locator during its atomic
+publication switch. A neutral owner source, a proposed future export, or a
+source file merely included in a package cannot claim public native
+addressability.
+
 The build-only resolution is a closed sum:
 
 ```text
@@ -908,6 +937,18 @@ classDiagram
     +ownerAuthorityDigest
     +nativeContract
   }
+  class PrivateSourceModuleLocator {
+    <<truthful pre-P1 source coordinate>>
+    +moduleSpecifier
+    +exportName
+    +memberPath
+  }
+  class PublicPackageExportLocator {
+    <<P2 publication coordinate only>>
+    +packageName
+    +packageExport
+    +exportName
+  }
   class ContractSlotResolution {
     <<per slot closed sum>>
     +slotCoordinate
@@ -962,6 +1003,7 @@ classDiagram
   }
 
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
+  OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
   PhaseANativeContractMechanism --> OwnerContractResolutionK : admits and projects
   OwnerSchemaInput --> OwnerContractResolutionK : resolves exact slots
   OwnerContractResolutionK "1" *-- "3..4" ContractSlotResolution : preserves per slot owner
@@ -970,6 +1012,7 @@ classDiagram
   ResolvedOwnerContract "1..*" --> "1" ExactOwnerContractSet : closes exact census
   ExactOwnerContractSet --> PrivateDefinitionFamily : admits all or nothing
   PrivateDefinitionFamily --> PrivateProjectionSet : derives only
+  PrivateProjectionSet ..> PublicPackageExportLocator : P2 may derive after publication
   P1DefinitionGap ..> PrivateDefinitionFamily : prohibits admission
 ```
 
@@ -995,6 +1038,8 @@ sequenceDiagram
     alt slot absent ambiguous prose-only or legacy-only
       Resolver->>Resolver: append typed semantic_not_realized gap
     else owner supplies exact native schema candidate
+      Resolver->>Owners: resolve private_source_module exportName and memberPath
+      Owners-->>Resolver: exact same frozen source object or locator mismatch
       Resolver->>PhaseA: admit schema coordinates and project canonical digest
       alt unsupported action or digest-divergent projection
         PhaseA-->>Resolver: projector refusal
@@ -1032,6 +1077,9 @@ private definition construction.
 stateDiagram-v2
   [*] --> PhaseAReady
   PhaseAReady --> OwnerResolutionPending: begin 19 identity 62 key and per-slot census
+  OwnerResolutionPending --> PrivateSourceLocated: private export and member path resolve to same source
+  PrivateSourceLocated --> OwnerResolutionPending: continue exact census
+  OwnerResolutionPending --> DefinitionRefused: private source locator is missing or divergent
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
   OwnerResolutionPending --> ExactOwnerSetResolved: all keys variants and slots exact
   ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family
