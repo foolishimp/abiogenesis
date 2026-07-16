@@ -31,7 +31,7 @@ import {
 } from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
 const CONTRACT_SHAPE_DIGEST =
-  "sha256:fe46f330313f26a87ff0dc2c487bcba21276a39d8a2d46652cae94609ca154e7";
+  "sha256:f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b";
 const ONTOLOGY_DIGEST =
   "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1";
 const OPAQUE_RESOLVER_INTEGRATION = Object.freeze({
@@ -144,7 +144,7 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
     );
     assert.equal(
       source.authority.contractShapeBasis.status,
-      "candidate_integration_pin_pending_final_rebind"
+      "accepted_design_pin"
     );
     assert.notEqual(
       source.authority.semanticOwnerBasis.ref,
@@ -603,7 +603,7 @@ test("T-281 Slice 1 materialization preserves exact unresolved slots", () => {
   }));
 });
 
-test("T-281 Slice 1 preserves Ontology and flags candidate-shape rebind", async () => {
+test("T-281 Slice 1 preserves Ontology and binds the accepted contract shape", async () => {
   const design = await readFile(
     new URL("../../design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md", import.meta.url)
   );

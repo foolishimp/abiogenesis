@@ -18,14 +18,14 @@ export interface OwnerNativeAuthorityBasis {
 
 export interface OwnerNativeContractShapeBasis
   extends OwnerNativeAuthorityBasis {
-  readonly status: "candidate_integration_pin_pending_final_rebind";
+  readonly status: "accepted_design_pin";
 }
 
 export const OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS = freezeNativeValue({
   ref: "design://abg/m04/public-operation-definition-family",
   digest:
-    "sha256:fe46f330313f26a87ff0dc2c487bcba21276a39d8a2d46652cae94609ca154e7",
-  status: "candidate_integration_pin_pending_final_rebind"
+    "sha256:f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b",
+  status: "accepted_design_pin"
 } as const satisfies OwnerNativeContractShapeBasis);
 
 export interface OwnerNativeSemanticOwner {
