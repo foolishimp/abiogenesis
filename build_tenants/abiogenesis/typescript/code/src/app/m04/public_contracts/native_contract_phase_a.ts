@@ -45,10 +45,91 @@ function isCanonicalSemanticVersion(input: string): boolean {
   return validSemVer(input) === input;
 }
 
-function isCanonicalIJson(input: unknown): boolean {
+function hasCanonicalIJsonHostShape(
+  input: unknown,
+  ancestors: Set<object>
+): boolean {
+  if (
+    input === null ||
+    typeof input === "boolean" ||
+    typeof input === "string"
+  ) {
+    return true;
+  }
+  if (typeof input === "number") {
+    return Number.isFinite(input) && !Object.is(input, -0);
+  }
+  if (typeof input !== "object") {
+    return false;
+  }
+  if (ancestors.has(input)) {
+    return false;
+  }
+  ancestors.add(input);
   try {
-    const admitted = admitIJsonValue(input);
-    return stableJsonEquals(input, admitted);
+    if (Array.isArray(input)) {
+      const lengthDescriptor = Object.getOwnPropertyDescriptor(input, "length");
+      if (
+        lengthDescriptor === undefined ||
+        !("value" in lengthDescriptor) ||
+        typeof lengthDescriptor.value !== "number"
+      ) {
+        return false;
+      }
+      const keys = Reflect.ownKeys(input);
+      if (keys.length !== lengthDescriptor.value + 1) {
+        return false;
+      }
+      for (let index = 0; index < lengthDescriptor.value; index += 1) {
+        const descriptor = Object.getOwnPropertyDescriptor(input, String(index));
+        if (
+          descriptor === undefined ||
+          !("value" in descriptor) ||
+          descriptor.enumerable !== true ||
+          !hasCanonicalIJsonHostShape(descriptor.value, ancestors)
+        ) {
+          return false;
+        }
+      }
+      return keys.every(
+        (key) =>
+          typeof key === "string" &&
+          (key === "length" ||
+            (/^(?:0|[1-9][0-9]*)$/u.test(key) &&
+              Number(key) < lengthDescriptor.value))
+      );
+    }
+    const prototype: unknown = Object.getPrototypeOf(input);
+    if (prototype !== Object.prototype && prototype !== null) {
+      return false;
+    }
+    for (const key of Reflect.ownKeys(input)) {
+      if (typeof key !== "string") {
+        return false;
+      }
+      const descriptor = Object.getOwnPropertyDescriptor(input, key);
+      if (
+        descriptor === undefined ||
+        !("value" in descriptor) ||
+        descriptor.enumerable !== true ||
+        !hasCanonicalIJsonHostShape(descriptor.value, ancestors)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  } finally {
+    ancestors.delete(input);
+  }
+}
+
+function isCanonicalIJson(input: unknown): boolean {
+  if (!hasCanonicalIJsonHostShape(input, new Set<object>())) {
+    return false;
+  }
+  try {
+    admitIJsonValue(input);
+    return true;
   } catch {
     return false;
   }
@@ -1347,7 +1428,17 @@ export function admitPublicOutcome<
     });
   }
   const outcome = deepFreeze(parsed.output);
-  admitPublicContractCoordinate(outcome.payloadContract);
+  try {
+    admitPublicContractCoordinate(outcome.payloadContract);
+  } catch {
+    return outcomeFailure({
+      failureClass: "digest_mismatch",
+      issuePaths: ["payloadContract.contractDigest", "payloadContract.schemaDigest"],
+      invocationRef: input.invocation.invocationRef,
+      definitionKey: input.operationKey,
+      candidate: input.raw
+    });
+  }
   if (outcome.definitionKey !== input.operationKey) {
     return outcomeFailure({
       failureClass: "cross_operation",

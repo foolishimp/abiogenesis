@@ -343,6 +343,44 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
   );
 });
 
+test("T-281 Phase A rejects host state that canonical I-JSON would normalize or strip", () => {
+  const hidden = { visible: true };
+  Object.defineProperty(hidden, "secret", {
+    configurable: true,
+    enumerable: false,
+    value: "not-digested"
+  });
+  const symbolBearing = { visible: true };
+  symbolBearing[Symbol("secret")] = "not-digested";
+  const arrayWithProperty = ["visible"];
+  arrayWithProperty.extra = "not-digested";
+  let getterCalls = 0;
+  const accessorBearing = { visible: true };
+  Object.defineProperty(accessorBearing, "secret", {
+    configurable: true,
+    enumerable: false,
+    get() {
+      getterCalls += 1;
+      return "not-digested";
+    }
+  });
+
+  for (const candidate of [
+    -0,
+    { value: -0 },
+    hidden,
+    symbolBearing,
+    arrayWithProperty,
+    accessorBearing
+  ]) {
+    assert.throws(
+      () => admitNative(canonicalIJsonSchema, candidate),
+      /canonical I-JSON/u
+    );
+  }
+  assert.equal(getterCalls, 0);
+});
+
 test("T-281 Phase A defaults are only none or literal and preserve omission", () => {
   const defaultedSchema = v.strictObject({
     targetRoot: absolutePosixPathSchema,
@@ -662,6 +700,32 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
     admit({ ...validCandidate, payloadContract: current.refusalDefinition.schemaCoordinate })
       .failureClass,
     "wrong_contract"
+  );
+  assert.deepEqual(
+    admit({
+      ...validCandidate,
+      payloadContract: {
+        ...current.resultDefinition.schemaCoordinate,
+        contractDigest: stableSha256Digest({ forged: true })
+      }
+    }),
+    {
+      kind: "outcome_admission_failure",
+      failureClass: "digest_mismatch",
+      issuePaths: [
+        "payloadContract.contractDigest",
+        "payloadContract.schemaDigest"
+      ],
+      invocationRef: current.invocation.invocationRef,
+      definitionKey: OPERATION_KEY,
+      candidateDigest: stableSha256Digest({
+        ...validCandidate,
+        payloadContract: {
+          ...current.resultDefinition.schemaCoordinate,
+          contractDigest: stableSha256Digest({ forged: true })
+        }
+      })
+    }
   );
   assert.equal(
     admit({ ...validCandidate, payloadDigest: stableSha256Digest({ forged: true }) })
