@@ -30,7 +30,7 @@
 - dependencies:
   - completed T-252 canonical Consensus Module
   - ratified T-278 Ontology `run.invoke` and `project.read` definitions
-  - accepted T-281 Phase A native-schema mechanism for T-274A implementation
+  - repaired T-281 Phase A native-schema source/witness mechanism; independent re-review gates T-274A closure
 - downstream_dependencies:
   - T-281 P1 and T-270 gate T-274B installed publication, not T-274A schema projection
   - T-275 consumes the verified T-274B public schema identities
@@ -87,6 +87,13 @@ under T-281 Phase A. It proves native/schema parity, distinct public identity,
 closed substitution, and deterministic bytes. It exports no operation, Module,
 callable, catalog row, committed product asset, install claim, or runtime
 authority; Phase A proof output is temp-only.
+
+For T-281 P1, T-274A contributes only the exact `ConsensusResult` source and
+`TicketConsensusProjection` result schema coordinates already present in its
+nine-schema family. T-281 owns the generic `project.read` request/refusal
+wrapper and explicitly absent non-terminal slot. T-274A does not author that
+wrapper, change its nine-schema exit, move T-275 handler/projection semantics,
+or close the full `ticket_consensus` definition by itself.
 
 T-274B follows the accepted public-operation P1 and T-270 boundaries. AF-24
 publishes the verified schema/vocabulary rows and one SYSTEM-owned

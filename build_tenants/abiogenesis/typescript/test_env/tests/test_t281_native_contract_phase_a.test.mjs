@@ -24,6 +24,7 @@ import {
   defineNativeContract,
   PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES,
   projectNativeJsonSchema,
+  publicContractCoordinateSchema,
   publicContractCatalogCoordinate,
   refSchema,
   resolvePublicContractCoordinate,
@@ -35,64 +36,75 @@ import {
   stableJson,
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
+import {
+  resolveSemanticBuildNativeSchemaSource
+} from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const OPERATION_KEY = "abg.operation.workspace.create(clean)";
 
 const {
-  request: requestSchema,
-  result: resultSchema,
-  refusal: refusalSchema
+  request: requestSourceRow,
+  result: resultSourceRow,
+  refusal: refusalSourceRow
 } = PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean;
+const requestSchema = requestSourceRow.schema;
+const resultSchema = resultSourceRow.schema;
+const refusalSchema = refusalSourceRow.schema;
 
 function contractIdentity(kind) {
   return {
     contractId: `abg.contract.phase-a.workspace-create-clean.${kind}`,
     contractVersion: "5.0.0",
     schemaId: `abg.schema.phase-a.workspace-create-clean.${kind}`,
-    schemaVersion: "5.0.0",
-    nativeLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath:
-        "code/src/app/m04/public_contracts/native_contract_phase_a.js",
-      exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
-      memberPath: ["workspace_create_clean", kind]
-    }
+    schemaVersion: "5.0.0"
   };
 }
 
-async function resolveFixtureLocator(definition) {
-  const locator = definition.schemaCoordinate.nativeLocator;
-  assert.equal(locator.kind, "private_source_module");
-  assert.equal(locator.sourceRoot, "semantic_build");
-  assert.equal(
-    locator.modulePath,
-    "code/src/app/m04/public_contracts/native_contract_phase_a.js"
-  );
-  assert.equal(
-    locator.exportName,
-    "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
-  );
-  const sourceRoot = new URL("../../build/semantic/", import.meta.url);
-  const sourceModule = await import(new URL(locator.modulePath, sourceRoot).href);
-  return locator.memberPath.reduce(
-    (value, member) => Reflect.get(value, member),
-    Reflect.get(sourceModule, locator.exportName)
-  );
+function fixtureSourceLocator(kind) {
+  return {
+    kind: "private_source_module",
+    sourceRoot: "semantic_build",
+    modulePath:
+      "code/src/app/m04/public_contracts/native_contract_phase_a.js",
+    exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
+    memberPath: ["workspace_create_clean", kind, "schema"]
+  };
+}
+
+const RESOLVED_FIXTURE_SOURCES = Object.freeze({
+  request: await resolveSemanticBuildNativeSchemaSource(
+    requestSourceRow
+  ),
+  result: await resolveSemanticBuildNativeSchemaSource(
+    resultSourceRow
+  ),
+  refusal: await resolveSemanticBuildNativeSchemaSource(
+    refusalSourceRow
+  )
+});
+
+function frozenSourceRow(sourceLocator, schema) {
+  return Object.freeze({
+    sourceLocator: Object.freeze({
+      ...sourceLocator,
+      memberPath: Object.freeze([...sourceLocator.memberPath])
+    }),
+    schema
+  });
 }
 
 function fixture() {
   const requestDefinition = defineNativeContract({
     identity: contractIdentity("request"),
-    schema: requestSchema
+    source: RESOLVED_FIXTURE_SOURCES.request
   });
   const resultDefinition = defineNativeContract({
     identity: contractIdentity("result"),
-    schema: resultSchema
+    source: RESOLVED_FIXTURE_SOURCES.result
   });
   const refusalDefinition = defineNativeContract({
     identity: contractIdentity("refusal"),
-    schema: refusalSchema
+    source: RESOLVED_FIXTURE_SOURCES.refusal
   });
   const rows = [
     requestDefinition.schemaCoordinate,
@@ -304,9 +316,9 @@ test("T-281 Phase A preserves the original seven native-action mappings", () => 
 test("T-281 Phase A derives admission, canonical schema bytes, and digest from one schema", async () => {
   const definition = defineNativeContract({
     identity: contractIdentity("request"),
-    schema: requestSchema
+    source: RESOLVED_FIXTURE_SOURCES.request
   });
-  assert.equal(await resolveFixtureLocator(definition), definition.schema);
+  assert.equal(definition.schema, requestSchema);
   assert.equal(
     definition.nativeSymbol,
     "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
@@ -326,43 +338,108 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
   );
   assert.deepEqual(
     definition.projectionWitness.sourceLocator,
-    contractIdentity("request").nativeLocator
+    fixtureSourceLocator("request")
   );
+  assert.match(definition.projectionWitness.sourceModuleDigest, /^sha256:/u);
+  assert.match(definition.projectionWitness.sourceBasisDigest, /^sha256:/u);
   assert.equal(
     Object.isFrozen(definition.projectionWitness.sourceLocator.memberPath),
     true
   );
   assert.throws(
     () => defineNativeContract({
+      identity: contractIdentity("request"),
+      source: RESOLVED_FIXTURE_SOURCES.request,
+      schema: resultSchema
+    }),
+    /unexpected input schema/u
+  );
+  assert.throws(
+    () => defineNativeContract({
       identity: {
         ...contractIdentity("request"),
-        nativeLocator: {
-          ...contractIdentity("request").nativeLocator,
-          packageName: "@abiogenesis/typescript-tenant"
-        }
+        nativeLocator: fixtureSourceLocator("result")
       },
-      schema: requestSchema
+      source: RESOLVED_FIXTURE_SOURCES.request
     }),
     /Invalid key/u
+  );
+  assert.throws(
+    () => defineNativeContract({
+      identity: contractIdentity("request"),
+      source: Object.freeze({ kind: "resolved_native_schema_source" })
+    }),
+    /unresolved or forged source carrier/u
   );
   for (const modulePath of [
     "../native_contract_phase_a.js",
     "/tmp/native_contract_phase_a.js"
   ]) {
-    assert.throws(
-      () => defineNativeContract({
-        identity: {
-          ...contractIdentity("request"),
-          nativeLocator: {
-            ...contractIdentity("request").nativeLocator,
-            modulePath
-          }
-        },
-        schema: requestSchema
-      }),
+    await assert.rejects(
+      resolveSemanticBuildNativeSchemaSource(
+        frozenSourceRow(
+          { ...fixtureSourceLocator("request"), modulePath },
+          requestSchema
+        )
+      ),
       /format/u
     );
   }
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(
+      frozenSourceRow(
+        {
+          ...fixtureSourceLocator("request"),
+          exportName: "MISSING_NATIVE_SCHEMA_EXPORT"
+        },
+        requestSchema
+      )
+    ),
+    /own data member not found/u
+  );
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(
+      frozenSourceRow(
+        {
+          ...fixtureSourceLocator("request"),
+          memberPath: ["workspace_create_clean", "toString"]
+        },
+        requestSchema
+      )
+    ),
+    /own data member not found/u
+  );
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(
+      frozenSourceRow(
+        {
+          ...fixtureSourceLocator("request"),
+          memberPath: ["workspace_create_clean"]
+        },
+        requestSchema
+      )
+    ),
+    /does not resolve to a native schema/u
+  );
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(
+      frozenSourceRow(
+        {
+          ...fixtureSourceLocator("request"),
+          exportName: "publicContractCoordinateSchema",
+          memberPath: []
+        },
+        publicContractCoordinateSchema
+      )
+    ),
+    /not recursively frozen/u
+  );
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(
+      frozenSourceRow(fixtureSourceLocator("request"), resultSchema)
+    ),
+    /resolved schema identity differs/u
+  );
   const admitted = admitNative(requestSchema, {
     targetRoot: "/tmp/abg-native",
     createPolicy: "clean"

@@ -58,7 +58,7 @@ are complete. Bounded realization now proceeds through the accepted owners.
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
 | Derived register | T-244 is regenerated and reclosed as the sole current 17-feature closure projection |
 | Runtime work | The dirty T-270/T-272 integration remains provisional and frozen. Their neutral owner-native contract milestones may proceed before T-281 P1; public runtime integration follows P1 and consumes neutral admitted projections without an M03 dependency on M04. |
-| Next executable owner | Close T-280's atomic proof; realize the T-270/T-272 neutral owner-native contracts and the T-274A Consensus contract coordinate; then construct T-281 P1 and reconcile public runtime. |
+| Next executable owner | Close T-280's atomic proof; realize the T-270/T-272 neutral owner-native contracts, T-281's generic `project.read` request/refusal/absent-nonterminal wrapper, and T-274A's exact `ConsensusResult`/`TicketConsensusProjection` coordinates; then construct the complete T-281 P1 family and reconcile public runtime. |
 | Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
 | Detailed current read model | This file and the active owner tickets; commentary remains non-authoritative review evidence. |
 
@@ -148,10 +148,12 @@ flowchart TD
   E --> O[Realize the four One Surface authorities]
   E --> N270[T-270 neutral run.invoke contracts]
   E --> N272[T-272 neutral continuation and response contracts]
-  E --> H0[T-274A neutral ticket-consensus contract coordinate]
+  E --> H0A[T-281 generic project.read request refusal and absent nonterminal]
+  E --> H0B[T-274A ConsensusResult source and TicketConsensusProjection result coordinates]
   N270 --> P1[Define all 19 operations, requests, results, schemas, and CLI coordinates]
   N272 --> P1
-  H0 --> P1
+  H0A --> P1
+  H0B --> P1
   O --> F[T-270 public catalog-to-execution router]
   P1 --> F
   P1 --> Q[Reconcile or realize the remaining operation handlers]
@@ -181,7 +183,9 @@ flowchart TD
 The four One Surface authorities receive explicit realization owners after
 their accepted designs; T-270 consumes them and cannot manufacture them inside
 the router. T-270 and T-272 first publish neutral owner-native payload
-contracts, and T-274A supplies the neutral Consensus read coordinate. These
+contracts. T-281 owns the neutral generic `project.read` wrapper, while T-274A
+supplies only the exact `ConsensusResult` source and
+`TicketConsensusProjection` result coordinates for that case. These
 milestones perform no public routing or runtime effect. The full 19-operation
 public surface then has two milestones. Its authoritative
 operation/request/result/schema/CLI-coordinate definition family precedes the

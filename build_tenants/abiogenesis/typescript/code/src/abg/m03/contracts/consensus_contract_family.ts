@@ -3,6 +3,8 @@
 
 import * as v from "valibot";
 
+import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+
 export const REVIEW_RULING_KIND_VALUES = Object.freeze([
   "decision_row",
   "draft_ticket",
@@ -452,7 +454,7 @@ const fhPendingInteractionSchema = v.pipe(
   v.readonly()
 );
 
-export const CONSENSUS_PUBLIC_CONTRACT_FAMILY = Object.freeze({
+export const CONSENSUS_PUBLIC_CONTRACT_FAMILY = freezeNativeValue({
   consensus_subject: Object.freeze({
     contractId: "abg.schema.consensus-subject",
     nativeType: "ConsensusSubject",
@@ -577,16 +579,6 @@ export type ConsensusDomainValueByKind = {
 export type ConsensusDomainValue =
   ConsensusDomainValueByKind[ConsensusDomainKind];
 
-function freezeRecursively(value: unknown): void {
-  if (typeof value !== "object" || value === null || Object.isFrozen(value)) {
-    return;
-  }
-  for (const child of Object.values(value)) {
-    freezeRecursively(child);
-  }
-  Object.freeze(value);
-}
-
 function describeValidationError(error: unknown): string {
   return error instanceof Error ? error.message : "validation failed";
 }
@@ -600,8 +592,7 @@ function parseConsensusSchema<
 ): v.InferOutput<Schema> {
   try {
     const admitted = v.parse(schema, value);
-    freezeRecursively(admitted);
-    return admitted;
+    return freezeNativeValue(admitted);
   } catch (error: unknown) {
     throw new TypeError(`${label}: ${describeValidationError(error)}`, {
       cause: error

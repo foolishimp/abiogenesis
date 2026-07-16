@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Accepted - Phase A and P1 design; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Accepted target; Phase A source/witness repair pending independent re-review; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
@@ -222,6 +222,14 @@ carrier above. `ProjectReadRefusal<C>` is the closed union of
 `not_ready`, plus binding refusal derived from the case and
 `cursor_invalid | range_invalid` only for replay cases. Defaults are empty.
 
+T-281 owns this generic request/refusal wrapper and declares the non-terminal
+slot absent for every read case. Each domain owner supplies the exact case
+source and result coordinates. For `ticket_consensus`, T-274A supplies exactly
+the `ConsensusResult` source coordinate and `TicketConsensusProjection` result
+coordinate from its existing nine-schema family. Those two inputs compose the
+T-281 wrapper; they do not transfer wrapper ownership to T-274A and do not pull
+T-275's later handler/projection semantics into P1.
+
 ## Accepted Operation Contract Target Packet
 
 The following packet states the accepted target semantics used for
@@ -256,7 +264,7 @@ to make a refusal possible.
 | `run.invoke(invoke)` | program ref/digest, GraphFunction ref/digest, declared input-contract ref/digest, admitted input, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>` | run ref, GraphCall ref, completed result or typed stop, evidence refs, replay ref | `program_invalid`, `function_nonmember`, `outside_view`, `noncallable`, `next_action_mismatch`, `intent_missing`, `input_invalid`, `capability_missing`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `run.invoke(start)` | program ref/digest, `scope`, closed target, `until`, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>`, `fh_mode`, `root_mode` | run ref, present nullable GraphCall ref, completed result or typed stop, evidence refs, replay ref | invoke refusals plus `target_invalid`, `mode_invalid`, `until_invalid` | `held`, `gap_stop`; defaults `fh_mode=direct`, `root_mode=supervised` |
 | `run.continue(current_intent)` | run ref, continuation ref/digest, current-intent ref/digest, admitted response-or-input ref/digest, expected execution-basis ref/digest | continued run state, successor receipt, evidence refs, replay ref | `continuation_missing`, `continuation_resolved`, `intent_mismatch`, `response_missing`, `stale_replay`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
-| `run.continue(selected_action)` | run ref, continuation ref/digest, next-action projection ref/digest, closed `basis_relation` defined below; selected action remains projection-owned and is never caller-authored | new construction-intent ref then run/GraphCall state, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
+| `run.continue(selected_action)` | `runRef`, `continuationRef`, `continuationDigest`, `nextActionProjectionRef`, `nextActionProjectionDigest`, closed `basisRelation`; selected action remains projection-owned and is never caller-authored | `runRef`, `constructionIntentRef`, `graphCallRef`, stop/failure refs by disposition, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` or typed `value` as required by K, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
 | `result.assess(assess)` | runtime-result ref/digest, assessment-contract ref/digest, typed assessment, evidence refs | assessment ref, admitted disposition, residuals, evidence refs | `result_missing`, `assessment_contract_mismatch`, `assessment_invalid`, `basis_mismatch` | `retry`, `blocked` when declared; no defaults |
 | `witness.admit(K)` for six witnessed acts | subject ref/digest, act kind K, evidence refs, provenance refs | witnessed-act event ref and admitted evidence ref | `subject_missing`, `act_forbidden`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
@@ -331,7 +339,7 @@ coordinate laws below.
 | `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | declaration-application admission | `applied` | none | `terminal_only` |
 | `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | runtime execution events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
 | `run.continue` | `abg.capability.runtime.replay-continuation@5` | continuation/runtime events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
-| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | none | `responded`, `held` | `runtime_nonterminal` |
+| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | none | `responded` | `runtime_nonterminal` |
 | `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `assessed` | `retry`, `blocked` | `runtime_nonterminal` |
 | `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | `admitted` | none | `terminal_only` |
 | `tuning.transition` | `abg.capability.operator.public-contract@5` | tuning-draft event | `proposed`, `ratified`, `rejected` | none | `terminal_only` |
@@ -440,6 +448,11 @@ addressable. Their multiplicity is output addressability, not authored truth.
 
 ## Native Contract Definition And Projection
 
+The bounded source-resolution delta is governed by
+`.ai-workspace/comments/codex/20260716T162446Z_REVIEW_t281_phase_a_source_resolution_rejection.md`.
+It reopens only the Phase A witness boundary and affected P1 owner composition;
+it does not authorize P1 construction or T-274B publication.
+
 ```text
 NativeContractDefinition<S extends v.BaseSchema> = {
   nativeSymbol,
@@ -456,6 +469,8 @@ contractDigest<S>(S)       = sha256(canonical projected schema bytes)
 NativeSchemaProjectionWitness = {
   kind,
   sourceLocator,
+  sourceModuleDigest,
+  sourceBasisDigest,
   schemaRef,
   schemaVersion,
   projectorRef,
@@ -490,6 +505,9 @@ The shared projector preserves the original Phase A native-action set:
 The original mapping table remains closed code. A family-owned relation enters
 only through one immutable invocation-local registry that maps the exact action
 object to one family/check identity and optional accepted relation ref. The
+projector also requires every admitted schema and standard action to carry the
+exact constructor reference from the pinned Valibot dependency; lookalike
+objects with copied `kind`/`type` fields refuse. The
 projector never inspects function source, message text, or a consumer kind, and
 there is no global registry. Each used registration is projected into the
 canonical schema and sorted into the derived witness. The registration digest
@@ -499,13 +517,22 @@ object itself to be immutable and resolves it by identity. `type_brand` is the s
 permitted Valibot transformation and cannot alter a value. Any other action,
 flag set, transform, callback, or override throws and requires design re-entry.
 
-The shared projector owns mechanics only. It consumes the actual schema and
-derives the canonical projection plus witness in one call. No caller may supply
-projected I-JSON, a digest, or named-check rows. The derived schema embeds the
-closed projector identity/version/law-basis so
+The shared projector owns mechanics only. Its closed `semantic_build` resolver
+accepts one recursively frozen typed owner-source row, loads its exact locator,
+walks own data properties only, and requires the compiled export member to be
+the same schema object carried by that row. It hashes the resolved compiled
+owner-module bytes and mints an opaque `ResolvedNativeSchemaSource<S>`. The
+projector accepts only that carrier and preserves `S` while deriving the
+canonical projection and witness. A caller-authored or mismatched schema and
+locator pair cannot mint the carrier; callers also cannot supply projected
+I-JSON, a source-basis digest, or named-check rows. The derived schema embeds
+the closed projector identity/version/law-basis so
 `stableSha256Digest(projectedSchema) == projectionDigest`; `witnessDigest`
-binds that digest to the exact private source locator, schema ref/version, and
-sorted named-check basis. M04 owns public coordinates and publication. M03 may
+binds that digest to the exact private source locator, compiled source-module
+digest, source-basis digest, schema ref/version, and sorted named-check basis.
+Thus an owner predicate change changes witness truth even when JSON Schema
+cannot encode the predicate and the projected schema bytes remain unchanged.
+M04 owns public coordinates and publication. M03 may
 consume the neutral witness for private compiler sealing but may not import an
 M04 carrier or author another digest.
 
@@ -688,12 +715,15 @@ unexpected_nonterminal`.
 
 `project.read` uses one closed `PROJECT_READ_CASE_FAMILY` whose 27 rows bind a
 case key to its owner-supplied source and projection schemas, binding rule, and
-capabilities. Shared wrapper factories derive three addressable operation
-assets: request, result, and refusal, each a 27-case discriminated union. The
-case map is metadata over owner schemas, not 27 independently authored public
-schema families. `ticket_consensus` composes its owner-native Consensus schema
-only after T-274A derives the same neutral projection witness through the shared
-projector. The family-owned named-check registry binds each relational action
+capabilities. T-281's shared wrapper factories derive the request and refusal
+unions and record the non-terminal slot as explicitly absent. Case-specific
+owners supply source and result coordinates; the result union derives from
+those coordinates rather than becoming another authored wrapper. The case map
+is metadata over owner schemas, not 27 independently authored public schema
+families. `ticket_consensus` composes T-274A's `ConsensusResult` source and
+`TicketConsensusProjection` result coordinates with the T-281 wrapper only
+after both derive neutral projection witnesses through the shared projector.
+The family-owned named-check registry binds each relational action
 without a Consensus branch in projector code. A missing, unregistered, or
 incompatible owner schema remains an honest P1 gap and cannot be filled from
 prose or a 4.6 interface.
@@ -718,15 +748,25 @@ NeutralOwnerContractSource<S> = {
     sourceRoot: "semantic_build"
     modulePath: "code/src/abg/m03/contracts/one_surface_operation_contracts.js"
     exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES"
-    memberPath
+    memberPath: [family, variant, slot, "schema"]
   }
   schema: S
 }
 ```
 
-P1 directly imports that source module, proves that `memberPath` resolves to
-the same frozen source, and only then constructs a private
-`NativeContractDefinition<S>`. The Phase A locator vocabulary distinguishes
+The `schema` sibling is owner metadata for native inference and admission; it
+is not accepted as locator attestation. The frozen row conserves the schema's
+exact generic type, while the resolver follows the locator and requires the
+compiled member to be the identical object before it mints the only carrier
+accepted by the projector.
+
+P1 passes the frozen typed owner-source row to the closed build resolver. The
+resolver imports that source module, walks own data properties, proves that
+`memberPath` resolves to the row's exact recursively frozen Valibot schema,
+hashes the exact compiled owner-module bytes, and mints an opaque typed
+resolved-source carrier. Only that carrier can construct a private
+`NativeContractDefinition<S>`; a mismatched row or caller source digest
+refuses. The Phase A locator vocabulary distinguishes
 `private_source_module { kind, sourceRoot, modulePath, exportName, memberPath[] }`
 from
 `public_package_export { kind, packageName, packageExport, exportName }`. A
@@ -858,9 +898,9 @@ P1 reuses the following sources without re-authoring their semantic truth:
 
 | Input role | Existing owner module | P1 treatment |
 |---|---|---|
-| canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral projector derives canonical schema bytes and a witness from the actual Valibot schema; M03 and M04 consume the same result without cross-layer imports. |
+| canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral build resolver derives an opaque source from a closed locator and exact compiled module bytes; the projector derives canonical schema bytes and a witness from that retained Valibot schema. M03 and M04 consume the same result without cross-layer imports. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
-| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives its neutral coordinate/witness through the shared projector; P1 does not duplicate the schema or relations. |
+| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives the `ConsensusResult` source and `TicketConsensusProjection` result coordinates/witnesses through the shared projector. T-281 owns the generic `project.read` request/refusal wrapper and absent non-terminal slot; P1 duplicates neither domain schema nor relations. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
 | workspace behavior | `code/src/app/m04/workspace/operations.ts` | Existing semantic owner; target-native contract slots must resolve independently. |
 | product intake behavior | `code/src/app/m04/product_intake/verify.ts`, `resolve.ts`, `install.ts` | Existing semantic owners; no shared mega-handler or copied admitter. |
@@ -889,7 +929,7 @@ and digest.
 | Gap code | Exact definition keys | Missing native slots | Current owner evidence and minimum re-entry |
 |---|---|---|---|
 | `p1_contract_workspace_not_realized` | `workspace.create(clean|imported)`, `workspace.open(open)` | `Req/Res/Ref` | `app/m04/workspace/operations.ts` differs from target authority fields; Phase A clean fixture is proof-only. The workspace owner must supply exact neutral schemas or re-enter its design on a real field ambiguity. |
-| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | `Req/Res/Ref` wrapper plus unresolved per-case source/projection slots | T-274A can close the Consensus case through the shared projector and family-owned named checks. Every other case must still bind its exact projection owner or remain a gap. |
+| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | T-281 generic `Req/Ref` wrapper plus explicit absent `N`; unresolved per-case source/result coordinates | T-281 owns the wrapper. T-274A closes only the `ticket_consensus` case inputs by supplying exact `ConsensusResult` and `TicketConsensusProjection` coordinates through the shared projector and family-owned named checks. Every other case must still bind its exact source/result owner or remain a gap. |
 | `p1_contract_product_intake_not_realized` | `product.verify(verify)`, `product.resolve(resolve)`, `product.install(install)` | `Req/Res/Ref` | M04 verify/resolve/install carriers and admitters are semantic evidence only. Their owners must supply exact neutral schemas; T-281 cannot copy their imperative admission logic. |
 | `p1_contract_workspace_bind_not_realized` | `workspace.bind(bind)` | `Req/Res/Ref` | `app/m04/toolchain_binding/bind.ts` does not expose the accepted stable-binding target schema. Re-enter that owner if declared-root meaning does not close. |
 | `p1_contract_catalog_not_realized` | `catalog.admit(admit)`, `catalog.view(allowlist)`, `catalog.apply(node_type|overlay)` | `Req/Res/Ref` | Current catalog carriers are semantic evidence; `catalog.apply` target public contracts are absent. The catalog owner must supply exact neutral schemas. |
@@ -916,7 +956,7 @@ minimum non-cyclic milestone order, without adding tickets or moving semantic
 ownership, is:
 
 ```text
-T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
+T-281 project.read wrapper plus T-274A ConsensusResult/TicketConsensusProjection coordinates plus T-270/T-272 neutral owner-native contract milestones
   -> T-281 P1 exact private family
   -> T-270/T-272 public runtime integration milestones
   -> T-274B -> T-275 -> T-281 P2
@@ -971,13 +1011,20 @@ classDiagram
   }
   class SharedCanonicalNativeSchemaProjector {
     <<neutral shared mechanism>>
-    +projectActualValibotSchema
+    +resolveSemanticBuildSource
+    +projectOpaqueResolvedSchema
     +deriveProjectionWitness
     +refuseUnregisteredConstraint
+  }
+  class OpaqueResolvedNativeSchemaSource {
+    <<build private unforgeable carrier>>
+    +modulePrivateSchemaState
+    +moduleByteBasis
   }
   class NativeSchemaProjectionWitness {
     <<derived neutral receipt>>
     +sourceLocator
+    +sourceModuleAndBasisDigests
     +schemaRefAndVersion
     +projectorIdentityAndBasis
     +projectionDigest
@@ -1064,8 +1111,10 @@ classDiagram
   }
 
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
-  OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
-  OwnerSchemaInput --> SharedCanonicalNativeSchemaProjector : supplies actual schema
+  OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates exact nested schema
+  PrivateSourceModuleLocator --> SharedCanonicalNativeSchemaProjector : closed own-property resolution
+  SharedCanonicalNativeSchemaProjector --> OpaqueResolvedNativeSchemaSource : mints only
+  OpaqueResolvedNativeSchemaSource --> SharedCanonicalNativeSchemaProjector : sole projection input
   SharedCanonicalNativeSchemaProjector --> NativeSchemaProjectionWitness : derives only
   NativeSchemaProjectionWitness --> PhaseANativeContractMechanism : binds private M04 coordinate
   NativeSchemaProjectionWitness --> PrivateCompilerSeal : seals private M03 compilation
@@ -1101,13 +1150,14 @@ sequenceDiagram
   Builder->>Resolver: request exact 19-identity 62-key resolution
   loop each exact definition key
     Resolver->>Owners: obtain owner authority and native contract slots
-    Owners-->>Resolver: exact neutral schema input or missing slot evidence
+    Owners-->>Resolver: exact frozen typed source row and authority or missing slot evidence
     alt slot absent ambiguous prose-only or legacy-only
       Resolver->>Resolver: append typed semantic_not_realized gap
-    else owner supplies exact native schema candidate
-      Resolver->>Owners: import sourceRoot/modulePath then resolve exportName and memberPath
-      Owners-->>Resolver: exact same frozen source object or locator mismatch
-      Resolver->>Shared: derive from actual schema source ref version locator and named checks
+    else owner supplies exact native schema locator
+      Resolver->>Shared: resolve frozen source row at fixed root module export member path
+      Shared->>Shared: own-property walk object-identity freeze check and exact module-byte digest
+      Shared-->>Resolver: opaque resolved source or typed locator refusal
+      Resolver->>Shared: derive from opaque source plus ref version and named checks
       alt unsupported action unregistered check or divergent witness
         Shared-->>Resolver: projector refusal
         Resolver->>Resolver: append typed semantic_not_realized gap
@@ -1139,9 +1189,11 @@ sequenceDiagram
   end
 ```
 
-T-274A may close `ticket_consensus` only by proving that its neutral schema
-coordinate is accepted through the shared closed projector and Phase A binding.
-Until then the case
+T-274A may close only the case-specific `ConsensusResult` source and
+`TicketConsensusProjection` result coordinates by proving both through the
+shared closed projector and Phase A binding. T-281 owns the generic
+`project.read` request/refusal wrapper and explicit absent non-terminal slot.
+Until both owner inputs compose, the `ticket_consensus` case
 remains `p1_contract_project_read_not_realized`. T-275 is not a P1 dependency:
 it provides later handler/projection semantics and therefore gates P2, not
 private definition construction.
@@ -1153,7 +1205,7 @@ stateDiagram-v2
   [*] --> PhaseAReady
   PhaseAReady --> OwnerResolutionPending: begin 19 identity 62 key and per-slot census
   OwnerResolutionPending --> PrivateSourceLocated: closed source root module export and member path resolve to same source
-  PrivateSourceLocated --> ProjectionWitnessPending: submit actual schema to shared projector
+  PrivateSourceLocated --> ProjectionWitnessPending: submit opaque resolved source to shared projector
   ProjectionWitnessPending --> ProjectionWitnessDerived: projection and witness derive on one basis
   ProjectionWitnessPending --> DefinitionRefused: unsupported or unregistered constraint
   ProjectionWitnessDerived --> OwnerResolutionPending: M04 coordinate and M03 seal conserve same witness
@@ -1207,7 +1259,7 @@ authority and is not implemented by T-281.
 |---|---|---|---|---|---|---|
 | `PublicFunctionDefinition<K>` | function id, version, variant, digest | PRODUCT/requirements; AF-24 publishes | T-281 native definition admission | schema/catalog/SDK/CLI projectors | semantic change creates a new version | hard-break migration retires legacy definitions |
 | `NativeContractDefinition<S>` | native symbol plus schema coordinate and projected schema digest | existing semantic owner | owner admits strict native schema; T-281 binds its exact coordinate | type inference, `v.parse`, digest, and JSON-Schema projection | semantic schema change creates another contract version/digest | prior published contract remains version evidence |
-| `NativeSchemaProjectionWitness` | witness digest over projector basis, source locator, schema ref/version, projection digest, and named-check rows | derived from existing semantic owner schema by the shared projector | constructed only from the actual schema; no raw constructor | M03 private seal and M04 private binding | any source, schema, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
+| `NativeSchemaProjectionWitness` | witness digest over projector basis, source locator, exact compiled source-module/source-basis digests, schema ref/version, projection digest, and named-check rows | derived from an opaque resolved owner source by the shared projector | constructed only by the closed resolver/projector; no raw constructor | M03 private seal and M04 private binding | any owner-module semantics, source, schema, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
 | `PublicInvocation<K>` | invocation and request refs plus definition key | public ingress | common invocation admission | exact outcome/evidence projection | immutable | retained as admitted evidence |
 | `PublicOutcome<K>` | invocation ref plus outcome kind/digest | owning semantic function plus outcome admission | admitted after indexed output validation | SDK/CLI/public projection | corrected evidence creates another outcome/version under owning law | retained as evidence |
 | `InvocationAuthority<K>` | authority-set ref and basis digest | operation admission | assembled only from definition-required authority | runtime/public evidence projection | immutable; changed authority creates another identity | retained as evidence |
@@ -1433,7 +1485,10 @@ Phase A is independently closable and shall:
    `PublicOutcome<K>`, `PublicContractCoordinate`, default, ref, digest, scalar,
    and internal `OutcomeAdmissionFailure` schemas;
 3. prove inferred native types, strict raw admission, canonical schema bytes,
-   and digests all derive from the same schema value;
+   and digests all derive from the exact schema retained by an opaque typed
+   fixed-root resolved-source carrier; prove mismatched owner source rows,
+   forged carriers, non-owning paths, unfrozen schemas, and module-cache basis
+   divergence refuse;
 4. prove `none | literal` default ordering and refusal without a callback,
    derivation, environment, time, filesystem, or adapter source, and prove the
    original seven native-action projector mappings byte-for-byte; later family
@@ -1536,14 +1591,16 @@ public integration before P2. T-268 cannot claim
 
 ## Verdict
 
-`p1_candidate_blocked_pending_same_basis_authority_repair`
+`p1_candidate_blocked_pending_phase_a_source_resolution_rereview_and_owner_gaps`
 
 The exact 19-operation target and Prime one-family direction remain accepted.
 This repaired candidate rejects the custom contract algebra, closes the native
 Phase A mechanism and common packet laws, preserves a private P1 and atomic P2
 hard break, and keeps missing operation-owner schemas as honest P1 gaps.
-Independent review accepted the Phase A semantic candidate recorded by T-281,
-and Phase A is closed. This P1 delta is constructor-ready only as an
+Independent review rejected the committed Phase A source/witness binding while
+retaining its packet and projector mechanics. The bounded opaque-source and
+compiled-owner-basis repair is implemented but Phase A remains reopened until
+independent re-review. This P1 delta is constructor-ready only as an
 all-or-nothing resolution process: the current gap census must become empty
 before the private family can admit. GOALS, T-270, and T-272 must first record
 the non-cyclic neutral-contract/runtime-integration milestone split on the same

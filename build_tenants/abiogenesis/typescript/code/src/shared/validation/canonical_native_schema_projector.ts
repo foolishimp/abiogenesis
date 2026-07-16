@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+
 import {
   toJsonSchema,
   type JsonSchema,
@@ -7,6 +10,7 @@ import {
 import * as v from "valibot";
 
 import {
+  sha256DigestForBytes,
   stableJsonEquals,
   stableSha256Digest
 } from "../runtime_identity.js";
@@ -55,6 +59,239 @@ export type PrivateNativeSchemaSourceLocator = v.InferOutput<
   typeof privateNativeSchemaSourceLocatorSchema
 >;
 
+/**
+ * A build-private source resolution. The carrier is intentionally opaque:
+ * only resolveSemanticBuildNativeSchemaSource can mint one, and its schema is
+ * retained in module-private state so callers cannot pair a locator with a
+ * separately supplied value.
+ */
+declare const RESOLVED_NATIVE_SCHEMA_SOURCE_TYPE: unique symbol;
+const RESOLVED_NATIVE_SCHEMA_SOURCE_STATE_READER: unique symbol = Symbol(
+  "resolved_native_schema_source_state_reader"
+);
+
+export interface NativeSchemaSourceRow<
+  S extends CanonicalNativeSchema = CanonicalNativeSchema
+> {
+  readonly sourceLocator: PrivateNativeSchemaSourceLocator;
+  readonly schema: S;
+}
+
+export interface ResolvedNativeSchemaSource<
+  S extends CanonicalNativeSchema = CanonicalNativeSchema
+> {
+  readonly kind: "resolved_native_schema_source";
+  readonly [RESOLVED_NATIVE_SCHEMA_SOURCE_TYPE]?: (schema: S) => S;
+  readonly [RESOLVED_NATIVE_SCHEMA_SOURCE_STATE_READER]: () =>
+    ResolvedNativeSchemaSourceState<S>;
+}
+
+interface ResolvedNativeSchemaSourceState<
+  S extends CanonicalNativeSchema = CanonicalNativeSchema
+> {
+  readonly sourceLocator: PrivateNativeSchemaSourceLocator;
+  readonly sourceModuleDigest: `sha256:${string}`;
+  readonly sourceBasisDigest: `sha256:${string}`;
+  readonly schema: S;
+}
+
+const RESOLVED_NATIVE_SCHEMA_SOURCE_AUTHORITY = new WeakMap<object, true>();
+const RESOLVED_SEMANTIC_BUILD_MODULE_DIGESTS = new Map<
+  string,
+  `sha256:${string}`
+>();
+
+const SEMANTIC_BUILD_SOURCE_ROOT = new URL("../../../../", import.meta.url);
+
+function isCanonicalNativeSchema(
+  input: unknown
+): input is CanonicalNativeSchema {
+  return (
+    typeof input === "object" &&
+    input !== null &&
+    Reflect.get(input, "kind") === "schema" &&
+    typeof Reflect.get(input, "type") === "string" &&
+    typeof Reflect.get(input, "reference") === "function" &&
+    typeof Reflect.get(input, "~run") === "function"
+  );
+}
+
+function isRecursivelyFrozen(input: unknown, seen = new Set<object>()): boolean {
+  if (typeof input !== "object" || input === null || seen.has(input)) {
+    return true;
+  }
+  if (!Object.isFrozen(input)) {
+    return false;
+  }
+  seen.add(input);
+  try {
+    for (const key of Reflect.ownKeys(input)) {
+      const descriptor = Object.getOwnPropertyDescriptor(input, key);
+      if (
+        descriptor !== undefined &&
+        "value" in descriptor &&
+        !isRecursivelyFrozen(descriptor.value, seen)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  } finally {
+    seen.delete(input);
+  }
+}
+
+function ownDataProperty(input: object, key: string): unknown {
+  const descriptor = Object.getOwnPropertyDescriptor(input, key);
+  if (descriptor === undefined || !("value" in descriptor)) {
+    throw new TypeError(
+      `native contract source: own data member not found ${key}`
+    );
+  }
+  return descriptor.value;
+}
+
+function resolvedNativeSchemaSourceState<S extends CanonicalNativeSchema>(
+  source: ResolvedNativeSchemaSource<S>
+): ResolvedNativeSchemaSourceState<S> {
+  if (!RESOLVED_NATIVE_SCHEMA_SOURCE_AUTHORITY.has(source)) {
+    throw new TypeError(
+      "native contract source: unresolved or forged source carrier"
+    );
+  }
+  return source[RESOLVED_NATIVE_SCHEMA_SOURCE_STATE_READER]();
+}
+
+export async function resolveSemanticBuildNativeSchemaSource<
+  const S extends CanonicalNativeSchema
+>(input: NativeSchemaSourceRow<S>): Promise<ResolvedNativeSchemaSource<S>> {
+  if (!isRecursivelyFrozen(input)) {
+    throw new TypeError(
+      "native contract source: owner source row is not recursively frozen"
+    );
+  }
+  const expectedSchema = ownDataProperty(input, "schema");
+  if (!isCanonicalNativeSchema(expectedSchema)) {
+    throw new TypeError(
+      "native contract source: owner source row lacks a native schema"
+    );
+  }
+  const typedExpectedSchema = input.schema;
+  const sourceLocator = freezeNativeValue(
+    v.parse(
+      privateNativeSchemaSourceLocatorSchema,
+      ownDataProperty(input, "sourceLocator")
+    )
+  );
+  const moduleUrl = new URL(
+    sourceLocator.modulePath,
+    SEMANTIC_BUILD_SOURCE_ROOT
+  );
+  if (!moduleUrl.href.startsWith(SEMANTIC_BUILD_SOURCE_ROOT.href)) {
+    throw new TypeError(
+      "native contract source: module escapes semantic_build"
+    );
+  }
+
+  let sourceModuleBytes: Uint8Array;
+  try {
+    sourceModuleBytes = await readFile(fileURLToPath(moduleUrl.href));
+  } catch (error: unknown) {
+    throw new TypeError(
+      `native contract source: module bytes unavailable ${sourceLocator.modulePath}`,
+      { cause: error }
+    );
+  }
+  const sourceModuleDigest = sha256DigestForBytes(sourceModuleBytes);
+  const priorModuleDigest = RESOLVED_SEMANTIC_BUILD_MODULE_DIGESTS.get(
+    moduleUrl.href
+  );
+  if (
+    priorModuleDigest !== undefined &&
+    priorModuleDigest !== sourceModuleDigest
+  ) {
+    throw new TypeError(
+      "native contract source: module bytes changed after first resolution"
+    );
+  }
+  // Claim the process-local basis before import() yields so overlapping
+  // resolutions cannot bind cached module values to different file bytes.
+  RESOLVED_SEMANTIC_BUILD_MODULE_DIGESTS.set(
+    moduleUrl.href,
+    sourceModuleDigest
+  );
+
+  let sourceModule: object;
+  try {
+    const importedModule: unknown = await import(moduleUrl.href);
+    if (typeof importedModule !== "object" || importedModule === null) {
+      throw new TypeError("resolved module is not an object");
+    }
+    sourceModule = importedModule;
+  } catch (error: unknown) {
+    throw new TypeError(
+      `native contract source: module resolution failed ${sourceLocator.modulePath}`,
+      { cause: error }
+    );
+  }
+
+  const postImportModuleDigest = sha256DigestForBytes(
+    await readFile(fileURLToPath(moduleUrl.href))
+  );
+  if (postImportModuleDigest !== sourceModuleDigest) {
+    throw new TypeError(
+      "native contract source: module changed during resolution"
+    );
+  }
+  let resolved: unknown = ownDataProperty(
+    sourceModule,
+    sourceLocator.exportName
+  );
+  for (const member of sourceLocator.memberPath) {
+    if (typeof resolved !== "object" || resolved === null) {
+      throw new TypeError(
+        `native contract source: member not found ${member}`
+      );
+    }
+    resolved = ownDataProperty(resolved, member);
+  }
+  if (!isCanonicalNativeSchema(resolved)) {
+    throw new TypeError(
+      "native contract source: locator does not resolve to a native schema"
+    );
+  }
+  if (!isRecursivelyFrozen(resolved)) {
+    throw new TypeError(
+      "native contract source: resolved native schema is not recursively frozen"
+    );
+  }
+  if (resolved !== typedExpectedSchema) {
+    throw new TypeError(
+      "native contract source: resolved schema identity differs from owner source row"
+    );
+  }
+
+  const sourceBasisDigest = stableSha256Digest({
+    kind: "semantic_build_native_schema_source_basis",
+    sourceRoot: sourceLocator.sourceRoot,
+    modulePath: sourceLocator.modulePath,
+    sourceModuleDigest
+  });
+
+  const state: ResolvedNativeSchemaSourceState<S> = freezeNativeValue({
+    sourceLocator,
+    sourceModuleDigest,
+    sourceBasisDigest,
+    schema: typedExpectedSchema
+  });
+  const carrier: ResolvedNativeSchemaSource<S> = Object.freeze({
+    kind: "resolved_native_schema_source",
+    [RESOLVED_NATIVE_SCHEMA_SOURCE_STATE_READER]: () => state
+  });
+  RESOLVED_NATIVE_SCHEMA_SOURCE_AUTHORITY.set(carrier, true);
+  return carrier;
+}
+
 export interface NativeSchemaProjectionNamedCheck {
   readonly checkRef: string;
   readonly registrationDigest: `sha256:${string}`;
@@ -64,6 +301,8 @@ export interface NativeSchemaProjectionNamedCheck {
 export interface NativeSchemaProjectionWitness {
   readonly kind: "native_schema_projection_witness";
   readonly sourceLocator: PrivateNativeSchemaSourceLocator;
+  readonly sourceModuleDigest: `sha256:${string}`;
+  readonly sourceBasisDigest: `sha256:${string}`;
   readonly schemaRef: string;
   readonly schemaVersion: string;
   readonly projectorRef: string;
@@ -74,14 +313,17 @@ export interface NativeSchemaProjectionWitness {
   readonly witnessDigest: `sha256:${string}`;
 }
 
-export interface CanonicalNativeSchemaProjection {
+export interface CanonicalNativeSchemaProjection<
+  S extends CanonicalNativeSchema = CanonicalNativeSchema
+> {
+  readonly schema: S;
   readonly projectedSchema: JsonSchema;
   readonly witness: NativeSchemaProjectionWitness;
 }
 
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF =
   "projector://abg/native-schema/valibot-json-schema";
-export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.0.0";
+export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.1.0";
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS =
   Object.freeze({
     valibot: "1.3.1",
@@ -104,6 +346,37 @@ const ALLOWED_SCHEMA_TYPES = Object.freeze([
 ]);
 const ALLOWED_SCHEMA_TYPE_SET = new Set(ALLOWED_SCHEMA_TYPES);
 
+function expectedSchemaReference(type: string): unknown {
+  switch (type) {
+    case "array":
+      return v.array;
+    case "boolean":
+      return v.boolean;
+    case "literal":
+      return v.literal;
+    case "null":
+      return v.null_;
+    case "nullable":
+      return v.nullable;
+    case "number":
+      return v.number;
+    case "picklist":
+      return v.picklist;
+    case "strict_object":
+      return v.strictObject;
+    case "string":
+      return v.string;
+    case "tuple":
+      return v.tuple;
+    case "union":
+      return v.union;
+    case "unknown":
+      return v.unknown;
+    default:
+      return undefined;
+  }
+}
+
 const CANONICAL_NATIVE_SCHEMA_PROJECTOR_BASIS = freezeNativeValue({
   projectorRef: CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF,
   projectorVersion: CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION,
@@ -114,6 +387,7 @@ const CANONICAL_NATIVE_SCHEMA_PROJECTOR_BASIS = freezeNativeValue({
     CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS.valibotJsonSchema,
   unsupportedSchemaPolicy: "throw",
   unsupportedActionPolicy: "throw",
+  nativeReferencePolicy: "exact-pinned-constructor-reference-v1",
   namedCheckPolicy: "exact-action-invocation-local-registry-v1",
   allowedSchemaTypes: ALLOWED_SCHEMA_TYPES,
   standardActionTypes: Object.freeze([
@@ -237,6 +511,12 @@ function projectSchemaOverride(context: OverrideSchemaContext): undefined {
       `native contract projector: unsupported schema ${context.valibotSchema.type}`
     );
   }
+  const expectedReference = expectedSchemaReference(context.valibotSchema.type);
+  if (Reflect.get(context.valibotSchema, "reference") !== expectedReference) {
+    throw new TypeError(
+      `native contract projector: unsupported schema ${context.valibotSchema.type} reference`
+    );
+  }
   if (
     context.valibotSchema.type === "unknown" &&
     context.valibotSchema !== canonicalIJsonSchema.pipe[0]
@@ -266,6 +546,11 @@ function projectActionOverride(
 ): AbgJsonSchema {
   const action = context.valibotAction;
   if (action.type === "brand") {
+    if (Reflect.get(action, "reference") !== v.brand) {
+      throw new TypeError(
+        "native contract projector: unsupported action brand reference"
+      );
+    }
     const name: unknown = Reflect.get(action, "name");
     if (typeof name !== "string" || name.length === 0) {
       throw new TypeError("native contract projector: invalid type_brand");
@@ -273,6 +558,11 @@ function projectActionOverride(
     return withExtension(context.jsonSchema, { "x-abg-native-brand": name });
   }
   if (action.type === "regex") {
+    if (Reflect.get(action, "reference") !== v.regex) {
+      throw new TypeError(
+        "native contract projector: unsupported action regex reference"
+      );
+    }
     const requirement: unknown = Reflect.get(action, "requirement");
     if (!(requirement instanceof RegExp) || requirement.flags !== "u") {
       throw new TypeError(
@@ -300,6 +590,7 @@ function projectActionOverride(
   }
   if (
     action.type === "check" &&
+    Reflect.get(action, "reference") === v.check &&
     Reflect.get(action, "requirement") === hasUniqueNativeIdentity
   ) {
     return {
@@ -487,18 +778,20 @@ function collectNamedCheckBasis(
 export function deriveCanonicalNativeSchemaProjection<
   S extends CanonicalNativeSchema
 >(input: {
-  readonly schema: S;
+  readonly source: ResolvedNativeSchemaSource<S>;
   readonly schemaRef: string;
   readonly schemaVersion: string;
-  readonly sourceLocator: PrivateNativeSchemaSourceLocator;
   readonly namedCheckRegistry?: NativeNamedCheckRegistry | undefined;
-}): CanonicalNativeSchemaProjection {
-  const sourceLocator = freezeNativeValue(
-    v.parse(privateNativeSchemaSourceLocatorSchema, input.sourceLocator)
-  );
+}): CanonicalNativeSchemaProjection<S> {
+  const {
+    schema,
+    sourceLocator,
+    sourceModuleDigest,
+    sourceBasisDigest
+  } = resolvedNativeSchemaSourceState(input.source);
   const schemaRef = v.parse(contractIdSchema, input.schemaRef);
   const schemaVersion = v.parse(semanticVersionSchema, input.schemaVersion);
-  const rawProjection = projectCanonicalNativeJsonSchema(input.schema, {
+  const rawProjection = projectCanonicalNativeJsonSchema(schema, {
     namedCheckRegistry: input.namedCheckRegistry
   });
   const projectedSchema = freezeNativeValue({
@@ -514,6 +807,8 @@ export function deriveCanonicalNativeSchemaProjection<
   const witnessBasis = freezeNativeValue({
     kind: "native_schema_projection_witness" as const,
     sourceLocator,
+    sourceModuleDigest,
+    sourceBasisDigest,
     schemaRef,
     schemaVersion,
     projectorRef: CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF,
@@ -526,5 +821,5 @@ export function deriveCanonicalNativeSchemaProjection<
     ...witnessBasis,
     witnessDigest: stableSha256Digest(witnessBasis)
   });
-  return freezeNativeValue({ projectedSchema, witness });
+  return freezeNativeValue({ schema, projectedSchema, witness });
 }

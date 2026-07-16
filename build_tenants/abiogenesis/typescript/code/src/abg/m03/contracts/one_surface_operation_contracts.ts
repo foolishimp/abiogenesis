@@ -4,6 +4,7 @@
 
 import * as v from "valibot";
 
+import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
   canonicalIJsonSchema,
   nonEmptyTextSchema,
@@ -69,7 +70,8 @@ export interface OneSurfaceOwnerSourceLocator {
   readonly memberPath: readonly [
     OneSurfaceOwnerContractFamilyKey,
     string,
-    OneSurfaceOwnerContractSlot
+    OneSurfaceOwnerContractSlot,
+    "schema"
   ];
 }
 
@@ -171,7 +173,8 @@ function nativeSource<
       memberPath: Object.freeze([
         familyKeyForOperation(input.operationId),
         input.variant,
-        input.slot
+        input.slot,
+        "schema"
       ] as const)
     }),
     schema: input.schema
@@ -818,7 +821,7 @@ export const INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES = Object.freeze({
   )
 });
 
-export const ONE_SURFACE_NATIVE_CONTRACT_SOURCES = Object.freeze({
+export const ONE_SURFACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   run_invoke: RUN_INVOKE_NATIVE_CONTRACT_SOURCES,
   run_continue: RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
   interaction_respond: INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES

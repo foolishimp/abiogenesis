@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_design_accepted_owner_contract_milestones_active
-- review_status: phase_a_accepted_p1_independently_accepted_implementation_blocked_on_named_owner_contract_gaps
-- proof_status: phase_a_green_p1_named_owner_schema_gaps_and_cross_ticket_ordering_block_explicit_p2_fenced
+- phase_status: phase_a_reopened_source_resolution_repair_implemented_p1_design_delta_ready_for_review
+- review_status: committed_phase_a_span_rejected_bounded_repair_self_reviewed_independent_rereview_pending
+- proof_status: repaired_phase_a_full_semantic_publication_package_and_governance_gates_green_independent_rereview_pending_p1_named_owner_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -38,7 +38,8 @@
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
 - downstream_dependencies:
-  - T-274A must prove a Phase-A-compatible neutral ticket_consensus contract coordinate; the current custom checks remain a typed P1 blocker
+  - T-281 P1 owns the generic project.read request/refusal wrapper and explicit absent nonterminal slot
+  - T-274A must prove exact Phase-A-compatible ConsensusResult source and TicketConsensusProjection result coordinates; it does not own the generic wrapper
   - T-270 neutral owner-native run.invoke contract milestone precedes P1; its public runtime integration follows P1
   - T-272 neutral owner-native run.continue and interaction.respond contract milestone precedes P1; its continuation integration follows P1
   - T-274B consumes the admitted P1 contract coordinates for public publication
@@ -77,6 +78,14 @@
 - implementation_readiness_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T084853Z_REVIEW_t281_implementation_readiness.md
+- phase_a_source_resolution_rejection_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T162446Z_REVIEW_t281_phase_a_source_resolution_rejection.md
+- phase_a_source_resolution_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T165012Z_SELF_REVIEW_t281_phase_a_source_resolution_repair.md
+- phase_a_source_resolution_candidate_design_digest: >-
+    3a7bcc08f69fe7e52b4f11b149bf219ab060ef1d2966fc1084baeeff65c4fc8b
 - rejected_phase_a_candidate_digest: >-
     ba6bef8f3505590534c92a63ca79d1f813b7a5487ce8dfe970ad17fe009022ed
 - accepted_phase_a_semantic_candidate_digest: >-
@@ -158,10 +167,12 @@ authority.
    candidate catalog rows, SDK/CLI coordinate inventories, and parity evidence.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. T-274A proves whether the existing native `ticket_consensus` schema can
-   yield a neutral coordinate through Phase A's closed projector. Its current
-   relational checks are incompatible; the case remains a typed gap until a
-   lawful owner repair and proof land. It does not wait for T-275 handler truth.
+6. T-281 owns the generic `project.read` request/refusal wrapper and absent
+   non-terminal slot. T-274A proves whether the existing `ConsensusResult` and
+   `TicketConsensusProjection` schemas yield the two case-specific coordinates
+   through Phase A's closed projector. The case remains a typed gap until the
+   wrapper and both coordinates compose. It does not wait for T-275 handler
+   truth.
 7. Split the existing T-270/T-272 milestones: their neutral owner-native
    contract schemas precede P1; their public runtime integration follows P1
    and consumes neutral admitted projections rather than importing M04.
@@ -207,6 +218,35 @@ result consists only of the four derivative checks that require that forbidden
 publication refresh. This closes Phase A only; P1 still requires an accepted
 constructor-ready definition-family design and P2 still requires every
 semantic owner plus atomic hard-break publication.
+
+## Phase A Source-Resolution Reopen
+
+The review at
+`.ai-workspace/comments/codex/20260716T162446Z_REVIEW_t281_phase_a_source_resolution_rejection.md`
+rejects the committed Phase A closure claim without rejecting its native
+packet or projector mechanics. `defineNativeContract` accepted a caller schema
+beside an independently authored locator, and named-check implementation
+changes could retain witness truth when projected JSON Schema stayed equal.
+
+The bounded repair replaces that pair with one opaque typed carrier minted by
+the fixed-root `semantic_build` resolver. The resolver accepts a recursively
+frozen typed owner-source row, walks own data properties, requires the compiled
+member to be the exact same schema object, hashes the compiled owner module,
+and binds the module/source basis into the witness without erasing `S`. Neutral M03
+owner locators now terminate at their `schema` member, while authority and
+identity remain sibling metadata. T-274A's nine-schema exit is unchanged; its
+two Consensus read coordinates compose a T-281-owned generic wrapper and do
+not close P1 by themselves. Phase A remains reopened until independent
+re-review accepts this exact repair basis.
+
+The repaired checkpoint proves `1767/1767` full semantic tests, `82/82` GTL
+law tests, `70/70` T-223 source-blind publication tests, `8/8` focused Phase A
+tests, `7/7` T-274A projector tests, and `9/9` neutral owner-contract tests.
+Strict host/type builds, all 82 public schemas, all 40 publication assets, the
+1143-file package census, 32 registered design files with 96 Mermaid diagrams,
+the Prime gate, governance, and `git diff --check` pass. The package still
+exports no Phase A public subpath. These results establish a candidate for
+independent re-review; they do not restore Phase A acceptance or authorize P1.
 
 ## Implementation-Readiness Repair
 
@@ -275,8 +315,10 @@ explicit nullable non-terminal slot.
 The constructability review found these named blocking owner relations:
 
 - `p1_contract_workspace_not_realized`;
-- `p1_contract_project_read_not_realized`, including `ticket_consensus` until
-  T-274A proves a Phase-A-compatible neutral coordinate;
+- `p1_contract_project_read_not_realized`, including the T-281 generic wrapper
+  and every case-specific source/result pair; `ticket_consensus` additionally
+  waits for T-274A's exact `ConsensusResult` and
+  `TicketConsensusProjection` coordinates;
 - `p1_contract_product_intake_not_realized` and
   `p1_contract_workspace_bind_not_realized`;
 - `p1_contract_catalog_not_realized`;
@@ -295,7 +337,7 @@ admit or expose gap-bearing `run.invoke`, `run.continue`, or
 `interaction.respond` definitions. The minimum lawful refinement is:
 
 ```text
-T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
+T-281 project.read wrapper plus T-274A ConsensusResult/TicketConsensusProjection coordinates plus T-270/T-272 neutral owner-native contract milestones
   -> T-281 P1 exact private family
   -> T-270/T-272 public runtime integration milestones
 ```

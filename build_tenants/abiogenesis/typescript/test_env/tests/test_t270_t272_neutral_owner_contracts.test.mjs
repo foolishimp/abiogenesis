@@ -12,6 +12,9 @@ import {
   admitNative,
   projectNativeJsonSchema
 } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
+import {
+  resolveSemanticBuildNativeSchemaSource
+} from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const DIGEST = `sha256:${"a".repeat(64)}`;
 const OWNER_AUTHORITY_BY_OPERATION = Object.freeze({
@@ -373,10 +376,13 @@ test("T-270/T-272 own one strict 36-source contract family", async () => {
     assert.equal(Object.isFrozen(subject), true);
     assert.equal(Object.isFrozen(source.sourceLocator), true);
     assert.equal(Object.isFrozen(source.sourceLocator.memberPath), true);
+    assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
+    assert.equal(Object.isFrozen(source.schema), true);
     assert.equal(Object.hasOwn(source.identity, "nativeLocator"), false);
     assert.equal(Object.hasOwn(source.sourceLocator, "packageName"), false);
     assert.equal(Object.hasOwn(source.sourceLocator, "packageExport"), false);
-    assert.equal(await resolveSourceLocator(source), source);
+    assert.equal(await resolveSourceLocator(source), source.schema);
+    await resolveSemanticBuildNativeSchemaSource(source);
     const fixture = fixtureBySlot[subject.slot](subject.operationId, subject.variant);
     assert.deepEqual(admitNative(source.schema, fixture), fixture);
 

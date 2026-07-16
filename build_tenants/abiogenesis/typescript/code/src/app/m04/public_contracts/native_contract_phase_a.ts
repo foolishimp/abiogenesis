@@ -28,7 +28,8 @@ import {
   nativeExportNameSchema,
   privateNativeSchemaSourceLocatorSchema,
   projectCanonicalNativeJsonSchema,
-  type NativeSchemaProjectionWitness
+  type NativeSchemaProjectionWitness,
+  type ResolvedNativeSchemaSource
 } from "../../../shared/validation/canonical_native_schema_projector.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
@@ -60,27 +61,54 @@ export const safePositiveIntegerSchema = sharedSafePositiveIntegerSchema;
 export const canonicalIJsonSchema = sharedCanonicalIJsonSchema;
 
 /** @internal */
-export const PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES = Object.freeze({
+function phaseFixtureNativeSchemaSource<S extends NativeSchema>(
+  slot: "request" | "result" | "refusal",
+  schema: S
+) {
+  return {
+    sourceLocator: {
+      kind: "private_source_module" as const,
+      sourceRoot: "semantic_build" as const,
+      modulePath:
+        "code/src/app/m04/public_contracts/native_contract_phase_a.js",
+      exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
+      memberPath: ["workspace_create_clean", slot, "schema"] as const
+    },
+    schema
+  };
+}
+
+/** @internal */
+export const PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES = freezeNativeValue({
   workspace_create_clean: Object.freeze({
-    request: v.strictObject({
-      targetRoot: absolutePosixPathSchema,
-      createPolicy: v.literal("clean")
-    }),
-    result: v.strictObject({
-      workspaceRef: refSchema,
-      creationManifestRef: refSchema,
-      provenanceRefs: uniqueByNativeIdentityArray(refSchema)
-    }),
-    refusal: v.strictObject({
-      code: v.picklist([
-        "invalid_target",
-        "workspace_exists",
-        "workspace_identity_conflict",
-        "filesystem_failure"
-      ]),
-      message: nonEmptyTextSchema,
-      residualRefs: uniqueByNativeIdentityArray(refSchema)
-    })
+    request: phaseFixtureNativeSchemaSource(
+      "request",
+      v.strictObject({
+        targetRoot: absolutePosixPathSchema,
+        createPolicy: v.literal("clean")
+      })
+    ),
+    result: phaseFixtureNativeSchemaSource(
+      "result",
+      v.strictObject({
+        workspaceRef: refSchema,
+        creationManifestRef: refSchema,
+        provenanceRefs: uniqueByNativeIdentityArray(refSchema)
+      })
+    ),
+    refusal: phaseFixtureNativeSchemaSource(
+      "refusal",
+      v.strictObject({
+        code: v.picklist([
+          "invalid_target",
+          "workspace_exists",
+          "workspace_identity_conflict",
+          "filesystem_failure"
+        ]),
+        message: nonEmptyTextSchema,
+        residualRefs: uniqueByNativeIdentityArray(refSchema)
+      })
+    )
   })
 });
 
@@ -269,23 +297,30 @@ const nativeContractIdentitySchema = v.strictObject({
   contractId: contractIdSchema,
   contractVersion: semanticVersionSchema,
   schemaId: contractIdSchema,
-  schemaVersion: semanticVersionSchema,
-  nativeLocator: privateNativeSchemaSourceLocatorSchema
+  schemaVersion: semanticVersionSchema
 });
 
 /** @internal */
 export function defineNativeContract<S extends NativeSchema>(input: {
   readonly identity: v.InferInput<typeof nativeContractIdentitySchema>;
-  readonly schema: S;
+  readonly source: ResolvedNativeSchemaSource<S>;
   readonly namedCheckRegistry?: NativeNamedCheckRegistry | undefined;
 }): NativeContractDefinition<S> {
+  for (const key of Object.keys(input)) {
+    if (
+      key !== "identity" &&
+      key !== "source" &&
+      key !== "namedCheckRegistry"
+    ) {
+      throw new TypeError(`native contract: unexpected input ${key}`);
+    }
+  }
   const identity = admitNative(nativeContractIdentitySchema, input.identity);
-  const { projectedSchema, witness: projectionWitness } =
+  const { schema, projectedSchema, witness: projectionWitness } =
     deriveCanonicalNativeSchemaProjection({
-      schema: input.schema,
+      source: input.source,
       schemaRef: identity.schemaId,
       schemaVersion: identity.schemaVersion,
-      sourceLocator: identity.nativeLocator,
       namedCheckRegistry: input.namedCheckRegistry
     });
   if (
@@ -296,13 +331,14 @@ export function defineNativeContract<S extends NativeSchema>(input: {
   }
   const schemaCoordinate = admitPublicContractCoordinate({
     ...identity,
+    nativeLocator: projectionWitness.sourceLocator,
     contractDigest: projectionWitness.projectionDigest,
     schemaDigest: projectionWitness.projectionDigest
   });
   return freezeNativeValue({
-    nativeSymbol: identity.nativeLocator.exportName,
+    nativeSymbol: projectionWitness.sourceLocator.exportName,
     schemaCoordinate,
-    schema: input.schema,
+    schema,
     projectedSchema,
     projectionWitness
   });

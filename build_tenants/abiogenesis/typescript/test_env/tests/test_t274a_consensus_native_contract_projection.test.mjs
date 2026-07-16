@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import test from "node:test";
+import { promisify } from "node:util";
 
 import { Ajv2020 } from "ajv/dist/2020.js";
 import * as v from "valibot";
@@ -26,7 +28,8 @@ import {
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
-  CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS
+  CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS,
+  resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const EXISTING_PROJECTION_DIGESTS = Object.freeze({
@@ -39,6 +42,100 @@ const EXISTING_PROJECTION_DIGESTS = Object.freeze({
   semver: "sha256:99094b180b187e1972e2e8a96ae4b42757815bce9905601a671876e251803300",
   unique: "sha256:78236bbb3a7a69b81bd13354534517967b33a6550f34c4bee86b777fb7dffc02"
 });
+
+const execFileAsync = promisify(execFile);
+
+const OPPOSITE_PREDICATE_MODULE_URL = new URL(
+  "../../build/semantic/code/src/shared/validation/test_fixtures/opposite_predicate_source.js",
+  import.meta.url
+);
+
+function oppositePredicateModule(predicateResult) {
+  return `import * as v from "valibot";
+import { freezeNativeValue } from "../immutable_native_value.js";
+
+const ACTION = Object.freeze(v.check(
+  () => ${predicateResult},
+  "opposite predicate fixture"
+));
+
+export const OPPOSITE_PREDICATE_REGISTRY = Object.freeze({
+  familyRef: "contract-family://example/checks@5",
+  checks: Object.freeze([Object.freeze({
+    checkId: "opposite_semantics",
+    action: ACTION,
+    relationRef: "REQ-EXAMPLE-001"
+  })])
+});
+
+export const OPPOSITE_PREDICATE_SOURCE = freezeNativeValue({
+  sourceLocator: {
+    kind: "private_source_module",
+    sourceRoot: "semantic_build",
+    modulePath: "code/src/shared/validation/test_fixtures/opposite_predicate_source.js",
+    exportName: "OPPOSITE_PREDICATE_SOURCE",
+    memberPath: ["schema"]
+  },
+  schema: v.pipe(v.string(), ACTION)
+});
+`;
+}
+
+async function deriveOppositePredicateWitness() {
+  const projectorUrl = new URL(
+    "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js",
+    import.meta.url
+  ).href;
+  const script = `
+import * as v from "valibot";
+import { appendFile } from "node:fs/promises";
+import {
+  deriveCanonicalNativeSchemaProjection,
+  resolveSemanticBuildNativeSchemaSource
+} from ${JSON.stringify(projectorUrl)};
+import {
+  OPPOSITE_PREDICATE_REGISTRY,
+  OPPOSITE_PREDICATE_SOURCE
+} from ${JSON.stringify(OPPOSITE_PREDICATE_MODULE_URL.href)};
+
+const source = await resolveSemanticBuildNativeSchemaSource(
+  OPPOSITE_PREDICATE_SOURCE
+);
+const projection = deriveCanonicalNativeSchemaProjection({
+  source,
+  schemaRef: "abg.schema.test.opposite-predicate",
+  schemaVersion: "5.0.0",
+  namedCheckRegistry: OPPOSITE_PREDICATE_REGISTRY
+});
+await appendFile(
+  new URL(${JSON.stringify(OPPOSITE_PREDICATE_MODULE_URL.href)}),
+  "\\n// changed after first resolution\\n",
+  "utf8"
+);
+let cacheRefusal = null;
+try {
+  await resolveSemanticBuildNativeSchemaSource(
+    OPPOSITE_PREDICATE_SOURCE
+  );
+} catch (error) {
+  cacheRefusal = error instanceof Error ? error.message : String(error);
+}
+process.stdout.write(JSON.stringify({
+  admitted: v.safeParse(OPPOSITE_PREDICATE_SOURCE.schema, "value").success,
+  projectionDigest: projection.witness.projectionDigest,
+  sourceBasisDigest: projection.witness.sourceBasisDigest,
+  witnessDigest: projection.witness.witnessDigest,
+  namedChecks: projection.witness.namedChecks,
+  cacheRefusal
+}));
+`;
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    ["--input-type=module", "--eval", script],
+    { cwd: process.cwd() }
+  );
+  return JSON.parse(stdout);
+}
 
 function collectNamedChecks(input, output = new Map()) {
   if (Array.isArray(input)) {
@@ -73,37 +170,29 @@ function consensusContractIdentity(kind, definition) {
     contractId: definition.contractId,
     contractVersion: "5.0.0",
     schemaId: definition.contractId,
-    schemaVersion: "5.0.0",
-    nativeLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: "code/src/abg/m03/contracts/consensus_contract_family.js",
-      exportName: "CONSENSUS_PUBLIC_CONTRACT_FAMILY",
-      memberPath: [kind, "schema"]
-    }
+    schemaVersion: "5.0.0"
   };
 }
 
-async function resolveConsensusSchema(identity) {
-  const { nativeLocator } = identity;
-  assert.equal(nativeLocator.kind, "private_source_module");
-  assert.equal(nativeLocator.sourceRoot, "semantic_build");
-  assert.equal(
-    nativeLocator.modulePath,
-    "code/src/abg/m03/contracts/consensus_contract_family.js"
-  );
-  assert.equal(
-    nativeLocator.exportName,
-    "CONSENSUS_PUBLIC_CONTRACT_FAMILY"
-  );
-  const sourceRoot = new URL("../../build/semantic/", import.meta.url);
-  const sourceModule = await import(
-    new URL(nativeLocator.modulePath, sourceRoot).href
-  );
-  return nativeLocator.memberPath.reduce(
-    (value, member) => Reflect.get(value, member),
-    Reflect.get(sourceModule, nativeLocator.exportName)
-  );
+function consensusSourceLocator(kind) {
+  return {
+    kind: "private_source_module",
+    sourceRoot: "semantic_build",
+    modulePath: "code/src/abg/m03/contracts/consensus_contract_family.js",
+    exportName: "CONSENSUS_PUBLIC_CONTRACT_FAMILY",
+    memberPath: [kind, "schema"]
+  };
+}
+
+function consensusSourceRow(kind, definition) {
+  const sourceLocator = consensusSourceLocator(kind);
+  return Object.freeze({
+    sourceLocator: Object.freeze({
+      ...sourceLocator,
+      memberPath: Object.freeze(sourceLocator.memberPath)
+    }),
+    schema: definition.schema
+  });
 }
 
 test("T-274A projector basis versions equal the locked toolchain", async () => {
@@ -222,13 +311,15 @@ test("T-274A structurally projects nine schemas and registration digests", async
     }
 
     const identity = consensusContractIdentity(kind, definition);
-    const resolvedSchema = await resolveConsensusSchema(identity);
-    assert.equal(resolvedSchema, definition.schema);
+    const source = await resolveSemanticBuildNativeSchemaSource(
+      consensusSourceRow(kind, definition)
+    );
     const nativeDefinition = defineNativeContract({
       identity,
-      schema: resolvedSchema,
+      source,
       namedCheckRegistry: CONSENSUS_NATIVE_CHECK_REGISTRY
     });
+    assert.equal(nativeDefinition.schema, definition.schema);
     assert.equal(
       nativeDefinition.schemaCoordinate.schemaDigest,
       stableSha256Digest(nativeDefinition.projectedSchema)
@@ -344,6 +435,46 @@ test("T-274A executes the native predicate separately from schema projection", (
   );
 });
 
+test("T-274A witness binds opposite predicate semantics outside JSON Schema", async () => {
+  await mkdir(new URL(".", OPPOSITE_PREDICATE_MODULE_URL), {
+    recursive: true
+  });
+  try {
+    await writeFile(
+      OPPOSITE_PREDICATE_MODULE_URL,
+      oppositePredicateModule("true"),
+      "utf8"
+    );
+    const accepting = await deriveOppositePredicateWitness();
+    await writeFile(
+      OPPOSITE_PREDICATE_MODULE_URL,
+      oppositePredicateModule("false"),
+      "utf8"
+    );
+    const rejecting = await deriveOppositePredicateWitness();
+
+    assert.equal(accepting.admitted, true);
+    assert.equal(rejecting.admitted, false);
+    assert.equal(accepting.projectionDigest, rejecting.projectionDigest);
+    assert.deepEqual(accepting.namedChecks, rejecting.namedChecks);
+    assert.match(
+      accepting.cacheRefusal,
+      /module bytes changed after first resolution/u
+    );
+    assert.match(
+      rejecting.cacheRefusal,
+      /module bytes changed after first resolution/u
+    );
+    assert.notEqual(accepting.sourceBasisDigest, rejecting.sourceBasisDigest);
+    assert.notEqual(accepting.witnessDigest, rejecting.witnessDigest);
+  } finally {
+    await rm(new URL(".", OPPOSITE_PREDICATE_MODULE_URL), {
+      force: true,
+      recursive: true
+    });
+  }
+});
+
 test("T-274A rejects malformed, duplicate, and unknown named-check registrations", () => {
   const known = CONSENSUS_NATIVE_CHECK_REGISTRY.checks[0];
   const immutableRegistry = (checks) =>
@@ -445,5 +576,33 @@ test("T-274A rejects malformed, duplicate, and unknown named-check registrations
   assert.throws(
     () => projectNativeJsonSchema(v.pipe(v.string(), v.check(() => true))),
     /unsupported action check/u
+  );
+});
+
+test("T-274A rejects lookalike native schemas and actions", () => {
+  const forgedStringSchema = Object.freeze({
+    ...v.string(),
+    reference: () => undefined
+  });
+  const forgedRegexAction = Object.freeze({
+    ...v.regex(/^allowed$/u),
+    reference: () => undefined
+  });
+  const forgedBrandAction = Object.freeze({
+    ...v.brand("Forged"),
+    reference: () => undefined
+  });
+
+  assert.throws(
+    () => projectNativeJsonSchema(forgedStringSchema),
+    /unsupported schema string reference/u
+  );
+  assert.throws(
+    () => projectNativeJsonSchema(v.pipe(v.string(), forgedRegexAction)),
+    /unsupported action regex reference/u
+  );
+  assert.throws(
+    () => projectNativeJsonSchema(v.pipe(v.string(), forgedBrandAction)),
+    /unsupported action brand reference/u
   );
 });

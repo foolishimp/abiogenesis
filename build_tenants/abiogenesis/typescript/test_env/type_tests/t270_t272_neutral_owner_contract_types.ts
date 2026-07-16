@@ -5,7 +5,9 @@ import {
   RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
   RUN_INVOKE_NATIVE_CONTRACT_SOURCES
 } from "../../code/src/abg/m03/contracts/one_surface_operation_contracts.js";
+import { defineNativeContract } from "../../code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import { refSchema } from "../../code/src/shared/validation/native_contract_primitives.js";
+import { resolveSemanticBuildNativeSchemaSource } from "../../code/src/shared/validation/canonical_native_schema_projector.js";
 
 type Equal<Left, Right> =
   (<T>() => T extends Left ? 1 : 2) extends
@@ -138,6 +140,40 @@ type _PrivateSourceRoot = Expect<
     "semantic_build"
   >
 >;
+type _PrivateSourceTerminatesAtSchema = Expect<
+  Equal<
+    typeof RUN_INVOKE_NATIVE_CONTRACT_SOURCES.invoke.request.sourceLocator.memberPath[3],
+    "schema"
+  >
+>;
+
+async function proveExactResolvedNativeSchemaType(): Promise<void> {
+  const ownerSource = RUN_INVOKE_NATIVE_CONTRACT_SOURCES.invoke.request;
+  const resolvedSource = await resolveSemanticBuildNativeSchemaSource(ownerSource);
+  const definition = defineNativeContract({
+    identity: {
+      contractId: "abg.contract.type-proof.run-invoke-request",
+      contractVersion: "5.0.0",
+      schemaId: "abg.schema.type-proof.run-invoke-request",
+      schemaVersion: "5.0.0"
+    },
+    source: resolvedSource
+  });
+  type ExactSchema = Expect<
+    Equal<typeof definition.schema, typeof ownerSource.schema>
+  >;
+  type ExactValue = Expect<
+    Equal<
+      v.InferOutput<typeof definition.schema>,
+      v.InferOutput<typeof ownerSource.schema>
+    >
+  >;
+  const schemaProof: ExactSchema = true;
+  const valueProof: ExactValue = true;
+  void schemaProof;
+  void valueProof;
+}
+void proveExactResolvedNativeSchemaType;
 
 export type NeutralOwnerContractTypeProof =
   | _NonConvergedUntil
@@ -153,4 +189,5 @@ export type NeutralOwnerContractTypeProof =
   | _SelectedActionStaysProjectionOwned
   | _SelectChoice
   | _ApproveChoice
-  | _PrivateSourceRoot;
+  | _PrivateSourceRoot
+  | _PrivateSourceTerminatesAtSchema;
