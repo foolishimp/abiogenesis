@@ -91,6 +91,9 @@
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
 - accepted_p1_constructor_design_digest: >-
     1bbf4bcb5fbe53f97e150ae743b798fb4c1fe0c5ea4d6fb4753bdc31f3b22d7a
+- p1_independent_design_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T140437Z_REVIEW_t281_p1_exact_definition_key_design.md
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
