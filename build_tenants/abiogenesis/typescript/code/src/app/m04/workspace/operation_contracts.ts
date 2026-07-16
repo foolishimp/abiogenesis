@@ -12,80 +12,40 @@ import {
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
-type WorkspaceOperationId =
-  | "abg.operation.workspace.create"
-  | "abg.operation.workspace.open";
-type WorkspaceVariant = "clean" | "imported" | "open";
-type WorkspaceSlot = "request" | "result" | "refusal";
-
 const MODULE_PATH = "code/src/app/m04/workspace/operation_contracts.js";
 const EXPORT_NAME = "WORKSPACE_NATIVE_CONTRACT_SOURCES";
-const DESIGN_DIGEST =
-  "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
+const CONTRACT_SHAPE_BASIS = freezeNativeValue({
+  ref: "design://abg/m04/public-operation-definition-family",
+  digest:
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
+} as const);
+const WORKSPACE_OWNER = freezeNativeValue({
+  product: "abiogenesis",
+  module: "app.m04",
+  family: "workspace"
+} as const);
+const CREATE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-059",
+  digest:
+    "sha256:72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74"
+} as const);
+const OPEN_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-060",
+  digest:
+    "sha256:72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74"
+} as const);
+const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
+  owner: WORKSPACE_OWNER,
+  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME
+} as const);
 
-const refListSchema = uniqueByNativeIdentityArray(refSchema);
-
-function familyKey(operationId: WorkspaceOperationId):
-  | "workspace_create"
-  | "workspace_open" {
-  return operationId === "abg.operation.workspace.create"
-    ? "workspace_create"
-    : "workspace_open";
-}
-
-function source<
-  const OperationId extends WorkspaceOperationId,
-  const Variant extends WorkspaceVariant,
-  const Slot extends WorkspaceSlot,
-  const S extends v.GenericSchema
->(input: {
-  readonly operationId: OperationId;
-  readonly variant: Variant;
-  readonly slot: Slot;
-  readonly schema: S;
-}) {
-  const suffix = `${input.operationId.slice("abg.operation.".length)}.${input.variant}.${input.slot}`;
-  return ownerNativeOperationContractSource({
-    kind: "owner_native_operation_contract_source",
-    authority: {
-      kind: "owner_native_operation_contract_authority",
-      owner: {
-        product: "abiogenesis",
-        module: "app.m04",
-        family: "workspace"
-      },
-      subject: {
-        operationId: input.operationId,
-        variant: input.variant,
-        slot: input.slot
-      },
-      carrierRevision: "5.0.0",
-      lawBasis: {
-        ref: "design://abg/m04/public-operation-definition-family",
-        digest: DESIGN_DIGEST
-      }
-    },
-    identity: {
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    },
-    sourceLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: MODULE_PATH,
-      exportName: EXPORT_NAME,
-      memberPath: [
-        familyKey(input.operationId),
-        input.variant,
-        input.slot,
-        "schema"
-      ]
-    },
-    schema: input.schema
-  });
-}
+const refListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refSchema),
+  v.readonly()
+);
 
 const refusal = <const Codes extends readonly [string, ...string[]]>(
   codes: Codes
@@ -95,20 +55,26 @@ const refusal = <const Codes extends readonly [string, ...string[]]>(
   residualRefs: refListSchema
 });
 
-const cleanRequest = source({
+const cleanRequest = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "clean",
   slot: "request",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "clean", "request"],
   schema: v.strictObject({
     targetRoot: absolutePosixPathSchema,
     createPolicy: v.literal("clean")
   })
 });
 
-const cleanResult = source({
+const cleanResult = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "clean",
   slot: "result",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "clean", "result"],
   schema: v.strictObject({
     workspaceRef: refSchema,
     creationManifestRef: refSchema,
@@ -116,10 +82,13 @@ const cleanResult = source({
   })
 });
 
-const cleanRefusal = source({
+const cleanRefusal = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "clean",
   slot: "refusal",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "clean", "refusal"],
   schema: refusal([
     "invalid_target",
     "workspace_exists",
@@ -128,10 +97,13 @@ const cleanRefusal = source({
   ])
 });
 
-const importedRequest = source({
+const importedRequest = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "imported",
   slot: "request",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "imported", "request"],
   schema: v.strictObject({
     targetRoot: absolutePosixPathSchema,
     createPolicy: v.literal("clean"),
@@ -140,10 +112,13 @@ const importedRequest = source({
   })
 });
 
-const importedResult = source({
+const importedResult = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "imported",
   slot: "result",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "imported", "result"],
   schema: v.strictObject({
     workspaceRef: refSchema,
     creationManifestRef: refSchema,
@@ -153,10 +128,13 @@ const importedResult = source({
   })
 });
 
-const importedRefusal = source({
+const importedRefusal = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.create",
   variant: "imported",
   slot: "refusal",
+  semanticOwnerBasis: CREATE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_create", "imported", "refusal"],
   schema: refusal([
     "invalid_target",
     "workspace_exists",
@@ -166,10 +144,13 @@ const importedRefusal = source({
   ])
 });
 
-const openRequest = source({
+const openRequest = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.open",
   variant: "open",
   slot: "request",
+  semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_open", "open", "request"],
   schema: v.strictObject({
     targetRoot: absolutePosixPathSchema,
     expectedWorkspaceAuthorityRef: refSchema,
@@ -177,10 +158,13 @@ const openRequest = source({
   })
 });
 
-const openResult = source({
+const openResult = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.open",
   variant: "open",
   slot: "result",
+  semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_open", "open", "result"],
   schema: v.strictObject({
     workspaceRef: refSchema,
     workspaceAuthorityBasisRef: refSchema,
@@ -192,10 +176,13 @@ const openResult = source({
   })
 });
 
-const openRefusal = source({
+const openRefusal = ownerNativeOperationContractSource({
+  ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.open",
   variant: "open",
   slot: "refusal",
+  semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_open", "open", "refusal"],
   schema: refusal([
     "invalid_target",
     "workspace_missing",

@@ -15,8 +15,28 @@ import { ownerNativeOperationContractSource } from "../../../shared/validation/o
 const MODULE_PATH =
   "code/src/app/m04/toolchain_binding/operation_contracts.js";
 const EXPORT_NAME = "TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES";
-const DESIGN_DIGEST =
-  "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
+const CONTRACT_SHAPE_BASIS = freezeNativeValue({
+  ref: "design://abg/m04/public-operation-definition-family",
+  digest:
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
+} as const);
+const TOOLCHAIN_BINDING_OWNER = freezeNativeValue({
+  product: "abiogenesis",
+  module: "app.m04",
+  family: "toolchain_binding"
+} as const);
+const SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-049..055",
+  digest:
+    "sha256:72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74"
+} as const);
+const SOURCE_PRIMITIVES = freezeNativeValue({
+  owner: TOOLCHAIN_BINDING_OWNER,
+  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME
+} as const);
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -40,76 +60,58 @@ const declaredRootsSchema = v.pipe(
   v.readonly()
 );
 
-function source<
-  const Slot extends "request" | "result" | "refusal",
-  const S extends v.GenericSchema
->(slot: Slot, schema: S) {
-  const suffix = `workspace.bind.bind.${slot}`;
-  return ownerNativeOperationContractSource({
-    kind: "owner_native_operation_contract_source",
-    authority: {
-      kind: "owner_native_operation_contract_authority",
-      owner: {
-        product: "abiogenesis",
-        module: "app.m04",
-        family: "toolchain_binding"
-      },
-      subject: {
-        operationId: "abg.operation.workspace.bind",
-        variant: "bind",
-        slot
-      },
-      carrierRevision: "5.0.0",
-      lawBasis: {
-        ref: "design://abg/m04/public-operation-definition-family",
-        digest: DESIGN_DIGEST
-      }
-    },
-    identity: {
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    },
-    sourceLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: MODULE_PATH,
-      exportName: EXPORT_NAME,
-      memberPath: ["workspace_bind", "bind", slot, "schema"]
-    },
-    schema
-  });
-}
-
-const request = source("request", v.strictObject({
+const request = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.workspace.bind",
+  variant: "bind",
+  slot: "request",
+  semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_bind", "bind", "request"],
+  schema: v.strictObject({
   workspaceAuthorityRef: refSchema,
   workspaceAuthorityDigest: sha256DigestSchema,
   installedSet: installedSetSchema,
   resolvedLockRef: refSchema,
   resolvedLockDigest: sha256DigestSchema,
   declaredRoots: declaredRootsSchema
-}));
+  })
+});
 
-const result = source("result", v.strictObject({
-  workspaceBindingRef: refSchema,
-  workspaceBindingDigest: sha256DigestSchema,
-  bindingManifestRef: refSchema,
-  bindingManifestDigest: sha256DigestSchema
-}));
+const result = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.workspace.bind",
+  variant: "bind",
+  slot: "result",
+  semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_bind", "bind", "result"],
+  schema: v.strictObject({
+    workspaceBindingRef: refSchema,
+    workspaceBindingDigest: sha256DigestSchema,
+    bindingManifestRef: refSchema,
+    bindingManifestDigest: sha256DigestSchema
+  })
+});
 
-const refusal = source("refusal", v.strictObject({
-  code: v.picklist([
-    "workspace_not_ready",
-    "product_not_installed",
-    "lock_mismatch",
-    "root_invalid",
-    "binding_conflict",
-    "incompatible"
-  ]),
-  message: nonEmptyTextSchema,
-  residualRefs: refListSchema
-}));
+const refusal = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.workspace.bind",
+  variant: "bind",
+  slot: "refusal",
+  semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+  memberPath: ["workspace_bind", "bind", "refusal"],
+  schema: v.strictObject({
+    code: v.picklist([
+      "workspace_not_ready",
+      "product_not_installed",
+      "lock_mismatch",
+      "root_invalid",
+      "binding_conflict",
+      "incompatible"
+    ]),
+    message: nonEmptyTextSchema,
+    residualRefs: refListSchema
+  })
+});
 
 export const TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   workspace_bind: {

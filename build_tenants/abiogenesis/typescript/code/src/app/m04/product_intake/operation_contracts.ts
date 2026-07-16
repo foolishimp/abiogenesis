@@ -12,37 +12,46 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
-
-type ProductIntakeOperationId =
-  | "abg.operation.product.verify"
-  | "abg.operation.product.resolve"
-  | "abg.operation.product.install";
-type ProductIntakeVariant = "verify" | "resolve" | "install";
-type ProductIntakeSlot = "request" | "result" | "refusal";
-
-export interface ProductInstallRequestContractGap {
-  readonly kind: "semantic_not_realized";
-  readonly gapCode: "p1_contract_product_install_policy_not_realized";
-  readonly definitionKey: {
-    readonly operationId: "abg.operation.product.install";
-    readonly memberKind: "variant";
-    readonly variant: "install";
-  };
-  readonly slot: "request";
-  readonly ownerAuthorityRef: string;
-  readonly ownerAuthorityDigest: `sha256:${string}`;
-  readonly ownerDesignRef: string;
-  readonly evidenceRefs: readonly [string, ...string[]];
-}
+import {
+  ownerNativeOperationContractGap,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
   "code/src/app/m04/product_intake/operation_contracts.js";
 const EXPORT_NAME = "PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES";
-const DESIGN_REF =
-  "design://abg/m04/public-operation-definition-family";
-const DESIGN_DIGEST =
-  "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
+const CONTRACT_SHAPE_BASIS = freezeNativeValue({
+  ref: "design://abg/m04/public-operation-definition-family",
+  digest:
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
+} as const);
+const PRODUCT_INTAKE_OWNER = freezeNativeValue({
+  product: "abiogenesis",
+  module: "app.m04",
+  family: "product_intake"
+} as const);
+const VERIFY_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-043..045",
+  digest:
+    "sha256:72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74"
+} as const);
+const RESOLVE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-010..013",
+  digest:
+    "sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84"
+} as const);
+const INSTALL_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-057",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const PRODUCT_INTAKE_SOURCE_PRIMITIVES = freezeNativeValue({
+  owner: PRODUCT_INTAKE_OWNER,
+  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME
+} as const);
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -122,71 +131,6 @@ const coordinateListSchema = v.pipe(
   v.readonly()
 );
 
-function familyKey(operationId: ProductIntakeOperationId):
-  | "product_verify"
-  | "product_resolve"
-  | "product_install" {
-  switch (operationId) {
-    case "abg.operation.product.verify":
-      return "product_verify";
-    case "abg.operation.product.resolve":
-      return "product_resolve";
-    case "abg.operation.product.install":
-      return "product_install";
-  }
-}
-
-function source<
-  const OperationId extends ProductIntakeOperationId,
-  const Variant extends ProductIntakeVariant,
-  const Slot extends ProductIntakeSlot,
-  const S extends v.GenericSchema
->(input: {
-  readonly operationId: OperationId;
-  readonly variant: Variant;
-  readonly slot: Slot;
-  readonly schema: S;
-}) {
-  const suffix = `${input.operationId.slice("abg.operation.".length)}.${input.variant}.${input.slot}`;
-  return ownerNativeOperationContractSource({
-    kind: "owner_native_operation_contract_source",
-    authority: {
-      kind: "owner_native_operation_contract_authority",
-      owner: {
-        product: "abiogenesis",
-        module: "app.m04",
-        family: "product_intake"
-      },
-      subject: {
-        operationId: input.operationId,
-        variant: input.variant,
-        slot: input.slot
-      },
-      carrierRevision: "5.0.0",
-      lawBasis: { ref: DESIGN_REF, digest: DESIGN_DIGEST }
-    },
-    identity: {
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    },
-    sourceLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: MODULE_PATH,
-      exportName: EXPORT_NAME,
-      memberPath: [
-        familyKey(input.operationId),
-        input.variant,
-        input.slot,
-        "schema"
-      ]
-    },
-    schema: input.schema
-  });
-}
-
 const refusal = <const Codes extends readonly [string, ...string[]]>(
   codes: Codes
 ) => v.strictObject({
@@ -195,10 +139,13 @@ const refusal = <const Codes extends readonly [string, ...string[]]>(
   residualRefs: refListSchema
 });
 
-const verifyRequest = source({
+const verifyRequest = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.verify",
   variant: "verify",
   slot: "request",
+  semanticOwnerBasis: VERIFY_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_verify", "verify", "request"],
   schema: v.strictObject({
     artifactRef: refSchema,
     artifactDigest: sha256DigestSchema,
@@ -212,10 +159,13 @@ const verifyRequest = source({
   })
 });
 
-const verifyResult = source({
+const verifyResult = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.verify",
   variant: "verify",
   slot: "result",
+  semanticOwnerBasis: VERIFY_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_verify", "verify", "result"],
   schema: v.strictObject({
     verifiedArtifactRef: refSchema,
     verifiedArtifactDigest: sha256DigestSchema,
@@ -232,10 +182,13 @@ const verifyResult = source({
   })
 });
 
-const verifyRefusal = source({
+const verifyRefusal = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.verify",
   variant: "verify",
   slot: "refusal",
+  semanticOwnerBasis: VERIFY_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_verify", "verify", "refusal"],
   schema: refusal([
     "invalid_artifact",
     "digest_mismatch",
@@ -246,20 +199,26 @@ const verifyRefusal = source({
   ])
 });
 
-const resolveRequest = source({
+const resolveRequest = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.resolve",
   variant: "resolve",
   slot: "request",
+  semanticOwnerBasis: RESOLVE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_resolve", "resolve", "request"],
   schema: v.strictObject({
     requirements: requirementListSchema,
     candidates: coordinateListSchema
   })
 });
 
-const resolveResult = source({
+const resolveResult = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.resolve",
   variant: "resolve",
   slot: "result",
+  semanticOwnerBasis: RESOLVE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_resolve", "resolve", "result"],
   schema: v.strictObject({
     resolvedLockRef: refSchema,
     resolvedLockDigest: sha256DigestSchema,
@@ -269,10 +228,13 @@ const resolveResult = source({
   })
 });
 
-const resolveRefusal = source({
+const resolveRefusal = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.resolve",
   variant: "resolve",
   slot: "refusal",
+  semanticOwnerBasis: RESOLVE_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_resolve", "resolve", "refusal"],
   schema: refusal([
     "invalid_requirement",
     "unresolved",
@@ -282,10 +244,13 @@ const resolveRefusal = source({
   ])
 });
 
-const installResult = source({
+const installResult = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.install",
   variant: "install",
   slot: "result",
+  semanticOwnerBasis: INSTALL_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_install", "install", "result"],
   schema: v.strictObject({
     installedProductRef: refSchema,
     installedProductDigest: sha256DigestSchema,
@@ -297,10 +262,13 @@ const installResult = source({
   })
 });
 
-const installRefusal = source({
+const installRefusal = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.install",
   variant: "install",
   slot: "refusal",
+  semanticOwnerBasis: INSTALL_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_install", "install", "refusal"],
   schema: refusal([
     "verification_failed",
     "invalid_target",
@@ -309,24 +277,27 @@ const installRefusal = source({
   ])
 });
 
-export const PRODUCT_INSTALL_REQUEST_GAP = freezeNativeValue({
+export const PRODUCT_INSTALL_REQUEST_GAP = ownerNativeOperationContractGap({
   kind: "semantic_not_realized",
   gapCode: "p1_contract_product_install_policy_not_realized",
-  definitionKey: {
-    operationId: "abg.operation.product.install",
-    memberKind: "variant",
-    variant: "install"
+  coordinate: {
+    definitionKey: {
+      operationId: "abg.operation.product.install",
+      memberKind: "variant",
+      variant: "install"
+    },
+    slot: "request"
   },
-  slot: "request",
-  ownerAuthorityRef: DESIGN_REF,
-  ownerAuthorityDigest: DESIGN_DIGEST,
+  ownerAuthorityRef: INSTALL_SEMANTIC_OWNER_BASIS.ref,
+  ownerAuthorityDigest: INSTALL_SEMANTIC_OWNER_BASIS.digest,
+  ownerTicket: null,
   ownerDesignRef:
-    "build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md#closed-payload-semantics",
+    "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
   evidenceRefs: [
     "code/src/app/m04/product_intake/install.ts",
     "specification/requirements/product/REQ-P-INSTALL.md"
   ]
-} satisfies ProductInstallRequestContractGap);
+});
 
 export const PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   product_verify: {

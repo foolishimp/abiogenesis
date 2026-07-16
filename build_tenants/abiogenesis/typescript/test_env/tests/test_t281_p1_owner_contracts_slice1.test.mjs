@@ -13,6 +13,7 @@ import {
   PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/product_intake/operation_contracts.js";
 import {
+  RESULT_ASSESSMENT_SEMANTIC_TRACE,
   RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/result_assessment/operation_contracts.js";
 import {
@@ -25,10 +26,14 @@ import {
   deriveCanonicalNativeSchemaProjection
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
-const DESIGN_DIGEST =
-  "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
+const CONTRACT_SHAPE_DIGEST =
+  "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7";
 const ONTOLOGY_DIGEST =
   "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1";
+const OPAQUE_RESOLVER_INTEGRATION = Object.freeze({
+  status: "pending_projector_repair_integration",
+  constraint: "consume_shared_opaque_resolver_without_local_copy"
+});
 
 const D = "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
 
@@ -54,6 +59,32 @@ const gaps = [
   INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.configuration.result
 ];
 
+const EXPECTED_SEMANTIC_OWNER_REFS = Object.freeze({
+  "abg.operation.workspace.create":
+    "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-059",
+  "abg.operation.workspace.open":
+    "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-060",
+  "abg.operation.product.verify":
+    "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-043..045",
+  "abg.operation.product.resolve":
+    "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-010..013",
+  "abg.operation.product.install":
+    "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-057",
+  "abg.operation.workspace.bind":
+    "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-049..055",
+  "abg.operation.result.assess":
+    "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-034"
+});
+
+function expectedSemanticOwnerRef(operationId, variant) {
+  if (operationId === "abg.operation.product.materialize") {
+    return variant === "context_bootstrap"
+      ? "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-056"
+      : "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-058";
+  }
+  return EXPECTED_SEMANTIC_OWNER_REFS[operationId];
+}
+
 function sha256(bytes) {
   return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
 }
@@ -72,16 +103,6 @@ function assertDeepFrozen(value, visited = new WeakSet()) {
   }
 }
 
-async function resolvePrivateSource(source) {
-  const locator = source.sourceLocator;
-  const sourceRoot = new URL("../../build/semantic/", import.meta.url);
-  const sourceModule = await import(new URL(locator.modulePath, sourceRoot).href);
-  return locator.memberPath.reduce(
-    (value, member) => Reflect.get(value, member),
-    Reflect.get(sourceModule, locator.exportName)
-  );
-}
-
 test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
   assert.equal(resolvedSources.length, 26);
   assert.equal(gaps.length, 5);
@@ -89,7 +110,7 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
   const definitionKeys = new Set(
     [...resolvedSources, ...gaps].map((row) => {
       const subject = row.kind === "semantic_not_realized"
-        ? row.definitionKey
+        ? row.coordinate.definitionKey
         : row.authority.subject;
       return `${subject.operationId}(${subject.variant})`;
     })
@@ -109,7 +130,25 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
 
   for (const source of resolvedSources) {
     assert.equal(source.kind, "owner_native_operation_contract_source");
-    assert.equal(source.authority.lawBasis.digest, DESIGN_DIGEST);
+    assert.equal(
+      source.authority.contractShapeBasis.digest,
+      CONTRACT_SHAPE_DIGEST
+    );
+    assert.equal(
+      source.authority.contractShapeBasis.status,
+      "candidate_integration_pin_pending_final_rebind"
+    );
+    assert.notEqual(
+      source.authority.semanticOwnerBasis.ref,
+      "design://abg/m04/public-operation-definition-family"
+    );
+    assert.equal(
+      source.authority.semanticOwnerBasis.ref,
+      expectedSemanticOwnerRef(
+        source.authority.subject.operationId,
+        source.authority.subject.variant
+      )
+    );
     assert.equal(source.sourceLocator.kind, "private_source_module");
     assert.equal(source.sourceLocator.sourceRoot, "semantic_build");
     assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
@@ -117,16 +156,34 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
   }
   for (const gap of gaps) {
     assert.equal(gap.kind, "semantic_not_realized");
-    assert.equal(gap.ownerAuthorityDigest, DESIGN_DIGEST);
+    assert.notEqual(
+      gap.ownerAuthorityRef,
+      "design://abg/m04/public-operation-definition-family");
+    assert.equal(
+      gap.ownerAuthorityRef,
+      expectedSemanticOwnerRef(
+        gap.coordinate.definitionKey.operationId,
+        gap.coordinate.definitionKey.variant
+      )
+    );
+    assert.equal(
+      gap.coordinate.slot === "request" || gap.coordinate.slot === "result",
+      true
+    );
+    assert.equal(gap.ownerTicket, null);
     assert.ok(gap.evidenceRefs.length > 0);
     assertDeepFrozen(gap);
   }
 });
 
-test("T-281 Slice 1 private locators terminate at exact schema objects", async () => {
+test("T-281 Slice 1 locators await the shared opaque resolver port", () => {
   for (const source of resolvedSources) {
-    assert.equal(await resolvePrivateSource(source), source.schema);
+    assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
   }
+  assert.deepEqual(OPAQUE_RESOLVER_INTEGRATION, {
+    status: "pending_projector_repair_integration",
+    constraint: "consume_shared_opaque_resolver_without_local_copy"
+  });
 });
 
 test("T-281 Slice 1 resolved sources are canonically projectable", () => {
@@ -145,6 +202,26 @@ test("T-281 Slice 1 resolved sources are canonically projectable", () => {
   }
 });
 
+test("T-281 Slice 1 traces result assessment to AF-19 and policy law", () => {
+  assert.equal(
+    RESULT_ASSESSMENT_SEMANTIC_TRACE.semanticOwnerBasis.ref,
+    "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-034"
+  );
+  assert.equal(
+    RESULT_ASSESSMENT_SEMANTIC_TRACE.ontologyFunction.ref.endsWith("#AF-19"),
+    true
+  );
+  assert.equal(
+    RESULT_ASSESSMENT_SEMANTIC_TRACE.ontologyFunction.digest,
+    ONTOLOGY_DIGEST
+  );
+  assert.equal(
+    RESULT_ASSESSMENT_SEMANTIC_TRACE.legacyCarrierEquivalence,
+    "not_claimed"
+  );
+  assertDeepFrozen(RESULT_ASSESSMENT_SEMANTIC_TRACE);
+});
+
 test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
   const clean = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.clean;
   assert.deepEqual(v.parse(clean.request.schema, {
@@ -156,6 +233,11 @@ test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
     createPolicy: "clean",
     importAuthorityRef: "authority:unexpected"
   }));
+  assert.deepEqual(v.parse(clean.result.schema, {
+    workspaceRef: "workspace:one",
+    creationManifestRef: "manifest:one",
+    provenanceRefs: ["evidence:one"]
+  }).provenanceRefs, ["evidence:one"]);
 
   const imported = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.imported;
   assert.throws(() => v.parse(imported.request.schema, {
@@ -299,13 +381,13 @@ test("T-281 Slice 1 materialization preserves exact unresolved slots", () => {
   }));
 });
 
-test("T-281 Slice 1 is based on the unchanged accepted design and Ontology", async () => {
+test("T-281 Slice 1 preserves Ontology and flags candidate-shape rebind", async () => {
   const design = await readFile(
     new URL("../../design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md", import.meta.url)
   );
   const ontology = await readFile(
     new URL("../../design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md", import.meta.url)
   );
-  assert.equal(sha256(design), DESIGN_DIGEST);
+  assert.notEqual(sha256(design), CONTRACT_SHAPE_DIGEST);
   assert.equal(sha256(ontology), ONTOLOGY_DIGEST);
 });

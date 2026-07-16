@@ -29,6 +29,14 @@ const wrongCreatePolicy: CleanRequest = {
 };
 void wrongCreatePolicy;
 
+const cleanResultSchema =
+  WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.clean.result.schema;
+type CleanResult = v.InferOutput<typeof cleanResultSchema>;
+declare const cleanResult: CleanResult;
+
+// @ts-expect-error Workspace provenance is an immutable owner-contract list.
+cleanResult.provenanceRefs.push("evidence:forged");
+
 const resolveRequestSchema =
   PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve.request.schema;
 type ResolveRequest = v.InferOutput<typeof resolveRequestSchema>;
