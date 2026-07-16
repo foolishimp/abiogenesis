@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: target_shape_fh_accepted_constitutional_propagation_active
-- review_status: exact_v9_independently_accepted_and_fh_target_accepted
-- proof_status: 27_7_19_exact_candidate_accepted_propagation_pending
+- phase_status: ontology_ratified_affected_design_reconciliation_active
+- review_status: final_v9_ratified_two_independent_reviews
+- proof_status: 27_7_19_current_basis_green_runtime_still_frozen
 - delivery_phase: DS-0 consistency re-entry before DS-5 public-product completion
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -111,6 +111,15 @@
 - fh_target_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260715T234641Z_DECISION_fh_accept_t278_v9_target_shape.md
+- final_release_authority_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T055137Z_REVIEW_t278_final_release_authority.md
+- final_prime_one_surface_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T055200Z_REVIEW_t278_final_prime_one_surface.md
+- ontology_ratification_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T055554Z_DECISION_t278_ontology_ratified.md
 - managed_delivery_plan_ref: specification/GOALS.md
 - current_plan_read_model_ref: >-
     .ai-workspace/comments/codex/
@@ -143,21 +152,18 @@
 
 ## Current Review Disposition
 
-The exact `/9-candidate` at checkpoint `83c87dec` passed two reviewer-authored
-independent reviews over the same six frozen subject digests. Those reviews
-accept the program/GraphFunction distinction, four distinct One Surface
-authorities, stable workspace-authority versus mutable-observation boundary,
-one `ExactCandidateQualification<K>` family, direct typed result-vector path
-through `C.of(AF-22)`, installed-RC authorization lineage, 27 atomic function
-families, seven higher-order compositions, and 19-operation external
-projection. They found no residual target-shape blocker.
+F_H accepted the `/9-candidate` target at checkpoint `83c87dec` on 2026-07-16.
+INTENT, PRODUCT, requirements, GOALS, and T-244 were then reconciled in
+authority order. The Ontology basis was recomputed over 31 current sources;
+both final read-only reviewers accepted semantic candidate digest
+`1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`.
+The upstream method basis is durable at `specification_methodology@f28e0d8`.
 
-F_H accepted that exact target on 2026-07-16 and authorized constitutional
-propagation only. The candidate Ontology is not yet ratified. INTENT, PRODUCT,
-requirements, and GOALS must now be reconciled in authority order; T-244 must
-then be regenerated once; the Ontology basis must be recomputed over those
-current sources and pass final independent design review. Runtime remains
-frozen until those steps and affected-design acceptance are complete.
+Ontology `/9` is now ratified at digest
+`f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`.
+Runtime remains frozen only at the affected T-270/T-272 and DS-4 boundaries
+until their three-view designs are reconciled to the ratified Ontology and
+accepted. Unrelated accepted boundaries are not reopened.
 
 The existing Prime regression gate proves only that the earlier T-277 governed
 design set remains green. T-278's target is supported by its explicit
@@ -191,7 +197,7 @@ Public operation identities, command paths, handlers, schemas, and tests are
 projections of this accepted Ontology. They are not independent authoring
 sources and their count is not a constitutional input.
 
-## Superseded Truth Candidate
+## Superseded Truth
 
 On F_H acceptance and constitutional propagation, the following current claim
 is superseded:
@@ -265,16 +271,17 @@ This ticket closes only when:
 
 ## Current Freeze
 
-During constitutional propagation and final Ontology ratification:
+During affected-design reconciliation:
 
-- do not implement any of the 17 missing roster entries;
+- do not implement any of the 16 missing target operation entries;
 - do not claim DS-5 completion from operation-count parity;
 - preserve the current dirty T-270/T-272 work as provisional realization
   evidence and do not checkpoint it as 5.0 closure;
 - T-270 and T-272 may be reconciled only after their public and runtime
   functions are mapped to the accepted Ontology and affected designs pass; and
-- T-274 through T-276 remain active but cannot use the current exact operation
-  roster as architectural authority.
+- T-274 through T-276 remain active and must consume the accepted 19-operation
+  projection through their reconciled designs rather than implementation
+  precedent.
 
 The singular integration line is `codex/t266-stage`. Its divergence from
 `main` is a source-control reconciliation task, not permission to merge or
@@ -302,9 +309,10 @@ authoritative.
 - [x] bounded qualification-law and installed-RC authorization binding repair
 - [x] focused reviewer-authored authority review over the exact repaired subject
 - [x] explicit F_H target-shape acceptance
-- [ ] INTENT, PRODUCT, requirement, and GOALS propagation
-- [ ] T-244 and active-ticket reconciliation
-- [ ] exact basis recomputation and final Ontology ratification
+- [x] INTENT, PRODUCT, requirement, and GOALS propagation
+- [x] T-244 regeneration and reclosure
+- [x] exact basis recomputation and final Ontology ratification
+- [ ] active-ticket and affected-design reconciliation
 - [ ] derived three-view and IACS acceptance for affected boundaries
 - [ ] hard-break realization migration
 - [ ] installed proof and closure review

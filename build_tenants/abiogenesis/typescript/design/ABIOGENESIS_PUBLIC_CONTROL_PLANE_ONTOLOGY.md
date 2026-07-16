@@ -1,52 +1,56 @@
 # ABIogenesis Public Control-Plane Ontology
 
-**Status**: Candidate repaired; reviewer-authored independent review required
+**Status**: Ratified
 
-**Design verdict**: `candidate`
+**Design verdict**: `accepted`
 
 **Owner ticket**: T-278
 
 **Boundary**: ABIogenesis 5.0 installed product and public operator control plane
 
-**Ontology version**: `abg.public-control-plane.ontology/9-candidate`
+**Ontology version**: `abg.public-control-plane.ontology/9`
 
-**Date**: 2026-07-15
+**Date**: 2026-07-16
 
-Implementation and constitutional propagation are prohibited until the verdict
-is `accepted`. This surface classifies discovered behavior and proposes one
-design truth; it does not ratify itself.
+**Accepted semantic candidate SHA-256**:
+`1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`
+
+Constitutional propagation, T-244 regeneration, and final independent design
+review are complete. Runtime implementation remains prohibited until the
+affected three-view designs are reconciled to this Ontology and accepted.
 
 ## Exact Basis
 
 | Source | SHA-256 basis | Use |
 |---|---|---|
-| `specification/GOALS.md` | `ec8179b84529264f05f5603f08951649b6c7c5b4fc6b45920e724d5a6c8648b2` | current 5.0 goal, retained feature families, and DS sequence |
-| `specification/INTENT.md` | `a40f947b26b34307610d5919d5131f82be63bd32ad4e6686e642777a97ce8dcf` | operator and product direction |
-| `specification/PRODUCT.md` | `393670bbc367495be4397ce8f86818de7adbd6ee416f0e0ed03f5e2938e5f5ac` | GTL, ABG, recursive product taxonomy, installed-product, and public-operator truth |
-| `REQ-P-POLICY.md` | `b2e38804bdadcde40eef7fda626a211438bd99b61c71ede388e8e04c4dc0d871` | operator grammar, control modes, descriptors, and discovered public behavior |
-| `REQ-P-PUBLIC-CONTRACTS.md` | `e8adf02b751965648d2dd166365d995a82b6ba85396c840877fa3d764e1bd093` | current identities, invocation descriptors, capabilities, and publication law |
-| `REQ-P-CATALOG.md` | `63b8340c962215110f3e8b0a000f754905296e68e8b3e688244a142da80528c0` | product descriptors, contribution manifests, kinds, application, and allowlist law |
-| `REQ-P-INSTALL.md` | `c8961b1048a01b86767428d374602fda8c469b10c904ed176b44b11ec6dd8360` | product, artifact, install, toolchain, workspace, and binding law |
-| `REQ-P-CONSENSUS.md` | `0c2437b9fe1d9221bb8c1d3182aa10c2e8ea147ff283b5f44b4a5b27cc8c0ad3` | reference GraphFunction consumer and workspace applications |
-| `REQ-P-SCENARIOS.md` | `b3274c24b1469a3b65ad6266f2b322636d03643636b075166fce10b5caacc20c` | installed operator and Consensus behavior |
-| `REQ-P-QUAL.md` | `94250f0998d8ac97747388a7fb6ec5eb9ab9bd2eb758ac1e8fd9713ee41daa19` | exact candidate, malformed-output, manifest, and release evidence |
-| `REQ-P-SELF-CONFORMANCE.md` | `c0ce58177b1ab924e55d0d29aef717bf1aef57536de532a1e64dfe20f7fb9533` | exact-candidate self-conformance evaluator and release-gate law |
-| `REQ-L-GTL3-CONTRACT-LAW-API.md` | `fdc7a3c8f9bff3ed7625dcde7f2a5da13d1f290f5d237670b855b47a03c585c4` | public GTL contract-law and conformance boundary |
+| `specification/GOALS.md` | `ec8945b558833c2073c70bcf99d28d668200d225867ca288b46f7c0fd52b9756` | current 5.0 goal, retained feature families, and DS sequence |
+| `specification/INTENT.md` | `a24c6bcbe4605d8ef0444c063ce61a58d43632b2bcc42b4752e42935d93d9b9f` | operator and product direction |
+| `specification/PRODUCT.md` | `5baa698c8d398118649260ce350f3dc2bd2d33c60ef66078d4a2a0a927fb15f2` | GTL, ABG, recursive product taxonomy, installed-product, and public-operator truth |
+| `REQ-P-POLICY.md` | `89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` | operator grammar, control modes, descriptors, and discovered public behavior |
+| `REQ-P-PUBLIC-CONTRACTS.md` | `eed6bfd474d8e572a82d25a7e227f5e1e447f0f78f75933a32fdaf3ed7c43764` | current identities, invocation descriptors, capabilities, and publication law |
+| `REQ-P-CATALOG.md` | `af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84` | product descriptors, contribution manifests, kinds, application, and allowlist law |
+| `REQ-P-INSTALL.md` | `72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74` | product, artifact, install, toolchain, workspace, and binding law |
+| `REQ-P-CONSENSUS.md` | `d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d` | reference GraphFunction consumer and workspace applications |
+| `REQ-P-SCENARIOS.md` | `a7430bb1468f6d26d46bfdd41be43c81220954e793ff47052488b206b54b0562` | installed operator and Consensus behavior |
+| `REQ-P-QUAL.md` | `bebedefb749e6cb6be3111bbadb8a342aca396b88456947bbe0dde1cb5b4b6dd` | exact candidate, malformed-output, manifest, and release evidence |
+| `REQ-P-SELF-CONFORMANCE.md` | `a1f7e53a0bf5ec8516d2fecb0a720e2580fd18d72b49e94bc44f38f68e935349` | exact-candidate self-conformance evaluator and release-gate law |
+| `REQ-L-GTL3-CONTRACT-LAW-API.md` | `c2380d7798e1bd8eec80b7b603ca2a3dba963a9ab5ba337d9ce28649f7118473` | public GTL contract-law and conformance boundary |
 | `REQ-L-GTL3-GRAPHFUNCTION.md` | `9a985fef7c65d7d8300889fc907cc98f5a5635af5369f53f965dd43d44519ce9` | sole callable graph-function law |
 | `REQ-L-GTL3-MODULE.md` | `28fb36494877498bab6de5b0753c9000a299a32487b396110d2e76365da53f5d` | publication boundary |
 | `REQ-L-GTL3-C-ALGEBRA.md` | `d8aed10438318ed4b9f1a7007dd0a184255f082baeb020dd3be859e0ae42f78b` | higher-order composition law |
-| `REQ-M-GTL3-CAPABILITY.md` | `477a1e4a730e56b8cc69c3f45a6d436cd7af4ecd6f5d4b6a8fb40b9d411c6537` | declared and admitted capability-profile law |
+| `REQ-M-GTL3-CAPABILITY.md` | `747da8c0749961c985f79cebe8629a8f5c07790ad501c227036bec24cfa64642` | declared and admitted capability-profile law |
 | `REQ-M-GTL3-PROGRAM-TRAVERSAL.md` | `c437994f6e1760cbd2e8bec5f542f1158e805fc518eb8f9c48843e9b480e7cc4` | admitted GTL program, callable GraphFunction library, workspace, and ABG traversal boundary |
-| `REQ-R-ABG3-INTERPRET.md` | `39a5db02e47e91fd36037e6d5d07b3b7f405e63c4a44fdf57bd6f9e54b6644d3` | interpreter ownership |
-| `REQ-R-ABG3-BINDING.md` | `6b4356275d32d7a8d7ff1e7f44bc67f1cbb788e3c4f7c04b2e85a9346060cec5` | exact workspace and product binding |
-| `REQ-R-ABG3-CONTINUATION.md` | `c6c24a8e36f129a865b74d12c8a005712de80a9f1e792f55d44d3d00ddc35ccb` | replay-derived continuation |
-| `REQ-R-ABG3-PROJECTION.md` | `afa524c7fff15ce686930f32d99eddd81e045f31e3179cc6e5ed6e26a91da378` | replay-owned projection truth |
-| `REQ-R-ABG3-PLUGIN-SEAMS.md` | `5e557aaa9aa0d9e1a30f6232fe8d7a03719296dbe9c9a52c2a971702257e2781` | live capability ingress and approval gap |
-| `REQ-R-ABG3-FP-CONSCIOUSNESS.md` | `7b229ceba596564400c830d5f7b08d1b3f9534cfa3e584a80140e2d90fed0b08` | existing construction-episode precursor and current One Surface reconciliation input |
-| `REQ-R-ABG3-FN-COMPOSITION.md` | `c20a1cad974749e9186e2b9362ea5ee076196ea5abc1c0d7485bb34724ff4f38` | construction-intent and graph-function composition admission |
-| `REQ-R-ABG3-TUNER.md` | `f3590039f3469bf417fdbb914e63967d32d60d2831db13c43b183753acedc3b3` | drafts-only tuning and event-owned truth |
-| `REQ-R-ABG3-SUPERVISOR-WITNESS.md` | `3844009c41354d9f37ad44bf62d2669becd0d4337dd380cec05c41e6f650ad91` | one operator-command/event grammar |
-| derived T-244 feature register | `17ecadb3805a1283d35f0c59b13da6954d0cb013f38d58ef4958d5c687733a0c` | no-silence coverage input; not constitutional authority |
+| `REQ-R-ABG3-INTERPRET.md` | `6abd6e6c40195bc99a23f1bbf4e69cdaf43b8f04d5f4a7c9ea02831ff86c6092` | interpreter ownership |
+| `REQ-R-ABG3-BINDING.md` | `b700df9d9bda0a1f538be517de3e55ebef878f55b6cf7eae8a08c36fd60650d2` | exact workspace and product binding |
+| `REQ-R-ABG3-CONTINUATION.md` | `9b76d770d2bfe5f1e365cafcdf4c4fb21c37356f5a5848124e149a5d57cce144` | replay-derived continuation |
+| `REQ-R-ABG3-EVENTS.md` | `eee93a090f45576b2e76b3a9f8379c71ffbd8e2009057297da1bed27e04a03a2` | only-written runtime truth, emission, attribution, and replay-reconstructability law |
+| `REQ-R-ABG3-PROJECTION.md` | `ea67216190dc59dd14eac9797ab544ee79d9798673a82925d2d8bcddb2a2dfb5` | replay-owned projection truth |
+| `REQ-R-ABG3-PLUGIN-SEAMS.md` | `8bbf9d74b621ab2d1ebabda6b096f46c2417ecfa7c0fabb8594b1a7db8562dae` | live capability ingress and approval gap |
+| `REQ-R-ABG3-FP-CONSCIOUSNESS.md` | `8ab5dcce84df9ac077afbc358bd980f19149dbd39dff1b19aa9636070ef019c7` | existing construction-episode precursor and current One Surface reconciliation input |
+| `REQ-R-ABG3-FN-COMPOSITION.md` | `39d9e8a2678a1cacff0ffd2a518b2857e378660022d51c81ac0d3d9429619677` | construction-intent and graph-function composition admission |
+| `REQ-R-ABG3-TUNER.md` | `8c3fb81bcdc831f7f4b1c5dc7b640e9bc9a18c64a57bb54df80c23a0ee0a5c0f` | drafts-only tuning and event-owned truth |
+| `REQ-R-ABG3-SUPERVISOR-WITNESS.md` | `2e2262380a9e29cf1fc6aba7c291b50d33518c149bbe2c59b2cd464d579e27e3` | one operator-command/event grammar |
+| derived T-244 feature register | `fa49b92289ee0e86f58c59ee84aed57f843c906d7c296dcf6d2cde00815ff2c2` | no-silence coverage input; not constitutional authority |
 | upstream `DESIGN_MODULE_METHOD.md` | `c28084bc8b14dc4b19f50bf280be249031ff06a89559760d362524b4267c7911` | Ontology-first semantic-design law |
 | upstream `ODD_METHOD.md` | `e420024069307ec0de189b3e6e401058db063dfdcc8c701fee3088e844f060f4` | One Surface constructive-evaluation and yield-loop law |
 | upstream `RELEASE_METHOD.md` | `31b549e749867ff6280f7529dce4a2ddd7080df8cd548652343099bfabf4f6e8` | release-cut and tapped-product distinction |
@@ -68,17 +72,16 @@ ontologies. The public control plane must not recreate GTL or ABG entities. It
 projects and invokes them through product-owned lifecycle, policy, and public
 contract boundaries.
 
-The 36 currently named operations are constitutional functionality inputs, and
-catalog law adds two required public application behaviors for `node_type` and
-`overlay`. These 38 behaviors are not axiomatic primitives. Their target public
-identities are derived outputs of this Ontology and whole-family Prime review,
-then require constitutional repricing before implementation.
+The 36 legacy operation labels and the two required public application
+behaviors for `node_type` and `overlay` remain discovery inputs. All 38
+behaviors are accounted for, but they are not axiomatic primitives. The
+accepted constitutional output is the Prime-derived 19-operation projection;
+constitutional propagation and T-244 regeneration are complete.
 
-## Intent And Product Reprice Target
+## Accepted Intent And Product Shape
 
-The first ambiguous source is `INTENT.md`: calling `GraphFunction` the sole
-named callable *program* conflicts with the retained program-traversal law. The
-target intent is:
+The bounded intent reprice resolved the former ambiguity between program and
+callable function. The accepted intent is:
 
 - a GTL program is an admitted graph overlay or GTL program composition;
 - `GraphFunction` is the sole public named callable library function/work
@@ -88,22 +91,19 @@ target intent is:
 - ABG interprets the admitted program and invokes selected GraphFunctions
   through one event-sourced runtime.
 
-The current PRODUCT `iterate(current_surface_projection,
-cumulative_context, evaluators) -> runtime_events` signature is only a
-higher-order orchestration precursor. It cannot define outcome compute by
-collapsing model synthesis, gap evaluation, next-action selection, action
-evaluation, intent admission, and invocation. The target PRODUCT must preserve
-the One Surface chain and four distinct authority functions defined below.
+The superseded PRODUCT `iterate(current_surface_projection,
+cumulative_context, evaluators) -> runtime_events` precursor could not define
+outcome compute by collapsing model synthesis, gap evaluation, next-action
+selection, action evaluation, intent admission, and invocation. Current PRODUCT
+preserves the One Surface chain and the four distinct authority functions
+defined below.
 
-F_H acceptance of this candidate accepts the target intent/product shape and
-authorizes constitutional propagation. It does not make this candidate the
-final ratified Ontology while its source digests still describe the superseded
-constitutional text. Final ratification follows the INTENT, PRODUCT,
-requirements, GOALS, and derived-register update plus basis recomputation. The
-available pen-holder reviews are design inputs, not auditable independent
-acceptance: an independent reviewer must identify itself, bind this exact
-candidate digest, state its independence basis, and publish its evidence and
-verdict before F_H acceptance.
+F_H accepted the target shape at `83c87dec`, authorizing constitutional
+propagation only. INTENT, PRODUCT, requirements, GOALS, and the derived T-244
+register now carry that accepted truth, and the exact basis above has been
+recomputed. Final Ontology ratification still requires independent review of
+this exact current-basis candidate; runtime implementation remains frozen until
+that review is accepted.
 
 ## Boundary And Exclusions
 
@@ -153,13 +153,13 @@ It does not own:
 | `NextActionProjection` | causal replay-derived next-action identity over basis, fresh gap, binding, action catalog, ranking, and selected/no-action result | prime replay-derived projection | One Surface next-action law |
 | `ProductCoordinate` | product identity plus exact version and contract/capability constraints | subordinate value family | product dependency law |
 | `QualificationLawBasis` | exact specification-method version, applicable rule-catalog version, source refs, and content digests used to decide one qualification basis | subordinate closed value owned by the qualification basis; no independent lifecycle or evaluator | self-conformance and exact-candidate qualification law |
-| `ExactCandidateQualification<K>` | one content-addressed qualification contract family with closed `basis` and `verdict` projections; the basis binds a closed `pre_rc_candidate | installed_rc | final_tap_candidate` subject kind plus exact source, artifact, manifest, installed-product, workspace-binding, tenant-manifest, frozen-inventory, and `QualificationLawBasis` truth; a final-tap basis additionally binds the accepted RC, the exact installed-RC qualification basis and green non-bypassed verdict that authorize final derivation, and the permitted final delta; the verdict binds that same basis and law-basis digest to mandatory assessment outcomes and an explicit bypass set | prime qualification contract family | exact-candidate qualification and self-conformance law |
-| `QualificationGateResultVector<K>` | one closed non-empty `C.of` input containing the exact `ExactCandidateQualification<basis>` projection and digest, matching `QualificationLawBasis` ref/digest, its frozen inventory ref/digest, vector digest, and a complete ordered family of subordinate gate-result citations; each citation preserves stable ordinal, unique gate identity, owning assessment ref/digest, typed `green | red | blocked` disposition, evidence refs/digests, and bypass refs without reinterpreting the owning result | subordinate typed result-vector carrier; not a GTL HOF application | exact-candidate qualification plus owning gate law |
+| `ExactCandidateQualification<K>` | one content-addressed qualification contract family with closed `basis` and `verdict` projections; the basis binds a closed `pre_rc_candidate | installed_rc | final_tap_candidate` subject kind plus exact source, artifact, manifest, installed-product, workspace-binding, tenant-manifest, frozen-inventory, and `QualificationLawBasis` truth; a pre-RC basis also binds the prospective published-RC identity/version and the exact already-versioned artifact ref/content digest that publication must preserve unchanged; a final-tap basis additionally binds the accepted RC, the exact installed-RC qualification basis and green non-bypassed verdict that authorize final derivation, and the permitted final delta; the verdict binds that same basis ref/digest and law-basis digest to mandatory assessment outcomes and an explicit bypass set | prime qualification contract family | exact-candidate qualification and self-conformance law |
+| `QualificationGateResultVector<K>` | one closed non-empty `C.of` input containing the exact `ExactCandidateQualification<basis>` projection ref and digest, matching `QualificationLawBasis` ref/digest, its basis-bound frozen inventory digest, vector digest, and a complete ordered family of subordinate gate-result citations; each citation preserves stable ordinal, unique gate identity, owning assessment ref/digest, typed `green | red | blocked` disposition, evidence refs/digests, and bypass refs without reinterpreting the owning result | subordinate typed result-vector carrier; not a GTL HOF application | exact-candidate qualification plus owning gate law |
 | `FinalTapDelta` | subordinate closed value over accepted-RC ref/digest, assigned final version, and reconciled release-scoped asset digests; product behavior, declaration, public-contract, or dependency change is unrepresentable | subordinate release value | final-only release reconciliation law |
-| `ReleaseCut` | immutable published-RC or tapped-release boundary materialized only from a same-subject-and-law-basis green, non-bypassed exact-candidate qualification verdict | prime entity | release method and release product law |
+| `ReleaseCut` | immutable published-RC or tapped-release boundary materialized only from a same-subject-and-law-basis green, non-bypassed `pre_rc_candidate` or `final_tap_candidate` verdict respectively; `installed_rc` cannot materialize it | prime entity | release method and release product law |
 | `Product` | tapped immutable product identity/version bound to one accepted release cut and product toolchain manifest | prime entity | recursive product taxonomy and release authority |
 | `ProductToolchainManifest` | `abg_product_toolchain_manifest` identity/digest over exact candidate/product content and one public-contract catalog; built before qualification and later identified by the released Product | prime publication entity | installed-product and public-contract law |
-| `PublicContractCatalog` | catalog identity/version/digest over addressable native/schema/vocabulary/corpus/operation/capability contract rows | prime publication entity | public-contract law |
+| `PublicContractCatalog` | catalog identity/version/digest over addressable native/schema/vocabulary/corpus/operation/capability contract rows; exact-candidate qualification is published as one schema identity and one authoritative document with addressable basis, verdict, law-basis, result-vector, and final-delta definitions | prime publication entity | public-contract law |
 | `ProductArtifact` | artifact identity plus candidate/product coordinate, content digest, and install-artifact digest; a source project may build it before release, publisher supplies it, verifier admits it, and a later released Product binds the exact accepted artifact | prime entity | release/product contract |
 | `ProductDescriptor` | publisher-authored immutable identity over product/version/artifact/dependencies/contribution manifest | prime declaration entity | catalog product identity law |
 | `ContributionManifest` | publisher-authored immutable identity over exact contribution rows | prime declaration entity | catalog contribution law |
@@ -193,7 +193,7 @@ It does not own:
 | `TenantConformanceManifest` | manifest identity/version/digest plus exact contract/capability claims | prime publication entity | mapping and tenant-conformance law |
 | `ReleaseSnapshotManifest` | authoritative read model over one immutable snapshot bundle, exact cut, artifacts, checksums, and gate evidence | prime release-evidence entity | qualification and release-snapshot law |
 | `RuntimeProjection<K>` | projection kind plus exact source basis; no independent mutation authority | subordinate projection family | ABG replay or product evidence truth |
-| `PublicOutcome<K>` | admitted result or typed refusal/non-terminal sum | candidate prime public egress family | owning semantic function |
+| `PublicOutcome<K>` | admitted result or typed refusal/non-terminal sum | prime public egress family | owning semantic function |
 
 `ProductCoordinate`, `ActorAttribution`, `InvocationPolicy`,
 `TransportSteering`, `OperatorAssetIndex`, `RuntimeProjection<K>`, request payload details, refusal
@@ -213,9 +213,9 @@ lifecycles or semantic function owners.
 | ABG `ExecutionBasis` | Immutable execution authority for one causal spine | A different identity on the same spine requires an exact covering declaration reprice or returns `basis_fork_detected` |
 | `ObservationSnapshot` | A new value is admitted whenever worksite, runtime projection, or replay observation advances | Invalidates dependent projections only; never requires rebind or reprice |
 | `NextActionProjection` | Replaceable replay-derived truth over one execution authority and exact observation/decision inputs | Newer observation or replay truth makes it stale; staleness is not a basis fork |
-| `ExactCandidateQualification<basis>` | Immutable content-addressed join of the closed subject kind, exact source ref/commit, product artifact content and install-artifact digests, product toolchain manifest, installed product and install manifest, workspace binding, tenant-conformance manifest, frozen subject-inventory digest, and exact `QualificationLawBasis` ref/digest; `final_tap_candidate` also binds accepted-RC ref/digest, the exact installed-RC qualification basis and green non-bypassed verdict refs/digests, and one verified `FinalTapDelta` | Any changed subject or law-basis input is a different qualification basis and invalidates verdict reuse; it is not a release cut or release snapshot; a final basis cites rather than reuses the installed-RC verdict and refuses if that evidence does not bind the accepted RC bytes and installed identity |
-| `QualificationGateResultVector<K>` | Structurally admitted only when its result citations are non-empty, contiguous by zero-based ordinal, roster-complete against the basis-bound frozen inventory, same subject and law basis, unique by gate identity, typed, digest-bound, and explicit about bypass; owning gates remain the result authorities | A changed subject basis, law basis, inventory, ordinal, gate identity, owning result, digest, disposition, evidence set, or bypass fact creates a different vector; incomplete or conflicting input cannot enter `AF-22` |
-| `ExactCandidateQualification<verdict>` | Immutable result over one exact subject-basis digest and matching `QualificationLawBasis` ref/digest, all mandatory assessment refs/outcomes, a closed `green | red | blocked` disposition, and an explicit bypass set | Only `green` with the exact same subject and law basis and an empty bypass set permits `AF-25`; verdict and later release snapshot cannot serve as their own qualification inputs |
+| `ExactCandidateQualification<basis>` | Immutable content-addressed join of the closed subject kind, exact source ref/commit, product artifact content and install-artifact digests, product toolchain manifest, installed product and install manifest, workspace binding, tenant-conformance manifest, frozen subject-inventory digest, and exact `QualificationLawBasis` ref/digest; `pre_rc_candidate` also binds the prospective published-RC identity/version and exact already-versioned artifact ref/content digest; `final_tap_candidate` also binds accepted-RC ref/digest, the exact installed-RC qualification basis and green non-bypassed verdict refs/digests, and one verified `FinalTapDelta` | Any changed subject or law-basis input is a different qualification basis and invalidates verdict reuse; it is not a release cut or release snapshot; published-RC materialization must preserve the basis-bound identity/version/bytes unchanged; a final basis cites rather than reuses the installed-RC verdict and refuses if that evidence does not bind the accepted RC bytes and installed identity |
+| `QualificationGateResultVector<K>` | Structurally admitted only when it cites the exact qualification-basis ref and digest and its result citations are non-empty, contiguous by zero-based ordinal, roster-complete against the basis-bound frozen inventory, same subject and law basis, unique by gate identity, typed, digest-bound, and explicit about bypass; owning gates remain the result authorities | A changed subject basis ref/digest, law basis, inventory, ordinal, gate identity, owning result, digest, disposition, evidence set, or bypass fact creates a different vector; incomplete or conflicting input cannot enter `AF-22` |
+| `ExactCandidateQualification<verdict>` | Immutable result over one exact subject-basis ref/digest and matching `QualificationLawBasis` ref/digest, all mandatory assessment refs/outcomes, a closed `green | red | blocked` disposition, and an explicit bypass set | Only `green` with the exact same subject and law basis and an empty bypass set permits `AF-25`; verdict and later release snapshot cannot serve as their own qualification inputs |
 
 Authority-bearing and observed truth therefore have different nominal carriers.
 No digest field is interpreted by name or string shape to cross that boundary.
@@ -367,6 +367,10 @@ classDiagram
     +familyId
     +variant basis_or_verdict
     +projectionDigest
+    +prospectivePublishedRcIdentityWhenPreRc
+    +prospectivePublishedRcVersionWhenPreRc
+    +qualifiedArtifactRef
+    +qualifiedArtifactContentDigest
   }
   class QualificationLawBasis {
     <<subordinate closed value>>
@@ -378,6 +382,7 @@ classDiagram
   class FinalTapDelta {
     <<subordinate closed value>>
     +acceptedRcRef
+    +acceptedRcDigest
     +assignedFinalVersion
     +releaseAssetDigestSet
   }
@@ -513,7 +518,7 @@ classDiagram
   WorkspaceBinding "1" --> "0..*" ExactCandidateQualification : exact_workspace_basis_for
   ReleaseCut "1" --> "0..1" FinalTapDelta : accepted_rc_bounds
   FinalTapDelta "1" --> "0..1" ExactCandidateQualification : final_basis_includes
-  ExactCandidateQualification "1" --> "0..1" ReleaseCut : green_non_bypassed_verdict_materializes
+  ExactCandidateQualification "1" --> "0..1" ReleaseCut : green_non_bypassed_verdict_materializes_same_bytes
   ReleaseCut "1" --> "0..1" Product : accepted_and_published_as
   Product "1" o-- "1" ProductToolchainManifest : identifies
   ProductToolchainManifest "1" o-- "1" PublicContractCatalog : publishes
@@ -688,13 +693,19 @@ classDiagram
   }
   class ExactCandidateBasis {
     <<closed basis projection>>
+    +basisRef
     +basisDigest
     +sourceRef
     +sourceCommit
+    +artifactRef
+    +artifactContentDigest
+    +installArtifactDigest
     +frozenInventoryDigest
     +qualificationLawBasisRef
     +qualificationLawBasisDigest
     +subjectKind
+    +prospectivePublishedRcIdentityWhenPreRc
+    +prospectivePublishedRcVersionWhenPreRc
     +acceptedRcRefWhenFinal
     +acceptedRcDigestWhenFinal
     +installedRcQualificationBasisRefWhenFinal
@@ -712,6 +723,7 @@ classDiagram
   }
   class QualificationGateResultVector {
     <<subordinate evaluator input>>
+    +basisRef
     +basisDigest
     +qualificationLawBasisRef
     +qualificationLawBasisDigest
@@ -721,11 +733,19 @@ classDiagram
   }
   class ExactCandidateVerdict {
     <<closed verdict projection>>
+    +basisRef
     +basisDigest
     +qualificationLawBasisRef
     +qualificationLawBasisDigest
     +disposition
     +bypassSet
+  }
+  class FinalTapDelta {
+    <<subordinate closed value>>
+    +acceptedRcRef
+    +acceptedRcDigest
+    +assignedFinalVersion
+    +releaseAssetDigestSet
   }
   class SourceProject {
     <<referenced product entity>>
@@ -808,6 +828,7 @@ classDiagram
   ExactCandidateBasis "1" --> "0..*" ExactCandidateVerdict : same_basis_only
   ExactCandidateBasis "1" --> "0..*" ExactCandidateBasis : installed_rc_basis_authorizes_final
   ExactCandidateVerdict "1" --> "0..*" ExactCandidateBasis : installed_rc_green_verdict_authorizes_final
+  FinalTapDelta "1" --> "0..1" ExactCandidateBasis : final_basis_includes
   QualificationGateResultVector "1" --> "1" ExactCandidateVerdict : C_of_AF22_reduces_once
   ExactCandidateVerdict "1" --> "0..1" ReleaseCut : green_and_no_bypass_materializes
   ReleaseCut "1" o-- "1" ReleaseSnapshotManifest : records_bundle
@@ -821,7 +842,7 @@ Exact qualification and release materialization are acyclic:
 
 ```mermaid
 stateDiagram-v2
-  [*] --> BasisAdmitted: construct exact content-addressed basis
+  [*] --> BasisAdmitted: construct exact content-addressed basis with prospective RC identity version and bytes
   BasisAdmitted --> OwningGatesRunning: owning gates execute under their own contracts
   OwningGatesRunning --> InputRefused: missing, duplicate, unordered, stale, untyped, conflicting, or cross-basis citation
   OwningGatesRunning --> QualificationInputAdmitted: complete ordered same-subject-and-law-basis result set matches frozen inventory
@@ -832,10 +853,10 @@ stateDiagram-v2
   InputRefused --> [*]: no verdict emitted
   RedOrBlocked --> [*]: not promotable
   Bypassed --> [*]: not promotable
-  GreenVerdict --> PublishedRcMaterialized: AF-25 published_rc consumes basis plus verdict
-  PublishedRcMaterialized --> InstalledRcQualified: fresh install and exact RC qualification addendum
+  GreenVerdict --> PublishedRcMaterialized: AF-25 published_rc consumes only pre_rc_candidate and preserves identity/version/bytes
+  PublishedRcMaterialized --> InstalledRcQualified: fresh install and exact installed_rc qualification; authorization evidence only
   InstalledRcQualified --> FinalAuthorityRefused: installed-RC basis/verdict missing, stale, cross-RC, non-green, or bypassed
-  InstalledRcQualified --> FinalBasisAdmitted: bind accepted RC, exact installed-RC basis and green verdict, and permitted FinalTapDelta
+  InstalledRcQualified --> FinalBasisAdmitted: bind accepted RC, exact installed-RC basis and green verdict, and complete FinalTapDelta fields
   FinalAuthorityRefused --> [*]: reopen RC window
   FinalBasisAdmitted --> FinalGateRerun: owning deterministic, install, identity, and affected bounded gates
   FinalGateRerun --> FinalInputRefused: incomplete, stale, conflicting, or cross-basis result set
@@ -844,7 +865,7 @@ stateDiagram-v2
   FinalInputAdmitted --> FinalGreenVerdict: C.of(AF-22) emits same-subject-and-law-basis green non-bypassed verdict
   FinalInputRefused --> [*]: reopen RC window
   FinalRefused --> [*]: reopen RC window
-  FinalGreenVerdict --> TappedReleaseMaterialized: AF-25 tapped_release consumes final basis, verdict, and delta
+  FinalGreenVerdict --> TappedReleaseMaterialized: AF-25 tapped_release consumes only final_tap_candidate, verdict, and complete delta
   TappedReleaseMaterialized --> [*]: AF-26 may publish immutable Product
 ```
 
@@ -859,10 +880,10 @@ sequenceDiagram
   participant Reducer as C.of(AF-22 exact-candidate evaluator)
   participant Release as AF-25 Release Materialization
 
-  Owner->>Gates: run or cite mandatory gates over exact basis B under each owning contract
+  Owner->>Gates: run or cite mandatory gates over exact basis ref/digest B under each owning contract
   Gates-->>Owner: typed owning assessments with refs, digests, evidence, disposition, and bypass truth
-  Owner->>Admission: propose QualificationGateResultVector(B, frozen inventory, ordered citations)
-  Admission->>Admission: verify non-empty exact roster, contiguous ordinals, unique gates, same basis, resolvable digests, and vector digest
+  Owner->>Admission: propose QualificationGateResultVector(B ref/digest, frozen inventory, ordered citations)
+  Admission->>Admission: verify non-empty exact roster, contiguous ordinals, unique gates, same basis ref/digest, resolvable digests, and vector digest
   alt incomplete, stale, conflicting, malformed, reordered, or cross-basis input
     Admission-->>Owner: typed refusal with no qualification verdict
   else structurally admitted complete vector
@@ -872,8 +893,16 @@ sequenceDiagram
       Reducer-->>Owner: same-subject-and-law-basis non-promotable verdict
     else all green and bypass set empty
       Reducer-->>Owner: same-subject-and-law-basis green verdict
-      Owner->>Release: basis plus exact green verdict
-      Release-->>Owner: immutable release cut plus snapshot
+      Owner->>Release: subject-kind-specific basis plus exact green verdict
+      alt published_rc from pre_rc_candidate
+        Release->>Release: verify requested identity/version and artifact bytes equal the basis-bound prospective RC
+        Release-->>Owner: immutable published-RC cut plus snapshot over unchanged bytes
+      else tapped_release from final_tap_candidate
+        Release->>Release: verify accepted RC ref/digest, installed-RC authorization, and complete FinalTapDelta
+        Release-->>Owner: immutable tapped-release cut plus snapshot
+      else installed_rc
+        Release-->>Owner: typed refusal because installed_rc authorization never materializes a cut
+      end
     end
   end
 ```
@@ -1092,16 +1121,23 @@ Invariants:
    tenant-conformance manifest, frozen subject inventory, and one exact
    `QualificationLawBasis` ref/digest covering the specification-method version,
    applicable rule-catalog version, source refs, and content digests used to
-   decide the run. The result vector, `AF-22` argument, and verdict must cite
-   that same law-basis ref/digest. A release cut
+   decide the run. A `pre_rc_candidate` basis also binds the prospective
+   published-RC identity/version and exact artifact ref/content digest whose
+   already-versioned bytes `AF-25(published_rc)` must publish unchanged. The
+   result vector, `AF-22` argument, and verdict must cite that same subject-basis
+   ref/digest and law-basis ref/digest. A release cut
    exists only after an `ExactCandidateQualification<verdict>` over that exact
    basis is `green` with an empty bypass set. The cut and its snapshot are
-   outputs of `AF-25`; neither may be an input that qualifies itself. A
+   outputs of `AF-25`; neither may be an input that qualifies itself.
+   `AF-25(published_rc)` consumes only `pre_rc_candidate` and verifies exact
+   equality with the basis-bound identity/version/bytes. `installed_rc` is
+   qualification authorization evidence only and never materializes a cut or
+   snapshot. `AF-25(tapped_release)` consumes only `final_tap_candidate`. A
    `final_tap_candidate` basis additionally binds the accepted RC ref/digest,
    the exact installed-RC qualification basis ref/digest and same-basis green
    non-bypassed verdict ref/digest that authorize final derivation, and one
-   verified `FinalTapDelta` limited to the assigned final version and
-   reconciled release assets. The installed-RC basis must identify the exact RC
+   verified `FinalTapDelta` containing accepted-RC ref/digest, assigned final
+   version, and reconciled release-asset digests. The installed-RC basis must identify the exact RC
    bytes and installed identity named by the accepted lineage. Every
    deterministic, install, identity, and
    bounded-behavior gate affected by that delta runs before
@@ -1165,7 +1201,7 @@ Invariants:
     one `QualificationGateResultVector<K>` only when the non-empty result family
     exactly matches the basis-bound frozen inventory, preserves contiguous
     zero-based ordinals and unique gate identities, resolves every owning result
-    and evidence digest, and carries one exact basis throughout. One
+    and evidence digest, and carries one exact basis ref/digest throughout. One
     `C.of(AF-22 evaluateConformance(exact_candidate_qualification, ...))` stage
     consumes that carrier and emits exactly one verdict. Structural admission
     may reject the envelope; it cannot reinterpret an owning gate disposition.
@@ -1194,14 +1230,14 @@ Invariants:
 | `EdgeFulfillmentLedger` | ledger ref/version + intent/binding/evidence basis | ABG closure-evidence admission | `AF-16 evaluateAction` creates or versions the ledger | `AF-03 project(ledger, fulfillment/evidence)` | new admitted evidence creates a new immutable version | history retained; no destructive rewrite |
 | `EdgeClosureDecision` | decision ref + ledger/basis/disposition | ABG action-evaluation admission | `AF-16 evaluateAction` admits one closed disposition | `AF-03 project(decision, result/evidence)` | immutable; corrected evidence produces a new decision/version | history retained; cannot be deleted by adapter or worker |
 | `QualificationLawBasis` | exact method version + rule-catalog version + source refs/content digests | subordinate value owned by one qualification basis; no independent evaluator or lifecycle | constructed from the exact declared self-conformance inputs before the qualification basis admits | cited only with its owning basis, result vector, assessments, and verdict | immutable; any changed method, rule catalog, source ref, or content digest creates a new qualification basis | retained with exact qualification evidence; unresolvable or mismatched basis refuses |
-| `ExactCandidateQualification<K>` | family id plus closed `basis` or `verdict` projection; basis is content-addressed over exact subject-kind/source/artifact/manifest/install/binding/tenant/inventory and qualification-law inputs, plus accepted-RC/installed-RC-green-qualification/final-delta inputs when final; verdict cites that exact basis and law basis plus all owning assessment outcomes and bypass set | qualification authority; no release authority | the qualify-release composition constructs and admits the basis from existing exact carriers, admits one complete `QualificationGateResultVector<K>` over owning proof truth, then invokes `C.of(AF-22 evaluateConformance(exact_candidate_qualification, ...))` as the sole total typed verdict reducer; this subordinate join and existing evaluator variant add no atomic family or public operation | `AF-03 project(exactCandidateQualification, basis/evidence/verdict)` | immutable; changed subject or law-basis input creates a new basis, and later assessments create a new same-basis verdict rather than mutating an earlier one | historical bases and verdicts remain qualification evidence; red, blocked, stale, mismatched, or bypassed verdicts cannot promote |
-| `QualificationGateResultVector<K>` | vector digest over one exact basis, matching qualification-law basis, frozen inventory, and ordered owning-result citations | structural qualification-input admission; owning gates retain semantic authority | proposed only from already-admitted owning assessment/evidence truth and admitted after exact roster, subject basis, law basis, ordinal, identity, digest, disposition, and bypass-envelope checks | consumed once by `C.of(AF-22 exact_candidate_qualification)` and projected only with its basis/verdict evidence | immutable; any changed citation, subject basis, or law basis creates a new vector digest | retained with qualification evidence; malformed/incomplete vectors are refused and emit no verdict |
+| `ExactCandidateQualification<K>` | family id plus closed `basis` or `verdict` projection; basis is content-addressed over exact subject-kind/source/artifact/manifest/install/binding/tenant/inventory and qualification-law inputs, plus prospective published-RC identity/version and exact already-versioned artifact bytes when pre-RC, or accepted-RC/installed-RC-green-qualification/final-delta inputs when final; verdict cites that exact basis ref/digest and law basis plus all owning assessment outcomes and bypass set | qualification authority; no release authority | the qualify-release composition constructs and admits the basis from existing exact carriers, admits one complete `QualificationGateResultVector<K>` over owning proof truth, then invokes `C.of(AF-22 evaluateConformance(exact_candidate_qualification, ...))` as the sole total typed verdict reducer; this subordinate join and existing evaluator variant add no atomic family or public operation | `AF-03 project(exactCandidateQualification, basis/evidence/verdict)` | immutable; changed subject or law-basis input creates a new basis, and later assessments create a new same-basis verdict rather than mutating an earlier one | historical bases and verdicts remain qualification evidence; red, blocked, stale, mismatched, or bypassed verdicts cannot promote |
+| `QualificationGateResultVector<K>` | vector digest over one exact qualification-basis ref/digest, matching qualification-law basis, frozen inventory, and ordered owning-result citations | structural qualification-input admission; owning gates retain semantic authority | proposed only from already-admitted owning assessment/evidence truth and admitted after exact roster, subject basis ref/digest, law basis, ordinal, identity, digest, disposition, and bypass-envelope checks | consumed once by `C.of(AF-22 exact_candidate_qualification)` and projected only with its basis/verdict evidence | immutable; any changed citation, subject basis ref/digest, or law basis creates a new vector digest | retained with qualification evidence; malformed/incomplete vectors are refused and emit no verdict |
 | `FinalTapDelta` | accepted RC ref/digest + assigned final version + reconciled release-asset digests | release authority verifier; subordinate to final qualification basis | derived only after the latest accepted RC qualifies and admitted into a `final_tap_candidate` basis after deterministic refusal of behavior/declaration/contract/dependency changes | projected only with final basis and release evidence | immutable; changed value creates a new basis and reruns affected pre-publication gates | retained with release evidence; invalid delta reopens the RC window |
-| `ReleaseCut` | cut id + exact qualification-basis and green-verdict refs | release authority | `AF-25 materializeReleaseCut` only from a same-subject-and-law-basis `green` verdict with an empty bypass set | `AF-03 project(releaseCut, identity/evidence)` | immutable; changed basis or requested release identity creates another cut | retirement/revocation excluded from 5.0 |
+| `ReleaseCut` | cut id + exact qualification-basis and green-verdict refs | release authority | `AF-25 materializeReleaseCut`: `published_rc` consumes only `pre_rc_candidate` and preserves its basis-bound prospective identity/version and already-versioned bytes unchanged; `tapped_release` consumes only `final_tap_candidate`; `installed_rc` is authorization evidence only and cannot materialize a cut or snapshot | `AF-03 project(releaseCut, identity/evidence)` | immutable; changed basis or requested release identity creates another cut | retirement/revocation excluded from 5.0 |
 | `Product` | product id + tapped version + release-cut/product-toolchain-manifest basis | release/product authority | `AF-26 publishProduct` only at the final tap | `AF-03 project(product, identity/evidence)` | immutable; later version is another Product | revocation/supersession excluded by REQ-P-POLICY-048 |
 | `ProductCoordinate` | product identity/version/constraint tuple | product dependency authority | supplied as a dependency requirement or derived into an exact resolved coordinate by `AF-05` | projected only as part of dependency/product truth | immutable value; changed constraint or selected version is a new value | subordinate value; retirement follows referenced Product law |
 | `ProductToolchainManifest` | manifest id/version/digest | product contract publisher | `AF-24 publishProductContractSet` derives exact bootstrap/catalog truth | `AF-03 project(productToolchainManifest, contracts/locators/evidence)` | changed basis creates a new manifest identity | superseded manifest remains historical product evidence |
-| `PublicContractCatalog` | catalog id/version/digest | product contract publisher | `AF-24 publishProductContractSet` derives exact addressable contract rows | `AF-03 project(publicContractCatalog, rows/evidence)` | changed rows create a new catalog identity/version/digest | superseded catalog remains product evidence; reuse with different truth conflicts |
+| `PublicContractCatalog` | catalog id/version/digest | product contract publisher | `AF-24 publishProductContractSet` derives exact addressable contract rows, including exactly one `abg.schema.exact-candidate-qualification` identity backed by one authoritative document with addressable basis, verdict, `QualificationLawBasis`, `QualificationGateResultVector<K>`, and `FinalTapDelta` definitions | `AF-03 project(publicContractCatalog, rows/evidence)` | changed rows create a new catalog identity/version/digest | superseded catalog remains product evidence; reuse with different truth conflicts; subordinate qualification definitions never gain peer schema identities |
 | `ProductArtifact` | artifact id + candidate/product coordinate + content and install-artifact digests | source/project artifact publisher; verifier admits checked status; released Product later binds exact accepted bytes | source project or external publisher supplies artifact; `AF-04 verifyProductArtifact` verifies before install or qualification | `AF-03 project(productArtifact, identity/evidence)` | immutable; corrected bytes create a new artifact identity | revocation/supersession excluded by REQ-P-POLICY-048 |
 | `ProductDescriptor` | publisher/product/version/descriptor digest | catalog-product publisher | external publisher or `AF-24` for ABIogenesis native product | `AF-03 project(descriptor, identity/dependencies/evidence)` | changed content creates a new descriptor/product version | historical descriptor retained; reuse with different content conflicts |
 | `ContributionManifest` | contribution-manifest id/digest | catalog-product publisher | external publisher or `AF-24` for ABIogenesis native product | `AF-03 project(contributionManifest, rows/evidence)` | changed rows create a new manifest identity/version | historical manifest retained; silent replacement conflicts |
@@ -1265,10 +1301,10 @@ means retirement or explicit exclusion.
 | `AF-19` | `admitResultAssessment(result, assessment, actor, basis)` | assessed F_P output -> admitted/rejected/blocked result truth | ABG admitted event and evidence input | assessment admission precedes and does not replace `evaluateAction` |
 | `AF-20` | `admitWitnessedAct(act, subject, actor, basis)` | witnessed external act -> admitted event | ABG admitted event | attribution records an act; it does not evaluate F_P result truth |
 | `AF-21` | `transitionTuningDraft(kind, draft, actor, basis)` | tuning draft -> proposed/ratified/rejected event truth | ABG admitted event | one lifecycle family over one entity without a rival draft store |
-| `AF-22` | `evaluateConformance(kind, subject, lawBasis)` | declared subject -> typed assessment; `exact_candidate_qualification` consumes one admitted `QualificationGateResultVector<K>` containing its exact subject basis, matching basis-bound `QualificationLawBasis`, and complete ordered owning-result citations, then emits its same-subject-and-law-basis verdict projection with result cardinality one | deterministic evaluation | evaluator family parameterized by admitted conformance kind; structural input admission checks envelope/completeness and exact law-basis equality only, owning gates keep semantic authority, and the exact-candidate variant is the sole total verdict reducer |
+| `AF-22` | `evaluateConformance(kind, subject, lawBasis)` | declared subject -> typed assessment; `exact_candidate_qualification` consumes one admitted `QualificationGateResultVector<K>` containing its exact subject-basis ref/digest, matching basis-bound `QualificationLawBasis`, and complete ordered owning-result citations, then emits its same-subject-and-law-basis verdict projection with result cardinality one | deterministic evaluation | evaluator family parameterized by admitted conformance kind; structural input admission checks envelope/completeness and exact subject/law-basis equality only, owning gates keep semantic authority, and the exact-candidate variant is the sole total verdict reducer |
 | `AF-23` | `materializeProductAsset(kind, basis, inputs)` | admitted inputs -> context/config asset | product filesystem effect | one content-addressed product-asset family |
-| `AF-24` | `publishProductContractSet(definitions, basis)` | accepted product definitions -> exact toolchain manifest, public-contract catalog, descriptors, contribution manifests, public function definitions, and capability definitions | deterministic publication effect | one authoring register projects distinct product-definition artifacts without claiming realized tenant conformance |
-| `AF-25` | `materializeReleaseCut(kind, exactBasis, exactVerdict, releaseIdentity, finalTapDelta?)` | same-subject-and-law-basis `green` verdict with empty bypass set -> immutable `ReleaseCut` + exact `ReleaseSnapshotManifest`; `tapped_release` additionally requires the basis-bound accepted-RC lineage, exact installed-RC qualification basis and same-basis green non-bypassed verdict, `FinalTapDelta`, and green affected-gate reruns over prospective final bytes | release publication effect | independent immutable release-cut authority and authoritative snapshot read model; it rejects stale/mismatched/red/blocked/bypassed verdicts, cross-RC installed qualification, or mismatched law basis, cannot use its own output as qualification input, and cannot publish a final delta that was not qualified before publication |
+| `AF-24` | `publishProductContractSet(definitions, basis)` | accepted product definitions -> exact toolchain manifest, public-contract catalog, descriptors, contribution manifests, public function definitions, capability definitions, and exactly one authoritative exact-candidate-qualification schema document projected under one schema identity | deterministic publication effect | one authoring register projects distinct product-definition artifacts without claiming realized tenant conformance or multiplying subordinate qualification definitions into peer schemas |
+| `AF-25` | `materializeReleaseCut(kind, exactBasis, exactVerdict, releaseIdentity, finalTapDelta?)` | `published_rc` consumes only a same-basis green non-bypassed `pre_rc_candidate`, verifies the requested identity/version and artifact bytes equal its prospective basis fields, and publishes those bytes unchanged; `tapped_release` consumes only a same-basis green non-bypassed `final_tap_candidate` with accepted-RC lineage, exact installed-RC qualification basis and green non-bypassed verdict, complete `FinalTapDelta`, and green affected-gate reruns; `installed_rc` never materializes a cut | release publication effect | independent immutable release-cut authority and authoritative snapshot read model; it rejects wrong subject kind, stale/mismatched/red/blocked/bypassed verdicts, cross-RC installed qualification, changed pre-RC bytes, or mismatched law basis, cannot use its own output as qualification input, and cannot publish a final delta that was not qualified before publication |
 | `AF-26` | `publishProduct(releaseCut, artifacts, productToolchainManifest)` | final accepted cut + exact artifacts + toolchain manifest -> tapped immutable `Product` | product publication effect | a tapped Product is distinct from its source project, RC/final cut, artifacts, and install |
 | `AF-27` | `publishTenantConformanceManifest(tenant, contractCatalog, claims, evidence)` | exact realized contract/capability evidence -> `TenantConformanceManifest` | tenant-conformance publication effect | realized support claims have a distinct publisher, verifier, and evidence basis from product-definition publication |
 
@@ -1316,7 +1352,7 @@ Product-level compositions are declared applications of that algebra:
 | supervised root convergence | `One Surface(initial_selection, supervised) -> recurse from admitted decision and fresh gap until typed terminal/no-action` | root supervision is declared GTL/ABG recursion over the same four authorities; every published inner vector refinement recursively receives its own visible One Surface chain, while opaque implementation stays inside one bounded action; no SDK/CLI loop owns convergence |
 | interactive continuation | `project pending -> AF-18 response -> AF-17 continuation of current intent -> admit evidence -> AF-16 action evaluation` | direct and human-proxy applications share one interaction policy; F_H response supplies admitted input only and cannot create a next-action basis or select work |
 | tune | `project drafts -> propose -> evaluate -> ratify|reject -> ordinary re-entry` | ratification cannot mutate effective config directly |
-| qualify release | `AF-24 contract set -> AF-27 tenant manifest -> construct ExactCandidateQualification<basis> from exact source/artifact/install/binding/manifest/inventory/qualification-law truth -> run or cite owning gates under their existing contracts -> structurally admit QualificationGateResultVector<K> -> C.of(AF-22 exact_candidate_qualification total reducer) -> AF-25 release cut and snapshot`; the tapped variant first binds the accepted RC and its exact installed-RC basis/green-verdict evidence, derives prospective final bytes through `FinalTapDelta`, constructs a new final basis, and reruns every affected owning gate | basis construction and result-vector admission are subordinate typed joins; the vector roster derives from the basis-bound frozen inventory rather than a second registry; no qualification-local batch, HOF dispatcher, scheduler, filesystem scan, or semantic checker is introduced; the declared `C.of(AF-22)` stage alone emits exactly one same-subject-and-law-basis verdict; only a green verdict with no bypass materializes release identity, and the tapped variant conserves the installed-RC authorization and proves the exact final delta before publication |
+| qualify release | `AF-24 contract set -> AF-27 tenant manifest -> construct ExactCandidateQualification<basis> from exact source/artifact/install/binding/manifest/inventory/qualification-law truth -> run or cite owning gates under their existing contracts -> structurally admit QualificationGateResultVector<K> with exact basis ref/digest -> C.of(AF-22 exact_candidate_qualification total reducer) -> AF-25 release cut and snapshot`; the pre-RC variant binds prospective published-RC identity/version and already-versioned artifact bytes before qualification; the tapped variant first binds the accepted RC and its exact installed-RC basis/green-verdict evidence, derives prospective final bytes through a complete `FinalTapDelta`, constructs a new final basis, and reruns every affected owning gate | basis construction and result-vector admission are subordinate typed joins; the vector roster derives from the basis-bound frozen inventory rather than a second registry; no qualification-local batch, HOF dispatcher, scheduler, filesystem scan, or semantic checker is introduced; the declared `C.of(AF-22)` stage alone emits exactly one same-subject-and-law-basis verdict; `AF-25(published_rc)` accepts only pre-RC and preserves its bound identity/version/bytes, `installed_rc` authorizes final derivation without materializing a cut, and `AF-25(tapped_release)` accepts only the fully qualified final basis |
 | publish product | `qualified AF-25 release cut -> bind exact artifacts and product toolchain manifest -> AF-26 product` | source project, qualification basis/verdict, cut, product, artifacts, named manifests, and eventual install remain distinct identities |
 
 Composition never widens authority. The required authority set for a composed
@@ -1352,10 +1388,10 @@ authority. Adapter transport has no semantic authority.
 | `AF-19 admitResultAssessment` | attributed assessor | declared result/assessment policy | result/contract/evidence verifier | ABG result-assessment admission | ABG event writer | result/evidence projector | append-only runtime law |
 | `AF-20 admitWitnessedAct` | attributed witness | witnessed-act policy | act/subject/evidence verifier | ABG witness admission | ABG event writer | evidence/replay projector | append-only runtime law |
 | `AF-21 transitionTuningDraft` | operator/observer/tuner | product tuning policy or F_H | draft/current-basis verifier | ABG command/event admission | ABG event writer | replay-derived tuning projector | product tuning policy |
-| `AF-22 evaluateConformance` | caller submits subject; exact-candidate variant receives one admitted `QualificationGateResultVector<K>` containing the subject basis, matching qualification-law basis, and complete ordered owning-result citations | named law/evaluator, exactly matching the basis-bound `QualificationLawBasis` | structural vector admission plus deterministic conformance and total qualification-verdict verifier; owning result semantics are not recomputed | conformance admission | deterministic evaluator | conformance or exact-candidate-verdict projector preserving subject and law-basis refs/digests | assessment evidence owner |
+| `AF-22 evaluateConformance` | caller submits subject; exact-candidate variant receives one admitted `QualificationGateResultVector<K>` containing the subject-basis ref/digest, matching qualification-law basis, and complete ordered owning-result citations | named law/evaluator, exactly matching the basis-bound `QualificationLawBasis` | structural vector admission plus deterministic conformance and total qualification-verdict verifier; owning result semantics are not recomputed | conformance admission | deterministic evaluator | conformance or exact-candidate-verdict projector preserving subject and law-basis refs/digests | assessment evidence owner |
 | `AF-23 materializeProductAsset` | operator/build process | asset-kind policy | input/basis verifier | product asset admission | asset effect handler | asset/evidence projector | product asset supersession law |
-| `AF-24 publishProductContractSet` | product build authority | accepted Ontology and product contract policy | definition/basis/completeness verifier | product contract publication admission | deterministic publication generator | manifest/catalog/schema/capability projections | product contract publisher |
-| `AF-25 materializeReleaseCut` | release owner | release gate policy | exact qualification-family verifier: same subject and law basis, `green`, empty bypass set, exact release inputs; tapped variant also verifies accepted-RC lineage, exact installed-RC basis plus green non-bypassed verdict over that RC, basis-bound `FinalTapDelta`, and affected pre-publication gates | release-cut admission | release publisher | release/evidence projector | release authority; revocation excluded 5.0 |
+| `AF-24 publishProductContractSet` | product build authority | accepted Ontology and product contract policy | definition/basis/completeness verifier, including one exact-candidate schema identity/document with five addressable definitions | product contract publication admission | deterministic publication generator | manifest/catalog/schema/capability projections | product contract publisher |
+| `AF-25 materializeReleaseCut` | release owner | release gate policy | subject-kind verifier: `published_rc` only from pre-RC with equal identity/version/bytes, `tapped_release` only from final-tap with accepted-RC lineage, installed-RC authorization, complete delta, affected green gates; `installed_rc` cannot materialize | release-cut admission | release publisher | release/evidence projector | release authority; revocation excluded 5.0 |
 | `AF-26 publishProduct` | release/product owner | product publication policy | cut/artifact/manifest exactness verifier | product publication admission | product publisher | product/manifest/evidence projector | product authority; revocation excluded 5.0 |
 | `AF-27 publishTenantConformanceManifest` | tenant product publisher | tenant conformance claim policy | exact catalog/contract/capability/evidence verifier | tenant-conformance publication admission | deterministic manifest publisher | manifest/claim/evidence projector | tenant conformance publisher |
 
@@ -1365,7 +1401,7 @@ from actor labels, capability strings, or payload shape.
 
 ## Discovered Function Derivation Matrix
 
-| Discovered functionality | Entity | Atomic function or template | Higher-order composition | Effect class | Required authority | Candidate disposition |
+| Discovered functionality | Entity | Atomic function or template | Higher-order composition | Effect class | Required authority | Accepted disposition |
 |---|---|---|---|---|---|---|
 | `workspace.create` | `Workspace` | `AF-01 constructWorkspace` | none | product filesystem | workspace admission | derived atomic -> `abg.operation.workspace.create` |
 | `workspace.open` | `Workspace` | `AF-02 openWorkspace` | admission then projection | pure read | workspace query admission | derived atomic -> `abg.operation.workspace.open` |
@@ -1404,7 +1440,7 @@ from actor labels, capability strings, or payload shape.
 | `install.context-bootstrap` | `GeneratedProductAsset` | `AF-23 materializeProductAsset(context_bootstrap, ...)` | installed-workspace composition | product filesystem | asset admission | derived variant -> `abg.operation.product.materialize` |
 | `install.install` | `InstalledProduct` | `AF-06 installProduct` | installed-workspace composition | product filesystem | installer admission | derived atomic -> `abg.operation.product.install` |
 | `install.gen-config` | `GeneratedProductAsset` | `AF-23 materializeProductAsset(configuration, ...)` | installed-workspace composition | product filesystem | configuration admission | derived variant -> `abg.operation.product.materialize` |
-| `release.snapshot` | `ReleaseCut` + `ReleaseSnapshotManifest` | `AF-25 materializeReleaseCut` | consume same-subject-and-law-basis exact qualification verdict emitted by declared `C.of(AF-22)` from one complete `QualificationGateResultVector<K>`; tapped variant additionally consumes exact accepted-RC and installed-RC-green-qualification lineage plus the qualified `FinalTapDelta` | release publication | release admission | derived atomic -> `abg.operation.release.snapshot`; never candidate-freeze or qualification input, and final publication cannot precede affected-gate reruns |
+| `release.snapshot` | `ReleaseCut` + `ReleaseSnapshotManifest` | `AF-25 materializeReleaseCut` | consume same-subject-and-law-basis exact qualification verdict emitted by declared `C.of(AF-22)` from one complete basis-ref/digest-bound `QualificationGateResultVector<K>`; `published_rc` consumes only pre-RC and preserves its prospective identity/version/bytes unchanged; `tapped_release` consumes only final-tap and additionally consumes exact accepted-RC and installed-RC-green-qualification lineage plus the qualified complete `FinalTapDelta`; `installed_rc` never materializes | release publication | release admission | derived atomic -> `abg.operation.release.snapshot`; never candidate-freeze or qualification input, and final publication cannot precede affected-gate reruns |
 
 Every row is retained as behavior. No row in this candidate establishes that
 its current `abg.operation.*` identity must survive.
@@ -1421,7 +1457,7 @@ accepted release scope.
 | `A5-F02` GTL declaration/admission/typecheck/publication | existing GTL Ontology, `AF-22`, `AF-24` | retained; no public-control-plane atom replaces the GTL compiler |
 | `A5-F03` seven-term C/runtime join/application | existing GTL C algebra and ABG Ontology, `AF-10`, `AF-11..AF-17` | retained; T-270/T-272 integration remains frozen pending this Ontology |
 | `A5-F04` declared instruction and malformed F_P output admission | existing GTL instruction law, `AF-15`, `AF-16`, `AF-19` | retained; malformed output remains pre-write fail-closed and never supplies closure truth directly |
-| `A5-F05` addressable contracts/schemas/capabilities/publication | `PublicFunctionDefinition<K>`, `CapabilityDefinition`, `PublicContractCatalog`, `TenantConformanceManifest`, `AF-24`, `AF-27` | retained and Prime-contracted to one definition register and schema projector while keeping realized-claim publication distinct |
+| `A5-F05` addressable contracts/schemas/capabilities/publication | `PublicFunctionDefinition<K>`, `CapabilityDefinition`, `PublicContractCatalog`, `TenantConformanceManifest`, `AF-24`, `AF-27` | retained and Prime-contracted to one definition register and schema projector while keeping realized-claim publication distinct; exact-candidate qualification publishes one schema identity/document with five addressable subordinate definitions |
 | `A5-F06` SDK and thin CLI graph shell | public operation projection below | retained as adapters over the derived operation family; no adapter controller |
 | `A5-F07` interactive operator loop | `AF-03`, `AF-11..AF-18`, supervised-root and interactive compositions | retained; the operator observes, responds, and continues through One Surface without adapter-owned selection |
 | `A5-F08` bounded Consensus GraphFunction | public One Surface/runtime atoms plus existing GTL composition | retained as the first free construction; it creates no Consensus-specific engine atom or private invocation path |
@@ -1431,7 +1467,7 @@ accepted release scope.
 | `A5-F12` observer/tuner draft workflow | `AF-03`, `AF-15`, `AF-21` | retained; mutation is ABG event truth and ratification creates ordinary One Surface re-entry rather than direct config change |
 | `A5-F13` native plus bounded host compatibility | adapter projection law | retained; native path is semantic authority, host integration is transport only |
 | `A5-F14` packed/install/Hello World/live proof | prepare-workspace and One Surface constructive-action compositions | retained as qualification evidence, not a new runtime atom |
-| `A5-F15` qualification/self-certifying release read model | `ExactCandidateQualification<K>`, `QualificationLawBasis`, `AF-22`, `AF-25`, `AF-27` | retained; exact pre-release subject/law basis and matching verdict remain DS-6 work, while the self-certifying snapshot is created only with the qualified cut and installed-RC authorization lineage |
+| `A5-F15` qualification/self-certifying release read model | `ExactCandidateQualification<K>`, `QualificationLawBasis`, `QualificationGateResultVector<K>`, `FinalTapDelta`, `AF-22`, `AF-25`, `AF-27` | retained; pre-RC qualification binds the prospective RC identity/version and unchanged already-versioned bytes; exact basis ref/digest and matching law basis flow through the vector and verdict; installed-RC authorizes but does not publish; final-tap requires the complete qualified delta before snapshot materialization |
 | `A5-F16` immutable RC and final product | `AF-25`, `AF-26` | retained; qualification basis/verdict, published-RC or tapped release cut, snapshot manifest, and released Product remain distinct |
 | `A5-F17` downstream catalog compatibility | `AF-04..AF-10`, `AF-15` | retained as generic substrate proof; no odd_glc runtime or release enters the boundary |
 
@@ -1474,10 +1510,10 @@ remains an explicit gap rather than being inferred from this catalog.
 This section is the T-278 whole-family contraction and Promotion-Test evidence.
 The existing automated Prime regression gate inspects the earlier T-277 design
 set and does not inspect T-278; its green result cannot validate this 27/7
-target. The counts and dispositions below are candidate target claims pending
-reviewer-authored independent review and explicit F_H ruling.
+target. The 27/7/19 shape below is the F_H-accepted target; this current-basis
+realization of that shape remains pending final independent review.
 
-| Candidate recurrence | Prime disposition | Reason |
+| Recurrence | Prime disposition | Reason |
 |---|---|---|
 | list, describe, status, result, evidence, replay, gaps, actions, observer reads, and tuning report | contract to `AF-03 project<S,K>` | all are typed projections over admitted truth; source/projection relation remains closed |
 | workspace open | retain `AF-02` | unlike an admitted projection, it validates a raw target and establishes workspace/readiness identity |
@@ -1491,7 +1527,7 @@ reviewer-authored independent review and explicit F_H ruling.
 | result assessment and witnessed acts | retain `AF-19` and `AF-20` separately | assessment influences F_P result/retry/closure truth; witness records an attributed external act |
 | tune propose, ratify, reject | contract to `AF-21` transition family | one entity lifecycle; authority differs by transition kind and remains explicit |
 | context bootstrap and config generation | contract to `AF-23` materialization family | both create content-addressed product assets from admitted basis |
-| product toolchain manifest, public-contract catalog, descriptors, contribution manifests, public definitions, and capability declarations | derive through `AF-24` from one authoritative product definition register while retaining distinct identities/authorities | product-definition identities remain addressable and are not collapsed into one generic manifest |
+| product toolchain manifest, public-contract catalog, descriptors, contribution manifests, public definitions, capability declarations, and exact-candidate schema projections | derive through `AF-24` from one authoritative product definition register while retaining distinct identities/authorities; publish qualification as exactly one schema identity/document with addressable basis, verdict, law-basis, result-vector, and final-delta definitions | product-definition identities remain addressable and are not collapsed into one generic manifest; subordinate qualification values do not become peer schema authorities |
 | tenant-conformance manifest | retain `AF-27` separately from `AF-24` | realized tenant support claims require exact implementation evidence and cannot be authored by the product-definition publisher |
 | exact candidate basis, qualification-law basis, gate-result citations, qualification verdict, release cut, and release snapshot | contract basis and verdict into one `ExactCandidateQualification<K>` family; keep `QualificationLawBasis` subordinate to that basis, retain one subordinate `QualificationGateResultVector<K>` as the typed `C.of(AF-22)` input, and retain `AF-25` for cut/snapshot materialization | basis and verdict share one content-addressed qualification lifecycle and exact law basis, while owning gate results retain their own authority and the later cut/snapshot have distinct immutable release identity and publication effect; basis construction and vector admission are subordinate, and verdict reduction is an explicit existing `C.of(AF-22)` leaf, so no atom or public operation is added |
 | resolve, verify, install, bind, catalog admit | retain distinct atoms | entities, authority, effects, and failure semantics differ; composition commonizes flow without merging boundaries |
@@ -1499,14 +1535,14 @@ reviewer-authored independent review and explicit F_H ruling.
 | continuation | retain `AF-17` | consumes replay-derived continuation for the existing intent after admitted F_H input or fresh `AF-13` post-disposition selection; newly selected actions use `AF-14/AF-15` |
 | conformance, release cut, and product publication | retain `AF-22`, `AF-25`, and `AF-26` | assessment, immutable cut/snapshot creation after a same-subject-and-law-basis green verdict, and released-product publication have different identities and authority |
 
-Candidate contraction:
+Accepted target contraction:
 
 ```text
 38 discovered public behavior labels
 + 3 required internal publication lifecycles
   -> 27 atomic function families
   -> 7 higher-order product compositions
-  -> 19 candidate public operation identities
+  -> 19 public operation identities
   -> 1 derived public definition family
   -> SDK, CLI, schema, capability, and scenario projections
 ```
@@ -1522,7 +1558,7 @@ This is a design census, not a target code count. A later Promotion Test may
 split or contract a family only by showing identity, authority, effect,
 lifecycle, reuse, or public pattern-match consequences.
 
-The release-lifecycle repair adds one Prime architectural carrier family,
+The release-lifecycle repair retains one Prime architectural carrier family,
 `ExactCandidateQualification<K>`, with closed `basis` and `verdict`
 projections. Its `QualificationLawBasis`, basis constructor, and
 `QualificationGateResultVector<K>` admission are subordinate typed joins over
@@ -1530,12 +1566,12 @@ existing authority. Its verdict is
 emitted once by the existing `C.of(AF-22)` evaluator leaf. `FinalTapDelta` is a
 subordinate closed value owned by a final qualification basis. None adds a
 semantic function, composition, public operation, scheduler, HOF dispatcher,
-or separately authored qualification truth. The candidate count therefore
+or separately authored qualification truth. The accepted target count therefore
 remains 27 atomic families, seven compositions, and 19 public operations.
 
-## Candidate Public Operation Projection
+## Accepted Public Operation Projection
 
-The candidate public surface has 19 operation identities. One Surface functions
+The accepted public surface has 19 operation identities. One Surface functions
 are internal semantic authorities used by `run.invoke` and `run.continue`, not
 four extra SDK/CLI verbs. `AF-24`, `AF-26`, and `AF-27` are internal product-
 definition, release-product, and realized-claim publication authorities. They
@@ -1543,7 +1579,7 @@ have no independent 5.0 operator ingress. CLI command paths may retain ergonomic
 spellings, but every path binds one row below and owns no rival defaults or
 semantics.
 
-| Candidate public identity | Atomic authority | Closed variation |
+| Public identity | Atomic authority | Closed variation |
 |---|---|---|
 | `abg.operation.workspace.create` | `AF-01` | target plus explicit clean/import creation policy |
 | `abg.operation.workspace.open` | `AF-02` | expected stable workspace authority basis plus readiness projection |
@@ -1563,7 +1599,7 @@ semantics.
 | `abg.operation.tuning.transition` | `AF-21` | `propose | ratify | reject` |
 | `abg.operation.conformance.evaluate` | `AF-22` | public `gtl_program`; `self_conformance` remains qualification-bound over the same atom |
 | `abg.operation.product.materialize` | `AF-23` | `context_bootstrap | configuration` |
-| `abg.operation.release.snapshot` | `AF-25` | exact qualification basis plus matching law basis, same-basis green non-bypassed verdict, and requested published-RC or tapped-release identity; tapped release also requires accepted-RC lineage, the exact installed-RC qualification basis and green non-bypassed verdict over that RC, and the basis-bound verified `FinalTapDelta` after all affected pre-publication gates; returns the cut and authoritative snapshot manifest |
+| `abg.operation.release.snapshot` | `AF-25` | `published_rc` consumes only a green non-bypassed `pre_rc_candidate`, verifies the request equals its basis-bound prospective identity/version and already-versioned artifact bytes, and publishes those bytes unchanged; `tapped_release` consumes only a green non-bypassed `final_tap_candidate` with accepted-RC lineage, exact installed-RC qualification authorization, and complete basis-bound `FinalTapDelta` after all affected pre-publication gates; `installed_rc` is authorization evidence only and refuses materialization; returns the cut and authoritative snapshot manifest |
 
 For `run.invoke`, the accepted target contract must preserve:
 
@@ -1588,13 +1624,11 @@ self-conformance is qualification-bound use of `AF-22`, not another public
 operator mode. Tenant-manifest validation and release qualification do not
 silently enter the public variant set.
 
-This is the recommended identity granularity for F_H acceptance and a required
-`requirement_reprice`. Current `REQ-P-PUBLIC-CONTRACTS-008` still mandates
-exactly 36 identities, while `abg.operation.catalog.apply` is newly proposed
-from the separately required application behavior. Acceptance authorizes the
-requirement reprice; it does not pretend the current requirement already says
-19. The count is not derived from the 19 identities implemented in the dirty
-tree, and no old identity survives merely because it is already coded.
+This is the accepted identity granularity now carried by
+`REQ-P-PUBLIC-CONTRACTS-008`. The 19 identities were derived from behavior and
+Prime authority rather than copied from the dirty realization. No old identity
+survives merely because it is already coded; runtime reconciliation must retire
+every non-derived legacy identity without a facade or parallel register.
 
 Every multi-variant operation above uses a closed discriminated request/result/
 refusal relation keyed by its variant. One schema family may publish closed
@@ -1602,36 +1636,36 @@ addressable `$defs`; one permissive optional-field object is forbidden. SDK
 types, schema generation, admission, CLI binding, capability claims, and tests
 must consume that same relation.
 
-## Candidate Irreducible Architectural Carrier Set
+## Accepted Irreducible Architectural Carrier Set
 
 | Carrier | Classification | Authority |
 |---|---|---|
 | existing GTL declarations, admitted `GtlProgram`, and `C` algebra | consume existing | GTL declaration plus GTL/ABG program-admission truth |
 | existing `RuntimeEventLog`, ABG runtime, and replay carriers | consume existing | ABG |
 | `IntentLineage` and `AdmittedEvidence` | consume existing | ABG event/evidence truth; the public control plane cannot recreate either |
-| `ProductAssetModel` | candidate prime | product-owned desired/known asset truth has independent identity, version, basis, lifecycle, and model-synthesis authority |
+| `ProductAssetModel` | prime | product-owned desired/known asset truth has independent identity, version, basis, lifecycle, and model-synthesis authority |
 | `Worksite` | subordinate mutable observed substrate | `evalGap` may observe it under one stable workspace binding; mutable worksite state never changes authority or becomes admitted truth by itself |
-| `ObservationSnapshot` and `GapPressureRow` | distinct candidate primes | the snapshot is the sole admitted carrier for mutable worksite/replay observation under stable authority; the pressure row is typed product-domain gap meaning emitted over it |
-| `TargetObligationBinding` | candidate prime | exact gap-to-target/action/evidence binding is independently identifiable and required before lawful selection or invocation |
+| `ObservationSnapshot` and `GapPressureRow` | distinct primes | the snapshot is the sole admitted carrier for mutable worksite/replay observation under stable authority; the pressure row is typed product-domain gap meaning emitted over it |
+| `TargetObligationBinding` | prime | exact gap-to-target/action/evidence binding is independently identifiable and required before lawful selection or invocation |
 | `ActionCatalog` | subordinate published projection | exact actions derive from one admitted program and narrowed catalog view; current eligibility remains `evaluateNext` authority |
 | `NextActionBasis` | subordinate closed value | exact eight-case initial/post-disposition cause is owned by `NextActionProjection` and cannot act independently |
 | `PriorityProjection` | subordinate projection | deterministic rank/tie-break truth is owned by the selected next-action basis |
-| `NextActionProjection` | candidate prime replay-derived projection | consumers pattern-match selected/no-action truth and its complete causal basis; it cannot admit intent or invoke work |
-| `ConstructionIntent` | candidate prime admitted ABG entity | one selected bounded action crosses a distinct admission boundary before invocation |
-| `EdgeFulfillmentLedger` and `EdgeClosureDecision` | distinct candidate primes | immutable closure evidence and its closed disposition have different identities and authority from selection |
+| `NextActionProjection` | prime replay-derived projection | consumers pattern-match selected/no-action truth and its complete causal basis; it cannot admit intent or invoke work |
+| `ConstructionIntent` | prime admitted ABG entity | one selected bounded action crosses a distinct admission boundary before invocation |
+| `EdgeFulfillmentLedger` and `EdgeClosureDecision` | distinct primes | immutable closure evidence and its closed disposition have different identities and authority from selection |
 | `EvidenceRecord` | subordinate projection | typed schema/read representation of `AdmittedEvidence`; it cannot own a second evidence identity or lifecycle |
-| `ExactCandidateQualification<K>` | candidate Prime contract family | one content-addressed qualification authority publishes closed basis and verdict projections reused by DS-6 and `AF-25`; the existing `C.of(AF-22)` exact-candidate evaluator emits the verdict; separate authored basis/verdict models, release-snapshot-as-input, an undeclared reducer, and a new qualification atom fail contraction |
-| `QualificationGateResultVector<K>` | subordinate typed evaluator input | it has no independent semantic authority, execution effect, scheduler, or public identity; it conserves the exact basis and owning-result citations needed by `C.of(AF-22)`, and its structural admission cannot reinterpret them |
+| `ExactCandidateQualification<K>` | Prime contract family | one content-addressed qualification authority publishes closed basis and verdict projections reused by DS-6 and `AF-25`; its pre-RC basis owns prospective identity/version and unchanged bytes; the existing `C.of(AF-22)` exact-candidate evaluator emits the verdict; separate authored basis/verdict models, release-snapshot-as-input, an undeclared reducer, and a new qualification atom fail contraction |
+| `QualificationGateResultVector<K>` | subordinate typed evaluator input | it has no independent semantic authority, execution effect, scheduler, or public identity; it conserves the exact basis ref/digest and owning-result citations needed by `C.of(AF-22)`, and its structural admission cannot reinterpret them |
 | `QualificationLawBasis` | subordinate closed qualification value | exact method, rule-catalog, and source refs/digests are owned by and content-address one qualification basis; a separate evaluator, registry, lifecycle, or public identity would fail contraction |
-| `FinalTapDelta` | subordinate closed release value | it has no independent lifecycle or effect; the final qualification basis owns it, and any non-release-only change refuses and reopens the RC window |
+| `FinalTapDelta` | subordinate closed release value | it has no independent lifecycle or effect; the final qualification basis owns its accepted-RC ref/digest, assigned final version, and release-asset digest set, and any non-release-only change refuses and reopens the RC window |
 | source project, release cut, Product, artifact, install, workspace, workspace authority basis, binding, catalog, and named toolchain/install/installer/tenant/release manifest entities | prime or referenced as classified above | owning product/release requirement; exact qualification basis/verdict cites them without relabeling, and their identities and publication authorities may not absorb one another or observation truth |
 | publisher-authored product descriptor, contribution manifest, and conditional operator asset registry | prime declarations | owning publisher/product contract authority |
 | catalog view and declaration application | prime admitted carriers | narrowing-view and typed non-callable application authority |
-| `PublicFunctionDefinition<K>` | candidate prime | one derived public contract relation closes operation/variant-specific workspace-binding cardinality as `forbidden | exactly_one` |
-| `PublicInvocation<K>` | candidate prime by Promotion Test | public consumers pattern-match one closed typed ingress relation, including its definition-indexed binding requirement; aggregate `0..1` does not create a universally optional field and the invocation is not an ABG `GraphCall` |
-| `PublicOutcome<K>` | candidate prime by Promotion Test | public consumers pattern-match one typed result/refusal/non-terminal relation; it is not domain result or runtime truth |
+| `PublicFunctionDefinition<K>` | prime | one derived public contract relation closes operation/variant-specific workspace-binding cardinality as `forbidden | exactly_one` |
+| `PublicInvocation<K>` | prime by Promotion Test | public consumers pattern-match one closed typed ingress relation, including its definition-indexed binding requirement; aggregate `0..1` does not create a universally optional field and the invocation is not an ABG `GraphCall` |
+| `PublicOutcome<K>` | prime by Promotion Test | public consumers pattern-match one typed result/refusal/non-terminal relation; it is not domain result or runtime truth |
 | `CapabilityDefinition` and `CapabilityGrant` | distinct prime declaration/admission carriers | available capability law is not actor-specific admitted authority |
-| `InvocationAuthority` | candidate prime | exact attribution, grant, view, policy, steering, and basis join is independently admitted and reused across effect-bearing public ingress |
+| `InvocationAuthority` | prime | exact attribution, grant, view, policy, steering, and basis join is independently admitted and reused across effect-bearing public ingress |
 | actor attribution, invocation policy, transport steering, and product coordinates | subordinate values | their owning prime carrier or definition |
 | `OperatorAssetIndex` and `RuntimeProjection<K>` | subordinate projections | published asset ownership and owning ABG/product truth respectively |
 | operation IDs, command paths, handlers, schemas, catalog rows | subordinate projections | `PublicFunctionDefinition<K>` |
@@ -1649,10 +1683,10 @@ of the same Ontology basis:
 |---|---|---|
 | PRODUCT and requirements | entities, behavior, authority, exclusions | operation count or API shape without derivation |
 | three-view designs | Ontology identities, relations, lifecycle, authority | helper classes as product concepts |
-| public contract catalog | exact derived function relation and schema basis | independent identity roster |
+| public contract catalog | exact derived function relation and schema basis; one `abg.schema.exact-candidate-qualification` identity/document with addressable basis, verdict, `QualificationLawBasis`, `QualificationGateResultVector<K>`, and `FinalTapDelta` definitions | independent identity roster or peer schema identities for subordinate qualification definitions |
 | SDK | admitted invocation/outcome relation | private runtime authority |
 | CLI and host adapters | command binding and rendering | semantic defaults, orchestration, closure |
-| schemas/vocabularies | closed variants and exact value domains | permissive mega-schema or duplicate enums |
+| schemas/vocabularies | closed variants and exact value domains; one authoritative exact-candidate qualification family document | permissive mega-schema, duplicate enums, or separately authored peer qualification schemas |
 | capability manifest | exact supported derived functions/contracts | prose-only capability claims |
 | tests and scenarios | lifecycle, authority, malformed input, composition | fixture-authored truth or count-only parity |
 
@@ -1680,7 +1714,7 @@ This candidate derives required product authority; it does not infer closure
 from similarly shaped code. Current realization evidence is classified as
 follows:
 
-| Required authority or carrier | Current evidence | Candidate disposition |
+| Required authority or carrier | Current evidence | Current disposition |
 |---|---|---|
 | admitted GTL program/workspace/function binding | retained program-traversal law and partial startup/runtime carriers exist | partial; T-270 must prove every execution-scoped invocation consumes one admitted program and workspace binding and that the function belongs to that program |
 | stable workspace authority/binding versus mutable observation truth | current native workspace-binding and construction-observation carriers are distinct precursors | design corrected to `WorkspaceAuthorityBasis` plus immutable `WorkspaceBinding` plus replaceable `ObservationSnapshot`; each public operation variant must publish and enforce `forbidden | exactly_one` binding cardinality, and affected design/code reconciliation must prove observation progress cannot create a binding or `basis_fork_detected` |
@@ -1689,9 +1723,9 @@ follows:
 | `evaluateNext` | action-catalog, target-binding, priority, candidate, and next-action carriers exist in partial form | partial; prove totality, published-program source, and the exact eight-case basis before closure |
 | `evaluateAction` | assurance/evidence folding is a precursor | partial; prove ledger and closed disposition admission independently from result assessment and next-action selection |
 | One Surface causal chain | current consciousness-loop and T-270/T-272 realization do not yet carry the complete four-authority sequence | open; preserve as provisional evidence and rederive the affected design after acceptance |
-| public operation projection | current code and requirements publish rival 19/36-operation truths | open requirement reprice; no count-based compatibility facade |
-| product definition and schema projection | Prime contraction work exists, but its source basis predates this candidate | open; rerun whole-family Prime and generation after constitutional propagation |
-| exact-candidate qualification versus release materialization | current requirements describe exact pre-RC qualification and post-qualification snapshot bundles, but the prior design made the snapshot appear to qualify its own cut, left final-delta gates after publication, incorrectly assumed heterogeneous owning gates should run through `C.batch`, and then failed to carry exact qualification-law and installed-RC authorization truth into the final basis | design corrected to one `ExactCandidateQualification<K>` basis/verdict family consumed by `AF-25`; owning gates retain execution and semantic authority, one structurally admitted `QualificationGateResultVector<K>` conserves their complete same-subject-and-law-basis truth, and `C.of(AF-22)` alone reduces it to exactly one verdict; a final basis binds accepted-RC lineage, exact installed-RC basis/green-verdict refs and digests, and `FinalTapDelta`, then reruns affected gates before `AF-25(tapped_release)`; DS-6/DS-7 must prove subject/law-basis identity, exact roster, digest resolution, no-bypass, installed-RC lineage, final-delta, and pre-publication admission |
+| public operation projection | accepted requirements and T-244 publish 19 identities; committed realization exposes only three target identities and still carries legacy identities | open runtime hard break; retire every non-derived identity with no facade or parallel register and prove exact catalog/SDK/CLI parity |
+| product definition and schema projection | constitutional Prime/source basis is current; committed realization publishes 82 legacy/current schemas and eight capability assets, while the target qualification family is absent | open realization; regenerate from the accepted definition family, including one exact-candidate schema identity/document with five addressable definitions, then prove publication parity |
+| exact-candidate qualification versus release materialization | constitutional law and this design now distinguish pre-RC, installed-RC, and final-tap subjects but the realization has no exact-candidate qualification family | design corrected to one `ExactCandidateQualification<K>` basis/verdict family consumed by `AF-25`; pre-RC binds prospective identity/version and already-versioned bytes, the structurally admitted vector conserves exact subject-basis ref/digest and owning proof truth, `C.of(AF-22)` alone reduces it to one verdict, installed-RC authorizes but never materializes, and final-tap binds accepted-RC lineage plus complete `FinalTapDelta` before affected-gate reruns; DS-6/DS-7 must prove exact subject/law basis, schema projection, roster, digest resolution, no bypass, unchanged RC bytes, installed-RC lineage, final delta, and pre-publication admission |
 
 The census is deliberately incomplete in the Goedel sense: it names what this
 finite model cannot prove about its own implementation. Qualification must use
@@ -1699,10 +1733,9 @@ an exact content-addressed candidate basis, source-independent conformance evide
 negative cases; neither this ontology nor its self-review can certify its own
 realization.
 
-## F_H Acceptance Questions
+## Accepted F_H Target Ruling
 
-The candidate resolves the product-shape choices rather than delegating them to
-code. F_H review must accept or reject these four linked claims:
+F_H accepted these four linked target claims at `83c87dec`:
 
 1. a GTL program is the admitted overlay/composition, while `GraphFunction` is
    its sole public named callable library function/work contract, and every
@@ -1717,25 +1750,27 @@ code. F_H review must accept or reject these four linked claims:
 4. the 19-row public operation projection is the correct external identity
    granularity.
 
-The hard-break rule is already decided: STDO has one truth and ABIogenesis 5.0
-does not preserve non-derived operation compatibility. Rejection reopens the
-candidate Ontology; it does not authorize implementation defaults.
+The hard-break rule is also decided: STDO has one truth and ABIogenesis 5.0 does
+not preserve non-derived operation compatibility. Final independent review of
+this current-basis design may identify a bounded field/relation defect, but it
+cannot silently alter the accepted semantic shape or authorize implementation
+defaults.
 
-## Candidate Verdict
+## Ratified Verdict
 
-`candidate`.
+`accepted`.
 
 The Ontology accounts for all 38 discovered public behaviors plus three
 required internal publication lifecycles, consumes rather than duplicates the
 GTL and ABG ontologies, makes One Surface explicit, states lifecycle and
-authority, and proposes a Prime contraction to 27 semantic atoms, seven
-compositions, and 19 public operation identities. The `/9-candidate` repair
+authority, and carries the accepted Prime contraction to 27 semantic atoms,
+seven compositions, and 19 public operation identities. The `/9` repair
 separates stable workspace authority from mutable observation truth and makes
 the admitted GTL program plus ABG interpreter, not public ingress, own the
 AF-11 through AF-17 composition. It also separates pre-release exact-candidate
-qualification from `AF-25` cut/snapshot materialization and closes workspace
-binding cardinality per operation variant. Reviewer-authored independent review
-and explicit F_H target acceptance remain required. It does not authorize PRODUCT, requirement, operation,
-schema, adapter, code, or test changes until
-explicit F_H review accepts the terminology, One Surface authority, entity
-model, atomic families, composition law, and public identity granularity.
+qualification from `AF-25` cut/snapshot materialization, binds the prospective
+published-RC identity and unchanged bytes before qualification, and closes
+workspace-binding cardinality per operation variant. Target acceptance,
+constitutional propagation, source-basis persistence, and final current-basis
+independent review are complete. Runtime reconciliation resumes only through
+the affected accepted three-view designs and the GOALS sequence.
