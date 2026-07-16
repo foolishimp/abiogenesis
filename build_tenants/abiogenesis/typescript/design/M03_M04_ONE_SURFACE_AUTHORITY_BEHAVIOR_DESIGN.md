@@ -1,6 +1,6 @@
 # M03-M04 One Surface Authority Behavior Design
 
-**Status**: Accepted - F_H-authorized for bounded T-280 implementation
+**Status**: Accepted - bounded T-280 implementation authorized
 
 **Date**: 2026-07-16
 
@@ -65,6 +65,8 @@ executes no authority function.
   `011A..011E`, and `013..016`;
 - `REQ-R-ABG3-FN-COMP-001..015`, `019..024`, and `026..027`;
 - `REQ-R-ABG3-INTERPRET-029..030`;
+- `REQ-R-ABG3-CCALL-001..006`;
+- `REQ-R-ABG3-PAYLOAD-001..009`;
 - `REQ-R-ABG3-EVENTS-021` and `030`;
 - `REQ-L-GTL3-CONTRACT-LAW-API` One Surface and ownership rows;
 - `REQ-P-POLICY-054` and `REQ-P-SCENARIOS-003`, `012`;
@@ -91,6 +93,9 @@ executes no authority function.
   imperative coordinator; and
 - a new runtime event kind or using a read-model event as unearned primary
   semantic authority.
+- adding semantic authority, invocation inputs, or result payload riders to
+  the locus-only `c_call_opened` carrier; and
+- changing the existing C-call spine or result-event payload shape.
 
 ## Ontology Basis
 
@@ -113,6 +118,8 @@ executes no authority function.
 | `REQ-R-ABG3-FP-CONSCIOUSNESS.md` | `8ab5dcce84df9ac077afbc358bd980f19149dbd39dff1b19aa9636070ef019c7` |
 | `REQ-R-ABG3-FN-COMPOSITION.md` | `39d9e8a2678a1cacff0ffd2a518b2857e378660022d51c81ac0d3d9429619677` |
 | `REQ-R-ABG3-INTERPRET.md` | `6abd6e6c40195bc99a23f1bbf4e69cdaf43b8f04d5f4a7c9ea02831ff86c6092` |
+| `REQ-R-ABG3-CCALL.md` | `dc34f29659e7d72a26d9cdbe498204bf090c34ebddd7fc7f5d6646b251e55276` |
+| `REQ-R-ABG3-PAYLOAD.md` | `2724e23c09777250c329701cd2c85cd9fd1ae67f681b70e475d0f5176686f6e4` |
 | `REQ-R-ABG3-EVENTS.md` | `eee93a090f45576b2e76b3a9f8379c71ffbd8e2009057297da1bed27e04a03a2` |
 | `REQ-P-POLICY.md` | `89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` |
 | `REQ-P-SCENARIOS.md` | `a7430bb1468f6d26d46bfdd41be43c81220954e793ff47052488b206b54b0562` |
@@ -149,12 +156,16 @@ inferred from runtime naming or hidden configuration:
   operator`;
 - the exact host ref, owning declaration ref, admitted program ref/digest, and
   program-membership ref/digest;
+- the exact selected per-member complete-C program ref/digest interpreted by
+  T-271, its result-bearing program-locus ref, selected regime, and selected
+  arm ID; these are distinct from the admitted GTL program identity;
 - the selected `abg.fn_composition` contract ref/digest and its causal
   selection ref;
 - every applicable graph-function declaration, hook-resolution ref/digest,
   policy ref/digest, and visible fallback/template ref under FPC-013;
 - nominal input and output contract refs/digests, regime, effect class,
-  admission profile, and result event relation.
+  admission profile, exact result-bearing program-locus ref, and result event
+  relation.
 
 The compiler rejects an unknown host kind, a host/member mismatch, an
 inapplicable hook, a policy or fallback not visible from the admitted program,
@@ -171,7 +182,9 @@ ref/digest and proves:
 1. exact admitted program ref/digest and ordered membership for AF-11, AF-12,
    AF-13, AF-14, AF-16, and the T-270 AF-15 slot;
 2. the exact `OneSurfaceAuthorityDefinition<K>` ref/digest and selected
-   `abg.fn_composition` ref/digest for each semantic function;
+   `abg.fn_composition` ref/digest plus selected per-member complete-C program
+   ref/digest, result-bearing program-locus ref, regime, and arm ID for each
+   semantic function;
 3. nominal output-to-input joins AF-11 -> AF-12 -> AF-13 -> AF-14 target ->
    T-270 AF-15 -> AF-16;
 4. the exact AF-16 result-to-T-262 recurse application, termination,
@@ -263,61 +276,112 @@ EVENTS-021 requires One Surface truth to use the published construction event
 and runtime event families. T-280 adds no event kind and does not overload an
 existing event's phase or Event Calculus effects.
 
-Each AF-11/12/13/16 member interior attaches one subordinate
-`OneSurfaceAuthorityInvocationBinding` to its existing `c_call_opened` event
-and one matching `OneSurfaceAuthorityResultBinding` to its existing
-`c_call_result_admitted` event.
+`c_call_opened` remains locus-only under CCALL-002. It carries no One Surface
+binding, semantic authority, input, output, composition, or contract rider.
+`c_call_result_admitted` likewise retains its published shape: it names the
+admitted output payload and response contract but does not embed a second
+result model.
 
-The invocation binding carries:
+Each AF-11/12/13/16 member interior instead binds its exact declared
+result-bearing C-call spine and the existing payload-ledger facts in this
+order. Other C-program stage spines retain their ordinary roles and can never
+derive the authority function result:
 
-- exact `cCallRef` and `basisId`;
-- authority kind and definition ref/digest;
-- application ref/digest;
-- admitted program ref/digest and exact member ref/digest;
-- selected `abg.fn_composition` ref/digest;
-- exact input refs/digest and expected output carrier refs/digest;
-- selected result-contract ref/digest and domain-admission ref; and
-- causal-basis ref/digest and source causation refs.
+1. `c_call_opened` records the structural locus only;
+2. `c_call_fibre_selected` records the declared program and selected
+   composition ref;
+3. `authority_snapshot_admitted` records one exact authority/input snapshot;
+4. the selected interior performs its declared compute;
+5. `payload_observed` admits the complete output envelope and external body
+   identity when present;
+6. `payload_validated` records that payload's digest and selected contract;
+7. `evidence_admitted` binds that output to the authority digest and input
+   digest;
+8. one applicable `c_call_evidenced` row encloses the exact
+   `authoritySnapshotRef`, `validationRef`, and `evidenceRef` in its existing
+   `evidenceRefs` array; and
+9. `c_call_result_admitted` admits that same payload ref and result-contract
+   ref before `c_call_judged` records the exact advancement disposition.
 
-The result binding repeats those immutable authority fields and carries the
-exact admitted output refs/digest, selected result-contract ref/digest,
-domain-admission ref, the exact opening-event ref, the same causal-basis
-ref/digest, and result causation refs. A result binding cannot repair or
-replace invocation truth.
+CCALL-001 permits zero-to-many evidence rows. T-280 does not narrow that law.
+It requires exactly one complete One Surface enclosure relation to be
+derivable across the call's applicable evidence rows; duplicate or competing
+complete relations fail closed. An implementation may extend an existing
+evidence row or emit another lawful row, but it cannot rely on array order or
+silently collapse multiple rows.
 
-The composition fields cite existing selection truth; neither binding selects
-composition. Admission requires them to equal the selected
-`ABGFnCompositionContract` and the matching `c_call_fibre_selected` program and
-composition refs when that event is emitted.
+The admitted authority snapshot is the runtime witness for the static
+`OneSurfaceProgramApplicationBinding`. Its canonical `authorityRefs` sequence
+contains the authority definition, application, program/member, selected
+composition, selected per-member complete-C program and result-bearing
+program-locus ref, selected regime and arm ID, result contract, domain
+admission, causal basis, and applicable hook/policy refs. Its
+`authorityDigest` is the digest of that typed ordered sequence. Its `inputRefs`
+and `inputDigest` carry the exact function input basis. The selected
+composition is cited, never selected, by this snapshot and must equal both the
+static application binding and the matching
+`c_call_fibre_selected.compositionRef`. The typed authority-basis
+`cProgramRef` slot is resolved from the exact `authorityRefs` sequence and
+digest; it is not a field added to `authority_snapshot_admitted`. The event's
+`c_call_fibre_selected.programRef` is the selected complete-C program ref; it
+must equal that resolved `cProgramRef` and must never be compared to or used as
+the admitted GTL program ref. Its `regime` and `armId` must equal the exact
+definition/application slots; neither may be inferred from composition or
+ignored by the result join.
 
-One declared `RuntimeDerivedFluentRule`,
-`rule://abg/one-surface/authority-result`, joins the pair only when
-`cCallRef`, `basisId`, authority kind/definition, application, program/member,
-selected composition, input basis, expected/actual output contract, selected
-result contract, domain admission, and causal basis match exactly and the
-result's opening-event ref names that exact admitted `c_call_opened` event. The
-rule derives one admitted One Surface authority-result fluent carrying the
-authority kind, owning refs/digests, and exact output refs/digest. Unmatched,
-duplicate, cross-basis, cross-definition, cross-application, cross-program,
-wrong-composition, wrong-contract, wrong-domain-admission, or causally
-unrelated pairs derive no fluent and are respectively
-`one_surface_event_binding_semantic_not_realized` or invalid admission.
+`OneSurfaceAuthorityResultBinding` is a deterministic replay projection over a
+closed `success | refusal` outcome, not an event payload. A success binding is
+derived only when the exact result-bearing locus,
+selected fibre, authority snapshot, observed and validated payload, admitted
+evidence, enclosure row, result-admission row, and advancing judgment agree on
+call, basis, authority/application/program, member/C-program/composition,
+regime/arm, input digest, output payload/digest, result contract, domain admission, and
+causation in canonical admission-ordinal order. Its stable ref is a digest
+over that closed relation. A refusal binding requires the exact admitted typed
+refusal contract and its declared non-advance judgment. Retry, pending,
+blocked, or escalated truth therefore remains replay-visible without becoming
+a successful semantic result. `no_declared_check` is invalid for these
+contract-declaring authorities. A non-advance row without an exact typed
+refusal, or any conflicting predecessor, yields only an invalid diagnostic.
 
-`c_call_opened` and `c_call_result_admitted` must receive applicable
-Event Calculus replay-aid registrations so their admitted source events enter
-the effect-row input consumed by the derived rule. Those registrations have no
-direct semantic fluent effects; the rule alone derives the result fluent. This
-is registration of existing kinds, not a new event or a phase overload.
+One total pure `deriveOneSurfaceAuthorityResultProjection` owns the join and
+returns exact success/refusal bindings plus typed invalid diagnostics. The compiler/admission
+boundary maps every missing or conflicting complete relation to
+`one_surface_event_binding_semantic_not_realized`. An application-bound
+`RuntimeDerivedFluentRule` with deterministic ref
+`rule://abg/one-surface/authority-result/<applicationDigest>` delegates to that
+same derivation and emits one existing-shape `RuntimeFluent` for each exact
+success or refusal binding. T-280 adds exactly one closed
+`RuntimeFluentName`, `one_surface_authority_outcome`; its scope is
+`graph_call`, its ordinary basis/locus fields come from the admitted C-call,
+and its `ref` is the exact result-binding ref. The fluent is an index into
+replay-derived truth; it carries no authority kind, output digest, or private
+payload field. Downstream projections pattern-match the binding's
+`success | refusal` outcome kind. Unmatched, duplicate, cross-basis,
+cross-definition, cross-application, cross-program, wrong-composition,
+wrong-contract, wrong-domain-admission, unreferenced-evidence, or causally
+unrelated rows derive no fluent and remain present in the total sibling
+projection's diagnostic set. The rule's captured application digest is public
+declared authority, never hidden configuration.
+
+`c_call_opened`, `c_call_fibre_selected`, `authority_snapshot_admitted`,
+`payload_observed`, `payload_validated`, `evidence_admitted`,
+`c_call_evidenced`, `c_call_result_admitted`, and `c_call_judged` receive
+empty-effect Event Calculus replay-aid registrations where not already
+registered. Their canonical admitted source events then enter the effect-row
+input consumed by the derivation and rule. The rule alone derives the result
+fluent. This is registration of existing kinds, not a new event, field,
+resolver, phase, or semantic effect.
 
 | Authority | Existing published kind(s) | Required exact relation | Current disposition |
 |---|---|---|---|
 | program application start | `construction_episode_started` | admitted program, application, workspace binding, execution basis and lineage | kind exists; payload must bind the exact application relation before One Surface starts |
-| AF-11 `synthesizeModel` | matching `c_call_opened` and `c_call_result_admitted` plus the derived rule | exact invocation/result bindings derive the AF-11 result fluent; `ProductAssetModel` derives from that fluent | existing kinds require binding payloads and replay-aid registration; otherwise `one_surface_af11_event_binding_semantic_not_realized` |
-| AF-12 `evalGap` | matching C-call pair and derived rule, then `construction_observation_snapshot_materialized` | AF-12 result fluent owns the exact output; observation event binds the resulting snapshot; pressure rows remain derived | existing kinds retain their phases; exact binding/rule relation is not yet realized |
-| AF-13 `evaluateNext` | matching C-call pair and derived rule; `construction_action_catalog_projected` remains candidate basis; candidate admitted/rejected and `construction_intent_selected` retain AF-14 preparation roles | AF-13 result fluent owns the exact closed selection union; target binding, priority, and next-action read models derive from it | existing kinds retain their phases; exact binding/rule relation is not yet realized |
+| AF-11 `synthesizeModel` | one exact C-call spine plus authority snapshot, validated payload, admitted evidence, enclosure, and result admission | exact replay relation derives the AF-11 result-binding ref and fluent; `ProductAssetModel` derives from that truth | existing kinds require replay-aid registration and exact joining; otherwise `one_surface_af11_event_binding_semantic_not_realized` |
+| AF-12 `evalGap` | exact C-call/payload-ledger relation and derived rule, then `construction_observation_snapshot_materialized` | AF-12 result binding/fluent owns the exact output; observation event binds the resulting snapshot; pressure rows remain derived | existing kinds retain their phases; exact relation is not yet realized |
+| AF-13 `evaluateNext` | exact C-call/payload-ledger relation and derived rule; `construction_action_catalog_projected` remains candidate basis; candidate admitted/rejected and `construction_intent_selected` retain AF-14 preparation roles | AF-13 result binding/fluent owns the exact closed selection union; target binding, priority, and next-action read models derive from it | existing kinds retain their phases; exact relation is not yet realized |
 | AF-14 intent admission | `construction_intent_candidate_admitted | construction_intent_candidate_rejected` and `construction_intent_selected`; system/no-action outcomes use `construction_terminal_disposition_projected` | exact AF-13 projection/program/member-or-internal-target/view/workspace/invocation-authority refs/digests and admitted intent or refusal | kinds exist, but exact cross-authority payload relation is not yet realized; no system/no-action variant may emit selected intent |
 | T-270 AF-15 | `construction_graph_action_invoked` | exact admitted intent, execution basis, GraphCall/frame and selected member/internal target | external T-270 owner; T-280 records only the typed slot |
-| AF-16 `evaluateAction` | matching C-call pair and derived rule, then `construction_delta_observed` and `construction_terminal_disposition_projected`; evidence admission kinds remain causal inputs | AF-16 result fluent owns the exact admitted output; delta and terminal events retain consequence/projection roles; ledger/decision/terminal read models derive from owning truth | existing kinds retain their phases; exact binding/rule relation is not yet realized |
+| AF-16 `evaluateAction` | exact C-call/payload-ledger relation and derived rule, then `construction_delta_observed` and `construction_terminal_disposition_projected` | AF-16 result binding and fluent own the exact admitted output; delta and terminal events retain consequence/projection roles; ledger/decision/terminal read models derive from owning truth | existing kinds retain their phases; exact binding/rule relation is not yet realized |
 | recurse/foldback | existing T-262 typed-recurse event family | exact AF-16 result, termination/foldback application, child result and parent rebind | external T-262 owner; T-280 binds the existing relation only |
 
 `construction_episode_started` binds the episode's admitted program, stable
@@ -330,11 +394,12 @@ candidate-return phase and is not generalized into a four-function result
 event. `construction_observation_snapshot_materialized`, intent, graph-action,
 delta, and terminal events retain their exact existing roles.
 
-A single C-call event never admits the program-level result. Only the exact
-pair plus the declared derived rule produces the authority-result fluent.
+A single C-call or payload-ledger event never admits the program-level result.
+Only the exact replay relation plus the declared derived rule produces the
+`one_surface_authority_outcome` fluent.
 Model, pressure, target binding, priority, next action, ledger, decision,
-progress, and terminal summaries derive from that fluent and the owning
-construction events. If registration, bindings, or the exact join cannot be
+progress, terminal, and typed-refusal summaries derive from that fluent and
+the owning construction events. If registration or the exact join cannot be
 realized, compilation stops at
 `one_surface_event_binding_semantic_not_realized`; no event name is invented
 and no adjacent event is overloaded by convenience.
@@ -365,9 +430,9 @@ constructors. T-280 does not add an eighth C constructor or a private loop.
 | `OneSurfaceProgramApplicationBinding` | prime compiled relation | independently pattern-matched, digest-bound proof of the complete program-level authority/effect/recurse topology; a partial application cannot execute |
 | `OneSurfaceAuthorityDefinition<K>` | shared prime definition family | one versioned closed source defines exact host/input/output/effect/admission shape for four independently identified variants |
 | selected `ABGFnCompositionContract` | existing prime | replay-stable host/regime/policy/carrier/assurance/closure truth selected independently for each program member |
-| `RuntimeEventCalculusAxiom` | existing prime | registers the two existing C-call kinds as replay aids with no direct semantic fluent effects |
-| `RuntimeDerivedFluentRule` | existing prime | one declared replay rule owns the exact C-call pair join; no helper or event kind may derive One Surface result truth independently |
-| `RuntimeFluent` | existing prime | the admitted One Surface authority-result fluent is independently replay-projected and is the sole source for downstream derived semantic read models |
+| `RuntimeEventCalculusAxiom` | existing prime | registers the existing C-call and payload-ledger source kinds as replay aids with no direct semantic fluent effects |
+| `RuntimeDerivedFluentRule` | existing prime | one application-bound replay rule owns the exact locus/authority/evidence/result join; no helper or event kind may derive One Surface result truth independently |
+| `RuntimeFluent` | existing prime | the closed `one_surface_authority_outcome` name indexes one deterministic replay-derived success/refusal binding through `ref` and adds no private fields |
 | `ProductAssetModel` | prime result | independently versioned and pattern-matched AF-11 authority |
 | `ObservationSnapshot` | prime result | independently admitted immutable observation under stable binding |
 | `GapPressureRow` | prime result row | independently identified and admitted gap meaning with its own resolution/history lifecycle |
@@ -382,8 +447,8 @@ constructors. T-280 does not add an eighth C constructor or a private loop.
 | `InvocationAuthority` | existing prime | operation-indexed actor/grant/view/policy/steering authority |
 
 Subordinate values are function-specific input envelopes, `ActionCatalog`,
-`PriorityProjection`, `AF14SelectionDisposition`,
-`OneSurfaceAuthorityInvocationBinding`, `OneSurfaceAuthorityResultBinding`,
+`PriorityProjection`, `AF14SelectionDisposition`, the canonical authority
+snapshot basis, `OneSurfaceAuthorityResultBinding`,
 `RuntimeEventCalculusEffectRow`, `CompleteAdmittedEvidenceView`, exact basis
 values, definition/result digests, typed refusal details, and derived public views.
 They are selected only through their owning prime and have no independent
@@ -432,22 +497,24 @@ Compiler diagnostics must distinguish:
 Missing semantics remain a typed gap. Empty defaults and compatibility
 fallbacks are forbidden.
 
-### D3. C-Call Pair And Derived Rule Own Result Truth
+### D3. Existing Replay Spine And Derived Rule Own Result Truth
 
-Every AF-11/12/13/16 member interior opens one existing `c_call_opened` event
-with a `OneSurfaceAuthorityInvocationBinding` and closes candidate result
-admission through one existing `c_call_result_admitted` event with a
-`OneSurfaceAuthorityResultBinding`. One declared
-`RuntimeDerivedFluentRule` joins only an exact pair and derives the admitted
-authority-result fluent. Neither event alone, `construction_evaluator_invoked`,
-a runner return value, nor a derived read model owns that truth.
+Every AF-11/12/13/16 member interior preserves the existing C-call shapes.
+`c_call_opened` remains locus-only. Existing authority-snapshot,
+payload-validation, evidence-admission, and C-call-enclosure facts carry and
+join the exact invocation and output truth. `c_call_result_admitted` points to
+the same admitted payload and contract. One application-bound
+`RuntimeDerivedFluentRule` joins only the exact replay relation and derives a
+fluent that indexes the deterministic `OneSurfaceAuthorityResultBinding`.
+No source event alone, `construction_evaluator_invoked`, runner return value,
+or public read model owns that truth.
 
-The two C-call kinds receive replay-aid Event Calculus registration with no
-direct initiated, terminated, clipped, or declipped semantic fluent. Their
-effect rows expose admitted source events to the existing derived-rule engine.
-The rule is deterministic and total over its declared input: an exact pair
-derives one fluent; a nonmatching pair derives none and exposes a typed
-invalid/`semantic_not_realized` diagnostic through compilation/admission.
+The involved existing kinds receive empty-effect replay-aid registration.
+Their effect rows expose admitted source events to the existing derived-rule
+engine. The rule is deterministic and total over its declared input: one exact
+relation derives one fluent; a missing or conflicting relation derives none
+and exposes a typed invalid/`semantic_not_realized` diagnostic through
+compilation/admission. No C-call or payload-ledger carrier grows a T-280 field.
 
 ### D4. Existing Runners Are Not Program Authority
 
@@ -609,7 +676,7 @@ cryptographic nonce, or process-isolation protocol.
     "ActionCatalog",
     "PriorityProjection",
     "AF14SelectionDisposition",
-    "OneSurfaceAuthorityInvocationBinding",
+    "OneSurfaceAuthoritySnapshotBasis",
     "OneSurfaceAuthorityResultBinding",
     "RuntimeEventCalculusEffectRow",
     "CompleteAdmittedEvidenceView",
@@ -623,8 +690,8 @@ cryptographic nonce, or process-isolation protocol.
     {"candidate": "OneSurfaceAuthorityDefinition", "verdict": "promote", "reason": "The closed program-bound definition family is versioned, admitted, and independently pattern-matched at semantic compilation and runtime admission."},
     {"candidate": "ABGFnCompositionContract", "verdict": "promote", "reason": "Its selected ref and digest remain replay-stable independent authority over each host's regime, policy, carrier, assurance, and closure semantics."},
     {"candidate": "RuntimeEventCalculusAxiom", "verdict": "promote", "reason": "Existing C-call kinds require explicit replay-aid registration whose declared effect remains empty; registration cannot be hidden in the result rule."},
-    {"candidate": "RuntimeDerivedFluentRule", "verdict": "promote", "reason": "One declared rule is independently identified event-calculus law that alone derives semantic result truth from an exact admitted C-call pair."},
-    {"candidate": "RuntimeFluent", "verdict": "promote", "reason": "The derived authority-result fluent is independently replay-projected truth consumed by downstream read-model derivation; event payload helpers cannot substitute."},
+    {"candidate": "RuntimeDerivedFluentRule", "verdict": "promote", "reason": "One application-bound rule delegates to the total replay projection and alone derives semantic result fluents from exact admitted C-call, authority, payload, evidence, result, and judgment truth."},
+    {"candidate": "RuntimeFluent", "verdict": "promote", "reason": "The closed one_surface_authority_outcome name and binding ref are independently replay-projected truth consumed by success and refusal read models; event payload helpers cannot substitute."},
     {"candidate": "ProductAssetModel", "verdict": "promote", "reason": "AF-11 emits an independently versioned product-model authority consumed by AF-12 and public projection."},
     {"candidate": "ObservationSnapshot", "verdict": "promote", "reason": "AF-12 admits an immutable independently identified observation under a stable workspace binding."},
     {"candidate": "GapPressureRow", "verdict": "promote", "reason": "Each row has independent identity, admission, projection, resolution, and retained history rather than being replaceable by an unaddressed snapshot field."},
@@ -682,6 +749,11 @@ classDiagram
     +programMembershipRef
     +selectedCompositionRef
     +selectedCompositionDigest
+    +selectedRegime
+    +selectedArmId
+    +selectedCProgramRef
+    +selectedCProgramDigest
+    +resultBearingProgramLocusRef
     +hookResolutionRef
     +policyDigest
     +inputContractRef
@@ -824,22 +896,34 @@ classDiagram
     <<existing runtime event>>
     +cCallRef
     +basisId
+    +programLocusRef
   }
-  class OneSurfaceAuthorityInvocationBinding {
-    <<subordinate c call payload>>
+  class CCallFibreSelectedEvent {
+    <<existing runtime event>>
     +cCallRef
-    +basisId
+    +programRef_completeC
+    +compositionRef
+    +regime
+    +armId
+  }
+  class OneSurfaceAuthoritySnapshotBasis {
+    <<subordinate canonical basis>>
     +authorityKind
     +definitionRef
     +definitionDigest
     +applicationRef
     +applicationDigest
-    +programRef
-    +programDigest
+    +admittedGtlProgramRef
+    +admittedGtlProgramDigest
     +programMemberRef
     +programMemberDigest
+    +cProgramRef
+    +cProgramDigest
+    +resultBearingProgramLocusRef
     +compositionRef
     +compositionDigest
+    +regime
+    +armId
     +inputRefs
     +inputDigest
     +expectedOutputRefs
@@ -848,15 +932,62 @@ classDiagram
     +resultContractDigest
     +domainAdmissionRef
     +causalBasisDigest
-    +causationRefs
+  }
+  class AuthoritySnapshotAdmittedEvent {
+    <<existing runtime event>>
+    +authoritySnapshotRef
+    +authorityRefs
+    +inputRefs
+    +authorityDigest
+    +inputDigest
+  }
+  class PayloadObservedEvent {
+    <<existing runtime event>>
+    +payloadRef
+    +payloadClass
+    +digest
+    +producerRef
+    +authorityRef
+    +inputDigest
+  }
+  class PayloadValidatedEvent {
+    <<existing runtime event>>
+    +payloadRef
+    +contractRef
+    +contractDigest
+    +digest
+    +validationRef
+  }
+  class EvidenceAdmittedEvent {
+    <<existing runtime event>>
+    +evidenceRef
+    +payloadRef
+    +authorityRef
+    +authorityDigest
+    +inputDigest
+  }
+  class CCallEvidencedEvent {
+    <<existing runtime event>>
+    +cCallRef
+    +evidenceRefs
   }
   class CCallResultAdmittedEvent {
     <<existing runtime event>>
     +cCallRef
     +basisId
+    +payloadRef
+    +responseContractRef
+  }
+  class CCallJudgedEvent {
+    <<existing runtime event>>
+    +cCallRef
+    +basisId
+    +judgment
   }
   class OneSurfaceAuthorityResultBinding {
-    <<subordinate c call payload>>
+    <<subordinate derived replay projection>>
+    +bindingRef
+    +outcomeKind_success_or_refusal
     +cCallRef
     +basisId
     +authorityKind
@@ -864,12 +995,17 @@ classDiagram
     +definitionDigest
     +applicationRef
     +applicationDigest
-    +programRef
-    +programDigest
+    +admittedGtlProgramRef
+    +admittedGtlProgramDigest
     +programMemberRef
     +programMemberDigest
+    +cProgramRef
+    +cProgramDigest
+    +resultBearingProgramLocusRef
     +compositionRef
     +compositionDigest
+    +regime
+    +armId
     +inputRefs
     +inputDigest
     +outputRefs
@@ -877,9 +1013,7 @@ classDiagram
     +resultContractRef
     +resultContractDigest
     +domainAdmissionRef
-    +openingEventRef
     +causalBasisDigest
-    +causationRefs
   }
   class RuntimeDerivedFluentRule {
     <<existing prime>>
@@ -893,13 +1027,14 @@ classDiagram
   class RuntimeEventCalculusEffectRow {
     <<subordinate replay row>>
     +eventKind
-    +sourceEventRef
+    +sourceEvent_RuntimeEvent
   }
-  class OneSurfaceAuthorityResultFluent {
-    <<existing RuntimeFluent prime>>
-    +authorityKind
-    +resultRef
-    +outputDigest
+  class RuntimeFluent {
+    <<existing closed prime>>
+    +name_one_surface_authority_outcome
+    +scope_graph_call
+    +basisAndLocusFields
+    +ref_resultBindingRef
   }
   class PublicReadProjection {
     <<derived transport>>
@@ -945,26 +1080,46 @@ classDiagram
   OneSurfaceProgramApplicationBinding --> T271FunctionInterior : compiles member interiors only
   ExactNextActionBasis --> T262TypedRecurse : exact AF16 return
   T262TypedRecurse --> OneSurfaceProgramApplicationBinding : foldback and parent rebind
-  CCallOpenedEvent *-- OneSurfaceAuthorityInvocationBinding : exact invocation payload
-  CCallResultAdmittedEvent *-- OneSurfaceAuthorityResultBinding : exact result payload
-  RuntimeEventCalculusAxiom --> CCallOpenedEvent : replay aid registration
-  RuntimeEventCalculusAxiom --> CCallResultAdmittedEvent : replay aid registration
-  CCallOpenedEvent --> RuntimeEventCalculusEffectRow : empty direct effect row
-  CCallResultAdmittedEvent --> RuntimeEventCalculusEffectRow : empty direct effect row
-  OneSurfaceAuthorityDefinition --> OneSurfaceAuthorityInvocationBinding : exact owner
+  CCallOpenedEvent --> CCallFibreSelectedEvent : same call
+  OneSurfaceAuthorityDefinition --> OneSurfaceAuthoritySnapshotBasis : exact owner
+  OneSurfaceProgramApplicationBinding --> OneSurfaceAuthoritySnapshotBasis : exact application
+  ABGFnCompositionContract --> OneSurfaceAuthoritySnapshotBasis : exact selected ref
+  OneSurfaceAuthoritySnapshotBasis --> AuthoritySnapshotAdmittedEvent : projects admitted refs and digests
+  AuthoritySnapshotAdmittedEvent --> CCallEvidencedEvent : enclosed source event
+  PayloadObservedEvent --> PayloadValidatedEvent : same output envelope
+  PayloadValidatedEvent --> EvidenceAdmittedEvent : same output payload
+  EvidenceAdmittedEvent --> CCallEvidencedEvent : enclosed source event
+  CCallEvidencedEvent --> CCallResultAdmittedEvent : precedes result admission
+  CCallResultAdmittedEvent --> CCallJudgedEvent : exact disposition
+  RuntimeEventCalculusAxiom --> CCallOpenedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> CCallFibreSelectedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> AuthoritySnapshotAdmittedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> PayloadObservedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> PayloadValidatedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> EvidenceAdmittedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> CCallEvidencedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> CCallResultAdmittedEvent : empty replay aid
+  RuntimeEventCalculusAxiom --> CCallJudgedEvent : empty replay aid
+  CCallOpenedEvent --> RuntimeEventCalculusEffectRow : source event
+  CCallFibreSelectedEvent --> RuntimeEventCalculusEffectRow : source event
+  AuthoritySnapshotAdmittedEvent --> RuntimeEventCalculusEffectRow : source event
+  PayloadObservedEvent --> RuntimeEventCalculusEffectRow : source event
+  PayloadValidatedEvent --> RuntimeEventCalculusEffectRow : source event
+  EvidenceAdmittedEvent --> RuntimeEventCalculusEffectRow : source event
+  CCallEvidencedEvent --> RuntimeEventCalculusEffectRow : source event
+  CCallResultAdmittedEvent --> RuntimeEventCalculusEffectRow : source event
+  CCallJudgedEvent --> RuntimeEventCalculusEffectRow : source event
   OneSurfaceAuthorityDefinition --> OneSurfaceAuthorityResultBinding : exact owner
-  OneSurfaceProgramApplicationBinding --> OneSurfaceAuthorityInvocationBinding : exact application
   OneSurfaceProgramApplicationBinding --> OneSurfaceAuthorityResultBinding : exact application
-  ABGFnCompositionContract --> OneSurfaceAuthorityInvocationBinding : exact selection
   ABGFnCompositionContract --> OneSurfaceAuthorityResultBinding : exact selection
   RuntimeDerivedFluentRule --> RuntimeEventCalculusEffectRow : reads admitted source events
-  RuntimeDerivedFluentRule --> OneSurfaceAuthorityInvocationBinding : joins exact pair
-  RuntimeDerivedFluentRule --> OneSurfaceAuthorityResultBinding : joins exact pair
-  RuntimeDerivedFluentRule --> OneSurfaceAuthorityResultFluent : derives only on equality
-  OneSurfaceAuthorityResultFluent --> ProductAssetModel : AF11 derived read model
-  OneSurfaceAuthorityResultFluent --> ObservationSnapshot : AF12 owning result
-  OneSurfaceAuthorityResultFluent --> NextActionProjection : AF13 derived read model
-  OneSurfaceAuthorityResultFluent --> EdgeClosureDecision : AF16 derived read model
+  RuntimeDerivedFluentRule --> OneSurfaceAuthorityResultBinding : derives exact relation
+  RuntimeDerivedFluentRule --> RuntimeFluent : emits closed outcome name with binding ref only
+  RuntimeFluent --> ProductAssetModel : AF11 success binding derives read model
+  RuntimeFluent --> ObservationSnapshot : AF12 success binding owns result
+  RuntimeFluent --> NextActionProjection : AF13 success binding derives read model
+  RuntimeFluent --> EdgeClosureDecision : AF16 success binding derives read model
+  RuntimeFluent --> PublicReadProjection : refusal binding derives truthful refusal
   ProductAssetModel --> PublicReadProjection : projects without recompute
   ObservationSnapshot --> PublicReadProjection : projects without recompute
   NextActionProjection --> PublicReadProjection : projects without recompute
@@ -1008,47 +1163,74 @@ sequenceDiagram
   else complete program application admitted
     Compiler-->>Application: Prime application ref and digest
     Application->>T271: interpret selected AF11 C interior
-    T271->>Events: c_call_opened with exact AF11 invocation binding
+    T271->>Events: c_call_opened locus only then fibre_selected with cProgram and composition
     T271->>Model: lineage prior model and admitted product truth
-    alt model result malformed or authority mismatched
-      Model-->>ABG: typed AF11 refusal
-      ABG-->>Projection: truthful blocked or gap projection
+    alt exact typed AF11 refusal
+      Model-->>ABG: candidate typed refusal
+      ABG->>Events: authority snapshot observed validated refusal evidence enclosure result and nonadvance judgment
+      Events->>Calculus: empty-effect rows expose exact AF11 refusal relation
+      Calculus->>Rule: exact ordered refusal rows
+      Rule-->>ABG: AF11 refusal binding and outcome fluent
+      ABG-->>Projection: truthful typed refusal projection
+    else model candidate malformed or authority mismatched
+      Model-->>ABG: invalid candidate
+      ABG-->>Projection: typed invalid relation with no outcome fluent
     else model admitted
-      Model->>Events: c_call_result_admitted with exact AF11 result binding
-      Events->>Calculus: registered empty-effect rows expose exact AF11 pair
-      Calculus->>Rule: admitted source-event pair
-      Rule-->>ABG: admitted AF11 authority-result fluent
+      Model-->>ABG: candidate ProductAssetModel
+      ABG->>Events: authority snapshot then observed and validated payload plus admitted evidence
+      ABG->>Events: c_call_evidenced encloses refs then result and judgment admit outcome
+      Events->>Calculus: empty-effect rows expose exact AF11 replay relation
+      Calculus->>Rule: locus selection authority evidence and result rows
+      Rule-->>ABG: AF11 fluent indexes deterministic result binding
       Application->>T271: interpret selected AF12 C interior
-      T271->>Events: c_call_opened with exact AF12 invocation binding
+      T271->>Events: c_call_opened locus only then fibre_selected with cProgram and composition
       T271->>Gap: binding model replay and worksite observations
-      alt snapshot or pressure result malformed
-        Gap-->>ABG: typed AF12 refusal
-        ABG-->>Projection: truthful blocked or gap projection
+      alt exact typed AF12 refusal
+        Gap-->>ABG: candidate typed refusal
+        ABG->>Events: authority snapshot observed validated refusal evidence enclosure result and nonadvance judgment
+        Events->>Calculus: empty-effect rows expose exact AF12 refusal relation
+        Calculus->>Rule: exact ordered refusal rows
+        Rule-->>ABG: AF12 refusal binding and outcome fluent
+        ABG-->>Projection: truthful typed refusal projection
+      else snapshot or pressure candidate malformed
+        Gap-->>ABG: invalid candidate
+        ABG-->>Projection: typed invalid relation with no outcome fluent
       else fresh gap admitted
-        Gap->>Events: c_call_result_admitted with exact AF12 result binding
-        Events->>Calculus: registered empty-effect rows expose exact AF12 pair
-        Calculus->>Rule: admitted source-event pair
-        Rule-->>ABG: admitted AF12 authority-result fluent
+        Gap-->>ABG: candidate snapshot and pressure
+        ABG->>Events: authority snapshot then observed and validated payload plus admitted evidence
+        ABG->>Events: c_call_evidenced encloses refs then result and judgment admit outcome
+        Events->>Calculus: empty-effect rows expose exact AF12 replay relation
+        Calculus->>Rule: locus selection authority evidence and result rows
+        Rule-->>ABG: AF12 fluent indexes deterministic result binding
         ABG->>Events: construction_observation_snapshot_materialized retains snapshot role
         Application->>Catalog: derive program and view candidate actions only
         Catalog-->>Application: exact ActionCatalog
         Application->>T271: interpret selected AF13 C interior
-        T271->>Events: c_call_opened with exact AF13 invocation binding
+        T271->>Events: c_call_opened locus only then fibre_selected with cProgram and composition
         T271->>Next: basis fresh gap obligations catalog frontier policy
-        alt ranking or result malformed nontotal or stale
-          Next-->>ABG: typed AF13 refusal
-          ABG-->>Projection: truthful blocked or gap projection
+        alt exact typed AF13 refusal
+          Next-->>ABG: candidate typed refusal
+          ABG->>Events: authority snapshot observed validated refusal evidence enclosure result and nonadvance judgment
+          Events->>Calculus: empty-effect rows expose exact AF13 refusal relation
+          Calculus->>Rule: exact ordered refusal rows
+          Rule-->>ABG: AF13 refusal binding and outcome fluent
+          ABG-->>Projection: truthful typed refusal projection
+        else ranking candidate malformed nontotal or stale
+          Next-->>ABG: invalid candidate
+          ABG-->>Projection: typed invalid relation with no outcome fluent
         else continuation FH ticket reprice terminal or no-action result
-          Next->>Events: c_call_result_admitted with exact AF13 result binding
-          Events->>Calculus: registered empty-effect rows expose exact AF13 pair
-          Calculus->>Rule: admitted source-event pair
+          Next-->>ABG: candidate typed system or no-action outcome
+          ABG->>Events: authority snapshot observed validated evidence enclosure result and judgment
+          Events->>Calculus: empty-effect rows expose exact AF13 replay relation
+          Calculus->>Rule: locus selection authority evidence and result rows
           Rule-->>ABG: closed typed system or no-action outcome
           ABG->>Events: existing candidate and terminal events retain their roles
           ABG-->>Projection: typed system or no-action truth with no new intent
         else callable internal-vector reentry or repair selected
-          Next->>Events: c_call_result_admitted with exact AF13 result binding
-          Events->>Calculus: registered empty-effect rows expose exact AF13 pair
-          Calculus->>Rule: admitted source-event pair
+          Next-->>ABG: candidate effect-intent-eligible selection
+          ABG->>Events: authority snapshot observed validated evidence enclosure result and judgment
+          Events->>Calculus: empty-effect rows expose exact AF13 replay relation
+          Calculus->>Rule: locus selection authority evidence and result rows
           Rule-->>ABG: exact effect-intent-eligible selection
           ABG->>Events: existing candidate and selection kinds retain AF14 preparation roles
           Application->>Intent: AF14 exact program target view binding authority and lineage
@@ -1079,16 +1261,24 @@ sequenceDiagram
                 Events-->>Action: exact complete evidence view
               end
               Application->>T271: interpret selected AF16 C interior
-              T271->>Events: c_call_opened with exact AF16 invocation binding
+              T271->>Events: c_call_opened locus only then fibre_selected with cProgram and composition
               T271->>Action: intent evidence binding and closure policy
-              alt evidence incomplete cross-intent or invalid
-                Action-->>ABG: typed refusal and never close
-                ABG-->>Projection: truthful blocked projection
+              alt exact typed AF16 refusal
+                Action-->>ABG: candidate typed refusal and never close
+                ABG->>Events: authority snapshot observed validated refusal evidence enclosure result and nonadvance judgment
+                Events->>Calculus: empty-effect rows expose exact AF16 refusal relation
+                Calculus->>Rule: exact ordered refusal rows
+                Rule-->>ABG: AF16 refusal binding and outcome fluent
+                ABG-->>Projection: truthful typed refusal projection
+              else evidence relation cross-intent malformed or invalid
+                Action-->>ABG: invalid candidate and never close
+                ABG-->>Projection: typed invalid relation with no outcome fluent
               else complete governed fold
-                Action->>Events: c_call_result_admitted with exact AF16 result binding
-                Events->>Calculus: registered empty-effect rows expose exact AF16 pair
-                Calculus->>Rule: admitted source-event pair
-                Rule-->>ABG: admitted AF16 authority-result fluent
+                Action-->>ABG: candidate ledger and decision
+                ABG->>Events: authority snapshot observed validated evidence enclosure result and judgment
+                Events->>Calculus: empty-effect rows expose exact AF16 replay relation
+                Calculus->>Rule: locus selection authority evidence and result rows
+                Rule-->>ABG: AF16 fluent indexes deterministic result binding
                 ABG->>Events: delta_observed and terminal projection retain consequence roles
                 Action-->>Application: exact AF16 post-disposition basis
                 Application->>Recurse: apply declared T262 termination foldback and parent rebind
@@ -1118,13 +1308,16 @@ stateDiagram-v2
   ApplicationCompiling --> ProgramGapBlocked: membership host composition join event or recurse relation not realized
   ApplicationCompiling --> ProgramAdmitted: exact complete application binding admitted
   ProgramAdmitted --> ModelEvaluating: T271 enters selected AF11 interior
-  ModelEvaluating --> FunctionRefused: C-call pair unmatched cross-basis wrong-contract or malformed
-  ModelEvaluating --> ModelAdmitted: exact pair derives AF11 result fluent and model
+  ModelEvaluating --> FunctionRefused: exact replay relation derives typed refusal
+  ModelEvaluating --> ProgramGapBlocked: replay relation missing conflicting unordered or malformed
+  ModelEvaluating --> ModelAdmitted: exact advancing relation derives AF11 binding fluent and model
   ModelAdmitted --> GapEvaluating: T271 enters selected AF12 interior
-  GapEvaluating --> FunctionRefused: C-call pair unmatched cross-basis wrong-contract or malformed
-  GapEvaluating --> GapAdmitted: exact pair derives AF12 fluent snapshot and pressure
+  GapEvaluating --> FunctionRefused: exact replay relation derives typed refusal
+  GapEvaluating --> ProgramGapBlocked: replay relation missing conflicting unordered or malformed
+  GapEvaluating --> GapAdmitted: exact advancing relation derives AF12 binding fluent snapshot and pressure
   GapAdmitted --> NextEvaluating: application derives catalog and T271 enters AF13
-  NextEvaluating --> FunctionRefused: C-call pair invalid stale nontotal or mismatched
+  NextEvaluating --> FunctionRefused: exact replay relation derives typed refusal
+  NextEvaluating --> ProgramGapBlocked: replay relation invalid stale nontotal unordered or mismatched
   NextEvaluating --> SystemOutcomeAdmitted: exact AF13 fluent yields continuation FH ticket reprice terminal or no-action
   NextEvaluating --> SelectedActionAdmitted: exact AF13 fluent yields callable vector reentry or repair
   SelectedActionAdmitted --> IntentRefused: AF14 authority lineage or membership mismatch
@@ -1140,7 +1333,8 @@ stateDiagram-v2
   EvidenceRefused --> ActionEvaluating: admitted failure basis is complete
   EvidenceRefused --> FunctionRefused: no complete admitted failure basis
   EvidenceAdmitted --> ActionEvaluating: T271 enters selected AF16 interior
-  ActionEvaluating --> FunctionRefused: evidence or C-call pair cross-intent cross-basis wrong-contract or invalid
+  ActionEvaluating --> FunctionRefused: exact replay relation derives typed refusal
+  ActionEvaluating --> ProgramGapBlocked: evidence or replay relation cross-intent cross-basis wrong-contract unordered or invalid
   ActionEvaluating --> ActionDecisionAdmitted: exact AF16 fluent derives ledger and closed disposition
   ActionDecisionAdmitted --> Recursing: T262 declared next episode under exact basis
   ActionDecisionAdmitted --> Terminal: decision plus no next episode
@@ -1184,7 +1378,7 @@ T-272 integration and T-276 installed proof close.
 | A16 plugins and handlers own interiors only | FN-COMP-014/019; ODD law | function definitions bind hosts but ABG owns outputs | every host result returns through ABG admission | no plugin-authored runtime state | host API returns candidate result only | event/ledger/decision constructors remain ABG-owned | pass | none |
 | A17 application topology is exact and all-or-nothing | FPC-001/014; INTERPRET-029/030 | Prime application binds AF11/12/13/14/15/16 and T262 | compiler admits before first T271 interior | any missing join enters ProgramGapBlocked | nominal application and join carriers | partial or cross-program application returns semantic_not_realized | pass | none |
 | A18 host and composition authority are program-visible | FPC-013; FN-COMP-003/011 | definition binds closed host kind, membership, selected composition, hook and policy | compiler resolves only visible precedence | host mismatch cannot reach ProgramAdmitted | closed host union and exact refs/digests | hidden config, wrong host and stale selection reject | pass | none |
-| A19 existing events preserve One Surface ownership | EVENTS-021; FPC-017 | exact invocation/result bindings attach to existing C-call events; one existing Prime rule derives the fluent | every function interior emits an exact pair; construction events keep their roles | only an exact pair reaches an admitted semantic state | closed binding types plus existing RuntimeDerivedFluentRule/RuntimeFluent | replay-aid registrations have no direct effects; unmatched/cross-basis/wrong-contract pairs yield no fluent and a typed gap | pass as design, implementation gap named | T280 |
+| A19 existing events preserve One Surface ownership | EVENTS-021; CCALL-001..006; PAYLOAD-001..008; FPC-017 | locus-only C-call, authority, payload, evidence, result, and judgment facts remain distinct; one total projection and application-bound rule derive outcome truth | each result-bearing function locus emits the canonical existing sequence; construction events keep their roles | exact advancing relations reach success; exact non-advance refusal relations remain typed; invalid relations yield gaps | existing closed events plus derived result binding, RuntimeDerivedFluentRule, and RuntimeFluent | empty replay-aid registrations add no effects; order/identity/regime/arm/contract/judgment mismatches yield no outcome fluent and a typed diagnostic | pass as design, implementation gap named | T280 |
 | A20 pressure and target binding remain Prime | ADR-044; FPC-003/005 | both have independent identity, admission and history | AF12 admits pressure; AF13 admits target binding | later states reference exact rows | nominal refs and digests | promotion, cross-basis and duplicate-authority tests | pass | none |
 
 ## Proof Contract
@@ -1234,20 +1428,27 @@ T-272 integration and T-276 installed proof close.
     parity, governance, Prime, direct Mermaid, and full semantic gates pass.
 14. Independent implementation review verifies authority placement and the
     exact T-270 handoff before T-280 closes.
-15. Event tests prove each AF-11/12/13/16 member emits one existing
-    `c_call_opened` invocation binding and one matching existing
-    `c_call_result_admitted` result binding. Exact pairs derive exactly one
-    authority-result fluent. Missing/duplicate, cross-call, cross-basis,
-    wrong-definition/application/program/member/composition, wrong input or
-    output contract, wrong selected result contract/domain admission, and
-    causally unrelated mutations derive no fluent and fail typed.
+15. Event tests prove each AF-11/12/13/16 member's exact result-bearing C-call
+    preserves the existing open/selection/authority-snapshot/payload-observed/
+    payload-validated/evidence/enclosure/result/judgment sequence. Exact
+    advancing relations derive one success binding/fluent; exact declared
+    non-advance relations derive one typed refusal binding and no success;
+    missing/duplicate/unordered, cross-call, cross-basis, wrong-regime/arm,
+    wrong-C-program,
+    wrong-definition/application/GTL-program/member/composition, wrong input
+    or output contract, wrong selected result contract/domain admission, and
+    causally unrelated mutations derive no success and fail typed.
 16. Prime tests prove `GapPressureRow`, `TargetObligationBinding`, and
     `OneSurfaceProgramApplicationBinding` remain independently admitted and
     pattern-matchable; no enclosing snapshot/projection or helper may erase
     their identity or lifecycle.
-17. Event Calculus tests prove the two existing C-call kinds have replay-aid
-    registrations with no direct semantic effects, the one declared
-    `RuntimeDerivedFluentRule` is the only result-fluent derivation source,
+17. Event Calculus tests prove every existing source kind in the exact replay
+    relation has an empty-effect replay-aid registration, the one total
+    projection plus application-bound `RuntimeDerivedFluentRule` is the only
+    outcome-fluent derivation source, `RUNTIME_FLUENT_NAME_VALUES` grows by
+    exactly `one_surface_authority_outcome`, and the emitted existing-shape
+    fluent uses `scope: graph_call` plus `ref: resultBindingRef` without new
+    carrier fields;
     `construction_evaluator_invoked` remains invocation/awaiting truth only,
     and construction observation/catalog/intent/action/delta/terminal events
     retain their existing roles. No new runtime event kind appears.
@@ -1263,24 +1464,27 @@ T-272 integration and T-276 installed proof close.
 | arbitrary hostile local tamper defense | low-probability and outside trusted-desktop product boundary | not in 5.0 | explicit threat-model/product reprice |
 | relied-on semantic compiler gap | no missing authority may be treated as implemented | T-280 | exact typed gap is realized and fixture recompiles |
 | program-level application join | T-271 owns member C interiors, not the AF11-through-T262 topology | T-280 design/semantic compiler; T-270 and T-262 retain their slots | exact membership/composition/type/effect/return/recurse relation compiles as one Prime application |
-| AF-11/12/13/16 C-call authority-result derivation | existing C-call kinds lack the One Surface bindings, replay-aid registration, and exact derived rule required by EVENTS-021 | T-280 over existing event-calculus and C-call families | exact pair derives one result fluent; all mismatch negatives fail; no new kind or direct event effect |
+| AF-11/12/13/16 replay authority-result derivation | existing C-call and payload-ledger kinds lack empty replay-aid registration and the exact application-bound join required by EVENTS-021 | T-280 over existing Event Calculus, C-call, and payload-ledger families | exact success/refusal relation projects truth; all mismatch negatives fail; no new kind, field, or direct event effect |
 | AF-14 intent payload completeness | existing intent candidate/admitted/selected kinds retain their roles but still require exact AF-13/program/target/view/binding/invocation-authority relations | T-280 within existing construction family | exact payload relations admit and replay without read-model authority inversion |
 
 ## Design Verdict
 
-`accepted_for_bounded_implementation`.
+`accepted_for_bounded_t280_implementation`.
 
-The repaired design is complete enough for independent re-review. It preserves
+The repaired design passed independent review at exact semantic candidate
+digest `de845b3c31f1d1255ab99ce07503078f7b890b09029ad3b847d3f1762051a81a`.
+It preserves
 the four ratified semantic authorities, derives one exact Prime program-level
 application relation without elevating T-271 into a controller, retains T-262
 recurse/foldback ownership, restores Prime pressure and target-binding rows,
 binds definitions to closed program-visible host/composition/hook/policy truth,
-closes AF-14 over the existing action vocabulary, and binds each semantic
-member's existing C-call invocation/result pair through one declared
+closes AF-14 over the existing action vocabulary, and derives each semantic
+member's success or typed refusal from the existing locus-only C-call and
+payload-ledger sequence through one total projection and application-bound
 `RuntimeDerivedFluentRule`. Construction events retain their current phases;
-`construction_evaluator_invoked` is not result authority. The design also
-records the current binding/rule gaps honestly:
-no authority function may execute while its required relation remains
-`semantic_not_realized`. Independent review accepted the exact semantic
-candidate recorded by T-280; implementation remains bounded by this design
-and requires a separate closure review.
+`construction_evaluator_invoked` is not result authority. The earlier accepted
+candidate embedded semantic bindings in closed C-call event shapes and is
+therefore superseded for implementation. Bounded T-280 implementation may now
+resume against this accepted relation. Any `semantic_not_realized` result
+still forbids authority execution, and implementation closure remains subject
+to separate independent review.

@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_prerequisite
 - status: active
-- phase_status: design_accepted_bounded_implementation_authorized
-- review_status: fh_accepted_for_implementation_independent_closure_review_pending
-- proof_status: implementation_pending
+- phase_status: repaired_design_accepted_implementation_authorized
+- review_status: repaired_design_fh_accepted_independent_implementation_review_pending
+- proof_status: bounded_implementation_pending
 - delivery_phase: DS-2 integration prerequisite
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -53,6 +53,8 @@
   - specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md 001..017
   - specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md 001..026
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md 029..030
+  - specification/requirements/abg/REQ-R-ABG3-CCALL.md 001..006, 008, 014
+  - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md 001..009
   - specification/requirements/abg/REQ-R-ABG3-EVENTS.md 021, 030
   - specification/requirements/product/REQ-P-POLICY.md 054
   - specification/requirements/product/REQ-P-SCENARIOS.md 003, 012
@@ -70,14 +72,32 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md
-- independently_reviewed_candidate_digest: e507773cc41a86f25df0f2625620258a07701b0ea6575154616cdd1f39f69214
-- accepted_design_digest: 411ab4e3bbd978a45b7c136b5f0c17e55508a9c8cad5a7b1e5fdf45fe6733758
-- independent_design_review_ref: >-
+- superseded_independently_reviewed_candidate_digest: e507773cc41a86f25df0f2625620258a07701b0ea6575154616cdd1f39f69214
+- superseded_accepted_design_digest: 411ab4e3bbd978a45b7c136b5f0c17e55508a9c8cad5a7b1e5fdf45fe6733758
+- superseded_independent_design_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T084027Z_REVIEW_t280_one_surface_authority_design.md
-- design_acceptance_ref: >-
+- superseded_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T084027Z_DECISION_fh_accept_t280_one_surface_authority_design.md
+- rejected_first_event_binding_candidate_digest: >-
+    9bf1577056bb5dc2a111d6cdc95ca7626864179868f99023ddfb50d6d84efa18
+- repaired_candidate_digest: >-
+    de845b3c31f1d1255ab99ce07503078f7b890b09029ad3b847d3f1762051a81a
+- accepted_repaired_gate_complete_design_digest: >-
+    952c57d2340d05a299a147d55bfc2f8154494d3394ece75064ee5d6f8f17242e
+- event_binding_implementation_audit_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T095513Z_REVIEW_t280_event_binding_implementation_audit.md
+- repaired_independent_design_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T102558Z_REVIEW_t280_event_binding_repair.md
+- repaired_design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T102558Z_DECISION_fh_accept_t280_event_binding_repair.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T102558Z_DECISION_fh_accept_t280_event_binding_repair.md
 
 ## Boundary
 
@@ -144,9 +164,12 @@ plugin hardening.
    `OneSurfaceAuthorityDefinition<K>` and function-specific input/output family.
 2. Add exact native constructors/admitters and program-membership checks for
    AF-11, AF-12, AF-13, AF-16, and AF-14.
-3. Bind each AF-11/12/13/16 member's existing `c_call_opened` and
-   `c_call_result_admitted` events through exact invocation/result payloads and
-   one declared `RuntimeDerivedFluentRule`; register replay-aid effects only.
+3. Bind each AF-11/12/13/16 member's exact result-bearing C-call through the
+   existing locus-only open, fibre selection, authority snapshot, observed and
+   validated payload, admitted evidence, evidence enclosure, result admission,
+   and judgment facts. Derive success/refusal truth through one total replay
+   projection and application-bound `RuntimeDerivedFluentRule`; add no event
+   kind or field and register empty replay-aid effects only.
 4. Extend static/semantic compilation to reject missing, duplicate, reordered,
    type-incompatible, cross-program, and refinement-incomplete One Surface
    bindings with typed gaps.
@@ -187,11 +210,16 @@ plugin hardening.
 10. Focused semantic, GTL, packed, publication, governance, Prime, and direct
     three-view design gates pass from one tree, followed by independent
     implementation review.
-11. Existing C-call events carry exact invocation/result bindings. One declared
-    derived rule admits result fluents only for exact call/basis/definition/
-    application/program/member/composition/contract/causal pairs. Replay-aid
-    registrations add no direct effects; `construction_evaluator_invoked`
-    remains awaiting truth only; any mismatch remains typed with zero result.
+11. Existing C-call and payload-ledger shapes remain unchanged. One total
+    replay projection and application-bound derived rule admit outcome bindings
+    and fluents only for exact ordered call/basis/definition/application/GTL-program/
+    member/C-program/locus/composition/regime/arm/input/payload/contract/evidence/judgment
+    relations. Exact non-advance refusal contracts remain typed without a
+    success read model. The sole `one_surface_authority_outcome` fluent name
+    indexes exact success/refusal bindings using the existing carrier shape.
+    Replay-aid registrations add no direct effects;
+    `construction_evaluator_invoked` remains awaiting truth only; any invalid
+    relation remains typed with zero success result.
 
 ## Independent Design-Review Repair
 
@@ -221,11 +249,18 @@ operator loop until T-270, T-272, and installed T-276 proof are complete.
 ## Bounded Re-review Repair
 
 The second review rejected phase-overloading
-`construction_evaluator_invoked` as four-function result authority. This
-candidate instead binds each AF-11/12/13/16 member interior to existing
-`c_call_opened` and `c_call_result_admitted` events and derives one admitted
-authority-result fluent through one exact `RuntimeDerivedFluentRule` join.
-The two C-call kinds receive replay-aid registration only. Existing
+`construction_evaluator_invoked` as four-function result authority. The prior
+accepted replacement then embedded semantic bindings in the closed C-call
+event shapes, contrary to CCALL-002 and the realized admission boundary. The
+accepted repair preserves locus-only open and every existing event field.
+It joins the exact result-bearing C-call with existing authority-snapshot,
+payload, evidence, result, and judgment truth through one total replay
+projection and application-bound `RuntimeDerivedFluentRule`. Existing
 construction observation, catalog, evaluator-awaiting, intent, graph-action,
 delta, and terminal events retain their current roles, and all semantic read
-models remain derived. No event kind or direct effect is added.
+models remain derived. No event kind, field, direct effect, or external
+resolver is added. The superseded acceptance remains recorded as history but
+does not authorize implementation of the repaired candidate. The exact
+repaired candidate above passed independent review and now authorizes only the
+bounded T-280 implementation sequence; independent implementation review is
+still required before closure.
