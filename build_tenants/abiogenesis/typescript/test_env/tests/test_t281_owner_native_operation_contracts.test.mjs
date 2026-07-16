@@ -3,7 +3,10 @@ import test from "node:test";
 
 import * as v from "valibot";
 
-import { CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/catalog_operation_contracts.js";
+import {
+  CATALOG_OPERATION_NATIVE_CHECK_REGISTRY,
+  CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES
+} from "../../build/semantic/code/src/abg/m03/contracts/catalog_operation_contracts.js";
 import { GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/gtl_conformance_operation_contracts.js";
 import { RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js";
 import {
@@ -282,7 +285,18 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
       Reflect.get(module, source.sourceLocator.exportName)
     );
     assert.equal(resolved, source.schema);
-    assert.doesNotThrow(() => projectCanonicalNativeJsonSchema(source.schema));
+    const namedCheckRegistry =
+      source.authority.subject.operationId === "abg.operation.catalog.admit"
+        ? CATALOG_OPERATION_NATIVE_CHECK_REGISTRY
+        : source.authority.subject.operationId ===
+            "abg.operation.release.snapshot"
+          ? EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY
+          : undefined;
+    assert.doesNotThrow(() =>
+      projectCanonicalNativeJsonSchema(source.schema, {
+        namedCheckRegistry
+      })
+    );
   }
 });
 
@@ -376,6 +390,22 @@ test("catalog admission rows are a contradiction-free typed disposition sum", ()
       catalogRef: "catalog:1",
       catalogDigest: DIGEST,
       dispositions: [{ ...common, disposition: "rejected" }],
+      evidenceRefs: []
+    })
+  );
+  assert.throws(() =>
+    v.parse(schema, {
+      catalogRef: "catalog:1",
+      catalogDigest: DIGEST,
+      dispositions: [
+        { ...common, disposition: "admitted" },
+        {
+          ...common,
+          disposition: "rejected",
+          reason: "same entry cannot be rejected too",
+          residualRefs: ["residual:1"]
+        }
+      ],
       evidenceRefs: []
     })
   );
@@ -623,6 +653,47 @@ test("exact-candidate schemas make release authority and final-only delta struct
       }))
     })
   );
+  const withFirstResult = (overrides) => ({
+    ...qualificationGateResultVector,
+    results: qualificationGateResultVector.results.map((result, index) =>
+      index === 0 ? { ...result, ...overrides } : result
+    )
+  });
+  assert.doesNotThrow(() =>
+    v.parse(
+      QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+      withFirstResult({
+        disposition: "blocked",
+        evidence: [],
+        bypassRefs: ["bypass:1"]
+      })
+    )
+  );
+  assert.throws(() =>
+    v.parse(
+      QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+      withFirstResult({
+        disposition: "green",
+        evidence: [],
+        bypassRefs: ["bypass:1"]
+      })
+    )
+  );
+  assert.throws(() =>
+    v.parse(
+      QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+      withFirstResult({
+        disposition: "blocked",
+        bypassRefs: ["bypass:1"]
+      })
+    )
+  );
+  assert.throws(() =>
+    v.parse(
+      QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+      withFirstResult({ evidence: [], bypassRefs: [] })
+    )
+  );
   assert.doesNotThrow(() =>
     v.parse(
       EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA,
@@ -646,7 +717,14 @@ test("exact-candidate schemas make release authority and final-only delta struct
       qualificationGateResultVector: {
         ...qualificationGateResultVector,
         results: qualificationGateResultVector.results.map((result, index) =>
-          index === 0 ? { ...result, bypassRefs: ["bypass:1"] } : result
+          index === 0
+            ? {
+                ...result,
+                disposition: "blocked",
+                evidence: [],
+                bypassRefs: ["bypass:1"]
+              }
+            : result
         )
       },
       bypassRefs: ["bypass:1"]
@@ -680,37 +758,99 @@ test("release requests distinguish published RC from final tap", () => {
     finalTapDeltaRef: "final-tap-delta:1",
     finalTapDeltaDigest: DIGEST
   });
+  const releaseSuccess = {
+    releaseCutRef: "release-cut:1",
+    releaseCutDigest: DIGEST,
+    packageIdentity: "package:abiogenesis",
+    packageVersion: "5.0.0",
+    sourceRef: "source:abiogenesis",
+    sourceCommit: "0123456789abcdef",
+    buildCommand: "npm run build:host",
+    packCommand: "npm pack",
+    artifacts: {
+      packageTarball: {
+        ref: "artifact:package",
+        digest: DIGEST,
+        kind: "package_tarball"
+      },
+      checksumFile: {
+        ref: "artifact:checksums",
+        digest: DIGEST,
+        kind: "checksum_file"
+      },
+      releaseNote: null
+    },
+    snapshotManifestRef: "manifest:release-snapshot",
+    snapshotManifestDigest: DIGEST,
+    verificationFacts: [{ ref: "verification:pack", digest: DIGEST }],
+    provenanceRefs: ["provenance:1"],
+    qualificationDisposition: "green",
+    residualRefs: []
+  };
   for (const variant of ["published_rc", "tapped_release"]) {
     parseResult("abg.operation.release.snapshot", variant, {
-      releaseCutRef: `release-cut:${variant}`,
-      releaseCutDigest: DIGEST,
-      artifacts: [
-        { ref: "artifact:package", digest: DIGEST, kind: "package_tarball" }
-      ],
-      snapshotManifestRef: "manifest:release-snapshot",
-      snapshotManifestDigest: DIGEST,
-      provenanceRefs: ["provenance:1"],
-      qualificationDisposition: "green",
-      residualRefs: []
+      ...releaseSuccess,
+      releaseCutRef: `release-cut:${variant}`
     });
   }
+  const releaseResultSchema = sourceFor(
+    "abg.operation.release.snapshot",
+    "published_rc",
+    "result"
+  ).schema;
   assert.throws(() =>
-    v.parse(
-      sourceFor(
-        "abg.operation.release.snapshot",
-        "published_rc",
-        "result"
-      ).schema,
-      {
-        releaseCutRef: "release-cut:published_rc",
-        releaseCutDigest: DIGEST,
-        artifacts: [
-          { ref: "artifact:package", digest: DIGEST, kind: "package_tarball" }
-        ],
-        snapshotManifestRef: "manifest:release-snapshot",
-        snapshotManifestDigest: DIGEST,
-        provenanceRefs: ["provenance:1"]
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      artifacts: {
+        checksumFile: releaseSuccess.artifacts.checksumFile,
+        releaseNote: null
       }
-    )
+    })
+  );
+  assert.throws(() =>
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      artifacts: {
+        packageTarball: releaseSuccess.artifacts.packageTarball,
+        releaseNote: null
+      }
+    })
+  );
+  assert.throws(() =>
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      artifacts: {
+        ...releaseSuccess.artifacts,
+        unsupportedArtifact: {
+          ref: "artifact:unsupported",
+          digest: DIGEST,
+          kind: "unsupported"
+        }
+      }
+    })
+  );
+  assert.throws(() =>
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      artifacts: {
+        ...releaseSuccess.artifacts,
+        checksumFile: {
+          ...releaseSuccess.artifacts.checksumFile,
+          ref: releaseSuccess.artifacts.packageTarball.ref
+        }
+      }
+    })
+  );
+  assert.throws(() =>
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      provenanceRefs: []
+    })
+  );
+  assert.throws(() =>
+    v.parse(releaseResultSchema, {
+      ...releaseSuccess,
+      verificationFacts: []
+    })
   );
 });

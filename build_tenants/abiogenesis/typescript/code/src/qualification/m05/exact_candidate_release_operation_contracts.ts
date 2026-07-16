@@ -66,6 +66,12 @@ const refListSchema = v.pipe(
   v.readonly()
 );
 
+const nonEmptyRefListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refSchema),
+  v.minLength(1),
+  v.readonly()
+);
+
 const refDigestSchema = v.pipe(
   v.strictObject({ ref: refSchema, digest: sha256DigestSchema }),
   v.readonly()
@@ -96,16 +102,64 @@ export const QUALIFICATION_LAW_BASIS_SCHEMA = freezeNativeValue(
   )
 );
 
+const releaseArtifactFields = {
+  ref: refSchema,
+  digest: sha256DigestSchema
+} as const;
+
 const releaseArtifactSchema = v.pipe(
   v.strictObject({
-    ref: refSchema,
-    digest: sha256DigestSchema,
+    ...releaseArtifactFields,
     kind: v.picklist([
       "package_tarball",
       "release_note",
       "checksum_file"
     ])
   }),
+  v.readonly()
+);
+
+function releaseArtifactKindSchema<
+  const Kind extends "package_tarball" | "release_note" | "checksum_file"
+>(kind: Kind) {
+  return v.pipe(
+    v.strictObject({
+      ...releaseArtifactFields,
+      kind: v.literal(kind)
+    }),
+    v.readonly()
+  );
+}
+
+const releaseSnapshotArtifactSetCarrierSchema = v.strictObject({
+  packageTarball: releaseArtifactKindSchema("package_tarball"),
+  checksumFile: releaseArtifactKindSchema("checksum_file"),
+  releaseNote: v.nullable(releaseArtifactKindSchema("release_note"))
+});
+
+const RELEASE_SNAPSHOT_ARTIFACT_SET_RELATION_ACTION = Object.freeze(
+  v.check(
+    (
+      artifacts: v.InferOutput<
+        typeof releaseSnapshotArtifactSetCarrierSchema
+      >
+    ) => {
+      const refs = [
+        artifacts.packageTarball.ref,
+        artifacts.checksumFile.ref,
+        ...(artifacts.releaseNote === null
+          ? []
+          : [artifacts.releaseNote.ref])
+      ];
+      return new Set(refs).size === refs.length;
+    },
+    "snapshot artifact identities must be distinct"
+  )
+);
+
+const releaseSnapshotArtifactSetSchema = v.pipe(
+  releaseSnapshotArtifactSetCarrierSchema,
+  RELEASE_SNAPSHOT_ARTIFACT_SET_RELATION_ACTION,
   v.readonly()
 );
 
@@ -197,9 +251,12 @@ const QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION = Object.freeze(
           result.qualificationLawBasisRef ===
             vector.qualificationLawBasisRef &&
           result.qualificationLawBasisDigest ===
-            vector.qualificationLawBasisDigest
+            vector.qualificationLawBasisDigest &&
+          (result.bypassRefs.length > 0
+            ? result.disposition !== "green" && result.evidence.length === 0
+            : result.evidence.length > 0)
       ),
-    "gate results must be complete, ordered, and on the vector basis"
+    "gate results must be complete, ordered, on-basis, and evidence coherent"
   )
 );
 
@@ -370,6 +427,11 @@ export const EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY =
         checkId: "qualification-verdict-disposition-relation",
         action: QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION,
         relationRef: "REQ-P-QUAL-064C"
+      },
+      {
+        checkId: "release-snapshot-artifact-set-relation",
+        action: RELEASE_SNAPSHOT_ARTIFACT_SET_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-051"
       }
     ]
   } satisfies NativeNamedCheckRegistry);
@@ -386,14 +448,17 @@ export const EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY =
 const releaseResultFields = {
   releaseCutRef: refSchema,
   releaseCutDigest: sha256DigestSchema,
-  artifacts: v.pipe(
-    uniqueByNativeIdentityArray(releaseArtifactSchema),
-    v.minLength(1),
-    v.readonly()
-  ),
+  packageIdentity: refSchema,
+  packageVersion: semanticVersionSchema,
+  sourceRef: refSchema,
+  sourceCommit: refSchema,
+  buildCommand: nonEmptyTextSchema,
+  packCommand: nonEmptyTextSchema,
+  artifacts: releaseSnapshotArtifactSetSchema,
   snapshotManifestRef: refSchema,
   snapshotManifestDigest: sha256DigestSchema,
-  provenanceRefs: refListSchema
+  verificationFacts: nonEmptyRefDigestListSchema,
+  provenanceRefs: nonEmptyRefListSchema
 } as const;
 
 const publishedRcRequestSchema = v.pipe(

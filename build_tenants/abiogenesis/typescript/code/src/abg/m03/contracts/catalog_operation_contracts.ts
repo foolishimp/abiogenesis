@@ -10,6 +10,7 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import { PUBLIC_RUNTIME_CATALOG_KIND_VALUES } from "./runtime_catalog.js";
 import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 
@@ -101,6 +102,26 @@ const catalogAdmissionDispositionSchema = v.union([
   catalogNonAdmissionDispositionSchema("unresolved")
 ]);
 
+const UNIQUE_CATALOG_ENTRY_DISPOSITION_ACTION = Object.freeze(
+  v.check(
+    (
+      rows: v.InferOutput<typeof catalogAdmissionDispositionSchema>[]
+    ) => new Set(rows.map((row) => row.entryRef)).size === rows.length,
+    "every catalog entry requires exactly one disposition"
+  )
+);
+
+export const CATALOG_OPERATION_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/operation/catalog@5",
+  checks: [
+    {
+      checkId: "unique-entry-disposition",
+      action: UNIQUE_CATALOG_ENTRY_DISPOSITION_ACTION,
+      relationRef: "REQ-P-POLICY-051A"
+    }
+  ]
+} satisfies NativeNamedCheckRegistry);
+
 const catalogAdmitResultSchema = v.pipe(
   v.strictObject({
     catalogRef: refSchema,
@@ -108,6 +129,7 @@ const catalogAdmitResultSchema = v.pipe(
     dispositions: v.pipe(
       v.array(catalogAdmissionDispositionSchema),
       v.minLength(1),
+      UNIQUE_CATALOG_ENTRY_DISPOSITION_ACTION,
       v.readonly()
     ),
     evidenceRefs: refListSchema
