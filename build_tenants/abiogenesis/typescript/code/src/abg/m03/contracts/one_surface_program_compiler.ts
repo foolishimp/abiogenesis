@@ -100,6 +100,40 @@ export interface OneSurfaceStageAuthorityInput<
 
 const ONE_SURFACE_PROGRAM_AUTHORITY = Symbol("ONE_SURFACE_PROGRAM_AUTHORITY");
 
+export type OneSurfaceProgramJoinKind =
+  | "af13_to_af14_selection"
+  | "af14_to_af15_construction_intent"
+  | "af15_to_af16_action_evaluation";
+
+export interface OneSurfaceProgramJoinEndpoint {
+  readonly functionId: "AF-13" | "AF-14" | "AF-15" | "AF-16";
+  readonly direction: "input" | "output";
+  readonly coordinateKind: "carrier_ref" | "admission_relation_ref";
+  readonly coordinateRef: string;
+}
+
+export interface OneSurfaceBindingIdentityContract {
+  readonly kind: "one_surface_binding_identity_contract";
+  readonly relation: "exact_identity";
+  readonly sourceField: "NextActionProjection.selectedBindingRef";
+  readonly targetField: "TargetObligationBinding.sourceBindingRef";
+}
+
+export interface OneSurfaceProgramJoin {
+  readonly kind: "one_surface_program_join";
+  readonly joinKind: OneSurfaceProgramJoinKind;
+  readonly joinRef: string;
+  readonly joinDigest: `sha256:${string}`;
+  readonly ownership: "native" | "external_t270";
+  readonly semanticType:
+    | "NextActionProjection"
+    | "ConstructionIntent"
+    | "CompleteAdmittedEvidenceView";
+  readonly source: OneSurfaceProgramJoinEndpoint;
+  readonly target: OneSurfaceProgramJoinEndpoint;
+  readonly bindingIdentityContract: OneSurfaceBindingIdentityContract | null;
+}
+
 export interface OneSurfaceExternalAf15Slot {
   readonly kind: "one_surface_external_af15_slot";
   readonly ownerTicket: "T-270";
@@ -107,6 +141,10 @@ export interface OneSurfaceExternalAf15Slot {
   readonly status: "external_unbound";
   readonly af14AdmissionRelationRef: string;
   readonly af14AdmissionRelationDigest: `sha256:${string}`;
+  readonly constructionIntentInputJoinRef: string;
+  readonly constructionIntentInputJoinDigest: `sha256:${string}`;
+  readonly actionEvaluationOutputJoinRef: string;
+  readonly actionEvaluationOutputJoinDigest: `sha256:${string}`;
   readonly actionEvaluationInputCarrierRef: string;
 }
 
@@ -117,6 +155,8 @@ export interface OneSurfaceAf14AdmissionRelation {
   readonly status: "native_admission";
   readonly evaluateNextAuthorityRef: string;
   readonly evaluateNextResultSchema: OneSurfaceNativeResultSchema;
+  readonly selectionJoinRef: string;
+  readonly selectionJoinDigest: `sha256:${string}`;
   readonly admissionAuthorityRef:
     "abg://one-surface/af14/admit-construction-intent";
 }
@@ -136,6 +176,11 @@ export interface OneSurfaceAuthorityProgramBinding {
     OneSurfaceStageAuthority<"eval_gap">,
     OneSurfaceStageAuthority<"evaluate_next">,
     OneSurfaceStageAuthority<"evaluate_action">
+  ];
+  readonly joins: readonly [
+    OneSurfaceProgramJoin,
+    OneSurfaceProgramJoin,
+    OneSurfaceProgramJoin
   ];
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
@@ -324,10 +369,144 @@ function stageHasKind<K extends OneSurfaceAuthorityFunctionKind>(
   return stage.functionKind === kind;
 }
 
+function programJoinRequirements(joinKind: OneSurfaceProgramJoinKind) {
+  switch (joinKind) {
+    case "af13_to_af14_selection":
+      return Object.freeze({
+        ownership: "native" as const,
+        semanticType: "NextActionProjection" as const,
+        sourceFunctionId: "AF-13" as const,
+        sourceDirection: "output" as const,
+        sourceCoordinateKind: "carrier_ref" as const,
+        targetFunctionId: "AF-14" as const,
+        targetDirection: "input" as const,
+        targetCoordinateKind: "carrier_ref" as const,
+        bindingIdentityContract: Object.freeze({
+          kind: "one_surface_binding_identity_contract" as const,
+          relation: "exact_identity" as const,
+          sourceField: "NextActionProjection.selectedBindingRef" as const,
+          targetField: "TargetObligationBinding.sourceBindingRef" as const
+        })
+      });
+    case "af14_to_af15_construction_intent":
+      return Object.freeze({
+        ownership: "external_t270" as const,
+        semanticType: "ConstructionIntent" as const,
+        sourceFunctionId: "AF-14" as const,
+        sourceDirection: "output" as const,
+        sourceCoordinateKind: "admission_relation_ref" as const,
+        targetFunctionId: "AF-15" as const,
+        targetDirection: "input" as const,
+        targetCoordinateKind: "admission_relation_ref" as const,
+        bindingIdentityContract: null
+      });
+    case "af15_to_af16_action_evaluation":
+      return Object.freeze({
+        ownership: "external_t270" as const,
+        semanticType: "CompleteAdmittedEvidenceView" as const,
+        sourceFunctionId: "AF-15" as const,
+        sourceDirection: "output" as const,
+        sourceCoordinateKind: "carrier_ref" as const,
+        targetFunctionId: "AF-16" as const,
+        targetDirection: "input" as const,
+        targetCoordinateKind: "carrier_ref" as const,
+        bindingIdentityContract: null
+      });
+  }
+}
+
+function programJoinBasis(input: Omit<
+  OneSurfaceProgramJoin,
+  "kind" | "joinRef" | "joinDigest"
+>) {
+  return Object.freeze({
+    joinKind: input.joinKind,
+    ownership: input.ownership,
+    semanticType: input.semanticType,
+    source: input.source,
+    target: input.target,
+    bindingIdentityContract: input.bindingIdentityContract
+  });
+}
+
+function constructOneSurfaceProgramJoin(input: {
+  readonly joinKind: OneSurfaceProgramJoinKind;
+  readonly sourceCoordinateRef: string;
+  readonly targetCoordinateRef: string;
+}): OneSurfaceProgramJoin {
+  const expected = programJoinRequirements(input.joinKind);
+  if (
+    input.sourceCoordinateRef.length === 0 ||
+    input.targetCoordinateRef.length === 0 ||
+    input.sourceCoordinateRef !== input.targetCoordinateRef
+  ) {
+    throw new TypeError(`One Surface ${input.joinKind} coordinate differs`);
+  }
+  const basis = programJoinBasis({
+    joinKind: input.joinKind,
+    ownership: expected.ownership,
+    semanticType: expected.semanticType,
+    source: Object.freeze({
+      functionId: expected.sourceFunctionId,
+      direction: expected.sourceDirection,
+      coordinateKind: expected.sourceCoordinateKind,
+      coordinateRef: input.sourceCoordinateRef
+    }),
+    target: Object.freeze({
+      functionId: expected.targetFunctionId,
+      direction: expected.targetDirection,
+      coordinateKind: expected.targetCoordinateKind,
+      coordinateRef: input.targetCoordinateRef
+    }),
+    bindingIdentityContract: expected.bindingIdentityContract
+  });
+  const joinDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    kind: "one_surface_program_join",
+    joinRef:
+      `abg://one-surface/join/${input.joinKind}/` +
+      joinDigest.slice("sha256:".length),
+    joinDigest,
+    ...basis
+  });
+}
+
+function assertOneSurfaceProgramJoin(join: OneSurfaceProgramJoin): void {
+  const expected = constructOneSurfaceProgramJoin({
+    joinKind: join.joinKind,
+    sourceCoordinateRef: join.source.coordinateRef,
+    targetCoordinateRef: join.target.coordinateRef
+  });
+  if (
+    join.kind !== "one_surface_program_join" ||
+    join.joinRef !== expected.joinRef ||
+    join.joinDigest !== expected.joinDigest ||
+    !stableJsonEquals(join, expected)
+  ) {
+    throw new TypeError("One Surface program join seal differs");
+  }
+}
+
+function exactJoinTuple(
+  joins: readonly OneSurfaceProgramJoin[]
+): OneSurfaceAuthorityProgramBinding["joins"] {
+  const [selection, constructionIntent, actionEvaluation] = joins;
+  if (
+    joins.length !== 3 ||
+    selection?.joinKind !== "af13_to_af14_selection" ||
+    constructionIntent?.joinKind !== "af14_to_af15_construction_intent" ||
+    actionEvaluation?.joinKind !== "af15_to_af16_action_evaluation"
+  ) {
+    throw new TypeError("One Surface program join tuple differs");
+  }
+  return Object.freeze([selection, constructionIntent, actionEvaluation]);
+}
+
 function programBasis(input: {
   readonly admittedProgramRef: string;
   readonly admittedProgramDigest: string;
   readonly stages: readonly OneSurfaceStageAuthority[];
+  readonly joins: readonly OneSurfaceProgramJoin[];
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
   readonly recursePlan: CompiledTypedRecursePlan;
@@ -339,6 +518,7 @@ function programBasis(input: {
     effectsPermitted: false,
     runtimeAdmissionOwner: "T-270",
     stageAuthorityDigests: input.stages.map((stage) => stage.authorityDigest),
+    joinDigests: input.joins.map((join) => join.joinDigest),
     af14Admission: input.af14Admission,
     af15Slot: input.af15Slot,
     recursePlanRef: input.recursePlan.planRef,
@@ -350,11 +530,16 @@ export function assertOneSurfaceAuthorityProgramBinding(
   binding: OneSurfaceAuthorityProgramBinding
 ): void {
   binding.stages.forEach(assertOneSurfaceStageAuthority);
+  binding.joins.forEach(assertOneSurfaceProgramJoin);
   assertCompiledTypedRecursePlan(binding.recursePlan);
   exactTuple(binding.stages);
+  const [selectionJoin, constructionIntentJoin, actionEvaluationJoin] =
+    exactJoinTuple(binding.joins);
   const af14Digest = stableSha256Digest({
     evaluateNextAuthorityRef: binding.af14Admission.evaluateNextAuthorityRef,
     evaluateNextResultSchema: binding.af14Admission.evaluateNextResultSchema,
+    selectionJoinRef: binding.af14Admission.selectionJoinRef,
+    selectionJoinDigest: binding.af14Admission.selectionJoinDigest,
     admissionAuthorityRef: binding.af14Admission.admissionAuthorityRef
   });
   if (
@@ -369,6 +554,12 @@ export function assertOneSurfaceAuthorityProgramBinding(
       binding.af14Admission.evaluateNextResultSchema,
       binding.stages[2].nativeResultSchema
     ) ||
+    selectionJoin.source.coordinateRef !==
+      binding.stages[2].plan.outputCarrierRef ||
+    selectionJoin.target.coordinateRef !==
+      binding.stages[2].plan.outputCarrierRef ||
+    binding.af14Admission.selectionJoinRef !== selectionJoin.joinRef ||
+    binding.af14Admission.selectionJoinDigest !== selectionJoin.joinDigest ||
     binding.af15Slot.kind !== "one_surface_external_af15_slot" ||
     binding.af15Slot.ownerTicket !== "T-270" ||
     binding.af15Slot.functionId !== "AF-15" ||
@@ -377,6 +568,22 @@ export function assertOneSurfaceAuthorityProgramBinding(
       binding.af14Admission.relationRef ||
     binding.af15Slot.af14AdmissionRelationDigest !==
       binding.af14Admission.relationDigest ||
+    constructionIntentJoin.source.coordinateRef !==
+      binding.af14Admission.relationRef ||
+    constructionIntentJoin.target.coordinateRef !==
+      binding.af14Admission.relationRef ||
+    binding.af15Slot.constructionIntentInputJoinRef !==
+      constructionIntentJoin.joinRef ||
+    binding.af15Slot.constructionIntentInputJoinDigest !==
+      constructionIntentJoin.joinDigest ||
+    actionEvaluationJoin.source.coordinateRef !==
+      binding.stages[3].plan.inputCarrierRef ||
+    actionEvaluationJoin.target.coordinateRef !==
+      binding.stages[3].plan.inputCarrierRef ||
+    binding.af15Slot.actionEvaluationOutputJoinRef !==
+      actionEvaluationJoin.joinRef ||
+    binding.af15Slot.actionEvaluationOutputJoinDigest !==
+      actionEvaluationJoin.joinDigest ||
     binding.af15Slot.actionEvaluationInputCarrierRef !==
       binding.stages[3].plan.inputCarrierRef
   ) {
@@ -680,9 +887,16 @@ export async function compileOneSurfaceGtlProgramApplication(
     });
   }
   const stages = exactTuple(admitted);
+  const selectionJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af13_to_af14_selection",
+    sourceCoordinateRef: stages[2].plan.outputCarrierRef,
+    targetCoordinateRef: stages[2].plan.outputCarrierRef
+  });
   const af14Basis = Object.freeze({
     evaluateNextAuthorityRef: stages[2].authorityRef,
     evaluateNextResultSchema: stages[2].nativeResultSchema,
+    selectionJoinRef: selectionJoin.joinRef,
+    selectionJoinDigest: selectionJoin.joinDigest,
     admissionAuthorityRef:
       "abg://one-surface/af14/admit-construction-intent" as const
   });
@@ -695,6 +909,21 @@ export async function compileOneSurfaceGtlProgramApplication(
     status: "native_admission" as const,
     ...af14Basis
   });
+  const constructionIntentJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af14_to_af15_construction_intent",
+    sourceCoordinateRef: af14Admission.relationRef,
+    targetCoordinateRef: af14Admission.relationRef
+  });
+  const actionEvaluationJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af15_to_af16_action_evaluation",
+    sourceCoordinateRef: stages[3].plan.inputCarrierRef,
+    targetCoordinateRef: stages[3].plan.inputCarrierRef
+  });
+  const joins = exactJoinTuple([
+    selectionJoin,
+    constructionIntentJoin,
+    actionEvaluationJoin
+  ]);
   const af15Slot = Object.freeze({
     kind: "one_surface_external_af15_slot" as const,
     ownerTicket: "T-270" as const,
@@ -702,6 +931,10 @@ export async function compileOneSurfaceGtlProgramApplication(
     status: "external_unbound" as const,
     af14AdmissionRelationRef: af14Admission.relationRef,
     af14AdmissionRelationDigest: af14Admission.relationDigest,
+    constructionIntentInputJoinRef: constructionIntentJoin.joinRef,
+    constructionIntentInputJoinDigest: constructionIntentJoin.joinDigest,
+    actionEvaluationOutputJoinRef: actionEvaluationJoin.joinRef,
+    actionEvaluationOutputJoinDigest: actionEvaluationJoin.joinDigest,
     actionEvaluationInputCarrierRef: stages[3].plan.inputCarrierRef
   });
   diagnostics.push(issue({
@@ -711,6 +944,8 @@ export async function compileOneSurfaceGtlProgramApplication(
     actual: af15Slot.status,
     evidenceRefs: [
       af14Admission.relationRef,
+      constructionIntentJoin.joinRef,
+      actionEvaluationJoin.joinRef,
       af15Slot.actionEvaluationInputCarrierRef
     ],
     semantic: true
@@ -719,6 +954,7 @@ export async function compileOneSurfaceGtlProgramApplication(
     admittedProgramRef: report.subjectRef,
     admittedProgramDigest: report.inventoryDigest,
     stages,
+    joins,
     af14Admission,
     af15Slot,
     recursePlan: input.recursePlan
@@ -736,6 +972,7 @@ export async function compileOneSurfaceGtlProgramApplication(
     effectsPermitted: false as const,
     runtimeAdmissionOwner: "T-270" as const,
     stages,
+    joins,
     af14Admission,
     af15Slot,
     recursePlan: input.recursePlan
