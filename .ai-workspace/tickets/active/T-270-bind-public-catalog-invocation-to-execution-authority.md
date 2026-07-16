@@ -5,7 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: reconciled_design_accepted_runtime_reconciliation_pending
+- phase_status: reconciled_design_accepted_neutral_contract_milestone_active_runtime_reconciliation_pending
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - proof_status: pending
 - delivery_phase: DS-2 integration
@@ -42,6 +42,7 @@
   - completed T-267
   - completed T-271
 - downstream_dependencies:
+  - T-281 P1 consumes the neutral owner-native run.invoke contract family
   - T-272 continuation consumes held F_H truth
   - T-268 aggregates the final tenant capability manifest
   - T-276 owns installed existing, alternate, and temporary-workspace scenarios
@@ -74,6 +75,13 @@
     20260716T062747Z_SELF_REVIEW_t270_reconciled_run_invoke_design.md
 
 ## Boundary
+
+Delivery has two ordered milestones. The pre-P1 milestone publishes the exact
+neutral owner-native request, result, refusal, and non-terminal contracts for
+`run.invoke(invoke | start)`. It performs no public admission, selection,
+handler call, event emission, or runtime effect and imports no M04 public
+carrier. T-281 P1 composes those owner contracts into the private definition
+family. Only then may the public runtime-integration milestone below resume.
 
 Public ingress validates, admits, and transports one `run.invoke` request. The
 admitted GTL program owns AF-11 through AF-16 ordering. `invoke` constrains its
@@ -124,6 +132,7 @@ be a closure dependency of this generic authority join.
 - [x] superseded public identity and authority path are named
 - [x] accepted One Surface input and output boundaries are named
 - [x] retained compiler/interpreter carriers are named
+- [ ] neutral owner-native run.invoke request/result/refusal/non-terminal contracts are admitted without public or runtime output
 - [ ] reconciled three-view design receives independent F_H acceptance
 - [ ] provisional runtime is reconciled to the accepted design
 - [ ] old identity, fallback, and direct-selection paths are removed
@@ -131,6 +140,12 @@ be a closure dependency of this generic authority join.
 - [ ] implementation receives independent authority-path review
 
 ## Exit
+
+The neutral contract milestone is complete when both variants have exact
+owner-native request, result, refusal, and non-terminal schemas with stable
+coordinates and malformed-input/output negatives, while M03 imports no M04
+public-contract implementation. That milestone is a T-281 P1 input and does
+not satisfy the runtime exits below.
 
 1. Generic non-Consensus and unchanged Consensus programs use the same AF-14 /
    AF-15 authority join and T-255/T-267/T-271 execution path.

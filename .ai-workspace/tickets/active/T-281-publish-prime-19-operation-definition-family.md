@@ -5,8 +5,8 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_constructor_candidate_same_basis_authority_repair_required
-- review_status: phase_a_accepted_p1_candidate_blocked_pending_goals_t270_t272_repair_and_independent_review
+- phase_status: phase_a_closed_p1_design_accepted_owner_contract_milestones_active
+- review_status: phase_a_accepted_p1_independently_accepted_implementation_blocked_on_named_owner_contract_gaps
 - proof_status: phase_a_green_p1_named_owner_schema_gaps_and_cross_ticket_ordering_block_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
@@ -89,8 +89,8 @@
     20260716T101307Z_DECISION_fh_accept_t281_phase_a.md
 - accepted_phase_a_gate_complete_design_digest: >-
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
-- p1_constructor_candidate_design_digest: >-
-    f67edc2396fcf8c856ee594571be96404ab9e755f90d820a37e24f8f82891df6
+- accepted_p1_constructor_design_digest: >-
+    8d16d96727e5394b3ccfbd147a0ba1225c9fa98b72f3638ac679a2b005d125d1
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md

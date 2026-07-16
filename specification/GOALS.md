@@ -53,12 +53,12 @@ are complete. Bounded realization now proceeds through the accepted owners.
 
 | Plan fact | Current truth |
 |---|---|
-| Current phase | `DS-2/DS-4` realize the One Surface authorities and the private 19-operation definition family before reconciling public invocation and continuation |
+| Current phase | `DS-2/DS-4` realize the One Surface authorities plus the neutral runtime and Consensus contracts, then construct the private 19-operation definition family before public runtime reconciliation |
 | Current decision | Ontology `/9` is ratified: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. |
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
 | Derived register | T-244 is regenerated and reclosed as the sole current 17-feature closure projection |
-| Runtime work | The dirty T-270/T-272 integration remains provisional and frozen until T-280, T-281 P1, and the neutral M04-admission-to-M03-runtime boundary close on one basis |
-| Next executable owner | Independently close T-280 and T-281 Phase A, complete T-281 P1, then reconcile T-270/T-272 without an M03 dependency on M04 public carriers. |
+| Runtime work | The dirty T-270/T-272 integration remains provisional and frozen. Their neutral owner-native contract milestones may proceed before T-281 P1; public runtime integration follows P1 and consumes neutral admitted projections without an M03 dependency on M04. |
+| Next executable owner | Close T-280's atomic proof; realize the T-270/T-272 neutral owner-native contracts and the T-274A Consensus contract coordinate; then construct T-281 P1 and reconcile public runtime. |
 | Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
 | Detailed current read model | This file and the active owner tickets; commentary remains non-authoritative review evidence. |
 
@@ -146,7 +146,12 @@ flowchart TD
   C --> D[Recompute basis and ratify final Ontology]
   D --> E[Accept affected One Surface and projection designs]
   E --> O[Realize the four One Surface authorities]
-  E --> P1[Define all 19 operations, requests, results, schemas, and CLI coordinates]
+  E --> N270[T-270 neutral run.invoke contracts]
+  E --> N272[T-272 neutral continuation and response contracts]
+  E --> H0[T-274A neutral ticket-consensus contract coordinate]
+  N270 --> P1[Define all 19 operations, requests, results, schemas, and CLI coordinates]
+  N272 --> P1
+  H0 --> P1
   O --> F[T-270 public catalog-to-execution router]
   P1 --> F
   P1 --> Q[Reconcile or realize the remaining operation handlers]
@@ -175,9 +180,13 @@ flowchart TD
 
 The four One Surface authorities receive explicit realization owners after
 their accepted designs; T-270 consumes them and cannot manufacture them inside
-the router. The full 19-operation public surface has two milestones. Its
-authoritative operation/request/result/schema/CLI-coordinate definition family
-precedes T-270/T-272. Handler binding and packed catalog/SDK/CLI parity follows
+the router. T-270 and T-272 first publish neutral owner-native payload
+contracts, and T-274A supplies the neutral Consensus read coordinate. These
+milestones perform no public routing or runtime effect. The full 19-operation
+public surface then has two milestones. Its authoritative
+operation/request/result/schema/CLI-coordinate definition family precedes the
+T-270/T-272 public runtime integration. Handler binding and packed
+catalog/SDK/CLI parity follows
 the required semantic owners, including T-275's pure `ticket_consensus`
 projection contribution, and precedes T-268/T-276. T-275 depends on the private P1 definition milestone,
 not completed P2 publication. T-268 cannot publish the

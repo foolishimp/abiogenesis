@@ -5,7 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: reconciled_design_accepted_runtime_reconciliation_pending
+- phase_status: reconciled_design_accepted_neutral_contract_milestone_active_runtime_reconciliation_pending
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - proof_status: runtime_reconciliation_pending
 - delivery_phase: DS-2 integration
@@ -35,6 +35,8 @@
   - completed T-258 carrier admission
   - completed T-267
   - accepted T-270 public invocation/admission design
+- downstream_dependencies:
+  - T-281 P1 consumes the neutral owner-native run.continue and interaction.respond contract families
 - authority_refs:
   - specification/INTENT.md interactive start and gaps loop
   - specification/PRODUCT.md accepted 19-operation One Surface projection
@@ -78,6 +80,14 @@
     20260715T070554Z_SELF_REVIEW_t270_t272_runtime_remediation.md
 
 ## Boundary
+
+Delivery has two ordered milestones. The pre-P1 milestone publishes exact
+neutral owner-native request, result, refusal, and non-terminal contracts for
+`run.continue(current_intent | selected_action)` and the five
+`interaction.respond` variants. It performs no public admission, continuation,
+event emission, or runtime effect and imports no M04 public carrier. T-281 P1
+composes those contracts into the private definition family. Only then may the
+public response/continuation integration below resume.
 
 The engine derives interaction basis, graph call, frame, vector, C-call,
 request, source carriers, causation, and continuation from current admitted
@@ -157,6 +167,7 @@ before/after authority counts under ADR-044 before implementation.
 - [ ] mixed legacy/current operation truth is rejected
 - [ ] runtime proof exercises the separated public operations
 - [x] recurring realization patterns are checked against existing library/commonization surfaces
+- [ ] neutral owner-native continuation and response contracts are admitted without public or runtime output
 - [x] ticket declares library usage and names the governing library or rationale
 - [x] this ticket carries one TypeScript tenant lifecycle
 - [x] accepted T-270 design digest and decision are bound and consumed
@@ -190,6 +201,12 @@ before/after authority counts under ADR-044 before implementation.
   design receives explicit F_H acceptance.
 
 ## Exit
+
+The neutral contract milestone is complete when every continuation and
+response variant has exact owner-native request, result, refusal, and declared
+non-terminal schemas with stable coordinates and malformed-input/output
+negatives, while M03 imports no M04 public-contract implementation. That
+milestone is a T-281 P1 input and does not satisfy the runtime exit below.
 
 A real engine-held F_H call opens one public interaction. One
 `interaction.respond` variant admits a response without continuing. A later

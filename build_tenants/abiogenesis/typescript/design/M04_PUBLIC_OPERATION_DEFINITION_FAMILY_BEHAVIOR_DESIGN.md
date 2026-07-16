@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Accepted - Phase A; P1 candidate blocked pending same-basis GOALS/T-270/T-272 repair and independent review; P2 gated
+**Status**: Accepted - Phase A and P1 design; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
