@@ -21,6 +21,13 @@ export interface OwnerNativeContractShapeBasis
   readonly status: "candidate_integration_pin_pending_final_rebind";
 }
 
+export const OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS = freezeNativeValue({
+  ref: "design://abg/m04/public-operation-definition-family",
+  digest:
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
+} as const satisfies OwnerNativeContractShapeBasis);
+
 export interface OwnerNativeSemanticOwner {
   readonly product: "abiogenesis";
   readonly module: string;

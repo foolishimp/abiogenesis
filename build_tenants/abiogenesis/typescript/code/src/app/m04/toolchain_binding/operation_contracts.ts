@@ -10,17 +10,14 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
   "code/src/app/m04/toolchain_binding/operation_contracts.js";
 const EXPORT_NAME = "TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES";
-const CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
-  status: "candidate_integration_pin_pending_final_rebind"
-} as const);
 const TOOLCHAIN_BINDING_OWNER = freezeNativeValue({
   product: "abiogenesis",
   module: "app.m04",
@@ -33,7 +30,7 @@ const SEMANTIC_OWNER_BASIS = freezeNativeValue({
 } as const);
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: TOOLCHAIN_BINDING_OWNER,
-  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);

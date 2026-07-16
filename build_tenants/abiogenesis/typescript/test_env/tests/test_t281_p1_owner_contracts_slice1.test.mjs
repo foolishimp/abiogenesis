@@ -25,6 +25,9 @@ import {
 import {
   deriveCanonicalNativeSchemaProjection
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
+import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS
+} from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
 const CONTRACT_SHAPE_DIGEST =
   "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7";
@@ -133,6 +136,10 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
     assert.equal(
       source.authority.contractShapeBasis.digest,
       CONTRACT_SHAPE_DIGEST
+    );
+    assert.equal(
+      source.authority.contractShapeBasis,
+      OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS
     );
     assert.equal(
       source.authority.contractShapeBasis.status,
@@ -253,13 +260,47 @@ test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
   }).importAuthorityDigest, D);
 
   const open = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_open.open;
-  assert.throws(() => v.parse(open.result.schema, {
+  const openReadyBase = {
     workspaceRef: "workspace:one",
     workspaceAuthorityBasisRef: "basis:one",
     workspaceAuthorityBasisDigest: D,
-    readiness: "unknown",
+    authorityMode: "clean_no_project_authority",
+    readiness: "ready",
+    configurationRefs: ["configuration:one"],
     manifestRef: "manifest:one",
     manifestDigest: D,
+    residualRefs: []
+  };
+  assert.equal(v.parse(open.result.schema, {
+    ...openReadyBase,
+    bindingDisposition: "bound",
+    bindingRef: "binding:one"
+  }).bindingRef, "binding:one");
+  assert.equal(v.parse(open.result.schema, {
+    ...openReadyBase,
+    bindingDisposition: "unbound",
+    bindingRef: null
+  }).bindingRef, null);
+  assert.throws(() => v.parse(open.result.schema, {
+    ...openReadyBase,
+    bindingDisposition: "bound",
+    bindingRef: null
+  }));
+  assert.throws(() => v.parse(open.result.schema, {
+    ...openReadyBase,
+    bindingDisposition: "unbound",
+    bindingRef: "binding:one"
+  }));
+  for (const code of ["missing", "malformed", "stale", "incompatible"]) {
+    assert.equal(v.parse(open.refusal.schema, {
+      code,
+      message: `${code} workspace`,
+      residualRefs: []
+    }).code, code);
+  }
+  assert.throws(() => v.parse(open.refusal.schema, {
+    code: "manifest_invalid",
+    message: "collapsed stale truth",
     residualRefs: []
   }));
 });
@@ -312,14 +353,83 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     candidates: [firstCoordinate, firstCoordinate]
   }));
   assert.throws(() => v.parse(resolve.request.schema, {
+    requirements: [requirement],
+    candidates: [
+      firstCoordinate,
+      { ...firstCoordinate, contractRefs: ["contract:conflicting"] }
+    ]
+  }), /duplicate candidate product version/u);
+  assert.throws(() => v.parse(resolve.request.schema, {
     requirements: [],
     candidates: []
   }));
 
+  const resolveResultBase = {
+    resolvedLockRef: "lock:one",
+    resolvedLockDigest: D,
+    residualRefs: [],
+    provenanceRefs: []
+  };
+  assert.throws(() => v.parse(resolve.result.schema, {
+    ...resolveResultBase,
+    selectedProducts: [
+      firstCoordinate,
+      { ...firstCoordinate, version: "5.0.0-rc.2" }
+    ]
+  }), /duplicate selected product identity/u);
+  assert.equal(v.parse(resolve.result.schema, {
+    ...resolveResultBase,
+    selectedProducts: [
+      firstCoordinate,
+      { ...firstCoordinate, productId: "odd_glc", version: "1.0.0" }
+    ]
+  }).selectedProducts.length, 2);
+
+  for (const code of [
+    "identity_mismatch",
+    "unresolved_dependency",
+    "unsupported_contract"
+  ]) {
+    assert.equal(v.parse(verify.refusal.schema, {
+      code,
+      message: `${code} verification refusal`,
+      residualRefs: []
+    }).code, code);
+  }
+  assert.throws(() => v.parse(verify.refusal.schema, {
+    code: "digest_mismatch",
+    message: "collapsed content mismatch",
+    residualRefs: []
+  }));
+
+  const install = PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install;
   assert.equal(
-    PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install.request.kind,
+    install.request.kind,
     "semantic_not_realized"
   );
+  const installResult = {
+    installedProductRef: "installed:one",
+    installedProductDigest: D,
+    installManifestRef: "manifest:install",
+    installManifestDigest: D,
+    installerManifestRef: "manifest:installer",
+    installerManifestDigest: D,
+    verificationDisposition: "verified",
+    materializationDisposition: "installed",
+    provenanceRefs: ["evidence:one"]
+  };
+  assert.equal(
+    v.parse(install.result.schema, installResult).materializationDisposition,
+    "installed"
+  );
+  assert.equal(v.parse(install.result.schema, {
+    ...installResult,
+    materializationDisposition: "already_installed_exact"
+  }).materializationDisposition, "already_installed_exact");
+  assert.throws(() => v.parse(install.result.schema, {
+    ...installResult,
+    verificationDisposition: "failed"
+  }));
 });
 
 test("T-281 Slice 1 binding and assessment enforce closed typed domains", () => {

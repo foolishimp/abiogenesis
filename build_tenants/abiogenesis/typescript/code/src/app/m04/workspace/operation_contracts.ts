@@ -10,16 +10,13 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH = "code/src/app/m04/workspace/operation_contracts.js";
 const EXPORT_NAME = "WORKSPACE_NATIVE_CONTRACT_SOURCES";
-const CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
-  status: "candidate_integration_pin_pending_final_rebind"
-} as const);
 const WORKSPACE_OWNER = freezeNativeValue({
   product: "abiogenesis",
   module: "app.m04",
@@ -37,7 +34,7 @@ const OPEN_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 } as const);
 const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: WORKSPACE_OWNER,
-  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);
@@ -158,6 +155,21 @@ const openRequest = ownerNativeOperationContractSource({
   })
 });
 
+const openReadyStateFields = freezeNativeValue({
+  workspaceRef: refSchema,
+  workspaceAuthorityBasisRef: refSchema,
+  workspaceAuthorityBasisDigest: sha256DigestSchema,
+  authorityMode: v.picklist([
+    "clean_no_project_authority",
+    "imported"
+  ]),
+  readiness: v.literal("ready"),
+  configurationRefs: refListSchema,
+  manifestRef: refSchema,
+  manifestDigest: sha256DigestSchema,
+  residualRefs: refListSchema
+} as const);
+
 const openResult = ownerNativeOperationContractSource({
   ...WORKSPACE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.workspace.open",
@@ -165,15 +177,18 @@ const openResult = ownerNativeOperationContractSource({
   slot: "result",
   semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
   memberPath: ["workspace_open", "open", "result"],
-  schema: v.strictObject({
-    workspaceRef: refSchema,
-    workspaceAuthorityBasisRef: refSchema,
-    workspaceAuthorityBasisDigest: sha256DigestSchema,
-    readiness: v.picklist(["ready", "unbound"]),
-    manifestRef: refSchema,
-    manifestDigest: sha256DigestSchema,
-    residualRefs: refListSchema
-  })
+  schema: v.union([
+    v.strictObject({
+      ...openReadyStateFields,
+      bindingDisposition: v.literal("bound"),
+      bindingRef: refSchema
+    }),
+    v.strictObject({
+      ...openReadyStateFields,
+      bindingDisposition: v.literal("unbound"),
+      bindingRef: v.null()
+    })
+  ])
 });
 
 const openRefusal = ownerNativeOperationContractSource({
@@ -183,12 +198,7 @@ const openRefusal = ownerNativeOperationContractSource({
   slot: "refusal",
   semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
   memberPath: ["workspace_open", "open", "refusal"],
-  schema: refusal([
-    "invalid_target",
-    "workspace_missing",
-    "authority_basis_mismatch",
-    "manifest_invalid"
-  ])
+  schema: refusal(["missing", "malformed", "stale", "incompatible"])
 });
 
 export const WORKSPACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({

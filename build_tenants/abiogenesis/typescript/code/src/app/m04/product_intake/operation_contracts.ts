@@ -13,6 +13,7 @@ import {
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   ownerNativeOperationContractGap,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
@@ -20,12 +21,6 @@ import {
 const MODULE_PATH =
   "code/src/app/m04/product_intake/operation_contracts.js";
 const EXPORT_NAME = "PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES";
-const CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
-  status: "candidate_integration_pin_pending_final_rebind"
-} as const);
 const PRODUCT_INTAKE_OWNER = freezeNativeValue({
   product: "abiogenesis",
   module: "app.m04",
@@ -48,7 +43,7 @@ const INSTALL_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 } as const);
 const PRODUCT_INTAKE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: PRODUCT_INTAKE_OWNER,
-  contractShapeBasis: CONTRACT_SHAPE_BASIS,
+  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);
@@ -83,17 +78,21 @@ const UNIQUE_REQUIREMENT_PRODUCT_ACTION = Object.freeze(v.check(
   "duplicate product requirement"
 ));
 
-const UNIQUE_COORDINATE_PRODUCT_ACTION = Object.freeze(v.check(
+const UNIQUE_CANDIDATE_COORDINATE_ACTION = Object.freeze(v.check(
   (values: v.InferOutput<typeof productCoordinateSchema>[]) => {
     const identities = values.map((value) => JSON.stringify([
       value.productId,
-      value.version,
-      [...value.contractRefs].sort(),
-      [...value.capabilityRefs].sort()
+      value.version
     ]));
     return new Set(identities).size === identities.length;
   },
-  "duplicate product coordinate"
+  "duplicate candidate product version"
+));
+
+const UNIQUE_SELECTED_PRODUCT_ACTION = Object.freeze(v.check(
+  (values: v.InferOutput<typeof productCoordinateSchema>[]) =>
+    new Set(values.map((value) => value.productId)).size === values.length,
+  "duplicate selected product identity"
 ));
 
 export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
@@ -110,9 +109,14 @@ export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       relationRef: "relation://abg/product-intake/unique-requirement-product"
     },
     {
-      checkId: "unique-product-coordinate",
-      action: UNIQUE_COORDINATE_PRODUCT_ACTION,
-      relationRef: "relation://abg/product-intake/unique-product-coordinate"
+      checkId: "unique-candidate-coordinate",
+      action: UNIQUE_CANDIDATE_COORDINATE_ACTION,
+      relationRef: "relation://abg/product-intake/unique-candidate-coordinate"
+    },
+    {
+      checkId: "unique-selected-product",
+      action: UNIQUE_SELECTED_PRODUCT_ACTION,
+      relationRef: "relation://abg/product-intake/unique-selected-product"
     }
   ]
 } satisfies NativeNamedCheckRegistry);
@@ -124,10 +128,17 @@ const requirementListSchema = v.pipe(
   v.readonly()
 );
 
-const coordinateListSchema = v.pipe(
+const candidateCoordinateListSchema = v.pipe(
   v.array(productCoordinateSchema),
   v.minLength(1, "expected at least one product coordinate"),
-  UNIQUE_COORDINATE_PRODUCT_ACTION,
+  UNIQUE_CANDIDATE_COORDINATE_ACTION,
+  v.readonly()
+);
+
+const selectedProductListSchema = v.pipe(
+  v.array(productCoordinateSchema),
+  v.minLength(1, "expected at least one selected product"),
+  UNIQUE_SELECTED_PRODUCT_ACTION,
   v.readonly()
 );
 
@@ -191,11 +202,14 @@ const verifyRefusal = ownerNativeOperationContractSource({
   memberPath: ["product_verify", "verify", "refusal"],
   schema: refusal([
     "invalid_artifact",
-    "digest_mismatch",
+    "content_mismatch",
+    "identity_mismatch",
     "descriptor_mismatch",
     "contribution_mismatch",
     "lock_mismatch",
-    "incompatible"
+    "unresolved_dependency",
+    "incompatible_dependency",
+    "unsupported_contract"
   ])
 });
 
@@ -208,7 +222,7 @@ const resolveRequest = ownerNativeOperationContractSource({
   memberPath: ["product_resolve", "resolve", "request"],
   schema: v.strictObject({
     requirements: requirementListSchema,
-    candidates: coordinateListSchema
+    candidates: candidateCoordinateListSchema
   })
 });
 
@@ -222,7 +236,7 @@ const resolveResult = ownerNativeOperationContractSource({
   schema: v.strictObject({
     resolvedLockRef: refSchema,
     resolvedLockDigest: sha256DigestSchema,
-    selectedProducts: coordinateListSchema,
+    selectedProducts: selectedProductListSchema,
     residualRefs: refListSchema,
     provenanceRefs: refListSchema
   })
@@ -258,6 +272,11 @@ const installResult = ownerNativeOperationContractSource({
     installManifestDigest: sha256DigestSchema,
     installerManifestRef: refSchema,
     installerManifestDigest: sha256DigestSchema,
+    verificationDisposition: v.literal("verified"),
+    materializationDisposition: v.picklist([
+      "installed",
+      "already_installed_exact"
+    ]),
     provenanceRefs: refListSchema
   })
 });
