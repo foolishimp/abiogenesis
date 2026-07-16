@@ -19,6 +19,10 @@
 4. The new private declaration changed the package payload identity. Existing
    generated publication metadata was regenerated and source-blind packed
    tests were rerun.
+5. The original helper paired a raw schema with an authored locator. The
+   integrated implementation derives recursively frozen source rows from the
+   M03-owned Consensus family and resolves them through the accepted opaque
+   semantic-build resolver before projection.
 
 ## Verified Outcome
 
@@ -34,11 +38,11 @@
 
 ## Executable Evidence
 
-- `npm run test:t274a`: 82 GTL-law + 10 T-274A tests passed.
+- `npm run test:t274a`: 82 GTL-law + 11 T-274A tests passed.
 - `npm run test:t281:phase-a`: 8 passed.
 - `npm run test:t277:consensus`: 6 passed.
 - repaired packed-publication set: 13 passed.
-- `npm run test:semantic`: 1770 passed, 0 failed.
+- `npm run test:semantic`: 1771 passed, 0 failed.
 
 T-274A is ready for independent review. This self-review does not satisfy that
 separate gate. T-274B remains fenced behind P1 and installed publication.

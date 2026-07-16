@@ -7,7 +7,7 @@
 - status: active
 - phase_status: t274a_implementation_complete_independent_review_pending_t274b_fenced
 - review_status: t274a_self_review_green_independent_review_pending
-- proof_status: t274a_full_semantic_green_1770_of_1770
+- proof_status: t274a_full_semantic_green_1771_of_1771
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -180,7 +180,7 @@ The projector also rejects forged Valibot schema/action lookalikes by exact
 pinned constructor identity. The private helper has no package export and no
 Consensus candidate asset exists under `contracts/`.
 
-Executable proof is green: `test:t274a` 92/92 including its GTL-law baseline,
+Executable proof is green: `test:t274a` 93/93 including its GTL-law baseline,
 T-281 Phase A 8/8, T-277 Consensus 6/6, packed-publication repair 13/13, and
-the complete semantic suite 1770/1770. Independent review remains the only
+the complete semantic suite 1771/1771. Independent review remains the only
 T-274A acceptance gate. T-274B remains dependency-fenced.
