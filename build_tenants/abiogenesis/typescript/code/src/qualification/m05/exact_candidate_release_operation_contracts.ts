@@ -13,7 +13,10 @@ import {
 } from "../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../shared/validation/native_named_check_registry.js";
-import { ownerNativeOperationContractSource } from "../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
+  ownerNativeOperationContractSource
+} from "../../shared/validation/owner_native_operation_contract_source.js";
 
 type ReleaseVariant = "published_rc" | "tapped_release";
 type ReleaseSlot = "request" | "result" | "refusal";
@@ -21,12 +24,6 @@ type ReleaseSlot = "request" | "result" | "refusal";
 const MODULE_PATH =
   "code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
 const EXPORT_NAME = "RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES";
-const CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
-  status: "candidate_integration_pin_pending_final_rebind"
-} as const);
 const RELEASE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-059",
   digest:
@@ -53,7 +50,7 @@ function releaseSource<
     variant: input.variant,
     slot: input.slot,
     semanticOwnerBasis: RELEASE_SEMANTIC_OWNER_BASIS,
-    contractShapeBasis: CONTRACT_SHAPE_BASIS,
+    contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
     memberPath: ["release_snapshot", input.variant, input.slot] as const,

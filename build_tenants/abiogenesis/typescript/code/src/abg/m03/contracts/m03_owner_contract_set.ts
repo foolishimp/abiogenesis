@@ -1,16 +1,12 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type M03OwnerContractSlot = "request" | "result" | "refusal";
-
-const CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
-  status: "candidate_integration_pin_pending_final_rebind"
-} as const);
 
 function source<
   const OperationId extends string,
@@ -47,7 +43,7 @@ function source<
     variant: input.variant,
     slot: input.slot,
     semanticOwnerBasis: input.semanticOwnerBasis,
-    contractShapeBasis: CONTRACT_SHAPE_BASIS,
+    contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
     modulePath: input.modulePath,
     exportName: input.exportName,
     memberPath: [input.familyKey, input.variant, input.slot] as const,
