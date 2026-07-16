@@ -27,13 +27,14 @@ product contract:
 GOALS, INTENT, PRODUCT, and requirements are the constitutional scope authority
 for this wave. The 17 feature families below are the no-silence scope taxonomy.
 T-244 is their sole derived feature traceability and closure projection, not an
-independent scope authority. While T-278 reprices the public control-plane
-Ontology, T-244's exact-36 operation work and closure columns are stale and do
-not authorize implementation. T-244 is regenerated once after target-shape
-acceptance. Delivery neither narrows a retained constitutional claim by silence
-nor adds a capability outside the lawful scope. A new product capability
-re-enters through the smallest lawful goal, intent, product, or requirement
-reprice.
+independent scope authority. T-278's accepted target has propagated through
+INTENT, PRODUCT, and requirements. T-244 is completed-but-stale: its prior
+exact-36 operation work and closure columns do not authorize implementation. It
+must now be reopened, regenerated once against the derived 19-operation
+projection, and reclosed. Delivery neither narrows a retained constitutional
+claim by silence nor adds a capability outside the lawful scope. A new product
+capability re-enters through the smallest lawful goal, intent, product, or
+requirement reprice.
 
 ABIogenesis 5.0 does not claim self-hosting or depend on GLC or odd_glc to
 build, qualify, or release it. Recursive dogfooding begins only after stable
@@ -45,26 +46,27 @@ odd_glc 1.0 may subsequently act together as the development product for the
 
 ## Managed Plan State
 
-The current delivery position is `DS-0` constitutional propagation under
+The current delivery position is `DS-0` derived-register regeneration under
 T-278. The stable-first full-product scope remains current. F_H accepted the
-exact `/9-candidate` target at checkpoint `83c87dec`; the Ontology remains a
-candidate until propagation, T-244 regeneration, basis recomputation, and final
-design review are complete.
+exact `/9-candidate` target at checkpoint `83c87dec`, and its constitutional
+propagation is complete. The Ontology remains a candidate until T-244
+regeneration, basis recomputation, and final design review are complete.
 
 | Plan fact | Current truth |
 |---|---|
-| Current phase | `DS-0` T-278 accepted-target constitutional propagation |
-| Current decision | Two reviewer-authored reviews accept the exact `/9-candidate` and reproduce the 30-source basis, 38 behaviors, 27 atoms and authority rows, seven compositions, 19 operations, 17 features, and 16 capabilities. F_H accepts that exact target: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. This authorizes constitutional propagation only. |
+| Current phase | `DS-0` regenerate T-244, recompute the Ontology basis, and obtain final design ratification |
+| Current decision | Two reviewer-authored reviews accept the exact `/9-candidate` and reproduce the 30-source basis, 38 behaviors, 27 atoms and authority rows, seven compositions, 19 operations, 17 features, and 16 capabilities. F_H accepts that exact target: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. Constitutional propagation is complete; final Ontology ratification and runtime authorization are not. |
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
-| Derived register | T-244 is stale until one post-acceptance regeneration |
-| Runtime work | The T-270/T-272 integration is preserved as provisional evidence and remains frozen until constitutional propagation and affected-design acceptance |
-| Next executable owner | T-278 propagates the accepted target through INTENT, PRODUCT, requirements, and this managed plan in authority order; T-244 regeneration and Ontology basis recomputation follow before runtime reconciliation. |
+| Derived register | T-244 is completed-but-stale; its bounded reopen, one post-acceptance regeneration, and reclosure are the next executable work |
+| Runtime work | The T-270/T-272 integration is preserved as provisional evidence and remains frozen until T-244 regeneration, final Ontology ratification, and affected-design acceptance |
+| Next executable owner | Reopen, regenerate, and reclose T-244 from current GOALS, INTENT, PRODUCT, and requirements; then recompute the Ontology basis and run final independent design review before runtime reconciliation. |
 | Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
 | Detailed current read model | `.ai-workspace/comments/codex/20260715T150050Z_PLAN_abiogenesis_5_0_repriced_end_to_end.md` |
 
 F_H acceptance of this goal plan did not silently accept T-278's four target
-claims. The separate explicit ruling recorded on 2026-07-16 accepts the exact
-`/9-candidate` target and authorizes constitutional propagation only.
+claims. The separate explicit ruling recorded on 2026-07-16 accepted the exact
+`/9-candidate` target and authorized constitutional propagation only; it did
+not ratify the final Ontology or authorize runtime work.
 
 ## Retained Feature Families
 
@@ -88,7 +90,7 @@ regenerated into T-244 after the target Ontology is accepted.
 | `A5-F12` | Replay-grounded observer and tuner with draft-only mutation | DS-5 completion and DS-6 proof |
 | `A5-F13` | Native operation plus one bounded Codex projection over the same public contract | DS-5 and DS-6 |
 | `A5-F14` | Packed install, Hello World, and bounded live F_P proof | DS-6 |
-| `A5-F15` | Exact-candidate subject/law basis and verdict, qualification enforcement, installed-RC authorization lineage, and one bounded self-certifying release read model | DS-6, T-247 and T-248 |
+| `A5-F15` | Exact-candidate subject/law basis and verdict, basis-bound prospective RC identity, qualification enforcement, installed-RC authorization lineage, and one bounded self-certifying release read model | DS-6, T-247 and T-248 |
 | `A5-F16` | Immutable RC window and stable `5.0.0` release | DS-7, T-248 |
 | `A5-F17` | Generic downstream catalog compatibility sufficient for odd_glc without making odd_glc a release dependency | DS-5/DS-6 bounded fixture |
 
@@ -138,9 +140,9 @@ DS-0 -> DS-1 -> DS-2 -> DS-3 -> DS-4 -> DS-5 -> DS-6 -> DS-7
 flowchart TD
   A[T-278 exact /9 candidate] --> A2[Reviewer-authored independent acceptance]
   A2 --> A3[Explicit F_H target-shape acceptance]
-  A3 --> S[Checkpoint and push the accepted plan and T-278 slice]
-  S --> B[INTENT to PRODUCT to requirements to GOALS]
-  B --> C[Regenerate and reclose T-244]
+  A3 --> S[Accepted target checkpoint complete]
+  S --> B[Constitutional propagation complete]
+  B --> C[Reopen, regenerate, and reclose T-244]
   C --> D[Recompute basis and ratify final Ontology]
   D --> E[Accept affected One Surface and projection designs]
   E --> O[Realize the four One Surface authorities]
@@ -199,14 +201,14 @@ T-267 is not part of this line and must become T-279 before any future
 adoption; obsolete self-build and T-252 planning artifacts from that sibling
 worktree do not enter this stable-first plan.
 
-During T-278 reconciliation, T-247 and T-248 are rebound from completed T-249
-and the stale T-244 projection to completed T-278, the ratified final Ontology,
-and regenerated T-244. After all DS-5 product changes close, T-247 binds
-content-addressed pre-RC candidate truth as one
-`ExactCandidateQualificationBasis` with one exact method/rule/source
-`QualificationLawBasis` and qualifies those exact bytes. The basis
-is neither a `ReleaseCut` nor a `ReleaseSnapshotManifest`. Owning gates keep
-their semantic authority; one complete ordered same-basis
+Before DS-6, T-247 and T-248 are rebound from completed T-249 and the stale
+T-244 projection to closed T-278, the ratified final Ontology, and regenerated
+T-244. After all DS-5 product changes close, T-247 binds content-addressed
+pre-RC candidate truth as one `ExactCandidateQualification<basis>` containing
+the prospective published-RC identity/version and exact artifact bytes, with
+one exact method/rule/source `QualificationLawBasis`, and qualifies those exact
+bytes. The basis is neither a `ReleaseCut` nor a `ReleaseSnapshotManifest`.
+Owning gates keep their semantic authority; one complete ordered same-basis
 `QualificationGateResultVector<K>` conserves their admitted result citations
 for one exactly-one `C.of(AF-22)` verdict reduction. The vector, AF-22 argument,
 and verdict preserve that same law basis. T-248 consumes the same-subject-and-
@@ -226,7 +228,7 @@ do not authorize an imperative workaround.
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-0` accepted-target constitutional propagation |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-0` T-244 regeneration and final Ontology ratification |
 
 ## Plan Management
 
@@ -257,7 +259,7 @@ boundary that cannot be owned lawfully by an existing carrier.
 
 Qualification input becomes immutable by exact content identity at DS-6 while
 the RC correction window remains bounded and mutable. Any product-significant
-change creates a new `ExactCandidateQualificationBasis` and invalidates its
+change creates a new `ExactCandidateQualification<basis>` and invalidates its
 dependent verdict, RC, and final evidence. Qualification and release may
 consume or reject exact bytes; they may not patch a bound basis or substitute
 unrelated candidate bytes.
