@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: phase_split_design_accepted_t274a_waits_t281_phase_a
-- review_status: fh_accepted_t274a_dependency_gated_t274b_fenced
-- proof_status: t274a_implementation_pending_dependency
+- phase_status: t274a_implementation_complete_independent_review_pending_t274b_fenced
+- review_status: t274a_self_review_green_independent_review_pending
+- proof_status: t274a_full_semantic_green_1770_of_1770
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -72,6 +72,12 @@
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T105629Z_DECISION_fh_accept_t274_phase_split_design.md
+- t274a_implementation_ref: >-
+    build_tenants/abiogenesis/typescript/code/src/app/m04/public_contracts/
+    consensus_contract_phase_a.ts
+- t274a_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T162101Z_SELF_REVIEW_t274a_consensus_temp_artifact_implementation.md
 - prime_migration_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
@@ -161,3 +167,20 @@ their parity proofs after T-281 Phase A. T-274B owns public catalog rows,
 callable contribution, installed publication, and packed admission after the
 P1 and T-270 prerequisites. This ticket is not closed by either
 design checkpoint or by T-274A alone.
+
+## T-274A Implementation Status
+
+The implementation now derives nine canonical schema candidates and two
+closed vocabularies from the single native Consensus family. Proof
+materializes them only under a temporary root, verifies exact bytes and
+digests, validates both native vocabularies, and rejects all 72 cross-kind
+schema substitutions through both native and JSON admission.
+
+The projector also rejects forged Valibot schema/action lookalikes by exact
+pinned constructor identity. The private helper has no package export and no
+Consensus candidate asset exists under `contracts/`.
+
+Executable proof is green: `test:t274a` 92/92 including its GTL-law baseline,
+T-281 Phase A 8/8, T-277 Consensus 6/6, packed-publication repair 13/13, and
+the complete semantic suite 1770/1770. Independent review remains the only
+T-274A acceptance gate. T-274B remains dependency-fenced.

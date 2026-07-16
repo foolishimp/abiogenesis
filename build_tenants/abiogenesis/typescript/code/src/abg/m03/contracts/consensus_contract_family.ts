@@ -502,6 +502,46 @@ export const CONSENSUS_PUBLIC_CONTRACT_FAMILY = freezeNativeValue({
   })
 } as const);
 
+function consensusPublicContractSource<
+  const Kind extends keyof typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY
+>(kind: Kind) {
+  const definition = CONSENSUS_PUBLIC_CONTRACT_FAMILY[kind];
+  return freezeNativeValue({
+    contractKind: kind,
+    contractId: definition.contractId,
+    nativeType: definition.nativeType,
+    sourceLocator: {
+      kind: "private_source_module" as const,
+      sourceRoot: "semantic_build" as const,
+      modulePath:
+        "code/src/abg/m03/contracts/consensus_contract_family.js",
+      exportName: "CONSENSUS_PUBLIC_CONTRACT_SOURCES",
+      memberPath: [kind, "schema"] as const
+    },
+    schema: definition.schema
+  });
+}
+
+export const CONSENSUS_PUBLIC_CONTRACT_SOURCES = freezeNativeValue({
+  consensus_subject: consensusPublicContractSource("consensus_subject"),
+  consensus_panel: consensusPublicContractSource("consensus_panel"),
+  consensus_reviewer_profile: consensusPublicContractSource(
+    "consensus_reviewer_profile"
+  ),
+  review_findings: consensusPublicContractSource("review_findings"),
+  review_rulings: consensusPublicContractSource("review_rulings"),
+  consensus_round_policy: consensusPublicContractSource(
+    "consensus_round_policy"
+  ),
+  consensus_round_outcome: consensusPublicContractSource(
+    "consensus_round_outcome"
+  ),
+  consensus_result: consensusPublicContractSource("consensus_result"),
+  ticket_consensus_projection: consensusPublicContractSource(
+    "ticket_consensus_projection"
+  )
+} as const);
+
 export const CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS = Object.freeze(
   Object.entries(CONSENSUS_PUBLIC_CONTRACT_FAMILY).map(([kind, definition]) =>
     Object.freeze({
