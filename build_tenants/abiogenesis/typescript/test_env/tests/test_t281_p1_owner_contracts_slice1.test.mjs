@@ -20,6 +20,7 @@ import {
   TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/toolchain_binding/operation_contracts.js";
 import {
+  WORKSPACE_NATIVE_CHECK_REGISTRY,
   WORKSPACE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/workspace/operation_contracts.js";
 import {
@@ -30,7 +31,7 @@ import {
 } from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
 const CONTRACT_SHAPE_DIGEST =
-  "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7";
+  "sha256:d612a4f7fd3d8aaa17f2228f62a5df818f7743e971631ce4a8806ae4319805b7";
 const ONTOLOGY_DIGEST =
   "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1";
 const OPAQUE_RESOLVER_INTEGRATION = Object.freeze({
@@ -202,7 +203,9 @@ test("T-281 Slice 1 resolved sources are canonically projectable", () => {
       sourceLocator: source.sourceLocator,
       ...(source.authority.owner.family === "product_intake"
         ? { namedCheckRegistry: PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY }
-        : {})
+        : source.authority.owner.family === "workspace"
+          ? { namedCheckRegistry: WORKSPACE_NATIVE_CHECK_REGISTRY }
+          : {})
     });
     assert.deepEqual(projection.witness.sourceLocator, source.sourceLocator);
     assert.match(projection.witness.projectionDigest, /^sha256:[0-9a-f]{64}$/u);
@@ -265,33 +268,66 @@ test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
     workspaceAuthorityBasisRef: "basis:one",
     workspaceAuthorityBasisDigest: D,
     authorityMode: "clean_no_project_authority",
-    readiness: "ready",
     configurationRefs: ["configuration:one"],
-    manifestRef: "manifest:one",
-    manifestDigest: D,
-    residualRefs: []
+    configurationDigests: [D]
   };
   assert.equal(v.parse(open.result.schema, {
     ...openReadyBase,
-    bindingDisposition: "bound",
-    bindingRef: "binding:one"
-  }).bindingRef, "binding:one");
+    readiness: "ready",
+    selectedBindingRef: "binding:one",
+    selectedBindingDigest: D,
+    residualRefs: []
+  }).selectedBindingRef, "binding:one");
   assert.equal(v.parse(open.result.schema, {
     ...openReadyBase,
-    bindingDisposition: "unbound",
-    bindingRef: null
-  }).bindingRef, null);
+    readiness: "unbound",
+    selectedBindingRef: null,
+    selectedBindingDigest: null,
+    residualRefs: []
+  }).selectedBindingRef, null);
+  for (const readiness of ["stale", "malformed", "incompatible"]) {
+    assert.equal(v.parse(open.result.schema, {
+      ...openReadyBase,
+      readiness,
+      observedBindingRef: null,
+      observedBindingDigest: null,
+      residualRefs: [`residual:${readiness}`]
+    }).readiness, readiness);
+  }
   assert.throws(() => v.parse(open.result.schema, {
     ...openReadyBase,
-    bindingDisposition: "bound",
-    bindingRef: null
+    readiness: "ready",
+    selectedBindingRef: "binding:one",
+    selectedBindingDigest: null,
+    residualRefs: []
   }));
   assert.throws(() => v.parse(open.result.schema, {
     ...openReadyBase,
-    bindingDisposition: "unbound",
-    bindingRef: "binding:one"
+    readiness: "stale",
+    observedBindingRef: "binding:one",
+    observedBindingDigest: null,
+    residualRefs: ["residual:stale"]
   }));
-  for (const code of ["missing", "malformed", "stale", "incompatible"]) {
+  assert.throws(() => v.parse(open.result.schema, {
+    ...openReadyBase,
+    readiness: "stale",
+    observedBindingRef: null,
+    observedBindingDigest: null,
+    residualRefs: []
+  }));
+  assert.throws(() => v.parse(open.result.schema, {
+    ...openReadyBase,
+    configurationDigests: [],
+    readiness: "unbound",
+    selectedBindingRef: null,
+    selectedBindingDigest: null,
+    residualRefs: []
+  }), /matching cardinality/u);
+  for (const code of [
+    "invalid_target",
+    "workspace_missing",
+    "authority_basis_mismatch"
+  ]) {
     assert.equal(v.parse(open.refusal.schema, {
       code,
       message: `${code} workspace`,
@@ -299,8 +335,8 @@ test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
     }).code, code);
   }
   assert.throws(() => v.parse(open.refusal.schema, {
-    code: "manifest_invalid",
-    message: "collapsed stale truth",
+    code: "stale",
+    message: "stale belongs to the typed readiness projection",
     residualRefs: []
   }));
 });
@@ -310,6 +346,7 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
   assert.throws(() => v.parse(verify.request.schema, {
     artifactRef: "artifact:one",
     artifactDigest: "sha256:bad",
+    productContentDigest: D,
     descriptorRef: "descriptor:one",
     descriptorDigest: D,
     contributionManifestRef: "contribution:one",
@@ -318,6 +355,26 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     resolvedLockDigest: D,
     expectedContractRefs: []
   }));
+  const verifyResultBase = {
+    verifiedArtifactRef: "artifact:verified",
+    verifiedArtifactDigest: D,
+    productContentDigest: D,
+    descriptorRef: "descriptor:one",
+    descriptorDigest: D,
+    contributionManifestRef: "contribution:one",
+    contributionManifestDigest: D,
+    resolvedLockRef: "lock:one",
+    resolvedLockDigest: D,
+    checkedContractRefs: [],
+    residualRefs: [],
+    provenanceRefs: ["evidence:verification"]
+  };
+  for (const verificationDisposition of ["verified", "installed_unbound"]) {
+    assert.equal(v.parse(verify.result.schema, {
+      ...verifyResultBase,
+      verificationDisposition
+    }).verificationDisposition, verificationDisposition);
+  }
 
   const resolve = PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve;
   const requirement = {
@@ -352,13 +409,13 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     requirements: [requirement],
     candidates: [firstCoordinate, firstCoordinate]
   }));
-  assert.throws(() => v.parse(resolve.request.schema, {
+  assert.equal(v.parse(resolve.request.schema, {
     requirements: [requirement],
     candidates: [
       firstCoordinate,
       { ...firstCoordinate, contractRefs: ["contract:conflicting"] }
     ]
-  }), /duplicate candidate product version/u);
+  }).candidates.length, 2);
   assert.throws(() => v.parse(resolve.request.schema, {
     requirements: [],
     candidates: []
@@ -367,28 +424,65 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
   const resolveResultBase = {
     resolvedLockRef: "lock:one",
     resolvedLockDigest: D,
+    selectedDependencyGraph: [],
     residualRefs: [],
     provenanceRefs: []
   };
   assert.throws(() => v.parse(resolve.result.schema, {
     ...resolveResultBase,
     selectedProducts: [
-      firstCoordinate,
-      { ...firstCoordinate, version: "5.0.0-rc.2" }
+      {
+        productIdentity: "abiogenesis",
+        selectedCoordinate: firstCoordinate,
+        satisfiedRequirementRefs: ["requirement:abg"]
+      },
+      {
+        productIdentity: "abiogenesis",
+        selectedCoordinate: { ...firstCoordinate, version: "5.0.0-rc.2" },
+        satisfiedRequirementRefs: ["requirement:abg"]
+      }
     ]
   }), /duplicate selected product identity/u);
   assert.equal(v.parse(resolve.result.schema, {
     ...resolveResultBase,
     selectedProducts: [
-      firstCoordinate,
-      { ...firstCoordinate, productId: "odd_glc", version: "1.0.0" }
+      {
+        productIdentity: "abiogenesis",
+        selectedCoordinate: firstCoordinate,
+        satisfiedRequirementRefs: ["requirement:abg"]
+      },
+      {
+        productIdentity: "odd_glc",
+        selectedCoordinate: {
+          ...firstCoordinate,
+          productId: "odd_glc",
+          version: "1.0.0"
+        },
+        satisfiedRequirementRefs: ["requirement:glc"]
+      }
     ]
   }).selectedProducts.length, 2);
+  assert.throws(() => v.parse(resolve.result.schema, {
+    ...resolveResultBase,
+    selectedProducts: [{
+      productIdentity: "odd_glc",
+      selectedCoordinate: firstCoordinate,
+      satisfiedRequirementRefs: ["requirement:glc"]
+    }]
+  }), /must match its product identity/u);
 
   for (const code of [
+    "artifact_invalid",
+    "content_mismatch",
     "identity_mismatch",
+    "descriptor_mismatch",
+    "contribution_mismatch",
+    "lock_mismatch",
     "unresolved_dependency",
-    "unsupported_contract"
+    "incompatible_dependency",
+    "unsupported_contract",
+    "installed_state_missing",
+    "installed_state_stale"
   ]) {
     assert.equal(v.parse(verify.refusal.schema, {
       code,
@@ -415,21 +509,39 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     installerManifestRef: "manifest:installer",
     installerManifestDigest: D,
     verificationDisposition: "verified",
-    materializationDisposition: "installed",
+    materializationDisposition: "materialized",
+    selectedDependencyGraph: [],
     provenanceRefs: ["evidence:one"]
   };
   assert.equal(
     v.parse(install.result.schema, installResult).materializationDisposition,
-    "installed"
+    "materialized"
   );
   assert.equal(v.parse(install.result.schema, {
     ...installResult,
-    materializationDisposition: "already_installed_exact"
-  }).materializationDisposition, "already_installed_exact");
+    materializationDisposition: "idempotent"
+  }).materializationDisposition, "idempotent");
   assert.throws(() => v.parse(install.result.schema, {
     ...installResult,
     verificationDisposition: "failed"
   }));
+  for (const code of [
+    "verification_failed",
+    "invalid_target",
+    "identity_conflict",
+    "content_conflict",
+    "descriptor_conflict",
+    "contribution_conflict",
+    "lock_conflict",
+    "unsupported_contract",
+    "filesystem_failure"
+  ]) {
+    assert.equal(v.parse(install.refusal.schema, {
+      code,
+      message: `${code} install refusal`,
+      residualRefs: []
+    }).code, code);
+  }
 });
 
 test("T-281 Slice 1 binding and assessment enforce closed typed domains", () => {

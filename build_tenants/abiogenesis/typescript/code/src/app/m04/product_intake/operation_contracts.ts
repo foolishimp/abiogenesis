@@ -53,6 +53,12 @@ const refListSchema = v.pipe(
   v.readonly()
 );
 
+const nonEmptyRefListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refSchema),
+  v.minLength(1, "expected at least one reference"),
+  v.readonly()
+);
+
 const SEMVER_RANGE_ACTION = Object.freeze(v.check(
   (value: string) => validRange(value) !== null,
   "expected a valid semantic-version range"
@@ -72,6 +78,34 @@ const productCoordinateSchema = v.strictObject({
   capabilityRefs: refListSchema
 });
 
+const resolvedDependencyEdgeSchema = v.strictObject({
+  sourceProductId: nonEmptyTextSchema,
+  targetProductId: nonEmptyTextSchema,
+  requirement: productRequirementSchema
+});
+
+const selectedDependencyGraphSchema = v.pipe(
+  v.array(resolvedDependencyEdgeSchema),
+  v.readonly()
+);
+
+const resolvedProductSelectionBaseSchema = v.strictObject({
+  productIdentity: nonEmptyTextSchema,
+  selectedCoordinate: productCoordinateSchema,
+  satisfiedRequirementRefs: nonEmptyRefListSchema
+});
+
+const SELECTION_IDENTITY_MATCH_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof resolvedProductSelectionBaseSchema>) =>
+    value.productIdentity === value.selectedCoordinate.productId,
+  "selected coordinate must match its product identity"
+));
+
+const resolvedProductSelectionSchema = v.pipe(
+  resolvedProductSelectionBaseSchema,
+  SELECTION_IDENTITY_MATCH_ACTION
+);
+
 const UNIQUE_REQUIREMENT_PRODUCT_ACTION = Object.freeze(v.check(
   (values: v.InferOutput<typeof productRequirementSchema>[]) =>
     new Set(values.map((value) => value.productId)).size === values.length,
@@ -82,16 +116,18 @@ const UNIQUE_CANDIDATE_COORDINATE_ACTION = Object.freeze(v.check(
   (values: v.InferOutput<typeof productCoordinateSchema>[]) => {
     const identities = values.map((value) => JSON.stringify([
       value.productId,
-      value.version
+      value.version,
+      [...value.contractRefs].sort(),
+      [...value.capabilityRefs].sort()
     ]));
     return new Set(identities).size === identities.length;
   },
-  "duplicate candidate product version"
+  "duplicate product coordinate"
 ));
 
 const UNIQUE_SELECTED_PRODUCT_ACTION = Object.freeze(v.check(
-  (values: v.InferOutput<typeof productCoordinateSchema>[]) =>
-    new Set(values.map((value) => value.productId)).size === values.length,
+  (values: v.InferOutput<typeof resolvedProductSelectionSchema>[]) =>
+    new Set(values.map((value) => value.productIdentity)).size === values.length,
   "duplicate selected product identity"
 ));
 
@@ -117,6 +153,11 @@ export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       checkId: "unique-selected-product",
       action: UNIQUE_SELECTED_PRODUCT_ACTION,
       relationRef: "relation://abg/product-intake/unique-selected-product"
+    },
+    {
+      checkId: "selection-identity-match",
+      action: SELECTION_IDENTITY_MATCH_ACTION,
+      relationRef: "relation://abg/product-intake/selection-identity-match"
     }
   ]
 } satisfies NativeNamedCheckRegistry);
@@ -136,7 +177,7 @@ const candidateCoordinateListSchema = v.pipe(
 );
 
 const selectedProductListSchema = v.pipe(
-  v.array(productCoordinateSchema),
+  v.array(resolvedProductSelectionSchema),
   v.minLength(1, "expected at least one selected product"),
   UNIQUE_SELECTED_PRODUCT_ACTION,
   v.readonly()
@@ -160,6 +201,7 @@ const verifyRequest = ownerNativeOperationContractSource({
   schema: v.strictObject({
     artifactRef: refSchema,
     artifactDigest: sha256DigestSchema,
+    productContentDigest: sha256DigestSchema,
     descriptorRef: refSchema,
     descriptorDigest: sha256DigestSchema,
     contributionManifestRef: refSchema,
@@ -180,6 +222,7 @@ const verifyResult = ownerNativeOperationContractSource({
   schema: v.strictObject({
     verifiedArtifactRef: refSchema,
     verifiedArtifactDigest: sha256DigestSchema,
+    productContentDigest: sha256DigestSchema,
     descriptorRef: refSchema,
     descriptorDigest: sha256DigestSchema,
     contributionManifestRef: refSchema,
@@ -187,7 +230,7 @@ const verifyResult = ownerNativeOperationContractSource({
     resolvedLockRef: refSchema,
     resolvedLockDigest: sha256DigestSchema,
     checkedContractRefs: refListSchema,
-    verificationDisposition: v.literal("verified"),
+    verificationDisposition: v.picklist(["verified", "installed_unbound"]),
     residualRefs: refListSchema,
     provenanceRefs: refListSchema
   })
@@ -201,7 +244,7 @@ const verifyRefusal = ownerNativeOperationContractSource({
   semanticOwnerBasis: VERIFY_SEMANTIC_OWNER_BASIS,
   memberPath: ["product_verify", "verify", "refusal"],
   schema: refusal([
-    "invalid_artifact",
+    "artifact_invalid",
     "content_mismatch",
     "identity_mismatch",
     "descriptor_mismatch",
@@ -209,7 +252,9 @@ const verifyRefusal = ownerNativeOperationContractSource({
     "lock_mismatch",
     "unresolved_dependency",
     "incompatible_dependency",
-    "unsupported_contract"
+    "unsupported_contract",
+    "installed_state_missing",
+    "installed_state_stale"
   ])
 });
 
@@ -237,6 +282,7 @@ const resolveResult = ownerNativeOperationContractSource({
     resolvedLockRef: refSchema,
     resolvedLockDigest: sha256DigestSchema,
     selectedProducts: selectedProductListSchema,
+    selectedDependencyGraph: selectedDependencyGraphSchema,
     residualRefs: refListSchema,
     provenanceRefs: refListSchema
   })
@@ -273,10 +319,8 @@ const installResult = ownerNativeOperationContractSource({
     installerManifestRef: refSchema,
     installerManifestDigest: sha256DigestSchema,
     verificationDisposition: v.literal("verified"),
-    materializationDisposition: v.picklist([
-      "installed",
-      "already_installed_exact"
-    ]),
+    materializationDisposition: v.picklist(["materialized", "idempotent"]),
+    selectedDependencyGraph: selectedDependencyGraphSchema,
     provenanceRefs: refListSchema
   })
 });
@@ -292,6 +336,11 @@ const installRefusal = ownerNativeOperationContractSource({
     "verification_failed",
     "invalid_target",
     "identity_conflict",
+    "content_conflict",
+    "descriptor_conflict",
+    "contribution_conflict",
+    "lock_conflict",
+    "unsupported_contract",
     "filesystem_failure"
   ])
 });

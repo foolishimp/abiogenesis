@@ -10,6 +10,7 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
   OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   ownerNativeOperationContractSource
@@ -41,6 +42,12 @@ const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
+  v.readonly()
+);
+
+const nonEmptyRefListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refSchema),
+  v.minLength(1, "expected at least one residual reference"),
   v.readonly()
 );
 
@@ -163,12 +170,62 @@ const openReadyStateFields = freezeNativeValue({
     "clean_no_project_authority",
     "imported"
   ]),
-  readiness: v.literal("ready"),
   configurationRefs: refListSchema,
-  manifestRef: refSchema,
-  manifestDigest: sha256DigestSchema,
-  residualRefs: refListSchema
+  configurationDigests: v.pipe(
+    v.array(sha256DigestSchema),
+    v.readonly()
+  )
 } as const);
+
+const openObservedStateFields = freezeNativeValue({
+  ...openReadyStateFields,
+  readiness: v.picklist(["stale", "malformed", "incompatible"]),
+  residualRefs: nonEmptyRefListSchema
+} as const);
+
+const openResultUnionSchema = v.union([
+  v.strictObject({
+    ...openReadyStateFields,
+    readiness: v.literal("ready"),
+    selectedBindingRef: refSchema,
+    selectedBindingDigest: sha256DigestSchema,
+    residualRefs: v.tuple([])
+  }),
+  v.strictObject({
+    ...openReadyStateFields,
+    readiness: v.literal("unbound"),
+    selectedBindingRef: v.null(),
+    selectedBindingDigest: v.null(),
+    residualRefs: refListSchema
+  }),
+  v.strictObject({
+    ...openObservedStateFields,
+    observedBindingRef: refSchema,
+    observedBindingDigest: sha256DigestSchema
+  }),
+  v.strictObject({
+    ...openObservedStateFields,
+    observedBindingRef: v.null(),
+    observedBindingDigest: v.null()
+  })
+]);
+
+const MATCHING_CONFIGURATION_DIGESTS_ACTION = Object.freeze(v.check(
+  (value: v.InferOutput<typeof openResultUnionSchema>) =>
+    value.configurationRefs.length === value.configurationDigests.length,
+  "configuration refs and digests must have matching cardinality"
+));
+
+export const WORKSPACE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/operation/workspace@5",
+  checks: [
+    {
+      checkId: "matching-configuration-digests",
+      action: MATCHING_CONFIGURATION_DIGESTS_ACTION,
+      relationRef: "relation://abg/workspace/matching-configuration-digests"
+    }
+  ]
+} satisfies NativeNamedCheckRegistry);
 
 const openResult = ownerNativeOperationContractSource({
   ...WORKSPACE_SOURCE_PRIMITIVES,
@@ -177,18 +234,10 @@ const openResult = ownerNativeOperationContractSource({
   slot: "result",
   semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
   memberPath: ["workspace_open", "open", "result"],
-  schema: v.union([
-    v.strictObject({
-      ...openReadyStateFields,
-      bindingDisposition: v.literal("bound"),
-      bindingRef: refSchema
-    }),
-    v.strictObject({
-      ...openReadyStateFields,
-      bindingDisposition: v.literal("unbound"),
-      bindingRef: v.null()
-    })
-  ])
+  schema: v.pipe(
+    openResultUnionSchema,
+    MATCHING_CONFIGURATION_DIGESTS_ACTION
+  )
 });
 
 const openRefusal = ownerNativeOperationContractSource({
@@ -198,7 +247,11 @@ const openRefusal = ownerNativeOperationContractSource({
   slot: "refusal",
   semanticOwnerBasis: OPEN_SEMANTIC_OWNER_BASIS,
   memberPath: ["workspace_open", "open", "refusal"],
-  schema: refusal(["missing", "malformed", "stale", "incompatible"])
+  schema: refusal([
+    "invalid_target",
+    "workspace_missing",
+    "authority_basis_mismatch"
+  ])
 });
 
 export const WORKSPACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({

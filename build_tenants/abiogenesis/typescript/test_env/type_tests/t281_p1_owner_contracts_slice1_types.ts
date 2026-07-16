@@ -37,12 +37,33 @@ declare const cleanResult: CleanResult;
 // @ts-expect-error Workspace provenance is an immutable owner-contract list.
 cleanResult.provenanceRefs.push("evidence:forged");
 
+const openResultSchema =
+  WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_open.open.result.schema;
+type OpenResult = v.InferOutput<typeof openResultSchema>;
+declare const openResult: OpenResult;
+
+// @ts-expect-error Workspace configuration identity is immutable after admission.
+openResult.configurationRefs.push("configuration:forged");
+
+if (openResult.readiness === "ready") {
+  const selectedBindingRef: string = openResult.selectedBindingRef;
+  void selectedBindingRef;
+}
+
 const resolveRequestSchema =
   PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve.request.schema;
 type ResolveRequest = v.InferOutput<typeof resolveRequestSchema>;
 declare const resolveRequest: ResolveRequest;
 export const selectedProductVersion: string =
   resolveRequest.candidates[0]?.version ?? "5.0.0";
+
+const installResultSchema =
+  PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install.result.schema;
+type InstallResult = v.InferOutput<typeof installResultSchema>;
+declare const installResult: InstallResult;
+export const verifiedInstall: "verified" = installResult.verificationDisposition;
+export const materializationDisposition: "materialized" | "idempotent" =
+  installResult.materializationDisposition;
 
 const bindingRequestSchema =
   TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES.workspace_bind.bind.request.schema;
