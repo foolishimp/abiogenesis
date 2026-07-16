@@ -1,12 +1,12 @@
 # M03-M04 One Surface Authority Behavior Design
 
-**Status**: Accepted - bounded T-280 implementation authorized
+**Status**: Accepted and implemented - independently reviewed for T-280 closure
 
-**Date**: 2026-07-16
+**Date**: 2026-07-17
 
 **Ticket**: `T-280`
 
-**Ontology authority**: `ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md` digest `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+**Ontology authority**: `ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md` accepted semantic candidate `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`; current projection digest `bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615`
 
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
 
@@ -49,15 +49,16 @@ compiled execution chain, admits the sole effect-authorizing `ExecutionBasis`,
 and invokes the selected GraphFunction. T-272 alone continues a current intent
 after F_H response. T-280 neither absorbs nor emulates either ticket.
 
-The existing construction-observation, action-catalog, priority, intent,
-assurance, projection, and runner code is precursor evidence. It may supply
-subordinate pure libraries after exact authority reconciliation. The current
-`construction_runner` or `engine_runner` selection sequence is not accepted as
-the One Surface program or controller, and the current
-`AdmittedConstructionIntent` shape is not accepted as AF-14 closure until it
-binds the exact authority set above. A join that the semantic compiler cannot
-prove from admitted structure yields `one_surface_semantic_not_realized` and
-executes no authority function.
+The construction-observation, action-catalog, priority, intent, assurance, and
+projection libraries are reconciled subordinate libraries under the admitted
+One Surface authority family. Generic `AdmittedConstructionIntent` data alone
+is not AF-14 authority; `OneSurfaceConstructionIntentAdmission` validates and
+seals the exact program, application, selection, target, workspace, catalog,
+and invocation-authority envelope. The `construction_runner` and
+`engine_runner` remain non-authoritative and are not the One Surface program or
+controller. A join that the semantic compiler cannot prove from admitted
+structure yields `one_surface_semantic_not_realized` and executes no authority
+function.
 
 ### Requirements
 
@@ -101,17 +102,20 @@ executes no authority function.
 
 - **Ontology verdict**: ratified
 - **Ontology identity/version**: `ABIogenesisPublicControlPlaneOntology/9`
-- **Ontology digest**: `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+- **Accepted semantic candidate**: `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`
+- **Current Ontology projection digest**: `bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615`
 - **Ontology acceptance**: `.ai-workspace/comments/codex/20260716T055554Z_DECISION_t278_ontology_ratified.md`
-- **Staleness rule**: a change to any authority source or accepted T-270/T-272
-  boundary below returns this design to candidate and forbids implementation
-  reconciliation until its digest and axiom matrix are refreshed.
+- **Staleness rule**: a semantic change to any authority source or accepted
+  T-270/T-272 boundary below returns this design to candidate and forbids
+  implementation reconciliation until its digest and axiom matrix are
+  refreshed. The GOALS change since acceptance is delivery-state and owner
+  topology only; the 27/7/19 semantic target and T-280 boundary are unchanged.
 
 ### Constitutional Source Digests
 
 | Source | SHA-256 |
 |---|---|
-| `specification/GOALS.md` | `ec8945b558833c2073c70bcf99d28d668200d225867ca288b46f7c0fd52b9756` |
+| `specification/GOALS.md` | `5a0c8dac3a731443037a03cfe824896b98b881e5193f40ae00fdbf4b9fd7203a` |
 | `specification/INTENT.md` | `a24c6bcbe4605d8ef0444c063ce61a58d43632b2bcc42b4752e42935d93d9b9f` |
 | `specification/PRODUCT.md` | `5baa698c8d398118649260ce350f3dc2bd2d33c60ef66078d4a2a0a927fb15f2` |
 | `REQ-L-GTL3-CONTRACT-LAW-API.md` | `c2380d7798e1bd8eec80b7b603ca2a3dba963a9ab5ba337d9ce28649f7118473` |
@@ -123,7 +127,7 @@ executes no authority function.
 | `REQ-R-ABG3-EVENTS.md` | `eee93a090f45576b2e76b3a9f8379c71ffbd8e2009057297da1bed27e04a03a2` |
 | `REQ-P-POLICY.md` | `89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` |
 | `REQ-P-SCENARIOS.md` | `a7430bb1468f6d26d46bfdd41be43c81220954e793ff47052488b206b54b0562` |
-| ratified control-plane Ontology | `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8` |
+| ratified control-plane Ontology projection | `bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615` |
 | accepted T-270 design | `71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430` |
 | accepted T-272 design | `1b879535201080f5ed7da4bc781bd447fa46c72ad5f500c71e73e0b0ed62b0b2` |
 | T-271 complete C-program interpreter design | `9f2c44a4a254dec00ae8ea1000450c24f9cf34d4e10b3f6368fec057c970c953` |
@@ -375,13 +379,13 @@ resolver, phase, or semantic effect.
 
 | Authority | Existing published kind(s) | Required exact relation | Current disposition |
 |---|---|---|---|
-| program application start | `construction_episode_started` | admitted program, application, workspace binding, execution basis and lineage | kind exists; payload must bind the exact application relation before One Surface starts |
-| AF-11 `synthesizeModel` | one exact C-call spine plus authority snapshot, validated payload, admitted evidence, enclosure, and result admission | exact replay relation derives the AF-11 result-binding ref and fluent; `ProductAssetModel` derives from that truth | existing kinds require replay-aid registration and exact joining; otherwise `one_surface_af11_event_binding_semantic_not_realized` |
-| AF-12 `evalGap` | exact C-call/payload-ledger relation and derived rule, then `construction_observation_snapshot_materialized` | AF-12 result binding/fluent owns the exact output; observation event binds the resulting snapshot; pressure rows remain derived | existing kinds retain their phases; exact relation is not yet realized |
-| AF-13 `evaluateNext` | exact C-call/payload-ledger relation and derived rule; `construction_action_catalog_projected` remains candidate basis; candidate admitted/rejected and `construction_intent_selected` retain AF-14 preparation roles | AF-13 result binding/fluent owns the exact closed selection union; target binding, priority, and next-action read models derive from it | existing kinds retain their phases; exact relation is not yet realized |
-| AF-14 intent admission | `construction_intent_candidate_admitted | construction_intent_candidate_rejected` and `construction_intent_selected`; system/no-action outcomes use `construction_terminal_disposition_projected` | exact AF-13 projection/program/member-or-internal-target/view/workspace/invocation-authority refs/digests and admitted intent or refusal | kinds exist, but exact cross-authority payload relation is not yet realized; no system/no-action variant may emit selected intent |
+| program application start | `construction_episode_started` | admitted program, application, workspace binding, execution basis and lineage | external T-270 startup/integration boundary; not a T-280 gap |
+| AF-11 `synthesizeModel` | one exact C-call spine plus authority snapshot, validated payload, admitted evidence, enclosure, and result admission | exact replay relation derives the AF-11 result-binding ref and fluent; `ProductAssetModel` derives from that truth | realized through the shared result family, exact replay projection, and application-bound derived rule |
+| AF-12 `evalGap` | exact C-call/payload-ledger relation and derived rule, then `construction_observation_snapshot_materialized` | AF-12 result binding/fluent owns the exact output; observation event binds the resulting snapshot; pressure rows remain derived | realized without changing the construction event's phase or authority |
+| AF-13 `evaluateNext` | exact C-call/payload-ledger relation and derived rule; `construction_action_catalog_projected` remains candidate basis; candidate admitted/rejected and `construction_intent_selected` retain AF-14 preparation roles | AF-13 result binding/fluent owns the exact closed selection union; target binding, priority, and next-action read models derive from it | realized for the full closed action union with exact target-obligation conservation |
+| AF-14 intent admission | `construction_intent_candidate_admitted | construction_intent_candidate_rejected` and `construction_intent_selected`; system/no-action outcomes use `construction_terminal_disposition_projected` | exact AF-13 projection/program/member-or-internal-target/view/workspace/invocation-authority refs/digests and admitted intent or refusal | realized for callable, internal-vector, re-entry, and repair effects; every non-effect disposition refuses before invocation |
 | T-270 AF-15 | `construction_graph_action_invoked` | exact admitted intent, execution basis, GraphCall/frame and selected member/internal target | external T-270 owner; T-280 records only the typed slot |
-| AF-16 `evaluateAction` | exact C-call/payload-ledger relation and derived rule, then `construction_delta_observed` and `construction_terminal_disposition_projected` | AF-16 result binding and fluent own the exact admitted output; delta and terminal events retain consequence/projection roles; ledger/decision/terminal read models derive from owning truth | existing kinds retain their phases; exact binding/rule relation is not yet realized |
+| AF-16 `evaluateAction` | exact C-call/payload-ledger relation and derived rule, then `construction_delta_observed` and `construction_terminal_disposition_projected` | AF-16 result binding and fluent own the exact admitted output; delta and terminal events retain consequence/projection roles; ledger/decision/terminal read models derive from owning truth | realized over one complete same-intent admitted evidence basis with typed refusal for every incomplete or foreign basis |
 | recurse/foldback | existing T-262 typed-recurse event family | exact AF-16 result, termination/foldback application, child result and parent rebind | external T-262 owner; T-280 binds the existing relation only |
 
 `construction_episode_started` binds the episode's admitted program, stable
@@ -1378,7 +1382,7 @@ T-272 integration and T-276 installed proof close.
 | A16 plugins and handlers own interiors only | FN-COMP-014/019; ODD law | function definitions bind hosts but ABG owns outputs | every host result returns through ABG admission | no plugin-authored runtime state | host API returns candidate result only | event/ledger/decision constructors remain ABG-owned | pass | none |
 | A17 application topology is exact and all-or-nothing | FPC-001/014; INTERPRET-029/030 | Prime application binds AF11/12/13/14/15/16 and T262 | compiler admits before first T271 interior | any missing join enters ProgramGapBlocked | nominal application and join carriers | partial or cross-program application returns semantic_not_realized | pass | none |
 | A18 host and composition authority are program-visible | FPC-013; FN-COMP-003/011 | definition binds closed host kind, membership, selected composition, hook and policy | compiler resolves only visible precedence | host mismatch cannot reach ProgramAdmitted | closed host union and exact refs/digests | hidden config, wrong host and stale selection reject | pass | none |
-| A19 existing events preserve One Surface ownership | EVENTS-021; CCALL-001..006; PAYLOAD-001..008; FPC-017 | locus-only C-call, authority, payload, evidence, result, and judgment facts remain distinct; one total projection and application-bound rule derive outcome truth | each result-bearing function locus emits the canonical existing sequence; construction events keep their roles | exact advancing relations reach success; exact non-advance refusal relations remain typed; invalid relations yield gaps | existing closed events plus derived result binding, RuntimeDerivedFluentRule, and RuntimeFluent | empty replay-aid registrations add no effects; order/identity/regime/arm/contract/judgment mismatches yield no outcome fluent and a typed diagnostic | pass as design, implementation gap named | T280 |
+| A19 existing events preserve One Surface ownership | EVENTS-021; CCALL-001..006; PAYLOAD-001..008; FPC-017 | locus-only C-call, authority, payload, evidence, result, and judgment facts remain distinct; one total projection and application-bound rule derive outcome truth | each result-bearing function locus emits the canonical existing sequence; construction events keep their roles | exact advancing relations reach success; exact non-advance refusal relations remain typed; invalid relations yield gaps | existing closed events plus derived result binding, RuntimeDerivedFluentRule, and RuntimeFluent | empty replay-aid registrations add no effects; order/identity/regime/arm/contract/judgment mismatches yield no outcome fluent and a typed diagnostic | pass | none |
 | A20 pressure and target binding remain Prime | ADR-044; FPC-003/005 | both have independent identity, admission and history | AF12 admits pressure; AF13 admits target binding | later states reference exact rows | nominal refs and digests | promotion, cross-basis and duplicate-authority tests | pass | none |
 
 ## Proof Contract
@@ -1411,8 +1415,15 @@ T-272 integration and T-276 installed proof close.
    admission, and every continuation/F_H/ticket/reprice/terminal/no-action
    variant refuse intent creation before T-270.
 8. T-257 malformed, incomplete, contradictory, prose-wrapped, wrong-contract,
-   or unattributed F_P fixtures never enter accepted evidence. AF-16 cannot emit
-   close from any of them.
+   or unattributed F_P fixtures never enter accepted evidence. One subordinate
+   close mapper accepts only the nominally admitted success/refusal union and
+   deterministically derives the existing `c_call_result_admitted.outcomeStatus`,
+   `c_call_judged.judgment`, and nullable/non-null `reasonRef` relation. Native
+   type tests reject raw values at that boundary; production-mapper mutation
+   tests reject mismatched status, judgment, and refusal identity. AF-16 cannot
+   emit close from malformed output. Under the trusted-desktop boundary,
+   already-admitted runtime events remain facts; this proof does not add
+   hostile in-process forgery or tamper defense.
 9. AF-16 accepts only a complete same-intent admitted evidence set, emits one
    immutable ledger and closed decision, and rejects missing, duplicate,
    cross-intent, cross-binding, stale-policy, or single-row closure proposals.
@@ -1462,18 +1473,15 @@ T-272 integration and T-276 installed proof close.
 | end-to-end installed operator loop | requires public operation parity, T-270, T-272, schemas, manifests, and install proof | T-276 | DS-4 chain complete |
 | product-specific semantic policies | downstream product owns domain model/gap/selection/evaluation meaning | program/profile owners | admitted declarations bind exact generic function family |
 | arbitrary hostile local tamper defense | low-probability and outside trusted-desktop product boundary | not in 5.0 | explicit threat-model/product reprice |
-| relied-on semantic compiler gap | no missing authority may be treated as implemented | T-280 | exact typed gap is realized and fixture recompiles |
-| program-level application join | T-271 owns member C interiors, not the AF11-through-T262 topology | T-280 design/semantic compiler; T-270 and T-262 retain their slots | exact membership/composition/type/effect/return/recurse relation compiles as one Prime application |
-| AF-11/12/13/16 replay authority-result derivation | existing C-call and payload-ledger kinds lack empty replay-aid registration and the exact application-bound join required by EVENTS-021 | T-280 over existing Event Calculus, C-call, and payload-ledger families | exact success/refusal relation projects truth; all mismatch negatives fail; no new kind, field, or direct event effect |
-| AF-14 intent payload completeness | existing intent candidate/admitted/selected kinds retain their roles but still require exact AF-13/program/target/view/binding/invocation-authority relations | T-280 within existing construction family | exact payload relations admit and replay without read-model authority inversion |
 
 ## Design Verdict
 
-`accepted_for_bounded_t280_implementation`.
+`implemented_and_independently_reviewed_for_t280_closure`.
 
-The repaired design passed independent review at exact semantic candidate
-digest `de845b3c31f1d1255ab99ce07503078f7b890b09029ad3b847d3f1762051a81a`.
-It preserves
+The repaired design passed independent design review at exact semantic
+candidate digest
+`de845b3c31f1d1255ab99ce07503078f7b890b09029ad3b847d3f1762051a81a`,
+and its implementation passed independent authority-path review. It preserves
 the four ratified semantic authorities, derives one exact Prime program-level
 application relation without elevating T-271 into a controller, retains T-262
 recurse/foldback ownership, restores Prime pressure and target-binding rows,
@@ -1481,10 +1489,13 @@ binds definitions to closed program-visible host/composition/hook/policy truth,
 closes AF-14 over the existing action vocabulary, and derives each semantic
 member's success or typed refusal from the existing locus-only C-call and
 payload-ledger sequence through one total projection and application-bound
-`RuntimeDerivedFluentRule`. Construction events retain their current phases;
+`RuntimeDerivedFluentRule`. The implementation seals each result to its exact
+authority snapshot and input digest, proves all four effect-intent variants,
+and refuses every non-effect disposition before invocation. Construction
+events retain their current phases;
 `construction_evaluator_invoked` is not result authority. The earlier accepted
 candidate embedded semantic bindings in closed C-call event shapes and is
-therefore superseded for implementation. Bounded T-280 implementation may now
-resume against this accepted relation. Any `semantic_not_realized` result
-still forbids authority execution, and implementation closure remains subject
-to separate independent review.
+therefore superseded. Any `semantic_not_realized` result still forbids
+authority execution. AF-15 execution, F_H continuation, and installed public
+proof remain T-270, T-272, and T-276 work; T-280 makes no end-to-end public
+operator claim.

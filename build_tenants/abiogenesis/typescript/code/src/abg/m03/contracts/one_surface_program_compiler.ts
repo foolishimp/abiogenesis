@@ -268,6 +268,9 @@ function stageBasis(input: OneSurfaceStageAuthorityInput & {
     targetCarrierGraphVectorRef: input.targetCarrierContract.graphVectorRef,
     nativeResultSchema: input.nativeResultSchema,
     allowedConsequenceCatalogRef: input.allowedConsequenceCatalog.catalogRef,
+    allowedConsequenceCatalogDigest: stableSha256Digest(
+      input.allowedConsequenceCatalog
+    ),
     closureContractRef:
       input.traversalContracts.computeComposition.closureContractRef,
     traversalBundleRef: input.traversalContracts.bundleRef,
@@ -327,6 +330,10 @@ function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
   });
   const authorityDigest = stableSha256Digest(basis);
   return Object.freeze({
+    admittedProgramRef: programMembership.admittedProgramRef,
+    admittedProgramDigest: programMembership.admittedProgramDigest,
+    programMembershipRef: programMembership.programMembershipRef,
+    programMembershipDigest: programMembership.programMembershipDigest,
     [ONE_SURFACE_STAGE_AUTHORITY]: true as const,
     kind: "one_surface_stage_authority",
     functionKind: input.functionKind,
@@ -334,7 +341,6 @@ function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
       `abg://one-surface/stage/${input.functionKind}/` +
       authorityDigest.slice("sha256:".length),
     authorityDigest,
-    ...programMembership,
     stage: input.stage,
     plan: input.plan,
     resultAuthority: input.resultAuthority,
@@ -355,7 +361,12 @@ export function assertOneSurfaceStageAuthority(
 ): void {
   const expected = admitStage(
     authority,
-    authority,
+    {
+      admittedProgramRef: authority.admittedProgramRef,
+      admittedProgramDigest: authority.admittedProgramDigest,
+      programMembershipRef: authority.programMembershipRef,
+      programMembershipDigest: authority.programMembershipDigest
+    },
     authority.targetCarrierContract,
     authority.allowedConsequenceCatalog,
     authority.nativeResultSchema

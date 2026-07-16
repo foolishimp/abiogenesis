@@ -206,14 +206,14 @@ test("T-274A projector basis versions equal the locked toolchain", async () => {
   assert.deepEqual(CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS, {
     valibot: packageJson.dependencies.valibot,
     valibotJsonSchema:
-      packageJson.devDependencies["@valibot/to-json-schema"]
+      packageJson.dependencies["@valibot/to-json-schema"]
   });
   assert.equal(
     rootLock.dependencies.valibot,
     CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS.valibot
   );
   assert.equal(
-    rootLock.devDependencies["@valibot/to-json-schema"],
+    rootLock.dependencies["@valibot/to-json-schema"],
     CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS.valibotJsonSchema
   );
   assert.equal(

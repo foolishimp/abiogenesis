@@ -122,6 +122,21 @@ export type {
   OneSurfaceAuthorityResultDiagnosticId,
   OneSurfaceAuthorityResultProjection
 } from "./one_surface_result_projection.js";
+export {
+  admitEvalGapResult,
+  admitEvaluateActionResult,
+  admitOneSurfaceConstructionIntent,
+  admitSynthesizeModelResult,
+  assertOneSurfaceConstructionIntentAdmission,
+  oneSurfaceEvalGapInputBasis,
+  oneSurfaceEvaluateActionInputBasis,
+  oneSurfaceSynthesizeModelInputBasis
+} from "./one_surface_semantic_admission.js";
+export type {
+  OneSurfaceConstructionIntentAdmission,
+  OneSurfaceConstructionIntentRefusal,
+  OneSurfaceConstructionIntentResult
+} from "./one_surface_semantic_admission.js";
 export { resolveHofFanIn } from "./hof_fan_in_runtime.js";
 export type {
   HofFanInCompletedResolution,

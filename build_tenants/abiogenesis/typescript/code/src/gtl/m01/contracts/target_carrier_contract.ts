@@ -111,6 +111,7 @@ export interface TargetCarrierCandidateAdmitted {
   readonly contractRef: string;
   readonly contractDigest: string;
   readonly validationRef: string;
+  readonly decodedValue: unknown;
 }
 
 export interface TargetCarrierCandidateRejected {
@@ -546,7 +547,11 @@ export function validateTargetCarrierCandidate(input: {
     });
   }
 
-  if (valueAtPath(input.candidate, input.binding.nestedPayloadPath) === undefined) {
+  const decodedValue = valueAtPath(
+    input.candidate,
+    input.binding.nestedPayloadPath
+  );
+  if (decodedValue === undefined) {
     return rejectCandidate({
       binding: input.binding,
       payloadRef: input.payloadRef,
@@ -609,7 +614,8 @@ export function validateTargetCarrierCandidate(input: {
   return Object.freeze({
     ...candidateAdmissionBase(input),
     status: "admitted" as const,
-    validationRef: `target-carrier-validation:${input.binding.contractRef}:${input.binding.configDigest}:${input.payloadRef}`
+    validationRef: `target-carrier-validation:${input.binding.contractRef}:${input.binding.configDigest}:${input.payloadRef}`,
+    decodedValue
   });
 }
 

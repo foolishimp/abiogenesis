@@ -1068,7 +1068,7 @@ function currentAuthorityWitnessBasis(
   });
 }
 
-function assertAdmittedTraversalStageResultAuthority(
+export function assertAdmittedTraversalStageResultAuthority(
   authority: AdmittedTraversalStageResultAuthority
 ): void {
   const expectedDigest = stableSha256Digest(resultAuthorityBasis(authority));

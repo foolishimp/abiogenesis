@@ -311,11 +311,9 @@ const CONSTRUCTION_INTENT_ADMISSION_RULES: readonly ConstructionIntentAdmissionR
         action.publishedTraversalTargetRef === null
           ? "internal_vector_missing_published_traversal_authority"
           : null,
-        candidate.targetGraphFunctionRef !== null &&
         action.graphFunctionRef !== candidate.targetGraphFunctionRef
           ? "target_graph_function_contradicts_catalog"
           : null,
-        candidate.targetVectorRef !== null &&
         action.graphVectorRef !== candidate.targetVectorRef
           ? "target_vector_contradicts_catalog"
           : null,
@@ -368,7 +366,6 @@ const CONSTRUCTION_INTENT_ADMISSION_RULES: readonly ConstructionIntentAdmissionR
         binding.targetOutcomeRef !== candidate.selectedOutcomeRef
           ? "selected_binding_contradicts_outcome"
           : null,
-        binding.targetReentryRef !== null &&
         binding.targetReentryRef !== candidate.targetReentryRef
           ? "target_reentry_ref_contradicts_binding"
           : null,

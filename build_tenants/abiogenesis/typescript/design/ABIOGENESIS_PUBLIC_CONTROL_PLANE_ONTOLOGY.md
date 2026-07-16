@@ -24,7 +24,7 @@ authority.
 
 | Source | SHA-256 basis | Use |
 |---|---|---|
-| `specification/GOALS.md` | `b62b5f4a74b656017f2515d92b7d208ab4730d4c7a5d5abd1f8153f373058809` | current 5.0 goal, retained feature families, and corrected milestone sequence |
+| `specification/GOALS.md` | `5a0c8dac3a731443037a03cfe824896b98b881e5193f40ae00fdbf4b9fd7203a` | current 5.0 goal, retained feature families, and corrected milestone sequence |
 | `specification/INTENT.md` | `a24c6bcbe4605d8ef0444c063ce61a58d43632b2bcc42b4752e42935d93d9b9f` | operator and product direction |
 | `specification/PRODUCT.md` | `5baa698c8d398118649260ce350f3dc2bd2d33c60ef66078d4a2a0a927fb15f2` | GTL, ABG, recursive product taxonomy, installed-product, and public-operator truth |
 | `REQ-P-POLICY.md` | `89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` | operator grammar, control modes, descriptors, and discovered public behavior |

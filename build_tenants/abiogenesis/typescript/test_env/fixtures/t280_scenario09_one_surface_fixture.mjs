@@ -128,38 +128,116 @@ function stringArrayJson(values) {
   });
 }
 
-function allowedCallableTraversalEntry(graphFunctionRef) {
+function allowedTraversalRowsEntry(rows) {
   return Object.freeze({
     key: ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
     value: Object.freeze({
       kind: "json_blob",
       value: Object.freeze({
         kind: "array",
-        items: Object.freeze([Object.freeze({
+        items: Object.freeze(rows.map((row) => Object.freeze({
           kind: "object",
           entries: Object.freeze([
-            Object.freeze({ key: "traversalFamily", value: "public_start_reentry" }),
+            Object.freeze({ key: "rowRef", value: row.rowRef }),
+            Object.freeze({ key: "traversalFamily", value: row.traversalFamily }),
             Object.freeze({
               key: "allowedActionKinds",
-              value: stringArrayJson(["invoke_graph_function"])
+              value: stringArrayJson(row.allowedActionKinds)
             }),
-            Object.freeze({
-              key: "allowedGraphFunctionRefs",
-              value: stringArrayJson([graphFunctionRef])
-            }),
+            ...(row.allowedGraphFunctionRefs === undefined
+              ? []
+              : [Object.freeze({
+                  key: "allowedGraphFunctionRefs",
+                  value: stringArrayJson(row.allowedGraphFunctionRefs)
+                })]),
+            ...(row.allowedTraversalTargetRefs === undefined
+              ? []
+              : [Object.freeze({
+                  key: "allowedTraversalTargetRefs",
+                  value: stringArrayJson(row.allowedTraversalTargetRefs)
+                })]),
             Object.freeze({
               key: "requiredAuthorityRefs",
-              value: stringArrayJson(["authority://t280/scenario09/callable"])
+              value: stringArrayJson(row.requiredAuthorityRefs)
             }),
             Object.freeze({
               key: "proportionalityBasisRefs",
-              value: stringArrayJson(["proof://t280/scenario09/callable"])
+              value: stringArrayJson(row.proportionalityBasisRefs)
             })
           ])
-        })])
+        })))
       })
     })
   });
+}
+
+function allowedTraversalRows(graphFunctionRef, actionVariant = "callable") {
+  const common = (suffix, traversalFamily, allowedActionKinds) => ({
+    rowRef: `allowed-row://t280/scenario09/${suffix}`,
+    traversalFamily,
+    allowedActionKinds: Object.freeze(allowedActionKinds),
+    requiredAuthorityRefs: Object.freeze([
+      `authority://t280/scenario09/${suffix}`
+    ]),
+    proportionalityBasisRefs: Object.freeze([
+      `proof://t280/scenario09/${suffix}`
+    ])
+  });
+  switch (actionVariant) {
+    case "callable":
+      return Object.freeze([Object.freeze({
+        ...common("callable", "public_start_reentry", ["invoke_graph_function"]),
+        allowedGraphFunctionRefs: Object.freeze([graphFunctionRef])
+      })]);
+    case "internal":
+      return Object.freeze([Object.freeze({
+        ...common("internal", "graph_span_reentry", [
+          "invoke_prior_vector",
+          "invoke_later_vector"
+        ]),
+        allowedTraversalTargetRefs: Object.freeze([
+          "published-traversal-target://t280/scenario09/internal"
+        ])
+      })]);
+    case "reentry":
+      return Object.freeze([Object.freeze({
+        ...common("reentry", "graph_span_reentry", ["reenter_graph_span"]),
+        allowedGraphFunctionRefs: Object.freeze([graphFunctionRef]),
+        allowedTraversalTargetRefs: Object.freeze([
+          "graph-reentry-point://realization/0"
+        ])
+      })]);
+    case "repair":
+      return Object.freeze([Object.freeze({
+        ...common("repair", "same_edge_retry", ["repair_same_edge"]),
+        allowedGraphFunctionRefs: Object.freeze([graphFunctionRef])
+      })]);
+    case "continue":
+      return Object.freeze([Object.freeze({
+        ...common("continue", "public_start_reentry", ["continue_graph_call"]),
+        allowedGraphFunctionRefs: Object.freeze([graphFunctionRef])
+      })]);
+    case "fh":
+      return Object.freeze([Object.freeze(
+        common("fh", "fh_input_required", ["open_fh_gate"])
+      )]);
+    case "ticket":
+      return Object.freeze([Object.freeze(
+        common("ticket", "ticket_traversal", ["create_ticket"])
+      )]);
+    case "reprice":
+      return Object.freeze([Object.freeze(
+        common("reprice", "escalation_or_reprice", ["propose_reprice"])
+      )]);
+    case "terminal":
+      return Object.freeze([Object.freeze(common("terminal", "gap_stop", [
+        "yield_progress",
+        "close_episode",
+        "block_episode"
+      ]))]);
+    default:
+      throw new TypeError(`unsupported Scenario09 action variant ${JSON.stringify(actionVariant)}`);
+  }
 }
 
 function buildMember({
@@ -436,7 +514,10 @@ export function scenario09OneSurfaceProgramFixture(options = {}) {
       targetNode: nextAction,
       fibre: "F_D",
       vectorDeclarationEntries: Object.freeze([
-        allowedCallableTraversalEntry(callableLabFunction.finalHost.id)
+        allowedTraversalRowsEntry(allowedTraversalRows(
+          callableLabFunction.finalHost.id,
+          options.actionVariant
+        ))
       ])
     }),
     buildMember({ stageRole: "evaluate_action", sourceNode: nextAction, targetNode: decision, fibre: "F_D" })

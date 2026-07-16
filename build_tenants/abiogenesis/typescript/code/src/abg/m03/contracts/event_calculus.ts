@@ -56,6 +56,7 @@ export const RUNTIME_FLUENT_NAME_VALUES = Object.freeze([
   "construction_stalled",
   "construction_review_required",
   "construction_escalated",
+  "one_surface_authority_outcome",
   "fh_input_required",
   "ticket_created",
   "reprice_required",
@@ -1561,6 +1562,51 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
     kind: "event_calculus_axiom",
     eventKind: "construction_terminal_disposition_projected",
     deriveEffects: constructionTerminalDispositionProjectedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "c_call_opened",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "c_call_fibre_selected",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "authority_snapshot_admitted",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "payload_observed",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "payload_validated",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "evidence_admitted",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "c_call_evidenced",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "c_call_result_admitted",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "c_call_judged",
+    deriveEffects: constructionReplayAidAxiom
   })
 ] satisfies readonly RuntimeEventCalculusAxiom[]);
 

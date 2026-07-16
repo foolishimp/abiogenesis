@@ -535,6 +535,73 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
     }),
     "target_obligation_set_mismatch"
   );
+  const alteredStages = [...value.program.stages];
+  alteredStages[2] = Object.freeze({
+    ...alteredStages[2],
+    allowedConsequenceCatalog: Object.freeze({
+      ...alteredStages[2].allowedConsequenceCatalog,
+      rows: Object.freeze(alteredStages[2].allowedConsequenceCatalog.rows.map(
+        (row, index) => index === 0
+          ? Object.freeze({
+              ...row,
+              requiredAuthorityRefs: Object.freeze([
+                ...row.requiredAuthorityRefs,
+                "authority://t280/scenario09/altered-after-admission"
+              ])
+            })
+          : row
+      ))
+    })
+  });
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      application: Object.freeze({
+        ...value.program,
+        stages: Object.freeze(alteredStages)
+      }),
+      authorityResult: value.evaluateNextResult
+    }),
+    "evaluate_next_result_outside_admitted_program"
+  );
+});
+
+test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
+  const value = await chain;
+  const first = Object.freeze({
+    ...value.targetObligations[0],
+    obligationRefs: Object.freeze([
+      "obligation://t280/scenario09/z",
+      "obligation://t280/scenario09/a"
+    ]),
+    requiredEvidenceRefs: Object.freeze([
+      "evidence://t280/scenario09/z",
+      "evidence://t280/scenario09/a"
+    ])
+  });
+  const second = Object.freeze({
+    targetOutcomeRef: "outcome://t280/scenario09/second",
+    obligationRefs: Object.freeze(["obligation://t280/scenario09/second"]),
+    requiredEvidenceRefs: Object.freeze(["evidence://t280/scenario09/second"])
+  });
+  const forward = oneSurfaceEvaluateNextInputBasis({
+    ...value.evaluateNextInput,
+    targetObligations: Object.freeze([first, second])
+  });
+  const reversed = oneSurfaceEvaluateNextInputBasis({
+    ...value.evaluateNextInput,
+    targetObligations: Object.freeze([
+      second,
+      Object.freeze({
+        ...first,
+        obligationRefs: Object.freeze([...first.obligationRefs].reverse()),
+        requiredEvidenceRefs: Object.freeze(
+          [...first.requiredEvidenceRefs].reverse()
+        )
+      })
+    ])
+  });
+  assert.equal(forward.inputDigest, reversed.inputDigest);
 });
 
 test("T-280 AF-14 returns typed refusal for changed workspace and source-binding authority", async () => {

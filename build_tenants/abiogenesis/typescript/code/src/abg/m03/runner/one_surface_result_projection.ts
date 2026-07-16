@@ -1125,6 +1125,7 @@ export function projectOneSurfaceAuthorityResult<
     replayBindingRef: binding.bindingRef,
     replayBindingDigest: binding.bindingDigest,
     cCallRef: binding.cCallRef,
+    authoritySnapshotRef: binding.authoritySnapshotRef,
     inputDigest: binding.inputDigest,
     admittedOutput,
     targetCarrierValidationRef: candidate.validationRef,

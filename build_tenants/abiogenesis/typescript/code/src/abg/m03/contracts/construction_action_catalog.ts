@@ -254,13 +254,16 @@ function upstreamReentryTriageMatchesAction(input: {
   );
 }
 
-function targetReentryRefForTriage(
+function targetReentryRefForBinding(
+  action: ConstructionActionRow,
   triage: ConstructionRepairSurfaceTriageRow | null
 ): string | null {
-  if (triage?.repairSurfaceDisposition !== "upstream_reentry") {
-    return null;
+  if (triage?.repairSurfaceDisposition === "upstream_reentry") {
+    return `graph-reentry-point://${triage.graphReentryPoint}/${triage.reentryTargetVectorIndex}`;
   }
-  return `graph-reentry-point://${triage.graphReentryPoint}/${triage.reentryTargetVectorIndex}`;
+  return action.actionKind === "reenter_graph_span"
+    ? action.publishedTraversalTargetRef
+    : null;
 }
 
 export function deriveObservationToActionBindingProjection(input: {
@@ -328,7 +331,10 @@ export function deriveObservationToActionBindingProjection(input: {
         continue;
       }
       const missingInputRefs = action.inputAssetRefs.filter((ref) => !available.has(ref));
-      const targetReentryRef = targetReentryRefForTriage(repairSurfaceTriage);
+      const targetReentryRef = targetReentryRefForBinding(
+        action,
+        repairSurfaceTriage
+      );
       const ineligibleReasonRefs = [
         ...action.ineligibleReasonRefs,
         ...missingInputRefs.map((ref) => `missing_input:${ref}`)
