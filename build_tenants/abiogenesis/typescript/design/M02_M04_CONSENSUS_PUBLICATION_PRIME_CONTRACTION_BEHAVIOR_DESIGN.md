@@ -1,6 +1,6 @@
 # M02-M04 Consensus Publication Prime Contraction Behavior Design
 
-**Status**: Accepted - reconciled to ratified Ontology for bounded implementation
+**Status**: Accepted - T-274A waits for T-281 Phase A closure; T-274B remains gated
 
 **Date**: 2026-07-15
 
@@ -16,33 +16,41 @@
 
 ## Boundary
 
-This design governs publication of the nine required Consensus schema
-identities, two closed vocabularies, the admitted T-252 Module, one SYSTEM-owned
-GraphFunction contribution declaration, and its separate AF-08 admission into
-the installed `Catalog`. It does not execute Consensus, admit domain results,
-project a ticket result, publish capability coverage, or introduce a second
-GraphFunction body.
+This design governs two separately gated parts of T-274. T-274A projects the
+nine required Consensus schema identities and two closed vocabularies from the
+existing native family through the private native projector accepted under
+T-281 Phase A. T-274B later publishes those verified assets, the admitted T-252
+Module, one SYSTEM-owned GraphFunction contribution declaration, and its
+separate AF-08 admission into the installed `Catalog`. Neither phase executes
+Consensus, admits domain results, projects a ticket result, publishes
+capability coverage, or introduces a second GraphFunction body.
 
 One native `ConsensusContractFamily` owns field and value-domain meaning. Nine
 closed schema projections and two vocabularies derive from it. Public identity
 remains plural because consumers locate and admit each contract independently;
 authorship remains singular.
 
-The schema asset is one JSON Schema document containing nine closed,
-independently addressable `$defs`. Every public catalog row retains its own
-contract ID, version, native symbol, schema resource ID, projection digest, and
-authority refs. The shared asset path and whole-asset digest are subordinate
-publication facts. A locator must name both the shared asset and the embedded
-resource identity; path alone is insufficient.
+The schema projector emits nine closed physical JSON Schema assets from that
+single native family. This matches the existing file-level public locator and
+verifier without adding an embedded-resource resolver. Every later public
+catalog row retains its own contract ID, version, native symbol, schema resource
+ID, asset digest, and authority refs. Physical-file identity and bytes remain
+subordinate publication facts; no generated asset becomes an authoring source.
 
-The contribution declaration derives from the admitted T-252 Module and its
+T-274A stops after deterministic schema/vocabulary generation, native parity,
+cross-projection negatives, and exact byte/digest reproduction. It exports no
+product contract, writes proof output only to a temporary directory, and makes
+no packed, installed, Module, callable, catalog, or runtime claim.
+
+T-274B starts only after the accepted T-281 P1 and T-270 inputs exist. The
+contribution declaration derives from the admitted T-252 Module and its
 exact outer GraphFunction. AF-24 publishes that declaration through the
 `ContributionManifest`; AF-08 separately admits it into the installed
 `Catalog`. The `PublicContractCatalog` contains only public contract/function
 definition truth. `ABG_CONSENSUS_MODULE_DECLARATIONS` is retired as a maintained
 Consensus source. Generic Review declarations remain independent.
 
-The Module and GraphFunction remain GTL declarations. Neither is a
+In T-274B, the Module and GraphFunction remain GTL declarations. Neither is a
 `GtlProgram`, public invocation, selected action, `ConstructionIntent`, or
 runtime authority. The callable row is eligible for invocation only when the
 separately admitted program named by `abg.operation.run.invoke` contains the
@@ -63,7 +71,7 @@ semantic model.
 | `ConsensusPublicContractRow` | addressable `PublicContractCatalog` row | AF-24 derives it from the family; changed definition versions the row; prior rows remain historical contract evidence |
 | `ConsensusGraphFunctionContribution` | addressable `ContributionManifest` declaration | AF-24 derives it from the exact Module and GraphFunction; immutable per digest; carries no program or selection authority |
 | `AdmittedConsensusCatalogRow` | existing admitted `Catalog` projection | AF-08 admits the exact contribution under a workspace binding; catalog admission does not prove program membership |
-| `ConsensusSchemaAsset` | subordinate generated packaging | one file packages nine definitions; changed bytes create a new digest and never a new domain author |
+| `ConsensusSchemaAsset` | subordinate generated packaging | one generated file per public schema projection; changed bytes create a new digest and never a new domain author |
 | `GtlProgram`, `PublicInvocation<run.invoke>`, `ConstructionIntent` | referenced execution carriers | outside T-274 ownership; T-270/ABG admit and interpret them |
 
 ### Lifecycle Completeness
@@ -74,13 +82,13 @@ semantic model.
 | `ConsensusPublicContractRow` | `AF-24` derives nine rows and two vocabulary rows | `AF-03 project(publicContractCatalog, rows)` | changed definition creates a new row version/digest and current projection | prior rows remain historical evidence; no public retirement operation |
 | `ConsensusGraphFunctionContribution` | `AF-24` derives one contribution manifest row from exact admitted Module/GraphFunction | `AF-03 project(contributionManifest, declarations)` | changed Module/body/function creates a new contribution version/digest | prior contribution truth remains history; no compatibility alias |
 | `AdmittedConsensusCatalogRow` | `AF-08` admits the exact contribution under one binding | `AF-03 project(catalog, callable)` | a new admitted contribution creates new catalog/current-view truth | prior catalog truth remains replay evidence; Catalog has no retirement operation |
-| `ConsensusSchemaAsset` | deterministic schema projector emits one asset | public catalog locator plus embedded resource ID | changed family regenerates bytes/digest | historical asset remains publication evidence |
+| `ConsensusSchemaAsset` | deterministic schema projector emits nine assets | later public catalog locator names the exact resource file | changed family regenerates bytes/digest | historical asset remains publication evidence |
 
 ### Authority And Function Derivation
 
 | Function | Proposer | Verifier/admitter | Executor | Projector/retirement owner | Ontology disposition |
 |---|---|---|---|---|---|
-| project nine schemas and two vocabularies | product build authority | native/schema parity and closed-resource verifier; product contract admission | deterministic schema projector | `AF-24` product contract publisher | subordinate projection of one family; no new atom |
+| project nine schemas and two vocabularies | product build authority | T-274A native/schema parity and closed-resource verifier; later product contract admission | accepted strict native projector | T-274A owns private projection; `AF-24` owns later publication | subordinate projection of one family; no new atom |
 | publish Consensus contribution | product build authority citing the admitted Module | Module/body/function/digest/SYSTEM-owner verifier | deterministic publication generator | `AF-24` publishes the `ContributionManifest` | contribution declaration; no program, catalog-admission, or invocation authority |
 | admit Consensus catalog row | exact workspace binding plus contribution manifest | AF-08 contribution and binding verifier | ABG catalog admission | admitted `Catalog` and its current views | existing catalog authority; does not prove GtlProgram membership |
 | read catalog/result/replay truth | admitted public caller | `PublicFunctionDefinition<project.read>` admission | `AF-03` projection | owning catalog/ABG projector | referenced public operation; T-274 does not execute it |
@@ -99,8 +107,8 @@ row, a schema locator, or an adapter.
 - `ConsensusGraphFunctionContribution`: one SYSTEM-owned contribution declaration
 - existing admitted `Catalog`: AF-08 admission authority, not another authoring source
 
-Subordinate values are schema `$defs`, vocabulary assets, shared asset bytes,
-asset digests, projection digests, locators, generated files, and installed
+Subordinate values are vocabulary assets, schema asset bytes, asset digests,
+projection digests, locators, generated files, and installed
 inventory rows.
 
 ## Prime Contraction Review
@@ -143,7 +151,7 @@ inventory rows.
     {
       "candidate": "ConsensusPublicContractRow",
       "verdict": "promote",
-      "reason": "Each row is independently versioned, located, admitted, and consumed even though its shape is derived."
+      "reason": "Each later public row is independently versioned, located, admitted, and consumed even though its shape is derived."
     },
     {
       "candidate": "ConsensusGraphFunctionContribution",
@@ -153,7 +161,7 @@ inventory rows.
     {
       "candidate": "ConsensusSchemaAsset",
       "verdict": "remain_subordinate",
-      "reason": "The file packages derived resources and owns no domain or callable meaning."
+      "reason": "Each generated file packages one derived resource and owns no domain or callable meaning."
     }
   ],
   "recurrenceReview": {
@@ -174,8 +182,8 @@ inventory rows.
 ```
 
 The authority count preserves nine schema rows, two vocabulary rows, and one
-callable row while retiring the rival callable declaration and treating the
-shared schema asset as packaging rather than authority. The authoring count contracts the eleven
+callable row while retiring the rival callable declaration and treating all
+generated schema assets as packaging rather than authority. The authoring count contracts the eleven
 potential schema/vocabulary authors plus two callable declarations to one
 contract family plus one admitted Module.
 
@@ -189,6 +197,11 @@ classDiagram
     +nine closed variants
     +two native enum rosters
   }
+  class NativeSchemaProjector {
+    <<T281 Phase A mechanism>>
+    +seven closed mappings
+    +no extension registry
+  }
   class ConsensusSchemaProjection {
     <<prime public identity>>
     +contractId
@@ -200,7 +213,7 @@ classDiagram
     <<subordinate packaging>>
     +relativePath
     +assetDigest
-    +nine defs
+    +one exact resource
   }
   class ConsensusVocabularyProjection {
     <<prime public identity>>
@@ -248,9 +261,10 @@ classDiagram
     <<retired duplicate>>
   }
 
-  ConsensusContractFamily --> ConsensusSchemaProjection : derives nine
+  ConsensusContractFamily --> NativeSchemaProjector : one authoring input
+  NativeSchemaProjector --> ConsensusSchemaProjection : derives nine
   ConsensusContractFamily --> ConsensusVocabularyProjection : derives two
-  ConsensusSchemaProjection --> ConsensusSchemaAsset : packaged in
+  ConsensusSchemaProjection --> ConsensusSchemaAsset : emits exact file
   CanonicalModule *-- ConsensusGraphFunction : owns declaration
   ConsensusGraphFunction --> ContributionManifest : AF24 publishes
   ContributionManifest --> AdmittedCatalog : AF08 admits under binding
@@ -266,7 +280,8 @@ classDiagram
 ```mermaid
 sequenceDiagram
   participant Family as Consensus Contract Family
-  participant Generator as Schema Projector
+  participant Generator as T281 Native Schema Projector
+  participant AVerifier as T274A Schema Verifier
   participant Publisher as AF24 Product Contract Publisher
   participant Module as Admitted T-252 Module
   participant Contracts as Public Contract Catalog
@@ -275,31 +290,47 @@ sequenceDiagram
   participant Verifier as Installed Verifier
   participant Runtime as T-270 and ABG
 
-  Family->>Generator: derive nine closed resource schemas and two vocabularies
-  Generator-->>Publisher: one asset plus per-resource digests
+  rect rgb(245, 248, 250)
+    Note over Family,AVerifier: T274A private schema projection
+    Family->>Generator: derive nine closed resource schemas
+    Family->>Generator: derive two vocabularies from native enums
+    Generator-->>AVerifier: nine temp files plus two temp vocabulary files
+    AVerifier->>AVerifier: native parity closed substitution and reproducible bytes
+    alt malformed unsupported or divergent projection
+      AVerifier-->>Family: typed build failure and no public output
+    else exact private projection set
+      AVerifier-->>Publisher: verified projection identities bytes and digests
+    end
+  end
+  rect rgb(250, 248, 245)
+    Note over Publisher,Runtime: T274B later public and installed publication
   Publisher->>Contracts: publish nine schema rows and two vocabulary rows
   Module->>Publisher: exact GraphFunction declaration and body digest
   Publisher->>Contributions: publish one SYSTEM-owned GraphFunction contribution
-  Contracts->>Verifier: locate asset path plus embedded resource identity
+  Contracts->>Verifier: locate exact resource file identity and digest
   Contributions->>Verifier: verify Module function owner and body digests
   Verifier->>Verifier: verify asset digest projection digest native parity and Module round-trip
   Contributions->>Catalog: AF08 admit exact contribution under workspace binding
   Catalog-->>Runtime: declaration row available to project.read and run.invoke admission
   Runtime->>Runtime: require separately admitted GtlProgram binding exact GraphFunction before selection or intent
+  end
 ```
 
 ## State View
 
 ```mermaid
 stateDiagram-v2
-  [*] --> FamilyAuthored: T274 admits one closed native family
+  [*] --> FamilyAuthored: T277 supplied one closed native family
   FamilyAuthored --> Rejected: F_D finds open fields or duplicate native roster
-  FamilyAuthored --> Projected: schema projector derives nine resources and two vocabularies
+  FamilyAuthored --> Projected: T281 projector derives nine files and two vocabularies
   Projected --> Rejected: F_D finds duplicate resource ID or cross-projection acceptance
-  Projected --> Packaged: publisher emits one schema asset and two vocabulary assets
-  Packaged --> Rejected: F_D finds stale asset or projection digest
-  Packaged --> ContractsPublished: AF24 derives public contract catalog rows
-  ContractsPublished --> Rejected: F_D cannot resolve embedded resource identity
+  Projected --> SchemaVerified: T274A proves native parity bytes and digests
+  SchemaVerified --> Rejected: F_D finds stale asset or projection digest
+  SchemaVerified --> T274AComplete: temp-only schema checkpoint
+  T274AComplete --> AwaitingPublicationInputs: no public or installed claim
+  AwaitingPublicationInputs --> Rejected: T281 P1 or T270 input diverges
+  AwaitingPublicationInputs --> ContractsPublished: AF24 derives rows after prerequisites
+  ContractsPublished --> Rejected: F_D cannot resolve exact resource file identity
   ContractsPublished --> ContributionPublished: AF24 derives contribution from Module and GraphFunction
   ContributionPublished --> Rejected: F_D finds owner handle body source or target mismatch
   ContributionPublished --> CatalogAdmitted: AF08 admits exact contribution under binding
@@ -311,8 +342,9 @@ stateDiagram-v2
   Rejected --> [*]
 ```
 
-Transition ownership is explicit: T-274 owns native family publication,
-AF-24 public-contract and contribution-manifest projection, and AF-08 admission
+Transition ownership is explicit: T-274A owns only private schema and
+vocabulary projection plus exact verification. T-274B owns AF-24
+public-contract and contribution-manifest projection, and AF-08 admission
 of the contribution into the existing `Catalog`; the existing schema generator
 owns deterministic schema projection; M02 owns Module and GraphFunction
 declaration admission; installer and verification surfaces own the installed
@@ -323,25 +355,36 @@ action selection, `ConstructionIntent`, and traversal.
 
 | Axiom | Ontology/domain evidence | Sequence evidence | State evidence | Native/admission enforcement | Verdict |
 |---|---|---|---|---|---|
-| one Consensus contract author | one `ConsensusContractFamily`; schemas/assets subordinate | one projector derives all resources | duplicate roster or open field rejects before projection | closed native variants and one generator basis | pass |
+| one Consensus contract author | one `ConsensusContractFamily`; schemas/assets subordinate | one accepted projector derives all resources | duplicate roster or open field rejects before projection | closed native variants and one generator basis | pass |
 | Module and GraphFunction are not the program | Module owns GraphFunction; GtlProgram separately binds it; catalog row only projects contribution admission | runtime must receive a separately admitted program and prove membership | authority claim on the catalog row enters `Rejected` | T-270/ABG program-membership admission; T-274 cannot construct it | pass |
 | public-contract and contribution catalogs remain distinct | AF-24 contract rows and contribution manifest feed separate carriers; AF-08 alone admits Catalog | sequence publishes then admits through separate participants | ContractsPublished and CatalogAdmitted are separate states | distinct native manifests and admission APIs | pass |
 | publication does not select or invoke | callable row is declaration/publication truth only | publication ends before T-270 selection, intent, and traversal | `PublicationOnly` precedes installation; no running state exists | no runtime handler or operation is owned here | pass |
 | one current public operation truth | `run.invoke` and `project.read` are referenced accepted definitions | downstream consumes only those definitions | legacy or feature-specific operation claim rejects | hard-break catalog/public-definition parity | pass |
-| nine identities do not create nine authors | nine projections share one asset/family while retaining addressability | generator emits per-resource digests from one input | cross-projection substitution rejects | native/schema parity plus embedded resource admission | pass |
+| nine identities do not create nine authors | nine physical projections share one family while retaining addressability | generator emits per-resource files and digests from one input | cross-projection substitution rejects | native/schema parity plus exact file-locator admission | pass |
 
 ## Migration
 
-1. Establish the closed native `ConsensusContractFamily` and its enum rosters.
-2. Move T-252 native witnesses onto the same family before removing the open
-   carrier decoder.
+### T-274A
+
+1. Consume the completed T-281 Phase A projector; do not author another
+   projector, transform registry, schema DSL, or converter exception.
+2. Project the existing closed `ConsensusContractFamily` into nine exact
+   physical schema assets.
+3. Derive both vocabularies from the existing native enum rosters.
+4. Prove closed native/schema parity, cross-projection refusal, exact resource
+   IDs, and byte/digest reproducibility from a clean tree.
+5. Stop with temp-only verified bytes. Publish or commit no schema asset, row,
+   Module, contribution, catalog, install, operation, or capability claim.
+
+### T-274B
+
+1. Require accepted T-281 P1 definition truth and closed T-270 catalog
+   invocation authority before public publication.
+2. Publish per-resource rows with separate projection and asset digests.
 3. Derive the Consensus callable declaration from the admitted Module and
    outer GraphFunction; migrate all probe and test consumers.
 4. Remove the maintained `ABG_CONSENSUS_MODULE_DECLARATIONS` source.
-5. Add one schema-family projector and one shared asset with nine resources.
-6. Publish per-resource rows with separate projection and asset digests.
-7. Derive both vocabularies from the native rosters.
-8. Regenerate publication artifacts and prove installed source isolation.
+5. Regenerate publication artifacts and prove installed source isolation.
 
 ## Negative Proof
 
@@ -350,16 +393,19 @@ action selection, `ConstructionIntent`, and traversal.
 - final result cannot admit as ticket projection
 - any other public cross-projection substitution fails
 - an unknown field or enum value fails native and serialized admission
-- an embedded resource locator with the correct path but wrong resource ID fails
-- a correct resource with a stale projection or asset digest fails
+- a locator with the correct directory but wrong resource file or ID fails
+- a correct resource with a stale schema or asset digest fails
 - removing or mutating the canonical Module prevents callable publication
 - the retired declaration cannot reconstruct the callable
 - installed publication resolves without importing source files
 
 ## Stop Conditions
 
-- stop if the shared schema document becomes a permissive optional-field union
-- stop if path identity substitutes for embedded resource identity
+- stop if nine generated files become nine authored models or drift from the
+  one native family
+- stop if T-274 authors a projector, converter exception, or schema DSL beside
+  the accepted T-281 Phase A mechanism
+- stop if path identity substitutes for exact resource identity and digest
 - stop if a generated file or row becomes a second domain author
 - stop if callable publication can succeed without the exact admitted Module
 - stop if the Module, GraphFunction, or callable row is treated as the admitted
@@ -369,6 +415,26 @@ action selection, `ConstructionIntent`, and traversal.
 - stop if catalog/result/replay observation bypasses
   `abg.operation.project.read`
 - stop if Review declarations are removed merely because they share a file
-- stop and reprice if the existing locator contract cannot distinguish shared
-  asset digest from embedded projection identity without a public-contract
-  migration
+- stop if T-274A publishes or installs anything before T-274B prerequisites
+  close
+- stop if a T-274A proof asset appears in `npm pack --dry-run`
+
+## Phase-Split Verdict
+
+`accepted_phase_split_t274a_dependency_gated`.
+
+The earlier accepted design correctly preserved one Consensus authoring family
+and the separate contract, contribution, and catalog authorities, but it
+assumed one physical schema document with embedded addressable definitions.
+The current locator and verifier are file-level. Extending them solely to keep
+one physical file would add a new resolver and more failure surface without
+reducing authoring truth. This repair therefore keeps one native family and
+one projector while emitting nine generated physical schema assets. T-274A
+proves those private projections early; T-274B retains all public and installed
+publication. No product identity, semantic authority, or public operation
+changes.
+
+Independent review accepted the exact semantic candidate digest
+`a370f6c894e08f966714d5b5541c9e02091b19be6768d5f4383773287cbc600e`.
+T-274A implementation may begin only after T-281 Phase A implementation closes;
+T-274B remains fenced behind T-281 P1 and T-270.
