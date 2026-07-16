@@ -62,6 +62,8 @@ export const safePositiveIntegerSchema = sharedSafePositiveIntegerSchema;
 export const canonicalIJsonSchema = sharedCanonicalIJsonSchema;
 
 const NATIVE_SYMBOL_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/u;
+const PRIVATE_MODULE_PATH_PATTERN =
+  /^code\/src\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+\.js$/u;
 
 /** @internal */
 export const PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES = Object.freeze({
@@ -352,7 +354,8 @@ const nativeExportNameSchema = v.pipe(
 
 const privateSourceModuleLocatorSchema = v.strictObject({
   kind: v.literal("private_source_module"),
-  moduleSpecifier: refTextSchema,
+  sourceRoot: v.literal("semantic_build"),
+  modulePath: v.pipe(v.string(), v.regex(PRIVATE_MODULE_PATH_PATTERN)),
   exportName: nativeExportNameSchema,
   memberPath: v.array(nativeExportNameSchema)
 });

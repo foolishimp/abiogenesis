@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "../../code/src/node_shims.d.ts",
+    "./t270_t272_neutral_owner_contract_types.ts"
+  ]
+}

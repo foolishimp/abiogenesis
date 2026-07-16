@@ -132,6 +132,7 @@
     "test:t252": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t252_consensus_gtl_body.test.mjs && node test_env/tools/t252_consensus_probe.mjs --check",
     "test:t263": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t263_strict_raw_module_admission.test.mjs test_env/tests/test_t252_consensus_gtl_body.test.mjs",
     "test:t264": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t264_proportional_conformance_inventory.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs",
+    "test:t270-t272:contracts": "npm run build:host && tsc -p test_env/type_tests/tsconfig.t270-t272-neutral.json && node --test --test-concurrency=1 test_env/tests/test_t270_t272_neutral_owner_contracts.test.mjs",
     "test:t281:phase-a": "npm run build:host && tsc -p test_env/type_tests/tsconfig.t281.json && node --test --test-concurrency=1 test_env/tests/test_t281_native_contract_phase_a.test.mjs",
     "test:t253": "npm run build:semantic && node --test test_env/tests/test_m01_gtl_core_integration.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
     "test:t254": "npm run build:semantic && node --test test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs",

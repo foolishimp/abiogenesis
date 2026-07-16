@@ -52,24 +52,32 @@ function contractIdentity(kind) {
     schemaVersion: "5.0.0",
     nativeLocator: {
       kind: "private_source_module",
-      moduleSpecifier: "./native_contract_phase_a.js",
+      sourceRoot: "semantic_build",
+      modulePath:
+        "code/src/app/m04/public_contracts/native_contract_phase_a.js",
       exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
       memberPath: ["workspace_create_clean", kind]
     }
   };
 }
 
-function resolveFixtureLocator(definition) {
+async function resolveFixtureLocator(definition) {
   const locator = definition.schemaCoordinate.nativeLocator;
   assert.equal(locator.kind, "private_source_module");
-  assert.equal(locator.moduleSpecifier, "./native_contract_phase_a.js");
+  assert.equal(locator.sourceRoot, "semantic_build");
+  assert.equal(
+    locator.modulePath,
+    "code/src/app/m04/public_contracts/native_contract_phase_a.js"
+  );
   assert.equal(
     locator.exportName,
     "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
   );
+  const sourceRoot = new URL("../../build/semantic/", import.meta.url);
+  const sourceModule = await import(new URL(locator.modulePath, sourceRoot).href);
   return locator.memberPath.reduce(
     (value, member) => Reflect.get(value, member),
-    PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES
+    Reflect.get(sourceModule, locator.exportName)
   );
 }
 
@@ -293,12 +301,12 @@ test("T-281 Phase A maps exactly the seven admitted native actions", () => {
   );
 });
 
-test("T-281 Phase A derives admission, canonical schema bytes, and digest from one schema", () => {
+test("T-281 Phase A derives admission, canonical schema bytes, and digest from one schema", async () => {
   const definition = defineNativeContract({
     identity: contractIdentity("request"),
     schema: requestSchema
   });
-  assert.equal(resolveFixtureLocator(definition), definition.schema);
+  assert.equal(await resolveFixtureLocator(definition), definition.schema);
   assert.equal(
     definition.nativeSymbol,
     "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES"
@@ -316,6 +324,24 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
     }),
     /Invalid key/u
   );
+  for (const modulePath of [
+    "../native_contract_phase_a.js",
+    "/tmp/native_contract_phase_a.js"
+  ]) {
+    assert.throws(
+      () => defineNativeContract({
+        identity: {
+          ...contractIdentity("request"),
+          nativeLocator: {
+            ...contractIdentity("request").nativeLocator,
+            modulePath
+          }
+        },
+        schema: requestSchema
+      }),
+      /format/u
+    );
+  }
   const admitted = admitNative(requestSchema, {
     targetRoot: "/tmp/abg-native",
     createPolicy: "clean"

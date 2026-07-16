@@ -62,7 +62,9 @@ export interface OneSurfaceNeutralContractIdentity {
 
 export interface OneSurfaceOwnerSourceLocator {
   readonly kind: "private_source_module";
-  readonly moduleSpecifier: "./one_surface_operation_contracts.js";
+  readonly sourceRoot: "semantic_build";
+  readonly modulePath:
+    "code/src/abg/m03/contracts/one_surface_operation_contracts.js";
   readonly exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES";
   readonly memberPath: readonly [
     OneSurfaceOwnerContractFamilyKey,
@@ -162,7 +164,9 @@ function nativeSource<
     }),
     sourceLocator: Object.freeze({
       kind: "private_source_module",
-      moduleSpecifier: "./one_surface_operation_contracts.js",
+      sourceRoot: "semantic_build",
+      modulePath:
+        "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
       exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES",
       memberPath: Object.freeze([
         familyKeyForOperation(input.operationId),
@@ -201,10 +205,14 @@ const runInvokeInvokeRequestSchema = v.strictObject({
   allowlist: refListSchema
 });
 
-function runInvokeStartRequestSchema(input: {
-  readonly until: NativeSchema;
-  readonly fhMode: NativeSchema;
-  readonly rootMode: NativeSchema;
+function runInvokeStartRequestSchema<
+  const Until extends NativeSchema,
+  const FhMode extends NativeSchema,
+  const RootMode extends NativeSchema
+>(input: {
+  readonly until: Until;
+  readonly fhMode: FhMode;
+  readonly rootMode: RootMode;
 }) {
   return v.strictObject({
     kind: v.literal("run_invoke_request"),
@@ -237,53 +245,78 @@ const runInvokeStartRequest = v.union([
 
 function runInvokePostEffectResultSchema<
   const Variant extends "invoke" | "start",
-  const Disposition extends "completed" | "blocked" | "runtime_failed"
->(variant: Variant, disposition: Disposition) {
+  const Disposition extends "completed" | "blocked" | "runtime_failed",
+  const ResultRef extends NativeSchema,
+  const StopRef extends NativeSchema,
+  const FailureRef extends NativeSchema
+>(variant: Variant, input: {
+  readonly disposition: Disposition;
+  readonly resultRef: ResultRef;
+  readonly stopRef: StopRef;
+  readonly failureRef: FailureRef;
+}) {
   return v.strictObject({
     kind: v.literal("run_invoke_result"),
     variant: v.literal(variant),
-    disposition: v.literal(disposition),
+    disposition: v.literal(input.disposition),
     phase: v.literal("post_effect"),
     runRef: refSchema,
     graphCallRef: refSchema,
-    resultRef: disposition === "completed" ? refSchema : v.null(),
-    stopRef: disposition === "blocked" ? refSchema : v.null(),
-    failureRef: disposition === "runtime_failed" ? refSchema : v.null(),
+    resultRef: input.resultRef,
+    stopRef: input.stopRef,
+    failureRef: input.failureRef,
     evidenceRefs: refListSchema,
     replayRef: refSchema
   });
 }
 
-function runInvokeResultSchema<const Variant extends "invoke" | "start">(
+function runInvokePostEffectResultSchemas<
+  const Variant extends "invoke" | "start"
+>(
   variant: Variant
 ) {
-  const common = {
+  return [
+    runInvokePostEffectResultSchema(variant, {
+      disposition: "completed",
+      resultRef: refSchema,
+      stopRef: v.null(),
+      failureRef: v.null()
+    }),
+    runInvokePostEffectResultSchema(variant, {
+      disposition: "blocked",
+      resultRef: v.null(),
+      stopRef: refSchema,
+      failureRef: v.null()
+    }),
+    runInvokePostEffectResultSchema(variant, {
+      disposition: "runtime_failed",
+      resultRef: v.null(),
+      stopRef: v.null(),
+      failureRef: refSchema
+    })
+  ] as const;
+}
+
+const runInvokeInvokeResult = v.union(
+  runInvokePostEffectResultSchemas("invoke")
+);
+
+const runInvokeStartResult = v.union([
+  ...runInvokePostEffectResultSchemas("start"),
+  v.strictObject({
     kind: v.literal("run_invoke_result"),
-    variant: v.literal(variant),
+    variant: v.literal("start"),
+    disposition: v.literal("blocked"),
+    phase: v.literal("pre_invocation_stop"),
     runRef: refSchema,
+    graphCallRef: v.null(),
+    resultRef: v.null(),
+    stopRef: refSchema,
+    failureRef: v.null(),
     evidenceRefs: refListSchema,
     replayRef: refSchema
-  } as const;
-  const postEffect = [
-    runInvokePostEffectResultSchema(variant, "completed"),
-    runInvokePostEffectResultSchema(variant, "blocked"),
-    runInvokePostEffectResultSchema(variant, "runtime_failed")
-  ] as const;
-  return variant === "start"
-    ? v.union([
-        ...postEffect,
-        v.strictObject({
-          ...common,
-          disposition: v.literal("blocked"),
-          phase: v.literal("pre_invocation_stop"),
-          graphCallRef: v.null(),
-          resultRef: v.null(),
-          stopRef: refSchema,
-          failureRef: v.null()
-        })
-      ])
-    : v.union(postEffect);
-}
+  })
+]);
 
 const RUN_INVOKE_INVOKE_REFUSAL_CODES = Object.freeze([
   "program_invalid",
@@ -395,53 +428,93 @@ const runContinueSelectedActionRequestSchema = v.strictObject({
   basisRelation: basisRelationSchema
 });
 
-function runContinueCurrentIntentResultSchema(
-  disposition: "completed" | "blocked" | "runtime_failed"
-) {
+function runContinueCurrentIntentResultSchema<
+  const Disposition extends "completed" | "blocked" | "runtime_failed",
+  const SuccessorReceiptRef extends NativeSchema,
+  const StopRef extends NativeSchema,
+  const FailureRef extends NativeSchema
+>(input: {
+  readonly disposition: Disposition;
+  readonly successorReceiptRef: SuccessorReceiptRef;
+  readonly stopRef: StopRef;
+  readonly failureRef: FailureRef;
+}) {
   return v.strictObject({
     kind: v.literal("run_continue_result"),
     variant: v.literal("current_intent"),
-    disposition: v.literal(disposition),
+    disposition: v.literal(input.disposition),
     phase: v.literal("post_effect"),
     runRef: refSchema,
     currentIntentRef: refSchema,
-    successorReceiptRef:
-      disposition === "runtime_failed" ? v.null() : refSchema,
-    stopRef: disposition === "blocked" ? refSchema : v.null(),
-    failureRef: disposition === "runtime_failed" ? refSchema : v.null(),
+    successorReceiptRef: input.successorReceiptRef,
+    stopRef: input.stopRef,
+    failureRef: input.failureRef,
     evidenceRefs: refListSchema,
     replayRef: refSchema
   });
 }
 
 const runContinueCurrentIntentResult = v.union([
-  runContinueCurrentIntentResultSchema("completed"),
-  runContinueCurrentIntentResultSchema("blocked"),
-  runContinueCurrentIntentResultSchema("runtime_failed")
+  runContinueCurrentIntentResultSchema({
+    disposition: "completed",
+    successorReceiptRef: refSchema,
+    stopRef: v.null(),
+    failureRef: v.null()
+  }),
+  runContinueCurrentIntentResultSchema({
+    disposition: "blocked",
+    successorReceiptRef: refSchema,
+    stopRef: refSchema,
+    failureRef: v.null()
+  }),
+  runContinueCurrentIntentResultSchema({
+    disposition: "runtime_failed",
+    successorReceiptRef: v.null(),
+    stopRef: v.null(),
+    failureRef: refSchema
+  })
 ]);
 
-function runContinueSelectedActionResultSchema(
-  disposition: "completed" | "blocked" | "runtime_failed"
-) {
+function runContinueSelectedActionResultSchema<
+  const Disposition extends "completed" | "blocked" | "runtime_failed",
+  const StopRef extends NativeSchema,
+  const FailureRef extends NativeSchema
+>(input: {
+  readonly disposition: Disposition;
+  readonly stopRef: StopRef;
+  readonly failureRef: FailureRef;
+}) {
   return v.strictObject({
     kind: v.literal("run_continue_result"),
     variant: v.literal("selected_action"),
-    disposition: v.literal(disposition),
+    disposition: v.literal(input.disposition),
     phase: v.literal("post_effect"),
     runRef: refSchema,
     constructionIntentRef: refSchema,
     graphCallRef: refSchema,
-    stopRef: disposition === "blocked" ? refSchema : v.null(),
-    failureRef: disposition === "runtime_failed" ? refSchema : v.null(),
+    stopRef: input.stopRef,
+    failureRef: input.failureRef,
     evidenceRefs: refListSchema,
     replayRef: refSchema
   });
 }
 
 const runContinueSelectedActionResult = v.union([
-  runContinueSelectedActionResultSchema("completed"),
-  runContinueSelectedActionResultSchema("blocked"),
-  runContinueSelectedActionResultSchema("runtime_failed")
+  runContinueSelectedActionResultSchema({
+    disposition: "completed",
+    stopRef: v.null(),
+    failureRef: v.null()
+  }),
+  runContinueSelectedActionResultSchema({
+    disposition: "blocked",
+    stopRef: refSchema,
+    failureRef: v.null()
+  }),
+  runContinueSelectedActionResultSchema({
+    disposition: "runtime_failed",
+    stopRef: v.null(),
+    failureRef: refSchema
+  })
 ]);
 
 const RUN_CONTINUE_CURRENT_INTENT_REFUSAL_CODES = Object.freeze([
@@ -477,54 +550,80 @@ function runContinueRefusalSchema<
   });
 }
 
-function runContinueNonterminalSchema<
-  const Variant extends "current_intent" | "selected_action"
->(variant: Variant) {
-  const common = {
+function runContinueCurrentIntentNonterminalSchema<
+  const Disposition extends "held" | "gap_stop",
+  const InteractionRef extends NativeSchema,
+  const GapProjectionRef extends NativeSchema
+>(input: {
+  readonly disposition: Disposition;
+  readonly interactionRef: InteractionRef;
+  readonly gapProjectionRef: GapProjectionRef;
+}) {
+  return v.strictObject({
     kind: v.literal("run_continue_nonterminal"),
-    variant: v.literal(variant),
+    variant: v.literal("current_intent"),
     phase: v.literal("post_effect"),
     runRef: refSchema,
     continuationRef: refSchema,
+    successorReceiptRef: refSchema,
+    disposition: v.literal(input.disposition),
+    interactionRef: input.interactionRef,
+    gapProjectionRef: input.gapProjectionRef,
     evidenceRefs: refListSchema,
     replayRef: refSchema
-  } as const;
-  return variant === "current_intent"
-    ? v.union([
-        v.strictObject({
-          ...common,
-          successorReceiptRef: refSchema,
-          disposition: v.literal("held"),
-          interactionRef: refSchema,
-          gapProjectionRef: v.null()
-        }),
-        v.strictObject({
-          ...common,
-          successorReceiptRef: refSchema,
-          disposition: v.literal("gap_stop"),
-          interactionRef: v.null(),
-          gapProjectionRef: refSchema
-        })
-      ])
-    : v.union([
-        v.strictObject({
-          ...common,
-          constructionIntentRef: refSchema,
-          graphCallRef: refSchema,
-          disposition: v.literal("held"),
-          interactionRef: refSchema,
-          gapProjectionRef: v.null()
-        }),
-        v.strictObject({
-          ...common,
-          constructionIntentRef: refSchema,
-          graphCallRef: refSchema,
-          disposition: v.literal("gap_stop"),
-          interactionRef: v.null(),
-          gapProjectionRef: refSchema
-        })
-      ]);
+  });
 }
+
+const runContinueCurrentIntentNonterminal = v.union([
+  runContinueCurrentIntentNonterminalSchema({
+    disposition: "held",
+    interactionRef: refSchema,
+    gapProjectionRef: v.null()
+  }),
+  runContinueCurrentIntentNonterminalSchema({
+    disposition: "gap_stop",
+    interactionRef: v.null(),
+    gapProjectionRef: refSchema
+  })
+]);
+
+function runContinueSelectedActionNonterminalSchema<
+  const Disposition extends "held" | "gap_stop",
+  const InteractionRef extends NativeSchema,
+  const GapProjectionRef extends NativeSchema
+>(input: {
+  readonly disposition: Disposition;
+  readonly interactionRef: InteractionRef;
+  readonly gapProjectionRef: GapProjectionRef;
+}) {
+  return v.strictObject({
+    kind: v.literal("run_continue_nonterminal"),
+    variant: v.literal("selected_action"),
+    phase: v.literal("post_effect"),
+    runRef: refSchema,
+    continuationRef: refSchema,
+    constructionIntentRef: refSchema,
+    graphCallRef: refSchema,
+    disposition: v.literal(input.disposition),
+    interactionRef: input.interactionRef,
+    gapProjectionRef: input.gapProjectionRef,
+    evidenceRefs: refListSchema,
+    replayRef: refSchema
+  });
+}
+
+const runContinueSelectedActionNonterminal = v.union([
+  runContinueSelectedActionNonterminalSchema({
+    disposition: "held",
+    interactionRef: refSchema,
+    gapProjectionRef: v.null()
+  }),
+  runContinueSelectedActionNonterminalSchema({
+    disposition: "gap_stop",
+    interactionRef: v.null(),
+    gapProjectionRef: refSchema
+  })
+]);
 
 export const INTERACTION_RESPONSE_KIND_VALUES = Object.freeze([
   "select",
@@ -538,8 +637,9 @@ type InteractionResponseKind =
   (typeof INTERACTION_RESPONSE_KIND_VALUES)[number];
 
 function interactionRespondRequestSchema<
-  const Kind extends InteractionResponseKind
->(responseKind: Kind) {
+  const Kind extends InteractionResponseKind,
+  const ChoiceRef extends NativeSchema
+>(responseKind: Kind, choiceRef: ChoiceRef) {
   return v.strictObject({
     kind: v.literal("interaction_respond_request"),
     responseKind: v.literal(responseKind),
@@ -547,8 +647,8 @@ function interactionRespondRequestSchema<
     interactionBasisDigest: sha256DigestSchema,
     responseContractRef: refSchema,
     responseContractDigest: sha256DigestSchema,
-    choiceRef: responseKind === "select" ? refSchema : v.null(),
-    value: responseKind === "select" ? v.null() : canonicalIJsonSchema,
+    choiceRef,
+    value: canonicalIJsonSchema,
     evidenceRefs: refListSchema,
     capabilityProvenanceRefs: refListSchema
   });
@@ -644,7 +744,7 @@ export const RUN_INVOKE_NATIVE_CONTRACT_SOURCES = Object.freeze({
     variant: "invoke",
     owner: T270_AUTHORITY,
     request: runInvokeInvokeRequestSchema,
-    result: runInvokeResultSchema("invoke"),
+    result: runInvokeInvokeResult,
     refusal: runInvokeRefusalSchema(
       "invoke",
       RUN_INVOKE_INVOKE_REFUSAL_CODES
@@ -656,7 +756,7 @@ export const RUN_INVOKE_NATIVE_CONTRACT_SOURCES = Object.freeze({
     variant: "start",
     owner: T270_AUTHORITY,
     request: runInvokeStartRequest,
-    result: runInvokeResultSchema("start"),
+    result: runInvokeStartResult,
     refusal: runInvokeRefusalSchema("start", RUN_INVOKE_START_REFUSAL_CODES),
     nonterminal: runInvokeNonterminalSchema("start")
   })
@@ -673,7 +773,7 @@ export const RUN_CONTINUE_NATIVE_CONTRACT_SOURCES = Object.freeze({
       "current_intent",
       RUN_CONTINUE_CURRENT_INTENT_REFUSAL_CODES
     ),
-    nonterminal: runContinueNonterminalSchema("current_intent")
+    nonterminal: runContinueCurrentIntentNonterminal
   }),
   selected_action: contractSet({
     operationId: "abg.operation.run.continue",
@@ -685,18 +785,22 @@ export const RUN_CONTINUE_NATIVE_CONTRACT_SOURCES = Object.freeze({
       "selected_action",
       RUN_CONTINUE_SELECTED_ACTION_REFUSAL_CODES
     ),
-    nonterminal: runContinueNonterminalSchema("selected_action")
+    nonterminal: runContinueSelectedActionNonterminal
   })
 });
 
-function interactionContractSet<const Kind extends InteractionResponseKind>(
-  responseKind: Kind
+function interactionContractSet<
+  const Kind extends InteractionResponseKind,
+  const ChoiceRef extends NativeSchema
+>(
+  responseKind: Kind,
+  choiceRef: ChoiceRef
 ) {
   return contractSet({
     operationId: "abg.operation.interaction.respond",
     variant: responseKind,
     owner: T272_AUTHORITY,
-    request: interactionRespondRequestSchema(responseKind),
+    request: interactionRespondRequestSchema(responseKind, choiceRef),
     result: interactionRespondResultSchema(responseKind),
     refusal: interactionRespondRefusalSchema(responseKind),
     nonterminal: interactionRespondNonterminalSchema(responseKind)
@@ -704,11 +808,14 @@ function interactionContractSet<const Kind extends InteractionResponseKind>(
 }
 
 export const INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES = Object.freeze({
-  select: interactionContractSet("select"),
-  approve: interactionContractSet("approve"),
-  reject: interactionContractSet("reject"),
-  assess: interactionContractSet("assess"),
-  answer_escalation: interactionContractSet("answer_escalation")
+  select: interactionContractSet("select", refSchema),
+  approve: interactionContractSet("approve", v.nullable(refSchema)),
+  reject: interactionContractSet("reject", v.nullable(refSchema)),
+  assess: interactionContractSet("assess", v.nullable(refSchema)),
+  answer_escalation: interactionContractSet(
+    "answer_escalation",
+    v.nullable(refSchema)
+  )
 });
 
 export const ONE_SURFACE_NATIVE_CONTRACT_SOURCES = Object.freeze({

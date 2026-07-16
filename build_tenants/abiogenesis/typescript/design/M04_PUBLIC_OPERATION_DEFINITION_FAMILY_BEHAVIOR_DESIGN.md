@@ -256,7 +256,7 @@ to make a refusal possible.
 | `run.invoke(invoke)` | program ref/digest, GraphFunction ref/digest, declared input-contract ref/digest, admitted input, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>` | run ref, GraphCall ref, completed result or typed stop, evidence refs, replay ref | `program_invalid`, `function_nonmember`, `outside_view`, `noncallable`, `next_action_mismatch`, `intent_missing`, `input_invalid`, `capability_missing`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `run.invoke(start)` | program ref/digest, `scope`, closed target, `until`, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>`, `fh_mode`, `root_mode` | run ref, present nullable GraphCall ref, completed result or typed stop, evidence refs, replay ref | invoke refusals plus `target_invalid`, `mode_invalid`, `until_invalid` | `held`, `gap_stop`; defaults `fh_mode=direct`, `root_mode=supervised` |
 | `run.continue(current_intent)` | run ref, continuation ref/digest, current-intent ref/digest, admitted response-or-input ref/digest, expected execution-basis ref/digest | continued run state, successor receipt, evidence refs, replay ref | `continuation_missing`, `continuation_resolved`, `intent_mismatch`, `response_missing`, `stale_replay`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
-| `run.continue(selected_action)` | run ref, next-action projection ref/digest, closed `basis_relation` defined below | new construction-intent ref then run/GraphCall state, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
+| `run.continue(selected_action)` | run ref, continuation ref/digest, next-action projection ref/digest, closed `basis_relation` defined below; selected action remains projection-owned and is never caller-authored | new construction-intent ref then run/GraphCall state, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` or typed `value` as required by K, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
 | `result.assess(assess)` | runtime-result ref/digest, assessment-contract ref/digest, typed assessment, evidence refs | assessment ref, admitted disposition, residuals, evidence refs | `result_missing`, `assessment_contract_mismatch`, `assessment_invalid`, `basis_mismatch` | `retry`, `blocked` when declared; no defaults |
 | `witness.admit(K)` for six witnessed acts | subject ref/digest, act kind K, evidence refs, provenance refs | witnessed-act event ref and admitted evidence ref | `subject_missing`, `act_forbidden`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
@@ -685,7 +685,8 @@ NeutralOwnerContractSource<S> = {
   identity: { contractId, contractVersion, schemaId, schemaVersion }
   sourceLocator: {
     kind: "private_source_module"
-    moduleSpecifier: "./one_surface_operation_contracts.js"
+    sourceRoot: "semantic_build"
+    modulePath: "code/src/abg/m03/contracts/one_surface_operation_contracts.js"
     exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES"
     memberPath
   }
@@ -696,7 +697,7 @@ NeutralOwnerContractSource<S> = {
 P1 directly imports that source module, proves that `memberPath` resolves to
 the same frozen source, and only then constructs a private
 `NativeContractDefinition<S>`. The Phase A locator vocabulary distinguishes
-`private_source_module { kind, moduleSpecifier, exportName, memberPath[] }`
+`private_source_module { kind, sourceRoot, modulePath, exportName, memberPath[] }`
 from
 `public_package_export { kind, packageName, packageExport, exportName }`. A
 `packageExport` is lawful only after that exact package export and exported
@@ -704,6 +705,11 @@ name exist; P2 alone may derive the public locator during its atomic
 publication switch. A neutral owner source, a proposed future export, or a
 source file merely included in a package cannot claim public native
 addressability.
+
+`semantic_build` is the sole private source-root identity. P1 maps it to the
+exact current `build/semantic/` root; `modulePath` is root-relative, must end in
+`.js`, and admits neither an absolute path nor a `.` or `..` segment. The
+coordinate therefore carries no ambient cwd or resolver-relative authority.
 
 The build-only resolution is a closed sum:
 
@@ -939,7 +945,8 @@ classDiagram
   }
   class PrivateSourceModuleLocator {
     <<truthful pre-P1 source coordinate>>
-    +moduleSpecifier
+    +sourceRoot semantic_build
+    +modulePath
     +exportName
     +memberPath
   }
@@ -1038,7 +1045,7 @@ sequenceDiagram
     alt slot absent ambiguous prose-only or legacy-only
       Resolver->>Resolver: append typed semantic_not_realized gap
     else owner supplies exact native schema candidate
-      Resolver->>Owners: resolve private_source_module exportName and memberPath
+      Resolver->>Owners: import sourceRoot/modulePath then resolve exportName and memberPath
       Owners-->>Resolver: exact same frozen source object or locator mismatch
       Resolver->>PhaseA: admit schema coordinates and project canonical digest
       alt unsupported action or digest-divergent projection
@@ -1077,7 +1084,7 @@ private definition construction.
 stateDiagram-v2
   [*] --> PhaseAReady
   PhaseAReady --> OwnerResolutionPending: begin 19 identity 62 key and per-slot census
-  OwnerResolutionPending --> PrivateSourceLocated: private export and member path resolve to same source
+  OwnerResolutionPending --> PrivateSourceLocated: closed source root module export and member path resolve to same source
   PrivateSourceLocated --> OwnerResolutionPending: continue exact census
   OwnerResolutionPending --> DefinitionRefused: private source locator is missing or divergent
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved

@@ -290,22 +290,30 @@ function sourceSubject(source) {
   return source.authority.subject;
 }
 
-function resolveSourceLocator(source) {
+async function resolveSourceLocator(source) {
   assert.equal(
     source.sourceLocator.kind,
     "private_source_module"
   );
   assert.equal(
-    source.sourceLocator.moduleSpecifier,
-    "./one_surface_operation_contracts.js"
+    source.sourceLocator.sourceRoot,
+    "semantic_build"
+  );
+  assert.equal(
+    source.sourceLocator.modulePath,
+    "code/src/abg/m03/contracts/one_surface_operation_contracts.js"
   );
   assert.equal(
     source.sourceLocator.exportName,
     "ONE_SURFACE_NATIVE_CONTRACT_SOURCES"
   );
+  const sourceRoot = new URL("../../build/semantic/", import.meta.url);
+  const sourceModule = await import(
+    new URL(source.sourceLocator.modulePath, sourceRoot).href
+  );
   return source.sourceLocator.memberPath.reduce(
     (value, member) => Reflect.get(value, member),
-    ONE_SURFACE_NATIVE_CONTRACT_SOURCES
+    Reflect.get(sourceModule, source.sourceLocator.exportName)
   );
 }
 
@@ -316,7 +324,7 @@ function assertAdmissionRefused(source, candidate) {
   );
 }
 
-test("T-270/T-272 own one strict 36-source contract family", () => {
+test("T-270/T-272 own one strict 36-source contract family", async () => {
   assert.deepEqual(Object.keys(RUN_INVOKE_NATIVE_CONTRACT_SOURCES), [
     "invoke",
     "start"
@@ -368,7 +376,7 @@ test("T-270/T-272 own one strict 36-source contract family", () => {
     assert.equal(Object.hasOwn(source.identity, "nativeLocator"), false);
     assert.equal(Object.hasOwn(source.sourceLocator, "packageName"), false);
     assert.equal(Object.hasOwn(source.sourceLocator, "packageExport"), false);
-    assert.equal(resolveSourceLocator(source), source);
+    assert.equal(await resolveSourceLocator(source), source);
     const fixture = fixtureBySlot[subject.slot](subject.operationId, subject.variant);
     assert.deepEqual(admitNative(source.schema, fixture), fixture);
 
@@ -430,7 +438,7 @@ test("T-270 start modes exclude non-default control before converged admission",
   assertAdmissionRefused(source, withoutDefinitionDefaults);
 });
 
-test("T-270/T-272 reject malformed response values, duplicates, and closed-vocabulary drift", () => {
+test("T-270/T-272 preserve the declared F_H choice and value relation", () => {
   const select = INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES.select.request;
   const selectSubject = sourceSubject(select);
   const selectFixture = requestFixture(
@@ -441,10 +449,12 @@ test("T-270/T-272 reject malformed response values, duplicates, and closed-vocab
     () => admitNative(select.schema, { ...selectFixture, choiceRef: null }),
     /received null/u
   );
-  assertAdmissionRefused(select, {
+  assert.doesNotThrow(() => admitNative(select.schema, {
     ...selectFixture,
-    value: { callerSuppliedSecondValue: true }
-  });
+    value: { selected: "choice:approve" }
+  }));
+  const { value: _selectValue, ...selectWithoutValue } = selectFixture;
+  assertAdmissionRefused(select, selectWithoutValue);
 
   const approve = INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES.approve.request;
   const approveSubject = sourceSubject(approve);
@@ -453,10 +463,12 @@ test("T-270/T-272 reject malformed response values, duplicates, and closed-vocab
     approveSubject.variant
   );
   assert.doesNotThrow(() => admitNative(approve.schema, approveFixture));
-  assertAdmissionRefused(approve, {
+  assert.doesNotThrow(() => admitNative(approve.schema, {
     ...approveFixture,
     choiceRef: "choice:caller-supplied"
-  });
+  }));
+  const { value: _approveValue, ...approveWithoutValue } = approveFixture;
+  assertAdmissionRefused(approve, approveWithoutValue);
   assert.throws(
     () => admitNative(approve.schema, { ...approveFixture, value: -0 }),
     /canonical I-JSON/u
