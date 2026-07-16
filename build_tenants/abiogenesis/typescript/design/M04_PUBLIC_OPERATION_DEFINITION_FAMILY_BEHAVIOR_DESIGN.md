@@ -264,8 +264,8 @@ to make a refusal possible.
 | `run.invoke(invoke)` | program ref/digest, GraphFunction ref/digest, declared input-contract ref/digest, admitted input, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>` | run ref, GraphCall ref, completed result or typed stop, evidence refs, replay ref | `program_invalid`, `function_nonmember`, `outside_view`, `noncallable`, `next_action_mismatch`, `intent_missing`, `input_invalid`, `capability_missing`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `run.invoke(start)` | program ref/digest, `scope`, closed target, `until`, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>`, `fh_mode`, `root_mode` | run ref, present nullable GraphCall ref, completed result or typed stop, evidence refs, replay ref | invoke refusals plus `target_invalid`, `mode_invalid`, `until_invalid` | `held`, `gap_stop`; defaults `fh_mode=direct`, `root_mode=supervised` |
 | `run.continue(current_intent)` | run ref, continuation ref/digest, current-intent ref/digest, admitted response-or-input ref/digest, expected execution-basis ref/digest | continued run state, successor receipt, evidence refs, replay ref | `continuation_missing`, `continuation_resolved`, `intent_mismatch`, `response_missing`, `stale_replay`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
-| `run.continue(selected_action)` | `runRef`, `continuationRef`, `continuationDigest`, `nextActionProjectionRef`, `nextActionProjectionDigest`, closed `basisRelation`; selected action remains projection-owned and is never caller-authored | `runRef`, `constructionIntentRef`, `graphCallRef`, stop/failure refs by disposition, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
-| `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` or typed `value` as required by K, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
+| `run.continue(selected_action)` | run ref, continuation ref/digest, next-action projection ref/digest, closed `basis_relation` defined below; selected action remains projection-owned and is never caller-authored | new construction-intent ref then run/GraphCall state, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
+| `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` required only for `select` and null otherwise, canonical typed `value` for every kind, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
 | `result.assess(assess)` | runtime-result ref/digest, assessment-contract ref/digest, typed assessment, evidence refs | assessment ref, admitted disposition, residuals, evidence refs | `result_missing`, `assessment_contract_mismatch`, `assessment_invalid`, `basis_mismatch` | `retry`, `blocked` when declared; no defaults |
 | `witness.admit(K)` for six witnessed acts | subject ref/digest, act kind K, evidence refs, provenance refs | witnessed-act event ref and admitted evidence ref | `subject_missing`, `act_forbidden`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
 | `tuning.transition(propose)` | draft content contract ref/digest, typed draft content, subject basis ref/digest, evidence refs | proposed tuning-draft ref/version and event ref | `draft_invalid`, `subject_mismatch`, `basis_mismatch` | none; no defaults |
@@ -339,7 +339,7 @@ coordinate laws below.
 | `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | declaration-application admission | `applied` | none | `terminal_only` |
 | `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | runtime execution events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
 | `run.continue` | `abg.capability.runtime.replay-continuation@5` | continuation/runtime events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
-| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | none | `responded` | `runtime_nonterminal` |
+| `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | none | `responded` while the containing run remains separately held | `runtime_nonterminal` |
 | `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `assessed` | `retry`, `blocked` | `runtime_nonterminal` |
 | `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | `admitted` | none | `terminal_only` |
 | `tuning.transition` | `abg.capability.operator.public-contract@5` | tuning-draft event | `proposed`, `ratified`, `rejected` | none | `terminal_only` |
@@ -715,18 +715,18 @@ unexpected_nonterminal`.
 
 `project.read` uses one closed `PROJECT_READ_CASE_FAMILY` whose 27 rows bind a
 case key to its owner-supplied source and projection schemas, binding rule, and
-capabilities. T-281's shared wrapper factories derive the request and refusal
-unions and record the non-terminal slot as explicitly absent. Case-specific
-owners supply source and result coordinates; the result union derives from
-those coordinates rather than becoming another authored wrapper. The case map
-is metadata over owner schemas, not 27 independently authored public schema
-families. `ticket_consensus` composes T-274A's `ConsensusResult` source and
-`TicketConsensusProjection` result coordinates with the T-281 wrapper only
-after both derive neutral projection witnesses through the shared projector.
-The family-owned named-check registry binds each relational action
-without a Consensus branch in projector code. A missing, unregistered, or
-incompatible owner schema remains an honest P1 gap and cannot be filled from
-prose or a 4.6 interface.
+capabilities. Shared wrapper factories derive three addressable operation
+assets: request, result, and refusal, each a 27-case discriminated union. The
+case map is metadata over owner schemas, not 27 independently authored public
+schema families. T-281 owns the one generic `project.read` request/refusal
+wrapper and the explicit absence of a non-terminal result. Each case owner
+supplies only its case-specific result schema. `ticket_consensus` therefore
+composes the T-274A `TicketConsensusProjection` result coordinate inside that
+generic wrapper; T-274A does not author another `project.read` request,
+refusal, or operation. The family-owned named-check registry binds each
+relational action without a Consensus branch in projector code. A missing,
+unregistered, or incompatible owner result schema remains an honest P1 gap
+and cannot be filled from prose or a 4.6 interface.
 
 ## P1 Constructor Boundary And Constructability
 
@@ -900,7 +900,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 |---|---|---|
 | canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral build resolver derives an opaque source from a closed locator and exact compiled module bytes; the projector derives canonical schema bytes and a witness from that retained Valibot schema. M03 and M04 consume the same result without cross-layer imports. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
-| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives the `ConsensusResult` source and `TicketConsensusProjection` result coordinates/witnesses through the shared projector. T-281 owns the generic `project.read` request/refusal wrapper and absent non-terminal slot; P1 duplicates neither domain schema nor relations. |
+| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives the `TicketConsensusProjection` result coordinate/witness through the shared projector. P1 composes it inside the generic `project.read` wrapper without duplicating the schema, relations, or operation. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
 | workspace behavior | `code/src/app/m04/workspace/operations.ts` | Existing semantic owner; target-native contract slots must resolve independently. |
 | product intake behavior | `code/src/app/m04/product_intake/verify.ts`, `resolve.ts`, `install.ts` | Existing semantic owners; no shared mega-handler or copied admitter. |
@@ -929,7 +929,7 @@ and digest.
 | Gap code | Exact definition keys | Missing native slots | Current owner evidence and minimum re-entry |
 |---|---|---|---|
 | `p1_contract_workspace_not_realized` | `workspace.create(clean|imported)`, `workspace.open(open)` | `Req/Res/Ref` | `app/m04/workspace/operations.ts` differs from target authority fields; Phase A clean fixture is proof-only. The workspace owner must supply exact neutral schemas or re-enter its design on a real field ambiguity. |
-| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | T-281 generic `Req/Ref` wrapper plus explicit absent `N`; unresolved per-case source/result coordinates | T-281 owns the wrapper. T-274A closes only the `ticket_consensus` case inputs by supplying exact `ConsensusResult` and `TicketConsensusProjection` coordinates through the shared projector and family-owned named checks. Every other case must still bind its exact source/result owner or remain a gap. |
+| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | T-281 owns the generic wrapper. T-274A can close only the Consensus result slot through the shared projector and family-owned named checks. Every case must bind its exact projection owner or remain a gap. |
 | `p1_contract_product_intake_not_realized` | `product.verify(verify)`, `product.resolve(resolve)`, `product.install(install)` | `Req/Res/Ref` | M04 verify/resolve/install carriers and admitters are semantic evidence only. Their owners must supply exact neutral schemas; T-281 cannot copy their imperative admission logic. |
 | `p1_contract_workspace_bind_not_realized` | `workspace.bind(bind)` | `Req/Res/Ref` | `app/m04/toolchain_binding/bind.ts` does not expose the accepted stable-binding target schema. Re-enter that owner if declared-root meaning does not close. |
 | `p1_contract_catalog_not_realized` | `catalog.admit(admit)`, `catalog.view(allowlist)`, `catalog.apply(node_type|overlay)` | `Req/Res/Ref` | Current catalog carriers are semantic evidence; `catalog.apply` target public contracts are absent. The catalog owner must supply exact neutral schemas. |
@@ -1189,12 +1189,12 @@ sequenceDiagram
   end
 ```
 
-T-274A may close only the case-specific `ConsensusResult` source and
-`TicketConsensusProjection` result coordinates by proving both through the
-shared closed projector and Phase A binding. T-281 owns the generic
-`project.read` request/refusal wrapper and explicit absent non-terminal slot.
-Until both owner inputs compose, the `ticket_consensus` case
-remains `p1_contract_project_read_not_realized`. T-275 is not a P1 dependency:
+T-274A may close the `ticket_consensus` result slot only by proving that its
+neutral schema coordinate is accepted through the shared closed projector and
+Phase A binding. T-281 still owns and proves the generic `project.read`
+request/refusal wrapper and explicit absent non-terminal slot. Until both
+relations close, the case remains `p1_contract_project_read_not_realized`.
+T-275 is not a P1 dependency:
 it provides later handler/projection semantics and therefore gates P2, not
 private definition construction.
 
@@ -1515,9 +1515,11 @@ P1 then shall:
 4. derive operation/variant key unions, private JSON Schemas, private candidate
    catalog rows, SDK/CLI coordinate inventories, and parity/digest inventory
    from that one family; commit or publish none of them as product assets;
-5. derive the private `project.read` relation from one closed 27-case map that
-   composes neutral owner schemas; include `ticket_consensus` only after T-274A
-   proves a Phase-A-compatible coordinate, otherwise retain its typed gap;
+5. derive the private `project.read` relation from one closed 27-case map, one
+   generic request/refusal wrapper, explicit absent non-terminal truth, and 27
+   neutral owner result schemas; include the `ticket_consensus` result only
+   after T-274A proves a Phase-A-compatible coordinate, otherwise retain its
+   typed gap;
 6. reject missing, extra, cross-key, binding, coordinate, owner-schema,
    duplicate, legacy-contribution, projection-digest, and M03-to-M04 import
    mismatches; and

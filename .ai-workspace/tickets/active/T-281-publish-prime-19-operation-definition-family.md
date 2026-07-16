@@ -38,8 +38,7 @@
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
 - downstream_dependencies:
-  - T-281 P1 owns the generic project.read request/refusal wrapper and explicit absent nonterminal slot
-  - T-274A must prove exact Phase-A-compatible ConsensusResult source and TicketConsensusProjection result coordinates; it does not own the generic wrapper
+  - T-274A must prove the Phase-A-compatible neutral ticket_consensus result coordinate; T-281 owns the generic project.read request/refusal wrapper and absent nonterminal truth
   - T-270 neutral owner-native run.invoke contract milestone precedes P1; its public runtime integration follows P1
   - T-272 neutral owner-native run.continue and interaction.respond contract milestone precedes P1; its continuation integration follows P1
   - T-274B consumes the admitted P1 contract coordinates for public publication
@@ -100,6 +99,11 @@
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
 - accepted_p1_constructor_design_digest: >-
     1bbf4bcb5fbe53f97e150ae743b798fb4c1fe0c5ea4d6fb4753bdc31f3b22d7a
+- repaired_p1_owner_composition_candidate_digest: >-
+    77d413ec253958d61c15a32c23bd66a235aed5ab4115cb460ca30f9f81cb711c
+- repaired_p1_owner_composition_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T164206Z_SELF_REVIEW_t281_owner_contract_composition_repair.md
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
@@ -167,12 +171,11 @@ authority.
    candidate catalog rows, SDK/CLI coordinate inventories, and parity evidence.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. T-281 owns the generic `project.read` request/refusal wrapper and absent
-   non-terminal slot. T-274A proves whether the existing `ConsensusResult` and
-   `TicketConsensusProjection` schemas yield the two case-specific coordinates
-   through Phase A's closed projector. The case remains a typed gap until the
-   wrapper and both coordinates compose. It does not wait for T-275 handler
-   truth.
+6. T-274A proves whether the existing native `ticket_consensus` result schema
+   can yield a neutral coordinate through Phase A's closed projector. T-281
+   owns the generic `project.read` request/refusal wrapper and explicit absent
+   non-terminal truth. The case remains a typed gap until both relations land.
+   It does not wait for T-275 handler truth.
 7. Split the existing T-270/T-272 milestones: their neutral owner-native
    contract schemas precede P1; their public runtime integration follows P1
    and consumes neutral admitted projections rather than importing M04.
@@ -273,9 +276,9 @@ contract was not native-authority ready:
 
 The proportional repair is bounded: Phase A closes those native relations and
 proves one non-exported schema-only `workspace.create(clean)` fixture before
-P1 authors the exact family. T-274A may attempt the same projector in parallel,
-but its current Consensus relational checks are outside Phase A's whitelist
-and therefore remain a typed `project.read` blocker. No runtime or public
+P1 authors the exact family. T-274A may prove its case-specific result
+coordinate in parallel, but it does not own the generic `project.read`
+operation wrapper and therefore cannot close that definition by itself. No runtime or public
 projection may proceed against the superseded implementation authorization.
 The accepted repair closes only the private Phase A mechanism and common
 packets.
@@ -318,10 +321,9 @@ explicit nullable non-terminal slot.
 The constructability review found these named blocking owner relations:
 
 - `p1_contract_workspace_not_realized`;
-- `p1_contract_project_read_not_realized`, including the T-281 generic wrapper
-  and every case-specific source/result pair; `ticket_consensus` additionally
-  waits for T-274A's exact `ConsensusResult` and
-  `TicketConsensusProjection` coordinates;
+- `p1_contract_project_read_not_realized`, including the generic wrapper and
+  every case-specific result; T-274A supplies only the compatible
+  `ticket_consensus` result coordinate;
 - `p1_contract_product_intake_not_realized` and
   `p1_contract_workspace_bind_not_realized`;
 - `p1_contract_catalog_not_realized`;
