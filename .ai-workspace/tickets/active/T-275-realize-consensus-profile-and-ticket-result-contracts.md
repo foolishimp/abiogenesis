@@ -5,8 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: closed_domain_family_migration_complete_feature_realization_pending
+- phase_status: reconciled_design_accepted_implementation_fenced
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
+- proof_status: implementation_fence_open
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -19,18 +20,35 @@
     and projection boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-14
+- updated_at: 2026-07-16
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268
 - priority: critical
 - dependencies:
-  - T-274 canonical Consensus public schemas
-  - T-271 complete C-program interpretation
-  - T-267 declared-program conservation
+  - ratified T-278 Ontology digest f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8
+  - accepted T-270 run.invoke authority design
+  - accepted T-274 one-family public-schema and installed-catalog design
+  - completed T-256 declared execution-context admission
+  - completed T-257 declared F_P result admission
+  - completed T-267 declared-program conservation
+  - completed T-271 complete C-program interpretation
+- implementation_fence:
+  - completed T-281 Prime 19-operation definition family
+  - completed T-270 public run.invoke authority and AF-15 integration
+  - completed T-274 one-family schema and installed-catalog publication
+- downstream_dependencies:
+  - T-272 supplies lawful F_H continuation before a held interaction can yield a final result
+  - T-268 aggregates final Consensus capability and conformance coverage
+  - T-276 proves packed installed projection across the three workspace applications
 - authority_refs:
-  - specification/requirements/product/REQ-P-CONSENSUS-005..012
+  - specification/PRODUCT.md Public Operator Contract and bounded Consensus product
+  - specification/requirements/product/REQ-P-CONSENSUS-004..012
+  - specification/requirements/product/REQ-P-CONSENSUS-015
   - specification/requirements/product/REQ-P-CONSENSUS-019
+  - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS-006
+  - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS-008..010
+  - build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md
 - prime_contraction_refs:
   - PC-001
   - PC-003
@@ -40,48 +58,98 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
+- accepted_design_digest: 16b10ddc1af12b5f51e6e391bc387202df3c0792d593bc7a0033d26aa84c7435
+- independent_design_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T075100Z_REVIEW_t275_reconciled_consensus_domain_design.md
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
+    20260716T075100Z_DECISION_fh_accept_t275_reconciled_consensus_domain_design.md
+- pre_ontology_design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
     20260714T154500Z_DECISION_fh_authorize_remaining_t277_refactor.md
+- accepted_t270_design_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T062747Z_DECISION_fh_accept_t270_reconciled_run_invoke_design.md
+- accepted_t270_design_digest: 71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430
+- accepted_t274_design_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T062342Z_DECISION_fh_accept_t274_reconciled_publication_design.md
+- accepted_t274_design_digest: 930c26a2fa5e144ebe0d0ba1aa639fd2aaf531b51e4b5921df434860718313e8
 - prime_migration_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
 
 ## Boundary
 
-Admit explicit non-empty reviewer vectors, profile identity and configuration
-digests, worker-selection/result contracts, attributed finding sets, round
-policies, rulings, and terminal results. Project `ticket.consensus` and
-`abg.schema.ticket-consensus-projection` from admitted result and replay truth.
+Extend the already-realized closed `ConsensusContractFamily` with two bounded
+relations. First, bind the exact subject contract/ref/digest, submitting actor,
+optional ticket source, invocation input/authority, immutable workspace,
+admitted GTL program and narrowed catalog view, panel, round policy, and ordered
+reviewer profiles. Derive invocation-local reviewer assignments for T-256; ABG
+then owns C-call, actor-invocation, effect, and event lineage. T-257 admits only
+the raw result envelope. One generic selected-schema bridge admits the domain
+payload through the same family decoder used by the GTL node and proves a non-
+Consensus fixture. Second, admit the canonical `ConsensusResult` against its
+runtime output authority and replay, then derive the ticket projection through
+the `ticket_consensus` variant of `abg.operation.project.read`.
 
-The projection is result data. It cannot mutate, close, split, create, or triage
-a ticket and cannot infer reviewer identity from array position, completion
-order, or adapter identity.
+T-275 validates and projects. It does not select a reviewer or worker, create a
+schema family, add a public operation, invoke traversal, write an event, persist
+a read model, or mutate, close, split, create, or triage a ticket. Reviewer
+identity derives from the declared panel/profile relation and never from worker
+completion order, adapter position, or array coincidence.
 
 ## Prime Contraction Input
 
-Consume the T-274 `ConsensusContractFamily` as the one native public authoring
-model. Replace open `ConsensusCarrier<Kind>` payload authority with one closed
-discriminated internal domain family. Public members project through T-274;
-graph-only bindings remain private subordinate variants and create no schema
-identity.
+Consume the accepted T-274 `ConsensusContractFamily` as the one native public
+authoring model. The prior T-277 migration already replaced open
+`ConsensusCarrier<Kind>` payload authority with one closed discriminated family.
+T-275 may extend relational admission and graph-private assignment projections;
+it shall not author another field roster, decoder family, schema identity,
+operation identity, event kind, store, or ticket authority.
 
 The local design must record its IACS, Promotion Test, recurrence result,
 public/private classification, and before/after authoring counts under ADR-044.
 
 ## Exit
 
-At least two differently attributed profiles survive native and serialized
-admission; duplicate identities, stale configuration, mismatched panel,
-unattributed findings, and forged ticket digest fail closed. The result
-projection preserves subject, panel, policy, rounds, dissent, evidence,
-lineage, result, and replay refs while producing no ticket mutation. Accept one
-three-view domain design before code.
+At least two differently attributed profiles survive native, serialized,
+relational, execution-context, and result admission. Empty or duplicate panels,
+stale configuration, panel/policy/workspace mismatch, assignment drift,
+unattributed findings, malformed generic wire envelopes, selected-schema
+failure, foreign C-call/actor invocation or replay truth, forged subject/actor/
+ticket/projection authority, and cross-basis result reuse fail closed before
+projection.
+
+The ordinary `project.read` result preserves subject, panel, policy, round,
+findings, rulings, dissent, evidence, lineage, result, replay, and ticket refs
+while emitting no event and producing no ticket mutation. A held F_H interaction
+is not fabricated into a final `ConsensusResult`; T-272 must first admit its
+lawful continuation. Accept the reconciled three-view design before code.
+
+Design review may close while its implementation fence is open. No T-275 code,
+schema, generated asset, or public projection may land until T-281, T-270, and
+T-274 are completed on the same target basis.
 
 ## Prime Migration Status
 
 The open `ConsensusCarrier<Kind>` family is retired in favor of one closed,
-schema-authored domain family. Full profile selection, serialized admission,
-stale-configuration checks, replay-derived ticket projection, and the ticket
-exit matrix remain T-275 work. This ticket is not closed by the migration
-checkpoint.
+schema-authored domain family. Local exact decoding exists. Relational
+profile/panel/policy/configuration binding, T-256 assignment conservation,
+T-257 raw-envelope conservation, generic selected-schema domain admission,
+assignment/C-call/actor-invocation attribution, replay-backed
+`ConsensusResult` admission, pure ticket projection, and the full negative
+matrix remain T-275 work. This ticket is not closed by the migration checkpoint
+or the reconciled design alone.
+
+## Hard Break
+
+- no `ticket.consensus` public operation; it is a closed `project.read`
+  projection kind;
+- no `catalog.invoke`, `read.result`, `read.replay`, feature-specific CLI verb,
+  or compatibility alias;
+- no caller-authored result, replay, projection ref, or projection digest;
+- no profile-selection service, reviewer loop, result store, ticket writer, or
+  Consensus-specific runtime branch; and
+- no final result projection from a held or incomplete F_H state.
