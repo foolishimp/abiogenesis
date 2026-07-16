@@ -409,33 +409,6 @@ export const EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA = freezeNativeValue(
   )
 );
 
-export const EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY =
-  freezeNativeValue({
-    familyRef: "contract-family://abg/exact-candidate-qualification@5",
-    checks: [
-      {
-        checkId: "qualification-gate-result-vector-relation",
-        action: QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION,
-        relationRef: "REQ-P-QUAL-064A"
-      },
-      {
-        checkId: "final-tap-delta-matches-basis",
-        action: FINAL_TAP_DELTA_MATCHES_BASIS_ACTION,
-        relationRef: "REQ-P-QUAL-070"
-      },
-      {
-        checkId: "qualification-verdict-disposition-relation",
-        action: QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION,
-        relationRef: "REQ-P-QUAL-064C"
-      },
-      {
-        checkId: "release-snapshot-artifact-set-relation",
-        action: RELEASE_SNAPSHOT_ARTIFACT_SET_RELATION_ACTION,
-        relationRef: "REQ-P-QUAL-051"
-      }
-    ]
-  } satisfies NativeNamedCheckRegistry);
-
 export const EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY =
   freezeNativeValue({
     qualificationLawBasis: QUALIFICATION_LAW_BASIS_SCHEMA,
@@ -475,14 +448,66 @@ const publishedRcRequestSchema = v.pipe(
   v.readonly()
 );
 
+const releaseResultCarrierSchema = v.strictObject({
+  ...releaseResultFields,
+  qualificationDisposition: v.literal("green"),
+  residualRefs: refListSchema
+});
+
+const RELEASE_RESULT_ARTIFACT_IDENTITY_RELATION_ACTION = Object.freeze(
+  v.check(
+    (result: v.InferOutput<typeof releaseResultCarrierSchema>) => {
+      const refs = [
+        result.artifacts.packageTarball.ref,
+        result.artifacts.checksumFile.ref,
+        ...(result.artifacts.releaseNote === null
+          ? []
+          : [result.artifacts.releaseNote.ref]),
+        result.snapshotManifestRef
+      ];
+      return new Set(refs).size === refs.length;
+    },
+    "release artifact and snapshot manifest identities must be distinct"
+  )
+);
+
 const releaseResultSchema = v.pipe(
-  v.strictObject({
-    ...releaseResultFields,
-    qualificationDisposition: v.literal("green"),
-    residualRefs: refListSchema
-  }),
+  releaseResultCarrierSchema,
+  RELEASE_RESULT_ARTIFACT_IDENTITY_RELATION_ACTION,
   v.readonly()
 );
+
+export const EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY =
+  freezeNativeValue({
+    familyRef: "contract-family://abg/exact-candidate-qualification@5",
+    checks: [
+      {
+        checkId: "qualification-gate-result-vector-relation",
+        action: QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-064A"
+      },
+      {
+        checkId: "final-tap-delta-matches-basis",
+        action: FINAL_TAP_DELTA_MATCHES_BASIS_ACTION,
+        relationRef: "REQ-P-QUAL-070"
+      },
+      {
+        checkId: "qualification-verdict-disposition-relation",
+        action: QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-064C"
+      },
+      {
+        checkId: "release-snapshot-artifact-set-relation",
+        action: RELEASE_SNAPSHOT_ARTIFACT_SET_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-051"
+      },
+      {
+        checkId: "release-result-artifact-identity-relation",
+        action: RELEASE_RESULT_ARTIFACT_IDENTITY_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-051"
+      }
+    ]
+  } satisfies NativeNamedCheckRegistry);
 
 const PUBLISHED_RC_REFUSAL_CODES = Object.freeze([
   "wrong_subject_kind",

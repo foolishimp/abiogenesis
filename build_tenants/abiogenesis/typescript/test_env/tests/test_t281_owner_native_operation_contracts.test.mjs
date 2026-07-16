@@ -807,6 +807,76 @@ test("release requests distinguish published RC from final tap", () => {
       }
     })
   );
+  const releaseSuccessWithNote = {
+    ...releaseSuccess,
+    artifacts: {
+      ...releaseSuccess.artifacts,
+      releaseNote: {
+        ref: "artifact:release-note",
+        digest: DIGEST,
+        kind: "release_note"
+      }
+    }
+  };
+  assert.doesNotThrow(() =>
+    v.parse(releaseResultSchema, releaseSuccessWithNote)
+  );
+  for (const [label, candidate] of [
+    [
+      "release note aliases package tarball",
+      {
+        ...releaseSuccessWithNote,
+        artifacts: {
+          ...releaseSuccessWithNote.artifacts,
+          releaseNote: {
+            ...releaseSuccessWithNote.artifacts.releaseNote,
+            ref: releaseSuccessWithNote.artifacts.packageTarball.ref
+          }
+        }
+      }
+    ],
+    [
+      "release note aliases checksum file",
+      {
+        ...releaseSuccessWithNote,
+        artifacts: {
+          ...releaseSuccessWithNote.artifacts,
+          releaseNote: {
+            ...releaseSuccessWithNote.artifacts.releaseNote,
+            ref: releaseSuccessWithNote.artifacts.checksumFile.ref
+          }
+        }
+      }
+    ],
+    [
+      "snapshot manifest aliases package tarball",
+      {
+        ...releaseSuccessWithNote,
+        snapshotManifestRef:
+          releaseSuccessWithNote.artifacts.packageTarball.ref
+      }
+    ],
+    [
+      "snapshot manifest aliases checksum file",
+      {
+        ...releaseSuccessWithNote,
+        snapshotManifestRef: releaseSuccessWithNote.artifacts.checksumFile.ref
+      }
+    ],
+    [
+      "snapshot manifest aliases release note",
+      {
+        ...releaseSuccessWithNote,
+        snapshotManifestRef: releaseSuccessWithNote.artifacts.releaseNote.ref
+      }
+    ]
+  ]) {
+    assert.throws(
+      () => v.parse(releaseResultSchema, candidate),
+      undefined,
+      label
+    );
+  }
   assert.throws(() =>
     v.parse(releaseResultSchema, {
       ...releaseSuccess,
