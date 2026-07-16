@@ -106,6 +106,22 @@ export type {
   CProgramStageAtomRequest,
   CProgramWorkflowAtomRequest
 } from "./complete_c_program_runtime.js";
+export {
+  admitOneSurfaceArtifactResultPair,
+  buildOneSurfaceAuthorityCloseEvents,
+  constructOneSurfaceAuthorityResultRule,
+  deriveOneSurfaceAuthorityReplayProjection,
+  projectOneSurfaceAuthorityResult
+} from "./one_surface_result_projection.js";
+export type {
+  OneSurfaceArtifactResultPair,
+  OneSurfaceAuthorityCloseProjection,
+  OneSurfaceAuthorityReplayBinding,
+  OneSurfaceAuthorityReplayProjection,
+  OneSurfaceAuthorityResultDiagnostic,
+  OneSurfaceAuthorityResultDiagnosticId,
+  OneSurfaceAuthorityResultProjection
+} from "./one_surface_result_projection.js";
 export { resolveHofFanIn } from "./hof_fan_in_runtime.js";
 export type {
   HofFanInCompletedResolution,

@@ -18,7 +18,10 @@ import {
   mintTargetCarrierPayloadIdentity,
   type PayloadLedgerProjection
 } from "../contracts/payload_ledger.js";
-import { validateTargetCarrierCandidate } from "../../../gtl/m01/contracts/index.js";
+import {
+  validateTargetCarrierCandidate,
+  type TargetCarrierContractBinding
+} from "../../../gtl/m01/contracts/index.js";
 import type {
   CompiledCPlanNode,
   CompiledCStageLeaf
@@ -30,7 +33,8 @@ import {
   type OneSurfaceStageAuthority
 } from "../contracts/one_surface_program_compiler.js";
 import type {
-  OneSurfaceAuthorityFunctionKind
+  OneSurfaceAuthorityFunctionKind,
+  OneSurfaceAuthorityInputBasis
 } from "../contracts/one_surface_authority.js";
 import {
   assertAdmittedOneSurfaceAuthorityResult,
@@ -77,12 +81,17 @@ export interface OneSurfaceAuthorityReplayBinding {
   readonly frameId: string;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly inputRefs: readonly string[];
   readonly inputDigest: string;
   readonly payloadRef: string;
   readonly payloadDigest: string;
   readonly resultContractRef: string;
   readonly resultContractDigest: string;
   readonly authoritySnapshotRef: string;
+  readonly artifactResultPairRef: string;
+  readonly artifactResultPairDigest: `sha256:${string}`;
+  readonly resultAdmissionRef: string;
+  readonly resultValueDigest: `sha256:${string}`;
   readonly evidenceRefs: readonly string[];
   readonly judgment: Exclude<CCallJudgment, "no_declared_check">;
   readonly reasonRef: string | null;
@@ -179,6 +188,213 @@ function hasDistinctNonEmptyRefs(values: readonly string[]): boolean {
     new Set(values).size === values.length;
 }
 
+function hasCanonicalDistinctNonEmptyRefs(values: readonly string[]): boolean {
+  return hasDistinctNonEmptyRefs(values) &&
+    stableJsonEquals(values, [...values].sort());
+}
+
+function isSha256Digest(value: string): value is `sha256:${string}` {
+  return /^sha256:[a-f0-9]{64}$/u.test(value);
+}
+
+function assertOneSurfaceAuthorityInputBasis<
+  K extends OneSurfaceAuthorityFunctionKind
+>(basis: OneSurfaceAuthorityInputBasis<K>, functionKind: K): void {
+  if (
+    basis.kind !== "one_surface_authority_input_basis" ||
+    basis.functionKind !== functionKind ||
+    !hasCanonicalDistinctNonEmptyRefs(basis.inputRefs) ||
+    !isSha256Digest(basis.inputDigest)
+  ) {
+    throw new TypeError("One Surface function input basis differs");
+  }
+}
+
+const ONE_SURFACE_ARTIFACT_RESULT_PAIR = Symbol(
+  "ONE_SURFACE_ARTIFACT_RESULT_PAIR"
+);
+
+export interface OneSurfaceArtifactResultPair<
+  K extends OneSurfaceAuthorityFunctionKind = OneSurfaceAuthorityFunctionKind
+> {
+  readonly [ONE_SURFACE_ARTIFACT_RESULT_PAIR]: true;
+  readonly kind: "one_surface_artifact_result_pair";
+  readonly functionKind: K;
+  readonly pairRef: string;
+  readonly pairDigest: `sha256:${string}`;
+  readonly stageAuthorityRef: string;
+  readonly stageAuthorityDigest: `sha256:${string}`;
+  readonly inputBasis: OneSurfaceAuthorityInputBasis<K>;
+  readonly sourceEventRef: string;
+  readonly payloadRef: string;
+  readonly payloadDigest: string;
+  readonly resultContractRef: string;
+  readonly resultContractDigest: string;
+  readonly resultAdmission: AdmittedOneSurfaceResultValue<K>;
+  readonly targetCarrierValidationRef: string;
+}
+
+function artifactResultPairBasis(input: {
+  readonly functionKind: OneSurfaceAuthorityFunctionKind;
+  readonly stageAuthorityRef: string;
+  readonly stageAuthorityDigest: `sha256:${string}`;
+  readonly inputRefs: readonly string[];
+  readonly inputDigest: `sha256:${string}`;
+  readonly sourceEventRef: string;
+  readonly payloadRef: string;
+  readonly payloadDigest: string;
+  readonly resultContractRef: string;
+  readonly resultContractDigest: string;
+  readonly resultAdmissionRef: string;
+  readonly resultValueDigest: `sha256:${string}`;
+}) {
+  return Object.freeze({ ...input });
+}
+
+function artifactResultPairIdentity(
+  basis: ReturnType<typeof artifactResultPairBasis>
+): Readonly<{
+  readonly pairRef: string;
+  readonly pairDigest: `sha256:${string}`;
+}> {
+  const pairDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    pairRef:
+      `abg://one-surface/artifact-result-pair/` +
+      pairDigest.slice("sha256:".length),
+    pairDigest
+  });
+}
+
+export function admitOneSurfaceArtifactResultPair<
+  K extends OneSurfaceAuthorityFunctionKind
+>(input: {
+  readonly stageAuthority: OneSurfaceStageAuthority<K>;
+  readonly inputBasis: OneSurfaceAuthorityInputBasis<K>;
+  readonly admittedResult: AdmittedOneSurfaceResultValue<K>;
+  readonly targetCarrierContract: TargetCarrierContractBinding;
+  readonly sourceEventRef: string;
+  readonly artifactPayloadDigestBasis: unknown;
+}): OneSurfaceArtifactResultPair<K> {
+  assertOneSurfaceStageAuthority(input.stageAuthority);
+  assertOneSurfaceAuthorityInputBasis(
+    input.inputBasis,
+    input.stageAuthority.functionKind
+  );
+  assertAdmittedOneSurfaceResultValue(input.admittedResult);
+  if (
+    input.sourceEventRef.length === 0 ||
+    input.admittedResult.functionKind !== input.stageAuthority.functionKind ||
+    input.admittedResult.schemaRef !== input.stageAuthority.nativeResultSchema.schemaRef ||
+    input.targetCarrierContract.contractRef !==
+      input.stageAuthority.resultAuthority.selectedResultContractRef ||
+    input.targetCarrierContract.configDigest !==
+      input.stageAuthority.targetCarrierContract.targetCarrierContractDigest ||
+    input.targetCarrierContract.schemaRef !==
+      input.stageAuthority.nativeResultSchema.schemaRef
+  ) {
+    throw new TypeError("One Surface artifact/result pair authority differs");
+  }
+  const payloadIdentity = mintTargetCarrierPayloadIdentity({
+    resultRef: input.sourceEventRef,
+    artifactPayload: input.artifactPayloadDigestBasis,
+    targetCarrierContractRef: input.targetCarrierContract.contractRef,
+    targetCarrierContractDigest: input.targetCarrierContract.configDigest
+  });
+  const candidate = validateTargetCarrierCandidate({
+    binding: input.targetCarrierContract,
+    payloadRef: payloadIdentity.payloadRef,
+    candidate: input.artifactPayloadDigestBasis
+  });
+  if (candidate.status !== "admitted") {
+    throw new TypeError(candidate.reason);
+  }
+  const decodedAdmission = admitOneSurfaceResultForClose(
+    input.stageAuthority.functionKind,
+    candidate.decodedValue
+  );
+  if (
+    decodedAdmission.admissionRef !== input.admittedResult.admissionRef ||
+    decodedAdmission.valueDigest !== input.admittedResult.valueDigest ||
+    !stableJsonEquals(decodedAdmission.value, input.admittedResult.value)
+  ) {
+    throw new TypeError(
+      "One Surface artifact and admitted result do not form one exact pair"
+    );
+  }
+  const basis = artifactResultPairBasis({
+    functionKind: input.stageAuthority.functionKind,
+    stageAuthorityRef: input.stageAuthority.authorityRef,
+    stageAuthorityDigest: input.stageAuthority.authorityDigest,
+    inputRefs: input.inputBasis.inputRefs,
+    inputDigest: input.inputBasis.inputDigest,
+    sourceEventRef: input.sourceEventRef,
+    payloadRef: payloadIdentity.payloadRef,
+    payloadDigest: payloadIdentity.digest,
+    resultContractRef: input.targetCarrierContract.contractRef,
+    resultContractDigest: input.targetCarrierContract.configDigest,
+    resultAdmissionRef: input.admittedResult.admissionRef,
+    resultValueDigest: input.admittedResult.valueDigest
+  });
+  const identity = artifactResultPairIdentity(basis);
+  return Object.freeze({
+    [ONE_SURFACE_ARTIFACT_RESULT_PAIR]: true as const,
+    kind: "one_surface_artifact_result_pair",
+    functionKind: input.stageAuthority.functionKind,
+    ...identity,
+    stageAuthorityRef: input.stageAuthority.authorityRef,
+    stageAuthorityDigest: input.stageAuthority.authorityDigest,
+    inputBasis: input.inputBasis,
+    sourceEventRef: input.sourceEventRef,
+    payloadRef: payloadIdentity.payloadRef,
+    payloadDigest: payloadIdentity.digest,
+    resultContractRef: input.targetCarrierContract.contractRef,
+    resultContractDigest: input.targetCarrierContract.configDigest,
+    resultAdmission: input.admittedResult,
+    targetCarrierValidationRef: candidate.validationRef
+  });
+}
+
+function assertOneSurfaceArtifactResultPair<
+  K extends OneSurfaceAuthorityFunctionKind
+>(
+  pair: OneSurfaceArtifactResultPair<K>,
+  stage: OneSurfaceStageAuthority<K>
+): void {
+  assertOneSurfaceAuthorityInputBasis(pair.inputBasis, stage.functionKind);
+  assertAdmittedOneSurfaceResultValue(pair.resultAdmission);
+  const identity = artifactResultPairIdentity(artifactResultPairBasis({
+    functionKind: pair.functionKind,
+    stageAuthorityRef: pair.stageAuthorityRef,
+    stageAuthorityDigest: pair.stageAuthorityDigest,
+    inputRefs: pair.inputBasis.inputRefs,
+    inputDigest: pair.inputBasis.inputDigest,
+    sourceEventRef: pair.sourceEventRef,
+    payloadRef: pair.payloadRef,
+    payloadDigest: pair.payloadDigest,
+    resultContractRef: pair.resultContractRef,
+    resultContractDigest: pair.resultContractDigest,
+    resultAdmissionRef: pair.resultAdmission.admissionRef,
+    resultValueDigest: pair.resultAdmission.valueDigest
+  }));
+  if (
+    pair[ONE_SURFACE_ARTIFACT_RESULT_PAIR] !== true ||
+    pair.kind !== "one_surface_artifact_result_pair" ||
+    pair.functionKind !== stage.functionKind ||
+    pair.stageAuthorityRef !== stage.authorityRef ||
+    pair.stageAuthorityDigest !== stage.authorityDigest ||
+    pair.resultContractRef !== stage.resultAuthority.selectedResultContractRef ||
+    pair.resultContractDigest !==
+      stage.targetCarrierContract.targetCarrierContractDigest ||
+    pair.resultAdmission.functionKind !== stage.functionKind ||
+    pair.resultAdmission.schemaRef !== stage.nativeResultSchema.schemaRef ||
+    pair.pairRef !== identity.pairRef ||
+    pair.pairDigest !== identity.pairDigest
+  ) {
+    throw new TypeError("One Surface artifact/result pair seal differs");
+  }
+}
+
 export interface OneSurfaceAuthorityCloseProjection<
   K extends OneSurfaceAuthorityFunctionKind = OneSurfaceAuthorityFunctionKind
 > {
@@ -196,29 +412,26 @@ export function buildOneSurfaceAuthorityCloseEvents<
   K extends OneSurfaceAuthorityFunctionKind
 >(input: {
   readonly stageAuthority: OneSurfaceStageAuthority<K>;
-  readonly admittedResult: AdmittedOneSurfaceResultValue<K>;
+  readonly resultPair: OneSurfaceArtifactResultPair<K>;
   readonly cCallRef: string;
   readonly basisId: string;
-  readonly payloadRef: string;
   readonly evidenceRefs: readonly string[];
 }): OneSurfaceAuthorityCloseProjection<K> {
   assertOneSurfaceStageAuthority(input.stageAuthority);
-  assertAdmittedOneSurfaceResultValue(input.admittedResult);
+  assertOneSurfaceArtifactResultPair(input.resultPair, input.stageAuthority);
   if (
-    input.admittedResult.functionKind !== input.stageAuthority.functionKind ||
-    input.admittedResult.schemaRef !== input.stageAuthority.nativeResultSchema.schemaRef ||
     input.cCallRef.length === 0 ||
-    input.basisId.length === 0 ||
-    input.payloadRef.length === 0
+    input.basisId.length === 0
   ) {
     throw new TypeError("One Surface close authority differs");
   }
-  const refusal = isOneSurfaceTypedRefusal(input.admittedResult.value)
-    ? input.admittedResult.value
+  const refusal = isOneSurfaceTypedRefusal(input.resultPair.resultAdmission.value)
+    ? input.resultPair.resultAdmission.value
     : null;
   const evidenceRefs = canonicalDistinctRefs([
     ...input.evidenceRefs,
-    input.admittedResult.admissionRef,
+    input.resultPair.pairRef,
+    input.resultPair.resultAdmission.admissionRef,
     ...(refusal === null
       ? []
       : [refusal.refusalRef, ...refusal.reasonRefs])
@@ -230,7 +443,7 @@ export function buildOneSurfaceAuthorityCloseEvents<
   return Object.freeze({
     kind: "one_surface_authority_close_projection",
     functionKind: input.stageAuthority.functionKind,
-    admissionRef: input.admittedResult.admissionRef,
+    admissionRef: input.resultPair.resultAdmission.admissionRef,
     outcome,
     outcomeStatus,
     judgment,
@@ -241,7 +454,7 @@ export function buildOneSurfaceAuthorityCloseEvents<
       evidenceClass: "one_surface_authority_result",
       evidenceRefs,
       outcomeStatus,
-      payloadRef: input.payloadRef,
+      payloadRef: input.resultPair.payloadRef,
       responseContractRef:
         input.stageAuthority.resultAuthority.selectedResultContractRef,
       judgment,
@@ -329,6 +542,17 @@ function exactOne<T>(values: readonly T[]): T | null {
   return values.length === 1 ? values[0] ?? null : null;
 }
 
+function resultAdmissionValueDigest(input: {
+  readonly functionKind: OneSurfaceAuthorityFunctionKind;
+  readonly admissionRef: string;
+}): `sha256:${string}` | null {
+  const prefix =
+    `abg://one-surface/result-admission/${input.functionKind}/`;
+  if (!input.admissionRef.startsWith(prefix)) return null;
+  const digest = input.admissionRef.slice(prefix.length);
+  return /^[a-f0-9]{64}$/u.test(digest) ? `sha256:${digest}` : null;
+}
+
 function bindingBasis(
   binding: Omit<
     OneSurfaceAuthorityReplayBinding,
@@ -354,6 +578,17 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
     );
     for (const openRow of stageOpens) {
       const opened = openRow.sourceEvent;
+      const matchingCallOpens = opens.filter((row) =>
+        row.sourceEvent.cCallRef === opened.cCallRef &&
+        row.sourceEvent.basisId === opened.basisId
+      );
+      if (matchingCallOpens.length !== 1) {
+        diagnostics.push(diagnostic(
+          "C-call identity requires exactly one opened event",
+          [opened.cCallRef, opened.basisId]
+        ));
+        continue;
+      }
       const openOrdinal = input.effectRows.indexOf(openRow);
       const nextOpenOrdinal = stageOpens
         .map((row) => input.effectRows.indexOf(row))
@@ -387,8 +622,8 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
         fibre.sourceEvent.armId !== leaf.armId ||
         fibre.sourceEvent.programRef !== stage.plan.programRef ||
         fibre.sourceEvent.compositionRef !== stage.plan.compositionRef ||
-        authority.sourceEvent.inputRefs.length === 0 ||
-        authority.sourceEvent.inputDigest.length === 0 ||
+        !hasCanonicalDistinctNonEmptyRefs(authority.sourceEvent.inputRefs) ||
+        !isSha256Digest(authority.sourceEvent.inputDigest) ||
         !authority.sourceEvent.closureCapable ||
         authority.sourceEvent.contradictoryAuthority ||
         authority.sourceEvent.deferredAuthorityRefs.length > 0
@@ -439,8 +674,51 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
           !row.sourceEvent.deferred
       );
       const evidenceRefs = evidence.map((row) => row.sourceEvent.evidenceRef);
+      const resultAdmissionRef = exactOne(evidenceRefs.filter((evidenceRef) =>
+        resultAdmissionValueDigest({
+          functionKind: stage.functionKind,
+          admissionRef: evidenceRef
+        }) !== null
+      ));
+      const resultValueDigest = resultAdmissionRef === null
+        ? null
+        : resultAdmissionValueDigest({
+            functionKind: stage.functionKind,
+            admissionRef: resultAdmissionRef
+          });
+      const artifactResultPair =
+        resultAdmissionRef === null ||
+        resultValueDigest === null ||
+        observed.sourceEvent.sourceEventRef === null
+          ? null
+          : artifactResultPairIdentity(artifactResultPairBasis({
+              functionKind: stage.functionKind,
+              stageAuthorityRef: stage.authorityRef,
+              stageAuthorityDigest: stage.authorityDigest,
+              inputRefs: authority.sourceEvent.inputRefs,
+              inputDigest: authority.sourceEvent.inputDigest,
+              sourceEventRef: observed.sourceEvent.sourceEventRef,
+              payloadRef: observed.sourceEvent.payloadRef,
+              payloadDigest: observed.sourceEvent.digest,
+              resultContractRef:
+                stage.resultAuthority.selectedResultContractRef,
+              resultContractDigest:
+                stage.targetCarrierContract.targetCarrierContractDigest,
+              resultAdmissionRef,
+              resultValueDigest
+            }));
+      const observedPairRefs = evidenceRefs.filter((evidenceRef) =>
+        evidenceRef.startsWith(
+          "abg://one-surface/artifact-result-pair/"
+        )
+      );
+      const exactPairRef = exactOne(observedPairRefs);
       let expectedEnclosureRefs: readonly string[] | null = null;
-      if (hasDistinctNonEmptyRefs(evidenceRefs)) {
+      if (
+        hasDistinctNonEmptyRefs(evidenceRefs) &&
+        artifactResultPair !== null &&
+        exactPairRef === artifactResultPair.pairRef
+      ) {
         try {
           expectedEnclosureRefs = canonicalDistinctRefs([
             authority.sourceEvent.authoritySnapshotRef,
@@ -479,6 +757,9 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
         ));
       if (
         expectedEnclosureRefs === null ||
+        artifactResultPair === null ||
+        resultAdmissionRef === null ||
+        resultValueDigest === null ||
         evidenced === null ||
         result === null ||
         judged === null
@@ -544,6 +825,7 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
         frameId: opened.frameId,
         vectorIndex: opened.vectorIndex,
         edge: opened.edge,
+        inputRefs: authority.sourceEvent.inputRefs,
         inputDigest: authority.sourceEvent.inputDigest,
         payloadRef: observed.sourceEvent.payloadRef,
         payloadDigest: observed.sourceEvent.digest,
@@ -551,6 +833,10 @@ export function deriveOneSurfaceAuthorityReplayProjection(input: {
         resultContractDigest:
           stage.targetCarrierContract.targetCarrierContractDigest,
         authoritySnapshotRef: authority.sourceEvent.authoritySnapshotRef,
+        artifactResultPairRef: artifactResultPair.pairRef,
+        artifactResultPairDigest: artifactResultPair.pairDigest,
+        resultAdmissionRef,
+        resultValueDigest,
         evidenceRefs: expectedEnclosureRefs,
         judgment: judged.sourceEvent.judgment,
         reasonRef: judged.sourceEvent.reasonRef
@@ -638,11 +924,15 @@ export function projectOneSurfaceAuthorityResult<
   readonly payloadLedger: PayloadLedgerProjection;
   readonly artifactPayloadDigestBasis: unknown;
   readonly expectedCCallRef: string;
-  readonly expectedFunctionInputDigest: string;
+  readonly expectedFunctionInputBasis: OneSurfaceAuthorityInputBasis<K>;
 }): OneSurfaceAuthorityResultProjection<K> {
   try {
     assertOneSurfaceAuthorityProgramBinding(input.application);
     assertOneSurfaceStageAuthority(input.stageAuthority);
+    assertOneSurfaceAuthorityInputBasis(
+      input.expectedFunctionInputBasis,
+      input.stageAuthority.functionKind
+    );
   } catch (error: unknown) {
     return refused({
       status: "refused",
@@ -652,13 +942,12 @@ export function projectOneSurfaceAuthorityResult<
     });
   }
   if (
-    input.expectedCCallRef.length === 0 ||
-    input.expectedFunctionInputDigest.length === 0
+    input.expectedCCallRef.length === 0
   ) {
     return refused({
       status: "refused",
       diagnosticId: "one_surface_result_authority_mismatch",
-      reason: "expected C-call ref and function-input digest are required",
+      reason: "expected C-call ref is required",
       evidenceRefs: []
     });
   }
@@ -670,7 +959,11 @@ export function projectOneSurfaceAuthorityResult<
     binding.stageAuthorityRef === input.stageAuthority.authorityRef &&
     binding.stageAuthorityDigest === input.stageAuthority.authorityDigest &&
     binding.cCallRef === input.expectedCCallRef &&
-    binding.inputDigest === input.expectedFunctionInputDigest &&
+    stableJsonEquals(
+      binding.inputRefs,
+      input.expectedFunctionInputBasis.inputRefs
+    ) &&
+    binding.inputDigest === input.expectedFunctionInputBasis.inputDigest &&
     binding.basisId === input.payloadLedger.scope.basisId &&
     binding.graphFunctionId === input.payloadLedger.scope.graphFunctionId &&
     binding.graphCallId === input.payloadLedger.scope.graphCallId &&
@@ -773,7 +1066,11 @@ export function projectOneSurfaceAuthorityResult<
       evidenceRefs: [binding.bindingRef, admittedOutput.projectionRef]
     });
   }
-  if (!binding.evidenceRefs.includes(decodedAdmission.admissionRef)) {
+  if (
+    decodedAdmission.admissionRef !== binding.resultAdmissionRef ||
+    decodedAdmission.valueDigest !== binding.resultValueDigest ||
+    !binding.evidenceRefs.includes(decodedAdmission.admissionRef)
+  ) {
     return refused({
       status: "refused",
       diagnosticId: "one_surface_result_not_admitted",
