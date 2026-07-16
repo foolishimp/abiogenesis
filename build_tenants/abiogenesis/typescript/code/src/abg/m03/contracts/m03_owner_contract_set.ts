@@ -8,17 +8,22 @@ import {
 
 type M03OwnerContractSlot = "request" | "result" | "refusal";
 
-interface M03OwnerContractAuthorityIdentity {
+interface M03OwnerContractAuthorityIdentity<
+  OperationId extends string,
+  Variant extends string,
+  Family extends string,
+  Slot extends M03OwnerContractSlot
+> {
   readonly kind: "owner_native_operation_contract_authority";
   readonly owner: {
-    readonly product: "abiogenesis";
-    readonly module: "abg.m03";
-    readonly family: string;
+      readonly product: "abiogenesis";
+      readonly module: "abg.m03";
+      readonly family: Family;
   };
   readonly subject: {
-    readonly operationId: string;
-    readonly variant: string;
-    readonly slot: M03OwnerContractSlot;
+    readonly operationId: OperationId;
+    readonly variant: Variant;
+    readonly slot: Slot;
   };
   readonly carrierRevision: "5.0.0";
   readonly lawBasis: {
@@ -36,17 +41,20 @@ const DESIGN_LAW_BASIS = freezeNativeValue({
 function source<
   const OperationId extends string,
   const Variant extends string,
+  const Family extends string,
   const FamilyKey extends string,
   const Slot extends M03OwnerContractSlot,
+  const ModulePath extends `code/src/abg/m03/contracts/${string}.js`,
+  const ExportName extends string,
   const S extends v.GenericSchema
 >(input: {
   readonly operationId: OperationId;
   readonly variant: Variant;
-  readonly family: string;
+  readonly family: Family;
   readonly familyKey: FamilyKey;
   readonly slot: Slot;
-  readonly modulePath: `code/src/abg/m03/contracts/${string}.js`;
-  readonly exportName: string;
+  readonly modulePath: ModulePath;
+  readonly exportName: ExportName;
   readonly schema: S;
 }) {
   const operationSuffix = input.operationId.slice("abg.operation.".length);
@@ -84,31 +92,65 @@ function source<
     schema: input.schema
   } satisfies OwnerNativeOperationContractSource<
     S,
-    M03OwnerContractAuthorityIdentity
+    M03OwnerContractAuthorityIdentity<OperationId, Variant, Family, Slot>,
+    unknown,
+    ModulePath,
+    ExportName,
+    readonly [FamilyKey, Variant, Slot, "schema"]
   >);
 }
 
 export function m03OwnerContractSet<
   const OperationId extends string,
   const Variant extends string,
+  const Family extends string,
   const FamilyKey extends string,
+  const ModulePath extends `code/src/abg/m03/contracts/${string}.js`,
+  const ExportName extends string,
   const Request extends v.GenericSchema,
   const Result extends v.GenericSchema,
   const Refusal extends v.GenericSchema
 >(input: {
   readonly operationId: OperationId;
   readonly variant: Variant;
-  readonly family: string;
+  readonly family: Family;
   readonly familyKey: FamilyKey;
-  readonly modulePath: `code/src/abg/m03/contracts/${string}.js`;
-  readonly exportName: string;
+  readonly modulePath: ModulePath;
+  readonly exportName: ExportName;
   readonly request: Request;
   readonly result: Result;
   readonly refusal: Refusal;
 }) {
   return freezeNativeValue({
-    request: source({ ...input, slot: "request", schema: input.request }),
-    result: source({ ...input, slot: "result", schema: input.result }),
-    refusal: source({ ...input, slot: "refusal", schema: input.refusal })
+    request: source({
+      operationId: input.operationId,
+      variant: input.variant,
+      family: input.family,
+      familyKey: input.familyKey,
+      slot: "request",
+      modulePath: input.modulePath,
+      exportName: input.exportName,
+      schema: input.request
+    }),
+    result: source({
+      operationId: input.operationId,
+      variant: input.variant,
+      family: input.family,
+      familyKey: input.familyKey,
+      slot: "result",
+      modulePath: input.modulePath,
+      exportName: input.exportName,
+      schema: input.result
+    }),
+    refusal: source({
+      operationId: input.operationId,
+      variant: input.variant,
+      family: input.family,
+      familyKey: input.familyKey,
+      slot: "refusal",
+      modulePath: input.modulePath,
+      exportName: input.exportName,
+      schema: input.refusal
+    })
   });
 }

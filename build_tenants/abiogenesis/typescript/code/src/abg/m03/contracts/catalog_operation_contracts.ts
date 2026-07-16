@@ -29,6 +29,8 @@ const nonEmptyRefListSchema = v.pipe(
 
 const catalogAdmitRequestSchema = v.pipe(
   v.strictObject({
+    workspaceBindingRef: refSchema,
+    workspaceBindingDigest: sha256DigestSchema,
     descriptorRefs: nonEmptyRefListSchema,
     contributionManifestRefs: nonEmptyRefListSchema,
     resolvedLockRef: refSchema,
@@ -37,22 +39,52 @@ const catalogAdmitRequestSchema = v.pipe(
   v.readonly()
 );
 
-const catalogAdmissionDispositionSchema = v.pipe(
+const catalogAdmissionRowFields = {
+  kind: v.literal("catalog_row_disposition"),
+  entryRef: refSchema,
+  declarationRef: refSchema
+} as const;
+
+const catalogAdmittedDispositionSchema = v.pipe(
   v.strictObject({
-    kind: v.literal("catalog_row_disposition"),
-    entryRef: refSchema,
-    declarationRef: refSchema,
-    entryKind: v.picklist([...PUBLIC_RUNTIME_CATALOG_KIND_VALUES, "unsupported"]),
-    disposition: v.picklist([
-      "admitted",
-      "already_admitted_exact",
-      "rejected"
-    ]),
-    eventRef: v.nullable(refSchema),
-    rejectionReason: v.nullable(nonEmptyTextSchema)
+    ...catalogAdmissionRowFields,
+    entryKind: v.picklist(PUBLIC_RUNTIME_CATALOG_KIND_VALUES),
+    disposition: v.literal("admitted")
   }),
   v.readonly()
 );
+
+function catalogNonAdmissionDispositionSchema<
+  const Disposition extends
+    | "rejected"
+    | "incompatible"
+    | "conflicting"
+    | "unready"
+    | "unresolved"
+>(disposition: Disposition) {
+  return v.pipe(
+    v.strictObject({
+      ...catalogAdmissionRowFields,
+      entryKind: v.picklist([
+        ...PUBLIC_RUNTIME_CATALOG_KIND_VALUES,
+        "unsupported"
+      ]),
+      disposition: v.literal(disposition),
+      reason: nonEmptyTextSchema,
+      residualRefs: refListSchema
+    }),
+    v.readonly()
+  );
+}
+
+const catalogAdmissionDispositionSchema = v.union([
+  catalogAdmittedDispositionSchema,
+  catalogNonAdmissionDispositionSchema("rejected"),
+  catalogNonAdmissionDispositionSchema("incompatible"),
+  catalogNonAdmissionDispositionSchema("conflicting"),
+  catalogNonAdmissionDispositionSchema("unready"),
+  catalogNonAdmissionDispositionSchema("unresolved")
+]);
 
 const catalogAdmitResultSchema = v.pipe(
   v.strictObject({

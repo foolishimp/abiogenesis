@@ -7,9 +7,12 @@ import { CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/
 import { GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/gtl_conformance_operation_contracts.js";
 import { RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js";
 import {
+  EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY,
   EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
+  EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY,
   EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA,
   FINAL_TAP_DELTA_SCHEMA,
+  QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
   QUALIFICATION_LAW_BASIS_SCHEMA,
   RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
@@ -70,6 +73,12 @@ function parseRequest(operationId, variant, input) {
   assert.throws(() => v.parse(source.schema, { ...input, undeclared: true }));
 }
 
+function parseResult(operationId, variant, input) {
+  const source = sourceFor(operationId, variant, "result");
+  assert.doesNotThrow(() => v.parse(source.schema, input));
+  assert.throws(() => v.parse(source.schema, { ...input, undeclared: true }));
+}
+
 const context = {
   basisRef: "basis:1",
   basisDigest: DIGEST,
@@ -126,6 +135,64 @@ const finalTapDelta = {
   ]
 };
 
+const qualificationGateResultVector = {
+  kind: "qualification_gate_result_vector",
+  vectorRef: "qualification-vector:1",
+  vectorDigest: DIGEST,
+  qualificationBasisRef: "qualification-basis:1",
+  qualificationBasisDigest: DIGEST,
+  qualificationLawBasisRef: "qualification-law:1",
+  qualificationLawBasisDigest: DIGEST,
+  frozenInventoryDigest: DIGEST,
+  mandatoryGateRefs: ["qualification-gate:semantic", "qualification-gate:installed"],
+  results: [
+    {
+      ordinal: 0,
+      gateRef: "qualification-gate:semantic",
+      qualificationBasisRef: "qualification-basis:1",
+      qualificationBasisDigest: DIGEST,
+      qualificationLawBasisRef: "qualification-law:1",
+      qualificationLawBasisDigest: DIGEST,
+      assessmentRef: "assessment:semantic",
+      assessmentDigest: DIGEST,
+      disposition: "green",
+      evidence: [{ ref: "evidence:semantic", digest: DIGEST }],
+      bypassRefs: []
+    },
+    {
+      ordinal: 1,
+      gateRef: "qualification-gate:installed",
+      qualificationBasisRef: "qualification-basis:1",
+      qualificationBasisDigest: DIGEST,
+      qualificationLawBasisRef: "qualification-law:1",
+      qualificationLawBasisDigest: DIGEST,
+      assessmentRef: "assessment:installed",
+      assessmentDigest: DIGEST,
+      disposition: "green",
+      evidence: [{ ref: "evidence:installed", digest: DIGEST }],
+      bypassRefs: []
+    }
+  ]
+};
+
+const greenQualificationVerdict = {
+  kind: "exact_candidate_qualification_verdict",
+  verdictRef: "qualification-verdict:1",
+  verdictDigest: DIGEST,
+  basisRef: "qualification-basis:1",
+  basisDigest: DIGEST,
+  qualificationLawBasisRef: "qualification-law:1",
+  qualificationLawBasisDigest: DIGEST,
+  qualificationGateResultVectorRef: "qualification-vector:1",
+  qualificationGateResultVectorDigest: DIGEST,
+  assessments: [
+    { ref: "assessment:semantic", digest: DIGEST, disposition: "green" },
+    { ref: "assessment:installed", digest: DIGEST, disposition: "green" }
+  ],
+  disposition: "green",
+  bypassRefs: []
+};
+
 test("T-281 owner sources resolve 16 exact definition keys and 48 native slots", async () => {
   const sources = collectSources(OWNER_SOURCE_FAMILIES);
   assert.equal(sources.length, 48);
@@ -164,6 +231,8 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
 
 test("catalog requests are strict and variant-indexed", () => {
   parseRequest("abg.operation.catalog.admit", "admit", {
+    workspaceBindingRef: "workspace-binding:1",
+    workspaceBindingDigest: DIGEST,
     descriptorRefs: ["descriptor:1"],
     contributionManifestRefs: ["contribution:1"],
     resolvedLockRef: "lock:1",
@@ -181,6 +250,70 @@ test("catalog requests are strict and variant-indexed", () => {
       applicationBasisDigest: DIGEST
     });
   }
+});
+
+test("catalog admission rows are a contradiction-free typed disposition sum", () => {
+  const common = {
+    kind: "catalog_row_disposition",
+    entryRef: "catalog-entry:1",
+    declarationRef: "declaration:1",
+    entryKind: "graph_function"
+  };
+  parseResult("abg.operation.catalog.admit", "admit", {
+    catalogRef: "catalog:1",
+    catalogDigest: DIGEST,
+    dispositions: [{ ...common, disposition: "admitted" }],
+    evidenceRefs: ["evidence:1"]
+  });
+  for (const disposition of [
+    "rejected",
+    "incompatible",
+    "conflicting",
+    "unready",
+    "unresolved"
+  ]) {
+    parseResult("abg.operation.catalog.admit", "admit", {
+      catalogRef: "catalog:1",
+      catalogDigest: DIGEST,
+      dispositions: [
+        {
+          ...common,
+          disposition,
+          reason: `${disposition} row`,
+          residualRefs: ["residual:1"]
+        }
+      ],
+      evidenceRefs: ["evidence:1"]
+    });
+  }
+  const schema = sourceFor(
+    "abg.operation.catalog.admit",
+    "admit",
+    "result"
+  ).schema;
+  assert.throws(() =>
+    v.parse(schema, {
+      catalogRef: "catalog:1",
+      catalogDigest: DIGEST,
+      dispositions: [
+        {
+          ...common,
+          disposition: "admitted",
+          reason: "contradictory rejection reason",
+          residualRefs: []
+        }
+      ],
+      evidenceRefs: []
+    })
+  );
+  assert.throws(() =>
+    v.parse(schema, {
+      catalogRef: "catalog:1",
+      catalogDigest: DIGEST,
+      dispositions: [{ ...common, disposition: "rejected" }],
+      evidenceRefs: []
+    })
+  );
 });
 
 test("witness packets share one envelope and enforce variant payload relations", () => {
@@ -288,12 +421,19 @@ test("exact-candidate schemas make release authority and final-only delta struct
   for (const schema of [
     QUALIFICATION_LAW_BASIS_SCHEMA,
     EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
+    QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
     EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA,
     FINAL_TAP_DELTA_SCHEMA
   ]) {
     assertDeepFrozen(schema);
-    assert.doesNotThrow(() => projectCanonicalNativeJsonSchema(schema));
+    assert.doesNotThrow(() =>
+      projectCanonicalNativeJsonSchema(schema, {
+        namedCheckRegistry:
+          EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY
+      })
+    );
   }
+  assertDeepFrozen(EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY);
   assert.doesNotThrow(() => v.parse(QUALIFICATION_LAW_BASIS_SCHEMA, lawBasis));
   assert.doesNotThrow(() => v.parse(FINAL_TAP_DELTA_SCHEMA, finalTapDelta));
   assert.throws(() =>
@@ -338,20 +478,69 @@ test("exact-candidate schemas make release authority and final-only delta struct
       finalTapDelta
     })
   );
+  assert.throws(() =>
+    v.parse(EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, {
+      ...candidateCommon,
+      subjectKind: "final_tap_candidate",
+      prospectiveFinalIdentity: "release:5.0.0",
+      prospectiveFinalVersion: "5.0.0",
+      acceptedRcRef: "release-cut:5.0.0-rc.2",
+      acceptedRcDigest: DIGEST,
+      installedRcQualificationBasisRef: "qualification-basis:installed-rc",
+      installedRcQualificationBasisDigest: DIGEST,
+      installedRcGreenVerdictRef: "qualification-verdict:installed-rc",
+      installedRcGreenVerdictDigest: DIGEST,
+      finalTapDelta
+    })
+  );
+  assert.throws(() =>
+    v.parse(EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, {
+      ...candidateCommon,
+      subjectKind: "final_tap_candidate",
+      prospectiveFinalIdentity: "release:5.0.1",
+      prospectiveFinalVersion: "5.0.1",
+      acceptedRcRef: "release-cut:5.0.0-rc.1",
+      acceptedRcDigest: DIGEST,
+      installedRcQualificationBasisRef: "qualification-basis:installed-rc",
+      installedRcQualificationBasisDigest: DIGEST,
+      installedRcGreenVerdictRef: "qualification-verdict:installed-rc",
+      installedRcGreenVerdictDigest: DIGEST,
+      finalTapDelta
+    })
+  );
   assert.doesNotThrow(() =>
+    v.parse(
+      QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+      qualificationGateResultVector
+    )
+  );
+  assert.throws(() =>
+    v.parse(QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA, {
+      ...qualificationGateResultVector,
+      results: qualificationGateResultVector.results.map((result, index) => ({
+        ...result,
+        ordinal: index + 1
+      }))
+    })
+  );
+  assert.doesNotThrow(() =>
+    v.parse(
+      EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA,
+      greenQualificationVerdict
+    )
+  );
+  assert.throws(() =>
     v.parse(EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA, {
-      kind: "exact_candidate_qualification_verdict",
-      verdictRef: "qualification-verdict:1",
-      verdictDigest: DIGEST,
-      basisRef: "qualification-basis:1",
-      basisDigest: DIGEST,
-      qualificationLawBasisRef: "qualification-law:1",
-      qualificationLawBasisDigest: DIGEST,
+      ...greenQualificationVerdict,
       assessments: [
-        { ref: "assessment:1", digest: DIGEST, disposition: "green" }
-      ],
-      disposition: "green",
-      bypassRefs: []
+        { ref: "assessment:red", digest: DIGEST, disposition: "red" }
+      ]
+    })
+  );
+  assert.throws(() =>
+    v.parse(EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA, {
+      ...greenQualificationVerdict,
+      bypassRefs: ["bypass:1"]
     })
   );
 });
@@ -382,4 +571,18 @@ test("release requests distinguish published RC from final tap", () => {
     finalTapDeltaRef: "final-tap-delta:1",
     finalTapDeltaDigest: DIGEST
   });
+  for (const variant of ["published_rc", "tapped_release"]) {
+    parseResult("abg.operation.release.snapshot", variant, {
+      releaseCutRef: `release-cut:${variant}`,
+      releaseCutDigest: DIGEST,
+      artifacts: [
+        { ref: "artifact:package", digest: DIGEST, kind: "package_tarball" }
+      ],
+      snapshotManifestRef: "manifest:release-snapshot",
+      snapshotManifestDigest: DIGEST,
+      provenanceRefs: ["provenance:1"],
+      qualificationDisposition: "green",
+      residualRefs: []
+    });
+  }
 });

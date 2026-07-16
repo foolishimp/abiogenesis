@@ -225,20 +225,28 @@ const tuningDecisionRequestSchema = v.pipe(
   v.readonly()
 );
 
-function tuningDecisionResultSchema<const Variant extends "ratify" | "reject">(
-  variant: Variant
-) {
-  return v.pipe(
+const TUNING_DECISION_RESULT_SCHEMAS = freezeNativeValue({
+  ratify: v.pipe(
     v.strictObject({
       draftRef: refSchema,
       draftVersion: safePositiveIntegerSchema,
       draftDigest: sha256DigestSchema,
-      disposition: v.literal(variant === "ratify" ? "ratified" : "rejected"),
+      disposition: v.literal("ratified"),
       eventRef: refSchema
     }),
     v.readonly()
-  );
-}
+  ),
+  reject: v.pipe(
+    v.strictObject({
+      draftRef: refSchema,
+      draftVersion: safePositiveIntegerSchema,
+      draftDigest: sha256DigestSchema,
+      disposition: v.literal("rejected"),
+      eventRef: refSchema
+    }),
+    v.readonly()
+  )
+} as const);
 
 const TUNING_DECISION_REFUSAL_CODES = Object.freeze([
   "draft_missing",
@@ -267,7 +275,7 @@ function tuningDecisionContractSet<const Variant extends "ratify" | "reject">(
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
     request: tuningDecisionRequestSchema,
-    result: tuningDecisionResultSchema(variant),
+    result: TUNING_DECISION_RESULT_SCHEMAS[variant],
     refusal: tuningDecisionRefusalSchema
   });
 }

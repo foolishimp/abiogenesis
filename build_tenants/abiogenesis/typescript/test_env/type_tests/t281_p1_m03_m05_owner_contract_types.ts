@@ -8,6 +8,13 @@ import {
   FINAL_TAP_DELTA_SCHEMA
 } from "../../code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
 
+type Equal<Left, Right> =
+  (<T>() => T extends Left ? 1 : 2) extends
+  (<T>() => T extends Right ? 1 : 2)
+    ? true
+    : false;
+type Expect<Value extends true> = Value;
+
 const overlayRequestSchema =
   CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES.catalog_apply.overlay.request.schema;
 type OverlayRequest = v.InferOutput<typeof overlayRequestSchema>;
@@ -40,6 +47,92 @@ export function policyAuthorityRef(input: RatifyRequest): string | null {
   return input.authority.kind === "policy" ? input.authority.policyRef : null;
 }
 void ratifyRequest;
+
+const ratifyResultSource =
+  RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES.tuning_transition.ratify
+    .result;
+const rejectResultSource =
+  RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES.tuning_transition.reject
+    .result;
+
+type _RatifyOperationIdentity = Expect<
+  Equal<
+    typeof ratifyResultSource.authority.subject.operationId,
+    "abg.operation.tuning.transition"
+  >
+>;
+type _RatifyVariantIdentity = Expect<
+  Equal<typeof ratifyResultSource.authority.subject.variant, "ratify">
+>;
+type _RatifyFamilyIdentity = Expect<
+  Equal<
+    typeof ratifyResultSource.authority.owner.family,
+    "tuning_draft_transition"
+  >
+>;
+type _RatifySlotIdentity = Expect<
+  Equal<typeof ratifyResultSource.authority.subject.slot, "result">
+>;
+type _RatifyModuleIdentity = Expect<
+  Equal<
+    typeof ratifyResultSource.sourceLocator.modulePath,
+    "code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js"
+  >
+>;
+type _RatifyExportIdentity = Expect<
+  Equal<
+    typeof ratifyResultSource.sourceLocator.exportName,
+    "RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES"
+  >
+>;
+type _RatifyMemberPathFamily = Expect<
+  Equal<typeof ratifyResultSource.sourceLocator.memberPath[0], "tuning_transition">
+>;
+type _RatifyMemberPathVariant = Expect<
+  Equal<typeof ratifyResultSource.sourceLocator.memberPath[1], "ratify">
+>;
+type _RatifyMemberPathSlot = Expect<
+  Equal<typeof ratifyResultSource.sourceLocator.memberPath[2], "result">
+>;
+type _RatifyMemberPathSchema = Expect<
+  Equal<typeof ratifyResultSource.sourceLocator.memberPath[3], "schema">
+>;
+type _RatifyMemberPathLength = Expect<
+  Equal<typeof ratifyResultSource.sourceLocator.memberPath["length"], 4>
+>;
+
+type RatifyResult = v.InferOutput<typeof ratifyResultSource.schema>;
+type RejectResult = v.InferOutput<typeof rejectResultSource.schema>;
+type _RatifyDisposition = Expect<
+  Equal<RatifyResult["disposition"], "ratified">
+>;
+type _RejectDisposition = Expect<
+  Equal<RejectResult["disposition"], "rejected">
+>;
+
+declare const ratifyResult: RatifyResult;
+declare const rejectResult: RejectResult;
+// @ts-expect-error Ratify output cannot widen to the reject disposition.
+const rejectedFromRatify: "rejected" = ratifyResult.disposition;
+// @ts-expect-error Reject output cannot widen to the ratify disposition.
+const ratifiedFromReject: "ratified" = rejectResult.disposition;
+void rejectedFromRatify;
+void ratifiedFromReject;
+
+export type M03M05OwnerContractTypeProof =
+  | _RatifyOperationIdentity
+  | _RatifyVariantIdentity
+  | _RatifyFamilyIdentity
+  | _RatifySlotIdentity
+  | _RatifyModuleIdentity
+  | _RatifyExportIdentity
+  | _RatifyMemberPathFamily
+  | _RatifyMemberPathVariant
+  | _RatifyMemberPathSlot
+  | _RatifyMemberPathSchema
+  | _RatifyMemberPathLength
+  | _RatifyDisposition
+  | _RejectDisposition;
 
 const conformanceRequestSchema =
   GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES.conformance_evaluate

@@ -6,11 +6,13 @@ import * as v from "valibot";
 import {
   nonEmptyTextSchema,
   refSchema,
+  SAFE_INTEGER_ACTION,
   semanticVersionSchema,
   sha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../shared/validation/native_named_check_registry.js";
 import { ownerNativeOperationContractSource } from "../../shared/validation/owner_native_operation_contract_source.js";
 
 type ReleaseVariant = "published_rc" | "tapped_release";
@@ -79,6 +81,11 @@ const refDigestSchema = v.pipe(
   v.readonly()
 );
 
+const refDigestListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refDigestSchema),
+  v.readonly()
+);
+
 const nonEmptyRefDigestListSchema = v.pipe(
   uniqueByNativeIdentityArray(refDigestSchema),
   v.minLength(1),
@@ -131,6 +138,89 @@ export const FINAL_TAP_DELTA_SCHEMA = freezeNativeValue(
   )
 );
 
+const qualificationGateDispositionSchema = v.picklist([
+  "green",
+  "red",
+  "blocked"
+]);
+
+const zeroBasedOrdinalSchema = v.pipe(
+  v.number(),
+  v.integer("expected an integer"),
+  SAFE_INTEGER_ACTION,
+  v.minValue(0, "expected a zero-based ordinal")
+);
+
+const qualificationGateResultCitationSchema = v.pipe(
+  v.strictObject({
+    ordinal: zeroBasedOrdinalSchema,
+    gateRef: refSchema,
+    qualificationBasisRef: refSchema,
+    qualificationBasisDigest: sha256DigestSchema,
+    qualificationLawBasisRef: refSchema,
+    qualificationLawBasisDigest: sha256DigestSchema,
+    assessmentRef: refSchema,
+    assessmentDigest: sha256DigestSchema,
+    disposition: qualificationGateDispositionSchema,
+    evidence: refDigestListSchema,
+    bypassRefs: refListSchema
+  }),
+  v.readonly()
+);
+
+const qualificationGateResultVectorCarrierSchema = v.strictObject({
+  kind: v.literal("qualification_gate_result_vector"),
+  vectorRef: refSchema,
+  vectorDigest: sha256DigestSchema,
+  qualificationBasisRef: refSchema,
+  qualificationBasisDigest: sha256DigestSchema,
+  qualificationLawBasisRef: refSchema,
+  qualificationLawBasisDigest: sha256DigestSchema,
+  frozenInventoryDigest: sha256DigestSchema,
+  mandatoryGateRefs: v.pipe(
+    uniqueByNativeIdentityArray(refSchema),
+    v.minLength(1),
+    v.readonly()
+  ),
+  results: v.pipe(
+    v.array(qualificationGateResultCitationSchema),
+    v.minLength(1),
+    v.readonly()
+  )
+});
+
+const QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION = Object.freeze(
+  v.check(
+    (
+      vector: v.InferOutput<
+        typeof qualificationGateResultVectorCarrierSchema
+      >
+    ) =>
+      vector.results.length === vector.mandatoryGateRefs.length &&
+      vector.results.every(
+        (result, index) =>
+          result.ordinal === index &&
+          result.gateRef === vector.mandatoryGateRefs[index] &&
+          result.qualificationBasisRef === vector.qualificationBasisRef &&
+          result.qualificationBasisDigest ===
+            vector.qualificationBasisDigest &&
+          result.qualificationLawBasisRef ===
+            vector.qualificationLawBasisRef &&
+          result.qualificationLawBasisDigest ===
+            vector.qualificationLawBasisDigest
+      ),
+    "gate results must be complete, ordered, and on the vector basis"
+  )
+);
+
+export const QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA = freezeNativeValue(
+  v.pipe(
+    qualificationGateResultVectorCarrierSchema,
+    QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION,
+    v.readonly()
+  )
+);
+
 function exactCandidateCommonFields() {
   return {
     kind: v.literal("exact_candidate_qualification_basis"),
@@ -171,8 +261,7 @@ const installedRcCandidateBasisSchema = v.pipe(
   v.readonly()
 );
 
-const finalTapCandidateBasisSchema = v.pipe(
-  v.strictObject({
+const finalTapCandidateBasisCarrierSchema = v.strictObject({
     ...exactCandidateCommonFields(),
     subjectKind: v.literal("final_tap_candidate"),
     prospectiveFinalIdentity: refSchema,
@@ -184,7 +273,24 @@ const finalTapCandidateBasisSchema = v.pipe(
     installedRcGreenVerdictRef: refSchema,
     installedRcGreenVerdictDigest: sha256DigestSchema,
     finalTapDelta: FINAL_TAP_DELTA_SCHEMA
-  }),
+  });
+
+const FINAL_TAP_DELTA_MATCHES_BASIS_ACTION = Object.freeze(
+  v.check(
+    (
+      basis: v.InferOutput<typeof finalTapCandidateBasisCarrierSchema>
+    ) =>
+      basis.acceptedRcRef === basis.finalTapDelta.acceptedRcRef &&
+      basis.acceptedRcDigest === basis.finalTapDelta.acceptedRcDigest &&
+      basis.prospectiveFinalVersion ===
+        basis.finalTapDelta.assignedFinalVersion,
+    "final basis must match its accepted RC and assigned final version"
+  )
+);
+
+const finalTapCandidateBasisSchema = v.pipe(
+  finalTapCandidateBasisCarrierSchema,
+  FINAL_TAP_DELTA_MATCHES_BASIS_ACTION,
   v.readonly()
 );
 
@@ -200,32 +306,91 @@ const assessmentCitationSchema = v.pipe(
   v.strictObject({
     ref: refSchema,
     digest: sha256DigestSchema,
-    disposition: v.picklist(["green", "red", "blocked"])
+    disposition: qualificationGateDispositionSchema
   }),
   v.readonly()
 );
 
+const exactCandidateQualificationVerdictCarrierSchema = v.strictObject({
+  kind: v.literal("exact_candidate_qualification_verdict"),
+  verdictRef: refSchema,
+  verdictDigest: sha256DigestSchema,
+  basisRef: refSchema,
+  basisDigest: sha256DigestSchema,
+  qualificationLawBasisRef: refSchema,
+  qualificationLawBasisDigest: sha256DigestSchema,
+  qualificationGateResultVectorRef: refSchema,
+  qualificationGateResultVectorDigest: sha256DigestSchema,
+  assessments: v.pipe(
+    uniqueByNativeIdentityArray(assessmentCitationSchema),
+    v.minLength(1),
+    v.readonly()
+  ),
+  disposition: qualificationGateDispositionSchema,
+  bypassRefs: refListSchema
+});
+
+const QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION = Object.freeze(
+  v.check(
+    (
+      verdict: v.InferOutput<
+        typeof exactCandidateQualificationVerdictCarrierSchema
+      >
+    ) => {
+      const expectedDisposition = verdict.assessments.some(
+        (assessment) => assessment.disposition === "red"
+      )
+        ? "red"
+        : verdict.bypassRefs.length > 0 ||
+            verdict.assessments.some(
+              (assessment) => assessment.disposition === "blocked"
+            )
+          ? "blocked"
+          : "green";
+      return verdict.disposition === expectedDisposition;
+    },
+    "verdict disposition must match all mandatory outcomes and bypass truth"
+  )
+);
+
 export const EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA = freezeNativeValue(
   v.pipe(
-    v.strictObject({
-      kind: v.literal("exact_candidate_qualification_verdict"),
-      verdictRef: refSchema,
-      verdictDigest: sha256DigestSchema,
-      basisRef: refSchema,
-      basisDigest: sha256DigestSchema,
-      qualificationLawBasisRef: refSchema,
-      qualificationLawBasisDigest: sha256DigestSchema,
-      assessments: v.pipe(
-        uniqueByNativeIdentityArray(assessmentCitationSchema),
-        v.minLength(1),
-        v.readonly()
-      ),
-      disposition: v.picklist(["green", "red", "blocked"]),
-      bypassRefs: refListSchema
-    }),
+    exactCandidateQualificationVerdictCarrierSchema,
+    QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION,
     v.readonly()
   )
 );
+
+export const EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY =
+  freezeNativeValue({
+    familyRef: "contract-family://abg/exact-candidate-qualification@5",
+    checks: [
+      {
+        checkId: "qualification-gate-result-vector-relation",
+        action: QUALIFICATION_GATE_RESULT_VECTOR_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-064A"
+      },
+      {
+        checkId: "final-tap-delta-matches-basis",
+        action: FINAL_TAP_DELTA_MATCHES_BASIS_ACTION,
+        relationRef: "REQ-P-QUAL-070"
+      },
+      {
+        checkId: "qualification-verdict-disposition-relation",
+        action: QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION,
+        relationRef: "REQ-P-QUAL-064C"
+      }
+    ]
+  } satisfies NativeNamedCheckRegistry);
+
+export const EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY =
+  freezeNativeValue({
+    qualificationLawBasis: QUALIFICATION_LAW_BASIS_SCHEMA,
+    qualificationBasis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
+    qualificationGateResultVector: QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
+    qualificationVerdict: EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA,
+    finalTapDelta: FINAL_TAP_DELTA_SCHEMA
+  });
 
 const releaseResultFields = {
   releaseCutRef: refSchema,
@@ -256,7 +421,9 @@ const publishedRcRequestSchema = v.pipe(
 
 const releaseResultSchema = v.pipe(
   v.strictObject({
-    ...releaseResultFields
+    ...releaseResultFields,
+    qualificationDisposition: v.literal("green"),
+    residualRefs: refListSchema
   }),
   v.readonly()
 );
