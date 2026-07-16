@@ -81,7 +81,7 @@ export interface CanonicalNativeSchemaProjection {
 
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF =
   "projector://abg/native-schema/valibot-json-schema";
-export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.0.0";
+export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.1.0";
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS =
   Object.freeze({
     valibot: "1.3.1",
@@ -104,6 +104,24 @@ const ALLOWED_SCHEMA_TYPES = Object.freeze([
 ]);
 const ALLOWED_SCHEMA_TYPE_SET = new Set(ALLOWED_SCHEMA_TYPES);
 
+function expectedSchemaReference(type: string): unknown {
+  switch (type) {
+    case "array": return v.array;
+    case "boolean": return v.boolean;
+    case "literal": return v.literal;
+    case "null": return v.null_;
+    case "nullable": return v.nullable;
+    case "number": return v.number;
+    case "picklist": return v.picklist;
+    case "strict_object": return v.strictObject;
+    case "string": return v.string;
+    case "tuple": return v.tuple;
+    case "union": return v.union;
+    case "unknown": return v.unknown;
+    default: return undefined;
+  }
+}
+
 const CANONICAL_NATIVE_SCHEMA_PROJECTOR_BASIS = freezeNativeValue({
   projectorRef: CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF,
   projectorVersion: CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION,
@@ -114,6 +132,7 @@ const CANONICAL_NATIVE_SCHEMA_PROJECTOR_BASIS = freezeNativeValue({
     CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS.valibotJsonSchema,
   unsupportedSchemaPolicy: "throw",
   unsupportedActionPolicy: "throw",
+  nativeReferencePolicy: "exact-pinned-constructor-reference-v1",
   namedCheckPolicy: "exact-action-invocation-local-registry-v1",
   allowedSchemaTypes: ALLOWED_SCHEMA_TYPES,
   standardActionTypes: Object.freeze([
@@ -237,6 +256,12 @@ function projectSchemaOverride(context: OverrideSchemaContext): undefined {
       `native contract projector: unsupported schema ${context.valibotSchema.type}`
     );
   }
+  const expectedReference = expectedSchemaReference(context.valibotSchema.type);
+  if (Reflect.get(context.valibotSchema, "reference") !== expectedReference) {
+    throw new TypeError(
+      `native contract projector: unsupported schema ${context.valibotSchema.type} reference`
+    );
+  }
   if (
     context.valibotSchema.type === "unknown" &&
     context.valibotSchema !== canonicalIJsonSchema.pipe[0]
@@ -266,6 +291,11 @@ function projectActionOverride(
 ): AbgJsonSchema {
   const action = context.valibotAction;
   if (action.type === "brand") {
+    if (Reflect.get(action, "reference") !== v.brand) {
+      throw new TypeError(
+        "native contract projector: unsupported action brand reference"
+      );
+    }
     const name: unknown = Reflect.get(action, "name");
     if (typeof name !== "string" || name.length === 0) {
       throw new TypeError("native contract projector: invalid type_brand");
@@ -273,6 +303,11 @@ function projectActionOverride(
     return withExtension(context.jsonSchema, { "x-abg-native-brand": name });
   }
   if (action.type === "regex") {
+    if (Reflect.get(action, "reference") !== v.regex) {
+      throw new TypeError(
+        "native contract projector: unsupported action regex reference"
+      );
+    }
     const requirement: unknown = Reflect.get(action, "requirement");
     if (!(requirement instanceof RegExp) || requirement.flags !== "u") {
       throw new TypeError(
@@ -300,6 +335,7 @@ function projectActionOverride(
   }
   if (
     action.type === "check" &&
+    Reflect.get(action, "reference") === v.check &&
     Reflect.get(action, "requirement") === hasUniqueNativeIdentity
   ) {
     return {

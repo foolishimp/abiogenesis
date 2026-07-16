@@ -447,3 +447,31 @@ test("T-274A rejects malformed, duplicate, and unknown named-check registrations
     /unsupported action check/u
   );
 });
+
+test("T-274A rejects lookalike native schemas and actions", () => {
+  const forgedStringSchema = Object.freeze({
+    ...v.string(),
+    reference: () => undefined
+  });
+  const forgedRegexAction = Object.freeze({
+    ...v.regex(/^allowed$/u),
+    reference: () => undefined
+  });
+  const forgedBrandAction = Object.freeze({
+    ...v.brand("Forged"),
+    reference: () => undefined
+  });
+
+  assert.throws(
+    () => projectNativeJsonSchema(forgedStringSchema),
+    /unsupported schema string reference/u
+  );
+  assert.throws(
+    () => projectNativeJsonSchema(v.pipe(v.string(), forgedRegexAction)),
+    /unsupported action regex reference/u
+  );
+  assert.throws(
+    () => projectNativeJsonSchema(v.pipe(v.string(), forgedBrandAction)),
+    /unsupported action brand reference/u
+  );
+});
