@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: native_schema_phase_a_design_accepted_implementation_authorized
-- review_status: phase_a_fh_accepted_independent_implementation_review_pending
-- proof_status: phase_a_implementation_pending
+- phase_status: native_schema_phase_a_closed_p1_design_required
+- review_status: phase_a_implementation_independently_accepted
+- proof_status: phase_a_private_mechanism_green_p1_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -156,8 +156,29 @@ catalog, SDK, CLI, and capability parity.
    or legacy compatibility surface exists.
 7. P1 proof does not claim P2 handler or packed-release parity.
 
-Phase A implementation is authorized by the independent review and F_H
-decision recorded above. P1 and P2 implementation remain prohibited.
+Phase A implementation was authorized by the independent review and F_H
+decision recorded above. It is now implemented and independently accepted
+at integration commits `df8c2956`, `5c0d22f0`, and `55bfeb10`. P1 and P2
+implementation remain prohibited.
+
+## Phase A Closure
+
+The private native mechanism closes without publishing a definition, schema,
+catalog row, SDK member, CLI coordinate, handler, or package export. One native
+Valibot source owns TypeScript inference, strict admission, canonical schema
+projection, and digest truth. Malformed outcome coordinates return typed
+failure. Canonical I-JSON rejects normalized or hidden host state without
+invoking accessors, and admitted nested state is recursively immutable even
+under an already-frozen root.
+
+The integration-tree proof is `8/8` focused tests plus strict host build and
+type proof. The emitted declaration is `export {};`, the package subpath is not
+exported, all 82 existing public schemas remain exact, and the legacy
+publication manifest is deliberately unchanged. The known T-223 `59/63`
+result consists only of the four derivative checks that require that forbidden
+publication refresh. This closes Phase A only; P1 still requires an accepted
+constructor-ready definition-family design and P2 still requires every
+semantic owner plus atomic hard-break publication.
 
 ## Implementation-Readiness Repair
 
