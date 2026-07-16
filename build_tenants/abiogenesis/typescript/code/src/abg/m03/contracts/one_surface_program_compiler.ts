@@ -72,6 +72,10 @@ export interface OneSurfaceStageAuthority<
   readonly functionKind: K;
   readonly authorityRef: string;
   readonly authorityDigest: `sha256:${string}`;
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly programMembershipRef: string;
+  readonly programMembershipDigest: `sha256:${string}`;
   readonly stage: GtlProgramComputeStageBindingRow;
   readonly plan: CompiledCProgramPlan;
   readonly resultAuthority: AdmittedTraversalStageResultAuthority;
@@ -207,6 +211,13 @@ export type OneSurfaceProgramCompilation =
       readonly diagnostics: readonly OneSurfaceProgramDiagnostic[];
     };
 
+interface OneSurfaceStageProgramMembership {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly programMembershipRef: string;
+  readonly programMembershipDigest: `sha256:${string}`;
+}
+
 function issue(input: {
   readonly id: OneSurfaceProgramDiagnosticId;
   readonly path: string;
@@ -229,12 +240,20 @@ function issue(input: {
 }
 
 function stageBasis(input: OneSurfaceStageAuthorityInput & {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly programMembershipRef: string;
+  readonly programMembershipDigest: `sha256:${string}`;
   readonly targetCarrierContract: GtlProgramTargetCarrierRow;
   readonly nativeResultSchema: OneSurfaceNativeResultSchema;
   readonly allowedConsequenceCatalog: AllowedConsequenceTraversalCatalog;
 }) {
   return Object.freeze({
     functionKind: input.functionKind,
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    programMembershipRef: input.programMembershipRef,
+    programMembershipDigest: input.programMembershipDigest,
     stageBindingRef: input.stage.stageBindingRef,
     compositionRef: input.stage.compositionRef,
     compositionDigest: input.stage.compositionDigest,
@@ -258,6 +277,7 @@ function stageBasis(input: OneSurfaceStageAuthorityInput & {
 
 function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
   input: OneSurfaceStageAuthorityInput<K>,
+  programMembership: OneSurfaceStageProgramMembership,
   targetCarrierContract: GtlProgramTargetCarrierRow,
   allowedConsequenceCatalog: AllowedConsequenceTraversalCatalog,
   nativeResultSchema: OneSurfaceNativeResultSchema & {
@@ -300,6 +320,7 @@ function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
   }
   const basis = stageBasis({
     ...input,
+    ...programMembership,
     targetCarrierContract,
     nativeResultSchema,
     allowedConsequenceCatalog
@@ -313,6 +334,7 @@ function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
       `abg://one-surface/stage/${input.functionKind}/` +
       authorityDigest.slice("sha256:".length),
     authorityDigest,
+    ...programMembership,
     stage: input.stage,
     plan: input.plan,
     resultAuthority: input.resultAuthority,
@@ -332,6 +354,7 @@ export function assertOneSurfaceStageAuthority(
   authority: OneSurfaceStageAuthority
 ): void {
   const expected = admitStage(
+    authority,
     authority,
     authority.targetCarrierContract,
     authority.allowedConsequenceCatalog,
@@ -530,6 +553,13 @@ export function assertOneSurfaceAuthorityProgramBinding(
   binding: OneSurfaceAuthorityProgramBinding
 ): void {
   binding.stages.forEach(assertOneSurfaceStageAuthority);
+  if (binding.stages.some(
+    (stage) =>
+      stage.admittedProgramRef !== binding.admittedProgramRef ||
+      stage.admittedProgramDigest !== binding.admittedProgramDigest
+  )) {
+    throw new TypeError("One Surface stage program membership differs");
+  }
   binding.joins.forEach(assertOneSurfaceProgramJoin);
   assertCompiledTypedRecursePlan(binding.recursePlan);
   exactTuple(binding.stages);
@@ -638,6 +668,75 @@ function deriveProgramAllowedConsequenceCatalog(input: {
   });
 }
 
+function stageBelongsToAdmittedProgram(input: {
+  readonly gtlProgram: GtlProgramConformanceInput;
+  readonly stageAuthority: OneSurfaceStageAuthorityInput;
+}): boolean {
+  const { plan, stage } = input.stageAuthority;
+  const modules = (input.gtlProgram.modules ?? []).filter(
+    (module) =>
+      module.name === plan.moduleName &&
+      stableSha256Digest(module) === plan.moduleDigest
+  );
+  if (modules.length !== 1) return false;
+  const graphFunctions = modules[0]!.graphFunctions.filter(
+    (graphFunction) =>
+      graphFunction.id === plan.executionGraphFunctionRef &&
+      stableSha256Digest(graphFunction) === plan.executionGraphFunctionDigest
+  );
+  if (graphFunctions.length !== 1) return false;
+  const graphFunction = graphFunctions[0]!;
+  if (graphFunction.template.kind !== "inline_graph") return false;
+  const vectors = graphFunction.template.graph.vectors.filter(
+    (vector) =>
+      vector.id === plan.graphVectorRef &&
+      stableSha256Digest(vector) === plan.graphVectorDigest
+  );
+  const stages = (input.gtlProgram.computeStageBindings ?? []).filter(
+    (candidate) => stableJsonEquals(candidate, stage)
+  );
+  return vectors.length === 1 && stages.length === 1;
+}
+
+function constructStageProgramMembership(input: {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly stageAuthority: OneSurfaceStageAuthorityInput;
+  readonly targetCarrierContract: GtlProgramTargetCarrierRow;
+}): OneSurfaceStageProgramMembership {
+  const basis = Object.freeze({
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    moduleName: input.stageAuthority.plan.moduleName,
+    moduleDigest: input.stageAuthority.plan.moduleDigest,
+    graphFunctionRef:
+      input.stageAuthority.plan.executionGraphFunctionRef,
+    graphFunctionDigest:
+      input.stageAuthority.plan.executionGraphFunctionDigest,
+    graphVectorRef: input.stageAuthority.plan.graphVectorRef,
+    graphVectorDigest: input.stageAuthority.plan.graphVectorDigest,
+    stageBindingRef: input.stageAuthority.stage.stageBindingRef,
+    stageBindingDigest: stableSha256Digest(input.stageAuthority.stage),
+    programPlanRef: input.stageAuthority.plan.planRef,
+    programPlanDigest: input.stageAuthority.plan.planDigest,
+    targetCarrierContractRef:
+      input.targetCarrierContract.targetCarrierContractRef,
+    targetCarrierContractDigest:
+      input.targetCarrierContract.targetCarrierContractDigest,
+    traversalBundleRef: input.stageAuthority.traversalContracts.bundleRef,
+    traversalBundleDigest: input.stageAuthority.traversalContracts.bundleDigest
+  });
+  const programMembershipDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    programMembershipRef:
+      `abg://one-surface/program-membership/` +
+      programMembershipDigest.slice("sha256:".length),
+    programMembershipDigest
+  });
+}
+
 export async function compileOneSurfaceGtlProgramApplication(
   input: OneSurfaceGtlProgramCompilationInput
 ): Promise<OneSurfaceProgramCompilation> {
@@ -711,11 +810,46 @@ export async function compileOneSurfaceGtlProgramApplication(
       })])
     });
   }
+  const diagnostics: OneSurfaceProgramDiagnostic[] = [];
+  const invalidStageAuthorities = new Set<OneSurfaceStageAuthorityInput>();
+  input.stageAuthorities.forEach((row, index) => {
+    try {
+      assertCompiledCProgramPlan(row.plan);
+    } catch (error: unknown) {
+      invalidStageAuthorities.add(row);
+      diagnostics.push(issue({
+        id: "one_surface_program_join_invalid",
+        path: `$.stageAuthorities[${String(index)}].plan`,
+        expected: "one sealed T-271 program plan",
+        actual: error instanceof Error ? error.message : String(error),
+        evidenceRefs
+      }));
+      return;
+    }
+    if (!stageBelongsToAdmittedProgram({
+      gtlProgram: input.gtlProgram,
+      stageAuthority: row
+    })) {
+      invalidStageAuthorities.add(row);
+      diagnostics.push(issue({
+        id: "one_surface_authority_cross_program",
+        path: `$.stageAuthorities[${String(index)}]`,
+        expected:
+          "one exact stage, module, GraphFunction, and vector in the admitted program",
+        actual: "sealed stage authority input belongs to another program structure",
+        evidenceRefs: [
+          ...evidenceRefs,
+          row.plan.planRef,
+          row.plan.planDigest,
+          row.stage.stageBindingRef
+        ]
+      }));
+    }
+  });
   const byRef = new Map(
     input.stageAuthorities.map((row) => [row.stage.stageBindingRef, row])
   );
   const ordered = control.stageBindingRefs.map((ref) => byRef.get(ref));
-  const diagnostics: OneSurfaceProgramDiagnostic[] = [];
   if (
     control.stageBindingRefs.length !== 4 ||
     input.stageAuthorities.length !== 4 ||
@@ -735,6 +869,7 @@ export async function compileOneSurfaceGtlProgramApplication(
   const admitted: OneSurfaceStageAuthority[] = [];
   ordered.forEach((row, index) => {
     if (row === undefined) return;
+    if (invalidStageAuthorities.has(row)) return;
     const expectedKind = ONE_SURFACE_AUTHORITY_FUNCTION_KIND_VALUES[index];
     if (row.functionKind !== expectedKind) {
       diagnostics.push(issue({
@@ -784,8 +919,15 @@ export async function compileOneSurfaceGtlProgramApplication(
       return;
     }
     try {
+      const programMembership = constructStageProgramMembership({
+        admittedProgramRef: report.subjectRef,
+        admittedProgramDigest: report.inventoryDigest,
+        stageAuthority: row,
+        targetCarrierContract: targetCarrierContracts[0]!
+      });
       admitted.push(admitStage(
         row,
+        programMembership,
         targetCarrierContracts[0]!,
         allowedConsequenceCatalog,
         nativeResultSchemas[row.functionKind]
