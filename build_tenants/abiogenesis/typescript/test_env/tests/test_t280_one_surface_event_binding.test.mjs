@@ -4,12 +4,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  admitOneSurfaceArtifactResultPair,
   admitOneSurfaceResultForClose,
-  buildOneSurfaceAuthorityCloseEvents,
   compileOneSurfaceGtlProgramApplication,
   constructOneSurfaceAuthorityInputBasis,
-  constructOneSurfaceAuthorityResultRule,
   constructOneSurfaceTypedRefusal,
   deriveOneSurfaceAuthorityReplayProjection,
   deriveRuntimeEventCalculusProjection,
@@ -18,11 +15,14 @@ import {
   resolveTargetCarrierContractBinding
 } from "../../build/semantic/code/src/index.js";
 import {
-  oneSurfaceAuthoritySnapshotBasis
-} from "../../build/semantic/code/src/abg/m03/runner/one_surface_result_projection.js";
-import {
   scenario09OneSurfaceProgramFixture
 } from "../fixtures/t280_scenario09_one_surface_fixture.mjs";
+import {
+  buildOneSurfacePayloadLedger as payloadLedger,
+  buildOneSurfaceReplayAttempt as attempt,
+  deriveOneSurfaceTestEffectRows as eventEffectRows,
+  deriveOneSurfaceTestEventCalculus as eventCalculus
+} from "./support/t280-one-surface-replay-fixtures.mjs";
 
 function stageAuthorities(fixture) {
   return Object.freeze(fixture.compiled.map((row) => Object.freeze({
@@ -32,13 +32,6 @@ function stageAuthorities(fixture) {
     resultAuthority: row.authorities[0],
     traversalContracts: row.bundle
   })));
-}
-
-function firstLeaf(node) {
-  if (node.kind === "compiled_c_stage_leaf") return node;
-  if (node.kind === "compiled_c_sequence") return firstLeaf(node.children[0]);
-  if (node.kind === "compiled_c_complete_batch") return firstLeaf(node.tasks[0].child);
-  return firstLeaf(node.child);
 }
 
 let compiledReplayFixtureCache = null;
@@ -78,223 +71,6 @@ function stageFixture(compiled, index) {
 
 async function replayFixture(index = 0) {
   return stageFixture(await compiledReplayFixture(), index);
-}
-
-function artifact(contract, stage, value) {
-  return Object.freeze({
-    kind: contract.outputCarrierKind,
-    targetAssetType: contract.outputCarrierKind,
-    edgeRef: stage.targetCarrierContract.edgeRef,
-    contractRef: contract.contractRef,
-    contractDigest: contract.configDigest,
-    payload: value
-  });
-}
-
-function attempt(input) {
-  const {
-    application,
-    artifactValue,
-    closeValue = artifactValue,
-    contract,
-    inputBasis,
-    ordinal,
-    stage
-  } = input;
-  const basisId = "basis://t280/exact-event-binding";
-  const graphCallId = "graph-call://t280/exact-event-binding";
-  const frameId = "frame://t280/exact-event-binding";
-  const vectorIndex = 0;
-  const edge = stage.targetCarrierContract.edgeRef;
-  const cCallRef = `c-call://t280/exact-event-binding/${String(ordinal)}`;
-  const authoritySnapshotRef =
-    `authority-snapshot://t280/exact-event-binding/${String(ordinal)}`;
-  const validationRef = `validation://t280/exact-event-binding/${String(ordinal)}`;
-  const ordinaryEvidenceRef = `evidence://t280/exact-event-binding/${String(ordinal)}`;
-  const sourceEventRef = `event://t280/exact-event-binding/${String(ordinal)}`;
-  const closeAdmission = admitOneSurfaceResultForClose(
-    stage.functionKind,
-    closeValue
-  );
-  const artifactPayload = artifact(contract, stage, artifactValue);
-  const resultPair = admitOneSurfaceArtifactResultPair({
-    stageAuthority: stage,
-    inputBasis,
-    admittedResult: closeAdmission,
-    targetCarrierContract: contract,
-    sourceEventRef,
-    artifactPayloadDigestBasis: artifactPayload
-  });
-  const authorityBasis = oneSurfaceAuthoritySnapshotBasis({ application, stage });
-  const scope = Object.freeze({
-    basisId,
-    graphCallId,
-    frameId,
-    vectorIndex,
-    edge
-  });
-  const authority = Object.freeze({
-    kind: "authority_snapshot_admitted",
-    ...scope,
-    authoritySnapshotRef,
-    authorityRefs: authorityBasis.authorityRefs,
-    inputRefs: inputBasis.inputRefs,
-    authorityDigest: authorityBasis.authorityDigest,
-    inputDigest: inputBasis.inputDigest,
-    closureCapable: true,
-    contradictoryAuthority: false,
-    deferredAuthorityRefs: Object.freeze([]),
-    providerRefs: Object.freeze(["provider://t280/exact-event-binding"]),
-    policyRefs: Object.freeze(["policy://t280/exact-event-binding"])
-  });
-  const observed = Object.freeze({
-    kind: "payload_observed",
-    ...scope,
-    payloadRef: resultPair.payloadRef,
-    payloadClass: contract.outputCarrierKind,
-    schemaRef: stage.nativeResultSchema.schemaRef,
-    contractRef: contract.contractRef,
-    digest: resultPair.payloadDigest,
-    producerRef: "producer://t280/exact-event-binding",
-    sourceEventRef,
-    actorInvocationId: null,
-    authorityRef: authoritySnapshotRef,
-    inputDigest: inputBasis.inputDigest,
-    policyRefs: Object.freeze(["policy://t280/exact-event-binding"])
-  });
-  const validated = Object.freeze({
-    kind: "payload_validated",
-    ...scope,
-    payloadRef: resultPair.payloadRef,
-    schemaRef: stage.nativeResultSchema.schemaRef,
-    contractRef: contract.contractRef,
-    contractDigest: contract.configDigest,
-    digest: resultPair.payloadDigest,
-    validationRef,
-    evidenceRef: ordinaryEvidenceRef,
-    policyRefs: Object.freeze(["policy://t280/exact-event-binding"])
-  });
-  const refusal = closeValue.kind === "one_surface_typed_refusal"
-    ? closeValue
-    : null;
-  const admittedEvidenceRefs = Object.freeze([
-    ordinaryEvidenceRef,
-    resultPair.pairRef,
-    closeAdmission.admissionRef,
-    ...(refusal === null ? [] : [refusal.refusalRef, ...refusal.reasonRefs])
-  ]);
-  const evidence = Object.freeze(admittedEvidenceRefs.map((evidenceRef) =>
-    Object.freeze({
-      kind: "evidence_admitted",
-      ...scope,
-      evidenceRef,
-      payloadRef: resultPair.payloadRef,
-      authorityRef: authoritySnapshotRef,
-      authorityDigest: authorityBasis.authorityDigest,
-      inputDigest: inputBasis.inputDigest,
-      providerRefs: Object.freeze(["provider://t280/exact-event-binding"]),
-      policyRefs: Object.freeze(["policy://t280/exact-event-binding"]),
-      complete: true,
-      shallow: false,
-      contradictsAuthority: false,
-      deferred: false
-    })
-  ));
-  const close = buildOneSurfaceAuthorityCloseEvents({
-    stageAuthority: stage,
-    resultPair,
-    cCallRef,
-    basisId,
-    evidenceRefs: Object.freeze([
-      authoritySnapshotRef,
-      validationRef,
-      ordinaryEvidenceRef
-    ])
-  });
-  const leaf = firstLeaf(stage.plan.root);
-  const events = Object.freeze([
-    Object.freeze({
-      kind: "c_call_opened",
-      cCallRef,
-      basisId,
-      graphFunctionId: stage.plan.executionGraphFunctionRef,
-      graphCallId,
-      frameId,
-      edge,
-      vectorIndex,
-      stageRole: stage.functionKind,
-      taskOrdinal: null,
-      attempt: ordinal,
-      batchRef: null,
-      programLocusRef: stage.resultAuthority.programLocusRef,
-      retryPath: Object.freeze([])
-    }),
-    Object.freeze({
-      kind: "c_call_fibre_selected",
-      cCallRef,
-      basisId,
-      regime: stage.resultAuthority.regime,
-      armId: leaf.armId,
-      programRef: stage.plan.programRef,
-      compositionRef: stage.plan.compositionRef
-    }),
-    authority,
-    observed,
-    validated,
-    ...evidence,
-    ...close.events
-  ]);
-  return Object.freeze({
-    artifactPayload,
-    authority,
-    cCallRef,
-    closeAdmission,
-    events,
-    evidence,
-    inputBasis,
-    observed,
-    resultPair,
-    validated
-  });
-}
-
-function payloadLedger(contract, stage, attempts) {
-  const first = attempts[0];
-  return Object.freeze({
-    kind: "payload_ledger_projection",
-    scope: Object.freeze({
-      kind: "payload_ledger_scope",
-      basisId: first.observed.basisId,
-      graphFunctionId: stage.plan.executionGraphFunctionRef,
-      graphCallId: first.observed.graphCallId,
-      frameId: first.observed.frameId,
-      vectorIndex: first.observed.vectorIndex,
-      edge: first.observed.edge
-    }),
-    targetCarrierContract: contract,
-    observedPayloads: Object.freeze(attempts.map((row) => row.observed)),
-    validatedPayloads: Object.freeze(attempts.map((row) => row.validated)),
-    rejectedPayloads: Object.freeze([]),
-    actorResultArtifacts: Object.freeze([]),
-    authoritySnapshots: Object.freeze(attempts.map((row) => row.authority)),
-    evidenceRows: Object.freeze(attempts.flatMap((row) => row.evidence)),
-    ambiguityObservations: Object.freeze([]),
-    closureInputs: Object.freeze([]),
-    projectionRef: "projection://t280/exact-event-binding"
-  });
-}
-
-function eventCalculus(application, events) {
-  return deriveRuntimeEventCalculusProjection({
-    events,
-    derivedRules: Object.freeze([
-      constructOneSurfaceAuthorityResultRule(application)
-    ])
-  });
-}
-
-function eventEffectRows(events) {
-  return deriveRuntimeEventCalculusProjection({ events }).effectRows;
 }
 
 function successfulValue(stage) {

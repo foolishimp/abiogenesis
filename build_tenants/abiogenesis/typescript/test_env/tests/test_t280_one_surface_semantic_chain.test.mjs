@@ -9,7 +9,6 @@ import {
   admitOneSurfaceConstructionIntent,
   admitSynthesizeModelResult,
   compileOneSurfaceGtlProgramApplication,
-  constructAdmittedOneSurfaceAuthorityResult,
   constructConstructionIntentCandidate,
   constructConstructionPriorityScheme,
   constructGtlLibraryEntryDeclaration,
@@ -21,9 +20,11 @@ import {
   deriveObservationToActionBindingProjection,
   deriveProgramActionCatalog,
   deriveRegistrySessionView,
+  loadGtlTargetCarrierDefaultsBundle,
   oneSurfaceEvalGapInputBasis,
   oneSurfaceEvaluateNextInputBasis,
-  oneSurfaceSynthesizeModelInputBasis
+  oneSurfaceSynthesizeModelInputBasis,
+  resolveTargetCarrierContractBinding
 } from "../../build/semantic/code/src/index.js";
 import {
   stableSha256Digest
@@ -31,6 +32,9 @@ import {
 import {
   scenario09OneSurfaceProgramFixture
 } from "../fixtures/t280_scenario09_one_surface_fixture.mjs";
+import {
+  projectOneSurfaceReplayAttempt
+} from "./support/t280-one-surface-replay-fixtures.mjs";
 
 const CATALOG_ENTRY_REF =
   "catalog-entry://t280/system/scenario09-normalize";
@@ -48,66 +52,38 @@ function stageAuthorities(fixture) {
 }
 
 function admittedAuthorityResult({
+  source,
   program,
   stageIndex,
-  inputDigest,
+  inputBasis,
   decodedValue
 }) {
   const stage = program.stages[stageIndex];
   const functionKind = stage.functionKind;
-  const decodedValueDigest = stableSha256Digest(decodedValue);
-  const scope = Object.freeze({
-    kind: "payload_ledger_scope",
-    basisId: `basis://t280/scenario09/${functionKind}`,
-    graphFunctionId: stage.plan.executionGraphFunctionRef,
-    graphCallId: `graph-call://t280/scenario09/${functionKind}`,
-    frameId: `frame://t280/scenario09/${functionKind}`,
-    vectorIndex: 0,
-    edge: stage.targetCarrierContract.edgeRef
+  const contract = resolveTargetCarrierContractBinding({
+    vector: source.members[stageIndex].finalVector,
+    defaults: loadGtlTargetCarrierDefaultsBundle()
   });
-  const admittedOutput = Object.freeze({
-    kind: "admitted_output_authority_projection",
-    scope,
-    targetCarrierContractRef:
-      stage.targetCarrierContract.targetCarrierContractRef,
-    targetCarrierContractDigest:
-      stage.targetCarrierContract.targetCarrierContractDigest,
-    status: "admitted",
-    reason: null,
-    payloadRef: `payload://t280/scenario09/${functionKind}`,
-    payloadClass: stage.nativeResultSchema.schemaRef,
-    payloadDigest: decodedValueDigest,
-    payloadContractRef: stage.targetCarrierContract.targetCarrierContractRef,
-    producerRef: "producer://t280/scenario09",
-    sourceEventRef: `event://t280/scenario09/${functionKind}`,
-    authorityRef: stage.authorityRef,
-    inputDigest,
-    validationRefs: Object.freeze([
-      `validation://t280/scenario09/${functionKind}`
-    ]),
-    evidenceRefs: Object.freeze([
-      `evidence://t280/scenario09/${functionKind}`
-    ]),
-    relatedPayloadRefs: Object.freeze([]),
-    projectionRef: `projection://t280/scenario09/${functionKind}`
+  assert.equal(contract.contractRef, stage.resultAuthority.selectedResultContractRef);
+  assert.equal(
+    contract.configDigest,
+    stage.targetCarrierContract.targetCarrierContractDigest
+  );
+  const replay = projectOneSurfaceReplayAttempt({
+    application: program,
+    artifactValue: decodedValue,
+    contract,
+    inputBasis,
+    ordinal: stageIndex + 1,
+    stage,
+    fixtureRef: `t280/scenario09/${functionKind}`
   });
-  return constructAdmittedOneSurfaceAuthorityResult({
-    functionKind,
-    stageAuthorityRef: stage.authorityRef,
-    stageAuthorityDigest: stage.authorityDigest,
-    replayBindingRef: `replay-binding://t280/scenario09/${functionKind}`,
-    replayBindingDigest: stableSha256Digest({
-      functionKind,
-      replay: "scenario09"
-    }),
-    cCallRef: `c-call://t280/scenario09/${functionKind}`,
-    inputDigest,
-    admittedOutput,
-    targetCarrierValidationRef:
-      `validation://t280/scenario09/${functionKind}`,
-    decodedValueDigest,
-    decodedValue
-  });
+  assert.equal(
+    replay.projection.status,
+    "admitted",
+    replay.projection.diagnostic?.reason
+  );
+  return replay.projection.result;
 }
 
 function admitScenario09Catalog(fixture) {
@@ -211,9 +187,10 @@ async function semanticChainFixture() {
   });
   const synthesizeBasis = oneSurfaceSynthesizeModelInputBasis(synthesizeInput);
   const synthesizeResult = admittedAuthorityResult({
+    source,
     program,
     stageIndex: 0,
-    inputDigest: synthesizeBasis.inputDigest,
+    inputBasis: synthesizeBasis,
     decodedValue: Object.freeze({
       desiredAssetRefs: Object.freeze(["asset://t280/scenario09/normalized"]),
       knownAssetRefs: Object.freeze(["asset://t280/scenario09/source"])
@@ -249,9 +226,10 @@ async function semanticChainFixture() {
   });
   const evalGapBasis = oneSurfaceEvalGapInputBasis(evalGapInput);
   const evalGapResult = admittedAuthorityResult({
+    source,
     program,
     stageIndex: 1,
-    inputDigest: evalGapBasis.inputDigest,
+    inputBasis: evalGapBasis,
     decodedValue: Object.freeze({
       kind: "construction_observation_snapshot",
       episodeId,
@@ -367,9 +345,10 @@ async function semanticChainFixture() {
   });
   const evaluateNextBasis = oneSurfaceEvaluateNextInputBasis(evaluateNextInput);
   const evaluateNextResult = admittedAuthorityResult({
+    source,
     program,
     stageIndex: 2,
-    inputDigest: evaluateNextBasis.inputDigest,
+    inputBasis: evaluateNextBasis,
     decodedValue: Object.freeze({
       selectedActionRef: action.actionRef,
       intentCandidate: candidate
@@ -420,6 +399,7 @@ async function semanticChainFixture() {
     priorityScheme,
     program,
     selectedBinding,
+    source,
     targetObligations,
     workspaceBinding
   });
@@ -516,19 +496,60 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
     }),
     "evaluate_next_selector_authority_invalid"
   );
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      authorityResult: admittedAuthorityResult({
+        source: value.source,
+        program: value.program,
+        stageIndex: 2,
+        inputBasis: oneSurfaceEvaluateNextInputBasis({
+          ...value.evaluateNextInput,
+          targetObligations: Object.freeze([
+            ...value.targetObligations,
+            Object.freeze({
+              targetOutcomeRef: "outcome://t280/scenario09/unbound",
+              obligationRefs: Object.freeze([
+                "obligation://t280/scenario09/unbound"
+              ]),
+              requiredEvidenceRefs: Object.freeze([
+                "evidence://t280/scenario09/unbound"
+              ])
+            })
+          ])
+        }),
+        decodedValue: value.evaluateNextResult.decodedValue
+      }),
+      targetObligations: Object.freeze([
+        ...value.targetObligations,
+        Object.freeze({
+          targetOutcomeRef: "outcome://t280/scenario09/unbound",
+          obligationRefs: Object.freeze([
+            "obligation://t280/scenario09/unbound"
+          ]),
+          requiredEvidenceRefs: Object.freeze([
+            "evidence://t280/scenario09/unbound"
+          ])
+        })
+      ])
+    }),
+    "target_obligation_set_mismatch"
+  );
 });
 
-test("T-280 AF-14 refuses changed workspace and source-binding authority", async () => {
+test("T-280 AF-14 returns typed refusal for changed workspace and source-binding authority", async () => {
   const value = await chain;
-  assert.throws(
-    () => admitOneSurfaceConstructionIntent({
+  const changedWorkspace = admitOneSurfaceConstructionIntent({
       ...value.intentAdmissionInput,
       workspaceBinding: Object.freeze({
         ref: "workspace-binding://t280/scenario09/changed",
         digest: stableSha256Digest({ workspace: "changed" })
       })
-    }),
-    /AF-14 input differs from the exact AF-13 selection/u
+    });
+  assert.equal(changedWorkspace.kind, "one_surface_construction_intent_refusal");
+  assert.deepEqual(
+    changedWorkspace.reasonRefs,
+    ["construction_intent_selection_authority_mismatch"]
   );
 
   const originalTarget = value.nextAction.targetBindings[0];
@@ -541,14 +562,16 @@ test("T-280 AF-14 refuses changed workspace and source-binding authority", async
     obligationRefs: originalTarget.obligationRefs,
     requiredEvidenceRefs: originalTarget.requiredEvidenceRefs
   });
-  assert.throws(
-    () => admitOneSurfaceConstructionIntent({
+  const changedBinding = admitOneSurfaceConstructionIntent({
       ...value.intentAdmissionInput,
       nextAction: Object.freeze({
         ...value.nextAction,
         targetBindings: Object.freeze([mismatchedTarget])
       })
-    }),
-    /selected target binding differs/u
+    });
+  assert.equal(changedBinding.kind, "one_surface_construction_intent_refusal");
+  assert.deepEqual(
+    changedBinding.reasonRefs,
+    ["construction_intent_authority_invalid:NextActionProjection selected target binding differs"]
   );
 });
