@@ -31,7 +31,7 @@ import {
 } from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
 const CONTRACT_SHAPE_DIGEST =
-  "sha256:d612a4f7fd3d8aaa17f2228f62a5df818f7743e971631ce4a8806ae4319805b7";
+  "sha256:fe46f330313f26a87ff0dc2c487bcba21276a39d8a2d46652cae94609ca154e7";
 const ONTOLOGY_DIGEST =
   "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1";
 const OPAQUE_RESOLVER_INTEGRATION = Object.freeze({

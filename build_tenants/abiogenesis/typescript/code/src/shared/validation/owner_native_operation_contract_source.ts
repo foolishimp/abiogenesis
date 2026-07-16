@@ -24,7 +24,7 @@ export interface OwnerNativeContractShapeBasis
 export const OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS = freezeNativeValue({
   ref: "design://abg/m04/public-operation-definition-family",
   digest:
-    "sha256:d612a4f7fd3d8aaa17f2228f62a5df818f7743e971631ce4a8806ae4319805b7",
+    "sha256:fe46f330313f26a87ff0dc2c487bcba21276a39d8a2d46652cae94609ca154e7",
   status: "candidate_integration_pin_pending_final_rebind"
 } as const satisfies OwnerNativeContractShapeBasis);
 
