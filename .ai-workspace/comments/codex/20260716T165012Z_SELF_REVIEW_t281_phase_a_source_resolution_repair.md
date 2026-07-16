@@ -41,8 +41,8 @@ native admission produces opposite results.
 - T-223 source-blind publication: `70/70`;
 - focused: T-281 `8/8`, T-274A `7/7`, neutral owner contracts `9/9`;
 - strict host and type builds: passed;
-- public schemas: `82`; publication assets: `40`; immutable payload files:
-  `1143`;
+- public schemas: `82`; publication assets: `40`; immutable publication
+  payload files: `1142`; packed tarball entries: `1143`;
 - design: 32 files and 96 Mermaid diagrams; Prime and governance: passed;
 - package dry run and `git diff --check`: passed.
 

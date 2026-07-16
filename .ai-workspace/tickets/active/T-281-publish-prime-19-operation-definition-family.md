@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_reopened_source_resolution_repair_implemented_p1_design_delta_ready_for_review
-- review_status: committed_phase_a_span_rejected_bounded_repair_self_reviewed_independent_rereview_pending
-- proof_status: repaired_phase_a_full_semantic_publication_package_and_governance_gates_green_independent_rereview_pending_p1_named_owner_gaps_explicit_p2_fenced
+- phase_status: phase_a_source_resolution_repair_accepted_p1_owner_contract_reconciliation_active
+- review_status: phase_a_exact_span_independently_accepted_p1_repair_pending_independent_review
+- proof_status: phase_a_full_semantic_publication_package_and_governance_gates_green_p1_named_owner_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -236,8 +236,8 @@ and binds the module/source basis into the witness without erasing `S`. Neutral 
 owner locators now terminate at their `schema` member, while authority and
 identity remain sibling metadata. T-274A's nine-schema exit is unchanged; its
 two Consensus read coordinates compose a T-281-owned generic wrapper and do
-not close P1 by themselves. Phase A remains reopened until independent
-re-review accepts this exact repair basis.
+not close P1 by themselves. Phase A remained reopened until independent
+re-review accepted this exact repair basis.
 
 The repaired checkpoint proves `1767/1767` full semantic tests, `82/82` GTL
 law tests, `70/70` T-223 source-blind publication tests, `8/8` focused Phase A
@@ -245,8 +245,11 @@ tests, `7/7` T-274A projector tests, and `9/9` neutral owner-contract tests.
 Strict host/type builds, all 82 public schemas, all 40 publication assets, the
 1143-file package census, 32 registered design files with 96 Mermaid diagrams,
 the Prime gate, governance, and `git diff --check` pass. The package still
-exports no Phase A public subpath. These results establish a candidate for
-independent re-review; they do not restore Phase A acceptance or authorize P1.
+exports no Phase A public subpath. Independent re-review accepted the exact
+`eeb286bcd74f5a38aa43317ce9065eaf9baf0366..c129ec385ad8bbda6d4d08c7505113c394050337`
+repair span with no P0/P1 findings. The wording-only payload-count correction
+is recorded in the self-review. Phase A is restored; P1 remains bounded by its
+owner-contract and independent-review gates.
 
 ## Implementation-Readiness Repair
 
