@@ -991,6 +991,7 @@ The source delta is scoped to what T-281 can own:
 | Authority/source class | Before P1 | After P1 | Disposition |
 |---|---:|---:|---|
 | Phase A private native mechanism | 1 | 1 | retain |
+| neutral owner-source envelope constructor | 0 | 1 | add one subordinate shared constructor; derive authority subject, contract/schema identity, version, and final schema locator from owner inputs |
 | owner-native payload schema sources | `N` incomplete | same accepted `N` | retain and compose; each owner milestone owns any required addition or repair |
 | private operation-indexed definition family | 0 | 1 | add exactly one T-281 authority |
 | T-281-authored independent schema/catalog/SDK/CLI/handler/parity rosters | 0 | 0 | forbidden |
@@ -1002,6 +1003,13 @@ distinct and retain payload meaning. Operation/variant unions, projected JSON
 Schemas, private catalog rows, private SDK/CLI coordinate inventories, and the
 parity/digest inventory are derived outputs and add zero authored truth
 sources.
+
+The neutral owner-source constructor owns no semantic row or registry. Each
+owner supplies only its owner identity, semantic-owner basis, operation and
+variant, slot, module/export/member location, exact schema, and the accepted
+contract-shape basis. The constructor derives the repeated carrier revision,
+contract/schema IDs and versions, authority subject, and locator terminator.
+Owner modules must not reconstruct that envelope locally.
 
 ### Module Direction Fence
 
