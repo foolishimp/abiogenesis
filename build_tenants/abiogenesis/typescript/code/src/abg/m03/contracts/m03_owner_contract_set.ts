@@ -1,41 +1,15 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import {
-  ownerNativeOperationContractSource,
-  type OwnerNativeOperationContractSource
-} from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type M03OwnerContractSlot = "request" | "result" | "refusal";
 
-interface M03OwnerContractAuthorityIdentity<
-  OperationId extends string,
-  Variant extends string,
-  Family extends string,
-  Slot extends M03OwnerContractSlot
-> {
-  readonly kind: "owner_native_operation_contract_authority";
-  readonly owner: {
-      readonly product: "abiogenesis";
-      readonly module: "abg.m03";
-      readonly family: Family;
-  };
-  readonly subject: {
-    readonly operationId: OperationId;
-    readonly variant: Variant;
-    readonly slot: Slot;
-  };
-  readonly carrierRevision: "5.0.0";
-  readonly lawBasis: {
-    readonly ref: "design://abg/m04/public-operation-definition-family";
-    readonly digest: "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
-  };
-}
-
-const DESIGN_LAW_BASIS = freezeNativeValue({
+const CONTRACT_SHAPE_BASIS = freezeNativeValue({
   ref: "design://abg/m04/public-operation-definition-family",
   digest:
-    "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281"
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
 } as const);
 
 function source<
@@ -46,6 +20,8 @@ function source<
   const Slot extends M03OwnerContractSlot,
   const ModulePath extends `code/src/abg/m03/contracts/${string}.js`,
   const ExportName extends string,
+  const SemanticOwnerRef extends string,
+  const SemanticOwnerDigest extends `sha256:${string}`,
   const S extends v.GenericSchema
 >(input: {
   readonly operationId: OperationId;
@@ -55,49 +31,28 @@ function source<
   readonly slot: Slot;
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
+  readonly semanticOwnerBasis: {
+    readonly ref: SemanticOwnerRef;
+    readonly digest: SemanticOwnerDigest;
+  };
   readonly schema: S;
 }) {
-  const operationSuffix = input.operationId.slice("abg.operation.".length);
-  const suffix = `${operationSuffix}.${input.variant}.${input.slot}`;
   return ownerNativeOperationContractSource({
-    kind: "owner_native_operation_contract_source",
-    authority: {
-      kind: "owner_native_operation_contract_authority",
-      owner: {
-        product: "abiogenesis",
-        module: "abg.m03",
-        family: input.family
-      },
-      subject: {
-        operationId: input.operationId,
-        variant: input.variant,
-        slot: input.slot
-      },
-      carrierRevision: "5.0.0",
-      lawBasis: DESIGN_LAW_BASIS
+    owner: {
+      product: "abiogenesis",
+      module: "abg.m03",
+      family: input.family
     },
-    identity: {
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    },
-    sourceLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: input.modulePath,
-      exportName: input.exportName,
-      memberPath: [input.familyKey, input.variant, input.slot, "schema"]
-    },
+    operationId: input.operationId,
+    variant: input.variant,
+    slot: input.slot,
+    semanticOwnerBasis: input.semanticOwnerBasis,
+    contractShapeBasis: CONTRACT_SHAPE_BASIS,
+    modulePath: input.modulePath,
+    exportName: input.exportName,
+    memberPath: [input.familyKey, input.variant, input.slot] as const,
     schema: input.schema
-  } satisfies OwnerNativeOperationContractSource<
-    S,
-    M03OwnerContractAuthorityIdentity<OperationId, Variant, Family, Slot>,
-    unknown,
-    ModulePath,
-    ExportName,
-    readonly [FamilyKey, Variant, Slot, "schema"]
-  >);
+  });
 }
 
 export function m03OwnerContractSet<
@@ -107,6 +62,8 @@ export function m03OwnerContractSet<
   const FamilyKey extends string,
   const ModulePath extends `code/src/abg/m03/contracts/${string}.js`,
   const ExportName extends string,
+  const SemanticOwnerRef extends string,
+  const SemanticOwnerDigest extends `sha256:${string}`,
   const Request extends v.GenericSchema,
   const Result extends v.GenericSchema,
   const Refusal extends v.GenericSchema
@@ -117,40 +74,26 @@ export function m03OwnerContractSet<
   readonly familyKey: FamilyKey;
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
+  readonly semanticOwnerBasis: {
+    readonly ref: SemanticOwnerRef;
+    readonly digest: SemanticOwnerDigest;
+  };
   readonly request: Request;
   readonly result: Result;
   readonly refusal: Refusal;
 }) {
+  const common = {
+    operationId: input.operationId,
+    variant: input.variant,
+    family: input.family,
+    familyKey: input.familyKey,
+    modulePath: input.modulePath,
+    exportName: input.exportName,
+    semanticOwnerBasis: input.semanticOwnerBasis
+  } as const;
   return freezeNativeValue({
-    request: source({
-      operationId: input.operationId,
-      variant: input.variant,
-      family: input.family,
-      familyKey: input.familyKey,
-      slot: "request",
-      modulePath: input.modulePath,
-      exportName: input.exportName,
-      schema: input.request
-    }),
-    result: source({
-      operationId: input.operationId,
-      variant: input.variant,
-      family: input.family,
-      familyKey: input.familyKey,
-      slot: "result",
-      modulePath: input.modulePath,
-      exportName: input.exportName,
-      schema: input.result
-    }),
-    refusal: source({
-      operationId: input.operationId,
-      variant: input.variant,
-      family: input.family,
-      familyKey: input.familyKey,
-      slot: "refusal",
-      modulePath: input.modulePath,
-      exportName: input.exportName,
-      schema: input.refusal
-    })
+    request: source({ ...common, slot: "request", schema: input.request }),
+    result: source({ ...common, slot: "result", schema: input.result }),
+    refusal: source({ ...common, slot: "refusal", schema: input.refusal })
   });
 }

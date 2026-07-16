@@ -28,6 +28,58 @@ const OWNER_SOURCE_FAMILIES = [
   RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES
 ];
 
+const SEMANTIC_OWNER_BASIS_BY_OPERATION = new Map([
+  [
+    "abg.operation.catalog.admit",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ],
+  [
+    "abg.operation.catalog.view",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ],
+  [
+    "abg.operation.catalog.apply",
+    [
+      "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-030",
+      "sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84"
+    ]
+  ],
+  [
+    "abg.operation.witness.admit",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-035",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ],
+  [
+    "abg.operation.tuning.transition",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-037",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ],
+  [
+    "abg.operation.conformance.evaluate",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-038",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ],
+  [
+    "abg.operation.release.snapshot",
+    [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-059",
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+    ]
+  ]
+]);
+
 function collectSources(value, output = []) {
   if (value?.kind === "owner_native_operation_contract_source") {
     output.push(value);
@@ -183,12 +235,7 @@ const greenQualificationVerdict = {
   basisDigest: DIGEST,
   qualificationLawBasisRef: "qualification-law:1",
   qualificationLawBasisDigest: DIGEST,
-  qualificationGateResultVectorRef: "qualification-vector:1",
-  qualificationGateResultVectorDigest: DIGEST,
-  assessments: [
-    { ref: "assessment:semantic", digest: DIGEST, disposition: "green" },
-    { ref: "assessment:installed", digest: DIGEST, disposition: "green" }
-  ],
+  qualificationGateResultVector,
   disposition: "green",
   bypassRefs: []
 };
@@ -211,10 +258,20 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
   }
   for (const source of sources) {
     assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
-    assert.deepEqual(source.authority.lawBasis, {
+    assert.equal("lawBasis" in source.authority, false);
+    assert.deepEqual(source.authority.contractShapeBasis, {
       ref: "design://abg/m04/public-operation-definition-family",
       digest:
-        "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281"
+        "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+      status: "candidate_integration_pin_pending_final_rebind"
+    });
+    const expectedSemanticBasis = SEMANTIC_OWNER_BASIS_BY_OPERATION.get(
+      source.authority.subject.operationId
+    );
+    assert.ok(expectedSemanticBasis);
+    assert.deepEqual(source.authority.semanticOwnerBasis, {
+      ref: expectedSemanticBasis[0],
+      digest: expectedSemanticBasis[1]
     });
     const module = await import(
       new URL(`../../build/semantic/${source.sourceLocator.modulePath}`, import.meta.url)
@@ -238,6 +295,14 @@ test("catalog requests are strict and variant-indexed", () => {
     resolvedLockRef: "lock:1",
     resolvedLockDigest: DIGEST
   });
+  assert.throws(() =>
+    v.parse(sourceFor("abg.operation.catalog.admit", "admit").schema, {
+      descriptorRefs: ["descriptor:1"],
+      contributionManifestRefs: ["contribution:1"],
+      resolvedLockRef: "lock:1",
+      resolvedLockDigest: DIGEST
+    })
+  );
   parseRequest("abg.operation.catalog.view", "allowlist", {
     allowlist: ["graph-function:1"]
   });
@@ -434,6 +499,26 @@ test("exact-candidate schemas make release authority and final-only delta struct
     );
   }
   assertDeepFrozen(EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY);
+  assert.equal(
+    EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY.qualificationLawBasis,
+    QUALIFICATION_LAW_BASIS_SCHEMA
+  );
+  assert.equal(
+    EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY.qualificationBasis,
+    EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA
+  );
+  assert.equal(
+    EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY.qualificationGateResultVector,
+    QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA
+  );
+  assert.equal(
+    EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY.qualificationVerdict,
+    EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA
+  );
+  assert.equal(
+    EXACT_CANDIDATE_QUALIFICATION_CONTRACT_FAMILY.finalTapDelta,
+    FINAL_TAP_DELTA_SCHEMA
+  );
   assert.doesNotThrow(() => v.parse(QUALIFICATION_LAW_BASIS_SCHEMA, lawBasis));
   assert.doesNotThrow(() => v.parse(FINAL_TAP_DELTA_SCHEMA, finalTapDelta));
   assert.throws(() =>
@@ -497,6 +582,21 @@ test("exact-candidate schemas make release authority and final-only delta struct
     v.parse(EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, {
       ...candidateCommon,
       subjectKind: "final_tap_candidate",
+      prospectiveFinalIdentity: "release:5.0.0",
+      prospectiveFinalVersion: "5.0.0",
+      acceptedRcRef: "release-cut:5.0.0-rc.1",
+      acceptedRcDigest: DIGEST_2,
+      installedRcQualificationBasisRef: "qualification-basis:installed-rc",
+      installedRcQualificationBasisDigest: DIGEST,
+      installedRcGreenVerdictRef: "qualification-verdict:installed-rc",
+      installedRcGreenVerdictDigest: DIGEST,
+      finalTapDelta
+    })
+  );
+  assert.throws(() =>
+    v.parse(EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, {
+      ...candidateCommon,
+      subjectKind: "final_tap_candidate",
       prospectiveFinalIdentity: "release:5.0.1",
       prospectiveFinalVersion: "5.0.1",
       acceptedRcRef: "release-cut:5.0.0-rc.1",
@@ -532,14 +632,23 @@ test("exact-candidate schemas make release authority and final-only delta struct
   assert.throws(() =>
     v.parse(EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA, {
       ...greenQualificationVerdict,
-      assessments: [
-        { ref: "assessment:red", digest: DIGEST, disposition: "red" }
-      ]
+      qualificationGateResultVector: {
+        ...qualificationGateResultVector,
+        results: qualificationGateResultVector.results.map((result, index) =>
+          index === 0 ? { ...result, disposition: "red" } : result
+        )
+      }
     })
   );
   assert.throws(() =>
     v.parse(EXACT_CANDIDATE_QUALIFICATION_VERDICT_SCHEMA, {
       ...greenQualificationVerdict,
+      qualificationGateResultVector: {
+        ...qualificationGateResultVector,
+        results: qualificationGateResultVector.results.map((result, index) =>
+          index === 0 ? { ...result, bypassRefs: ["bypass:1"] } : result
+        )
+      },
       bypassRefs: ["bypass:1"]
     })
   );
@@ -585,4 +694,23 @@ test("release requests distinguish published RC from final tap", () => {
       residualRefs: []
     });
   }
+  assert.throws(() =>
+    v.parse(
+      sourceFor(
+        "abg.operation.release.snapshot",
+        "published_rc",
+        "result"
+      ).schema,
+      {
+        releaseCutRef: "release-cut:published_rc",
+        releaseCutDigest: DIGEST,
+        artifacts: [
+          { ref: "artifact:package", digest: DIGEST, kind: "package_tarball" }
+        ],
+        snapshotManifestRef: "manifest:release-snapshot",
+        snapshotManifestDigest: DIGEST,
+        provenanceRefs: ["provenance:1"]
+      }
+    )
+  );
 });

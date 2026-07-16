@@ -16,6 +16,21 @@ import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 const MODULE_PATH =
   "code/src/abg/m03/contracts/catalog_operation_contracts.js" as const;
 const EXPORT_NAME = "CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES";
+const CATALOG_ADMIT_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const CATALOG_VIEW_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const CATALOG_APPLY_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-030",
+  digest:
+    "sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84"
+} as const);
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -220,6 +235,7 @@ function catalogApplyContractSet<const Kind extends "node_type" | "overlay">(
     familyKey: "catalog_apply",
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
+    semanticOwnerBasis: CATALOG_APPLY_SEMANTIC_OWNER_BASIS,
     request: catalogApplyRequestSchema,
     result: catalogApplyResultSchema(declarationKind),
     refusal: catalogApplyRefusalSchema
@@ -235,6 +251,7 @@ export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       familyKey: "catalog_admit",
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
+      semanticOwnerBasis: CATALOG_ADMIT_SEMANTIC_OWNER_BASIS,
       request: catalogAdmitRequestSchema,
       result: catalogAdmitResultSchema,
       refusal: catalogAdmitRefusalSchema
@@ -248,6 +265,7 @@ export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       familyKey: "catalog_view",
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
+      semanticOwnerBasis: CATALOG_VIEW_SEMANTIC_OWNER_BASIS,
       request: catalogViewRequestSchema,
       result: catalogViewResultSchema,
       refusal: catalogViewRefusalSchema

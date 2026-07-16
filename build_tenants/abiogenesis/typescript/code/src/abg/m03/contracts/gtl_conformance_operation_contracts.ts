@@ -19,6 +19,11 @@ import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 const MODULE_PATH =
   "code/src/abg/m03/contracts/gtl_conformance_operation_contracts.js" as const;
 const EXPORT_NAME = "GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES";
+const CONFORMANCE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-038",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -116,6 +121,7 @@ export const GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES =
         familyKey: "conformance_evaluate",
         modulePath: MODULE_PATH,
         exportName: EXPORT_NAME,
+        semanticOwnerBasis: CONFORMANCE_SEMANTIC_OWNER_BASIS,
         request: conformanceRequestSchema,
         result: conformanceResultSchema,
         refusal: conformanceRefusalSchema

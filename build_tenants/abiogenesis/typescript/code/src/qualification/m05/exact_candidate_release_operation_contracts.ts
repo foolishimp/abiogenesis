@@ -21,8 +21,22 @@ type ReleaseSlot = "request" | "result" | "refusal";
 const MODULE_PATH =
   "code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
 const EXPORT_NAME = "RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES";
-const DESIGN_DIGEST =
-  "sha256:d0525534d9ea5ce274860c793fd27bab48d92635874f28444d07d622c08b8281";
+const CONTRACT_SHAPE_BASIS = freezeNativeValue({
+  ref: "design://abg/m04/public-operation-definition-family",
+  digest:
+    "sha256:9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7",
+  status: "candidate_integration_pin_pending_final_rebind"
+} as const);
+const RELEASE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-059",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const RELEASE_SEMANTIC_OWNER = freezeNativeValue({
+  product: "abiogenesis",
+  module: "qualification.m05",
+  family: "exact_candidate_release"
+} as const);
 
 function releaseSource<
   const Variant extends ReleaseVariant,
@@ -33,40 +47,16 @@ function releaseSource<
   readonly slot: Slot;
   readonly schema: S;
 }) {
-  const suffix = `release.snapshot.${input.variant}.${input.slot}`;
   return ownerNativeOperationContractSource({
-    kind: "owner_native_operation_contract_source",
-    authority: {
-      kind: "owner_native_operation_contract_authority",
-      owner: {
-        product: "abiogenesis",
-        module: "qualification.m05",
-        family: "exact_candidate_release"
-      },
-      subject: {
-        operationId: "abg.operation.release.snapshot",
-        variant: input.variant,
-        slot: input.slot
-      },
-      carrierRevision: "5.0.0",
-      lawBasis: {
-        ref: "design://abg/m04/public-operation-definition-family",
-        digest: DESIGN_DIGEST
-      }
-    },
-    identity: {
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    },
-    sourceLocator: {
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath: MODULE_PATH,
-      exportName: EXPORT_NAME,
-      memberPath: ["release_snapshot", input.variant, input.slot, "schema"]
-    },
+    owner: RELEASE_SEMANTIC_OWNER,
+    operationId: "abg.operation.release.snapshot",
+    variant: input.variant,
+    slot: input.slot,
+    semanticOwnerBasis: RELEASE_SEMANTIC_OWNER_BASIS,
+    contractShapeBasis: CONTRACT_SHAPE_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: EXPORT_NAME,
+    memberPath: ["release_snapshot", input.variant, input.slot] as const,
     schema: input.schema
   });
 }
@@ -302,15 +292,6 @@ export const EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA = freezeNativeValue(
   ])
 );
 
-const assessmentCitationSchema = v.pipe(
-  v.strictObject({
-    ref: refSchema,
-    digest: sha256DigestSchema,
-    disposition: qualificationGateDispositionSchema
-  }),
-  v.readonly()
-);
-
 const exactCandidateQualificationVerdictCarrierSchema = v.strictObject({
   kind: v.literal("exact_candidate_qualification_verdict"),
   verdictRef: refSchema,
@@ -319,13 +300,7 @@ const exactCandidateQualificationVerdictCarrierSchema = v.strictObject({
   basisDigest: sha256DigestSchema,
   qualificationLawBasisRef: refSchema,
   qualificationLawBasisDigest: sha256DigestSchema,
-  qualificationGateResultVectorRef: refSchema,
-  qualificationGateResultVectorDigest: sha256DigestSchema,
-  assessments: v.pipe(
-    uniqueByNativeIdentityArray(assessmentCitationSchema),
-    v.minLength(1),
-    v.readonly()
-  ),
+  qualificationGateResultVector: QUALIFICATION_GATE_RESULT_VECTOR_SCHEMA,
   disposition: qualificationGateDispositionSchema,
   bypassRefs: refListSchema
 });
@@ -337,17 +312,33 @@ const QUALIFICATION_VERDICT_DISPOSITION_RELATION_ACTION = Object.freeze(
         typeof exactCandidateQualificationVerdictCarrierSchema
       >
     ) => {
-      const expectedDisposition = verdict.assessments.some(
-        (assessment) => assessment.disposition === "red"
+      const vector = verdict.qualificationGateResultVector;
+      const expectedBypassRefs = [
+        ...new Set(vector.results.flatMap((result) => result.bypassRefs))
+      ];
+      const expectedDisposition = vector.results.some(
+        (result) => result.disposition === "red"
       )
         ? "red"
-        : verdict.bypassRefs.length > 0 ||
-            verdict.assessments.some(
-              (assessment) => assessment.disposition === "blocked"
+        : expectedBypassRefs.length > 0 ||
+            vector.results.some(
+              (result) => result.disposition === "blocked"
             )
           ? "blocked"
           : "green";
-      return verdict.disposition === expectedDisposition;
+      return (
+        verdict.basisRef === vector.qualificationBasisRef &&
+        verdict.basisDigest === vector.qualificationBasisDigest &&
+        verdict.qualificationLawBasisRef ===
+          vector.qualificationLawBasisRef &&
+        verdict.qualificationLawBasisDigest ===
+          vector.qualificationLawBasisDigest &&
+        verdict.disposition === expectedDisposition &&
+        verdict.bypassRefs.length === expectedBypassRefs.length &&
+        verdict.bypassRefs.every(
+          (bypassRef, index) => bypassRef === expectedBypassRefs[index]
+        )
+      );
     },
     "verdict disposition must match all mandatory outcomes and bypass truth"
   )
