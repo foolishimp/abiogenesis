@@ -1,8 +1,8 @@
 // Validates: M03-engine-kernel and M04-app-bootstrap module ownership.
 
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { dirname, relative, resolve, sep } from "node:path";
+import { readFileSync, readdirSync } from "node:fs";
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import ts from "typescript";
@@ -22,73 +22,28 @@ function sourceFiles(root) {
     .sort();
 }
 
-function importedSpecifiers(path, source) {
-  const file = ts.createSourceFile(
-    path,
-    source,
-    ts.ScriptTarget.Latest,
-    true,
-    ts.ScriptKind.TS
+function importedSpecifiers(source) {
+  return ts.preProcessFile(source, true, true).importedFiles.map(
+    (entry) => entry.fileName
   );
-  const specifiers = [];
-  function addLiteral(node) {
-    if (node !== undefined && ts.isStringLiteralLike(node)) {
-      specifiers.push(node.text);
-    }
-  }
-  function visit(node) {
-    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
-      addLiteral(node.moduleSpecifier);
-    } else if (
-      ts.isImportEqualsDeclaration(node) &&
-      ts.isExternalModuleReference(node.moduleReference)
-    ) {
-      addLiteral(node.moduleReference.expression);
-    } else if (ts.isCallExpression(node) && node.arguments.length > 0) {
-      if (node.expression.kind === ts.SyntaxKind.ImportKeyword) {
-        addLiteral(node.arguments[0]);
-      } else if (
-        ts.isIdentifier(node.expression) &&
-        node.expression.text === "require"
-      ) {
-        addLiteral(node.arguments[0]);
-      }
-    } else if (
-      ts.isImportTypeNode(node) &&
-      ts.isLiteralTypeNode(node.argument)
-    ) {
-      addLiteral(node.argument.literal);
-    }
-    ts.forEachChild(node, visit);
-  }
-  visit(file);
-  return specifiers;
 }
 
 function isWithin(root, path) {
   const local = relative(root, path);
-  return local === "" || (!local.startsWith(`..${sep}`) && !local.startsWith("..") && !local.startsWith(sep));
+  return local === "" || (
+    local !== ".." &&
+    !local.startsWith(`..${sep}`) &&
+    !isAbsolute(local)
+  );
 }
 
 function relativeTarget(sourcePath, specifier) {
   if (!specifier.startsWith(".")) return null;
-  const raw = resolve(dirname(sourcePath), specifier);
-  const candidates = [
-    raw,
-    raw.replace(/\.js$/u, ".ts"),
-    resolve(raw, "index.ts")
-  ];
-  return candidates.find((candidate) => {
-    try {
-      return statSync(candidate).isFile();
-    } catch {
-      return false;
-    }
-  }) ?? raw;
+  return resolve(dirname(sourcePath), specifier);
 }
 
 function forbiddenM04Dependencies(sourcePath, source) {
-  return importedSpecifiers(sourcePath, source).filter((specifier) => {
+  return importedSpecifiers(source).filter((specifier) => {
     if (/(?:^|\/)app\/m04(?:\/|$)/u.test(specifier)) return true;
     const target = relativeTarget(sourcePath, specifier);
     return target !== null && isWithin(M04_ROOT, target);
