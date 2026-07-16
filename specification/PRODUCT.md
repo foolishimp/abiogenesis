@@ -441,6 +441,12 @@ and 16 capability identities remain no-silence projections over the same
 product truth; contraction may not delete them or let them preserve a legacy
 operation identity by count.
 
+For a `pre_rc_candidate`, the qualification basis also binds the prospective
+published-RC identity and version, and the exact candidate artifact bytes
+already carrying that identity. Qualification therefore decides the bytes and
+identity that may be published; release materialization may not relabel or
+rebuild them.
+
 `TraversalUnit<A, B>` is the formal unit ABG opens, attempts, admits, closes,
 and binds inside that runtime truth. It is a notation over the GTL/ABG carriers
 above, not a separate runtime aggregate.
@@ -1015,11 +1021,14 @@ authority, effects, and failure law differ.
 
 `release.snapshot` accepts an exact qualification basis, matching
 qualification-law basis, same-basis green non-bypassed verdict, and requested RC
-or final release identity. The final variant additionally requires the accepted
-RC, its exact installed-RC qualification basis and green non-bypassed verdict,
-and a basis-bound `FinalTapDelta` whose affected gates passed over the
-prospective final bytes. It returns the immutable cut and authoritative snapshot
-manifest; its own output cannot qualify its input.
+or final release identity. The published-RC variant requires that identity to
+equal the prospective identity bound into the `pre_rc_candidate` basis and
+publishes the exact qualified artifact bytes unchanged. The final variant
+additionally requires the accepted RC, its exact installed-RC qualification
+basis and green non-bypassed verdict, and a basis-bound `FinalTapDelta` whose
+affected gates passed over the prospective final bytes. It returns the
+immutable cut and authoritative snapshot manifest; its own output cannot
+qualify its input.
 
 Every multi-variant operation is a closed discriminated request/result/refusal
 relation. One schema family may publish addressable definitions, but a
@@ -1153,14 +1162,18 @@ lifecycle:
    subject kind, source, artifact, toolchain manifest, installed-product and
    workspace-binding truth, tenant manifest, frozen gate inventory, and
    `QualificationLawBasis` containing the exact method, rule catalog, source
-   refs, and content digests.
+   refs, and content digests. A `pre_rc_candidate` basis additionally binds the
+   prospective published-RC identity and version and the exact artifact bytes
+   already carrying that identity.
 3. Each owning gate retains its own execution and semantic authority. One
    subordinate ordered result vector conserves their same-subject and same-law-
    basis citations without reinterpreting them. The ordinary conformance
    evaluator reduces that vector to exactly one typed verdict.
-4. Only a green verdict with an empty bypass set materializes the immutable
-   versioned RC cut and authoritative snapshot. The snapshot is output evidence;
-   it cannot qualify the cut that creates it.
+4. Only a green verdict with an empty bypass set permits `AF-25` to verify the
+   basis-bound prospective RC identity and materialize those exact qualified
+   bytes unchanged as the immutable versioned RC cut and authoritative
+   snapshot. The tag, checksums, release record, and snapshot are output
+   evidence; they cannot qualify the cut that creates them.
 5. The exact installed RC is qualified under its own content-addressed basis.
 6. A prospective final basis binds the accepted RC, that exact installed-RC
    basis and green non-bypassed verdict, and a typed `FinalTapDelta` limited to
