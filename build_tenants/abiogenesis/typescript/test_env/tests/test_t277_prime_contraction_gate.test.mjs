@@ -121,6 +121,22 @@ test("T-277 rejects a contraction with no measured reduction", () => {
   );
 });
 
+test("T-277 rejects authority growth hidden by authoring contraction", () => {
+  const result = inspectPrimeContractionReview({
+    source: designSource(validReview({
+      disposition: "commonize_tenant",
+      authoritySourceCount: { before: 1, after: 2 },
+      authoringSourceCount: { before: 2, after: 1 }
+    })),
+    expectedOwnerTicket: "T-900"
+  });
+  assert.equal(result.status, "failed");
+  assert.equal(
+    result.failures.some((failure) => failure.includes("cannot increase")),
+    true
+  );
+});
+
 test("T-277 rejects requirement reprice as accepted implementation design", () => {
   const result = inspectPrimeContractionReview({
     source: designSource(validReview({ disposition: "requirement_reprice" })),

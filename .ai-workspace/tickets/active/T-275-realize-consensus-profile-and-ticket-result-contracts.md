@@ -34,7 +34,7 @@
   - completed T-267 declared-program conservation
   - completed T-271 complete C-program interpretation
 - implementation_fence:
-  - completed T-281 Prime 19-operation definition family
+  - completed T-281 P1 exact private 19-operation definition-family milestone
   - completed T-270 public run.invoke authority and AF-15 integration
   - completed T-274 one-family schema and installed-catalog publication
 - downstream_dependencies:
@@ -129,8 +129,11 @@ is not fabricated into a final `ConsensusResult`; T-272 must first admit its
 lawful continuation. Accept the reconciled three-view design before code.
 
 Design review may close while its implementation fence is open. No T-275 code,
-schema, generated asset, or public projection may land until T-281, T-270, and
-T-274 are completed on the same target basis.
+schema, generated asset, or public projection may land until T-281 P1, T-270,
+and T-274 are completed on the same target basis. T-275 supplies the
+pure `ticket_consensus` projection contribution required by T-281 P2; it does
+not introduce a Consensus-specific handler or wait for that publication
+milestone.
 
 ## Prime Migration Status
 

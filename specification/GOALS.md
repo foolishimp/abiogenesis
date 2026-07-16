@@ -28,10 +28,9 @@ GOALS, INTENT, PRODUCT, and requirements are the constitutional scope authority
 for this wave. The 17 feature families below are the no-silence scope taxonomy.
 T-244 is their sole derived feature traceability and closure projection, not an
 independent scope authority. T-278's accepted target has propagated through
-INTENT, PRODUCT, and requirements. T-244 is completed-but-stale: its prior
-exact-36 operation work and closure columns do not authorize implementation. It
-must now be reopened, regenerated once against the derived 19-operation
-projection, and reclosed. Delivery neither narrows a retained constitutional
+INTENT, PRODUCT, and requirements. T-244 has been regenerated and reclosed over
+the derived 19-operation projection; its earlier exact-36 snapshot no longer
+authorizes implementation. Delivery neither narrows a retained constitutional
 claim by silence nor adds a capability outside the lawful scope. A new product
 capability re-enters through the smallest lawful goal, intent, product, or
 requirement reprice.
@@ -46,33 +45,34 @@ odd_glc 1.0 may subsequently act together as the development product for the
 
 ## Managed Plan State
 
-The current delivery position is `DS-0` derived-register regeneration under
-T-278. The stable-first full-product scope remains current. F_H accepted the
-exact `/9-candidate` target at checkpoint `83c87dec`, and its constitutional
-propagation is complete. The Ontology remains a candidate until T-244
-regeneration, basis recomputation, and final design review are complete.
+The current delivery position is the DS-2/DS-4 public-contract prerequisite
+wave. The stable-first full-product scope remains current. F_H accepted the
+exact `/9-candidate` target at checkpoint `83c87dec`; constitutional
+propagation, T-244 regeneration, basis recomputation, and final Ontology review
+are complete. Bounded realization now proceeds through the accepted owners.
 
 | Plan fact | Current truth |
 |---|---|
-| Current phase | `DS-0` regenerate T-244, recompute the Ontology basis, and obtain final design ratification |
-| Current decision | Two reviewer-authored reviews accept the exact `/9-candidate` and reproduce the 30-source basis, 38 behaviors, 27 atoms and authority rows, seven compositions, 19 operations, 17 features, and 16 capabilities. F_H accepts that exact target: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. Constitutional propagation is complete; final Ontology ratification and runtime authorization are not. |
+| Current phase | `DS-2/DS-4` realize the One Surface authorities and the private 19-operation definition family before reconciling public invocation and continuation |
+| Current decision | Ontology `/9` is ratified: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. |
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
-| Derived register | T-244 is completed-but-stale; its bounded reopen, one post-acceptance regeneration, and reclosure are the next executable work |
-| Runtime work | The T-270/T-272 integration is preserved as provisional evidence and remains frozen until T-244 regeneration, final Ontology ratification, and affected-design acceptance |
-| Next executable owner | Reopen, regenerate, and reclose T-244 from current GOALS, INTENT, PRODUCT, and requirements; then recompute the Ontology basis and run final independent design review before runtime reconciliation. |
+| Derived register | T-244 is regenerated and reclosed as the sole current 17-feature closure projection |
+| Runtime work | The dirty T-270/T-272 integration remains provisional and frozen until T-280, T-281 P1, and the neutral M04-admission-to-M03-runtime boundary close on one basis |
+| Next executable owner | Independently close T-280 and T-281 Phase A, complete T-281 P1, then reconcile T-270/T-272 without an M03 dependency on M04 public carriers. |
 | Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
-| Detailed current read model | `.ai-workspace/comments/codex/20260715T150050Z_PLAN_abiogenesis_5_0_repriced_end_to_end.md` |
+| Detailed current read model | This file and the active owner tickets; commentary remains non-authoritative review evidence. |
 
-F_H acceptance of this goal plan did not silently accept T-278's four target
-claims. The separate explicit ruling recorded on 2026-07-16 accepted the exact
-`/9-candidate` target and authorized constitutional propagation only; it did
-not ratify the final Ontology or authorize runtime work.
+F_H acceptance of the goal plan did not silently accept T-278's four target
+claims. The separate explicit target ruling, constitutional propagation, two
+final current-basis reviews, and ratification decision completed Ontology `/9`.
+Runtime authority still belongs to each affected accepted design and closure
+gate; Ontology ratification does not close an implementation leaf.
 
 ## Retained Feature Families
 
 These feature identities are stable across the T-278 reprice. Their precise
 authority, implementation status, remaining work, and release evidence are
-regenerated into T-244 after the target Ontology is accepted.
+projected by the regenerated T-244 register.
 
 | ID | Retained ABIogenesis 5.0 feature | Primary delivery phase |
 |---|---|---|
@@ -158,6 +158,7 @@ flowchart TD
   F --> P2[Bind all handlers and publish full packed operation catalog, SDK, and CLI parity]
   G --> P2
   Q --> P2
+  I --> P2
   G --> J[T-268 capability graph and conformance manifest]
   I --> J
   P2 --> J
@@ -177,7 +178,9 @@ their accepted designs; T-270 consumes them and cannot manufacture them inside
 the router. The full 19-operation public surface has two milestones. Its
 authoritative operation/request/result/schema/CLI-coordinate definition family
 precedes T-270/T-272. Handler binding and packed catalog/SDK/CLI parity follows
-the required handlers and precedes T-268/T-276. T-268 cannot publish the
+the required semantic owners, including T-275's pure `ticket_consensus`
+projection contribution, and precedes T-268/T-276. T-275 depends on the private P1 definition milestone,
+not completed P2 publication. T-268 cannot publish the
 mandatory public-contract capability against a partial operation catalog. This
 avoids schema-after-handler drift, publication claims over unrealized behavior,
 and a false complete capability manifest.
@@ -228,7 +231,7 @@ do not authorize an imperative workaround.
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-0` T-244 regeneration and final Ontology ratification |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-2/DS-4` public-contract prerequisite realization |
 
 ## Plan Management
 

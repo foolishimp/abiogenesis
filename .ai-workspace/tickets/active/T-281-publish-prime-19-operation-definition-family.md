@@ -41,8 +41,8 @@
   - T-270 consumes abg.operation.run.invoke definition truth
   - T-272 consumes abg.operation.run.continue and interaction.respond definition truth
   - T-274 consumes current public-contract publication coordinates
-  - T-275 consumes the closed project.read ticket_consensus definition truth
-  - P2 binds all semantic handlers and proves packed catalog SDK and CLI parity
+  - T-275 consumes the P1 project.read ticket_consensus definition and supplies its projection contribution
+  - P2 follows T-275 and the remaining semantic owners, then proves packed catalog SDK and CLI parity
   - T-268 publishes capability claims only after P2 closes
 - authority_refs:
   - specification/GOALS.md GOAL-035 DS-2/DS-4 and P1/P2 sequence
@@ -137,8 +137,10 @@ catalog, SDK, CLI, and capability parity.
    SDK declarations, CLI coordinates, and parity inventories from that family.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. P2 atomically binds handlers, switches the public surface, deletes legacy
-   truth, and hands the sole family to T-270, T-272, T-274, and T-268.
+6. T-275 supplies its pure `ticket_consensus` projection contribution and the
+   remaining semantic owners implement against the private P1 family; P2 then
+   atomically binds handlers, switches the public surface,
+   deletes legacy truth, and hands the sole family to T-268 and T-276.
 
 ## Exit
 

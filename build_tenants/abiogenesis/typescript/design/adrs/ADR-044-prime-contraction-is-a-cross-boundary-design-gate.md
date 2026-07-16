@@ -2,7 +2,7 @@
 
 **Series**: abiogenesis / typescript build
 
-**Status**: F_H-authorized for implementation; independent closure review pending
+**Status**: Accepted; T-277 closure review complete
 
 **Date**: 2026-07-14
 
@@ -358,7 +358,7 @@ Negative:
 ## Acceptance Gate
 
 The owner explicitly authorized implementation on 2026-07-15 after receiving
-the candidate packet and its implementation block. Independent review has not
-been fabricated and remains mandatory before T-277 closure. Any independent
-finding may re-enter the counting law, IACS, disposition, owner routing, or
-bounded implementation before closure.
+the candidate packet and its implementation block. The later holistic review
+and direct F_H closure decision completed T-277. Later feature leaves still
+carry their own design, implementation, and whole-family closure gates; this
+ADR does not make leaf acceptance equivalent to product acceptance.

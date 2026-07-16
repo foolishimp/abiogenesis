@@ -16,14 +16,15 @@
 `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`
 
 Constitutional propagation, T-244 regeneration, and final independent design
-review are complete. Runtime implementation remains prohibited until the
-affected three-view designs are reconciled to this Ontology and accepted.
+review are complete. Bounded implementation proceeds only through affected
+accepted designs; Ontology ratification alone grants no runtime or closure
+authority.
 
 ## Exact Basis
 
 | Source | SHA-256 basis | Use |
 |---|---|---|
-| `specification/GOALS.md` | `ec8945b558833c2073c70bcf99d28d668200d225867ca288b46f7c0fd52b9756` | current 5.0 goal, retained feature families, and DS sequence |
+| `specification/GOALS.md` | `b62b5f4a74b656017f2515d92b7d208ab4730d4c7a5d5abd1f8153f373058809` | current 5.0 goal, retained feature families, and corrected milestone sequence |
 | `specification/INTENT.md` | `a24c6bcbe4605d8ef0444c063ce61a58d43632b2bcc42b4752e42935d93d9b9f` | operator and product direction |
 | `specification/PRODUCT.md` | `5baa698c8d398118649260ce350f3dc2bd2d33c60ef66078d4a2a0a927fb15f2` | GTL, ABG, recursive product taxonomy, installed-product, and public-operator truth |
 | `REQ-P-POLICY.md` | `89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` | operator grammar, control modes, descriptors, and discovered public behavior |
@@ -55,8 +56,13 @@ affected three-view designs are reconciled to this Ontology and accepted.
 | upstream `ODD_METHOD.md` | `e420024069307ec0de189b3e6e401058db063dfdcc8c701fee3088e844f060f4` | One Surface constructive-evaluation and yield-loop law |
 | upstream `RELEASE_METHOD.md` | `31b549e749867ff6280f7529dce4a2ddd7080df8cd548652343099bfabf4f6e8` | release-cut and tapped-product distinction |
 
-Any changed digest invalidates this candidate basis and requires affected rows
-to be re-evaluated before acceptance or implementation.
+A changed semantic-authority digest invalidates the affected candidate basis
+and requires its rows to be re-evaluated before acceptance or implementation.
+A state or delivery-topology projection may rebind its row only after an exact
+diff proves the retained feature set and accepted semantic target unchanged;
+that bounded rebind does not retroactively alter the accepted semantic-candidate
+digest. The current GOALS rebind records T-244 reclosure and removes the
+T-281/T-275 cycle without changing the 27/7/19 target.
 
 ## Claim
 
@@ -101,9 +107,10 @@ defined below.
 F_H accepted the target shape at `83c87dec`, authorizing constitutional
 propagation only. INTENT, PRODUCT, requirements, GOALS, and the derived T-244
 register now carry that accepted truth, and the exact basis above has been
-recomputed. Final Ontology ratification still requires independent review of
-this exact current-basis candidate; runtime implementation remains frozen until
-that review is accepted.
+recomputed. Two final independent current-basis reviews accepted the semantic
+candidate and the ratification decision completed Ontology `/9`. Runtime work
+still requires its affected accepted design and implementation closure; the
+Ontology verdict does not close a realization leaf.
 
 ## Boundary And Exclusions
 

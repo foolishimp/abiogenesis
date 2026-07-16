@@ -7,7 +7,7 @@
 - status: active
 - phase_status: ontology_ratified_affected_design_reconciliation_active
 - review_status: final_v9_ratified_two_independent_reviews
-- proof_status: 27_7_19_current_basis_green_runtime_still_frozen
+- proof_status: 27_7_19_current_basis_green_bounded_realization_active
 - delivery_phase: DS-0 consistency re-entry before DS-5 public-product completion
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -161,9 +161,11 @@ The upstream method basis is durable at `specification_methodology@f28e0d8`.
 
 Ontology `/9` is now ratified at digest
 `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`.
-Runtime remains frozen only at the affected T-270/T-272 and DS-4 boundaries
-until their three-view designs are reconciled to the ratified Ontology and
-accepted. Unrelated accepted boundaries are not reopened.
+The affected designs have been reconciled. Bounded T-280 and T-281 Phase A
+realization may proceed under their own accepted scopes. T-270/T-272
+integration remains provisional until T-280 and T-281 P1 close on the same
+basis and M03 consumes only the neutral admitted runtime projection. Unrelated
+accepted boundaries are not reopened.
 
 The existing Prime regression gate proves only that the earlier T-277 governed
 design set remains green. T-278's target is supported by its explicit

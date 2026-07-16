@@ -283,7 +283,14 @@ export function inspectPrimeContractionReview({
     CONTRACTING_DISPOSITIONS.has(review.disposition) &&
     authorityBefore !== null && authorityAfter !== null &&
     authoringBefore !== null && authoringAfter !== null &&
-    authorityAfter >= authorityBefore && authoringAfter >= authoringBefore
+    (authorityAfter > authorityBefore || authoringAfter > authoringBefore)
+  ) {
+    failures.push(`${label}: contraction disposition cannot increase a measured source count`);
+  } else if (
+    CONTRACTING_DISPOSITIONS.has(review.disposition) &&
+    authorityBefore !== null && authorityAfter !== null &&
+    authoringBefore !== null && authoringAfter !== null &&
+    authorityAfter === authorityBefore && authoringAfter === authoringBefore
   ) {
     failures.push(`${label}: contraction disposition does not reduce a measured source count`);
   } else if (
