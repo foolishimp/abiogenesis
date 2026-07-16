@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: native_schema_phase_a_closed_p1_design_required
-- review_status: phase_a_implementation_independently_accepted
-- proof_status: phase_a_private_mechanism_green_p1_p2_fenced
+- phase_status: phase_a_closed_p1_constructor_candidate_same_basis_authority_repair_required
+- review_status: phase_a_accepted_p1_candidate_blocked_pending_goals_t270_t272_repair_and_independent_review
+- proof_status: phase_a_green_p1_named_owner_schema_gaps_and_cross_ticket_ordering_block_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -38,10 +38,11 @@
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
 - downstream_dependencies:
-  - T-270 consumes abg.operation.run.invoke definition truth
-  - T-272 consumes abg.operation.run.continue and interaction.respond definition truth
-  - T-274 consumes current public-contract publication coordinates
-  - T-275 consumes the P1 project.read ticket_consensus definition and supplies its projection contribution
+  - T-274A must prove a Phase-A-compatible neutral ticket_consensus contract coordinate; the current custom checks remain a typed P1 blocker
+  - T-270 neutral owner-native run.invoke contract milestone precedes P1; its public runtime integration follows P1
+  - T-272 neutral owner-native run.continue and interaction.respond contract milestone precedes P1; its continuation integration follows P1
+  - T-274B consumes the admitted P1 contract coordinates for public publication
+  - T-275 follows completed P1 and T-274B, then supplies later ticket_consensus handler and projection semantics
   - P2 follows T-275 and the remaining semantic owners, then proves packed catalog SDK and CLI parity
   - T-268 publishes capability claims only after P2 closes
 - authority_refs:
@@ -88,18 +89,29 @@
     20260716T101307Z_DECISION_fh_accept_t281_phase_a.md
 - accepted_phase_a_gate_complete_design_digest: >-
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
+- p1_constructor_candidate_design_digest: >-
+    f67edc2396fcf8c856ee594571be96404ab9e755f90d820a37e24f8f82891df6
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
 
 ## Boundary
 
-T-281 is the P1 definition milestone required before T-270. It authors one
-closed `PublicFunctionDefinition<K>` family over the exact 19 operation
-identities and their closed variants. Each definition owns its operation and
-variant identity, typed request/result/refusal relation, authority and effect
-class, actor and capability requirements, workspace-binding cardinality,
-schema coordinates, SDK coordinate, CLI coordinate, and adapter exit mapping.
+T-281 is the P1 definition milestone required before T-270/T-272 public runtime
+integration and after their neutral owner-contract milestones. It resolves every
+operation and variant request/result/refusal/non-terminal slot against an exact
+owner-native schema before it can author one closed
+`PublicFunctionDefinition<K>` family over the exact 19 operation identities.
+Missing, ambiguous, prose-only, legacy-only, or digest-divergent owner truth
+produces a typed non-empty P1 gap set and stops the pass. No partial family
+admits.
+
+Each admitted definition owns its operation and variant identity and binds the
+exact owner-native request/result/refusal relation. It also owns the public
+authority/effect classification, actor and capability requirements,
+workspace-binding cardinality, schema coordinates, SDK coordinate, CLI
+coordinate, and adapter exit mapping. The semantic owner retains payload
+meaning and behavior.
 
 `PublicInvocation<K>` and `PublicOutcome<K>` remain common operation-indexed
 carrier families. Operation catalog rows, schemas, SDK declarations, CLI
@@ -111,6 +123,14 @@ does not implement a generic operation controller, move behavior into
 metadata, bind every handler, or claim the final packed public surface. The P2
 milestone binds every operation to its owning handler and proves full packed
 catalog, SDK, CLI, and capability parity.
+
+P1 adds exactly one private operation-indexed authoring source: the
+19-operation family. Existing owner-native payload schema authorities remain
+distinct and are composed, not re-authored. All private schema, catalog,
+SDK/CLI-coordinate, and parity projections derive from those owner schemas and
+the one family. T-281 adds no semantic handler, owner-payload schema, public
+schema, catalog publication, SDK/CLI implementation, package export, or public
+authority.
 
 ## Hard Break
 
@@ -131,20 +151,28 @@ catalog, SDK, CLI, and capability parity.
 2. Phase A proves one private Valibot-native contract/projector mechanism, the
    exact common authority/invocation/outcome packets, and a schema-only
    non-Consensus fixture. It exports and invokes nothing.
-3. P1 ports exact owner schemas into one private operation-indexed definition
-   family without unchecked generic casts or prose-derived fields.
-4. Derive request/result/refusal schema definitions, operation catalog rows,
-   SDK declarations, CLI coordinates, and parity inventories from that family.
+3. P1 resolves exact owner-native schemas into a closed build-only sum. A
+   non-empty typed gap set stops construction without public output.
+4. Only when every slot resolves, admit one private operation-indexed
+   definition family and derive temporary request/result/refusal schemas,
+   candidate catalog rows, SDK/CLI coordinate inventories, and parity evidence.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. T-275 supplies its pure `ticket_consensus` projection contribution and the
-   remaining semantic owners implement against the private P1 family; P2 then
-   atomically binds handlers, switches the public surface,
+6. T-274A proves whether the existing native `ticket_consensus` schema can
+   yield a neutral coordinate through Phase A's closed projector. Its current
+   relational checks are incompatible; the case remains a typed gap until a
+   lawful owner repair and proof land. It does not wait for T-275 handler truth.
+7. Split the existing T-270/T-272 milestones: their neutral owner-native
+   contract schemas precede P1; their public runtime integration follows P1
+   and consumes neutral admitted projections rather than importing M04.
+8. T-275 and the remaining semantic owners follow P1; P2 then atomically binds
+   handlers, switches the public surface,
    deletes legacy truth, and hands the sole family to T-268 and T-276.
 
 ## Exit
 
-1. Exactly 19 operation identities and only their closed variants admit.
+1. Exactly 19 operation identities, 35 non-read variant keys, 27
+   `project.read` case keys, and 62 total `DefinitionKey` members admit.
 2. Every concrete variant fixes `workspaceBindingRequirement` to `forbidden`
    or `exactly_one`; no optional binding carrier exists.
 3. Request, result, refusal, authority, effect, schema, SDK, CLI, and adapter
@@ -202,8 +230,89 @@ contract was not native-authority ready:
 
 The proportional repair is bounded: Phase A closes those native relations and
 proves one non-exported schema-only `workspace.create(clean)` fixture before
-P1 authors the exact family. T-274 may use the same projector in parallel and
-supplies the existing Consensus schema object to the later `project.read`
-composition. No runtime or public projection may proceed against the
-superseded implementation authorization. The accepted repair closes only the
-private Phase A mechanism and common packets.
+P1 authors the exact family. T-274A may attempt the same projector in parallel,
+but its current Consensus relational checks are outside Phase A's whitelist
+and therefore remain a typed `project.read` blocker. No runtime or public
+projection may proceed against the superseded implementation authorization.
+The accepted repair closes only the private Phase A mechanism and common
+packets.
+
+## P1 Constructor Design Candidate
+
+The current design defines P1 as an all-or-nothing private constructor pass:
+
+```text
+DefinitionKey =
+  { operationId: NonProjectReadOperationIdentity,
+    memberKind: "variant", variant: ClosedVariantOf<operationId> }
+  | { operationId: "abg.operation.project.read",
+      memberKind: "project_read_case", caseKey: ProjectReadCase }
+
+P1ContractSlotResolution<K, S> =
+  owner_contract_slot_resolved<K, S, ownerAuthorityRef, ownerAuthorityDigest>
+  | semantic_not_realized<K, slot, ownerAuthorityOrNull, ownerTicketOrNull,
+      ownerDesignOrNull, evidenceRefs>
+
+P1OwnerContractResolution<K> =
+  owner_contract_resolved<K, ReqSlot, ResSlot, RefSlot, NonterminalSlotOrAbsent>
+  | definition_contract_gap<K, NonEmptyUnique<MissingSlotRow>>
+```
+
+The closed constructor census is 19 public operation identities, 35
+non-`project.read` variant keys, 27 `project.read` case keys, and 62 total
+`DefinitionKey` members. Each of those 62 keys owns a separate Req/Res/Ref/N
+resolution row. Grouping by `operationId` must still yield exactly 19 public
+identities.
+
+Each slot preserves its own semantic owner authority and evidence. A
+`project.read` wrapper and its case-specific result rows therefore need not
+pretend to share one owner. The missing member is typed build evidence and
+terminates the current pass. It cannot become a definition, public refusal,
+compatibility row, or prose-backed field. The private family admits only after
+every exact operation/variant key resolves its request, result, refusal, and
+explicit nullable non-terminal slot.
+
+The constructability review found these named blocking owner relations:
+
+- `p1_contract_workspace_not_realized`;
+- `p1_contract_project_read_not_realized`, including `ticket_consensus` until
+  T-274A proves a Phase-A-compatible neutral coordinate;
+- `p1_contract_product_intake_not_realized` and
+  `p1_contract_workspace_bind_not_realized`;
+- `p1_contract_catalog_not_realized`;
+- `p1_contract_run_invoke_not_realized`;
+- `p1_contract_run_continue_not_realized` and
+  `p1_contract_interaction_respond_not_realized`;
+- `p1_contract_result_assess_not_realized`, `p1_contract_witness_not_realized`,
+  `p1_contract_tuning_not_realized`, and
+  `p1_contract_conformance_not_realized`;
+- `p1_contract_materialize_not_realized`; and
+- `p1_contract_release_not_realized`.
+
+The current GOALS ordering treats T-270 and T-272 as wholly downstream of P1,
+but their neutral owner-native contract milestones are P1 inputs. P1 cannot
+admit or expose gap-bearing `run.invoke`, `run.continue`, or
+`interaction.respond` definitions. The minimum lawful refinement is:
+
+```text
+T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
+  -> T-281 P1 exact private family
+  -> T-270/T-272 public runtime integration milestones
+```
+
+GOALS, T-270, and T-272 must record that same-basis milestone split before the
+P1 design is eligible for acceptance or implementation. Their pre-P1 neutral
+contract milestones must not depend on P1. This does not add tickets, move
+semantic ownership, or authorize runtime work.
+
+P1 introduces one private authoritative operation-definition source. Owner
+payload schema authorities remain distinct; T-281 composes them and authors
+none. T-281 adds no new semantic, public, handler, catalog, SDK, or CLI
+authority. All P1 projections are temporary derived outputs. M03 is prohibited
+from importing the private M04 family or projection path; T-270/T-272 consume
+neutral admitted projections instead.
+
+P1 implementation remains prohibited until the same-basis GOALS/T-270/T-272
+repairs land and an independent review accepts the resulting exact design
+digest. P2 remains fenced behind completed P1, T-274B, T-275, and the remaining
+handler owners.
