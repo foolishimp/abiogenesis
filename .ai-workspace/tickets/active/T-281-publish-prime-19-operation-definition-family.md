@@ -90,7 +90,7 @@
 - accepted_phase_a_gate_complete_design_digest: >-
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
 - accepted_p1_constructor_design_digest: >-
-    8d16d96727e5394b3ccfbd147a0ba1225c9fa98b72f3638ac679a2b005d125d1
+    1bbf4bcb5fbe53f97e150ae743b798fb4c1fe0c5ea4d6fb4753bdc31f3b22d7a
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
