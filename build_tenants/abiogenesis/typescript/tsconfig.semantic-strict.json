@@ -29,6 +29,7 @@
     "rootDir": ".",
     "outDir": "build/semantic",
     "declaration": true,
+    "stripInternal": true,
     "sourceMap": true
   },
   "include": [
