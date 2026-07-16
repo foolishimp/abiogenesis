@@ -19,15 +19,15 @@ public contract and capability identities.
 
 **REQ-M-GTL3-CAPABILITY-001**: An ABG-conformant engine or build tenant shall publish a versioned tenant-conformance manifest declaring which GTL constructs and public capability contracts it can interpret.
 
-**REQ-M-GTL3-CAPABILITY-002**: Tenant-conformance manifests shall align with the active GTL, ABG, and mapping requirement families and shall cite exact published public contract and capability identities rather than implementation-language, source-path, or private design identities.
+**REQ-M-GTL3-CAPABILITY-002**: Tenant-conformance manifests shall align with the active GTL, ABG, and mapping requirement families and shall cite exact published public contract and capability identities projected from one accepted capability-definition graph rather than implementation-language, source-path, private design identities, or a tenant-authored capability vocabulary.
 
 **REQ-M-GTL3-CAPABILITY-003**: GraphFunction effects declarations shall be matchable against engine capability profiles for dispatch validation.
 
-**REQ-M-GTL3-CAPABILITY-004**: An ABG tenant-conformance manifest shall declare its schema version, manifest identity, manifest version, digest, engine identity, engine version, and the exact public contract and capability identities against which the tenant claims conformance.
+**REQ-M-GTL3-CAPABILITY-004**: An ABG tenant-conformance manifest shall declare its schema version, manifest identity, manifest version, digest, engine identity, engine version, the exact accepted capability-definition graph identity and digest, and the exact public contract and capability identities against which the tenant claims realized conformance.
 
-**REQ-M-GTL3-CAPABILITY-005**: The manifest shall identify the supported GTL declaration and GraphFunction publication contracts, ABG runtime event/result/replay contracts, catalog and installed-product contracts, public operator contracts, and worker effect/result capability contracts needed by the tenant.
+**REQ-M-GTL3-CAPABILITY-005**: The manifest shall identify the supported GTL program, declaration, and GraphFunction publication contracts, ABG runtime event/result/replay contracts, catalog and installed-product contracts, derived public function contracts, and worker effect/result capability contracts needed by the tenant. These realized-support rows shall project the accepted capability-definition graph and exact public catalog; they shall not redefine either.
 
-**REQ-M-GTL3-CAPABILITY-006**: A conformance claim shall bind to one exact manifest identity, version, and digest. It shall claim only the listed contract and capability identities; package presence, an unversioned feature name, or an unrelated test pass shall not imply conformance.
+**REQ-M-GTL3-CAPABILITY-006**: A conformance claim shall bind to one exact manifest identity, version, and digest and to the exact accepted capability-definition graph and public-contract-catalog basis from which its rows derive. It shall claim only the listed realized contract and capability identities; package presence, an unversioned feature name, an unrelated test pass, or a duplicate tenant-local definition shall not imply conformance.
 
 **REQ-M-GTL3-CAPABILITY-007**: An incompatible or unresolved contract identity, capability identity, manifest dependency, or declared GraphFunction effect shall produce an explicit conformance gap and shall fail closed before the affected execution is admitted.
 
@@ -60,15 +60,18 @@ behavioral-F_D fixtures. The exact-candidate release manifest shall cite that
 owning proof; it shall not reproduce the enforcement rules in a release-local checker.
 
 **REQ-M-GTL3-CAPABILITY-014**: The exact public contract and capability
-identities claimed by a tenant shall resolve through the installed product's
+identities claimed by a tenant shall be projections of one accepted capability-
+definition graph and shall resolve through the installed product's
 `publicContractCatalog` governed by `REQ-P-PUBLIC-CONTRACTS`. The tenant
-manifest shall bind that catalog's identity, version, and digest. Requirement
-names, feature prose, package presence, test names, and private export scans
-shall not substitute for catalog rows.
+manifest shall bind both authorities by identity, version, and digest.
+Requirement names, feature prose, package presence, test names, private export
+scans, and separately maintained capability enums shall not substitute for
+those rows.
 
 **REQ-M-GTL3-CAPABILITY-015**: Each claimed capability row shall identify its
-stable capability identity, owning public contract identity/version/digest,
-supported disposition, and any required dependent capability identities. A
-tenant builder shall be able to populate these rows by reading the public
-contract catalog and this requirement family without consulting source or
-design history.
+stable capability identity, owning definition-graph row, owning public contract
+identity/version/digest, supported disposition, and any required dependent
+capability identities. A tenant builder shall derive these rows from the
+accepted capability-definition graph and public contract catalog without
+consulting source or design history. The tenant-conformance manifest publishes
+realized support evidence; it is not a second capability-definition authority.

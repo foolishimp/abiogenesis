@@ -137,9 +137,9 @@ metadata are outside the ABG 5.0 catalog contract.
 ## Public Read Contract
 
 **REQ-P-CATALOG-019**: The public SDK and operator contract shall provide
-source-blind catalog list and describe operations for the retained public
-kinds. The operations shall be read-only projections over admitted catalog and
-workspace-binding truth.
+source-blind catalog-list and catalog-describe variants of
+`abg.operation.project.read` for the retained public kinds. The variants shall
+be read-only projections over admitted catalog and workspace-binding truth.
 
 **REQ-P-CATALOG-020**: A public list row shall expose at least the canonical
 handle, kind, owning product and version, readiness, eligibility, callability,
@@ -159,7 +159,8 @@ truthfully report the reason.
 
 **REQ-P-CATALOG-023**: A start or invocation session may declare an allowlist
 over admitted catalog identities. The effective session view shall be the
-intersection of the workspace-authorized catalog and the declared allowlist.
+intersection of the workspace-authorized catalog and the declared allowlist and
+shall be derived through `abg.operation.catalog.view`.
 
 **REQ-P-CATALOG-024**: An allowlist shall be narrowing-only. It shall not admit
 an unbound product, make an inadmissible or not-ready row eligible, change a
@@ -173,7 +174,9 @@ unrestricted fallback.
 
 **REQ-P-CATALOG-026**: Catalog list, describe, lawful-action, invocation, and
 replay projections shall identify the effective session view when session
-narrowing affects the result.
+narrowing affects the result. Read behavior shall bind
+`abg.operation.project.read`; invocation shall bind
+`abg.operation.run.invoke`. Neither may rederive or widen the view.
 
 ## Bounded 5.0 Distribution Scope
 
@@ -185,15 +188,22 @@ inputs for ABG 5.0.
 
 **REQ-P-CATALOG-028**: The ABG 5.0 catalog contract covers initial resolution,
 verification, installation, binding, admission, inspection, session narrowing,
-and GraphFunction invocation. Product lifecycle mutation and registry-entry
-lifecycle are outside this family until separately admitted.
+typed declaration application, and GraphFunction invocation. These behaviors
+bind respectively to `abg.operation.product.resolve`,
+`abg.operation.product.verify`, `abg.operation.product.install`,
+`abg.operation.workspace.bind`, `abg.operation.catalog.admit`,
+`abg.operation.project.read`, `abg.operation.catalog.view`,
+`abg.operation.catalog.apply`, and `abg.operation.run.invoke`. Product
+lifecycle mutation and registry-entry lifecycle are outside this family until
+separately admitted.
 
 **REQ-P-CATALOG-029**: Public catalog admission shall consume one exact
 workspace binding, resolved lock, verified product descriptors, and verified
 contribution manifests and shall produce one admitted catalog identity plus a
 typed disposition for every submitted row. Binding shall not imply admission,
 and admission shall not imply session visibility, eligibility, callability, or
-invocation.
+invocation. This is the `abg.operation.catalog.admit` definition; no catalog
+store method or adapter path may publish a second admission operation identity.
 
 **REQ-P-CATALOG-030**: ABIogenesis 5.0 shall publish typed non-callable
 application contracts for admitted `node_type` and `overlay` rows. Node-type
@@ -202,17 +212,23 @@ truth. Overlay application shall bind a published program composition over
 admitted GraphFunctions, vectors, node types, starts, roles, policies, proof
 obligations, and contracts. ABG shall own both admission/application boundaries;
 neither kind shall invoke a worker, open a GraphCall, emit a runtime event, or
-control traversal merely by being present or applied.
+control traversal merely by being present or applied. Both behaviors shall be
+closed variants of `abg.operation.catalog.apply`; neither shall receive a
+separate operation identity.
 
 ## Acceptance
 
 The catalog product contract is satisfied only when a source-blind consumer can
-bind exact product artifacts, inspect retained public contribution kinds,
-narrow one session, and invoke an admitted GraphFunction while:
+bind exact product artifacts, inspect retained public contribution kinds
+through `project.read`, narrow one session through `catalog.view`, apply a
+node type or overlay through `catalog.apply`, and invoke a program-owned
+admitted GraphFunction through `run.invoke` while:
 
 - descriptor, contribution, dependency, lock, and provenance identities agree;
 - incompatible, missing, ambiguous, duplicate, and shadowing cases fail typed;
 - node types and overlays remain visible but non-callable;
+- every execution-scoped invocation names the admitted GTL program that
+  publishes the selected GraphFunction;
 - catalog presence does not become runtime authority; and
-- no hosted service, source checkout, private import, or second controller is
-  required.
+- no hosted service, source checkout, private import, legacy operation facade,
+  or second controller is required.

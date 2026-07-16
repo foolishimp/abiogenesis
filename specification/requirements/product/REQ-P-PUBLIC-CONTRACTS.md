@@ -89,6 +89,14 @@ these contract-group identities and package export locators. The root export
 | `abg.contract.qualification.m05` | `@abiogenesis/typescript-tenant/qualification/m05` | qualification, release-snapshot, manifest, and evidence contracts |
 | `abg.asset.gtl.language-conformance-corpus` | product-manifest asset locator | canonical GTL programs paired with exact expected diagnostic identities |
 
+The complete public function surface shall derive from one closed
+`PublicFunctionDefinition<K>` family. That family owns each function identity,
+closed variant domain, request/result/refusal contracts, authority and effect
+class, operation-indexed workspace-binding requirement, capability refs, and
+adapter coordinates. Package exports, operation catalog rows, schemas, SDK
+methods, and CLI paths are projections of that family; they shall not author
+parallel function meaning.
+
 **REQ-P-PUBLIC-CONTRACTS-006**: The `abg.contract.abg.m03` roster shall locate
 the named symbols `RuntimeEvent`, `CanonicalRuntimeEvent`, and
 `RUNTIME_EVENT_KIND_VALUES`; `GtlProgramDiagnosticId` and
@@ -105,6 +113,8 @@ identity, version, digest, authority refs, and locator:
 - `abg.schema.product-toolchain-manifest`
 - `abg.schema.public-contract-catalog`
 - `abg.schema.public-operation-contract`
+- `abg.schema.public-operation-invocation`
+- `abg.schema.public-operation-outcome`
 - `abg.schema.native-contract-inventory`
 - `abg.schema.capability-contract`
 - `abg.schema.closed-vocabulary`
@@ -126,6 +136,7 @@ identity, version, digest, authority refs, and locator:
 - `abg.schema.fh-interaction`
 - `abg.schema.tenant-conformance-manifest`
 - `abg.schema.self-conformance-result`
+- `abg.schema.exact-candidate-qualification`
 - `abg.schema.consensus-subject`
 - `abg.schema.consensus-panel`
 - `abg.schema.consensus-reviewer-profile`
@@ -144,6 +155,21 @@ identity, version, digest, authority refs, and locator:
 - `abg.vocabulary.consensus-round-outcome`
 - `abg.asset.gtl.language-conformance-corpus`
 
+Canonical schema documents and addressable schema projections shall derive
+from one schema-definition source. Independent authoring of equivalent native,
+serialized, operation, and catalog schemas is not lawful merely because each
+projection retains a distinct public identity.
+
+`abg.schema.exact-candidate-qualification` shall locate one authoritative
+schema document with addressable definitions for
+`ExactCandidateQualification<basis>`,
+`ExactCandidateQualification<verdict>`, `QualificationLawBasis`,
+`QualificationGateResultVector<K>`, and `FinalTapDelta`. The basis and verdict
+are addressable projections of the Prime qualification family;
+`QualificationLawBasis`, the result vector, and `FinalTapDelta` remain
+subordinate definitions and shall not become independently authored schema
+identities.
+
 **REQ-P-PUBLIC-CONTRACTS-007**: The language conformance corpus shall be one
 canonical content-addressed JSON product asset. Its catalog row shall locate
 the asset and schema, bind its digest, and name the diagnostic-vocabulary
@@ -161,60 +187,64 @@ row and supersession; broad M01/M02/M04 group membership alone is not a schema l
 ## Public Operation Identities
 
 **REQ-P-PUBLIC-CONTRACTS-008**: The public operation catalog shall contain
-exactly these tenant-invariant 5.0 operation identities unless an ordinary
-requirement reprice versions or supersedes the catalog:
+exactly the following 19 tenant-invariant 5.0 operation identities, derived
+from the same `PublicFunctionDefinition<K>` family, unless an ordinary
+requirement reprice versions or supersedes that family:
 
-- `abg.operation.workspace.create`
-- `abg.operation.workspace.open`
-- `abg.operation.catalog.resolve`
-- `abg.operation.catalog.verify`
-- `abg.operation.catalog.bind`
-- `abg.operation.catalog.admit`
-- `abg.operation.catalog.list`
-- `abg.operation.catalog.describe`
-- `abg.operation.catalog.allow`
-- `abg.operation.catalog.invoke`
-- `abg.operation.run.start`
-- `abg.operation.run.resume`
-- `abg.operation.read.status`
-- `abg.operation.read.result`
-- `abg.operation.read.evidence`
-- `abg.operation.read.replay`
-- `abg.operation.read.gaps`
-- `abg.operation.read.lawful-actions`
-- `abg.operation.fh.select`
-- `abg.operation.fh.approve`
-- `abg.operation.fh.reject`
-- `abg.operation.fh.assess`
-- `abg.operation.fh.answer-escalation`
-- `abg.operation.result.assess`
-- `abg.operation.witness.admit`
-- `abg.operation.observe.report`
-- `abg.operation.observe.drafts`
-- `abg.operation.tune.report`
-- `abg.operation.tune.propose`
-- `abg.operation.tune.ratify`
-- `abg.operation.tune.reject`
-- `abg.operation.conformance.typecheck-gtl-program`
-- `abg.operation.install.context-bootstrap`
-- `abg.operation.install.install`
-- `abg.operation.install.gen-config`
-- `abg.operation.release.snapshot`
+| Operation identity | Closed variation |
+|---|---|
+| `abg.operation.workspace.create` | target plus explicit `clean` or `imported` creation policy |
+| `abg.operation.workspace.open` | expected stable workspace-authority basis plus readiness projection |
+| `abg.operation.project.read` | closed source/projection relation for catalog, runtime, evidence, replay, gaps, lawful actions, observer, and tuning reads |
+| `abg.operation.product.verify` | artifact format and contract |
+| `abg.operation.product.resolve` | product requirements |
+| `abg.operation.product.install` | install target policy |
+| `abg.operation.workspace.bind` | exact product set, dependency lock, and roots |
+| `abg.operation.catalog.admit` | admitted contribution family |
+| `abg.operation.catalog.view` | narrowing allowlist |
+| `abg.operation.catalog.apply` | `node_type` or `overlay`; both non-callable |
+| `abg.operation.run.invoke` | `invoke` or `start` |
+| `abg.operation.run.continue` | current-intent continuation or a newly admitted selected action |
+| `abg.operation.interaction.respond` | `select`, `approve`, `reject`, `assess`, or `answer_escalation` |
+| `abg.operation.result.assess` | declared result-assessment contract |
+| `abg.operation.witness.admit` | `reprice`, `attest`, `hygiene-stamp`, `intake`, `run-resumed`, or `run-stopped` |
+| `abg.operation.tuning.transition` | `propose`, `ratify`, or `reject` |
+| `abg.operation.conformance.evaluate` | public `gtl_program`; self-conformance remains qualification-bound |
+| `abg.operation.product.materialize` | `context_bootstrap` or `configuration` |
+| `abg.operation.release.snapshot` | `published_rc` or `tapped_release` |
+
+This is a hard break. Every non-derived legacy operation identity, facade,
+parallel register, default, or fallback shall be retired. CLI command paths may
+retain ergonomic spellings only when they bind one definition above and supply
+no independent semantics.
 
 **REQ-P-PUBLIC-CONTRACTS-009**: Every operation row shall locate exact request,
 result, error/refusal, and invocation-descriptor schemas and native symbols. It
 shall declare defaults, closed value domains, actor requirements, read/write or
 attestation class, event-admission behavior, terminal/non-terminal disposition,
-and adapter exit classification. Prose spelling, CLI parsing, prior examples,
-or adapter convention shall not supply a missing field.
+adapter exit classification, and the operation-and-variant-indexed
+`workspaceBindingRequirement` value `forbidden | exactly_one`. No concrete
+variant shall carry a freely optional workspace binding. Prose spelling, CLI
+parsing, prior examples, or adapter convention shall not supply a missing field.
 
-**REQ-P-PUBLIC-CONTRACTS-010**: The common host-neutral invocation descriptor
-shall itself be a catalog row and schema. It shall bind contract-catalog
-version, operation identity, workspace/product/lock/catalog-view identities,
-the selected GraphFunction or operation request schema, input identity,
-allowlist/capability/steering inputs, actor attribution when required, and
-expected result/error schema identities. It shall contain no worker,
-continuation, event, traversal, retry, or closure authority.
+**REQ-P-PUBLIC-CONTRACTS-010**: One common host-neutral
+`PublicInvocation<K>` descriptor family and one corresponding
+`PublicOutcome<K>` result/refusal/non-terminal family shall themselves be
+catalog rows and schemas, shall serve every public operation, and shall remain
+governed by the selected `PublicFunctionDefinition<K>` and owning semantic
+function. The invocation shall bind the exact public
+function definition and variant, contract-catalog version, operation identity,
+operation-indexed invocation authority, required workspace/product/lock/
+catalog-view identities, selected admitted GTL program and GraphFunction where
+execution-scoped, input identity, allowlist, capability grants, steering inputs,
+actor attribution when required, and expected result/error schema identities.
+Pre-binding variants shall forbid workspace binding; workspace- and
+execution-scoped variants shall require exactly one immutable binding. The
+descriptor shall contain no worker, continuation, event, traversal, retry,
+selection, evaluation, or closure authority. The owning semantic function shall
+construct the outcome; public ingress may validate, admit, and transport the
+invocation and transport its outcome, but shall not construct either operation
+semantics or outcome truth.
 
 ## Capability Catalog
 
@@ -225,8 +255,8 @@ capabilities for GTL declaration/admission/serialization, Module publication,
 catalog contribution and GraphFunction invocation, node-type and overlay
 application, seven-term C execution, F_P result admission/materialization,
 runtime events/replay/continuation, the complete public operator contract,
-installed-product binding, qualification, self-conformance, and the published
-SYSTEM-owned Consensus GraphFunction.
+installed-product binding, qualification-bound self-conformance, and the
+published SYSTEM-owned Consensus GraphFunction.
 
 The mandatory ABIogenesis 5.0 capability identities are:
 
@@ -247,6 +277,11 @@ The mandatory ABIogenesis 5.0 capability identities are:
 - `abg.capability.qualification.self-conformance@5`
 - `abg.capability.graph-function.consensus@5`
 
+The mandatory identities shall derive from one capability-definition graph
+whose rows bind the owning public contract identities and dependencies.
+Tenant-conformance manifests publish realized claims over that graph; they do
+not author another capability vocabulary or infer support from package presence.
+
 **REQ-P-PUBLIC-CONTRACTS-012**: The tenant-conformance manifest shall reference
 only contract and capability identities present in the exact product's public
 contract catalog and shall bind the catalog identity/version/digest. Unknown,
@@ -262,9 +297,11 @@ typed conformance gaps.
    result, replay, F_H, conformance, and qualification schemas;
 3. locate the exact event-kind and diagnostic vocabularies and language corpus;
 4. construct a tenant-conformance manifest from catalog identities;
-5. implement a native typed adapter or canonical serialized adapter without
+5. derive the 19-operation SDK, CLI, schema, and catalog projections from the
+   same `PublicFunctionDefinition<K>` family;
+6. implement a native typed adapter or canonical serialized adapter without
    consulting ABIogenesis source, tickets, design history, or test fixtures; and
-6. run conformance and qualification against the same identities.
+7. run conformance and qualification against the same identities.
 
 Failure of any locator, digest, schema, vocabulary, operation row, capability
 row, or corpus row shall refuse conformance; it shall not fall back to code

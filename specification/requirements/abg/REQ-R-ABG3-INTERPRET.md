@@ -9,14 +9,15 @@
 
 ## Purpose
 
-Define ABG 3 interpretation as graph-function-first runtime execution over
-event-authoritative aggregates.
+Define ABG 3 interpretation as execution of an admitted graph overlay or GTL
+program composition through its published GraphFunction callables and event-
+authoritative runtime aggregates.
 
 ## Acceptance Criteria
 
 **REQ-R-ABG3-INTERPRET-001**: ABG shall load GTL 3 declarations without collapsing them into stale or flatter language shapes.
 
-**REQ-R-ABG3-INTERPRET-002**: Public execution shall enter through published `GraphFunction` carriers bound by GTL `Job` contracts.
+**REQ-R-ABG3-INTERPRET-002**: Public execution shall bind one admitted graph overlay or GTL program composition, one immutable workspace binding when required by the operation variant, and one `GraphFunction` callable published by that program, with a GTL `Job` contract when durable semantic job identity is declared. A GraphFunction is the callable library/work boundary inside the program, never the whole program or a substitute for program admission.
 
 **REQ-R-ABG3-INTERPRET-003**: ABG shall materialize graph functions through explicit, replayable materialization requests over declared graph-function identity, profiles, and structural parameters.
 
@@ -30,15 +31,15 @@ event-authoritative aggregates.
 
 **REQ-R-ABG3-INTERPRET-008**: Post-dispatch observer truth that is non-blocking but unresolved shall yield to the next lawful observer or routing layer rather than immediately redispatching the same constructive lane by default.
 
-**REQ-R-ABG3-INTERPRET-009**: Public start/resume entry shall act as a safe ignition boundary over published `GraphFunction` work. It shall locate, admit, or resume the lawful graph-function execution boundary, but shall not replace the ABG internal iteration engine.
+**REQ-R-ABG3-INTERPRET-009**: Public ingress shall validate and admit one typed `PublicInvocation` and its exact invocation authority, then ignite or continue the admitted GTL program. It shall not select or order model synthesis, gap evaluation, next-action evaluation, intent admission, graph-function invocation, action evaluation, retry, continuation, or closure, and shall not replace ABG interpretation with adapter control flow.
 
-**REQ-R-ABG3-INTERPRET-010**: ABG shall execute a published `GraphFunction` by repeatedly planning and advancing lawful internal `TraversalUnit<A, B>` instances over selected `GraphVector<A, B>` boundaries from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
+**REQ-R-ABG3-INTERPRET-010**: ABG shall interpret an admitted GTL program by applying its declared composition and invoking a selected published `GraphFunction` only after program membership and construction-intent admission. Each callable advances lawful internal `TraversalUnit<A, B>` instances over selected `GraphVector<A, B>` boundaries from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
 
-**REQ-R-ABG3-INTERPRET-011**: Next-edge selection shall be derived from graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from private controller memory, package-local loop counters, or a fixed first-vector shortcut.
+**REQ-R-ABG3-INTERPRET-011**: Internal next-edge selection shall be derived from the admitted program plus graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from public-ingress fields, private controller memory, package-local loop counters, or a fixed first-vector shortcut.
 
-**REQ-R-ABG3-INTERPRET-012**: A realization shall not claim graph-function execution parity when it only materializes a composed graph function or dispatches one selected vector without proving replay-derived progression across the callable graph boundary.
+**REQ-R-ABG3-INTERPRET-012**: A realization shall not claim admitted-program or graph-function execution parity when it only materializes a graph function, dispatches one selected vector, or invokes a callable without proving program membership, exact binding, admitted intent, and replay-derived progression across the callable graph boundary.
 
-**REQ-R-ABG3-INTERPRET-013**: ABG shall name an admitted graph-function execution request with no declared runtime compute basis as `no_compute_basis`. It shall not treat an uninitialized traversal as a no-op, identity traversal, deterministic fallback, probabilistic fallback, or human fallback.
+**REQ-R-ABG3-INTERPRET-013**: ABG shall name an admitted program/graph-function execution request with no declared runtime compute basis as `no_compute_basis`. It shall not treat an uninitialized traversal, missing admitted program, missing program membership, or absent composition as a no-op, identity traversal, deterministic fallback, probabilistic fallback, or human fallback.
 
 **REQ-R-ABG3-INTERPRET-014**: Every ABG-known runtime system or runtime asset surface participating in a graph-function invocation shall expose a declared runtime activity probe surface when it can affect liveness. Probe facts observe activity and evidence only; they shall not select retry, traversal movement, stop state, or closure.
 
@@ -69,3 +70,7 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-027**: Static GTL program conformance shall project traversal-unit law from admitted inventory. The report shall be able to name or reject public graph-function entry surfaces, internal graph-vector unit boundaries, start-to-entry-unit bindings, overlay policy/catalog rows, plugin-result output-admission rows, consequence traversal catalog availability, and catalog-bound bind options.
 
 **REQ-R-ABG3-INTERPRET-028**: Static GTL program conformance shall fail closed when inventory attempts to use a bare graph vector as public authority, an overlay as an execution shortcut, runtime-start schedule selection as topology, plugin output files as result contract law, consequence traversal not present in the admitted catalog, product-local CLI/replay route selection as bind law, or ambiguous entry/bind candidates.
+
+**REQ-R-ABG3-INTERPRET-029**: The admitted GTL program shall own the One Surface composition. ABG shall interpret that declaration while preserving `synthesizeModel`, `evalGap`, `evaluateNext`, and `evaluateAction` as distinct semantic authorities and preserving intent admission, invocation, evidence admission, and continuation as their distinct ABG boundaries. Interpreter helper order or public ingress shall not become program authority.
+
+**REQ-R-ABG3-INTERPRET-030**: When a program publishes an inner refinement boundary, recursive interpretation shall apply the same visible One Surface composition to that published refinement. Opaque worker-internal decomposition may remain inside one bounded action, but it shall not create or bypass another program, action selector, continuation controller, or closure path.

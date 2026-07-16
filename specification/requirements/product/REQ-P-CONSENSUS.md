@@ -103,10 +103,12 @@ and closure classification shall be declarations or referenced contracts, not
 host-language orchestration.
 
 **REQ-P-CONSENSUS-010**: ABG shall execute Consensus through ordinary catalog
-selection, GraphCall, frame, C-call, worker, result-admission, event, replay,
-continuation, retry, and F_H boundaries. Consensus shall introduce no new
-runtime truth writer, scheduler, automatic wake mechanism, retry loop, or
-closure authority.
+selection inside one admitted GTL program, One Surface intent admission,
+GraphCall, frame, C-call, worker, result-admission, event, replay, continuation,
+retry, and F_H boundaries. The selected Consensus GraphFunction shall be
+published by that program and shall not be treated as the whole program or as a
+bypass around `evaluateNext`. Consensus shall introduce no new runtime truth
+writer, scheduler, automatic wake mechanism, retry loop, or closure authority.
 
 **REQ-P-CONSENSUS-011**: Deterministic admission owns schema, digest,
 attribution, panel membership, budget, exact-agreement classification, and
@@ -129,7 +131,9 @@ same contract shall support an existing explicitly selected workspace, another
 independently bound explicitly selected workspace root, and a caller-created
 temporary workspace root. These are three applications of one contract, not
 three runtime modes. A temporary root still requires admitted workspace,
-binding, catalog, event, result, replay, and proof identities.
+stable workspace-authority basis, immutable binding, catalog, event, result,
+replay, and proof identities. Ordinary observation changes shall create new
+observation snapshots without changing the workspace authority or binding.
 
 **REQ-P-CONSENSUS-014**: Per-reviewer workspace isolation and a distinct output
 workspace are not implied. If a later Consensus contract requires either, it
@@ -137,20 +141,22 @@ shall declare the authority through the ordinary input/output-workspace binding
 law before realization.
 
 **REQ-P-CONSENSUS-015**: `abg.cli` shall invoke Consensus through the existing
-`abg.operation.catalog.invoke` operation and shall read its result and replay
-through `abg.operation.read.result` and `abg.operation.read.replay`. Consensus
-shall not add a feature-specific CLI verb or host-owned orchestration path.
-Session allowlisting may narrow the admitted catalog to the Consensus function
-and its declared dependencies; it shall not widen catalog authority.
+`invoke` variant of `abg.operation.run.invoke` and shall read its result and
+replay through the corresponding variants of `abg.operation.project.read`.
+Consensus shall not add a feature-specific CLI verb, operation identity, or
+host-owned orchestration path. `abg.operation.catalog.view` may narrow the
+admitted catalog to the Consensus function and its declared dependencies; it
+shall not widen catalog authority.
 
 ## Qualification
 
 **REQ-P-CONSENSUS-016**: The 5.0 release gate shall invoke the packed and
 installed candidate's published Consensus function over one real ticket subject
 using at least two differently attributed reviewer profiles. The proof shall
-read the typed result and replay and shall run through the existing, alternate,
-and temporary workspace applications without source imports or shell-owned
-panel orchestration.
+enter through the admitted program and `run.invoke`, read the typed result and
+replay through `project.read`, and run through the existing, alternate, and
+temporary workspace applications without source imports or shell-owned panel
+or One Surface orchestration.
 
 **REQ-P-CONSENSUS-017**: Qualification shall include three controlled fixture
 families: agreement reaches `closed_done`; a material dispute reaches
@@ -164,7 +170,8 @@ GTL body, semantic-compiler admission, installed catalog row, addressable public
 schemas and vocabularies, all three fixture families, all three workspace
 applications, actor attribution, result, and replay evidence pass over the exact
 5.0 candidate. A declaration-only entry or imperative implementation shall fail
-the gate.
+the gate. The proof shall use only the accepted 19-operation definition family;
+a legacy operation identity or parallel adapter register shall fail it.
 
 ## Bounded Scope
 

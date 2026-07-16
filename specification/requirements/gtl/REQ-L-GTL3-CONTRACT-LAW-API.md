@@ -19,6 +19,10 @@ plugin boundary, public start, selection boundary, or recursive graph-function
 shape, that element must be expressible as GTL language or an ABG-admitted
 declaration over GTL language. It shall not be hidden only in product-local
 code, prompt prose, wrapper convention, or test-only inventory construction.
+An admitted graph overlay or GTL composition is the program. `GraphFunction` is
+the sole public named callable library function and work contract published
+inside that program; neither the callable nor public ingress may replace the
+program's declared composition.
 
 This requirement is a reload and index surface. It does not replace the
 detailed GTL requirement families. It states the one-truth boundary that lets a
@@ -94,7 +98,7 @@ lineage, foldback evaluation, and parent re-evaluation remain ABG law.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-002**: GTL shall expose graph algebra as inspectable program law. Core graph algebra operations include `edge`, `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity`, and `same_object`. Implementation APIs may use host-language spellings such as `sameObject` when the carrier identity and law are unchanged.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-003**: GTL contract definitions shall include or index the declarations required for graph-function interface law, graph-vector identity and target law, target-carrier contract law, hook and plugin boundary law, typed prompt or `AssetSurface` law, module publication law, and job or public-start binding law.
+**REQ-L-GTL3-CONTRACT-LAW-API-003**: GTL contract definitions shall include or index the declarations required for admitted graph-overlay or GTL-program composition, graph-function callable interface and program-membership law, graph-vector identity and target law, target-carrier contract law, hook and plugin boundary law, typed prompt or `AssetSurface` law, module publication law, and job or public-start binding law.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-004**: GTL shall expose selection, refinement, synthesis, and publication carriers as first-class language configuration surfaces. `RefinementBoundary`, `CandidateFamily`, candidate selection boundaries, sub-work, synthesis declarations, and single-vector graph-function publication helpers are not hidden orchestration; each shall trace to a GTL carrier, GTL algebra constructor, or ABG admission rule.
 
@@ -106,7 +110,7 @@ lineage, foldback evaluation, and parent re-evaluation remain ABG law.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-008**: GTL shall be complete enough to configure prompt construction and typed asset surfaces. A downstream inventory row that declares a rendered prompt invocation asset shall be admitted as a typed GTL asset-surface view with the row-local constructor, renderer, digest, authority-slot, output-contract, proof, node, and evidence bindings needed by that row policy. Non-rendered assets shall use a different declared inventory kind.
 
-**REQ-L-GTL3-CONTRACT-LAW-API-009**: ABG shall own program admission and interpretation for GTL programs. A downstream graph program shall be typechecked through an ABG-owned programmatic function before ABG runtime traversal when the downstream product claims GTL/ABG conformance.
+**REQ-L-GTL3-CONTRACT-LAW-API-009**: ABG shall own admission and interpretation for graph overlays and GTL program compositions. A downstream program shall be typechecked through an ABG-owned programmatic function before ABG runtime traversal when the downstream product claims GTL/ABG conformance. Execution admission shall bind the exact admitted program and a selected `GraphFunction` published by that program; a graph function is never admitted as the whole program by relabeling.
 
 **REQ-L-GTL3-CONTRACT-LAW-API-010**: ABG program admission shall fail closed when a supplied GTL program inventory is empty, partial, identity-ambiguous, graph-unreachable, algebra-incomplete, composition-incomplete, prompt-incomplete, hook-incomplete, or lossy relative to the GTL contract declarations it claims to represent.
 
@@ -140,7 +144,7 @@ this requirement as a replacement for the detailed families.
 | Recursive graph functions | `recurse(graph_function, termination, foldback)` over a declared `GraphFunction` with termination, foldback, lineage, and bounds | ABG interprets declared recursion and frame/runtime truth; ABG does not invent foldback | `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-LAWS`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-LINEAGE` | `test_m01_gtl_core_integration.test.mjs` recursion tests |
 | Selection, refinement, synthesis, and sub-work | `RefinementBoundary`, `CandidateFamily`, selection boundaries, synthesis declarations, sub-work declarations | ABG may enumerate and admit; strategic selection remains externally supplied or policy-owned | `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SUBWORK`, `REQ-R-ABG3-SELECTION-APPLICATION` | GTL carrier and ABG selection tests |
 | Prompt construction and typed assets | `AssetSurface`, prompt invocation asset rows, renderers, digest policy, authority slots, output contracts, proof refs | ABG conformance admits rows and rejects lossy prompt or asset inventory | `REQ-L-GTL3-ASSET-SURFACE`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-PAYLOAD` | T-150/T-152 conformance tests |
-| Module, job, role, and public starts | `Module`, `Job`, `Role`, public callable graph-function binding | ABG public start and runtime binding admission | `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-RUN` | ABG public-start and downstream conformance tests |
+| Program publication, module, job, role, and public starts | admitted graph overlay or GTL composition; `Module`, `Job`, `Role`, and public callable GraphFunction membership | The admitted program owns composition and public-start declarations; ABG admits and interprets them, while public ingress only validates and ignites the invocation | `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN` | ABG program-admission, public-start, and downstream conformance tests |
 | Traversal unit and consequence bind | `GraphFunction`, internal `GraphVector`, selected `abg.fn_composition`, target-carrier rows, materialization policy refs, admission-strength refs, plugin result interfaces, allowed consequence traversal catalog declarations, public-start rows, obligation-delta families | ABG admits, advances, closes, transitions, replays, and conserves traversal units; `typecheckGtlProgram(...)` projects declared unit/bind law and rejects missing intent-lineage, obligation-conservation, or admission-strength compatibility basis | `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD` | T-159 compiler/report and traversal-bind tests |
 | Requirement declaration wrappers | `Module`, `GraphFunction`, `GraphVector`, `Context`, hook refs, asset surfaces, requirement declarations, traversal-span declarations, destination-topology declarations, and test-relation declarations | ABG admits requirement event payloads, projects requirement ledgers, builds edge requirement environments, folds evidence over assurance truth, preserves residual pressure, and exposes query read models | `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-ASSURANCE` | T-162 requirements algebra tests |
 | External tool gates | GTL declarations plus ABG-admitted tool boundary refs | ABG gates tool payloads; external tool metadata is not language truth | `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-PAYLOAD` | Tool-boundary and payload admission tests |
@@ -154,8 +158,8 @@ declared through GTL language or an ABG-admitted carrier over GTL language.
 
 | ABG runtime operation family | Configuration source | Runtime truth owner |
 | --- | --- | --- |
-| public start, run, graph call, and frame opening | `Module`, `Job`, `Role`, `GraphFunction`, public-start rows, binding policy | ABG run, graph-call, frame, binding, and provenance requirements |
-| iteration, traversal transition, and selection application | `Graph`, `GraphVector`, evaluator/rule declarations, selected composition, policy hooks | ABG iteration, selection-application, events, projection, and assurance requirements |
+| public invocation, run, graph call, and frame opening | admitted graph overlay or GTL program composition, `Module`, `Job`, `Role`, published `GraphFunction`, public-start rows, and binding policy | The admitted program owns composition; ABG owns invocation admission and interpretation plus run, graph-call, frame, binding, and provenance truth |
+| One Surface composition, iteration, traversal transition, and selection application | admitted GTL program, `Graph`, `GraphVector`, evaluator/rule declarations, selected composition, policy hooks | The program keeps model synthesis, gap evaluation, next-action evaluation, and action evaluation distinct; ABG interprets, admits, records, and advances without public-ingress orchestration |
 | retry, continuation, correction, and replay | declared graph-function/vector contracts, edge assurance, continuation policy, correction policy | ABG retry, continuation, correction, events, projection, lineage, and provenance requirements |
 | payload ledgers and prompt/plugin payload admission | `AssetSurface`, compute notation, plugin contracts, hook refs, output contracts | ABG payload, assurance, event, and projection requirements |
 | worker and transport binding | `Operator`, `Evaluator`, `Role`, job/public-start binding, policy hooks | ABG worker, job-worker, binding, transport, and provenance requirements |
@@ -165,7 +169,7 @@ declared through GTL language or an ABG-admitted carrier over GTL language.
 
 | Owner | Owns | Does not own |
 | --- | --- | --- |
-| GTL | Declarations, graph algebra, contract law, selected compute composition syntax, recursive graph-function law, hook attachment, typed asset-surface shape, target-carrier contract law, plugin boundary shape, module/job/public-start publication. | Runtime events, worker identity, traversal transition, replay projection, or product-domain meaning. |
+| GTL | Declarations, graph algebra, graph overlay and program composition, callable GraphFunction contracts, selected compute composition syntax, recursive graph-function law, hook attachment, typed asset-surface shape, target-carrier contract law, plugin boundary shape, and module/job/public-start publication. | Runtime events, worker identity, traversal transition, replay projection, public-ingress orchestration, or product-domain meaning. |
 | ABG | Admission, interpretation, payload ledgers, assurance fold, event truth, traversal transition, continuation, correction, replay, and programmatic conformance gates over GTL program inventory. | GTL language semantics or downstream domain acceptance meaning. |
 | Downstream product | Domain meaning, product read models, acceptance interpretation, domain-specific proof interpretation, and product-owned implementations behind admitted GTL/ABG boundaries. | GTL contract law, graph algebra, target-carrier law, hook law, prompt asset law, compute-composition law, recursive graph-function law, or ABG runtime truth. |
 
