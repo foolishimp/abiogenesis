@@ -105,6 +105,8 @@
     b221dbff6345e524044ad7febb80d3515f92f1cfb12b8b409293c91a5cd0b7d5
 - prime_owner_source_candidate_digest: >-
     b4824c806971367c6408181d7c8c87567dbdffc98303ec0ebb0733efd6a19dd4
+- exact_catalog_and_release_contract_candidate_digest: >-
+    9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7
 - repaired_p1_owner_composition_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T164206Z_SELF_REVIEW_t281_owner_contract_composition_repair.md
