@@ -1,181 +1,209 @@
-# M03-M04 Public Catalog Invocation Authority Behavior Design
+# M03-M04 Public run.invoke Authority Behavior Design
 
-**Status**: F_H-authorized for PC-007 implementation; independent closure review pending
-**Date**: 2026-07-15
+**Status**: Accepted - reconciled to ratified Ontology for runtime reconciliation
+
+**Date**: 2026-07-16
+
 **Ticket**: `T-270`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+
+**Ontology authority**: `ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md` digest `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+
+**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
+
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 
 ## Boundary
 
-This design closes the supported path from one admitted public
-`abg.operation.catalog.invoke` request to the existing ABG runtime. M04 admits
-the public request and supplies effects. M03 alone resolves the selected
-catalog entry, derives all execution authorities, admits one execution basis,
-and starts interpretation.
+This design closes the generic execution-admission join after the admitted One
+Surface program has selected one lawful action and AF-14 has admitted its
+`ConstructionIntent`. Public ingress admits and transports one
+`PublicInvocation<run.invoke>` under the exact `PublicFunctionDefinition` and
+`InvocationAuthority`; it does not select, order, invoke, evaluate, or close
+work.
 
-The selected GraphFunction may contain several GraphVectors and several
-invoking C-program loci. Therefore the route cannot lawfully carry one
-caller-selected `DeclaredExecutionRequest` and one
-`TraversalExecutionAdmissionRuntimeAddressable`. M03 derives one ordered
-authority row per applicable vector; each row contains the exact request and
-result-authority projection for every invoking locus in that vector before
-effects. Those rows remain subordinate payload inside the existing
-`CatalogInvocationAssembly`; they do not become a second execution-basis or
-session family.
+The GTL program is the program. A `GraphFunction` is one callable member
+published by that program. `invoke` narrows the program-derived `ActionCatalog`
+to one exact member and `start` supplies scope, target, and until constraints;
+both still pass AF-13 and AF-14. T-270 begins at the admitted
+`ConstructionIntent` and performs only AF-15 execution admission.
+
+T-270 verifies one exact program/function/view/binding/invocation-authority/
+intent join, consumes the immutable T-255/T-256/T-267/T-271 compiler chain,
+derives one subordinate `ProgramExecutionAuthoritySet` and one non-effect
+`T270StartAdmissionWitness`, admits one sole effect-authorizing
+`ExecutionBasis`, and enters the T-271 interpreter. It neither mutates T-267
+static truth nor creates a parallel session or basis.
+
+Completed runtime evidence returns to program-owned AF-16. Held F_H truth ends
+this boundary and enters T-272. Public projection transports the resulting
+truth only.
 
 ### Requirements
 
-- `REQ-P-POLICY-019..025`, `-033`, and `-041..046`
-- `REQ-P-PUBLIC-CONTRACTS-003`, `-008..010`
-- `REQ-M-GTL3-PROGRAM-TRAVERSAL-004..005`, `-011`
-- `REQ-R-ABG3-FN-COMP-015`, `-021..024`
-- `REQ-R-ABG3-INTERPRET-006`, `-010`, and `-027`
-- ADR-043 runtime basis and transition ownership
-- T-255, T-256, T-267, and T-271 current carriers
-- T-268 exact tenant-capability manifest authority
+- `REQ-P-PUBLIC-CONTRACTS-008..010`
+- `REQ-P-POLICY-019..025`, `-053..054`, and `-062..064`
+- `REQ-M-GTL3-PROGRAM-TRAVERSAL-001..010`
+- `REQ-R-ABG3-INTERPRET-002`, `-009..013`, and `-029..030`
+- `REQ-R-ABG3-BINDING-015..018`
+- `REQ-R-ABG3-FN-COMP-022..024` and `-026..027`
+- the ratified public control-plane Ontology and PRODUCT One Surface contract
+- T-255, T-256, T-267, and T-271 current accepted carriers
 
-### Explicit exclusions
+### Explicit Exclusions
 
-- a public invocation session carrier;
-- a second public start router;
-- a caller-authored capability profile, execution request, prompt plan,
-  traversal admission, C-program plan, frame, or C-call;
-- a Consensus-specific runtime branch;
-- flattening several vector/locus authorities into one aggregate stage;
-- moving catalog selection, execution compilation, or event emission into M04;
-- automatic F_H response or continuation consumption, owned by T-272; and
-- bypassing T-268 when a selected effect requires manifest coverage.
+- `abg.operation.catalog.invoke` or any legacy public invocation identity;
+- GraphFunction, Module, catalog row, SDK, CLI, or ingress as the GTL program;
+- ingress-owned model synthesis, gap evaluation, action selection, intent
+  admission, runtime orchestration, action evaluation, or closure;
+- direct catalog selection used as action truth or a bypass around AF-13;
+- caller-authored execution authority, request, plan, frame, C-call, or basis;
+- mutation of T-267 or reinterpretation of `effectsPermitted: false`;
+- a compatibility, fallback, profile-free, or second start route;
+- a Consensus-specific compiler, router, or runtime branch;
+- T-270 capability inference or ownership of the final T-268 manifest;
+- F_H response or continuation, owned by T-272; and
+- direct raw interpreter result to public terminal projection.
 
-## Irreducible Architectural Carrier Set
+## Ontology Slice
 
-| Carrier | Authority | Role |
+### Irreducible Architectural Carrier Set
+
+| Carrier | Authority | Lifecycle role |
 |---|---|---|
-| `AdmittedRuntimeCatalogBasis` | M03 authoritative upstream | Exact installed catalog, registry, Module, and execution-binding truth. |
-| `CatalogInvocationAssembly` | M03 authoritative start admission | Existing admission carrier joining one public invocation to selected catalog and derived per-vector authorities. |
-| `DeclaredExecutionRequest` | M03 authoritative locus input | Existing F_P or F_H execution-context request derived for one exact invoking locus. |
-| `TraversalExecutionAdmissionRuntimeAddressable` | M03 authoritative static gate | Existing T-267 whole-program, result-interface, application, and capability admission. |
-| `ExecutionBasis` | M03 authoritative runtime basis | One immutable admitted basis carrying the exact assembly authority digest as subordinate facts. |
-| `BasisAdmittedEvent` | M03 authoritative replay event | Existing event extended with one closed subordinate seed sufficient to re-admit the same basis from current catalog truth. |
-| `EngineIterateResult` | M03 authoritative runtime outcome | Existing event-backed result returned to the public projection boundary. |
+| `PublicFunctionDefinition<run.invoke>` | public contract family | Defines the one `invoke | start` operation family and its closed schema coordinates. |
+| `PublicInvocation<run.invoke>` | public ingress admission | Carries admitted operator input only. |
+| `InvocationAuthority<run.invoke>` | operation-indexed admission | Immutably joins actor, grants, view, policy, steering, and authority basis. |
+| `WorkspaceBinding` | stable workspace authority | Binds product/install/root/catalog authority; mutable observations do not alter it. |
+| `GtlProgram` | admitted constructive program | Owns AF-11 through AF-16 ordering and publishes callable GraphFunctions. |
+| `CatalogView` | narrowing catalog authority | Restricts, but cannot enlarge, the admitted program's callable universe. |
+| `NextActionProjection` | AF-13 selection authority | Carries selected-or-no-action truth and exact causal basis. |
+| `ConstructionIntent` | AF-14 intent authority | Admits one selected program-owned action before invocation. |
+| `DeclaredExecutionRequest` | existing locus authority | Supplies one exact F_P or F_H declared execution context. |
+| `TraversalExecutionAdmissionRuntimeAddressable` | T-267 static authority | Proves whole-program/result/capability structure while remaining no-effect truth. |
+| `ExecutionBasis` | ABG runtime basis | Governs one admitted execution spine and current replay truth. |
+| `BasisAdmittedEvent` | canonical replay authority | Records the one admitted basis and closed subordinate seed. |
+| `EngineIterateResult` | event-backed runtime outcome | Preserves completed, held, blocked, and runtime-failed truth. |
 
-Subordinate payload remains nested in `CatalogInvocationAssembly`:
+### Subordinate Payload
 
-- the exact `RegistrySessionView` and `CatalogExecutionBinding`;
-- ordered vector and program-locus coordinates;
-- T-255 handoff and T-271 plan per vector;
-- T-256 request and instruction-assembly refs per declared locus;
-- one T-267 admission ref and digest per vector after all locus result
-  authorities are collected;
-- deterministic/no-declared-context dispositions; and
-- the exact aggregate authority-set digest bound into `ExecutionBasis`; and
-- one closed execution-basis replay seed projected into the existing
-  `BasisAdmittedEvent`.
+- `ProgramExecutionAuthoritySet` derived from exact upstream authorities;
+- ordered vector/locus authority rows;
+- T-255 `GraphVectorExecutionHandoffOutcome`;
+- T-271 `CompiledCProgramPlan`;
+- T-256 declared execution contexts and result-authority projections;
+- one non-effect `T270StartAdmissionWitness` that never mutates T-267;
+- exact catalog, program, binding, intent, compiler-chain, and capability
+  digests; and
+- one closed execution-basis replay seed.
 
-No subordinate row is independently selected, published, or resumed. The
-engine selects a row only by current basis, vector index, and exact compiled
-program locus.
+These values are selected only through their owning primes. None becomes a
+public/session/controller authority or independently selectable registry.
+
+### Authority And Function Derivation
+
+```text
+PublicFunctionDefinition<run.invoke>
+  -> PublicInvocation + InvocationAuthority + WorkspaceBinding
+  -> admitted GtlProgram + narrowing CatalogView
+  -> AF-11 synthesizeModel
+  -> AF-12 evalGap
+  -> AF-13 NextActionProjection
+  -> AF-14 ConstructionIntent
+  -> T-270 exact authority join
+  -> T-255/T-271/T-256/T-267 compiler chain
+  -> subordinate T270StartAdmissionWitness
+  -> one sole effect-authorizing ExecutionBasis
+  -> AF-15 T-271 interpretation
+  -> held truth to T-272 | admitted evidence to AF-16
+  -> public projection
+```
+
+T-270 owns only the authority join, start-admission-witness derivation, basis
+admission, and AF-15 entry. The admitted program owns the sequence. AF-11,
+AF-12, AF-13, AF-14, and AF-16 remain distinct authorities.
 
 ## Decisions
 
-### D1. Public ingress carries no runtime authority
+### D1. Ingress Admits And Transports Only
 
-M04 supplies the admitted public invocation envelope, bound workspace context,
-selected public handle, input value or ref, allowlist, capability evidence,
-actor attribution, and effects. It does not supply
-`declaredExecutionRequest`, `traversalExecutionAdmission`, or
-`instructionAssemblyStartup`.
+Ingress validates the definition, operation variant, schema, binding,
+invocation authority, program reference, view, and input. It appends admission
+truth and ignites the admitted program. It never selects a catalog member,
+constructs an intent, or calls the interpreter directly.
 
-`CatalogInvocationAssemblyInput` removes those optional authority fields from
-the supported public path. Tests may not construct them as substitutes for
-M03 derivation.
+### D2. Program Membership Precedes Callable Selection
 
-### D2. One selected catalog binding governs all derivation
+The admitted `GtlProgram` is the program. A `GraphFunction` is callable only
+when the program publishes it and the `CatalogView` retains it. `invoke` may
+constrain AF-13's candidate universe to one exact member; that constraint never
+establishes current eligibility or selection by itself.
 
-M03 re-derives the narrowed session view and resolves exactly one
-`CatalogExecutionBinding` from the admitted catalog basis. The binding's
-Module and GraphFunction bytes are digest-checked before any vector work.
+### D3. One Surface Handoff Is Mandatory
 
-Every downstream handoff, C-program selection, declared execution request,
-instruction plan, traversal source, result authority, conformance row, and
-runtime admission derives from that same binding. A sibling catalog row cannot
-authorize an internal helper or satisfy a selected-entry check.
+T-270 requires an admitted AF-13 `NextActionProjection` and matching AF-14
+`ConstructionIntent`. The program, selected action, function, workspace
+binding, invocation authority, lineage, and current causal basis must match
+exactly. Missing, stale, mutated, or cross-program values refuse before effect.
 
-### D3. Compilation is complete and vector-local
+### D4. Compilation Is Complete Before Effects
 
-For every selected GraphVector, M03 applies the existing compiler chain:
+For each selected GraphVector, T-270 re-derives the accepted compiler chain:
 
 ```text
-selected CatalogExecutionBinding
-  -> T-255 GraphVectorExecutionHandoffOutcome
+T-255 GraphVectorExecutionHandoffOutcome
   -> T-271 CompiledCProgramPlan
-  -> T-256 DeclaredExecutionRequest per declared invoking locus
-  -> complete result-authority set for all invoking loci
-  -> one T-267 TraversalExecutionAdmissionOutcome for the vector
-  -> one ordered subordinate vector-authority row
+  -> T-256 DeclaredExecutionRequest and result authority per locus
+  -> T-267 TraversalExecutionAdmissionRuntimeAddressable
+  -> ordered vector/locus rows
 ```
 
-Selector-free and deterministic vectors retain explicit structural or
-deterministic rows. Missing capability, invalid program, missing declared
-context, or non-runtime-addressable admission blocks the whole invocation
-before effects. No row is synthesized for a missing vector or stage category.
+All rows compile before start admission. Missing, duplicate, reordered,
+cross-vector, cross-locus, stale, or incomplete authority refuses before any
+atom is invoked. Runtime progression remains replay-owned.
 
-### D4. `ExecutionBasis` remains the one runtime basis
+### D5. Static Admission Never Becomes Start Authority
 
-The existing basis admission hashes the selected catalog basis ref, execution
-binding digest, and ordered authority-set digest as subordinate admitted
-facts. Full Module and GraphFunction values still resolve through the admitted
-catalog and existing lookup authority. No `InvocationSession`,
-`ConsensusExecutionBasis`, or parallel basis object is introduced.
+T-267 remains exact immutable static truth with `effectsPermitted: false` and
+all nonterminal closure fields unchanged. T-270 derives a subordinate
+`T270StartAdmissionWitness` from the exact ConstructionIntent, program,
+function, binding, invocation authority, compiler chain, and admitted
+capability facts. The witness grants no effect and cannot be selected. One
+matching `ExecutionBasis` admission remains the sole authority that opens
+AF-15.
 
-At iteration time, M03 resolves one exact vector-authority row and then its
-exact locus projection from the current vector and compiled program locus.
-The runtime refuses missing, duplicate, stale, reordered, or cross-vector rows
-and missing, duplicate, or cross-locus projections before invoking an atom.
+### D6. T-271 Is The Sole Complete Interpreter
 
-### D5. The T-270 fence moves; it is not deleted
+The route enters the T-271 complete C-program interpreter and its existing
+seven constructors, HOF relations, and recurse semantics. There is no scalar
+declared-program fallback or Consensus branch. Results remain one of
+`completed | held | blocked | runtime_failed`.
 
-`assertTraversalExecutionRuntimeStart` retains all T-267 identity checks. Its
-unconditional T-270 terminal refusal becomes an exact start admission that is
-reachable only from a catalog assembly whose basis, binding, request, plan,
-instruction, and traversal identities all match.
+Completed and blocked evidence returns to AF-16 for governed action evaluation.
+Held F_H truth returns a nonterminal interaction boundary for T-272. No adapter
+creates closure from interpreter output.
 
-`runtime_addressable_not_closed` never means effects are already permitted.
-The catalog start admission is the additional transition that permits the
-interpreter to invoke one exact atom. Runtime result, closure, and
-continuation remain event-owned.
+### D7. Binding And Invocation Authority Are Exact
 
-### D6. T-271 is the only complete C-program interpreter
+Every execution invocation has exactly one immutable `WorkspaceBinding` and
+one operation-indexed `InvocationAuthority`. Actor, grants, program view,
+policy, steering, provenance, and authority basis must match. Steering may
+narrow but cannot grant. A newer `ObservationSnapshot` under the same binding
+does not fork the binding or execution basis.
 
-The public route invokes the T-271 structural interpreter and its retained
-runtime atoms. It does not enter the legacy scalar HoG loop for a declared
-C-program vector. C-program receipts are reconstructed from canonical C-call
-event truth and the sealed plan; the public adapter does not persist a rival
-receipt store.
+### D8. Capability Admission Is Independent
 
-Legacy entries with no execution-context profile remain a separately tagged
-compatibility route through the existing engine. They cannot receive declared
-authority rows or satisfy declared-program qualification.
+Focused T-270 proof uses a minimal generic admitted capability definition,
+grant, and manifest fixture. Missing or incompatible capability blocks before
+effect. T-270 cannot infer capability from function names or own the final
+tenant manifest. T-268 aggregates the final manifest downstream.
 
-The existing `BasisAdmittedEvent` is the one replay anchor for reconstructing
-the full basis after process restart. Its subordinate replay seed records the
-catalog, binding, start-intent, runtime, policy, and authority-set refs and
-digests needed to re-resolve current objects and reproduce the same basis ID.
-The seed is emitted once per admitted basis; downstream F_H interactions cite
-that basis event rather than copying the seed.
+### D9. The 5.0 Boundary Is A Hard Break
 
-For a profile-aware entry, the seed and authority-set digest are mandatory and
-change the admitted basis identity. A basis event produced by the old partial
-route cannot be resealed as current truth. Profile-free compatibility entries
-may retain their existing basis form and explicitly omit the declared-program
-seed; that omission cannot authorize a declared C-program or F_H resume.
-
-### D7. F_H stops at the T-272 boundary
-
-When the exact active row is F_H, catalog start may reach an engine-owned held
-atom and pending interaction. T-270 returns that truthful nonterminal result.
-It does not admit a response, resume a receipt, or continue the graph. T-272
-owns those transitions.
+The accepted path has one operation family, one admitted program authority,
+one selection authority, one intent authority, one compiler chain, one
+non-effect start witness, and one sole effect-authorizing `ExecutionBasis`.
+Legacy operations, schemas, SDK rows, CLI rows, compatibility branches, and
+profile-free fallback are removed rather than adapted.
 
 ## Prime Contraction Review
 
@@ -183,8 +211,14 @@ owns those transitions.
 {
   "schemaVersion": 1,
   "iacs": [
-    "AdmittedRuntimeCatalogBasis",
-    "CatalogInvocationAssembly",
+    "PublicFunctionDefinition",
+    "PublicInvocation",
+    "InvocationAuthority",
+    "WorkspaceBinding",
+    "GtlProgram",
+    "CatalogView",
+    "NextActionProjection",
+    "ConstructionIntent",
     "DeclaredExecutionRequest",
     "TraversalExecutionAdmissionRuntimeAddressable",
     "ExecutionBasis",
@@ -192,8 +226,14 @@ owns those transitions.
     "EngineIterateResult"
   ],
   "authoritativeCarriers": [
-    "AdmittedRuntimeCatalogBasis",
-    "CatalogInvocationAssembly",
+    "PublicFunctionDefinition",
+    "PublicInvocation",
+    "InvocationAuthority",
+    "WorkspaceBinding",
+    "GtlProgram",
+    "CatalogView",
+    "NextActionProjection",
+    "ConstructionIntent",
     "DeclaredExecutionRequest",
     "TraversalExecutionAdmissionRuntimeAddressable",
     "ExecutionBasis",
@@ -201,175 +241,249 @@ owns those transitions.
     "EngineIterateResult"
   ],
   "subordinatePayloads": [
-    "RegistrySessionView",
-    "CatalogExecutionBinding",
-    "vector execution authority row",
-    "locus execution authority projection",
-    "instruction assembly projection",
-    "catalog execution authority-set digest",
+    "ProgramExecutionAuthoritySet",
+    "VectorExecutionAuthorityRow",
+    "LocusExecutionAuthority",
+    "GraphVectorExecutionHandoffOutcome",
+    "CompiledCProgramPlan",
+    "T270StartAdmissionWitness",
     "execution-basis replay seed"
   ],
   "promotionTests": [
-    {"candidate": "AdmittedRuntimeCatalogBasis", "verdict": "promote", "reason": "Existing admitted catalog authority independently governs installed runtime resolution."},
-    {"candidate": "CatalogInvocationAssembly", "verdict": "promote", "reason": "Existing explicit start-admission boundary is consumed across M04 and M03."},
-    {"candidate": "DeclaredExecutionRequest", "verdict": "promote", "reason": "Existing independently admitted F_P/F_H locus request is pattern-matched by runtime."},
-    {"candidate": "TraversalExecutionAdmissionRuntimeAddressable", "verdict": "promote", "reason": "Existing independently admitted static execution gate is required before effects."},
-    {"candidate": "ExecutionBasis", "verdict": "promote", "reason": "Existing immutable runtime basis governs every advancement attempt."},
-    {"candidate": "BasisAdmittedEvent", "verdict": "promote", "reason": "Existing authoritative event is the independently replayed admission record for one runtime basis."},
-    {"candidate": "EngineIterateResult", "verdict": "promote", "reason": "Existing closed runtime outcome crosses the M03 to M04 projection boundary."}
+    {"candidate": "PublicFunctionDefinition", "verdict": "promote", "reason": "The versioned public contract is independently admitted and projected across schema, SDK, CLI, and runtime ingress."},
+    {"candidate": "PublicInvocation", "verdict": "promote", "reason": "The admitted request has an independent lifecycle before One Surface interpretation."},
+    {"candidate": "InvocationAuthority", "verdict": "promote", "reason": "Runtime admission independently pattern-matches the exact actor, grants, view, policy, steering, and authority basis."},
+    {"candidate": "WorkspaceBinding", "verdict": "promote", "reason": "The immutable binding independently governs workspace, product, root, and catalog authority."},
+    {"candidate": "GtlProgram", "verdict": "promote", "reason": "ABG interprets this independently admitted constructive carrier and verifies its member functions."},
+    {"candidate": "CatalogView", "verdict": "promote", "reason": "The narrowing view is independently identified and checked before selection and invocation."},
+    {"candidate": "NextActionProjection", "verdict": "promote", "reason": "AF-13 independently admits selected-or-no-action truth and its causal basis."},
+    {"candidate": "ConstructionIntent", "verdict": "promote", "reason": "AF-14 independently admits the selected program-owned action before invocation."},
+    {"candidate": "DeclaredExecutionRequest", "verdict": "promote", "reason": "Each declared F_P or F_H locus independently pattern-matches an exact request contract."},
+    {"candidate": "TraversalExecutionAdmissionRuntimeAddressable", "verdict": "promote", "reason": "T-267 independently admits the complete no-effect static traversal and result-authority basis."},
+    {"candidate": "ExecutionBasis", "verdict": "promote", "reason": "One immutable runtime basis independently governs every interpreted advancement."},
+    {"candidate": "BasisAdmittedEvent", "verdict": "promote", "reason": "Canonical replay independently reconstructs and verifies the admitted execution basis."},
+    {"candidate": "EngineIterateResult", "verdict": "promote", "reason": "The event-backed result crosses the runtime-to-evaluation boundary as a closed variant."},
+    {"candidate": "ProgramExecutionAuthoritySet", "verdict": "remain_subordinate", "reason": "It derives from accepted intent, program, invocation, compiler, and causal-basis inputs and has no independent lifecycle."},
+    {"candidate": "T270StartAdmissionWitness", "verdict": "remain_subordinate", "reason": "It proves the exact AF-15 join but grants no effect, has no independent lifecycle, and is consumed only by ExecutionBasis admission."}
   ],
   "recurrenceReview": {"status": "consume_existing", "ref": "PC-007"},
-  "authoritySourceCount": {"before": 7, "after": 7},
-  "authoringSourceCount": {"before": 7, "after": 7},
-  "disposition": "consume_existing",
+  "authoritySourceCount": {"before": 13, "after": 13},
+  "authoringSourceCount": {"before": 4, "after": 1},
+  "disposition": "migrate_authority",
   "ownerTicket": "T-270"
 }
 ```
 
-The proportional contraction is at ingress: externally supplied runtime
-authority fields on the supported public route contract from `3 -> 0` while
-the seven existing semantic authorities remain distinct. Public start routes
-remain `1 -> 1`; basis replay seeds remain `1 -> 1` even when a run opens more
-than one F_H interaction.
+The semantic authorities remain distinct. The contraction removes separate
+catalog-selection, compatibility, session, and adapter-result authoring paths;
+one accepted authority chain derives every subordinate execution value.
 
 ## Domain Model
 
 ```mermaid
 classDiagram
   direction LR
-  class PublicCatalogInvocation {
-    <<effect-edge>>
-    +operationId
-    +workspaceId
-    +graphFunctionHandle
+  class PublicFunctionDefinitionRunInvoke {
+    <<prime>>
+    +operationId run.invoke
+    +variant invoke or start
+  }
+  class PublicInvocationRunInvoke {
+    <<prime>>
+    +variant
     +input
-    +actorRef
   }
-  class M04PublicSdk {
-    <<downstream>>
-    +admit public envelope
-    +supply effects
-  }
-  class AdmittedRuntimeCatalogBasis {
+  class InvocationAuthority {
     <<prime>>
-    <<authoritative>>
+    +authoritySetRef
+    +authoritySetDigest
+  }
+  class WorkspaceBinding {
+    <<prime>>
+    +bindingRef
+    +bindingDigest
+  }
+  class AdmittedGtlProgram {
+    <<prime>>
+    +programRef
+    +programDigest
+  }
+  class CatalogView {
+    <<prime>>
+    +viewRef
+    +viewDigest
+  }
+  class ProgramOwnedGraphFunction {
+    <<member>>
+    +functionRef
+  }
+  class NextActionProjection {
+    <<prime>>
+    +selectedActionRef
     +basisRef
-    +executionBindings
   }
-  class CatalogInvocationAssembly {
+  class ConstructionIntent {
     <<prime>>
-    <<authoritative>>
-    +selectedEntryRef
+    +intentRef
+    +lineageRef
+  }
+  class ProgramExecutionAuthoritySet {
+    <<subordinate>>
     +authoritySetDigest
   }
   class VectorExecutionAuthorityRow {
     <<subordinate>>
-    -vectorIndex
-    -traversalAdmissionRef
+    +vectorIndex
   }
   class LocusExecutionAuthority {
     <<subordinate>>
-    -programLocusRef
-    -requestRef
-    -resultAuthorityRef
+    +programLocusRef
+    +resultAuthorityRef
   }
   class DeclaredExecutionRequest {
     <<prime>>
-    <<authoritative>>
-    +regime
     +requestRef
   }
-  class TraversalExecutionAdmissionRuntimeAddressable {
+  class TraversalExecutionAdmission {
     <<prime>>
-    <<authoritative>>
-    +admissionRef
-    +bundleDigest
+    +effectsPermitted false
+  }
+  class AdmittedResultAuthority {
+    <<existing locus authority>>
+    +resultContractRef
+    +resultAuthorityDigest
+  }
+  class T270StartAdmissionWitness {
+    <<subordinate>>
+    +joinDigest
   }
   class ExecutionBasis {
     <<prime>>
-    <<authoritative>>
-    +id
-    +catalogAuthorityDigest
+    +basisId
   }
   class BasisAdmittedEvent {
-    <<prime>>
-    <<authoritative>>
+    <<prime replay authority>>
     +basisId
-    -executionBasisReplaySeed
+    +authoritySetDigest
   }
   class T271Interpreter {
     <<authoritative>>
-    +interpret sealed plan
   }
   class EngineIterateResult {
     <<prime>>
-    <<authoritative>>
-    +transition
-    +events
-  }
-  class PublicResultProjection {
-    <<downstream>>
     +disposition
-    +replayRefs
   }
-  class T272FhContinuation {
-    <<deferred>>
+  class OneSurfaceActionEvaluation {
+    <<AF16>>
+  }
+  class PublicProjection {
+    <<transport>>
+  }
+  class T272Continuation {
+    <<downstream>>
   }
 
-  PublicCatalogInvocation --> M04PublicSdk : admitted by
-  M04PublicSdk --> CatalogInvocationAssembly : submits public data only
-  AdmittedRuntimeCatalogBasis --> CatalogInvocationAssembly : selects exact binding
-  CatalogInvocationAssembly *-- VectorExecutionAuthorityRow : owns ordered rows
-  VectorExecutionAuthorityRow *-- LocusExecutionAuthority : owns exact loci
+  PublicFunctionDefinitionRunInvoke --> PublicInvocationRunInvoke : governs
+  PublicInvocationRunInvoke --> InvocationAuthority : requires exact
+  PublicInvocationRunInvoke --> WorkspaceBinding : requires exact
+  PublicInvocationRunInvoke --> AdmittedGtlProgram : names admitted
+  AdmittedGtlProgram *-- ProgramOwnedGraphFunction : publishes member
+  CatalogView --> ProgramOwnedGraphFunction : narrows
+  NextActionProjection --> ConstructionIntent : AF14 admits
+  ConstructionIntent --> ProgramOwnedGraphFunction : binds selected member
+  ConstructionIntent --> InvocationAuthority : binds
+  ConstructionIntent --> WorkspaceBinding : binds
+  ConstructionIntent --> ProgramExecutionAuthoritySet : derives exact join
+  ProgramExecutionAuthoritySet *-- VectorExecutionAuthorityRow : owns ordered
+  VectorExecutionAuthorityRow *-- LocusExecutionAuthority : owns ordered loci
   LocusExecutionAuthority --> DeclaredExecutionRequest : references when declared
-  VectorExecutionAuthorityRow --> TraversalExecutionAdmissionRuntimeAddressable : references once
-  CatalogInvocationAssembly --> ExecutionBasis : admits one basis
-  ExecutionBasis --> BasisAdmittedEvent : projects replay seed once
+  LocusExecutionAuthority --> AdmittedResultAuthority : references exact result
+  VectorExecutionAuthorityRow --> TraversalExecutionAdmission : references
+  ProgramExecutionAuthoritySet --> T270StartAdmissionWitness : derives exact witness
+  T270StartAdmissionWitness --> ExecutionBasis : required by admission
+  ExecutionBasis --> BasisAdmittedEvent : emits once
   ExecutionBasis --> T271Interpreter : scopes
-  T271Interpreter --> EngineIterateResult : emits runtime truth
-  EngineIterateResult --> PublicResultProjection : projects
-  EngineIterateResult ..> T272FhContinuation : held F_H only
+  T271Interpreter --> EngineIterateResult : emits event truth
+  EngineIterateResult --> OneSurfaceActionEvaluation : evidence to AF16
+  EngineIterateResult ..> T272Continuation : held only
+  OneSurfaceActionEvaluation --> PublicProjection : projects
 ```
 
 ## Execution Sequence
 
 ```mermaid
 sequenceDiagram
-  actor Operator as ExternalOperator
-  participant M04 as M04PublicSdk
-  participant Catalog as M03CatalogAuthority
-  participant Compiler as M03ExecutionAuthorityCompiler
+  actor Caller
+  participant Ingress as PublicIngress
+  participant ABG as ABGOneSurfaceInterpreter
+  participant Program as AdmittedOneSurfaceProgram
+  participant Model as AF11SynthesizeModel
+  participant Gap as AF12EvalGap
+  participant Next as AF13EvaluateNext
+  participant Events as ABGEventTruth
+  participant T270 as T270ExecutionAdmission
+  participant Compiler as T255T256T267T271Compiler
   participant Basis as ExecutionBasisAdmission
-  participant Interpreter as T271Interpreter
-  participant Events as CanonicalRuntimeEventLog
+  participant Runtime as T271Interpreter
+  participant Action as AF16EvaluateAction
+  participant Projection as PublicProjection
+  participant T272 as T272Continuation
 
-  Operator->>M04: admitted catalog.invoke request
-  M04->>Catalog: public request plus bound context
-  Catalog->>Catalog: rederive session and exact selected binding
-  alt catalog or public input is stale or invalid
-    Catalog-->>M04: typed pre-effect refusal
-  else selected binding is exact
-    Catalog->>Compiler: selected binding, input carriers, admitted manifest
-    loop every selected vector
-      Compiler->>Compiler: derive T255 handoff and T271 plan
-      loop every invoking locus
-        Compiler->>Compiler: derive T256 request and result authority when declared
+  Caller->>Ingress: propose run.invoke invoke or start
+  Ingress->>Ingress: validate definition schema binding authority program and view
+  alt public admission fails
+    Ingress-->>Caller: typed pre-effect refusal
+  else invocation admitted
+    Ingress->>Events: admit invocation and invocation authority
+    Ingress->>ABG: admitted invocation program binding authority and view
+    ABG->>Program: interpret declared One Surface composition
+    ABG->>Model: AF11 synthesize model
+    Model->>Events: admit ProductAssetModel
+    ABG->>Gap: AF12 evaluate gap under stable binding
+    Gap->>Events: admit ObservationSnapshot and GapPressureRows
+    ABG->>Next: action catalog plus fresh gap and initial basis
+    Next->>Events: admit NextActionProjection
+    alt no lawful action
+      ABG-->>Projection: truthful no-action projection
+    else action selected
+      ABG->>Events: AF14 admit ConstructionIntent
+      ABG->>T270: AF15 exact intent program view binding authority join
+      T270->>Compiler: rederive T255 T271 T256 and T267 authorities
+      alt authority chain or capability refuses
+        T270-->>ABG: typed zero-effect refusal
+        ABG-->>Projection: governed refusal projection
+      else complete exact authority set
+        T270->>Basis: derive non-effect witness and admit one sole effect basis
+        Basis->>Events: append basis event and graph-call start truth
+        Basis->>Runtime: exact plan vector locus and replay
+        Runtime->>Events: append atom C-call and runtime evidence
+        alt completed
+          Runtime-->>ABG: completed result and admitted evidence
+          ABG->>Action: complete admitted evidence under current intent
+          Action->>Events: admit ledger and closure decision
+          Action-->>ABG: completed action evaluation
+          ABG-->>Projection: governed result and frontier
+        else held F_H
+          Runtime-->>ABG: truthful held result
+          ABG->>T272: open held continuation boundary
+          ABG-->>Projection: truthful nonterminal projection
+        else blocked
+          Runtime-->>ABG: typed blocked result and admitted evidence
+          ABG->>Action: complete blocked evidence basis
+          Action->>Events: admit ledger and closure decision
+          Action-->>ABG: governed blocked disposition
+          ABG-->>Projection: blocked result and frontier
+        else runtime failed
+          Runtime-->>ABG: typed runtime failure and admitted evidence
+          ABG->>Action: complete failure evidence basis
+          Action->>Events: admit ledger and closure decision
+          Action-->>ABG: governed failure disposition
+          ABG-->>Projection: runtime-failed result and frontier
+        end
       end
-      Compiler->>Compiler: admit one complete T267 vector authority
     end
-    alt any required authority is invalid or blocked
-      Compiler-->>M04: typed pre-effect refusal
-    else authority table is complete
-      Compiler-->>Basis: exact assembly and authority-set digest
-      Basis->>Basis: admit one ExecutionBasis
-      Basis->>Events: append basis replay seed and graph-call start truth
-      Basis->>Interpreter: exact plan, vector row, locus projection, and replay
-      loop authored C-program loci
-        Interpreter->>Events: append atom and C-call truth
-      end
-      Interpreter-->>M04: EngineIterateResult
-      M04-->>Operator: typed terminal or nonterminal projection
-    end
+    Projection-->>Ingress: resulting public projection
+    Ingress-->>Caller: transport public outcome
   end
 ```
 
@@ -377,75 +491,91 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-  [*] --> PublicInputAdmitted: M04 operation admission accepts envelope
-  PublicInputAdmitted --> CatalogRefused: M03 catalog admission rejects stale or disallowed selection
-  PublicInputAdmitted --> BindingSelected: M03 catalog authority resolves one exact binding
-  BindingSelected --> AuthorityBlocked: M03 compiler finds invalid program, request, capability, or traversal admission
-  BindingSelected --> AuthoritySetAdmitted: M03 compiler derives every vector and locus row
-  AuthoritySetAdmitted --> BasisRefused: M03 basis admission detects digest or row drift
-  AuthoritySetAdmitted --> BasisAdmitted: M03 basis admission binds exact authority-set digest
-  BasisAdmitted --> Interpreting: T271 interpreter selects current vector and locus row
-  Interpreting --> RuntimeBlocked: M03 atom admission or runtime reports typed block
-  Interpreting --> HumanHeld: M03 F_H atom yields pending interaction for T272
-  Interpreting --> RuntimeAdvanced: M03 atom result is admitted and advances
-  RuntimeAdvanced --> Interpreting: M03 replay selects next authored locus or vector
-  RuntimeAdvanced --> RuntimeTerminal: M03 projection derives terminal truth
-  CatalogRefused --> [*]
-  AuthorityBlocked --> [*]
+  [*] --> Proposed
+  Proposed --> InvocationRefused: definition schema binding authority or view invalid
+  Proposed --> InvocationAdmitted: public admission succeeds
+  InvocationAdmitted --> ProgramSelecting: admitted program owns AF11 AF12 AF13
+  ProgramSelecting --> NoActionOrBlocked: AF13 admits no lawful action
+  ProgramSelecting --> NextActionAdmitted: AF13 selects exact action
+  NextActionAdmitted --> IntentRefused: AF14 rejects lineage program binding or authority
+  NextActionAdmitted --> ConstructionIntentAdmitted: AF14 admits intent
+  ConstructionIntentAdmitted --> ExecutionAuthorityBlocked: T270 join compiler or capability rejects
+  ConstructionIntentAdmitted --> ExecutionAuthorityAdmitted: exact join and compiler chain
+  ExecutionAuthorityAdmitted --> BasisRefused: start or basis admission rejects
+  ExecutionAuthorityAdmitted --> BasisAdmitted: exact witness matches and sole effect basis admits
+  BasisAdmitted --> Interpreting: T271 owns complete program runtime
+  Interpreting --> RuntimeBlocked: typed runtime block
+  Interpreting --> RuntimeFailed: typed runtime failure
+  Interpreting --> HumanHeld: F_H interaction opens
+  Interpreting --> RuntimeCompleted: completed runtime evidence admitted
+  RuntimeCompleted --> ActionEvaluated: AF16 owns ledger and decision
+  RuntimeBlocked --> ActionEvaluated: AF16 evaluates complete blocked evidence
+  RuntimeFailed --> ActionEvaluated: AF16 evaluates complete failure evidence
+  InvocationRefused --> [*]
+  NoActionOrBlocked --> [*]
+  IntentRefused --> [*]
+  ExecutionAuthorityBlocked --> [*]
   BasisRefused --> [*]
-  RuntimeBlocked --> [*]
   HumanHeld --> [*]
-  RuntimeTerminal --> [*]
+  ActionEvaluated --> PublicOutcome
+  PublicOutcome --> [*]
 ```
+
+`ProgramSelecting` and `ActionEvaluated` are One Surface-owned. T-270 begins at
+`ConstructionIntentAdmitted`; `HumanHeld` is T-272 input.
 
 ## Cross-View Axiom Evaluation
 
-| Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
-|---|---|---|---|---|---|---|---|---|
-| selected catalog entry is singular | PUBLIC-CONTRACTS-003; PROGRAM-TRAVERSAL-004 | one catalog basis and assembly | binding resolves before compiler | stale selection refuses | exact binding type | catalog reprojection and digest checks | pass | none |
-| public caller owns no runtime authority | POLICY-044..045 | public input is effect-edge only | M04 sends no execution carriers | only M03 can enter authority states | operation request excludes private carriers | assembly rejects supplied authority fields | pass | none |
-| every vector and locus is conserved | FN-COMP-015; T267 | ordered subordinate row family | compiler loops complete selected structure | missing row blocks | readonly exact rows | T255/T256/T267 recompilation | pass | none |
-| one execution basis governs runtime | ADR-043 | one `ExecutionBasis` prime | basis admission precedes interpretation | no parallel session state | existing closed basis type | authority-set digest joins basis | pass | none |
-| complete C programs use one interpreter | C-ALGEBRA-016; T271 | T271 is sole interpreter | declared programs route only to T271 | no legacy declared-program state | seven-constructor plan union | plan and receipt rederivation | pass | none |
-| capability remains independently admitted | PUBLIC-CONTRACTS-011; T268 | manifest is upstream, not assembly-owned | compiler consumes exact manifest | absence blocks before effects | admitted manifest type | T255/T267 compatibility checks | pass | T268 publication dependency |
-| F_H continuation remains separate | POLICY-031..033 | T272 is deferred boundary | start stops at held result | HumanHeld terminates this boundary | closed transition variant | T272 owns resume admission | pass | T272 |
+| Axiom | Domain evidence | Sequence evidence | State evidence | Native/admission enforcement | Design verdict |
+|---|---|---|---|---|---|
+| A1 admitted GtlProgram is the program; GraphFunction is a member callable | program owns member | ABG interprets admitted program after ingress handoff | ProgramSelecting | nominal program/member types and membership admission | pending implementation |
+| A2 invoke and start share run.invoke and neither bypasses AF-13 | one definition family | both enter Program then Next | ProgramSelecting required | closed variant plus ActionCatalog constraint | pending implementation |
+| A3 AF-13 and AF-14 precede T-270 | projection and intent primes | Next then Events then T270 | T270 begins at ConstructionIntentAdmitted | exact causal refs and digest admission | pending implementation |
+| A4 caller and ingress own no runtime, evaluation, or closure authority | transport-only projection | ingress hands admitted truth to ABG and later transports its projection | Proposed cannot enter runtime without ABG program interpretation | public request excludes private carriers | pending implementation |
+| A5 every execution invocation has one immutable binding | WorkspaceBinding prime | exact binding passed once | authority mutation refuses | binding digest; observation excluded | pending implementation |
+| A6 InvocationAuthority is exact and steering grants nothing | exact authority-set prime | validated before program | mutation refuses | closed constituent set and narrowing law | pending implementation |
+| A7 every vector and locus uses the exact compiler chain | ordered subordinate rows | compiler rederives all rows | incomplete chain blocks | T255/T271/T256/T267 digest checks | pending implementation |
+| A8 T-267 and the T-270 witness remain no-effect; only ExecutionBasis authorizes execution | static admission plus subordinate witness | witness then basis admission follows complete chain | authority join and basis states remain separate | immutable T267, nominal witness, and sole basis admission | pending implementation |
+| A9 one ExecutionBasis and basis event govern runtime | one basis prime | one admission before T271 | no parallel session state | basis digest and replay event uniqueness | pending implementation |
+| A10 capability is separately admitted; T-268 is downstream | no manifest prime added | generic fixture checked before start | missing capability blocks | exact definition grant manifest compatibility | pending implementation |
+| A11 T-271 alone interprets; AF-16 evaluates evidence; T-272 owns held continuation | distinct interpreter/result/evaluator | explicit branch after runtime | HumanHeld and ActionEvaluated separate | closed result variants and owner-specific APIs | pending implementation |
+| A12 hard break leaves zero legacy operations, fallback, or parallel register | one definition/program/basis path | no compatibility branch | no compatibility state | generated operation family and negative scans | pending implementation |
 
 ## Proof Contract
 
-Implementation acceptance requires:
-
-1. a non-Consensus multi-vector fixture deriving every exact vector/locus row;
-2. the unchanged T-252 Consensus body entering the same compiler and router;
-3. negatives for sibling-entry authorization, omitted/duplicate/reordered rows,
-   stale plan/request/admission, wrong vector or program locus, missing manifest,
-   and caller-supplied execution carriers;
-4. exact parity through SDK and CLI construction over existing, alternate, and
-   temporary installed workspaces;
-5. declared programs invoking T-271 only, with no production call to the old
-   scalar declared-program route;
-6. event-derived C-program replay receipts and no second receipt store;
-7. no effect before catalog, program, capability, result-interface, and basis
-   admission all pass; and
-8. focused, semantic, GTL, packed, publication, governance, and design gates
-   green from one tree.
-
-## Migration
-
-- profile-aware `CatalogInvocationAssembly` input fields supplied by M04 are
-  removed, not deprecated as a second route;
-- profile-aware basis IDs and `BasisAdmittedEvent` values are re-derived with
-  the authority-set digest and closed replay seed;
-- mixed old assembly plus new basis, or new assembly plus old basis event,
-  fails before effects;
-- profile-free legacy entries remain explicitly tagged and cannot satisfy a
-  declared-program proof; and
-- T-270 may implement the generic compiler/router while T-268 is open, but its
-  packed installed-workspace exit cannot close until the canonical manifest is
-  published and admitted.
+1. `run.invoke` `invoke` and `start` share one definition and admission; exact
+   function constraint still passes AF-13.
+2. Cross-program function, nonmember, outside-view, noncallable, stale program,
+   and stale view refuse with zero effects.
+3. Missing, stale, or mutated `NextActionProjection` or `ConstructionIntent`,
+   and any caller-injected request, plan, admission, start witness, frame,
+   C-call, or execution basis, refuses with zero effects.
+4. Exact `InvocationAuthority` succeeds; actor, grant, policy, steering,
+   provenance, and authority-basis mutations refuse; steering cannot widen.
+5. A newer `ObservationSnapshot` under one binding succeeds; a changed binding
+   constituent requires new binding/reprice.
+6. The exact compiler chain derives a non-effect start-admission witness while
+   T-267 remains byte-equivalent and no-effect; only the matching
+   `ExecutionBasis` admission authorizes runtime effects.
+7. Omission, duplication, reorder, cross-vector, cross-locus, stale handoff,
+   stale plan, stale context, and stale result authority refuse before effect.
+8. A non-Consensus mixed/nested program and unchanged Consensus program use the
+   same compiler and interpreter, preserving C-plan, fan-out, fan-in, and recurse
+   identity.
+9. A generic capability fixture succeeds; missing or incompatible capability
+   blocks without a T-268 final-artifact dependency.
+10. `completed | held | blocked | runtime_failed` remain distinct; held emits no
+    auto-response and completed evidence reaches AF-16.
+11. Re-admitting the same basis/replay truth is byte-equivalent and creates no
+    second receipt, session, or basis store.
+12. T-270 hard-break scans plus focused semantic, GTL, packed, publication,
+    governance, Prime, and design gates prove old `catalog.invoke`, second-start
+    and profile-free fallbacks, and their old schemas, SDK rows, and CLI rows
+    are absent. T-272 owns the `run.resume` and `fh.*` hard break.
 
 ## Design Verdict
 
-`accepted` for bounded implementation under the explicit T-277 F_H decision.
-The design introduces no new public carrier. Independent review must still
-confirm the realized multi-vector authority table, `ExecutionBasis` join, and
-T-271 production path before T-270 closes.
+`accepted_for_runtime_reconciliation`. The previously accepted T-270 design was
+superseded by the ratified Ontology. Runtime work is authorized only within this
+reconciled AF-15 authority-join boundary and still requires independent closure
+review.
