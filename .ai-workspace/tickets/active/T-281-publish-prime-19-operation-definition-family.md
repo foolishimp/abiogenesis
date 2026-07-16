@@ -101,6 +101,8 @@
     1bbf4bcb5fbe53f97e150ae743b798fb4c1fe0c5ea4d6fb4753bdc31f3b22d7a
 - repaired_p1_owner_composition_candidate_digest: >-
     77d413ec253958d61c15a32c23bd66a235aed5ab4115cb460ca30f9f81cb711c
+- owner_authority_split_candidate_digest: >-
+    b221dbff6345e524044ad7febb80d3515f92f1cfb12b8b409293c91a5cd0b7d5
 - repaired_p1_owner_composition_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T164206Z_SELF_REVIEW_t281_owner_contract_composition_repair.md

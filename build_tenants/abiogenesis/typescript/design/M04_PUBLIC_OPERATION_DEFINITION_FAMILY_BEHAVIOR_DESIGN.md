@@ -409,6 +409,8 @@ PublicFunctionDefinition<K> = {
 OwnerNativeContractBinding<S> = {
   ownerAuthorityRef,
   ownerAuthorityDigest,
+  contractShapeBasisRef,
+  contractShapeBasisDigest,
   contract: NativeContractDefinition<S>
 }
 ```
@@ -426,6 +428,16 @@ forbidden. This is the native type lever that makes one source real rather than
 a metadata claim.
 Closed value-domain rows required by publication derive from these schemas;
 the definition does not author a parallel domain roster.
+
+Every owner-native source carries two non-interchangeable bases. The
+`ownerAuthorityRef` and digest identify the owning requirement or owner-local
+design that supplies payload meaning. The `contractShapeBasisRef` and digest
+identify this accepted cross-boundary design, which fixes how that meaning is
+addressed as one public request, result, refusal, or non-terminal slot. T-281
+may derive the common authority/identity/version/locator envelope from those
+inputs, but it cannot appear in the owner-authority fields. A gap uses the
+actual owner authority when known and `null` when it is not yet admitted; it
+never substitutes the contract-shape basis as semantic authority.
 
 The definition family is one strict object keyed by the exact 19 operation
 identities; each value is a strict object keyed by that operation's closed
@@ -817,6 +829,8 @@ P1ResolvedContractSlot<K, S> = {
   coordinate: P1ContractSlotCoordinate<K>
   ownerAuthorityRef: Ref
   ownerAuthorityDigest: Digest
+  contractShapeBasisRef: Ref
+  contractShapeBasisDigest: Digest
   contract: NativeContractDefinition<S>
 }
 
