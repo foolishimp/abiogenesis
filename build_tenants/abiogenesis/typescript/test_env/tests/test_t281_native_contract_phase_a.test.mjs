@@ -364,6 +364,14 @@ test("T-281 Phase A rejects host state that canonical I-JSON would normalize or 
       return "not-digested";
     }
   });
+  const throwingProxy = new Proxy(
+    {},
+    {
+      getPrototypeOf() {
+        throw new Error("host introspection must fail closed");
+      }
+    }
+  );
 
   for (const candidate of [
     -0,
@@ -371,7 +379,8 @@ test("T-281 Phase A rejects host state that canonical I-JSON would normalize or 
     hidden,
     symbolBearing,
     arrayWithProperty,
-    accessorBearing
+    accessorBearing,
+    throwingProxy
   ]) {
     assert.throws(
       () => admitNative(canonicalIJsonSchema, candidate),
@@ -379,6 +388,15 @@ test("T-281 Phase A rejects host state that canonical I-JSON would normalize or 
     );
   }
   assert.equal(getterCalls, 0);
+
+  const nested = { mutable: true };
+  const shallowFrozen = Object.freeze({ nested });
+  const admitted = admitNative(canonicalIJsonSchema, shallowFrozen);
+  assert.equal(Object.isFrozen(admitted), true);
+  assert.equal(Object.isFrozen(admitted.nested), true);
+  assert.throws(() => {
+    admitted.nested.mutable = false;
+  }, /read only/u);
 });
 
 test("T-281 Phase A defaults are only none or literal and preserve omission", () => {

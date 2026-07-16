@@ -124,15 +124,22 @@ function hasCanonicalIJsonHostShape(
 }
 
 function isCanonicalIJson(input: unknown): boolean {
-  if (!hasCanonicalIJsonHostShape(input, new Set<object>())) {
-    return false;
-  }
   try {
+    if (!hasCanonicalIJsonHostShape(input, new Set<object>())) {
+      return false;
+    }
     admitIJsonValue(input);
     return true;
   } catch {
     return false;
   }
+}
+
+function requireCanonicalIJson(input: unknown): true {
+  if (!isCanonicalIJson(input)) {
+    throw new TypeError("expected a canonical I-JSON value");
+  }
+  return true;
 }
 
 function identityOf(input: unknown): string | null {
@@ -175,7 +182,7 @@ const SEMANTIC_VERSION_ACTION = v.check(
   "expected a canonical semantic version"
 );
 const CANONICAL_IJSON_ACTION = v.check(
-  isCanonicalIJson,
+  requireCanonicalIJson,
   "expected a canonical I-JSON value"
 );
 const POSITIVE_INTEGER_ACTION = v.integer("expected an integer");
@@ -453,15 +460,25 @@ function projectActionOverride(context: OverrideActionContext): AbgJsonSchema {
   );
 }
 
-function deepFreeze<T>(input: T): T {
-  if (typeof input !== "object" || input === null || Object.isFrozen(input)) {
+function deepFreeze<T>(input: T, ancestors = new Set<object>()): T {
+  if (typeof input !== "object" || input === null || ancestors.has(input)) {
     return input;
   }
-  for (const key of Reflect.ownKeys(input)) {
-    deepFreeze(Reflect.get(input, key));
+  ancestors.add(input);
+  try {
+    for (const key of Reflect.ownKeys(input)) {
+      const descriptor = Object.getOwnPropertyDescriptor(input, key);
+      if (descriptor !== undefined && "value" in descriptor) {
+        deepFreeze(descriptor.value, ancestors);
+      }
+    }
+    if (!Object.isFrozen(input)) {
+      Object.freeze(input);
+    }
+    return input;
+  } finally {
+    ancestors.delete(input);
   }
-  Object.freeze(input);
-  return input;
 }
 
 /** @internal */
