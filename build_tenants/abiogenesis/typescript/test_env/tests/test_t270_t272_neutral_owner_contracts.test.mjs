@@ -4,7 +4,6 @@ import test from "node:test";
 
 import {
   INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES,
-  ONE_SURFACE_NATIVE_CONTRACT_SOURCES,
   RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
   RUN_INVOKE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/one_surface_operation_contracts.js";
@@ -284,7 +283,11 @@ const fixtureBySlot = {
 };
 
 function allSources() {
-  return Object.values(ONE_SURFACE_NATIVE_CONTRACT_SOURCES).flatMap((family) =>
+  return [
+    RUN_INVOKE_NATIVE_CONTRACT_SOURCES,
+    RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
+    INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES
+  ].flatMap((family) =>
     Object.values(family).flatMap((variant) => Object.values(variant))
   );
 }

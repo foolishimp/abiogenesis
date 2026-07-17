@@ -53,6 +53,52 @@ export interface OwnerNativeAuthorityBasis {
   readonly digest: Sha256Digest;
 }
 
+export interface OwnerProjectionRelationInput<
+  K,
+  Request,
+  Projection
+> {
+  readonly definitionKey: K;
+  readonly admittedRequest: Request;
+  readonly candidateProjection: Projection;
+}
+
+export type OwnerProjectionRelationResult =
+  | { readonly kind: "projection_related" }
+  | {
+      readonly kind: "projection_relation_mismatch";
+      readonly issuePaths: readonly [string, ...string[]];
+    };
+
+export type OwnerProjectionRelationAction<K, Request, Projection> = (
+  input: OwnerProjectionRelationInput<K, Request, Projection>
+) => OwnerProjectionRelationResult;
+
+export interface OwnerProjectionRelationSource<
+  K = unknown,
+  Request = unknown,
+  Projection = unknown,
+  ModulePath extends string = string,
+  ExportName extends string = string,
+  MemberPath extends readonly [...string[], "relation"] = readonly [
+    ...string[],
+    "relation"
+  ]
+> {
+  readonly kind: "owner_projection_relation_source";
+  readonly relationIdentity: string;
+  readonly definitionKey: K;
+  readonly semanticOwnerBasis: OwnerNativeAuthorityBasis;
+  readonly sourceLocator: {
+    readonly kind: "private_source_module";
+    readonly sourceRoot: "semantic_build";
+    readonly modulePath: ModulePath;
+    readonly exportName: ExportName;
+    readonly memberPath: MemberPath;
+  };
+  readonly relation: OwnerProjectionRelationAction<K, Request, Projection>;
+}
+
 export interface OwnerNativeSemanticOwner {
   readonly product: "abiogenesis";
   readonly module: string;
@@ -415,6 +461,55 @@ export function ownerNativeOperationContractSource<
       memberKind: "variant",
       variant
     }
+  });
+}
+
+export function ownerProjectionRelationSource<
+  const K,
+  Request,
+  Projection,
+  const ModulePath extends string,
+  const ExportName extends string,
+  const MemberPath extends readonly string[]
+>(input: {
+  readonly relationIdentity: string;
+  readonly definitionKey: K;
+  readonly semanticOwnerBasis: OwnerNativeAuthorityBasis;
+  readonly modulePath: ModulePath;
+  readonly exportName: ExportName;
+  readonly memberPath: MemberPath;
+  readonly relation: OwnerProjectionRelationAction<K, Request, Projection>;
+}): OwnerProjectionRelationSource<
+  K,
+  Request,
+  Projection,
+  ModulePath,
+  ExportName,
+  readonly [...MemberPath, "relation"]
+> {
+  if (
+    typeof input.relationIdentity !== "string" ||
+    input.relationIdentity.length === 0 ||
+    /[\u0000-\u0020\u007f]/u.test(input.relationIdentity)
+  ) {
+    throw new TypeError("owner projection relation: invalid relation identity");
+  }
+  if (typeof input.relation !== "function") {
+    throw new TypeError("owner projection relation: relation must be callable");
+  }
+  return freezeNativeValue({
+    kind: "owner_projection_relation_source" as const,
+    relationIdentity: input.relationIdentity,
+    definitionKey: input.definitionKey,
+    semanticOwnerBasis: input.semanticOwnerBasis,
+    sourceLocator: {
+      kind: "private_source_module" as const,
+      sourceRoot: "semantic_build" as const,
+      modulePath: input.modulePath,
+      exportName: input.exportName,
+      memberPath: [...input.memberPath, "relation"] as const
+    },
+    relation: input.relation
   });
 }
 

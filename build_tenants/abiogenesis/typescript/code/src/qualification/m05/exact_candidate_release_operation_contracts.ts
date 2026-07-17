@@ -16,7 +16,10 @@ import { freezeNativeValue } from "../../shared/validation/immutable_native_valu
 import type { NativeNamedCheckRegistry } from "../../shared/validation/native_named_check_registry.js";
 import {
   ownerNativeDefinitionContractSource,
-  ownerNativeOperationContractSource
+  ownerNativeOperationContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
 } from "../../shared/validation/owner_native_operation_contract_source.js";
 
 type ReleaseVariant = "published_rc" | "tapped_release";
@@ -644,3 +647,88 @@ export const RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
     }
   }
 });
+
+type ReleaseEvidenceRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type ReleaseEvidenceDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "release_evidence";
+}>;
+type ReleaseEvidenceReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "release_evidence";
+  source: Readonly<{
+    kind: "ReleaseCut";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: ReleaseEvidenceRefDigest;
+  selector: Readonly<{
+    releaseSnapshotManifest: ReleaseEvidenceRefDigest;
+  }>;
+}>;
+type ReleaseEvidenceProjection = v.InferOutput<
+  typeof RELEASE_CUT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+>;
+
+function sameReleaseEvidenceCoordinate(
+  left: ReleaseEvidenceRefDigest,
+  right: ReleaseEvidenceRefDigest
+): boolean {
+  return left.ref === right.ref && left.digest === right.digest;
+}
+
+function releaseEvidenceRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+const RELEASE_EVIDENCE_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  ReleaseEvidenceDefinitionKey,
+  ReleaseEvidenceReadRequest,
+  ReleaseEvidenceProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !== candidateProjection.subject.ref ||
+    admittedRequest.source.sourceDigest !== candidateProjection.subject.digest
+  ) {
+    issuePaths.push("candidateProjection.subject");
+  }
+  candidateProjection.rows.forEach((row, index) => {
+    if (!sameReleaseEvidenceCoordinate(
+      admittedRequest.selector.releaseSnapshotManifest,
+      row.basis
+    )) {
+      issuePaths.push(`candidateProjection.rows.${index}.basis`);
+    }
+  });
+  return releaseEvidenceRelationResult(issuePaths);
+};
+
+export const RELEASE_OPERATION_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    release_evidence: ownerProjectionRelationSource({
+      relationIdentity: "relation://abg/project-read/release-evidence@5",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKind: "project_read_case",
+        caseKey: "release_evidence"
+      },
+      semanticOwnerBasis: RELEASE_EVIDENCE_SEMANTIC_OWNER_BASIS,
+      modulePath: MODULE_PATH,
+      exportName: "RELEASE_OPERATION_PROJECT_READ_RELATION_SOURCES",
+      memberPath: ["release_evidence"],
+      relation: RELEASE_EVIDENCE_PROJECT_READ_RELATION
+    })
+  });

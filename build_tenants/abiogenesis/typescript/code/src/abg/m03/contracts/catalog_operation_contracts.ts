@@ -13,7 +13,12 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 import { PUBLIC_RUNTIME_CATALOG_KIND_VALUES } from "./runtime_catalog.js";
 import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 
@@ -50,6 +55,82 @@ const CATALOG_SEMANTIC_OWNER = freezeNativeValue({
   module: "abg.m03",
   family: "catalog"
 } as const);
+
+type CatalogReadRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type CatalogReadVisibilityBasis =
+  | "workspace_catalog"
+  | Readonly<{
+      kind: "session_view";
+      view: CatalogReadRefDigest;
+    }>;
+type CatalogReadRequest<Selector> = Readonly<{
+  source: Readonly<{
+    kind: "Catalog";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  selector: Selector;
+}>;
+
+function sameCatalogReadCoordinate(
+  left: CatalogReadRefDigest,
+  right: CatalogReadRefDigest
+): boolean {
+  return left.ref === right.ref && left.digest === right.digest;
+}
+
+function sameCatalogReadVisibilityBasis(
+  left: CatalogReadVisibilityBasis,
+  right: CatalogReadVisibilityBasis
+): boolean {
+  if (left === "workspace_catalog" || right === "workspace_catalog") {
+    return left === right;
+  }
+  return sameCatalogReadCoordinate(left.view, right.view);
+}
+
+function catalogReadRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+function catalogReadBaseIssuePaths(
+  request: Readonly<{
+    source: Readonly<{ sourceRef: string; sourceDigest: string }>;
+    selector: Readonly<{ visibilityBasis: CatalogReadVisibilityBasis }>;
+  }>,
+  projection: Readonly<{
+    catalog: CatalogReadRefDigest;
+    visibilityBasis: CatalogReadVisibilityBasis;
+  }>
+): string[] {
+  const issuePaths: string[] = [];
+  if (
+    request.source.sourceRef !== projection.catalog.ref ||
+    request.source.sourceDigest !== projection.catalog.digest
+  ) {
+    issuePaths.push("candidateProjection.catalog");
+  }
+  if (
+    !sameCatalogReadVisibilityBasis(
+      request.selector.visibilityBasis,
+      projection.visibilityBasis
+    )
+  ) {
+    issuePaths.push("candidateProjection.visibilityBasis");
+  }
+  return issuePaths;
+}
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -524,3 +605,102 @@ export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
     overlay: catalogApplyContractSet("overlay")
   }
 });
+
+type CatalogListDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "catalog_list";
+}>;
+type CatalogDescribeDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "catalog_describe";
+}>;
+type CatalogListReadRequest = CatalogReadRequest<
+  Readonly<{ visibilityBasis: CatalogReadVisibilityBasis }>
+>;
+type CatalogDescribeReadRequest = CatalogReadRequest<
+  Readonly<{
+    visibilityBasis: CatalogReadVisibilityBasis;
+    canonicalHandle: string;
+  }>
+>;
+type CatalogListProjection = v.InferOutput<
+  typeof catalogListProjectionSchema
+>;
+type CatalogDescriptionProjection = v.InferOutput<
+  typeof catalogDescriptionProjectionSchema
+>;
+
+const CATALOG_LIST_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  CatalogListDefinitionKey,
+  CatalogListReadRequest,
+  CatalogListProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  return catalogReadRelationResult(
+    catalogReadBaseIssuePaths(admittedRequest, candidateProjection)
+  );
+};
+
+const CATALOG_DESCRIBE_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  CatalogDescribeDefinitionKey,
+  CatalogDescribeReadRequest,
+  CatalogDescriptionProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths = catalogReadBaseIssuePaths(
+    admittedRequest,
+    candidateProjection
+  );
+  if (
+    admittedRequest.selector.canonicalHandle !==
+    candidateProjection.canonicalHandle
+  ) {
+    issuePaths.push("candidateProjection.canonicalHandle");
+  }
+  return catalogReadRelationResult(issuePaths);
+};
+
+function catalogProjectReadRelationSource<
+  const CaseKey extends "catalog_list" | "catalog_describe",
+  Request,
+  Projection
+>(
+  caseKey: CaseKey,
+  relation: OwnerProjectionRelationAction<
+    Readonly<{
+      operationId: "abg.operation.project.read";
+      memberKind: "project_read_case";
+      caseKey: CaseKey;
+    }>,
+    Request,
+    Projection
+  >
+) {
+  const resultSource =
+    CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES.project_read[caseKey].result;
+  return ownerProjectionRelationSource({
+    relationIdentity: `relation://abg/project-read/${caseKey.replaceAll("_", "-")}@5`,
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey
+    },
+    semanticOwnerBasis: resultSource.authority.semanticOwnerBasis,
+    modulePath: MODULE_PATH,
+    exportName: "CATALOG_OPERATION_PROJECT_READ_RELATION_SOURCES",
+    memberPath: [caseKey],
+    relation
+  });
+}
+
+export const CATALOG_OPERATION_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    catalog_list: catalogProjectReadRelationSource(
+      "catalog_list",
+      CATALOG_LIST_PROJECT_READ_RELATION
+    ),
+    catalog_describe: catalogProjectReadRelationSource(
+      "catalog_describe",
+      CATALOG_DESCRIBE_PROJECT_READ_RELATION
+    )
+  });

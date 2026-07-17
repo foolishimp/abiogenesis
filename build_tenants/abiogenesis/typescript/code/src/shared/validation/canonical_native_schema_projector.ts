@@ -33,6 +33,11 @@ import {
   type NativeNamedCheckRegistry,
   type NativeNamedCheckResolver
 } from "./native_named_check_registry.js";
+import type {
+  OwnerNativeAuthorityBasis,
+  OwnerProjectionRelationResult,
+  OwnerProjectionRelationSource
+} from "./owner_native_operation_contract_source.js";
 
 export type CanonicalNativeSchema = v.GenericSchema;
 
@@ -113,6 +118,8 @@ interface ResolvedOwnerNativeContractSourceState<
 
 const RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_AUTHORITY =
   new WeakMap<object, true>();
+const RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_MODULE =
+  new WeakMap<object, object>();
 const RESOLVED_SEMANTIC_BUILD_MODULE_DIGESTS = new Map<
   string,
   `sha256:${string}`
@@ -166,6 +173,34 @@ function ownDataProperty(input: object, key: string): unknown {
     );
   }
   return descriptor.value;
+}
+
+function isUnknownArray(input: unknown): input is unknown[] {
+  return Array.isArray(input);
+}
+
+function assertExactOwnDataKeys(
+  input: object,
+  expected: readonly string[],
+  label: string
+): void {
+  const actual = Reflect.ownKeys(input);
+  if (
+    actual.length !== expected.length ||
+    !expected.every((key) => actual.includes(key))
+  ) {
+    throw new TypeError(`${label}: expected exact keys ${expected.join(",")}`);
+  }
+  for (const key of expected) {
+    const descriptor = Object.getOwnPropertyDescriptor(input, key);
+    if (
+      descriptor === undefined ||
+      !("value" in descriptor) ||
+      descriptor.enumerable !== true
+    ) {
+      throw new TypeError(`${label}: expected enumerable data field ${key}`);
+    }
+  }
 }
 
 function resolvedOwnerNativeContractSourceState<
@@ -346,7 +381,274 @@ export async function resolveSemanticBuildNativeSchemaSource<
     [RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_STATE_READER]: () => state
   });
   RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_AUTHORITY.set(carrier, true);
+  RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_MODULE.set(carrier, sourceModule);
   return carrier;
+}
+
+export interface OwnerProjectionRelationWitness<K = unknown> {
+  readonly kind: "owner_projection_relation_witness";
+  readonly relationIdentity: string;
+  readonly definitionKey: K;
+  readonly semanticOwnerBasisRef: string;
+  readonly semanticOwnerBasisDigest: `sha256:${string}`;
+  readonly sourceLocator: PrivateNativeSchemaSourceLocator;
+  readonly sourceModuleDigest: `sha256:${string}`;
+  readonly relationMemberIdentity: string;
+  readonly relationWitnessDigest: `sha256:${string}`;
+}
+
+interface ResolvedOwnerProjectionRelationState<K, Request, Projection> {
+  readonly definitionKey: K;
+  readonly relation: OwnerProjectionRelationSource<
+    K,
+    Request,
+    Projection
+  >["relation"];
+  readonly witness: OwnerProjectionRelationWitness<K>;
+}
+
+declare const RESOLVED_OWNER_PROJECTION_RELATION_TYPE: unique symbol;
+const RESOLVED_OWNER_PROJECTION_RELATION_STATE_READER: unique symbol = Symbol(
+  "resolved_owner_projection_relation_state_reader"
+);
+const RESOLVED_OWNER_PROJECTION_RELATION_AUTHORITY = new WeakMap<object, true>();
+
+export interface ResolvedOwnerProjectionRelation<K, Request, Projection> {
+  readonly kind: "resolved_owner_projection_relation";
+  readonly witness: OwnerProjectionRelationWitness<K>;
+  readonly [RESOLVED_OWNER_PROJECTION_RELATION_TYPE]?: (
+    key: K,
+    request: Request,
+    projection: Projection
+  ) => readonly [K, Request, Projection];
+  readonly [RESOLVED_OWNER_PROJECTION_RELATION_STATE_READER]: () =>
+    ResolvedOwnerProjectionRelationState<K, Request, Projection>;
+}
+
+function resolvedOwnerProjectionRelationState<K, Request, Projection>(
+  relation: ResolvedOwnerProjectionRelation<K, Request, Projection>
+): ResolvedOwnerProjectionRelationState<K, Request, Projection> {
+  if (!RESOLVED_OWNER_PROJECTION_RELATION_AUTHORITY.has(relation)) {
+    throw new TypeError("owner projection relation: unresolved or forged carrier");
+  }
+  return relation[RESOLVED_OWNER_PROJECTION_RELATION_STATE_READER]();
+}
+
+function exactStructuralKeyEquals(left: unknown, right: unknown): boolean {
+  if (
+    typeof left !== "object" ||
+    left === null ||
+    typeof right !== "object" ||
+    right === null
+  ) {
+    return false;
+  }
+  const leftKeys = Reflect.ownKeys(left);
+  const rightKeys = Reflect.ownKeys(right);
+  return (
+    leftKeys.length === rightKeys.length &&
+    leftKeys.every((key) => rightKeys.includes(key)) &&
+    stableJsonEquals(left, right)
+  );
+}
+
+/** @internal */
+export function isResolvedOwnerProjectionRelationCarrier(
+  input: unknown
+): boolean {
+  return typeof input === "object" &&
+    input !== null &&
+    RESOLVED_OWNER_PROJECTION_RELATION_AUTHORITY.has(input);
+}
+
+function admitOwnerProjectionRelationResult(
+  input: unknown
+): OwnerProjectionRelationResult {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw new TypeError("owner projection relation: invalid relation result");
+  }
+  const kind = ownDataProperty(input, "kind");
+  if (kind === "projection_related") {
+    assertExactOwnDataKeys(input, ["kind"], "owner projection relation result");
+    return freezeNativeValue({ kind });
+  }
+  if (kind !== "projection_relation_mismatch") {
+    throw new TypeError("owner projection relation: invalid relation result kind");
+  }
+  assertExactOwnDataKeys(
+    input,
+    ["kind", "issuePaths"],
+    "owner projection relation result"
+  );
+  const rawIssuePaths: unknown = ownDataProperty(input, "issuePaths");
+  if (
+    !isUnknownArray(rawIssuePaths) ||
+    rawIssuePaths.length === 0
+  ) {
+    throw new TypeError("owner projection relation: invalid mismatch paths");
+  }
+  const issuePaths: string[] = [];
+  for (const path of rawIssuePaths) {
+    if (typeof path !== "string" || path.length === 0) {
+      throw new TypeError("owner projection relation: invalid mismatch paths");
+    }
+    issuePaths.push(path);
+  }
+  if (new Set(issuePaths).size !== issuePaths.length) {
+    throw new TypeError("owner projection relation: invalid mismatch paths");
+  }
+  issuePaths.sort();
+  const [firstIssuePath, ...remainingIssuePaths] = issuePaths;
+  if (firstIssuePath === undefined) {
+    throw new TypeError("owner projection relation: invalid mismatch paths");
+  }
+  return freezeNativeValue({
+    kind,
+    issuePaths: [firstIssuePath, ...remainingIssuePaths]
+  });
+}
+
+export function resolveSemanticBuildOwnerProjectionRelation<
+  const K,
+  Request,
+  Projection,
+  S extends CanonicalNativeSchema
+>(input: {
+  readonly source: OwnerProjectionRelationSource<K, Request, Projection>;
+  readonly projectionSource: ResolvedOwnerNativeContractSource<S>;
+  readonly expectedDefinitionKey: K;
+  readonly expectedSemanticOwnerBasis: OwnerNativeAuthorityBasis;
+}): ResolvedOwnerProjectionRelation<K, Request, Projection> {
+  assertExactOwnDataKeys(
+    input,
+    [
+      "source",
+      "projectionSource",
+      "expectedDefinitionKey",
+      "expectedSemanticOwnerBasis"
+    ],
+    "owner projection relation resolution"
+  );
+  if (!isRecursivelyFrozen(input.source)) {
+    throw new TypeError("owner projection relation: source is not recursively frozen");
+  }
+  assertExactOwnDataKeys(
+    input.source,
+    [
+      "kind",
+      "relationIdentity",
+      "definitionKey",
+      "semanticOwnerBasis",
+      "sourceLocator",
+      "relation"
+    ],
+    "owner projection relation source"
+  );
+  if (input.source.kind !== "owner_projection_relation_source") {
+    throw new TypeError("owner projection relation: invalid source kind");
+  }
+  if (
+    !exactStructuralKeyEquals(
+      input.source.definitionKey,
+      input.expectedDefinitionKey
+    )
+  ) {
+    throw new TypeError("owner projection relation: definition key mismatch");
+  }
+  if (
+    !stableJsonEquals(
+      input.source.semanticOwnerBasis,
+      input.expectedSemanticOwnerBasis
+    )
+  ) {
+    throw new TypeError("owner projection relation: semantic owner mismatch");
+  }
+  const sourceLocator = freezeNativeValue(
+    v.parse(privateNativeSchemaSourceLocatorSchema, input.source.sourceLocator)
+  );
+  const schemaState = resolvedOwnerNativeContractSourceState(
+    input.projectionSource
+  );
+  if (sourceLocator.modulePath !== schemaState.sourceLocator.modulePath) {
+    throw new TypeError("owner projection relation: projection module mismatch");
+  }
+  const sourceModule = RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_MODULE.get(
+    input.projectionSource
+  );
+  if (sourceModule === undefined) {
+    throw new TypeError("owner projection relation: source module unavailable");
+  }
+  const resolvedRelation = resolveOwnDataPath(
+    sourceModule,
+    sourceLocator.exportName,
+    sourceLocator.memberPath,
+    "projection relation"
+  );
+  if (
+    typeof resolvedRelation !== "function" ||
+    resolvedRelation !== input.source.relation
+  ) {
+    throw new TypeError("owner projection relation: relation identity mismatch");
+  }
+  const relationMemberIdentity = `relation-member:${stableSha256Digest({
+    relationIdentity: input.source.relationIdentity,
+    sourceLocator,
+    sourceModuleDigest: schemaState.sourceModuleDigest
+  })}`;
+  const witnessBasis = freezeNativeValue({
+    kind: "owner_projection_relation_witness" as const,
+    relationIdentity: input.source.relationIdentity,
+    definitionKey: input.expectedDefinitionKey,
+    semanticOwnerBasisRef: input.expectedSemanticOwnerBasis.ref,
+    semanticOwnerBasisDigest: input.expectedSemanticOwnerBasis.digest,
+    sourceLocator,
+    sourceModuleDigest: schemaState.sourceModuleDigest,
+    relationMemberIdentity
+  });
+  const witness = freezeNativeValue({
+    ...witnessBasis,
+    relationWitnessDigest: stableSha256Digest(witnessBasis)
+  });
+  const state: ResolvedOwnerProjectionRelationState<K, Request, Projection> =
+    freezeNativeValue({
+      definitionKey: input.expectedDefinitionKey,
+      relation: input.source.relation,
+      witness
+    });
+  const carrier: ResolvedOwnerProjectionRelation<K, Request, Projection> =
+    Object.freeze({
+      kind: "resolved_owner_projection_relation",
+      witness,
+      [RESOLVED_OWNER_PROJECTION_RELATION_STATE_READER]: () => state
+    });
+  RESOLVED_OWNER_PROJECTION_RELATION_AUTHORITY.set(carrier, true);
+  return carrier;
+}
+
+export function applyResolvedOwnerProjectionRelation<K, Request, Projection>(
+  input: {
+    readonly relation: ResolvedOwnerProjectionRelation<K, Request, Projection>;
+    readonly definitionKey: K;
+    readonly admittedRequest: Request;
+    readonly candidateProjection: Projection;
+  }
+): OwnerProjectionRelationResult {
+  assertExactOwnDataKeys(
+    input,
+    ["relation", "definitionKey", "admittedRequest", "candidateProjection"],
+    "owner projection relation application"
+  );
+  const state = resolvedOwnerProjectionRelationState(input.relation);
+  if (!exactStructuralKeyEquals(state.definitionKey, input.definitionKey)) {
+    throw new TypeError("owner projection relation: application key mismatch");
+  }
+  return admitOwnerProjectionRelationResult(
+    state.relation({
+      definitionKey: input.definitionKey,
+      admittedRequest: input.admittedRequest,
+      candidateProjection: input.candidateProjection
+    })
+  );
 }
 
 export interface NativeSchemaProjectionNamedCheck {
@@ -851,13 +1153,20 @@ export function deriveCanonicalNativeSchemaProjection<
   readonly schemaRef: string;
   readonly schemaVersion: string;
 }): CanonicalNativeSchemaProjection<S> {
-  for (const key of Object.keys(input)) {
-    if (key !== "source" && key !== "schemaRef" && key !== "schemaVersion") {
-      throw new TypeError(
-        `native contract projector: unexpected projection input ${key}`
-      );
-    }
+  const unexpectedProjectionKey = Reflect.ownKeys(input).find(
+    (key) =>
+      key !== "source" && key !== "schemaRef" && key !== "schemaVersion"
+  );
+  if (unexpectedProjectionKey !== undefined) {
+    throw new TypeError(
+      `native contract projector: unexpected projection input ${String(unexpectedProjectionKey)}`
+    );
   }
+  assertExactOwnDataKeys(
+    input,
+    ["source", "schemaRef", "schemaVersion"],
+    "native contract projection input"
+  );
   const {
     schema,
     sourceLocator,

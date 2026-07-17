@@ -10,7 +10,12 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 import { TUNER_PROPOSAL_KIND_VALUES } from "./carriers.js";
 
 const MODULE_PATH =
@@ -27,6 +32,41 @@ const SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:8c3fb81bcdc831f7f4b1c5dc7b640e9bc9a18c64a57bb54df80c23a0ee0a5c0f"
 } as const);
+
+type TuningReportReadRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type TuningReportReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "tuning_report";
+  source: Readonly<{
+    kind: "WorkspaceBinding";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: TuningReportReadRefDigest;
+  selector: Readonly<{
+    tuningTelemetryBasis: TuningReportReadRefDigest;
+  }>;
+}>;
+type TuningReportReadDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "tuning_report";
+}>;
+
+function tuningReportRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -152,6 +192,34 @@ const tuningReportProjectionSchema = v.pipe(
   v.readonly()
 );
 
+type TuningReportProjection = v.InferOutput<
+  typeof tuningReportProjectionSchema
+>;
+
+const TUNING_REPORT_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  TuningReportReadDefinitionKey,
+  TuningReportReadRequest,
+  TuningReportProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !==
+      candidateProjection.workspaceBinding.ref ||
+    admittedRequest.source.sourceDigest !==
+      candidateProjection.workspaceBinding.digest
+  ) {
+    issuePaths.push("candidateProjection.workspaceBinding");
+  }
+  const telemetryBasis = admittedRequest.selector.tuningTelemetryBasis;
+  if (
+    telemetryBasis.ref !== candidateProjection.telemetryBasis.ref ||
+    telemetryBasis.digest !== candidateProjection.telemetryBasis.digest
+  ) {
+    issuePaths.push("candidateProjection.telemetryBasis");
+  }
+  return tuningReportRelationResult(issuePaths);
+};
+
 export const TUNER_PROJECT_READ_NATIVE_CHECK_REGISTRY = freezeNativeValue({
   familyRef: "contract-family://abg/tuner-project-read@5",
   checks: [
@@ -189,4 +257,20 @@ export const TUNER_PROJECT_READ_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       result: tuningReportResult
     }
   }
+});
+
+export const TUNER_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  tuning_report: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/tuning-report@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "tuning_report"
+    },
+    semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "TUNER_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["tuning_report"],
+    relation: TUNING_REPORT_PROJECT_READ_RELATION
+  })
 });

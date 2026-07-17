@@ -14,7 +14,12 @@ import {
   sha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { assertCanonicalRuntimeEventSequence } from "./event_admission.js";
 
@@ -785,3 +790,267 @@ export type RuntimeProjectionProjectReadResult<
 > = v.InferOutput<
   (typeof RUNTIME_PROJECTION_NATIVE_CONTRACT_SOURCES.project_read)[CaseKey]["result"]["schema"]
 >;
+
+type RuntimeProjectionDefinitionKey<
+  CaseKey extends RuntimeProjectionProjectReadCase
+> = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: CaseKey;
+}>;
+type RuntimeProjectionRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type RuntimeProjectionReadRequest<
+  CaseKey extends RuntimeProjectionProjectReadCase,
+  Source extends SubjectKind,
+  Selector
+> = Readonly<{
+  caseKey: CaseKey;
+  source: Readonly<{
+    kind: Source;
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  selector: Selector;
+}>;
+type EmptyRuntimeProjectionSelector = Readonly<Record<never, never>>;
+type ReplayRuntimeProjectionSelector = Readonly<{
+  fromOrdinal: number;
+  limit: number;
+}>;
+type WorkspaceReplayRuntimeProjectionSelector = Readonly<{
+  runtimeEventLog: RuntimeProjectionRefDigest;
+  fromOrdinal: number;
+  limit: number;
+}>;
+type CCallReplayRuntimeProjectionSelector = Readonly<{
+  fromOrdinal: number;
+  limit: number;
+  cCall: RuntimeProjectionRefDigest;
+}>;
+type SubjectOnlyRuntimeProjectionCase =
+  | "run_status"
+  | "graph_call_status"
+  | "run_result"
+  | "graph_call_result"
+  | "run_evidence"
+  | "graph_call_evidence"
+  | "result_evidence";
+type ReplayRuntimeProjectionCase = Exclude<
+  RuntimeProjectionProjectReadCase,
+  SubjectOnlyRuntimeProjectionCase
+>;
+type RuntimeProjectionSourceKindFor<
+  CaseKey extends RuntimeProjectionProjectReadCase
+> = CaseKey extends "workspace_replay"
+  ? "WorkspaceBinding"
+  : CaseKey extends "graph_call_status" | "graph_call_result" | "graph_call_evidence" | "graph_call_replay"
+    ? "GraphCall"
+    : CaseKey extends "result_evidence"
+      ? "RuntimeResult"
+      : CaseKey extends "interaction_replay"
+        ? "FhInteraction"
+        : CaseKey extends "continuation_replay"
+          ? "Continuation"
+          : CaseKey extends "c_call_replay"
+            ? "CProgramAtomReceipt"
+            : "Run";
+type RuntimeProjectionSelectorFor<
+  CaseKey extends RuntimeProjectionProjectReadCase
+> = CaseKey extends "workspace_replay"
+  ? WorkspaceReplayRuntimeProjectionSelector
+  : CaseKey extends "c_call_replay"
+    ? CCallReplayRuntimeProjectionSelector
+    : CaseKey extends ReplayRuntimeProjectionCase
+      ? ReplayRuntimeProjectionSelector
+      : EmptyRuntimeProjectionSelector;
+type RuntimeProjectionRequestFor<
+  CaseKey extends RuntimeProjectionProjectReadCase
+> = RuntimeProjectionReadRequest<
+  CaseKey,
+  RuntimeProjectionSourceKindFor<CaseKey>,
+  RuntimeProjectionSelectorFor<CaseKey>
+>;
+
+function runtimeProjectionRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+function sourceSubjectRelation<
+  K,
+  Request extends Readonly<{
+    source: Readonly<{
+      sourceRef: string;
+      sourceDigest: string;
+    }>;
+  }>,
+  Projection extends Readonly<{
+    subject: Readonly<{
+      ref: string;
+      digest: string;
+    }>;
+  }>
+>(): OwnerProjectionRelationAction<K, Request, Projection> {
+  return ({ admittedRequest, candidateProjection }) =>
+    runtimeProjectionRelationResult(
+      admittedRequest.source.sourceRef === candidateProjection.subject.ref &&
+        admittedRequest.source.sourceDigest === candidateProjection.subject.digest
+        ? []
+        : ["candidateProjection.subject"]
+    );
+}
+
+function replaySourceRelation<
+  K,
+  Request extends Readonly<{
+    source: Readonly<{
+      sourceRef: string;
+      sourceDigest: string;
+    }>;
+    selector: ReplayRuntimeProjectionSelector;
+  }>,
+  Projection extends Readonly<{
+    subject: Readonly<{
+      ref: string;
+      digest: string;
+    }>;
+    fromOrdinal: number;
+    limit: number;
+  }>
+>(
+  expectedBasis?: (request: Request) => RuntimeProjectionRefDigest
+): OwnerProjectionRelationAction<K, Request, Projection & { readonly basis: RuntimeProjectionRefDigest }> {
+  return ({ admittedRequest, candidateProjection }) => {
+    const issuePaths: string[] = [];
+    if (
+      admittedRequest.source.sourceRef !== candidateProjection.subject.ref ||
+      admittedRequest.source.sourceDigest !== candidateProjection.subject.digest
+    ) {
+      issuePaths.push("candidateProjection.subject");
+    }
+    if (
+      admittedRequest.selector.fromOrdinal !== candidateProjection.fromOrdinal
+    ) {
+      issuePaths.push("candidateProjection.fromOrdinal");
+    }
+    if (admittedRequest.selector.limit !== candidateProjection.limit) {
+      issuePaths.push("candidateProjection.limit");
+    }
+    const basis = expectedBasis?.(admittedRequest);
+    if (
+      basis !== undefined &&
+      (basis.ref !== candidateProjection.basis.ref ||
+        basis.digest !== candidateProjection.basis.digest)
+    ) {
+      issuePaths.push("candidateProjection.basis");
+    }
+    return runtimeProjectionRelationResult(issuePaths);
+  };
+}
+
+function runtimeProjectionRelationSource<
+  const CaseKey extends RuntimeProjectionProjectReadCase,
+  Request,
+  Projection
+>(
+  caseKey: CaseKey,
+  relation: OwnerProjectionRelationAction<
+    RuntimeProjectionDefinitionKey<CaseKey>,
+    Request,
+    Projection
+  >
+) {
+  const resultSource =
+    RUNTIME_PROJECTION_NATIVE_CONTRACT_SOURCES.project_read[caseKey].result;
+  return ownerProjectionRelationSource({
+    relationIdentity: `relation://abg/project-read/${caseKey.replaceAll("_", "-")}@5`,
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey
+    },
+    semanticOwnerBasis: resultSource.authority.semanticOwnerBasis,
+    modulePath: MODULE_PATH,
+    exportName: "RUNTIME_PROJECTION_PROJECT_READ_RELATION_SOURCES",
+    memberPath: [caseKey],
+    relation
+  });
+}
+
+function subjectRuntimeProjectionRelationSource<
+  const CaseKey extends SubjectOnlyRuntimeProjectionCase
+>(caseKey: CaseKey) {
+  return runtimeProjectionRelationSource<
+    CaseKey,
+    RuntimeProjectionRequestFor<CaseKey>,
+    RuntimeProjectionProjectReadResult<CaseKey>
+  >(
+    caseKey,
+    sourceSubjectRelation<
+      RuntimeProjectionDefinitionKey<CaseKey>,
+      RuntimeProjectionRequestFor<CaseKey>,
+      RuntimeProjectionProjectReadResult<CaseKey>
+    >()
+  );
+}
+
+function replayRuntimeProjectionRelationSource<
+  const CaseKey extends ReplayRuntimeProjectionCase
+>(
+  caseKey: CaseKey,
+  expectedBasis?: (
+    request: RuntimeProjectionRequestFor<CaseKey>
+  ) => RuntimeProjectionRefDigest
+) {
+  return runtimeProjectionRelationSource<
+    CaseKey,
+    RuntimeProjectionRequestFor<CaseKey>,
+    RuntimeProjectionProjectReadResult<CaseKey>
+  >(
+    caseKey,
+    replaySourceRelation<
+      RuntimeProjectionDefinitionKey<CaseKey>,
+      RuntimeProjectionRequestFor<CaseKey>,
+      RuntimeProjectionProjectReadResult<CaseKey>
+    >(expectedBasis)
+  );
+}
+
+export const RUNTIME_PROJECTION_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    run_status: subjectRuntimeProjectionRelationSource("run_status"),
+    graph_call_status:
+      subjectRuntimeProjectionRelationSource("graph_call_status"),
+    run_result: subjectRuntimeProjectionRelationSource("run_result"),
+    graph_call_result:
+      subjectRuntimeProjectionRelationSource("graph_call_result"),
+    run_evidence: subjectRuntimeProjectionRelationSource("run_evidence"),
+    graph_call_evidence:
+      subjectRuntimeProjectionRelationSource("graph_call_evidence"),
+    result_evidence: subjectRuntimeProjectionRelationSource("result_evidence"),
+    workspace_replay: replayRuntimeProjectionRelationSource(
+      "workspace_replay",
+      (request) => request.selector.runtimeEventLog
+    ),
+    run_replay: replayRuntimeProjectionRelationSource("run_replay"),
+    graph_call_replay:
+      replayRuntimeProjectionRelationSource("graph_call_replay"),
+    interaction_replay:
+      replayRuntimeProjectionRelationSource("interaction_replay"),
+    continuation_replay:
+      replayRuntimeProjectionRelationSource("continuation_replay"),
+    c_call_replay: replayRuntimeProjectionRelationSource(
+      "c_call_replay",
+      (request) => request.selector.cCall
+    )
+  });

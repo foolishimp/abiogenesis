@@ -11,7 +11,12 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 import {
   GRAPH_CHANGE_CLASS_VALUES,
   GRAPH_REENTRY_POINT_VALUES
@@ -32,6 +37,61 @@ const SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+
+type ObserverReadRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type ObserverReadRequest<
+  CaseKey extends "observer_report" | "observer_drafts",
+  Selector
+> = Readonly<{
+  kind: "project_read_request";
+  caseKey: CaseKey;
+  source: Readonly<{
+    kind: "WorkspaceBinding";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: ObserverReadRefDigest;
+  selector: Selector;
+}>;
+type ObserverReadDefinitionKey<
+  CaseKey extends "observer_report" | "observer_drafts"
+> = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: CaseKey;
+}>;
+
+function sameObserverReadCoordinate(
+  left: ObserverReadRefDigest,
+  right: ObserverReadRefDigest
+): boolean {
+  return left.ref === right.ref && left.digest === right.digest;
+}
+
+function sameObserverReadRefSet(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  return (
+    left.length === right.length &&
+    left.every((ref) => right.includes(ref))
+  );
+}
+
+function observerReadRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -152,6 +212,82 @@ const observerDraftProjectionSchema = v.pipe(
   v.readonly()
 );
 
+type ObserverReportReadRequest = ObserverReadRequest<
+  "observer_report",
+  Readonly<{
+    observationBasis: ObserverReadRefDigest;
+    sourceProjectionRefs: readonly string[];
+  }>
+>;
+type ObserverDraftsReadRequest = ObserverReadRequest<
+  "observer_drafts",
+  Readonly<{ observerObservables: ObserverReadRefDigest }>
+>;
+type ObserverReportProjection = v.InferOutput<
+  typeof observerReportProjectionSchema
+>;
+type ObserverDraftProjection = v.InferOutput<
+  typeof observerDraftProjectionSchema
+>;
+
+const OBSERVER_REPORT_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  ObserverReadDefinitionKey<"observer_report">,
+  ObserverReportReadRequest,
+  ObserverReportProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !==
+      candidateProjection.workspaceBinding.ref ||
+    admittedRequest.source.sourceDigest !==
+      candidateProjection.workspaceBinding.digest
+  ) {
+    issuePaths.push("candidateProjection.workspaceBinding");
+  }
+  if (
+    !sameObserverReadCoordinate(
+      admittedRequest.selector.observationBasis,
+      candidateProjection.observationBasis
+    )
+  ) {
+    issuePaths.push("candidateProjection.observationBasis");
+  }
+  if (
+    !sameObserverReadRefSet(
+      admittedRequest.selector.sourceProjectionRefs,
+      candidateProjection.sourceRefs
+    )
+  ) {
+    issuePaths.push("candidateProjection.sourceRefs");
+  }
+  return observerReadRelationResult(issuePaths);
+};
+
+const OBSERVER_DRAFTS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  ObserverReadDefinitionKey<"observer_drafts">,
+  ObserverDraftsReadRequest,
+  ObserverDraftProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !==
+      candidateProjection.workspaceBinding.ref ||
+    admittedRequest.source.sourceDigest !==
+      candidateProjection.workspaceBinding.digest
+  ) {
+    issuePaths.push("candidateProjection.workspaceBinding");
+  }
+  if (
+    !sameObserverReadCoordinate(
+      admittedRequest.selector.observerObservables,
+      candidateProjection.observerObservables
+    )
+  ) {
+    issuePaths.push("candidateProjection.observerObservables");
+  }
+  return observerReadRelationResult(issuePaths);
+};
+
 export const OBSERVER_PROJECT_READ_NATIVE_CHECK_REGISTRY = freezeNativeValue({
   familyRef: "contract-family://abg/observer-project-read@5",
   checks: [
@@ -202,4 +338,33 @@ export const OBSERVER_PROJECT_READ_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       result: observerResult("observer_drafts", observerDraftProjectionSchema)
     }
   }
+});
+
+export const OBSERVER_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  observer_report: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/observer-report@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "observer_report"
+    },
+    semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "OBSERVER_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["observer_report"],
+    relation: OBSERVER_REPORT_PROJECT_READ_RELATION
+  }),
+  observer_drafts: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/observer-drafts@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "observer_drafts"
+    },
+    semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "OBSERVER_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["observer_drafts"],
+    relation: OBSERVER_DRAFTS_PROJECT_READ_RELATION
+  })
 });

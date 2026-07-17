@@ -16,7 +16,10 @@ import { freezeNativeValue } from "../../../shared/validation/immutable_native_v
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
   ownerNativeDefinitionContractSource,
-  ownerNativeOperationContractSource
+  ownerNativeOperationContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
@@ -427,3 +430,88 @@ export const PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
     }
   }
 });
+
+type InstallEvidenceRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type InstallEvidenceDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "install_evidence";
+}>;
+type InstallEvidenceReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "install_evidence";
+  source: Readonly<{
+    kind: "InstalledProduct";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: InstallEvidenceRefDigest;
+  selector: Readonly<{
+    installManifest: InstallEvidenceRefDigest;
+  }>;
+}>;
+type InstallEvidenceProjection = v.InferOutput<
+  typeof INSTALLED_PRODUCT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+>;
+
+function sameInstallEvidenceCoordinate(
+  left: InstallEvidenceRefDigest,
+  right: InstallEvidenceRefDigest
+): boolean {
+  return left.ref === right.ref && left.digest === right.digest;
+}
+
+function installEvidenceRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+const INSTALL_EVIDENCE_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  InstallEvidenceDefinitionKey,
+  InstallEvidenceReadRequest,
+  InstallEvidenceProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !== candidateProjection.subject.ref ||
+    admittedRequest.source.sourceDigest !== candidateProjection.subject.digest
+  ) {
+    issuePaths.push("candidateProjection.subject");
+  }
+  candidateProjection.rows.forEach((row, index) => {
+    if (!sameInstallEvidenceCoordinate(
+      admittedRequest.selector.installManifest,
+      row.basis
+    )) {
+      issuePaths.push(`candidateProjection.rows.${index}.basis`);
+    }
+  });
+  return installEvidenceRelationResult(issuePaths);
+};
+
+export const PRODUCT_INTAKE_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    install_evidence: ownerProjectionRelationSource({
+      relationIdentity: "relation://abg/project-read/install-evidence@5",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKind: "project_read_case",
+        caseKey: "install_evidence"
+      },
+      semanticOwnerBasis: INSTALL_EVIDENCE_SEMANTIC_OWNER_BASIS,
+      modulePath: MODULE_PATH,
+      exportName: "PRODUCT_INTAKE_PROJECT_READ_RELATION_SOURCES",
+      memberPath: ["install_evidence"],
+      relation: INSTALL_EVIDENCE_PROJECT_READ_RELATION
+    })
+  });

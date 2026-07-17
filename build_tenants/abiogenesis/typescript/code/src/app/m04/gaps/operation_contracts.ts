@@ -12,7 +12,12 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH = "code/src/app/m04/gaps/operation_contracts.js";
 const EXPORT_NAME = "GAPS_PROJECT_READ_NATIVE_CONTRACT_SOURCES";
@@ -176,4 +181,128 @@ export const GAPS_PROJECT_READ_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       result: gapProjectReadResult("run_gaps", runGapsProjectionSchema)
     }
   }
+});
+
+type WorkspaceGapsRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type WorkspaceGapsDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "workspace_gaps";
+}>;
+type WorkspaceGapsReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "workspace_gaps";
+  source: Readonly<{
+    kind: "WorkspaceBinding";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: WorkspaceGapsRefDigest;
+  selector: Readonly<{
+    gapBasis: WorkspaceGapsRefDigest;
+  }>;
+}>;
+type WorkspaceGapsProjection = v.InferOutput<
+  typeof workspaceGapsProjectionSchema
+>;
+type RunGapsDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "run_gaps";
+}>;
+type RunGapsReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "run_gaps";
+  source: Readonly<{
+    kind: "Run";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: WorkspaceGapsRefDigest;
+  selector: Readonly<Record<never, never>>;
+}>;
+type RunGapsProjection = v.InferOutput<typeof runGapsProjectionSchema>;
+
+function sameWorkspaceGapsCoordinate(
+  left: WorkspaceGapsRefDigest,
+  right: WorkspaceGapsRefDigest
+): boolean {
+  return left.ref === right.ref && left.digest === right.digest;
+}
+
+function workspaceGapsRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+const WORKSPACE_GAPS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  WorkspaceGapsDefinitionKey,
+  WorkspaceGapsReadRequest,
+  WorkspaceGapsProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !== candidateProjection.subject.ref ||
+    admittedRequest.source.sourceDigest !== candidateProjection.subject.digest
+  ) {
+    issuePaths.push("candidateProjection.subject");
+  }
+  if (!sameWorkspaceGapsCoordinate(
+    admittedRequest.selector.gapBasis,
+    candidateProjection.replayBasis
+  )) {
+    issuePaths.push("candidateProjection.replayBasis");
+  }
+  return workspaceGapsRelationResult(issuePaths);
+};
+
+const RUN_GAPS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  RunGapsDefinitionKey,
+  RunGapsReadRequest,
+  RunGapsProjection
+> = ({ admittedRequest, candidateProjection }) =>
+  workspaceGapsRelationResult(
+    admittedRequest.source.sourceRef === candidateProjection.subject.ref &&
+      admittedRequest.source.sourceDigest === candidateProjection.subject.digest
+      ? []
+      : ["candidateProjection.subject"]
+  );
+
+export const GAPS_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  workspace_gaps: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/workspace-gaps@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "workspace_gaps"
+    },
+    semanticOwnerBasis: GAPS_SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "GAPS_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["workspace_gaps"],
+    relation: WORKSPACE_GAPS_PROJECT_READ_RELATION
+  }),
+  run_gaps: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/run-gaps@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "run_gaps"
+    },
+    semanticOwnerBasis: GAPS_SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "GAPS_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["run_gaps"],
+    relation: RUN_GAPS_PROJECT_READ_RELATION
+  })
 });

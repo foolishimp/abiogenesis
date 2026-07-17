@@ -24,17 +24,23 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import {
+  applyResolvedOwnerProjectionRelation,
   deriveCanonicalNativeSchemaProjection,
   nativeExportNameSchema,
   privateNativeSchemaSourceLocatorSchema,
   projectCanonicalNativeJsonSchema,
   type NativeSchemaProjectionWitness,
-  type ResolvedOwnerNativeContractSource
+  type ResolvedOwnerNativeContractSource,
+  type ResolvedOwnerProjectionRelation
 } from "../../../shared/validation/canonical_native_schema_projector.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
   type NativeNamedCheckRegistry
 } from "../../../shared/validation/native_named_check_registry.js";
+import {
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationInput
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type NativeSchema = v.GenericSchema;
 
@@ -240,6 +246,49 @@ export const PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES = freezeNativeValue({
   })
 });
 
+const PHASE_A_PROJECT_READ_RELATION_KEY = freezeNativeValue({
+  operationId: "abg.operation.project.read" as const,
+  memberKind: "project_read_case" as const,
+  caseKey: "phase_a_relation_fixture" as const
+});
+type PhaseAProjectReadRelationRequest = {
+  readonly caseKey: "phase_a_relation_fixture";
+  readonly expectedProjectionRef: string;
+};
+type PhaseAProjectReadRelationProjection = {
+  readonly projectionRef: string;
+};
+
+/** @internal */
+export const PHASE_A_PROJECT_READ_RELATION_SOURCE =
+  ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/phase-a/project-read-projection",
+    definitionKey: PHASE_A_PROJECT_READ_RELATION_KEY,
+    semanticOwnerBasis: freezeNativeValue({
+      ref: "design://abg/t281/phase-a-project-read-relation",
+      digest:
+        "sha256:2b5153aedb06dc5c814bf356de45b1ec5bc3b91a766d107002d0f2b3176e6f6e"
+    }),
+    modulePath:
+      "code/src/app/m04/public_contracts/native_contract_phase_a.js",
+    exportName: "PHASE_A_PROJECT_READ_RELATION_SOURCE",
+    memberPath: [] as const,
+    relation: (
+      input: OwnerProjectionRelationInput<
+        typeof PHASE_A_PROJECT_READ_RELATION_KEY,
+        PhaseAProjectReadRelationRequest,
+        PhaseAProjectReadRelationProjection
+      >
+    ) =>
+      input.admittedRequest.expectedProjectionRef ===
+      input.candidateProjection.projectionRef
+        ? freezeNativeValue({ kind: "projection_related" as const })
+        : freezeNativeValue({
+            kind: "projection_relation_mismatch" as const,
+            issuePaths: ["projectionRef"] as const
+          })
+  });
+
 function compareCodePoints(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
 }
@@ -421,6 +470,21 @@ export interface NativeContractDefinition<S extends NativeSchema> {
   readonly projectionWitness: NativeSchemaProjectionWitness;
 }
 
+const NATIVE_CONTRACT_DEFINITION_AUTHORITY = new WeakSet<object>();
+
+/** @internal */
+export function assertNativeContractDefinitionCarrier(
+  input: unknown
+): asserts input is NativeContractDefinition<NativeSchema> {
+  if (
+    typeof input !== "object" ||
+    input === null ||
+    !NATIVE_CONTRACT_DEFINITION_AUTHORITY.has(input)
+  ) {
+    throw new TypeError("native contract: unresolved or forged definition carrier");
+  }
+}
+
 const nativeContractIdentitySchema = v.strictObject({
   contractId: contractIdSchema,
   contractVersion: semanticVersionSchema,
@@ -433,10 +497,21 @@ export function defineNativeContract<S extends NativeSchema>(input: {
   readonly identity: v.InferInput<typeof nativeContractIdentitySchema>;
   readonly source: ResolvedOwnerNativeContractSource<S>;
 }): NativeContractDefinition<S> {
-  for (const key of Object.keys(input)) {
-    if (key !== "identity" && key !== "source") {
-      throw new TypeError(`native contract: unexpected input ${key}`);
-    }
+  const inputKeys = Reflect.ownKeys(input);
+  const unexpectedInputKey = inputKeys.find(
+    (key) => key !== "identity" && key !== "source"
+  );
+  if (unexpectedInputKey !== undefined) {
+    throw new TypeError(
+      `native contract: unexpected input ${String(unexpectedInputKey)}`
+    );
+  }
+  if (
+    inputKeys.length !== 2 ||
+    !inputKeys.includes("identity") ||
+    !inputKeys.includes("source")
+  ) {
+    throw new TypeError("native contract: expected exact identity/source input");
   }
   const identity = admitNative(nativeContractIdentitySchema, input.identity);
   const { schema, projectedSchema, witness: projectionWitness } =
@@ -457,13 +532,15 @@ export function defineNativeContract<S extends NativeSchema>(input: {
     contractDigest: projectionWitness.projectionDigest,
     schemaDigest: projectionWitness.projectionDigest
   });
-  return freezeNativeValue({
+  const definition = freezeNativeValue({
     nativeSymbol: projectionWitness.sourceLocator.exportName,
     schemaCoordinate,
     schema,
     projectedSchema,
     projectionWitness
   });
+  NATIVE_CONTRACT_DEFINITION_AUTHORITY.add(definition);
+  return definition;
 }
 
 const defaultPolicySchema = v.union([
@@ -1206,8 +1283,95 @@ export const OUTCOME_ADMISSION_FAILURE_CLASS_VALUES = Object.freeze([
   "cross_operation",
   "wrong_contract",
   "digest_mismatch",
-  "unexpected_nonterminal"
+  "unexpected_nonterminal",
+  "relation_mismatch"
 ] as const);
+
+/** @internal */
+export interface SchemaOnlyPublicOutcomeResultBinding {
+  readonly kind: "schema_only";
+}
+
+/** @internal */
+export interface RequestRelatedPublicOutcomeResultBinding<
+  K,
+  Request,
+  Projection
+> {
+  readonly kind: "request_related_projection";
+  readonly relation: ResolvedOwnerProjectionRelation<K, Request, Projection>;
+}
+
+/** @internal */
+export type PublicOutcomeResultBinding<K, Request, Projection> =
+  K extends {
+    readonly operationId: "abg.operation.project.read";
+  }
+    ? RequestRelatedPublicOutcomeResultBinding<K, Request, Projection>
+    : SchemaOnlyPublicOutcomeResultBinding;
+
+type ResultProjectionValue<Result extends NativeSchema> =
+  v.InferOutput<Result> extends { readonly projection: infer Projection }
+    ? Projection
+    : never;
+
+function exactOwnDataFields(
+  input: unknown,
+  expected: readonly string[]
+): input is object {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    return false;
+  }
+  const keys = Reflect.ownKeys(input);
+  if (
+    keys.length !== expected.length ||
+    !expected.every((key) => keys.includes(key))
+  ) {
+    return false;
+  }
+  return expected.every((key) => {
+    const descriptor = Object.getOwnPropertyDescriptor(input, key);
+    return descriptor !== undefined &&
+      "value" in descriptor &&
+      descriptor.enumerable;
+  });
+}
+
+function ownDataValue(input: unknown, key: string): unknown {
+  if (typeof input !== "object" || input === null) {
+    return undefined;
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(input, key);
+  return descriptor !== undefined && "value" in descriptor
+    ? descriptor.value
+    : undefined;
+}
+
+function isSchemaOnlyResultBinding(
+  input: unknown
+): input is SchemaOnlyPublicOutcomeResultBinding {
+  return exactOwnDataFields(input, ["kind"]) &&
+    ownDataValue(input, "kind") === "schema_only";
+}
+
+function isRequestRelatedResultBinding<K, Request, Projection>(
+  input: unknown
+): input is RequestRelatedPublicOutcomeResultBinding<K, Request, Projection> {
+  const relation = ownDataValue(input, "relation");
+  return exactOwnDataFields(input, ["kind", "relation"]) &&
+    ownDataValue(input, "kind") === "request_related_projection" &&
+    typeof relation === "object" && relation !== null;
+}
+
+function hasProjectionValue<Projection>(
+  input: unknown
+): input is { readonly projection: Projection } {
+  if (typeof input !== "object" || input === null) {
+    return false;
+  }
+  const descriptor = Object.getOwnPropertyDescriptor(input, "projection");
+  return descriptor !== undefined && "value" in descriptor;
+}
 
 function outcomeAdmissionFailureSchema<
   KeySchema extends DefinitionKeySchema
@@ -1267,18 +1431,25 @@ export function admitPublicOutcome<
   KeySchema extends DefinitionKeySchema,
   Result extends NativeSchema,
   Refusal extends NativeSchema,
-  NonTerminal extends NativeSchema | null
+  NonTerminal extends NativeSchema | null,
+  Request
 >(input: {
   readonly definitionKeySchema: KeySchema;
   readonly resultSchema: Result;
   readonly refusalSchema: Refusal;
   readonly nonTerminalSchema: NonTerminal;
+  readonly resultBinding: PublicOutcomeResultBinding<
+    v.InferOutput<KeySchema>,
+    Request,
+    ResultProjectionValue<Result>
+  >;
   readonly invocation: {
     readonly invocationRef: string;
     readonly invocationDigest: string;
     readonly definitionKey: v.InferOutput<KeySchema>;
     readonly definitionDigest: string;
     readonly correlationRef: string;
+    readonly request: Request;
   };
   readonly contracts: {
     readonly result: PublicContractCoordinate;
@@ -1293,6 +1464,25 @@ export function admitPublicOutcome<
     label: "public outcome invocation definition key"
   });
   const operationId = invocationDefinitionKey.operationId;
+  const projectReadResultBinding =
+    operationId === "abg.operation.project.read";
+  const hasRequestRelatedBinding = isRequestRelatedResultBinding<
+    v.InferOutput<KeySchema>,
+    Request,
+    ResultProjectionValue<Result>
+  >(input.resultBinding);
+  if (
+    (projectReadResultBinding && !hasRequestRelatedBinding) ||
+    (!projectReadResultBinding && !isSchemaOnlyResultBinding(input.resultBinding))
+  ) {
+    return outcomeFailure(input.definitionKeySchema, {
+      failureClass: "relation_mismatch",
+      issuePaths: ["resultBinding"],
+      invocationRef: input.invocation.invocationRef,
+      definitionKey: invocationDefinitionKey,
+      candidate: input.raw
+    });
+  }
   if (typeof input.raw === "object" && input.raw !== null) {
     const candidateDefinitionKey: unknown = Reflect.get(
       input.raw,
@@ -1402,6 +1592,76 @@ export function admitPublicOutcome<
       definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
+  }
+  if (outcome.outcomeKind === "result" && projectReadResultBinding) {
+    if (!hasRequestRelatedBinding || !hasProjectionValue<
+      ResultProjectionValue<Result>
+    >(outcome.value)) {
+      return outcomeFailure(input.definitionKeySchema, {
+        failureClass: "relation_mismatch",
+        issuePaths: ["value.projection"],
+        invocationRef: input.invocation.invocationRef,
+        definitionKey: invocationDefinitionKey,
+        candidate: input.raw
+      });
+    }
+    const requestProjectionBasis = ownDataValue(
+      input.invocation.request,
+      "projectionBasis"
+    );
+    const outcomeProjectionBasis = ownDataValue(
+      outcome.value,
+      "projectionBasis"
+    );
+    if (
+      (requestProjectionBasis !== undefined ||
+        outcomeProjectionBasis !== undefined) &&
+      !stableJsonEquals(requestProjectionBasis, outcomeProjectionBasis)
+    ) {
+      return outcomeFailure(input.definitionKeySchema, {
+        failureClass: "relation_mismatch",
+        issuePaths: ["value.projectionBasis"],
+        invocationRef: input.invocation.invocationRef,
+        definitionKey: invocationDefinitionKey,
+        candidate: input.raw
+      });
+    }
+    try {
+      const relationResult = applyResolvedOwnerProjectionRelation({
+        relation: input.resultBinding.relation,
+        definitionKey: invocationDefinitionKey,
+        admittedRequest: input.invocation.request,
+        candidateProjection: outcome.value.projection
+      });
+      if (relationResult.kind === "projection_relation_mismatch") {
+        return outcomeFailure(input.definitionKeySchema, {
+          failureClass: "relation_mismatch",
+          issuePaths: relationResult.issuePaths.map(
+            (path) => {
+              const relativePath = path === "candidateProjection"
+                ? ""
+                : path.startsWith("candidateProjection.")
+                  ? path.slice("candidateProjection.".length)
+                  : path;
+              return relativePath.length === 0
+                ? "value.projection"
+                : `value.projection.${relativePath}`;
+            }
+          ),
+          invocationRef: input.invocation.invocationRef,
+          definitionKey: invocationDefinitionKey,
+          candidate: input.raw
+        });
+      }
+    } catch {
+      return outcomeFailure(input.definitionKeySchema, {
+        failureClass: "relation_mismatch",
+        issuePaths: ["value.projection"],
+        invocationRef: input.invocation.invocationRef,
+        definitionKey: invocationDefinitionKey,
+        candidate: input.raw
+      });
+    }
   }
   if (outcome.payloadDigest !== stableSha256Digest(outcome.value)) {
     return outcomeFailure(input.definitionKeySchema, {

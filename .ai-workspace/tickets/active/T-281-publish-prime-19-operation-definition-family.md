@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_central_join_implementation_authorized
-- review_status: p1_central_join_exact_digest_independently_accepted
-- proof_status: p1_35_non_read_keys_115_slots_plus_54_project_read_request_refusal_and_27_projection_sources_complete_design_accepted_executable_relations_wrapped_results_exact_metadata_and_family_admission_pending_p2_fenced
+- phase_status: p1_private_family_implementation_complete
+- review_status: p1_implementation_independently_reviewed_accepted
+- proof_status: p1_exact_19_operations_62_definitions_196_schemas_52_absent_nonterminals_authenticated_and_admitted_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -184,6 +184,9 @@
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
+- p1_implementation_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T135410Z_SELF_REVIEW_t281_p1_private_family_checkpoint.md
 - repaired_p1_owner_composition_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T164206Z_SELF_REVIEW_t281_owner_contract_composition_repair.md

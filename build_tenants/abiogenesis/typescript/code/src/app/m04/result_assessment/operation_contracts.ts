@@ -14,7 +14,10 @@ import { freezeNativeValue } from "../../../shared/validation/immutable_native_v
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
   ownerNativeDefinitionContractSource,
-  ownerNativeOperationContractSource
+  ownerNativeOperationContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
@@ -168,3 +171,70 @@ export const RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
     assess: { request, result, refusal, nonterminal }
   }
 });
+
+type AssessmentEvidenceDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "assessment_evidence";
+}>;
+type AssessmentEvidenceReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "assessment_evidence";
+  source: Readonly<{
+    kind: "ResultAssessment";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: Readonly<{
+    ref: string;
+    digest: string;
+  }>;
+  selector: Readonly<Record<never, never>>;
+}>;
+type AssessmentEvidenceProjection = v.InferOutput<
+  typeof RESULT_ASSESSMENT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+>;
+
+function assessmentEvidenceRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+const ASSESSMENT_EVIDENCE_PROJECT_READ_RELATION:
+  OwnerProjectionRelationAction<
+    AssessmentEvidenceDefinitionKey,
+    AssessmentEvidenceReadRequest,
+    AssessmentEvidenceProjection
+  > = ({ admittedRequest, candidateProjection }) =>
+    assessmentEvidenceRelationResult(
+      admittedRequest.source.sourceRef === candidateProjection.subject.ref &&
+        admittedRequest.source.sourceDigest ===
+          candidateProjection.subject.digest
+        ? []
+        : ["candidateProjection.subject"]
+    );
+
+export const RESULT_ASSESSMENT_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    assessment_evidence: ownerProjectionRelationSource({
+      relationIdentity:
+        "relation://abg/project-read/assessment-evidence@5",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKind: "project_read_case",
+        caseKey: "assessment_evidence"
+      },
+      semanticOwnerBasis: ASSESSMENT_EVIDENCE_SEMANTIC_OWNER_BASIS,
+      modulePath: MODULE_PATH,
+      exportName: "RESULT_ASSESSMENT_PROJECT_READ_RELATION_SOURCES",
+      memberPath: ["assessment_evidence"],
+      relation: ASSESSMENT_EVIDENCE_PROJECT_READ_RELATION
+    })
+  });

@@ -10,7 +10,10 @@ import {
   stableJson,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
-import type { NativeSchemaProjectionWitness } from "../../../shared/validation/canonical_native_schema_projector.js";
+import type {
+  NativeSchemaProjectionWitness,
+  OwnerNativeContractSourceRow
+} from "../../../shared/validation/canonical_native_schema_projector.js";
 import { resolveSemanticBuildNativeSchemaSource } from "../../../shared/validation/canonical_native_schema_projector.js";
 import {
   canonicalNativeSchemaBytes,
@@ -77,7 +80,11 @@ function schemaRelativePath(contractId: string): string {
 }
 
 async function deriveSchemaArtifact(
-  sourceRow: (typeof CONSENSUS_PUBLIC_CONTRACT_SOURCES)[keyof typeof CONSENSUS_PUBLIC_CONTRACT_SOURCES]
+  sourceRow: OwnerNativeContractSourceRow & {
+    readonly contractKind: string;
+    readonly contractId: string;
+    readonly nativeType: string;
+  }
 ): Promise<ConsensusPhaseASchemaArtifact> {
   const source = await resolveSemanticBuildNativeSchemaSource(sourceRow);
   const nativeContract = defineNativeContract({

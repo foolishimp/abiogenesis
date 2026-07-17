@@ -203,31 +203,78 @@ test("T-281 Slice 1 workspace contracts are strict and variant exact", () => {
   const clean = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.clean;
   assert.deepEqual(v.parse(clean.request.schema, {
     targetRoot: "/tmp/abg-workspace",
-    createPolicy: "clean"
+    createPolicy: "clean",
+    scaffoldPolicy: "no_scaffold"
   }).createPolicy, "clean");
   assert.throws(() => v.parse(clean.request.schema, {
     targetRoot: "/tmp/abg-workspace",
     createPolicy: "clean",
+    scaffoldPolicy: "no_scaffold",
     importAuthorityRef: "authority:unexpected"
   }));
   assert.deepEqual(v.parse(clean.result.schema, {
     workspaceRef: "workspace:one",
+    authorityMode: "clean_no_project_authority",
+    scaffoldState: "none",
     creationManifestRef: "manifest:one",
     provenanceRefs: ["evidence:one"]
   }).provenanceRefs, ["evidence:one"]);
+  for (const code of [
+    "invalid_target",
+    "workspace_exists",
+    "workspace_identity_conflict",
+    "scaffold_policy_invalid",
+    "filesystem_failure"
+  ]) {
+    assert.equal(v.parse(clean.refusal.schema, {
+      code,
+      message: "refused",
+      residualRefs: []
+    }).code, code);
+  }
 
   const imported = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.imported;
   assert.throws(() => v.parse(imported.request.schema, {
     targetRoot: "/tmp/abg-workspace",
     createPolicy: "clean",
-    importAuthorityRef: "authority:import"
+    importAuthorityRef: "authority:import",
+    importAuthorityDigest: D,
+    preservationPolicy: "preserve_project_owned_roots"
   }));
   assert.equal(v.parse(imported.request.schema, {
     targetRoot: "/tmp/abg-workspace",
-    createPolicy: "clean",
+    createPolicy: "imported",
     importAuthorityRef: "authority:import",
-    importAuthorityDigest: D
+    importAuthorityDigest: D,
+    preservationPolicy: "preserve_project_owned_roots"
   }).importAuthorityDigest, D);
+  assert.equal(v.parse(imported.result.schema, {
+    workspaceRef: "workspace:one",
+    authorityMode: "imported",
+    preservationState: {
+      projectOwnedRoots: "preserved",
+      scaffoldState: "preserved"
+    },
+    creationManifestRef: "manifest:one",
+    importAuthorityRef: "authority:import",
+    importAuthorityDigest: D,
+    provenanceRefs: ["evidence:one"]
+  }).preservationState.projectOwnedRoots, "preserved");
+  for (const code of [
+    "invalid_target",
+    "workspace_exists",
+    "workspace_identity_conflict",
+    "scaffold_policy_invalid",
+    "filesystem_failure",
+    "import_authority_invalid",
+    "import_preservation_failed"
+  ]) {
+    assert.equal(v.parse(imported.refusal.schema, {
+      code,
+      message: "refused",
+      residualRefs: []
+    }).code, code);
+  }
 
   const open = WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_open.open;
   const openReadyBase = {

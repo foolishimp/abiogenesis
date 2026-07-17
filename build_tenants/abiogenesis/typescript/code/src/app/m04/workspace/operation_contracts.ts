@@ -13,7 +13,10 @@ import { freezeNativeValue } from "../../../shared/validation/immutable_native_v
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
   ownerNativeDefinitionContractSource,
-  ownerNativeOperationContractSource
+  ownerNativeOperationContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH = "code/src/app/m04/workspace/operation_contracts.js";
@@ -124,7 +127,8 @@ const cleanRequest = ownerNativeOperationContractSource({
   memberPath: ["workspace_create", "clean", "request"],
   schema: v.strictObject({
     targetRoot: absolutePosixPathSchema,
-    createPolicy: v.literal("clean")
+    createPolicy: v.literal("clean"),
+    scaffoldPolicy: v.literal("no_scaffold")
   })
 });
 
@@ -137,6 +141,8 @@ const cleanResult = ownerNativeOperationContractSource({
   memberPath: ["workspace_create", "clean", "result"],
   schema: v.strictObject({
     workspaceRef: refSchema,
+    authorityMode: v.literal("clean_no_project_authority"),
+    scaffoldState: v.literal("none"),
     creationManifestRef: refSchema,
     provenanceRefs: refListSchema
   })
@@ -153,6 +159,7 @@ const cleanRefusal = ownerNativeOperationContractSource({
     "invalid_target",
     "workspace_exists",
     "workspace_identity_conflict",
+    "scaffold_policy_invalid",
     "filesystem_failure"
   ])
 });
@@ -166,9 +173,10 @@ const importedRequest = ownerNativeOperationContractSource({
   memberPath: ["workspace_create", "imported", "request"],
   schema: v.strictObject({
     targetRoot: absolutePosixPathSchema,
-    createPolicy: v.literal("clean"),
+    createPolicy: v.literal("imported"),
     importAuthorityRef: refSchema,
-    importAuthorityDigest: sha256DigestSchema
+    importAuthorityDigest: sha256DigestSchema,
+    preservationPolicy: v.literal("preserve_project_owned_roots")
   })
 });
 
@@ -181,6 +189,11 @@ const importedResult = ownerNativeOperationContractSource({
   memberPath: ["workspace_create", "imported", "result"],
   schema: v.strictObject({
     workspaceRef: refSchema,
+    authorityMode: v.literal("imported"),
+    preservationState: v.strictObject({
+      projectOwnedRoots: v.literal("preserved"),
+      scaffoldState: v.literal("preserved")
+    }),
     creationManifestRef: refSchema,
     importAuthorityRef: refSchema,
     importAuthorityDigest: sha256DigestSchema,
@@ -199,8 +212,10 @@ const importedRefusal = ownerNativeOperationContractSource({
     "invalid_target",
     "workspace_exists",
     "workspace_identity_conflict",
+    "scaffold_policy_invalid",
     "filesystem_failure",
-    "import_authority_invalid"
+    "import_authority_invalid",
+    "import_preservation_failed"
   ])
 });
 
@@ -354,4 +369,67 @@ export const WORKSPACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       refusal: openRefusal
     }
   }
+});
+
+type WorkspaceStatusDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "workspace_status";
+}>;
+type WorkspaceStatusReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "workspace_status";
+  source: Readonly<{
+    kind: "WorkspaceBinding";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: Readonly<{
+    ref: string;
+    digest: string;
+  }>;
+  selector: Readonly<Record<never, never>>;
+}>;
+type WorkspaceStatusProjection = v.InferOutput<
+  typeof workspaceStatusProjectionSchema
+>;
+
+function workspaceStatusRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
+
+const WORKSPACE_STATUS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  WorkspaceStatusDefinitionKey,
+  WorkspaceStatusReadRequest,
+  WorkspaceStatusProjection
+> = ({ admittedRequest, candidateProjection }) =>
+  workspaceStatusRelationResult(
+    admittedRequest.source.sourceRef === candidateProjection.binding.ref &&
+      admittedRequest.source.sourceDigest === candidateProjection.binding.digest
+      ? []
+      : ["candidateProjection.binding"]
+  );
+
+export const WORKSPACE_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  workspace_status: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/workspace-status@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "workspace_status"
+    },
+    semanticOwnerBasis: WORKSPACE_STATUS_SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: "WORKSPACE_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["workspace_status"],
+    relation: WORKSPACE_STATUS_PROJECT_READ_RELATION
+  })
 });

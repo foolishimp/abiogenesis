@@ -17,6 +17,9 @@ import {
   type PublicContractCatalogCoordinate,
   type PublicContractCoordinate
 } from "../../code/src/app/m04/public_contracts/native_contract_phase_a.js";
+import type {
+  ResolvedOwnerProjectionRelation
+} from "../../code/src/shared/validation/canonical_native_schema_projector.js";
 
 type Equal<Left, Right> =
   (<T>() => T extends Left ? 1 : 2) extends
@@ -75,10 +78,10 @@ const structuralDefinitionKeyWitnessFamily = {
     }
   },
   "abg.operation.project.read": {
-    ticket_consensus: {
+    phase_a_relation_fixture: {
       operationId: "abg.operation.project.read",
       memberKind: "project_read_case",
-      caseKey: "ticket_consensus"
+      caseKey: "phase_a_relation_fixture"
     }
   }
 } as const;
@@ -184,6 +187,7 @@ export const workspaceOutcome = admitPublicOutcome({
   resultSchema: workspaceCreateCleanResultSchema,
   refusalSchema: workspaceCreateCleanRefusalSchema,
   nonTerminalSchema: null,
+  resultBinding: { kind: "schema_only" },
   invocation: workspaceInvocation,
   contracts: {
     result: resultContract,
@@ -195,15 +199,19 @@ export const workspaceOutcome = admitPublicOutcome({
 
 const projectReadDefinitionKey =
   structuralDefinitionKeyWitnessFamily["abg.operation.project.read"]
-    .ticket_consensus;
+    .phase_a_relation_fixture;
 const projectReadDefinitionKeySchema = definitionKeySchemaFor(
   projectReadDefinitionKey
 );
 const projectReadRequestSchema = v.strictObject({
-  caseKey: v.literal("ticket_consensus")
+  caseKey: v.literal("phase_a_relation_fixture"),
+  expectedProjectionRef: refSchema
+});
+const projectReadProjectionSchema = v.strictObject({
+  projectionRef: refSchema
 });
 const projectReadResultSchema = v.strictObject({
-  projectionRef: refSchema
+  projection: projectReadProjectionSchema
 });
 const projectReadRefusalSchema = v.strictObject({
   code: v.literal("projection_refused")
@@ -215,6 +223,13 @@ const projectReadAuthorityExpectation = {
   requiredGrantCapabilityIds: [],
   slotStates: forbiddenSlots
 } as const;
+type ProjectReadRequest = NativeType<typeof projectReadRequestSchema>;
+type ProjectReadProjection = NativeType<typeof projectReadProjectionSchema>;
+declare const projectReadRelation: ResolvedOwnerProjectionRelation<
+  typeof projectReadDefinitionKey,
+  ProjectReadRequest,
+  ProjectReadProjection
+>;
 export const projectReadAuthority = constructInvocationAuthority({
   definitionKeySchema: projectReadDefinitionKeySchema,
   expected: projectReadAuthorityExpectation,
@@ -259,7 +274,10 @@ export const projectReadInvocation = constructPublicInvocation({
     requestContract,
     requestRef: admittedRef("request:type-project-read"),
     requestDigest: ADMITTED_DIGEST,
-    request: { caseKey: "ticket_consensus" },
+    request: {
+      caseKey: "phase_a_relation_fixture",
+      expectedProjectionRef: admittedRef("projection:type-proof")
+    },
     expectedResultContract: resultContract,
     expectedRefusalContract: refusalContract,
     expectedNonTerminalContract: null,
@@ -277,7 +295,9 @@ const projectReadOutcomeCandidate = constructPublicOutcome({
   definitionDigest: DIGEST,
   payloadRef: "payload:type-project-read",
   payloadContract: resultContract,
-  value: { projectionRef: "projection:type-proof" },
+  value: {
+    projection: { projectionRef: "projection:type-proof" }
+  },
   evidenceRefs: [],
   correlationRef: projectReadInvocation.correlationRef,
   provenanceRefs: []
@@ -287,6 +307,10 @@ export const projectReadOutcome = admitPublicOutcome({
   resultSchema: projectReadResultSchema,
   refusalSchema: projectReadRefusalSchema,
   nonTerminalSchema: null,
+  resultBinding: {
+    kind: "request_related_projection",
+    relation: projectReadRelation
+  },
   invocation: projectReadInvocation,
   contracts: {
     result: resultContract,

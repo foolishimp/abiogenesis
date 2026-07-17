@@ -13,7 +13,11 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 import {
   GRAPH_CHANGE_CLASS_VALUES,
   GRAPH_REENTRY_POINT_VALUES,
@@ -383,4 +387,51 @@ export const RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES =
       ratify: tuningDecisionContractSet("ratify"),
       reject: tuningDecisionContractSet("reject")
     }
+  });
+
+type WitnessEvidenceDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "witness_evidence";
+}>;
+type WitnessEvidenceReadRequest = Readonly<{
+  source: Readonly<{
+    kind: "WitnessedAct";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+}>;
+type WitnessEvidenceProjection = v.InferOutput<
+  typeof WITNESSED_ACT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+>;
+
+const WITNESS_EVIDENCE_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  WitnessEvidenceDefinitionKey,
+  WitnessEvidenceReadRequest,
+  WitnessEvidenceProjection
+> = ({ admittedRequest, candidateProjection }) =>
+  admittedRequest.source.sourceRef === candidateProjection.subject.ref &&
+  admittedRequest.source.sourceDigest === candidateProjection.subject.digest
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: ["candidateProjection.subject"]
+      };
+
+export const RUNTIME_AUTHORING_OPERATION_PROJECT_READ_RELATION_SOURCES =
+  freezeNativeValue({
+    witness_evidence: ownerProjectionRelationSource({
+      relationIdentity: "relation://abg/project-read/witness-evidence@5",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKind: "project_read_case",
+        caseKey: "witness_evidence"
+      },
+      semanticOwnerBasis: WITNESS_EVIDENCE_SEMANTIC_OWNER_BASIS,
+      modulePath: MODULE_PATH,
+      exportName:
+        "RUNTIME_AUTHORING_OPERATION_PROJECT_READ_RELATION_SOURCES",
+      memberPath: ["witness_evidence"],
+      relation: WITNESS_EVIDENCE_PROJECT_READ_RELATION
+    })
   });

@@ -19,20 +19,33 @@ type CleanRequest = v.InferOutput<typeof cleanRequestSchema>;
 
 export const cleanRequest: CleanRequest = v.parse(cleanRequestSchema, {
   targetRoot: "/tmp/t281-owner-slice",
-  createPolicy: "clean"
+  createPolicy: "clean",
+  scaffoldPolicy: "no_scaffold"
 });
 
 const wrongCreatePolicy: CleanRequest = {
   targetRoot: cleanRequest.targetRoot,
   // @ts-expect-error The clean definition cannot admit an imported policy.
-  createPolicy: "imported"
+  createPolicy: "imported",
+  scaffoldPolicy: "no_scaffold"
 };
 void wrongCreatePolicy;
+
+const importedRequestSchema =
+  WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.imported.request.schema;
+type ImportedRequest = v.InferOutput<typeof importedRequestSchema>;
+declare const importedRequest: ImportedRequest;
+export const importedPolicy: "imported" = importedRequest.createPolicy;
+export const preservationPolicy: "preserve_project_owned_roots" =
+  importedRequest.preservationPolicy;
 
 const cleanResultSchema =
   WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_create.clean.result.schema;
 type CleanResult = v.InferOutput<typeof cleanResultSchema>;
 declare const cleanResult: CleanResult;
+export const cleanAuthorityMode: "clean_no_project_authority" =
+  cleanResult.authorityMode;
+export const cleanScaffoldState: "none" = cleanResult.scaffoldState;
 
 // @ts-expect-error Workspace provenance is an immutable owner-contract list.
 cleanResult.provenanceRefs.push("evidence:forged");

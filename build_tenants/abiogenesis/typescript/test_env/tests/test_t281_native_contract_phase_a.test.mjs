@@ -24,6 +24,7 @@ import {
   definitionKeySchemaFor,
   defineNativeContract,
   PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES,
+  PHASE_A_PROJECT_READ_RELATION_SOURCE,
   projectNativeJsonSchema,
   publicContractCoordinateSchema,
   publicContractCatalogCoordinate,
@@ -39,6 +40,7 @@ import {
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
   deriveCanonicalNativeSchemaProjection,
+  resolveSemanticBuildOwnerProjectionRelation,
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
@@ -51,7 +53,7 @@ const DEFINITION_KEY_SCHEMA = definitionKeySchemaFor(DEFINITION_KEY);
 const PROJECT_READ_DEFINITION_KEY = Object.freeze({
   operationId: "abg.operation.project.read",
   memberKind: "project_read_case",
-  caseKey: "ticket_consensus"
+  caseKey: "phase_a_relation_fixture"
 });
 const PROJECT_READ_DEFINITION_KEY_SCHEMA = definitionKeySchemaFor(
   PROJECT_READ_DEFINITION_KEY
@@ -97,6 +99,14 @@ const RESOLVED_FIXTURE_SOURCES = Object.freeze({
     refusalSourceRow
   )
 });
+const RESOLVED_PHASE_A_PROJECT_READ_RELATION =
+  resolveSemanticBuildOwnerProjectionRelation({
+    source: PHASE_A_PROJECT_READ_RELATION_SOURCE,
+    projectionSource: RESOLVED_FIXTURE_SOURCES.result,
+    expectedDefinitionKey: PROJECT_READ_DEFINITION_KEY,
+    expectedSemanticOwnerBasis:
+      PHASE_A_PROJECT_READ_RELATION_SOURCE.semanticOwnerBasis
+  });
 
 function frozenSourceRow(
   sourceLocator,
@@ -793,6 +803,7 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
     resultSchema,
     refusalSchema,
     nonTerminalSchema: null,
+    resultBinding: { kind: "schema_only" },
     invocation: current.invocation,
     contracts: {
       result: current.resultDefinition.schemaCoordinate,
@@ -809,10 +820,11 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
 test("T-281 Phase A carries an exact project.read structural key through packets", () => {
   const current = fixture();
   const projectRequestSchema = v.strictObject({
-    caseKey: v.literal("ticket_consensus")
+    caseKey: v.literal("phase_a_relation_fixture"),
+    expectedProjectionRef: refSchema
   });
   const projectResultSchema = v.strictObject({
-    projectionRef: refSchema
+    projection: v.strictObject({ projectionRef: refSchema })
   });
   const projectRefusalSchema = v.strictObject({
     code: v.literal("projection_refused")
@@ -876,7 +888,10 @@ test("T-281 Phase A carries an exact project.read structural key through packets
     nonTerminalContract: null,
     authority: authorityExpectation
   };
-  const request = { caseKey: "ticket_consensus" };
+  const request = {
+    caseKey: "phase_a_relation_fixture",
+    expectedProjectionRef: "projection:ticket-consensus"
+  };
   const invocation = constructPublicInvocation({
     definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
     requestSchema: projectRequestSchema,
@@ -899,7 +914,9 @@ test("T-281 Phase A carries an exact project.read structural key through packets
       provenanceRefs: ["provenance:phase-a-project-read"]
     }
   });
-  const value = { projectionRef: "projection:ticket-consensus" };
+  const value = {
+    projection: { projectionRef: "projection:ticket-consensus" }
+  };
   const candidate = constructPublicOutcome({
     definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
     outcomeKind: "result",
@@ -920,6 +937,10 @@ test("T-281 Phase A carries an exact project.read structural key through packets
     resultSchema: projectResultSchema,
     refusalSchema: projectRefusalSchema,
     nonTerminalSchema: null,
+    resultBinding: {
+      kind: "request_related_projection",
+      relation: RESOLVED_PHASE_A_PROJECT_READ_RELATION
+    },
     invocation,
     contracts: {
       result: current.resultDefinition.schemaCoordinate,
@@ -935,7 +956,18 @@ test("T-281 Phase A carries an exact project.read structural key through packets
   assert.equal("operationKey" in admitted, false);
   assert.deepEqual(admitted.definitionKey, PROJECT_READ_DEFINITION_KEY);
   assert.equal(admitted.definitionKey.operationId, "abg.operation.project.read");
-  assert.equal(admitted.definitionKey.caseKey, "ticket_consensus");
+  assert.equal(admitted.definitionKey.caseKey, "phase_a_relation_fixture");
+  const mismatchedProjection = admit({
+    ...candidate,
+    value: { projection: { projectionRef: "projection:other" } },
+    payloadDigest: stableSha256Digest({
+      projection: { projectionRef: "projection:other" }
+    })
+  });
+  assert.equal(mismatchedProjection.failureClass, "relation_mismatch");
+  assert.deepEqual(mismatchedProjection.issuePaths, [
+    "value.projection.projectionRef"
+  ]);
   const malformed = admit({ ...candidate, extra: true });
   assert.equal(malformed.failureClass, "malformed");
   assert.deepEqual(malformed.definitionKey, PROJECT_READ_DEFINITION_KEY);
@@ -1079,6 +1111,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
       resultSchema,
       refusalSchema,
       nonTerminalSchema: null,
+      resultBinding: { kind: "schema_only" },
       invocation: current.invocation,
       contracts: {
         result: current.resultDefinition.schemaCoordinate,

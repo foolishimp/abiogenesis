@@ -7,21 +7,83 @@ import {
   RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js";
 import {
-  OBSERVER_PROJECT_READ_NATIVE_CONTRACT_SOURCES
+  OBSERVER_PROJECT_READ_NATIVE_CONTRACT_SOURCES,
+  OBSERVER_PROJECT_READ_RELATION_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/observer_operation_contracts.js";
 import {
   ONE_SURFACE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/one_surface_operation_contracts.js";
 import {
-  TUNER_PROJECT_READ_NATIVE_CONTRACT_SOURCES
+  TUNER_PROJECT_READ_NATIVE_CONTRACT_SOURCES,
+  TUNER_PROJECT_READ_RELATION_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/tuner_operation_contracts.js";
+import {
+  admitConsensusPublicContract,
+  CONSENSUS_PROJECT_READ_RELATION_SOURCES
+} from "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js";
+import {
+  stableSha256Digest
+} from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
   deriveCanonicalNativeSchemaProjection,
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const D = "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+const D2 = `sha256:${"f".repeat(64)}`;
 const refDigest = (ref) => Object.freeze({ ref, digest: D });
+
+function projectReadRequest(caseKey, sourceKind, sourceRef, selector) {
+  return Object.freeze({
+    kind: "project_read_request",
+    caseKey,
+    source: Object.freeze({
+      kind: sourceKind,
+      sourceRef,
+      sourceDigest: D
+    }),
+    projectionBasis: refDigest(`project-read-basis:${caseKey}`),
+    selector: Object.freeze(selector)
+  });
+}
+
+function consensusResult() {
+  return admitConsensusPublicContract({
+    kind: "consensus_result",
+    subjectRef: "ticket://T-281",
+    subjectDigest: D,
+    panelRef: "panel://reviewers",
+    policyRef: "policy://consensus/rounds",
+    roundRefs: ["round://one"],
+    findingSetRefs: ["findings://one"],
+    rulings: {
+      kind: "review_rulings",
+      roundRef: "round://one",
+      rows: [{
+        rulingRef: "ruling://one",
+        rulingKind: "decision_row",
+        findingRefs: ["finding://one"],
+        rationaleRef: "rationale://one",
+        payloadRef: "payload://ruling/one"
+      }]
+    },
+    classification: "unanimous_agreement",
+    dissentProfileRefs: [],
+    terminalOutcome: {
+      kind: "consensus_round_outcome",
+      roundRef: "round://one",
+      outcome: "closed_done",
+      findingSetRefs: ["findings://one"],
+      rulingRefs: ["ruling://one"],
+      evidenceRefs: ["evidence://round/one"]
+    },
+    evidenceRefs: ["evidence://round/one"],
+    lineageRefs: ["lineage://consensus/one"],
+    resultRef: "result://consensus/one",
+    replayRef: "replay://consensus/one",
+    contractFailureRef: null
+  }, "consensus_result");
+}
 
 const SOURCES = Object.freeze({
   witness_evidence:
@@ -315,4 +377,222 @@ test("T-281 tuning report preserves replay-derived draft and signal relations", 
     })
   );
   assert.throws(() => v.parse(schema, { ...value, unexpected: true }));
+});
+
+test("T-281 observer and tuner relations conserve their request-selected source and bases", () => {
+  const reportRelation = OBSERVER_PROJECT_READ_RELATION_SOURCES.observer_report;
+  const reportRequest = projectReadRequest(
+    "observer_report",
+    "WorkspaceBinding",
+    "workspace-binding:one",
+    {
+      observationBasis: refDigest("observer-observables:one"),
+      sourceProjectionRefs: ["projection:halt"]
+    }
+  );
+  const reportProjection = {
+    kind: "observer_report_projection",
+    projection: refDigest("projection:observer-report"),
+    workspaceBinding: refDigest("workspace-binding:one"),
+    observationBasis: refDigest("observer-observables:one"),
+    sourceRefs: ["projection:halt"],
+    findings: [],
+    evidenceRefs: [],
+    provenanceRefs: []
+  };
+  assert.deepEqual(reportRelation.relation({
+    definitionKey: reportRelation.definitionKey,
+    admittedRequest: reportRequest,
+    candidateProjection: reportProjection
+  }), { kind: "projection_related" });
+  assert.deepEqual(reportRelation.relation({
+    definitionKey: reportRelation.definitionKey,
+    admittedRequest: reportRequest,
+    candidateProjection: {
+      ...reportProjection,
+      workspaceBinding: refDigest("workspace-binding:other"),
+      observationBasis: refDigest("observer-observables:other"),
+      sourceRefs: ["projection:other"]
+    }
+  }), {
+    kind: "projection_relation_mismatch",
+    issuePaths: [
+      "candidateProjection.workspaceBinding",
+      "candidateProjection.observationBasis",
+      "candidateProjection.sourceRefs"
+    ]
+  });
+
+  const draftsRelation = OBSERVER_PROJECT_READ_RELATION_SOURCES.observer_drafts;
+  const draftsRequest = projectReadRequest(
+    "observer_drafts",
+    "WorkspaceBinding",
+    "workspace-binding:one",
+    { observerObservables: refDigest("observer-observables:one") }
+  );
+  const draftsProjection = {
+    kind: "observer_draft_projection",
+    projection: refDigest("projection:observer-drafts"),
+    workspaceBinding: refDigest("workspace-binding:one"),
+    observerObservables: refDigest("observer-observables:one"),
+    drafts: [],
+    evidenceRefs: [],
+    provenanceRefs: []
+  };
+  assert.deepEqual(draftsRelation.relation({
+    definitionKey: draftsRelation.definitionKey,
+    admittedRequest: draftsRequest,
+    candidateProjection: draftsProjection
+  }), { kind: "projection_related" });
+  assert.deepEqual(draftsRelation.relation({
+    definitionKey: draftsRelation.definitionKey,
+    admittedRequest: draftsRequest,
+    candidateProjection: {
+      ...draftsProjection,
+      workspaceBinding: refDigest("workspace-binding:other"),
+      observerObservables: refDigest("observer-observables:other")
+    }
+  }), {
+    kind: "projection_relation_mismatch",
+    issuePaths: [
+      "candidateProjection.workspaceBinding",
+      "candidateProjection.observerObservables"
+    ]
+  });
+
+  const tuningRelation = TUNER_PROJECT_READ_RELATION_SOURCES.tuning_report;
+  const tuningRequest = projectReadRequest(
+    "tuning_report",
+    "WorkspaceBinding",
+    "workspace-binding:one",
+    { tuningTelemetryBasis: refDigest("tuning-telemetry:one") }
+  );
+  const tuningProjection = {
+    kind: "tuning_report_projection",
+    projection: refDigest("projection:tuning-report"),
+    workspaceBinding: refDigest("workspace-binding:one"),
+    telemetryBasis: refDigest("tuning-telemetry:one"),
+    draftStates: [],
+    signals: [],
+    costs: [],
+    divergenceObligations: [],
+    evidenceRefs: [],
+    provenanceRefs: []
+  };
+  assert.deepEqual(tuningRelation.relation({
+    definitionKey: tuningRelation.definitionKey,
+    admittedRequest: tuningRequest,
+    candidateProjection: tuningProjection
+  }), { kind: "projection_related" });
+  assert.deepEqual(tuningRelation.relation({
+    definitionKey: tuningRelation.definitionKey,
+    admittedRequest: tuningRequest,
+    candidateProjection: {
+      ...tuningProjection,
+      workspaceBinding: refDigest("workspace-binding:other"),
+      telemetryBasis: refDigest("tuning-telemetry:other")
+    }
+  }), {
+    kind: "projection_relation_mismatch",
+    issuePaths: [
+      "candidateProjection.workspaceBinding",
+      "candidateProjection.telemetryBasis"
+    ]
+  });
+});
+
+test("T-281 ticket Consensus relation conserves represented result, ticket, and replay identity", () => {
+  const relation = CONSENSUS_PROJECT_READ_RELATION_SOURCES.ticket_consensus;
+  const result = consensusResult();
+  const projection = admitConsensusPublicContract({
+    kind: "ticket_consensus_projection",
+    projectionRef: "projection://ticket/T-281/consensus",
+    projectionDigest: D,
+    ticketRef: result.subjectRef,
+    ticketDigest: result.subjectDigest,
+    result
+  }, "ticket_consensus_projection");
+  const request = Object.freeze({
+    ...projectReadRequest(
+      "ticket_consensus",
+      "ConsensusResult",
+      result.resultRef,
+      {
+        ticket: refDigest(result.subjectRef),
+        outputAuthority: refDigest("output-authority://consensus/one"),
+        replayBasis: refDigest(result.replayRef)
+      }
+    ),
+    source: Object.freeze({
+      kind: "ConsensusResult",
+      sourceRef: result.resultRef,
+      sourceDigest: stableSha256Digest(result)
+    })
+  });
+  assert.deepEqual(relation.relation({
+    definitionKey: relation.definitionKey,
+    admittedRequest: request,
+    candidateProjection: projection
+  }), { kind: "projection_related" });
+
+  assert.deepEqual(relation.relation({
+    definitionKey: relation.definitionKey,
+    admittedRequest: {
+      ...request,
+      source: {
+        ...request.source,
+        sourceRef: "result://consensus/other",
+        sourceDigest: D
+      },
+      selector: {
+        ...request.selector,
+        ticket: Object.freeze({ ref: "ticket://T-OTHER", digest: D2 }),
+        replayBasis: refDigest("replay://consensus/other")
+      }
+    },
+    candidateProjection: projection
+  }), {
+    kind: "projection_relation_mismatch",
+    issuePaths: [
+      "candidateProjection.result.resultRef",
+      "candidateProjection.result",
+      "candidateProjection.ticketRef",
+      "candidateProjection.ticketDigest",
+      "candidateProjection.result.subjectRef",
+      "candidateProjection.result.subjectDigest",
+      "candidateProjection.result.replayRef"
+    ]
+  });
+
+  assert.deepEqual(relation.relation({
+    definitionKey: relation.definitionKey,
+    admittedRequest: {
+      ...request,
+      selector: {
+        ...request.selector,
+        outputAuthority: refDigest("output-authority://consensus/other"),
+        replayBasis: {
+          ...request.selector.replayBasis,
+          digest: D2
+        }
+      }
+    },
+    candidateProjection: projection
+  }), { kind: "projection_related" });
+});
+
+test("T-281 special relation sources are immutable owner-local coordinates", () => {
+  const sources = [
+    ...Object.values(OBSERVER_PROJECT_READ_RELATION_SOURCES),
+    ...Object.values(TUNER_PROJECT_READ_RELATION_SOURCES),
+    ...Object.values(CONSENSUS_PROJECT_READ_RELATION_SOURCES)
+  ];
+  assert.equal(sources.length, 4);
+  for (const source of sources) {
+    assert.equal(Object.isFrozen(source), true);
+    assert.equal(source.kind, "owner_projection_relation_source");
+    assert.equal(source.sourceLocator.sourceRoot, "semantic_build");
+    assert.equal(source.sourceLocator.memberPath.at(-1), "relation");
+    assert.equal(typeof source.relation, "function");
+  }
 });

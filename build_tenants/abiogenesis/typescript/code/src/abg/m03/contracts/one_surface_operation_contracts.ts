@@ -17,8 +17,10 @@ import {
 import {
   ownerNativeDefinitionContractSource,
   ownerNativeOperationContractSource,
+  ownerProjectionRelationSource,
   type OwnerNativeAuthorityBasis,
-  type OwnerNativeOperationContractSlot
+  type OwnerNativeOperationContractSlot,
+  type OwnerProjectionRelationAction
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 import { CONSTRUCTION_ACTION_KIND_VALUES } from "./construction_action_kinds.js";
 
@@ -844,6 +846,11 @@ const LAWFUL_ACTION_RELATION_ACTION = Object.freeze(
     "lawful action rows must be unique and preserve target and eligibility truth"
   )
 );
+const LAWFUL_ACTIONS_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-030",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
 const lawfulActionProjectionSchema = v.pipe(
   lawfulActionProjectionCarrierSchema,
   LAWFUL_ACTION_RELATION_ACTION,
@@ -873,11 +880,7 @@ const lawfulActionsResult = ownerNativeDefinitionContractSource({
     caseKey: "run_lawful_actions"
   },
   slot: "result",
-  semanticOwnerBasis: {
-    ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-030",
-    digest:
-      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
-  },
+  semanticOwnerBasis: LAWFUL_ACTIONS_SEMANTIC_OWNER_BASIS,
   modulePath:
     "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
   exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES",
@@ -899,4 +902,72 @@ export const ONE_SURFACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   run_invoke: RUN_INVOKE_NATIVE_CONTRACT_SOURCES,
   run_continue: RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
   interaction_respond: INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES
+});
+
+type LawfulActionsDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "run_lawful_actions";
+}>;
+type LawfulActionsReadRequest = Readonly<{
+  source: Readonly<{
+    kind: "Run";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  selector: Readonly<{
+    nextActionProjection: Readonly<{
+      ref: string;
+      digest: string;
+    }>;
+  }>;
+}>;
+type LawfulActionsProjection = v.InferOutput<
+  typeof lawfulActionProjectionSchema
+>;
+
+const LAWFUL_ACTIONS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  LawfulActionsDefinitionKey,
+  LawfulActionsReadRequest,
+  LawfulActionsProjection
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !== candidateProjection.run.ref ||
+    admittedRequest.source.sourceDigest !== candidateProjection.run.digest
+  ) {
+    issuePaths.push("candidateProjection.run");
+  }
+  if (
+    admittedRequest.selector.nextActionProjection.ref !==
+      candidateProjection.nextActionProjection.ref ||
+    admittedRequest.selector.nextActionProjection.digest !==
+      candidateProjection.nextActionProjection.digest
+  ) {
+    issuePaths.push("candidateProjection.nextActionProjection");
+  }
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+};
+
+export const ONE_SURFACE_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  run_lawful_actions: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/run-lawful-actions@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "run_lawful_actions"
+    },
+    semanticOwnerBasis: LAWFUL_ACTIONS_SEMANTIC_OWNER_BASIS,
+    modulePath:
+      "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
+    exportName: "ONE_SURFACE_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["run_lawful_actions"],
+    relation: LAWFUL_ACTIONS_PROJECT_READ_RELATION
+  })
 });

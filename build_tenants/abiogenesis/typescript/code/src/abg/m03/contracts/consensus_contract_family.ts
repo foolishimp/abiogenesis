@@ -3,7 +3,13 @@
 
 import * as v from "valibot";
 
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import {
+  ownerProjectionRelationSource,
+  type OwnerProjectionRelationAction,
+  type OwnerProjectionRelationResult
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 export const REVIEW_RULING_KIND_VALUES = Object.freeze([
   "decision_row",
@@ -28,6 +34,48 @@ export const CONSENSUS_CLASSIFICATION_VALUES = Object.freeze([
 
 const CONSENSUS_NATIVE_CHECK_FAMILY_REF =
   "contract-family://abg/consensus@5";
+const CONSENSUS_PROJECTION_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004/-008A/-012",
+  digest:
+    "sha256:d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d"
+} as const);
+
+type ConsensusReadRefDigest = Readonly<{
+  ref: string;
+  digest: string;
+}>;
+type TicketConsensusReadRequest = Readonly<{
+  kind: "project_read_request";
+  caseKey: "ticket_consensus";
+  source: Readonly<{
+    kind: "ConsensusResult";
+    sourceRef: string;
+    sourceDigest: string;
+  }>;
+  projectionBasis: ConsensusReadRefDigest;
+  selector: Readonly<{
+    ticket: ConsensusReadRefDigest;
+    outputAuthority: ConsensusReadRefDigest;
+    replayBasis: ConsensusReadRefDigest;
+  }>;
+}>;
+type TicketConsensusReadDefinitionKey = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: "ticket_consensus";
+}>;
+
+function ticketConsensusRelationResult(
+  issuePaths: readonly string[]
+): OwnerProjectionRelationResult {
+  const [first, ...remaining] = issuePaths;
+  return first === undefined
+    ? { kind: "projection_related" }
+    : {
+        kind: "projection_relation_mismatch",
+        issuePaths: [first, ...remaining]
+      };
+}
 
 function hasUniqueTextValues(values: string[]): boolean {
   return new Set(values).size === values.length;
@@ -287,6 +335,59 @@ const ticketConsensusProjectionSchema = v.pipe(
   v.readonly()
 );
 
+type TicketConsensusProjectionValue = v.InferOutput<
+  typeof ticketConsensusProjectionSchema
+>;
+
+const TICKET_CONSENSUS_PROJECT_READ_RELATION: OwnerProjectionRelationAction<
+  TicketConsensusReadDefinitionKey,
+  TicketConsensusReadRequest,
+  TicketConsensusProjectionValue
+> = ({ admittedRequest, candidateProjection }) => {
+  const issuePaths: string[] = [];
+  if (
+    admittedRequest.source.sourceRef !==
+    candidateProjection.result.resultRef
+  ) {
+    issuePaths.push("candidateProjection.result.resultRef");
+  }
+  if (
+    admittedRequest.source.sourceDigest !==
+    stableSha256Digest(candidateProjection.result)
+  ) {
+    issuePaths.push("candidateProjection.result");
+  }
+  if (admittedRequest.selector.ticket.ref !== candidateProjection.ticketRef) {
+    issuePaths.push("candidateProjection.ticketRef");
+  }
+  if (
+    admittedRequest.selector.ticket.digest !== candidateProjection.ticketDigest
+  ) {
+    issuePaths.push("candidateProjection.ticketDigest");
+  }
+  if (
+    admittedRequest.selector.ticket.ref !==
+    candidateProjection.result.subjectRef
+  ) {
+    issuePaths.push("candidateProjection.result.subjectRef");
+  }
+  if (
+    admittedRequest.selector.ticket.digest !==
+    candidateProjection.result.subjectDigest
+  ) {
+    issuePaths.push("candidateProjection.result.subjectDigest");
+  }
+  if (
+    admittedRequest.selector.replayBasis.ref !==
+    candidateProjection.result.replayRef
+  ) {
+    issuePaths.push("candidateProjection.result.replayRef");
+  }
+  // outputAuthority and replayBasis.digest remain in the generic projection
+  // basis; TicketConsensusProjection carries no duplicate coordinates.
+  return ticketConsensusRelationResult(issuePaths);
+};
+
 /** @internal */
 export const CONSENSUS_NATIVE_CHECK_REGISTRY = Object.freeze({
   familyRef: CONSENSUS_NATIVE_CHECK_FAMILY_REF,
@@ -503,9 +604,13 @@ export const CONSENSUS_PUBLIC_CONTRACT_FAMILY = freezeNativeValue({
 } as const);
 
 function consensusPublicContractSource<
-  const Kind extends keyof typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY
->(kind: Kind) {
-  const definition = CONSENSUS_PUBLIC_CONTRACT_FAMILY[kind];
+  const Kind extends keyof typeof CONSENSUS_PUBLIC_CONTRACT_FAMILY,
+  const S extends v.GenericSchema
+>(kind: Kind, definition: {
+  readonly contractId: string;
+  readonly nativeType: string;
+  readonly schema: S;
+}) {
   return freezeNativeValue({
     contractKind: kind,
     contractId: definition.contractId,
@@ -528,24 +633,60 @@ function consensusPublicContractSource<
 }
 
 export const CONSENSUS_PUBLIC_CONTRACT_SOURCES = freezeNativeValue({
-  consensus_subject: consensusPublicContractSource("consensus_subject"),
-  consensus_panel: consensusPublicContractSource("consensus_panel"),
-  consensus_reviewer_profile: consensusPublicContractSource(
-    "consensus_reviewer_profile"
+  consensus_subject: consensusPublicContractSource(
+    "consensus_subject",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_subject
   ),
-  review_findings: consensusPublicContractSource("review_findings"),
-  review_rulings: consensusPublicContractSource("review_rulings"),
+  consensus_panel: consensusPublicContractSource(
+    "consensus_panel",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_panel
+  ),
+  consensus_reviewer_profile: consensusPublicContractSource(
+    "consensus_reviewer_profile",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_reviewer_profile
+  ),
+  review_findings: consensusPublicContractSource(
+    "review_findings",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.review_findings
+  ),
+  review_rulings: consensusPublicContractSource(
+    "review_rulings",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.review_rulings
+  ),
   consensus_round_policy: consensusPublicContractSource(
-    "consensus_round_policy"
+    "consensus_round_policy",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_round_policy
   ),
   consensus_round_outcome: consensusPublicContractSource(
-    "consensus_round_outcome"
+    "consensus_round_outcome",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_round_outcome
   ),
-  consensus_result: consensusPublicContractSource("consensus_result"),
+  consensus_result: consensusPublicContractSource(
+    "consensus_result",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_result
+  ),
   ticket_consensus_projection: consensusPublicContractSource(
-    "ticket_consensus_projection"
+    "ticket_consensus_projection",
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.ticket_consensus_projection
   )
 } as const);
+
+export const CONSENSUS_PROJECT_READ_RELATION_SOURCES = freezeNativeValue({
+  ticket_consensus: ownerProjectionRelationSource({
+    relationIdentity: "relation://abg/project-read/ticket-consensus@5",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "ticket_consensus"
+    },
+    semanticOwnerBasis: CONSENSUS_PROJECTION_OWNER_BASIS,
+    modulePath:
+      "code/src/abg/m03/contracts/consensus_contract_family.js",
+    exportName: "CONSENSUS_PROJECT_READ_RELATION_SOURCES",
+    memberPath: ["ticket_consensus"],
+    relation: TICKET_CONSENSUS_PROJECT_READ_RELATION
+  })
+});
 
 export const CONSENSUS_PUBLIC_CONTRACT_DEFINITIONS = Object.freeze(
   Object.entries(CONSENSUS_PUBLIC_CONTRACT_FAMILY).map(([kind, definition]) =>
