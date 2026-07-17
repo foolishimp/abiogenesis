@@ -4,6 +4,7 @@ import { validRange } from "semver";
 import * as v from "valibot";
 
 import {
+  absolutePosixPathSchema,
   nonEmptyTextSchema,
   refSchema,
   semanticVersionSchema,
@@ -13,7 +14,6 @@ import {
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
-  ownerNativeOperationContractGap,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
@@ -302,6 +302,28 @@ const resolveRefusal = ownerNativeOperationContractSource({
   ])
 });
 
+const installRequest = ownerNativeOperationContractSource({
+  ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
+  operationId: "abg.operation.product.install",
+  variant: "install",
+  slot: "request",
+  semanticOwnerBasis: INSTALL_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_install", "install", "request"],
+  schema: v.strictObject({
+    verifiedArtifactRef: refSchema,
+    verifiedArtifactDigest: sha256DigestSchema,
+    productContentDigest: sha256DigestSchema,
+    productDescriptorRef: refSchema,
+    productDescriptorDigest: sha256DigestSchema,
+    contributionManifestRef: refSchema,
+    contributionManifestDigest: sha256DigestSchema,
+    resolvedLockRef: refSchema,
+    resolvedLockDigest: sha256DigestSchema,
+    targetRoot: absolutePosixPathSchema,
+    installPolicy: v.literal("immutable_idempotent")
+  })
+});
+
 const installResult = ownerNativeOperationContractSource({
   ...PRODUCT_INTAKE_SOURCE_PRIMITIVES,
   operationId: "abg.operation.product.install",
@@ -343,28 +365,6 @@ const installRefusal = ownerNativeOperationContractSource({
   ])
 });
 
-export const PRODUCT_INSTALL_REQUEST_GAP = ownerNativeOperationContractGap({
-  kind: "semantic_not_realized",
-  gapCode: "p1_contract_product_install_policy_not_realized",
-  coordinate: {
-    definitionKey: {
-      operationId: "abg.operation.product.install",
-      memberKind: "variant",
-      variant: "install"
-    },
-    slot: "request"
-  },
-  ownerAuthorityRef: INSTALL_SEMANTIC_OWNER_BASIS.ref,
-  ownerAuthorityDigest: INSTALL_SEMANTIC_OWNER_BASIS.digest,
-  ownerTicket: null,
-  ownerDesignRef:
-    "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
-  evidenceRefs: [
-    "code/src/app/m04/product_intake/install.ts",
-    "specification/requirements/product/REQ-P-INSTALL.md"
-  ]
-});
-
 export const PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   product_verify: {
     verify: {
@@ -382,7 +382,7 @@ export const PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   },
   product_install: {
     install: {
-      request: PRODUCT_INSTALL_REQUEST_GAP,
+      request: installRequest,
       result: installResult,
       refusal: installRefusal
     }

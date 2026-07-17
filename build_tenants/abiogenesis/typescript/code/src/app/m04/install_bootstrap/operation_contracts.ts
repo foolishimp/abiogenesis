@@ -3,13 +3,15 @@
 import * as v from "valibot";
 
 import {
+  canonicalIJsonSchema,
   nonEmptyTextSchema,
   refSchema,
+  sha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
-  ownerNativeOperationContractGap,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
@@ -31,8 +33,6 @@ const CONFIGURATION_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
-const OWNER_DESIGN_REF =
-  "build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_DERIVATION.md";
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: INSTALL_BOOTSTRAP_OWNER,
   modulePath: MODULE_PATH,
@@ -44,46 +44,77 @@ const refListSchema = v.pipe(
   v.readonly()
 );
 
-const contextRequestGap = ownerNativeOperationContractGap({
-  kind: "semantic_not_realized",
-  gapCode: "p1_contract_materialize_context_request_not_realized",
-  coordinate: {
-    definitionKey: {
-      operationId: "abg.operation.product.materialize",
-      memberKind: "variant",
-      variant: "context_bootstrap"
-    },
-    slot: "request"
-  },
-  ownerAuthorityRef: CONTEXT_SEMANTIC_OWNER_BASIS.ref,
-  ownerAuthorityDigest: CONTEXT_SEMANTIC_OWNER_BASIS.digest,
-  ownerTicket: null,
-  ownerDesignRef: OWNER_DESIGN_REF,
-  evidenceRefs: [
-    "code/src/app/m04/install_bootstrap/typescript_installer.ts",
-    "code/src/app/m04/install_bootstrap/carriers.ts"
-  ]
+const declaredInputSchema = v.strictObject({
+  contractRef: refSchema,
+  contractDigest: sha256DigestSchema,
+  value: canonicalIJsonSchema
 });
 
-const contextResultGap = ownerNativeOperationContractGap({
-  kind: "semantic_not_realized",
-  gapCode: "p1_contract_materialize_context_result_not_realized",
-  coordinate: {
-    definitionKey: {
-      operationId: "abg.operation.product.materialize",
-      memberKind: "variant",
-      variant: "context_bootstrap"
-    },
-    slot: "result"
-  },
-  ownerAuthorityRef: CONTEXT_SEMANTIC_OWNER_BASIS.ref,
-  ownerAuthorityDigest: CONTEXT_SEMANTIC_OWNER_BASIS.digest,
-  ownerTicket: null,
-  ownerDesignRef: OWNER_DESIGN_REF,
-  evidenceRefs: [
-    "code/src/app/m04/install_bootstrap/typescript_installer.ts",
-    "code/src/app/m04/install_bootstrap/carriers.ts"
+const contextManifestRowSchema = v.strictObject({
+  surfaceRef: refSchema,
+  surfaceDigest: sha256DigestSchema,
+  disposition: v.picklist(["created", "refreshed", "preserved", "refused"]),
+  evidenceRefs: refListSchema
+});
+
+const UNIQUE_CONTEXT_SURFACE_ACTION = Object.freeze(v.check(
+  (rows: v.InferOutput<typeof contextManifestRowSchema>[]) =>
+    new Set(rows.map((row) => row.surfaceRef)).size === rows.length,
+  "expected one context materialization row per surface"
+));
+
+export const INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/operation/install-bootstrap@5",
+  checks: [
+    {
+      checkId: "unique-context-surface",
+      action: UNIQUE_CONTEXT_SURFACE_ACTION,
+      relationRef: "relation://abg/install-bootstrap/unique-context-surface"
+    }
   ]
+} satisfies NativeNamedCheckRegistry);
+
+const contextManifestRowsSchema = v.pipe(
+  v.array(contextManifestRowSchema),
+  v.minLength(1, "expected at least one context materialization row"),
+  UNIQUE_CONTEXT_SURFACE_ACTION,
+  v.readonly()
+);
+
+const contextRequest = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.product.materialize",
+  variant: "context_bootstrap",
+  slot: "request",
+  semanticOwnerBasis: CONTEXT_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_materialize", "context_bootstrap", "request"],
+  schema: v.strictObject({
+    targetWorkspaceRef: refSchema,
+    targetWorkspaceDigest: sha256DigestSchema,
+    selectedBindingRef: refSchema,
+    selectedBindingDigest: sha256DigestSchema,
+    declaredContextInputs: declaredInputSchema
+  })
+});
+
+const contextResult = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.product.materialize",
+  variant: "context_bootstrap",
+  slot: "result",
+  semanticOwnerBasis: CONTEXT_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_materialize", "context_bootstrap", "result"],
+  schema: v.strictObject({
+    affectedWorkspaceRef: refSchema,
+    affectedWorkspaceDigest: sha256DigestSchema,
+    bootstrapAssetRef: refSchema,
+    bootstrapAssetDigest: sha256DigestSchema,
+    materializationManifestRef: refSchema,
+    materializationManifestDigest: sha256DigestSchema,
+    rows: contextManifestRowsSchema,
+    residualRefs: refListSchema,
+    provenanceRefs: refListSchema
+  })
 });
 
 const contextRefusal = ownerNativeOperationContractSource({
@@ -106,46 +137,42 @@ const contextRefusal = ownerNativeOperationContractSource({
   })
 });
 
-const configurationRequestGap = ownerNativeOperationContractGap({
-  kind: "semantic_not_realized",
-  gapCode: "p1_contract_materialize_configuration_request_not_realized",
-  coordinate: {
-    definitionKey: {
-      operationId: "abg.operation.product.materialize",
-      memberKind: "variant",
-      variant: "configuration"
-    },
-    slot: "request"
-  },
-  ownerAuthorityRef: CONFIGURATION_SEMANTIC_OWNER_BASIS.ref,
-  ownerAuthorityDigest: CONFIGURATION_SEMANTIC_OWNER_BASIS.digest,
-  ownerTicket: null,
-  ownerDesignRef: OWNER_DESIGN_REF,
-  evidenceRefs: [
-    "code/src/app/m04/install_bootstrap/typescript_installer.ts",
-    "code/src/app/m04/install_bootstrap/carriers.ts"
-  ]
+const configurationRequest = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.product.materialize",
+  variant: "configuration",
+  slot: "request",
+  semanticOwnerBasis: CONFIGURATION_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_materialize", "configuration", "request"],
+  schema: v.strictObject({
+    configurationContractRef: refSchema,
+    configurationContractDigest: sha256DigestSchema,
+    selectedBindingRef: refSchema,
+    selectedBindingDigest: sha256DigestSchema,
+    declaredInputs: declaredInputSchema
+  })
 });
 
-const configurationResultGap = ownerNativeOperationContractGap({
-  kind: "semantic_not_realized",
-  gapCode: "p1_contract_materialize_configuration_result_not_realized",
-  coordinate: {
-    definitionKey: {
-      operationId: "abg.operation.product.materialize",
-      memberKind: "variant",
-      variant: "configuration"
-    },
-    slot: "result"
-  },
-  ownerAuthorityRef: CONFIGURATION_SEMANTIC_OWNER_BASIS.ref,
-  ownerAuthorityDigest: CONFIGURATION_SEMANTIC_OWNER_BASIS.digest,
-  ownerTicket: null,
-  ownerDesignRef: OWNER_DESIGN_REF,
-  evidenceRefs: [
-    "code/src/app/m04/install_bootstrap/typescript_installer.ts",
-    "code/src/app/m04/install_bootstrap/carriers.ts"
-  ]
+const configurationResult = ownerNativeOperationContractSource({
+  ...SOURCE_PRIMITIVES,
+  operationId: "abg.operation.product.materialize",
+  variant: "configuration",
+  slot: "result",
+  semanticOwnerBasis: CONFIGURATION_SEMANTIC_OWNER_BASIS,
+  memberPath: ["product_materialize", "configuration", "result"],
+  schema: v.strictObject({
+    affectedWorkspaceRef: refSchema,
+    affectedWorkspaceDigest: sha256DigestSchema,
+    configurationSubjectRef: refSchema,
+    configurationSubjectDigest: sha256DigestSchema,
+    configurationContentRef: refSchema,
+    configurationContentDigest: sha256DigestSchema,
+    materializationManifestRef: refSchema,
+    materializationManifestDigest: sha256DigestSchema,
+    validationDisposition: v.literal("validated"),
+    residualRefs: refListSchema,
+    provenanceRefs: refListSchema
+  })
 });
 
 const configurationRefusal = ownerNativeOperationContractSource({
@@ -171,13 +198,13 @@ const configurationRefusal = ownerNativeOperationContractSource({
 export const INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
   product_materialize: {
     context_bootstrap: {
-      request: contextRequestGap,
-      result: contextResultGap,
+      request: contextRequest,
+      result: contextResult,
       refusal: contextRefusal
     },
     configuration: {
-      request: configurationRequestGap,
-      result: configurationResultGap,
+      request: configurationRequest,
+      result: configurationResult,
       refusal: configurationRefusal
     }
   }

@@ -24,7 +24,7 @@ const OWNER_AUTHORITY_BY_OPERATION = Object.freeze({
       module: "abg.m03",
       family: "run_invoke"
     }),
-    lawBasis: Object.freeze({
+    semanticOwnerBasis: Object.freeze({
       ref: "design://abg/m03/public-catalog-invocation-authority",
       digest:
         "sha256:71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430"
@@ -36,7 +36,7 @@ const OWNER_AUTHORITY_BY_OPERATION = Object.freeze({
       module: "abg.m03",
       family: "fh_runtime_continuation"
     }),
-    lawBasis: Object.freeze({
+    semanticOwnerBasis: Object.freeze({
       ref: "design://abg/m03/fh-runtime-continuation",
       digest:
         "sha256:1b879535201080f5ed7da4bc781bd447fa46c72ad5f500c71e73e0b0ed62b0b2"
@@ -48,7 +48,7 @@ const OWNER_AUTHORITY_BY_OPERATION = Object.freeze({
       module: "abg.m03",
       family: "fh_runtime_continuation"
     }),
-    lawBasis: Object.freeze({
+    semanticOwnerBasis: Object.freeze({
       ref: "design://abg/m03/fh-runtime-continuation",
       digest:
         "sha256:1b879535201080f5ed7da4bc781bd447fa46c72ad5f500c71e73e0b0ed62b0b2"
@@ -361,18 +361,20 @@ test("T-270/T-272 own one strict 36-source contract family", async () => {
     const suffix = `${subject.operationId.slice("abg.operation.".length)}.${subject.variant}.${subject.slot}`;
     assert.equal(source.identity.contractId, `abg.contract.operation.${suffix}`);
     assert.equal(source.identity.schemaId, `abg.schema.operation.${suffix}`);
+    assert.equal(source.kind, "owner_native_operation_contract_source");
     assert.equal(source.authority.kind, "owner_native_operation_contract_authority");
     assert.equal(source.authority.carrierRevision, "5.0.0");
+    assert.equal(Object.hasOwn(source.authority, "lawBasis"), false);
     assert.deepEqual(
       {
         owner: source.authority.owner,
-        lawBasis: source.authority.lawBasis
+        semanticOwnerBasis: source.authority.semanticOwnerBasis
       },
       OWNER_AUTHORITY_BY_OPERATION[subject.operationId]
     );
     assert.equal(Object.isFrozen(source.authority), true);
     assert.equal(Object.isFrozen(source.authority.owner), true);
-    assert.equal(Object.isFrozen(source.authority.lawBasis), true);
+    assert.equal(Object.isFrozen(source.authority.semanticOwnerBasis), true);
     assert.equal(Object.isFrozen(subject), true);
     assert.equal(Object.isFrozen(source.sourceLocator), true);
     assert.equal(Object.isFrozen(source.sourceLocator.memberPath), true);
@@ -675,6 +677,10 @@ test("T-270/T-272 neutral owner contracts remain unexported and non-executing", 
     assert.doesNotMatch(publicIndex, /ONE_SURFACE_NATIVE_CONTRACT_SOURCES/u);
   }
   assert.doesNotMatch(source, /app\/m04|defineNativeContract|PublicInvocation/u);
+  assert.doesNotMatch(
+    source,
+    /one_surface_native_contract_source|\blawBasis\b/u
+  );
   assert.doesNotMatch(
     source,
     /(?:function|const)\s+\w*Handler|invokeAdmitted|runEngine|eventSink/u

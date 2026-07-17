@@ -157,13 +157,21 @@ const witnessRefusalSchema = v.pipe(
 );
 
 function witnessContractSet<const Variant extends WitnessVariant>(
-  variant: Variant
+  variant: Variant,
+  memberKey: Variant extends "hygiene-stamp"
+    ? "hygiene_stamp"
+    : Variant extends "run-resumed"
+      ? "run_resumed"
+      : Variant extends "run-stopped"
+        ? "run_stopped"
+        : Variant
 ) {
   return m03OwnerContractSet({
     operationId: "abg.operation.witness.admit",
     variant,
     family: "witnessed_act_admission",
     familyKey: "witness_admit",
+    memberKey,
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
     semanticOwnerBasis: WITNESS_SEMANTIC_OWNER_BASIS,
@@ -295,12 +303,12 @@ function tuningDecisionContractSet<const Variant extends "ratify" | "reject">(
 export const RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES =
   freezeNativeValue({
     witness_admit: {
-      reprice: witnessContractSet("reprice"),
-      attest: witnessContractSet("attest"),
-      "hygiene-stamp": witnessContractSet("hygiene-stamp"),
-      intake: witnessContractSet("intake"),
-      "run-resumed": witnessContractSet("run-resumed"),
-      "run-stopped": witnessContractSet("run-stopped")
+      reprice: witnessContractSet("reprice", "reprice"),
+      attest: witnessContractSet("attest", "attest"),
+      hygiene_stamp: witnessContractSet("hygiene-stamp", "hygiene_stamp"),
+      intake: witnessContractSet("intake", "intake"),
+      run_resumed: witnessContractSet("run-resumed", "run_resumed"),
+      run_stopped: witnessContractSet("run-stopped", "run_stopped")
     },
     tuning_transition: {
       propose: m03OwnerContractSet({

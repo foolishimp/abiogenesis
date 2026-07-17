@@ -12,6 +12,11 @@ import {
   sha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
+import {
+  ownerNativeOperationContractSource,
+  type OwnerNativeAuthorityBasis,
+  type OwnerNativeOperationContractSlot
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type NativeSchema = v.GenericSchema;
 
@@ -21,10 +26,7 @@ export type OneSurfaceOwnerOperationId =
   | "abg.operation.interaction.respond";
 
 export type OneSurfaceOwnerContractSlot =
-  | "request"
-  | "result"
-  | "refusal"
-  | "nonterminal";
+  OwnerNativeOperationContractSlot;
 
 export type OneSurfaceOwnerContractFamilyKey =
   | "run_invoke"
@@ -35,49 +37,13 @@ type OneSurfaceSemanticOwnerFamily =
   | "run_invoke"
   | "fh_runtime_continuation";
 
-export interface OneSurfaceOwnerContractAuthorityIdentity {
-  readonly kind: "owner_native_operation_contract_authority";
+interface OneSurfaceOwnerAuthority {
   readonly owner: {
     readonly product: "abiogenesis";
     readonly module: "abg.m03";
     readonly family: OneSurfaceSemanticOwnerFamily;
   };
-  readonly subject: {
-    readonly operationId: OneSurfaceOwnerOperationId;
-    readonly variant: string;
-    readonly slot: OneSurfaceOwnerContractSlot;
-  };
-  readonly carrierRevision: "5.0.0";
-  readonly lawBasis: {
-    readonly ref: string;
-    readonly digest: `sha256:${string}`;
-  };
-}
-
-export interface OneSurfaceNeutralContractIdentity {
-  readonly contractId: string;
-  readonly contractVersion: "5.0.0";
-  readonly schemaId: string;
-  readonly schemaVersion: "5.0.0";
-}
-
-export interface OneSurfaceOwnerSourceLocator {
-  readonly kind: "private_source_module";
-  readonly sourceRoot: "semantic_build";
-  readonly modulePath:
-    "code/src/abg/m03/contracts/one_surface_operation_contracts.js";
-  readonly exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES";
-  readonly memberPath: readonly [
-    OneSurfaceOwnerContractFamilyKey,
-    string,
-    OneSurfaceOwnerContractSlot,
-    "schema"
-  ];
-}
-
-interface OneSurfaceOwnerAuthority {
-  readonly owner: OneSurfaceOwnerContractAuthorityIdentity["owner"];
-  readonly lawBasis: OneSurfaceOwnerContractAuthorityIdentity["lawBasis"];
+  readonly semanticOwnerBasis: OwnerNativeAuthorityBasis;
 }
 
 function familyKeyForOperation(
@@ -93,23 +59,13 @@ function familyKeyForOperation(
   }
 }
 
-export interface OneSurfaceNativeContractSource<
-  S extends NativeSchema = NativeSchema
-> {
-  readonly kind: "one_surface_native_contract_source";
-  readonly authority: OneSurfaceOwnerContractAuthorityIdentity;
-  readonly identity: OneSurfaceNeutralContractIdentity;
-  readonly sourceLocator: OneSurfaceOwnerSourceLocator;
-  readonly schema: S;
-}
-
 const T270_AUTHORITY = Object.freeze({
   owner: Object.freeze({
     product: "abiogenesis",
     module: "abg.m03",
     family: "run_invoke"
   }),
-  lawBasis: Object.freeze({
+  semanticOwnerBasis: Object.freeze({
     ref: "design://abg/m03/public-catalog-invocation-authority",
     digest:
       "sha256:71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430"
@@ -122,7 +78,7 @@ const T272_AUTHORITY = Object.freeze({
     module: "abg.m03",
     family: "fh_runtime_continuation"
   }),
-  lawBasis: Object.freeze({
+  semanticOwnerBasis: Object.freeze({
     ref: "design://abg/m03/fh-runtime-continuation",
     digest:
       "sha256:1b879535201080f5ed7da4bc781bd447fa46c72ad5f500c71e73e0b0ed62b0b2"
@@ -142,41 +98,21 @@ function nativeSource<
   readonly slot: Slot;
   readonly owner: typeof T270_AUTHORITY | typeof T272_AUTHORITY;
   readonly schema: S;
-}): OneSurfaceNativeContractSource<S> {
-  const operationSuffix = input.operationId.slice("abg.operation.".length);
-  const suffix = `${operationSuffix}.${input.variant}.${input.slot}`;
-  return Object.freeze({
-    kind: "one_surface_native_contract_source",
-    authority: Object.freeze({
-      kind: "owner_native_operation_contract_authority",
-      owner: input.owner.owner,
-      subject: Object.freeze({
-        operationId: input.operationId,
-        variant: input.variant,
-        slot: input.slot
-      }),
-      carrierRevision: "5.0.0",
-      lawBasis: input.owner.lawBasis
-    }),
-    identity: Object.freeze({
-      contractId: `abg.contract.operation.${suffix}`,
-      contractVersion: "5.0.0",
-      schemaId: `abg.schema.operation.${suffix}`,
-      schemaVersion: "5.0.0"
-    }),
-    sourceLocator: Object.freeze({
-      kind: "private_source_module",
-      sourceRoot: "semantic_build",
-      modulePath:
-        "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
-      exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES",
-      memberPath: Object.freeze([
-        familyKeyForOperation(input.operationId),
-        input.variant,
-        input.slot,
-        "schema"
-      ] as const)
-    }),
+}) {
+  return ownerNativeOperationContractSource({
+    owner: input.owner.owner,
+    operationId: input.operationId,
+    variant: input.variant,
+    slot: input.slot,
+    semanticOwnerBasis: input.owner.semanticOwnerBasis,
+    modulePath:
+      "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
+    exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES",
+    memberPath: [
+      familyKeyForOperation(input.operationId),
+      input.variant,
+      input.slot
+    ],
     schema: input.schema
   });
 }

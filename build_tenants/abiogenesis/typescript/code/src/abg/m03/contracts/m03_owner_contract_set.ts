@@ -10,6 +10,7 @@ function source<
   const Variant extends string,
   const Family extends string,
   const FamilyKey extends string,
+  const MemberKey extends string,
   const Slot extends M03OwnerContractSlot,
   const ModulePath extends `code/src/abg/m03/contracts/${string}.js`,
   const ExportName extends string,
@@ -21,6 +22,7 @@ function source<
   readonly variant: Variant;
   readonly family: Family;
   readonly familyKey: FamilyKey;
+  readonly memberKey: MemberKey;
   readonly slot: Slot;
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
@@ -42,7 +44,7 @@ function source<
     semanticOwnerBasis: input.semanticOwnerBasis,
     modulePath: input.modulePath,
     exportName: input.exportName,
-    memberPath: [input.familyKey, input.variant, input.slot] as const,
+    memberPath: [input.familyKey, input.memberKey, input.slot] as const,
     schema: input.schema
   });
 }
@@ -58,12 +60,14 @@ export function m03OwnerContractSet<
   const SemanticOwnerDigest extends `sha256:${string}`,
   const Request extends v.GenericSchema,
   const Result extends v.GenericSchema,
-  const Refusal extends v.GenericSchema
+  const Refusal extends v.GenericSchema,
+  const MemberKey extends string = Variant
 >(input: {
   readonly operationId: OperationId;
   readonly variant: Variant;
   readonly family: Family;
   readonly familyKey: FamilyKey;
+  readonly memberKey?: MemberKey;
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
   readonly semanticOwnerBasis: {
@@ -79,6 +83,7 @@ export function m03OwnerContractSet<
     variant: input.variant,
     family: input.family,
     familyKey: input.familyKey,
+    memberKey: input.memberKey ?? input.variant,
     modulePath: input.modulePath,
     exportName: input.exportName,
     semanticOwnerBasis: input.semanticOwnerBasis

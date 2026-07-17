@@ -6,6 +6,7 @@ import test from "node:test";
 import * as v from "valibot";
 
 import {
+  INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY,
   INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/install_bootstrap/operation_contracts.js";
 import {
@@ -38,21 +39,18 @@ const resolvedSources = [
   ...Object.values(WORKSPACE_NATIVE_CONTRACT_SOURCES.workspace_open.open),
   ...Object.values(PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_verify.verify),
   ...Object.values(PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve),
-  PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install.result,
-  PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install.refusal,
+  ...Object.values(PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install),
   ...Object.values(TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES.workspace_bind.bind),
   ...Object.values(RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES.result_assess.assess),
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.context_bootstrap.refusal,
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.configuration.refusal
+  ...Object.values(
+    INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.context_bootstrap
+  ),
+  ...Object.values(
+    INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.configuration
+  )
 ];
 
-const gaps = [
-  PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install.request,
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.context_bootstrap.request,
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.context_bootstrap.result,
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.configuration.request,
-  INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize.configuration.result
-];
+const gaps = [];
 
 const EXPECTED_SEMANTIC_OWNER_REFS = Object.freeze({
   "abg.operation.workspace.create":
@@ -99,8 +97,8 @@ function assertDeepFrozen(value, visited = new WeakSet()) {
 }
 
 test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
-  assert.equal(resolvedSources.length, 26);
-  assert.equal(gaps.length, 5);
+  assert.equal(resolvedSources.length, 31);
+  assert.equal(gaps.length, 0);
 
   const definitionKeys = new Set(
     [...resolvedSources, ...gaps].map((row) => {
@@ -178,10 +176,12 @@ test("T-281 Slice 1 resolved sources are canonically projectable", async () => {
       schemaRef: source.identity.schemaId,
       schemaVersion: source.identity.schemaVersion,
       ...(source.authority.owner.family === "product_intake"
-        ? { namedCheckRegistry: PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY }
-        : source.authority.owner.family === "workspace"
-          ? { namedCheckRegistry: WORKSPACE_NATIVE_CHECK_REGISTRY }
-          : {})
+      ? { namedCheckRegistry: PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY }
+      : source.authority.owner.family === "workspace"
+        ? { namedCheckRegistry: WORKSPACE_NATIVE_CHECK_REGISTRY }
+        : source.authority.owner.family === "install_bootstrap"
+          ? { namedCheckRegistry: INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY }
+        : {})
     });
     assert.deepEqual(projection.witness.sourceLocator, source.sourceLocator);
     assert.match(projection.witness.projectionDigest, /^sha256:[0-9a-f]{64}$/u);
@@ -473,10 +473,35 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
   }));
 
   const install = PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_install.install;
+  const installRequest = {
+    verifiedArtifactRef: "artifact:verified",
+    verifiedArtifactDigest: D,
+    productContentDigest: D,
+    productDescriptorRef: "descriptor:one",
+    productDescriptorDigest: D,
+    contributionManifestRef: "contribution:one",
+    contributionManifestDigest: D,
+    resolvedLockRef: "lock:one",
+    resolvedLockDigest: D,
+    targetRoot: "/tmp/abg-products/abiogenesis/5.0.0",
+    installPolicy: "immutable_idempotent"
+  };
   assert.equal(
-    install.request.kind,
-    "semantic_not_realized"
+    v.parse(install.request.schema, installRequest).installPolicy,
+    "immutable_idempotent"
   );
+  assert.throws(() => v.parse(install.request.schema, {
+    ...installRequest,
+    targetRoot: "relative/products"
+  }));
+  assert.throws(() => v.parse(install.request.schema, {
+    ...installRequest,
+    installPolicy: "overwrite"
+  }));
+  assert.throws(() => v.parse(install.request.schema, {
+    ...installRequest,
+    workspaceBindingRef: "binding:not-install-authority"
+  }));
   const installResult = {
     installedProductRef: "installed:one",
     installedProductDigest: D,
@@ -563,15 +588,149 @@ test("T-281 Slice 1 binding and assessment enforce closed typed domains", () => 
   }).disposition, "retry");
 });
 
-test("T-281 Slice 1 materialization preserves exact unresolved slots", () => {
+test("T-281 Slice 1 materialization contracts are strict and variant exact", () => {
   const materialize =
     INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES.product_materialize;
   for (const variant of ["context_bootstrap", "configuration"]) {
-    assert.equal(materialize[variant].request.kind, "semantic_not_realized");
-    assert.equal(materialize[variant].result.kind, "semantic_not_realized");
+    assert.equal(materialize[variant].request.kind,
+      "owner_native_operation_contract_source");
+    assert.equal(materialize[variant].result.kind,
+      "owner_native_operation_contract_source");
     assert.equal(materialize[variant].refusal.kind,
       "owner_native_operation_contract_source");
   }
+
+  const contextRequest = {
+    targetWorkspaceRef: "workspace:one",
+    targetWorkspaceDigest: D,
+    selectedBindingRef: "binding:one",
+    selectedBindingDigest: D,
+    declaredContextInputs: {
+      contractRef: "contract:context-inputs",
+      contractDigest: D,
+      value: {
+        initializeAiWorkspace: true,
+        instructionSurfaces: ["AGENTS.md", "CLAUDE.md"]
+      }
+    }
+  };
+  assert.equal(v.parse(
+    materialize.context_bootstrap.request.schema,
+    contextRequest
+  ).selectedBindingRef, "binding:one");
+  assert.throws(() => v.parse(
+    materialize.context_bootstrap.request.schema,
+    {
+      ...contextRequest,
+      declaredContextInputs: {
+        ...contextRequest.declaredContextInputs,
+        value: 1n
+      }
+    }
+  ));
+  assert.throws(() => v.parse(
+    materialize.context_bootstrap.request.schema,
+    { ...contextRequest, packageSourceRoot: "/tmp/mutable-source" }
+  ));
+
+  const contextResult = {
+    affectedWorkspaceRef: "workspace:one",
+    affectedWorkspaceDigest: D,
+    bootstrapAssetRef: "asset:context-bootstrap",
+    bootstrapAssetDigest: D,
+    materializationManifestRef: "manifest:context-bootstrap",
+    materializationManifestDigest: D,
+    rows: [{
+      surfaceRef: "surface:agents",
+      surfaceDigest: D,
+      disposition: "preserved",
+      evidenceRefs: ["evidence:agents"]
+    }],
+    residualRefs: [],
+    provenanceRefs: ["evidence:context-bootstrap"]
+  };
+  assert.equal(v.parse(
+    materialize.context_bootstrap.result.schema,
+    contextResult
+  ).rows[0].disposition, "preserved");
+  assert.throws(() => v.parse(
+    materialize.context_bootstrap.result.schema,
+    { ...contextResult, rows: [] }
+  ));
+  assert.throws(() => v.parse(
+    materialize.context_bootstrap.result.schema,
+    {
+      ...contextResult,
+      rows: [{ ...contextResult.rows[0], disposition: "overwritten" }]
+    }
+  ));
+  assert.throws(() => v.parse(
+    materialize.context_bootstrap.result.schema,
+    {
+      ...contextResult,
+      rows: [
+        contextResult.rows[0],
+        { ...contextResult.rows[0], disposition: "refused" }
+      ]
+    }
+  ));
+
+  const configurationRequest = {
+    configurationContractRef: "contract:configuration",
+    configurationContractDigest: D,
+    selectedBindingRef: "binding:one",
+    selectedBindingDigest: D,
+    declaredInputs: {
+      contractRef: "contract:configuration-inputs",
+      contractDigest: D,
+      value: { profile: "local" }
+    }
+  };
+  assert.equal(v.parse(
+    materialize.configuration.request.schema,
+    configurationRequest
+  ).configurationContractRef, "contract:configuration");
+  assert.throws(() => v.parse(
+    materialize.configuration.request.schema,
+    { ...configurationRequest, mutableSourceDefault: true }
+  ));
+  assert.throws(() => v.parse(
+    materialize.configuration.request.schema,
+    {
+      ...configurationRequest,
+      declaredInputs: {
+        ...configurationRequest.declaredInputs,
+        contractDigest: "sha256:bad"
+      }
+    }
+  ));
+
+  const configurationResult = {
+    affectedWorkspaceRef: "workspace:one",
+    affectedWorkspaceDigest: D,
+    configurationSubjectRef: "configuration:one",
+    configurationSubjectDigest: D,
+    configurationContentRef: "content:configuration-one",
+    configurationContentDigest: D,
+    materializationManifestRef: "manifest:configuration-one",
+    materializationManifestDigest: D,
+    validationDisposition: "validated",
+    residualRefs: [],
+    provenanceRefs: ["evidence:configuration"]
+  };
+  assert.equal(v.parse(
+    materialize.configuration.result.schema,
+    configurationResult
+  ).validationDisposition, "validated");
+  assert.throws(() => v.parse(
+    materialize.configuration.result.schema,
+    { ...configurationResult, validationDisposition: "unchecked" }
+  ));
+  assert.throws(() => v.parse(
+    materialize.configuration.result.schema,
+    { ...configurationResult, configurationContentDigest: "sha256:bad" }
+  ));
+
   assert.throws(() => v.parse(materialize.context_bootstrap.refusal.schema, {
     code: "mutable_default_forbidden",
     message: "wrong variant",

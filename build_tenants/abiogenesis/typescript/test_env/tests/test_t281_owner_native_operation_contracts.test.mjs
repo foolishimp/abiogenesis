@@ -19,7 +19,10 @@ import {
   QUALIFICATION_LAW_BASIS_SCHEMA,
   RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
-import { projectCanonicalNativeJsonSchema } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
+import {
+  projectCanonicalNativeJsonSchema,
+  resolveSemanticBuildNativeSchemaSource
+} from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 const DIGEST = `sha256:${"1".repeat(64)}`;
 const DIGEST_2 = `sha256:${"2".repeat(64)}`;
@@ -292,6 +295,34 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
         namedCheckRegistry
       })
     );
+  }
+});
+
+test("witness public variants resolve through identifier-safe private member paths", async () => {
+  const witnessSources =
+    RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES.witness_admit;
+  const repairedVariants = [
+    ["hygiene-stamp", "hygiene_stamp"],
+    ["run-resumed", "run_resumed"],
+    ["run-stopped", "run_stopped"]
+  ];
+
+  for (const [publicVariant, memberKey] of repairedVariants) {
+    assert.equal(Object.hasOwn(witnessSources, publicVariant), false);
+    assert.equal(Object.hasOwn(witnessSources, memberKey), true);
+    const contractSet = witnessSources[memberKey];
+    for (const [slot, source] of Object.entries(contractSet)) {
+      assert.equal(source.authority.subject.variant, publicVariant);
+      assert.deepEqual(source.sourceLocator.memberPath, [
+        "witness_admit",
+        memberKey,
+        slot,
+        "schema"
+      ]);
+      await assert.doesNotReject(() =>
+        resolveSemanticBuildNativeSchemaSource(source)
+      );
+    }
   }
 });
 
