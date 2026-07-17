@@ -16,6 +16,7 @@ import {
   admitGtlTargetCarrierDefaultsBundle,
   assertTargetCarrierAdmittedForClosure,
   constructAuthoritySnapshotAdmittedEvent,
+  constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
   derivePayloadLedgerProjection,
@@ -27,6 +28,9 @@ import {
   targetCarrierContractDeclarationForTarget,
   validateTargetCarrierCandidate
 } from "../../build/semantic/code/src/index.js";
+import {
+  selectExactPayloadAdmission
+} from "../../build/semantic/code/src/abg/m03/contracts/payload_ledger.js";
 import { loadAbgConfigSectionsFromFile } from "../../build/semantic/code/src/shared/abg_config/load.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
@@ -75,6 +79,63 @@ function basisParts() {
     basis,
     vector,
     runtimeProjection: deriveRuntimeAggregateProjection(basis, [])
+  };
+}
+
+function withAdmissionOrdinals(events) {
+  return Object.freeze(
+    events.map((event, index) =>
+      Object.freeze({ ...event, eventAdmissionOrdinal: index + 1 })
+    )
+  );
+}
+
+function targetCarrierSelectorFixture() {
+  const defaults = loadGtlTargetCarrierDefaultsBundle();
+  const { basis, runtimeProjection } = basisParts();
+  const emptyLedger = derivePayloadLedgerProjection({
+    basis,
+    runtimeProjection,
+    events: [],
+    vectorIndex: 0,
+    targetCarrierDefaults: defaults
+  });
+  const target = emptyLedger.targetCarrierContract;
+  const payloadRef = "payload://t133/exact-selector";
+  const observed = constructPayloadObservedEvent({
+    basis,
+    vectorIndex: 0,
+    payloadRef,
+    payloadClass: target.outputCarrierKind,
+    schemaRef: null,
+    contractRef: target.contractRef,
+    digest: "digest://t133/exact-selector",
+    producerRef: "producer://t133/exact-selector"
+  });
+  const validated = constructPayloadValidatedEvent({
+    basis,
+    vectorIndex: 0,
+    payloadRef,
+    schemaRef: null,
+    contractRef: target.contractRef,
+    contractDigest: target.configDigest,
+    digest: observed.digest,
+    validationRef: "validation://t133/exact-selector"
+  });
+  const ledgerFor = (events) => derivePayloadLedgerProjection({
+    basis,
+    runtimeProjection,
+    events,
+    vectorIndex: 0,
+    targetCarrierDefaults: defaults
+  });
+  return {
+    basis,
+    ledgerFor,
+    observed,
+    payloadRef,
+    target,
+    validated
   };
 }
 
@@ -389,6 +450,189 @@ test("T-133 target carrier candidate admission enforces the generic envelope con
   assert.equal(fixedMutation.rejectionClass, "fixed_protocol_field_mutation");
 });
 
+test("T-133 exact selector returns the ordinal-selected target payload lifecycle", () => {
+  const value = targetCarrierSelectorFixture();
+  const observed = Object.freeze({
+    ...value.observed,
+    eventAdmissionOrdinal: 10
+  });
+  const validated = Object.freeze({
+    ...value.validated,
+    eventAdmissionOrdinal: 30
+  });
+  const selection = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([validated, observed]),
+    payloadRef: value.payloadRef
+  });
+
+  assert.equal(selection.kind, "exact_payload_admission_selection");
+  assert.equal(selection.status, "admitted");
+  assert.equal(selection.targetCarrierContract.contractRef, value.target.contractRef);
+  assert.equal(selection.observed, observed);
+  assert.equal(selection.validated, validated);
+  assert.equal(selection.rejected, null);
+  assert.equal(selection.reason, null);
+});
+
+test("T-133 exact selector rejects missing and colliding lifecycle ordinals", () => {
+  const value = targetCarrierSelectorFixture();
+  const missingOrdinals = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([value.validated, value.observed]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(missingOrdinals.status, "invalid");
+  assert.match(missingOrdinals.reason, /admission ordinal/u);
+
+  const partialOrdinals = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      Object.freeze({ ...value.observed, eventAdmissionOrdinal: 1 }),
+      value.validated
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(partialOrdinals.status, "invalid");
+  assert.match(partialOrdinals.reason, /admission ordinal/u);
+
+  const collidingOrdinals = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      Object.freeze({ ...value.observed, eventAdmissionOrdinal: 7 }),
+      Object.freeze({ ...value.validated, eventAdmissionOrdinal: 7 })
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(collidingOrdinals.status, "invalid");
+  assert.match(collidingOrdinals.reason, /ordinal collision/u);
+});
+
+test("T-133 repeated observation cannot replace immutable payload identity", () => {
+  const value = targetCarrierSelectorFixture();
+  const firstObservation = Object.freeze({
+    ...value.observed,
+    eventAdmissionOrdinal: 1
+  });
+  const conflictingObservation = Object.freeze({
+    ...value.observed,
+    digest: "digest://t133/conflicting-observation",
+    eventAdmissionOrdinal: 2
+  });
+  const matchingLaterValidation = Object.freeze({
+    ...value.validated,
+    digest: conflictingObservation.digest,
+    eventAdmissionOrdinal: 3
+  });
+  const conflict = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      matchingLaterValidation,
+      conflictingObservation,
+      firstObservation
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(conflict.status, "invalid");
+  assert.match(conflict.reason, /immutable payload identity/u);
+  assert.equal(conflict.observed.digest, firstObservation.digest);
+
+  const validation = Object.freeze({
+    ...value.validated,
+    eventAdmissionOrdinal: 2
+  });
+  const duplicateObservation = Object.freeze({
+    ...value.observed,
+    eventAdmissionOrdinal: 3
+  });
+  const idempotentDuplicate = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      duplicateObservation,
+      validation,
+      firstObservation
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(idempotentDuplicate.status, "admitted");
+  assert.equal(idempotentDuplicate.observed, firstObservation);
+  assert.equal(idempotentDuplicate.validated, validation);
+
+  const changedProvenanceObservation = Object.freeze({
+    ...value.observed,
+    producerRef: "producer://t133/reobserved",
+    sourceEventRef: "event://t133/reobserved",
+    actorInvocationId: "actor-invocation://t133/reobserved",
+    authorityRef: "authority://t133/reobserved",
+    inputDigest: "sha256:t133-reobserved-input",
+    policyRefs: Object.freeze(["policy://t133/reobserved"]),
+    eventAdmissionOrdinal: 3
+  });
+  const reobserved = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      changedProvenanceObservation,
+      validation,
+      firstObservation
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(reobserved.status, "missing");
+  assert.equal(reobserved.observed, changedProvenanceObservation);
+  assert.equal(reobserved.validated, null);
+
+  const revalidation = Object.freeze({
+    ...value.validated,
+    validationRef: "validation://t133/reobserved",
+    eventAdmissionOrdinal: 4
+  });
+  const readmitted = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([
+      revalidation,
+      changedProvenanceObservation,
+      validation,
+      firstObservation
+    ]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(readmitted.status, "admitted");
+  assert.equal(readmitted.observed, changedProvenanceObservation);
+  assert.equal(readmitted.validated, revalidation);
+});
+
+test("T-133 exact standalone target rejection is a lawful selected result", () => {
+  const value = targetCarrierSelectorFixture();
+  const rejected = Object.freeze({
+    ...constructPayloadRejectedEvent({
+      basis: value.basis,
+      vectorIndex: 0,
+      payloadRef: value.payloadRef,
+      rejectionClass: "contract_invalid",
+      contractRef: value.target.contractRef,
+      contractDigest: value.target.configDigest,
+      digest: value.observed.digest,
+      issues: [{ issueKind: "contract_invalid", path: "payload" }],
+      reason: "exact target payload rejected before observation"
+    }),
+    eventAdmissionOrdinal: 11
+  });
+  const selection = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([rejected]),
+    payloadRef: value.payloadRef
+  });
+
+  assert.equal(selection.status, "rejected");
+  assert.equal(selection.observed, null);
+  assert.equal(selection.validated, null);
+  assert.equal(selection.rejected, rejected);
+  assert.equal(selection.reason, rejected.reason);
+
+  const conflictingRejection = Object.freeze({
+    ...rejected,
+    digest: "digest://t133/conflicting-standalone-rejection",
+    eventAdmissionOrdinal: 12
+  });
+  const conflict = selectExactPayloadAdmission({
+    ledger: value.ledgerFor([conflictingRejection, rejected]),
+    payloadRef: value.payloadRef
+  });
+  assert.equal(conflict.status, "invalid");
+  assert.match(conflict.reason, /immutable payload identity/u);
+});
+
 test("T-133 payload ledger closure depends on admitted target carrier contract", () => {
   const defaults = loadGtlTargetCarrierDefaultsBundle();
   const { basis, runtimeProjection } = basisParts();
@@ -413,7 +657,17 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
   const acceptedLedger = derivePayloadLedgerProjection({
     basis,
     runtimeProjection,
-    events: [
+    events: withAdmissionOrdinals([
+      constructPayloadObservedEvent({
+        basis,
+        vectorIndex: 0,
+        payloadRef,
+        payloadClass:
+          ledgerWithoutPayload.targetCarrierContract.outputCarrierKind,
+        contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+        digest: "digest://t133/target",
+        producerRef: "producer://t133/target"
+      }),
       constructPayloadValidatedEvent({
         basis,
         vectorIndex: 0,
@@ -424,7 +678,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
         validationRef: "validation://t133/target",
         evidenceRef: "evidence://t133/target"
       })
-    ],
+    ]),
     vectorIndex: 0,
     targetCarrierDefaults: defaults
   });
@@ -440,6 +694,19 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
     runtimeProjection,
     events: [
       Object.freeze({
+        ...constructPayloadObservedEvent({
+          basis,
+          vectorIndex: 0,
+          payloadRef: "payload://t133/old-target",
+          payloadClass:
+            ledgerWithoutPayload.targetCarrierContract.outputCarrierKind,
+          contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+          digest: "digest://t133/old-target",
+          producerRef: "producer://t133/old-target"
+        }),
+        eventAdmissionOrdinal: 1
+      }),
+      Object.freeze({
         ...constructPayloadRejectedEvent({
           basis,
           vectorIndex: 0,
@@ -451,7 +718,20 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
           issues: [{ issueKind: "contract_invalid", path: "payload" }],
           reason: "older attempt rejected"
         }),
-        eventAdmissionOrdinal: 1
+        eventAdmissionOrdinal: 2
+      }),
+      Object.freeze({
+        ...constructPayloadObservedEvent({
+          basis,
+          vectorIndex: 0,
+          payloadRef: "payload://t133/new-target",
+          payloadClass:
+            ledgerWithoutPayload.targetCarrierContract.outputCarrierKind,
+          contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+          digest: "digest://t133/new-target",
+          producerRef: "producer://t133/new-target"
+        }),
+        eventAdmissionOrdinal: 3
       }),
       Object.freeze({
         ...constructPayloadValidatedEvent({
@@ -464,7 +744,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
           validationRef: "validation://t133/new-target",
           evidenceRef: "evidence://t133/new-target"
         }),
-        eventAdmissionOrdinal: 2
+        eventAdmissionOrdinal: 4
       })
     ],
     vectorIndex: 0,
@@ -486,7 +766,17 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
   const wrongDigestLedger = derivePayloadLedgerProjection({
     basis,
     runtimeProjection,
-    events: [
+    events: withAdmissionOrdinals([
+      constructPayloadObservedEvent({
+        basis,
+        vectorIndex: 0,
+        payloadRef,
+        payloadClass:
+          ledgerWithoutPayload.targetCarrierContract.outputCarrierKind,
+        contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+        digest: "digest://t133/wrong-contract-digest",
+        producerRef: "producer://t133/wrong-contract-digest"
+      }),
       constructPayloadValidatedEvent({
         basis,
         vectorIndex: 0,
@@ -497,7 +787,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
         validationRef: "validation://t133/wrong-contract-digest",
         evidenceRef: "evidence://t133/wrong-contract-digest"
       })
-    ],
+    ]),
     vectorIndex: 0,
     targetCarrierDefaults: defaults
   });
@@ -510,7 +800,17 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
   const rejectedLedger = derivePayloadLedgerProjection({
     basis,
     runtimeProjection,
-    events: [
+    events: withAdmissionOrdinals([
+      constructPayloadObservedEvent({
+        basis,
+        vectorIndex: 0,
+        payloadRef,
+        payloadClass:
+          ledgerWithoutPayload.targetCarrierContract.outputCarrierKind,
+        contractRef: ledgerWithoutPayload.targetCarrierContract.contractRef,
+        digest: "digest://t133/rejected",
+        producerRef: "producer://t133/rejected"
+      }),
       constructPayloadRejectedEvent({
         basis,
         vectorIndex: 0,
@@ -522,7 +822,7 @@ test("T-133 payload ledger closure depends on admitted target carrier contract",
         issues: [{ issueKind: "contract_invalid", path: "payload" }],
         reason: "wrong target carrier kind"
       })
-    ],
+    ]),
     vectorIndex: 0,
     targetCarrierDefaults: defaults
   });

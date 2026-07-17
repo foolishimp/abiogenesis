@@ -98,7 +98,7 @@ function targetCarrierFulfillmentEvents(basis) {
         basis,
         vectorIndex,
         payloadRef,
-        payloadClass: "target_carrier",
+        payloadClass: binding.outputCarrierKind,
         contractRef: binding.contractRef,
         digest,
         producerRef: "provider://target-carrier",

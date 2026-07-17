@@ -42,6 +42,9 @@ import {
   graphCallIdForBasis,
   vectorEdge
 } from "./runtime_support.js";
+import {
+  sortReplayByAdmissionOrdinalFailClosed
+} from "./admission_hygiene.js";
 
 export interface PayloadLedgerScope {
   readonly kind: "payload_ledger_scope";
@@ -118,6 +121,22 @@ export interface AdmittedOutputAuthorityProjection {
   readonly evidenceRefs: readonly string[];
   readonly relatedPayloadRefs: readonly string[];
   readonly projectionRef: string;
+}
+
+export type ExactPayloadAdmissionSelectionStatus =
+  | "admitted"
+  | "missing"
+  | "rejected"
+  | "invalid";
+
+export interface ExactPayloadAdmissionSelection {
+  readonly kind: "exact_payload_admission_selection";
+  readonly status: ExactPayloadAdmissionSelectionStatus;
+  readonly targetCarrierContract: TargetCarrierContractBinding;
+  readonly observed: PayloadObservedRuntimeEvent | null;
+  readonly validated: PayloadValidatedRuntimeEvent | null;
+  readonly rejected: PayloadRejectedRuntimeEvent | null;
+  readonly reason: string | null;
 }
 
 export const INSTRUCTION_CAUSAL_CONTENT_MODE_VALUES = Object.freeze([
@@ -641,170 +660,389 @@ export function derivePayloadLedgerProjection(input: {
   });
 }
 
-type TargetCarrierDecisionEvent =
-  | {
-      readonly kind: "admitted";
-      readonly event: PayloadValidatedRuntimeEvent;
-      readonly index: number;
-    }
-  | {
-      readonly kind: "rejected";
-      readonly event: PayloadRejectedRuntimeEvent;
-      readonly index: number;
-    };
+type TargetCarrierPayloadLifecycleEvent =
+  | PayloadObservedRuntimeEvent
+  | PayloadValidatedRuntimeEvent
+  | PayloadRejectedRuntimeEvent;
 
-function eventAdmissionOrdinal(event: object): number | null {
-  const record: Readonly<Record<string, unknown>> = { ...event };
-  const ordinal = record["eventAdmissionOrdinal"];
-  return typeof ordinal === "number" && Number.isFinite(ordinal) ? ordinal : null;
+function exactPayloadAdmissionSelection(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly status: ExactPayloadAdmissionSelectionStatus;
+  readonly observed?: PayloadObservedRuntimeEvent | null | undefined;
+  readonly validated?: PayloadValidatedRuntimeEvent | null | undefined;
+  readonly rejected?: PayloadRejectedRuntimeEvent | null | undefined;
+  readonly reason?: string | null | undefined;
+}): ExactPayloadAdmissionSelection {
+  return Object.freeze({
+    kind: "exact_payload_admission_selection",
+    status: input.status,
+    targetCarrierContract: input.ledger.targetCarrierContract,
+    observed: input.observed ?? null,
+    validated: input.validated ?? null,
+    rejected: input.rejected ?? null,
+    reason: input.reason ?? null
+  });
 }
 
-function compareTargetCarrierDecisions(
-  left: TargetCarrierDecisionEvent,
-  right: TargetCarrierDecisionEvent
-): number {
-  const leftOrdinal = eventAdmissionOrdinal(left.event);
-  const rightOrdinal = eventAdmissionOrdinal(right.event);
-  if (leftOrdinal !== null && rightOrdinal !== null) {
-    return leftOrdinal - rightOrdinal;
-  }
-  if (leftOrdinal !== null) {
-    return 1;
-  }
-  if (rightOrdinal !== null) {
-    return -1;
-  }
-  const leftFallback = left.kind === "rejected" ? 1 : 0;
-  const rightFallback = right.kind === "rejected" ? 1 : 0;
-  if (leftFallback !== rightFallback) {
-    return leftFallback - rightFallback;
-  }
-  return left.index - right.index;
+function targetCarrierSchemaMatches(
+  target: TargetCarrierContractBinding,
+  schemaRef: string | null
+): boolean {
+  return schemaRef === null || schemaRef === target.schemaRef;
 }
 
-function latestTargetCarrierDecision(input: {
-  readonly validatedPayloads: readonly PayloadValidatedRuntimeEvent[];
-  readonly rejectedPayloads: readonly PayloadRejectedRuntimeEvent[];
-}): TargetCarrierDecisionEvent | null {
-  const decisions: TargetCarrierDecisionEvent[] = [
-    ...input.validatedPayloads.map((event, index) =>
-      Object.freeze({ kind: "admitted" as const, event, index })
-    ),
-    ...input.rejectedPayloads.map((event, index) =>
-      Object.freeze({ kind: "rejected" as const, event, index })
-    )
+function payloadObservationIdentityDigest(
+  event: PayloadObservedRuntimeEvent
+): string {
+  return stableSha256Digest({
+    kind: event.kind,
+    basisId: event.basisId,
+    graphCallId: event.graphCallId,
+    frameId: event.frameId,
+    vectorIndex: event.vectorIndex,
+    edge: event.edge,
+    payloadRef: event.payloadRef,
+    payloadClass: event.payloadClass,
+    schemaRef: event.schemaRef,
+    contractRef: event.contractRef,
+    digest: event.digest,
+    producerRef: event.producerRef,
+    sourceEventRef: event.sourceEventRef,
+    actorInvocationId: event.actorInvocationId,
+    authorityRef: event.authorityRef,
+    inputDigest: event.inputDigest,
+    policyRefs: event.policyRefs
+  });
+}
+
+function payloadRefForSelection(
+  selection: ExactPayloadAdmissionSelection,
+  requestedPayloadRef: string | null
+): string | null {
+  return selection.observed?.payloadRef ??
+    selection.validated?.payloadRef ??
+    selection.rejected?.payloadRef ??
+    requestedPayloadRef;
+}
+
+function resolveCanonicalTargetCarrierAdmission(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly payloadRef: string | null;
+}): ExactPayloadAdmissionSelection {
+  if (
+    input.ledger.kind !== "payload_ledger_projection" ||
+    input.ledger.projectionRef !== payloadLedgerProjectionRef(input.ledger)
+  ) {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "invalid",
+      reason: "payload ledger projection identity is stale or malformed"
+    });
+  }
+  if (input.payloadRef !== null && input.payloadRef.length === 0) {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "invalid",
+      reason: "exact payload selection requires a non-empty payload ref"
+    });
+  }
+
+  const target = input.ledger.targetCarrierContract;
+  const allEvents: readonly TargetCarrierPayloadLifecycleEvent[] = [
+    ...input.ledger.observedPayloads,
+    ...input.ledger.validatedPayloads,
+    ...input.ledger.rejectedPayloads
   ];
-  return decisions.sort(compareTargetCarrierDecisions).at(-1) ?? null;
+  const candidatePayloadRefs = input.payloadRef === null
+    ? new Set(
+        allEvents
+          .filter((event) => {
+            if (event.kind === "payload_observed") {
+              return event.contractRef === target.contractRef &&
+                event.payloadClass === target.outputCarrierKind &&
+                targetCarrierSchemaMatches(target, event.schemaRef);
+            }
+            return event.contractRef === target.contractRef &&
+              event.contractDigest === target.configDigest &&
+              targetCarrierSchemaMatches(target, event.schemaRef);
+          })
+          .map((event) => event.payloadRef)
+      )
+    : new Set([input.payloadRef]);
+  const events = allEvents.filter((event) =>
+    candidatePayloadRefs.has(event.payloadRef)
+  );
+  if (events.length === 0) {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "missing",
+      reason: input.payloadRef === null
+        ? "target carrier contract has no observed payload lifecycle"
+        : "payload ledger contains no event for the exact payload ref"
+    });
+  }
+  let ordered: readonly TargetCarrierPayloadLifecycleEvent[];
+  try {
+    ordered = sortReplayByAdmissionOrdinalFailClosed(
+      events,
+      "target carrier payload admission"
+    );
+  } catch (error: unknown) {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "invalid",
+      reason: error instanceof Error ? error.message : String(error)
+    });
+  }
+
+  const observationsByPayloadRef = new Map<
+    string,
+    PayloadObservedRuntimeEvent
+  >();
+  const knownPayloadDigestsByRef = new Map<string, string>();
+  let currentEvent: TargetCarrierPayloadLifecycleEvent | undefined;
+  for (const event of ordered) {
+    if (event.kind === "payload_observed") {
+      if (
+        event.contractRef !== target.contractRef ||
+        event.payloadClass !== target.outputCarrierKind ||
+        !targetCarrierSchemaMatches(target, event.schemaRef) ||
+        event.digest.length === 0
+      ) {
+        return exactPayloadAdmissionSelection({
+          ledger: input.ledger,
+          status: "invalid",
+          observed: event,
+          reason: "payload observation does not preserve target carrier identity"
+        });
+      }
+      const existingObservation = observationsByPayloadRef.get(event.payloadRef);
+      const knownPayloadDigest = knownPayloadDigestsByRef.get(event.payloadRef);
+      if (
+        knownPayloadDigest !== undefined &&
+        event.digest !== knownPayloadDigest
+      ) {
+        return exactPayloadAdmissionSelection({
+          ledger: input.ledger,
+          status: "invalid",
+          observed: existingObservation ?? event,
+          reason: "repeated payload observation conflicts with immutable payload identity"
+        });
+      }
+      if (existingObservation !== undefined) {
+        if (
+          event.digest !== existingObservation.digest ||
+          event.contractRef !== existingObservation.contractRef ||
+          event.schemaRef !== existingObservation.schemaRef ||
+          event.payloadClass !== existingObservation.payloadClass
+        ) {
+          return exactPayloadAdmissionSelection({
+            ledger: input.ledger,
+            status: "invalid",
+            observed: existingObservation,
+            reason: "repeated payload observation conflicts with immutable payload identity"
+          });
+        }
+        if (
+          payloadObservationIdentityDigest(event) ===
+          payloadObservationIdentityDigest(existingObservation)
+        ) {
+          continue;
+        }
+      }
+      observationsByPayloadRef.set(event.payloadRef, event);
+      knownPayloadDigestsByRef.set(event.payloadRef, event.digest);
+      currentEvent = event;
+      continue;
+    }
+
+    const observation = observationsByPayloadRef.get(event.payloadRef);
+    if (event.kind === "payload_rejected") {
+      const rejectionIdentityMatches = observation === undefined
+        ? event.contractRef === target.contractRef &&
+          event.contractDigest === target.configDigest &&
+          targetCarrierSchemaMatches(target, event.schemaRef) &&
+          event.digest !== null
+        : (event.contractRef === null ||
+            event.contractRef === target.contractRef) &&
+          (event.contractDigest === null ||
+            event.contractDigest === target.configDigest) &&
+          targetCarrierSchemaMatches(target, event.schemaRef) &&
+          (event.digest === null || event.digest === observation.digest);
+      if (!rejectionIdentityMatches) {
+        return exactPayloadAdmissionSelection({
+          ledger: input.ledger,
+          status: "invalid",
+          observed: observation,
+          rejected: event,
+          reason: "payload rejection conflicts with target carrier identity"
+        });
+      }
+      if (event.digest !== null) {
+        const knownPayloadDigest = knownPayloadDigestsByRef.get(event.payloadRef);
+        if (
+          knownPayloadDigest !== undefined &&
+          event.digest !== knownPayloadDigest
+        ) {
+          return exactPayloadAdmissionSelection({
+            ledger: input.ledger,
+            status: "invalid",
+            observed: observation,
+            rejected: event,
+            reason: "payload rejection conflicts with immutable payload identity"
+          });
+        }
+        knownPayloadDigestsByRef.set(event.payloadRef, event.digest);
+      }
+      currentEvent = event;
+      continue;
+    }
+    if (observation === undefined) {
+      return exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "invalid",
+        validated: event,
+        reason: "payload decision has no preceding observed event"
+      });
+    }
+    if (
+      event.contractRef !== target.contractRef ||
+      event.contractDigest !== target.configDigest ||
+      !targetCarrierSchemaMatches(target, event.schemaRef)
+    ) {
+      return exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "invalid",
+        observed: observation,
+        validated: event,
+        reason: "payload validation does not preserve observed target carrier identity"
+      });
+    }
+    if (event.digest !== observation.digest) {
+      return exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "invalid",
+        observed: observation,
+        validated: event,
+        reason: "target carrier payload digest drift"
+      });
+    }
+    if (event.validationRef.length === 0) {
+      return exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "invalid",
+        observed: observation,
+        validated: event,
+        reason: "payload validation ref is empty"
+      });
+    }
+    currentEvent = event;
+  }
+
+  if (currentEvent === undefined) {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "missing",
+      reason: "target carrier contract has no observed payload lifecycle"
+    });
+  }
+  if (currentEvent.kind === "payload_observed") {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "missing",
+      observed: currentEvent,
+      reason: "latest observed payload has no subsequent admission decision"
+    });
+  }
+  const observation = observationsByPayloadRef.get(currentEvent.payloadRef);
+  if (observation === undefined && currentEvent.kind === "payload_validated") {
+    return exactPayloadAdmissionSelection({
+      ledger: input.ledger,
+      status: "invalid",
+      validated: currentEvent,
+      reason: "target carrier admission fold lacks its observed payload"
+    });
+  }
+  return currentEvent.kind === "payload_rejected"
+    ? exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "rejected",
+        observed: observation,
+        rejected: currentEvent,
+        reason: currentEvent.reason
+      })
+    : exactPayloadAdmissionSelection({
+        ledger: input.ledger,
+        status: "admitted",
+        observed: observation ?? null,
+        validated: currentEvent
+      });
+}
+
+function targetCarrierAdmissionProjectionFromSelection(input: {
+  readonly selection: ExactPayloadAdmissionSelection;
+  readonly requestedPayloadRef: string | null;
+}): TargetCarrierAdmissionProjection {
+  const selection = input.selection;
+  const contract = selection.targetCarrierContract;
+  const payloadRef = payloadRefForSelection(
+    selection,
+    input.requestedPayloadRef
+  );
+  return Object.freeze({
+    kind: "target_carrier_admission_projection",
+    targetCarrierContractRef: contract.contractRef,
+    targetCarrierContractDigest: contract.configDigest,
+    status:
+      selection.status === "admitted" || selection.status === "rejected"
+        ? selection.status
+        : "missing",
+    payloadRef,
+    validationRefs:
+      selection.status === "admitted" && selection.validated !== null
+        ? freezeStringArray([selection.validated.validationRef])
+        : freezeStringArray([]),
+    rejectedPayloadRefs:
+      selection.status === "rejected" && selection.rejected !== null
+        ? freezeStringArray([selection.rejected.payloadRef])
+        : freezeStringArray([]),
+    reason: selection.reason
+  });
 }
 
 export function deriveTargetCarrierAdmissionProjection(input: {
   readonly ledger: PayloadLedgerProjection;
   readonly payloadRef?: string | null | undefined;
 }): TargetCarrierAdmissionProjection {
-  const payloadRef = input.payloadRef ?? null;
-  const contractRef = input.ledger.targetCarrierContract.contractRef;
-  const contractDigest = input.ledger.targetCarrierContract.configDigest;
-  const validatedPayloads = input.ledger.validatedPayloads.filter(
-    (event) =>
-      event.contractRef === contractRef &&
-      event.contractDigest === contractDigest &&
-      (payloadRef === null || event.payloadRef === payloadRef)
-  );
-  const rejectedPayloads = input.ledger.rejectedPayloads.filter(
-    (event) =>
-      event.contractRef === contractRef &&
-      event.contractDigest === contractDigest &&
-      (payloadRef === null || event.payloadRef === payloadRef)
-  );
-
-  if (payloadRef === null) {
-    const latestDecision = latestTargetCarrierDecision({
-      validatedPayloads,
-      rejectedPayloads
-    });
-    if (latestDecision?.kind === "rejected") {
-      return Object.freeze({
-        kind: "target_carrier_admission_projection",
-        targetCarrierContractRef: contractRef,
-        targetCarrierContractDigest: contractDigest,
-        status: "rejected",
-        payloadRef: latestDecision.event.payloadRef,
-        validationRefs: freezeStringArray([]),
-        rejectedPayloadRefs: freezeStringArray([latestDecision.event.payloadRef]),
-        reason: latestDecision.event.reason
-      });
-    }
-    if (latestDecision?.kind === "admitted") {
-      return Object.freeze({
-        kind: "target_carrier_admission_projection",
-        targetCarrierContractRef: contractRef,
-        targetCarrierContractDigest: contractDigest,
-        status: "admitted",
-        payloadRef: latestDecision.event.payloadRef,
-        validationRefs: freezeStringArray([latestDecision.event.validationRef]),
-        rejectedPayloadRefs: freezeStringArray([]),
-        reason: null
-      });
-    }
-  }
-
-  const targetPayloadRef =
-    payloadRef ??
-    rejectedPayloads.at(-1)?.payloadRef ??
-    validatedPayloads.at(-1)?.payloadRef ??
-    null;
-
-  if (rejectedPayloads.length > 0) {
-    return Object.freeze({
-      kind: "target_carrier_admission_projection",
-      targetCarrierContractRef: contractRef,
-      targetCarrierContractDigest: contractDigest,
-      status: "rejected",
-      payloadRef: targetPayloadRef,
-      validationRefs: freezeStringArray(
-        validatedPayloads.map((event) => event.validationRef)
-      ),
-      rejectedPayloadRefs: freezeStringArray(
-        rejectedPayloads.map((event) => event.payloadRef)
-      ),
-      reason: rejectedPayloads.at(-1)?.reason ?? "target carrier rejected"
-    });
-  }
-
-  if (validatedPayloads.length > 0) {
-    return Object.freeze({
-      kind: "target_carrier_admission_projection",
-      targetCarrierContractRef: contractRef,
-      targetCarrierContractDigest: contractDigest,
-      status: "admitted",
-      payloadRef: targetPayloadRef,
-      validationRefs: freezeStringArray(
-        validatedPayloads.map((event) => event.validationRef)
-      ),
-      rejectedPayloadRefs: freezeStringArray([]),
-      reason: null
-    });
-  }
-
-  return Object.freeze({
-    kind: "target_carrier_admission_projection",
-    targetCarrierContractRef: contractRef,
-    targetCarrierContractDigest: contractDigest,
-    status: "missing",
-    payloadRef: targetPayloadRef,
-    validationRefs: freezeStringArray([]),
-    rejectedPayloadRefs: freezeStringArray([]),
-    reason: "target carrier contract has no admitted payload"
+  const requestedPayloadRef = input.payloadRef ?? null;
+  return targetCarrierAdmissionProjectionFromSelection({
+    selection: resolveCanonicalTargetCarrierAdmission({
+      ledger: input.ledger,
+      payloadRef: requestedPayloadRef
+    }),
+    requestedPayloadRef
   });
+}
+
+export function selectExactPayloadAdmission(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly payloadRef: string;
+}): ExactPayloadAdmissionSelection {
+  return resolveCanonicalTargetCarrierAdmission(input);
 }
 
 export function deriveAdmittedOutputAuthorityProjection(input: {
   readonly ledger: PayloadLedgerProjection;
   readonly payloadRef?: string | null | undefined;
 }): AdmittedOutputAuthorityProjection {
-  const targetCarrierAdmission = deriveTargetCarrierAdmissionProjection({
+  const requestedPayloadRef = input.payloadRef ?? null;
+  const selection = resolveCanonicalTargetCarrierAdmission({
     ledger: input.ledger,
-    payloadRef: input.payloadRef
+    payloadRef: requestedPayloadRef
+  });
+  const targetCarrierAdmission = targetCarrierAdmissionProjectionFromSelection({
+    selection,
+    requestedPayloadRef
   });
   const relatedPayloadRefs = uniqueStringArray([
     ...input.ledger.observedPayloads.map((event) => event.payloadRef),
@@ -812,24 +1050,8 @@ export function deriveAdmittedOutputAuthorityProjection(input: {
     ...input.ledger.rejectedPayloads.map((event) => event.payloadRef)
   ]);
   const targetPayloadRef = targetCarrierAdmission.payloadRef;
-  const observed =
-    targetPayloadRef === null
-      ? undefined
-      : input.ledger.observedPayloads
-          .filter((event) => event.payloadRef === targetPayloadRef)
-          .at(-1);
-  const validated =
-    targetPayloadRef === null
-      ? undefined
-      : input.ledger.validatedPayloads
-          .filter(
-            (event) =>
-              event.payloadRef === targetPayloadRef &&
-              event.contractRef === targetCarrierAdmission.targetCarrierContractRef &&
-              event.contractDigest ===
-                targetCarrierAdmission.targetCarrierContractDigest
-          )
-          .at(-1);
+  const observed = selection.observed ?? undefined;
+  const validated = selection.validated ?? undefined;
   const payloadEvidenceRefs =
     targetPayloadRef === null
       ? Object.freeze([])

@@ -171,6 +171,14 @@ function authorityEvent(basis) {
   });
 }
 
+function withAdmissionOrdinals(events) {
+  return Object.freeze(
+    events.map((event, index) =>
+      Object.freeze({ ...event, eventAdmissionOrdinal: index + 1 })
+    )
+  );
+}
+
 function ledgerFor(input) {
   return derivePayloadLedgerProjection({
     basis: input.basis,
@@ -414,7 +422,7 @@ test("T-147 report-shaped payloads do not satisfy output authority or closure", 
   const basis = singleHopBasis();
   const defaults = loadGtlTargetCarrierDefaultsBundle();
   const reportRef = "payload://t147/report-only";
-  const events = Object.freeze([
+  const events = withAdmissionOrdinals([
     authorityEvent(basis),
     constructPayloadObservedEvent({
       basis,
@@ -474,7 +482,7 @@ test("T-147 admitted target-carrier output closes only with authority-bound evid
   const emptyLedger = ledgerFor({ basis, defaults, events: [] });
   const targetCarrier = emptyLedger.targetCarrierContract;
   const payloadRef = "payload://t147/target-output";
-  const events = Object.freeze([
+  const events = withAdmissionOrdinals([
     authorityEvent(basis),
     constructPayloadObservedEvent({
       basis,
