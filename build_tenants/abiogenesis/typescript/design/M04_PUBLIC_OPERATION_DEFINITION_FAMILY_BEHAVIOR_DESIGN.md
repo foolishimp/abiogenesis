@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Phase A accepted; repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Phase A accepted; native-key-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
@@ -893,21 +893,44 @@ The build-only resolution is a closed sum:
 NonProjectReadOperationIdentity =
   Exclude<PublicOperationIdentity, "abg.operation.project.read">
 
-NonProjectReadDefinitionKey<I extends NonProjectReadOperationIdentity> = {
-  operationId: I
-  memberKind: "variant"
-  variant: ClosedVariantOf<I>
+OperationMemberKey<I extends PublicOperationIdentity> =
+  I extends "abg.operation.project.read"
+    ? ProjectReadCase
+    : I extends NonProjectReadOperationIdentity
+      ? ClosedVariantOf<I>
+      : never
+
+DefinitionKeyFor<
+  I extends PublicOperationIdentity,
+  M extends OperationMemberKey<I>
+> =
+  I extends "abg.operation.project.read"
+    ? M extends ProjectReadCase
+      ? { operationId: I, memberKind: "project_read_case", caseKey: M }
+      : never
+    : I extends NonProjectReadOperationIdentity
+      ? M extends ClosedVariantOf<I>
+        ? { operationId: I, memberKind: "variant", variant: M }
+        : never
+      : never
+
+DefinitionKeyFamily = {
+  [I in PublicOperationIdentity]: {
+    [M in OperationMemberKey<I>]: DefinitionKeyFor<I, M>
+  }
 }
 
-ProjectReadDefinitionKey<C> = {
-  operationId: "abg.operation.project.read"
-  memberKind: "project_read_case"
-  caseKey: C
-}
+DefinitionKey = {
+  [I in PublicOperationIdentity]:
+    DefinitionKeyFamily[I][OperationMemberKey<I>]
+}[PublicOperationIdentity]
 
-DefinitionKey =
-  | NonProjectReadDefinitionKey<NonProjectReadOperationIdentity>
-  | ProjectReadDefinitionKey<ProjectReadCase>
+PublicFunctionDefinitionFamily = {
+  [I in PublicOperationIdentity]: {
+    [M in OperationMemberKey<I>]:
+      PublicFunctionDefinition<DefinitionKeyFor<I, M>>
+  }
+}
 
 P1ContractSlot = request | result | refusal | nonterminal
 
@@ -958,32 +981,52 @@ P1OwnerContractResolution<K> =
   | P1ResolvedOwnerContract<K>
   | P1DefinitionGap<K>
 
+P1ResolvedOwnerContractRow<
+  K extends DefinitionKey = DefinitionKey
+> = K extends DefinitionKey ? P1ResolvedOwnerContract<K> : never
+
+P1DefinitionGapRow<
+  K extends DefinitionKey = DefinitionKey
+> = K extends DefinitionKey ? P1DefinitionGap<K> : never
+
 ExactOwnerContractSet = {
   operationIdentities: ExactUniqueSet<PublicOperationIdentity, 19>
-  nonProjectReadVariantKeys: ExactUniqueSet<NonProjectReadDefinitionKey<NonProjectReadOperationIdentity>, 35>
-  projectReadCaseKeys: ExactUniqueSet<ProjectReadDefinitionKey, 27>
+  nonProjectReadVariantKeys: ExactUniqueSet<Extract<DefinitionKey, { memberKind: "variant" }>, 35>
+  projectReadCaseKeys: ExactUniqueSet<Extract<DefinitionKey, { memberKind: "project_read_case" }>, 27>
   definitionKeys: ExactUniqueSet<DefinitionKey, 62>
-  resolutions: { [K in DefinitionKey]: P1ResolvedOwnerContract<K> }
+  resolutions: readonly P1ResolvedOwnerContractRow[]
 }
 
 P1DefinitionFamilyAdmission =
   | { kind: "exact_family_admitted"; familyDigest: Digest }
-  | { kind: "definition_family_gap"; gaps: NonEmptyUnique<P1DefinitionGap<DefinitionKey>> }
+  | { kind: "definition_family_gap";
+      gaps: NonEmptyUniqueReadonly<P1DefinitionGapRow> }
 ```
 
-`DefinitionKey` is the operation identity plus exactly one member of its closed
-variant domain, except that `project.read` uses one exact `ProjectReadCase` as
-the member. The accepted cardinalities are 19 public operation identities, 27
-`project.read` case keys, and 62 total definition keys. Every definition key
+`PublicFunctionDefinitionFamily` is the sole authoritative nested object. Its
+first key is one of the 19 operation identities and its second key is a member
+of that operation's own closed variant or read-case domain. `DefinitionKey` is
+a distributive projection of that nested relation. It is never used as a
+JavaScript or TypeScript property key, serialized selector, registry key, or
+second roster. The accepted cardinalities are 19 public operation identities,
+27 `project.read` case keys, and 62 total definition keys. Every definition key
 has its own request, result, refusal, and explicit declared-or-absent
 non-terminal slot resolution. The 19-identity public census therefore remains
 unchanged while the constructor cannot collapse all `project.read` cases into
 one four-slot row.
 
+Resolved and missing rows are distributive unions over one exact structural
+`DefinitionKey`. They are stored only as readonly discriminated collections.
+Before `ExactOwnerContractSet` admits, exact-set admission compares those
+structural discriminants with the nested family, requires exactly one resolved
+row per member, proves 35 non-read members plus 27 read cases, and rejects a
+missing, extra, duplicate, or cross-key slot. No flattened string key or lookup
+registry is authored to perform that comparison.
+
 Each slot carries its own owner authority. The case key in
-`ProjectReadDefinitionKey<C>` fixes the exact case for case-owned source/result
-schemas. Case request/refusal slots and result slots therefore need not pretend
-to share one owner.
+`DefinitionKeyFor<"abg.operation.project.read", C>` fixes the exact case for
+case-owned source/result schemas. Case request/refusal slots and result slots
+therefore need not pretend to share one owner.
 
 `semantic_not_realized` is private build evidence. It is not a public
 definition, result, refusal, `not_implemented` behavior, or permission to add a
@@ -1197,12 +1240,15 @@ classDiagram
     +thirtyFiveNonReadVariantKeys
     +twentySevenProjectReadCaseKeys
     +sixtyTwoDefinitionKeys
+    +readonlyDiscriminatedResolutionRows
+    +sameKeySlotConservation
     +noLegacyKeys
   }
   class PrivateDefinitionFamily {
     <<single P1 authority>>
     +familyDigest
-    +definitionsByKey
+    +definitionsByOperationAndOwnMember
+    +distributiveDefinitionKeyProjection
   }
   class PrivateProjectionSet {
     <<derived temp only>>
@@ -1284,7 +1330,7 @@ sequenceDiagram
   else exact owner set and exact census
     Resolver->>Family: admit one private family
     Family->>Projector: derive private temporary projections
-    Projector->>Gate: prove 19 identities 35 variant keys 27 read cases 62 total keys coordinates digests and import fence
+    Projector->>Gate: prove nested-family equality, same-key row conservation, 19 identities, 35 variant keys, 27 read cases, 62 total keys, coordinates, digests, and import fence
     alt projection or Prime proof fails
       Gate-->>Builder: P1 refused with no public output
     else proof passes
@@ -1316,7 +1362,7 @@ stateDiagram-v2
   ProjectionWitnessDerived --> DefinitionRefused: coordinate digest or compiler seal diverges
   OwnerResolutionPending --> DefinitionRefused: private source locator is missing or divergent
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
-  OwnerResolutionPending --> ExactOwnerSetResolved: all keys variants and slots exact
+  OwnerResolutionPending --> ExactOwnerSetResolved: all distributed keys and same-key slots exact
   ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family
   RawDefinitionFamily --> DefinitionRefused: admission rejects key coordinate digest or authority
   RawDefinitionFamily --> DefinitionAdmitted: exact family admission passes
@@ -1570,7 +1616,7 @@ retain distinct behavior owners.
 | GTL program is program; GraphFunction is callable member | PRODUCT, T-278, T-270 | run.invoke definition cites semantic owner only | P1 sequence never invokes by metadata | `P1Ready` is not runtime state | owner-native run.invoke types required | T-270 later owns program membership admission | target passes; P1 blocked | `p1_contract_run_invoke_not_realized` |
 | Prime contract authority | ADR-044 | one definition family; projections subordinate | single projector | no second authored state | `satisfies` and closed mapped types | Prime and parity gates | pass | none |
 | Native/schema one-source law | REQ-P-PUBLIC-CONTRACTS-005 | one strict Valibot schema is directly consumed | infer parse project digest | unsupported schema or override refuses | `v.InferOutput<S>` | `v.parse` and pinned JSON-Schema projection share source | pass as Phase A design | T-281 Phase A proof |
-| Operation-indexed type conservation | REQ-P-PUBLIC-CONTRACTS-009..010 | definition and every contract slot remain keyed by K | exact owner-slot resolution precedes family admission | cross-key or missing slot refuses P1 | nominal/discriminated types; no weak index | definition admission and exact census | pass as P1 design | owner-native gap set |
+| Operation-indexed type conservation | REQ-P-PUBLIC-CONTRACTS-009..010 | nested operation/member family derives a distributive key union; every contract slot remains keyed by one member K | exact owner-slot resolution precedes family admission | cross-operation variant, cross-key slot, or missing slot refuses P1 | nested string-literal mapped types plus distributive discriminated row unions; no object-valued property key or weak index | exact-set admission over readonly structural rows | pass as repaired P1 design | owner-native gap set |
 | No metadata mega-handler | PRODUCT layer law | separate semantic owner and no P1 handler | P1 contains no effect call | metadata has no running state | handler types excluded from P1 | import/source scan rejects dispatch | pass as P1 design | P2 proof remains separate |
 | Malformed likely inputs fail closed | trusted-desktop operating boundary | definition binds exact owner-schema coordinates | refuse before effect | explicit refusal states | native constructors and raw admitters | schema and projection parity | pass | none |
 | Malformed likely outputs fail closed | F_P/output admission law | PublicOutcome remains distinct | excluded from P1 runtime | no P1 outcome state | indexed result/refusal bindings | Phase A proof accepted; runtime proof later | target only | handler owners |
@@ -1655,6 +1701,8 @@ public integration before P2. T-268 cannot claim
   both refuse;
 - request, result, or refusal substitution across operation/variant keys
   refuses;
+- a definition key pairing one operation with another operation's member, or a
+  resolved/gap row carrying a slot for another definition key, refuses;
 - raw F_P output cannot substitute for an admitted `run.invoke` result or
   bypass its declared result-contract admission chain;
 - a permissive union whose optional fields emulate another variant refuses;
@@ -1699,7 +1747,10 @@ public integration before P2. T-268 cannot claim
 The exact 19-operation target and Prime one-family direction remain accepted.
 This repaired candidate rejects the custom contract algebra, closes the native
 Phase A mechanism and common packet laws, preserves a private P1 and atomic P2
-hard break, and keeps missing operation-owner schemas as honest P1 gaps.
+hard break, and keeps missing operation-owner schemas as honest P1 gaps. The
+authoritative family is nested by operation and that operation's own members;
+its flat key and resolution/gap rows are distributive projections rather than
+object-valued map keys or a second serialized selector.
 Independent review accepted the Phase A semantic candidate recorded by T-281,
 and Phase A is closed. This P1 delta is constructor-ready only as an
 all-or-nothing resolution process: the current gap census must become empty

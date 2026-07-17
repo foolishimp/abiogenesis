@@ -8,7 +8,9 @@ The integration line now carries the byte-exact P1 design from checkpoint
 `5dc7a5a6` with SHA-256
 `f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b`.
 The source branch's ticket was not replayed: the integration ticket retains the
-later accepted Phase A source-resolution repair and T-274A closure truth.
+later accepted Phase A source-resolution repair and T-274A implementation
+truth. T-274A remains pending independent implementation review and does not
+yet close the `ticket_consensus` P1 result slot.
 
 The design cites Ontology projection
 `039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1`.
@@ -21,6 +23,13 @@ unchanged. This is a projection-basis rebind, not a P1 semantic change.
 
 No runtime, Phase A implementation, public schema, package export, catalog,
 SDK, CLI, or T-274A code changed in this reconciliation.
+
+Subsequent independent native-constructability review rejected the byte-exact
+P1 design digest above because its object-valued mapped key and
+non-distributive row instantiation did not conserve operation/member and
+outer-row/slot correlation in TypeScript. The bounded repair is recorded in
+`20260717T002627Z_SELF_REVIEW_t281_native_definition_key_repair.md`; this
+receipt does not accept that repaired candidate.
 
 The exact reconciled tree passes the Mermaid render gate (`32` files, `96`
 diagrams), Prime contraction gate (`8` accepted designs, T-281 as the sole

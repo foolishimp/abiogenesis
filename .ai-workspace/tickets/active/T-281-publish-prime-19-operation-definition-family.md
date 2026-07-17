@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_authority_truth_repair_candidate_complete
-- review_status: phase_a_accepted_p1_truth_repaired_pending_independent_review
-- proof_status: phase_a_accepted_p1_truth_repaired_candidate_design_mermaid_prime_and_governance_checks_passed_owner_schema_gaps_explicit_p2_fenced
+- phase_status: phase_a_closed_p1_native_key_repair_candidate_complete
+- review_status: phase_a_accepted_p1_native_key_repair_pending_independent_rereview
+- proof_status: phase_a_accepted_p1_native_key_repair_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -118,6 +118,12 @@
     0448091e17fe14261507ae4eb183f508774dc2602d97c01f4da6d43281073579
 - p1_exact_candidate_digest: >-
     f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b
+- p1_exact_candidate_disposition: rejected_native_definition_key_constructability
+- p1_native_key_repair_candidate_digest: >-
+    3cf2bfb274c27d553d9863353af2e8b3c4d177311042b7e9dd324b9f51e45d18
+- p1_native_key_repair_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T002627Z_SELF_REVIEW_t281_native_definition_key_repair.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -267,7 +273,7 @@ re-review accepted this exact repair basis.
 
 The repaired checkpoint proves `1767/1767` full semantic tests, `82/82` GTL
 law tests, `70/70` T-223 source-blind publication tests, `8/8` focused Phase A
-tests, `7/7` T-274A projector tests, and `9/9` neutral owner-contract tests.
+tests, `11/11` T-274A projector tests, and `9/9` neutral owner-contract tests.
 Strict host/type builds, all 82 public schemas, all 40 publication assets, the
 1143-file package census, 32 registered design files with 96 Mermaid diagrams,
 the Prime gate, governance, and `git diff --check` pass. The package still
@@ -311,11 +317,24 @@ packets.
 The current design defines P1 as an all-or-nothing private constructor pass:
 
 ```text
-DefinitionKey =
-  { operationId: NonProjectReadOperationIdentity,
-    memberKind: "variant", variant: ClosedVariantOf<operationId> }
-  | { operationId: "abg.operation.project.read",
-      memberKind: "project_read_case", caseKey: ProjectReadCase }
+OperationMemberKey<I> =
+  I extends "abg.operation.project.read"
+    ? ProjectReadCase
+    : ClosedVariantOf<I>
+
+DefinitionKeyFor<I, M> =
+  I extends "abg.operation.project.read"
+    ? { operationId: I, memberKind: "project_read_case", caseKey: M }
+    : { operationId: I, memberKind: "variant", variant: M }
+
+PublicFunctionDefinitionFamily = {
+  [I in PublicOperationIdentity]: {
+    [M in OperationMemberKey<I>]:
+      PublicFunctionDefinition<DefinitionKeyFor<I, M>>
+  }
+}
+
+DefinitionKey = distributive values of the nested family relation
 
 P1ContractSlotResolution<K, S> =
   owner_contract_slot_resolved<K, S, ownerAuthorityRef, ownerAuthorityDigest>
@@ -325,6 +344,12 @@ P1ContractSlotResolution<K, S> =
 P1OwnerContractResolution<K> =
   owner_contract_resolved<K, ReqSlot, ResSlot, RefSlot, NonterminalSlotOrAbsent>
   | definition_contract_gap<K, NonEmptyUnique<MissingSlotRow>>
+
+P1ResolvedOwnerContractRow<K = DefinitionKey> =
+  K distributes to owner_contract_resolved<K, ...>
+
+P1DefinitionGapRow<K = DefinitionKey> =
+  K distributes to definition_contract_gap<K, ...>
 ```
 
 The closed constructor census is 19 public operation identities, 35
@@ -332,6 +357,14 @@ non-`project.read` variant keys, 27 `project.read` case keys, and 62 total
 `DefinitionKey` members. Each of those 62 keys owns a separate Req/Res/Ref/N
 resolution row. Grouping by `operationId` must still yield exactly 19 public
 identities.
+
+The nested operation-to-own-member family is the sole authoring source. The
+flat `DefinitionKey` and resolved/gap row unions derive distributively from it;
+they are readonly discriminated collections admitted by exact structural set
+equality. No object-valued mapped key, flattened selector string, lookup
+registry, or second roster is allowed. This preserves the operation/member and
+outer-row/slot correlation in native TypeScript before the semantic exact-set
+gate proves 35/27/62 coverage.
 
 Each slot preserves its own semantic owner authority and evidence. A
 `project.read` wrapper and its case-specific result rows therefore need not
@@ -345,8 +378,9 @@ The constructability review found these named blocking owner relations:
 
 - `p1_contract_workspace_not_realized`;
 - `p1_contract_project_read_not_realized`, including the generic wrapper and
-  every case-specific result; T-274A supplies only the compatible
-  `ticket_consensus` result coordinate;
+  every case-specific result; T-274A has implemented the compatible
+  `ticket_consensus` result coordinate but remains pending independent review,
+  so that slot is not yet accepted P1 input;
 - `p1_contract_product_intake_not_realized` and
   `p1_contract_workspace_bind_not_realized`;
 - `p1_contract_catalog_not_realized`;
@@ -364,7 +398,7 @@ Their neutral owner-native contract milestones are P1 inputs, while their
 public runtime integration remains downstream of P1. The satisfied ordering is:
 
 ```text
-T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
+independently accepted T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
   -> T-281 P1 exact private family
   -> T-270/T-272 public runtime integration milestones
 ```
@@ -380,7 +414,7 @@ authority. All P1 projections are temporary derived outputs. M03 is prohibited
 from importing the private M04 family or projection path; T-270/T-272 consume
 neutral admitted projections instead.
 
-The P1 candidate remains pending independent review. Its owner-schema gaps are
+The native-key-repaired P1 candidate remains pending independent re-review. Its owner-schema gaps are
 implementation blockers and must close before the all-or-nothing private
 family can admit; the already-recorded milestone split is not a blocker. P2
 remains fenced behind completed P1, T-274B, T-275, and the remaining handler
