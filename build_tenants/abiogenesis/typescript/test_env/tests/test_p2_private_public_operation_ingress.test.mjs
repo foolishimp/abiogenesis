@@ -142,16 +142,27 @@ function constructP1Invocation(admitted, definition, request) {
       allowlistRef: `catalog-allowlist:${seed}`,
       allowlistDigest: stableSha256Digest({ catalogAllowlist: seed })
     }),
-    executionProgram: exactSlot(requirements.executionProgram, {
-      state: "admitted_execution_program",
-      admittedGtlProgramRef: `gtl-program:${seed}`,
-      admittedGtlProgramDigest: stableSha256Digest({ program: seed }),
-      graphFunctionRef: `graph-function:${seed}`,
-      graphFunctionDigest: stableSha256Digest({ graphFunction: seed }),
-      inputContract: definition.requestContract.contract.schemaCoordinate,
-      inputPayloadRef: `input-payload:${seed}`,
-      inputPayloadDigest: requestDigest
-    }),
+    executionProgram: exactSlot(
+      requirements.executionProgram,
+      definition.definitionKey.operationId === "abg.operation.run.invoke" &&
+        definition.definitionKey.variant === "invoke"
+        ? {
+            state: "admitted_execution_program",
+            selectionState: "selected_graph_function",
+            admittedGtlProgramRef: `gtl-program:${seed}`,
+            admittedGtlProgramDigest: stableSha256Digest({ program: seed }),
+            canonicalHandle: `catalog-entry:${seed}`,
+            inputContract: definition.requestContract.contract.schemaCoordinate,
+            inputPayloadRef: `input-payload:${seed}`,
+            inputPayloadDigest: requestDigest
+          }
+        : {
+            state: "admitted_execution_program",
+            selectionState: "program_constraints_only",
+            admittedGtlProgramRef: `gtl-program:${seed}`,
+            admittedGtlProgramDigest: stableSha256Digest({ program: seed })
+          }
+    ),
     invocationPolicy: exactSlot(requirements.invocationPolicy, {
       state: "admitted_invocation_policy",
       policyRef: `invocation-policy:${seed}`,
@@ -422,6 +433,29 @@ test("private P1 adapter rejects binding and cross-member substitution", async (
       priorEvents: []
     }),
     /invocation authority\.workspace: state mismatch/u
+  );
+
+  const injectedSelection = JSON.parse(JSON.stringify(invocation));
+  injectedSelection.authority.executionProgram = {
+    state: "admitted_execution_program",
+    selectionState: "selected_graph_function",
+    admittedGtlProgramRef: invocation.authority.executionProgram.admittedGtlProgramRef,
+    admittedGtlProgramDigest:
+      invocation.authority.executionProgram.admittedGtlProgramDigest,
+    canonicalHandle: "catalog-entry:forbidden-continuation-selection",
+    inputContract: definition.requestContract.contract.schemaCoordinate,
+    inputPayloadRef: "input-payload:forbidden-continuation-selection",
+    inputPayloadDigest: stableSha256Digest(request)
+  };
+  assert.throws(
+    () => admitPrivateP1PublicOperationIngress({
+      family: admitted.family,
+      definition,
+      rawInvocation: injectedSelection,
+      causationEventRefs: [],
+      priorEvents: []
+    }),
+    /execution-program state differs from operation variant/u
   );
 
   assert.throws(

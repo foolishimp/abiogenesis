@@ -41,6 +41,7 @@ import {
   ownerProjectionRelationSource,
   type OwnerProjectionRelationInput
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { relativePath as admitProductRelativePath } from "../public_sdk/admission_primitives.js";
 
 type NativeSchema = v.GenericSchema;
 
@@ -327,6 +328,15 @@ export const nativeContractLocatorSchema = v.variant("kind", [
   publicPackageExportLocatorSchema
 ]);
 
+const publicContractAssetLocatorSchema = v.strictObject({
+  kind: v.literal("canonical_asset"),
+  relativePath: refTextSchema,
+  mediaType: refTextSchema,
+  schemaId: contractIdSchema,
+  schemaVersion: semanticVersionSchema,
+  digest: sha256DigestSchema
+});
+
 /** @internal */
 export const publicContractCoordinateSchema = v.strictObject({
   contractId: contractIdSchema,
@@ -335,7 +345,8 @@ export const publicContractCoordinateSchema = v.strictObject({
   schemaId: contractIdSchema,
   schemaVersion: semanticVersionSchema,
   schemaDigest: sha256DigestSchema,
-  nativeLocator: nativeContractLocatorSchema
+  nativeLocator: v.nullable(nativeContractLocatorSchema),
+  assetLocator: v.optional(v.nullable(publicContractAssetLocatorSchema))
 });
 
 /** @internal */
@@ -377,7 +388,29 @@ export function admitPublicContractCoordinate(
   input: unknown
 ): PublicContractCoordinate {
   const coordinate = admitNative(publicContractCoordinateSchema, input);
-  if (coordinate.contractDigest !== coordinate.schemaDigest) {
+  const assetLocator = coordinate.assetLocator;
+  if (assetLocator !== undefined && assetLocator !== null) {
+    admitProductRelativePath(
+      assetLocator.relativePath,
+      "public contract coordinate.assetLocator.relativePath"
+    );
+  }
+  if (
+    coordinate.nativeLocator === null &&
+    (assetLocator === undefined || assetLocator === null)
+  ) {
+    throw new TypeError(
+      "public contract coordinate: native or canonical asset locator required"
+    );
+  }
+  if (
+    coordinate.contractDigest !== coordinate.schemaDigest ||
+    (assetLocator !== undefined &&
+      assetLocator !== null &&
+      (assetLocator.schemaId !== coordinate.schemaId ||
+        assetLocator.schemaVersion !== coordinate.schemaVersion ||
+        assetLocator.digest !== coordinate.schemaDigest))
+  ) {
     throw new TypeError("public contract coordinate: asset digest mismatch");
   }
   return coordinate;
@@ -734,18 +767,26 @@ const catalogScopeSlotSchema = v.union([
     allowlistDigest: sha256DigestSchema
   })
 ]);
+const selectedExecutionProgramSlotSchema = v.strictObject({
+  state: v.literal("admitted_execution_program"),
+  selectionState: v.literal("selected_graph_function"),
+  admittedGtlProgramRef: refSchema,
+  admittedGtlProgramDigest: sha256DigestSchema,
+  canonicalHandle: refSchema,
+  inputContract: publicContractCoordinateSchema,
+  inputPayloadRef: refSchema,
+  inputPayloadDigest: sha256DigestSchema
+});
+const constrainedExecutionProgramSlotSchema = v.strictObject({
+  state: v.literal("admitted_execution_program"),
+  selectionState: v.literal("program_constraints_only"),
+  admittedGtlProgramRef: refSchema,
+  admittedGtlProgramDigest: sha256DigestSchema
+});
 const executionProgramSlotSchema = v.union([
   forbiddenSlotSchema,
-  v.strictObject({
-    state: v.literal("admitted_execution_program"),
-    admittedGtlProgramRef: refSchema,
-    admittedGtlProgramDigest: sha256DigestSchema,
-    graphFunctionRef: refSchema,
-    graphFunctionDigest: sha256DigestSchema,
-    inputContract: publicContractCoordinateSchema,
-    inputPayloadRef: refSchema,
-    inputPayloadDigest: sha256DigestSchema
-  })
+  selectedExecutionProgramSlotSchema,
+  constrainedExecutionProgramSlotSchema
 ]);
 const invocationPolicySlotSchema = v.union([
   forbiddenSlotSchema,
@@ -936,8 +977,30 @@ export function admitInvocationAuthority<
     invocationAuthoritySchema(input.definitionKeySchema),
     input.raw
   );
-  if (authority.executionProgram.state === "admitted_execution_program") {
+  if (
+    authority.executionProgram.state === "admitted_execution_program" &&
+    authority.executionProgram.selectionState === "selected_graph_function"
+  ) {
     admitPublicContractCoordinate(authority.executionProgram.inputContract);
+  }
+  if (
+    (authority.definitionKey.operationId === "abg.operation.run.invoke" ||
+      authority.definitionKey.operationId === "abg.operation.run.continue") &&
+    authority.definitionKey.memberKind === "variant"
+  ) {
+    const expectedSelectionState =
+      authority.definitionKey.operationId === "abg.operation.run.invoke" &&
+      authority.definitionKey.variant === "invoke"
+        ? "selected_graph_function"
+        : "program_constraints_only";
+    if (
+      authority.executionProgram.state !== "admitted_execution_program" ||
+      authority.executionProgram.selectionState !== expectedSelectionState
+    ) {
+      throw new TypeError(
+        "invocation authority: execution-program state differs from operation variant"
+      );
+    }
   }
   assertAuthorityExpectation({
     definitionKeySchema: input.definitionKeySchema,

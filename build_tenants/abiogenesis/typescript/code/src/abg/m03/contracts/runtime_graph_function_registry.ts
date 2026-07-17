@@ -350,6 +350,12 @@ function entryShadowsSystemEntry(input: {
   );
 }
 
+export function deriveRuntimeRegistryProjectionRef(
+  entries: readonly RuntimeRegistryEntryProjection[]
+): string {
+  return `runtime-registry-projection:${stableSha256Digest(entries)}`;
+}
+
 export function projectRuntimeGraphFunctionRegistry(
   events: readonly RuntimeEvent[]
 ): RuntimeRegistryProjection {
@@ -374,7 +380,7 @@ export function projectRuntimeGraphFunctionRegistry(
   );
   return Object.freeze({
     kind: "runtime_registry_projection",
-    projectionRef: `runtime-registry-projection:${stableSha256Digest(sortedEntries)}`,
+    projectionRef: deriveRuntimeRegistryProjectionRef(sortedEntries),
     entries: Object.freeze(sortedEntries),
     rejectedEntries: Object.freeze([...rejectedEntries]),
     sourceEventRefs: Object.freeze(sourceEventRefs)

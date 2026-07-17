@@ -11,6 +11,7 @@ import {
   admitCapabilityGrant,
   admitInvocationAuthority,
   admitNative,
+  admitPublicContractCoordinate,
   admitPublicInvocation,
   admitPublicOutcome,
   admitStrictRequestWithDefaults,
@@ -732,6 +733,51 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
     }),
     /asset digest mismatch/u
   );
+  const assetOnlyCoordinate = {
+    ...current.rows[0],
+    nativeLocator: null,
+    assetLocator: {
+      kind: "canonical_asset",
+      relativePath: "contracts/phase-a/request.json",
+      mediaType: "application/schema+json",
+      schemaId: current.rows[0].schemaId,
+      schemaVersion: current.rows[0].schemaVersion,
+      digest: current.rows[0].schemaDigest
+    }
+  };
+  assert.deepEqual(
+    admitPublicContractCoordinate(assetOnlyCoordinate),
+    assetOnlyCoordinate
+  );
+  assert.throws(
+    () => admitPublicContractCoordinate({
+      ...assetOnlyCoordinate,
+      assetLocator: {
+        ...assetOnlyCoordinate.assetLocator,
+        relativePath: ""
+      }
+    }),
+    /Invalid format/u
+  );
+  for (const unsafeRelativePath of [
+    "/contracts/phase-a/request.json",
+    ".",
+    "contracts/./request.json",
+    "contracts/../request.json",
+    "contracts//request.json",
+    "contracts\\phase-a\\request.json"
+  ]) {
+    assert.throws(
+      () => admitPublicContractCoordinate({
+        ...assetOnlyCoordinate,
+        assetLocator: {
+          ...assetOnlyCoordinate.assetLocator,
+          relativePath: unsafeRelativePath
+        }
+      }),
+      /confined product-relative path/u
+    );
+  }
   assert.throws(
     () => resolvePublicContractCoordinate({
       admittedCatalog: current.contractCatalogPacket,

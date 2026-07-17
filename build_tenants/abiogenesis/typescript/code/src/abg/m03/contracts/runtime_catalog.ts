@@ -41,6 +41,7 @@ import {
 } from "./event_admission.js";
 import {
   admitGtlLibraryEntryDeclaration,
+  deriveRuntimeRegistryProjectionRef,
   projectRuntimeGraphFunctionRegistry
 } from "./runtime_graph_function_registry.js";
 import type {
@@ -742,6 +743,38 @@ function assertNoRuntimeIdentityConflicts(events: readonly RuntimeEvent[]): void
   }
 }
 
+interface RuntimeCatalogProjectionIdentitySource {
+  readonly workspaceId: string;
+  readonly bindingId: string;
+  readonly catalogId: string;
+  readonly runtimeRegistryProjectionRef: string;
+  readonly opaqueAssetEntries: readonly OpaqueCatalogAssetProjection[];
+  readonly rejectedOpaqueAssetEntries: readonly RejectedOpaqueCatalogAssetProjection[];
+  readonly sourceEventRefs: readonly string[];
+}
+
+function runtimeCatalogProjectionIdentity(
+  input: RuntimeCatalogProjectionIdentitySource
+): Readonly<Record<string, unknown>> {
+  return Object.freeze({
+    workspaceId: input.workspaceId,
+    bindingId: input.bindingId,
+    catalogId: input.catalogId,
+    runtimeRegistryProjectionRef: input.runtimeRegistryProjectionRef,
+    opaqueAssetEntries: input.opaqueAssetEntries,
+    rejectedOpaqueAssetEntries: input.rejectedOpaqueAssetEntries,
+    sourceEventRefs: input.sourceEventRefs
+  });
+}
+
+function deriveRuntimeCatalogProjectionRef(
+  input: RuntimeCatalogProjectionIdentitySource
+): string {
+  return `runtime-catalog-projection:${stableSha256Digest(
+    runtimeCatalogProjectionIdentity(input)
+  )}`;
+}
+
 // Registry-entry events predate workspace identity on their carrier. The caller
 // must supply them from the exact event log bound to workspaceId/bindingId;
 // catalog-asset events carry that identity and are checked here directly.
@@ -810,7 +843,7 @@ export function projectRuntimeCatalog(input: {
   const opaqueAssetEntries = [...opaqueByEntryRef.values()].sort((left, right) =>
     codepointCompare(left.entryRef, right.entryRef)
   );
-  const projectionIdentity = Object.freeze({
+  const projectionIdentitySource = Object.freeze({
     workspaceId: input.workspaceId,
     bindingId: input.bindingId,
     catalogId: input.catalogId,
@@ -821,7 +854,7 @@ export function projectRuntimeCatalog(input: {
   });
   return Object.freeze({
     kind: "runtime_catalog_projection",
-    projectionRef: `runtime-catalog-projection:${stableSha256Digest(projectionIdentity)}`,
+    projectionRef: deriveRuntimeCatalogProjectionRef(projectionIdentitySource),
     workspaceId: input.workspaceId,
     bindingId: input.bindingId,
     catalogId: input.catalogId,
@@ -1452,6 +1485,127 @@ function declarationModuleBindingIdentity(
   });
 }
 
+type AdmittedRuntimeCatalogBasisIdentitySource = Pick<
+  AdmittedRuntimeCatalogBasis,
+  | "workspaceId"
+  | "bindingId"
+  | "catalogId"
+  | "resolvedLockRef"
+  | "runtimeCatalogProjectionRef"
+  | "runtimeRegistryProjectionRef"
+  | "admissionEventRefs"
+  | "descriptorRefs"
+  | "contributionManifestRefs"
+  | "productStartupConfigRefs"
+  | "executionBindings"
+  | "declarationModuleBindings"
+>;
+
+function admittedRuntimeCatalogBasisIdentity(
+  input: AdmittedRuntimeCatalogBasisIdentitySource
+): Readonly<Record<string, unknown>> {
+  return Object.freeze({
+    workspaceId: input.workspaceId,
+    bindingId: input.bindingId,
+    catalogId: input.catalogId,
+    resolvedLockRef: input.resolvedLockRef,
+    runtimeCatalogProjectionRef: input.runtimeCatalogProjectionRef,
+    runtimeRegistryProjectionRef: input.runtimeRegistryProjectionRef,
+    admissionEventRefs: input.admissionEventRefs,
+    descriptorRefs: input.descriptorRefs,
+    contributionManifestRefs: input.contributionManifestRefs,
+    productStartupConfigRefs: input.productStartupConfigRefs,
+    executionBindings: input.executionBindings.map(
+      catalogExecutionBindingIdentity
+    ),
+    declarationModuleBindings: input.declarationModuleBindings.map(
+      declarationModuleBindingIdentity
+    )
+  });
+}
+
+function orderedStringsEqual(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  return left.length === right.length &&
+    left.every((value, index) => value === right[index]);
+}
+
+export function assertAdmittedRuntimeCatalogBasis(
+  basis: AdmittedRuntimeCatalogBasis
+): void {
+  const projection = basis.projection;
+  const expectedRegistryProjectionRef = deriveRuntimeRegistryProjectionRef(
+    projection.runtimeRegistryProjection.entries
+  );
+  if (
+    projection.runtimeRegistryProjection.projectionRef !==
+      expectedRegistryProjectionRef
+  ) {
+    throw new TypeError(
+      "AdmittedRuntimeCatalogBasis runtime registry projection content differs from its projectionRef"
+    );
+  }
+  const expectedCatalogProjectionRef = deriveRuntimeCatalogProjectionRef({
+    workspaceId: projection.workspaceId,
+    bindingId: projection.bindingId,
+    catalogId: projection.catalogId,
+    runtimeRegistryProjectionRef: expectedRegistryProjectionRef,
+    opaqueAssetEntries: projection.opaqueAssetEntries,
+    rejectedOpaqueAssetEntries: projection.rejectedOpaqueAssetEntries,
+    sourceEventRefs: projection.sourceEventRefs
+  });
+  if (projection.projectionRef !== expectedCatalogProjectionRef) {
+    throw new TypeError(
+      "AdmittedRuntimeCatalogBasis runtime catalog projection content differs from its projectionRef"
+    );
+  }
+  const graphFunctionEntries =
+    projection.runtimeRegistryProjection.entries.filter(
+      (entry) => entry.entryKind === "graph_function"
+    );
+  if (
+    graphFunctionEntries.length !== basis.executionBindings.length ||
+    graphFunctionEntries.some((entry) => {
+      const matchingBindings = basis.executionBindings.filter((binding) =>
+        binding.entryRef === entry.entryRef &&
+        executionBindingMatchesRegistryEntry(binding, entry)
+      );
+      return matchingBindings.length !== 1;
+    })
+  ) {
+    throw new TypeError(
+      "AdmittedRuntimeCatalogBasis execution bindings differ from registry entries"
+    );
+  }
+  if (
+    basis.kind !== "admitted_runtime_catalog_basis" ||
+    projection.kind !== "runtime_catalog_projection" ||
+    projection.runtimeRegistryProjection.kind !== "runtime_registry_projection" ||
+    basis.workspaceId !== projection.workspaceId ||
+    basis.bindingId !== projection.bindingId ||
+    basis.catalogId !== projection.catalogId ||
+    basis.runtimeCatalogProjectionRef !== projection.projectionRef ||
+    basis.runtimeRegistryProjectionRef !==
+      projection.runtimeRegistryProjection.projectionRef ||
+    !orderedStringsEqual(basis.admissionEventRefs, projection.sourceEventRefs)
+  ) {
+    throw new TypeError(
+      "AdmittedRuntimeCatalogBasis does not match its runtime catalog projection"
+    );
+  }
+  const expectedBasisRef =
+    `admitted-runtime-catalog-basis:${stableSha256Digest(
+      admittedRuntimeCatalogBasisIdentity(basis)
+    )}`;
+  if (basis.basisRef !== expectedBasisRef) {
+    throw new TypeError(
+      "AdmittedRuntimeCatalogBasis.basisRef does not match canonical basis identity"
+    );
+  }
+}
+
 function constructAdmittedRuntimeCatalogBasis(input: {
   readonly batch: BoundCatalogAdmissionBatch;
   readonly projection: RuntimeCatalogProjection;
@@ -1479,7 +1633,7 @@ function constructAdmittedRuntimeCatalogBasis(input: {
       (batch) => batch.productStartupConfig.configRef
     )
   );
-  const basisIdentity = Object.freeze({
+  const basisIdentity = admittedRuntimeCatalogBasisIdentity({
     workspaceId: input.batch.workspaceId,
     bindingId: input.batch.bindingId,
     catalogId: input.batch.catalogId,
@@ -1490,10 +1644,8 @@ function constructAdmittedRuntimeCatalogBasis(input: {
     descriptorRefs,
     contributionManifestRefs,
     productStartupConfigRefs,
-    executionBindings: executionBindings.map(catalogExecutionBindingIdentity),
-    declarationModuleBindings: declarationModuleBindings.map(
-      declarationModuleBindingIdentity
-    )
+    executionBindings,
+    declarationModuleBindings
   });
   return Object.freeze({
     kind: "admitted_runtime_catalog_basis",
@@ -1891,17 +2043,8 @@ export function deriveRegistrySessionView(input: {
   readonly basis: AdmittedRuntimeCatalogBasis;
   readonly allowedEntryRefs?: readonly string[] | undefined;
 }): RegistrySessionViewResult {
+  assertAdmittedRuntimeCatalogBasis(input.basis);
   const projection = input.basis.projection;
-  if (
-    input.basis.runtimeCatalogProjectionRef !== projection.projectionRef ||
-    input.basis.runtimeRegistryProjectionRef !==
-      projection.runtimeRegistryProjection.projectionRef ||
-    input.basis.workspaceId !== projection.workspaceId ||
-    input.basis.bindingId !== projection.bindingId ||
-    input.basis.catalogId !== projection.catalogId
-  ) {
-    throw new TypeError("RegistrySessionView requires a coherent admitted runtime catalog basis");
-  }
   const bindingsByEntryRef = new Map(
     input.basis.executionBindings.map((binding) => [binding.entryRef, binding])
   );

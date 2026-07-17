@@ -1289,9 +1289,19 @@ Runtime-selected contracts use one exact `PublicContractCoordinate`:
 {
   contractId, contractVersion, contractDigest,
   schemaId, schemaVersion, schemaDigest,
-  nativeLocator: { packageName, packageExport, symbol }
+  nativeLocator: { packageName, packageExport, symbol } | null,
+  assetLocator?: {
+    relativePath, mediaType, schemaId, schemaVersion, digest
+  } | null
 }
 ```
+
+At least one locator is required. A runtime-selected serialized input contract
+requires the canonical asset locator and may be asset-only; it never acquires a
+synthetic native symbol. A private native source may omit the asset locator
+before publication. When both exist, the schema identity, version, and digest
+must agree. This is one closed coordinate family over distinct lifecycle
+states, not two authored contract registries.
 
 The catalog basis is a distinct `PublicContractCatalogCoordinate`; it is not a
 contract row and cannot be substituted by `PublicContractCoordinate`:
@@ -1342,7 +1352,7 @@ The exact admitted cases are:
 | product set | `{ state: "forbidden" }` | `{ state: "admitted_product_set", productSetRef, productSetDigest }` |
 | dependency lock | `{ state: "forbidden" }` | `{ state: "admitted_dependency_lock", lockRef, lockDigest }` |
 | catalog scope | `{ state: "forbidden" }` | `{ state: "admitted_catalog_scope", viewRef, viewDigest, allowlistRef, allowlistDigest }` |
-| execution program | `{ state: "forbidden" }` | `{ state: "admitted_execution_program", admittedGtlProgramRef, admittedGtlProgramDigest, graphFunctionRef, graphFunctionDigest, inputContract: PublicContractCoordinate, inputPayloadRef, inputPayloadDigest }` |
+| execution program | `{ state: "forbidden" }` | `invoke -> { state: "admitted_execution_program", selectionState: "selected_graph_function", admittedGtlProgramRef, admittedGtlProgramDigest, canonicalHandle, inputContract: PublicContractCoordinate, inputPayloadRef, inputPayloadDigest }`; `start -> { state: "admitted_execution_program", selectionState: "program_constraints_only", admittedGtlProgramRef, admittedGtlProgramDigest }`. The internal GraphFunction identity/digest derives only after exact catalog-handle resolution. |
 | invocation policy | `{ state: "forbidden" }` | `{ state: "admitted_invocation_policy", policyRef, policyDigest, sessionPolicyRef, sessionPolicyDigest }` |
 | transport steering | `{ state: "forbidden" }` | `{ state: "declared_transport_steering", steeringRef, steeringDigest, provenanceRefs }` |
 
