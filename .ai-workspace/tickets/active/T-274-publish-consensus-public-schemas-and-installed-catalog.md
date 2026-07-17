@@ -32,8 +32,9 @@
   - ratified T-278 Ontology `run.invoke` and `project.read` definitions
   - repaired T-281 Phase A native-schema source/witness mechanism; independent re-review gates T-274A closure
 - downstream_dependencies:
-  - T-281 P1 and T-270 gate T-274B installed publication, not T-274A schema projection
-  - T-275 consumes the verified T-274B public schema identities
+  - T-281 P1 and the independently reviewed T-270 AF-15/runtime-authority milestone gate T-274B, not T-274A
+  - T-275 consumes the verified T-274B contract and catalog contributions
+  - T-281 P2 atomically merges those contributions into the singular packed catalog
 - authority_refs:
   - specification/requirements/product/REQ-P-CONSENSUS-001..004
   - specification/requirements/product/REQ-P-CONSENSUS-007..008A
@@ -106,16 +107,19 @@ wrapper and explicitly absent non-terminal slot. T-274A does not author that
 wrapper, change its nine-schema exit, move T-275 handler/projection semantics,
 or close the full `ticket_consensus` definition by itself.
 
-T-274B follows the accepted public-operation P1 and T-270 boundaries. AF-24
-publishes the verified schema/vocabulary rows and one SYSTEM-owned
+T-274B follows the accepted public-operation P1 and independently reviewed
+T-270 AF-15/runtime-authority milestone. AF-24 derives and verifies the
+schema/vocabulary contribution rows and one SYSTEM-owned
 GraphFunction contribution declaration for
 `gtl://abg/consensus/submitter-reviewer-rounds`. GTL/M02 owns the exact Module
 and GraphFunction declaration truth; T-274 packages and verifies its installed
 round trip. AF-08 separately admits the contribution into the installed
-`Catalog`. Native locators, serialized assets, package files, contribution
-identity, admitted catalog identity, and Module/GraphFunction/body digests must
-name the same truth without merging the public-contract and
-contribution-catalog authorities.
+`Catalog`. Native locators, serialized assets, contribution identity, and
+Module/GraphFunction/body digests must name the same truth without merging the
+public-contract and contribution-catalog authorities. T-274B does not publish
+an interim contract catalog beside the legacy operation register. T-281 P2
+atomically merges the verified contributions into the singular packed catalog,
+performs installed AF-08 admission, and retires the legacy register.
 
 This ticket projects and later publishes assets. It does not interpret C programs, invoke a
 reviewer, admit findings, project ticket results, write runtime events, or own
@@ -158,20 +162,25 @@ closed and independently addressable, reject cross-projection substitution,
 and reproduce exact bytes and digests without any public or installed claim.
 Phase A generation is temp-only and leaves no candidate asset in the package.
 
-T-274B closes when those verified assets resolve through the packed public
-contract catalog, the installed Module round-trips without source import, and
-the contribution declaration and admitted catalog row resolve the exact T-252
-GraphFunction and SYSTEM owner. Malformed or digest-divergent assets fail
-before their owning admission. Each phase requires independent review.
+The T-274B contribution milestone is independently reviewable when its exact
+contract rows, serialized assets, and SYSTEM-owned callable contribution derive
+from the accepted sources, reproduce deterministic bytes and digests, and
+reject malformed or divergent inputs before merge. That milestone unblocks
+T-275 but does not close this ticket. T-274B closes in atomic P2 when those
+verified contributions resolve through the singular packed public contract
+catalog, the installed Module round-trips without source import, and AF-08
+admits the exact T-252 GraphFunction and SYSTEM owner. Each milestone requires
+independent review.
 
 ## Prime Migration Status
 
 The native contract family and callable-source contraction are realized under
 T-277. T-274A owns nine generated schema assets, two derived vocabularies, and
-their parity proofs after T-281 Phase A. T-274B owns public catalog rows,
-callable contribution, installed publication, and packed admission after the
-P1 and T-270 prerequisites. This ticket is not closed by either
-design checkpoint or by T-274A alone.
+their parity proofs after T-281 Phase A. T-274B owns the verified public-catalog
+and callable contributions after the P1 and T-270 runtime-authority
+prerequisites. Atomic P2 owns their singular packed merge and installed
+admission. This ticket is not closed by either design checkpoint, T-274A, or
+the private T-274B contribution milestone alone.
 
 ## T-274A Implementation Status
 

@@ -43,7 +43,9 @@
   - completed T-271
 - downstream_dependencies:
   - T-281 P1 consumes the neutral owner-native run.invoke contract family
+  - an independently reviewed AF-15/runtime-authority milestone unblocks T-272 and T-274B
   - T-272 continuation consumes held F_H truth
+  - T-281 P2 atomically publishes the route and retires the legacy public identity
   - T-268 aggregates the final tenant capability manifest
   - T-276 owns installed existing, alternate, and temporary-workspace scenarios
 - authority_refs:
@@ -146,6 +148,12 @@ owner-native request, result, refusal, and non-terminal schemas with stable
 coordinates and malformed-input/output negatives, while M03 imports no M04
 public-contract implementation. That milestone is a T-281 P1 input and does
 not satisfy the runtime exits below.
+
+The public-router/runtime-authority milestone is independently reviewable when
+exits 1 through 5 pass on the accepted P1 basis. That milestone may unblock
+T-272 and T-274B, but it publishes no partial public surface and does not close
+this ticket. Exits 6 and 7 close only in the atomic P2 switch after all handler,
+schema, SDK, CLI, and catalog contributions are ready.
 
 1. Generic non-Consensus and unchanged Consensus programs use the same AF-14 /
    AF-15 authority join and T-255/T-267/T-271 execution path.

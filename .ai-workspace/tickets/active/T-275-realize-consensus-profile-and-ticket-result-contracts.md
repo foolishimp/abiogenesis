@@ -35,8 +35,8 @@
   - completed T-271 complete C-program interpretation
 - implementation_fence:
   - completed T-281 P1 exact private 19-operation definition-family milestone
-  - completed T-270 public run.invoke authority and AF-15 integration
-  - completed T-274 one-family schema and installed-catalog publication
+  - independently accepted T-270 public-router and AF-15/runtime-authority milestone
+  - independently accepted T-274B one-family contract and catalog contribution milestone
 - downstream_dependencies:
   - T-272 supplies lawful F_H continuation before a held interaction can yield a final result
   - T-268 aggregates final Consensus capability and conformance coverage
@@ -129,8 +129,9 @@ is not fabricated into a final `ConsensusResult`; T-272 must first admit its
 lawful continuation. Accept the reconciled three-view design before code.
 
 Design review may close while its implementation fence is open. No T-275 code,
-schema, generated asset, or public projection may land until T-281 P1, T-270,
-and T-274 are completed on the same target basis. T-275 supplies the
+schema, generated asset, or public projection may land until T-281 P1 and the
+T-270/T-274B private milestones are independently accepted on the same target
+basis. T-275 supplies the
 pure `ticket_consensus` projection contribution required by T-281 P2; it does
 not introduce a Consensus-specific handler or wait for that publication
 milestone.

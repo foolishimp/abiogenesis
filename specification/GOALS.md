@@ -159,7 +159,7 @@ flowchart TD
   P1 --> Q[Reconcile or realize the remaining operation handlers]
   F --> G[T-272 F_H continuation]
   P1 --> G
-  F --> H[T-274 Consensus schemas and installed catalog]
+  F --> H[T-274 verified Consensus publication contributions]
   P1 --> H
   H --> I[T-275 profiles and ticket-result projection]
   F --> P2[Bind all handlers and publish full packed operation catalog, SDK, and CLI parity]
@@ -198,14 +198,19 @@ mandatory public-contract capability against a partial operation catalog. This
 avoids schema-after-handler drift, publication claims over unrealized behavior,
 and a false complete capability manifest.
 
-T-270 closes on focused public-router and runtime-authority proof. It does not
-depend on T-268's final packed aggregation. T-272 and T-274 may proceed in
-parallel after T-270 and the public projection inputs they consume. T-275
-follows T-274. T-268 follows T-270, T-272, T-274, T-275, and full public
-operation parity. T-276 alone owns the installed existing, alternate, and
-temporary workspace aggregation proof. Only non-operation DS-5 residuals
-follow T-276. This ordering removes the former T-270/T-268 closure cycle and
-the former DS-4/public-surface inversion.
+T-270 reaches an independently reviewed public-router and runtime-authority
+milestone without depending on T-268's final packed aggregation. T-272 and
+T-274B may proceed in parallel after that milestone and the public projection
+inputs they consume. T-274B derives and verifies its Consensus contract and
+catalog contributions privately; it does not publish an interim catalog beside
+the legacy operation register. T-275 follows that contribution milestone. P2
+then performs one atomic packed-catalog, SDK, CLI, handler-binding, and legacy
+hard-break switch and closes the public portions of T-270 and T-274. T-268
+follows T-270, T-272, T-274, T-275, and full public operation parity. T-276
+alone owns the installed existing, alternate, and temporary workspace
+aggregation proof. Only non-operation DS-5 residuals follow T-276. This
+ordering removes the former T-270/T-268 closure cycle and the former
+DS-4/public-surface inversion without creating a temporary publication path.
 
 `codex/t266-stage` remains the singular 5.0 integration line. Do not merge or
 rebase the large dirty runtime wave merely to absorb commentary-only commits
