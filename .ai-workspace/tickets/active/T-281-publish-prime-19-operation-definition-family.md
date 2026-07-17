@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_design_accepted_owner_schema_realization_authorized
+- phase_status: p1_non_read_owner_inputs_closed_project_read_owner_design_repair_in_progress
 - review_status: p1_structural_definition_key_design_independently_accepted
-- proof_status: p1_design_exact_packet_typescript_runtime_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
+- proof_status: p1_35_non_read_keys_115_schema_slots_exact_project_read_81_slots_and_central_family_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -142,6 +142,10 @@
 - accepted_p1_structural_definition_key_design_digest: >-
     01022386a2a89e523f11b0ffb363573299d35985240840dc6adac2bfb4d16838
 - p1_implementation_authority: delegated_fh_accepted_private_all_or_nothing_constructor_boundary
+- p1_non_read_owner_input_commit: d80cef8f4aa9f04f7fad678918f89031f37295cb
+- p1_non_read_owner_input_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T033834Z_SELF_REVIEW_t281_non_read_owner_input_checkpoint.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -486,3 +490,21 @@ implementation inside the private all-or-nothing constructor boundary. Its
 owner-schema gaps remain admission blockers and must close before the family
 can admit; the already-recorded milestone split is not a blocker. P2 remains
 fenced behind completed P1, T-274B, T-275, and the remaining handler owners.
+
+## P1 Non-Read Owner Input Checkpoint
+
+Commit `d80cef8f` closes the exact 35 non-`project.read` definition keys and
+all 115 of their schema-bearing slots. The owner-source census contains no
+missing, extra, duplicate, or `semantic_not_realized` row. Ten lawful
+nonterminal schemas remain distinct from the 25 non-read keys whose
+nonterminal coordinate is explicitly absent at central-family admission.
+
+The checkpoint does not admit the private P1 family. The remaining owner-input
+boundary is the 27-case `project.read` relation: 81 request/result/refusal
+slots, with T-274A supplying only the `ticket_consensus` result coordinate.
+Central admission then must prove 196 exact schema slots plus 52 explicit
+nonterminal absences across 62 structural definition keys. No public operation,
+schema, catalog row, SDK member, CLI coordinate, handler, or compatibility
+surface was added. The regenerated product toolchain manifest records changed
+packaged private bytes; the 82 public schemas and 40 publication assets remain
+exact.
