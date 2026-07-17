@@ -110,3 +110,23 @@ test("T-280 compiler seals the AF13 through AF16 joins without binding AF15", as
   assert(result.diagnostics[0].evidenceRefs.includes(constructionIntent.joinRef));
   assert(result.diagnostics[0].evidenceRefs.includes(actionEvaluation.joinRef));
 });
+
+test("T-280 compiler rejects an effect-bearing evaluate_next row without declared outputs", async () => {
+  const fixture = scenario09OneSurfaceProgramFixture({
+    omitExpectedOutputAssetRefs: true
+  });
+  const result = await compileOneSurfaceGtlProgramApplication({
+    gtlProgram: fixture.gtlProgram,
+    stageAuthorities: stageAuthorities(fixture),
+    recursePlan: fixture.recursePlan
+  });
+
+  assert.equal(result.status, "invalid");
+  assert.equal(result.authorityProgram, null);
+  assert(result.diagnostics.some((diagnostic) =>
+    diagnostic.diagnosticId === "one_surface_program_join_invalid" &&
+    diagnostic.actualRelation.includes(
+      "effect-bearing evaluate_next traversal must declare expected output assets"
+    )
+  ), JSON.stringify(result.diagnostics));
+});

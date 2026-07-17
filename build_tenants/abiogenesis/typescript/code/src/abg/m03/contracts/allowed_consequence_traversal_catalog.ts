@@ -1,4 +1,5 @@
 // Implements: T-156
+// Implements: T-280
 // Implements: REQ-R-ABG3-FP-CONSCIOUSNESS
 // Implements: REQ-R-ABG3-FN-COMPOSITION
 
@@ -64,6 +65,8 @@ export interface AllowedConsequenceTraversalRow {
   readonly allowedActionKinds: readonly AllowedConsequenceTraversalActionKind[];
   readonly allowedGraphFunctionRefs: readonly string[];
   readonly allowedTraversalTargetRefs: readonly string[];
+  readonly inputAssetRefs: readonly string[];
+  readonly expectedOutputAssetRefs: readonly string[];
   readonly requiredAuthorityRefs: readonly string[];
   readonly proportionalityBasisRefs: readonly string[];
   readonly declarationSourceRefs: readonly string[];
@@ -153,6 +156,8 @@ export function constructAllowedConsequenceTraversalRow(input: {
   readonly allowedActionKinds?: readonly AllowedConsequenceTraversalActionKind[];
   readonly allowedGraphFunctionRefs?: readonly string[];
   readonly allowedTraversalTargetRefs?: readonly string[];
+  readonly inputAssetRefs?: readonly string[];
+  readonly expectedOutputAssetRefs?: readonly string[];
   readonly requiredAuthorityRefs?: readonly string[];
   readonly proportionalityBasisRefs?: readonly string[];
   readonly declarationSourceRefs?: readonly string[];
@@ -198,6 +203,14 @@ export function constructAllowedConsequenceTraversalRow(input: {
     allowedTraversalTargetRefs: freezeNonEmptyStrings(
       input.allowedTraversalTargetRefs ?? [],
       "AllowedConsequenceTraversalRow.allowedTraversalTargetRefs"
+    ),
+    inputAssetRefs: freezeNonEmptyStrings(
+      input.inputAssetRefs ?? [],
+      "AllowedConsequenceTraversalRow.inputAssetRefs"
+    ),
+    expectedOutputAssetRefs: freezeNonEmptyStrings(
+      input.expectedOutputAssetRefs ?? [],
+      "AllowedConsequenceTraversalRow.expectedOutputAssetRefs"
     ),
     requiredAuthorityRefs: freezeNonEmptyStrings(
       input.requiredAuthorityRefs ?? [],
@@ -447,6 +460,11 @@ function rowsFromRowDeclaration(input: {
         allowedTraversalTargetRefs: optionalStringArrayFromPlain(
           row,
           "allowedTraversalTargetRefs"
+        ),
+        inputAssetRefs: optionalStringArrayFromPlain(row, "inputAssetRefs"),
+        expectedOutputAssetRefs: optionalStringArrayFromPlain(
+          row,
+          "expectedOutputAssetRefs"
         ),
         requiredAuthorityRefs: optionalStringArrayFromPlain(
           row,

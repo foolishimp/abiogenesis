@@ -56,6 +56,14 @@ import {
 } from "../contracts/one_surface_program_compiler.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
+function sameStringRefs(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  return stableSha256Digest([...left].sort()) ===
+    stableSha256Digest([...right].sort());
+}
+
 export interface OneSurfaceConstructionIntentAdmission {
   readonly kind: "one_surface_construction_intent_admission";
   readonly status: "admitted";
@@ -362,6 +370,21 @@ export function admitOneSurfaceConstructionIntent(input: {
     });
   }
   const candidate = input.nextAction.intentCandidate;
+  const selectedAction = candidate === null
+    ? undefined
+    : input.actionCatalog.rows.find(
+        (row) => row.actionRef === candidate.selectedActionRef
+      );
+  const selectedBinding = candidate === null
+    ? undefined
+    : input.bindingProjection.rows.find(
+        (row) => row.bindingRef === candidate.selectedBindingRef
+      );
+  const selectedPriority = candidate === null
+    ? undefined
+    : input.priorityProjection.rows.find(
+        (row) => row.bindingRef === candidate.selectedBindingRef
+      );
   const af14Eligible =
     input.nextAction.disposition.variant === "callable_member_action" ||
     input.nextAction.disposition.variant === "internal_vector_action" ||
@@ -379,6 +402,17 @@ export function admitOneSurfaceConstructionIntent(input: {
     input.nextAction.selectedBindingRef !== candidate.selectedBindingRef ||
     input.nextAction.selectedOutcomeRef !== candidate.selectedOutcomeRef ||
     input.nextAction.disposition.actionRef !== candidate.selectedActionRef ||
+    selectedAction === undefined ||
+    selectedBinding === undefined ||
+    selectedPriority === undefined ||
+    candidate.rank !== selectedPriority.rankOrdinal ||
+    candidate.valueScore !== selectedPriority.finalScore ||
+    candidate.priorityScore !== selectedPriority.priorityScore ||
+    !sameStringRefs(candidate.affectAdjustmentRefs, selectedPriority.affectAdjustmentRefs) ||
+    !sameStringRefs(candidate.inputAssetRefs, selectedAction.inputAssetRefs) ||
+    !sameStringRefs(candidate.inputAssetRefs, selectedBinding.requiredInputRefs) ||
+    !sameStringRefs(candidate.expectedOutputAssetRefs, selectedAction.expectedOutputAssetRefs) ||
+    !sameStringRefs(candidate.expectedOutputAssetRefs, selectedBinding.providedOutputRefs) ||
     input.nextAction.catalogView.ref.length === 0 ||
     input.nextAction.catalogView.digest.length === 0 ||
     input.workspaceBinding.ref !== input.observation.basisRef ||

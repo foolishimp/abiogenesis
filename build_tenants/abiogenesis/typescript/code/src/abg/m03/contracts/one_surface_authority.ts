@@ -60,6 +60,14 @@ export const ONE_SURFACE_AUTHORITY_FUNCTION_KIND_VALUES = Object.freeze([
 export type OneSurfaceAuthorityFunctionKind =
   (typeof ONE_SURFACE_AUTHORITY_FUNCTION_KIND_VALUES)[number];
 
+function sameStringRefs(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  return stableSha256Digest([...left].sort()) ===
+    stableSha256Digest([...right].sort());
+}
+
 export interface OneSurfaceRefDigest {
   readonly ref: string;
   readonly digest: string;
@@ -328,7 +336,9 @@ function actionRowsForAllowedConsequence(
           rowRef: row.rowRef,
           actionKind,
           graphFunctionRef,
-          traversalTargetRef
+          traversalTargetRef,
+          inputAssetRefs: row.inputAssetRefs,
+          expectedOutputAssetRefs: row.expectedOutputAssetRefs
         });
         const actionDigest = stableSha256Digest(basis);
         rows.push(constructConstructionActionRow({
@@ -344,6 +354,8 @@ function actionRowsForAllowedConsequence(
               : null,
           publishedTraversalTargetRef: traversalTargetRef,
           targetOutcomeRef: `abg://one-surface/outcome/${row.rowRef}/${actionKind}`,
+          inputAssetRefs: row.inputAssetRefs,
+          expectedOutputAssetRefs: row.expectedOutputAssetRefs,
           requiredAuthorityRefs: [
             ...row.requiredAuthorityRefs,
             ...row.declarationSourceRefs
@@ -1001,6 +1013,9 @@ export function deriveNextActionProjection(input: {
   const selectedAction = selectedPriority === null
     ? null
     : actionByRef.get(selectedPriority.actionRef) ?? null;
+  const selectedBinding = selectedPriority === null
+    ? null
+    : bindingByRef.get(selectedPriority.bindingRef) ?? null;
   const disposition = actionDisposition(selectedAction);
   const intentCandidate = decoded.intentCandidate;
   const effectIntentSelected =
@@ -1015,7 +1030,30 @@ export function deriveNextActionProjection(input: {
       (intentCandidate.episodeId !== input.observation.episodeId ||
         intentCandidate.selectedActionRef !== selectedActionRef ||
         intentCandidate.selectedBindingRef !== selectedPriority?.bindingRef ||
-        intentCandidate.selectedOutcomeRef !== selectedPriority?.targetOutcomeRef))
+        intentCandidate.selectedOutcomeRef !== selectedPriority?.targetOutcomeRef ||
+        intentCandidate.rank !== selectedPriority?.rankOrdinal ||
+        intentCandidate.valueScore !== selectedPriority?.finalScore ||
+        intentCandidate.priorityScore !== selectedPriority?.priorityScore ||
+        !sameStringRefs(
+          intentCandidate.affectAdjustmentRefs,
+          selectedPriority?.affectAdjustmentRefs ?? []
+        ) ||
+        !sameStringRefs(
+          intentCandidate.inputAssetRefs,
+          selectedAction?.inputAssetRefs ?? []
+        ) ||
+        !sameStringRefs(
+          intentCandidate.inputAssetRefs,
+          selectedBinding?.requiredInputRefs ?? []
+        ) ||
+        !sameStringRefs(
+          intentCandidate.expectedOutputAssetRefs,
+          selectedAction?.expectedOutputAssetRefs ?? []
+        ) ||
+        !sameStringRefs(
+          intentCandidate.expectedOutputAssetRefs,
+          selectedBinding?.providedOutputRefs ?? []
+        )))
   ) {
     return constructOneSurfaceTypedRefusal({
       functionKind: "evaluate_next",

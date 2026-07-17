@@ -229,7 +229,7 @@ function worldForAction({
     priorIntentId: null,
     causationRef: `causation://t280/action-variants/${String(ordinal)}`,
     correlationId: `correlation://t280/action-variants/${String(ordinal)}`,
-    linkedAssetRefs: [`asset://t280/action-variants/source/${String(ordinal)}`],
+    linkedAssetRefs: action?.inputAssetRefs ?? [],
     gapProjectionRefs: pressure === null ? [] : [pressure.sourceRef],
     actionCatalogRef: program.stages[2].allowedConsequenceCatalog.catalogRef,
     authorityDigest: stableSha256Digest({ observation: ordinal }),
@@ -278,9 +278,7 @@ function worldForAction({
             ? action.publishedTraversalTargetRef
             : null,
           inputAssetRefs: selectedBinding.requiredInputRefs,
-          expectedOutputAssetRefs: [
-            `asset://t280/action-variants/output/${String(ordinal)}`
-          ],
+          expectedOutputAssetRefs: selectedBinding.providedOutputRefs,
           gapRefs: [pressure.sourceRef],
           obligationRefs,
           lawfulBasisRefs: action.requiredAuthorityRefs,
@@ -402,7 +400,16 @@ test("T-280 AF-13 to AF-14 admits every effect variant with exact target conserv
       ordinal += 1;
       assert.equal(world.nextAction.kind, "next_action_projection");
       assert.equal(world.nextAction.disposition.variant, row.disposition);
-      assert.equal(world.intentAdmission?.status, "admitted");
+      assert.deepEqual(world.candidate.inputAssetRefs, world.action.inputAssetRefs);
+      assert.deepEqual(
+        world.candidate.expectedOutputAssetRefs,
+        world.action.expectedOutputAssetRefs
+      );
+      assert.equal(
+        world.intentAdmission?.status,
+        "admitted",
+        JSON.stringify(world.intentAdmission?.reasonRefs ?? [])
+      );
       const admitted = world.intentAdmission.constructionIntentAdmission.admittedIntent;
       assert.equal(admitted.selectedGraphFunctionRef, world.action.graphFunctionRef);
       assert.equal(admitted.selectedVectorRef, world.action.graphVectorRef);
@@ -534,5 +541,75 @@ test("T-280 AF-14 rejects missing graph-function, vector, and reentry targets ex
       world.intentAdmission.reasonRefs.includes(row.reason),
       JSON.stringify(world.intentAdmission.reasonRefs)
     );
+  }
+});
+
+test("T-280 AF-13 rejects F_P-authored priority and asset truth", async () => {
+  const cases = Object.freeze([
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({ ...candidate, rank: candidate.rank + 1 })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        valueScore: candidate.valueScore + 1
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        priorityScore: candidate.priorityScore + 1
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        affectAdjustmentRefs: [...candidate.affectAdjustmentRefs, "affect://forged"]
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        inputAssetRefs: [...candidate.inputAssetRefs, "asset://forged/input"]
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        inputAssetRefs: []
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        expectedOutputAssetRefs: [
+          ...candidate.expectedOutputAssetRefs,
+          "asset://forged/output"
+        ]
+      })
+    }),
+    Object.freeze({
+      mutate: (candidate) => Object.freeze({
+        ...candidate,
+        expectedOutputAssetRefs: []
+      })
+    })
+  ]);
+  const compiled = await compileActionWorld("callable");
+  let ordinal = 60;
+  for (const row of cases) {
+    const world = worldForAction({
+      ...compiled,
+      actionKind: "invoke_graph_function",
+      candidateMutation: row.mutate,
+      ordinal
+    });
+    ordinal += 1;
+    assert.equal(world.nextAction.kind, "one_surface_typed_refusal");
+    assert.deepEqual(
+      world.nextAction.reasonRefs,
+      ["evaluate_next_intent_candidate_differs_from_selection"]
+    );
+    assert.equal(world.intentAdmission, null);
   }
 });

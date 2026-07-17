@@ -179,7 +179,11 @@ function allowedTraversalRowsEntry(rows) {
   });
 }
 
-function allowedTraversalRows(graphFunctionRef, actionVariant = "callable") {
+function allowedTraversalRows(
+  graphFunctionRef,
+  actionVariant = "callable",
+  omitExpectedOutputAssetRefs = false
+) {
   const common = (suffix, traversalFamily, allowedActionKinds) => ({
     rowRef: `allowed-row://t280/scenario09/${suffix}`,
     traversalFamily,
@@ -187,9 +191,9 @@ function allowedTraversalRows(graphFunctionRef, actionVariant = "callable") {
     inputAssetRefs: Object.freeze([
       `asset://t280/scenario09/${suffix}/input`
     ]),
-    expectedOutputAssetRefs: Object.freeze([
-      `asset://t280/scenario09/${suffix}/output`
-    ]),
+    expectedOutputAssetRefs: omitExpectedOutputAssetRefs
+      ? Object.freeze([])
+      : Object.freeze([`asset://t280/scenario09/${suffix}/output`]),
     requiredAuthorityRefs: Object.freeze([
       `authority://t280/scenario09/${suffix}`
     ]),
@@ -530,7 +534,8 @@ export function scenario09OneSurfaceProgramFixture(options = {}) {
       vectorDeclarationEntries: Object.freeze([
         allowedTraversalRowsEntry(allowedTraversalRows(
           callableLabFunction.finalHost.id,
-          options.actionVariant
+          options.actionVariant,
+          options.omitExpectedOutputAssetRefs === true
         ))
       ])
     }),

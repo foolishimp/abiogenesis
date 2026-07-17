@@ -368,6 +368,23 @@ function admitStage<K extends OneSurfaceAuthorityFunctionKind>(
   ) {
     throw new TypeError("One Surface stage does not project one admitted traversal authority");
   }
+  if (
+    input.functionKind === "evaluate_next" &&
+    allowedConsequenceCatalog.rows.some((row) =>
+      row.expectedOutputAssetRefs.length === 0 &&
+      row.allowedActionKinds.some((actionKind) =>
+        actionKind === "invoke_graph_function" ||
+        actionKind === "invoke_prior_vector" ||
+        actionKind === "invoke_later_vector" ||
+        actionKind === "reenter_graph_span" ||
+        actionKind === "repair_same_edge"
+      )
+    )
+  ) {
+    throw new TypeError(
+      "One Surface effect-bearing evaluate_next traversal must declare expected output assets"
+    );
+  }
   const basis = stageBasis({
     ...input,
     ...programMembership,

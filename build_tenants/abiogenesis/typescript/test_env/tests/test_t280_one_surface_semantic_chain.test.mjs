@@ -205,7 +205,7 @@ async function semanticChainFixture() {
   const replayCursorRef = "replay://t280/scenario09/0";
   const runtimeProjectionRef = "projection://t280/scenario09/runtime";
   const observationInputRefs = Object.freeze([
-    "asset://t280/scenario09/source"
+    ...action.inputAssetRefs
   ]);
   const pressure = constructObservationPressureRow({
     pressureRef: "pressure://t280/scenario09/normalize",
@@ -312,7 +312,7 @@ async function semanticChainFixture() {
     targetVectorRef: action.graphVectorRef,
     targetReentryRef: selectedBinding.targetReentryRef,
     inputAssetRefs: selectedBinding.requiredInputRefs,
-    expectedOutputAssetRefs: ["asset://t280/scenario09/normalized"],
+    expectedOutputAssetRefs: selectedBinding.providedOutputRefs,
     gapRefs: [pressure.sourceRef],
     obligationRefs: targetObligations[0].obligationRefs,
     lawfulBasisRefs: action.requiredAuthorityRefs,
