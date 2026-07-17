@@ -7,6 +7,8 @@ import {
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import { isPlainObject } from "../../../shared/validation/primitives.js";
+import type { AbgFnComputeStageRole } from "./fn_composition.js";
+import type { PluginSelectionSeam } from "./plugin_selection.js";
 
 export const FP_RESULT_WIRE_PROFILE_VALUES = Object.freeze([
   "attached_result_artifact",
@@ -15,6 +17,77 @@ export const FP_RESULT_WIRE_PROFILE_VALUES = Object.freeze([
 
 export type FpResultWireProfile =
   (typeof FP_RESULT_WIRE_PROFILE_VALUES)[number];
+
+export type FpResultLocusPluginSeam = Extract<
+  PluginSelectionSeam,
+  "fpDispatch" | "fpEvaluator"
+>;
+
+export interface FpResultLocusContractDefinition {
+  readonly compositionStageRole: "transform" | "evaluate";
+  readonly requiredPluginSeam: FpResultLocusPluginSeam;
+  readonly wireProfile: FpResultWireProfile;
+}
+
+const FP_RESULT_LOCUS_CONTRACT_DEFINITIONS: Readonly<
+  Record<
+    FpResultLocusContractDefinition["compositionStageRole"],
+    FpResultLocusContractDefinition
+  >
+> = Object.freeze({
+  transform: Object.freeze({
+    compositionStageRole: "transform",
+    requiredPluginSeam: "fpDispatch",
+    wireProfile: "attached_result_artifact"
+  }),
+  evaluate: Object.freeze({
+    compositionStageRole: "evaluate",
+    requiredPluginSeam: "fpEvaluator",
+    wireProfile: "standard_live_review"
+  })
+});
+
+export function fpResultLocusContractDefinition(
+  compositionStageRole: AbgFnComputeStageRole
+): FpResultLocusContractDefinition | null {
+  switch (compositionStageRole) {
+    case "transform":
+    case "evaluate":
+      return FP_RESULT_LOCUS_CONTRACT_DEFINITIONS[compositionStageRole];
+    case "consequence":
+    case "human_callout":
+      return null;
+  }
+}
+
+export interface ProjectedFpResultLocusContract
+  extends FpResultLocusContractDefinition {
+  readonly pluginRef: string;
+}
+
+export function projectFpResultLocusContract(input: {
+  readonly compositionStageRole: AbgFnComputeStageRole;
+  readonly pluginSelection:
+    | Readonly<Partial<Record<PluginSelectionSeam, string>>>
+    | null;
+  readonly sourceRef: string;
+}): ProjectedFpResultLocusContract {
+  const definition = fpResultLocusContractDefinition(
+    input.compositionStageRole
+  );
+  if (definition === null) {
+    throw new TypeError(
+      `F_P result locus ${JSON.stringify(input.sourceRef)} has unsupported composition stage role ${JSON.stringify(input.compositionStageRole)}`
+    );
+  }
+  const pluginRef = input.pluginSelection?.[definition.requiredPluginSeam];
+  if (pluginRef === undefined || pluginRef.length === 0) {
+    throw new TypeError(
+      `F_P result locus ${JSON.stringify(input.sourceRef)} at ${definition.compositionStageRole} requires declared plugin seam ${definition.requiredPluginSeam}`
+    );
+  }
+  return Object.freeze({ ...definition, pluginRef });
+}
 
 export const FP_RESULT_CONTRACT_FAILURE_CLASS_VALUES = Object.freeze([
   "missing_selected_contract",

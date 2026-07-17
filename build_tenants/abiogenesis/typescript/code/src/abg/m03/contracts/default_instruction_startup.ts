@@ -7,7 +7,10 @@ import {
 } from "../../../gtl/m02/contracts/runtime_registry.js";
 import { sha256DigestForText } from "../../../shared/runtime_identity.js";
 import type { ExecutionBasis } from "./carriers.js";
-import { internalFpResultWireProfileFields } from "./fp_result_contract_admission.js";
+import {
+  fpResultLocusContractDefinition,
+  internalFpResultWireProfileFields
+} from "./fp_result_contract_admission.js";
 import {
   compileInstructionAssemblyPlan,
   constructDerivedDependencyInstructionTruth,
@@ -103,9 +106,15 @@ function defaultInstructionSectionText(input: {
   const heading =
     `Run ${input.computeStageRole} for ${input.vectorName} without carrying an answer marker.`;
   const expectedAssessmentIds = JSON.stringify(input.expectedAssessmentIds);
+  const fpResultContract = fpResultLocusContractDefinition(
+    input.computeStageRole
+  );
   if (input.computeStageRole === "transform") {
+    if (fpResultContract === null) {
+      throw new TypeError("transform has no F_P result-contract definition");
+    }
     const responseFields = internalFpResultWireProfileFields(
-      "attached_result_artifact"
+      fpResultContract.wireProfile
     ).join(", ");
     return [
       heading,
@@ -120,8 +129,11 @@ function defaultInstructionSectionText(input: {
     ].join("\n");
   }
   if (input.computeStageRole === "evaluate") {
+    if (fpResultContract === null) {
+      throw new TypeError("evaluate has no F_P result-contract definition");
+    }
     const responseFields = internalFpResultWireProfileFields(
-      "standard_live_review"
+      fpResultContract.wireProfile
     ).join(", ");
     return [
       heading,
