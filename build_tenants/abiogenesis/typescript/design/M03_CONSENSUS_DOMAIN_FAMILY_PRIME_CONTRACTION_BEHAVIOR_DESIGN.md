@@ -1,8 +1,8 @@
-# M03 Consensus Domain Admission And Ticket Projection Behavior Design
+# M03 Consensus Domain Stdlib, Admission, And Ticket Projection Behavior Design
 
-**Status**: Accepted - reconciled to ratified Ontology; implementation fenced on T-281, T-270, and T-274
+**Status**: Candidate - bounded constructability repair pending independent review; implementation fenced on T-281, T-270, and T-274
 
-**Date**: 2026-07-16
+**Date**: 2026-07-18
 
 **Ticket**: `T-275`
 
@@ -10,7 +10,7 @@
 
 **Governing design**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
 
-**Governing Ontology**: [ABIogenesis Public Control-Plane Ontology `/9`](./ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md), digest `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+**Governing Ontology**: [ABIogenesis Public Control-Plane Ontology `/9`](./ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md), accepted semantic candidate `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`, current projection digest `bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615`
 
 **Ratified dependencies**:
 
@@ -43,7 +43,7 @@ admits the raw payload against that schema, and calls the same
 The bridge is contract-indexed and proves a non-Consensus fixture; it is not a
 Consensus parser side path.
 
-The second relation binds the canonical Consensus graph output to its existing
+The second relation binds the canonical Consensus graph result candidate to its existing
 `AdmittedOutputAuthorityProjection`, execution basis, payload ledger, and
 canonical replay. `AF-03 project` then derives a
 `TicketConsensusProjection` through the `ticket_consensus` variant of
@@ -56,10 +56,20 @@ program owns the graph sequence. T-270 owns `run.invoke` authority admission.
 T-272 owns response and continuation from a held F_H interaction. T-275 cannot
 fabricate a final result from a held or incomplete state.
 
+T-275 also owns the SYSTEM stdlib implementations for the canonical
+Consensus-specific deterministic leaf operators. This is domain-function
+ownership, not a Consensus runtime. T-270 resolves and invokes those bindings
+through its generic operator boundary. The three structural wrapper bindings
+`binding://abg/consensus/review-panel`,
+`binding://abg/consensus/reduce-panel-facts`, and
+`binding://abg/consensus/bounded-rounds` remain generic `workflow.C`, HOF, and
+recurse routing owned by T-270 and never enter the Consensus domain registry.
+
 ### Requirements
 
 - `REQ-P-CONSENSUS-004..012`, `-015`, and `-019`
 - `REQ-P-PUBLIC-CONTRACTS-006` and `-008..010`
+- `REQ-L-GTL3-OPERATOR-003..005` and `REQ-L-GTL3-RECURSE-001..004`
 - PRODUCT bounded Consensus and Public Operator Contract
 - the ratified public control-plane Ontology, especially `AF-03`, `AF-15`,
   `RuntimeProjection<K>`, and the 19-operation hard break
@@ -119,7 +129,7 @@ selection, mutation, execution, or retention lifecycle.
 | `ReviewerAssignment` | F_D derives one private row per ordered panel profile | consumed by T-256 and the canonical fan-out | never updated; changed profile/panel/round creates another assignment | invocation-local subordinate value expires with its execution basis but remains replay evidence |
 | `AssignmentInvocationBinding` | ABG derives it when the interpreter opens the assignment's C-call and actor invocation | joins panel ordinal/request to actor invocation, result, and event refs | another attempt creates another immutable binding | retained as replay-derived effect lineage |
 | `ReviewFindings` | the generic declared-schema bridge admits the T-257 raw envelope payload through the selected family schema, then verifies its assignment/invocation relation | consumed by canonical reduction and replay projection | correction or retry admits another attributed value; it never rewrites the prior value | retained under payload/event law |
-| `ReviewRulings`, `ConsensusRoundOutcome`, `ConsensusResult` | canonical GTL stages produce and existing result admission validates them | runtime result and replay reads project them | another round or corrected evidence creates another immutable value | retained under runtime and payload law |
+| `ReviewRulings`, `ConsensusRoundOutcome`, `ConsensusResultCandidate`, `ConsensusResult` | canonical GTL stages produce rulings, outcomes, and the identity-free candidate; ABG output/replay admission completes the public result | runtime result and replay reads project them | another round or corrected evidence creates another immutable value | retained under runtime and payload law |
 | `TicketConsensusProjection` | `AF-03` derives it only on an admitted query | returned through `project.read` | a different result/replay/ticket basis derives another projection ref/digest; no stored row changes | ephemeral read model; no retirement operation |
 
 ### Authority And Function Derivation
@@ -136,8 +146,9 @@ PublicInvocation<run.invoke>
   -> generic declared-schema admission decodes ConsensusContractFamily.review_findings
   -> assignment/actor-invocation/replay-attributed ReviewFindings
   -> canonical GTL fan-in, reduction, bounded recurse, and F_H boundaries
-  -> ConsensusResult target-carrier admission
+  -> identity-free ConsensusResultCandidate target-carrier admission
   -> AdmittedOutputAuthorityProjection + RuntimeEventLog
+  -> runtime-completed ConsensusResult with ABG-owned result/replay refs
   -> PublicInvocation<project.read>
   -> AF-03 ticket_consensus projection
   -> TicketConsensusProjection
@@ -283,6 +294,124 @@ basis; callers cannot supply them as authority. The same inputs reproduce the
 same projection. The projector emits no event, performs no write, and never
 changes ticket status or content.
 
+### D8. SYSTEM Stdlib Resolves Only Deterministic Domain Leaves
+
+One SYSTEM-owned `ConsensusSystemStdlib` projects one private
+`ConsensusFdStdlibBindingSet` that resolves exactly the ten canonical F_D leaf
+`Operator.binding` identities below. Each row is admitted with regime
+`F_D`, exact input schema refs, exact output schema ref, and the shared
+`ConsensusContractFamily` source digest before T-270 may invoke it.
+
+| Declared `Operator.binding` | Domain function | Native implementation family |
+|---|---|---|
+| `binding://abg/consensus/exact-panel-facts` | derive member-only exact panel facts | exact-panel facts |
+| `binding://abg/consensus/expand-panel` | project ordered reviewer assignments | panel expansion |
+| `binding://abg/consensus/project-reducer-binding` | project reducer execution context | typed execution-binding projection |
+| `binding://abg/consensus/project-submitter-binding` | project submitter execution context | typed execution-binding projection |
+| `binding://abg/consensus/project-fh-binding` | project F_H execution context | typed execution-binding projection |
+| `binding://abg/consensus/close-initial` | admit an initial `closed_done` route | typed route admission |
+| `binding://abg/consensus/close-post-submitter` | admit a post-submitter `closed_done` route | typed route admission |
+| `binding://abg/consensus/recurse-post-submitter` | admit a post-submitter `recurse_next_round` route | typed route admission |
+| `binding://abg/consensus/seed-round` | derive the first round from the exact subject/configuration relation | round seed |
+| `binding://abg/consensus/project-result` | project a closed graph result candidate | result-candidate projection |
+
+The ten language identities remain distinct because each belongs to a declared
+GraphVector. Prime contracts them to six native action families where type and
+authority are identical: one exact-facts action, one expansion action, one
+closed typed execution-binding projector with three cases, one typed route
+admission action with three declared-route cases, one seed action, and one
+result-candidate action. The target schema and admitted GraphVector rule select
+the closed case; runtime strings, tags, or a second registry do not.
+
+The stdlib does not include the wrapper identities `review-panel`,
+`reduce-panel-facts`, or `bounded-rounds`. Those rows select no domain
+implementation; T-270 derives their `workflow.C`, HOF, and recurse execution
+from admitted structure. The stdlib also does not own F_P transport, F_H
+interaction admission, evaluator plugins, events, replay, or continuation.
+
+### D9. Execution Context Is Fully Carried By Graph-Private Family Values
+
+The four graph-private carriers that enter T-256 preserve every active slot;
+T-256 derives no value from a profile label, operator name, or ambient catalog.
+
+| Family value | Required exact fields | T-256 slot mapping |
+|---|---|---|
+| `ReviewerAssignment` | `roundRef`, `panelRef`, `profileRef`, positive `panelOrdinal`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
+| `SemanticReducerBinding` | `roundRef`, `reducerRef`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs`, `policyRef` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
+| `SubmitterTurnBinding` | `roundRef`, `submitterRef`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
+| `FhInteractionBinding` | `roundRef`, `interactionSubjectRef`, `expectedActorRef`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs`, `interactionOperationIds`, `interactionResumeOperationIds`, `interactionChoiceRefs` | interaction subject, instruction protocol, result contract, capability requirements, operation, resume-operation, and choice refs |
+
+`FhInteractionBinding` carries no `interactionRef`. The exact interaction
+identity is created only when ABG/T-272 admits the F_H hold. The resulting
+`FhPendingInteraction` may carry that runtime-owned identity. The former
+`requestContractRef` is not treated as an instruction protocol alias; it is
+replaced by the exact declared `instructionContractRef`.
+
+### D10. Routing Consumes A Real Graph-Private Contract
+
+`InitialSemanticAssessment` and `PostSubmitterSemanticAssessment` each carry one
+nested `ConsensusSemanticRouteDecision` from the same family. It contains the
+exact round ref, assessment ref and digest, phase (`initial` or
+`post_submitter`), policy ref and digest, observed round ordinal and budget,
+typed route (`closed_done`, `submitter_turn`, `recurse_next_round`, or
+`escalate_fh`), ruling/residual refs, and evidence refs.
+
+The decision is an admitted F_P claim, not closure truth. The deterministic
+route leaf verifies its exact assessment, phase, policy, budget, and declared
+GraphVector rule before producing `ConsensusRoundDisposition` or selecting the
+submitter/F_H locus. Initial decisions cannot recurse; post-submitter decisions
+cannot request another submitter turn; exhausted recurse requests route to F_H.
+Evaluator field refs point only to actual route-decision fields. The obsolete
+`initial-assessment/disposition` and `post-assessment/disposition` refs are
+removed rather than aliased.
+
+### D11. Result Projection Has Complete Inputs Without An Identity Cycle
+
+The closed `ConsensusRoundDisposition` conserves the subject ref/digest, panel
+ref, policy ref, ordered round refs, admitted finding-set refs, full
+`ReviewRulings`, classification, dissent profile refs, terminal round outcome,
+evidence refs, lineage refs, and paired contract-failure truth. The
+`project-result` leaf consumes both the exact `ConsensusSubject` and a
+`closed_done` disposition. A disposition missing any required public-result
+input cannot reach that leaf.
+
+For graph-success `closed_done`, `contractFailureRef` is null. Contract-failure
+public results remain projections of ABG blocked truth and never enter the
+graph-success candidate path.
+
+The leaf emits graph-private `ConsensusResultCandidate`, a subordinate variant
+of the one `ConsensusContractFamily`. It contains every domain field required by
+public `ConsensusResult` except `resultRef` and `replayRef`. ABG output admission
+owns the result identity; canonical replay projection owns the replay identity.
+The ordinary result projection joins those two runtime identities to the
+candidate and then admits the public `ConsensusResult`. The graph, caller, and
+ticket projector cannot pre-author either identity.
+
+### D12. F_H Re-entry And Recurse Bindings Are Exact
+
+On `escalate_fh`, the declared F_H locus opens one T-272-owned interaction and
+the runtime holds without a graph result. `abg.operation.interaction.respond`
+admits the exact actor response through AF-18. `abg.operation.run.continue`
+then uses AF-17/T-272 to re-enter the same admitted program, GraphCall, frame,
+current construction intent, and held locus with that response. No new action
+is selected, and no projector resumes the graph. A second F_H hold creates a
+new interaction through the same lifecycle.
+
+The recurse declaration retains exactly:
+
+- termination evaluator binding `binding://abg/consensus/round-closed`;
+- foldback implementation binding `binding://abg/consensus/next-round`;
+- mode `rebind`; and
+- `requiresParentEvaluation: true`.
+
+The SYSTEM stdlib supplies those two domain bindings separately from the ten
+F_D `Operator.binding` rows. `round-closed` accepts only a `closed_done`
+disposition. `next-round` accepts only a `recurse_next_round` disposition with
+an unexhausted declared budget, increments the ordinal once, binds
+`priorRoundRef`, and preserves the exact subject, panel, policy, cumulative
+findings, rulings, dissent, evidence, and lineage. T-270 owns generic recurse
+interpretation; T-275 owns only these declared domain functions.
+
 ## Prime Contraction Review
 
 ```json prime-contraction
@@ -333,6 +462,11 @@ changes ticket status or content.
     "ConsensusConfigurationBinding",
     "ReviewerAssignment",
     "ReviewerAssignmentVector",
+    "ConsensusFdStdlibBindingSet",
+    "ConsensusRecursionBindingSet",
+    "ConsensusSemanticRouteDecision",
+    "ConsensusRoundDisposition",
+    "ConsensusResultCandidate",
     "AssignmentInvocationBinding",
     "DeclaredDomainResultAdmission",
     "AttributedFindingsVector",
@@ -360,6 +494,11 @@ changes ticket status or content.
     {"candidate":"ConsensusResult","verdict":"promote","reason":"Public consumers pattern-match one independently admitted immutable result with its own result and replay identities."},
     {"candidate":"ConsensusSubjectAdmissionBasis","verdict":"remain_subordinate","reason":"It is the reproducible join of admitted invocation input, actor, workspace, subject, and optional ticket truth and owns no separate lifecycle."},
     {"candidate":"ReviewerAssignment","verdict":"remain_subordinate","reason":"It derives from one admitted panel profile and round ordinal and has no independent selection or lifecycle."},
+    {"candidate":"ConsensusFdStdlibBindingSet","verdict":"remain_subordinate","reason":"It contributes exact implementations for already-declared Operator bindings to the generic T-270 resolver and owns no selector, schema, or runtime lifecycle."},
+    {"candidate":"ConsensusRecursionBindingSet","verdict":"remain_subordinate","reason":"It contributes the declared termination and foldback implementations to generic recurse interpretation without owning recursion control."},
+    {"candidate":"ConsensusSemanticRouteDecision","verdict":"remain_subordinate","reason":"It is an admitted graph-private F_P claim that requires deterministic route admission and never owns closure truth."},
+    {"candidate":"ConsensusRoundDisposition","verdict":"remain_subordinate","reason":"It is the cumulative typed output of one admitted round and is consumed only by generic recurse or result projection."},
+    {"candidate":"ConsensusResultCandidate","verdict":"remain_subordinate","reason":"It preserves complete graph-produced domain content while ABG output and replay projections retain sole ownership of runtime identities."},
     {"candidate":"AssignmentInvocationBinding","verdict":"remain_subordinate","reason":"It derives from one assignment, declared request, C-call, actor invocation, and replay event set without selecting or dispatching work."},
     {"candidate":"DeclaredDomainResultAdmission","verdict":"remain_subordinate","reason":"It applies the already-selected schema and family decoder to one T-257 envelope and cannot author contract or domain meaning."},
     {"candidate":"TicketConsensusProjection","verdict":"remain_subordinate","reason":"It is reproducibly derived by AF-03 from admitted result and replay truth and owns no mutation or retention authority."}
@@ -378,7 +517,10 @@ changes ticket status or content.
 This feature adds zero public schema identities, zero operation identities, zero
 event kinds, zero stores, zero runtime controllers, and zero domain authors. It
 adds one closed source/projection variant to the existing `project.read`
-definition and extends graph-private relational checks over the same family.
+definition, graph-private contract variants inside the same family, and one
+subordinate stdlib contribution to T-270's generic binding resolver. The ten
+leaf identities contract to six native actions; the three structural wrappers
+and two recurse bindings do not duplicate those actions.
 
 ## Domain View
 
@@ -447,6 +589,70 @@ classDiagram
   class ReviewerAssignment {
     <<subordinate ordered projection>>
     +panelOrdinal
+    +roleContractRef
+    +configurationDigest
+    +instructionContractRef
+    +resultContractRef
+    +capabilityRefs
+  }
+  class SemanticReducerBinding {
+    <<subordinate F_P context>>
+    +roleContractRef
+    +configurationDigest
+    +instructionContractRef
+    +resultContractRef
+    +capabilityRefs
+  }
+  class SubmitterTurnBinding {
+    <<subordinate F_P context>>
+    +roleContractRef
+    +configurationDigest
+    +instructionContractRef
+    +resultContractRef
+    +capabilityRefs
+  }
+  class FhInteractionBinding {
+    <<subordinate F_H context>>
+    +interactionSubjectRef
+    +expectedActorRef
+    +instructionContractRef
+    +resultContractRef
+    +operationIds
+    +resumeOperationIds
+    +choiceRefs
+    +no interactionRef
+  }
+  class ConsensusSemanticRouteDecision {
+    <<graph private F_P claim>>
+    +phase
+    +route
+    +assessmentDigest
+    +policyDigest
+    +roundOrdinal
+    +roundBudget
+  }
+  class ConsensusRoundDisposition {
+    <<graph private cumulative result>>
+    +outcome
+    +roundRefs
+    +findingSetRefs
+    +rulings
+    +classification
+    +dissentProfileRefs
+    +evidenceRefs
+    +lineageRefs
+  }
+  class ConsensusSystemStdlib {
+    <<SYSTEM owned contribution>>
+    +ten F_D leaf bindings
+    +six native actions
+    +two recurse bindings
+  }
+  class GenericStructuralRouter {
+    <<T270 generic>>
+    +workflow C
+    +fan out and fan in
+    +recurse
   }
   class DeclaredExecutionRequest {
     <<T256 prime>>
@@ -484,15 +690,25 @@ classDiagram
     +invocationRef
   }
   class ConsensusResult {
-    <<admitted domain result>>
+    <<runtime completed public result>>
     +resultRef
     +replayRef
+  }
+  class ConsensusResultCandidate {
+    <<graph private subordinate>>
+    +all domain result fields
+    +no resultRef
+    +no replayRef
   }
   class AdmittedOutputAuthority {
     <<payload ledger authority>>
   }
   class RuntimeEventLog {
     <<replay authority>>
+  }
+  class FhPendingInteraction {
+    <<T272 runtime truth>>
+    +interactionRef
   }
   class ProjectReadDefinition {
     <<AF03 public definition>>
@@ -523,6 +739,18 @@ classDiagram
   AdmittedGtlProgram --> ConsensusRoundPolicy : binds declared policy
   CatalogView --> AdmittedGtlProgram : narrows declarations
   ConsensusReviewerProfile --> ReviewerAssignment : F_D derives
+  ConsensusRoundPolicy --> SemanticReducerBinding : exact context
+  ConsensusSubject --> SubmitterTurnBinding : distinct from actor
+  ConsensusRoundPolicy --> FhInteractionBinding : request basis only
+  ConsensusContractFamily *-- ConsensusSemanticRouteDecision
+  ConsensusContractFamily *-- ConsensusRoundDisposition
+  ConsensusContractFamily *-- ConsensusResultCandidate
+  ConsensusSystemStdlib --> ReviewerAssignment : expand panel
+  ConsensusSystemStdlib --> SemanticReducerBinding : typed projection
+  ConsensusSystemStdlib --> SubmitterTurnBinding : typed projection
+  ConsensusSystemStdlib --> FhInteractionBinding : typed projection
+  ConsensusSystemStdlib --> ConsensusSemanticRouteDecision : validates exact route
+  GenericStructuralRouter --> ConsensusSystemStdlib : resolves declared leaves
   ReviewerAssignment --> DeclaredExecutionRequest : T256 admits
   DeclaredExecutionRequest --> CCall : interpreter opens for request
   CCall --> ActorInvocation : effect handler dispatches
@@ -535,8 +763,13 @@ classDiagram
   DeclaredDomainAdmission --> ReviewFindings : family decoder admits
   AssignmentInvocationBinding --> ReviewFindings : verifies attribution
   RuntimeEventLog --> AssignmentInvocationBinding : replay derives
-  ConsensusResult --> AdmittedOutputAuthority : requires exact
-  ConsensusResult --> RuntimeEventLog : requires reachable replay
+  ConsensusRoundDisposition --> ConsensusResultCandidate : closed project result
+  ConsensusSubject --> ConsensusResultCandidate : exact source
+  ConsensusResultCandidate --> AdmittedOutputAuthority : ABG admits and owns resultRef
+  AdmittedOutputAuthority --> ConsensusResult : supplies result identity
+  RuntimeEventLog --> ConsensusResult : supplies replay identity
+  FhInteractionBinding --> FhPendingInteraction : ABG opens without authored identity
+  FhPendingInteraction --> RuntimeEventLog : T272 holds and re-enters
   ProjectReadDefinition --> ConsensusResult : closed source relation
   ProjectReadDefinition --> TicketConsensusProjection : AF03 derives
 ```
@@ -557,6 +790,8 @@ sequenceDiagram
   participant Wire as T257 Raw Wire Admission
   participant Domain as Declared Schema and Family Admission
   participant Graph as Canonical Consensus Graph
+  participant Stdlib as Consensus SYSTEM Stdlib
+  participant T272 as F_H Admission and Continuation
   participant Events as ABG Event Admission
   participant Ledger as Payload Ledger and Replay
   participant Read as AF03 project.read
@@ -567,8 +802,9 @@ sequenceDiagram
   Program->>Relation: declared subject panel policy workspace relation
   Relation->>Relation: verify subject source actor ticket refs digests and ordered profiles
   Relation->>Expand: admitted round and panel basis
-  Expand-->>Context: one ReviewerAssignment per declared ordinal
-  Context->>Context: verify selection config instruction result and capabilities
+  Expand->>Stdlib: resolve exact expand-panel F_D leaf
+  Stdlib-->>Context: one complete ReviewerAssignment per declared ordinal
+  Context->>Context: verify selection config instruction result capabilities and F_H slots
   Context-->>ABG: admitted DeclaredExecutionRequest
   ABG->>Call: open CCall and ActorInvocation for assignment
   Call->>Worker: ordinary effect-handler dispatch
@@ -579,17 +815,22 @@ sequenceDiagram
   Domain-->>ABG: admitted attributed ReviewFindings
   ABG->>Events: admit result and causal lineage events
   Events-->>Graph: target-carrier ReviewFindings truth
-  Graph->>Graph: fan in reduce recurse or hold through declared atoms
+  Graph->>Stdlib: invoke only declared F_D leaves with typed source values
+  Stdlib-->>Graph: exact contexts route decisions dispositions and foldback values
+  Graph->>Graph: generic fan in reduction workflow and recurse over declared structure
   alt F_H interaction held
-    Graph-->>ABG: declared held disposition
-    ABG-->>Caller: truthful nonterminal interaction and replay
-    Note over Graph,Caller: T272 must admit response and continuation before final result
+    Graph->>T272: open F_H request basis without interactionRef
+    T272-->>Caller: truthful nonterminal interactionRef and replay
+    Caller->>T272: interaction.respond with exact actor and response
+    T272->>ABG: run.continue same intent GraphCall frame and held locus
+    ABG-->>Graph: admitted response at the held locus
   else canonical result admitted
-    Graph-->>ABG: declared ConsensusResult candidate
-    ABG->>Ledger: admit target output and causal events
+    Graph->>Stdlib: project-result with subject and complete closed disposition
+    Stdlib-->>ABG: ConsensusResultCandidate without resultRef or replayRef
+    ABG->>Ledger: admit target output mint resultRef and project replayRef
     Caller->>Read: project.read ticket_consensus for exact result
-    Read->>Ledger: verify output authority result and replay basis
-    Ledger-->>Read: exact admitted source truth
+    Read->>Ledger: join candidate output authority and replay into ConsensusResult
+    Ledger-->>Read: exact runtime-completed public result
     Read-->>Caller: derived TicketConsensusProjection without event or write
   end
 ```
@@ -606,8 +847,10 @@ stateDiagram-v2
   SubjectAuthorityBound --> Rejected: panel policy workspace program or view relation mismatches
   SubjectAuthorityBound --> ConfigurationBound: exact configuration relation admitted
   ConfigurationBound --> Rejected: empty duplicate stale or digest-divergent profile basis
-  ConfigurationBound --> AssignmentsDerived: F_D preserves panel order
-  AssignmentsDerived --> Rejected: T256 selection config instruction result or capability relation fails
+  ConfigurationBound --> ExecutionBindingsProjected: stdlib projects complete reviewer reducer submitter and F_H contexts
+  ExecutionBindingsProjected --> Rejected: any required T256 slot is absent stale or foreign
+  ExecutionBindingsProjected --> AssignmentsDerived: F_D preserves panel order
+  AssignmentsDerived --> Rejected: T256 selection config instruction result capability or interaction relation fails
   AssignmentsDerived --> RequestsAdmitted: T256 admits declared execution requests
   RequestsAdmitted --> InvocationsOpened: ABG opens one CCall and ActorInvocation per request
   InvocationsOpened --> Rejected: effect or actor lineage is foreign or incomplete
@@ -616,12 +859,18 @@ stateDiagram-v2
   RawResultsObserved --> WireEnvelopesAdmitted: T257 admits raw envelopes only
   WireEnvelopesAdmitted --> Rejected: selected schema family decode or assignment invocation relation fails
   WireEnvelopesAdmitted --> FindingsAdmitted: declared-schema bridge admits attributed findings
-  FindingsAdmitted --> RuntimeHeld: canonical graph opens F_H interaction
+  FindingsAdmitted --> RouteClaimed: F_P assessment carries typed graph private route decision
+  RouteClaimed --> Rejected: phase policy budget assessment or declared rule mismatches
+  RouteClaimed --> RuntimeHeld: admitted escalate_fh opens T272 interaction identity
   RuntimeHeld --> RuntimeHeld: no final result or ticket projection exists
-  RuntimeHeld --> FindingsAdmitted: T272 admits response and continuation
-  FindingsAdmitted --> ResultCandidate: canonical graph emits declared output
-  ResultCandidate --> Rejected: output authority result relation or replay basis fails
-  ResultCandidate --> ResultAdmitted: exact ConsensusResult is replay reachable
+  RuntimeHeld --> RouteClaimed: T272 response and run.continue re-enter same held locus
+  RouteClaimed --> RoundRebound: admitted recurse_next_round and exact next-round binding
+  RoundRebound --> AssignmentsDerived: same subject panel policy and incremented ordinal
+  RouteClaimed --> ClosedDisposition: admitted closed_done with complete cumulative inputs
+  ClosedDisposition --> Rejected: subject result input or cumulative lineage is incomplete
+  ClosedDisposition --> ResultCandidate: project-result emits no runtime identity
+  ResultCandidate --> Rejected: output authority or replay admission fails
+  ResultCandidate --> ResultAdmitted: ABG and replay add resultRef and replayRef
   ResultAdmitted --> GenericResultReadable: non ticket subject
   ResultAdmitted --> TicketProjectable: exact ticket ref and digest present
   TicketProjectable --> Rejected: project request source basis or canonical digest mismatches
@@ -633,13 +882,15 @@ stateDiagram-v2
 
 Transition ownership is explicit. Public ingress owns invocation and stable
 authority admission. The family decoder owns local domain admission. The
-admitted program and F_D loci own configuration and ordered-assignment
-derivation. T-256 owns execution-context admission only. ABG owns C-call, actor,
+admitted program owns constructive order. The SYSTEM stdlib implements only the
+declared deterministic leaf and recurse bindings; T-270 owns generic structural
+routing. T-256 owns execution-context admission only. ABG owns C-call, actor,
 effect, and event lineage. T-257 owns raw wire-envelope admission only. The
 generic declared-schema bridge applies the selected domain schema and verifies
 the assignment/invocation relation. The canonical graph owns reduction,
-recursion, F_H routing, and result production; ABG owns target-output and replay
-admission. `AF-03` alone owns the pure ticket projection.
+recursion, F_H routing, and result-candidate production; T-272 owns interaction
+identity and lawful re-entry; ABG owns target-output and replay identities.
+`AF-03` alone owns the public result/ticket projections.
 
 ## Ontology Cross-View Evaluation
 
@@ -653,35 +904,51 @@ admission. `AF-03` alone owns the pure ticket projection.
 | result is runtime truth | result requires output authority and replay | graph emits before `project.read` | candidate cannot become admitted without matching basis | payload-ledger and canonical-event verification | pass |
 | projection is pure | ticket projection is subordinate | read follows completed result and emits no event | projected state has no mutation transition | event-count and write-surface negatives | pass |
 | F_H remains truthful nonterminal | held interaction is not a result | continuation is explicitly T-272-owned | RuntimeHeld cannot enter TicketProjectable | no projection without admitted result target | pass |
+| deterministic stdlib is bounded | exactly ten F_D leaf refs contract to six actions; wrappers are absent | T-270 resolves a leaf only after structural routing selects its locus | no stdlib controller or wrapper state exists | exact ref/regime/input/output/family-digest admission plus wrapper absence scan | pass |
+| execution contexts are complete | all four graph-private binding carriers contain every active T-256 slot | T-256 receives typed values without inference | missing field reaches Rejected before effect | exact slot projection and profile/policy relation | pass |
+| routing consumes real fields | assessments carry one typed private route decision | F_D verifies route phase policy budget and declared rule | invalid phase or exhausted recurse rejects or holds | no nonexistent disposition field refs | pass |
+| graph result does not own runtime identity | `ConsensusResultCandidate` omits resultRef and replayRef | ABG output admission and replay projection add identities | candidate cannot become public result without both authorities | target-authority and replay join | pass |
+| recurse and F_H re-entry remain generic runtime | two exact domain bindings feed generic recurse; T272 owns interaction and re-entry | response then continue returns to same held locus | no projection or new selection resumes work | exact binding refs plus same-intent/frame/locus proof | pass |
 | 19-operation hard break | only accepted `run.invoke` and `project.read` appear | no feature-specific adapter participates | legacy route has no state | operation-definition/catalog/SDK/CLI parity scan | pass |
 
 ## Migration
 
 1. Retain the one `ConsensusContractFamily`, its nine public variants, and two
    native vocabulary rosters.
-2. Extend only the graph-private reviewer-assignment projection with the exact
-   T-256 selection, configuration, instruction, result, and capability fields.
-3. Add one relational admission module that consumes family values and existing
+2. Extend only the graph-private reviewer, reducer, submitter, and F_H binding
+   projections with every active T-256 execution-context field; remove the
+   pre-authored F_H interaction identity.
+3. Add one SYSTEM stdlib contribution for the ten exact F_D leaf bindings and
+   two recurse bindings; contract the ten leaves to six native actions and keep
+   all three structural wrappers outside the contribution.
+4. Add one relational admission module that consumes family values and existing
    GTL/ABG authorities without copying field rosters.
-4. Bind every subject field, submitting actor, and optional ticket to the exact
+5. Bind every subject field, submitting actor, and optional ticket to the exact
    `run.invoke` input, `InvocationAuthority`, source, and workspace basis before
    panel expansion.
-5. Extend T-257 with one generic `declared_schema_result` wire profile whose
+6. Extend T-257 with one generic `declared_schema_result` wire profile whose
    exact envelope is `{ resultContractRef, payload }`; resolve the selected
    schema from the admitted contract catalog and prove the same bridge with a
    non-Consensus fixture.
-6. Join each assignment and T-256 request to the ABG-created C-call, actor
+7. Join each assignment and T-256 request to the ABG-created C-call, actor
    invocation, raw envelope, and replay events; admit `payload` through the
    selected family decoder before target-carrier use.
-7. Reuse `AdmittedOutputAuthorityProjection` for terminal result authority; add
-   no result writer or store.
-8. Add `ticket_consensus` to the existing closed `project.read`
+8. Replace nonexistent evaluator field refs with the graph-private semantic
+   route-decision contract and verify phase, policy, budget, and declared rule.
+9. Make `project-result` consume the subject plus complete closed disposition
+   and emit `ConsensusResultCandidate`; reuse output authority and replay to add
+   runtime-owned result/replay identities, with no result writer or store.
+10. Add `ticket_consensus` to the existing closed `project.read`
    source/projection relation and derive projection identity and digest.
-9. Preserve the canonical Consensus Module topology and structural body digest;
-   a changed static source-closure digest is evidence, not a second body.
-10. Extend focused tests with two differently attributed profiles, serialized
+11. Preserve the canonical graph ownership and change its body only where the
+   graph-private route, result-candidate, and execution-context contracts make
+   the declared dataflow constructible; one changed body digest remains the
+   sole body rather than a compatibility copy.
+12. Extend focused tests with two differently attributed profiles, serialized
    parity, order differentials, result/replay conservation, and pure-read proof.
-11. Remove or refuse every legacy operation, feature-specific handler, raw
+13. Prove the T-272 interaction/respond/continue path returns to the same held
+   locus and the exact recurse bindings preserve cumulative round truth.
+14. Remove or refuse every legacy operation, feature-specific handler, raw
    projection constructor, or compatibility path.
 
 ## Negative Proof
@@ -694,6 +961,14 @@ admission. `AF-03` alone owns the pure ticket projection.
 - subject panel, policy, workspace, program, or catalog-view mismatch fails;
 - an assignment missing a panel member, reusing an ordinal, or changing profile
   execution contracts fails;
+- any reviewer, reducer, submitter, or F_H binding missing an active T-256 slot
+  fails before a request or interaction exists;
+- any Consensus domain registry row for `review-panel`, `reduce-panel-facts`, or
+  `bounded-rounds`, or any F_D leaf row beyond the exact ten, fails the census;
+- an unknown binding, wrong regime, input/output schema mismatch, or copied
+  family digest fails before the deterministic implementation runs;
+- an initial recurse route, post-submitter submitter-turn route, exhausted
+  recurse route, or evaluator reference to a nonexistent field fails;
 - the generic wire profile rejects missing, extra, flattened, or alternate
   envelope keys and a selected-contract mismatch before domain decoding;
 - the selected schema rejects malformed domain payload even when the raw
@@ -711,6 +986,13 @@ admission. `AF-03` alone owns the pure ticket projection.
 - result subject, panel, policy, round, finding, ruling, terminal outcome,
   evidence, lineage, result, or replay mismatch fails;
 - a held F_H interaction cannot be decoded or projected as a final result;
+- a caller- or graph-authored interaction ref, result ref, or replay ref fails;
+- `run.continue` with a foreign intent, program, GraphCall, frame, interaction,
+  actor, response, or held locus fails without graph advancement;
+- a closed disposition missing any result field or a recurse disposition
+  missing exact foldback truth fails before `project-result`;
+- a wrong termination or foldback binding, exhausted next round, skipped
+  ordinal, or changed cumulative lineage fails generic recurse admission;
 - a non-ticket subject cannot produce a ticket projection;
 - a forged or caller-supplied ticket, projection ref, or projection digest fails;
 - `project.read` leaves the event stream, ticket bytes, ticket status, and
@@ -738,6 +1020,18 @@ admission. `AF-03` alone owns the pure ticket projection.
 - stop if T-256 dispatches work or if an assignment pre-authors C-call or actor-
   invocation identity;
 - stop if a held F_H state is relabeled as a terminal result;
+- stop if the Consensus stdlib resolves a structural wrapper, selects a locus,
+  interprets workflow/HOF/recurse structure, or copies contract-family fields;
+- stop if an execution binding omits a required T-256 slot or pre-authors an
+  interaction identity;
+- stop if a route evaluator reads an undeclared field or F_D invents semantic
+  agreement rather than validating an admitted semantic route claim;
+- stop if `project-result` receives only a disposition summary or authors a
+  result/replay identity;
+- stop if F_H response/continuation enters anywhere except the exact T-272
+  same-intent, same-program, same-frame, same-held-locus path;
+- stop if recurse termination/foldback uses any binding other than the two
+  exact declared refs or loses cumulative round truth;
 - stop if implementation changes canonical graph topology merely to satisfy the
   projector; route that typed structural gap to the owning GTL design;
 - stop if any operation beyond accepted `run.invoke` and `project.read` is

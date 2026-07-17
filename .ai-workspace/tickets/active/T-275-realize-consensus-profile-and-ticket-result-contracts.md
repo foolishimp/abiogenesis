@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: reconciled_design_accepted_implementation_fenced
-- review_status: fh_accepted_for_implementation_independent_closure_review_pending
-- proof_status: implementation_fence_open
+- phase_status: bounded_constructability_design_repair_ready_for_independent_review
+- review_status: prior_design_superseded_by_constructability_repair_fh_review_pending
+- proof_status: design_only_runtime_untouched
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -20,13 +20,13 @@
     and projection boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-16
+- updated_at: 2026-07-18
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268
 - priority: critical
 - dependencies:
-  - ratified T-278 Ontology digest f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8
+  - ratified T-278 Ontology accepted semantic candidate 1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40 and current projection digest bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615
   - accepted T-270 run.invoke authority design
   - accepted T-274 one-family public-schema and installed-catalog design
   - completed T-256 declared execution-context admission
@@ -58,11 +58,12 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
-- accepted_design_digest: 16b10ddc1af12b5f51e6e391bc387202df3c0792d593bc7a0033d26aa84c7435
-- independent_design_review_ref: >-
+- superseded_accepted_design_digest: 16b10ddc1af12b5f51e6e391bc387202df3c0792d593bc7a0033d26aa84c7435
+- constructability_repair_design_digest: 45cb539849b511b15fd9302c0a76db80370ec6f2b713254954379461f76cbf9f
+- superseded_independent_design_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T075100Z_REVIEW_t275_reconciled_consensus_domain_design.md
-- design_acceptance_ref: >-
+- superseded_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T075100Z_DECISION_fh_accept_t275_reconciled_consensus_domain_design.md
 - pre_ontology_design_acceptance_ref: >-
@@ -100,6 +101,13 @@ a read model, or mutate, close, split, create, or triage a ticket. Reviewer
 identity derives from the declared panel/profile relation and never from worker
 completion order, adapter position, or array coincidence.
 
+T-275 owns one SYSTEM stdlib contribution for exactly ten canonical
+Consensus-specific F_D leaf `Operator.binding` refs, Prime-contracted to six
+native actions, plus the exact `round-closed` and `next-round` domain bindings.
+T-270 remains the sole generic structural router and interpreter. The
+`review-panel`, `reduce-panel-facts`, and `bounded-rounds` wrapper refs never
+enter the domain implementation registry.
+
 ## Prime Contraction Input
 
 Consume the accepted T-274 `ConsensusContractFamily` as the one native public
@@ -127,6 +135,20 @@ findings, rulings, dissent, evidence, lineage, result, replay, and ticket refs
 while emitting no event and producing no ticket mutation. A held F_H interaction
 is not fabricated into a final `ConsensusResult`; T-272 must first admit its
 lawful continuation. Accept the reconciled three-view design before code.
+
+The constructability gate additionally requires:
+
+- complete T-256 slot coverage for reviewer, reducer, submitter, and F_H
+  graph-private bindings;
+- one real graph-private semantic route-decision contract and no evaluator refs
+  to nonexistent assessment fields;
+- `project-result` input conservation for every public result field;
+- graph-private result candidates without `resultRef` or `replayRef`, with both
+  identities supplied only by ABG output/replay projection;
+- T-272-owned interaction identity and same-intent/program/frame/locus F_H
+  re-entry; and
+- exact recurse termination/foldback bindings with cumulative-truth
+  conservation.
 
 Design review may close while its implementation fence is open. No T-275 code,
 schema, generated asset, or public projection may land until T-281 P1 and the
@@ -156,4 +178,8 @@ or the reconciled design alone.
 - no caller-authored result, replay, projection ref, or projection digest;
 - no profile-selection service, reviewer loop, result store, ticket writer, or
   Consensus-specific runtime branch; and
-- no final result projection from a held or incomplete F_H state.
+- no final result projection from a held or incomplete F_H state;
+- no Consensus domain implementation for the three structural wrapper refs;
+- no pre-authored F_H interaction, output-result, or replay identity; and
+- no alternate termination, foldback, route, or evaluator-field compatibility
+  path.
