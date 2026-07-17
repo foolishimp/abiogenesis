@@ -350,6 +350,7 @@ function admitPrivateP1PublicOperationIngressCore<
   return Object.freeze({ invocation, witness });
 }
 
+/** @internal */
 export function admitPrivateP1PublicOperationIngress<
   const D extends PrivateEventAdmittingP1Definition
 >(
