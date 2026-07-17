@@ -533,7 +533,7 @@ export function scenario09OneSurfaceProgramFixture(options = {}) {
       fibre: "F_D",
       vectorDeclarationEntries: Object.freeze([
         allowedTraversalRowsEntry(allowedTraversalRows(
-          callableLabFunction.finalHost.id,
+          options.allowedGraphFunctionRef ?? callableLabFunction.finalHost.id,
           options.actionVariant,
           options.omitExpectedOutputAssetRefs === true
         ))
