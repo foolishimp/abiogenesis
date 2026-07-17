@@ -188,8 +188,8 @@ policy families from PRODUCT. They are request policy fields outside
 `project.read` is one public identity over the closed relation below. It is not
 one request with a free-form source and projection string. Every case has the
 base request fields `sourceRef`, `sourceDigest`, `projectionBasisRef`, and
-`projectionBasisDigest`. Replay cases additionally require an explicit cursor
-or closed range. The catalog-description case additionally requires one
+`projectionBasisDigest`. Replay cases additionally require explicit
+`fromOrdinal` and `limit` fields. The catalog-description case requires one
 canonical handle. No read case admits an event or returns a non-terminal
 outcome.
 
@@ -219,18 +219,276 @@ outcome.
 | `run_gaps` | `Run` | `GapProjection<Run>` | `exactly_one` | `abg.capability.runtime.replay-continuation@5` |
 | `run_lawful_actions` | `Run` plus current `NextActionProjection` | `LawfulActionProjection` | `exactly_one` | `abg.capability.runtime.replay-continuation@5` |
 | `observer_report` | `WorkspaceBinding` plus admitted runtime/evidence basis | `ObserverReportProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
-| `observer_drafts` | `WorkspaceBinding` plus tuning draft basis | `ObserverDraftProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
+| `observer_drafts` | `WorkspaceBinding` plus `ObserverObservables` basis | `ObserverDraftProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 | `tuning_report` | `WorkspaceBinding` plus tuning draft basis | `TuningReportProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 | `ticket_consensus` | admitted `ConsensusResult` plus exact ticket, output-authority, and replay basis | `TicketConsensusProjection` | `exactly_one` | `abg.capability.operator.public-contract@5` |
 
 `ProjectReadRequest<C>` is a discriminated union indexed by this case key.
-`sourceRef`, `sourceDigest`, and any handle/cursor/range fields use the source
-and projection types fixed by `C`. `ProjectReadResult<C>` is exactly the result
-carrier above. `ProjectReadRefusal<C>` is the closed union of
-`unknown_source`, `source_kind_mismatch`, `source_digest_mismatch`,
-`projection_basis_mismatch`, `projection_unsupported`, `not_found`,
-`not_ready`, plus binding refusal derived from the case and
-`cursor_invalid | range_invalid` only for replay cases. Defaults are empty.
+`sourceRef`, `sourceDigest`, and any handle or cursor fields use the source and
+projection types fixed by `C`. Replay uses one bounded cursor grammar:
+`fromOrdinal` plus `limit`; it has no second range carrier.
+`ProjectReadResult<C>` is exactly the result carrier above.
+`ProjectReadRefusal<C>` is the case-indexed closed union specified below;
+`cursor_invalid | range_invalid` exist only for replay cases.
+`cursor_invalid` means an invalid `fromOrdinal`; `range_invalid` means an
+invalid `limit`. Defaults are empty.
+
+### Constructor-Ready Project Read Contract Family
+
+This repair closes design ambiguity for the 26 result slots not owned by
+T-274A. It does not claim implementation. The results are applications of ten
+Prime families: catalog list/describe, workspace status, `Status<S>`,
+`Result<S>`, `Evidence<S>`, `Replay<S>`, `Gap<S>`, lawful actions,
+observer report/drafts, and tuning report. Concrete schema applications stay
+with their semantic owners; only native structural constructors are shared.
+
+`ticket_consensus` remains the twenty-seventh result. P1 consumes the exact
+T-274A
+`CONSENSUS_PUBLIC_CONTRACT_SOURCES.ticket_consensus_projection.schema`;
+T-281 does not copy, wrap, or re-export it as new owner truth.
+
+#### Structural Request And Refusal
+
+The shared request/refusal family is indexed by the structural key, never a
+fabricated variant:
+
+```text
+ProjectReadDefinitionKey<C> = {
+  operationId: "abg.operation.project.read"
+  memberKind: "project_read_case"
+  caseKey: C
+}
+
+RefDigest<T> = { ref: Ref<T>, digest: Sha256Digest<T> }
+
+ProjectReadRequest<C> = {
+  kind: "project_read_request"
+  caseKey: C
+  source: {
+    kind: literal SourceKindOf<C>
+    sourceRef: Ref<SourceOf<C>>
+    sourceDigest: Sha256Digest<SourceOf<C>>
+  }
+  projectionBasis: RefDigest<ProjectionBasisOf<C>>
+  selector: ProjectReadSelector<C>
+}
+
+ProjectReadProjectionBasis<C> = {
+  kind: "project_read_projection_basis"
+  definitionKey: ProjectReadDefinitionKey<C>
+  source: ProjectReadRequest<C>.source
+  selector: ProjectReadSelector<C>
+}
+
+ProjectionBasisOf<C> = ProjectReadProjectionBasis<C>
+
+ProjectReadResult<C> = {
+  kind: "project_read_result"
+  caseKey: C
+  projectionBasis: RefDigest<ProjectReadProjectionBasis<C>>
+  projection: ProjectReadProjectionOf<C>
+}
+```
+
+`ProjectReadProjectionBasis<C>` is a subordinate deterministic seal, not a
+new semantic authority. Its digest is the canonical digest of the complete
+object above and its ref is
+`project-read-basis:sha256:<projectionBasisDigest>`. Admission reconstructs it
+from the outer structural key, the admitted request source, and the exact
+case-indexed selector, then requires both the supplied ref and digest to match.
+The selector therefore names every source-side basis that can affect the read;
+no ambient observation, replay window, catalog view, manifest, gap basis,
+action projection, observer basis, tuning basis, or Consensus basis can be
+omitted. Owner result schemas retain semantic truth; this seal only proves
+which exact source and selector coordinates they projected.
+
+`SourceKindOf<C>` is closed exactly as follows:
+
+| Case group | Exact source kind |
+|---|---|
+| `catalog_list`, `catalog_describe` | `Catalog` |
+| `workspace_status`, `workspace_replay`, `workspace_gaps`, `observer_report`, `observer_drafts`, `tuning_report` | `WorkspaceBinding` |
+| `run_status`, `run_result`, `run_evidence`, `run_replay`, `run_gaps`, `run_lawful_actions` | `Run` |
+| `graph_call_status`, `graph_call_result`, `graph_call_evidence`, `graph_call_replay` | `GraphCall` |
+| `result_evidence`, `assessment_evidence`, `witness_evidence` | `RuntimeResult`, `ResultAssessment`, `WitnessedAct` respectively |
+| `install_evidence`, `release_evidence` | `InstalledProduct`, `ReleaseCut` respectively |
+| `interaction_replay`, `continuation_replay`, `c_call_replay` | `FhInteraction`, `Continuation`, `CProgramAtomReceipt` respectively |
+| `ticket_consensus` | `ConsensusResult` |
+
+`ProjectReadSelector<C>` is a closed conditional sum:
+
+| Case | Exact selector fields |
+|---|---|
+| `catalog_list` | `{ visibilityBasis: workspace_catalog or { kind: "session_view", view: RefDigest<CatalogView> } }` |
+| `catalog_describe` | catalog-list payload plus `canonicalHandle: CanonicalCatalogHandle` |
+| `install_evidence` | `{ installManifest: RefDigest<InstallManifest> }` |
+| `release_evidence` | `{ releaseSnapshotManifest: RefDigest<ReleaseSnapshotManifest> }` |
+| `workspace_replay` | `{ runtimeEventLog: RefDigest<RuntimeEventLog>, fromOrdinal: SafeNonNegativeInteger, limit: SafePositiveInteger }` |
+| `run_replay`, `graph_call_replay`, `interaction_replay`, `continuation_replay` | `{ fromOrdinal: SafeNonNegativeInteger, limit: SafePositiveInteger }` |
+| `c_call_replay` | replay fields plus `cCall: RefDigest<CCall>` |
+| `workspace_gaps` | `{ gapBasis: RefDigest<AdmittedGapBasis> }` |
+| `run_lawful_actions` | `{ nextActionProjection: RefDigest<NextActionProjection> }` |
+| `observer_report` | `{ observationBasis: RefDigest<ObserverObservables>, sourceProjectionRefs: NonEmptyUnique<Ref> }` |
+| `observer_drafts` | `{ observerObservables: RefDigest<ObserverObservables> }` |
+| `tuning_report` | `{ tuningTelemetryBasis: RefDigest<TuningTelemetryBasis> }` |
+| `ticket_consensus` | `{ ticket: RefDigest<Ticket>, outputAuthority: RefDigest<ConsensusOutputAuthority>, replayBasis: RefDigest<ConsensusReplayBasis> }` |
+| all other cases | strict empty object `{}` |
+
+Replay has one bounded HOW grammar: `fromOrdinal + limit`. There is no range
+object. `cursor_invalid` names an invalid `fromOrdinal`; `range_invalid` names
+an invalid `limit`.
+
+```text
+ProjectReadRefusal<C> = {
+  kind: "project_read_refusal"
+  caseKey: C
+  source: ProjectReadRequest<C>.source
+  projectionBasis: RefDigest<ProjectionBasisOf<C>>
+  code: ProjectReadRefusalReason<C>
+  residualRefs: NonEmptyUnique<Ref>
+  evidenceRefs: Unique<Ref>
+  provenanceRefs: Unique<Ref>
+}
+
+ProjectReadRefusalReason<C> =
+  unknown_source | source_kind_mismatch | source_digest_mismatch |
+  projection_basis_mismatch | projection_unsupported | not_found | not_ready
+  | (C == catalog_list
+      ? incompatible | unbound | inadmissible
+      : never)
+  | (C == catalog_describe
+      ? unknown_handle | ambiguous_handle | hidden_by_view |
+        incompatible | unbound | inadmissible
+      : never)
+  | (C is ReplayCase ? cursor_invalid | range_invalid : never)
+```
+
+`hidden_by_view` reports an admitted handle outside the effective view;
+`unknown_handle` reports no admitted canonical identity. Binding refusals
+remain definition-derived admission truth outside this semantic wrapper.
+Public invocation admission requires `request.caseKey == K.caseKey`; outcome
+admission requires `result.caseKey == K.caseKey` or
+`refusal.caseKey == K.caseKey`, and the outcome basis must equal the admitted
+request basis. `PublicInvocation<K>` and `PublicOutcome<K>` remain the sole
+carriers of the complete structural `DefinitionKey`; request, result, and
+refusal payloads contain no second operation key.
+
+#### Ten Prime Result Graphs
+
+All objects are strict and readonly. Every ref/digest pair is relationally
+admitted, identity arrays reject duplicates, and each projection digest seals
+the complete canonical value.
+
+| Family | Exact closed field graph |
+|---|---|
+| catalog list/describe | both cases carry `kind`, projection/catalog/binding coordinates and the closed workspace-catalog-or-session-view basis. List carries unique rows keyed by canonical handle; each row has kind, owning product/version, readiness, eligibility, callability, visibility, compatibility, and provenance. Describe carries one canonical handle, kind, owning product/version, owning artifact coordinate, exact contract-or-schema declaration, unique dependency rows with resolved/unresolved/incompatible disposition, readiness blockers, readiness, eligibility, callability, visible session disposition, compatible disposition, and provenance |
+| workspace status | projection/workspace/workspace-authority/binding coordinates, authority mode, `ready | stale | malformed | incompatible`, non-empty bound-product refs, matching configuration coordinates, nullable catalog coordinate, residuals, provenance |
+| `Status<S>` | exact `S = Run | GraphCall` coordinate, projection coordinate, `pending | running | held | gap_stop | completed | blocked | runtime_failed`, terminal-or-not-terminal sum, absent-or-present pending interaction, result/gap/evidence/replay refs, and exact program/binding/execution-basis substrate |
+| `Result<S>` | exact subject plus admitted result rows carrying result and declared-contract coordinates, the existing exact `RuntimePublicResultProjection["disposition"]` vocabulary (`converged | stopped | yielded | blocked | human_gate_required`), closure eligibility, residuals, absent-or-present payload/artifact/assessment, evidence, provenance, replay; `Result<Run>` has a non-empty unique `results[]`, while `Result<GraphCall>` has one exact `result` |
+| `Evidence<S>` | exact `S = Run | GraphCall | RuntimeResult | ResultAssessment | WitnessedAct | InstalledProduct | ReleaseCut`; projection and subject coordinates plus unique evidence rows carrying an existing evidence-contract coordinate and admitted value, exact same subject, content-or-artifact sum, producer, basis, provenance, and replay |
+| `Replay<S>` | exact `S = WorkspaceBinding | Run | GraphCall | FhInteraction | Continuation | CProgramAtomReceipt`; projection/subject/basis coordinates, `fromOrdinal`, `limit`, returned-through and next ordinals, and strictly ordered unique rows admitted by the exact `CanonicalRuntimeEvent` schema, carrying ordinal, event ref/digest, source refs, and the admitted event value |
+| `Gap<S>` | exact `S = WorkspaceBinding | Run`; projection/subject/replay-basis coordinates and unique rows carrying `stop | hold | gap | missing_capability | unresolved_observation | pending_human_interaction`, absent-or-present implicated asset and GraphFunction, non-empty reasons, required capabilities, absent-or-present interaction, evidence, and replay |
+| lawful actions | projection/run/frontier/accepted-`NextActionProjection`/replay-basis coordinates and unique action rows carrying kind, exact public-target-or-pending-interaction sum, eligible-with-empty-blockers or blocked-with-non-empty-blockers, none-or-contract-bound required input, capabilities, and provenance |
+| observer report/drafts | report carries workspace binding, `ObserverObservables` basis, source event/projection refs, finding-contract coordinates plus values admitted by those contracts, evidence, provenance; drafts carry workspace binding, the same observables coordinate, exact `ObserverTicketDraft` rows, evidence, provenance |
+| tuning report | workspace binding and tuning-telemetry basis, exact `TunerDraftStateRow`, `TunerModeSignalRow`, `ConfigurationCostRow`, and `TunerDivergenceObligation` arrays, evidence, provenance |
+
+The family-specific closure details are:
+
+- catalog list row domains are
+  `graph_function | node_type | overlay`, `ready | not_ready`,
+  `eligible | ineligible`, `callable | non_callable`,
+  `visible | hidden`, and `compatible | incompatible | unresolved`;
+- a successful catalog description is necessarily visible and compatible;
+  every other truth uses its typed refusal rather than absence;
+- `WorkspaceStatusProjection` is a distinct schema over an admitted binding.
+  It cannot alias `workspace.open(open)`, whose result may be unbound;
+- a run may own several admitted GraphCall results; a GraphCall resolves to one
+  exact result. Missing results refuse `not_ready | not_found`;
+- replay never admits a broad `{ kind: "subordinate", subjectId }` source.
+  Events start at or after `fromOrdinal`, have length at most `limit`, and
+  strictly increase by admission ordinal. Returned-through is null exactly for
+  an empty page; a present next ordinal is greater than the returned ordinal;
+- `Gap<S>` only renders admitted gap truth. Lawful actions only render the
+  accepted `NextActionProjection`. Neither invokes `evalGap`, invokes
+  `evaluateNext`, ranks, selects, admits, or executes an action;
+- observer drafts are `ObserverObservables -> ObserverTicketDraft`. They do not
+  consume tuner drafts or a tuning basis; and
+- tuning report alone consumes tuning telemetry and draft-state truth. Neither
+  observer nor tuner reads admit an event or change draft lifecycle.
+
+No result family invents an `EvidenceKind`, `ObserverFindingKind`, event-kind,
+or other open vocabulary. Evidence and observer payloads bind existing exact
+contract coordinates; replay admits the existing closed
+`CanonicalRuntimeEvent` schema; action, gap, catalog, observer-draft, and tuner
+values use their named owner vocabularies above.
+
+#### Structural Owner Constructor And Placement
+
+The neutral owner-source helper is Prime-generalized once:
+
+```text
+ownerNativeDefinitionContractSource<K, Slot, S>({
+  owner
+  definitionKey: K
+  slot
+  semanticOwnerBasis
+  modulePath
+  exportName
+  memberPath
+  schema: S
+})
+```
+
+Both native constructor signatures enforce the hard break in their TypeScript
+inputs, not only at runtime. For the general constructor,
+`K extends { operationId: "abg.operation.project.read", memberKind: "variant" }`
+reduces the input to `never`. For the variant adapter,
+`OperationId extends "abg.operation.project.read"` reduces the input to
+`never`. A compile fixture for the forbidden legacy-adapter call is marked
+`@ts-expect-error`; untyped JavaScript and cast callers remain covered by the
+same runtime refusal. This conditional constraint needs no M04 import and
+duplicates no case roster.
+
+Its authority subject and derived identity retain structural `K`. The existing
+variant helper becomes a derived adapter that supplies a variant-shaped `K`;
+project-read supplies `ProjectReadDefinitionKey<C>`. Neither path passes
+`variant: caseKey`, adds a variant field, accepts the broad key schema, or
+creates a flattened selector. The exact literal schema from
+`definitionKeySchemaFor` is mandatory.
+
+The T-281-owned request/refusal applications live at
+`code/src/app/m04/public_contracts/project_read_operation_contracts.js`,
+export `PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES`, member paths
+`[caseKey, request|refusal, schema]`. Their semantic basis is
+`REQ-R-ABG3-PROJECTION-023` at
+`sha256:ea67216190dc59dd14eac9797ab544ee79d9798673a82925d2d8bcddb2a2dfb5`.
+Explicit absent non-terminal truth stays in the definition family.
+
+| Prime result family | Semantic-owner basis | Concrete module / export / member |
+|---|---|---|
+| catalog list/describe | `REQ-P-CATALOG-019..022`, `sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84` | `abg/m03/contracts/catalog_operation_contracts.js` / `CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES` / `[project_read, caseKey, result, schema]` |
+| workspace status | `REQ-R-ABG3-PROJECTION-023`, PROJECTION digest above | `app/m04/workspace/operation_contracts.js` / `WORKSPACE_NATIVE_CONTRACT_SOURCES` / `[project_read, workspace_status, result, schema]`, never `workspace_open` |
+| `Status<S>`, `Result<S>` | `REQ-P-POLICY-026`, `-027`, `sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f` | `abg/m03/contracts/runtime_projection_operation_contracts.js` / `RUNTIME_PROJECTION_NATIVE_CONTRACT_SOURCES` / `[project_read, caseKey, result, schema]` |
+| `Evidence<S>` | `REQ-P-POLICY-055`, POLICY digest above | run/GraphCall/result in runtime-projection module; assessment in `app/m04/result_assessment/operation_contracts.js` / `RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES`; witness in `abg/m03/contracts/runtime_authoring_operation_contracts.js` / `RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES`; install in `app/m04/product_intake/operation_contracts.js` / `PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES`; release in `qualification/m05/exact_candidate_release_operation_contracts.js` / `RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES`; all use `[project_read, caseKey, result, schema]` |
+| `Replay<S>` | `REQ-P-POLICY-028`, POLICY digest above | runtime-projection module/export / `[project_read, caseKey, result, schema]` |
+| `Gap<S>` | `REQ-P-POLICY-029`, POLICY digest above | `app/m04/gaps/operation_contracts.js` / `GAPS_PROJECT_READ_NATIVE_CONTRACT_SOURCES` / `[project_read, caseKey, result, schema]` |
+| lawful actions | `REQ-P-POLICY-030`, POLICY digest above | `abg/m03/contracts/one_surface_operation_contracts.js` / `ONE_SURFACE_NATIVE_CONTRACT_SOURCES` / `[project_read, run_lawful_actions, result, schema]` |
+| observer report/drafts | `REQ-P-POLICY-036`, POLICY digest above | `abg/m03/contracts/observer_operation_contracts.js` / `OBSERVER_PROJECT_READ_NATIVE_CONTRACT_SOURCES` / `[project_read, caseKey, result, schema]` |
+| tuning report | `REQ-R-ABG3-TUNER-002..003`, `sha256:8c3fb81bcdc831f7f4b1c5dc7b640e9bc9a18c64a57bb54df80c23a0ee0a5c0f` | `abg/m03/contracts/tuner_operation_contracts.js` / `TUNER_PROJECT_READ_NATIVE_CONTRACT_SOURCES` / `[project_read, tuning_report, result, schema]` |
+
+The unchanged T-274A locator is
+`abg/m03/contracts/consensus_contract_family.js` /
+`CONSENSUS_PUBLIC_CONTRACT_SOURCES` /
+`[ticket_consensus_projection, schema]`, under
+`REQ-P-CONSENSUS-004/-008A/-012` at
+`sha256:d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d`.
+
+Shared static Valibot functions may factor the displayed structures but accept
+only exact literal subject kinds and return actual strict schemas. Concrete
+owner modules instantiate and locate them. No shared constructor accepts
+arbitrary fields, callbacks, schema fragments, operation IDs, or
+runtime-selected subject kinds. P1 remains schema-only: no event, handler,
+runtime dispatch, or public/package output is added.
 
 ## Accepted Operation Contract Target Packet
 
@@ -759,7 +1017,7 @@ VariantDefinitionKey = {
 ProjectReadDefinitionKey = {
   operationId: "abg.operation.project.read",
   memberKind: "project_read_case",
-  caseKey: NonEmptyText
+  caseKey: ProjectReadCase
 }
 
 DefinitionKey = VariantDefinitionKey | ProjectReadDefinitionKey
@@ -1156,7 +1414,7 @@ and digest.
 | Gap code | Exact definition keys | Missing native slots | Current owner evidence and minimum re-entry |
 |---|---|---|---|
 | `p1_contract_workspace_not_realized` | `workspace.create(clean|imported)`, `workspace.open(open)` | `Req/Res/Ref` | `app/m04/workspace/operations.ts` differs from target authority fields; Phase A clean fixture is proof-only. The workspace owner must supply exact neutral schemas or re-enter its design on a real field ambiguity. |
-| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | T-281 owns the generic wrapper. Independently accepted T-274A closes only the Consensus result slot through the shared projector and family-owned named checks. Every other case must bind its exact projection owner or remain a gap. |
+| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | The constructor-ready packet and ten Prime result families above close field, authority, and placement ambiguity. T-274A closes the Consensus result schema. Implementation must realize the structural owner constructor, shared wrapper applications, and remaining 26 exact owner result sources before this gap can retire. |
 | `p1_contract_product_intake_not_realized` | `product.verify(verify)`, `product.resolve(resolve)`, `product.install(install)` | `Req/Res/Ref` | M04 verify/resolve/install carriers and admitters are semantic evidence only. Their owners must supply exact neutral schemas; T-281 cannot copy their imperative admission logic. |
 | `p1_contract_workspace_bind_not_realized` | `workspace.bind(bind)` | `Req/Res/Ref` | `app/m04/toolchain_binding/bind.ts` does not expose the accepted stable-binding target schema. Re-enter that owner if declared-root meaning does not close. |
 | `p1_contract_catalog_not_realized` | `catalog.admit(admit)`, `catalog.view(allowlist)`, `catalog.apply(node_type|overlay)` | `Req/Res/Ref` | Current catalog carriers are semantic evidence; `catalog.apply` target public contracts are absent. The catalog owner must supply exact neutral schemas. |
@@ -1228,8 +1486,8 @@ parity/digest inventory are derived outputs and add zero authored truth
 sources.
 
 The neutral owner-source constructor owns no semantic row or registry. Each
-owner supplies only its owner identity, semantic-owner basis, operation and
-variant, slot, module/export/member location, and exact schema. The constructor
+owner supplies only its owner identity, semantic-owner basis, exact structural
+`DefinitionKey`, slot, module/export/member location, and exact schema. The constructor
 derives the repeated carrier revision, contract/schema IDs and versions,
 authority subject, and locator terminator. Owner modules must not reconstruct
 that envelope locally and must not receive or import the M04 contract-shape
@@ -1279,6 +1537,7 @@ classDiagram
   }
   class OwnerSchemaInput {
     <<neutral owner truth>>
+    +structuralDefinitionKey
     +slotCoordinate
     +ownerAuthorityRef
     +ownerAuthorityDigest
@@ -1352,8 +1611,17 @@ classDiagram
     <<existing separate authority>>
     +behaviorAndEffects
   }
+  class ProjectReadContractSources {
+    <<27 structural case applications>>
+    +oneSharedRequestFamily
+    +oneSharedRefusalFamily
+    +tenPrimeResultFamilies
+    +ticketConsensusExactReuse
+    +noNonterminal
+  }
 
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
+  ProjectReadContractSources "1" --> "27" OwnerSchemaInput : supplies exact project_read_case slots
   OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
   OwnerSchemaInput --> SharedCanonicalNativeSchemaProjector : supplies actual schema
   SharedCanonicalNativeSchemaProjector --> NativeSchemaProjectionWitness : derives only
@@ -1390,6 +1658,8 @@ sequenceDiagram
 
   Builder->>Resolver: request exact 19-identity 62-key resolution
   loop each exact definition key
+    Resolver->>PhaseA: admit exact literal structural key schema for K
+    PhaseA-->>Resolver: exact K or refusal with no project read variant
     Resolver->>Owners: obtain owner authority and native contract slots
     Owners-->>Resolver: exact neutral schema input or missing slot evidence
     alt slot absent ambiguous prose-only or legacy-only
@@ -1431,10 +1701,10 @@ sequenceDiagram
 
 T-274A has independently closed the `ticket_consensus` result slot by proving
 that its neutral schema coordinate admits through the shared closed projector
-and Phase A binding. T-281 still owns and must prove the generic
-`project.read` request/refusal wrapper and explicit absent non-terminal slot.
-Until that relation closes, the case remains
-`p1_contract_project_read_not_realized`.
+and Phase A binding. The constructor-ready packet above fixes the generic
+request/refusal, explicit absent non-terminal, structural-key constructor, and
+remaining 26 result-source placements. The typed gap now denotes only their
+unrealized native sources and exact P1 resolution, not an open design choice.
 T-275 is not a P1 dependency:
 it provides later handler/projection semantics and therefore gates P2, not
 private definition construction.
@@ -1452,6 +1722,7 @@ stateDiagram-v2
   ProjectionWitnessDerived --> OwnerResolutionPending: M04 coordinate and M03 seal conserve same witness
   ProjectionWitnessDerived --> DefinitionRefused: coordinate digest or compiler seal diverges
   OwnerResolutionPending --> DefinitionRefused: private source locator is missing or divergent
+  OwnerResolutionPending --> DefinitionRefused: structural key widens or project_read is encoded as variant
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
   OwnerResolutionPending --> ExactOwnerSetResolved: all distributed keys and same-key slots exact
   ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family
@@ -1693,7 +1964,7 @@ retain distinct behavior owners.
 | M03 does not depend on M04 public carriers | module direction fence, neutral owner-input edge, and negative import-graph proof | pass as P1 design |
 | Semantic behavior remains separately owned | domain `SemanticOwner`; sequence requests neutral schemas only and invokes no runtime owner | pass as P1 design |
 | Binding cardinality is closed per variant | exact matrix and domain closed-sum note | pass |
-| `project.read` is a closed source/projection target relation | 27 exact cases are enumerated; per-slot owner resolution preserves mixed owners | target complete; `p1_contract_project_read_not_realized` remains blocking |
+| `project.read` is a closed source/projection target relation | 27 exact cases, structural request/refusal, ten Prime result families, exact owner placements, and per-slot mixed ownership | design complete; native realization and exact P1 resolution remain blocking |
 | Malformed input cannot reach an effect | accepted Phase A admission proof; P1 sequence has no effect edge | pass as Phase A proof |
 | Malformed output cannot become public truth | accepted Phase A outcome proof; P1 publishes no output | pass as Phase A proof |
 | No partial public surface is published after P1 | P1 sequence yields typed gaps or private projections; `P1Ready` is terminal | pass as P1 design |

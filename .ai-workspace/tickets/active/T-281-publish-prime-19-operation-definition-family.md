@@ -5,8 +5,8 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_non_read_owner_inputs_closed_project_read_owner_design_repair_in_progress
-- review_status: p1_structural_definition_key_design_independently_accepted
+- phase_status: p1_project_read_owner_design_accepted_structural_owner_source_repair_in_progress
+- review_status: p1_project_read_owner_design_independently_accepted
 - proof_status: p1_35_non_read_keys_115_schema_slots_exact_project_read_81_slots_and_central_family_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
@@ -146,6 +146,13 @@
 - p1_non_read_owner_input_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T033834Z_SELF_REVIEW_t281_non_read_owner_input_checkpoint.md
+- p1_project_read_owner_design_candidate_digest: >-
+    6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019
+- p1_project_read_owner_design_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T042304Z_DECISION_fh_accept_t281_project_read_owner_design.md
+- accepted_p1_project_read_owner_design_digest: >-
+    6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -508,3 +515,24 @@ schema, catalog row, SDK member, CLI coordinate, handler, or compatibility
 surface was added. The regenerated product toolchain manifest records changed
 packaged private bytes; the 82 public schemas and 40 publication assets remain
 exact.
+
+## P1 Project Read Owner Design Acceptance
+
+The exact design digest
+`6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019`
+is independently reviewed and F_H accepted under the delegated release
+authority. It closes the 27-case constructor design over ten Prime result
+families while preserving concrete M03/M04/M05 semantic ownership and the
+unchanged T-274A `ticket_consensus` result schema.
+
+The accepted replay request has one `fromOrdinal + limit` grammar, replay rows
+admit the existing `CanonicalRuntimeEvent`, observer drafts derive from
+`ObserverObservables`, and catalog refusals remain case-indexed. The design
+adds no handler, event, runtime path, public schema, operation, or requirement.
+
+Implementation remains gated by the neutral structural owner-source helper.
+Both native constructor entry points must reject a fake `project.read`
+variant at compile time, while their runtime guards continue to reject
+untyped or cast inputs. This code prerequisite does not reopen the accepted
+project-read design and does not authorize the central P1 family before all
+81 owner slots resolve.
