@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_structural_definition_key_repair_candidate_complete
-- review_status: phase_a_accepted_p1_structural_definition_key_repair_pending_independent_rereview
-- proof_status: phase_a_accepted_p1_structural_definition_key_actual_packet_api_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
+- phase_status: phase_a_closed_p1_design_accepted_owner_schema_realization_authorized
+- review_status: p1_structural_definition_key_design_independently_accepted
+- proof_status: p1_design_exact_packet_typescript_runtime_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -136,6 +136,12 @@
 - p1_structural_definition_key_repair_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T020951Z_SELF_REVIEW_t281_structural_definition_key_repair.md
+- p1_structural_definition_key_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T024331Z_REVIEW_t281_structural_definition_key_acceptance.md
+- accepted_p1_structural_definition_key_design_digest: >-
+    01022386a2a89e523f11b0ffb363573299d35985240840dc6adac2bfb4d16838
+- p1_implementation_authority: delegated_fh_accepted_private_all_or_nothing_constructor_boundary
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -475,8 +481,8 @@ compatibility path remains. Actual workspace-create and
 `project.read(ticket_consensus)` packet witnesses cover both success and exact
 typed failure branches.
 
-This candidate remains pending independent re-review. Its owner-schema gaps
-are implementation blockers and must close before the all-or-nothing private
-family can admit; the already-recorded milestone split is not a blocker. P1
-implementation is not authorized by this repair. P2 remains fenced behind
-completed P1, T-274B, T-275, and the remaining handler owners.
+Independent exact-basis review accepts this design digest and authorizes P1
+implementation inside the private all-or-nothing constructor boundary. Its
+owner-schema gaps remain admission blockers and must close before the family
+can admit; the already-recorded milestone split is not a blocker. P2 remains
+fenced behind completed P1, T-274B, T-275, and the remaining handler owners.
