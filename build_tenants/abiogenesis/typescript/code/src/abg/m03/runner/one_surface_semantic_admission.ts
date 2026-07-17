@@ -434,6 +434,8 @@ export function admitOneSurfaceConstructionIntent(input: {
   );
   if (
     selectedTargetBindings.length !== 1 ||
+    selectedTargetBindings[0]!.snapshotRef !== input.observation.observationId ||
+    selectedTargetBindings[0]!.snapshotDigest !== input.observation.snapshotDigest ||
     selectedTargetBindings[0]!.actionRef !== candidate.selectedActionRef ||
     selectedTargetBindings[0]!.targetOutcomeRef !== candidate.selectedOutcomeRef ||
     stableSha256Digest(selectedTargetBindings[0]!.obligationRefs) !==

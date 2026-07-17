@@ -4500,6 +4500,9 @@ function consequenceConstructionPreludeEvents(input: {
       correlationId
     });
 
+  // This legacy ExecutionBasis-owned path cannot name the admitted One Surface
+  // program and workspace-binding digests. It therefore emits no observation
+  // materialization event; the One Surface path owns that scoped event.
   return Object.freeze([
     Object.freeze({
       ...scope(0, "episode-started"),
@@ -4507,16 +4510,7 @@ function consequenceConstructionPreludeEvents(input: {
       startProjectionRef: input.observation.currentProjectionRef
     }),
     Object.freeze({
-      ...scope(1, "observation-materialized"),
-      kind: "construction_observation_snapshot_materialized",
-      observationId: input.observation.observationId,
-      currentProjectionRef: input.observation.currentProjectionRef,
-      observedStateRefs: input.observation.observedStateRefs,
-      linkedAssetRefs: input.observation.linkedAssetRefs,
-      authorityDigest: input.observation.authorityDigest
-    }),
-    Object.freeze({
-      ...scope(2, "action-catalog-projected"),
+      ...scope(1, "action-catalog-projected"),
       kind: "construction_action_catalog_projected",
       catalogRef: input.actionCatalog.catalogRef,
       hookResolutionRef: input.actionCatalog.hookResolutionRef,
@@ -4533,7 +4527,7 @@ function consequenceConstructionPreludeEvents(input: {
       )
     }),
     Object.freeze({
-      ...scope(3, "evaluator-invoked"),
+      ...scope(2, "evaluator-invoked"),
       kind: "construction_evaluator_invoked",
       observationId: input.observation.observationId,
       catalogRef: input.actionCatalog.catalogRef,
@@ -4541,7 +4535,7 @@ function consequenceConstructionPreludeEvents(input: {
       inputDigest: `consequence-construction-input:${input.digest}`
     }),
     Object.freeze({
-      ...scope(4, "candidate-returned"),
+      ...scope(3, "candidate-returned"),
       kind: "construction_intent_candidate_returned",
       evaluatorPluginRef: "consequence_projection",
       evaluatorOutcomeRef: input.evaluatorOutcomeRef,
@@ -4549,7 +4543,7 @@ function consequenceConstructionPreludeEvents(input: {
       candidateRefs: [input.candidateId]
     }),
     Object.freeze({
-      ...scope(5, "candidate-admitted"),
+      ...scope(4, "candidate-admitted"),
       kind: "construction_intent_candidate_admitted",
       candidateId: input.candidateId,
       admissionRef: input.admission.admissionRef,
@@ -4557,7 +4551,7 @@ function consequenceConstructionPreludeEvents(input: {
       authorityRefs: admittedIntent.authorityRefs
     }),
     Object.freeze({
-      ...scope(6, "intent-selected"),
+      ...scope(5, "intent-selected"),
       kind: "construction_intent_selected",
       intentId: admittedIntent.intentId,
       selectedActionRef: admittedIntent.selectedActionRef,

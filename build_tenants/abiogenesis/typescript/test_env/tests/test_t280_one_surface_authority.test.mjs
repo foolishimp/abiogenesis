@@ -330,6 +330,7 @@ function sealedIntentAdmission(program) {
   });
   const targetBinding = constructTargetObligationBinding({
     snapshotRef: "observation://t280/action",
+    snapshotDigest: stableSha256Digest({ observation: "t280/action" }),
     sourceBindingRef: intent.selectedBindingRef,
     pressureRef: "pressure://t280/action",
     actionRef: intent.selectedActionRef,

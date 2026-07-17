@@ -35,6 +35,10 @@ import {
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import {
+  assertCurrentObservationBasisProjection,
+  type CurrentObservationBasisProjection
+} from "./current_observation.js";
+import {
   assertNonEmptyString,
   assertNonNegativeInteger
 } from "./runtime_support.js";
@@ -428,6 +432,7 @@ export interface TargetObligationBinding {
   readonly bindingRef: string;
   readonly bindingDigest: `sha256:${string}`;
   readonly snapshotRef: string;
+  readonly snapshotDigest: `sha256:${string}`;
   readonly sourceBindingRef: string;
   readonly pressureRef: string;
   readonly actionRef: string;
@@ -442,6 +447,7 @@ function targetObligationBindingBasis(input: Omit<
 >) {
   return Object.freeze({
     snapshotRef: input.snapshotRef,
+    snapshotDigest: input.snapshotDigest,
     sourceBindingRef: input.sourceBindingRef,
     pressureRef: input.pressureRef,
     actionRef: input.actionRef,
@@ -453,6 +459,7 @@ function targetObligationBindingBasis(input: Omit<
 
 export function constructTargetObligationBinding(input: {
   readonly snapshotRef: string;
+  readonly snapshotDigest: `sha256:${string}`;
   readonly sourceBindingRef: string;
   readonly pressureRef: string;
   readonly actionRef: string;
@@ -462,6 +469,7 @@ export function constructTargetObligationBinding(input: {
 }): TargetObligationBinding {
   const basis = targetObligationBindingBasis({
     snapshotRef: input.snapshotRef,
+    snapshotDigest: input.snapshotDigest,
     sourceBindingRef: input.sourceBindingRef,
     pressureRef: input.pressureRef,
     actionRef: input.actionRef,
@@ -473,6 +481,7 @@ export function constructTargetObligationBinding(input: {
     )
   });
   assertNonEmptyString(basis.snapshotRef, "snapshotRef");
+  assertNonEmptyString(basis.snapshotDigest, "snapshotDigest");
   assertNonEmptyString(basis.sourceBindingRef, "sourceBindingRef");
   assertNonEmptyString(basis.pressureRef, "pressureRef");
   assertNonEmptyString(basis.actionRef, "actionRef");
@@ -595,6 +604,8 @@ export interface NextActionProjection {
   readonly authorityResult: OneSurfaceRefDigest;
   readonly catalogView: OneSurfaceRefDigest;
   readonly observationRef: string;
+  readonly currentObservationRef: string;
+  readonly currentObservationDigest: `sha256:${string}`;
   readonly actionCatalogRef: string;
   readonly bindingProjectionRef: string;
   readonly priorityProjectionRef: string;
@@ -618,6 +629,8 @@ function nextActionProjectionBasis(input: Omit<
     authorityResultDigest: input.authorityResult.digest,
     catalogView: input.catalogView,
     observationRef: input.observationRef,
+    currentObservationRef: input.currentObservationRef,
+    currentObservationDigest: input.currentObservationDigest,
     actionCatalogRef: input.actionCatalogRef,
     bindingProjectionRef: input.bindingProjectionRef,
     priorityProjectionRef: input.priorityProjectionRef,
@@ -640,6 +653,16 @@ export function assertNextActionProjection(
   if (new Set(sourceBindingRefs).size !== sourceBindingRefs.length) {
     throw new TypeError("NextActionProjection target binding authority is ambiguous");
   }
+  if (
+    projection.targetBindings.some(
+      (binding) => binding.snapshotRef !== projection.observationRef
+    ) ||
+    new Set(
+      projection.targetBindings.map((binding) => binding.snapshotDigest)
+    ).size > 1
+  ) {
+    throw new TypeError("NextActionProjection observation authority differs");
+  }
   [
     projection.admittedProgram.ref,
     projection.admittedProgram.digest,
@@ -648,6 +671,8 @@ export function assertNextActionProjection(
     projection.catalogView.ref,
     projection.catalogView.digest,
     projection.observationRef,
+    projection.currentObservationRef,
+    projection.currentObservationDigest,
     projection.actionCatalogRef,
     projection.bindingProjectionRef,
     projection.priorityProjectionRef
@@ -747,6 +772,25 @@ function normalizeEvaluateNextInputs(input: {
   });
 }
 
+function assertEvaluateNextCurrentObservation(input: {
+  readonly application: OneSurfaceAuthorityProgramBinding;
+  readonly observation: ConstructionObservationSnapshot;
+  readonly currentObservation: CurrentObservationBasisProjection;
+}): void {
+  assertCurrentObservationBasisProjection(input.currentObservation);
+  if (
+    input.currentObservation.admittedProgramRef !==
+      input.application.admittedProgramRef ||
+    input.currentObservation.admittedProgramDigest !==
+      input.application.admittedProgramDigest ||
+    input.currentObservation.observationId !== input.observation.observationId ||
+    input.currentObservation.snapshotDigest !== input.observation.snapshotDigest ||
+    input.currentObservation.workspaceBindingRef !== input.observation.basisRef
+  ) {
+    throw new TypeError("evaluate_next current observation authority differs");
+  }
+}
+
 export function oneSurfaceEvaluateNextInputBasis(input: {
   readonly nextBasis: NextActionBasis;
   readonly application: OneSurfaceAuthorityProgramBinding;
@@ -754,6 +798,7 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly allowedEntryRefs?: readonly string[];
   readonly observation: ConstructionObservationSnapshot;
+  readonly currentObservation: CurrentObservationBasisProjection;
   readonly availableInputRefs?: readonly string[];
   readonly priorityScheme: ConstructionPriorityScheme;
   readonly affectPolicies?: readonly AffectPriorityPolicy[];
@@ -761,6 +806,7 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
 }): OneSurfaceAuthorityInputBasis<"evaluate_next"> {
   assertNextActionBasis(input.nextBasis);
   assertOneSurfaceAuthorityProgramBinding(input.application);
+  assertEvaluateNextCurrentObservation(input);
   const {
     allowedEntryRefs,
     availableInputRefs,
@@ -779,7 +825,9 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
       input.catalogBasis.runtimeCatalogProjectionRef,
       input.catalogBasis.runtimeRegistryProjectionRef,
       input.observation.observationId,
-      input.observation.authorityDigest,
+      input.observation.snapshotDigest,
+      input.currentObservation.projectionRef,
+      input.currentObservation.projectionDigest,
       input.priorityScheme.schemeRef,
       input.priorityScheme.sourcePolicyRef,
       ...(affectPolicies ?? []).flatMap((policy) => [
@@ -807,7 +855,9 @@ export function oneSurfaceEvaluateNextInputBasis(input: {
       }),
       allowedEntryRefs: allowedEntryRefs ?? null,
       observationRef: input.observation.observationId,
-      observationAuthorityDigest: input.observation.authorityDigest,
+      observationSnapshotDigest: input.observation.snapshotDigest,
+      currentObservationRef: input.currentObservation.projectionRef,
+      currentObservationDigest: input.currentObservation.projectionDigest,
       availableInputRefs: availableInputRefs ?? null,
       priorityScheme: input.priorityScheme,
       affectPolicies: affectPolicies ?? [],
@@ -824,6 +874,7 @@ export function deriveNextActionProjection(input: {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly allowedEntryRefs?: readonly string[];
   readonly observation: ConstructionObservationSnapshot;
+  readonly currentObservation: CurrentObservationBasisProjection;
   readonly availableInputRefs?: readonly string[];
   readonly priorityScheme: ConstructionPriorityScheme;
   readonly affectPolicies?: readonly AffectPriorityPolicy[];
@@ -868,6 +919,15 @@ export function deriveNextActionProjection(input: {
       reasonRefs: ["evaluate_next_selector_authority_invalid"]
     });
   }
+  try {
+    assertEvaluateNextCurrentObservation(input);
+  } catch {
+    return constructOneSurfaceTypedRefusal({
+      functionKind: "evaluate_next",
+      judgment: "blocked",
+      reasonRefs: ["evaluate_next_current_observation_invalid"]
+    });
+  }
   const inputBasis = oneSurfaceEvaluateNextInputBasis({
     nextBasis: input.nextBasis,
     application: input.application,
@@ -877,6 +937,7 @@ export function deriveNextActionProjection(input: {
       ? {}
       : { allowedEntryRefs: normalized.allowedEntryRefs }),
     observation: input.observation,
+    currentObservation: input.currentObservation,
     ...(normalized.availableInputRefs === undefined
       ? {}
       : { availableInputRefs: normalized.availableInputRefs }),
@@ -895,7 +956,13 @@ export function deriveNextActionProjection(input: {
     !input.nextBasis.causalRefs.includes(input.application.bindingRef) ||
     !input.nextBasis.causalRefs.includes(input.application.bindingDigest) ||
     !input.nextBasis.causalRefs.includes(input.invocationAuthority.ref) ||
-    !input.nextBasis.causalRefs.includes(input.invocationAuthority.digest)
+    !input.nextBasis.causalRefs.includes(input.invocationAuthority.digest) ||
+    !input.nextBasis.causalRefs.includes(
+      input.currentObservation.workspaceBindingRef
+    ) ||
+    !input.nextBasis.causalRefs.includes(
+      input.currentObservation.workspaceBindingDigest
+    )
   ) {
     return constructOneSurfaceTypedRefusal({
       functionKind: "evaluate_next",
@@ -958,6 +1025,7 @@ export function deriveNextActionProjection(input: {
     }
     targetBindings.push(constructTargetObligationBinding({
       snapshotRef: input.observation.observationId,
+      snapshotDigest: input.observation.snapshotDigest,
       sourceBindingRef: binding.bindingRef,
       pressureRef: binding.pressureRef,
       actionRef: binding.actionRef,
@@ -1079,6 +1147,8 @@ export function deriveNextActionProjection(input: {
     authorityResult,
     catalogView,
     observationRef: input.observation.observationId,
+    currentObservationRef: input.currentObservation.projectionRef,
+    currentObservationDigest: input.currentObservation.projectionDigest,
     actionCatalogRef: actionCatalog.catalogRef,
     bindingProjectionRef: bindingProjection.projectionRef,
     priorityProjectionRef: priorityProjection.projectionRef,
@@ -1099,6 +1169,8 @@ export function deriveNextActionProjection(input: {
     authorityResult,
     catalogView,
     observationRef: input.observation.observationId,
+    currentObservationRef: input.currentObservation.projectionRef,
+    currentObservationDigest: input.currentObservation.projectionDigest,
     actionCatalogRef: actionCatalog.catalogRef,
     bindingProjectionRef: bindingProjection.projectionRef,
     priorityProjectionRef: priorityProjection.projectionRef,

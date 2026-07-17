@@ -2775,6 +2775,11 @@ export interface ConstructionObservationSnapshotMaterializedEvent
   extends ConstructionRuntimeEventScope {
   readonly kind: "construction_observation_snapshot_materialized";
   readonly observationId: string;
+  readonly snapshotDigest: `sha256:${string}`;
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly workspaceBindingRef: string;
+  readonly workspaceBindingDigest: string;
   readonly currentProjectionRef: string;
   readonly observedStateRefs: readonly string[];
   readonly linkedAssetRefs: readonly string[];

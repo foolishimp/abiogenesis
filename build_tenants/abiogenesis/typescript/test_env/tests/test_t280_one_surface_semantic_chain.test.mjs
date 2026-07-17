@@ -35,6 +35,9 @@ import {
 import {
   projectOneSurfaceReplayAttempt
 } from "./support/t280-one-surface-replay-fixtures.mjs";
+import {
+  currentObservationFixture
+} from "./support/t270-current-observation-fixtures.mjs";
 
 const CATALOG_ENTRY_REF =
   "catalog-entry://t280/system/scenario09-normalize";
@@ -269,6 +272,15 @@ async function semanticChainFixture() {
     observation.actionCatalogRef,
     program.stages[2].allowedConsequenceCatalog.catalogRef
   );
+  const currentObservation = currentObservationFixture({
+    observation,
+    program: Object.freeze({
+      ref: program.admittedProgramRef,
+      digest: program.admittedProgramDigest
+    }),
+    workspaceBinding,
+    ordinal: 100
+  }).projection;
 
   const bindingProjection = deriveObservationToActionBindingProjection({
     observation,
@@ -340,6 +352,7 @@ async function semanticChainFixture() {
     catalogBasis: catalog.basis,
     allowedEntryRefs: Object.freeze([CATALOG_ENTRY_REF]),
     observation,
+    currentObservation,
     priorityScheme,
     targetObligations
   });
@@ -389,6 +402,7 @@ async function semanticChainFixture() {
     bindingProjection,
     candidate,
     catalog,
+    currentObservation,
     evaluateNextInput,
     evaluateNextResult,
     intentAdmission,
@@ -419,6 +433,22 @@ test("T-280 admits the real Scenario09 AF-11 through AF-14 semantic chain", asyn
     value.intentAdmission.targetBindingRefs,
     [value.nextAction.targetBindings[0].bindingRef]
   );
+  assert.equal(
+    value.nextAction.currentObservationRef,
+    value.currentObservation.projectionRef
+  );
+  assert.equal(
+    value.nextAction.currentObservationDigest,
+    value.currentObservation.projectionDigest
+  );
+  assert.equal(
+    value.nextAction.targetBindings[0].snapshotDigest,
+    value.observation.snapshotDigest
+  );
+  assert.deepEqual(value.intentAdmission.nextAction, {
+    ref: value.nextAction.projectionRef,
+    digest: value.nextAction.projectionDigest
+  });
 });
 
 function assertEvaluateNextRefusal(value, reasonRef) {
@@ -429,6 +459,17 @@ function assertEvaluateNextRefusal(value, reasonRef) {
 
 test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", async () => {
   const value = await chain;
+  assertEvaluateNextRefusal(
+    deriveNextActionProjection({
+      ...value.evaluateNextInput,
+      authorityResult: value.evaluateNextResult,
+      currentObservation: Object.freeze({
+        ...value.currentObservation,
+        materializedEventRef: "event://t280/scenario09/mutated"
+      })
+    }),
+    "evaluate_next_current_observation_invalid"
+  );
   const changedPolicy = constructConstructionPriorityScheme({
     schemeRef: "priority-scheme://t280/scenario09/changed",
     sourcePolicyRef: "policy://t280/scenario09/changed",
@@ -622,6 +663,7 @@ test("T-280 AF-14 returns typed refusal for changed workspace and source-binding
   const originalTarget = value.nextAction.targetBindings[0];
   const mismatchedTarget = constructTargetObligationBinding({
     snapshotRef: originalTarget.snapshotRef,
+    snapshotDigest: originalTarget.snapshotDigest,
     sourceBindingRef: "construction-binding://t280/scenario09/other",
     pressureRef: originalTarget.pressureRef,
     actionRef: originalTarget.actionRef,

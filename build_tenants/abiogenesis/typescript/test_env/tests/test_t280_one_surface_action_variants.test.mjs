@@ -31,6 +31,9 @@ import {
 import {
   projectOneSurfaceReplayAttempt
 } from "./support/t280-one-surface-replay-fixtures.mjs";
+import {
+  currentObservationFixture
+} from "./support/t270-current-observation-fixtures.mjs";
 
 const MODULE_REF = "gtl-module://t280/scenario09-one-surface";
 const WORKSPACE_BINDING = Object.freeze({
@@ -310,6 +313,15 @@ function worldForAction({
         obligationRefs,
         requiredEvidenceRefs
       })]);
+  const currentObservation = currentObservationFixture({
+    observation,
+    program: Object.freeze({
+      ref: program.admittedProgramRef,
+      digest: program.admittedProgramDigest
+    }),
+    workspaceBinding: WORKSPACE_BINDING,
+    ordinal: ordinal + 50
+  }).projection;
   const evaluateNextInput = Object.freeze({
     nextBasis,
     application: program,
@@ -317,6 +329,7 @@ function worldForAction({
     catalogBasis: catalog.basis,
     allowedEntryRefs: catalog.entryRefs,
     observation,
+    currentObservation,
     priorityScheme,
     targetObligations
   });

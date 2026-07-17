@@ -9,6 +9,9 @@ import {
 import {
   oneSurfaceAuthoritySnapshotBasis
 } from "../../../build/semantic/code/src/abg/m03/runner/one_surface_result_projection.js";
+import {
+  payloadLedgerProjectionRef
+} from "../../../build/semantic/code/src/abg/m03/contracts/payload_ledger.js";
 
 function firstLeaf(node) {
   if (node.kind === "compiled_c_stage_leaf") return node;
@@ -25,6 +28,17 @@ function artifact(contract, stage, value) {
     contractRef: contract.contractRef,
     contractDigest: contract.configDigest,
     payload: value
+  });
+}
+
+function canonicalEnvelope(fixtureRef, suffix, eventAdmissionOrdinal) {
+  const eventTimeUnixMs =
+    Date.parse("2026-07-18T00:00:00.000Z") + eventAdmissionOrdinal;
+  return Object.freeze({
+    eventId: `event://${fixtureRef}/${suffix}`,
+    eventTime: new Date(eventTimeUnixMs).toISOString(),
+    eventTimeUnixMs,
+    eventAdmissionOrdinal
   });
 }
 
@@ -87,6 +101,7 @@ export function buildOneSurfaceReplayAttempt(input) {
   });
   const observed = Object.freeze({
     kind: "payload_observed",
+    ...canonicalEnvelope(fixtureRef, `payload-observed/${String(ordinal)}`, ordinal * 2),
     ...scope,
     payloadRef: resultPair.payloadRef,
     payloadClass: contract.outputCarrierKind,
@@ -102,6 +117,11 @@ export function buildOneSurfaceReplayAttempt(input) {
   });
   const validated = Object.freeze({
     kind: "payload_validated",
+    ...canonicalEnvelope(
+      fixtureRef,
+      `payload-validated/${String(ordinal)}`,
+      ordinal * 2 + 1
+    ),
     ...scope,
     payloadRef: resultPair.payloadRef,
     schemaRef: stage.nativeResultSchema.schemaRef,
@@ -199,11 +219,10 @@ export function buildOneSurfaceReplayAttempt(input) {
 export function buildOneSurfacePayloadLedger(
   contract,
   stage,
-  attempts,
-  projectionRef = "projection://t280/exact-event-binding"
+  attempts
 ) {
   const first = attempts[0];
-  return Object.freeze({
+  const partial = Object.freeze({
     kind: "payload_ledger_projection",
     scope: Object.freeze({
       kind: "payload_ledger_scope",
@@ -222,8 +241,14 @@ export function buildOneSurfacePayloadLedger(
     authoritySnapshots: Object.freeze(attempts.map((row) => row.authority)),
     evidenceRows: Object.freeze(attempts.flatMap((row) => row.evidence)),
     ambiguityObservations: Object.freeze([]),
-    closureInputs: Object.freeze([]),
-    projectionRef
+    closureInputs: Object.freeze([])
+  });
+  return Object.freeze({
+    ...partial,
+    projectionRef: payloadLedgerProjectionRef({
+      ...partial,
+      projectionRef: "pending"
+    })
   });
 }
 
@@ -253,8 +278,7 @@ export function projectOneSurfaceReplayAttempt(input) {
     payloadLedger: buildOneSurfacePayloadLedger(
       input.contract,
       input.stage,
-      [row],
-      `projection://${input.fixtureRef ?? "t280/exact-event-binding"}`
+      [row]
     ),
     artifactPayloadDigestBasis: row.artifactPayload,
     expectedCCallRef: row.cCallRef,

@@ -273,7 +273,8 @@ function hasPayloadRef(
   return event.payloadRef !== null;
 }
 
-function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
+/** @internal */
+export function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
   return [
     "payload_ledger_projection",
     input.scope.basisId,

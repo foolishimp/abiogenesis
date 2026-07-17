@@ -3261,6 +3261,11 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     {
       ...constructionRuntimeEventRules,
       observationId: "non_empty_string",
+      snapshotDigest: "non_empty_string",
+      admittedProgramRef: "non_empty_string",
+      admittedProgramDigest: "non_empty_string",
+      workspaceBindingRef: "non_empty_string",
+      workspaceBindingDigest: "non_empty_string",
       currentProjectionRef: "non_empty_string",
       observedStateRefs: "string_array",
       linkedAssetRefs: "string_array",

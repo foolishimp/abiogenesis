@@ -9,6 +9,9 @@ import type {
 } from "./carriers.js";
 import { GRAPH_REENTRY_POINT_VALUES } from "./carriers.js";
 import {
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
+import {
   assertNonEmptyString,
   assertNonNegativeInteger,
   freezeStringArray
@@ -68,6 +71,7 @@ export interface ConstructionObservationSnapshot {
   readonly kind: "construction_observation_snapshot";
   readonly episodeId: string;
   readonly observationId: string;
+  readonly snapshotDigest: `sha256:${string}`;
   readonly basisRef: string;
   readonly currentProjectionRef: string;
   readonly iterationOrdinal: number;
@@ -408,7 +412,7 @@ export function constructConstructionObservationSnapshot(input: {
     triageRefs.add(row.triageRef);
     triagePressureRefs.add(row.pressureRef);
   }
-  return Object.freeze({
+  const basis = Object.freeze({
     kind: "construction_observation_snapshot",
     episodeId: input.episodeId,
     observationId: input.observationId,
@@ -476,6 +480,10 @@ export function constructConstructionObservationSnapshot(input: {
     repairSurfaceTriageRows: Object.freeze([
       ...(input.repairSurfaceTriageRows ?? [])
     ])
+  });
+  return Object.freeze({
+    ...basis,
+    snapshotDigest: stableSha256Digest(basis)
   });
 }
 
