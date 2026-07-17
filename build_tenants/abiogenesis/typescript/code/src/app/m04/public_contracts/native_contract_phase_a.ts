@@ -60,6 +60,133 @@ export const safePositiveIntegerSchema = sharedSafePositiveIntegerSchema;
 /** @internal */
 export const canonicalIJsonSchema = sharedCanonicalIJsonSchema;
 
+const variantDefinitionKeySchema = v.strictObject({
+  operationId: nonEmptyTextSchema,
+  memberKind: v.literal("variant"),
+  variant: nonEmptyTextSchema
+});
+
+const projectReadDefinitionKeySchema = v.strictObject({
+  operationId: v.literal("abg.operation.project.read"),
+  memberKind: v.literal("project_read_case"),
+  caseKey: nonEmptyTextSchema
+});
+
+/** @internal */
+export const definitionKeySchema = v.pipe(
+  v.variant("memberKind", [
+    variantDefinitionKeySchema,
+    projectReadDefinitionKeySchema
+  ]),
+  v.readonly()
+);
+
+/** @internal */
+export type DefinitionKey = v.InferOutput<typeof definitionKeySchema>;
+
+type VariantDefinitionKeyInput<
+  OperationId extends string = string,
+  Variant extends string = string
+> = Readonly<{
+  operationId: OperationId;
+  memberKind: "variant";
+  variant: Variant;
+}>;
+
+type ProjectReadDefinitionKeyInput<
+  CaseKey extends string = string
+> = Readonly<{
+  operationId: "abg.operation.project.read";
+  memberKind: "project_read_case";
+  caseKey: CaseKey;
+}>;
+
+const exactDefinitionKeyValue = Symbol("exactDefinitionKeyValue");
+
+function exactVariantDefinitionKeySchema<
+  const OperationId extends string,
+  const Variant extends string
+>(raw: VariantDefinitionKeyInput<OperationId, Variant>) {
+  return Object.freeze(
+    Object.assign(
+      v.pipe(
+        v.strictObject({
+          operationId: v.literal(raw.operationId),
+          memberKind: v.literal("variant"),
+          variant: v.literal(raw.variant)
+        }),
+        v.readonly()
+      ),
+      { [exactDefinitionKeyValue]: raw }
+    )
+  );
+}
+
+function exactProjectReadDefinitionKeySchema<
+  const CaseKey extends string
+>(raw: ProjectReadDefinitionKeyInput<CaseKey>) {
+  return Object.freeze(
+    Object.assign(
+      v.pipe(
+        v.strictObject({
+          operationId: v.literal("abg.operation.project.read"),
+          memberKind: v.literal("project_read_case"),
+          caseKey: v.literal(raw.caseKey)
+        }),
+        v.readonly()
+      ),
+      { [exactDefinitionKeyValue]: raw }
+    )
+  );
+}
+
+type VariantDefinitionKeySchema<
+  OperationId extends string = string,
+  Variant extends string = string
+> = ReturnType<
+  typeof exactVariantDefinitionKeySchema<OperationId, Variant>
+>;
+
+type ProjectReadDefinitionKeySchema<
+  CaseKey extends string = string
+> = ReturnType<typeof exactProjectReadDefinitionKeySchema<CaseKey>>;
+
+type DefinitionKeySchemaFor<K extends DefinitionKey> =
+  K extends VariantDefinitionKeyInput<
+    infer OperationId,
+    infer Variant
+  >
+    ? VariantDefinitionKeySchema<OperationId, Variant>
+    : K extends ProjectReadDefinitionKeyInput<infer CaseKey>
+      ? ProjectReadDefinitionKeySchema<CaseKey>
+      : never;
+
+type DefinitionKeySchema<
+  K extends DefinitionKey = DefinitionKey
+> = NativeSchema & {
+  readonly [exactDefinitionKeyValue]: K;
+  readonly "~types"?: {
+    readonly output: K;
+  } | undefined;
+};
+
+/** @internal */
+export function definitionKeySchemaFor<const K extends DefinitionKey>(
+  raw: K
+): DefinitionKeySchemaFor<K>;
+/** @internal */
+export function definitionKeySchemaFor(
+  raw: DefinitionKey
+): DefinitionKeySchema {
+  const admitted = freezeNativeValue(admitNative(definitionKeySchema, raw));
+  if (!stableJsonEquals(admitted, raw)) {
+    throw new TypeError("definition key: canonical structural mismatch");
+  }
+  return admitted.memberKind === "variant"
+    ? exactVariantDefinitionKeySchema(admitted)
+    : exactProjectReadDefinitionKeySchema(admitted);
+}
+
 /** @internal */
 function phaseFixtureNativeSchemaSource<S extends NativeSchema>(
   slot: "request" | "result" | "refusal",
@@ -584,29 +711,31 @@ const authorityBasisEntries = {
   transportSteering: transportSteeringSlotSchema
 } as const satisfies v.ObjectEntries;
 
-function invocationAuthorityBasisSchema<K extends NativeSchema>(keySchema: K) {
+function invocationAuthorityBasisSchema<
+  KeySchema extends DefinitionKeySchema
+>(keySchema: KeySchema) {
   return v.strictObject({
-    operationKey: keySchema,
     ...authorityBasisEntries,
-    definitionKey: keySchema
+    definitionKey: v.nonOptional(keySchema)
   });
 }
 
 /** @internal */
-export function invocationAuthoritySchema<K extends NativeSchema>(keySchema: K) {
+export function invocationAuthoritySchema<
+  KeySchema extends DefinitionKeySchema
+>(keySchema: KeySchema) {
   return v.strictObject({
     kind: v.literal("invocation_authority"),
-    operationKey: keySchema,
     authoritySetRef: refSchema,
     authoritySetDigest: sha256DigestSchema,
     ...authorityBasisEntries,
-    definitionKey: keySchema
+    definitionKey: v.nonOptional(keySchema)
   });
 }
 
 /** @internal */
-export interface InvocationAuthorityExpectation<K extends string> {
-  readonly operationKey: K;
+export interface InvocationAuthorityExpectation<K extends DefinitionKey> {
+  readonly definitionKey: K;
   readonly definitionDigest: string;
   readonly contractCatalog: PublicContractCatalogCoordinate;
   readonly requiredGrantCapabilityIds: readonly string[];
@@ -628,20 +757,50 @@ function assertSameValue(left: unknown, right: unknown, label: string): void {
   }
 }
 
-function assertAuthorityExpectation<K extends string>(input: {
+function admitExactDefinitionKey<KeySchema extends DefinitionKeySchema>(input: {
+  readonly schema: KeySchema;
+  readonly raw: unknown;
+  readonly label: string;
+}): v.InferOutput<KeySchema> {
+  const structural = admitNative(definitionKeySchema, input.raw);
+  const exact = admitNative(input.schema, input.raw);
+  assertSameValue(
+    structural,
+    input.schema[exactDefinitionKeyValue],
+    `${input.label} schema value`
+  );
+  assertSameValue(exact, structural, input.label);
+  return exact;
+}
+
+function assertAuthorityExpectation<
+  KeySchema extends DefinitionKeySchema
+>(input: {
+  readonly definitionKeySchema: KeySchema;
   readonly authority: v.InferOutput<
-    ReturnType<typeof invocationAuthoritySchema<v.LiteralSchema<K, undefined>>>
+    ReturnType<typeof invocationAuthoritySchema<KeySchema>>
   >;
-  readonly expected: InvocationAuthorityExpectation<K>;
+  readonly expected: InvocationAuthorityExpectation<
+    v.InferOutput<KeySchema>
+  >;
 }): void {
   const authority = input.authority;
+  const expectedDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.expected.definitionKey,
+    label: "invocation authority expected definition key"
+  });
   if (
-    authority.operationKey !== input.expected.operationKey ||
-    authority.definitionKey !== input.expected.operationKey ||
+    authority.definitionKey.operationId !== expectedDefinitionKey.operationId ||
     authority.definitionDigest !== input.expected.definitionDigest
   ) {
     throw new TypeError("invocation authority: definition mismatch");
   }
+  assertSameValue(
+    authority.definitionKey,
+    expectedDefinitionKey,
+    "invocation authority definition key"
+  );
   assertSameValue(
     authority.contractCatalog,
     input.expected.contractCatalog,
@@ -692,34 +851,46 @@ function assertAuthorityExpectation<K extends string>(input: {
 }
 
 /** @internal */
-export function admitInvocationAuthority<const K extends string>(input: {
-  readonly operationKey: K;
+export function admitInvocationAuthority<
+  KeySchema extends DefinitionKeySchema
+>(input: {
+  readonly definitionKeySchema: KeySchema;
   readonly raw: unknown;
-  readonly expected: InvocationAuthorityExpectation<K>;
+  readonly expected: InvocationAuthorityExpectation<
+    v.InferOutput<KeySchema>
+  >;
 }) {
-  const keySchema = v.literal(input.operationKey);
-  const authority = admitNative(invocationAuthoritySchema(keySchema), input.raw);
+  const authority = admitNative(
+    invocationAuthoritySchema(input.definitionKeySchema),
+    input.raw
+  );
   if (authority.executionProgram.state === "admitted_execution_program") {
     admitPublicContractCoordinate(authority.executionProgram.inputContract);
   }
-  assertAuthorityExpectation({ authority, expected: input.expected });
-  const basis = admitNative(invocationAuthorityBasisSchema(keySchema), {
-    operationKey: authority.operationKey,
-    authorityBasisRef: authority.authorityBasisRef,
-    authorityBasisDigest: authority.authorityBasisDigest,
-    definitionDigest: authority.definitionDigest,
-    contractCatalog: authority.contractCatalog,
-    capabilityGrants: authority.capabilityGrants,
-    actor: authority.actor,
-    workspace: authority.workspace,
-    productSet: authority.productSet,
-    dependencyLock: authority.dependencyLock,
-    catalogScope: authority.catalogScope,
-    executionProgram: authority.executionProgram,
-    invocationPolicy: authority.invocationPolicy,
-    transportSteering: authority.transportSteering,
-    definitionKey: authority.definitionKey
+  assertAuthorityExpectation({
+    definitionKeySchema: input.definitionKeySchema,
+    authority,
+    expected: input.expected
   });
+  const basis = admitNative(
+    invocationAuthorityBasisSchema(input.definitionKeySchema),
+    {
+      authorityBasisRef: authority.authorityBasisRef,
+      authorityBasisDigest: authority.authorityBasisDigest,
+      definitionDigest: authority.definitionDigest,
+      contractCatalog: authority.contractCatalog,
+      capabilityGrants: authority.capabilityGrants,
+      actor: authority.actor,
+      workspace: authority.workspace,
+      productSet: authority.productSet,
+      dependencyLock: authority.dependencyLock,
+      catalogScope: authority.catalogScope,
+      executionProgram: authority.executionProgram,
+      invocationPolicy: authority.invocationPolicy,
+      transportSteering: authority.transportSteering,
+      definitionKey: authority.definitionKey
+    }
+  );
   const expectedDigest = stableSha256Digest(basis);
   if (
     authority.authoritySetDigest !== expectedDigest ||
@@ -731,27 +902,43 @@ export function admitInvocationAuthority<const K extends string>(input: {
 }
 
 /** @internal */
-export function constructInvocationAuthority<const K extends string>(input: {
-  readonly operationKey: K;
+export function constructInvocationAuthority<
+  KeySchema extends DefinitionKeySchema
+>(input: {
+  readonly definitionKeySchema: KeySchema;
   readonly basis: v.InferInput<
-    ReturnType<typeof invocationAuthorityBasisSchema<v.LiteralSchema<K, undefined>>>
+    ReturnType<typeof invocationAuthorityBasisSchema<KeySchema>>
   >;
-  readonly expected: InvocationAuthorityExpectation<K>;
+  readonly expected: InvocationAuthorityExpectation<
+    v.InferOutput<KeySchema>
+  >;
 }) {
-  const keySchema = v.literal(input.operationKey);
-  const parsed = admitNative(invocationAuthorityBasisSchema(keySchema), input.basis);
+  const expectedDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.expected.definitionKey,
+    label: "invocation authority expected definition key"
+  });
+  const parsed = admitNative(
+    invocationAuthorityBasisSchema(input.definitionKeySchema),
+    input.basis
+  );
+  assertSameValue(
+    parsed.definitionKey,
+    expectedDefinitionKey,
+    "invocation authority basis definition key"
+  );
   const sortedGrants = Object.freeze(
     [...parsed.capabilityGrants]
       .map(admitCapabilityGrant)
       .sort((left, right) => compareCodePoints(left.grantRef, right.grantRef))
   );
-  const basis = admitNative(invocationAuthorityBasisSchema(keySchema), {
-    ...parsed,
-    capabilityGrants: sortedGrants
-  });
+  const basis = admitNative(
+    invocationAuthorityBasisSchema(input.definitionKeySchema),
+    { ...parsed, capabilityGrants: sortedGrants }
+  );
   const authoritySetDigest = stableSha256Digest(basis);
   return admitInvocationAuthority({
-    operationKey: input.operationKey,
+    definitionKeySchema: input.definitionKeySchema,
     expected: input.expected,
     raw: {
       kind: "invocation_authority",
@@ -763,13 +950,13 @@ export function constructInvocationAuthority<const K extends string>(input: {
 }
 
 function publicInvocationBasisSchema<
-  K extends NativeSchema,
+  KeySchema extends DefinitionKeySchema,
   Request extends NativeSchema
->(keySchema: K, requestSchema: Request) {
+>(keySchema: KeySchema, requestSchema: Request) {
   return v.strictObject({
     kind: v.literal("public_invocation"),
     invocationRef: refSchema,
-    definitionKey: keySchema,
+    definitionKey: v.nonOptional(keySchema),
     definitionDigest: sha256DigestSchema,
     contractCatalog: publicContractCatalogCoordinateSchema,
     authority: invocationAuthoritySchema(keySchema),
@@ -787,19 +974,20 @@ function publicInvocationBasisSchema<
 
 /** @internal */
 export function publicInvocationSchema<
-  K extends NativeSchema,
+  KeySchema extends DefinitionKeySchema,
   Request extends NativeSchema
->(keySchema: K, requestSchema: Request) {
+>(keySchema: KeySchema, requestSchema: Request) {
   const basis = publicInvocationBasisSchema(keySchema, requestSchema);
   return v.strictObject({
     ...basis.entries,
+    definitionKey: v.nonOptional(keySchema),
     invocationDigest: sha256DigestSchema
   });
 }
 
 /** @internal */
-export interface PublicInvocationExpectation<K extends string> {
-  readonly operationKey: K;
+export interface PublicInvocationExpectation<K extends DefinitionKey> {
+  readonly definitionKey: K;
   readonly definitionDigest: string;
   readonly contractCatalog: PublicContractCatalogCoordinate;
   readonly requestContract: PublicContractCoordinate;
@@ -811,19 +999,25 @@ export interface PublicInvocationExpectation<K extends string> {
 
 /** @internal */
 export function admitPublicInvocation<
-  const K extends string,
+  KeySchema extends DefinitionKeySchema,
   Request extends NativeSchema
 >(input: {
-  readonly operationKey: K;
+  readonly definitionKeySchema: KeySchema;
   readonly requestSchema: Request;
   readonly raw: unknown;
-  readonly expected: PublicInvocationExpectation<K>;
+  readonly expected: PublicInvocationExpectation<
+    v.InferOutput<KeySchema>
+  >;
 }) {
-  const keySchema = v.literal(input.operationKey);
   const invocation = admitNative(
-    publicInvocationSchema(keySchema, input.requestSchema),
+    publicInvocationSchema(input.definitionKeySchema, input.requestSchema),
     input.raw
   );
+  const invocationDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: Reflect.get(invocation, "definitionKey"),
+    label: "public invocation definition key"
+  });
   for (const coordinate of [
     invocation.requestContract,
     invocation.expectedResultContract,
@@ -839,16 +1033,31 @@ export function admitPublicInvocation<
     throw new TypeError("public invocation: authority is required");
   }
   admitInvocationAuthority({
-    operationKey: input.operationKey,
+    definitionKeySchema: input.definitionKeySchema,
     raw: authority,
     expected: input.expected.authority
   });
+  const expectedDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.expected.definitionKey,
+    label: "public invocation expected definition key"
+  });
   if (
-    invocation.definitionKey !== input.expected.operationKey ||
+    invocationDefinitionKey.operationId !== expectedDefinitionKey.operationId ||
     invocation.definitionDigest !== input.expected.definitionDigest
   ) {
     throw new TypeError("public invocation: definition mismatch");
   }
+  assertSameValue(
+    invocationDefinitionKey,
+    expectedDefinitionKey,
+    "public invocation definition key"
+  );
+  assertSameValue(
+    authority.definitionKey,
+    expectedDefinitionKey,
+    "public invocation authority definition key"
+  );
   for (const [label, actual, expected] of [
     ["catalog", invocation.contractCatalog, input.expected.contractCatalog],
     ["authority catalog", authority.contractCatalog, input.expected.contractCatalog],
@@ -862,67 +1071,92 @@ export function admitPublicInvocation<
   if (invocation.requestDigest !== stableSha256Digest(invocation.request)) {
     throw new TypeError("public invocation: request digest mismatch");
   }
-  const basis = admitNative(publicInvocationBasisSchema(keySchema, input.requestSchema), {
-    kind: invocation.kind,
-    invocationRef: invocation.invocationRef,
-    definitionKey: invocation.definitionKey,
-    definitionDigest: invocation.definitionDigest,
-    contractCatalog: invocation.contractCatalog,
-    authority: invocation.authority,
-    requestContract: invocation.requestContract,
-    requestRef: invocation.requestRef,
-    requestDigest: invocation.requestDigest,
-    request: invocation.request,
-    expectedResultContract: invocation.expectedResultContract,
-    expectedRefusalContract: invocation.expectedRefusalContract,
-    expectedNonTerminalContract: invocation.expectedNonTerminalContract,
-    correlationRef: invocation.correlationRef,
-    provenanceRefs: invocation.provenanceRefs
-  });
+  const basis = admitNative(
+    publicInvocationBasisSchema(
+      input.definitionKeySchema,
+      input.requestSchema
+    ),
+    {
+      kind: invocation.kind,
+      invocationRef: invocation.invocationRef,
+      definitionKey: invocationDefinitionKey,
+      definitionDigest: invocation.definitionDigest,
+      contractCatalog: invocation.contractCatalog,
+      authority: invocation.authority,
+      requestContract: invocation.requestContract,
+      requestRef: invocation.requestRef,
+      requestDigest: invocation.requestDigest,
+      request: invocation.request,
+      expectedResultContract: invocation.expectedResultContract,
+      expectedRefusalContract: invocation.expectedRefusalContract,
+      expectedNonTerminalContract: invocation.expectedNonTerminalContract,
+      correlationRef: invocation.correlationRef,
+      provenanceRefs: invocation.provenanceRefs
+    }
+  );
   if (invocation.invocationDigest !== stableSha256Digest(basis)) {
     throw new TypeError("public invocation: invocation digest mismatch");
   }
-  return invocation;
+  return freezeNativeValue({
+    ...invocation,
+    definitionKey: invocationDefinitionKey
+  });
 }
 
 /** @internal */
 export function constructPublicInvocation<
-  const K extends string,
+  KeySchema extends DefinitionKeySchema,
   Request extends NativeSchema
 >(input: {
-  readonly operationKey: K;
+  readonly definitionKeySchema: KeySchema;
   readonly requestSchema: Request;
-  readonly basis: v.InferInput<
+  readonly basis: v.InferOutput<
     ReturnType<
       typeof publicInvocationBasisSchema<
-        v.LiteralSchema<K, undefined>,
+        KeySchema,
         Request
       >
     >
   >;
-  readonly expected: PublicInvocationExpectation<K>;
+  readonly expected: PublicInvocationExpectation<
+    v.InferOutput<KeySchema>
+  >;
 }) {
-  const keySchema = v.literal(input.operationKey);
   const basis = admitNative(
-    publicInvocationBasisSchema(keySchema, input.requestSchema),
+    publicInvocationBasisSchema(
+      input.definitionKeySchema,
+      input.requestSchema
+    ),
     input.basis
   );
+  const expectedDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.expected.definitionKey,
+    label: "public invocation expected definition key"
+  });
+  assertSameValue(
+    basis.definitionKey,
+    expectedDefinitionKey,
+    "public invocation basis definition key"
+  );
   return admitPublicInvocation({
-    operationKey: input.operationKey,
+    definitionKeySchema: input.definitionKeySchema,
     requestSchema: input.requestSchema,
     expected: input.expected,
     raw: { ...basis, invocationDigest: stableSha256Digest(basis) }
   });
 }
 
-function outcomeCommonEntries<K extends NativeSchema>(keySchema: K) {
+function outcomeCommonEntries<
+  KeySchema extends DefinitionKeySchema
+>(keySchema: KeySchema) {
   return {
     kind: v.literal("public_outcome"),
     outcomeRef: refSchema,
     outcomeDigest: sha256DigestSchema,
     invocationRef: refSchema,
     invocationDigest: sha256DigestSchema,
-    definitionKey: keySchema,
+    definitionKey: v.nonOptional(keySchema),
     definitionDigest: sha256DigestSchema,
     payloadRef: refSchema,
     payloadDigest: sha256DigestSchema,
@@ -933,12 +1167,12 @@ function outcomeCommonEntries<K extends NativeSchema>(keySchema: K) {
 }
 
 function outcomeSchema<
-  K extends NativeSchema,
+  KeySchema extends DefinitionKeySchema,
   Result extends NativeSchema,
   Refusal extends NativeSchema,
   NonTerminal extends NativeSchema | null
 >(input: {
-  readonly keySchema: K;
+  readonly keySchema: KeySchema;
   readonly resultSchema: Result;
   readonly refusalSchema: Refusal;
   readonly nonTerminalSchema: NonTerminal;
@@ -980,18 +1214,26 @@ export const OUTCOME_ADMISSION_FAILURE_CLASS_VALUES = Object.freeze([
   "unexpected_nonterminal"
 ] as const);
 
-const outcomeAdmissionFailureSchema = v.strictObject({
-  kind: v.literal("outcome_admission_failure"),
-  failureClass: v.picklist(OUTCOME_ADMISSION_FAILURE_CLASS_VALUES),
-  issuePaths: uniqueByIdentityArray(nonEmptyTextSchema),
-  invocationRef: refSchema,
-  definitionKey: nonEmptyTextSchema,
-  candidateDigest: sha256DigestSchema
-});
+function outcomeAdmissionFailureSchema<
+  KeySchema extends DefinitionKeySchema
+>(keySchema: KeySchema) {
+  return v.strictObject({
+    kind: v.literal("outcome_admission_failure"),
+    failureClass: v.picklist(OUTCOME_ADMISSION_FAILURE_CLASS_VALUES),
+    issuePaths: uniqueByIdentityArray(nonEmptyTextSchema),
+    invocationRef: refSchema,
+    definitionKey: v.nonOptional(keySchema),
+    candidateDigest: sha256DigestSchema
+  });
+}
 
 /** @internal */
-export type OutcomeAdmissionFailure = v.InferOutput<
-  typeof outcomeAdmissionFailureSchema
+export type OutcomeAdmissionFailure<
+  K extends DefinitionKey = DefinitionKey
+> = v.InferOutput<
+  ReturnType<
+    typeof outcomeAdmissionFailureSchema<DefinitionKeySchemaFor<K>>
+  >
 >;
 
 function candidateDigest(input: unknown): `sha256:${string}` {
@@ -1005,14 +1247,17 @@ function candidateDigest(input: unknown): `sha256:${string}` {
   }
 }
 
-function outcomeFailure(input: {
+function outcomeFailure<KeySchema extends DefinitionKeySchema>(
+  keySchema: KeySchema,
+  input: {
   readonly failureClass: OutcomeAdmissionFailure["failureClass"];
   readonly issuePaths: readonly string[];
   readonly invocationRef: string;
-  readonly definitionKey: string;
+  readonly definitionKey: v.InferOutput<KeySchema>;
   readonly candidate: unknown;
-}): OutcomeAdmissionFailure {
-  return admitNative(outcomeAdmissionFailureSchema, {
+  }
+) {
+  return admitNative(outcomeAdmissionFailureSchema(keySchema), {
     kind: "outcome_admission_failure",
     failureClass: input.failureClass,
     issuePaths: [...new Set(input.issuePaths)].sort(),
@@ -1024,19 +1269,19 @@ function outcomeFailure(input: {
 
 /** @internal */
 export function admitPublicOutcome<
-  const K extends string,
+  KeySchema extends DefinitionKeySchema,
   Result extends NativeSchema,
   Refusal extends NativeSchema,
   NonTerminal extends NativeSchema | null
 >(input: {
-  readonly operationKey: K;
+  readonly definitionKeySchema: KeySchema;
   readonly resultSchema: Result;
   readonly refusalSchema: Refusal;
   readonly nonTerminalSchema: NonTerminal;
   readonly invocation: {
     readonly invocationRef: string;
     readonly invocationDigest: string;
-    readonly definitionKey: K;
+    readonly definitionKey: v.InferOutput<KeySchema>;
     readonly definitionDigest: string;
     readonly correlationRef: string;
   };
@@ -1047,20 +1292,31 @@ export function admitPublicOutcome<
   };
   readonly raw: unknown;
 }) {
+  const invocationDefinitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.invocation.definitionKey,
+    label: "public outcome invocation definition key"
+  });
+  const operationId = invocationDefinitionKey.operationId;
   if (typeof input.raw === "object" && input.raw !== null) {
     const candidateDefinitionKey: unknown = Reflect.get(
       input.raw,
       "definitionKey"
     );
+    const candidateKey = v.safeParse(
+      definitionKeySchema,
+      candidateDefinitionKey
+    );
     if (
-      typeof candidateDefinitionKey === "string" &&
-      candidateDefinitionKey !== input.operationKey
+      candidateKey.success &&
+      (candidateKey.output.operationId !== operationId ||
+        !stableJsonEquals(candidateKey.output, invocationDefinitionKey))
     ) {
-      return outcomeFailure({
+      return outcomeFailure(input.definitionKeySchema, {
         failureClass: "cross_operation",
         issuePaths: ["definitionKey"],
         invocationRef: input.invocation.invocationRef,
-        definitionKey: input.operationKey,
+        definitionKey: invocationDefinitionKey,
         candidate: input.raw
       });
     }
@@ -1068,28 +1324,28 @@ export function admitPublicOutcome<
       Reflect.get(input.raw, "outcomeKind") === "nonterminal" &&
       input.nonTerminalSchema === null
     ) {
-      return outcomeFailure({
+      return outcomeFailure(input.definitionKeySchema, {
         failureClass: "unexpected_nonterminal",
         issuePaths: ["outcomeKind"],
         invocationRef: input.invocation.invocationRef,
-        definitionKey: input.operationKey,
+        definitionKey: invocationDefinitionKey,
         candidate: input.raw
       });
     }
   }
   const schema = outcomeSchema({
-    keySchema: v.literal(input.operationKey),
+    keySchema: input.definitionKeySchema,
     resultSchema: input.resultSchema,
     refusalSchema: input.refusalSchema,
     nonTerminalSchema: input.nonTerminalSchema
   });
   const parsed = v.safeParse(schema, input.raw);
   if (!parsed.success) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "malformed",
       issuePaths: parsed.issues.map((issue) => v.getDotPath(issue) ?? "candidate"),
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
@@ -1097,20 +1353,20 @@ export function admitPublicOutcome<
   try {
     admitPublicContractCoordinate(outcome.payloadContract);
   } catch {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "digest_mismatch",
       issuePaths: ["payloadContract.contractDigest", "payloadContract.schemaDigest"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
-  if (outcome.definitionKey !== input.operationKey) {
-    return outcomeFailure({
+  if (!stableJsonEquals(outcome.definitionKey, invocationDefinitionKey)) {
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "cross_operation",
       issuePaths: ["definitionKey"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
@@ -1120,11 +1376,11 @@ export function admitPublicOutcome<
     outcome.definitionDigest !== input.invocation.definitionDigest ||
     outcome.correlationRef !== input.invocation.correlationRef
   ) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "digest_mismatch",
       issuePaths: ["invocationDigest"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
@@ -1135,29 +1391,29 @@ export function admitPublicOutcome<
         ? input.contracts.refusal
         : input.contracts.nonTerminal;
   if (expectedContract === null) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "unexpected_nonterminal",
       issuePaths: ["outcomeKind"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
   if (!stableJsonEquals(outcome.payloadContract, expectedContract)) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "wrong_contract",
       issuePaths: ["payloadContract"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
   if (outcome.payloadDigest !== stableSha256Digest(outcome.value)) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "digest_mismatch",
       issuePaths: ["payloadDigest"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
@@ -1178,11 +1434,11 @@ export function admitPublicOutcome<
     value: outcome.value
   };
   if (outcome.outcomeDigest !== stableSha256Digest(outcomeBasis)) {
-    return outcomeFailure({
+    return outcomeFailure(input.definitionKeySchema, {
       failureClass: "digest_mismatch",
       issuePaths: ["outcomeDigest"],
       invocationRef: input.invocation.invocationRef,
-      definitionKey: input.operationKey,
+      definitionKey: invocationDefinitionKey,
       candidate: input.raw
     });
   }
@@ -1190,12 +1446,15 @@ export function admitPublicOutcome<
 }
 
 /** @internal */
-export function constructPublicOutcome(input: {
+export function constructPublicOutcome<
+  KeySchema extends DefinitionKeySchema
+>(input: {
+  readonly definitionKeySchema: KeySchema;
   readonly outcomeKind: "result" | "refusal" | "nonterminal";
   readonly outcomeRef: string;
   readonly invocationRef: string;
   readonly invocationDigest: string;
-  readonly definitionKey: string;
+  readonly definitionKey: v.InferOutput<KeySchema>;
   readonly definitionDigest: string;
   readonly payloadRef: string;
   readonly payloadContract: PublicContractCoordinate;
@@ -1203,13 +1462,18 @@ export function constructPublicOutcome(input: {
   readonly evidenceRefs: readonly string[];
   readonly correlationRef: string;
   readonly provenanceRefs: readonly string[];
-}): Record<string, unknown> {
+}) {
+  const definitionKey = admitExactDefinitionKey({
+    schema: input.definitionKeySchema,
+    raw: input.definitionKey,
+    label: "public outcome definition key"
+  });
   const basis = freezeNativeValue({
     kind: "public_outcome" as const,
     outcomeRef: input.outcomeRef,
     invocationRef: input.invocationRef,
     invocationDigest: input.invocationDigest,
-    definitionKey: input.definitionKey,
+    definitionKey,
     definitionDigest: input.definitionDigest,
     payloadRef: input.payloadRef,
     payloadDigest: stableSha256Digest(input.value),

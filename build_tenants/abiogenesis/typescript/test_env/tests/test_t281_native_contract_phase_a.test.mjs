@@ -21,6 +21,7 @@ import {
   constructPublicContractCatalog,
   constructPublicInvocation,
   constructPublicOutcome,
+  definitionKeySchemaFor,
   defineNativeContract,
   PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES,
   projectNativeJsonSchema,
@@ -40,7 +41,20 @@ import {
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
-const OPERATION_KEY = "abg.operation.workspace.create(clean)";
+const DEFINITION_KEY = Object.freeze({
+  operationId: "abg.operation.workspace.create",
+  memberKind: "variant",
+  variant: "clean"
+});
+const DEFINITION_KEY_SCHEMA = definitionKeySchemaFor(DEFINITION_KEY);
+const PROJECT_READ_DEFINITION_KEY = Object.freeze({
+  operationId: "abg.operation.project.read",
+  memberKind: "project_read_case",
+  caseKey: "ticket_consensus"
+});
+const PROJECT_READ_DEFINITION_KEY_SCHEMA = definitionKeySchemaFor(
+  PROJECT_READ_DEFINITION_KEY
+);
 
 const {
   request: requestSourceRow,
@@ -118,13 +132,13 @@ function fixture() {
   });
   const contractCatalog = publicContractCatalogCoordinate(contractCatalogPacket);
   const definitionDigest = stableSha256Digest({
-    operationKey: OPERATION_KEY,
+    definitionKey: DEFINITION_KEY,
     rows
   });
   const authorityBasisRef = "authority-basis:phase-a-workspace-create";
   const authorityBasisDigest = stableSha256Digest({
     authorityBasisRef,
-    operationKey: OPERATION_KEY
+    definitionKey: DEFINITION_KEY
   });
   const actorRef = "actor:phase-a-builder";
   const capabilityGrant = constructCapabilityGrant({
@@ -141,7 +155,7 @@ function fixture() {
     authorityBasisDigest
   });
   const authorityExpectation = {
-    operationKey: OPERATION_KEY,
+    definitionKey: DEFINITION_KEY,
     definitionDigest,
     contractCatalog,
     requiredGrantCapabilityIds: [
@@ -159,13 +173,12 @@ function fixture() {
     }
   };
   const authority = constructInvocationAuthority({
-    operationKey: OPERATION_KEY,
+    definitionKeySchema: DEFINITION_KEY_SCHEMA,
     expected: authorityExpectation,
     basis: {
-      operationKey: OPERATION_KEY,
       authorityBasisRef,
       authorityBasisDigest,
-      definitionKey: OPERATION_KEY,
+      definitionKey: DEFINITION_KEY,
       definitionDigest,
       contractCatalog,
       capabilityGrants: [capabilityGrant],
@@ -185,7 +198,7 @@ function fixture() {
     }
   });
   const invocationExpectation = {
-    operationKey: OPERATION_KEY,
+    definitionKey: DEFINITION_KEY,
     definitionDigest,
     contractCatalog,
     requestContract: requestDefinition.schemaCoordinate,
@@ -196,13 +209,13 @@ function fixture() {
   };
   const request = { targetRoot: "/tmp/abg-phase-a", createPolicy: "clean" };
   const invocation = constructPublicInvocation({
-    operationKey: OPERATION_KEY,
+    definitionKeySchema: DEFINITION_KEY_SCHEMA,
     requestSchema,
     expected: invocationExpectation,
     basis: {
       kind: "public_invocation",
       invocationRef: "public-invocation:phase-a-workspace-create",
-      definitionKey: OPERATION_KEY,
+      definitionKey: DEFINITION_KEY,
       definitionDigest,
       contractCatalog,
       authority,
@@ -687,11 +700,12 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
     provenanceRefs: ["provenance:phase-a-created"]
   };
   const candidate = constructPublicOutcome({
+    definitionKeySchema: DEFINITION_KEY_SCHEMA,
     outcomeKind: "result",
     outcomeRef: "outcome:phase-a-created",
     invocationRef: current.invocation.invocationRef,
     invocationDigest: current.invocation.invocationDigest,
-    definitionKey: OPERATION_KEY,
+    definitionKey: DEFINITION_KEY,
     definitionDigest: current.definitionDigest,
     payloadRef: "payload:phase-a-created",
     payloadContract: current.resultDefinition.schemaCoordinate,
@@ -701,7 +715,7 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
     provenanceRefs: ["provenance:phase-a-created"]
   });
   const admitted = admitPublicOutcome({
-    operationKey: OPERATION_KEY,
+    definitionKeySchema: DEFINITION_KEY_SCHEMA,
     resultSchema,
     refusalSchema,
     nonTerminalSchema: null,
@@ -718,10 +732,151 @@ test("T-281 Phase A admits the schema-only workspace.create clean packets", () =
   assert.equal(Object.isFrozen(admitted), true);
 });
 
+test("T-281 Phase A carries an exact project.read structural key through packets", () => {
+  const current = fixture();
+  const projectRequestSchema = v.strictObject({
+    caseKey: v.literal("ticket_consensus")
+  });
+  const projectResultSchema = v.strictObject({
+    projectionRef: refSchema
+  });
+  const projectRefusalSchema = v.strictObject({
+    code: v.literal("projection_refused")
+  });
+  const definitionDigest = stableSha256Digest({
+    definitionKey: PROJECT_READ_DEFINITION_KEY,
+    contracts: {
+      request: current.requestDefinition.schemaCoordinate,
+      result: current.resultDefinition.schemaCoordinate,
+      refusal: current.refusalDefinition.schemaCoordinate
+    }
+  });
+  const authorityBasisRef = "authority-basis:phase-a-project-read";
+  const authorityBasisDigest = stableSha256Digest({
+    authorityBasisRef,
+    definitionKey: PROJECT_READ_DEFINITION_KEY
+  });
+  const authorityExpectation = {
+    definitionKey: PROJECT_READ_DEFINITION_KEY,
+    definitionDigest,
+    contractCatalog: current.contractCatalog,
+    requiredGrantCapabilityIds: [],
+    slotStates: {
+      actor: "forbidden",
+      workspace: "forbidden",
+      productSet: "forbidden",
+      dependencyLock: "forbidden",
+      catalogScope: "forbidden",
+      executionProgram: "forbidden",
+      invocationPolicy: "forbidden",
+      transportSteering: "forbidden"
+    }
+  };
+  const authority = constructInvocationAuthority({
+    definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
+    expected: authorityExpectation,
+    basis: {
+      authorityBasisRef,
+      authorityBasisDigest,
+      definitionKey: PROJECT_READ_DEFINITION_KEY,
+      definitionDigest,
+      contractCatalog: current.contractCatalog,
+      capabilityGrants: [],
+      actor: { state: "forbidden" },
+      workspace: { state: "forbidden" },
+      productSet: { state: "forbidden" },
+      dependencyLock: { state: "forbidden" },
+      catalogScope: { state: "forbidden" },
+      executionProgram: { state: "forbidden" },
+      invocationPolicy: { state: "forbidden" },
+      transportSteering: { state: "forbidden" }
+    }
+  });
+  const invocationExpectation = {
+    definitionKey: PROJECT_READ_DEFINITION_KEY,
+    definitionDigest,
+    contractCatalog: current.contractCatalog,
+    requestContract: current.requestDefinition.schemaCoordinate,
+    resultContract: current.resultDefinition.schemaCoordinate,
+    refusalContract: current.refusalDefinition.schemaCoordinate,
+    nonTerminalContract: null,
+    authority: authorityExpectation
+  };
+  const request = { caseKey: "ticket_consensus" };
+  const invocation = constructPublicInvocation({
+    definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
+    requestSchema: projectRequestSchema,
+    expected: invocationExpectation,
+    basis: {
+      kind: "public_invocation",
+      invocationRef: "public-invocation:phase-a-project-read",
+      definitionKey: PROJECT_READ_DEFINITION_KEY,
+      definitionDigest,
+      contractCatalog: current.contractCatalog,
+      authority,
+      requestContract: current.requestDefinition.schemaCoordinate,
+      requestRef: "request:phase-a-project-read",
+      requestDigest: stableSha256Digest(request),
+      request,
+      expectedResultContract: current.resultDefinition.schemaCoordinate,
+      expectedRefusalContract: current.refusalDefinition.schemaCoordinate,
+      expectedNonTerminalContract: null,
+      correlationRef: "correlation:phase-a-project-read",
+      provenanceRefs: ["provenance:phase-a-project-read"]
+    }
+  });
+  const value = { projectionRef: "projection:ticket-consensus" };
+  const candidate = constructPublicOutcome({
+    definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
+    outcomeKind: "result",
+    outcomeRef: "outcome:phase-a-project-read",
+    invocationRef: invocation.invocationRef,
+    invocationDigest: invocation.invocationDigest,
+    definitionKey: PROJECT_READ_DEFINITION_KEY,
+    definitionDigest,
+    payloadRef: "payload:phase-a-project-read",
+    payloadContract: current.resultDefinition.schemaCoordinate,
+    value,
+    evidenceRefs: ["evidence:phase-a-project-read"],
+    correlationRef: invocation.correlationRef,
+    provenanceRefs: ["provenance:phase-a-project-read"]
+  });
+  const admit = (raw) => admitPublicOutcome({
+    definitionKeySchema: PROJECT_READ_DEFINITION_KEY_SCHEMA,
+    resultSchema: projectResultSchema,
+    refusalSchema: projectRefusalSchema,
+    nonTerminalSchema: null,
+    invocation,
+    contracts: {
+      result: current.resultDefinition.schemaCoordinate,
+      refusal: current.refusalDefinition.schemaCoordinate,
+      nonTerminal: null
+    },
+    raw
+  });
+  const admitted = admit(candidate);
+
+  assert.equal("operationKey" in authority, false);
+  assert.equal("operationKey" in invocation, false);
+  assert.equal("operationKey" in admitted, false);
+  assert.deepEqual(admitted.definitionKey, PROJECT_READ_DEFINITION_KEY);
+  assert.equal(admitted.definitionKey.operationId, "abg.operation.project.read");
+  assert.equal(admitted.definitionKey.caseKey, "ticket_consensus");
+  const malformed = admit({ ...candidate, extra: true });
+  assert.equal(malformed.failureClass, "malformed");
+  assert.deepEqual(malformed.definitionKey, PROJECT_READ_DEFINITION_KEY);
+  assert.equal("operationKey" in malformed, false);
+});
+
 test("T-281 Phase A keeps grant ownership distinct from forbidden invocation attribution", () => {
   const current = fixture();
-  const operationKey = "abg.operation.workspace.open(open)";
-  const definitionDigest = stableSha256Digest({ operationKey });
+  const definitionKey = Object.freeze({
+    operationId: "abg.operation.workspace.open",
+    memberKind: "variant",
+    variant: "open"
+  });
+  const definitionKeySchema = definitionKeySchemaFor(definitionKey);
+  const definitionDigest = stableSha256Digest({ definitionKey });
   const authorityBasisRef = "authority-basis:phase-a-actor-forbidden";
   const authorityBasisDigest = stableSha256Digest({ authorityBasisRef });
   const grant = constructCapabilityGrant({
@@ -738,7 +893,7 @@ test("T-281 Phase A keeps grant ownership distinct from forbidden invocation att
     authorityBasisDigest
   });
   const expected = {
-    operationKey,
+    definitionKey,
     definitionDigest,
     contractCatalog: current.contractCatalog,
     requiredGrantCapabilityIds: [
@@ -756,13 +911,12 @@ test("T-281 Phase A keeps grant ownership distinct from forbidden invocation att
     }
   };
   const authority = constructInvocationAuthority({
-    operationKey,
+    definitionKeySchema,
     expected,
     basis: {
-      operationKey,
       authorityBasisRef,
       authorityBasisDigest,
-      definitionKey: operationKey,
+      definitionKey,
       definitionDigest,
       contractCatalog: current.contractCatalog,
       capabilityGrants: [grant],
@@ -783,6 +937,10 @@ test("T-281 Phase A keeps grant ownership distinct from forbidden invocation att
 test("T-281 Phase A fails closed on grant, authority, invocation, and outcome drift", () => {
   const current = fixture();
   assert.throws(
+    () => definitionKeySchemaFor("abg.operation.workspace.create(clean)"),
+    /Invalid type/u
+  );
+  assert.throws(
     () => admitCapabilityGrant({
       ...current.capabilityGrant,
       approvalRef: "approval:forged"
@@ -791,7 +949,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
   );
   assert.throws(
     () => admitInvocationAuthority({
-      operationKey: OPERATION_KEY,
+      definitionKeySchema: DEFINITION_KEY_SCHEMA,
       expected: current.authorityExpectation,
       raw: {
         ...current.authority,
@@ -802,7 +960,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
   );
   assert.throws(
     () => admitInvocationAuthority({
-      operationKey: OPERATION_KEY,
+      definitionKeySchema: DEFINITION_KEY_SCHEMA,
       expected: current.authorityExpectation,
       raw: { ...current.authority, workspace: { state: "admitted_workspace" } }
     }),
@@ -810,7 +968,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
   );
   assert.throws(
     () => admitPublicInvocation({
-      operationKey: OPERATION_KEY,
+      definitionKeySchema: DEFINITION_KEY_SCHEMA,
       requestSchema,
       expected: current.invocationExpectation,
       raw: {
@@ -827,11 +985,12 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
     provenanceRefs: ["provenance:phase-a-created"]
   };
   const validCandidate = constructPublicOutcome({
+    definitionKeySchema: DEFINITION_KEY_SCHEMA,
     outcomeKind: "result",
     outcomeRef: "outcome:phase-a-created",
     invocationRef: current.invocation.invocationRef,
     invocationDigest: current.invocation.invocationDigest,
-    definitionKey: OPERATION_KEY,
+    definitionKey: DEFINITION_KEY,
     definitionDigest: current.definitionDigest,
     payloadRef: "payload:phase-a-created",
     payloadContract: current.resultDefinition.schemaCoordinate,
@@ -842,7 +1001,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
   });
   const admit = (raw) =>
     admitPublicOutcome({
-      operationKey: OPERATION_KEY,
+      definitionKeySchema: DEFINITION_KEY_SCHEMA,
       resultSchema,
       refusalSchema,
       nonTerminalSchema: null,
@@ -855,9 +1014,22 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
       raw
     });
   assert.equal(admit({ ...validCandidate, extra: true }).failureClass, "malformed");
+  const legacyStringKeyFailure = admit({
+    ...validCandidate,
+    definitionKey: "abg.operation.workspace.create(clean)"
+  });
+  assert.equal(legacyStringKeyFailure.failureClass, "malformed");
+  assert.deepEqual(legacyStringKeyFailure.definitionKey, DEFINITION_KEY);
+  assert.equal("operationKey" in legacyStringKeyFailure, false);
   assert.equal(
-    admit({ ...validCandidate, definitionKey: "abg.operation.workspace.open(open)" })
-      .failureClass,
+    admit({
+      ...validCandidate,
+      definitionKey: {
+        operationId: "abg.operation.workspace.open",
+        memberKind: "variant",
+        variant: "open"
+      }
+    }).failureClass,
     "cross_operation"
   );
   assert.equal(
@@ -881,7 +1053,7 @@ test("T-281 Phase A fails closed on grant, authority, invocation, and outcome dr
         "payloadContract.schemaDigest"
       ],
       invocationRef: current.invocation.invocationRef,
-      definitionKey: OPERATION_KEY,
+      definitionKey: DEFINITION_KEY,
       candidateDigest: stableSha256Digest({
         ...validCandidate,
         payloadContract: {

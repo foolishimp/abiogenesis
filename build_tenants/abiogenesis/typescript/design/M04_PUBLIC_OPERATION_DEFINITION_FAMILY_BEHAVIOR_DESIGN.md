@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Phase A accepted; native-authority-and-type-correlation-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Phase A accepted; structural-definition-key-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
@@ -746,12 +746,44 @@ The exact admitted cases are:
 | invocation policy | `{ state: "forbidden" }` | `{ state: "admitted_invocation_policy", policyRef, policyDigest, sessionPolicyRef, sessionPolicyDigest }` |
 | transport steering | `{ state: "forbidden" }` | `{ state: "declared_transport_steering", steeringRef, steeringDigest, provenanceRefs }` |
 
+The P1 `DefinitionKey` derived from the nested family below is admitted by one
+strict structural discriminated schema with exactly these two shapes:
+
+```text
+VariantDefinitionKey = {
+  operationId: NonEmptyText,
+  memberKind: "variant",
+  variant: NonEmptyText
+}
+
+ProjectReadDefinitionKey = {
+  operationId: "abg.operation.project.read",
+  memberKind: "project_read_case",
+  caseKey: NonEmptyText
+}
+
+DefinitionKey = VariantDefinitionKey | ProjectReadDefinitionKey
+```
+
+For a nested-family member `K`, Phase A materializes an exact strict schema by
+replacing its variable fields with literals from that structural value. Packet
+construction and admission parse both the general structural schema and that
+exact literal schema, then require canonical structural equality. A string,
+flattened selector, extra field, alternate member shape, or merely equal
+`operationId` cannot substitute for `K`.
+
+The exact schema privately carries its canonical structural `K` as a typed
+schema/value witness. Authority, invocation, and outcome APIs accept only that
+exact schema family; the general structural union schema cannot instantiate a
+packet generic. Admission also compares the parsed structural value with the
+schema's carried value. A different exact schema and value fail at the type
+boundary before runtime admission.
+
 `InvocationAuthority<K>` is exactly:
 
 ```text
 {
   kind: "invocation_authority",
-  operationKey: K,
   authoritySetRef, authoritySetDigest,
   authorityBasisRef, authorityBasisDigest,
   definitionKey: K, definitionDigest,
@@ -772,13 +804,21 @@ definition fixes every slot state and required capability ID for `K`. A caller
 cannot omit a slot, populate a forbidden slot, or provide an admitted slot or
 grant not required by that definition.
 
+`definitionKey` is the sole packet key and sole operation discriminator.
+`operationId` is always derived as `definitionKey.operationId`; authority,
+invocation, outcome, and outcome-admission-failure carriers contain no sibling
+`operationKey` or operation ID. Authority and invocation admission require
+canonical structural equality with the expected `K`; outcome admission
+requires the candidate key to equal the invoking packet's `K` before any
+payload truth can admit.
+
 `PublicInvocation<K>` is the strict object:
 
 ```text
 {
   kind: "public_invocation",
   invocationRef, invocationDigest,
-  definitionKey, definitionDigest,
+  definitionKey: K, definitionDigest,
   contractCatalog: PublicContractCatalogCoordinate,
   authority: InvocationAuthority<K>,
   requestContract: PublicContractCoordinate,
@@ -828,10 +868,13 @@ An operation with no declared non-terminal contract has no
 `NonTerminalOutcome<K>` member. Malformed or cross-key owner output yields the
 internal closed carrier
 `{ kind: "outcome_admission_failure", failureClass, issuePaths,
-invocationRef, definitionKey, candidateDigest }`; it never becomes a
+invocationRef, definitionKey: K, candidateDigest }`; it never becomes a
 `PublicOutcome` and carries no owner result truth. `failureClass` is exactly
 `malformed | cross_operation | wrong_contract | digest_mismatch |
-unexpected_nonterminal`.
+unexpected_nonterminal`. Failure admission is parameterized by the same exact
+key schema as outcome admission, so malformed and cross-key branches retain the
+invocation's literal structural `K` rather than widening to the general key
+union.
 
 `project.read` uses one closed `PROJECT_READ_CASE_FAMILY` whose 27 rows bind a
 case key to its owner-supplied source and projection schemas, binding rule, and
@@ -1043,6 +1086,12 @@ non-terminal slot resolution. The 19-identity public census therefore remains
 unchanged while the constructor cannot collapse all `project.read` cases into
 one four-slot row.
 
+Each distributively projected structural value instantiates the one strict
+Phase A `DefinitionKey` schema as an exact literal schema for that member. The
+schema is therefore a typed carrier for the nested relation, not another key
+source. The constructor never serializes a key, widens `K` to `string`, or
+reconstructs an operation identifier beside the structural value.
+
 Resolved and missing rows are distributive unions over one exact structural
 `DefinitionKey`. They are stored only as readonly discriminated collections.
 Before `ExactOwnerContractSet` admits, exact-set admission compares those
@@ -1107,7 +1156,7 @@ and digest.
 | Gap code | Exact definition keys | Missing native slots | Current owner evidence and minimum re-entry |
 |---|---|---|---|
 | `p1_contract_workspace_not_realized` | `workspace.create(clean|imported)`, `workspace.open(open)` | `Req/Res/Ref` | `app/m04/workspace/operations.ts` differs from target authority fields; Phase A clean fixture is proof-only. The workspace owner must supply exact neutral schemas or re-enter its design on a real field ambiguity. |
-| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | T-281 owns the generic wrapper. T-274A can close only the Consensus result slot through the shared projector and family-owned named checks. Every case must bind its exact projection owner or remain a gap. |
+| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | T-281 owns the generic wrapper. Independently accepted T-274A closes only the Consensus result slot through the shared projector and family-owned named checks. Every other case must bind its exact projection owner or remain a gap. |
 | `p1_contract_product_intake_not_realized` | `product.verify(verify)`, `product.resolve(resolve)`, `product.install(install)` | `Req/Res/Ref` | M04 verify/resolve/install carriers and admitters are semantic evidence only. Their owners must supply exact neutral schemas; T-281 cannot copy their imperative admission logic. |
 | `p1_contract_workspace_bind_not_realized` | `workspace.bind(bind)` | `Req/Res/Ref` | `app/m04/toolchain_binding/bind.ts` does not expose the accepted stable-binding target schema. Re-enter that owner if declared-root meaning does not close. |
 | `p1_contract_catalog_not_realized` | `catalog.admit(admit)`, `catalog.view(allowlist)`, `catalog.apply(node_type|overlay)` | `Req/Res/Ref` | Current catalog carriers are semantic evidence; `catalog.apply` target public contracts are absent. The catalog owner must supply exact neutral schemas. |
@@ -1380,11 +1429,12 @@ sequenceDiagram
   end
 ```
 
-T-274A may close the `ticket_consensus` result slot only by proving that its
-neutral schema coordinate is accepted through the shared closed projector and
-Phase A binding. T-281 still owns and proves the generic `project.read`
-request/refusal wrapper and explicit absent non-terminal slot. Until both
-relations close, the case remains `p1_contract_project_read_not_realized`.
+T-274A has independently closed the `ticket_consensus` result slot by proving
+that its neutral schema coordinate admits through the shared closed projector
+and Phase A binding. T-281 still owns and must prove the generic
+`project.read` request/refusal wrapper and explicit absent non-terminal slot.
+Until that relation closes, the case remains
+`p1_contract_project_read_not_realized`.
 T-275 is not a P1 dependency:
 it provides later handler/projection semantics and therefore gates P2, not
 private definition construction.
@@ -1707,9 +1757,9 @@ P1 then shall:
    from that one family; commit or publish none of them as product assets;
 5. derive the private `project.read` relation from one closed 27-case map, one
    generic request/refusal wrapper, explicit absent non-terminal truth, and 27
-   neutral owner result schemas; include the `ticket_consensus` result only
-   after T-274A proves a Phase-A-compatible coordinate, otherwise retain its
-   typed gap;
+   neutral owner result schemas; consume the independently accepted T-274A
+   Phase-A-compatible `ticket_consensus` result coordinate without duplicating
+   its owner truth;
 6. reject missing, extra, cross-key, literal-slot permutation, schema/value,
    binding, coordinate, owner-schema, duplicate, legacy-contribution,
    projection-digest, and M03-to-M04 import mismatches; prove the positive and
@@ -1793,12 +1843,18 @@ public integration before P2. T-268 cannot claim
 `p1_candidate_pending_independent_review`
 
 The exact 19-operation target and Prime one-family direction remain accepted.
-This repaired candidate rejects the custom contract algebra, closes the native
-Phase A mechanism and common packet laws, preserves a private P1 and atomic P2
-hard break, and keeps missing operation-owner schemas as honest P1 gaps. The
-authoritative family is nested by operation and that operation's own members;
-its flat key and resolution/gap rows are distributive projections rather than
-object-valued map keys or a second serialized selector.
+The prior
+`83de4ec5419c279ec09bd6e08bf3c67ef04a8b382b252947dccbe6b626e02a04`
+candidate is rejected because its Phase A packet
+generics still required a string literal key, duplicated `operationKey` beside
+`definitionKey`, and did not exercise actual authority, invocation, and outcome
+APIs for both structural branches. This repaired candidate rejects that
+duplicate authority as well as the earlier custom contract algebra. It carries
+one exact structural key through the native Phase A mechanism, preserves a
+private P1 and atomic P2 hard break, and keeps missing operation-owner schemas
+as honest P1 gaps. The authoritative family is nested by operation and that
+operation's own members; its flat key and resolution/gap rows are distributive
+projections rather than object-valued map keys or a second serialized selector.
 Independent review accepted the Phase A semantic candidate recorded by T-281,
 and Phase A is closed. This P1 delta is constructor-ready only as an
 all-or-nothing resolution process: the current gap census must become empty

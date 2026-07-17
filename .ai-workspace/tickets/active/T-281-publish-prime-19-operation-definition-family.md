@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_native_authority_and_type_correlation_repair_candidate_complete
-- review_status: phase_a_accepted_p1_native_authority_and_type_correlation_repair_pending_independent_rereview
-- proof_status: phase_a_accepted_p1_native_authority_and_type_correlation_repair_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
+- phase_status: phase_a_closed_p1_structural_definition_key_repair_candidate_complete
+- review_status: phase_a_accepted_p1_structural_definition_key_repair_pending_independent_rereview
+- proof_status: phase_a_accepted_p1_structural_definition_key_actual_packet_api_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -38,7 +38,7 @@
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
 - downstream_dependencies:
-  - T-274A must prove the Phase-A-compatible neutral ticket_consensus result coordinate; T-281 owns the generic project.read request/refusal wrapper and absent nonterminal truth
+  - independently accepted T-274A supplies the Phase-A-compatible neutral ticket_consensus result coordinate; T-281 still owns the generic project.read request/refusal wrapper and absent nonterminal truth
   - T-270 neutral owner-native run.invoke contract milestone precedes P1; its public runtime integration follows P1
   - T-272 neutral owner-native run.continue and interaction.respond contract milestone precedes P1; its continuation integration follows P1
   - T-274B consumes the admitted P1 contract coordinates for public publication
@@ -127,9 +127,15 @@
     20260717T002627Z_SELF_REVIEW_t281_native_definition_key_repair.md
 - p1_native_authority_and_type_correlation_repair_candidate_digest: >-
     83de4ec5419c279ec09bd6e08bf3c67ef04a8b382b252947dccbe6b626e02a04
+- p1_native_authority_and_type_correlation_repair_candidate_disposition: rejected_structural_definition_key_packet_correlation
 - p1_native_authority_and_type_correlation_repair_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T011752Z_SELF_REVIEW_t281_native_authority_type_correlation_repair.md
+- p1_structural_definition_key_repair_candidate_digest: >-
+    01022386a2a89e523f11b0ffb363573299d35985240840dc6adac2bfb4d16838
+- p1_structural_definition_key_repair_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T020951Z_SELF_REVIEW_t281_structural_definition_key_repair.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -206,11 +212,11 @@ authority.
    candidate catalog rows, SDK/CLI coordinate inventories, and parity evidence.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. T-274A proves whether the existing native `ticket_consensus` result schema
-   can yield a neutral coordinate through Phase A's closed projector. T-281
-   owns the generic `project.read` request/refusal wrapper and explicit absent
-   non-terminal truth. The case remains a typed gap until both relations land.
-   It does not wait for T-275 handler truth.
+6. Consume the independently accepted T-274A neutral `ticket_consensus` result
+   coordinate through Phase A's closed projector. T-281 owns the generic
+   `project.read` request/refusal wrapper and explicit absent non-terminal
+   truth. The case remains a typed gap until that T-281 relation lands. It does
+   not wait for T-275 handler truth.
 7. Split the existing T-270/T-272 milestones: their neutral owner-native
    contract schemas precede P1; their public runtime integration follows P1
    and consumes neutral admitted projections rather than importing M04.
@@ -407,9 +413,8 @@ The constructability review found these named blocking owner relations:
 
 - `p1_contract_workspace_not_realized`;
 - `p1_contract_project_read_not_realized`, including the generic wrapper and
-  every case-specific result; T-274A has implemented the compatible
-  `ticket_consensus` result coordinate but remains pending independent review,
-  so that slot is not yet accepted P1 input;
+  every case-specific result except the independently accepted T-274A
+  `ticket_consensus` result coordinate;
 - `p1_contract_product_intake_not_realized` and
   `p1_contract_workspace_bind_not_realized`;
 - `p1_contract_catalog_not_realized`;
@@ -450,9 +455,28 @@ from importing the private M04 family or projection path; T-270/T-272 consume
 neutral admitted projections instead. This bounded design repair records the
 One Surface owner-projection gap and does not migrate T-270/T-272 runtime code.
 
-The native-authority-and-type-correlation-repaired P1 candidate remains
-pending independent re-review. Its owner-schema gaps are implementation
-blockers and must close before the all-or-nothing private family can admit; the
-already-recorded milestone split is not a blocker. P1 implementation is not
-authorized by this repair. P2 remains fenced behind completed P1, T-274B,
-T-275, and the remaining handler owners.
+The `83de4ec5419c279ec09bd6e08bf3c67ef04a8b382b252947dccbe6b626e02a04`
+native-authority-and-type-correlation-repaired P1 candidate is rejected. Its
+Phase A packet generics still required a string key, carried duplicate
+`operationKey` and `definitionKey` authority, and did not prove actual packet
+APIs for both structural key branches.
+
+The current structural-definition-key-repaired candidate uses one strict
+`variant | project_read_case` structural schema, derives each exact literal key
+schema/value witness from a nested-family value, and carries that exact value
+through actual `InvocationAuthority`, `PublicInvocation`, `PublicOutcome`, and
+typed failure admission. The general structural schema cannot instantiate a
+packet generic, and a different exact schema/value pair fails at the type
+boundary. `definitionKey` is the only packet key; `operationId` derives from
+`definitionKey.operationId`. Admission parses the structural and exact schemas
+and requires canonical structural equality with the schema's carried value.
+The private string fixture is rejected at compile time and runtime; no
+compatibility path remains. Actual workspace-create and
+`project.read(ticket_consensus)` packet witnesses cover both success and exact
+typed failure branches.
+
+This candidate remains pending independent re-review. Its owner-schema gaps
+are implementation blockers and must close before the all-or-nothing private
+family can admit; the already-recorded milestone split is not a blocker. P1
+implementation is not authorized by this repair. P2 remains fenced behind
+completed P1, T-274B, T-275, and the remaining handler owners.
