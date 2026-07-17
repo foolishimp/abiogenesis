@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_structural_owner_source_closed_project_read_owner_inputs_in_progress
-- review_status: p1_project_read_owner_design_independently_accepted
-- proof_status: p1_35_non_read_keys_115_schema_slots_exact_project_read_81_slots_and_central_family_pending_p2_fenced
+- phase_status: p1_project_read_request_refusal_closed_owner_registry_resolution_in_progress
+- review_status: p1_owner_schema_registry_correlation_design_independently_accepted
+- proof_status: p1_35_non_read_keys_115_slots_plus_27_project_read_request_refusal_pairs_exact_27_results_and_central_family_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -157,6 +157,13 @@
 - p1_structural_owner_source_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T043356Z_SELF_REVIEW_t281_structural_owner_source.md
+- p1_project_read_request_refusal_commit: 6e280bb8
+- accepted_p1_owner_schema_registry_design_digest: >-
+    4a43048c7173d60a36de2eb912b7caa86d4f5ad681641db4974f9a9492391bb7
+- p1_owner_schema_registry_design_commit: f6ee8180
+- p1_project_read_and_registry_checkpoint_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T052142Z_CHECKPOINT_t281_project_read_wrappers_and_registry_design.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -557,3 +564,22 @@ or runtime behavior was added.
 
 This checkpoint authorizes implementation of the 81 project-read owner slots.
 It does not admit the central private P1 family or cross the P2 hard break.
+
+## P1 Project Read Request/Refusal And Registry Design Checkpoint
+
+Commit `6e280bb8` closes the 27 project-read request/refusal pairs as 54 exact
+owner sources. The canonical T-281 gate now includes their native negative
+type fixture and runtime admission tests. Empty selectors are nominal,
+replay selectors use `fromOrdinal + limit`, and the public inventory remains
+82 schemas and 40 assets.
+
+Independent review also accepts design digest
+`4a43048c7173d60a36de2eb912b7caa86d4f5ad681641db4974f9a9492391bb7`
+at commit `f6ee8180`. Schema families with relational checks must supply an
+explicit same-module registry coordinate. One resolver-minted opaque carrier
+binds schema and registry to the same module/digest basis; callers cannot
+select a registry when defining a contract.
+
+The remaining project-read boundary is 27 result owner sources. Central P1
+admission remains blocked until the resolver and every result source are exact.
+No runtime integration or P2 publication is authorized by this checkpoint.
