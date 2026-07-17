@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_source_resolution_repair_accepted_p1_owner_contract_reconciliation_active
-- review_status: phase_a_exact_span_independently_accepted_p1_repair_pending_independent_review
-- proof_status: phase_a_full_semantic_publication_package_and_governance_gates_green_p1_named_owner_gaps_explicit_p2_fenced
+- phase_status: phase_a_closed_p1_authority_truth_repair_candidate_complete
+- review_status: phase_a_accepted_p1_truth_repaired_pending_independent_review
+- proof_status: phase_a_accepted_p1_truth_repaired_candidate_design_mermaid_prime_and_governance_checks_passed_owner_schema_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -22,7 +22,7 @@
     projection boundary
 - triaged_at: 2026-07-16
 - created_at: 2026-07-16
-- updated_at: 2026-07-16
+- updated_at: 2026-07-17
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-278
@@ -33,7 +33,7 @@
     build_tenants/abiogenesis/typescript/code/src/app/m04/public_contracts/
     operations.ts
 - dependencies:
-  - ratified T-278 Ontology digest f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8
+  - ratified T-278 Ontology projection digest bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615; rebind from accepted-design basis 039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1 changes only the GOALS source-digest row and carries no semantic-target delta
   - accepted GOAL-035 P1 public-operation prerequisite
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
@@ -51,6 +51,9 @@
   - specification/PRODUCT.md Public Operator Contract
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md 005, 008..010
   - specification/requirements/product/REQ-P-POLICY.md public operation behaviors
+  - specification/requirements/product/REQ-P-INSTALL.md 043..060
+  - specification/requirements/product/REQ-P-CATALOG.md 023..030
+  - specification/requirements/abg/REQ-R-ABG3-TUNER.md 003..005
   - build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md
   - build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md
   - build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md
@@ -92,12 +95,12 @@
 - phase_a_independent_design_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T101307Z_REVIEW_t281_native_phase_a_design.md
-- design_acceptance_ref: >-
+- phase_a_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T101307Z_DECISION_fh_accept_t281_phase_a.md
 - accepted_phase_a_gate_complete_design_digest: >-
     5a30b2094abd25df85c6beb9124039b80665841f32412bde745e52e0487ccefb
-- accepted_p1_constructor_design_digest: >-
+- superseded_accepted_p1_constructor_design_digest: >-
     1bbf4bcb5fbe53f97e150ae743b798fb4c1fe0c5ea4d6fb4753bdc31f3b22d7a
 - repaired_p1_owner_composition_candidate_digest: >-
     77d413ec253958d61c15a32c23bd66a235aed5ab4115cb460ca30f9f81cb711c
@@ -107,9 +110,23 @@
     b4824c806971367c6408181d7c8c87567dbdffc98303ec0ebb0733efd6a19dd4
 - exact_catalog_and_release_contract_candidate_digest: >-
     9ab76163499e0831a3ff87f3dc1b5adba02c19d690b6a953651888f6fe9915b7
+- complete_owner_contract_row_repair_candidate_digest: >-
+    d612a4f7fd3d8aaa17f2228f62a5df818f7743e971631ce4a8806ae4319805b7
+- bounded_rereview_repair_candidate_digest: >-
+    fe46f330313f26a87ff0dc2c487bcba21276a39d8a2d46652cae94609ca154e7
+- truth_only_terminal_repair_candidate_digest: >-
+    0448091e17fe14261507ae4eb183f508774dc2602d97c01f4da6d43281073579
+- p1_exact_candidate_digest: >-
+    f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b
+- p1_design_basis_reconciliation_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
 - repaired_p1_owner_composition_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T164206Z_SELF_REVIEW_t281_owner_contract_composition_repair.md
+- complete_owner_contract_row_repair_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260716T175243Z_SELF_REVIEW_t281_complete_owner_contract_row_repair.md
 - historical_input_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
@@ -342,21 +359,19 @@ The constructability review found these named blocking owner relations:
 - `p1_contract_materialize_not_realized`; and
 - `p1_contract_release_not_realized`.
 
-The current GOALS ordering treats T-270 and T-272 as wholly downstream of P1,
-but their neutral owner-native contract milestones are P1 inputs. P1 cannot
-admit or expose gap-bearing `run.invoke`, `run.continue`, or
-`interaction.respond` definitions. The minimum lawful refinement is:
+GOALS, T-270, and T-272 now record the required same-basis milestone split.
+Their neutral owner-native contract milestones are P1 inputs, while their
+public runtime integration remains downstream of P1. The satisfied ordering is:
 
 ```text
-T-281 project.read wrapper plus T-274A ConsensusResult/TicketConsensusProjection coordinates plus T-270/T-272 neutral owner-native contract milestones
+T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
   -> T-281 P1 exact private family
   -> T-270/T-272 public runtime integration milestones
 ```
 
-GOALS, T-270, and T-272 must record that same-basis milestone split before the
-P1 design is eligible for acceptance or implementation. Their pre-P1 neutral
-contract milestones must not depend on P1. This does not add tickets, move
-semantic ownership, or authorize runtime work.
+The recorded pre-P1 neutral milestones do not depend on P1. This prerequisite
+is satisfied without adding tickets, moving semantic ownership, or authorizing
+runtime integration.
 
 P1 introduces one private authoritative operation-definition source. Owner
 payload schema authorities remain distinct; T-281 composes them and authors
@@ -365,7 +380,8 @@ authority. All P1 projections are temporary derived outputs. M03 is prohibited
 from importing the private M04 family or projection path; T-270/T-272 consume
 neutral admitted projections instead.
 
-P1 implementation remains prohibited until the same-basis GOALS/T-270/T-272
-repairs land and an independent review accepts the resulting exact design
-digest. P2 remains fenced behind completed P1, T-274B, T-275, and the remaining
-handler owners.
+The P1 candidate remains pending independent review. Its owner-schema gaps are
+implementation blockers and must close before the all-or-nothing private
+family can admit; the already-recorded milestone split is not a blocker. P2
+remains fenced behind completed P1, T-274B, T-275, and the remaining handler
+owners.

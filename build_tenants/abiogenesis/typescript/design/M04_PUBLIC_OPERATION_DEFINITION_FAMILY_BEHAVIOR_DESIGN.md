@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Accepted target; Phase A source/witness repair pending independent re-review; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Phase A accepted; repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
@@ -14,7 +14,14 @@
 version `abg.public-control-plane.ontology/9`, accepted semantic candidate
 `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`,
 current file digest
-`f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+`039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1`
+
+The prior `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
+basis was rebound after the Ontology recorded completed ratification and the
+corrected GOALS delivery topology. That exact change altered state and delivery
+authority only: the accepted semantic candidate, 27 atomic families, seven
+compositions, 19 public identities, and every operation behavior row are
+unchanged. This rebind therefore carries no semantic delta into this design.
 
 **Ontology acceptance**:
 `.ai-workspace/comments/codex/20260716T055554Z_DECISION_t278_ontology_ratified.md`
@@ -81,6 +88,9 @@ source/package/install absence. Only that P2 cutover earns the hard break.
 
 - `REQ-P-PUBLIC-CONTRACTS-005`, `-008`, `-009`, and `-010`;
 - `REQ-P-POLICY` operation-specific behavior clauses;
+- `REQ-P-INSTALL-043..060` supplied-artifact, binding, create, and open law;
+- `REQ-P-CATALOG-023..030` session-view, admission, and application law;
+- `REQ-R-ABG3-TUNER-003..005` public transition and draft-state law;
 - `PRODUCT.md` Public Operator Contract and hard-break law;
 - ratified T-278 public control-plane Ontology;
 - accepted T-270 `run.invoke` authority design;
@@ -222,14 +232,6 @@ carrier above. `ProjectReadRefusal<C>` is the closed union of
 `not_ready`, plus binding refusal derived from the case and
 `cursor_invalid | range_invalid` only for replay cases. Defaults are empty.
 
-T-281 owns this generic request/refusal wrapper and declares the non-terminal
-slot absent for every read case. Each domain owner supplies the exact case
-source and result coordinates. For `ticket_consensus`, T-274A supplies exactly
-the `ConsensusResult` source coordinate and `TicketConsensusProjection` result
-coordinate from its existing nine-schema family. Those two inputs compose the
-T-281 wrapper; they do not transfer wrapper ownership to T-274A and do not pull
-T-275's later handler/projection semantics into P1.
-
 ## Accepted Operation Contract Target Packet
 
 The following packet states the accepted target semantics used for
@@ -251,28 +253,28 @@ to make a refusal possible.
 
 | Operation and variant | Closed request fields | Exact result | Semantic refusal codes | Non-terminal and defaults |
 |---|---|---|---|---|
-| `workspace.create(clean)` | `targetRoot: AbsolutePath`, `createPolicy: clean` | workspace identity, creation manifest, provenance refs | `invalid_target`, `workspace_exists`, `workspace_identity_conflict`, `filesystem_failure` | none; no defaults |
-| `workspace.create(imported)` | clean fields plus `importAuthorityRef`, `importAuthorityDigest` | workspace identity and creation manifest citing imported authority | clean refusals plus `import_authority_invalid` | none; no defaults |
-| `workspace.open(open)` | `targetRoot`, expected workspace-authority ref/digest | workspace, exact authority basis, readiness `ready` or `unbound`, manifest, residuals | `invalid_target`, `workspace_missing`, `authority_basis_mismatch`, `manifest_invalid` | none; no defaults |
-| `product.verify(verify)` | artifact ref/digest, descriptor ref/digest, contribution-manifest ref/digest, resolved-lock ref/digest, expected contract refs | verified artifact and all checked identities, disposition, residuals, provenance | `invalid_artifact`, `digest_mismatch`, `descriptor_mismatch`, `contribution_mismatch`, `lock_mismatch`, `incompatible` | none; no defaults |
-| `product.resolve(resolve)` | `requirements: NonEmpty<Unique<ProductRequirement>>`, `candidates: NonEmpty<Unique<ProductCoordinate>>` | exact resolved lock, selected products, residuals, provenance | `invalid_requirement`, `unresolved`, `incompatible`, `ambiguous`, `cyclic` | none; no defaults |
-| `product.install(install)` | verified-artifact ref/digest, product descriptor ref/digest, `targetRoot`, closed install policy | installed product, install manifest, installer manifest, provenance | `verification_failed`, `invalid_target`, `identity_conflict`, `filesystem_failure` | none; no defaults |
-| `workspace.bind(bind)` | workspace-authority ref/digest, `installedSet: NonEmpty<Unique<InstalledProductRef>>`, resolved-lock ref/digest, `declaredRoots: NonEmpty<Unique<AbsolutePath>>` | immutable workspace binding and binding manifest | `workspace_not_ready`, `product_not_installed`, `lock_mismatch`, `root_invalid`, `binding_conflict`, `incompatible` | none; no defaults |
-| `catalog.admit(admit)` | workspace-binding ref/digest, `descriptors: NonEmpty<Unique<ProductDescriptorRef>>`, `contributions: NonEmpty<Unique<ContributionManifestRef>>`, resolved-lock ref/digest | catalog ref/digest and row dispositions exactly `admitted`, `rejected`, `incompatible`, `conflicting`, `unready`, or `unresolved`; admitted rows carry no rejection reason and every non-admitted row carries no admission event | `descriptor_invalid`, `contribution_invalid`, `conflict`, `incompatible`, `unready`, `unresolved` | none; no defaults |
-| `catalog.view(allowlist)` | `allowlist: Unique<CanonicalCatalogHandle>` | narrowing catalog-view ref/digest, effective handles, residuals | `unknown`, `duplicate`, `ambiguous`, `unauthorized`, `inadmissible`, `not_ready` | none; no defaults |
-| `catalog.apply(K)` for `K = node_type, overlay` | declaration ref/digest, target ref, application-basis ref/digest | declaration-application ref, kind, target, evidence refs | `kind_mismatch`, `outside_view`, `not_ready`, `target_invalid`, `application_refused`, `callable_kind_forbidden` | none; no defaults |
+| `workspace.create(clean)` | `targetRoot: AbsolutePath`, `createPolicy: clean`, explicit scaffold policy | workspace identity, authority mode, explicit scaffold state or bootstrap eligibility, creation manifest, provenance refs | `invalid_target`, `workspace_exists`, `workspace_identity_conflict`, `scaffold_policy_invalid`, `filesystem_failure` | none; no defaults |
+| `workspace.create(imported)` | `targetRoot: AbsolutePath`, `createPolicy: imported`, `importAuthorityRef`, `importAuthorityDigest`, explicit preservation policy | workspace identity, imported authority mode, preserved-project/scaffold state, creation manifest citing imported authority, provenance refs | clean refusals plus `import_authority_invalid`, `import_preservation_failed` | none; no defaults |
+| `workspace.open(open)` | `targetRoot`, expected workspace-authority ref/digest | closed `WorkspaceOpenProjection` below: workspace identity, exact authority basis, authority mode, explicit current selected-binding/configuration refs, and `ready`, `unbound`, `stale`, `malformed`, or `incompatible` readiness with residuals | `invalid_target`, `workspace_missing`, `authority_basis_mismatch` | none; no defaults |
+| `product.verify(verify)` | artifact ref/digest and content identity, descriptor ref/digest, contribution-manifest ref/digest, resolved-lock ref/digest, expected contract refs | verified artifact and every checked identity, verification disposition exactly `verified` or `installed_unbound`, typed residuals, provenance | `artifact_invalid`, `content_mismatch`, `identity_mismatch`, `descriptor_mismatch`, `contribution_mismatch`, `lock_mismatch`, `unresolved_dependency`, `incompatible_dependency`, `unsupported_contract`, `installed_state_missing`, `installed_state_stale` | none; no defaults |
+| `product.resolve(resolve)` | `requirements: NonEmpty<Unique<ProductRequirement>>`, `candidates: NonEmpty<Unique<ProductCoordinate>>` | exact resolved lock, one selected coordinate per unique required product identity, selected dependency graph, typed residuals, provenance | `invalid_requirement`, `unresolved`, `incompatible`, `ambiguous`, `cyclic` | none; no defaults |
+| `product.install(install)` | verified-artifact ref/digest and content identity, product-descriptor ref/digest, contribution-manifest ref/digest, resolved-lock ref/digest, `targetRoot`, closed install policy | verification disposition exactly `verified`, materialization disposition exactly `materialized` or `idempotent`, installed-product ref/digest, install-manifest ref/digest, installer-manifest ref/digest, selected dependency graph, provenance | `verification_failed`, `invalid_target`, `identity_conflict`, `content_conflict`, `descriptor_conflict`, `contribution_conflict`, `lock_conflict`, `unsupported_contract`, `filesystem_failure` | none; no defaults |
+| `workspace.bind(bind)` | workspace-authority ref/digest, `installedSet: NonEmpty<Unique<InstalledProductRef>>`, resolved-lock ref/digest, `declaredRoots: NonEmpty<Unique<AbsolutePath>>` | immutable workspace-binding ref/digest and manifest containing the exact ordered bound-product rows, resolved dependency graph, selected toolchain/product/package roots, declared mutable roots, contract refs, and provenance | `workspace_not_ready`, `product_not_installed`, `unresolved`, `ambiguous`, `lock_mismatch`, `content_mismatch`, `root_invalid`, `binding_conflict`, `incompatible` | none; no defaults |
+| `catalog.admit(admit)` | workspace-binding ref/digest, `descriptors: NonEmpty<Unique<ProductDescriptorCoordinate>>`, `contributions: NonEmpty<Unique<ContributionManifestCoordinate>>`, resolved-lock ref/digest; every coordinate carries its ref and digest | catalog ref/digest and the structurally disjoint six-way `CatalogAdmissionRow` algebra below, admitted only under `CatalogAdmissionConservation` | `descriptor_invalid`, `contribution_invalid`, `conflict`, `incompatible`, `unready`, `unresolved` | none; no defaults |
+| `catalog.view(allowlist)` | admitted catalog ref/digest, `allowlist: Unique<CanonicalCatalogHandle>` | narrowing catalog-view ref/digest, effective handles, residuals | `unknown`, `duplicate`, `ambiguous`, `unauthorized`, `inadmissible`, `not_ready` | none; no defaults |
+| `catalog.apply(K)` for `K = node_type, overlay` | admitted catalog-row ref/digest of kind K, catalog-view ref/digest, declaration ref/digest, target ref/digest, application-basis ref/digest | declaration-application ref, kind, target ref/digest, admitted evidence refs, provenance | `kind_mismatch`, `outside_view`, `not_ready`, `target_invalid`, `application_refused`, `callable_kind_forbidden` | none; no defaults |
 | `run.invoke(invoke)` | program ref/digest, GraphFunction ref/digest, declared input-contract ref/digest, admitted input, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>` | run ref, GraphCall ref, completed result or typed stop, evidence refs, replay ref | `program_invalid`, `function_nonmember`, `outside_view`, `noncallable`, `next_action_mismatch`, `intent_missing`, `input_invalid`, `capability_missing`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `run.invoke(start)` | program ref/digest, `scope`, closed target, `until`, catalog-view ref/digest, declared `allowlist: Unique<CanonicalCatalogHandle>`, `fh_mode`, `root_mode` | run ref, present nullable GraphCall ref, completed result or typed stop, evidence refs, replay ref | invoke refusals plus `target_invalid`, `mode_invalid`, `until_invalid` | `held`, `gap_stop`; defaults `fh_mode=direct`, `root_mode=supervised` |
 | `run.continue(current_intent)` | run ref, continuation ref/digest, current-intent ref/digest, admitted response-or-input ref/digest, expected execution-basis ref/digest | continued run state, successor receipt, evidence refs, replay ref | `continuation_missing`, `continuation_resolved`, `intent_mismatch`, `response_missing`, `stale_replay`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
 | `run.continue(selected_action)` | run ref, continuation ref/digest, next-action projection ref/digest, closed `basis_relation` defined below; selected action remains projection-owned and is never caller-authored | new construction-intent ref then run/GraphCall state, evidence refs, replay ref | `next_action_stale`, `action_mismatch`, `intent_admission_refused`, `covering_reprice_missing`, `basis_fork_detected`, `runtime_failed` | `held`, `gap_stop`; no defaults |
-| `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` required only for `select` and null otherwise, canonical typed `value` for every kind, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
-| `result.assess(assess)` | runtime-result ref/digest, assessment-contract ref/digest, typed assessment, evidence refs | assessment ref, admitted disposition, residuals, evidence refs | `result_missing`, `assessment_contract_mismatch`, `assessment_invalid`, `basis_mismatch` | `retry`, `blocked` when declared; no defaults |
-| `witness.admit(K)` for six witnessed acts | subject ref/digest, act kind K, evidence refs, provenance refs | witnessed-act event ref and admitted evidence ref | `subject_missing`, `act_forbidden`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
-| `tuning.transition(propose)` | draft content contract ref/digest, typed draft content, subject basis ref/digest, evidence refs | proposed tuning-draft ref/version and event ref | `draft_invalid`, `subject_mismatch`, `basis_mismatch` | none; no defaults |
-| `tuning.transition(K)` for `K = ratify, reject` | current tuning-draft ref/version/digest, decision evidence refs | transitioned draft projection and attributed event ref | `draft_missing`, `draft_stale`, `transition_forbidden`, `basis_mismatch` | none; no defaults |
-| `conformance.evaluate(gtl_program)` | GTL program ref/digest, conformance-law ref/digest, closed `inventory_basis` defined below | conformance assessment, passed/failed disposition, stable diagnostics, law refs, evidence, repair affordances | `program_invalid`, `law_basis_mismatch`, `inventory_mismatch`, `assessment_blocked` | none; no defaults |
-| `product.materialize(context_bootstrap)` | target-workspace ref, selected binding ref/digest, declared context inputs | content-addressed bootstrap asset and manifest with created/refreshed/preserved rows | `workspace_not_ready`, `binding_mismatch`, `input_invalid`, `authority_overwrite_forbidden`, `filesystem_failure` | none; no defaults |
-| `product.materialize(configuration)` | configuration-contract ref/digest, selected binding ref/digest, declared typed inputs | configuration content ref/digest, validation disposition, provenance | `contract_invalid`, `binding_mismatch`, `input_invalid`, `mutable_default_forbidden`, `filesystem_failure` | none; no defaults |
+| `interaction.respond(K)` for five response kinds | interaction ref/digest, response-contract ref/digest, `choiceRef` required only for `select` and exactly null otherwise, canonical typed `value` for every kind, evidence refs, capability-provenance refs | responded-event ref and current interaction projection | `interaction_missing`, `interaction_resolved`, `response_kind_forbidden`, `response_contract_mismatch`, `choice_invalid`, `value_invalid`, `actor_capability_missing`, `basis_mismatch` | `responded` while run remains held; no defaults |
+| `result.assess(assess)` | expected runtime-result ref/digest, assessment-contract ref/digest, typed assessment, actor ref, capability-provenance refs, evidence refs, current execution-basis ref/digest | assessment ref plus structurally disjoint `admitted` or `rejected` disposition, closure eligibility, typed residuals, evidence refs | `result_missing`, `result_digest_mismatch`, `assessment_contract_mismatch`, `assessment_invalid`, `actor_capability_missing`, `evidence_invalid`, `basis_mismatch` | `retry`, `blocked` are typed non-close outcomes; no defaults |
+| `witness.admit(K)` for six witnessed acts | actor ref, subject ref/digest, act kind K, closed typed reason-or-payload, the act-applicable run/segment/workspace/basis context, evidence refs, provenance refs | actor-attributed witnessed-act event ref and admitted evidence ref | `actor_missing`, `subject_missing`, `act_forbidden`, `content_invalid`, `context_mismatch`, `evidence_invalid`, `provenance_invalid`, `basis_mismatch` | none; no defaults |
+| `tuning.transition(propose)` | draft-content contract ref/digest, typed draft content including proposer, telemetry-basis refs, affected-declaration refs and before/after digests, closed actor-or-policy authority, subject-basis ref/digest, typed rationale contract/value, evidence refs | proposed tuning-draft ref/version preserving those fields, `proposed` disposition, attributed event ref | `draft_invalid`, `authority_invalid`, `subject_mismatch`, `rationale_invalid`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
+| `tuning.transition(K)` for `K = ratify, reject` | current tuning-draft ref/version/digest, closed actor-or-policy authority, current draft-basis ref/digest, typed rationale contract/value, decision evidence refs | transitioned draft projection preserving proposer, telemetry basis, affected declarations and before/after digests, with exactly the K-indexed `ratified` or `rejected` disposition, decision authority, and attributed event ref | `draft_missing`, `draft_stale`, `authority_invalid`, `transition_forbidden`, `rationale_invalid`, `evidence_invalid`, `basis_mismatch` | none; no defaults |
+| `conformance.evaluate(gtl_program)` | GTL program ref/digest, conformance-law ref/digest, closed `inventory_basis` defined below | program and optional declared-inventory identity, conformance-assessment ref/digest, passed/failed disposition, stable diagnostics, violated law/contract refs, evidence refs, repair affordances | `program_invalid`, `law_basis_mismatch`, `inventory_mismatch`, `assessment_blocked` | none; no defaults |
+| `product.materialize(context_bootstrap)` | admitted target-workspace ref/digest, selected binding ref/digest, declared context inputs | content-addressed bootstrap asset ref/digest and manifest ref/digest with exact `created`, `refreshed`, `preserved`, or `refused` rows, typed residuals, provenance | `workspace_not_ready`, `binding_mismatch`, `input_invalid`, `authority_overwrite_forbidden`, `filesystem_failure` | none; no defaults |
+| `product.materialize(configuration)` | admitted configuration-contract ref/digest, selected binding ref/digest, declared typed inputs | affected workspace/configuration subject, configuration-content ref/digest, materialization-manifest ref/digest, validation disposition, typed residuals, provenance | `contract_invalid`, `binding_mismatch`, `input_invalid`, `mutable_default_forbidden`, `filesystem_failure` | none; no defaults |
 | `release.snapshot(published_rc)` | pre-RC qualification-basis ref/digest, matching law-basis ref/digest, same-basis verdict ref/digest, requested RC identity/version | immutable RC cut, exact artifact refs/digests, snapshot manifest, qualification disposition, residuals, provenance | `wrong_subject_kind`, `basis_mismatch`, `law_basis_mismatch`, `verdict_not_green`, `bypass_nonempty`, `identity_mismatch`, `bytes_mismatch`, `publication_failure` | none; no defaults |
 | `release.snapshot(tapped_release)` | final-tap basis, matching law basis and verdict, requested final identity, accepted-RC ref/digest, installed-RC qualification refs/digests, complete FinalTapDelta ref/digest | immutable final cut, artifacts, snapshot manifest, qualification disposition, residuals, provenance | published-RC refusals plus `accepted_rc_mismatch`, `installed_rc_authorization_missing`, `final_delta_incomplete`, `affected_gate_failed` | none; no defaults |
 
@@ -283,21 +285,121 @@ particular, `ResponsePayloadByKind<K>` is closed as follows:
 | Response kind | `choiceRef` | `value` |
 |---|---|---|
 | `select` | required exact member of the pending interaction's declared choice set | required canonical JSON admitted by the selected response contract |
-| `approve`, `reject`, `assess`, `answer_escalation` | nullable; when present it must be an exact declared choice | required canonical JSON admitted by the selected response contract |
+| `approve`, `reject`, `assess`, `answer_escalation` | exactly null; a non-select response cannot carry a choice | required canonical JSON admitted by the selected response contract |
 
 All five response packets also require the same interaction ref/digest,
 response-contract ref/digest, evidence refs, and capability-provenance refs.
 No response kind can make the value optional, substitute a free-form string,
 or select a choice absent from the opened interaction. The two
 `catalog.apply` variants, six `witness.admit` variants, and the
-`tuning.transition(ratify|reject)` pair share their displayed closed fields;
-only their discriminant, indexed capability or admitted act/transition kind
-differs.
+`tuning.transition(ratify|reject)` pair share their displayed closed field
+families; their discriminants select distinct result dispositions and prevent
+a ratify request from producing a rejected result or the converse.
+
+The catalog result is not one row with nullable reason/event fields. Its owner
+schema supplies this exact closed algebra, and every row carries the evidence
+that justified its disposition:
+
+```text
+CatalogAdmissionRow =
+  | { disposition: "admitted", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      admissionEventRef, evidenceRefs: NonEmptyUnique<Ref> }
+  | { disposition: "rejected", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      reason: CatalogRejectedReason, evidenceRefs: NonEmptyUnique<Ref> }
+  | { disposition: "incompatible", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      reason: CatalogIncompatibleReason, evidenceRefs: NonEmptyUnique<Ref> }
+  | { disposition: "conflicting", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      reason: CatalogConflictReason, evidenceRefs: NonEmptyUnique<Ref> }
+  | { disposition: "unready", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      reason: CatalogUnreadyReason, evidenceRefs: NonEmptyUnique<Ref> }
+  | { disposition: "unresolved", inputRowKey: CatalogInputRowKey,
+      subjectRef, subjectDigest,
+      reason: CatalogUnresolvedReason, evidenceRefs: NonEmptyUnique<Ref> }
+
+CatalogInputRowKey = {
+  descriptorRef, descriptorDigest,
+  contributionManifestRef, contributionManifestDigest,
+  contributionRowRef, contributionRowDigest
+}
+
+CatalogAdmissionConservation = {
+  relationRef:
+    "relation://abg/catalog/admission-input-output-conservation@5"
+  evaluate(request, result):
+    let input = exact unique CatalogInputRowKey set obtained from every row of
+      every supplied contribution manifest after descriptor, binding, and lock
+      agreement is verified
+    let output = result.rows.map(row => row.inputRowKey)
+    require output.length == input.length
+    require Unique(output)
+    require Set(output) == Set(input)
+}
+```
+
+The `admitted` member has no reason field. The five non-admitted members have no
+admission-event field and require their disposition-indexed typed reason. A
+single optional `reason` or `admissionEventRef`, an empty evidence set, or a
+generic non-admitted member is structurally inadmissible.
+`CatalogAdmissionConservation` is one catalog-family-owned named relation,
+registered with the shared native projector. It rejects a missing, extra,
+duplicated, substituted, or cross-descriptor output row. Exactly one of the six
+disposition members therefore exists for every exact submitted manifest row;
+the catalog owner cannot report two dispositions for one input or silently
+drop a rejected row.
+
+`result.assess` follows the same no-contradiction rule. `admitted` and
+`rejected` are the two admitted result-slot members. `blocked` and `retry` are
+the two non-terminal-slot members and require `closureEligible: false` and
+non-empty typed residuals; `retry` is the requirement's retry-eligible
+non-close truth. The closed `PublicOutcome` union therefore distinguishes all
+four without putting one disposition in two slots. Each member retains the
+exact expected result, actor/capability, contract, evidence, and current-basis
+relation from its request. Rejected assessment truth cannot be reported as
+admitted, and prose without its declared assessment contract never enters this
+algebra.
+
+Witness content and context are closed owner-indexed sums. Content is exactly
+one typed reason or one contract-bound typed payload; context is exactly the
+run, segment-with-run, workspace, or basis coordinate applicable to act kind
+K. No optional bag can erase actor, subject, context, evidence, or provenance.
+Tuning authority is likewise exactly one actor-with-capability provenance or
+one admitted policy-authority ref/digest. Its rationale is contract-bound and
+its subject or current-draft basis is mandatory for every transition.
 
 The remaining conditional inputs are closed discriminated objects, not absent
 fields:
 
 ```text
+WorkspaceOpenProjection =
+  | { readiness: "ready", workspaceRef, workspaceAuthorityBasisRef,
+      workspaceAuthorityBasisDigest, authorityMode,
+      selectedBindingRef, selectedBindingDigest,
+      configurationRefs: Unique<Ref>,
+      configurationDigests: MatchingDigests<Ref>, residuals: [] }
+  | { readiness: "unbound", workspaceRef, workspaceAuthorityBasisRef,
+      workspaceAuthorityBasisDigest, authorityMode,
+      selectedBindingRef: null, selectedBindingDigest: null,
+      configurationRefs: Unique<Ref>,
+      configurationDigests: MatchingDigests<Ref>, residuals }
+  | { readiness: "stale" | "malformed" | "incompatible",
+      workspaceRef, workspaceAuthorityBasisRef,
+      workspaceAuthorityBasisDigest, authorityMode,
+      observedBindingRef: Ref | null, observedBindingDigest: Digest | null,
+      configurationRefs: Unique<Ref>,
+      configurationDigests: MatchingDigests<Ref>,
+      residuals: NonEmptyUnique<TypedResidual> }
+
+ResolvedProductSelection = {
+  productIdentity,
+  selectedCoordinate,
+  satisfiedRequirementRefs: NonEmptyUnique<Ref>
+}
+
 basis_relation =
   { kind: "same_basis" }
   | { kind: "authority_changed",
@@ -310,6 +412,14 @@ inventory_basis =
       inventoryRefs: NonEmpty<Unique<InventoryRef>>,
       inventoryDigests: MatchingDigests<InventoryRef> }
 ```
+
+`WorkspaceOpenProjection` reports current workspace truth but selects or
+changes none of it. Its paired ref/digest nullability is relational: both are
+present or both are null. `product.resolve` requires exactly one
+`ResolvedProductSelection` for each unique required product identity and no
+selection for an unrequired identity. Candidate coordinates remain unique as
+coordinates, not by product identity, so version or source alternatives for
+the same product can be compared before the single result coordinate admits.
 
 The same-basis case cannot carry reprice fields. The authority-changed case
 cannot omit them. The program-only case cannot carry inventory fields. The
@@ -328,9 +438,9 @@ coordinate laws below.
 | Operation | Capability refs | Event or manifest admission | Terminal dispositions | Non-terminal dispositions | Adapter profile |
 |---|---|---|---|---|---|
 | `workspace.create` | `abg.capability.operator.public-contract@5` | workspace manifest/provenance | `created` | none | `terminal_only` |
-| `workspace.open` | `abg.capability.operator.public-contract@5` | none | `ready`, `unbound` | none | `terminal_only` |
+| `workspace.open` | `abg.capability.operator.public-contract@5` | none | `ready`, `unbound`, `stale`, `malformed`, `incompatible` | none | `terminal_only` |
 | `project.read` | per closed read case | none | `projected` | none | `terminal_only` |
-| `product.verify` | `abg.capability.install.bind-products@5` | verification provenance | `verified` | none | `terminal_only` |
+| `product.verify` | `abg.capability.install.bind-products@5` | verification provenance | `verified`, `installed_unbound` | none | `terminal_only` |
 | `product.resolve` | `abg.capability.install.bind-products@5` | resolved-lock admission | `resolved` | none | `terminal_only` |
 | `product.install` | `abg.capability.install.bind-products@5` | install and installer manifests | `installed` | none | `terminal_only` |
 | `workspace.bind` | `abg.capability.install.bind-products@5` | workspace-binding manifest | `bound` | none | `terminal_only` |
@@ -340,7 +450,7 @@ coordinate laws below.
 | `run.invoke` | `abg.capability.catalog.invoke-graph-function@5`, `abg.capability.runtime.execute-seven-term-c@5` | runtime execution events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
 | `run.continue` | `abg.capability.runtime.replay-continuation@5` | continuation/runtime events | `completed`, `blocked`, `runtime_failed` | `held`, `gap_stop` | `runtime_nonterminal` |
 | `interaction.respond` | `abg.capability.operator.public-contract@5`, `abg.capability.runtime.replay-continuation@5` | F_H response event | none | `responded` while the containing run remains separately held | `runtime_nonterminal` |
-| `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `assessed` | `retry`, `blocked` | `runtime_nonterminal` |
+| `result.assess` | `abg.capability.runtime.admit-fp-result@5` | result-assessment event | `admitted`, `rejected` | `retry`, `blocked` | `runtime_nonterminal` |
 | `witness.admit` | `abg.capability.operator.public-contract@5` | witnessed-act event | `admitted` | none | `terminal_only` |
 | `tuning.transition` | `abg.capability.operator.public-contract@5` | tuning-draft event | `proposed`, `ratified`, `rejected` | none | `terminal_only` |
 | `conformance.evaluate` | `abg.capability.gtl.typecheck@5` | conformance assessment | `passed`, `failed` | none | `terminal_only` |
@@ -460,11 +570,6 @@ addressable. Their multiplicity is output addressability, not authored truth.
 
 ## Native Contract Definition And Projection
 
-The bounded source-resolution delta is governed by
-`.ai-workspace/comments/codex/20260716T162446Z_REVIEW_t281_phase_a_source_resolution_rejection.md`.
-It reopens only the Phase A witness boundary and affected P1 owner composition;
-it does not authorize P1 construction or T-274B publication.
-
 ```text
 NativeContractDefinition<S extends v.BaseSchema> = {
   nativeSymbol,
@@ -481,8 +586,6 @@ contractDigest<S>(S)       = sha256(canonical projected schema bytes)
 NativeSchemaProjectionWitness = {
   kind,
   sourceLocator,
-  sourceModuleDigest,
-  sourceBasisDigest,
   schemaRef,
   schemaVersion,
   projectorRef,
@@ -517,9 +620,6 @@ The shared projector preserves the original Phase A native-action set:
 The original mapping table remains closed code. A family-owned relation enters
 only through one immutable invocation-local registry that maps the exact action
 object to one family/check identity and optional accepted relation ref. The
-projector also requires every admitted schema and standard action to carry the
-exact constructor reference from the pinned Valibot dependency; lookalike
-objects with copied `kind`/`type` fields refuse. The
 projector never inspects function source, message text, or a consumer kind, and
 there is no global registry. Each used registration is projected into the
 canonical schema and sorted into the derived witness. The registration digest
@@ -529,22 +629,13 @@ object itself to be immutable and resolves it by identity. `type_brand` is the s
 permitted Valibot transformation and cannot alter a value. Any other action,
 flag set, transform, callback, or override throws and requires design re-entry.
 
-The shared projector owns mechanics only. Its closed `semantic_build` resolver
-accepts one recursively frozen typed owner-source row, loads its exact locator,
-walks own data properties only, and requires the compiled export member to be
-the same schema object carried by that row. It hashes the resolved compiled
-owner-module bytes and mints an opaque `ResolvedNativeSchemaSource<S>`. The
-projector accepts only that carrier and preserves `S` while deriving the
-canonical projection and witness. A caller-authored or mismatched schema and
-locator pair cannot mint the carrier; callers also cannot supply projected
-I-JSON, a source-basis digest, or named-check rows. The derived schema embeds
-the closed projector identity/version/law-basis so
+The shared projector owns mechanics only. It consumes the actual schema and
+derives the canonical projection plus witness in one call. No caller may supply
+projected I-JSON, a digest, or named-check rows. The derived schema embeds the
+closed projector identity/version/law-basis so
 `stableSha256Digest(projectedSchema) == projectionDigest`; `witnessDigest`
-binds that digest to the exact private source locator, compiled source-module
-digest, source-basis digest, schema ref/version, and sorted named-check basis.
-Thus an owner predicate change changes witness truth even when JSON Schema
-cannot encode the predicate and the projected schema bytes remain unchanged.
-M04 owns public coordinates and publication. M03 may
+binds that digest to the exact private source locator, schema ref/version, and
+sorted named-check basis. M04 owns public coordinates and publication. M03 may
 consume the neutral witness for private compiler sealing but may not import an
 M04 carrier or author another digest.
 
@@ -753,32 +844,33 @@ They identify one actual source module export and an exact member path:
 
 ```text
 NeutralOwnerContractSource<S> = {
-  authority: { owner, subject, carrierRevision, lawBasis }
-  identity: { contractId, contractVersion, schemaId, schemaVersion }
+  ownerIdentity: { owner, subject }
+  semanticOwnerBasis: { ref, digest }
+  contractShapeBasis: { ref, digest }
   sourceLocator: {
     kind: "private_source_module"
     sourceRoot: "semantic_build"
-    modulePath: "code/src/abg/m03/contracts/one_surface_operation_contracts.js"
-    exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES"
-    memberPath: [family, variant, slot, "schema"]
+    modulePath
+    exportName
+    memberPath
   }
   schema: S
 }
 ```
 
-The `schema` sibling is owner metadata for native inference and admission; it
-is not accepted as locator attestation. The frozen row conserves the schema's
-exact generic type, while the resolver follows the locator and requires the
-compiled member to be the identical object before it mints the only carrier
-accepted by the projector.
+Each M03, M04, or M05 owner supplies its own module path, export name, and member
+path as owner-neutral source coordinates. The neutral shared envelope
+constructor derives `carrierRevision`, contract and schema identities and
+versions, authority subject, and the final source locator from those inputs.
+It contains no M03, M04, M05, operation, or consumer default.
+`semanticOwnerBasis` is the sole payload-law basis. `contractShapeBasis` is the
+accepted T-281 cross-boundary addressing basis. Neither can populate or
+substitute for the other, and an owner module cannot author any derived
+envelope field locally.
 
-P1 passes the frozen typed owner-source row to the closed build resolver. The
-resolver imports that source module, walks own data properties, proves that
-`memberPath` resolves to the row's exact recursively frozen Valibot schema,
-hashes the exact compiled owner-module bytes, and mints an opaque typed
-resolved-source carrier. Only that carrier can construct a private
-`NativeContractDefinition<S>`; a mismatched row or caller source digest
-refuses. The Phase A locator vocabulary distinguishes
+P1 directly imports that source module, proves that `memberPath` resolves to
+the same frozen source, and only then constructs a private
+`NativeContractDefinition<S>`. The Phase A locator vocabulary distinguishes
 `private_source_module { kind, sourceRoot, modulePath, exportName, memberPath[] }`
 from
 `public_package_export { kind, packageName, packageExport, exportName }`. A
@@ -912,7 +1004,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 
 | Input role | Existing owner module | P1 treatment |
 |---|---|---|
-| canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral build resolver derives an opaque source from a closed locator and exact compiled module bytes; the projector derives canonical schema bytes and a witness from that retained Valibot schema. M03 and M04 consume the same result without cross-layer imports. |
+| canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral projector derives canonical schema bytes and a witness from the actual Valibot schema; M03 and M04 consume the same result without cross-layer imports. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
 | Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives the `TicketConsensusProjection` result coordinate/witness through the shared projector. P1 composes it inside the generic `project.read` wrapper without duplicating the schema, relations, or operation. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
@@ -963,24 +1055,24 @@ P1 only reruns exact resolution and composes accepted inputs. It cannot author
 an owner payload schema or produce `exact_family_admitted` until the gap set is
 empty.
 
-The current GOALS ordering is therefore too coarse at T-270/T-272. A
-gap-bearing `run.invoke`, `run.continue`, or `interaction.respond` definition
-cannot be consumed by those tickets and cannot enter the private family. The
-minimum non-cyclic milestone order, without adding tickets or moving semantic
-ownership, is:
+GOALS, T-270, and T-272 now record the required same-basis split. A gap-bearing
+`run.invoke`, `run.continue`, or `interaction.respond` definition still cannot
+enter the private family; their neutral owner-native contracts are P1 inputs,
+while public runtime integration remains downstream. The satisfied non-cyclic
+milestone order, without adding tickets or moving semantic ownership, is:
 
 ```text
-T-281 project.read wrapper plus T-274A ConsensusResult/TicketConsensusProjection coordinates plus T-270/T-272 neutral owner-native contract milestones
+T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
   -> T-281 P1 exact private family
   -> T-270/T-272 public runtime integration milestones
   -> T-274B -> T-275 -> T-281 P2
 ```
 
-This is a milestone refinement, not permission to resume runtime work. GOALS,
-T-270, and T-272 must record the same-basis split before this P1 design is
-eligible for acceptance or implementation; the pre-P1 milestones must not
-depend on P1. Otherwise P1 remains blocked on
-`p1_contract_project_read_not_realized`, `p1_contract_run_invoke_not_realized`,
+The recorded split is a satisfied prerequisite, not permission to resume
+runtime integration. The pre-P1 milestones do not depend on P1. Construction
+remains blocked until the named owner-schema gaps in this census close,
+including `p1_contract_project_read_not_realized`,
+`p1_contract_run_invoke_not_realized`,
 `p1_contract_run_continue_not_realized`, and
 `p1_contract_interaction_respond_not_realized`.
 
@@ -1033,20 +1125,13 @@ classDiagram
   }
   class SharedCanonicalNativeSchemaProjector {
     <<neutral shared mechanism>>
-    +resolveSemanticBuildSource
-    +projectOpaqueResolvedSchema
+    +projectActualValibotSchema
     +deriveProjectionWitness
     +refuseUnregisteredConstraint
-  }
-  class OpaqueResolvedNativeSchemaSource {
-    <<build private unforgeable carrier>>
-    +modulePrivateSchemaState
-    +moduleByteBasis
   }
   class NativeSchemaProjectionWitness {
     <<derived neutral receipt>>
     +sourceLocator
-    +sourceModuleAndBasisDigests
     +schemaRefAndVersion
     +projectorIdentityAndBasis
     +projectionDigest
@@ -1133,10 +1218,8 @@ classDiagram
   }
 
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
-  OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates exact nested schema
-  PrivateSourceModuleLocator --> SharedCanonicalNativeSchemaProjector : closed own-property resolution
-  SharedCanonicalNativeSchemaProjector --> OpaqueResolvedNativeSchemaSource : mints only
-  OpaqueResolvedNativeSchemaSource --> SharedCanonicalNativeSchemaProjector : sole projection input
+  OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
+  OwnerSchemaInput --> SharedCanonicalNativeSchemaProjector : supplies actual schema
   SharedCanonicalNativeSchemaProjector --> NativeSchemaProjectionWitness : derives only
   NativeSchemaProjectionWitness --> PhaseANativeContractMechanism : binds private M04 coordinate
   NativeSchemaProjectionWitness --> PrivateCompilerSeal : seals private M03 compilation
@@ -1172,14 +1255,13 @@ sequenceDiagram
   Builder->>Resolver: request exact 19-identity 62-key resolution
   loop each exact definition key
     Resolver->>Owners: obtain owner authority and native contract slots
-    Owners-->>Resolver: exact frozen typed source row and authority or missing slot evidence
+    Owners-->>Resolver: exact neutral schema input or missing slot evidence
     alt slot absent ambiguous prose-only or legacy-only
       Resolver->>Resolver: append typed semantic_not_realized gap
-    else owner supplies exact native schema locator
-      Resolver->>Shared: resolve frozen source row at fixed root module export member path
-      Shared->>Shared: own-property walk object-identity freeze check and exact module-byte digest
-      Shared-->>Resolver: opaque resolved source or typed locator refusal
-      Resolver->>Shared: derive from opaque source plus ref version and named checks
+    else owner supplies exact native schema candidate
+      Resolver->>Owners: import sourceRoot/modulePath then resolve exportName and memberPath
+      Owners-->>Resolver: exact same frozen source object or locator mismatch
+      Resolver->>Shared: derive from actual schema source ref version locator and named checks
       alt unsupported action unregistered check or divergent witness
         Shared-->>Resolver: projector refusal
         Resolver->>Resolver: append typed semantic_not_realized gap
@@ -1227,7 +1309,7 @@ stateDiagram-v2
   [*] --> PhaseAReady
   PhaseAReady --> OwnerResolutionPending: begin 19 identity 62 key and per-slot census
   OwnerResolutionPending --> PrivateSourceLocated: closed source root module export and member path resolve to same source
-  PrivateSourceLocated --> ProjectionWitnessPending: submit opaque resolved source to shared projector
+  PrivateSourceLocated --> ProjectionWitnessPending: submit actual schema to shared projector
   ProjectionWitnessPending --> ProjectionWitnessDerived: projection and witness derive on one basis
   ProjectionWitnessPending --> DefinitionRefused: unsupported or unregistered constraint
   ProjectionWitnessDerived --> OwnerResolutionPending: M04 coordinate and M03 seal conserve same witness
@@ -1281,7 +1363,7 @@ authority and is not implemented by T-281.
 |---|---|---|---|---|---|---|
 | `PublicFunctionDefinition<K>` | function id, version, variant, digest | PRODUCT/requirements; AF-24 publishes | T-281 native definition admission | schema/catalog/SDK/CLI projectors | semantic change creates a new version | hard-break migration retires legacy definitions |
 | `NativeContractDefinition<S>` | native symbol plus schema coordinate and projected schema digest | existing semantic owner | owner admits strict native schema; T-281 binds its exact coordinate | type inference, `v.parse`, digest, and JSON-Schema projection | semantic schema change creates another contract version/digest | prior published contract remains version evidence |
-| `NativeSchemaProjectionWitness` | witness digest over projector basis, source locator, exact compiled source-module/source-basis digests, schema ref/version, projection digest, and named-check rows | derived from an opaque resolved owner source by the shared projector | constructed only by the closed resolver/projector; no raw constructor | M03 private seal and M04 private binding | any owner-module semantics, source, schema, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
+| `NativeSchemaProjectionWitness` | witness digest over projector basis, source locator, schema ref/version, projection digest, and named-check rows | derived from existing semantic owner schema by the shared projector | constructed only from the actual schema; no raw constructor | M03 private seal and M04 private binding | any source, schema, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
 | `PublicInvocation<K>` | invocation and request refs plus definition key | public ingress | common invocation admission | exact outcome/evidence projection | immutable | retained as admitted evidence |
 | `PublicOutcome<K>` | invocation ref plus outcome kind/digest | owning semantic function plus outcome admission | admitted after indexed output validation | SDK/CLI/public projection | corrected evidence creates another outcome/version under owning law | retained as evidence |
 | `InvocationAuthority<K>` | authority-set ref and basis digest | operation admission | assembled only from definition-required authority | runtime/public evidence projection | immutable; changed authority creates another identity | retained as evidence |
@@ -1507,10 +1589,7 @@ Phase A is independently closable and shall:
    `PublicOutcome<K>`, `PublicContractCoordinate`, default, ref, digest, scalar,
    and internal `OutcomeAdmissionFailure` schemas;
 3. prove inferred native types, strict raw admission, canonical schema bytes,
-   and digests all derive from the exact schema retained by an opaque typed
-   fixed-root resolved-source carrier; prove mismatched owner source rows,
-   forged carriers, non-owning paths, unfrozen schemas, and module-cache basis
-   divergence refuse;
+   and digests all derive from the same schema value;
 4. prove `none | literal` default ordering and refusal without a callback,
    derivation, environment, time, filesystem, or adapter source, and prove the
    original seven native-action projector mappings byte-for-byte; later family
@@ -1615,19 +1694,17 @@ public integration before P2. T-268 cannot claim
 
 ## Verdict
 
-`p1_candidate_blocked_pending_phase_a_source_resolution_rereview_and_owner_gaps`
+`p1_candidate_pending_independent_review`
 
 The exact 19-operation target and Prime one-family direction remain accepted.
 This repaired candidate rejects the custom contract algebra, closes the native
 Phase A mechanism and common packet laws, preserves a private P1 and atomic P2
 hard break, and keeps missing operation-owner schemas as honest P1 gaps.
-Independent review rejected the committed Phase A source/witness binding while
-retaining its packet and projector mechanics. The bounded opaque-source and
-compiled-owner-basis repair is implemented but Phase A remains reopened until
-independent re-review. This P1 delta is constructor-ready only as an
+Independent review accepted the Phase A semantic candidate recorded by T-281,
+and Phase A is closed. This P1 delta is constructor-ready only as an
 all-or-nothing resolution process: the current gap census must become empty
-before the private family can admit. GOALS, T-270, and T-272 must first record
-the non-cyclic neutral-contract/runtime-integration milestone split on the same
-basis. The resulting design then requires independent review and explicit
-acceptance before P1 implementation. P2 remains separately gated and
-release-blocking.
+before the private family can admit. GOALS, T-270, and T-272 already record the
+non-cyclic neutral-contract -> P1 -> runtime-integration split on the same
+basis, so that prerequisite is satisfied. The P1 candidate still requires
+independent review and explicit acceptance; its named owner-schema gaps remain
+implementation blockers. P2 remains separately gated and release-blocking.
