@@ -135,6 +135,8 @@
     "test:t270-t272:contracts": "npm run build:host && tsc -p test_env/type_tests/tsconfig.t270-t272-neutral.json && node --test --test-concurrency=1 test_env/tests/test_t270_t272_neutral_owner_contracts.test.mjs",
     "test:t274a": "npm run build:semantic && node --test --test-concurrency=1 test_env/tests/test_t274a*.test.mjs",
     "test:t281:phase-a": "npm run build:host && tsc -p test_env/type_tests/tsconfig.t281.json && node --test --test-concurrency=1 test_env/tests/test_t281_native_contract_phase_a.test.mjs",
+    "test:t281:p1-design-types": "tsc -p test_env/type_tests/tsconfig.t281-p1-design.json",
+    "test:t281:owner-contracts": "npm run build:host && tsc -p test_env/type_tests/tsconfig.t281-owner-slice1.json && tsc -p test_env/type_tests/tsconfig.t281-owner-slice2.json && node --test --test-concurrency=1 test_env/tests/test_t281_p1_owner_contracts_slice1.test.mjs test_env/tests/test_t281_owner_native_operation_contracts.test.mjs",
     "test:t253": "npm run build:semantic && node --test test_env/tests/test_m01_gtl_core_integration.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t191_gtl_diagnostic_law.test.mjs",
     "test:t254": "npm run build:semantic && node --test test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs",
     "test:t255": "npm run build:semantic && tsc -p test_env/type_tests/tsconfig.t255.json && node --test --test-concurrency=1 test_env/tests/test_t255_graph_vector_execution_handoff.test.mjs test_env/tests/test_t254_graph_vector_c_program_selection.test.mjs test_env/tests/test_t265_graph_function_application_compiler.test.mjs",

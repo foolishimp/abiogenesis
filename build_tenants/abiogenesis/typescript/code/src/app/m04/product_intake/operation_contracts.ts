@@ -13,7 +13,6 @@ import {
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   ownerNativeOperationContractGap,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
@@ -43,7 +42,6 @@ const INSTALL_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 } as const);
 const PRODUCT_INTAKE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: PRODUCT_INTAKE_OWNER,
-  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);

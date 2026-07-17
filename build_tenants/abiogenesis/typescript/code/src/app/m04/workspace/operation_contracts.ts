@@ -11,10 +11,7 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
-  ownerNativeOperationContractSource
-} from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH = "code/src/app/m04/workspace/operation_contracts.js";
 const EXPORT_NAME = "WORKSPACE_NATIVE_CONTRACT_SOURCES";
@@ -35,7 +32,6 @@ const OPEN_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 } as const);
 const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: WORKSPACE_OWNER,
-  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);

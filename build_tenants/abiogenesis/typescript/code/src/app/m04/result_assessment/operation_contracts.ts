@@ -10,10 +10,7 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
-  ownerNativeOperationContractSource
-} from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
   "code/src/app/m04/result_assessment/operation_contracts.js";
@@ -34,7 +31,7 @@ export const RESULT_ASSESSMENT_SEMANTIC_TRACE = freezeNativeValue({
   ontologyFunction: {
     ref: "build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-19",
     digest:
-      "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1"
+      "sha256:bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615"
   },
   realizationDesign: {
     ref: "build_tenants/abiogenesis/typescript/design/M04_RESULT_ASSESSMENT_DERIVATION.md",
@@ -45,7 +42,6 @@ export const RESULT_ASSESSMENT_SEMANTIC_TRACE = freezeNativeValue({
 } as const);
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: RESULT_ASSESSMENT_OWNER,
-  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);

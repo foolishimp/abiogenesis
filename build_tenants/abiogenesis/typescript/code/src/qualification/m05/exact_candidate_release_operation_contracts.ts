@@ -13,10 +13,7 @@ import {
 } from "../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../shared/validation/native_named_check_registry.js";
-import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
-  ownerNativeOperationContractSource
-} from "../../shared/validation/owner_native_operation_contract_source.js";
+import { ownerNativeOperationContractSource } from "../../shared/validation/owner_native_operation_contract_source.js";
 
 type ReleaseVariant = "published_rc" | "tapped_release";
 type ReleaseSlot = "request" | "result" | "refusal";
@@ -50,7 +47,6 @@ function releaseSource<
     variant: input.variant,
     slot: input.slot,
     semanticOwnerBasis: RELEASE_SEMANTIC_OWNER_BASIS,
-    contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
     memberPath: ["release_snapshot", input.variant, input.slot] as const,

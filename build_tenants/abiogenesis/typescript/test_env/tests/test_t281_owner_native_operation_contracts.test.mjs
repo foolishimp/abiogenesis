@@ -262,12 +262,7 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
   for (const source of sources) {
     assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
     assert.equal("lawBasis" in source.authority, false);
-    assert.deepEqual(source.authority.contractShapeBasis, {
-      ref: "design://abg/m04/public-operation-definition-family",
-      digest:
-        "sha256:f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b",
-      status: "accepted_design_pin"
-    });
+    assert.equal("contractShapeBasis" in source.authority, false);
     const expectedSemanticBasis = SEMANTIC_OWNER_BASIS_BY_OPERATION.get(
       source.authority.subject.operationId
     );

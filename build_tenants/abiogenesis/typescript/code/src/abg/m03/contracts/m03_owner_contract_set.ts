@@ -1,10 +1,7 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
-  ownerNativeOperationContractSource
-} from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type M03OwnerContractSlot = "request" | "result" | "refusal";
 
@@ -43,7 +40,6 @@ function source<
     variant: input.variant,
     slot: input.slot,
     semanticOwnerBasis: input.semanticOwnerBasis,
-    contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
     modulePath: input.modulePath,
     exportName: input.exportName,
     memberPath: [input.familyKey, input.variant, input.slot] as const,

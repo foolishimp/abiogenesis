@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Phase A accepted; native-key-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Phase A accepted; native-authority-and-type-correlation-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
 
 **Date**: 2026-07-16
 
@@ -14,14 +14,14 @@
 version `abg.public-control-plane.ontology/9`, accepted semantic candidate
 `1ca39b2b5c536be6d16eecfb30d8310e798853232ae7c03f71ac655a7f97bf40`,
 current file digest
-`039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1`
+`bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615`
 
-The prior `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
-basis was rebound after the Ontology recorded completed ratification and the
-corrected GOALS delivery topology. That exact change altered state and delivery
-authority only: the accepted semantic candidate, 27 atomic families, seven
-compositions, 19 public identities, and every operation behavior row are
-unchanged. This rebind therefore carries no semantic delta into this design.
+The prior design basis cited the Ontology file digest
+`039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1`.
+The current file differs from that basis only in the GOALS source-digest row.
+The accepted semantic candidate, 27 atomic families, seven compositions, 19
+public identities, and every operation behavior row are unchanged. This rebind
+therefore carries no semantic delta into this design.
 
 **Ontology acceptance**:
 `.ai-workspace/comments/codex/20260716T055554Z_DECISION_t278_ontology_ratified.md`
@@ -502,12 +502,28 @@ For every operation/variant key `K`, the native definition closes this
 relation without a weak index signature:
 
 ```text
+RequestSchemaOf<K> = exact owner-native request schema indexed by K
+ResultSchemaOf<K> = exact owner-native result schema indexed by K
+RefusalSchemaOf<K> = exact owner-native refusal schema indexed by K
+NonterminalSchemaOf<K> = exact owner-native non-terminal schema indexed by K | null
+
+RequestOf<K> = v.InferOutput<RequestSchemaOf<K>>
+ResultOf<K> = v.InferOutput<ResultSchemaOf<K>>
+RefusalOf<K> = v.InferOutput<RefusalSchemaOf<K>>
+NonterminalOf<K> =
+  NonterminalSchemaOf<K> extends infer S extends v.GenericSchema
+    ? v.InferOutput<S>
+    : never
+
 PublicFunctionDefinition<K> = {
   functionId, version, variant,
-  requestContract: OwnerNativeContractBinding<RequestOf<K>>,
-  resultContract: OwnerNativeContractBinding<ResultOf<K>>,
-  refusalContract: OwnerNativeContractBinding<RefusalOf<K>>,
-  nonTerminalContract: OwnerNativeContractBinding<NonterminalOf<K>> | null,
+  requestContract: OwnerNativeContractBinding<RequestSchemaOf<K>>,
+  resultContract: OwnerNativeContractBinding<ResultSchemaOf<K>>,
+  refusalContract: OwnerNativeContractBinding<RefusalSchemaOf<K>>,
+  nonTerminalContract:
+    NonterminalSchemaOf<K> extends infer S extends v.GenericSchema
+      ? OwnerNativeContractBinding<S>
+      : null,
   semanticAuthorityRef, authorityClass, effectClass, eventAdmission,
   authoritySlotRequirements, capabilityRefs,
   workspaceBindingRequirement,
@@ -516,7 +532,7 @@ PublicFunctionDefinition<K> = {
   sdkCoordinate, cliCoordinate, adapterExitMap
 }
 
-OwnerNativeContractBinding<S> = {
+OwnerNativeContractBinding<S extends v.GenericSchema> = {
   ownerAuthorityRef,
   ownerAuthorityDigest,
   contractShapeBasisRef,
@@ -539,15 +555,16 @@ a metadata claim.
 Closed value-domain rows required by publication derive from these schemas;
 the definition does not author a parallel domain roster.
 
-Every owner-native source carries two non-interchangeable bases. The
-`ownerAuthorityRef` and digest identify the owning requirement or owner-local
-design that supplies payload meaning. The `contractShapeBasisRef` and digest
-identify this accepted cross-boundary design, which fixes how that meaning is
-addressed as one public request, result, refusal, or non-terminal slot. T-281
-may derive the common authority/identity/version/locator envelope from those
-inputs, but it cannot appear in the owner-authority fields. A gap uses the
-actual owner authority when known and `null` when it is not yet admitted; it
-never substitutes the contract-shape basis as semantic authority.
+Every neutral owner-native source carries only the `ownerAuthorityRef` and
+digest that identify the owning requirement or owner-local design supplying
+payload meaning. It does not receive, define, duplicate, or import the T-281
+contract-shape basis. After exact source resolution, the M04 P1 join composes
+the independently accepted T-281 `contractShapeBasisRef` and digest with that
+source to form `OwnerNativeContractBinding<S>`. T-281 may derive the common
+authority/identity/version/locator envelope, but its contract-shape basis
+cannot appear in neutral owner-authority fields. A gap uses the actual owner
+authority when known and `null` when it is not yet admitted; it never
+substitutes the contract-shape basis as semantic authority.
 
 The definition family is one strict object keyed by the exact 19 operation
 identities; each value is a strict object keyed by that operation's closed
@@ -571,7 +588,7 @@ addressable. Their multiplicity is output addressability, not authored truth.
 ## Native Contract Definition And Projection
 
 ```text
-NativeContractDefinition<S extends v.BaseSchema> = {
+NativeContractDefinition<S extends v.GenericSchema> = {
   nativeSymbol,
   schemaCoordinate,
   schema: S,
@@ -801,7 +818,7 @@ RefusalOutcome<K> = CommonOutcome<K> & {
 NonTerminalOutcome<K> = CommonOutcome<K> & {
   outcomeKind: "nonterminal",
   payloadContract: NonTerminalContractOf<K>,
-  value: NonTerminalOf<K>
+  value: NonterminalOf<K>
 }
 ```
 
@@ -846,7 +863,6 @@ They identify one actual source module export and an exact member path:
 NeutralOwnerContractSource<S> = {
   ownerIdentity: { owner, subject }
   semanticOwnerBasis: { ref, digest }
-  contractShapeBasis: { ref, digest }
   sourceLocator: {
     kind: "private_source_module"
     sourceRoot: "semantic_build"
@@ -863,14 +879,16 @@ path as owner-neutral source coordinates. The neutral shared envelope
 constructor derives `carrierRevision`, contract and schema identities and
 versions, authority subject, and the final source locator from those inputs.
 It contains no M03, M04, M05, operation, or consumer default.
-`semanticOwnerBasis` is the sole payload-law basis. `contractShapeBasis` is the
-accepted T-281 cross-boundary addressing basis. Neither can populate or
-substitute for the other, and an owner module cannot author any derived
-envelope field locally.
+`semanticOwnerBasis` is the sole payload-law basis and the sole authority basis
+on this neutral carrier. An owner module cannot author any derived envelope
+field or any T-281 contract-shape basis locally. M03 and M05 therefore neither
+receive nor import the M04 P1 contract-shape basis.
 
 P1 directly imports that source module, proves that `memberPath` resolves to
 the same frozen source, and only then constructs a private
-`NativeContractDefinition<S>`. The Phase A locator vocabulary distinguishes
+`NativeContractDefinition<S>` and composes the independently accepted T-281
+contract-shape basis at the M04 resolution join. The Phase A locator vocabulary
+distinguishes
 `private_source_module { kind, sourceRoot, modulePath, exportName, memberPath[] }`
 from
 `public_package_export { kind, packageName, packageExport, exportName }`. A
@@ -934,14 +952,18 @@ PublicFunctionDefinitionFamily = {
 
 P1ContractSlot = request | result | refusal | nonterminal
 
-P1ContractSlotCoordinate<K> = {
+P1ContractSlotCoordinate<K, Slot extends P1ContractSlot> = {
   definitionKey: K
-  slot: P1ContractSlot
+  slot: Slot
 }
 
-P1ResolvedContractSlot<K, S> = {
+P1ResolvedContractSlot<
+  K,
+  Slot extends P1ContractSlot,
+  S extends v.GenericSchema
+> = {
   kind: "owner_contract_slot_resolved"
-  coordinate: P1ContractSlotCoordinate<K>
+  coordinate: P1ContractSlotCoordinate<K, Slot>
   ownerAuthorityRef: Ref
   ownerAuthorityDigest: Digest
   contractShapeBasisRef: Ref
@@ -949,10 +971,10 @@ P1ResolvedContractSlot<K, S> = {
   contract: NativeContractDefinition<S>
 }
 
-P1MissingContractSlot<K> = {
+P1MissingContractSlot<K, Slot extends P1ContractSlot> = {
   kind: "semantic_not_realized"
   gapCode: P1DefinitionGapCode
-  coordinate: P1ContractSlotCoordinate<K>
+  coordinate: P1ContractSlotCoordinate<K, Slot>
   ownerAuthorityRef: Ref | null
   ownerAuthorityDigest: Digest | null
   ownerTicket: TicketRef | null
@@ -960,21 +982,27 @@ P1MissingContractSlot<K> = {
   evidenceRefs: NonEmptyUnique<Ref>
 }
 
+P1MissingContractSlotRow<K> = {
+  [Slot in P1ContractSlot]: P1MissingContractSlot<K, Slot>
+}[P1ContractSlot]
+
 P1ResolvedOwnerContract<K> = {
       kind: "owner_contract_resolved"
       definitionKey: K
-      request: P1ResolvedContractSlot<K, RequestOf<K>>
-      result: P1ResolvedContractSlot<K, ResultOf<K>>
-      refusal: P1ResolvedContractSlot<K, RefusalOf<K>>
+      request: P1ResolvedContractSlot<K, "request", RequestSchemaOf<K>>
+      result: P1ResolvedContractSlot<K, "result", ResultSchemaOf<K>>
+      refusal: P1ResolvedContractSlot<K, "refusal", RefusalSchemaOf<K>>
       nonterminal:
-        | P1ResolvedContractSlot<K, NonterminalOf<K>>
-        | { kind: "nonterminal_not_declared"; coordinate: P1ContractSlotCoordinate<K> }
+        NonterminalSchemaOf<K> extends infer S extends v.GenericSchema
+          ? P1ResolvedContractSlot<K, "nonterminal", S>
+          : { kind: "nonterminal_not_declared";
+              coordinate: P1ContractSlotCoordinate<K, "nonterminal"> }
     }
 
 P1DefinitionGap<K> = {
       kind: "definition_contract_gap"
       definitionKey: K
-      missingSlots: NonEmptyUnique<P1MissingContractSlot<K>>
+      missingSlots: NonEmptyUnique<P1MissingContractSlotRow<K>>
     }
 
 P1OwnerContractResolution<K> =
@@ -1054,6 +1082,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 | workspace behavior | `code/src/app/m04/workspace/operations.ts` | Existing semantic owner; target-native contract slots must resolve independently. |
 | product intake behavior | `code/src/app/m04/product_intake/verify.ts`, `resolve.ts`, `install.ts` | Existing semantic owners; no shared mega-handler or copied admitter. |
 | workspace binding | `code/src/app/m04/toolchain_binding/bind.ts` | Existing semantic owner; P1 requires the accepted stable-binding contract rather than legacy mutable-root fields. |
+| One Surface neutral owner schemas | `code/src/abg/m03/contracts/one_surface_operation_contracts.ts` | Existing T-270/T-272 schema evidence uses a separate local envelope and `lawBasis`. It is not admitted as a second neutral constructor. Before P1 can resolve `run.invoke`, `run.continue`, or `interaction.respond`, the accepted neutral owner projection must conserve the same semantic basis, locator, and schema through the shared neutral carrier. This design repair does not migrate runtime code. |
 | catalog and runtime behavior | `code/src/abg/m03/contracts/runtime_catalog.ts`, `code/src/abg/m03/runner/catalog_invocation.ts`, `fh_interaction.ts` | Semantic evidence only. T-270/T-272 later consume neutral admitted projections; M03 never imports the private M04 family. |
 | result and authoring behavior | `code/src/app/m04/result_assessment/carriers.ts`, `code/src/abg/m03/runner/runtime_authoring_routes.ts` | Existing owner carriers; an interface without an exact native schema remains a P1 gap. |
 | conformance behavior | `code/src/abg/m03/contracts/gtl_program_conformance.ts` | Existing semantic owner; P1 may compose only an exact native owner schema. |
@@ -1098,6 +1127,16 @@ P1 only reruns exact resolution and composes accepted inputs. It cannot author
 an owner payload schema or produce `exact_family_admitted` until the gap set is
 empty.
 
+`p1_contract_one_surface_owner_projection_not_realized` is an explicit
+pre-slot constructability and contraction gap over `run.invoke`,
+`run.continue`, and `interaction.respond`. Their local neutral carrier is
+semantic source evidence, but its bespoke envelope and `lawBasis` cannot become
+a second permanent owner-source authority. The gap closes only when the
+accepted neutral owner projection conserves the same semantic basis, locator,
+and schema through the shared carrier. Until then, the affected definition
+slots retain their existing typed gaps. This repair neither migrates those
+owners nor begins runtime integration.
+
 GOALS, T-270, and T-272 now record the required same-basis split. A gap-bearing
 `run.invoke`, `run.continue`, or `interaction.respond` definition still cannot
 enter the private family; their neutral owner-native contracts are P1 inputs,
@@ -1126,7 +1165,7 @@ The source delta is scoped to what T-281 can own:
 | Authority/source class | Before P1 | After P1 | Disposition |
 |---|---:|---:|---|
 | Phase A private native mechanism | 1 | 1 | retain |
-| neutral owner-source envelope constructor | 0 | 1 | add one subordinate shared constructor; derive authority subject, contract/schema identity, version, and final schema locator from owner inputs |
+| accepted neutral owner-source envelope constructor | 0 | 1 | add one subordinate shared constructor; derive authority subject, contract/schema identity, version, and final schema locator from owner inputs; bespoke evidence envelopes remain unadmitted until conserved through this carrier |
 | owner-native payload schema sources | `N` incomplete | same accepted `N` | retain and compose; each owner milestone owns any required addition or repair |
 | private operation-indexed definition family | 0 | 1 | add exactly one T-281 authority |
 | T-281-authored independent schema/catalog/SDK/CLI/handler/parity rosters | 0 | 0 | forbidden |
@@ -1141,10 +1180,12 @@ sources.
 
 The neutral owner-source constructor owns no semantic row or registry. Each
 owner supplies only its owner identity, semantic-owner basis, operation and
-variant, slot, module/export/member location, exact schema, and the accepted
-contract-shape basis. The constructor derives the repeated carrier revision,
-contract/schema IDs and versions, authority subject, and locator terminator.
-Owner modules must not reconstruct that envelope locally.
+variant, slot, module/export/member location, and exact schema. The constructor
+derives the repeated carrier revision, contract/schema IDs and versions,
+authority subject, and locator terminator. Owner modules must not reconstruct
+that envelope locally and must not receive or import the M04 contract-shape
+basis. The M04 P1 resolver composes the independently accepted T-281 basis only
+after it proves the exact source locator and schema identity.
 
 ### Module Direction Fence
 
@@ -1616,7 +1657,7 @@ retain distinct behavior owners.
 | GTL program is program; GraphFunction is callable member | PRODUCT, T-278, T-270 | run.invoke definition cites semantic owner only | P1 sequence never invokes by metadata | `P1Ready` is not runtime state | owner-native run.invoke types required | T-270 later owns program membership admission | target passes; P1 blocked | `p1_contract_run_invoke_not_realized` |
 | Prime contract authority | ADR-044 | one definition family; projections subordinate | single projector | no second authored state | `satisfies` and closed mapped types | Prime and parity gates | pass | none |
 | Native/schema one-source law | REQ-P-PUBLIC-CONTRACTS-005 | one strict Valibot schema is directly consumed | infer parse project digest | unsupported schema or override refuses | `v.InferOutput<S>` | `v.parse` and pinned JSON-Schema projection share source | pass as Phase A design | T-281 Phase A proof |
-| Operation-indexed type conservation | REQ-P-PUBLIC-CONTRACTS-009..010 | nested operation/member family derives a distributive key union; every contract slot remains keyed by one member K | exact owner-slot resolution precedes family admission | cross-operation variant, cross-key slot, or missing slot refuses P1 | nested string-literal mapped types plus distributive discriminated row unions; no object-valued property key or weak index | exact-set admission over readonly structural rows | pass as repaired P1 design | owner-native gap set |
+| Operation-indexed type conservation | REQ-P-PUBLIC-CONTRACTS-009..010 | nested operation/member family derives a distributive key union; every contract slot remains keyed by one member K | exact owner-slot resolution precedes family admission | cross-operation variant, cross-key slot, same-key slot permutation, schema/value substitution, or missing slot refuses P1 | separate `*SchemaOf<K>` and inferred `*Of<K>` aliases; literal-slot coordinates; nested string-literal mapped types plus distributive discriminated row unions; no object-valued property key or weak index | strict positive/negative TypeScript witness plus exact-set admission over readonly structural rows | pass as repaired P1 design | owner-native gap set |
 | No metadata mega-handler | PRODUCT layer law | separate semantic owner and no P1 handler | P1 contains no effect call | metadata has no running state | handler types excluded from P1 | import/source scan rejects dispatch | pass as P1 design | P2 proof remains separate |
 | Malformed likely inputs fail closed | trusted-desktop operating boundary | definition binds exact owner-schema coordinates | refuse before effect | explicit refusal states | native constructors and raw admitters | schema and projection parity | pass | none |
 | Malformed likely outputs fail closed | F_P/output admission law | PublicOutcome remains distinct | excluded from P1 runtime | no P1 outcome state | indexed result/refusal bindings | Phase A proof accepted; runtime proof later | target only | handler owners |
@@ -1652,8 +1693,10 @@ Phase A stops after that mechanism proof. It does not author the 19-row family.
 P1 then shall:
 
 1. resolve each accepted operation request/result/refusal/non-terminal slot
-   from its owning exact native schema; emit a typed `semantic_not_realized`
-   row where authority does not close exact fields;
+   from its semantic-authority-only neutral owner source, then compose the
+   independently accepted T-281 contract-shape basis at the M04 join; emit a
+   typed `semantic_not_realized` row where authority does not close exact
+   fields;
 2. refuse family construction when the typed gap set is non-empty, and never
    substitute prose, a legacy interface/admitter, or generated JSON Schema;
 3. define one closed object keyed by the exact 19 operation identities only
@@ -1667,9 +1710,10 @@ P1 then shall:
    neutral owner result schemas; include the `ticket_consensus` result only
    after T-274A proves a Phase-A-compatible coordinate, otherwise retain its
    typed gap;
-6. reject missing, extra, cross-key, binding, coordinate, owner-schema,
-   duplicate, legacy-contribution, projection-digest, and M03-to-M04 import
-   mismatches; and
+6. reject missing, extra, cross-key, literal-slot permutation, schema/value,
+   binding, coordinate, owner-schema, duplicate, legacy-contribution,
+   projection-digest, and M03-to-M04 import mismatches; prove the positive and
+   negative type relations with `test:t281:p1-design-types`; and
 7. retain the admitted family and projections as private candidate truth for
    the later P2 atomic switch.
 
@@ -1701,6 +1745,10 @@ public integration before P2. T-268 cannot claim
   both refuse;
 - request, result, or refusal substitution across operation/variant keys
   refuses;
+- an inferred `RequestOf<K>`, `ResultOf<K>`, `RefusalOf<K>`, or
+  `NonterminalOf<K>` value cannot instantiate a schema-bound contract;
+- a same-key request/result/refusal/non-terminal slot permutation fails the
+  literal-slot coordinate type before exact-set admission;
 - a definition key pairing one operation with another operation's member, or a
   resolved/gap row carrying a slot for another definition key, refuses;
 - raw F_P output cannot substitute for an admitted `run.invoke` result or

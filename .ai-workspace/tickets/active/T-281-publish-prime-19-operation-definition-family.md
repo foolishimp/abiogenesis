@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: phase_a_closed_p1_native_key_repair_candidate_complete
-- review_status: phase_a_accepted_p1_native_key_repair_pending_independent_rereview
-- proof_status: phase_a_accepted_p1_native_key_repair_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
+- phase_status: phase_a_closed_p1_native_authority_and_type_correlation_repair_candidate_complete
+- review_status: phase_a_accepted_p1_native_authority_and_type_correlation_repair_pending_independent_rereview
+- proof_status: phase_a_accepted_p1_native_authority_and_type_correlation_repair_typescript_mermaid_prime_governance_and_census_green_owner_schema_gaps_explicit_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -121,9 +121,15 @@
 - p1_exact_candidate_disposition: rejected_native_definition_key_constructability
 - p1_native_key_repair_candidate_digest: >-
     3cf2bfb274c27d553d9863353af2e8b3c4d177311042b7e9dd324b9f51e45d18
+- p1_native_key_repair_candidate_disposition: rejected_native_authority_and_type_correlation
 - p1_native_key_repair_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T002627Z_SELF_REVIEW_t281_native_definition_key_repair.md
+- p1_native_authority_and_type_correlation_repair_candidate_digest: >-
+    83de4ec5419c279ec09bd6e08bf3c67ef04a8b382b252947dccbe6b626e02a04
+- p1_native_authority_and_type_correlation_repair_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T011752Z_SELF_REVIEW_t281_native_authority_type_correlation_repair.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -336,10 +342,29 @@ PublicFunctionDefinitionFamily = {
 
 DefinitionKey = distributive values of the nested family relation
 
-P1ContractSlotResolution<K, S> =
-  owner_contract_slot_resolved<K, S, ownerAuthorityRef, ownerAuthorityDigest>
-  | semantic_not_realized<K, slot, ownerAuthorityOrNull, ownerTicketOrNull,
-      ownerDesignOrNull, evidenceRefs>
+RequestSchemaOf<K> = exact owner-native request schema indexed by K
+ResultSchemaOf<K> = exact owner-native result schema indexed by K
+RefusalSchemaOf<K> = exact owner-native refusal schema indexed by K
+NonterminalSchemaOf<K> = exact owner-native non-terminal schema indexed by K | null
+
+RequestOf<K> = InferOutput<RequestSchemaOf<K>>
+ResultOf<K> = InferOutput<ResultSchemaOf<K>>
+RefusalOf<K> = InferOutput<RefusalSchemaOf<K>>
+NonterminalOf<K> =
+  NonterminalSchemaOf<K> extends infer S extends GenericSchema
+    ? InferOutput<S>
+    : never
+
+P1ContractSlotCoordinate<K, Slot> = { definitionKey: K, slot: Slot }
+
+P1ResolvedContractSlot<K, Slot, S extends GenericSchema> =
+  owner_contract_slot_resolved<K, Slot, S,
+    ownerAuthorityRef, ownerAuthorityDigest,
+    acceptedContractShapeBasisRef, acceptedContractShapeBasisDigest>
+
+P1MissingContractSlot<K, Slot> =
+  semantic_not_realized<K, Slot, ownerAuthorityOrNull, ownerTicketOrNull,
+    ownerDesignOrNull, evidenceRefs>
 
 P1OwnerContractResolution<K> =
   owner_contract_resolved<K, ReqSlot, ResSlot, RefSlot, NonterminalSlotOrAbsent>
@@ -366,7 +391,11 @@ registry, or second roster is allowed. This preserves the operation/member and
 outer-row/slot correlation in native TypeScript before the semantic exact-set
 gate proves 35/27/62 coverage.
 
-Each slot preserves its own semantic owner authority and evidence. A
+Each neutral owner source carries only its semantic-owner identity/basis,
+locator, and exact schema. M03 and M05 do not receive, define, duplicate, or
+import the M04 contract-shape basis. After exact source resolution, the M04 P1
+join composes the independently accepted T-281 basis into a slot whose literal
+request/result/refusal/non-terminal coordinate is preserved by its type. A
 `project.read` wrapper and its case-specific result rows therefore need not
 pretend to share one owner. The missing member is typed build evidence and
 terminates the current pass. It cannot become a definition, public refusal,
@@ -387,6 +416,12 @@ The constructability review found these named blocking owner relations:
 - `p1_contract_run_invoke_not_realized`;
 - `p1_contract_run_continue_not_realized` and
   `p1_contract_interaction_respond_not_realized`;
+- `p1_contract_one_surface_owner_projection_not_realized`: the existing
+  T-270/T-272 local neutral carrier is semantic schema evidence, but its
+  bespoke envelope and `lawBasis` are not admitted as a second permanent
+  owner-source constructor; the accepted neutral owner projection must
+  conserve the same semantic basis, locator, and schema through the shared
+  carrier before these slots resolve;
 - `p1_contract_result_assess_not_realized`, `p1_contract_witness_not_realized`,
   `p1_contract_tuning_not_realized`, and
   `p1_contract_conformance_not_realized`;
@@ -412,10 +447,12 @@ payload schema authorities remain distinct; T-281 composes them and authors
 none. T-281 adds no new semantic, public, handler, catalog, SDK, or CLI
 authority. All P1 projections are temporary derived outputs. M03 is prohibited
 from importing the private M04 family or projection path; T-270/T-272 consume
-neutral admitted projections instead.
+neutral admitted projections instead. This bounded design repair records the
+One Surface owner-projection gap and does not migrate T-270/T-272 runtime code.
 
-The native-key-repaired P1 candidate remains pending independent re-review. Its owner-schema gaps are
-implementation blockers and must close before the all-or-nothing private
-family can admit; the already-recorded milestone split is not a blocker. P2
-remains fenced behind completed P1, T-274B, T-275, and the remaining handler
-owners.
+The native-authority-and-type-correlation-repaired P1 candidate remains
+pending independent re-review. Its owner-schema gaps are implementation
+blockers and must close before the all-or-nothing private family can admit; the
+already-recorded milestone split is not a blocker. P1 implementation is not
+authorized by this repair. P2 remains fenced behind completed P1, T-274B,
+T-275, and the remaining handler owners.

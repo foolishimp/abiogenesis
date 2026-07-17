@@ -9,7 +9,6 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   ownerNativeOperationContractGap,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
@@ -36,7 +35,6 @@ const OWNER_DESIGN_REF =
   "build_tenants/abiogenesis/typescript/design/M04_INSTALL_BOOTSTRAP_DERIVATION.md";
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: INSTALL_BOOTSTRAP_OWNER,
-  contractShapeBasis: OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS,
   modulePath: MODULE_PATH,
   exportName: EXPORT_NAME
 } as const);

@@ -16,18 +16,6 @@ export interface OwnerNativeAuthorityBasis {
   readonly digest: Sha256Digest;
 }
 
-export interface OwnerNativeContractShapeBasis
-  extends OwnerNativeAuthorityBasis {
-  readonly status: "accepted_design_pin";
-}
-
-export const OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS = freezeNativeValue({
-  ref: "design://abg/m04/public-operation-definition-family",
-  digest:
-    "sha256:f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b",
-  status: "accepted_design_pin"
-} as const satisfies OwnerNativeContractShapeBasis);
-
 export interface OwnerNativeSemanticOwner {
   readonly product: "abiogenesis";
   readonly module: string;
@@ -49,7 +37,6 @@ export interface OwnerNativeOperationContractAuthority<
   };
   readonly carrierRevision: "5.0.0";
   readonly semanticOwnerBasis: OwnerNativeAuthorityBasis;
-  readonly contractShapeBasis: OwnerNativeContractShapeBasis;
 }
 
 export interface OwnerNativeOperationContractIdentity {
@@ -140,7 +127,6 @@ export function ownerNativeOperationContractSource<
   readonly variant: Variant;
   readonly slot: Slot;
   readonly semanticOwnerBasis: OwnerNativeAuthorityBasis;
-  readonly contractShapeBasis: OwnerNativeContractShapeBasis;
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
   readonly memberPath: MemberPath;
@@ -167,8 +153,7 @@ export function ownerNativeOperationContractSource<
         slot: input.slot
       },
       carrierRevision: "5.0.0",
-      semanticOwnerBasis: input.semanticOwnerBasis,
-      contractShapeBasis: input.contractShapeBasis
+      semanticOwnerBasis: input.semanticOwnerBasis
     },
     identity: {
       contractId: `abg.contract.operation.${suffix}`,

@@ -24,21 +24,12 @@ import {
   WORKSPACE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/workspace/operation_contracts.js";
 import {
-  deriveCanonicalNativeSchemaProjection
+  deriveCanonicalNativeSchemaProjection,
+  resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
-import {
-  OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS
-} from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
-const CONTRACT_SHAPE_DIGEST =
-  "sha256:f4228920cbf91152be569604e9fa7586903feb7b92ef81b456457a3ea2252c8b";
 const ONTOLOGY_DIGEST =
-  "sha256:039c19d3b6639ebc0357b40d8f12a6e8340e55ba0f8ef2f41c1e8cab914f53f1";
-const OPAQUE_RESOLVER_INTEGRATION = Object.freeze({
-  status: "pending_projector_repair_integration",
-  constraint: "consume_shared_opaque_resolver_without_local_copy"
-});
-
+  "sha256:bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615";
 const D = "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
 
 const resolvedSources = [
@@ -134,18 +125,7 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
 
   for (const source of resolvedSources) {
     assert.equal(source.kind, "owner_native_operation_contract_source");
-    assert.equal(
-      source.authority.contractShapeBasis.digest,
-      CONTRACT_SHAPE_DIGEST
-    );
-    assert.equal(
-      source.authority.contractShapeBasis,
-      OWNER_NATIVE_OPERATION_CONTRACT_SHAPE_BASIS
-    );
-    assert.equal(
-      source.authority.contractShapeBasis.status,
-      "accepted_design_pin"
-    );
+    assert.equal("contractShapeBasis" in source.authority, false);
     assert.notEqual(
       source.authority.semanticOwnerBasis.ref,
       "design://abg/m04/public-operation-definition-family"
@@ -184,23 +164,19 @@ test("T-281 Slice 1 exposes exact frozen owner sources and honest gaps", () => {
   }
 });
 
-test("T-281 Slice 1 locators await the shared opaque resolver port", () => {
+test("T-281 Slice 1 locators are eligible for shared opaque resolution", () => {
   for (const source of resolvedSources) {
     assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
   }
-  assert.deepEqual(OPAQUE_RESOLVER_INTEGRATION, {
-    status: "pending_projector_repair_integration",
-    constraint: "consume_shared_opaque_resolver_without_local_copy"
-  });
 });
 
-test("T-281 Slice 1 resolved sources are canonically projectable", () => {
+test("T-281 Slice 1 resolved sources are canonically projectable", async () => {
   for (const source of resolvedSources) {
+    const resolvedSource = await resolveSemanticBuildNativeSchemaSource(source);
     const projection = deriveCanonicalNativeSchemaProjection({
-      schema: source.schema,
+      source: resolvedSource,
       schemaRef: source.identity.schemaId,
       schemaVersion: source.identity.schemaVersion,
-      sourceLocator: source.sourceLocator,
       ...(source.authority.owner.family === "product_intake"
         ? { namedCheckRegistry: PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY }
         : source.authority.owner.family === "workspace"
@@ -603,13 +579,9 @@ test("T-281 Slice 1 materialization preserves exact unresolved slots", () => {
   }));
 });
 
-test("T-281 Slice 1 preserves Ontology and binds the accepted contract shape", async () => {
-  const design = await readFile(
-    new URL("../../design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md", import.meta.url)
-  );
+test("T-281 Slice 1 preserves the current Ontology basis", async () => {
   const ontology = await readFile(
     new URL("../../design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md", import.meta.url)
   );
-  assert.notEqual(sha256(design), CONTRACT_SHAPE_DIGEST);
   assert.equal(sha256(ontology), ONTOLOGY_DIGEST);
 });

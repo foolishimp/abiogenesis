@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "../../code/src/node_shims.d.ts",
+    "./t281_p1_definition_family_design_types.ts"
+  ]
+}
