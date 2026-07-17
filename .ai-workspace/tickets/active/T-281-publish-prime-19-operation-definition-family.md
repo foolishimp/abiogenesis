@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_owner_registry_closed_27_project_read_results_in_parallel_realization
-- review_status: p1_owner_schema_registry_correlation_implementation_independently_accepted
-- proof_status: p1_35_non_read_keys_115_slots_plus_54_project_read_request_refusal_slots_exact_27_results_and_central_family_pending_p2_fenced
+- phase_status: p1_central_join_implementation_authorized
+- review_status: p1_central_join_exact_digest_independently_accepted
+- proof_status: p1_35_non_read_keys_115_slots_plus_54_project_read_request_refusal_and_27_projection_sources_complete_design_accepted_executable_relations_wrapped_results_exact_metadata_and_family_admission_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -38,7 +38,7 @@
   - REQ-P-PUBLIC-CONTRACTS-008 through 010
   - completed T-277 Prime contraction law
 - downstream_dependencies:
-  - independently accepted T-274A supplies the Phase-A-compatible neutral ticket_consensus result coordinate; T-281 still owns the generic project.read request/refusal wrapper and absent nonterminal truth
+  - independently accepted T-274A supplies the Phase-A-compatible neutral ticket_consensus projection source; T-281 still owns the generic project.read request/refusal/result wrapper, projection-basis seal, and absent nonterminal truth
   - T-270 neutral owner-native run.invoke contract milestone precedes P1; its public runtime integration follows P1
   - T-272 neutral owner-native run.continue and interaction.respond contract milestone precedes P1; its continuation integration follows P1
   - T-274B consumes the admitted P1 contract coordinates for public publication
@@ -67,6 +67,9 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T112900Z_DECISION_fh_accept_t281_p1_central_join.md
 - pre_implementation_audit_design_digest: >-
     2b5153aedb06dc5c814bf356de45b1ec5bc3b91a766d107002d0f2b3176e6f6e
 - independently_reviewed_candidate_digest: >-
@@ -168,6 +171,16 @@
 - p1_installed_governor_checkpoint_ref: >-
     .ai-workspace/comments/codex/
     20260717T061159Z_CHECKPOINT_t276_governor_t281_registry_link.md
+- p1_project_read_projection_source_commit: 86193832
+- accepted_p1_deeper_constructability_repair_candidate_digest: >-
+    18d9bcc559d973daac355ad768b1cf5eb8ffb7f9dcd3cd6d2c60c95e5bea1801
+- superseded_direction_fence_candidate_digest: >-
+    2cfb00aea1e34b442bae28478dc238951b1ee15383be99aa376ef64ce478809d
+- superseded_p1_central_join_design_digest: >-
+    20d46eabe1168e5ad4ca48374218188dba1c9218dea8de5e5b90b5e992ab4f2f
+- p1_central_join_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T112900Z_DECISION_fh_accept_t281_p1_central_join.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -218,11 +231,13 @@ the one family. T-281 adds no semantic handler, owner-payload schema, public
 schema, catalog publication, SDK/CLI implementation, package export, or public
 authority.
 
-The accepted owner-registry implementation makes relational admission part of
-the same owner module and source digest as its schema. The remaining 27
-`project.read` result coordinates are now partitioned among their existing
-semantic owners. Their leaf realization cannot admit or publish a partial P1
-family; the central all-or-nothing constructor follows the exact census.
+The accepted owner-registry implementation makes schema-local relational
+admission part of the same owner module and source digest as its schema. The 27
+`project.read` projection sources are partitioned among their existing semantic
+owners. Because schema-local checks cannot observe the admitted request, each
+owner also supplies one same-module typed request-to-projection relation through
+ten Prime family constructors. Central T-281 composes the generic result wrapper
+and sole contract-shape basis. No leaf can admit or publish a partial P1 family.
 
 ## Hard Break
 
@@ -250,11 +265,12 @@ family; the central all-or-nothing constructor follows the exact census.
    candidate catalog rows, SDK/CLI coordinate inventories, and parity evidence.
 5. Fail definition and projection generation on duplicate, missing, extra,
    malformed, unsupported, prose-only, or legacy-contributed rows.
-6. Consume the independently accepted T-274A neutral `ticket_consensus` result
-   coordinate through Phase A's closed projector. T-281 owns the generic
-   `project.read` request/refusal wrapper and explicit absent non-terminal
-   truth. The case remains a typed gap until that T-281 relation lands. It does
-   not wait for T-275 handler truth.
+6. Consume the independently accepted T-274A neutral `ticket_consensus`
+   projection coordinate through Phase A's closed projector. T-281 owns the
+   generic `project.read` request/refusal/result wrapper, projection-basis seal,
+   and explicit absent non-terminal truth. The case remains a typed gap until
+   its same-owner request-to-projection relation and central wrapped result land.
+   It does not wait for T-275 handler truth.
 7. Split the existing T-270/T-272 milestones: their neutral owner-native
    contract schemas precede P1; their public runtime integration follows P1
    and consumes neutral admitted projections rather than importing M04.
@@ -270,6 +286,8 @@ family; the central all-or-nothing constructor follows the exact census.
    or `exactly_one`; no optional binding carrier exists.
 3. Request, result, refusal, authority, effect, schema, SDK, CLI, and adapter
    coordinates are complete and uniquely derived from one definition family.
+   Every definition and the nested family have canonical digest projections;
+   raw schema objects and relation functions are never hashed directly.
 4. Malformed definitions and malformed invocations fail before semantic work;
    malformed handler output fails before public outcome admission.
 5. A non-Consensus `workspace.create(clean)` fixture proves the generic family.
@@ -387,7 +405,8 @@ PublicFunctionDefinitionFamily = {
 DefinitionKey = distributive values of the nested family relation
 
 RequestSchemaOf<K> = exact owner-native request schema indexed by K
-ResultSchemaOf<K> = exact owner-native result schema indexed by K
+ResultSchemaOf<K> = exact owner-native result schema for non-read K;
+  generic T-281 wrapper over the exact owner projection schema for project.read K
 RefusalSchemaOf<K> = exact owner-native refusal schema indexed by K
 NonterminalSchemaOf<K> = exact owner-native non-terminal schema indexed by K | null
 
@@ -412,7 +431,7 @@ P1MissingContractSlot<K, Slot> =
 
 P1OwnerContractResolution<K> =
   owner_contract_resolved<K, ReqSlot, ResSlot, RefSlot, NonterminalSlotOrAbsent>
-  | definition_contract_gap<K, NonEmptyUnique<MissingSlotRow>>
+  | definition_family_input_gap<K, NonEmptyUnique<MissingSlotOrMetadataRow>>
 
 P1ResolvedOwnerContractRow<K = DefinitionKey> =
   K distributes to owner_contract_resolved<K, ...>
@@ -420,6 +439,12 @@ P1ResolvedOwnerContractRow<K = DefinitionKey> =
 P1DefinitionGapRow<K = DefinitionKey> =
   K distributes to definition_contract_gap<K, ...>
 ```
+
+Every resolved definition also carries exact closed metadata for all eight
+invocation-authority slots. The structural key, four contract-slot projections,
+metadata, owner/relation witnesses, and explicit non-terminal absence form the
+canonical definition-digest projection. The nested operation/member map of
+definition digests forms the sole family-digest projection.
 
 The closed constructor census is 19 public operation identities, 35
 non-`project.read` variant keys, 27 `project.read` case keys, and 62 total
@@ -438,10 +463,12 @@ gate proves 35/27/62 coverage.
 Each neutral owner source carries only its semantic-owner identity/basis,
 locator, and exact schema. M03 and M05 do not receive, define, duplicate, or
 import the M04 contract-shape basis. After exact source resolution, the M04 P1
-join composes the independently accepted T-281 basis into a slot whose literal
-request/result/refusal/non-terminal coordinate is preserved by its type. A
-`project.read` wrapper and its case-specific result rows therefore need not
-pretend to share one owner. The missing member is typed build evidence and
+join alone composes the independently accepted T-281 basis into a slot whose
+literal request/result/refusal/non-terminal coordinate is preserved by its
+type. For `project.read`, the owner supplies a projection schema and same-module
+typed request-to-projection relation; central P1 constructs the generic result
+wrapper and preserves both wrapper and projection-owner authority. The missing
+member is typed build evidence and
 terminates the current pass. It cannot become a definition, public refusal,
 compatibility row, or prose-backed field. The private family admits only after
 every exact operation/variant key resolves its request, result, refusal, and
@@ -450,9 +477,9 @@ explicit nullable non-terminal slot.
 The constructability review found these named blocking owner relations:
 
 - `p1_contract_workspace_not_realized`;
-- `p1_contract_project_read_not_realized`, including the generic wrapper and
-  every case-specific result except the independently accepted T-274A
-  `ticket_consensus` result coordinate;
+- `p1_contract_project_read_not_realized`, including the generic result wrapper,
+  same-owner request-to-projection relation witnesses, and central composition;
+  T-274A supplies one projection source, not the final wrapped result contract;
 - `p1_contract_product_intake_not_realized` and
   `p1_contract_workspace_bind_not_realized`;
 - `p1_contract_catalog_not_realized`;
@@ -513,11 +540,12 @@ compatibility path remains. Actual workspace-create and
 `project.read(ticket_consensus)` packet witnesses cover both success and exact
 typed failure branches.
 
-Independent exact-basis review accepts this design digest and authorizes P1
-implementation inside the private all-or-nothing constructor boundary. Its
-owner-schema gaps remain admission blockers and must close before the family
-can admit; the already-recorded milestone split is not a blocker. P2 remains
-fenced behind completed P1, T-274B, T-275, and the remaining handler owners.
+The earlier exact-basis review accepts only the structural-definition-key
+candidate digest recorded above and authorized work within that boundary. It
+does not accept the current central-join candidate. Executable project-read
+relations and wrapped results, exact metadata, family admission, and the current
+independent-review gate remain blockers. P2 remains fenced behind completed P1,
+T-274B, T-275, and the remaining handler owners.
 
 ## P1 Non-Read Owner Input Checkpoint
 
@@ -528,8 +556,9 @@ nonterminal schemas remain distinct from the 25 non-read keys whose
 nonterminal coordinate is explicitly absent at central-family admission.
 
 The checkpoint does not admit the private P1 family. The remaining owner-input
-boundary is the 27-case `project.read` relation: 81 request/result/refusal
-slots, with T-274A supplying only the `ticket_consensus` result coordinate.
+boundary is the 27-case `project.read` relation: 54 structural request/refusal
+sources plus 27 owner projection sources and their same-owner relations, with
+T-274A supplying only the `ticket_consensus` projection source.
 Central admission then must prove 196 exact schema slots plus 52 explicit
 nonterminal absences across 62 structural definition keys. No public operation,
 schema, catalog row, SDK member, CLI coordinate, handler, or compatibility
@@ -542,9 +571,11 @@ exact.
 The exact design digest
 `6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019`
 is independently reviewed and F_H accepted under the delegated release
-authority. It closes the 27-case constructor design over ten Prime result
+authority. It closes the 27-case projection field graphs over ten Prime result
 families while preserving concrete M03/M04/M05 semantic ownership and the
-unchanged T-274A `ticket_consensus` result schema.
+unchanged T-274A `ticket_consensus` projection schema. The later central-join
+review supersedes only its assumption that a projection schema alone is the
+final public result contract.
 
 The accepted replay request has one `fromOrdinal + limit` grammar, replay rows
 admit the existing `CanonicalRuntimeEvent`, observer drafts derive from
@@ -556,7 +587,8 @@ Both native constructor entry points must reject a fake `project.read`
 variant at compile time, while their runtime guards continue to reject
 untyped or cast inputs. This code prerequisite does not reopen the accepted
 project-read design and does not authorize the central P1 family before all
-81 owner slots resolve.
+54 structural sources, 27 projection sources, 27 relation witnesses, 27 wrapped
+result contracts, exact metadata rows, and canonical digests resolve.
 
 ## P1 Structural Owner Source Checkpoint
 
@@ -572,7 +604,7 @@ Mixed variant/case keys and locator case/slot mismatches also refuse before a
 source carrier exists. No roster, brand, cast, M04 dependency, public output,
 or runtime behavior was added.
 
-This checkpoint authorizes implementation of the 81 project-read owner slots.
+This checkpoint authorizes implementation of the structural owner sources.
 It does not admit the central private P1 family or cross the P2 hard break.
 
 ## P1 Project Read Request/Refusal And Registry Design Checkpoint
@@ -590,6 +622,46 @@ explicit same-module registry coordinate. One resolver-minted opaque carrier
 binds schema and registry to the same module/digest basis; callers cannot
 select a registry when defining a contract.
 
-The remaining project-read boundary is 27 result owner sources. Central P1
-admission remains blocked until the resolver and every result source are exact.
+The next project-read boundary was 27 projection owner sources. Central P1
+admission remained blocked until those sources, their same-owner relations, and
+the final wrapped result contracts were exact.
 No runtime integration or P2 publication is authorized by this checkpoint.
+
+## P1 Project Read Projection-Source Checkpoint
+
+Commit `86193832` closes all 27 raw semantic-owner projection sources. It does
+not close 27 public result contracts. The implementation checkpoint stores each
+raw owner projection at the result coordinate while the actual admitted value
+is the T-281 wrapper
+`{ kind, caseKey, projectionBasis, projection }`. A raw projection schema admits
+the nested `projection` field but cannot admit the wrapper and cannot prove its
+relation to the admitted request. The checkpoint is therefore retained as
+useful owner input, not relabeled as P1 result-slot closure.
+
+## P1 Central Join Design Repair Candidate
+
+The repaired M04 design closes the smallest boundary exposed by the projection
+checkpoint:
+
+1. `ResultContractBindingOf<K>` is schema-only for ordinary results and retains
+   a mandatory opaque same-owner relation for `project.read`. Indexed outcome
+   admission receives the full admitted invocation and executes that relation
+   before result truth.
+2. The relation witness hashes its identity, structural key, owner basis,
+   module/export/member coordinate, module digest, and member identity. It does
+   not hash a function or substitute a digest for relation execution.
+3. One exact 19-row private metadata basis supplies full semantic-authority
+   refs and accepted source digests plus closed authority/effect/event literals
+   through `K.operationId`.
+   The already-designed eight authority-slot requirements remain separately
+   exact and selector-indexed where required.
+4. Central M04 alone adds the result wrapper, projection-basis seal, accepted
+   contract-shape basis, and canonical definition/family digests. The exact
+   census remains 19 operations, 62 keys, 196 final schemas, and 52 explicit
+   non-terminal absences; P2 remains fenced.
+
+The amendment changes design and ticket truth only. It adds no runtime path,
+handler, public asset, package export, operation identity, compatibility
+surface, or P2 work. Two independent constructability reviews accepted the
+exact semantic candidate digest recorded above. P1 implementation is
+authorized; partial-family admission and P2 remain fenced.

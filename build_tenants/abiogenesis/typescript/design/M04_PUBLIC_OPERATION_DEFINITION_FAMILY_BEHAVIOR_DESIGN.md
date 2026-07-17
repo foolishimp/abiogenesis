@@ -1,6 +1,9 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Phase A accepted; P1 owner-schema/registry-correlation repair candidate pending independent review; P1 implementation blocked on exact owner-contract resolution; P2 gated
+**Status**: Accepted for P1 realization; Phase A complete; P2 gated
+
+**Accepted P1 semantic candidate digest**:
+`18d9bcc559d973daac355ad768b1cf5eb8ffb7f9dcd3cd6d2c60c95e5bea1801`
 
 **Date**: 2026-07-16
 
@@ -238,17 +241,20 @@ invalid `limit`. Defaults are empty.
 
 ### Constructor-Ready Project Read Contract Family
 
-This repair closes design ambiguity for the 26 result slots not owned by
-T-274A. It does not claim implementation. The results are applications of ten
+This repair closes the owner-projection shape for the 26 projections not owned
+by T-274A. It does not by itself close the 27 public result contracts. The
+projections are applications of ten
 Prime families: catalog list/describe, workspace status, `Status<S>`,
 `Result<S>`, `Evidence<S>`, `Replay<S>`, `Gap<S>`, lawful actions,
 observer report/drafts, and tuning report. Concrete schema applications stay
 with their semantic owners; only native structural constructors are shared.
 
-`ticket_consensus` remains the twenty-seventh result. P1 consumes the exact
+`ticket_consensus` remains the twenty-seventh projection. P1 consumes the exact
 T-274A
 `CONSENSUS_PUBLIC_CONTRACT_SOURCES.ticket_consensus_projection.schema`;
-T-281 does not copy, wrap, or re-export it as new owner truth.
+T-281 does not copy or re-export it as new owner truth. Like every other case,
+the generic T-281 wrapper composes that owner projection into the final
+`ProjectReadResult<C>` contract.
 
 #### Structural Request And Refusal
 
@@ -302,8 +308,8 @@ case-indexed selector, then requires both the supplied ref and digest to match.
 The selector therefore names every source-side basis that can affect the read;
 no ambient observation, replay window, catalog view, manifest, gap basis,
 action projection, observer basis, tuning basis, or Consensus basis can be
-omitted. Owner result schemas retain semantic truth; this seal only proves
-which exact source and selector coordinates they projected.
+omitted. Owner projection schemas and their request-to-projection relations
+retain semantic truth; central P1 alone derives the wrapped result contract.
 
 `SourceKindOf<C>` is closed exactly as follows:
 
@@ -507,6 +513,75 @@ owner modules instantiate and locate them. No shared constructor accepts
 arbitrary fields, callbacks, schema fragments, operation IDs, or
 runtime-selected subject kinds. P1 remains schema-only: no event, handler,
 runtime dispatch, or public/package output is added.
+
+#### Neutral Request-To-Projection Relation
+
+A result schema cannot prove that its projection derives from the admitted
+request. Schema-local named checks receive only the parsed value. One neutral
+shared-validation carrier closes that cross-value relation:
+
+```text
+OwnerProjectionRelationSource<K, Req, Projection> = {
+  relationIdentity, semanticOwnerBasis: { ref, digest },
+  sourceLocator: { sourceRoot: "semantic_build", modulePath, exportName, memberPath },
+  relation: typed action over {
+    definitionKey: K,
+    admittedRequest: Req,
+    candidateProjection: Projection
+  } returning
+    | { kind: "projection_related" }
+    | { kind: "projection_relation_mismatch",
+        issuePaths: NonEmptyUnique<JsonPath> }
+}
+
+OwnerProjectionRelationWitnessProjection<K> = {
+  relationIdentity,
+  definitionKey: K,
+  semanticOwnerBasisRef,
+  semanticOwnerBasisDigest,
+  sourceLocator: {
+    sourceRoot: "semantic_build",
+    modulePath,
+    exportName,
+    memberPath
+  },
+  sourceModuleDigest,
+  relationMemberIdentity
+}
+
+OwnerProjectionRelationWitness<K> =
+  OwnerProjectionRelationWitnessProjection<K> & {
+    relationWitnessDigest:
+      stableSha256Digest(OwnerProjectionRelationWitnessProjection<K>)
+  }
+
+ResolvedOwnerProjectionRelation<K, Req, Projection> =
+  opaque fixed-root carrier preserving K, Req, Projection, owner basis,
+  module digest, relation member identity, the executable typed relation, and
+  OwnerProjectionRelationWitness<K>
+```
+
+The resolver requires the relation and projection schema to share owner module
+and semantic basis. Ten Prime owner constructors supply the relations; T-274A
+supplies its exact application. T-281 receives only the opaque carrier and adds
+the wrapper/basis seal. Caller callbacks, 27 M04 predicates, path heuristics,
+runtime reads, events, and projection construction are forbidden.
+The shared carrier is structurally generic in `K`, `Req`, and `Projection`; it
+does not import or name M04 `project.read` keys or requests. The M04 P1 join
+alone instantiates `K = ProjectReadDefinitionKey<C>` and adapts its already
+admitted `ProjectReadRequest<C>`. Semantic-owner modules therefore supply their
+own typed values without depending on `app/m04/public_contracts/*`.
+`relationMemberIdentity` is the exact owner-member identity resolved through
+the displayed locator; it is not inferred from function text. The canonical
+witness projection includes the relation identity, structural `K`, semantic
+owner basis, source module/export/member coordinate, source-module digest, and
+relation-member identity. It omits its own digest. Function source text,
+function serialization, object identity, and the executable function value are
+never hashed. The executable relation remains private state on the opaque
+carrier so later indexed outcome admission can apply the witnessed law rather
+than trusting a digest as executable proof.
+This trusted-desktop check targets likely malformed projection output; it adds
+no signing, sandbox, or hostile in-process tamper defense.
 
 ## Accepted Operation Contract Target Packet
 
@@ -772,6 +847,164 @@ version and digest. Generated schemas may be separately addressable, but no
 path, symbol, default, domain, capability, disposition, or exit mapping is
 authored outside the admitted family.
 
+### Exact Invocation-Authority Requirements
+
+The eight authority slots are definition metadata. Workspace remains fixed
+`forbidden | exactly_one`; the only selector-indexed slot is catalog scope for
+the two catalog reads:
+
+```text
+AuthorityPresenceRequirement = "forbidden" | "exactly_one"
+
+CatalogScopeRequirement<K> =
+  K extends ProjectReadDefinitionKey<"catalog_list" | "catalog_describe">
+    ? {
+        kind: "by_visibility_basis"
+        workspace_catalog: "forbidden"
+        session_view: "exactly_one_matching_selector"
+      }
+    : {
+        kind: "fixed"
+        requirement: AuthorityPresenceRequirement
+      }
+
+AuthoritySlotRequirements<K> = {
+  actor: "forbidden" | "required", workspace: "forbidden" | "exactly_one",
+  productSet: AuthorityPresenceRequirement,
+  dependencyLock: AuthorityPresenceRequirement,
+  catalogScope: CatalogScopeRequirement<K>,
+  executionProgram: AuthorityPresenceRequirement,
+  invocationPolicy: AuthorityPresenceRequirement,
+  transportSteering: AuthorityPresenceRequirement
+}
+```
+
+The matrix derives from `REQ-P-PUBLIC-CONTRACTS-010`, `REQ-P-POLICY-062`,
+Ontology invariants 3 and 5 through 9, and the accepted request table:
+
+| Definition keys | Product set | Dependency lock | Catalog scope | Execution program | Invocation policy | Transport steering | Derivation |
+|---|---|---|---|---|---|---|---|
+| `workspace.create(clean|imported)`, `workspace.open(open)`, `product.resolve(resolve)` | forbidden | forbidden | forbidden | forbidden | forbidden | forbidden | no binding or admitted product/lock/view/program exists yet |
+| `product.verify(verify)`, `product.install(install)` | forbidden | exactly_one | forbidden | forbidden | forbidden | forbidden | each request consumes the exact resolved lock but not an admitted product set |
+| `workspace.bind(bind)` | exactly_one | exactly_one | forbidden | forbidden | forbidden | forbidden | request consumes the exact installed-product set and resolved lock from which it admits the binding |
+| `project.read(install_evidence|release_evidence)` | forbidden | forbidden | forbidden | forbidden | forbidden | forbidden | source identities carry their own admitted basis and the cases forbid a workspace binding |
+| `project.read(catalog_list|catalog_describe)` | exactly_one | exactly_one | selector-indexed: `workspace_catalog -> forbidden`; `session_view -> exactly_one_matching_selector` | forbidden | forbidden | forbidden | Ontology invariant 8 permits the non-workspace constituent to be closed by the admitted selector; the session-view coordinate must equal the selector and no optional slot exists |
+| every other bound `project.read` case | exactly_one | exactly_one | forbidden | forbidden | forbidden | forbidden | exact binding conserves set and lock; these projections consume no catalog view |
+| `catalog.admit(admit)`, `catalog.view(allowlist)` | exactly_one | exactly_one | forbidden | forbidden | forbidden | forbidden | admission consumes binding/set/lock and creates a catalog; view derives a view and therefore cannot consume the view it creates |
+| `catalog.apply(node_type|overlay)` | exactly_one | exactly_one | exactly_one | forbidden | forbidden | forbidden | application consumes an admitted narrowing view but opens no execution program |
+| `run.invoke(invoke|start)`, `run.continue(current_intent|selected_action)` | exactly_one | exactly_one | exactly_one | exactly_one | exactly_one | exactly_one | Ontology invariant 9 requires the effective view, program, policy, steering provenance, and grants for execution-scoped work |
+| `interaction.respond(*)`, `result.assess(assess)`, `witness.admit(*)`, `tuning.transition(*)`, `conformance.evaluate(gtl_program)`, `product.materialize(*)`, `release.snapshot(*)` | exactly_one | exactly_one | forbidden | forbidden | forbidden | forbidden | bound non-catalog operations conserve binding/set/lock and consume none of the four execution-only slots |
+
+For the two catalog reads, `session_view` requires all four admitted
+`catalogScope` fields to equal the resolved view and its allowlist coordinates:
+`viewRef`, `viewDigest`, `allowlistRef`, and `allowlistDigest`. Missing,
+forbidden-branch presence, or any mismatch refuses. This is a closed
+invariant-8 relation, not an optional slot or extra definition key.
+
+The five semantic metadata fields are not prose-derived at construction time.
+They come from one private 19-row basis keyed by operation identity. Variants
+and read cases inherit the row through `K.operationId`; no 62-row copy exists.
+The exact closed types are:
+
+```text
+AuthorityClass = "pure" | "read" | "write" | "attestation"
+
+EffectClass =
+  | "workspace_filesystem" | "workspace_read_admission" | "pure_projection"
+  | "deterministic_evaluation" | "immutable_install_filesystem"
+  | "workspace_binding_persistence" | "catalog_event_admission"
+  | "deterministic_narrowing" | "declaration_application_admission"
+  | "abg_traversal" | "abg_continuation" | "fh_response_admission"
+  | "result_assessment_admission" | "witnessed_act_admission"
+  | "tuning_lifecycle_admission" | "conformance_evaluation_admission"
+  | "product_filesystem" | "immutable_release_publication"
+
+EventAdmission = "none" | "owning_semantic_authority"
+
+SemanticAuthorityRef =
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-01>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-02>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-03>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-04>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-05>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-06>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-07>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-08>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-09>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-10>
+  | Ref<M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN>
+  | Ref<M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-18>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-19>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-20>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-21>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-22>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-23>
+  | Ref<ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY#AF-25>
+
+OperationMetadataBasis = {
+  semanticAuthorityRef: SemanticAuthorityRef,
+  semanticAuthorityDigest: Sha256Digest,
+  authorityClass: AuthorityClass,
+  effectClass: EffectClass,
+  eventAdmission: EventAdmission
+}
+
+SEMANTIC_AUTHORITY_DIGESTS = {
+  ontology: "sha256:bcbacd4a4b4dd3b5b6db2a3ad281c92bf76a7a889da38562d5b6301e85764615",
+  runInvoke: "sha256:71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430",
+  runContinue: "sha256:1b879535201080f5ed7da4bc781bd447fa46c72ad5f500c71e73e0b0ed62b0b2"
+} as const
+
+METADATA_BASIS_BY_OPERATION = {
+  "abg.operation.workspace.create":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-01", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_filesystem",              "none"],
+  "abg.operation.workspace.open":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-02", SEMANTIC_AUTHORITY_DIGESTS.ontology, "read",        "workspace_read_admission",          "none"],
+  "abg.operation.project.read":         ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-03", SEMANTIC_AUTHORITY_DIGESTS.ontology, "read",        "pure_projection",                   "none"],
+  "abg.operation.product.verify":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-04", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "deterministic_evaluation",          "none"],
+  "abg.operation.product.resolve":      ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-05", SEMANTIC_AUTHORITY_DIGESTS.ontology, "pure",        "deterministic_evaluation",          "none"],
+  "abg.operation.product.install":      ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-06", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_install_filesystem",      "none"],
+  "abg.operation.workspace.bind":       ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-07", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "workspace_binding_persistence",     "none"],
+  "abg.operation.catalog.admit":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-08", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "catalog_event_admission",           "owning_semantic_authority"],
+  "abg.operation.catalog.view":         ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-09", SEMANTIC_AUTHORITY_DIGESTS.ontology, "pure",        "deterministic_narrowing",            "none"],
+  "abg.operation.catalog.apply":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-10", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "declaration_application_admission",  "none"],
+  "abg.operation.run.invoke":           ["build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runInvoke, "write", "abg_traversal", "owning_semantic_authority"],
+  "abg.operation.run.continue":         ["build_tenants/abiogenesis/typescript/design/M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md", SEMANTIC_AUTHORITY_DIGESTS.runContinue, "write", "abg_continuation", "owning_semantic_authority"],
+  "abg.operation.interaction.respond":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-18", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "fh_response_admission",             "owning_semantic_authority"],
+  "abg.operation.result.assess":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-19", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "result_assessment_admission",       "owning_semantic_authority"],
+  "abg.operation.witness.admit":        ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-20", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "witnessed_act_admission",           "owning_semantic_authority"],
+  "abg.operation.tuning.transition":    ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-21", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "tuning_lifecycle_admission",        "owning_semantic_authority"],
+  "abg.operation.conformance.evaluate": ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-22", SEMANTIC_AUTHORITY_DIGESTS.ontology, "attestation", "conformance_evaluation_admission",  "none"],
+  "abg.operation.product.materialize":  ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-23", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "product_filesystem",                "none"],
+  "abg.operation.release.snapshot":     ["build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md#AF-25", SEMANTIC_AUTHORITY_DIGESTS.ontology, "write",       "immutable_release_publication",     "none"]
+} as const satisfies ExactOperationMetadataBasis<PublicOperationIdentity>
+
+MetadataBasisOf<K extends DefinitionKey> =
+  TupleToOperationMetadataBasis<
+    typeof METADATA_BASIS_BY_OPERATION[K["operationId"]]
+  >
+
+DefinitionMetadataProjectionOf<K extends DefinitionKey> =
+  MetadataBasisOf<K> & {
+  authoritySlotRequirements: AuthoritySlotRequirements<K>,
+  capabilityRefs, workspaceBindingRequirement, defaults,
+  schemaCoordinates, sdkCoordinate, cliCoordinate, adapterExitMap
+}
+```
+
+The table contains the exact repo-relative Ontology fragment or accepted design
+ref and its exact accepted source digest; shorthand never enters the family. An
+exact-own-key guard requires precisely the 19 operation identities and rejects
+missing or extra rows. `eventAdmission` states only whether the existing
+semantic owner must perform its admitted event action. It does not select an
+event kind, emitter, handler, or event family. Manifest, provenance, and result
+facts remain in owner contract truth. In particular, `catalog.apply` retains
+typed declaration-application admission without inventing an event requirement.
+
+All other exact values derive from the existing accepted tables above. The
+metadata basis is the one authored constructor input; those prose tables become
+its explanatory projection, not a second register. Missing or divergent
+metadata joins the P1 gap set and prevents family/digest emission.
+
 ## Definition Shape
 
 For every operation/variant key `K`, the native definition closes this
@@ -779,7 +1012,11 @@ relation without a weak index signature:
 
 ```text
 RequestSchemaOf<K> = exact owner-native request schema indexed by K
-ResultSchemaOf<K> = exact owner-native result schema indexed by K
+ResultSchemaOf<K> =
+  K extends ProjectReadDefinitionKey<infer C>
+    ? strict ProjectReadResult<C> containing
+        v.InferOutput<ProjectReadProjectionSchemaOf<C>>
+    : exact owner-native result schema indexed by K
 RefusalSchemaOf<K> = exact owner-native refusal schema indexed by K
 NonterminalSchemaOf<K> = exact owner-native non-terminal schema indexed by K | null
 
@@ -791,21 +1028,30 @@ NonterminalOf<K> =
     ? v.InferOutput<S>
     : never
 
+ResultContractBindingOf<K> =
+  K extends ProjectReadDefinitionKey<infer C>
+    ? ProjectReadWrappedResultContract<
+        C,
+        ProjectReadProjectionSchemaOf<C>
+      >
+    : OwnerNativeContractBinding<ResultSchemaOf<K>>
+
 PublicFunctionDefinition<K> = {
-  functionId, version, variant,
+  definitionKey: K,
+  version: "5.0.0",
   requestContract: OwnerNativeContractBinding<RequestSchemaOf<K>>,
-  resultContract: OwnerNativeContractBinding<ResultSchemaOf<K>>,
+  resultContract: ResultContractBindingOf<K>,
   refusalContract: OwnerNativeContractBinding<RefusalSchemaOf<K>>,
   nonTerminalContract:
     NonterminalSchemaOf<K> extends infer S extends v.GenericSchema
       ? OwnerNativeContractBinding<S>
       : null,
-  semanticAuthorityRef, authorityClass, effectClass, eventAdmission,
-  authoritySlotRequirements, capabilityRefs,
-  workspaceBindingRequirement,
-  defaults,
-  schemaCoordinates,
-  sdkCoordinate, cliCoordinate, adapterExitMap
+  semanticAuthorityRef, semanticAuthorityDigest,
+  authorityClass, effectClass, eventAdmission,
+  authoritySlotRequirements: AuthoritySlotRequirements<K>, capabilityRefs,
+  workspaceBindingRequirement, defaults, schemaCoordinates,
+  sdkCoordinate, cliCoordinate, adapterExitMap,
+  definitionDigest: Digest
 }
 
 OwnerNativeContractBinding<S extends v.GenericSchema> = {
@@ -816,6 +1062,13 @@ OwnerNativeContractBinding<S extends v.GenericSchema> = {
   contract: NativeContractDefinition<S>
 }
 ```
+
+`definitionKey` is structural: a non-read member carries `variant`, while a
+`project.read` member carries `caseKey`. No universal `variant`, sibling
+`functionId`, flattened selector, or duplicated operation identity exists.
+`definitionKey.operationId` is the derived function identity. The nested
+family's containment and member key must equal the structural value before the
+definition can admit.
 
 The definition family owns the operation-indexed binding relation, not the
 payload semantics. Each contract binding composes one exact owner-owned
@@ -860,6 +1113,34 @@ closure authority through either public carrier.
 Schema IDs, locators, native symbols, SDK members, and CLI paths are projected
 through one schema/adapter projector. Generated artifacts may remain separately
 addressable. Their multiplicity is output addressability, not authored truth.
+
+Definition and family digests hash canonical projections rather than schema
+objects, functions, or self-referential receipt fields:
+
+```text
+ContractBindingDigestProjection<K, Slot> = {
+  coordinate: { definitionKey: K, slot: Slot },
+  ownerAuthorityRef, ownerAuthorityDigest,
+  contractShapeBasisRef, contractShapeBasisDigest,
+  contractCoordinate, nativeLocator, projectionWitnessDigest
+}
+
+DefinitionDigestProjection<K> = {
+  definitionKey: K, version: "5.0.0", request, result, refusal,
+  nonterminal: binding | { kind: "nonterminal_not_declared", coordinate },
+  metadata: DefinitionMetadataProjectionOf<K>
+}
+
+projectReadResult projection additionally binds wrapper and projection-owner
+authority, projection contract/witness, and relation-witness digest.
+definitionDigest(K) = stableSha256Digest(DefinitionDigestProjection<K>)
+FamilyDigestProjection = exact nested operation/member map of definition digests
+familyDigest = stableSha256Digest(FamilyDigestProjection)
+```
+
+The structural nested order is authoritative. Raw schemas/functions appear
+only through coordinates and witnesses; derived digest fields are omitted from
+their own projections. No flattened registry participates.
 
 ## Native Contract Definition And Projection
 
@@ -1179,6 +1460,12 @@ NonTerminalOutcome<K> = CommonOutcome<K> & {
   payloadContract: NonTerminalContractOf<K>,
   value: NonterminalOf<K>
 }
+
+admitPublicOutcome<K extends DefinitionKey>(input: {
+  definition: PublicFunctionDefinition<K>,
+  invocation: PublicInvocation<K>,
+  candidate: unknown
+}): PublicOutcome<K> | OutcomeAdmissionFailure<K>
 ```
 
 `outcomeDigest` hashes canonical admitted fields with only itself omitted.
@@ -1190,25 +1477,41 @@ internal closed carrier
 invocationRef, definitionKey: K, candidateDigest }`; it never becomes a
 `PublicOutcome` and carries no owner result truth. `failureClass` is exactly
 `malformed | cross_operation | wrong_contract | digest_mismatch |
-unexpected_nonterminal`. Failure admission is parameterized by the same exact
-key schema as outcome admission, so malformed and cross-key branches retain the
-invocation's literal structural `K` rather than widening to the general key
-union.
+unexpected_nonterminal | relation_mismatch`. Failure admission is parameterized
+by the same exact key schema as outcome admission, so malformed, relation, and
+cross-key branches retain the invocation's literal structural `K` rather than
+widening to the general key union.
+
+Outcome admission receives the full already-admitted invocation, not a narrowed
+identity envelope. It first conserves the invocation/definition/catalog/key and
+contract coordinates, then parses the common outcome and its K-indexed payload.
+For a `project.read` result only, it obtains the mandatory opaque relation from
+`definition.resultContract` and evaluates:
+
+```text
+definition.resultContract.projectionRelation({
+  definitionKey: invocation.definitionKey,
+  admittedRequest: invocation.request,
+  candidateProjection: parsedResult.value.projection
+})
+```
+
+Only `projection_related` permits payload-digest and outcome-digest admission.
+`projection_relation_mismatch` becomes the existing internal failure carrier
+with `failureClass: "relation_mismatch"` and the typed issue paths. It creates
+no `PublicOutcome`. Refusal and non-terminal members do not run the projection
+relation. No API accepts an optional relation, caller callback, reconstructed
+request, or witness digest as a substitute for executing this admitted law.
 
 `project.read` uses one closed `PROJECT_READ_CASE_FAMILY` whose 27 rows bind a
-case key to its owner-supplied source and projection schemas, binding rule, and
-capabilities. Shared wrapper factories derive three addressable operation
-assets: request, result, and refusal, each a 27-case discriminated union. The
-case map is metadata over owner schemas, not 27 independently authored public
-schema families. T-281 owns the one generic `project.read` request/refusal
-wrapper and the explicit absence of a non-terminal result. Each case owner
-supplies only its case-specific result schema. `ticket_consensus` therefore
-composes the T-274A `TicketConsensusProjection` result coordinate inside that
-generic wrapper; T-274A does not author another `project.read` request,
-refusal, or operation. The family-owned named-check registry binds each
-relational action without a Consensus branch in projector code. A missing,
-unregistered, or incompatible owner result schema remains an honest P1 gap
-and cannot be filled from prose or a 4.6 interface.
+case key to 54 T-281-owned structural request/refusal sources, 27
+owner-supplied projection schemas and request-to-projection relations, one
+binding rule, and exact capabilities. T-281 owns the generic Req/Ref/Res
+wrappers, projection-basis seal, and absent non-terminal; each owner supplies
+only its projection schema and same-basis relation. A raw projection is never
+`ResultSchemaOf<K>`: central P1 wraps it and preserves owner authority.
+`ticket_consensus` reuses T-274A identically. Missing projection/relation truth
+is a typed P1 gap; prose, path heuristics, and 4.6 interfaces cannot fill it.
 
 ## P1 Constructor Boundary And Constructability
 
@@ -1281,6 +1584,45 @@ NativeContractOf<K, Slot, S> =
     identity: DerivedIdentityOf<K, Slot>,
     source: ResolvedSourceOf<K, Slot, S>
   })
+
+ProjectReadProjectionInput<C, Projection> = {
+  definitionKey: ProjectReadDefinitionKey<C>
+  slot: "result_projection"
+  projectionOwnerAuthorityRef
+  projectionOwnerAuthorityDigest
+  projectionContract: NativeContractDefinition<Projection>
+  projectionRelation:
+    ResolvedOwnerProjectionRelation<
+      ProjectReadDefinitionKey<C>,
+      ProjectReadRequest<C>,
+      v.InferOutput<Projection>
+    >
+}
+
+ProjectReadWrappedResultContract<C, Projection> = {
+  coordinate: {
+    definitionKey: ProjectReadDefinitionKey<C>
+    slot: "result"
+  }
+  wrapperAuthorityRef: REQ-R-ABG3-PROJECTION-023
+  wrapperAuthorityDigest
+  projectionOwnerAuthorityRef
+  projectionOwnerAuthorityDigest
+  projectionContractCoordinate
+  projectionWitnessDigest
+  projectionRelationWitnessDigest
+  projectionRelation:
+    ResolvedOwnerProjectionRelation<
+      ProjectReadDefinitionKey<C>,
+      ProjectReadRequest<C>,
+      v.InferOutput<Projection>
+    >
+  contractShapeBasisRef
+  contractShapeBasisDigest
+  contract: NativeContractDefinition<
+    strict ProjectReadResult<C> containing v.InferOutput<Projection>
+  >
+}
 
 NonProjectReadOperationIdentity =
   Exclude<PublicOperationIdentity, "abg.operation.project.read">
@@ -1364,7 +1706,10 @@ P1ResolvedOwnerContract<K> = {
       kind: "owner_contract_resolved"
       definitionKey: K
       request: P1ResolvedContractSlot<K, "request", RequestSchemaOf<K>>
-      result: P1ResolvedContractSlot<K, "result", ResultSchemaOf<K>>
+      result:
+        K extends ProjectReadDefinitionKey<infer C>
+          ? ProjectReadWrappedResultContract<C, ProjectReadProjectionSchemaOf<C>>
+          : P1ResolvedContractSlot<K, "result", ResultSchemaOf<K>>
       refusal: P1ResolvedContractSlot<K, "refusal", RefusalSchemaOf<K>>
       nonterminal:
         NonterminalSchemaOf<K> extends infer S extends v.GenericSchema
@@ -1373,10 +1718,23 @@ P1ResolvedOwnerContract<K> = {
               coordinate: P1ContractSlotCoordinate<K, "nonterminal"> }
     }
 
+P1MetadataGap<K> = {
+  kind: "definition_metadata_not_realized"
+  gapCode: "p1_definition_metadata_not_realized"
+  definitionKey: K
+  fieldPath: NonEmptyText
+  authorityRefs: NonEmptyUnique<Ref>
+  evidenceRefs: NonEmptyUnique<Ref>
+}
+
+P1DefinitionGapEntry<K> =
+  | P1MissingContractSlotRow<K>
+  | P1MetadataGap<K>
+
 P1DefinitionGap<K> = {
-      kind: "definition_contract_gap"
+      kind: "definition_family_input_gap"
       definitionKey: K
-      missingSlots: NonEmptyUnique<P1MissingContractSlotRow<K>>
+      gaps: NonEmptyUnique<P1DefinitionGapEntry<K>>
     }
 
 P1OwnerContractResolution<K> =
@@ -1433,8 +1791,20 @@ registry is authored to perform that comparison.
 
 Each slot carries its own owner authority. The case key in
 `DefinitionKeyFor<"abg.operation.project.read", C>` fixes the exact case for
-case-owned source/result schemas. Case request/refusal slots and result slots
-therefore need not pretend to share one owner.
+case-owned structural schemas and projection inputs. Case request/refusal
+sources and the nested projection owner therefore need not pretend to share one
+semantic owner; the final result wrapper conserves both.
+
+Neutral subordinate carriers end at owner authority, schema or projection
+truth, and their resolver witness. They contain no T-281 contract-shape basis.
+Only the central M04 P1 join adds the single accepted
+`contractShapeBasisRef/digest` while forming each final contract binding. For a
+`project.read` result, that same join constructs the exact outer wrapper,
+retains the nested projection-owner authority and relation witness, and then
+adds the contract-shape basis. Request and refusal bindings already carry their
+T-281 semantic-owner basis and receive no additional wrapper-authority fields.
+An independently attached contract-shape basis or universal
+`wrapperAuthorityRef` on a subordinate slot is duplicate authority and refuses.
 
 `semantic_not_realized` is private build evidence. It is not a public
 definition, result, refusal, `not_implemented` behavior, or permission to add a
@@ -1442,6 +1812,14 @@ prose field. `exact_family_admitted` is available only when every operation and
 closed variant resolves all required slots, every nullable non-terminal slot
 is explicitly declared, and the exact census is 19 identities with no extra or
 legacy key. The pass never admits a partial family.
+
+The project-read census is therefore not 81 owner operation contracts. It is
+54 structural owner sources (`Req/Ref`) plus 27 semantic-owner projection
+sources and 27 same-owner request-to-projection relation sources. Central P1
+derives 27 wrapped `Res` contracts from those inputs. Together with the 115
+non-read schema-bearing slots, exact family admission proves 196 final contract
+schemas and 52 explicit non-terminal absences. Raw projection sources never
+count as final result slots.
 
 `ExactOwnerContractSet` additionally proves exactly 35 non-`project.read`
 variant keys plus 27 `project.read` case keys, for 62 unique `DefinitionKey`
@@ -1456,6 +1834,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 | Input role | Existing owner module | P1 treatment |
 |---|---|---|
 | canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral projector derives canonical schema bytes and a witness from the actual Valibot schema; M03 and M04 consume the same result without cross-layer imports. |
+| neutral request-to-projection relation | `code/src/shared/validation/` bounded addition beside the native-schema projector | One fixed-root resolver correlates an owner-located typed relation action with the exact projection schema module and semantic-owner basis. Ten Prime result-family constructors supply the relation; T-281 receives only an opaque typed carrier and never authors 27 predicates. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
 | Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | T-274A reuses the existing schema plus same-module `CONSENSUS_NATIVE_CHECK_REGISTRY`; T-281 adds no Consensus branch or registry. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
@@ -1474,69 +1853,41 @@ helpers, not an operation-contract authority. P1 may reuse a primitive only
 through the Phase A native path; it may not promote those imperative parsers
 into a second schema source.
 
-### Current Typed Gap Census
+### Typed Gap Vocabulary
 
-Constructability against the committed owner modules yields the following
-named gaps. `Req/Res/Ref` means request, result, and refusal; `N` is the separately
-declared non-terminal slot. Every row is currently gap-bearing because an
-existing TypeScript carrier or prose packet is not a
-`NativeContractDefinition<S>`. The implementation pass emits one row per exact
-variant and may close a row only by citing the owner-native schema coordinate
-and digest.
+The constructor retains named operation-family gap codes, but current state is
+not inferred from this vocabulary. `Req/Res/Ref` means request, result, and
+refusal; `N` is the separately declared non-terminal slot.
 
-| Gap code | Exact definition keys | Missing native slots | Current owner evidence and minimum re-entry |
-|---|---|---|---|
-| `p1_contract_workspace_not_realized` | `workspace.create(clean|imported)`, `workspace.open(open)` | `Req/Res/Ref` | `app/m04/workspace/operations.ts` differs from target authority fields; Phase A clean fixture is proof-only. The workspace owner must supply exact neutral schemas or re-enter its design on a real field ambiguity. |
-| `p1_contract_project_read_not_realized` | `project.read(all 27 cases)` | one generic `Req/Ref` wrapper, 27 case-specific `Res` slots, and explicit absent `N` | The constructor-ready packet and ten Prime result families above close field, authority, and placement ambiguity. T-274A closes the Consensus result schema. Implementation must realize the structural owner constructor, shared wrapper applications, and remaining 26 exact owner result sources before this gap can retire. |
-| `p1_contract_product_intake_not_realized` | `product.verify(verify)`, `product.resolve(resolve)`, `product.install(install)` | `Req/Res/Ref` | M04 verify/resolve/install carriers and admitters are semantic evidence only. Their owners must supply exact neutral schemas; T-281 cannot copy their imperative admission logic. |
-| `p1_contract_workspace_bind_not_realized` | `workspace.bind(bind)` | `Req/Res/Ref` | `app/m04/toolchain_binding/bind.ts` does not expose the accepted stable-binding target schema. Re-enter that owner if declared-root meaning does not close. |
-| `p1_contract_catalog_not_realized` | `catalog.admit(admit)`, `catalog.view(allowlist)`, `catalog.apply(node_type|overlay)` | `Req/Res/Ref` | Current catalog carriers are semantic evidence; `catalog.apply` target public contracts are absent. The catalog owner must supply exact neutral schemas. |
-| `p1_contract_run_invoke_not_realized` | `run.invoke(invoke|start)` | `Req/Res/Ref/N` | T-270 owns the exact One Surface invocation/outcome meaning. Its neutral owner-native contract milestone must precede P1 admission; its public integration milestone remains after P1. |
-| `p1_contract_run_continue_not_realized` | `run.continue(current_intent|selected_action)` | `Req/Res/Ref/N` | T-272 owns the exact continuation meaning. Its neutral owner-native contract milestone must precede P1 admission; continuation integration remains after P1. |
-| `p1_contract_interaction_respond_not_realized` | `interaction.respond(select|approve|reject|assess|answer_escalation)` | `Req/Res/Ref/N` | T-272 owns response and held-state meaning. Resolve neutral native contracts before P1; do not import an M04 family into M03. |
-| `p1_contract_result_assess_not_realized` | `result.assess(assess)` | `Req/Res/Ref/N` | `app/m04/result_assessment/carriers.ts` supplies semantic carrier evidence but no exact strict native operation contract. |
-| `p1_contract_witness_not_realized` | `witness.admit(reprice|attest|hygiene-stamp|intake|run-resumed|run-stopped)` | `Req/Res/Ref` | `runtime_authoring_routes.ts` supplies owner evidence only; the witnessed-act owner must supply exact native schemas. |
-| `p1_contract_tuning_not_realized` | `tuning.transition(propose|ratify|reject)` | `Req/Res/Ref` | Runtime authoring/tuning carriers remain semantic evidence until their exact native operation schemas resolve. |
-| `p1_contract_conformance_not_realized` | `conformance.evaluate(gtl_program)` | `Req/Res/Ref` | `gtl_program_conformance.ts` owns semantics but does not currently export the exact strict native public-operation schema. |
-| `p1_contract_materialize_not_realized` | `product.materialize(context_bootstrap|configuration)` | `Req/Res/Ref` | `app/m04/install_bootstrap/` owns behavior; configuration target fields are not closed by one exact native owner schema. |
-| `p1_contract_release_not_realized` | `release.snapshot(published_rc|tapped_release)` | `Req/Res/Ref` | Exact-candidate qualification basis/verdict and final-tap delta contracts are absent; legacy M05 snapshot carriers cannot substitute. |
+| Gap code | Exact definition keys | Semantic owner |
+|---|---|---|
+| `p1_contract_workspace_not_realized` | workspace create/open | workspace |
+| `p1_contract_project_read_not_realized` | all 27 project-read cases | ten Prime projection families plus T-274A; central wrapper is T-281 |
+| `p1_contract_product_intake_not_realized` | product verify/resolve/install | product intake/install |
+| `p1_contract_workspace_bind_not_realized` | workspace bind | toolchain binding |
+| `p1_contract_catalog_not_realized` | catalog admit/view/apply | catalog |
+| `p1_contract_run_invoke_not_realized` | run invoke/start | T-270 neutral owner contract |
+| `p1_contract_run_continue_not_realized` | run continue modes | T-272 neutral owner contract |
+| `p1_contract_interaction_respond_not_realized` | five response kinds | T-272 neutral owner contract |
+| `p1_contract_result_assess_not_realized` | result assess | result assessment |
+| `p1_contract_witness_not_realized` | six witnessed acts | runtime authoring |
+| `p1_contract_tuning_not_realized` | propose/ratify/reject | tuning |
+| `p1_contract_conformance_not_realized` | GTL-program evaluation | conformance |
+| `p1_contract_materialize_not_realized` | context/configuration | install bootstrap |
+| `p1_contract_release_not_realized` | published RC/final tap | release qualification |
 
-This census does not create new delivery tickets. It names the precise stop
-conditions discovered before code. Owner milestones close their schema gaps;
-P1 only reruns exact resolution and composes accepted inputs. It cannot author
-an owner payload schema or produce `exact_family_admitted` until the gap set is
-empty.
+Current landed inputs are exact: `d80cef8f` closes all 35 non-read keys and
+115 owner slots; `6e280bb8` closes 54 project-read request/refusal sources; and
+`86193832` closes all 27 raw projection sources. The non-read gap codes are
+therefore dormant regression classes, not current missing inputs. The current
+P1 blockers are the 27 executable relation carriers and centrally wrapped
+results, the exact 19-row metadata basis, and all-or-nothing family/digest
+admission. A regression reactivates its typed gap; prose never does.
 
-`p1_contract_one_surface_owner_projection_not_realized` is an explicit
-pre-slot constructability and contraction gap over `run.invoke`,
-`run.continue`, and `interaction.respond`. Their local neutral carrier is
-semantic source evidence, but its bespoke envelope and `lawBasis` cannot become
-a second permanent owner-source authority. The gap closes only when the
-accepted neutral owner projection conserves the same semantic basis, locator,
-and schema through the shared carrier. Until then, the affected definition
-slots retain their existing typed gaps. This repair neither migrates those
-owners nor begins runtime integration.
-
-GOALS, T-270, and T-272 now record the required same-basis split. A gap-bearing
-`run.invoke`, `run.continue`, or `interaction.respond` definition still cannot
-enter the private family; their neutral owner-native contracts are P1 inputs,
-while public runtime integration remains downstream. The satisfied non-cyclic
-milestone order, without adding tickets or moving semantic ownership, is:
-
-```text
-T-274A compatible Consensus coordinate plus T-270/T-272 neutral owner-native contract milestones
-  -> T-281 P1 exact private family
-  -> T-270/T-272 public runtime integration milestones
-  -> T-274B -> T-275 -> T-281 P2
-```
-
-The recorded split is a satisfied prerequisite, not permission to resume
-runtime integration. The pre-P1 milestones do not depend on P1. Construction
-remains blocked until the named owner-schema gaps in this census close,
-including `p1_contract_project_read_not_realized`,
-`p1_contract_run_invoke_not_realized`,
-`p1_contract_run_continue_not_realized`, and
-`p1_contract_interaction_respond_not_realized`.
+This vocabulary creates no delivery ticket and moves no semantic ownership.
+P1 cannot author an owner payload schema or emit `exact_family_admitted` while
+any current gap exists. Public T-270/T-272 integration and all P2 work remain
+downstream of the private P1 family.
 
 ### Prime Source Delta
 
@@ -1546,6 +1897,7 @@ The source delta is scoped to what T-281 can own:
 |---|---:|---:|---|
 | Phase A private native mechanism | 1 | 1 | retain |
 | accepted neutral owner-source envelope constructor | 0 | 1 | add one subordinate shared constructor; derive authority subject, contract/schema identity, version, and final schema locator from owner inputs; bespoke evidence envelopes remain unadmitted until conserved through this carrier |
+| neutral request-to-projection relation resolver | 0 | 1 | add one subordinate shared resolver because schema-only admission cannot observe request context; ten owner result-family constructors supply typed relation actions from their own module/basis, with zero M04 predicates |
 | owner-native payload schema sources | `N` incomplete | same accepted `N` | retain and compose; each owner milestone owns any required addition or repair |
 | private operation-indexed definition family | 0 | 1 | add exactly one T-281 authority |
 | T-281-authored independent schema/catalog/SDK/CLI/handler/parity rosters | 0 | 0 | forbidden |
@@ -1620,6 +1972,74 @@ classDiagram
     +noneOrFamilyRegistryCoordinate
     +schema
   }
+  class OwnerProjectionRelationInput {
+    <<neutral owner truth>>
+    +projectReadCaseKey
+    +semanticOwnerBasis
+    +sameModuleRelationLocator
+    +typedRequestProjectionAction
+  }
+  class ResolvedOwnerProjectionRelation {
+    <<opaque derived carrier>>
+    +caseRequestProjectionTypesPreserved
+    +sameModuleAndOwnerBasis
+    +executableTypedRelation
+    +canonicalWitnessProjection
+    +relationWitnessDigest
+  }
+  class OwnerProjectionRelationWitness {
+    <<canonical derived receipt>>
+    +relationIdentity
+    +structuralDefinitionKey
+    +semanticOwnerBasis
+    +moduleExportMemberCoordinate
+    +sourceModuleDigest
+    +relationMemberIdentity
+    +relationWitnessDigest
+  }
+  class WrappedProjectReadResultContract {
+    <<central M04 composition>>
+    +genericResultWrapper
+    +projectionOwnerAuthority
+    +projectionRelationWitness
+    +mandatoryOpaqueExecutableRelation
+    +singleContractShapeBasis
+  }
+  class ResultContractBindingOfK {
+    <<closed conditional binding>>
+    +ordinarySchemaOnlyBinding
+    +projectReadRequestRelatedBinding
+  }
+  class AdmittedPublicInvocationK {
+    <<existing Phase A truth>>
+    +structuralDefinitionKey
+    +admittedRequest
+    +definitionAndContractCoordinates
+  }
+  class IndexedOutcomeAdmissionK {
+    <<existing Phase A admission extended>>
+    +receivesFullAdmittedInvocation
+    +parsesKIndexedPayload
+    +executesProjectReadRelation
+    +admitsDigestOnlyAfterRelation
+  }
+  class OutcomeAdmissionFailureK {
+    <<internal closed refusal>>
+    +literalStructuralDefinitionKey
+    +typedFailureClass
+    +issuePaths
+    +noOwnerResultTruth
+  }
+  class DefinitionMetadataProjection {
+    <<derived from one exact 19 row basis by K operationId>>
+    +exactSemanticAuthorityRef
+    +closedAuthorityClass
+    +closedEffectClass
+    +noneOrOwningEventAdmission
+    +eightClosedAuthoritySlots
+    +capabilitiesDefaultsDispositions
+    +adapterAndDerivedCoordinates
+  }
   class ResolvedOwnerNativeContractSource {
     <<opaque derived carrier>>
     +schemaTypePreserved
@@ -1682,6 +2102,7 @@ classDiagram
     +familyDigest
     +definitionsByOperationAndOwnMember
     +distributiveDefinitionKeyProjection
+    +definitionDigestProjection
   }
   class PrivateProjectionSet {
     <<derived temp only>>
@@ -1697,17 +2118,23 @@ classDiagram
   }
   class ProjectReadContractSources {
     <<27 structural case applications>>
-    +oneSharedRequestFamily
-    +oneSharedRefusalFamily
-    +tenPrimeResultFamilies
-    +ticketConsensusExactReuse
+    +fiftyFourStructuralRequestRefusalSources
+    +twentySevenOwnerProjectionSources
+    +tenPrimeRelationConstructors
+    +ticketConsensusExactProjectionAndRelation
+    +twentySevenDerivedWrappedResults
     +noNonterminal
   }
 
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
-  ProjectReadContractSources "1" --> "27" OwnerSchemaInput : supplies exact project_read_case slots
+  SemanticOwner "1" --> "1..*" OwnerProjectionRelationInput : supplies typed projection relation
+  ProjectReadContractSources "1" --> "81" OwnerSchemaInput : supplies 54 structural plus 27 projection sources
+  ProjectReadContractSources "1" --> "27" OwnerProjectionRelationInput : instantiates ten Prime relations
   OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
+  OwnerProjectionRelationInput "1" *-- "1" PrivateSourceModuleLocator : locates same owner module
   OwnerSchemaInput --> ResolvedOwnerNativeContractSource : fixed-root resolver correlates schema and registry
+  OwnerProjectionRelationInput --> ResolvedOwnerProjectionRelation : fixed-root resolver correlates relation and owner basis
+  ResolvedOwnerProjectionRelation --> OwnerProjectionRelationWitness : derives canonical witness without function hashing
   ResolvedOwnerNativeContractSource --> SharedCanonicalNativeSchemaProjector : supplies opaque schema registry pair
   SharedCanonicalNativeSchemaProjector --> NativeSchemaProjectionWitness : derives only
   ResolvedOwnerNativeContractSource --> PhaseANativeContractMechanism : defineNativeContract consumes only this source
@@ -1715,11 +2142,22 @@ classDiagram
   NativeSchemaProjectionWitness --> PrivateCompilerSeal : seals private M03 compilation
   PhaseANativeContractMechanism --> OwnerContractResolutionK : admits coordinate
   OwnerSchemaInput --> OwnerContractResolutionK : resolves exact slots
+  ResolvedOwnerProjectionRelation --> WrappedProjectReadResultContract : proves request projection relation
+  ResolvedOwnerNativeContractSource --> WrappedProjectReadResultContract : supplies owner projection schema
+  PhaseANativeContractMechanism --> WrappedProjectReadResultContract : central join adds wrapper and shape basis
+  WrappedProjectReadResultContract --> ResultContractBindingOfK : request-related branch
+  ResolvedOwnerNativeContractSource --> ResultContractBindingOfK : ordinary schema-only branch
+  AdmittedPublicInvocationK --> IndexedOutcomeAdmissionK : supplies exact admitted request
+  ResultContractBindingOfK --> IndexedOutcomeAdmissionK : supplies schema and mandatory relation when project read
+  IndexedOutcomeAdmissionK --> ResolvedOwnerProjectionRelation : executes only for project read result
+  IndexedOutcomeAdmissionK --> OutcomeAdmissionFailureK : malformed cross-key or relation mismatch
+  WrappedProjectReadResultContract --> OwnerContractResolutionK : supplies final project read result slot
+  DefinitionMetadataProjection --> OwnerContractResolutionK : closes exact metadata or gap
   OwnerContractResolutionK "1" *-- "3..4" ContractSlotResolution : preserves per slot owner
   OwnerContractResolutionK --> ResolvedOwnerContract : resolved branch
   OwnerContractResolutionK --> P1DefinitionGap : unrealized branch
   ResolvedOwnerContract "1..*" --> "1" ExactOwnerContractSet : closes exact census
-  ExactOwnerContractSet --> PrivateDefinitionFamily : admits all or nothing
+  ExactOwnerContractSet --> PrivateDefinitionFamily : admits all or nothing with canonical digests
   PrivateDefinitionFamily --> PrivateProjectionSet : derives only
   PrivateProjectionSet ..> PublicPackageExportLocator : P2 may derive after publication
   P1DefinitionGap ..> PrivateDefinitionFamily : prohibits admission
@@ -1735,11 +2173,13 @@ sequenceDiagram
   actor Builder
   participant Resolver as OwnerSchemaResolver
   participant Source as FixedRootOwnerSourceResolver
+  participant Relation as FixedRootProjectionRelationResolver
   participant PhaseA as PhaseANativeContractMechanism
   participant Shared as SharedCanonicalProjector
   participant Compiler as M03PrivateCompiler
   participant Owners as ExistingSemanticOwners
   participant Family as PrivateDefinitionFamilyAdmission
+  participant Outcome as IndexedOutcomeAdmission
   participant Projector as PrivateDeterministicProjector
   participant Gate as P1BuildGate
 
@@ -1776,16 +2216,45 @@ sequenceDiagram
             Resolver->>Compiler: seal schema semantics from same neutral witness
             Compiler-->>Resolver: sealed private result or typed refusal
           end
-          Resolver->>Resolver: append owner_contract_resolved row
+          opt project read projection input
+            Resolver->>Relation: resolve exact owner relation from projection module and basis
+            Relation->>Owners: resolve typed request projection action by exact member path
+            Owners-->>Relation: same-module action or typed mismatch
+            alt relation missing cross-basis or schema relation source diverges
+              Relation-->>Resolver: typed relation refusal
+              Resolver->>Resolver: append p1_contract_project_read_not_realized
+            else relation resolves
+              Relation-->>Resolver: opaque typed relation carrier and witness
+              Resolver->>PhaseA: centrally compose generic result wrapper, owner projection, relation witness, and one contract-shape basis
+              PhaseA-->>Resolver: final wrapped project read result contract
+            end
+          end
+          Resolver->>Resolver: append owner_contract_resolved only if any project-read relation and wrapper admitted
         end
       end
+    end
+    Resolver->>Resolver: derive exact metadata projection for K from accepted literal tables
+    alt metadata missing divergent or selector-indexed catalog scope mismatches request
+      Resolver->>Resolver: append definition_metadata_not_realized gap
     end
   end
   alt one or more typed gaps
     Resolver-->>Builder: definition_family_gap with non-empty exact rows
     Resolver-->>Family: no family admission request
   else exact owner set and exact census
-    Resolver->>Family: admit one private family
+    Resolver->>Family: admit one private family and derive each definition digest plus family digest
+    loop each project read definition key
+      Builder->>Outcome: private fixture with definition full admitted invocation and candidate result
+      Outcome->>Outcome: conserve K and parse wrapper plus owner projection
+      Outcome->>Relation: execute carried relation over invocation request and parsed projection
+      alt relation reports mismatch
+        Relation-->>Outcome: projection_relation_mismatch with typed paths
+        Outcome-->>Builder: internal outcome_admission_failure and no result truth
+      else relation reports related
+        Relation-->>Outcome: projection_related
+        Outcome-->>Builder: K-indexed result may admit after payload and outcome digest checks
+      end
+    end
     Family->>Projector: derive private temporary projections
     Projector->>Gate: prove nested-family equality, same-key row conservation, 19 identities, 35 variant keys, 27 read cases, 62 total keys, coordinates, digests, and import fence
     alt projection or Prime proof fails
@@ -1796,12 +2265,14 @@ sequenceDiagram
   end
 ```
 
-T-274A has independently closed the `ticket_consensus` result slot by proving
-that its neutral schema coordinate admits through the shared closed projector
-and Phase A binding. The constructor-ready packet above fixes the generic
-request/refusal, explicit absent non-terminal, structural-key constructor, and
-remaining 26 result-source placements. The typed gap now denotes only their
-unrealized native sources and exact P1 resolution, not an open design choice.
+T-274A has independently closed the `ticket_consensus` projection source by
+proving that its neutral schema coordinate admits through the shared closed
+projector and Phase A binding. It has not closed the final wrapped result
+contract or request-to-projection relation. The constructor-ready packet above
+fixes the generic request/refusal/result wrapper, explicit absent non-terminal,
+structural-key constructor, and all 27 projection-source placements. The typed
+gap denotes the remaining owner relations, central wrapper composition, exact
+metadata, and P1 resolution rather than an invitation to invent semantics.
 T-275 is not a P1 dependency:
 it provides later handler/projection semantics and therefore gates P2, not
 private definition construction.
@@ -1818,16 +2289,25 @@ stateDiagram-v2
   PrivateSourcePairResolved --> ProjectionWitnessPending: submit opaque schema registry carrier to shared projector
   ProjectionWitnessPending --> ProjectionWitnessDerived: projection and witness derive on one basis
   ProjectionWitnessPending --> DefinitionRefused: unsupported or unregistered constraint
-  ProjectionWitnessDerived --> OwnerResolutionPending: M04 coordinate and M03 seal conserve same witness
+  ProjectionWitnessDerived --> ProjectionRelationPending: project read projection requires same-owner request relation
+  ProjectionRelationPending --> WrappedResultPending: relation resolves from same module and owner basis
+  ProjectionRelationPending --> OwnerGapObserved: relation missing cross-basis or incompatible
+  WrappedResultPending --> OwnerResolutionPending: central join composes wrapper projection relation and one shape basis
+  WrappedResultPending --> DefinitionRefused: raw projection substituted for wrapped result or subordinate supplies shape basis
+  ProjectionWitnessDerived --> OwnerResolutionPending: non-read slot M04 coordinate and M03 seal conserve same witness
   ProjectionWitnessDerived --> DefinitionRefused: coordinate digest or compiler seal diverges
   OwnerResolutionPending --> DefinitionRefused: private source locator or structural named-check coordinate is missing or divergent
   OwnerResolutionPending --> DefinitionRefused: structural key widens or project_read is encoded as variant
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
-  OwnerResolutionPending --> ExactOwnerSetResolved: all distributed keys and same-key slots exact
-  ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family
+  OwnerResolutionPending --> MetadataResolutionPending: all distributed keys and final same-key slots exact
+  MetadataResolutionPending --> OwnerGapObserved: metadata missing divergent or selector-indexed catalog scope relation invalid
+  MetadataResolutionPending --> ExactOwnerSetResolved: exact literal metadata and eight slot requirements admit
+  ExactOwnerSetResolved --> RawDefinitionFamily: construct sole private family and canonical digest projections
   RawDefinitionFamily --> DefinitionRefused: admission rejects key coordinate digest or authority
-  RawDefinitionFamily --> DefinitionAdmitted: exact family admission passes
-  DefinitionAdmitted --> PrivateProjectionsDerived: deterministic projection only
+  RawDefinitionFamily --> DefinitionAdmitted: exact family and per-definition digest admission passes
+  DefinitionAdmitted --> OutcomeAdmissionProofPending: prove full invocation request reaches each project read relation
+  OutcomeAdmissionProofPending --> PrivateProjectionsDerived: related positives admit and mismatch negatives refuse before truth
+  OutcomeAdmissionProofPending --> P1Refused: relation absent optional caller-authored or witness-only
   PrivateProjectionsDerived --> P1Refused: parity Prime or import fence fails
   PrivateProjectionsDerived --> P1Ready: all private P1 proofs pass
   OwnerGapObserved --> [*]: persist typed gap set and stop
@@ -1846,6 +2326,9 @@ publication or runtime invocation.
 |---|---|---|
 | `PublicFunctionDefinition<K>` | accepted public contract family | Sole operation-specific authoring relation and projection basis. |
 | `NativeContractDefinition<S>` | semantic owner's native contract meaning | One strict owner-supplied Valibot schema plus stable native/schema coordinates consumed by type inference, runtime admission, digest, and JSON-Schema projection. T-281 binds it but does not re-author its fields. |
+| `ResolvedOwnerProjectionRelation<K, Req, Projection>` | semantic owner's source-to-projection law | Opaque, structurally generic same-module/basis carrier for the typed relation that schema-only admission cannot prove; ten Prime owner constructors instantiate owner-native values, M04 adapts its admitted project-read key/request at the join, and T-281 cannot supply a callback. |
+| `ProjectReadWrappedResultContract<C, Projection>` | T-281 wrapper authority composed with projection-owner authority | Final public result contract for one read case; preserves the owner projection, mandatory opaque executable relation, canonical relation witness, and single central contract-shape basis. |
+| `ResultContractBindingOf<K>` | structural-key-indexed definition law | Closed conditional: ordinary keys retain schema-only result bindings; project-read keys retain the request-related wrapped binding. |
 | `PublicInvocation<K>` | public ingress admission | One immutable typed proposal bound to one exact definition and authority. |
 | `PublicOutcome<K>` | public egress admission | One immutable admitted result, refusal, or declared non-terminal outcome. |
 | `InvocationAuthority<K>` | operation-indexed authority | Binds actor, grants, policy, view, steering, and stable authority required by the definition. |
@@ -1871,6 +2354,7 @@ authority and is not implemented by T-281.
 | `PublicFunctionDefinition<K>` | function id, version, variant, digest | PRODUCT/requirements; AF-24 publishes | T-281 native definition admission | schema/catalog/SDK/CLI projectors | semantic change creates a new version | hard-break migration retires legacy definitions |
 | `NativeContractDefinition<S>` | native symbol plus schema coordinate and projected schema digest | existing semantic owner | owner admits strict native schema; T-281 binds its exact coordinate | type inference, `v.parse`, digest, and JSON-Schema projection | semantic schema change creates another contract version/digest | prior published contract remains version evidence |
 | `NativeSchemaProjectionWitness` | witness digest over projector basis, schema locator, structural named-check source coordinate, schema ref/version, projection digest, and named-check rows | derived from existing semantic owner schema/registry source by the shared projector | constructed only from the opaque resolved source; no raw constructor | M03 private seal and M04 private binding | any source, schema, registry coordinate, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
+| `OwnerProjectionRelationWitness<K>` | witness digest over relation identity, generic structural key, owner basis, module/export/member coordinate, module digest, and member identity | derived from the semantic-owner relation source | fixed-root resolver derives; executable function value is retained privately but not hashed | definition digest and indexed project-read outcome admission | any canonical coordinate or owner-basis change creates another witness and binding | temp proof receipt; never replaces execution of the relation |
 | `PublicInvocation<K>` | invocation and request refs plus definition key | public ingress | common invocation admission | exact outcome/evidence projection | immutable | retained as admitted evidence |
 | `PublicOutcome<K>` | invocation ref plus outcome kind/digest | owning semantic function plus outcome admission | admitted after indexed output validation | SDK/CLI/public projection | corrected evidence creates another outcome/version under owning law | retained as evidence |
 | `InvocationAuthority<K>` | authority-set ref and basis digest | operation admission | assembled only from definition-required authority | runtime/public evidence projection | immutable; changed authority creates another identity | retained as evidence |
@@ -1886,7 +2370,7 @@ authority and is not implemented by T-281.
 | define 19-operation family | product design | Prime and whole-family design review | definition admission and exact census | AF-24 publication admission | deterministic generator | contract/schema/SDK/CLI projector | product contract publisher |
 | define native contract | definition author | Valibot schema plus shared projector | strict-schema, source-locator, projector-basis, named-check, coordinate, projection, and witness-digest verifier | definition admission | `v.parse` when input arrives | shared inferred native type, pinned JSON-Schema projection, and neutral witness | owning definition version law |
 | admit public invocation | caller/adapter | selected definition law | schema, variant, binding, actor, grants, and authority verifier | generic public ingress | owning semantic function after admission | generic public outcome transport | event/evidence retention owner |
-| admit public outcome | owning semantic function/handler | indexed result/refusal law | output schema and causal basis verifier | owning result/event admission | not applicable | public egress projector | owning evidence law |
+| admit public outcome | owning semantic function/handler | indexed result/refusal law | full admitted invocation, output schema, causal basis, and mandatory project-read request-to-projection relation | owning result/event admission | project-read relation executes before truth; otherwise not applicable | public egress projector | owning evidence law |
 | bind semantic handler | P2 owner | exact key and behavior proof | handler parity/compiler | P2 build admission | existing operation-specific handler | packed SDK/CLI/catalog | handler owner |
 | retire legacy public row | hard-break migration | exact accepted 19-row census | source/package/install negative scan | build/release gate | not applicable | absence proof | product contract publisher |
 
@@ -2063,10 +2547,11 @@ retain distinct behavior owners.
 | P1 adds one authoring source and no public or semantic authority | Prime source delta plus private projection relation | pass as P1 design |
 | M03 does not depend on M04 public carriers | module direction fence, neutral owner-input edge, and negative import-graph proof | pass as P1 design |
 | Semantic behavior remains separately owned | domain `SemanticOwner`; sequence requests neutral schemas only and invokes no runtime owner | pass as P1 design |
+| Five semantic metadata fields are constructor-ready without a second roster | exact 19-row private basis, full authority refs and accepted digests, closed authority/effect/event literals, exact-own-key guard, and `K.operationId` projection | repaired design; realization proof pending |
 | Binding cardinality is closed per variant | exact matrix and domain closed-sum note | pass |
-| `project.read` is a closed source/projection target relation | 27 exact cases, structural request/refusal, ten Prime result families, exact owner placements, and per-slot mixed ownership | design complete; native realization and exact P1 resolution remain blocking |
+| `project.read` is a closed source/projection target relation | 27 exact cases, structural request/refusal, ten Prime result families, exact owner placements, conditional result binding, mandatory opaque relation, canonical witness without function hashing, and full-invocation outcome admission | repaired design; native realization and exact P1 resolution remain blocking |
 | Malformed input cannot reach an effect | accepted Phase A admission proof; P1 sequence has no effect edge | pass as Phase A proof |
-| Malformed output cannot become public truth | accepted Phase A outcome proof; P1 publishes no output | pass as Phase A proof |
+| Malformed output cannot become public truth | indexed admission receives the full admitted invocation, parses the wrapped result, executes the project-read relation over the admitted request and candidate projection, and emits internal `relation_mismatch` before any outcome digest/truth | repaired design; realization proof pending |
 | No partial public surface is published after P1 | P1 sequence yields typed gaps or private projections; `P1Ready` is terminal | pass as P1 design |
 | Hard break removes rival public truth | outside P1; P2 remains separately gated on exact family and handler parity | target only; P2 proof pending |
 | Non-Consensus proof prevents consumer-shaped infrastructure | schema-only `workspace.create(clean)` fixture with no handler/effect | pass as Phase A design |
@@ -2075,13 +2560,13 @@ retain distinct behavior owners.
 
 | Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|
-| GTL program is program; GraphFunction is callable member | PRODUCT, T-278, T-270 | run.invoke definition cites semantic owner only | P1 sequence never invokes by metadata | `P1Ready` is not runtime state | owner-native run.invoke types required | T-270 later owns program membership admission | target passes; P1 blocked | `p1_contract_run_invoke_not_realized` |
+| GTL program is program; GraphFunction is callable member | PRODUCT, T-278, T-270 | run.invoke definition cites semantic owner only | P1 sequence never invokes by metadata | `P1Ready` is not runtime state | owner-native run.invoke types landed in the 115-slot non-read family | T-270 later owns program membership admission | pass for P1; runtime integration remains downstream | none in P1 |
 | Prime contract authority | ADR-044 | one definition family; projections subordinate | single projector | no second authored state | `satisfies` and closed mapped types | Prime and parity gates | pass | none |
 | Native/schema one-source law | REQ-P-PUBLIC-CONTRACTS-005 | one strict Valibot schema is directly consumed | infer parse project digest | unsupported schema or override refuses | `v.InferOutput<S>` | `v.parse` and pinned JSON-Schema projection share source | pass as Phase A design | T-281 Phase A proof |
 | Operation-indexed type conservation | REQ-P-PUBLIC-CONTRACTS-009..010 | nested operation/member family derives a distributive key union; every contract slot remains keyed by one member K | exact owner-slot resolution precedes family admission | cross-operation variant, cross-key slot, same-key slot permutation, schema/value substitution, or missing slot refuses P1 | separate `*SchemaOf<K>` and inferred `*Of<K>` aliases; literal-slot coordinates; nested string-literal mapped types plus distributive discriminated row unions; no object-valued property key or weak index | strict positive/negative TypeScript witness plus exact-set admission over readonly structural rows | pass as repaired P1 design | owner-native gap set |
 | No metadata mega-handler | PRODUCT layer law | separate semantic owner and no P1 handler | P1 contains no effect call | metadata has no running state | handler types excluded from P1 | import/source scan rejects dispatch | pass as P1 design | P2 proof remains separate |
 | Malformed likely inputs fail closed | trusted-desktop operating boundary | definition binds exact owner-schema coordinates | refuse before effect | explicit refusal states | native constructors and raw admitters | schema and projection parity | pass | none |
-| Malformed likely outputs fail closed | F_P/output admission law | PublicOutcome remains distinct | excluded from P1 runtime | no P1 outcome state | indexed result/refusal bindings | Phase A proof accepted; runtime proof later | target only | handler owners |
+| Malformed likely outputs fail closed | F_P/output admission law | `ResultContractBindingOf<K>` preserves the executable relation only for project read | private P1 fixture applies relation using full admitted invocation | relation proof precedes `P1Ready` | indexed bindings and full `PublicInvocation<K>` input | mismatch yields internal typed failure before outcome truth; later P2 repeats packed path | repaired design; realization pending | T-281 then handler owners |
 | Hard break | PRODUCT and requirement 008 | P1 remains private; P2 is the later atomic public switch | no P1 publication route | `P1Ready` terminates before P2 | exact key union | P2 source/package/install negative scans | target only | T-281/P2 proof |
 | Proportional defense | GOAL-035 operating boundary | no signer lock service or adversary model | local validation only | bounded refusal states | ordinary strict TypeScript | deterministic local gates | pass | none |
 | Honest incompleteness | SPEC_METHOD | Phase A, owner-slot gaps, private P1, and later P2 are distinct | build emits typed gaps and refuses partial publication | `OwnerGapObserved` terminates; `P1Ready` waits for P2 | no fake implementation member | named owner gaps and same-basis ordering remain blockers | pass as design | owner milestones plus T-281/P2 |
@@ -2127,15 +2612,23 @@ P1 then shall:
    catalog rows, SDK/CLI coordinate inventories, and parity/digest inventory
    from that one family; commit or publish none of them as product assets;
 5. derive the private `project.read` relation from one closed 27-case map, one
-   generic request/refusal wrapper, explicit absent non-terminal truth, and 27
-   neutral owner result schemas; consume the independently accepted T-274A
-   Phase-A-compatible `ticket_consensus` result coordinate without duplicating
-   its owner truth;
-6. reject missing, extra, cross-key, literal-slot permutation, schema/value,
+   generic request/refusal/result wrapper, explicit absent non-terminal truth,
+   27 owner projection schemas, and 27 same-owner relation witnesses; central
+   P1 derives the wrapped result contracts and consumes T-274A's
+   Phase-A-compatible `ticket_consensus` projection without duplicating it;
+6. retain each project-read opaque executable relation in
+   `ResultContractBindingOf<K>`, pass the full admitted invocation to indexed
+   outcome admission, and prove related positive plus relation-mismatch
+   negative fixtures before any result truth admits;
+7. derive the five semantic metadata fields from one exact 19-row private
+   operation basis and prove full refs and accepted source digests,
+   exact-own-key equality, closed literal domains, and per-member
+   `K.operationId` inheritance;
+8. reject missing, extra, cross-key, literal-slot permutation, schema/value,
    binding, coordinate, owner-schema, duplicate, legacy-contribution,
    projection-digest, and M03-to-M04 import mismatches; prove the positive and
    negative type relations with `test:t281:p1-design-types`; and
-7. retain the admitted family and projections as private candidate truth for
+9. retain the admitted family and projections as private candidate truth for
    the later P2 atomic switch.
 
 P2 binds one explicit typed handler map, atomically switches exports,
@@ -2162,6 +2655,14 @@ public integration before P2. T-268 cannot claim
   refuses against the exact admitted catalog basis;
 - an unsupported `project.read` source/projection pair or a source whose kind
   does not match its selected case refuses;
+- a missing, optional, caller-authored, cross-owner, witness-only, or
+  function-source-hashed project-read relation refuses before a result binding
+  or outcome can admit;
+- a project-read projection that parses structurally but does not relate to the
+  full admitted invocation request yields internal `relation_mismatch` and no
+  public outcome truth;
+- a semantic-metadata basis with 18 or 20 keys, an unlisted authority/effect/
+  event literal, a shortened authority ref, or a member-local override refuses;
 - a binding on a forbidden variant and no binding on an exactly-one variant
   both refuse;
 - request, result, or refusal substitution across operation/variant keys
@@ -2194,6 +2695,9 @@ public integration before P2. T-268 cannot claim
   from accepted entity lifecycle and authority law;
 - stop if strict TypeScript cannot preserve operation/request/result/refusal
   correlation without an unchecked cast or permissive index;
+- stop if `admitPublicOutcome` cannot retain full `PublicInvocation<K>` request
+  truth or if the project-read binding cannot expose the mandatory opaque
+  relation without accepting a callback;
 - stop if the native projector silently drops a Valibot constraint or requires
   a global registry, consumer switch, function-source inspection, or
   caller-supplied projection witness;
@@ -2211,26 +2715,18 @@ public integration before P2. T-268 cannot claim
 
 ## Verdict
 
-`p1_candidate_pending_independent_review`
+`p1_design_accepted_for_realization`
 
 The exact 19-operation target and Prime one-family direction remain accepted.
-The prior
-`83de4ec5419c279ec09bd6e08bf3c67ef04a8b382b252947dccbe6b626e02a04`
-candidate is rejected because its Phase A packet
-generics still required a string literal key, duplicated `operationKey` beside
-`definitionKey`, and did not exercise actual authority, invocation, and outcome
-APIs for both structural branches. This repaired candidate rejects that
-duplicate authority as well as the earlier custom contract algebra. It carries
-one exact structural key through the native Phase A mechanism, preserves a
-private P1 and atomic P2 hard break, and keeps missing operation-owner schemas
-as honest P1 gaps. The authoritative family is nested by operation and that
-operation's own members; its flat key and resolution/gap rows are distributive
-projections rather than object-valued map keys or a second serialized selector.
-The accepted project-read design digest
-`6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019`
-is superseded only for registry-source constructability. Its 27 cases, ten
-Prime result families, Consensus reuse, placement, and field shape are
-unchanged. This candidate binds explicit `none | family_registry` truth to the
-schema module in one opaque carrier and removes caller registry selection.
-Exact-digest review still gates implementation; the owner gap census still
-gates private-family admission; P2 remains separately release-blocking.
+This candidate supersedes the prior structural-key, registry-source, and
+project-read constructor assumptions only where constructability proved them
+incomplete. It keeps one structural key through the native Phase A mechanism,
+binds schema-local checks to their owner module, treats the 27 owner result
+schemas as projection inputs rather than final public result contracts, derives
+the generic wrapped results centrally, and executes each owner relation against
+the full admitted invocation before outcome truth. One exact 19-row metadata
+basis, including semantic-authority digests, closes all 62 definition rows.
+The private P1 and atomic P2 hard break remain unchanged. Two independent
+reviews accepted the exact semantic candidate digest above and authorize P1
+implementation. Current typed input gaps still gate private-family admission;
+P2 remains separately release-blocking.
