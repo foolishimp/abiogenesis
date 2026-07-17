@@ -339,13 +339,17 @@ T-256 derives no value from a profile label, operator name, or ambient catalog.
 | `ReviewerAssignment` | `roundRef`, `panelRef`, `profileRef`, positive `panelOrdinal`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
 | `SemanticReducerBinding` | `roundRef`, `reducerRef`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs`, `policyRef` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
 | `SubmitterTurnBinding` | `roundRef`, `submitterRef`, `roleContractRef`, `configurationDigest`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs` | role/worker selection, configuration, instruction protocol, result contract, capability requirements |
-| `FhInteractionBinding` | `roundRef`, `interactionSubjectRef`, `expectedActorRef`, `instructionContractRef`, `resultContractRef`, ordered-unique `capabilityRefs`, `interactionOperationIds`, `interactionResumeOperationIds`, `interactionChoiceRefs` | interaction subject, instruction protocol, result contract, capability requirements, operation, resume-operation, and choice refs |
+| `FhInteractionBinding` | `roundRef`, `interactionSubjectRef`, `expectedActorRef`, `instructionContractRef`, `resultContractRef = schema://abg/consensus/round-disposition`, ordered-unique `capabilityRefs`, `interactionOperationIds`, `interactionResumeOperationIds`, `interactionChoiceRefs` | interaction subject, instruction protocol, exact graph-target result contract, capability requirements, operation, resume-operation, and choice refs |
 
 `FhInteractionBinding` carries no `interactionRef`. The exact interaction
 identity is created only when ABG/T-272 admits the F_H hold. The resulting
 `FhPendingInteraction` may carry that runtime-owned identity. The former
 `requestContractRef` is not treated as an instruction protocol alias; it is
-replaced by the exact declared `instructionContractRef`.
+replaced by the exact declared `instructionContractRef`. Both F_H GraphVectors
+target the ordinary `ConsensusRoundDisposition` Node and bind
+`schema://abg/consensus/round-disposition` as their exact result contract.
+`FhPendingInteraction` is held runtime event/projection truth, never a graph
+target or substitute output carrier.
 
 ### D10. Routing Consumes A Real Graph-Private Contract
 
@@ -405,8 +409,9 @@ The recurse declaration retains exactly:
 - `requiresParentEvaluation: true`.
 
 The SYSTEM stdlib supplies those two domain bindings separately from the ten
-F_D `Operator.binding` rows. `round-closed` accepts only a `closed_done`
-disposition. `next-round` accepts only a `recurse_next_round` disposition with
+F_D `Operator.binding` rows. `round-closed` accepts exactly the terminal
+outcomes `closed_done | escalate_fh`; result projection remains restricted to
+`closed_done`. `next-round` accepts only a `recurse_next_round` disposition with
 an unexhausted declared budget, increments the ordinal once, binds
 `priorRoundRef`, and preserves the exact subject, panel, policy, cumulative
 findings, rulings, dissent, evidence, and lineage. T-270 owns generic recurse
@@ -616,7 +621,7 @@ classDiagram
     +interactionSubjectRef
     +expectedActorRef
     +instructionContractRef
-    +resultContractRef
+    +resultContractRef round-disposition
     +operationIds
     +resumeOperationIds
     +choiceRefs
@@ -741,7 +746,7 @@ classDiagram
   ConsensusReviewerProfile --> ReviewerAssignment : F_D derives
   ConsensusRoundPolicy --> SemanticReducerBinding : exact context
   ConsensusSubject --> SubmitterTurnBinding : distinct from actor
-  ConsensusRoundPolicy --> FhInteractionBinding : request basis only
+  ConsensusRoundPolicy --> FhInteractionBinding : request basis and round-disposition target
   ConsensusContractFamily *-- ConsensusSemanticRouteDecision
   ConsensusContractFamily *-- ConsensusRoundDisposition
   ConsensusContractFamily *-- ConsensusResultCandidate
@@ -768,7 +773,8 @@ classDiagram
   ConsensusResultCandidate --> AdmittedOutputAuthority : ABG admits and owns resultRef
   AdmittedOutputAuthority --> ConsensusResult : supplies result identity
   RuntimeEventLog --> ConsensusResult : supplies replay identity
-  FhInteractionBinding --> FhPendingInteraction : ABG opens without authored identity
+  FhInteractionBinding --> ConsensusRoundDisposition : exact graph result contract
+  FhInteractionBinding --> FhPendingInteraction : ABG opens held runtime truth without authored identity
   FhPendingInteraction --> RuntimeEventLog : T272 holds and re-enters
   ProjectReadDefinition --> ConsensusResult : closed source relation
   ProjectReadDefinition --> TicketConsensusProjection : AF03 derives
@@ -819,11 +825,11 @@ sequenceDiagram
   Stdlib-->>Graph: exact contexts route decisions dispositions and foldback values
   Graph->>Graph: generic fan in reduction workflow and recurse over declared structure
   alt F_H interaction held
-    Graph->>T272: open F_H request basis without interactionRef
+    Graph->>T272: open F_H request basis for round-disposition without interactionRef
     T272-->>Caller: truthful nonterminal interactionRef and replay
     Caller->>T272: interaction.respond with exact actor and response
     T272->>ABG: run.continue same intent GraphCall frame and held locus
-    ABG-->>Graph: admitted response at the held locus
+    ABG-->>Graph: admitted round disposition at the same held locus
   else canonical result admitted
     Graph->>Stdlib: project-result with subject and complete closed disposition
     Stdlib-->>ABG: ConsensusResultCandidate without resultRef or replayRef
@@ -863,7 +869,11 @@ stateDiagram-v2
   RouteClaimed --> Rejected: phase policy budget assessment or declared rule mismatches
   RouteClaimed --> RuntimeHeld: admitted escalate_fh opens T272 interaction identity
   RuntimeHeld --> RuntimeHeld: no final result or ticket projection exists
-  RuntimeHeld --> RouteClaimed: T272 response and run.continue re-enter same held locus
+  RuntimeHeld --> FhDispositionAdmitted: T272 response and run.continue complete the same held locus with round disposition
+  FhDispositionAdmitted --> ClosedDisposition: closed_done terminates recurse and may project result
+  FhDispositionAdmitted --> EscalatedDisposition: escalate_fh terminates recurse without starting another round
+  FhDispositionAdmitted --> RoundRebound: recurse_next_round alone enters exact next-round foldback
+  EscalatedDisposition --> [*]
   RouteClaimed --> RoundRebound: admitted recurse_next_round and exact next-round binding
   RoundRebound --> AssignmentsDerived: same subject panel policy and incremented ordinal
   RouteClaimed --> ClosedDisposition: admitted closed_done with complete cumulative inputs
@@ -903,12 +913,12 @@ identity and lawful re-entry; ABG owns target-output and replay identities.
 | attribution is not completion order | findings bind assignment, request, C-call, actor invocation, profile, and config | ABG creates invocation identity after T256 then schema admission joins it | stale or foreign invocation binding rejects | replay-derived assignment-invocation join and order differential | pass |
 | result is runtime truth | result requires output authority and replay | graph emits before `project.read` | candidate cannot become admitted without matching basis | payload-ledger and canonical-event verification | pass |
 | projection is pure | ticket projection is subordinate | read follows completed result and emits no event | projected state has no mutation transition | event-count and write-surface negatives | pass |
-| F_H remains truthful nonterminal | held interaction is not a result | continuation is explicitly T-272-owned | RuntimeHeld cannot enter TicketProjectable | no projection without admitted result target | pass |
+| F_H remains truthful nonterminal until response | held interaction is runtime truth, while the graph target remains round disposition | continuation is explicitly T-272-owned and completes the same locus | RuntimeHeld cannot enter TicketProjectable; escalation terminates rather than folds | no graph result before response; exact round-disposition admission after response | pass |
 | deterministic stdlib is bounded | exactly ten F_D leaf refs contract to six actions; wrappers are absent | T-270 resolves a leaf only after structural routing selects its locus | no stdlib controller or wrapper state exists | exact ref/regime/input/output/family-digest admission plus wrapper absence scan | pass |
 | execution contexts are complete | all four graph-private binding carriers contain every active T-256 slot | T-256 receives typed values without inference | missing field reaches Rejected before effect | exact slot projection and profile/policy relation | pass |
 | routing consumes real fields | assessments carry one typed private route decision | F_D verifies route phase policy budget and declared rule | invalid phase or exhausted recurse rejects or holds | no nonexistent disposition field refs | pass |
 | graph result does not own runtime identity | `ConsensusResultCandidate` omits resultRef and replayRef | ABG output admission and replay projection add identities | candidate cannot become public result without both authorities | target-authority and replay join | pass |
-| recurse and F_H re-entry remain generic runtime | two exact domain bindings feed generic recurse; T272 owns interaction and re-entry | response then continue returns to same held locus | no projection or new selection resumes work | exact binding refs plus same-intent/frame/locus proof | pass |
+| recurse and F_H re-entry remain generic runtime | two exact domain bindings feed generic recurse; F_H targets round disposition; T272 owns held truth and re-entry | response then continue completes the same held locus | only recurse_next_round folds; closed_done and escalate_fh terminate | exact binding refs, result contract, and same-intent/frame/locus proof | pass |
 | 19-operation hard break | only accepted `run.invoke` and `project.read` appear | no feature-specific adapter participates | legacy route has no state | operation-definition/catalog/SDK/CLI parity scan | pass |
 
 ## Migration
@@ -941,9 +951,10 @@ identity and lawful re-entry; ABG owns target-output and replay identities.
 10. Add `ticket_consensus` to the existing closed `project.read`
    source/projection relation and derive projection identity and digest.
 11. Preserve the canonical graph ownership and change its body only where the
-   graph-private route, result-candidate, and execution-context contracts make
-   the declared dataflow constructible; one changed body digest remains the
-   sole body rather than a compatibility copy.
+   graph-private route, result-candidate, execution-context, and two F_H target
+   contracts make the declared dataflow constructible; both F_H vectors target
+   round disposition, while pending interaction remains runtime truth. One
+   changed body digest remains the sole body rather than a compatibility copy.
 12. Extend focused tests with two differently attributed profiles, serialized
    parity, order differentials, result/replay conservation, and pure-read proof.
 13. Prove the T-272 interaction/respond/continue path returns to the same held
@@ -987,11 +998,15 @@ identity and lawful re-entry; ABG owns target-output and replay identities.
   evidence, lineage, result, or replay mismatch fails;
 - a held F_H interaction cannot be decoded or projected as a final result;
 - a caller- or graph-authored interaction ref, result ref, or replay ref fails;
+- either F_H vector targeting pending-interaction truth, binding any result
+  contract other than `schema://abg/consensus/round-disposition`, or lacking an
+  outgoing disposition path fails the graph census;
 - `run.continue` with a foreign intent, program, GraphCall, frame, interaction,
   actor, response, or held locus fails without graph advancement;
 - a closed disposition missing any result field or a recurse disposition
   missing exact foldback truth fails before `project-result`;
-- a wrong termination or foldback binding, exhausted next round, skipped
+- a termination predicate that omits `escalate_fh`, a foldback predicate that
+  admits anything other than `recurse_next_round`, a wrong binding, exhausted next round, skipped
   ordinal, or changed cumulative lineage fails generic recurse admission;
 - a non-ticket subject cannot produce a ticket projection;
 - a forged or caller-supplied ticket, projection ref, or projection digest fails;

@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: bounded_constructability_design_repair_ready_for_independent_review
-- review_status: prior_design_superseded_by_constructability_repair_fh_review_pending
-- proof_status: design_only_runtime_untouched
+- phase_status: bounded_constructability_design_accepted_implementation_fenced
+- review_status: independent_re_review_accepted_fh_authority_accepted
+- proof_status: accepted_design_runtime_untouched
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -59,7 +59,11 @@
     build_tenants/abiogenesis/typescript/design/
     M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md
 - superseded_accepted_design_digest: 16b10ddc1af12b5f51e6e391bc387202df3c0792d593bc7a0033d26aa84c7435
-- constructability_repair_design_digest: 45cb539849b511b15fd9302c0a76db80370ec6f2b713254954379461f76cbf9f
+- superseded_constructability_repair_design_digest: 45cb539849b511b15fd9302c0a76db80370ec6f2b713254954379461f76cbf9f
+- accepted_constructability_repair_design_digest: d6480a9224df2d1268da80d687fedf75a2d60dcc36ba81e6256e89535f30985a
+- constructability_repair_review_and_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T094902Z_REVIEW_DECISION_t275_constructability_repair.md
 - superseded_independent_design_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T075100Z_REVIEW_t275_reconciled_consensus_domain_design.md
