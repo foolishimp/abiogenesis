@@ -1,7 +1,6 @@
 // Implements the private, temp-only T-274A Consensus artifact derivation.
 
 import {
-  CONSENSUS_NATIVE_CHECK_REGISTRY,
   CONSENSUS_PUBLIC_CONTRACT_SOURCES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   REVIEW_RULING_KIND_VALUES
@@ -88,8 +87,7 @@ async function deriveSchemaArtifact(
       schemaId: sourceRow.contractId,
       schemaVersion: CONSENSUS_CONTRACT_VERSION
     },
-    source,
-    namedCheckRegistry: CONSENSUS_NATIVE_CHECK_REGISTRY
+    source
   });
   const bytes = canonicalNativeSchemaBytes(nativeContract.projectedSchema);
   const digest = sha256DigestForBytes(bytes);

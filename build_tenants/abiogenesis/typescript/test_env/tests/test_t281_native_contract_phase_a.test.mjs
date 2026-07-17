@@ -38,6 +38,7 @@ import {
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 import {
+  deriveCanonicalNativeSchemaProjection,
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
@@ -97,12 +98,17 @@ const RESOLVED_FIXTURE_SOURCES = Object.freeze({
   )
 });
 
-function frozenSourceRow(sourceLocator, schema) {
+function frozenSourceRow(
+  sourceLocator,
+  schema,
+  namedChecks = Object.freeze({ kind: "none" })
+) {
   return Object.freeze({
     sourceLocator: Object.freeze({
       ...sourceLocator,
       memberPath: Object.freeze([...sourceLocator.memberPath])
     }),
+    namedChecks,
     schema
   });
 }
@@ -353,6 +359,9 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
     definition.projectionWitness.sourceLocator,
     fixtureSourceLocator("request")
   );
+  assert.deepEqual(definition.projectionWitness.namedCheckSource, {
+    kind: "none"
+  });
   assert.match(definition.projectionWitness.sourceModuleDigest, /^sha256:/u);
   assert.match(definition.projectionWitness.sourceBasisDigest, /^sha256:/u);
   assert.equal(
@@ -366,6 +375,23 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
       schema: resultSchema
     }),
     /unexpected input schema/u
+  );
+  assert.throws(
+    () => defineNativeContract({
+      identity: contractIdentity("request"),
+      source: RESOLVED_FIXTURE_SOURCES.request,
+      namedCheckRegistry: Object.freeze({})
+    }),
+    /unexpected input namedCheckRegistry/u
+  );
+  assert.throws(
+    () => deriveCanonicalNativeSchemaProjection({
+      source: RESOLVED_FIXTURE_SOURCES.request,
+      schemaRef: contractIdentity("request").schemaId,
+      schemaVersion: "5.0.0",
+      namedCheckRegistry: Object.freeze({})
+    }),
+    /unexpected projection input namedCheckRegistry/u
   );
   assert.throws(
     () => defineNativeContract({
@@ -453,6 +479,54 @@ test("T-281 Phase A derives admission, canonical schema bytes, and digest from o
     ),
     /resolved schema identity differs/u
   );
+  const requestLocator = fixtureSourceLocator("request");
+  await assert.rejects(
+    resolveSemanticBuildNativeSchemaSource(Object.freeze({
+      sourceLocator: Object.freeze({
+        ...requestLocator,
+        memberPath: Object.freeze([...requestLocator.memberPath])
+      }),
+      schema: requestSchema
+    })),
+    /own data member not found namedChecks/u
+  );
+  for (const [namedChecks, expected] of [
+    [
+      Object.freeze({
+        kind: "family_registry",
+        exportName: "MISSING_NATIVE_CHECK_REGISTRY",
+        memberPath: Object.freeze([])
+      }),
+      /own data member not found/u
+    ],
+    [
+      Object.freeze({
+        kind: "family_registry",
+        exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
+        memberPath: Object.freeze([
+          "workspace_create_clean",
+          "request"
+        ])
+      }),
+      /Unknown key|Invalid key|unknown field/u
+    ],
+    [
+      Object.freeze({
+        kind: "family_registry",
+        exportName: "MISSING_NATIVE_CHECK_REGISTRY",
+        memberPath: Object.freeze([]),
+        modulePath: "code/src/other.js"
+      }),
+      /Invalid key/u
+    ]
+  ]) {
+    await assert.rejects(
+      resolveSemanticBuildNativeSchemaSource(
+        frozenSourceRow(requestLocator, requestSchema, namedChecks)
+      ),
+      expected
+    );
+  }
   const admitted = admitNative(requestSchema, {
     targetRoot: "/tmp/abg-native",
     createPolicy: "clean"

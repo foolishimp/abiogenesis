@@ -1,6 +1,7 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "./immutable_native_value.js";
+import type { OwnerNativeNamedCheckCoordinate } from "./canonical_native_schema_projector.js";
 
 type NativeSchema = v.GenericSchema;
 type Sha256Digest = `sha256:${string}`;
@@ -123,6 +124,7 @@ export interface OwnerNativeDefinitionContractSource<
     ExportName,
     MemberPath
   >;
+  readonly namedChecks: OwnerNativeNamedCheckCoordinate;
   readonly schema: S;
 }
 
@@ -279,6 +281,7 @@ interface OwnerNativeDefinitionContractSourceInput<
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
   readonly memberPath: MemberPath;
+  readonly namedChecks: OwnerNativeNamedCheckCoordinate;
   readonly schema: S;
 }
 
@@ -335,6 +338,7 @@ function constructOwnerNativeDefinitionContractSource<
       exportName: input.exportName,
       memberPath: [...input.memberPath, "schema"]
     },
+    namedChecks: input.namedChecks,
     schema: input.schema
   });
 }
@@ -387,6 +391,7 @@ export function ownerNativeOperationContractSource<
   readonly modulePath: ModulePath;
   readonly exportName: ExportName;
   readonly memberPath: MemberPath;
+  readonly namedChecks: OwnerNativeNamedCheckCoordinate;
   readonly schema: S;
 }): OwnerNativeOperationContractSource<
   S,

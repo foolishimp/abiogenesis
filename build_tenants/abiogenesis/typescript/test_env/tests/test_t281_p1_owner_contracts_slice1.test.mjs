@@ -6,11 +6,9 @@ import test from "node:test";
 import * as v from "valibot";
 
 import {
-  INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY,
   INSTALL_BOOTSTRAP_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/install_bootstrap/operation_contracts.js";
 import {
-  PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY,
   PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/product_intake/operation_contracts.js";
 import {
@@ -21,7 +19,6 @@ import {
   TOOLCHAIN_BINDING_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/toolchain_binding/operation_contracts.js";
 import {
-  WORKSPACE_NATIVE_CHECK_REGISTRY,
   WORKSPACE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/workspace/operation_contracts.js";
 import {
@@ -174,16 +171,10 @@ test("T-281 Slice 1 resolved sources are canonically projectable", async () => {
     const projection = deriveCanonicalNativeSchemaProjection({
       source: resolvedSource,
       schemaRef: source.identity.schemaId,
-      schemaVersion: source.identity.schemaVersion,
-      ...(source.authority.owner.family === "product_intake"
-      ? { namedCheckRegistry: PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY }
-      : source.authority.owner.family === "workspace"
-        ? { namedCheckRegistry: WORKSPACE_NATIVE_CHECK_REGISTRY }
-        : source.authority.owner.family === "install_bootstrap"
-          ? { namedCheckRegistry: INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY }
-        : {})
+      schemaVersion: source.identity.schemaVersion
     });
     assert.deepEqual(projection.witness.sourceLocator, source.sourceLocator);
+    assert.deepEqual(projection.witness.namedCheckSource, source.namedChecks);
     assert.match(projection.witness.projectionDigest, /^sha256:[0-9a-f]{64}$/u);
   }
 });

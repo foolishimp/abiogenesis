@@ -29,7 +29,7 @@ import {
   privateNativeSchemaSourceLocatorSchema,
   projectCanonicalNativeJsonSchema,
   type NativeSchemaProjectionWitness,
-  type ResolvedNativeSchemaSource
+  type ResolvedOwnerNativeContractSource
 } from "../../../shared/validation/canonical_native_schema_projector.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
@@ -201,6 +201,7 @@ function phaseFixtureNativeSchemaSource<S extends NativeSchema>(
       exportName: "PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES",
       memberPath: ["workspace_create_clean", slot, "schema"] as const
     },
+    namedChecks: { kind: "none" as const },
     schema
   };
 }
@@ -430,15 +431,10 @@ const nativeContractIdentitySchema = v.strictObject({
 /** @internal */
 export function defineNativeContract<S extends NativeSchema>(input: {
   readonly identity: v.InferInput<typeof nativeContractIdentitySchema>;
-  readonly source: ResolvedNativeSchemaSource<S>;
-  readonly namedCheckRegistry?: NativeNamedCheckRegistry | undefined;
+  readonly source: ResolvedOwnerNativeContractSource<S>;
 }): NativeContractDefinition<S> {
   for (const key of Object.keys(input)) {
-    if (
-      key !== "identity" &&
-      key !== "source" &&
-      key !== "namedCheckRegistry"
-    ) {
+    if (key !== "identity" && key !== "source") {
       throw new TypeError(`native contract: unexpected input ${key}`);
     }
   }
@@ -447,8 +443,7 @@ export function defineNativeContract<S extends NativeSchema>(input: {
     deriveCanonicalNativeSchemaProjection({
       source: input.source,
       schemaRef: identity.schemaId,
-      schemaVersion: identity.schemaVersion,
-      namedCheckRegistry: input.namedCheckRegistry
+      schemaVersion: identity.schemaVersion
     });
   if (
     projectedSchema.$schema !==

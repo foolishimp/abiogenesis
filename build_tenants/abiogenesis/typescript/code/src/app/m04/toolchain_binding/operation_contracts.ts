@@ -28,7 +28,8 @@ const SEMANTIC_OWNER_BASIS = freezeNativeValue({
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: TOOLCHAIN_BINDING_OWNER,
   modulePath: MODULE_PATH,
-  exportName: EXPORT_NAME
+  exportName: EXPORT_NAME,
+  namedChecks: { kind: "none" as const }
 } as const);
 
 const refListSchema = v.pipe(

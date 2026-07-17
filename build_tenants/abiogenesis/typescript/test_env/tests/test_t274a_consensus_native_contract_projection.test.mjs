@@ -10,6 +10,7 @@ import * as v from "valibot";
 import {
   CONSENSUS_NATIVE_CHECK_REGISTRY,
   CONSENSUS_PUBLIC_CONTRACT_FAMILY,
+  CONSENSUS_PUBLIC_CONTRACT_SOURCES,
   admitConsensusPublicContract
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js";
 import {
@@ -76,6 +77,11 @@ export const OPPOSITE_PREDICATE_SOURCE = freezeNativeValue({
     exportName: "OPPOSITE_PREDICATE_SOURCE",
     memberPath: ["schema"]
   },
+  namedChecks: {
+    kind: "family_registry",
+    exportName: "OPPOSITE_PREDICATE_REGISTRY",
+    memberPath: []
+  },
   schema: v.pipe(v.string(), ACTION)
 });
 `;
@@ -94,7 +100,6 @@ import {
   resolveSemanticBuildNativeSchemaSource
 } from ${JSON.stringify(projectorUrl)};
 import {
-  OPPOSITE_PREDICATE_REGISTRY,
   OPPOSITE_PREDICATE_SOURCE
 } from ${JSON.stringify(OPPOSITE_PREDICATE_MODULE_URL.href)};
 
@@ -104,8 +109,7 @@ const source = await resolveSemanticBuildNativeSchemaSource(
 const projection = deriveCanonicalNativeSchemaProjection({
   source,
   schemaRef: "abg.schema.test.opposite-predicate",
-  schemaVersion: "5.0.0",
-  namedCheckRegistry: OPPOSITE_PREDICATE_REGISTRY
+  schemaVersion: "5.0.0"
 });
 await appendFile(
   new URL(${JSON.stringify(OPPOSITE_PREDICATE_MODULE_URL.href)}),
@@ -172,27 +176,6 @@ function consensusContractIdentity(kind, definition) {
     schemaId: definition.contractId,
     schemaVersion: "5.0.0"
   };
-}
-
-function consensusSourceLocator(kind) {
-  return {
-    kind: "private_source_module",
-    sourceRoot: "semantic_build",
-    modulePath: "code/src/abg/m03/contracts/consensus_contract_family.js",
-    exportName: "CONSENSUS_PUBLIC_CONTRACT_FAMILY",
-    memberPath: [kind, "schema"]
-  };
-}
-
-function consensusSourceRow(kind, definition) {
-  const sourceLocator = consensusSourceLocator(kind);
-  return Object.freeze({
-    sourceLocator: Object.freeze({
-      ...sourceLocator,
-      memberPath: Object.freeze(sourceLocator.memberPath)
-    }),
-    schema: definition.schema
-  });
 }
 
 test("T-274A projector basis versions equal the locked toolchain", async () => {
@@ -312,12 +295,11 @@ test("T-274A structurally projects nine schemas and registration digests", async
 
     const identity = consensusContractIdentity(kind, definition);
     const source = await resolveSemanticBuildNativeSchemaSource(
-      consensusSourceRow(kind, definition)
+      CONSENSUS_PUBLIC_CONTRACT_SOURCES[kind]
     );
     const nativeDefinition = defineNativeContract({
       identity,
-      source,
-      namedCheckRegistry: CONSENSUS_NATIVE_CHECK_REGISTRY
+      source
     });
     assert.equal(nativeDefinition.schema, definition.schema);
     assert.equal(
@@ -356,6 +338,11 @@ test("T-274A structurally projects nine schemas and registration digests", async
       Object.isFrozen(nativeDefinition.projectionWitness.namedChecks),
       true
     );
+    assert.deepEqual(nativeDefinition.projectionWitness.namedCheckSource, {
+      kind: "family_registry",
+      exportName: "CONSENSUS_NATIVE_CHECK_REGISTRY",
+      memberPath: []
+    });
   }
 
   assert.equal(Object.keys(CONSENSUS_PUBLIC_CONTRACT_FAMILY).length, 9);

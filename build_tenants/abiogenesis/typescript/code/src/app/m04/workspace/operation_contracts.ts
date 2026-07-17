@@ -33,7 +33,12 @@ const OPEN_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: WORKSPACE_OWNER,
   modulePath: MODULE_PATH,
-  exportName: EXPORT_NAME
+  exportName: EXPORT_NAME,
+  namedChecks: {
+    kind: "family_registry" as const,
+    exportName: "WORKSPACE_NATIVE_CHECK_REGISTRY",
+    memberPath: [] as const
+  }
 } as const);
 
 const refListSchema = v.pipe(

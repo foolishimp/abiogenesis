@@ -394,6 +394,11 @@ function oneSurfaceResultContractSource<
       exportName: "ONE_SURFACE_RESULT_CONTRACT_SOURCES",
       memberPath: [functionKind, "schema"] as const
     },
+    namedChecks: {
+      kind: "family_registry" as const,
+      exportName: "ONE_SURFACE_NATIVE_CHECK_REGISTRY",
+      memberPath: [] as const
+    },
     schema: definition.schema
   });
 }
@@ -460,8 +465,7 @@ export async function oneSurfaceNativeResultSchema<
   const projection = deriveCanonicalNativeSchemaProjection({
     source,
     schemaRef: definition.schemaRef,
-    schemaVersion: "5.0.0",
-    namedCheckRegistry: ONE_SURFACE_NATIVE_CHECK_REGISTRY
+    schemaVersion: "5.0.0"
   });
   return freezeNativeValue({
     kind: "one_surface_native_result_schema" as const,

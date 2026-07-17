@@ -4,7 +4,6 @@ import test from "node:test";
 import * as v from "valibot";
 
 import {
-  CATALOG_OPERATION_NATIVE_CHECK_REGISTRY,
   CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/abg/m03/contracts/catalog_operation_contracts.js";
 import { GTL_CONFORMANCE_OPERATION_NATIVE_CONTRACT_SOURCES } from "../../build/semantic/code/src/abg/m03/contracts/gtl_conformance_operation_contracts.js";
@@ -20,6 +19,7 @@ import {
   RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
 import {
+  deriveCanonicalNativeSchemaProjection,
   projectCanonicalNativeJsonSchema,
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
@@ -289,17 +289,15 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
       Reflect.get(module, source.sourceLocator.exportName)
     );
     assert.equal(resolved, source.schema);
-    const namedCheckRegistry =
-      source.authority.subject.operationId === "abg.operation.catalog.admit"
-        ? CATALOG_OPERATION_NATIVE_CHECK_REGISTRY
-        : source.authority.subject.operationId ===
-            "abg.operation.release.snapshot"
-          ? EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY
-          : undefined;
-    assert.doesNotThrow(() =>
-      projectCanonicalNativeJsonSchema(source.schema, {
-        namedCheckRegistry
-      })
+    const resolvedSource = await resolveSemanticBuildNativeSchemaSource(source);
+    const projection = deriveCanonicalNativeSchemaProjection({
+      source: resolvedSource,
+      schemaRef: source.identity.schemaId,
+      schemaVersion: source.identity.schemaVersion
+    });
+    assert.deepEqual(
+      projection.witness.namedCheckSource,
+      source.namedChecks
     );
   }
 });
@@ -329,6 +327,7 @@ test("neutral owner sources preserve an exact project-read case without a fake v
       "code/src/app/m04/public_contracts/project_read_operation_contracts.js",
     exportName: "PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES",
     memberPath: ["project_read", "ticket_consensus", "result"],
+    namedChecks: { kind: "none" },
     schema
   };
   const source = ownerNativeDefinitionContractSource(input);
@@ -402,6 +401,7 @@ test("neutral owner sources preserve an exact project-read case without a fake v
         modulePath: source.sourceLocator.modulePath,
         exportName: source.sourceLocator.exportName,
         memberPath: ["project_read", "ticket_consensus", "result"],
+        namedChecks: source.namedChecks,
         schema
       }),
     /project\.read requires a project_read_case key/u
@@ -417,6 +417,7 @@ test("neutral owner sources preserve an exact project-read case without a fake v
         modulePath: source.sourceLocator.modulePath,
         exportName: source.sourceLocator.exportName,
         memberPath: ["project_read", "ticket_consensus", "result"],
+        namedChecks: source.namedChecks,
         schema
       }),
     /project\.read requires a project_read_case key/u

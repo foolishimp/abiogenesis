@@ -518,6 +518,11 @@ function consensusPublicContractSource<
       exportName: "CONSENSUS_PUBLIC_CONTRACT_SOURCES",
       memberPath: [kind, "schema"] as const
     },
+    namedChecks: {
+      kind: "family_registry" as const,
+      exportName: "CONSENSUS_NATIVE_CHECK_REGISTRY",
+      memberPath: [] as const
+    },
     schema: definition.schema
   });
 }

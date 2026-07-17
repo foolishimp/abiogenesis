@@ -17,6 +17,11 @@ import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 const MODULE_PATH =
   "code/src/abg/m03/contracts/catalog_operation_contracts.js" as const;
 const EXPORT_NAME = "CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES";
+const CATALOG_NAMED_CHECKS = freezeNativeValue({
+  kind: "family_registry" as const,
+  exportName: "CATALOG_OPERATION_NATIVE_CHECK_REGISTRY",
+  memberPath: [] as const
+});
 const CATALOG_ADMIT_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
   digest:
@@ -257,6 +262,7 @@ function catalogApplyContractSet<const Kind extends "node_type" | "overlay">(
     familyKey: "catalog_apply",
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
+    namedChecks: CATALOG_NAMED_CHECKS,
     semanticOwnerBasis: CATALOG_APPLY_SEMANTIC_OWNER_BASIS,
     request: catalogApplyRequestSchema,
     result: catalogApplyResultSchema(declarationKind),
@@ -273,6 +279,7 @@ export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       familyKey: "catalog_admit",
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
+      namedChecks: CATALOG_NAMED_CHECKS,
       semanticOwnerBasis: CATALOG_ADMIT_SEMANTIC_OWNER_BASIS,
       request: catalogAdmitRequestSchema,
       result: catalogAdmitResultSchema,
@@ -287,6 +294,7 @@ export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
       familyKey: "catalog_view",
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
+      namedChecks: CATALOG_NAMED_CHECKS,
       semanticOwnerBasis: CATALOG_VIEW_SEMANTIC_OWNER_BASIS,
       request: catalogViewRequestSchema,
       result: catalogViewResultSchema,

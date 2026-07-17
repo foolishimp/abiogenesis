@@ -218,6 +218,7 @@ function projectReadContractSet<
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
       memberPath: [input.caseKey, "request"],
+      namedChecks: { kind: "none" },
       schema: requestSchema
     }),
     refusal: ownerNativeDefinitionContractSource({
@@ -228,6 +229,7 @@ function projectReadContractSet<
       modulePath: MODULE_PATH,
       exportName: EXPORT_NAME,
       memberPath: [input.caseKey, "refusal"],
+      namedChecks: { kind: "none" },
       schema: refusalSchema
     })
   });

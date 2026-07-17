@@ -36,7 +36,12 @@ const CONFIGURATION_SEMANTIC_OWNER_BASIS = freezeNativeValue({
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: INSTALL_BOOTSTRAP_OWNER,
   modulePath: MODULE_PATH,
-  exportName: EXPORT_NAME
+  exportName: EXPORT_NAME,
+  namedChecks: {
+    kind: "family_registry" as const,
+    exportName: "INSTALL_BOOTSTRAP_NATIVE_CHECK_REGISTRY",
+    memberPath: [] as const
+  }
 } as const);
 
 const refListSchema = v.pipe(

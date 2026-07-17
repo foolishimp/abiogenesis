@@ -113,6 +113,7 @@ function nativeSource<
       input.variant,
       input.slot
     ],
+    namedChecks: { kind: "none" },
     schema: input.schema
   });
 }

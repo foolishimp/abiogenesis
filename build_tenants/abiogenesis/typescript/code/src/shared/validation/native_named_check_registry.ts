@@ -54,7 +54,7 @@ function admitCheckAction(input: unknown, label: string): object {
 }
 
 export function admitNativeNamedCheckRegistry(
-  input: NativeNamedCheckRegistry | undefined
+  input: unknown
 ): NativeNamedCheckResolver {
   if (input === undefined) {
     return Object.freeze({ resolve: () => null });

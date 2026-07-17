@@ -159,6 +159,17 @@ async function proveExactResolvedNativeSchemaType(): Promise<void> {
     },
     source: resolvedSource
   });
+  defineNativeContract({
+    identity: {
+      contractId: "abg.contract.type-proof.forbidden-registry",
+      contractVersion: "5.0.0",
+      schemaId: "abg.schema.type-proof.forbidden-registry",
+      schemaVersion: "5.0.0"
+    },
+    source: resolvedSource,
+    // @ts-expect-error The owner source, not the caller, selects named checks.
+    namedCheckRegistry: Object.freeze({})
+  });
   type ExactSchema = Expect<
     Equal<typeof definition.schema, typeof ownerSource.schema>
   >;

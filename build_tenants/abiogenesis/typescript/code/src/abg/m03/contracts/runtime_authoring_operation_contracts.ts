@@ -24,6 +24,7 @@ import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 const MODULE_PATH =
   "code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js" as const;
 const EXPORT_NAME = "RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES";
+const NO_NAMED_CHECKS = freezeNativeValue({ kind: "none" as const });
 const WITNESS_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-035",
   digest:
@@ -174,6 +175,7 @@ function witnessContractSet<const Variant extends WitnessVariant>(
     memberKey,
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
+    namedChecks: NO_NAMED_CHECKS,
     semanticOwnerBasis: WITNESS_SEMANTIC_OWNER_BASIS,
     request: witnessRequestSchema(variant),
     result: witnessResultSchema,
@@ -293,6 +295,7 @@ function tuningDecisionContractSet<const Variant extends "ratify" | "reject">(
     familyKey: "tuning_transition",
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
+    namedChecks: NO_NAMED_CHECKS,
     semanticOwnerBasis: TUNING_SEMANTIC_OWNER_BASIS,
     request: tuningDecisionRequestSchema,
     result: TUNING_DECISION_RESULT_SCHEMAS[variant],
@@ -318,6 +321,7 @@ export const RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES =
         familyKey: "tuning_transition",
         modulePath: MODULE_PATH,
         exportName: EXPORT_NAME,
+        namedChecks: NO_NAMED_CHECKS,
         semanticOwnerBasis: TUNING_SEMANTIC_OWNER_BASIS,
         request: tuningProposeRequestSchema,
         result: tuningProposeResultSchema,

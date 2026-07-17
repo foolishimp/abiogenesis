@@ -50,6 +50,11 @@ function releaseSource<
     modulePath: MODULE_PATH,
     exportName: EXPORT_NAME,
     memberPath: ["release_snapshot", input.variant, input.slot] as const,
+    namedChecks: {
+      kind: "family_registry",
+      exportName: "EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY",
+      memberPath: []
+    },
     schema: input.schema
   });
 }

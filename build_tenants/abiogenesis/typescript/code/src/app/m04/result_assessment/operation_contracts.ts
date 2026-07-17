@@ -43,7 +43,8 @@ export const RESULT_ASSESSMENT_SEMANTIC_TRACE = freezeNativeValue({
 const SOURCE_PRIMITIVES = freezeNativeValue({
   owner: RESULT_ASSESSMENT_OWNER,
   modulePath: MODULE_PATH,
-  exportName: EXPORT_NAME
+  exportName: EXPORT_NAME,
+  namedChecks: { kind: "none" as const }
 } as const);
 
 const refListSchema = v.pipe(

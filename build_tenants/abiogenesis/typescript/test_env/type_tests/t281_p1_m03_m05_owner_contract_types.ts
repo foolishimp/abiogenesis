@@ -43,6 +43,7 @@ const projectReadResultSource = ownerNativeDefinitionContractSource({
     "code/src/app/m04/public_contracts/project_read_operation_contracts.js",
   exportName: "PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES",
   memberPath: ["project_read", "ticket_consensus", "result"],
+  namedChecks: { kind: "none" },
   schema: projectReadResultSchema
 });
 
@@ -88,6 +89,7 @@ ownerNativeDefinitionContractSource({
   semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
   modulePath: projectReadResultSource.sourceLocator.modulePath,
   exportName: projectReadResultSource.sourceLocator.exportName,
+  namedChecks: projectReadResultSource.namedChecks,
   // @ts-expect-error A project-read locator cannot point at another case.
   memberPath: ["project_read", "run_status", "result"],
   schema: projectReadResultSchema
@@ -105,6 +107,7 @@ ownerNativeDefinitionContractSource({
   semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
   modulePath: projectReadResultSource.sourceLocator.modulePath,
   exportName: projectReadResultSource.sourceLocator.exportName,
+  namedChecks: projectReadResultSource.namedChecks,
   memberPath: ["project_read", "ticket_consensus", "result"],
   schema: projectReadResultSchema
 });
@@ -118,6 +121,7 @@ ownerNativeOperationContractSource({
   semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
   modulePath: projectReadResultSource.sourceLocator.modulePath,
   exportName: projectReadResultSource.sourceLocator.exportName,
+  namedChecks: projectReadResultSource.namedChecks,
   memberPath: ["project_read", "ticket_consensus", "result"],
   schema: projectReadResultSchema
 });

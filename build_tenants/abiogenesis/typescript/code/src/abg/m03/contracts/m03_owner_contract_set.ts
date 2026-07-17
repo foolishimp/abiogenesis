@@ -1,6 +1,7 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { OwnerNativeNamedCheckCoordinate } from "../../../shared/validation/canonical_native_schema_projector.js";
 import {
   ownerNativeOperationContractSource,
   type NonProjectReadOperationId
@@ -33,6 +34,7 @@ function source<
     readonly ref: SemanticOwnerRef;
     readonly digest: SemanticOwnerDigest;
   };
+  readonly namedChecks: OwnerNativeNamedCheckCoordinate;
   readonly schema: S;
 }) {
   return ownerNativeOperationContractSource({
@@ -48,6 +50,7 @@ function source<
     modulePath: input.modulePath,
     exportName: input.exportName,
     memberPath: [input.familyKey, input.memberKey, input.slot] as const,
+    namedChecks: input.namedChecks,
     schema: input.schema
   });
 }
@@ -77,6 +80,7 @@ export function m03OwnerContractSet<
     readonly ref: SemanticOwnerRef;
     readonly digest: SemanticOwnerDigest;
   };
+  readonly namedChecks: OwnerNativeNamedCheckCoordinate;
   readonly request: Request;
   readonly result: Result;
   readonly refusal: Refusal;
@@ -89,7 +93,8 @@ export function m03OwnerContractSet<
     memberKey: input.memberKey ?? input.variant,
     modulePath: input.modulePath,
     exportName: input.exportName,
-    semanticOwnerBasis: input.semanticOwnerBasis
+    semanticOwnerBasis: input.semanticOwnerBasis,
+    namedChecks: input.namedChecks
   } as const;
   return freezeNativeValue({
     request: source({ ...common, slot: "request", schema: input.request }),
