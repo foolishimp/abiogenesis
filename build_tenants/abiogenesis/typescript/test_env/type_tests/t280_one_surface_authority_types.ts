@@ -6,18 +6,24 @@ import {
   type AdmittedOneSurfaceResultValue,
   type OneSurfaceArtifactResultPair,
   type OneSurfaceAuthorityProgramBinding,
+  type OneSurfaceRefinementApplicationRelation,
   type OneSurfaceStageAuthority,
   type OneSurfaceResultValueByKind,
   type OneSurfaceTypedRefusal
 } from "../../code/src/index.js";
 
 declare const program: OneSurfaceAuthorityProgramBinding;
+declare const refinement: OneSurfaceRefinementApplicationRelation;
 declare const modelStage: OneSurfaceStageAuthority<"synthesize_model">;
 declare const modelResultPair: OneSurfaceArtifactResultPair<"synthesize_model">;
 
 const runtimeAddressable: false = program.runtimeAddressable;
 const effectsPermitted: false = program.effectsPermitted;
 const runtimeOwner: "T-270" = program.runtimeAdmissionOwner;
+const refinementEffects: false = refinement.effectsPermitted;
+const refinementRuntime: false = refinement.runtimeAddressable;
+const refinementRelations: readonly OneSurfaceRefinementApplicationRelation[] =
+  program.refinementApplications;
 
 const noAction: OneSurfaceResultValueByKind["evaluate_next"] = {
   selectedActionRef: null,
@@ -60,6 +66,9 @@ buildOneSurfaceAuthorityCloseEvents({
 void runtimeAddressable;
 void effectsPermitted;
 void runtimeOwner;
+void refinementEffects;
+void refinementRuntime;
+void refinementRelations;
 void noAction;
 void systemAction;
 void typedModelAdmission;

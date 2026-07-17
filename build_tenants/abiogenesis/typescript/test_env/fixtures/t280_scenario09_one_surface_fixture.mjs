@@ -157,6 +157,14 @@ function allowedTraversalRowsEntry(rows) {
                   value: stringArrayJson(row.allowedTraversalTargetRefs)
                 })]),
             Object.freeze({
+              key: "inputAssetRefs",
+              value: stringArrayJson(row.inputAssetRefs)
+            }),
+            Object.freeze({
+              key: "expectedOutputAssetRefs",
+              value: stringArrayJson(row.expectedOutputAssetRefs)
+            }),
+            Object.freeze({
               key: "requiredAuthorityRefs",
               value: stringArrayJson(row.requiredAuthorityRefs)
             }),
@@ -176,6 +184,12 @@ function allowedTraversalRows(graphFunctionRef, actionVariant = "callable") {
     rowRef: `allowed-row://t280/scenario09/${suffix}`,
     traversalFamily,
     allowedActionKinds: Object.freeze(allowedActionKinds),
+    inputAssetRefs: Object.freeze([
+      `asset://t280/scenario09/${suffix}/input`
+    ]),
+    expectedOutputAssetRefs: Object.freeze([
+      `asset://t280/scenario09/${suffix}/output`
+    ]),
     requiredAuthorityRefs: Object.freeze([
       `authority://t280/scenario09/${suffix}`
     ]),
@@ -529,7 +543,9 @@ export function scenario09OneSurfaceProgramFixture(options = {}) {
   const refinementBoundary = constructRefinementBoundary({
     name: "t280_scenario09_one_surface_refinement",
     inputs: [observation],
-    outputs: [decision],
+    outputs: options.refinementBoundaryVariant === "mismatched"
+      ? [nextAction]
+      : [decision],
     hints: emptySerializedAttrs(),
     tags: ["t280", "scenario09-lab", "one-surface-refinement"]
   });

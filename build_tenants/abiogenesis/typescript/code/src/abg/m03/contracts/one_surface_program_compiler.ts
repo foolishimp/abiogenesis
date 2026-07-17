@@ -30,6 +30,13 @@ import {
   type CompiledTypedRecursePlan
 } from "./typed_recurse.js";
 import {
+  cInterfaceContractRef
+} from "../../../gtl/m01/algebra/c_algebra.js";
+import type {
+  Module,
+  RefinementBoundary
+} from "../../../gtl/m02/contracts/carriers.js";
+import {
   deriveAllowedConsequenceTraversalCatalogFromGtl,
   type AllowedConsequenceTraversalCatalog
 } from "./allowed_consequence_traversal_catalog.js";
@@ -165,6 +172,44 @@ export interface OneSurfaceAf14AdmissionRelation {
     "abg://one-surface/af14/admit-construction-intent";
 }
 
+const ONE_SURFACE_REFINEMENT_APPLICATION = Symbol(
+  "ONE_SURFACE_REFINEMENT_APPLICATION"
+);
+
+export interface OneSurfaceRefinementApplicationRelation {
+  readonly [ONE_SURFACE_REFINEMENT_APPLICATION]: true;
+  readonly kind: "one_surface_refinement_application_relation";
+  readonly relationRef: string;
+  readonly relationDigest: `sha256:${string}`;
+  readonly ownerModuleName: string;
+  readonly ownerModuleDigest: `sha256:${string}`;
+  readonly refinementBoundaryRef: string;
+  readonly refinementBoundaryDigest: `sha256:${string}`;
+  readonly inputCarrierRef: string;
+  readonly outputCarrierRef: string;
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly stageAuthorityRefs: readonly [string, string, string, string];
+  readonly stageAuthorityDigests: readonly [
+    `sha256:${string}`,
+    `sha256:${string}`,
+    `sha256:${string}`,
+    `sha256:${string}`
+  ];
+  readonly joinRefs: readonly [string, string, string];
+  readonly joinDigests: readonly [
+    `sha256:${string}`,
+    `sha256:${string}`,
+    `sha256:${string}`
+  ];
+  readonly recursePlanRef: string;
+  readonly recursePlanDigest: `sha256:${string}`;
+  readonly recurseBindingRef: string;
+  readonly recurseBindingDigest: `sha256:${string}`;
+  readonly runtimeAddressable: false;
+  readonly effectsPermitted: false;
+}
+
 export interface OneSurfaceAuthorityProgramBinding {
   readonly [ONE_SURFACE_PROGRAM_AUTHORITY]: true;
   readonly kind: "one_surface_authority_program_binding";
@@ -189,6 +234,8 @@ export interface OneSurfaceAuthorityProgramBinding {
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
   readonly recursePlan: CompiledTypedRecursePlan;
+  readonly refinementApplications:
+    readonly OneSurfaceRefinementApplicationRelation[];
 }
 
 export interface OneSurfaceGtlProgramCompilationInput {
@@ -536,6 +583,160 @@ function exactJoinTuple(
   return Object.freeze([selection, constructionIntent, actionEvaluation]);
 }
 
+function refinementApplicationBasis(
+  relation: Omit<
+    OneSurfaceRefinementApplicationRelation,
+    | typeof ONE_SURFACE_REFINEMENT_APPLICATION
+    | "relationRef"
+    | "relationDigest"
+  >
+) {
+  return Object.freeze({
+    kind: relation.kind,
+    ownerModuleName: relation.ownerModuleName,
+    ownerModuleDigest: relation.ownerModuleDigest,
+    refinementBoundaryRef: relation.refinementBoundaryRef,
+    refinementBoundaryDigest: relation.refinementBoundaryDigest,
+    inputCarrierRef: relation.inputCarrierRef,
+    outputCarrierRef: relation.outputCarrierRef,
+    admittedProgramRef: relation.admittedProgramRef,
+    admittedProgramDigest: relation.admittedProgramDigest,
+    stageAuthorityRefs: Object.freeze([
+      relation.stageAuthorityRefs[0],
+      relation.stageAuthorityRefs[1],
+      relation.stageAuthorityRefs[2],
+      relation.stageAuthorityRefs[3]
+    ] as const),
+    stageAuthorityDigests: Object.freeze([
+      relation.stageAuthorityDigests[0],
+      relation.stageAuthorityDigests[1],
+      relation.stageAuthorityDigests[2],
+      relation.stageAuthorityDigests[3]
+    ] as const),
+    joinRefs: Object.freeze([
+      relation.joinRefs[0],
+      relation.joinRefs[1],
+      relation.joinRefs[2]
+    ] as const),
+    joinDigests: Object.freeze([
+      relation.joinDigests[0],
+      relation.joinDigests[1],
+      relation.joinDigests[2]
+    ] as const),
+    recursePlanRef: relation.recursePlanRef,
+    recursePlanDigest: relation.recursePlanDigest,
+    recurseBindingRef: relation.recurseBindingRef,
+    recurseBindingDigest: relation.recurseBindingDigest,
+    runtimeAddressable: relation.runtimeAddressable,
+    effectsPermitted: relation.effectsPermitted
+  });
+}
+
+function constructOneSurfaceRefinementApplicationRelation(input: {
+  readonly module: Module;
+  readonly boundary: RefinementBoundary;
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly stages: OneSurfaceAuthorityProgramBinding["stages"];
+  readonly joins: OneSurfaceAuthorityProgramBinding["joins"];
+  readonly recursePlan: CompiledTypedRecursePlan;
+}): OneSurfaceRefinementApplicationRelation {
+  input.stages.forEach(assertOneSurfaceStageAuthority);
+  input.joins.forEach(assertOneSurfaceProgramJoin);
+  assertCompiledTypedRecursePlan(input.recursePlan);
+  const exactBoundaries = input.module.refinementBoundaries.filter(
+    (candidate) => stableJsonEquals(candidate, input.boundary)
+  );
+  const inputCarrierRef = cInterfaceContractRef(input.boundary.inputs);
+  const outputCarrierRef = cInterfaceContractRef(input.boundary.outputs);
+  if (
+    exactBoundaries.length !== 1 ||
+    input.admittedProgramRef.length === 0 ||
+    input.admittedProgramDigest.length === 0 ||
+    inputCarrierRef !== input.stages[0].plan.inputCarrierRef ||
+    outputCarrierRef !== input.stages[3].plan.outputCarrierRef ||
+    input.recursePlan.inputCarrierRef !== outputCarrierRef ||
+    input.recursePlan.outputCarrierRef !== inputCarrierRef
+  ) {
+    throw new TypeError(
+      "published refinement does not preserve the admitted One Surface outer contract"
+    );
+  }
+  const basis = refinementApplicationBasis({
+    kind: "one_surface_refinement_application_relation",
+    ownerModuleName: input.module.name,
+    ownerModuleDigest: stableSha256Digest(input.module),
+    refinementBoundaryRef: input.boundary.id,
+    refinementBoundaryDigest: stableSha256Digest(input.boundary),
+    inputCarrierRef,
+    outputCarrierRef,
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    stageAuthorityRefs: Object.freeze([
+      input.stages[0].authorityRef,
+      input.stages[1].authorityRef,
+      input.stages[2].authorityRef,
+      input.stages[3].authorityRef
+    ]),
+    stageAuthorityDigests: Object.freeze([
+      input.stages[0].authorityDigest,
+      input.stages[1].authorityDigest,
+      input.stages[2].authorityDigest,
+      input.stages[3].authorityDigest
+    ]),
+    joinRefs: Object.freeze([
+      input.joins[0].joinRef,
+      input.joins[1].joinRef,
+      input.joins[2].joinRef
+    ]),
+    joinDigests: Object.freeze([
+      input.joins[0].joinDigest,
+      input.joins[1].joinDigest,
+      input.joins[2].joinDigest
+    ]),
+    recursePlanRef: input.recursePlan.planRef,
+    recursePlanDigest: input.recursePlan.planDigest,
+    recurseBindingRef: input.recursePlan.bindingRef,
+    recurseBindingDigest: input.recursePlan.bindingDigest,
+    runtimeAddressable: false,
+    effectsPermitted: false
+  });
+  const relationDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    [ONE_SURFACE_REFINEMENT_APPLICATION]: true as const,
+    relationRef:
+      `abg://one-surface/refinement-application/` +
+      relationDigest.slice("sha256:".length),
+    relationDigest,
+    ...basis
+  });
+}
+
+export function assertOneSurfaceRefinementApplicationRelation(
+  relation: OneSurfaceRefinementApplicationRelation
+): void {
+  const basis = refinementApplicationBasis(relation);
+  const expectedDigest = stableSha256Digest(basis);
+  if (
+    relation[ONE_SURFACE_REFINEMENT_APPLICATION] !== true ||
+    relation.kind !== "one_surface_refinement_application_relation" ||
+    relation.relationDigest !== expectedDigest ||
+    relation.relationRef !==
+      `abg://one-surface/refinement-application/` +
+        expectedDigest.slice("sha256:".length) ||
+    relation.stageAuthorityRefs.length !== 4 ||
+    relation.stageAuthorityDigests.length !== 4 ||
+    relation.joinRefs.length !== 3 ||
+    relation.joinDigests.length !== 3 ||
+    relation.runtimeAddressable !== false ||
+    relation.effectsPermitted !== false ||
+    relation.inputCarrierRef.length === 0 ||
+    relation.outputCarrierRef.length === 0
+  ) {
+    throw new TypeError("One Surface refinement application seal differs");
+  }
+}
+
 function programBasis(input: {
   readonly admittedProgramRef: string;
   readonly admittedProgramDigest: string;
@@ -544,6 +745,8 @@ function programBasis(input: {
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
   readonly recursePlan: CompiledTypedRecursePlan;
+  readonly refinementApplications:
+    readonly OneSurfaceRefinementApplicationRelation[];
 }) {
   return Object.freeze({
     admittedProgramRef: input.admittedProgramRef,
@@ -556,7 +759,10 @@ function programBasis(input: {
     af14Admission: input.af14Admission,
     af15Slot: input.af15Slot,
     recursePlanRef: input.recursePlan.planRef,
-    recursePlanDigest: input.recursePlan.planDigest
+    recursePlanDigest: input.recursePlan.planDigest,
+    refinementApplications: Object.freeze([
+      ...input.refinementApplications
+    ])
   });
 }
 
@@ -576,6 +782,51 @@ export function assertOneSurfaceAuthorityProgramBinding(
   exactTuple(binding.stages);
   const [selectionJoin, constructionIntentJoin, actionEvaluationJoin] =
     exactJoinTuple(binding.joins);
+  const expectedStageAuthorityRefs = Object.freeze(
+    binding.stages.map((stage) => stage.authorityRef)
+  );
+  const expectedStageAuthorityDigests = Object.freeze(
+    binding.stages.map((stage) => stage.authorityDigest)
+  );
+  const expectedJoinRefs = Object.freeze(
+    binding.joins.map((join) => join.joinRef)
+  );
+  const expectedJoinDigests = Object.freeze(
+    binding.joins.map((join) => join.joinDigest)
+  );
+  const refinementCoordinates = new Set<string>();
+  binding.refinementApplications.forEach((relation) => {
+    assertOneSurfaceRefinementApplicationRelation(relation);
+    const coordinate = `${relation.ownerModuleName}\u0000${relation.refinementBoundaryRef}`;
+    if (
+      refinementCoordinates.has(coordinate) ||
+      relation.admittedProgramRef !== binding.admittedProgramRef ||
+      relation.admittedProgramDigest !== binding.admittedProgramDigest ||
+      !stableJsonEquals(
+        relation.stageAuthorityRefs,
+        expectedStageAuthorityRefs
+      ) ||
+      !stableJsonEquals(
+        relation.stageAuthorityDigests,
+        expectedStageAuthorityDigests
+      ) ||
+      !stableJsonEquals(relation.joinRefs, expectedJoinRefs) ||
+      !stableJsonEquals(relation.joinDigests, expectedJoinDigests) ||
+      relation.recursePlanRef !== binding.recursePlan.planRef ||
+      relation.recursePlanDigest !== binding.recursePlan.planDigest ||
+      relation.recurseBindingRef !== binding.recursePlan.bindingRef ||
+      relation.recurseBindingDigest !== binding.recursePlan.bindingDigest ||
+      relation.inputCarrierRef !== binding.stages[0].plan.inputCarrierRef ||
+      relation.outputCarrierRef !== binding.stages[3].plan.outputCarrierRef ||
+      relation.inputCarrierRef !== binding.recursePlan.outputCarrierRef ||
+      relation.outputCarrierRef !== binding.recursePlan.inputCarrierRef
+    ) {
+      throw new TypeError(
+        "One Surface refinement application program authority differs"
+      );
+    }
+    refinementCoordinates.add(coordinate);
+  });
   const af14Digest = stableSha256Digest({
     evaluateNextAuthorityRef: binding.af14Admission.evaluateNextAuthorityRef,
     evaluateNextResultSchema: binding.af14Admission.evaluateNextResultSchema,
@@ -954,9 +1205,11 @@ export async function compileOneSurfaceGtlProgramApplication(
       }));
     }
   });
+  let recursePlanAdmitted = true;
   try {
     assertCompiledTypedRecursePlan(input.recursePlan);
   } catch (error: unknown) {
+    recursePlanAdmitted = false;
     diagnostics.push(issue({
       id: "one_surface_program_join_invalid",
       path: "$.recursePlan",
@@ -975,7 +1228,9 @@ export async function compileOneSurfaceGtlProgramApplication(
         row.names.includes(input.recursePlan.wrapperGraphFunctionRef)
     )
   );
-  if (ownerModules.length !== 1 || recurseImports.length !== 1) {
+  const recursePlanVisible =
+    ownerModules.length === 1 && recurseImports.length === 1;
+  if (!recursePlanVisible) {
     diagnostics.push(issue({
       id: "one_surface_semantic_not_realized",
       path: "$.recursePlan",
@@ -992,6 +1247,7 @@ export async function compileOneSurfaceGtlProgramApplication(
       semantic: true
     }));
   }
+  let authorityJoinsAdmitted = false;
   if (admitted.length === 4) {
     const [af11, af12, af13, af16] = exactTuple(admitted);
     const joined =
@@ -1007,21 +1263,46 @@ export async function compileOneSurfaceGtlProgramApplication(
         actual: "carrier relation differs",
         evidenceRefs
       }));
+    } else {
+      authorityJoinsAdmitted = true;
     }
   }
-  const refinementCount = (input.gtlProgram.modules ?? []).reduce(
-    (count, module) => count + module.refinementBoundaries.length,
-    0
+  const publishedRefinements = (input.gtlProgram.modules ?? []).flatMap(
+    (module, moduleIndex) => module.refinementBoundaries.map(
+      (boundary, boundaryIndex) => Object.freeze({
+        module,
+        boundary,
+        moduleIndex,
+        boundaryIndex
+      })
+    )
   );
-  if (refinementCount > 0) {
-    diagnostics.push(issue({
-      id: "one_surface_refinement_incomplete",
-      path: "$.gtlProgram.modules[*].refinementBoundaries",
-      expected: "each published refinement supplies the same admitted authority program",
-      actual: `${String(refinementCount)} refinement boundaries await binding`,
-      evidenceRefs,
-      semantic: true
-    }));
+  if (
+    publishedRefinements.length > 0 &&
+    (
+      admitted.length !== 4 ||
+      !authorityJoinsAdmitted ||
+      !recursePlanAdmitted ||
+      !recursePlanVisible
+    )
+  ) {
+    for (const published of publishedRefinements) {
+      diagnostics.push(issue({
+        id: "one_surface_refinement_incomplete",
+        path:
+          `$.gtlProgram.modules[${String(published.moduleIndex)}]` +
+          `.refinementBoundaries[${String(published.boundaryIndex)}]`,
+        expected:
+          "the published refinement binds the same admitted authority program and T-262 recurse plan",
+        actual: "parent authority relation is incomplete",
+        evidenceRefs: Object.freeze([
+          ...evidenceRefs,
+          published.boundary.id,
+          stableSha256Digest(published.boundary)
+        ]),
+        semantic: true
+      }));
+    }
   }
   if (diagnostics.some((row) => row.classification === "invalid_program")) {
     return Object.freeze({
@@ -1090,6 +1371,46 @@ export async function compileOneSurfaceGtlProgramApplication(
     actionEvaluationOutputJoinDigest: actionEvaluationJoin.joinDigest,
     actionEvaluationInputCarrierRef: stages[3].plan.inputCarrierRef
   });
+  const refinementApplications: OneSurfaceRefinementApplicationRelation[] = [];
+  if (
+    authorityJoinsAdmitted &&
+    recursePlanAdmitted &&
+    recursePlanVisible
+  ) {
+    for (const published of publishedRefinements) {
+      try {
+        refinementApplications.push(
+          constructOneSurfaceRefinementApplicationRelation({
+            module: published.module,
+            boundary: published.boundary,
+            admittedProgramRef: report.subjectRef,
+            admittedProgramDigest: report.inventoryDigest,
+            stages,
+            joins,
+            recursePlan: input.recursePlan
+          })
+        );
+      } catch (error: unknown) {
+        diagnostics.push(issue({
+          id: "one_surface_refinement_incomplete",
+          path:
+            `$.gtlProgram.modules[${String(published.moduleIndex)}]` +
+            `.refinementBoundaries[${String(published.boundaryIndex)}]`,
+          expected:
+            "exact AF-11 input -> AF-16 output boundary with T-262 foldback to AF-11",
+          actual: error instanceof Error ? error.message : String(error),
+          evidenceRefs: Object.freeze([
+            ...evidenceRefs,
+            published.boundary.id,
+            stableSha256Digest(published.boundary),
+            input.recursePlan.planRef,
+            input.recursePlan.planDigest
+          ]),
+          semantic: true
+        }));
+      }
+    }
+  }
   diagnostics.push(issue({
     id: "one_surface_semantic_not_realized",
     path: "$.af15Slot",
@@ -1110,7 +1431,8 @@ export async function compileOneSurfaceGtlProgramApplication(
     joins,
     af14Admission,
     af15Slot,
-    recursePlan: input.recursePlan
+    recursePlan: input.recursePlan,
+    refinementApplications
   });
   const bindingDigest = stableSha256Digest(basis);
   const authorityProgram = Object.freeze({
@@ -1128,7 +1450,8 @@ export async function compileOneSurfaceGtlProgramApplication(
     joins,
     af14Admission,
     af15Slot,
-    recursePlan: input.recursePlan
+    recursePlan: input.recursePlan,
+    refinementApplications: Object.freeze([...refinementApplications])
   });
   return Object.freeze({
     kind: "one_surface_program_compilation",

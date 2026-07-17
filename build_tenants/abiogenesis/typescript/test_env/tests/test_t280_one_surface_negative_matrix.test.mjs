@@ -21,9 +21,15 @@ import {
 } from "../fixtures/t280_scenario09_one_surface_fixture.mjs";
 
 const canonicalFixture = scenario09OneSurfaceProgramFixture();
-const foreignRefinementFixture = scenario09OneSurfaceProgramFixture({
-  moduleName: "t280.scenario09.foreign-one-surface-program-module",
+const foreignProgramFixture = scenario09OneSurfaceProgramFixture({
+  moduleName: "t280.scenario09.foreign-one-surface-program-module"
+});
+const publishedRefinementFixture = scenario09OneSurfaceProgramFixture({
   includeRefinementBoundary: true
+});
+const mismatchedRefinementFixture = scenario09OneSurfaceProgramFixture({
+  includeRefinementBoundary: true,
+  refinementBoundaryVariant: "mismatched"
 });
 
 function stageAuthorities(fixture) {
@@ -99,7 +105,7 @@ test("T-280 compiler refuses missing, wrong-type, stale, and foreign authorities
     ...canonical[0].plan,
     planDigest: `sha256:${"0".repeat(64)}`
   });
-  const foreign = stageAuthorities(foreignRefinementFixture);
+  const foreign = stageAuthorities(foreignProgramFixture);
   const cases = Object.freeze([
     Object.freeze({
       name: "missing authority",
@@ -141,14 +147,83 @@ test("T-280 compiler refuses missing, wrong-type, stale, and foreign authorities
   }
 });
 
-test("T-280 compiler exposes incomplete nested refinement without executing it", async () => {
-  const result = await compileFixture({ fixture: foreignRefinementFixture });
+test("T-280 compiler binds published refinement to the same admitted program", async () => {
+  const result = await compileFixture({ fixture: publishedRefinementFixture });
+  assert.equal(result.status, "semantic_not_realized");
+  assert.notEqual(result.authorityProgram, null);
+  assert.equal(
+    result.diagnostics.filter((diagnostic) =>
+      diagnostic.diagnosticId === "one_surface_refinement_incomplete"
+    ).length,
+    0,
+    JSON.stringify(result.diagnostics, null, 2)
+  );
+  assert.equal(result.authorityProgram.refinementApplications.length, 1);
+  const relation = result.authorityProgram.refinementApplications[0];
+  assert.equal(
+    relation.refinementBoundaryRef,
+    publishedRefinementFixture.refinementBoundary.id
+  );
+  assert.equal(
+    relation.admittedProgramRef,
+    result.authorityProgram.admittedProgramRef
+  );
+  assert.equal(
+    relation.admittedProgramDigest,
+    result.authorityProgram.admittedProgramDigest
+  );
+  assert.deepEqual(
+    relation.stageAuthorityRefs,
+    result.authorityProgram.stages.map((stage) => stage.authorityRef)
+  );
+  assert.deepEqual(
+    relation.stageAuthorityDigests,
+    result.authorityProgram.stages.map((stage) => stage.authorityDigest)
+  );
+  assert.deepEqual(
+    relation.joinRefs,
+    result.authorityProgram.joins.map((join) => join.joinRef)
+  );
+  assert.deepEqual(
+    relation.joinDigests,
+    result.authorityProgram.joins.map((join) => join.joinDigest)
+  );
+  assert.equal(relation.recursePlanRef, result.authorityProgram.recursePlan.planRef);
+  assert.equal(
+    relation.recursePlanDigest,
+    result.authorityProgram.recursePlan.planDigest
+  );
+  assert.equal(
+    relation.recurseBindingRef,
+    result.authorityProgram.recursePlan.bindingRef
+  );
+  assert.equal(
+    relation.recurseBindingDigest,
+    result.authorityProgram.recursePlan.bindingDigest
+  );
+  assert.equal(relation.runtimeAddressable, false);
+  assert.equal(relation.effectsPermitted, false);
+  assert.doesNotThrow(() =>
+    assertOneSurfaceAuthorityProgramBinding(result.authorityProgram)
+  );
+  assert.throws(
+    () => assertOneSurfaceAuthorityProgramBinding(Object.freeze({
+      ...result.authorityProgram,
+      refinementApplications: Object.freeze([])
+    })),
+    /authority program seal differs/i
+  );
+});
+
+test("T-280 compiler exposes mismatched nested refinement without effects", async () => {
+  const result = await compileFixture({ fixture: mismatchedRefinementFixture });
   assert.equal(result.status, "semantic_not_realized");
   assert.notEqual(result.authorityProgram, null);
   assert(result.diagnostics.some((diagnostic) =>
     diagnostic.diagnosticId === "one_surface_refinement_incomplete" &&
     diagnostic.classification === "semantic_not_realized"
   ), JSON.stringify(result.diagnostics, null, 2));
+  assert.equal(result.authorityProgram.refinementApplications.length, 0);
   assert.equal(result.authorityProgram.runtimeAddressable, false);
   assert.equal(result.authorityProgram.effectsPermitted, false);
 });
