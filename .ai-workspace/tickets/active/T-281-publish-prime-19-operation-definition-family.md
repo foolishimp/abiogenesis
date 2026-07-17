@@ -5,7 +5,7 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_project_read_owner_design_accepted_structural_owner_source_repair_in_progress
+- phase_status: p1_structural_owner_source_closed_project_read_owner_inputs_in_progress
 - review_status: p1_project_read_owner_design_independently_accepted
 - proof_status: p1_35_non_read_keys_115_schema_slots_exact_project_read_81_slots_and_central_family_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
@@ -153,6 +153,10 @@
     20260717T042304Z_DECISION_fh_accept_t281_project_read_owner_design.md
 - accepted_p1_project_read_owner_design_digest: >-
     6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019
+- p1_structural_owner_source_commit: d4ce8abf
+- p1_structural_owner_source_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T043356Z_SELF_REVIEW_t281_structural_owner_source.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -536,3 +540,20 @@ variant at compile time, while their runtime guards continue to reject
 untyped or cast inputs. This code prerequisite does not reopen the accepted
 project-read design and does not authorize the central P1 family before all
 81 owner slots resolve.
+
+## P1 Structural Owner Source Checkpoint
+
+Commit `d4ce8abf` closes the neutral structural owner-source prerequisite. One
+generic constructor preserves exact variant or `project_read_case` identity
+through authority, contract/schema identity, locator, slot, and native schema.
+The existing variant adapter remains a derived path and propagates the same
+non-project-read type exclusion through its only open generic M03 wrapper.
+
+Literal fake `project.read` variants fail TypeScript compilation through both
+entry points. Broad, untyped, and cast inputs remain runtime fail-closed.
+Mixed variant/case keys and locator case/slot mismatches also refuse before a
+source carrier exists. No roster, brand, cast, M04 dependency, public output,
+or runtime behavior was added.
+
+This checkpoint authorizes implementation of the 81 project-read owner slots.
+It does not admit the central private P1 family or cross the P2 hard break.
