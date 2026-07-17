@@ -4,10 +4,10 @@
 - title: Realize the four One Surface authority functions and construction-intent admission
 - type: feature
 - ticket_category: implementation_prerequisite
-- status: active
-- phase_status: repaired_design_accepted_implementation_authorized
-- review_status: repaired_design_fh_accepted_independent_implementation_review_pending
-- proof_status: bounded_implementation_pending
+- status: completed
+- phase_status: closed
+- review_status: independent_implementation_review_accepted
+- proof_status: closure_gates_green
 - delivery_phase: DS-2 integration prerequisite
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -24,7 +24,7 @@
     authority and program-interpretation boundary
 - triaged_at: 2026-07-16
 - created_at: 2026-07-16
-- updated_at: 2026-07-16
+- updated_at: 2026-07-17
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
@@ -98,6 +98,13 @@
 - design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T102558Z_DECISION_fh_accept_t280_event_binding_repair.md
+- implementation_commit: 76e825809accb51ab2bf7fdc6190a74f78a9f32f
+- publication_inventory_commit: e743d8e6
+- implementation_reviewed_design_digest: >-
+    106ac9b9d0a5dfc2210fc92d7caad0292e1b67b09251334f112251c5bdd23ce7
+- independent_implementation_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T015712Z_REVIEW_t280_final_implementation_closure.md
 
 ## Boundary
 
@@ -264,3 +271,17 @@ does not authorize implementation of the repaired candidate. The exact
 repaired candidate above passed independent review and now authorizes only the
 bounded T-280 implementation sequence; independent implementation review is
 still required before closure.
+
+## Closure
+
+T-280 closed on exact implementation commit
+`76e825809accb51ab2bf7fdc6190a74f78a9f32f`, publication inventory commit
+`e743d8e6`, and reviewed as-built design digest
+`106ac9b9d0a5dfc2210fc92d7caad0292e1b67b09251334f112251c5bdd23ce7`.
+The full semantic suite passed `1803/1803`; GTL law passed `82/82`; the focused
+T-280 lane passed `32/32`; all 82 schemas and 40 publication assets verified;
+lint, design, Prime, governance, packed T-223, and diff gates passed.
+
+The pre-existing `selectAdmittedConstructionIntentByPriority` helper is not a
+T-280 defect because this ticket adds no selector. T-270 must bypass or retire
+that helper at the AF-14 to AF-15 join so it cannot re-rank AF-13 truth.
