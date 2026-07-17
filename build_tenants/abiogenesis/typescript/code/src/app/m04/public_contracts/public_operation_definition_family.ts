@@ -91,7 +91,6 @@ function designMetadata<
   });
 }
 
-/** @internal */
 export const METADATA_BASIS_BY_OPERATION = freezeNativeValue({
   "abg.operation.workspace.create": ontologyMetadata(
     "AF-01", "write", "workspace_filesystem", "none"
