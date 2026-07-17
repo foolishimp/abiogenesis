@@ -24,8 +24,13 @@ import {
   stableSha256Digest,
   sha256DigestForText
 } from "../../../shared/runtime_identity.js";
-import { compileCAlgebraToHog } from "./c_algebra_hog_compiler.js";
-import type { HogProgramDeclaration, HogProgramStage } from "./hog_program.js";
+import type { HogProgramStage } from "./hog_program.js";
+import {
+  compileCompleteCProgram,
+  compiledCInvokingLociInDeclaredOrder,
+  type CompiledCProgramPlan,
+  type CompiledCStageLeaf
+} from "./complete_c_program.js";
 import {
   compileGraphVectorCProgramSelection,
   type CompiledGraphVectorCProgramBinding
@@ -457,6 +462,14 @@ export interface JoinDeclaredExecutionContextInput {
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
   readonly invocationCarriers: AdmittedInvocationCarrierSet;
 }
+
+/** @internal */
+export type CompileDeclaredExecutionContextContractInput = Omit<
+  JoinDeclaredExecutionContextInput,
+  "invocationCarriers" | "stageBasis"
+> & Readonly<{
+  programLocusRef: string;
+}>;
 
 class ExecutionContextCompilationError extends Error {
   readonly diagnosticId: ExecutionContextDiagnosticId;
@@ -1261,8 +1274,74 @@ interface ResolvedWorkProgram {
   readonly graphFunction: GraphFunction;
   readonly graphVector: GraphVector;
   readonly cProgram: AdmittedCProgramDeclarationNode;
-  readonly program: HogProgramDeclaration;
+  readonly completeProgramPlan: CompiledCProgramPlan;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
+}
+
+function sourceCompleteProgramPlan(
+  outcome:
+    | GraphVectorExecutionHandoffPublished
+    | GraphVectorExecutionHandoffCapabilityBlocked
+): CompiledCProgramPlan {
+  return outcome.status === "published_startup_blocked"
+    ? outcome.handoff.completeProgramPlan
+    : outcome.completeProgramPlan;
+}
+
+function compiledStageLeavesInDeclaredOrder(
+  plan: CompiledCProgramPlan
+): readonly CompiledCStageLeaf[] {
+  return Object.freeze(
+    compiledCInvokingLociInDeclaredOrder(plan).filter(
+      (row): row is typeof row & { readonly node: CompiledCStageLeaf } =>
+        row.node.kind === "compiled_c_stage_leaf"
+    ).map((row) => row.node)
+  );
+}
+
+function projectedDeclaredStage(leaf: CompiledCStageLeaf): HogProgramStage {
+  const sourceBasis = Object.freeze({
+    kind: "c_of" as const,
+    inputCarrierRef: leaf.inputCarrierRef,
+    outputCarrierRef: leaf.outputCarrierRef,
+    stageRole: leaf.domainStageRole,
+    fibre: leaf.fibre,
+    armId: leaf.armId,
+    resultBearing: leaf.resultBearing
+  });
+  const sourceWithCategories = Object.freeze({
+    ...sourceBasis,
+    instructionCategoryRefs: Object.freeze([
+      ...leaf.instructionCategoryRefs
+    ])
+  });
+  const categoryPresence = leaf.sourceNodeDigest === stableSha256Digest(sourceBasis)
+    ? "absent"
+    : leaf.sourceNodeDigest === stableSha256Digest(sourceWithCategories)
+      ? "present"
+      : null;
+  if (categoryPresence === null) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-stage-basis-invalid",
+      path: "$.completeProgramPlan.stageLeaf.sourceNodeDigest",
+      expectedRelation: "exact source C.of identity for the compiled stage leaf",
+      actualRelation: "compiled stage fields do not reproduce their source-node digest",
+      evidenceRefs: [leaf.nodeRef, leaf.sourceNodeDigest]
+    });
+  }
+  return Object.freeze({
+    stageRole: leaf.domainStageRole,
+    defaultRegime: leaf.fibre,
+    armId: leaf.armId,
+    resultBearing: leaf.resultBearing,
+    ...(categoryPresence === "absent"
+      ? {}
+      : {
+          instructionCategoryRefs: Object.freeze([
+            ...leaf.instructionCategoryRefs
+          ])
+        })
+  });
 }
 
 function resolveWorkProgram(input: {
@@ -1365,26 +1444,45 @@ function resolveWorkProgram(input: {
       evidenceRefs: [expectedBinding.selectedProgramRef]
     });
   }
-  const lowered = compileCAlgebraToHog(admitted.program);
-  if (!lowered.accepted || lowered.program === null) {
+  const composition = sourceComposition(input.outcome);
+  const compositionOwnerRef = composition.contract.host.graphFunctionRef;
+  const compositionOwners = executionBinding.module.graphFunctions.filter(
+    (candidate) => candidate.id === compositionOwnerRef
+  );
+  const compositionOwner = compositionOwners[0];
+  if (compositionOwners.length !== 1 || compositionOwner === undefined) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-program-binding-mismatch",
-      path: "$.catalogBasis.selectedProgram.term",
-      expectedRelation: "one flat executable C program",
-      actualRelation: lowered.diagnostics.map((row) => row.message).join("; "),
-      evidenceRefs: [expectedBinding.selectedProgramRef]
+      path: "$.sourceOutcome.compositionSelection.contract.host.graphFunctionRef",
+      expectedRelation: "one exact Module-contained composition owner",
+      actualRelation: `${String(compositionOwners.length)} composition owners resolved`,
+      evidenceRefs: [compositionOwnerRef ?? "null-composition-owner"]
     });
   }
+  const complete = compileCompleteCProgram({
+    module: executionBinding.module,
+    executionGraphFunction: graphFunction,
+    compositionOwnerGraphFunction: compositionOwner,
+    graphVector: vector,
+    programBinding: selection.binding,
+    program: admitted.program,
+    composition
+  });
+  const carriedPlan = sourceCompleteProgramPlan(input.outcome);
   if (
-    input.outcome.status === "published_startup_blocked" &&
-    !stableJsonEquals(lowered.program, input.outcome.handoff.normalizedProgram)
+    complete.status !== "compiled" ||
+    complete.plan === null ||
+    !stableJsonEquals(complete.plan, carriedPlan)
   ) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-program-binding-mismatch",
-      path: "$.sourceOutcome.handoff.normalizedProgram",
-      expectedRelation: "catalog-derived normalized program",
-      actualRelation: "published handoff program differs from catalog-bound program",
-      evidenceRefs: [input.outcome.handoff.handoffRef]
+      path: "$.sourceOutcome.completeProgramPlan",
+      expectedRelation: "one exact catalog-derived T-271 complete C-program plan",
+      actualRelation:
+        complete.plan === null
+          ? complete.diagnostics.map((row) => row.actualRelation).join("; ")
+          : "carried plan differs from current catalog-bound compilation",
+      evidenceRefs: [carriedPlan.planRef, carriedPlan.planDigest]
     });
   }
   return Object.freeze({
@@ -1392,14 +1490,14 @@ function resolveWorkProgram(input: {
     graphFunction,
     graphVector: vector,
     cProgram: admitted.program,
-    program: lowered.program,
+    completeProgramPlan: complete.plan,
     programBinding: selection.binding
   });
 }
 
 function validateStageBasis(input: {
   readonly stageBasis: DeclaredCStageInvocationBasis;
-  readonly program: HogProgramDeclaration;
+  readonly completeProgramPlan: CompiledCProgramPlan;
   readonly programBinding: CompiledGraphVectorCProgramBinding;
   readonly outcome: GraphVectorExecutionHandoffPublished | GraphVectorExecutionHandoffCapabilityBlocked;
 }): {
@@ -1431,24 +1529,37 @@ function validateStageBasis(input: {
       evidenceRefs: [input.programBinding.bindingDigest]
     });
   }
-  const stage = input.program.stages[input.stageBasis.stageIndex];
+  const leaf = compiledStageLeavesInDeclaredOrder(input.completeProgramPlan)[
+    input.stageBasis.stageIndex
+  ];
+  const stage = leaf === undefined ? undefined : projectedDeclaredStage(leaf);
   const categoryRefs = Object.freeze([...(stage?.instructionCategoryRefs ?? [])]);
   const compositionRegimes = sourceComposition(input.outcome).contract.regimes.filter(
-    (row) => row.regime === stage?.defaultRegime
+    (row) => row.bindingRef === leaf?.compositionBinding.regimeBindingRef
   );
   if (
+    leaf === undefined ||
     stage === undefined ||
     stage.stageRole !== input.stageBasis.stageRole ||
     stage.defaultRegime !== input.stageBasis.regime ||
     stableSha256Digest(stage) !== input.stageBasis.termDigest ||
     !stableJsonEquals(categoryRefs, input.stageBasis.instructionCategoryRefs) ||
-    compositionRegimes.length !== 1
+    compositionRegimes.length !== 1 ||
+    leaf.compositionBinding.compositionSelectionRef !==
+      sourceComposition(input.outcome).selectionRef ||
+    leaf.compositionBinding.compositionRef !==
+      sourceComposition(input.outcome).contract.contractRef ||
+    leaf.compositionBinding.compositionDigest !==
+      sourceComposition(input.outcome).contract.contractDigest ||
+    compositionRegimes[0]?.stageRole !==
+      leaf.compositionBinding.compositionStageRole ||
+    compositionRegimes[0]?.regime !== leaf.compositionBinding.regime
   ) {
     throw new ExecutionContextCompilationError({
       diagnosticId: "execution-context-stage-basis-invalid",
       path: "$.stageBasis",
       expectedRelation:
-        "exact index, domain role, regime, term digest, categories, and one regime-matched composition binding",
+        "exact T-271 leaf index, domain role, regime, projected term digest, categories, and composition binding",
       actualRelation: "declared stage basis does not match selected program and composition",
       evidenceRefs: [input.stageBasis.basisDigest, input.programBinding.bindingDigest]
     });
@@ -1935,18 +2046,19 @@ function compileStaticContract(input: {
   readonly stageBasis: DeclaredCStageInvocationBasis;
   readonly selectedCatalogEntryRef: string;
   readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly resolvedWork?: ResolvedWorkProgram;
 }): {
   readonly contract: CompiledExecutionContextContract;
   readonly work: ResolvedWorkProgram;
 } {
-  const work = resolveWorkProgram({
+  const work = input.resolvedWork ?? resolveWorkProgram({
     outcome: input.outcome,
     selectedCatalogEntryRef: input.selectedCatalogEntryRef,
     catalogBasis: input.catalogBasis
   });
   const stageSelection = validateStageBasis({
     stageBasis: input.stageBasis,
-    program: work.program,
+    completeProgramPlan: work.completeProgramPlan,
     programBinding: work.programBinding,
     outcome: input.outcome
   });
@@ -2024,6 +2136,60 @@ function compileStaticContract(input: {
     work,
     contract
   });
+}
+
+/** @internal */
+export function compileDeclaredExecutionContextContract(
+  input: CompileDeclaredExecutionContextContractInput
+): CompiledExecutionContextContract {
+  const outcome = exactSourceOutcome(input.sourceOutcome);
+  const work = resolveWorkProgram({
+    outcome,
+    selectedCatalogEntryRef: input.selectedCatalogEntryRef,
+    catalogBasis: input.catalogBasis
+  });
+  const leaves = compiledStageLeavesInDeclaredOrder(work.completeProgramPlan);
+  const stageIndex = leaves.findIndex(
+    (leaf) => leaf.nodeRef === input.programLocusRef
+  );
+  const leaf = leaves[stageIndex];
+  if (stageIndex < 0 || leaf === undefined) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-stage-basis-invalid",
+      path: "$.programLocusRef",
+      expectedRelation: "one exact declared stage locus in the sealed T-271 plan",
+      actualRelation: `resolved ${String(stageIndex < 0 ? 0 : 1)} stage loci`,
+      evidenceRefs: [
+        work.completeProgramPlan.planRef,
+        input.programLocusRef
+      ]
+    });
+  }
+  const stage = projectedDeclaredStage(leaf);
+  return compileStaticContract({
+    outcome,
+    stageBasis: constructDeclaredCStageInvocationBasis({
+      programBindingDigest: work.programBinding.bindingDigest,
+      stageIndex,
+      stageRole: stage.stageRole,
+      regime: leaf.fibre === "F_P" || leaf.fibre === "F_H"
+        ? leaf.fibre
+        : (() => {
+            throw new ExecutionContextCompilationError({
+              diagnosticId: "execution-context-stage-basis-invalid",
+              path: "$.programLocusRef",
+              expectedRelation: "an F_P or F_H declared execution-context locus",
+              actualRelation: `received ${leaf.fibre}`,
+              evidenceRefs: [leaf.nodeRef, leaf.nodeDigest]
+            });
+          })(),
+      termDigest: stableSha256Digest(stage),
+      instructionCategoryRefs: leaf.instructionCategoryRefs
+    }),
+    selectedCatalogEntryRef: input.selectedCatalogEntryRef,
+    catalogBasis: input.catalogBasis,
+    resolvedWork: work
+  }).contract;
 }
 
 function ownFieldPath(value: unknown, path: string): unknown {

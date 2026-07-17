@@ -110,8 +110,14 @@ void projectTraversalContractSourceBasis;
 import { sourceBasis } from "@abiogenesis/typescript-tenant/abg/m03";
 // @ts-expect-error row compilation remains compiler-internal.
 import { compileRows } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error whole-execution-family compilation remains runtime-internal.
+import { compileTraversalExecutionFamily } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error checked-report reduction remains compiler-internal.
+import { admitTraversalExecutionAgainstCheckedReport } from "@abiogenesis/typescript-tenant/abg/m03";
 void sourceBasis;
 void compileRows;
+void compileTraversalExecutionFamily;
+void admitTraversalExecutionAgainstCheckedReport;
 `
   );
 
@@ -142,4 +148,9 @@ void compileRows;
   }
   assert.equal(Object.hasOwn(m03, "sourceBasis"), false);
   assert.equal(Object.hasOwn(m03, "compileRows"), false);
+  assert.equal(Object.hasOwn(m03, "compileTraversalExecutionFamily"), false);
+  assert.equal(
+    Object.hasOwn(m03, "admitTraversalExecutionAgainstCheckedReport"),
+    false
+  );
 });

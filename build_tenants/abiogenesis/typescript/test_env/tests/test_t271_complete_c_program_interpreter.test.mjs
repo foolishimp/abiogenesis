@@ -42,7 +42,9 @@ import {
   constructAbgFnCompositionDeclarations
 } from "../../build/semantic/code/src/abg/m03/contracts/fn_composition.js";
 import {
-  compileCompleteCProgram
+  compileCompleteCProgram,
+  compiledCInvokingLociInDeclaredOrder,
+  compiledCPlanNodesInDeclaredOrder
 } from "../../build/semantic/code/src/abg/m03/contracts/complete_c_program.js";
 import {
   compileGraphVectorExecutionHandoff
@@ -611,6 +613,24 @@ test("T-271 native and canonical raw programs compile to one sealed plan", () =>
     ["$.term", "$.term.left", "$.term.right"]
   );
   assert.equal(compiled.plan.root.children[1].resultCardinality, "one");
+});
+
+test("T-271 projects one canonical node order and retry-coordinate authority", () => {
+  const value = fixture("nested_retry");
+  const plan = value.handoffOutcome.handoff.completeProgramPlan;
+  const nodes = compiledCPlanNodesInDeclaredOrder(plan);
+  const loci = compiledCInvokingLociInDeclaredOrder(plan);
+
+  assert.equal(nodes.length, plan.authoredNodeCount);
+  assert.equal(loci.length, plan.invokingLocusCount);
+  assert.deepEqual(loci.map((row) => row.node.nodeRef), [
+    plan.root.child.child.children[0].nodeRef,
+    plan.root.child.child.children[1].nodeRef
+  ]);
+  assert.deepEqual(loci.map((row) => row.retryBudgets), [
+    [2, 1],
+    [2, 1]
+  ]);
 });
 
 test("T-271 mixed composition threads exact carriers and replays without effects", async () => {

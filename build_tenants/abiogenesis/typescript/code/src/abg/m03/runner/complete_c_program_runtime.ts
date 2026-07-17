@@ -8,6 +8,9 @@ import {
 } from "../contracts/admission_hygiene.js";
 import {
   assertCompiledCProgramPlan,
+  compiledCInvokingLociInDeclaredOrder,
+  compiledCPlanNodesInDeclaredOrder,
+  compiledCSubtreeNodesInDeclaredOrder,
   type CompiledCCompleteBatch,
   type CompiledCCompleteRetry,
   type CompiledCPlanNode,
@@ -676,65 +679,6 @@ function assertBatchProjectionReceiptSeal(
   }
 }
 
-function planNodes(node: CompiledCPlanNode): readonly CompiledCPlanNode[] {
-  switch (node.kind) {
-    case "compiled_c_sequence":
-      return Object.freeze([
-        node,
-        ...node.children.flatMap((child) => planNodes(child))
-      ]);
-    case "compiled_c_complete_batch":
-      return Object.freeze([
-        node,
-        ...node.tasks.flatMap((task) => planNodes(task.child))
-      ]);
-    case "compiled_c_complete_retry":
-      return Object.freeze([node, ...planNodes(node.child)]);
-    case "compiled_c_stage_leaf":
-    case "compiled_c_identity":
-    case "compiled_c_workflow_lift":
-      return Object.freeze([node]);
-  }
-}
-
-interface ReplayNodeAuthority {
-  readonly node: CompiledCStageLeaf | CompiledCWorkflowLift;
-  readonly retryBudgets: readonly number[];
-}
-
-function replayNodeAuthorities(
-  node: CompiledCPlanNode,
-  retryBudgets: readonly number[] = [],
-  target: Map<string, ReplayNodeAuthority> = new Map()
-): ReadonlyMap<string, ReplayNodeAuthority> {
-  switch (node.kind) {
-    case "compiled_c_stage_leaf":
-    case "compiled_c_workflow_lift":
-      target.set(node.nodeRef, Object.freeze({ node, retryBudgets }));
-      break;
-    case "compiled_c_identity":
-      break;
-    case "compiled_c_sequence":
-      node.children.forEach((child) =>
-        replayNodeAuthorities(child, retryBudgets, target)
-      );
-      break;
-    case "compiled_c_complete_batch":
-      node.tasks.forEach((task) =>
-        replayNodeAuthorities(task.child, retryBudgets, target)
-      );
-      break;
-    case "compiled_c_complete_retry":
-      replayNodeAuthorities(
-        node.child,
-        Object.freeze([...retryBudgets, node.maxAttempts]),
-        target
-      );
-      break;
-  }
-  return target;
-}
-
 function validateInvocation(
   input: CProgramInterpreterInvocation
 ): CatalogExecutionBinding {
@@ -807,9 +751,15 @@ function validateInvocation(
       "C-program invocation does not preserve selected composition authority"
     );
   }
-  const replayAuthorities = replayNodeAuthorities(input.plan.root);
+  const replayAuthorities = new Map(
+    compiledCInvokingLociInDeclaredOrder(input.plan).map((row) =>
+      [row.node.nodeRef, row] as const
+    )
+  );
   const nodeAuthorities = new Map(
-    planNodes(input.plan.root).map((node) => [node.nodeRef, node] as const)
+    compiledCPlanNodesInDeclaredOrder(input.plan).map((row) =>
+      [row.node.nodeRef, row.node] as const
+    )
   );
   const receiptIdentities = new Set<string>();
   for (const receipt of input.replayReceipts) {
@@ -1608,7 +1558,11 @@ function subtreeReceipts(input: {
   readonly receipts: readonly CProgramReplayReceipt[];
   readonly retryPath: readonly number[];
 }): readonly CProgramAtomReceipt[] {
-  const refs = new Set(planNodes(input.node).map((node) => node.nodeRef));
+  const refs = new Set(
+    compiledCSubtreeNodesInDeclaredOrder(input.node).map(
+      (row) => row.node.nodeRef
+    )
+  );
   return Object.freeze(
     input.receipts.filter(
       (receipt): receipt is CProgramAtomReceipt =>

@@ -30,8 +30,11 @@ import {
   pluginSelectionDeclarationEntry
 } from "../../build/semantic/code/src/gtl/m01/contracts/execution_declaration_builders.js";
 import {
+  constructContractRef,
+  constructGtlLibraryEntryDeclaration,
+  constructJob,
   constructModule
-} from "../../build/semantic/code/src/gtl/m02/contracts/constructors.js";
+} from "../../build/semantic/code/src/gtl/m02/index.js";
 import {
   abgFnCompositionDeclarationRef,
   constructAbgFnCompositionDeclarations
@@ -40,9 +43,8 @@ import {
   compileGraphVectorExecutionHandoff
 } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import {
-  admitTenantConformanceManifest,
-  tenantConformanceManifestDigest
-} from "../../build/semantic/code/src/app/m04/product_intake/tenant_conformance_manifest.js";
+  admittedTenantManifestFixture
+} from "../fixtures/admitted_tenant_manifest.mjs";
 import {
   loadGtlTargetCarrierDefaultsBundle
 } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
@@ -56,10 +58,19 @@ import {
   projectTraversalContractSourceBasis
 } from "../../build/semantic/code/src/abg/m03/contracts/traversal_execution_contract.js";
 import {
+  admitBoundWorkspaceCatalog
+} from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
+import {
+  assertCompiledTraversalExecutionFamily,
+  compileTraversalExecutionFamily
+} from "../../build/semantic/code/src/abg/m03/contracts/traversal_execution_family.js";
+import {
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
 
 const defaults = loadGtlTargetCarrierDefaultsBundle();
+const MODULE_REF = "gtl-module://t267/generic";
+const ENTRY_REF = "catalog-entry://t267/generic-decision";
 
 function node(name) {
   return constructNode({
@@ -185,11 +196,17 @@ function fixture({
       resultBearing: true
     })
   );
+  const nested = C.compose(
+    C.retry(single, 2),
+    C.id(carrier([decision]))
+  );
   const term = programShape === "single"
     ? single
     : programShape === "repeated"
       ? repeated
-      : triple;
+      : programShape === "nested"
+        ? nested
+        : triple;
   const program = declareCProgram({
     programRef,
     term,
@@ -295,7 +312,20 @@ function fixture({
     graphFunctions: [finalHost],
     refinementBoundaries: [],
     candidateFamilies: [],
-    jobs: [],
+    jobs: [
+      constructJob({
+        name: "t267-generic-decision",
+        contracts: [
+          constructContractRef({
+            kind: "graph_function",
+            targetId: finalHost.id
+          })
+        ],
+        roles: [],
+        tags: ["t267"],
+        policyHooks: emptySerializedAttrs()
+      })
+    ],
     roles: [],
     operators: [],
     evaluators: [],
@@ -304,128 +334,65 @@ function fixture({
     policyHooks: emptySerializedAttrs(),
     metadata: emptySerializedAttrs()
   });
+  const declaration = constructGtlLibraryEntryDeclaration({
+    declarationRef: "declaration://t267/generic-decision",
+    entryRef: ENTRY_REF,
+    libraryScope: "system",
+    entryKind: "graph_function",
+    namespace: "t267.generic",
+    ownerRef: "owner://t267/generic",
+    version: "1.0.0",
+    graphFunctionRef: finalHost.id,
+    interfaceRef: "interface://t267/generic-decision",
+    sourceContractRef: observation.schema.ref,
+    targetContractRef: decision.schema.ref,
+    contextRefs: ["context://t267/workspace"],
+    authorityRefs: ["authority://t267/runtime"],
+    overlayRefs: [],
+    provenanceRefs: ["provenance://t267/generic"],
+    readinessRefs: ["readiness://t267/ready"],
+    proofRefs: ["proof://t267/catalog"],
+    policyRefs: ["policy://t267/default"],
+    declarationSourceRefs: [MODULE_REF]
+  });
+  const catalogResult = admitBoundWorkspaceCatalog(
+    {
+      kind: "bound_catalog_admission_batch",
+      workspaceId: "workspace://t267",
+      bindingId: "binding://t267",
+      catalogId: "catalog://t267",
+      resolvedLockRef: "lock://t267",
+      systemDeclarations: [
+        {
+          kind: "runtime_library_entry",
+          declaration,
+          moduleRef: MODULE_REF,
+          module
+        }
+      ],
+      orderedProductBatches: [],
+      causationEventRefs: ["event://t267/binding-admitted"],
+      correlationId: "correlation://t267/catalog-admission"
+    },
+    () => {}
+  );
+  assert.equal(catalogResult.accepted, true, JSON.stringify(catalogResult));
+  assert.notEqual(catalogResult.basis, null);
   return Object.freeze({
     module,
     host: finalHost,
-    vector: finalVector
-  });
-}
-
-function publicContractRow({ contractId, contractKind, capabilityRefs }) {
-  const digest = stableSha256Digest({ contractId, contractKind, capabilityRefs });
-  return Object.freeze({
-    contractId,
-    contractKind,
-    owningProductId: "abiogenesis",
-    version: "1.0.0",
-    digest,
-    authorityRefs: Object.freeze(["REQ-P-PUBLIC-CONTRACTS"]),
-    capabilityRefs: Object.freeze([...capabilityRefs]),
-    nativeLocator: null,
-    assetLocator: Object.freeze({
-      kind: "asset",
-      relativePath: `contracts/t267/${contractId}.json`,
-      schemaId: contractId,
-      schemaVersion: "1.0.0",
-      mediaType: "application/json",
-      digest
-    }),
-    operationContract: null
+    vector: finalVector,
+    catalogBasis: catalogResult.basis
   });
 }
 
 function admittedManifest() {
-  const rows = Object.freeze([
-    publicContractRow({
-      contractId: "abg.schema.tenant-conformance-manifest",
-      contractKind: "schema_asset",
-      capabilityRefs: []
-    }),
-    publicContractRow({
-      contractId: "abg.contract.t267-decision",
-      contractKind: "capability",
-      capabilityRefs: ["capability://t267/decision"]
-    })
-  ]);
-  const catalogBasis = Object.freeze({
-    kind: "abg_public_contract_catalog",
-    schemaVersion: 1,
-    catalogId: "abg.public-contract-catalog.t267",
-    catalogVersion: "1.0.0",
-    catalogSchemaPath: "contracts/public-contract-catalog.schema.json",
-    catalogSchemaDigest: stableSha256Digest("t267-catalog-schema"),
-    profile: "abg-5-ds1",
-    rows
+  return admittedTenantManifestFixture({
+    fixtureId: "t267-generic",
+    capabilityContractId: "abg.contract.t267-decision",
+    capabilityId: "capability://t267/decision",
+    effectRef: "effect://t267/decision"
   });
-  const catalog = Object.freeze({
-    ...catalogBasis,
-    catalogDigest: stableSha256Digest(catalogBasis)
-  });
-  const schemaClaim = Object.freeze({
-    claimRef: "claim://t267/tenant-manifest-schema",
-    contractId: rows[0].contractId,
-    contractVersion: rows[0].version,
-    contractDigest: rows[0].digest
-  });
-  const capabilityClaim = Object.freeze({
-    claimRef: "claim://t267/decision-capability-contract",
-    contractId: rows[1].contractId,
-    contractVersion: rows[1].version,
-    contractDigest: rows[1].digest
-  });
-  const basis = Object.freeze({
-    kind: "abg_tenant_conformance_manifest",
-    schemaId: "abg.schema.tenant-conformance-manifest",
-    schemaVersion: "1.0.0",
-    manifestId: "abg.tenant-conformance.t267-generic",
-    manifestVersion: "1.0.0",
-    engineId: "abg.engine.t267-generic",
-    engineVersion: "5.0.0",
-    publicContractCatalog: Object.freeze({
-      catalogId: catalog.catalogId,
-      catalogVersion: catalog.catalogVersion,
-      catalogDigest: catalog.catalogDigest
-    }),
-    publicContractClaims: Object.freeze([schemaClaim, capabilityClaim]),
-    capabilityClaims: Object.freeze([
-      Object.freeze({
-        capabilityId: "capability://t267/decision",
-        owningContractClaimRef: capabilityClaim.claimRef,
-        supportedDisposition: "supported",
-        dependentCapabilityIds: Object.freeze([])
-      })
-    ]),
-    effectBindings: Object.freeze([
-      Object.freeze({
-        effectRef: "effect://t267/decision",
-        capabilityId: "capability://t267/decision"
-      })
-    ]),
-    enforcementClaims: Object.freeze([
-      Object.freeze({
-        contractClaimRef: schemaClaim.claimRef,
-        carrierClassification: "declaration",
-        applicableRuleIds: Object.freeze(["REQ-M-GTL3-CAPABILITY-001"]),
-        causalPredecessorClaimRefs: Object.freeze([]),
-        boundedProofRefs: Object.freeze(["proof://t267/manifest-schema"])
-      }),
-      Object.freeze({
-        contractClaimRef: capabilityClaim.claimRef,
-        carrierClassification: "declaration",
-        applicableRuleIds: Object.freeze(["REQ-M-GTL3-CAPABILITY-015"]),
-        causalPredecessorClaimRefs: Object.freeze([]),
-        boundedProofRefs: Object.freeze(["proof://t267/capability-contract"])
-      })
-    ])
-  });
-  const manifest = Object.freeze({
-    ...basis,
-    manifestDigest: tenantConformanceManifestDigest({
-      ...basis,
-      manifestDigest: stableSha256Digest("placeholder")
-    })
-  });
-  return admitTenantConformanceManifest(manifest, catalog);
 }
 
 function sourceInput(value, outcome, manifest) {
@@ -518,6 +485,54 @@ function gate(value, compiled, inputOverride = null) {
     })
   });
 }
+
+test("T-267 compiles one non-product execution family through one checked report", () => {
+  const value = fixture({ effects: false, programShape: "nested" });
+  const manifest = admittedManifest();
+  const executionBinding = value.catalogBasis.executionBindings[0];
+  const family = compileTraversalExecutionFamily({
+    catalogBasis: value.catalogBasis,
+    executionBinding,
+    admittedTenantConformanceManifest: manifest
+  });
+
+  assertCompiledTraversalExecutionFamily(family);
+  assert.equal(family.conformanceEvidence.passed, true);
+  assert.equal(family.conformanceEvidence.issueCount, 0);
+  assert.equal(Object.hasOwn(family, "conformanceInput"), false);
+  assert.equal(Object.hasOwn(family, "conformanceReport"), false);
+  assert.equal(family.subjects.length, 1);
+  assert.equal(family.subjects[0].graphFunctionRef, value.host.id);
+  assert.equal(family.subjects[0].vectors.length, 1);
+  assert.equal(
+    family.subjects[0].vectors[0].reportRef,
+    family.conformanceEvidence.reportRef
+  );
+  assert.equal(family.effectsPermitted, false);
+  assert.equal(
+    family.subjects[0].vectors[0].normalizedProgram,
+    null
+  );
+
+  assert.throws(
+    () => compileTraversalExecutionFamily({
+      catalogBasis: value.catalogBasis,
+      executionBinding: Object.freeze({
+        ...executionBinding,
+        version: "9.9.9"
+      }),
+      admittedTenantConformanceManifest: manifest
+    }),
+    /byte-equivalent inside the admitted catalog basis/u
+  );
+  assert.throws(
+    () => assertCompiledTraversalExecutionFamily(Object.freeze({
+      ...family,
+      effectsPermitted: true
+    })),
+    /statically effect-free/u
+  );
+});
 
 test("T-267 compiles one exact non-Consensus TraversalUnit", () => {
   const value = fixture({ effects: false });

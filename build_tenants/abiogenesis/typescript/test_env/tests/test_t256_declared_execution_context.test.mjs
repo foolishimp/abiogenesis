@@ -6,11 +6,13 @@ import test from "node:test";
 
 import {
   C,
+  cGraphFunctionRef,
   cInterfaceCarrier,
   cProgramCatalogDeclarationEntry,
   declareCProgram,
   typedInterface,
-  typedNode
+  typedNode,
+  workflow
 } from "../../build/semantic/code/src/gtl/m01/algebra/index.js";
 import {
   constructEnvRef,
@@ -74,6 +76,7 @@ import {
   constructDeclaredCStageInvocationBasis,
   constructExecutionContextProjectionRule,
   constructInstructionProtocolRule,
+  compileDeclaredExecutionContextContract,
   declaredExecutionStageRef,
   joinDeclaredExecutionContext
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
@@ -95,10 +98,19 @@ import {
   sha256DigestForText,
   stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
+import {
+  admittedTenantManifestFixture
+} from "../fixtures/admitted_tenant_manifest.mjs";
+import {
+  assertCompiledTraversalExecutionFamily,
+  compileTraversalExecutionFamily
+} from "../../build/semantic/code/src/abg/m03/contracts/traversal_execution_family.js";
 
 const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
 const MODULE_REF = "gtl-module://t256/generic";
 const ENTRY_REF = "catalog-entry://t256/generic/transform";
+const WORKFLOW_MODULE_REF = "gtl-module://t256/workflow-family";
+const WORKFLOW_ENTRY_REF = "catalog-entry://t256/workflow-family";
 const PROTOCOL_REF = "instruction-protocol://t256/generic-transform";
 const SECTION_REF = "instruction-section://t256/transform-context";
 const RELEVANCE_REF = "relevance://t256/current-source";
@@ -221,7 +233,8 @@ function compositionDeclarations(input) {
 
 function fixture(options = {}) {
   const regime = options.regime ?? "F_P";
-  const completeProgram = options.completeProgram === true;
+  const completeProgram =
+    options.completeProgram === true || options.nestedComplete === true;
   const stageRole = regime === "F_H" ? "human_callout" : "transform";
   const source = node("Observation", "observation");
   const contextSource = options.multiSource === true
@@ -334,7 +347,23 @@ function fixture(options = {}) {
   const programRef = "program://t256/generic-transform";
   const program = declareCProgram({
     programRef,
-    term: completeProgram
+    term: options.nestedComplete === true
+      ? C.compose(
+          C.retry(
+            C.of({
+              input: typedCarrier(sources),
+              output: typedCarrier([target]),
+              stageRole: "transform",
+              fibre: "F_P",
+              armId: "arm://t256/transform",
+              resultBearing: true,
+              instructionCategoryRefs: [SECTION_REF]
+            }),
+            2
+          ),
+          C.id(typedCarrier([target]))
+        )
+      : completeProgram
       ? C.compose(
           C.compose(
             C.of({
@@ -371,7 +400,14 @@ function fixture(options = {}) {
           fibre: regime,
           armId: "arm://t256/transform",
           resultBearing: true,
-          instructionCategoryRefs: [SECTION_REF]
+          ...(options.instructionCategoryShape === "absent"
+            ? {}
+            : {
+                instructionCategoryRefs:
+                  options.instructionCategoryShape === "empty"
+                    ? []
+                    : [SECTION_REF]
+              })
         }),
     proportionalityClass: "P1"
   });
@@ -454,10 +490,16 @@ function fixture(options = {}) {
       ...(completeProgram
         ? [
             hogProgramRefDeclarationEntry(programRef),
-            pluginSelectionDeclarationEntry({
-              fdEvaluator: "plugin://abg/fd-evaluator",
-              fpDispatch: "plugin://abg/fp-dispatch"
-            })
+            pluginSelectionDeclarationEntry(
+              options.nestedComplete === true
+                ? {
+                    fpDispatch: "plugin://abg/fp-dispatch"
+                  }
+                : {
+                    fdEvaluator: "plugin://abg/fd-evaluator",
+                    fpDispatch: "plugin://abg/fp-dispatch"
+                  }
+            )
           ]
         : [])
     ]),
@@ -579,11 +621,39 @@ function fixture(options = {}) {
     JSON.stringify(sourceOutcome)
   );
   const lowered = compileCAlgebraToHog(program);
-  assert.equal(lowered.accepted, true, JSON.stringify(lowered));
-  assert.notEqual(lowered.program, null);
-  const stage = sourceOutcome.status === "published_startup_blocked"
-    ? sourceOutcome.handoff.normalizedProgram.stages[0]
-    : lowered.program.stages[0];
+  if (options.nestedComplete === true) {
+    assert.equal(lowered.accepted, false, JSON.stringify(lowered));
+    assert.equal(lowered.program, null);
+  } else {
+    assert.equal(lowered.accepted, true, JSON.stringify(lowered));
+    assert.notEqual(lowered.program, null);
+  }
+  const normalized = sourceOutcome.status === "published_startup_blocked"
+    ? sourceOutcome.handoff.normalizedProgram
+    : lowered.program;
+  const planRoot = sourceOutcome.status === "published_startup_blocked"
+    ? sourceOutcome.handoff.completeProgramPlan.root
+    : sourceOutcome.completeProgramPlan.root;
+  const stageLeaf = (() => {
+    const pending = [planRoot];
+    while (pending.length > 0) {
+      const node = pending.shift();
+      if (node.kind === "compiled_c_stage_leaf") return node;
+      if (node.kind === "compiled_c_sequence") pending.unshift(...node.children);
+      if (node.kind === "compiled_c_complete_batch") {
+        pending.unshift(...node.tasks.map((task) => task.child));
+      }
+      if (node.kind === "compiled_c_complete_retry") pending.unshift(node.child);
+    }
+    return null;
+  })();
+  const stage = normalized?.stages[0] ?? Object.freeze({
+    stageRole: stageLeaf.domainStageRole,
+    defaultRegime: stageLeaf.fibre,
+    armId: stageLeaf.armId,
+    resultBearing: stageLeaf.resultBearing,
+    instructionCategoryRefs: stageLeaf.instructionCategoryRefs
+  });
   const programBinding = sourceOutcome.status === "published_startup_blocked"
     ? sourceOutcome.handoff.programBinding
     : sourceOutcome.programBinding;
@@ -653,8 +723,170 @@ function fixture(options = {}) {
     catalogBasis: catalogResult.basis,
     catalogEvents: catalogResult.admissionEvents,
     stageBasis,
+    stageLeaf,
     invocationCarriers
   };
+}
+
+function workflowFamilyFixture(options = {}) {
+  const child = fixture({ nestedComplete: true });
+  const parentRef = "graph-function://t256/workflow-parent";
+  const parentVectorRef = "graph-vector://t256/workflow-parent";
+  const parentProgram = declareCProgram({
+    programRef: "program://t256/workflow-parent",
+    term: workflow.C(cGraphFunctionRef({
+      graphFunction: child.host,
+      input: typedInterface(
+        ...child.host.inputs.map((value) =>
+          typedNode({ node: value, decode: (raw) => raw })
+        )
+      ),
+      output: typedInterface(
+        ...child.host.outputs.map((value) =>
+          typedNode({ node: value, decode: (raw) => raw })
+        )
+      )
+    })),
+    proportionalityClass: "P1"
+  });
+  const parentComposition = compositionDeclarations({
+    graphFunctionRef: parentRef,
+    vectorRef: parentVectorRef,
+    sources: child.host.inputs,
+    stageRole: "transform",
+    regime: "F_D",
+    target: child.target
+  });
+  const parentVector = constructGraphVector({
+    id: parentVectorRef,
+    name: "t256.workflow-parent",
+    source: child.host.inputs,
+    target: child.target,
+    operators: [],
+    evaluators: [],
+    contexts: [],
+    rule: null,
+    allowsSubwork: true,
+    declarations: graphVectorDeclarations([
+      hogProgramRefDeclarationEntry(parentProgram.programRef),
+      ...parentComposition.entries
+    ]),
+    tags: ["t256", "workflow-parent"]
+  });
+  const parentGraph = constructGraph({
+    name: "t256.workflow-parent-graph",
+    inputs: child.host.inputs,
+    outputs: child.host.outputs,
+    nodes: [...child.host.inputs, ...child.host.outputs],
+    vectors: [parentVector],
+    contexts: [],
+    rules: [],
+    effects: [],
+    tags: ["t256", "workflow-parent"]
+  });
+  const parent = constructGraphFunction({
+    id: parentRef,
+    name: "t256.workflow-parent",
+    environment: constructEnvRef({
+      requires: child.host.inputs,
+      provides: child.host.outputs,
+      carries: [...child.host.inputs, ...child.host.outputs]
+    }),
+    inputs: child.host.inputs,
+    outputs: child.host.outputs,
+    template: constructTemplateRef({
+      kind: "inline_graph",
+      ref: "template://t256/workflow-parent",
+      graph: parentGraph,
+      version: null
+    }),
+    effects: [],
+    declarations: graphFunctionDeclarations([
+      cProgramCatalogDeclarationEntry([parentProgram]),
+      hogProgramRefDeclarationEntry(parentProgram.programRef)
+    ]),
+    tags: ["t256", "workflow-parent"]
+  });
+  const module = constructModule({
+    name: "t256.workflow-family-module",
+    graphs: [parentGraph, ...child.module.graphs],
+    graphFunctions: [
+      parent,
+      ...(options.omitChild === true ? [] : [child.host])
+    ],
+    refinementBoundaries: [],
+    candidateFamilies: [],
+    jobs: [
+      constructJob({
+        name: "t256-workflow-parent",
+        contracts: [
+          constructContractRef({ kind: "graph_function", targetId: parent.id })
+        ],
+        roles: [],
+        tags: ["t256", "workflow-parent"],
+        policyHooks: emptySerializedAttrs()
+      }),
+      ...(options.omitChild === true ? [] : child.module.jobs)
+    ],
+    roles: [],
+    operators: [],
+    evaluators: [],
+    rules: child.module.rules,
+    imports: [],
+    policyHooks: emptySerializedAttrs(),
+    metadata: emptySerializedAttrs()
+  });
+  const declaration = constructGtlLibraryEntryDeclaration({
+    declarationRef: "declaration://t256/workflow-family",
+    entryRef: WORKFLOW_ENTRY_REF,
+    libraryScope: "system",
+    entryKind: "graph_function",
+    namespace: "t256.workflow-family",
+    ownerRef: "owner://t256/generic",
+    version: "1.0.0",
+    graphFunctionRef: parent.id,
+    interfaceRef: "interface://t256/workflow-family",
+    sourceContractRef: child.source.schema.ref,
+    targetContractRef: TARGET_CONTRACT_REF,
+    contextRefs: ["context://t256/workspace"],
+    authorityRefs: ["authority://t256/runtime"],
+    overlayRefs: [],
+    provenanceRefs: ["provenance://t256/workflow-family"],
+    readinessRefs: ["readiness://t256/ready"],
+    proofRefs: ["proof://t256/workflow-family"],
+    policyRefs: ["policy://t256/default"],
+    declarationSourceRefs: [WORKFLOW_MODULE_REF]
+  });
+  const catalogResult = admitBoundWorkspaceCatalog(
+    {
+      kind: "bound_catalog_admission_batch",
+      workspaceId: "workspace://t256",
+      bindingId: "binding://t256/workflow-family",
+      catalogId: "catalog://t256/workflow-family",
+      resolvedLockRef: "lock://t256/workflow-family",
+      systemDeclarations: [
+        {
+          kind: "runtime_library_entry",
+          declaration,
+          moduleRef: WORKFLOW_MODULE_REF,
+          module
+        }
+      ],
+      orderedProductBatches: [],
+      causationEventRefs: ["event://t256/workflow-family-admitted"],
+      correlationId: "correlation://t256/workflow-family"
+    },
+    () => {}
+  );
+  assert.equal(catalogResult.accepted, true, JSON.stringify(catalogResult));
+  assert.notEqual(catalogResult.basis, null);
+  return Object.freeze({
+    child,
+    parent,
+    parentVector,
+    module,
+    catalogBasis: catalogResult.basis
+  });
 }
 
 function joinFixture(value, overrides = {}) {
@@ -1338,6 +1570,139 @@ test("T-256 validates exact stage identity without selecting or advancing a stag
   );
 });
 
+test("T-267 derives declared execution context from a nested T-271 plan locus", () => {
+  const value = fixture({ nestedComplete: true });
+  assert.equal(value.sourceOutcome.status, "published_startup_blocked");
+  assert.equal(value.sourceOutcome.handoff.normalizedProgram, null);
+  assert.equal(value.stageLeaf.kind, "compiled_c_stage_leaf");
+
+  const contract = compileDeclaredExecutionContextContract({
+    sourceOutcome: value.sourceOutcome,
+    programLocusRef: value.stageLeaf.nodeRef,
+    selectedCatalogEntryRef: ENTRY_REF,
+    catalogBasis: value.catalogBasis
+  });
+  assert.equal(contract.selectedStageIndex, 0);
+  assert.equal(contract.selectedStageRole, "transform");
+  assert.equal(contract.selectedRegime, "F_P");
+  assert.deepEqual(contract.staticProtocolRefs, [SECTION_REF]);
+
+  assert.throws(
+    () => compileDeclaredExecutionContextContract({
+      sourceOutcome: value.sourceOutcome,
+      programLocusRef: `${value.stageLeaf.nodeRef}/stale`,
+      selectedCatalogEntryRef: ENTRY_REF,
+      catalogBasis: value.catalogBasis
+    }),
+    /resolved 0 stage loci/u
+  );
+});
+
+test("T-267 compiles a nested F_P family through the canonical T-256 join", () => {
+  const value = fixture({ nestedComplete: true });
+  const family = compileTraversalExecutionFamily({
+    catalogBasis: value.catalogBasis,
+    executionBinding: value.catalogBasis.executionBindings[0],
+    admittedTenantConformanceManifest: admittedTenantManifestFixture({
+      fixtureId: "t256-generic",
+      capabilityContractId: "abg.contract.t256-decision",
+      capabilityId: "capability://t256/decision",
+      effectRef: "effect://t256/decision"
+    })
+  });
+
+  assertCompiledTraversalExecutionFamily(family);
+  assert.equal(family.conformanceEvidence.passed, true);
+  assert.equal(family.conformanceEvidence.issueCount, 0);
+  assert.equal(Object.hasOwn(family, "conformanceInput"), false);
+  assert.equal(Object.hasOwn(family, "conformanceReport"), false);
+  assert.equal(family.subjects.length, 1);
+  assert.equal(family.subjects[0].vectors.length, 1);
+  assert.equal(family.subjects[0].vectors[0].loci.length, 1);
+  assert.notEqual(
+    family.subjects[0].vectors[0].loci[0].executionContextRef,
+    null
+  );
+  assert.equal(
+    family.subjects[0].vectors[0].admissionStatus,
+    "runtime_addressable_not_closed"
+  );
+});
+
+test("T-267 compiles a reachable module child through the root catalog binding", () => {
+  const value = workflowFamilyFixture();
+  assert.equal(value.catalogBasis.executionBindings.length, 1);
+  const family = compileTraversalExecutionFamily({
+    catalogBasis: value.catalogBasis,
+    executionBinding: value.catalogBasis.executionBindings[0],
+    admittedTenantConformanceManifest: admittedTenantManifestFixture({
+      fixtureId: "t256-workflow-family",
+      capabilityContractId: "abg.contract.t256-decision",
+      capabilityId: "capability://t256/decision",
+      effectRef: "effect://t256/decision"
+    })
+  });
+
+  assertCompiledTraversalExecutionFamily(family);
+  assert.equal(family.subjects.length, 2);
+  assert.deepEqual(
+    family.subjects.map((subject) => subject.graphFunctionRef),
+    [value.parent.id, value.child.host.id]
+  );
+  const parentVector = family.subjects[0].vectors[0];
+  const childVector = family.subjects[1].vectors[0];
+  assert.equal(parentVector.loci.length, 1);
+  assert.match(parentVector.programPlanRef, /^abg:\/\/compiled-c-program\//u);
+  assert.match(parentVector.loci[0].programLocusRef, /^abg:\/\/compiled-c-node\//u);
+  assert.equal(parentVector.loci[0].executionContextRef, null);
+  assert.notEqual(childVector.loci[0].executionContextRef, null);
+  assert.equal(
+    childVector.admissionStatus,
+    "runtime_addressable_not_closed"
+  );
+  for (const subject of family.subjects) {
+    for (const vector of subject.vectors) {
+      assert.equal(
+        vector.reportRef,
+        family.conformanceEvidence.reportRef
+      );
+    }
+  }
+
+  const missingChild = workflowFamilyFixture({ omitChild: true });
+  assert.throws(
+    () => compileTraversalExecutionFamily({
+      catalogBasis: missingChild.catalogBasis,
+      executionBinding: missingChild.catalogBasis.executionBindings[0],
+      admittedTenantConformanceManifest: admittedTenantManifestFixture({
+        fixtureId: "t256-workflow-family-negative",
+        capabilityContractId: "abg.contract.t256-decision",
+        capabilityId: "capability://t256/decision",
+        effectRef: "effect://t256/decision"
+      })
+    }),
+    /resolves 0 times/u
+  );
+});
+
+test("T-267 preserves absent and explicit-empty instruction categories from source identity", () => {
+  for (const instructionCategoryShape of ["absent", "empty"]) {
+    const value = fixture({ instructionCategoryShape });
+    const contract = compileDeclaredExecutionContextContract({
+      sourceOutcome: value.sourceOutcome,
+      programLocusRef: value.stageLeaf.nodeRef,
+      selectedCatalogEntryRef: ENTRY_REF,
+      catalogBasis: value.catalogBasis
+    });
+    assert.equal(
+      Object.hasOwn(contract.selectedStage, "instructionCategoryRefs"),
+      instructionCategoryShape === "empty"
+    );
+    assert.deepEqual(contract.staticProtocolRefs, []);
+    assert.equal(joinFixture(value).status, "request_constructed");
+  }
+});
+
 test("T-256 derives declaration closure only from replay-projected module identity", () => {
   const value = fixture();
   const withoutProjection = {
@@ -1579,6 +1944,44 @@ test("T-256 joins the unchanged T-252 reduce-round body through its non-invoking
       [CONSENSUS_INSTRUCTION_DECLARATION_MODULE_REF, false]
     ]
   );
+
+  const consensusEffectRefs = Object.freeze([
+    ...new Set(ABG_CONSENSUS_GTL_MODULE.graphFunctions.flatMap(
+      (graphFunction) => [
+        ...graphFunction.effects,
+        ...(graphFunction.template.kind === "inline_graph"
+          ? graphFunction.template.graph.effects
+          : [])
+      ]
+    ))
+  ]);
+  const family = compileTraversalExecutionFamily({
+    catalogBasis: catalogResult.basis,
+    executionBinding: catalogResult.basis.executionBindings[0],
+    admittedTenantConformanceManifest: admittedTenantManifestFixture({
+      fixtureId: "t256-consensus-family",
+      capabilityContractId: "abg.contract.t256-consensus",
+      capabilityId: "capability://t256/consensus",
+      effectRefs: consensusEffectRefs
+    })
+  });
+  const familySerializedBytes = Buffer.byteLength(JSON.stringify(family));
+  assert.ok(
+    familySerializedBytes < 500_000,
+    `canonical family projection is ${String(familySerializedBytes)} bytes`
+  );
+  assertCompiledTraversalExecutionFamily(family);
+  assert.equal(family.conformanceEvidence.passed, true);
+  assert.equal(Object.hasOwn(family, "conformanceInput"), false);
+  assert.equal(Object.hasOwn(family, "conformanceReport"), false);
+  for (const subject of family.subjects) {
+    for (const vector of subject.vectors) {
+      assert.equal(Object.hasOwn(vector, "handoff"), false);
+      assert.equal(Object.hasOwn(vector, "source"), false);
+      assert.equal(Object.hasOwn(vector, "bundle"), false);
+      assert.equal(Object.hasOwn(vector, "admission"), false);
+    }
+  }
 
   const round = ABG_CONSENSUS_GTL_BODY.graphFunctions.round;
   assert.equal(round.template.kind, "inline_graph");

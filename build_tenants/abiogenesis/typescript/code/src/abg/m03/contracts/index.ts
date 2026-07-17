@@ -1956,7 +1956,57 @@ export type {
 } from "./carriers.js";
 
 export * from "./runtime_catalog.js";
-export * from "./declared_execution_context.js";
+export {
+  EXECUTION_CONTEXT_PROJECTION_RULE_KIND,
+  INSTRUCTION_PROTOCOL_RULE_KIND,
+  INSTRUCTION_RELEVANCE_POLICY_MODE_VALUES,
+  INSTRUCTION_COMPRESSION_POLICY_MODE_VALUES,
+  EXECUTION_CONTEXT_SLOT_VALUES,
+  EXECUTION_CONTEXT_VALUE_KIND_VALUES,
+  EXECUTION_CONTEXT_DIAGNOSTIC_ID_VALUES,
+  assertCompiledExecutionContextContract,
+  constructExecutionContextProjectionRule,
+  constructInstructionProtocolRule,
+  admitExecutionContextProjectionRule,
+  admitInstructionProtocolRule,
+  constructDeclaredCStageInvocationBasis,
+  declaredExecutionStageRef,
+  constructAdmittedInvocationCarrier,
+  constructAdmittedInvocationCarrierSet,
+  catalogExecutionBindingDeclaresExecutionContext,
+  joinDeclaredExecutionContext
+} from "./declared_execution_context.js";
+export type {
+  InstructionRelevancePolicyMode,
+  InstructionCompressionPolicyMode,
+  ExecutionContextSlot,
+  ExecutionContextValueKind,
+  ExecutionContextFieldRowDeclaration,
+  ExecutionContextProjectionDeclaration,
+  InstructionProtocolSectionDeclaration,
+  InstructionRelevancePolicyDeclaration,
+  InstructionCompressionPolicyDeclaration,
+  InstructionProtocolDeclaration,
+  DeclaredCStageInvocationBasis,
+  AdmittedInvocationCarrier,
+  AdmittedInvocationCarrierSet,
+  CompiledExecutionContextFieldRow,
+  CompiledInstructionProtocol,
+  CompiledExecutionContextContract,
+  AdmittedExecutionContextValues,
+  CanonicalFpInstructionAssembly,
+  DeclaredFpExecutionRequest,
+  DeclaredFhInteractionRequest,
+  DeclaredExecutionRequest,
+  ExecutionContextDiagnosticId,
+  ExecutionContextRepairAffordance,
+  ExecutionContextDiagnostic,
+  DeclaredExecutionContextJoinRequestConstructed,
+  DeclaredExecutionContextJoinCapabilityBlocked,
+  DeclaredExecutionContextJoinInvalid,
+  DeclaredExecutionContextJoinOutcome,
+  JoinDeclaredExecutionContextInput
+} from "./declared_execution_context.js";
 export * from "./consensus_instruction_protocol.js";
 export * from "./traversal_execution_contract.js";
 export * from "./one_surface_authority.js";

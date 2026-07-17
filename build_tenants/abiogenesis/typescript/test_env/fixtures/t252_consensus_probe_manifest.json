@@ -3935,12 +3935,17 @@
       "code/src/shared/abg_library/transport_contracts.ts",
       "code/src/shared/engine_authority_fields.ts",
       "code/src/shared/runtime_identity.ts",
+      "code/src/shared/validation/canonical_native_schema_projector.ts",
       "code/src/shared/validation/governed_enums.ts",
+      "code/src/shared/validation/immutable_native_value.ts",
+      "code/src/shared/validation/native_contract_primitives.ts",
+      "code/src/shared/validation/native_named_check_registry.ts",
+      "code/src/shared/validation/owner_native_operation_contract_source.ts",
       "code/src/shared/validation/primitives.ts"
     ],
     "forbiddenReachableModules": [],
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:ba5453be2fdc2c07835eb287888e589e19803a7d1961df9ad29099b2e7a94948"
+  "manifestDigest": "sha256:d94cbd68bfe7eea7ad1a137db050dce89c7a3cfaaa61feddcfc5d78aa31d614b"
 }

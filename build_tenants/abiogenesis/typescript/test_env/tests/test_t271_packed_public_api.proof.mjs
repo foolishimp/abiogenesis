@@ -124,11 +124,20 @@ import { coordinateCBatchTaskFamily } from "@abiogenesis/typescript-tenant/abg/m
 import { deriveCRetryAttemptDecision } from "@abiogenesis/typescript-tenant/abg/m03";
 // @ts-expect-error retry coordination remains interpreter-internal.
 import { coordinateCRetryAttempt } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error plan-node projection remains compiler/interpreter-internal.
+import { compiledCPlanNodesInDeclaredOrder } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error invoking-locus projection remains compiler/interpreter-internal.
+import { compiledCInvokingLociInDeclaredOrder } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error subtree projection remains compiler/interpreter-internal.
+import { compiledCSubtreeNodesInDeclaredOrder } from "@abiogenesis/typescript-tenant/abg/m03";
 void sealNode;
 void admitAtomResult;
 void coordinateCBatchTaskFamily;
 void deriveCRetryAttemptDecision;
 void coordinateCRetryAttempt;
+void compiledCPlanNodesInDeclaredOrder;
+void compiledCInvokingLociInDeclaredOrder;
+void compiledCSubtreeNodesInDeclaredOrder;
 `
   );
 
@@ -157,7 +166,10 @@ void coordinateCRetryAttempt;
     "admitAtomResult",
     "coordinateCBatchTaskFamily",
     "deriveCRetryAttemptDecision",
-    "coordinateCRetryAttempt"
+    "coordinateCRetryAttempt",
+    "compiledCPlanNodesInDeclaredOrder",
+    "compiledCInvokingLociInDeclaredOrder",
+    "compiledCSubtreeNodesInDeclaredOrder"
   ]) {
     assert.equal(Object.hasOwn(m03, name), false, name);
   }

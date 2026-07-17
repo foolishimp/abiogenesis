@@ -1413,3 +1413,89 @@ export function assertCompiledCProgramPlan(plan: CompiledCProgramPlan): void {
     throw new TypeError("compiled C program plan seal differs");
   }
 }
+
+/** @internal */
+export interface CompiledCPlanNodeProjection {
+  readonly node: CompiledCPlanNode;
+  readonly retryBudgets: readonly number[];
+}
+
+/** @internal */
+export interface CompiledCInvokingLocusProjection
+  extends CompiledCPlanNodeProjection {
+  readonly node: CompiledCStageLeaf | CompiledCWorkflowLift;
+}
+
+function projectCompiledCPlanNodes(
+  node: CompiledCPlanNode,
+  retryBudgets: readonly number[],
+  target: CompiledCPlanNodeProjection[]
+): void {
+  target.push(Object.freeze({
+    node,
+    retryBudgets: Object.freeze([...retryBudgets])
+  }));
+  switch (node.kind) {
+    case "compiled_c_sequence":
+      node.children.forEach((child) =>
+        projectCompiledCPlanNodes(child, retryBudgets, target)
+      );
+      return;
+    case "compiled_c_complete_batch":
+      node.tasks.forEach((task) =>
+        projectCompiledCPlanNodes(task.child, retryBudgets, target)
+      );
+      return;
+    case "compiled_c_complete_retry":
+      projectCompiledCPlanNodes(
+        node.child,
+        Object.freeze([...retryBudgets, node.maxAttempts]),
+        target
+      );
+      return;
+    case "compiled_c_stage_leaf":
+    case "compiled_c_identity":
+    case "compiled_c_workflow_lift":
+      return;
+  }
+}
+
+/** @internal */
+export function compiledCSubtreeNodesInDeclaredOrder(
+  node: CompiledCPlanNode
+): readonly CompiledCPlanNodeProjection[] {
+  const projection: CompiledCPlanNodeProjection[] = [];
+  projectCompiledCPlanNodes(node, Object.freeze([]), projection);
+  return Object.freeze(projection);
+}
+
+/** @internal */
+export function compiledCPlanNodesInDeclaredOrder(
+  plan: CompiledCProgramPlan
+): readonly CompiledCPlanNodeProjection[] {
+  assertCompiledCProgramPlan(plan);
+  const projection = compiledCSubtreeNodesInDeclaredOrder(plan.root);
+  if (projection.length !== plan.authoredNodeCount) {
+    throw new TypeError(
+      "compiled C node projection differs from the sealed plan census"
+    );
+  }
+  return projection;
+}
+
+/** @internal */
+export function compiledCInvokingLociInDeclaredOrder(
+  plan: CompiledCProgramPlan
+): readonly CompiledCInvokingLocusProjection[] {
+  const loci = compiledCPlanNodesInDeclaredOrder(plan).filter(
+    (row): row is CompiledCInvokingLocusProjection =>
+      row.node.kind === "compiled_c_stage_leaf" ||
+      row.node.kind === "compiled_c_workflow_lift"
+  );
+  if (loci.length !== plan.invokingLocusCount) {
+    throw new TypeError(
+      "compiled C invoking-locus projection differs from the sealed plan census"
+    );
+  }
+  return Object.freeze(loci);
+}
