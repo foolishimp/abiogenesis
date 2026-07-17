@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
-- phase_status: p1_project_read_request_refusal_closed_owner_registry_resolution_in_progress
-- review_status: p1_owner_schema_registry_correlation_design_independently_accepted
-- proof_status: p1_35_non_read_keys_115_slots_plus_27_project_read_request_refusal_pairs_exact_27_results_and_central_family_pending_p2_fenced
+- phase_status: p1_owner_registry_closed_27_project_read_results_in_parallel_realization
+- review_status: p1_owner_schema_registry_correlation_implementation_independently_accepted
+- proof_status: p1_35_non_read_keys_115_slots_plus_54_project_read_request_refusal_slots_exact_27_results_and_central_family_pending_p2_fenced
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-2 public-operation prerequisite P1
 - change_intent: >-
@@ -164,6 +164,10 @@
 - p1_project_read_and_registry_checkpoint_ref: >-
     .ai-workspace/comments/codex/
     20260717T052142Z_CHECKPOINT_t281_project_read_wrappers_and_registry_design.md
+- p1_owner_schema_registry_implementation_commit: 296ba699
+- p1_installed_governor_checkpoint_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T061159Z_CHECKPOINT_t276_governor_t281_registry_link.md
 - p1_design_basis_reconciliation_ref: >-
     .ai-workspace/comments/codex/
     20260717T000500Z_RECONCILIATION_t281_p1_exact_design_basis.md
@@ -213,6 +217,12 @@ SDK/CLI-coordinate, and parity projections derive from those owner schemas and
 the one family. T-281 adds no semantic handler, owner-payload schema, public
 schema, catalog publication, SDK/CLI implementation, package export, or public
 authority.
+
+The accepted owner-registry implementation makes relational admission part of
+the same owner module and source digest as its schema. The remaining 27
+`project.read` result coordinates are now partitioned among their existing
+semantic owners. Their leaf realization cannot admit or publish a partial P1
+family; the central all-or-nothing constructor follows the exact census.
 
 ## Hard Break
 

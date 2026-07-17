@@ -5,8 +5,9 @@
 - type: test
 - ticket_category: ordinary
 - status: active
-- phase_status: early_red_steel_thread_governor_active_ds4_realization_pending
-- review_status: steel_thread_governor_design_independently_accepted_closure_review_pending
+- phase_status: early_red_installed_governor_proven_at_project_read_frontier
+- review_status: steel_thread_governor_implementation_independently_accepted_closure_review_pending
+- proof_status: packed_clean_install_16_missing_16_retired_zero_target_invocations
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -54,6 +55,10 @@
 - steel_thread_governor_independent_review_ref: >-
     .ai-workspace/comments/codex/
     20260717T050121Z_DECISION_fh_accept_t276_steel_thread_governor.md
+- steel_thread_governor_implementation_commit: 42db6661
+- current_frontier_checkpoint_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T061159Z_CHECKPOINT_t276_governor_t281_registry_link.md
 
 ## Boundary
 
@@ -94,6 +99,11 @@ thread cannot publish or consume a partial operation family, fall back to the
 retired operation roster, or treat a fixture-authored terminal result as
 progress. Every current DS-2/DS-4 implementation checkpoint records whether it
 removes, advances, or preserves that exact frontier.
+
+The accepted early-red implementation proves that boundary from a clean pack
+and detached install. The current candidate has 16 missing target identities,
+16 retired identities, and zero target or workspace invocations. Those values
+are a measured delivery frontier, not an installed-product success claim.
 
 The first green thread is the non-escalation/converged path. The unresolved
 F_H extension reuses the same driver and adds only
