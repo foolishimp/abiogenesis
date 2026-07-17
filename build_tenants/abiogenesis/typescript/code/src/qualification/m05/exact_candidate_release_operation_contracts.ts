@@ -3,6 +3,7 @@
 
 import * as v from "valibot";
 
+import { createReleaseCutEvidenceProjectionNativeContract } from "../../abg/m03/contracts/runtime_projection_operation_contracts.js";
 import {
   nonEmptyTextSchema,
   refSchema,
@@ -13,7 +14,10 @@ import {
 } from "../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../shared/validation/native_named_check_registry.js";
-import { ownerNativeOperationContractSource } from "../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerNativeOperationContractSource
+} from "../../shared/validation/owner_native_operation_contract_source.js";
 
 type ReleaseVariant = "published_rc" | "tapped_release";
 type ReleaseSlot = "request" | "result" | "refusal";
@@ -26,11 +30,18 @@ const RELEASE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+const RELEASE_EVIDENCE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-055",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
 const RELEASE_SEMANTIC_OWNER = freezeNativeValue({
   product: "abiogenesis",
   module: "qualification.m05",
   family: "exact_candidate_release"
 } as const);
+const RELEASE_CUT_EVIDENCE_PROJECTION_NATIVE_CONTRACT =
+  createReleaseCutEvidenceProjectionNativeContract();
 
 function releaseSource<
   const Variant extends ReleaseVariant,
@@ -503,9 +514,35 @@ export const EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY =
         checkId: "release-result-artifact-identity-relation",
         action: RELEASE_RESULT_ARTIFACT_IDENTITY_RELATION_ACTION,
         relationRef: "REQ-P-QUAL-051"
+      },
+      {
+        checkId: "release-evidence-subject-relation",
+        action:
+          RELEASE_CUT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.subjectConservationAction,
+        relationRef: "REQ-P-POLICY-055"
       }
     ]
   } satisfies NativeNamedCheckRegistry);
+
+const releaseEvidenceResult = ownerNativeDefinitionContractSource({
+  owner: RELEASE_SEMANTIC_OWNER,
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "release_evidence"
+  },
+  slot: "result",
+  semanticOwnerBasis: RELEASE_EVIDENCE_SEMANTIC_OWNER_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME,
+  memberPath: ["project_read", "release_evidence", "result"],
+  namedChecks: {
+    kind: "family_registry",
+    exportName: "EXACT_CANDIDATE_QUALIFICATION_NATIVE_CHECK_REGISTRY",
+    memberPath: []
+  },
+  schema: RELEASE_CUT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+});
 
 const PUBLISHED_RC_REFUSAL_CODES = Object.freeze([
   "wrong_subject_kind",
@@ -567,6 +604,9 @@ const tappedReleaseRefusalSchema = v.pipe(
 );
 
 export const RELEASE_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    release_evidence: { result: releaseEvidenceResult }
+  },
   release_snapshot: {
     published_rc: {
       request: releaseSource({

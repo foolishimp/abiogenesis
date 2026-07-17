@@ -6,11 +6,14 @@ import * as v from "valibot";
 import {
   nonEmptyTextSchema,
   refSchema,
+  refTextSchema,
+  semanticVersionSchema,
   sha256DigestSchema,
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
+import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 import { PUBLIC_RUNTIME_CATALOG_KIND_VALUES } from "./runtime_catalog.js";
 import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
 
@@ -37,6 +40,16 @@ const CATALOG_APPLY_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84"
 } as const);
+const CATALOG_READ_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-019..022",
+  digest:
+    "sha256:af273d059574c4e8e19a9599005956683372db88ba0d8e57d5c5b14a58ff3c84"
+} as const);
+const CATALOG_SEMANTIC_OWNER = freezeNativeValue({
+  product: "abiogenesis",
+  module: "abg.m03",
+  family: "catalog"
+} as const);
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
@@ -45,6 +58,166 @@ const refListSchema = v.pipe(
 const nonEmptyRefListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
   v.minLength(1),
+  v.readonly()
+);
+
+const refDigestSchema = v.pipe(
+  v.strictObject({ ref: refSchema, digest: sha256DigestSchema }),
+  v.readonly()
+);
+const canonicalCatalogHandleSchema = v.pipe(
+  refTextSchema,
+  v.brand("CanonicalCatalogHandle")
+);
+const catalogVisibilityBasisSchema = v.union([
+  v.literal("workspace_catalog"),
+  v.pipe(
+    v.strictObject({
+      kind: v.literal("session_view"),
+      view: refDigestSchema
+    }),
+    v.readonly()
+  )
+]);
+const catalogProjectionBasisFields = {
+  projection: refDigestSchema,
+  catalog: refDigestSchema,
+  workspaceBinding: refDigestSchema,
+  visibilityBasis: catalogVisibilityBasisSchema
+} as const;
+const catalogEntryIdentityFields = {
+  canonicalHandle: canonicalCatalogHandleSchema,
+  entryKind: v.picklist(PUBLIC_RUNTIME_CATALOG_KIND_VALUES),
+  owningProduct: refDigestSchema,
+  owningProductVersion: semanticVersionSchema
+} as const;
+
+const catalogListRowSchema = v.pipe(
+  v.strictObject({
+    ...catalogEntryIdentityFields,
+    readiness: v.picklist(["ready", "not_ready"]),
+    readinessBlockers: refListSchema,
+    eligibility: v.picklist(["eligible", "ineligible"]),
+    callability: v.picklist(["callable", "non_callable"]),
+    visibility: v.picklist(["visible", "hidden"]),
+    compatibility: v.picklist([
+      "compatible",
+      "incompatible",
+      "unresolved"
+    ]),
+    provenanceRefs: refListSchema
+  }),
+  v.readonly()
+);
+
+const catalogListProjectionCarrierSchema = v.strictObject({
+  kind: v.literal("catalog_list_projection"),
+  ...catalogProjectionBasisFields,
+  rows: v.pipe(v.array(catalogListRowSchema), v.readonly()),
+  provenanceRefs: refListSchema
+});
+
+const CATALOG_LIST_RELATION_ACTION = Object.freeze(
+  v.check(
+    (projection: v.InferOutput<
+      typeof catalogListProjectionCarrierSchema
+    >) => {
+      const handles = projection.rows.map((row) => row.canonicalHandle);
+      return (
+        new Set(handles).size === handles.length &&
+        projection.rows.every(
+          (row) =>
+            (row.readiness === "ready") ===
+              (row.readinessBlockers.length === 0) &&
+            (row.readiness !== "ready" ||
+              row.compatibility === "compatible") &&
+            (row.eligibility !== "eligible" ||
+              (row.readiness === "ready" &&
+                row.visibility === "visible" &&
+                row.compatibility === "compatible")) &&
+            (row.callability !== "callable" ||
+              (row.entryKind === "graph_function" &&
+                row.readiness === "ready" &&
+                row.eligibility === "eligible" &&
+                row.visibility === "visible" &&
+                row.compatibility === "compatible"))
+        ) &&
+        (projection.visibilityBasis === "workspace_catalog" ||
+          projection.rows.every((row) => row.visibility === "visible"))
+      );
+    },
+    "catalog list rows must be unique and mutually coherent"
+  )
+);
+
+const catalogListProjectionSchema = v.pipe(
+  catalogListProjectionCarrierSchema,
+  CATALOG_LIST_RELATION_ACTION,
+  v.readonly()
+);
+
+const catalogDependencyRowSchema = v.pipe(
+  v.strictObject({
+    ref: refSchema,
+    digest: sha256DigestSchema,
+    disposition: v.picklist([
+      "resolved",
+      "unresolved",
+      "incompatible"
+    ])
+  }),
+  v.readonly()
+);
+
+const catalogDescriptionProjectionCarrierSchema = v.strictObject({
+  kind: v.literal("catalog_description_projection"),
+  ...catalogProjectionBasisFields,
+  ...catalogEntryIdentityFields,
+  owningArtifact: refDigestSchema,
+  declaration: v.union([
+    v.pipe(
+      v.strictObject({
+        kind: v.literal("contract"),
+        contract: refDigestSchema
+      }),
+      v.readonly()
+    ),
+    v.pipe(
+      v.strictObject({
+        kind: v.literal("schema"),
+        schema: refDigestSchema
+      }),
+      v.readonly()
+    )
+  ]),
+  dependencies: v.pipe(
+    uniqueByNativeIdentityArray(catalogDependencyRowSchema),
+    v.readonly()
+  ),
+  readinessBlockers: v.tuple([]),
+  readiness: v.literal("ready"),
+  eligibility: v.picklist(["eligible", "ineligible"]),
+  callability: v.picklist(["callable", "non_callable"]),
+  visibility: v.literal("visible"),
+  compatibility: v.literal("compatible"),
+  provenanceRefs: refListSchema
+});
+
+const CATALOG_DESCRIPTION_RELATION_ACTION = Object.freeze(
+  v.check(
+    (projection: v.InferOutput<
+      typeof catalogDescriptionProjectionCarrierSchema
+    >) =>
+      projection.callability !== "callable" ||
+      (projection.entryKind === "graph_function" &&
+        projection.eligibility === "eligible"),
+    "a callable catalog description must be an eligible graph function"
+  )
+);
+
+const catalogDescriptionProjectionSchema = v.pipe(
+  catalogDescriptionProjectionCarrierSchema,
+  CATALOG_DESCRIPTION_RELATION_ACTION,
   v.readonly()
 );
 
@@ -123,9 +296,40 @@ export const CATALOG_OPERATION_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       checkId: "unique-entry-disposition",
       action: UNIQUE_CATALOG_ENTRY_DISPOSITION_ACTION,
       relationRef: "REQ-P-POLICY-051A"
+    },
+    {
+      checkId: "catalog-list-relation",
+      action: CATALOG_LIST_RELATION_ACTION,
+      relationRef: "REQ-P-CATALOG-019..022"
+    },
+    {
+      checkId: "catalog-description-relation",
+      action: CATALOG_DESCRIPTION_RELATION_ACTION,
+      relationRef: "REQ-P-CATALOG-019..022"
     }
   ]
 } satisfies NativeNamedCheckRegistry);
+
+function catalogProjectReadResult<
+  const CaseKey extends "catalog_list" | "catalog_describe",
+  const S extends v.GenericSchema
+>(caseKey: CaseKey, schema: S) {
+  return ownerNativeDefinitionContractSource({
+    owner: CATALOG_SEMANTIC_OWNER,
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey
+    },
+    slot: "result",
+    semanticOwnerBasis: CATALOG_READ_SEMANTIC_OWNER_BASIS,
+    modulePath: MODULE_PATH,
+    exportName: EXPORT_NAME,
+    memberPath: ["project_read", caseKey, "result"] as const,
+    namedChecks: CATALOG_NAMED_CHECKS,
+    schema
+  });
+}
 
 const catalogAdmitResultSchema = v.pipe(
   v.strictObject({
@@ -271,6 +475,20 @@ function catalogApplyContractSet<const Kind extends "node_type" | "overlay">(
 }
 
 export const CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    catalog_list: {
+      result: catalogProjectReadResult(
+        "catalog_list",
+        catalogListProjectionSchema
+      )
+    },
+    catalog_describe: {
+      result: catalogProjectReadResult(
+        "catalog_describe",
+        catalogDescriptionProjectionSchema
+      )
+    }
+  },
   catalog_admit: {
     admit: m03OwnerContractSet({
       operationId: "abg.operation.catalog.admit",

@@ -250,8 +250,10 @@ const greenQualificationVerdict = {
   bypassRefs: []
 };
 
-test("T-281 owner sources resolve 16 exact definition keys and 48 native slots", async () => {
-  const sources = collectSources(OWNER_SOURCE_FAMILIES);
+test("T-281 variant owner sources resolve 16 exact definition keys and 48 native slots", async () => {
+  const sources = collectSources(OWNER_SOURCE_FAMILIES).filter(
+    (source) => source.authority.subject.memberKind === "variant"
+  );
   assert.equal(sources.length, 48);
   assert.equal(
     new Set(

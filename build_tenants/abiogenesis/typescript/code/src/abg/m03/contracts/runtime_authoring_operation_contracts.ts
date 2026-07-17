@@ -12,6 +12,8 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
+import { ownerNativeDefinitionContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
 import {
   GRAPH_CHANGE_CLASS_VALUES,
   GRAPH_REENTRY_POINT_VALUES,
@@ -20,6 +22,7 @@ import {
   TUNER_PROPOSAL_KIND_VALUES
 } from "./carriers.js";
 import { m03OwnerContractSet } from "./m03_owner_contract_set.js";
+import { createWitnessedActEvidenceProjectionNativeContract } from "./runtime_projection_operation_contracts.js";
 
 const MODULE_PATH =
   "code/src/abg/m03/contracts/runtime_authoring_operation_contracts.js" as const;
@@ -30,16 +33,61 @@ const WITNESS_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+const WITNESS_EVIDENCE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-055",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
 const TUNING_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-037",
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+const WITNESSED_ACT_EVIDENCE_PROJECTION_NATIVE_CONTRACT =
+  createWitnessedActEvidenceProjectionNativeContract();
 
 const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
   v.readonly()
 );
+
+export const RUNTIME_AUTHORING_OPERATION_NATIVE_CHECK_REGISTRY =
+  freezeNativeValue({
+    familyRef: "contract-family://abg/runtime-authoring@5",
+    checks: [
+      {
+        checkId: "witness-evidence-subject-relation",
+        action:
+          WITNESSED_ACT_EVIDENCE_PROJECTION_NATIVE_CONTRACT
+            .subjectConservationAction,
+        relationRef: "REQ-P-POLICY-055"
+      }
+    ]
+  } satisfies NativeNamedCheckRegistry);
+
+const witnessEvidenceResult = ownerNativeDefinitionContractSource({
+  owner: {
+    product: "abiogenesis",
+    module: "abg.m03",
+    family: "witnessed_act_admission"
+  },
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "witness_evidence"
+  },
+  slot: "result",
+  semanticOwnerBasis: WITNESS_EVIDENCE_SEMANTIC_OWNER_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME,
+  memberPath: ["project_read", "witness_evidence", "result"],
+  namedChecks: {
+    kind: "family_registry",
+    exportName: "RUNTIME_AUTHORING_OPERATION_NATIVE_CHECK_REGISTRY",
+    memberPath: []
+  },
+  schema: WITNESSED_ACT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+});
 
 const witnessContextSchema = v.pipe(
   v.strictObject({
@@ -305,6 +353,11 @@ function tuningDecisionContractSet<const Variant extends "ratify" | "reject">(
 
 export const RUNTIME_AUTHORING_OPERATION_NATIVE_CONTRACT_SOURCES =
   freezeNativeValue({
+    project_read: {
+      witness_evidence: {
+        result: witnessEvidenceResult
+      }
+    },
     witness_admit: {
       reprice: witnessContractSet("reprice", "reprice"),
       attest: witnessContractSet("attest", "attest"),

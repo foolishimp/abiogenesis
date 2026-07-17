@@ -3,6 +3,7 @@
 import { validRange } from "semver";
 import * as v from "valibot";
 
+import { createInstalledProductEvidenceProjectionNativeContract } from "../../../abg/m03/contracts/runtime_projection_operation_contracts.js";
 import {
   absolutePosixPathSchema,
   nonEmptyTextSchema,
@@ -14,6 +15,7 @@ import {
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
+  ownerNativeDefinitionContractSource,
   ownerNativeOperationContractSource
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
 
@@ -40,6 +42,13 @@ const INSTALL_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+const INSTALL_EVIDENCE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-055",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const INSTALLED_PRODUCT_EVIDENCE_PROJECTION_NATIVE_CONTRACT =
+  createInstalledProductEvidenceProjectionNativeContract();
 const PRODUCT_INTAKE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: PRODUCT_INTAKE_OWNER,
   modulePath: MODULE_PATH,
@@ -161,9 +170,31 @@ export const PRODUCT_INTAKE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       checkId: "selection-identity-match",
       action: SELECTION_IDENTITY_MATCH_ACTION,
       relationRef: "relation://abg/product-intake/selection-identity-match"
+    },
+    {
+      checkId: "install-evidence-subject-relation",
+      action:
+        INSTALLED_PRODUCT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.subjectConservationAction,
+      relationRef: "REQ-P-POLICY-055"
     }
   ]
 } satisfies NativeNamedCheckRegistry);
+
+const installEvidenceResult = ownerNativeDefinitionContractSource({
+  owner: PRODUCT_INTAKE_OWNER,
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "install_evidence"
+  },
+  slot: "result",
+  semanticOwnerBasis: INSTALL_EVIDENCE_SEMANTIC_OWNER_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME,
+  memberPath: ["project_read", "install_evidence", "result"],
+  namedChecks: PRODUCT_INTAKE_SOURCE_PRIMITIVES.namedChecks,
+  schema: INSTALLED_PRODUCT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+});
 
 const requirementListSchema = v.pipe(
   v.array(productRequirementSchema),
@@ -371,6 +402,9 @@ const installRefusal = ownerNativeOperationContractSource({
 });
 
 export const PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    install_evidence: { result: installEvidenceResult }
+  },
   product_verify: {
     verify: {
       request: verifyRequest,

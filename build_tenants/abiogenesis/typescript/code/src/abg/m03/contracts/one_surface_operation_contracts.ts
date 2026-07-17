@@ -5,7 +5,9 @@
 import * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
 import {
+  capabilityIdSchema,
   canonicalIJsonSchema,
   nonEmptyTextSchema,
   refSchema,
@@ -13,10 +15,12 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import {
+  ownerNativeDefinitionContractSource,
   ownerNativeOperationContractSource,
   type OwnerNativeAuthorityBasis,
   type OwnerNativeOperationContractSlot
 } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import { CONSTRUCTION_ACTION_KIND_VALUES } from "./construction_action_kinds.js";
 
 type NativeSchema = v.GenericSchema;
 
@@ -86,6 +90,45 @@ const T272_AUTHORITY = Object.freeze({
 } as const satisfies OneSurfaceOwnerAuthority);
 
 const refListSchema = uniqueByNativeIdentityArray(refSchema);
+const readonlyRefListSchema = v.pipe(refListSchema, v.readonly());
+const refDigestSchema = v.pipe(
+  v.strictObject({ ref: refSchema, digest: sha256DigestSchema }),
+  v.readonly()
+);
+
+const lawfulActionTargetSchema = v.union([
+  v.pipe(
+    v.strictObject({
+      kind: v.literal("public_target"),
+      target: refDigestSchema
+    }),
+    v.readonly()
+  ),
+  v.pipe(
+    v.strictObject({
+      kind: v.literal("pending_interaction"),
+      interaction: refDigestSchema
+    }),
+    v.readonly()
+  )
+]);
+const lawfulActionRequiredInputSchema = v.union([
+  v.pipe(
+    v.strictObject({ kind: v.literal("none") }),
+    v.readonly()
+  ),
+  v.pipe(
+    v.strictObject({
+      kind: v.literal("contract_bound"),
+      inputContract: refDigestSchema
+    }),
+    v.readonly()
+  )
+]);
+const capabilityListSchema = v.pipe(
+  uniqueByNativeIdentityArray(capabilityIdSchema),
+  v.readonly()
+);
 
 function nativeSource<
   const OperationId extends OneSurfaceOwnerOperationId,
@@ -758,7 +801,101 @@ export const INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES = Object.freeze({
   )
 });
 
+const lawfulActionRowSchema = v.pipe(
+  v.strictObject({
+    actionRef: refSchema,
+    actionKind: v.picklist(CONSTRUCTION_ACTION_KIND_VALUES),
+    target: lawfulActionTargetSchema,
+    eligibility: v.picklist(["eligible", "blocked"]),
+    blockerRefs: readonlyRefListSchema,
+    requiredInput: lawfulActionRequiredInputSchema,
+    requiredCapabilityRefs: capabilityListSchema,
+    provenanceRefs: readonlyRefListSchema
+  }),
+  v.readonly()
+);
+const lawfulActionProjectionCarrierSchema = v.strictObject({
+  kind: v.literal("lawful_action_projection"),
+  projection: refDigestSchema,
+  run: refDigestSchema,
+  frontier: refDigestSchema,
+  nextActionProjection: refDigestSchema,
+  replayBasis: refDigestSchema,
+  rows: v.pipe(v.array(lawfulActionRowSchema), v.readonly())
+});
+const LAWFUL_ACTION_RELATION_ACTION = Object.freeze(
+  v.check(
+    (projection: v.InferOutput<
+      typeof lawfulActionProjectionCarrierSchema
+    >) => {
+      const actionRefs = projection.rows.map((row) => row.actionRef);
+      return (
+        new Set(actionRefs).size === actionRefs.length &&
+        projection.rows.every((row) => {
+          return (
+            (row.eligibility === "eligible") ===
+              (row.blockerRefs.length === 0) &&
+            (row.actionKind === "open_fh_gate") ===
+              (row.target.kind === "pending_interaction")
+          );
+        })
+      );
+    },
+    "lawful action rows must be unique and preserve target and eligibility truth"
+  )
+);
+const lawfulActionProjectionSchema = v.pipe(
+  lawfulActionProjectionCarrierSchema,
+  LAWFUL_ACTION_RELATION_ACTION,
+  v.readonly()
+);
+
+export const ONE_SURFACE_OPERATION_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/one-surface-operation@5",
+  checks: [
+    {
+      checkId: "lawful-action-relation",
+      action: LAWFUL_ACTION_RELATION_ACTION,
+      relationRef: "REQ-P-POLICY-030"
+    }
+  ]
+} satisfies NativeNamedCheckRegistry);
+
+const lawfulActionsResult = ownerNativeDefinitionContractSource({
+  owner: {
+    product: "abiogenesis",
+    module: "abg.m03",
+    family: "one_surface_lawful_actions"
+  },
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "run_lawful_actions"
+  },
+  slot: "result",
+  semanticOwnerBasis: {
+    ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-030",
+    digest:
+      "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+  },
+  modulePath:
+    "code/src/abg/m03/contracts/one_surface_operation_contracts.js",
+  exportName: "ONE_SURFACE_NATIVE_CONTRACT_SOURCES",
+  memberPath: ["project_read", "run_lawful_actions", "result"],
+  namedChecks: {
+    kind: "family_registry",
+    exportName: "ONE_SURFACE_OPERATION_NATIVE_CHECK_REGISTRY",
+    memberPath: []
+  },
+  schema: lawfulActionProjectionSchema
+});
+
 export const ONE_SURFACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    run_lawful_actions: {
+      result: lawfulActionsResult
+    }
+  },
   run_invoke: RUN_INVOKE_NATIVE_CONTRACT_SOURCES,
   run_continue: RUN_CONTINUE_NATIVE_CONTRACT_SOURCES,
   interaction_respond: INTERACTION_RESPOND_NATIVE_CONTRACT_SOURCES

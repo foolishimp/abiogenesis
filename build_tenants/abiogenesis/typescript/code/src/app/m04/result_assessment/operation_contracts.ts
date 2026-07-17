@@ -2,6 +2,7 @@
 
 import * as v from "valibot";
 
+import { createResultAssessmentEvidenceProjectionNativeContract } from "../../../abg/m03/contracts/runtime_projection_operation_contracts.js";
 import {
   canonicalIJsonSchema,
   nonEmptyTextSchema,
@@ -10,7 +11,11 @@ import {
   uniqueByNativeIdentityArray
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH =
   "code/src/app/m04/result_assessment/operation_contracts.js";
@@ -25,6 +30,13 @@ const SEMANTIC_OWNER_BASIS = freezeNativeValue({
   digest:
     "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
 } as const);
+const ASSESSMENT_EVIDENCE_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-055",
+  digest:
+    "sha256:89cf57e14f74cd4ea433c277f88d89a5972e49b421801878d44b7481801c022f"
+} as const);
+const RESULT_ASSESSMENT_EVIDENCE_PROJECTION_NATIVE_CONTRACT =
+  createResultAssessmentEvidenceProjectionNativeContract();
 
 export const RESULT_ASSESSMENT_SEMANTIC_TRACE = freezeNativeValue({
   semanticOwnerBasis: SEMANTIC_OWNER_BASIS,
@@ -51,6 +63,37 @@ const refListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
   v.readonly()
 );
+export const RESULT_ASSESSMENT_NATIVE_CHECK_REGISTRY = freezeNativeValue({
+  familyRef: "contract-family://abg/result-assessment@5",
+  checks: [
+    {
+      checkId: "assessment-evidence-subject-relation",
+      action:
+        RESULT_ASSESSMENT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.subjectConservationAction,
+      relationRef: "REQ-P-POLICY-055"
+    }
+  ]
+} satisfies NativeNamedCheckRegistry);
+
+const assessmentEvidenceResult = ownerNativeDefinitionContractSource({
+  owner: RESULT_ASSESSMENT_OWNER,
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "assessment_evidence"
+  },
+  slot: "result",
+  semanticOwnerBasis: ASSESSMENT_EVIDENCE_SEMANTIC_OWNER_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME,
+  memberPath: ["project_read", "assessment_evidence", "result"],
+  namedChecks: {
+    kind: "family_registry",
+    exportName: "RESULT_ASSESSMENT_NATIVE_CHECK_REGISTRY",
+    memberPath: []
+  },
+  schema: RESULT_ASSESSMENT_EVIDENCE_PROJECTION_NATIVE_CONTRACT.schema
+});
 
 const request = ownerNativeOperationContractSource({
   ...SOURCE_PRIMITIVES,
@@ -118,6 +161,9 @@ const nonterminal = ownerNativeOperationContractSource({
 });
 
 export const RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    assessment_evidence: { result: assessmentEvidenceResult }
+  },
   result_assess: {
     assess: { request, result, refusal, nonterminal }
   }

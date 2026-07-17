@@ -11,7 +11,10 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import type { NativeNamedCheckRegistry } from "../../../shared/validation/native_named_check_registry.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerNativeOperationContractSource
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 const MODULE_PATH = "code/src/app/m04/workspace/operation_contracts.js";
 const EXPORT_NAME = "WORKSPACE_NATIVE_CONTRACT_SOURCES";
@@ -29,6 +32,11 @@ const OPEN_SEMANTIC_OWNER_BASIS = freezeNativeValue({
   ref: "specification/requirements/product/REQ-P-INSTALL.md#REQ-P-INSTALL-060",
   digest:
     "sha256:72b09080ed9b47643a73e762a8a43622b798f5b0c7d55d31906947432b783e74"
+} as const);
+const WORKSPACE_STATUS_SEMANTIC_OWNER_BASIS = freezeNativeValue({
+  ref: "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md#REQ-R-ABG3-PROJECTION-023",
+  digest:
+    "sha256:ea67216190dc59dd14eac9797ab544ee79d9798673a82925d2d8bcddb2a2dfb5"
 } as const);
 const WORKSPACE_SOURCE_PRIMITIVES = freezeNativeValue({
   owner: WORKSPACE_OWNER,
@@ -49,6 +57,53 @@ const refListSchema = v.pipe(
 const nonEmptyRefListSchema = v.pipe(
   uniqueByNativeIdentityArray(refSchema),
   v.minLength(1, "expected at least one residual reference"),
+  v.readonly()
+);
+const refDigestSchema = v.pipe(
+  v.strictObject({ ref: refSchema, digest: sha256DigestSchema }),
+  v.readonly()
+);
+const refDigestListSchema = v.pipe(
+  uniqueByNativeIdentityArray(refDigestSchema),
+  v.readonly()
+);
+
+const workspaceStatusProjectionCarrierSchema = v.strictObject({
+  kind: v.literal("workspace_status_projection"),
+  projection: refDigestSchema,
+  workspace: refDigestSchema,
+  workspaceAuthority: refDigestSchema,
+  binding: refDigestSchema,
+  authorityMode: v.picklist([
+    "clean_no_project_authority",
+    "imported"
+  ]),
+  readiness: v.picklist(["ready", "stale", "malformed", "incompatible"]),
+  boundProductRefs: v.pipe(
+    uniqueByNativeIdentityArray(refSchema),
+    v.minLength(1),
+    v.readonly()
+  ),
+  configurations: refDigestListSchema,
+  catalog: v.nullable(refDigestSchema),
+  residualRefs: refListSchema,
+  provenanceRefs: refListSchema
+});
+
+const WORKSPACE_STATUS_RELATION_ACTION = Object.freeze(
+  v.check(
+    (projection: v.InferOutput<
+      typeof workspaceStatusProjectionCarrierSchema
+    >) =>
+      (projection.readiness === "ready") ===
+      (projection.residualRefs.length === 0),
+    "workspace readiness must match its residual truth"
+  )
+);
+
+const workspaceStatusProjectionSchema = v.pipe(
+  workspaceStatusProjectionCarrierSchema,
+  WORKSPACE_STATUS_RELATION_ACTION,
   v.readonly()
 );
 
@@ -224,9 +279,30 @@ export const WORKSPACE_NATIVE_CHECK_REGISTRY = freezeNativeValue({
       checkId: "matching-configuration-digests",
       action: MATCHING_CONFIGURATION_DIGESTS_ACTION,
       relationRef: "relation://abg/workspace/matching-configuration-digests"
+    },
+    {
+      checkId: "workspace-status-relation",
+      action: WORKSPACE_STATUS_RELATION_ACTION,
+      relationRef: "REQ-R-ABG3-PROJECTION-023"
     }
   ]
 } satisfies NativeNamedCheckRegistry);
+
+const workspaceStatusResult = ownerNativeDefinitionContractSource({
+  owner: WORKSPACE_OWNER,
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "workspace_status"
+  },
+  slot: "result",
+  semanticOwnerBasis: WORKSPACE_STATUS_SEMANTIC_OWNER_BASIS,
+  modulePath: MODULE_PATH,
+  exportName: EXPORT_NAME,
+  memberPath: ["project_read", "workspace_status", "result"],
+  namedChecks: WORKSPACE_SOURCE_PRIMITIVES.namedChecks,
+  schema: workspaceStatusProjectionSchema
+});
 
 const openResult = ownerNativeOperationContractSource({
   ...WORKSPACE_SOURCE_PRIMITIVES,
@@ -256,6 +332,9 @@ const openRefusal = ownerNativeOperationContractSource({
 });
 
 export const WORKSPACE_NATIVE_CONTRACT_SOURCES = freezeNativeValue({
+  project_read: {
+    workspace_status: { result: workspaceStatusResult }
+  },
   workspace_create: {
     clean: {
       request: cleanRequest,
