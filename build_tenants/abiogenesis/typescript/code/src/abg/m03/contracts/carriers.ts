@@ -3188,7 +3188,7 @@ export interface GraphFunctionSelectionRejectedRuntimeEvent {
   readonly correlationId: string;
 }
 
-export interface PublicOperationAdmittedRuntimeEvent {
+export interface LegacyPublicOperationAdmittedRuntimeEvent {
   readonly kind: "public_operation_admitted";
   readonly operationId:
     | "abg.operation.catalog.admit"
@@ -3203,6 +3203,9 @@ export interface PublicOperationAdmittedRuntimeEvent {
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;
 }
+
+export type PublicOperationAdmittedRuntimeEvent =
+  LegacyPublicOperationAdmittedRuntimeEvent;
 
 export type RuntimeEvent =
   | BasisAdmittedEvent

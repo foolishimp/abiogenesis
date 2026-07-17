@@ -3692,7 +3692,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     }
   ),
   public_operation_admitted: applyFieldRules(
-    "PublicOperationAdmittedRuntimeEvent",
+    "LegacyPublicOperationAdmittedRuntimeEvent",
     {
       operationId: {
         oneOf: [
