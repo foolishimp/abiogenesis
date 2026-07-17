@@ -1,6 +1,6 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Phase A accepted; structural-definition-key-repaired P1 design candidate pending independent review; P1 implementation blocked on named owner-contract gaps; P2 gated
+**Status**: Phase A accepted; P1 owner-schema/registry-correlation repair candidate pending independent review; P1 implementation blocked on exact owner-contract resolution; P2 gated
 
 **Date**: 2026-07-16
 
@@ -71,11 +71,14 @@ break.
 
 P1 attempts to author the exact 19-operation family from Phase A native
 contracts and exact owner-supplied native schemas. It first resolves every
-request, result, refusal, and declared non-terminal slot. An unresolved slot is
-a typed build gap and terminates that P1 pass; prose, a TypeScript interface, a
-legacy admitter, or a generated JSON Schema cannot substitute for the missing
-owner schema. Only an exact resolved set may admit the private family and
-derive private, temporary candidate projections.
+request, result, refusal, and declared non-terminal slot. Where a schema uses
+a family-owned relational check, the same owner source module also supplies
+the exact immutable named-check registry; callers cannot select or add a
+registry during projection. An unresolved slot or source pair is a typed build
+gap and terminates that P1 pass; prose, a TypeScript interface, a legacy
+admitter, a generated JSON Schema, or a caller-selected registry cannot
+substitute for owner truth. Only an exact resolved set may admit the private
+family and derive private, temporary candidate projections.
 
 Frozen 4.6 code may remain only as migration evidence; it cannot be imported
 by, validate, generate, or appear in any 5.0 candidate projection. No P1 build
@@ -435,9 +438,21 @@ ownerNativeDefinitionContractSource<K, Slot, S>({
   modulePath
   exportName
   memberPath
+  namedChecks:
+    | { kind: "none" }
+    | {
+        kind: "family_registry"
+        exportName
+        memberPath
+      }
   schema: S
 })
 ```
+
+Every source explicitly selects `none | family_registry`. The registry
+coordinate has no module path, so it inherits the schema's exact
+`semantic_build` module bytes and source basis. Raw registries, callbacks, and
+operation-to-registry maps are not constructor inputs.
 
 Both native constructor signatures enforce the hard break in their TypeScript
 inputs, not only at runtime. For the general constructor,
@@ -482,6 +497,9 @@ The unchanged T-274A locator is
 `[ticket_consensus_projection, schema]`, under
 `REQ-P-CONSENSUS-004/-008A/-012` at
 `sha256:d6e92b75cd52fb9f2063d0a6ff99d36a7617a52c997ff165236cb2571c9fd36d`.
+It selects `family_registry` with export
+`CONSENSUS_NATIVE_CHECK_REGISTRY` and an empty member path. T-281 creates no
+Consensus check, registry, branch, or replacement result schema.
 
 Shared static Valibot functions may factor the displayed structures but accept
 only exact literal subject kinds and return actual strict schemas. Concrete
@@ -853,6 +871,32 @@ NativeContractDefinition<S extends v.GenericSchema> = {
   projectionWitness: NativeSchemaProjectionWitness
 }
 
+OwnerNativeNamedCheckCoordinate =
+  | { kind: "none" }
+  | {
+      kind: "family_registry"
+      exportName: NativeExportName
+      memberPath: ReadonlyArray<NativeExportName>
+    }
+
+OwnerNativeContractSourceRow<S extends v.GenericSchema> = {
+  sourceLocator: PrivateNativeSchemaSourceLocator
+  namedChecks: OwnerNativeNamedCheckCoordinate
+  schema: S
+}
+
+ResolvedOwnerNativeContractSource<S extends v.GenericSchema> =
+  opaque resolver-minted carrier over {
+    sourceLocator, sourceModuleDigest, sourceBasisDigest,
+    schema: S,
+    namedChecks: none | resolved same-module NativeNamedCheckRegistry
+  }
+
+defineNativeContract<S>({
+  identity,
+  source: ResolvedOwnerNativeContractSource<S>
+}) -> NativeContractDefinition<S>
+
 NativeType<S>              = v.InferOutput<S>
 admitNative<S>(S, raw)     = v.parse(S, raw)
 projectJsonSchema<S>(S)    = shared pinned Valibot JSON-Schema projection
@@ -861,6 +905,7 @@ contractDigest<S>(S)       = sha256(canonical projected schema bytes)
 NativeSchemaProjectionWitness = {
   kind,
   sourceLocator,
+  namedCheckSource: OwnerNativeNamedCheckCoordinate,
   schemaRef,
   schemaVersion,
   projectorRef,
@@ -871,6 +916,16 @@ NativeSchemaProjectionWitness = {
   witnessDigest
 }
 ```
+
+`namedChecks` is required, never optional. `none` has no other fields.
+`family_registry` supplies only an export and zero-or-more member path relative
+to the schema locator's compiled module; an empty path addresses a top-level
+registry export such as `CONSENSUS_NATIVE_CHECK_REGISTRY`. The fixed-root
+resolver imports and hashes that module once, resolves recursively immutable
+schema and registry own-data values, and mints the only opaque carrier.
+`defineNativeContract` accepts identity plus that carrier, never a schema,
+registry, registry resolver, operation ID, consumer kind, or projector
+override. Direct projector tests cannot mint a P1 native contract or witness.
 
 Valibot strict objects, literals, picklists, tuples, arrays, nullables, and
 unions own structure directly. Schemas use no value-changing transform,
@@ -893,24 +948,30 @@ The shared projector preserves the original Phase A native-action set:
 | family-owned relation | exact `v.check` action object registered by its schema family | arbitrary relation remains native admission truth | project stable check identity, canonical registration digest, and accepted relation ref when present |
 
 The original mapping table remains closed code. A family-owned relation enters
-only through one immutable invocation-local registry that maps the exact action
-object to one family/check identity and optional accepted relation ref. The
-projector never inspects function source, message text, or a consumer kind, and
-there is no global registry. Each used registration is projected into the
-canonical schema and sorted into the derived witness. The registration digest
-binds family/check identity, the canonical Valibot validation/check/reference
-shape, and the relation ref; the registry separately requires the exact action
-object itself to be immutable and resolves it by identity. `type_brand` is the sole
-permitted Valibot transformation and cannot alter a value. Any other action,
-flag set, transform, callback, or override throws and requires design re-entry.
+only through one immutable family registry that maps the exact action object
+to one family/check identity and optional accepted relation ref. The owner
+source structurally selects `family_registry`; the fixed-root source resolver,
+not a projector caller, resolves that registry from the same compiled module
+as the schema. The projector never inspects function source, message text, an
+operation ID, or a consumer kind, and there is no global registry. Each used
+registration is projected into the canonical schema and sorted into the
+derived witness. The registration digest binds family/check identity, the
+canonical Valibot validation/check/reference shape, and the relation ref; the
+registry separately requires the exact action object itself to be immutable
+and resolves it by identity. `type_brand` is the sole permitted Valibot
+transformation and cannot alter a value. Any other action, flag set, transform,
+callback, registry override, or unregistered family relation throws and
+requires design re-entry.
 
-The shared projector owns mechanics only. It consumes the actual schema and
-derives the canonical projection plus witness in one call. No caller may supply
-projected I-JSON, a digest, or named-check rows. The derived schema embeds the
+The shared projector owns mechanics only. On the native-contract path it
+consumes the resolver-minted schema/registry carrier and derives the canonical
+projection plus witness in one call. No caller may supply projected I-JSON, a
+digest, named-check rows, or a registry. The derived schema embeds the
 closed projector identity/version/law-basis so
 `stableSha256Digest(projectedSchema) == projectionDigest`; `witnessDigest`
-binds that digest to the exact private source locator, schema ref/version, and
-sorted named-check basis. M04 owns public coordinates and publication. M03 may
+binds that digest to the exact private schema locator, structural named-check
+source coordinate, schema ref/version, and sorted named-check basis. M04 owns
+public coordinates and publication. M03 may
 consume the neutral witness for private compiler sealing but may not import an
 M04 carrier or author another digest.
 
@@ -1161,17 +1222,12 @@ Pre-P1 owner sources do not claim a package export that does not yet exist.
 They identify one actual source module export and an exact member path:
 
 ```text
-NeutralOwnerContractSource<S> = {
+NeutralOwnerContractSource<K, Slot, S> =
+  OwnerNativeContractSourceRow<S> & {
   ownerIdentity: { owner, subject }
   semanticOwnerBasis: { ref, digest }
-  sourceLocator: {
-    kind: "private_source_module"
-    sourceRoot: "semantic_build"
-    modulePath
-    exportName
-    memberPath
-  }
-  schema: S
+  definitionKey: K
+  slot: Slot
 }
 ```
 
@@ -1185,10 +1241,10 @@ on this neutral carrier. An owner module cannot author any derived envelope
 field or any T-281 contract-shape basis locally. M03 and M05 therefore neither
 receive nor import the M04 P1 contract-shape basis.
 
-P1 directly imports that source module, proves that `memberPath` resolves to
-the same frozen source, and only then constructs a private
-`NativeContractDefinition<S>` and composes the independently accepted T-281
-contract-shape basis at the M04 resolution join. The Phase A locator vocabulary
+P1 resolves the schema and optional family registry from the same compiled
+module into `ResolvedOwnerNativeContractSource<S>`. Only that carrier can
+construct `NativeContractDefinition<S>`. P1 then composes the independently
+accepted T-281 contract-shape basis at the M04 join. The locator vocabulary
 distinguishes
 `private_source_module { kind, sourceRoot, modulePath, exportName, memberPath[] }`
 from
@@ -1206,9 +1262,26 @@ exact current `build/semantic/` root; `modulePath` is root-relative, must end in
 `.js`, and admits neither an absolute path nor a `.` or `..` segment. The
 coordinate therefore carries no ambient cwd or resolver-relative authority.
 
+The registry coordinate inherits the schema locator's source root, module,
+module digest, and source-basis digest. Only export and zero-or-more member
+path remain variable. Source mismatch and registry/check admission failures
+take the typed gap branch below.
+
 The build-only resolution is a closed sum:
 
 ```text
+OwnerSourceOf<K, Slot, S> =
+  NeutralOwnerContractSource<K, Slot, S>
+
+ResolvedSourceOf<K, Slot, S> =
+  opaque ResolvedOwnerNativeContractSource<S> preserving K and Slot
+
+NativeContractOf<K, Slot, S> =
+  defineNativeContract({
+    identity: DerivedIdentityOf<K, Slot>,
+    source: ResolvedSourceOf<K, Slot, S>
+  })
+
 NonProjectReadOperationIdentity =
   Exclude<PublicOperationIdentity, "abg.operation.project.read">
 
@@ -1269,7 +1342,7 @@ P1ResolvedContractSlot<
   ownerAuthorityDigest: Digest
   contractShapeBasisRef: Ref
   contractShapeBasisDigest: Digest
-  contract: NativeContractDefinition<S>
+  contract: NativeContractOf<K, Slot, S>
 }
 
 P1MissingContractSlot<K, Slot extends P1ContractSlot> = {
@@ -1384,7 +1457,7 @@ P1 reuses the following sources without re-authoring their semantic truth:
 |---|---|---|
 | canonical native-schema projection | `code/src/shared/validation/canonical_native_schema_projector.ts` | One neutral projector derives canonical schema bytes and a witness from the actual Valibot schema; M03 and M04 consume the same result without cross-layer imports. |
 | native contract mechanism and common packets | `code/src/app/m04/public_contracts/native_contract_phase_a.ts` | M04 coordinate/catalog owner delegates projection mechanics to the shared projector; no new constructor language. |
-| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | Owner truth plus one immutable family-owned named-check registry. T-274A derives the `TicketConsensusProjection` result coordinate/witness through the shared projector. P1 composes it inside the generic `project.read` wrapper without duplicating the schema, relations, or operation. |
+| Consensus contract family | `code/src/abg/m03/contracts/consensus_contract_family.ts` | T-274A reuses the existing schema plus same-module `CONSENSUS_NATIVE_CHECK_REGISTRY`; T-281 adds no Consensus branch or registry. |
 | legacy public carrier and admission evidence | `code/src/app/m04/public_sdk/carriers.ts`, `operation_admission.ts`, `carrier_admission.ts` | Field and refusal evidence only. These files cannot validate or generate the P1 family. |
 | workspace behavior | `code/src/app/m04/workspace/operations.ts` | Existing semantic owner; target-native contract slots must resolve independently. |
 | product intake behavior | `code/src/app/m04/product_intake/verify.ts`, `resolve.ts`, `install.ts` | Existing semantic owners; no shared mega-handler or copied admitter. |
@@ -1487,12 +1560,13 @@ sources.
 
 The neutral owner-source constructor owns no semantic row or registry. Each
 owner supplies only its owner identity, semantic-owner basis, exact structural
-`DefinitionKey`, slot, module/export/member location, and exact schema. The constructor
-derives the repeated carrier revision, contract/schema IDs and versions,
-authority subject, and locator terminator. Owner modules must not reconstruct
-that envelope locally and must not receive or import the M04 contract-shape
-basis. The M04 P1 resolver composes the independently accepted T-281 basis only
-after it proves the exact source locator and schema identity.
+`DefinitionKey`, slot, module/export/member location, exact schema, and the
+structural named-check coordinate defined above. The
+constructor derives the repeated carrier revision, contract/schema IDs and
+versions, authority subject, and locator terminator. Owner modules must not
+reconstruct that envelope locally and must not receive or import the M04
+contract-shape basis. The M04 P1 resolver composes the independently accepted
+T-281 basis only after it proves the exact source locator and schema identity.
 
 ### Module Direction Fence
 
@@ -1523,6 +1597,7 @@ classDiagram
   class NativeSchemaProjectionWitness {
     <<derived neutral receipt>>
     +sourceLocator
+    +namedCheckSourceCoordinate
     +schemaRefAndVersion
     +projectorIdentityAndBasis
     +projectionDigest
@@ -1541,7 +1616,16 @@ classDiagram
     +slotCoordinate
     +ownerAuthorityRef
     +ownerAuthorityDigest
-    +nativeContract
+    +schemaSourceLocator
+    +noneOrFamilyRegistryCoordinate
+    +schema
+  }
+  class ResolvedOwnerNativeContractSource {
+    <<opaque derived carrier>>
+    +schemaTypePreserved
+    +sameModuleBasis
+    +noneOrAdmittedFamilyRegistry
+    +noPublicConstructor
   }
   class PrivateSourceModuleLocator {
     <<truthful pre-P1 source coordinate>>
@@ -1623,8 +1707,10 @@ classDiagram
   SemanticOwner "1" --> "1..*" OwnerSchemaInput : supplies neutral schemas
   ProjectReadContractSources "1" --> "27" OwnerSchemaInput : supplies exact project_read_case slots
   OwnerSchemaInput "1" *-- "1" PrivateSourceModuleLocator : locates actual nested source
-  OwnerSchemaInput --> SharedCanonicalNativeSchemaProjector : supplies actual schema
+  OwnerSchemaInput --> ResolvedOwnerNativeContractSource : fixed-root resolver correlates schema and registry
+  ResolvedOwnerNativeContractSource --> SharedCanonicalNativeSchemaProjector : supplies opaque schema registry pair
   SharedCanonicalNativeSchemaProjector --> NativeSchemaProjectionWitness : derives only
+  ResolvedOwnerNativeContractSource --> PhaseANativeContractMechanism : defineNativeContract consumes only this source
   NativeSchemaProjectionWitness --> PhaseANativeContractMechanism : binds private M04 coordinate
   NativeSchemaProjectionWitness --> PrivateCompilerSeal : seals private M03 compilation
   PhaseANativeContractMechanism --> OwnerContractResolutionK : admits coordinate
@@ -1648,6 +1734,7 @@ handler, or AF-24 edge. `SemanticOwner` is cited, not moved into the family.
 sequenceDiagram
   actor Builder
   participant Resolver as OwnerSchemaResolver
+  participant Source as FixedRootOwnerSourceResolver
   participant PhaseA as PhaseANativeContractMechanism
   participant Shared as SharedCanonicalProjector
   participant Compiler as M03PrivateCompiler
@@ -1665,22 +1752,32 @@ sequenceDiagram
     alt slot absent ambiguous prose-only or legacy-only
       Resolver->>Resolver: append typed semantic_not_realized gap
     else owner supplies exact native schema candidate
-      Resolver->>Owners: import sourceRoot/modulePath then resolve exportName and memberPath
-      Owners-->>Resolver: exact same frozen source object or locator mismatch
-      Resolver->>Shared: derive from actual schema source ref version locator and named checks
-      alt unsupported action unregistered check or divergent witness
-        Shared-->>Resolver: projector refusal
+      Resolver->>Source: resolve frozen owner source with explicit none or family_registry coordinate
+      Source->>Owners: import module once and resolve schema plus optional registry own-data paths
+      Owners-->>Source: recursively frozen same-module values or typed mismatch
+      alt schema registry correlation or source admission fails
+        Source-->>Resolver: typed source refusal
         Resolver->>Resolver: append typed semantic_not_realized gap
-      else all required slots exact
-        Shared-->>Resolver: canonical projected schema plus neutral witness
-        par M04 private coordinate binding
-          Resolver->>PhaseA: bind exact schema coordinate to witness
-          PhaseA-->>Resolver: admitted native coordinate and digest
-        and M03 private compiler sealing
-          Resolver->>Compiler: seal schema semantics from same neutral witness
-          Compiler-->>Resolver: sealed private result or typed refusal
+      else source pair resolves
+        Source-->>Resolver: one opaque schema/registry carrier
+        Resolver->>PhaseA: define native contract from identity plus opaque carrier only
+        PhaseA->>Shared: derive schema projection and witness from carrier-private state
+        alt unsupported action unregistered check divergent registry or divergent witness
+          Shared-->>PhaseA: projector refusal
+          PhaseA-->>Resolver: typed projector refusal
+          Resolver->>Resolver: append typed semantic_not_realized gap
+        else all required slots exact
+          Shared-->>PhaseA: canonical projected schema plus neutral witness
+          PhaseA-->>Resolver: native contract bound to same source pair
+          par M04 private coordinate binding
+            Resolver->>PhaseA: bind exact schema coordinate to witness
+            PhaseA-->>Resolver: admitted native coordinate and digest
+          and M03 private compiler sealing
+            Resolver->>Compiler: seal schema semantics from same neutral witness
+            Compiler-->>Resolver: sealed private result or typed refusal
+          end
+          Resolver->>Resolver: append owner_contract_resolved row
         end
-        Resolver->>Resolver: append owner_contract_resolved row
       end
     end
   end
@@ -1715,13 +1812,15 @@ private definition construction.
 stateDiagram-v2
   [*] --> PhaseAReady
   PhaseAReady --> OwnerResolutionPending: begin 19 identity 62 key and per-slot census
-  OwnerResolutionPending --> PrivateSourceLocated: closed source root module export and member path resolve to same source
-  PrivateSourceLocated --> ProjectionWitnessPending: submit actual schema to shared projector
+  OwnerResolutionPending --> PrivateSourcePairPending: resolve closed source root and explicit none or family_registry coordinate
+  PrivateSourcePairPending --> PrivateSourcePairResolved: schema and optional registry resolve from same frozen module basis
+  PrivateSourcePairPending --> DefinitionRefused: schema registry locator identity immutability or admission diverges
+  PrivateSourcePairResolved --> ProjectionWitnessPending: submit opaque schema registry carrier to shared projector
   ProjectionWitnessPending --> ProjectionWitnessDerived: projection and witness derive on one basis
   ProjectionWitnessPending --> DefinitionRefused: unsupported or unregistered constraint
   ProjectionWitnessDerived --> OwnerResolutionPending: M04 coordinate and M03 seal conserve same witness
   ProjectionWitnessDerived --> DefinitionRefused: coordinate digest or compiler seal diverges
-  OwnerResolutionPending --> DefinitionRefused: private source locator is missing or divergent
+  OwnerResolutionPending --> DefinitionRefused: private source locator or structural named-check coordinate is missing or divergent
   OwnerResolutionPending --> DefinitionRefused: structural key widens or project_read is encoded as variant
   OwnerResolutionPending --> OwnerGapObserved: one or more slots unresolved
   OwnerResolutionPending --> ExactOwnerSetResolved: all distributed keys and same-key slots exact
@@ -1771,7 +1870,7 @@ authority and is not implemented by T-281.
 |---|---|---|---|---|---|---|
 | `PublicFunctionDefinition<K>` | function id, version, variant, digest | PRODUCT/requirements; AF-24 publishes | T-281 native definition admission | schema/catalog/SDK/CLI projectors | semantic change creates a new version | hard-break migration retires legacy definitions |
 | `NativeContractDefinition<S>` | native symbol plus schema coordinate and projected schema digest | existing semantic owner | owner admits strict native schema; T-281 binds its exact coordinate | type inference, `v.parse`, digest, and JSON-Schema projection | semantic schema change creates another contract version/digest | prior published contract remains version evidence |
-| `NativeSchemaProjectionWitness` | witness digest over projector basis, source locator, schema ref/version, projection digest, and named-check rows | derived from existing semantic owner schema by the shared projector | constructed only from the actual schema; no raw constructor | M03 private seal and M04 private binding | any source, schema, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
+| `NativeSchemaProjectionWitness` | witness digest over projector basis, schema locator, structural named-check source coordinate, schema ref/version, projection digest, and named-check rows | derived from existing semantic owner schema/registry source by the shared projector | constructed only from the opaque resolved source; no raw constructor | M03 private seal and M04 private binding | any source, schema, registry coordinate, projector-basis, or named-check change creates another witness | temp proof receipt; never public semantic authority |
 | `PublicInvocation<K>` | invocation and request refs plus definition key | public ingress | common invocation admission | exact outcome/evidence projection | immutable | retained as admitted evidence |
 | `PublicOutcome<K>` | invocation ref plus outcome kind/digest | owning semantic function plus outcome admission | admitted after indexed output validation | SDK/CLI/public projection | corrected evidence creates another outcome/version under owning law | retained as evidence |
 | `InvocationAuthority<K>` | authority-set ref and basis digest | operation admission | assembled only from definition-required authority | runtime/public evidence projection | immutable; changed authority creates another identity | retained as evidence |
@@ -1959,6 +2058,7 @@ retain distinct behavior owners.
 | Every public operation derives from accepted Ontology functionality | exact matrix maps all 19 rows to AF-01..AF-25 or admitted One Surface composition | pass |
 | One definition family owns the operation-indexed binding/projection relation while payload semantics remain owner-owned | P1 domain owner-input edge, binding shape, and source-delta proof | pass as P1 design |
 | Native type, raw admission, digest, and schema derive from one value | strict Valibot schema plus inferred type, `v.parse`, and pinned projector | pass as Phase A design |
+| Schema/registry closure has one source authority | required `none | family_registry`, same-module resolution (including empty member path for a top-level export), opaque carrier, and registry-free `defineNativeContract`; malformed coordinates, cross-module selection, mutable/missing/invalid registries, unregistered exact actions, caller registries, and copied Consensus sources refuse | repaired design; realization proof pending |
 | Missing owner truth is typed rather than invented | P1 closed resolution sum, gap sequence branch, and terminal `OwnerGapObserved` state | pass as P1 design |
 | P1 adds one authoring source and no public or semantic authority | Prime source delta plus private projection relation | pass as P1 design |
 | M03 does not depend on M04 public carriers | module direction fence, neutral owner-input edge, and negative import-graph proof | pass as P1 design |
@@ -2126,11 +2226,11 @@ private P1 and atomic P2 hard break, and keeps missing operation-owner schemas
 as honest P1 gaps. The authoritative family is nested by operation and that
 operation's own members; its flat key and resolution/gap rows are distributive
 projections rather than object-valued map keys or a second serialized selector.
-Independent review accepted the Phase A semantic candidate recorded by T-281,
-and Phase A is closed. This P1 delta is constructor-ready only as an
-all-or-nothing resolution process: the current gap census must become empty
-before the private family can admit. GOALS, T-270, and T-272 already record the
-non-cyclic neutral-contract -> P1 -> runtime-integration split on the same
-basis, so that prerequisite is satisfied. The P1 candidate still requires
-independent review and explicit acceptance; its named owner-schema gaps remain
-implementation blockers. P2 remains separately gated and release-blocking.
+The accepted project-read design digest
+`6f7a6d9a40d593d0ff687b8dc94af1cbca12213266ccd5715e7163595ad58019`
+is superseded only for registry-source constructability. Its 27 cases, ten
+Prime result families, Consensus reuse, placement, and field shape are
+unchanged. This candidate binds explicit `none | family_registry` truth to the
+schema module in one opaque carrier and removes caller registry selection.
+Exact-digest review still gates implementation; the owner gap census still
+gates private-family admission; P2 remains separately release-blocking.
