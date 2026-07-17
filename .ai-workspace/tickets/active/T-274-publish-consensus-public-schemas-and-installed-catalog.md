@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: t274a_implementation_complete_independent_review_pending_t274b_fenced
-- review_status: t274a_self_review_green_independent_review_pending
-- proof_status: t274a_full_semantic_green_1771_of_1771
+- phase_status: t274a_closed_t274b_dependency_fenced
+- review_status: t274a_independently_accepted_t274b_not_started
+- proof_status: t274a_exact_basis_focused_prime_lint_and_pack_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -78,6 +78,11 @@
 - t274a_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T162101Z_SELF_REVIEW_t274a_consensus_temp_artifact_implementation.md
+- t274a_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T020936Z_REVIEW_t274a_exact_implementation_closure.md
+- t274a_accepted_implementation_checkpoint: >-
+    b05da32fc63d01eb135d47bfd8e4f724061859e3
 - prime_migration_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T154835Z_SELF_REVIEW_t277_pc001_pc003_consensus_realization.md
@@ -170,7 +175,7 @@ design checkpoint or by T-274A alone.
 
 ## T-274A Implementation Status
 
-The implementation now derives nine canonical schema candidates and two
+The implementation derives nine canonical schema candidates and two
 closed vocabularies from the single native Consensus family. Proof
 materializes them only under a temporary root, verifies exact bytes and
 digests, validates both native vocabularies, and rejects all 72 cross-kind
@@ -180,7 +185,11 @@ The projector also rejects forged Valibot schema/action lookalikes by exact
 pinned constructor identity. The private helper has no package export and no
 Consensus candidate asset exists under `contracts/`.
 
-Executable proof is green: `test:t274a` 93/93 including its GTL-law baseline,
-T-281 Phase A 8/8, T-277 Consensus 6/6, packed-publication repair 13/13, and
-the complete semantic suite 1771/1771. Independent review remains the only
-T-274A acceptance gate. T-274B remains dependency-fenced.
+The exact-basis independent review accepts T-274A at `b05da32f`. It reverified
+the accepted design digest, the one-family/nine-projection/two-vocabulary
+relation, exact source and witness binding, `11/11` focused tests, `6/6`
+Consensus Prime regression, focused lint, and a pack dry-run containing no
+candidate Consensus schema or vocabulary asset. The earlier full semantic
+proof remains `1771/1771`; the independent review deliberately did not rerun
+that suite across unrelated concurrent T-281 changes. T-274A is closed.
+T-274 remains active and T-274B remains dependency-fenced.
