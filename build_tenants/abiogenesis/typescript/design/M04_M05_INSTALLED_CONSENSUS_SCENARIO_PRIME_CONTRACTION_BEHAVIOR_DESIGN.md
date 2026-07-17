@@ -26,6 +26,21 @@ public operations, observes typed result and replay, and writes one immutable
 run archive. It does not import source, invoke workers directly, emit runtime
 events, construct continuations, or mutate tickets.
 
+The temporary-workspace application is also the early DS-2/DS-4 delivery
+governor. Before the driver invokes any target operation, a source-blind
+packed-family preflight requires the exact 19-operation family and absence of
+every retired identity. An incomplete family returns the typed first missing
+target coordinate and invokes nothing; it is never consumed partially. The
+first green target is the non-escalation/converged path. The unresolved F_H
+extension reuses the same driver and adds only
+`interaction.respond(answer_escalation) -> run.continue(current_intent)`.
+
+Application-specific installed-fixture provisioning is subordinate setup. It
+produces one admitted `InstalledWorkspaceApplication` for existing, alternate,
+or temporary roots. The invariant Consensus driver begins from that carrier;
+workspace kind cannot select its catalog, invocation, continuation, or
+observation path.
+
 The baseline proof uses three paired primary runs: each outcome family is
 paired with a different workspace application. This satisfies the separately
 stated outcome and workspace coverage requirements without assuming a
@@ -141,7 +156,9 @@ classDiagram
   }
   class ScenarioDriver {
     <<prime source-blind harness>>
-    +invokeCatalog
+    +preflightExactFamily
+    +resolveGraphFunction
+    +invokeRun
     +readResult
     +readReplay
   }
@@ -173,19 +190,34 @@ classDiagram
 ```mermaid
 sequenceDiagram
   participant Plan as T276 Run Plan
-  participant Workspace as M04 Workspace Application
   participant Driver as Installed Scenario Driver
+  participant Install as Clean Temporary Install
   participant CLI as Installed abg.cli
   participant Runtime as Public Consensus Route
   participant Archive as M05 Run Archive
 
-  Plan->>Workspace: select exact admitted workspace basis
-  Plan->>Driver: scenario definition plus workspace basis
-  Driver->>CLI: catalog.invoke Consensus handle
-  CLI->>Runtime: ordinary public operation request
-  Runtime-->>CLI: typed result and replay refs
-  Driver->>CLI: read.result and read.replay
-  CLI-->>Driver: typed observed projections
+  Plan->>Driver: exact packed candidate plus temporary workspace scenario
+  Driver->>Install: install candidate and provision temporary application
+  Install-->>Driver: admitted InstalledWorkspaceApplication
+  Driver->>Install: preflight exact 19-operation family and hard break
+  Install-->>Driver: complete family or typed missing coordinate without invocation
+  Driver->>CLI: catalog.admit over admitted workspace binding
+  CLI-->>Driver: admitted Catalog
+  Driver->>CLI: project.read catalog_list and catalog_describe
+  CLI-->>Driver: exact callable Consensus GraphFunction handle
+  Driver->>CLI: catalog.view allowlist exact Consensus handle
+  CLI-->>Driver: admitted CatalogView
+  Driver->>CLI: run.invoke invoke with real ticket and attributed profiles
+  CLI->>Runtime: admitted public invocation
+  Runtime-->>CLI: typed completed or held outcome
+  opt held F_H extension
+    Driver->>CLI: interaction.respond answer_escalation
+    Driver->>CLI: run.continue current_intent
+    CLI->>Runtime: admitted response and continuation
+    Runtime-->>CLI: typed continued outcome
+  end
+  Driver->>CLI: project.read run_result run_replay ticket_consensus
+  CLI-->>Driver: typed result replay and ticket projection
   Driver->>Archive: persist exact candidate workspace result replay evidence
   Archive-->>Plan: one independently judged run outcome
 ```
@@ -197,15 +229,24 @@ stateDiagram-v2
   [*] --> Defined: T276 admits three scenario definitions
   Defined --> Planned: T276 pairs definitions with admitted workspace applications
   Planned --> Rejected: M05 source-blindness or exact-basis preflight fails
-  Planned --> Invoked: installed CLI admits catalog invocation
-  Invoked --> Observed: installed CLI returns typed result and replay
+  Planned --> Installed: fixture support produces admitted workspace application
+  Installed --> FrontierGap: exact packed operation-family preflight is incomplete
+  Installed --> CatalogAdmitted: exact family preflight passes and catalog.admit admits
+  CatalogAdmitted --> Resolved: project.read and catalog.view resolve callable Consensus
+  Resolved --> Invoked: run.invoke invoke admits
+  Invoked --> Held: runtime opens typed F_H interaction
+  Held --> Continued: answer_escalation then current_intent admit
+  Invoked --> Observed: installed CLI projects result replay and ticket consensus
+  Continued --> Observed: installed CLI projects result replay and ticket consensus
   Invoked --> NonClose: runtime returns typed malformed or blocked truth
+  Continued --> NonClose: runtime returns typed malformed or blocked truth
   Observed --> Archived: M05 seals exact per-run evidence
   Archived --> Covered: M05 observes all required outcome and workspace coordinates
   Archived --> Expanded: independent review requires Cartesian behavioral evidence
   Expanded --> Planned: T276 generates remaining coordinates for the same driver
   Covered --> [*]
   Rejected --> [*]
+  FrontierGap --> [*]
   NonClose --> [*]
 ```
 
@@ -219,18 +260,30 @@ create another driver.
 
 1. Extend the existing installed-fixture support only where setup is genuinely
    shared; do not copy its package/install/workspace machinery.
-2. Author three exact scenario definitions and one driver.
-3. Run three paired primary executions across distinct workspace applications.
-4. Prove structurally that no workspace or outcome coordinate selects a
+2. Activate the temporary-workspace converged case as an early source-blind
+   red thread. Preflight the exact packed 19-operation family before invoking
+   any target operation. Record only its typed first missing target coordinate
+   until P1/P2 admits atomically; never publish or consume a partial family.
+3. Author three exact scenario definitions and one driver.
+4. Make the converged temporary-workspace path green, then extend that same
+   driver through `interaction.respond(answer_escalation) ->
+   run.continue(current_intent)` for the F_H case.
+5. Run three paired primary executions across distinct workspace applications.
+6. Prove structurally that no workspace or outcome coordinate selects a
    different orchestration path.
-5. Run the full nine through the same driver only if the structural proof or
+7. Run the full nine through the same driver only if the structural proof or
    independent review requires it.
-6. Preserve one archive and exact candidate/workspace/result/replay basis per
+8. Preserve one archive and exact candidate/workspace/result/replay basis per
    execution regardless of aggregate summary shape.
 
 ## Negative Proof
 
 - a driver source import or repository-relative runtime dependency fails
+- any retired public operation identity, partial-family publication, direct
+  module import, alternate runner, mocked catalog, or source-worktree fallback
+  fails before invocation
+- a missing `catalog.admit`, `project.read(catalog_list/catalog_describe)`, or
+  `catalog.view(allowlist)` authority step fails before `run.invoke`
 - direct worker invocation, event emission, continuation construction, or
   ticket mutation fails the harness census
 - missing or duplicate scenario/workspace coverage coordinates fail

@@ -5,8 +5,8 @@
 - type: test
 - ticket_category: ordinary
 - status: active
-- phase_status: blocked_by_ds4_realization
-- review_status: fh_accepted_prospective_design_independent_closure_review_pending
+- phase_status: early_red_steel_thread_governor_active_ds4_realization_pending
+- review_status: steel_thread_governor_design_independently_accepted_closure_review_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -18,7 +18,7 @@
     qualification boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-14
+- updated_at: 2026-07-17
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268
@@ -49,6 +49,11 @@
 - prime_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260714T162000Z_SELF_REVIEW_t277_pc008_scenario_factorization.md
+- steel_thread_governor_design_digest: >-
+    1cca67612f32171edcaf597c0ec98f1208481d577f5496e097b5f6ff07e7d636
+- steel_thread_governor_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260717T050121Z_DECISION_fh_accept_t276_steel_thread_governor.md
 
 ## Boundary
 
@@ -61,6 +66,42 @@ temporary workspace applications of one public contract.
 Fixtures provide inputs and attributed external ignition only. They do not
 orchestrate the panel, invoke workers directly, emit events, construct
 continuations, retry traversal, mutate tickets, or import mutable source.
+
+## Delivery Governor
+
+The caller-created temporary-workspace application is the early red-to-green
+DS-2/DS-4 steel thread. It starts before this ticket can close and uses the
+same source-blind installed driver required by the final proof:
+
+```text
+packed candidate
+  -> clean temporary install
+  -> preflight exact packed 19-operation family
+  -> workspace.create(clean)
+  -> workspace.bind
+  -> catalog.admit
+  -> project.read(catalog_list/catalog_describe) resolves Consensus
+  -> catalog.view(allowlist)
+  -> run.invoke(invoke) through installed abg.cli
+  -> admitted result and replay
+  -> project.read(ticket_consensus)
+  -> typed CLI outcome
+```
+
+Before T-281 P1/P2, the source-blind packed-family preflight may stop only on
+the typed first missing target coordinate and invokes no target operation. The
+thread cannot publish or consume a partial operation family, fall back to the
+retired operation roster, or treat a fixture-authored terminal result as
+progress. Every current DS-2/DS-4 implementation checkpoint records whether it
+removes, advances, or preserves that exact frontier.
+
+The first green thread is the non-escalation/converged path. The unresolved
+F_H extension reuses the same driver and adds only
+`interaction.respond(answer_escalation) -> run.continue(current_intent)`; it
+is not a second harness. Application-specific installed-fixture provisioning
+produces one uniform `InstalledWorkspaceApplication`; existing, alternate, and
+temporary applications then follow the same Consensus driver before T-276
+closes.
 
 ## Prime Contraction Input
 
