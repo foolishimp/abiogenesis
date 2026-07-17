@@ -1,7 +1,10 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
-import { ownerNativeOperationContractSource } from "../../../shared/validation/owner_native_operation_contract_source.js";
+import {
+  ownerNativeOperationContractSource,
+  type NonProjectReadOperationId
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type M03OwnerContractSlot = "request" | "result" | "refusal";
 
@@ -18,7 +21,7 @@ function source<
   const SemanticOwnerDigest extends `sha256:${string}`,
   const S extends v.GenericSchema
 >(input: {
-  readonly operationId: OperationId;
+  readonly operationId: NonProjectReadOperationId<OperationId>;
   readonly variant: Variant;
   readonly family: Family;
   readonly familyKey: FamilyKey;
@@ -63,7 +66,7 @@ export function m03OwnerContractSet<
   const Refusal extends v.GenericSchema,
   const MemberKey extends string = Variant
 >(input: {
-  readonly operationId: OperationId;
+  readonly operationId: NonProjectReadOperationId<OperationId>;
   readonly variant: Variant;
   readonly family: Family;
   readonly familyKey: FamilyKey;

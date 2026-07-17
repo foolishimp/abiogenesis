@@ -7,6 +7,10 @@ import {
   EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
   FINAL_TAP_DELTA_SCHEMA
 } from "../../code/src/qualification/m05/exact_candidate_release_operation_contracts.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerNativeOperationContractSource
+} from "../../code/src/shared/validation/owner_native_operation_contract_source.js";
 
 type Equal<Left, Right> =
   (<T>() => T extends Left ? 1 : 2) extends
@@ -14,6 +18,109 @@ type Equal<Left, Right> =
     ? true
     : false;
 type Expect<Value extends true> = Value;
+
+const projectReadResultSchema = v.strictObject({
+  ticketRef: v.string(),
+  disposition: v.literal("projected")
+});
+const projectReadResultSource = ownerNativeDefinitionContractSource({
+  owner: {
+    product: "abiogenesis",
+    module: "app.m04",
+    family: "project_read"
+  },
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "ticket_consensus"
+  },
+  slot: "result",
+  semanticOwnerBasis: {
+    ref: "requirement://abg/project-read",
+    digest: `sha256:${"1".repeat(64)}`
+  },
+  modulePath:
+    "code/src/app/m04/public_contracts/project_read_operation_contracts.js",
+  exportName: "PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES",
+  memberPath: ["project_read", "ticket_consensus", "result"],
+  schema: projectReadResultSchema
+});
+
+type _ProjectReadMemberKind = Expect<
+  Equal<
+    typeof projectReadResultSource.authority.subject.memberKind,
+    "project_read_case"
+  >
+>;
+type _ProjectReadCaseKey = Expect<
+  Equal<
+    typeof projectReadResultSource.authority.subject.caseKey,
+    "ticket_consensus"
+  >
+>;
+type _ProjectReadSlot = Expect<
+  Equal<typeof projectReadResultSource.authority.subject.slot, "result">
+>;
+type _ProjectReadLocatorCase = Expect<
+  Equal<
+    typeof projectReadResultSource.sourceLocator.memberPath[1],
+    "ticket_consensus"
+  >
+>;
+type _ProjectReadLocatorSlot = Expect<
+  Equal<typeof projectReadResultSource.sourceLocator.memberPath[2], "result">
+>;
+type _ProjectReadLocatorSchema = Expect<
+  Equal<typeof projectReadResultSource.sourceLocator.memberPath[3], "schema">
+>;
+type _ProjectReadSchema = Expect<
+  Equal<typeof projectReadResultSource.schema, typeof projectReadResultSchema>
+>;
+
+ownerNativeDefinitionContractSource({
+  owner: projectReadResultSource.authority.owner,
+  definitionKey: {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "ticket_consensus"
+  },
+  slot: "result",
+  semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
+  modulePath: projectReadResultSource.sourceLocator.modulePath,
+  exportName: projectReadResultSource.sourceLocator.exportName,
+  // @ts-expect-error A project-read locator cannot point at another case.
+  memberPath: ["project_read", "run_status", "result"],
+  schema: projectReadResultSchema
+});
+
+ownerNativeDefinitionContractSource({
+  owner: projectReadResultSource.authority.owner,
+  definitionKey: {
+    // @ts-expect-error project.read is keyed by project_read_case, never variant.
+    operationId: "abg.operation.project.read",
+    memberKind: "variant",
+    variant: "ticket_consensus"
+  },
+  slot: "result",
+  semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
+  modulePath: projectReadResultSource.sourceLocator.modulePath,
+  exportName: projectReadResultSource.sourceLocator.exportName,
+  memberPath: ["project_read", "ticket_consensus", "result"],
+  schema: projectReadResultSchema
+});
+
+ownerNativeOperationContractSource({
+  owner: projectReadResultSource.authority.owner,
+  // @ts-expect-error The legacy variant adapter cannot encode project.read.
+  operationId: "abg.operation.project.read",
+  variant: "ticket_consensus",
+  slot: "result",
+  semanticOwnerBasis: projectReadResultSource.authority.semanticOwnerBasis,
+  modulePath: projectReadResultSource.sourceLocator.modulePath,
+  exportName: projectReadResultSource.sourceLocator.exportName,
+  memberPath: ["project_read", "ticket_consensus", "result"],
+  schema: projectReadResultSchema
+});
 
 const overlayRequestSchema =
   CATALOG_OPERATION_NATIVE_CONTRACT_SOURCES.catalog_apply.overlay.request.schema;
@@ -120,6 +227,13 @@ void rejectedFromRatify;
 void ratifiedFromReject;
 
 export type M03M05OwnerContractTypeProof =
+  | _ProjectReadMemberKind
+  | _ProjectReadCaseKey
+  | _ProjectReadSlot
+  | _ProjectReadLocatorCase
+  | _ProjectReadLocatorSlot
+  | _ProjectReadLocatorSchema
+  | _ProjectReadSchema
   | _RatifyOperationIdentity
   | _RatifyVariantIdentity
   | _RatifyFamilyIdentity

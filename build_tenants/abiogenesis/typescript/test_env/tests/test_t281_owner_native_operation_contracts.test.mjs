@@ -23,6 +23,10 @@ import {
   projectCanonicalNativeJsonSchema,
   resolveSemanticBuildNativeSchemaSource
 } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
+import {
+  ownerNativeDefinitionContractSource,
+  ownerNativeOperationContractSource
+} from "../../build/semantic/code/src/shared/validation/owner_native_operation_contract_source.js";
 
 const DIGEST = `sha256:${"1".repeat(64)}`;
 const DIGEST_2 = `sha256:${"2".repeat(64)}`;
@@ -264,6 +268,8 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
   }
   for (const source of sources) {
     assert.equal(source.sourceLocator.memberPath.at(-1), "schema");
+    assert.equal(source.authority.subject.memberKind, "variant");
+    assert.equal("caseKey" in source.authority.subject, false);
     assert.equal("lawBasis" in source.authority, false);
     assert.equal("contractShapeBasis" in source.authority, false);
     const expectedSemanticBasis = SEMANTIC_OWNER_BASIS_BY_OPERATION.get(
@@ -296,6 +302,125 @@ test("T-281 owner sources resolve 16 exact definition keys and 48 native slots",
       })
     );
   }
+});
+
+test("neutral owner sources preserve an exact project-read case without a fake variant", () => {
+  const schema = v.strictObject({
+    ticketRef: v.string(),
+    disposition: v.literal("projected")
+  });
+  const input = {
+    owner: {
+      product: "abiogenesis",
+      module: "app.m04",
+      family: "project_read"
+    },
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey: "ticket_consensus"
+    },
+    slot: "result",
+    semanticOwnerBasis: {
+      ref: "requirement://abg/project-read",
+      digest: DIGEST
+    },
+    modulePath:
+      "code/src/app/m04/public_contracts/project_read_operation_contracts.js",
+    exportName: "PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES",
+    memberPath: ["project_read", "ticket_consensus", "result"],
+    schema
+  };
+  const source = ownerNativeDefinitionContractSource(input);
+
+  assert.deepEqual(source.authority.subject, {
+    operationId: "abg.operation.project.read",
+    memberKind: "project_read_case",
+    caseKey: "ticket_consensus",
+    slot: "result"
+  });
+  assert.equal("variant" in source.authority.subject, false);
+  assert.equal(
+    source.identity.contractId,
+    "abg.contract.operation.project.read.ticket_consensus.result"
+  );
+  assert.equal(
+    source.identity.schemaId,
+    "abg.schema.operation.project.read.ticket_consensus.result"
+  );
+  assert.deepEqual(source.sourceLocator.memberPath, [
+    "project_read",
+    "ticket_consensus",
+    "result",
+    "schema"
+  ]);
+  assert.equal(source.schema, schema);
+  assertDeepFrozen(source);
+
+  for (const definitionKey of [
+    { ...input.definitionKey, variant: "ticket_consensus" },
+    {
+      operationId: "abg.operation.catalog.view",
+      memberKind: "variant",
+      variant: "allowlist",
+      caseKey: "ticket_consensus"
+    }
+  ]) {
+    assert.throws(
+      () => ownerNativeDefinitionContractSource({ ...input, definitionKey }),
+      /invalid (?:project_read_case|variant) definition key/u
+    );
+  }
+  assert.throws(
+    () =>
+      ownerNativeDefinitionContractSource({
+        ...input,
+        memberPath: ["project_read", "run_status", "result"]
+      }),
+    /locator case does not match project-read key/u
+  );
+  assert.throws(
+    () =>
+      ownerNativeDefinitionContractSource({
+        ...input,
+        memberPath: ["project_read", "ticket_consensus", "request"]
+      }),
+    /locator slot does not match contract slot/u
+  );
+
+  assert.throws(
+    () =>
+      ownerNativeDefinitionContractSource({
+        owner: source.authority.owner,
+        definitionKey: {
+          operationId: "abg.operation.project.read",
+          memberKind: "variant",
+          variant: "ticket_consensus"
+        },
+        slot: "result",
+        semanticOwnerBasis: source.authority.semanticOwnerBasis,
+        modulePath: source.sourceLocator.modulePath,
+        exportName: source.sourceLocator.exportName,
+        memberPath: ["project_read", "ticket_consensus", "result"],
+        schema
+      }),
+    /project\.read requires a project_read_case key/u
+  );
+  assert.throws(
+    () =>
+      ownerNativeOperationContractSource({
+        owner: source.authority.owner,
+        operationId: "abg.operation.project.read",
+        variant: "ticket_consensus",
+        slot: "result",
+        semanticOwnerBasis: source.authority.semanticOwnerBasis,
+        modulePath: source.sourceLocator.modulePath,
+        exportName: source.sourceLocator.exportName,
+        memberPath: ["project_read", "ticket_consensus", "result"],
+        schema
+      }),
+    /project\.read requires a project_read_case key/u
+  );
 });
 
 test("witness public variants resolve through identifier-safe private member paths", async () => {
