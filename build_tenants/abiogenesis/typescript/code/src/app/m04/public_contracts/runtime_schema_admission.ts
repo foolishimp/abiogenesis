@@ -103,9 +103,9 @@ function contractKey(input: {
 export function admitM04RuntimeSchemaAdmissionMetadataRows(
   input: unknown
 ): readonly RuntimeSchemaAdmissionMetadataRow[] {
-  if (!Array.isArray(input) || input.length === 0) {
+  if (!Array.isArray(input)) {
     throw new TypeError(
-      "runtime schema admission metadata: expected a nonempty row array"
+      "runtime schema admission metadata: expected a row array"
     );
   }
   const rows = input.map((raw, index) => {
@@ -373,11 +373,6 @@ export function projectM04RuntimeSchemaAdmission(input: {
   const selectedRows = moduleRows.filter(
     (row) => row.graphFunctionId === input.selectedExecutionBinding.graphFunctionId
   );
-  if (selectedRows.length === 0) {
-    throw new TypeError(
-      "runtime schema admission: selected GraphFunction has no metadata rows"
-    );
-  }
   const definitionsByKey = new Map<
     string,
     NativeContractDefinition<v.GenericSchema>[]

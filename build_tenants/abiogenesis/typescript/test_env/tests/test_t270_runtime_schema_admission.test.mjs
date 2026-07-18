@@ -451,14 +451,14 @@ test("T-270 joins a complete multi-function Module then projects the selected no
 
 test("T-270 exact-matches the entire requirement, basis, and branded capability family before admission", () => {
   const value = SCENARIO_09_FIXTURE;
-  assert.throws(
-    () => resolveRuntimeSchemaAdmissionCapabilities({
+  assert.deepEqual(
+    resolveRuntimeSchemaAdmissionCapabilities({
       requirements: [],
       authority: value.authority,
       admittedBases: [],
       engineInput: constructRuntimeSchemaAdmissionEngineInput([])
     }),
-    /family cardinality differs/u
+    []
   );
   assert.throws(
     () => resolveRuntimeSchemaAdmissionCapabilities({
@@ -530,6 +530,111 @@ test("T-270 exact-matches the entire requirement, basis, and branded capability 
     }),
     /authority differs/u
   );
+});
+
+test("T-270 admits an exact selected GraphFunction with no symbolic schema requirements", () => {
+  const value = SCENARIO_09_FIXTURE;
+  const input = constructNode({
+    name: "RuntimeRefInput",
+    schema: { kind: "runtime_ref", ref: "runtime://t270/input" },
+    markov: ["boundary://t270/runtime-ref"],
+    assetSurface: { kind: "t270_runtime_ref_input" },
+    tags: ["t270", "runtime-ref"]
+  });
+  const output = constructNode({
+    name: "RuntimeRefOutput",
+    schema: { kind: "runtime_ref", ref: "runtime://t270/output" },
+    markov: ["boundary://t270/runtime-ref"],
+    assetSurface: { kind: "t270_runtime_ref_output" },
+    tags: ["t270", "runtime-ref"]
+  });
+  const graph = constructGraph({
+    name: "t270.runtime-ref-only.graph",
+    inputs: [input],
+    outputs: [output],
+    nodes: [input, output],
+    vectors: [],
+    contexts: [],
+    rules: [],
+    effects: [],
+    tags: ["t270", "runtime-ref"]
+  });
+  const graphFunction = constructGraphFunction({
+    name: "t270.runtime-ref-only",
+    environment: constructEnvRef({
+      requires: [input],
+      provides: [output],
+      carries: [input, output]
+    }),
+    inputs: [input],
+    outputs: [output],
+    template: constructTemplateRef({
+      kind: "inline_graph",
+      ref: "template://t270/runtime-ref-only",
+      graph,
+      version: null
+    }),
+    effects: [],
+    declarations: emptySerializedAttrs(),
+    tags: ["t270", "runtime-ref"]
+  });
+  const module = Object.freeze({
+    ...value.binding.module,
+    graphs: Object.freeze([...value.binding.module.graphs, graph]),
+    graphFunctions: Object.freeze([
+      ...value.binding.module.graphFunctions,
+      graphFunction
+    ])
+  });
+  const binding = Object.freeze({
+    ...value.binding,
+    graphFunction,
+    graphFunctionHandle: graphFunction.name,
+    graphFunctionId: graphFunction.id,
+    graphFunctionDigest: stableSha256Digest(graphFunction),
+    module,
+    moduleDigest: stableSha256Digest(module)
+  });
+  const projection = projectM04RuntimeSchemaAdmission({
+    selectedExecutionBinding: binding,
+    nativeDefinitions: value.definitions
+  });
+  assert.deepEqual(projection.bases, []);
+  assert.deepEqual(projection.engineInput.capabilities, []);
+  assert.deepEqual(
+    resolveRuntimeSchemaAdmissionCapabilities({
+      requirements: [],
+      authority: {
+        ...value.authority,
+        moduleDigest: binding.moduleDigest,
+        graphFunctionId: binding.graphFunctionId,
+        graphFunctionDigest: binding.graphFunctionDigest
+      },
+      admittedBases: projection.bases,
+      engineInput: projection.engineInput
+    }),
+    []
+  );
+
+  const runtimeOnlyModule = Object.freeze({
+    ...module,
+    graphs: Object.freeze([graph]),
+    graphFunctions: Object.freeze([graphFunction])
+  });
+  const runtimeOnlyBinding = bindingWithMetadataRows(
+    Object.freeze({
+      ...binding,
+      module: runtimeOnlyModule,
+      moduleDigest: stableSha256Digest(runtimeOnlyModule)
+    }),
+    []
+  );
+  const runtimeOnlyProjection = projectM04RuntimeSchemaAdmission({
+    selectedExecutionBinding: runtimeOnlyBinding,
+    nativeDefinitions: []
+  });
+  assert.deepEqual(runtimeOnlyProjection.bases, []);
+  assert.deepEqual(runtimeOnlyProjection.engineInput.capabilities, []);
 });
 
 test("T-270 contracts repeated schema use without duplicating native definition authority", () => {

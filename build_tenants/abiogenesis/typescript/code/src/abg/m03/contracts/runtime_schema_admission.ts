@@ -484,7 +484,6 @@ export function resolveRuntimeSchemaAdmissionCapabilities(input: {
   );
   if (
     input.engineInput.kind !== "runtime_schema_admission_engine_input" ||
-    input.requirements.length === 0 ||
     input.requirements.length !== input.admittedBases.length ||
     input.requirements.length !== input.engineInput.capabilities.length
   ) {
