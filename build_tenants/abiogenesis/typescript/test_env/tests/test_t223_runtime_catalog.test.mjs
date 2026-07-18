@@ -372,12 +372,13 @@ test("T-223 admits one projection-threaded catalog and derives an all-kind non-w
   assert.equal(unknown.accepted, false);
   assert.equal(unknown.residuals[0].reason, "unknown_handle");
 
-  const missingExecutionBinding = deriveRegistrySessionView({
-    basis: { ...result.basis, executionBindings: [] },
-    allowedEntryRefs: ["catalog-entry://t223/system/hello-world"]
-  });
-  assert.equal(missingExecutionBinding.accepted, false);
-  assert.equal(missingExecutionBinding.residuals[0].reason, "inadmissible");
+  assert.throws(
+    () => deriveRegistrySessionView({
+      basis: { ...result.basis, executionBindings: [] },
+      allowedEntryRefs: ["catalog-entry://t223/system/hello-world"]
+    }),
+    /execution bindings differ/u
+  );
 });
 
 test("T-223 admits one exact catalog invocation assembly and rejects forged view or dual basis", async () => {
