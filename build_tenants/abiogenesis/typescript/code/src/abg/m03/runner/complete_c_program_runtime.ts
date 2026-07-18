@@ -67,6 +67,7 @@ interface CProgramAtomRequestBasis {
   readonly nodeRef: string;
   readonly nodeDigest: `sha256:${string}`;
   readonly cursorRef: string;
+  readonly cursorDigest: `sha256:${string}`;
   readonly cCallRef: string;
   readonly sourcePath: string;
   readonly selectedCatalogEntryRef: string;
@@ -137,6 +138,7 @@ export interface CProgramAtomReceipt
   readonly receiptDigest: `sha256:${string}`;
   readonly planDigest: `sha256:${string}`;
   readonly nodeDigest: `sha256:${string}`;
+  readonly cursorDigest: `sha256:${string}`;
   readonly inputPayloadRef: string;
   readonly inputLineageRef: string;
   readonly taskOrdinal: number | null;
@@ -303,6 +305,145 @@ interface ExecutionContext {
   readonly consumedReplayRefs: Set<string>;
 }
 
+interface CausalRetryScope {
+  readonly depth: number;
+  readonly nodeRefs: ReadonlySet<string>;
+}
+
+interface CausalPlanProjection {
+  readonly predecessorNodeRefs: ReadonlySet<string>;
+  readonly retryScopes: readonly CausalRetryScope[];
+}
+
+function subtreeNodeRefs(node: CompiledCPlanNode): ReadonlySet<string> {
+  return new Set(
+    compiledCSubtreeNodesInDeclaredOrder(node).map((row) => row.node.nodeRef)
+  );
+}
+
+// Sequence siblings are ordered; batch siblings are independent; earlier retry
+// coordinates remain causal. The sealed plan owns all three relations.
+function projectCausalPlan(input: {
+  readonly node: CompiledCPlanNode;
+  readonly currentNodeRef: string;
+  readonly retryDepth: number;
+}): CausalPlanProjection | null {
+  if (input.node.nodeRef === input.currentNodeRef) {
+    return Object.freeze({
+      predecessorNodeRefs: new Set<string>(),
+      retryScopes: Object.freeze([])
+    });
+  }
+  switch (input.node.kind) {
+    case "compiled_c_sequence": {
+      const predecessors = new Set<string>();
+      for (const child of input.node.children) {
+        const selected = projectCausalPlan({
+          node: child,
+          currentNodeRef: input.currentNodeRef,
+          retryDepth: input.retryDepth
+        });
+        if (selected !== null) {
+          selected.predecessorNodeRefs.forEach((ref) => predecessors.add(ref));
+          return Object.freeze({
+            predecessorNodeRefs: predecessors,
+            retryScopes: selected.retryScopes
+          });
+        }
+        subtreeNodeRefs(child).forEach((ref) => predecessors.add(ref));
+      }
+      return null;
+    }
+    case "compiled_c_complete_batch":
+      for (const task of input.node.tasks) {
+        const selected = projectCausalPlan({
+          node: task.child,
+          currentNodeRef: input.currentNodeRef,
+          retryDepth: input.retryDepth
+        });
+        if (selected !== null) return selected;
+      }
+      return null;
+    case "compiled_c_complete_retry": {
+      const selected = projectCausalPlan({
+        node: input.node.child,
+        currentNodeRef: input.currentNodeRef,
+        retryDepth: input.retryDepth + 1
+      });
+      if (selected === null) return null;
+      return Object.freeze({
+        predecessorNodeRefs: selected.predecessorNodeRefs,
+        retryScopes: Object.freeze([
+          ...selected.retryScopes,
+          Object.freeze({
+            depth: input.retryDepth,
+            nodeRefs: subtreeNodeRefs(input.node.child)
+          })
+        ])
+      });
+    }
+    case "compiled_c_stage_leaf":
+    case "compiled_c_identity":
+    case "compiled_c_workflow_lift":
+      return null;
+  }
+}
+
+function receiptPrecedesRetryCoordinate(input: {
+  readonly receipt: CProgramReplayReceipt;
+  readonly retryPath: readonly number[];
+  readonly scope: CausalRetryScope;
+}): boolean {
+  if (
+    input.receipt.kind !== "c_program_atom_receipt" ||
+    !input.scope.nodeRefs.has(input.receipt.nodeRef) ||
+    input.receipt.retryPath.length <= input.scope.depth ||
+    input.retryPath.length <= input.scope.depth
+  ) {
+    return false;
+  }
+  for (let index = 0; index < input.scope.depth; index += 1) {
+    if (input.receipt.retryPath[index] !== input.retryPath[index]) return false;
+  }
+  return input.receipt.retryPath[input.scope.depth]! <
+    input.retryPath[input.scope.depth]!;
+}
+
+function causalReplayBasis(input: {
+  readonly context: ExecutionContext;
+  readonly node: CompiledCStageLeaf | CompiledCWorkflowLift;
+  readonly retryPath: readonly number[];
+}): readonly CProgramReplayReceipt[] {
+  const projection = projectCausalPlan({
+    node: input.context.invocation.plan.root,
+    currentNodeRef: input.node.nodeRef,
+    retryDepth: 0
+  });
+  if (projection === null) {
+    throw new TypeError("current C-program node is absent from its sealed plan");
+  }
+  const available = [
+    ...input.context.replay.filter((receipt) =>
+      input.context.consumedReplayRefs.has(receipt.receiptRef)
+    ),
+    ...input.context.admitted
+  ];
+  const causal = available.filter((receipt) =>
+    projection.predecessorNodeRefs.has(receipt.nodeRef) ||
+    projection.retryScopes.some((scope) =>
+      receiptPrecedesRetryCoordinate({
+        receipt,
+        retryPath: input.retryPath,
+        scope
+      })
+    )
+  );
+  causal.sort((left, right) =>
+    left.receiptDigest.localeCompare(right.receiptDigest)
+  );
+  return Object.freeze(causal);
+}
+
 const ATOM_RESULT_KEYS = Object.freeze([
   "kind",
   "planRef",
@@ -327,6 +468,7 @@ const ATOM_RECEIPT_KEYS = Object.freeze([
   "receiptDigest",
   "planDigest",
   "nodeDigest",
+  "cursorDigest",
   "inputPayloadRef",
   "inputLineageRef",
   "taskOrdinal",
@@ -500,6 +642,7 @@ function assertReceiptSeal(receipt: CProgramAtomReceipt): void {
   nonEmpty(receipt.nodeRef, "receipt.nodeRef");
   nonEmpty(receipt.nodeDigest, "receipt.nodeDigest");
   nonEmpty(receipt.cursorRef, "receipt.cursorRef");
+  nonEmpty(receipt.cursorDigest, "receipt.cursorDigest");
   nonEmpty(receipt.outputCarrierRef, "receipt.outputCarrierRef");
   nonEmpty(receipt.inputPayloadRef, "receipt.inputPayloadRef");
   nonEmpty(receipt.inputLineageRef, "receipt.inputLineageRef");
@@ -838,6 +981,7 @@ function requestBasis(input: {
     nodeRef: input.node.nodeRef,
     nodeDigest: input.node.nodeDigest,
     cursorRef: input.cursor.cursorRef,
+    cursorDigest: input.cursor.cursorDigest,
     cCallRef: input.cCallRef,
     sourcePath: input.node.sourcePath,
     selectedCatalogEntryRef: input.context.selected.entryRef,
@@ -1028,6 +1172,7 @@ function sealAtomReceipt(input: {
     kind: "c_program_atom_receipt" as const,
     planDigest: input.request.planDigest,
     nodeDigest: input.request.nodeDigest,
+    cursorDigest: input.request.cursorDigest,
     inputPayloadRef: input.request.inputPayloadRef,
     inputLineageRef: input.request.inputLineageRef,
     taskOrdinal: input.request.taskOrdinal,
@@ -1078,6 +1223,7 @@ function replayReceipt(input: {
   if (selected === undefined) return null;
   if (
     selected.cursorRef !== input.request.cursorRef ||
+    selected.cursorDigest !== input.request.cursorDigest ||
     selected.cCallRef !== input.request.cCallRef ||
     selected.outputCarrierRef !== input.request.outputCarrierRef
   ) {
@@ -1223,7 +1369,11 @@ async function invokeLeaf(input: {
     taskOrdinal: input.taskOrdinal,
     retryAttempt: input.retryAttempt,
     retryPath: input.retryPath,
-    replay: input.context.replay
+    replay: causalReplayBasis({
+      context: input.context,
+      node: input.node,
+      retryPath: input.retryPath
+    })
   });
   const spine = leafSpine(input);
   const request = atomRequest({

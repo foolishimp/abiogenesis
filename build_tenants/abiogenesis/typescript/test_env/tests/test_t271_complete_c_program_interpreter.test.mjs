@@ -662,6 +662,144 @@ test("T-271 mixed composition threads exact carriers and replays without effects
   assert.equal(replayed.resultPayloadRef, first.resultPayloadRef);
 });
 
+test("T-271 conserves the exact current cursor digest through request, receipt, and replay", async () => {
+  const value = fixture("mixed");
+  const requests = [];
+  const first = await interpretCompleteCProgram(invocation(value, {
+    invokeAdmittedAtom: async (request) => {
+      requests.push(request);
+      return completedAtom(request, `cursor-${String(requests.length)}`);
+    }
+  }));
+  assert.equal(first.status, "completed");
+  assert.equal(requests.length, 2);
+
+  const receipts = first.replayReceipts.filter(
+    (receipt) => receipt.kind === "c_program_atom_receipt"
+  );
+  assert.equal(receipts.length, requests.length);
+  for (const request of requests) {
+    assert.match(request.cursorDigest, /^sha256:[0-9a-f]{64}$/u);
+    const receipt = receipts.find((row) => row.cCallRef === request.cCallRef);
+    assert.notEqual(receipt, undefined);
+    assert.equal(receipt.cursorRef, request.cursorRef);
+    assert.equal(receipt.cursorDigest, request.cursorDigest);
+  }
+
+  const resumedRequests = [];
+  const resumed = await interpretCompleteCProgram(invocation(value, {
+    replayReceipts: [receipts[0]],
+    invokeAdmittedAtom: async (request) => {
+      resumedRequests.push(request);
+      return completedAtom(request, "cursor-resumed");
+    }
+  }));
+  assert.equal(resumed.status, "completed");
+  assert.equal(resumedRequests.length, 1);
+  assert.equal(resumedRequests[0].cursorRef, requests[1].cursorRef);
+  assert.equal(resumedRequests[0].cursorDigest, requests[1].cursorDigest);
+
+  const forgedCursorDigest = `sha256:${"f".repeat(64)}`;
+  assert.notEqual(forgedCursorDigest, receipts[0].cursorDigest);
+  const forgedReceipt = resealReceipt(receipts[0], {
+    cursorDigest: forgedCursorDigest
+  });
+  let effects = 0;
+  await assert.rejects(
+    () => interpretCompleteCProgram(invocation(value, {
+      replayReceipts: [forgedReceipt, receipts[1]],
+      invokeAdmittedAtom: async (request) => {
+        effects += 1;
+        return completedAtom(request);
+      }
+    })),
+    /replay receipt differs from current cursor/u
+  );
+  assert.equal(effects, 0);
+});
+
+test("T-271 cursor basis excludes batch siblings across timing and partial replay", async () => {
+  const value = fixture("batch_results");
+  const run = async ({
+    firstTaskVariant,
+    delayedTaskOrdinal,
+    replayReceipts = []
+  }) => {
+    const requests = [];
+    const outcome = await interpretCompleteCProgram(invocation(value, {
+      replayReceipts,
+      invokeAdmittedAtom: async (request) => {
+        requests.push(request);
+        if (request.taskOrdinal === delayedTaskOrdinal) {
+          await new Promise((resolve) => setTimeout(resolve, 2));
+        }
+        const suffix = request.taskOrdinal === 0
+          ? `sibling-${firstTaskVariant}-${request.sourcePath}`
+          : `stable-target-${request.sourcePath}`;
+        return completedAtom(request, suffix);
+      }
+    }));
+    assert.equal(outcome.status, "completed");
+    return { outcome, requests };
+  };
+
+  const slowFirst = await run({
+    firstTaskVariant: "slow-first",
+    delayedTaskOrdinal: 0
+  });
+  const slowSecond = await run({
+    firstTaskVariant: "slow-second",
+    delayedTaskOrdinal: 1
+  });
+  const targetRequests = (rows) => rows.filter(
+    (request) => request.taskOrdinal === 1
+  );
+  const baselineTarget = targetRequests(slowFirst.requests);
+  const changedSiblingTarget = targetRequests(slowSecond.requests);
+  assert.equal(baselineTarget.length, 2);
+  assert.equal(changedSiblingTarget.length, 2);
+  assert.deepEqual(
+    changedSiblingTarget.map((request) => request.cursorDigest),
+    baselineTarget.map((request) => request.cursorDigest)
+  );
+
+  const firstTaskReplay = slowSecond.outcome.replayReceipts.filter(
+    (receipt) =>
+      receipt.kind === "c_program_atom_receipt" &&
+      receipt.taskOrdinal === 0
+  ).reverse();
+  assert.equal(firstTaskReplay.length, 2);
+  const partial = await run({
+    firstTaskVariant: "not-invoked",
+    delayedTaskOrdinal: 1,
+    replayReceipts: firstTaskReplay
+  });
+  assert.equal(
+    partial.requests.every((request) => request.taskOrdinal === 1),
+    true
+  );
+  assert.deepEqual(
+    targetRequests(partial.requests).map((request) => request.cursorDigest),
+    baselineTarget.map((request) => request.cursorDigest)
+  );
+
+  const edge = fixture("edge");
+  const originalEdge = await interpretCompleteCProgram(invocation(edge, {
+    invokeAdmittedAtom: async (request) => completedAtom(request, request.sourcePath)
+  }));
+  let replayEffects = 0;
+  const reversedEdge = await interpretCompleteCProgram(invocation(edge, {
+    replayReceipts: [...originalEdge.replayReceipts].reverse(),
+    invokeAdmittedAtom: async (request) => {
+      replayEffects += 1;
+      return completedAtom(request);
+    }
+  }));
+  assert.equal(reversedEdge.status, "completed");
+  assert.equal(replayEffects, 0);
+  assert.equal(reversedEdge.resultPayloadRef, originalEdge.resultPayloadRef);
+});
+
 test("T-271 nested batch preserves distinct task paths and all-or-block", async () => {
   const value = fixture("batch");
   const requests = [];
