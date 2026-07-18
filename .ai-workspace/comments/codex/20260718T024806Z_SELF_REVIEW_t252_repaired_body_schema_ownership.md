@@ -54,11 +54,10 @@ outcomes at the result projection.
 One later Prime review also found duplicate Consensus version authority between
 the M03 family and T-274A. M03 now exports the sole
 `CONSENSUS_CONTRACT_VERSION`; T-274A consumes that value, while test literals
-remain independent assertions. The older T-275 design that admits only a
-`closed_done` result is stale against `REQ-P-CONSENSUS-008A`,
-`REQ-P-CONSENSUS-017`, and this later accepted T-252 terminal partition. It must
-be repaired downstream; the canonical body must not be narrowed back to hide
-that design gap.
+remain independent assertions. T-275 subsequently repaired its result family
+and was accepted at digest
+`d6480a9224df2d1268da80d687fedf75a2d60dcc36ba81e6256e89535f30985a`.
+The canonical body remains the authority for its terminal partition.
 
 The same review found that the first fifteen-source implementation was not
 directly consumable by the accepted T-281 projector: it was an array without
@@ -73,26 +72,40 @@ locale ordering while M04 required code-point ordering. The repair defines one
 neutral metadata row key/comparator/canonicalizer, consumes it from T-252 and
 M04, and proves the actual 34-row T-252 Module joins all fifteen definitions.
 
+The generic join review then found two boundary defects rather than a
+Consensus defect. M04 initially accepted a partial Module metadata family, and
+the zero-symbolic path incorrectly rejected lawful `runtime_ref`-only
+GraphFunctions. The final repair derives the complete symbolic tuple census
+from Module containment before joining definitions, rejects any selected or
+non-selected omission, and admits zero requirements only when that derived
+census is genuinely empty. Both a mixed Module and an all-`runtime_ref` Module
+are pinned.
+
 ## Evidence
 
 - repaired body digest:
   `sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8`
 - regenerated probe manifest digest:
-  `sha256:45f01671798cb9aa6c836ae0d857f1b327626b35225086c3ac5ba99341ee1110`
+  `sha256:ed51074e47e1e5c469f2077d095d605ce1845d156d086162b04ac097450d5321`
 - strict TypeScript build: pass
 - GTL law: 82/82
 - T-252 focused body/admission/probe: 15/15 and exact manifest check
 - T-263 strict Module plus T-252: 24/24
 - T-274A projector and artifact proofs: 11/11
+- T-270 runtime-schema admission: 9/9
+- neutral T-270/T-272 contracts: 9/9
 - Consensus Prime projection: 6/6
 - Prime gate: pass; Prime gate tests: 9/9
+- full semantic suite: 1928/1928
+- generated publication: 40 assets from 1241 immutable payloads
 - host lint: zero findings
 - `git diff --check`: pass
 
 ## Remaining Boundary
 
-T-252 is implementation-complete for this isolated slice, not release-closed.
-T-274B must still derive the exact fifteen asserted native definitions, prove
-the total M04 key join, keep six non-reachable public assets outside the join,
-and prove that no private key enters the public catalog. T-270/T-272 own runtime
-admission and continuation after their separate checkpoints merge.
+T-252 is ticket-closed, not a 5.0 release claim. The completed-ticket probe has
+digest
+`sha256:ed51074e47e1e5c469f2077d095d605ce1845d156d086162b04ac097450d5321`.
+T-274B still owns process-local production supply, packaging, and publication;
+T-270/T-272 own runtime admission and continuation. The sole observed active
+compiler gap is T-268 tenant-conformance-manifest coverage.

@@ -2,7 +2,7 @@
   "kind": "t252_consensus_gtl_probe_manifest",
   "version": 5,
   "authority": {
-    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
     "abiPackageVersion": "5.0.0-dev.0"
   },
@@ -4008,8 +4008,8 @@
     "sources": [
       {
         "ticketId": "T-252",
-        "status": "active",
-        "sourceRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        "status": "completed",
+        "sourceRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
         "families": [
           "consensus_fh_recurse_and_reachable_schema_ownership"
         ]
@@ -4139,10 +4139,8 @@
       }
     ],
     "observedActiveGapFamilyCount": 1,
-    "activeOwnedButNotObservedFamilyCount": 1,
-    "activeOwnedButNotObservedFamilies": [
-      "consensus_fh_recurse_and_reachable_schema_ownership"
-    ],
+    "activeOwnedButNotObservedFamilyCount": 0,
+    "activeOwnedButNotObservedFamilies": [],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
@@ -4318,5 +4316,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:45f01671798cb9aa6c836ae0d857f1b327626b35225086c3ac5ba99341ee1110"
+  "manifestDigest": "sha256:ed51074e47e1e5c469f2077d095d605ce1845d156d086162b04ac097450d5321"
 }

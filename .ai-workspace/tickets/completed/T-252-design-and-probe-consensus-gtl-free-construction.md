@@ -4,11 +4,11 @@
 - title: Correct canonical Consensus F_H targets, recurse law, and reachable schema ownership
 - type: bug
 - ticket_category: ordinary
-- status: active
-- phase_status: repaired_body_implemented_pending_independent_review
-- review_status: independent_implementation_review_pending
-- implementation_admission: repaired_body_implemented
-- proof_status: focused_green_full_suite_rerun_pending
+- status: completed
+- phase_status: closed
+- review_status: independent_implementation_review_accepted
+- implementation_admission: accepted
+- proof_status: exact_full_suite_1928_of_1928_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Preserve one lawful canonical Consensus GTL free construction while making
@@ -24,6 +24,7 @@
 - triaged_at: 2026-07-14
 - created_at: 2026-07-12
 - updated_at: 2026-07-18
+- completed_at: 2026-07-18
 - prior_completed_at: 2026-07-14
 - prior_implementation_commit: abed6a0a
 - owner: abiogenesis
@@ -54,6 +55,14 @@
 - design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T001835Z_SELF_REVIEW_t272_event_basis_and_lifecycle_repair.md
+- implementation_commit: b2ba0ca61063d8ab58886cfa7e433da592bd946c
+- implementation_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T024806Z_SELF_REVIEW_t252_repaired_body_schema_ownership.md
+- independent_implementation_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T051541Z_REVIEW_t270_zero_symbolic_and_t252_closure.md
+- closure_manifest_digest: sha256:ed51074e47e1e5c469f2077d095d605ce1845d156d086162b04ac097450d5321
 
 ## Boundary
 
@@ -98,9 +107,10 @@ seals full definition facts in the runtime-schema capability basis; generated
 facts never flow back into the T-252 Module. T-274B's own ticket and design must
 adopt this private delivery boundary before implementation starts.
 
-No code may change until the amended three-view design receives independent F_H
-acceptance. The prior body digest remains historical evidence, not repaired-body
-closure.
+The amended three-view design was accepted at digest
+`f1e119d5f38209409310c7f3631c3b3ee10663c02464b218cdae80e2e8e25444`.
+The implementation and exact-commit independent review are recorded above. The
+prior body digest remains historical evidence, not repaired-body closure.
 
 ## T-252 Census Gap Ownership
 
@@ -176,10 +186,10 @@ After explicit design acceptance, the bounded implementation must:
 6. prove three reachable keys reuse existing public identities while twelve
    engine-private keys create no public catalog row;
 7. regenerate the repaired Module/body digest and observation-first census;
-8. demonstrate that T-274B can derive one asserted native definition for every
-   distinct referenced key, with every metadata row resolving exactly one
-   definition and no unused runtime-join definition, while six other public
-   assets remain outside that join; and
+8. demonstrate that the owner-native projector derives exactly fifteen asserted
+   definitions and that generic M04 admission exact-joins all 34 symbolic
+   containment tuples with no missing, extra, or unused join-input definition;
+   T-274B production delivery and publication remain downstream; and
 9. rerun focused, GTL, strict Module, Prime, governance, publication-boundary,
    and full semantic gates before closure review.
 
@@ -187,28 +197,29 @@ After explicit design acceptance, the bounded implementation must:
 
 - body digest after the topology correction is
   `sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8`;
-- the sealed manifest authority is regenerated from this ticket's live path;
-- final manifest digest is
-  `sha256:45f01671798cb9aa6c836ae0d857f1b327626b35225086c3ac5ba99341ee1110`;
+- the sealed manifest authority is regenerated from this ticket's completed
+  path;
+- final closure manifest digest is
+  `sha256:ed51074e47e1e5c469f2077d095d605ce1845d156d086162b04ac097450d5321`;
 - canonical serialization round-trips through strict M02 admission;
 - structural invalidity count is zero;
-- all five remaining full-conformance issues are mapped to
-  `complete_c_program_interpreter` before ticket ownership is loaded;
-- all normalized compiler diagnostics are also enumerated before ownership is
-  loaded; the current normalized semantic count is zero after the T-255
-  vector-program-selection repair;
-- fourteen program-conservation failures are separately observed and assigned
-  to T-267;
-- tenant-manifest coverage remains assigned to T-268;
+- invalid-program, structural-blocking, full-conformance,
+  normalized-semantic, and traversal-conformance counts are all zero;
+- the sole observed gap is
+  `tenant_conformance_manifest_consensus_coverage_missing`, assigned to active
+  owner T-268 across all 34 canonical paths;
+- duplicate-owner and unowned-gap counts are zero;
 - every observed gap has compiler or structural observation evidence before
   ownership is joined;
 - every observed gap has exactly one active successor owner;
 - active implemented families may appear as not observed pending their own
   closure decisions;
 - static source reachability is reported without runtime-call claims;
-- focused GTL, body, manifest, strict TypeScript, and diff gates pass; and
-- the explicit standing F_H delegation authorized this bounded closure pending
-  the owner's return review.
+- full semantic 1928/1928, GTL 82/82, focused body/admission, strict TypeScript,
+  semantic lint, publication, Prime, governance, Mermaid, manifest, and diff
+  gates pass; and
+- exact-commit independent implementation review accepted the closure with no
+  P0, P1, or P2 finding.
 
 Post-review census reconciliation checkpoint: `a644b8eb`. It removes the 34
 superseded vector-selection diagnostics and makes normalized semantic
