@@ -48,6 +48,9 @@
 - repaired_design_review_and_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260718T022245Z_REVIEW_DECISION_t252_t272_constructability_repair.md
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T022245Z_REVIEW_DECISION_t252_t272_constructability_repair.md
 - design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T001835Z_SELF_REVIEW_t272_event_basis_and_lifecycle_repair.md
