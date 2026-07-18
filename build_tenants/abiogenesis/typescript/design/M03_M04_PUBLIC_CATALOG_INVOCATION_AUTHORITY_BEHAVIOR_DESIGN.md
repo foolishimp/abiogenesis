@@ -1,6 +1,6 @@
 # M03-M04 Public run.invoke Authority Behavior Design
 
-**Status**: Accepted - bounded AF-13/AF-14 ingress-order amendment
+**Status**: Accepted - bounded post-AF-14 root-carrier constructability amendment
 
 **Date**: 2026-07-18
 
@@ -14,12 +14,14 @@
 
 **Bounded delta status**: the replay-derived current-observation join remains
 `fh_accepted_for_implementation` and is realized at commit `a8a96284` on
-2026-07-18. The accepted AF-15 schema-capability boundary remains unchanged.
-The ingress-order delta is `fh_accepted_for_implementation`: public preparation
-must not seal final execution ingress before AF-13/AF-14 select one exact
-catalog member. Runtime implementation is authorized only within this accepted
-boundary. The previously accepted identity, authority, Prime count, and
-public-operation boundary are unchanged.
+2026-07-18. The accepted AF-15 schema-capability and AF-13/AF-14 ingress-order
+boundaries remain unchanged. This amendment corrects only root-carrier
+constructability: public preparation retains the canonical admitted inline
+`invoke` value without a source-Node mapping, and the post-AF-14 finalizer
+constructs the existing root-carrier set only after one exact selected catalog
+binding supplies that mapping. Runtime implementation is authorized only within
+this bounded delta. The previously accepted identity,
+authority, Prime count, and public-operation boundary are unchanged.
 
 ## Boundary
 
@@ -101,20 +103,23 @@ and treats a value as admitted only through that function. The callable never
 enters the basis digest, identity, persistence, replay, registry, or ambient
 lookup.
 
-The pre-AF-13 preparation seam obtains the request value either from the native
-`invoke` packet or `BoundWorkspaceContext.effects.readInputAsset`, admits the
-canonical I-JSON once, and calls `admitCatalogGraphFunctionInput` with the exact
-installed root schema body. For `invoke`, when the request-constrained candidate
-member has exactly one declared input Node, it constructs the existing neutral M03
-`AdmittedInvocationCarrierSet` with one `AdmittedInvocationCarrier` bound to
-that Node, schema, payload ref/digest, admission ref, and the same canonical
-value. It retains the sealed carrier set and installed public schema authority
-set process-locally until AF-13 and AF-14 complete. After AF-14, the private
-finalizer derives exactly one ready callable session entry from the selected
-GraphFunction within the admitted view, calls the existing selected-entry
-catalog-binding resolver, verifies AF-13/AF-14/program/view/workspace/
-invocation-authority equality, and only then projects M04 schema capabilities
-and calls `admitPrivateRunInvokeExecutionIngress`. The finalizer returns one
+The pre-AF-13 preparation seam obtains the request value only from the native
+P1 `invoke` packet, admits canonical I-JSON once, and calls
+`admitCatalogGraphFunctionInput` with the exact installed root schema body. It
+retains that canonical admitted `IJsonValue` and the installed public schema
+authority set process-locally without selecting or inventing a graph-private
+source Node. P2 `inputRef` resolution is outside this seam. After AF-14, the
+private finalizer derives exactly one ready callable session entry from the
+selected GraphFunction within the admitted view, calls the existing
+selected-entry catalog-binding resolver, verifies
+AF-13/AF-14/program/view/workspace/invocation-authority equality, and derives
+the selected GraphFunction's exact source interface from that binding. For
+`invoke`, exactly one declared source Node constructs the existing neutral M03
+`AdmittedInvocationCarrierSet` from the prepared canonical value; zero source
+Nodes refuse the invoke contract and multiple source Nodes retain
+`gap://abg/t270/multi-source-root-input-mapping`. Only then does the finalizer
+project M04 schema capabilities and call
+`admitPrivateRunInvokeExecutionIngress`. The finalizer returns one
 identity-free process-local tuple
 `{ ingress, selectedExecutionBinding, schemaAdmissionEngineInput }`. The sealed
 carrier set, installed public schema authority set, and ordered digestible
@@ -219,7 +224,7 @@ truth only.
 | `CatalogView` | narrowing catalog authority | Restricts, but cannot enlarge, the admitted program's callable universe. |
 | `SerializedInputContract` | selected catalog-product contract authority | Binds the contribution's public contract identity and exact canonical schema asset. It remains distinct from the GraphFunction input Node's symbolic GTL schema ref. |
 | `Operator` | existing GTL work declaration | Owns the exact regime and implementation binding ref at an executable graph locus; it never serializes a callable. |
-| `AdmittedInvocationCarrierSet` | existing M03 input-admission carrier | Seals the admitted actual value and exact single source Node/schema for `invoke`; it creates no selection or effect authority. |
+| `AdmittedInvocationCarrierSet` | existing M03 input-admission carrier | After AF-14 and exact selected-binding resolution, seals the prepared canonical admitted value and that binding's exact single source Node/schema for `invoke`; it creates no selection or effect authority. |
 | `NextActionProjection` | AF-13 selection authority | Carries selected-or-no-action truth and exact causal basis. |
 | `ConstructionIntent` | AF-14 intent authority | Admits one selected program-owned action before invocation. |
 | `CompiledExecutionContextContract` | existing static locus authority | Supplies the exact payload-independent F_P or F_H context contract before start. |
@@ -234,7 +239,9 @@ truth only.
 
 - one identity-free process-local `PreparedRunInvokeExecution` carrying the
   admitted public invocation, exact workspace/program/catalog-view joins,
-  request-origin AF-13 constraints, and optional invoke root schema/carriers;
+  request-origin AF-13 constraints, optional invoke root schema authority, and
+  optional canonical admitted invoke `IJsonValue` without a source-Node
+  mapping;
   it is not final ingress and carries no selected binding, capability basis,
   runtime witness, or effect authority;
 - one identity-free process-local `FinalizedRunInvokeExecution` tuple containing
@@ -319,7 +326,7 @@ PublicFunctionDefinition<run.invoke>
   -> PublicInvocation + InvocationAuthority + WorkspaceBinding
   -> private async M04 process-local preparation through BoundWorkspaceContext effects
   -> invoke only: candidate public input schema body admitted without granting selection
-  -> invoke only: admitCatalogGraphFunctionInput + prepared AdmittedInvocationCarrierSet
+  -> invoke only: admitCatalogGraphFunctionInput + prepared canonical admitted IJsonValue
   -> admitted GtlProgram + narrowing CatalogView
   -> pure request-constraint projection into AF-13:
        invoke exact member | start graph_function admitted-view narrowing |
@@ -331,6 +338,8 @@ PublicFunctionDefinition<run.invoke>
   -> AF-14 ConstructionIntent
   -> derive one unique ready session entry from AF-13/AF-14 selected GraphFunction
   -> existing selected-entry resolver returns exact CatalogExecutionBinding
+  -> invoke only: derive exact single source Node from selected binding
+  -> invoke only: construct AdmittedInvocationCarrierSet from prepared canonical value
   -> M04 exact source-definition relations project bases + process-local engine input
   -> finalizer seals AdmittedRunInvokeExecutionIngress and returns
        { ingress, selectedExecutionBinding, schemaAdmissionEngineInput }
@@ -552,9 +561,11 @@ existing public assets. Scenario-09 supplies the same two carrier kinds as the
 non-Consensus proof. Generic T-270 imports neither product family and cannot
 infer a row from a schema string, product name, or payload shape.
 
-M04 constructs the existing `AdmittedInvocationCarrierSet` only after the root
-schema authority and `admitCatalogGraphFunctionInput` both pass over the same
-canonical admitted I-JSON value. The amended
+M04 constructs the existing `AdmittedInvocationCarrierSet` only after the
+post-AF-14 selected binding supplies exactly one source Node and the root schema
+authority plus `admitCatalogGraphFunctionInput` have admitted the same canonical
+inline P1 I-JSON value. Zero source Nodes refuse; multiple source Nodes without
+an explicit mapping retain the named semantic gap. The amended
 `admitPrivateRunInvokeExecutionIngress` receives the carrier set and public
 input schema set as already-admitted inputs and seals their digests into neutral
 M03 ingress. AF-15 later joins that ingress, the exact compiler projection, and
@@ -784,9 +795,9 @@ evidence. T-272 alone responds to or continues held F_H truth.
 
 | Function or transition | Proposer | Evaluator | Verifier | Admitter | Executor | Projector | Retirement owner |
 |---|---|---|---|---|---|---|---|
-| prepare installed public schema and invoke root | admitted public request, bound workspace context, admitted catalog family | M04 public-schema and input admission | request-constrained candidate public input contract has one bound catalog row/body/digest; root has one source Node and one canonical value | existing public/M03 admissions | bound `readRecord`/`readInputAsset` only before effect basis | process-local `InstalledPublicSchemaAuthoritySet` and `AdmittedInvocationCarrierSet`; no final ingress or selected binding | invocation evidence owner |
+| prepare installed public schema and invoke value | admitted public request, bound workspace context, admitted catalog family | M04 public-schema and input admission | request-constrained candidate public input contract has one bound catalog row/body/digest and the inline P1 request has one canonical admitted value; no source Node is available or inferred | existing public/M03 admissions | bound `readRecord` only for the schema asset before effect basis | process-local `InstalledPublicSchemaAuthoritySet` and canonical admitted `IJsonValue`; no carrier set, final ingress, or selected binding | invocation evidence owner |
 | project AF-13 request constraint | admitted public request and catalog view | pure narrowing projection | `invoke` exact member; `start(graph_function)` admitted-session narrowing; `start(asset)` published owner projection or named gap; `start(next)` exact admitted view | AF-13 admits selection; AF-14 admits intent | none | one constraint, never execution authority | discarded after AF-14 |
-| resolve selected execution and runtime symbolic schemas | exact AF-13 result, AF-14 admission, admitted view, existing selected-entry resolver, exact catalog/module closure, and M04-held opaque native definitions | derive unique ready entry, resolve existing binding, then M04 flat-contract-key/native-definition join and neutral constructor call | exact AF-13/AF-14 GraphFunction derives one admitted entry; actual catalog-binding identity, exact Node id/symbolic ref, flat key, exact source-definition origin, and M04-only full coordinate/native projection-witness facts seal the final-ingress basis | neutral branded capability admits through its undigested function only after exact one-to-one match with an ingress basis; M03 grants no schema authority and imports no M04 type | separate process-local AF-15 engine-input envelope only after exact basis match | final ingress plus existing selected binding plus identity-free engine input, or typed pre-effect refusal | module/native-family owners retire source truth; capability and envelope expire with execution |
+| resolve selected execution, root carrier, and runtime symbolic schemas | exact AF-13 result, AF-14 admission, admitted view, existing selected-entry resolver, prepared canonical invoke value, exact catalog/module closure, and M04-held opaque native definitions | derive unique ready entry, resolve existing binding, derive its exact single source Node for `invoke`, construct the existing carrier set, then perform the M04 flat-contract-key/native-definition join and neutral constructor call | exact AF-13/AF-14 GraphFunction derives one admitted entry; the selected binding alone supplies source-Node identity; actual catalog-binding identity, exact Node id/symbolic ref, flat key, exact source-definition origin, and M04-only full coordinate/native projection-witness facts seal the final-ingress basis | existing root input admission plus neutral branded capability admission only after exact one-to-one match with an ingress basis; M03 grants no schema authority and imports no M04 type | separate process-local AF-15 engine-input envelope only after exact basis match | exact `AdmittedInvocationCarrierSet`, final ingress, existing selected binding, and identity-free engine input, or typed pre-effect refusal; zero source Nodes refuse and multiple source Nodes retain the named mapping gap | module/native-family owners retire source truth; capability and envelope expire with execution |
 | derive locus carrier set | immutable runtime environment | pure F_D projection | basis, plan, locus, ordered T-256 source rows, carrier-set digest, source admissions, and result authorities | none; derives no new authority | none | exact ordered existing carrier set | invocation lifecycle discards environment |
 | resolve and execute F_D Operator | exact compiler-derived Operator projection plus runtime locus | binding-first resolver then full C-ALGEBRA-010 match and declared total function | graph/vector/operator ordinal and digest, program/stage/fibre/arm, ordered carriers/schemas, implementation identity, and I-JSON return | selected module-contributed native target-schema admission constructs existing carrier | engine-delivery implementation | new immutable runtime environment | implementation owner retires delivery entry; program owner retires binding ref |
 | admit F_P value | exact selected plugin/result contract and raw worker output | existing envelope admission then declared target-schema admission | plugin capability, wire contract, target schema, payload digest, locus and result authority | target-carrier admission | selected plugin only | new immutable runtime environment | existing result/replay retention; body follows invocation lifecycle |
@@ -805,7 +816,7 @@ evidence. T-272 alone responds to or continues held F_H truth.
 | prepare installed public input schema authority | installed product authority feeding public/root admission | `preparePrivateRunInvokeExecution` | one all-or-nothing candidate public input schema set in process-local prepared truth for `invoke`; no set for `start`; no final ingress | bound schema read only in M04; no runtime effect | bounded T-270 realization delta |
 | project request constraint into AF-13 | admitted request plus exact catalog view | `projectRunInvokeAf13Constraint` | one constraint family over invoke/start applications; no request-string selection | AF-13 only | bounded T-270 realization delta; `start(asset)` preserves its named ownership-projection gap |
 | bind every reachable symbolic Node schema to native admission | AF-13/AF-14-selected program/module plus M04 owning native contract definitions | post-AF-14 finalizer derives one ready entry, calls the existing selected-entry resolver, admits one closed flat-key Module.metadata JSON-blob, validates each row against the exact GraphFunction-contained Node set, and calls the total `projectM04RuntimeSchemaAdmission` seam; that seam admits one exact relation per distinct Module symbolic-ref/id/version key all-or-nothing before projecting selected-GraphFunction bases and engine input | exact GraphFunction/contained-Node/symbolic-schema/contract-id/version tuple plus exact source-definition relation and M04-only full coordinate/witness facts seal the final-ingress basis; callable excluded; AF-14 program remains a separate T-270 check; identical full keys share one relation, divergent symbolic refs require distinct relations, and equal id/version coordinates conserve the same definition carrier under current law; the T-252/M03 source family, T-274B delivery, and Scenario-09 use the same M04 call site and neutral constructor | AF-15 receives capabilities in a separate identity-free engine parameter, asserts the neutral brand, exact-matches them one-to-one to ingress bases, then invokes `admit(IJsonValue) -> IJsonValue` | bounded generic T-270 realization; T-252/M03 owns all public/private/vector keys and sources, T-274B packages the Module and derives/delivers definitions while publishing only nine T-274A assets, and Scenario-09 supplies its proof pair |
-| admit one public invoke value against installed bound schema | public input admission feeding AF-15 | existing `admitCatalogGraphFunctionInput` plus construction of existing M03 carrier set | same canonical admitted value retained in prepared truth until final ingress after AF-14 | bound input read only when `inputRef` is used; no runtime effect | bounded T-270 realization delta |
+| admit one public invoke value against installed bound schema | public input admission feeding AF-15 | existing `admitCatalogGraphFunctionInput` during preparation, then existing M03 carrier-set construction after the selected binding exists | canonical admitted inline P1 value is retained in prepared truth without a source mapping; the finalizer binds it to the exact single source Node from the post-AF-14 selected binding | no runtime effect; P2 `inputRef` resolution is outside this seam | bounded T-270 realization delta |
 | map one public value to multiple ordered source Nodes | AF-15 input admission | no lawful function without a declared value-to-source mapping | unresolved | none | `semantic_not_realized`, owner T-270 requirement/design re-entry |
 | make admitted payload bodies available at one locus | AF-15 invocation under admitted input/result truth | immutable runtime value environment projects exact ordered existing carrier set | subordinate projection from sealed root set or admitted outputs | none | bounded T-270 realization delta |
 | checkpoint an exact F_H-held environment for same-locus continuation | AF-15/T-272 held boundary | derive one dependency-leaf neutral event basis after held receipt and cursor admission, include its complete content in existing `interactionBasisDigest`, verify exact cursor ref/digest and input payload/lineage refs, then reconstruct on `run.continue` | one subordinate contracts-owned value over existing primitive receipt/cursor coordinates and canonical I-JSON rows; no checkpoint identity | existing F_H-opened event only; no new event or store | bounded T-270 prerequisite consumed by T-272 |
@@ -844,8 +855,9 @@ this negative gate.
 
 ```ts
 interface RunInvokeExecutionIngressBasis {
-  // Admission enforces invoke => one single-source set, start => null.
-  // Raw public input and filesystem/effect callbacks are absent.
+  // Post-AF-14 finalization enforces invoke => one selected-binding-derived
+  // single-source set, start => null. Raw public input and filesystem/effect
+  // callbacks are absent.
   readonly admittedInputCarriers: AdmittedInvocationCarrierSet | null;
   readonly installedPublicInputSchemas:
     InstalledPublicSchemaAuthoritySet | null;
@@ -1011,7 +1023,7 @@ interface PreparedRunInvokeExecution<D extends PrivateRunInvokeP1Definition> {
   readonly af13Constraint: RunInvokeAf13Constraint;
   readonly installedPublicSchemaAuthoritySet:
     InstalledPublicSchemaAuthoritySet | null;
-  readonly invocationCarriers: AdmittedInvocationCarrierSet | null;
+  readonly admittedInvokeValue: IJsonValue | null;
 }
 
 interface FinalizedRunInvokeExecution {
@@ -1047,14 +1059,17 @@ function compileTraversalExecutionFamilyForRuntime(input: {
 // These are the sole P1 integration calls in
 // app/m04/public_contracts/private_public_operation_ingress.ts. Preparation
 // loads bound manifests/schema assets through context.effects and admits the
-// canonical invoke input value, but returns only process-local prepared truth.
+// inline P1 invoke input value, but returns only process-local prepared truth
+// without a source Node or carrier set. P2 inputRef resolution is outside this
+// seam.
 // The admitted program consumes its constraint through AF-13 and AF-14.
 // Finalization derives one unique ready session entry from their selected
-// GraphFunction, uses the existing selected-entry resolver, exact-checks the
-// source-definition relations, projects M04 bases/capabilities, seals neutral
-// ingress, and returns the selected binding and identity-free engine input
-// beside it. Neither seam selects from a request string. P2 later invokes these
-// same seams.
+// GraphFunction, uses the existing selected-entry resolver, derives the exact
+// single source Node from that binding, constructs the existing carrier set,
+// exact-checks the source-definition relations, projects M04 bases/capabilities,
+// seals neutral ingress, and returns the selected binding and identity-free
+// engine input beside it. Neither seam selects from a request string. P2 may
+// later invoke these same seams only after its separate inputRef resolution.
 // After AF-14, compileTraversalExecutionFamilyForRuntime invokes one shared compiler core.
 // Its semantic compiler enforces operator !== null exactly for ordinary and
 // workflow loci, operator === null exactly for structural_hof_fan_out loci,
@@ -1343,7 +1358,8 @@ reconstruct an actual value.
 
 Native constructability is complete for a generic uninterrupted single-source
 invocation and exact same-locus F_H continuation: root admission, immutable
-value propagation, exact F_D binding, strict F_P value admission, held-receipt
+value propagation, post-selection source-Node binding, exact F_D binding,
+strict F_P value admission, held-receipt
 checkpointing, event-contained reconstruction, routing, and callback shape all
 have native interfaces and admission owners. The motivating program remains
 `semantic_not_realized` until T-274B delivers the exact canonical Module/native
@@ -1365,11 +1381,14 @@ scan must find no feature-specific routing vocabulary.
 Ingress validates the definition, operation variant, schema, binding,
 invocation authority, program reference, view, and input. For `invoke`, it
 reads the already bound installed schema asset, verifies the bound digest,
-uses `admitCatalogGraphFunctionInput`, and seals the accepted actual value into
-the existing M03 `AdmittedInvocationCarrierSet`. It appends admission truth and
-ignites the admitted program. It never passes raw input across the boundary,
-selects a catalog member, constructs an intent, or calls the interpreter
-directly.
+uses `admitCatalogGraphFunctionInput`, and retains the canonical admitted inline
+P1 value process-locally without a source-Node mapping or carrier set. It
+appends admission truth and ignites the admitted program. Only the post-AF-14
+finalizer may bind that value to the exact single source Node of the selected
+catalog execution binding and seal it into the existing M03
+`AdmittedInvocationCarrierSet`. Ingress never passes raw input across the
+boundary, selects a catalog member, constructs an intent, or calls the
+interpreter directly. P2 `inputRef` resolution remains outside this seam.
 
 The current published contract binds one whole input value and an ordered
 source-interface row set, but declares no value-to-source decomposition. A
@@ -1699,7 +1718,7 @@ inferred by order, object key, schema ref, or duplication.
     {"candidate": "ConstructionObservationSnapshotMaterializedEvent", "verdict": "promote", "reason": "The existing replay event independently records the exact snapshot identity at one canonical admission ordinal."},
     {"candidate": "NextActionProjection", "verdict": "promote", "reason": "AF-13 independently admits selected-or-no-action truth and its causal basis."},
     {"candidate": "ConstructionIntent", "verdict": "promote", "reason": "AF-14 independently admits the selected program-owned action before invocation."},
-    {"candidate": "AdmittedInvocationCarrierSet", "verdict": "promote", "reason": "The existing M03 set is independently admitted as the exact actual-value input to T-256; M04 seals it into neutral ingress without creating a new semantic authority source."},
+    {"candidate": "AdmittedInvocationCarrierSet", "verdict": "promote", "reason": "The existing M03 set is independently admitted as the exact actual-value input to T-256; the post-AF-14 selected binding supplies its exact source Node before M04 seals it into neutral ingress, without creating a new semantic authority source."},
     {"candidate": "CompiledExecutionContextContract", "verdict": "promote", "reason": "Each declared F_P or F_H locus independently owns one payload-free static context contract before start."},
     {"candidate": "DeclaredExecutionRequest", "verdict": "promote", "reason": "Each declared F_P or F_H locus independently pattern-matches one exact request only after its admitted payload exists."},
     {"candidate": "TraversalExecutionAdmissionRuntimeAddressable", "verdict": "promote", "reason": "T-267 independently admits the complete no-effect static traversal and result-authority basis."},
@@ -1819,9 +1838,10 @@ existing event payload create no eighteenth semantic authority.
 Native constructability is present for the generic uninterrupted path.
 Canonical runtime
 events and D-ordinal helpers support current-observation derivation. Existing
-M04 installed-product effects already read bound manifests, schema assets, and
-input assets; stable digests verify their content, and
-`admitCatalogGraphFunctionInput` validates the actual I-JSON value. The bounded
+M04 installed-product effects read bound manifests and schema assets; stable
+digests verify their content, while the current P1 request supplies its input
+inline and `admitCatalogGraphFunctionInput` validates that actual I-JSON value.
+P2 `inputRef` resolution remains outside this seam. The bounded
 delta prepares the installed public input schema set once in
 `preparePrivateRunInvokeExecution` for the request-constrained candidate public
 input schema row, instead of adding a reader to M03 or sealing final ingress.
@@ -1840,7 +1860,8 @@ the neutral brand, and requires an exact one-to-one basis match before invoking
 one. No installed public asset, serialized callable, persisted function, M04
 import, or string comparison substitutes. Existing
 `AdmittedInvocationCarrierSet` and
-`AdmittedInvocationCarrier` types seal that accepted single-source value across
+`AdmittedInvocationCarrier` types seal that accepted single-source value only
+after the post-AF-14 selected binding supplies its source Node; they then cross
 the neutral ingress and support the private value environment. The shared
 T-267 compiler drafts already carry the exact GraphVector, source input,
 complete plan, context, and result authority needed to derive the private
@@ -1937,8 +1958,11 @@ classDiagram
     +admittedInvocation
     +exactViewAndProgram
     +requestConstraint
-    +optionalInvokeRootCarriers
+    +optionalInstalledPublicSchemaSet
+    +optionalCanonicalAdmittedInvokeValue
     -noSelectedBinding
+    -noSourceNodeMapping
+    -noRootCarrierSet
     -noIngressSeal
   }
   class RunInvokeAf13Constraint {
@@ -2008,7 +2032,6 @@ classDiagram
     <<existing M04 context>>
     +binding
     +effects.readRecord
-    +effects.readInputAsset
   }
   class InstalledPublicSchemaAuthoritySet {
     <<subordinate>>
@@ -2086,6 +2109,12 @@ classDiagram
   class CatalogInputAdmission {
     <<existing authoritative>>
     -admitCatalogGraphFunctionInput
+  }
+  class CanonicalAdmittedInvokeValue {
+    <<subordinate process local value>>
+    +IJsonValue
+    -noIdentity
+    -noSourceNodeMapping
   }
   class AdmittedInvocationCarrierSet {
     <<prime>>
@@ -2405,9 +2434,9 @@ classDiagram
   SerializedInputContract --> InstalledPublicSchemaAuthoritySet : outer root schema member
   PublicInvocationRunInvoke --> CatalogInputAdmission : supplies invoke value only
   InstalledPublicSchemaAuthoritySet --> CatalogInputAdmission : exact content and digest
-  CatalogInputAdmission --> AdmittedInvocationCarrierSet : admits single source value
+  CatalogInputAdmission --> CanonicalAdmittedInvokeValue : admits inline P1 value without source mapping
   AdmittedInvocationCarrierSet "1" *-- "1" AdmittedInvocationCarrier : current constructable mapping
-  PreparedRunInvokeExecution "1" *-- "0..1" AdmittedInvocationCarrierSet : invoke one start none
+  PreparedRunInvokeExecution "1" *-- "0..1" CanonicalAdmittedInvokeValue : invoke one start none
   PreparedRunInvokeExecution "1" *-- "0..1" InstalledPublicSchemaAuthoritySet : invoke one start none
   RunInvokeAf13Constraint --> NextActionProjection : constrains candidate universe only
   WorkspaceBinding --> ConstructionObservationSnapshot : stable authority for
@@ -2429,6 +2458,10 @@ classDiagram
   NextActionProjection --> RegistrySessionGraphFunctionEntry : selected GraphFunction derives unique member
   ConstructionIntentAdmission --> RegistrySessionGraphFunctionEntry : confirms same GraphFunction
   RegistrySessionGraphFunctionEntry --> SelectedCatalogExecutionBinding : existing entry resolver exact once
+  SelectedCatalogExecutionBinding --> AdmittedInvocationCarrierSet : exact single source Node constructs invoke set
+  CanonicalAdmittedInvokeValue --> AdmittedInvocationCarrierSet : supplies admitted value after selection
+  FinalizedRunInvokeExecution --> AdmittedInvocationCarrierSet : constructs before final ingress
+  AdmittedRunInvokeExecutionIngress "1" *-- "0..1" AdmittedInvocationCarrierSet : invoke one start none
   SelectedCatalogExecutionBinding --> CatalogDeclarationModuleBinding : exact admitted closure
   CatalogDeclarationModuleBinding --> M04RuntimeSchemaAdmissionMetadataRow : Module metadata owns sealed flat key row
   M04RuntimeSchemaAdmissionMetadataRow --> M04RuntimeSchemaAdmissionProjector : contributes complete Module relation key family
@@ -2578,18 +2611,13 @@ sequenceDiagram
     else exact installed public input schema
       PublicSchema-->>Ingress: sealed immutable public schema authority set
     end
-    Ingress->>Context: obtain native input or readInputAsset
-    Context-->>Ingress: canonical request value
-    Ingress->>InputAdmission: admitCatalogGraphFunctionInput schema and native admitted request value
+    Ingress->>InputAdmission: admitCatalogGraphFunctionInput schema and inline P1 request value
     alt schema or value malformed
       InputAdmission-->>Ingress: typed input refusal
-    else more than one source and no declared value mapping
-      InputAdmission-->>Ingress: semantic_not_realized multi source mapping gap
-    else exact single source
-      InputAdmission-->>Ingress: accepted schema and value
-      Ingress->>RootCarriers: construct existing M03 set with exact Node schema ref digest admission and value
-      RootCarriers-->>Ingress: sealed carrier set
+    else canonical input admitted
+      InputAdmission-->>Ingress: canonical admitted IJsonValue with no source Node mapping
     end
+    Note over Ingress,Prepared: P2 inputRef resolution is outside this seam
   end
   Ingress->>Ingress: validate definition schema binding authority program and view
   alt public admission fails
@@ -2638,6 +2666,17 @@ sequenceDiagram
         Finalizer-->>ABG: no ingress no engine input
       end
       BindingResolver-->>Finalizer: exact CatalogExecutionBinding
+      opt invoke variant
+        Finalizer->>Finalizer: derive exact source interface from selected binding GraphFunction inputs
+        break selected GraphFunction has zero source Nodes
+          Finalizer-->>ABG: typed zero-effect invoke input refusal
+        end
+        break selected GraphFunction has multiple sources without declared value mapping
+          Finalizer-->>ABG: semantic_not_realized multi source mapping gap
+        end
+        Finalizer->>RootCarriers: construct existing M03 set from prepared admitted value and exact source Node schema
+        RootCarriers-->>Finalizer: sealed carrier set
+      end
       Finalizer->>M04Projector: projectM04RuntimeSchemaAdmission with selected binding and relation family
       break metadata definition source origin or coordinate relation rejects
         M04Projector-->>Finalizer: typed zero-effect schema authority refusal
@@ -2802,10 +2841,9 @@ stateDiagram-v2
   Proposed --> OperationPrepared: start has no public root schema or value
   InstalledPublicInputSchemaPreparing --> InvocationRefused: manifest public schema row path or digest rejects
   InstalledPublicInputSchemaPreparing --> OperationPrepared: immutable public input schema set sealed
-  OperationPrepared --> InvokeInputAdmitting: invoke obtains and admits exact root value
+  OperationPrepared --> InvokeInputAdmitting: invoke admits inline P1 value against installed root schema
   InvokeInputAdmitting --> InvocationRefused: schema digest or value admission rejects
-  InvokeInputAdmitting --> InputMappingUnrealized: multiple sources lack declared value mapping
-  InvokeInputAdmitting --> InvokeInputAdmitted: one source value admitted and carrier set sealed
+  InvokeInputAdmitting --> InvokeInputAdmitted: canonical value retained without source Node mapping
   InvokeInputAdmitted --> InvocationRefused: remaining definition binding authority or view invalid
   InvokeInputAdmitted --> InvocationPrepared: public invoke preparation succeeds without final ingress
   OperationPrepared --> InvocationRefused: start definition binding authority or view invalid
@@ -2824,7 +2862,11 @@ stateDiagram-v2
   SelectedCatalogEntryDeriving --> SelectionAuthorityRefused: zero multiple outside view or AF13 AF14 mismatch
   SelectedCatalogEntryDeriving --> SelectedCatalogBindingResolving: one exact admitted entry
   SelectedCatalogBindingResolving --> SelectionAuthorityRefused: existing resolver refuses or binding differs
-  SelectedCatalogBindingResolving --> M04SchemaCapabilitiesProjecting: exact selected binding
+  SelectedCatalogBindingResolving --> InvokeRootCarrierConstructing: invoke exact selected binding
+  SelectedCatalogBindingResolving --> M04SchemaCapabilitiesProjecting: start exact selected binding has no root value
+  InvokeRootCarrierConstructing --> InvocationRefused: zero source Nodes violate invoke input contract
+  InvokeRootCarrierConstructing --> InputMappingUnrealized: multiple sources lack declared value mapping
+  InvokeRootCarrierConstructing --> M04SchemaCapabilitiesProjecting: exact single source Node constructs sealed carrier set
   M04SchemaCapabilitiesProjecting --> ExecutionAuthorityBlocked: metadata native definition exact source relation or capability projection rejects
   M04SchemaCapabilitiesProjecting --> FinalIngressAdmitting: ordered sealed bases and identity free engine input exist
   FinalIngressAdmitting --> ExecutionAuthorityBlocked: final authority equality rejects
@@ -2942,12 +2984,12 @@ delta without reopening unchanged accepted rows above.
 | C5 F_D/F_P/F_H interiors remain distinct and admitted | existing fibre and Operator laws | Operator implementation/plugin/interaction owners; AF-15 owns execution envelope | three distinct interior relations, one generic adapter | explicit fibre alternatives and strict result admission; F_H receipt/checkpoint then existing interaction admission | FdImplementationResolving, FpExecuting, HeldEnvironmentCheckpointing, and HumanHeld are distinct | closed request/result unions and checkpoint type | exact Operator binding, plugin capability and F_P envelope, F_H request/receipt/locus/checkpoint admission | pass | T-270 realization |
 | C6 AF-16 and T-272 ownership is preserved | parent One Surface AF-16 and held-continuation law | AF-16 evaluates evidence; T-272 responds/continues | action evaluation and continuation remain downstream | router returns evidence or held truth only; AF-15 checkpoints but never responds/continues | RuntimeCompleted/Blocked/Failed enter ActionEvaluated; HumanHeld enters only admitted run.continue reconstruction | closed outcome variants | owner-specific admission and no auto-response | pass | T-270/T-272 boundary |
 | C7 genericity is proved outside the motivating product function | PRODUCT atom criterion | fixture owns no runtime authority | Scenario09LabProgram uses same admitted program/router | fixture enters same public ingress and structural route | same lifecycle states | no feature-specific generic type or branch | source/name scan plus mixed/nested fixture | pass | T-270 proof |
-| C8 unrealized substrate is reported honestly | Goedel boundary and semantic gap law | no self-produced witness may admit itself | named gaps, no phantom carrier or inferred multi-source mapping | input mapping, unsupported general rehydration, or unrecognized/unrealized route stops before effect | InputMappingUnrealized, ValueEnvironmentUnrealized, StructureUnrealized, and LocusRequestBlocked are terminal here | exhaustive native default cannot fabricate support | semantic compiler/runtime emits named `semantic_not_realized` | pass | T-270 realization |
+| C8 unrealized substrate is reported honestly | Goedel boundary and semantic gap law | no self-produced witness may admit itself | named gaps, no phantom carrier or inferred multi-source mapping | post-selection input mapping, unsupported general rehydration, or unrecognized/unrealized route stops before effect | InputMappingUnrealized, ValueEnvironmentUnrealized, StructureUnrealized, and LocusRequestBlocked are terminal here | exhaustive native default cannot fabricate support | semantic compiler/runtime emits named `semantic_not_realized` | pass | T-270 realization |
 | C9 defense is proportional to trusted desktop risk | proportionality law | no speculative authority added | no lock/signature/archive/store carrier | malformed/stale inputs refuse; hostile-process hardening absent | refusal states cover likely faults | native shape/digest checks | strict F_P admission and compiler/global joins | pass | separate demand for hostile hardening |
 | C10 F_D execution resolves only the exact declared Operator binding | OPERATOR-004 and C-ALGEBRA-010 | admitted GTL Operator owns the primary binding ref; delivery row owns none | declared Operator prime plus subordinate implementation binding | binding lookup precedes full program/stage/fibre/arm/carrier/schema admission, total function, and target admission | FdImplementationResolving precedes TargetValueAdmitting | F_D-only total I-JSON function type and immutable delivery set | exact operator identity, selected program, stage role, fibre, arm, ordered input/output carriers, and ordered schemas; zero-or-many complete matches refuse | pass | T-270 generic resolver; T-275 motivating rows |
 | C11 F_P output becomes a value only after both wire and target admission | existing F_P/result and target-carrier law | plugin cannot admit its own result | wire envelope, target admission, carrier, and environment remain distinct | plugin result enters envelope admission then target-schema admission then environment | FpExecuting precedes TargetValueAdmitting and ValueEnvironmentExtending | closed envelope union and readonly admitted carrier | selected contract, capability, assessments, target schema, result authority, and digest checks | pass | T-270 integration; owning domain family supplies decoder |
 | C12 admitted bodies cross an F_H hold only through the exact neutral checkpoint | replay/continuation and Goedel law | environment owns no replay authority; existing opened event owns replay truth and the sole digest | dependency-leaf checkpoint is subordinate event content with no identity/digest; general rehydration gap remains distinct | held receipt and cursor precede neutral basis and interaction open; run.continue verifies exact opened event/body before same-locus reconstruction | HeldEnvironmentCheckpointing and HeldEnvironmentReconstructing are distinct from unsupported ValueEnvironmentRehydrating | readonly primitive/I-JSON contracts type; adapters above contracts prove owner equality; no ref-to-value cast or ambient callback | interaction-basis digest plus invocation/basis/graph-call/frame/plan/receipt/cursor ref-digest/input payload-lineage/locus and ordered body equality; absent/mutated basis refuses, other absent bodies emit the named gap | pass | T-270 checkpoint basis; T-272 consumption |
-| C13 public and graph-private schema authorities remain distinct and total | installed-product, admitted-module, and native-contract law | M04 bound public manifest owns outer input body; Module metadata names only flat contract keys; opaque NativeContractDefinition owns full graph-private schema meaning; AF-15 owns neither | one optional process-local candidate public input set, one complete T-252/M03 public/private/vector schema-key/source family, one flat metadata row family, one exact source-definition origin relation retained opaquely, one total M04 metadata/native projector, ordered sealed capability bases in final admitted ingress, and one identity-free process-local AF-15 envelope carrying neutral branded callables outside every stable hash; no schema store or registry | pre-AF-13 preparation projects only request constraints; AF-13/AF-14 derive the exact GraphFunction; one admitted view entry and the existing resolver derive the selected catalog binding; T-274B packages the exact Module and derives/delivers definitions; `projectM04RuntimeSchemaAdmission` verifies every Module tuple against the exact-identity union of GraphFunction inputs, outputs, environment requires/provides/carries, and inline-graph nodes, admits one exact source-definition relation per distinct full symbolic-ref/id/version key all-or-nothing, and only then projects selected-GraphFunction bases and engine input; identical full keys reuse one relation, divergent symbolic refs require distinct relations, and equal id/version coordinates conserve the same definition carrier under current law; post-AF-14 M03 asserts every neutral brand, exact-matches capabilities one-to-one to admitted bases and reachable symbolic refs, then invokes | InstalledPublicInputSchemaPreparing precedes AF-13; SelectedCatalogEntryDeriving, SelectedCatalogBindingResolving, M04SchemaCapabilitiesProjecting, and FinalIngressAdmitting follow AF-14 and precede SchemaCapabilitiesMatching, ReachableSchemaValidating, and ExecutionAuthorityAdmitted | M04 alone imports SerializedAttrs/native/public-coordinate/Valibot types; the T-270 neutral path exposes only primitive/I-JSON basis, neutral constructor/assertion, engine envelope, and `IJsonValue -> IJsonValue`; unrelated lawful M03 Valibot imports remain outside this gate | exact five-field metadata shape and total contained-Node coverage; all Module relation keys admitted before selected projection; product-root public row/body/digest equality; exact selected-entry/binding equality; exact source-definition object relation; exact catalog binding, contract key, full coordinate/witness basis digest, neutral WeakSet brand, exact one-to-one admitted-basis/capability match, and zero/many/extra/mismatch/reforged refusal; cloned/relabelled source rows, relation reuse across divergent symbolic refs, and full coordinate/locator/witness/callable metadata fields refuse, and callable remains excluded from every seal | pass | T-270 total M04 projector and neutral M03/shared basis/capability/envelope; T-252/T-274B and Scenario-09 inputs |
+| C13 public and graph-private schema authorities remain distinct and total | installed-product, admitted-module, and native-contract law | M04 bound public manifest owns outer input body; Module metadata names only flat contract keys; opaque NativeContractDefinition owns full graph-private schema meaning; AF-15 owns neither | one optional process-local candidate public input set and canonical admitted inline P1 value without source mapping, one selected-binding-derived root carrier set, one complete T-252/M03 public/private/vector schema-key/source family, one flat metadata row family, one exact source-definition origin relation retained opaquely, one total M04 metadata/native projector, ordered sealed capability bases in final admitted ingress, and one identity-free process-local AF-15 envelope carrying neutral branded callables outside every stable hash; no schema store or registry | pre-AF-13 preparation admits only the inline value and projects request constraints; AF-13/AF-14 derive the exact GraphFunction; one admitted view entry and the existing resolver derive the selected catalog binding; the finalizer derives the exact single source Node and constructs the existing carrier set before ingress; T-274B packages the exact Module and derives/delivers definitions; `projectM04RuntimeSchemaAdmission` verifies every Module tuple against the exact-identity union of GraphFunction inputs, outputs, environment requires/provides/carries, and inline-graph nodes, admits one exact source-definition relation per distinct full symbolic-ref/id/version key all-or-nothing, and only then projects selected-GraphFunction bases and engine input; identical full keys reuse one relation, divergent symbolic refs require distinct relations, and equal id/version coordinates conserve the same definition carrier under current law; post-AF-14 M03 asserts every neutral brand, exact-matches capabilities one-to-one to admitted bases and reachable symbolic refs, then invokes | InstalledPublicInputSchemaPreparing and InvokeInputAdmitting precede AF-13 without source mapping; SelectedCatalogEntryDeriving, SelectedCatalogBindingResolving, InvokeRootCarrierConstructing, M04SchemaCapabilitiesProjecting, and FinalIngressAdmitting follow AF-14 and precede SchemaCapabilitiesMatching, ReachableSchemaValidating, and ExecutionAuthorityAdmitted | M04 alone imports SerializedAttrs/native/public-coordinate/Valibot types; the T-270 neutral path exposes only primitive/I-JSON basis, neutral constructor/assertion, engine envelope, and `IJsonValue -> IJsonValue`; unrelated lawful M03 Valibot imports remain outside this gate | exact five-field metadata shape and total contained-Node coverage; all Module relation keys admitted before selected projection; product-root public row/body/digest equality; exact selected-entry/binding and selected source-Node equality; exact source-definition object relation; exact catalog binding, contract key, full coordinate/witness basis digest, neutral WeakSet brand, exact one-to-one admitted-basis/capability match, and zero/many/extra/mismatch/reforged refusal; zero-source invoke and undeclared multi-source mapping stop before ingress; cloned/relabelled source rows, relation reuse across divergent symbolic refs, and full coordinate/locator/witness/callable metadata fields refuse, and callable remains excluded from every seal | pass | T-270 total M04 projector and neutral M03/shared basis/capability/envelope; T-252/T-274B and Scenario-09 inputs |
 | C14 Operator conservation is compiler-derived, not runtime selection | OPERATOR-003..005 and C-ALGEBRA-010 | authored GraphVector owns Operator truth; compiler projects it; runtime authors none | non-null ordinal/digest projection per ordinary/workflow executable locus; structural HOF wrapper locus has null exactly | compiler rejects zero/multiple same-regime matches, unmapped authored Operators, null ordinary/workflow projections, and non-null structural projections; workflow/F_P/F_H conserve evidence without using it as a selector | OperatorConserving precedes basis and fibre dispatch | readonly nullable projection whose discriminant relation is compiler-proven | ordinal/content digest equality, ordinary/workflow cardinality, all-authored coverage, structural-wrapper zero/null, and workflow non-invocation | pass | T-270 shared compiler core |
 | C15 heterogeneous runtime results retain their owners | existing complete-C, HOF, recurse, AF-16, and F_H laws | each runtime owns its result; T-270 owns only a private wrapper and total fold | closed wrapper union plus subordinate fold output | route returns one unchanged actual result; exhaustive fold sends admitted evidence, held truth, or typed nonterminal to the existing owner | RuntimeOutcomeProduced precedes OutcomeFolding; completed/blocked/failed/pending/held remain distinct | closed discriminated unions and `never` exhaustion; no result assertion | owner-produced evidence only; no `EngineIterateResult` cast or manufactured closure | pass | T-270 realization |
 | C16 F_H same-locus continuation adds no store, event family, or controller | existing F_H-opened event and T-272 continuation law | T-271 owns held receipt and cursor; existing interaction event owns replay truth and sole digest; T-272 owns response/continue | one dependency-leaf neutral basis nested in the existing event | held result -> receipt/cursor -> neutral basis -> interaction open; run.continue verifies event/body and reconstructs before same-locus replacement | HumanHeld can enter HeldEnvironmentReconstructing only through admitted continuation | contracts-owned frozen primitive/I-JSON basis plus exact upper adapters | interaction-basis digest, current intent, continuation, basis, graph call, frame, plan, receipt, cursor ref/digest, input payload/lineage refs, C-call, vector/task/retry, and ordered row equality | pass | T-270 prerequisite; T-272 consumer |
@@ -3014,6 +3056,13 @@ delta without reopening unchanged accepted rows above.
     mismatch, cloned or relabeled source row, contract-id/version mismatch, or
     schema-coordinate/source/projection-witness mismatch refuses in M04 after
     AF-14 and before final admitted ingress.
+    Pre-AF-13 preparation admits only the inline P1 value and exposes neither
+    `readInputAsset` nor a source-Node mapping or carrier set; P2 `inputRef`
+    resolution is outside this seam. After the exact selected binding exists,
+    zero source Nodes refuse the invoke contract, exactly one source Node
+    constructs the existing carrier set from the prepared canonical value, and
+    multiple source Nodes without a declared mapping yield
+    `gap://abg/t270/multi-source-root-input-mapping` before final ingress.
     Catalog binding, AF-14 program, GraphFunction/Node/symbolic-schema, neutral
     basis digest, missing/extra/duplicate capability or admitted basis,
     non-one-to-one basis pairing, or unbranded/reforged capability refuses in
@@ -3079,14 +3128,10 @@ delta without reopening unchanged accepted rows above.
 
 ## Design Verdict
 
-`fh_accepted_for_implementation`. The previously accepted T-270 boundary and
-current-observation repair remain valid outside this bounded constructability
-amendment. This acceptance authorizes only the immutable invocation-local value
-environment, exact F_D Operator resolver, target-carrier extension rule, one
-structure-derived router, and one generic leaf adapter described here, within
-the corrected unchanged 17-to-17 authority-source boundary and subject to independent
-implementation closure review. This acceptance does not claim the motivating program
-executable before T-274B schema delivery and T-275 stdlib/profile/result
-bindings or claim general
-replay/continuation support beyond the exact event-contained F_H checkpoint
-path; unsupported non-checkpoint rehydration remains the named gap.
+`fh_accepted_for_implementation`. The previously accepted T-270 boundary,
+current-observation repair, AF-15 schema-capability boundary, and AF-13/AF-14
+ingress ordering remain valid outside this bounded constructability amendment.
+This amendment changes only when the existing invoke root carrier set may be
+constructed: after the selected binding supplies its exact source Node, never
+during pre-AF-13 preparation. It leaves the 17-to-17 authority-source count, 20-member IACS,
+public identities, operations, and downstream gaps unchanged.

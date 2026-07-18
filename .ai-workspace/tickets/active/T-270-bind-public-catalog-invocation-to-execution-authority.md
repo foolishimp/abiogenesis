@@ -5,9 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: af13_af14_ingress_order_design_accepted_runtime_authorized
+- phase_status: post_af14_root_carrier_constructability_design_accepted_runtime_authorized
 - review_status: independent_review_accepted_fh_authority_accepted
-- proof_status: accepted_design_runtime_integration_pending
+- proof_status: accepted_design_sunny_day_runtime_integration_pending
 - delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -74,16 +74,22 @@
 - prior_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T062747Z_DECISION_fh_accept_t270_reconciled_run_invoke_design.md
-- design_acceptance_ref: >-
+- accepted_ingress_order_design_ref: >-
     .ai-workspace/comments/codex/
     20260718T070154Z_DECISION_t270_ingress_order_design_acceptance.md
-- design_self_review_ref: >-
+- design_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T074352Z_DECISION_t270_post_af14_root_carrier_acceptance.md
+- prior_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T014552Z_SELF_REVIEW_t270_boundary_checkpoint_reconciliation.md
-- constructability_design_status: bounded_af13_af14_ingress_order_amendment_accepted
-- constructability_design_digest: 17e1e0a3fe35e26def51c49ea67d9f58d4316ca41bcc87266fcf058a541a4421
-- accepted_constructability_design_digest: 17e1e0a3fe35e26def51c49ea67d9f58d4316ca41bcc87266fcf058a541a4421
+- constructability_design_status: bounded_post_af14_root_carrier_constructability_amendment_accepted
+- constructability_design_digest: a489bf238a99f78ef350098d86ba079044948b7bf6a7b8a13efbdc275ee354cf
+- accepted_constructability_design_digest: a489bf238a99f78ef350098d86ba079044948b7bf6a7b8a13efbdc275ee354cf
 - constructability_review_and_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T074352Z_DECISION_t270_post_af14_root_carrier_acceptance.md
+- accepted_ingress_order_constructability_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T070154Z_DECISION_t270_ingress_order_design_acceptance.md
 - runtime_schema_implementation_self_review_ref: >-
@@ -101,8 +107,9 @@ family. Only then may the public runtime-integration milestone below resume.
 
 Public ingress validates, admits, and transports one `run.invoke` request. Its
 pre-AF-13 preparation is process-local only: it may admit bound product
-manifests, a request-constrained candidate public input schema, and one invoke
-root value/carrier set, but it cannot resolve a catalog execution binding,
+manifests, a request-constrained candidate public input schema, and one
+canonical admitted inline P1 invoke value without a source-Node mapping or
+carrier set, but it cannot resolve a catalog execution binding,
 project M04 schema capabilities, seal final execution ingress, mint a witness,
 or authorize an effect. The admitted GTL program owns AF-11 through AF-16
 ordering. `invoke` projects one exact admitted-member constraint into AF-13;
@@ -165,9 +172,11 @@ bounded amendment receives explicit F_H acceptance.
 Private async pre-AF-13 M04 preparation must load exact bound product manifests
 through `BoundWorkspaceContext`. For `invoke`, it loads only the
 request-constrained candidate public input schema asset, verifies its root and
-digest, and retains one immutable `InstalledPublicSchemaAuthoritySet` plus the
-single-source `AdmittedInvocationCarrierSet` process-locally; `start` has no
-public root schema set or value. Preparation returns no final ingress, selected
+digest, admits the inline P1 request value, and retains one immutable
+`InstalledPublicSchemaAuthoritySet` plus the canonical admitted `IJsonValue`
+process-locally without selecting or inferring a graph-private source Node;
+`start` has no public root schema set or value. P2 `inputRef` resolution is
+outside this seam. Preparation returns no carrier set, final ingress, selected
 execution binding, schema-capability basis, engine input, witness, or effect
 authority. Installed public assets do not own graph-private Node schemas.
 
@@ -220,11 +229,14 @@ M04/native/public-coordinate/Valibot/witness types; unrelated lawful M03
 Valibot imports are outside this negative gate. Output is admitted only through
 the bounded function. The function and envelope are excluded from basis
 digest, identity, persistence, replay, registry, and ambient lookup. For
-`invoke`, pre-AF-13 M04 preparation also calls
-`admitCatalogGraphFunctionInput` and constructs the existing single-source
-`AdmittedInvocationCarrierSet` from the same canonical admitted value; the
-post-AF-14 finalizer seals that unchanged set into final ingress. `start`
-carries no root value. Raw input, M03
+`invoke`, pre-AF-13 M04 preparation calls
+`admitCatalogGraphFunctionInput` and retains the same canonical admitted value
+without a source mapping. Only after the post-AF-14 selected binding exists
+does the finalizer derive its exact source interface and construct the
+existing single-source `AdmittedInvocationCarrierSet`; zero source Nodes
+refuse and multiple source Nodes without an explicit mapping retain
+`gap://abg/t270/multi-source-root-input-mapping`. `start` carries no root
+value. Raw input, M03
 filesystem reads, and implicit multi-source decomposition are forbidden; a
 multi-source contract without an explicit value mapping remains
 `gap://abg/t270/multi-source-root-input-mapping`.
@@ -285,9 +297,12 @@ existing event's `interactionBasisDigest` is the sole seal. It adds no store,
 event family, controller, public identity, selector, or authority source.
 `PreparedRunInvokeExecution` and `FinalizedRunInvokeExecution` are private
 process-local wrappers over existing authorities, not addressable carriers:
-the former retains pre-AF-13 request truth and the latter returns final ingress,
-the existing selected binding, and the identity-free AF-15 engine input after
-AF-14. They add no semantic authority or IACS member. `FdOperatorImplementationBinding` remains subordinate engine-delivery wiring
+the former retains pre-AF-13 request truth, installed schema truth, and the
+canonical admitted inline value without a source mapping; the latter derives
+the exact source Node from the post-AF-14 selected binding, constructs the
+existing carrier set, and returns final ingress, that selected binding, and
+the identity-free AF-15 engine input. They add no semantic authority or IACS
+member. `FdOperatorImplementationBinding` remains subordinate engine-delivery wiring
 matched by admitted `Operator.binding` plus the full existing C implementation
 contract. `InstalledPublicSchemaAuthoritySet`,
 the M04 metadata projection, neutral schema capability/basis and identity-free
@@ -322,6 +337,8 @@ be a closure dependency of this generic authority join.
 - no ingress-owned selection, orchestration, closure, or action evaluation;
 - no final execution ingress, selected catalog binding, schema-capability
   projection, witness, or effect authority before AF-13 and AF-14;
+- no pre-AF-13 source-Node inference or `AdmittedInvocationCarrierSet`;
+- no current-P1 `readInputAsset`; P2 `inputRef` resolution remains outside this seam;
 - no request-target string used as selected catalog execution authority;
 - no caller-authored runtime authority;
 - no mutation of the compact T-267 family or conversion of
@@ -359,9 +376,10 @@ be a closure dependency of this generic authority join.
 - [x] reconciled three-view design received independent F_H acceptance
 - [x] prior bounded AF-15 constructability amendment received F_H acceptance
 - [x] bounded AF-13/AF-14 ingress-order amendment received independent F_H acceptance before runtime resumed
-- [ ] async pre-AF-13 M04 preparation retains the exact candidate installed public input schema and invoke root value process-locally without an M03 reader, final ingress, selected binding, capability projection, witness, or effect authority
+- [x] bounded post-AF-14 root-carrier constructability amendment received independent F_H acceptance before runtime resumed
+- [ ] async pre-AF-13 M04 preparation retains the exact candidate installed public input schema and canonical admitted inline P1 invoke value process-locally without an M03 reader, `readInputAsset`, source-Node mapping, carrier set, final ingress, selected binding, capability projection, witness, or effect authority; P2 `inputRef` resolution remains outside this seam
 - [ ] one AF-13 constraint projection covers `invoke` exact member, `start(graph_function)` admitted-session narrowing, `start(asset)` published owner projection or typed gap, and `start(next)` exact admitted view
-- [ ] after AF-14, the selected GraphFunction derives exactly one ready callable session entry; the existing selected-entry resolver supplies the exact catalog binding; zero/multiple/outside-view/noncallable or AF-13/AF-14 mismatches refuse
+- [ ] after AF-14, the selected GraphFunction derives exactly one ready callable session entry; the existing selected-entry resolver supplies the exact catalog binding; for `invoke`, exactly one selected-binding source Node constructs the existing carrier set from the prepared canonical value before final ingress, zero source Nodes refuse, and multiple source Nodes without a declared mapping retain the named gap; zero/multiple/outside-view/noncallable entries or AF-13/AF-14 mismatches refuse
 - [ ] total `projectM04RuntimeSchemaAdmission({ selectedExecutionBinding, nativeDefinitionRelations })` admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields and duplicate or foreign GraphFunction/contained-Node/schema tuples, validates the exact-identity union of inputs, outputs, environment requires/provides/carries, and inline-graph nodes, admits every distinct Module `symbolicSchemaRef + contractId + contractVersion` relation key all-or-nothing before projecting selected-GraphFunction bases and engine input, rejects cloned or relabeled source rows, permits relation reuse only for identical full keys, requires distinct exact relations for divergent symbolic refs even when equal contract coordinates conserve the same definition carrier, projects ordered sealed full-coordinate/witness bases into final admitted ingress after AF-14, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B1 delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B2 publishes only T-274A's nine public assets
 - [ ] the shared compiler core emits compact and private runtime projections once and conserves every locus Operator
 - [ ] immutable runtime-value environment and exact F_D Operator resolver land through generic non-Consensus proof
