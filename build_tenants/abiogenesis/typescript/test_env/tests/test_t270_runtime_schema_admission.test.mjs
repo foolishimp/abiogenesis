@@ -96,16 +96,21 @@ function canonicalMetadataRows(rows) {
 }
 
 function bindingWithMetadataRows(binding, rows) {
+  const replacement = Object.freeze({
+    key: RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+    value: Object.freeze({
+      kind: "json_blob",
+      value: taggedRows(canonicalMetadataRows(rows))
+    })
+  });
   const module = Object.freeze({
     ...binding.module,
     metadata: Object.freeze({
-      entries: Object.freeze([Object.freeze({
-        key: RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
-        value: Object.freeze({
-          kind: "json_blob",
-          value: taggedRows(canonicalMetadataRows(rows))
-        })
-      })])
+      entries: Object.freeze(binding.module.metadata.entries.map((entry) =>
+        entry.key === RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+          ? replacement
+          : entry
+      ))
     })
   });
   return Object.freeze({
@@ -184,7 +189,8 @@ function fixture() {
     definition("observation", fixtureSources.request),
     definition("normalized-observation", fixtureSources.result),
     definition("internal-observation", fixtureSources.request),
-    definition("other-function-input", fixtureSources.refusal)
+    definition("other-function-input", fixtureSources.refusal),
+    definition("other-function-output", fixtureSources.result)
   ]);
   const rows = canonicalMetadataRows([
     {
@@ -207,6 +213,13 @@ function fixture() {
       symbolicSchemaRef: otherGraphFunction.inputs[0].schema.ref,
       contractId: definitions[3].schemaCoordinate.contractId,
       contractVersion: definitions[3].schemaCoordinate.contractVersion
+    },
+    {
+      graphFunctionId: otherGraphFunction.id,
+      nodeRef: otherGraphFunction.outputs[0].id,
+      symbolicSchemaRef: otherGraphFunction.outputs[0].schema.ref,
+      contractId: definitions[4].schemaCoordinate.contractId,
+      contractVersion: definitions[4].schemaCoordinate.contractVersion
     },
     {
       graphFunctionId: graphFunction.id,
@@ -372,11 +385,32 @@ test("T-270 admits the canonical T-252 Module through one neutral metadata order
   assert.equal(definitions.length, 15);
   assert.equal(projection.bases.length, 4);
   assert.equal(projection.engineInput.capabilities.length, 4);
+
+  const selectedRow = rows.find(
+    (row) => row.graphFunctionId === binding.graphFunctionId
+  );
+  const nonSelectedRow = rows.find(
+    (row) => row.graphFunctionId !== binding.graphFunctionId
+  );
+  assert.notEqual(selectedRow, undefined);
+  assert.notEqual(nonSelectedRow, undefined);
+  for (const omittedRow of [selectedRow, nonSelectedRow]) {
+    assert.throws(
+      () => projectM04RuntimeSchemaAdmission({
+        selectedExecutionBinding: bindingWithMetadataRows(
+          binding,
+          rows.filter((row) => row !== omittedRow)
+        ),
+        nativeDefinitions: definitions
+      }),
+      /rows do not exactly cover Module symbolic Node containment/u
+    );
+  }
 });
 
 test("T-270 joins a complete multi-function Module then projects the selected non-Consensus Scenario-09 pair", () => {
   const value = SCENARIO_09_FIXTURE;
-  assert.equal(value.definitions.length, 4);
+  assert.equal(value.definitions.length, 5);
   assert.equal(new Set(value.rows.map((row) => row.graphFunctionId)).size, 2);
   assert.equal(value.projection.bases.length, 3);
   assert.equal(value.projection.engineInput.capabilities.length, 3);

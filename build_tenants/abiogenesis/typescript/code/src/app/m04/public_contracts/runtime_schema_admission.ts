@@ -159,20 +159,24 @@ export function runtimeSchemaAdmissionMetadataRowsFromModule(
   );
 }
 
-function assertMetadataRowsBelongToModule(
+function assertMetadataRowsExactlyCoverModule(
   module: Module,
   rows: readonly RuntimeSchemaAdmissionMetadataRow[]
 ): void {
-  for (const row of rows) {
-    const graphFunctions = module.graphFunctions.filter(
-      (graphFunction) => graphFunction.id === row.graphFunctionId
+  const graphFunctionsById = new Map(
+    module.graphFunctions.map((graphFunction) => [graphFunction.id, graphFunction])
+  );
+  if (graphFunctionsById.size !== module.graphFunctions.length) {
+    throw new TypeError(
+      "runtime schema admission metadata: GraphFunction is outside or ambiguous in Module"
     );
-    const graphFunction = graphFunctions[0];
-    if (graphFunctions.length !== 1 || graphFunction === undefined) {
-      throw new TypeError(
-        "runtime schema admission metadata: GraphFunction is outside or ambiguous in Module"
-      );
-    }
+  }
+  const nodesByGraphFunctionId = new Map<
+    string,
+    Map<string, Module["graphFunctions"][number]["inputs"][number]>
+  >();
+  const expectedTupleKeys = new Set<string>();
+  for (const graphFunction of module.graphFunctions) {
     const containedNodes = [
       ...graphFunction.inputs,
       ...graphFunction.outputs,
@@ -183,10 +187,7 @@ function assertMetadataRowsBelongToModule(
         ? graphFunction.template.graph.nodes
         : [])
     ];
-    const nodesById = new Map<
-      string,
-      (typeof containedNodes)[number]
-    >();
+    const nodesById = new Map<string, (typeof containedNodes)[number]>();
     for (const node of containedNodes) {
       const existing = nodesById.get(node.id);
       if (existing !== undefined && !stableJsonEquals(existing, node)) {
@@ -196,17 +197,49 @@ function assertMetadataRowsBelongToModule(
       }
       nodesById.set(node.id, node);
     }
-    const node = nodesById.get(row.nodeRef);
+    nodesByGraphFunctionId.set(graphFunction.id, nodesById);
+    for (const node of nodesById.values()) {
+      if (node.schema.kind !== "symbolic") continue;
+      expectedTupleKeys.add(runtimeSchemaAdmissionMetadataRowKey({
+        graphFunctionId: graphFunction.id,
+        nodeRef: node.id,
+        symbolicSchemaRef: node.schema.ref
+      }));
+    }
+  }
+
+  for (const row of rows) {
+    const graphFunction = graphFunctionsById.get(row.graphFunctionId);
+    if (graphFunction === undefined) {
+      throw new TypeError(
+        "runtime schema admission metadata: GraphFunction is outside or ambiguous in Module"
+      );
+    }
+    const node = nodesByGraphFunctionId.get(graphFunction.id)?.get(row.nodeRef);
     if (node === undefined) {
       throw new TypeError(
         "runtime schema admission metadata: Node is outside GraphFunction containment"
       );
     }
-    if (node.schema.ref !== row.symbolicSchemaRef) {
+    if (
+      node.schema.kind !== "symbolic" ||
+      node.schema.ref !== row.symbolicSchemaRef
+    ) {
       throw new TypeError(
         "runtime schema admission metadata: symbolic schema ref differs from Node"
       );
     }
+  }
+  const actualTupleKeys = new Set(
+    rows.map(runtimeSchemaAdmissionMetadataRowKey)
+  );
+  if (
+    actualTupleKeys.size !== expectedTupleKeys.size ||
+    [...expectedTupleKeys].some((key) => !actualTupleKeys.has(key))
+  ) {
+    throw new TypeError(
+      "runtime schema admission metadata: rows do not exactly cover Module symbolic Node containment"
+    );
   }
 }
 
@@ -333,7 +366,7 @@ export function projectM04RuntimeSchemaAdmission(input: {
   const moduleRows = runtimeSchemaAdmissionMetadataRowsFromModule(
     input.selectedExecutionBinding.module
   );
-  assertMetadataRowsBelongToModule(
+  assertMetadataRowsExactlyCoverModule(
     input.selectedExecutionBinding.module,
     moduleRows
   );
