@@ -78,11 +78,14 @@
     .ai-workspace/comments/codex/
     20260718T014552Z_SELF_REVIEW_t270_boundary_checkpoint_reconciliation.md
 - constructability_design_status: boundary_checkpoint_and_schema_ownership_reconciled_and_accepted
-- constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
-- accepted_constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
+- constructability_design_digest: 2df86cb900cf263383b552a9a81459cac11889f5bc2ee4e8dd094f4ff3079471
+- accepted_constructability_design_digest: 2df86cb900cf263383b552a9a81459cac11889f5bc2ee4e8dd094f4ff3079471
 - constructability_review_and_acceptance_ref: >-
     .ai-workspace/comments/codex/
-    20260718T021301Z_REVIEW_DECISION_t270_boundary_checkpoint_reconciliation.md
+    20260718T031921Z_DECISION_t270_runtime_schema_topology_amendment.md
+- runtime_schema_implementation_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T033507Z_SELF_REVIEW_t270_runtime_schema_topology_implementation.md
 
 ## Boundary
 
@@ -159,6 +162,9 @@ id/version key to one native definition, then projects the full coordinate/
 witness into ordered dependency-safe
 `RuntimeSchemaAdmissionCapabilityBasis` values into admitted ingress, and is
 the sole admitted call site for the neutral M03/shared capability constructor.
+Duplicate GraphFunction/Node/schema tuples refuse. Repeated flat contract keys
+are lawful only as a many-row-to-one join to one exact asserted definition for
+that distinct key.
 That constructor freezes and `WeakSet`-brands each
 `RuntimeSchemaAdmissionCapability`. Each capability contains one digest-sealed
 basis of primitive/I-JSON-compatible structural facts plus an undigested
@@ -303,7 +309,7 @@ be a closure dependency of this generic authority join.
 - [ ] reconciled three-view design receives independent F_H acceptance
 - [ ] bounded AF-15 constructability amendment receives F_H acceptance before runtime resumes
 - [ ] async M04 preparation seals the exact installed public input schema and invoke root value without an M03 reader
-- [ ] M04 admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields, exact-joins each key to one asserted opaque native definition, projects ordered sealed full-coordinate/witness bases into admitted ingress, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B1 delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B2 publishes only T-274A's nine public assets
+- [ ] M04 admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields and duplicate or foreign GraphFunction/contained-Node/schema tuples, validates the exact-identity union of inputs, outputs, environment requires/provides/carries, and inline-graph nodes, exact-joins each distinct key to one asserted opaque native definition while allowing repeated rows to share it, projects ordered sealed full-coordinate/witness bases into admitted ingress, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B1 delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B2 publishes only T-274A's nine public assets
 - [ ] the shared compiler core emits compact and private runtime projections once and conserves every locus Operator
 - [ ] immutable runtime-value environment and exact F_D Operator resolver land through generic non-Consensus proof
 - [ ] the closed four-runtime outcome union and separate exhaustive AF-15 fold land without an `EngineIterateResult` cast

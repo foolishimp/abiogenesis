@@ -823,6 +823,10 @@ export function admitPrivateRunInvokeExecutionIngress<
       resolvedPolicy: runtimeProfile.resolvedPolicy,
       standardPluginRefs: runtimeProfile.standardPluginRefs
     }),
+    // T-274B supplies the selected Module's complete key/definition family.
+    // Until that owner lands, the neutral ingress carries an explicit empty
+    // basis family rather than inferring graph-private schema authority.
+    schemaAdmissionCapabilityBases: Object.freeze([]),
     sourceWitnessRefs: Object.freeze([...new Set([
       invocation.invocationRef,
       invocation.requestRef,

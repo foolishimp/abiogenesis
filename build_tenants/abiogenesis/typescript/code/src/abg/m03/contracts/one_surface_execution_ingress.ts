@@ -7,6 +7,10 @@ import {
   stableJsonEquals,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import {
+  admitRuntimeSchemaAdmissionCapabilityBasis,
+  type RuntimeSchemaAdmissionCapabilityBasis
+} from "./runtime_schema_admission.js";
 
 export const T270_ROOT_PAYLOAD_BODY_GAP =
   "gap://abg/t270/root-payload-body-not-admitted";
@@ -137,6 +141,8 @@ export interface RunInvokeExecutionIngressBasis {
     resolvedPolicy: ExecutionBasis["resolvedPolicy"];
     standardPluginRefs: readonly string[];
   }>;
+  readonly schemaAdmissionCapabilityBases:
+    readonly RuntimeSchemaAdmissionCapabilityBasis[];
   readonly sourceWitnessRefs: readonly string[];
 }
 
@@ -206,6 +212,11 @@ function freezeBasis(
         ...input.runtimeProfile.standardPluginRefs
       ])
     }),
+    schemaAdmissionCapabilityBases: Object.freeze(
+      input.schemaAdmissionCapabilityBases.map((basis) =>
+        admitRuntimeSchemaAdmissionCapabilityBasis(basis)
+      )
+    ),
     sourceWitnessRefs: Object.freeze([...input.sourceWitnessRefs])
   });
 }
@@ -244,10 +255,15 @@ function assertConstraint(input: RunInvokeExecutionIngressBasis): void {
 function assertBasis(input: RunInvokeExecutionIngressBasis): void {
   const uniqueAllowed = new Set(input.catalog.allowedEntryRefs);
   const uniqueSources = new Set(input.sourceWitnessRefs);
+  const schemaCapabilityKeys = input.schemaAdmissionCapabilityBases.map(
+    (basis) =>
+      `${basis.graphFunctionId}\u0000${basis.nodeRef}\u0000${basis.symbolicSchemaRef}`
+  );
   if (
     input.authorityClass !== "subordinate_rejoin_only" ||
     uniqueAllowed.size !== input.catalog.allowedEntryRefs.length ||
-    uniqueSources.size !== input.sourceWitnessRefs.length
+    uniqueSources.size !== input.sourceWitnessRefs.length ||
+    new Set(schemaCapabilityKeys).size !== schemaCapabilityKeys.length
   ) {
     throw new TypeError("run.invoke execution ingress refs are incomplete");
   }
