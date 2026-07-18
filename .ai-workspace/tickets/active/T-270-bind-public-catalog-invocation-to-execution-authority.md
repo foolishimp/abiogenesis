@@ -5,9 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: reconciled_design_accepted_neutral_contract_milestone_active_runtime_reconciliation_pending
-- review_status: fh_accepted_for_implementation_independent_closure_review_pending
-- proof_status: pending
+- phase_status: af15_stable_schema_basis_callable_envelope_accepted_runtime_authorized
+- review_status: independent_review_accepted_fh_authority_accepted
+- proof_status: accepted_design_runtime_integration_pending
 - delivery_phase: DS-2 integration
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
@@ -24,7 +24,7 @@
     execution handoff boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-16
+- updated_at: 2026-07-18
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-255
@@ -55,6 +55,7 @@
   - specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md 008..010
   - specification/requirements/product/REQ-P-POLICY.md 019..025, 053..054, 062..064
   - specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md 001..010
+  - specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md 003..005
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md 002, 009..013, 029..030
   - specification/requirements/abg/REQ-R-ABG3-BINDING.md 015..018
   - specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md 022..024, 026..027
@@ -69,12 +70,18 @@
 - pre_ontology_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260714T140354Z_DECISION_fh_authorize_t277_implementation.md
-- design_acceptance_ref: >-
+- prior_design_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260716T062747Z_DECISION_fh_accept_t270_reconciled_run_invoke_design.md
 - design_self_review_ref: >-
     .ai-workspace/comments/codex/
-    20260716T062747Z_SELF_REVIEW_t270_reconciled_run_invoke_design.md
+    20260718T014552Z_SELF_REVIEW_t270_boundary_checkpoint_reconciliation.md
+- constructability_design_status: boundary_checkpoint_and_schema_ownership_reconciled_candidate_pending_independent_fh_review
+- constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
+- accepted_constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
+- constructability_review_and_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T021301Z_REVIEW_DECISION_t270_boundary_checkpoint_reconciliation.md
 
 ## Boundary
 
@@ -103,14 +110,151 @@ truthful nonterminal for T-272. T-270 does not select work, evaluate closure,
 admit capability truth, or project a public terminal directly from a raw
 runtime result.
 
+Runtime is frozen at the bounded constructability gate. The existing accepted
+design now contains a candidate amendment for one immutable invocation-local
+admitted runtime-value environment, one M04-installed public input schema set,
+one dependency-safe neutral schema-admission capability family whose ordered
+sealed bases alone enter admitted ingress, one separate identity-free
+process-local AF-15 engine-input envelope carrying the callables,
+one private runtime projection derived from the same T-267 compiler drafts,
+compiler-conserved GraphVector Operators, one binding-primary/full-locus F_D
+implementation resolver, one structure-derived router around the existing
+complete-C and graph-level HOF/recurse runtimes, one closed wrapper over their
+actual result types with a separate exhaustive fold, and one generic leaf
+adapter over existing F_D/F_P/F_H interiors. At an exact F_H hold, the
+amendment also derives one contracts-owned dependency-leaf
+`FhHeldExecutionCheckpointBasis` after T-271 admits the held receipt. It has
+the existing T-271 cursor ref/digest and input payload/lineage refs, remaining
+primitive exact held coordinates, and ordered canonical I-JSON carrier rows,
+but no identity or digest. The existing `FhInteractionOpenedEvent` carries that
+one body, and its existing `interactionBasisDigest` is the sole seal over the
+complete checkpoint content. Runner/T-270 adapters above contracts prove exact
+conservation from `CProgramExecutionCursor` into `CProgramAtomReceipt` at
+`invokeLeaf` and exact equality to the receipt and
+`AdmittedInvocationCarrier`; contracts import neither owner. T-272 can
+then verify and reconstruct the same environment at the same input coordinate
+on `run.continue` without ref lookup, a store, controller, event family, or
+public identity. Implementation may resume
+only after this amendment receives explicit F_H acceptance.
+
+Private async M04 preparation must load exact bound product manifests through
+`BoundWorkspaceContext`. For `invoke`, it loads only the selected public
+input schema asset, verifies its root and digest, and seals one immutable
+`InstalledPublicSchemaAuthoritySet` into neutral M03 ingress; `start` has no
+public root schema set. Installed public assets do not own graph-private Node
+schemas. During M04 preparation, each admitted catalog/module binding contributes one
+closed `Module.metadata` JSON-blob whose rows map exact
+`graphFunctionId + Node.id + Node.schema.ref` tuples to flat strict
+`contractId + contractVersion` keys. Each row has exactly those five fields and
+contains no full `PublicContractCoordinate`, projection digest, locator, witness,
+or callable. Existing `moduleDigest` seals those rows; there is no typed Module
+extension or separately authored row/callable digest. The T-252/M03 closed
+schema-key/source family covers every reachable public or private Consensus
+Node schema, including vector schemas.
+M04 also receives existing opaque `NativeContractDefinition` carriers
+process-locally. M04 alone verifies them with
+`assertNativeContractDefinitionCarrier`, exact-joins each flat contract
+id/version key to one native definition, then projects the full coordinate/
+witness into ordered dependency-safe
+`RuntimeSchemaAdmissionCapabilityBasis` values into admitted ingress, and is
+the sole admitted call site for the neutral M03/shared capability constructor.
+That constructor freezes and `WeakSet`-brands each
+`RuntimeSchemaAdmissionCapability`. Each capability contains one digest-sealed
+basis of primitive/I-JSON-compatible structural facts plus an undigested
+`admit(IJsonValue) -> IJsonValue` function.
+The one T-267
+compiler core derives the unchanged compact family and a private runtime
+projection from the same drafts. AF-15 separately receives the capabilities in
+an identity-free, undigested process-local engine-input envelope outside
+admitted ingress and every stable-hashed carrier. M03 asserts the neutral brand
+and exact-matches every capability basis one-to-one to the admitted ingress
+bases and every reachable symbolic schema before basis admission. Zero,
+multiple, missing, extra, mismatched, or reforged rows refuse pre-effect. The
+T-270 neutral path imports only the neutral shared interface, never
+M04/native/public-coordinate/Valibot/witness types; unrelated lawful M03
+Valibot imports are outside this negative gate. Output is admitted only through
+the bounded function. The function and envelope are excluded from basis
+digest, identity, persistence, replay, registry, and ambient lookup. For
+`invoke`, M04
+also calls
+`admitCatalogGraphFunctionInput`, constructs the existing single-source
+`AdmittedInvocationCarrierSet` from the same canonical admitted value, and
+seals it into the ingress. `start` carries no root value. Raw input, M03
+filesystem reads, and implicit multi-source decomposition are forbidden; a
+multi-source contract without an explicit value mapping remains
+`gap://abg/t270/multi-source-root-input-mapping`.
+
+Every ordinary/workflow C locus must conserve exactly one same-regime
+GraphVector Operator by ordinal and full digest; a structural HOF wrapper has
+zero, carries a null runtime operator projection exactly, and its child
+compiles separately. A null ordinary/workflow projection or non-null structural
+projection is compiler-invalid. An ordinary F_D stage first resolves
+`Operator.binding`, then exact-matches program, stage, fibre, arm, ordered
+carrier, and schema truth to one immutable engine-delivery total I-JSON
+implementation. A workflow atom never invokes its parent binding. F_P/F_H
+retain Operator evidence without replacing their existing selectors. Handler
+selection, plugin selection, and `fdEvaluator` are not F_D fallbacks. Every
+F_D, F_P, or child body must pass the exact selected neutral capability basis
+target Node/schema binding and result-authority admission before extending the
+environment. Installed public schemas cannot service an internal target. F_H returns held
+truth and no output carrier; T-271 admits the exact held receipt before AF-15
+derives the neutral event checkpoint basis and opens the interaction. The
+T-252/M03 closed schema-key/source family owns the canonical Module's complete
+public/private/vector Consensus metadata rows. T-274B packages that exact
+Module, derives/supplies its full opaque native definitions through M04, and
+publishes only T-274A's nine existing public assets. T-275 owns only the motivating SYSTEM
+stdlib/profile/result bindings. T-270 owns only the generic resolver,
+environment, and non-Consensus Scenario-09 proof pair. Full native coordinates,
+projection digests, locators, witnesses, and callables never enter Module
+metadata or imply installed public publication.
+
+The exact F_H hold path has one neutral actual-body carrier: its causative
+opened event contains the complete admitted environment checkpoint basis, and
+the event's `interactionBasisDigest` covers that content. T-272 may reconstruct
+only after exact current-intent, continuation, invocation, basis, graph-call,
+frame, plan, held-receipt, cursor ref/digest, input payload/lineage refs, locus,
+ordered-row, and canonical-body verification.
+Other replay or
+non-checkpoint re-entry carriers retain refs and digests, not actual bodies,
+and must stop at `gap://abg/t270/runtime-value-environment-rehydration`; no
+archive, transcript, filesystem lookup, ambient map, or ref-to-body cast may
+substitute.
+
 ## Prime Contraction Input
 
 Consume the accepted `PublicFunctionDefinition`, `PublicInvocation`,
 `InvocationAuthority`, `WorkspaceBinding`, `GtlProgram`, `CatalogView`,
 `NextActionProjection`, `ConstructionIntent`, T-255/T-256/T-267/T-271 carriers,
-`ExecutionBasis`, and event-backed result truth. Derive one subordinate
-`ProgramExecutionAuthoritySet`; do not promote it into a public/session/basis
-authority.
+`ExecutionBasis`, and AF-16 evidence truth. Derive one subordinate
+`TraversalExecutionFamilyRuntimeProjection` from the same compiler drafts as
+the compact T-267 family; do not promote it into a public/session/basis
+authority or compile twice.
+
+`AdmittedRuntimeValueEnvironmentProjection` remains immutable,
+invocation-local subordinate payload keyed by exact node/carrier identities.
+`FhHeldExecutionCheckpointBasis` remains contracts-owned subordinate content
+inside the existing F_H-opened event, derived only from the current environment
+and exact held receipt/locus. It has no checkpoint identity or digest; the
+existing event's `interactionBasisDigest` is the sole seal. It adds no store,
+event family, controller, public identity, selector, or authority source.
+`FdOperatorImplementationBinding` remains subordinate engine-delivery wiring
+matched by admitted `Operator.binding` plus the full existing C implementation
+contract. `InstalledPublicSchemaAuthoritySet`,
+the M04 metadata projection, neutral schema capability/basis and identity-free
+AF-15 engine-input envelope, Operator
+projections, route outcomes, and
+the AF-15 fold remain subordinate. Native contract families remain schema
+authors through existing opaque `NativeContractDefinition`; the
+selected-module relation only conserves exact coordinates and projection
+witnesses. The
+structure-derived router, resolver, environment extension, and atom callback
+are realization
+functions over existing compiler/runtime interfaces, not new authorities,
+public registries, request families, result families, or C-call owners. The
+IACS has 20 explicit carriers while the corrected authority-source count
+remains 17 before and after; the prior 16 count omitted the existing native
+contract authority. `InstalledPublicSchemaAuthoritySet` is subordinate, not an
+IACS authority. Those counts are distinct under ADR-044.
 
 Use a minimal admitted generic capability definition/grant/manifest fixture for
 focused T-270 proof. T-268 final manifest aggregation is downstream and cannot
@@ -122,7 +266,26 @@ be a closure dependency of this generic authority join.
 - no GraphFunction-as-program or Module-as-program claim;
 - no ingress-owned selection, orchestration, closure, or action evaluation;
 - no caller-authored runtime authority;
-- no mutation of T-267 or conversion of `effectsPermitted: false`;
+- no mutation of the compact T-267 family or conversion of
+  `effectsPermitted: false`; its private runtime sibling derives from the same
+  compiler core;
+- no payload-value store or caller-authored payload admission;
+- no raw public input crossing M04/M03 or inferred multi-source input mapping;
+- no installed public schema used as graph-private Node schema authority;
+- no string-inferred, ambient, global-registry, or feature-specific runtime
+  schema binding;
+- no F_D handler/plugin/evaluator fallthrough; `Operator.binding` is the
+  primary lookup key and program/stage/fibre/arm/carriers are mandatory
+  post-lookup acceptance, while feature/product/profile/payload shape never
+  participates;
+- no output environment extension before exact wire/target-schema/result
+  admission;
+- no ref-to-body, archive, transcript, filesystem, or ambient-map rehydration;
+  exact F_H continuation may use only the full checkpoint body already admitted
+  inside its causative opened event and sealed by that event's
+  `interactionBasisDigest`;
+- no function-, feature-, profile-, product-, or payload-shape runtime route;
+- no adapter-owned second C-call spine;
 - no compatibility, fallback, or profile-free route;
 - no Consensus-specific branch;
 - no T-270-owned capability inference or final manifest;
@@ -136,6 +299,15 @@ be a closure dependency of this generic authority join.
 - [x] retained compiler/interpreter carriers are named
 - [ ] neutral owner-native run.invoke request/result/refusal/non-terminal contracts are admitted without public or runtime output
 - [ ] reconciled three-view design receives independent F_H acceptance
+- [ ] bounded AF-15 constructability amendment receives F_H acceptance before runtime resumes
+- [ ] async M04 preparation seals the exact installed public input schema and invoke root value without an M03 reader
+- [ ] M04 admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields, exact-joins each key to one asserted opaque native definition, projects ordered sealed full-coordinate/witness bases into admitted ingress, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B publishes only T-274A's nine public assets
+- [ ] the shared compiler core emits compact and private runtime projections once and conserves every locus Operator
+- [ ] immutable runtime-value environment and exact F_D Operator resolver land through generic non-Consensus proof
+- [ ] the closed four-runtime outcome union and separate exhaustive AF-15 fold land without an `EngineIterateResult` cast
+- [ ] F_P target-value admission and F_H held/no-output behavior are proven
+- [ ] `invokeLeaf` conserves the existing cursor digest through the T-271 request/receipt carrier without adding authority; exact F_H hold derives one dependency-leaf event-contained checkpoint basis with no identity/digest after held-receipt/cursor admission; the opened interaction basis digest covers cursor ref/digest, input payload/lineage refs, the remaining coordinates, and ordered bodies, and exact same-locus reconstruction is proven
+- [ ] missing/mutated/cross-locus F_H checkpoint refuses; other re-entry requiring absent bodies returns the named general rehydration gap
 - [ ] provisional runtime is reconciled to the accepted design
 - [ ] old identity, fallback, and direct-selection paths are removed
 - [ ] current operation family, schemas, SDK, CLI, and tests derive one truth
@@ -166,8 +338,25 @@ schema, SDK, CLI, and catalog contributions are ready.
 4. The exact T-267 value remains unchanged and no-effect. A subordinate T-270
    start-admission witness must match before the one `ExecutionBasis` is
    admitted; only that basis authorizes execution.
-5. Completed, held, blocked, and runtime-failed outcomes remain distinct;
-   completed evidence reaches AF-16 and held truth reaches T-272.
+5. Completed, held, pending, blocked, and runtime-failed outcomes remain distinct;
+   completed evidence reaches AF-16 and held truth reaches T-272 only with its
+   exact held receipt/locus, cursor ref/digest, input payload/lineage refs, and
+   event-contained environment checkpoint basis.
+5a. A non-Consensus Scenario-09 program proves exact operator ordinal/digest
+    conservation, binding-primary/full-locus resolution, total I-JSON
+    execution, neutral bounded target-carrier admission, immutable
+    value propagation, strict F_P body admission, and F_H held/no-output truth
+    plus neutral checkpoint-basis construction after held-receipt/cursor admission without a
+    motivating-feature runtime branch.
+5b. Missing/duplicate/wrong-regime/wrong-locus/wrong-schema F_D implementations,
+    missing/extra/duplicate/unmapped/stale/mismatched or reforged neutral
+    schema-admission capabilities or admitted basis rows, malformed
+    F_P wire or target bodies, and missing/stale/mutated/cross-locus F_H
+    checkpoints refuse before continuation. Other missing re-entry bodies emit
+    the exact general semantic gap before the affected locus. T-274B
+    Module/native-definition absence or T-275 stdlib/profile/result-binding
+    absence cannot be hidden by a handler, evaluator, plugin, fixture, or
+    ambient value.
 6. A T-270 hard-break scan proves the old `catalog.invoke` operation,
    second-start and profile-free fallbacks, and their old schemas, SDK rows, and
    CLI rows are absent. T-272 owns the separate `run.resume` and `fh.*` scan.
