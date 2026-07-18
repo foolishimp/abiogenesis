@@ -76,7 +76,7 @@
 - design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T014552Z_SELF_REVIEW_t270_boundary_checkpoint_reconciliation.md
-- constructability_design_status: boundary_checkpoint_and_schema_ownership_reconciled_candidate_pending_independent_fh_review
+- constructability_design_status: boundary_checkpoint_and_schema_ownership_reconciled_and_accepted
 - constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
 - accepted_constructability_design_digest: 0dd26ca542f66b113dd1febebdc510a3650da1316aeb675ecac51b9a30eb73fa
 - constructability_review_and_acceptance_ref: >-

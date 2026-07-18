@@ -1,159 +1,337 @@
 # M03-M04 F_H Runtime Continuation Behavior Design
 
-**Status**: Accepted - reconciled to the ratified Ontology for runtime reconciliation
-**Date**: 2026-07-16
+**Status**: Candidate - repaired event-basis and lifecycle design pending independent F_H review
+**Date**: 2026-07-18
 **Ticket**: `T-272`
-**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Change class**: `design_reframe`
+**Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md`
 **Prime authority**: [ADR-044](./adrs/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md)
-**Ontology authority**: [ABIogenesis Public Control Plane Ontology](./ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md), commit `59e9dce4f47c1a2b6e7cb9ef140dbae39ea4143c`, digest `f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8`
-**Accepted T-270 authority**: [M03-M04 Public Catalog Invocation Authority Behavior Design](./M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md), digest `71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430`, decision `.ai-workspace/comments/codex/20260716T062747Z_DECISION_fh_accept_t270_reconciled_run_invoke_design.md`
+**Product authority**: `REQ-P-CONSENSUS-008..018`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-EVENTS`, and the accepted 19-operation One Surface
+**Prerequisite design**: [M03-M04 Public Catalog Invocation Authority Behavior Design](./M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md), including the pending T-270 contracts-owned held-execution checkpoint basis
 
 ## Boundary
 
-This design connects one engine-held F_H C-program atom to two distinct
-instances of the existing public contract family:
+This design resumes one held `F_H` leaf in the existing T-271 complete-C
+interpreter. It does not restart a graph, select another action, rebuild a
+traversal, or create a feature controller.
 
-1. `abg.operation.interaction.respond` admits one attributed F_H response
-   through `AF-18 admitHumanResponse`; and
-2. a later `abg.operation.run.continue` asks the admitted GTL program and ABG
-   to consume the replay-derived continuation.
+The public lifecycle has two distinct operations:
 
-Each operation is governed by its `PublicFunctionDefinition<K>`, enters as one
-immutable `PublicInvocation<K>`, admits one operation-indexed
-`InvocationAuthority<K>`, and emits the generic
-`PublicOperationAdmittedRuntimeEvent` before AF-18 or AF-17. No operation-
-specific request authority is introduced.
+1. `abg.operation.interaction.respond` admits one actor-attributed response
+   against the interaction's declared result contract and records it. It does
+   not execute the response.
+2. `abg.operation.run.continue` reconstructs the exact held authority and
+   admitted values from replay, replaces the held receipt at the same T-271
+   coordinate with one schema-admitted result receipt, and resumes the existing
+   interpreter from that coordinate. Reconstruction cannot begin until replay
+   has returned and verified the exact `FhInteractionOpenedEvent` projection.
 
-The two invocations are never one combined public operation. Response
-admission does not continue execution, select work, or decide closure.
-Continuation does not accept a caller-authored frame, cursor, intent, action,
-or traversal plan. Each invocation independently admits actor attribution and
-capability grants; equality across them is required only when declared policy
-explicitly says so.
-
-The active current-intent lifecycle is:
+The exact conserved coordinate is:
 
 ```text
-run.invoke interpreted through the admitted GtlProgram
-  -> T-271 F_H atom holds the current ConstructionIntent
-  -> engine-derived FhInteractionOpenedEvent + replay Continuation
-  -> interaction.respond PublicInvocation and generic operation admission
-  -> AF-18 response admission
-  -> actor-attributed FhInteractionRespondedEvent
-  -> distinct run.continue PublicInvocation and generic operation admission
-  -> successful AF-17 admission emits FhInteractionResumeAdmittedEvent
-     and resolves the open Continuation once
-  -> AF-17 continues the same ConstructionIntent
-  -> successor CProgramAtomReceipt in the existing receipt family
-  -> T-271 interprets the same GtlProgram and plan
-  -> another F_H hold opens a linked Continuation, or evidence enters AF-16
-  -> ordinary One Surface post-disposition evaluation
+execution basis
++ graph call
++ frame
++ vector index
++ compiled C plan ref/digest
++ leaf node ref/digest
++ cursor ref
++ C-call ref
++ input payload ref
++ input lineage ref
++ task ordinal
++ retry attempt/path
++ held receipt ref/digest
 ```
 
-When post-disposition `AF-13 evaluateNext` selects a different action, the path
-is `AF-14 admitConstructionIntent -> AF-15 invokeGraphFunction`. It is not an
-`AF-17` continuation. A newer `ObservationSnapshot` or replay cursor under the
-same `WorkspaceBinding` and `ExecutionBasis` reruns affected functions in this
-order: `AF-11` consumes admitted intent lineage, the prior model when present,
-and admitted product truth to synthesize `ProductAssetModel`; `AF-12` then
-consumes that model plus mutable worksite/replay observation input to admit
-`ObservationSnapshot` and gaps; `AF-13` consumes the admitted AF-12 truth to
-produce `NextActionProjection`. That is ordinary progress, not a basis fork.
+Any change to one member refuses before replacement or interpretation. A lawful
+post-action selection is a different One Surface transition through ordinary
+intent admission and `run.invoke`; it is outside this continuation.
 
-M04 admits and transports public requests. The admitted GTL program owns the
-composition and ABG owns replay, runtime admission, continuation consumption,
-event truth, and projection.
+The admitted GTL program still owns graph order and recursion. ABG owns the held
+receipt, interaction events, response admission, run-local continuation,
+same-coordinate replacement, interpreter re-entry, replay, and projection.
 
-### Requirements
+## Canonical Consensus Correction
 
-- `REQ-P-PUBLIC-CONTRACTS-008..010`
-- `REQ-P-POLICY-023..025`, `-031..033`, and `-041..046`
-- `REQ-R-ABG3-CONTINUATION-001..006` and `-011..014`
-- `REQ-R-ABG3-EVENTS-002..004`, `-011`, `-021`, and `-030..031`
-- `REQ-R-ABG3-PROJECTION-003`, `-006`, `-019`, and `-022..024`
-- `REQ-R-ABG3-WITNESS-003`, `-006`, `-009`, and `-017`
-- `REQ-R-ABG3-FN-COMP-015`, `-017`, and `-021..024`
-- the ratified Ontology's `AF-11..AF-18`, interactive-continuation
-  composition, and 19-operation projection
-- T-256 declared F_H request, T-258 public interaction, T-267 static
-  authority, accepted T-270 public invocation design digest
-  `71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430`,
-  and T-271 interpreter carriers
+The canonical Consensus body has two `F_H` leaves:
 
-### Explicit exclusions
+- `graph-vector://abg/consensus/fh-initial`; and
+- `graph-vector://abg/consensus/fh-post-submitter`.
 
-- legacy `run.resume` as a public identity, alias, fallback, or default;
-- five independent public `fh.*` operation identities;
-- a combined response-and-continuation request;
-- an operation-specific response or continuation request authority outside
-  `PublicInvocation<K>`;
-- a second continuation aggregate, controller, or receipt family;
-- an automatic wake controller, scheduler, watcher, or session object;
-- caller-authored graph call, frame, vector, C-call, cursor, plan, current
-  construction intent, action selection, or continuation state;
-- using `AF-17` for a newly selected action;
-- treating response admission as closure or execution;
-- requiring response actor/grant equality with continuation actor/grant truth
-  without an explicit declared policy;
-- treating a newer observation or replay cursor as an authority fork;
-- continuing after an actual workspace-binding or execution-basis change
-  without an exact covering reprice; and
-- product-specific Consensus response semantics.
+Both leaves have `ConsensusRoundDisposition` as their declared target and
+selected result contract. `FhPendingInteraction` is not a GTL node, graph
+target, result, or foldback value. Pending/responded state is the existing ABG
+interaction event/projection truth while the leaf receipt remains held.
 
-## Ontology Trace
+T-275 supplies the declared interaction subject, policy basis, allowed response
+shape, and `ConsensusRoundDisposition` result-contract binding through the
+existing `FhInteractionBinding`. The accepted T-252 source/key family and later
+T-274B native-definition delivery own the graph-private schema identities and
+definitions. T-275 supplies neither those schema authorities nor an
+`interactionRef`. ABG derives the interaction identity from the execution
+basis, graph call, frame, vector, C-call, held receipt, and declared request
+digest.
 
-| Design concern | Ratified Ontology authority | Required realization consequence |
+The bounded-round recurse law is exhaustive:
+
+| Admitted `ConsensusRoundDisposition.outcome` | Recurse disposition |
+|---|---|
+| `closed_done` | terminate |
+| `escalate_fh` | terminate after the held F_H result is admitted |
+| `recurse_next_round` | apply the declared next-round foldback and recurse |
+
+No other value is admissible. Foldback is impossible for `closed_done` and
+`escalate_fh`; termination is impossible for `recurse_next_round`. An open F_H
+interaction is not `escalate_fh`: the latter exists only after an admitted
+`ConsensusRoundDisposition` replaces the held receipt.
+
+## Contracts-Owned Held-Execution Event Basis
+
+T-270 supplies the one canonical `FhHeldExecutionCheckpointBasis`: a
+dependency-leaf, immutable, invocation-local subordinate value in the M03
+contracts layer. T-272 imports and consumes that exact type; it does not copy,
+redeclare, narrow, or widen its fields. The owning T-270 design must carry the
+complete same-locus evidence needed here, including the exact execution,
+graph, frame, plan, node, cursor, C-call, input payload and lineage, retry, held
+receipt, and ordered admitted-value environment facts. Run identity remains on
+the enclosing existing F_H lifecycle event rather than becoming duplicated
+checkpoint content.
+
+The canonical value is defined with primitive readonly fields and
+`IJsonValue`. It imports no runner, declared-execution-context, public-ingress,
+Consensus, or product-specific type. Rows are frozen, ordered by admitted
+ordinal, unique by ordinal and carrier identity, and contain the canonical
+I-JSON body that was actually admitted. Refs without bodies are insufficient.
+
+The value has no `checkpointRef`, `checkpointDigest`, or independent
+lifecycle. Its existing value-environment digest and other plan, node, cursor,
+carrier, admission, and receipt digests remain constituent authority evidence;
+none is a checkpoint identity or seal. The existing
+`FhInteractionOpenedEvent` embeds the full basis, and the event's existing
+`interactionBasisDigest` is the single checkpoint seal over the declared F_H
+request, the exact held coordinate, and every checkpoint row. The canonical
+event ref is the only replay identity.
+
+An upper T-270 adapter may prove exact equality between internal runtime
+carriers and this contracts-owned value while opening the interaction. The
+adapter then disappears: it cannot be serialized, replayed, or accepted as a
+continuation input. `run.continue` first reads the exact opened-event
+projection, validates canonical I-JSON, row ordering, all constituent digests,
+and recomputes the one `interactionBasisDigest`. Only then may it reconstruct
+the value environment and compare it to the response event and current
+execution basis. There is no checkpoint store, lookup callback, ref-to-body
+inference, new event family, or alternate reconstruction path. General or
+non-F_H value rehydration remains a typed T-270 gap.
+
+## Lifecycle And Event Calculus Law
+
+The existing run-local `Continuation` aggregate and F_H event family are
+extended; no route-specific aggregate or event family is added. Each F_H
+lifecycle event names `continuationId`, `continuationKind: "fh_interaction"`,
+`runId`, and `causedByEventRef`. `continuationId` is the sole aggregate-member
+identity. Any public `continuationRef` is its opaque projection, not another
+authored identity.
+
+| Existing carrier | Bounded role |
+|---|---|
+| `FhInteractionOpenedEvent` | records the exact held coordinate and embedded checkpoint basis; names the continuation identity/kind/run/cause |
+| `FhInteractionRespondedEvent` | records the schema-admitted actor response without changing continuation state or running the interpreter |
+| `FhInteractionResumeAdmittedEvent` | names the same continuation identity/kind/run/cause, replaced held receipt ref/digest, and successor receipt ref/digest |
+| `RunStoppedEvent` | for `operator_abort` or `campaign_close`, abandons every still-open continuation in that run; stop/interruption leaves it open |
+| `Continuation` | singular generic run-local replay aggregate; this slice derives `open`, `terminated(resolved)`, and `terminated(abandoned)` truth |
+| `CProgramAtomReceipt` | existing T-271 receipt family; held predecessor and admitted successor share the exact coordinate and input lineage |
+| `FhInteractionProjection` | derived pending/responded/resolved read model; never result or execution authority |
+
+The current `continuation_terminated` and `continuation_reopened` events cannot
+lawfully carry this transition: they require `causedByRetryRunId`, hard-code
+`reason: retry_repair`, and describe termination/reopening across retry repair.
+F_H continuation remains in the same run and is therefore expressed by Event
+Calculus effects declared for the existing F_H and run-lifecycle events. The
+retry events remain unchanged; the generic abandonment algorithm consumes the
+`continuation_open` effect already emitted by `continuation_reopened`.
+
+| Admitted event | Preconditions | Declared Event Calculus effects |
 |---|---|---|
-| F_H response | `AF-18 admitHumanResponse`; `abg.operation.interaction.respond` | one closed response-kind family; admission emits attributed response truth only |
-| current-intent continuation | `AF-17 continueExecution`; `abg.operation.run.continue` | replay consumes the existing intent and continuation; no new intent or selector |
-| common public admission | `PublicFunctionDefinition<K>`, `PublicInvocation<K>`, `InvocationAuthority<K>`, EVENTS-031 | each operation traverses the same definition and admission chain and emits generic operation truth before AF-18/AF-17 |
-| actor and grant scope | operation-indexed `InvocationAuthority<K>` | response and continuation independently admit actor/grant truth; equality is a declared-policy constraint only |
-| new selected action | `AF-13 -> AF-14 -> AF-15` | a new action crosses ordinary intent admission and invocation, never AF-17 |
-| observation freshness | Ontology invariants 25; `ProductAssetModel` and `ObservationSnapshot` lifecycle | AF-11 lineage/prior-model/product-truth synthesis -> AF-12 model plus mutable worksite/replay observation -> AF-13 admitted-gap evaluation under unchanged authority; no rebind or basis fork |
-| authority fork | `WorkspaceBinding`, `ExecutionBasis`, CONTINUATION-014 | changed authority refuses before effects unless an exact covering reprice exists |
-| public ingress | One Surface composition and EVENTS-031 | ingress admits/transports; the GTL program and ABG own ordering and continuation |
-| hard break | accepted 19-operation projection | no `run.resume`, five `fh.*` definitions, facade, parallel register, or fallback |
-| Prime boundary | interactive-continuation composition | keep generic ingress attribution distinct from internal continuation admission; add no second continuation aggregate |
+| `fh_interaction_opened` | exact held receipt and checkpoint basis admitted; id/kind/run/cause present | initiates `continuation_open(id, run)` |
+| `fh_interaction_responded` | one open member and matching request/response basis | no continuation fluent change |
+| `fh_interaction_resume_admitted` | open member, admitted response, verified opened-event basis, and exact successor receipt | terminates `continuation_open(id, run)` and initiates `continuation_terminated(id, run, resolved)` |
+| `run_stopped(operator_abort | campaign_close)` | named run exists | clips `continuation_open` by exact run; it initiates no per-member terminal fluent because the event authors no continuation ids |
+| `run_stopped(operator_stop | external_interruption)` | named run exists | no continuation fluent change; the obligation remains open |
+
+The calculus retains the existing `continuation_open` and
+`continuation_terminated` fluent names. `resolved`, `superseded`, and
+`abandoned` remain the closed generic terminal-status vocabulary, not three new
+fluent families. This slice emits only `resolved` and `abandoned`. Replay
+rejects an untyped termination.
+
+One subordinate `RuntimeDerivedFluentRule` algorithm,
+`runtime-derived-fluent-rule://abg/continuation-abandonment-from-effect-history`,
+lives inside the existing Event Calculus authority and closes abandonment for
+every fluent clipped by the run-stop axiom. It is not an independent semantic
+authority. Before Event Calculus runs, canonical replay is validated and
+ordered by `sortReplayByAdmissionOrdinalFailClosed`. Missing or colliding
+admission ordinals refuse before an effect row exists. The rule then processes
+the mechanically ordered `RuntimeEventCalculusEffectRow` sequence as a
+deterministic fold:
+
+This ordering is not a caller promise. The single
+`deriveRuntimeEventCalculusProjection` replay entry first calls
+`assertCanonicalRuntimeEventSequence`, then
+`sortReplayByAdmissionOrdinalFailClosed`, and only then constructs effect rows
+and invokes derived rules. Every direct and projection consumer therefore sees
+the same collision-free ordinal order.
+
+1. each row that initiates `continuation_open` must belong to the one closed
+   event-kind mapping and contributes the exact fluent it initiated;
+2. each later terminal effect removes its exact continuation id from the
+   unresolved set;
+3. a qualifying `run_stopped` row selects the still-unresolved opens whose
+   `runId` equals the stopped run and derives one existing
+   `continuation_terminated` fluent per selected id, with terminal status
+   `abandoned` and cause equal to that canonical `run_stopped.eventId`; and
+4. the fold removes those ids before examining later rows, so no later stop or
+   replay pass can abandon them twice.
+
+The closed mapping is:
+
+| Open event kind | Continuation kind |
+|---|---|
+| `fh_interaction_opened` | `fh_interaction` |
+| `continuation_reopened` | `retry_repair` |
+
+The rule requires canonical effect-row source events and refuses if an open
+effect's event kind is absent from the mapping, if the opened/reopened row lacks
+continuation id/run/cause truth required by its kind, if the stop lacks a
+canonical event id, or if one id has conflicting open or terminal history. It
+does not change retry events, extend `RuntimeEventCalculusEffectRow`, add ids to
+`run_stopped`, or inspect public ingress. The existing
+`RuntimeDerivedFluentRule` receives all strictly ordered effect rows after every
+admitted event, so no pre-clip hold snapshot is required.
+
+Each derived physical fluent uses the existing carrier fields:
+`name = continuation_terminated`, `scope = continuation`, the exact basis,
+graph-call, frame, run, vector, edge, and continuation id copied from the open
+fluent, and `ref = run_stopped.eventId` as cause. The direct resolved axiom uses
+the corresponding resume event id as `ref`. Terminal status remains a closed
+projection discriminator proven from which admitted rule/effect produced the
+terminated fluent; no status is parsed from a free-form ref.
+
+The continuation lifecycle projection folds the same rows and emits exact
+`{ continuationId, continuationKind, runId, status, causedByEventRef }` rows.
+For resume, status/cause are `resolved` and the canonical resume event id. For
+the derived rule, they are `abandoned` and the qualifying stop event id. The
+projection must agree one-for-one with the open/terminated fluents; it is a read
+model, not a second lifecycle authority.
+
+`superseded` remains part of the generic constitutional vocabulary but is not
+emitted or derived by this same-locus slice. Under
+`REQ-R-ABG3-CONTINUATION-004`, correction or supersession terminates the old
+continuation and opens a causally linked new continuation in a new run through
+the existing new-run law. A later ordinary F_H hold after resolution simply
+opens a new continuation id; it is not supersession.
+
+The admitted resume event names the replacement completely. It carries:
+
+```text
+continuationId/continuationKind/runId/causedByEventRef
+interactionRef/interactionBasisDigest/responseRef/responseDigest
+replacedHeldReceiptRef/replacedHeldReceiptDigest
+successorReceiptRef/successorReceiptDigest
+successorPlanRef/successorPlanDigest
+successorNodeRef/successorNodeDigest
+successorCursorRef/successorCursorDigest
+successorCCallRef
+successorInputPayloadRef/successorInputLineageRef
+successorTaskOrdinal/successorRetryAttempt/successorRetryPath
+successorStatus/successorOutputCarrierRef/successorOutputPayloadRef
+successorResponseContractRef/successorOutputLineageRef
+successorReasonRef/successorFailureClass/successorJudgment
+successorEvidenceRefs/successorSourceEventRefs
+```
+
+These fields are the contracts-owned event projection of the existing
+`CProgramAtomReceipt` truth; they do not import its runner interface. The event
+admitter proves every projected field equals the newly sealed receipt before
+append. Replay proves the same equality before selecting the successor.
+
+The full `FhHeldExecutionCheckpointBasis` body remains canonical event/replay
+truth. For checkpoint addressing and sealing, the public interaction
+projection adds no field: it continues to expose the existing
+`interactionRef` and `interactionBasisDigest` alongside its other existing
+interaction fields. It does not expose checkpoint rows, mint a checkpoint ref,
+or add a public schema. T-270 owns the private checkpoint-basis shape and
+admission. T-252 owns the reachable graph-schema source/key family; T-274B
+derives and delivers its asserted native definitions. T-275 owns the
+interaction subject/policy/response/result binding only. T-272 consumes those
+contracts and authors no graph-private or public schema.
+
+The predecessor held receipt remains immutable evidence. The effective replay
+receipt at that coordinate becomes the successor receipt named by
+`FhInteractionResumeAdmittedEvent`. The successor has the same plan, node,
+cursor, C-call, input payload, input lineage, task ordinal, retry attempt, and
+retry path, and carries the schema-admitted result payload and lineage.
+
+The resume event, successor receipt selection, and
+`open -> terminated(resolved)` effect are one admitted transition. A failure
+before that transition leaves the held
+receipt and open continuation unchanged. Replaying the same admitted
+`run.continue` is idempotent. It cannot append another resume event, successor
+receipt, or interaction-open event. A later F_H hold is lawful only at a
+different effective interpreter coordinate or attempt and opens a causally
+linked member of the same aggregate family.
+
+## Explicit Exclusions
+
+- graph restart, root invocation, post-action selection, or AF-13/AF-14 work;
+- caller-authored plan, node, cursor, C-call, input lineage, checkpoint basis,
+  result contract, continuation, or interaction identity;
+- `FhPendingInteraction` as a Consensus graph value;
+- a response handler that directly calls the interpreter;
+- runner or declared-execution-context types in the replay carrier;
+- a checkpoint ref, checkpoint-owned digest, second environment digest, store, lookup
+  callback, or ref resolver;
+- a continuation controller, scheduler, watcher, or session;
+- a second continuation aggregate, receipt family, event family, or runtime
+  value authority;
+- reuse or widening of retry-specific `continuation_terminated` or
+  `continuation_reopened` for same-run F_H;
+- same-run correction/supersession or a `superseded` status emitted by T-272;
+- inferring schema bodies or admitted values from refs;
+- changing an F_H vector's target after the hold;
+- folding `closed_done` or `escalate_fh`, or terminating
+  `recurse_next_round`;
+- exposing `run.resume` or any `abg.operation.fh.*` compatibility identity; and
+- product-specific orchestration in M04 or the CLI.
 
 ## Irreducible Architectural Carrier Set
 
-| Carrier | Authority | Role |
+| Carrier | Authority | Independent role |
 |---|---|---|
-| `GtlProgram` | admitted GTL declaration | Owns the interactive-continuation composition and published GraphFunction membership. |
-| `PublicFunctionDefinition<K>` | accepted public definition family | Governs exact response and continuation operation contracts and variants. |
-| `PublicInvocation<K>` | admitted public ingress family | One immutable operation instance; response and continuation are distinct instances. |
-| `InvocationAuthority<K>` | operation-indexed admission authority | Independently binds actor, grants, policy, and stable authority for each invocation. |
-| `WorkspaceBinding` | immutable workspace/product binding | Conserved through response and continuation; observation never mutates it. |
-| `ExecutionBasis` | M03 runtime authority | Exact current runtime authority for the held and continued intent. |
-| `BasisAdmittedEvent` | canonical replay event | Records the existing execution basis once for replay re-admission. |
-| `ConstructionIntent` | ABG construction-intent admission | The current intent that AF-17 alone may continue. |
-| `Continuation` | run-local replay truth | The open obligation consumed by run.continue. |
-| `DeclaredFhInteractionRequest` | declared F_H contract | Exact subject, response kinds, result contract, capabilities, and source carriers. |
-| `CProgramAtomReceipt` | T-271 interpreter replay | Existing held and successor receipt family for the exact C-program locus. |
-| `FhInteractionOpenedEvent` | canonical F_H event | Opens one interaction from the current intent and continuation. |
-| `FhInteractionRespondedEvent` | canonical F_H event | Records AF-18 response admission without continuing. |
-| `FhInteractionResumeAdmittedEvent` | canonical F_H event | Records successful AF-17 continuation admission and resolves the open Continuation at that same transition after distinct run.continue ingress and exact replay checks. |
-| `FhInteractionProjection` | replay-derived public projection | Exposes pending/responded status and opaque refs without new authority. |
-| `PublicOperationAdmittedRuntimeEvent` | generic public-operation event | Attributes interaction.respond and run.continue ingress without a route-specific controller. |
-| `ProductAssetModel` | admitted AF-11 model | The synthesized model consumed by AF-12 before observation/gap admission. |
-| `ObservationSnapshot` | admitted immutable observation | Carries fresher worksite/replay truth under unchanged authority. |
-| `NextActionProjection` | admitted AF-13 result | Distinguishes current-intent continuation from a newly selected action. |
+| `GtlProgram` | admitted GTL declaration | owns graph order, the two F_H leaves, and recurse/foldback law |
+| `PublicFunctionDefinition<K>` | accepted public definition family | governs exact respond/continue variants and contracts |
+| `PublicInvocation<K>` | public ingress | immutable respond or continue invocation |
+| `InvocationAuthority<K>` | operation-indexed admission | actor, grants, policy, and stable authority |
+| `WorkspaceBinding` | workspace/product authority | immutable workspace and installed-product binding |
+| `ExecutionBasis` | M03 runtime authority | exact basis shared by held and replacement receipts |
+| `ConstructionIntent` | One Surface intent authority | current intent containing the held execution |
+| `DeclaredFhInteractionRequest` | declared F_H contract | T-275 subject, policy, response, and result-contract binding truth; no schema identity |
+| `ConsensusRoundDisposition` | Consensus contract family | exact result type for both F_H leaves and recurse decision |
+| `CProgramAtomReceipt` | T-271 interpreter truth | held predecessor and admitted same-coordinate successor |
+| `Continuation` | existing run-local replay aggregate | open and typed terminal obligation truth over the held coordinate |
+| `FhInteractionOpenedEvent` | canonical runtime event | opens derived interaction truth with embedded contracts-owned checkpoint basis |
+| `FhInteractionRespondedEvent` | canonical runtime event | records admitted response without execution |
+| `FhInteractionResumeAdmittedEvent` | canonical runtime event | records replacement/resolution before interpreter continuation |
+| `RunStoppedEvent` | canonical run event | typed abort/close abandons open members; stop/interruption preserves them |
+| `RuntimeEventCalculusAxiom` | existing ABG Event Calculus | initiates/resolves exact F_H members and clips open members by stopped run |
+| `PublicOperationAdmittedRuntimeEvent` | generic ingress event | attributes each public operation without owning semantics |
 
-Subordinate values are response and continuation request payloads, response
-value and evidence, actor and capability provenance, replay cursor, basis replay seed, opaque
-interaction and continuation refs, receipt predecessor/successor refs, and
-resumed C-call attempt coordinate. None is independently selectable authority.
-
-`PublicOperationAdmittedRuntimeEvent` and
-`FhInteractionResumeAdmittedEvent` are not duplicate authorities. The former
-attests public ingress under EVENTS-031. The latter records that ABG admitted
-the response, current intent, and replay continuation for AF-17 after exact
-basis checks. Neither replaces the run-local `Continuation` aggregate.
-The F_H continuation-admitted event resolves the open continuation once at
-successful AF-17 admission. If the continued action holds again, the later
-interaction-opened event opens a
-causally linked continuation in the same existing aggregate family. No later
-transition resolves the already consumed continuation a second time.
+Subordinate projections are the held-coordinate projection,
+`FhHeldExecutionCheckpointBasis`, response payload, successor-receipt
+projection, `ContinuationAbandonmentDerivedRule`, the closed open-event-kind
+mapping, `ContinuationLifecycleProjection`, interaction projection,
+actor/capability provenance, and opaque public refs. None has an independent
+identity, lifecycle, or selector role.
 
 ## Prime Contraction Review
 
@@ -167,19 +345,17 @@ transition resolves the already consumed continuation a second time.
     "InvocationAuthority<K>",
     "WorkspaceBinding",
     "ExecutionBasis",
-    "BasisAdmittedEvent",
     "ConstructionIntent",
-    "Continuation",
     "DeclaredFhInteractionRequest",
+    "ConsensusRoundDisposition",
     "CProgramAtomReceipt",
+    "Continuation",
     "FhInteractionOpenedEvent",
     "FhInteractionRespondedEvent",
     "FhInteractionResumeAdmittedEvent",
-    "FhInteractionProjection",
-    "PublicOperationAdmittedRuntimeEvent",
-    "ProductAssetModel",
-    "ObservationSnapshot",
-    "NextActionProjection"
+    "RunStoppedEvent",
+    "RuntimeEventCalculusAxiom",
+    "PublicOperationAdmittedRuntimeEvent"
   ],
   "authoritativeCarriers": [
     "GtlProgram",
@@ -188,461 +364,372 @@ transition resolves the already consumed continuation a second time.
     "InvocationAuthority<K>",
     "WorkspaceBinding",
     "ExecutionBasis",
-    "BasisAdmittedEvent",
     "ConstructionIntent",
-    "Continuation",
     "DeclaredFhInteractionRequest",
+    "ConsensusRoundDisposition",
     "CProgramAtomReceipt",
+    "Continuation",
     "FhInteractionOpenedEvent",
     "FhInteractionRespondedEvent",
     "FhInteractionResumeAdmittedEvent",
-    "PublicOperationAdmittedRuntimeEvent",
-    "ProductAssetModel",
-    "ObservationSnapshot",
-    "NextActionProjection"
+    "RunStoppedEvent",
+    "RuntimeEventCalculusAxiom",
+    "PublicOperationAdmittedRuntimeEvent"
   ],
   "subordinatePayloads": [
-    "response and continuation request payloads",
-    "F_H response value and evidence",
+    "held C-program coordinate projection",
+    "FhHeldExecutionCheckpointBasis",
+    "F_H response payload and evidence",
+    "successor receipt projection",
+    "ContinuationAbandonmentDerivedRule",
+    "closed continuation-open event-kind mapping",
+    "ContinuationLifecycleProjection",
+    "FhInteractionProjection",
     "actor and capability provenance",
-    "execution-basis replay seed",
-    "opaque interaction and continuation refs",
-    "receipt predecessor and successor refs",
-    "resumed C-call attempt coordinate",
-    "public interaction and runtime projections"
+    "opaque public refs"
   ],
   "promotionTests": [
-    {"candidate": "GtlProgram", "verdict": "promote", "reason": "The admitted program independently owns the composition interpreted by ABG."},
-    {"candidate": "PublicFunctionDefinition<K>", "verdict": "promote", "reason": "The published definition is independently pattern-matched by catalog, schema, SDK, CLI, and ingress."},
-    {"candidate": "PublicInvocation<K>", "verdict": "promote", "reason": "Each immutable public invocation is independently admitted and produces one closed outcome."},
-    {"candidate": "InvocationAuthority<K>", "verdict": "promote", "reason": "Each operation independently admits its exact actor, grants, policy, and stable authority set."},
-    {"candidate": "WorkspaceBinding", "verdict": "promote", "reason": "The immutable binding independently governs workspace and installed-product authority."},
-    {"candidate": "ExecutionBasis", "verdict": "promote", "reason": "The held and continued runtime independently pattern-match exact execution authority."},
-    {"candidate": "BasisAdmittedEvent", "verdict": "promote", "reason": "Replay independently reconstructs the execution basis from this canonical event."},
-    {"candidate": "ConstructionIntent", "verdict": "promote", "reason": "AF-17 must pattern-match the current intent and AF-14 must create a different one."},
-    {"candidate": "Continuation", "verdict": "promote", "reason": "The run-local open obligation has an independent replay lifecycle."},
-    {"candidate": "DeclaredFhInteractionRequest", "verdict": "promote", "reason": "Response admission independently matches the declared contract and capability basis."},
-    {"candidate": "CProgramAtomReceipt", "verdict": "promote", "reason": "The structural interpreter directly pattern-matches held and successor receipt truth."},
-    {"candidate": "FhInteractionOpenedEvent", "verdict": "promote", "reason": "The event independently opens addressable interaction truth from runtime authority."},
-    {"candidate": "FhInteractionRespondedEvent", "verdict": "promote", "reason": "The event independently records attributed AF-18 response admission."},
-    {"candidate": "FhInteractionResumeAdmittedEvent", "verdict": "promote", "reason": "The event independently records successful AF-17 admission and resolves the open continuation once at that same transition after exact replay checks."},
-    {"candidate": "FhInteractionProjection", "verdict": "promote", "reason": "The public replay projection crosses the M03-M04 boundary and is directly pattern-matched."},
-    {"candidate": "PublicOperationAdmittedRuntimeEvent", "verdict": "promote", "reason": "One generic event independently attributes every public-operation admission."},
-    {"candidate": "ProductAssetModel", "verdict": "promote", "reason": "AF-11 produces an independently versioned model that AF-12 directly pattern-matches."},
-    {"candidate": "ObservationSnapshot", "verdict": "promote", "reason": "Fresh mutable truth must vary independently of immutable authority."},
-    {"candidate": "NextActionProjection", "verdict": "promote", "reason": "The admitted AF-13 result independently distinguishes no action from a newly selected action."}
+    {"candidate":"GtlProgram","verdict":"promote","reason":"ABG independently interprets its declared F_H targets and recurse law."},
+    {"candidate":"PublicFunctionDefinition<K>","verdict":"promote","reason":"Catalog, schema, SDK, CLI, and ingress independently match the operation contract."},
+    {"candidate":"PublicInvocation<K>","verdict":"promote","reason":"Each respond or continue ingress has an independent immutable lifecycle."},
+    {"candidate":"InvocationAuthority<K>","verdict":"promote","reason":"Admission independently matches actor, grants, policy, and stable authority."},
+    {"candidate":"WorkspaceBinding","verdict":"promote","reason":"Workspace and installed-product authority is independently conserved."},
+    {"candidate":"ExecutionBasis","verdict":"promote","reason":"Held and replacement receipts independently match one runtime authority."},
+    {"candidate":"ConstructionIntent","verdict":"promote","reason":"The held execution belongs to one independently admitted current intent."},
+    {"candidate":"DeclaredFhInteractionRequest","verdict":"promote","reason":"Response and result admission independently match the declared contract."},
+    {"candidate":"ConsensusRoundDisposition","verdict":"promote","reason":"Both F_H leaves and recurse independently match its closed outcome domain."},
+    {"candidate":"CProgramAtomReceipt","verdict":"promote","reason":"Replay and the interpreter independently match held and successor receipt truth."},
+    {"candidate":"Continuation","verdict":"promote","reason":"The run-local open obligation has an independent replay lifecycle."},
+    {"candidate":"FhInteractionOpenedEvent","verdict":"promote","reason":"Replay independently opens the exact held interaction and embeds reconstruction truth."},
+    {"candidate":"FhInteractionRespondedEvent","verdict":"promote","reason":"Replay independently records schema-admitted actor response truth."},
+    {"candidate":"FhInteractionResumeAdmittedEvent","verdict":"promote","reason":"Replay independently records one same-coordinate replacement and resolution."},
+    {"candidate":"RunStoppedEvent","verdict":"promote","reason":"Replay independently distinguishes abandoning run termination from a preserving stop or interruption."},
+    {"candidate":"RuntimeEventCalculusAxiom","verdict":"promote","reason":"ABG independently initiates, terminates, and clips continuation fluents from admitted events."},
+    {"candidate":"PublicOperationAdmittedRuntimeEvent","verdict":"promote","reason":"One generic event independently attributes public ingress before semantic admission."},
+    {"candidate":"FhHeldExecutionCheckpointBasis","verdict":"remain_subordinate","reason":"It is an identity-free contracts-owned value embedded in opened truth and sealed only by the event interaction-basis digest."},
+    {"candidate":"ContinuationAbandonmentDerivedRule","verdict":"remain_subordinate","reason":"It is one algorithm inside existing Event Calculus authority and derives no truth outside strictly ordered admitted effect history."},
+    {"candidate":"closed continuation-open event-kind mapping","verdict":"remain_subordinate","reason":"It classifies the live F_H-open and retry-reopen producers for the generic abandonment fold without becoming a selector."},
+    {"candidate":"ContinuationLifecycleProjection","verdict":"remain_subordinate","reason":"It derives exact status and cause from the same effect-row history and owns no lifecycle transition."}
   ],
-  "recurrenceReview": {"status": "consume_existing", "ref": "PC-007"},
-  "authoritySourceCount": {"before": 18, "after": 18},
-  "authoringSourceCount": {"before": 18, "after": 18},
-  "disposition": "consume_existing",
-  "ownerTicket": "T-272"
+  "recurrenceReview": {"status":"consume_existing","ref":"PC-007"},
+  "authoritySourceCount": {"before":17,"after":17},
+  "authoringSourceCount": {"before":17,"after":17},
+  "disposition":"consume_existing",
+  "ownerTicket":"T-272"
 }
 ```
 
-The design consumes eighteen existing authoritative carriers plus one
-downstream interaction projection. The authoritative-carrier list and source
-counts therefore both equal eighteen; `FhInteractionProjection` remains
-downstream. No controller, aggregate, selector, request family, or authored
-authority is added. Public identity contraction does not merge ingress,
-response admission, continuation admission, or replay continuation.
+The contraction adds no authority. The checkpoint basis remains subordinate to
+the execution basis, held receipt, admitted values, and opened event. The
+abandonment algorithm, closed event-kind map, strict replay-order call, and
+lifecycle projection remain subordinate implementation inside the existing
+Event Calculus/replay authority. Extending that authority is smaller than a
+store, lookup contract, retry-event widening, or second continuation aggregate,
+while keeping replay self-sufficient.
 
 ## Domain Model
 
 ```mermaid
 classDiagram
   direction LR
-  class ExternalOperator {
-    <<effect-edge>>
-  }
   class GtlProgram {
     <<prime>>
-    <<authoritative>>
-    +programRef
-    +programDigest
+    +twoFhLeaves
+    +recurseLaw
   }
-  class PublicFunctionDefinition {
+  class T275FhBinding {
     <<prime>>
-    <<authoritative>>
-    +operationId
-    +variantDomain
+    +subject
+    +policy
+    +resultContract
   }
-  class PublicInvocation {
+  class HeldReceipt {
     <<prime>>
-    <<authoritative>>
-    +invocationRef
-    +operationId
+    +planNodeCursor
+    +cCallInputLineage
   }
-  class InvocationAuthority {
-    <<prime>>
-    <<authoritative>>
-    +actorRef
-    +grantSetDigest
+  class FhHeldExecutionCheckpointBasis {
+    <<subordinate>>
+    +primitiveExactCoordinate
+    +orderedCanonicalIJsonRows
+    +noCheckpointIdentityOrSeal
   }
-  class WorkspaceBinding {
+  class FhOpenedEvent {
     <<prime>>
-    <<authoritative>>
-    +bindingRef
-    +bindingDigest
+    +derivedInteractionRef
+    +interactionBasisDigest
+    +continuationIdKindRunCause
   }
-  class ExecutionBasis {
+  class FhRespondedEvent {
     <<prime>>
-    <<authoritative>>
-    +basisRef
-    +basisDigest
-  }
-  class BasisAdmittedEvent {
-    <<prime>>
-    <<authoritative>>
-    +basisRef
-  }
-  class ConstructionIntent {
-    <<prime>>
-    <<authoritative>>
-    +intentRef
-    +selectedActionRef
+    +admittedResponse
   }
   class Continuation {
     <<prime>>
+    +open
+    +terminatedStatus
+  }
+  class EventCalculus {
     <<authoritative>>
-    +continuationRef
-    +runRef
+    +FhLifecycleEffects
   }
-  class DeclaredFhInteractionRequest {
-    <<prime>>
-    <<authoritative>>
-    +requestRef
-    +resultContractRef
-  }
-  class CProgramAtomReceipt {
-    <<prime>>
-    <<authoritative>>
-    +status
-    +predecessorReceiptRef
-  }
-  class FhInteractionOpenedEvent {
-    <<prime>>
-    <<authoritative>>
-    +interactionRef
-    +continuationRef
-  }
-  class FhInteractionRespondedEvent {
-    <<prime>>
-    <<authoritative>>
-    +responseRef
-    +responseKind
-  }
-  class FhInteractionResumeAdmittedEvent {
-    <<prime>>
-    <<authoritative>>
-    +resumeRef
-    +continuationRef
-  }
-  class FhInteractionProjection {
-    <<prime>>
-    <<downstream>>
-    +status
-    +replayRefs
-  }
-  class PublicOperationAdmittedRuntimeEvent {
-    <<prime>>
-    <<authoritative>>
-    +operationId
-    +invocationRef
-  }
-  class WorksiteReplayInput {
+  class ContinuationAbandonmentDerivedRule {
     <<subordinate>>
-    +worksiteDigest
-    +replayCursor
+    +orderedEffectRowFold
+    +exactStopEventCause
   }
-  class ProductAssetModel {
-    <<prime>>
-    <<authoritative>>
-    +modelRef
-    +modelDigest
+  class ContinuationOpenKindMapping {
+    <<subordinate>>
+    +fhInteractionOpened
+    +continuationReopened
   }
-  class ObservationSnapshot {
-    <<prime>>
-    <<authoritative>>
-    +snapshotRef
-    +replayCursor
+  class ReplayOrdinalAdmission {
+    <<subordinate existing gate>>
+    +sortFailClosed
+    +rejectMissingOrCollision
   }
-  class NextActionProjection {
+  class ContinuationLifecycleProjection {
+    <<subordinate>>
+    +terminalStatus
+    +causedByEventRef
+  }
+  class RunStoppedEvent {
     <<prime>>
-    <<authoritative>>
-    +projectionRef
-    +selectedActionRef
+    +typedReason
+  }
+  class SuccessorReceipt {
+    <<prime>>
+    +sameCoordinate
+    +roundDisposition
   }
   class T271Interpreter {
     <<authoritative>>
   }
 
-  ExternalOperator --> PublicInvocation : submits two distinct instances
-  PublicFunctionDefinition --> PublicInvocation : governs exact operation
-  PublicInvocation --> InvocationAuthority : requires operation indexed authority
-  PublicInvocation --> PublicOperationAdmittedRuntimeEvent : admits before semantic AF
-  GtlProgram --> ConstructionIntent : owns current intent
-  WorkspaceBinding --> ConstructionIntent : constrains
-  ExecutionBasis --> BasisAdmittedEvent : records once
-  ExecutionBasis --> ConstructionIntent : constrains
-  ConstructionIntent --> Continuation : opens run-local obligation
-  DeclaredFhInteractionRequest --> FhInteractionOpenedEvent : supplies response contract
-  CProgramAtomReceipt --> FhInteractionOpenedEvent : supplies held locus
-  FhInteractionOpenedEvent --> Continuation : opens causally linked obligation
-  FhInteractionOpenedEvent --> FhInteractionProjection : replay projects
-  FhInteractionRespondedEvent --> FhInteractionProjection : replay projects
-  PublicOperationAdmittedRuntimeEvent --> FhInteractionRespondedEvent : interaction respond precedes AF-18
-  PublicOperationAdmittedRuntimeEvent --> FhInteractionResumeAdmittedEvent : run continue precedes AF-17
-  FhInteractionRespondedEvent --> Continuation : supplies admitted input
-  Continuation --> FhInteractionResumeAdmittedEvent : supplies replay obligation
-  FhInteractionResumeAdmittedEvent --> CProgramAtomReceipt : authorizes current-intent successor
-  FhInteractionResumeAdmittedEvent --> Continuation : resolves open obligation once at AF-17 admission
-  CProgramAtomReceipt --> T271Interpreter : AF-17 continues
-  ProductAssetModel --> ProductAssetModel : AF-11 versions from lineage prior model and admitted product truth
-  ProductAssetModel --> ObservationSnapshot : AF-12 consumes model
-  WorksiteReplayInput --> ObservationSnapshot : AF-12 adds mutable observation input
-  ObservationSnapshot --> NextActionProjection : AF-13 evaluates next
-  NextActionProjection --> ConstructionIntent : AF-14 only when new action
-  ConstructionIntent --> T271Interpreter : AF-15 invokes new action
+  GtlProgram --> T275FhBinding : declares F_H leaf contract
+  GtlProgram --> HeldReceipt : interpreter reaches leaf
+  HeldReceipt --> FhHeldExecutionCheckpointBasis : upper adapter proves equality
+  HeldReceipt --> FhOpenedEvent : supplies exact coordinate
+  FhOpenedEvent *-- FhHeldExecutionCheckpointBasis : embeds identity-free basis
+  T275FhBinding --> FhOpenedEvent : supplies subject policy contract
+  FhOpenedEvent --> EventCalculus : initiates exact open
+  FhOpenedEvent --> FhRespondedEvent : response admits only
+  FhRespondedEvent --> SuccessorReceipt : run continue schema admits
+  FhHeldExecutionCheckpointBasis --> SuccessorReceipt : verified replay reconstructs
+  SuccessorReceipt --> EventCalculus : resume event resolves once
+  RunStoppedEvent --> EventCalculus : abort or close clips open by run
+  EventCalculus *-- ReplayOrdinalAdmission : admits ordered replay first
+  EventCalculus *-- ContinuationAbandonmentDerivedRule : owns algorithm
+  ContinuationAbandonmentDerivedRule *-- ContinuationOpenKindMapping : classifies open producers
+  EventCalculus --> ContinuationAbandonmentDerivedRule : supplies ordered effect rows
+  ContinuationAbandonmentDerivedRule --> Continuation : derives terminated abandoned
+  EventCalculus --> Continuation : derives open and terminated resolved
+  Continuation --> ContinuationLifecycleProjection : projects exact status and cause
+  SuccessorReceipt --> T271Interpreter : resumes same plan and cursor
 ```
 
 ## Execution Sequence
 
 ```mermaid
 sequenceDiagram
-  actor Operator as ExternalOperator
-  participant M04 as M04PublicIngress
-  participant Admission as PublicFunctionAdmission
-  participant Interaction as M03FhInteractionAdmission
-  participant Replay as CanonicalRuntimeEventLog
-  participant Program as AdmittedGtlProgram
-  participant ABG as ExistingAbgRuntime
-  participant Interpreter as T271Interpreter
-  participant ActionEval as AF16ActionEvaluation
-  participant Model as AF11ModelSynthesis
-  participant Gap as AF12GapEvaluation
-  participant Next as AF13NextEvaluation
+  actor Caller
+  participant M04 as PublicIngress
+  participant Adapter as T270UpperAdapter
+  participant Replay as CanonicalReplay
+  participant Ordinal as StrictReplayOrdinalAdmission
+  participant Fh as ExistingFhLifecycle
+  participant EC as EventCalculus
+  participant Rule as ContinuationAbandonmentDerivedRule
+  participant Projection as ContinuationLifecycleProjection
+  participant T271 as CompleteCInterpreter
 
-  Interpreter->>Interaction: held current intent, receipt, basis, and declared F_H request
-  Interaction->>Replay: append FhInteractionOpenedEvent with continuation
-  Interaction-->>M04: pending F_H projection
-  M04-->>Operator: truthful held result and interaction ref
+  T271->>Fh: held leaf receipt plus T275 declared request
+  Fh->>Adapter: exact runtime coordinate and admitted carriers
+  Adapter->>Adapter: prove equality and construct contracts-owned I-JSON basis
+  Adapter->>Fh: identity-free FhHeldExecutionCheckpointBasis
+  Fh->>Fh: derive interaction and continuation ids plus one interactionBasisDigest
+  Fh->>Replay: append opened event embedding exact checkpoint basis
+  Replay->>Ordinal: sortReplayByAdmissionOrdinalFailClosed
+  Ordinal-->>EC: collision-free ordered canonical replay
+  EC->>EC: apply fh_interaction_opened effects
+  EC->>EC: initiate continuation_open in named run
+  EC->>Projection: project open with opened-event cause
+  Fh-->>Caller: pending interaction projection
 
-  Operator->>M04: interaction.respond PublicInvocation
-  M04->>Admission: resolve definition and admit invocation authority
-  Admission->>Replay: append generic public-operation admission
-  Admission->>Interaction: admitted response payload only
-  Interaction->>Replay: AF-18 append FhInteractionRespondedEvent
-  Interaction-->>M04: responded nonterminal projection
-  M04-->>Operator: response admitted and execution remains held
+  alt typed response and same-locus continuation
+    Caller->>M04: interaction.respond invocation
+    M04->>Replay: append generic operation admission
+    M04->>Fh: admitted actor response
+    Fh->>Fh: validate declared response schema
+    Fh->>Replay: append responded event
+    Fh-->>Caller: responded, execution still held
 
-  Operator->>M04: distinct run.continue PublicInvocation
-  M04->>Admission: resolve definition and admit invocation authority
-  Admission->>Replay: append generic public-operation admission
-  Admission->>ABG: admitted continuation payload only
-  Note over Admission,ABG: actors and grants are independently admitted and equality is policy conditional
-  ABG->>Replay: reconstruct program, current intent, binding, basis, interaction, continuation, and receipts
-  alt workspace binding or execution authority changed
-    ABG-->>M04: basis_fork_detected or reprice-required refusal
-  else current authority is exact
-    ABG->>Replay: successful AF-17 admission appends FhInteractionResumeAdmittedEvent and resolves open Continuation
-    ABG->>Program: interpret admitted interactive-continuation composition
-    Note over Program,ABG: Program owns order and ABG interprets and invokes each distinct authority
-    ABG->>Interpreter: AF-17 current intent with admitted response
-    alt successor reaches another F_H hold
-      Interpreter->>Interaction: held successor locus and declared F_H request
-      Interaction->>Replay: append FhInteractionOpenedEvent and open causally linked Continuation
-      Interaction-->>M04: truthful nonterminal held projection
-    else successor yields admitted runtime evidence
-      Interpreter->>Replay: append successor receipt and continued runtime evidence
-      ABG->>ActionEval: invoke declared AF-16 with current intent and complete reachable evidence
-      ActionEval->>Replay: admit ledger and closure decision
-      ABG->>Model: invoke declared AF-11 with intent lineage, prior model, and admitted product truth
-      Model->>Replay: admit ProductAssetModel
-      ABG->>Gap: invoke declared AF-12 with ProductAssetModel plus mutable worksite and replay observation input
-      Gap->>Replay: admit ObservationSnapshot and gaps
-      ABG->>Next: invoke declared AF-13 with admitted AF-12 truth
-      Next->>Replay: admit NextActionProjection
-      alt AF-13 selects a new action
-        ABG->>Replay: AF-14 admit new ConstructionIntent
-        ABG->>Interpreter: AF-15 invoke selected GraphFunction
-      else no new action or typed hold
-        ABG-->>M04: terminal, blocked, or held projection
-      end
-    end
-    M04-->>Operator: typed public projection
+    Caller->>M04: distinct run.continue invocation
+    M04->>Replay: append generic operation admission
+    M04->>Fh: opaque interaction and continuation refs
+    Fh->>Replay: request exact opened-event and response projections
+    Replay-->>Fh: canonical event bodies in admitted order
+    Fh->>Fh: verify coordinates, canonical I-JSON rows, constituent digests, and one seal
+    Fh->>Fh: reconstruct only after exact projection verification
+    Fh->>Fh: admit ConsensusRoundDisposition result contract
+    Fh->>Replay: append resume event naming old and successor receipts
+    Replay->>Ordinal: re-admit full replay order
+    Ordinal-->>EC: ordered effect input
+    EC->>EC: terminate open and initiate terminated status resolved
+    EC->>Projection: project resolved with resume eventId cause
+    Replay->>Replay: select exact successor receipt once
+    Fh->>T271: same plan, node, cursor, C-call, input lineage, admitted result
+    T271-->>Caller: completed, held at another coordinate, blocked, or failed
+  else run abort or campaign close while open
+    Caller->>M04: existing typed run stop invocation
+    M04->>Replay: append canonical run_stopped with no continuation ids
+    Replay->>Ordinal: re-admit full replay order
+    Ordinal-->>EC: ordered F_H and retry continuation events
+    EC->>EC: clip every continuation_open by exact run
+    EC->>Rule: ordered effect rows including opened and stopped
+    Rule->>Rule: map F_H open and retry reopen, then subtract all terminal effects
+    Rule->>EC: derive terminated abandoned per unresolved id
+    EC->>Projection: project abandoned with run_stopped eventId cause
+    Projection-->>Caller: terminal abandoned read model
   end
+
+  Note over M04,T271: ingress never selects graph work or restarts the graph
+  Note over Adapter,Replay: adapter types never enter the event or replay carrier
+  Note over Ordinal,Rule: missing or colliding ordinals refuse before the fold
+  Note over Replay,T271: duplicate run.continue reuses prior admitted transition
+  Note over M04,Projection: operator stop or interruption clips nothing and preserves open
 ```
 
-## Lifecycle State Model
+## State Model
 
 ```mermaid
 stateDiagram-v2
-  [*] --> CurrentIntentHeld: T271 holds exact F_H locus
-  CurrentIntentHeld --> InteractionPending: engine opens interaction and continuation
-  InteractionPending --> ResponseIngressRefused: response PublicInvocation or authority rejects
-  InteractionPending --> ResponseIngressAdmitted: generic operation event appended
-  ResponseIngressAdmitted --> ResponseRefused: interaction.respond fails AF-18 admission
-  ResponseIngressAdmitted --> ResponseAdmitted: AF-18 records attributed response
-  ResponseIngressRefused --> InteractionPending: no semantic response admission occurred
-  ResponseRefused --> InteractionPending: replay preserves pending truth
-  ResponseAdmitted --> AwaitingContinue: response is nonterminal and non-executing
-  AwaitingContinue --> ContinueIngressRefused: continue PublicInvocation or authority rejects
-  AwaitingContinue --> ContinueIngressAdmitted: generic operation event appended
-  ContinueIngressRefused --> AwaitingContinue: replay preserves response and continuation
-  ContinueIngressAdmitted --> BasisForkDetected: workspace binding or execution authority changed
-  ContinueIngressAdmitted --> ContinuationAdmissionRefused: response, intent, or continuation mismatch
-  ContinueIngressAdmitted --> ContinuationAdmitted: successful AF-17 admission event resolves open Continuation
-  ContinuationAdmissionRefused --> AwaitingContinue: consumed continuation remains open
-  ContinuationAdmitted --> CurrentIntentContinuing: admitted AF-17 execution begins
-  CurrentIntentContinuing --> SuccessorRefused: response contract or receipt chain rejects
-  CurrentIntentContinuing --> InterpretingCurrentIntent: successor receipt admitted
-  InterpretingCurrentIntent --> HeldAgain: another lawful F_H boundary opens before AF-16
-  InterpretingCurrentIntent --> ActionEvidenceAdmitted: current action yields evidence
-  HeldAgain --> InteractionPending: open causally linked Continuation in same family
-  ActionEvidenceAdmitted --> ActionEvaluated: AF-16 admits closure decision
-  ActionEvaluated --> ModelSynthesized: AF-11 consumes lineage prior model and admitted product truth
-  ModelSynthesized --> ObservationAndGapsAdmitted: AF-12 consumes model plus mutable worksite and replay observation
-  ObservationAndGapsAdmitted --> NextActionEvaluated: AF-13 consumes admitted AF-12 truth
-  NextActionEvaluated --> NewActionSelected: AF-13 selects different action
-  NewActionSelected --> NewIntentAdmitted: AF-14 admits distinct intent
-  NewIntentAdmitted --> NewActionInvoked: AF-15 invokes selected function
-  NextActionEvaluated --> NoActionTerminal: typed terminal no-action truth
-  NextActionEvaluated --> ProgramHeld: typed nonterminal hold
-  ProgramHeld --> AwaitingContinue: existing Continuation remains open
-  BasisForkDetected --> [*]
-  SuccessorRefused --> [*]
-  NewActionInvoked --> [*]
-  NoActionTerminal --> [*]
+  [*] --> LeafExecuting
+  [*] --> RetryReopened
+  LeafExecuting --> FhOpen: mapping classifies fh_interaction_opened
+  RetryReopened --> RetryOpen: mapping classifies continuation_reopened
+  FhOpen --> ResponseRefused: malformed or unauthorized response
+  ResponseRefused --> FhOpen
+  FhOpen --> ResponseRecorded: interaction.respond admitted
+  ResponseRecorded --> ContinueRefused: event basis or result mismatch
+  ContinueRefused --> ResponseRecorded
+  ResponseRecorded --> TerminatedResolved: ordinal-admitted resume proves exact successor and cause
+  FhOpen --> OpenClippedByRun: ordinal-admitted abort or close clips every open by run
+  RetryOpen --> OpenClippedByRun: same generic run clip
+  OpenClippedByRun --> TerminatedAbandoned: ContinuationAbandonmentDerivedRule proves kind id and stop eventId
+  FhOpen --> FhOpen: operator stop or interruption preserves obligation
+  RetryOpen --> RetryOpen: operator stop or interruption preserves obligation
+  RetryOpen --> RetryContinued: unchanged retry continuation law
+  TerminatedResolved --> InterpreterRunning: resume existing T-271 plan
+  InterpreterRunning --> FhOpen: different coordinate opens new continuation id
+  InterpreterRunning --> Completed
+  InterpreterRunning --> Blocked
+  InterpreterRunning --> Failed
+  TerminatedResolved --> TerminatedResolved: duplicate invocation is idempotent
+  RetryContinued --> [*]
+  TerminatedAbandoned --> [*]
+  Completed --> [*]
+  Blocked --> [*]
+  Failed --> [*]
 ```
 
-## Lifecycle And Authority Derivation
+## Cross-View Axioms
 
-| Subject | Create/admit | Continue/transition | Authority conservation |
-|---|---|---|---|
-| `PublicInvocation<K>` | owning definition admits one operation instance and its own InvocationAuthority | response and continuation are separate immutable instances and outcomes | common family and generic operation event; no operation-specific request authority |
-| `FhInteraction` | engine opens from current intent, held receipt, request, and replay continuation | AF-18 admits one response; run.continue later admits one internal continuation event; projection remains nonterminal until AF-17 runs | same program, binding, basis, run, intent, interaction, and continuation; operation actors/grants remain independently admitted unless policy joins them |
-| `ConstructionIntent` | AF-14 admits only from a selected `NextActionProjection` | AF-17 continues an existing intent only | current intent cannot be relabeled; a new action creates a new intent |
-| `Continuation` | ABG opens from unresolved run-local event truth | successful AF-17 admission emits FhInteractionResumeAdmittedEvent and resolves the open continuation once; repeated hold opens a causally linked member through FhInteractionOpenedEvent | caller supplies opaque ref only; replay owns state; no second aggregate or duplicate resolution transition |
-| `ProductAssetModel` | AF-11 synthesizes from admitted intent lineage, the prior model when present, and admitted product truth | later AF-12 directly consumes it | immutable admitted model version under unchanged workspace/execution authority; mutable observation is excluded from AF-11 |
-| `ObservationSnapshot` | AF-12 admits immutable observed truth against the AF-11 model and current worksite/replay input | a newer snapshot replaces dependent projections, not authority | workspace binding and execution basis remain unchanged |
-| `NextActionProjection` | AF-13 admits one total selection result | new selection crosses AF-14/AF-15 | projection cannot continue the prior intent itself |
-| `CProgramAtomReceipt` | T-271 admits held/completed receipts | AF-17 yields one exact successor in the same family | predecessor, plan, locus, cursor, input, contract, and C-call lineage remain exact |
+| Axiom | Domain evidence | Sequence evidence | State evidence | Enforcement |
+|---|---|---|---|---|
+| GTL owns construction | program declares both leaves and recurse law | M04 only admits/transports | no controller state exists | static body and dependency scan |
+| re-entry is same locus | held and successor receipts share exact coordinate | exact opened-event projection verifies before reconstruction | only `TerminatedResolved` resumes | native equality plus single-seal admission |
+| response is not execution | responded event is distinct from receipt | response returns while held | `ResponseRecorded` precedes replacement | event-count and interpreter-call negative |
+| pending is runtime truth | no pending GTL target exists | opened event produces projection | pending state owns no graph result | compiler target and schema census |
+| result is typed | both F_H targets are round disposition | run.continue admits selected contract | malformed result reaches refusal | declared-schema admission |
+| recurse is exhaustive | three outcomes map to one disposition each | foldback only on recurse | no ambiguous transition | semantic compiler and runtime table |
+| continuation is singular | existing aggregate owns open and typed terminal truth across F_H and retry kinds | strict replay admission precedes axioms and one subordinate ordered-row rule | resolved is direct; abandonment passes through `OpenClippedByRun` | Event Calculus, closed-kind mapping, derived-rule, projection-parity, and no-second-aggregate gates |
+| replay order is authority | ordinal admission is an existing Event Calculus prerequisite | every effect-row fold consumes fail-closed sorted replay | missing/collision reaches refusal before lifecycle transition | missing/colliding ordinal negatives and physical-order permutation |
+| checkpoint is subordinate | embedded identity-free I-JSON rows derive from existing truth | upper adapter disappears before replay | no checkpoint lifecycle state | dependency scan, single-seal proof, and no-store negative |
+| hard break is atomic | only respond and continue definitions remain | no legacy ingress path | no compatibility state | P2 catalog SDK CLI parity gate |
 
-| Function or public route | Input authority | Output/effect | Forbidden authority |
-|---|---|---|---|
-| common public admission | PublicFunctionDefinition, PublicInvocation, operation-indexed InvocationAuthority | generic PublicOperationAdmittedRuntimeEvent before owning semantic function | semantic AF work, ordering, cursor, intent, or action choice |
-| `interaction.respond` / AF-18 | admitted response invocation, pending interaction, its actor/grants, response contract, current basis | attributed response event and projection | continuation, action selection, closure, new intent, or inferred actor equality |
-| `run.continue` ingress | admitted continuation invocation, run/continuation refs, its actor/grants, optional declared input | transport to ABG after generic public-operation admission | orchestration, private cursor, intent/action choice, or inherited response grants |
-| AF-17 `continueExecution` | current intent, replay continuation, admitted input, unchanged binding and basis | current-intent interpreter continuation | new action or new construction intent |
-| AF-11..AF-13 refresh | AF-11 intent lineage, prior model, and admitted product truth; AF-12 model plus mutable worksite/replay observation; AF-13 admitted AF-12 truth | AF-11 model, then AF-12 snapshot/gaps, then AF-13 next-action projection | mutable observation entering AF-11, reordered evaluation, workspace rebind, or basis-fork inference |
-| AF-14/AF-15 new action | fresh selected action and exact authority | new construction intent then graph invocation | relabeling as prior continuation |
-| AF-16 `evaluateAction` | current intent plus complete reachable evidence | ledger and closure decision | response-only or single-evidence closure |
+## Negative Proof Matrix
 
-## Legacy-To-Target Function Derivation
+- wrong basis, graph call, frame, vector, plan, node, cursor, C-call, input
+  payload, input lineage, task ordinal, retry attempt/path, or held receipt
+  refuses before a successor receipt exists;
+- missing, reordered, duplicate, extra, non-canonical-I-JSON, or
+  digest-divergent checkpoint entries refuse;
+- an opened event without the embedded checkpoint body refuses; no resolver is
+  called;
+- a checkpoint ref/digest, second environment digest, or adapter-owned serialized
+  carrier fails the dependency and single-seal gates;
+- malformed, wrong-contract, or extra-field response refuses schema admission;
+- `interaction.respond` changes no effective receipt and invokes no atom;
+- `run.continue` with no admitted response refuses;
+- the successor receipt cannot change the F_H target contract;
+- a duplicate continue emits no second event, receipt, or interaction;
+- a continuation event missing id, kind, run, cause, or successor receipt truth
+  refuses before Event Calculus application;
+- retry-specific continuation events cannot resolve an F_H member;
+- an `operator_abort` or `campaign_close` leaves no open member in its run;
+- an `operator_stop` or `external_interruption` cannot abandon one;
+- `run_stopped` and public ingress carry no authored continuation ids;
+- missing or colliding admission ordinals refuse before Event Calculus and the
+  abandonment fold; physical input order cannot change the result;
+- an event kind that initiates `continuation_open` but is absent from the
+  closed F_H-open/retry-reopen mapping refuses;
+- unresolved F_H-open and retry-reopen members in the stopped run both derive
+  abandoned terminal truth; the retry events themselves remain unchanged;
+- missing canonical stop identity, conflicting open/terminal history, a
+  terminal member selected as unresolved, or derived/projection disagreement
+  refuses abandonment;
+- this slice emits no `superseded` status; correction/supersession remains on
+  the required terminate-old/open-new-run path;
+- a held interaction cannot satisfy `ConsensusRoundDisposition`;
+- `closed_done` and `escalate_fh` cannot enter foldback;
+- `recurse_next_round` cannot terminate or project a terminal result;
+- a later hold at the same effective coordinate is a duplicate and refuses;
+- a later hold at a different lawful coordinate stays in the same Continuation
+  aggregate family;
+- no M04 or CLI module imports a Consensus runtime controller; and
+- P2 publication contains no `run.resume` or `abg.operation.fh.*` definition,
+  schema, SDK method, CLI route, alias, or fallback.
 
-| Legacy label/carrier | Target derivation | Disposition |
-|---|---|---|
-| `fh.select`, `fh.approve`, `fh.reject`, `fh.assess`, `fh.answer-escalation` | closed variants of `abg.operation.interaction.respond` through AF-18 | retire five public definitions; no facade or fallback |
-| `run.resume` | `abg.operation.run.continue` over replay `Continuation` | retire identity and defaults; no alias |
-| combined response/resume request | two distinct `PublicInvocation<K>` instances: interaction.respond then run.continue | split by lifecycle and authority; no new request family |
-| `FhInteractionResumeAdmittedEvent` | internal ABG event derived only after run.continue ingress and exact replay checks | retain as non-public continuation-admission truth; never a public operation or second Continuation |
-| current-intent response consumption | AF-17 | retain exact existing intent |
-| post-disposition new action | AF-13 -> AF-14 -> AF-15 | never AF-17 |
-| newer observation/replay | AF-11 refreshes from stable admitted inputs, AF-12 alone adds mutable observation, then AF-13 evaluates admitted gap truth | ordinary progress; never basis fork |
+## Realization Order And Exit
 
-## Cross-View Axiom Evaluation
+1. Accept the repaired T-270 design and expose the contracts-owned,
+   identity-free checkpoint basis from the same admitted runtime values used
+   for initial execution. Prove the upper adapter is absent from event and
+   replay dependency closures.
+2. Correct the T-252 canonical body: both F_H targets become
+   `ConsensusRoundDisposition`; pending interaction leaves GTL data; recurse
+   terminates on `closed_done | escalate_fh` and folds only
+   `recurse_next_round`; and the Module derives exact flat reachable-schema
+   metadata rows from the closed T-252 public/private source-key family.
+3. Admit T-275's subject, policy, response, and result-contract binding without
+   an authored interaction identity.
+4. Extend the existing opened/responded/resume event fields and declare their
+   Event Calculus effects over the existing `continuation_open` and
+   `continuation_terminated` fluents. Before calculus, call the existing strict
+   replay-ordinal admission. Add one subordinate
+   `ContinuationAbandonmentDerivedRule` inside Event Calculus that maps every
+   declared F_H-open or retry-reopen initiation, subtracts all terminal
+   effects, derives `abandoned` after a qualifying run clip, and projects exact
+   status/cause rows from the same trace. Add no ids to `run_stopped`, and no
+   new authority, fluent family, event family, aggregate, or store. Keep retry
+   events and new-run supersession law unchanged.
+5. Implement schema-only `interaction.respond` and exact same-coordinate
+   `run.continue` replacement through the existing T-271 interpreter.
+6. At P2, remove all legacy F_H public identities atomically with the accepted
+   19-operation catalog/SDK/CLI publication.
+7. Prove converge, recurse, F_H hold/respond/continue, duplicate continue,
+   malformed response, forged coordinate, F_H and retry abandonment, ordinal
+   permutation/collision, and source-blind installed paths.
 
-| Axiom | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission/compiler enforcement | Verdict | Gap owner |
-|---|---|---|---|---|---|---|---|---|
-| response and continuation are distinct | POLICY-031..033 | two PublicInvocation instances of one family | response returns before run.continue | ResponseAdmitted enters AwaitingContinue | closed operation variants | definition-indexed public admission | pass | none |
-| common admission precedes semantic AF | PUBLIC-CONTRACTS-008..010; EVENTS-031 | definition, invocation, authority, and generic event are explicit | generic event precedes AF-18 and AF-17 | ingress-admitted states precede semantic states | shared nominal public families | operation definition and invocation-authority admission | pass | none |
-| actor and grants are independently scoped | POLICY-031..032; InvocationAuthority | each invocation owns one operation-indexed authority | both invocations admit authority separately | no state transition copies actor or grants | separate immutable authority values | equality only through declared policy predicate | pass | none |
-| current intent is conserved | CONTINUATION-011; AF-17 | ConstructionIntent links to Continuation and receipt | AF-17 receives current intent only | CurrentIntentContinuing has no new-intent edge | nominal current-intent carrier | replay ref/digest equality | pass | none |
-| new action cannot use AF-17 | CONTINUATION-012; AF-14/15 | NextActionProjection creates distinct intent | new branch crosses AF-14 then AF-15 | NewActionSelected cannot reach CurrentIntentContinuing | distinct constructor APIs | selected-action and intent admission | pass | none |
-| observation freshness is ordered and not authority change | BINDING-016..017; CONTINUATION-013 | ProductAssetModel excludes mutable worksite input; WorksiteReplayInput enters ObservationSnapshot only; NextActionProjection follows | ABG invokes distinct AF-11 over lineage/prior-model/product truth, AF-12 over model plus mutable observation, then AF-13 over admitted AF-12 truth | ActionEvaluated reaches ModelSynthesized then ObservationAndGapsAdmitted then NextActionEvaluated | separate nominal carriers | stage input/output admission and basis comparison exclude observation fields | pass | none |
-| actual authority fork fails before effects | WITNESS-017; CONTINUATION-014 | immutable binding and basis are explicit | changed-authority branch returns refusal | BasisForkDetected is terminal | closed basis identity fields | exact covering-reprice admission | pass | none |
-| public ingress owns no orchestration | EVENTS-031; FPC-001 | common invocation and generic event have no program cursor | ingress hands admitted invocation to AF-18 or ABG | no public-ingress controller state | PublicInvocation omits private carriers | program membership and ABG authority admission | pass | none |
-| response is not closure | POLICY-032; ASSURANCE-033 | response event is distinct from receipt and decision | AF-16 occurs only after continued evidence | ResponseAdmitted is nonterminal | closed event variants | selected-contract and evidence admission | pass | none |
-| ingress and continuation admission remain distinct | EVENTS-031; CONTINUATION-011 | generic ingress event, internal F_H admission event, and Continuation have separate roles | run.continue ingress precedes exact AF-17 admission | AwaitingContinue precedes CurrentIntentContinuing | distinct closed event types | exact response, intent, continuation, and basis joins | pass | none |
-| consumed continuation has explicit lifecycle truth | CONTINUATION-004..005; EVENTS-011 | F_H continuation event targets existing Continuation | successful AF-17 admission emits the event and resolves the open obligation once | ContinuationAdmitted is the single resolution transition before interpretation branches to a new hold or evidence | existing F_H event and Continuation types | causal predecessor and disposition admission | pass | none |
-| repeated F_H holds are nonterminal | POLICY-033; CONTINUATION-005 | opened event creates another Continuation in same family | later hold returns to interaction admission | HeldAgain loops to InteractionPending | no terminal held union variant | continuation causal-link admission | pass | none |
-| hard break is exact | PUBLIC-CONTRACTS-008 | only two target public identities appear | no legacy public route | no compatibility state | closed operation definition union | catalog and publication parity gates | pass | none |
-
-## Proof Contract
-
-Implementation acceptance requires:
-
-1. the public definition family publishes `interaction.respond` and
-   `run.continue` and publishes no `run.resume` or five independent `fh.*`
-   identities, aliases, defaults, or fallbacks;
-2. each operation consumes the existing `PublicFunctionDefinition<K>`, a
-   distinct `PublicInvocation<K>`, and an independently admitted
-   `InvocationAuthority<K>`, then emits `PublicOperationAdmittedRuntimeEvent`
-   before AF-18 or AF-17;
-3. response and continuation actor/grant admission is independently proven,
-   with cross-operation equality enforced only by an explicit declared policy;
-4. a real T-270 engine run opens one F_H interaction without a caller-seeded
-   runtime locus;
-5. `interaction.respond` admits one response and returns a nonterminal
-   projection without invoking AF-17 or the interpreter;
-6. a later `run.continue` conserves the same program, current intent, workspace
-   binding, execution basis, interaction, continuation, graph call, plan,
-   locus, and receipt lineage;
-7. the current-intent path uses AF-17, while a fresh selected action is proven
-   to cross AF-14 then AF-15 and cannot enter AF-17;
-8. AF-11 consumes admitted intent lineage, the prior model when present, and
-   admitted product truth; AF-12 alone adds fresher worksite/replay observation
-   input to the admitted model; AF-13 consumes the admitted AF-12 truth; a
-   changed authority basis refuses before effects;
-9. response value admission occurs against the selected result contract before
-   successor receipt creation;
-10. replay after restart is idempotent and rejects wrong interaction, response,
-    operation actor/grant, continuation, intent, binding, basis, contract,
-    receipt, or reprice according to each operation's declared policy;
-11. the internal continuation-admitted event is emitted only from distinct
-   run.continue ingress after exact replay admission, and no second
-   continuation, receipt, or controller family exists;
-12. successful AF-17 admission emits the F_H continuation-admitted event and
-    resolves the open Continuation once at that transition; a second lawful F_H
-    hold opens a causally linked Continuation in the same family while remaining
-    nonterminal;
-13. the unchanged T-252 Consensus body uses only the generic path; and
-14. focused, semantic, GTL, packed, publication, Prime, governance, and design
-    gates are green from one exact tree.
-
-## Migration And Stop Conditions
-
-- remove legacy public operation definitions and generated artifacts by hard
-  break; do not retain compatibility adapters;
-- preserve the existing `GtlProgram`, `ConstructionIntent`,
-  `WorkspaceBinding`, `ExecutionBasis`, `Continuation`, interaction, and
-  receipt families;
-- consume the existing PublicFunctionDefinition, PublicInvocation,
-  InvocationAuthority, and generic public-operation event families; no
-  operation-specific request family is permitted;
-- retain generic public-operation ingress attribution and internal successful
-  continuation admission as separate replay facts over one Continuation;
-- reject mixed legacy/current operation or event truth before effects;
-- preserve the accepted T-270 public invocation boundary exactly: ingress admits
-  and transports, the admitted program owns composition order, and ABG
-  interprets it through distinct semantic authorities;
-- stop if implementation would require a new public operation, session
-  controller, request family, action selector, intent family, continuation
-  family, basis family, or compatibility facade;
-- stop and emit a typed design/compiler gap if AF-17 cannot be constrained to
-  the current intent or AF-14/AF-15 cannot express the new-action path; and
-- stop if any observation or replay freshness field enters `WorkspaceBinding`
-  or `ExecutionBasis` identity.
-
-The independently accepted T-270 design is consumed at digest
-`71076f364d06a9725b5482ee0cdc84e64d29a4c18447a5ab4c41e1b62ba7f430`.
-Runtime reconciliation must not begin until F_H explicitly accepts this T-272
-design against that exact dependency.
-
-## Design Verdict
-
-`accepted_for_runtime_reconciliation` on the ratified Ontology basis. The
-existing dirty runtime wave remains preserved but provisional and does not prove
-this target. Runtime changes are authorized only within this accepted boundary
-and still require independent closure review.
+Closure requires one installed Consensus F_H case to hold at a real T-271 leaf,
+record a typed response without execution, continue from the same coordinate,
+verify the exact opened-event checkpoint projection before reconstruction,
+produce an admitted `ConsensusRoundDisposition`, and either terminate or fold
+according to the exhaustive recurse table. Replay must derive open and
+resolved truth from declared effects and all-kind abandoned truth from the one
+strictly ordered effect-row algorithm, with exact status/cause projection
+parity. Generic
+supersession remains outside this same-locus slice. No graph
+restart, selector, alternate runner, source import, compatibility operation,
+or duplicate hold may participate.
