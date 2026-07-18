@@ -3,11 +3,13 @@
 import type * as v from "valibot";
 
 import {
+  canonicalizeRuntimeSchemaAdmissionMetadataRows,
   constructRuntimeSchemaAdmissionCapability,
   constructRuntimeSchemaAdmissionCapabilityBasis,
   constructRuntimeSchemaAdmissionEngineInput,
   RUNTIME_SCHEMA_ADMISSION_METADATA_FIELDS,
   RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+  runtimeSchemaAdmissionMetadataRowKey,
   type RuntimeSchemaAdmissionCapabilityBasis,
   type RuntimeSchemaAdmissionEngineInput,
   type RuntimeSchemaAdmissionMetadataRow
@@ -91,10 +93,6 @@ function nonEmptyText(
   return value;
 }
 
-function metadataRowKey(input: RuntimeSchemaAdmissionMetadataRow): string {
-  return `${input.graphFunctionId}\u0000${input.nodeRef}\u0000${input.symbolicSchemaRef}`;
-}
-
 function contractKey(input: {
   readonly contractId: string;
   readonly contractVersion: string;
@@ -125,14 +123,14 @@ export function admitM04RuntimeSchemaAdmissionMetadataRows(
       contractVersion: nonEmptyText(raw, "contractVersion", label)
     });
   });
-  const rowKeys = rows.map(metadataRowKey);
+  const rowKeys = rows.map(runtimeSchemaAdmissionMetadataRowKey);
   if (new Set(rowKeys).size !== rows.length) {
     throw new TypeError(
       "runtime schema admission metadata: duplicate row key"
     );
   }
-  const expectedOrder = [...rowKeys].sort();
-  if (!stableJsonEquals(rowKeys, expectedOrder)) {
+  const expectedOrder = canonicalizeRuntimeSchemaAdmissionMetadataRows(rows);
+  if (!stableJsonEquals(rows, expectedOrder)) {
     throw new TypeError(
       "runtime schema admission metadata: rows are not canonical"
     );

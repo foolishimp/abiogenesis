@@ -8,18 +8,27 @@ import test from "node:test";
 import {
   admitGraphPrivateTargetValue,
   admitRuntimeSchemaAdmissionCapabilityBasis,
+  canonicalizeRuntimeSchemaAdmissionMetadataRows,
   constructRuntimeSchemaAdmissionCapabilityBasis,
   constructRuntimeSchemaAdmissionEngineInput,
   RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
   resolveRuntimeSchemaAdmissionCapabilities
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_schema_admission.js";
 import {
+  ABG_CONSENSUS_GTL_BODY,
+  ABG_CONSENSUS_GTL_MODULE
+} from "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js";
+import {
+  CONSENSUS_RUNTIME_SCHEMA_SOURCES
+} from "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js";
+import {
   defineNativeContract,
   PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES
 } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import {
   admitM04RuntimeSchemaAdmissionMetadataRows,
-  projectM04RuntimeSchemaAdmission
+  projectM04RuntimeSchemaAdmission,
+  runtimeSchemaAdmissionMetadataRowsFromModule
 } from "../../build/semantic/code/src/app/m04/public_contracts/runtime_schema_admission.js";
 import {
   stableSha256Digest
@@ -83,11 +92,7 @@ function taggedRows(rows) {
 }
 
 function canonicalMetadataRows(rows) {
-  return Object.freeze([...rows].sort((left, right) => {
-    const leftKey = `${left.graphFunctionId}\u0000${left.nodeRef}\u0000${left.symbolicSchemaRef}`;
-    const rightKey = `${right.graphFunctionId}\u0000${right.nodeRef}\u0000${right.symbolicSchemaRef}`;
-    return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
-  }));
+  return canonicalizeRuntimeSchemaAdmissionMetadataRows(rows);
 }
 
 function bindingWithMetadataRows(binding, rows) {
@@ -305,6 +310,69 @@ function fixture() {
 }
 
 const SCENARIO_09_FIXTURE = fixture();
+
+async function consensusRuntimeDefinitions() {
+  return Object.freeze(await Promise.all(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.map(async (source) =>
+      defineNativeContract({
+        identity: {
+          contractId: source.contractId,
+          contractVersion: source.contractVersion,
+          schemaId: source.contractId,
+          schemaVersion: source.contractVersion
+        },
+        source: await resolveSemanticBuildNativeSchemaSource(source)
+      })
+    )
+  ));
+}
+
+function consensusExecutionBinding() {
+  const graphFunction = ABG_CONSENSUS_GTL_BODY.graphFunctions.consensus;
+  const module = ABG_CONSENSUS_GTL_MODULE;
+  return Object.freeze({
+    kind: "catalog_execution_binding",
+    workspaceId: "workspace:t270-consensus",
+    bindingId: "binding:t270-consensus",
+    catalogId: "catalog:t270-consensus",
+    resolvedLockRef: "lock:t270-consensus",
+    entryRef: "catalog-entry:t270-consensus",
+    declarationRef: "declaration:t270-consensus",
+    declarationDigest: DIGEST,
+    libraryScope: "system",
+    namespace: "abiogenesis",
+    ownerRef: "publisher:abiogenesis",
+    version: "5.0.0",
+    descriptorRef: null,
+    contributionManifestRef: null,
+    moduleRef: module.name,
+    moduleName: module.name,
+    moduleDigest: stableSha256Digest(module),
+    graphFunctionHandle: graphFunction.name,
+    graphFunctionId: graphFunction.id,
+    graphFunctionDigest: stableSha256Digest(graphFunction),
+    declarationSourceRefs: Object.freeze(["source:t270-consensus"]),
+    readinessRefs: Object.freeze(["readiness:t270-consensus"]),
+    sourceEventRefs: Object.freeze(["event:t270-consensus"]),
+    module,
+    graphFunction
+  });
+}
+
+test("T-270 admits the canonical T-252 Module through one neutral metadata order", async () => {
+  const binding = consensusExecutionBinding();
+  const definitions = await consensusRuntimeDefinitions();
+  const rows = runtimeSchemaAdmissionMetadataRowsFromModule(binding.module);
+  const projection = projectM04RuntimeSchemaAdmission({
+    selectedExecutionBinding: binding,
+    nativeDefinitions: definitions
+  });
+
+  assert.equal(rows.length, 34);
+  assert.equal(definitions.length, 15);
+  assert.equal(projection.bases.length, 4);
+  assert.equal(projection.engineInput.capabilities.length, 4);
+});
 
 test("T-270 joins a complete multi-function Module then projects the selected non-Consensus Scenario-09 pair", () => {
   const value = SCENARIO_09_FIXTURE;

@@ -74,6 +74,7 @@ import {
 import {
   admitBoundWorkspaceCatalog
 } from "../../build/semantic/code/src/abg/m03/contracts/runtime_catalog.js";
+import { RUNTIME_SCHEMA_ADMISSION_METADATA_KEY } from "../../build/semantic/code/src/abg/m03/contracts/runtime_schema_admission.js";
 import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import { nodeContractKey } from "../../build/semantic/code/src/gtl/m01/contracts/carriers.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/gtl/m01/contracts/target_carrier_contract.js";
@@ -2265,8 +2266,7 @@ async function buildManifest() {
       nodeContracts
     },
     runtimeSchemaAdmission: {
-      metadataKey:
-        bodyModule.CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+      metadataKey: RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
       sourceCount: runtimeSchemaSources.length,
       directSourceCount: runtimeSchemaSources.filter(
         (source) => !source.symbolicSchemaRef.startsWith("Vector[")

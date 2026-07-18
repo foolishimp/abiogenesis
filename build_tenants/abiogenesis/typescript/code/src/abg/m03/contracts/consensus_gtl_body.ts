@@ -88,6 +88,13 @@ import {
   type ReviewFindings
 } from "./consensus_contract_family.js";
 import {
+  canonicalizeRuntimeSchemaAdmissionMetadataRows,
+  RUNTIME_SCHEMA_ADMISSION_METADATA_FIELDS,
+  RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+  runtimeSchemaAdmissionMetadataRowKey,
+  type RuntimeSchemaAdmissionMetadataRow
+} from "./runtime_schema_admission.js";
+import {
   abgFnCompositionDeclarationRef,
   constructAbgFnCompositionDeclarations,
   type AbgFnRegimeAuthority,
@@ -107,17 +114,6 @@ export const CONSENSUS_REVIEW_RETRY_BUDGET = 2 as const;
 export const CONSENSUS_RETRYABLE_FAILURE_CLASSES = Object.freeze([
   ...RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES
 ]);
-
-export const CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY =
-  "abg.runtime_schema_admission_bindings" as const;
-
-export interface ConsensusRuntimeSchemaAdmissionMetadataRow {
-  readonly graphFunctionId: string;
-  readonly nodeRef: string;
-  readonly symbolicSchemaRef: string;
-  readonly contractId: string;
-  readonly contractVersion: string;
-}
 
 const STANDARD_PLUGIN_REFS = Object.freeze({
   fdEvaluator: "plugin://abg/fd-evaluator",
@@ -856,29 +852,16 @@ function graphFunctionContainedNodes(
   ]);
 }
 
-function runtimeSchemaTupleKey(
-  row: Pick<
-    ConsensusRuntimeSchemaAdmissionMetadataRow,
-    "graphFunctionId" | "nodeRef" | "symbolicSchemaRef"
-  >
-): string {
-  return `${row.graphFunctionId}\u0000${row.nodeRef}\u0000${row.symbolicSchemaRef}`;
-}
-
 export function deriveConsensusRuntimeSchemaAdmissionMetadataRows(
   graphFunctions: readonly GraphFunction[]
-): readonly ConsensusRuntimeSchemaAdmissionMetadataRow[] {
+): readonly RuntimeSchemaAdmissionMetadataRow[] {
   const sourceByRef = runtimeSchemaSourceIndex();
   const referencedSourceRefs = new Set<string>();
-  const rows: ConsensusRuntimeSchemaAdmissionMetadataRow[] = [];
+  const rows: RuntimeSchemaAdmissionMetadataRow[] = [];
   const tupleKeys = new Set<string>();
 
-  for (const graphFunction of [...graphFunctions].sort((left, right) =>
-    left.id.localeCompare(right.id)
-  )) {
-    for (const node of [...graphFunctionContainedNodes(graphFunction)].sort(
-      (left, right) => left.id.localeCompare(right.id)
-    )) {
+  for (const graphFunction of graphFunctions) {
+    for (const node of graphFunctionContainedNodes(graphFunction)) {
       if (node.schema.kind !== "symbolic") {
         throw new TypeError(
           `Consensus Node ${node.id} must use one symbolic schema source`
@@ -897,7 +880,7 @@ export function deriveConsensusRuntimeSchemaAdmissionMetadataRows(
         contractId: source.contractId,
         contractVersion: source.contractVersion
       });
-      const tupleKey = runtimeSchemaTupleKey(row);
+      const tupleKey = runtimeSchemaAdmissionMetadataRowKey(row);
       if (tupleKeys.has(tupleKey)) {
         throw new TypeError(
           `duplicate Consensus runtime schema metadata tuple ${tupleKey}`
@@ -917,11 +900,11 @@ export function deriveConsensusRuntimeSchemaAdmissionMetadataRows(
       `Consensus runtime schema sources are not reachable: ${unreferencedSources.join(", ")}`
     );
   }
-  return Object.freeze(rows);
+  return canonicalizeRuntimeSchemaAdmissionMetadataRows(rows);
 }
 
 function runtimeSchemaMetadataRowJson(
-  row: ConsensusRuntimeSchemaAdmissionMetadataRow
+  row: RuntimeSchemaAdmissionMetadataRow
 ): SerializedJsonValue {
   return Object.freeze({
     kind: "object" as const,
@@ -936,7 +919,7 @@ function runtimeSchemaMetadataRowJson(
 }
 
 function runtimeSchemaMetadataRowsJson(
-  rows: readonly ConsensusRuntimeSchemaAdmissionMetadataRow[]
+  rows: readonly RuntimeSchemaAdmissionMetadataRow[]
 ): SerializedJsonValue {
   return Object.freeze({
     kind: "array" as const,
@@ -965,21 +948,17 @@ function admitRuntimeSchemaMetadataText(
 function admitRuntimeSchemaMetadataRow(
   raw: unknown,
   index: number
-): ConsensusRuntimeSchemaAdmissionMetadataRow {
+): RuntimeSchemaAdmissionMetadataRow {
   if (!isPlainRecord(raw)) {
     throw new TypeError(
       `Consensus runtime schema metadata row ${String(index)} must be an object`
     );
   }
-  const expectedKeys = [
-    "graphFunctionId",
-    "nodeRef",
-    "symbolicSchemaRef",
-    "contractId",
-    "contractVersion"
-  ];
   const actualKeys = Object.keys(raw);
-  if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
+  if (
+    JSON.stringify(actualKeys) !==
+    JSON.stringify(RUNTIME_SCHEMA_ADMISSION_METADATA_FIELDS)
+  ) {
     throw new TypeError(
       `Consensus runtime schema metadata row ${String(index)} must have exact ordered keys`
     );
@@ -1007,33 +986,33 @@ function admitRuntimeSchemaMetadataRow(
 
 export function admitConsensusRuntimeSchemaAdmissionMetadata(
   moduleValue: Module
-): readonly ConsensusRuntimeSchemaAdmissionMetadataRow[] {
+): readonly RuntimeSchemaAdmissionMetadataRow[] {
   const entries = moduleValue.metadata.entries.filter(
-    (entry) => entry.key === CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+    (entry) => entry.key === RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
   );
   if (entries.length !== 1 || entries[0] === undefined) {
     throw new TypeError(
-      `Consensus Module must contain exactly one ${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} entry`
+      `Consensus Module must contain exactly one ${RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} entry`
     );
   }
   if (entries[0].value.kind !== "json_blob") {
     throw new TypeError(
-      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must be a json_blob`
+      `${RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must be a json_blob`
     );
   }
   const plain = serializedJsonValueToPlain(entries[0].value.value);
   if (!Array.isArray(plain)) {
     throw new TypeError(
-      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must contain an array`
+      `${RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must contain an array`
     );
   }
   const rows = Object.freeze(
     plain.map((row, index) => admitRuntimeSchemaMetadataRow(row, index))
   );
-  const tupleKeys = rows.map(runtimeSchemaTupleKey);
+  const tupleKeys = rows.map(runtimeSchemaAdmissionMetadataRowKey);
   if (new Set(tupleKeys).size !== tupleKeys.length) {
     throw new TypeError(
-      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} contains a duplicate tuple`
+      `${RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} contains a duplicate tuple`
     );
   }
   const expected = deriveConsensusRuntimeSchemaAdmissionMetadataRows(
@@ -1041,7 +1020,7 @@ export function admitConsensusRuntimeSchemaAdmissionMetadata(
   );
   if (JSON.stringify(rows) !== JSON.stringify(expected)) {
     throw new TypeError(
-      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} does not exactly match Module containment and native source ownership`
+      `${RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} does not exactly match Module containment and native source ownership`
     );
   }
   return rows;
@@ -1073,7 +1052,7 @@ function moduleMetadata(
         })
       }),
       Object.freeze({
-        key: CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+        key: RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
         value: Object.freeze({
           kind: "json_blob" as const,
           value: runtimeSchemaMetadataRowsJson(runtimeSchemaRows)

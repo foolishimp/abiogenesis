@@ -480,7 +480,7 @@ test("T-263 pins the repaired canonical T-252 body and refuses its mutation", ()
   const canonical = serializeModule(ABG_CONSENSUS_GTL_MODULE);
   assert.equal(
     stableSha256Digest(canonical),
-    "sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2"
+    "sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8"
   );
   assert.deepEqual(serializeModule(admitModule(cloneJson(canonical))), canonical);
   const malformed = cloneJson(canonical);

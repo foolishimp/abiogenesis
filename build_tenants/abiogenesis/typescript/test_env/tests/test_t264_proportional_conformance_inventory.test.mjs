@@ -307,7 +307,7 @@ test("T-264 inventories the T-252 declarations without erasing real gaps", () =>
   assert(refs.has("abg://gtl-program/graph-vector/target-carrier-required"));
   assert.equal(
     stableSha256Digest(serializeModule(ABG_CONSENSUS_GTL_MODULE)),
-    "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695"
+    "sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8"
   );
 });
 

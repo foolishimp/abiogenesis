@@ -2,12 +2,13 @@
 
 ## Scope
 
-This checkpoint realizes only the accepted T-252 design at digest
+This checkpoint realizes the accepted T-252 design at digest
 `f1e119d5f38209409310c7f3631c3b3ee10663c02464b218cdae80e2e8e25444`.
 It changes the canonical pure-data Consensus Module, its existing native
-contract family, and the T-252/T-263 proof surfaces. It does not change T-270,
-T-272, M04 admission, T-274B publication, the public catalog, or runtime
-execution.
+contract family, and the T-252/T-263 proof surfaces. The integration repair
+also contracts metadata ordering into the neutral T-270 M03 authority and
+proves the real T-252 Module through M04 admission. It does not change T-272,
+T-274B production delivery, the public catalog, or runtime execution.
 
 ## Realized Relation
 
@@ -67,12 +68,17 @@ members. The repair makes the family a keyed map whose rows are themselves
 through `resolveSemanticBuildNativeSchemaSource`, derives all fifteen asserted
 native definitions, and exact-matches each resulting contract coordinate.
 
+A later cross-path review found one remaining duplicate authority: T-252 used
+locale ordering while M04 required code-point ordering. The repair defines one
+neutral metadata row key/comparator/canonicalizer, consumes it from T-252 and
+M04, and proves the actual 34-row T-252 Module joins all fifteen definitions.
+
 ## Evidence
 
 - repaired body digest:
-  `sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2`
+  `sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8`
 - regenerated probe manifest digest:
-  `sha256:064d84e04369921002762d042f27f7e3f1fd4d48d3d7e4171ca128dd58f4090b`
+  `sha256:45f01671798cb9aa6c836ae0d857f1b327626b35225086c3ac5ba99341ee1110`
 - strict TypeScript build: pass
 - GTL law: 82/82
 - T-252 focused body/admission/probe: 15/15 and exact manifest check

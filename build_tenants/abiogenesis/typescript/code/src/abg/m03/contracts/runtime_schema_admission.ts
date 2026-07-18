@@ -33,6 +33,30 @@ export type RuntimeSchemaAdmissionMetadataRow = Readonly<{
   [Field in RuntimeSchemaAdmissionMetadataField]: string;
 }>;
 
+export function runtimeSchemaAdmissionMetadataRowKey(
+  row: Pick<
+    RuntimeSchemaAdmissionMetadataRow,
+    "graphFunctionId" | "nodeRef" | "symbolicSchemaRef"
+  >
+): string {
+  return `${row.graphFunctionId}\u0000${row.nodeRef}\u0000${row.symbolicSchemaRef}`;
+}
+
+export function compareRuntimeSchemaAdmissionMetadataRows(
+  left: RuntimeSchemaAdmissionMetadataRow,
+  right: RuntimeSchemaAdmissionMetadataRow
+): number {
+  const leftKey = runtimeSchemaAdmissionMetadataRowKey(left);
+  const rightKey = runtimeSchemaAdmissionMetadataRowKey(right);
+  return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+}
+
+export function canonicalizeRuntimeSchemaAdmissionMetadataRows<
+  Row extends RuntimeSchemaAdmissionMetadataRow
+>(rows: readonly Row[]): readonly Row[] {
+  return Object.freeze([...rows].sort(compareRuntimeSchemaAdmissionMetadataRows));
+}
+
 export interface RuntimeSchemaRequirement {
   readonly graphFunctionId: string;
   readonly nodeRef: string;

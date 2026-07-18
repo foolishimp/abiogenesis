@@ -795,19 +795,19 @@ function consensusRuntimeSchemaSource<
 export const CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY = freezeNativeValue({
   consensus_subject: consensusRuntimeSchemaSource("consensus_subject", {
     symbolicSchemaRef: "schema://abg/consensus/subject",
-    contractId: "abg.schema.consensus-subject",
+    contractId: CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_subject.contractId,
     publication: "existing_public_asset",
     schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_subject
   }),
   consensus_result: consensusRuntimeSchemaSource("consensus_result", {
     symbolicSchemaRef: "schema://abg/consensus/result",
-    contractId: "abg.schema.consensus-result",
+    contractId: CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_result.contractId,
     publication: "existing_public_asset",
     schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_result
   }),
   review_findings: consensusRuntimeSchemaSource("review_findings", {
     symbolicSchemaRef: "schema://abg/consensus/review-findings",
-    contractId: "abg.schema.review-findings",
+    contractId: CONSENSUS_PUBLIC_CONTRACT_FAMILY.review_findings.contractId,
     publication: "existing_public_asset",
     schema: CONSENSUS_DOMAIN_SCHEMAS.review_findings
   }),

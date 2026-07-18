@@ -14,11 +14,11 @@ import {
   CONSENSUS_GRAPH_FUNCTION_REF,
   CONSENSUS_RETRYABLE_FAILURE_CLASSES,
   CONSENSUS_REVIEW_RETRY_BUDGET,
-  CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
   admitConsensusRuntimeSchemaAdmissionMetadata,
   deriveConsensusRuntimeSchemaAdmissionMetadataRows,
   deriveConsensusOperatorRegistry
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js";
+import { RUNTIME_SCHEMA_ADMISSION_METADATA_KEY } from "../../build/semantic/code/src/abg/m03/contracts/runtime_schema_admission.js";
 import {
   CONSENSUS_DOMAIN_SCHEMAS,
   CONSENSUS_REVIEWER_ASSIGNMENT_VECTOR_SCHEMA,
@@ -66,7 +66,7 @@ function declarationCount(graphFunction, key) {
 
 function runtimeSchemaMetadataEntry(serializedModule) {
   const entries = serializedModule.metadata.entries.filter(
-    (entry) => entry.key === CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+    (entry) => entry.key === RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
   );
   assert.equal(entries.length, 1);
   assert.equal(entries[0].value.kind, "json_blob");

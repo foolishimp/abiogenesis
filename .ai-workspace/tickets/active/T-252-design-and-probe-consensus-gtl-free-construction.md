@@ -5,10 +5,10 @@
 - type: bug
 - ticket_category: ordinary
 - status: active
-- phase_status: fh_recurse_and_schema_ownership_design_accepted
-- review_status: independent_review_accepted_fh_authority_accepted
-- implementation_admission: repaired_body_authorized_not_started
-- proof_status: repaired_body_pending
+- phase_status: repaired_body_implemented_pending_independent_review
+- review_status: independent_implementation_review_pending
+- implementation_admission: repaired_body_implemented
+- proof_status: focused_green_full_suite_rerun_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Preserve one lawful canonical Consensus GTL free construction while making
@@ -183,10 +183,10 @@ After explicit design acceptance, the bounded implementation must:
 ## Closure Evidence
 
 - body digest after the topology correction is
-  `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`;
+  `sha256:dc4686b3acd145181ffa58c9377bc33f5324914139b38f052aec53060a21c1c8`;
 - the sealed manifest authority is regenerated from this ticket's live path;
 - final manifest digest is
-  `sha256:9075f2f3bffc3c3b67d9746e61e306fb59fa697f87ea113a03c68c9ffa4c0556`;
+  `sha256:45f01671798cb9aa6c836ae0d857f1b327626b35225086c3ac5ba99341ee1110`;
 - canonical serialization round-trips through strict M02 admission;
 - structural invalidity count is zero;
 - all five remaining full-conformance issues are mapped to
