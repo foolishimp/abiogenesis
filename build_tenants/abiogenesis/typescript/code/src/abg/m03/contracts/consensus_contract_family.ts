@@ -4,6 +4,7 @@
 import * as v from "valibot";
 
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import type { OwnerNativeContractSourceRow } from "../../../shared/validation/canonical_native_schema_projector.js";
 import { freezeNativeValue } from "../../../shared/validation/immutable_native_value.js";
 import {
   ownerProjectionRelationSource,
@@ -732,6 +733,194 @@ export const CONSENSUS_DOMAIN_SCHEMAS = Object.freeze({
   fh_interaction_binding: fhInteractionBindingSchema,
   fh_pending_interaction: fhPendingInteractionSchema
 } as const);
+
+export const CONSENSUS_CONTRACT_VERSION = "5.0.0" as const;
+
+export const CONSENSUS_REVIEWER_ASSIGNMENT_VECTOR_SCHEMA = v.pipe(
+  v.array(reviewerAssignmentSchema),
+  v.readonly()
+);
+
+export const CONSENSUS_REVIEW_FINDINGS_VECTOR_SCHEMA = v.pipe(
+  v.array(reviewFindingsSchema),
+  v.readonly()
+);
+
+export type ConsensusRuntimeSchemaPublication =
+  | "existing_public_asset"
+  | "engine_private_definition";
+
+export interface ConsensusRuntimeSchemaSource<
+  Schema extends v.GenericSchema = v.GenericSchema
+> extends OwnerNativeContractSourceRow<Schema> {
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly contractVersion: typeof CONSENSUS_CONTRACT_VERSION;
+  readonly publication: ConsensusRuntimeSchemaPublication;
+}
+
+function consensusRuntimeSchemaSource<
+  const SourceKey extends string,
+  Schema extends v.GenericSchema
+>(sourceKey: SourceKey, input: {
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly publication: ConsensusRuntimeSchemaPublication;
+  readonly schema: Schema;
+}): ConsensusRuntimeSchemaSource<Schema> {
+  return freezeNativeValue({
+    ...input,
+    contractVersion: CONSENSUS_CONTRACT_VERSION,
+    sourceLocator: {
+      kind: "private_source_module" as const,
+      sourceRoot: "semantic_build" as const,
+      modulePath:
+        "code/src/abg/m03/contracts/consensus_contract_family.js",
+      exportName: "CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY",
+      memberPath: [sourceKey, "schema"] as const
+    },
+    namedChecks: {
+      kind: "family_registry" as const,
+      exportName: "CONSENSUS_NATIVE_CHECK_REGISTRY",
+      memberPath: [] as const
+    }
+  });
+}
+
+/**
+ * The one native source/key family for every symbolic schema reachable from
+ * the canonical Consensus Module. Public rows reuse standing identities;
+ * private rows are engine definitions and never imply catalog publication.
+ */
+export const CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY = freezeNativeValue({
+  consensus_subject: consensusRuntimeSchemaSource("consensus_subject", {
+    symbolicSchemaRef: "schema://abg/consensus/subject",
+    contractId: "abg.schema.consensus-subject",
+    publication: "existing_public_asset",
+    schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_subject
+  }),
+  consensus_result: consensusRuntimeSchemaSource("consensus_result", {
+    symbolicSchemaRef: "schema://abg/consensus/result",
+    contractId: "abg.schema.consensus-result",
+    publication: "existing_public_asset",
+    schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_result
+  }),
+  review_findings: consensusRuntimeSchemaSource("review_findings", {
+    symbolicSchemaRef: "schema://abg/consensus/review-findings",
+    contractId: "abg.schema.review-findings",
+    publication: "existing_public_asset",
+    schema: CONSENSUS_DOMAIN_SCHEMAS.review_findings
+  }),
+  consensus_round_execution: consensusRuntimeSchemaSource(
+    "consensus_round_execution",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/round-execution",
+    contractId: "abg.private.schema.consensus-round-execution",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_round_execution
+    }
+  ),
+  consensus_round_disposition: consensusRuntimeSchemaSource(
+    "consensus_round_disposition",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/round-disposition",
+    contractId: "abg.private.schema.consensus-round-disposition",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.consensus_round_disposition
+    }
+  ),
+  reviewer_assignment: consensusRuntimeSchemaSource("reviewer_assignment", {
+    symbolicSchemaRef: "schema://abg/consensus/reviewer-assignment",
+    contractId: "abg.private.schema.consensus-reviewer-assignment",
+    publication: "engine_private_definition",
+    schema: CONSENSUS_DOMAIN_SCHEMAS.reviewer_assignment
+  }),
+  reviewer_assignment_vector: consensusRuntimeSchemaSource(
+    "reviewer_assignment_vector",
+    {
+    symbolicSchemaRef:
+      "Vector[schema://abg/consensus/reviewer-assignment]",
+    contractId: "abg.private.schema.consensus-reviewer-assignment-vector",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_REVIEWER_ASSIGNMENT_VECTOR_SCHEMA
+    }
+  ),
+  review_findings_vector: consensusRuntimeSchemaSource(
+    "review_findings_vector",
+    {
+    symbolicSchemaRef: "Vector[schema://abg/consensus/review-findings]",
+    contractId: "abg.private.schema.consensus-review-findings-vector",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_REVIEW_FINDINGS_VECTOR_SCHEMA
+    }
+  ),
+  round_exact_projection: consensusRuntimeSchemaSource(
+    "round_exact_projection",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/round-exact-projection",
+    contractId: "abg.private.schema.consensus-round-exact-projection",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.round_exact_projection
+    }
+  ),
+  semantic_reducer_binding: consensusRuntimeSchemaSource(
+    "semantic_reducer_binding",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/semantic-reducer-binding",
+    contractId: "abg.private.schema.consensus-semantic-reducer-binding",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.semantic_reducer_binding
+    }
+  ),
+  initial_semantic_assessment: consensusRuntimeSchemaSource(
+    "initial_semantic_assessment",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/initial-semantic-assessment",
+    contractId: "abg.private.schema.consensus-initial-semantic-assessment",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.initial_semantic_assessment
+    }
+  ),
+  submitter_turn_binding: consensusRuntimeSchemaSource(
+    "submitter_turn_binding",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/submitter-turn-binding",
+    contractId: "abg.private.schema.consensus-submitter-turn-binding",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.submitter_turn_binding
+    }
+  ),
+  submitter_response: consensusRuntimeSchemaSource("submitter_response", {
+    symbolicSchemaRef: "schema://abg/consensus/submitter-response",
+    contractId: "abg.private.schema.consensus-submitter-response",
+    publication: "engine_private_definition",
+    schema: CONSENSUS_DOMAIN_SCHEMAS.submitter_response
+  }),
+  post_submitter_semantic_assessment: consensusRuntimeSchemaSource(
+    "post_submitter_semantic_assessment",
+    {
+    symbolicSchemaRef:
+      "schema://abg/consensus/post-submitter-semantic-assessment",
+    contractId:
+      "abg.private.schema.consensus-post-submitter-semantic-assessment",
+    publication: "engine_private_definition",
+      schema:
+      CONSENSUS_DOMAIN_SCHEMAS.post_submitter_semantic_assessment
+    }
+  ),
+  fh_interaction_binding: consensusRuntimeSchemaSource(
+    "fh_interaction_binding",
+    {
+    symbolicSchemaRef: "schema://abg/consensus/fh-interaction-binding",
+    contractId: "abg.private.schema.consensus-fh-interaction-binding",
+    publication: "engine_private_definition",
+      schema: CONSENSUS_DOMAIN_SCHEMAS.fh_interaction_binding
+    }
+  )
+} as const);
+
+export const CONSENSUS_RUNTIME_SCHEMA_SOURCES: readonly ConsensusRuntimeSchemaSource[] =
+  freezeNativeValue(Object.values(CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY));
 
 export type ReviewRulingKind = v.InferOutput<typeof reviewRulingKindSchema>;
 export type ConsensusRoundOutcomeValue =

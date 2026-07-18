@@ -14,8 +14,19 @@ import {
   CONSENSUS_GRAPH_FUNCTION_REF,
   CONSENSUS_RETRYABLE_FAILURE_CLASSES,
   CONSENSUS_REVIEW_RETRY_BUDGET,
+  CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+  admitConsensusRuntimeSchemaAdmissionMetadata,
+  deriveConsensusRuntimeSchemaAdmissionMetadataRows,
   deriveConsensusOperatorRegistry
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js";
+import {
+  CONSENSUS_DOMAIN_SCHEMAS,
+  CONSENSUS_REVIEWER_ASSIGNMENT_VECTOR_SCHEMA,
+  CONSENSUS_REVIEW_FINDINGS_VECTOR_SCHEMA,
+  CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY,
+  CONSENSUS_RUNTIME_SCHEMA_SOURCES
+} from "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js";
+import { defineNativeContract } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import { compileCAlgebraToHog } from "../../build/semantic/code/src/abg/m03/contracts/c_algebra_hog_compiler.js";
 import { compileExecutionDeclarations } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
 import { compileGraphFunctionApplication } from "../../build/semantic/code/src/abg/m03/contracts/graph_function_application_compiler.js";
@@ -27,6 +38,8 @@ import { hogHandlerBindingsFromDeclarationAttrs } from "../../build/semantic/cod
 import { pluginSelectionFromDeclarationAttrs } from "../../build/semantic/code/src/abg/m03/contracts/plugin_selection.js";
 import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import { serializeModule } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
+import { graphFunctionApplicationDeclarationFromDeclarations } from "../../build/semantic/code/src/gtl/m01/contracts/graph_function_application.js";
+import { resolveSemanticBuildNativeSchemaSource } from "../../build/semantic/code/src/shared/validation/canonical_native_schema_projector.js";
 
 function graphFunctions(moduleValue = ABG_CONSENSUS_GTL_MODULE) {
   return moduleValue.graphFunctions;
@@ -49,6 +62,27 @@ function cloneJson(value) {
 function declarationCount(graphFunction, key) {
   return graphFunction.declarations.entries.filter((entry) => entry.key === key)
     .length;
+}
+
+function runtimeSchemaMetadataEntry(serializedModule) {
+  const entries = serializedModule.metadata.entries.filter(
+    (entry) => entry.key === CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+  );
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].value.kind, "json_blob");
+  assert.equal(entries[0].value.value.kind, "array");
+  return entries[0];
+}
+
+function assertRuntimeSchemaMutationRefuses(mutate, expected) {
+  const serialized = cloneJson(serializeModule(ABG_CONSENSUS_GTL_MODULE));
+  const entry = runtimeSchemaMetadataEntry(serialized);
+  mutate(entry.value.value.items);
+  const admitted = admitModule(serialized);
+  assert.throws(
+    () => admitConsensusRuntimeSchemaAdmissionMetadata(admitted),
+    expected
+  );
 }
 
 function importClosure(entryPath) {
@@ -99,6 +133,16 @@ test("T-252 canonical body is one DS-1 module with no catalog-owner claim", () =
     ),
     false
   );
+  assert.equal(
+    Object.hasOwn(ABG_CONSENSUS_GTL_BODY.nodes, "fhPendingInteraction"),
+    false
+  );
+  assert.equal(
+    JSON.stringify(serializeModule(ABG_CONSENSUS_GTL_MODULE)).includes(
+      "schema://abg/consensus/fh-pending-interaction"
+    ),
+    false
+  );
 });
 
 test("T-252 canonical serialization round-trips through M02 without loss", () => {
@@ -112,6 +156,192 @@ test("T-252 canonical serialization round-trips through M02 without loss", () =>
     () => admitModule(malformed),
     /Module\.unknownT252Field: unknown field/u,
     "T-263 closes the previously lossy unknown-field admission gap"
+  );
+});
+
+test("T-252 owns one closed projector-consumable native schema family", async () => {
+  assert.equal(Object.keys(CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY).length, 15);
+  assert.equal(CONSENSUS_RUNTIME_SCHEMA_SOURCES.length, 15);
+  assert.equal(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.filter((source) =>
+      source.symbolicSchemaRef.startsWith("Vector[")
+    ).length,
+    2
+  );
+  assert.equal(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.filter(
+      (source) => source.publication === "existing_public_asset"
+    ).length,
+    3
+  );
+  assert.equal(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.filter(
+      (source) => source.publication === "engine_private_definition"
+    ).length,
+    12
+  );
+  assert.equal(
+    new Set(
+      CONSENSUS_RUNTIME_SCHEMA_SOURCES.map(
+        (source) => source.symbolicSchemaRef
+      )
+    ).size,
+    15
+  );
+  assert.equal(
+    new Set(
+      CONSENSUS_RUNTIME_SCHEMA_SOURCES.map(
+        (source) => `${source.contractId}@${source.contractVersion}`
+      )
+    ).size,
+    15
+  );
+  assert.equal(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.some(
+      (source) =>
+        source.symbolicSchemaRef ===
+        "schema://abg/consensus/fh-pending-interaction"
+    ),
+    false
+  );
+
+  const sourceByRef = new Map(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES.map((source) => [
+      source.symbolicSchemaRef,
+      source
+    ])
+  );
+  assert.equal(
+    sourceByRef.get("schema://abg/consensus/subject").schema,
+    CONSENSUS_DOMAIN_SCHEMAS.consensus_subject
+  );
+  assert.equal(
+    sourceByRef.get("schema://abg/consensus/result").schema,
+    CONSENSUS_DOMAIN_SCHEMAS.consensus_result
+  );
+  assert.equal(
+    sourceByRef.get("schema://abg/consensus/review-findings").schema,
+    CONSENSUS_DOMAIN_SCHEMAS.review_findings
+  );
+  assert.equal(
+    sourceByRef.get(
+      "Vector[schema://abg/consensus/reviewer-assignment]"
+    ).schema,
+    CONSENSUS_REVIEWER_ASSIGNMENT_VECTOR_SCHEMA
+  );
+  assert.equal(
+    sourceByRef.get("Vector[schema://abg/consensus/review-findings]")
+      .schema,
+    CONSENSUS_REVIEW_FINDINGS_VECTOR_SCHEMA
+  );
+
+  for (const [sourceKey, source] of Object.entries(
+    CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY
+  )) {
+    assert.equal(source.contractVersion, "5.0.0");
+    assert.equal(
+      source.sourceLocator.exportName,
+      "CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY"
+    );
+    assert.deepEqual(source.sourceLocator.memberPath, [sourceKey, "schema"]);
+    assert.deepEqual(source.namedChecks, {
+      kind: "family_registry",
+      exportName: "CONSENSUS_NATIVE_CHECK_REGISTRY",
+      memberPath: []
+    });
+    const resolvedSource = await resolveSemanticBuildNativeSchemaSource(source);
+    const definition = defineNativeContract({
+      identity: {
+        contractId: source.contractId,
+        contractVersion: source.contractVersion,
+        schemaId: source.contractId,
+        schemaVersion: source.contractVersion
+      },
+      source: resolvedSource
+    });
+    assert.equal(definition.schema, source.schema);
+    assert.equal(definition.schemaCoordinate.contractId, source.contractId);
+    assert.equal(
+      definition.schemaCoordinate.contractVersion,
+      source.contractVersion
+    );
+  }
+});
+
+test("T-252 Module metadata covers each reachable schema tuple exactly", () => {
+  const rows = admitConsensusRuntimeSchemaAdmissionMetadata(
+    ABG_CONSENSUS_GTL_MODULE
+  );
+  assert.deepEqual(
+    rows,
+    deriveConsensusRuntimeSchemaAdmissionMetadataRows(graphFunctions())
+  );
+  assert.equal(rows.length, 34);
+  assert.equal(
+    new Set(
+      rows.map(
+        (row) =>
+          `${row.graphFunctionId}\u0000${row.nodeRef}\u0000${row.symbolicSchemaRef}`
+      )
+    ).size,
+    rows.length
+  );
+  assert.deepEqual(
+    sortedUnique(rows.map((row) => row.symbolicSchemaRef)),
+    sortedUnique(
+      CONSENSUS_RUNTIME_SCHEMA_SOURCES.map(
+        (source) => source.symbolicSchemaRef
+      )
+    )
+  );
+  assert.deepEqual(
+    sortedUnique(rows.map((row) => row.graphFunctionId)),
+    sortedUnique(graphFunctions().map((graphFunction) => graphFunction.id))
+  );
+  for (const row of rows) {
+    assert.deepEqual(Object.keys(row), [
+      "graphFunctionId",
+      "nodeRef",
+      "symbolicSchemaRef",
+      "contractId",
+      "contractVersion"
+    ]);
+    assert.equal(Object.values(row).every((value) => value.length > 0), true);
+    assert.equal(Object.hasOwn(row, "schemaId"), false);
+    assert.equal(Object.hasOwn(row, "schemaVersion"), false);
+    assert.equal(Object.hasOwn(row, "digest"), false);
+    assert.equal(Object.hasOwn(row, "locator"), false);
+    assert.equal(Object.hasOwn(row, "projectionWitness"), false);
+    assert.equal(Object.hasOwn(row, "callable"), false);
+  }
+});
+
+test("T-252 runtime schema metadata refuses missing, duplicate, extra, divergent, and reordered rows", () => {
+  assertRuntimeSchemaMutationRefuses(
+    (rows) => rows.pop(),
+    /does not exactly match Module containment/u
+  );
+  assertRuntimeSchemaMutationRefuses(
+    (rows) => rows.push(cloneJson(rows[0])),
+    /contains a duplicate tuple/u
+  );
+  assertRuntimeSchemaMutationRefuses(
+    (rows) =>
+      rows[0].entries.push({ key: "schemaId", value: "generated-not-source" }),
+    /must have exact ordered keys/u
+  );
+  assertRuntimeSchemaMutationRefuses(
+    (rows) => {
+      const contractId = rows[0].entries.find(
+        (entry) => entry.key === "contractId"
+      );
+      contractId.value = "abg.schema.divergent";
+    },
+    /does not exactly match Module containment/u
+  );
+  assertRuntimeSchemaMutationRefuses(
+    (rows) => rows.reverse(),
+    /does not exactly match Module containment/u
   );
 });
 
@@ -175,6 +405,61 @@ test("T-262 fan-in and direct recursion compile to distinct structural relations
   assert.equal(recursion.recurseRelation.foldbackMode, "rebind");
   assert.equal(recursion.recurseRelation.foldbackRequiresParentEvaluation, true);
   assert.deepEqual(recursion.diagnostics, []);
+
+  const recurseDeclaration =
+    graphFunctionApplicationDeclarationFromDeclarations(
+      bodyFunctions.boundedRounds.declarations,
+      bodyFunctions.boundedRounds.id
+    );
+  assert.equal(recurseDeclaration.operatorKind, "recurse");
+  assert.deepEqual(
+    recurseDeclaration.terminationEvaluator.tags.filter((tag) =>
+      tag.startsWith("terminal:")
+    ),
+    ["terminal:closed_done", "terminal:escalate_fh"]
+  );
+  assert.deepEqual(
+    Object.fromEntries(
+      recurseDeclaration.foldback.additional.entries.map((entry) => [
+        entry.key,
+        entry.value.kind === "scalar" ? entry.value.value : null
+      ])
+    ),
+    {
+      foldback_law: "append_outcome_preserve_cumulative_lineage",
+      foldback_outcome: "recurse_next_round"
+    }
+  );
+});
+
+test("T-252 F_H leaves target the admitted round disposition, never a held-state value", () => {
+  const roundVectors = vectors(ABG_CONSENSUS_GTL_BODY.graphFunctions.round);
+  const rows = ["consensus.fh-initial", "consensus.fh-post-submitter"].map(
+    (name) => roundVectors.find((vector) => vector.name === name)
+  );
+  for (const row of rows) {
+    assert.ok(row);
+    assert.equal(row.target.id, ABG_CONSENSUS_GTL_BODY.nodes.roundDisposition.id);
+    assert.equal(row.target.schema.ref, "schema://abg/consensus/round-disposition");
+    assert.equal(row.operators.length, 1);
+    assert.equal(row.operators[0].regime, "F_H");
+    assert.equal(row.rule.config.entries.length, 1);
+    assert.equal(row.rule.config.entries[0].key, "outcome");
+    assert.equal(row.rule.config.entries[0].value.kind, "scalar");
+    assert.equal(row.rule.config.entries[0].value.value, "escalate_fh");
+  }
+
+  const projectResult = vectors(
+    ABG_CONSENSUS_GTL_BODY.graphFunctions.consensus
+  ).find((vector) => vector.name === "consensus.project-result");
+  assert.ok(projectResult);
+  assert.equal(projectResult.rule.config.entries.length, 1);
+  assert.equal(projectResult.rule.config.entries[0].key, "outcome");
+  assert.equal(projectResult.rule.config.entries[0].value.kind, "string_list");
+  assert.deepEqual(projectResult.rule.config.entries[0].value.value, [
+    "closed_done",
+    "escalate_fh"
+  ]);
 });
 
 test("T-252 every selected GraphVector resolves one exact local C program", () => {
@@ -428,7 +713,57 @@ test("T-252 probe derives compiler and isolated runtime observations without wid
     "../fixtures/t252_consensus_probe_manifest.json"
   );
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  assert.equal(manifest.version, 4);
+  assert.equal(manifest.version, 5);
+  assert.deepEqual(
+    {
+      sourceCount: manifest.runtimeSchemaAdmission.sourceCount,
+      directSourceCount: manifest.runtimeSchemaAdmission.directSourceCount,
+      vectorSourceCount: manifest.runtimeSchemaAdmission.vectorSourceCount,
+      publicSourceCount: manifest.runtimeSchemaAdmission.publicSourceCount,
+      privateSourceCount: manifest.runtimeSchemaAdmission.privateSourceCount,
+      metadataRowCount: manifest.runtimeSchemaAdmission.metadataRowCount,
+      uniqueTupleCount: manifest.runtimeSchemaAdmission.uniqueTupleCount,
+      referencedSourceCount:
+        manifest.runtimeSchemaAdmission.referencedSourceCount,
+      pendingInteractionSourcePresent:
+        manifest.runtimeSchemaAdmission.pendingInteractionSourcePresent,
+      exactContainmentCoverage:
+        manifest.runtimeSchemaAdmission.exactContainmentCoverage
+    },
+    {
+      sourceCount: 15,
+      directSourceCount: 13,
+      vectorSourceCount: 2,
+      publicSourceCount: 3,
+      privateSourceCount: 12,
+      metadataRowCount: 34,
+      uniqueTupleCount: 34,
+      referencedSourceCount: 15,
+      pendingInteractionSourcePresent: false,
+      exactContainmentCoverage: true
+    }
+  );
+  assert.match(
+    manifest.runtimeSchemaAdmission.metadataRowsDigest,
+    /^sha256:[0-9a-f]{64}$/u
+  );
+  assert.equal(manifest.structuralContracts.pendingInteractionNodePresent, false);
+  assert.equal(manifest.structuralContracts.fhTargetRows.length, 2);
+  assert.equal(
+    manifest.structuralContracts.fhTargetRows.every(
+      (row) =>
+        row.targetSchemaRef ===
+          "schema://abg/consensus/round-disposition" &&
+        row.outcome === "escalate_fh"
+    ),
+    true
+  );
+  assert.deepEqual(manifest.structuralContracts.recursePartition, {
+    terminalOutcomes: ["closed_done", "escalate_fh"],
+    foldbackOutcome: "recurse_next_round",
+    projectedTerminalOutcomes: ["closed_done", "escalate_fh"],
+    disjointAndExhaustive: true
+  });
   assert.equal(
     manifest.censusDerivation.order,
     "compiler_and_structural_observations_before_ticket_ownership"

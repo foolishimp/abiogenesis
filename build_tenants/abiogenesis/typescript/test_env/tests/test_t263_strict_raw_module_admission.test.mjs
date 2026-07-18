@@ -476,11 +476,11 @@ test("T-263 preserves optional defaults and semantic duplicate refusals", () => 
   assert.throws(() => admitModule(duplicateRole), /duplicate declaration id/u);
 });
 
-test("T-263 leaves the canonical T-252 body digest unchanged and refuses its mutation", () => {
+test("T-263 pins the repaired canonical T-252 body and refuses its mutation", () => {
   const canonical = serializeModule(ABG_CONSENSUS_GTL_MODULE);
   assert.equal(
     stableSha256Digest(canonical),
-    "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695"
+    "sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2"
   );
   assert.deepEqual(serializeModule(admitModule(cloneJson(canonical))), canonical);
   const malformed = cloneJson(canonical);

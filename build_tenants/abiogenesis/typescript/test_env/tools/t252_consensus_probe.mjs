@@ -11,6 +11,7 @@ import { fileURLToPath } from "node:url";
 import { compileCAlgebraToHog } from "../../build/semantic/code/src/abg/m03/contracts/c_algebra_hog_compiler.js";
 import { compileExecutionDeclarations } from "../../build/semantic/code/src/abg/m03/contracts/execution_declaration_compiler.js";
 import { compileGraphFunctionApplication } from "../../build/semantic/code/src/abg/m03/contracts/graph_function_application_compiler.js";
+import { graphFunctionApplicationDeclarationFromDeclarations } from "../../build/semantic/code/src/gtl/m01/contracts/graph_function_application.js";
 import { compileGraphVectorExecutionHandoff } from "../../build/semantic/code/src/abg/m03/contracts/graph_vector_execution_handoff.js";
 import {
   assertCompiledCProgramPlan,
@@ -463,6 +464,9 @@ async function buildManifest() {
   const bodyModule = await import(
     "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js"
   );
+  const contractFamilyModule = await import(
+    "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js"
+  );
   const body = bodyModule.ABG_CONSENSUS_GTL_BODY;
   const serializedModule = serializeModule(body.module);
   const bodyDigest = stableSha256Digest(serializedModule);
@@ -470,6 +474,98 @@ async function buildManifest() {
   const roundTrip = serializeModule(admittedModule);
   if (JSON.stringify(roundTrip) !== JSON.stringify(serializedModule)) {
     throw new TypeError("canonical Consensus module changed under M02 round-trip");
+  }
+
+  const runtimeSchemaSources =
+    contractFamilyModule.CONSENSUS_RUNTIME_SCHEMA_SOURCES;
+  const runtimeSchemaRows =
+    bodyModule.admitConsensusRuntimeSchemaAdmissionMetadata(admittedModule);
+  const runtimeSchemaSourceRefs = sortedUnique(
+    runtimeSchemaSources.map((source) => source.symbolicSchemaRef)
+  );
+  const referencedRuntimeSchemaSourceRefs = sortedUnique(
+    runtimeSchemaRows.map((row) => row.symbolicSchemaRef)
+  );
+  if (
+    runtimeSchemaSources.length !== 15 ||
+    runtimeSchemaRows.length !== 34 ||
+    JSON.stringify(runtimeSchemaSourceRefs) !==
+      JSON.stringify(referencedRuntimeSchemaSourceRefs)
+  ) {
+    throw new TypeError(
+      "canonical Consensus runtime schema source coverage is incomplete"
+    );
+  }
+
+  const roundVectors = vectors(body.graphFunctions.round);
+  const fhTargetRows = [
+    "consensus.fh-initial",
+    "consensus.fh-post-submitter"
+  ].map((name) => {
+    const vector = roundVectors.find((candidate) => candidate.name === name);
+    if (
+      vector === undefined ||
+      vector.target.id !== body.nodes.roundDisposition.id ||
+      vector.rule?.config.entries[0]?.value.kind !== "scalar" ||
+      vector.rule.config.entries[0].value.value !== "escalate_fh"
+    ) {
+      throw new TypeError(
+        `${name} must target admitted ConsensusRoundDisposition escalation truth`
+      );
+    }
+    return {
+      vectorRef: vector.id,
+      targetNodeRef: vector.target.id,
+      targetSchemaRef: vector.target.schema.ref,
+      outcome: vector.rule.config.entries[0].value.value
+    };
+  });
+  if (Object.hasOwn(body.nodes, "fhPendingInteraction")) {
+    throw new TypeError(
+      "FhPendingInteraction must remain outside the Consensus GTL value graph"
+    );
+  }
+  const recurseDeclaration =
+    graphFunctionApplicationDeclarationFromDeclarations(
+      body.graphFunctions.boundedRounds.declarations,
+      body.graphFunctions.boundedRounds.id
+    );
+  if (recurseDeclaration?.operatorKind !== "recurse") {
+    throw new TypeError("canonical bounded rounds must declare recurse");
+  }
+  const terminalOutcomes = recurseDeclaration.terminationEvaluator.tags
+    .filter((tag) => tag.startsWith("terminal:"))
+    .map((tag) => tag.slice("terminal:".length));
+  const foldbackOutcomeEntry = recurseDeclaration.foldback.additional.entries.find(
+    (entry) => entry.key === "foldback_outcome"
+  );
+  const foldbackOutcome =
+    foldbackOutcomeEntry?.value.kind === "scalar"
+      ? foldbackOutcomeEntry.value.value
+      : null;
+  if (
+    JSON.stringify(terminalOutcomes) !==
+      JSON.stringify(["closed_done", "escalate_fh"]) ||
+    foldbackOutcome !== "recurse_next_round"
+  ) {
+    throw new TypeError(
+      "canonical bounded rounds must partition closed_done, escalate_fh, and recurse_next_round"
+    );
+  }
+  const projectResult = vectors(body.graphFunctions.consensus).find(
+    (vector) => vector.name === "consensus.project-result"
+  );
+  const projectedTerminalOutcomes =
+    projectResult?.rule?.config.entries[0]?.value.kind === "string_list"
+      ? [...projectResult.rule.config.entries[0].value.value]
+      : [];
+  if (
+    JSON.stringify(projectedTerminalOutcomes) !==
+    JSON.stringify(terminalOutcomes)
+  ) {
+    throw new TypeError(
+      "canonical Consensus result projection must accept both terminal outcomes"
+    );
   }
 
   const malformedModule = cloneJson(serializedModule);
@@ -2148,7 +2244,7 @@ async function buildManifest() {
 
   const manifestPayload = {
     kind: "t252_consensus_gtl_probe_manifest",
-    version: 4,
+    version: 5,
     authority: {
       ticketRef: relative(REPO_ROOT, ticketPath("T-252")),
       designRef:
@@ -2167,6 +2263,56 @@ async function buildManifest() {
       moduleJobCount: admittedModule.jobs.length,
       moduleRoleCount: admittedModule.roles.length,
       nodeContracts
+    },
+    runtimeSchemaAdmission: {
+      metadataKey:
+        bodyModule.CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+      sourceCount: runtimeSchemaSources.length,
+      directSourceCount: runtimeSchemaSources.filter(
+        (source) => !source.symbolicSchemaRef.startsWith("Vector[")
+      ).length,
+      vectorSourceCount: runtimeSchemaSources.filter((source) =>
+        source.symbolicSchemaRef.startsWith("Vector[")
+      ).length,
+      publicSourceCount: runtimeSchemaSources.filter(
+        (source) => source.publication === "existing_public_asset"
+      ).length,
+      privateSourceCount: runtimeSchemaSources.filter(
+        (source) => source.publication === "engine_private_definition"
+      ).length,
+      metadataRowCount: runtimeSchemaRows.length,
+      uniqueTupleCount: new Set(
+        runtimeSchemaRows.map(
+          (row) =>
+            `${row.graphFunctionId}\u0000${row.nodeRef}\u0000${row.symbolicSchemaRef}`
+        )
+      ).size,
+      referencedSourceCount: referencedRuntimeSchemaSourceRefs.length,
+      pendingInteractionSourcePresent: runtimeSchemaSourceRefs.includes(
+        "schema://abg/consensus/fh-pending-interaction"
+      ),
+      sourceRows: runtimeSchemaSources.map((source) => ({
+        symbolicSchemaRef: source.symbolicSchemaRef,
+        contractId: source.contractId,
+        contractVersion: source.contractVersion,
+        publication: source.publication
+      })),
+      metadataRows: runtimeSchemaRows.map((row) => ({
+        ...row,
+        graphFunctionId: compactRef(row.graphFunctionId)
+      })),
+      metadataRowsDigest: stableSha256Digest(runtimeSchemaRows),
+      exactContainmentCoverage: true
+    },
+    structuralContracts: {
+      fhTargetRows,
+      pendingInteractionNodePresent: false,
+      recursePartition: {
+        terminalOutcomes,
+        foldbackOutcome,
+        projectedTerminalOutcomes,
+        disjointAndExhaustive: true
+      }
     },
     m02: {
       canonicalRoundTripExact: true,

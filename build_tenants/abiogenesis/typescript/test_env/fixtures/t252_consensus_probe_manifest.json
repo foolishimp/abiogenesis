@@ -1,13 +1,13 @@
 {
   "kind": "t252_consensus_gtl_probe_manifest",
-  "version": 4,
+  "version": 5,
   "authority": {
-    "ticketRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
+    "ticketRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
     "designRef": "build_tenants/abiogenesis/typescript/design/M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md",
     "abiPackageVersion": "5.0.0-dev.0"
   },
   "body": {
-    "bodyDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+    "bodyDigest": "sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2",
     "canonicalTargetRef": "graph-function://abg/consensus/submitter-reviewer-rounds",
     "moduleName": "abg.consensus.ds1",
     "graphFunctionCount": 7,
@@ -38,13 +38,6 @@
         "schemaRef": "schema://abg/consensus/fh-interaction-binding",
         "nodeContractKey": "{\"name\":\"FhInteractionBinding\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/fh-interaction-binding\"},\"markov\":[\"boundary://abg/consensus/fh-interaction-binding\"],\"assetSurface\":{\"kind\":\"abg_consensus_fh_interaction_binding\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/fh-interaction-binding\"}",
         "nodeContractDigest": "sha256:386b12899cc82bc5678de217218ce45b2a25314b69ab9a7186955e2609b1743d"
-      },
-      {
-        "name": "fhPendingInteraction",
-        "nodeRef": "node://abg/consensus/fh-pending-interaction",
-        "schemaRef": "schema://abg/consensus/fh-pending-interaction",
-        "nodeContractKey": "{\"name\":\"FhPendingInteraction\",\"schema\":{\"kind\":\"symbolic\",\"ref\":\"schema://abg/consensus/fh-pending-interaction\"},\"markov\":[\"boundary://abg/consensus/fh-pending-interaction\"],\"assetSurface\":{\"kind\":\"abg_consensus_fh_pending_interaction\",\"requiredContexts\":[],\"standardsRefs\":[\"REQ-P-CONSENSUS\"],\"outputContractRefs\":[],\"constructorRefs\":[],\"constructorInputAssetKinds\":[],\"rendererRefs\":[],\"renderedViewDigestPolicyRef\":null,\"sectionKindRefs\":[],\"clauseKindRefs\":[],\"authoritySlots\":[],\"proofObligationRefs\":[\"proof://abg/consensus/ds1-canonical-body\"]},\"typeRef\":\"type://abg/consensus/fh-pending-interaction\"}",
-        "nodeContractDigest": "sha256:8228cadae6f107985e27fb957a76d4f1713ca60d698aadfaa27b026a04e54757"
       },
       {
         "name": "initialAssessment",
@@ -132,10 +125,385 @@
       }
     ]
   },
+  "runtimeSchemaAdmission": {
+    "metadataKey": "abg.runtime_schema_admission_bindings",
+    "sourceCount": 15,
+    "directSourceCount": 13,
+    "vectorSourceCount": 2,
+    "publicSourceCount": 3,
+    "privateSourceCount": 12,
+    "metadataRowCount": 34,
+    "uniqueTupleCount": 34,
+    "referencedSourceCount": 15,
+    "pendingInteractionSourcePresent": false,
+    "sourceRows": [
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/subject",
+        "contractId": "abg.schema.consensus-subject",
+        "contractVersion": "5.0.0",
+        "publication": "existing_public_asset"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/result",
+        "contractId": "abg.schema.consensus-result",
+        "contractVersion": "5.0.0",
+        "publication": "existing_public_asset"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/review-findings",
+        "contractId": "abg.schema.review-findings",
+        "contractVersion": "5.0.0",
+        "publication": "existing_public_asset"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/round-execution",
+        "contractId": "abg.private.schema.consensus-round-execution",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/round-disposition",
+        "contractId": "abg.private.schema.consensus-round-disposition",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/reviewer-assignment",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/reviewer-assignment]",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment-vector",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/round-exact-projection",
+        "contractId": "abg.private.schema.consensus-round-exact-projection",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/semantic-reducer-binding",
+        "contractId": "abg.private.schema.consensus-semantic-reducer-binding",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/initial-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-initial-semantic-assessment",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-turn-binding",
+        "contractId": "abg.private.schema.consensus-submitter-turn-binding",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-response",
+        "contractId": "abg.private.schema.consensus-submitter-response",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-post-submitter-semantic-assessment",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      },
+      {
+        "symbolicSchemaRef": "schema://abg/consensus/fh-interaction-binding",
+        "contractId": "abg.private.schema.consensus-fh-interaction-binding",
+        "contractVersion": "5.0.0",
+        "publication": "engine_private_definition"
+      }
+    ],
+    "metadataRows": [
+      {
+        "graphFunctionId": "digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:8203d587d0afac4ed6aea65a09b2dc7d335bc936e853e44339c4cb2b4b4379a4",
+        "nodeRef": "node://abg/consensus/round-exact-projection",
+        "symbolicSchemaRef": "schema://abg/consensus/round-exact-projection",
+        "contractId": "abg.private.schema.consensus-round-exact-projection",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:0ffcf050b7bfd389dbac44e3ecafd4e56e951c1f2cd138b0c888538690160afb",
+        "nodeRef": "node://abg/consensus/reviewer-assignment-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/reviewer-assignment]",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/consensus-round-disposition",
+        "symbolicSchemaRef": "schema://abg/consensus/round-disposition",
+        "contractId": "abg.private.schema.consensus-round-disposition",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/consensus-round-execution",
+        "symbolicSchemaRef": "schema://abg/consensus/round-execution",
+        "contractId": "abg.private.schema.consensus-round-execution",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/fh-interaction-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/fh-interaction-binding",
+        "contractId": "abg.private.schema.consensus-fh-interaction-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/initial-semantic-assessment",
+        "symbolicSchemaRef": "schema://abg/consensus/initial-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-initial-semantic-assessment",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/post-submitter-semantic-assessment",
+        "symbolicSchemaRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-post-submitter-semantic-assessment",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/reviewer-assignment-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/reviewer-assignment]",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/round-exact-projection",
+        "symbolicSchemaRef": "schema://abg/consensus/round-exact-projection",
+        "contractId": "abg.private.schema.consensus-round-exact-projection",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/semantic-reducer-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/semantic-reducer-binding",
+        "contractId": "abg.private.schema.consensus-semantic-reducer-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/submitter-response",
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-response",
+        "contractId": "abg.private.schema.consensus-submitter-response",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
+        "nodeRef": "node://abg/consensus/submitter-turn-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-turn-binding",
+        "contractId": "abg.private.schema.consensus-submitter-turn-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/exact-panel-facts",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/exact-panel-facts",
+        "nodeRef": "node://abg/consensus/round-exact-projection",
+        "symbolicSchemaRef": "schema://abg/consensus/round-exact-projection",
+        "contractId": "abg.private.schema.consensus-round-exact-projection",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/review-one-profile",
+        "nodeRef": "node://abg/consensus/review-findings",
+        "symbolicSchemaRef": "schema://abg/consensus/review-findings",
+        "contractId": "abg.schema.review-findings",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/review-one-profile",
+        "nodeRef": "node://abg/consensus/reviewer-assignment",
+        "symbolicSchemaRef": "schema://abg/consensus/reviewer-assignment",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/attributed-findings-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/review-findings]",
+        "contractId": "abg.private.schema.consensus-review-findings-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/consensus-round-disposition",
+        "symbolicSchemaRef": "schema://abg/consensus/round-disposition",
+        "contractId": "abg.private.schema.consensus-round-disposition",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/consensus-round-execution",
+        "symbolicSchemaRef": "schema://abg/consensus/round-execution",
+        "contractId": "abg.private.schema.consensus-round-execution",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/fh-interaction-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/fh-interaction-binding",
+        "contractId": "abg.private.schema.consensus-fh-interaction-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/initial-semantic-assessment",
+        "symbolicSchemaRef": "schema://abg/consensus/initial-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-initial-semantic-assessment",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/post-submitter-semantic-assessment",
+        "symbolicSchemaRef": "schema://abg/consensus/post-submitter-semantic-assessment",
+        "contractId": "abg.private.schema.consensus-post-submitter-semantic-assessment",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/reviewer-assignment-vector",
+        "symbolicSchemaRef": "Vector[schema://abg/consensus/reviewer-assignment]",
+        "contractId": "abg.private.schema.consensus-reviewer-assignment-vector",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/round-exact-projection",
+        "symbolicSchemaRef": "schema://abg/consensus/round-exact-projection",
+        "contractId": "abg.private.schema.consensus-round-exact-projection",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/semantic-reducer-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/semantic-reducer-binding",
+        "contractId": "abg.private.schema.consensus-semantic-reducer-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/submitter-response",
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-response",
+        "contractId": "abg.private.schema.consensus-submitter-response",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/round",
+        "nodeRef": "node://abg/consensus/submitter-turn-binding",
+        "symbolicSchemaRef": "schema://abg/consensus/submitter-turn-binding",
+        "contractId": "abg.private.schema.consensus-submitter-turn-binding",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "nodeRef": "node://abg/consensus/consensus-result",
+        "symbolicSchemaRef": "schema://abg/consensus/result",
+        "contractId": "abg.schema.consensus-result",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "nodeRef": "node://abg/consensus/consensus-round-disposition",
+        "symbolicSchemaRef": "schema://abg/consensus/round-disposition",
+        "contractId": "abg.private.schema.consensus-round-disposition",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "nodeRef": "node://abg/consensus/consensus-round-execution",
+        "symbolicSchemaRef": "schema://abg/consensus/round-execution",
+        "contractId": "abg.private.schema.consensus-round-execution",
+        "contractVersion": "5.0.0"
+      },
+      {
+        "graphFunctionId": "graph-function://abg/consensus/submitter-reviewer-rounds",
+        "nodeRef": "node://abg/consensus/consensus-subject",
+        "symbolicSchemaRef": "schema://abg/consensus/subject",
+        "contractId": "abg.schema.consensus-subject",
+        "contractVersion": "5.0.0"
+      }
+    ],
+    "metadataRowsDigest": "sha256:8b286e9eaeb7cb641229e35eea8426b27b66a50391d6f2f68139d852fed2bfe7",
+    "exactContainmentCoverage": true
+  },
+  "structuralContracts": {
+    "fhTargetRows": [
+      {
+        "vectorRef": "graph-vector://abg/consensus/fh-initial",
+        "targetNodeRef": "node://abg/consensus/consensus-round-disposition",
+        "targetSchemaRef": "schema://abg/consensus/round-disposition",
+        "outcome": "escalate_fh"
+      },
+      {
+        "vectorRef": "graph-vector://abg/consensus/fh-post-submitter",
+        "targetNodeRef": "node://abg/consensus/consensus-round-disposition",
+        "targetSchemaRef": "schema://abg/consensus/round-disposition",
+        "outcome": "escalate_fh"
+      }
+    ],
+    "pendingInteractionNodePresent": false,
+    "recursePartition": {
+      "terminalOutcomes": [
+        "closed_done",
+        "escalate_fh"
+      ],
+      "foldbackOutcome": "recurse_next_round",
+      "projectedTerminalOutcomes": [
+        "closed_done",
+        "escalate_fh"
+      ],
+      "disjointAndExhaustive": true
+    }
+  },
   "m02": {
     "canonicalRoundTripExact": true,
-    "serializedModuleDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
-    "admittedModuleDigest": "sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+    "serializedModuleDigest": "sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2",
+    "admittedModuleDigest": "sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2",
     "unknownFieldMutation": {
       "accepted": false,
       "retained": false,
@@ -177,18 +545,18 @@
       },
       {
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "accepted": true,
         "operatorKinds": [
           "recurse"
         ],
-        "lineageRef": "gtl://graph-function/application-lineage/fe8737bbb31cf9a2f5a3f9544ba206e6157650a42ccb1587edf64daec4034513",
-        "lineageDigest": "sha256:fe8737bbb31cf9a2f5a3f9544ba206e6157650a42ccb1587edf64daec4034513",
+        "lineageRef": "gtl://graph-function/application-lineage/1513303d87e994c492ae2765ead13e6c39474dcb60d33b3de62106db7bc14ae1",
+        "lineageDigest": "sha256:1513303d87e994c492ae2765ead13e6c39474dcb60d33b3de62106db7bc14ae1",
         "provisionalBindingCount": 14,
         "fanInRelationRef": null,
         "fanInRelationDigest": null,
-        "recurseRelationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
-        "recurseRelationDigest": "sha256:71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "recurseRelationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
+        "recurseRelationDigest": "sha256:8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "diagnosticIds": []
       }
     ],
@@ -284,7 +652,7 @@
         "graphVectorName": "consensus.fh-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-post-submitter",
         "selectedProgramRef": "program://abg/consensus/fh-post-submitter",
-        "bindingDigest": "sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
+        "bindingDigest": "sha256:700741abb7d08774011ff09cfb094b9e0f2389dda70bd2d161cc13f1cba5b261",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -380,7 +748,7 @@
         "graphVectorName": "consensus.fh-initial",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-initial",
         "selectedProgramRef": "program://abg/consensus/fh-initial",
-        "bindingDigest": "sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
+        "bindingDigest": "sha256:8e08c24a4b4aea90a67a1fb2a1aaa6dab050e79cced41be7fc1ac0606510eb83",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -436,11 +804,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.expand-panel",
         "graphVectorIdentity": "graph-vector://abg/consensus/expand-panel",
         "selectedProgramRef": "program://abg/consensus/expand-panel",
-        "bindingDigest": "sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
+        "bindingDigest": "sha256:00934d1a219a03a0dfd39115dbd20c4aa7717d8d801f08f8bb57ec547aacb5f2",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -448,11 +816,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.project-reducer-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-reducer-binding",
         "selectedProgramRef": "program://abg/consensus/project-reducer-binding",
-        "bindingDigest": "sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
+        "bindingDigest": "sha256:e3dde3651aa934c8425af32001d86509f1723ae4a5bf73e4d7ff730e63db30a3",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -460,11 +828,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.reassess-round",
         "graphVectorIdentity": "graph-vector://abg/consensus/reassess-round",
         "selectedProgramRef": "program://abg/consensus/reassess-round",
-        "bindingDigest": "sha256:828ce4ffaefd7c2c35de4628a30d9cb22e33aec6e4662642b6804478a8a1026d",
+        "bindingDigest": "sha256:47313a2b464e2329cfe23eea7ffc9cba20177236877aa35a584f9e05497dd067",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -472,11 +840,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.close-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/close-post-submitter",
         "selectedProgramRef": "program://abg/consensus/close-post-submitter",
-        "bindingDigest": "sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
+        "bindingDigest": "sha256:767f3a660493b259bc5182292c5057f37dbe344c9dfac61f79c8598cb13ec100",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -484,11 +852,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.recurse-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/recurse-post-submitter",
         "selectedProgramRef": "program://abg/consensus/recurse-post-submitter",
-        "bindingDigest": "sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
+        "bindingDigest": "sha256:c18dd1dea4106e5009c7c579ce932f624fe151430cb3306302d5b00ed18a916e",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -496,11 +864,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.fh-post-submitter",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-post-submitter",
         "selectedProgramRef": "program://abg/consensus/fh-post-submitter",
-        "bindingDigest": "sha256:d0ba9aa915dda6a550f980bfbdaab3c3e87dcd519c51fbcd817b7d4d7b81058b",
+        "bindingDigest": "sha256:f9e0481464ccdbd7311181e7a3a1c36bf2ac1233eba88f9c6178833191791445",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -508,11 +876,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.project-submitter-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-submitter-binding",
         "selectedProgramRef": "program://abg/consensus/project-submitter-binding",
-        "bindingDigest": "sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
+        "bindingDigest": "sha256:ecc5d5af21953d1198d7800f522e7aa5bac81cc39e9ead7e3d4451393021c89a",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -520,11 +888,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.project-fh-binding",
         "graphVectorIdentity": "graph-vector://abg/consensus/project-fh-binding",
         "selectedProgramRef": "program://abg/consensus/project-fh-binding",
-        "bindingDigest": "sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
+        "bindingDigest": "sha256:4a0807b06cb37c79830a3b023506e1230eec47cb1c68981a712120a5062b1a44",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -532,11 +900,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.review-panel",
         "graphVectorIdentity": "graph-vector://abg/consensus/review-panel",
         "selectedProgramRef": "program://abg/consensus/review-panel",
-        "bindingDigest": "sha256:0b758bc53624967e597b9f4818548c9a70a5abbc35bc4577844f2f26da5ac793",
+        "bindingDigest": "sha256:32ca74a7a4f885adca4f9dd54b140cf1f7a790db6cdca0bd4da36bb6f7102b6e",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -544,11 +912,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.reduce-panel-facts",
         "graphVectorIdentity": "graph-vector://abg/consensus/reduce-panel-facts",
         "selectedProgramRef": "program://abg/consensus/reduce-panel-facts",
-        "bindingDigest": "sha256:ab63f44919fcb830a96f56a07348ca4d68cbe9cfb72f63629e3c33b33419e31d",
+        "bindingDigest": "sha256:ab634ed2673b635fb6a698a27f7a2e3cecea95f650687037db8cb7a49a6b43b5",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -556,11 +924,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.reduce-round",
         "graphVectorIdentity": "graph-vector://abg/consensus/reduce-round",
         "selectedProgramRef": "program://abg/consensus/reduce-round",
-        "bindingDigest": "sha256:2bdd247c73a5bdb6695eb9b4eebf7fe32d6314163cd1e82d05affe3087a72406",
+        "bindingDigest": "sha256:b8000d76e322c5da787d40323d63e98f7784b5ccf3113f541bd9bb3d20f61966",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -568,11 +936,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.close-initial",
         "graphVectorIdentity": "graph-vector://abg/consensus/close-initial",
         "selectedProgramRef": "program://abg/consensus/close-initial",
-        "bindingDigest": "sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
+        "bindingDigest": "sha256:5361c7a6f666cc27c70fa6059ab7c3d83b052d4113769069500b1cfcc7c954da",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -580,11 +948,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.submitter-response",
         "graphVectorIdentity": "graph-vector://abg/consensus/submitter-response",
         "selectedProgramRef": "program://abg/consensus/submitter-response",
-        "bindingDigest": "sha256:a21b8168d4e58bad411ea5fce425584c2ff33a3ff5f883e949e6a5d59bf93af6",
+        "bindingDigest": "sha256:55a8a1ee2947e84d09d4868c0d14d632748617eaedc0021cd0ec4d64707ff688",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -592,11 +960,11 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
         "graphFunctionName": "recurse(consensus.round)",
-        "graphFunctionIdentity": "digest-ref:sha256:cdd6b8aa3d488c2f16fab343801294e01375781a36ebe1f2fd1a94d0a4cc8a3b",
+        "graphFunctionIdentity": "digest-ref:sha256:c8dfe2a68e1820de13c310d07c879c8ba94181cd068b452313d861e2685b8a0d",
         "graphVectorName": "consensus.fh-initial",
         "graphVectorIdentity": "graph-vector://abg/consensus/fh-initial",
         "selectedProgramRef": "program://abg/consensus/fh-initial",
-        "bindingDigest": "sha256:8c86e273de72d4291ae5d86d32d6b1e4f63b21ffd3458ec7af42c5a68c953a5a",
+        "bindingDigest": "sha256:b64e03d9aa913ceb4513525ac766a6559b5430d71b6fa27f5abe873c6587fc8e",
         "accepted": true,
         "diagnosticIds": [],
         "selectedProgramDiagnosticIds": []
@@ -987,7 +1355,7 @@
         "graphVectorName": "consensus.review-panel",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/baffbc698c40637f1795a557ac36ae7e4bca6864c8ddd86883de188596b5e037",
+        "workflowBindingRef": "abg://workflow-c-binding/57723c280c9106b59542625e0dda487a52aaee8c310b229252b1b9c9eaf89559",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -998,7 +1366,7 @@
         "graphVectorName": "consensus.reduce-panel-facts",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/cb7e9efcd6d96f2f20eff99fb3a9b387f5368e41df9449ef4c9bed2798a20574",
+        "workflowBindingRef": "abg://workflow-c-binding/31e6d5d2f99a961c4a8a0ef78a5e130260059e5176cd326a858a867e4476deca",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -1141,7 +1509,7 @@
         "graphVectorName": "consensus.review-panel",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/6c821d8059370b6e64e9899316952f7d28750b79dc2b4fbda6f55d108a5dcb5f",
+        "workflowBindingRef": "abg://workflow-c-binding/8e310346845079161794906eb01115ca6f6ca990a9a59d2b9944cfaa484fae2f",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -1152,7 +1520,7 @@
         "graphVectorName": "consensus.reduce-panel-facts",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/5081e2ca45a5280091bc590591111b99d1634d3aa4b31c57d9acbb9aada7c9b6",
+        "workflowBindingRef": "abg://workflow-c-binding/1b73a6b617a48bbf6f104d9b7a00df9d11e7b07861c4d3f83a7b0d9abd991adf",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -1262,7 +1630,7 @@
         "graphVectorName": "consensus.bounded-rounds",
         "status": "blocked_capability",
         "programDisposition": "workflow_sub_traversal",
-        "workflowBindingRef": "abg://workflow-c-binding/1cac2309a744ec0626437f25c0d20093c75df3cfe03d77bbb54100970382df3b",
+        "workflowBindingRef": "abg://workflow-c-binding/f03407c3563717de51a679f73f1e9602df831b8c81b355bc51420349ea694429",
         "diagnosticIds": [
           "gtl-execution-handoff-capability-manifest-missing"
         ]
@@ -1289,8 +1657,8 @@
       {
         "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "programRef": "program://abg/consensus/review-one-profile",
-        "planRef": "abg://compiled-c-program/347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
-        "planDigest": "sha256:347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
+        "planRef": "abg://compiled-c-program/730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c",
+        "planDigest": "sha256:730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c",
         "programBindingDigest": "sha256:15ea18826893927edf81fdb8cda3ca5e022bf691036e8cf5544b3aa24e58dec7",
         "authoredNodeCount": 2,
         "invokingLocusCount": 1,
@@ -1299,8 +1667,8 @@
       {
         "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
         "programRef": "program://abg/consensus/exact-panel-facts",
-        "planRef": "abg://compiled-c-program/59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf",
-        "planDigest": "sha256:59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf",
+        "planRef": "abg://compiled-c-program/8cb0d5591b4d1a5913e9352e711d98a34b00dcb0b855c502a8b34edbff57fdbb",
+        "planDigest": "sha256:8cb0d5591b4d1a5913e9352e711d98a34b00dcb0b855c502a8b34edbff57fdbb",
         "programBindingDigest": "sha256:0cf7da57ac2c916874a40a1f9c177416d326609366459c20bd3e139ad9cb6229",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1309,8 +1677,8 @@
       {
         "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
         "programRef": "program://abg/consensus/exact-panel-facts",
-        "planRef": "abg://compiled-c-program/c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e",
-        "planDigest": "sha256:c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e",
+        "planRef": "abg://compiled-c-program/30eb6b60720d5b4b3fc6796d757fedf4bb03fab45654d78fca9ebec6d7a979cd",
+        "planDigest": "sha256:30eb6b60720d5b4b3fc6796d757fedf4bb03fab45654d78fca9ebec6d7a979cd",
         "programBindingDigest": "sha256:de93e1bf42182425268ec14a3ba85a0663f3a0b284086debddbd7c54f9c747da",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1319,8 +1687,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
         "programRef": "program://abg/consensus/expand-panel",
-        "planRef": "abg://compiled-c-program/09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e",
-        "planDigest": "sha256:09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e",
+        "planRef": "abg://compiled-c-program/285a74b81272c2aebb8f2cdbf950d1244fcf430c8ffc089f575cf723b816f348",
+        "planDigest": "sha256:285a74b81272c2aebb8f2cdbf950d1244fcf430c8ffc089f575cf723b816f348",
         "programBindingDigest": "sha256:809a717a45497cb36ed7532f472782ec11ce6373f5b6c34d937ecf36c34ca0ca",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1329,8 +1697,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
         "programRef": "program://abg/consensus/project-reducer-binding",
-        "planRef": "abg://compiled-c-program/af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a",
-        "planDigest": "sha256:af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a",
+        "planRef": "abg://compiled-c-program/f23d4dc5fd0eca8a8ed0ec3e5c3e7240ff8d03816063d0cb3dd1fada1bb8d43d",
+        "planDigest": "sha256:f23d4dc5fd0eca8a8ed0ec3e5c3e7240ff8d03816063d0cb3dd1fada1bb8d43d",
         "programBindingDigest": "sha256:a4ddbbdaa6065668eae746841128dfff21d7ca3fa6c279e80945cad42cacd475",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1339,8 +1707,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
         "programRef": "program://abg/consensus/project-submitter-binding",
-        "planRef": "abg://compiled-c-program/d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802",
-        "planDigest": "sha256:d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802",
+        "planRef": "abg://compiled-c-program/c30e4b65e6c38ba843764561ebb4c3df46a20bc4afbb8eb60d53fe83fbbe5da2",
+        "planDigest": "sha256:c30e4b65e6c38ba843764561ebb4c3df46a20bc4afbb8eb60d53fe83fbbe5da2",
         "programBindingDigest": "sha256:b7fb4dcabb521853b89d7470215d792fe553d52922426490de984a5063993680",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1349,8 +1717,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
         "programRef": "program://abg/consensus/project-fh-binding",
-        "planRef": "abg://compiled-c-program/92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b",
-        "planDigest": "sha256:92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b",
+        "planRef": "abg://compiled-c-program/a034e0c9d058e54cf8449dca2cb5ab785ab877af763730492152f9977c7a2f5b",
+        "planDigest": "sha256:a034e0c9d058e54cf8449dca2cb5ab785ab877af763730492152f9977c7a2f5b",
         "programBindingDigest": "sha256:729f6cbd3a6e1ee0e975ee9755d4d9c63777ff3ce417f3aecdac28893fb1eaf4",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1359,8 +1727,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
         "programRef": "program://abg/consensus/review-panel",
-        "planRef": "abg://compiled-c-program/23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550",
-        "planDigest": "sha256:23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550",
+        "planRef": "abg://compiled-c-program/4f18094515d14bada6f999dd9d180f41259df5fe99ba349044ab508e63015acc",
+        "planDigest": "sha256:4f18094515d14bada6f999dd9d180f41259df5fe99ba349044ab508e63015acc",
         "programBindingDigest": "sha256:48be5b77e4a2422b4383d6c8809ce9151f4f936d845dd24f73b023158e11ed34",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1369,8 +1737,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
         "programRef": "program://abg/consensus/reduce-panel-facts",
-        "planRef": "abg://compiled-c-program/e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19",
-        "planDigest": "sha256:e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19",
+        "planRef": "abg://compiled-c-program/1653945452af27b2cc91aeb03fb49f3272ff07f73b549f51abd4515a6deb5804",
+        "planDigest": "sha256:1653945452af27b2cc91aeb03fb49f3272ff07f73b549f51abd4515a6deb5804",
         "programBindingDigest": "sha256:bd7b6f7377d5e19e4b60f17cb398c3dded2084d76e78a2369a22e28533f11273",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1379,8 +1747,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
         "programRef": "program://abg/consensus/reduce-round",
-        "planRef": "abg://compiled-c-program/711fd946cfe0b8b00d9551e0c7e1600a26e2257a88f26058ce124c4f87c86970",
-        "planDigest": "sha256:711fd946cfe0b8b00d9551e0c7e1600a26e2257a88f26058ce124c4f87c86970",
+        "planRef": "abg://compiled-c-program/4dd5ce9169ab01e53bc2738e9e74f833bf1d80b492e469e4a6d60c7e94c82027",
+        "planDigest": "sha256:4dd5ce9169ab01e53bc2738e9e74f833bf1d80b492e469e4a6d60c7e94c82027",
         "programBindingDigest": "sha256:4a00b7f25937e9eca06971460b46c458ab169a36432edea869f6ee0bc8dbc327",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1389,8 +1757,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
         "programRef": "program://abg/consensus/close-initial",
-        "planRef": "abg://compiled-c-program/7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80",
-        "planDigest": "sha256:7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80",
+        "planRef": "abg://compiled-c-program/91735ca61479265b5553a8a9aae41c41a0c76b3b74be8a998ad1a0897931989d",
+        "planDigest": "sha256:91735ca61479265b5553a8a9aae41c41a0c76b3b74be8a998ad1a0897931989d",
         "programBindingDigest": "sha256:86111b47d64d68d7fc6136a31a552e587dbf64106a0e73f17a07be287b70d769",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1399,8 +1767,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
         "programRef": "program://abg/consensus/submitter-response",
-        "planRef": "abg://compiled-c-program/0d4ee0ded2ac50c07a96dc61dcd8cabb7da7ae0f12ce40da3a35ae59588d13cd",
-        "planDigest": "sha256:0d4ee0ded2ac50c07a96dc61dcd8cabb7da7ae0f12ce40da3a35ae59588d13cd",
+        "planRef": "abg://compiled-c-program/019e371e08e01d491b2b7cba514402276c0ea1cf2d5f180a94e6d9cd9f8971fc",
+        "planDigest": "sha256:019e371e08e01d491b2b7cba514402276c0ea1cf2d5f180a94e6d9cd9f8971fc",
         "programBindingDigest": "sha256:98ecfc7a48148c0776bb25fce079ccd68806b29d4ad75486053f0476b9ffedcb",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1409,9 +1777,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
         "programRef": "program://abg/consensus/fh-initial",
-        "planRef": "abg://compiled-c-program/93a86b78f34172f95bff4b24c356060abf1ab81bd8d6f429f955195457a30d5f",
-        "planDigest": "sha256:93a86b78f34172f95bff4b24c356060abf1ab81bd8d6f429f955195457a30d5f",
-        "programBindingDigest": "sha256:4477004416153dd89b6390ae36999fa09d859d147689699db3a4a5fe6bad10cc",
+        "planRef": "abg://compiled-c-program/a805e4b45385780823fb3e7f945ff808e9741ba2e7aa543b97cc47e190a66370",
+        "planDigest": "sha256:a805e4b45385780823fb3e7f945ff808e9741ba2e7aa543b97cc47e190a66370",
+        "programBindingDigest": "sha256:8e08c24a4b4aea90a67a1fb2a1aaa6dab050e79cced41be7fc1ac0606510eb83",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1419,8 +1787,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
         "programRef": "program://abg/consensus/reassess-round",
-        "planRef": "abg://compiled-c-program/6028289316110c0444a47c824cb6b0fb66839239ff50a3038696ec5d4e4160f2",
-        "planDigest": "sha256:6028289316110c0444a47c824cb6b0fb66839239ff50a3038696ec5d4e4160f2",
+        "planRef": "abg://compiled-c-program/6019530562d0de41f3c4bd9a7cac5e5a91ad5eea889fc1234996e53df3b48a0b",
+        "planDigest": "sha256:6019530562d0de41f3c4bd9a7cac5e5a91ad5eea889fc1234996e53df3b48a0b",
         "programBindingDigest": "sha256:47603016c5983f141cd0244cbde67357ce90aba5e0d8b353bd3b10537adbcfc2",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1429,8 +1797,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
         "programRef": "program://abg/consensus/close-post-submitter",
-        "planRef": "abg://compiled-c-program/d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb",
-        "planDigest": "sha256:d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb",
+        "planRef": "abg://compiled-c-program/1ee4dc889112bc343989634a62c2e69d1b6a340ab6699793796a6e33191ee118",
+        "planDigest": "sha256:1ee4dc889112bc343989634a62c2e69d1b6a340ab6699793796a6e33191ee118",
         "programBindingDigest": "sha256:9387941f906aecf32345e73903b07477ba8c01dcfeda41d769ae4bd0c7500c43",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1439,8 +1807,8 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
         "programRef": "program://abg/consensus/recurse-post-submitter",
-        "planRef": "abg://compiled-c-program/543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee",
-        "planDigest": "sha256:543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee",
+        "planRef": "abg://compiled-c-program/0e799690308f7e53624fba0a3412ab247350baf2c20a21e17a57f440cf1400ab",
+        "planDigest": "sha256:0e799690308f7e53624fba0a3412ab247350baf2c20a21e17a57f440cf1400ab",
         "programBindingDigest": "sha256:3fcf0974693b27816de6f39027c3f27b43a71132853be4b0dbe5e0c5744693d0",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1449,9 +1817,9 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
         "programRef": "program://abg/consensus/fh-post-submitter",
-        "planRef": "abg://compiled-c-program/9f33b701826aba66931015c485fb88916ecb44e1d8268c184959ba231e18320f",
-        "planDigest": "sha256:9f33b701826aba66931015c485fb88916ecb44e1d8268c184959ba231e18320f",
-        "programBindingDigest": "sha256:fa4c50c92ebf4f469dde53946e2f769ad0a1e23bd5edf571ac5bc4b0690fc4d0",
+        "planRef": "abg://compiled-c-program/fa1d18112a7c6c01949bff8e284fc77ca30739b68a25b98fe59dae52b86df210",
+        "planDigest": "sha256:fa1d18112a7c6c01949bff8e284fc77ca30739b68a25b98fe59dae52b86df210",
+        "programBindingDigest": "sha256:700741abb7d08774011ff09cfb094b9e0f2389dda70bd2d161cc13f1cba5b261",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1459,9 +1827,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
         "programRef": "program://abg/consensus/expand-panel",
-        "planRef": "abg://compiled-c-program/f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0",
-        "planDigest": "sha256:f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0",
-        "programBindingDigest": "sha256:dee2825522d14beb09ecbf78d9431bef0e54fee756d82bd6fefce2ead67d817d",
+        "planRef": "abg://compiled-c-program/7d3af6ae2309cd8f13eddaed4d6acb5701ac58334e8d8637053c3da2e2f50578",
+        "planDigest": "sha256:7d3af6ae2309cd8f13eddaed4d6acb5701ac58334e8d8637053c3da2e2f50578",
+        "programBindingDigest": "sha256:00934d1a219a03a0dfd39115dbd20c4aa7717d8d801f08f8bb57ec547aacb5f2",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1469,9 +1837,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "programRef": "program://abg/consensus/project-reducer-binding",
-        "planRef": "abg://compiled-c-program/afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25",
-        "planDigest": "sha256:afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25",
-        "programBindingDigest": "sha256:886af14584054af75375b897427b8457dfa181eb5b0d79984c9b2970254a244e",
+        "planRef": "abg://compiled-c-program/1e26fdaf78c2d8858e79b03ea9ac32e42c9d9c982a89e852ff5128450b1be7ab",
+        "planDigest": "sha256:1e26fdaf78c2d8858e79b03ea9ac32e42c9d9c982a89e852ff5128450b1be7ab",
+        "programBindingDigest": "sha256:e3dde3651aa934c8425af32001d86509f1723ae4a5bf73e4d7ff730e63db30a3",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1479,9 +1847,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "programRef": "program://abg/consensus/project-submitter-binding",
-        "planRef": "abg://compiled-c-program/2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68",
-        "planDigest": "sha256:2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68",
-        "programBindingDigest": "sha256:7c442762f895de5783d0e1f2088d95dcaf891214a560840df1ae010ddef6fc5f",
+        "planRef": "abg://compiled-c-program/ad79e4e2a6a5b1d58e395fe8e992c070ba376aaa21b96eb09dbecc75dc5e5fe8",
+        "planDigest": "sha256:ad79e4e2a6a5b1d58e395fe8e992c070ba376aaa21b96eb09dbecc75dc5e5fe8",
+        "programBindingDigest": "sha256:ecc5d5af21953d1198d7800f522e7aa5bac81cc39e9ead7e3d4451393021c89a",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1489,9 +1857,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
         "programRef": "program://abg/consensus/project-fh-binding",
-        "planRef": "abg://compiled-c-program/ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a",
-        "planDigest": "sha256:ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a",
-        "programBindingDigest": "sha256:4e2262285c21b7eb1f6feb8bc04b1424fcc147cb7f80e1f3912c17d85326d8d2",
+        "planRef": "abg://compiled-c-program/e74cacc8c1b244a04b5e1142f7947c798f079bba06be9b07d8e81ce32efef481",
+        "planDigest": "sha256:e74cacc8c1b244a04b5e1142f7947c798f079bba06be9b07d8e81ce32efef481",
+        "programBindingDigest": "sha256:4a0807b06cb37c79830a3b023506e1230eec47cb1c68981a712120a5062b1a44",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1499,9 +1867,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "programRef": "program://abg/consensus/review-panel",
-        "planRef": "abg://compiled-c-program/756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026",
-        "planDigest": "sha256:756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026",
-        "programBindingDigest": "sha256:0b758bc53624967e597b9f4818548c9a70a5abbc35bc4577844f2f26da5ac793",
+        "planRef": "abg://compiled-c-program/e8528ba019c45a7ee12beee49d3dd2eed64a4cc5226ab09245a724870319a312",
+        "planDigest": "sha256:e8528ba019c45a7ee12beee49d3dd2eed64a4cc5226ab09245a724870319a312",
+        "programBindingDigest": "sha256:32ca74a7a4f885adca4f9dd54b140cf1f7a790db6cdca0bd4da36bb6f7102b6e",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_workflow_lift"
@@ -1509,9 +1877,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "programRef": "program://abg/consensus/reduce-panel-facts",
-        "planRef": "abg://compiled-c-program/5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6",
-        "planDigest": "sha256:5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6",
-        "programBindingDigest": "sha256:ab63f44919fcb830a96f56a07348ca4d68cbe9cfb72f63629e3c33b33419e31d",
+        "planRef": "abg://compiled-c-program/4c954a719317d7d0300531b4b0f895de778c5644406848a7c58ba1f429782e5b",
+        "planDigest": "sha256:4c954a719317d7d0300531b4b0f895de778c5644406848a7c58ba1f429782e5b",
+        "programBindingDigest": "sha256:ab634ed2673b635fb6a698a27f7a2e3cecea95f650687037db8cb7a49a6b43b5",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_workflow_lift"
@@ -1519,9 +1887,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "programRef": "program://abg/consensus/reduce-round",
-        "planRef": "abg://compiled-c-program/8a9aee7677bc9cb13356ed714b5cd777ee6be9c69d4bb9d90bbc589ff756fa72",
-        "planDigest": "sha256:8a9aee7677bc9cb13356ed714b5cd777ee6be9c69d4bb9d90bbc589ff756fa72",
-        "programBindingDigest": "sha256:2bdd247c73a5bdb6695eb9b4eebf7fe32d6314163cd1e82d05affe3087a72406",
+        "planRef": "abg://compiled-c-program/98d6f297d344d494e0283d194cb6b5f9649d1cc95782d2a80d15343c177c9fd0",
+        "planDigest": "sha256:98d6f297d344d494e0283d194cb6b5f9649d1cc95782d2a80d15343c177c9fd0",
+        "programBindingDigest": "sha256:b8000d76e322c5da787d40323d63e98f7784b5ccf3113f541bd9bb3d20f61966",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1529,9 +1897,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "programRef": "program://abg/consensus/close-initial",
-        "planRef": "abg://compiled-c-program/eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718",
-        "planDigest": "sha256:eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718",
-        "programBindingDigest": "sha256:e67654f971a79d0b744fb917aa8413f14a2c277c8064dacd9183d07f4d7acd22",
+        "planRef": "abg://compiled-c-program/0dc8f2135418895588d25aed6daa92850204d95f3437499a8974671d5126c6d2",
+        "planDigest": "sha256:0dc8f2135418895588d25aed6daa92850204d95f3437499a8974671d5126c6d2",
+        "programBindingDigest": "sha256:5361c7a6f666cc27c70fa6059ab7c3d83b052d4113769069500b1cfcc7c954da",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1539,9 +1907,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
         "programRef": "program://abg/consensus/submitter-response",
-        "planRef": "abg://compiled-c-program/a4dd902e6359769b1fe23175ee2982d98b946977f59a69c53c420a75a8c09bc5",
-        "planDigest": "sha256:a4dd902e6359769b1fe23175ee2982d98b946977f59a69c53c420a75a8c09bc5",
-        "programBindingDigest": "sha256:a21b8168d4e58bad411ea5fce425584c2ff33a3ff5f883e949e6a5d59bf93af6",
+        "planRef": "abg://compiled-c-program/70bf08b854d1df6633a8c33759f7876af07e5085dde3ed2c720376de2ef4ec57",
+        "planDigest": "sha256:70bf08b854d1df6633a8c33759f7876af07e5085dde3ed2c720376de2ef4ec57",
+        "programBindingDigest": "sha256:55a8a1ee2947e84d09d4868c0d14d632748617eaedc0021cd0ec4d64707ff688",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1549,9 +1917,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
         "programRef": "program://abg/consensus/fh-initial",
-        "planRef": "abg://compiled-c-program/ebe66419c0405af729192e95b1c239c5751325cb33e2dee4ebcb962404fdf492",
-        "planDigest": "sha256:ebe66419c0405af729192e95b1c239c5751325cb33e2dee4ebcb962404fdf492",
-        "programBindingDigest": "sha256:8c86e273de72d4291ae5d86d32d6b1e4f63b21ffd3458ec7af42c5a68c953a5a",
+        "planRef": "abg://compiled-c-program/6a3f722daabf29f2b32e1637100a5dc780bfba50fe4c059600b50c0ee3ff55d3",
+        "planDigest": "sha256:6a3f722daabf29f2b32e1637100a5dc780bfba50fe4c059600b50c0ee3ff55d3",
+        "programBindingDigest": "sha256:b64e03d9aa913ceb4513525ac766a6559b5430d71b6fa27f5abe873c6587fc8e",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1559,9 +1927,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
         "programRef": "program://abg/consensus/reassess-round",
-        "planRef": "abg://compiled-c-program/309eb618dce280d85e0bbc79560c1606ca23071f674f72c5aaeb5919a03f13b9",
-        "planDigest": "sha256:309eb618dce280d85e0bbc79560c1606ca23071f674f72c5aaeb5919a03f13b9",
-        "programBindingDigest": "sha256:828ce4ffaefd7c2c35de4628a30d9cb22e33aec6e4662642b6804478a8a1026d",
+        "planRef": "abg://compiled-c-program/5ee9a17c157afcb1d8d5d4fe65060b43590ad4eecee4dacd515bd3e4f6f17bf3",
+        "planDigest": "sha256:5ee9a17c157afcb1d8d5d4fe65060b43590ad4eecee4dacd515bd3e4f6f17bf3",
+        "programBindingDigest": "sha256:47313a2b464e2329cfe23eea7ffc9cba20177236877aa35a584f9e05497dd067",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1569,9 +1937,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
         "programRef": "program://abg/consensus/close-post-submitter",
-        "planRef": "abg://compiled-c-program/ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712",
-        "planDigest": "sha256:ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712",
-        "programBindingDigest": "sha256:182d749324956a9299abd24043d88de386b1d2121b3480caad8dddfaca5e3f96",
+        "planRef": "abg://compiled-c-program/ec7729d2f94ff7d81c2c13e7cc9d4c8a1c4dbc8754dfa47767cd2d5f5e765d24",
+        "planDigest": "sha256:ec7729d2f94ff7d81c2c13e7cc9d4c8a1c4dbc8754dfa47767cd2d5f5e765d24",
+        "programBindingDigest": "sha256:767f3a660493b259bc5182292c5057f37dbe344c9dfac61f79c8598cb13ec100",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1579,9 +1947,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
         "programRef": "program://abg/consensus/recurse-post-submitter",
-        "planRef": "abg://compiled-c-program/6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439",
-        "planDigest": "sha256:6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439",
-        "programBindingDigest": "sha256:242acc5988f8330681ab05d31f479555eef2bc99307af677636dd7844d1b054c",
+        "planRef": "abg://compiled-c-program/b5598b3ccafea48bf7df63e3bb772127b66f8af0184411e337ce953c85314e9b",
+        "planDigest": "sha256:b5598b3ccafea48bf7df63e3bb772127b66f8af0184411e337ce953c85314e9b",
+        "programBindingDigest": "sha256:c18dd1dea4106e5009c7c579ce932f624fe151430cb3306302d5b00ed18a916e",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1589,9 +1957,9 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
         "programRef": "program://abg/consensus/fh-post-submitter",
-        "planRef": "abg://compiled-c-program/bebf94c449fbf95a5814827a245f2b1a380066a67e7422b195c806c55163dbfb",
-        "planDigest": "sha256:bebf94c449fbf95a5814827a245f2b1a380066a67e7422b195c806c55163dbfb",
-        "programBindingDigest": "sha256:d0ba9aa915dda6a550f980bfbdaab3c3e87dcd519c51fbcd817b7d4d7b81058b",
+        "planRef": "abg://compiled-c-program/953176e4aa9fed0e976e57df18f2fc51a8c34326934a5e4ba5fb0bf0b53e95a8",
+        "planDigest": "sha256:953176e4aa9fed0e976e57df18f2fc51a8c34326934a5e4ba5fb0bf0b53e95a8",
+        "programBindingDigest": "sha256:f9e0481464ccdbd7311181e7a3a1c36bf2ac1233eba88f9c6178833191791445",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
         "rootKind": "compiled_c_stage_leaf"
@@ -1599,8 +1967,8 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
         "programRef": "program://abg/consensus/seed-round",
-        "planRef": "abg://compiled-c-program/2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298",
-        "planDigest": "sha256:2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298",
+        "planRef": "abg://compiled-c-program/f3ff8fd4a198b00d52d434fcbd2b8404c01c18a8be069981e2b15b15593fa54b",
+        "planDigest": "sha256:f3ff8fd4a198b00d52d434fcbd2b8404c01c18a8be069981e2b15b15593fa54b",
         "programBindingDigest": "sha256:e78afa28d928649710374e4a17488f8ae4fbfddff4b8cb574913444a1e95d5be",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1609,8 +1977,8 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
         "programRef": "program://abg/consensus/bounded-rounds",
-        "planRef": "abg://compiled-c-program/73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687",
-        "planDigest": "sha256:73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687",
+        "planRef": "abg://compiled-c-program/58e8c23df4a7331749d633228d0827036e3478ade48006a21a4deea5c2ba8738",
+        "planDigest": "sha256:58e8c23df4a7331749d633228d0827036e3478ade48006a21a4deea5c2ba8738",
         "programBindingDigest": "sha256:f49251731760212359febd7935fc182c8222d8ffb08d1eec2823451c54eaf8a4",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1619,8 +1987,8 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
         "programRef": "program://abg/consensus/project-result",
-        "planRef": "abg://compiled-c-program/1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d",
-        "planDigest": "sha256:1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d",
+        "planRef": "abg://compiled-c-program/04d5c550dcd22577c4ae64fb056c03fc4b9a4b877162e2a18fd3c59adc41e6d2",
+        "planDigest": "sha256:04d5c550dcd22577c4ae64fb056c03fc4b9a4b877162e2a18fd3c59adc41e6d2",
         "programBindingDigest": "sha256:27207c93b87f4093f4d5f3dd3c255a1a6f1cad73b2d1974707a4752b24bc9a49",
         "authoredNodeCount": 1,
         "invokingLocusCount": 1,
@@ -1655,14 +2023,14 @@
     },
     "t262RuntimeSurface": {
       "resolveTypedRecurse": true,
-      "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
-      "relationDigest": "sha256:71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
-      "bindingRef": "abg://typed-recurse/binding/635e11fc401e308d98b97b928bb8aa98920076c4a16cb2bd78d28541a544419a",
-      "bindingDigest": "sha256:635e11fc401e308d98b97b928bb8aa98920076c4a16cb2bd78d28541a544419a",
-      "planRef": "abg://typed-recurse/plan/488104e4880b8aa999ebb493317e7c1d4e386f3d9f8fa87301ce136e7d54b5fb",
-      "planDigest": "sha256:488104e4880b8aa999ebb493317e7c1d4e386f3d9f8fa87301ce136e7d54b5fb",
+      "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
+      "relationDigest": "sha256:8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
+      "bindingRef": "abg://typed-recurse/binding/8554ac7d45be037f69bb4d6a1778db82b807c0c0d495d78d5000d7e57fa99288",
+      "bindingDigest": "sha256:8554ac7d45be037f69bb4d6a1778db82b807c0c0d495d78d5000d7e57fa99288",
+      "planRef": "abg://typed-recurse/plan/d5674a366bc320938f3c6fb1f72f5c4785aa7b420fe36a3a6d81a12c5e21633a",
+      "planDigest": "sha256:d5674a366bc320938f3c6fb1f72f5c4785aa7b420fe36a3a6d81a12c5e21633a",
       "policyRef": "policy://abg/consensus/recursion-stops-by-declared-law",
-      "policyDigest": "sha256:a2641f7c87d5b3415b38268e87228aa42919d723d95572b9e4c3fe8332290d80",
+      "policyDigest": "sha256:eeb0c4a2c18a22cd462780568d686fda05b7ace2a6c9c4aa11f8790c40730c07",
       "maxApplications": 2,
       "uniquePostSubmitterRecurseRouteRef": "graph-vector://abg/consensus/recurse-post-submitter",
       "canonicalApplicationsObserved": 2,
@@ -1778,9 +2146,9 @@
           "instruction-protocol://abg/consensus/submitter"
         ],
         "targetCompatibilityRefs": [
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition",
           "gtl://target-carrier-envelope/generic",
-          "schema://abg/consensus/fh-pending-interaction"
+          "schema://abg/consensus/round-disposition"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -1846,9 +2214,9 @@
           "instruction-protocol://abg/consensus/submitter"
         ],
         "targetCompatibilityRefs": [
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition",
           "gtl://target-carrier-envelope/generic",
-          "schema://abg/consensus/fh-pending-interaction"
+          "schema://abg/consensus/round-disposition"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -1947,9 +2315,9 @@
           "instruction-protocol://abg/consensus/submitter"
         ],
         "targetCompatibilityRefs": [
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition",
           "gtl://target-carrier-envelope/generic",
-          "schema://abg/consensus/fh-pending-interaction"
+          "schema://abg/consensus/round-disposition"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -2015,9 +2383,9 @@
           "instruction-protocol://abg/consensus/submitter"
         ],
         "targetCompatibilityRefs": [
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction",
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition",
           "gtl://target-carrier-envelope/generic",
-          "schema://abg/consensus/fh-pending-interaction"
+          "schema://abg/consensus/round-disposition"
         ],
         "fieldClosureObserved": true,
         "protocolRoleObserved": true
@@ -2249,24 +2617,24 @@
       {
         "path": "module.graphFunctions[consensus.exact-panel-facts].vectors[0:consensus.exact-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:f35d47e170926446a234e175f353bf1aad8e314c82d28c32da39abafc2a07051",
+        "sourceDigest": "sha256:0a78e8347ed397765c3606ed78ad317586221e51ac2729fce19adf24fbda813c",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:c61db85f7e8a7575e312926e9e6bb4b4a71e7b221ea1323163fb26c2cd76a507"
+          "sha256:88dce59c386c5c9ff1f75d6d7e3a253e0f81fcd1b74e6245580530f9a6690693"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:1e096b1d5b3c18d20cbabe2a0c53792a021899cb576dc8f43865e68eaee919f1",
-          "sha256:59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf",
-          "sha256:60c12b661191aa7bbb5d65d0565c6805f507e60d779ef8fad341d2319c5b12e1"
+          "sha256:38343a4d8a72ffda20ef7ded996693ef8ac282700bcb95971daa5646725a414f",
+          "sha256:60c12b661191aa7bbb5d65d0565c6805f507e60d779ef8fad341d2319c5b12e1",
+          "sha256:8cb0d5591b4d1a5913e9352e711d98a34b00dcb0b855c502a8b34edbff57fdbb"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/60c12b661191aa7bbb5d65d0565c6805f507e60d779ef8fad341d2319c5b12e1",
-          "abg://compiled-c-program/59ff5be2c6f07c4c7c1fa7b1fc6cf22bad73320c351609c70cbedab8374d4fbf"
+          "abg://compiled-c-program/8cb0d5591b4d1a5913e9352e711d98a34b00dcb0b855c502a8b34edbff57fdbb"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/f0f84c5f2a214af4dac1fffdc5792b56a8591ead2462b08127e3ce1d7029415a",
-        "bundleDigest": "sha256:f0f84c5f2a214af4dac1fffdc5792b56a8591ead2462b08127e3ce1d7029415a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/381ff799d6f1c68c137eddc34ab26a03fb726c1ccd1f5e571546df95d2bd3109",
+        "bundleDigest": "sha256:381ff799d6f1c68c137eddc34ab26a03fb726c1ccd1f5e571546df95d2bd3109",
         "computeStageRoles": [
           "transform"
         ],
@@ -2277,24 +2645,24 @@
       {
         "path": "module.graphFunctions[consensus.review-one-profile].vectors[0:consensus.review-one-profile]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:d49f494595ddec78bbe07c5fddcb27f76ed2585b82af3b020be6458fcef08739",
+        "sourceDigest": "sha256:aae6272e2a14b5123d8425277a267809d6580ae8096c54939215b1119dff79e3",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:61c67eb0478fa5b3bfae8f7a4bb0d976ccc6ef5d295aec0eb0cc8b804d857e42"
+          "sha256:67c83e9a089bd693d1e9bd0626a849207ea93af590129752c70147e3e1a1d745"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
-          "sha256:416e851fedc38bc436bede15ebd8232644faf36667e304cc75a6b2383f69fadf",
+          "sha256:730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c",
+          "sha256:cf4dff56b104660bc127ab6f860cf907d6999ed1772c87c8e501afd804e02817",
           "sha256:d7ee6298b06b9d3004c62f3b7cba86a924513d3ea78192fa93bf95feeeddfd54"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/d7ee6298b06b9d3004c62f3b7cba86a924513d3ea78192fa93bf95feeeddfd54",
-          "abg://compiled-c-program/347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133"
+          "abg://compiled-c-program/730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/9f4803f0608c3870311a68f09ba8e0d63f24fa80c417be138e25d0a4dc9b3301",
-        "bundleDigest": "sha256:9f4803f0608c3870311a68f09ba8e0d63f24fa80c417be138e25d0a4dc9b3301",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/58a66bfeff74405861cb0ee952625c6d5d85a1282d738f04634d3e3474c250ca",
+        "bundleDigest": "sha256:58a66bfeff74405861cb0ee952625c6d5d85a1282d738f04634d3e3474c250ca",
         "computeStageRoles": [
           "transform"
         ],
@@ -2305,24 +2673,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[0:consensus.expand-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:09501351091176327186728ea9e8309068bcd366d2719e047fac86453dac3dba",
+        "sourceDigest": "sha256:0aa0160a94c7fb182545ea1bb97cbc783c6244f49ba378208beae18a4fbd4348",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:0797ed7a51b5c353f3ecf5fd8b12ab687a1780ce0dbeaa9e5e693f4532b55c85"
+          "sha256:311732cffdcc068bafff584b56060aeb58b98294d13859e3d28fcdb268613c01"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e",
           "sha256:0fbd69b4024287f55265d92ee67bd36c5a8830003a233a8adac57dd003236ca3",
-          "sha256:2cebca561be8fc5a9fe9a2d4f3cd2e35f21bcfd0db2a9c889008abbf36a75026"
+          "sha256:285a74b81272c2aebb8f2cdbf950d1244fcf430c8ffc089f575cf723b816f348",
+          "sha256:8c8fee6bee8cc913b0d61fe8548302a2a3de97352003cbab1e81cc6504ad6089"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/0fbd69b4024287f55265d92ee67bd36c5a8830003a233a8adac57dd003236ca3",
-          "abg://compiled-c-program/09e5ff0c53b27227d9a200de2fb832ab78cab3bbb0172fa1a1c484f08d5be59e"
+          "abg://compiled-c-program/285a74b81272c2aebb8f2cdbf950d1244fcf430c8ffc089f575cf723b816f348"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/422c97a7fb6d372baeb162b6f56d70410b1b0c6c051548a03187fc538a1995aa",
-        "bundleDigest": "sha256:422c97a7fb6d372baeb162b6f56d70410b1b0c6c051548a03187fc538a1995aa",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/74ddfe7cbda631938fed4df1a0806a882ecc88607431ef1e6b045c45ad930606",
+        "bundleDigest": "sha256:74ddfe7cbda631938fed4df1a0806a882ecc88607431ef1e6b045c45ad930606",
         "computeStageRoles": [
           "transform"
         ],
@@ -2333,24 +2701,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[1:consensus.project-reducer-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:675b522463b57665cd7669e06f43dd512a849c70458f4da1d98ff5493246dc40",
+        "sourceDigest": "sha256:607c2e11761a7870520820097b254baea7831fc6987db1a8b5fa2b070eda9868",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:cc4ba3de66ff78535744f37e5feee2603b67853bb39551d026b5e24c836819de"
+          "sha256:85efb0a4c4b5924246f8075469e812a1f7c5853ffee91941d49e8c75a0287457"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:45bed1d1c0e93327d8d3b96d3a98e8e4676986b8f905d5216aaa9f36a736bab8",
-          "sha256:af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a",
-          "sha256:d62142e149bf4094b24a52063f29c938054b41c9ff3a9e6f6b5b280ec5c17768"
+          "sha256:ed11fb2f76ff488da517c01c1f71685a6403af8be09caec136c22371359525d6",
+          "sha256:f23d4dc5fd0eca8a8ed0ec3e5c3e7240ff8d03816063d0cb3dd1fada1bb8d43d"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/45bed1d1c0e93327d8d3b96d3a98e8e4676986b8f905d5216aaa9f36a736bab8",
-          "abg://compiled-c-program/af6c7b31e0754ceaabb3c631353cd936567d15377edc2b0f85bb69b10895d75a"
+          "abg://compiled-c-program/f23d4dc5fd0eca8a8ed0ec3e5c3e7240ff8d03816063d0cb3dd1fada1bb8d43d"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/122e754864b8a66ec092e6bd15af22a94025a382332c27ce7284df1e58870d67",
-        "bundleDigest": "sha256:122e754864b8a66ec092e6bd15af22a94025a382332c27ce7284df1e58870d67",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/dd31aeb27754cd317344d033be12696f77e80d8030b95459450c590e084aaba0",
+        "bundleDigest": "sha256:dd31aeb27754cd317344d033be12696f77e80d8030b95459450c590e084aaba0",
         "computeStageRoles": [
           "transform"
         ],
@@ -2361,12 +2729,12 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[10:consensus.reassess-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:857caac945446d423525d2a079153248104b9da14cac127811e35a7656334e98",
+        "sourceDigest": "sha256:72d89925c040821cb7dc9581956ed24983e899a6429617adbe841971a52ebbdc",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:823eedbf441184d956ec4c10ba7555538c6a482853dd5b5e8f66a10884a33a06"
+          "sha256:b5b2536cad515f1b13d4f91785b86cecac1afe0a96751b1b942284b3d54b0c65"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f",
@@ -2381,8 +2749,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/8e4f7c829502493c179117875f4acacb3881d6733769330a58b5e253beb1fc14",
-        "bundleDigest": "sha256:8e4f7c829502493c179117875f4acacb3881d6733769330a58b5e253beb1fc14",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9e027d321127bbbe8ed8b5f0064b6ae5d8fa40dcaf0fb5eddc1457dadc98d7aa",
+        "bundleDigest": "sha256:9e027d321127bbbe8ed8b5f0064b6ae5d8fa40dcaf0fb5eddc1457dadc98d7aa",
         "computeStageRoles": [
           "transform"
         ],
@@ -2393,24 +2761,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[11:consensus.close-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:967bfecc61d2a9391ed17517147cbf16fe2c29f2817e3897690d91bd4778015a",
+        "sourceDigest": "sha256:93b8228c1838df01f78422e8d8e1406e331fd96e1b58622c5add748dbd2fc730",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:279f0ae4fdf80f70f1db6954f98e1f3fec80cfe19a176f8c9a0fcdfeb516a178"
+          "sha256:0caa4f96739bffaaacc3daabac366736380f8c39a1ba077c0ebaa5621e74a64a"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:88df0c5d4af5724335fb3717cd454e3fe6aa43247acbc493c9a4d24396e6e27b",
-          "sha256:d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb",
+          "sha256:1ee4dc889112bc343989634a62c2e69d1b6a340ab6699793796a6e33191ee118",
+          "sha256:71f8d09861a4bc4c3117480aeb5de3855c5e14f6bf04091e7f5673fec2ed9b85",
           "sha256:e4a801609e55dc1ea7d83ebda65280346fc1dfee84707f2faba97f25043f42d8"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e4a801609e55dc1ea7d83ebda65280346fc1dfee84707f2faba97f25043f42d8",
-          "abg://compiled-c-program/d9931aa70cb2896a06e766b60116af83a1f43a207fceaeaac10aa3ba169e4ecb"
+          "abg://compiled-c-program/1ee4dc889112bc343989634a62c2e69d1b6a340ab6699793796a6e33191ee118"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/80f6efee339fc7a7cd4e42a9d5513c407f3c5a8aabdb1bdbed9f099d07f21811",
-        "bundleDigest": "sha256:80f6efee339fc7a7cd4e42a9d5513c407f3c5a8aabdb1bdbed9f099d07f21811",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/68d7f2c4df10cca0d95c5edf35287baa322b6411e30dc253a4c8ec4c212b79fe",
+        "bundleDigest": "sha256:68d7f2c4df10cca0d95c5edf35287baa322b6411e30dc253a4c8ec4c212b79fe",
         "computeStageRoles": [
           "transform"
         ],
@@ -2421,24 +2789,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[12:consensus.recurse-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:2ba9315c5ec9d9b16c401d3920e672419d5202e691671aaca3a56d16c79ebdd2",
+        "sourceDigest": "sha256:b9b40af1d0f33b72b56093af87195efae79f7a5826b382038e9e4f8030488e80",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:53d2d6f52f0e034b94e0ce4c1bddd1a114ab0d7b13dee5c395da310c45dc901b"
+          "sha256:8175562196ea1de0fea61f9586bc6502bb784c71680456d52e9dc6c61551244e"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee",
-          "sha256:b841d0b19b37185b8bcf0f3f9d1b160082ca5dc3354fd47a1803cc315afe8270",
+          "sha256:0e799690308f7e53624fba0a3412ab247350baf2c20a21e17a57f440cf1400ab",
+          "sha256:90a656d8fac1a6ee5a433af73f34cf5688e50f1f2083f608bd27253847269469",
           "sha256:e9ba009344b56bb21e5cd846f9b6bfadf80bedb519b5920aac9f19ae691fe3a6"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e9ba009344b56bb21e5cd846f9b6bfadf80bedb519b5920aac9f19ae691fe3a6",
-          "abg://compiled-c-program/543f1d3e4dd7a5a4bd8dd450ff608dc4ab7f00b6cfb1e5fca336a861fad1b4ee"
+          "abg://compiled-c-program/0e799690308f7e53624fba0a3412ab247350baf2c20a21e17a57f440cf1400ab"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/3c17471b16b65cb8f21583e4c05962cdb5c5f5bd75ea00131f1dbe23e49db68e",
-        "bundleDigest": "sha256:3c17471b16b65cb8f21583e4c05962cdb5c5f5bd75ea00131f1dbe23e49db68e",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/33ed5f4db39be33c6588e9f96d1d283aeadeb310c14f62a8d2d6916046143df1",
+        "bundleDigest": "sha256:33ed5f4db39be33c6588e9f96d1d283aeadeb310c14f62a8d2d6916046143df1",
         "computeStageRoles": [
           "transform"
         ],
@@ -2449,16 +2817,16 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[13:consensus.fh-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:1e463013cf8ce1c54043591986175bbfea8a497c10b2c963faf9b95683284000",
+        "sourceDigest": "sha256:b049e3ee711e7fadef14ed6ca7fd6d910c24cbf457b0b08d769581b1835e5dfc",
         "resultAuthoritySourceKinds": [
           "declared_fh_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:8810cb6b25bddb5e12944431cdb24068d3d6e72ba9068a9b0f80d0d8745f37d6"
+          "sha256:83448f67dd9b2930fa3dd3716a333a83e7b8a726d1f333324c9899d0c24afeaf"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
-          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+          "sha256:de8ebd009a4aba092d029b979255c6165889e0361b3a0e6cbba114c78440b1b6"
         ],
         "resultAuthoritySelectorRefs": [
           "fh-operation:abg.operation.fh.answer-escalation",
@@ -2466,10 +2834,10 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.reject",
           "fh-operation:abg.operation.fh.select",
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction"
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/517597c6ce63fe3bb65736176278c080cf7a17864e24fbf522ac6e5f8537d038",
-        "bundleDigest": "sha256:517597c6ce63fe3bb65736176278c080cf7a17864e24fbf522ac6e5f8537d038",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4792bcc6607953fd1598bb330d806892e6a0c8a63be20bf2ec2d09616ed05eb5",
+        "bundleDigest": "sha256:4792bcc6607953fd1598bb330d806892e6a0c8a63be20bf2ec2d09616ed05eb5",
         "computeStageRoles": [
           "human_callout"
         ],
@@ -2480,24 +2848,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[2:consensus.project-submitter-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:d78d2b8ff889cba277dc79c180ef4d7bb61a4e7adcd4bc7ac3457c3f753fbd45",
+        "sourceDigest": "sha256:167266ce138be0f9984646795ab236c320cbda0524381229639b7a9ad36fb77f",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:01c04a421968ff0e8b4e047837ac3b1ff0519e0560ca2f1d77e98b8bc6c23c4a"
+          "sha256:23d6ffcfb4b7614a5e62137a9e0936ca00d0e75a3514874cfb0172d575cf90c9"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:51731ab76dbb452d13afc6616090a79c78082475ee41417aacbddadd0bb83ee1",
           "sha256:788d1318d795b98f146cb3fd74f8e7ab3eeadd93be3980df070da98ee4f0e222",
-          "sha256:d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802"
+          "sha256:b79b5ed8f4bd67c1c45a2c2cb10cda43b32cdc498d91cc47c325b8f716d440d5",
+          "sha256:c30e4b65e6c38ba843764561ebb4c3df46a20bc4afbb8eb60d53fe83fbbe5da2"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/788d1318d795b98f146cb3fd74f8e7ab3eeadd93be3980df070da98ee4f0e222",
-          "abg://compiled-c-program/d7e5360385f8c8f1ed1a218a3bd3f68c68a8bb4c5477c0488925d5de0645c802"
+          "abg://compiled-c-program/c30e4b65e6c38ba843764561ebb4c3df46a20bc4afbb8eb60d53fe83fbbe5da2"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/333e53a9b1e68c5f72974d150e9f43f1f83fd26d55d2f4bda4bde4dad523145e",
-        "bundleDigest": "sha256:333e53a9b1e68c5f72974d150e9f43f1f83fd26d55d2f4bda4bde4dad523145e",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/7977670e11065c2af971708ec56aeb129f8d7a61722f74ca90fdf494363b56c7",
+        "bundleDigest": "sha256:7977670e11065c2af971708ec56aeb129f8d7a61722f74ca90fdf494363b56c7",
         "computeStageRoles": [
           "transform"
         ],
@@ -2508,24 +2876,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[3:consensus.project-fh-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:e6b0719b809dc6264d3483c4547cdd5c3c0d6cab36d25412330d6a8b5ee7ee24",
+        "sourceDigest": "sha256:ccd82f509ea711b524706b1ecbc62e503fd24d9bc12c0ab38ddc6ae84e681b43",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:481f2c96106128ccc7373a7e95988b1aa25e7c18a0b4729fde7d060a8ae48b47"
+          "sha256:7f0d22176d253fdb05cfb4f343cbf14521eb763b03113dfdf5f24554664b7626"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:47c63fd0a97b766e69fd667d6a01d221d735d428c385be71060501be6db58749",
-          "sha256:92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b",
-          "sha256:ab16e17e0cb1d5fb63a6eab146491cdfa6153b14aa3cdff13b896b005efaa8e7"
+          "sha256:a034e0c9d058e54cf8449dca2cb5ab785ab877af763730492152f9977c7a2f5b",
+          "sha256:e29e5492ea5d941f333256f8342d246cb7b4b2993455681b350563473c4c1ffb"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/47c63fd0a97b766e69fd667d6a01d221d735d428c385be71060501be6db58749",
-          "abg://compiled-c-program/92723a687f850cfc4e97b754c491979cfcbcf8a9a858f5ed53ce3eb9543a290b"
+          "abg://compiled-c-program/a034e0c9d058e54cf8449dca2cb5ab785ab877af763730492152f9977c7a2f5b"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/116f3d097bb4dcd8e6cbc4814fd7eac1fb5e6f1f3d3f93f5d44aadd54a8bd92c",
-        "bundleDigest": "sha256:116f3d097bb4dcd8e6cbc4814fd7eac1fb5e6f1f3d3f93f5d44aadd54a8bd92c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/352d89424f69edc11f06ebb2986d21600663f635e437b7d3d3aacce391373e2d",
+        "bundleDigest": "sha256:352d89424f69edc11f06ebb2986d21600663f635e437b7d3d3aacce391373e2d",
         "computeStageRoles": [
           "transform"
         ],
@@ -2536,24 +2904,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[4:consensus.review-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:eca1b641d0aeb7c00332899a4bad3d04d13f3630daf729cc6e204dd6c9347e8b",
+        "sourceDigest": "sha256:c1f7d206315abc89d52e9ffef22bdbb6eb64150cc2fb4e2ae8234147aaa12e65",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:6d608af8876026959005b9b75d7748ab918a58a756bffe9e8747bd5df2646520"
+          "sha256:ba11f71caf8293155156399179f2408b17ffe10fc0ebe48b18bf56fe62e2b7d5"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:0510ae5e91fa2a6b9cbd76f25e9ade38e66baaf57a5a3e9faa63f6b7ee3d4d7a",
-          "sha256:23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550",
-          "sha256:4488911ddb2ad449807141acbc4c9783ecff4ac819a56570523efecc244c3217"
+          "sha256:4f18094515d14bada6f999dd9d180f41259df5fe99ba349044ab508e63015acc",
+          "sha256:c4814cb16252cf0d019041777f7cb3fffc9d25c5ba47affe6a959221e23deb5f"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/0510ae5e91fa2a6b9cbd76f25e9ade38e66baaf57a5a3e9faa63f6b7ee3d4d7a",
-          "abg://compiled-c-program/23837607b19227320cd0fb8f405a4f2fe94bde8ba4d795c9ce770e6c90882550"
+          "abg://compiled-c-program/4f18094515d14bada6f999dd9d180f41259df5fe99ba349044ab508e63015acc"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/0764655cc489bf2a1ab3bd333c74e2d051601cc954ae628552c0989ca48e2c64",
-        "bundleDigest": "sha256:0764655cc489bf2a1ab3bd333c74e2d051601cc954ae628552c0989ca48e2c64",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4d96fca465a19e23d087cf25382d272e34acdb4f014dc714c0183a0b65dab5d3",
+        "bundleDigest": "sha256:4d96fca465a19e23d087cf25382d272e34acdb4f014dc714c0183a0b65dab5d3",
         "computeStageRoles": [
           "transform"
         ],
@@ -2564,24 +2932,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[5:consensus.reduce-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:146e6e5a189597a82d186f01e1f21f3e8573d248cda54ba82a990a0bef71afa6",
+        "sourceDigest": "sha256:7f096a5ae5ecaece5c67f44f438212cabd84d1d4b43f46fb86dca6008fb91a42",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:a03f14c7bdc169f6c6b1d959d70bfd81209ef6c43edf3eb0c16584ea6850bd56"
+          "sha256:4afad1ad89b431075c548a7fe496448128f602e72c8a35255b5a8e1ae4549fb3"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:c6054319fdf5df14a85ed8ce3a85002a50752b5d2f8a3272b49099cfb206e132",
-          "sha256:df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02",
-          "sha256:e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19"
+          "sha256:1653945452af27b2cc91aeb03fb49f3272ff07f73b549f51abd4515a6deb5804",
+          "sha256:323fa5fae32060632d4fcc5eb00dc17c5de63f8acda4a4fde18c14817a9445a1",
+          "sha256:df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02",
-          "abg://compiled-c-program/e39990e2e998e58d63ae135362af208c517f7fadc7c5f36091c99f5ce9cbdd19"
+          "abg://compiled-c-program/1653945452af27b2cc91aeb03fb49f3272ff07f73b549f51abd4515a6deb5804"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/4895563bd42972d3fb8a5d1ad93180a648f4955ecbdfe99912072d27b0851c72",
-        "bundleDigest": "sha256:4895563bd42972d3fb8a5d1ad93180a648f4955ecbdfe99912072d27b0851c72",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/03ded015e8b8594d706e379dec92d8b17412e1450a778518adad0cd88a6456a1",
+        "bundleDigest": "sha256:03ded015e8b8594d706e379dec92d8b17412e1450a778518adad0cd88a6456a1",
         "computeStageRoles": [
           "transform"
         ],
@@ -2592,12 +2960,12 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[6:consensus.reduce-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:598b852193c996eab6c91044ae4171268a0f512748334788ec2fd4c51cb9fcee",
+        "sourceDigest": "sha256:f9638000b744b5730ef80e8ab9aac0f80217be23d3c65ac5a33808fb914a6b4f",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:e3e0c96b57cd90f621726462c0040d9d4076ccfd058d168f92c90abc10e54fb0"
+          "sha256:a1a44994c03ec766e6d801e5fe06d11ca70dde8d515e6dc28822437e8d316305"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
@@ -2612,8 +2980,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c2f24509df77e368b58c42ab52003053aa38235c4f949a81667c12572e958681",
-        "bundleDigest": "sha256:c2f24509df77e368b58c42ab52003053aa38235c4f949a81667c12572e958681",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/298d08a387f6549aff81d200971f063085472f1b96a5e494fb8f7cf085c13c1c",
+        "bundleDigest": "sha256:298d08a387f6549aff81d200971f063085472f1b96a5e494fb8f7cf085c13c1c",
         "computeStageRoles": [
           "transform"
         ],
@@ -2624,24 +2992,24 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[7:consensus.close-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:c7345acd7da68e497eb7e16d1c5e0872b918cc4c3bed8e70c8c22a22cd953086",
+        "sourceDigest": "sha256:87115ceaf666a4bd1cfcb3a4da091e74065b270c0993b9ddf3d3a39d95ed5544",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:57515355d80aec511eaa1709953b50a148d3faddbd1bb5846991858a5cf90c8f"
+          "sha256:b55ce2cf49c67df050b0773ec62e54b0f85b9d9abe420ad27c168b25f3301b01"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80",
-          "sha256:c0d077efda52341b377c18fe6f5d732e90cd7b7e82205ea5dcbef3bf46bbd84f",
+          "sha256:5dd42fa6ac90da2feb7a44afd52b86cf741c6c7626c8b0cdf390b42b97e74465",
+          "sha256:91735ca61479265b5553a8a9aae41c41a0c76b3b74be8a998ad1a0897931989d",
           "sha256:e4ba81f7380b4f78ed7f7a94bb6d93c133189a8b446f2745ea7f78c2456a066e"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e4ba81f7380b4f78ed7f7a94bb6d93c133189a8b446f2745ea7f78c2456a066e",
-          "abg://compiled-c-program/7ec3767b5493aed15f00746b5652a6068bf08ae06e3683c5cfa92ff618634d80"
+          "abg://compiled-c-program/91735ca61479265b5553a8a9aae41c41a0c76b3b74be8a998ad1a0897931989d"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/9031fa75788edba6f9a1b389597d7577a2fc87d6bf1814382e08360777812704",
-        "bundleDigest": "sha256:9031fa75788edba6f9a1b389597d7577a2fc87d6bf1814382e08360777812704",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/2c7384073889f75c96a9544de4698d4e76ee1df296441b759e4950d944e77873",
+        "bundleDigest": "sha256:2c7384073889f75c96a9544de4698d4e76ee1df296441b759e4950d944e77873",
         "computeStageRoles": [
           "transform"
         ],
@@ -2652,12 +3020,12 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[8:consensus.submitter-response]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:a49289322e85ba630b1e6fca693c7415cc03d0e020ccd7dd7ebf06f3d3a4718c",
+        "sourceDigest": "sha256:ede7721382188b208ff5e7755c5e501781477b51219568b446e9c27714e04526",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:d484171f777073eb66a374583cac325649ba4e41e81897c6aad5ee0cccdedc1c"
+          "sha256:7c2284c0e4b4ab406b6feeeb2e6ce351278251a25d85dbc0ad1311481dcfa1b3"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
@@ -2672,8 +3040,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/34928822ddffe2587fceab8bab4897a72eaab69e93602570faa2a871e2341361",
-        "bundleDigest": "sha256:34928822ddffe2587fceab8bab4897a72eaab69e93602570faa2a871e2341361",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/9cd6689b84cd1957dc0a5137a8827ec613c3f590fe54565d0c65c0e2d6bbddad",
+        "bundleDigest": "sha256:9cd6689b84cd1957dc0a5137a8827ec613c3f590fe54565d0c65c0e2d6bbddad",
         "computeStageRoles": [
           "transform"
         ],
@@ -2684,16 +3052,16 @@
       {
         "path": "module.graphFunctions[consensus.round].vectors[9:consensus.fh-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:5e421472cc9433c88739e2cfbe53dc40d347ede132a8c0e8bcf2d1372ae63991",
+        "sourceDigest": "sha256:56b97e716cd479f3d027f163868a3a3eb15b56c46a5abd39356f85d91af68426",
         "resultAuthoritySourceKinds": [
           "declared_fh_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:decb1dc71915c872864b943def46615de75927e35fa3c1586962b50dda3f6611"
+          "sha256:cf37df28b5020a24cc0d33915504b0bb70033ea72c7e0a7becfc6863eb996cc2"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
-          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+          "sha256:de8ebd009a4aba092d029b979255c6165889e0361b3a0e6cbba114c78440b1b6"
         ],
         "resultAuthoritySelectorRefs": [
           "fh-operation:abg.operation.fh.answer-escalation",
@@ -2701,10 +3069,10 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.reject",
           "fh-operation:abg.operation.fh.select",
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction"
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/716c1e81d14fc072422c83a605bfd889c5e27ec62d608ccb2b8a2f3b8a4c7142",
-        "bundleDigest": "sha256:716c1e81d14fc072422c83a605bfd889c5e27ec62d608ccb2b8a2f3b8a4c7142",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/568f55fd1bb8aaa50c306529e3cc6636d730a62baca8eeb007406a716dc6331f",
+        "bundleDigest": "sha256:568f55fd1bb8aaa50c306529e3cc6636d730a62baca8eeb007406a716dc6331f",
         "computeStageRoles": [
           "human_callout"
         ],
@@ -2715,24 +3083,24 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[0:consensus.seed-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:ca8432a2594b75bfa9d9362729139ee36926dc15230305b904a23473bf2e8f40",
+        "sourceDigest": "sha256:4439e5f682e172099879a08b5eac0350e97177adf63fe37d39f30c490580f232",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:a8294597836f3631653b75fef00d36cdb02f283e5a0c07dff51c06e0cb7bb671"
+          "sha256:34fbb192f9994015b427d782af7e39e4e2b4e9562a96ffb29b369d4b133653a5"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298",
-          "sha256:81c06a9c7618da86b6cfcd7cff6070f2a48dc043715759133954ff4e1a751a6c",
-          "sha256:a5a3ff2c6613a8fec19b24c7f2ed887122a319ef747cdd0634914282a64dddc1"
+          "sha256:a5a3ff2c6613a8fec19b24c7f2ed887122a319ef747cdd0634914282a64dddc1",
+          "sha256:eeeb32f406d84db05dedf58ce9ff4bf16ffa8d2de294c97101c61119a64bb349",
+          "sha256:f3ff8fd4a198b00d52d434fcbd2b8404c01c18a8be069981e2b15b15593fa54b"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/a5a3ff2c6613a8fec19b24c7f2ed887122a319ef747cdd0634914282a64dddc1",
-          "abg://compiled-c-program/2c48c3bea55cfdf22ea203b3f698461048334fedc5730a144f25876449c41298"
+          "abg://compiled-c-program/f3ff8fd4a198b00d52d434fcbd2b8404c01c18a8be069981e2b15b15593fa54b"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/d44c25d84dc6733ee81ea8499dc7a51dc49c047df1044187804f1c252003188c",
-        "bundleDigest": "sha256:d44c25d84dc6733ee81ea8499dc7a51dc49c047df1044187804f1c252003188c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/e3ee8774ae69471592cca819f389ff60d01a2d9e6687d74735ddf66c6b6ffebb",
+        "bundleDigest": "sha256:e3ee8774ae69471592cca819f389ff60d01a2d9e6687d74735ddf66c6b6ffebb",
         "computeStageRoles": [
           "transform"
         ],
@@ -2743,24 +3111,24 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[1:consensus.bounded-rounds]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:31921dbfb0d2df63570d470e1baca69517f7c8431cb5f9f0e100b02e62af6a7c",
+        "sourceDigest": "sha256:b5f45ab60a8e7ca7a3bb739d16bbb73a6e0bdc8cdb401753d7f109b4437a1586",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:5152fafc222275a8d887062907d54cab150196038e4c8fd9cc38f008aa97f6e2"
+          "sha256:bfa914160dfc151bf351219bbf9c2138d9326a109c6f558307abe19533e52f07"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:291ec15ab56f715fde09bf1957880afcefc2f98d7fec4301b1c35939a7508242",
-          "sha256:73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687",
-          "sha256:b4d1f2c6c882b251fbe4a571aec8da55626edae5f84e317a7dcf60b41ac24840"
+          "sha256:12672381e237cbd9a8666fc11d183e962438c97ba6b52b913899fff4bfdafde6",
+          "sha256:58e8c23df4a7331749d633228d0827036e3478ade48006a21a4deea5c2ba8738",
+          "sha256:ea0970d1ca91a0cacc37e53aa60dd181711542e17a9f8480cce0e34e02bdf4ed"
         ],
         "resultAuthoritySelectorRefs": [
-          "abg://compiled-c-node/b4d1f2c6c882b251fbe4a571aec8da55626edae5f84e317a7dcf60b41ac24840",
-          "abg://compiled-c-program/73a0bcf0b34d98b2ed7e4888886d34631406785c1e251b522d89e131005a2687"
+          "abg://compiled-c-node/12672381e237cbd9a8666fc11d183e962438c97ba6b52b913899fff4bfdafde6",
+          "abg://compiled-c-program/58e8c23df4a7331749d633228d0827036e3478ade48006a21a4deea5c2ba8738"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/b510fd9cf5fbd293aea4d9748a3ea35e90ad16d89c3c2deb842e4378033ea0f7",
-        "bundleDigest": "sha256:b510fd9cf5fbd293aea4d9748a3ea35e90ad16d89c3c2deb842e4378033ea0f7",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/5feed08e11923f7b0c5fab30483bb6c826fc8cdbbbe6adbb5de5b9ac8e053600",
+        "bundleDigest": "sha256:5feed08e11923f7b0c5fab30483bb6c826fc8cdbbbe6adbb5de5b9ac8e053600",
         "computeStageRoles": [
           "transform"
         ],
@@ -2771,24 +3139,24 @@
       {
         "path": "module.graphFunctions[consensus.submitter-reviewer-rounds].vectors[2:consensus.project-result]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:a8b44edc89abb5c53dab8cdcde9e6a4c2a45d6fc67267c34306b1bb952dd9c12",
+        "sourceDigest": "sha256:c3b9a1463a00d79600ec192910d766d4836b4c8713f2e38899ec39e766325617",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:d23233e687e86222857ded85e79e57f1ccb96d482d7850d105ae5c694f6448be"
+          "sha256:532be09c6f6934ce4e50d39d9b1041704e91b8e0ba24748317fbdab20ba97cbf"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d",
-          "sha256:c580f2d72def23702b040967d13d68d527d54003f12d62d15b67bc850a716b50",
-          "sha256:ec80c16f69da010f7063d0700ca8c7be763d35d9803582960cf9e394c04dd025"
+          "sha256:04d5c550dcd22577c4ae64fb056c03fc4b9a4b877162e2a18fd3c59adc41e6d2",
+          "sha256:12bfeec4d11a29bd0a8eacdf1533995d43fdf3cd75d7aaa0516c255638e87d87",
+          "sha256:c580f2d72def23702b040967d13d68d527d54003f12d62d15b67bc850a716b50"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/c580f2d72def23702b040967d13d68d527d54003f12d62d15b67bc850a716b50",
-          "abg://compiled-c-program/1e2bf86fc6817703cb82d9b6acb5fb6aca8509995e9e394ba82f323f2b22fc4d"
+          "abg://compiled-c-program/04d5c550dcd22577c4ae64fb056c03fc4b9a4b877162e2a18fd3c59adc41e6d2"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/041528cb8cb7ed34cdc4c37d1b5ba2809590b5f3fa6331996278d9db9b92692c",
-        "bundleDigest": "sha256:041528cb8cb7ed34cdc4c37d1b5ba2809590b5f3fa6331996278d9db9b92692c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/f0050fba5867ca53d63dd859a0040471cb746851f48a099ea5ffae805b6411d0",
+        "bundleDigest": "sha256:f0050fba5867ca53d63dd859a0040471cb746851f48a099ea5ffae805b6411d0",
         "computeStageRoles": [
           "transform"
         ],
@@ -2799,24 +3167,24 @@
       {
         "path": "module.graphFunctions[fan_in(consensus.exact-panel-facts)].vectors[0:consensus.exact-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:98dbbf2b1482bb7b27e7481fc605029edc3aecefb5538729a5629c7a9330c4fc",
+        "sourceDigest": "sha256:39a0cc5fdbfc86fb3e0226513d70d8d483eeca219b2a77fd419000906f02f73a",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:06beabda9a6d10792a85bd21fa37661eeb93f168c86ef7bfb3a26b3ede9a511b"
+          "sha256:8cedba2c7f64cf8732d2c315c590de21fbe368ee2ac6cb0ca6977edc308f438d"
         ],
         "resultAuthorityEvidenceRefs": [
+          "sha256:30eb6b60720d5b4b3fc6796d757fedf4bb03fab45654d78fca9ebec6d7a979cd",
           "sha256:60c12b661191aa7bbb5d65d0565c6805f507e60d779ef8fad341d2319c5b12e1",
-          "sha256:c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e",
-          "sha256:eff5f6db799ee0f8dc2e0130b2b012d5165b0216dd46aa847a44a1c8ae6c52ba"
+          "sha256:6c8d5dfb3b021961e1184239f975616011b96fb813c35e8f578dda61705b3bee"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/60c12b661191aa7bbb5d65d0565c6805f507e60d779ef8fad341d2319c5b12e1",
-          "abg://compiled-c-program/c9996603a1b381e868850d2238e942d8d71bb0b10842605b6d4259dadace4b4e"
+          "abg://compiled-c-program/30eb6b60720d5b4b3fc6796d757fedf4bb03fab45654d78fca9ebec6d7a979cd"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/144f36ce3c6d340497946a023013f9cd4dd11c9e5579d8771dbbf39aa52d81dc",
-        "bundleDigest": "sha256:144f36ce3c6d340497946a023013f9cd4dd11c9e5579d8771dbbf39aa52d81dc",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/82619615833d10263b7f63a9fb98a3d80bf080a08501740726208f2ea3488065",
+        "bundleDigest": "sha256:82619615833d10263b7f63a9fb98a3d80bf080a08501740726208f2ea3488065",
         "computeStageRoles": [
           "transform"
         ],
@@ -2827,24 +3195,24 @@
       {
         "path": "module.graphFunctions[fan_out(consensus.review-one-profile)].vectors[0:fan_out(consensus.review-one-profile):wrapper]",
         "sourceKind": "structural_hof_fan_out",
-        "sourceDigest": "sha256:bbb4e48f2e751b95f9489bde126a908896191b62d4c9d9b37a05769f94aafb38",
+        "sourceDigest": "sha256:8b97cd83030e905adddc8d73fac34c62397ff61a4b599d21a65a0691e585fddc",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:18e6e7fa99b4434d88e2dfc6a52c28d6412cb0289815446a491f0a3a4853f78a"
+          "sha256:a1b455f22e6c812fdbeaaef630c3381ea8ae7e885a1a9a1541edb7cf46ddd922"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133",
-          "sha256:416e851fedc38bc436bede15ebd8232644faf36667e304cc75a6b2383f69fadf",
+          "sha256:730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c",
+          "sha256:cf4dff56b104660bc127ab6f860cf907d6999ed1772c87c8e501afd804e02817",
           "sha256:d7ee6298b06b9d3004c62f3b7cba86a924513d3ea78192fa93bf95feeeddfd54"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/d7ee6298b06b9d3004c62f3b7cba86a924513d3ea78192fa93bf95feeeddfd54",
-          "abg://compiled-c-program/347a50d900b6940bf9139abc6044d3010907c5579ced44439c8b9fa34a368133"
+          "abg://compiled-c-program/730ab66088fde019335e30d91c0f28a1497ea32ec6f2a812388165184b48594c"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c679fc94ead5edc5d55b6dec8d2889302dbaadfb8f4975c3b618d5ac9bd83478",
-        "bundleDigest": "sha256:c679fc94ead5edc5d55b6dec8d2889302dbaadfb8f4975c3b618d5ac9bd83478",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/0b3b48d6824fd7992e841c23e678e0cf095ce6d68dcdcee6a5d5b83220e5fb94",
+        "bundleDigest": "sha256:0b3b48d6824fd7992e841c23e678e0cf095ce6d68dcdcee6a5d5b83220e5fb94",
         "computeStageRoles": [
           "transform"
         ],
@@ -2855,24 +3223,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:6235783b747ecbbbd0bde4b2eb20c2c56f887625e56c4a939d93d9fe0dbe6a3a",
+        "sourceDigest": "sha256:909e4387663770f1fcaefa2605b3ae6b438f57dca6cf210f8754fa420e29a0a7",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:361eb6082467049b08b015f417a2f91b33d05cf41a272b38d7caf42a4478b4d2"
+          "sha256:af81a48804a47807724355804bd10b4c4406749a74fb20bf80fda73faf251367"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:0fbd69b4024287f55265d92ee67bd36c5a8830003a233a8adac57dd003236ca3",
-          "sha256:a5a550b5fa34dd222167a57b13ed45152db418820e52da82517970cb58bfd528",
-          "sha256:f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0"
+          "sha256:7d3af6ae2309cd8f13eddaed4d6acb5701ac58334e8d8637053c3da2e2f50578",
+          "sha256:e36fdaf8c9818f37a50b8331037e75f17a58fdc995b8be45abdbf685763e8c7b"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/0fbd69b4024287f55265d92ee67bd36c5a8830003a233a8adac57dd003236ca3",
-          "abg://compiled-c-program/f257ff86229f7c0abced8287b425e91e06477e941898c6adfabfa20f0606b9b0"
+          "abg://compiled-c-program/7d3af6ae2309cd8f13eddaed4d6acb5701ac58334e8d8637053c3da2e2f50578"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/1a12de80cc52dbf8a6519a28e25c7df0dcb79fd45664c0a048b40c30761e9942",
-        "bundleDigest": "sha256:1a12de80cc52dbf8a6519a28e25c7df0dcb79fd45664c0a048b40c30761e9942",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/121908172ec6b5e3597184c5d3d9bb3f4d32ed2e097400feae0aea4420521fcb",
+        "bundleDigest": "sha256:121908172ec6b5e3597184c5d3d9bb3f4d32ed2e097400feae0aea4420521fcb",
         "computeStageRoles": [
           "transform"
         ],
@@ -2883,24 +3251,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:c7a96e14fa8adc8f02916af3a9bf2c01d64e8f5873dfcc8a77031054ecd67c75",
+        "sourceDigest": "sha256:e96dd3a89607dac10a5d8ccf58d203f2094a76e85052a6fc96b5d43ef835596b",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:c4ecb5f4d448436d7a0334800ed0433098dad970d8bb96a48be7bd8511a8f169"
+          "sha256:e2c09816e50f64b52a7707800f1a4612095cd2ebcd1e92cc0aa78f68f04cb5ed"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:12371ef093c031982327b6be6c6a535ffe41b6e202cad03886a528b2dd318b79",
+          "sha256:1e26fdaf78c2d8858e79b03ea9ac32e42c9d9c982a89e852ff5128450b1be7ab",
           "sha256:45bed1d1c0e93327d8d3b96d3a98e8e4676986b8f905d5216aaa9f36a736bab8",
-          "sha256:afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25"
+          "sha256:bf944218dc89e4eab00ef36a1c45aa69aeadeac3aa85fa502bb30e5101a6e2f7"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/45bed1d1c0e93327d8d3b96d3a98e8e4676986b8f905d5216aaa9f36a736bab8",
-          "abg://compiled-c-program/afbd68b4970e6062be3050527b2cba7b3f9d616855dd0778e45a7cdea7a88e25"
+          "abg://compiled-c-program/1e26fdaf78c2d8858e79b03ea9ac32e42c9d9c982a89e852ff5128450b1be7ab"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/771fb8ec7e2dada7160e6df4dba818ff21c7519f9871f4bd8d0f903d890b7173",
-        "bundleDigest": "sha256:771fb8ec7e2dada7160e6df4dba818ff21c7519f9871f4bd8d0f903d890b7173",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/de60cbb20010e38c5fdfd154d942e3013bfa7f472ceb3dc9f4910389e95d4313",
+        "bundleDigest": "sha256:de60cbb20010e38c5fdfd154d942e3013bfa7f472ceb3dc9f4910389e95d4313",
         "computeStageRoles": [
           "transform"
         ],
@@ -2911,12 +3279,12 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:c59e7b8480e557afd637bba5099401034671944c5693518893fd42f9d2cf5381",
+        "sourceDigest": "sha256:58552169fddb259874bf87252e35509cf8c2c7aae2633e3366fd8c5e47877578",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:6336455d493c5290776ae53171423b006d9361d75104291a0a0f277a4b802d02"
+          "sha256:68cc2e55974004143aae25c711e5d91d919e5c76e77612af19cf0c34da823e3c"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:5e537bdc23493ce5fc9246a0404cf2bf40ff2e0e24b0eba8124996fc6855765f",
@@ -2931,8 +3299,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/ecc2a305a7a66bb467e59033a49c7d283807c71558178308eb3d9b8110ac3b5a",
-        "bundleDigest": "sha256:ecc2a305a7a66bb467e59033a49c7d283807c71558178308eb3d9b8110ac3b5a",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/a78d98f6f66a376f0705633364495e0b7dea77aa482d12f00e62569767fc854d",
+        "bundleDigest": "sha256:a78d98f6f66a376f0705633364495e0b7dea77aa482d12f00e62569767fc854d",
         "computeStageRoles": [
           "transform"
         ],
@@ -2943,24 +3311,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:daa68b1a0319e43ae495e1c47a6d53046908f64a47fbf3374bfbb8667934d388",
+        "sourceDigest": "sha256:396054534625b80f8dae6a9ce2bcd38be6aff279a78ee2c179e1a67949a4f75f",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:109b6bee9bbe9bc2bf71160bd59848a99559625c79ced0052f233e917d5f9fa7"
+          "sha256:00b37a180741aee55efe2e3a92a43e67562e5808a283aef6ce99d1411ea5bdfb"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:9b2a89d74bfe64d70cacc8902352015f823d4e291c4792664dc96a1e8d4a2ad5",
-          "sha256:ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712",
-          "sha256:e4a801609e55dc1ea7d83ebda65280346fc1dfee84707f2faba97f25043f42d8"
+          "sha256:7e947650cebfaae009618bab9760bc546c47136ce83b620086f73017e6570ec3",
+          "sha256:e4a801609e55dc1ea7d83ebda65280346fc1dfee84707f2faba97f25043f42d8",
+          "sha256:ec7729d2f94ff7d81c2c13e7cc9d4c8a1c4dbc8754dfa47767cd2d5f5e765d24"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e4a801609e55dc1ea7d83ebda65280346fc1dfee84707f2faba97f25043f42d8",
-          "abg://compiled-c-program/ced94183a5a28d2251b6e0729e17d1063845042f4b026fc96022cfa42293c712"
+          "abg://compiled-c-program/ec7729d2f94ff7d81c2c13e7cc9d4c8a1c4dbc8754dfa47767cd2d5f5e765d24"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/a56c3e8eed0fce7548663a0716da2e07267510ac81b6565795e0768f14ceaa71",
-        "bundleDigest": "sha256:a56c3e8eed0fce7548663a0716da2e07267510ac81b6565795e0768f14ceaa71",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/06be7a0f076c9928f75d481da042c843ec96fd9dcbd1c5d3fd2a804c0ed9d617",
+        "bundleDigest": "sha256:06be7a0f076c9928f75d481da042c843ec96fd9dcbd1c5d3fd2a804c0ed9d617",
         "computeStageRoles": [
           "transform"
         ],
@@ -2971,24 +3339,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:e8652793e27699a22f1850273434888ea262021ed6f2712b014fe7bb09ee3759",
+        "sourceDigest": "sha256:1bc836d8210265d2cb207ea05a9bae008ee3d62486db9f1c890f3d0af3d83583",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:04b253e97e7b3be5c3ac46a693feaf7f55e1e13fa3bbc8dba1b026f1e35072b6"
+          "sha256:7b084e87f99753328493d201e61f2dc8c36d77f4dfe5b909749081b7c2857d90"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:666352499c612fec6d23fa652536b1f7fa5a788e479a57a29feba997296f4977",
-          "sha256:6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439",
+          "sha256:0832fd3929ca23edcb0d6c0e57f8c59919181b28cce6e7d43c821a597f0500c1",
+          "sha256:b5598b3ccafea48bf7df63e3bb772127b66f8af0184411e337ce953c85314e9b",
           "sha256:e9ba009344b56bb21e5cd846f9b6bfadf80bedb519b5920aac9f19ae691fe3a6"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e9ba009344b56bb21e5cd846f9b6bfadf80bedb519b5920aac9f19ae691fe3a6",
-          "abg://compiled-c-program/6dc1bee910a419243535f20dbf6105d14f73f487b5d9b405292aae4066494439"
+          "abg://compiled-c-program/b5598b3ccafea48bf7df63e3bb772127b66f8af0184411e337ce953c85314e9b"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/41fb7294cc08c07efd66ca5b74186f0d76d8702822bc2513e4a37bd65924a409",
-        "bundleDigest": "sha256:41fb7294cc08c07efd66ca5b74186f0d76d8702822bc2513e4a37bd65924a409",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/4afe7c99366fd76b1e6c0de27e32df3428c99f8deb9c1332eaef12c249c2a20b",
+        "bundleDigest": "sha256:4afe7c99366fd76b1e6c0de27e32df3428c99f8deb9c1332eaef12c249c2a20b",
         "computeStageRoles": [
           "transform"
         ],
@@ -2999,16 +3367,16 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:52ac22559ddf51bb451b38e33854aee6d65567e6c356830bc1ad7ac601bf0cf7",
+        "sourceDigest": "sha256:b1918ef4ade3f52a4c630efb367f4a72a3566160a5a674daef4eedc20aa1217d",
         "resultAuthoritySourceKinds": [
           "declared_fh_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:944a161062ecc04cd743485f9478651e9f749e7fa5e44f88ba7cd1d05c6e0456"
+          "sha256:6b1709fb17e1c78a6b2b0a2ec96e7b85bcc65828b5cfaa441199991d75e49632"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:24fe4780ee5fb8e250d534fc2b707b41598664f8eb0a232e3773d5439619fc28",
-          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+          "sha256:de8ebd009a4aba092d029b979255c6165889e0361b3a0e6cbba114c78440b1b6"
         ],
         "resultAuthoritySelectorRefs": [
           "fh-operation:abg.operation.fh.answer-escalation",
@@ -3016,10 +3384,10 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.reject",
           "fh-operation:abg.operation.fh.select",
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction"
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/4f6f5cd6d296a71f1e2e601d7c35a7dbacc1bed77c81772d5039ef2c1e5fbb16",
-        "bundleDigest": "sha256:4f6f5cd6d296a71f1e2e601d7c35a7dbacc1bed77c81772d5039ef2c1e5fbb16",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/ad5742cc3987280df827d5d5d6bc8b59d2069138d39ded72e4bf58229447163c",
+        "bundleDigest": "sha256:ad5742cc3987280df827d5d5d6bc8b59d2069138d39ded72e4bf58229447163c",
         "computeStageRoles": [
           "human_callout"
         ],
@@ -3030,24 +3398,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:88ddaed75412eb60d58af3799c982d7e71f07fcf1136d63d2173938d668ffdb9",
+        "sourceDigest": "sha256:80a12abd228bb66062a2d972f81e754ed6abe2947071aae7d75c193d02591587",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:65dfb878b7221eb6bd6c18043dda79d1a872db703e23b7895344fb30785859b2"
+          "sha256:37361d53716911b584c12c7c210d14e39660353c4a2766509d10f5884e92b073"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68",
+          "sha256:084abaa7aafb26d1278b5d7c0576c5d7a1f7135fc0533e226a96feb5ddd6991a",
           "sha256:788d1318d795b98f146cb3fd74f8e7ab3eeadd93be3980df070da98ee4f0e222",
-          "sha256:fdabc075f203f5ae31a7398687fb2322af72d907b6499b703549065c34843d6b"
+          "sha256:ad79e4e2a6a5b1d58e395fe8e992c070ba376aaa21b96eb09dbecc75dc5e5fe8"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/788d1318d795b98f146cb3fd74f8e7ab3eeadd93be3980df070da98ee4f0e222",
-          "abg://compiled-c-program/2cf5f6190693c47905aaac7a3f63583b4bd3c5149b51148f017a5298e4fe7b68"
+          "abg://compiled-c-program/ad79e4e2a6a5b1d58e395fe8e992c070ba376aaa21b96eb09dbecc75dc5e5fe8"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/5498e3b249a9844750dc1cf7dcc4df9773a834960c4ca910f317101d7ce15bbc",
-        "bundleDigest": "sha256:5498e3b249a9844750dc1cf7dcc4df9773a834960c4ca910f317101d7ce15bbc",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/3f881fe8993cadd1f2d7b39f160a5b40e693a7e510f20f340c1e6b08b9cab63b",
+        "bundleDigest": "sha256:3f881fe8993cadd1f2d7b39f160a5b40e693a7e510f20f340c1e6b08b9cab63b",
         "computeStageRoles": [
           "transform"
         ],
@@ -3058,24 +3426,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:416019402eccbace848e8f3484db739da013aade9860a97c2c5ef6fb7041d6a9",
+        "sourceDigest": "sha256:c8868a126ad30190fbb42f6e7eed439d604ceb526e788ad6f63f87672361cafa",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:999f7e8bd899f85b4e25545d0d296ec218c7896a7fae503f0fa66dae38d7b75e"
+          "sha256:21e9bb76c1be9bcb80b4f8db4b5f1dc10436bc11d45e3544e23ecbff5f6b191f"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:47c63fd0a97b766e69fd667d6a01d221d735d428c385be71060501be6db58749",
-          "sha256:5fe6e5292e55d2f107b7f9b079a018265bcd793763c06281deb1d4b7a77eef86",
-          "sha256:ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a"
+          "sha256:5e99e120af0496ad0f0bf134c880e2d93c86346825e8462ae3bed394fe9e00c5",
+          "sha256:e74cacc8c1b244a04b5e1142f7947c798f079bba06be9b07d8e81ce32efef481"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/47c63fd0a97b766e69fd667d6a01d221d735d428c385be71060501be6db58749",
-          "abg://compiled-c-program/ad28d8aa89f4c93d67df5c84692e337250e9460f0811a050609ce76e4e7f8b8a"
+          "abg://compiled-c-program/e74cacc8c1b244a04b5e1142f7947c798f079bba06be9b07d8e81ce32efef481"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/46272580e49997829d17126141c45eeed5f3be9596e0376c23e0c744b8f48370",
-        "bundleDigest": "sha256:46272580e49997829d17126141c45eeed5f3be9596e0376c23e0c744b8f48370",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/b5527c65157fe1603825923fa24dd87bb7542e3663fd9e8b2e4bd68472a70fcf",
+        "bundleDigest": "sha256:b5527c65157fe1603825923fa24dd87bb7542e3663fd9e8b2e4bd68472a70fcf",
         "computeStageRoles": [
           "transform"
         ],
@@ -3086,24 +3454,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:fe188a70e415287df9fc5b2c62289192cfb6e2b7bf9ba9de7fe524a20321a65d",
+        "sourceDigest": "sha256:c114f319ec745a39a19749628cf66d109a0da9af7da8141771479a12114604c1",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:aa06b417f0c61f1155db3c09c86647972ddd23c618f0df662c7eace121822c63"
+          "sha256:2a72c3c82bb7e330d2d64b72144d77349fea16cc6ad2cfc6de7ceadf55c27d3a"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:0510ae5e91fa2a6b9cbd76f25e9ade38e66baaf57a5a3e9faa63f6b7ee3d4d7a",
-          "sha256:1f8f587e9930754b10414a13153a9f83d3f1173d77c840343010098883c1cef2",
-          "sha256:756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026"
+          "sha256:b7f806ca08b4d644e352165b074b479594351371bf6cd1ea9bdaa73638edf1fe",
+          "sha256:e8528ba019c45a7ee12beee49d3dd2eed64a4cc5226ab09245a724870319a312"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/0510ae5e91fa2a6b9cbd76f25e9ade38e66baaf57a5a3e9faa63f6b7ee3d4d7a",
-          "abg://compiled-c-program/756ede411665d3e5a03eaa48077d937a56fd60eacf96d8de5e01245c37571026"
+          "abg://compiled-c-program/e8528ba019c45a7ee12beee49d3dd2eed64a4cc5226ab09245a724870319a312"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/a00b774967b315a8ebe18d2a0229078854287da7aab0ef4547a1099b2346c0d1",
-        "bundleDigest": "sha256:a00b774967b315a8ebe18d2a0229078854287da7aab0ef4547a1099b2346c0d1",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/1fe05dbef5762b174f9865f3d6f076b5d53aaf88c155af5a54cbd6e34ed7840c",
+        "bundleDigest": "sha256:1fe05dbef5762b174f9865f3d6f076b5d53aaf88c155af5a54cbd6e34ed7840c",
         "computeStageRoles": [
           "transform"
         ],
@@ -3114,24 +3482,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:2decdf047e4970690ad7e77373327e077c7ea1d78c6f90f6257cc917f26f2640",
+        "sourceDigest": "sha256:10246dabc75a3d22b28b0cddaade55eaa7932389b4e19753e85acee97060d591",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:44a78a5dbfeb72344776968d6b42d85009e15a3b3d6b22cbd0b85cdd61d7223e"
+          "sha256:1ab1f105abf591889ebd9e93894cc03a54b5c2d22a27937b7605425ec9d9f722"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6",
-          "sha256:df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02",
-          "sha256:ec5f25dbcecff64653579bd2ef272e56e0b48c491b95fee03ce72869802f972c"
+          "sha256:4c954a719317d7d0300531b4b0f895de778c5644406848a7c58ba1f429782e5b",
+          "sha256:b8d0878efea534844d748bfbee951d95dd65b855161023bb25b4e4cc95b74472",
+          "sha256:df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/df7ea59580e33c93377f0d3a5b62f52aeb6d3ac7a2d2730c5e4be245f46c7e02",
-          "abg://compiled-c-program/5a157a14b861b401d42f30634211fae9dc899824bbc7271b0442c12eb3d6fdd6"
+          "abg://compiled-c-program/4c954a719317d7d0300531b4b0f895de778c5644406848a7c58ba1f429782e5b"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/3725dd2d5b4e531df35206f0ba0327a1ab2fa30874c8896aa1b39de48e06d0aa",
-        "bundleDigest": "sha256:3725dd2d5b4e531df35206f0ba0327a1ab2fa30874c8896aa1b39de48e06d0aa",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/494090ca5f35c7fb98415d2f8786253f7eaf42d0e0f5a1932cf11101fe8a61be",
+        "bundleDigest": "sha256:494090ca5f35c7fb98415d2f8786253f7eaf42d0e0f5a1932cf11101fe8a61be",
         "computeStageRoles": [
           "transform"
         ],
@@ -3142,12 +3510,12 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:f98db7e6e7dbceaf2e7c2803ef50f16b085e133ab71eeee9a7038333946a6751",
+        "sourceDigest": "sha256:7d06d7ea6979f64f0e3372127fdb53e89315bb2cf942b9b339c598c310c1d30b",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:1e31d33f82798a6225d3e0454c389766ec811bc84355b2d7e52b9fceb92fce84"
+          "sha256:715585fb6be21b6b0a89b9211aee74fa62a87becfb2edea3e662064d7cd863b5"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:8a4116ba2b831d36e982c7749af8a5226ea17e92ca250dc9a620ca36c64e1910",
@@ -3162,8 +3530,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/9c4c6a3e3da61e0d1721f6fadda01932a2c6a1ad809642d7c51cd3c4b1ec5d66",
-        "bundleDigest": "sha256:9c4c6a3e3da61e0d1721f6fadda01932a2c6a1ad809642d7c51cd3c4b1ec5d66",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/570654c359bea66243ca89fdebaf4b87ebf6deedd1b2c5ec55e9e87de5ef93cc",
+        "bundleDigest": "sha256:570654c359bea66243ca89fdebaf4b87ebf6deedd1b2c5ec55e9e87de5ef93cc",
         "computeStageRoles": [
           "transform"
         ],
@@ -3174,24 +3542,24 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:6653192c6e972795c1b6485cab1441aac3b2410223917630ef0870f80216b5aa",
+        "sourceDigest": "sha256:814d232db3a7f786f85da25a00d08a42e6e527f4a35a6522d881111b60891385",
         "resultAuthoritySourceKinds": [
           "program_locus_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:cb82612ad5d38bfdbdd3f92cb7d1263499ba0cd679475e9a7e640a051515a433"
+          "sha256:ff6d6d9bc6e2517f164f1e34d82147298ef1e0d8f9fb05388485a849e11b7666"
         ],
         "resultAuthorityEvidenceRefs": [
-          "sha256:b46eca364d7ad8a3af5d684f95d8f3b4dd11481f95cd6a9151f4c585e3a35f66",
-          "sha256:e4ba81f7380b4f78ed7f7a94bb6d93c133189a8b446f2745ea7f78c2456a066e",
-          "sha256:eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718"
+          "sha256:0dc8f2135418895588d25aed6daa92850204d95f3437499a8974671d5126c6d2",
+          "sha256:bc2447a43d5ff725a0ef1559bde66f9bcc65c76d133fea7dadf22d0f27db9f70",
+          "sha256:e4ba81f7380b4f78ed7f7a94bb6d93c133189a8b446f2745ea7f78c2456a066e"
         ],
         "resultAuthoritySelectorRefs": [
           "abg://compiled-c-node/e4ba81f7380b4f78ed7f7a94bb6d93c133189a8b446f2745ea7f78c2456a066e",
-          "abg://compiled-c-program/eaddb681b6d82373273c05d157e4db3dcd453e8e6e2750ef630f5d3e34f51718"
+          "abg://compiled-c-program/0dc8f2135418895588d25aed6daa92850204d95f3437499a8974671d5126c6d2"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/82b7aa3d943063de83166e16492099a8669ece3ffb0078fa979993e1a549361c",
-        "bundleDigest": "sha256:82b7aa3d943063de83166e16492099a8669ece3ffb0078fa979993e1a549361c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/93c1df15419db25fd41537cfbebeaa3d9c0d3e6bdda380da2265f6d58335fce5",
+        "bundleDigest": "sha256:93c1df15419db25fd41537cfbebeaa3d9c0d3e6bdda380da2265f6d58335fce5",
         "computeStageRoles": [
           "transform"
         ],
@@ -3202,12 +3570,12 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:d7f6ce5aceb7b37bf465f9d0e8a0a0938382fce3ae73cb88e272e4a852db1c77",
+        "sourceDigest": "sha256:d4bf823c02c68ace7590914eae580d93a43d9b63d5ed486b6158e9fbe803b2d0",
         "resultAuthoritySourceKinds": [
           "declared_fp_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:f7b77c6944d8020b1df4dde35e86e5c335319ab1777d0d67d410fd80097b45fb"
+          "sha256:b5052b5ff6c13c33a1ad8526fba7e500979e379ab67bc786b686d5a8440be657"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:c595074e33f2febaf35e1374e9549f2f0f60f13aaef5c21d0bce18701bbdd1c7",
@@ -3222,8 +3590,8 @@
           "reasons",
           "resultContractRef"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/c9eb8fef15a2f57d7921c6ec0a1e7121bf47ec50998c72b48f7807dbcc66043f",
-        "bundleDigest": "sha256:c9eb8fef15a2f57d7921c6ec0a1e7121bf47ec50998c72b48f7807dbcc66043f",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/a6babdce3b16b45185623b0c9a1ddd1f7723322209e256ca2de0f11fc9a1dbe3",
+        "bundleDigest": "sha256:a6babdce3b16b45185623b0c9a1ddd1f7723322209e256ca2de0f11fc9a1dbe3",
         "computeStageRoles": [
           "transform"
         ],
@@ -3234,16 +3602,16 @@
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
         "sourceKind": "selected_program_handoff",
-        "sourceDigest": "sha256:5fe53b6d04ef56135bae80acacd1e8c95b06fa8caf30ea624c9abd284de1a052",
+        "sourceDigest": "sha256:a0f805591d155cff2e52dfb9dd3c7a11ced3063cb35df834e1e241e246dd7111",
         "resultAuthoritySourceKinds": [
           "declared_fh_contract"
         ],
         "resultAuthorityDigests": [
-          "sha256:34310deb6e7b09b49d314d5f5882f53107b1f547e2164a28f2b1835e8bdf8523"
+          "sha256:e144b83faccd17ef38fffa95ff1bab37f4f0151772ec6889858102d4043c7a66"
         ],
         "resultAuthorityEvidenceRefs": [
           "sha256:55c5b8a5932b8517f0ad98be4b960f29a263ba157ea76a61121616ce5dda2683",
-          "sha256:c91f958f7f2c503f916158f3464711177f2b9411c6422864147b37fa06e1c7c4"
+          "sha256:de8ebd009a4aba092d029b979255c6165889e0361b3a0e6cbba114c78440b1b6"
         ],
         "resultAuthoritySelectorRefs": [
           "fh-operation:abg.operation.fh.answer-escalation",
@@ -3251,10 +3619,10 @@
           "fh-operation:abg.operation.fh.assess",
           "fh-operation:abg.operation.fh.reject",
           "fh-operation:abg.operation.fh.select",
-          "gtl://target-carrier-contract/generic-output:node://abg/consensus/fh-pending-interaction"
+          "gtl://target-carrier-contract/generic-output:node://abg/consensus/consensus-round-disposition"
         ],
-        "bundleRef": "abg://compiled-traversal-execution-contracts/154066e7fe1662c6027679d8888da8878c3d62d172eb331b5e70fbf8951d5e6c",
-        "bundleDigest": "sha256:154066e7fe1662c6027679d8888da8878c3d62d172eb331b5e70fbf8951d5e6c",
+        "bundleRef": "abg://compiled-traversal-execution-contracts/7985a390ffca85e255e401f5db491468eee776704ba9fb20a4c046ba1ef11269",
+        "bundleDigest": "sha256:7985a390ffca85e255e401f5db491468eee776704ba9fb20a4c046ba1ef11269",
         "computeStageRoles": [
           "human_callout"
         ],
@@ -3266,253 +3634,253 @@
     "recurseApplicationMutationRows": [
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[0:consensus.expand-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[1:consensus.project-reducer-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[2:consensus.project-submitter-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[3:consensus.project-fh-binding]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[4:consensus.review-panel]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[5:consensus.reduce-panel-facts]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[6:consensus.reduce-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[7:consensus.close-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[8:consensus.submitter-response]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[9:consensus.fh-initial]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[10:consensus.reassess-round]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[11:consensus.close-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[12:consensus.recurse-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "operandGraphFunctionDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "terminationEvaluatorDigest",
         "status": "rejected"
       },
       {
         "path": "module.graphFunctions[recurse(consensus.round)].vectors[13:consensus.fh-post-submitter]",
-        "relationRef": "abg://graph-function/recurse/relation/71321ae92b23704ca2362a70d67b3de05bc6537047aca9680b7cccfb84f6d919",
+        "relationRef": "abg://graph-function/recurse/relation/8866bc0af8dce6d8ed6a77679c241386eea23a79c6ba1e65fdf0aac1196df54f",
         "mutatedField": "foldbackAdditionalDigest",
         "status": "rejected"
       }
@@ -3632,7 +4000,7 @@
       "moduleJobCount": 0,
       "moduleRoleCount": 0
     },
-    "derivedConformanceInventoryDigest": "sha256:46639ff883f52ed31a6677a4eeb9410422ba11114804de082dedec0aeffbe814",
+    "derivedConformanceInventoryDigest": "sha256:41585ace9a63172f40c7ba7fc976bd0af92762b2413d9de7c85a25b1f4a60246",
     "capabilityCompatibilityStatus": "deferred_missing_exact_profile"
   },
   "ownership": {
@@ -3640,10 +4008,10 @@
     "sources": [
       {
         "ticketId": "T-252",
-        "status": "completed",
-        "sourceRef": ".ai-workspace/tickets/completed/T-252-design-and-probe-consensus-gtl-free-construction.md",
+        "status": "active",
+        "sourceRef": ".ai-workspace/tickets/active/T-252-design-and-probe-consensus-gtl-free-construction.md",
         "families": [
-          "consensus_topology_integrity"
+          "consensus_fh_recurse_and_reachable_schema_ownership"
         ]
       },
       {
@@ -3771,15 +4139,17 @@
       }
     ],
     "observedActiveGapFamilyCount": 1,
-    "activeOwnedButNotObservedFamilyCount": 0,
-    "activeOwnedButNotObservedFamilies": [],
+    "activeOwnedButNotObservedFamilyCount": 1,
+    "activeOwnedButNotObservedFamilies": [
+      "consensus_fh_recurse_and_reachable_schema_ownership"
+    ],
     "duplicateOwnerCount": 0,
     "unownedGapCount": 0
   },
   "censusDerivation": {
     "order": "compiler_and_structural_observations_before_ticket_ownership",
     "observedGapFamilyCount": 1,
-    "observedGapEvidenceDigest": "sha256:7147b5d629d8e7212b0e594ad66443b1304826ed246f3bb6e8e791dbc852b03f",
+    "observedGapEvidenceDigest": "sha256:9a24eb48d52e44da2b0e6c2428b5a8e44339eb88de9b427ab1113ee01ab70810",
     "ownershipJoinChangesObservedFamilySet": false
   },
   "gapCensus": [
@@ -3840,11 +4210,11 @@
       "actualRelation": "effect-bearing Consensus handoffs lack one M04-admitted canonical tenant-conformance manifest with exact supported capability coverage",
       "actualRelationDigest": "sha256:50e0244c8638089472f7b95312a4f8d95936d5ce6f2e2061e12e81cc5a8f4466",
       "evidenceRefs": [
-        "body:sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695",
+        "body:sha256:88b01c74ccce70a6cbce47d7db67ddb508666debd0b4402408451b02a0d528c2",
         "schema:abg.schema.tenant-conformance-manifest",
         "ticket:T-252"
       ],
-      "evidenceDigest": "sha256:bdcd024349d8ff61f3f6e1a3b289cc6990b7955e9295f1ea3af0bab90a8a5f00"
+      "evidenceDigest": "sha256:1db28084142717eea1ff14d1e56b57cd9da2f0a74250af9fc3fba2fcea9ea868"
     }
   ],
   "staticExecutionReachability": {
@@ -3947,5 +4317,5 @@
     "runtimeCallObservation": "not_performed",
     "declarationCountsAreRuntimeEvidence": false
   },
-  "manifestDigest": "sha256:d94cbd68bfe7eea7ad1a137db050dce89c7a3cfaaa61feddcfc5d78aa31d614b"
+  "manifestDigest": "sha256:064d84e04369921002762d042f27f7e3f1fd4d48d3d7e4171ca128dd58f4090b"
 }

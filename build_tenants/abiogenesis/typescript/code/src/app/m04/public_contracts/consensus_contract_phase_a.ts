@@ -1,6 +1,7 @@
 // Implements the private, temp-only T-274A Consensus artifact derivation.
 
 import {
+  CONSENSUS_CONTRACT_VERSION,
   CONSENSUS_PUBLIC_CONTRACT_SOURCES,
   CONSENSUS_ROUND_OUTCOME_VALUES,
   REVIEW_RULING_KIND_VALUES
@@ -21,7 +22,6 @@ import {
   type PublicContractCoordinate
 } from "./native_contract_phase_a.js";
 
-const CONSENSUS_CONTRACT_VERSION = "5.0.0";
 const SCHEMA_ID_PREFIX = "abg.schema.";
 
 /** @internal */

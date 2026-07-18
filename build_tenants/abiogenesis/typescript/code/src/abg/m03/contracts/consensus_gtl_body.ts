@@ -42,7 +42,8 @@ import {
   constructGraphVector,
   constructNode,
   constructTemplateRef,
-  emptySerializedAttrs
+  emptySerializedAttrs,
+  serializedJsonValueToPlain
 } from "../../../gtl/m01/contracts/constructors.js";
 import {
   graphFunctionDeclarations,
@@ -67,7 +68,8 @@ import type {
   Regime,
   Rule,
   SerializedAttrEntry,
-  SerializedAttrs
+  SerializedAttrs,
+  SerializedJsonValue
 } from "../../../gtl/m01/contracts/carriers.js";
 import {
   constructModule,
@@ -78,9 +80,11 @@ import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 import { RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES } from "./carriers.js";
 import {
   admitConsensusDomainValue,
+  CONSENSUS_RUNTIME_SCHEMA_SOURCES,
   type ConsensusDomainValueByKind,
   type ConsensusResult,
   type ConsensusSubject,
+  type ConsensusRuntimeSchemaSource,
   type ReviewFindings
 } from "./consensus_contract_family.js";
 import {
@@ -103,6 +107,17 @@ export const CONSENSUS_REVIEW_RETRY_BUDGET = 2 as const;
 export const CONSENSUS_RETRYABLE_FAILURE_CLASSES = Object.freeze([
   ...RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES
 ]);
+
+export const CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY =
+  "abg.runtime_schema_admission_bindings" as const;
+
+export interface ConsensusRuntimeSchemaAdmissionMetadataRow {
+  readonly graphFunctionId: string;
+  readonly nodeRef: string;
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly contractVersion: string;
+}
 
 const STANDARD_PLUGIN_REFS = Object.freeze({
   fdEvaluator: "plugin://abg/fd-evaluator",
@@ -135,8 +150,6 @@ type PostSubmitterSemanticAssessment =
   ConsensusDomainValueByKind["post_submitter_semantic_assessment"];
 type FhInteractionBinding =
   ConsensusDomainValueByKind["fh_interaction_binding"];
-type FhPendingInteraction =
-  ConsensusDomainValueByKind["fh_pending_interaction"];
 
 export interface ConsensusGtlNodes {
   readonly subject: Node;
@@ -154,7 +167,6 @@ export interface ConsensusGtlNodes {
   readonly submitterResponse: Node;
   readonly postSubmitterAssessment: Node;
   readonly fhInteractionBinding: Node;
-  readonly fhPendingInteraction: Node;
 }
 
 export interface ConsensusGtlGraphFunctions {
@@ -327,10 +339,6 @@ function constructNodes(): ConsensusGtlNodes {
     fhInteractionBinding: consensusNode(
       "FhInteractionBinding",
       "schema://abg/consensus/fh-interaction-binding"
-    ),
-    fhPendingInteraction: consensusNode(
-      "FhPendingInteraction",
-      "schema://abg/consensus/fh-pending-interaction"
     )
   });
 }
@@ -359,7 +367,7 @@ function evaluator(
   });
 }
 
-function rule(name: string, outcome: string): Rule {
+function rule(name: string, outcome: string | readonly string[]): Rule {
   return Object.freeze({
     name,
     kind: "consensus_round_route",
@@ -367,7 +375,13 @@ function rule(name: string, outcome: string): Rule {
       entries: Object.freeze([
         Object.freeze({
           key: "outcome",
-          value: Object.freeze({ kind: "scalar" as const, value: outcome })
+          value:
+            typeof outcome === "string"
+              ? Object.freeze({ kind: "scalar" as const, value: outcome })
+              : Object.freeze({
+                  kind: "string_list" as const,
+                  value: Object.freeze([...outcome])
+                })
         })
       ])
     }),
@@ -775,7 +789,269 @@ function uniqueIdentified<Value extends { readonly id: string }>(
   );
 }
 
-function moduleMetadata(): SerializedAttrs {
+function runtimeSchemaSourceIndex(
+  sources: readonly ConsensusRuntimeSchemaSource[] =
+    CONSENSUS_RUNTIME_SCHEMA_SOURCES
+): ReadonlyMap<string, ConsensusRuntimeSchemaSource> {
+  if (sources.length !== 15) {
+    throw new TypeError(
+      `Consensus runtime schema source family must contain 15 sources, found ${String(sources.length)}`
+    );
+  }
+  const byRef = new Map<string, ConsensusRuntimeSchemaSource>();
+  const contractKeys = new Set<string>();
+  for (const source of sources) {
+    if (
+      source.symbolicSchemaRef.length === 0 ||
+      source.contractId.length === 0 ||
+      source.contractVersion.length === 0
+    ) {
+      throw new TypeError("Consensus runtime schema source fields must be non-empty");
+    }
+    if (byRef.has(source.symbolicSchemaRef)) {
+      throw new TypeError(
+        `duplicate Consensus runtime symbolic schema ref ${source.symbolicSchemaRef}`
+      );
+    }
+    const contractKey = `${source.contractId}@${source.contractVersion}`;
+    if (contractKeys.has(contractKey)) {
+      throw new TypeError(
+        `duplicate Consensus runtime schema contract key ${contractKey}`
+      );
+    }
+    byRef.set(source.symbolicSchemaRef, source);
+    contractKeys.add(contractKey);
+  }
+  const publicCount = sources.filter(
+    (source) => source.publication === "existing_public_asset"
+  ).length;
+  const privateCount = sources.filter(
+    (source) => source.publication === "engine_private_definition"
+  ).length;
+  if (publicCount !== 3 || privateCount !== 12) {
+    throw new TypeError(
+      `Consensus runtime schema source family must preserve 3 public and 12 private keys, found ${String(publicCount)} and ${String(privateCount)}`
+    );
+  }
+  if (byRef.has("schema://abg/consensus/fh-pending-interaction")) {
+    throw new TypeError(
+      "FhPendingInteraction is runtime projection truth, not a Consensus GTL schema source"
+    );
+  }
+  return byRef;
+}
+
+function graphFunctionContainedNodes(
+  graphFunction: GraphFunction
+): readonly Node[] {
+  return collectNodes([
+    graphFunction.inputs,
+    graphFunction.outputs,
+    graphFunction.environment.requires,
+    graphFunction.environment.provides,
+    graphFunction.environment.carries,
+    graphFunction.template.kind === "inline_graph"
+      ? graphFunction.template.graph.nodes
+      : []
+  ]);
+}
+
+function runtimeSchemaTupleKey(
+  row: Pick<
+    ConsensusRuntimeSchemaAdmissionMetadataRow,
+    "graphFunctionId" | "nodeRef" | "symbolicSchemaRef"
+  >
+): string {
+  return `${row.graphFunctionId}\u0000${row.nodeRef}\u0000${row.symbolicSchemaRef}`;
+}
+
+export function deriveConsensusRuntimeSchemaAdmissionMetadataRows(
+  graphFunctions: readonly GraphFunction[]
+): readonly ConsensusRuntimeSchemaAdmissionMetadataRow[] {
+  const sourceByRef = runtimeSchemaSourceIndex();
+  const referencedSourceRefs = new Set<string>();
+  const rows: ConsensusRuntimeSchemaAdmissionMetadataRow[] = [];
+  const tupleKeys = new Set<string>();
+
+  for (const graphFunction of [...graphFunctions].sort((left, right) =>
+    left.id.localeCompare(right.id)
+  )) {
+    for (const node of [...graphFunctionContainedNodes(graphFunction)].sort(
+      (left, right) => left.id.localeCompare(right.id)
+    )) {
+      if (node.schema.kind !== "symbolic") {
+        throw new TypeError(
+          `Consensus Node ${node.id} must use one symbolic schema source`
+        );
+      }
+      const source = sourceByRef.get(node.schema.ref);
+      if (source === undefined) {
+        throw new TypeError(
+          `Consensus Node ${node.id} has no runtime schema source for ${node.schema.ref}`
+        );
+      }
+      const row = Object.freeze({
+        graphFunctionId: graphFunction.id,
+        nodeRef: node.id,
+        symbolicSchemaRef: node.schema.ref,
+        contractId: source.contractId,
+        contractVersion: source.contractVersion
+      });
+      const tupleKey = runtimeSchemaTupleKey(row);
+      if (tupleKeys.has(tupleKey)) {
+        throw new TypeError(
+          `duplicate Consensus runtime schema metadata tuple ${tupleKey}`
+        );
+      }
+      tupleKeys.add(tupleKey);
+      referencedSourceRefs.add(source.symbolicSchemaRef);
+      rows.push(row);
+    }
+  }
+
+  const unreferencedSources = [...sourceByRef.keys()].filter(
+    (symbolicSchemaRef) => !referencedSourceRefs.has(symbolicSchemaRef)
+  );
+  if (unreferencedSources.length > 0) {
+    throw new TypeError(
+      `Consensus runtime schema sources are not reachable: ${unreferencedSources.join(", ")}`
+    );
+  }
+  return Object.freeze(rows);
+}
+
+function runtimeSchemaMetadataRowJson(
+  row: ConsensusRuntimeSchemaAdmissionMetadataRow
+): SerializedJsonValue {
+  return Object.freeze({
+    kind: "object" as const,
+    entries: Object.freeze([
+      Object.freeze({ key: "graphFunctionId", value: row.graphFunctionId }),
+      Object.freeze({ key: "nodeRef", value: row.nodeRef }),
+      Object.freeze({ key: "symbolicSchemaRef", value: row.symbolicSchemaRef }),
+      Object.freeze({ key: "contractId", value: row.contractId }),
+      Object.freeze({ key: "contractVersion", value: row.contractVersion })
+    ])
+  });
+}
+
+function runtimeSchemaMetadataRowsJson(
+  rows: readonly ConsensusRuntimeSchemaAdmissionMetadataRow[]
+): SerializedJsonValue {
+  return Object.freeze({
+    kind: "array" as const,
+    items: Object.freeze(rows.map(runtimeSchemaMetadataRowJson))
+  });
+}
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function admitRuntimeSchemaMetadataText(
+  record: Readonly<Record<string, unknown>>,
+  key: string,
+  index: number
+): string {
+  const value = record[key];
+  if (typeof value !== "string" || value.length === 0) {
+    throw new TypeError(
+      `Consensus runtime schema metadata row ${String(index)}.${key} must be non-empty text`
+    );
+  }
+  return value;
+}
+
+function admitRuntimeSchemaMetadataRow(
+  raw: unknown,
+  index: number
+): ConsensusRuntimeSchemaAdmissionMetadataRow {
+  if (!isPlainRecord(raw)) {
+    throw new TypeError(
+      `Consensus runtime schema metadata row ${String(index)} must be an object`
+    );
+  }
+  const expectedKeys = [
+    "graphFunctionId",
+    "nodeRef",
+    "symbolicSchemaRef",
+    "contractId",
+    "contractVersion"
+  ];
+  const actualKeys = Object.keys(raw);
+  if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
+    throw new TypeError(
+      `Consensus runtime schema metadata row ${String(index)} must have exact ordered keys`
+    );
+  }
+  return Object.freeze({
+    graphFunctionId: admitRuntimeSchemaMetadataText(
+      raw,
+      "graphFunctionId",
+      index
+    ),
+    nodeRef: admitRuntimeSchemaMetadataText(raw, "nodeRef", index),
+    symbolicSchemaRef: admitRuntimeSchemaMetadataText(
+      raw,
+      "symbolicSchemaRef",
+      index
+    ),
+    contractId: admitRuntimeSchemaMetadataText(raw, "contractId", index),
+    contractVersion: admitRuntimeSchemaMetadataText(
+      raw,
+      "contractVersion",
+      index
+    )
+  });
+}
+
+export function admitConsensusRuntimeSchemaAdmissionMetadata(
+  moduleValue: Module
+): readonly ConsensusRuntimeSchemaAdmissionMetadataRow[] {
+  const entries = moduleValue.metadata.entries.filter(
+    (entry) => entry.key === CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+  );
+  if (entries.length !== 1 || entries[0] === undefined) {
+    throw new TypeError(
+      `Consensus Module must contain exactly one ${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} entry`
+    );
+  }
+  if (entries[0].value.kind !== "json_blob") {
+    throw new TypeError(
+      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must be a json_blob`
+    );
+  }
+  const plain = serializedJsonValueToPlain(entries[0].value.value);
+  if (!Array.isArray(plain)) {
+    throw new TypeError(
+      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} must contain an array`
+    );
+  }
+  const rows = Object.freeze(
+    plain.map((row, index) => admitRuntimeSchemaMetadataRow(row, index))
+  );
+  const tupleKeys = rows.map(runtimeSchemaTupleKey);
+  if (new Set(tupleKeys).size !== tupleKeys.length) {
+    throw new TypeError(
+      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} contains a duplicate tuple`
+    );
+  }
+  const expected = deriveConsensusRuntimeSchemaAdmissionMetadataRows(
+    moduleValue.graphFunctions
+  );
+  if (JSON.stringify(rows) !== JSON.stringify(expected)) {
+    throw new TypeError(
+      `${CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY} does not exactly match Module containment and native source ownership`
+    );
+  }
+  return rows;
+}
+
+function moduleMetadata(
+  graphFunctions: readonly GraphFunction[]
+): SerializedAttrs {
+  const runtimeSchemaRows =
+    deriveConsensusRuntimeSchemaAdmissionMetadataRows(graphFunctions);
   return Object.freeze({
     entries: Object.freeze([
       Object.freeze({
@@ -794,6 +1070,13 @@ function moduleMetadata(): SerializedAttrs {
         value: Object.freeze({
           kind: "string_list" as const,
           value: CONSENSUS_RETRYABLE_FAILURE_CLASSES
+        })
+      }),
+      Object.freeze({
+        key: CONSENSUS_RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+        value: Object.freeze({
+          kind: "json_blob" as const,
+          value: runtimeSchemaMetadataRowsJson(runtimeSchemaRows)
         })
       })
     ])
@@ -831,8 +1114,6 @@ function constructConsensusBody(): ConsensusGtlBody {
     admitConsensusDomainValue(raw, "post_submitter_semantic_assessment");
   const decodeFhBinding = (raw: unknown): FhInteractionBinding =>
     admitConsensusDomainValue(raw, "fh_interaction_binding");
-  const decodeFhPending = (raw: unknown): FhPendingInteraction =>
-    admitConsensusDomainValue(raw, "fh_pending_interaction");
 
   const subjectWitness = typedNode({
     node: nodes.subject,
@@ -901,10 +1182,6 @@ function constructConsensusBody(): ConsensusGtlBody {
   const fhBindingWitness = typedNode({
     node: nodes.fhInteractionBinding,
     decode: decodeFhBinding
-  });
-  const fhPendingWitness = typedNode({
-    node: nodes.fhPendingInteraction,
-    decode: decodeFhPending
   });
 
   const reviewAuthored = authorLeafProgramVector({
@@ -1186,14 +1463,14 @@ function constructConsensusBody(): ConsensusGtlBody {
       source: cInterfaceCarrier(
         typedInterface(roundWitness, initialAssessmentWitness, fhBindingWitness)
       ),
-      target: cInterfaceCarrier(typedInterface(fhPendingWitness)),
+      target: cInterfaceCarrier(dispositionInterface),
       programRef: "program://abg/consensus/fh-initial",
       stageRole: "hold_initial_for_fh",
       fibre: "F_H",
       armId: "arm://abg/consensus/fh-initial",
       operator: operator("fh-initial", "F_H"),
       evaluators: [initialFhEvaluator],
-      rule: rule("initial-fh", "pending_fh")
+      rule: rule("initial-fh", "escalate_fh")
     }),
     authorLeafProgramVector({
       graphFunctionRef: CONSENSUS_ROUND_GRAPH_FUNCTION_REF,
@@ -1256,14 +1533,14 @@ function constructConsensusBody(): ConsensusGtlBody {
       source: cInterfaceCarrier(
         typedInterface(roundWitness, postAssessmentWitness, fhBindingWitness)
       ),
-      target: cInterfaceCarrier(typedInterface(fhPendingWitness)),
+      target: cInterfaceCarrier(dispositionInterface),
       programRef: "program://abg/consensus/fh-post-submitter",
       stageRole: "hold_post_for_fh",
       fibre: "F_H",
       armId: "arm://abg/consensus/fh-post-submitter",
       operator: operator("fh-post-submitter", "F_H"),
       evaluators: [postFhEvaluator],
-      rule: rule("post-fh", "pending_fh")
+      rule: rule("post-fh", "escalate_fh")
     })
   ]);
   const roundEffects = effectsForAuthoredVectors(
@@ -1292,14 +1569,20 @@ function constructConsensusBody(): ConsensusGtlBody {
   const boundedRounds = recurse(
     round,
     Object.freeze({
-      name: "consensus-round-closed",
+      name: "consensus-round-terminal",
       regime: "F_D",
-      description: "Admitted round disposition is closed_done",
-      binding: "binding://abg/consensus/round-closed",
+      description:
+        "Admitted round disposition is closed_done or escalate_fh",
+      binding: "binding://abg/consensus/round-terminal",
       consumedFieldRefs: Object.freeze([
         "field://abg/consensus/round-disposition/outcome"
       ]),
-      tags: Object.freeze(["abg:consensus", "termination"])
+      tags: Object.freeze([
+        "abg:consensus",
+        "termination",
+        "terminal:closed_done",
+        "terminal:escalate_fh"
+      ])
     }),
     {
       mode: "rebind",
@@ -1312,6 +1595,13 @@ function constructConsensusBody(): ConsensusGtlBody {
             value: Object.freeze({
               kind: "scalar" as const,
               value: "append_outcome_preserve_cumulative_lineage"
+            })
+          }),
+          Object.freeze({
+            key: "foldback_outcome",
+            value: Object.freeze({
+              kind: "scalar" as const,
+              value: "recurse_next_round"
             })
           })
         ])
@@ -1362,7 +1652,7 @@ function constructConsensusBody(): ConsensusGtlBody {
           "field://abg/consensus/round-disposition/outcome"
         ])
       ],
-      rule: rule("project-closed-result", "closed_done")
+      rule: rule("project-terminal-result", ["closed_done", "escalate_fh"])
     })
   ]);
   const consensusEffects = effectsForAuthoredVectors(
@@ -1438,9 +1728,10 @@ function constructConsensusBody(): ConsensusGtlBody {
     ),
     imports: [],
     policyHooks: emptySerializedAttrs(),
-    metadata: moduleMetadata()
+    metadata: moduleMetadata(graphFunctionValues)
   };
   const module = constructModule(moduleInit);
+  admitConsensusRuntimeSchemaAdmissionMetadata(module);
 
   return Object.freeze({
     module,
