@@ -43,7 +43,8 @@
   - completed T-271
 - downstream_dependencies:
   - T-281 P1 consumes the neutral owner-native run.invoke contract family
-  - an independently reviewed AF-15/runtime-authority milestone unblocks T-272 and T-274B
+  - accepted T-274B1 exact native-definition delivery is an AF-15/runtime-authority input
+  - an independently reviewed AF-15/runtime-authority milestone unblocks T-272 and T-274B2 publication
   - T-272 continuation consumes held F_H truth
   - T-281 P2 atomically publishes the route and retires the legacy public identity
   - T-268 aggregates the final tenant capability manifest
@@ -200,9 +201,10 @@ environment. Installed public schemas cannot service an internal target. F_H ret
 truth and no output carrier; T-271 admits the exact held receipt before AF-15
 derives the neutral event checkpoint basis and opens the interaction. The
 T-252/M03 closed schema-key/source family owns the canonical Module's complete
-public/private/vector Consensus metadata rows. T-274B packages that exact
-Module, derives/supplies its full opaque native definitions through M04, and
-publishes only T-274A's nine existing public assets. T-275 owns only the motivating SYSTEM
+public/private/vector Consensus metadata rows. Before T-270, T-274B1 packages
+that exact Module and derives/supplies its full opaque native definitions to
+M04. After accepted T-270 runtime integration, T-274B2 publishes only T-274A's
+nine existing public assets. T-275 owns only the motivating SYSTEM
 stdlib/profile/result bindings. T-270 owns only the generic resolver,
 environment, and non-Consensus Scenario-09 proof pair. Full native coordinates,
 projection digests, locators, witnesses, and callables never enter Module
@@ -301,7 +303,7 @@ be a closure dependency of this generic authority join.
 - [ ] reconciled three-view design receives independent F_H acceptance
 - [ ] bounded AF-15 constructability amendment receives F_H acceptance before runtime resumes
 - [ ] async M04 preparation seals the exact installed public input schema and invoke root value without an M03 reader
-- [ ] M04 admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields, exact-joins each key to one asserted opaque native definition, projects ordered sealed full-coordinate/witness bases into admitted ingress, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B publishes only T-274A's nine public assets
+- [ ] M04 admits one closed metadata JSON-blob whose rows have exactly graphFunctionId/nodeRef/symbolicSchemaRef/contractId/contractVersion, rejects embedded coordinate/digest/locator/witness/callable fields, exact-joins each key to one asserted opaque native definition, projects ordered sealed full-coordinate/witness bases into admitted ingress, and alone calls the neutral M03/shared WeakSet-branded constructor; a separate identity-free AF-15 envelope carries callables outside every stable hash; the complete T-252/M03 public/private/vector schema-key/source family plus T-274B1 delivery and Scenario-09 use the same M04 call site and neutral constructor; T-274B2 publishes only T-274A's nine public assets
 - [ ] the shared compiler core emits compact and private runtime projections once and conserves every locus Operator
 - [ ] immutable runtime-value environment and exact F_D Operator resolver land through generic non-Consensus proof
 - [ ] the closed four-runtime outcome union and separate exhaustive AF-15 fold land without an `EngineIterateResult` cast
@@ -322,8 +324,8 @@ public-contract implementation. That milestone is a T-281 P1 input and does
 not satisfy the runtime exits below.
 
 The public-router/runtime-authority milestone is independently reviewable when
-exits 1 through 5 pass on the accepted P1 basis. That milestone may unblock
-T-272 and T-274B, but it publishes no partial public surface and does not close
+exits 1 through 5 pass on the accepted P1 and T-274B1 bases. That milestone may
+unblock T-272 and T-274B2, but it publishes no partial public surface and does not close
 this ticket. Exits 6 and 7 close only in the atomic P2 switch after all handler,
 schema, SDK, CLI, and catalog contributions are ready.
 
@@ -353,7 +355,7 @@ schema, SDK, CLI, and catalog contributions are ready.
     schema-admission capabilities or admitted basis rows, malformed
     F_P wire or target bodies, and missing/stale/mutated/cross-locus F_H
     checkpoints refuse before continuation. Other missing re-entry bodies emit
-    the exact general semantic gap before the affected locus. T-274B
+    the exact general semantic gap before the affected locus. T-274B1
     Module/native-definition absence or T-275 stdlib/profile/result-binding
     absence cannot be hidden by a handler, evaluator, plugin, fixture, or
     ambient value.

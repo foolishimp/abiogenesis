@@ -150,18 +150,21 @@ flowchart TD
   E --> N272[T-272 neutral continuation and response contracts]
   E --> H0A[T-281 generic project.read request refusal and absent nonterminal]
   E --> H0B[T-274A ConsensusResult source and TicketConsensusProjection result coordinates]
+  E --> R252[T-252 repaired Module and fifteen-key source family]
   N270 --> P1[Define all 19 operations, requests, results, schemas, and CLI coordinates]
   N272 --> P1
   H0A --> P1
   H0B --> P1
+  R252 --> H1[T-274B1 derive exact private native-definition set]
   O --> F[T-270 public catalog-to-execution router]
   P1 --> F
+  H1 --> F
   P1 --> Q[Reconcile or realize the remaining operation handlers]
   F --> G[T-272 F_H continuation]
   P1 --> G
-  F --> H[T-274 verified Consensus publication contributions]
-  P1 --> H
-  H --> I[T-275 profiles and ticket-result projection]
+  F --> H2[T-274B2 verified Consensus publication contributions]
+  P1 --> H2
+  H2 --> I[T-275 profiles and ticket-result projection]
   F --> P2[Bind all handlers and publish full packed operation catalog, SDK, and CLI parity]
   G --> P2
   Q --> P2
@@ -189,7 +192,10 @@ supplies only the exact `ConsensusResult` source and
 milestones perform no public routing or runtime effect. The full 19-operation
 public surface then has two milestones. Its authoritative
 operation/request/result/schema/CLI-coordinate definition family precedes the
-T-270/T-272 public runtime integration. Handler binding and packed
+T-270/T-272 public runtime integration. The repaired T-252 Module and keyed
+fifteen-source family separately feed T-274B1, which derives the exact asserted
+native-definition set and lets M04 prove the total join before T-270 capability
+construction. Handler binding and packed
 catalog/SDK/CLI parity follows
 the required semantic owners, including T-275's pure `ticket_consensus`
 projection contribution, and precedes T-268/T-276. T-275 depends on the private P1 definition milestone,
@@ -198,29 +204,27 @@ mandatory public-contract capability against a partial operation catalog. This
 avoids schema-after-handler drift, publication claims over unrealized behavior,
 and a false complete capability manifest.
 
-T-270 reaches an independently reviewed public-router and runtime-authority
-milestone without depending on T-268's final packed aggregation. T-272 and
-T-274B may proceed in parallel after that milestone and the public projection
-inputs they consume. T-274B derives and verifies its Consensus contract and
-catalog contributions privately; it does not publish an interim catalog beside
-the legacy operation register. T-275 follows that contribution milestone. P2
-then performs one atomic packed-catalog, SDK, CLI, handler-binding, and legacy
-hard-break switch and closes the public portions of T-270 and T-274. T-268
-follows T-270, T-272, T-274, T-275, and full public operation parity. T-276
-alone owns the installed existing, alternate, and temporary workspace
-aggregation proof. Only non-operation DS-5 residuals follow T-276. This
-ordering removes the former T-270/T-268 closure cycle and the former
-DS-4/public-surface inversion without creating a temporary publication path.
+T-274B1 follows repaired T-252 and the existing native projector, publishes
+nothing, and unblocks T-270. T-270 then reaches an independently reviewed
+public-router and runtime-authority milestone without depending on T-268's
+final packed aggregation. T-272 and T-274B2 may proceed after that milestone
+and their accepted P1 inputs. T-274B2 derives and verifies the public Consensus
+contract and catalog contributions privately; it does not publish an interim
+catalog beside the legacy operation register. T-275 follows that contribution
+milestone. P2 then performs one atomic packed-catalog, SDK, CLI,
+handler-binding, and legacy hard-break switch and closes the public portions of
+T-270 and T-274. T-268 follows T-270, T-272, T-274, T-275, and full public
+operation parity. T-276 alone owns the installed existing, alternate, and
+temporary workspace aggregation proof. Only non-operation DS-5 residuals
+follow T-276. This ordering removes the former T-270/T-268 and T-270/T-274B
+cycles without creating a temporary publication path.
 
-`codex/t266-stage` remains the singular 5.0 integration line. Do not merge or
-rebase the large dirty runtime wave merely to absorb commentary-only commits
-from `main`. At the T-278 decision boundary, checkpoint and push the accepted
-plan/authority/design slice without staging provisional runtime files. After
-runtime reconciliation and full gates, checkpoint and push that runtime slice
-separately. The sibling `abiogenesis` worktree's untracked manuscript numbered
-T-267 is not part of this line and must become T-279 before any future
-adoption; obsolete self-build and T-252 planning artifacts from that sibling
-worktree do not enter this stable-first plan.
+`codex/abiogenesis-5-final-integration` is the singular 5.0 integration line.
+Each accepted design or implementation slice lands there only after its exact
+basis, focused gates, and independent review are recorded. Keep unreviewed
+worktree changes in their owning slice; do not mix them into a checkpoint.
+Checkpoint and push the integration line after each accepted slice so current
+delivery truth does not depend on an agent-local branch or terminal history.
 
 Before DS-6, T-247 and T-248 are rebound from completed T-249 and the stale
 T-244 projection to closed T-278, the ratified final Ontology, and regenerated

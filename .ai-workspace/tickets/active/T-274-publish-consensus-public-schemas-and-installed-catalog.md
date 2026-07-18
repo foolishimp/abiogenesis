@@ -5,35 +5,37 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: t274a_closed_t274b_dependency_fenced
-- review_status: t274a_independently_accepted_t274b_not_started
+- phase_status: t274a_closed_t274b1_private_definition_amendment_accepted
+- review_status: t274a_and_t274b1_design_independently_reviewed_accepted
 - proof_status: t274a_exact_basis_focused_prime_lint_and_pack_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
     First generate and verify nine canonical Consensus schema assets plus two
     vocabularies from one authoritative Consensus contract family and the one
-    accepted native projector; later publish the SYSTEM-owned callable catalog
-    row from the admitted T-252 Module without creating another body, authoring
-    source, or runtime authority.
+    accepted native projector; later derive the exact fifteen-definition
+    runtime join input from the T-252 source family and publish the SYSTEM-owned
+    callable catalog row from the admitted T-252 Module without creating
+    another body, authoring source, or runtime authority.
 - change_class: design_reframe
 - re_entry_point: >-
     build_tenants/abiogenesis/typescript/design M02/M04 Consensus publication
     boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-16
+- updated_at: 2026-07-18
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-268
 - priority: critical
 - dependencies:
-  - completed T-252 canonical Consensus Module
+  - accepted repaired T-252 canonical Consensus Module and fifteen-key native source family; repaired implementation gates T-274B
   - ratified T-278 Ontology `run.invoke` and `project.read` definitions
   - repaired T-281 Phase A native-schema source/witness mechanism; independent re-review gates T-274A closure
 - downstream_dependencies:
-  - T-281 P1 and the independently reviewed T-270 AF-15/runtime-authority milestone gate T-274B, not T-274A
-  - T-275 consumes the verified T-274B contract and catalog contributions
+  - T-274B1 exact native-definition delivery unblocks the T-270 AF-15/runtime-authority implementation
+  - T-281 P1 and the independently reviewed T-270 milestone gate T-274B2 public publication, not T-274A or T-274B1
+  - T-275 consumes the verified T-274B2 contract and catalog contributions
   - T-281 P2 atomically merges those contributions into the singular packed catalog
 - authority_refs:
   - specification/requirements/product/REQ-P-CONSENSUS-001..004
@@ -64,6 +66,16 @@
     a370f6c894e08f966714d5b5541c9e02091b19be6768d5f4383773287cbc600e
 - accepted_phase_split_gate_complete_design_digest: >-
     7be2f753a08e65b63d49266695780747c5e8fc620c88af68414d7a11cd51b867
+- t274b_private_definition_amendment_candidate_digest: >-
+    578d0487a460ae6920348e5031e059475dc9d71cca57d8fbac418cf2ed749f05
+- accepted_t274b_private_definition_amendment_digest: >-
+    578d0487a460ae6920348e5031e059475dc9d71cca57d8fbac418cf2ed749f05
+- t274b_private_definition_amendment_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T023739Z_SELF_REVIEW_t274b_private_definition_delivery_amendment.md
+- t274b_private_definition_amendment_review_and_acceptance_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T032220Z_REVIEW_DECISION_t274b_private_definition_delivery.md
 - repaired_phase_split_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T105629Z_REVIEW_t274_phase_split_design.md
@@ -107,8 +119,11 @@ wrapper and explicitly absent non-terminal slot. T-274A does not author that
 wrapper, change its nine-schema exit, move T-275 handler/projection semantics,
 or close the full `ticket_consensus` definition by itself.
 
-T-274B follows the accepted public-operation P1 and independently reviewed
-T-270 AF-15/runtime-authority milestone. AF-24 derives and verifies the
+T-274B has two ordered milestones. T-274B1 follows the repaired T-252
+implementation and existing T-281 native projector. It derives the exact native
+definition set and delivers it to M04, unblocking T-270 AF-15 capability
+construction. T-274B2 follows accepted public-operation P1 and independently
+reviewed T-270 runtime integration. AF-24 then derives and verifies the
 schema/vocabulary contribution rows and one SYSTEM-owned
 GraphFunction contribution declaration for
 `gtl://abg/consensus/submitter-reviewer-rounds`. GTL/M02 owns the exact Module
@@ -120,6 +135,17 @@ public-contract and contribution-catalog authorities. T-274B does not publish
 an interim contract catalog beside the legacy operation register. T-281 P2
 atomically merges the verified contributions into the singular packed catalog,
 performs installed AF-08 admission, and retires the legacy register.
+
+T-274B1 consumes the exact repaired T-252 Module and its closed keyed,
+projector-addressable fifteen-source native family. Through the existing T-281
+native projector it derives one asserted `NativeContractDefinition` for every
+distinct runtime key and presents exactly those fifteen definitions to the M04
+T-270 join. M04, not the definition producer, proves the total Module/definition
+join. Three keys reuse existing public identities; twelve remain engine-private.
+The other six standing public Consensus assets are publication-only and remain
+outside the runtime join. Private definitions never become public catalog rows,
+and generated coordinates, digests, locators, witnesses, or callables never
+flow back into Module metadata.
 
 This ticket projects and later publishes assets. It does not interpret C programs, invoke a
 reviewer, admit findings, project ticket results, write runtime events, or own
@@ -151,6 +177,9 @@ Consensus operation and no compatibility alias for `catalog.invoke`.
   for the callable. The SYSTEM contribution declaration derives from the exact
   admitted T-252 Module and outer GraphFunction; AF-08 derives installed catalog
   admission from that declaration.
+- The exact fifteen-definition runtime join input is a subordinate native
+  projection of the T-252 source family. It is not a second schema family,
+  public roster, registry, or authoring source.
 - The accepted local design must record IACS, Promotion Test, recurrence, and
   before/after source counts under ADR-044.
 
@@ -162,10 +191,17 @@ closed and independently addressable, reject cross-projection substitution,
 and reproduce exact bytes and digests without any public or installed claim.
 Phase A generation is temp-only and leaves no candidate asset in the package.
 
-The T-274B contribution milestone is independently reviewable when its exact
+The T-274B1 milestone is independently reviewable when the exact keyed sources
+derive fifteen asserted definitions and M04 proves the total join with no
+missing, extra, duplicate, mismatched, or unused input. It unblocks T-270 but
+publishes nothing. The T-274B2 contribution milestone is independently
+reviewable when its exact
 contract rows, serialized assets, and SYSTEM-owned callable contribution derive
 from the accepted sources, reproduce deterministic bytes and digests, and
-reject malformed or divergent inputs before merge. That milestone unblocks
+reject malformed or divergent inputs before merge. It must also prove that all
+six other public assets remain outside the runtime join and none of the twelve
+private keys enters the public catalog. That
+milestone unblocks
 T-275 but does not close this ticket. T-274B closes in atomic P2 when those
 verified contributions resolve through the singular packed public contract
 catalog, the installed Module round-trips without source import, and AF-08
@@ -177,8 +213,9 @@ independent review.
 The native contract family and callable-source contraction are realized under
 T-277. T-274A owns nine generated schema assets, two derived vocabularies, and
 their parity proofs after T-281 Phase A. T-274B owns the verified public-catalog
-and callable contributions after the P1 and T-270 runtime-authority
-prerequisites. Atomic P2 owns their singular packed merge and installed
+and callable contributions after T-274B1 first derives the exact native
+definition set and unblocks T-270, then P1 and T-270 gate T-274B2 publication.
+Atomic P2 owns their singular packed merge and installed
 admission. This ticket is not closed by either design checkpoint, T-274A, or
 the private T-274B contribution milestone alone.
 
@@ -201,4 +238,9 @@ Consensus Prime regression, focused lint, and a pack dry-run containing no
 candidate Consensus schema or vocabulary asset. The earlier full semantic
 proof remains `1771/1771`; the independent review deliberately did not rerun
 that suite across unrelated concurrent T-281 changes. T-274A is closed.
-T-274 remains active and T-274B remains dependency-fenced.
+T-274 remains active. The exact T-274B1 private-definition delivery amendment
+is independently reviewed and accepted at digest
+`578d0487a460ae6920348e5031e059475dc9d71cca57d8fbac418cf2ed749f05` under
+standing delegated F_H authority. T-274B1 implementation remains fenced until
+the repaired T-252 implementation closes. T-274B2 remains fenced behind T-281
+P1 and accepted T-270 runtime integration.
