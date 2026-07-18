@@ -25,11 +25,13 @@ import {
 } from "../../../shared/validation/native_contract_primitives.js";
 import {
   applyResolvedOwnerProjectionRelation,
+  assertResolvedOwnerNativeContractSourceOriginatesFrom,
   deriveCanonicalNativeSchemaProjection,
   nativeExportNameSchema,
   privateNativeSchemaSourceLocatorSchema,
   projectCanonicalNativeJsonSchema,
   type NativeSchemaProjectionWitness,
+  type OwnerNativeContractSourceRow,
   type ResolvedOwnerNativeContractSource,
   type ResolvedOwnerProjectionRelation
 } from "../../../shared/validation/canonical_native_schema_projector.js";
@@ -504,6 +506,8 @@ export interface NativeContractDefinition<S extends NativeSchema> {
 }
 
 const NATIVE_CONTRACT_DEFINITION_AUTHORITY = new WeakSet<object>();
+const NATIVE_CONTRACT_DEFINITION_SOURCE =
+  new WeakMap<object, object>();
 
 /** @internal */
 export function assertNativeContractDefinitionCarrier(
@@ -516,6 +520,24 @@ export function assertNativeContractDefinitionCarrier(
   ) {
     throw new TypeError("native contract: unresolved or forged definition carrier");
   }
+}
+
+/** @internal */
+export function assertNativeContractDefinitionOriginatesFromSourceRow<
+  S extends NativeSchema
+>(
+  definition: NativeContractDefinition<S>,
+  expectedSourceRow: OwnerNativeContractSourceRow<S>
+): void {
+  assertNativeContractDefinitionCarrier(definition);
+  const source = NATIVE_CONTRACT_DEFINITION_SOURCE.get(definition);
+  if (source === undefined) {
+    throw new TypeError("native contract: definition source is unavailable");
+  }
+  assertResolvedOwnerNativeContractSourceOriginatesFrom(
+    source,
+    expectedSourceRow
+  );
 }
 
 const nativeContractIdentitySchema = v.strictObject({
@@ -573,6 +595,7 @@ export function defineNativeContract<S extends NativeSchema>(input: {
     projectionWitness
   });
   NATIVE_CONTRACT_DEFINITION_AUTHORITY.add(definition);
+  NATIVE_CONTRACT_DEFINITION_SOURCE.set(definition, input.source);
   return definition;
 }
 

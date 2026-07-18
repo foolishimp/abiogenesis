@@ -19,14 +19,20 @@ import {
   ABG_CONSENSUS_GTL_MODULE
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_gtl_body.js";
 import {
-  CONSENSUS_RUNTIME_SCHEMA_SOURCES
+  CONSENSUS_PUBLIC_CONTRACT_FAMILY,
+  CONSENSUS_PUBLIC_CONTRACT_SOURCES,
+  CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY
 } from "../../build/semantic/code/src/abg/m03/contracts/consensus_contract_family.js";
+import {
+  deriveConsensusRuntimeNativeDefinitionRelations
+} from "../../build/semantic/code/src/app/m04/public_contracts/consensus_runtime_native_definitions.js";
 import {
   defineNativeContract,
   PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES
 } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import {
   admitM04RuntimeSchemaAdmissionMetadataRows,
+  bindM04RuntimeSchemaNativeDefinition,
   projectM04RuntimeSchemaAdmission,
   runtimeSchemaAdmissionMetadataRowsFromModule
 } from "../../build/semantic/code/src/app/m04/public_contracts/runtime_schema_admission.js";
@@ -53,16 +59,10 @@ import {
 
 const DIGEST = stableSha256Digest({ fixture: "t270-runtime-schema" });
 const TENANT_ROOT = new URL("../../", import.meta.url);
-const fixtureSources = Object.freeze({
-  request: await resolveSemanticBuildNativeSchemaSource(
-    PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.request
-  ),
-  result: await resolveSemanticBuildNativeSchemaSource(
-    PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.result
-  ),
-  refusal: await resolveSemanticBuildNativeSchemaSource(
-    PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.refusal
-  )
+const fixtureSourceRows = Object.freeze({
+  request: PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.request,
+  result: PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.result,
+  refusal: PHASE_A_NATIVE_CONTRACT_FIXTURE_SOURCES.workspace_create_clean.refusal
 });
 
 function taggedObject(value) {
@@ -120,15 +120,30 @@ function bindingWithMetadataRows(binding, rows) {
   });
 }
 
-function definition(kind, source) {
-  return defineNativeContract({
+async function relatedDefinition(kind, symbolicSchemaRef, source) {
+  const contractId = `abg.contract.t270.scenario09.${kind}`;
+  const relationSource = Object.freeze({
+    ...source,
+    symbolicSchemaRef,
+    contractId,
+    contractVersion: "5.0.0"
+  });
+  const definition = defineNativeContract({
     identity: {
-      contractId: `abg.contract.t270.scenario09.${kind}`,
+      contractId,
       contractVersion: "5.0.0",
       schemaId: `abg.schema.t270.scenario09.${kind}`,
       schemaVersion: "5.0.0"
     },
-    source
+    source: await resolveSemanticBuildNativeSchemaSource(relationSource)
+  });
+  return Object.freeze({
+    source: relationSource,
+    definition,
+    relation: bindM04RuntimeSchemaNativeDefinition({
+      source: relationSource,
+      definition
+    })
   });
 }
 
@@ -178,20 +193,49 @@ function scenario09GraphFunctionWithInternalNode(graphFunction) {
   return Object.freeze({ graph, graphFunction: extended, internalNode });
 }
 
-function fixture() {
+async function fixture() {
   const scenario = scenario09OneSurfaceProgramFixture();
   const extended = scenario09GraphFunctionWithInternalNode(
     scenario.callableLabFunction.finalHost
   );
   const graphFunction = extended.graphFunction;
   const otherGraphFunction = scenario.members[0].finalHost;
-  const definitions = Object.freeze([
-    definition("observation", fixtureSources.request),
-    definition("normalized-observation", fixtureSources.result),
-    definition("internal-observation", fixtureSources.request),
-    definition("other-function-input", fixtureSources.refusal),
-    definition("other-function-output", fixtureSources.result)
-  ]);
+  const relatedDefinitions = Object.freeze(await Promise.all([
+    relatedDefinition(
+      "observation",
+      graphFunction.inputs[0].schema.ref,
+      fixtureSourceRows.request
+    ),
+    relatedDefinition(
+      "normalized-observation",
+      graphFunction.outputs[0].schema.ref,
+      fixtureSourceRows.result
+    ),
+    relatedDefinition(
+      "internal-observation",
+      extended.internalNode.schema.ref,
+      fixtureSourceRows.request
+    ),
+    relatedDefinition(
+      "other-function-input",
+      otherGraphFunction.inputs[0].schema.ref,
+      fixtureSourceRows.refusal
+    ),
+    relatedDefinition(
+      "other-function-output",
+      otherGraphFunction.outputs[0].schema.ref,
+      fixtureSourceRows.result
+    )
+  ]));
+  const sources = Object.freeze(
+    relatedDefinitions.map((value) => value.source)
+  );
+  const definitions = Object.freeze(
+    relatedDefinitions.map((value) => value.definition)
+  );
+  const relations = Object.freeze(
+    relatedDefinitions.map((value) => value.relation)
+  );
   const rows = canonicalMetadataRows([
     {
       graphFunctionId: graphFunction.id,
@@ -285,7 +329,7 @@ function fixture() {
   });
   const projection = projectM04RuntimeSchemaAdmission({
     selectedExecutionBinding: binding,
-    nativeDefinitions: definitions
+    nativeDefinitionRelations: relations
   });
   const requirements = Object.freeze(
     rows
@@ -317,28 +361,14 @@ function fixture() {
     definitions,
     internalNode: extended.internalNode,
     projection,
+    relations,
     requirements,
-    rows
+    rows,
+    sources
   };
 }
 
-const SCENARIO_09_FIXTURE = fixture();
-
-async function consensusRuntimeDefinitions() {
-  return Object.freeze(await Promise.all(
-    CONSENSUS_RUNTIME_SCHEMA_SOURCES.map(async (source) =>
-      defineNativeContract({
-        identity: {
-          contractId: source.contractId,
-          contractVersion: source.contractVersion,
-          schemaId: source.contractId,
-          schemaVersion: source.contractVersion
-        },
-        source: await resolveSemanticBuildNativeSchemaSource(source)
-      })
-    )
-  ));
-}
+const SCENARIO_09_FIXTURE = await fixture();
 
 function consensusExecutionBinding() {
   const graphFunction = ABG_CONSENSUS_GTL_BODY.graphFunctions.consensus;
@@ -374,15 +404,90 @@ function consensusExecutionBinding() {
 
 test("T-270 admits the canonical T-252 Module through one neutral metadata order", async () => {
   const binding = consensusExecutionBinding();
-  const definitions = await consensusRuntimeDefinitions();
+  const relations = await deriveConsensusRuntimeNativeDefinitionRelations();
+  const definitions = relations.map((relation) => relation.definition);
+  const sources = Object.values(CONSENSUS_RUNTIME_SCHEMA_SOURCE_FAMILY);
+  const sourceByCoordinate = new Map(sources.map((source) => [
+    `${source.contractId}@${source.contractVersion}`,
+    source
+  ]));
   const rows = runtimeSchemaAdmissionMetadataRowsFromModule(binding.module);
   const projection = projectM04RuntimeSchemaAdmission({
     selectedExecutionBinding: binding,
-    nativeDefinitions: definitions
+    nativeDefinitionRelations: relations
   });
 
   assert.equal(rows.length, 34);
   assert.equal(definitions.length, 15);
+  assert.equal(
+    sources.filter((source) => source.publication === "existing_public_asset")
+      .length,
+    3
+  );
+  assert.equal(
+    sources.filter(
+      (source) => source.publication === "engine_private_definition"
+    ).length,
+    12
+  );
+  const definitionCoordinates = definitions.map((definition) =>
+    `${definition.schemaCoordinate.contractId}@${definition.schemaCoordinate.contractVersion}`
+  );
+  assert.deepEqual(definitionCoordinates, [...definitionCoordinates].sort());
+  for (const definition of definitions) {
+    const source = sourceByCoordinate.get(
+      `${definition.schemaCoordinate.contractId}@${definition.schemaCoordinate.contractVersion}`
+    );
+    assert.notEqual(source, undefined);
+    assert.equal(definition.schema, source.schema);
+    assert.deepEqual(definition.schemaCoordinate, {
+      contractId: source.contractId,
+      contractVersion: source.contractVersion,
+      contractDigest: definition.projectionWitness.projectionDigest,
+      schemaId: source.contractId,
+      schemaVersion: source.contractVersion,
+      schemaDigest: definition.projectionWitness.projectionDigest,
+      nativeLocator: source.sourceLocator
+    });
+    assert.deepEqual(
+      definition.projectionWitness.sourceLocator,
+      source.sourceLocator
+    );
+    assert.deepEqual(
+      definition.projectionWitness.namedCheckSource,
+      source.namedChecks
+    );
+  }
+  const publicContractIds = Object.values(CONSENSUS_PUBLIC_CONTRACT_FAMILY)
+    .map((definition) => definition.contractId);
+  const classifiedPublicContractIds = sources
+    .filter((source) => source.publication === "existing_public_asset")
+    .map((source) => source.contractId)
+    .sort();
+  const runtimeJoinContractIds = new Set(
+    definitions.map((definition) => definition.schemaCoordinate.contractId)
+  );
+  const runtimePublicContractIds = publicContractIds
+    .filter((contractId) => runtimeJoinContractIds.has(contractId))
+    .sort();
+  assert.deepEqual(runtimePublicContractIds, classifiedPublicContractIds);
+  assert.deepEqual(runtimePublicContractIds, [
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_subject.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_result.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.review_findings.contractId
+  ].sort());
+  const publicationOnlyContractIds = publicContractIds.filter(
+    (contractId) => !runtimeJoinContractIds.has(contractId)
+  );
+  assert.equal(publicationOnlyContractIds.length, 6);
+  assert.deepEqual(publicationOnlyContractIds, [
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_panel.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_reviewer_profile.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.review_rulings.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_round_policy.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.consensus_round_outcome.contractId,
+    CONSENSUS_PUBLIC_CONTRACT_FAMILY.ticket_consensus_projection.contractId
+  ]);
   assert.equal(projection.bases.length, 4);
   assert.equal(projection.engineInput.capabilities.length, 4);
 
@@ -401,11 +506,122 @@ test("T-270 admits the canonical T-252 Module through one neutral metadata order
           binding,
           rows.filter((row) => row !== omittedRow)
         ),
-        nativeDefinitions: definitions
+        nativeDefinitionRelations: relations
       }),
       /rows do not exactly cover Module symbolic Node containment/u
     );
   }
+
+  const extraRelation = SCENARIO_09_FIXTURE.relations[0];
+  assert.notEqual(extraRelation, undefined);
+  const firstRelation = relations[0];
+  assert.notEqual(firstRelation, undefined);
+  const nonSelectedRelationIndex = relations.findIndex((relation) =>
+    relation.symbolicSchemaRef === nonSelectedRow.symbolicSchemaRef &&
+    relation.contractId === nonSelectedRow.contractId &&
+    relation.contractVersion === nonSelectedRow.contractVersion
+  );
+  assert.notEqual(nonSelectedRelationIndex, -1);
+  const joinCases = [
+    {
+      kind: "missing",
+      nativeDefinitionRelations: relations.slice(0, -1),
+      expected: /native definition relation family cardinality differs/u
+    },
+    {
+      kind: "duplicate",
+      nativeDefinitionRelations: [...relations.slice(0, -1), firstRelation],
+      expected: /native definition relation family cardinality differs/u
+    },
+    {
+      kind: "extra/unused",
+      nativeDefinitionRelations: [...relations, extraRelation],
+      expected: /native definition relation family cardinality differs/u
+    },
+    {
+      kind: "nonselected substitution",
+      nativeDefinitionRelations: relations.map((relation, index) =>
+        index === nonSelectedRelationIndex ? extraRelation : relation
+      ),
+      expected: /native definition relation family cardinality differs/u
+    }
+  ];
+  for (const joinCase of joinCases) {
+    assert.throws(
+      () => projectM04RuntimeSchemaAdmission({
+        selectedExecutionBinding: binding,
+        nativeDefinitionRelations: joinCase.nativeDefinitionRelations
+      }),
+      joinCase.expected,
+      joinCase.kind
+    );
+  }
+
+  const targetRelation = relations[0];
+  assert.notEqual(targetRelation, undefined);
+  const targetSource = sourceByCoordinate.get(
+    `${targetRelation.contractId}@${targetRelation.contractVersion}`
+  );
+  assert.notEqual(targetSource, undefined);
+  const targetCoordinate = targetRelation.definition.schemaCoordinate;
+  const exactValueSourceClone = Object.freeze({ ...targetSource });
+  assert.throws(
+    () => bindM04RuntimeSchemaNativeDefinition({
+      source: exactValueSourceClone,
+      definition: targetRelation.definition
+    }),
+    /originating owner source row differs/u
+  );
+  async function assertRelabeledSourceRefuses(originalSource) {
+    const wrongDefinition = defineNativeContract({
+      identity: {
+        contractId: targetCoordinate.contractId,
+        contractVersion: targetCoordinate.contractVersion,
+        schemaId: targetCoordinate.schemaId,
+        schemaVersion: targetCoordinate.schemaVersion
+      },
+      source: await resolveSemanticBuildNativeSchemaSource(originalSource)
+    });
+    const relabeledSource = Object.freeze({
+      ...originalSource,
+      symbolicSchemaRef: targetSource.symbolicSchemaRef,
+      contractId: targetSource.contractId,
+      contractVersion: targetSource.contractVersion
+    });
+    assert.throws(
+      () => bindM04RuntimeSchemaNativeDefinition({
+        source: relabeledSource,
+        definition: wrongDefinition
+      }),
+      /originating owner source row differs/u
+    );
+  }
+  const anotherRuntimeSource = sources.find(
+    (source) => source.schema !== targetSource.schema
+  );
+  assert.notEqual(anotherRuntimeSource, undefined);
+  await assertRelabeledSourceRefuses(anotherRuntimeSource);
+  const publicationOnlySources = [
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.consensus_panel,
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.consensus_reviewer_profile,
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.review_rulings,
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.consensus_round_policy,
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.consensus_round_outcome,
+    CONSENSUS_PUBLIC_CONTRACT_SOURCES.ticket_consensus_projection
+  ];
+  for (const publicationOnlySource of publicationOnlySources) {
+    await assertRelabeledSourceRefuses(publicationOnlySource);
+  }
+  assert.throws(
+    () => projectM04RuntimeSchemaAdmission({
+      selectedExecutionBinding: binding,
+      nativeDefinitionRelations: [
+        Object.freeze({ ...firstRelation }),
+        ...relations.slice(1)
+      ]
+    }),
+    /unresolved or forged native definition relation/u
+  );
 });
 
 test("T-270 joins a complete multi-function Module then projects the selected non-Consensus Scenario-09 pair", () => {
@@ -597,7 +813,7 @@ test("T-270 admits an exact selected GraphFunction with no symbolic schema requi
   });
   const projection = projectM04RuntimeSchemaAdmission({
     selectedExecutionBinding: binding,
-    nativeDefinitions: value.definitions
+    nativeDefinitionRelations: value.relations
   });
   assert.deepEqual(projection.bases, []);
   assert.deepEqual(projection.engineInput.capabilities, []);
@@ -631,13 +847,13 @@ test("T-270 admits an exact selected GraphFunction with no symbolic schema requi
   );
   const runtimeOnlyProjection = projectM04RuntimeSchemaAdmission({
     selectedExecutionBinding: runtimeOnlyBinding,
-    nativeDefinitions: []
+    nativeDefinitionRelations: []
   });
   assert.deepEqual(runtimeOnlyProjection.bases, []);
   assert.deepEqual(runtimeOnlyProjection.engineInput.capabilities, []);
 });
 
-test("T-270 contracts repeated schema use without duplicating native definition authority", () => {
+test("T-270 rejects one contract key assigned across heterogeneous symbolic schemas", () => {
   const value = SCENARIO_09_FIXTURE;
   const sharedRows = value.rows.map((row) => ({
     ...row,
@@ -645,17 +861,102 @@ test("T-270 contracts repeated schema use without duplicating native definition 
     contractVersion: value.definitions[0].schemaCoordinate.contractVersion
   }));
   const binding = bindingWithMetadataRows(value.binding, sharedRows);
+  assert.throws(
+    () => projectM04RuntimeSchemaAdmission({
+      selectedExecutionBinding: binding,
+      nativeDefinitionRelations: [value.relations[0]]
+    }),
+    /native definition relation family cardinality differs/u
+  );
+});
+
+test("T-270 contracts repeated rows only over the same bound symbolic schema relation", () => {
+  const value = SCENARIO_09_FIXTURE;
+  const selected = value.binding.graphFunction;
+  assert.equal(selected.template.kind, "inline_graph");
+  const repeatedNode = constructNode({
+    name: "Scenario09RepeatedObservation",
+    schema: selected.inputs[0].schema,
+    markov: ["boundary://t270/scenario09-repeated"],
+    assetSurface: { kind: "t270_repeated_observation" },
+    tags: ["t270", "scenario09-lab", "repeated"]
+  });
+  const sourceGraph = selected.template.graph;
+  const graph = constructGraph({
+    name: sourceGraph.name,
+    inputs: sourceGraph.inputs,
+    outputs: sourceGraph.outputs,
+    nodes: [...sourceGraph.nodes, repeatedNode],
+    vectors: sourceGraph.vectors,
+    contexts: sourceGraph.contexts,
+    rules: sourceGraph.rules,
+    effects: sourceGraph.effects,
+    tags: sourceGraph.tags
+  });
+  const graphFunction = constructGraphFunction({
+    name: selected.name,
+    environment: constructEnvRef({
+      requires: selected.environment.requires,
+      provides: selected.environment.provides,
+      carries: [...selected.environment.carries, repeatedNode]
+    }),
+    inputs: selected.inputs,
+    outputs: selected.outputs,
+    template: constructTemplateRef({
+      kind: "inline_graph",
+      ref: selected.template.ref,
+      graph,
+      version: selected.template.version
+    }),
+    effects: selected.effects,
+    declarations: selected.declarations,
+    tags: selected.tags
+  });
+  const module = Object.freeze({
+    ...value.binding.module,
+    graphs: Object.freeze(value.binding.module.graphs.map((candidate) =>
+      candidate.id === sourceGraph.id ? graph : candidate
+    )),
+    graphFunctions: Object.freeze(
+      value.binding.module.graphFunctions.map((candidate) =>
+        candidate.id === selected.id ? graphFunction : candidate
+      )
+    )
+  });
+  const sourceRelation = value.relations[0];
+  assert.notEqual(sourceRelation, undefined);
+  const rows = value.rows.map((row) =>
+    row.graphFunctionId === selected.id
+      ? { ...row, graphFunctionId: graphFunction.id }
+      : row
+  );
+  rows.push({
+    graphFunctionId: graphFunction.id,
+    nodeRef: repeatedNode.id,
+    symbolicSchemaRef: sourceRelation.symbolicSchemaRef,
+    contractId: sourceRelation.contractId,
+    contractVersion: sourceRelation.contractVersion
+  });
+  const binding = bindingWithMetadataRows(Object.freeze({
+    ...value.binding,
+    graphFunction,
+    graphFunctionHandle: graphFunction.name,
+    graphFunctionId: graphFunction.id,
+    graphFunctionDigest: stableSha256Digest(graphFunction),
+    module,
+    moduleDigest: stableSha256Digest(module)
+  }), rows);
   const projection = projectM04RuntimeSchemaAdmission({
     selectedExecutionBinding: binding,
-    nativeDefinitions: [value.definitions[0]]
+    nativeDefinitionRelations: value.relations
   });
-  assert.equal(projection.bases.length, 3);
-  assert.equal(
-    new Set(projection.bases.map((basis) =>
-      `${basis.contractId}@${basis.contractVersion}`
-    )).size,
-    1
+  const repeatedBases = projection.bases.filter((basis) =>
+    basis.symbolicSchemaRef === sourceRelation.symbolicSchemaRef &&
+    basis.contractId === sourceRelation.contractId &&
+    basis.contractVersion === sourceRelation.contractVersion
   );
+  assert.equal(repeatedBases.length, 2);
+  assert.equal(value.relations.length, 5);
 });
 
 test("T-270 refuses metadata rows outside the exact Module GraphFunction and Node schema topology", () => {
@@ -688,7 +989,7 @@ test("T-270 refuses metadata rows outside the exact Module GraphFunction and Nod
     assert.throws(
       () => projectM04RuntimeSchemaAdmission({
         selectedExecutionBinding: bindingWithMetadataRows(value.binding, rows),
-        nativeDefinitions: value.definitions
+        nativeDefinitionRelations: value.relations
       }),
       candidate.expected
     );
@@ -731,13 +1032,13 @@ test("T-270 refuses one contained Node identity with divergent definitions", () 
   assert.throws(
     () => projectM04RuntimeSchemaAdmission({
       selectedExecutionBinding: binding,
-      nativeDefinitions: value.definitions
+      nativeDefinitionRelations: value.relations
     }),
     /contained Node identity differs/u
   );
 });
 
-test("T-270 refuses malformed flat metadata and non-exact native definition joins", () => {
+test("T-270 refuses malformed flat metadata and non-exact native definition joins", async () => {
   const value = SCENARIO_09_FIXTURE;
   assert.throws(
     () => admitM04RuntimeSchemaAdmissionMetadataRows([{ ...value.rows[0],
@@ -754,35 +1055,54 @@ test("T-270 refuses malformed flat metadata and non-exact native definition join
   assert.throws(
     () => projectM04RuntimeSchemaAdmission({
       selectedExecutionBinding: value.binding,
-      nativeDefinitions: [value.definitions[0]]
+      nativeDefinitionRelations: [value.relations[0]]
     }),
     /family cardinality differs/u
   );
-  const extraDefinition = definition("extra", fixtureSources.request);
-  assert.throws(
-    () => projectM04RuntimeSchemaAdmission({
-      selectedExecutionBinding: value.binding,
-      nativeDefinitions: [...value.definitions, extraDefinition]
-    }),
-    /family cardinality differs/u
+  const extra = await relatedDefinition(
+    "extra",
+    "schema://t270/scenario09/extra",
+    fixtureSourceRows.request
   );
   assert.throws(
     () => projectM04RuntimeSchemaAdmission({
       selectedExecutionBinding: value.binding,
-      nativeDefinitions: [value.definitions[0], value.definitions[0]]
+      nativeDefinitionRelations: [...value.relations, extra.relation]
     }),
     /family cardinality differs/u
   );
   assert.throws(
     () => projectM04RuntimeSchemaAdmission({
       selectedExecutionBinding: value.binding,
-      nativeDefinitions: [
-        { ...value.definitions[0] },
-        value.definitions[1],
-        value.definitions[2]
+      nativeDefinitionRelations: [value.relations[0], value.relations[0]]
+    }),
+    /family cardinality differs/u
+  );
+  assert.throws(
+    () => projectM04RuntimeSchemaAdmission({
+      selectedExecutionBinding: value.binding,
+      nativeDefinitionRelations: [
+        { ...value.relations[0] },
+        value.relations[1],
+        value.relations[2]
       ]
     }),
-    /unresolved or forged definition carrier/u
+    /unresolved or forged native definition relation/u
+  );
+  const divergentCarrier = await relatedDefinition(
+    "observation",
+    "schema://t270/scenario09/observation-alias",
+    fixtureSourceRows.request
+  );
+  assert.throws(
+    () => projectM04RuntimeSchemaAdmission({
+      selectedExecutionBinding: value.binding,
+      nativeDefinitionRelations: [
+        value.relations[0],
+        divergentCarrier.relation
+      ]
+    }),
+    /contract key has divergent native definition carrier/u
   );
   assert.throws(
     () => admitRuntimeSchemaAdmissionCapabilityBasis({

@@ -5,9 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
-- phase_status: t274a_closed_t274b1_private_definition_amendment_accepted
-- review_status: t274a_and_t274b1_design_independently_reviewed_accepted
-- proof_status: t274a_exact_basis_focused_prime_lint_and_pack_green
+- phase_status: t274a_and_t274b1_closed_t274b2_waiting_for_t270
+- review_status: t274b1_implementation_independently_reviewed_accepted
+- proof_status: t274b1_exact_join_focused_prime_lint_publication_and_pack_green
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - delivery_phase: DS-4
 - change_intent: >-
@@ -76,6 +76,9 @@
 - t274b_private_definition_amendment_review_and_acceptance_ref: >-
     .ai-workspace/comments/codex/
     20260718T032220Z_REVIEW_DECISION_t274b_private_definition_delivery.md
+- t274b1_implementation_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T064000Z_SELF_REVIEW_t274b1_exact_native_definition_delivery.md
 - repaired_phase_split_review_ref: >-
     .ai-workspace/comments/codex/
     20260716T105629Z_REVIEW_t274_phase_split_design.md
@@ -241,6 +244,8 @@ that suite across unrelated concurrent T-281 changes. T-274A is closed.
 T-274 remains active. The exact T-274B1 private-definition delivery amendment
 is independently reviewed and accepted at digest
 `578d0487a460ae6920348e5031e059475dc9d71cca57d8fbac418cf2ed749f05` under
-standing delegated F_H authority. T-274B1 implementation remains fenced until
-the repaired T-252 implementation closes. T-274B2 remains fenced behind T-281
+standing delegated F_H authority. The repaired T-252 implementation is closed,
+and T-274B1 now derives the exact 15 process-local source-definition relations,
+proves the total Module-wide join, and is independently accepted. It publishes
+no new public identity and unblocks T-270. T-274B2 remains fenced behind T-281
 P1 and accepted T-270 runtime integration.

@@ -120,6 +120,8 @@ const RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_AUTHORITY =
   new WeakMap<object, true>();
 const RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_MODULE =
   new WeakMap<object, object>();
+const RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_ROW =
+  new WeakMap<object, OwnerNativeContractSourceRow>();
 const RESOLVED_SEMANTIC_BUILD_MODULE_DIGESTS = new Map<
   string,
   `sha256:${string}`
@@ -214,6 +216,25 @@ function resolvedOwnerNativeContractSourceState<
     );
   }
   return source[RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_STATE_READER]();
+}
+
+/** @internal */
+export function assertResolvedOwnerNativeContractSourceOriginatesFrom(
+  source: object,
+  expectedSourceRow: OwnerNativeContractSourceRow
+): void {
+  if (!RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_AUTHORITY.has(source)) {
+    throw new TypeError(
+      "native contract source: unresolved or forged source carrier"
+    );
+  }
+  if (
+    RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_ROW.get(source) !== expectedSourceRow
+  ) {
+    throw new TypeError(
+      "native contract source: originating owner source row differs"
+    );
+  }
 }
 
 function resolveOwnDataPath(
@@ -382,6 +403,7 @@ export async function resolveSemanticBuildNativeSchemaSource<
   });
   RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_AUTHORITY.set(carrier, true);
   RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_MODULE.set(carrier, sourceModule);
+  RESOLVED_OWNER_NATIVE_CONTRACT_SOURCE_ROW.set(carrier, input);
   return carrier;
 }
 

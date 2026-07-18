@@ -28,9 +28,13 @@ import {
   stableJsonEquals,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import type {
+  OwnerNativeContractSourceRow
+} from "../../../shared/validation/canonical_native_schema_projector.js";
 import {
   admitNative,
   assertNativeContractDefinitionCarrier,
+  assertNativeContractDefinitionOriginatesFromSourceRow,
   type NativeContractDefinition
 } from "./native_contract_phase_a.js";
 
@@ -39,6 +43,29 @@ export interface M04RuntimeSchemaAdmissionProjection {
   readonly bases: readonly RuntimeSchemaAdmissionCapabilityBasis[];
   readonly engineInput: RuntimeSchemaAdmissionEngineInput;
 }
+
+/** @internal */
+export interface M04RuntimeSchemaNativeDefinitionSource<
+  Schema extends v.GenericSchema = v.GenericSchema
+> extends OwnerNativeContractSourceRow<Schema> {
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly contractVersion: string;
+}
+
+/** @internal */
+export interface M04RuntimeSchemaNativeDefinitionRelation<
+  Schema extends v.GenericSchema = v.GenericSchema
+> {
+  readonly kind: "m04_runtime_schema_native_definition_relation";
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly contractVersion: string;
+  readonly definition: NativeContractDefinition<Schema>;
+}
+
+const M04_RUNTIME_SCHEMA_NATIVE_DEFINITION_RELATION_AUTHORITY =
+  new WeakSet<object>();
 
 const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/u;
 
@@ -98,6 +125,14 @@ function contractKey(input: {
   readonly contractVersion: string;
 }): string {
   return `${input.contractId}@${input.contractVersion}`;
+}
+
+function nativeDefinitionRelationKey(input: {
+  readonly symbolicSchemaRef: string;
+  readonly contractId: string;
+  readonly contractVersion: string;
+}): string {
+  return `${input.symbolicSchemaRef}\u0000${contractKey(input)}`;
 }
 
 export function admitM04RuntimeSchemaAdmissionMetadataRows(
@@ -278,6 +313,76 @@ function assertNativeDefinitionWitness(
   }
 }
 
+function assertM04RuntimeSchemaNativeDefinitionRelation(
+  input: unknown
+): asserts input is M04RuntimeSchemaNativeDefinitionRelation {
+  if (
+    typeof input !== "object" ||
+    input === null ||
+    !M04_RUNTIME_SCHEMA_NATIVE_DEFINITION_RELATION_AUTHORITY.has(input)
+  ) {
+    throw new TypeError(
+      "runtime schema admission: unresolved or forged native definition relation"
+    );
+  }
+}
+
+/** @internal */
+export function bindM04RuntimeSchemaNativeDefinition<
+  Schema extends v.GenericSchema
+>(input: {
+  readonly source: M04RuntimeSchemaNativeDefinitionSource<Schema>;
+  readonly definition: NativeContractDefinition<Schema>;
+}): M04RuntimeSchemaNativeDefinitionRelation<Schema> {
+  exactOwnDataFields(
+    input,
+    ["source", "definition"],
+    "runtime schema native definition relation"
+  );
+  assertNativeContractDefinitionCarrier(input.definition);
+  assertNativeContractDefinitionOriginatesFromSourceRow(
+    input.definition,
+    input.source
+  );
+  assertNativeDefinitionWitness(input.definition);
+  const coordinate = input.definition.schemaCoordinate;
+  const witness = input.definition.projectionWitness;
+  if (
+    input.source.symbolicSchemaRef.length === 0 ||
+    input.source.contractId.length === 0 ||
+    input.source.contractVersion.length === 0 ||
+    coordinate.contractId !== input.source.contractId ||
+    coordinate.contractVersion !== input.source.contractVersion
+  ) {
+    throw new TypeError(
+      "runtime schema native definition relation: source coordinate differs"
+    );
+  }
+  if (input.definition.schema !== input.source.schema) {
+    throw new TypeError(
+      "runtime schema native definition relation: source schema differs"
+    );
+  }
+  if (
+    !stableJsonEquals(witness.sourceLocator, input.source.sourceLocator) ||
+    !stableJsonEquals(coordinate.nativeLocator, input.source.sourceLocator) ||
+    !stableJsonEquals(witness.namedCheckSource, input.source.namedChecks)
+  ) {
+    throw new TypeError(
+      "runtime schema native definition relation: source witness differs"
+    );
+  }
+  const relation = Object.freeze({
+    kind: "m04_runtime_schema_native_definition_relation" as const,
+    symbolicSchemaRef: input.source.symbolicSchemaRef,
+    contractId: input.source.contractId,
+    contractVersion: input.source.contractVersion,
+    definition: input.definition
+  });
+  M04_RUNTIME_SCHEMA_NATIVE_DEFINITION_RELATION_AUTHORITY.add(relation);
+  return relation;
+}
+
 function capabilityBasis(input: {
   readonly binding: CatalogExecutionBinding;
   readonly row: RuntimeSchemaAdmissionMetadataRow;
@@ -354,12 +459,12 @@ function capabilityBasis(input: {
  */
 export function projectM04RuntimeSchemaAdmission(input: {
   readonly selectedExecutionBinding: CatalogExecutionBinding;
-  readonly nativeDefinitions:
-    readonly NativeContractDefinition<v.GenericSchema>[];
+  readonly nativeDefinitionRelations:
+    readonly M04RuntimeSchemaNativeDefinitionRelation<v.GenericSchema>[];
 }): M04RuntimeSchemaAdmissionProjection {
   exactOwnDataFields(
     input,
-    ["selectedExecutionBinding", "nativeDefinitions"],
+    ["selectedExecutionBinding", "nativeDefinitionRelations"],
     "runtime schema admission projection"
   );
   assertSelectedExecutionBinding(input.selectedExecutionBinding);
@@ -371,40 +476,59 @@ export function projectM04RuntimeSchemaAdmission(input: {
     moduleRows
   );
   const selectedRows = moduleRows.filter(
-    (row) => row.graphFunctionId === input.selectedExecutionBinding.graphFunctionId
+    (row) =>
+      row.graphFunctionId === input.selectedExecutionBinding.graphFunctionId
   );
-  const definitionsByKey = new Map<
+  const relationsByKey = new Map<
     string,
-    NativeContractDefinition<v.GenericSchema>[]
+    M04RuntimeSchemaNativeDefinitionRelation<v.GenericSchema>[]
   >();
-  for (const definition of input.nativeDefinitions) {
-    assertNativeContractDefinitionCarrier(definition);
-    assertNativeDefinitionWitness(definition);
-    const key = contractKey(definition.schemaCoordinate);
-    const existing = definitionsByKey.get(key) ?? [];
-    definitionsByKey.set(key, [...existing, definition]);
+  const definitionsByContractKey = new Map<
+    string,
+    NativeContractDefinition<v.GenericSchema>
+  >();
+  for (const relation of input.nativeDefinitionRelations) {
+    assertM04RuntimeSchemaNativeDefinitionRelation(relation);
+    const coordinateKey = contractKey(relation);
+    const existingDefinition = definitionsByContractKey.get(coordinateKey);
+    if (
+      existingDefinition !== undefined &&
+      existingDefinition !== relation.definition
+    ) {
+      throw new TypeError(
+        "runtime schema admission: contract key has divergent native definition carrier"
+      );
+    }
+    definitionsByContractKey.set(coordinateKey, relation.definition);
+    const key = nativeDefinitionRelationKey(relation);
+    const existing = relationsByKey.get(key) ?? [];
+    relationsByKey.set(key, [...existing, relation]);
   }
-  const requiredContractKeys = new Set(moduleRows.map(contractKey));
+  const requiredRelationKeys = new Set(
+    moduleRows.map(nativeDefinitionRelationKey)
+  );
   if (
-    input.nativeDefinitions.length !== requiredContractKeys.size ||
-    definitionsByKey.size !== requiredContractKeys.size ||
-    [...definitionsByKey.keys()].some(
-      (key) => !requiredContractKeys.has(key)
+    input.nativeDefinitionRelations.length !== requiredRelationKeys.size ||
+    relationsByKey.size !== requiredRelationKeys.size ||
+    [...relationsByKey.keys()].some(
+      (key) => !requiredRelationKeys.has(key)
     )
   ) {
     throw new TypeError(
-      "runtime schema admission: native definition family cardinality differs"
+      "runtime schema admission: native definition relation family cardinality differs"
     );
   }
 
   const capabilities = selectedRows.map((row) => {
-    const definitions = definitionsByKey.get(contractKey(row)) ?? [];
-    const definition = definitions[0];
-    if (definitions.length !== 1 || definition === undefined) {
+    const relations =
+      relationsByKey.get(nativeDefinitionRelationKey(row)) ?? [];
+    const relation = relations[0];
+    if (relations.length !== 1 || relation === undefined) {
       throw new TypeError(
-        "runtime schema admission: flat contract key has no exact definition"
+        "runtime schema admission: flat symbolic/contract key has no exact definition relation"
       );
     }
+    const definition = relation.definition;
     const basis = capabilityBasis({
       binding: input.selectedExecutionBinding,
       row,
