@@ -72,6 +72,10 @@ import {
   type RuntimeBindingSlotClass
 } from "./instruction_assembly.js";
 import type { AbgFnRegimeRole } from "./fn_composition.js";
+import { pluginSelectionFromDeclarationAttrs } from "./plugin_selection.js";
+import type { AdmittedTraversalStageResultAuthority } from "./traversal_execution_contract.js";
+import type { AdmittedRunInvokeExecutionIngress } from "./one_surface_execution_ingress.js";
+import type { EnginePluginContract } from "./plugins.js";
 
 export const EXECUTION_CONTEXT_PROJECTION_RULE_KIND =
   "gtl.execution_context_projection" as const;
@@ -113,6 +117,15 @@ export const EXECUTION_CONTEXT_VALUE_KIND_VALUES = Object.freeze([
 export type ExecutionContextValueKind =
   (typeof EXECUTION_CONTEXT_VALUE_KIND_VALUES)[number];
 
+export type ExecutionContextProjectionSource =
+  | Readonly<{
+      readonly kind: "admitted_source_carrier";
+    }>
+  | Readonly<{
+      readonly kind: "derived_runtime_projection";
+      readonly projectionClass: "fp_execution_context";
+    }>;
+
 export interface ExecutionContextFieldRowDeclaration {
   readonly slot: ExecutionContextSlot;
   readonly fieldPath: string;
@@ -124,6 +137,7 @@ export interface ExecutionContextProjectionDeclaration {
   readonly projectionRef: string;
   readonly version: string;
   readonly sourceNodeRef: string;
+  readonly source: ExecutionContextProjectionSource;
   readonly fieldRows: readonly ExecutionContextFieldRowDeclaration[];
   readonly policyRefs: readonly string[];
 }
@@ -191,8 +205,47 @@ export interface CompiledExecutionContextFieldRow
   extends ExecutionContextFieldRowDeclaration {
   readonly projectionRef: string;
   readonly sourceNodeRef: string;
+  readonly source: ExecutionContextProjectionSource;
   readonly sourceSchemaRef: string;
   readonly sourceTypeRef: string | null;
+  readonly sourceDeclarationModuleRef: string;
+  readonly sourceDeclarationModuleDigest: string;
+}
+
+/** @internal Module-local schema identity used by declaration companions. */
+export const DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF =
+  "abg.schema.execution-context-projection@5" as const;
+
+interface RuntimeDerivedExecutionAuthority {
+  readonly ingress: AdmittedRunInvokeExecutionIngress;
+  readonly workerProfile: Readonly<{
+    readonly selectionRef: string;
+    readonly selectionDigest: `sha256:${string}`;
+    readonly configurationDigest: `sha256:${string}`;
+  }>;
+  readonly selectedPluginContract: EnginePluginContract;
+  readonly selectedResultAuthority: AdmittedTraversalStageResultAuthority;
+}
+
+interface DerivedExecutionContextProjection {
+  readonly kind: "derived_execution_context_projection";
+  readonly projectionClass: "fp_execution_context";
+  readonly sourceNodeRef: string;
+  readonly sourceSchemaRef: typeof DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF;
+  readonly selectedProgramBindingDigest: `sha256:${string}`;
+  readonly selectedStageDigest: `sha256:${string}`;
+  readonly declarationClosureDigest: `sha256:${string}`;
+  readonly dispatchPluginRef: string;
+  readonly dispatchPluginContractDigest: `sha256:${string}`;
+  readonly values: Readonly<Record<string, unknown>>;
+  readonly authorityEvidenceRefs: readonly string[];
+  readonly carrierRef: string;
+  readonly carrierDigest: `sha256:${string}`;
+  readonly admissionRef: string;
+  readonly admissionDigest: `sha256:${string}`;
+  readonly basisDigest: `sha256:${string}`;
+  readonly projectionRef: string;
+  readonly projectionDigest: `sha256:${string}`;
 }
 
 export interface CompiledInstructionProtocol {
@@ -291,6 +344,8 @@ export interface AdmittedExecutionContextValues {
   readonly interactionChoiceRefs: readonly string[];
   readonly sourceCarrierRefs: readonly string[];
   readonly sourceCarrierDigests: readonly `sha256:${string}`[];
+  readonly derivedProjectionRef: string | null;
+  readonly derivedProjectionDigest: `sha256:${string}` | null;
   readonly valuesDigest: `sha256:${string}`;
 }
 
@@ -526,12 +581,16 @@ function profileVersion(value: unknown, label: string): string {
   return version;
 }
 
-function isPlainRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
   if (value === null || typeof value !== "object" || Array.isArray(value)) {
     return false;
   }
   const prototype: unknown = Object.getPrototypeOf(value);
   return prototype === Object.prototype || prototype === null;
+}
+
+function isUnknownArray(value: unknown): value is readonly unknown[] {
+  return Array.isArray(value);
 }
 
 function assertKnownKeys(
@@ -724,7 +783,12 @@ function fieldPath(value: unknown, label: string): string {
   if (
     segments.some(
       (segment) =>
-        segment.length === 0 || segment === "*" || /^\d+$/u.test(segment)
+        segment.length === 0 ||
+        segment === "*" ||
+        segment === "__proto__" ||
+        segment === "prototype" ||
+        segment === "constructor" ||
+        /^\d+$/u.test(segment)
     )
   ) {
     throw new TypeError(`${label} must be a dot-separated own-property path`);
@@ -768,6 +832,30 @@ function fieldRows(value: unknown): readonly ExecutionContextFieldRowDeclaration
       });
     })
   );
+}
+
+function executionContextProjectionSource(
+  value: unknown
+): ExecutionContextProjectionSource {
+  const label = "Rule.config.source";
+  if (!isPlainRecord(value)) {
+    throw new TypeError(`${label} must be an object`);
+  }
+  const kind = assertNonEmpty(value["kind"], `${label}.kind`);
+  if (kind === "admitted_source_carrier") {
+    assertKnownKeys(value, ["kind"], label);
+    return Object.freeze({ kind });
+  }
+  if (kind === "derived_runtime_projection") {
+    assertKnownKeys(value, ["kind", "projection_class"], label);
+    const projectionClass = allowedValue(
+      assertNonEmpty(value["projection_class"], `${label}.projection_class`),
+      ["fp_execution_context"] as const,
+      `${label}.projection_class`
+    );
+    return Object.freeze({ kind, projectionClass });
+  }
+  throw new TypeError(`${label}.kind has unsupported value ${JSON.stringify(kind)}`);
 }
 
 function protocolSections(
@@ -898,6 +986,15 @@ export function constructExecutionContextProjectionRule(
           assertNonEmpty(input.sourceNodeRef, "sourceNodeRef")
         ),
         jsonEntry(
+          "source",
+          input.source.kind === "admitted_source_carrier"
+            ? { kind: input.source.kind }
+            : {
+                kind: input.source.kind,
+                projection_class: input.source.projectionClass
+              }
+        ),
+        jsonEntry(
           "field_rows",
           input.fieldRows.map((row) => ({
             slot: row.slot,
@@ -996,6 +1093,7 @@ export function admitExecutionContextProjectionRule(
     [
       "version",
       "source_node_ref",
+      "source",
       "field_rows",
       "policy_refs"
     ],
@@ -1009,6 +1107,7 @@ export function admitExecutionContextProjectionRule(
       "ExecutionContextProjectionRule.config.version"
     ),
     sourceNodeRef: scalarConfig(rule.config, "source_node_ref") ?? "",
+    source: executionContextProjectionSource(jsonConfig(rule.config, "source")),
     fieldRows: rows,
     policyRefs: stringListConfig(rule.config, "policy_refs")
   });
@@ -1154,6 +1253,108 @@ export function constructAdmittedInvocationCarrierSet(
     carriers: frozen,
     carrierSetDigest: stableSha256Digest(frozen)
   });
+}
+
+type DerivedExecutionContextProjectionBasis = Pick<
+  DerivedExecutionContextProjection,
+  | "kind"
+  | "projectionClass"
+  | "sourceNodeRef"
+  | "sourceSchemaRef"
+  | "selectedProgramBindingDigest"
+  | "selectedStageDigest"
+  | "declarationClosureDigest"
+  | "dispatchPluginRef"
+  | "dispatchPluginContractDigest"
+  | "values"
+  | "authorityEvidenceRefs"
+>;
+
+function sealDerivedExecutionContextProjection(
+  basis: DerivedExecutionContextProjectionBasis
+): DerivedExecutionContextProjection {
+  const basisDigest = stableSha256Digest(basis);
+  const projectionRef =
+    `abg://execution-context-projection/${basisDigest.slice("sha256:".length)}`;
+  const projectionDigest = stableSha256Digest({ basis, basisDigest, projectionRef });
+  const carrierDigest = stableSha256Digest(basis.values);
+  const carrierRef =
+    `abg://execution-context-carrier/${carrierDigest.slice("sha256:".length)}`;
+  const admissionRef =
+    `abg://execution-context-admission/${projectionDigest.slice("sha256:".length)}`;
+  const admissionDigest = stableSha256Digest({
+    projectionRef,
+    projectionDigest,
+    carrierRef,
+    carrierDigest,
+    sourceSchemaRef: basis.sourceSchemaRef
+  });
+  return Object.freeze({
+    ...basis,
+    carrierRef,
+    carrierDigest,
+    admissionRef,
+    admissionDigest,
+    basisDigest,
+    projectionRef,
+    projectionDigest
+  });
+}
+
+function admitDerivedExecutionContextProjection(
+  value: unknown
+): DerivedExecutionContextProjection {
+  if (!isPlainRecord(value)) {
+    throw new TypeError("DerivedExecutionContextProjection must be an object");
+  }
+  const values = value["values"];
+  if (
+    !isPlainRecord(values) ||
+    value["kind"] !== "derived_execution_context_projection" ||
+    value["projectionClass"] !== "fp_execution_context" ||
+    value["sourceSchemaRef"] !== DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF
+  ) {
+    throw new TypeError("DerivedExecutionContextProjection basis is malformed");
+  }
+  const expected = sealDerivedExecutionContextProjection({
+    kind: "derived_execution_context_projection",
+    projectionClass: "fp_execution_context",
+    sourceNodeRef: assertNonEmpty(value["sourceNodeRef"], "sourceNodeRef"),
+    sourceSchemaRef: DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF,
+    selectedProgramBindingDigest: assertDigest(
+      value["selectedProgramBindingDigest"],
+      "selectedProgramBindingDigest"
+    ),
+    selectedStageDigest: assertDigest(
+      value["selectedStageDigest"],
+      "selectedStageDigest"
+    ),
+    declarationClosureDigest: assertDigest(
+      value["declarationClosureDigest"],
+      "declarationClosureDigest"
+    ),
+    dispatchPluginRef: assertNonEmpty(
+      value["dispatchPluginRef"],
+      "dispatchPluginRef"
+    ),
+    dispatchPluginContractDigest: assertDigest(
+      value["dispatchPluginContractDigest"],
+      "dispatchPluginContractDigest"
+    ),
+    values,
+    authorityEvidenceRefs: freezeUniqueStrings(
+      value["authorityEvidenceRefs"],
+      "authorityEvidenceRefs"
+    )
+  });
+  if (
+    !stableJsonEquals(value, expected)
+  ) {
+    throw new TypeError(
+      "DerivedExecutionContextProjection identity does not match its canonical basis"
+    );
+  }
+  return expected;
 }
 
 function repairAffordance(
@@ -1649,7 +1850,26 @@ export function catalogExecutionBindingDeclaresExecutionContext(input: {
   );
 }
 
-function boundModuleNodes(module: Module): readonly Node[] {
+function recordBoundModuleNode(input: {
+  readonly module: Module;
+  readonly byId: Map<string, Node>;
+  readonly node: Node;
+  readonly path: string;
+}): void {
+  const existing = input.byId.get(input.node.id);
+  if (existing !== undefined && !stableJsonEquals(existing, input.node)) {
+    throw new ExecutionContextCompilationError({
+      diagnosticId: "execution-context-bound-module-declaration-invalid",
+      path: input.path,
+      expectedRelation: "one exact Node value per local ref",
+      actualRelation: `conflicting Node identity ${input.node.id}`,
+      evidenceRefs: [input.module.name, input.node.id]
+    });
+  }
+  input.byId.set(input.node.id, input.node);
+}
+
+function graphFunctionHostedModuleNodes(module: Module): readonly Node[] {
   const byId = new Map<string, Node>();
   for (const graphFunction of module.graphFunctions) {
     const nodes = [
@@ -1660,20 +1880,77 @@ function boundModuleNodes(module: Module): readonly Node[] {
         : [])
     ];
     for (const node of nodes) {
-      const existing = byId.get(node.id);
-      if (existing !== undefined && !stableJsonEquals(existing, node)) {
-        throw new ExecutionContextCompilationError({
-          diagnosticId: "execution-context-bound-module-declaration-invalid",
-          path: `$.declarationModule[${JSON.stringify(module.name)}].nodes`,
-          expectedRelation: "one exact Node value per local ref",
-          actualRelation: `conflicting Node identity ${node.id}`,
-          evidenceRefs: [module.name, node.id]
-        });
-      }
-      byId.set(node.id, node);
+      recordBoundModuleNode({
+        module,
+        byId,
+        node,
+        path: `$.declarationModule[${JSON.stringify(module.name)}].graphFunctions.nodes`
+      });
     }
   }
   return Object.freeze([...byId.values()]);
+}
+
+function boundModuleNodes(module: Module): readonly Node[] {
+  const byId = new Map<string, Node>();
+  for (const graph of module.graphs) {
+    for (const node of graph.nodes) {
+      recordBoundModuleNode({
+        module,
+        byId,
+        node,
+        path: `$.declarationModule[${JSON.stringify(module.name)}].graphs.nodes`
+      });
+    }
+  }
+  for (const node of graphFunctionHostedModuleNodes(module)) {
+    recordBoundModuleNode({
+      module,
+      byId,
+      node,
+      path: `$.declarationModule[${JSON.stringify(module.name)}].graphFunctions.nodes`
+    });
+  }
+  return Object.freeze([...byId.values()]);
+}
+
+function moduleWorkInterfaceNodeRefs(module: Module): ReadonlySet<string> {
+  const refs = new Set<string>();
+  const include = (nodes: readonly Node[]): void => {
+    for (const node of nodes) refs.add(node.id);
+  };
+  const includeGraph = (graph: Module["graphs"][number]): void => {
+    include(graph.inputs);
+    include(graph.outputs);
+    for (const vector of graph.vectors) {
+      include(vector.source);
+      refs.add(vector.target.id);
+    }
+  };
+  const includeGraphFunction = (graphFunction: GraphFunction): void => {
+    include(graphFunction.inputs);
+    include(graphFunction.outputs);
+    include(graphFunction.environment.requires);
+    include(graphFunction.environment.provides);
+    include(graphFunction.environment.carries);
+    if (graphFunction.template.kind === "inline_graph") {
+      includeGraph(graphFunction.template.graph);
+    }
+  };
+  for (const graph of module.graphs) includeGraph(graph);
+  for (const graphFunction of module.graphFunctions) {
+    includeGraphFunction(graphFunction);
+  }
+  for (const boundary of module.refinementBoundaries) {
+    include(boundary.inputs);
+    include(boundary.outputs);
+  }
+  for (const family of module.candidateFamilies) {
+    include(family.inputs);
+    include(family.outputs);
+    for (const candidate of family.candidates) includeGraphFunction(candidate);
+  }
+  return refs;
 }
 
 function assertInstructionAssetSurface(surface: AssetSurface, nodeRef: string): void {
@@ -1790,27 +2067,65 @@ function compileDeclarationProfiles(input: {
           });
         }
         projectionRefs.add(declaration.projectionRef);
-        const sourceNodes = selectedInputNodes.filter(
-          (node) => node.id === declaration.sourceNodeRef
-        );
-        const sourceNode = sourceNodes[0];
-        if (sourceNodes.length === 0) {
-          continue;
+        let sourceNode: Node | undefined;
+        if (declaration.source.kind === "admitted_source_carrier") {
+          const sourceNodes = selectedInputNodes.filter(
+            (node) => node.id === declaration.sourceNodeRef
+          );
+          sourceNode = sourceNodes[0];
+          if (sourceNodes.length === 0) {
+            continue;
+          }
+          if (
+            sourceNodes.length !== 1 ||
+            sourceNode === undefined ||
+            !input.programBinding.orderedSourceNodeContractKeys.includes(
+              nodeContractKey(sourceNode)
+            )
+          ) {
+            throw new ExecutionContextCompilationError({
+              diagnosticId: "execution-context-projection-source-invalid",
+              path: `$.projection[${JSON.stringify(declaration.projectionRef)}].sourceNodeRef`,
+              expectedRelation: "one exact selected C-program input Node",
+              actualRelation: "source Node, schema, type, or ordered interface differs",
+              evidenceRefs: [declaration.sourceNodeRef, input.programBinding.bindingDigest]
+            });
+          }
+        } else {
+          if (input.selectedRegime !== "F_P") {
+            continue;
+          }
+          const moduleNodes = boundModuleNodes(binding.module).filter(
+            (node) => node.id === declaration.sourceNodeRef
+          );
+          sourceNode = moduleNodes[0];
+          const owningModuleWorkInterfaceRefs = moduleWorkInterfaceNodeRefs(
+            binding.module
+          );
+          if (
+            moduleNodes.length !== 1 ||
+            sourceNode === undefined ||
+            sourceNode.schema.ref !==
+              DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF ||
+            owningModuleWorkInterfaceRefs.has(declaration.sourceNodeRef)
+          ) {
+            throw new ExecutionContextCompilationError({
+              diagnosticId: "execution-context-projection-source-invalid",
+              path: `$.projection[${JSON.stringify(declaration.projectionRef)}].sourceNodeRef`,
+              expectedRelation:
+                "one same-Module abg.schema.execution-context-projection@5 Node absent from every Module work and payload interface",
+              actualRelation:
+                "derived projection Node is absent, duplicated, schema-incompatible, cross-Module, or exposed as work input",
+              evidenceRefs: [
+                declaration.sourceNodeRef,
+                binding.moduleRef,
+                input.programBinding.bindingDigest
+              ]
+            });
+          }
         }
-        if (
-          sourceNodes.length !== 1 ||
-          sourceNode === undefined ||
-          !input.programBinding.orderedSourceNodeContractKeys.includes(
-            nodeContractKey(sourceNode)
-          )
-        ) {
-          throw new ExecutionContextCompilationError({
-            diagnosticId: "execution-context-projection-source-invalid",
-            path: `$.projection[${JSON.stringify(declaration.projectionRef)}].sourceNodeRef`,
-            expectedRelation: "one exact selected C-program input Node",
-            actualRelation: "source Node, schema, type, or ordered interface differs",
-            evidenceRefs: [declaration.sourceNodeRef, input.programBinding.bindingDigest]
-          });
+        if (sourceNode === undefined) {
+          throw new TypeError("execution-context projection source resolution failed");
         }
         for (const row of declaration.fieldRows) {
           if (!activeSlots.has(row.slot)) {
@@ -1840,8 +2155,11 @@ function compileDeclarationProfiles(input: {
               ...row,
               projectionRef: declaration.projectionRef,
               sourceNodeRef: declaration.sourceNodeRef,
+              source: declaration.source,
               sourceSchemaRef: sourceNode.schema.ref,
-              sourceTypeRef: sourceNode.typeRef
+              sourceTypeRef: sourceNode.typeRef,
+              sourceDeclarationModuleRef: binding.moduleRef,
+              sourceDeclarationModuleDigest: binding.moduleDigest
             })
           );
         }
@@ -1873,7 +2191,7 @@ function compileDeclarationProfiles(input: {
           });
         }
         protocolRefs.add(admitted.declaration.instructionProtocolRef);
-        const nodes = boundModuleNodes(binding.module).filter(
+        const nodes = graphFunctionHostedModuleNodes(binding.module).filter(
           (node) => node.id === admitted.declaration.instructionAssetNodeRef
         );
         const node = nodes[0];
@@ -1881,7 +2199,8 @@ function compileDeclarationProfiles(input: {
           throw new ExecutionContextCompilationError({
             diagnosticId: "execution-context-instruction-asset-invalid",
             path: "$.declarationModules.instructionProtocol.instructionAssetNodeRef",
-            expectedRelation: "one exact Node in the owning admitted Module",
+            expectedRelation:
+              "one exact GraphFunction-hosted Node in the owning admitted Module",
             actualRelation: `resolved ${String(nodes.length)} Nodes`,
             evidenceRefs: [admitted.declaration.instructionAssetNodeRef, binding.moduleRef]
           });
@@ -2192,6 +2511,304 @@ export function compileDeclaredExecutionContextContract(
   }).contract;
 }
 
+function setDerivedProjectionPath(input: {
+  readonly target: Record<string, unknown>;
+  readonly path: string;
+  readonly value: string | readonly string[];
+}): void {
+  const segments = input.path.split(".");
+  let current = input.target;
+  for (const [index, segment] of segments.entries()) {
+    const terminal = index === segments.length - 1;
+    if (terminal) {
+      if (Object.hasOwn(current, segment)) {
+        throw new TypeError(`derived projection path ${input.path} collides`);
+      }
+      current[segment] = input.value;
+      return;
+    }
+    const existing = current[segment];
+    if (existing === undefined) {
+      const nested: Record<string, unknown> = {};
+      current[segment] = nested;
+      current = nested;
+      continue;
+    }
+    if (!isPlainRecord(existing)) {
+      throw new TypeError(`derived projection path ${input.path} crosses a scalar`);
+    }
+    current = existing;
+  }
+}
+
+function freezeDerivedProjectionValues(
+  value: Record<string, unknown>
+): Readonly<Record<string, unknown>> {
+  for (const [key, member] of Object.entries(value)) {
+    if (isPlainRecord(member)) {
+      value[key] = freezeDerivedProjectionValues(member);
+    } else if (isUnknownArray(member)) {
+      value[key] = Object.freeze([...member]);
+    }
+  }
+  return Object.freeze(value);
+}
+
+function rejectDerivedProjection(input: {
+  readonly diagnosticId?: ExecutionContextDiagnosticId;
+  readonly path: string;
+  readonly expected: string;
+  readonly actual: string;
+  readonly evidenceRefs?: readonly string[];
+  readonly classification?: ExecutionContextDiagnostic["classification"];
+}): never {
+  throw new ExecutionContextCompilationError({
+    diagnosticId:
+      input.diagnosticId ?? "execution-context-projection-source-invalid",
+    path: input.path,
+    expectedRelation: input.expected,
+    actualRelation: input.actual,
+    evidenceRefs: input.evidenceRefs,
+    classification: input.classification
+  });
+}
+
+function deriveAndAdmitExecutionContextProjection(input: {
+  readonly outcome: GraphVectorExecutionHandoffPublished;
+  readonly contract: CompiledExecutionContextContract;
+  readonly work: ResolvedWorkProgram;
+  readonly runtimeAuthority: RuntimeDerivedExecutionAuthority;
+}): DerivedExecutionContextProjection {
+  const selectedPluginContract = input.runtimeAuthority.selectedPluginContract;
+  const ingress = input.runtimeAuthority.ingress;
+  const workerProfile = input.runtimeAuthority.workerProfile;
+  const invocationPolicy = ingress.invocationAuthority.invocationPolicy;
+  const transportSteering = ingress.invocationAuthority.transportSteering;
+  const steeringProvenanceRefs = new Set(transportSteering.provenanceRefs);
+  if (
+    workerProfile.selectionRef.length === 0 ||
+    !isSha256Digest(workerProfile.selectionDigest) ||
+    !isSha256Digest(workerProfile.configurationDigest) ||
+    !steeringProvenanceRefs.has(workerProfile.selectionRef) ||
+    !steeringProvenanceRefs.has(workerProfile.selectionDigest) ||
+    !steeringProvenanceRefs.has(workerProfile.configurationDigest) ||
+    !ingress.runtimeProfile.standardPluginRefs.includes(
+      selectedPluginContract.ref
+    )
+  ) {
+    rejectDerivedProjection({
+      path: "$.runtimeAuthority",
+      expected:
+        "worker/profile and plugin authority conserved from the exact admitted run.invoke ingress",
+      actual:
+        "worker/profile provenance or runtime plugin membership differs",
+      evidenceRefs: [ingress.ingressRef, selectedPluginContract.ref],
+      classification: "invalid_runtime_binding"
+    });
+  }
+  const rows = input.contract.fieldRows.filter(
+    (row) => row.source.kind === "derived_runtime_projection"
+  );
+  const sourceNodeRefs = new Set(rows.map((row) => row.sourceNodeRef));
+  const sourceModuleRefs = new Set(
+    rows.map((row) => row.sourceDeclarationModuleRef)
+  );
+  const sourceNode = rows[0];
+  if (
+    rows.length === 0 ||
+    sourceNodeRefs.size !== 1 ||
+    sourceModuleRefs.size !== 1 ||
+    sourceNode === undefined ||
+    input.contract.selectedRegime !== "F_P"
+  ) {
+    rejectDerivedProjection({
+      path: "$.compiledContract.fieldRows",
+      expected:
+        "one same-Module derived F_P projection source across active derived slots",
+      actual: "derived projection source closure is absent or ambiguous",
+      evidenceRefs: rows.map((row) => row.projectionRef)
+    });
+  }
+  const selectedLeaf = compiledStageLeavesInDeclaredOrder(
+    input.work.completeProgramPlan
+  )[input.contract.selectedStageIndex];
+  if (
+    selectedLeaf === undefined
+  ) {
+    rejectDerivedProjection({
+      path: "$.compiledContract.selectedStageIndex",
+      expected: "one exact selected locus in the compiled program binding",
+      actual: "selected stage does not resolve in the admitted program",
+      evidenceRefs: [
+        input.contract.selectedProgramBinding.bindingDigest,
+        "missing-locus"
+      ],
+      classification: "invalid_runtime_binding"
+    });
+  }
+  const pluginSelection = pluginSelectionFromDeclarationAttrs(
+    input.work.graphFunction.declarations,
+    input.work.graphFunction.id
+  );
+  const declaredDispatchPluginRef = pluginSelection?.fpDispatch;
+  if (
+    declaredDispatchPluginRef === undefined ||
+    declaredDispatchPluginRef !== selectedPluginContract.ref
+  ) {
+    rejectDerivedProjection({
+      path: "$.runtimeAuthority.selectedPluginContract",
+      expected: "the exact declared fpDispatch plugin ref",
+      actual:
+        declaredDispatchPluginRef === undefined
+          ? "the selected GraphFunction declares no fpDispatch plugin"
+          : `received ${selectedPluginContract.ref}`,
+      evidenceRefs: [input.work.graphFunction.id],
+      classification:
+        declaredDispatchPluginRef === undefined
+          ? "invalid_program"
+          : "invalid_runtime_binding"
+    });
+  }
+  if (
+    input.runtimeAuthority.selectedResultAuthority.programLocusRef !==
+      selectedLeaf.nodeRef ||
+    input.runtimeAuthority.selectedResultAuthority.programLocusDigest !==
+      selectedLeaf.nodeDigest ||
+    !input.contract.targetCompatibilityRefs.includes(
+      input.runtimeAuthority.selectedResultAuthority.selectedResultContractRef
+    )
+  ) {
+    rejectDerivedProjection({
+      diagnosticId: "execution-context-result-contract-incompatible",
+      path: "$.runtimeAuthority.selectedResultAuthority",
+      expected: "the exact canonical selected-locus result authority",
+      actual: "result authority names another locus or contract",
+      evidenceRefs: [input.runtimeAuthority.selectedResultAuthority.authorityRef]
+    });
+  }
+  const protocolMatches = input.contract.protocols.filter(
+    (protocol) =>
+      protocol.allowedStageRoles.includes(input.contract.selectedStageRole) &&
+      input.contract.staticProtocolRefs.every((categoryRef) =>
+        protocol.sections.some((section) => section.sectionRef === categoryRef)
+      )
+  );
+  const protocol = protocolMatches[0];
+  if (protocolMatches.length !== 1 || protocol === undefined) {
+    rejectDerivedProjection({
+      diagnosticId: "execution-context-protocol-ref-invalid",
+      path: "$.compiledContract.protocols",
+      expected:
+        "one exact protocol permitting the locus and owning every static category",
+      actual: `resolved ${String(protocolMatches.length)} protocols`,
+      evidenceRefs: input.contract.staticProtocolRefs
+    });
+  }
+  const coverage = capabilityProjection(input.outcome);
+  const requiredEffectRefs = input.outcome.handoff.effectRequirementRefs;
+  const expectedCoverageRows = Object.freeze(
+    coverage?.coverageRows.filter((row) =>
+      requiredEffectRefs.includes(row.effectRef)
+    ) ?? []
+  );
+  const expectedCoverageSourceRef = coverage?.manifestAdmissionRef ?? null;
+  const expectedCoverageSourceDigest = coverage?.projectionDigest ?? null;
+  if (
+    expectedCoverageRows.some((row) => row.supportedDisposition !== "supported")
+  ) {
+    rejectDerivedProjection({
+      diagnosticId: "execution-context-capability-incompatible",
+      path: "$.sourceOutcome.handoff.capabilityCompatibility",
+      expected: "exact supported effect-coverage rows from the admitted T-255 basis",
+      actual: "the selected program effect basis contains unsupported capability rows",
+      evidenceRefs: [
+        input.outcome.handoff.handoffRef,
+        ...(expectedCoverageSourceDigest === null ? [] : [expectedCoverageSourceDigest])
+      ],
+      classification: "invalid_runtime_binding"
+    });
+  }
+  const capabilityRequirementRefs = canonicalUniqueStrings(
+    expectedCoverageRows.flatMap((row) => [
+      row.capabilityId,
+      ...row.dependentCapabilityIds
+    ])
+  );
+  const slotValues = new Map<ExecutionContextSlot, string | readonly string[]>([
+    ["role_or_worker_selection_ref", workerProfile.selectionRef],
+    ["configuration_digest", workerProfile.configurationDigest],
+    ["instruction_protocol_ref", protocol.instructionProtocolRef],
+    [
+      "result_contract_ref",
+      input.runtimeAuthority.selectedResultAuthority.selectedResultContractRef
+    ],
+    ["capability_requirement_refs", capabilityRequirementRefs]
+  ]);
+  const mutableValues: Record<string, unknown> = {};
+  for (const row of rows) {
+    const value = slotValues.get(row.slot);
+    if (value === undefined) {
+      rejectDerivedProjection({
+        diagnosticId: "execution-context-field-value-invalid",
+        path: row.fieldPath,
+        expected: "one internally derived F_P slot value",
+        actual: `no derived value exists for ${row.slot}`,
+        evidenceRefs: [row.projectionRef]
+      });
+    }
+    setDerivedProjectionPath({ target: mutableValues, path: row.fieldPath, value });
+  }
+  const values = freezeDerivedProjectionValues(mutableValues);
+  const dispatchPluginContractDigest = stableSha256Digest(
+    selectedPluginContract
+  );
+  const authorityEvidenceRefs = canonicalUniqueStrings([
+    input.contract.selectedProgramBinding.bindingDigest,
+    selectedLeaf.nodeRef,
+    selectedLeaf.nodeDigest,
+    ingress.ingressRef,
+    ingress.ingressDigest,
+    workerProfile.selectionRef,
+    workerProfile.selectionDigest,
+    workerProfile.configurationDigest,
+    selectedPluginContract.ref,
+    dispatchPluginContractDigest,
+    invocationPolicy.policyRef,
+    invocationPolicy.policyDigest,
+    invocationPolicy.sessionPolicyRef,
+    invocationPolicy.sessionPolicyDigest,
+    transportSteering.steeringRef,
+    transportSteering.steeringDigest,
+    ...transportSteering.provenanceRefs,
+    input.runtimeAuthority.selectedResultAuthority.authorityRef,
+    input.runtimeAuthority.selectedResultAuthority.authorityDigest,
+    ...(expectedCoverageSourceRef === null
+      ? []
+      : [expectedCoverageSourceRef]),
+    ...(expectedCoverageSourceDigest === null
+      ? []
+      : [expectedCoverageSourceDigest]),
+    ...ingress.sourceWitnessRefs,
+    ...input.runtimeAuthority.selectedResultAuthority.evidenceRefs
+  ]);
+  const basis = Object.freeze({
+    kind: "derived_execution_context_projection" as const,
+    projectionClass: "fp_execution_context" as const,
+    sourceNodeRef: sourceNode.sourceNodeRef,
+    sourceSchemaRef: DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF,
+    selectedProgramBindingDigest: input.contract.selectedProgramBinding.bindingDigest,
+    selectedStageDigest: input.contract.selectedStageDigest,
+    declarationClosureDigest: input.contract.declarationClosureDigest,
+    dispatchPluginRef: selectedPluginContract.ref,
+    dispatchPluginContractDigest,
+    values,
+    authorityEvidenceRefs
+  });
+  return admitDerivedExecutionContextProjection(
+    sealDerivedExecutionContextProjection(basis)
+  );
+}
+
 function ownFieldPath(value: unknown, path: string): unknown {
   let current: unknown = value;
   for (const segment of path.split(".")) {
@@ -2250,6 +2867,7 @@ function bindInvocationValues(input: {
   readonly contract: CompiledExecutionContextContract;
   readonly carriers: AdmittedInvocationCarrierSet;
   readonly sourceNodes: readonly Node[];
+  readonly derivedProjection: DerivedExecutionContextProjection | null;
 }): AdmittedExecutionContextValues {
   if (
     input.carriers.kind !== "admitted_invocation_carrier_set" ||
@@ -2301,7 +2919,39 @@ function bindInvocationValues(input: {
       classification: "invalid_runtime_binding"
     });
   }
+  const derivedProjection =
+    input.derivedProjection === null
+      ? null
+      : admitDerivedExecutionContextProjection(input.derivedProjection);
   for (const row of input.contract.fieldRows) {
+    if (row.source.kind === "derived_runtime_projection") {
+      if (
+        derivedProjection === null ||
+        derivedProjection.sourceNodeRef !== row.sourceNodeRef ||
+        derivedProjection.sourceSchemaRef !== row.sourceSchemaRef ||
+        derivedProjection.selectedProgramBindingDigest !==
+          input.contract.selectedProgramBinding.bindingDigest ||
+        derivedProjection.selectedStageDigest !== input.contract.selectedStageDigest ||
+        derivedProjection.declarationClosureDigest !==
+          input.contract.declarationClosureDigest
+      ) {
+        throw new ExecutionContextCompilationError({
+          diagnosticId: "execution-context-projection-source-invalid",
+          path: "$.derivedExecutionContextProjection",
+          expectedRelation:
+            "one native-admitted projection for the exact Rule source, program, stage, and declaration closure",
+          actualRelation: "derived projection identity differs or is absent",
+          evidenceRefs: [row.projectionRef, row.sourceNodeRef],
+          classification: "invalid_runtime_binding"
+        });
+      }
+      const value = admittedFieldValue({
+        value: ownFieldPath(derivedProjection.values, row.fieldPath),
+        row
+      });
+      values.set(row.slot, value);
+      continue;
+    }
     const matches = orderedCarriers.filter(
       (carrier) => carrier.sourceNodeRef === row.sourceNodeRef
     );
@@ -2424,7 +3074,9 @@ function bindInvocationValues(input: {
     sourceCarrierRefs: Object.freeze(orderedCarriers.map((carrier) => carrier.carrierRef)),
     sourceCarrierDigests: Object.freeze(
       orderedCarriers.map((carrier) => carrier.carrierDigest)
-    )
+    ),
+    derivedProjectionRef: derivedProjection?.projectionRef ?? null,
+    derivedProjectionDigest: derivedProjection?.projectionDigest ?? null
   });
   if (
     valuesBasis.instructionProtocolRef === null ||
@@ -2462,7 +3114,7 @@ function coveredCapabilities(
   return new Set(
     projection?.coverageRows
       .filter((row) => row.supportedDisposition === "supported")
-      .map((row) => row.capabilityId) ?? []
+      .flatMap((row) => [row.capabilityId, ...row.dependentCapabilityIds]) ?? []
   );
 }
 
@@ -3222,8 +3874,10 @@ function constructFpRequest(input: {
   });
 }
 
-export function joinDeclaredExecutionContext(
-  input: JoinDeclaredExecutionContextInput
+function joinDeclaredExecutionContextInternal(
+  input: JoinDeclaredExecutionContextInput,
+  runtimeAuthority: RuntimeDerivedExecutionAuthority | null,
+  allowInternalRuntimeAuthority: boolean
 ): DeclaredExecutionContextJoinOutcome {
   try {
     if (Object.prototype.hasOwnProperty.call(input, "instructionAssemblyBasis")) {
@@ -3234,6 +3888,52 @@ export function joinDeclaredExecutionContext(
           "instruction assembly truth derived inside the canonical T-183 adapter",
         actualRelation: "caller-authored instruction assembly truth was supplied",
         evidenceRefs: []
+      });
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(
+        input,
+        "derivedExecutionContextProjection"
+      )
+    ) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-projection-source-invalid",
+        path: "$.derivedExecutionContextProjection",
+        expectedRelation:
+          "derived execution-context truth constructed and admitted inside M03",
+        actualRelation: "caller-authored projection was supplied",
+        evidenceRefs: [],
+        classification: "invalid_runtime_binding"
+      });
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(
+        input,
+        "derivedRuntimeAuthorityFacts"
+      )
+    ) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-projection-source-invalid",
+        path: "$.derivedRuntimeAuthorityFacts",
+        expectedRelation:
+          "runtime authority derived only from canonical admitted M03 carriers",
+        actualRelation: "caller-authored flattened authority facts were supplied",
+        evidenceRefs: [],
+        classification: "invalid_runtime_binding"
+      });
+    }
+    if (
+      !allowInternalRuntimeAuthority &&
+      Object.prototype.hasOwnProperty.call(input, "runtimeAuthority")
+    ) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-projection-source-invalid",
+        path: "$.runtimeAuthority",
+        expectedRelation:
+          "the package-private ABG runtime adapter supplies admitted authority",
+        actualRelation: "caller-authored runtime authority was supplied",
+        evidenceRefs: [],
+        classification: "invalid_runtime_binding"
       });
     }
     const outcome = exactSourceOutcome(input.sourceOutcome);
@@ -3266,6 +3966,41 @@ export function joinDeclaredExecutionContext(
         ])
       });
     }
+    const derivedRows = compiled.contract.fieldRows.filter(
+      (row) => row.source.kind === "derived_runtime_projection"
+    );
+    if (derivedRows.length === 0 && runtimeAuthority !== null) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-projection-source-invalid",
+        path: "$.runtimeAuthority",
+        expectedRelation:
+          "no runtime authority projection for an admitted-carrier-only contract",
+        actualRelation:
+          "runtime authority was supplied without a derived Rule source",
+        evidenceRefs: [],
+        classification: "invalid_runtime_binding"
+      });
+    }
+    if (derivedRows.length > 0 && runtimeAuthority === null) {
+      throw new ExecutionContextCompilationError({
+        diagnosticId: "execution-context-projection-source-invalid",
+        path: "$.runtimeAuthority",
+        expectedRelation:
+          "exact canonical admitted runtime authority for a derived F_P Rule source",
+        actualRelation: "ABG runtime authority is absent",
+        evidenceRefs: derivedRows.map((row) => row.projectionRef),
+        classification: "semantic_not_realized"
+      });
+    }
+    const derivedProjection =
+      runtimeAuthority === null
+        ? null
+        : deriveAndAdmitExecutionContextProjection({
+            outcome,
+            contract: compiled.contract,
+            work: compiled.work,
+            runtimeAuthority
+          });
     const values = bindInvocationValues({
       contract: compiled.contract,
       carriers: input.invocationCarriers,
@@ -3273,7 +4008,8 @@ export function joinDeclaredExecutionContext(
         graphFunction: compiled.work.graphFunction,
         graphVector: compiled.work.graphVector,
         programBinding: compiled.work.programBinding
-      })
+      }),
+      derivedProjection
     });
     const resolved = resolveRequestBasis({
       outcome,
@@ -3319,4 +4055,23 @@ export function joinDeclaredExecutionContext(
   } catch (error: unknown) {
     return invalid(error);
   }
+}
+
+export function joinDeclaredExecutionContext(
+  input: JoinDeclaredExecutionContextInput
+): DeclaredExecutionContextJoinOutcome {
+  return joinDeclaredExecutionContextInternal(input, null, false);
+}
+
+/** @internal Package-private adapter for the ABG-owned runtime interpreter. */
+export function joinDeclaredExecutionContextFromRuntimeAuthority(
+  input: JoinDeclaredExecutionContextInput & Readonly<{
+    readonly runtimeAuthority: RuntimeDerivedExecutionAuthority;
+  }>
+): DeclaredExecutionContextJoinOutcome {
+  return joinDeclaredExecutionContextInternal(
+    input,
+    input.runtimeAuthority,
+    true
+  );
 }

@@ -1,3 +1,4 @@
+/* global structuredClone */
 // Validates: T-256; REQ-R-ABG3-INSTRUCTION-ASSEMBLY-001..017;
 // REQ-L-GTL3-C-ALGEBRA-009/-011/-013/-016.
 
@@ -77,7 +78,6 @@ import {
   constructExecutionContextProjectionRule,
   constructInstructionProtocolRule,
   compileDeclaredExecutionContextContract,
-  declaredExecutionStageRef,
   joinDeclaredExecutionContext
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
 import {
@@ -147,7 +147,10 @@ function assetSurface(kind, options = {}) {
 function node(name, kind, options = {}) {
   return constructNode({
     name,
-    schema: { kind: "symbolic", ref: `schema://t256/${kind}` },
+    schema: {
+      kind: "symbolic",
+      ref: options.schemaRef ?? `schema://t256/${kind}`
+    },
     typeRef: `type://t256/${kind}`,
     markov: ["bounded"],
     assetSurface: assetSurface(kind, options),
@@ -248,10 +251,22 @@ function fixture(options = {}) {
   const instructionAsset = completeProgram
     ? source
     : node("TransformInstruction", "instruction");
+  const derivedProjectionNode = options.derivedProjection === true
+    ? node("DerivedExecutionContext", "execution-context-projection", {
+        schemaRef: "abg.schema.execution-context-projection@5"
+      })
+    : null;
+  const projectionSourceNode = derivedProjectionNode ?? source;
   const projectionRule = constructExecutionContextProjectionRule({
     projectionRef: "execution-context-projection://t256/generic",
     version: "1.0.0",
-    sourceNodeRef: source.id,
+    sourceNodeRef: projectionSourceNode.id,
+    source: derivedProjectionNode === null
+      ? { kind: "admitted_source_carrier" }
+      : {
+          kind: "derived_runtime_projection",
+          projectionClass: "fp_execution_context"
+        },
     fieldRows: [
       ...(regime === "F_P"
         ? [
@@ -312,7 +327,11 @@ function fixture(options = {}) {
         valueKind: "ref_list",
         required: true
       }
-    ],
+    ].map((row) =>
+      derivedProjectionNode === null
+        ? row
+        : { ...row, fieldPath: `fields.${row.slot}` }
+    ),
     policyRefs: ["policy://t256/context-projection"]
   });
   const protocolRule = constructInstructionProtocolRule({
@@ -462,7 +481,13 @@ function fixture(options = {}) {
     outputs: [target],
     nodes: completeProgram
       ? [...sources, target]
-      : [...sources, target, instructionAsset],
+      : [
+          ...sources,
+          target,
+          ...(options.instructionAssetLooseOnly === true
+            ? []
+            : [instructionAsset])
+        ],
     vectors: [secondVector],
     contexts: [],
     rules: [projectionRule, protocolRule],
@@ -501,6 +526,12 @@ function fixture(options = {}) {
                   }
             )
           ]
+        : options.derivedProjection === true
+        ? [
+            pluginSelectionDeclarationEntry({
+              fpDispatch: "plugin://abg/fp-dispatch"
+            })
+          ]
         : [])
     ]),
     tags: ["t256", "generic"]
@@ -535,10 +566,84 @@ function fixture(options = {}) {
       version: null
     })
   });
+  const derivedProjectionSibling =
+    derivedProjectionNode === null ||
+      options.exposeDerivedProjectionInSibling !== true
+      ? null
+      : constructGraphFunction({
+          name: "t256.derived-projection-sibling",
+          environment: constructEnvRef({
+            requires: [derivedProjectionNode],
+            provides: [derivedProjectionNode],
+            carries: [derivedProjectionNode]
+          }),
+          inputs: [derivedProjectionNode],
+          outputs: [derivedProjectionNode],
+          template: constructTemplateRef({
+            kind: "inline_graph",
+            ref: "template://t256/derived-projection-sibling",
+            graph: constructGraph({
+              name: "t256.derived-projection-sibling-graph",
+              inputs: [derivedProjectionNode],
+              outputs: [derivedProjectionNode],
+              nodes: [derivedProjectionNode],
+              vectors: [],
+              contexts: [],
+              rules: [],
+              effects: [],
+              tags: ["t256", "negative-fixture"]
+            }),
+            version: null
+          }),
+          effects: [],
+          declarations: graphFunctionDeclarations([]),
+          tags: ["t256", "negative-fixture"]
+        });
+  const derivedProjectionDeclarationGraph =
+    derivedProjectionNode === null
+      ? null
+      : constructGraph({
+          name: "t256.derived-execution-context-declarations",
+          inputs: [],
+          outputs: [],
+          nodes: [derivedProjectionNode],
+          vectors: [],
+          contexts: [],
+          rules: [],
+          effects: [],
+          tags: ["t256", "declaration-only"]
+        });
+  const looseInstructionDeclarationGraph =
+    completeProgram || options.instructionAssetLooseOnly !== true
+      ? null
+      : constructGraph({
+          name: "t256.loose-instruction-declaration",
+          inputs: [],
+          outputs: [],
+          nodes: [instructionAsset],
+          vectors: [],
+          contexts: [],
+          rules: [],
+          effects: [],
+          tags: ["t256", "negative-fixture"]
+        });
   const module = constructModule({
     name: "t256.generic-module",
-    graphs: [graph],
-    graphFunctions: [host],
+    graphs: [
+      graph,
+      ...(derivedProjectionDeclarationGraph === null
+        ? []
+        : [derivedProjectionDeclarationGraph]),
+      ...(looseInstructionDeclarationGraph === null
+        ? []
+        : [looseInstructionDeclarationGraph])
+    ],
+    graphFunctions: [
+      host,
+      ...(derivedProjectionSibling === null
+        ? []
+        : [derivedProjectionSibling])
+    ],
     refinementBoundaries: [],
     candidateFamilies: [],
     jobs: [
@@ -672,29 +777,33 @@ function fixture(options = {}) {
       carrierRef: "carrier://t256/observation/1",
       admissionRef: "admission://t256/observation/1",
       value: {
-        execution: {
-          ...(regime === "F_P"
-            ? {
-                selection_ref: "selection://t256/worker",
-                configuration_digest: CONFIGURATION_DIGEST
+        ...(derivedProjectionNode === null
+          ? {
+              execution: {
+                ...(regime === "F_P"
+                  ? {
+                      selection_ref: "selection://t256/worker",
+                      configuration_digest: CONFIGURATION_DIGEST
+                    }
+                  : {
+                      interaction_subject_ref: "interaction-subject://t256/review",
+                      interaction_operation_ids: [
+                        "abg.operation.fh.approve",
+                        "abg.operation.fh.reject",
+                        "abg.operation.fh.assess"
+                      ],
+                      interaction_resume_operation_ids: [
+                        "abg.operation.fh.approve",
+                        "abg.operation.fh.reject"
+                      ],
+                      interaction_choice_refs: []
+                    }),
+                instruction_protocol_ref: PROTOCOL_REF,
+                result_contract_ref: TARGET_CONTRACT_REF,
+                capability_requirement_refs: []
               }
-            : {
-                interaction_subject_ref: "interaction-subject://t256/review",
-                interaction_operation_ids: [
-                  "abg.operation.fh.approve",
-                  "abg.operation.fh.reject",
-                  "abg.operation.fh.assess"
-                ],
-                interaction_resume_operation_ids: [
-                  "abg.operation.fh.approve",
-                  "abg.operation.fh.reject"
-                ],
-                interaction_choice_refs: []
-              }),
-          instruction_protocol_ref: PROTOCOL_REF,
-          result_contract_ref: TARGET_CONTRACT_REF,
-          capability_requirement_refs: []
-        },
+            }
+          : {}),
         observation: { value: 42 }
       }
     }),
@@ -724,7 +833,8 @@ function fixture(options = {}) {
     catalogEvents: catalogResult.admissionEvents,
     stageBasis,
     stageLeaf,
-    invocationCarriers
+    invocationCarriers,
+    derivedProjectionNode
   };
 }
 
@@ -1125,6 +1235,87 @@ test("T-256 constructs one canonical F_P request through the T-183 carrier path"
   assert.equal("capabilityRefs" in outcome.request, false);
 });
 
+test("T-256 keeps derived F_P authority behind the ABG-owned runtime adapter", () => {
+  const value = fixture({ derivedProjection: true });
+  assert.deepEqual(value.invocationCarriers.carriers[0].value, {
+    observation: { value: 42 }
+  });
+  assert.equal(value.host.inputs.includes(value.derivedProjectionNode), false);
+  assert.equal(
+    value.host.environment.requires.includes(value.derivedProjectionNode),
+    false
+  );
+  assert.equal(
+    value.module.graphFunctions.some((graphFunction) =>
+      graphFunction.inputs.includes(value.derivedProjectionNode)
+    ),
+    false
+  );
+  assert.equal(
+    value.module.graphs.some((graph) =>
+      graph.nodes.includes(value.derivedProjectionNode)
+    ),
+    true
+  );
+
+  const publicJoin = joinFixture(value);
+  assert.equal(publicJoin.status, "invalid");
+  assert.equal(
+    publicJoin.diagnostics[0].diagnosticId,
+    "execution-context-projection-source-invalid"
+  );
+  assert.equal(publicJoin.diagnostics[0].classification, "semantic_not_realized");
+  const flattenedAuthority = joinFixture(value, {
+    derivedRuntimeAuthorityFacts: {
+      kind: "neutral_derived_execution_authority_facts"
+    }
+  });
+  assert.equal(flattenedAuthority.status, "invalid");
+  assert.match(
+    flattenedAuthority.diagnostics[0].actualRelation,
+    /caller-authored flattened authority/u
+  );
+  const callerAuthority = joinFixture(value, { runtimeAuthority: {} });
+  assert.equal(callerAuthority.status, "invalid");
+  const callerProjection = joinFixture(value, {
+    derivedExecutionContextProjection: {}
+  });
+  assert.equal(callerProjection.status, "invalid");
+});
+
+test("T-256 refuses private derived truth exposed by a sibling GraphFunction", () => {
+  const value = fixture({
+    derivedProjection: true,
+    exposeDerivedProjectionInSibling: true
+  });
+  const outcome = joinFixture(value);
+  assert.equal(outcome.status, "invalid");
+  assert.equal(
+    outcome.diagnostics[0].diagnosticId,
+    "execution-context-projection-source-invalid"
+  );
+});
+
+test("T-256 refuses an instruction asset that is only a loose Module node", () => {
+  const outcome = joinFixture(fixture({ instructionAssetLooseOnly: true }));
+  assert.equal(outcome.status, "invalid");
+  assert.equal(
+    outcome.diagnostics[0].diagnosticId,
+    "execution-context-instruction-asset-invalid"
+  );
+});
+
+test("T-256 refuses a derived runtime source on F_H", () => {
+  const outcome = joinFixture(
+    fixture({ regime: "F_H", derivedProjection: true })
+  );
+  assert.equal(outcome.status, "invalid");
+  assert.equal(
+    outcome.diagnostics[0].diagnosticId,
+    "execution-context-profile-shape-invalid"
+  );
+});
+
 test("T-256 preserves one selected result contract within a larger target contract set", () => {
   const alternateContractRef = "contract://t256/decision-alternate";
   const value = fixture({
@@ -1156,12 +1347,42 @@ test("T-256 derives schema, type, and regime instead of accepting profile-author
   assert.deepEqual(projectionWireKeys, [
     "version",
     "source_node_ref",
+    "source",
     "field_rows",
     "policy_refs"
   ]);
   assert.equal(projectionWireKeys.includes("source_schema_ref"), false);
   assert.equal(projectionWireKeys.includes("source_type_ref"), false);
   assert.equal(projectionWireKeys.includes("applies_to_regime"), false);
+  assert.deepEqual(
+    admitExecutionContextProjectionRule(value.projectionRule).declaration.source,
+    { kind: "admitted_source_carrier" }
+  );
+
+  const missingSource = {
+    ...value.projectionRule,
+    config: {
+      ...value.projectionRule.config,
+      entries: value.projectionRule.config.entries.filter(
+        (entry) => entry.key !== "source"
+      )
+    }
+  };
+  assert.throws(
+    () => admitExecutionContextProjectionRule(missingSource),
+    /must carry exactly 5 keys/u
+  );
+  assert.throws(
+    () =>
+      constructExecutionContextProjectionRule({
+        ...admitExecutionContextProjectionRule(value.projectionRule).declaration,
+        source: {
+          kind: "derived_runtime_projection",
+          projectionClass: "not-a-projection-class"
+        }
+      }),
+    /unsupported value/u
+  );
 
   const protocolWireKeys = value.protocolRule.config.entries.map(
     (entry) => entry.key
@@ -1884,7 +2105,7 @@ test("T-256 joins the unchanged T-252 reduce-round body through its non-invoking
     ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules.filter(
       (rule) => rule.kind === "gtl.execution_context_projection"
     ).length,
-    4
+    2
   );
   assert.equal(
     ABG_CONSENSUS_INSTRUCTION_DECLARATION_MODULE.rules.filter(

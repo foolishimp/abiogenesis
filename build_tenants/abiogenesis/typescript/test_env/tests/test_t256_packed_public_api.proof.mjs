@@ -94,6 +94,10 @@ import { declarationClosure } from "@abiogenesis/typescript-tenant/abg/m03";
 import { constructAdmittedInstructionAssemblyRuntimeBasis } from "@abiogenesis/typescript-tenant/abg/m03";
 // @ts-expect-error whole-family static compilation remains runtime-internal.
 import { compileDeclaredExecutionContextContract } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error runtime authority enters only through the package-private ABG adapter.
+import { joinDeclaredExecutionContextFromRuntimeAuthority } from "@abiogenesis/typescript-tenant/abg/m03";
+// @ts-expect-error derived projection admission remains package-private.
+import { admitDerivedExecutionContextProjection } from "@abiogenesis/typescript-tenant/abg/m03";
 
 declare const input: JoinDeclaredExecutionContextInput;
 const outcome: DeclaredExecutionContextJoinOutcome = joinDeclaredExecutionContext(input);
@@ -114,6 +118,8 @@ void compileCanonicalFpInstructionAssembly;
 void declarationClosure;
 void constructAdmittedInstructionAssemblyRuntimeBasis;
 void compileDeclaredExecutionContextContract;
+void joinDeclaredExecutionContextFromRuntimeAuthority;
+void admitDerivedExecutionContextProjection;
 `
   );
 
@@ -151,6 +157,14 @@ void compileDeclaredExecutionContextContract;
   );
   assert.equal(
     Object.hasOwn(runtime, "constructAdmittedInstructionAssemblyRuntimeBasis"),
+    false
+  );
+  assert.equal(
+    Object.hasOwn(runtime, "joinDeclaredExecutionContextFromRuntimeAuthority"),
+    false
+  );
+  assert.equal(
+    Object.hasOwn(runtime, "admitDerivedExecutionContextProjection"),
     false
   );
 });

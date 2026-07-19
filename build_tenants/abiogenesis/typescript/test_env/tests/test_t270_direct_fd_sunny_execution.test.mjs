@@ -11,6 +11,7 @@ import {
   C,
   cInterfaceCarrier,
   cProgramCatalogDeclarationEntry,
+  constructNodeTypeGraphFunction,
   declareCProgram,
   typedInterface,
   typedNode
@@ -31,7 +32,8 @@ import {
   constructExecutionContextProjectionRule,
   constructInstructionProtocolRule,
   constructAdmittedInvocationCarrier,
-  constructAdmittedInvocationCarrierSet
+  constructAdmittedInvocationCarrierSet,
+  DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF
 } from "../../build/semantic/code/src/abg/m03/contracts/declared_execution_context.js";
 import {
   abgFnCompositionDeclarationRef,
@@ -407,38 +409,99 @@ async function fpCatalogFixture() {
     }),
     proportionalityClass: "P1"
   });
+  const derivedExecutionContextNode = constructNode({
+    id: "node://t270/scenario09-fp/runtime/execution-context",
+    name: "T270Scenario09FpExecutionContext",
+    schema: {
+      kind: "symbolic",
+      ref: DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF
+    },
+    typeRef: null,
+    markov: ["runtime:derived"],
+    assetSurface: {
+      kind: "abg_execution_context_projection",
+      requiredContexts: [],
+      standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
+      outputContractRefs: [DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF],
+      constructorRefs: [],
+      constructorInputAssetKinds: [],
+      rendererRefs: [],
+      renderedViewDigestPolicyRef: null,
+      sectionKindRefs: [],
+      clauseKindRefs: [],
+      authoritySlots: [],
+      proofObligationRefs: ["proof://t270/scenario09-fp/execution-context"]
+    },
+    tags: ["t270", "scenario09", "runtime-projection"]
+  });
+  const instructionNode = constructNode({
+    id: "node://t270/scenario09-fp/instruction",
+    name: "T270Scenario09FpInstruction",
+    schema: {
+      kind: "runtime_ref",
+      ref: "schema://t270/scenario09-fp/instruction"
+    },
+    typeRef: "type://t270/scenario09-fp/instruction",
+    markov: ["instruction:admitted"],
+    assetSurface: {
+      kind: "t270_scenario09_fp_instruction",
+      requiredContexts: ["context://t270/scenario09-fp"],
+      standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
+      outputContractRefs: ["contract://t270/scenario09-fp/instruction"],
+      constructorRefs: ["constructor://t270/scenario09-fp/instruction"],
+      constructorInputAssetKinds: ["runtime_context"],
+      rendererRefs: ["renderer://abg/instruction/prompt-manifest"],
+      renderedViewDigestPolicyRef:
+        "policy://abg/instruction/rendered-view-digest",
+      sectionKindRefs: ["section-kind://t270/scenario09-fp/body"],
+      clauseKindRefs: ["clause-kind://t270/scenario09-fp/assertion"],
+      authoritySlots: [{
+        authorityKindRef: "authority://t270/scenario09-fp/instruction",
+        disposition: "bounded_fallback",
+        fallbackPreconditionRefs: [
+          "precondition://t270/scenario09-fp/instruction-admitted"
+        ]
+      }],
+      proofObligationRefs: ["proof://t270/scenario09-fp/instruction"]
+    },
+    tags: ["t270", "scenario09", "instruction-asset"]
+  });
   const projectionRule = constructExecutionContextProjectionRule({
     projectionRef: "execution-context-projection://t270/scenario09-fp",
     version: "1.0.0",
-    sourceNodeRef: node.id,
+    sourceNodeRef: derivedExecutionContextNode.id,
+    source: Object.freeze({
+      kind: "derived_runtime_projection",
+      projectionClass: "fp_execution_context"
+    }),
     fieldRows: [
       {
         slot: "role_or_worker_selection_ref",
-        fieldPath: "workspaceBindingRef",
+        fieldPath: "values.role_or_worker_selection_ref",
         valueKind: "ref",
         required: true
       },
       {
         slot: "configuration_digest",
-        fieldPath: "workspaceBindingDigest",
+        fieldPath: "values.configuration_digest",
         valueKind: "digest",
         required: true
       },
       {
         slot: "instruction_protocol_ref",
-        fieldPath: "resolvedLockRef",
+        fieldPath: "values.instruction_protocol_ref",
         valueKind: "ref",
         required: true
       },
       {
         slot: "result_contract_ref",
-        fieldPath: "workspaceBindingRef",
+        fieldPath: "values.result_contract_ref",
         valueKind: "ref",
         required: true
       },
       {
         slot: "capability_requirement_refs",
-        fieldPath: "descriptorRefs",
+        fieldPath: "values.capability_requirement_refs",
         valueKind: "ref_list",
         required: true
       }
@@ -448,7 +511,7 @@ async function fpCatalogFixture() {
   const protocolRule = constructInstructionProtocolRule({
     instructionProtocolRef: FP_PROTOCOL_REF,
     version: "1.0.0",
-    instructionAssetNodeRef: node.id,
+    instructionAssetNodeRef: instructionNode.id,
     allowedStageRoles: ["transform"],
     sections: [{
       sectionRef: FP_SECTION_REF,
@@ -531,7 +594,7 @@ async function fpCatalogFixture() {
     nodes: [node],
     vectors: [vector],
     contexts: [],
-    rules: [projectionRule, protocolRule],
+    rules: [],
     effects: ["effect://t270/scenario09-direct"],
     tags: ["t270", "scenario09", "fp-transform"]
   });
@@ -561,6 +624,21 @@ async function fpCatalogFixture() {
     ]),
     tags: ["t270", "scenario09", "fp-transform"]
   });
+  const declarationGraph = constructGraph({
+    id: "graph://t270/scenario09-fp/private-declarations",
+    name: "t270.scenario09.fp.private-declarations",
+    inputs: [],
+    outputs: [],
+    nodes: [derivedExecutionContextNode, instructionNode],
+    vectors: [],
+    contexts: [],
+    rules: [],
+    effects: [],
+    tags: ["t270", "scenario09", "private-declarations"]
+  });
+  const instructionNodeType = constructNodeTypeGraphFunction(instructionNode, {
+    tags: ["t270", "scenario09", "private-declaration"]
+  });
   const rows = canonicalizeRuntimeSchemaAdmissionMetadataRows([{
     graphFunctionId: graphFunction.id,
     nodeRef: node.id,
@@ -570,8 +648,8 @@ async function fpCatalogFixture() {
   }]);
   const module = constructModule({
     name: "t270-scenario09-fp-transform-module",
-    graphs: [graph],
-    graphFunctions: [graphFunction],
+    graphs: [graph, declarationGraph],
+    graphFunctions: [graphFunction, instructionNodeType],
     refinementBoundaries: [],
     candidateFamilies: [],
     jobs: [constructJob({
@@ -1105,6 +1183,100 @@ test("T-270 admits ExecutionBasis before one real Scenario-09 F_D effect", async
     catalog: CATALOG.basis,
     binding: CATALOG.binding
   });
+  const runtimeVector = compiledExecution.compiled.runtimeProjection.vectors[0];
+  const runtimeLocus = runtimeVector.loci[0];
+  const forgedAuthorityEvents = [];
+  const forgedAuthorityAdmission = publicAdmissionFor(
+    INGRESS,
+    selectionPriorEvents(FD_SELECTION),
+    (event) => forgedAuthorityEvents.push(event)
+  );
+  await assert.rejects(
+    () => executeSelectedCatalogDirectProgram({
+      ingress: INGRESS,
+      ...selectedExecutionAuthority(FD_SELECTION),
+      publicOperationAdmission: forgedAuthorityAdmission.receipt,
+      catalogBasis: CATALOG.basis,
+      selectedExecutionBinding: CATALOG.binding,
+      schemaAdmissionEngineInput: SCHEMAS.engineInput,
+      compiledExecution: {
+        ...compiledExecution,
+        compiled: {
+          ...compiledExecution.compiled,
+          runtimeProjection: {
+            ...compiledExecution.compiled.runtimeProjection,
+            vectors: [{
+              ...runtimeVector,
+              loci: [{
+                ...runtimeLocus,
+                compact: {
+                  ...runtimeLocus.compact,
+                  resultAuthorityRef:
+                    `${runtimeLocus.compact.resultAuthorityRef}/forged`
+                }
+              }]
+            }]
+          }
+        }
+      },
+      implementations: Object.freeze([implementation(CATALOG, [])]),
+      priorEvents: forgedAuthorityAdmission.replay,
+      eventSink: (event) => forgedAuthorityEvents.push(event)
+    }),
+    /runtime locus differs from compact compiler result/u
+  );
+  assert.deepEqual(
+    forgedAuthorityEvents.map((event) => event.kind),
+    ["public_operation_admitted"]
+  );
+  assert.notEqual(runtimeLocus.operator, null);
+  const forgedOperatorBinding = `${runtimeLocus.operator.binding}/forged`;
+  const forgedOperatorEvents = [];
+  const forgedOperatorAdmission = publicAdmissionFor(
+    INGRESS,
+    selectionPriorEvents(FD_SELECTION),
+    (event) => forgedOperatorEvents.push(event)
+  );
+  await assert.rejects(
+    () => executeSelectedCatalogDirectProgram({
+      ingress: INGRESS,
+      ...selectedExecutionAuthority(FD_SELECTION),
+      publicOperationAdmission: forgedOperatorAdmission.receipt,
+      catalogBasis: CATALOG.basis,
+      selectedExecutionBinding: CATALOG.binding,
+      schemaAdmissionEngineInput: SCHEMAS.engineInput,
+      compiledExecution: {
+        ...compiledExecution,
+        compiled: {
+          ...compiledExecution.compiled,
+          runtimeProjection: {
+            ...compiledExecution.compiled.runtimeProjection,
+            vectors: [{
+              ...runtimeVector,
+              loci: [{
+                ...runtimeLocus,
+                operator: {
+                  ...runtimeLocus.operator,
+                  binding: forgedOperatorBinding
+                }
+              }]
+            }]
+          }
+        }
+      },
+      implementations: Object.freeze([Object.freeze({
+        ...implementation(CATALOG, []),
+        operatorBindingRef: forgedOperatorBinding
+      })]),
+      priorEvents: forgedOperatorAdmission.replay,
+      eventSink: (event) => forgedOperatorEvents.push(event)
+    }),
+    /runtime locus differs from compact compiler result/u
+  );
+  assert.deepEqual(
+    forgedOperatorEvents.map((event) => event.kind),
+    ["public_operation_admitted"]
+  );
   const mismatchEvents = [];
   const mismatchAdmission = publicAdmissionFor(
     INGRESS,
@@ -1207,12 +1379,13 @@ test("T-270 admits ExecutionBasis before one real Scenario-09 F_D effect", async
     eventSink: (event) => malformedOrder.push(event.kind)
   });
   assert.equal(malformed.outcome.status, "runtime_failed");
-  assert.deepEqual(malformedOrder.slice(0, 6), [
+  assert.deepEqual(malformedOrder.slice(0, 7), [
     "public_operation_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "construction_graph_action_invoked",
     "fd-effect"
   ]);
   assert.equal(
@@ -1271,12 +1444,13 @@ test("T-270 admits ExecutionBasis before one real Scenario-09 F_D effect", async
       order.push(event.kind);
     }
   });
-  assert.deepEqual(order.slice(0, 6), [
+  assert.deepEqual(order.slice(0, 7), [
     "public_operation_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "construction_graph_action_invoked",
     "fd-effect"
   ]);
   assert.equal(result.witness.effectsPermitted, false);
@@ -1291,6 +1465,7 @@ test("T-270 admits ExecutionBasis before one real Scenario-09 F_D effect", async
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "construction_graph_action_invoked",
     "c_call_opened",
     "c_call_fibre_selected",
     "authority_snapshot_admitted",

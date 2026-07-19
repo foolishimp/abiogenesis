@@ -2,6 +2,7 @@
 // The generic compiler remains in declared_execution_context.ts.
 
 import {
+  constructGraph,
   constructNode,
   emptySerializedAttrs
 } from "../../../gtl/m01/contracts/constructors.js";
@@ -18,6 +19,7 @@ import { ABG_CONSENSUS_GTL_BODY } from "./consensus_gtl_body.js";
 import {
   constructExecutionContextProjectionRule,
   constructInstructionProtocolRule,
+  DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF,
   type ExecutionContextFieldRowDeclaration
 } from "./declared_execution_context.js";
 
@@ -166,6 +168,13 @@ function projectionRule(input: {
     projectionRef: `execution-context-projection://abg/consensus/${input.slug}`,
     version: "1.0.0",
     sourceNodeRef: input.sourceNodeRef,
+    source:
+      input.regime === "F_P"
+        ? Object.freeze({
+            kind: "derived_runtime_projection" as const,
+            projectionClass: "fp_execution_context" as const
+          })
+        : Object.freeze({ kind: "admitted_source_carrier" as const }),
     fieldRows: fieldRows(input.regime),
     policyRefs: ["policy://abg/consensus/execution-context"]
   });
@@ -222,21 +231,50 @@ function constructConsensusInstructionDeclarationModule(): Module {
       constructNodeTypeGraphFunction(nodeValue)
     )
   );
+  const derivedExecutionContextNode = constructNode({
+    id: "node://abg/consensus/runtime/fp-execution-context",
+    name: "ConsensusFpExecutionContext",
+    schema: {
+      kind: "symbolic",
+      ref: DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF
+    },
+    typeRef: null,
+    markov: ["boundary://abg/consensus/runtime/fp-execution-context"],
+    assetSurface: {
+      kind: "abg_execution_context_projection",
+      requiredContexts: [],
+      standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
+      outputContractRefs: [DERIVED_EXECUTION_CONTEXT_PROJECTION_SCHEMA_REF],
+      constructorRefs: [],
+      constructorInputAssetKinds: [],
+      rendererRefs: [],
+      renderedViewDigestPolicyRef: null,
+      sectionKindRefs: [],
+      clauseKindRefs: [],
+      authoritySlots: [],
+      proofObligationRefs: [
+        "proof://abg/consensus/runtime/fp-execution-context"
+      ]
+    },
+    tags: ["abg:consensus", "abg:runtime-projection", "t256"]
+  });
+  const declarationGraph = constructGraph({
+    id: "graph://abg/consensus/instruction-protocol/private-declarations",
+    name: "ConsensusInstructionPrivateDeclarations",
+    inputs: [],
+    outputs: [],
+    nodes: [derivedExecutionContextNode],
+    vectors: [],
+    contexts: [],
+    rules: [],
+    effects: [],
+    tags: ["abg:consensus", "gtl:private-declarations", "t256"]
+  });
   const sourceNodes = ABG_CONSENSUS_GTL_BODY.nodes;
   const rules = Object.freeze([
     projectionRule({
-      slug: "reviewer-assignment",
-      sourceNodeRef: sourceNodes.reviewerAssignment.id,
-      regime: "F_P"
-    }),
-    projectionRule({
-      slug: "semantic-reducer-binding",
-      sourceNodeRef: sourceNodes.semanticReducerBinding.id,
-      regime: "F_P"
-    }),
-    projectionRule({
-      slug: "submitter-turn-binding",
-      sourceNodeRef: sourceNodes.submitterTurnBinding.id,
+      slug: "fp-execution-context",
+      sourceNodeRef: derivedExecutionContextNode.id,
       regime: "F_P"
     }),
     projectionRule({
@@ -275,7 +313,7 @@ function constructConsensusInstructionDeclarationModule(): Module {
   ]);
   return constructModule({
     name: "abg.consensus.instruction-protocol",
-    graphs: [],
+    graphs: [declarationGraph],
     graphFunctions,
     refinementBoundaries: [],
     candidateFamilies: [],

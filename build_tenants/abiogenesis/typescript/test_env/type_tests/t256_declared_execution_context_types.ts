@@ -42,6 +42,7 @@ const projection: ExecutionContextProjectionDeclaration = {
   projectionRef: "projection://t256/type-law",
   version: "1.0.0",
   sourceNodeRef: "node://t256/source",
+  source: { kind: "admitted_source_carrier" },
   fieldRows: [],
   policyRefs: []
 };
@@ -51,6 +52,7 @@ const redeclaredTruth: ExecutionContextProjectionDeclaration = {
   projectionRef: "projection://t256/type-law/redeclared",
   version: "1.0.0",
   sourceNodeRef: "node://t256/source",
+  source: { kind: "admitted_source_carrier" },
   fieldRows: [],
   policyRefs: [],
   // @ts-expect-error source schema is derived from the selected Node.
@@ -60,3 +62,7 @@ void redeclaredTruth;
 
 // @ts-expect-error instruction assembly truth is derived inside the join.
 joinInput.instructionAssemblyBasis;
+// @ts-expect-error runtime authority is supplied only by the package-private ABG adapter.
+joinInput.runtimeAuthority;
+// @ts-expect-error flattened runtime-authority facts are not a public input.
+joinInput.derivedRuntimeAuthorityFacts;

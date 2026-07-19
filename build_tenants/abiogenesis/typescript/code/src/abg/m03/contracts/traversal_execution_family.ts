@@ -15,6 +15,7 @@ import {
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import {
+  assertCompiledExecutionContextContract,
   compileDeclaredExecutionContextContract,
   type CompiledExecutionContextContract
 } from "./declared_execution_context.js";
@@ -47,6 +48,7 @@ import {
 import type { RuntimeSchemaRequirement } from "./runtime_schema_admission.js";
 import { typecheckGtlProgram } from "./gtl_program_conformance.js";
 import {
+  assertAdmittedTraversalStageResultAuthority,
   admitDeclaredTraversalStageResultAuthority,
   admitProgramLocusTraversalStageResultAuthority,
   compileTraversalExecutionContracts,
@@ -230,6 +232,128 @@ export function assertTraversalExecutionFamilyRuntimeProjection(
     throw new TypeError(
       "traversal execution family runtime projection seal differs"
     );
+  }
+  const compactVectors = projection.compactFamily.subjects.flatMap(
+    (subject) => subject.vectors
+  );
+  if (compactVectors.length !== projection.vectors.length) {
+    throw new TypeError(
+      "traversal execution family runtime vector count differs from compact compiler result"
+    );
+  }
+  for (const [vectorIndex, runtimeVector] of projection.vectors.entries()) {
+    const compactVector = compactVectors[vectorIndex];
+    if (
+      compactVector === undefined ||
+      !stableJsonEquals(runtimeVector.compact, compactVector) ||
+      runtimeVector.graphVector.id !== compactVector.graphVectorRef ||
+      stableSha256Digest(runtimeVector.graphVector) !==
+        compactVector.graphVectorDigest ||
+      runtimeVector.loci.length !== compactVector.loci.length
+    ) {
+      throw new TypeError(
+        "traversal execution family runtime vector differs from compact compiler result"
+      );
+    }
+    const projectedSource = projectTraversalContractSourceBasis(
+      runtimeVector.sourceInput
+    );
+    if (
+      !stableJsonEquals(runtimeVector.source, projectedSource) ||
+      projectedSource.sourceKind !== compactVector.sourceKind ||
+      projectedSource.sourceRef !== compactVector.sourceRef ||
+      projectedSource.sourceDigest !== compactVector.sourceDigest ||
+      projectedSource.currentAuthorityRef !==
+        compactVector.currentAuthorityRef ||
+      projectedSource.currentAuthorityDigest !==
+        compactVector.currentAuthorityDigest ||
+      projectedSource.completeProgramPlan.planRef !==
+        compactVector.programPlanRef ||
+      projectedSource.completeProgramPlan.planDigest !==
+        compactVector.programPlanDigest
+    ) {
+      throw new TypeError(
+        "traversal execution family runtime source differs from compact compiler result"
+      );
+    }
+    const projectedNodes = compiledCInvokingLociInDeclaredOrder(
+      projectedSource.completeProgramPlan
+    );
+    for (const [locusIndex, runtimeLocus] of runtimeVector.loci.entries()) {
+      const compactLocus = compactVector.loci[locusIndex];
+      if (compactLocus === undefined) {
+        throw new TypeError(
+          "traversal execution family runtime locus differs from compact compiler result"
+        );
+      }
+      const stageMatches = projectedSource.workStages.filter(
+        (stage) =>
+          stage.ordinal === compactLocus.stageOrdinal &&
+          stage.programLocusRef === compactLocus.programLocusRef &&
+          stage.programLocusDigest === compactLocus.programLocusDigest
+      );
+      const projectedStage = stageMatches[0];
+      const nodeMatches = projectedNodes.filter(
+        (node) =>
+          node.node.nodeRef === compactLocus.programLocusRef &&
+          node.node.nodeDigest === compactLocus.programLocusDigest
+      );
+      const projectedNode = nodeMatches[0]?.node;
+      const projectedOperator =
+        projectedSource.sourceKind === "structural_hof_fan_out" ||
+          projectedStage === undefined
+          ? null
+          : projectRuntimeOperator({
+              graphVector: runtimeVector.graphVector,
+              stage: projectedStage
+            });
+      if (
+        stageMatches.length !== 1 ||
+        projectedStage === undefined ||
+        nodeMatches.length !== 1 ||
+        projectedNode === undefined ||
+        !stableJsonEquals(runtimeLocus.compact, compactLocus) ||
+        !stableJsonEquals(runtimeLocus.stage, projectedStage) ||
+        !stableJsonEquals(runtimeLocus.node, projectedNode) ||
+        !stableJsonEquals(runtimeLocus.operator, projectedOperator)
+      ) {
+        throw new TypeError(
+          "traversal execution family runtime locus differs from compact compiler result"
+        );
+      }
+      const compiledContext = runtimeLocus.compiledExecutionContext;
+      if (compiledContext === null) {
+        if (
+          compactLocus.executionContextRef !== null ||
+          compactLocus.executionContextDigest !== null
+        ) {
+          throw new TypeError(
+            "traversal execution family runtime context differs from compact compiler result"
+          );
+        }
+      } else {
+        assertCompiledExecutionContextContract(compiledContext);
+        if (
+          compiledContext.contractRef !== compactLocus.executionContextRef ||
+          compiledContext.contractDigest !== compactLocus.executionContextDigest
+        ) {
+          throw new TypeError(
+            "traversal execution family runtime context differs from compact compiler result"
+          );
+        }
+      }
+      assertAdmittedTraversalStageResultAuthority(runtimeLocus.resultAuthority);
+      if (
+        runtimeLocus.resultAuthority.authorityRef !==
+          compactLocus.resultAuthorityRef ||
+        runtimeLocus.resultAuthority.authorityDigest !==
+          compactLocus.resultAuthorityDigest
+      ) {
+        throw new TypeError(
+          "traversal execution family runtime result authority differs from compact compiler result"
+        );
+      }
+    }
   }
 }
 
@@ -1257,6 +1381,7 @@ export function compileTraversalExecutionFamilyForRuntime(input: {
     projectionDigest,
     effectsPermitted: false as const
   });
+  assertTraversalExecutionFamilyRuntimeProjection(runtimeProjection);
   return Object.freeze({ family: core.family, runtimeProjection });
 }
 

@@ -45,6 +45,15 @@ import {
   admittedTenantManifestFixture
 } from "../fixtures/admitted_tenant_manifest.mjs";
 import {
+  admitM04RuntimeSchemaAdmissionMetadataRows
+} from "../../build/semantic/code/src/app/m04/public_contracts/runtime_schema_admission.js";
+import {
+  RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+} from "../../build/semantic/code/src/abg/m03/contracts/runtime_schema_admission.js";
+import {
+  serializedJsonValueToPlain
+} from "../../build/semantic/code/src/gtl/m01/contracts/constructors.js";
+import {
   T223_FIXTURE_GRAPH_HANDLE,
   T223_FIXTURE_INTERFACE_REF,
   T223_FIXTURE_NODE_HANDLE,
@@ -77,7 +86,12 @@ function sha256(bytes) {
 function cProgramLeaves(term) {
   switch (term.kind) {
     case "c_of":
-      return [[term.stageRole, term.fibre, term.armId]];
+      return [[
+        term.stageRole,
+        term.fibre,
+        term.armId,
+        term.instructionCategoryRefs ?? []
+      ]];
     case "c_identity":
     case "c_workflow":
       return [];
@@ -299,16 +313,95 @@ test("T-223 Hello World fixture is a canonical declarations-only package", async
     await jsonFile(path.join(packageRoot, "catalog/hello-world.module.json"))
   );
   assert.deepEqual(module.imports, []);
-  assert.deepEqual(module.graphFunctions.map((value) => value.effects), [[], []]);
-  assert.deepEqual(module.graphs, []);
+  assert.deepEqual(module.graphFunctions.map((value) => value.effects), [[], [], []]);
+  assert.equal(module.graphs.length, 1);
+  assert.equal(
+    module.graphs[0]?.id,
+    "graph://fixture/hello-world/private-declarations"
+  );
+  assert.deepEqual(module.graphs[0]?.inputs, []);
+  assert.deepEqual(module.graphs[0]?.outputs, []);
+  assert.deepEqual(
+    module.graphs[0]?.nodes.map((node) => node.id),
+    [
+      "node://fixture/hello-world/fp-execution-context",
+      "node://fixture/hello-world/instruction/transform"
+    ]
+  );
   assert.deepEqual(module.operators, []);
   assert.deepEqual(module.evaluators, []);
-  assert.deepEqual(module.rules, []);
+  const runtimeSchemaMetadata = module.metadata.entries.find(
+    (entry) => entry.key === RUNTIME_SCHEMA_ADMISSION_METADATA_KEY
+  );
+  assert.notEqual(runtimeSchemaMetadata, undefined);
+  assert.equal(runtimeSchemaMetadata.value.kind, "json_blob");
+  const runtimeSchemaRows = admitM04RuntimeSchemaAdmissionMetadataRows(
+    serializedJsonValueToPlain(runtimeSchemaMetadata.value.value)
+  );
+  assert.deepEqual(
+    runtimeSchemaRows.map((row) => [
+      row.graphFunctionId,
+      row.nodeRef,
+      row.symbolicSchemaRef,
+      row.contractId,
+      row.contractVersion
+    ]),
+    [
+      [
+        "graph-function://fixture/hello-world",
+        "node://fixture/hello-world/helloinput",
+        "fixture.contract.hello-input",
+        "fixture.contract.hello-input",
+        T223_FIXTURE_VERSION
+      ],
+      [
+        "graph-function://fixture/hello-world",
+        "node://fixture/hello-world/hellooutput",
+        "fixture.contract.hello-output",
+        "fixture.contract.hello-output",
+        T223_FIXTURE_VERSION
+      ],
+      [
+        "node-type://fixture/hello-input",
+        "node://fixture/hello-world/helloinputtype",
+        "fixture.contract.hello-input",
+        "fixture.contract.hello-input",
+        T223_FIXTURE_VERSION
+      ]
+    ]
+  );
+  assert.deepEqual(
+    module.rules.map((rule) => [rule.name, rule.kind]),
+    [
+      [
+        "execution-context-projection://fixture/hello-world/fp",
+        "gtl.execution_context_projection"
+      ],
+      [
+        "instruction-protocol://fixture/hello-world/transform",
+        "gtl.instruction_protocol"
+      ]
+    ]
+  );
   const hello = module.graphFunctions.find(
     (value) => value.name === T223_FIXTURE_GRAPH_HANDLE
   );
   assert.notEqual(hello, undefined);
   assert.equal(hello.template.kind, "inline_graph");
+  assert.deepEqual(hello.inputs.map((node) => node.name), ["HelloInput"]);
+  assert.deepEqual(hello.environment.requires.map((node) => node.name), [
+    "HelloInput"
+  ]);
+  assert.deepEqual(
+    hello.template.graph.nodes.map((node) => node.name),
+    ["HelloInput", "HelloOutput"]
+  );
+  const publicInputSchema = await jsonFile(
+    path.join(packageRoot, "contracts/hello-input.schema.json")
+  );
+  assert.deepEqual(publicInputSchema.required, ["greeting"]);
+  assert.deepEqual(Object.keys(publicInputSchema.properties), ["greeting"]);
+  assert.equal(publicInputSchema.additionalProperties, false);
   const helloVector = hello.template.graph.vectors[0];
   assert.notEqual(helloVector, undefined);
   assert.deepEqual(
@@ -336,10 +429,15 @@ test("T-223 Hello World fixture is a canonical declarations-only package", async
   assert.equal(programAdmission.accepted, true);
   assert.notEqual(programAdmission.program, null);
   assert.deepEqual(cProgramLeaves(programAdmission.program.term), [
-    ["transform", "F_P", "arm://fixture/hello-world/transform/fp"],
-    ["evaluate", "F_D", "arm://fixture/hello-world/evaluate/fd"],
-    ["evaluate", "F_P", "arm://fixture/hello-world/evaluate/fp"],
-    ["consequence", "F_D", "arm://fixture/hello-world/consequence/fd"]
+    [
+      "transform",
+      "F_P",
+      "arm://fixture/hello-world/transform/fp",
+      ["instruction-section://fixture/hello-world/transform"]
+    ],
+    ["evaluate", "F_D", "arm://fixture/hello-world/evaluate/fd", []],
+    ["evaluate", "F_P", "arm://fixture/hello-world/evaluate/fp", []],
+    ["consequence", "F_D", "arm://fixture/hello-world/consequence/fd", []]
   ]);
   const handoff = compileGraphVectorExecutionHandoff({
     graphFunction: hello,

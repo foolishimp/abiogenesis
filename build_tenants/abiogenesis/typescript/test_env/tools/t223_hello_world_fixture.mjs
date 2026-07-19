@@ -25,6 +25,8 @@ import {
   constructContractRef,
   constructGraph,
   constructGraphFunction,
+  constructExecutionContextProjectionRule,
+  constructInstructionProtocolRule,
   constructJob,
   constructModule,
   constructNode,
@@ -47,6 +49,10 @@ import {
   typedInterface,
   typedNode
 } from "../../build/semantic/code/src/index.js";
+import {
+  RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+  canonicalizeRuntimeSchemaAdmissionMetadataRows
+} from "../../build/semantic/code/src/abg/m03/contracts/runtime_schema_admission.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -87,6 +93,30 @@ const FIXTURE_CONTRACTS = Object.freeze({
 const INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
 const HELLO_PROGRAM_REF = "program://fixture/hello-world/input-to-output";
+const HELLO_INSTRUCTION_CATEGORY_REF =
+  "instruction-section://fixture/hello-world/transform";
+const HELLO_INSTRUCTION_PROTOCOL_REF =
+  "instruction-protocol://fixture/hello-world/transform";
+const HELLO_DERIVED_EXECUTION_CONTEXT_SCHEMA_REF =
+  "abg.schema.execution-context-projection@5";
+const HELLO_INSTRUCTION_CONTENT =
+  "Construct the declared Hello World output from the admitted greeting and return only the declared result contract.";
+
+function taggedObject(value) {
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze(Object.entries(value).map(([key, item]) =>
+      Object.freeze({ key, value: item })
+    ))
+  });
+}
+
+function taggedRows(rows) {
+  return Object.freeze({
+    kind: "array",
+    items: Object.freeze(rows.map(taggedObject))
+  });
+}
 
 function helloCarrier(node) {
   return cInterfaceCarrier(
@@ -104,7 +134,10 @@ function helloProgram(input, output) {
       stageRole,
       fibre,
       armId,
-      resultBearing
+      resultBearing,
+      ...(stageRole === "transform" && fibre === "F_P"
+        ? { instructionCategoryRefs: [HELLO_INSTRUCTION_CATEGORY_REF] }
+        : {})
     });
   return declareCProgram({
     programRef: HELLO_PROGRAM_REF,
@@ -207,6 +240,157 @@ function helloNode(name, schemaRef, typeRef = null) {
   });
 }
 
+function helloDerivedExecutionContextNode() {
+  return constructNode({
+    name: "HelloFpExecutionContext",
+    schema: {
+      kind: "symbolic",
+      ref: HELLO_DERIVED_EXECUTION_CONTEXT_SCHEMA_REF
+    },
+    typeRef: null,
+    markov: ["catalog:ready"],
+    assetSurface: {
+      kind: "abg_execution_context_projection",
+      requiredContexts: [],
+      standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
+      outputContractRefs: [HELLO_DERIVED_EXECUTION_CONTEXT_SCHEMA_REF],
+      constructorRefs: [],
+      constructorInputAssetKinds: [],
+      rendererRefs: [],
+      renderedViewDigestPolicyRef: null,
+      sectionKindRefs: [],
+      clauseKindRefs: [],
+      authoritySlots: [],
+      proofObligationRefs: [
+        "proof://fixture/hello-world/fp-execution-context"
+      ]
+    },
+    tags: ["t223", "hello-world", "runtime-projection"],
+    id: "node://fixture/hello-world/fp-execution-context"
+  });
+}
+
+function helloInstructionAssetNode() {
+  return constructNode({
+    name: "HelloTransformInstruction",
+    schema: {
+      kind: "runtime_ref",
+      ref: "schema://fixture/hello-world/instruction/transform"
+    },
+    typeRef: "type://fixture/hello-world/instruction/transform",
+    markov: ["catalog:ready"],
+    assetSurface: {
+      kind: "fixture_hello_world_transform_instruction",
+      requiredContexts: [],
+      standardsRefs: ["REQ-R-ABG3-INSTRUCTION-ASSEMBLY"],
+      outputContractRefs: [
+        "contract://fixture/hello-world/instruction/transform"
+      ],
+      constructorRefs: [
+        "constructor://fixture/hello-world/instruction/transform"
+      ],
+      constructorInputAssetKinds: ["hello_world_input"],
+      rendererRefs: ["renderer://abg/instruction/prompt-manifest"],
+      renderedViewDigestPolicyRef:
+        "policy://abg/instruction/rendered-view-digest",
+      sectionKindRefs: ["section-kind://abg/instruction/context"],
+      clauseKindRefs: ["clause-kind://abg/instruction/constraint"],
+      authoritySlots: [
+        {
+          authorityKindRef: "authority://fixture/hello-world/declaration",
+          disposition: "bounded_fallback",
+          fallbackPreconditionRefs: [
+            "precondition://fixture/hello-world/declaration-admitted"
+          ]
+        }
+      ],
+      proofObligationRefs: [
+        "proof://fixture/hello-world/instruction/transform"
+      ]
+    },
+    tags: ["t223", "hello-world", "instruction-asset"],
+    id: "node://fixture/hello-world/instruction/transform"
+  });
+}
+
+function helloExecutionContextProjectionRule(sourceNodeRef) {
+  return constructExecutionContextProjectionRule({
+    projectionRef: "execution-context-projection://fixture/hello-world/fp",
+    version: "1.0.0",
+    sourceNodeRef,
+    source: {
+      kind: "derived_runtime_projection",
+      projectionClass: "fp_execution_context"
+    },
+    fieldRows: [
+      {
+        slot: "role_or_worker_selection_ref",
+        fieldPath: "fields.role_or_worker_selection_ref",
+        valueKind: "ref",
+        required: true
+      },
+      {
+        slot: "configuration_digest",
+        fieldPath: "fields.configuration_digest",
+        valueKind: "digest",
+        required: true
+      },
+      {
+        slot: "instruction_protocol_ref",
+        fieldPath: "fields.instruction_protocol_ref",
+        valueKind: "ref",
+        required: true
+      },
+      {
+        slot: "result_contract_ref",
+        fieldPath: "fields.result_contract_ref",
+        valueKind: "ref",
+        required: true
+      },
+      {
+        slot: "capability_requirement_refs",
+        fieldPath: "fields.capability_requirement_refs",
+        valueKind: "ref_list",
+        required: true
+      }
+    ],
+    policyRefs: ["policy://fixture/hello-world/execution-context"]
+  });
+}
+
+function helloInstructionProtocolRule(instructionAssetNodeRef) {
+  return constructInstructionProtocolRule({
+    instructionProtocolRef: HELLO_INSTRUCTION_PROTOCOL_REF,
+    version: "1.0.0",
+    instructionAssetNodeRef,
+    allowedStageRoles: ["transform"],
+    sections: [
+      {
+        sectionRef: HELLO_INSTRUCTION_CATEGORY_REF,
+        sectionKindRef: "section-kind://abg/instruction/context",
+        content: HELLO_INSTRUCTION_CONTENT,
+        contentDigest: sha256(Buffer.from(HELLO_INSTRUCTION_CONTENT, "utf8")),
+        required: true,
+        policyRefs: ["policy://fixture/hello-world/instruction/full-content"]
+      }
+    ],
+    relevancePolicies: [
+      {
+        policyRef: "relevance://fixture/hello-world/selected-vector-source",
+        mode: "selected_vector_source_closure"
+      }
+    ],
+    compressionPolicy: {
+      policyRef: "policy://fixture/hello-world/instruction/compression",
+      mode: "full_admitted_content"
+    },
+    proportionalityPolicyRef:
+      "policy://fixture/hello-world/instruction/proportionality",
+    runtimeBindingSlotClasses: ["source_node"],
+    policyRefs: ["policy://fixture/hello-world/instruction"]
+  });
+}
+
 function compactGraphFunctionIdentity(graphFunction, graphId, graphFunctionId) {
   if (graphFunction.template.kind !== "inline_graph") {
     throw new TypeError("Hello World declarations require an inline graph");
@@ -238,6 +422,24 @@ export function buildT223HelloWorldModule(options = {}) {
   }
   const input = helloNode("HelloInput", FIXTURE_CONTRACTS.input);
   const output = helloNode("HelloOutput", FIXTURE_CONTRACTS.output);
+  const derivedExecutionContext = helloDerivedExecutionContextNode();
+  const instructionAsset = helloInstructionAssetNode();
+  const privateDeclarationGraph = constructGraph({
+    name: "fixture.hello-world.private-declarations",
+    inputs: [],
+    outputs: [],
+    nodes: [derivedExecutionContext, instructionAsset],
+    vectors: [],
+    contexts: [],
+    rules: [],
+    effects: [],
+    tags: ["t223", "hello-world", "declaration-only"],
+    id: "graph://fixture/hello-world/private-declarations"
+  });
+  const projectionRule = helloExecutionContextProjectionRule(
+    derivedExecutionContext.id
+  );
+  const protocolRule = helloInstructionProtocolRule(instructionAsset.id);
   const program = helloProgram(input, output);
   const vector = edge([input], output, {
     name: "hello-input-to-output",
@@ -345,6 +547,40 @@ export function buildT223HelloWorldModule(options = {}) {
     ),
     { tags: ["t223", "hello-world"] }
   ), "graph://fixture/hello-input-type", T223_FIXTURE_NODE_HANDLE);
+  const privateInstructionType = compactGraphFunctionIdentity(
+    constructNodeTypeGraphFunction(instructionAsset, {
+      tags: ["t223", "hello-world", "private-declaration"]
+    }),
+    "graph://fixture/hello-world/instruction/transform",
+    "node-type://fixture/hello-world/instruction/transform"
+  );
+  const nodeTypeInput = nodeType.inputs[0];
+  if (nodeTypeInput === undefined) {
+    throw new TypeError("Hello input NodeType has no admitted input Node");
+  }
+  const runtimeSchemaRows = canonicalizeRuntimeSchemaAdmissionMetadataRows([
+    {
+      graphFunctionId: graphFunction.id,
+      nodeRef: input.id,
+      symbolicSchemaRef: input.schema.ref,
+      contractId: FIXTURE_CONTRACTS.input,
+      contractVersion: T223_FIXTURE_VERSION
+    },
+    {
+      graphFunctionId: graphFunction.id,
+      nodeRef: output.id,
+      symbolicSchemaRef: output.schema.ref,
+      contractId: FIXTURE_CONTRACTS.output,
+      contractVersion: T223_FIXTURE_VERSION
+    },
+    {
+      graphFunctionId: nodeType.id,
+      nodeRef: nodeTypeInput.id,
+      symbolicSchemaRef: nodeTypeInput.schema.ref,
+      contractId: FIXTURE_CONTRACTS.input,
+      contractVersion: T223_FIXTURE_VERSION
+    }
+  ]);
   const role = constructRole({
     name: "fixture_hello_role",
     tags: ["t223", "hello-world"],
@@ -367,18 +603,23 @@ export function buildT223HelloWorldModule(options = {}) {
   return serializeModule(
     constructModule({
       name: "fixture-hello-world",
-      graphs: [],
-      graphFunctions: [graphFunction, nodeType],
+      graphs: [privateDeclarationGraph],
+      graphFunctions: [graphFunction, nodeType, privateInstructionType],
       refinementBoundaries: [],
       candidateFamilies: [],
       jobs: [job],
       roles: [role],
       operators: [],
       evaluators: [],
-      rules: [],
+      rules: [projectionRule, protocolRule],
       imports: [],
       policyHooks: emptySerializedAttrs(),
-      metadata: emptySerializedAttrs()
+      metadata: {
+        entries: [{
+          key: RUNTIME_SCHEMA_ADMISSION_METADATA_KEY,
+          value: { kind: "json_blob", value: taggedRows(runtimeSchemaRows) }
+        }]
+      }
     })
   );
 }

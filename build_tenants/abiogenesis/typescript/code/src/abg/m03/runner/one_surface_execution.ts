@@ -63,7 +63,10 @@ import {
   constructVectorEvaluatedEvent,
   constructVectorTraversalPlannedEvent
 } from "../contracts/event_factories.js";
-import type { AdmittedRunInvokeExecutionIngress } from "../contracts/one_surface_execution_ingress.js";
+import {
+  assertAdmittedRunInvokeExecutionIngress,
+  type AdmittedRunInvokeExecutionIngress
+} from "../contracts/one_surface_execution_ingress.js";
 import type {
   AdmittedRuntimeCatalogBasis,
   CatalogExecutionBinding
@@ -77,6 +80,7 @@ import {
 } from "../contracts/runtime_schema_admission.js";
 import {
   assertCompiledTraversalExecutionFamily,
+  assertTraversalExecutionFamilyRuntimeProjection,
   compileTraversalExecutionFamilyForRuntime,
   type CompiledTraversalExecutionFamily,
   type TraversalExecutionFamilyOperatorProjection,
@@ -85,10 +89,13 @@ import {
   type TraversalExecutionFamilyRuntimeVectorProjection
 } from "../contracts/traversal_execution_family.js";
 import type { GraphVectorExecutionHandoffPublished } from "../contracts/graph_vector_execution_handoff.js";
-import type { ProjectSelectedTraversalContractSourceInput } from "../contracts/traversal_execution_contract.js";
+import {
+  assertAdmittedTraversalStageResultAuthority,
+  type ProjectSelectedTraversalContractSourceInput
+} from "../contracts/traversal_execution_contract.js";
 import {
   constructDeclaredCStageInvocationBasis,
-  joinDeclaredExecutionContext
+  joinDeclaredExecutionContextFromRuntimeAuthority
 } from "../contracts/declared_execution_context.js";
 import { renderPromptManifest } from "../contracts/instruction_assembly.js";
 import {
@@ -99,6 +106,7 @@ import {
   resolveDeclaredPluginSelection
 } from "../contracts/plugin_selection.js";
 import {
+  admitEnginePluginContract,
   admitFpDispatchOutcome,
   constructEnginePluginInput
 } from "../contracts/plugins.js";
@@ -1056,6 +1064,10 @@ export async function executeSelectedCatalogDirectProgram(input: {
       message: "T-270 execution requires one canonical runtime event sink"
     });
   }
+  assertTraversalExecutionFamilyRuntimeProjection(
+    input.compiledExecution.compiled.runtimeProjection
+  );
+  assertAdmittedRunInvokeExecutionIngress(input.ingress);
   assertPrivatePublicOperationAdmissionReceipt(input.publicOperationAdmission);
   assertOneSurfaceConstructionIntentAdmission(input.intentAdmission);
   assertTargetObligationBinding(input.targetBinding);
@@ -1255,7 +1267,7 @@ export async function executeSelectedCatalogDirectProgram(input: {
               executionBasisId: executionBasis.id
             }).slice("sha256:".length)}/7-graph-action-invoked`,
           admittedIntent,
-          basisId: input.selectedIntentEvent.basisId,
+          basisId: executionBasis.id,
           graphFunctionId: input.selectedIntentEvent.graphFunctionId,
           runId: input.selectedIntentEvent.runId,
           workKey: input.selectedIntentEvent.workKey,
@@ -1395,8 +1407,62 @@ export async function executeSelectedCatalogDirectProgram(input: {
             "compiler-selected F_P locus lacks its compiled execution context"
         });
       }
-      const joined = joinDeclaredExecutionContext({
-        sourceOutcome: vector.sourceInput.outcome,
+      const declarationOwner = vector.sourceInput.declarationOwnerGraphFunction;
+      const pluginSelection = executionBasis.compiledExecutionDeclarations
+        .pluginSelection;
+      if (
+        executionBasis.compiledExecutionDeclarations.sourceRef !==
+          declarationOwner.name ||
+        pluginSelection === null
+      ) {
+        throw new T270DirectExecutionError({
+          code: "implementation_unavailable",
+          message:
+            "compiler-selected F_P locus has no exact compiled plugin selection"
+        });
+      }
+      const resultLocus = projectFpResultLocusContract({
+        compositionStageRole: locus.stage.compositionStageRole,
+        pluginSelection,
+        sourceRef: locus.node.nodeRef
+      });
+      const selectedPlugin = resolveDeclaredPluginSelection({
+        selection: pluginSelection,
+        sourceRef: declarationOwner.id,
+        catalog: pluginCatalog
+      }).fpDispatch;
+      if (
+        selectedPlugin === undefined ||
+        selectedPlugin.contract.ref !== resultLocus.pluginRef
+      ) {
+        throw new T270DirectExecutionError({
+          code: "implementation_unavailable",
+          message:
+            "compiler-selected F_P transform locus did not resolve its declared fpDispatch plugin"
+        });
+      }
+      const workerProfile = input.compiledExecution.workerProfile;
+      if (workerProfile === undefined) {
+        throw new T270DirectExecutionError({
+          code: "implementation_unavailable",
+          message:
+            "compiler-selected F_P locus has no admitted worker/profile authority"
+        });
+      }
+      assertAdmittedTraversalStageResultAuthority(locus.resultAuthority);
+      const sourceOutcome = vector.sourceInput.outcome;
+      if (sourceOutcome.status !== "published_startup_blocked") {
+        throw new T270DirectExecutionError({
+          code: "authority_mismatch",
+          message:
+            "compiler-selected F_P locus lacks a published execution handoff"
+        });
+      }
+      const selectedPluginContract = admitEnginePluginContract(
+        selectedPlugin.contract
+      );
+      const joined = joinDeclaredExecutionContextFromRuntimeAuthority({
+        sourceOutcome,
         stageBasis: constructDeclaredCStageInvocationBasis({
           programBindingDigest:
             contextContract.selectedProgramBinding.bindingDigest,
@@ -1408,7 +1474,13 @@ export async function executeSelectedCatalogDirectProgram(input: {
         }),
         selectedCatalogEntryRef: input.selectedExecutionBinding.entryRef,
         catalogBasis: input.catalogBasis,
-        invocationCarriers: initialInputCarriers
+        invocationCarriers: initialInputCarriers,
+        runtimeAuthority: Object.freeze({
+          ingress: input.ingress,
+          workerProfile,
+          selectedPluginContract,
+          selectedResultAuthority: locus.resultAuthority
+        })
       });
       if (joined.status !== "request_constructed") {
         throw new T270DirectExecutionError({
@@ -1453,25 +1525,6 @@ export async function executeSelectedCatalogDirectProgram(input: {
             "T-256 execution-context join differs from the compiler-selected result contract"
         });
       }
-      const declarationOwner = vector.sourceInput.declarationOwnerGraphFunction;
-      const pluginSelection = executionBasis.compiledExecutionDeclarations
-        .pluginSelection;
-      if (
-        executionBasis.compiledExecutionDeclarations.sourceRef !==
-          declarationOwner.name ||
-        pluginSelection === null
-      ) {
-        throw new T270DirectExecutionError({
-          code: "implementation_unavailable",
-          message:
-            "compiler-selected F_P locus has no exact compiled plugin selection"
-        });
-      }
-      const resultLocus = projectFpResultLocusContract({
-        compositionStageRole: locus.stage.compositionStageRole,
-        pluginSelection,
-        sourceRef: locus.node.nodeRef
-      });
       if (
         resultLocus.requiredPluginSeam !== "fpDispatch" ||
         resultLocus.wireProfile !== "attached_transform_result" ||
@@ -1485,21 +1538,6 @@ export async function executeSelectedCatalogDirectProgram(input: {
           code: "authority_mismatch",
           message:
             "compiler-selected F_P transform locus differs from its T-257 result contract"
-        });
-      }
-      const selectedPlugin = resolveDeclaredPluginSelection({
-        selection: pluginSelection,
-        sourceRef: declarationOwner.id,
-        catalog: pluginCatalog
-      }).fpDispatch;
-      if (
-        selectedPlugin === undefined ||
-        selectedPlugin.contract.ref !== resultLocus.pluginRef
-      ) {
-        throw new T270DirectExecutionError({
-          code: "implementation_unavailable",
-          message:
-            "compiler-selected F_P transform locus did not resolve its declared fpDispatch plugin"
         });
       }
       const rendered = renderPromptManifest({
