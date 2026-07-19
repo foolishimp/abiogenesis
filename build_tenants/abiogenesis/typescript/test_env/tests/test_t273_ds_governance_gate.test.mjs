@@ -6,7 +6,11 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { inspectDsGovernance } from "../gates/ds_governance_gate.mjs";
+import {
+  evaluateDsGovernance,
+  executeDeliveryRootOutcome,
+  inspectDsGovernance
+} from "../gates/ds_governance_gate.mjs";
 
 function ticketSource(overrides = {}) {
   const fields = {
@@ -16,8 +20,8 @@ function ticketSource(overrides = {}) {
     ticket_category: "ordinary",
     status: "active",
     goal: "GOAL-035",
-    source_ticket: "T-252",
-    delivery_phase: "DS-2",
+    source_ticket: "T-276",
+    delivery_phase: "DS-4",
     change_intent: "Exercise the governance fixture.",
     change_class: "realization_refactor",
     re_entry_point: "test fixture",
@@ -40,12 +44,68 @@ async function fixtureProject(t) {
   return root;
 }
 
-test("T-273 current DS-1 through DS-3 ticket inventory is governed", () => {
+test("T-273 current T-276 delivery root is governed", () => {
   const result = inspectDsGovernance();
   assert.equal(result.status, "passed", result.failures.join("\n"));
-  assert.equal(result.checkedTickets, 19);
+  assert.equal(result.checkedTickets, 1);
   assert.equal(result.requiredFields, 13);
-  assert.deepEqual(result.deliveryRootTicketIds, ["T-252"]);
+  assert.deepEqual(result.deliveryRootTicketIds, ["T-276"]);
+});
+
+test("T-273 executes the exact packed T-276 root command after host build", () => {
+  const calls = [];
+  const result = executeDeliveryRootOutcome({
+    tenantRoot: "/fixture/tenant",
+    spawn(command, args, options) {
+      calls.push({ command, args, cwd: options.cwd });
+      return { status: 0, signal: null, stdout: "", stderr: "" };
+    }
+  });
+  assert.equal(result.status, "passed");
+  assert.equal(result.deliveryRootTicketId, "T-276");
+  assert.equal(
+    result.packedTest,
+    "test_env/tests/test_t276_installed_consensus_steel_thread.test.mjs"
+  );
+  assert.deepEqual(calls, [
+    {
+      command: "npm",
+      args: ["run", "build:host"],
+      cwd: "/fixture/tenant"
+    },
+    {
+      command: process.execPath,
+      args: [
+        "--test",
+        "--test-concurrency=1",
+        "test_env/tests/test_t276_installed_consensus_steel_thread.test.mjs"
+      ],
+      cwd: "/fixture/tenant"
+    }
+  ]);
+});
+
+test("T-273 executable governance fails and stops when the root command fails", () => {
+  let calls = 0;
+  const rootOutcome = executeDeliveryRootOutcome({
+    spawn() {
+      calls += 1;
+      return {
+        status: 1,
+        signal: null,
+        stdout: "",
+        stderr: "root red"
+      };
+    }
+  });
+  const result = evaluateDsGovernance(
+    { status: "passed" },
+    rootOutcome
+  );
+  assert.equal(calls, 1);
+  assert.equal(rootOutcome.status, "failed");
+  assert.equal(rootOutcome.steps[0].stderr, "root red");
+  assert.equal(result.status, "failed");
 });
 
 test("T-273 fails closed on a missing intake field", async (t) => {
