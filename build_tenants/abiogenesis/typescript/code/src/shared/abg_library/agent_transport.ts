@@ -9,6 +9,7 @@ import {
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 
 import type { AgentTransportContract } from "./carriers.js";
+import { admitTransportAppendArgs } from "./transport_contracts.js";
 import {
   runAgentActorWorkerCallout,
   type TracedProcessExecutorProfile,
@@ -25,6 +26,13 @@ export interface AgentTransportRequest {
   readonly contract: AgentTransportContract;
   readonly prompt: string;
   readonly responseJsonSchema?: unknown;
+  // B-001 downstream RCA (2026-07-14): the capability lane must ride the
+  // dispatch request or it is unreachable through the real transport path —
+  // the lane existed on claudeStreamJsonArgs while runAgentTransport never
+  // passed it, so every stream-json claude dispatch stayed tool-less
+  // regardless of the stage's declared worker-executes contract. Default
+  // remains the closed-prompt proof lane.
+  readonly lane?: TransportCapabilityLane;
   readonly cwd: string;
   readonly archiveRoot: string;
   readonly label: string;
@@ -113,28 +121,74 @@ export function renderAgentTransportArgs(
   );
 }
 
+// Lane law (B-001 support/4.6.x): tool posture belongs to the dispatching
+// stage's declared capability lane, not to the transport shape. A
+// closed-prompt proof stays tool-less; a worker-executes stage must carry
+// tools or the execution-default law ("run the declared command yourself")
+// is structurally unsatisfiable — an honest worker can only report that no
+// execution tool was available, and a dishonest one fabricates results.
+export type TransportCapabilityLane = "closed_prompt_proof" | "worker_executes";
+
 export function claudeStreamJsonArgs(
   prompt: string,
-  responseJsonSchema?: unknown
+  responseJsonSchema?: unknown,
+  options?: {
+    readonly lane?: TransportCapabilityLane;
+    readonly appendArgs?: readonly string[];
+  }
 ): readonly string[] {
   void prompt;
+  const lane = options?.lane ?? "closed_prompt_proof";
   const args = [
     "-p",
-    "--safe-mode",
     "--disable-slash-commands",
     "--no-session-persistence",
     "--output-format",
     "stream-json",
     "--verbose",
     "--permission-mode",
-    "bypassPermissions",
-    "--tools",
-    ""
+    "bypassPermissions"
   ];
+  // Both execution-gating flags are lane-owned: `--safe-mode` forces tool
+  // approval even under bypassPermissions, so a worker-executes dispatch
+  // carrying it is as unsatisfiable as one carrying `--tools ""`.
+  if (lane === "closed_prompt_proof") {
+    args.push("--safe-mode", "--tools", "");
+  }
   if (responseJsonSchema !== undefined) {
     args.push("--json-schema", JSON.stringify(responseJsonSchema));
   }
+  args.push(
+    ...admitTransportAppendArgs({
+      agentKey: "claude",
+      ...(options?.appendArgs !== undefined
+        ? { explicitArgs: options.appendArgs }
+        : {})
+    })
+  );
   return Object.freeze(args);
+}
+
+// Keep dispatch-path argv composition at one internal seam. The lane wiring is
+// proven through runAgentTransport itself; a direct
+// claudeStreamJsonArgs proof does not witness this path (B-001 downstream
+// RCA: codex's tooled template masked the unconnected claude lane).
+function composeAgentTransportArgs(
+  request: Pick<
+    AgentTransportRequest,
+    "contract" | "prompt" | "responseJsonSchema" | "lane"
+  >,
+  outputPath: string
+): readonly string[] {
+  if (request.contract.agentKey === "claude") {
+    return claudeStreamJsonArgs(request.prompt, request.responseJsonSchema, {
+      ...(request.lane !== undefined ? { lane: request.lane } : {})
+    });
+  }
+  return renderAgentTransportArgs(request.contract.argsTemplate, {
+    prompt: request.prompt,
+    outputPath
+  });
 }
 
 function writeJson(filePath: string, value: unknown): void {
@@ -313,15 +367,22 @@ function classifyFailure(input: {
   readonly structuredEventCount: number;
   readonly apiRetryCount: number;
   readonly toolCallCount: number;
+  readonly lane: TransportCapabilityLane;
 }): AgentTransportFailureClass | null {
   if (input.status !== 0 && hasTransportFailureSignal(input)) {
     return "transport_failure";
   }
-  if (input.toolCallCount > 0) {
-    return "contract_failure";
-  }
-  if (hasToolTranscriptMarker(input.text)) {
-    return "contract_failure";
+  // B-001 downstream RCA, second seam: tool use is a contract violation ONLY
+  // in the closed-prompt proof lane. A worker-executes dispatch REQUIRES tool
+  // use (execution-default law) — classifying it as contract_failure would
+  // fail-close every honest executing worker even with the lane argv wired.
+  if (input.lane === "closed_prompt_proof") {
+    if (input.toolCallCount > 0) {
+      return "contract_failure";
+    }
+    if (hasToolTranscriptMarker(input.text)) {
+      return "contract_failure";
+    }
   }
   if (input.status === 0) {
     return input.text.trim().length === 0 ? "no_output" : null;
@@ -375,12 +436,7 @@ export async function runAgentTransport(
   const executorProfile = executorProfileFor(request);
   const isClaude = request.contract.agentKey === "claude";
   const workerRef = request.workerRef ?? request.contract.agentKey;
-  const args = isClaude
-    ? claudeStreamJsonArgs(request.prompt, request.responseJsonSchema)
-    : renderAgentTransportArgs(request.contract.argsTemplate, {
-        prompt: request.prompt,
-        outputPath
-      });
+  const args = composeAgentTransportArgs(request, outputPath);
   const traced = await runAgentActorWorkerCallout({
     agentCalloutKind: "agent_worker",
     workerRef,
@@ -445,7 +501,8 @@ export async function runAgentTransport(
       parser: isClaude ? "claude-stream-json" : "generic-text",
       structuredEventCount: traced.structuredEventCount,
       apiRetryCount: traced.apiRetryEvents.length,
-      toolCallCount: traced.toolCallEvents.length
+      toolCallCount: traced.toolCallEvents.length,
+      lane: request.lane ?? "closed_prompt_proof"
     }),
     structuredEventCount: traced.structuredEventCount,
     apiRetryCount: traced.apiRetryEvents.length,

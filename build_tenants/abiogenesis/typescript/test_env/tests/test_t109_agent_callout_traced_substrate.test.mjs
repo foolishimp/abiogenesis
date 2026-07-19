@@ -506,9 +506,81 @@ test("T-109 failure fixture: Claude server tool use fails closed even with final
   });
 
   assert.equal(result.status, 0);
+  assert.equal(result.outcome.kind, "exited");
   assert.equal(result.text, "final output after server tool");
+  assert.equal(result.structuredEventCount, 3);
   assert.equal(result.toolCallCount, 2);
   assert.equal(result.failureClass, "contract_failure");
+  assert.ok(result.args.includes("--safe-mode"));
+  const toolsIndex = result.args.indexOf("--tools");
+  assert.notEqual(toolsIndex, -1);
+  assert.equal(result.args[toolsIndex + 1], "");
+});
+
+test("T-109 Claude worker-executes fixture: the real transport admits tool use", async () => {
+  const archiveRoot = await runRoot("claude-worker-executes");
+  const fakeClaude = path.join(archiveRoot, "fake-claude-worker.mjs");
+  await writeFile(
+    fakeClaude,
+    [
+      "#!/usr/bin/env node",
+      nodePrintJsonLinesScript([
+        {
+          type: "assistant",
+          message: {
+            content: [
+              {
+                type: "tool_use",
+                id: "toolu_worker_fixture",
+                name: "Bash",
+                input: { command: "node --test" }
+              }
+            ]
+          }
+        },
+        {
+          type: "result",
+          subtype: "success",
+          result: "worker execution observed"
+        }
+      ])
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(fakeClaude, 0o755);
+
+  const label = "claude-worker-executes";
+  const result = await runAgentTransport({
+    contract: {
+      agentKey: "claude",
+      command: fakeClaude,
+      argsTemplate: [],
+      sanitizedEnvironmentPolicy: { prefixes: [] }
+    },
+    prompt: "run the declared command",
+    lane: "worker_executes",
+    cwd: archiveRoot,
+    archiveRoot,
+    label,
+    timeoutMs: 30000
+  });
+
+  assert.equal(result.status, 0);
+  assert.equal(result.outcome.kind, "exited");
+  assert.equal(result.text, "worker execution observed");
+  assert.equal(result.structuredEventCount, 2);
+  assert.equal(result.toolCallCount, 1);
+  assert.equal(result.failureClass, null);
+  assert.ok(!result.args.includes("--safe-mode"));
+  assert.ok(!result.args.includes("--tools"));
+
+  const archived = JSON.parse(
+    await readFile(path.join(archiveRoot, `${label}-transport.json`), "utf8")
+  );
+  assert.equal(archived.toolCallCount, 1);
+  assert.equal(archived.failureClass, null);
+  assert.ok(!archived.args.includes("--safe-mode"));
+  assert.ok(!archived.args.includes("--tools"));
 });
 
 test("T-109 failure fixture: Claude rate-limit envelope stays retryable transport failure", async () => {
