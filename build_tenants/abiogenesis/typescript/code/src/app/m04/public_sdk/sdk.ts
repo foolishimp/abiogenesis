@@ -304,6 +304,7 @@ export function resolveT270LiveCapabilityJoin(input: {
   const runtimePluginRefs = new Set(
     runtimeProfile.standardPluginRefs
   );
+  const steeringProvenanceRefs = new Set(steering.provenanceRefs);
   if (
     binding.kind !== "live_capability_binding" ||
     projection.kind !== "live_capability_projection" ||
@@ -313,7 +314,10 @@ export function resolveT270LiveCapabilityJoin(input: {
     !T270_LIVE_PLUGIN_REFS.every((ref) => runtimePluginRefs.has(ref)) ||
     !T270_LIVE_CAPABILITY_GRANTS.every((capabilityId) =>
       grantedCapabilities.has(capabilityId)
-    )
+    ) ||
+    !steeringProvenanceRefs.has(projection.capabilityRef) ||
+    !steeringProvenanceRefs.has(projection.capabilityDigest) ||
+    !steeringProvenanceRefs.has(projection.executionContractDigest)
   ) {
     throw new TypeError(
       "run.invoke process-local capability body differs from admitted steering authority"
@@ -327,6 +331,17 @@ export function resolveT270LiveCapabilityJoin(input: {
       steering.steeringDigest,
       "run.invoke admitted transport steering digest"
     ),
+    workerProfile: Object.freeze({
+      selectionRef: projection.capabilityRef,
+      selectionDigest: exactSha256(
+        projection.capabilityDigest,
+        "run.invoke admitted worker/profile selection digest"
+      ),
+      configurationDigest: exactSha256(
+        projection.executionContractDigest,
+        "run.invoke admitted worker/profile configuration digest"
+      )
+    }),
     availableLivePluginRefs: availableRefs,
     pluginCapabilities: binding.pluginCapabilities
   });

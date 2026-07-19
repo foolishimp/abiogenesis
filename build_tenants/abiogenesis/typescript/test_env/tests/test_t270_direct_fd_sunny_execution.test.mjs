@@ -157,6 +157,9 @@ const FP_SECTION_TEXT =
 const FP_CAPABILITY_ID = "capability://t270/scenario09-direct";
 const LIVE_STEERING_REF = "steering://t270/scenario09";
 const LIVE_STEERING_DIGEST = digest("live-steering");
+const LIVE_WORKER_PROFILE_REF = "capability:live:t270-scenario09";
+const LIVE_WORKER_PROFILE_DIGEST = digest("live-worker-profile");
+const LIVE_WORKER_CONFIGURATION_DIGEST = digest("live-worker-configuration");
 
 function digest(subject) {
   return stableSha256Digest({ subject });
@@ -1029,7 +1032,10 @@ const FP_INGRESS = ingress(FP_CATALOG, FP_SCHEMAS, {
   steeringDigest: LIVE_STEERING_DIGEST,
   steeringProvenanceRefs: [
     LIVE_STEERING_REF,
-    LIVE_STEERING_DIGEST
+    LIVE_STEERING_DIGEST,
+    LIVE_WORKER_PROFILE_REF,
+    LIVE_WORKER_PROFILE_DIGEST,
+    LIVE_WORKER_CONFIGURATION_DIGEST
   ]
 });
 
@@ -1055,6 +1061,11 @@ async function processLiveCapabilityJoin(workerScript) {
       kind: "t270_live_capability_join",
       steeringRef: LIVE_STEERING_REF,
       steeringDigest: LIVE_STEERING_DIGEST,
+      workerProfile: Object.freeze({
+        selectionRef: LIVE_WORKER_PROFILE_REF,
+        selectionDigest: LIVE_WORKER_PROFILE_DIGEST,
+        configurationDigest: LIVE_WORKER_CONFIGURATION_DIGEST
+      }),
       availableLivePluginRefs: Object.freeze([
         "plugin://abg/fp-dispatch-live",
         "plugin://abg/fp-evaluator-live"
@@ -1601,7 +1612,10 @@ test("T-270 executes the compiler-selected F_P transform through the admitted li
     steeringDigest: LIVE_STEERING_DIGEST,
     provenanceRefs: [
       LIVE_STEERING_REF,
-      LIVE_STEERING_DIGEST
+      LIVE_STEERING_DIGEST,
+      LIVE_WORKER_PROFILE_REF,
+      LIVE_WORKER_PROFILE_DIGEST,
+      LIVE_WORKER_CONFIGURATION_DIGEST
     ]
   });
   const compiledExecution = compileDirectExecution({
@@ -1609,6 +1623,11 @@ test("T-270 executes the compiler-selected F_P transform through the admitted li
     catalog: FP_CATALOG.basis,
     binding: FP_CATALOG.binding,
     liveCapabilityJoin: worker.join
+  });
+  assert.deepEqual(compiledExecution.workerProfile, {
+    selectionRef: LIVE_WORKER_PROFILE_REF,
+    selectionDigest: LIVE_WORKER_PROFILE_DIGEST,
+    configurationDigest: LIVE_WORKER_CONFIGURATION_DIGEST
   });
   const admission = publicAdmissionFor(
     FP_INGRESS,
@@ -1946,6 +1965,12 @@ test("T-270 maps malformed F_P output to retry-eligible contract_failure and rej
         "plugin://abg/fp-dispatch-live",
         "plugin://foreign/fp-evaluator"
       ]
+    },
+    {
+      workerProfile: Object.freeze({
+        ...malformedWorker.join.workerProfile,
+        configurationDigest: digest("wrong-worker-configuration")
+      })
     }
   ]) {
     assert.throws(

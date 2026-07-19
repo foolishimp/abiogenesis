@@ -172,6 +172,11 @@ export interface T270LiveCapabilityJoin {
   readonly kind: "t270_live_capability_join";
   readonly steeringRef: string;
   readonly steeringDigest: `sha256:${string}`;
+  readonly workerProfile: Readonly<{
+    readonly selectionRef: string;
+    readonly selectionDigest: `sha256:${string}`;
+    readonly configurationDigest: `sha256:${string}`;
+  }>;
   readonly availableLivePluginRefs: readonly string[];
   readonly pluginCapabilities: EnginePluginCapabilities;
 }
@@ -197,6 +202,7 @@ export interface T270CompiledDirectExecution {
     readonly family: CompiledTraversalExecutionFamily;
     readonly runtimeProjection: TraversalExecutionFamilyRuntimeProjection;
   }>;
+  readonly workerProfile: T270LiveCapabilityJoin["workerProfile"] | undefined;
   readonly pluginCapabilities: EnginePluginCapabilities | undefined;
 }
 
@@ -904,7 +910,10 @@ function admitT270LiveCapabilityJoin(input: {
   readonly invocationAuthority: T270CompileInvocationAuthority;
   readonly runtimeProfile: AdmittedRunInvokeExecutionIngress["runtimeProfile"];
   readonly join: T270LiveCapabilityJoin | undefined;
-}): EnginePluginCapabilities | undefined {
+}): Readonly<{
+  readonly workerProfile: T270LiveCapabilityJoin["workerProfile"];
+  readonly pluginCapabilities: EnginePluginCapabilities;
+}> | undefined {
   if (input.join === undefined) {
     return undefined;
   }
@@ -921,6 +930,7 @@ function admitT270LiveCapabilityJoin(input: {
   const availableRefs = Object.freeze([...join.availableLivePluginRefs]);
   const sortedAvailableRefs = Object.freeze([...availableRefs].sort());
   const provenanceRefs = new Set(steering.provenanceRefs);
+  const workerProfile = join.workerProfile;
   const capabilityIds = new Set(
     input.invocationAuthority.capabilityGrants.map(
       (grant) => grant.capabilityId
@@ -930,6 +940,10 @@ function admitT270LiveCapabilityJoin(input: {
     join.kind !== "t270_live_capability_join" ||
     join.steeringRef !== steering.steeringRef ||
     join.steeringDigest !== steering.steeringDigest ||
+    workerProfile === undefined ||
+    workerProfile.selectionRef.length === 0 ||
+    !/^sha256:[0-9a-f]{64}$/u.test(workerProfile.selectionDigest) ||
+    !/^sha256:[0-9a-f]{64}$/u.test(workerProfile.configurationDigest) ||
     availableRefs.length === 0 ||
     new Set(availableRefs).size !== availableRefs.length ||
     !stableJsonEquals(availableRefs, sortedAvailableRefs) ||
@@ -944,7 +958,10 @@ function admitT270LiveCapabilityJoin(input: {
       "abg.capability.runtime.execute-seven-term-c@5"
     ) ||
     !provenanceRefs.has(join.steeringRef) ||
-    !provenanceRefs.has(join.steeringDigest)
+    !provenanceRefs.has(join.steeringDigest) ||
+    !provenanceRefs.has(workerProfile.selectionRef) ||
+    !provenanceRefs.has(workerProfile.selectionDigest) ||
+    !provenanceRefs.has(workerProfile.configurationDigest)
   ) {
     throw new T270DirectExecutionError({
       code: "authority_mismatch",
@@ -952,7 +969,10 @@ function admitT270LiveCapabilityJoin(input: {
         "T-270 live capability body differs from admitted transport steering or runtime profile"
     });
   }
-  return join.pluginCapabilities;
+  return Object.freeze({
+    workerProfile,
+    pluginCapabilities: join.pluginCapabilities
+  });
 }
 
 /**
@@ -971,7 +991,7 @@ export function compileSelectedCatalogDirectProgram(input: {
   const selectedExecutionBindingDigest = stableSha256Digest(
     input.selectedExecutionBinding
   );
-  const pluginCapabilities = admitT270LiveCapabilityJoin({
+  const admittedLiveCapability = admitT270LiveCapabilityJoin({
     invocationAuthority: input.invocationAuthority,
     runtimeProfile: input.runtimeProfile,
     join: input.liveCapabilityJoin
@@ -981,7 +1001,9 @@ export function compileSelectedCatalogDirectProgram(input: {
     executionBinding: input.selectedExecutionBinding,
     admittedTenantConformanceManifest:
       input.admittedTenantConformanceManifest,
-    pluginCatalog: standardPluginCatalogWithCapabilities(pluginCapabilities)
+    pluginCatalog: standardPluginCatalogWithCapabilities(
+      admittedLiveCapability?.pluginCapabilities
+    )
   });
   assertCompiledTraversalExecutionFamily(compiled.family);
   if (
@@ -1007,7 +1029,8 @@ export function compileSelectedCatalogDirectProgram(input: {
     selectedExecutionBindingDigest,
     runtimeProjectionDigest: compiled.runtimeProjection.projectionDigest,
     compiled,
-    pluginCapabilities
+    workerProfile: admittedLiveCapability?.workerProfile,
+    pluginCapabilities: admittedLiveCapability?.pluginCapabilities
   });
 }
 
