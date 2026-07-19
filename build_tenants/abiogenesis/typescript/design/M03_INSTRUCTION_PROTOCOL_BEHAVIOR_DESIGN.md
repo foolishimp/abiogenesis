@@ -154,15 +154,41 @@ T-252 GTL body digest.
 | admitted registry event/projection plus `AdmittedRuntimeCatalogBasis`, execution binding, and declaration-module bindings | M03 registry and catalog admission | replay-preserved declaration refs, selected work identity, and cross-Module declaration source/digest authority | admitted ABG runtime truth |
 | admitted declaration `Module` closure | M02 GTL under catalog bindings | sole source of projection and protocol Rule profiles | admitted GTL |
 | `CompiledExecutionContextContract` | T-256 M03 | exact static join from one handoff to named carrier slots and protocol/result/capability law | module-local prime |
-| `AdmittedExecutionContextValues` | T-256 M03 | invocation-local values extracted from admitted carriers under the compiled contract | module-local prime |
+| `DerivedExecutionContextProjection` | T-256 M03 | one native-admitted projection of runtime-owned F_P authority derived from the exact selected program locus, admitted worker/profile projection, declared dispatch plugin, result, capability, policy, and transport truth; never domain payload | module-local subordinate |
+| `AdmittedExecutionContextValues` | T-256 M03 | invocation-local values joined from unchanged domain carriers and, when explicitly declared, the separately admitted derived projection | module-local prime |
 | canonical T-183 instruction carriers | existing M03 instruction assembly | sole F_P rule, plan, startup-admission, and envelope authority | existing public M03 contracts |
 | `DeclaredExecutionContextJoinOutcome` | T-256 M03 | one public discriminated outcome: request constructed, exact capability block preserved, or typed invalid | public M03 contract |
 | `DeclaredExecutionRequest` | T-256 M03 | immutable `F_P` projection over canonical T-183 carriers or `F_H` interaction request; both remain startup-blocked | public M03 contract |
 | `ExecutionContextDiagnostic` | T-256 M03 | total typed refusal or unrealized relation | public M03 diagnostic |
 
-Subordinate field rows, instruction-asset Nodes, protocol sections, resolved
-refs, and capability rows remain owned by these carriers. They do not become
-peer registries or public request types.
+Subordinate field rows, instruction-asset Nodes, derived-projection Nodes,
+protocol sections, resolved refs, and capability rows remain owned by these
+carriers. They do not become peer registries or public request types.
+
+### Prime contraction decision
+
+There is one execution-context contract, one closed slot vocabulary, and one
+binder. A projection Rule declares exactly one source class:
+
+```text
+admitted_source_carrier     -> read named fields from an unchanged admitted
+                               domain carrier
+derived_runtime_projection -> ABG derives one separate F_P carrier from
+                               existing admitted runtime authority
+```
+
+The second class is a projection, not a second source of truth. Its digest is
+computed from the exact program binding, selected locus, admitted worker/profile
+projection, declared dispatch plugin, transport steering, protocol, result authority, capability
+requirements, and their evidence refs. It may not select or reinterpret any of
+them. F_H remains on `admitted_source_carrier` until its interaction and
+continuation authority derivation is separately designed. The two source
+classes share the same Rule family, compiler, slot algebra, binder, and request
+join. Exactly one class owns each active slot; conflict, absence, or fallback is
+invalid. This is the attempted contraction result: one domain carrier cannot
+lawfully absorb runtime authority without either making the caller an authority
+or falsifying its schema admission, while separate compilers or registries are
+not required.
 
 ## Declaration Profiles
 
@@ -180,9 +206,23 @@ The execution-context profile has exactly these config keys:
 ```text
 version
 source_node_ref
+source
 field_rows
 policy_refs
 ```
+
+`source` is one `json_blob` with exactly one of these shapes:
+
+```json
+{"kind":"admitted_source_carrier"}
+{"kind":"derived_runtime_projection","projection_class":"fp_execution_context"}
+```
+
+Unknown keys, omitted keys, alternate spellings, a projection class on the
+admitted-carrier variant, or a derived variant for F_H fail profile admission.
+Source mode is declared once per Rule. Active slots may be distributed across
+Rules, but each slot has exactly one Rule and therefore exactly one source mode
+across the compiled closure.
 
 The instruction-protocol profile has exactly these config keys:
 
@@ -204,6 +244,7 @@ native TypeScript properties:
 | Wire key | Decoded native property |
 |---|---|
 | `source_node_ref` | `sourceNodeRef` |
+| `source` | `source` closed tagged union |
 | `field_rows` | `fieldRows` |
 | `policy_refs` | `policyRefs` |
 | `instruction_asset_node_ref` | `instructionAssetNodeRef` |
@@ -257,6 +298,8 @@ Its decoded native representation declares:
 ```text
 version
 sourceNodeRef
+source = admitted_source_carrier
+       | derived_runtime_projection(fp_execution_context)
 fieldRows[]
 policyRefs[]
 ```
@@ -277,17 +320,21 @@ required
 
 Field paths reuse the target-carrier contract's dot-separated own-property
 semantics. Empty segments, inherited properties, array indexes, wildcards,
-coercion, aliases, and implicit fallback are invalid. A compiled projection
-may read only a source Node present in the selected GraphVector and selected C
-program's exact ordered input interface. Module-local vector inputs are lawful
-even when they are carried by, rather than public inputs of, the containing
-GraphFunction.
+coercion, aliases, and implicit fallback are invalid.
+
+Source resolution is variant-specific. `admitted_source_carrier` resolves only
+through the selected GraphVector and C-program input interface. Membership in
+`GraphFunction.inputs` is additionally required only when the selected public
+invocation contract maps that source as public payload; module-local vector
+inputs remain lawful. `derived_runtime_projection` resolves only one Node in
+the Rule's exact catalog-bound declaration Module and requires that Node to be
+absent from the GraphVector/C-program input interface, `GraphFunction.inputs`,
+`environment.requires`, and the public payload schema.
 
 The Rule does not author source schema, source type, or active regime. The
-compiler resolves `sourceNodeRef` through the exact selected GraphVector source
-interface, verifies that interface against the selected C-program binding,
-derives schema and type from that admitted Node, and derives active regime from
-the catalog-bound C program term and selected composition. Supplying
+compiler derives schema and type from the Node resolved by the declared source
+variant and derives active regime from the catalog-bound C program term and
+selected composition. Supplying
 `source_schema_ref`, `source_type_ref`,
 `applies_to_regime`, or their native spellings is an unknown-field rejection.
 
@@ -465,28 +512,43 @@ when all of the following hold:
    duplicate local Rule or Node identity rejects resolution, no local index is
    retained, and no M02 callable lookup is widened;
 6. every active projection Rule resolves exactly once, contains only the
-   closed wire vocabulary, and does not assert source schema, source type, or
-   regime;
-7. each projection source Node is in the selected GraphVector and selected
-   program's ordered input interface, and its schema and type derive from that
-   exact Node;
-8. the domain stage role derives from the selected C term, while the generic
+   closed wire vocabulary, explicitly declares `admitted_source_carrier` or
+   `derived_runtime_projection`, and does not assert source schema, source
+   type, or regime;
+7. an admitted-carrier projection source Node is in the selected
+   GraphVector/C-program source interface, with `GraphFunction.inputs`
+   membership checked separately only when the public invocation contract maps
+   that source; a derived-runtime source Node is an exact same-Module
+   declaration Node excluded from every work-input and public-payload
+   interface. In both cases schema and type derive from the exact Node;
+8. for a derived-runtime F_P projection, M03 can derive each slot exactly once:
+   role/worker selection and configuration digest from the exact admitted
+   worker/profile projection selected for this invocation; dispatch
+   implementation separately from the exact declared `fpDispatch` plugin
+   contract that runtime will invoke; instruction protocol from the unique
+   compiled protocol owning every selected static category and permitting the
+   stage role; result contract from the selected locus result authority; and
+   capability requirements from exact effect-coverage rows. The worker/profile
+   and dispatch-plugin authorities must both be present and remain distinct; no
+   caller field, actor-name hint, declaration order, ambient default, or
+   granted-capability superset is accepted;
+9. the domain stage role derives from the selected C term, while the generic
    T-183 compute role derives from the exact regime-matched composition; the
    closed required-slot set is present exactly once and value kinds agree;
-9. each protocol Rule resolves exactly one instruction-asset Node whose
+10. each protocol Rule resolves exactly one instruction-asset Node whose
    `AssetSurface` is complete for the selected renderer-backed prompt policy;
-10. static instruction category refs resolve exactly once to protocol sections,
+11. static instruction category refs resolve exactly once to protocol sections,
    permit the selected stage role, and introduce no duplicate section or
    content identity;
-11. the result-contract compatibility set is derivable from the target
+12. the result-contract compatibility set is derivable from the target
    `AssetSurface`, target schema, and T-255 target-carrier binding;
-12. capability state is preserved exactly: requirements are checked against a
+13. capability state is preserved exactly: requirements are checked against a
    present T-255 basis-preserving projection, while absence remains the typed
    T-268 capability block;
-13. the F_P adapter can derive every canonical T-183 rule and compiler input
+14. the F_P adapter can derive every canonical T-183 rule and compiler input
    from admitted truth without a default, local admission claim, or parallel
    instruction carrier; and
-14. no Rule, field row, protocol section, module source, or derived compiler
+15. no Rule, field row, protocol section, module source, or derived compiler
    input is duplicated, ambiguous, stale, or digest-mismatched.
 
 Static compilation does not read invocation payloads and does not claim a
@@ -497,16 +559,40 @@ T-268 block and stops before invocation binding. Only a
 
 ## Invocation Binding Law
 
-M03 receives only payloads already admitted against their selected carrier
-schemas. Each admitted carrier row binds one exact source Node ref, schema ref,
-carrier ref, carrier digest, admission ref, and immutable value. The binder
-requires an exact one-to-one carrier closure over the selected GraphVector and
-C-program source interface; missing, duplicate, or extra carrier rows fail.
-Positional, display-name, and schema-only matching are invalid. It applies the
-compiled field rows exactly once, validates each value kind, and constructs
-`AdmittedExecutionContextValues`. A selected input not named by a projection
-remains admitted work context and contributes to derived input and runtime-fact
-truth, but it cannot supply a named execution slot implicitly.
+M03 receives domain payloads only after admission against their selected
+carrier schemas. Each domain carrier row binds one exact public source Node
+ref, schema ref, carrier ref, carrier digest, admission ref, and immutable
+value. The binder requires an exact one-to-one domain-carrier closure over the
+selected GraphVector and C-program public source interface; missing, duplicate,
+or extra domain rows fail. Positional, display-name, and schema-only matching
+are invalid.
+
+When an F_P Rule declares `derived_runtime_projection`, an ABG-owned total
+projector derives one `DerivedExecutionContextProjection` from the exact
+compiled contract and neutral admitted runtime facts. The Rule and its source
+Node must belong to the same exact catalog-bound declaration Module. The Node
+uses `abg.schema.execution-context-projection@5`, is admitted by the native M03
+`admitDerivedExecutionContextProjection` function, and is absent from
+`GraphFunction.inputs`, `environment.requires`, the GraphVector/C-program
+source interface, and the public payload schema. The projection receives its
+own carrier, admission, basis, and projection digests. Cross-Module Node
+selection is invalid.
+
+The neutral facts are a non-identity-bearing function parameter tuple over
+existing canonical carriers. They include their source refs and digests, carry
+no callable body or mutable configuration, and are not exported, persisted,
+cached, registered, or admitted as another authority packet. The projector may
+corroborate and project; it may not select a stage, resolve or invoke a plugin,
+emit an event, advance traversal, or decide a disposition. A caller-supplied
+projection, an internal Node exposed as public input, or disagreement with the
+selected locus, dispatch plugin, protocol, result, capability, policy, or
+transport authority fails before effects.
+
+The binder then applies each compiled field row exactly once over its declared
+source class and constructs `AdmittedExecutionContextValues`. A selected domain
+input not named by an admitted-carrier projection remains admitted work context
+and contributes to runtime-fact truth, but it cannot supply a named execution
+slot implicitly. A derived projection cannot contribute product work payload.
 
 The request join then requires:
 
@@ -696,8 +782,14 @@ classDiagram
     <<subordinate>>
     +projectionRef
     +sourceNodeRef
+    +source
     +fieldRows
     +policyRefs
+  }
+  class ExecutionContextProjectionSource {
+    <<subordinate>>
+    +kind admitted_source_carrier or derived_runtime_projection
+    +projectionClass fp_execution_context or absent
   }
   class FieldRow {
     <<subordinate>>
@@ -798,6 +890,31 @@ classDiagram
     <<authoritative>>
     -bindAdmittedValues()
   }
+  class ExecutionContextAuthorityProjector {
+    <<authoritative>>
+    -deriveAndAdmitProjection()
+  }
+  class NeutralExecutionAuthorityFacts {
+    <<subordinate>>
+    +programBindingDigest
+    +selectedLocusDigest
+    +workerSelectionRef
+    +workerConfigurationDigest
+    +dispatchPluginRef
+    +dispatchPluginContractDigest
+    +invocationPolicyRef
+    +invocationPolicyDigest
+    +transportSteeringRef
+    +transportSteeringDigest
+    +selectedResultContractRef
+    +capabilityCoverageRows
+    +sourceEvidenceRefs
+  }
+  class CompleteCProgramInterpreter {
+    <<existing-authoritative>>
+    +selectedLocus
+    +advanceByConsequenceBind()
+  }
   class InstructionProtocolResolver {
     <<authoritative>>
     -resolveProtocolAndTarget()
@@ -889,6 +1006,18 @@ classDiagram
     -carrierDigest
     -admissionRef
     -value
+  }
+  class DerivedExecutionContextProjection {
+    <<subordinate>>
+    +projectionClass fp_execution_context
+    +sourceNodeRef
+    +sourceSchemaRef
+    +selectedProgramBindingDigest
+    +selectedStageDigest
+    +declarationClosureDigest
+    +values
+    +authorityEvidenceRefs
+    +projectionDigest
   }
   class AdmittedExecutionContextValues {
     <<prime>>
@@ -984,6 +1113,7 @@ classDiagram
   CatalogDeclarationModuleBinding "1" --> "1" Module : binds exact digest
   Module "1" --> "1" BoundModuleDeclarationResolver : scanned after catalog binding
   Module "1" *-- "0..*" ExecutionContextProjectionRule : publishes profile
+  ExecutionContextProjectionRule "1" *-- "1" ExecutionContextProjectionSource : declares exact source class
   ExecutionContextProjectionRule "1" *-- "1..*" FieldRow : owns ordered rows
   Module "1" *-- "0..*" InstructionProtocolRule : publishes profile
   InstructionProtocolRule "1" *-- "1..*" ProtocolSection : owns ordered sections
@@ -1007,9 +1137,14 @@ classDiagram
   AdmittedRuntimeCatalogBasis "1" --> "1" ExecutionContextCompiler : supplies replay basis
   BoundModuleDeclarationResolver "1" --> "1" ExecutionContextCompiler : supplies exact Rule and Node refs
   Module "1..*" --> "0..1" CompiledExecutionContextContract : supplies declaration truth
+  ExecutionContextAuthorityProjector "1" --> "0..1" DerivedExecutionContextProjection : derives and schema-admits
+  NeutralExecutionAuthorityFacts "1" --> "1" ExecutionContextAuthorityProjector : supplies existing admitted truth
+  CompiledExecutionContextContract "1" --> "1" ExecutionContextAuthorityProjector : constrains without selecting
+  CompleteCProgramInterpreter "1" --> "1" NeutralExecutionAuthorityFacts : supplies already-selected locus only
+  DerivedExecutionContextProjection "0..1" --> "1" InvocationContextBinder : supplies runtime-owned slots only
   InvocationContextBinder "1" --> "0..1" AdmittedExecutionContextValues : constructs
   AdmittedInvocationCarrierSet "1" *-- "1..*" AdmittedInvocationCarrier : owns ordered rows
-  AdmittedInvocationCarrierSet "1" --> "0..1" AdmittedExecutionContextValues : projected under contract
+  AdmittedInvocationCarrierSet "1" --> "0..1" AdmittedExecutionContextValues : supplies unchanged domain truth
   CompiledExecutionContextContract "1" --> "0..1" AdmittedExecutionContextValues : governs extraction
   CompiledExecutionContextContract "1" --> "1" InstructionProtocolResolver : supplies static protocol and target basis
   AdmittedExecutionContextValues "1" --> "1" InstructionProtocolResolver : supplies runtime refs
@@ -1064,9 +1199,11 @@ classDiagram
 ```mermaid
 sequenceDiagram
   actor Caller as External caller
+  participant Interpreter as CompleteCProgramInterpreter
   participant RuntimeCatalog as AdmittedRuntimeCatalogBasis
   participant Declarations as BoundModuleDeclarationResolver
   participant Compiler as ExecutionContextCompiler
+  participant Projection as ExecutionContextAuthorityProjector
   participant Binding as InvocationContextBinder
   participant Protocol as InstructionProtocolResolver
   participant Adapter as InstructionAssemblyInputAdapter
@@ -1105,8 +1242,20 @@ sequenceDiagram
               Compiler-->>Caller: JoinCapabilityBlocked with contract and exact T-268 block
             else source outcome is published_startup_blocked
               Compiler-->>Binding: immutable CompiledExecutionContextContract
-              Caller->>Binding: admitted invocation carrier set
-              Binding->>Binding: apply declared own-property field paths exactly once
+              alt Rule source is admitted_source_carrier
+                Caller->>Binding: unchanged admitted domain carrier set
+              else Rule source is derived_runtime_projection
+                Compiler->>Projection: exact contract and module-local projection Node
+                Interpreter->>Projection: already-selected locus plus distinct worker-profile, dispatch, result, capability, policy, and steering authority
+                Projection->>Projection: derive, corroborate, digest, and schema-admit one separate projection
+                alt projection authority or schema differs
+                  Projection-->>Caller: JoinInvalid before effects
+                else projection is exact
+                  Projection-->>Binding: native-admitted derived carrier with authority evidence
+                  Caller->>Binding: unchanged admitted domain carrier set
+                end
+              end
+              Binding->>Binding: apply each field path over its declared source class exactly once
               alt InvocationContextBinder rejects field or carrier truth
                 Binding-->>Caller: JoinInvalid with typed runtime-binding diagnostic
               else InvocationContextBinder admits context values
@@ -1173,7 +1322,11 @@ stateDiagram-v2
   StaticCompilationPending --> StaticContractBlocked: ExecutionContextCompiler rejects profile or derived-truth join
   StaticCompilationPending --> StaticContractCompiled: ExecutionContextCompiler constructs exact context contract
   StaticContractCompiled --> SourceCapabilityBlocked: ExecutionContextCompiler preserves blocked_capability outcome
-  StaticContractCompiled --> InvocationValuesPending: InvocationContextBinder receives published source and admitted carriers
+  StaticContractCompiled --> DerivedProjectionPending: Rule declares derived runtime source
+  StaticContractCompiled --> InvocationValuesPending: Rule declares admitted domain source
+  DerivedProjectionPending --> DerivedProjectionBlocked: authority, digest, or schema relation differs
+  DerivedProjectionPending --> DerivedProjectionAdmitted: ABG derives and schema-admits exact projection
+  DerivedProjectionAdmitted --> InvocationValuesPending: InvocationContextBinder receives separate derived carrier and unchanged domain carriers
   InvocationValuesPending --> RuntimeBindingBlocked: InvocationContextBinder rejects field path or value kind
   InvocationValuesPending --> ContextValuesAdmitted: InvocationContextBinder admits exact field projection
   ContextValuesAdmitted --> ProtocolResolutionPending: InstructionProtocolResolver opens exact protocol join
@@ -1201,6 +1354,7 @@ stateDiagram-v2
   DeclarationResolutionBlocked --> TruthfulStop: M03 public join projects JoinInvalid
   StageBasisBlocked --> TruthfulStop: M03 public join projects JoinInvalid
   StaticContractBlocked --> TruthfulStop: M03 public join projects JoinInvalid
+  DerivedProjectionBlocked --> TruthfulStop: M03 public join projects JoinInvalid
   RuntimeBindingBlocked --> TruthfulStop: M03 public join projects JoinInvalid
   ProtocolBlocked --> TruthfulStop: M03 public join projects JoinInvalid
   ResultContractBlocked --> TruthfulStop: M03 public join projects JoinInvalid
@@ -1218,7 +1372,7 @@ No T-256 state is `dispatched`, `executed`, `admitted_result`, `resumed`, or
 `closed`.
 
 `WorkProgramBlocked`, `DeclarationBlocked`, `DeclarationResolutionBlocked`,
-`StageBasisBlocked`, `StaticContractBlocked`, `RuntimeBindingBlocked`,
+`StageBasisBlocked`, `StaticContractBlocked`, `DerivedProjectionBlocked`, `RuntimeBindingBlocked`,
 `ProtocolBlocked`, `ResultContractBlocked`, `CapabilityRequirementBlocked`,
 `InstructionInputBlocked`, `PromptPlanBlocked`, `StartupAdmissionBlocked`, and
 `EnvelopeBlocked` return `JoinInvalid`.
@@ -1230,13 +1384,15 @@ exact T-267 block.
 
 | Check | Evidence | Verdict |
 |---|---|---|
-| Every sequence participant exists in the domain model or is external | admitted catalog, stateless bound-Module declaration resolver, context compiler, binder, protocol resolver, T-183 adapter/compiler/admission/envelope owners, request owners, and external caller are modeled | `pass` |
-| Every lifecycle carrier exists in the domain model | declaration modules, compiled contract, invocation carriers, context values, canonical T-183 plan/admission/envelope, requests, and diagnostics are modeled | `pass` |
-| Every message is a declared admission or total transform | catalog/program resolution, direct declaration resolution, stage validation, profile compilation, field projection, protocol resolution, T-183 compilation/admission/binding, and request projection are explicit | `pass` |
+| Every sequence participant exists in the domain model or is external | admitted catalog, stateless bound-Module declaration resolver, context compiler, ABG authority projector, binder, protocol resolver, T-183 adapter/compiler/admission/envelope owners, request owners, the existing complete-C interpreter, and external caller are modeled | `pass` |
+| Every lifecycle carrier exists in the domain model | declaration modules, compiled contract, unchanged domain carriers, derived execution-context projection, context values, canonical T-183 plan/admission/envelope, requests, and diagnostics are modeled | `pass` |
+| Every message is a declared admission or total transform | catalog/program resolution, direct declaration resolution, stage validation, profile compilation, authority projection, schema admission, field projection, protocol resolution, T-183 compilation/admission/binding, and request projection are explicit | `pass` |
 | GTL remains the protocol source | content and field maps are strict Rule profiles; prompt-interface truth remains on an existing Node AssetSurface | `pass` |
 | Registry selection remains replay-derived | admitted registry events carry declaration source refs into the runtime projection and canonical module bindings | `pass` |
 | No second registry appears | admitted declarationSourceRefs survive into the runtime-catalog basis, then resolve through deduplicated non-invoking declaration-Module bindings and a stateless direct Module scan; no local index is retained and existing M02 callable lookup is unchanged | `pass` |
-| Profile truth is narrow and derived | source schema, source type, active regime, and work class derive from selected Nodes, C program, and composition; strict Rules carry only source ref, field rows, sections, closed relevance/compression policies, policy refs, and allowed runtime slot classes | `pass` |
+| Profile truth is narrow and derived | source schema, source type, active regime, and work class derive from selected Nodes, C program, and composition; strict Rules carry only source ref and class, field rows, sections, closed relevance/compression policies, policy refs, and allowed runtime slot classes | `pass` |
+| Domain payload and runtime authority cannot collapse | public carriers remain unchanged and schema-admitted; a derived projection uses its own non-public Node, schema, admission, digest, and evidence, and cannot carry work payload | `pass` |
+| Projection authority is Prime | one Rule family, compiler, slot vocabulary, binder, and join serve both explicit source classes; derived values only project already-admitted program/locus/worker-profile/dispatch/result/capability/policy truth | `pass` |
 | Domain and compute roles stay distinct | the selected C term retains the domain protocol role while the exact composition supplies the generic T-183 compute role | `pass` |
 | Module-contained helpers remain catalog-governed | the exact caller-selected public catalog entry supplies invocation authority and its admitted Module contains the exact T-255-selected helper GraphFunction and GraphVector; containment never selects a sibling entry | `pass` |
 | F_P instruction authority remains singular | F_P reaches the existing InstructionAssemblyRule, CompiledPromptPlan, startup admission, and InstructionEnvelope carriers before request projection, preserving the exact selected result contract throughout | `pass` |
@@ -1246,6 +1402,8 @@ exact T-267 block.
 | F_H remains an external act | T-256 constructs only an interaction request; T-258 owns hold/act/resume | `pass` |
 | Runtime effects remain blocked | every request retains T-255's T-267 startup fence | `pass` |
 | Stage choice is not hidden orchestration | the caller supplies an exact declared stage basis; T-256 validates but does not choose order or advance the C program | `pass` |
+| Derived projection cannot become traversal control | the existing complete-C interpreter supplies an already-selected locus; the projector cannot select a stage, resolve or invoke a plugin, emit events, bind consequences, or advance the program | `pass` |
+| Product-specific success is unrepresentable | the projector is M03-owned, accepts neutral carriers only, and has no Hello or Consensus identity, field, branch, or fallback | `pass` |
 
 ## Axiom Evaluation
 
