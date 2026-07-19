@@ -12,7 +12,10 @@
 //   outcomes carrying the retry-allowlist grammar (transport_failure /
 //   contract_failure) — a live worker fault can never kill a run.
 
-import type { AgentTransportContract } from "../../../shared/abg_library/index.js";
+import type {
+  AgentTransportContract,
+  TransportCapabilityLane
+} from "../../../shared/abg_library/index.js";
 import type { TracedProcessExecutorProfile } from "../../../shared/traced_process/index.js";
 import { runAgentTransport } from "../../../shared/abg_library/index.js";
 import type {
@@ -233,11 +236,13 @@ function transportRequest(
   io: LiveFpDispatchCapability,
   timeoutMs: number,
   archive: FreshLivePluginArchive,
-  prompt: string
+  prompt: string,
+  lane: TransportCapabilityLane
 ) {
   return {
     contract: io.agentContract,
     prompt,
+    lane,
     cwd: io.cwd,
     archiveRoot: archive.bundleRoot,
     label: archive.label,
@@ -391,7 +396,8 @@ export function standardLiveFpDispatchPlugin(
             io,
             timeoutMs,
             archive,
-            input.instructionPromptManifest.renderedPrompt
+            input.instructionPromptManifest.renderedPrompt,
+            "worker_executes"
           )
         );
       } catch (transportError) {
@@ -720,7 +726,8 @@ export function standardLiveFpEvaluatorPlugin(
             io,
             timeoutMs,
             archive,
-            input.instructionPromptManifest.renderedPrompt
+            input.instructionPromptManifest.renderedPrompt,
+            "closed_prompt_proof"
           )
         );
       } catch (transportError) {
