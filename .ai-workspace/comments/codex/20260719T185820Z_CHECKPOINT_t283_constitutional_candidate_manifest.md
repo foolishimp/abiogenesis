@@ -10,6 +10,7 @@
 | Field | Exact value |
 |---|---|
 | construction base | `1b8b2b0a22ad5dc484e3db5c19fd562cd7935ff8` |
+| candidate commit | `f1256b6c9e11f9f0ac345e4e59a97cd482afcb86` |
 | semantic-basis digest | `a97c070bfef704c1e7666271aad40393587269fb2e34097457b2ddd2417c0fcd` |
 | Phase-1 F_H decision digest | `b5b1c87d81282f0e6bb11ab82bc152ea57b64be5228cc0262f005bb9c71cc7fe` |
 | exact subject-file count | 90 |
@@ -39,7 +40,7 @@ From the candidate commit:
 base=1b8b2b0a22ad5dc484e3db5c19fd562cd7935ff8
 git diff --name-only --diff-filter=ACMR "$base"..HEAD \
   | rg -v '^\.ai-workspace/comments/' \
-  | sort \
+  | LC_ALL=C sort \
   | while IFS= read -r file; do
       printf '%s  %s\n' \
         "$(shasum -a 256 "$file" | awk '{print $1}')" \
