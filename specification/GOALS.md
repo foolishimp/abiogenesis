@@ -28,10 +28,12 @@ GOALS, INTENT, PRODUCT, and requirements are the constitutional scope authority
 for this wave. The 17 feature families below are the no-silence scope taxonomy.
 T-244 is their sole derived feature traceability and closure projection, not an
 independent scope authority. T-278's accepted target has propagated through
-INTENT, PRODUCT, and requirements. T-244 has been regenerated and reclosed over
-the derived 19-operation projection; its earlier exact-36 snapshot no longer
-authorizes implementation. Delivery neither narrows a retained constitutional
-claim by silence nor adds a capability outside the lawful scope. A new product
+INTENT, PRODUCT, and requirements. T-244 was regenerated over the derived
+19-operation projection; the T-282 Product delta now requires regeneration of
+affected rows A5-F01, A5-F06, A5-F07, A5-F14, and A5-F15 before they can project
+current closure. Its earlier exact-36 snapshot no longer authorizes
+implementation. Delivery neither narrows a retained constitutional claim by
+silence nor adds a capability outside the lawful scope. A new product
 capability re-enters through the smallest lawful goal, intent, product, or
 requirement reprice.
 
@@ -53,14 +55,41 @@ are complete. Bounded realization now proceeds through the accepted owners.
 
 | Plan fact | Current truth |
 |---|---|
-| Current phase | `DS-2/DS-4` realize the One Surface authorities plus the neutral runtime and Consensus contracts, then construct the private 19-operation definition family before public runtime reconciliation |
+| Current phase | `DS-2/DS-4` recovery integration: restore one admitted-program public path and advance the T-276 packed installed governor before further horizontal expansion |
 | Current decision | Ontology `/9` is ratified: admitted GTL composition is the program; GraphFunction is its public callable library function/work contract; One Surface preserves four distinct authorities without four public verbs; one exact-candidate qualification family and the 27/7 Prime boundary remain; the external projection is 19 operations with a hard break. |
+| Method qualification lineage | F_H selects the future exact tapped STDO 2.0 release for ABIogenesis 5.0 exact-candidate qualification. T-282 Phase A and T-276 proceed on the current selected work basis; after the tap, T-282 verifies the authoritative release sources and the separately derived compression projection, and T-247 binds both before verdict admission. STDO 2.0 is not a runtime or T-276 prerequisite. |
 | Feature scope | 17 retained feature families; no feature removed by the reprice |
-| Derived register | T-244 is regenerated and reclosed as the sole current 17-feature closure projection |
-| Runtime work | The dirty T-270/T-272 integration remains provisional and frozen. Their neutral owner-native contract milestones may proceed before T-281 P1; public runtime integration follows P1 and consumes neutral admitted projections without an M03 dependency on M04. |
-| Next executable owner | Close T-280's atomic proof; realize the T-270/T-272 neutral owner-native contracts, T-281's generic `project.read` request/refusal/absent-nonterminal wrapper, and T-274A's exact `ConsensusResult`/`TicketConsensusProjection` coordinates; then construct the complete T-281 P1 family and reconcile public runtime. |
-| Source line | `codex/t266-stage` is the sole 5.0 integration line; accepted authority/design and reviewed runtime slices checkpoint and push separately |
+| Derived register | T-244 remains the sole 17-feature closure projection, but rows A5-F01/A5-F06/A5-F07/A5-F14/A5-F15 are stale against the T-282 Product delta and must be regenerated before they project closure. GOALS and PRODUCT govern meanwhile. |
+| Runtime work | The unratified integration wave is preserved at non-authoritative recovery ref `refs/recovery/non-authoritative/abiogenesis-5-final-integration/20260719T094300Z`. Its lower GTL/ABG algebra remains evidence; its SDK controller, unbound callbacks, dual public operation surface, and non-causal installed proof are not accepted product realization. |
+| Root outcome governor | T-276 owns the one source-blind packed temporary-workspace path. Every implementation increment must remove or preserve its current typed frontier; a red or unevaluated frontier blocks unrelated horizontal expansion. |
+| Next executable owner | Reconcile T-270 so the thin SDK admits and dispatches one ABG-owned program interpretation; bind implementations from admitted program/plugin authority; restore causal event lineage and the RC5 worker transport; then complete the T-274B2, T-275, T-272, T-281 P2, T-268, and T-282 Phase A contributions needed to turn T-276 green. |
+| Source line | `codex/abiogenesis-5-final-integration` is the sole authoritative 5.0 integration line; recovery refs are non-authoritative and accepted slices land separately after root-path review |
 | Detailed current read model | This file and the active owner tickets; commentary remains non-authoritative review evidence. |
+
+The current executable governor is one sunny, source-blind product path:
+
+```text
+pack exact candidate
+  -> clean temporary install
+  -> workspace.create
+  -> workspace.bind
+  -> catalog.admit
+  -> catalog.view
+  -> catalog.apply
+  -> resolve published Consensus GraphFunction
+  -> run.invoke through thin SDK/CLI
+  -> one ABG-owned admitted-program traversal
+  -> causally linked runtime events and replay
+  -> admitted Consensus result and ticket_consensus projection
+  -> typed converged CLI outcome
+```
+
+The deterministic path goes green first. The same installed path then proves
+one real Claude `worker_executes` invocation while conserving the RC5
+lane-aware transport behavior. Focused readiness work is useful but does not
+project Product progress unless it crosses or preserves this current typed
+frontier. After the first green path, GOALS shall name singular realization
+owners for the remaining A5-F12, A5-F13, and A5-F17 residuals before DS-6.
 
 F_H acceptance of the goal plan did not silently accept T-278's four target
 claims. The separate explicit target ruling, constitutional propagation, two
@@ -131,7 +160,7 @@ DS-0 -> DS-1 -> DS-2 -> DS-3 -> DS-4 -> DS-5 -> DS-6 -> DS-7
 | `DS-3` complete generic C, HOF, and recurse runtime | Accepted `workflow.C`, typed `fan_out`/`fan_in` plus ordered `C.batch`, `C.retry`, and typed `recurse` designs | Singular generic atom realizations | The same Consensus body recompiles after each atom; each atom also proves a non-Consensus consumer family. |
 | `DS-4` full public operation and bounded Consensus product | Accepted public Ontology, Consensus requirements, and accepted GTL design | Complete 19-operation definition/binding/catalog/SDK/CLI parity plus published graph body, schemas, profiles, result projection, capability manifest, and installed scenarios | The exact mandatory capability manifest resolves the complete public operation surface; a caller invokes Consensus through `abg.cli` on existing, alternate, and caller-created temporary workspaces; converge, recurse, and F_H escalation outcomes are replay-citable. |
 | `DS-5` complete retained non-operation 5.0 surface | Constitutional requirements and accepted designs, traced by regenerated T-244 | Singular realization and proof leaves not already closed as DS-4 prerequisites | Observer/tuner, host projection, downstream compatibility, publication, and other genuine non-operation residuals close at their row-specific gates; no public operation work remains deferred behind its capability manifest. |
-| `DS-6` self-conformance and qualification | SPEC_METHOD, product requirements, and RELEASE_METHOD | Frozen-candidate conformance, malformed-boundary negatives, installed scenarios, and release qualification | ABIogenesis passes its own applicable method and product law; every retained release claim has exact evidence. |
+| `DS-6` self-conformance and qualification | SPEC_METHOD, PRODUCT's selected STDO 2.0 lineage, product requirements, and RELEASE_METHOD | Frozen-candidate conformance, exact tapped-STDO release/source/compression verification, malformed-boundary negatives, installed scenarios, and release qualification | ABIogenesis passes its own applicable law under one exact `QualificationLawBasis` that selects tapped STDO 2.0 authoritative sources; the candidate separately binds the released compression projection and its declared-source mapping; every retained release claim has exact evidence. |
 | `DS-7` stable release | RELEASE_METHOD | RC publication, clean install, qualification, and final tap | One immutable source-independent ABIogenesis 5.0 product installs and operates without rebuild; Git ref, tarball, manifest, checksums, and evidence identify the same bytes. |
 
 ### Current Critical Path
@@ -172,10 +201,14 @@ flowchart TD
   G --> J[T-268 capability graph and conformance manifest]
   I --> J
   P2 --> J
-  J --> K[T-276 packed three-workspace Consensus proof]
-  P2 --> K
+  J --> A282[T-282 Phase A installed GTL authority repair readiness]
+  P2 --> A282
+  A282 --> K[T-276 packed three-workspace Consensus proof]
   K --> L[Derive and close remaining DS-5 residuals]
+  M2[Tap immutable STDO 2.0 release] --> B282[T-282 Phase B verify released sources and compression]
   L --> B1[T-247 binds one exact candidate subject and law basis]
+  B282 --> C244B[Regenerate T-244 affected lineage rows]
+  C244B --> B1
   B1 --> B2[T-247 qualifies that basis and emits the exact-candidate verdict]
   B2 --> R[T-248 release.snapshot materializes the immutable RC cut and bundle]
   R --> V[T-248 qualifies the installed latest accepted RC]
@@ -245,6 +278,17 @@ tap. It cannot select unrelated candidate bytes, infer installed-RC acceptance
 from the earlier cut, or defer final-delta qualification until after
 publication.
 
+For ABIogenesis 5.0, `QualificationLawBasis` shall select the exact tapped STDO
+2.0 release manifest and the authoritative released method, rule-catalog,
+source identities, and content digests. The released authority compression is
+a separate derived context projection: its identity, digest, and
+declared-source-to-released-source mapping enter the exact candidate through
+the Product and context-materialization manifests but never substitute for
+authoritative source law. Phase A and T-276 may produce current-basis runtime
+evidence before the tap; that evidence cannot close DS-6 until the STDO 2.0
+lineage is joined and every affected context, conformance, installed-smoke, and
+qualification gate is rerun on the same candidate basis.
+
 A realization leaf is non-admissible until its named requirement and accepted
 three-view design are current. Compiler gaps re-enter the affected design and
 do not authorize an imperative workaround.
@@ -253,7 +297,7 @@ do not authorize an imperative workaround.
 
 | Goal ID | Goal | Success signal | Proving surface | Status |
 |---|---|---|---|---|
-| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-2/DS-4` public-contract prerequisite realization |
+| `GOAL-035` | Deliver the complete accepted ABIogenesis 5.0 stable product before recursive dogfooding begins. | Every retained feature-register row closes at its own requirement and design gate; the complete operator workflow and bounded Consensus function operate through the public contract; self-conformance and qualification pass; exact-candidate qualification binds the tapped STDO 2.0 authoritative-source and released-compression lineage; one exact packed release installs and verifies without rebuild; no admitted product claim is deferred or supplied by a second controller. | Accepted three-view designs, compiler gap census, leaf closure records, published contracts and schemas, exact installed archives, Hello World and Consensus scenarios, interactive operator proof, self-conformance result, RC and final remote refs/tags/checksums. | Active - `DS-2/DS-4` recovery integration governed by T-276 |
 
 ## Plan Management
 

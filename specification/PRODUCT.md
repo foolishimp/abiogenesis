@@ -60,6 +60,13 @@ version, digest, interface, dependency, and manifest truth. A source-blind
 consumer can verify and install it from a Git release artifact or tarball
 without importing the mutable source project.
 
+The immutable Product manifest explicitly selects one base SYSTEM One Surface
+GTL program basis and the published Module and GraphFunction declaration bases
+shipped by the Product. These are installed defaults only in the sense of
+explicit Product selection. A workspace-specific applied program is created
+only by admitted `catalog.apply`; the Product manifest, installer, CLI, and
+omitted input never precompute or mint that application authority.
+
 Catalog products are independently versioned products. A workspace may bind an
 exact ABG product and one or more exact compatible catalog products. Their
 admitted contributions enter one ABG-owned catalog under one identity,
@@ -141,6 +148,12 @@ the exact subject and explicit qualification-law basis. They return typed
 findings and dispositions through the ordinary conformance path. The product
 has no exemption and no second checker defines release truth.
 
+The exact candidate binds two lineages without conflating them:
+`QualificationLawBasis` owns authoritative STDO source law; the Product and
+context manifest own the verified compressed projection used for cold-agent
+context. ABIogenesis verifies the tapped release and mapping but does not
+re-adjudicate STDO's release receipt.
+
 The current observer and tuner are product capabilities over ABG replay truth.
 The observer diagnoses pressure and may draft lawful re-entry work. The tuner
 may draft policy or declaration changes. Drafts do not mutate effective truth;
@@ -151,11 +164,14 @@ attributed ratification and ordinary constitutional re-entry remain required.
 ABIogenesis 5.0 is the stable, SPEC_METHOD-compliant full-product baseline. Its
 mutable source project is authored and built through manual STDO governance,
 accepted design gates, GTL admission, the ABG semantic compiler, and ordinary
-in-tree implementation. Its release cut is qualified against the same
-specification, design, public-contract, proof, and release law that the
-installed product publishes. The 5.0 release does not claim self-hosting and
-does not require a prior installed ABG product, GLC product, or odd_glc product
-to build or qualify it.
+in-tree implementation. Its release cut is qualified against the exact tapped
+STDO 2.0 authoritative-source basis selected by this Product, together with
+the same specification, design, public-contract, proof, and release law that
+the installed product publishes. This qualification choice neither makes STDO an
+ABG runtime dependency nor delays the installed runtime proof; it becomes
+mandatory at the DS-6 exact-candidate join. The 5.0 release does not claim
+self-hosting and does not require a prior installed ABG product, GLC product,
+or odd_glc product to build or qualify it.
 
 Recursive dogfooding begins after the stable 5.0 product is released. odd_glc
 may first mature to 1.0 over exact installed 5.0. The installed 5.0 product and
@@ -919,6 +935,16 @@ The four method standards that requirements derive from — `SPEC_METHOD`,
 inputs sourced from the `specification_methodology` repository and
 install-mirrored into the workspace standards root. A tenant builder requires
 them as declared inputs.
+
+For ABIogenesis 5.0 qualification, the selected method lineage is the exact
+tapped STDO 2.0 release. `QualificationLawBasis` binds that release manifest
+and its authoritative released method, rule-catalog, source identities, and
+digests. `product.materialize(context_bootstrap)` separately consumes the
+released `stdo_compressed.md` projection by exact identity and digest and
+verifies every declared source reference against the corresponding released
+source. The compression is a cold-agent read model, not constitutional source
+law. Candidate, mixed-version, stale, missing, or digest-mismatched method
+assets cannot project installed or qualification truth.
 
 ## Public Operator Contract
 
