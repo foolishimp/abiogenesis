@@ -1,5 +1,8 @@
 module: M02-work-publication
-status: active
+status: held_pending_t283_rederivation
+authority_note: >-
+  Prior-basis structural evidence only. Not current ABIogenesis 5.0 design
+  authority; re-derive after T-283 closure and the X-to-5 vector.
 owns:
   - GTL semantic work declarations
   - module publication boundary

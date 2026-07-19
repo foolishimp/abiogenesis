@@ -1,6 +1,6 @@
 # REQ-M-GTL3-CAPABILITY — Engine Capability Profiles
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-006,
@@ -17,7 +17,7 @@ public contract and capability identities.
 
 ## Acceptance Criteria
 
-**REQ-M-GTL3-CAPABILITY-001**: An ABG-conformant engine or build tenant shall publish a versioned tenant-conformance manifest declaring which GTL constructs and public capability contracts it can interpret.
+**REQ-M-GTL3-CAPABILITY-001**: An ABIogenesis-conformant engine or build tenant shall publish a versioned tenant-conformance manifest declaring which GTL constructs it validates and traverses and which public capability contracts it realizes.
 
 **REQ-M-GTL3-CAPABILITY-002**: Tenant-conformance manifests shall align with the active GTL, ABG, and mapping requirement families and shall cite exact published public contract and capability identities projected from one accepted capability-definition graph rather than implementation-language, source-path, private design identities, or a tenant-authored capability vocabulary.
 
@@ -33,7 +33,7 @@ public contract and capability identities.
 
 **REQ-M-GTL3-CAPABILITY-008**: A change to the meaning of a published contract or capability identity shall require a new versioned manifest claim. Replay and qualification evidence shall preserve the exact manifest identity and digest under which the work executed.
 
-**REQ-M-GTL3-CAPABILITY-009**: The tenant-conformance manifest is declaration and read-model truth. Conformance, admission, runtime, and qualification surfaces may consume it, but it shall not create a second semantic compiler, runtime authority, release checker, or tenant-local control plane.
+**REQ-M-GTL3-CAPABILITY-009**: The tenant-conformance manifest is declaration and read-model truth. Conformance, admission, runtime, and qualification surfaces may consume it, but it shall not create a second GTL validator, HoG traversal authority, ABG runtime authority, release checker, or tenant-local control plane.
 
 **REQ-M-GTL3-CAPABILITY-010**: A conformance-enforcement profile shall classify
 submitted carriers as root/declaration, causal, derived, transition, or

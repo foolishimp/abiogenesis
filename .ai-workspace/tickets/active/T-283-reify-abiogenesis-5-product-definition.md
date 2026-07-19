@@ -5,9 +5,9 @@
 - type: reprice
 - ticket_category: constitutional_reprice
 - status: active
-- phase_status: phase_1_basis_admitted_constitutional_transaction_authorized
-- review_status: destination_reviewed_revisions_direct_fh_accepted
-- proof_status: constitutional_cut_not_yet_frozen
+- phase_status: constitutional_candidate_ready_for_freeze
+- review_status: self_review_passed_independent_review_pending
+- proof_status: definition_coverage_gates_passed_behavioral_proof_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - priority: critical
 - change_class: intent_reprice
@@ -108,7 +108,8 @@ become a competing Product definition.
 
 The transaction shall preserve without silence:
 
-1. the exact immutable 4.6 RC5 semantic origin and every baseline disposition;
+1. the exact immutable 4.6 RC5 semantic origin, the obligation for a complete
+   unfiltered conservation ledger, and its four lawful disposition values;
 2. GTL.TypeScript as the only program language;
 3. one non-lowering GTL validator;
 4. direct HoG traversal of the original admitted GTL value;
@@ -130,7 +131,9 @@ The transaction shall preserve without silence:
 
 Before implementation, the conservation matrix proves definition coverage
 only. Its HoG execution, ABG replay, public outcome, mutation-negative, and
-fibre-substitution evidence remain explicitly pending.
+fibre-substitution evidence remain explicitly pending. The row-wise RC5
+semantic disposition ledger is produced during the post-closure X-to-5 vector;
+T-283 fixes its complete basis and no-silence law without preclassifying X.
 
 ## Rival-Authority Disposition
 
@@ -166,3 +169,14 @@ the exact reviewed constitutional and retirement cut.
 
 Only then may the project freeze `X`, derive the three-axis correction vector,
 accept a replacement direct-GTL design, or resume implementation.
+
+## Self-Review Checkpoint
+
+The bounded implementer review is recorded in:
+
+`.ai-workspace/comments/codex/20260719T185611Z_SELF_REVIEW_t283_constitutional_reification.md`
+
+It confirms definition coverage, requirement-ID conservation, ticket and
+design holds, root and scenario counts, link integrity, YAML validity, and the
+absence of runtime changes. It is not independent evidence and does not satisfy
+the final closure gate.

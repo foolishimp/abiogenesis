@@ -1,34 +1,36 @@
-# GTL 3 And ABG 3 Scenarios
+# GTL And ABG Scenario Assets
 
-This root carries written testcase authority and scenario bundles for the live
-GTL 3 and ABG 3 lines.
+This directory carries requirement-level scenario assets and testcase
+decompositions. It does not define the ABIogenesis 5.0 Product scenario set.
 
-Scenarios prove operational meaning.
+The sole live Product scenario identities and boundaries are:
 
-They do not replace intent, product, requirements, or design surfaces, but they
-do state the concrete proving lanes that the active GTL 3 / ABG 3 line must
-satisfy.
+- `PRODUCT.md` section `Required Product Scenarios`; and
+- `requirements/product/REQ-P-SCENARIOS.md`.
 
-## Rules
+Those surfaces define `ABG5-S01` through `ABG5-S07` and the exact
+`ABI5-ROOT-001` governor. Files in this directory may supply test cases,
+negative examples, and requirement-family coverage only after an explicit
+mapping to one of those seven scenarios. They may not add a release scenario,
+weaken the root outcome, substitute component evidence, or retain an older
+Product identity.
 
-- every live GTL 3 and ABG 3 requirement family maps to written testcase
-  authority
-- capability claims should prefer scenario bundles with declared significant
-  paths
-- scenario bundles should prove graph law, publication truth, event truth,
-  replayable governance surfaces, and runtime boundary discipline without
-  inventing product-local runtime semantics
+## Retained Assets
 
-## Active Scenario Bundles
+- `01-language-primitives-and-traversal.md` through
+  `08-derived-artifact-governance.md` carry focused language/runtime examples.
+- `09-research-product-lab-scenario-catalog.md` is retained as historical and
+  downstream research-product input; it is not an ABIogenesis 5.0 release
+  scenario.
+- `10-total-assurance-projection-uat.md` and
+  `11-event-sourced-payload-ledger-uat.md` carry focused ABG UAT inputs.
+- `TESTCASE_AUTHORITY.md` maps focused assets to requirement families. Product
+  closure still requires the exact installed Product scenarios.
 
-- `09-research-product-lab-scenario-catalog.md` defines the extraction,
-  synthesis, transform, fan-out, ambiguity, and gap-evaluation families used to
-  qualify ABIogenesis as an ODD-native research product lab for downstream
-  products such as SDLC.TS.
-- `10-total-assurance-projection-uat.md` defines the requirement-derived UAT
-  paths for ABG total assurance projection, including the two-hop live Claude
-  register proof that must deepen and stop convergence when downstream evidence
-  is missing.
-- `11-event-sourced-payload-ledger-uat.md` defines the legal UAT paths for
-  consolidating payload and ledger truth under ABG's event-sourced runtime
-  model.
+## Use Rule
+
+A focused scenario may prove a subordinate requirement. It projects Product
+progress only when the accepted scenario mapping shows that its result reduces
+the current typed frontier of `ABI5-ROOT-001` or another required Product
+scenario. Preservation, fixture coverage, or a green component lane is not a
+Product outcome by itself.

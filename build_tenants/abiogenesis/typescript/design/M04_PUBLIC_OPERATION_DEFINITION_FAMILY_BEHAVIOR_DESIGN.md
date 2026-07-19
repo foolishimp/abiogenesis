@@ -1,6 +1,14 @@
 # M04 Public Operation Definition Family Behavior Design
 
-**Status**: Accepted for P1 realization; Phase A complete; P2 gated
+> **T-283 authority disposition (2026-07-20):**
+> `invalidated_for_5_0_implementation_by_upstream_intent_reprice`. This file is
+> retained as historical and current-state evidence only. Prior acceptance
+> records its former basis; it does not authorize design, code, proof, Product
+> scope, or closure under the T-283 candidate. Reusable local contracts must be
+> re-derived under the accepted direct-GTL replacement design after T-283
+> closes.
+
+**Prior status**: Accepted for P1 realization; Phase A complete; P2 gated
 
 **Accepted P1 semantic candidate digest**:
 `18d9bcc559d973daac355ad768b1cf5eb8ffb7f9dcd3cd6d2c60c95e5bea1801`

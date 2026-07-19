@@ -1,6 +1,6 @@
 # REQ-P-PUBLIC-CONTRACTS - Addressable Public Contract Catalog
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-P-INSTALL.md](REQ-P-INSTALL.md), [REQ-P-POLICY.md](REQ-P-POLICY.md), [REQ-M-GTL3-CAPABILITY.md](../mapping/REQ-M-GTL3-CAPABILITY.md)
@@ -186,10 +186,11 @@ row and supersession; broad M01/M02/M04 group membership alone is not a schema l
 
 ## Public Operation Identities
 
-**REQ-P-PUBLIC-CONTRACTS-008**: The public operation catalog shall contain
-exactly the following 19 tenant-invariant 5.0 operation identities, derived
-from the same `PublicFunctionDefinition<K>` family, unless an ordinary
-requirement reprice versions or supersedes that family:
+**REQ-P-PUBLIC-CONTRACTS-008**: The public operation catalog shall derive the
+following tenant-invariant 5.0 operation identities from the same
+`PublicFunctionDefinition<K>` family. Their stable identities and semantics
+decompose Product behavior; their count is a derived no-silence projection and
+shall not define Product scope or substitute for an outcome scenario:
 
 | Operation identity | Closed variation |
 |---|---|
@@ -297,7 +298,7 @@ typed conformance gaps.
    result, replay, F_H, conformance, and qualification schemas;
 3. locate the exact event-kind and diagnostic vocabularies and language corpus;
 4. construct a tenant-conformance manifest from catalog identities;
-5. derive the 19-operation SDK, CLI, schema, and catalog projections from the
+5. derive the complete SDK, CLI, schema, and catalog operation projections from the
    same `PublicFunctionDefinition<K>` family;
 6. implement a native typed adapter or canonical serialized adapter without
    consulting ABIogenesis source, tickets, design history, or test fixtures; and

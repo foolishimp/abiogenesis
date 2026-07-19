@@ -17,7 +17,14 @@ GraphFunctions, records evidence, continues, and projects.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG3-FPC-001**: An admitted GTL program shall declare the One Surface construction episode as tail recursion over `synthesizeModel -> evalGap -> evaluateNext -> admitConstructionIntent -> invokeGraphFunction | continueExecution -> admit evidence -> evaluateAction -> exact next basis -> refresh model -> fresh evalGap -> evaluateNext -> projection`. ABG shall interpret and admit that composition; public ingress, an adapter, a plugin, or an ABG helper shall not own or reorder it.
+**REQ-R-ABG3-FPC-001**: An admitted GTL program shall declare the One Surface
+construction episode as tail recursion over `synthesizeModel -> evalGap ->
+evaluateNext -> admitConstructionIntent -> invokeGraphFunction |
+continueExecution -> admit evidence -> evaluateAction -> exact next basis ->
+refresh model -> fresh evalGap -> evaluateNext -> projection`. HoG shall
+traverse that admitted composition and ABG shall admit its runtime facts;
+public ingress, an adapter, a plugin, or an ABG helper shall not own or reorder
+it.
 
 **REQ-R-ABG3-FPC-002**: The construction episode shall preserve one program-bound GraphFunction or internal graph-vector traversal invocation as the bounded runtime unit of probabilistic compute. The higher-order GTL composition composes lawful invocations; it does not make one unbounded hidden runtime call into the ABG primitive or turn a GraphFunction into the whole program.
 

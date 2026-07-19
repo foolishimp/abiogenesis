@@ -1,8 +1,16 @@
 # M01/M03 GraphVector C-Program Selection Behavior Design
 
-**Design verdict**: `fh_accepted`
-**Implementation admission**: `admitted_for_t254_singular_boundary`
-**Independent review**: `accepted`; no findings remain
+> **T-283 authority disposition (2026-07-20):**
+> `invalidated_for_5_0_implementation_by_upstream_intent_reprice`. This file is
+> retained as historical and current-state evidence only. Prior acceptance
+> records its former basis; it does not authorize design, code, proof, Product
+> scope, or closure under the T-283 candidate. Reusable local contracts must be
+> re-derived under the accepted direct-GTL replacement design after T-283
+> closes.
+
+**Prior design verdict**: `fh_accepted`
+**Prior implementation admission**: `admitted_for_t254_singular_boundary`
+**Prior independent review**: `accepted`; no findings remained on that basis
 **Ticket**: [T-254](../../../../.ai-workspace/tickets/completed/T-254-close-graph-vector-c-program-selection.md)
 **Owning modules**: M01 GTL authoring/admission and M03 semantic compilation
 **Change class**: `design_reframe`

@@ -1,6 +1,6 @@
 # REQ-L-GTL3-LAWS — Language Laws
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
@@ -100,7 +100,7 @@ authorized surface-to-subject bindings, and live facts. Version subjects are a
 closed tagged family: mutable source project, immutable published RC cut,
 tapped release cut, released product, and stamped installed product. These
 subjects never substitute for one another. For every versioned surface the
-semantic compiler shall resolve exactly one binding by binding ref and surface
+GTL validator shall resolve exactly one binding by binding ref and surface
 ref, then exactly one version fact for that binding's exact tagged subject,
 before comparing values. Missing, duplicate, or kind-incoherent basis is
 `version-basis-unresolved`; a declared version that disagrees with its resolved
@@ -113,7 +113,7 @@ digest is `surface-digest-missing`; and a public seam whose key set diverges
 from the passthrough authority is `seam-parity-drift`. Version-basis failure
 shall not suppress ticket or seam assessment. Each drift diagnostic carries a
 ratified identity and an admissible repair from the existing repair vocabulary.
-Drift detection shall not be a second checker outside the semantic compiler,
+Drift detection shall not be a second checker outside the GTL validator,
 and drift rules shall not be prose review checklists.
 
 ## Amendment (T-200 P0)

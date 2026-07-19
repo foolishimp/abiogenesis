@@ -1,8 +1,8 @@
 # REQ-L-GTL3-LANGUAGE — Language Identity And Boundary
 
-**Status**: Active
+**Status**: T-283 constitutional candidate
 **Category**: Constraint / Guarantee
-**Date**: 2026-04-05
+**Date**: 2026-07-20
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
@@ -10,8 +10,8 @@
 ## Purpose
 
 Define GTL 3 as an LLM-first, graph-first, algebraic governance control
-language with host-language-native typed declarative syntax and a clear
-GTL/ABG boundary.
+language with host-language-native typed declarative syntax and explicit
+GTL-validator-HoG-ABG boundaries.
 
 ## Acceptance Criteria
 
@@ -26,9 +26,14 @@ programming syntax or parser family beyond those published contracts.
 
 **REQ-L-GTL3-LANGUAGE-003**: GTL shall be declarative. It shall declare lawful structure, contracts, hook attachment points, and semantic work surfaces rather than constructive tactics or hidden strategy.
 
-**REQ-L-GTL3-LANGUAGE-004**: GTL constructs shall be interpretable by multiple engines. ABG-conformant engines are the canonical interpreter family.
+**REQ-L-GTL3-LANGUAGE-004**: GTL constructs shall be directly traversable by
+conformant executor frameworks. HoG is the ABIogenesis executor. ABG is the
+runtime-truth substrate around execution, not a second language or executor.
 
-**REQ-L-GTL3-LANGUAGE-005**: GTL owns language law, graph structure, contracts, algebra, and hook surfaces. Engines own execution, workers, runs, facts, projection, convergence, lineage, provenance, replay, next-action determination, retries, correction, and runtime enforcement.
+**REQ-L-GTL3-LANGUAGE-005**: GTL owns language law, programs, graph structure,
+contracts, algebra, and declared seams. The GTL validator owns non-lowering
+whole-program judgment. HoG owns direct traversal. ABG owns runtime admission,
+events, replay, lineage, provenance, correction, continuation, and closure.
 
 **REQ-L-GTL3-LANGUAGE-006**: GTL shall not define a specialized in-language policy semantic language. It shall expose hook attachment points and opaque configuration only.
 
@@ -36,4 +41,9 @@ programming syntax or parser family beyond those published contracts.
 
 **REQ-L-GTL3-LANGUAGE-008**: GTL shall not be a planner, business-priority engine, hidden strategy selector, runtime event model, concrete worker-identity store, backend-specific transport language, or step-by-step solution procedure for probabilistic workers.
 
-**REQ-L-GTL3-LANGUAGE-009**: GTL shall use strong typed axioms and compiler-visible contract law as its anti-drift mechanism for LLM-authored programs. Lawful graph, overlay, start, plugin, result-interface, catalog, carrier, traversal, and bind declarations shall compile into typed law or typed failure rather than depending on prompt memory, reviewer inference, or product-local controller convention.
+**REQ-L-GTL3-LANGUAGE-009**: GTL shall use strong typed axioms and
+validator-visible contract law as its anti-drift mechanism for LLM-authored
+programs. Graph, program, start, implementation, result-interface, catalog,
+carrier, traversal, and bind declarations shall produce typed validity, typed
+invalidity, or typed unresolved semantics without lowering into an executable
+intermediate program.

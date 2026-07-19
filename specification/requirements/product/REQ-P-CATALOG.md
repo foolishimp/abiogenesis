@@ -1,6 +1,6 @@
 # REQ-P-CATALOG - Catalog Product And Public Catalog Contract
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-P-INSTALL.md](REQ-P-INSTALL.md), [REQ-P-POLICY.md](REQ-P-POLICY.md)
@@ -74,7 +74,8 @@ and shall preserve ABG runtime authority.
 **REQ-P-CATALOG-009**: A contribution manifest shall not republish generic ABG
 catalog truth as product-owned content. A publisher may publish its own domain
 vocabulary, overlays, policy, schemas, and specialization-owned GraphFunctions;
-ABG owns admission, readiness, selection, GraphCall, traversal, replay, and
+HoG owns direct traversal. ABG owns admission, readiness, selection truth,
+GraphCall, replay, and
 closure.
 
 **REQ-P-CATALOG-009A**: The ABIogenesis product may publish SYSTEM-owned reusable

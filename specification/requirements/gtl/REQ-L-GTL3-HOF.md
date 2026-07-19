@@ -1,6 +1,6 @@
 # REQ-L-GTL3-HOF — Higher-Order Graph Operations
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
@@ -20,8 +20,8 @@ shall produce a graph-function relation `Vector<A>->Vector<B>`. The admitted
 relation shall join each structured `Vector[T]` schema to an explicit member
 contract; schema spelling alone is not type admission. On a wholly successful
 vector application, the relation shall preserve input cardinality and stable
-input ordinal, pairing output member `i` only with input member `i`. Native
-authoring, canonical serialization, raw admission, and semantic compilation
+	input ordinal, pairing output member `i` only with input member `i`. Native
+	authoring, canonical serialization, raw admission, and GTL validation
 shall preserve the same first-class relation and shall not infer it from a
 function name, label, tag, shared node identity, or hidden cardinality.
 Blocked-member lineage and partial-failure behavior are runtime semantics and
@@ -77,7 +77,8 @@ runtime-failed reducer truth shall remain non-success.
 from the exact selected catalog entry, admitted Module, structural HOF or
 GraphFunction-application declaration, and opaque GraphFunction and Node
 identities. Names, tags, fixed vector cardinality, promise completion order,
-and caller-authored semantic defaults are not authority. ABG owns task C-call
-spines, traversal evidence, result admission, and failure truth. Product
+and caller-authored semantic defaults are not authority. HoG traverses the
+admitted HOF and C structure. ABG owns task C-call frames, traversal evidence,
+result admission, and failure truth. Product
 effects remain subject to the separately admitted traversal and capability
 gates.

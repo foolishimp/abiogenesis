@@ -1,8 +1,16 @@
 # ABIogenesis Public Control-Plane Ontology
 
-**Status**: Ratified
+> **T-283 authority disposition (2026-07-20):**
+> `invalidated_for_5_0_implementation_by_upstream_intent_reprice`. This file is
+> retained as historical and current-state evidence only. Prior acceptance
+> records its former basis; it does not authorize design, code, proof, Product
+> scope, or closure under the T-283 candidate. Reusable local contracts must be
+> re-derived under the accepted direct-GTL replacement design after T-283
+> closes.
 
-**Design verdict**: `accepted`
+**Prior status**: Ratified on the superseded T-278 basis
+
+**Prior design verdict**: `accepted`
 
 **Owner ticket**: T-278
 

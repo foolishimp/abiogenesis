@@ -1,6 +1,6 @@
 # REQ-R-ABG3-CONVERGENCE — Evaluation, Proof, Closure, And Fallback
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
@@ -14,9 +14,11 @@ fallback law.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG3-CONVERGENCE-001**: ABG shall execute declared or derived evaluator/proof/closure bindings against the active boundary and record replayable outcome truth.
+**REQ-R-ABG3-CONVERGENCE-001**: HoG shall traverse declared evaluator, proof,
+and closure GraphFunctions against the active boundary. ABG shall admit their
+results and record replayable outcome truth.
 
-**REQ-R-ABG3-CONVERGENCE-002**: Convergence and closure determination shall be driven by declared GTL surfaces and resolved ABG policy, not by hidden interpreter-local strategy.
+**REQ-R-ABG3-CONVERGENCE-002**: Convergence and closure determination shall be driven by declared GTL surfaces and resolved ABG policy, not by hidden HoG-, adapter-, or implementation-local strategy.
 
 **REQ-R-ABG3-CONVERGENCE-003**: The broad default shall run declared deterministic evaluation/proof first, then generic deterministic checks when available, then fall forward to governed `F_P` only when deterministic handling is absent or remains open.
 

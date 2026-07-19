@@ -1,11 +1,18 @@
 # A5 Completed-Code Design Stage Register
 
-**Status**: Active retrospective design gate
+**Status**: Historical and current-state evidence under T-283; not implementation authority
 **F_H mandate**: 2026-07-12 three-view Mermaid design before coding
 **Shared method authority**: `specification_methodology` commit `b3e5e4a`
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Scope
+
+T-283 invalidates this register as a current 5.0 design-acceptance projection.
+Its rows preserve what was built, reviewed, rejected, or claimed on the X
+path. They do not prove alignment with the accepted direct-GTL Product and do
+not authorize more code. The future X-to-5 vector shall classify each row by
+4.6 semantic disposition, target coverage, and carrier action. Until then,
+every verdict below is basis-scoped historical evidence.
 
 This register covers the reviewed code-bearing 5.0 stages, including the
 retrospective stages completed before the rejected Consensus implementation
@@ -17,7 +24,7 @@ design below receives an independent axiom review and an F_H `accepted` or
 explicit rework disposition. Retrospective diagrams describe the current code
 against prior authority; they may not normalize a code-first category error.
 
-## Stable-First Authority Basis
+## Prior Stable-First Basis
 
 The stable-first ruling is persisted by checkpoint `7107604`: ABIogenesis 5.0
 is the complete stable baseline, and recursive dogfooding begins with the 5.0.1
@@ -77,10 +84,11 @@ stage:
 - The untracked self-build design pack is future design work and is outside
   this register until separately admitted.
 
-## Evaluation Order
+## Prior Evaluation Order
 
-The standing design command is `npm run check:design` from the TypeScript
-tenant root. Its Mermaid lane derives its source set from the register above,
+On the superseded basis, the standing design command was
+`npm run check:design` from the TypeScript tenant root. Its Mermaid lane
+derives its source set from the register above,
 checks that completed DS-1 through DS-3 ticket design carriers are represented,
 requires the ordered domain/sequence/state views, renders with the pinned local
 Mermaid CLI into temporary output, and removes that output. Its prospective
@@ -94,14 +102,18 @@ independent axiom or F_H review.
    and ODD law.
 4. Reconcile the diagrams against the cited implementation paths and tests.
 5. For GraphFunction boundaries, admit the exact GTL body and run the current
-   ABG semantic compiler, retaining every typed gap. GLC may supply optional
+   GTL validator, retaining every typed gap. GLC may supply optional
    downstream-consumer evidence only.
 6. Record `accepted`, `rejected`, or `blocked` without changing code to make the
    diagram easier to approve.
 7. Obtain F_H ratification before changing the registered implementation or
    starting the next product-code stage.
 
-## Next-Code Boundary
+## Prior Next-Code Projection
+
+The following sequence is historical X-path evidence and is not a current
+instruction. `T-283`, the future X-to-5 vector, and an accepted replacement
+design will determine the next code boundary.
 
 T-271 complete-program interpretation and T-267 whole-program conservation are
 closed. T-270 is the next code boundary: it owns the single public catalog

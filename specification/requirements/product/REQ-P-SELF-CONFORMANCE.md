@@ -1,6 +1,6 @@
 # REQ-P-SELF-CONFORMANCE - ABIogenesis Product Self-Conformance
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Constraint / Verification
 **Date**: 2026-07-16
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001,
@@ -29,7 +29,8 @@ kind, exact source and artifact content, toolchain manifest, installed-product
 and workspace-binding truth when applicable, tenant-conformance manifest, and
 frozen gate inventory. The law basis shall identify the specification-method
 version, applicable rule-catalog version, exact source references, and content
-digests used to decide the run.
+digests used to decide the run. ABIogenesis 5.0 release qualification shall
+bind the exact tapped and installed STDO 2.0 release identity and digest.
 
 **REQ-P-SELF-CONFORMANCE-001A**: Missing, stale, conflicting, unreadable, or
 cross-subject basis truth shall produce a typed non-green result. A release cut,
@@ -53,7 +54,7 @@ rule obligation.
 
 **REQ-P-SELF-CONFORMANCE-004**: Self-conformance shall use the existing
 conformance evaluator atom, `AF-22`, under its qualification-bound
-`self_conformance` kind and the published semantic-compiler and rule-catalog
+`self_conformance` kind and the published GTL-validator and rule-catalog
 path. It is not another public operation. It shall not create a second method
 checker, repair engine, release checker, runtime, or hidden manual audit as a
 co-equal source of truth.

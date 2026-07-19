@@ -1,6 +1,6 @@
 # REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT - Zoom, Foldback, And Type Wiring
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability / Constraint
 **Date**: 2026-07-11
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](./REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-RECURSE.md](./REQ-L-GTL3-RECURSE.md), [REQ-L-GTL3-NODE.md](./REQ-L-GTL3-NODE.md)
@@ -11,8 +11,8 @@
 
 Define the published GraphFunction refinement declarations that close the
 language boundary for zoom, recursive foldback, and typed composition. These
-are GTL program laws. ABG interprets their admitted runtime consequences; it
-does not invent their structural meaning.
+are GTL program laws. HoG traverses their admitted structure and ABG admits
+their runtime consequences; neither invents their structural meaning.
 
 ## Acceptance Criteria
 
@@ -54,12 +54,13 @@ type system.
 typed interfaces for zoom plans, foldback declarations, and type wiring, plus
 raw admission and semantic diagnostics for serialized declarations. Native
 type matching shall carry all constraints it can express; malformed or
-unresolved serialized GTL shall fail at admission or semantic compilation
-before ABG traversal.
+unresolved serialized GTL shall fail at admission or GTL validation before
+HoG traversal.
 
 ## Boundary
 
-GTL owns the structural declarations and pure construction result. ABG owns
-zoom frames, traversal, lineage, foldback evaluation, parent re-evaluation,
-events, replay, and closure. Product-local dispatch or vector classification is
-not part of this capability.
+GTL owns the structural declarations and pure construction result. HoG owns
+direct traversal of the admitted GTL structure. ABG owns runtime frames,
+lineage, foldback and parent-result admission, events, replay, and closure.
+Product-local dispatch or vector classification is not part of this
+capability.

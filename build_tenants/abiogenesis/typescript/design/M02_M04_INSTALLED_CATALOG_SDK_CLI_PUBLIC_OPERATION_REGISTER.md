@@ -1,7 +1,14 @@
 # M02-M04 Installed Catalog Public Operation Register
 
+> **T-283 authority disposition (2026-07-20):**
+> `invalidated_for_5_0_implementation_by_upstream_intent_reprice`. This exact
+> operation register is retained as historical/current-state evidence only.
+> The complete Product-derived public family must be re-derived after Product
+> closure and accepted direct-GTL design; this register cannot authorize an
+> operation count, runtime route, adapter, or closure claim.
+
 **Ticket**: T-222
-**Status**: Completed
+**Prior status**: Completed on the superseded DS-1 basis
 **Date**: 2026-07-11
 **Derived from**: `REQ-P-POLICY-019` through `REQ-P-POLICY-064`,
 `REQ-P-PUBLIC-CONTRACTS-008` through `REQ-P-PUBLIC-CONTRACTS-010`,

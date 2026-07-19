@@ -1,6 +1,11 @@
 # Research Product Lab Scenario Catalog
 
-**Status**: Active
+> **T-283 disposition (2026-07-20):** Prior scenario evidence; held and
+> non-operative for 5.0 acceptance. The exact current Product scenarios are
+> `ABG5-S01` through `ABG5-S07` in `PRODUCT.md` and
+> `REQ-P-SCENARIOS.md`. Reuse requires post-closure re-derivation.
+
+**Status**: Prior evidence; held under T-283
 **Date**: 2026-04-26
 **Derives from**: [REQ-P-SCENARIOS.md](../requirements/product/REQ-P-SCENARIOS.md), [REQ-P-POLICY.md](../requirements/product/REQ-P-POLICY.md), [REQ-L-GTL3-HOF.md](../requirements/gtl/REQ-L-GTL3-HOF.md), [REQ-R-ABG3-INTERPRET.md](../requirements/abg/REQ-R-ABG3-INTERPRET.md)
 

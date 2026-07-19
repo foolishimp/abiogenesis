@@ -1,5 +1,12 @@
 # T-281 - Publish Prime 19-Operation Definition Family
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-281
 - title: Publish the Prime ABIogenesis 5.0 public-operation definition family
 - type: feature
@@ -8,11 +15,11 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: p1_private_family_implementation_complete
-- review_status: p1_implementation_independently_reviewed_accepted
-- proof_status: p1_exact_19_operations_62_definitions_196_schemas_52_absent_nonterminals_authenticated_and_admitted_p2_fenced
+- phase_status: held_pending_t283_closure_and_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_evidence_only_operation_count_not_product_progress
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: DS-2 public-operation prerequisite P1
+- delivery_phase: unassigned_pending_x_vector
 - change_intent: >-
     Replace the superseded public-operation rosters with one closed
     PublicFunctionDefinition<K> family for the exact ratified 19 ABIogenesis

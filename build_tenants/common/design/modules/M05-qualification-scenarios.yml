@@ -1,5 +1,9 @@
 module: M05-qualification-scenarios
-status: active
+status: held_pending_t283_rederivation
+authority_note: >-
+  Prior-basis structural evidence only. Not current ABIogenesis 5.0 design
+  authority; re-derive against the seven Product scenarios and exact release
+  subjects after T-283 closure and the X-to-5 vector.
 owns:
   - scenario qualification surfaces
   - sandbox archive proof and method trace checks

@@ -1,6 +1,6 @@
 # REQ-P-QUAL — Qualification Infrastructure
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Verification
 **Date**: 2026-07-16
 **Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
@@ -216,8 +216,9 @@ installed-product and workspace-binding truth when applicable,
 tenant-conformance manifest, frozen owning-gate inventory, and one subordinate
 `QualificationLawBasis`.
 
-**REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact method version,
-rule-catalog version, source refs, and content digests used by the owning gates.
+**REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact tapped and
+installed STDO 2.0 release identity and digest, method version, rule-catalog
+version, source refs, and content digests used by the owning gates.
 Its identity and digest shall be preserved unchanged through every admitted
 owning-gate result, the `QualificationGateResultVector<K>`, the declared
 `C.of(AF-22)` argument, and the resulting
@@ -240,14 +241,22 @@ cross-law-basis qualification input shall refuse before verdict admission. A
 `ReleaseSnapshotManifest` is output evidence from `AF-25`; it shall never be a
 qualification-basis input or supply green truth for the cut that created it.
 
-**REQ-P-QUAL-058**: The exact installed ABIogenesis 5.0 candidate shall run one Hello World GraphFunction through the public SDK or CLI, produce the declared typed result, and expose the corresponding admitted catalog, selection, GraphCall, closure, and replay truth.
+**REQ-P-QUAL-058**: The exact installed ABIogenesis 5.0 candidate shall satisfy
+`ABI5-ROOT-001` through installed `abg.cli`: all ordered obligations `R1`
+through `R10` shall bind the same exact product, workspace, catalog, program,
+GraphFunction, contracts, execution basis, causal ABG episode, and replay
+basis. Replay shall derive the same typed terminal Hello World result and
+closed state twice. A component, package, catalog, event-co-presence, or
+fixture-authored substitute shall not satisfy the root.
 
 **REQ-P-QUAL-059**: The exact installed ABIogenesis 5.0 candidate shall complete
 the primary public operator loop through one admitted GTL One Surface program
-interpreted by ABG. That program shall own the order of `synthesizeModel`,
-`evalGap`, `evaluateNext`, intent admission, invocation or continuation,
-evidence admission, and `evaluateAction`; public ingress shall admit and
-transport the invocation only. The loop shall start, report one truthful stop,
+traversed directly by HoG. That program shall own the order of the four
+semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and
+`evaluateAction`. Intent admission, invocation or continuation, and evidence
+admission shall remain distinct ABG boundaries around those authorities;
+public ingress shall admit and transport the invocation only. The loop shall
+start, report one truthful stop,
 hold, or gap, expose the replay-derived frontier and lawful actions, admit an
 agent edit or typed F_H response, resume or start again, refresh model, gap, and
 next-action truth after admitted evidence, and converge without a second
@@ -286,12 +295,14 @@ ABIogenesis 5.0 candidate or final release green.
 **REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
 
 **REQ-P-QUAL-064**: The frozen owning-gate inventory for the
-`pre_rc_candidate` shall include installed Hello World, the seven-term declared
-C program and its malformed GTL/F_P differentials, bounded conformance
-enforcement, the public operator loop, self-conformance, observer/tuner truth,
-the installed Consensus GraphFunction, native operation, the Codex projection,
-and exact product identity. Each owning gate retains its own execution and
-semantic authority.
+`pre_rc_candidate` shall include `ABI5-ROOT-001`; all forty 4.6 traversal
+conservation rows; the separate shape-preserving fibre-substitution
+differential; the seven-term declared C algebra and malformed GTL/F_P
+differentials; the public operator loop; self-conformance under the exact
+tapped STDO 2.0 basis; observer/tuner truth; installed Consensus; native and
+Codex projections; the independent flavored downstream fixture; and every
+`ABG5-S01` through `ABG5-S06` obligation. Each owning gate retains its own
+execution and semantic authority.
 
 **REQ-P-QUAL-064A**: One subordinate
 `QualificationGateResultVector<K>` shall bind the exact

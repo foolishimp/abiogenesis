@@ -1,5 +1,12 @@
 # T-278 - Derive Public Control-Plane Ontology And Reprice Operation Surface
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-278
 - title: Derive the ABIogenesis public control-plane Ontology and reprice the operation surface
 - type: feature
@@ -8,10 +15,10 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: ontology_ratified_affected_design_reconciliation_active
-- review_status: final_v9_ratified_two_independent_reviews
-- proof_status: 27_7_19_current_basis_green_bounded_realization_active
-- delivery_phase: DS-0 consistency re-entry before DS-5 public-product completion
+- phase_status: superseded_by_t283_intent_reprice_pending_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_ontology_evidence_only
+- delivery_phase: unassigned_pending_x_vector
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Resolve the GTL-program/GraphFunction ambiguity, restore One Surface, and
@@ -20,7 +27,7 @@
     parameterized atomic functions, higher-order composition, effects, and
     public projections while retaining every discovered 5.0 behavior as a
     no-silence input.
-- change_class: intent_reprice
+- change_class: historical_intent_reprice_superseded_by_T283
 - re_entry_point: specification/INTENT.md What We Want item 3
 - triaged_at: 2026-07-15
 - created_at: 2026-07-15

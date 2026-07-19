@@ -1,8 +1,14 @@
 # Abiogenesis Common Design Surface Map
 
-**Status**: Active
+**Status**: Prior-basis evidence; held under T-283
 **Date**: 2026-03-31
 **Derived from**: [INTENT.md](../../../specification/INTENT.md), [PRODUCT.md](../../../specification/PRODUCT.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
+
+> **T-283 authority boundary (2026-07-20):** This map and every common module
+> design it indexes were derived on the superseded 5.0 basis. None is current
+> ABIogenesis 5.0 realization authority. They remain structural evidence for
+> the post-closure X-to-5 vector. Current design authority resumes only after a
+> replacement direct-GTL design is independently reviewed and accepted.
 
 ## Purpose
 
@@ -19,21 +25,22 @@ It does not change runtime behavior or product semantics.
 - Common design surfaces may reference constitutional truth upward, but they must not depend on downstream tenant realization details.
 - Promote a surface into `common` only when its authority no longer depends on one tenant's local implementation wording.
 
-## Active Common Design Law
+## Prior Common Design Inputs
 
 | Surface | Status | Authority |
 | --- | --- | --- |
-| `build_tenants/common/design/module_decomp.md` | Active | Shared module ownership, composition, and derivation rules |
-| `build_tenants/common/design/modules/` | Active | Shared module-level interfaces, invariants, composition boundaries, and test obligations |
-| `build_tenants/common/design/README.md` | Active | Common-design placement and boundary guidance |
+| `build_tenants/common/design/module_decomp.md` | Held | Prior shared module ownership, composition, and derivation rules |
+| `build_tenants/common/design/modules/` | Held | Prior shared module-level interfaces, invariants, composition boundaries, and test obligations |
+| `build_tenants/common/design/README.md` | Held | Common-design placement and boundary guidance |
 
-These surfaces are the common derivation layer for:
+After re-derivation and acceptance, successor surfaces may again become the
+common derivation layer for:
 
 - code ownership
 - unit-test obligations
 - capability review above realization-specific implementation detail
 
-They currently govern shared design truth for:
+The prior surfaces covered:
 
 - `REQ-L-GTL3-LANGUAGE`
 - `REQ-L-GTL3-MODULE`

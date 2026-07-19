@@ -23,9 +23,9 @@ related engine behavior.
 - requirement proof carry-through from admitted requirement obligations into
   paired realization and proof evidence before closure, including proof-policy
   depth completeness and admitted proof-strength projection
-- instruction assembly and dispatch assurance over compiled prompt plans,
-  runtime-bound instruction envelopes, prompt manifests, and semantic compiler
-  checks
+- instruction assembly and dispatch assurance over prompt materialization
+  plans, runtime-bound instruction envelopes, prompt manifests, and
+  deterministic instruction-validator checks
 - replay-stable ABG.Fn regime composition grammar
 - correction, supersession, derived-artifact governance, and post-release
   successor-use behavior

@@ -1,5 +1,12 @@
 # T-272 - Connect F_H Response To Replay Continuation
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-272
 - title: Connect F_H response to exact held-locus continuation
 - type: bug
@@ -8,10 +15,10 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: strictly_ordered_generic_abandonment_design_accepted
-- review_status: independent_review_accepted_fh_authority_accepted
-- proof_status: runtime_reconciliation_pending
-- delivery_phase: DS-2 integration
+- phase_status: held_pending_t283_closure_and_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_evidence_only
+- delivery_phase: unassigned_pending_x_vector
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Replace the disconnected legacy escalation and broad current-intent resume

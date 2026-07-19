@@ -1,5 +1,12 @@
 # T-276 - Prove Installed Consensus Workspace Scenarios
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-276
 - title: Prove installed Consensus across three workspace applications
 - type: test
@@ -8,11 +15,11 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: early_red_installed_governor_proven_at_project_read_frontier
-- review_status: steel_thread_governor_implementation_independently_accepted_closure_review_pending
-- proof_status: packed_clean_install_16_missing_16_retired_zero_target_invocations
+- phase_status: held_pending_t283_closure_and_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_evidence_only_root_not_established
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: DS-4
+- delivery_phase: unassigned_pending_x_vector
 - change_intent: >-
     Qualify the exact packed candidate through one public Consensus contract in
     existing, alternate, and caller-created temporary workspaces.

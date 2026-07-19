@@ -1,6 +1,6 @@
 # REQ-R-ABG3-FRAME — Recursive Invocation Aggregate
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
@@ -20,7 +20,7 @@ execution.
 
 **REQ-R-ABG3-FRAME-003**: Frame reopen or retry shall mint a fresh `frame_attempt_id` while preserving lawful `frame_lineage_id`.
 
-**REQ-R-ABG3-FRAME-004**: Recursive interpretation shall progress as tail-loop execution over explicit frame truth sufficient for suspend/resume, foldback, replay, and bounded control-state growth.
+**REQ-R-ABG3-FRAME-004**: Recursive HoG traversal shall progress as tail-loop execution over explicit ABG frame truth sufficient for suspend/resume, foldback, replay, and bounded control-state growth.
 
 **REQ-R-ABG3-FRAME-005**: Checkpoints or snapshots may aid recovery, but authoritative recursive truth shall remain the event/history plus declared contracts.
 

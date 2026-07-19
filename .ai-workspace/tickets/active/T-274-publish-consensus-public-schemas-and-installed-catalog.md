@@ -1,5 +1,12 @@
 # T-274 - Publish Consensus Public Schemas And Installed Catalog
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-274
 - title: Publish Consensus public schemas and installed catalog assets
 - type: feature
@@ -8,11 +15,11 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: t274a_and_t274b1_closed_t274b2_waiting_for_t270
-- review_status: t274b1_implementation_independently_reviewed_accepted
-- proof_status: t274b1_exact_join_focused_prime_lint_publication_and_pack_green
+- phase_status: held_pending_t283_closure_and_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_evidence_only
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
-- delivery_phase: DS-4
+- delivery_phase: unassigned_pending_x_vector
 - change_intent: >-
     First generate and verify nine canonical Consensus schema assets plus two
     vocabularies from one authoritative Consensus contract family and the one

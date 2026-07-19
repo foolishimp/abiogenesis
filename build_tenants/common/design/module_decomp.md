@@ -1,16 +1,23 @@
 # Abiogenesis Module Decomposition
 
-**Status**: Active
+**Status**: Prior-basis evidence; held under T-283
 **Date**: 2026-03-29
 **Derived from**: [INTENT.md](../../../specification/INTENT.md), [PRODUCT.md](../../../specification/PRODUCT.md), [specification/requirements/](../../../specification/requirements/)
 
+> **T-283 authority boundary (2026-07-20):** This decomposition was derived on
+> the superseded execution basis and is not current 5.0 design authority. It is
+> retained for the X-to-5 census. A successor decomposition must derive the
+> non-lowering GTL validator, direct HoG traversal, ABG runtime admission, and
+> thin public shells from the closed T-283 constitution.
+
 ## Position
 
-This is the explicit module schedule surface for abiogenesis under the gsdlc method.
+This was the explicit module schedule surface for ABIogenesis on the prior
+basis.
 
 It does not replace the deeper tenant design documents.
 It extracts the shared module ownership shape from the active GTL 3 / ABG 3 requirement families so the project has a navigable `design/modules/` layer between requirements and code.
-At this level, modules are the common source of truth for:
+When re-derived and accepted, modules will again own:
 
 - detailed public interfaces
 - composition boundaries
@@ -40,7 +47,7 @@ At this level, modules are the common source of truth for:
 | `M05-qualification-scenarios` | sandbox qualification ladder, scenario harnesses, archive proof, scenario validation surfaces | `REQ-P-SCENARIOS`, `REQ-P-QUAL`, `REQ-R-ABG3-SELFHOSTING` |
 | `M06-mapping-deferred` | deferred capability and alternate-runtime mapping bridge for non-ABG runtime families | `REQ-M-GTL3-CAPABILITY` |
 
-## Current Notes
+## Prior-Basis Notes
 
 - `M03-engine-kernel` owns canonical ABG graph-function materialization and graph-derived bundle provenance.
 - `M03-engine-kernel` owns generic retry/repair governance, including fresh

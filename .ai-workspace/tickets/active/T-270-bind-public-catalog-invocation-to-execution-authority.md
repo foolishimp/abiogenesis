@@ -1,5 +1,12 @@
 # T-270 - Bind Public run.invoke To Admitted One Surface Execution Authority
 
+> **T-283 current disposition (2026-07-20):** `held_pending_X_vector`.
+> Every acceptance, phase, dependency, count, design, and delivery statement
+> below records the prior X-path basis only. It does not authorize current
+> implementation, define 5.0 Product scope, or project Product progress. The
+> post-closure X-to-5 vector will retain, reprice, split, replace, archive, or
+> close this ticket in place.
+
 - id: T-270
 - title: Bind public run.invoke to admitted One Surface execution authority
 - type: bug
@@ -8,10 +15,10 @@
 - implementation_hold: active
 - implementation_hold_ref: T-283 intent reprice
 - implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
-- phase_status: af10_applied_program_membership_design_accepted_runtime_authorized
-- review_status: independent_review_accepted_fh_authority_accepted
-- proof_status: accepted_design_sunny_day_runtime_integration_pending
-- delivery_phase: DS-2 integration
+- phase_status: held_pending_t283_closure_and_x_vector
+- review_status: prior_basis_review_only_invalidated_for_implementation
+- proof_status: historical_evidence_only
+- delivery_phase: unassigned_pending_x_vector
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline
 - change_intent: >-
     Join one admitted PublicInvocation<run.invoke>, its exact InvocationAuthority,

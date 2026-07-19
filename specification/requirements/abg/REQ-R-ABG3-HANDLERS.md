@@ -1,128 +1,126 @@
-# REQ-R-ABG3-HANDLERS — Effect Handlers And Program Interpretation
+# REQ-R-ABG3-HANDLERS - Effect Handlers And Execution Binding
 
-**Status**: Active (T-205 P0; codex review requested before realization)
-**Realizes**: T-205 (design: ABG_3_UNIFORM_C_CALL_ENVELOPE_DESIGN §8.1/§15–§17; T-205 factoring + handler classes)
-**Derives from**: REQ-R-ABG3-CCALL-001..-017; T-030 emergence boundary law; T-195 C3/C4 adjudications.
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
+**Category**: Capability / Constraint
+**Date**: 2026-07-20
+**Derives from**: [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-CCALL.md](REQ-R-ABG3-CCALL.md), [REQ-R-ABG3-INTERPRET.md](REQ-R-ABG3-INTERPRET.md)
 
-ONTOLOGY: C is compute. A plugin factors into its CATEGORY (the
-declared shape of compute — programs, catalogs, ladders, contracts:
-GTL data) and its FUNCTOR (the effect handler realizing compute in the
-world). This family governs the functor. A handler binding is admitted
-configuration data: `{programRef, stageRole, armId, regime, handlerRef,
-handlerClass, handlerConfigRef}`. A product may declare the category and
-handler configuration; it does not implement a standard-path worker loop.
+---
 
-## Handler obligations
+## Purpose
 
-- **-001 Arm fidelity.** A handler realizes exactly the census-bound
-  arm it is registered for; the (stageRole × regime × armId) census is
-  asserted at the one interpretation seam.
-- **-002 Interiors only.** Handlers return interior results and never
-  mint spine or truth events. Spine construction has ONE authority
-  (the C-call spine interpretation seam); handler-reachable sinks are
-  kind-restricted to the transport envelope.
-- **-003 Evidence honesty.** Outcome status and evidence refs
-  correspond to real effects: external sessions reconcile against
-  interior refs under the -012 audit, per configuration. Asserted-but-
-  unevidenced effects are drift.
-- **-004 Tool emergence.** Tool knowledge (commands, models, paths)
-  enters only through the handler's DECLARED config (transport
-  contracts, plans, env ingress). No tool name in handler code.
-- **-005 Declared config only.** Handler parameters come from admitted
-  declarations; ambient authority (globals, undeclared env, filesystem
-  discovery) is a defect.
-- **-006 Typed failure.** A handler throw IS a blocked outcome carrying
-  the contract_failure class at both executor twins; the spine closes;
-  the retry allowlist judges it. No handler error may kill a run.
-- **-007 Idempotent evidence.** Evidence archives key on cCallRef;
-  re-execution after resume must not duplicate or orphan evidence.
-- **-008 Budget respect.** Handlers receive and honor the selected
-  configuration's timeout/attempt envelope; overrun is a typed
-  judgment, never a hang.
+Define the effect-handler boundary for compute encountered while HoG traverses
+an admitted GTL program. GTL declares the category and implementation binding;
+HoG reaches and invokes the declared seam; the handler performs only the
+interior effect; ABG owns C-call frames, evidence and result admission, events,
+judgment, replay, continuation, and closure truth.
 
-## Handler classes
+A handler binding is admitted configuration data:
 
-- **-009 Pipeline handlers** (substrate-shipped standard set): realize
-  the constructed interior — F_P agent-transport (manifest → transport
-  → payload admission), F_D process-execution, F_D materialization,
-  F_H gate. Products configure them by declarations only; the standard
-  path ships zero downstream handler code.
-  TOTALITY LAW (user, the formal criterion): F_D is lawful ONLY as a
-  finite state machine over a TOTAL function — or, vice versa, a total
-  function over a finite state machine: a program either way. BOTH
-  properties must hold, composed in either direction: finite structure
-  AND totality — defined output for every input, finite states,
-  guaranteed termination. Drop either property and it is not F_D. Predicates that are partial over MEANING (semantic
-  quality, intent satisfaction, "did the work succeed") have an open
-  domain; executing them deterministically does not close it — they
-  are F_P by nature. This is why executed/blocked is lawful F_D
-  vocabulary (total: every process outcome maps to exactly one) and
-  accepted/rejected over work quality is not (partial: presumes a
-  semantic domain). F_P exists precisely because such functions are
-  not total — they are distributions requiring sampling under
-  judgment.
-  STRICT F_D RIDER (user law): F_D handler outcomes are MECHANICAL
-  vocabulary only (executed / blocked / envelope facts: existence,
-  write-root, digest, identity). An F_D handler never pronounces
-  accepted/rejected on the work: semantic consumption of deterministic
-  observations (exit codes, test counts, artifact contents) is the F_P
-  stage's judgment, informed by F_D evidence. Determinism never
-  reclassifies a semantic check as F_D; a generic F_D traversal or
-  evaluation handler is behavioral F_D (the recurring bug class
-  B-003/013/014/016/017) and is non-closing.
-- **-010 Capability handlers** (complete replacement): ONE handler is
-  the entire interior — a declared outcall into a local downstream
-  capability which itself declares its regime. All obligations hold;
-  -003 especially: outcall effects are evidenced, never asserted.
+```text
+programRef + graphFunctionRef + cLocusRef + regime
+  + implementationRef + handlerClass + handlerConfigRef
+```
 
-## Program interpretation (the one seam)
+The binding is not a program, selector, traversal plan, event source, or
+controller.
 
-- **-011 One seam.** Programs, catalogs, selections, and -017 ladders
-  are consumed at exactly ONE interpretation point; the census derives
-  from the admitted program; the baked bootstrap triple is the
-  undeclared default. No second consumption path. Product-local prompt
-  shells, handler scanners, file loaders, registries, and effect routers
-  are not lawful interpretation seams for the standard path.
-- **-012 Fail-closed interpretation.** An admitted-but-unresolvable
-  selection (unknown programRef, unknown arm, missing handler binding)
-  blocks the C call with a typed reason before any interior runs.
-- **-013 Ladder semantics.** Attempt N's configuration is the ladder's
-  declared rung for the observed signals; the selection row records the
-  governing programRef (CCALL-017); escalation never skips declared
-  rungs.
-- **-014 Resume semantics.** Re-entry over persisted replay continues
-  from the frontier (closed C calls stay closed) and OPENS A FRESH
-  ATTEMPT WINDOW after gap_stop(retry_budget_exhausted) — engine law,
-  differentially pinned (t192 lane, T-205 B-prep). The ratified-resume
-  policy therefore governs WHO may resume (an F_H act on a stopped
-  run), not budget mechanics; replay-derived frontier state is never
-  hand-edited.
+## Handler Obligations
 
-- **-015 Config boundary (user law 2026-07-07).** Handler config
-  carries SYSTEM-LEVEL and ENVIRONMENTAL bindings ONLY: commands,
-  paths, env, timeouts, archive roots — the io/deployment surface.
-  All other configuration is GTL: domain content, workflow shape,
-  prompts, contracts, and policies live as typed declarations that
-  support systems consume.
-  Gap: `FpTransportConfig.prompt` violates this boundary — a prompt
-  living in handler config instead of GTL. Owner: T-244 routing;
-  implementation requires a singular realization leaf.
-  Non-closure condition: the gap stays open until that leaf re-homes
-  prompts to GTL (instruction categories via the stage's
-  instructionCategoryRefs and the section machinery) when extra F_P
-  stages bind to the manifest pipeline.
-- **-016 The default is a catalog citizen (user law 2026-07-07).** The
-  substrate's default program (the bootstrap triple) is a TYPED,
-  LABELLED entry in the effective catalog under a reserved ref, marked
-  default — never an invisible code fallback. Higher-order functions
-  choose against the FULL catalog including the default; declared
-  entries cannot shadow the reserved ref (fail-closed).
+**REQ-R-ABG3-HANDLERS-001**: A handler shall realize exactly the admitted C
+locus, regime, and implementation binding it receives. It shall not infer a
+stage, arm, function, or program from a label, filename, prompt, adapter route,
+or ambient state.
 
-## Non-closure
+**REQ-R-ABG3-HANDLERS-002**: A handler shall return an interior result and
+evidence only. It shall not mint C-call spine events, ABG result truth,
+judgment, continuation, retry, or closure. Those facts enter only through the
+owning ABG admission boundaries.
 
-Weakened tests; a handler minting truth; a tool name in handler code;
-unevidenced outcall effects; a second interpretation seam; product-local
-standard-path worker loops; hidden handler configuration from ambient
-scans or shells; a handler throw killing a run; duplicated evidence
-after resume; glc adoption before the ABG-internal everything-gate is
-green.
+**REQ-R-ABG3-HANDLERS-003**: Outcome status and evidence references shall
+correspond to real effects. External sessions, tool calls, files, and process
+results shall reconcile against admitted C-call evidence. Asserted but
+unevidenced effects are drift.
+
+**REQ-R-ABG3-HANDLERS-004**: Tool knowledge, including commands, models, paths,
+and environment variables, shall enter through declared implementation and
+transport configuration. Tool identity embedded as hidden handler strategy is
+prohibited.
+
+**REQ-R-ABG3-HANDLERS-005**: Handler inputs shall come from admitted GTL,
+catalog, workspace, execution-basis, and implementation-binding truth. Globals,
+undeclared environment, filesystem discovery, current working directory,
+hidden defaults, and adapter-local configuration are not authority.
+
+**REQ-R-ABG3-HANDLERS-006**: A handler throw, transport failure, timeout, or
+malformed interior result shall become a typed blocked or non-admitted outcome
+at the ABG boundary. It shall not kill the run, become success, or bypass the
+declared retry and continuation law.
+
+**REQ-R-ABG3-HANDLERS-007**: Evidence archives shall key on the exact C-call and
+attempt identities. Re-execution, replay, or resume shall not duplicate,
+relabel, or orphan evidence.
+
+**REQ-R-ABG3-HANDLERS-008**: A handler shall honor the admitted timeout,
+attempt, capability, write-root, and effect envelope. Overrun or unsupported
+effect is typed non-success, never an unbounded wait or silent fallback.
+
+## Handler Classes
+
+**REQ-R-ABG3-HANDLERS-009**: ABIogenesis may ship generic pipeline handlers for
+declared `F_D`, `F_P`, and external `F_H` seams. Products configure those
+handlers through GTL and catalog declarations; a product shall not implement a
+standard-path worker loop.
+
+An `F_D` handler is lawful only for a total function over a finite declared
+domain or a finite-state process with a total transition function and explicit
+typed output for every admitted input. Mechanical envelope facts such as
+executed, blocked, identity, digest, path, and write-root may be `F_D`.
+Semantic quality, intent satisfaction, acceptance, ranking, diagnosis, or
+open-domain judgment remains `F_P` even when implemented deterministically.
+
+**REQ-R-ABG3-HANDLERS-010**: A capability handler may delegate one declared
+interior effect to a local or external capability whose exact contract and
+compute regime are admitted. The outcall shall preserve input, output,
+evidence, actor, and capability identity and shall not become a second
+traversal or runtime.
+
+## One Effect-Resolution Seam
+
+**REQ-R-ABG3-HANDLERS-011**: HoG shall resolve an encountered executable GTL C
+locus through exactly one implementation-binding seam. Product-local prompt
+shells, handler scanners, file loaders, private registries, SDK/CLI routers,
+fixtures, and feature services are not lawful effect-resolution seams.
+
+**REQ-R-ABG3-HANDLERS-012**: An admitted but unresolvable implementation
+binding, unknown capability, incompatible regime, or missing handler shall
+block the C call with a typed reason before any interior effect runs.
+
+**REQ-R-ABG3-HANDLERS-013**: Retry, escalation, branch, and alternative
+implementation choice shall derive from admitted GTL structure, policy, ABG
+replay facts, and the current execution basis. A handler or adapter shall not
+walk a private configuration ladder or choose another program.
+
+**REQ-R-ABG3-HANDLERS-014**: Resume shall continue HoG traversal from the
+replay-derived ABG frontier. Closed C calls remain closed. A fresh attempt is
+opened only when the admitted retry or resume policy permits it; no caller may
+hand-edit frontier or attempt truth.
+
+**REQ-R-ABG3-HANDLERS-015**: Handler configuration shall carry system and
+environment bindings only: implementation identity, commands, paths,
+environment, timeouts, model or tool binding, and archive roots. Domain
+content, workflow shape, prompts, contracts, policies, retry structure, and
+closure law belong in GTL or referenced product declarations.
+
+**REQ-R-ABG3-HANDLERS-016**: Standard behavior shall be published as named GTL
+programs and GraphFunctions in the installed catalog. A Product may select a
+declared standard program through an explicit admitted binding. There is no
+baked bootstrap triple, hidden default program, generated HoG program catalog,
+or interpreter-local fallback.
+
+## Non-Closure
+
+This family is not satisfied by a handler that mints truth, a second execution
+seam, hidden configuration, an unevidenced outcall, a product-local worker
+loop, a private program selector, an error that terminates the process, or
+evidence that does not reconcile with ABG replay.

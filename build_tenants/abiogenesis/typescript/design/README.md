@@ -1,5 +1,13 @@
 # build_tenants/abiogenesis/typescript — Design
 
+> **T-283 current authority boundary (2026-07-20):** The ABIogenesis 5.0
+> implementation line is held under an upstream Intent reprice. Existing
+> designs are basis-scoped evidence and none is operative ABIogenesis 5.0
+> realization authority. Designs explicitly marked invalidated contain a known
+> incompatible authority shape. Other local designs may be reused only after
+> the X-to-5 vector confirms their requirements and joins remain current. A
+> replacement direct-GTL design must be accepted before code resumes.
+
 TypeScript build - primary package-first release realization of abiogenesis.
 
 ## Status
@@ -34,9 +42,10 @@ It is source material for comparison and migration, not the authority that this
 tenant is required to mimic file-for-file and not an active release gate while
 paused.
 
-## Governing Runtime Law
+## Prior Runtime Design Inputs
 
-For the current TypeScript line, the governing runtime design decisions are:
+The following surfaces are retained inputs to the T-283 disposition and future
+replacement design. They are not a substitute for that pending design:
 
 - [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 - [DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md](./DESIGN_SLICE_PRE_CODE_GATE_TEMPLATE.md)
@@ -69,7 +78,7 @@ doctrine in tenant-local design.
 
 ## Design Index
 
-Current tenant-local design truth and proposed next-boundary design packs live in:
+Tenant-local design evidence and proposed boundary packs live in:
 
 - `MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md`
 - `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`

@@ -1,8 +1,14 @@
 # Common Tenant Design
 
+> **T-283 authority boundary (2026-07-20):** The existing common design map,
+> decomposition, and module YAML files are prior-basis evidence. None is
+> operative ABIogenesis 5.0 design authority while the Intent reprice is open.
+> A successor direct-GTL design must be derived and accepted after T-283
+> constitutional closure and the X-to-5 vector.
+
 This directory is reserved for shared capability design law.
 
-Most active design authority lives either in:
+Design authority normally lives either in:
 
 - `specification/` for constitutional language and engine law, or
 - realization-specific design roots outside `common`
@@ -23,9 +29,10 @@ Use that surface to decide whether a design artifact belongs in:
 
 ## Shared Module Surfaces
 
-The shared module schedule for abiogenesis lives in:
+The prior shared module schedule for ABIogenesis is retained in:
 
 - `build_tenants/common/design/module_decomp.md`
 - `build_tenants/common/design/modules/`
 
-These surfaces make the module layer explicit between requirements and concrete tenant code without changing runtime behavior.
+These surfaces are inputs to later re-derivation and do not currently authorize
+runtime behavior.

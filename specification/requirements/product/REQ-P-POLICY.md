@@ -1,6 +1,6 @@
 # REQ-P-POLICY — Product and Runtime Policy
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Governance
 **Date**: 2026-04-19
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,
@@ -15,9 +15,9 @@ Product-level policy (feature closing, human proxy, merge gates, CLI behavior) l
 
 ## Acceptance Criteria
 
-**REQ-P-POLICY-001**: Product policy (feature closing, visibility rules, human proxy mode, CLI loop behavior) shall be expressed as product-layer requirements, not GTL language law or ABG interpreter law.
+**REQ-P-POLICY-001**: Product policy (feature closing, visibility rules, human proxy mode, CLI behavior) shall be expressed as product-layer requirements, not GTL language law, HoG traversal law, or ABG admission law.
 
-**REQ-P-POLICY-002**: Policy may consume GTL tags, evaluator results, and convergence state — but policy logic shall not be embedded in the language or interpreter kernel.
+**REQ-P-POLICY-002**: Policy may consume GTL tags, evaluator results, and convergence state, but policy logic shall not be embedded in GTL validation or the HoG traversal kernel.
 
 **REQ-P-POLICY-003**: CLI and control-plane summaries shall be product-layer projections over canonical ABG run truth. They shall not define independent boolean lifecycle truth that can contradict the canonical run/event model.
 
@@ -48,10 +48,16 @@ Those mode families are product-policy truth above the adapter. Literal flags or
 **REQ-P-POLICY-013**: The current public `root_mode` values shall be:
 - `direct`
 - `supervised`
-`supervised` is the default. It is root-level convergence control around repeated `start` advancement. `direct` is the public operator option to opt out of root supervision. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
+`supervised` is the default. It selects the admitted system program and session
+policy that own convergence inside GTL/HoG/ABG; it does not authorize a CLI,
+SDK, service, or installer loop around repeated starts. `direct` selects one
+admitted entry traversal without that Product policy overlay. `root_mode` shall
+remain outside `scope + target + until` and shall be lawful only when
+`until = converged`.
 
 **REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
-One Surface loop declared by an admitted GTL program and interpreted by ABG. An
+One Surface loop declared by an admitted GTL program, traversed by HoG, and
+admitted as runtime truth by ABG. An
 operator shall be able to define or refine current assets, invoke or start
 admitted work, receive one truthful stop, hold, or gap signal, remove one
 ambiguity or roadblock through the interactive agentic coder surface, inspect
@@ -108,8 +114,9 @@ the operation-and-variant-indexed workspace-binding requirement
 binding, and no public adapter shall supply missing contract meaning from local
 convention.
 
-**REQ-P-POLICY-021**: The public operation set shall be exactly the 19
-identities in `REQ-P-PUBLIC-CONTRACTS-008`. Their closed variants shall retain
+**REQ-P-POLICY-021**: The public operation set shall be the complete
+Product-derived family in `REQ-P-PUBLIC-CONTRACTS-008`. Its derived count is
+not Product authority. The closed variants shall retain
 all of the following product behavior:
 
 - workspace create, open, and immutable product binding;
@@ -435,7 +442,7 @@ silently install, rebind, re-resolve, admit, widen, or start work.
 
 **REQ-P-POLICY-062**: ABIogenesis shall publish one versioned host-neutral
 `PublicInvocation<K>` descriptor family and one corresponding
-`PublicOutcome<K>` result/refusal/non-terminal family for all 19 public
+`PublicOutcome<K>` result/refusal/non-terminal family for all public
 operations. The invocation shall carry at minimum its schema and public-function-definition
 identity/version/digest, operation identity and variant, exact
 `InvocationAuthority<K>`, and the operation-indexed required or forbidden

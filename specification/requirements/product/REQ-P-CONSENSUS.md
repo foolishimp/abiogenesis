@@ -1,6 +1,6 @@
 # REQ-P-CONSENSUS - Agent-Invocable Consensus GraphFunction
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability / Constraint / Verification
 **Date**: 2026-07-12
 **Derives from**: [PRODUCT.md](../../PRODUCT.md),
@@ -19,8 +19,8 @@
 ## Purpose
 
 Publish one bounded, agent-invocable Consensus capability as a SYSTEM-owned GTL
-free construction. A calling agent invokes the function through `abg.cli`, and
-ABG executes its declared reviewer fan-out, reduction, bounded verification
+free construction. A calling agent invokes the function through `abg.cli`,
+HoG traverses its declared reviewer fan-out, reduction, bounded verification
 rounds, result admission, and replay without a feature-specific engine service,
 plugin controller, or shell loop.
 
@@ -34,8 +34,8 @@ Consensus GraphFunction under handle
 the ABIogenesis product catalog.
 
 **REQ-P-CONSENSUS-002**: The canonical Consensus function shall have one
-published executable GTL graph body admitted through raw GTL admission and the
-ABG semantic compiler. A catalog declaration, contract nameplate, engine plugin,
+published executable GTL graph body admitted through raw GTL admission and GTL
+validation. A catalog declaration, contract nameplate, engine plugin,
 imperative service method, host-language reviewer loop, or adapter interception
 without that executable graph body shall not satisfy this requirement.
 
@@ -102,8 +102,9 @@ recursion and foldback. Prompts, reviewer selection, merge policy, round control
 and closure classification shall be declarations or referenced contracts, not
 host-language orchestration.
 
-**REQ-P-CONSENSUS-010**: ABG shall execute Consensus through ordinary catalog
-selection inside one admitted GTL program, One Surface intent admission,
+**REQ-P-CONSENSUS-010**: HoG shall traverse Consensus through ordinary catalog
+selection inside one admitted GTL program and One Surface intent admission.
+ABG shall admit its
 GraphCall, frame, C-call, worker, result-admission, event, replay, continuation,
 retry, and F_H boundaries. The selected Consensus GraphFunction shall be
 published by that program and shall not be treated as the whole program or as a
@@ -166,12 +167,12 @@ subjects, profiles, findings, rulings, policies, and round outcomes shall remain
 typed non-close truth.
 
 **REQ-P-CONSENSUS-018**: Consensus is not release-complete until the executable
-GTL body, semantic-compiler admission, installed catalog row, addressable public
+GTL body, GTL validation, installed catalog row, addressable public
 schemas and vocabularies, all three fixture families, all three workspace
 applications, actor attribution, result, and replay evidence pass over the exact
 5.0 candidate. A declaration-only entry or imperative implementation shall fail
-the gate. The proof shall use only the accepted 19-operation definition family;
-a legacy operation identity or parallel adapter register shall fail it.
+the gate. The proof shall use only the complete Product-derived public function
+family; a legacy operation identity or parallel adapter register shall fail it.
 
 ## Bounded Scope
 
@@ -179,13 +180,3 @@ a legacy operation identity or parallel adapter register shall fail it.
 reduction inside Consensus. It does not publish a generic standalone
 Review-to-ticket product, scheduler, watcher, recurrence service, automatic
 ticket mutation, generic portfolio consensus service, or new engine law.
-
-Gap: the current line has an admitted executable Consensus GTL body and direct
-runtime atoms, but complete mixed-program interpretation, whole-program
-conservation, public invocation, F_H continuation, canonical public schemas,
-installed catalog publication, attributed reviewer-profile admission,
-ticket-result projection, tenant-conformance coverage, and packed installed
-invocation proof remain open. T-267 and T-270..T-272 own runtime integration;
-T-274 owns public schema and installed catalog publication; T-275 owns profiles
-and ticket-result projection; T-268 owns tenant-conformance coverage; and T-276
-owns `REQ-P-CONSENSUS-016..018` installed scenario evidence.

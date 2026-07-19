@@ -1,6 +1,6 @@
 # REQ-P-INSTALL — Installed Substrate Contract
 
-**Status**: Active
+**Status**: Candidate - T-283 constitutional transaction; not operative until F_H closure
 **Category**: Capability
 **Date**: 2026-04-27
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)
@@ -399,5 +399,7 @@ target workspace proves:
   change; mutable observed truth remains in separately identified snapshots
 - initial exact install and bind do not imply broader product or registry-entry
   lifecycle behavior
-- installer, workspace, and adapter paths bind the accepted 19-operation
-  definitions without legacy operation identities or a parallel register
+- installer, workspace, and adapter paths bind the complete Product-derived
+  public function definitions without legacy operation identities or a
+  parallel register; an operation count is a derived no-silence projection,
+  not installation authority
