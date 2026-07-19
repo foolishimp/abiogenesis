@@ -5,6 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: af10_applied_program_membership_design_accepted_runtime_authorized
 - review_status: independent_review_accepted_fh_authority_accepted
 - proof_status: accepted_design_sunny_day_runtime_integration_pending

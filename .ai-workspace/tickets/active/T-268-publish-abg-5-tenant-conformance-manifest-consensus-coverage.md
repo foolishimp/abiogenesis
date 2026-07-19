@@ -5,6 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: blocked_by_runtime_integration_and_ds4_publication
 - review_status: fh_accepted_for_implementation_independent_closure_review_pending
 - goal: GOAL-035 stable ABIogenesis 5.0 baseline

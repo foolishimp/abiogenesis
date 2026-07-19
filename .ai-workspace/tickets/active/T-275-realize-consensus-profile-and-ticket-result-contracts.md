@@ -5,6 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: bounded_constructability_design_accepted_implementation_fenced
 - review_status: independent_re_review_accepted_fh_authority_accepted
 - proof_status: accepted_design_runtime_untouched

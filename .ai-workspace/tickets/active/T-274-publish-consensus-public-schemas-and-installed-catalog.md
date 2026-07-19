@@ -5,6 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: t274a_and_t274b1_closed_t274b2_waiting_for_t270
 - review_status: t274b1_implementation_independently_reviewed_accepted
 - proof_status: t274b1_exact_join_focused_prime_lint_publication_and_pack_green

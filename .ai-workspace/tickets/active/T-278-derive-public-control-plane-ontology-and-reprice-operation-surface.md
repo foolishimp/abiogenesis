@@ -5,6 +5,9 @@
 - type: feature
 - ticket_category: ordinary
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: ontology_ratified_affected_design_reconciliation_active
 - review_status: final_v9_ratified_two_independent_reviews
 - proof_status: 27_7_19_current_basis_green_bounded_realization_active

@@ -5,6 +5,9 @@
 - type: feature
 - ticket_category: implementation_migration
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: p1_private_family_implementation_complete
 - review_status: p1_implementation_independently_reviewed_accepted
 - proof_status: p1_exact_19_operations_62_definitions_196_schemas_52_absent_nonterminals_authenticated_and_admitted_p2_fenced

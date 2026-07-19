@@ -5,6 +5,9 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: phase_a_current_method_repair_ready_phase_b_fh_gate_pending
 - review_status: amended_after_independent_review
 - proof_status: pending

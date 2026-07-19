@@ -5,6 +5,9 @@
 - type: test
 - ticket_category: ordinary
 - status: active
+- implementation_hold: active
+- implementation_hold_ref: T-283 intent reprice
+- implementation_hold_effect: preserve artifacts; no design, code, test, proof, publication, or closure promotion
 - phase_status: early_red_installed_governor_proven_at_project_read_frontier
 - review_status: steel_thread_governor_implementation_independently_accepted_closure_review_pending
 - proof_status: packed_clean_install_16_missing_16_retired_zero_target_invocations
