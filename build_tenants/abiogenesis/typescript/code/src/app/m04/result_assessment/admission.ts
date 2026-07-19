@@ -25,6 +25,21 @@ function parseNullableString(input: unknown, label: string): string | null {
   return parseNonEmptyString(input, label);
 }
 
+function parseSha256Digest(
+  input: unknown,
+  label: string
+): `sha256:${string}` {
+  const digest = parseNonEmptyString(input, label);
+  if (!isSha256Digest(digest)) {
+    throw new TypeError(`${label}: expected sha256:<64-hex> digest`);
+  }
+  return digest;
+}
+
+function isSha256Digest(value: string): value is `sha256:${string}` {
+  return /^sha256:[0-9a-f]{64}$/u.test(value);
+}
+
 function parseAssessmentKind(
   input: unknown,
   label: string
@@ -53,6 +68,10 @@ export function admitPublicResultAssessmentRequest(
     requestObject["result_artifact"],
     `${label}.result_artifact`
   );
+  const assessmentContract = parsePlainObject(
+    requestObject["assessment_contract"],
+    `${label}.assessment_contract`
+  );
   const manifestProvenance = parsePlainObject(
     requestObject["manifest_provenance"],
     `${label}.manifest_provenance`
@@ -65,6 +84,16 @@ export function admitPublicResultAssessmentRequest(
   return constructPublicResultAssessmentRequest({
     dispatchRequest,
     artifact,
+    assessmentContract: {
+      ref: parseNonEmptyString(
+        assessmentContract["ref"],
+        `${label}.assessment_contract.ref`
+      ),
+      digest: parseSha256Digest(
+        assessmentContract["digest"],
+        `${label}.assessment_contract.digest`
+      )
+    },
     manifestProvenance: constructAssessmentManifestProvenance({
       specHash: parseNonEmptyString(
         manifestProvenance["spec_hash"],

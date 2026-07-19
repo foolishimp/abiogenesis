@@ -15,34 +15,60 @@ import { RUNTIME_EVENT_KIND_VALUES } from "../../build/semantic/code/src/abg/m03
 import {
   DS1_BASELINE_SCHEMA_ASSET_REGISTER,
   DS1_NATIVE_CONTRACT_REGISTER,
-  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER,
-  buildDs1ProductPublication,
+  buildAbgProductPublication,
+  buildPublicOperationSchemaAssetDefinitions,
   publicContractAssetDigest
 } from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
 import {
+  ABG_SYSTEM_SUNNY_GRAPH_FUNCTION_ID,
+  ABG_SYSTEM_SUNNY_GRAPH_FUNCTION_HANDLE,
+  ABG_SYSTEM_SUNNY_INPUT_CONTRACT_ID,
+  ABG_SYSTEM_SUNNY_INPUT_SCHEMA_REF,
+  buildAbgSystemSunnyGraphFunctionModule
+} from "../../build/semantic/code/src/app/m04/public_contracts/abg_system_sunny_graph_function.js";
+import {
+  ABG_SYSTEM_ONE_SURFACE_CATALOG_HANDLE,
+  ABG_SYSTEM_ONE_SURFACE_GRAPH_FUNCTION_HANDLE,
+  ABG_SYSTEM_ONE_SURFACE_MODULE_PATH,
+  buildAbgSystemOneSurfaceProgram
+} from "../../build/semantic/code/src/app/m04/public_contracts/abg_system_one_surface_program.js";
+import {
+  admitCatalogContributionManifest,
+  admitCatalogProductDescriptor,
   canonicalizeIJson,
+  contributionManifestDigest,
   constructGraph,
   constructGraphFunction,
   constructModule,
   constructNode,
   constructTemplateRef,
+  descriptorDigest,
   emptySerializedAttrs,
   identity,
+  publicContractCatalogAddressableContractRefs,
   serializeModule
 } from "../../build/semantic/code/src/index.js";
-import { projectPublicOperationSchemaDefinitions } from "./project_public_operation_schemas.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const PACKAGE_ROOT = path.resolve(HERE, "../..");
 const PACKAGE_NAME = "@abiogenesis/typescript-tenant";
 const MANIFEST_PATH = "product-toolchain-manifest.json";
 const CATALOG_PATH = "contracts/public-contract-catalog.json";
+const TENANT_CONFORMANCE_MANIFEST_PATH =
+  "contracts/tenant-conformance-manifest.json";
 const VOCABULARY_ID = "abg.vocabulary.runtime-event-kind";
 const VOCABULARY_PATH = "contracts/vocabularies/runtime-event-kind.json";
+const ZERO_DIGEST = `sha256:${"0".repeat(64)}`;
+const PRODUCT_ID = "abiogenesis";
+const SYSTEM_INTERFACE_REF = "abg.schema.gtl-graph-function";
 export const T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE =
   "graph-function://abiogenesis/system/gtl-graph-function-identity/v1";
 export const T223_ABG_SYSTEM_MODULE_PATH =
   "contracts/catalog/abiogenesis-system.module.json";
+export const T270_ABG_SYSTEM_SUNNY_MODULE_PATH =
+  "contracts/catalog/abiogenesis-system-sunny.module.json";
+export const T270_ABG_SYSTEM_ONE_SURFACE_MODULE_PATH =
+  ABG_SYSTEM_ONE_SURFACE_MODULE_PATH;
 const EXPECTED_PACKAGE_FILES = Object.freeze([
   "build/semantic/**",
   "config/**",
@@ -52,6 +78,135 @@ const EXPECTED_PACKAGE_FILES = Object.freeze([
 
 function compareText(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function systemContributionRow(input) {
+  return Object.freeze({
+    canonicalHandle: T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE,
+    publicKind: "graph_function",
+    ownerProductId: PRODUCT_ID,
+    ownerVersion: input.version,
+    declarationRef: T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE,
+    contractRef: "abg.schema.gtl-graph-function",
+    interfaceRef: SYSTEM_INTERFACE_REF,
+    locator: {
+      kind: "module_declaration",
+      modulePath: T223_ABG_SYSTEM_MODULE_PATH,
+      moduleDigest: input.moduleDigest,
+      declarationRef: T223_ABG_SYSTEM_GRAPH_FUNCTION_HANDLE
+    },
+    compatibility: {
+      abgVersionRange: input.version,
+      requiredProductRefs: [PRODUCT_ID],
+      requiredContractRefs: [
+        "abg.schema.gtl-graph-function",
+        "abg.schema.gtl-module"
+      ],
+      requiredCapabilityRefs: [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.module.publish@5"
+      ]
+    },
+    readinessRefs: ["readiness://abiogenesis/system-catalog/ds1"],
+    proofRefs: ["proof://t223/abg-system-catalog-identity"],
+    policyRefs: [input.resolvedPolicyRef],
+    capabilityRefs: ["abg.capability.catalog.invoke-graph-function@5"],
+    provenanceRefs: [
+      "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md"
+    ],
+    refinementOfHandle: null,
+    overrideOfHandle: null
+  });
+}
+
+function sunnySystemContributionRow(input) {
+  return Object.freeze({
+    canonicalHandle: ABG_SYSTEM_SUNNY_GRAPH_FUNCTION_HANDLE,
+    publicKind: "graph_function",
+    ownerProductId: PRODUCT_ID,
+    ownerVersion: input.version,
+    declarationRef: ABG_SYSTEM_SUNNY_GRAPH_FUNCTION_ID,
+    contractRef: ABG_SYSTEM_SUNNY_INPUT_CONTRACT_ID,
+    interfaceRef: ABG_SYSTEM_SUNNY_INPUT_SCHEMA_REF,
+    locator: {
+      kind: "module_declaration",
+      modulePath: T270_ABG_SYSTEM_SUNNY_MODULE_PATH,
+      moduleDigest: input.moduleDigest,
+      declarationRef: ABG_SYSTEM_SUNNY_GRAPH_FUNCTION_ID
+    },
+    compatibility: {
+      abgVersionRange: input.version,
+      requiredProductRefs: [PRODUCT_ID],
+      requiredContractRefs: [
+        ABG_SYSTEM_SUNNY_INPUT_CONTRACT_ID,
+        "abg.schema.gtl-module"
+      ],
+      requiredCapabilityRefs: [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.module.publish@5"
+      ]
+    },
+    readinessRefs: ["readiness://abiogenesis/system-t270-sunny"],
+    proofRefs: ["proof://t270/abg-system-fd-sunny"],
+    policyRefs: [input.resolvedPolicyRef],
+    capabilityRefs: ["abg.capability.catalog.invoke-graph-function@5"],
+    provenanceRefs: [
+      "build_tenants/abiogenesis/typescript/design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md"
+    ],
+    refinementOfHandle: null,
+    overrideOfHandle: null
+  });
+}
+
+function oneSurfaceSystemContributionRow(input) {
+  return Object.freeze({
+    canonicalHandle: ABG_SYSTEM_ONE_SURFACE_CATALOG_HANDLE,
+    publicKind: "graph_function",
+    ownerProductId: PRODUCT_ID,
+    ownerVersion: input.version,
+    declarationRef: ABG_SYSTEM_ONE_SURFACE_GRAPH_FUNCTION_HANDLE,
+    contractRef: "abg.schema.gtl-graph-function",
+    interfaceRef: SYSTEM_INTERFACE_REF,
+    locator: {
+      kind: "module_declaration",
+      modulePath: T270_ABG_SYSTEM_ONE_SURFACE_MODULE_PATH,
+      moduleDigest: input.moduleDigest,
+      declarationRef: ABG_SYSTEM_ONE_SURFACE_GRAPH_FUNCTION_HANDLE
+    },
+    compatibility: {
+      abgVersionRange: input.version,
+      requiredProductRefs: [PRODUCT_ID],
+      requiredContractRefs: [
+        "abg.schema.gtl-graph-function",
+        "abg.schema.gtl-module"
+      ],
+      requiredCapabilityRefs: [
+        "abg.capability.catalog.invoke-graph-function@5",
+        "abg.capability.module.publish@5"
+      ]
+    },
+    readinessRefs: ["readiness://abiogenesis/system-one-surface/t270"],
+    proofRefs: ["proof://t270/one-surface-installed-authority"],
+    policyRefs: [input.resolvedPolicyRef],
+    capabilityRefs: ["abg.capability.catalog.invoke-graph-function@5"],
+    provenanceRefs: [
+      "build_tenants/abiogenesis/typescript/design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md"
+    ],
+    refinementOfHandle: null,
+    overrideOfHandle: null
+  });
+}
+
+function catalogSummaries(catalog) {
+  return Object.freeze({
+    contractRefs: publicContractCatalogAddressableContractRefs(catalog),
+    capabilityRefs: Object.freeze(
+      catalog.rows
+        .filter((row) => row.contractKind === "capability")
+        .map((row) => row.contractId)
+        .sort(compareText)
+    )
+  });
 }
 
 function productPath(absolutePath) {
@@ -111,17 +266,15 @@ async function contractAsset(relativePath) {
   });
 }
 
-function expectedSchemaDefinitions() {
+async function expectedSchemaDefinitions() {
   return Object.freeze([
     ...DS1_BASELINE_SCHEMA_ASSET_REGISTER,
-    ...projectPublicOperationSchemaDefinitions(
-      DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
-    )
+    ...await buildPublicOperationSchemaAssetDefinitions()
   ].sort((left, right) => compareText(left.contractId, right.contractId)));
 }
 
 export async function loadStaticSchemaAssets() {
-  const definitions = expectedSchemaDefinitions();
+  const definitions = await expectedSchemaDefinitions();
   const expectedPaths = definitions
     .map((definition) => definition.relativePath)
     .sort(compareText);
@@ -225,6 +378,31 @@ function abgSystemCatalogModuleAsset() {
   );
   return Object.freeze({
     relativePath: T223_ABG_SYSTEM_MODULE_PATH,
+    bytes,
+    digest: publicContractAssetDigest(bytes)
+  });
+}
+
+function abgSystemSunnyCatalogModuleAsset() {
+  const bytes = new TextEncoder().encode(
+    canonicalizeIJson(
+      serializeModule(buildAbgSystemSunnyGraphFunctionModule())
+    )
+  );
+  return Object.freeze({
+    relativePath: T270_ABG_SYSTEM_SUNNY_MODULE_PATH,
+    bytes,
+    digest: publicContractAssetDigest(bytes)
+  });
+}
+
+async function abgSystemOneSurfaceCatalogModuleAsset() {
+  const program = await buildAbgSystemOneSurfaceProgram();
+  const bytes = new TextEncoder().encode(
+    canonicalizeIJson(serializeModule(program.module))
+  );
+  return Object.freeze({
+    relativePath: T270_ABG_SYSTEM_ONE_SURFACE_MODULE_PATH,
     bytes,
     digest: publicContractAssetDigest(bytes)
   });
@@ -463,9 +641,14 @@ async function publicationRuntimeProfile() {
 export async function prepareAbgProductPublication() {
   const manifest = await packageJson();
   const systemCatalogModule = abgSystemCatalogModuleAsset();
+  const sunnySystemCatalogModule = abgSystemSunnyCatalogModuleAsset();
+  const oneSurfaceSystemCatalogModule =
+    await abgSystemOneSurfaceCatalogModuleAsset();
   const basePayloadAssets = Object.freeze([
     ...await censusBasePayload(),
-    systemCatalogModule
+    systemCatalogModule,
+    sunnySystemCatalogModule,
+    oneSurfaceSystemCatalogModule
   ]);
   const schemaAssets = await loadStaticSchemaAssets();
   const vocabulary = runtimeEventVocabularyAsset();
@@ -473,10 +656,10 @@ export async function prepareAbgProductPublication() {
     packageManifest: manifest,
     basePayloadAssets
   });
-  const publication = buildDs1ProductPublication({
+  const publication = await buildAbgProductPublication({
     publisher: "abiogenesis",
     packageVersion: manifest.version,
-    catalogId: "abg.public-contracts.ds1",
+    catalogId: "abg.public-contracts.release",
     catalogVersion: manifest.version,
     runtimeSystemProfile: await publicationRuntimeProfile(),
     basePayloadAssets,
@@ -490,6 +673,8 @@ export async function prepareAbgProductPublication() {
   });
   const outputs = Object.freeze([
     systemCatalogModule,
+    sunnySystemCatalogModule,
+    oneSurfaceSystemCatalogModule,
     vocabularyOutput,
     ...publication.generatedAssets
   ].sort((left, right) => compareText(left.relativePath, right.relativePath)));
@@ -503,10 +688,111 @@ export async function prepareAbgProductPublication() {
   });
 }
 
+export function prepareAbgDetachedCatalogPublication(input) {
+  const publication = input.publication.publication;
+  const moduleAsset = input.publication.basePayloadAssets.find(
+    (asset) => asset.relativePath === T223_ABG_SYSTEM_MODULE_PATH
+  );
+  if (moduleAsset === undefined) {
+    throw new TypeError(
+      `ABG product publication is missing ${T223_ABG_SYSTEM_MODULE_PATH}`
+    );
+  }
+  const sunnyModuleAsset = input.publication.basePayloadAssets.find(
+    (asset) => asset.relativePath === T270_ABG_SYSTEM_SUNNY_MODULE_PATH
+  );
+  if (sunnyModuleAsset === undefined) {
+    throw new TypeError(
+      `ABG product publication is missing ${T270_ABG_SYSTEM_SUNNY_MODULE_PATH}`
+    );
+  }
+  const oneSurfaceModuleAsset = input.publication.basePayloadAssets.find(
+    (asset) =>
+      asset.relativePath === T270_ABG_SYSTEM_ONE_SURFACE_MODULE_PATH
+  );
+  if (oneSurfaceModuleAsset === undefined) {
+    throw new TypeError(
+      `ABG product publication is missing ${T270_ABG_SYSTEM_ONE_SURFACE_MODULE_PATH}`
+    );
+  }
+  const version = input.publication.packageManifest.version;
+  if (publication.manifest.packageVersion !== version) {
+    throw new TypeError("ABG product publication package versions disagree");
+  }
+  const descriptorId = `descriptor://abiogenesis/${version}`;
+  const contributionId = `contribution://abiogenesis/${version}`;
+  const contributionBasis = {
+    kind: "catalog_contribution_manifest",
+    schemaVersion: 1,
+    contributionId,
+    contributionDigest: ZERO_DIGEST,
+    descriptorId,
+    descriptorDigest: ZERO_DIGEST,
+    productId: PRODUCT_ID,
+    productVersion: version,
+    artifactDigest: input.distributionArtifactDigest,
+    rows: [
+      systemContributionRow({
+        moduleDigest: moduleAsset.digest,
+        resolvedPolicyRef:
+          publication.manifest.runtimeSystemProfile.resolvedPolicy
+            .resolvedPolicyBundleRef,
+        version
+      }),
+      sunnySystemContributionRow({
+        moduleDigest: sunnyModuleAsset.digest,
+        resolvedPolicyRef:
+          publication.manifest.runtimeSystemProfile.resolvedPolicy
+            .resolvedPolicyBundleRef,
+        version
+      }),
+      oneSurfaceSystemContributionRow({
+        moduleDigest: oneSurfaceModuleAsset.digest,
+        resolvedPolicyRef:
+          publication.manifest.runtimeSystemProfile.resolvedPolicy
+            .resolvedPolicyBundleRef,
+        version
+      })
+    ]
+  };
+  const contributionDigest = contributionManifestDigest(contributionBasis);
+  const summaries = catalogSummaries(publication.catalog);
+  const descriptorBasis = {
+    kind: "catalog_product_descriptor",
+    schemaVersion: 1,
+    descriptorId,
+    descriptorDigest: ZERO_DIGEST,
+    publisher: PRODUCT_ID,
+    productId: PRODUCT_ID,
+    packageName: PACKAGE_NAME,
+    version,
+    distributionArtifactDigest: input.distributionArtifactDigest,
+    productContentDigest: publication.manifest.productContentDigest,
+    contributionManifestId: contributionId,
+    contributionManifestDigest: contributionDigest,
+    dependencies: [],
+    abgCompatibility: version,
+    contractRefs: summaries.contractRefs,
+    capabilityRefs: summaries.capabilityRefs,
+    provenanceRefs: ["proof://t223/abiogenesis-packed-candidate"]
+  };
+  const descriptor = admitCatalogProductDescriptor({
+    ...descriptorBasis,
+    descriptorDigest: descriptorDigest(descriptorBasis)
+  });
+  const contribution = admitCatalogContributionManifest({
+    ...contributionBasis,
+    contributionDigest,
+    descriptorDigest: descriptor.descriptorDigest
+  });
+  return Object.freeze({ contribution, descriptor });
+}
+
 function isOwnedGeneratedPath(relativePath) {
   return (
     relativePath === MANIFEST_PATH ||
     relativePath === CATALOG_PATH ||
+    relativePath === TENANT_CONFORMANCE_MANIFEST_PATH ||
     relativePath === VOCABULARY_PATH ||
     relativePath.startsWith("contracts/native/") ||
     relativePath.startsWith("contracts/catalog/") ||
@@ -526,6 +812,12 @@ async function currentGeneratedPaths() {
   try {
     await readFile(absoluteProductPath(CATALOG_PATH));
     paths.push(CATALOG_PATH);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+  try {
+    await readFile(absoluteProductPath(TENANT_CONFORMANCE_MANIFEST_PATH));
+    paths.push(TENANT_CONFORMANCE_MANIFEST_PATH);
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }

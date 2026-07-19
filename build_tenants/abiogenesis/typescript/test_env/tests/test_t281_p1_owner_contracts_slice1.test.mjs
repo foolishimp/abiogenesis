@@ -12,6 +12,10 @@ import {
   PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/product_intake/operation_contracts.js";
 import {
+  resolvedProductLockDigest,
+  resolvedProductLockId
+} from "../../build/semantic/code/src/app/m04/product_intake/resolve.js";
+import {
   RESULT_ASSESSMENT_SEMANTIC_TRACE,
   RESULT_ASSESSMENT_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/result_assessment/operation_contracts.js";
@@ -383,17 +387,15 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     residualRefs: [],
     provenanceRefs: ["evidence:verification"]
   };
-  for (const verificationDisposition of ["verified", "installed_unbound"]) {
-    assert.equal(v.parse(verify.result.schema, {
-      ...verifyResultBase,
-      verificationDisposition
-    }).verificationDisposition, verificationDisposition);
-  }
+  assert.throws(() => v.parse(verify.result.schema, {
+    ...verifyResultBase,
+    verificationDisposition: "verified"
+  }), /verifiedArtifact/u);
 
   const resolve = PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve;
   const requirement = {
     productId: "abiogenesis",
-    versionConstraint: "^5.0.0",
+    versionConstraint: "5.0.0",
     requiredContractRefs: [],
     requiredCapabilityRefs: []
   };
@@ -411,6 +413,39 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     version: "5.0.0-rc.1",
     contractRefs: [],
     capabilityRefs: []
+  };
+  const lockIdentity = {
+    requirements: [requirement],
+    products: [{
+      publisher: "abiogenesis",
+      productId: "abiogenesis",
+      version: "5.0.0",
+      descriptorId: "descriptor:abiogenesis:5.0.0",
+      descriptorDigest: D,
+      contributionId: "contribution:abiogenesis:5.0.0",
+      contributionDigest: D,
+      artifactDigest: D,
+      productContentDigest: D
+    }],
+    dependencyEdges: [],
+    compatibility: [{
+      productId: "abiogenesis",
+      compatible: true,
+      reason: null
+    }]
+  };
+  const lockWithoutDigest = {
+    kind: "resolved_product_lock",
+    schemaVersion: 1,
+    lockId: resolvedProductLockId(lockIdentity),
+    ...lockIdentity
+  };
+  const coherentLock = {
+    ...lockWithoutDigest,
+    lockDigest: resolvedProductLockDigest({
+      ...lockWithoutDigest,
+      lockDigest: D
+    })
   };
   assert.equal(v.parse(resolve.request.schema, {
     requirements: [requirement],
@@ -436,8 +471,9 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
   }));
 
   const resolveResultBase = {
-    resolvedLockRef: "lock:one",
-    resolvedLockDigest: D,
+    resolvedLockRef: coherentLock.lockId,
+    resolvedLockDigest: coherentLock.lockDigest,
+    resolvedLock: coherentLock,
     selectedDependencyGraph: [],
     residualRefs: [],
     provenanceRefs: []
@@ -462,20 +498,14 @@ test("T-281 Slice 1 product intake rejects malformed and duplicate truth", () =>
     selectedProducts: [
       {
         productIdentity: "abiogenesis",
-        selectedCoordinate: firstCoordinate,
-        satisfiedRequirementRefs: ["requirement:abg"]
-      },
-      {
-        productIdentity: "odd_glc",
         selectedCoordinate: {
           ...firstCoordinate,
-          productId: "odd_glc",
-          version: "1.0.0"
+          version: "5.0.0"
         },
-        satisfiedRequirementRefs: ["requirement:glc"]
+        satisfiedRequirementRefs: ["requirement:abg"]
       }
     ]
-  }).selectedProducts.length, 2);
+  }).selectedProducts.length, 1);
   assert.throws(() => v.parse(resolve.result.schema, {
     ...resolveResultBase,
     selectedProducts: [{

@@ -60,7 +60,10 @@ function ontologyMetadata<
   const Fragment extends string,
   const AuthorityClass extends "pure" | "read" | "write" | "attestation",
   const Effect extends EffectClass,
-  const EventAdmission extends "none" | "owning_semantic_authority"
+  const EventAdmission extends
+    | "none"
+    | "owning_semantic_authority"
+    | "immutable_artifact_boundary"
 >(
   fragment: Fragment,
   authorityClass: AuthorityClass,
@@ -93,7 +96,7 @@ function designMetadata<
 
 export const METADATA_BASIS_BY_OPERATION = freezeNativeValue({
   "abg.operation.workspace.create": ontologyMetadata(
-    "AF-01", "write", "workspace_filesystem", "none"
+    "AF-01", "write", "workspace_filesystem", "immutable_artifact_boundary"
   ),
   "abg.operation.workspace.open": ontologyMetadata(
     "AF-02", "read", "workspace_read_admission", "none"
@@ -108,10 +111,10 @@ export const METADATA_BASIS_BY_OPERATION = freezeNativeValue({
     "AF-05", "pure", "deterministic_evaluation", "none"
   ),
   "abg.operation.product.install": ontologyMetadata(
-    "AF-06", "write", "immutable_install_filesystem", "none"
+    "AF-06", "write", "immutable_install_filesystem", "immutable_artifact_boundary"
   ),
   "abg.operation.workspace.bind": ontologyMetadata(
-    "AF-07", "write", "workspace_binding_persistence", "none"
+    "AF-07", "write", "workspace_binding_persistence", "immutable_artifact_boundary"
   ),
   "abg.operation.catalog.admit": ontologyMetadata(
     "AF-08", "write", "catalog_event_admission", "owning_semantic_authority"
@@ -120,7 +123,7 @@ export const METADATA_BASIS_BY_OPERATION = freezeNativeValue({
     "AF-09", "pure", "deterministic_narrowing", "none"
   ),
   "abg.operation.catalog.apply": ontologyMetadata(
-    "AF-10", "write", "declaration_application_admission", "none"
+    "AF-10", "write", "declaration_application_admission", "immutable_artifact_boundary"
   ),
   "abg.operation.run.invoke": designMetadata(
     "build_tenants/abiogenesis/typescript/design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md",
@@ -148,10 +151,10 @@ export const METADATA_BASIS_BY_OPERATION = freezeNativeValue({
     "AF-22", "attestation", "conformance_evaluation_admission", "none"
   ),
   "abg.operation.product.materialize": ontologyMetadata(
-    "AF-23", "write", "product_filesystem", "none"
+    "AF-23", "write", "product_filesystem", "immutable_artifact_boundary"
   ),
   "abg.operation.release.snapshot": ontologyMetadata(
-    "AF-25", "write", "immutable_release_publication", "none"
+    "AF-25", "write", "immutable_release_publication", "immutable_artifact_boundary"
   )
 } as const);
 
@@ -286,7 +289,10 @@ interface OperationMetadataProjection {
   readonly semanticAuthorityDigest: Sha256Digest;
   readonly authorityClass: "pure" | "read" | "write" | "attestation";
   readonly effectClass: EffectClass;
-  readonly eventAdmission: "none" | "owning_semantic_authority";
+  readonly eventAdmission:
+    | "none"
+    | "owning_semantic_authority"
+    | "immutable_artifact_boundary";
 }
 
 function definitionPolicy<

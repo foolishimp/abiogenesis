@@ -409,7 +409,8 @@ test("T-217 P3.3: a basis fork visible in the record drafts a design_reframe at 
     resolvedRuntimeRef: "runtime://typescript/node",
     resolvedPolicyBundleRef: "policy://t217/fork",
     runId: "run://t217/fork",
-    workKey: "wk://t217/fork"
+    workKey: "wk://t217/fork",
+    startAdmissionWitnessDigest: null
   });
   const forked = emit(
     [

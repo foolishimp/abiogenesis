@@ -78,6 +78,11 @@ test("T-271 packed M03 exposes the closed complete-program surface without inter
   type CompiledCPlanNode,
   type CompiledCProgramPlan,
   type CompleteCProgramCompilation,
+  type CProgramAtomCloseBasis,
+  type CProgramAtomEvidenceEvent,
+  type CProgramAtomInteriorEvent,
+  type CProgramAtomInvocationSubmission,
+  type CProgramAtomReceipt,
   type CProgramExecutionOutcome,
   type CProgramInterpreterInvocation
 } from "@abiogenesis/typescript-tenant/abg/m03";
@@ -86,11 +91,22 @@ declare const compileInput: CompileCompleteCProgramInput;
 declare const plan: CompiledCProgramPlan;
 declare const invocation: CProgramInterpreterInvocation;
 declare const compilation: CompleteCProgramCompilation;
+declare const closeBasis: CProgramAtomCloseBasis;
+declare const evidenceEvent: CProgramAtomEvidenceEvent;
+declare const interiorEvent: CProgramAtomInteriorEvent;
+declare const submission: CProgramAtomInvocationSubmission;
+declare const receipt: CProgramAtomReceipt;
 declare const outcome: CProgramExecutionOutcome;
 void compileInput;
 void plan;
 void invocation;
 void compilation;
+void closeBasis;
+void evidenceEvent;
+void interiorEvent;
+void submission;
+void receipt.targetCarrierContentDigest;
+void receipt.targetPayloadIdentityDigest;
 void outcome;
 void COMPLETE_C_PROGRAM_DIAGNOSTIC_ID_VALUES;
 void assertCompiledCProgramPlan;

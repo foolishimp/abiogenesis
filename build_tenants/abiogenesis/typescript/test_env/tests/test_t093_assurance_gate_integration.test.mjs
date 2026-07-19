@@ -40,6 +40,8 @@ import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 
 function snapshotForScope(scope) {
   return constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef:
+      `authority-snapshot://assurance/${scope.vectorIndex}`,
     scope,
     authorityRefs: [`req://assurance/${scope.vectorIndex}`],
     inputRefs: ["input://current"],
@@ -54,7 +56,7 @@ function fulfilledEvidence(scope, authoritySnapshot) {
   return constructAssuranceEvidenceRow({
     scope,
     evidenceRef: `evidence://assurance/${scope.vectorIndex}`,
-    authorityRef: authoritySnapshot.authorityRefs[0],
+    authorityRef: authoritySnapshot.authoritySnapshotRef,
     authorityDigest: authoritySnapshot.authorityDigest,
     inputDigest: authoritySnapshot.inputDigest,
     eventRefs: [`event://assurance/${scope.vectorIndex}`],
@@ -125,6 +127,8 @@ function eventSourcedFulfillmentEvents(basis) {
   const events = [];
   for (let vectorIndex = 0; vectorIndex < basis.graph.vectors.length; vectorIndex += 1) {
     const authorityRef = `req://assurance/${vectorIndex}`;
+    const authoritySnapshotRef =
+      `authority-snapshot://assurance/${vectorIndex}`;
     const payloadRef = `payload://assurance/${vectorIndex}`;
     const evidenceRef = `evidence://assurance/${vectorIndex}`;
     const authorityDigest = `authority-digest-${vectorIndex}`;
@@ -133,7 +137,7 @@ function eventSourcedFulfillmentEvents(basis) {
       constructAuthoritySnapshotAdmittedEvent({
         basis,
         vectorIndex,
-        authoritySnapshotRef: `authority-snapshot://assurance/${vectorIndex}`,
+        authoritySnapshotRef,
         authorityRefs: [authorityRef],
         inputRefs: ["input://current"],
         authorityDigest,
@@ -152,7 +156,7 @@ function eventSourcedFulfillmentEvents(basis) {
         contractRef: "contract://assurance/evidence",
         digest: `digest://assurance/${vectorIndex}`,
         producerRef: "provider://evidence",
-        authorityRef,
+        authorityRef: authoritySnapshotRef,
         inputDigest,
         policyRefs: ["policy://assurance"]
       }),
@@ -171,7 +175,7 @@ function eventSourcedFulfillmentEvents(basis) {
         vectorIndex,
         evidenceRef,
         payloadRef,
-        authorityRef,
+        authorityRef: authoritySnapshotRef,
         authorityDigest,
         inputDigest,
         providerRefs: ["provider://evidence"],

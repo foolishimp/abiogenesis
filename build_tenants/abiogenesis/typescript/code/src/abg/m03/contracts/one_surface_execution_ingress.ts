@@ -4,18 +4,21 @@
 
 import type { ExecutionBasis } from "./carriers.js";
 import {
+  admitIJsonValue,
   stableJsonEquals,
-  stableSha256Digest
+  stableSha256Digest,
+  type IJsonValue
 } from "../../../shared/runtime_identity.js";
+import type { AdmittedInvocationCarrierSet } from "./declared_execution_context.js";
 import {
   admitRuntimeSchemaAdmissionCapabilityBasis,
   type RuntimeSchemaAdmissionCapabilityBasis
 } from "./runtime_schema_admission.js";
 
-export const T270_ROOT_PAYLOAD_BODY_GAP =
-  "gap://abg/t270/root-payload-body-not-admitted";
 export const T270_RUNTIME_COMPATIBILITY_GAP =
   "gap://abg/t270/runtime-policy-steering-capability-rejoin";
+
+const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/u;
 
 const RUN_INVOKE_EXECUTION_INGRESS = Symbol(
   "RUN_INVOKE_EXECUTION_INGRESS"
@@ -44,18 +47,43 @@ export interface RunInvokeSerializedInputContract {
   }>;
 }
 
+export interface InstalledPublicSchemaAuthority {
+  readonly kind: "installed_public_schema_authority";
+  readonly owningProductId: string;
+  readonly owningProductVersion: string;
+  readonly publicContractCatalogId: string;
+  readonly contractId: string;
+  readonly contractDigest: `sha256:${string}`;
+  readonly publicSchemaId: string;
+  readonly publicSchemaVersion: string;
+  readonly assetRelativePath: string;
+  readonly assetDigest: `sha256:${string}`;
+  readonly schema: IJsonValue;
+}
+
+export interface InstalledPublicSchemaAuthoritySet {
+  readonly kind: "installed_public_schema_authority_set";
+  readonly schemas: readonly InstalledPublicSchemaAuthority[];
+  readonly schemaSetDigest: `sha256:${string}`;
+}
+
+export interface RunInvokeSelectedExecution {
+  readonly selectedEntryRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: `sha256:${string}`;
+  readonly selectedExecutionBindingDigest: `sha256:${string}`;
+  readonly nextActionRef: string;
+  readonly nextActionDigest: `sha256:${string}`;
+  readonly intentAdmissionRef: string;
+  readonly intentAdmissionDigest: `sha256:${string}`;
+}
+
 export type RunInvokeConstraint =
   | Readonly<{
       kind: "exact_graph_function_constraint";
-      graphFunctionRef: string;
-      graphFunctionDigest: string;
-      selectedEntryRef: string;
-      selectedExecutionBindingDigest: `sha256:${string}`;
       inputContract: RunInvokeSerializedInputContract;
       inputPayloadRef: string;
       inputPayloadDigest: string;
-      payloadAdmissionState: "pending_af14_rejoin";
-      payloadAdmissionGapRef: typeof T270_ROOT_PAYLOAD_BODY_GAP;
     }>
   | Readonly<{
       kind: "start_constraints";
@@ -98,6 +126,10 @@ export interface RunInvokeExecutionIngressBasis {
     digest: string;
   }>;
   readonly constraint: RunInvokeConstraint;
+  readonly selectedExecution: RunInvokeSelectedExecution;
+  readonly admittedInputCarriers: AdmittedInvocationCarrierSet | null;
+  readonly installedPublicInputSchemas:
+    InstalledPublicSchemaAuthoritySet | null;
   readonly invocationAuthority: Readonly<{
     authorityBasisRef: string;
     authorityBasisDigest: string;
@@ -154,6 +186,125 @@ export interface AdmittedRunInvokeExecutionIngress
   readonly ingressDigest: `sha256:${string}`;
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function requireRecord(value: unknown, label: string): Record<string, unknown> {
+  if (!isRecord(value)) {
+    throw new TypeError(`${label}: expected an object`);
+  }
+  return value;
+}
+
+function requireArray(value: unknown, label: string): readonly unknown[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label}: expected an array`);
+  }
+  return value;
+}
+
+function assertFreezableBasis(
+  value: unknown
+): asserts value is RunInvokeExecutionIngressBasis {
+  const input = requireRecord(value, "run.invoke execution ingress");
+  requireRecord(input["invocation"], "run.invoke invocation");
+  requireRecord(input["workspace"], "run.invoke workspace");
+  const catalog = requireRecord(input["catalog"], "run.invoke catalog");
+  requireArray(
+    catalog["allowedEntryRefs"],
+    "run.invoke catalog.allowedEntryRefs"
+  );
+  requireRecord(input["program"], "run.invoke program");
+  const constraint = requireRecord(
+    input["constraint"],
+    "run.invoke constraint"
+  );
+  if (constraint["kind"] === "exact_graph_function_constraint") {
+    const contract = requireRecord(
+      constraint["inputContract"],
+      "run.invoke inputContract"
+    );
+    const sourceInterface = requireArray(
+      contract["sourceInterface"],
+      "run.invoke inputContract.sourceInterface"
+    );
+    sourceInterface.forEach((row, index) =>
+      requireRecord(row, `run.invoke sourceInterface[${String(index)}]`)
+    );
+    requireRecord(contract["asset"], "run.invoke inputContract.asset");
+  }
+  requireRecord(input["selectedExecution"], "run.invoke selectedExecution");
+  const authority = requireRecord(
+    input["invocationAuthority"],
+    "run.invoke invocationAuthority"
+  );
+  requireRecord(authority["actor"], "run.invoke invocationAuthority.actor");
+  requireArray(
+    authority["capabilityGrants"],
+    "run.invoke invocationAuthority.capabilityGrants"
+  );
+  requireRecord(
+    authority["invocationPolicy"],
+    "run.invoke invocationAuthority.invocationPolicy"
+  );
+  const steering = requireRecord(
+    authority["transportSteering"],
+    "run.invoke invocationAuthority.transportSteering"
+  );
+  requireArray(
+    steering["provenanceRefs"],
+    "run.invoke invocationAuthority.transportSteering.provenanceRefs"
+  );
+  const runtimeProfile = requireRecord(
+    input["runtimeProfile"],
+    "run.invoke runtimeProfile"
+  );
+  requireRecord(
+    runtimeProfile["runtimeIdentity"],
+    "run.invoke runtimeProfile.runtimeIdentity"
+  );
+  requireRecord(
+    runtimeProfile["resolvedPolicy"],
+    "run.invoke runtimeProfile.resolvedPolicy"
+  );
+  requireArray(
+    runtimeProfile["standardPluginRefs"],
+    "run.invoke runtimeProfile.standardPluginRefs"
+  );
+  requireArray(
+    input["schemaAdmissionCapabilityBases"],
+    "run.invoke schemaAdmissionCapabilityBases"
+  );
+  requireArray(input["sourceWitnessRefs"], "run.invoke sourceWitnessRefs");
+  if (input["admittedInputCarriers"] !== null) {
+    const carrierSet = requireRecord(
+      input["admittedInputCarriers"],
+      "run.invoke admittedInputCarriers"
+    );
+    const carriers = requireArray(
+      carrierSet["carriers"],
+      "run.invoke admittedInputCarriers.carriers"
+    );
+    carriers.forEach((carrier, index) =>
+      requireRecord(carrier, `run.invoke carrier[${String(index)}]`)
+    );
+  }
+  if (input["installedPublicInputSchemas"] !== null) {
+    const schemaSet = requireRecord(
+      input["installedPublicInputSchemas"],
+      "run.invoke installedPublicInputSchemas"
+    );
+    const schemas = requireArray(
+      schemaSet["schemas"],
+      "run.invoke installedPublicInputSchemas.schemas"
+    );
+    schemas.forEach((schema, index) =>
+      requireRecord(schema, `run.invoke public schema[${String(index)}]`)
+    );
+  }
+}
+
 function freezeConstraint(input: RunInvokeConstraint): RunInvokeConstraint {
   return input.kind === "exact_graph_function_constraint"
     ? Object.freeze({
@@ -171,6 +322,44 @@ function freezeConstraint(input: RunInvokeConstraint): RunInvokeConstraint {
     : Object.freeze({ ...input });
 }
 
+function freezeAdmittedInputCarriers(
+  input: AdmittedInvocationCarrierSet | null
+): AdmittedInvocationCarrierSet | null {
+  if (input === null) {
+    return null;
+  }
+  return Object.freeze({
+    ...input,
+    carriers: Object.freeze(
+      input.carriers.map((carrier) =>
+        Object.freeze({
+          ...carrier,
+          value: admitIJsonValue(carrier.value)
+        })
+      )
+    )
+  });
+}
+
+function freezeInstalledPublicInputSchemas(
+  input: InstalledPublicSchemaAuthoritySet | null
+): InstalledPublicSchemaAuthoritySet | null {
+  if (input === null) {
+    return null;
+  }
+  return Object.freeze({
+    ...input,
+    schemas: Object.freeze(
+      input.schemas.map((schema) =>
+        Object.freeze({
+          ...schema,
+          schema: admitIJsonValue(schema.schema)
+        })
+      )
+    )
+  });
+}
+
 function freezeBasis(
   input: RunInvokeExecutionIngressBasis
 ): RunInvokeExecutionIngressBasis {
@@ -186,6 +375,13 @@ function freezeBasis(
     }),
     program: Object.freeze({ ...input.program }),
     constraint: freezeConstraint(input.constraint),
+    selectedExecution: Object.freeze({ ...input.selectedExecution }),
+    admittedInputCarriers: freezeAdmittedInputCarriers(
+      input.admittedInputCarriers
+    ),
+    installedPublicInputSchemas: freezeInstalledPublicInputSchemas(
+      input.installedPublicInputSchemas
+    ),
     invocationAuthority: Object.freeze({
       ...input.invocationAuthority,
       actor: Object.freeze({ ...input.invocationAuthority.actor }),
@@ -230,12 +426,22 @@ function assertConstraint(input: RunInvokeExecutionIngressBasis): void {
     if (
       input.constraint.kind !== "exact_graph_function_constraint" ||
       input.catalog.allowedEntryRefs.length === 0 ||
-      input.constraint.payloadAdmissionState !== "pending_af14_rejoin" ||
-      input.constraint.payloadAdmissionGapRef !== T270_ROOT_PAYLOAD_BODY_GAP ||
-      sourceInterface.length === 0 ||
+      !isNonEmptyString(input.constraint.inputPayloadRef) ||
+      !isSha256Digest(input.constraint.inputPayloadDigest) ||
+      sourceInterface.length !== 1 ||
       sourceInterface.some(
-        (row) => row.nodeRef.length === 0 || row.schemaRef.length === 0
-      )
+        (row) =>
+          !isNonEmptyString(row.nodeRef) ||
+          !isNonEmptyString(row.schemaRef)
+      ) ||
+      [
+        "graphFunctionRef",
+        "graphFunctionDigest",
+        "selectedEntryRef",
+        "selectedExecutionBindingDigest",
+        "payloadAdmissionState",
+        "payloadAdmissionGapRef"
+      ].some((field) => Object.hasOwn(input.constraint, field))
     ) {
       throw new TypeError("run.invoke exact function constraint is incomplete");
     }
@@ -252,6 +458,104 @@ function assertConstraint(input: RunInvokeExecutionIngressBasis): void {
   }
 }
 
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0;
+}
+
+function isSha256Digest(value: unknown): value is `sha256:${string}` {
+  return typeof value === "string" && SHA256_PATTERN.test(value);
+}
+
+function assertSelectedExecution(input: RunInvokeSelectedExecution): void {
+  const fields = Object.keys(input).sort();
+  if (
+    !stableJsonEquals(fields, [
+      "graphFunctionDigest",
+      "graphFunctionRef",
+      "intentAdmissionDigest",
+      "intentAdmissionRef",
+      "nextActionDigest",
+      "nextActionRef",
+      "selectedEntryRef",
+      "selectedExecutionBindingDigest"
+    ]) ||
+    !isNonEmptyString(input.selectedEntryRef) ||
+    !isNonEmptyString(input.graphFunctionRef) ||
+    !isSha256Digest(input.graphFunctionDigest) ||
+    !isSha256Digest(input.selectedExecutionBindingDigest) ||
+    !isNonEmptyString(input.nextActionRef) ||
+    !isSha256Digest(input.nextActionDigest) ||
+    !isNonEmptyString(input.intentAdmissionRef) ||
+    !isSha256Digest(input.intentAdmissionDigest)
+  ) {
+    throw new TypeError(
+      "run.invoke post-AF-14 selected execution basis is incomplete"
+    );
+  }
+}
+
+function assertInvokeRootAdmission(
+  input: RunInvokeExecutionIngressBasis
+): void {
+  if (input.variant === "start") {
+    if (
+      input.admittedInputCarriers !== null ||
+      input.installedPublicInputSchemas !== null
+    ) {
+      throw new TypeError("run.invoke start carries public root admission");
+    }
+    return;
+  }
+  if (
+    input.constraint.kind !== "exact_graph_function_constraint" ||
+    input.admittedInputCarriers === null ||
+    input.installedPublicInputSchemas === null
+  ) {
+    throw new TypeError("run.invoke root admission is incomplete");
+  }
+  const carriers = input.admittedInputCarriers;
+  const schemas = input.installedPublicInputSchemas;
+  const carrier = carriers.carriers[0];
+  const schema = schemas.schemas[0];
+  const source = input.constraint.inputContract.sourceInterface[0];
+  if (
+    carriers.kind !== "admitted_invocation_carrier_set" ||
+    carriers.carriers.length !== 1 ||
+    carrier === undefined ||
+    source === undefined ||
+    carrier.kind !== "admitted_invocation_carrier" ||
+    carrier.sourceNodeRef !== source.nodeRef ||
+    carrier.schemaRef !== source.schemaRef ||
+    carrier.carrierRef !== input.constraint.inputPayloadRef ||
+    carrier.carrierDigest !== input.constraint.inputPayloadDigest ||
+    carrier.carrierDigest !== stableSha256Digest(carrier.value) ||
+    !isNonEmptyString(carrier.admissionRef) ||
+    carriers.carrierSetDigest !== stableSha256Digest(carriers.carriers) ||
+    schemas.kind !== "installed_public_schema_authority_set" ||
+    schemas.schemas.length !== 1 ||
+    schema === undefined ||
+    schema.kind !== "installed_public_schema_authority" ||
+    schema.owningProductId !==
+      input.constraint.inputContract.owningProductId ||
+    schema.owningProductVersion !==
+      input.constraint.inputContract.owningProductVersion ||
+    schema.publicContractCatalogId !==
+      input.constraint.inputContract.publicContractCatalogId ||
+    schema.contractId !== input.constraint.inputContract.contractId ||
+    schema.contractDigest !== input.constraint.inputContract.contractDigest ||
+    schema.publicSchemaId !== input.constraint.inputContract.asset.schemaId ||
+    schema.publicSchemaVersion !==
+      input.constraint.inputContract.asset.schemaVersion ||
+    schema.assetRelativePath !==
+      input.constraint.inputContract.asset.relativePath ||
+    schema.assetDigest !== input.constraint.inputContract.asset.digest ||
+    schema.assetDigest !== stableSha256Digest(schema.schema) ||
+    schemas.schemaSetDigest !== stableSha256Digest(schemas.schemas)
+  ) {
+    throw new TypeError("run.invoke root admission differs");
+  }
+}
+
 function assertBasis(input: RunInvokeExecutionIngressBasis): void {
   const uniqueAllowed = new Set(input.catalog.allowedEntryRefs);
   const uniqueSources = new Set(input.sourceWitnessRefs);
@@ -263,11 +567,40 @@ function assertBasis(input: RunInvokeExecutionIngressBasis): void {
     input.authorityClass !== "subordinate_rejoin_only" ||
     uniqueAllowed.size !== input.catalog.allowedEntryRefs.length ||
     uniqueSources.size !== input.sourceWitnessRefs.length ||
+    schemaCapabilityKeys.length === 0 ||
+    !stableJsonEquals(schemaCapabilityKeys, [...schemaCapabilityKeys].sort()) ||
     new Set(schemaCapabilityKeys).size !== schemaCapabilityKeys.length
   ) {
     throw new TypeError("run.invoke execution ingress refs are incomplete");
   }
+  assertSelectedExecution(input.selectedExecution);
+  if (
+    !input.catalog.allowedEntryRefs.includes(
+      input.selectedExecution.selectedEntryRef
+    )
+  ) {
+    throw new TypeError(
+      "run.invoke selected execution is outside the admitted catalog view"
+    );
+  }
+  if (
+    input.schemaAdmissionCapabilityBases.some((basis) =>
+      basis.workspaceId !== input.workspace.workspaceId ||
+      basis.bindingId !== input.workspace.bindingRef ||
+      basis.catalogId !== input.catalog.catalogId ||
+      basis.resolvedLockRef !== input.catalog.resolvedLockRef ||
+      basis.entryRef !== input.selectedExecution.selectedEntryRef ||
+      basis.graphFunctionId !== input.selectedExecution.graphFunctionRef ||
+      basis.graphFunctionDigest !==
+        input.selectedExecution.graphFunctionDigest
+    )
+  ) {
+    throw new TypeError(
+      "run.invoke schema capability authority differs from selected execution"
+    );
+  }
   assertConstraint(input);
+  assertInvokeRootAdmission(input);
   const grants = input.invocationAuthority.capabilityGrants;
   const grantRefs = grants.map((grant) => grant.grantRef);
   if (
@@ -324,6 +657,7 @@ function assertBasis(input: RunInvokeExecutionIngressBasis): void {
 export function admitRunInvokeExecutionIngress(
   input: RunInvokeExecutionIngressBasis
 ): AdmittedRunInvokeExecutionIngress {
+  assertFreezableBasis(input);
   const basis = freezeBasis(input);
   assertBasis(basis);
   const ingressDigest = stableSha256Digest(basis);

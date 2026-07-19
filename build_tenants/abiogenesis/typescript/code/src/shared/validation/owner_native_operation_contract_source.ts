@@ -1,6 +1,7 @@
 import type * as v from "valibot";
 
 import { freezeNativeValue } from "./immutable_native_value.js";
+import { isPlainObject } from "./primitives.js";
 import type { OwnerNativeNamedCheckCoordinate } from "./canonical_native_schema_projector.js";
 
 type NativeSchema = v.GenericSchema;
@@ -250,45 +251,56 @@ function hasExactOwnKeys(
   );
 }
 
-function admitOwnerNativeDefinitionKey<const K extends OwnerNativeDefinitionKey>(
+export function admitOwnerNativeDefinitionKey<const K extends OwnerNativeDefinitionKey>(
   input: K
-): K {
-  if (typeof input !== "object" || input === null) {
+): K;
+export function admitOwnerNativeDefinitionKey(
+  input: unknown
+): OwnerNativeDefinitionKey;
+export function admitOwnerNativeDefinitionKey(
+  input: unknown
+): OwnerNativeDefinitionKey {
+  if (!isPlainObject(input)) {
     throw new TypeError(
       "owner native contract source: definition key must be an object"
     );
   }
-  if (input.memberKind === "variant") {
+  const memberKind = input["memberKind"];
+  if (memberKind === "variant") {
+    const operationId = input["operationId"];
+    const variant = input["variant"];
     if (
       !hasExactOwnKeys(input, ["operationId", "memberKind", "variant"]) ||
-      typeof input.operationId !== "string" ||
-      input.operationId.length === 0 ||
-      typeof input.variant !== "string" ||
-      input.variant.length === 0
+      typeof operationId !== "string" ||
+      operationId.length === 0 ||
+      typeof variant !== "string" ||
+      variant.length === 0
     ) {
       throw new TypeError(
         "owner native contract source: invalid variant definition key"
       );
     }
-    if (input.operationId === "abg.operation.project.read") {
+    if (operationId === "abg.operation.project.read") {
       throw new TypeError(
         "owner native contract source: project.read requires a project_read_case key"
       );
     }
-    return input;
+    return { operationId, memberKind, variant };
   }
+  const operationId = input["operationId"];
+  const caseKey = input["caseKey"];
   if (
-    input.memberKind !== "project_read_case" ||
+    memberKind !== "project_read_case" ||
     !hasExactOwnKeys(input, ["operationId", "memberKind", "caseKey"]) ||
-    input.operationId !== "abg.operation.project.read" ||
-    typeof input.caseKey !== "string" ||
-    input.caseKey.length === 0
+    operationId !== "abg.operation.project.read" ||
+    typeof caseKey !== "string" ||
+    caseKey.length === 0
   ) {
     throw new TypeError(
       "owner native contract source: invalid project_read_case definition key"
     );
   }
-  return input;
+  return { operationId, memberKind, caseKey };
 }
 
 function assertMemberPathCorrelation(

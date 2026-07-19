@@ -38,15 +38,20 @@ import {
 import { PLUGIN_TRAVERSAL_KIND_VALUES } from "./plugin_traversal_observer.js";
 import {
   REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES
-} from "./requirements_algebra.js";
+} from "./requirement_event_payload_kinds.js";
 import {
   admitIJsonValue,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import { isPlainRecord } from "./admission_hygiene.js";
+import {
+  admitOwnerNativeDefinitionKey
+} from "../../../shared/validation/owner_native_operation_contract_source.js";
 
 type FieldRule =
   | "non_empty_string"
+  | "sha256_digest"
+  | "nullable_sha256_digest"
   | "nullable_string"
   | "non_negative_integer"
   | "optional_non_negative_integer"
@@ -502,6 +507,21 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
     assertNonEmptyString(value, label);
     return;
   }
+  if (rule === "sha256_digest") {
+    if (typeof value !== "string" || !/^sha256:[0-9a-f]{64}$/u.test(value)) {
+      throw new TypeError(`${label} must be a sha256:<64-hex> digest`);
+    }
+    return;
+  }
+  if (rule === "nullable_sha256_digest") {
+    if (value === null) {
+      return;
+    }
+    if (typeof value !== "string" || !/^sha256:[0-9a-f]{64}$/u.test(value)) {
+      throw new TypeError(`${label} must be null or a sha256:<64-hex> digest`);
+    }
+    return;
+  }
   if (rule === "nullable_string") {
     assertNullableString(value, label);
     return;
@@ -582,6 +602,192 @@ function applyFieldRules(
       applyFieldRule(event[fieldName], `${eventName}.${fieldName}`, rule);
     }
   };
+}
+
+function assertPublicOperationArtifactAdmitted(
+  event: RuntimeEventRecord
+): void {
+  applyFieldRules("PublicOperationArtifactAdmittedRuntimeEvent", {
+    operationId: "non_empty_string",
+    definitionDigest: "sha256_digest",
+    scopeRef: "non_empty_string",
+    scopeDigest: "sha256_digest",
+    invocationRef: "non_empty_string",
+    invocationDigest: "sha256_digest",
+    disposition: "non_empty_string",
+    artifactRef: "non_empty_string",
+    artifactDigest: "sha256_digest",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  })(event);
+  if (
+    typeof event["operationId"] !== "string" ||
+    !event["operationId"].startsWith("abg.operation.")
+  ) {
+    throw new TypeError(
+      "PublicOperationArtifactAdmittedRuntimeEvent.operationId must be an abg.operation identity"
+    );
+  }
+  const definitionKey = admitOwnerNativeDefinitionKey(
+    event["definitionKey"]
+  );
+  if (definitionKey.operationId !== event["operationId"]) {
+    throw new TypeError(
+      "PublicOperationArtifactAdmittedRuntimeEvent.definitionKey.operationId must equal operationId"
+    );
+  }
+  if (
+    !Array.isArray(event["causationEventRefs"]) ||
+    event["causationEventRefs"].length === 0
+  ) {
+    throw new TypeError(
+      "PublicOperationArtifactAdmittedRuntimeEvent.causationEventRefs must preserve the admitted invocation cause"
+    );
+  }
+}
+
+function admitLegacyPublicOperationAdmitted(
+  event: RuntimeEventRecord
+): void {
+  closedRuntimeEventKeys(
+    "LegacyPublicOperationAdmittedRuntimeEvent",
+    [
+    "kind",
+    "operationId",
+    "invocationId",
+    "requestId",
+    "actorRef",
+    "workspaceId",
+    "bindingId",
+    "catalogId",
+    "capabilityProvenanceRefs",
+    "causationEventRefs",
+    "correlationId"
+    ],
+    applyFieldRules("LegacyPublicOperationAdmittedRuntimeEvent", {
+      operationId: {
+        oneOf: [
+          "abg.operation.catalog.admit",
+          "abg.operation.catalog.invoke"
+        ]
+      },
+      invocationId: "non_empty_string",
+      requestId: "non_empty_string",
+      actorRef: "non_empty_string",
+      workspaceId: "non_empty_string",
+      bindingId: "non_empty_string",
+      catalogId: "non_empty_string",
+      capabilityProvenanceRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })
+  )(event);
+}
+
+function admitGenericPublicOperationAdmitted(
+  event: RuntimeEventRecord
+): void {
+  closedRuntimeEventKeys(
+    "PublicOperationAdmittedRuntimeEvent",
+    [
+    "kind",
+    "definitionKey",
+    "definitionDigest",
+    "invocationRef",
+    "invocationDigest",
+    "invocationAuthorityRef",
+    "invocationAuthorityDigest",
+    "authorityBasisRef",
+    "authorityBasisDigest",
+    "actorRef",
+    "actorAttributionRef",
+    "actorAttributionDigest",
+    "workspaceBindingRequirement",
+    "scopeRef",
+    "scopeDigest",
+    "causationEventRefs",
+    "correlationId"
+    ],
+    (candidate): void => {
+      applyFieldRules("PublicOperationAdmittedRuntimeEvent", {
+      definitionDigest: "sha256_digest",
+      invocationRef: "non_empty_string",
+      invocationDigest: "sha256_digest",
+      invocationAuthorityRef: "non_empty_string",
+      invocationAuthorityDigest: "sha256_digest",
+      authorityBasisRef: "non_empty_string",
+      authorityBasisDigest: "sha256_digest",
+      actorRef: "nullable_string",
+      actorAttributionRef: "nullable_string",
+      actorAttributionDigest: "nullable_sha256_digest",
+      workspaceBindingRequirement: {
+        oneOf: ["forbidden", "exactly_one"]
+      },
+      scopeRef: "nullable_string",
+      scopeDigest: "nullable_sha256_digest",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+      })(candidate);
+      const definitionKey = admitOwnerNativeDefinitionKey(
+        candidate["definitionKey"]
+      );
+      if (!definitionKey.operationId.startsWith("abg.operation.")) {
+        throw new TypeError(
+          "PublicOperationAdmittedRuntimeEvent.definitionKey must name an abg.operation identity"
+        );
+      }
+      const actorFields = [
+        candidate["actorRef"],
+        candidate["actorAttributionRef"],
+        candidate["actorAttributionDigest"]
+      ];
+      if (
+        actorFields.every((field) => field === null) ===
+        actorFields.every((field) => field !== null)
+      ) {
+        throw new TypeError(
+          "PublicOperationAdmittedRuntimeEvent actor attribution must be wholly present or wholly null"
+        );
+      }
+      if (candidate["actorRef"] !== null) {
+        assertNonEmptyString(
+          candidate["actorRef"],
+          "PublicOperationAdmittedRuntimeEvent.actorRef"
+        );
+        assertNonEmptyString(
+          candidate["actorAttributionRef"],
+          "PublicOperationAdmittedRuntimeEvent.actorAttributionRef"
+        );
+      }
+      const scopePresent = candidate["scopeRef"] !== null;
+      if (scopePresent !== (candidate["scopeDigest"] !== null)) {
+        throw new TypeError(
+          "PublicOperationAdmittedRuntimeEvent scope ref and digest must be jointly present or null"
+        );
+      }
+      if (scopePresent) {
+        assertNonEmptyString(
+          candidate["scopeRef"],
+          "PublicOperationAdmittedRuntimeEvent.scopeRef"
+        );
+      }
+      const bindingRequired =
+        candidate["workspaceBindingRequirement"] === "exactly_one";
+      if (bindingRequired !== scopePresent) {
+        throw new TypeError(
+          "PublicOperationAdmittedRuntimeEvent scope must match the exact workspace-binding requirement"
+        );
+      }
+    }
+  )(event);
+}
+
+function assertPublicOperationAdmitted(event: RuntimeEventRecord): void {
+  if (Object.hasOwn(event, "definitionKey")) {
+    admitGenericPublicOperationAdmitted(event);
+    return;
+  }
+  admitLegacyPublicOperationAdmitted(event);
 }
 
 const retryStopReasons = Object.freeze([
@@ -1060,7 +1266,8 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     resolvedRuntimeRef: "non_empty_string",
     resolvedPolicyBundleRef: "non_empty_string",
     runId: "nullable_string",
-    workKey: "nullable_string"
+    workKey: "nullable_string",
+    startAdmissionWitnessDigest: "nullable_sha256_digest"
   }),
   lever_resolution_admitted: admitLeverResolutionAdmittedEvent,
   fd_advance_ready: applyFieldRules("FdAdvanceReadyEvent", {
@@ -1090,9 +1297,8 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     dispatchRef: "non_empty_string",
     resultRef: "non_empty_string"
   }),
-  actor_result_artifact_observed: applyFieldRules(
-    "ActorResultArtifactObservedEvent",
-    {
+  actor_result_artifact_observed: (event) => {
+    applyFieldRules("ActorResultArtifactObservedEvent", {
       basisId: "non_empty_string",
       graphFunctionId: "non_empty_string",
       runId: "nullable_string",
@@ -1110,8 +1316,30 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       artifactRef: "non_empty_string",
       artifactContentDigest: "nullable_string",
       artifactContentExcerpt: "nullable_string"
+    })(event);
+    if (Object.hasOwn(event, "artifactPayload")) {
+      const artifactPayload = admitIJsonValue(
+        event["artifactPayload"],
+        "ActorResultArtifactObservedEvent.artifactPayload"
+      );
+      if (artifactPayload === null) {
+        if (
+          event["artifactContentDigest"] !== null ||
+          event["artifactContentExcerpt"] !== null
+        ) {
+          throw new TypeError(
+            "ActorResultArtifactObservedEvent null artifactPayload requires null content digest and excerpt"
+          );
+        }
+      } else if (
+        stableSha256Digest(artifactPayload) !== event["artifactContentDigest"]
+      ) {
+        throw new TypeError(
+          "ActorResultArtifactObservedEvent artifactContentDigest must match artifactPayload"
+        );
+      }
     }
-  ),
+  },
   actor_invocation_closed: applyFieldRules("ActorInvocationClosedEvent", {
     closureFailureClass: { oneOf: ["transport_failure", "no_output", "contract_failure", "runtime_failure"], nullable: true, optional: true },
     basisId: "non_empty_string",
@@ -2429,24 +2657,49 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       throw new TypeError("ResetRuntimeEvent.edge must be present for scope edge");
     }
   },
-  assessed: applyFieldRules("AssessedRuntimeEvent", {
-    assessmentKind: { oneOf: ["fp"] },
-    edge: "non_empty_string",
-    obligationId: "non_empty_string",
-    publishedLedgerRef: "non_empty_string",
-    actor: "non_empty_string",
-    specHash: "non_empty_string",
-    manifestId: "non_empty_string",
-    workflowVersion: "non_empty_string",
-    runId: "nullable_string",
-    workKey: "nullable_string",
-    selectedWorkerId: "nullable_string",
-    selectedBackend: "nullable_string",
-    roleId: "nullable_string",
-    authorityRef: "nullable_string",
-    assignmentSource: "nullable_string",
-    resolvedRuntimeRef: "nullable_string"
-  }),
+  assessed: (event) => {
+    applyFieldRules("AssessedRuntimeEvent", {
+      assessmentKind: { oneOf: ["fp"] },
+      assessmentRef: "non_empty_string",
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      runtimeResultRef: "non_empty_string",
+      runtimeResultDigest: "sha256_digest",
+      assessmentContractRef: "non_empty_string",
+      assessmentContractDigest: "sha256_digest",
+      edge: "non_empty_string",
+      obligationId: "non_empty_string",
+      evidenceEventRefs: "string_array",
+      publishedLedgerRef: "non_empty_string",
+      actor: "non_empty_string",
+      specHash: "non_empty_string",
+      manifestId: "non_empty_string",
+      workflowVersion: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      selectedWorkerId: "nullable_string",
+      selectedBackend: "nullable_string",
+      roleId: "nullable_string",
+      authorityRef: "nullable_string",
+      assignmentSource: "nullable_string",
+      resolvedRuntimeRef: "nullable_string"
+    })(event);
+    const evidenceEventRefs = admitStringList(
+      event["evidenceEventRefs"],
+      "AssessedRuntimeEvent.evidenceEventRefs"
+    );
+    if (
+      evidenceEventRefs.length === 0 ||
+      new Set(evidenceEventRefs).size !== evidenceEventRefs.length ||
+      evidenceEventRefs.some((eventRef) => eventRef.length === 0)
+    ) {
+      throw new TypeError(
+        "AssessedRuntimeEvent.evidenceEventRefs must be a non-empty unique list of event refs"
+      );
+    }
+  },
   payload_observed: applyFieldRules("PayloadObservedRuntimeEvent", {
     basisId: "non_empty_string",
     graphCallId: "non_empty_string",
@@ -3696,25 +3949,25 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       correlationId: "non_empty_string"
     }
   ),
-  public_operation_admitted: applyFieldRules(
-    "LegacyPublicOperationAdmittedRuntimeEvent",
-    {
-      operationId: {
-        oneOf: [
-          "abg.operation.catalog.admit",
-          "abg.operation.catalog.invoke"
-        ]
-      },
-      invocationId: "non_empty_string",
-      requestId: "non_empty_string",
-      actorRef: "non_empty_string",
-      workspaceId: "non_empty_string",
-      bindingId: "non_empty_string",
-      catalogId: "non_empty_string",
-      capabilityProvenanceRefs: "string_array",
-      causationEventRefs: "string_array",
-      correlationId: "non_empty_string"
-    }
+  public_operation_admitted: assertPublicOperationAdmitted,
+  public_operation_artifact_admitted: closedRuntimeEventKeys(
+    "PublicOperationArtifactAdmittedRuntimeEvent",
+    [
+      "kind",
+      "operationId",
+      "definitionKey",
+      "definitionDigest",
+      "scopeRef",
+      "scopeDigest",
+      "invocationRef",
+      "invocationDigest",
+      "disposition",
+      "artifactRef",
+      "artifactDigest",
+      "causationEventRefs",
+      "correlationId"
+    ],
+    assertPublicOperationArtifactAdmitted
   ),
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",

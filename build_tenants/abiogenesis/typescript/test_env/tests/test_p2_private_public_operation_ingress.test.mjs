@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { stableSha256Digest } from "../../build/semantic/code/src/shared/runtime_identity.js";
@@ -9,8 +10,11 @@ import {
   assertPrivatePublicOperationIngressAdmissionWitness
 } from "../../build/semantic/code/src/abg/m03/contracts/private_public_operation_ingress.js";
 import {
+  admitPrivatePublicOperationEvent,
   admitPrivatePublicOperationIngressWitness,
-  admitPublicOperationAttribution
+  admitPublicOperationAttribution,
+  emitPrivatePublicOperationArtifactBoundary,
+  emitPrivatePublicOperationOwnerEvents
 } from "../../build/semantic/code/src/abg/m03/runner/public_operation_admission.js";
 import {
   constructCapabilityGrant,
@@ -18,6 +22,7 @@ import {
   constructPublicContractCatalog,
   constructPublicInvocation,
   definitionKeySchemaFor,
+  projectPublicInvocationContractIdentity,
   publicContractCatalogCoordinate
 } from "../../build/semantic/code/src/app/m04/public_contracts/native_contract_phase_a.js";
 import {
@@ -26,6 +31,12 @@ import {
 import {
   buildPrivatePublicOperationDefinitionFamily
 } from "../../build/semantic/code/src/app/m04/public_contracts/public_operation_definition_family.js";
+import {
+  projectPublishedPublicOperationDefinitionFromPrivate
+} from "../../build/semantic/code/src/app/m04/public_contracts/operation_publication.js";
+import {
+  publishedPublicOperationDefinitionDigest
+} from "../../build/semantic/code/src/app/m04/public_sdk/carrier_admission.js";
 
 const DIGEST = stableSha256Digest({ fixture: "private-p2-public-ingress" });
 
@@ -59,6 +70,26 @@ function authoritySlots(definition, actorRef, authorityBasis) {
   };
 }
 
+function reissueWitness(witness, causationEventRefs, priorEvents) {
+  return admitPrivatePublicOperationIngressWitness({
+    definitionKey: witness.definitionKey,
+    definitionDigest: witness.definitionDigest,
+    eventAdmission: witness.eventAdmission,
+    invocationRef: witness.invocationRef,
+    invocationDigest: witness.invocationDigest,
+    invocationAuthorityRef: witness.invocationAuthorityRef,
+    invocationAuthorityDigest: witness.invocationAuthorityDigest,
+    authorityBasisRef: witness.authorityBasisRef,
+    authorityBasisDigest: witness.authorityBasisDigest,
+    actorAttribution: witness.actorAttribution,
+    workspaceBindingRequirement: witness.workspaceBindingRequirement,
+    workspaceBindingWitness: witness.workspaceBindingWitness,
+    causationEventRefs,
+    correlationId: witness.correlationId,
+    priorEvents
+  });
+}
+
 function exactSlot(requirement, admitted) {
   return requirement === "forbidden" ? { state: "forbidden" } : admitted;
 }
@@ -70,6 +101,8 @@ function fixedCatalogSlot(requirement, admitted) {
 
 function constructP1Invocation(admitted, definition, request) {
   const seed = definition.definitionDigest;
+  const publishedDefinition =
+    projectPublishedPublicOperationDefinitionFromPrivate(definition);
   const contractCoordinates = [
     definition.requestContract.contract.schemaCoordinate,
     definition.resultContract.contract.schemaCoordinate,
@@ -179,7 +212,7 @@ function constructP1Invocation(admitted, definition, request) {
   };
   const authorityExpectation = {
     definitionKey: definition.definitionKey,
-    definitionDigest: definition.definitionDigest,
+    definitionDigest: publishedDefinition.definitionDigest,
     contractCatalog,
     requiredGrantCapabilityIds: definition.capabilityRefs,
     slotStates: Object.fromEntries(
@@ -193,7 +226,7 @@ function constructP1Invocation(admitted, definition, request) {
       authorityBasisRef,
       authorityBasisDigest,
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       capabilityGrants,
       ...slots
@@ -204,7 +237,7 @@ function constructP1Invocation(admitted, definition, request) {
     requestSchema: definition.requestContract.contract.schema,
     expected: {
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       requestContract: definition.requestContract.contract.schemaCoordinate,
       resultContract: definition.resultContract.contract.schemaCoordinate,
@@ -216,7 +249,7 @@ function constructP1Invocation(admitted, definition, request) {
       kind: "public_invocation",
       invocationRef: `public-invocation:${seed}`,
       definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog,
       authority,
       requestContract: definition.requestContract.contract.schemaCoordinate,
@@ -235,7 +268,37 @@ function constructP1Invocation(admitted, definition, request) {
   return { authority, invocation };
 }
 
-test("private ingress witness covers only P1 event-admitting members", async () => {
+function installedInvocationContractIdentity(coordinate) {
+  if (coordinate === null) return null;
+  return {
+    contractId: coordinate.contractId,
+    contractVersion: coordinate.contractVersion,
+    contractDigest: coordinate.contractDigest,
+    schemaId: coordinate.schemaId,
+    schemaVersion: coordinate.schemaVersion,
+    schemaDigest: coordinate.schemaDigest
+  };
+}
+
+function resealInvocation(invocation, contracts) {
+  const basis = {
+    ...JSON.parse(JSON.stringify(invocation)),
+    requestContract: installedInvocationContractIdentity(contracts.request),
+    expectedResultContract:
+      installedInvocationContractIdentity(contracts.result),
+    expectedRefusalContract:
+      installedInvocationContractIdentity(contracts.refusal),
+    expectedNonTerminalContract:
+      installedInvocationContractIdentity(contracts.nonterminal)
+  };
+  delete basis.invocationDigest;
+  return {
+    ...basis,
+    invocationDigest: stableSha256Digest(basis)
+  };
+}
+
+test("generic public-operation admission covers exact event-bearing P1 members and leaves pure definitions event-free", async () => {
   const admitted = await buildPrivatePublicOperationDefinitionFamily();
   assert.equal(admitted.kind, "exact_family_admitted");
   const definitions = allDefinitions(admitted.family);
@@ -247,11 +310,18 @@ test("private ingress witness covers only P1 event-admitting members", async () 
   const eventFree = definitions.filter(
     (definition) => definition.eventAdmission === "none"
   );
+  const artifactBoundaries = definitions.filter(
+    (definition) =>
+      definition.eventAdmission === "immutable_artifact_boundary"
+  );
   assert.equal(eligible.length, 20);
-  assert.equal(eventFree.length, 42);
+  assert.equal(eventFree.length, 32);
+  assert.equal(artifactBoundaries.length, 10);
   const witnesses = [];
+  const events = [];
+  const receipts = [];
 
-  for (const definition of eligible) {
+  for (const definition of definitions) {
     const slots = authoritySlots(
       definition,
       `actor:${definition.definitionDigest}`,
@@ -272,6 +342,11 @@ test("private ingress witness covers only P1 event-admitting members", async () 
         definitionKey: definition.definitionKey,
         kind: "authority"
       }),
+      authorityBasisRef: `authority-basis:${definition.definitionDigest}`,
+      authorityBasisDigest: stableSha256Digest({
+        definitionKey: definition.definitionKey,
+        kind: "basis"
+      }),
       actorAttribution: slots.actor,
       workspaceBindingRequirement: definition.workspaceBindingRequirement,
       workspaceBindingWitness: slots.workspace,
@@ -282,21 +357,178 @@ test("private ingress witness covers only P1 event-admitting members", async () 
     witnesses.push(witness);
     assert.deepEqual(witness.definitionKey, definition.definitionKey);
     assert.equal(witness.kind, "private_public_operation_ingress_admitted");
+    if (definition.eventAdmission === "none") {
+      const eventCount = events.length;
+      assert.throws(
+        () => admitPrivatePublicOperationEvent({
+          witness,
+          priorEvents: [],
+          eventSink: (event) => events.push(event)
+        }),
+        /declares no runtime event admission/u
+      );
+      assert.equal(events.length, eventCount);
+      continue;
+    }
+    const receipt = admitPrivatePublicOperationEvent({
+      witness,
+      priorEvents: [],
+      eventSink: (event) => events.push(event)
+    });
+    receipts.push({
+      receipt,
+      eventAdmission: definition.eventAdmission
+    });
+    assert.deepEqual(receipt.event.definitionKey, definition.definitionKey);
+    assert.equal(receipt.event.definitionDigest, definition.definitionDigest);
+    assert.equal(
+      receipt.event.scopeRef === null,
+      definition.workspaceBindingRequirement === "forbidden"
+    );
+    assert.equal(Object.hasOwn(receipt.event, "catalogId"), false);
+    assert.equal(Object.hasOwn(receipt.event, "bindingId"), false);
     assert.equal(Object.hasOwn(witness, "operationId"), false);
     assert.equal(Object.hasOwn(witness, "eventId"), false);
     assert.equal(Object.hasOwn(witness, "eventAdmissionOrdinal"), false);
   }
 
-  assert.equal(witnesses.length, 20);
+  assert.equal(witnesses.length, 62);
+  assert.equal(receipts.length, 30);
+  assert.equal(events.length, 30);
   assert.equal(
     new Set(
-      witnesses.map((witness) => JSON.stringify(witness.definitionKey))
+      receipts.map(({ receipt }) => JSON.stringify(receipt.event.definitionKey))
     ).size,
-    20
+    30
+  );
+
+  const actorEvent = events.find((event) => event.actorRef !== null);
+  assert.notEqual(actorEvent, undefined);
+  assert.throws(
+    () => assertRuntimeEvent({ ...actorEvent, actorAttributionDigest: null }),
+    /actor attribution must be wholly present or wholly null/u
+  );
+  assert.throws(
+    () => assertRuntimeEvent({ ...actorEvent, catalogId: "catalog:forbidden" }),
+    /unexpected field "catalogId"/u
+  );
+  const boundEvent = events.find((event) => event.scopeRef !== null);
+  assert.notEqual(boundEvent, undefined);
+  assert.throws(
+    () => assertRuntimeEvent({
+      ...boundEvent,
+      scopeRef: null,
+      scopeDigest: null
+    }),
+    /scope must match the exact workspace-binding requirement/u
+  );
+
+  const prior = events[0];
+  const eventWitness = witnesses.find(
+    (witness) => witness.eventAdmission !== "none"
+  );
+  assert.notEqual(eventWitness, undefined);
+  const causedEvents = [];
+  const caused = admitPrivatePublicOperationEvent({
+    witness: reissueWitness(eventWitness, [prior.eventId], [prior]),
+    priorEvents: [prior],
+    eventSink: (event) => causedEvents.push(event)
+  });
+  assert.equal(caused.event.eventAdmissionOrdinal, prior.eventAdmissionOrdinal + 1);
+  assert.deepEqual(caused.event.causationEventRefs, [prior.eventId]);
+  assert.deepEqual(causedEvents, [caused.event]);
+
+  const owningReceipt = receipts.find(
+    ({ eventAdmission }) => eventAdmission === "owning_semantic_authority"
+  )?.receipt;
+  const artifactReceipt = receipts.find(
+    ({ eventAdmission }) => eventAdmission === "immutable_artifact_boundary"
+  )?.receipt;
+  assert.notEqual(owningReceipt, undefined);
+  assert.notEqual(artifactReceipt, undefined);
+  const [ownerEvent] = emitPrivatePublicOperationOwnerEvents({
+    admission: owningReceipt,
+    events: {
+      kind: "fd_advance_ready",
+      basisId: "basis:private-p2",
+      graphFunctionId: "gtl://private-p2/owner-event",
+      status: "ready"
+    }
+  });
+  assert.equal(
+    ownerEvent.eventAdmissionOrdinal,
+    owningReceipt.event.eventAdmissionOrdinal + 1
+  );
+  assert.throws(
+    () => emitPrivatePublicOperationOwnerEvents({
+      admission: artifactReceipt,
+      events: {
+        kind: "fd_advance_ready",
+        basisId: "basis:private-p2:artifact-route",
+        graphFunctionId: "gtl://private-p2/artifact-route",
+        status: "ready"
+      }
+    }),
+    /require owning_semantic_authority admission/u
+  );
+  assert.throws(
+    () => emitPrivatePublicOperationArtifactBoundary({
+      admission: owningReceipt,
+      scopeRef: "workspace://private-p2",
+      scopeDigest: DIGEST,
+      disposition: "materialized",
+      artifactRef: "artifact://private-p2/forbidden",
+      artifactDigest: DIGEST
+    }),
+    /requires immutable_artifact_boundary admission/u
+  );
+  const boundaryEvent = emitPrivatePublicOperationArtifactBoundary({
+    admission: artifactReceipt,
+    scopeRef: "workspace://private-p2",
+    scopeDigest: DIGEST,
+    disposition: "materialized",
+    artifactRef: "artifact://private-p2/admitted",
+    artifactDigest: DIGEST
+  });
+  assert.equal(boundaryEvent.kind, "public_operation_artifact_admitted");
+  assert.equal(
+    boundaryEvent.eventAdmissionOrdinal,
+    artifactReceipt.event.eventAdmissionOrdinal + 1
+  );
+  assert.throws(
+    () => emitPrivatePublicOperationArtifactBoundary({
+      admission: artifactReceipt,
+      scopeRef: "workspace://private-p2",
+      scopeDigest: DIGEST,
+      disposition: "materialized",
+      artifactRef: "artifact://private-p2/admitted",
+      artifactDigest: DIGEST
+    }),
+    /admits exactly one event per invocation/u
+  );
+  assert.throws(
+    () => emitPrivatePublicOperationOwnerEvents({
+      admission: { ...owningReceipt },
+      events: {
+        kind: "fd_advance_ready",
+        basisId: "basis:forged",
+        graphFunctionId: "gtl://private-p2/forged",
+        status: "ready"
+      }
+    }),
+    /require an emitted admission receipt/u
+  );
+  assert.throws(
+    () => admitPrivatePublicOperationEvent({
+      witness: reissueWitness(eventWitness, [], []),
+      priorEvents: [{ ...prior, eventId: "runtime-event:duplicate" }, prior],
+      eventSink: () => {}
+    }),
+    /ordinal collision/u
   );
 });
 
-test("private P1 ingress refuses every event-free project.read case", async () => {
+test("private P1 ingress admits all exact definitions before applying their semantic event route", async () => {
   const admitted = await buildPrivatePublicOperationDefinitionFamily();
   assert.equal(admitted.kind, "exact_family_admitted");
   const definitions = Object.values(
@@ -317,7 +549,13 @@ test("private P1 ingress refuses every event-free project.read case", async () =
         causationEventRefs: [],
         priorEvents: []
       }),
-      /definition declares no event admission/u
+      (error) => {
+        assert.doesNotMatch(
+          String(error),
+          /definition declares no event admission/u
+        );
+        return true;
+      }
     );
   }
 });
@@ -396,6 +634,92 @@ test("private P1 adapter admits interaction and continuation consumers", async (
       priorEvents: []
     }),
     /definition is not owned by the admitted family/u
+  );
+});
+
+test("private P1 ingress admits the published definition identity without private locators", async () => {
+  const admitted = await buildPrivatePublicOperationDefinitionFamily();
+  assert.equal(admitted.kind, "exact_family_admitted");
+  const definition = admitted.family["abg.operation.workspace.create"].clean;
+  const operationAsset = JSON.parse(await readFile(new URL(
+    "../../contracts/operations/workspace.create.json",
+    import.meta.url
+  ), "utf8"));
+  const publishedDefinition = operationAsset.definitions.find(
+    (candidate) =>
+      candidate.definitionKey.memberKind === "variant" &&
+      candidate.definitionKey.variant === "clean"
+  );
+  assert.notEqual(publishedDefinition, undefined);
+  const candidateDefinition = {
+    ...publishedDefinition,
+    definitionDigest:
+      publishedPublicOperationDefinitionDigest(publishedDefinition)
+  };
+  assert.equal(
+    candidateDefinition.definitionDigest,
+    projectPublishedPublicOperationDefinitionFromPrivate(definition)
+      .definitionDigest
+  );
+  assert.notEqual(
+    candidateDefinition.definitionDigest,
+    definition.definitionDigest
+  );
+
+  const request = {
+    targetRoot: "/tmp/abg-p2-installed-invocation",
+    createPolicy: "clean",
+    scaffoldPolicy: "no_scaffold"
+  };
+  const { invocation } = constructP1Invocation(
+    admitted,
+    definition,
+    request
+  );
+  const sourceBlindInvocation = resealInvocation(
+    invocation,
+    candidateDefinition.schemaCoordinates
+  );
+  const witness = admitPrivateP1PublicOperationIngress({
+    family: admitted.family,
+    definition,
+    rawInvocation: sourceBlindInvocation,
+    causationEventRefs: [],
+    priorEvents: []
+  });
+  assert.equal(witness.definitionDigest, candidateDefinition.definitionDigest);
+  assert.deepEqual(
+    sourceBlindInvocation.requestContract,
+    projectPublicInvocationContractIdentity(
+      candidateDefinition.schemaCoordinates.request
+    )
+  );
+  assert.equal(
+    Object.hasOwn(sourceBlindInvocation.requestContract, "nativeLocator"),
+    false
+  );
+  assert.equal(
+    Object.hasOwn(sourceBlindInvocation.requestContract, "assetLocator"),
+    false
+  );
+
+  const tamperedDigest = stableSha256Digest({
+    contract: "tampered-installed-request"
+  });
+  const tampered = JSON.parse(JSON.stringify(sourceBlindInvocation));
+  tampered.requestContract.contractDigest = tamperedDigest;
+  tampered.requestContract.schemaDigest = tamperedDigest;
+  delete tampered.invocationDigest;
+  tampered.invocationDigest = stableSha256Digest(tampered);
+  assert.throws(
+    () => admitPrivateP1PublicOperationIngress({
+      family: admitted.family,
+      definition,
+      rawInvocation: tampered,
+      causationEventRefs: [],
+      priorEvents: []
+    }),
+    /public invocation request contract: exact value mismatch/u
   );
 });
 

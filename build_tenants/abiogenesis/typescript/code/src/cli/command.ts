@@ -52,7 +52,6 @@ import {
   publicGaps,
   publicCallableStartAsync,
   resolvePublicAssetTarget,
-  resultAssessment,
   TOOLCHAIN_BINDING_RELATIVE_PATH
 } from "../app/m04/index.js";
 import type {
@@ -138,7 +137,6 @@ type ParsedCommand =
   | ParsedObserveCommand
   | ParsedTuneCommand
   | ParsedGenConfigCommand
-  | ParsedAssessResultCommand
   | ParsedTypecheckGtlProgramCommand
   | ParsedReleaseSnapshotCommand;
 
@@ -238,12 +236,6 @@ interface ParsedGenConfigCommand {
   readonly kind: "gen-config";
   readonly workspace: string;
   readonly format: "json" | "text";
-}
-
-interface ParsedAssessResultCommand {
-  readonly kind: "assess-result";
-  readonly workspace: string;
-  readonly result: string;
 }
 
 interface ParsedTypecheckGtlProgramCommand {
@@ -912,19 +904,6 @@ function parseGenConfigCommand(
   });
 }
 
-function parseAssessResultCommand(
-  args: readonly string[]
-): ParsedAssessResultCommand {
-  const parsed = parseFlags(args);
-  requireNoPositionals(parsed, "assess-result");
-  requireAllowedFlags(parsed, "assess-result", ["workspace", "result"]);
-  return Object.freeze({
-    kind: "assess-result",
-    workspace: optionalFlag(parsed, "workspace", "."),
-    result: requiredFlag(parsed, "result")
-  });
-}
-
 function parseTypecheckGtlProgramCommand(
   args: readonly string[]
 ): ParsedTypecheckGtlProgramCommand {
@@ -1009,8 +988,6 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseTuneCommand(args);
     case "gen-config":
       return parseGenConfigCommand(args);
-    case "assess-result":
-      return parseAssessResultCommand(args);
     case "typecheck-gtl-program":
       return parseTypecheckGtlProgramCommand(args);
     case "release-snapshot":
@@ -2842,36 +2819,6 @@ async function runTuneCommand(
   return 0;
 }
 
-async function runAssessResultCommand(
-  command: ParsedAssessResultCommand,
-  io: AbiogenesisCliIo
-): Promise<number> {
-  const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
-  const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
-  const eventLogPath = runtimeEventLogPath(toolchainBinding);
-  const resultPath = isAbsolute(command.result)
-    ? resolve(command.result)
-    : resolve(workspaceRoot, command.result);
-  const payload = JSON.parse(await readFile(resultPath, "utf8")) as unknown;
-  seedRuntimeEventAdmissionOrdinal(await readReplayEvents(eventLogPath));
-  const eventLogSink = createRuntimeEventLogSink(eventLogPath);
-  const outcome = resultAssessment(payload, (event) => {
-    eventLogSink.sink(event);
-  });
-  const emitted = eventLogSink.emittedEvents;
-  io.stdout(
-    `${JSON.stringify({
-      command: "assess-result",
-      status: outcome.kind,
-      result: resultPath,
-      event_kinds: emitted.map((event) => event.kind),
-      events_path: eventLogPath,
-      outcome
-    })}\n`
-  );
-  return outcome.kind === "accepted" ? 0 : 1;
-}
-
 async function runTypecheckGtlProgramCommand(
   command: ParsedTypecheckGtlProgramCommand,
   io: AbiogenesisCliIo
@@ -3059,8 +3006,6 @@ async function runParsedCommand(
       return runTuneCommand(command, io);
     case "gen-config":
       return runGenConfigCommand(command, io);
-    case "assess-result":
-      return runAssessResultCommand(command, io);
     case "typecheck-gtl-program":
       return runTypecheckGtlProgramCommand(command, io);
     case "release-snapshot":

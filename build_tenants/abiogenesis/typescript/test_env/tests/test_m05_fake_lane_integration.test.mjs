@@ -12,11 +12,12 @@ import {
 import {
   admitOperatorAssetQueryContract,
   admitPublicStartRequest,
-  projectLiveStatus,
   publicStart,
-  resolvePublicAssetTarget,
-  resultAssessment
+  resolvePublicAssetTarget
 } from "../../build/semantic/code/src/app/m04/index.js";
+import {
+  projectLiveStatus
+} from "../../build/semantic/code/src/app/m04/live_status/projection.js";
 import { qualifyFakeLaneScenario } from "../../build/semantic/code/src/qualification/m05/index.js";
 import {
   assetAddressingStartContext,
@@ -31,8 +32,11 @@ import {
   resultAssessmentPayload
 } from "./support/m04-fixtures.mjs";
 import { buildFakeLaneQualificationRequest } from "./support/m05-fixtures.mjs";
+import {
+  invokeCanonicalResultAssessmentWithoutReplayEvidence
+} from "./support/canonical-result-assessment-fixture.mjs";
 
-test("M05 fake-lane integration: module-derived scenario composes asset addressing, public start, result assessment, and live status over canonical runtime truth", async () => {
+test("M05 fake-lane integration: publicStart-only assessment is refused without replay-admitted evidence", async () => {
   const { module, codeProfile, publicStartInput, publicStartContext } =
     assetAddressingStartContext();
   const contract = admitOperatorAssetQueryContract(
@@ -77,7 +81,7 @@ test("M05 fake-lane integration: module-derived scenario composes asset addressi
   });
 
   assert.equal(startOutcome.kind, "blocked");
-  assert.equal(startOutcome.stopPredicate, "dispatch_required");
+  assert.equal(startOutcome.stopPredicate, "gap_stop");
 
   const startRequest = admitPublicStartRequest(startInput);
   const dispatchRequest = dispatchRequestsForTransition(
@@ -112,27 +116,33 @@ test("M05 fake-lane integration: module-derived scenario composes asset addressi
       resolved_runtime_ref: "runtime://typescript/node"
     }
   });
-  const assessmentOutcome = resultAssessment(assessmentRequest, (event) => {
-    events.push(event);
-  });
+  const assessmentEventStart = events.length;
+  const { outcome: assessmentOutcome } =
+    await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+      assessmentRequest,
+      events
+    });
 
-  assert.equal(assessmentOutcome.kind, "accepted");
+  assert.equal(assessmentOutcome.outcomeKind, "refusal");
+  assert.equal(assessmentOutcome.value.code, "result_missing");
+  assert.deepEqual(
+    events.slice(assessmentEventStart).map((event) => event.kind),
+    ["public_operation_admitted"]
+  );
 
   const projection = projectLiveStatus(
     liveStatusPayload({
       start_request: startInput,
-      start_outcome: startOutcome,
-      result_assessment_request: assessmentRequest,
-      result_assessment_outcome: assessmentOutcome
+      start_outcome: startOutcome
     })
   );
 
-  assert.equal(projection.kind, "ready");
-  assert.equal(projection.runStatus, "assessed");
+  assert.equal(projection.kind, "attention");
+  assert.equal(projection.runStatus, "blocked");
 
   const qualification = qualifyFakeLaneScenario(
     buildFakeLaneQualificationRequest({
-      scenarioName: "asset-addressed-public-start-to-assessed-ready",
+      scenarioName: "asset-addressed-public-start-requires-replay-evidence",
       scenarioAuthorityRefs: [
         "SCN-I2R-001",
         "SCN-R2U-001",
@@ -147,51 +157,24 @@ test("M05 fake-lane integration: module-derived scenario composes asset addressi
         ? startOutcome.stopPredicate
         : null,
       emittedEventKinds: events.map((event) => event.kind),
-      resultAssessmentKind: assessmentOutcome.kind,
+      resultAssessmentKind: "rejected",
       liveStatusKind: projection.kind,
       liveRunStatus: projection.runStatus
     })
   );
 
-  assert.deepStrictEqual(qualification, {
-    kind: "passed",
-    scenarioName: "asset-addressed-public-start-to-assessed-ready",
-    scenarioAuthorityRefs: [
-      "SCN-I2R-001",
-      "SCN-R2U-001",
-      "SCN-GSDLCLITE-001"
-    ],
-    trace: [
-      {
-        kind: "scenario_authority",
-        valid: true,
-        detail: "scenario authority refs present"
-      },
-      {
-        kind: "asset_addressing",
-        valid: true,
-        detail: "resolved code_flow"
-      },
-      {
-        kind: "public_start",
-        valid: true,
-        detail: "public start reached canonical dispatch_required stop"
-      },
-      {
-        kind: "dispatch_request",
-        valid: true,
-        detail: `dispatch request preserved ${dispatchRequest.expectedEdge}`
-      },
-      {
-        kind: "result_assessment",
-        valid: true,
-        detail: "result assessment accepted and emitted assessed runtime truth"
-      },
-      {
-        kind: "live_status",
-        valid: true,
-        detail: "live status projected assessed ready truth"
-      }
-    ]
-  });
+  assert.equal(qualification.kind, "rejected");
+  assert.equal(
+    qualification.reason,
+    "public start did not preserve dispatch_required blocking truth"
+  );
+  assert.equal(
+    qualification.trace.find((entry) => entry.kind === "result_assessment")
+      ?.valid,
+    false
+  );
+  assert.equal(
+    events.some((event) => event.kind === "assessed"),
+    false
+  );
 });

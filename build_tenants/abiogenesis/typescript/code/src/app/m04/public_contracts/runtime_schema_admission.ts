@@ -54,6 +54,16 @@ export interface M04RuntimeSchemaNativeDefinitionSource<
 }
 
 /** @internal */
+export interface M04RuntimeSchemaOwnerDefinitionSource<
+  Schema extends v.GenericSchema = v.GenericSchema
+> extends OwnerNativeContractSourceRow<Schema> {
+  readonly identity: Readonly<{
+    readonly contractId: string;
+    readonly contractVersion: string;
+  }>;
+}
+
+/** @internal */
 export interface M04RuntimeSchemaNativeDefinitionRelation<
   Schema extends v.GenericSchema = v.GenericSchema
 > {
@@ -333,10 +343,17 @@ export function bindM04RuntimeSchemaNativeDefinition<
 >(input: {
   readonly source: M04RuntimeSchemaNativeDefinitionSource<Schema>;
   readonly definition: NativeContractDefinition<Schema>;
+} | {
+  readonly source: M04RuntimeSchemaOwnerDefinitionSource<Schema>;
+  readonly symbolicSchemaRef: string;
+  readonly definition: NativeContractDefinition<Schema>;
 }): M04RuntimeSchemaNativeDefinitionRelation<Schema> {
+  const hasSeparateSymbolicSchemaRef = "symbolicSchemaRef" in input;
   exactOwnDataFields(
     input,
-    ["source", "definition"],
+    hasSeparateSymbolicSchemaRef
+      ? ["source", "symbolicSchemaRef", "definition"]
+      : ["source", "definition"],
     "runtime schema native definition relation"
   );
   assertNativeContractDefinitionCarrier(input.definition);
@@ -347,15 +364,31 @@ export function bindM04RuntimeSchemaNativeDefinition<
   assertNativeDefinitionWitness(input.definition);
   const coordinate = input.definition.schemaCoordinate;
   const witness = input.definition.projectionWitness;
-  if (
-    input.source.symbolicSchemaRef.length === 0 ||
-    input.source.contractId.length === 0 ||
-    input.source.contractVersion.length === 0 ||
-    coordinate.contractId !== input.source.contractId ||
-    coordinate.contractVersion !== input.source.contractVersion
-  ) {
+  const symbolicSchemaRef = "symbolicSchemaRef" in input
+    ? input.symbolicSchemaRef
+    : input.source.symbolicSchemaRef;
+  if (symbolicSchemaRef.length === 0) {
     throw new TypeError(
       "runtime schema native definition relation: source coordinate differs"
+    );
+  }
+  if (!("symbolicSchemaRef" in input)) {
+    if (
+      input.source.contractId.length === 0 ||
+      input.source.contractVersion.length === 0 ||
+      coordinate.contractId !== input.source.contractId ||
+      coordinate.contractVersion !== input.source.contractVersion
+    ) {
+      throw new TypeError(
+        "runtime schema native definition relation: source coordinate differs"
+      );
+    }
+  } else if (
+    input.source.identity.contractId !== coordinate.contractId ||
+    input.source.identity.contractVersion !== coordinate.contractVersion
+  ) {
+    throw new TypeError(
+      "runtime schema native definition relation: owner identity differs"
     );
   }
   if (input.definition.schema !== input.source.schema) {
@@ -374,9 +407,9 @@ export function bindM04RuntimeSchemaNativeDefinition<
   }
   const relation = Object.freeze({
     kind: "m04_runtime_schema_native_definition_relation" as const,
-    symbolicSchemaRef: input.source.symbolicSchemaRef,
-    contractId: input.source.contractId,
-    contractVersion: input.source.contractVersion,
+    symbolicSchemaRef,
+    contractId: coordinate.contractId,
+    contractVersion: coordinate.contractVersion,
     definition: input.definition
   });
   M04_RUNTIME_SCHEMA_NATIVE_DEFINITION_RELATION_AUTHORITY.add(relation);

@@ -43,6 +43,9 @@ import type {
 export const EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY =
   "abg.edge_assurance_contract" as const;
 
+export const EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF =
+  "binding://abg/edge-assurance/selected-intent-target" as const;
+
 export const EDGE_ASSURANCE_CLOSE_DISPOSITION_VALUES = Object.freeze([
   "close",
   "retry",
@@ -97,6 +100,18 @@ export interface EdgeAssuranceContractSelection {
   readonly attrKey: string | null;
   readonly contract: EdgeAssuranceContract;
   readonly defaultKey: string | null;
+}
+
+const BOUND_EDGE_ASSURANCE_CONTRACT_SELECTION = Symbol(
+  "BOUND_EDGE_ASSURANCE_CONTRACT_SELECTION"
+);
+
+export interface BoundEdgeAssuranceContractSelection
+  extends EdgeAssuranceContractSelection {
+  readonly [BOUND_EDGE_ASSURANCE_CONTRACT_SELECTION]: true;
+  readonly templateSelectionRef: string;
+  readonly selectedIntentTargetBindingRef: string;
+  readonly bindingDigest: `sha256:${string}`;
 }
 
 export interface EdgeAssuranceAbsentiaResolution {
@@ -224,6 +239,35 @@ const FORBIDDEN_FP_EVAL_FINDING_AUTHORITY_FIELDS = Object.freeze([
 ] as const);
 
 const digestForValue = stableSha256Digest;
+const DECLARATION_EDGE_ASSURANCE_TEMPLATE_AUTHORITY = new WeakSet<object>();
+
+function exactOwnDataFields(
+  input: unknown,
+  expected: readonly string[],
+  label: string
+): asserts input is Record<string, unknown> {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw new TypeError(`${label}: expected a plain object`);
+  }
+  const prototype: unknown = Object.getPrototypeOf(input);
+  if (prototype !== Object.prototype && prototype !== null) {
+    throw new TypeError(`${label}: expected a plain object`);
+  }
+  const actual = Reflect.ownKeys(input);
+  if (
+    actual.some((key) => typeof key !== "string") ||
+    actual.length !== expected.length ||
+    expected.some((key) => !actual.includes(key))
+  ) {
+    throw new TypeError(`${label}: expected exact ${expected.join("/")} fields`);
+  }
+  for (const key of expected) {
+    const descriptor = Object.getOwnPropertyDescriptor(input, key);
+    if (descriptor === undefined || !("value" in descriptor)) {
+      throw new TypeError(`${label}.${key}: expected a data property`);
+    }
+  }
+}
 
 function canonicalSerializedAttrs(attrs: SerializedAttrs): SerializedAttrs {
   return Object.freeze({
@@ -472,6 +516,17 @@ function selectionRef(input: {
   return `edge-assurance-contract-selection:${stableJson(input)}`;
 }
 
+function boundSelectionRef(input: {
+  readonly source: EdgeAssuranceContractSource;
+  readonly sourceRef: string;
+  readonly hookRef: string;
+  readonly templateSelectionRef: string;
+  readonly targetObligationBindingRef: string;
+  readonly bindingDigest: `sha256:${string}`;
+}): string {
+  return `edge-assurance-contract-selection:${stableJson(input)}`;
+}
+
 function contractSelection(input: {
   readonly source: EdgeAssuranceContractSource;
   readonly sourceRef: string;
@@ -479,7 +534,7 @@ function contractSelection(input: {
   readonly contract: EdgeAssuranceContract;
   readonly defaultKey?: string | null | undefined;
 }): EdgeAssuranceContractSelection {
-  return Object.freeze({
+  const selection = Object.freeze({
     kind: "edge_assurance_contract_selection",
     selectionRef: selectionRef({
       source: input.source,
@@ -492,6 +547,96 @@ function contractSelection(input: {
     contract: input.contract,
     defaultKey: input.defaultKey ?? null
   });
+  if (input.source !== "abg_defaults") {
+    DECLARATION_EDGE_ASSURANCE_TEMPLATE_AUTHORITY.add(selection);
+  }
+  return selection;
+}
+
+export function bindEdgeAssuranceContractSelectionToSelectedIntentTarget(
+  input: {
+    readonly templateSelection: EdgeAssuranceContractSelection;
+    readonly targetObligationBindingRef: string;
+  }
+): BoundEdgeAssuranceContractSelection {
+  exactOwnDataFields(
+    input,
+    ["templateSelection", "targetObligationBindingRef"],
+    "selected-intent edge assurance binder"
+  );
+  const templateSelection = input.templateSelection;
+  if (
+    !DECLARATION_EDGE_ASSURANCE_TEMPLATE_AUTHORITY.has(templateSelection) ||
+    templateSelection.source === "abg_defaults" ||
+    templateSelection.attrKey !== EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY ||
+    templateSelection.defaultKey !== null
+  ) {
+    throw new TypeError(
+      "selected-intent edge assurance binder requires a resolved declaration-owned template selection"
+    );
+  }
+  const templateBindingRefs = templateSelection.contract.targetObligationBindingRefs;
+  if (
+    templateBindingRefs.length !== 1 ||
+    templateBindingRefs[0] !==
+      EDGE_ASSURANCE_SELECTED_INTENT_TARGET_PLACEHOLDER_REF
+  ) {
+    throw new TypeError(
+      "selected-intent edge assurance binder requires the selected-intent target placeholder"
+    );
+  }
+  assertNonEmptyString(
+    input.targetObligationBindingRef,
+    "selected-intent edge assurance target binding ref"
+  );
+  if (input.targetObligationBindingRef.trim().length === 0) {
+    throw new TypeError(
+      "selected-intent edge assurance target binding ref must be non-empty"
+    );
+  }
+  if (input.targetObligationBindingRef.trim() !== input.targetObligationBindingRef) {
+    throw new TypeError(
+      "selected-intent edge assurance target binding ref must be canonical"
+    );
+  }
+  const targetObligationBindingRef = input.targetObligationBindingRef;
+
+  const bindingDigest = digestForValue({
+    templateSelectionRef: templateSelection.selectionRef,
+    templateConfigDigest: templateSelection.contract.configDigest,
+    targetObligationBindingRef
+  });
+  const contract = Object.freeze({
+    ...templateSelection.contract,
+    targetObligationBindingRefs: freezeStringArray([
+      targetObligationBindingRef
+    ]),
+    configDigest: digestForValue({
+      templateConfigDigest: templateSelection.contract.configDigest,
+      targetObligationBindingRef
+    })
+  } satisfies EdgeAssuranceContract);
+  const selection: BoundEdgeAssuranceContractSelection = Object.freeze({
+    [BOUND_EDGE_ASSURANCE_CONTRACT_SELECTION]: true as const,
+    kind: "edge_assurance_contract_selection" as const,
+    selectionRef: boundSelectionRef({
+      source: templateSelection.source,
+      sourceRef: templateSelection.sourceRef,
+      hookRef: templateSelection.contract.hookRef,
+      templateSelectionRef: templateSelection.selectionRef,
+      targetObligationBindingRef,
+      bindingDigest
+    }),
+    source: templateSelection.source,
+    sourceRef: templateSelection.sourceRef,
+    attrKey: templateSelection.attrKey,
+    contract,
+    defaultKey: null,
+    templateSelectionRef: templateSelection.selectionRef,
+    selectedIntentTargetBindingRef: targetObligationBindingRef,
+    bindingDigest
+  });
+  return selection;
 }
 
 function absentiaResolution(edgeRef: string): EdgeAssuranceAbsentiaResolution {

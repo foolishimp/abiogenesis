@@ -56,9 +56,8 @@ test("M05 installed-sandbox negative: missing bootloader delivery fails installe
         exportedSurface: [
           "deliverBootloader",
           "installBootstrap",
-          "projectLiveStatus",
           "publicStart",
-          "resultAssessment"
+          "abiogenesisPublicSdk"
         ],
         liveScenarioPassed: false
       })

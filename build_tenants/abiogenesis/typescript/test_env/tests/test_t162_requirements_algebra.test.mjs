@@ -213,6 +213,7 @@ function assuranceTruthRefForDecision(expectedDecision, input = {}) {
     vectorIndex: 0
   });
   const authoritySnapshot = constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef: "authority-snapshot://t162/current",
     scope,
     authorityRefs: input.authorityRefs ?? ["req://t162/assurance"],
     inputRefs: ["input://t162/current"],
@@ -231,7 +232,7 @@ function assuranceTruthRefForDecision(expectedDecision, input = {}) {
           evidenceRef: input.evidenceRef ?? "evidence://t162/current",
           authorityRef: Object.hasOwn(input, "authorityRef")
             ? input.authorityRef
-            : "req://t162/assurance",
+            : authoritySnapshot.authoritySnapshotRef,
           authorityDigest: "authority-digest-t162",
           inputDigest: "input-digest-t162",
           eventRefs: ["event://t162/evidence"],

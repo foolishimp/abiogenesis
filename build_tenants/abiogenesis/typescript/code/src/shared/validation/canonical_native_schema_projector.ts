@@ -705,7 +705,7 @@ export interface CanonicalNativeSchemaProjection<
 
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_REF =
   "projector://abg/native-schema/valibot-json-schema";
-export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.2.0";
+export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_VERSION = "1.3.0";
 export const CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS =
   Object.freeze({
     valibot: "1.3.1",
@@ -769,6 +769,7 @@ const CANONICAL_NATIVE_SCHEMA_PROJECTOR_BASIS = freezeNativeValue({
     CANONICAL_NATIVE_SCHEMA_PROJECTOR_DEPENDENCY_VERSIONS.valibotJsonSchema,
   unsupportedSchemaPolicy: "throw",
   unsupportedActionPolicy: "throw",
+  emptyTuplePolicy: "max_items_zero",
   nativeReferencePolicy: "exact-pinned-constructor-reference-v1",
   namedCheckPolicy: "exact-action-same-owner-module-registry-v2",
   allowedSchemaTypes: ALLOWED_SCHEMA_TYPES,
@@ -835,8 +836,16 @@ function hoistIJsonDefinition(schema: JsonSchema): JsonSchema {
     if (typeof input !== "object" || input === null) {
       return;
     }
-    if (Reflect.get(input, "x-abg-native-check") === "canonical_ijson") {
-      const definitions: unknown = Reflect.get(input, "$defs");
+    const definitions: unknown = Reflect.get(input, "$defs");
+    const hasCanonicalIJsonProjection =
+      Reflect.get(input, "$ref") === "#/$defs/IJsonValue" &&
+      typeof definitions === "object" &&
+      definitions !== null &&
+      Object.hasOwn(definitions, "IJsonValue");
+    if (
+      hasCanonicalIJsonProjection ||
+      Reflect.get(input, "x-abg-native-check") === "canonical_ijson"
+    ) {
       if (
         typeof definitions !== "object" ||
         definitions === null ||
@@ -1047,21 +1056,57 @@ function projectActionOverride(
   );
 }
 
+function normalizeEmptyTupleProjection(input: JsonSchema): JsonSchema;
+function normalizeEmptyTupleProjection(input: unknown): unknown;
+function normalizeEmptyTupleProjection(input: unknown): unknown {
+  if (Array.isArray(input)) {
+    return input.map(normalizeEmptyTupleProjection);
+  }
+  if (typeof input !== "object" || input === null) {
+    return input;
+  }
+  const projected = Object.fromEntries(
+    Object.entries(input).map(([key, value]) => [
+      key,
+      normalizeEmptyTupleProjection(value)
+    ])
+  );
+  if (
+    Array.isArray(projected["prefixItems"]) &&
+    projected["prefixItems"].length === 0
+  ) {
+    if (
+      Object.hasOwn(projected, "maxItems") &&
+      projected["maxItems"] !== 0
+    ) {
+      throw new TypeError(
+        "native contract projector: empty tuple has conflicting maxItems"
+      );
+    }
+    delete projected["prefixItems"];
+    projected["maxItems"] = 0;
+  }
+  return projected;
+}
+
 function projectCanonicalNativeJsonSchemaWithResolver<
   S extends CanonicalNativeSchema
 >(
   schema: S,
   namedChecks: NativeNamedCheckResolver
 ): JsonSchema {
+  const projected = normalizeEmptyTupleProjection(
+    toJsonSchema(schema, {
+      target: "draft-2020-12",
+      typeMode: "ignore",
+      errorMode: "throw",
+      overrideSchema: projectSchemaOverride,
+      overrideAction: (context) => projectActionOverride(namedChecks, context)
+    })
+  );
   return freezeNativeValue(
     hoistIJsonDefinition(
-      toJsonSchema(schema, {
-        target: "draft-2020-12",
-        typeMode: "ignore",
-        errorMode: "throw",
-        overrideSchema: projectSchemaOverride,
-        overrideAction: (context) => projectActionOverride(namedChecks, context)
-      })
+      projected
     )
   );
 }

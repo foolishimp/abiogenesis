@@ -1080,7 +1080,8 @@ export function installedT132EdgeAssuranceThreeChainSource({
           producerRef: fpDispatchContract.ref,
           sourceEventRef: record.pluginInput.actorInvocationRef.dispatchRef,
           actorInvocationId: record.pluginInput.actorInvocationRef.actorInvocationId,
-          authorityRef: record.stage.authorityRef,
+          authorityRef:
+            "authority-snapshot://t132/" + record.stage.id + "/" + suffix,
           inputDigest: "input-digest://t132/" + record.stage.id,
           policyRefs: record.pluginInput.edgeAssuranceResolution.contract.policyRefs
         }),
@@ -1212,7 +1213,8 @@ export function installedT132EdgeAssuranceThreeChainSource({
           vectorIndex: record.pluginInput.vectorIndex,
           evidenceRef: record.artifact.evidenceRef,
           payloadRef: evidencePayloadRef,
-          authorityRef: record.stage.authorityRef,
+          authorityRef:
+            "authority-snapshot://t132/" + record.stage.id + "/" + suffix,
           authorityDigest: "authority-digest://t132/" + record.stage.id,
           inputDigest: "input-digest://t132/" + record.stage.id,
           providerRefs: ["provider://t132/evidence"],

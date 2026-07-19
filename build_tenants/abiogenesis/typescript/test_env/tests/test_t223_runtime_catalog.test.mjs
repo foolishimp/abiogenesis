@@ -35,8 +35,15 @@ import {
   constructProductRegistryStartupConfig
 } from "../../build/semantic/code/src/gtl/m02/index.js";
 import {
-  deriveRegistrySessionViewRef
+  deriveRegistrySessionViewRef,
+  stableSha256Digest
 } from "../../build/semantic/code/src/shared/runtime_identity.js";
+import {
+  catalogOverlayApplicationArtifactRelativePath,
+  catalogOverlayApplicationCoordinate,
+  deriveCatalogOverlayApplicationAuthority,
+  readmitCatalogOverlayApplicationAuthority
+} from "../../build/semantic/code/src/app/m04/public_contracts/catalog_application_authority.js";
 
 const SHA_A = `sha256:${"a".repeat(64)}`;
 const SHA_B = `sha256:${"b".repeat(64)}`;
@@ -266,6 +273,75 @@ function captureSink() {
     }
   };
 }
+
+test("T-281 derives and re-admits one Prime overlay application coordinate", () => {
+  const overlayAsset = Object.freeze({
+    kind: "catalog_overlay_declaration",
+    schemaVersion: 1,
+    overlayRef: "declaration://t223/product/default-overlay",
+    graphFunctionRefs: Object.freeze([graphFunction().id]),
+    policyRefs: Object.freeze(["policy://t223/default"]),
+    provenanceRefs: Object.freeze(["provenance://t223/fixture"])
+  });
+  const overlayDigest = stableSha256Digest(overlayAsset);
+  const admitted = admitBoundWorkspaceCatalog(catalogBatch({
+    orderedProductBatches: [productBatch([{
+      kind: "opaque_catalog_asset",
+      declaration: admitOpaqueCatalogAssetDeclaration(opaqueAssetRaw({
+        declarationDigest: overlayDigest,
+        assetDigest: overlayDigest
+      }))
+    }])]
+  }), () => {});
+  assert.equal(admitted.accepted, true);
+  assert.notEqual(admitted.basis, null);
+  const baseProgram = Object.freeze({
+    ref: "gtl-program://t223/base",
+    digest: stableSha256Digest({ kind: "t223_base_program" }),
+    memberEntryRefs: Object.freeze([
+      "catalog-entry://t223/system/hello-world"
+    ])
+  });
+  const authority = deriveCatalogOverlayApplicationAuthority({
+    catalogBasis: admitted.basis,
+    catalogRowRef: "catalog-entry://t223/product/default-overlay",
+    overlayAsset,
+    baseProgram
+  });
+  const coordinate = catalogOverlayApplicationCoordinate(authority);
+
+  assert.equal(coordinate.catalogRowRef, authority.catalogRow.ref);
+  assert.equal(coordinate.catalogViewRef, authority.catalogView.ref);
+  assert.equal(coordinate.targetRef, graphFunction().id);
+  assert.equal(coordinate.applicationBasisRef, admitted.basis.basisRef);
+  assert.equal(authority.programBasis.programMembers.length, 1);
+  assert.deepEqual(
+    authority.programBasis.programMembers.map((row) => row.entryRef),
+    ["catalog-entry://t223/system/hello-world"]
+  );
+  assert.match(
+    catalogOverlayApplicationArtifactRelativePath(authority.applicationRef),
+    /^catalog-applications\/[0-9a-f]{64}\.json$/u
+  );
+  assert.deepEqual(
+    readmitCatalogOverlayApplicationAuthority({
+      catalogBasis: admitted.basis,
+      baseProgram,
+      rawArtifact: authority,
+      overlayAsset
+    }),
+    authority
+  );
+  assert.throws(
+    () => readmitCatalogOverlayApplicationAuthority({
+      catalogBasis: admitted.basis,
+      baseProgram,
+      rawArtifact: { ...authority, provenanceRefs: ["forged://provenance"] },
+      overlayAsset
+    }),
+    /differs from its rederived admitted authority/u
+  );
+});
 
 test("T-223 admits the exact opaque overlay carrier and rejects malformed or widened input", () => {
   assert.equal(m03Public.admitBoundWorkspaceCatalog, admitBoundWorkspaceCatalog);

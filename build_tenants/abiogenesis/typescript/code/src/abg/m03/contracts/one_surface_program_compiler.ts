@@ -30,6 +30,12 @@ import {
   type CompiledTypedRecursePlan
 } from "./typed_recurse.js";
 import {
+  assertCompiledTraversalExecutionFamily,
+  assertTraversalExecutionFamilyRuntimeProjection,
+  type CompiledTraversalExecutionFamily,
+  type TraversalExecutionFamilyRuntimeProjection
+} from "./traversal_execution_family.js";
+import {
   cInterfaceContractRef
 } from "../../../gtl/m01/algebra/c_algebra.js";
 import type {
@@ -42,7 +48,8 @@ import {
 } from "./allowed_consequence_traversal_catalog.js";
 import {
   stableJsonEquals,
-  stableSha256Digest
+  stableSha256Digest,
+  type IJsonValue
 } from "../../../shared/runtime_identity.js";
 
 export const ONE_SURFACE_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze([
@@ -210,6 +217,20 @@ export interface OneSurfaceRefinementApplicationRelation {
   readonly effectsPermitted: false;
 }
 
+export interface OneSurfaceAppliedProgramApplicationProvenance {
+  readonly kind: "one_surface_applied_program_application_provenance";
+  readonly applicationRef: string;
+  readonly applicationArtifactDigest: `sha256:${string}`;
+  readonly admissionBasisDigest: `sha256:${string}`;
+  readonly catalogBasisRef: string;
+  readonly catalogViewRef: string;
+  readonly catalogViewDigest: `sha256:${string}`;
+  readonly selectedEntryRef: string;
+  readonly executionBindingDigest: `sha256:${string}`;
+  readonly compiledFamilyDigest: `sha256:${string}`;
+  readonly runtimeProjectionDigest: `sha256:${string}`;
+}
+
 export interface OneSurfaceAuthorityProgramBinding {
   readonly [ONE_SURFACE_PROGRAM_AUTHORITY]: true;
   readonly kind: "one_surface_authority_program_binding";
@@ -234,6 +255,8 @@ export interface OneSurfaceAuthorityProgramBinding {
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
   readonly recursePlan: CompiledTypedRecursePlan;
+  readonly appliedProgramApplication:
+    OneSurfaceAppliedProgramApplicationProvenance | null;
   readonly refinementApplications:
     readonly OneSurfaceRefinementApplicationRelation[];
 }
@@ -242,6 +265,84 @@ export interface OneSurfaceGtlProgramCompilationInput {
   readonly gtlProgram: GtlProgramConformanceInput;
   readonly stageAuthorities: readonly OneSurfaceStageAuthorityInput[];
   readonly recursePlan: CompiledTypedRecursePlan;
+}
+
+export interface OneSurfaceAppliedProgramMember {
+  readonly entryRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: `sha256:${string}`;
+  readonly moduleRef: string;
+  readonly moduleDigest: `sha256:${string}`;
+}
+
+export interface OneSurfaceAppliedProgramCompositionBasis {
+  readonly kind: "one_surface_applied_gtl_program_composition_basis";
+  readonly baseProgram: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly catalogBasis: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly catalogRow: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly catalogView: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly declaration: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly programMembers: readonly OneSurfaceAppliedProgramMember[];
+}
+
+export interface OneSurfaceAppliedProgramAdmissionBasis {
+  readonly kind: "one_surface_applied_program_admission_basis";
+  readonly applicationRef: string;
+  readonly applicationArtifactDigest: `sha256:${string}`;
+  readonly compositionBasis: OneSurfaceAppliedProgramCompositionBasis;
+  readonly targetProgram: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly baseAuthority: Readonly<{
+    readonly bindingRef: string;
+    readonly bindingDigest: `sha256:${string}`;
+  }>;
+  readonly selectedExecution: Readonly<{
+    readonly entryRef: string;
+    readonly executionBindingDigest: `sha256:${string}`;
+  }>;
+  readonly compiler: Readonly<{
+    readonly catalogBasisRef: string;
+    readonly selectedEntryRef: string;
+    readonly executionBindingDigest: `sha256:${string}`;
+    readonly moduleDigest: `sha256:${string}`;
+    readonly rootGraphFunctionDigest: `sha256:${string}`;
+    readonly familyDigest: `sha256:${string}`;
+    readonly runtimeProjectionDigest: `sha256:${string}`;
+  }>;
+  readonly basisDigest: `sha256:${string}`;
+}
+
+const ONE_SURFACE_APPLIED_PROGRAM_ADMISSION = Symbol(
+  "ONE_SURFACE_APPLIED_PROGRAM_ADMISSION"
+);
+const ONE_SURFACE_APPLIED_PROGRAM_ADMISSION_AUTHORITY = new WeakSet<object>();
+
+export interface OneSurfaceAppliedProgramAdmission {
+  readonly [ONE_SURFACE_APPLIED_PROGRAM_ADMISSION]: true;
+  readonly kind: "one_surface_applied_program_admission";
+  readonly basis: OneSurfaceAppliedProgramAdmissionBasis;
+}
+
+export interface BindOneSurfaceAppliedProgramInput {
+  readonly baseAuthorityProgram: OneSurfaceAuthorityProgramBinding;
+  readonly applicationAdmission: OneSurfaceAppliedProgramAdmission;
 }
 
 export type OneSurfaceProgramCompilation =
@@ -600,6 +701,66 @@ function exactJoinTuple(
   return Object.freeze([selection, constructionIntent, actionEvaluation]);
 }
 
+function constructOneSurfaceAuthorityRelations(
+  stages: OneSurfaceAuthorityProgramBinding["stages"]
+): Readonly<{
+  joins: OneSurfaceAuthorityProgramBinding["joins"];
+  af14Admission: OneSurfaceAf14AdmissionRelation;
+  af15Slot: OneSurfaceExternalAf15Slot;
+}> {
+  const selectionJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af13_to_af14_selection",
+    sourceCoordinateRef: stages[2].plan.outputCarrierRef,
+    targetCoordinateRef: stages[2].plan.outputCarrierRef
+  });
+  const af14Basis = Object.freeze({
+    evaluateNextAuthorityRef: stages[2].authorityRef,
+    evaluateNextResultSchema: stages[2].nativeResultSchema,
+    selectionJoinRef: selectionJoin.joinRef,
+    selectionJoinDigest: selectionJoin.joinDigest,
+    admissionAuthorityRef:
+      "abg://one-surface/af14/admit-construction-intent" as const
+  });
+  const af14Digest = stableSha256Digest(af14Basis);
+  const af14Admission = Object.freeze({
+    kind: "one_surface_af14_admission_relation" as const,
+    relationRef:
+      `abg://one-surface/af14/relation/${af14Digest.slice("sha256:".length)}`,
+    relationDigest: af14Digest,
+    status: "native_admission" as const,
+    ...af14Basis
+  });
+  const constructionIntentJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af14_to_af15_construction_intent",
+    sourceCoordinateRef: af14Admission.relationRef,
+    targetCoordinateRef: af14Admission.relationRef
+  });
+  const actionEvaluationJoin = constructOneSurfaceProgramJoin({
+    joinKind: "af15_to_af16_action_evaluation",
+    sourceCoordinateRef: stages[3].plan.inputCarrierRef,
+    targetCoordinateRef: stages[3].plan.inputCarrierRef
+  });
+  const joins = exactJoinTuple([
+    selectionJoin,
+    constructionIntentJoin,
+    actionEvaluationJoin
+  ]);
+  const af15Slot = Object.freeze({
+    kind: "one_surface_external_af15_slot" as const,
+    ownerTicket: "T-270" as const,
+    functionId: "AF-15" as const,
+    status: "external_unbound" as const,
+    af14AdmissionRelationRef: af14Admission.relationRef,
+    af14AdmissionRelationDigest: af14Admission.relationDigest,
+    constructionIntentInputJoinRef: constructionIntentJoin.joinRef,
+    constructionIntentInputJoinDigest: constructionIntentJoin.joinDigest,
+    actionEvaluationOutputJoinRef: actionEvaluationJoin.joinRef,
+    actionEvaluationOutputJoinDigest: actionEvaluationJoin.joinDigest,
+    actionEvaluationInputCarrierRef: stages[3].plan.inputCarrierRef
+  });
+  return Object.freeze({ joins, af14Admission, af15Slot });
+}
+
 function refinementApplicationBasis(
   relation: Omit<
     OneSurfaceRefinementApplicationRelation,
@@ -762,6 +923,8 @@ function programBasis(input: {
   readonly af14Admission: OneSurfaceAf14AdmissionRelation;
   readonly af15Slot: OneSurfaceExternalAf15Slot;
   readonly recursePlan: CompiledTypedRecursePlan;
+  readonly appliedProgramApplication:
+    OneSurfaceAppliedProgramApplicationProvenance | null;
   readonly refinementApplications:
     readonly OneSurfaceRefinementApplicationRelation[];
 }) {
@@ -777,10 +940,91 @@ function programBasis(input: {
     af15Slot: input.af15Slot,
     recursePlanRef: input.recursePlan.planRef,
     recursePlanDigest: input.recursePlan.planDigest,
+    appliedProgramApplication: input.appliedProgramApplication,
     refinementApplications: Object.freeze([
       ...input.refinementApplications
     ])
   });
+}
+
+function sealOneSurfaceAuthorityProgramBinding(input: {
+  readonly admittedProgramRef: string;
+  readonly admittedProgramDigest: string;
+  readonly stages: OneSurfaceAuthorityProgramBinding["stages"];
+  readonly joins: OneSurfaceAuthorityProgramBinding["joins"];
+  readonly af14Admission: OneSurfaceAf14AdmissionRelation;
+  readonly af15Slot: OneSurfaceExternalAf15Slot;
+  readonly recursePlan: CompiledTypedRecursePlan;
+  readonly appliedProgramApplication:
+    OneSurfaceAppliedProgramApplicationProvenance | null;
+  readonly refinementApplications:
+    readonly OneSurfaceRefinementApplicationRelation[];
+}): OneSurfaceAuthorityProgramBinding {
+  const basis = programBasis(input);
+  const bindingDigest = stableSha256Digest(basis);
+  return Object.freeze({
+    [ONE_SURFACE_PROGRAM_AUTHORITY]: true as const,
+    kind: "one_surface_authority_program_binding" as const,
+    bindingRef:
+      `abg://one-surface/authority-program/${bindingDigest.slice("sha256:".length)}`,
+    bindingDigest,
+    admittedProgramRef: input.admittedProgramRef,
+    admittedProgramDigest: input.admittedProgramDigest,
+    runtimeAddressable: false as const,
+    effectsPermitted: false as const,
+    runtimeAdmissionOwner: "T-270" as const,
+    stages: input.stages,
+    joins: input.joins,
+    af14Admission: input.af14Admission,
+    af15Slot: input.af15Slot,
+    recursePlan: input.recursePlan,
+    appliedProgramApplication: input.appliedProgramApplication,
+    refinementApplications: Object.freeze([...input.refinementApplications])
+  });
+}
+
+function constructAppliedProgramApplicationProvenance(
+  admission: OneSurfaceAppliedProgramAdmission
+): OneSurfaceAppliedProgramApplicationProvenance {
+  assertOneSurfaceAppliedProgramAdmission(admission);
+  const basis = admission.basis;
+  return Object.freeze({
+    kind: "one_surface_applied_program_application_provenance" as const,
+    applicationRef: basis.applicationRef,
+    applicationArtifactDigest: basis.applicationArtifactDigest,
+    admissionBasisDigest: basis.basisDigest,
+    catalogBasisRef: basis.compositionBasis.catalogBasis.ref,
+    catalogViewRef: basis.compositionBasis.catalogView.ref,
+    catalogViewDigest: basis.compositionBasis.catalogView.digest,
+    selectedEntryRef: basis.selectedExecution.entryRef,
+    executionBindingDigest: basis.selectedExecution.executionBindingDigest,
+    compiledFamilyDigest: basis.compiler.familyDigest,
+    runtimeProjectionDigest: basis.compiler.runtimeProjectionDigest
+  });
+}
+
+function assertAppliedProgramApplicationProvenance(
+  provenance: OneSurfaceAppliedProgramApplicationProvenance | null
+): void {
+  if (provenance === null) return;
+  if (
+    provenance.kind !==
+      "one_surface_applied_program_application_provenance" ||
+    provenance.applicationRef.length === 0 ||
+    provenance.catalogBasisRef.length === 0 ||
+    provenance.catalogViewRef.length === 0 ||
+    provenance.selectedEntryRef.length === 0 ||
+    [
+      provenance.applicationArtifactDigest,
+      provenance.admissionBasisDigest,
+      provenance.catalogViewDigest,
+      provenance.executionBindingDigest,
+      provenance.compiledFamilyDigest,
+      provenance.runtimeProjectionDigest
+    ].some((value) => !SHA256_DIGEST_PATTERN.test(value))
+  ) {
+    throw new TypeError("One Surface applied-program application provenance seal differs");
+  }
 }
 
 export function assertOneSurfaceAuthorityProgramBinding(
@@ -796,6 +1040,9 @@ export function assertOneSurfaceAuthorityProgramBinding(
   }
   binding.joins.forEach(assertOneSurfaceProgramJoin);
   assertCompiledTypedRecursePlan(binding.recursePlan);
+  assertAppliedProgramApplicationProvenance(
+    binding.appliedProgramApplication
+  );
   exactTuple(binding.stages);
   const [selectionJoin, constructionIntentJoin, actionEvaluationJoin] =
     exactJoinTuple(binding.joins);
@@ -910,6 +1157,317 @@ export function assertOneSurfaceAuthorityProgramBinding(
   ) {
     throw new TypeError("One Surface authority program seal differs");
   }
+}
+
+const SHA256_DIGEST_PATTERN = /^sha256:[0-9a-f]{64}$/u;
+
+function appliedProgramAdmissionBasisWithoutDigest(
+  basis: OneSurfaceAppliedProgramAdmissionBasis
+) {
+  return Object.freeze({
+    kind: basis.kind,
+    applicationRef: basis.applicationRef,
+    applicationArtifactDigest: basis.applicationArtifactDigest,
+    compositionBasis: basis.compositionBasis,
+    targetProgram: basis.targetProgram,
+    baseAuthority: basis.baseAuthority,
+    selectedExecution: basis.selectedExecution,
+    compiler: basis.compiler
+  });
+}
+
+function assertAppliedProgramAdmissionBasis(
+  basis: OneSurfaceAppliedProgramAdmissionBasis
+): void {
+  for (const [label, value] of [
+    ["applicationRef", basis.applicationRef],
+    ["baseProgramRef", basis.compositionBasis.baseProgram.ref],
+    ["targetProgramRef", basis.targetProgram.ref],
+    ["catalogBasisRef", basis.compositionBasis.catalogBasis.ref],
+    ["catalogViewRef", basis.compositionBasis.catalogView.ref],
+    ["selectedEntryRef", basis.selectedExecution.entryRef]
+  ] as const) {
+    if (typeof value !== "string" || value.length === 0) {
+      throw new TypeError(`One Surface ${label} must be non-empty`);
+    }
+  }
+  for (const [label, value] of [
+    ["applicationArtifactDigest", basis.applicationArtifactDigest],
+    ["baseProgramDigest", basis.compositionBasis.baseProgram.digest],
+    ["targetProgramDigest", basis.targetProgram.digest],
+    ["baseBindingDigest", basis.baseAuthority.bindingDigest],
+    ["catalogBasisDigest", basis.compositionBasis.catalogBasis.digest],
+    ["catalogRowDigest", basis.compositionBasis.catalogRow.digest],
+    ["catalogViewDigest", basis.compositionBasis.catalogView.digest],
+    ["declarationDigest", basis.compositionBasis.declaration.digest],
+    ["executionBindingDigest", basis.selectedExecution.executionBindingDigest],
+    ["compilerModuleDigest", basis.compiler.moduleDigest],
+    ["compilerGraphFunctionDigest", basis.compiler.rootGraphFunctionDigest],
+    ["compilerFamilyDigest", basis.compiler.familyDigest],
+    ["runtimeProjectionDigest", basis.compiler.runtimeProjectionDigest],
+    ["basisDigest", basis.basisDigest]
+  ] as const) {
+    if (typeof value !== "string" || !SHA256_DIGEST_PATTERN.test(value)) {
+      throw new TypeError(`One Surface ${label} must be a sha256 digest`);
+    }
+  }
+  if (
+    basis.kind !== "one_surface_applied_program_admission_basis" ||
+    basis.compositionBasis.kind !==
+      "one_surface_applied_gtl_program_composition_basis" ||
+    basis.targetProgram.digest !==
+      stableSha256Digest(basis.compositionBasis) ||
+    !basis.targetProgram.ref.endsWith(
+      basis.targetProgram.digest.slice("sha256:".length)
+    ) ||
+    basis.targetProgram.ref === basis.compositionBasis.baseProgram.ref ||
+    basis.targetProgram.digest === basis.compositionBasis.baseProgram.digest ||
+    basis.applicationRef === basis.compositionBasis.baseProgram.ref ||
+    basis.applicationRef === basis.targetProgram.ref ||
+    basis.compiler.catalogBasisRef !== basis.compositionBasis.catalogBasis.ref ||
+    basis.compiler.selectedEntryRef !== basis.selectedExecution.entryRef ||
+    basis.compiler.executionBindingDigest !==
+      basis.selectedExecution.executionBindingDigest ||
+    basis.basisDigest !== stableSha256Digest(
+      appliedProgramAdmissionBasisWithoutDigest(basis)
+    )
+  ) {
+    throw new TypeError("One Surface applied-program admission basis differs");
+  }
+  const members = basis.compositionBasis.programMembers;
+  if (members.length === 0) {
+    throw new TypeError("One Surface applied program has no members");
+  }
+  const entryRefs = new Set<string>();
+  let selectedCount = 0;
+  let priorEntryRef: string | null = null;
+  for (const member of members) {
+    if (
+      member.entryRef.length === 0 ||
+      member.graphFunctionRef.length === 0 ||
+      member.moduleRef.length === 0 ||
+      !SHA256_DIGEST_PATTERN.test(member.graphFunctionDigest) ||
+      !SHA256_DIGEST_PATTERN.test(member.moduleDigest)
+    ) {
+      throw new TypeError("One Surface applied-program member differs");
+    }
+    if (
+      entryRefs.has(member.entryRef) ||
+      (priorEntryRef !== null && member.entryRef < priorEntryRef)
+    ) {
+      throw new TypeError("One Surface applied-program members are duplicated");
+    }
+    entryRefs.add(member.entryRef);
+    priorEntryRef = member.entryRef;
+    if (member.entryRef === basis.selectedExecution.entryRef) {
+      if (
+        member.moduleDigest !== basis.compiler.moduleDigest ||
+        member.graphFunctionDigest !==
+          basis.compiler.rootGraphFunctionDigest
+      ) {
+        throw new TypeError(
+          "One Surface selected member differs from compiler authority"
+        );
+      }
+      selectedCount += 1;
+    }
+  }
+  if (selectedCount !== 1) {
+    throw new TypeError(
+      "One Surface selected execution is not one applied-program member"
+    );
+  }
+}
+
+export function constructOneSurfaceAppliedProgramAdmission(input: {
+  readonly baseAuthorityProgram: OneSurfaceAuthorityProgramBinding;
+  readonly applicationRef: string;
+  readonly applicationArtifact: IJsonValue;
+  readonly compositionBasis: OneSurfaceAppliedProgramCompositionBasis;
+  readonly targetProgram: Readonly<{
+    readonly ref: string;
+    readonly digest: `sha256:${string}`;
+  }>;
+  readonly selectedExecution: Readonly<{
+    readonly entryRef: string;
+    readonly executionBindingDigest: `sha256:${string}`;
+  }>;
+  readonly compiled: Readonly<{
+    readonly family: CompiledTraversalExecutionFamily;
+    readonly runtimeProjection: TraversalExecutionFamilyRuntimeProjection;
+  }>;
+}): OneSurfaceAppliedProgramAdmission {
+  assertOneSurfaceAuthorityProgramBinding(input.baseAuthorityProgram);
+  assertCompiledTraversalExecutionFamily(input.compiled.family);
+  assertTraversalExecutionFamilyRuntimeProjection(
+    input.compiled.runtimeProjection
+  );
+  if (
+    input.compiled.runtimeProjection.compactFamily.familyDigest !==
+      input.compiled.family.familyDigest
+  ) {
+    throw new TypeError(
+      "One Surface applied-program compiler projection differs"
+    );
+  }
+  if (
+    input.compositionBasis.baseProgram.ref !==
+      input.baseAuthorityProgram.admittedProgramRef ||
+    input.compositionBasis.baseProgram.digest !==
+      input.baseAuthorityProgram.admittedProgramDigest
+  ) {
+    throw new TypeError("One Surface applied-program base authority differs");
+  }
+  if (
+    typeof input.applicationArtifact !== "object" ||
+    input.applicationArtifact === null ||
+    Array.isArray(input.applicationArtifact)
+  ) {
+    throw new TypeError("One Surface applied-program artifact must be an object");
+  }
+  const artifact = input.applicationArtifact as Readonly<
+    Record<string, IJsonValue>
+  >;
+  if (
+    artifact["applicationRef"] !== input.applicationRef ||
+    !stableJsonEquals(artifact["programBasis"], input.compositionBasis) ||
+    !stableJsonEquals(artifact["target"], input.targetProgram)
+  ) {
+    throw new TypeError(
+      "One Surface applied-program artifact authority differs"
+    );
+  }
+  const compiler = Object.freeze({
+    catalogBasisRef: input.compiled.family.catalogBasisRef,
+    selectedEntryRef: input.compiled.family.selectedCatalogEntryRef,
+    executionBindingDigest: input.compiled.family.executionBindingDigest,
+    moduleDigest: input.compiled.family.moduleDigest,
+    rootGraphFunctionDigest: input.compiled.family.rootGraphFunctionDigest,
+    familyDigest: input.compiled.family.familyDigest,
+    runtimeProjectionDigest: input.compiled.runtimeProjection.projectionDigest
+  });
+  const withoutDigest = Object.freeze({
+    kind: "one_surface_applied_program_admission_basis" as const,
+    applicationRef: input.applicationRef,
+    applicationArtifactDigest: stableSha256Digest(input.applicationArtifact),
+    compositionBasis: input.compositionBasis,
+    targetProgram: input.targetProgram,
+    baseAuthority: Object.freeze({
+      bindingRef: input.baseAuthorityProgram.bindingRef,
+      bindingDigest: input.baseAuthorityProgram.bindingDigest
+    }),
+    selectedExecution: input.selectedExecution,
+    compiler
+  });
+  const basis = Object.freeze({
+    ...withoutDigest,
+    basisDigest: stableSha256Digest(withoutDigest)
+  });
+  assertAppliedProgramAdmissionBasis(basis);
+  const admission = Object.freeze({
+    [ONE_SURFACE_APPLIED_PROGRAM_ADMISSION]: true as const,
+    kind: "one_surface_applied_program_admission" as const,
+    basis
+  });
+  ONE_SURFACE_APPLIED_PROGRAM_ADMISSION_AUTHORITY.add(admission);
+  return admission;
+}
+
+export function assertOneSurfaceAppliedProgramAdmission(
+  admission: OneSurfaceAppliedProgramAdmission
+): void {
+  if (
+    admission.kind !== "one_surface_applied_program_admission" ||
+    admission[ONE_SURFACE_APPLIED_PROGRAM_ADMISSION] !== true ||
+    !ONE_SURFACE_APPLIED_PROGRAM_ADMISSION_AUTHORITY.has(admission)
+  ) {
+    throw new TypeError("One Surface applied-program admission is not owned");
+  }
+  assertAppliedProgramAdmissionBasis(admission.basis);
+}
+
+function rebindOneSurfaceStage<K extends OneSurfaceAuthorityFunctionKind>(
+  stage: OneSurfaceStageAuthority<K>,
+  target: Readonly<{
+    admittedProgramRef: string;
+    admittedProgramDigest: `sha256:${string}`;
+  }>
+): OneSurfaceStageAuthority<K> {
+  const input: OneSurfaceStageAuthorityInput<K> = Object.freeze({
+    functionKind: stage.functionKind,
+    stage: stage.stage,
+    plan: stage.plan,
+    resultAuthority: stage.resultAuthority,
+    traversalContracts: stage.traversalContracts
+  });
+  return admitStage(
+    input,
+    constructStageProgramMembership({
+      admittedProgramRef: target.admittedProgramRef,
+      admittedProgramDigest: target.admittedProgramDigest,
+      stageAuthority: input,
+      targetCarrierContract: stage.targetCarrierContract
+    }),
+    stage.targetCarrierContract,
+    stage.allowedConsequenceCatalog,
+    stage.nativeResultSchema
+  );
+}
+
+export function bindOneSurfaceAuthorityProgramToAppliedProgram(
+  input: BindOneSurfaceAppliedProgramInput
+): OneSurfaceAuthorityProgramBinding {
+  assertOneSurfaceAuthorityProgramBinding(input.baseAuthorityProgram);
+  assertOneSurfaceAppliedProgramAdmission(input.applicationAdmission);
+  const admission = input.applicationAdmission.basis;
+  if (
+    admission.baseAuthority.bindingRef !==
+      input.baseAuthorityProgram.bindingRef ||
+    admission.baseAuthority.bindingDigest !==
+      input.baseAuthorityProgram.bindingDigest ||
+    admission.compositionBasis.baseProgram.ref !==
+      input.baseAuthorityProgram.admittedProgramRef ||
+    admission.compositionBasis.baseProgram.digest !==
+      input.baseAuthorityProgram.admittedProgramDigest
+  ) {
+    throw new TypeError("One Surface applied-program base binding differs");
+  }
+  if (input.baseAuthorityProgram.refinementApplications.length !== 0) {
+    throw new TypeError(
+      "One Surface published refinement applications cannot be rebound without their exact owning modules"
+    );
+  }
+  if (input.baseAuthorityProgram.appliedProgramApplication !== null) {
+    throw new TypeError(
+      "One Surface authority program is already derived from one AF-10 application"
+    );
+  }
+  const target = Object.freeze({
+    admittedProgramRef: admission.targetProgram.ref,
+    admittedProgramDigest: admission.targetProgram.digest
+  });
+  const stages = exactTuple([
+    rebindOneSurfaceStage(input.baseAuthorityProgram.stages[0], target),
+    rebindOneSurfaceStage(input.baseAuthorityProgram.stages[1], target),
+    rebindOneSurfaceStage(input.baseAuthorityProgram.stages[2], target),
+    rebindOneSurfaceStage(input.baseAuthorityProgram.stages[3], target)
+  ]);
+  const relations = constructOneSurfaceAuthorityRelations(stages);
+  const appliedProgramApplication =
+    constructAppliedProgramApplicationProvenance(input.applicationAdmission);
+  const binding = sealOneSurfaceAuthorityProgramBinding({
+    admittedProgramRef: target.admittedProgramRef,
+    admittedProgramDigest: target.admittedProgramDigest,
+    stages,
+    joins: relations.joins,
+    af14Admission: relations.af14Admission,
+    af15Slot: relations.af15Slot,
+    recursePlan: input.baseAuthorityProgram.recursePlan,
+    appliedProgramApplication,
+    refinementApplications: Object.freeze([])
+  });
+  assertOneSurfaceAuthorityProgramBinding(binding);
+  return binding;
 }
 
 function deriveProgramAllowedConsequenceCatalog(input: {
@@ -1338,56 +1896,9 @@ export async function compileOneSurfaceGtlProgramApplication(
     });
   }
   const stages = exactTuple(admitted);
-  const selectionJoin = constructOneSurfaceProgramJoin({
-    joinKind: "af13_to_af14_selection",
-    sourceCoordinateRef: stages[2].plan.outputCarrierRef,
-    targetCoordinateRef: stages[2].plan.outputCarrierRef
-  });
-  const af14Basis = Object.freeze({
-    evaluateNextAuthorityRef: stages[2].authorityRef,
-    evaluateNextResultSchema: stages[2].nativeResultSchema,
-    selectionJoinRef: selectionJoin.joinRef,
-    selectionJoinDigest: selectionJoin.joinDigest,
-    admissionAuthorityRef:
-      "abg://one-surface/af14/admit-construction-intent" as const
-  });
-  const af14Digest = stableSha256Digest(af14Basis);
-  const af14Admission = Object.freeze({
-    kind: "one_surface_af14_admission_relation" as const,
-    relationRef:
-      `abg://one-surface/af14/relation/${af14Digest.slice("sha256:".length)}`,
-    relationDigest: af14Digest,
-    status: "native_admission" as const,
-    ...af14Basis
-  });
-  const constructionIntentJoin = constructOneSurfaceProgramJoin({
-    joinKind: "af14_to_af15_construction_intent",
-    sourceCoordinateRef: af14Admission.relationRef,
-    targetCoordinateRef: af14Admission.relationRef
-  });
-  const actionEvaluationJoin = constructOneSurfaceProgramJoin({
-    joinKind: "af15_to_af16_action_evaluation",
-    sourceCoordinateRef: stages[3].plan.inputCarrierRef,
-    targetCoordinateRef: stages[3].plan.inputCarrierRef
-  });
-  const joins = exactJoinTuple([
-    selectionJoin,
-    constructionIntentJoin,
-    actionEvaluationJoin
-  ]);
-  const af15Slot = Object.freeze({
-    kind: "one_surface_external_af15_slot" as const,
-    ownerTicket: "T-270" as const,
-    functionId: "AF-15" as const,
-    status: "external_unbound" as const,
-    af14AdmissionRelationRef: af14Admission.relationRef,
-    af14AdmissionRelationDigest: af14Admission.relationDigest,
-    constructionIntentInputJoinRef: constructionIntentJoin.joinRef,
-    constructionIntentInputJoinDigest: constructionIntentJoin.joinDigest,
-    actionEvaluationOutputJoinRef: actionEvaluationJoin.joinRef,
-    actionEvaluationOutputJoinDigest: actionEvaluationJoin.joinDigest,
-    actionEvaluationInputCarrierRef: stages[3].plan.inputCarrierRef
-  });
+  const relations = constructOneSurfaceAuthorityRelations(stages);
+  const { joins, af14Admission, af15Slot } = relations;
+  const [, constructionIntentJoin, actionEvaluationJoin] = joins;
   const refinementApplications: OneSurfaceRefinementApplicationRelation[] = [];
   if (
     authorityJoinsAdmitted &&
@@ -1441,7 +1952,7 @@ export async function compileOneSurfaceGtlProgramApplication(
     ],
     semantic: true
   }));
-  const basis = programBasis({
+  const authorityProgram = sealOneSurfaceAuthorityProgramBinding({
     admittedProgramRef: report.subjectRef,
     admittedProgramDigest: report.inventoryDigest,
     stages,
@@ -1449,26 +1960,8 @@ export async function compileOneSurfaceGtlProgramApplication(
     af14Admission,
     af15Slot,
     recursePlan: input.recursePlan,
+    appliedProgramApplication: null,
     refinementApplications
-  });
-  const bindingDigest = stableSha256Digest(basis);
-  const authorityProgram = Object.freeze({
-    [ONE_SURFACE_PROGRAM_AUTHORITY]: true as const,
-    kind: "one_surface_authority_program_binding" as const,
-    bindingRef:
-      `abg://one-surface/authority-program/${bindingDigest.slice("sha256:".length)}`,
-    bindingDigest,
-    admittedProgramRef: report.subjectRef,
-    admittedProgramDigest: report.inventoryDigest,
-    runtimeAddressable: false as const,
-    effectsPermitted: false as const,
-    runtimeAdmissionOwner: "T-270" as const,
-    stages,
-    joins,
-    af14Admission,
-    af15Slot,
-    recursePlan: input.recursePlan,
-    refinementApplications: Object.freeze([...refinementApplications])
   });
   return Object.freeze({
     kind: "one_surface_program_compilation",

@@ -14,6 +14,7 @@ import {
   resolveProjectReadCaseRow
 } from "../../build/semantic/code/src/app/m04/public_contracts/project_read_case_family.js";
 import {
+  deriveProjectReadProjectionBasis,
   PROJECT_READ_OPERATION_NATIVE_CONTRACT_SOURCES
 } from "../../build/semantic/code/src/app/m04/public_contracts/project_read_operation_contracts.js";
 import {
@@ -30,6 +31,19 @@ import { freezeNativeValue } from "../../build/semantic/code/src/shared/validati
 const D1 = `sha256:${"1".repeat(64)}`;
 const D2 = `sha256:${"2".repeat(64)}`;
 const coordinate = (ref, digest = D1) => Object.freeze({ ref, digest });
+
+function projectionBasisFor(caseKey, source, selector) {
+  return deriveProjectReadProjectionBasis({
+    kind: "project_read_projection_basis",
+    definitionKey: {
+      operationId: "abg.operation.project.read",
+      memberKind: "project_read_case",
+      caseKey
+    },
+    source,
+    selector
+  });
+}
 
 function assertDeepFrozen(value, seen = new Set()) {
   if (
@@ -49,17 +63,20 @@ function assertDeepFrozen(value, seen = new Set()) {
   }
 }
 
-function runStatusRequest(projectionBasis = coordinate(`project-read-basis:${D1}`)) {
+function runStatusRequest(projectionBasis = null) {
+  const source = {
+    kind: "Run",
+    sourceRef: "run:one",
+    sourceDigest: D1
+  };
+  const selector = {};
   return {
     kind: "project_read_request",
     caseKey: "run_status",
-    source: {
-      kind: "Run",
-      sourceRef: "run:one",
-      sourceDigest: D1
-    },
-    projectionBasis,
-    selector: {}
+    source,
+    projectionBasis: projectionBasis ??
+      projectionBasisFor("run_status", source, selector),
+    selector
   };
 }
 
@@ -90,7 +107,7 @@ function runStatusProjection(runRef = "run:one", runDigest = D1) {
 
 function runStatusResult(
   projection = runStatusProjection(),
-  projectionBasis = coordinate(`project-read-basis:${D1}`)
+  projectionBasis = runStatusRequest().projectionBasis
 ) {
   return {
     kind: "project_read_result",
@@ -253,6 +270,80 @@ test("T-281 result contract admits the wrapper and rejects the raw projection", 
   assert.equal(v.safeParse(resolved.result.projectionContract.schema, projection).success, true);
   assert.equal(v.safeParse(resolved.result.contract.schema, wrapper).success, true);
   assert.equal(v.safeParse(resolved.result.contract.schema, projection).success, false);
+});
+
+test("T-281 request admission reconstructs one exact projection basis", async () => {
+  const runStatus = await resolveProjectReadCaseRow(
+    PROJECT_READ_CASE_FAMILY.run_status
+  );
+  const request = runStatusRequest();
+  assert.equal(v.safeParse(runStatus.request.contract.schema, request).success, true);
+
+  const sourceChanged = {
+    ...request,
+    source: { ...request.source, sourceRef: "run:other" }
+  };
+  assert.equal(
+    v.safeParse(runStatus.request.contract.schema, sourceChanged).success,
+    false
+  );
+
+  const runResult = await resolveProjectReadCaseRow(
+    PROJECT_READ_CASE_FAMILY.run_result
+  );
+  const caseChanged = { ...request, caseKey: "run_result" };
+  assert.equal(
+    v.safeParse(runResult.request.contract.schema, caseChanged).success,
+    false
+  );
+
+  const catalogDescribe = await resolveProjectReadCaseRow(
+    PROJECT_READ_CASE_FAMILY.catalog_describe
+  );
+  const catalogSource = {
+    kind: "Catalog",
+    sourceRef: "catalog:one",
+    sourceDigest: D1
+  };
+  const catalogSelector = {
+    visibilityBasis: "workspace_catalog",
+    canonicalHandle: "graph-function:consensus"
+  };
+  const catalogRequest = {
+    kind: "project_read_request",
+    caseKey: "catalog_describe",
+    source: catalogSource,
+    projectionBasis: projectionBasisFor(
+      "catalog_describe",
+      catalogSource,
+      catalogSelector
+    ),
+    selector: catalogSelector
+  };
+  assert.equal(
+    v.safeParse(catalogDescribe.request.contract.schema, catalogRequest).success,
+    true
+  );
+  assert.equal(
+    v.safeParse(catalogDescribe.request.contract.schema, {
+      ...catalogRequest,
+      selector: {
+        ...catalogRequest.selector,
+        canonicalHandle: "graph-function:other"
+      }
+    }).success,
+    false
+  );
+  assert.equal(
+    v.safeParse(runStatus.request.contract.schema, {
+      ...request,
+      projectionBasis: {
+        ref: request.projectionBasis.ref,
+        digest: D2
+      }
+    }).success,
+    false
+  );
 });
 
 test("T-281 central outcome admission rejects run identity drift as relation_mismatch", async () => {

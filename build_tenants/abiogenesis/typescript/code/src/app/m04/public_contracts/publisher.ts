@@ -5,7 +5,8 @@ import {
   admitProductToolchainManifest,
   admitPublicContractCatalog,
   canonicalizeIJson,
-  digestCanonicalIJson
+  digestCanonicalIJson,
+  publicContractCatalogDigest
 } from "../public_sdk/index.js";
 import type {
   AbgResolvedPolicyIdentity,
@@ -17,16 +18,24 @@ import type {
   PublicContractRow,
   Sha256Digest
 } from "../public_sdk/index.js";
+import type {
+  TenantConformanceManifest
+} from "../../../shared/abg_library/tenant_conformance_manifest.js";
+import {
+  projectAbgTenantConformanceManifest,
+  TENANT_CONFORMANCE_MANIFEST_RELATIVE_PATH
+} from "../product_intake/tenant_conformance_manifest.js";
 import { relativePath } from "../public_sdk/admission_primitives.js";
 import {
   admitDs1StaticContractAsset,
   buildDs1PublicationFoundation,
+  DS1_CAPABILITY_DEFINITION_GRAPH,
   publicContractAssetDigest,
   type Ds1NativeDeclarationInventory,
   type Ds1StaticContractAssetDefinition,
   type PublishedContractAsset
 } from "./foundation.js";
-import { buildDs1OperationPublication } from "./operation_publication.js";
+import { buildPublicOperationFamilyPublication } from "./operation_publication.js";
 
 const CATALOG_PATH = "contracts/public-contract-catalog.json";
 const CATALOG_SCHEMA_ID = "abg.schema.public-contract-catalog";
@@ -38,7 +47,7 @@ export interface AbgRuntimeSystemProfileInput {
   readonly standardPluginRefs: readonly string[];
 }
 
-export interface Ds1ProductPublicationInput {
+export interface AbgProductPublicationInput {
   readonly publisher: string;
   readonly packageVersion: string;
   readonly catalogId: string;
@@ -49,9 +58,10 @@ export interface Ds1ProductPublicationInput {
   readonly nativeInventories: readonly Ds1NativeDeclarationInventory[];
 }
 
-export interface Ds1ProductPublication {
+export interface AbgProductPublication {
   readonly manifest: ProductToolchainManifest;
   readonly catalog: PublicContractCatalog;
+  readonly tenantConformanceManifest: TenantConformanceManifest;
   readonly productContentInventory: readonly ProductContentInventoryRow[];
   readonly generatedAssets: readonly PublishedContractAsset[];
 }
@@ -105,14 +115,6 @@ function productContentDigest(
   return digestCanonicalIJson(
     inventory.map((row) => [row.relativePath, row.digest])
   );
-}
-
-function catalogDigestBasis(
-  catalog: PublicContractCatalog
-): Omit<PublicContractCatalog, "catalogDigest"> {
-  const { catalogDigest, ...basis } = catalog;
-  void catalogDigest;
-  return basis;
 }
 
 function runtimeSystemProfile(
@@ -171,9 +173,9 @@ function assertNativeInventoriesMatchPayload(input: {
   }
 }
 
-export function buildDs1ProductPublication(
-  input: Ds1ProductPublicationInput
-): Ds1ProductPublication {
+export async function buildAbgProductPublication(
+  input: AbgProductPublicationInput
+): Promise<AbgProductPublication> {
   assertNativeInventoriesMatchPayload({
     inventories: input.nativeInventories,
     payload: input.basePayloadAssets
@@ -184,7 +186,7 @@ export function buildDs1ProductPublication(
     ),
     nativeInventories: input.nativeInventories
   });
-  const operations = buildDs1OperationPublication({
+  const operations = await buildPublicOperationFamilyPublication({
     schemaAssets: input.staticContractAssets
   });
   const rows: PublicContractRow[] = [
@@ -207,20 +209,33 @@ export function buildDs1ProductPublication(
     catalogDigest: `sha256:${"0".repeat(64)}`,
     catalogSchemaPath: catalogSchema.relativePath,
     catalogSchemaDigest: publicContractAssetDigest(catalogSchema.bytes),
-    profile: "abg-5-ds1",
+    profile: "abg-5-release",
     rows: Object.freeze(rows)
   };
   const catalog = admitPublicContractCatalog({
     ...catalogWithoutDigest,
-    catalogDigest: digestCanonicalIJson(catalogDigestBasis(catalogWithoutDigest))
+    catalogDigest: publicContractCatalogDigest(catalogWithoutDigest)
   });
   const catalogAsset = canonicalAsset(CATALOG_PATH, catalog);
+  const tenantConformanceManifest = projectAbgTenantConformanceManifest({
+    manifestId: "abg.tenant-conformance.abiogenesis",
+    manifestVersion: input.packageVersion,
+    engineId: "abg.engine.abiogenesis",
+    engineVersion: input.packageVersion,
+    capabilityDefinitionGraph: DS1_CAPABILITY_DEFINITION_GRAPH,
+    publicContractCatalog: catalog
+  });
+  const tenantConformanceManifestAsset = canonicalAsset(
+    TENANT_CONFORMANCE_MANIFEST_RELATIVE_PATH,
+    tenantConformanceManifest
+  );
   const allPayload = [
     ...input.basePayloadAssets,
     ...staticAssets(input.staticContractAssets),
     ...foundation.generatedAssets,
     ...operations.generatedAssets,
-    catalogAsset
+    catalogAsset,
+    tenantConformanceManifestAsset
   ];
   const inventory = assetInventory(allPayload);
   const profile = runtimeSystemProfile(input.runtimeSystemProfile);
@@ -245,11 +260,13 @@ export function buildDs1ProductPublication(
   return Object.freeze({
     manifest,
     catalog,
+    tenantConformanceManifest,
     productContentInventory: inventory,
     generatedAssets: Object.freeze([
       ...foundation.generatedAssets,
       ...operations.generatedAssets,
       catalogAsset,
+      tenantConformanceManifestAsset,
       manifestAsset
     ])
   });

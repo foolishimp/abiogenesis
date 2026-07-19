@@ -111,7 +111,8 @@ import {
   PLUGIN_SELECTION_SEAM_VALUES,
   pluginSelectionFromDeclarationAttrs,
   resolveDeclaredPluginSelection,
-  type PluginSelectionSeam
+  type PluginSelectionSeam,
+  type StandardCatalogRow
 } from "./plugin_selection.js";
 import {
   deriveAllowedConsequenceTraversalCatalogFromGtl
@@ -15968,6 +15969,7 @@ function deriveConformanceInventory(input: {
   readonly observedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
   readonly inventoryBackedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
   readonly issues: GtlProgramConformanceIssue[];
+  readonly pluginCatalog?: Readonly<Record<string, StandardCatalogRow>> | undefined;
 }): GtlProgramDerivedConformanceInventory {
   const effectRequirements: GtlProgramEffectRequirementProjectionRow[] = [];
   const pluginSelections: GtlProgramPluginSelectionProjectionRow[] = [];
@@ -16036,7 +16038,8 @@ function deriveConformanceInventory(input: {
       try {
         resolveDeclaredPluginSelection({
           selection,
-          sourceRef: graphFunction.name
+          sourceRef: graphFunction.name,
+          catalog: input.pluginCatalog
         });
       } catch (error: unknown) {
         input.issues.push(
@@ -16561,7 +16564,12 @@ function computeInventoryDigests(input: {
   });
 }
 
-export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConformanceReport {
+export function typecheckGtlProgram(
+  inputCandidate: unknown,
+  options?: Readonly<{
+    pluginCatalog?: Readonly<Record<string, StandardCatalogRow>> | undefined;
+  }>
+): GtlProgramConformanceReport {
   const admission = admitGtlProgramConformanceInput(inputCandidate);
   const input = admission.input;
   const issues: GtlProgramConformanceIssue[] = [...admission.issues];
@@ -16842,7 +16850,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     vectors,
     observedFeatures,
     inventoryBackedFeatures,
-    issues
+    issues,
+    pluginCatalog: options?.pluginCatalog
   });
   checkFeatureCoverage({
     subjectRef: input.subjectRef,

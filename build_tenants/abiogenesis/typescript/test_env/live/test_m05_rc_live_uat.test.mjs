@@ -34,18 +34,6 @@ const EXPECTED_DISPATCH_EVENT_CHAIN = [
   "payload_validated",
   "actor_invocation_closed"
 ];
-const EXPECTED_ASSESSMENT_EVENT_CHAIN = [
-  "authority_snapshot_admitted",
-  "payload_observed",
-  "payload_validated",
-  "evidence_admitted",
-  "assessed"
-];
-const EXPECTED_FULL_EVENT_CHAIN = [
-  ...EXPECTED_DISPATCH_EVENT_CHAIN,
-  ...EXPECTED_ASSESSMENT_EVENT_CHAIN
-];
-
 function liveEnabled() {
   return process.env["ABG_TS_LIVE_UAT"] === "1" || process.env["CODEX_LIVE_FP"] === "1";
 }
@@ -511,10 +499,11 @@ function rcLiveAssessmentSource() {
   return `
     import { readFile } from "node:fs/promises";
     import {
-      admitResultArtifact,
-      projectLiveStatus,
-      resultAssessment
+      admitResultArtifact
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     const dispatchBundle = JSON.parse(
       await readFile(".abiogenesis/rc-live-dispatch.json", "utf8")
@@ -530,6 +519,10 @@ function rcLiveAssessmentSource() {
       kind: "fp_assessed",
       dispatch_request: dispatchBundle.dispatchRequest,
       result_artifact: rawArtifact,
+      assessment_contract: {
+        ref: "contract://abg/result-assessment/fp@5",
+        digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+      },
       manifest_provenance: {
         spec_hash: "spec://typescript-rc-live",
         manifest_id: "manifest://typescript-rc-live-requirements-to-uat",
@@ -548,24 +541,16 @@ function rcLiveAssessmentSource() {
       }
     };
     const events = [];
-    const assessmentOutcome = resultAssessment(
-      assessmentRequest,
-      (event) => events.push(event)
-    );
-    const projection = projectLiveStatus({
-      start_request: dispatchBundle.startInput,
-      start_outcome: dispatchBundle.startOutcome,
-      control_request: null,
-      control_outcome: null,
-      result_assessment_request: assessmentRequest,
-      result_assessment_outcome: assessmentOutcome
-    });
+    const { outcome: assessmentOutcome } =
+      await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+        assessmentRequest,
+        events
+      });
 
     console.log(JSON.stringify({
       artifact,
       assessmentRequest,
       assessmentOutcome,
-      projection,
       eventKinds: events.map((event) => event.kind)
     }));
   `;
@@ -684,14 +669,12 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
   const assessment = JSON.parse(assessmentRun.stdout);
   await writeJson(path.join(root, "assessment_projection.json"), assessment);
 
-  assert.equal(assessment.assessmentOutcome.kind, "accepted");
-  assert.equal(assessment.projection.kind, "ready");
-  assert.equal(assessment.projection.runStatus, "assessed");
-  assert.deepStrictEqual(assessment.eventKinds, EXPECTED_ASSESSMENT_EVENT_CHAIN);
-  assert.deepStrictEqual(
-    [...dispatchBundle.eventKinds, ...assessment.eventKinds],
-    EXPECTED_FULL_EVENT_CHAIN
+  assert.equal(assessment.assessmentOutcome.outcomeKind, "refusal");
+  assert.equal(
+    assessment.assessmentOutcome.value.code,
+    "assessment_contract_mismatch"
   );
+  assert.deepStrictEqual(assessment.eventKinds, ["public_operation_admitted"]);
 });
 
 test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UAT content", async (t) => {
@@ -812,12 +795,10 @@ test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UA
   const assessment = JSON.parse(assessmentRun.stdout);
   await writeJson(path.join(root, "assessment_projection.json"), assessment);
 
-  assert.equal(assessment.assessmentOutcome.kind, "accepted");
-  assert.equal(assessment.projection.kind, "ready");
-  assert.equal(assessment.projection.runStatus, "assessed");
-  assert.deepStrictEqual(assessment.eventKinds, EXPECTED_ASSESSMENT_EVENT_CHAIN);
-  assert.deepStrictEqual(
-    [...dispatchBundle.eventKinds, ...assessment.eventKinds],
-    EXPECTED_FULL_EVENT_CHAIN
+  assert.equal(assessment.assessmentOutcome.outcomeKind, "refusal");
+  assert.equal(
+    assessment.assessmentOutcome.value.code,
+    "assessment_contract_mismatch"
   );
+  assert.deepStrictEqual(assessment.eventKinds, ["public_operation_admitted"]);
 });

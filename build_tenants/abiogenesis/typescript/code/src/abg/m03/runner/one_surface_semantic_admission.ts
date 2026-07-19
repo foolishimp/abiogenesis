@@ -49,12 +49,81 @@ import {
   type AssuranceProjection
 } from "../contracts/assurance.js";
 import type { EdgeAssuranceContractSelection } from "../contracts/edge_assurance_contract.js";
+import type { TargetCarrierContractBinding } from "../../../gtl/m01/contracts/target_carrier_contract.js";
 import {
   assertOneSurfaceAuthorityProgramBinding,
   type OneSurfaceAuthorityProgramBinding,
   type OneSurfaceStageAuthority
 } from "../contracts/one_surface_program_compiler.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+
+export type OneSurfaceClosurePolicy =
+  | EdgeAssuranceContractSelection
+  | TargetCarrierContractBinding;
+
+function closurePolicySelectionRef(input: {
+  readonly policy: OneSurfaceClosurePolicy;
+  readonly targetBinding: TargetObligationBinding;
+}): string {
+  if (input.policy.kind === "edge_assurance_contract_selection") {
+    return input.policy.selectionRef;
+  }
+  const digest = stableSha256Digest({
+    targetCarrierContractRef: input.policy.contractRef,
+    targetCarrierContractDigest: input.policy.configDigest,
+    targetBindingRef: input.targetBinding.bindingRef,
+    targetBindingDigest: input.targetBinding.bindingDigest
+  });
+  return `target-carrier-closure-selection:${digest}`;
+}
+
+function closurePolicyTerms(input: {
+  readonly policy: OneSurfaceClosurePolicy;
+  readonly targetBinding: TargetObligationBinding;
+  readonly stage: OneSurfaceStageAuthority<"evaluate_action">;
+}) {
+  if (input.policy.kind === "edge_assurance_contract_selection") {
+    if (input.policy.contract.hookRef !== input.stage.closureContract.ref) {
+      throw new TypeError(
+        "edge assurance hook differs from the evaluate_action closure contract"
+      );
+    }
+    return Object.freeze({
+      selectionRef: input.policy.selectionRef,
+      closureContractRef: input.stage.closureContract.ref,
+      targetOutcomeRef: input.policy.contract.targetOutcomeRef,
+      targetObligationBindingRefs:
+        input.policy.contract.targetObligationBindingRefs,
+      authoritySurfaceRefs: input.policy.contract.authoritySurfaceRefs,
+      admissibleEvidencePolicyRef:
+        input.policy.contract.admissibleEvidencePolicyRef,
+      admittedEvidenceKindRefs:
+        input.policy.contract.admittedEvidenceKindRefs,
+      closeDecisionSchemaRef: input.policy.contract.closeDecisionSchemaRef,
+      policyRefs: input.policy.contract.policyRefs
+    });
+  }
+  return Object.freeze({
+    selectionRef: closurePolicySelectionRef({
+      policy: input.policy,
+      targetBinding: input.targetBinding
+    }),
+    closureContractRef: input.policy.closurePreconditionRef,
+    targetOutcomeRef: input.targetBinding.targetOutcomeRef,
+    targetObligationBindingRefs: Object.freeze([
+      input.targetBinding.bindingRef
+    ]),
+    authoritySurfaceRefs: Object.freeze([]),
+    admissibleEvidencePolicyRef: input.policy.replayDigestPolicyRef,
+    admittedEvidenceKindRefs: Object.freeze([
+      input.policy.outputCarrierKind
+    ]),
+    closeDecisionSchemaRef: input.stage.nativeResultSchema.schemaRef,
+    policyRefs: Object.freeze([
+      input.policy.closurePreconditionRef
+    ])
+  });
+}
 
 function sameStringRefs(
   left: readonly string[],
@@ -300,7 +369,7 @@ export function oneSurfaceEvaluateActionInputBasis(input: {
   readonly invokedEvent: ConstructionGraphActionInvokedEvent;
   readonly workspaceBinding: OneSurfaceRefDigest;
   readonly admittedEvidence: readonly AdmittedOutputAuthorityProjection[];
-  readonly assuranceSelection: EdgeAssuranceContractSelection;
+  readonly assuranceSelection: OneSurfaceClosurePolicy;
   readonly assuranceProjection: AssuranceProjection;
   readonly priorLedger: EdgeFulfillmentLedger | null;
 }): OneSurfaceAuthorityInputBasis<"evaluate_action"> {
@@ -319,7 +388,10 @@ export function oneSurfaceEvaluateActionInputBasis(input: {
       input.invokedEvent.constructionEventRef,
       input.workspaceBinding.ref,
       input.workspaceBinding.digest,
-      input.assuranceSelection.selectionRef,
+      closurePolicySelectionRef({
+        policy: input.assuranceSelection,
+        targetBinding: input.targetBinding
+      }),
       input.assuranceProjection.projectionRef,
       ...evidenceRows.flatMap((row) => [
         row.projectionRef,
@@ -625,7 +697,7 @@ export function admitEvaluateActionResult(input: {
   readonly invokedEvent: ConstructionGraphActionInvokedEvent;
   readonly workspaceBinding: OneSurfaceRefDigest;
   readonly admittedEvidence: readonly AdmittedOutputAuthorityProjection[];
-  readonly assuranceSelection: EdgeAssuranceContractSelection;
+  readonly assuranceSelection: OneSurfaceClosurePolicy;
   readonly assuranceProjection: AssuranceProjection;
   readonly priorLedger: EdgeFulfillmentLedger | null;
 }): OneSurfaceActionEvaluation | OneSurfaceTypedRefusal<"evaluate_action"> {
@@ -647,11 +719,16 @@ export function admitEvaluateActionResult(input: {
     if (isOneSurfaceTypedRefusal(decoded)) {
       return decoded;
     }
-    if (decoded.closureContractRef !== stage.closureContract.ref) {
-      return refusal("evaluate_action", "evaluate_action_evidence_or_policy_mismatch");
-    }
     assertOneSurfaceConstructionIntentAdmission(input.intentAdmission);
     assertTargetObligationBinding(input.targetBinding);
+    const closurePolicy = closurePolicyTerms({
+      policy: input.assuranceSelection,
+      targetBinding: input.targetBinding,
+      stage
+    });
+    if (decoded.closureContractRef !== closurePolicy.closureContractRef) {
+      return refusal("evaluate_action", "evaluate_action_evidence_or_policy_mismatch");
+    }
     const intent = input.intentAdmission.constructionIntentAdmission.admittedIntent;
     if (
       input.intentAdmission.status !== "admitted" ||
@@ -685,18 +762,28 @@ export function admitEvaluateActionResult(input: {
       return refusal("evaluate_action", "evaluate_action_invocation_causation_mismatch");
     }
 
-    const resultScope = input.result.admittedOutput.scope;
+    const executionScope = Object.freeze({
+      kind: "payload_ledger_scope" as const,
+      basisId: input.assuranceProjection.scope.basisId,
+      graphFunctionId: input.assuranceProjection.scope.graphFunctionId,
+      graphCallId: input.invokedEvent.graphCallId,
+      frameId: input.invokedEvent.frameId,
+      vectorIndex: input.assuranceProjection.scope.vectorIndex,
+      edge: input.assuranceProjection.scope.edge
+    });
     if (
-      resultScope.basisId !== input.invokedEvent.basisId ||
-      resultScope.graphFunctionId !== input.invokedEvent.graphFunctionId ||
-      resultScope.graphCallId !== input.invokedEvent.graphCallId ||
-      resultScope.frameId !== input.invokedEvent.frameId ||
-      !sameAssuranceScope(resultScope, input.assuranceProjection.scope)
+      input.invokedEvent.selectedGraphFunctionRef !==
+        input.assuranceProjection.scope.graphFunctionId ||
+      input.invokedEvent.graphCallId !==
+        input.assuranceProjection.scope.graphCallId ||
+      input.invokedEvent.frameId !== input.assuranceProjection.scope.frameId ||
+      input.invokedEvent.continuationId !==
+        input.assuranceProjection.scope.continuationId ||
+      !sameAssuranceScope(executionScope, input.assuranceProjection.scope)
     ) {
       return refusal("evaluate_action", "evaluate_action_execution_scope_mismatch");
     }
 
-    const contract = input.assuranceSelection.contract;
     const intentAuthorityRefs = new Set([
       ...intent.authorityRefs,
       ...intent.lawfulBasisRefs
@@ -705,15 +792,19 @@ export function admitEvaluateActionResult(input: {
       input.assuranceProjection.authoritySnapshot.policyRefs
     );
     if (
-      input.assuranceSelection.selectionRef.length === 0 ||
-      contract.hookRef !== stage.closureContract.ref ||
-      contract.closeDecisionSchemaRef !== stage.nativeResultSchema.schemaRef ||
-      contract.targetOutcomeRef !== intent.selectedOutcomeRef ||
-      contract.targetObligationBindingRefs.length !== 1 ||
-      contract.targetObligationBindingRefs[0] !==
+      closurePolicy.selectionRef.length === 0 ||
+      closurePolicy.closeDecisionSchemaRef !== stage.nativeResultSchema.schemaRef ||
+      closurePolicy.targetOutcomeRef !== intent.selectedOutcomeRef ||
+      closurePolicy.targetObligationBindingRefs.length !== 1 ||
+      closurePolicy.targetObligationBindingRefs[0] !==
         input.targetBinding.bindingRef ||
-      !contract.authoritySurfaceRefs.every((ref) => intentAuthorityRefs.has(ref)) ||
-      ![contract.admissibleEvidencePolicyRef, ...contract.policyRefs].every((ref) =>
+      !closurePolicy.authoritySurfaceRefs.every((ref) =>
+        intentAuthorityRefs.has(ref)
+      ) ||
+      ![
+        closurePolicy.admissibleEvidencePolicyRef,
+        ...closurePolicy.policyRefs
+      ].every((ref) =>
         assurancePolicyRefs.has(ref)
       ) ||
       input.assuranceProjection.authoritySnapshot.closureCapable !== true
@@ -731,7 +822,9 @@ export function admitEvaluateActionResult(input: {
     ) {
       return refusal("evaluate_action", "evaluate_action_evidence_incomplete");
     }
-    const admittedKindRefs = new Set(contract.admittedEvidenceKindRefs);
+    const admittedKindRefs = new Set(closurePolicy.admittedEvidenceKindRefs);
+    const assuranceAuthoritySnapshot =
+      input.assuranceProjection.authoritySnapshot;
     const assuranceEvidenceByRef = new Map(
       input.assuranceProjection.evidenceRows.map((row) => [row.evidenceRef, row])
     );
@@ -745,31 +838,34 @@ export function admitEvaluateActionResult(input: {
     const evidenceRefs: string[] = [];
     for (const row of evidenceRows) {
       const evidenceKindRef = row.payloadClass ?? row.targetCarrierContractRef;
+      const admittedRowEvidenceRefs = row.evidenceRefs.filter((evidenceRef) =>
+        assuranceEvidenceByRef.has(evidenceRef)
+      );
       if (
         row.status === "missing" ||
-        !samePayloadScope(row.scope, resultScope) ||
+        !samePayloadScope(row.scope, executionScope) ||
         !admittedKindRefs.has(evidenceKindRef) ||
-        row.evidenceRefs.length === 0 ||
-        new Set(row.evidenceRefs).size !== row.evidenceRefs.length
+        admittedRowEvidenceRefs.length === 0 ||
+        new Set(admittedRowEvidenceRefs).size !==
+          admittedRowEvidenceRefs.length
       ) {
         return refusal("evaluate_action", "evaluate_action_evidence_incomplete");
       }
       observedKindRefs.add(evidenceKindRef);
-      for (const evidenceRef of row.evidenceRefs) {
+      for (const evidenceRef of admittedRowEvidenceRefs) {
         const assuranceEvidence = assuranceEvidenceByRef.get(evidenceRef);
         if (
           assuranceEvidence === undefined ||
           row.authorityRef === null ||
           row.inputDigest === null ||
           assuranceEvidence.authorityRef !== row.authorityRef ||
+          row.authorityRef !==
+            assuranceAuthoritySnapshot.authoritySnapshotRef ||
           assuranceEvidence.authorityDigest !==
-            input.assuranceProjection.authoritySnapshot.authorityDigest ||
+            assuranceAuthoritySnapshot.authorityDigest ||
           assuranceEvidence.inputDigest !== row.inputDigest ||
           row.inputDigest !==
-            input.assuranceProjection.authoritySnapshot.inputDigest ||
-          !input.assuranceProjection.authoritySnapshot.authorityRefs.includes(
-            row.authorityRef
-          )
+            assuranceAuthoritySnapshot.inputDigest
         ) {
           return refusal(
             "evaluate_action",
@@ -782,10 +878,12 @@ export function admitEvaluateActionResult(input: {
     if (new Set(evidenceRefs).size !== evidenceRefs.length) {
       return refusal("evaluate_action", "evaluate_action_evidence_duplicate");
     }
-    const evidenceRefSet = new Set(evidenceRefs);
+    const evidenceAuthorityRefSet = new Set(
+      assuranceAuthoritySnapshot.authorityRefs
+    );
     if (
-      input.targetBinding.requiredEvidenceRefs.some(
-        (evidenceRef) => !evidenceRefSet.has(evidenceRef)
+      input.targetBinding.requiredEvidenceAuthorityRefs.some(
+        (authorityRef) => !evidenceAuthorityRefSet.has(authorityRef)
       )
     ) {
       return refusal("evaluate_action", "evaluate_action_evidence_incomplete");
@@ -840,15 +938,15 @@ export function admitEvaluateActionResult(input: {
       invocationEventRef: input.invokedEvent.constructionEventRef,
       workspaceBinding: input.workspaceBinding,
       executionScope: Object.freeze({
-        basisId: resultScope.basisId,
-        graphFunctionId: resultScope.graphFunctionId,
-        graphCallId: resultScope.graphCallId,
-        frameId: resultScope.frameId,
-        vectorIndex: resultScope.vectorIndex,
-        edge: resultScope.edge
+        basisId: executionScope.basisId,
+        graphFunctionId: executionScope.graphFunctionId,
+        graphCallId: executionScope.graphCallId,
+        frameId: executionScope.frameId,
+        vectorIndex: executionScope.vectorIndex,
+        edge: executionScope.edge
       }),
-      assuranceSelectionRef: input.assuranceSelection.selectionRef,
-      assuranceContractDigest: contract.configDigest,
+      assuranceSelectionRef: closurePolicy.selectionRef,
+      assuranceContractDigest: stableSha256Digest(closurePolicy),
       assuranceProjectionRef: input.assuranceProjection.projectionRef,
       admittedEvidenceProjectionRefs: projectionRefs,
       evidenceRefs: frozenEvidenceRefs,
@@ -871,9 +969,10 @@ export function admitEvaluateActionResult(input: {
         input.priorLedger.workspaceBinding.digest !== input.workspaceBinding.digest ||
         input.priorLedger.admittedProgram.ref !== input.program.admittedProgramRef ||
         input.priorLedger.admittedProgram.digest !== input.program.admittedProgramDigest ||
-        input.priorLedger.closureContractRef !== stage.closureContract.ref ||
+        input.priorLedger.closureContractRef !==
+          closurePolicy.closureContractRef ||
         input.priorLedger.assuranceSelectionRef !==
-          input.assuranceSelection.selectionRef ||
+          closurePolicy.selectionRef ||
         input.priorLedger.evidenceViewDigest === evidenceView.viewDigest
       ) {
         return refusal("evaluate_action", "evaluate_action_prior_ledger_stale");
@@ -892,17 +991,17 @@ export function admitEvaluateActionResult(input: {
         ref: input.result.resultRef,
         digest: input.result.resultDigest
       }),
-      closureContractRef: stage.closureContract.ref,
+      closureContractRef: closurePolicy.closureContractRef,
       evidenceViewRef: evidenceView.viewRef,
       evidenceViewDigest: evidenceView.viewDigest,
-      assuranceSelectionRef: input.assuranceSelection.selectionRef,
+      assuranceSelectionRef: closurePolicy.selectionRef,
       assuranceProjectionRef: input.assuranceProjection.projectionRef,
       evidenceRefs: frozenEvidenceRefs
     });
     const decision = constructEdgeClosureDecision({
       ledgerRef: ledger.ledgerRef,
       ledgerDigest: ledger.ledgerDigest,
-      closureContractRef: stage.closureContract.ref,
+      closureContractRef: closurePolicy.closureContractRef,
       assuranceDecisionDigest: stableSha256Digest(assuranceDecision),
       disposition: decoded.disposition,
       reasonRefs: decoded.reasonRefs

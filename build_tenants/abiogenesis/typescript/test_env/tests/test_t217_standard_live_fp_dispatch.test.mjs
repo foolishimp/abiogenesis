@@ -37,12 +37,19 @@ function capabilityWith(script, overrides = {}) {
 }
 
 function pluginInput(manifest, cCallRef = "c-call://t217/live-fp-pin/default") {
+  const identity = cCallRef ?? "null-c-call";
   return {
     basisId: "basis://t217/live-fp-pin",
     vectorIndex: 0,
     sourceProjectionRef: "projection://t217/pin",
     instructionPromptManifest: manifest,
-    cCallRef
+    cCallRef,
+    actorInvocationRef: {
+      actorInvocationId: `actor-invocation:${identity}`,
+      attemptIndex: 0,
+      dispatchRef: `dispatch:${identity}`,
+      resultRef: `result:${identity}`
+    }
   };
 }
 
@@ -80,10 +87,21 @@ function dispatchScript(prefix = "") {
         blocking_reasons: [],
         evidence_refs: ["evidence://t217/dispatch"]
       }
-    ]
+    ],
+    target_value: { message: "live transform target" }
   };
   const emit = `console.log(${JSON.stringify(JSON.stringify(artifact))})`;
   return prefix.length === 0 ? emit : `${prefix};${emit}`;
+}
+
+function dispatchScriptWithoutTarget() {
+  const artifact = {
+    result_contract_ref: RESULT_CONTRACT_REF,
+    edge: "source->target",
+    actor: "worker://t217",
+    fulfillment_assessments: []
+  };
+  return `console.log(${JSON.stringify(JSON.stringify(artifact))})`;
 }
 
 test("live fp dispatch: contract ref is the catalog identity", () => {
@@ -110,7 +128,8 @@ test("live fp dispatch: transport failure is typed blocked with the retry-allowl
   assert.equal(outcome.status, "blocked");
   assert.match(outcome.reason, /transport failed/u);
   assert.match(outcome.reason, /failureClass=/u);
-  assert.equal(outcome.attachedResultArtifact.kind, "live_fp_transport_failure");
+  assert.equal(outcome.resultArtifactCandidate, null);
+  assert.equal(outcome.targetValueCandidate, null);
 });
 
 test("live fp dispatch: unparsable worker output is typed blocked contract_failure", async () => {
@@ -121,7 +140,8 @@ test("live fp dispatch: unparsable worker output is typed blocked contract_failu
   assert.equal(outcome.status, "blocked");
   assert.match(outcome.reason, /unparsable/u);
   assert.match(outcome.reason, /contract_failure/u);
-  assert.equal(outcome.attachedResultArtifact.kind, "live_fp_output_unparsable");
+  assert.equal(outcome.resultArtifactCandidate, null);
+  assert.equal(outcome.targetValueCandidate, null);
 });
 
 test("live fp dispatch: worker JSON object dispatches with the parsed artifact attached", async () => {
@@ -130,12 +150,31 @@ test("live fp dispatch: worker JSON object dispatches with the parsed artifact a
   );
   const outcome = await plugin.dispatch(pluginInput(MANIFEST));
   assert.equal(outcome.status, "dispatched");
-  assert.match(outcome.resultRef, /^result:live_fp_dispatch:live-fp-dispatch-[0-9a-f]{64}$/u);
+  assert.equal(outcome.resultRef, "result:c-call://t217/live-fp-pin/default");
   assert.equal(
-    outcome.attachedResultArtifact.result_contract_ref,
+    outcome.resultArtifactCandidate.result_contract_ref,
     RESULT_CONTRACT_REF
   );
-  assert.equal(outcome.attachedResultArtifact.edge, "source->target");
+  assert.equal(outcome.resultArtifactCandidate.edge, "source->target");
+  assert.equal(
+    outcome.targetValueCandidate.message,
+    "live transform target"
+  );
+  assert.equal(
+    Object.hasOwn(outcome.resultArtifactCandidate, "target_value"),
+    false
+  );
+});
+
+test("live fp dispatch: evidence without target B is a contract failure", async () => {
+  const outcome = await standardLiveFpDispatchPlugin(
+    capabilityWith(dispatchScriptWithoutTarget())
+  ).dispatch(pluginInput(MANIFEST));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /missing required fields: target_value/u);
+  assert.match(outcome.reason, /contract_failure/u);
+  assert.equal(outcome.resultArtifactCandidate, null);
+  assert.equal(outcome.targetValueCandidate, null);
 });
 
 test("live fp dispatch: capability time budget is admitted (HANDLERS-008)", () => {
@@ -180,6 +219,17 @@ test("live fp evaluator: accepted review with attested ids evaluates fulfilled/c
   assert.equal(outcome.ambiguityStatus, "fulfilled");
   assert.equal(outcome.findings[0].closeDisposition, "close");
   assert.equal(outcome.findings[0].executiveDisposition, "close_candidate");
+});
+
+test("live fp evaluator: target_value is outside the review profile", async () => {
+  const outcome = await standardLiveFpEvaluatorPlugin(
+    capabilityWith(
+      reviewScript({ target_value: { message: "wrong evaluator locus" } })
+    )
+  ).evaluate(evaluatorInput(MANIFEST));
+  assert.equal(outcome.status, "blocked");
+  assert.match(outcome.reason, /undeclared fields: target_value/u);
+  assert.match(outcome.reason, /contract_failure/u);
 });
 
 test("live fp evaluator: a worker cannot accept by omission — unattested expected ids force retry", async () => {
@@ -271,11 +321,11 @@ test("F2: distinct invocations never collide — attempt and invocation id key t
   const { readdirSync } = await import("node:fs");
   const inputA = {
     ...pluginInput(MANIFEST, "c-call://t217/f2/a"),
-    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 0, dispatchRef: "d://a", resultRef: null }
+    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 0, dispatchRef: "d://a", resultRef: "result://a" }
   };
   const inputB = {
     ...pluginInput(MANIFEST, "c-call://t217/f2/b"),
-    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 1, dispatchRef: "d://b", resultRef: null }
+    actorInvocationRef: { actorInvocationId: "inv://a", attemptIndex: 1, dispatchRef: "d://b", resultRef: "result://b" }
   };
   const outcomeA = await plugin.dispatch(inputA);
   const outcomeB = await plugin.dispatch(inputB);
@@ -393,7 +443,11 @@ test("R5-3: identical c-call verifies and reuses its completed bundle without re
   const bundles = readdirSync(path.join(cap.archiveRoot, "by-c-call"));
   assert.equal(bundles.length, 1, "one c-call owns exactly one bundle");
   assert.equal(readFileSync(path.join(cap.cwd, "worker-count"), "utf8"), "x");
-  assert.match(a.resultRef, /[0-9a-f]{64}$/u, "full-length hash, no truncation");
+  assert.equal(
+    a.resultRef,
+    bare.actorInvocationRef.resultRef,
+    "the admitted result keeps the actor invocation's exact result identity"
+  );
 });
 
 test("R5-3: completion refuses an unknown sibling without rerunning", async () => {

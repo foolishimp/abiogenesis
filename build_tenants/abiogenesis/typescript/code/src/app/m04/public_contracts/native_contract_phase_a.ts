@@ -352,6 +352,16 @@ export const publicContractCoordinateSchema = v.strictObject({
 });
 
 /** @internal */
+export const publicInvocationContractIdentitySchema = v.strictObject({
+  contractId: contractIdSchema,
+  contractVersion: semanticVersionSchema,
+  contractDigest: sha256DigestSchema,
+  schemaId: contractIdSchema,
+  schemaVersion: semanticVersionSchema,
+  schemaDigest: sha256DigestSchema
+});
+
+/** @internal */
 export const publicContractCatalogCoordinateSchema = v.strictObject({
   kind: v.literal("public_contract_catalog_coordinate"),
   catalogId: contractIdSchema,
@@ -375,6 +385,10 @@ export const publicContractCatalogSchema = v.strictObject({
 /** @internal */
 export type PublicContractCoordinate = v.InferOutput<
   typeof publicContractCoordinateSchema
+>;
+/** @internal */
+export type PublicInvocationContractIdentity = v.InferOutput<
+  typeof publicInvocationContractIdentitySchema
 >;
 /** @internal */
 export type PublicContractCatalogCoordinate = v.InferOutput<
@@ -416,6 +430,26 @@ export function admitPublicContractCoordinate(
     throw new TypeError("public contract coordinate: asset digest mismatch");
   }
   return coordinate;
+}
+
+/** @internal */
+export function projectPublicInvocationContractIdentity(
+  input: unknown
+): PublicInvocationContractIdentity {
+  const identity = admitNative(publicInvocationContractIdentitySchema, {
+    contractId: ownDataValue(input, "contractId"),
+    contractVersion: ownDataValue(input, "contractVersion"),
+    contractDigest: ownDataValue(input, "contractDigest"),
+    schemaId: ownDataValue(input, "schemaId"),
+    schemaVersion: ownDataValue(input, "schemaVersion"),
+    schemaDigest: ownDataValue(input, "schemaDigest")
+  });
+  if (identity.contractDigest !== identity.schemaDigest) {
+    throw new TypeError(
+      "public invocation contract identity: contract/schema digest mismatch"
+    );
+  }
+  return freezeNativeValue(identity);
 }
 
 function contractCoordinateIdentity(row: PublicContractCoordinate): string {
@@ -1118,13 +1152,15 @@ function publicInvocationBasisSchema<
     definitionDigest: sha256DigestSchema,
     contractCatalog: publicContractCatalogCoordinateSchema,
     authority: invocationAuthoritySchema(keySchema),
-    requestContract: publicContractCoordinateSchema,
+    requestContract: publicInvocationContractIdentitySchema,
     requestRef: refSchema,
     requestDigest: sha256DigestSchema,
     request: requestSchema,
-    expectedResultContract: publicContractCoordinateSchema,
-    expectedRefusalContract: publicContractCoordinateSchema,
-    expectedNonTerminalContract: v.nullable(publicContractCoordinateSchema),
+    expectedResultContract: publicInvocationContractIdentitySchema,
+    expectedRefusalContract: publicInvocationContractIdentitySchema,
+    expectedNonTerminalContract: v.nullable(
+      publicInvocationContractIdentitySchema
+    ),
     correlationRef: refSchema,
     provenanceRefs: uniqueByIdentityArray(refSchema)
   });
@@ -1148,10 +1184,10 @@ export interface PublicInvocationExpectation<K extends DefinitionKey> {
   readonly definitionKey: K;
   readonly definitionDigest: string;
   readonly contractCatalog: PublicContractCatalogCoordinate;
-  readonly requestContract: PublicContractCoordinate;
-  readonly resultContract: PublicContractCoordinate;
-  readonly refusalContract: PublicContractCoordinate;
-  readonly nonTerminalContract: PublicContractCoordinate | null;
+  readonly requestContract: PublicInvocationContractIdentity;
+  readonly resultContract: PublicInvocationContractIdentity;
+  readonly refusalContract: PublicInvocationContractIdentity;
+  readonly nonTerminalContract: PublicInvocationContractIdentity | null;
   readonly authority: InvocationAuthorityExpectation<K>;
 }
 
@@ -1176,16 +1212,6 @@ export function admitPublicInvocation<
     raw: Reflect.get(invocation, "definitionKey"),
     label: "public invocation definition key"
   });
-  for (const coordinate of [
-    invocation.requestContract,
-    invocation.expectedResultContract,
-    invocation.expectedRefusalContract,
-    invocation.expectedNonTerminalContract
-  ]) {
-    if (coordinate !== null) {
-      admitPublicContractCoordinate(coordinate);
-    }
-  }
   const authority = invocation.authority;
   if (authority === undefined) {
     throw new TypeError("public invocation: authority is required");
@@ -1219,10 +1245,30 @@ export function admitPublicInvocation<
   for (const [label, actual, expected] of [
     ["catalog", invocation.contractCatalog, input.expected.contractCatalog],
     ["authority catalog", authority.contractCatalog, input.expected.contractCatalog],
-    ["request contract", invocation.requestContract, input.expected.requestContract],
-    ["result contract", invocation.expectedResultContract, input.expected.resultContract],
-    ["refusal contract", invocation.expectedRefusalContract, input.expected.refusalContract],
-    ["nonterminal contract", invocation.expectedNonTerminalContract, input.expected.nonTerminalContract]
+    [
+      "request contract",
+      invocation.requestContract,
+      projectPublicInvocationContractIdentity(input.expected.requestContract)
+    ],
+    [
+      "result contract",
+      invocation.expectedResultContract,
+      projectPublicInvocationContractIdentity(input.expected.resultContract)
+    ],
+    [
+      "refusal contract",
+      invocation.expectedRefusalContract,
+      projectPublicInvocationContractIdentity(input.expected.refusalContract)
+    ],
+    [
+      "nonterminal contract",
+      invocation.expectedNonTerminalContract,
+      input.expected.nonTerminalContract === null
+        ? null
+        : projectPublicInvocationContractIdentity(
+            input.expected.nonTerminalContract
+          )
+    ]
   ] as const) {
     assertSameValue(actual, expected, `public invocation ${label}`);
   }
@@ -1280,12 +1326,30 @@ export function constructPublicInvocation<
     v.InferOutput<KeySchema>
   >;
 }) {
+  const projectedBasis = {
+    ...input.basis,
+    requestContract: projectPublicInvocationContractIdentity(
+      input.basis.requestContract
+    ),
+    expectedResultContract: projectPublicInvocationContractIdentity(
+      input.basis.expectedResultContract
+    ),
+    expectedRefusalContract: projectPublicInvocationContractIdentity(
+      input.basis.expectedRefusalContract
+    ),
+    expectedNonTerminalContract:
+      input.basis.expectedNonTerminalContract === null
+        ? null
+        : projectPublicInvocationContractIdentity(
+            input.basis.expectedNonTerminalContract
+          )
+  };
   const basis = admitNative(
     publicInvocationBasisSchema(
       input.definitionKeySchema,
       input.requestSchema
     ),
-    input.basis
+    projectedBasis
   );
   const expectedDefinitionKey = admitExactDefinitionKey({
     schema: input.definitionKeySchema,

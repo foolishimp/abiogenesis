@@ -5,7 +5,6 @@ import {
   projectDispatchExpectedEdge
 } from "../../../shared/abg_library/index.js";
 import {
-  isPlainObject,
   parseNonEmptyString,
   parseOptionalField,
   parsePlainObject,
@@ -22,7 +21,6 @@ import type {
   RuntimeFailureClass
 } from "./carriers.js";
 import { RUNTIME_FAILURE_CLASS_VALUES } from "../contracts/index.js";
-import { requireFpResultContractEnvelope } from "../contracts/fp_result_contract_admission.js";
 
 const FULFILLMENT_STATUSES = Object.freeze([
   "fulfilled",
@@ -30,6 +28,16 @@ const FULFILLMENT_STATUSES = Object.freeze([
   "blocked",
   "unfulfilled"
 ] satisfies readonly FulfillmentStatus[]);
+
+type ResultArtifactAdmissionExpectation = Pick<
+  DispatchRequest,
+  | "basisId"
+  | "dispatchRef"
+  | "resultRef"
+  | "selectedResultContractRef"
+  | "expectedEdge"
+  | "expectedAssessmentIds"
+>;
 
 function assertClosedFields(
   input: Readonly<Record<string, unknown>>,
@@ -133,7 +141,7 @@ function parseTransportContract(
 }
 
 function normalizeArtifactIdentityIssues(
-  request: DispatchRequest,
+  request: ResultArtifactAdmissionExpectation,
   edge: string,
   observedAssessmentIds: readonly string[]
 ): readonly string[] {
@@ -229,23 +237,37 @@ function parseArtifactAssessment(
 }
 
 function parseNormalizedArtifactPayload(
-  request: DispatchRequest,
+  request: ResultArtifactAdmissionExpectation,
   input: unknown,
   label: string
 ): ResultArtifact {
-  const contractIdentitySubmitted =
-    isPlainObject(input) && Object.hasOwn(input, "result_contract_ref");
-  const admittedEnvelope =
-    request.selectedResultContractRef === null || !contractIdentitySubmitted
-      ? null
-      : requireFpResultContractEnvelope({
-          profile: "attached_result_artifact",
-          selectedResultContractRef: request.selectedResultContractRef,
-          rawResult: input,
-          label
-        });
-  const payload =
-    admittedEnvelope?.payload ?? parsePlainObject(input, label);
+  const payload = parsePlainObject(input, label);
+  const submittedResultContractRef = Object.hasOwn(
+    payload,
+    "result_contract_ref"
+  )
+    ? parseNonEmptyString(
+        payload["result_contract_ref"],
+        `${label}.result_contract_ref`
+      )
+    : null;
+  if (
+    request.selectedResultContractRef !== null &&
+    submittedResultContractRef === null
+  ) {
+    throw new TypeError(
+      `${label}.result_contract_ref: required for the selected result contract`
+    );
+  }
+  if (
+    request.selectedResultContractRef !== null &&
+    submittedResultContractRef !== null &&
+    submittedResultContractRef !== request.selectedResultContractRef
+  ) {
+    throw new TypeError(
+      `${label}.result_contract_ref: does not match the selected result contract`
+    );
+  }
   const edge = parseNonEmptyString(payload["edge"], `${label}.edge`);
   const rawAssessments = parseOptionalField(payload, "fulfillment_assessments");
   if (rawAssessments === undefined) {
@@ -273,7 +295,7 @@ function parseNormalizedArtifactPayload(
     dispatchRef: request.dispatchRef,
     resultRef: request.resultRef,
     resultContractRef:
-      admittedEnvelope?.resultContractRef ?? request.selectedResultContractRef,
+      submittedResultContractRef ?? request.selectedResultContractRef,
     artifactPayload: {
       edge,
       actor: parseNonEmptyString(payload["actor"], `${label}.actor`),
@@ -319,7 +341,7 @@ function parseNormalizedArtifactPayload(
 }
 
 function parseRuntimeFailureArtifact(
-  request: DispatchRequest,
+  request: ResultArtifactAdmissionExpectation,
   input: unknown,
   label: string
 ): ResultArtifact {
@@ -430,7 +452,7 @@ export function admitDispatchRequest(
 }
 
 export function admitResultArtifact(
-  request: DispatchRequest,
+  request: ResultArtifactAdmissionExpectation,
   input: unknown,
   label = "ResultArtifact"
 ): ResultArtifact {

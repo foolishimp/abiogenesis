@@ -5,7 +5,9 @@ import type {
   PrivatePublicOperationIngressAdmissionWitness
 } from "../../code/src/abg/m03/contracts/private_public_operation_ingress.js";
 import {
-  admitPrivateP1PublicOperationIngress
+  admitPrivateP1PublicOperationIngress,
+  admitPrivateP1PublicOperationPacket,
+  assertAdmittedPrivateP1PublicOperationPacket
 } from "../../code/src/app/m04/public_contracts/private_public_operation_ingress.js";
 import type {
   PrivatePublicOperationDefinitionFamily
@@ -34,6 +36,20 @@ const witness = admitPrivateP1PublicOperationIngress({
 const exactKey: typeof definition.definitionKey = witness.definitionKey;
 void exactKey;
 
+const packet = admitPrivateP1PublicOperationPacket({
+  family,
+  definition,
+  rawInvocation,
+  causationEventRefs: [],
+  priorEvents: []
+});
+assertAdmittedPrivateP1PublicOperationPacket(packet, definition);
+const packetExactKey: typeof definition.definitionKey =
+  packet.invocation.definitionKey;
+void packetExactKey;
+const admittedRequest = packet.invocation.request;
+void admittedRequest;
+
 declare const allWitnesses:
   PrivatePublicOperationIngressAdmissionWitness<DefinitionKey>;
 const allExactKeys: DefinitionKey = allWitnesses.definitionKey;
@@ -47,7 +63,6 @@ witness.eventId;
 
 admitPrivateP1PublicOperationIngress({
   family,
-  // @ts-expect-error project.read is statically event-free in P1 metadata
   definition: family["abg.operation.project.read"].ticket_consensus,
   rawInvocation,
   causationEventRefs: [],

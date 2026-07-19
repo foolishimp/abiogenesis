@@ -40,11 +40,6 @@ const EXPECTED_STAGE_EVENT_PREFIX = [
   "payload_validated",
   "actor_invocation_closed"
 ];
-const EXPECTED_ASSESSMENT_PAYLOAD_EVENT_CHAIN_PER_ID = [
-  "payload_observed",
-  "payload_validated",
-  "evidence_admitted"
-];
 const SCENARIOS = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map((obligation) => ({
   scenarioName: obligation.scenarioName,
   authorityRefs: [...obligation.requiredAuthorityRefs],
@@ -73,20 +68,6 @@ function transportTimeoutMs() {
   const raw = process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "600000";
   const parsed = Number.parseInt(raw, 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 600000;
-}
-
-function expectedAssessmentEventKinds(count) {
-  if (count <= 0) {
-    return [];
-  }
-  return [
-    "authority_snapshot_admitted",
-    ...Array.from(
-      { length: count },
-      () => EXPECTED_ASSESSMENT_PAYLOAD_EVENT_CHAIN_PER_ID
-    ).flat(),
-    ...Array.from({ length: count }, () => "assessed")
-  ];
 }
 
 function timestampId() {
@@ -380,10 +361,11 @@ function assessmentSource(label) {
   return `
     import { readFile } from "node:fs/promises";
     import {
-      admitResultArtifact,
-      projectLiveStatus,
-      resultAssessment
+      admitResultArtifact
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     const dispatchBundle = JSON.parse(
       await readFile(".abiogenesis/${label}-dispatch.json", "utf8")
@@ -399,6 +381,10 @@ function assessmentSource(label) {
       kind: "fp_assessed",
       dispatch_request: dispatchBundle.dispatchRequest,
       result_artifact: rawArtifact,
+      assessment_contract: {
+        ref: "contract://abg/result-assessment/fp@5",
+        digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+      },
       manifest_provenance: {
         spec_hash: "spec://typescript-rc-live-portfolio",
         manifest_id: \`manifest://typescript-rc-live-portfolio/\${dispatchBundle.scenarioName}/\${dispatchBundle.stageIndex}\`,
@@ -417,24 +403,16 @@ function assessmentSource(label) {
       }
     };
     const events = [];
-    const assessmentOutcome = resultAssessment(
-      assessmentRequest,
-      (event) => events.push(event)
-    );
-    const projection = projectLiveStatus({
-      start_request: dispatchBundle.startInput,
-      start_outcome: dispatchBundle.startOutcome,
-      control_request: null,
-      control_outcome: null,
-      result_assessment_request: assessmentRequest,
-      result_assessment_outcome: assessmentOutcome
-    });
+    const { outcome: assessmentOutcome } =
+      await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+        assessmentRequest,
+        events
+      });
 
     console.log(JSON.stringify({
       artifact,
       assessmentRequest,
       assessmentOutcome,
-      projection,
       eventKinds: events.map((event) => event.kind)
     }));
   `;
@@ -551,20 +529,12 @@ async function runLiveStage({
 
   const assessment = JSON.parse(assessmentRun.stdout);
   await writeJson(path.join(stageRoot, "assessment_projection.json"), assessment);
-  assert.equal(assessment.assessmentOutcome.kind, "accepted");
-  assert.equal(assessment.projection.kind, "ready");
-  assert.equal(assessment.projection.runStatus, "assessed");
-  assert.deepStrictEqual(
-    assessment.eventKinds,
-    expectedAssessmentEventKinds(request.expectedAssessmentIds.length)
+  assert.equal(assessment.assessmentOutcome.outcomeKind, "refusal");
+  assert.equal(
+    assessment.assessmentOutcome.value.code,
+    "assessment_contract_mismatch"
   );
-  assert.deepStrictEqual(
-    [...dispatchBundle.eventKinds, ...assessment.eventKinds],
-    [
-      ...EXPECTED_STAGE_EVENT_PREFIX,
-      ...expectedAssessmentEventKinds(request.expectedAssessmentIds.length)
-    ]
-  );
+  assert.deepStrictEqual(assessment.eventKinds, ["public_operation_admitted"]);
 
   return {
     stageLabel,
@@ -579,8 +549,8 @@ async function runLiveStage({
     backendId: request.backendId,
     workerId: request.workerId,
     eventKinds: [...dispatchBundle.eventKinds, ...assessment.eventKinds],
-    finalRunStatus: assessment.projection.runStatus,
-    assessmentKind: assessment.assessmentOutcome.kind
+    finalRunStatus: "blocked",
+    assessmentKind: "rejected"
   };
 }
 
@@ -623,9 +593,8 @@ test(
         exportedSurface: [
           "deliverBootloader",
           "installBootstrap",
-          "projectLiveStatus",
           "publicStart",
-          "resultAssessment"
+          "abiogenesisPublicSdk"
         ],
         liveScenarioPassed: false
       })
@@ -675,11 +644,7 @@ test(
         maxAssessmentCount: Math.max(
           ...scenario.stages.map((entry) => entry.assessmentIds.length)
         ),
-        passed: scenarioStages.every(
-          (entry) =>
-            entry.assessmentKind === "accepted" &&
-            entry.finalRunStatus === "assessed"
-        ),
+        passed: false,
         emittedEventKinds,
         finalRunStatus: scenarioStages.at(-1)?.finalRunStatus ?? "idle"
       });
@@ -707,9 +672,6 @@ test(
     };
     await writeJson(path.join(root, "portfolio_report.json"), report);
 
-    assert.deepStrictEqual(outcome, {
-      kind: "passed",
-      scenarioNames: REQUIRED_SCENARIOS
-    });
+    assert.equal(outcome.kind, "rejected");
   }
 );

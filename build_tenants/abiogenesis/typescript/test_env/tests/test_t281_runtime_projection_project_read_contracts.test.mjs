@@ -80,7 +80,8 @@ function canonicalRunEvents() {
       resolvedRuntimeRef: "runtime://typescript/node",
       resolvedPolicyBundleRef: "policy://t281/runtime-projection",
       runId: RUN,
-      workKey: "work://t281/runtime-projection"
+      workKey: "work://t281/runtime-projection",
+      startAdmissionWitnessDigest: null
     },
     {
       kind: "basis_admitted",
@@ -90,7 +91,8 @@ function canonicalRunEvents() {
       resolvedRuntimeRef: "runtime://typescript/node",
       resolvedPolicyBundleRef: "policy://t281/runtime-projection",
       runId: RUN,
-      workKey: "work://t281/runtime-projection"
+      workKey: "work://t281/runtime-projection",
+      startAdmissionWitnessDigest: null
     }
   ], () => {});
 }

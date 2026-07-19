@@ -1,4 +1,7 @@
-import type { RuntimeEvent } from "../../../abg/m03/contracts/carriers.js";
+import type {
+  AssessedRuntimeEvent,
+  CanonicalRuntimeEvent
+} from "../../../abg/m03/contracts/carriers.js";
 import type {
   ResultArtifact,
   RuntimeFailureClass
@@ -11,12 +14,21 @@ import type {
   PublicResultAssessmentOutcome,
   PublicResultAssessmentRejected,
   PublicResultAssessmentRequest,
+  ReplayBoundPublicResultAssessmentRequest,
   PublishedLedgerRef
 } from "./carriers.js";
+import {
+  admitIJsonValue,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
+import {
+  assertReplayResultAssessmentEvidenceAuthority,
+  type ReplayAdmittedResultAssessmentEvidenceAuthority
+} from "./evidence_authority.js";
 
 function freezeRuntimeEventKinds(
-  values: readonly RuntimeEvent["kind"][]
-): readonly RuntimeEvent["kind"][] {
+  values: readonly AssessedRuntimeEvent["kind"][]
+): readonly AssessedRuntimeEvent["kind"][] {
   return Object.freeze([...values]);
 }
 
@@ -78,6 +90,7 @@ export function deriveFulfillmentAssessmentRefs(
 export function constructPublicResultAssessmentRequest(input: {
   readonly dispatchRequest: PublicResultAssessmentRequest["dispatchRequest"];
   readonly artifact: PublicResultAssessmentRequest["artifact"];
+  readonly assessmentContract: PublicResultAssessmentRequest["assessmentContract"];
   readonly manifestProvenance: AssessmentManifestProvenance;
   readonly publishedLedgerRef: PublishedLedgerRef;
   readonly fulfillmentRefs: readonly FulfillmentAssessmentRef[];
@@ -86,20 +99,124 @@ export function constructPublicResultAssessmentRequest(input: {
     kind: "fp_assessed",
     dispatchRequest: input.dispatchRequest,
     artifact: input.artifact,
+    assessmentContract: Object.freeze({ ...input.assessmentContract }),
     manifestProvenance: input.manifestProvenance,
     publishedLedgerRef: input.publishedLedgerRef,
     fulfillmentRefs: Object.freeze([...input.fulfillmentRefs])
   });
 }
 
+export function bindReplayBoundPublicResultAssessmentRequest(input: {
+  readonly assessmentValue: unknown;
+  readonly assessmentContract: ReplayBoundPublicResultAssessmentRequest["assessmentContract"];
+  readonly runtimeResultRelation: ReplayBoundPublicResultAssessmentRequest["runtimeResultRelation"];
+  readonly invocationAuthority: ReplayBoundPublicResultAssessmentRequest["invocationAuthority"];
+}): ReplayBoundPublicResultAssessmentRequest {
+  const attribution = input.invocationAuthority;
+  if (input.runtimeResultRelation.cCall.regime !== "F_P") {
+    throw new TypeError(
+      "result assessment requires one replay-admitted F_P runtime result"
+    );
+  }
+  if (
+    input.assessmentContract.ref !==
+      input.runtimeResultRelation.targetContract.ref ||
+    input.assessmentContract.digest !==
+      input.runtimeResultRelation.targetContract.digest
+  ) {
+    throw new TypeError(
+      "result assessment contract differs from the replay-admitted target contract"
+    );
+  }
+  if (
+    attribution.capabilityGrantRefs.length === 0 ||
+    new Set(attribution.capabilityGrantRefs).size !==
+      attribution.capabilityGrantRefs.length
+  ) {
+    throw new TypeError(
+      "result assessment invocation authority lacks exact capability grants"
+    );
+  }
+  return Object.freeze({
+    kind: "replay_bound_fp_assessment" as const,
+    assessmentValue: admitIJsonValue(
+      input.assessmentValue,
+      "ReplayBoundPublicResultAssessmentRequest.assessmentValue"
+    ),
+    assessmentContract: Object.freeze({ ...input.assessmentContract }),
+    runtimeResultRelation: input.runtimeResultRelation,
+    invocationAuthority: Object.freeze({
+      ...attribution,
+      capabilityGrantRefs: Object.freeze([...attribution.capabilityGrantRefs])
+    })
+  });
+}
+
+function assertReplayBoundAssessmentRequest(
+  request: ReplayBoundPublicResultAssessmentRequest
+): void {
+  if (
+    request === null ||
+    typeof request !== "object" ||
+    request.kind !== "replay_bound_fp_assessment" ||
+    request.assessmentValue === undefined ||
+    request.assessmentContract === undefined ||
+    request.runtimeResultRelation === undefined ||
+    request.invocationAuthority === undefined
+  ) {
+    throw new TypeError(
+      "result assessment requires one replay-bound semantic request"
+    );
+  }
+}
+
+export function resultAssessmentRef(
+  request: ReplayBoundPublicResultAssessmentRequest,
+  evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority
+): string {
+  const digest = stableSha256Digest({
+    kind: "result_assessment_identity",
+    assessmentKind: request.kind,
+    runtimeSubject: request.runtimeResultRelation.subject,
+    assessmentContract: request.assessmentContract,
+    assessmentValue: request.assessmentValue,
+    actor: request.invocationAuthority.actorRef,
+    invocationAuthorityRef: request.invocationAuthority.authoritySetRef,
+    authorityBasisRef: request.invocationAuthority.authorityBasisRef,
+    capabilityGrantRefs: request.invocationAuthority.capabilityGrantRefs,
+    artifactEventRef: evidenceAuthority.artifactEventRef,
+    responseAdmissionEventRef: evidenceAuthority.responseAdmissionEventRef,
+    publishedLedgerRef: evidenceAuthority.publishedLedgerRef,
+    obligationIds: evidenceAuthority.rows.map((entry) => entry.obligationId),
+    evidenceEventRefs: evidenceAuthority.evidenceEventRefs
+  });
+  return `assessment:${digest.slice("sha256:".length)}`;
+}
+
+/** @internal */
+export function resultAssessmentEvidenceGap(
+  evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority
+): string | null {
+  const payload = evidenceAuthority.artifact.artifactPayload;
+  if (payload === null) {
+    return null;
+  }
+  const missingObligationIds = payload.fulfillmentAssessments
+    .filter((assessment) => assessment.evidenceRefs.length === 0)
+    .map((assessment) => assessment.id);
+  return missingObligationIds.length === 0
+    ? null
+    : `F_P result assessment requires admitted evidence refs for obligations: ${missingObligationIds.join(",")}`;
+}
+
 function constructAssessmentTraceRef(input: {
-  readonly request: PublicResultAssessmentRequest;
-  readonly emitted: readonly RuntimeEvent[];
+  readonly evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority;
+  readonly emitted: readonly AssessedRuntimeEvent[];
 }): AssessmentTraceRef {
   return Object.freeze({
-    workflowVersion: input.request.manifestProvenance.workflowVersion,
-    runId: input.request.manifestProvenance.runId,
-    workKey: input.request.manifestProvenance.workKey,
+    workflowVersion: input.evidenceAuthority.programRef,
+    runId: input.evidenceAuthority.runId,
+    workKey: input.evidenceAuthority.workKey,
     emittedKinds: freezeRuntimeEventKinds(
       input.emitted.map((event) => event.kind)
     )
@@ -107,8 +224,9 @@ function constructAssessmentTraceRef(input: {
 }
 
 export function constructAcceptedPublicResultAssessmentOutcome(input: {
-  readonly request: PublicResultAssessmentRequest;
-  readonly emitted: readonly RuntimeEvent[];
+  readonly request: ReplayBoundPublicResultAssessmentRequest;
+  readonly evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority;
+  readonly emitted: readonly (CanonicalRuntimeEvent & AssessedRuntimeEvent)[];
 }): PublicResultAssessmentAccepted {
   return Object.freeze({
     kind: "accepted",
@@ -148,158 +266,66 @@ export function constructRejectedPublicResultAssessmentOutcome(input: {
 }
 
 export function constructRuntimeEventsForResultAssessment(
-  request: PublicResultAssessmentRequest
-): readonly RuntimeEvent[] {
-  if (request.artifact.artifactPayload === null) {
+  request: ReplayBoundPublicResultAssessmentRequest,
+  evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority
+): readonly AssessedRuntimeEvent[] {
+  assertReplayBoundAssessmentRequest(request);
+  if (evidenceAuthority.artifact.artifactPayload === null) {
     return Object.freeze([]);
   }
-  const payload = request.artifact.artifactPayload;
-  const authorityRefs = payload.fulfillmentAssessments.map(
-    (assessment) => assessment.id
-  );
-  const authorityDigest = `authority:result_assessment:${JSON.stringify({
-    graphFunctionId: request.dispatchRequest.graphFunctionId,
-    edge: payload.edge,
-    authorityRefs
-  })}`;
-  const inputDigest = `input:result_assessment:${JSON.stringify({
-    basisId: request.dispatchRequest.basisId,
-    dispatchRef: request.dispatchRequest.dispatchRef,
-    resultRef: request.dispatchRequest.resultRef
-  })}`;
-  const providerRefs = Object.freeze([
-    request.manifestProvenance.selectedWorkerId ?? request.dispatchRequest.workerId,
-    request.manifestProvenance.selectedBackend ?? request.dispatchRequest.backendId
-  ]);
-  const policyRefs = Object.freeze([request.manifestProvenance.workflowVersion]);
-  const events: RuntimeEvent[] = [
-    Object.freeze({
-      kind: "authority_snapshot_admitted",
-      basisId: request.dispatchRequest.basisId,
-      graphCallId: request.dispatchRequest.graphCallId,
-      frameId: request.dispatchRequest.frameId,
-      vectorIndex: request.dispatchRequest.vectorIndex,
-      edge: payload.edge,
-      authoritySnapshotRef: `authority-snapshot:result_assessment:${request.dispatchRequest.resultRef}`,
-      authorityRefs,
-      inputRefs: [request.dispatchRequest.resultRef],
-      authorityDigest,
-      inputDigest,
-      closureCapable: true,
-      contradictoryAuthority: false,
-      deferredAuthorityRefs: [],
-      providerRefs,
-      policyRefs
-    } satisfies RuntimeEvent)
-  ];
-
-  for (const assessment of payload.fulfillmentAssessments) {
-    const evidenceRefs =
-      assessment.evidenceRefs.length === 0
-        ? [`evidence:result_assessment:${assessment.id}`]
-        : assessment.evidenceRefs;
-    for (const evidenceRef of evidenceRefs) {
-      const payloadRef = `payload:result_assessment:${JSON.stringify({
-        basisId: request.dispatchRequest.basisId,
-        dispatchRef: request.dispatchRequest.dispatchRef,
-        resultRef: request.dispatchRequest.resultRef,
-        assessmentId: assessment.id,
-        evidenceRef
-      })}`;
-      const digest = `digest:result_assessment:${JSON.stringify({
-        resultRef: request.dispatchRequest.resultRef,
-        assessmentId: assessment.id,
-        evidenceRef
-      })}`;
-      events.push(
-        Object.freeze({
-          kind: "payload_observed",
-          basisId: request.dispatchRequest.basisId,
-          graphCallId: request.dispatchRequest.graphCallId,
-          frameId: request.dispatchRequest.frameId,
-          vectorIndex: request.dispatchRequest.vectorIndex,
-          edge: payload.edge,
-          payloadRef,
-          payloadClass: "evidence",
-          schemaRef: null,
-          contractRef: "contract://abg/fp-result-evidence",
-          digest,
-          producerRef: payload.actor,
-          sourceEventRef: request.dispatchRequest.resultRef,
-          actorInvocationId: null,
-          authorityRef: assessment.id,
-          inputDigest,
-          policyRefs
-        } satisfies RuntimeEvent),
-        Object.freeze({
-          kind: "payload_validated",
-          basisId: request.dispatchRequest.basisId,
-          graphCallId: request.dispatchRequest.graphCallId,
-          frameId: request.dispatchRequest.frameId,
-          vectorIndex: request.dispatchRequest.vectorIndex,
-          edge: payload.edge,
-          payloadRef,
-          schemaRef: null,
-          contractRef: "contract://abg/fp-result-evidence",
-          contractDigest: null,
-          digest,
-          validationRef: `validation:result_assessment:${payloadRef}`,
-          evidenceRef,
-          policyRefs
-        } satisfies RuntimeEvent),
-        Object.freeze({
-          kind: "evidence_admitted",
-          basisId: request.dispatchRequest.basisId,
-          graphCallId: request.dispatchRequest.graphCallId,
-          frameId: request.dispatchRequest.frameId,
-          vectorIndex: request.dispatchRequest.vectorIndex,
-          edge: payload.edge,
-          evidenceRef,
-          payloadRef,
-          authorityRef: assessment.id,
-          authorityDigest,
-          inputDigest,
-          providerRefs,
-          policyRefs,
-          complete: true,
-          shallow: false,
-          contradictsAuthority: false,
-          deferred: false
-        } satisfies RuntimeEvent)
-      );
-    }
+  const payload = evidenceAuthority.artifact.artifactPayload;
+  assertReplayResultAssessmentEvidenceAuthority({
+    request,
+    authority: evidenceAuthority
+  });
+  const evidenceGap = resultAssessmentEvidenceGap(evidenceAuthority);
+  if (evidenceGap !== null) {
+    throw new TypeError(evidenceGap);
   }
-
-  events.push(
-    ...payload.fulfillmentAssessments.map((assessment) =>
-      Object.freeze({
+  const assessmentRef = resultAssessmentRef(request, evidenceAuthority);
+  const subject = request.runtimeResultRelation.subject;
+  return Object.freeze(
+    payload.fulfillmentAssessments.map((assessment) => {
+      const evidenceEventRefs = evidenceAuthority.rows
+        .filter((row) => row.obligationId === assessment.id)
+        .flatMap((row) => row.evidenceEventRefs);
+      return Object.freeze({
         kind: "assessed",
         assessmentKind: "fp" as const,
-        edge: payload.edge,
+        assessmentRef,
+        basisId: subject.basisId,
+        graphCallId: subject.graphCallId,
+        frameId: subject.frameId,
+        vectorIndex: subject.vectorIndex,
+        runtimeResultRef: subject.runtimeResult.ref,
+        runtimeResultDigest: subject.runtimeResult.digest,
+        assessmentContractRef: request.assessmentContract.ref,
+        assessmentContractDigest: request.assessmentContract.digest,
+        edge: subject.edge,
         obligationId: assessment.id,
-        publishedLedgerRef: request.publishedLedgerRef.ref,
-        actor: payload.actor,
-        specHash: request.manifestProvenance.specHash,
-        manifestId: request.manifestProvenance.manifestId,
-        workflowVersion: request.manifestProvenance.workflowVersion,
-        runId: request.manifestProvenance.runId,
-        workKey: request.manifestProvenance.workKey,
-        selectedWorkerId: request.manifestProvenance.selectedWorkerId,
-        selectedBackend: request.manifestProvenance.selectedBackend,
-        roleId: request.manifestProvenance.roleId,
-        authorityRef: request.manifestProvenance.authorityRef,
-        assignmentSource: request.manifestProvenance.assignmentSource,
-        resolvedRuntimeRef: request.manifestProvenance.resolvedRuntimeRef
-      } satisfies RuntimeEvent)
-    )
+        evidenceEventRefs: Object.freeze(evidenceEventRefs),
+        publishedLedgerRef: evidenceAuthority.publishedLedgerRef,
+        actor: request.invocationAuthority.actorRef,
+        specHash: evidenceAuthority.promptDigest,
+        manifestId: evidenceAuthority.manifestRef,
+        workflowVersion: evidenceAuthority.programRef,
+        runId: evidenceAuthority.runId,
+        workKey: evidenceAuthority.workKey,
+        selectedWorkerId: evidenceAuthority.workerId,
+        selectedBackend: evidenceAuthority.backendId,
+        roleId: null,
+        authorityRef: request.invocationAuthority.authoritySetRef,
+        assignmentSource: null,
+        resolvedRuntimeRef: evidenceAuthority.resolvedRuntimeRef
+      } satisfies AssessedRuntimeEvent);
+    })
   );
-
-  return Object.freeze(events);
 }
 
 export function constructPublicResultAssessmentOutcome(input: {
-  readonly request: PublicResultAssessmentRequest;
-  readonly emitted: readonly RuntimeEvent[];
+  readonly request: ReplayBoundPublicResultAssessmentRequest;
+  readonly evidenceAuthority: ReplayAdmittedResultAssessmentEvidenceAuthority;
+  readonly emitted: readonly (CanonicalRuntimeEvent & AssessedRuntimeEvent)[];
 }): PublicResultAssessmentOutcome {
   return constructAcceptedPublicResultAssessmentOutcome(input);
 }

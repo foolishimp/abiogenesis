@@ -12,7 +12,7 @@ import {
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-test("M05 installed live-lane integration: installed runtime executes one bounded public scenario through the installed package surface", async () => {
+test("M05 installed live-lane integration: installed runtime refuses assessment without replay evidence", async () => {
   const { targetRoot, writer, installerOutcome, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
   await installPackedTenantPackage(targetRoot);
@@ -24,7 +24,10 @@ test("M05 installed live-lane integration: installed runtime executes one bounde
 
   assert.equal(liveRun.status, 0, liveRun.stderr);
   const payload = JSON.parse(liveRun.stdout);
-  assert.equal(payload.liveScenarioPassed, true);
+  assert.equal(payload.liveScenarioPassed, false);
+  assert.equal(payload.assessmentBoundaryObserved, true);
+  assert.equal(payload.assessmentOutcomeKind, "refusal");
+  assert.equal(payload.assessmentRefusalCode, "result_missing");
 
   const outcome = qualifyInstalledSandbox(
     buildInstalledSandboxRequest({
@@ -39,6 +42,5 @@ test("M05 installed live-lane integration: installed runtime executes one bounde
     })
   );
 
-  assert.equal(outcome.kind, "passed");
-  assert.equal(outcome.lane, "live_lane");
+  assert.equal(outcome.kind, "rejected");
 });

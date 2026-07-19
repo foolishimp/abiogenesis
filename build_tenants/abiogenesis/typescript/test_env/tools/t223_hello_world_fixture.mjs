@@ -16,7 +16,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
+  C,
+  abgFnCompositionDeclarationRef,
   canonicalizeIJson,
+  cInterfaceCarrier,
+  cProgramCatalogDeclarationEntry,
   constructAbgFnCompositionDeclarations,
   constructContractRef,
   constructGraph,
@@ -28,15 +32,20 @@ import {
   constructRole,
   constructTemplateRef,
   contributionManifestDigest,
+  declareCProgram,
   descriptorDigest,
   digestCanonicalIJson,
   edge,
   emptySerializedAttrs,
   graphFunctionDeclarations,
   graphFunctionForVector,
+  graphVectorDeclarations,
+  hogProgramRefDeclarationEntry,
   pluginSelectionDeclarationEntry,
   publicContractCatalogDigest,
-  serializeModule
+  serializeModule,
+  typedInterface,
+  typedNode
 } from "../../build/semantic/code/src/index.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -77,6 +86,73 @@ const FIXTURE_CONTRACTS = Object.freeze({
 });
 const INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
+const HELLO_PROGRAM_REF = "program://fixture/hello-world/input-to-output";
+
+function helloCarrier(node) {
+  return cInterfaceCarrier(
+    typedInterface(typedNode({ node, decode: (raw) => raw }))
+  );
+}
+
+function helloProgram(input, output) {
+  const inputCarrier = helloCarrier(input);
+  const outputCarrier = helloCarrier(output);
+  const stage = ({ stageRole, fibre, armId, resultBearing = false }) =>
+    C.of({
+      input: stageRole === "transform" ? inputCarrier : outputCarrier,
+      output: outputCarrier,
+      stageRole,
+      fibre,
+      armId,
+      resultBearing
+    });
+  return declareCProgram({
+    programRef: HELLO_PROGRAM_REF,
+    term: C.compose(
+      C.compose(
+        stage({
+          stageRole: "transform",
+          fibre: "F_P",
+          armId: "arm://fixture/hello-world/transform/fp",
+          resultBearing: true
+        }),
+        stage({
+          stageRole: "evaluate",
+          fibre: "F_D",
+          armId: "arm://fixture/hello-world/evaluate/fd"
+        })
+      ),
+      C.compose(
+        stage({
+          stageRole: "evaluate",
+          fibre: "F_P",
+          armId: "arm://fixture/hello-world/evaluate/fp"
+        }),
+        stage({
+          stageRole: "consequence",
+          fibre: "F_D",
+          armId: "arm://fixture/hello-world/consequence/fd"
+        })
+      )
+    ),
+    proportionalityClass: "P1"
+  });
+}
+
+const HELLO_VECTOR_OPERATORS = Object.freeze([
+  Object.freeze({
+    name: "fixture_hello_probabilistic",
+    regime: "F_P",
+    binding: "binding://fixture/hello-world/operator/fp",
+    tags: Object.freeze(["t223", "hello-world"])
+  }),
+  Object.freeze({
+    name: "fixture_hello_deterministic",
+    regime: "F_D",
+    binding: "binding://fixture/hello-world/operator/fd",
+    tags: Object.freeze(["t223", "hello-world"])
+  })
+]);
 
 function sha256(bytes) {
   return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
@@ -162,86 +238,105 @@ export function buildT223HelloWorldModule(options = {}) {
   }
   const input = helloNode("HelloInput", FIXTURE_CONTRACTS.input);
   const output = helloNode("HelloOutput", FIXTURE_CONTRACTS.output);
+  const program = helloProgram(input, output);
   const vector = edge([input], output, {
     name: "hello-input-to-output",
     id: "graph-vector://fixture/hello-world/input-to-output",
-    declarations: { entries: [] },
+    operators: HELLO_VECTOR_OPERATORS,
+    declarations: graphVectorDeclarations([
+      hogProgramRefDeclarationEntry(program.programRef)
+    ]),
     tags: ["t223", "hello-world"]
   }).vectors[0];
   if (vector === undefined) {
     throw new TypeError("Hello World edge did not materialize one vector");
   }
-  const graphFunction = compactGraphFunctionIdentity(graphFunctionForVector(vector, {
-    name: graphFunctionHandle,
-    declarations: graphFunctionDeclarations([
-      ...constructAbgFnCompositionDeclarations({
-      contractRef: "abg.fn_composition://fixture/hello-world",
-      hookRef: "hook://fixture/hello-world/composition",
-      regimes: [
-        {
-          bindingRef:
-            "regime-binding://fixture/hello-world/transform/fp",
-          stageRole: "transform",
-          regime: "F_P",
-          role: "construct",
-          order: 0,
-          authority: "evidence",
-          inputCarrierRefs: ["EnginePluginInput"],
-          outputCarrierRefs: ["FpDispatchOutcome"],
-          evidenceRefs: ["evidence://fixture/hello-world/fp-dispatch"]
-        },
-        {
-          bindingRef:
-            "regime-binding://fixture/hello-world/evaluate/fd",
-          stageRole: "evaluate",
-          regime: "F_D",
-          role: "validate",
-          order: 1,
-          authority: "closure",
-          inputCarrierRefs: ["EnginePluginInput"],
-          outputCarrierRefs: ["FdEvaluationOutcome"],
-          evidenceRefs: ["evidence://fixture/hello-world/fd"]
-        },
-        {
-          bindingRef:
-            "regime-binding://fixture/hello-world/evaluate/fp",
-          stageRole: "evaluate",
-          regime: "F_P",
-          role: "validate",
-          order: 2,
-          authority: "judgment",
-          inputCarrierRefs: ["EnginePluginInput"],
-          outputCarrierRefs: ["FpEvaluationOutcome"],
-          evidenceRefs: ["evidence://fixture/hello-world/fp-evaluate"]
-        },
-        {
-          bindingRef:
-            "regime-binding://fixture/hello-world/consequence/fd",
-          stageRole: "consequence",
-          regime: "F_D",
-          role: "observe",
-          order: 3,
-          authority: "evidence",
-          inputCarrierRefs: ["EnginePluginInput"],
-          outputCarrierRefs: ["ConsequenceProjectionOutcome"],
-          evidenceRefs: ["evidence://fixture/hello-world/consequence"]
-        }
-      ],
-      standardsContextRefs: [
-        "specification/requirements/product/REQ-P-CATALOG.md"
-      ],
-      policyContextRefs: ["policy://fixture/default"],
-      carrierContextRefs: [T223_FIXTURE_INTERFACE_REF],
-      assuranceContextRefs: ["proof://fixture/hello-world/declared"],
-        closureContractRef: "closure://fixture/hello-world/fd-evaluate"
-      }).entries,
-      pluginSelectionDeclarationEntry({
-        fpDispatch: "plugin://abg/fp-dispatch-live",
-        fpEvaluator: "plugin://abg/fp-evaluator-live"
-      })
-    ]),
-    tags: ["t223", "hello-world"]
-  }), "graph://fixture/hello-world", graphFunctionHandle);
+  const graphFunction = compactGraphFunctionIdentity(
+    graphFunctionForVector(vector, {
+      name: graphFunctionHandle,
+      declarations: graphFunctionDeclarations([
+        cProgramCatalogDeclarationEntry([program]),
+        ...constructAbgFnCompositionDeclarations({
+          contractRef: "abg.fn_composition://fixture/hello-world",
+          hookRef: "hook://fixture/hello-world/composition",
+          hostGraphFunctionRef: graphFunctionHandle,
+          hostGraphVectorRef: vector.id,
+          hostSourceNodeRefs: [input.id],
+          hostTargetNodeRef: output.id,
+          hostTargetSchemaRef: output.schema.ref,
+          owningDeclarationRef: abgFnCompositionDeclarationRef({
+            source: "graph_function_declarations",
+            sourceRef: graphFunctionHandle
+          }),
+          regimes: [
+            {
+              bindingRef:
+                "regime-binding://fixture/hello-world/transform/fp",
+              stageRole: "transform",
+              regime: "F_P",
+              role: "construct",
+              order: 0,
+              authority: "evidence",
+              inputCarrierRefs: ["EnginePluginInput"],
+              outputCarrierRefs: ["FpDispatchOutcome"],
+              evidenceRefs: ["evidence://fixture/hello-world/fp-dispatch"]
+            },
+            {
+              bindingRef:
+                "regime-binding://fixture/hello-world/evaluate/fd",
+              stageRole: "evaluate",
+              regime: "F_D",
+              role: "validate",
+              order: 1,
+              authority: "closure",
+              inputCarrierRefs: ["EnginePluginInput"],
+              outputCarrierRefs: ["FdEvaluationOutcome"],
+              evidenceRefs: ["evidence://fixture/hello-world/fd"]
+            },
+            {
+              bindingRef:
+                "regime-binding://fixture/hello-world/evaluate/fp",
+              stageRole: "evaluate",
+              regime: "F_P",
+              role: "validate",
+              order: 2,
+              authority: "judgment",
+              inputCarrierRefs: ["EnginePluginInput"],
+              outputCarrierRefs: ["FpEvaluationOutcome"],
+              evidenceRefs: ["evidence://fixture/hello-world/fp-evaluate"]
+            },
+            {
+              bindingRef:
+                "regime-binding://fixture/hello-world/consequence/fd",
+              stageRole: "consequence",
+              regime: "F_D",
+              role: "observe",
+              order: 3,
+              authority: "evidence",
+              inputCarrierRefs: ["EnginePluginInput"],
+              outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+              evidenceRefs: ["evidence://fixture/hello-world/consequence"]
+            }
+          ],
+          standardsContextRefs: [
+            "specification/requirements/product/REQ-P-CATALOG.md"
+          ],
+          policyContextRefs: ["policy://fixture/default"],
+          carrierContextRefs: [T223_FIXTURE_INTERFACE_REF],
+          assuranceContextRefs: ["proof://fixture/hello-world/declared"],
+          closureContractRef: "closure://fixture/hello-world/fd-evaluate"
+        }).entries,
+        pluginSelectionDeclarationEntry({
+          fdEvaluator: "plugin://abg/fd-evaluator",
+          fpDispatch: "plugin://abg/fp-dispatch-live",
+          fpEvaluator: "plugin://abg/fp-evaluator-live"
+        })
+      ]),
+      tags: ["t223", "hello-world"]
+    }),
+    "graph://fixture/hello-world",
+    graphFunctionHandle
+  );
   const nodeType = compactGraphFunctionIdentity(constructNodeTypeGraphFunction(
     helloNode(
       "HelloInputType",

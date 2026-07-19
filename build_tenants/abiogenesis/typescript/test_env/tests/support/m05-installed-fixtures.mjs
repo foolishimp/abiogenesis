@@ -252,14 +252,32 @@ async function installedPackageIndexUrl(targetRoot) {
 
 export async function rewriteInstalledPackageImports(targetRoot, source) {
   const packageIndexUrl = await installedPackageIndexUrl(targetRoot);
+  const packageSourceRoot = path.dirname(fileURLToPath(packageIndexUrl));
   return source.replaceAll(
     'from "@abiogenesis/typescript-tenant"',
     `from ${JSON.stringify(packageIndexUrl)}`
+  ).replace(
+    /from "\.\.\/\.\.\/\.\.\/build\/semantic\/code\/src\/([^"]+)"/gu,
+    (_match, relativePath) =>
+      `from ${JSON.stringify(pathToFileURL(path.join(packageSourceRoot, relativePath)).href)}`
   );
 }
 
 export async function runInstalledNodeScript(targetRoot, source) {
   const scriptPath = path.join(targetRoot, ".abiogenesis", "installed-proof.mjs");
+  for (const supportFile of [
+    "canonical-result-assessment-fixture.mjs",
+    "t281-private-ingress-fixture.mjs"
+  ]) {
+    await writeFile(
+      path.join(targetRoot, ".abiogenesis", supportFile),
+      await rewriteInstalledPackageImports(
+        targetRoot,
+        await readFile(path.join(SUPPORT_DIR, supportFile), "utf8")
+      ),
+      "utf8"
+    );
+  }
   await writeFile(
     scriptPath,
     await rewriteInstalledPackageImports(targetRoot, source),
@@ -294,11 +312,12 @@ export function installedLiveLaneSource() {
       admitResolvedRuntimeIdentity,
       admitOperatorAssetQueryContract,
       admitPublicStartRequest,
-      projectLiveStatus,
       publicStart,
-      resolvePublicAssetTarget,
-      resultAssessment
+      resolvePublicAssetTarget
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     const design = admitNode({
       id: "node-installed-design",
@@ -485,6 +504,10 @@ export function installedLiveLaneSource() {
         assignment_source: "policy_resolution",
         resolved_runtime_ref: "runtime://typescript/node"
       },
+      assessment_contract: {
+        ref: "contract://abg/result-assessment/fp@5",
+        digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+      },
       manifest_provenance: {
         spec_hash: "spec://typescript-dev",
         manifest_id: "manifest://installed-live",
@@ -503,31 +526,29 @@ export function installedLiveLaneSource() {
       }
     };
 
-    const assessmentOutcome = resultAssessment(
-      assessmentRequest,
-      (event) => events.push(event)
-    );
-
-    const projection = projectLiveStatus({
-      start_request: startInput,
-      start_outcome: startOutcome,
-      control_request: null,
-      control_outcome: null,
-      result_assessment_request: assessmentRequest,
-      result_assessment_outcome: assessmentOutcome
-    });
+    const assessmentEventStart = events.length;
+    const { outcome: assessmentOutcome } =
+      await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+        assessmentRequest,
+        events
+      });
 
     console.log(JSON.stringify({
       exports: Object.keys(await import("../bootstrap/index.mjs")).sort(),
-      liveScenarioPassed:
+      liveScenarioPassed: false,
+      assessmentBoundaryObserved:
         resolved.kind === "resolved" &&
         startOutcome.kind === "blocked" &&
-        assessmentOutcome.kind === "accepted" &&
-        projection.kind === "ready" &&
-        projection.runStatus === "assessed",
+        assessmentOutcome.outcomeKind === "refusal" &&
+        assessmentOutcome.value.code === "result_missing" &&
+        events.slice(assessmentEventStart).every(
+          (event) => event.kind === "public_operation_admitted"
+        ),
       eventKinds: events.map((event) => event.kind),
-      projectionKind: projection.kind,
-      runStatus: projection.runStatus
+      assessmentOutcomeKind: assessmentOutcome.outcomeKind,
+      assessmentRefusalCode: assessmentOutcome.value.code,
+      startOutcomeKind: startOutcome.kind,
+      stopPredicate: startOutcome.stopPredicate
     }));
   `;
 }
@@ -547,9 +568,11 @@ export function installedGraphFunctionTargetSource() {
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
       admitPublicStartRequest,
-      publicStart,
-      resultAssessment
+      publicStart
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     function node(id, name, kind) {
       return admitNode({
@@ -732,6 +755,10 @@ export function installedGraphFunctionTargetSource() {
         assignment_source: "policy_resolution",
         resolved_runtime_ref: "runtime://typescript/node"
       },
+      assessment_contract: {
+        ref: "contract://abg/result-assessment/fp@5",
+        digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+      },
       manifest_provenance: {
         spec_hash: "spec://typescript-dev",
         manifest_id: "manifest://installed-graph-function-target",
@@ -749,10 +776,11 @@ export function installedGraphFunctionTargetSource() {
         ref: "ledger://installed-graph-function-target"
       }
     };
-    const assessmentOutcome = resultAssessment(
-      assessmentRequest,
-      (event) => events.push(event)
-    );
+    const { outcome: assessmentOutcome } =
+      await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+        assessmentRequest,
+        events
+      });
 
     console.log(JSON.stringify({
       target: "graph_function:code_flow",
@@ -768,9 +796,12 @@ export function installedGraphFunctionTargetSource() {
         manifestId: assessmentRequest.manifest_provenance.manifest_id
       },
       dispatchedEdges: startOutcome.kind === "blocked" ? [dispatchRequest.expectedEdge] : [],
-      assessedEdges: assessmentOutcome.kind === "accepted" ? [assessmentRequest.result_artifact.edge] : [],
+      assessedEdges: [],
       eventKinds: events.map((event) => event.kind),
-      assessmentKind: assessmentOutcome.kind
+      assessmentKind: assessmentOutcome.outcomeKind === "refusal"
+        ? "rejected"
+        : assessmentOutcome.outcomeKind,
+      assessmentRefusalCode: assessmentOutcome.value.code
     }));
   `;
 }
@@ -792,12 +823,11 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
       admitPublicStartRequest,
-      constructVectorClosedEvent,
-      constructVectorEvaluatedEvent,
-      projectLiveStatus,
-      publicStart,
-      resultAssessment
+      publicStart
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     function node(id, name, kind, markov) {
       return admitNode({
@@ -956,7 +986,7 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       }),
       { prefix: "m05-installed-three-stage" }
     );
-    const emittedEventKinds = [];
+    const events = [];
     const startOutcome = publicStart(
       startInput,
       {
@@ -967,7 +997,7 @@ export function installedThreeStageGraphFunctionSandboxSource() {
         workKey,
         ...startupFields
       },
-      (event) => emittedEventKinds.push(event.kind)
+      (event) => events.push(event)
     );
 
     const startRequest = admitPublicStartRequest(startInput);
@@ -1033,6 +1063,10 @@ export function installedThreeStageGraphFunctionSandboxSource() {
           assignment_source: "policy_resolution",
           resolved_runtime_ref: "runtime://typescript/node"
         },
+        assessment_contract: {
+          ref: "contract://abg/result-assessment/fp@5",
+          digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+        },
         manifest_provenance: {
           spec_hash: "spec://typescript-dev",
           manifest_id: \`manifest://installed-three-stage/stage-\${index + 1}\`,
@@ -1051,36 +1085,22 @@ export function installedThreeStageGraphFunctionSandboxSource() {
         }
       };
 
-      const assessmentOutcome = resultAssessment(
-        assessmentRequest,
-        (event) => emittedEventKinds.push(event.kind)
-      );
-      const projection = projectLiveStatus({
-        start_request: startInput,
-        start_outcome: startOutcome,
-        control_request: null,
-        control_outcome: null,
-        result_assessment_request: assessmentRequest,
-        result_assessment_outcome: assessmentOutcome
-      });
+      const { outcome: assessmentOutcome } =
+        await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+          assessmentRequest,
+          events
+        });
 
       observedEdges.push(dispatchRequest.expectedEdge);
       graphFunctionIds.push(dispatchRequest.graphFunctionId);
-      assessmentKinds.push(assessmentOutcome.kind);
-      assessmentCount += fulfillmentAssessments.length;
-      finalRunStatus = projection.runStatus;
-      runtimeEvents.push(
-        constructVectorEvaluatedEvent({
-          basis: executionBasis,
-          vectorIndex: transition.vectorIndex,
-          status: "accepted"
-        }),
-        constructVectorClosedEvent({
-          basis: executionBasis,
-          vectorIndex: transition.vectorIndex,
-          closureKind: "assessed"
-        })
+      assessmentKinds.push(
+        assessmentOutcome.outcomeKind === "refusal"
+          ? "rejected"
+          : assessmentOutcome.outcomeKind
       );
+      assessmentCount += fulfillmentAssessments.length;
+      finalRunStatus = "blocked";
+      break;
     }
 
     const target = \`graph_function:\${executive.name}\`;
@@ -1089,21 +1109,23 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       "requirements→design",
       "design→code"
     ];
-    const passed =
+    const assessmentBoundaryObserved =
       startOutcome.kind === "blocked" &&
       startOutcome.stopPredicate === "dispatch_required" &&
       firstDispatchRequest.graphFunctionId === executive.id &&
       JSON.stringify(materializedVectorNames) === JSON.stringify(expectedEdges) &&
-      JSON.stringify(observedEdges) === JSON.stringify(expectedEdges) &&
-      assessmentKinds.every((kind) => kind === "accepted") &&
+      JSON.stringify(observedEdges) === JSON.stringify(expectedEdges.slice(0, 1)) &&
+      assessmentKinds.every((kind) => kind === "rejected") &&
       graphFunctionIds.every((id) => id === executive.id) &&
-      finalRunStatus === "assessed";
+      finalRunStatus === "blocked" &&
+      events.every((event) => event.kind !== "assessed");
 
     console.log(JSON.stringify({
       target,
-      passed,
+      passed: false,
+      assessmentBoundaryObserved,
       sandboxTraversalMode: "replay_derived_core_iteration",
-      coreProgressionClaimed: true,
+      coreProgressionClaimed: false,
       selectedGraphFunctionId: firstDispatchRequest.graphFunctionId,
       executiveGraphFunctionId: executive.id,
       stageCount: executiveGraph.vectors.length,
@@ -1118,7 +1140,7 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       assessmentCount,
       assessmentKinds,
       finalRunStatus,
-      eventKinds: emittedEventKinds,
+      eventKinds: events.map((event) => event.kind),
       environmentCarries: executive.environment.carries.map(
         (node) => node.assetSurface.kind
       )
@@ -1165,11 +1187,12 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
       admitResolvedRuntimeIdentity,
       admitOperatorAssetQueryContract,
       admitPublicStartRequest,
-      projectLiveStatus,
       publicStart,
-      resolvePublicAssetTarget,
-      resultAssessment
+      resolvePublicAssetTarget
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     const scenario = ${JSON.stringify(scenario)};
 
@@ -1275,10 +1298,11 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
     });
 
     const exportedSurface = Object.keys(await import("../bootstrap/index.mjs")).sort();
-    const emittedEventKinds = [];
+    const events = [];
     let scenarioPassed = true;
     let finalRunStatus = "idle";
     let maxAssessmentCount = 0;
+    let assessmentRefusalCode = null;
 
     for (let index = 0; index < profiles.length; index += 1) {
       const entry = profiles[index];
@@ -1360,7 +1384,7 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
           workKey,
           ...startupFields
         },
-        (event) => emittedEventKinds.push(event.kind)
+        (event) => events.push(event)
       );
 
       if (
@@ -1410,6 +1434,10 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
           assignment_source: "policy_resolution",
           resolved_runtime_ref: "runtime://typescript/node"
         },
+        assessment_contract: {
+          ref: "contract://abg/result-assessment/fp@5",
+          digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+        },
         manifest_provenance: {
           spec_hash: "spec://typescript-dev",
           manifest_id: \`manifest://\${scenario.scenarioName}-\${index}\`,
@@ -1428,30 +1456,15 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
         }
       };
 
-      const assessmentOutcome = resultAssessment(
-        assessmentRequest,
-        (event) => emittedEventKinds.push(event.kind)
-      );
-
-      if (assessmentOutcome.kind !== "accepted") {
-        scenarioPassed = false;
-        break;
-      }
-
-      const projection = projectLiveStatus({
-        start_request: startInput,
-        start_outcome: startOutcome,
-        control_request: null,
-        control_outcome: null,
-        result_assessment_request: assessmentRequest,
-        result_assessment_outcome: assessmentOutcome
-      });
-
-      if (projection.kind !== "ready" || projection.runStatus !== "assessed") {
-        scenarioPassed = false;
-      }
-
-      finalRunStatus = projection.runStatus;
+      const { outcome: assessmentOutcome } =
+        await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+          assessmentRequest,
+          events
+        });
+      assessmentRefusalCode = assessmentOutcome.value.code;
+      scenarioPassed = false;
+      finalRunStatus = "blocked";
+      break;
     }
 
     console.log(JSON.stringify({
@@ -1463,8 +1476,9 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
       stageCount: scenario.stages.length,
       maxAssessmentCount,
       passed: scenarioPassed,
-      emittedEventKinds: [...new Set(emittedEventKinds)],
-      finalRunStatus
+      emittedEventKinds: [...new Set(events.map((event) => event.kind))],
+      finalRunStatus,
+      assessmentRefusalCode
     }));
   `;
 }
@@ -1493,10 +1507,11 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
       admitPublicStartRequest,
-      projectLiveStatus,
-      publicStart,
-      resultAssessment
+      publicStart
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     const obligation = ${JSON.stringify(obligation)};
     const safeName = obligation.scenarioName.replace(/[^A-Za-z0-9_]+/gu, "_");
@@ -1591,10 +1606,11 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
       dispatchRef: "dispatch://installed"
     });
 
-    const emittedEventKinds = [];
+    const events = [];
     let scenarioPassed = true;
     let finalRunStatus = "idle";
     let assessmentCount = 0;
+    let assessmentRefusalCode = null;
 
     for (const profile of profiles) {
       const startInput = {
@@ -1635,7 +1651,7 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
           workKey,
           ...startupFields
         },
-        (event) => emittedEventKinds.push(event.kind)
+        (event) => events.push(event)
       );
 
       if (
@@ -1690,6 +1706,10 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
           assignment_source: "policy_resolution",
           resolved_runtime_ref: "runtime://typescript/node"
         },
+        assessment_contract: {
+          ref: "contract://abg/result-assessment/fp@5",
+          digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+        },
         manifest_provenance: {
           spec_hash: "spec://typescript-sandbox-behavior",
           manifest_id: \`manifest://\${safeName}-\${profile.index}\`,
@@ -1708,30 +1728,15 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
         }
       };
 
-      const assessmentOutcome = resultAssessment(
-        assessmentRequest,
-        (event) => emittedEventKinds.push(event.kind)
-      );
-
-      if (assessmentOutcome.kind !== "accepted") {
-        scenarioPassed = false;
-        break;
-      }
-
-      const projection = projectLiveStatus({
-        start_request: startInput,
-        start_outcome: startOutcome,
-        control_request: null,
-        control_outcome: null,
-        result_assessment_request: assessmentRequest,
-        result_assessment_outcome: assessmentOutcome
-      });
-
-      if (projection.kind !== "ready" || projection.runStatus !== "assessed") {
-        scenarioPassed = false;
-      }
-
-      finalRunStatus = projection.runStatus;
+      const { outcome: assessmentOutcome } =
+        await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+          assessmentRequest,
+          events
+        });
+      assessmentRefusalCode = assessmentOutcome.value.code;
+      scenarioPassed = false;
+      finalRunStatus = "blocked";
+      break;
     }
 
     console.log(JSON.stringify({
@@ -1743,8 +1748,9 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
       stageCount: profiles.length,
       assessmentCount,
       passed: scenarioPassed,
-      emittedEventKinds: [...new Set(emittedEventKinds)],
+      emittedEventKinds: [...new Set(events.map((event) => event.kind))],
       finalRunStatus,
+      assessmentRefusalCode,
       evidenceRefs: [
         \`archive://\${obligation.usecaseId}/\${obligation.scenarioName}\`
       ]
@@ -1777,10 +1783,11 @@ export function installedResetPostmortemSource() {
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
       admitPublicStartRequest,
-      projectLiveStatus,
-      publicStart,
-      resultAssessment
+      publicStart
     } from "@abiogenesis/typescript-tenant";
+    import {
+      invokeCanonicalResultAssessmentWithoutReplayEvidence
+    } from "./canonical-result-assessment-fixture.mjs";
 
     function sourceNode(id, name) {
       return admitNode({
@@ -1946,14 +1953,6 @@ export function installedResetPostmortemSource() {
         },
         (event) => events.push(event)
       );
-      const projection = projectLiveStatus({
-        start_request: startInput,
-        start_outcome: startOutcome,
-        control_request: null,
-        control_outcome: null,
-        result_assessment_request: null,
-        result_assessment_outcome: null
-      });
       const resetOutcome = eventIngress(resetPayload(runId, workKey), (event) =>
         events.push(event)
       );
@@ -1965,12 +1964,12 @@ export function installedResetPostmortemSource() {
           resetOutcome.kind === "accepted" ? resetOutcome.trace.emittedKinds : [],
         runId: startOutcome.kind === "rejected" ? null : startOutcome.trace.runId,
         workKey: startOutcome.kind === "rejected" ? null : startOutcome.trace.workKey,
-        preResetRunStatus: projection.runStatus,
+        preResetRunStatus: startOutcome.kind,
         assessmentStatus: null
       };
     }
 
-    function continuationObservation() {
+    async function continuationObservation() {
       const { module, runtimeIdentity, resolvedPolicy, targetHandle } = runtimeBundle();
       const runId = "run://installed-reset-continuation";
       const workKey = "wk://installed-reset-continuation";
@@ -2033,6 +2032,10 @@ export function installedResetPostmortemSource() {
           assignment_source: "policy_resolution",
           resolved_runtime_ref: "runtime://typescript/node"
         },
+        assessment_contract: {
+          ref: "contract://abg/result-assessment/fp@5",
+          digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+        },
         manifest_provenance: {
           spec_hash: "spec://typescript-dev",
           manifest_id: "manifest://installed-reset-continuation",
@@ -2050,18 +2053,11 @@ export function installedResetPostmortemSource() {
           ref: "ledger://installed-reset-continuation"
         }
       };
-      const assessmentOutcome = resultAssessment(
-        assessmentRequest,
-        (event) => events.push(event)
-      );
-      const projection = projectLiveStatus({
-        start_request: startInput,
-        start_outcome: startOutcome,
-        control_request: null,
-        control_outcome: null,
-        result_assessment_request: assessmentRequest,
-        result_assessment_outcome: assessmentOutcome
-      });
+      const { outcome: assessmentOutcome } =
+        await invokeCanonicalResultAssessmentWithoutReplayEvidence({
+          assessmentRequest,
+          events
+        });
       const resetOutcome = eventIngress(resetPayload(runId, workKey), (event) =>
         events.push(event)
       );
@@ -2073,9 +2069,10 @@ export function installedResetPostmortemSource() {
           resetOutcome.kind === "accepted" ? resetOutcome.trace.emittedKinds : [],
         runId,
         workKey,
-        preResetRunStatus: projection.runStatus,
+        preResetRunStatus: startOutcome.kind,
         assessmentStatus:
           assessmentRequest.result_artifact.fulfillment_assessments[0]?.fulfillment_status ?? null,
+        assessmentRefusalCode: assessmentOutcome.value.code,
         manifestId: assessmentRequest.manifest_provenance.manifest_id,
         publishedLedgerRef: assessmentRequest.published_ledger_ref.ref
       };
@@ -2083,7 +2080,7 @@ export function installedResetPostmortemSource() {
 
     console.log(
       JSON.stringify({
-        observations: [activeRunObservation(), continuationObservation()]
+        observations: [activeRunObservation(), await continuationObservation()]
       })
     );
   `;

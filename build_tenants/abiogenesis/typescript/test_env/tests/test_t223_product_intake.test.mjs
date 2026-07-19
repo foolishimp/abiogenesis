@@ -7,8 +7,24 @@ import path from "node:path";
 import test from "node:test";
 import { TextEncoder } from "node:util";
 
+import * as v from "valibot";
+
 import {
-  assertDs1ContractRoster,
+  admitPrivatePublicOperationEvent
+} from "../../build/semantic/code/src/abg/m03/runner/public_operation_admission.js";
+import {
+  buildPrivatePublicOperationDefinitionFamily
+} from "../../build/semantic/code/src/app/m04/public_contracts/public_operation_definition_family.js";
+import {
+  bindPrivateProductInstallHandler,
+  bindPrivateProductResolveHandler,
+  bindPrivateProductVerifyHandler
+} from "../../build/semantic/code/src/app/m04/product_intake/prebinding_public_operation_handlers.js";
+import {
+  PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES
+} from "../../build/semantic/code/src/app/m04/product_intake/operation_contracts.js";
+import {
+  assertAbgReleaseContractCatalog,
   assertProductProfileMatrix,
   assertResolvedProductLockCoherence,
   catalogResolve,
@@ -22,9 +38,15 @@ import {
   resolvedProductLockId
 } from "../../build/semantic/code/src/app/m04/product_intake/index.js";
 import {
+  stableSha256Digest
+} from "../../build/semantic/code/src/shared/runtime_identity.js";
+import {
   canonicalizeIJson,
   digestCanonicalIJson
 } from "../../build/semantic/code/src/app/m04/public_sdk/canonical.js";
+import {
+  admitT281PrivateP1Packet
+} from "./support/t281-private-ingress-fixture.mjs";
 
 const encoder = new TextEncoder();
 const ZERO_DIGEST = `sha256:${"0".repeat(64)}`;
@@ -411,11 +433,11 @@ test("T-223 verifier preserves the acyclic contribution back-reference law", () 
   );
   assert.throws(
     () =>
-      assertDs1ContractRoster({
+      assertAbgReleaseContractCatalog({
         ...fixture.catalog,
-        profile: "abg-5-ds1"
+        profile: "abg-5-release"
       }),
-    /DS-1 native_contract roster mismatch/u
+    /ABG profile rows require exact ABG ownership/u
   );
   assert.throws(
     () =>
@@ -426,12 +448,12 @@ test("T-223 verifier preserves the acyclic contribution back-reference law", () 
           rows: [
             {
               ...fixture.catalog.rows[0],
-              contractId: "abg.operation.catalog.invoke"
+              contractId: "abg.operation.run.invoke"
             }
           ]
         }
       }),
-    /cannot claim the ABIogenesis native or operation roster/u
+    /cannot claim ABIogenesis native or operation authority/u
   );
 });
 
@@ -626,4 +648,246 @@ test("T-223 install is source-blind, npm-layout exact, distinct, and idempotent"
   );
   assert.equal(staleBinding.kind, "refused");
   assert.equal(staleBinding.code, "toolchain_unresolved");
+});
+
+async function exactT281Family() {
+  const admitted = await buildPrivatePublicOperationDefinitionFamily();
+  assert.equal(admitted.kind, "exact_family_admitted", JSON.stringify(admitted));
+  return admitted.family;
+}
+
+function t281ArtifactAdmission(packet, events) {
+  return {
+    admission: admitPrivatePublicOperationEvent({
+      witness: packet.witness,
+      priorEvents: [],
+      eventSink(event) {
+        events.push(event);
+      }
+    })
+  };
+}
+
+test("T-281 resolve output feeds verify and verify output feeds Rule-B install", async () => {
+  const fixture = buildFixture();
+  const harness = productContext(fixture);
+  const context = {
+    ...harness.context,
+    publicContractCatalog: fixture.catalog
+  };
+  const family = await exactT281Family();
+  const requirements = [
+    {
+      productId: "abiogenesis",
+      versionConstraint: fixture.abgDescriptor.version,
+      requiredContractRefs: [],
+      requiredCapabilityRefs: []
+    },
+    {
+      productId: "hello-product",
+      versionConstraint: fixture.helloDescriptor.version,
+      requiredContractRefs: fixture.helloDescriptor.contractRefs,
+      requiredCapabilityRefs: fixture.helloDescriptor.capabilityRefs
+    }
+  ];
+  const candidateDescriptors = [
+    fixture.helloDescriptor,
+    fixture.abgDescriptor
+  ];
+  const candidates = candidateDescriptors.map((descriptor) => ({
+    productId: descriptor.productId,
+    version: descriptor.version,
+    contractRefs: descriptor.contractRefs,
+    capabilityRefs: descriptor.capabilityRefs
+  }));
+
+  const resolveDefinition = family["abg.operation.product.resolve"].resolve;
+  const resolved = bindPrivateProductResolveHandler(family).execute({
+    packet: admitT281PrivateP1Packet({
+      family,
+      definition: resolveDefinition,
+      request: { requirements, candidates }
+    }),
+    ownerRequest: { requirements, candidateDescriptors },
+    context
+  });
+  assert.equal(resolved.kind, "owner_handler_result", JSON.stringify(resolved));
+  assert.equal(resolved.value.resolvedLock.kind, "resolved_product_lock");
+  assert.equal(resolved.value.resolvedLockRef, resolved.value.resolvedLock.lockId);
+  assert.equal(
+    resolved.value.resolvedLockDigest,
+    resolved.value.resolvedLock.lockDigest
+  );
+  assert.throws(
+    () => v.parse(
+      PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_resolve.resolve.result.schema,
+      { ...resolved.value, resolvedLockDigest: ZERO_DIGEST }
+    ),
+    /resolved lock projection must match/u
+  );
+
+  const verifyDefinition = family["abg.operation.product.verify"].verify;
+  const verifyRequest = {
+    artifactRef: fixture.artifact.artifactPath,
+    artifactDigest: fixture.artifact.expectedArtifactDigest,
+    productContentDigest: fixture.artifact.expectedProductContentDigest,
+    descriptorRef: fixture.helloDescriptor.descriptorId,
+    descriptorDigest: fixture.helloDescriptor.descriptorDigest,
+    contributionManifestRef: fixture.contribution.contributionId,
+    contributionManifestDigest: fixture.contribution.contributionDigest,
+    resolvedLockRef: resolved.value.resolvedLockRef,
+    resolvedLockDigest: resolved.value.resolvedLockDigest,
+    expectedContractRefs: fixture.helloDescriptor.contractRefs
+  };
+  const verified = await bindPrivateProductVerifyHandler(family).execute({
+    packet: admitT281PrivateP1Packet({
+      family,
+      definition: verifyDefinition,
+      request: verifyRequest,
+      dependencyLock: {
+        ref: resolved.value.resolvedLockRef,
+        digest: resolved.value.resolvedLockDigest
+      }
+    }),
+    ownerRequest: {
+      artifact: fixture.artifact,
+      descriptor: fixture.helloDescriptor,
+      contributionManifest: fixture.contribution,
+      resolvedLock: resolved.value.resolvedLock
+    },
+    context
+  });
+  assert.equal(verified.kind, "owner_handler_result", JSON.stringify(verified));
+  assert.equal(verified.value.verifiedArtifact.kind, "verified_product_artifact");
+  assert.equal(
+    verified.value.verifiedArtifactDigest,
+    stableSha256Digest(verified.value.verifiedArtifact)
+  );
+  assert.equal(
+    verified.value.resolvedLockDigest,
+    verified.value.verifiedArtifact.resolvedLock.lockDigest
+  );
+  assert.throws(
+    () => v.parse(
+      PRODUCT_INTAKE_NATIVE_CONTRACT_SOURCES.product_verify.verify.result.schema,
+      { ...verified.value, verifiedArtifactDigest: ZERO_DIGEST }
+    ),
+    /verified artifact projection must match/u
+  );
+
+  const tamperedLock = {
+    ...resolved.value.resolvedLock,
+    lockDigest: ZERO_DIGEST
+  };
+  const tamperedVerifyRequest = {
+    ...verifyRequest,
+    resolvedLockDigest: tamperedLock.lockDigest
+  };
+  const refusedVerify = await bindPrivateProductVerifyHandler(family).execute({
+    packet: admitT281PrivateP1Packet({
+      family,
+      definition: verifyDefinition,
+      request: tamperedVerifyRequest,
+      dependencyLock: {
+        ref: tamperedLock.lockId,
+        digest: tamperedLock.lockDigest
+      }
+    }),
+    ownerRequest: {
+      artifact: fixture.artifact,
+      descriptor: fixture.helloDescriptor,
+      contributionManifest: fixture.contribution,
+      resolvedLock: tamperedLock
+    },
+    context
+  });
+  assert.equal(refusedVerify.kind, "owner_handler_refusal");
+  assert.equal(refusedVerify.value.code, "lock_mismatch");
+
+  const verifiedArtifact = verified.value.verifiedArtifact;
+  const toolchainRoot = "/tmp/t281-owner-chain-toolchain";
+  const installRequest = {
+    verifiedArtifactRef: verifiedArtifact.artifact.artifactPath,
+    verifiedArtifactDigest: verified.value.verifiedArtifactDigest,
+    productContentDigest: verifiedArtifact.artifact.expectedProductContentDigest,
+    productDescriptorRef: verifiedArtifact.descriptor.descriptorId,
+    productDescriptorDigest: verifiedArtifact.descriptor.descriptorDigest,
+    contributionManifestRef: verifiedArtifact.contributionManifest.contributionId,
+    contributionManifestDigest:
+      verifiedArtifact.contributionManifest.contributionDigest,
+    resolvedLockRef: verifiedArtifact.resolvedLock.lockId,
+    resolvedLockDigest: verifiedArtifact.resolvedLock.lockDigest,
+    targetRoot: path.join(
+      toolchainRoot,
+      "products",
+      verifiedArtifact.descriptor.productId,
+      verifiedArtifact.descriptor.version
+    ),
+    installPolicy: "immutable_idempotent"
+  };
+  const actorRef = "actor://t281/product-installer";
+  const installDefinition = family["abg.operation.product.install"].install;
+  const installPacket = admitT281PrivateP1Packet({
+    family,
+    definition: installDefinition,
+    request: installRequest,
+    actorRef,
+    dependencyLock: {
+      ref: installRequest.resolvedLockRef,
+      digest: installRequest.resolvedLockDigest
+    }
+  });
+  const events = [];
+  const installed = await bindPrivateProductInstallHandler(family).execute({
+    packet: installPacket,
+    ownerRequest: {
+      verifiedArtifact,
+      toolchainRoot,
+      workspaceBindingRef: null
+    },
+    context,
+    attribution: { actorRef },
+    artifactBoundary: t281ArtifactAdmission(installPacket, events)
+  });
+  assert.equal(installed.kind, "owner_handler_result", JSON.stringify(installed));
+  assert.equal(installed.value.materializationDisposition, "materialized");
+  assert.deepEqual(events.map((event) => event.kind), [
+    "public_operation_admitted",
+    "public_operation_artifact_admitted"
+  ]);
+
+  const tamperedArtifact = {
+    ...verifiedArtifact,
+    verifiedAt: "2000-01-01T00:00:00.000Z"
+  };
+  const refusedInstallPacket = admitT281PrivateP1Packet({
+    family,
+    definition: installDefinition,
+    request: installRequest,
+    actorRef,
+    dependencyLock: {
+      ref: installRequest.resolvedLockRef,
+      digest: installRequest.resolvedLockDigest
+    }
+  });
+  const tamperedEvents = [];
+  const refusedInstall = await bindPrivateProductInstallHandler(family).execute({
+    packet: refusedInstallPacket,
+    ownerRequest: {
+      verifiedArtifact: tamperedArtifact,
+      toolchainRoot,
+      workspaceBindingRef: null
+    },
+    context,
+    attribution: { actorRef },
+    artifactBoundary: t281ArtifactAdmission(
+      refusedInstallPacket,
+      tamperedEvents
+    )
+  });
+  assert.equal(refusedInstall.kind, "owner_handler_refusal");
+  assert.equal(refusedInstall.value.code, "verification_failed");
+  assert.deepEqual(tamperedEvents.map((event) => event.kind), [
+    "public_operation_admitted"
+  ]);
 });

@@ -14,6 +14,7 @@ import {
   constructGtlLibraryEntryDeclaration,
   constructNextActionBasis,
   constructObservationPressureRow,
+  constructOneSurfaceProgramMemberProjection,
   constructTargetObligationBinding,
   deriveConstructionPriorityProjection,
   deriveNextActionProjection,
@@ -155,6 +156,16 @@ async function semanticChainFixture() {
   assert.equal(compilation.status, "semantic_not_realized");
   assert.notEqual(compilation.authorityProgram, null);
   const program = compilation.authorityProgram;
+  const programMembers = constructOneSurfaceProgramMemberProjection({
+    admittedProgramRef: program.admittedProgramRef,
+    admittedProgramDigest: program.admittedProgramDigest,
+    graphFunctions: source.aggregateModule.graphFunctions.map(
+      (graphFunction) => Object.freeze({
+        graphFunctionRef: graphFunction.id,
+        graphFunctionDigest: stableSha256Digest(graphFunction)
+      })
+    )
+  });
   const catalog = admitScenario09Catalog(source);
   const episodeId = "episode://t280/scenario09";
   const workspaceBinding = Object.freeze({
@@ -169,7 +180,8 @@ async function semanticChainFixture() {
   const actionCatalog = deriveProgramActionCatalog({
     episodeId,
     allowedCatalog: program.stages[2].allowedConsequenceCatalog,
-    catalogView: catalog.session
+    catalogView: catalog.session,
+    programMembers
   });
   assert.equal(actionCatalog.kind, "construction_action_catalog_projection");
   assert.equal(actionCatalog.rows.length, 1);
@@ -306,7 +318,7 @@ async function semanticChainFixture() {
     obligationRefs: Object.freeze([
       "obligation://t280/scenario09/normalize"
     ]),
-    requiredEvidenceRefs: Object.freeze([
+    requiredEvidenceAuthorityRefs: Object.freeze([
       "evidence://t280/scenario09/normalized"
     ])
   })]);
@@ -348,6 +360,7 @@ async function semanticChainFixture() {
   const evaluateNextInput = Object.freeze({
     nextBasis,
     application: program,
+    programMembers,
     invocationAuthority,
     catalogBasis: catalog.basis,
     allowedEntryRefs: Object.freeze([CATALOG_ENTRY_REF]),
@@ -553,7 +566,7 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
               obligationRefs: Object.freeze([
                 "obligation://t280/scenario09/unbound"
               ]),
-              requiredEvidenceRefs: Object.freeze([
+              requiredEvidenceAuthorityRefs: Object.freeze([
                 "evidence://t280/scenario09/unbound"
               ])
             })
@@ -568,7 +581,7 @@ test("T-280 AF-13 refuses changed selector authority and duplicate outcomes", as
           obligationRefs: Object.freeze([
             "obligation://t280/scenario09/unbound"
           ]),
-          requiredEvidenceRefs: Object.freeze([
+          requiredEvidenceAuthorityRefs: Object.freeze([
             "evidence://t280/scenario09/unbound"
           ])
         })
@@ -615,7 +628,7 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
       "obligation://t280/scenario09/z",
       "obligation://t280/scenario09/a"
     ]),
-    requiredEvidenceRefs: Object.freeze([
+    requiredEvidenceAuthorityRefs: Object.freeze([
       "evidence://t280/scenario09/z",
       "evidence://t280/scenario09/a"
     ])
@@ -623,7 +636,9 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
   const second = Object.freeze({
     targetOutcomeRef: "outcome://t280/scenario09/second",
     obligationRefs: Object.freeze(["obligation://t280/scenario09/second"]),
-    requiredEvidenceRefs: Object.freeze(["evidence://t280/scenario09/second"])
+    requiredEvidenceAuthorityRefs: Object.freeze([
+      "evidence-authority://t280/scenario09/second"
+    ])
   });
   const forward = oneSurfaceEvaluateNextInputBasis({
     ...value.evaluateNextInput,
@@ -636,8 +651,8 @@ test("T-280 AF-13 canonicalizes unordered target-obligation sets", async () => {
       Object.freeze({
         ...first,
         obligationRefs: Object.freeze([...first.obligationRefs].reverse()),
-        requiredEvidenceRefs: Object.freeze(
-          [...first.requiredEvidenceRefs].reverse()
+        requiredEvidenceAuthorityRefs: Object.freeze(
+          [...first.requiredEvidenceAuthorityRefs].reverse()
         )
       })
     ])
@@ -669,7 +684,8 @@ test("T-280 AF-14 returns typed refusal for changed workspace and source-binding
     actionRef: originalTarget.actionRef,
     targetOutcomeRef: originalTarget.targetOutcomeRef,
     obligationRefs: originalTarget.obligationRefs,
-    requiredEvidenceRefs: originalTarget.requiredEvidenceRefs
+    requiredEvidenceAuthorityRefs:
+      originalTarget.requiredEvidenceAuthorityRefs
   });
   const changedBinding = admitOneSurfaceConstructionIntent({
       ...value.intentAdmissionInput,

@@ -74,12 +74,13 @@ function project(input) {
 test("T-095 payload ledger: accepted payload evidence projects fulfilled assurance", () => {
   const context = base();
   const authorityRef = "req://t095/payload-ledger";
+  const authoritySnapshotRef = "authority-snapshot://t095/accepted";
   const payloadRef = "payload://t095/accepted";
   const events = [
     constructAuthoritySnapshotAdmittedEvent({
       basis: context.basis,
       vectorIndex: context.scope.vectorIndex,
-      authoritySnapshotRef: "authority-snapshot://t095/accepted",
+      authoritySnapshotRef,
       authorityRefs: [authorityRef],
       inputRefs: ["input://t095/current"],
       authorityDigest: "authority-digest-t095",
@@ -95,7 +96,7 @@ test("T-095 payload ledger: accepted payload evidence projects fulfilled assuran
       contractRef: "contract://t095/evidence",
       digest: "digest://t095/accepted",
       producerRef: "worker://t095",
-      authorityRef,
+      authorityRef: authoritySnapshotRef,
       inputDigest: "input-digest-t095",
       policyRefs: ["policy://t095"]
     }),
@@ -114,7 +115,7 @@ test("T-095 payload ledger: accepted payload evidence projects fulfilled assuran
       vectorIndex: context.scope.vectorIndex,
       evidenceRef: "evidence://t095/accepted",
       payloadRef,
-      authorityRef,
+      authorityRef: authoritySnapshotRef,
       authorityDigest: "authority-digest-t095",
       inputDigest: "input-digest-t095",
       providerRefs: ["provider://t095/evidence"],

@@ -134,6 +134,7 @@ function compositionDeclarations(input) {
 
 function fixture({
   effects = true,
+  noSelector = false,
   resultBearingRole = "transform",
   programShape = "triple"
 } = {}) {
@@ -232,7 +233,7 @@ function fixture({
       rule: null,
       allowsSubwork: false,
       declarations: graphVectorDeclarations([
-        hogProgramRefDeclarationEntry(programRef),
+        ...(noSelector ? [] : [hogProgramRefDeclarationEntry(programRef)]),
         ...declarations.entries
       ]),
       tags: ["t267"]
@@ -292,7 +293,7 @@ function fixture({
   const finalVector = constructGraphVector({
     ...correctedVector,
     declarations: graphVectorDeclarations([
-      hogProgramRefDeclarationEntry(programRef),
+      ...(noSelector ? [] : [hogProgramRefDeclarationEntry(programRef)]),
       ...finalDeclarations.entries
     ])
   });
@@ -531,6 +532,31 @@ test("T-267 compiles one non-product execution family through one checked report
       effectsPermitted: true
     })),
     /statically effect-free/u
+  );
+});
+
+test("T-267 refuses selector-free ordinary work without reclassifying it as structural HOF", () => {
+  const value = fixture({ effects: false, noSelector: true });
+  const executionBinding = value.catalogBasis.executionBindings[0];
+
+  assert.throws(
+    () => compileTraversalExecutionFamily({
+      catalogBasis: value.catalogBasis,
+      executionBinding,
+      admittedTenantConformanceManifest: admittedManifest()
+    }),
+    (error) => {
+      assert.equal(error.code, "program_invalid");
+      assert.match(error.message, /selector-free ordinary GraphFunction/u);
+      assert.match(error.message, /declare one exact vector C-program selector/u);
+      assert.doesNotMatch(error.message, /does not preserve one admitted HOF relation/u);
+      assert.deepEqual(error.diagnosticRefs, [
+        value.host.id,
+        value.vector.id,
+        "abg.hog_program_ref"
+      ]);
+      return true;
+    }
   );
 });
 

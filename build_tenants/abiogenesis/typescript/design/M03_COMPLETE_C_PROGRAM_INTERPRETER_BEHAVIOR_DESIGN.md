@@ -1,6 +1,7 @@
 # M03 Complete C-Program Interpreter Behavior Design
 
-**Status**: Accepted under delegated F_H authority after bounded self-review
+**Status**: Accepted under delegated F_H authority; bounded C-call-enclosure
+conformance re-entry accepted 2026-07-19
 **Date**: 2026-07-14
 **Ticket**: `T-271`
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
@@ -19,7 +20,8 @@ admitted CProgramDeclaration
   -> exact selected abg.fn_composition
   -> one immutable CompiledCProgramPlan
   -> replay-derived CProgramExecutionCursor
-  -> existing C-call, workflow.C, C.batch, and C.retry runtime atoms
+  -> T-271-owned C-call enclosure around bounded effect-interior submissions
+  -> existing workflow.C, C.batch, and C.retry runtime laws
   -> admitted CProgramExecutionOutcome
 ```
 
@@ -208,45 +210,67 @@ the selected owner fails compilation before effects. A row reused through the
 unique-fibre rule is recorded on every locus; reuse never merges stage, task,
 arm, evidence, or C-call identity.
 
-### D5. Structural constructors delegate to the existing atom laws
+### D5. Structural constructors delegate effects, not C-call ownership
 
-The interpreter exhaustively matches `CompiledCPlanNode`:
+The interpreter exhaustively matches `CompiledCPlanNode` while remaining the
+single owner of every invoking locus's C-call enclosure:
 
-- stage leaf: invoke the existing declared-stage C-call/result-admission atom;
+- stage leaf: open the exact C-call, invoke the declared-stage effect interior,
+  then admit and seal the returned submission;
 - identity: pass the admitted input and lineage without events or effects;
 - sequence: interpret children in order, passing only admitted output;
-- workflow lift: invoke the T-259 child traversal atom under the compiled
-  child binding;
+- workflow lift: open the exact C-call, invoke the T-259 child traversal
+  interior under the compiled child binding, then admit and seal the returned
+  submission;
 - batch: invoke the T-260 all-or-block task-family law, with each task adapter
   interpreting that task's compiled child plan; and
 - retry: invoke the T-261 replay/budget law, with each eligible attempt
   interpreting the wrapped compiled child plan.
 
 Direct `C.batch(C.of...)` and `C.retry(C.of...)` retain observationally
-equivalent resolver behavior. Their current implementations combine the
-grouping/control law with the sole direct leaf's C-call construction. T-271
-must factor those implementations at the existing atom boundary:
+equivalent resolver behavior. Their earlier direct implementations combined
+the grouping/control law with the sole direct leaf's C-call construction.
+T-271 factors those responsibilities at one boundary:
 
 - the batch coordinator owns stable task order and all-or-block folding;
 - the complete-program batch projection derives separate content-addressed
   output and result refs from the ordered admitted task outputs and task
   results, seals that derivation in a replay receipt, and accepts no caller-
   supplied projection callback;
-- the retry coordinator owns replay-derived attempt eligibility, budget, and
-  the retry judgment over the exact terminal child call; and
-- the stage/workflow atoms own every C-call open, fibre selection, evidence,
-  result admission, and non-retry terminal judgment.
+- the retry coordinator owns replay-derived attempt eligibility and budget;
+- T-271 owns the exact terminal child call's retry judgment; and
+- an effect-interior callback owns only its bounded external action and returns
+  exactly one `CProgramAtomInvocationSubmission` to T-271.
+
+For each invoking stage leaf or workflow lift, T-271 alone admits this ordered
+enclosure using existing runtime event kinds:
+
+```text
+c_call_opened
+  -> c_call_fibre_selected
+  -> validated effect-interior events
+  -> payload and authority evidence
+  -> c_call_evidenced
+  -> c_call_result_admitted
+  -> c_call_judged
+```
+
+The callback cannot open, evidence, admit, judge, or close a C-call and cannot
+write directly to replay. It returns bounded data; T-271 validates exact
+scope, basis, graph call, frame, vector, edge, C-call, causal order, and
+cardinality before event admission. No new event kind, event authority,
+controller, or C-call namespace is introduced.
 
 Nested forms then reuse the same batch and retry laws while delegating task or
 attempt interiors back to the structural interpreter. A wrapper never opens a
-synthetic C-call around multiple effectful child calls. Each invoking leaf or
-workflow lift owns its existing spine; batch remains a grouping relation and
+synthetic C-call around multiple effectful child calls. T-271 opens one spine
+for each invoking leaf or workflow lift; batch remains a grouping relation and
 retry remains a control relation. The retry attempt is included in every
-wrapped child cursor, so replay distinguishes the whole new attempt while the
-coordinator attaches `retry` only to the failed attempt's exact terminal child
+wrapped child cursor, so replay distinguishes the whole new attempt while
+T-271 attaches `retry` only to the failed attempt's exact terminal child
 C-call.
 
-### D6. The interpreter is a fold, not another traversal runtime
+### D6. The interpreter owns enclosure; the callback owns effect interior
 
 The interpreter owns only:
 
@@ -256,15 +280,69 @@ ordered carrier threading
 batch child-plan delegation
 retry child-plan delegation
 replay-derived cursor re-entry
+one C-call enclosure per invoking leaf or workflow lift
+atom-submission validation and ordered event admission
 closed outcome folding
 ```
 
-Existing runtime atoms continue to own C-call events, plugin/worker effect
-boundaries, F_P result admission, F_H held truth, retry eligibility, child
-frames, and replay evidence. The interpreter cannot emit a successful atom
-result, select a handler, write runtime truth directly, or decide graph
-continuation. It consumes atom outcomes and returns one program outcome to the
-owning graph traversal boundary.
+The effect-interior callback continues to own the selected plugin, worker, or
+child-traversal action. Existing F_P target/result admission, F_H held truth,
+retry eligibility, and child-frame laws remain unchanged. T-271 does not
+perform those semantic judgments; it validates their returned carriers and
+events, owns the enclosing C-call spine, submits that ordered enclosure through
+the existing event-admission authority, and folds replay-derived truth into one
+program outcome. It cannot select a handler, invent effect output, create a
+second traversal loop, or decide graph continuation.
+
+The one callback API is a breaking replacement for separate result and event
+projection callbacks:
+
+```ts
+interface CProgramAtomInvocationSubmission {
+  readonly kind: "c_program_atom_invocation_submission";
+  readonly result: CProgramAtomResult;
+  readonly admittedTargetCarrier: AdmittedInvocationCarrier | null;
+  readonly interiorEvents: readonly CProgramAtomInteriorEvent[];
+  readonly evidenceEvents: readonly CProgramAtomEvidenceEvent[];
+  readonly closeBasis: CProgramAtomCloseBasis | null;
+}
+
+interface CProgramInterpreterInvocation {
+  readonly invokeAdmittedAtom: (
+    request: CProgramAtomRequest
+  ) => Promise<CProgramAtomInvocationSubmission>;
+}
+```
+
+`CProgramAtomInteriorEvent` is this closed, neutral subset of the existing
+runtime-event union:
+
+```text
+instruction_prompt_manifest_projected
+fp_dispatch_requested
+instruction_causal_context_bound
+plugin_traversal_prompt_materialized
+actor_invocation_started
+actor_process_started
+actor_process_start_failed
+actor_process_stream_observed
+actor_process_heartbeat
+actor_process_timeout
+actor_process_signal_sent
+actor_process_exited
+runtime_activity_probe_observed
+runtime_external_interruption_observed
+actor_result_artifact_observed
+instruction_response_contract_admitted
+actor_invocation_closed
+```
+
+It excludes
+payload-evidence rows, C-call rows, graph/frame/vector lifecycle rows,
+retry/continuation/terminal rows, F_H/public-operation rows, and every unknown
+kind. `CProgramAtomEvidenceEvent` remains the closed existing payload and
+authority evidence subset. `projectAtomRuntimeEvents` is removed; retaining it
+would create a second event-projection authority beside the submission.
 
 ### D7. Replay and failure are path-conserving
 
@@ -424,11 +502,22 @@ classDiagram
     -cursorRef
     -selectedCatalogEntryRef
   }
-  class RuntimeAtomOutcome {
-    <<effect-edge>>
-    -status
-    -outputPayloadRef
-    -emittedEventRefs
+  class CCallEnclosure {
+    <<subordinate>>
+    -cCallRef
+    -fibreSelection
+    -orderedInterior
+    -orderedEvidence
+    -resultAdmission
+    -judgment
+  }
+  class CProgramAtomInvocationSubmission {
+    <<subordinate Prime neutral join>>
+    -result
+    -admittedTargetCarrier
+    -interiorEvents
+    -evidenceEvents
+    -closeBasis
   }
   class TraversalConservationProjection {
     <<downstream>>
@@ -458,10 +547,12 @@ classDiagram
     <<authoritative>>
     -dispatch compiled node
     -thread admitted carriers
+    -own each invoking-locus C-call enclosure
   }
   class ExistingRuntimeAtom {
-    <<authoritative>>
-    -own C-call and control interior
+    <<effect-edge>>
+    -perform bounded effect interior
+    -return one submission
   }
   class ExternalEffectAdapter {
     <<effect-edge>>
@@ -488,12 +579,15 @@ classDiagram
   CompiledCProgramPlan --> ABGReplayProjection : scopes
   ABGReplayProjection --> CProgramExecutionCursor : derives
   CProgramExecutionCursor --> CProgramInterpreter : drives
+  CProgramInterpreter *-- CCallEnclosure : owns one per invoking locus
   CProgramInterpreter --> RuntimeAtomRequest : selects exact atom
   RuntimeAtomRequest --> ExistingRuntimeAtom : invokes
   ExistingRuntimeAtom --> ExternalEffectAdapter : bounded effect
-  ExistingRuntimeAtom --> ABGEventAdmission : submits truth
-  ABGEventAdmission --> RuntimeAtomOutcome : admits
-  RuntimeAtomOutcome --> CProgramExecutionOutcome : admitted fold
+  ExistingRuntimeAtom --> CProgramAtomInvocationSubmission : returns bounded data
+  CProgramInterpreter --> CProgramAtomInvocationSubmission : validates exact submission
+  CProgramAtomInvocationSubmission ..> ABGEventAdmission : supplies interior and evidence only
+  CProgramInterpreter --> ABGEventAdmission : admits ordered C-call enclosure
+  ABGEventAdmission --> CProgramExecutionOutcome : replay-derived fold
   CompiledCProgramPlan --> TraversalConservationProjection : T-267 consumes
   PublicInvocationRouter --> CompiledCProgramPlan : T-270 supplies
   GraphRecurseRelation ..> TraversalConservationProjection : separate T-267 join
@@ -510,7 +604,8 @@ sequenceDiagram
   participant Plan as CompiledCProgramPlan
   participant Replay as ABG ReplayProjection
   participant Interpreter as CProgramInterpreter
-  participant Atom as ExistingRuntimeAtom
+  participant Control as Existing Batch/Retry Law
+  participant Atom as EffectInteriorCallback
   participant Effect as External EffectAdapter
   participant Events as ABG EventAdmission
 
@@ -531,44 +626,50 @@ sequenceDiagram
     alt Interpreter owns C.id
       Interpreter->>Interpreter: pass admitted payload and lineage without effect
     else Interpreter owns C.of
-      Interpreter->>Atom: exact stage-leaf request
+      Interpreter->>Events: admit exact C-call open and fibre selection
+      Events-->>Interpreter: open enclosure accepted
+      Interpreter->>Atom: exact stage-leaf effect-interior request
       Atom->>Effect: selected fibre interior only
       Effect-->>Atom: raw result or failure
-      Atom->>Events: admit C-call spine and result truth
-      Events-->>Atom: admitted atom outcome
-      Atom-->>Interpreter: completed, held, blocked, or failed
+      Atom-->>Interpreter: one CProgramAtomInvocationSubmission
+      Interpreter->>Interpreter: validate result, target, interior, evidence, and close basis
+      Interpreter->>Events: admit interior, evidence, result, judgment in order
+      Events-->>Interpreter: replay-visible completed, held, blocked, or failed truth
     else Interpreter owns workflow.C
-      Interpreter->>Atom: exact workflow-lift request
+      Interpreter->>Events: admit exact C-call open and fibre selection
+      Events-->>Interpreter: open enclosure accepted
+      Interpreter->>Atom: exact workflow-lift effect-interior request
       Atom->>Router: admitted child GraphFunction start
       Router-->>Atom: child traversal outcome with evidence
-      Atom->>Events: admit sub_traversal C-call truth
-      Events-->>Atom: admitted workflow outcome
-      Atom-->>Interpreter: child output or truthful stop
+      Atom-->>Interpreter: one CProgramAtomInvocationSubmission
+      Interpreter->>Interpreter: validate child result, interior, evidence, and close basis
+      Interpreter->>Events: admit interior, evidence, result, judgment in order
+      Events-->>Interpreter: replay-visible child output or truthful stop
     else Interpreter owns C.batch
       loop T-260 batch owner iterates stable task ordinals
-        Interpreter->>Atom: batch task with compiled child node ref
-        Atom->>Interpreter: delegate exact task child plan
-        Interpreter-->>Atom: admitted task outcome
+        Interpreter->>Control: batch task with compiled child node ref
+        Control->>Interpreter: delegate exact task child plan
+        Interpreter-->>Control: admitted task outcome
       end
-      Note over Interpreter,Events: Child atoms own task calls and batch opens no synthetic spine
-      Atom-->>Interpreter: completed, held, or blocked family
+      Note over Interpreter,Events: T-271 owns each invoking child call and batch opens no synthetic spine
+      Control-->>Interpreter: completed, held, or blocked family
     else Interpreter owns C.retry
-      Atom->>Replay: derive eligible attempt and budget
-      Replay-->>Atom: exact retry cursor
+      Control->>Replay: derive eligible attempt and budget
+      Replay-->>Control: exact retry cursor
       alt Retry owner admits another attempt
-        Atom->>Interpreter: delegate wrapped child plan at attempt
-        Interpreter-->>Atom: admitted attempt outcome
-        Atom->>Events: attach judgment to exact terminal child C-call
-        Events-->>Atom: replay-visible child-attempt truth
-        Atom-->>Interpreter: complete, retry cursor, held, or blocked
+        Control->>Interpreter: delegate wrapped child plan at attempt
+        Interpreter-->>Control: admitted attempt outcome with exact terminal child C-call
+        Interpreter->>Events: admit retry judgment on that terminal child C-call
+        Events-->>Interpreter: replay-visible child-attempt truth
+        Control-->>Interpreter: complete, retry cursor, held, or blocked
       else Retry owner refuses attempt
-        Atom-->>Interpreter: exhausted or ineligible typed stop
+        Control-->>Interpreter: exhausted or ineligible typed stop
       end
     end
     alt Interpreter owns admitted next child
       Interpreter->>Replay: reproject cursor after admitted outcome
       Replay-->>Interpreter: next exact path or terminal path
-    else Atom outcome is held, blocked, gap, or failed
+    else Admitted enclosure outcome is held, blocked, gap, or failed
       Interpreter-->>Router: exact non-completed program outcome
       Router-->>Caller: truthful stop without later effects
     else Interpreter reaches terminal path
@@ -593,13 +694,17 @@ stateDiagram-v2
   CursorProjected --> ReplayRefused : replay admission owner / stale or contradictory truth
   CursorProjected --> Interpreting : C interpreter owner / exhaustive compiled-node dispatch
   Interpreting --> CursorProjected : C.id interpreter owner / admitted no-effect pass
-  Interpreting --> AtomPending : runtime atom owner / open exact effect or child boundary
-  AtomPending --> Held : F_H or child atom owner / admitted pending external truth
-  AtomPending --> Blocked : atom admission owner / semantic or runtime block
-  AtomPending --> RuntimeFailed : atom admission owner / typed non-admitted failure
-  AtomPending --> Retrying : C.retry owner / admitted retryable failure and budget remains
+  Interpreting --> EnclosureOpen : T-271 owner / admit exact C-call open and fibre
+  EnclosureOpen --> AtomPending : T-271 owner / invoke bounded effect interior
+  AtomPending --> EnclosureSealing : effect callback / return one submission
+  AtomPending --> RuntimeFailed : T-271 owner / missing or malformed submission
+  EnclosureSealing --> ReplayRefused : T-271 owner / scope, order, cardinality, or evidence mismatch
+  EnclosureSealing --> Held : T-271 owner / admit pending F_H or child truth and judgment
+  EnclosureSealing --> Blocked : T-271 owner / admit semantic or runtime block and judgment
+  EnclosureSealing --> RuntimeFailed : T-271 owner / typed non-admitted failure
+  EnclosureSealing --> Retrying : T-271 plus C.retry law / admitted retryable judgment and budget remains
   Retrying --> CursorProjected : replay projection owner / derive exact next attempt cursor
-  AtomPending --> CursorProjected : event admission owner / admitted child result and next path
+  EnclosureSealing --> CursorProjected : T-271 event admission / admitted result, judgment, and next path
   CursorProjected --> Completed : interpreter fold owner / terminal path and one admitted result
   CompileRefused --> [*] : public projection owner / typed invalid stop
   SemanticGap --> [*] : public projection owner / typed unrealized stop
@@ -619,11 +724,13 @@ stateDiagram-v2
 | Compile before effects | C-ALGEBRA-016 | `CompiledCProgramPlan` precedes requests | Compile refusal returns before `EffectAdapter` | `PlanReady` precedes `AtomPending` | Plan-only interpreter input | Global references, carriers, cardinality, and composition close in compiler | pass | none |
 | Authored stage conservation | C-ALGEBRA-016; FN-COMP-015/-021 | Source path and digest retained per node | Sequence never synthesizes a C stage | Compiler refusal on lost or replaced locus | Exact recursive plan union | Path census equals admitted tree census | pass | T-267 consumes proof |
 | Role/fibre orthogonality | C-ALGEBRA-009 | Domain and composition roles are separate fields | Atom receives exact declared fibre | Mismatch transitions to `CompileRefused` | `C.of` typed fibre | Composition row joined without renaming domain role | pass | none |
-| Named workflow transparency | C-ALGEBRA-006; CCALL-013 | Workflow node binds one child GraphFunction | Child runs through public graph start and returns evidence | Held/block/complete derive from child atom | Node carries exact child ref | Selected Module and outer interface resolve exactly | pass | none |
-| Batch spine identity | C-ALGEBRA-007; CCALL-005 | Ordered task refs plus task ordinal | Each task delegates one child plan; atom owns spines | Parent remains all-or-block | Non-empty typed task family | Equal carriers/cardinality and stable positions | pass | none |
+| Named workflow transparency | C-ALGEBRA-006; CCALL-013 | Workflow node binds one child GraphFunction | Child runs through public graph start; callback returns one bounded submission | Held/block/complete derive from T-271-admitted enclosure truth | Node carries exact child ref | Selected Module and outer interface resolve exactly | pass | none |
+| One C-call enclosure owner | CCALL-002/-004/-006/-009 | `CProgramInterpreter` owns one `CCallEnclosure` per invoking locus | T-271 opens and seals; callback returns interior data only | `EnclosureOpen` and `EnclosureSealing` are T-271-owned | Callback return type contains no C-call admission authority | Exact scope, order, evidence, result, and judgment validate before admission | pass | runtime reconciliation required by conformance re-entry |
+| Bounded atom submission | CCALL-006; C-ALGEBRA-018 | One `CProgramAtomInvocationSubmission` separates result, target, interior, evidence, and close basis | No second event-projection callback exists | Missing, duplicate, malformed, or mis-scoped submission cannot leave `AtomPending` | One discriminated callback result | Closed interior/evidence kinds and exact target cardinality validate fail-closed | pass | runtime reconciliation required by conformance re-entry |
+| Batch spine identity | C-ALGEBRA-007; CCALL-005 | Ordered task refs plus task ordinal | Each task delegates one child plan; T-271 owns each invoking child spine | Parent remains all-or-block | Non-empty typed task family | Equal carriers/cardinality and stable positions | pass | none |
 | One retry law | C-ALGEBRA-008; CCALL-009 | Retry node carries shared policy digest | Retry atom consults replay before another attempt | Only admitted retry moves to `Retrying` | Positive authored budget | Policy digest, allowlist, budget, and replay eligibility rechecked | pass | none |
-| Replay-derived continuation | CCALL-004; FN-COMP-011 | Cursor is prime replay projection | Cursor reprojects after admitted atom truth | No controller-local transition | Cursor type excludes decision flags | Replay identity and plan digest must match | pass | none |
-| Raw F_P/F_H output cannot close | C-ALGEBRA-018; FN-COMP-017 | Raw atom result is effect-edge-only | Atom admits output before interpreter sees it | Raw output has no transition to `Completed` | Closed atom outcome union | Existing T-257/T-258 admissions own checks | pass | none |
+| Replay-derived continuation | CCALL-004; FN-COMP-011 | Cursor is prime replay projection | Cursor reprojects after T-271 admits the exact enclosure | No controller-local transition | Cursor type excludes decision flags | Replay identity, plan digest, C-call scope, and event order must match | pass | none |
+| Raw F_P/F_H output cannot close | C-ALGEBRA-018; FN-COMP-017 | Raw effect result remains inside the callback submission | T-271 admits only validated target/evidence and ordered enclosure truth | Raw output has no transition to `EnclosureSealing` or `Completed` | Closed submission and outcome unions | Existing T-257/T-258 checks supply admitted carriers; T-271 owns enclosure admission | pass | none |
 | Graph recurse separation | C-ALGEBRA-001; CCALL-013 | Recurse is deferred relation, not plan node | No recurse interpreter alternative | Unsupported cycle reaches `SemanticGap` | No recurse C variant exists | Graph application compiler owns relation | pass | T-267 join |
 | Public invocation integration | T-270 | Router is deferred/downstream | Router supplies plan and consumes outcome | Startup remains blocked without router authority | Not applicable in T-271 | T-270 must join public catalog/start truth | not_applicable | T-270 |
 | Whole-program TraversalUnit conservation | T-267 | Downstream projection consumes exact plan | Completed result returns to traversal owner | `Completed` does not self-close graph traversal | Not applicable in T-271 | T-267 must conserve authored and bind rows | not_applicable | T-267 |
@@ -639,8 +746,13 @@ requires these tests against module-owned carriers rather than helper layout:
 | Native/raw equivalence | Native constructor tree and raw canonical admission compile to the same plan digest. |
 | Flat parity | Existing direct `C.of`, `C.edge`, workflow, batch, and retry fixtures remain observationally equivalent. |
 | Mixed sequence | `C.compose` threads carriers through at least one `C.of` and one `workflow.C` without flattening the lift. |
-| Nested batch | A batch task containing composition executes each leaf under distinct path/task identity and retains all-or-block semantics. |
-| Nested retry | `C.retry` around a composite child re-enters only through replay-derived eligibility and preserves child C-call spines. |
+| Nested batch | A batch task containing composition executes each leaf under distinct path/task identity; T-271 owns each invoking child enclosure, opens no wrapper spine, and retains all-or-block semantics. |
+| Nested retry | `C.retry` around a composite child re-enters only through replay-derived eligibility; T-271 owns each child enclosure and attaches retry judgment only to the exact terminal child C-call. |
+| Single enclosure owner | For every invoking leaf and workflow lift, only T-271 admits open, fibre, interior, evidence, result, and judgment rows; the callback cannot submit C-call rows or write replay. |
+| Submission cardinality | Each callback invocation returns exactly one `CProgramAtomInvocationSubmission`; absent, duplicate, or contradictory target, evidence, close-basis, or result carriers fail before enclosure sealing. |
+| Interior allowlist negative | Unknown, payload-evidence, C-call, lifecycle, retry, continuation, terminal, F_H, or public-operation events in `interiorEvents` fail before admission. |
+| Enclosure ordering negative | Injected, reordered, wrong-scope, wrong-basis, wrong-frame, wrong-vector, wrong-edge, or wrong-C-call interior/evidence rows cannot seal or replay. |
+| Replay enclosure negative | Replay does not invoke the callback; a receipt with missing, duplicate, or reordered enclosure rows is rejected rather than reprojected as completed. |
 | Identity law | Left and right `C.id` add no effect or C-call event and preserve the same admitted payload/lineage. |
 | Edge law | `C.edge` retains transform/evaluate/consequence source paths and direct leaves without forcing those roles on open programs. |
 | Carrier negative | One inner carrier discontinuity fails compilation before atom invocation. |
@@ -657,6 +769,15 @@ requires these tests against module-owned carriers rather than helper layout:
 
 The bounded self-review repaired workflow wire-authority, cross-view owner,
 compiler/runtime outcome, nested batch/retry spine, composition-row reuse, and
-recurse-separation defects before acceptance. Implementation is authorized
-only within this design; closure still requires the complete proof matrix and
-an independent post-implementation review.
+recurse-separation defects before acceptance. The 2026-07-19 conformance audit
+then found one remaining ownership contradiction: the earlier prose and views
+assigned C-call admission to runtime atoms while the traversal monad requires
+T-271 to own each invoking-locus enclosure. This accepted correction replaces
+that claim with one neutral `CProgramAtomInvocationSubmission` callback and no
+new event, authority, controller, constructor, or traversal path.
+
+The historical implementation proof remains evidence for compilation,
+structural interpretation, and replay coordinates. It is not closure evidence
+for the corrected callback/enclosure seam until runtime removes
+`projectAtomRuntimeEvents`, returns the single submission, and passes the added
+proof rows plus independent post-implementation review.

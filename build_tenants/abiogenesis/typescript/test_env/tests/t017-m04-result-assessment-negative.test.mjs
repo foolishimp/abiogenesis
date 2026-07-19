@@ -2,9 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
-  admitPublicResultAssessmentRequest,
-  resultAssessment
-} from "../../build/semantic/code/src/app/m04/index.js";
+  admitPublicResultAssessmentRequest
+} from "../../build/semantic/code/src/app/m04/result_assessment/admission.js";
+import {
+  runAbiogenesisCli
+} from "../../build/semantic/code/src/cli/command.js";
 import {
   fpDispatchRequest,
   resultAssessmentPayload
@@ -41,11 +43,19 @@ test("T-017 negative proof: result-assessment rejects malformed artifact input b
   );
 });
 
-test("T-017 negative proof: result-assessment requires an explicit event sink", () => {
-  const dispatchRequest = fpDispatchRequest();
-
-  assert.throws(
-    () => resultAssessment(resultAssessmentPayload(dispatchRequest)),
-    /eventSink must be provided explicitly/i
+test("T-017 negative proof: legacy assess-result command is removed", async () => {
+  const stdout = [];
+  const stderr = [];
+  const exitCode = await runAbiogenesisCli(
+    ["assess-result", "--workspace", ".", "--result", "result.json"],
+    {
+      cwd: () => process.cwd(),
+      stdout: (value) => stdout.push(value),
+      stderr: (value) => stderr.push(value)
+    }
   );
+
+  assert.equal(exitCode, 1);
+  assert.match(stdout[0], /unsupported command/u);
+  assert.match(stderr[0], /unsupported command/u);
 });

@@ -126,7 +126,8 @@ export interface PublicOperationAdapterExitMap {
   readonly adapterFailure: 70;
 }
 
-export interface PublicOperationContractMetadata {
+export interface LegacyPublicOperationContractMetadata {
+  readonly kind?: undefined;
   readonly operationId: PublicOperationId;
   readonly operationVersion: "1.0.0";
   readonly operationDigest: Sha256Digest;
@@ -157,6 +158,127 @@ export interface PublicOperationContractMetadata {
   readonly adapterExitMap: PublicOperationAdapterExitMap;
 }
 
+export type PublishedPublicOperationDefinitionKey =
+  | Readonly<{
+      operationId: string;
+      memberKind: "variant";
+      variant: string;
+    }>
+  | Readonly<{
+      operationId: "abg.operation.project.read";
+      memberKind: "project_read_case";
+      caseKey: string;
+    }>;
+
+export interface PublishedPublicOperationSchemaCoordinate {
+  readonly contractId: string;
+  readonly contractVersion: "5.0.0";
+  readonly contractDigest: Sha256Digest;
+  readonly schemaId: string;
+  readonly schemaVersion: "5.0.0";
+  readonly schemaDigest: Sha256Digest;
+  readonly assetLocator: CanonicalAssetLocator;
+}
+
+export type PublishedPublicOperationAuthorityPresence =
+  | "forbidden"
+  | "exactly_one";
+
+export type PublishedPublicOperationCatalogScopeRequirement =
+  | Readonly<{
+      kind: "fixed";
+      requirement: PublishedPublicOperationAuthorityPresence;
+    }>
+  | Readonly<{
+      kind: "by_visibility_basis";
+      workspace_catalog: "forbidden";
+      session_view: "exactly_one_matching_selector";
+    }>;
+
+export interface PublishedPublicOperationAuthorityRequirements {
+  readonly actor: "forbidden" | "required";
+  readonly workspace: PublishedPublicOperationAuthorityPresence;
+  readonly productSet: PublishedPublicOperationAuthorityPresence;
+  readonly dependencyLock: PublishedPublicOperationAuthorityPresence;
+  readonly catalogScope: PublishedPublicOperationCatalogScopeRequirement;
+  readonly executionProgram: PublishedPublicOperationAuthorityPresence;
+  readonly invocationPolicy: PublishedPublicOperationAuthorityPresence;
+  readonly transportSteering: PublishedPublicOperationAuthorityPresence;
+}
+
+export interface PublishedPublicOperationDefault {
+  readonly field: string;
+  readonly policy: Readonly<{
+    kind: "literal";
+    value: string;
+  }>;
+}
+
+export type PublishedPublicOperationEffectClass =
+  | "workspace_filesystem"
+  | "workspace_read_admission"
+  | "pure_projection"
+  | "deterministic_evaluation"
+  | "immutable_install_filesystem"
+  | "workspace_binding_persistence"
+  | "catalog_event_admission"
+  | "deterministic_narrowing"
+  | "declaration_application_admission"
+  | "abg_traversal"
+  | "abg_continuation"
+  | "fh_response_admission"
+  | "result_assessment_admission"
+  | "witnessed_act_admission"
+  | "tuning_lifecycle_admission"
+  | "conformance_evaluation_admission"
+  | "product_filesystem"
+  | "immutable_release_publication";
+
+export type PublishedPublicOperationEventAdmission =
+  | "none"
+  | "owning_semantic_authority"
+  | "immutable_artifact_boundary";
+
+export interface PublishedPublicOperationDefinitionMember {
+  readonly definitionKey: PublishedPublicOperationDefinitionKey;
+  readonly definitionDigest: Sha256Digest;
+  readonly version: "5.0.0";
+  readonly semanticAuthorityRef: string;
+  readonly semanticAuthorityDigest: Sha256Digest;
+  readonly authorityClass: "pure" | "read" | "write" | "attestation";
+  readonly effectClass: PublishedPublicOperationEffectClass;
+  readonly eventAdmission: PublishedPublicOperationEventAdmission;
+  readonly authoritySlotRequirements: PublishedPublicOperationAuthorityRequirements;
+  readonly capabilityRefs: readonly string[];
+  readonly workspaceBindingRequirement: PublishedPublicOperationAuthorityPresence;
+  readonly defaults: readonly PublishedPublicOperationDefault[];
+  readonly schemaCoordinates: Readonly<{
+    request: PublishedPublicOperationSchemaCoordinate;
+    result: PublishedPublicOperationSchemaCoordinate;
+    refusal: PublishedPublicOperationSchemaCoordinate;
+    nonterminal: PublishedPublicOperationSchemaCoordinate | null;
+  }>;
+  readonly sdkCoordinate: string;
+  readonly cliCoordinate: string;
+  readonly adapterExitMap: PublicOperationAdapterExitMap;
+}
+
+export interface PublishedPublicOperationContractMetadata {
+  readonly kind: "abg_public_operation_definition_family";
+  readonly operationId: string;
+  readonly operationVersion: "5.0.0";
+  readonly operationDigest: Sha256Digest;
+  readonly familyDigest: Sha256Digest;
+  readonly definitions: readonly [
+    PublishedPublicOperationDefinitionMember,
+    ...PublishedPublicOperationDefinitionMember[]
+  ];
+}
+
+export type PublicOperationContractMetadata =
+  | LegacyPublicOperationContractMetadata
+  | PublishedPublicOperationContractMetadata;
+
 export interface PublicContractRow {
   readonly contractId: string;
   readonly contractKind: PublicContractKind;
@@ -169,6 +291,13 @@ export interface PublicContractRow {
   readonly assetLocator: CanonicalAssetLocator | null;
   readonly operationContract: PublicOperationContractMetadata | null;
 }
+
+export type LegacyPublicContractRow = Omit<
+  PublicContractRow,
+  "operationContract"
+> & Readonly<{
+  operationContract: LegacyPublicOperationContractMetadata;
+}>;
 
 export interface PublicContractCatalog {
   readonly kind: "abg_public_contract_catalog";
@@ -1104,12 +1233,29 @@ export type OperatorCapabilityFactory = (input: {
   readonly steering: TransportSteering;
 }) => LiveCapabilityBinding;
 
+// The 5.0 public execution path resolves a process-local body only through the
+// already-admitted steering identity. The closure owns the TransportSteering
+// body; neither it nor the callable enters public or replay truth.
+export type AdmittedSteeringCapabilityFactory = (input: {
+  readonly workspaceRoot: string;
+  readonly archiveRoot: string;
+  readonly steeringRef: string;
+  readonly steeringDigest: Sha256Digest;
+}) => LiveCapabilityBinding;
+
 export interface BoundWorkspaceEffects {
   readonly readRecord: (absolutePath: string) => Promise<IJsonValue | null>;
   readonly readInputAsset: (inputRef: string) => Promise<IJsonValue | null>;
+  readonly writeImmutableRuntimeRecord: (
+    relativePath: string,
+    value: IJsonValue
+  ) => Promise<void>;
   readonly readRuntimeEventBytes: () => Promise<Uint8Array>;
   readonly createRuntimeEventSink: () => RuntimeEventSink;
   readonly operatorCapabilityFactories: Readonly<Record<string, OperatorCapabilityFactory>>;
+  readonly operatorCapabilityFactoriesBySteeringRef?: Readonly<
+    Record<string, AdmittedSteeringCapabilityFactory>
+  >;
 }
 
 export interface BoundWorkspaceContext {

@@ -264,7 +264,8 @@ function buildMember({
   targetNode,
   fibre,
   graphFunctionName = `t280.scenario09.${stageRole}`,
-  vectorDeclarationEntries = Object.freeze([])
+  vectorDeclarationEntries = Object.freeze([]),
+  operator = null
 }) {
   const programRef = `program://t280/scenario09/${stageRole}`;
   const program = declareCProgram({
@@ -293,7 +294,7 @@ function buildMember({
       name: vectorName,
       source: [sourceNode],
       target: targetNode,
-      operators: [],
+      operators: operator === null ? [] : [operator],
       evaluators: [],
       contexts: [],
       rule: null,
@@ -498,8 +499,15 @@ function compileOneSurfaceRecursePlan({ input, output }) {
 }
 
 export function scenario09OneSurfaceProgramFixture(options = {}) {
-  const observation = node("LabObservation");
-  const normalizedObservation = node("NormalizedObservation");
+  const observation = node(
+    "LabObservation",
+    options.observationSchemaRef ?? "schema://t280/LabObservation"
+  );
+  const normalizedObservation = node(
+    "NormalizedObservation",
+    options.normalizedObservationSchemaRef ??
+      "schema://t280/NormalizedObservation"
+  );
   const model = node(
     "LabModel",
     ONE_SURFACE_RESULT_CONTRACT_FAMILY.synthesize_model.schemaRef
@@ -521,7 +529,8 @@ export function scenario09OneSurfaceProgramFixture(options = {}) {
     sourceNode: observation,
     targetNode: normalizedObservation,
     fibre: "F_D",
-    graphFunctionName: "Scenario09LabFunction"
+    graphFunctionName: "Scenario09LabFunction",
+    operator: options.callableOperator ?? null
   });
   const members = Object.freeze([
     buildMember({ stageRole: "synthesize_model", sourceNode: observation, targetNode: model, fibre: "F_D" }),

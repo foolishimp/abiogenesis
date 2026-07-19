@@ -642,6 +642,10 @@ test("M04 CLI binary integration: assess-result uses the shared workspace/result
           assignment_source: "policy_resolution",
           resolved_runtime_ref: "runtime://typescript/node"
         },
+        assessment_contract: {
+          ref: "contract://abg/result-assessment/fp@5",
+          digest: "sha256:649d023ba4c782f19be3305dbeaf3594e2db1b243ab8305f750993bf502e7c20"
+        },
         manifest_provenance: {
           spec_hash: "spec://typescript-cli",
           manifest_id: "manifest://cli-binary",

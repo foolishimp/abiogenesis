@@ -1,4 +1,4 @@
-import { readFile, mkdir, writeFile } from "node:fs/promises";
+import { readFile, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { TextEncoder } from "node:util";
@@ -7,10 +7,9 @@ import { createGenerator } from "ts-json-schema-generator";
 
 import {
   DS1_BASELINE_SCHEMA_ASSET_REGISTER,
-  DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
+  buildPublicOperationSchemaAssetDefinitions
 } from "../../build/semantic/code/src/app/m04/public_contracts/index.js";
 import { canonicalizeIJson } from "../../build/semantic/code/src/app/m04/public_sdk/index.js";
-import { projectPublicOperationSchemaDefinitions } from "./project_public_operation_schemas.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(HERE, "../..");
@@ -21,12 +20,10 @@ const DECLARATION_GLOB = path.join(
 const TSCONFIG_PATH = path.join(PACKAGE_ROOT, "tsconfig.semantic-strict.json");
 const DRAFT_07 = "http://json-schema.org/draft-07/schema#";
 
-function schemaDefinitions() {
+async function schemaDefinitions() {
   const definitions = [
     ...DS1_BASELINE_SCHEMA_ASSET_REGISTER,
-    ...projectPublicOperationSchemaDefinitions(
-      DS1_PUBLIC_OPERATION_DEFINITION_REGISTER
-    )
+    ...await buildPublicOperationSchemaAssetDefinitions()
   ];
   const contractIds = new Set();
   const relativePaths = new Set();
@@ -74,13 +71,19 @@ function schemaGenerationSegments(definitions) {
 }
 
 function generateSchemas(definitions) {
-  return schemaGenerationSegments(definitions).flatMap((segment) => {
+  const nativeDefinitions = definitions.filter((definition) =>
+    !Object.hasOwn(definition, "bytes")
+  );
+  const projectedDefinitions = definitions.filter((definition) =>
+    Object.hasOwn(definition, "bytes")
+  );
+  return [...schemaGenerationSegments(nativeDefinitions).flatMap((segment) => {
     const generator = createSchemaGenerator();
     return segment.map((definition) => Object.freeze({
       ...definition,
       bytes: schemaBytes(generator, definition)
     }));
-  });
+  }), ...projectedDefinitions];
 }
 
 function assertNoUnconstrainedSchema(value, location) {
@@ -95,6 +98,7 @@ function assertNoUnconstrainedSchema(value, location) {
   }
   const entries = Object.entries(value);
   if (entries.length === 0) {
+    if (location.endsWith(".not")) return;
     throw new TypeError(`${location}: unconstrained schema fallback`);
   }
   for (const [key, entry] of entries) {
@@ -124,11 +128,35 @@ function schemaBytes(generator, definition) {
 }
 
 async function writeSchemas(generated) {
+  await rm(path.join(PACKAGE_ROOT, "contracts/schemas/operations"), {
+    recursive: true,
+    force: true
+  });
   for (const row of generated) {
     const absolutePath = path.join(PACKAGE_ROOT, row.relativePath);
     await mkdir(path.dirname(absolutePath), { recursive: true });
     await writeFile(absolutePath, row.bytes);
   }
+}
+
+async function walkSchemaFiles(absoluteRoot) {
+  let entries;
+  try {
+    entries = await readdir(absoluteRoot, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  }
+  const paths = [];
+  for (const entry of entries) {
+    const absolute = path.join(absoluteRoot, entry.name);
+    if (entry.isDirectory()) {
+      paths.push(...await walkSchemaFiles(absolute));
+    } else if (entry.isFile()) {
+      paths.push(path.relative(PACKAGE_ROOT, absolute).split(path.sep).join("/"));
+    }
+  }
+  return paths.sort();
 }
 
 async function checkSchemas(generated) {
@@ -146,6 +174,18 @@ async function checkSchemas(generated) {
       stale.push(`${row.relativePath}: stale`);
     }
   }
+  const expectedOperationPaths = generated
+    .map((row) => row.relativePath)
+    .filter((relativePath) => relativePath.startsWith("contracts/schemas/operations/"))
+    .sort();
+  const actualOperationPaths = await walkSchemaFiles(
+    path.join(PACKAGE_ROOT, "contracts/schemas/operations")
+  );
+  if (
+    JSON.stringify(actualOperationPaths) !== JSON.stringify(expectedOperationPaths)
+  ) {
+    stale.push("contracts/schemas/operations: legacy, missing, or extra assets");
+  }
   if (stale.length > 0) {
     throw new TypeError(`public contract schemas are not current:\n${stale.join("\n")}`);
   }
@@ -156,7 +196,7 @@ async function main() {
   if (mode !== "--write" && mode !== "--check") {
     throw new TypeError("expected --write or --check");
   }
-  const generated = generateSchemas(schemaDefinitions());
+  const generated = generateSchemas(await schemaDefinitions());
   if (mode === "--write") {
     await writeSchemas(generated);
   } else {

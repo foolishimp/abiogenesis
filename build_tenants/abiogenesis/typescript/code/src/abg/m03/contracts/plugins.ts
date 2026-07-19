@@ -12,6 +12,7 @@ import type {
   PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
+  RuntimeFailureClass,
   RuntimeRegime
 } from "./carriers.js";
 import {
@@ -105,10 +106,18 @@ import {
   freezeNumberArray,
   freezeStringArray,
   frameIdForBasis,
-  graphCallIdForBasis
+  graphCallIdForBasis,
+  assertRuntimeFailureClass
 } from "./runtime_support.js";
 import { sourceProjectionRef } from "./projection.js";
-import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  admitIJsonValue,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
+import type {
+  IJsonObject,
+  IJsonValue
+} from "../../../shared/runtime_identity.js";
 import {
   ENGINE_AUTHORITY_FIELD_KEYS,
   isEngineAuthorityFieldKey
@@ -357,12 +366,29 @@ export interface FpEvaluationOutcome extends EnginePluginOutcomeBase {
   readonly diagnosticRefs: readonly string[];
 }
 
-export interface FpDispatchOutcome extends EnginePluginOutcomeBase {
+export interface FpDispatchDispatchedOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fp_dispatch";
-  readonly status: "dispatched" | "blocked";
-  readonly resultRef: string | null;
-  readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
+  readonly status: "dispatched";
+  readonly resultRef: string;
+  readonly resultArtifactCandidate: Readonly<IJsonObject>;
+  readonly targetValueCandidate: IJsonValue;
+  readonly failureClass: null;
+  readonly reason: null;
 }
+
+export interface FpDispatchBlockedOutcome extends EnginePluginOutcomeBase {
+  readonly kind: "fp_dispatch";
+  readonly status: "blocked";
+  readonly resultRef: null;
+  readonly resultArtifactCandidate: null;
+  readonly targetValueCandidate: null;
+  readonly failureClass: RuntimeFailureClass | null;
+  readonly reason: string;
+}
+
+export type FpDispatchOutcome =
+  | FpDispatchDispatchedOutcome
+  | FpDispatchBlockedOutcome;
 
 export interface FhAdmissionOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fh_admission";
@@ -699,6 +725,21 @@ function normalizeReason(
     throw new TypeError(`${label} must be non-empty when supplied`);
   }
   return input;
+}
+
+function isIJsonObjectValue(value: IJsonValue): value is IJsonObject {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function admitPluginIJsonObject(
+  input: unknown,
+  label: string
+): Readonly<IJsonObject> {
+  const admitted = admitIJsonValue(input, label);
+  if (!isIJsonObjectValue(admitted)) {
+    throw new TypeError(`${label}: expected an I-JSON object`);
+  }
+  return admitted;
 }
 
 function parseOptionalReason(
@@ -1749,27 +1790,69 @@ export function constructFpEvaluationOutcome(input: {
   });
 }
 
-export function constructFpDispatchOutcome(input: {
-  readonly status: FpDispatchOutcome["status"];
-  readonly resultRef?: string | null;
-  readonly attachedResultArtifact?: Readonly<Record<string, unknown>> | null;
-  readonly evidenceRefs?: readonly string[];
-  readonly reason?: string | null;
-}): FpDispatchOutcome {
+export function constructFpDispatchOutcome(
+  input:
+    | {
+        readonly status: "dispatched";
+        readonly resultRef: string;
+        readonly resultArtifactCandidate: Readonly<IJsonObject>;
+        readonly targetValueCandidate: IJsonValue;
+        readonly evidenceRefs?: readonly string[];
+        readonly failureClass?: never;
+        readonly reason?: never;
+      }
+    | {
+        readonly status: "blocked";
+        readonly reason: string;
+        readonly failureClass?: RuntimeFailureClass | null;
+        readonly evidenceRefs?: readonly string[];
+        readonly resultRef?: never;
+        readonly resultArtifactCandidate?: never;
+        readonly targetValueCandidate?: never;
+      }
+): FpDispatchOutcome {
+  const evidenceRefs = freezeStringArray(
+    input.evidenceRefs ?? Object.freeze([])
+  );
+  if (input.status === "blocked") {
+    const reason = normalizeReason(input.reason, "FpDispatchOutcome.reason");
+    if (reason === null) {
+      throw new TypeError("FpDispatchOutcome blocked status requires a reason");
+    }
+    const failureClass = input.failureClass ?? null;
+    if (failureClass !== null) {
+      assertRuntimeFailureClass(failureClass);
+    }
+    return Object.freeze({
+      kind: "fp_dispatch",
+      status: "blocked",
+      resultRef: null,
+      resultArtifactCandidate: null,
+      targetValueCandidate: null,
+      failureClass,
+      evidenceRefs,
+      reason
+    });
+  }
+  const resultArtifactCandidate = admitPluginIJsonObject(
+    input.resultArtifactCandidate,
+    "FpDispatchOutcome.resultArtifactCandidate"
+  );
   return Object.freeze({
     kind: "fp_dispatch",
-    status: input.status,
-    resultRef: normalizeReason(input.resultRef, "FpDispatchOutcome.resultRef"),
-    attachedResultArtifact:
-      input.attachedResultArtifact === undefined ||
-      input.attachedResultArtifact === null
-        ? null
-        : parsePlainObject(
-            input.attachedResultArtifact,
-            "FpDispatchOutcome.attachedResultArtifact"
-          ),
-    evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
-    reason: normalizeReason(input.reason, "FpDispatchOutcome.reason")
+    status: "dispatched",
+    resultRef: parseNonEmptyString(
+      input.resultRef,
+      "FpDispatchOutcome.resultRef"
+    ),
+    resultArtifactCandidate,
+    targetValueCandidate: admitIJsonValue(
+      input.targetValueCandidate,
+      "FpDispatchOutcome.targetValueCandidate"
+    ),
+    failureClass: null,
+    evidenceRefs,
+    reason: null
   });
 }
 
@@ -2055,25 +2138,88 @@ export function admitFpDispatchOutcome(
     );
   }
   const resultRef = parseOptionalField(outcomeObject, "resultRef");
-  const attachedResultArtifact = parseOptionalField(
+  if (Object.hasOwn(outcomeObject, "attachedResultArtifact")) {
+    throw new TypeError(
+      `${label}.attachedResultArtifact: retired; use resultArtifactCandidate and targetValueCandidate`
+    );
+  }
+  const resultArtifactCandidate = parseOptionalField(
     outcomeObject,
-    "attachedResultArtifact"
+    "resultArtifactCandidate"
   );
+  const targetValueCandidatePresent = Object.hasOwn(
+    outcomeObject,
+    "targetValueCandidate"
+  );
+  const targetValueCandidate = outcomeObject["targetValueCandidate"];
+  const evidenceRefs = parseOptionalEvidenceRefs(outcomeObject, label);
+  const reason = parseOptionalReason(outcomeObject, label);
+  if (!Object.hasOwn(outcomeObject, "failureClass")) {
+    throw new TypeError(`${label}: strict outcome requires failureClass`);
+  }
+  const failureClassRaw = outcomeObject["failureClass"];
+  if (status === "blocked") {
+    if (
+      resultRef !== undefined && resultRef !== null ||
+      resultArtifactCandidate !== undefined && resultArtifactCandidate !== null ||
+      targetValueCandidatePresent && targetValueCandidate !== null
+    ) {
+      throw new TypeError(
+        `${label}: blocked outcome cannot carry result, artifact, or target candidates`
+      );
+    }
+    if (reason === null) {
+      throw new TypeError(`${label}: blocked outcome requires a reason`);
+    }
+    let failureClass: RuntimeFailureClass | null = null;
+    if (failureClassRaw !== null) {
+      const parsed = parseString(
+        failureClassRaw,
+        `${label}.failureClass`
+      ) as RuntimeFailureClass;
+      assertRuntimeFailureClass(parsed);
+      failureClass = parsed;
+    }
+    return constructFpDispatchOutcome({
+      status: "blocked",
+      failureClass,
+      evidenceRefs,
+      reason
+    });
+  }
+  if (resultRef === undefined || resultRef === null) {
+    throw new TypeError(`${label}: dispatched outcome requires resultRef`);
+  }
+  if (resultArtifactCandidate === undefined || resultArtifactCandidate === null) {
+    throw new TypeError(
+      `${label}: dispatched outcome requires resultArtifactCandidate`
+    );
+  }
+  if (!targetValueCandidatePresent) {
+    throw new TypeError(
+      `${label}: dispatched outcome requires targetValueCandidate`
+    );
+  }
+  if (reason !== null) {
+    throw new TypeError(`${label}: dispatched outcome requires null reason`);
+  }
+  if (failureClassRaw !== null) {
+    throw new TypeError(
+      `${label}: dispatched outcome requires null failureClass`
+    );
+  }
   return constructFpDispatchOutcome({
-    status,
-    resultRef:
-      resultRef === undefined || resultRef === null
-        ? null
-        : parseNonEmptyString(resultRef, `${label}.resultRef`),
-    attachedResultArtifact:
-      attachedResultArtifact === undefined || attachedResultArtifact === null
-        ? null
-        : parsePlainObject(
-            attachedResultArtifact,
-            `${label}.attachedResultArtifact`
-          ),
-    evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
-    reason: parseOptionalReason(outcomeObject, label)
+    status: "dispatched",
+    resultRef: parseNonEmptyString(resultRef, `${label}.resultRef`),
+    resultArtifactCandidate: admitPluginIJsonObject(
+      resultArtifactCandidate,
+      `${label}.resultArtifactCandidate`
+    ),
+    targetValueCandidate: admitIJsonValue(
+      targetValueCandidate,
+      `${label}.targetValueCandidate`
+    ),
+    evidenceRefs
   });
 }
 
@@ -2620,16 +2766,12 @@ export const missingFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
     })
 });
 
-// T-195 P0-2 adjudication (bisect-verified): "dispatched" here does NOT
-// claim completed work — it records that the dispatch REQUEST stands and
-// the run halts at the lawful dispatch-pending stop (public outcome
-// dispatch_required). resultRef names the request, not result truth.
 export const defaultFpDispatchPlugin: FpDispatchPlugin = Object.freeze({
   contract: fpDispatchContract,
   dispatch: (input: EnginePluginInput): FpDispatchOutcome =>
     constructFpDispatchOutcome({
-      status: "dispatched",
-      resultRef: `result:fp_dispatch:${JSON.stringify({
+      status: "blocked",
+      reason: `dispatch_required:${JSON.stringify({
         basisId: input.basisId,
         edge: input.edge
       })}`,

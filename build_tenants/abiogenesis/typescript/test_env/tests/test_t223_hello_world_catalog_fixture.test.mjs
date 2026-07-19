@@ -18,6 +18,7 @@ import {
   admitBoundWorkspaceCatalog,
   admitCatalogContributionManifest,
   admitCatalogProductDescriptor,
+  admitCProgramSyntax,
   admitIJsonText,
   admitModule,
   admitOpaqueCatalogAssetDeclaration,
@@ -25,6 +26,8 @@ import {
   canonicalizeIJson,
   catalogResolve,
   catalogVerify,
+  compileGraphVectorCProgramSelection,
+  compileGraphVectorExecutionHandoff,
   constructGtlLibraryEntryDeclaration,
   constructModuleLookupAuthority,
   constructProductRegistryStartupConfig,
@@ -33,10 +36,14 @@ import {
   deriveRegistrySessionView,
   descriptorDigest,
   installProduct,
+  loadGtlTargetCarrierDefaultsBundle,
   materializeNodeType,
   publicContractCatalogDigest,
   resolvePublishedGraphFunction
 } from "../../build/semantic/code/src/index.js";
+import {
+  admittedTenantManifestFixture
+} from "../fixtures/admitted_tenant_manifest.mjs";
 import {
   T223_FIXTURE_GRAPH_HANDLE,
   T223_FIXTURE_INTERFACE_REF,
@@ -65,6 +72,30 @@ const EXPECTED_PACKAGE_FILES = Object.freeze([
 
 function sha256(bytes) {
   return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+}
+
+function cProgramLeaves(term) {
+  switch (term.kind) {
+    case "c_of":
+      return [[term.stageRole, term.fibre, term.armId]];
+    case "c_identity":
+    case "c_workflow":
+      return [];
+    case "c_compose":
+      return [...cProgramLeaves(term.left), ...cProgramLeaves(term.right)];
+    case "c_edge":
+      return [
+        ...cProgramLeaves(term.transform),
+        ...cProgramLeaves(term.evaluate),
+        ...cProgramLeaves(term.consequence)
+      ];
+    case "c_batch":
+      return term.tasks.flatMap(cProgramLeaves);
+    case "c_retry":
+      return cProgramLeaves(term.term);
+    default:
+      throw new TypeError(`unknown C-program node ${JSON.stringify(term.kind)}`);
+  }
 }
 
 async function readJson(absolutePath) {
@@ -276,6 +307,58 @@ test("T-223 Hello World fixture is a canonical declarations-only package", async
   const hello = module.graphFunctions.find(
     (value) => value.name === T223_FIXTURE_GRAPH_HANDLE
   );
+  assert.notEqual(hello, undefined);
+  assert.equal(hello.template.kind, "inline_graph");
+  const helloVector = hello.template.graph.vectors[0];
+  assert.notEqual(helloVector, undefined);
+  assert.deepEqual(
+    helloVector.operators.map((operator) => operator.regime),
+    ["F_P", "F_D"]
+  );
+  const programSelection = compileGraphVectorCProgramSelection({
+    graphFunction: hello,
+    graphVector: helloVector
+  });
+  assert.equal(programSelection.observed, true);
+  assert.equal(
+    programSelection.accepted,
+    true,
+    JSON.stringify(programSelection.diagnostics)
+  );
+  assert.equal(
+    programSelection.binding?.selectedProgramRef,
+    "program://fixture/hello-world/input-to-output"
+  );
+  assert.equal(programSelection.selectedCandidates.length, 1);
+  const programAdmission = admitCProgramSyntax(
+    programSelection.selectedCandidates[0].candidate
+  );
+  assert.equal(programAdmission.accepted, true);
+  assert.notEqual(programAdmission.program, null);
+  assert.deepEqual(cProgramLeaves(programAdmission.program.term), [
+    ["transform", "F_P", "arm://fixture/hello-world/transform/fp"],
+    ["evaluate", "F_D", "arm://fixture/hello-world/evaluate/fd"],
+    ["evaluate", "F_P", "arm://fixture/hello-world/evaluate/fp"],
+    ["consequence", "F_D", "arm://fixture/hello-world/consequence/fd"]
+  ]);
+  const handoff = compileGraphVectorExecutionHandoff({
+    graphFunction: hello,
+    graphVector: helloVector,
+    graphFunctions: module.graphFunctions,
+    module,
+    targetCarrierDefaults: loadGtlTargetCarrierDefaultsBundle(),
+    admittedTenantConformanceManifest: admittedTenantManifestFixture({
+      fixtureId: "t223-hello-runtime",
+      capabilityContractId: "abg.contract.t223-hello",
+      capabilityId: "abg.capability.catalog.invoke-graph-function@5",
+      effectRefs: []
+    })
+  });
+  assert.equal(
+    handoff.status,
+    "published_startup_blocked",
+    JSON.stringify(handoff.diagnostics)
+  );
   const composition = hello?.declarations.entries.find(
     (entry) => entry.key === "abg.fn_composition"
   );
@@ -471,6 +554,10 @@ test("T-223 fixture exposes one callable GraphFunction while node and overlay ro
       value: {
         kind: "object",
         entries: [
+          {
+            key: "fdEvaluator",
+            value: "plugin://abg/fd-evaluator"
+          },
           {
             key: "fpEvaluator",
             value: "plugin://abg/fp-evaluator-live"

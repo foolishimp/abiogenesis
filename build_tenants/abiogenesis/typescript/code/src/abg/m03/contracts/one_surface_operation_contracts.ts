@@ -231,11 +231,13 @@ function runInvokePostEffectResultSchema<
   const Variant extends "invoke" | "start",
   const Disposition extends "completed" | "blocked" | "runtime_failed",
   const ResultRef extends NativeSchema,
+  const ResultDigest extends NativeSchema,
   const StopRef extends NativeSchema,
   const FailureRef extends NativeSchema
 >(variant: Variant, input: {
   readonly disposition: Disposition;
   readonly resultRef: ResultRef;
+  readonly resultDigest: ResultDigest;
   readonly stopRef: StopRef;
   readonly failureRef: FailureRef;
 }) {
@@ -245,8 +247,10 @@ function runInvokePostEffectResultSchema<
     disposition: v.literal(input.disposition),
     phase: v.literal("post_effect"),
     runRef: refSchema,
+    runDigest: sha256DigestSchema,
     graphCallRef: refSchema,
     resultRef: input.resultRef,
+    resultDigest: input.resultDigest,
     stopRef: input.stopRef,
     failureRef: input.failureRef,
     evidenceRefs: refListSchema,
@@ -263,18 +267,21 @@ function runInvokePostEffectResultSchemas<
     runInvokePostEffectResultSchema(variant, {
       disposition: "completed",
       resultRef: refSchema,
+      resultDigest: sha256DigestSchema,
       stopRef: v.null(),
       failureRef: v.null()
     }),
     runInvokePostEffectResultSchema(variant, {
       disposition: "blocked",
       resultRef: v.null(),
+      resultDigest: v.null(),
       stopRef: refSchema,
       failureRef: v.null()
     }),
     runInvokePostEffectResultSchema(variant, {
       disposition: "runtime_failed",
       resultRef: v.null(),
+      resultDigest: v.null(),
       stopRef: v.null(),
       failureRef: refSchema
     })
@@ -293,8 +300,10 @@ const runInvokeStartResult = v.union([
     disposition: v.literal("blocked"),
     phase: v.literal("pre_invocation_stop"),
     runRef: refSchema,
+    runDigest: sha256DigestSchema,
     graphCallRef: v.null(),
     resultRef: v.null(),
+    resultDigest: v.null(),
     stopRef: refSchema,
     failureRef: v.null(),
     evidenceRefs: refListSchema,
@@ -345,6 +354,7 @@ function runInvokeNonterminalSchema<const Variant extends "invoke" | "start">(
       disposition: v.literal("held"),
       phase: v.literal("post_effect"),
       runRef: refSchema,
+      runDigest: sha256DigestSchema,
       graphCallRef: refSchema,
       interactionRef: refSchema,
       gapProjectionRef: v.null(),
@@ -357,6 +367,7 @@ function runInvokeNonterminalSchema<const Variant extends "invoke" | "start">(
       disposition: v.literal("gap_stop"),
       phase: v.literal("pre_invocation_stop"),
       runRef: refSchema,
+      runDigest: sha256DigestSchema,
       graphCallRef: v.null(),
       interactionRef: v.null(),
       gapProjectionRef: refSchema,
@@ -369,6 +380,7 @@ function runInvokeNonterminalSchema<const Variant extends "invoke" | "start">(
       disposition: v.literal("gap_stop"),
       phase: v.literal("post_effect"),
       runRef: refSchema,
+      runDigest: sha256DigestSchema,
       graphCallRef: refSchema,
       interactionRef: v.null(),
       gapProjectionRef: refSchema,

@@ -65,6 +65,8 @@ function externalAuthorityProvider() {
   return Object.freeze({
     authoritySnapshot: ({ scope }) =>
       constructAssuranceAuthoritySnapshot({
+        authoritySnapshotRef:
+          `authority-snapshot://t099/external/${scope.vectorIndex}`,
         scope,
         authorityRefs: [`req://t099/external/${scope.vectorIndex}`],
         inputRefs: ["input://t099/current"],
@@ -84,7 +86,7 @@ function providerMaterialAuthority() {
         constructAssuranceEvidenceRow({
           scope,
           evidenceRef: `file://t099/current/${scope.vectorIndex}`,
-          authorityRef: authoritySnapshot.authorityRefs[0],
+          authorityRef: authoritySnapshot.authoritySnapshotRef,
           authorityDigest: authoritySnapshot.authorityDigest,
           inputDigest: authoritySnapshot.inputDigest,
           providerRefs: ["provider://t099/material-authority"],

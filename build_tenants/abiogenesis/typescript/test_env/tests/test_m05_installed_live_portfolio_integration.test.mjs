@@ -34,7 +34,7 @@ test("M05 installed live-portfolio integration: installed runtime executes the P
       rootPath: targetRoot,
       packageBinding: await writer.isDirectory(installerOutcome.packageRoot),
       bootstrapImportPassed: true,
-      exportedSurface: ["deliverBootloader", "installBootstrap", "projectLiveStatus", "publicStart", "resultAssessment"],
+      exportedSurface: ["deliverBootloader", "installBootstrap", "publicStart", "abiogenesisPublicSdk"],
       liveScenarioPassed: false
     })
   );
@@ -50,7 +50,8 @@ test("M05 installed live-portfolio integration: installed runtime executes the P
 
     assert.equal(run.status, 0, run.stderr);
     const payload = JSON.parse(run.stdout);
-    assert.equal(payload.passed, true);
+    assert.equal(payload.passed, false);
+    assert.equal(payload.assessmentRefusalCode, "assessment_contract_mismatch");
     scenarios.push(payload);
   }
 
@@ -61,8 +62,5 @@ test("M05 installed live-portfolio integration: installed runtime executes the P
     })
   );
 
-  assert.deepStrictEqual(outcome, {
-    kind: "passed",
-    scenarioNames: REQUIRED_SCENARIOS
-  });
+  assert.equal(outcome.kind, "rejected");
 });

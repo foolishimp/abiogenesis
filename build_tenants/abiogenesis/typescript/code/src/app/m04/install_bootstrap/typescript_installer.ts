@@ -1510,8 +1510,6 @@ function bootstrapRequest(
         "./app/m04/event-ingress",
         "./app/m04/gaps",
         "./app/m04/install-bootstrap",
-        "./app/m04/live-status",
-        "./app/m04/result-assessment",
         "./app/m04/toolchain-binding"
       ]
     }

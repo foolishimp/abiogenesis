@@ -34,6 +34,8 @@ function baseScope() {
 
 function snapshot(scope, input = {}) {
   return constructAssuranceAuthoritySnapshot({
+    authoritySnapshotRef:
+      input.authoritySnapshotRef ?? "authority-snapshot://assurance/current",
     scope,
     authorityRefs: input.authorityRefs ?? ["req://assurance/a"],
     inputRefs: input.inputRefs ?? ["input://current"],
@@ -52,7 +54,9 @@ function evidence(scope, input = {}) {
     scope,
     evidenceRef: input.evidenceRef ?? "evidence://current",
     authorityRef:
-      Object.hasOwn(input, "authorityRef") ? input.authorityRef : "req://assurance/a",
+      Object.hasOwn(input, "authorityRef")
+        ? input.authorityRef
+        : "authority-snapshot://assurance/current",
     authorityDigest: input.authorityDigest ?? "authority-digest-current",
     inputDigest: input.inputDigest ?? "input-digest-current",
     eventRefs: input.eventRefs ?? ["event://evidence"],

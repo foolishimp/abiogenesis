@@ -5,15 +5,10 @@ import { join } from "node:path";
 
 import {
   admitBoundWorkspaceCatalog,
-  admitOpaqueCatalogAssetDeclaration,
   deriveRegistrySessionView,
   type AdmittedRuntimeCatalogBasis,
-  type BoundCatalogAdmissionBatch,
-  type BoundCatalogProductBatch,
-  type CatalogAdmissionDeclaration,
   type RegistrySessionEntry,
-  type RegistrySessionView,
-  type RuntimeLibraryCatalogAdmissionDeclaration
+  type RegistrySessionView
 } from "../../../abg/m03/contracts/runtime_catalog.js";
 import {
   assertCanonicalRuntimeEventSequence
@@ -35,26 +30,15 @@ import {
   type FhPublicOperationId,
   type AdmittedWorkspaceReplay
 } from "../../../abg/m03/runner/index.js";
-import { admitModule } from "../../../gtl/m02/admission/carriers.js";
-import {
-  constructGtlLibraryEntryDeclaration,
-  constructProductRegistryStartupConfig
-} from "../../../gtl/m02/contracts/runtime_registry.js";
 import {
   stableJson,
   stableJsonEquals,
-  stableSha256Digest,
-  type IJsonValue
+  stableSha256Digest
 } from "../../../shared/runtime_identity.js";
 import {
-  admitCatalogContributionManifest,
-  admitProductToolchainManifest,
   admitPublicCatalogDescription,
   admitPublicCatalogRow,
-  admitPublicContractCatalog,
-  admitPublicSdkWorkspaceManifest,
   admitPublicSessionCatalogView,
-  admitToolchainWorkspaceBindingV3,
   resolvePublicOperationContract
 } from "./carrier_admission.js";
 import {
@@ -69,8 +53,6 @@ import type {
   CatalogAdmitResult,
   CatalogAllowRefusal,
   CatalogAllowResult,
-  CatalogContributionManifest,
-  CatalogContributionRow,
   CatalogDescribeRefusal,
   CatalogDescribeResult,
   CatalogInvokeRefusal,
@@ -79,7 +61,6 @@ import type {
   CatalogListResult,
   FhInteractionRefusal,
   FhInteractionResult,
-  ProductToolchainManifest,
   PublicCatalogDescription,
   PublicCatalogRow,
   PublicContractCatalog,
@@ -92,40 +73,17 @@ import type {
   ReadResultRefusal,
   ReadResultResult,
   RunResumeRefusal,
-  RunResumeResult,
-  ToolchainProductBindingV3
+  RunResumeResult
 } from "./carriers.js";
-
-const ABG_PRODUCT_ID = "abiogenesis";
-const RUNTIME_CATALOG_VERSION = "1.0.0";
-
-interface BoundProductSource {
-  readonly binding: ToolchainProductBindingV3;
-  readonly manifest: ProductToolchainManifest;
-  readonly contribution: CatalogContributionManifest;
-}
-
-interface BoundCatalogState {
-  readonly sources: readonly BoundProductSource[];
-  readonly abg: BoundProductSource;
-  readonly catalogId: string;
-  readonly catalogVersion: string;
-  readonly catalogDigest: `sha256:${string}`;
-  readonly batch: BoundCatalogAdmissionBatch;
-  readonly rowsByHandle: ReadonlyMap<string, {
-    readonly source: BoundProductSource;
-    readonly row: CatalogContributionRow;
-  }>;
-}
-
-class BoundCatalogFailure extends Error {
-  public constructor(
-    public readonly code: string,
-    message: string
-  ) {
-    super(message);
-  }
-}
+import {
+  assertBoundCatalogContext as admitBoundContext,
+  assertBoundRuntimeCatalogStateContract as assertStateContractCatalog,
+  buildBoundRuntimeCatalogState as buildBoundCatalogState,
+  BoundCatalogFailure,
+  rehydrateBoundRuntimeCatalogStateBasis as rehydrateBasis,
+  requireBoundCatalogRecord as requireRecord,
+  type BoundRuntimeCatalogState as BoundCatalogState
+} from "../public_contracts/private_runtime_catalog_authority.js";
 
 function refusal<K extends PublicOperationId, C extends string>(input: {
   readonly operationId: K;
@@ -177,369 +135,12 @@ function acceptedNonTerminal<K extends PublicOperationId, D extends string, V>(i
   });
 }
 
-function recordRoot(
-  context: BoundWorkspaceContext,
-  product: ToolchainProductBindingV3
-): string {
-  return join(
-    context.binding.toolchainRoot,
-    "records",
-    product.publisher,
-    product.productId,
-    product.version,
-    product.artifactDigest.slice("sha256:".length)
-  );
-}
-
-async function requireRecord(
-  context: BoundWorkspaceContext,
-  absolutePath: string,
-  label: string
-): Promise<IJsonValue> {
-  const value = await context.effects.readRecord(absolutePath);
-  if (value === null) {
-    throw new BoundCatalogFailure("catalog_stale", `${label} is missing`);
-  }
-  return value;
-}
-
-function admitBoundContext(context: BoundWorkspaceContext): void {
-  if (context.kind !== "bound_workspace") {
-    throw new BoundCatalogFailure("unbound", "operation requires bound_workspace context");
-  }
-  const workspace = admitPublicSdkWorkspaceManifest(context.workspaceManifest);
-  const binding = admitToolchainWorkspaceBindingV3(context.binding);
-  const publicContractCatalog = admitPublicContractCatalog(
-    context.publicContractCatalog,
-    "BoundWorkspaceContext.publicContractCatalog"
-  );
-  if (
-    workspace.workspaceId !== binding.workspaceId ||
-    workspace.root !== binding.targetRoot ||
-    stableSha256Digest(workspace) !== binding.workspaceManifestDigest
-  ) {
-    throw new BoundCatalogFailure(
-      "binding_mismatch",
-      "workspace manifest and exact product binding disagree"
-    );
-  }
-  const abgBindings = binding.products.filter(
-    (product) => product.productId === ABG_PRODUCT_ID
-  );
-  const abgBinding = abgBindings[0];
-  if (
-    abgBindings.length !== 1 ||
-    abgBinding === undefined ||
-    abgBinding.publicContractCatalogId !== publicContractCatalog.catalogId ||
-    abgBinding.publicContractCatalogVersion !== publicContractCatalog.catalogVersion ||
-    abgBinding.publicContractCatalogDigest !== publicContractCatalog.catalogDigest
-  ) {
-    throw new BoundCatalogFailure(
-      "binding_mismatch",
-      "bound SDK contract catalog does not match the exact Abiogenesis product binding"
-    );
-  }
-}
-
-async function loadBoundProductSources(
-  context: BoundWorkspaceContext
-): Promise<readonly BoundProductSource[]> {
-  admitBoundContext(context);
-  const sources: BoundProductSource[] = [];
-  for (const product of context.binding.products) {
-    const manifest = admitProductToolchainManifest(
-      await requireRecord(context, product.manifestPath, "bound product manifest")
-    );
-    const contribution = admitCatalogContributionManifest(
-      await requireRecord(
-        context,
-        join(recordRoot(context, product), "contribution-manifest.json"),
-        "bound contribution manifest"
-      )
-    );
-    if (
-      manifest.productId !== product.productId ||
-      manifest.packageVersion !== product.version ||
-      manifest.productContentDigest !== product.productContentDigest ||
-      manifest.publicContractCatalog.catalogId !== product.publicContractCatalogId ||
-      manifest.publicContractCatalog.catalogVersion !==
-        product.publicContractCatalogVersion ||
-      manifest.publicContractCatalog.catalogDigest !==
-        product.publicContractCatalogDigest ||
-      contribution.contributionId !== product.contributionId ||
-      contribution.contributionDigest !== product.contributionDigest ||
-      contribution.descriptorId !== product.descriptorId ||
-      contribution.artifactDigest !== product.artifactDigest
-    ) {
-      throw new BoundCatalogFailure(
-        "catalog_stale",
-        `bound product identity is stale for ${product.productId}`
-      );
-    }
-    sources.push(Object.freeze({ binding: product, manifest, contribution }));
-  }
-  return Object.freeze(sources);
-}
-
-function runtimeCatalogIdentity(input: {
-  readonly context: BoundWorkspaceContext;
-  readonly sources: readonly BoundProductSource[];
-}): {
-  readonly catalogId: string;
-  readonly catalogVersion: string;
-  readonly catalogDigest: `sha256:${string}`;
-} {
-  const catalogId = `catalog:${input.context.binding.bindingId}`;
-  return Object.freeze({
-    catalogId,
-    catalogVersion: RUNTIME_CATALOG_VERSION,
-    catalogDigest: stableSha256Digest({
-      catalogId,
-      catalogVersion: RUNTIME_CATALOG_VERSION,
-      workspaceId: input.context.binding.workspaceId,
-      bindingId: input.context.binding.bindingId,
-      resolvedLockId: input.context.binding.resolvedLockId,
-      productSetDigest: input.context.binding.productSetDigest,
-      contributions: input.sources.map((source) => Object.freeze({
-        productId: source.binding.productId,
-        version: source.binding.version,
-        contributionId: source.contribution.contributionId,
-        contributionDigest: source.contribution.contributionDigest
-      }))
-    })
-  });
-}
-
-async function runtimeDeclaration(input: {
-  readonly context: BoundWorkspaceContext;
-  readonly source: BoundProductSource;
-  readonly row: CatalogContributionRow;
-  readonly causationEventRefs: readonly string[];
-  readonly correlationId: string;
-}): Promise<CatalogAdmissionDeclaration> {
-  const locator = input.row.locator;
-  if (locator.kind === "opaque_overlay_asset") {
-    return Object.freeze({
-      kind: "opaque_catalog_asset" as const,
-      declaration: admitOpaqueCatalogAssetDeclaration({
-        kind: "opaque_catalog_asset_declaration",
-        workspaceId: input.context.binding.workspaceId,
-        bindingId: input.context.binding.bindingId,
-        catalogId: `catalog:${input.context.binding.bindingId}`,
-        entryRef: input.row.canonicalHandle,
-        declarationRef: input.row.declarationRef,
-        declarationDigest: locator.assetDigest,
-        libraryScope:
-          input.source.binding.productId === ABG_PRODUCT_ID ? "system" : "product",
-        assetKind: "overlay",
-        namespace: input.source.binding.productId,
-        ownerRef: input.source.binding.publisher,
-        version: input.source.binding.version,
-        descriptorRef: input.source.binding.descriptorId,
-        contributionManifestRef: input.source.contribution.contributionId,
-        resolvedLockRef: input.context.binding.resolvedLockId,
-        assetPath: locator.assetPath,
-        schemaId: locator.schemaId,
-        schemaVersion: locator.schemaVersion,
-        schemaDigest: locator.schemaDigest,
-        assetDigest: locator.assetDigest,
-        authorityRefs: [input.row.contractRef],
-        provenanceRefs: input.row.provenanceRefs,
-        readinessRefs: input.row.readinessRefs,
-        proofRefs: input.row.proofRefs,
-        policyRefs: input.row.policyRefs,
-        refinementOfEntryRef: input.row.refinementOfHandle,
-        overrideOfEntryRef: input.row.overrideOfHandle,
-        causationEventRefs: input.causationEventRefs,
-        correlationId: input.correlationId
-      })
-    });
-  }
-  if (input.row.interfaceRef === null) {
-    throw new BoundCatalogFailure(
-      "malformed_declaration",
-      `${input.row.canonicalHandle} has no callable/type interface`
-    );
-  }
-  const moduleValue = await requireRecord(
-    input.context,
-    join(input.source.binding.productRoot, locator.modulePath),
-    `Module for ${input.row.canonicalHandle}`
-  );
-  let module;
-  try {
-    module = admitModule(moduleValue, `Module(${input.row.canonicalHandle})`);
-  } catch (error: unknown) {
-    throw new BoundCatalogFailure(
-      "malformed_declaration",
-      error instanceof Error ? error.message : "installed Module is malformed"
-    );
-  }
-  const libraryScope =
-    input.source.binding.productId === ABG_PRODUCT_ID ? "system" : "product";
-  return Object.freeze({
-    kind: "runtime_library_entry" as const,
-    moduleRef: `${input.source.contribution.contributionId}#${locator.modulePath}`,
-    module,
-    declaration: constructGtlLibraryEntryDeclaration({
-      declarationRef: input.row.declarationRef,
-      entryRef: input.row.canonicalHandle,
-      libraryScope,
-      entryKind: input.row.publicKind,
-      namespace: input.source.binding.productId,
-      ownerRef: input.source.binding.publisher,
-      version: input.source.binding.version,
-      graphFunctionRef: locator.declarationRef,
-      interfaceRef: input.row.interfaceRef,
-      sourceContractRef: input.row.contractRef,
-      targetContractRef: input.row.contractRef,
-      authorityRefs: [input.row.contractRef],
-      overlayRefs: [
-        ...(input.row.refinementOfHandle === null
-          ? []
-          : [input.row.refinementOfHandle]),
-        ...(input.row.overrideOfHandle === null ? [] : [input.row.overrideOfHandle])
-      ],
-      provenanceRefs: input.row.provenanceRefs,
-      readinessRefs: input.row.readinessRefs,
-      proofRefs: input.row.proofRefs,
-      policyRefs: input.row.policyRefs,
-      refinementOfEntryRef: input.row.refinementOfHandle,
-      overrideOfEntryRef: input.row.overrideOfHandle,
-      declarationSourceRefs: [
-        `${input.source.contribution.contributionId}#${locator.modulePath}`
-      ]
-    })
-  });
-}
-
-async function buildBoundCatalogState(
-  context: BoundWorkspaceContext,
-  correlationId: string,
-  causationEventRefs: readonly string[]
-): Promise<BoundCatalogState> {
-  const sources = await loadBoundProductSources(context);
-  const abgSources = sources.filter(
-    (source) => source.binding.productId === ABG_PRODUCT_ID
-  );
-  if (abgSources.length !== 1) {
-    throw new BoundCatalogFailure(
-      "binding_mismatch",
-      "bound catalog requires one exact Abiogenesis product"
-    );
-  }
-  const abg = abgSources[0];
-  if (abg === undefined || abg.manifest.runtimeSystemProfile === null) {
-    throw new BoundCatalogFailure(
-      "binding_mismatch",
-      "bound Abiogenesis product has no runtime-system profile"
-    );
-  }
-  const identity = runtimeCatalogIdentity({ context, sources });
-  const systemDeclarations: RuntimeLibraryCatalogAdmissionDeclaration[] = [];
-  const orderedProductBatches: BoundCatalogProductBatch[] = [];
-  const rowsByHandle = new Map<string, {
-    readonly source: BoundProductSource;
-    readonly row: CatalogContributionRow;
-  }>();
-
-  for (const source of sources) {
-    const declarations: CatalogAdmissionDeclaration[] = [];
-    for (const row of source.contribution.rows) {
-      if (!rowsByHandle.has(row.canonicalHandle)) {
-        rowsByHandle.set(row.canonicalHandle, Object.freeze({ source, row }));
-      }
-      const declaration = await runtimeDeclaration({
-        context,
-        source,
-        row,
-        causationEventRefs,
-        correlationId
-      });
-      if (source.binding.productId === ABG_PRODUCT_ID) {
-        if (declaration.kind !== "runtime_library_entry") {
-          throw new BoundCatalogFailure(
-            "malformed_declaration",
-            "DS-1 ABG system contributions must be Module-backed declarations"
-          );
-        }
-        systemDeclarations.push(declaration);
-      } else {
-        declarations.push(declaration);
-      }
-    }
-    if (source.binding.productId !== ABG_PRODUCT_ID) {
-      orderedProductBatches.push(Object.freeze({
-        kind: "bound_catalog_product_batch",
-        descriptorRef: source.binding.descriptorId,
-        contributionManifestRef: source.contribution.contributionId,
-        productStartupConfig: constructProductRegistryStartupConfig({
-          configRef: `product-registry-startup:${source.contribution.contributionId}`,
-          productNamespace: source.binding.productId,
-          ownerRef: source.binding.publisher,
-          version: source.binding.version,
-          enabledLibraryRefs: source.contribution.rows.map(
-            (row) => row.canonicalHandle
-          ),
-          overlayRefs: source.contribution.rows
-            .filter((row) => row.publicKind === "overlay")
-            .map((row) => row.canonicalHandle),
-          readinessRefs: [...new Set(
-            source.contribution.rows.flatMap((row) => row.readinessRefs)
-          )],
-          proofRefs: [...new Set(
-            source.contribution.rows.flatMap((row) => row.proofRefs)
-          )],
-          policyRefs: [...new Set(
-            source.contribution.rows.flatMap((row) => row.policyRefs)
-          )],
-          configSourceRefs: [source.contribution.contributionId]
-        }),
-        declarations: Object.freeze(declarations)
-      }));
-    }
-  }
-
-  return Object.freeze({
-    sources,
-    abg,
-    ...identity,
-    batch: Object.freeze({
-      kind: "bound_catalog_admission_batch",
-      workspaceId: context.binding.workspaceId,
-      bindingId: context.binding.bindingId,
-      catalogId: identity.catalogId,
-      resolvedLockRef: context.binding.resolvedLockId,
-      systemDeclarations: Object.freeze(systemDeclarations),
-      orderedProductBatches: Object.freeze(orderedProductBatches),
-      causationEventRefs: Object.freeze([...causationEventRefs]),
-      correlationId
-    }),
-    rowsByHandle
-  });
-}
-
 async function readAdmittedReplay(
   context: BoundWorkspaceContext
 ): Promise<AdmittedWorkspaceReplay> {
   return admitWorkspaceRuntimeEventBytes(
     await context.effects.readRuntimeEventBytes()
   );
-}
-
-function assertStateContractCatalog(
-  context: BoundWorkspaceContext,
-  state: BoundCatalogState
-): void {
-  if (!stableJsonEquals(
-    context.publicContractCatalog,
-    state.abg.manifest.publicContractCatalog
-  )) {
-    throw new BoundCatalogFailure(
-      "catalog_stale",
-      "bound SDK contract catalog differs from installed Abiogenesis truth"
-    );
-  }
 }
 
 function admittedEnvelope(
@@ -628,30 +229,6 @@ function admittedEnvelope(
     );
   }
   return envelope;
-}
-
-function rehydrateBasis(input: {
-  readonly state: BoundCatalogState;
-  readonly replay: AdmittedWorkspaceReplay;
-}): AdmittedRuntimeCatalogBasis {
-  const noReadSideEffect = (): never => {
-    throw new BoundCatalogFailure(
-      "catalog_stale",
-      "catalog read cannot admit missing runtime catalog truth"
-    );
-  };
-  const result = admitBoundWorkspaceCatalog(
-    input.state.batch,
-    noReadSideEffect,
-    input.replay.orderedEvents
-  );
-  if (!result.accepted || result.basis === null || result.admissionEvents.length > 0) {
-    throw new BoundCatalogFailure(
-      "catalog_stale",
-      "runtime catalog admission truth is missing or rejected"
-    );
-  }
-  return result.basis;
 }
 
 function publicRow(input: {
@@ -944,7 +521,7 @@ export async function catalogList(
       throw new BoundCatalogFailure("catalog_missing", "catalog identity is not bound");
     }
     const replay = await readAdmittedReplay(context);
-    const basis = rehydrateBasis({ state, replay });
+    const basis = rehydrateBasis({ state, priorEvents: replay.orderedEvents });
     const view = derivePublicSession({
       state,
       basis,
@@ -1005,7 +582,7 @@ export async function catalogDescribe(
       throw new BoundCatalogFailure("unknown_handle", "catalog handle is unknown");
     }
     const replay = await readAdmittedReplay(context);
-    const basis = rehydrateBasis({ state, replay });
+    const basis = rehydrateBasis({ state, priorEvents: replay.orderedEvents });
     const view = derivePublicSession({
       state,
       basis,
@@ -1074,7 +651,7 @@ export async function catalogAllow(
       throw new BoundCatalogFailure("unknown_handle", "catalog identity is not bound");
     }
     const replay = await readAdmittedReplay(context);
-    const basis = rehydrateBasis({ state, replay });
+    const basis = rehydrateBasis({ state, priorEvents: replay.orderedEvents });
     const view = derivePublicSession({
       state,
       basis,
@@ -1165,7 +742,7 @@ export async function catalogInvoke(
       throw new BoundCatalogFailure("catalog_stale", "catalog invoke request identity is stale");
     }
     const replay = await readAdmittedReplay(context);
-    const basis = rehydrateBasis({ state, replay });
+    const basis = rehydrateBasis({ state, priorEvents: replay.orderedEvents });
     const session = derivePublicSession({
       state,
       basis,

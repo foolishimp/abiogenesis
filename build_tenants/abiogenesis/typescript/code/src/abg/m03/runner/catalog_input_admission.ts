@@ -77,9 +77,15 @@ export function admitCatalogGraphFunctionInput(input: {
   }
   try {
     const dialect = schema["$schema"];
+    const options = {
+      allErrors: true,
+      strict: true,
+      // Published schemas may carry digest-bound ABG annotation keywords.
+      strictSchema: false
+    } as const;
     const ajv = dialect === "https://json-schema.org/draft/2020-12/schema"
-      ? new Ajv2020({ allErrors: true, strict: true })
-      : new Ajv({ allErrors: true, strict: true });
+      ? new Ajv2020(options)
+      : new Ajv(options);
     const validate = ajv.compile(schema);
     const accepted = validate(admittedValue);
     return Object.freeze({

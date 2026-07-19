@@ -41,11 +41,13 @@ function baseScope(vectorIndex = 0) {
 }
 
 function projectionFor(input) {
+  const authoritySnapshotRef =
+    `authority-snapshot://${input.authorityDigest}`;
   const sourceEvents = [
     constructAuthoritySnapshotAdmittedEvent({
       basis: input.basis,
       vectorIndex: input.scope.vectorIndex,
-      authoritySnapshotRef: `authority-snapshot://${input.authorityDigest}`,
+      authoritySnapshotRef,
       authorityRefs: input.authorityRefs,
       inputRefs: input.inputRefs ?? ["input://current"],
       authorityDigest: input.authorityDigest,
@@ -66,7 +68,7 @@ function projectionFor(input) {
         contractRef: "contract://t094/evidence",
         digest,
         producerRef: "worker://t094/unit",
-        authorityRef: input.evidenceAuthorityRef ?? input.authorityRefs[0],
+        authorityRef: input.evidenceAuthorityRef ?? authoritySnapshotRef,
         inputDigest: input.inputDigest,
         policyRefs: ["policy://t094/register"]
       }),
@@ -85,7 +87,7 @@ function projectionFor(input) {
         vectorIndex: input.scope.vectorIndex,
         evidenceRef,
         payloadRef,
-        authorityRef: input.evidenceAuthorityRef ?? input.authorityRefs[0],
+        authorityRef: input.evidenceAuthorityRef ?? authoritySnapshotRef,
         authorityDigest: input.authorityDigest,
         inputDigest: input.inputDigest,
         providerRefs: ["provider://t094/evidence"],

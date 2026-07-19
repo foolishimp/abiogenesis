@@ -6,9 +6,9 @@ export * from "./node_contexts.js";
 export * from "./runtime_operations.js";
 export {
   abiogenesisPublicSdk,
-  constructPublicOperationInvocation,
   createAbiogenesisPublicSdk,
-  type AnyPublicOperationInvocationConstruction,
-  type PublicOperationInvocationConstruction,
-  type PublicOperationInvocationConstructionCommon
+  type AbiogenesisPublicSdk5,
+  type AbiogenesisPublicSdkInvocation,
+  type AbiogenesisPublicSdkOutcome,
+  type PublicSdkOwnerExecutionContext
 } from "./sdk.js";

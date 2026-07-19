@@ -1,14 +1,25 @@
 // Private pre-publication bridge from P1 truth to the neutral M03 ingress.
 
+import { join } from "node:path";
 import type * as v from "valibot";
 
 import type { CanonicalRuntimeEvent } from "../../../abg/m03/contracts/carriers.js";
 import {
   admitRunInvokeExecutionIngress,
-  T270_ROOT_PAYLOAD_BODY_GAP,
   T270_RUNTIME_COMPATIBILITY_GAP,
-  type AdmittedRunInvokeExecutionIngress
+  type AdmittedRunInvokeExecutionIngress,
+  type InstalledPublicSchemaAuthoritySet,
+  type RunInvokeConstraint
 } from "../../../abg/m03/contracts/one_surface_execution_ingress.js";
+import {
+  constructAdmittedInvocationCarrier,
+  constructAdmittedInvocationCarrierSet,
+  type AdmittedInvocationCarrierSet
+} from "../../../abg/m03/contracts/declared_execution_context.js";
+import {
+  assertNextActionProjection,
+  type NextActionProjection
+} from "../../../abg/m03/contracts/one_surface_authority.js";
 import {
   assertOneSurfaceAuthorityProgramBinding,
   type OneSurfaceAuthorityProgramBinding
@@ -33,16 +44,31 @@ import {
   admitPrivatePublicOperationIngressWitness
 } from "../../../abg/m03/runner/public_operation_admission.js";
 import {
+  admitCatalogGraphFunctionInput
+} from "../../../abg/m03/runner/catalog_input_admission.js";
+import {
+  assertOneSurfaceConstructionIntentAdmission,
+  type OneSurfaceConstructionIntentAdmission
+} from "../../../abg/m03/runner/one_surface_semantic_admission.js";
+import {
+  resolveSelectedCatalogExecutionFromSessionView
+} from "../../../abg/m03/runner/selected_catalog_execution.js";
+import {
+  admitIJsonValue,
   stableJsonEquals,
-  stableSha256Digest
+  stableSha256Digest,
+  type IJsonValue
 } from "../../../shared/runtime_identity.js";
 import {
   admitProductToolchainManifest
 } from "../public_sdk/carrier_admission.js";
 import type {
+  BoundWorkspaceContext,
   ProductToolchainManifest,
+  ToolchainProductBindingV3,
   ToolchainWorkspaceBindingV3
 } from "../public_sdk/carriers.js";
+import { relativePath } from "../public_sdk/admission_primitives.js";
 import {
   assertToolchainWorkspaceBindingV3Coherence
 } from "../toolchain_binding/bind.js";
@@ -52,37 +78,32 @@ import {
   admitPublicContractCoordinate,
   admitPublicInvocation,
   definitionKeySchemaFor,
+  projectPublicInvocationContractIdentity,
   publicInvocationSchema,
   type DefinitionKey,
   type PublicContractCoordinate
 } from "./native_contract_phase_a.js";
 import {
-  METADATA_BASIS_BY_OPERATION,
+  projectPublishedPublicOperationDefinitionFromPrivate
+} from "./operation_publication.js";
+import {
   inspectPrivatePublicOperationDefinitionFamily,
   type PrivatePublicOperationDefinitionFamily
 } from "./public_operation_definition_family.js";
+import {
+  projectM04RuntimeSchemaAdmission,
+  type M04RuntimeSchemaNativeDefinitionRelation
+} from "./runtime_schema_admission.js";
 
 type ValueOf<T> = T[keyof T];
-type PrivateP1Definition = ValueOf<{
+/** @internal */
+export type PrivateP1Definition = ValueOf<{
   [Operation in keyof PrivatePublicOperationDefinitionFamily]: ValueOf<
     PrivatePublicOperationDefinitionFamily[Operation]
   >;
 }>;
-type PrivateEventAdmittingOperationId = {
-  [Operation in keyof typeof METADATA_BASIS_BY_OPERATION]:
-    (typeof METADATA_BASIS_BY_OPERATION)[Operation]["eventAdmission"] extends
-      "owning_semantic_authority"
-      ? Operation
-      : never;
-}[keyof typeof METADATA_BASIS_BY_OPERATION];
-type PrivateEventAdmittingP1Definition = Extract<
-  PrivateP1Definition,
-  { readonly definitionKey: {
-    readonly operationId: PrivateEventAdmittingOperationId;
-  } }
->;
 type PrivateRunInvokeP1Definition = Extract<
-  PrivateEventAdmittingP1Definition,
+  PrivateP1Definition,
   { readonly definitionKey: {
     readonly operationId: "abg.operation.run.invoke";
   } }
@@ -116,7 +137,7 @@ type CatalogScopeRequirement =
 
 /** @internal */
 export interface PrivateP1PublicOperationIngressInput<
-  D extends PrivateEventAdmittingP1Definition
+  D extends PrivateP1Definition
 > {
   readonly family: PrivatePublicOperationDefinitionFamily;
   readonly definition: D;
@@ -126,13 +147,101 @@ export interface PrivateP1PublicOperationIngressInput<
 }
 
 /** @internal */
-export interface PrivateRunInvokeExecutionIngressInput<
+export interface PrivateRunInvokeExecutionPreparationInput<
   D extends PrivateRunInvokeP1Definition
 > extends PrivateP1PublicOperationIngressInput<D> {
-  readonly workspaceBinding: ToolchainWorkspaceBindingV3;
-  readonly productToolchainManifests: readonly ProductToolchainManifest[];
+  readonly context: BoundWorkspaceContext;
   readonly runtimeCatalogBasis: AdmittedRuntimeCatalogBasis;
   readonly authorityProgram: OneSurfaceAuthorityProgramBinding;
+}
+
+/** @internal */
+export interface AdmittedPrivateRunInvokeExecutionPreparationInput<
+  D extends PrivateRunInvokeP1Definition
+> {
+  readonly definition: D;
+  readonly packet: AdmittedPrivateP1PublicOperationPacket<D>;
+  readonly context: BoundWorkspaceContext;
+  readonly runtimeCatalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly authorityProgram: OneSurfaceAuthorityProgramBinding;
+}
+
+/** @internal */
+export type AdmittedPrivateRunInvokeConstraintPreparationInput<
+  D extends PrivateRunInvokeP1Definition
+> = Omit<
+  AdmittedPrivateRunInvokeExecutionPreparationInput<D>,
+  "authorityProgram"
+>;
+
+type PrivateP1AdmittedInvocation<D extends PrivateP1Definition> =
+  v.InferOutput<ReturnType<typeof publicInvocationSchema>> & Readonly<{
+    readonly definitionKey: D["definitionKey"];
+    readonly definitionDigest: string;
+    readonly request: v.InferOutput<
+      D["requestContract"]["contract"]["schema"]
+    >;
+  }>;
+
+/**
+ * One opaque join between exact P1 admission and semantic owner execution.
+ * Handlers consume only the request retained by this packet.
+ *
+ * @internal
+ */
+export interface AdmittedPrivateP1PublicOperationPacket<
+  D extends PrivateP1Definition = PrivateP1Definition
+> {
+  readonly kind: "admitted_private_p1_public_operation_packet";
+  readonly invocation: PrivateP1AdmittedInvocation<D>;
+  readonly witness: PrivatePublicOperationIngressAdmissionWitness<
+    D["definitionKey"]
+  >;
+}
+
+const ADMITTED_PRIVATE_P1_PACKET_AUTHORITY = new WeakSet<object>();
+const ADMITTED_PRIVATE_P1_PACKET_STATE = new WeakMap<object, Readonly<{
+  readonly definition: PrivateP1Definition;
+  readonly requestRef: string;
+  readonly requestDigest: string;
+}>>();
+
+/** @internal */
+export function assertAdmittedPrivateP1PublicOperationPacket<
+  const D extends PrivateP1Definition
+>(
+  packet: AdmittedPrivateP1PublicOperationPacket<D>,
+  definition: D
+): void {
+  if (!ADMITTED_PRIVATE_P1_PACKET_AUTHORITY.has(packet)) {
+    throw new TypeError(
+      "private P1 owner execution requires an ingress-admitted packet"
+    );
+  }
+  const state = ADMITTED_PRIVATE_P1_PACKET_STATE.get(packet);
+  const invocation = packet.invocation;
+  const witness = packet.witness;
+  const publishedDefinitionDigest =
+    projectPublishedPublicOperationDefinitionFromPrivate(definition)
+      .definitionDigest;
+  if (
+    state === undefined ||
+    state.definition !== definition ||
+    state.requestRef !== invocation.requestRef ||
+    state.requestDigest !== invocation.requestDigest ||
+    packet.kind !== "admitted_private_p1_public_operation_packet" ||
+    !stableJsonEquals(invocation.definitionKey, definition.definitionKey) ||
+    invocation.definitionDigest !== publishedDefinitionDigest ||
+    invocation.requestDigest !== stableSha256Digest(invocation.request) ||
+    !stableJsonEquals(witness.definitionKey, definition.definitionKey) ||
+    witness.definitionDigest !== publishedDefinitionDigest ||
+    witness.invocationRef !== invocation.invocationRef ||
+    witness.invocationDigest !== invocation.invocationDigest
+  ) {
+    throw new TypeError(
+      "private P1 owner packet differs from its exact definition or request seal"
+    );
+  }
 }
 
 function ownValue(input: unknown, key: string): unknown {
@@ -239,7 +348,7 @@ function catalogScopeState(input: {
  * @internal
  */
 function admitPrivateP1PublicOperationIngressCore<
-  const D extends PrivateEventAdmittingP1Definition
+  const D extends PrivateP1Definition
 >(
   input: PrivateP1PublicOperationIngressInput<D>
 ) {
@@ -262,13 +371,9 @@ function admitPrivateP1PublicOperationIngressCore<
       "private P1 public ingress: definition is not owned by the admitted family"
     );
   }
-  if (input.definition.eventAdmission !== "owning_semantic_authority") {
-    throw new TypeError(
-      "private P1 public ingress: definition declares no event admission"
-    );
-  }
-
   const requestSchema = input.definition.requestContract.contract.schema;
+  const publishedDefinition =
+    projectPublishedPublicOperationDefinitionFromPrivate(input.definition);
   const candidate = admitNative(
     publicInvocationSchema(definitionKeySchema, requestSchema),
     input.rawInvocation
@@ -276,7 +381,7 @@ function admitPrivateP1PublicOperationIngressCore<
   const requirements = input.definition.authoritySlotRequirements;
   const expectedAuthority = {
     definitionKey: input.definition.definitionKey,
-    definitionDigest: input.definition.definitionDigest,
+    definitionDigest: publishedDefinition.definitionDigest,
     contractCatalog: candidate.contractCatalog,
     requiredGrantCapabilityIds: input.definition.capabilityRefs,
     slotStates: {
@@ -312,21 +417,32 @@ function admitPrivateP1PublicOperationIngressCore<
       )
     }
   } as const;
+  const nonTerminalCoordinate = contractCoordinateFromBinding(
+    input.definition.nonTerminalContract,
+    "nonterminal"
+  );
   const invocation = admitPublicInvocation({
     definitionKeySchema,
     requestSchema,
     raw: input.rawInvocation,
     expected: {
       definitionKey: input.definition.definitionKey,
-      definitionDigest: input.definition.definitionDigest,
+      definitionDigest: publishedDefinition.definitionDigest,
       contractCatalog: candidate.contractCatalog,
-      requestContract: input.definition.requestContract.contract.schemaCoordinate,
-      resultContract: input.definition.resultContract.contract.schemaCoordinate,
-      refusalContract: input.definition.refusalContract.contract.schemaCoordinate,
-      nonTerminalContract: contractCoordinateFromBinding(
-        input.definition.nonTerminalContract,
-        "nonterminal"
+      requestContract: projectPublicInvocationContractIdentity(
+        input.definition.requestContract.contract.schemaCoordinate
       ),
+      resultContract: projectPublicInvocationContractIdentity(
+        input.definition.resultContract.contract.schemaCoordinate
+      ),
+      refusalContract: projectPublicInvocationContractIdentity(
+        input.definition.refusalContract.contract.schemaCoordinate
+      ),
+      nonTerminalContract: nonTerminalCoordinate === null
+        ? null
+        : projectPublicInvocationContractIdentity(
+            nonTerminalCoordinate
+          ),
       authority: expectedAuthority
     }
   });
@@ -339,6 +455,8 @@ function admitPrivateP1PublicOperationIngressCore<
     invocationDigest: invocation.invocationDigest,
     invocationAuthorityRef: invocation.authority.authoritySetRef,
     invocationAuthorityDigest: invocation.authority.authoritySetDigest,
+    authorityBasisRef: invocation.authority.authorityBasisRef,
+    authorityBasisDigest: invocation.authority.authorityBasisDigest,
     actorAttribution: invocation.authority.actor,
     workspaceBindingRequirement:
       input.definition.workspaceBindingRequirement,
@@ -347,12 +465,32 @@ function admitPrivateP1PublicOperationIngressCore<
     correlationId: invocation.correlationRef,
     priorEvents: input.priorEvents
   });
-  return Object.freeze({ invocation, witness });
+  const packet = Object.freeze({
+    kind: "admitted_private_p1_public_operation_packet" as const,
+    invocation,
+    witness
+  });
+  ADMITTED_PRIVATE_P1_PACKET_AUTHORITY.add(packet);
+  ADMITTED_PRIVATE_P1_PACKET_STATE.set(packet, Object.freeze({
+    definition: input.definition,
+    requestRef: invocation.requestRef,
+    requestDigest: invocation.requestDigest
+  }));
+  return packet;
+}
+
+/** @internal */
+export function admitPrivateP1PublicOperationPacket<
+  const D extends PrivateP1Definition
+>(
+  input: PrivateP1PublicOperationIngressInput<D>
+): AdmittedPrivateP1PublicOperationPacket<D> {
+  return admitPrivateP1PublicOperationIngressCore(input);
 }
 
 /** @internal */
 export function admitPrivateP1PublicOperationIngress<
-  const D extends PrivateEventAdmittingP1Definition
+  const D extends PrivateP1Definition
 >(
   input: PrivateP1PublicOperationIngressInput<D>
 ): PrivatePublicOperationIngressAdmissionWitness<D["definitionKey"]> {
@@ -389,7 +527,7 @@ function exactProductBinding(input: {
 }
 
 function admitAuthorityBearingProductManifest(
-  input: ProductToolchainManifest
+  input: unknown
 ): ProductToolchainManifest {
   const manifest = admitProductToolchainManifest(input);
   const { catalogDigest, ...catalogBasis } = manifest.publicContractCatalog;
@@ -424,14 +562,10 @@ function exactCatalogNarrowing(input: {
   return derived.view;
 }
 
-function exactCallableCatalogSelection(input: {
-  readonly catalog: AdmittedRuntimeCatalogBasis;
+function exactCandidateCatalogEntry(input: {
   readonly sessionView: RegistrySessionView;
   readonly canonicalHandle: string;
-}): Readonly<{
-  readonly binding: CatalogExecutionBinding;
-  readonly entry: RegistrySessionGraphFunctionEntry;
-}> {
+}): RegistrySessionGraphFunctionEntry {
   const entries = input.sessionView.entries.filter(
     (entry): entry is RegistrySessionGraphFunctionEntry =>
       entry.entryKind === "graph_function" &&
@@ -440,154 +574,413 @@ function exactCallableCatalogSelection(input: {
       entry.entryRef === input.canonicalHandle
   );
   const entry = entries[0];
-  const bindings = entry === undefined
-    ? []
-    : input.catalog.executionBindings.filter((candidate) =>
-        candidate.entryRef === entry.entryRef &&
-        candidate.workspaceId === input.catalog.workspaceId &&
-        candidate.bindingId === input.catalog.bindingId &&
-        candidate.catalogId === input.catalog.catalogId &&
-        candidate.resolvedLockRef === input.catalog.resolvedLockRef &&
-        candidate.moduleName === candidate.module.name &&
-        candidate.moduleDigest === stableSha256Digest(candidate.module) &&
-        candidate.graphFunctionDigest ===
-          stableSha256Digest(candidate.graphFunction)
-      );
-  const binding = bindings[0];
   if (
     entries.length !== 1 ||
-    entry === undefined ||
-    bindings.length !== 1 ||
-    binding === undefined
+    entry === undefined
   ) {
     throw new TypeError(
-      "run.invoke execution ingress: selected GraphFunction is not one exact callable ready catalog member"
+      "run.invoke execution preparation: candidate is not one exact callable ready catalog member"
     );
   }
-  return Object.freeze({ binding, entry });
+  return entry;
 }
 
-function exactInstalledGraphFunctionInputContract(input: {
+/** @internal */
+export function exactInstalledGraphFunctionInputContract(input: {
   readonly manifest: ProductToolchainManifest;
-  readonly selection: Readonly<{
-    readonly binding: CatalogExecutionBinding;
-    readonly entry: RegistrySessionGraphFunctionEntry;
-  }>;
-}): PublicContractCoordinate {
-  const matches = input.manifest.publicContractCatalog.rows.filter((row) =>
-    row.contractId === input.selection.entry.sourceContractRef &&
-    row.owningProductId === input.manifest.productId &&
-    row.contractKind === "schema_asset" &&
-    row.assetLocator !== null &&
-    row.assetLocator.mediaType === "application/schema+json" &&
-    row.assetLocator.digest === row.digest &&
-    input.manifest.productRelativeLocators.includes(
-      row.assetLocator.relativePath
-    )
-  );
-  const row = matches[0];
-  if (
-    matches.length !== 1 ||
-    row === undefined ||
-    row.assetLocator === null
-  ) {
+  readonly entry: RegistrySessionGraphFunctionEntry;
+}): Readonly<{
+  readonly coordinate: PublicContractCoordinate;
+  readonly assetRelativePath: string;
+}> {
+  const topLevel = input.manifest.publicContractCatalog.rows.flatMap((row) => {
+    if (
+      row.contractId !== input.entry.sourceContractRef ||
+      row.owningProductId !== input.manifest.productId ||
+      row.contractKind !== "schema_asset" ||
+      row.assetLocator === null ||
+      row.assetLocator.mediaType !== "application/schema+json" ||
+      row.assetLocator.digest !== row.digest ||
+      !input.manifest.productRelativeLocators.includes(
+        row.assetLocator.relativePath
+      )
+    ) {
+      return [];
+    }
+    return [Object.freeze({
+      coordinate: admitPublicContractCoordinate({
+        contractId: row.contractId,
+        contractVersion: row.version,
+        contractDigest: row.digest,
+        schemaId: row.assetLocator.schemaId,
+        schemaVersion: row.assetLocator.schemaVersion,
+        schemaDigest: row.assetLocator.digest,
+        nativeLocator: null,
+        assetLocator: {
+          kind: "canonical_asset",
+          relativePath: row.assetLocator.relativePath,
+          mediaType: row.assetLocator.mediaType,
+          schemaId: row.assetLocator.schemaId,
+          schemaVersion: row.assetLocator.schemaVersion,
+          digest: row.assetLocator.digest
+        }
+      }),
+      assetRelativePath: row.assetLocator.relativePath
+    })];
+  });
+  const nestedRequests = input.manifest.publicContractCatalog.rows.flatMap((row) => {
+    if (
+      row.owningProductId !== input.manifest.productId ||
+      row.contractKind !== "operation" ||
+      row.operationContract === null ||
+      !("definitions" in row.operationContract)
+    ) {
+      return [];
+    }
+    return row.operationContract.definitions.flatMap((definition) => {
+      const coordinate = definition.schemaCoordinates.request;
+      const asset = coordinate.assetLocator;
+      if (
+        coordinate.contractId !== input.entry.sourceContractRef ||
+        coordinate.contractDigest !== coordinate.schemaDigest ||
+        asset.mediaType !== "application/schema+json" ||
+        asset.digest !== coordinate.contractDigest ||
+        asset.schemaId !== coordinate.schemaId ||
+        asset.schemaVersion !== coordinate.schemaVersion ||
+        !input.manifest.productRelativeLocators.includes(asset.relativePath)
+      ) {
+        return [];
+      }
+      return [Object.freeze({
+        coordinate: admitPublicContractCoordinate({
+          contractId: coordinate.contractId,
+          contractVersion: coordinate.contractVersion,
+          contractDigest: coordinate.contractDigest,
+          schemaId: coordinate.schemaId,
+          schemaVersion: coordinate.schemaVersion,
+          schemaDigest: coordinate.schemaDigest,
+          nativeLocator: null,
+          assetLocator: {
+            kind: "canonical_asset",
+            relativePath: asset.relativePath,
+            mediaType: asset.mediaType,
+            schemaId: asset.schemaId,
+            schemaVersion: asset.schemaVersion,
+            digest: asset.digest
+          }
+        }),
+        assetRelativePath: asset.relativePath
+      })];
+    });
+  });
+  const matches = Object.freeze([...topLevel, ...nestedRequests]);
+  const selected = matches[0];
+  if (matches.length !== 1 || selected === undefined) {
     throw new TypeError(
       "run.invoke execution ingress: selected GraphFunction input contract is not exactly installed"
     );
   }
-  return admitPublicContractCoordinate({
-    contractId: row.contractId,
-    contractVersion: row.version,
-    contractDigest: row.digest,
-    schemaId: row.assetLocator.schemaId,
-    schemaVersion: row.assetLocator.schemaVersion,
-    schemaDigest: row.assetLocator.digest,
-    nativeLocator: null,
-    assetLocator: {
-      kind: "canonical_asset",
-      relativePath: row.assetLocator.relativePath,
-      mediaType: row.assetLocator.mediaType,
-      schemaId: row.assetLocator.schemaId,
-      schemaVersion: row.assetLocator.schemaVersion,
-      digest: row.assetLocator.digest
+  return selected;
+}
+
+type FinalInvokeConstraint = Extract<
+  RunInvokeConstraint,
+  { readonly kind: "exact_graph_function_constraint" }
+>;
+type PreparedInvokeInputContract = Omit<
+  FinalInvokeConstraint["inputContract"],
+  "sourceInterface"
+>;
+
+/** @internal */
+export const T270_MULTI_SOURCE_ROOT_INPUT_MAPPING_GAP =
+  "gap://abg/t270/multi-source-root-input-mapping";
+/** @internal */
+export const T270_START_ASSET_OWNERSHIP_GAP =
+  "gap://abg/t270/start-asset-ownership-projection";
+
+/** @internal */
+export type RunInvokeAf13Constraint =
+  | Readonly<{
+      kind: "invoke_exact_member_constraint";
+      allowedEntryRefs: readonly string[];
+      candidateEntryRef: string;
+      inputContract: PreparedInvokeInputContract;
+      inputPayloadRef: string;
+      inputPayloadDigest: string;
+    }>
+  | Readonly<{
+      kind: "start_constraints";
+      allowedEntryRefs: readonly string[];
+      scopeRef: string;
+      scopeDigest: string;
+      targetKind: "next" | "graph_function";
+      targetHandle: string | null;
+      until: "first_traversal" | "blocked" | "converged";
+      fhMode: "direct" | "human-proxy";
+      rootMode: "direct" | "supervised";
+    }>;
+
+/** @internal */
+export interface PreparedRunInvokeExecution<
+  D extends PrivateRunInvokeP1Definition = PrivateRunInvokeP1Definition
+> {
+  readonly kind: "prepared_run_invoke_execution";
+  readonly variant: "invoke" | "start";
+  readonly definition: D;
+  readonly packet: AdmittedPrivateP1PublicOperationPacket<D>;
+  readonly workspaceBinding: ToolchainWorkspaceBindingV3;
+  readonly catalogBasis: AdmittedRuntimeCatalogBasis;
+  readonly sessionView: RegistrySessionView;
+  readonly authorityProgram: OneSurfaceAuthorityProgramBinding;
+  readonly af13Constraint: RunInvokeAf13Constraint;
+  readonly installedPublicSchemaAuthoritySet:
+    InstalledPublicSchemaAuthoritySet | null;
+  readonly admittedInvokeValue: IJsonValue | null;
+  readonly runtimeProfile: NonNullable<
+    ProductToolchainManifest["runtimeSystemProfile"]
+  >;
+  readonly abgInstalledProductId: string;
+}
+
+/** @internal */
+export type PreparedRunInvokeConstraintExecution<
+  D extends PrivateRunInvokeP1Definition = PrivateRunInvokeP1Definition
+> = Omit<PreparedRunInvokeExecution<D>, "kind" | "authorityProgram"> &
+  Readonly<{
+    readonly kind: "prepared_run_invoke_constraint_execution";
+  }>;
+
+/** @internal */
+export interface FinalizedRunInvokeExecution {
+  readonly ingress: AdmittedRunInvokeExecutionIngress;
+  readonly selectedExecutionBinding: CatalogExecutionBinding;
+  readonly schemaAdmissionEngineInput: ReturnType<
+    typeof projectM04RuntimeSchemaAdmission
+  >["engineInput"];
+}
+
+/**
+ * Resolves the single invoke member already constrained by the admitted public
+ * request. This is a compiler input, not an AF-13 selection result.
+ *
+ * @internal
+ */
+export function resolvePreparedRunInvokeConstrainedExecution(
+  prepared:
+    | PreparedRunInvokeConstraintExecution
+    | PreparedRunInvokeExecution
+): CatalogExecutionBinding {
+  if (prepared.af13Constraint.kind !== "invoke_exact_member_constraint") {
+    throw new TypeError(
+      "run.invoke constrained compilation requires the invoke variant"
+    );
+  }
+  const constraint = prepared.af13Constraint;
+  const candidates = prepared.sessionView.entries.filter(
+    (entry): entry is RegistrySessionGraphFunctionEntry =>
+      entry.entryKind === "graph_function" &&
+      entry.callable &&
+      entry.ready &&
+      entry.entryRef === constraint.candidateEntryRef
+  );
+  const candidate = candidates[0];
+  if (candidates.length !== 1 || candidate === undefined) {
+    throw new TypeError(
+      "run.invoke constrained compilation requires one exact callable session member"
+    );
+  }
+  const selected = resolveSelectedCatalogExecutionFromSessionView({
+    catalogBasis: prepared.catalogBasis,
+    sessionView: prepared.sessionView,
+    selectedGraphFunctionRef: candidate.graphFunctionRef,
+    label: "run.invoke constrained compilation"
+  });
+  if (selected.entryRef !== constraint.candidateEntryRef) {
+    throw new TypeError(
+      "run.invoke constrained compiler member differs from the admitted request"
+    );
+  }
+  return selected;
+}
+
+async function exactBoundProductManifests(input: {
+  readonly context: BoundWorkspaceContext;
+  readonly binding: ToolchainWorkspaceBindingV3;
+}): Promise<readonly Readonly<{
+  readonly manifest: ProductToolchainManifest;
+  readonly product: ToolchainProductBindingV3;
+}>[]> {
+  const rows = await Promise.all(input.binding.products.map(async (product) => {
+    const raw = await input.context.effects.readRecord(product.manifestPath);
+    if (raw === null) {
+      throw new TypeError(
+        `run.invoke execution preparation: bound manifest is missing for ${product.productId}`
+      );
     }
+    const manifest = admitAuthorityBearingProductManifest(raw);
+    return Object.freeze({
+      manifest,
+      product: exactProductBinding({
+        binding: input.binding,
+        manifest,
+        label: manifest.productId
+      })
+    });
+  }));
+  const identities = rows.map(
+    ({ manifest }) => `${manifest.productId}@${manifest.packageVersion}`
+  );
+  if (
+    rows.length !== input.binding.products.length ||
+    new Set(identities).size !== rows.length
+  ) {
+    throw new TypeError(
+      "run.invoke execution preparation: installed product manifest set differs"
+    );
+  }
+  return Object.freeze(rows);
+}
+
+function installedPublicSchemaAuthoritySet(input: {
+  readonly owner: Readonly<{
+    readonly manifest: ProductToolchainManifest;
+    readonly product: ToolchainProductBindingV3;
+  }>;
+  readonly contract: PublicContractCoordinate;
+  readonly schema: IJsonValue;
+}): InstalledPublicSchemaAuthoritySet {
+  const asset = input.contract.assetLocator;
+  if (asset === undefined || asset === null) {
+    throw new TypeError(
+      "run.invoke execution preparation: public input contract has no schema asset"
+    );
+  }
+  const contractDigest = exactSha256Digest(
+    input.contract.contractDigest,
+    "run.invoke public input contract digest"
+  );
+  const assetDigest = exactSha256Digest(
+    asset.digest,
+    "run.invoke public input schema asset digest"
+  );
+  const schemas: InstalledPublicSchemaAuthoritySet["schemas"] = Object.freeze([Object.freeze({
+    kind: "installed_public_schema_authority" as const,
+    owningProductId: input.owner.manifest.productId,
+    owningProductVersion: input.owner.manifest.packageVersion,
+    publicContractCatalogId:
+      input.owner.manifest.publicContractCatalog.catalogId,
+    contractId: input.contract.contractId,
+    contractDigest,
+    publicSchemaId: asset.schemaId,
+    publicSchemaVersion: asset.schemaVersion,
+    assetRelativePath: asset.relativePath,
+    assetDigest,
+    schema: input.schema
+  })]);
+  return Object.freeze({
+    kind: "installed_public_schema_authority_set" as const,
+    schemas,
+    schemaSetDigest: stableSha256Digest(schemas)
+  });
+}
+
+function exactSha256Digest(
+  value: string,
+  label: string
+): `sha256:${string}` {
+  assertSha256Digest(value, label);
+  return value;
+}
+
+function assertSha256Digest(
+  value: string,
+  label: string
+): asserts value is `sha256:${string}` {
+  if (!/^sha256:[0-9a-f]{64}$/u.test(value)) {
+    throw new TypeError(`${label} is not a canonical SHA-256 digest`);
+  }
+}
+
+/** @internal */
+export async function preparePrivateRunInvokeExecution<
+  const D extends PrivateRunInvokeP1Definition
+>(
+  input: PrivateRunInvokeExecutionPreparationInput<D>
+): Promise<PreparedRunInvokeExecution<D>> {
+  const packet = admitPrivateP1PublicOperationPacket(input);
+  return preparePrivateRunInvokeExecutionFromPacket({
+    definition: input.definition,
+    packet,
+    context: input.context,
+    runtimeCatalogBasis: input.runtimeCatalogBasis,
+    authorityProgram: input.authorityProgram
   });
 }
 
 /**
- * Reduces the already-admitted P1 run.invoke packet and installed runtime
- * authorities to the neutral M03 AF-15 projection. It publishes nothing and
- * carries no request body.
+ * Continues preparation from the one ingress-admitted packet used by public
+ * operation admission. This prevents catalog reconstruction from requiring a
+ * second packet authority for the same invocation.
  *
  * @internal
  */
-export function admitPrivateRunInvokeExecutionIngress<
+export async function preparePrivateRunInvokeConstraintFromPacket<
   const D extends PrivateRunInvokeP1Definition
 >(
-  input: PrivateRunInvokeExecutionIngressInput<D>
-): AdmittedRunInvokeExecutionIngress {
-  const { invocation, witness } =
-    admitPrivateP1PublicOperationIngressCore(input);
-  const binding = assertToolchainWorkspaceBindingV3Coherence(
-    input.workspaceBinding
-  );
-  const manifests = Object.freeze(
-    input.productToolchainManifests.map((manifest) =>
-      admitAuthorityBearingProductManifest(manifest)
-    )
-  );
-  const manifestIdentities = manifests.map(
-    (manifest) => `${manifest.productId}@${manifest.packageVersion}`
-  );
-  if (
-    manifests.length !== binding.products.length ||
-    new Set(manifestIdentities).size !== manifests.length
-  ) {
+  input: AdmittedPrivateRunInvokeConstraintPreparationInput<D>
+): Promise<PreparedRunInvokeConstraintExecution<D>> {
+  const packet = input.packet;
+  assertAdmittedPrivateP1PublicOperationPacket(packet, input.definition);
+  const { invocation } = packet;
+  if (input.context.kind !== "bound_workspace") {
     throw new TypeError(
-      "run.invoke execution ingress: installed product manifest set differs"
+      "run.invoke execution preparation: bound workspace context is required"
     );
   }
-  const boundManifests = manifests.map((manifest) => Object.freeze({
-    manifest,
-    product: exactProductBinding({
-      binding,
-      manifest,
-      label: manifest.productId
-    })
-  }));
-  const abgManifests = boundManifests.filter(
+  const binding = assertToolchainWorkspaceBindingV3Coherence(
+    input.context.binding
+  );
+  if (
+    input.context.workspaceManifest.workspaceId !== binding.workspaceId ||
+    input.context.workspaceManifest.root !== binding.targetRoot ||
+    stableSha256Digest(input.context.workspaceManifest) !==
+      binding.workspaceManifestDigest
+  ) {
+    throw new TypeError(
+      "run.invoke execution preparation: workspace manifest differs from binding"
+    );
+  }
+  const boundManifests = await exactBoundProductManifests({
+    context: input.context,
+    binding
+  });
+  const abgRows = boundManifests.filter(
     ({ manifest }) =>
       manifest.productId === "abiogenesis" &&
       manifest.runtimeSystemProfile !== null
   );
-  const abgManifest = abgManifests[0]?.manifest;
-  const abgProduct = abgManifests[0]?.product;
-  const runtimeProfile = abgManifest?.runtimeSystemProfile;
+  const abg = abgRows[0];
   if (
-    abgManifests.length !== 1 ||
-    abgManifest === undefined ||
-    abgProduct === undefined ||
-    runtimeProfile === undefined ||
-    runtimeProfile === null
+    abgRows.length !== 1 ||
+    abg === undefined ||
+    abg.manifest.runtimeSystemProfile === null
   ) {
     throw new TypeError(
-      "run.invoke execution ingress: exact installed ABG runtime manifest is missing"
+      "run.invoke execution preparation: exact installed ABG runtime manifest is missing"
     );
   }
   const catalog = input.runtimeCatalogBasis;
   assertAdmittedRuntimeCatalogBasis(catalog);
   if (
-    catalog.kind !== "admitted_runtime_catalog_basis" ||
     catalog.workspaceId !== binding.workspaceId ||
     catalog.bindingId !== binding.bindingId ||
     catalog.resolvedLockRef !== binding.resolvedLockId
   ) {
     throw new TypeError(
-      "run.invoke execution ingress: runtime catalog differs from workspace binding"
+      "run.invoke execution preparation: runtime catalog differs from workspace binding"
     );
   }
-  assertOneSurfaceAuthorityProgramBinding(input.authorityProgram);
-
   const authority = invocation.authority;
   if (
     authority.actor.state !== "admitted_actor" ||
@@ -600,7 +993,7 @@ export function admitPrivateRunInvokeExecutionIngress<
     authority.transportSteering.state !== "declared_transport_steering"
   ) {
     throw new TypeError(
-      "run.invoke execution ingress: invocation authority is incomplete"
+      "run.invoke execution preparation: invocation authority is incomplete"
     );
   }
   const request = input.definition.definitionKey.variant === "invoke"
@@ -625,22 +1018,10 @@ export function admitPrivateRunInvokeExecutionIngress<
       stableSha256Digest(request.allowlist) ||
     authority.executionProgram.admittedGtlProgramRef !== request.programRef ||
     authority.executionProgram.admittedGtlProgramDigest !==
-      request.programDigest ||
-    request.programRef !== input.authorityProgram.admittedProgramRef ||
-    request.programDigest !== input.authorityProgram.admittedProgramDigest
+      request.programDigest
   ) {
     throw new TypeError(
-      "run.invoke execution ingress: request and authority join differs"
-    );
-  }
-
-  if (
-    request.variant === "start" &&
-    (request.scope.scopeRef !== binding.bindingId ||
-      request.scope.scopeDigest !== binding.bindingDigest)
-  ) {
-    throw new TypeError(
-      "run.invoke execution ingress: start scope differs from workspace binding"
+      "run.invoke execution preparation: request and authority join differs"
     );
   }
   const sessionView = exactCatalogNarrowing({
@@ -649,46 +1030,39 @@ export function admitPrivateRunInvokeExecutionIngress<
     viewRef: request.catalogViewRef,
     viewDigest: request.catalogViewDigest
   });
-  let selectedEntryRef: string | null = null;
-  let constraint;
+
+  let af13Constraint: RunInvokeAf13Constraint;
+  let installedSchemas: InstalledPublicSchemaAuthoritySet | null = null;
+  let admittedInvokeValue: IJsonValue | null = null;
   if (request.variant === "invoke") {
     if (authority.executionProgram.selectionState !== "selected_graph_function") {
       throw new TypeError(
-        "run.invoke execution ingress: invoke authority has no exact function constraint"
+        "run.invoke execution preparation: invoke authority has no exact member constraint"
       );
     }
-    const selectedCatalog = exactCallableCatalogSelection({
-      catalog,
+    const entry = exactCandidateCatalogEntry({
       sessionView,
       canonicalHandle: authority.executionProgram.canonicalHandle
     });
-    const ownerManifests = boundManifests.filter(({ manifest, product }) =>
-      manifest.productId === selectedCatalog.binding.namespace &&
-      manifest.packageVersion === selectedCatalog.binding.version &&
-      product.publisher === selectedCatalog.binding.ownerRef &&
-      (selectedCatalog.binding.descriptorRef === null ||
-        product.descriptorId === selectedCatalog.binding.descriptorRef) &&
-      (selectedCatalog.binding.contributionManifestRef === null ||
-        product.contributionId ===
-          selectedCatalog.binding.contributionManifestRef)
+    const owners = boundManifests.filter(({ manifest, product }) =>
+      manifest.productId === entry.namespace &&
+      manifest.packageVersion === entry.version &&
+      product.publisher === entry.ownerRef
     );
-    const owner = ownerManifests[0];
-    if (ownerManifests.length !== 1 || owner === undefined) {
+    const owner = owners[0];
+    if (owners.length !== 1 || owner === undefined) {
       throw new TypeError(
-        "run.invoke execution ingress: selected catalog owner manifest is not exact"
+        "run.invoke execution preparation: candidate catalog owner is not exact"
       );
     }
-    const inputContract = exactInstalledGraphFunctionInputContract({
+    const installed = exactInstalledGraphFunctionInputContract({
       manifest: owner.manifest,
-      selection: selectedCatalog
+      entry
     });
+    const inputContract = installed.coordinate;
     if (
-      !stableJsonEquals(
-        authority.executionProgram.inputContract,
-        inputContract
-      ) ||
-      authority.executionProgram.canonicalHandle !==
-        request.canonicalHandle ||
+      !stableJsonEquals(authority.executionProgram.inputContract, inputContract) ||
+      authority.executionProgram.canonicalHandle !== request.canonicalHandle ||
       String(inputContract.contractId) !== String(request.inputContractRef) ||
       inputContract.schemaDigest !== request.inputContractDigest ||
       authority.executionProgram.inputPayloadDigest !==
@@ -697,29 +1071,46 @@ export function admitPrivateRunInvokeExecutionIngress<
       inputContract.assetLocator === null
     ) {
       throw new TypeError(
-        "run.invoke execution ingress: invoke payload authority differs"
+        "run.invoke execution preparation: invoke payload authority differs"
       );
     }
-    const sourceInterface = selectedCatalog.binding.graphFunction.inputs.map(
-      (sourceNode) => Object.freeze({
-        nodeRef: sourceNode.id,
-        schemaRef: sourceNode.schema.ref
-      })
+    const schemaPath = join(
+      owner.product.productRoot,
+      relativePath(
+        installed.assetRelativePath,
+        "run.invoke public input schema path"
+      )
     );
-    if (sourceInterface.length === 0) {
+    const rawSchema = await input.context.effects.readRecord(schemaPath);
+    if (
+      rawSchema === null ||
+      stableSha256Digest(rawSchema) !== inputContract.schemaDigest
+    ) {
       throw new TypeError(
-        "run.invoke execution ingress: selected GraphFunction has no public input"
+        "run.invoke execution preparation: installed public input schema body differs"
       );
     }
-    selectedEntryRef = selectedCatalog.entry.entryRef;
-    constraint = Object.freeze({
-      kind: "exact_graph_function_constraint" as const,
-      graphFunctionRef: selectedCatalog.binding.graphFunctionId,
-      graphFunctionDigest: selectedCatalog.binding.graphFunctionDigest,
-      selectedEntryRef,
-      selectedExecutionBindingDigest: stableSha256Digest(
-        selectedCatalog.binding
-      ),
+    const canonicalValue = admitIJsonValue(request.input);
+    const inputAdmission = admitCatalogGraphFunctionInput({
+      schema: rawSchema,
+      value: canonicalValue
+    });
+    if (!inputAdmission.accepted) {
+      throw new TypeError(
+        `run.invoke execution preparation: public input refused: ${inputAdmission.issues.map((issue) => issue.message).join("; ")}`
+      );
+    }
+    installedSchemas = installedPublicSchemaAuthoritySet({
+      owner,
+      contract: inputContract,
+      schema: rawSchema
+    });
+    admittedInvokeValue = canonicalValue;
+    const asset = inputContract.assetLocator;
+    af13Constraint = Object.freeze({
+      kind: "invoke_exact_member_constraint",
+      allowedEntryRefs: Object.freeze([entry.entryRef]),
+      candidateEntryRef: entry.entryRef,
       inputContract: Object.freeze({
         owningProductId: owner.manifest.productId,
         owningProductVersion: owner.manifest.packageVersion,
@@ -733,36 +1124,363 @@ export function admitPrivateRunInvokeExecutionIngress<
         contractId: inputContract.contractId,
         contractVersion: inputContract.contractVersion,
         contractDigest: inputContract.contractDigest,
-        sourceInterface: Object.freeze(sourceInterface),
-        asset: Object.freeze({ ...inputContract.assetLocator })
+        asset: Object.freeze({
+          relativePath: asset.relativePath,
+          mediaType: asset.mediaType,
+          schemaId: asset.schemaId,
+          schemaVersion: asset.schemaVersion,
+          digest: asset.digest
+        })
       }),
       inputPayloadRef: authority.executionProgram.inputPayloadRef,
-      inputPayloadDigest: authority.executionProgram.inputPayloadDigest,
-      payloadAdmissionState: "pending_af14_rejoin" as const,
-      payloadAdmissionGapRef: T270_ROOT_PAYLOAD_BODY_GAP
+      inputPayloadDigest: authority.executionProgram.inputPayloadDigest
     });
   } else {
-    if (authority.executionProgram.selectionState !== "program_constraints_only") {
+    if (
+      authority.executionProgram.selectionState !== "program_constraints_only" ||
+      request.scope.scopeRef !== binding.bindingId ||
+      request.scope.scopeDigest !== binding.bindingDigest
+    ) {
       throw new TypeError(
-        "run.invoke execution ingress: start authority contains a hidden function selection"
+        "run.invoke execution preparation: start authority or scope differs"
       );
     }
-    constraint = Object.freeze({
-      kind: "start_constraints" as const,
+    if (request.target.kind === "asset") {
+      throw new TypeError(
+        `semantic_not_realized:${T270_START_ASSET_OWNERSHIP_GAP}`
+      );
+    }
+    const target = request.target;
+    const allowedEntryRefs = target.kind === "next"
+      ? sessionView.allowedEntryRefs
+      : sessionView.entries
+          .filter(
+            (entry) => entry.entryKind === "graph_function" &&
+              (entry.entryRef === target.handle ||
+                entry.graphFunctionRef === target.handle)
+          )
+          .map((entry) => entry.entryRef);
+    af13Constraint = Object.freeze({
+      kind: "start_constraints",
+      allowedEntryRefs: Object.freeze([...allowedEntryRefs]),
       scopeRef: request.scope.scopeRef,
       scopeDigest: request.scope.scopeDigest,
-      targetKind: request.target.kind,
-      targetHandle: request.target.kind === "next"
+      targetKind: target.kind,
+      targetHandle: target.kind === "next"
         ? null
-        : request.target.handle,
+        : target.handle,
       until: request.until,
       fhMode: request.fhMode,
       rootMode: request.rootMode
     });
   }
-  return admitRunInvokeExecutionIngress({
-    authorityClass: "subordinate_rejoin_only",
+  return Object.freeze({
+    kind: "prepared_run_invoke_constraint_execution" as const,
     variant: request.variant,
+    definition: input.definition,
+    packet,
+    workspaceBinding: binding,
+    catalogBasis: catalog,
+    sessionView,
+    af13Constraint,
+    installedPublicSchemaAuthoritySet: installedSchemas,
+    admittedInvokeValue,
+    runtimeProfile: abg.manifest.runtimeSystemProfile,
+    abgInstalledProductId: abg.product.installedProductId
+  });
+}
+
+/**
+ * Binds one compiler-admitted program to the already-admitted public request
+ * and constraint preparation. No catalog member is selected here.
+ *
+ * @internal
+ */
+export function bindPreparedRunInvokeAuthorityProgram<
+  const D extends PrivateRunInvokeP1Definition
+>(input: {
+  readonly prepared: PreparedRunInvokeConstraintExecution<D>;
+  readonly authorityProgram: OneSurfaceAuthorityProgramBinding;
+}): PreparedRunInvokeExecution<D> {
+  assertOneSurfaceAuthorityProgramBinding(input.authorityProgram);
+  const executionProgram = input.prepared.packet.invocation.authority
+    .executionProgram;
+  if (
+    executionProgram.state !== "admitted_execution_program" ||
+    executionProgram.admittedGtlProgramRef !==
+      input.authorityProgram.admittedProgramRef ||
+    executionProgram.admittedGtlProgramDigest !==
+      input.authorityProgram.admittedProgramDigest
+  ) {
+    throw new TypeError(
+      "run.invoke execution preparation: admitted program authority differs"
+    );
+  }
+  return Object.freeze({
+    ...input.prepared,
+    kind: "prepared_run_invoke_execution" as const,
+    authorityProgram: input.authorityProgram
+  });
+}
+
+/**
+ * Compatibility composition for callers that already hold the exact admitted
+ * authority program. The public SDK uses the two explicit phases so compiler
+ * proof precedes AF-13.
+ *
+ * @internal
+ */
+export async function preparePrivateRunInvokeExecutionFromPacket<
+  const D extends PrivateRunInvokeP1Definition
+>(
+  input: AdmittedPrivateRunInvokeExecutionPreparationInput<D>
+): Promise<PreparedRunInvokeExecution<D>> {
+  const prepared = await preparePrivateRunInvokeConstraintFromPacket({
+    definition: input.definition,
+    packet: input.packet,
+    context: input.context,
+    runtimeCatalogBasis: input.runtimeCatalogBasis
+  });
+  return bindPreparedRunInvokeAuthorityProgram({
+    prepared,
+    authorityProgram: input.authorityProgram
+  });
+}
+
+function resolveFinalRunInvokeSelectedExecution<
+  const D extends PrivateRunInvokeP1Definition
+>(input: {
+  readonly prepared: PreparedRunInvokeExecution<D>;
+  readonly nextAction: NextActionProjection;
+  readonly intentAdmission: OneSurfaceConstructionIntentAdmission;
+}): Readonly<{
+  invocation: PreparedRunInvokeExecution<D>["packet"]["invocation"];
+  witness: PreparedRunInvokeExecution<D>["packet"]["witness"];
+  selectedSessionView: RegistrySessionView;
+  selectedExecutionBinding: CatalogExecutionBinding;
+}> {
+  assertNextActionProjection(input.nextAction);
+  assertOneSurfaceConstructionIntentAdmission(input.intentAdmission);
+  const prepared = input.prepared;
+  assertAdmittedPrivateP1PublicOperationPacket(
+    prepared.packet,
+    prepared.definition
+  );
+  const { invocation, witness } = prepared.packet;
+  const authority = invocation.authority;
+  const actor = authority.actor;
+  const invocationPolicy = authority.invocationPolicy;
+  const transportSteering = authority.transportSteering;
+  if (
+    actor.state !== "admitted_actor" ||
+    invocationPolicy.state !== "admitted_invocation_policy" ||
+    transportSteering.state !== "declared_transport_steering"
+  ) {
+    throw new TypeError(
+      "run.invoke execution finalization: invocation authority is incomplete"
+    );
+  }
+  const admittedIntent =
+    input.intentAdmission.constructionIntentAdmission.admittedIntent;
+  const selectedGraphFunctionRef = input.nextAction.disposition.targetRef;
+  if (selectedGraphFunctionRef === null) {
+    throw new TypeError(
+      "run.invoke execution finalization: AF-13/AF-14 authority join differs (selected_graph_function)"
+    );
+  }
+  const selectedSession = deriveRegistrySessionView({
+    basis: prepared.catalogBasis,
+    allowedEntryRefs: prepared.af13Constraint.allowedEntryRefs
+  });
+  if (!selectedSession.accepted || selectedSession.view === null) {
+    throw new TypeError(
+      "run.invoke execution finalization: AF-13 selected catalog view is not admitted"
+    );
+  }
+  const selectedSessionView = selectedSession.view;
+  const sessionViewDigest = stableSha256Digest(selectedSessionView);
+  const authorityJoinMismatch = Object.freeze([
+    [input.nextAction.disposition.variant === "callable_member_action", "disposition"],
+    [
+      input.nextAction.intentCandidate?.targetGraphFunctionRef ===
+        selectedGraphFunctionRef,
+      "next_action_intent"
+    ],
+    [
+      admittedIntent?.selectedGraphFunctionRef === selectedGraphFunctionRef,
+      "admitted_intent"
+    ],
+    [
+      input.nextAction.admittedProgram.ref ===
+        prepared.authorityProgram.admittedProgramRef &&
+        input.nextAction.admittedProgram.digest ===
+          prepared.authorityProgram.admittedProgramDigest,
+      "next_action_program"
+    ],
+    [
+      input.nextAction.catalogView.ref === selectedSessionView.sessionViewRef &&
+        input.nextAction.catalogView.digest === sessionViewDigest,
+      "next_action_catalog_view"
+    ],
+    [
+      input.intentAdmission.program.ref ===
+        prepared.authorityProgram.admittedProgramRef &&
+        input.intentAdmission.program.digest ===
+          prepared.authorityProgram.admittedProgramDigest,
+      "intent_program"
+    ],
+    [
+      input.intentAdmission.nextAction.ref === input.nextAction.projectionRef &&
+        input.intentAdmission.nextAction.digest ===
+          input.nextAction.projectionDigest,
+      "intent_next_action"
+    ],
+    [
+      input.intentAdmission.catalogView.ref ===
+        selectedSessionView.sessionViewRef &&
+        input.intentAdmission.catalogView.digest === sessionViewDigest,
+      "intent_catalog_view"
+    ],
+    [
+      input.intentAdmission.workspaceBinding.ref ===
+        prepared.workspaceBinding.bindingId &&
+        input.intentAdmission.workspaceBinding.digest ===
+          prepared.workspaceBinding.bindingDigest,
+      "intent_workspace_binding"
+    ],
+    [
+      input.intentAdmission.invocationAuthority.ref === authority.authoritySetRef &&
+        input.intentAdmission.invocationAuthority.digest ===
+          authority.authoritySetDigest,
+      "intent_invocation_authority"
+    ]
+  ] as const).find(([matches]) => !matches)?.[1] ?? null;
+  if (authorityJoinMismatch !== null) {
+    throw new TypeError(
+      `run.invoke execution finalization: AF-13/AF-14 authority join differs (${authorityJoinMismatch})`
+    );
+  }
+  const selectedExecutionBinding =
+    resolveSelectedCatalogExecutionFromSessionView({
+      catalogBasis: prepared.catalogBasis,
+      sessionView: selectedSessionView,
+      selectedGraphFunctionRef,
+      label: "run.invoke execution finalization"
+    });
+  if (
+    !prepared.af13Constraint.allowedEntryRefs.includes(
+      selectedExecutionBinding.entryRef
+    )
+  ) {
+    throw new TypeError(
+      "run.invoke execution finalization: selected entry is outside the AF-13 request constraint"
+    );
+  }
+  return Object.freeze({
+    invocation,
+    witness,
+    selectedSessionView,
+    selectedExecutionBinding
+  });
+}
+
+/** @internal */
+export function finalizePrivateRunInvokeExecutionIngress<
+  const D extends PrivateRunInvokeP1Definition
+>(input: {
+  readonly prepared: PreparedRunInvokeExecution<D>;
+  readonly nextAction: NextActionProjection;
+  readonly intentAdmission: OneSurfaceConstructionIntentAdmission;
+  readonly nativeDefinitionRelations:
+    readonly M04RuntimeSchemaNativeDefinitionRelation[];
+}): FinalizedRunInvokeExecution {
+  const resolved = resolveFinalRunInvokeSelectedExecution(input);
+  const prepared = input.prepared;
+  const {
+    invocation,
+    witness,
+    selectedSessionView,
+    selectedExecutionBinding
+  } = resolved;
+  const authority = invocation.authority;
+  const actor = authority.actor;
+  const invocationPolicy = authority.invocationPolicy;
+  const transportSteering = authority.transportSteering;
+  if (
+    actor.state !== "admitted_actor" ||
+    invocationPolicy.state !== "admitted_invocation_policy" ||
+    transportSteering.state !== "declared_transport_steering"
+  ) {
+    throw new TypeError(
+      "run.invoke execution finalization: invocation authority is incomplete"
+    );
+  }
+
+  let constraint: RunInvokeConstraint;
+  let admittedInputCarriers: AdmittedInvocationCarrierSet | null = null;
+  if (prepared.af13Constraint.kind === "invoke_exact_member_constraint") {
+    if (
+      selectedExecutionBinding.entryRef !==
+        prepared.af13Constraint.candidateEntryRef ||
+      prepared.admittedInvokeValue === null ||
+      prepared.installedPublicSchemaAuthoritySet === null
+    ) {
+      throw new TypeError(
+        "run.invoke execution finalization: selected invoke member differs from prepared constraint"
+      );
+    }
+    const sources = selectedExecutionBinding.graphFunction.inputs;
+    const source = sources[0];
+    if (sources.length === 0 || source === undefined) {
+      throw new TypeError(
+        "run.invoke execution finalization: selected GraphFunction has no source Node"
+      );
+    }
+    if (sources.length !== 1) {
+      throw new TypeError(
+        `semantic_not_realized:${T270_MULTI_SOURCE_ROOT_INPUT_MAPPING_GAP}`
+      );
+    }
+    const carrier = constructAdmittedInvocationCarrier({
+      sourceNodeRef: source.id,
+      schemaRef: source.schema.ref,
+      carrierRef: prepared.af13Constraint.inputPayloadRef,
+      admissionRef:
+        `catalog-input-admission:${invocation.invocationRef}`,
+      value: prepared.admittedInvokeValue
+    });
+    admittedInputCarriers = constructAdmittedInvocationCarrierSet([carrier]);
+    constraint = Object.freeze({
+      kind: "exact_graph_function_constraint",
+      inputContract: Object.freeze({
+        ...prepared.af13Constraint.inputContract,
+        sourceInterface: Object.freeze([Object.freeze({
+          nodeRef: source.id,
+          schemaRef: source.schema.ref
+        })])
+      }),
+      inputPayloadRef: prepared.af13Constraint.inputPayloadRef,
+      inputPayloadDigest: prepared.af13Constraint.inputPayloadDigest
+    });
+  } else {
+    constraint = Object.freeze({
+      kind: "start_constraints",
+      scopeRef: prepared.af13Constraint.scopeRef,
+      scopeDigest: prepared.af13Constraint.scopeDigest,
+      targetKind: prepared.af13Constraint.targetKind,
+      targetHandle: prepared.af13Constraint.targetHandle,
+      until: prepared.af13Constraint.until,
+      fhMode: prepared.af13Constraint.fhMode,
+      rootMode: prepared.af13Constraint.rootMode
+    });
+  }
+  const schemaProjection = projectM04RuntimeSchemaAdmission({
+    selectedExecutionBinding,
+    nativeDefinitionRelations: input.nativeDefinitionRelations
+  });
+  const ingress = admitRunInvokeExecutionIngress({
+    authorityClass: "subordinate_rejoin_only",
+    variant: prepared.variant,
     definitionDigest: invocation.definitionDigest,
     invocation: Object.freeze({
       ref: invocation.invocationRef,
@@ -772,76 +1490,96 @@ export function admitPrivateRunInvokeExecutionIngress<
       witnessDigest: stableSha256Digest(witness)
     }),
     workspace: Object.freeze({
-      bindingRef: binding.bindingId,
-      bindingDigest: binding.bindingDigest,
-      workspaceId: binding.workspaceId,
-      workspaceRoot: binding.targetRoot
+      bindingRef: prepared.workspaceBinding.bindingId,
+      bindingDigest: prepared.workspaceBinding.bindingDigest,
+      workspaceId: prepared.workspaceBinding.workspaceId,
+      workspaceRoot: prepared.workspaceBinding.targetRoot
     }),
     catalog: Object.freeze({
-      basisRef: catalog.basisRef,
-      catalogId: catalog.catalogId,
-      resolvedLockRef: catalog.resolvedLockRef,
-      viewRef: request.catalogViewRef,
-      viewDigest: request.catalogViewDigest,
-      allowedEntryRefs: sessionView.allowedEntryRefs
+      basisRef: prepared.catalogBasis.basisRef,
+      catalogId: prepared.catalogBasis.catalogId,
+      resolvedLockRef: prepared.catalogBasis.resolvedLockRef,
+      viewRef: selectedSessionView.sessionViewRef,
+      viewDigest: stableSha256Digest(selectedSessionView),
+      allowedEntryRefs: selectedSessionView.allowedEntryRefs
     }),
     program: Object.freeze({
-      ref: request.programRef,
-      digest: request.programDigest
+      ref: prepared.authorityProgram.admittedProgramRef,
+      digest: prepared.authorityProgram.admittedProgramDigest
     }),
     constraint,
+    selectedExecution: Object.freeze({
+      selectedEntryRef: selectedExecutionBinding.entryRef,
+      graphFunctionRef: selectedExecutionBinding.graphFunctionId,
+      graphFunctionDigest: stableSha256Digest(
+        selectedExecutionBinding.graphFunction
+      ),
+      selectedExecutionBindingDigest:
+        stableSha256Digest(selectedExecutionBinding),
+      nextActionRef: input.nextAction.projectionRef,
+      nextActionDigest: input.nextAction.projectionDigest,
+      intentAdmissionRef: input.intentAdmission.admissionRef,
+      intentAdmissionDigest: input.intentAdmission.admissionDigest
+    }),
+    admittedInputCarriers,
+    installedPublicInputSchemas:
+      prepared.installedPublicSchemaAuthoritySet,
     invocationAuthority: Object.freeze({
       authorityBasisRef: authority.authorityBasisRef,
       authorityBasisDigest: authority.authorityBasisDigest,
       actor: Object.freeze({
-        actorRef: authority.actor.actorRef,
-        attributionRef: authority.actor.attributionRef,
-        attributionDigest: authority.actor.attributionDigest
+        actorRef: actor.actorRef,
+        attributionRef: actor.attributionRef,
+        attributionDigest: actor.attributionDigest
       }),
       capabilityGrants: Object.freeze(
         authority.capabilityGrants.map((grant) => Object.freeze({ ...grant }))
       ),
       invocationPolicy: Object.freeze({
-        policyRef: authority.invocationPolicy.policyRef,
-        policyDigest: authority.invocationPolicy.policyDigest,
-        sessionPolicyRef: authority.invocationPolicy.sessionPolicyRef,
-        sessionPolicyDigest: authority.invocationPolicy.sessionPolicyDigest
+        policyRef: invocationPolicy.policyRef,
+        policyDigest: invocationPolicy.policyDigest,
+        sessionPolicyRef: invocationPolicy.sessionPolicyRef,
+        sessionPolicyDigest: invocationPolicy.sessionPolicyDigest
       }),
       transportSteering: Object.freeze({
-        steeringRef: authority.transportSteering.steeringRef,
-        steeringDigest: authority.transportSteering.steeringDigest,
+        steeringRef: transportSteering.steeringRef,
+        steeringDigest: transportSteering.steeringDigest,
         provenanceRefs: Object.freeze([
-          ...authority.transportSteering.provenanceRefs
+          ...transportSteering.provenanceRefs
         ])
       }),
       compatibilityState: "pending_af15_rejoin",
       compatibilityGapRef: T270_RUNTIME_COMPATIBILITY_GAP
     }),
     runtimeProfile: Object.freeze({
-      profileDigest: runtimeProfile.profileDigest,
-      runtimeIdentity: runtimeProfile.runtimeIdentity,
-      resolvedPolicy: runtimeProfile.resolvedPolicy,
-      standardPluginRefs: runtimeProfile.standardPluginRefs
+      profileDigest: prepared.runtimeProfile.profileDigest,
+      runtimeIdentity: prepared.runtimeProfile.runtimeIdentity,
+      resolvedPolicy: prepared.runtimeProfile.resolvedPolicy,
+      standardPluginRefs: prepared.runtimeProfile.standardPluginRefs
     }),
-    // T-274B supplies the selected Module's complete key/definition family.
-    // Until that owner lands, the neutral ingress carries an explicit empty
-    // basis family rather than inferring graph-private schema authority.
-    schemaAdmissionCapabilityBases: Object.freeze([]),
+    schemaAdmissionCapabilityBases: schemaProjection.bases,
     sourceWitnessRefs: Object.freeze([...new Set([
       invocation.invocationRef,
       invocation.requestRef,
       authority.authoritySetRef,
       authority.authorityBasisRef,
-      authority.actor.attributionRef,
+      actor.attributionRef,
       ...authority.capabilityGrants.map((grant) => grant.grantRef),
-      authority.invocationPolicy.policyRef,
-      authority.invocationPolicy.sessionPolicyRef,
-      authority.transportSteering.steeringRef,
-      binding.bindingId,
-      abgProduct.installedProductId,
-      catalog.basisRef,
-      ...(selectedEntryRef === null ? [] : [selectedEntryRef])
+      invocationPolicy.policyRef,
+      invocationPolicy.sessionPolicyRef,
+      transportSteering.steeringRef,
+      prepared.workspaceBinding.bindingId,
+      prepared.abgInstalledProductId,
+      prepared.catalogBasis.basisRef,
+      selectedExecutionBinding.entryRef,
+      input.nextAction.projectionRef,
+      input.intentAdmission.admissionRef
     ])])
+  });
+  return Object.freeze({
+    ingress,
+    selectedExecutionBinding,
+    schemaAdmissionEngineInput: schemaProjection.engineInput
   });
 }
 

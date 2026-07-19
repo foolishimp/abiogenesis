@@ -81,6 +81,8 @@ test("T-257 packed M03 exposes one admission atom and no profile-policy authorit
 } from "@abiogenesis/typescript-tenant/abg/m03";
 
 const profile: FpResultWireProfile = "standard_live_review";
+// @ts-expect-error the evidence-only profile was retired without an alias.
+const retiredProfile: FpResultWireProfile = "attached_result_artifact";
 const outcome: FpResultContractAdmissionOutcome = admitFpResultContractEnvelope({
   profile,
   selectedResultContractRef: "contract://t257/packed",
@@ -101,6 +103,7 @@ if (outcome.accepted) {
 }
 void FP_RESULT_CONTRACT_FAILURE_CLASS_VALUES;
 void FP_RESULT_WIRE_PROFILE_VALUES;
+void retiredProfile;
 
 // @ts-expect-error profile definitions remain module-owned policy.
 import { PROFILE_DEFINITIONS } from "@abiogenesis/typescript-tenant/abg/m03";
@@ -124,17 +127,26 @@ void internalFpResultWireProfileFields;
     ).href
   );
   const outcome = runtime.admitFpResultContractEnvelope({
-    profile: "attached_result_artifact",
+    profile: "attached_transform_result",
     selectedResultContractRef: "contract://t257/packed",
     rawResult: {
       result_contract_ref: "contract://t257/packed",
       edge: "source-to-target",
       actor: "worker://t257/packed",
-      fulfillment_assessments: []
+      fulfillment_assessments: [],
+      target_value: { message: "packed target value" }
     }
   });
   assert.equal(outcome.accepted, true);
   assert.equal(outcome.envelope.resultContractRef, "contract://t257/packed");
+  assert.equal(
+    outcome.envelope.targetValueCandidate.message,
+    "packed target value"
+  );
+  assert.equal(
+    Object.hasOwn(outcome.envelope.resultArtifactCandidate, "target_value"),
+    false
+  );
   assert.equal(Object.hasOwn(runtime, "PROFILE_DEFINITIONS"), false);
   assert.equal(Object.hasOwn(runtime, "internalFpResultWireProfileFields"), false);
 });

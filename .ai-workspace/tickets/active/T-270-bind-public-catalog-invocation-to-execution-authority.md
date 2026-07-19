@@ -5,7 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - status: active
-- phase_status: post_af14_root_carrier_constructability_design_accepted_runtime_authorized
+- phase_status: af10_applied_program_membership_design_accepted_runtime_authorized
 - review_status: independent_review_accepted_fh_authority_accepted
 - proof_status: accepted_design_sunny_day_runtime_integration_pending
 - delivery_phase: DS-2 integration
@@ -24,7 +24,7 @@
     execution handoff boundary
 - triaged_at: 2026-07-14
 - created_at: 2026-07-14
-- updated_at: 2026-07-18
+- updated_at: 2026-07-19
 - owner: abiogenesis
 - build_tenant: typescript
 - source_ticket: T-255
@@ -33,14 +33,14 @@
 - library_usage: extend
 - governing_library: >-
     build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/
-    catalog_invocation.ts
+    one_surface_execution.ts
 - dependencies:
   - ratified T-278 Ontology digest f817a7e730bec935f053138e85cb09aa6e0f693e558eaf287be502803da20ee8
   - accepted One Surface AF-11, AF-12, AF-13, AF-14, and AF-16 authority contracts
   - accepted 19-operation PublicFunctionDefinition family
   - completed T-255
   - completed T-267
-  - completed T-271
+  - T-271 design accepted; bounded C-call-enclosure runtime reconciliation active
 - downstream_dependencies:
   - T-281 P1 consumes the neutral owner-native run.invoke contract family
   - accepted T-274B1 exact native-definition delivery is an AF-15/runtime-authority input
@@ -95,8 +95,28 @@
 - runtime_schema_implementation_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260718T033507Z_SELF_REVIEW_t270_runtime_schema_topology_implementation.md
+- fp_target_conformance_design_digest: 4e0efafcc5feb01edf51672c797e752bff8c59f5cd4bf19b756f1f743a0bb8c2
+- fp_target_conformance_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260718T214229Z_DECISION_accept_t257_t270_t271_conformance_correction.md
+- applied_program_membership_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md#2026-07-19-af-10-applied-program-membership-amendment
 
 ## Boundary
+
+The current bounded amendment realizes the already-required AF-10 join before
+the existing AF-13/AF-14/AF-15 chain. `catalog.view` narrows only;
+its pure result may publish a sealed AF-10 application-candidate coordinate
+derived by the same application-authority helper, only when the candidate view
+equals the returned view. The packed caller passes that coordinate unchanged
+and never derives a private row, declaration, target, or basis digest.
+`catalog.apply(overlay)` writes one immutable DeclarationApplication and
+targets one exact applied multi-Module GTL program; AF-13 receives only the
+intersection of that program's members with the same view. The exact target
+compiler result is retained and reused after AF-14 by the existing sole T-271
+interpreter. This introduces no operation, GTL atom, event, fluent, HOF,
+controller, or alternate runner.
 
 Delivery has two ordered milestones. The pre-P1 milestone publishes the exact
 neutral owner-native request, result, refusal, and non-terminal contracts for

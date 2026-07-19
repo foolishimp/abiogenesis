@@ -43,7 +43,8 @@ if (callLog === undefined || callLog.length === 0) {
             blocking_reasons: [],
             evidence_refs: ["evidence://t223/packed-fake-transport"]
           }
-        ]
+        ],
+        target_value: { message: "Hello, world!" }
       };
   process.stdout.write(JSON.stringify(output));
 }

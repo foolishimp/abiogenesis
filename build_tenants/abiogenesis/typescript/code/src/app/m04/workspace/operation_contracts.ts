@@ -71,6 +71,16 @@ const refDigestListSchema = v.pipe(
   v.readonly()
 );
 
+const artifactAvailabilitySchema = v.pipe(
+  v.array(v.strictObject({
+    operationId: refSchema,
+    scope: refDigestSchema,
+    artifact: refDigestSchema,
+    boundaryEventRef: refSchema
+  })),
+  v.readonly()
+);
+
 const workspaceStatusProjectionCarrierSchema = v.strictObject({
   kind: v.literal("workspace_status_projection"),
   projection: refDigestSchema,
@@ -87,6 +97,7 @@ const workspaceStatusProjectionCarrierSchema = v.strictObject({
     v.minLength(1),
     v.readonly()
   ),
+  artifactAvailability: artifactAvailabilitySchema,
   configurations: refDigestListSchema,
   catalog: v.nullable(refDigestSchema),
   residualRefs: refListSchema,
@@ -376,7 +387,7 @@ type WorkspaceStatusDefinitionKey = Readonly<{
   memberKind: "project_read_case";
   caseKey: "workspace_status";
 }>;
-type WorkspaceStatusReadRequest = Readonly<{
+export type WorkspaceStatusReadRequest = Readonly<{
   kind: "project_read_request";
   caseKey: "workspace_status";
   source: Readonly<{
@@ -390,9 +401,16 @@ type WorkspaceStatusReadRequest = Readonly<{
   }>;
   selector: Readonly<Record<never, never>>;
 }>;
-type WorkspaceStatusProjection = v.InferOutput<
+export type WorkspaceStatusProjection = v.InferOutput<
   typeof workspaceStatusProjectionSchema
 >;
+
+/** @internal */
+export function admitWorkspaceStatusProjection(
+  input: unknown
+): WorkspaceStatusProjection {
+  return v.parse(workspaceStatusProjectionSchema, input);
+}
 
 function workspaceStatusRelationResult(
   issuePaths: readonly string[]

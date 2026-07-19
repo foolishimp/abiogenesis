@@ -75,17 +75,9 @@
       "types": "./build/semantic/code/src/app/m04/toolchain_binding/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/toolchain_binding/index.js"
     },
-    "./app/m04/live-status": {
-      "types": "./build/semantic/code/src/app/m04/live_status/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/live_status/index.js"
-    },
     "./app/m04/max-autonomy": {
       "types": "./build/semantic/code/src/app/m04/max_autonomy/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/max_autonomy/index.js"
-    },
-    "./app/m04/result-assessment": {
-      "types": "./build/semantic/code/src/app/m04/result_assessment/index.d.ts",
-      "import": "./build/semantic/code/src/app/m04/result_assessment/index.js"
     },
     "./qualification/m05": {
       "types": "./build/semantic/code/src/qualification/m05/index.d.ts",

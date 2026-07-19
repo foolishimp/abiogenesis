@@ -22,6 +22,7 @@ export interface ExecutionBasisInit {
   readonly workKey: string | null;
   readonly frameId: string | null;
   readonly frameLineageId: string | null;
+  readonly startAdmissionWitnessDigest: string | null;
 }
 
 export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBasis {
@@ -51,7 +52,8 @@ export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBas
     runId: input.runId,
     workKey: input.workKey,
     frameId: input.frameId,
-    frameLineageId: input.frameLineageId
+    frameLineageId: input.frameLineageId,
+    startAdmissionWitnessDigest: input.startAdmissionWitnessDigest
   });
 }
 

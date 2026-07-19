@@ -179,6 +179,7 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     resolvedRuntimeRef: "runtime://typescript/node",
     resolvedPolicyBundleRef: "policy://public-fd",
     runId: "run://m04-asset-addressing",
-    workKey: "wk://m04-asset-addressing"
+    workKey: "wk://m04-asset-addressing",
+    startAdmissionWitnessDigest: null
   });
 });

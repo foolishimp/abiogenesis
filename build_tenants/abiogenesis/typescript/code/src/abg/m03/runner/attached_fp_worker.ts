@@ -18,22 +18,17 @@ import type {
   FpTransformResult,
   IterationOutcome
 } from "../contracts/index.js";
-import { mintTargetCarrierPayloadIdentity } from "../contracts/payload_ledger.js";
 import {
   admitFpTransformResultForRequest,
-  constructPayloadObservedEvent,
-  constructPayloadValidatedEvent,
   constructRetryProgressRecordedEvent,
   constructFpTransformResult,
   deriveFreshRetryContextProjection,
   deriveIterationOutcomeFromRows,
   deriveRetryRepairDecision,
   RETRYABLE_RUNTIME_FAILURE_CLASSES,
-  runtimeEventsForFpTransformResult,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/index.js";
-import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
-import { resolveTargetCarrierContractBinding } from "../../../gtl/m01/contracts/index.js";
+import type { IJsonValue } from "../../../shared/runtime_identity.js";
 import {
   admitResultArtifact,
   constructResultArtifact,
@@ -46,11 +41,12 @@ import {
 
 export const DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS = 3;
 
-export interface AttachedFpResultAcceptedDecision {
-  readonly kind: "accepted";
+export interface AttachedFpTargetAdmissionRequiredDecision {
+  readonly kind: "target_admission_required";
   readonly dispatchRequest: DispatchRequest;
   readonly artifact: ResultArtifact;
-  readonly payloadEvents: readonly RuntimeEvent[];
+  readonly targetValueCandidate: IJsonValue;
+  readonly reason: string;
 }
 
 export interface AttachedFpResultRetryPlannedDecision {
@@ -83,7 +79,7 @@ export interface AttachedFpResultRetryEscalatedDecision {
 }
 
 export type AttachedFpResultDecision =
-  | AttachedFpResultAcceptedDecision
+  | AttachedFpTargetAdmissionRequiredDecision
   | AttachedFpResultRetryPlannedDecision
   | AttachedFpResultRetryStoppedDecision
   | AttachedFpResultRetryEscalatedDecision;
@@ -240,66 +236,6 @@ function progressSignalRefsForTransformResult(
   return Object.freeze(refs);
 }
 
-function payloadEventsForAcceptedResult(input: {
-  readonly basis: ExecutionBasis;
-  readonly transformRequest: FpTransformRequest;
-  readonly artifact: ResultArtifact;
-  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
-}): readonly RuntimeEvent[] {
-  const vector = input.basis.graph.vectors[input.transformRequest.vectorIndex];
-  if (vector === undefined) {
-    throw new TypeError("accepted F_P result requires graph vector");
-  }
-  const targetCarrierContract = resolveTargetCarrierContractBinding({
-    vector,
-    defaults: input.targetCarrierDefaults
-  });
-  const { targetPayloadDigest, payloadRef: targetPayloadRef } =
-    mintTargetCarrierPayloadIdentity({
-      resultRef: input.artifact.resultRef,
-      artifactPayload: input.artifact.artifactPayload,
-      targetCarrierContractRef: targetCarrierContract.contractRef,
-      targetCarrierContractDigest: targetCarrierContract.configDigest
-    });
-  const transformEvents = runtimeEventsForFpTransformResult({
-    basis: input.basis,
-    request: input.transformRequest,
-    result: scopedTransformResult({
-      transformRequest: input.transformRequest,
-      artifact: input.artifact,
-      status: "returned"
-    })
-  });
-  return Object.freeze([
-    ...transformEvents,
-    constructPayloadObservedEvent({
-      basis: input.basis,
-      vectorIndex: input.transformRequest.vectorIndex,
-      payloadRef: targetPayloadRef,
-      payloadClass: targetCarrierContract.outputCarrierKind,
-      contractRef: targetCarrierContract.contractRef,
-      digest: `digest:target_carrier:${targetPayloadDigest}`,
-      producerRef: input.transformRequest.workerId,
-      sourceEventRef: input.artifact.resultRef,
-      actorInvocationId: input.transformRequest.actorInvocationId,
-      authorityRef: input.transformRequest.resultRef,
-      inputDigest: input.transformRequest.sourceProjectionRef,
-      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
-    }),
-    constructPayloadValidatedEvent({
-      basis: input.basis,
-      vectorIndex: input.transformRequest.vectorIndex,
-      payloadRef: targetPayloadRef,
-      contractRef: targetCarrierContract.contractRef,
-      contractDigest: targetCarrierContract.configDigest,
-      digest: `digest:target_carrier:${targetPayloadDigest}`,
-      validationRef: `validation:target_carrier:${targetPayloadRef}`,
-      evidenceRef: null,
-      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
-    })
-  ]);
-}
-
 function progressSignalRefsForBlockedResult(input: {
   readonly reason: string;
   readonly transformResult: FpTransformResult;
@@ -319,14 +255,14 @@ function admitAttachedResultArtifact(input: {
   readonly request: DispatchRequest;
   readonly outcome: FpDispatchOutcome;
 }): ResultArtifact {
-  if (input.outcome.attachedResultArtifact === null) {
-    throw new TypeError("attached F_P result decision requires an attached artifact");
+  if (input.outcome.status !== "dispatched") {
+    throw new TypeError("attached F_P result decision requires dispatched output");
   }
   try {
     return admitResultArtifact(
       input.request,
-      input.outcome.attachedResultArtifact,
-      "FpDispatchOutcome.attachedResultArtifact"
+      input.outcome.resultArtifactCandidate,
+      "FpDispatchOutcome.resultArtifactCandidate"
     );
   } catch (error) {
     return constructResultArtifact({
@@ -591,9 +527,13 @@ export function deriveAttachedFpResultDecision(input: {
   readonly transition: FpDispatchTransition;
   readonly outcome: FpDispatchOutcome;
   readonly transformRequest: FpTransformRequest;
-  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
   readonly maxAttempts?: number | undefined;
 }): AttachedFpResultDecision {
+  if (input.outcome.status !== "dispatched") {
+    throw new TypeError(
+      "attached F_P result decision requires a dispatched outcome"
+    );
+  }
   const request = dispatchRequestForTransition(
     input.transition,
     input.transformRequest
@@ -609,15 +549,12 @@ export function deriveAttachedFpResultDecision(input: {
   });
   if (blocked === null) {
     return Object.freeze({
-      kind: "accepted",
+      kind: "target_admission_required",
       dispatchRequest: request,
       artifact,
-      payloadEvents: payloadEventsForAcceptedResult({
-        basis: input.basis,
-        artifact,
-        transformRequest: input.transformRequest,
-        targetCarrierDefaults: input.targetCarrierDefaults
-      })
+      targetValueCandidate: input.outcome.targetValueCandidate,
+      reason:
+        "target_value_candidate requires exact T-255/T-270 schema admission before traversal may advance"
     });
   }
 

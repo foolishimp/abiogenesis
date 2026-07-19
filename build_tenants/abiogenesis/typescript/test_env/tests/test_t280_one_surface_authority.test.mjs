@@ -30,6 +30,8 @@ const T280_ACTION_AUTHORITY_DIGEST = stableSha256Digest({
   authority: "t280-action"
 });
 const T280_ACTION_INPUT_DIGEST = stableSha256Digest({ input: "t280-action" });
+const T280_ACTION_AUTHORITY_SNAPSHOT_REF =
+  "authority-snapshot://t280/action/evidence";
 const T280_ACTION_EVIDENCE_REFS = Object.freeze([
   "evidence://t280/action/0",
   "evidence://t280/action/1"
@@ -336,7 +338,9 @@ function sealedIntentAdmission(program) {
     actionRef: intent.selectedActionRef,
     targetOutcomeRef: intent.selectedOutcomeRef,
     obligationRefs: intent.obligationRefs,
-    requiredEvidenceRefs: T280_ACTION_EVIDENCE_REFS
+    requiredEvidenceAuthorityRefs: Object.freeze([
+      "authority://t280/action"
+    ])
   });
   const basis = Object.freeze({
     program: Object.freeze({
@@ -391,7 +395,7 @@ function admittedEvidence(scope, stage, index) {
     payloadContractRef: stage.targetCarrierContract.targetCarrierContractRef,
     producerRef: "producer://t280/scenario09",
     sourceEventRef: `event://t280/action/${String(index)}`,
-    authorityRef: "authority://t280/action",
+    authorityRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
     inputDigest: T280_ACTION_INPUT_DIGEST,
     validationRefs: Object.freeze([`validation://t280/action/${String(index)}`]),
     evidenceRefs: Object.freeze([evidenceRef]),
@@ -442,7 +446,7 @@ async function af16Fixture() {
     kind: "assurance_evidence_row",
     evidenceRef: row.evidenceRefs[0],
     scope: assuranceScope,
-    authorityRef: "authority://t280/action",
+    authorityRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
     authorityDigest,
     inputDigest,
     eventRefs: Object.freeze([row.sourceEventRef]),
@@ -460,6 +464,7 @@ async function af16Fixture() {
     scope: assuranceScope,
     authoritySnapshot: Object.freeze({
       kind: "assurance_authority_snapshot",
+      authoritySnapshotRef: T280_ACTION_AUTHORITY_SNAPSHOT_REF,
       scope: assuranceScope,
       authorityRefs: Object.freeze(["authority://t280/action"]),
       inputRefs: Object.freeze([intentRows.intent.intentId]),
@@ -472,22 +477,24 @@ async function af16Fixture() {
       policyRefs
     }),
     evidenceRows: assuranceEvidenceRows,
-    ambiguityRows: Object.freeze(assuranceEvidenceRows.map((row, index) =>
-      Object.freeze({
-        kind: "assurance_ambiguity_row",
-        rowId: `assurance-row://t280/action/${String(index)}`,
-        status: "fulfilled",
-        scope: assuranceScope,
-        authorityRef: row.authorityRef,
-        evidenceRefs: Object.freeze([row.evidenceRef]),
-        authorityDigest,
-        inputDigest,
-        eventRefs: row.eventRefs,
-        providerRefs: row.providerRefs,
-        policyRefs,
-        reason: "evidence_fulfills_current_authority"
-      })
-    )),
+    ambiguityRows: Object.freeze([Object.freeze({
+      kind: "assurance_ambiguity_row",
+      rowId: "assurance-row://t280/action/authority",
+      status: "fulfilled",
+      scope: assuranceScope,
+      authorityRef: "authority://t280/action",
+      evidenceRefs: Object.freeze(
+        assuranceEvidenceRows.map((row) => row.evidenceRef)
+      ),
+      authorityDigest,
+      inputDigest,
+      eventRefs: Object.freeze(
+        assuranceEvidenceRows.flatMap((row) => row.eventRefs)
+      ),
+      providerRefs: Object.freeze(["provider://t280/scenario09"]),
+      policyRefs,
+      reason: "evidence_fulfills_current_authority"
+    })]),
     sourceProjectionRef: "projection://t280/action/source",
     projectionRef: "assurance-projection://t280/action"
   });
@@ -714,6 +721,39 @@ test("T-280 AF-16 refuses incomplete, duplicate, cross-basis, stale-policy, and 
       }
     },
     {
+      label: "foreign-snapshot-same-digests",
+      expectedReason: "evaluate_action_evidence_authority_mismatch",
+      input: {
+        ...fixture.input,
+        assuranceProjection: {
+          ...fixture.assuranceProjection,
+          authoritySnapshot: {
+            ...fixture.assuranceProjection.authoritySnapshot,
+            authoritySnapshotRef:
+              "authority-snapshot://t280/action/foreign-same-digests"
+          },
+          projectionRef:
+            "assurance-projection://t280/action/foreign-same-digests"
+        }
+      }
+    },
+    {
+      label: "missing-required-member",
+      expectedReason: "evaluate_action_evidence_incomplete",
+      input: {
+        ...fixture.input,
+        assuranceProjection: {
+          ...fixture.assuranceProjection,
+          authoritySnapshot: {
+            ...fixture.assuranceProjection.authoritySnapshot,
+            authorityRefs: Object.freeze(["authority://t280/other"])
+          },
+          projectionRef:
+            "assurance-projection://t280/action/missing-required-member"
+        }
+      }
+    },
+    {
       label: "cross-assurance-digest",
       input: {
         ...fixture.input,
@@ -778,6 +818,12 @@ test("T-280 AF-16 refuses incomplete, duplicate, cross-basis, stale-policy, and 
       "one_surface_typed_refusal",
       `${row.label} must not create closure truth`
     );
+    if (row.expectedReason !== undefined) {
+      assert(
+        evaluation.reasonRefs.includes(row.expectedReason),
+        `${row.label} must refuse through ${row.expectedReason}`
+      );
+    }
   }
   const first = admitEvaluateActionResult(fixture.input);
   assert.equal(first.kind, "one_surface_action_evaluation");

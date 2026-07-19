@@ -1,7 +1,7 @@
 # M03 F_P Result-Contract Admission Behavior Design
 
-**Status**: Accepted under delegated F_H authority; realization authorized
-**Date**: 2026-07-13
+**Status**: Accepted under delegated F_H authority; bounded target-separation amendment accepted
+**Date**: 2026-07-13; amended 2026-07-19 after T-270/T-271 conformance audit
 **Ticket**: `T-257`
 **Method authority**: `specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
@@ -14,12 +14,17 @@ must bind the exact result-contract identity selected by the canonical T-256
 instruction join and satisfy one declared standard wire profile. It then
 becomes either:
 
-- one admitted result carrier; or
+- one admitted transform wire projection containing a distinct evidence
+  candidate and target-value candidate;
+- one admitted evaluator-result projection; or
 - one typed blocked/retry input.
 
-Neither result is traversal or closure truth. ABG events, replay, assurance,
-and the selected composition remain the only route to retry, continuation, or
-closure.
+Wire admission does not admit the target value as `B`. The exact compiler-
+selected target schema, target binding, and generic target carrier remain the
+downstream authority owned by T-270 over the T-255/T-256 handoff. Neither a
+wire projection nor its evidence is traversal or closure truth. ABG events,
+replay, assurance, and the selected composition remain the only route to retry,
+continuation, or closure.
 
 ### Requirements
 
@@ -31,9 +36,8 @@ closure.
 
 ### Explicit exclusions
 
-- arbitrary domain-extension schema execution, which remains the named
-  `REQ-R-ABG3-PAYLOAD-028` gap routed by the T-244 feature register; its
-  singular realization leaf is not yet admitted;
+- exact target-schema and generic target-carrier admission, owned by T-270 over
+  the T-255/T-256 compiled execution handoff;
 - hostile in-process object forgery or filesystem tamper resistance;
 - semantic truth inferred from worker prose;
 - traversal-result conservation, owned by `T-267`;
@@ -67,29 +71,34 @@ The worker cannot submit the allowed-key set, required-key set, or selected
 contract identity. Those are supplied by the admitted request and the
 module-owned parser profile.
 
-Contract-ref equality is lineage conservation, not proof that arbitrary domain
-content satisfies the named contract. This slice validates the standard plugin
-result interface and admits only its declared fields. Contract-specific domain
-content is either absent or rejected until the selected declared-schema path is
-realized. The atom must not mint a successful domain-schema verdict from an
-echoed ref.
+Contract-ref equality is lineage conservation, not proof that target content
+satisfies the named contract. This atom validates the standard plugin result
+interface and admits only its declared top-level fields. For the transform
+profile, `target_value` is retained as an opaque candidate; the atom does not
+inspect it against the selected target schema or mint a successful domain-
+schema verdict from an echoed ref. That exact admission occurs downstream
+through the T-270/T-255/T-256 authority chain.
 
-### D2. Two standard wire profiles, one atom
+### D2. Two standard wire profiles, one admission family
 
 The current product has two external response profiles:
 
-| Profile | Contract-ref key | Profile owner | Downstream parser |
+| Profile | Contract-ref key | Exact top-level vocabulary | Projection |
 |---|---|---|---|
-| attached transform artifact | `result_contract_ref` | M03 transport admission | fulfillment artifact parser |
-| standard live review | `resultContractRef` | M03 standard evaluator adapter | review parser |
+| `attached_transform_result` | `result_contract_ref` | `result_contract_ref`, `edge`, `actor`, `fulfillment_assessments`, `target_value` | evidence-only `ResultArtifact` candidate plus distinct target-value candidate |
+| `standard_live_review` | `resultContractRef` | `resultContractRef`, `accepted`, `closeDisposition`, `assessmentIds`, `reasons` | normalized `FpEvaluationOutcome` target candidate plus attributed finding evidence |
 
-Alternate spellings fail. This distinction is serialization law, not two
-semantic authorities. Both profiles use `FpResultContractAdmission` before
-their lane-specific parser.
-
-Domain-extension fields are not accepted by these standard profiles. A later
-declared artifact-schema implementation may add a governed extension section;
-until then an extension is a typed contract failure, not silently dropped data.
+Alternate spellings fail. The former `attached_result_artifact` identity is
+retired with no alias or compatibility branch. This distinction is
+serialization law, not two semantic authorities: one
+`FpResultContractAdmission` family owns both projections. `target_value` is
+mandatory for `attached_transform_result` and forbidden for
+`standard_live_review`. Other undeclared top-level fields fail; domain fields
+inside `target_value` remain opaque until exact downstream target admission.
+For an admitted evaluator response, the normalized `FpEvaluationOutcome`
+itself is the evaluator locus candidate `B`; `blocked` evaluator output carries
+no target candidate. Both candidate forms cross the same compiler-selected
+target-schema and target-binding admission before payload truth.
 
 ### D3. Selected identity is conserved
 
@@ -100,17 +109,26 @@ DeclaredFpExecutionRequest / PromptManifest
   -> FpTransformRequest or live evaluator input
   -> DispatchRequest when the attached lane is used
   -> FpResultContractAdmission
-  -> ResultArtifact / FpTransformResult / FpEvaluationOutcome
-  -> payload or finding admission evidence
+  -> attached transform projection
+       -> ResultArtifact evidence candidate
+       -> distinct target-value candidate
+  -> or normalized FpEvaluationOutcome candidate plus finding evidence
+  -> exact downstream target admission and separate evidence/finding admission
 ```
 
 No plugin chooses, widens, or substitutes this identity.
+
+For `attached_transform_result`, the response `edge` must also equal the
+compiler-selected `GraphVector.name` used as the T-271 C-call edge coordinate.
+The vector edge is conserved through actor-result evidence, target admission,
+and C-call enclosure. AST `sourcePath` and `nodeRef` remain program-locus
+coordinates and cannot substitute for that graph edge.
 
 ### D4. Transform results are a closed status family
 
 | Status | `reason` | `artifactRef` | evidence candidates | Meaning |
 |---|---|---|---|---|
-| `returned` | must be null | required | non-empty, complete, non-contradictory, non-deferred | contract-admitted result proposal |
+| `returned` | must be null | required | non-empty, complete, non-contradictory, non-deferred | contract-admitted evidence proposal with a distinct required target-value candidate |
 | `blocked` | required | optional | may preserve partial candidates | admitted non-fulfillment proposal |
 | `runtime_failed` | required | optional | must be empty | substrate failure truth |
 | `contract_failed` | required | optional | must be empty | malformed or contradictory result truth |
@@ -158,9 +176,12 @@ assurance folds.
 | `FpResultContractFailure` | public typed disposition | subordinate | malformed, missing, wrong-contract, or contradictory refusal |
 | `FpTransformRequest` | public | prime request | transform identity, actor, result, retry, and selected result contract |
 | `DispatchRequest` | public | prime request | attached-result expectation and selected result contract |
-| `ResultArtifact` | public | subordinate admitted proposal | request-bound fulfillment artifact |
+| `FpTransformWireProjection` | public | subordinate admitted proposal | one admitted wire envelope projected into distinct evidence and target-value candidates |
+| `ResultArtifact` | public | subordinate evidence proposal | request-bound fulfillment evidence; never the target `B` |
+| `FpTargetValueCandidate` | public | subordinate target candidate | opaque `target_value` retained for exact downstream target-schema admission |
 | `FpTransformResult` | public | subordinate admitted proposal | closed transform status family |
-| `FpEvaluationOutcome` | public | subordinate admitted proposal | result-contract-bound evaluator findings |
+| `FpEvaluationOutcome` | public | subordinate target candidate and evidence proposal | normalized evaluated outcome is evaluator-locus `B`; blocked outcome carries no `B` |
+| `AdmittedInvocationCarrier` | public downstream | prime target admission | exact compiler-selected `B` admitted by T-270/T-255/T-256, not by this wire atom |
 | `RuntimeEvent` stream | public | authoritative | admitted runtime truth |
 | retry and closure projections | public downstream | downstream | replay-derived continuation or truthful stop |
 
@@ -224,6 +245,17 @@ classDiagram
     +resultContractRef
     +fulfillmentAssessments
     +identityIssues
+    +evidence only
+  }
+  class FpTargetValueCandidate {
+    <<subordinate>>
+    +unknown targetValue
+    +selectedResultContractRef
+  }
+  class FpTransformWireProjection {
+    <<subordinate>>
+    +resultArtifactCandidate
+    +targetValueCandidate
   }
   class FpTransformResult {
     <<subordinate>>
@@ -236,6 +268,12 @@ classDiagram
     +resultContractRef
     +status
     +findings
+  }
+  class AdmittedInvocationCarrier {
+    <<downstream-prime>>
+    +targetContractRef
+    +admittedValue
+    +valueDigest
   }
   class RuntimeEventLog {
     <<authoritative>>
@@ -250,9 +288,10 @@ classDiagram
     +close
     +blocked
   }
-  class DeclaredArtifactSchemaExecution {
-    <<deferred>>
-    +unadmitted realization leaf
+  class ExactTargetSchemaAdmission {
+    <<downstream-authoritative>>
+    +compiler selected schema
+    +target binding
   }
 
   DeclaredFpExecutionRequest --> PromptManifest : conserves selection
@@ -263,13 +302,18 @@ classDiagram
   PromptManifest --> FpResultContractAdmission : selects contract
   FpResultContractAdmission --> AdmittedFpResultContractEnvelope : admits
   FpResultContractAdmission --> FpResultContractFailure : refuses
-  AdmittedFpResultContractEnvelope --> ResultArtifact : attached profile parse
+  AdmittedFpResultContractEnvelope --> FpTransformWireProjection : transform profile projection
   AdmittedFpResultContractEnvelope --> FpEvaluationOutcome : review profile parse
-  ResultArtifact --> FpTransformResult : request-bound classification
+  FpTransformWireProjection *-- ResultArtifact : evidence candidate
+  FpTransformWireProjection *-- FpTargetValueCandidate : target candidate
+  ResultArtifact --> FpTransformResult : request-bound evidence classification
+  FpTargetValueCandidate --> ExactTargetSchemaAdmission : candidate only
+  FpEvaluationOutcome --> ExactTargetSchemaAdmission : evaluated candidate B only
+  ExactTargetSchemaAdmission --> AdmittedInvocationCarrier : T-270 T-255 T-256 exact target admission
   FpTransformResult --> RuntimeEventLog : admitted proposal only
-  FpEvaluationOutcome --> RuntimeEventLog : admitted proposal only
+  AdmittedInvocationCarrier --> RuntimeEventLog : admitted target payload only
+  FpEvaluationOutcome --> RuntimeEventLog : attributed finding evidence only
   RuntimeEventLog --> AssuranceProjection : replay input
-  DeclaredArtifactSchemaExecution ..> FpResultContractAdmission : future extension
 ```
 
 ## Execution Sequence
@@ -282,6 +326,7 @@ sequenceDiagram
   actor Worker as External worker
   participant Admission as FpResultContractAdmission
   participant Lane as M03 lane parser
+  participant Target as T-270 T-255 T-256 target admission
   participant Events as M03 runtime-event admission
   participant Replay as M03 retry/assurance projection
 
@@ -306,15 +351,33 @@ sequenceDiagram
       Events->>Replay: replay admitted non-close truth
       Replay-->>Runtime: retry, hold, or truthful stop
     else complete attached transform result
-      Lane-->>Runtime: ResultArtifact and returned FpTransformResult
-      Runtime->>Events: admit payload and evidence facts
-      Events->>Replay: replay admitted payload truth
-      Replay-->>Runtime: residual, retry, hold, or close projection
+      Lane-->>Runtime: distinct ResultArtifact evidence and target-value candidates
+      Runtime->>Target: target candidate plus exact compiled target schema and binding
+      alt target schema or binding refuses
+        Target-->>Runtime: typed target-admission failure
+        Runtime->>Events: admit refusal and evidence only
+        Events->>Replay: replay admitted non-close truth
+        Replay-->>Runtime: retry, hold, or truthful stop
+      else exact target admitted
+        Target-->>Runtime: generic AdmittedInvocationCarrier for B
+        Runtime->>Events: admit target payload and separate artifact evidence facts
+        Events->>Replay: replay admitted payload truth
+        Replay-->>Runtime: residual, retry, hold, or close projection
+      end
     else complete live review result
       Lane-->>Runtime: result-contract-bound FpEvaluationOutcome
-      Runtime->>Events: admit finding and evidence facts
-      Events->>Replay: replay admitted finding truth
-      Replay-->>Runtime: residual, retry, hold, or close projection
+      Runtime->>Target: normalized evaluated outcome plus exact compiled target schema and binding
+      alt evaluator is blocked or target schema or binding refuses
+        Target-->>Runtime: no target B and typed non-close truth
+        Runtime->>Events: admit refusal and attributed evidence only
+        Events->>Replay: replay admitted non-close truth
+        Replay-->>Runtime: retry, hold, or truthful stop
+      else normalized evaluator target admitted
+        Target-->>Runtime: generic AdmittedInvocationCarrier for evaluator B
+        Runtime->>Events: admit target payload and separate finding evidence facts
+        Events->>Replay: replay admitted target and finding truth
+        Replay-->>Runtime: residual, retry, hold, or close projection
+      end
     end
   end
 ```
@@ -334,7 +397,7 @@ stateDiagram-v2
   RawObjectObserved --> ContractEnvelopeAdmitted: M03 result-contract admission binds identity and digest
   ContractEnvelopeAdmitted --> ContradictionRejected: M03 lane admission rejects cross-field contradiction
   ContractEnvelopeAdmitted --> IncompleteBlocked: M03 lane admission classifies incomplete result
-  ContractEnvelopeAdmitted --> TransformResultAdmitted: M03 transform admission accepts complete artifact
+  ContractEnvelopeAdmitted --> TransformProjectionAdmitted: M03 transform projection separates evidence and target candidates
   ContractEnvelopeAdmitted --> EvaluationResultAdmitted: M03 evaluation admission accepts complete review
   FramingRejected --> BlockedFactAdmitted: M03 runtime-event admission records refusal
   ContractRejected --> BlockedFactAdmitted: M03 runtime-event admission records refusal
@@ -345,8 +408,12 @@ stateDiagram-v2
   BlockedFactAdmitted --> HoldProjected: M03 replay projection derives governed hold
   BlockedFactAdmitted --> TruthfulStop: M03 replay projection derives exhausted or nonretryable stop
   RetryProjected --> AwaitingResult: M03 interpreter opens governed next attempt
-  TransformResultAdmitted --> ResultFactsAdmitted: M03 runtime-event admission records payload and evidence
-  EvaluationResultAdmitted --> ResultFactsAdmitted: M03 runtime-event admission records findings and evidence
+  TransformProjectionAdmitted --> TargetAdmissionRejected: T-270 T-255 T-256 rejects target schema or binding
+  TransformProjectionAdmitted --> TargetCarrierAdmitted: T-270 T-255 T-256 admits exact B
+  EvaluationResultAdmitted --> TargetAdmissionRejected: blocked review or exact target admission rejects
+  EvaluationResultAdmitted --> TargetCarrierAdmitted: normalized evaluated outcome admits as B
+  TargetAdmissionRejected --> BlockedFactAdmitted: M03 runtime-event admission records refusal and evidence only
+  TargetCarrierAdmitted --> ResultFactsAdmitted: M03 runtime-event admission records target payload and separate evidence
   ResultFactsAdmitted --> ResidualProjected: M03 assurance projection detects residual pressure
   ResultFactsAdmitted --> HoldProjected: M03 assurance projection requires F_H
   ResultFactsAdmitted --> CloseProjected: M03 assurance and closure projection passes
@@ -363,14 +430,15 @@ projection. There is no raw-output-to-close transition.
 
 | Check | Evidence | Verdict |
 |---|---|---|
-| Every sequence participant exists in the domain model or is external | compiler/request, runtime, adapter, worker, admission, lane parsers, events, and replay are represented | `pass` |
-| Every lifecycle carrier exists in the domain model | raw, admitted envelope, failures, result variants, events, and projections are represented | `pass` |
+| Every sequence participant exists in the domain model or is external | compiler/request, runtime, adapter, worker, wire admission, lane projection, downstream target admission, events, and replay are represented | `pass` |
+| Every lifecycle carrier exists in the domain model | raw, admitted envelope, failures, evidence and target candidates, exact target carrier, result variants, events, and projections are represented | `pass` |
 | Every message binds a declared transform or effect | one worker effect; all later steps are admissions or replay projections | `pass` |
 | Every transition names its owner | state labels name M03 admission, adapter, interpreter, event, or projection | `pass` |
 | Raw F_P output cannot become accepted or closed directly | contract envelope and lane admission precede events; replay precedes close | `pass` |
 | Contract identity remains exact | one selected ref is conserved and checked against the worker response | `pass` |
 | Incomplete or contradictory output remains non-closing | closed status/review tables produce blocked or contract failure | `pass` |
-| Arbitrary domain extension schema execution is claimed | explicitly deferred to a singular realization leaf routed by the T-244 register, and undeclared fields fail | `not_applicable` |
+| Evidence is not substituted for target `B` | transform wire projection owns distinct `ResultArtifact` evidence and `target_value` candidates; only downstream exact target admission creates `AdmittedInvocationCarrier` | `pass` |
+| Wire profiles remain Prime | one admission family produces two projections; no second parser or schema authority is introduced | `pass` |
 
 ## Axiom Evaluation
 
@@ -379,19 +447,22 @@ projection. There is no raw-output-to-close transition.
 | F_P output is data, not closure truth | `C-ALGEBRA-018`; `PAYLOAD-012` | raw output is effect-edge-only | admission and replay are mandatory | no raw-to-close edge | distinct carriers | closed ingress plus event folds | `pass` | none |
 | Selected result contract is exact and addressable | `INSTRUCTION-ASSEMBLY-005/-014` | selected ref is prime request truth | same ref reaches admission | wrong ref enters refusal | required carrier field on declared path | equality check at one atom | `pass` | none |
 | Standard response schemas are closed | `C-ALGEBRA-018` | fixed profiles and admitted envelope | profile precedes lane parser | unknown key enters refusal | readonly closed normalized carriers | exact allowed/required key checks | `pass` | none |
-| Contract-ref echo is not domain validation | `PAYLOAD-024/-028` | admitted envelope separates lineage from deferred domain schema | only standard profile fields proceed | domain content enters refusal | no fabricated schema-success field | selected-ref equality plus explicit deferral to an unadmitted realization leaf | `pass` | none |
+| Contract-ref echo is not domain validation | `PAYLOAD-024/-028` | admitted envelope separates lineage from target admission | opaque target candidate proceeds only to exact downstream admission | target refusal is non-closing | no fabricated schema-success field | selected-ref equality here; exact schema and binding under T-270/T-255/T-256 | `pass` | T-270 realization |
 | Status families are contradiction-free | `C-ALGEBRA-018` | four transform variants have explicit relations | contradictions refuse before events | contradiction state is non-closing | discriminant plus field invariants | constructor and raw admission share checks | `pass` | none |
 | Incomplete evaluation cannot close by omission | `PAYLOAD-006`; `INSTRUCTION-ASSEMBLY-014` | review keys and assessment identity are required | no defaults are introduced | incomplete enters blocked | required normalized fields | exact expected-set and cross-field checks | `pass` | none |
 | Plugins do not own runtime truth | `PAYLOAD-010/-021` | plugin outputs are subordinate | runtime owns events and replay | only replay projects continuation/close | plugin API has no emit/close capability | engine event admission | `pass` | none |
 | Producer and result identity are request-owned | `PAYLOAD-002/-003` | request carriers own actor/result/contract identity | worker echo is checked, not trusted | mismatch refuses | required refs | request-result equality checks | `pass` | none |
-| Domain extensions use declared schemas | `PAYLOAD-028` | future schema execution is deferred | standard profiles reject extensions | extension enters shape refusal | no extension carrier in this slice | universal adoption remains named | `not_applicable` | unadmitted realization leaf routed by T-244 |
+| Target values use the compiler-selected declared schema | `PAYLOAD-028` | `target_value` remains a distinct opaque candidate at this boundary | target candidate crosses to downstream exact admission, never directly to events | schema or binding refusal is non-closing | generic candidate and admitted target carriers stay distinct | target admission owned by T-270 over T-255/T-256 | `pass` | T-270 realization |
+| Transform edge conserves the compiler-selected graph edge | `CCALL-001..017`; compiler GraphVector authority | response edge is subordinate lineage, not a selector | the same GraphVector edge reaches wire admission and T-271 enclosure | edge mismatch enters contract failure | one required transform edge field | exact equality with compiler-selected `GraphVector.name`; AST locus cannot substitute | `pass` | T-270 realization |
+| Transform and evaluator vocabularies cannot blur | `C-ALGEBRA-018` | one family exposes two closed projections | profile is selected before lane projection | transform without `target_value`, or evaluator with it, enters refusal | discriminated profile vocabulary | exact required and forbidden keys | `pass` | none |
+| Evaluator output remains a typed traversal value | `C-ALGEBRA-002/-018`; `PAYLOAD-024` | normalized evaluated outcome is evaluator candidate `B`; blocked outcome has none | evaluator candidate crosses the same exact target admission as transform `B` | target refusal is non-closing | one generic admitted target carrier | compiler-selected target schema and binding admit the normalized outcome | `pass` | T-270 realization |
 | Defensive scope is proportional | operating trust boundary | external raw data defended; typed in-process values trusted | no hostile-local branch | no tamper states | ordinary readonly carriers | response-boundary checks only | `pass` | none |
 
 ## G1-G5 Disposition
 
 | Gap | Proportional disposition | Closure evidence |
 |---|---|---|
-| G1 | close standard base vocabularies; reject undeclared extensions; leave universal declared-schema execution to a singular realization leaf routed by T-244 | unknown top-level and closure-like fields fail on both profiles |
+| G1 | close both top-level vocabularies; retain nested `target_value` as an opaque candidate for exact downstream schema admission | unknown top-level and closure-like fields fail; domain target fields are neither dropped nor treated as admitted here |
 | G2 | enforce the four-status relation table in construction and raw admission | contradictory status/reason/evidence combinations fail |
 | G3 | exercise malformed, incomplete, contradictory, unattributed, nonretryable, exhausted, and valid results through the supported attached/live path | focused runtime differential plus absence of accepted payload/close facts on refusal |
 | G4 | carry the T-256 selected contract through request, admission, result, and evidence | wrong/missing contract fails; admitted result preserves exact ref |
@@ -401,7 +472,8 @@ projection. There is no raw-output-to-close transition.
 
 Closure requires all of the following:
 
-1. one generic admission atom serves both standard profiles;
+1. one generic admission family serves both standard profiles and produces two
+   profile-specific projections;
 2. one non-Consensus F_P fixture exercises that atom;
 3. every canonical T-252 F_P stage invokes the same atom against its compiled
    target result-contract compatibility surface;
@@ -409,20 +481,54 @@ Closure requires all of the following:
    `sha256:e1344106d4e90c8883f72c6e1490742b98a839433b89855315fec4b571ca8695`;
 5. malformed, incomplete, contradictory, unattributed, nonretryable, and
    exhausted cases remain non-closing on the supported path;
-6. exact valid output reaches admitted payload/finding facts but does not mint
+6. `attached_transform_result` requires `target_value`; the former
+   `attached_result_artifact` identity has no alias;
+7. `standard_live_review` rejects `target_value`;
+8. valid transform wire output yields distinct evidence and target candidates;
+   only exact downstream T-270/T-255/T-256 target admission may yield the
+   generic carrier for `B` and admitted payload facts;
+9. a normalized evaluated `FpEvaluationOutcome` is the evaluator-locus target
+   candidate and must pass that same exact downstream admission; a blocked
+   evaluator outcome carries no target candidate;
+10. exact valid output reaches admitted payload/finding facts but does not mint
    traversal closure;
-7. semantic, GTL, T-252, focused T-257, packed-publication, Mermaid, and
+11. semantic, GTL, T-252, focused T-257, packed-publication, Mermaid, and
    source-lint gates pass.
 
-T-252 remains startup-blocked for effects until T-267 closes traversal-result
-and conservation authority. T-257 proves that the declared F_P result boundary
-is available and exact; it does not claim that the Consensus graph has run.
+T-257 proves the closed external wire boundary only. The 2026-07-19 audit
+corrected its former evidence/target conflation: T-270 owns integration with the
+already accepted T-255/T-256 target admission and T-271 traversal interpreter.
+This design does not claim that the canonical Consensus graph has run.
+
+## 2026-07-19 Bounded Conformance Amendment
+
+The T-270/T-271 steel-thread audit found that the original transform profile
+could admit fulfillment evidence but did not carry the graph target `B` as a
+separate candidate. Treating `ResultArtifact` or its assessment-shaped payload
+as `B` would violate typed target conservation.
+
+The correction is a hard-break wire re-entry, not a new runtime architecture:
+
+```text
+attached_transform_result wire object
+  -> one generic F_P result admission family
+  -> ResultArtifact evidence candidate
+     + distinct target-value candidate
+  -> T-270/T-255/T-256 exact target admission
+  -> generic admitted target carrier
+```
+
+No new public operation, event kind, fluent, graph controller, C-call, target
+schema authority, or profile alias is introduced. `ResultArtifact` remains
+evidence-only. The evaluator profile remains the second projection of the same
+admission family and forbids `target_value`; its normalized evaluated outcome,
+not a second wire field, is the evaluator-locus target candidate.
 
 ## Design Verdict
 
-`accepted`. G1-G5 are resolved at design level without introducing a
-Consensus-specific runtime or widening T-257 into universal artifact-schema
-execution. The adversarial review confirmed cross-view consistency, named
-transition ownership, requirement alignment, and bounded implementation
-feasibility. Delegated F_H authority authorizes realization against this exact
-boundary.
+`accepted`. G1-G5 and the bounded evidence/target correction are resolved at
+design level without introducing a Consensus-specific runtime, a second wire
+admission authority, or a local target-schema path. Cross-view consistency now
+requires a distinct target candidate and downstream compiler-selected target
+admission. Delegated F_H authority authorizes the T-270 realization against
+this exact amended boundary.

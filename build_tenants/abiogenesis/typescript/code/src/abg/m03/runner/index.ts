@@ -26,10 +26,22 @@ export type {
 } from "./catalog_input_admission.js";
 export {
   admitWorkspaceRuntimeEventBytes,
+  projectRunReplayForPublicRead,
+  projectRunResultForPublicRead,
+  projectRuntimeResultEvidenceForPublicRead,
   projectRuntimePublicReplay,
-  projectRuntimePublicResult
+  projectRuntimePublicResult,
+  RuntimeProjectionPublicReadError,
+  selectCanonicalRunReplayEvents
 } from "./public_runtime_projections.js";
-export { admitPublicOperationAttribution } from "./public_operation_admission.js";
+export type {
+  RuntimeProjectionPublicReadCase,
+  RuntimeProjectionPublicReadRefusalCode,
+  RuntimeProjectionPublicReadSource
+} from "./public_runtime_projections.js";
+export {
+  admitPublicOperationAttribution
+} from "./public_operation_admission.js";
 export {
   FH_PUBLIC_OPERATION_ID_VALUES,
   FhInteractionAdmissionError,
@@ -92,6 +104,10 @@ export type {
 } from "./c_batch_runtime.js";
 export { interpretCompleteCProgram } from "./complete_c_program_runtime.js";
 export type {
+  CProgramAtomCloseBasis,
+  CProgramAtomEvidenceEvent,
+  CProgramAtomInteriorEvent,
+  CProgramAtomInvocationSubmission,
   CProgramAtomReceipt,
   CProgramAtomRequest,
   CProgramAtomResult,

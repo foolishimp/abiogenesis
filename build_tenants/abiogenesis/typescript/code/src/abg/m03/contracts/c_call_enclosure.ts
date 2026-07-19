@@ -36,11 +36,38 @@ const SPINE_ROW_KINDS = new Set([
   "c_call_judged"
 ]);
 
-const FP_INTERIOR_KINDS = new Set([
+export const C_PROGRAM_ATOM_INTERIOR_EVENT_KIND_VALUES = Object.freeze([
+  "instruction_prompt_manifest_projected",
   "fp_dispatch_requested",
   "actor_invocation_started",
+  "instruction_causal_context_bound",
+  "plugin_traversal_prompt_materialized",
+  "actor_process_started",
+  "actor_process_start_failed",
+  "actor_process_stream_observed",
+  "actor_process_heartbeat",
+  "actor_process_timeout",
+  "actor_process_signal_sent",
+  "actor_process_exited",
+  "runtime_activity_probe_observed",
+  "runtime_external_interruption_observed",
+  "actor_result_artifact_observed",
+  "instruction_response_contract_admitted",
   "actor_invocation_closed"
-]);
+] as const);
+
+export type CProgramAtomInteriorEventKind =
+  (typeof C_PROGRAM_ATOM_INTERIOR_EVENT_KIND_VALUES)[number];
+
+const C_PROGRAM_ATOM_INTERIOR_EVENT_KINDS = new Set<string>(
+  C_PROGRAM_ATOM_INTERIOR_EVENT_KIND_VALUES
+);
+
+export function isCProgramAtomInteriorEvent(
+  event: RuntimeEvent
+): event is Extract<RuntimeEvent, { readonly kind: CProgramAtomInteriorEventKind }> {
+  return C_PROGRAM_ATOM_INTERIOR_EVENT_KINDS.has(event.kind);
+}
 
 export function checkCCallEnclosure(
   events: readonly RuntimeEvent[],
@@ -90,7 +117,10 @@ export function checkCCallEnclosure(
       }
       continue;
     }
-    if (FP_INTERIOR_KINDS.has(event.kind) && anySpineOpen === 0) {
+    if (
+      C_PROGRAM_ATOM_INTERIOR_EVENT_KINDS.has(event.kind) &&
+      anySpineOpen === 0
+    ) {
       // transitional: free-floating F_P interior (un-enclosed arm)
       issues.push(Object.freeze({
         kind: "c_call_enclosure_issue",
