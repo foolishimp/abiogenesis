@@ -8,6 +8,7 @@ import {
   type JsonValue,
 } from "../product/index.js";
 import {
+  catalogViewContentDigest,
   isCatalogAdmissionCandidate,
   isCatalogViewCandidate,
 } from "../product/catalog.js";
@@ -247,12 +248,7 @@ export function hasAdmittedCatalogView(
       cause.payload.artifactDigest === view.catalogDigest
     );
   }) === true;
-  const viewDigest = sha256Canonical({
-    catalogId: view.catalogId,
-    catalogDigest: view.catalogDigest,
-    allowlist: view.allowlist,
-    selectedRows: view.selectedRows,
-  } as unknown as JsonValue);
+  const viewDigest = catalogViewContentDigest(view);
   return (
     viewDigest === view.viewDigest &&
     event?.kind === "public_operation_artifact_admitted" &&

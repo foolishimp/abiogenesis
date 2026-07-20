@@ -68,6 +68,10 @@ export interface ImplementationBinding {
   readonly kind: "implementation_binding";
   readonly bindingRef: string;
   readonly implementationRef: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+  readonly modulePath: string;
+  readonly namedSymbol: string;
   readonly computeRegime: ComputeRegime;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
@@ -140,4 +144,6 @@ export interface RootModuleArtifactBasis {
   readonly artifactDigest: VerifiedProductArtifact["artifactDigest"];
   readonly productContentDigest: VerifiedProductArtifact["productContentDigest"];
   readonly productManifestDigest: VerifiedProductArtifact["manifestDigest"];
+  readonly packageName: VerifiedProductArtifact["packageName"];
+  readonly packageVersion: VerifiedProductArtifact["packageVersion"];
 }

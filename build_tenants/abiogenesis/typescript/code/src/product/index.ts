@@ -71,3 +71,10 @@ export {
   type InvocationPolicyBasis,
   type PublicInvocationCandidate,
 } from "./invocation.js";
+export {
+  resolveImplementation,
+  rootPackagedImplementationDescriptor,
+  type ImplementationResolutionCandidate,
+  type ImplementationResolutionRefusal,
+  type ImplementationResolutionResult,
+} from "./implementation_resolution.js";

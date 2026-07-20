@@ -36,7 +36,7 @@ export interface StaticValidationRefusal {
   readonly kind: "static_validation_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "invalid";
-  readonly stage: "publication" | "program";
+  readonly stage: "implementation_resolution" | "publication" | "program";
   readonly subjectDigest: Sha256Digest;
   readonly diagnostics: readonly StaticDiagnostic[];
 }

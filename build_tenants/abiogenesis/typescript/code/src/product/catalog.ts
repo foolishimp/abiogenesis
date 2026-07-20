@@ -254,3 +254,14 @@ export function constructCatalogViewCandidate(
   catalogViewCandidates.add(candidate);
   return candidate;
 }
+
+export function catalogViewContentDigest(
+  view: Pick<CatalogView, "catalogId" | "catalogDigest" | "allowlist" | "selectedRows">,
+): Sha256Digest {
+  return sha256Canonical({
+    catalogId: view.catalogId,
+    catalogDigest: view.catalogDigest,
+    allowlist: view.allowlist,
+    selectedRows: view.selectedRows,
+  } as unknown as JsonValue);
+}

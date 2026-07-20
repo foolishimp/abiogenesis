@@ -154,6 +154,8 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     artifactDigest: verified.artifactDigest,
     productContentDigest: verified.productContentDigest,
     productManifestDigest: verified.manifestDigest,
+    packageName: verified.packageName,
+    packageVersion: verified.packageVersion,
   });
   const publicationAdmission = requireRawAdmission(
     validator,
@@ -227,5 +229,88 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     programValidation,
     catalog,
     catalogView,
+  };
+}
+
+export async function setupInstalledRootInvocation(context, packageRoot) {
+  const environment = await setupInstalledRootCatalog(context, packageRoot);
+  const {
+    product,
+    abg,
+    gtl,
+    validator,
+    store,
+    workspaceBinding,
+    publication,
+    programValidation,
+    catalogView,
+  } = environment;
+  const program = publication.programs[0];
+  const graphFunction = publication.graphFunctions[0];
+  const input = gtl.constructHelloWorldInput("World");
+  const rawInput = requireRawAdmission(
+    validator,
+    input,
+    "invocation_input",
+    gtl.HELLO_WORLD_IDS.inputContractRef,
+  );
+  const policy = product.constructRootInvocationPolicy();
+  const actorRef = "actor://abiogenesis/t286/trusted-developer";
+  const capabilityGrant = product.constructCapabilityGrant(actorRef);
+  const invocationAuthority = product.constructInvocationAuthority(
+    actorRef,
+    workspaceBinding,
+    catalogView,
+    program.programRef,
+    graphFunction.name,
+    [capabilityGrant],
+  );
+  const invocation = product.constructDirectInvocation(
+    workspaceBinding,
+    catalogView,
+    program,
+    graphFunction,
+    rawInput,
+    policy,
+    [capabilityGrant],
+    invocationAuthority,
+  );
+  const invocationAdmission = abg.admitInvocation(
+    store,
+    {
+      invocation,
+      rawInput,
+      modulePublication: publication,
+      program,
+      graphFunction,
+      programValidation,
+      workspaceBinding,
+      catalogView,
+      policy,
+      capabilityGrants: [capabilityGrant],
+      authority: invocationAuthority,
+    },
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      invocation.invocationRef,
+      [catalogView.admissionEventRef],
+    ),
+  );
+  assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
+  return {
+    ...environment,
+    program,
+    graphFunction,
+    input,
+    rawInput,
+    policy,
+    actorRef,
+    capabilityGrant,
+    invocationAuthority,
+    invocation,
+    invocationAdmission,
   };
 }

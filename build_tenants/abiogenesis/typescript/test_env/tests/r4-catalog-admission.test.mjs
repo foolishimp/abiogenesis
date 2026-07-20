@@ -150,6 +150,8 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     artifactDigest: verified.artifactDigest,
     productContentDigest: verified.productContentDigest,
     productManifestDigest: verified.manifestDigest,
+    packageName: verified.packageName,
+    packageVersion: verified.packageVersion,
   });
   const publicationAdmission = requireRawAdmission(
     validator,
@@ -259,6 +261,8 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     artifactDigest: `sha256:${"0".repeat(64)}`,
     productContentDigest: verified.productContentDigest,
     productManifestDigest: verified.manifestDigest,
+    packageName: verified.packageName,
+    packageVersion: verified.packageVersion,
   });
   const unboundAdmission = requireRawAdmission(
     validator,

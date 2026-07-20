@@ -20,3 +20,8 @@ export {
   type StaticDiagnosticCode,
   type StaticValidationRefusal,
 } from "./validation.js";
+export {
+  validateImplementationResolution,
+  type ImplementationResolutionValidation,
+  type ImplementationResolutionValidationResult,
+} from "./implementation_resolution.js";

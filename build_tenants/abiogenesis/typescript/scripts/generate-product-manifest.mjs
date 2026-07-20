@@ -206,6 +206,24 @@ const rows = [
     },
   },
   {
+    contractId: "abg.contract.product.implementation-resolution-root",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(nativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+    ],
+    capabilityIdentities: ["abg.capability.runtime.resolve-root-implementation@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./product",
+      namedSymbol: "resolveImplementation",
+      declarationPath: productDeclarationPath,
+    },
+  },
+  {
     contractId: "abg.contract.gtl.validation-root",
     contractVersion: "5.0.0",
     contractDigest: sha256Canonical(validatorNativeInventory),
