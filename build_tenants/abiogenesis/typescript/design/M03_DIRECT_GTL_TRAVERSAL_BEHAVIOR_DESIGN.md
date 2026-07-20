@@ -10,7 +10,7 @@
 | Product basis | accepted ABIogenesis 5.0 Product |
 | Requirement basis | accepted T-284 aggregate c0dcdc264db854f5a4d4f429a35a96e8bd8b4f9481a05cdf532cdfee60722473 |
 | Correction basis | 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4 |
-| Design status | candidate; independent review and direct F_H acceptance pending |
+| Design status | repair candidate; second exact-design review findings under repair |
 | Implementation authority | none until this exact design is accepted |
 
 This document is the single candidate M3 realization surface. It derives HOW
@@ -22,9 +22,11 @@ requirements, the root outcome, or donor disposition.
 ABIogenesis 5.0 needs one execution relation:
 
 ```text
-admitted GTL.TypeScript
+raw-admitted GTL.TypeScript
   -> non-lowering validation
-  -> ABG invocation admission
+  -> ABG input and invocation admission
+  -> GraphFunction materialization and graph validation
+  -> Product resolution proposal and ABG implementation admission
   -> direct HoG traversal
   -> ABG C-call opening and declared-fibre admission
   -> declared implementation seam
@@ -105,15 +107,23 @@ weakened, or delegated to imperative glue.
 | Graph | authoritative materialized GTL value | GraphFunction constructor | preserves one materialization identity and the original declared topology |
 | ImplementationBinding | authoritative leaf declaration | Module publication | binds one declared compute seam to typed contracts without topology or runtime authority |
 | LeafImplementation | non-authoritative realization carrier | src/implementation | one exact host function addressed by an ImplementationBinding; receives no event, transition, or closure port |
-| ValidatedGtlView | authoritative static judgment | GTL validator | preserves exact declaration identity and digest; adds diagnostics only |
-| ExecutionBasis | authoritative runtime binding | ABG | joins ProductSet, WorkspaceBinding, AdmittedCatalog, CatalogView, Program, GraphFunction, materialized Graph, contracts, input, implementation, and authority |
+| RawAdmittedValue<S> | authoritative boundary judgment | raw admission | preserves one erased package or request value, selected contract, canonical digest, and typed kind without creating runtime truth |
+| ProgramValidation | authoritative static judgment | GTL validator | validates exact Program membership, GraphFunction template, contracts, implementation declarations, and whole-program relations without lowering |
+| GraphValidation | authoritative static judgment | GTL validator | validates one materialized Graph against the exact ProgramValidation and original GraphFunction declaration |
+| InvocationAdmission | authoritative runtime admission | ABG | admits exact Program, GraphFunction, raw-admitted input, workspace, catalog view, policy, capability, and invocation authority before graph materialization |
+| ImplementationResolutionCandidate | candidate payload | Product catalog projection | deterministically resolves one exact declared binding and packaged LeafImplementation from CatalogView or returns ambiguity or absence |
+| AdmittedImplementationResolution | authoritative runtime admission | ABG | admits the exact declaration, package, implementation, contracts, catalog membership, and invocation basis; selection is complete before HoG entry |
+| ExecutionBasis | authoritative runtime binding | ABG | joins InvocationAdmission, ProgramValidation, GraphValidation, materialized Graph, AdmittedImplementationResolution, closure contract, and all environmental bases |
 | Run | runtime aggregate | ABG | owns one causal execution episode |
 | GraphCall | runtime aggregate | ABG | realizes one GraphFunction invocation within one Run |
 | Frame | runtime aggregate | ABG | owns one invocation attempt and recursive lineage |
 | CCall | runtime aggregate | ABG | owns one compute locus and the uniform opened, fibre-selected, evidenced, result-admitted, and judged spine |
+| OpenedTraversalScope | subordinate invocation payload | ABG openCall result | carries the exact Run, GraphCall, and Frame refs into HoG; it contains no mutable state or selection authority |
 | TraversalCursor | subordinate runtime state | HoG under one Frame | points to one current GTL locus; never becomes a program |
 | TransitionProposal | candidate payload | HoG | proposes one declared step against current GTL and replay state; a later leaf disposition remains input to HoG rather than truth |
 | TraversalStopRef | subordinate invocation payload | HoG under one Frame | identifies where traversal stopped without claiming result or closure truth |
+| LeafRealizationCandidate | candidate payload | selected LeafImplementation | a closed success or failure value containing evidence candidates and one typed result candidate; never runtime truth |
+| ClosureContract | authoritative declaration | GTL composition | names the F_D closure predicate, evidence and rejection refs, replay projection, exact closure event kinds, and payload contracts |
 | RuntimeEvent | authoritative event family | ABG event admission | records one admitted runtime fact with causal identity and ordinal |
 | ReplayState | downstream runtime projection | ABG replay | derives current fluents and lawful continuation from events plus GTL |
 | PublicOutcome | downstream projection | SDK and CLI | renders typed admitted result, refusal, hold, block, or failure |
@@ -122,38 +132,64 @@ weakened, or delegated to imperative glue.
 
 1. One VerifiedProductArtifact may produce zero or more ProductInstalls; each
    ProductInstall materializes exactly one verified artifact identity.
-2. One ProductSet contains one or more ordered ProductInstall identities. One
-   invocation binds exactly one ProductSet, WorkspaceBinding, AdmittedCatalog,
-   CatalogView, GtlProgram, selected GraphFunction, input contract, output
-   contract, materialized Graph, selected ImplementationBinding, and
-   ExecutionBasis. The root ProductSet contains one ABIogenesis install; the
-   model does not impose that cardinality on later multi-product workspaces.
+2. One ProductSet contains one or more ordered ProductInstall identities. A
+   CatalogView may contain zero Modules, Programs, GraphFunctions, or callable
+   rows after lawful narrowing; emptiness never activates fallback. One
+   invocation requires exact membership for one ProductSet, WorkspaceBinding,
+   AdmittedCatalog, non-empty selected CatalogView row, GtlProgram,
+   GraphFunction, input contract, output contract, materialized Graph,
+   ImplementationBinding, and ExecutionBasis. The root ProductSet contains one
+   ABIogenesis install; the model does not impose that cardinality on later
+   multi-product workspaces.
 3. One GraphFunction materialization produces exactly one Graph identity for
    one materialization basis.
-4. Each selected ImplementationBinding resolves exactly one packaged
-   LeafImplementation identity before the C-call fibre is admitted. The
-   function may return only evidence and result candidates.
-5. One GraphCall belongs to exactly one Run and one materialized
+4. RawAdmittedValue, ProgramValidation, and GraphValidation remain distinct.
+   ProgramValidation precedes InvocationAdmission. GraphValidation follows
+   materialization and both validation identities enter ExecutionBasis.
+5. Product catalog resolution deterministically proposes exactly one
+   ImplementationResolutionCandidate from the selected CatalogView and
+   declared graph locus. The validator checks its static declaration and
+   contract relations. ABG alone creates AdmittedImplementationResolution;
+   absence, ambiguity, or conflict refuses before HoG entry.
+6. Each admitted ImplementationBinding resolves exactly one packaged
+   LeafImplementation identity before the C-call is opened. The function
+   returns only one closed LeafRealizationCandidate containing evidence and a
+   typed success or failure result candidate.
+7. One GraphCall belongs to exactly one Run and one materialized
    GraphFunction. Retries or replacement calls mint new GraphCall identities.
-6. One Frame belongs to one GraphCall. Reopen or retry mints a new attempt
+8. One Frame belongs to one GraphCall. Reopen or retry mints a new attempt
    identity while preserving frame lineage.
-7. Each invoked C stage creates one CCall under one Frame. Its event order is
-   exactly `opened -> fibre_selected -> evidenced(0..n) -> result_admitted ->
-   judged`; no fibre or implementation may replace or bypass that spine.
-   The all-F_D root admits at least one deterministic evidence artifact.
-8. A TraversalCursor belongs to one Frame and one admitted Program. It cannot
-   be serialized, published, or resumed as an independent program.
-9. A TransitionProposal has no runtime authority. Exactly one ABG admission
-   disposition accepts or rejects it against current replay truth.
-10. A TraversalStopRef belongs to one Frame and current cursor. It reports only
-   a stop locus and kind and cannot carry admitted result, judgment, or closure.
-11. Only ABG event admission assigns event identity, event time, and admission
-   ordinal and appends RuntimeEvent truth.
-12. ReplayState is fully derivable from ordered RuntimeEvents plus admitted GTL.
-   No caller, cache, fixture, or log may supplement missing truth.
-13. PublicOutcome is derived from ReplayState and the selected output contract.
-   It never writes back into runtime truth.
-14. Any identity, digest, membership, contract, basis, or ordinal conflict
+9. One OpenedTraversalScope contains exactly the Run, GraphCall, and Frame
+   refs created by one openCall. HoG receives that scope explicitly; no ambient
+   aggregate lookup or invocation-local closure may supply lineage.
+10. Each invoked C stage creates one CCall under one Frame. CCall opening and
+    fibre selection are one ABG transaction: refusal creates no CCall, while
+    success emits `c_call_opened` followed by `c_call_fibre_selected`. Every
+    `c_call_opened` payload remains locus-only; the transaction may precheck
+    the admitted implementation but writes its identity only in the following
+    fibre-selection event. Every
+    opened CCall then emits exactly `opened -> fibre_selected ->
+    evidenced(0..n) -> result_admitted -> judged`, including typed
+    implementation failure; no fibre or implementation may replace or bypass
+    that spine. The all-F_D root admits at least one deterministic evidence
+    artifact.
+11. A TraversalCursor belongs to one Frame and one admitted Program. It cannot
+    be serialized, published, or resumed as an independent program.
+12. A TransitionProposal has no runtime authority. Exactly one ABG admission
+    disposition accepts or rejects it against current replay truth.
+13. A TraversalStopRef belongs to one Frame and current cursor. It reports only
+    a stop locus and kind and cannot carry admitted result, judgment, or closure.
+14. Only ABG event admission assigns event identity, event time, and admission
+    ordinal and appends RuntimeEvent truth.
+15. ReplayState is fully derivable from ordered RuntimeEvents plus admitted GTL.
+    No caller, cache, fixture, or log may supplement missing truth.
+16. PublicOutcome is derived from ReplayState and the selected output contract.
+    It never writes back into runtime truth.
+17. Closure consumes one exact ClosureContract. Successful terminal admission
+    emits `terminal_reached -> frame_closed -> graph_call_closed -> run_closed`
+    with exact causal refs and payload contracts; M4 may not invent alternative
+    closure kinds or infer closure from output presence.
+18. Any identity, digest, membership, contract, basis, or ordinal conflict
     fails closed before the next effectful step.
 
 ### 4.3 Entity Lifecycle Completeness
@@ -166,21 +202,29 @@ weakened, or delegated to imperative glue.
 | WorkspaceBinding | workspace.bind admission | binding projection | immutable; changed authority creates a new binding | outside 5.0 root |
 | ModulePublication | typed GTL authoring and raw admission | catalog publication | new version or digest creates new identity | superseded publication |
 | AdmittedCatalog | catalog.admit | catalog projections | immutable for one binding and publication basis | replaced by separately admitted catalog |
-| CatalogView | catalog.view narrowing | catalog.view | new narrowing creates new view basis | invocation-local expiry |
+| CatalogView | catalog.view narrowing | catalog.view | new narrowing, including an empty effective callable view, creates new view basis | invocation-local expiry |
 | GtlProgram | typed GTL authoring and module admission | validator and catalog projection | immutable versioned declaration | superseded declaration |
 | GraphFunction | typed GTL authoring and module admission | callable catalog projection | immutable versioned declaration | superseded declaration |
 | Graph | GraphFunction materialization | validator and HoG | immutable for one materialization basis | expires with its GraphCall basis |
 | ImplementationBinding | typed module publication | catalog and validator projection | immutable versioned declaration | superseded declaration |
 | LeafImplementation | package build under src/implementation | invoked only through an admitted binding | stateless function execution | superseded package identity |
-| ValidatedGtlView | validator result | diagnostics and invocation admission | rerun for changed declaration basis | stale when source digest changes |
-| ExecutionBasis | ABG invocation admission | runtime and audit projection | immutable; basis change requires new admission | terminal or refused invocation |
+| RawAdmittedValue<S> | raw contract admission | validator or ABG admission input | immutable; changed bytes, contract, or kind creates a new value | discarded after refusal or superseded input |
+| ProgramValidation | whole-program validator | diagnostics, catalog, and invocation admission | rerun for changed declaration basis | stale when source digest changes |
+| GraphValidation | graph validator after materialization | diagnostics and basis finalization | rerun for changed graph or ProgramValidation | stale when either digest changes |
+| InvocationAdmission | ABG input and invocation admission | materialization and audit projection | immutable; changed constituent requires new admission | refused before ExecutionBasis or superseded by terminal invocation |
+| ImplementationResolutionCandidate | Product catalog projection | validator and ABG admission input | candidate only; accepted or refused once | discarded after disposition |
+| AdmittedImplementationResolution | ABG binding admission | ExecutionBasis and replay | immutable; changed binding, package, or catalog creates new admission | terminal with invocation |
+| ExecutionBasis | ABG basis finalization after GraphValidation and implementation admission | runtime and audit projection | immutable; basis change requires new admission | terminal or refused invocation |
 | Run | ABG opens run | replay projection | active, held, blocked, failed, closed | terminal event truth |
 | GraphCall | ABG opens call | replay projection | active, retry-replaced, failed, closed | terminal event truth |
 | Frame | ABG opens attempt | replay projection | active, yielded, retry-replaced, folded back, failed, closed | terminal event truth |
 | CCall | ABG opens declared compute locus | replay projection | opened, fibre-selected, evidenced, result-admitted, judged | judged spine remains immutable event truth |
+| OpenedTraversalScope | ABG openCall result | HoG input and audit projection | immutable refs only | discarded after traversal returns |
 | TraversalCursor | HoG derives under Frame | invocation-local inspection | advances only after ABG-admitted transition | discarded after terminal Frame |
 | TransitionProposal | HoG derives from GTL and replay | ABG admission input | candidate only; accepted or refused exactly once | discarded after disposition |
 | TraversalStopRef | HoG returns under Frame | invocation-local inspection | immutable stop payload | discarded after public composition obtains replay |
+| LeafRealizationCandidate | bound implementation invocation | ABG evidence and result admission input | candidate only; success and failure share one closed union | discarded after admission |
+| ClosureContract | GTL composition declaration | validator, ABG closure admission, replay | immutable versioned declaration | superseded declaration |
 | RuntimeEvent | ABG admits and appends | replay | immutable | never deleted |
 | ReplayState | replay fold | SDK and CLI | rederived after each admitted event | superseded projection only |
 | PublicOutcome | typed projection | caller | immutable response | no runtime lifecycle |
@@ -189,17 +233,19 @@ weakened, or delegated to imperative glue.
 
 | Decision or effect | Declares or proposes | Validates | Admits truth | Applies or executes | Projects |
 |---|---|---|---|---|---|
-| topology and callable membership | GTL Program | GTL validator | ABG invocation admission | HoG traverses | catalog |
-| GraphFunction materialization | GraphFunction template | TypeScript plus validator | ABG binds materialization | HoG reads Graph | catalog and replay |
+| erased GTL and request values | caller or package bytes | raw admission against exact contract | none until catalog or invocation admission | none | diagnostics |
+| topology and callable membership | GTL Program | ProgramValidation | catalog and ABG InvocationAdmission | HoG traverses | catalog |
+| GraphFunction materialization | GraphFunction template and admitted input | GraphValidation against ProgramValidation | ABG finalizes ExecutionBasis | HoG reads Graph | catalog and replay |
 | workspace and Product basis | Product or caller supplies exact ProductInstall rows and lock | Product set and workspace checks | ABG binding admission | none | SDK and CLI |
 | product installation | VerifiedProductArtifact | artifact and destination checks | ABG admits the immutable installed artifact boundary | installer materializes exact bytes | SDK and CLI |
 | catalog admission | ModulePublication and WorkspaceBinding | catalog contracts | ABG catalog admission | none | catalog reads |
+| implementation resolution | Product derives one exact candidate from CatalogView and declared locus | validator checks declaration, package, and contract relations | ABG AdmittedImplementationResolution | selected LeafImplementation realizes only its port | catalog and replay |
 | next GTL locus | GTL relation; HoG proposes current step | validator plus current replay guard | ABG transition admission | HoG applies admitted transition | replay |
-| C-call and fibre | GTL locus, role, fibre, and ImplementationBinding | validator plus current basis | ABG opens the locus and admits fibre selection | none | replay |
-| F_D leaf evidence and result | selected implementation returns candidates | input, output, and evidence contracts | ABG admits evidence and result separately | src/implementation executes leaf | replay and outcome |
+| C-call and fibre | GTL locus, role, fibre, arm, and admitted implementation resolution | validator plus current basis | ABG atomically opens the locus and admits fibre selection or creates no CCall | none | replay |
+| F_D leaf evidence and result | selected implementation returns one success or failure candidate | input, output, failure, and evidence contracts | ABG admits evidence and typed result separately | src/implementation executes leaf | replay and outcome |
 | C-call judgment | HoG applies the declared judgment relation to replay | GTL predicate and result contract | ABG admits judgment | none | replay |
 | event identity and append | candidate fact from owning boundary | ABG event contract | ABG event store | ABG emit only | replay |
-| continuation or terminal state | GTL policy and result contract | validator plus replay predicate | ABG state admission | HoG continues only admitted route | replay and outcome |
+| continuation or terminal state | GTL policy, result contract, and ClosureContract | validator plus replay and closure predicates | ABG transition and closure admission | HoG applies only admitted route | replay and outcome |
 | public invocation | caller or CLI submits | public contract | ABG invocation admission | HoG | SDK and CLI |
 
 No row assigns semantic choice to catalog, SDK, CLI, installer, plugin, worker,
@@ -217,23 +263,27 @@ fixture, or implementation binding.
 | constructProductSet | ordered ProductInstall identities x resolved lock -> ProductSet or refusal | Product boundary | no runtime effect |
 | constructWorkspaceBinding | workspace authority x ProductSet x lock x declared roots -> binding candidate or refusal | Product boundary | no runtime effect |
 | admitWorkspaceBinding | binding candidate x authority -> WorkspaceBinding or refusal | ABG | emits binding event when admitted |
-| admitCatalog | publication x binding x lock -> AdmittedCatalog or refusal | ABG | emits catalog admission event |
+| admitCatalog | ModulePublication x ProgramValidation x binding x lock -> AdmittedCatalog or refusal | ABG | emits catalog admission event |
 | narrowCatalogView | AdmittedCatalog x allowlist -> CatalogView or refusal | ABG | emits view admission event |
-| validateGtl | declaration set -> ValidatedGtlView or typed diagnostics | GTL validator | no runtime effect |
-| admitInvocation | public request x all exact bases -> ExecutionBasis or refusal | ABG | emits invocation and basis events |
-| materializeGraph | GraphFunction x admitted input -> Graph candidate | GraphFunction constructor | no runtime truth |
-| openCall | ExecutionBasis x Graph -> Run, GraphCall, Frame refs | ABG | emits lifecycle events |
+| rawAdmitValue | unknown value x exact contract x expected kind -> RawAdmittedValue<S> or typed refusal | raw admission | no runtime effect |
+| validateProgram | raw-admitted Program, GraphFunction, contracts, Module, and implementation declarations -> ProgramValidation or diagnostics | GTL validator | no runtime effect |
+| admitInvocation | raw-admitted request x ProgramValidation x exact environment, policy, capability, and authority bases -> InvocationAdmission or refusal | ABG | emits invocation admission event; no ExecutionBasis yet |
+| materializeGraph | GraphFunction x InvocationAdmission.admittedInput -> Graph candidate | GraphFunction constructor | no runtime truth |
+| validateGraph | Graph candidate x ProgramValidation -> GraphValidation or diagnostics | GTL validator | no runtime effect |
+| resolveImplementation | CatalogView x ProgramValidation x GraphValidation x declared leaf requirements -> ImplementationResolutionCandidate or typed refusal | Product catalog projection | no runtime effect and no semantic choice under ambiguity |
+| validateImplementation | ImplementationResolutionCandidate x declaration, package, and contract bases -> validated candidate or diagnostics | GTL validator | no runtime effect |
+| admitExecutionBasis | InvocationAdmission x GraphValidation x validated implementation candidate x ClosureContract -> ExecutionBasis plus AdmittedImplementationResolution or refusal | ABG | emits implementation-binding and basis admission events |
+| openCall | ExecutionBasis -> OpenedTraversalScope | ABG | emits Run, GraphCall, and Frame open events and returns their exact refs |
 | proposeStep | GTL x TraversalCursor x ReplayState -> TransitionProposal | HoG | no runtime truth |
 | admitTransition | TransitionProposal x ReplayState -> admitted transition or refusal | ABG | appends transition event |
 | applyStep | TraversalCursor x admitted transition -> TraversalCursor | HoG | invocation-local state only |
-| openCCall | Frame x declared C locus -> CCall or refusal | ABG | emits c_call_opened |
-| admitFibre | CCall x declared role/fibre/arm x selected ImplementationBinding -> admitted fibre or refusal | ABG | emits c_call_fibre_selected |
-| realizeLeaf | admitted F_D binding x typed input -> evidence candidates x result candidate | src/implementation | declared leaf effect only |
+| openCCall | OpenedTraversalScope x declared C locus x AdmittedImplementationResolution -> CCall or pre-call refusal | ABG | on success atomically emits c_call_opened then c_call_fibre_selected; refusal creates no CCall |
+| realizeLeaf | admitted F_D implementation port x typed input -> LeafRealizationCandidate<success or failure> | src/implementation | declared total leaf effect only |
 | admitEvidence | CCall x evidence candidate -> admitted evidence or refusal | ABG | emits c_call_evidenced |
 | admitResult | CCall x result candidate x output contract -> admitted result or refusal | ABG | emits c_call_result_admitted |
 | proposeJudgment | GTL judgment relation x ReplayState -> judgment candidate | HoG | no runtime truth |
 | admitJudgment | CCall x judgment candidate x ReplayState -> admitted judgment or refusal | ABG | emits c_call_judged |
-| closeCall | admitted terminal transition x judged CCall x ReplayState -> closure or refusal | ABG | emits frame, GraphCall, and Run closure events |
+| admitClosure | admitted terminal transition x judged CCall x ReplayState x ClosureContract -> admitted closure or refusal | ABG | on success emits terminal_reached, frame_closed, graph_call_closed, and run_closed with exact payloads |
 | replay | ordered RuntimeEvents x GTL -> ReplayState | ABG | pure projection |
 | projectOutcome | ReplayState x output contract -> PublicOutcome | public projection | no runtime effect |
 
@@ -243,19 +293,21 @@ The HoG executor is one higher-order traversal relation:
 
 ```text
 traverse<A, B>(
-  validatedProgram,
-  validatedGraph,
+  programValidation,
+  graphValidation,
   executionBasis,
-  graphFunction,
+  openedTraversalScope,
   abgAdmission,
-  selectedImplementation
+  admittedImplementationPort
 ) -> TraversalStopRef
 ```
 
 TraversalStopRef is a subordinate invocation payload identifying where HoG
 stopped. It is not result or closure truth. The public run.invoke composition
-admits the invocation, calls traverse, asks ABG replay to derive the outcome,
-and transports that projection. It owns no branch or state of its own.
+admits the request, materializes and validates the graph, asks ABG to finalize
+ExecutionBasis and open one OpenedTraversalScope, calls traverse with those
+exact refs, asks ABG replay to derive the outcome, and transports that
+projection. It owns no branch or state of its own.
 
 Its recursive bind is:
 
@@ -272,8 +324,9 @@ When the admitted transition reaches a C leaf, the same bind expands without
 changing the traversal relation:
 
 ```text
-ABG.openCCall(locus only)
-  -> ABG.admitFibre(declared role x fibre x arm x binding)
+ABG.openCCall(scope x locus x admitted implementation)
+  -> c_call_opened
+  -> c_call_fibre_selected
   -> implementation.realizeLeaf
   -> ABG.admitEvidence(0..n)
   -> ABG.admitResult
@@ -282,15 +335,21 @@ ABG.openCCall(locus only)
   -> HoG.proposeStep
   -> ABG.admitTransition
   -> HoG.applyStep
-  -> ABG.closeCall when the admitted transition is terminal
+  -> ABG.admitClosure under the exact ClosureContract when terminal
 ```
 
-The order is invariant across fibres. The implementation receives no event
-writer and cannot claim admission, judgment, transition, or closure.
+The order is invariant across fibres. The atomic transaction constructs the
+opened event only from the declared locus tuple and writes implementation truth
+only in the following selected-fibre event. A binding or fibre conflict refuses the
+atomic open before a CCall identity exists. After `c_call_opened`, success and
+typed implementation failure both continue through evidence, result, and
+judgment; no direct Failed or Blocked exit exists. The implementation receives
+no event writer and cannot claim admission, judgment, transition, or closure.
 
-The monadic bind preserves one Program, ExecutionBasis, Run, GraphCall, Frame,
-and CCall lineage. The selected compute fibre changes only the leaf realization
-and evidence contract. It does not change the traversal relation.
+The monadic bind preserves one Program, ExecutionBasis, and explicit
+OpenedTraversalScope containing Run, GraphCall, and Frame refs, plus each CCall
+lineage. The selected compute fibre changes only the leaf realization and
+evidence contract. It does not change the traversal relation.
 
 For ABI5-ROOT-001 the relation degenerates to one all-F_D path:
 
@@ -318,11 +377,11 @@ They do not justify one peer service or public operation each.
 | Prime family | Members or subordinate payloads | Why irreducible |
 |---|---|---|
 | declaration | Module, Program, GraphFunction, Graph, GraphVector, contracts, implementation refs | owns versioned GTL meaning |
-| validation | ValidatedGtlView and diagnostics | distinct static judgment boundary without runtime effect |
+| validation | RawAdmittedValue, ProgramValidation, GraphValidation, and diagnostics | distinct staged static judgments without runtime effect or lowering |
 | environment | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, AdmittedCatalog, CatalogView | exact artifact, installed, and environmental authority |
-| invocation | ExecutionBasis | singular ABG admission boundary for one execution |
-| traversal | Run, GraphCall, Frame, CCall; subordinate TraversalCursor, TransitionProposal, and TraversalStopRef | one direct executor and recursive compute locus |
-| leaf realization | ImplementationBinding and its bound host function | independently selected effect seam; cannot collapse into traversal or runtime truth |
+| invocation | InvocationAdmission, AdmittedImplementationResolution, and ExecutionBasis | staged but singular ABG admission family for one execution |
+| traversal | Run, GraphCall, Frame, CCall; subordinate OpenedTraversalScope, TraversalCursor, TransitionProposal, and TraversalStopRef | one direct executor and recursive compute locus with explicit lineage |
+| leaf realization | ImplementationBinding and its bound host function; LeafRealizationCandidate subordinate | independently admitted effect seam; cannot collapse into traversal or runtime truth |
 | runtime truth | canonical RuntimeEvent family | only append-only written truth |
 | projection | ReplayState and PublicOutcome | read-only derived state and consumer result |
 
@@ -351,19 +410,82 @@ One ticket, one design pack, one review subject, and one eventual acceptance
 receipt govern this boundary. The three Mermaid views below are projections of
 the same Ontology, not additional design authorities.
 
+### 6.5 Prime Contraction Evidence
+
+The measurement boundary begins with eight lawful carrier families plus eleven
+retired peer authorities listed in section 6.3. The target retains eight Prime
+families and no rival authoring source. Subordinate typed payloads remain
+explicit because compression must not erase lineage or admission staging. For
+this bounded review, an authoring source is a maintained source capable of
+producing one measured carrier family, so the peer-authority and authoring
+counts share the same explicit `19 -> 8` boundary.
+
+```json prime-contraction
+{
+  "schemaVersion": 1,
+  "iacs": [
+    "GtlDeclarationFamily",
+    "ValidationFamily",
+    "EnvironmentBasis",
+    "InvocationBasis",
+    "TraversalAggregateFamily",
+    "LeafRealizationBoundary",
+    "RuntimeEventFamily",
+    "ReplayProjectionFamily"
+  ],
+  "authoritativeCarriers": [
+    "GtlDeclarationFamily",
+    "ValidationFamily",
+    "EnvironmentBasis",
+    "InvocationBasis",
+    "TraversalAggregateFamily",
+    "LeafRealizationBoundary",
+    "RuntimeEventFamily",
+    "ReplayProjectionFamily"
+  ],
+  "subordinatePayloads": [
+    "RawAdmittedValue<S>",
+    "ImplementationResolutionCandidate",
+    "OpenedTraversalScope",
+    "TraversalCursor",
+    "TransitionProposal",
+    "TraversalStopRef",
+    "LeafRealizationCandidate",
+    "typed diagnostics",
+    "closure event payloads"
+  ],
+  "promotionTests": [
+    {"candidate": "GtlDeclarationFamily", "verdict": "promote", "reason": "Program, GraphFunction, Graph, contracts, implementation declarations, and ClosureContract are independently versioned and pattern-matched as the sole semantic source."},
+    {"candidate": "ValidationFamily", "verdict": "promote", "reason": "Raw admission, ProgramValidation, and GraphValidation form one independently consumed static-judgment boundary and cannot become runtime truth or an execution plan."},
+    {"candidate": "EnvironmentBasis", "verdict": "promote", "reason": "Verified artifacts, installs, ProductSet, WorkspaceBinding, AdmittedCatalog, and CatalogView have independent immutable identity and admission lifecycles."},
+    {"candidate": "InvocationBasis", "verdict": "promote", "reason": "InvocationAdmission, admitted implementation resolution, and ExecutionBasis are ABG-owned staged runtime admissions consumed before any effect."},
+    {"candidate": "TraversalAggregateFamily", "verdict": "promote", "reason": "Run, GraphCall, Frame, and CCall are independently replayed causal aggregates while traversal payloads remain subordinate."},
+    {"candidate": "LeafRealizationBoundary", "verdict": "promote", "reason": "The admitted ImplementationBinding and exact packaged leaf function form the only effect seam and expose no event or control authority."},
+    {"candidate": "RuntimeEventFamily", "verdict": "promote", "reason": "Canonical ABG events are the only append-only written runtime truth and independently drive replay and audit."},
+    {"candidate": "ReplayProjectionFamily", "verdict": "promote", "reason": "ReplayState and PublicOutcome are independently consumed deterministic read models that cannot be collapsed into event authorship."},
+    {"candidate": "OpenedTraversalScope", "verdict": "remain_subordinate", "reason": "It transports exact Run, GraphCall, and Frame refs into HoG but has no independent lifecycle, selection, or persistence authority."},
+    {"candidate": "LeafRealizationCandidate", "verdict": "remain_subordinate", "reason": "It is a closed success-or-failure candidate consumed by ABG admission and never becomes truth by itself."}
+  ],
+  "recurrenceReview": {"status": "consume_existing", "ref": "PC-007 and PC-011: consume one execution basis and one standing Prime gate without recreating session, compiler, controller, or ledger authority"},
+  "authoritySourceCount": {"before": 19, "after": 8},
+  "authoringSourceCount": {"before": 19, "after": 8},
+  "disposition": "migrate_authority",
+  "ownerTicket": "T-285"
+}
+```
+
 ## 7. Irreducible Architectural Carrier Set
 
 | Carrier family | Authority role | Public status | Persistence |
 |---|---|---|---|
-| GTL declaration family | authoritative semantic source | Program and GraphFunction are inspectable; GraphFunction callable | canonical package serialization |
-| ValidatedGtlView | static validator judgment over same declaration identity | inspectable diagnostics | optional evidence; never executable |
-| VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, AdmittedCatalog, and CatalogView | verified and admitted environment basis | inspectable | immutable verification, install, binding, and admission evidence |
-| ExecutionBasis | authoritative runtime admission | opaque ref in public outcome | ABG event truth |
-| Run, GraphCall, Frame, and CCall | authoritative runtime aggregate identities | replay-visible | ABG event truth |
-| ImplementationBinding and bound leaf function | declared and admitted effect seam | binding inspectable; function private | package code addressed by immutable binding identity |
-| TraversalCursor, TransitionProposal, and TraversalStopRef | subordinate invocation payloads | private | no independent persistence |
-| RuntimeEvent | authoritative runtime fact | replay-readable | append-only event store |
-| ReplayState and PublicOutcome | downstream projections | public | reproducible cache only |
+| GtlDeclarationFamily | authoritative semantic source including ClosureContract | Program and GraphFunction are inspectable; GraphFunction callable | canonical package serialization |
+| ValidationFamily | RawAdmittedValue, ProgramValidation, GraphValidation, and diagnostics over exact subject identities | inspectable diagnostics | optional evidence; never executable |
+| EnvironmentBasis | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, AdmittedCatalog, and CatalogView | inspectable | immutable verification, install, binding, and admission evidence |
+| InvocationBasis | InvocationAdmission, AdmittedImplementationResolution, and ExecutionBasis | opaque refs in public outcome | ABG event truth |
+| TraversalAggregateFamily | Run, GraphCall, Frame, and CCall authoritative identities; OpenedTraversalScope, cursor, proposals, and stop refs subordinate | replay-visible | ABG event truth; subordinate payloads are invocation-local |
+| LeafRealizationBoundary | ImplementationBinding and bound leaf function; realization candidate subordinate | binding inspectable; function private | package code addressed by immutable binding identity |
+| RuntimeEventFamily | authoritative runtime facts | replay-readable | append-only event store |
+| ReplayProjectionFamily | ReplayState and PublicOutcome downstream projections | public | reproducible cache only |
 
 Every implementation-specific shape remains subordinate unless it is later
 shown to be independently versioned, admitted, persisted, or publicly
@@ -377,11 +499,11 @@ The directories below are ownership boundaries, not semantic peers.
 | Module | Owns | May depend on | Must not own |
 |---|---|---|---|
 | src/gtl | typed declarations, constructors, canonical serialization | shared primitives only | runtime state or effects |
-| src/validator | raw admission and whole-program diagnostics | gtl | execution plan or runtime truth |
-| src/product | Product verification, install/ProductSet/workspace candidates, module publication, catalog candidates, and public operation contracts | gtl and validator types | traversal, event admission, or closure |
+| src/validator | raw admission, ProgramValidation, GraphValidation, implementation-resolution diagnostics | gtl | execution plan or runtime truth |
+| src/product | Product verification, install/ProductSet/workspace candidates, module publication, catalog candidates, deterministic implementation-resolution candidates, and public operation contracts | gtl and validator types | traversal, event admission, implementation selection under ambiguity, or closure |
 | src/implementation | concrete host functions addressed by published ImplementationBindings | gtl contract types | topology, selection, events, judgment, or closure |
-| src/abg | runtime admission ports, event store, Event Calculus effects, replay, aggregate and closure truth | gtl, validator, and product contract types | GTL topology, leaf effects, or scheduling |
-| src/hog | direct traversal monad and invocation-local cursor | gtl values, validated view types, ABG admission port, implementation invocation port | event authorship, program selection, hidden defaults, or leaf implementation |
+| src/abg | invocation, implementation, basis, transition, result, and closure admission ports; event store; Event Calculus; replay and aggregate truth | gtl, validator, and product contract types | GTL topology, leaf effects, implementation resolution, or scheduling |
+| src/hog | direct traversal monad and invocation-local cursor under explicit OpenedTraversalScope | gtl values, validation types, ABG admission port, admitted implementation invocation port | event authorship, program or implementation selection, hidden defaults, ambient lineage, or leaf implementation |
 | src/public | typed SDK and abg.cli plus stateless fixed operation composition | product, gtl, validator, ABG public ports/projections, and HoG public invoke | semantic selection, private state, retry, continuation, or closure |
 
 Dependency law (`A -> B` means A may import B):
@@ -397,11 +519,13 @@ public -> product, gtl, validator, abg(public-port), hog(public-invoke)
 
 There is no dependency from GTL, validator, Product, or implementation to HoG
 or an ABG implementation. ABG does not call HoG. HoG receives already
-validated values, calls only the ABG admission port while owning traversal,
-and invokes only the exact selected implementation port after fibre admission.
-The public composition root wires concrete ports in the fixed order declared
-by each public operation; it has no selector, fallback, replay state, or event
-writer. CLI parsing and rendering cannot interleave private traversal steps.
+validated values, one exact OpenedTraversalScope, and one ABG-admitted
+implementation port. It calls only the ABG admission port while owning
+traversal. Product catalog projection proposes a unique implementation row or
+refuses absence or ambiguity; it never admits or invokes that row. The public
+composition root wires concrete ports in the fixed order declared by each
+public operation; it has no selector, fallback, replay state, or event writer.
+CLI parsing and rendering cannot interleave private traversal steps.
 
 The first implementation transaction removes donor implementation from the
 canonical source and test paths before adding these seven modules. Donor code enters
@@ -458,6 +582,13 @@ classDiagram
       +starts
       +callableMembership
     }
+    class ClosureContract {
+      <<authoritative>>
+      +closureContractRef
+      +predicateRef
+      +eventKindRefs
+      +payloadContractRefs
+    }
     class GraphFunction {
       <<authoritative>>
       +functionRef
@@ -482,10 +613,41 @@ classDiagram
       -implementationRef
       -realize(input)
     }
-    class ValidatedGtlView {
+    class RawAdmittedValue {
       <<authoritative>>
       +subjectDigest
+      +contractRef
+      +subjectKind
+    }
+    class ProgramValidation {
+      <<authoritative>>
+      +validationRef
+      +subjectDigest
       +diagnostics
+    }
+    class GraphValidation {
+      <<authoritative>>
+      +validationRef
+      +graphDigest
+      +diagnostics
+    }
+    class InvocationAdmission {
+      <<authoritative>>
+      +invocationAdmissionRef
+      +inputRef
+      +authorityRef
+    }
+    class ImplementationResolutionCandidate {
+      <<subordinate>>
+      -bindingRef
+      -implementationRef
+      -packageRef
+    }
+    class AdmittedImplementationResolution {
+      <<authoritative>>
+      +resolutionRef
+      +bindingRef
+      +implementationRef
     }
     class ExecutionBasis {
       <<authoritative>>
@@ -514,6 +676,12 @@ classDiagram
       +stageRole
       +attempt
     }
+    class OpenedTraversalScope {
+      <<subordinate>>
+      -runRef
+      -graphCallRef
+      -frameRef
+    }
     class TraversalCursor {
       <<subordinate>>
       -locusRef
@@ -529,6 +697,12 @@ classDiagram
       -frameRef
       -locusRef
       -stopKind
+    }
+    class LeafRealizationCandidate {
+      <<subordinate>>
+      -kind
+      -evidenceCandidates
+      -resultCandidate
     }
     class RuntimeEvent {
       <<authoritative>>
@@ -553,15 +727,35 @@ classDiagram
     WorkspaceBinding "0..*" --> "1" ProductSet
     AdmittedCatalog "0..*" --> "1" WorkspaceBinding
     CatalogView "0..*" --> "1" AdmittedCatalog
-    CatalogView "1" --> "1..*" ModulePublication
+    CatalogView "1" --> "0..*" ModulePublication
     ModulePublication "1" *-- "1..*" GtlProgram
     ModulePublication "1" *-- "1..*" GraphFunction
     ModulePublication "1" *-- "1..*" ImplementationBinding
     ImplementationBinding "1" --> "1" LeafImplementation
-    CatalogView "1" --> "1..*" GtlProgram
+    CatalogView "1" --> "0..*" GtlProgram
+    CatalogView "1" --> "0..*" GraphFunction
+    CatalogView "1" --> "0..*" ImplementationBinding
     GtlProgram "1..*" --> "1..*" GraphFunction
+    GtlProgram "1" --> "1" ClosureContract
     GraphFunction "1" --> "0..*" Graph
-    GtlProgram "1" --> "1" ValidatedGtlView
+    ProgramValidation "1" --> "1..*" RawAdmittedValue
+    ProgramValidation "0..*" --> "1" GtlProgram
+    GraphValidation "0..*" --> "1" Graph
+    GraphValidation "1" --> "1" ProgramValidation
+    InvocationAdmission "1" --> "1" RawAdmittedValue
+    InvocationAdmission "1" --> "1" ProgramValidation
+    InvocationAdmission "1" --> "1" WorkspaceBinding
+    InvocationAdmission "1" --> "1" CatalogView
+    ImplementationResolutionCandidate "0..*" --> "1" CatalogView
+    ImplementationResolutionCandidate "0..*" --> "1" GraphValidation
+    ImplementationResolutionCandidate "0..*" --> "1" ImplementationBinding
+    ImplementationResolutionCandidate "0..*" --> "1" LeafImplementation
+    AdmittedImplementationResolution "1" --> "1" ImplementationResolutionCandidate
+    ExecutionBasis "1" --> "1" InvocationAdmission
+    ExecutionBasis "1" --> "1" ProgramValidation
+    ExecutionBasis "1" --> "1" GraphValidation
+    ExecutionBasis "1" --> "1" AdmittedImplementationResolution
+    ExecutionBasis "1" --> "1" ClosureContract
     ExecutionBasis "1" --> "1" WorkspaceBinding
     ExecutionBasis "1" --> "1" ProductSet
     ExecutionBasis "1" --> "1" AdmittedCatalog
@@ -575,7 +769,11 @@ classDiagram
     GraphCall "1" --> "1" Graph
     GraphCall "1" *-- "1..*" Frame
     Frame "1" *-- "0..*" CCall
-    CCall "1" --> "1" ImplementationBinding
+    OpenedTraversalScope "1" --> "1" Run
+    OpenedTraversalScope "1" --> "1" GraphCall
+    OpenedTraversalScope "1" --> "1" Frame
+    CCall "1" --> "1" AdmittedImplementationResolution
+    CCall "1" --> "1" LeafRealizationCandidate
     Frame "1" *-- "1" TraversalCursor
     Frame "1" *-- "0..1" TraversalStopRef
     TraversalCursor "1" --> "0..1" TransitionProposal
@@ -593,10 +791,10 @@ classDiagram
 | abg.cli | parser, transport, PublicOutcome renderer |
 | Operation Application | stateless wiring of one declared public operation contract to owner ports |
 | Product and Catalog | VerifiedProductArtifact, ProductInstall, ProductSet, WorkspaceBinding, ModulePublication, AdmittedCatalog, and CatalogView |
-| GTL | GtlProgram, GraphFunction, Graph, and ImplementationBinding declarations |
-| GTL Validator | ValidatedGtlView authority |
-| ABG | ExecutionBasis, Run, GraphCall, Frame, CCall, RuntimeEvent, and ReplayState |
-| HoG | TraversalCursor and TransitionProposal execution boundary |
+| GTL | GtlProgram, GraphFunction, Graph, ImplementationBinding, and ClosureContract declarations |
+| GTL Validator | RawAdmittedValue, ProgramValidation, GraphValidation, and implementation-resolution diagnostics |
+| ABG | InvocationAdmission, AdmittedImplementationResolution, ExecutionBasis, Run, GraphCall, Frame, CCall, RuntimeEvent, and ReplayState |
+| HoG | OpenedTraversalScope consumer, TraversalCursor, and TransitionProposal execution boundary |
 | F_D Implementation | selected ImplementationBinding realization in src/implementation |
 
 ```mermaid
@@ -632,7 +830,11 @@ sequenceDiagram
     Operation-->>CLI: typed binding result
     User->>CLI: catalog.admit exact publications
     CLI->>Operation: typed catalog request
-    Operation->>Product: validate publication candidate
+    Operation->>Validator: raw-admit package GTL declarations
+    Validator-->>Operation: RawAdmittedValue declarations
+    Operation->>Validator: validate Program, templates, contracts, bindings
+    Validator-->>Operation: ProgramValidation
+    Operation->>Product: construct publication candidate from validated declarations
     Product-->>Operation: exact publication candidate
     Operation->>ABG: admit catalog against binding and lock
     ABG-->>Operation: AdmittedCatalog
@@ -645,27 +847,33 @@ sequenceDiagram
     ABG-->>Operation: CatalogView
     Operation-->>CLI: typed view result
     User->>CLI: run.invoke exact Program and GraphFunction
-    CLI->>Operation: one typed invocation request
-    Operation->>Validator: validate admitted Program, template, contracts, binding
-    Validator-->>Operation: ValidatedGtlView
-    Operation->>GTL: materialize GraphFunction GTL graph
+    CLI->>Operation: one serialized invocation request
+    Operation->>Validator: raw-admit input under exact input contract
+    Validator-->>Operation: RawAdmittedValue input
+    Operation->>Validator: validate admitted Program membership and function contract
+    Validator-->>Operation: ProgramValidation on catalog subject digest
+    Operation->>ABG: admit input, Program, function, environment, policy, authority
+    ABG-->>Operation: InvocationAdmission
+    Operation->>GTL: materialize GraphFunction with admitted input
     GTL-->>Operation: materialized Graph candidate
-    Operation->>Validator: validate Graph against same declaration basis
-    Validator-->>Operation: validated Graph view
-    Operation->>ABG: admit invocation and bind exact bases
-    ABG-->>Operation: ExecutionBasis
+    Operation->>Validator: validate Graph against ProgramValidation
+    Validator-->>Operation: GraphValidation
+    Operation->>Product: resolve exact implementation candidate from CatalogView
+    Product-->>Operation: ImplementationResolutionCandidate or typed refusal
+    Operation->>Validator: validate declaration, package, and contract relations
+    Validator-->>Operation: validated implementation candidate
+    Operation->>ABG: admit implementation and finalize exact basis
+    ABG-->>Operation: AdmittedImplementationResolution and ExecutionBasis
     Operation->>ABG: open Run, GraphCall, and Frame
-    ABG-->>Operation: opened aggregate refs
-    Operation->>HoG: execute validated GTL with ABG and implementation ports
+    ABG-->>Operation: OpenedTraversalScope with exact aggregate refs
+    Operation->>HoG: traverse validated GTL with scope and admitted implementation port
     HoG->>ABG: propose first GTL transition
     ABG-->>HoG: admitted first transition
     HoG->>HoG: apply transition and reach declared C locus
-    HoG->>ABG: open CCall with locus-only identity
-    ABG-->>HoG: CCall and c_call_opened
-    HoG->>ABG: admit declared F_D fibre, arm, and binding
-    ABG-->>HoG: c_call_fibre_selected
+    HoG->>ABG: atomically open CCall with scope, locus, and admitted implementation
+    ABG-->>HoG: CCall, c_call_opened, c_call_fibre_selected
     HoG->>Host: realize admitted Hello World leaf
-    Host-->>HoG: evidence candidates and result candidate
+    Host-->>HoG: closed success or failure LeafRealizationCandidate
     HoG->>ABG: admit evidence candidates in CCall
     ABG-->>HoG: c_call_evidenced rows
     HoG->>ABG: admit result against output contract
@@ -676,8 +884,10 @@ sequenceDiagram
     HoG->>ABG: propose declared terminal transition
     ABG-->>HoG: admitted terminal transition
     HoG->>HoG: apply terminal transition
-    HoG->>ABG: submit judged terminal locus for closure admission
-    ABG->>ABG: append closure events and replay
+    HoG->>ABG: submit judged terminal locus and exact ClosureContract
+    ABG->>ABG: admit predicate and append terminal_reached
+    ABG->>ABG: append frame_closed, graph_call_closed, run_closed
+    ABG->>ABG: replay exact closure payload chain
     ABG-->>HoG: admitted closure
     HoG-->>Operation: TraversalStopRef only
     Operation->>ABG: replay episode first time
@@ -701,16 +911,26 @@ it never invokes the validator. Product emits candidates; it never calls ABG.
 ```mermaid
 stateDiagram-v2
     [*] --> Submitted
-    Submitted --> Refused: raw or static validation fails
-    Submitted --> BasisAdmitted: ABG admits exact invocation basis
+    Submitted --> RawAdmitted: raw input admission succeeds
+    Submitted --> Refused: raw admission fails
+    RawAdmitted --> ProgramValidated: whole-program validation succeeds
+    RawAdmitted --> Refused: Program validation fails
+    ProgramValidated --> InvocationAdmitted: ABG admits input and invocation
+    InvocationAdmitted --> GraphMaterialized: GraphFunction constructs Graph
+    GraphMaterialized --> GraphValidated: Graph validation succeeds
+    GraphMaterialized --> Refused: Graph validation fails
+    GraphValidated --> BasisAdmitted: implementation resolution and basis admitted
+    GraphValidated --> Refused: resolution absent, ambiguous, or conflicting
     BasisAdmitted --> CallOpen: ABG opens run, call, and frame
     CallOpen --> Traversing: HoG applies admitted first transition
     Traversing --> Traversing: admitted structural transition
     Traversing --> AwaitingLeaf: declared leaf reached
-    AwaitingLeaf --> CCallOpen: ABG emits c_call_opened
-    CCallOpen --> FibreAdmitted: ABG emits c_call_fibre_selected
-    FibreAdmitted --> RealizingLeaf: implementation receives admitted seam
+    AwaitingLeaf --> PreCallRefused: atomic open and fibre admission refuses before CCall identity
+    AwaitingLeaf --> CCallReady: ABG atomically emits c_call_opened then c_call_fibre_selected
+    CCallReady --> RealizingLeaf: implementation receives admitted seam
     RealizingLeaf --> EvidenceAdmitted: ABG admits zero or more evidence rows
+    RealizingLeaf --> ResultAdmitted: zero evidence rows then typed result admitted
+    EvidenceAdmitted --> EvidenceAdmitted: next evidence row admitted
     EvidenceAdmitted --> ResultAdmitted: ABG admits typed result
     ResultAdmitted --> Judged: ABG admits declared judgment
     Judged --> Traversing: non-terminal transition admitted and applied
@@ -719,22 +939,24 @@ stateDiagram-v2
     Judged --> HumanHold: typed F_H hold
     HumanHold --> Traversing: attributed response admitted
     Judged --> Yielded: typed non-terminal yield
-    AwaitingLeaf --> Blocked: C-call or fibre non-admission
-    RealizingLeaf --> Failed: malformed or unavailable declared seam
-    Judged --> Closing: declared terminal transition admitted and applied
-    Closing --> Closed: replay derives result and closure
-    Closing --> Blocked: closure predicate not satisfied
+    Judged --> TerminalAdmitted: success, blocked, or failed transition admitted
+    TerminalAdmitted --> Closing: HoG applies admitted terminal transition
+    Closing --> Closed: exact closure event chain admitted and replayed
+    Closing --> ClosureRefused: closure predicate or payload contract refuses
+    PreCallRefused --> RefusedAfterOpen: typed runtime refusal event admitted
     Refused --> [*]
+    RefusedAfterOpen --> [*]
     Yielded --> [*]
-    Blocked --> [*]
-    Failed --> [*]
+    ClosureRefused --> [*]
     Closed --> [*]
 ```
 
 Retry, F_H hold, and yield states are retained lifecycle identities but are
 deferred outside the first all-F_D root realization. Their presence prevents
 the first implementation from collapsing non-terminal outcomes into success
-or generic failure.
+or generic failure. Once a CCall exists, typed success, blocked, and failed
+results all pass through result admission and judgment before any terminal
+transition. Pre-call refusal is the only failure path without a CCall spine.
 
 ## 10. Event Calculus Relationship
 
@@ -744,22 +966,46 @@ scheduler and does not choose GTL topology.
 | Admitted event family | Initiates | Terminates | Consumer |
 |---|---|---|---|
 | public operation artifact admitted | installed artifact available for exact scope | none | workspace binding admission |
-| basis and run opened | basis_admitted, run_active | none | HoG entry guard |
-| graph call and frame opened | call_active, frame_active | none | HoG cursor creation |
+| invocation admitted | invocation_admitted | none | graph materialization guard |
+| implementation binding and basis admitted | implementation_admitted, basis_admitted | none | openCall guard |
+| run_segment_opened | run_active | none | aggregate opening guard |
+| graph_call_opened and frame_opened | call_active, frame_active | none | OpenedTraversalScope creation and HoG cursor guard |
 | transition admitted | target_locus_eligible | prior_locus_active when crossed | HoG applyStep |
 | C-call opened | c_call_active | none | fibre-selection guard; carries locus only |
 | C-call fibre selected | fibre_admitted | none | implementation invocation guard |
 | C-call evidence admitted | evidence_available | none | result and audit predicates |
-| C-call result admitted | result_available | none | judgment predicate |
+| C-call result admitted | typed success or failure result_available | none | judgment predicate |
 | C-call judgment admitted | judgment_available | c_call_active | transition and closure predicates |
 | retry admitted | retry_pending | current attempt active | HoG fresh attempt |
 | hold or yield admitted | hold_active or yielded | frame_active when suspended | public projection |
-| closure admitted | run_closed, call_closed, frame_closed | corresponding active fluents | PublicOutcome |
+| runtime_failure_observed before CCall or at closure admission | typed refusal or closure_refused | affected active fluent | PublicOutcome without a fabricated CCall or close |
+| terminal_reached | terminal_admitted | none | ordered aggregate closure guard |
+| frame_closed | frame_closed | frame_active | graph-call closure guard |
+| graph_call_closed | call_closed | call_active | run closure guard |
+| run_closed | run_closed | run_active | PublicOutcome |
 | correction admitted | corrected fact | superseded fact | replay and re-entry |
 
 Each event kind used by implementation must bind to the published event-kind
 census and declare its exact initiates, terminates, clips, and declips effects.
 The table names fluent roles, not a new event roster.
+
+M4 extends the canonical event-kind roster with `frame_closed`,
+`graph_call_closed`, and `run_closed`; those identities are fixed here rather
+than selected during implementation. The existing `terminal_reached` kind
+precedes them. Every event uses the canonical envelope. Closure payloads are:
+
+| Event kind | Required payload beyond the canonical envelope |
+|---|---|
+| terminal_reached | basisId, runId, graphCallId, frameId, cCallRef, resultRef, judgmentEventRef, closureContractRef, terminalKind, causationEventRefs, correlationId |
+| frame_closed | basisId, runId, graphCallId, frameId, terminalReachedEventRef, closureContractRef, causationEventRefs, correlationId |
+| graph_call_closed | basisId, runId, graphCallId, frameClosedEventRef, closureContractRef, causationEventRefs, correlationId |
+| run_closed | basisId, runId, graphCallClosedEventRef, closureContractRef, causationEventRefs, correlationId |
+
+ABG appends those four events in that order only after the named F_D closure
+predicate accepts the exact judged CCall and replay basis. A predicate,
+evidence, payload, or causal-reference failure emits no close event; it records
+a typed refusal through the existing failure event family. This contract is
+the sole closure choice available to M4.
 
 HoG consults replay-derived fluents only to determine whether the next
 GTL-declared relation is currently admissible. ABG admission resolves
@@ -771,14 +1017,19 @@ conflicting or stale runtime pressure. Neither operation authors a new edge.
 |---|---|---|
 | typed carriers and variants | TypeScript readonly records, generics, discriminated unions | native |
 | GTL authoring | ordinary GTL.TypeScript constructors | native; selectively re-adopt declaration interiors |
-| static whole-program checks | deterministic TypeScript functions over admitted values | native; validator emits diagnostics only |
+| raw and static checks | discriminated RawAdmittedValue plus deterministic ProgramValidation and GraphValidation functions | native; validator emits judgments and diagnostics only |
 | direct graph traversal | TypeScript tail loop or async iterator over original graph values | native; no IR required |
 | F_D leaf execution | src/implementation total TypeScript function addressed by admitted ImplementationBinding | native; no adapter or event access required |
-| event append and replay | append-only store plus pure folds | native; ABG owns admission ordinal |
+| event append and replay | append-only discriminated event union plus pure folds | native; M4 adds the three fixed aggregate-close variants and ABG owns admission ordinal |
 | Event Calculus | declared event-effect table plus deterministic fold | native |
 | operation composition | ordinary stateless function composition over typed owner ports | native; no controller state or dependency cycle |
 | package and CLI | Node 20 ESM package and thin binary | native |
 | source-independent proof | npm pack, temporary install, child process | native |
+
+The implementation invocation port totalizes the declared F_D result domain:
+an implementation exception or malformed return becomes a typed failure
+LeafRealizationCandidate and still crosses evidence, result, and judgment
+admission. It cannot become a direct runtime Failed state.
 
 No future GTL, ABG, GLC, registry, or external service capability is required
 for the root. Live F_P workers, Consensus, and STDO 2.0 qualification are later
@@ -791,12 +1042,12 @@ Product slices and do not block native construction of this boundary.
 | R1 exact artifacts verified | product.verifyProduct | package digest and manifest verification from packed bytes |
 | R2 clean install complete | product.install -> ProductInstall | source-blind temporary installation with no source import |
 | R3 workspace bound | product.bindWorkspace plus ABG admission | immutable WorkspaceBinding and basis event |
-| R4 catalog admitted and narrowed | product publication plus ABG admitCatalog and narrowCatalogView | exact Module, Program, GraphFunction, contract, and implementation rows |
-| R5 target Program selected and admitted | ABG admitInvocation | exact Program identity and membership evidence |
-| R6 GraphFunction and contracts resolved | validator plus ABG binding admission | exact function/input/output/implementation identities |
-| R7 materialized graph validated | GraphFunction materialize plus validator | same GTL identity, graph digest, and typed diagnostics |
-| R8 HoG entered through public invocation | public shell plus HoG execute | public request causally linked to Run, GraphCall, and Frame |
-| R9 ABG admitted causal result and closure | ABG openCCall, admitFibre, admitEvidence, admitResult, admitJudgment, admitTransition, closeCall, and replay | exact uniform C-call order plus transition and close events |
+| R4 catalog admitted and narrowed | rawAdmitValue, validateProgram, product publication, admitCatalog, narrowCatalogView | exact Module, ProgramValidation, GraphFunction, contract, implementation, and possibly-empty view rows; root view contains the selected row |
+| R5 target Program selected and admitted | ABG admitInvocation | exact ProgramValidation, Program membership, raw-admitted input, environment, policy, capability, and authority evidence |
+| R6 GraphFunction and contracts resolved | resolveImplementation, validateImplementation, and ABG admission | exact function, input, output, failure, binding, package, and LeafImplementation identities |
+| R7 materialized graph validated | GraphFunction materialize, validateGraph, admitExecutionBasis | same GTL identity, GraphValidation, graph digest, admitted implementation resolution, and final basis |
+| R8 HoG entered through public invocation | ABG openCall plus public shell and HoG traverse | public request causally linked to explicit OpenedTraversalScope carrying Run, GraphCall, and Frame refs |
+| R9 ABG admitted causal result and closure | ABG atomic openCCall, admitEvidence, admitResult, admitJudgment, admitTransition, admitClosure, and replay | exact uniform C-call order plus terminal_reached, frame_closed, graph_call_closed, and run_closed payload chain |
 | R10 replay and CLI agree | ABG replay plus public projectOutcome | two identical replay folds and typed CLI output |
 
 The root governor executes after every promoted M4 implementation checkpoint.
@@ -842,12 +1093,18 @@ or executable:
 | disable the direct HoG entry while installing a callable CompiledCProgramPlan rival | invocation fails before effects; the rival path cannot recover a result |
 | route run.invoke through a renamed feature runner or controller with the same output | causal Run, GraphCall, Frame, CCall, and HoG transition evidence is absent or contradictory, so R8-R10 fail |
 | inject a default Program or GraphFunction in CLI | ABG rejects missing exact membership |
+| bypass raw admission for package GTL or invocation input | ProgramValidation or InvocationAdmission cannot be formed |
+| reuse ProgramValidation after the Program digest changes or bind GraphValidation from another materialization | admitExecutionBasis rejects the mismatched validation basis |
 | replace GraphFunction template with implementation-only callable | validation rejects missing constructive graph |
+| omit one Run, GraphCall, or Frame ref from OpenedTraversalScope and recover it from ambient state | HoG entry rejects the incomplete scope before traversal |
+| add a second eligible implementation row or let public select one | deterministic Product resolution refuses ambiguity and ABG emits no ExecutionBasis |
 | allow host result to bypass ABG admission | replay remains non-terminal and root stays red |
+| turn an implementation failure into a direct Failed state after c_call_opened | missing result_admitted or judged event breaks the uniform spine and R9 fails |
 | remove one required event while fixture writes expected output | R9 or R10 fails |
 | change event order or collide admission ordinals | replay admission rejects |
-| let SDK choose a non-view implementation | binding admission rejects |
+| let SDK choose a non-view implementation | Product resolution or ABG implementation admission rejects |
 | let HoG apply an unadmitted TransitionProposal | transition guard rejects and emits no false success |
+| omit, reorder, or alter one terminal_reached, frame_closed, graph_call_closed, or run_closed payload ref | closure admission or replay rejects and R9 remains red |
 | make fixture author closed state | replay disagreement leaves R10 red |
 
 The positive and negative halves are both required. Identifier scans alone do
@@ -897,16 +1154,17 @@ facade preserves prohibited identity.
 
 | Axiom | Ontology evidence | Authority | Domain evidence | Sequence evidence | State evidence | Native enforcement | Admission or validator enforcement | Verdict | Gap owner |
 |---|---|---|---|---|---|---|---|---|---|
-| one GTL language and Program authority | GtlProgram and declaration family | GTL | Program relates to GraphFunction | original GTL enters validator and HoG | invalid GTL refuses before call | TypeScript types | whole-program validator | pass | none |
+| one GTL language and Program authority | GtlProgram and declaration family | GTL | Program relates to GraphFunction | raw-admitted GTL enters validator; validated original enters HoG | invalid GTL refuses before call | TypeScript types and raw admission | ProgramValidation | pass | none |
 | GraphFunction has constructive graph | GraphFunction entity | GTL | materialize relation | materialization precedes call opening | missing graph refuses | typed constructor | materialized graph validation | pass | none |
-| validator does not lower | ValidatedGtlView | validator | static judgment over same identity | same subject returns to HoG | no execution state | return type excludes plan | validator output contract | pass | none |
-| one HoG executor | traversal family | HoG | cursor subordinate to Frame | HoG alone proposes and applies steps | Traversing follows HoG relation | module dependency | admitted-transition guard | pass | none |
+| validator does not lower | ProgramValidation and GraphValidation | validator | static judgments over exact source and materialization identities | exact views enter ExecutionBasis and HoG | no execution state | return types exclude plan | validator output contracts | pass | none |
+| one HoG executor | traversal family | HoG | cursor subordinate to explicit OpenedTraversalScope and Frame | HoG alone proposes and applies steps | Traversing follows HoG relation | module dependency and required scope parameter | admitted-transition guard | pass | none |
 | ABG owns runtime truth | RuntimeEvent family | ABG | events feed ReplayState | every candidate crosses ABG | runtime states replay-derived | private emit API | event and result admission | pass | none |
-| uniform C-call spine | CCall aggregate | ABG | CCall relates to ordered events | open, select, evidence, result, judgment are explicit | state path preserves order | event constructors private to ABG | spine-order admission | pass | none |
-| F_D candidate is not truth | leaf realization family | implementation proposes; ABG admits | binding addresses private function | host returns evidence and result separately through HoG to ABG | result unavailable before admission | opaque candidate types and no event port | ABG evidence and result admission | pass | none |
+| uniform C-call spine | CCall aggregate | ABG | CCall relates to ordered events | atomic open/select then evidence, result, judgment are explicit | all post-open success and failure paths preserve order | event constructors private to ABG | spine-order admission | pass | none |
+| F_D candidate is not truth | leaf realization family | implementation proposes; ABG admits | admitted resolution addresses private function | host returns one closed success-or-failure candidate through HoG to ABG | result unavailable before admission | opaque candidate union and no event port | ABG evidence and result admission | pass | none |
 | public shell is thin | PublicOutcome | public projection | downstream only | CLI calls one fixed operation application and renders once | no public-owned state | stateless composition and import boundary | invocation admission | pass | none |
 | Event Calculus derives fluents only | event-effect relation | ABG replay | no topology relation | replay guards HoG entry | fluent changes follow events | exhaustive effect table | event census and ordinal checks | pass | none |
-| exact binding precedes effects | ExecutionBasis | ABG | joins all exact refs | admission precedes call opening | refused basis is terminal | constructor-private basis | binding admission | pass | none |
+| exact binding precedes effects | InvocationAdmission, AdmittedImplementationResolution, and ExecutionBasis | ABG | joins both validation refs and all exact bases | staged admission precedes OpenedTraversalScope and call opening | refused stage is terminal | constructor-private admissions | invocation, implementation, and basis admission | pass | none |
+| closure events are fixed and replayable | ClosureContract and RuntimeEvent family | GTL declares; ABG admits | exact four-event payload chain closes Frame, GraphCall, and Run | terminal_reached precedes three aggregate closes | no close fluent without all payload refs | closed event union | predicate, payload, order, and causal admission | pass | none |
 | no rival compiler or controller | rejected carrier list | GTL, HoG, ABG | no rival entity | Operation Application wires owners without selection or state | no rival lifecycle | package dependency gate | semantic-differential and disabled-HoG mutations | pass | none |
 | root is exact R1-R10 | root mapping | Product governor | all required identities present | sunny sequence spans R1-R10 | Closed requires replay agreement | installed driver | root governor | pass | none |
 | deferred families remain visible | deferred table | Product scenarios | no fake peer carrier | absent from sunny path | retained typed states | later module slices | later scenario gates | pass | none |
@@ -923,11 +1181,14 @@ After design acceptance, one M4 implementation ticket shall:
    absent;
 2. establish only the seven module boundaries named here;
 3. implement R1 through R4 prerequisites with no executable placeholder;
-4. implement one all-F_D Program and GraphFunction;
-5. implement the direct HoG and ABG bind through R10;
+4. implement raw admission, ProgramValidation, one all-F_D Program and
+   GraphFunction, GraphValidation, and staged ABG basis admission;
+5. implement Product implementation-resolution proposal, ABG admission,
+   explicit OpenedTraversalScope, and the direct HoG and ABG bind through R10;
 6. expose only the installed thin abg.cli path;
-7. run the root governor after each promoted checkpoint; and
-8. stop horizontal expansion until ABI5-ROOT-001 is green.
+7. implement the fixed terminal and aggregate-close event payload family;
+8. run the root governor after each promoted checkpoint; and
+9. stop horizontal expansion until ABI5-ROOT-001 is green.
 
 The implementation ticket may split review cuts for reliability. It may not
 create another design authority, module family, program identity, or controller.
