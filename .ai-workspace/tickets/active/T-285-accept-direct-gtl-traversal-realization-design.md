@@ -5,9 +5,9 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_repaired_design_candidate_frozen_replacement_review_pending
-- review_status: replacement_independent_exact_design_review_pending
-- proof_status: repair_self_review_and_mechanical_gates_green
+- phase_status: m3_repaired_design_independently_accepted_fh_decision_pending
+- review_status: independent_exact_design_review_accepted
+- proof_status: exact_identity_and_design_gates_green
 - goal: GOAL-035 M3
 - priority: critical
 - change_intent: >-
@@ -53,6 +53,9 @@
 - design_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T104359Z_CHECKPOINT_t285_repaired_direct_gtl_design_candidate_manifest.md
+- replacement_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T105448Z_REVIEW_t285_repaired_direct_gtl_design_candidate.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 
