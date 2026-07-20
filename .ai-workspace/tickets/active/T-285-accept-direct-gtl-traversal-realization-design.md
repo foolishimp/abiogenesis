@@ -5,9 +5,9 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_design_candidate_frozen_independent_review_pending
-- review_status: independent_exact_design_review_pending
-- proof_status: self_review_and_mechanical_gates_green
+- phase_status: m3_repaired_design_candidate_frozen_replacement_review_pending
+- review_status: replacement_independent_exact_design_review_pending
+- proof_status: repair_self_review_and_mechanical_gates_green
 - goal: GOAL-035 M3
 - priority: critical
 - change_intent: >-
@@ -36,17 +36,23 @@
     M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 - design_subject_boundary: immutable_design_file_only
 - design_index_ref: build_tenants/abiogenesis/typescript/design/README.md
-- design_candidate_commit: c832515cadbd41c6089cc248dc65f38f15cb748f
-- design_candidate_tree: 5876805a25009768acb28bd416e81c71a3c69a3b
-- design_subject_blob: 7a3679d7f29c474635c57c318934803044db4a5c
-- design_subject_sha256: d845c58952ba15d564467680f4e01649b8439a2dc2b1bacd7f5500328717b9e4
-- design_subject_lines: 826
+- superseded_design_candidate_commit: c832515cadbd41c6089cc248dc65f38f15cb748f
+- superseded_design_subject_blob: 7a3679d7f29c474635c57c318934803044db4a5c
+- superseded_design_subject_sha256: d845c58952ba15d564467680f4e01649b8439a2dc2b1bacd7f5500328717b9e4
+- first_independent_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T103245Z_REVIEW_t285_direct_gtl_design_candidate.md
+- design_candidate_commit: 46098232e382b52e8d7bf903c3c66a6946fee44f
+- design_candidate_tree: e04e499c56b4ca3ccb59689b76f1a2e1489fe74a
+- design_subject_blob: 2b592ce4b7704fa633e7d9db6b0875ebd3d0317d
+- design_subject_sha256: f05775332650a86d78a9559d396c935d3d11ed914d1a7dd1570b1c3eb5b93201
+- design_subject_lines: 953
 - design_self_review_ref: >-
     .ai-workspace/comments/codex/
-    20260720T101336Z_SELF_REVIEW_t285_direct_gtl_design_candidate.md
+    20260720T104359Z_SELF_REVIEW_t285_repaired_direct_gtl_design_candidate.md
 - design_manifest_ref: >-
     .ai-workspace/comments/codex/
-    20260720T101336Z_CHECKPOINT_t285_direct_gtl_design_candidate_manifest.md
+    20260720T104359Z_CHECKPOINT_t285_repaired_direct_gtl_design_candidate_manifest.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 
@@ -71,8 +77,9 @@ GTL.TypeScript program or GraphFunction
   -> non-lowering GTL whole-program validation
   -> ABG invocation and binding admission
   -> direct HoG traversal of the admitted GTL graph
-  -> host realization of declared F_D leaf seams
-  -> ABG event, result, transition, and closure admission
+  -> ABG C-call opening and declared-fibre admission
+  -> src/implementation realization of the declared F_D leaf seam
+  -> ABG evidence, result, judgment, transition, and closure admission
   -> replay-derived SDK or CLI projection
 ```
 
