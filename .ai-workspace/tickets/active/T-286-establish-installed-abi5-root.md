@@ -10,9 +10,9 @@
     this is the first realization of the accepted direct-GTL boundary; RC5, X,
     and final-integration are sideways donors rather than reusable authority
 - status: active
-- phase_status: m4_rival_path_negative_proof_in_progress
+- phase_status: m4_exact_candidate_review_in_progress
 - review_status: implementation_review_pending
-- proof_status: root_green_negative_assurance_pending
+- proof_status: root_and_rival_proof_green_review_pending
 - goal: GOAL-035 M4
 - priority: critical
 - change_intent: >-
@@ -42,7 +42,7 @@
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - root_binding: ABI5-ROOT-001
 - root_governor: abg5.root.s01.hello_world@5
-- current_frontier: root_satisfied_rival_path_assurance_pending
+- current_frontier: m4_exact_candidate_review
 - implementation_branch: codex/t286-abi5-root
 - implementation_worktree: /Users/jim/src/apps/abiogenesis-5-root-build
 - clean_successor_commit: 9d442b4c8390c0c1e767c1bd46bd7bde282ebd99
@@ -89,6 +89,10 @@
 - r10_evidence: >-
     .ai-workspace/comments/codex/
     20260720T171241Z_CHECKPOINT_t286_r10_installed_cli_root_green.md
+- b8_implementation_commit: 16bca623008b76f0e0e7d619e15ff6991db3ed7e
+- b8_evidence: >-
+    .ai-workspace/comments/codex/
+    20260720T172611Z_CHECKPOINT_t286_b8_rival_authority_refusal_complete.md
 
 ## Purpose
 
@@ -175,7 +179,7 @@ No final-integration `Y` row enters this all-F_D root.
 | `B5` | `R8` direct HoG execution entered | installed public invocation opens Run/GraphCall/Frame and reaches the declared all-F_D C locus with no compiled plan or controller | `[x] complete at 68aa3b10 - explicit scope and direct C-locus entry` |
 | `B6` | `R9` causal result and closure admitted | uniform C-call spine plus `terminal_reached -> frame_closed -> graph_call_closed -> run_closed` in one ABG ledger | `[x] complete at 79f0e00b - Event Calculus, replay-derived judgment, admitted transition, exact closure, and same-spine rejection` |
 | `B7` | `R10` replay and CLI agree | two independent replay folds equal the thin installed CLI typed outcome | `[x] complete at 39a0b6bc - installed abg.cli, caller-authored operation order, durable ABG log, two equal replay folds, typed Hello World outcome` |
-| `B8` | rival paths cannot satisfy the root | real-path mutations for compiled plan, hidden/default program, controller, private ExecutionBasis, event bypass, and fixture-authored result | `[ ] pending` |
+| `B8` | rival paths cannot satisfy the root | real-path mutations for compiled plan, hidden/default program, controller, private ExecutionBasis, event bypass, and fixture-authored result | `[x] complete at 16bca623 - all six refused at the installed public boundary before runtime admission` |
 | `B9` | M4 exact candidate accepted | clean full root rerun, focused code review, exact evidence receipt, and T-286 closure | `[ ] pending` |
 
 Only strict advancement of the current typed frontier changes Product progress.
