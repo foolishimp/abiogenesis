@@ -4,8 +4,8 @@
 - title: Freeze donor lines and derive the complete 4.6-to-5.0 correction vector
 - type: analysis
 - ticket_category: ordinary
-- status: active
-- phase_status: fourth_replacement_candidate_independently_accepted_fh_decision_pending
+- status: completed
+- phase_status: m2_closed_by_direct_fh_acceptance
 - review_status: independent_exact_cut_review_accepted
 - proof_status: exact_cut_and_authority_boundaries_independently_reproduced
 - goal: GOAL-035 M2
@@ -105,9 +105,14 @@
     .ai-workspace/comments/codex/
     20260720T093312Z_REVIEW_t284_fourth_replacement_independent_acceptance.md
 - fourth_replacement_independent_review_verdict: accept
-- implementation_hold: active
-- implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: independently_accepted_fh_decision_pending
+- final_fh_decision_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T094323Z_DECISION_fh_accept_t284_and_authorize_m3.md
+- final_fh_decision: accept_and_authorize_m3_design
+- closed_at: 2026-07-20
+- implementation_hold: superseded_by_t285_m3_design_gate
+- implementation_hold_effect: no successor code promotion until M3 design acceptance
+- constitutional_refreeze: accepted_and_closed
 - x_carrier_membership_ref: >-
     .ai-workspace/comments/codex/
     20260720T055423Z_EVIDENCE_t284_x_carrier_membership.md

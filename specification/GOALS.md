@@ -10,15 +10,13 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M2 requirement repair and correction vector under T-284; implementation held |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M3 direct-GTL realization design under T-285; implementation held until design acceptance |
 
 ## Current Constitutional Basis
 
-The ABIogenesis 5.0 Product destination is accepted. Independent review of M2
-found bounded requirement contradictions in direct invocation, traversal
-realization, and scheduling ownership. The current work is the T-284
-requirement repair and correction-vector refreeze. Intent and Product remain
-stable.
+The ABIogenesis 5.0 Product destination and M2 correction vector are accepted.
+The current work is the bounded T-285 direct-GTL realization design. Intent,
+Product, and requirements remain stable.
 
 | Basis | Current truth |
 |---|---|
@@ -28,9 +26,12 @@ stable.
 | accepted constitutional candidate | `afb35def08b2259046830f87c18b45c95c84001c` |
 | accepted constitutional aggregate | `c85ca7ae34352b91d579fcfae035ca3aa3d9a27428b584ac81c425b0d837d260` |
 | final constitutional closure | `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md` |
-| current work carrier | `T-284` requirement reprice |
-| current constitutional state | accepted Product; requirement amendments and exact-subject review pending |
-| implementation state | held; RC5, X, and final-integration are sideways donor/evidence lines |
+| accepted M2 candidate | `6f2d3415cf1b453ad37d098e5be66fdd658ffc00` |
+| accepted M2 aggregate | `f2a4c6970f6240ef52bdb04693a38b8430fe29027a2f8f10ed5c9f70ba32b72a` |
+| M2 F_H decision | `.ai-workspace/comments/codex/20260720T094323Z_DECISION_fh_accept_t284_and_authorize_m3.md` |
+| current work carrier | `T-285` design reframe |
+| current constitutional state | accepted Product, requirements, and correction vector |
+| implementation state | held until M3 accepts the direct-GTL realization boundary; all donor lines remain sideways evidence |
 
 The constitutional authoring order is one unpromoted transaction:
 
@@ -92,8 +93,8 @@ evidence remain pending until implementation and qualification.
 |---:|---|---|---|
 | `M0` | Reify 5.0 constitution | One aligned Intent, Product, requirements, scenarios, Goal, root selection, and rival-authority disposition pass exact-cut review. | Completed by T-283 |
 | `M1` | Close constitutional destination | Method-decorrelated review accepts the exact candidate and a separate F_H receipt admits it. | Completed by T-283 |
-| `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Active under T-284 |
-| `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Blocked by M2 |
+| `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
+| `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Active under T-285 |
 | `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Blocked by M3 |
 | `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, and required negatives pass on the same candidate line. | Blocked by M4 |
 | `M6` | Adopt STDO 2.0 and qualify | Tap and install STDO 2.0; bind its exact identity in `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 and STDO 2.0 tap |
@@ -105,7 +106,8 @@ do not gate ABIogenesis 5.0.
 
 ## Active Ticket Disposition
 
-`T-283` is complete. `T-284` is the sole executable work owner during M2.
+`T-283` and `T-284` are complete. `T-285` is the sole executable work owner
+during M3.
 The existing active tickets `T-268`, `T-270`, `T-272`, `T-274`, `T-275`,
 `T-276`, `T-278`, `T-281`, and `T-282` remain held as evidence and candidate
 carriers. None retains an implementation sequence, accepted design, operation
@@ -117,10 +119,10 @@ Product scope.
 
 ## Progress Reporting
 
-Until M3 accepts replacement design, progress may report donor freeze,
-requirement repair, correction-vector, and design-input coverage only. It shall
-not report implementation percentage, feature completion, scenario completion,
-root advancement, qualification, or release readiness.
+Until M3 accepts replacement design, progress may report design coverage and
+review state only. It shall not report implementation percentage, feature
+completion, scenario completion, root advancement, qualification, or release
+readiness.
 
 After implementation resumes, every status report shall distinguish:
 

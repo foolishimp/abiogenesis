@@ -12,10 +12,10 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-284` M2 requirement repair and correction vector |
+| current work owner | `T-285` M3 direct-GTL realization design |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | held; RC5, X, and final-integration are sideways donor evidence |
-| replacement design | blocked pending M2 X-to-5 correction vector |
+| implementation | held until M3 design acceptance; RC5, X, and final-integration remain sideways donor evidence |
+| replacement design | active under T-285 |
 | delivery governor | `ABI5-ROOT-001`, currently unproved |
 | qualification method | tapped STDO 2.0 required before self-conformance and release |
 
@@ -63,7 +63,7 @@ Read in this order:
 5. [ABG requirements](specification/requirements/abg/)
 6. [mapping requirements](specification/requirements/mapping/)
 7. [Product requirements](specification/requirements/product/)
-8. [T-284](.ai-workspace/tickets/active/T-284-freeze-x-and-derive-5-correction-vector.md)
+8. [T-285](.ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md)
 
 `PRODUCT.md` is the one complete 5.0 Product-definition surface. Requirements
 decompose it. Goals select the current wave and exact root. Design and code do
@@ -84,10 +84,9 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against a donor line. First accept the bounded requirement
-repair and the refrozen no-silence correction vector under T-284, then accept a
-direct-GTL replacement design and establish `ABI5-ROOT-001` before horizontal
-feature work.
+Do not implement against a donor line. Accept the bounded direct-GTL
+replacement design under T-285, then establish `ABI5-ROOT-001` before
+horizontal feature work.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,

@@ -15,11 +15,10 @@
 
 ## Current Project Gate
 
-T-284 is the only executable work owner. The ABIogenesis 5.0 Product
-destination is accepted. Design, code, tests, proof promotion, and release work
-remain held while M2 repairs requirement authority, classifies all donor lines,
-and refreezes the correction vector and until M3 accepts replacement direct-GTL
-realization design.
+T-285 is the only executable work owner. The ABIogenesis 5.0 Product and M2
+correction vector are accepted. Code, tests, proof promotion, and release work
+remain held only until M3 accepts the replacement direct-GTL realization
+design.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -34,7 +33,7 @@ Read:
 3. `specification/PRODUCT.md`
 4. `specification/requirements/`
 5. accepted current-basis design, when one exists
-6. `.ai-workspace/tickets/active/T-284-freeze-x-and-derive-5-correction-vector.md`
+6. `.ai-workspace/tickets/active/T-285-accept-direct-gtl-traversal-realization-design.md`
 
 Comments and posts are inputs and evidence, not constitutional truth.
 
