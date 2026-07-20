@@ -10,7 +10,7 @@ truth.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 installed `ABI5-ROOT-001` under T-286; `R1-R9` satisfied; current frontier `R10` |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to 4.6 RC5. | The accepted `PRODUCT.md` completion predicate holds: all 17 Product outcomes, all seven Product scenarios, exact candidate qualification, immutable RC, final tap, and post-publication installed proof close without a rival program, executor, controller, event authority, or release subject. | Active - M4 installed `ABI5-ROOT-001` under T-286; `R1-R10` satisfied; rival-path assurance and exact-candidate review pending |
 
 ## Current Constitutional Basis
 
@@ -98,7 +98,7 @@ evidence remain pending until implementation and qualification.
 | `M1` | Close constitutional destination | Method-decorrelated review accepts the exact candidate and a separate F_H receipt admits it. | Completed by T-283 |
 | `M2` | Freeze donors and derive correction vector | Freeze X and final-integration; classify every RC5 semantic and implementation family plus X/final-integration carrier; repair Product/requirement authority contradictions; refreeze and independently review the exact subject. | Completed by T-284 |
 | `M3` | Accept direct-GTL realization design | Design proves GTL -> validator -> HoG -> ABG, positive intended authority, and real-path absence of compiled-plan and controller rivals. | Completed by T-285 |
-| `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Active under T-286; clean successor boundary complete at `9d442b4c`; `R1` at `95eef983`; `R2` at `6bc4fb11`; `R3` at `e7908cde`; `R4` at `abcdca70`; `R5` at `3d5ee716`; `R6` at `2cf92015`; `R7` at `9a5b1fbf`; `R8` at `68aa3b10`; `R9` at `79f0e00b`; frontier `R10` |
+| `M4` | Establish installed root | Exact `ABI5-ROOT-001` runs green through packed bytes, clean install, direct HoG traversal, ABG replay twice, and typed CLI result. | Active under T-286; clean successor boundary complete at `9d442b4c`; `R1` at `95eef983`; `R2` at `6bc4fb11`; `R3` at `e7908cde`; `R4` at `abcdca70`; `R5` at `3d5ee716`; `R6` at `2cf92015`; `R7` at `9a5b1fbf`; `R8` at `68aa3b10`; `R9` at `79f0e00b`; `R10` at `39a0b6bc`; rival-path assurance pending |
 | `M5` | Complete pre-qualification behavior | `ABG5-S02`, `S03`, `S05`, and `S06`, all forty traversal rows, the fibre differential, and required negatives pass on the same candidate line. | Blocked by M4 |
 | `M6` | Adopt STDO 2.0 and qualify | Tap and install STDO 2.0; bind its exact identity in `QualificationLawBasis`; close `ABG5-S04` and pre-RC qualification. | Blocked by M5 and STDO 2.0 tap |
 | `M7` | Release 5.0.0 | `ABG5-S07` preserves the pre-RC, RC, installed-RC, final-tap, released-Product, and post-publication-install subjects and taps stable 5.0.0. | Blocked by M6 |
