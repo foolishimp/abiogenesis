@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: ordinary
 - status: active
-- phase_status: exact_count_correction_in_progress
-- review_status: second_replacement_independent_review_request_changes
-- proof_status: substantive_repairs_verified_exact_count_claim_repairing
+- phase_status: third_replacement_candidate_frozen_independent_review_pending
+- review_status: independent_exact_cut_review_pending
+- proof_status: exact_count_claim_repaired_and_locally_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_intent: >-
@@ -41,7 +41,7 @@
 - correction_vector_ref: >-
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
-- correction_vector_sha256: 26cf209f269b86ab7dda924af2dfedeb5edf36bd7fb74cac2b183f092b0ab8e9
+- correction_vector_sha256: 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4
 - superseded_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
 - superseded_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
 - superseded_constitutional_subject_files: 85
@@ -77,6 +77,14 @@
 - second_replacement_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T071048Z_REVIEW_t284_second_replacement_independent_agent.md
+- third_replacement_candidate_commit: e78bde9e35a7f59014ff4068a4e35d603ec0e7b4
+- third_replacement_candidate_tree: 95781dea885727a41745045feb6ddcb88779751c
+- third_replacement_candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T071220Z_CHECKPOINT_t284_third_replacement_candidate_manifest.md
+- third_replacement_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T071156Z_SELF_REVIEW_t284_third_replacement_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 - constitutional_refreeze: frozen_independent_review_pending
