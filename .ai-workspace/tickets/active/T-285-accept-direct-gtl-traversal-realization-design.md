@@ -5,8 +5,8 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_repaired_design_independently_accepted_fh_decision_pending
-- review_status: independent_exact_design_review_accepted
+- phase_status: m3_third_design_candidate_frozen_independent_review_pending
+- review_status: independent_exact_design_review_pending
 - proof_status: exact_identity_and_design_gates_green
 - goal: GOAL-035 M3
 - priority: critical
@@ -34,6 +34,12 @@
 - design_ref: >-
     build_tenants/abiogenesis/typescript/design/
     M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
+- prime_contraction_refs:
+  - PC-007
+  - PC-011
+- governing_prime_design_ref: >-
+    build_tenants/abiogenesis/typescript/design/adrs/
+    ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
 - design_subject_boundary: immutable_design_file_only
 - design_index_ref: build_tenants/abiogenesis/typescript/design/README.md
 - superseded_design_candidate_commit: c832515cadbd41c6089cc248dc65f38f15cb748f
@@ -42,20 +48,34 @@
 - first_independent_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T103245Z_REVIEW_t285_direct_gtl_design_candidate.md
-- design_candidate_commit: 46098232e382b52e8d7bf903c3c66a6946fee44f
-- design_candidate_tree: e04e499c56b4ca3ccb59689b76f1a2e1489fe74a
-- design_subject_blob: 2b592ce4b7704fa633e7d9db6b0875ebd3d0317d
-- design_subject_sha256: f05775332650a86d78a9559d396c935d3d11ed914d1a7dd1570b1c3eb5b93201
-- design_subject_lines: 953
-- design_self_review_ref: >-
+- superseded_repaired_design_candidate_commit: 46098232e382b52e8d7bf903c3c66a6946fee44f
+- superseded_repaired_design_candidate_tree: e04e499c56b4ca3ccb59689b76f1a2e1489fe74a
+- superseded_repaired_design_subject_blob: 2b592ce4b7704fa633e7d9db6b0875ebd3d0317d
+- superseded_repaired_design_subject_sha256: f05775332650a86d78a9559d396c935d3d11ed914d1a7dd1570b1c3eb5b93201
+- superseded_repaired_design_subject_lines: 953
+- superseded_repaired_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T104359Z_SELF_REVIEW_t285_repaired_direct_gtl_design_candidate.md
-- design_manifest_ref: >-
+- superseded_repaired_design_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T104359Z_CHECKPOINT_t285_repaired_direct_gtl_design_candidate_manifest.md
-- replacement_independent_review_ref: >-
+- superseded_replacement_independent_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T105448Z_REVIEW_t285_repaired_direct_gtl_design_candidate.md
+- second_review_changes_requested_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T124237Z_REVIEW_t285_second_exact_design_changes_requested.md
+- design_candidate_commit: c70455d19313c686fc60b5b96d8f740b5d4ec786
+- design_candidate_tree: 047577772deacd7176768e69a744594fd6e3da9b
+- design_subject_blob: a35a79b1ff995b915bafe557c44580bdc60f489c
+- design_subject_sha256: 44253c21348e799f85d97f826539efa2ab6e16eee214368be6796e82d2af67eb
+- design_subject_lines: 1214
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T130552Z_SELF_REVIEW_t285_third_direct_gtl_design_candidate.md
+- design_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T130552Z_CHECKPOINT_t285_third_direct_gtl_design_candidate_manifest.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 

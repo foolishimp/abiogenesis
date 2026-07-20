@@ -8,7 +8,7 @@
 > re-derived under the accepted direct-GTL replacement design after T-283
 > closes.
 
-**Prior status**: Accepted for T-274A; T-274B private-definition delivery amendment candidate pending review
+**Status**: Accepted for T-274A on its recorded superseded basis; invalidated for current 5.0 implementation
 
 **Date**: 2026-07-15
 

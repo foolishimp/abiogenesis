@@ -8,7 +8,7 @@
 > re-derived under the accepted direct-GTL replacement design after T-283
 > closes.
 
-**Prior status**: Accepted and implemented - independently reviewed for T-280 closure on the superseded basis
+**Status**: Accepted and implemented on its recorded superseded basis; invalidated for current 5.0 implementation
 
 **Date**: 2026-07-17
 

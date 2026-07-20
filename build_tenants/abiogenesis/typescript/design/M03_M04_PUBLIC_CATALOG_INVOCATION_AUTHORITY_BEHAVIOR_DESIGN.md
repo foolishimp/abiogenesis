@@ -8,7 +8,7 @@
 > re-derived under the accepted direct-GTL replacement design after T-283
 > closes.
 
-**Prior status**: Accepted - bounded post-AF-14 root-carrier constructability amendment
+**Status**: Accepted on its recorded superseded basis; invalidated for current 5.0 implementation
 
 **Date**: 2026-07-18
 

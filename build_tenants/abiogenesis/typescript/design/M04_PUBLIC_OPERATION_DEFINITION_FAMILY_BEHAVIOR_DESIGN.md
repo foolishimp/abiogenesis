@@ -8,7 +8,7 @@
 > re-derived under the accepted direct-GTL replacement design after T-283
 > closes.
 
-**Prior status**: Accepted for P1 realization; Phase A complete; P2 gated
+**Status**: Accepted for P1 on its recorded superseded basis; invalidated for current 5.0 implementation
 
 **Accepted P1 semantic candidate digest**:
 `18d9bcc559d973daac355ad768b1cf5eb8ffb7f9dcd3cd6d2c60c95e5bea1801`

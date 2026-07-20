@@ -8,7 +8,7 @@
 > re-derived under the accepted direct-GTL replacement design after T-283
 > closes.
 
-**Prior status**: F_H-authorized prospective owner design; independent closure review pending
+**Status**: F_H-authorized on its recorded superseded basis; invalidated for current 5.0 implementation
 
 **Date**: 2026-07-15
 
