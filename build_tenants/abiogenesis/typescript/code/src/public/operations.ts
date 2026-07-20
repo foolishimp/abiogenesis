@@ -114,6 +114,21 @@ function recordField(
   return value as Readonly<Record<string, product.JsonValue>>;
 }
 
+function requireExactPayloadKeys(
+  payload: Readonly<Record<string, product.JsonValue>>,
+  allowed: readonly string[],
+  operation: string,
+): void {
+  const allowedKeys = new Set(allowed);
+  const undeclared = Object.keys(payload).filter((key) => !allowedKeys.has(key));
+  if (undeclared.length !== 0) {
+    throw new ApplicationRefusal(
+      "invalid_request",
+      `${operation} payload contains undeclared fields: ${undeclared.sort().join(", ")}`,
+    );
+  }
+}
+
 function required<T>(map: Map<string, T>, ref: string, kind: string): T {
   const value = map.get(ref);
   if (value === undefined) {
@@ -550,6 +565,16 @@ async function applyRunInvoke(
   if (invocation.variant !== "direct") {
     throw new ApplicationRefusal("invalid_request", "run.invoke requires variant direct");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "actorRef",
+    "catalogViewInvocationRef",
+    "eventLogPath",
+    "graphFunctionRef",
+    "input",
+    "installInvocationRef",
+    "programRef",
+    "workspaceBindingInvocationRef",
+  ], "run.invoke");
   const installState = required(
     context.installs,
     stringField(invocation.payload, "installInvocationRef"),
