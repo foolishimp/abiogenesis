@@ -1,6 +1,7 @@
 # REQ-R-ABG3-CONVERGENCE — Evaluation, Proof, Closure, And Fallback
 
-**Status**: Active - accepted by T-283 F_H closure
+**Status**: Active
+**Lineage**: T-283 Product basis; T-284 bounded owner repair
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
@@ -9,8 +10,8 @@
 
 ## Purpose
 
-Define ABG-owned deterministic evaluation, proof, closure, escalation, and
-fallback law.
+Define declared deterministic evaluation and proof plus ABG-owned result
+admission, closure, escalation, and fallback truth.
 
 ## Acceptance Criteria
 
@@ -24,7 +25,7 @@ results and record replayable outcome truth.
 
 **REQ-R-ABG3-CONVERGENCE-004**: Deterministic paths that are invalid, contradictory, malformed, or engine-erroring shall fail closed rather than silently falling forward to `F_P`.
 
-**REQ-R-ABG3-CONVERGENCE-005**: After constructive `F_P` work returns, ABG shall re-run post-transform proof and blocker-class closure checks before terminal success or further escalation.
+**REQ-R-ABG3-CONVERGENCE-005**: After constructive `F_P` work returns, HoG shall traverse the declared post-transform proof and blocker-class closure GraphFunctions. ABG shall admit their results before terminal success or further escalation.
 
 **REQ-R-ABG3-CONVERGENCE-006**: Unresolved deterministic observer findings after constructive work shall be emitted as runtime fact truth and shall not by default regain traversal-stopping authority; they shall feed downstream gap, continuation, intent, or other declared observation surfaces.
 

@@ -1,6 +1,7 @@
 # REQ-P-POLICY — Product and Runtime Policy
 
-**Status**: Active - accepted by T-283 F_H closure
+**Status**: Active
+**Lineage**: T-283 Product basis; T-284 bounded owner repair
 **Category**: Governance
 **Date**: 2026-04-19
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,
@@ -153,9 +154,13 @@ capability inputs such as control modes and catalog view. It shall resolve only
 public target identities inside one admitted GTL program and shall return a
 typed run and GraphCall identity, current disposition, stop or terminal
 classification, and relevant result, gap, interaction, evidence, and replay
-references. Public ingress admits and transports the request; the admitted
-program and ABG own One Surface ordering, selection, invocation, evaluation,
-continuation, and closure.
+references. Public ingress admits and transports the request. The admitted
+program owns One Surface semantic ordering and available action topology;
+Product-owned GraphFunctions own synthesis and evaluation contracts; HoG
+traverses the admitted program and selected GraphFunctions; and ABG admits the
+selected-action identity plus invocation, result, evidence, continuation, and
+closure truth. Neither the program nor HoG may mint runtime truth, and ABG
+shall not reorder the program's semantic authorities or become a scheduler.
 
 **REQ-P-POLICY-024**: `abg.operation.run.continue` shall identify an existing
 admitted run or continuation boundary, the acting operator, and any declared
@@ -375,11 +380,12 @@ residuals without widening or changing workspace catalog truth.
 `abg.operation.run.invoke` shall accept one admitted GTL program, one canonical
 admitted GraphFunction handle published by that program, its declared input,
 one immutable workspace binding, and declared session policy and capability
-inputs. Under `root_mode = direct`, the explicit function handle is the
-invocation target; ABG shall validate its program membership, catalog
-eligibility, contracts, binding, and authority before beginning one GraphCall.
-That direct path does not require or synthesize `evaluateNext`, One Surface, or
-a `ConstructionIntent`.
+inputs. The explicit function handle is the invocation target; ABG shall
+validate its program membership, catalog eligibility, contracts, binding, and
+authority before beginning one GraphCall. The `invoke` variant shall neither
+accept nor require `root_mode`, `until`, or any other `start`-only traversal
+grammar. That direct path does not require or synthesize `evaluateNext`, One
+Surface, or a `ConstructionIntent`.
 
 When the invocation instead realizes an action selected by `evaluateNext`
 inside the admitted One Surface program, the exact function shall narrow the

@@ -15,10 +15,11 @@
 
 ## Current Project Gate
 
-T-284 is the only executable work owner. The ABIogenesis 5.0 constitutional
+T-284 is the only executable work owner. The ABIogenesis 5.0 Product
 destination is accepted. Design, code, tests, proof promotion, and release work
-remain held while M2 freezes X and derives the correction vector and until M3
-accepts replacement direct-GTL realization design.
+remain held while M2 repairs requirement authority, classifies all donor lines,
+and refreezes the correction vector and until M3 accepts replacement direct-GTL
+realization design.
 
 Do not treat existing code, accepted X-path designs, ticket status, test
 results, operation counts, or generated projections as current 5.0 Product
@@ -83,6 +84,6 @@ This block is a thin read model. It does not duplicate the full Product.
 - The selected delivery governor is `ABI5-ROOT-001`; its exact path and
   `R1..R10` obligations live in `PRODUCT.md`.
 
-Current implementation remains unclassified X evidence. Do not infer
-implementation authority from this bootstrap.
+RC5, X, and final-integration remain sideways donor evidence. Do not infer
+implementation authority from this bootstrap or any donor line.
 <!-- GTL_BOOTLOADER_END -->

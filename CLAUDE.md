@@ -2,9 +2,10 @@
 
 ## Current State
 
-The ABIogenesis 5.0 constitutional destination is accepted. Runtime
-implementation is held. T-284 owns the current task: freeze X and derive the
-three-axis correction vector before replacement design or code resumes.
+The ABIogenesis 5.0 Product destination is accepted. Runtime implementation is
+held. T-284 owns the current task: repair bounded requirement authority
+conflicts and derive the refrozen correction vector across RC5, X, and
+final-integration before replacement design or code resumes.
 
 Do not continue the old compiled-plan, generated HoG-program, 19-operation
 ontology, SDK-controller, or feature-runner implementation path.
@@ -55,8 +56,8 @@ build_tenants/abiogenesis/typescript/test_env/ held proof lanes
   closure.
 - The exact installed governor is `ABI5-ROOT-001`, defined in `PRODUCT.md`.
 
-Existing implementation and design are evidence only until the X-to-5 vector
-classifies them and M3 accepts replacement design.
+All existing implementation and design lines are sideways evidence only until
+the correction vector classifies them and M3 accepts replacement design.
 <!-- GTL_BOOTLOADER_END -->
 
 <!-- SDLC_BOOTLOADER_START -->

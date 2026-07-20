@@ -1,17 +1,17 @@
-# T-284 - Freeze X And Derive The ABIogenesis 5.0 Correction Vector
+# T-284 - Freeze Donor Lines And Derive The ABIogenesis 5.0 Correction Vector
 
 - id: T-284
-- title: Freeze current X and derive the complete 4.6-to-5.0 correction vector
+- title: Freeze donor lines and derive the complete 4.6-to-5.0 correction vector
 - type: analysis
 - ticket_category: realization_correction
 - status: active
-- phase_status: x_frozen_vector_self_review_complete_independent_review_pending
-- review_status: self_review_complete_independent_review_pending
-- proof_status: x_freeze_and_vector_integrity_verified
+- phase_status: repaired_candidate_ready_for_exact_freeze
+- review_status: independent_rereview_pending
+- proof_status: donor_freezes_and_local_consistency_verified
 - goal: GOAL-035 M2
 - priority: critical
-- change_class: design_reframe
-- re_entry_point: build_tenants/common/design
+- change_class: requirement_reprice
+- re_entry_point: specification/requirements
 - created_at: 2026-07-20
 - triaged_at: 2026-07-20
 - updated_at: 2026-07-20
@@ -26,32 +26,45 @@
 - x_source_commit: 1b8b2b0a22ad5dc484e3db5c19fd562cd7935ff8
 - x_snapshot_commit: 676766a648066eaa69dce05f636d5ec98fb40dec
 - x_snapshot_ref: archive/t284-x-freeze-20260720T022230Z
-- correction_strategy: clean_rc5_successor_with_selective_x_donor_admission
-- migration_strategy: fundamental_re_adoption_from_exact_rc5
+- final_integration_freeze_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T032908Z_CHECKPOINT_t284_final_integration_freeze_manifest.md
+- final_integration_snapshot_commit: 3c2d86d43d851fda0ce4a08a124beac2d3770f2d
+- final_integration_snapshot_ref: archive/t284-final-integration-freeze-20260720T032908Z
+- correction_strategy: fresh_zero_inherited_5_successor_with_selective_donor_admission
+- migration_strategy: fundamental_re_adoption_with_rc5_x_and_final_integration_sideways
 - correction_vector_ref: >-
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
-- correction_vector_sha256: 76864793039238e28bc5386704f92972e8c4964cfe283847d2d08d5c3d96539f
+- correction_vector_sha256: 28b5987f014bf42bdaf3e6028f380545e16143b1679b5a723a1a5db33066fe8f
 - self_review_ref: >-
     .ai-workspace/comments/codex/
-    20260720T025354Z_SELF_REVIEW_t284_correction_vector.md
+    20260720T051041Z_SELF_REVIEW_t284_repaired_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
+- constitutional_refreeze: candidate_freeze_pending
 
 ## Purpose
 
-Establish one immutable observation basis for the current realization `X` and
+Establish immutable observation bases for RC5, X, and final-integration and
 derive the smallest complete correction vector from the immutable 4.6 RC5
-semantic origin through X to the accepted ABIogenesis 5.0 Product.
+semantic origin and all frozen implementation donor lines to the accepted
+ABIogenesis 5.0 Product.
 
 This ticket performs classification. It does not accept X, design the
 replacement, or implement a correction.
 
-The classified construction base is the exact clean RC5 source commit. X is an
-immutable donor and evidence line, not the successor merge base. No X commit or
-active-ticket queue may be migrated wholesale. Each retained X behavior must
-cross a target-obligation and authority admission before entering the clean
+The successor realization begins with no inherited TypeScript implementation.
+RC5, X, and final-integration are immutable donor and evidence lines, not
+successor merge bases. No donor commit, subtree, dirty snapshot, stash, or
+active-ticket queue may be migrated wholesale. Each retained behavior must
+cross a target-obligation and authority admission before entering the fresh
 successor.
+
+Independent review found Product/requirement authority contradictions in
+direct invocation and saga scheduling. This ticket therefore re-enters at
+requirements before M3. Product and Intent remain stable unless the bounded
+repair exposes a contradiction that cannot be resolved at requirement level.
 
 ## Inputs
 
@@ -62,9 +75,12 @@ successor.
    differential;
 4. the 17 Product outcomes, seven scenarios, root `ABI5-ROOT-001`, exclusions,
    and release subjects;
-5. the exact X commit, dirty patch, staged state, untracked inventory, and
-   current held tickets and designs; and
-6. predecessor release claims and practical repairs that must not disappear by
+5. the exact RC5 implementation inventory;
+6. the exact X commit, dirty patch, staged state, untracked inventory, and
+   current held tickets and designs;
+7. the exact final-integration commit, dirty snapshot, and rejected-stash
+   archive; and
+8. predecessor release claims and practical repairs that must not disappear by
    silence.
 
 ## Three Independent Dimensions
@@ -86,16 +102,18 @@ under the accepted owner split.
 
 ## Required Outputs
 
-1. one reproducible X freeze manifest;
-2. one no-silence correction vector binding every row to source evidence,
+1. reproducible X and final-integration freeze manifests;
+2. one complete RC5 implementation disposition under Fundamental Re-Adoption;
+3. one no-silence correction vector binding every row to source evidence,
    accepted target authority, current X evidence, all three dimensions,
    rationale, confidence, and unresolved decision;
-3. one carrier census at semantic module/capability altitude rather than a
+4. one carrier census at semantic module/capability altitude rather than a
    file-count ontology;
-4. one disposition for each held active ticket;
-5. one explicit deletion set limited to carriers with no retained semantic or
+5. bounded requirement amendments restoring the Product owner split;
+6. one disposition for each held active ticket;
+7. one explicit deletion set limited to carriers with no retained semantic or
    evidential value; and
-6. one bounded input contract for M3 replacement design.
+8. one refrozen constitutional/vector subject for independent review before M3.
 
 The vector is commentary and review evidence. It is not accepted design.
 
@@ -103,14 +121,18 @@ The vector is commentary and review evidence. It is not accepted design.
 
 T-284 may close only when:
 
-- X identity, dirty patch, staged state, and untracked inventory reproduce;
+- RC5, X, and final-integration identities and inventories reproduce;
 - every 4.6 baseline obligation and accepted 5.0 outcome is represented without
   silence or conflation;
-- every relevant X carrier has one explicit action and rationale;
+- every RC5 implementation family and relevant X/final-integration carrier has
+  one explicit method class, action, destination, admission order, and proof;
 - contradictions and unresolved semantic decisions are visible;
+- direct invocation and saga-frontier requirements agree with Product's
+  GTL/HoG/ABG/catalog authority split;
 - ticket dispositions derive from the vector rather than precede it;
 - independent review finds no missing baseline claim, substituted property, or
   carrier-action inference; and
-- M3 receives one bounded direct-GTL design input.
+- the refrozen exact subject is independently accepted before M3 receives one
+  bounded direct-GTL design input.
 
 Runtime implementation remains held throughout T-284.

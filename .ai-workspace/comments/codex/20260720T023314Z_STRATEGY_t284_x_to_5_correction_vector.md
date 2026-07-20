@@ -3,7 +3,7 @@
 **Author**: codex
 **Observed at**: 2026-07-20T02:33:14Z
 **Ticket**: T-284
-**Status**: review candidate; classification only
+**Status**: repaired review candidate; classification and requirement-reentry evidence only
 **Implementation authority**: none
 
 ## 1. Decision Summary
@@ -11,17 +11,19 @@
 The current realization `X` contains valuable ABIogenesis substrate, but it is
 not an admissible ABIogenesis 5.0 architecture.
 
-The correction is neither a rollback of Product semantics nor a rewrite from
-zero. It is a clean successor construction from the exact RC5 source, with X
-used only as a selectively admitted donor:
+The correction is not a rollback of Product semantics. It is a fresh,
+zero-inherited-implementation successor construction. RC5, X, and the later
+final-integration line remain immutable sideways sources. A carrier enters the
+successor only through explicit re-adoption or rewrite:
 
 ```text
-exact clean RC5 source
+fresh 5.0 successor tree
   + accepted 5.0 constitution
+  + explicitly re-adopted RC5 semantic and implementation carriers
+  + selectively rewritten X or final-integration donor interiors
   + one direct-GTL HoG traversal
-  + selectively admitted X donor carriers
-  - RC5 compiled execution handoff
-  - every X-only compiled-plan, controller, and rival public path
+  - ambient RC5 implementation
+  - every compiled-plan, controller, and rival public path
   -> one source-independent 5.0 Product
 ```
 
@@ -36,14 +38,15 @@ substrate. The largest retirement is the executable compiler/plan/controller
 layer built around it. That retirement is achieved by non-migration from X,
 not by trusting an agentic pruning campaign to discover every stale path.
 
-The clean-base decision is not precautionary only. Exact comparison found that
-X removed the published RC5 B-001 transport correction while adding the later
-compiler and controller layers. X deleted the dispatch-lane carrier, the
-`worker_executes` classifier distinction, bounded append-argument admission,
-the declared external-sandbox posture, and their real-path regression proofs.
-Its Claude path is again unconditionally tool-less and treats any tool use as a
-contract failure. A pruning campaign over X would therefore begin from a line
-that has already lost load-bearing predecessor behavior.
+The fresh-line decision is not precautionary only. X diverged from RC5 at
+`f4f081f66ef8d3ce0c737ddb9d7530176711279a` and never incorporated the later
+published B-001 transport correction. Relative to the RC5 semantic origin, X
+therefore regressed on the dispatch-lane carrier, the `worker_executes`
+classifier distinction, bounded append-argument admission, the declared
+external-sandbox posture, and their real-path regression proofs. Its Claude
+path is unconditionally tool-less and treats any tool use as contract failure.
+A pruning campaign over X would begin from a line already missing
+load-bearing predecessor behavior.
 
 ## 2. Exact Bases
 
@@ -60,6 +63,11 @@ that has already lost load-bearing predecessor behavior.
 | X archive | `origin/archive/t284-x-freeze-20260720T022230Z` |
 | X dirty-patch SHA-256 | `9f82ab1842b08fb53ab0794637ca4f3dc9e38054a39851194b374c55a40402a8` |
 | X freeze manifest | `.ai-workspace/comments/codex/20260720T022230Z_CHECKPOINT_t284_x_freeze_manifest.md` |
+| final-integration source HEAD | `53b3a72cfb7b3f3773d2105d5cda06f06a96fe04` |
+| final-integration snapshot | commit `3c2d86d43d851fda0ce4a08a124beac2d3770f2d`, tree `a887985026f9268beef1c8dfeae2c8c2e057b536` |
+| final-integration archive | `origin/archive/t284-final-integration-freeze-20260720T032908Z` |
+| final-integration rejected stash archive | `origin/archive/t284-final-integration-stash-rejected-t270-20260720T032908Z` |
+| final-integration freeze manifest | `.ai-workspace/comments/codex/20260720T032908Z_CHECKPOINT_t284_final_integration_freeze_manifest.md` |
 
 X and RC5 share Git history through merge base
 `f4f081f66ef8d3ce0c737ddb9d7530176711279a`; X does not descend from the
@@ -68,14 +76,17 @@ frozen current-state observation.
 
 ### 2.1 Construction-Base Decision
 
-The realization base for M3 and later work is the exact clean RC5 source commit
-`bab609ab353304324b939a4528371603eef0a05d`, not X.
+The realization base for M3 and later work is a fresh successor tree with no
+inherited TypeScript implementation. The exact RC5 source commit
+`bab609ab353304324b939a4528371603eef0a05d`, X, and final-integration are all
+sideways donor and evidence lines. None is the successor merge base.
 
-Under `SPEC_METHOD.md` this is a **Fundamental Re-Adoption Migration**. The
-prior implementation is moved sideways as reference evidence; nothing in X
-carries forward by ambient inheritance. This is not an Inside-Out Hard-Break
-Migration over X and not a `realization_refactor` of the compiler/controller
-family.
+Under `SPEC_METHOD.md` this is a **Fundamental Re-Adoption Migration**. Every
+prior module, interface, carrier, projection, test, generated artifact, and
+proof surface is absent by default. It is classified `carry_across`, `rewrite`,
+or `redundant` before selective admission. This is not an RC5-derived
+hard-break, an Inside-Out Hard-Break over X, or a `realization_refactor` of the
+compiler/controller family.
 
 This is a proportional risk decision grounded in the observed delta:
 
@@ -94,8 +105,10 @@ requires every imported carrier to prove its purpose and authority.
 
 Construction rules:
 
-1. X remains immutable at the T-284 archive ref and is never the merge base.
-2. No X commit is cherry-picked wholesale.
+1. RC5, X, and final-integration remain immutable sideways sources and are
+   never successor merge bases.
+2. No donor commit, subtree, dirty snapshot, stash, or active-ticket queue is
+   copied or cherry-picked wholesale.
 3. A donor migration names the accepted Product obligation, exact source
    carrier, destination owner, retained semantics, accepted loss, and nearest
    forbidden substitute.
@@ -103,13 +116,14 @@ Construction rules:
    become target proof.
 5. Generated catalogs and manifests are regenerated from the clean successor;
    X-generated bytes are evidence only.
-6. The RC5 B-001 transport repair is conserved before any new worker behavior
-   is admitted.
-7. Non-migrated X code is absent by construction and remains available through
-   the immutable archive for later review.
-8. A later or larger X carrier never outranks an exact predecessor behavior.
-   The B-001 regression is the first mandatory conservation proof for every
-   donor admission and for the installed root.
+6. The RC5 B-001 transport repair is re-adopted and proved before the first
+   `F_P` worker/transport slice. It does not gate the all-`F_D`
+   `ABI5-ROOT-001` predicate.
+7. Non-adopted donor code is absent by construction and remains available only
+   through immutable archives for later review.
+8. A later or larger donor carrier never outranks an exact predecessor
+   behavior. Final-integration transport commits `e736fa49` and `53b3a72c` are
+   candidate evidence for the later `F_P` slice, not ambient successor code.
 
 ## 3. Classification Law
 
@@ -159,16 +173,17 @@ columns:
 | `A5-F01` through `A5-F17` | Exact X snapshot carrier inspection | Accepted `PRODUCT.md` lines 651-679 |
 | `ABG5-S01` through `ABG5-S07` | Exact X snapshot carrier and proof inspection | Accepted `PRODUCT.md` lines 681-759 |
 | `ABI5-ROOT-001` R1-R10 | Exact X snapshot install, catalog, runtime, replay, and CLI inspection | Accepted `PRODUCT.md` lines 761-828 and `GOALS.md` delivery governor |
-| Carrier and ticket dispositions | Exact X snapshot, freeze manifest, and held ticket bytes | Accepted Product owner split, explicit non-features, GOALS hold, and T-284 closure contract |
+| Carrier and ticket dispositions | Exact RC5, X, and final-integration snapshots, freeze manifests, and held ticket bytes | Accepted Product owner split, explicit non-features, GOALS hold, and T-284 closure contract |
 
 Every semantic classification row has `medium` confidence. This deliberately
 prices the risk of broad cross-carrier interpretation even where the underlying
 identity, digest, source line, or literal code absence has `high` factual
-confidence. Every row has unresolved semantic decision `none`: the accepted
-Product fixes the target semantics. M3 still has open realization choices, but
-those are design work and do not authorize an `unresolved` Product or baseline
-disposition. A review disagreement must amend the affected row and refreeze the
-vector; it cannot remain an implicit decision.
+confidence. The accepted Product fixes target semantics; it does not prove that
+every carrier interpretation is correct. Each row touched by M3 remains
+falsifiable against Product and requirements. A discovered semantic
+contradiction requires requirement re-entry and a refrozen vector; it cannot be
+silently resolved as a design choice. `unresolved` is used only where a
+baseline disposition genuinely remains undecided.
 
 ## 4. RC5 Baseline Ledger
 
@@ -186,14 +201,14 @@ Source abbreviations:
 | `B04` | Events and replay preserve causal state | `P:102-108` | conserved | partial | retain | Canonical events, Event Calculus, replay relations, and continuation projections are reusable. |
 | `B05` | Results may expose typed unresolved pressure | `P:102-108` | conserved | partial | retain | Typed hold, gap, block, reprice, and non-admit carriers exist but are not unified on the target path. |
 | `B06` | Real worker invocation, result, continuation, and replay are Product behavior | `P:102-108` | conserved | partial | refactor | Worker and replay interiors exist; installed direct-GTL evidence is absent. |
-| `B07` | `AgentTransportRequest.lane` reaches real dispatch | `RN:9-12` | conserved | contradictory | replace | X deleted `AgentTransportRequest.lane` and its dispatch composition. The clean successor retains the exact RC5 carrier before other transport changes. |
+| `B07` | `AgentTransportRequest.lane` reaches real dispatch | `RN:9-12` | conserved | contradictory | replace | X diverged before `AgentTransportRequest.lane` and its dispatch composition were added to RC5. Re-adopt the exact behavior before the first successor `F_P` slice. |
 | `B08` | Closed-prompt and `worker_executes` tool posture remain distinct | `RN:13-15` | conserved | contradictory | replace | X makes Claude unconditionally tool-less and classifies every observed tool call as failure. Retain the RC5 lane-specific posture and classifier. |
-| `B09` | Real subprocess, stream parser, tool counter, classifier, and artifact are crossed | `RN:16-19` | conserved | contradictory | replace | X deleted the real `worker_executes` transport proof and can no longer produce its successful outcome. Preserve the RC5 witness and re-run it on the successor. |
+| `B09` | Real subprocess, stream parser, tool counter, classifier, and artifact are crossed | `RN:16-19` | conserved | contradictory | replace | X never incorporated the RC5 `worker_executes` transport proof and cannot produce its successful outcome. Re-adopt the RC5 witness and rerun it on the successor. |
 | `B10` | Transport correction adds no graph semantics, scheduler, retry controller, or public verb | `RN:20-22` | conserved | contradictory | delete | X later introduced rival planner/controller authority outside this correction. |
-| `B11` | Stream-json lane and protocol-owned tool flags | `RN:24-31` | conserved | contradictory | replace | X deleted the lane and bounded admission seam, then restored unconditional `--safe-mode --tools ""`. Retain RC5 protocol ownership and fail-closed override checks. |
-| `B12` | Bounded `ABG_TS_<AGENT>_APPEND_ARGS` for four transports | `RN:32-36` | conserved | missing | replace | X deleted the four-agent append-argument contract, placeholder checks, and protocol-flag refusal. Source this behavior from RC5, not X. |
-| `B13` | Declared external sandbox posture and agent-specific precedence | `RN:37-42` | conserved | missing | replace | X deleted `ABG_TS_WORKER_SANDBOX` and its precedence/refusal law. Retain the exact RC5 trusted-desktop/external-sandbox boundary. |
-| `B14` | Transport proof uses behavioral invariants, not exact argv equality | `RN:43-47` | conserved | contradictory | replace | X deleted the invariant helper and restored exact argv equality. Retain RC5's behavioral proof shape and add installed successor evidence. |
+| `B11` | Stream-json lane and protocol-owned tool flags | `RN:24-31` | conserved | contradictory | replace | X never incorporated the later RC5 lane and bounded admission seam and retains unconditional `--safe-mode --tools ""`. Re-adopt RC5 protocol ownership and fail-closed override checks. |
+| `B12` | Bounded `ABG_TS_<AGENT>_APPEND_ARGS` for four transports | `RN:32-36` | conserved | missing | replace | X never incorporated the RC5 four-agent append-argument contract, placeholder checks, or protocol-flag refusal. Source this behavior from RC5, not X. |
+| `B13` | Declared external sandbox posture and agent-specific precedence | `RN:37-42` | conserved | missing | replace | X never incorporated `ABG_TS_WORKER_SANDBOX` or its precedence/refusal law. Re-adopt the exact RC5 trusted-desktop/external-sandbox boundary. |
+| `B14` | Transport proof uses behavioral invariants, not exact argv equality | `RN:43-47` | conserved | contradictory | replace | X never incorporated the RC5 invariant helper and retains exact argv equality. Re-adopt RC5's behavioral proof shape and add installed successor evidence. |
 | `B15` | Witness/operator/observer/tuner substrate | `RN:49-55` | conserved | partial | refactor | Keep replay-grounded observation/tuning; remove any authority mutation or old campaign coupling. |
 | `B16` | Capability-gated plugin selection and admission | `RN:49-55` | conserved | partial | refactor | Recast plugins as implementation seams selected by admitted GTL/policy, never program owners. |
 | `B17` | Finite R5 repair gate | `RN:49-55` | conserved | partial | refactor | Preserve bounded repair as a declared consequence route under the one traversal law. |
@@ -203,7 +218,7 @@ Source abbreviations:
 | `B21` | Compiled execution-declaration handoff | `RN:49-55` | superseded | contradictory | delete | Accepted 5.0 explicitly replaces this mechanism with direct HoG traversal of admitted GTL. |
 | `B22` | Exact immutable release-snapshot proof carrier | `RN:57-63` | conserved | partial | refactor | M05 has useful carriers, but no accepted 5.0 subject chain is complete. |
 | `B23` | Downstream qualification consumes packed bytes, not mutable source | `RN:57-63` | conserved | partial | retain | Preserve as S01/S06/S07 source-blind proof law. |
-| `B24` | Pre-snapshot live proof crossed a real Claude `worker_executes` dispatch | `RN:65-68` | conserved | contradictory | replace | X removed the lane and deterministic real-path witness that support this evidence claim. Re-establish the behavior and produce successor-owned evidence. |
+| `B24` | Pre-snapshot live proof crossed a real Claude `worker_executes` dispatch | `RN:65-68` | conserved | contradictory | replace | X never incorporated the later RC5 lane and deterministic real-path witness supporting this evidence claim. Re-establish the behavior and produce successor-owned evidence. |
 | `B25` | RC3/RC4 evidence is predecessor-only and cannot qualify the repaired RC5 path | `RN:71-78` | conserved | partial | archive | Preserve the evidence scope and never project old qualification across a changed transport path. New successor claims require exact-subject proof. |
 | `B26` | Packed downstream qualification is a publication gate and is not pre-claimed | `RN:65-69` | conserved | partial | refactor | X has useful qualification carriers but no accepted 5.0 subject or packed proof. Keep the claim boundary and create exact successor evidence later. |
 | `X01` | T-217 original feature was not complete | `RN:80-83` | not_applicable | partial | archive | Do not inherit a false 4.6 completion claim; 5.0 F12 is a new target obligation. |
@@ -218,6 +233,34 @@ Source abbreviations:
 There are no `unresolved` origin dispositions. `B21` is the sole explicit
 mechanism supersession. The remainder are conserved behavior or exclusions that
 must not be turned into predecessor claims.
+
+### 4.1 RC5 Implementation Disposition
+
+The baseline ledger classifies RC5 semantics. It does not admit RC5 code. The
+exact RC5 TypeScript tenant contains 1,324 paths: 270 code paths, 808 proof/test
+paths, 236 design paths, and 10 package/configuration paths. The following
+ordered first-match table classifies every path. A path matching no earlier row
+falls into `RCI-12`; there is no unclassified inherited default.
+
+| ID | Exact RC5 path family | Method class | Successor treatment | Owning proof |
+|---|---|---|---|---|
+| `RCI-01` | `code/src/shared/abg_library/{agent_transport.ts,transport_contracts.ts}` and `test_env/tests/{test_m03_transport_protocol_unit.test.mjs,test_t109_agent_callout_traced_substrate.test.mjs}` | `carry_across` candidate | Re-adopt only after M3 binds transport as an `F_P` implementation seam; no graph or scheduler authority crosses | B07-B14 and B24 real-worker mutation proof before first `F_P` slice |
+| `RCI-02` | `code/src/gtl/m01/**`, `code/src/gtl/m02/**`, and GTL requirement exports | `rewrite` | Re-derive typed authoring, Module publication, serialization, and non-lowering validation against 5.0 GTL law | `ABG5-S01`, `ABG5-S02`, and traversal matrix |
+| `RCI-03` | `code/src/abg/m03/**` | `rewrite` | Re-adopt event, replay, admission, result, continuation, and implementation interiors only behind direct HoG traversal; compiled handoff and engine authority do not cross | `ABG5-S01` through `ABG5-S03`, real-path authority mutations |
+| `RCI-04` | `code/src/app/m04/**`, `code/src/cli/**`, and `code/src/bin/**` | `rewrite` | Re-derive Product/install/workspace/catalog and thin SDK/CLI projections; no controller or private runtime binding crosses | `ABI5-ROOT-001`, `ABG5-S03`, public-path absence proof |
+| `RCI-05` | `code/src/qualification/m05/**` | `rewrite` | Re-derive exact-subject qualification and release carriers against the 5.0 subject chain and tapped STDO 2.0 | `ABG5-S04`, `ABG5-S07` |
+| `RCI-06` | `code/src/shared/**` not matched by `RCI-01` | `rewrite` | Re-adopt only small validation, process, identity, configuration, or evidence primitives with an accepted 5.0 owner | proof of the consuming feature plus no rival shared authority |
+| `RCI-07` | remaining `code/**` | `rewrite` | Recreate only required package exports, host bindings, and shims from accepted design | installed typecheck, package export, and `ABI5-ROOT-001` proof |
+| `RCI-08` | `test_env/tests/**`, `test_env/live/**`, `test_env/sandbox/**`, `test_env/type_tests/**`, `test_env/gates/**`, and test support/corpus not matched by `RCI-01` | `rewrite` | Port tests only with the re-adopted behavior; old engine/compiler expectations remain predecessor evidence | owning Product scenario and mutation-negative proof |
+| `RCI-09` | `test_env/downstream/**` | `redundant` | Archive the frozen odd_sdlc fixture; create the smaller independent flavored-catalog fixture required by F17 | `ABG5-S06` |
+| `RCI-10` | `design/**` and design ADRs | `redundant` as current design | Preserve as historical evidence only; M3 derives a new direct-GTL design | M3 independent design review |
+| `RCI-11` | `package.json`, lockfile, TypeScript/ESLint config, current README files, `.gitignore`, and `config/**` | `rewrite` | Build a minimal 5.0 package/install surface from Product and accepted design; no predecessor script is ambient authority | source-independent pack/install and `ABI5-ROOT-001` |
+| `RCI-12` | legacy packed `.tgz` files and every remaining RC5 tenant path | `redundant` | Preserve only in the immutable RC5 source/package snapshot; do not copy into the successor | installed package inventory absence proof |
+
+`carry_across` is an admission class, not a copy command. Even `RCI-01` remains
+sideways until the accepted design names its destination and the owning proof
+passes. This table makes RC5 a complete classified donor rather than ambient
+implementation authority.
 
 ## 5. Traversal Conservation Vector
 
@@ -261,7 +304,7 @@ must not be turned into predecessor claims.
 
 | Row | 4.6 disposition | X coverage | X action | Current X evidence and correction |
 |---|---|---|---|---|
-| `advance_vector` | conserved | partial | refactor | Keep typed outcome; ABG transition applies it to the direct GTL cursor. |
+| `advance_vector` | conserved | partial | refactor | Keep the typed outcome; ABG admits the transition and its cursor fact, then HoG applies that admitted transition to direct GTL traversal. |
 | `close` | conserved | partial | refactor | Keep assurance and replay closure; remove SDK post-action closure ownership. |
 | `retry_same_edge` | conserved | contradictory | refactor | Preserve disposition, delete fallback/controller precedence. |
 | `repair` | conserved | partial | refactor | Preserve bounded repair evidence and current-call identity. |
@@ -294,52 +337,56 @@ must not be turned into predecessor claims.
 
 ## 6. Accepted 5.0 Feature Coverage
 
-| Feature | 4.6 disposition | X coverage | X action | Decisive gap |
+No feature is treated as one indivisible predecessor claim. The contribution
+column binds conserved or superseded RC5 semantics separately from the new 5.0
+delta.
+
+| Feature | 4.6 contribution and 5.0 delta | X coverage | X action | Decisive gap |
 |---|---|---|---|---|
-| `A5-F01` exact product/install/workspace/catalog | conserved | contradictory | replace | Installer authors a private GraphFunction, Module, policy, and ExecutionBasis; CLI accepts private runtime bindings. |
-| `A5-F02` GTL authoring and validation | conserved | partial | refactor | Strong typed language surface exists; validation is entangled with lowering, runtime-plan, and feature coverage authority. |
-| `A5-F03` complete direct traversal | conserved | contradictory | replace | Seven C constructors exist, but execution depends on compiled plans and feature-specific runners. B21 separately records the superseded compiled mechanism. |
-| `A5-F04` probabilistic result integrity | conserved | partial | retain | Strong F_P admission exists; installed target-path proof remains absent. |
-| `A5-F05` one public contract authority | not_applicable | partial | refactor | P1 definition family and generated assets exist; stale generated manifests and legacy/public dual paths remain. |
-| `A5-F06` thin SDK and CLI | conserved | contradictory | replace | SDK selects One Surface work and evaluates post-action closure; legacy CLI loads runtime authority. |
-| `A5-F07` complete One Surface loop | not_applicable | contradictory | refactor | Four semantic authorities exist, but a One Surface compiler/runtime and SDK order the loop. |
-| `A5-F08` Consensus free construction | not_applicable | contradictory | refactor | GTL body and domain contracts exist; execution remains coupled to compilers and special One Surface/Consensus paths. |
-| `A5-F09` catalog semantics | not_applicable | partial | refactor | View/apply/invoke concepts exist; applied-program and invocation authority are not yet one clean installed chain. |
-| `A5-F10` event-sourced runtime truth | conserved | partial | refactor | ABG event/replay substrate is strong; competing engine, SDK, and feature-runner transition authority remains. |
-| `A5-F11` self-conformance | not_applicable | partial | refactor | Qualification components exist; no frozen accepted 5.0 subject under STDO 2.0 exists. |
-| `A5-F12` replay-grounded observer/tuner | conserved | partial | refactor | RC5 substrate and X carriers exist; exact accepted candidate proof is absent. |
-| `A5-F13` native and bounded host projection | not_applicable | partial | refactor | Native public surfaces exist; equivalent bounded Codex projection and no-copy proof are incomplete. |
-| `A5-F14` packed Hello World and live F_P | conserved | contradictory | replace | Packed fixtures exist but use old runtime bindings/compiler path and do not satisfy `ABI5-ROOT-001`. |
-| `A5-F15` exact-candidate qualification | conserved | partial | refactor | M05 carrier families exist; exact pre-RC, installed-RC, and final-tap authority chain is not realized. |
-| `A5-F16` immutable RC and stable 5.0 | not_applicable | missing | create | No 5.0 RC, final-tap subject, stable tag, or post-publication installed proof exists. |
-| `A5-F17` downstream portability | not_applicable | missing | create | Historical/downstream fixtures are not the accepted source-independent flavored-catalog proof. |
+| `A5-F01` exact product/install/workspace/catalog | B22/B23/B26 conserved; exact Product, binding, lock, and catalog chain is a 5.0 addition | contradictory | replace | Installer authors a private GraphFunction, Module, policy, and ExecutionBasis; CLI accepts private runtime bindings. |
+| `A5-F02` GTL authoring and validation | B01/B19/B20 conserved; B21 lowering authority superseded | partial | refactor | Strong typed language surface exists; validation is entangled with lowering, runtime-plan, and feature coverage authority. |
+| `A5-F03` complete direct traversal | B02/B19 conserved; B21 compiled handoff superseded; direct HoG entry is the successor mechanism | contradictory | replace | Seven C constructors exist, but execution depends on compiled plans and feature-specific runners. |
+| `A5-F04` probabilistic result integrity | B02/B03/B05/B06/B16 conserved; exact 5.0 F_P contract admission extends them | partial | refactor | Strong F_P admission exists; installed target-path proof remains absent. |
+| `A5-F05` one public contract authority | B22/B23 publication and provenance law conserved; one closed public operation authority is a 5.0 addition | partial | refactor | Definition family exists; stale generated manifests and legacy/public dual paths remain. |
+| `A5-F06` thin SDK and CLI | B06/B22/B23 public and source-blind behavior conserved; thin-shell authority split is a 5.0 addition | contradictory | replace | SDK selects One Surface work and evaluates post-action closure; legacy CLI loads runtime authority. |
+| `A5-F07` complete One Surface loop | B02/B03/B05 conserved; four-authority One Surface program is a 5.0 addition | contradictory | refactor | Four semantic authorities exist, but a One Surface compiler/runtime and SDK order the loop. |
+| `A5-F08` Consensus free construction | B02/B16/B19 conserved; SYSTEM-owned Consensus composition is a 5.0 addition | contradictory | refactor | GTL body and domain contracts exist; execution remains coupled to compilers and special paths. |
+| `A5-F09` catalog semantics | B01/B03/B16 conserved; Product contribution/view/apply/invoke semantics are a 5.0 addition | partial | refactor | View/apply/invoke concepts exist; the installed authority chain is not clean. |
+| `A5-F10` event-sourced runtime truth | B03/B04/B05/B06 conserved; direct-traversal event binding extends them | partial | refactor | ABG event/replay substrate is strong; competing engine, SDK, and feature-runner transition authority remains. |
+| `A5-F11` self-conformance | B18/B22/B23/B25/B26 conserved; self-conformance under tapped STDO 2.0 is a 5.0 addition | partial | refactor | Qualification components exist; no frozen accepted 5.0 subject under STDO 2.0 exists. |
+| `A5-F12` replay-grounded observer/tuner | B04/B15 conserved; Product-owned observer/tuner projections extend them | partial | refactor | RC5 substrate and X carriers exist; exact accepted-candidate proof is absent. |
+| `A5-F13` native and bounded host projection | B06/B23 conserved; bounded Codex projection and no-copy proof are 5.0 additions | partial | refactor | Native public surfaces exist; equivalent host projection proof is incomplete. |
+| `A5-F14` packed Hello World and live F_P | B19/B22/B23/B24/B26 conserved; exact all-F_D root and later F_P path are distinct 5.0 subjects | contradictory | replace | Packed fixtures use old runtime bindings/compiler path and do not satisfy `ABI5-ROOT-001`. |
+| `A5-F15` exact-candidate qualification | B18/B22/B23/B25/B26 conserved; the pre-RC/RC/final-tap chain extends them | partial | refactor | M05 carriers exist; the exact 5.0 subject chain is not realized. |
+| `A5-F16` immutable RC and stable 5.0 | B22/B23/B25/B26 release integrity conserved; 5.0 RC, final tap, stable tag, and post-publication proof are new subjects | missing | create | No 5.0 release subject exists. |
+| `A5-F17` downstream portability | B23 source-blind consumption conserved; the independent flavored-catalog fixture is a 5.0 addition | missing | create | Historical/downstream fixtures are not the accepted proof. |
 
 ## 7. Scenario And Root Coverage
 
-| Scenario | 4.6 disposition | X coverage | X action | Current frontier |
+| Scenario | 4.6 contribution and 5.0 delta | X coverage | X action | Current frontier |
 |---|---|---|---|---|
-| `ABG5-S01` | conserved | contradictory | replace | Package/install/catalog pieces exist; the exact direct-GTL public path does not. |
-| `ABG5-S02` | conserved | contradictory | replace | Algebra and interiors exist; complete direct traversal and substitution proof do not. |
-| `ABG5-S03` | not_applicable | contradictory | refactor | One Surface and F_H components exist behind rival ordering/controller paths. |
-| `ABG5-S04` | not_applicable | missing | create | Requires tapped STDO 2.0 and exact-candidate self-conformance. |
-| `ABG5-S05` | not_applicable | contradictory | refactor | Consensus assets and early installed driver exist; ordinary direct-GTL execution and three-workspace evidence do not. |
-| `ABG5-S06` | not_applicable | partial | refactor | Native surfaces exist; bounded host parity and independent flavored catalog are incomplete. |
-| `ABG5-S07` | not_applicable | missing | create | Exact qualification and release subject chain has not begun. |
+| `ABG5-S01` | B01-B06/B19/B22/B23/B26 conserved; exact catalog/direct-HoG root is new | contradictory | replace | Package/install/catalog pieces exist; the exact direct-GTL public path does not. |
+| `ABG5-S02` | B02/B03/B05/B06/B17/B19 conserved; B21 superseded; full traversal matrix and fibre substitution extend them | contradictory | replace | Algebra and interiors exist; complete direct traversal and substitution proof do not. |
+| `ABG5-S03` | B02/B03/B05 and F_H behavior conserved; One Surface continuation program is new | contradictory | refactor | Components exist behind rival ordering/controller paths. |
+| `ABG5-S04` | B18/B22/B23/B25/B26 conserved; tapped-STDO self-conformance is new | missing | create | Requires tapped STDO 2.0 and exact-candidate self-conformance. |
+| `ABG5-S05` | B02/B04/B15/B16/B17 conserved; SYSTEM Consensus and three-workspace proof are new | contradictory | refactor | Consensus assets exist; ordinary direct execution and complete evidence do not. |
+| `ABG5-S06` | B06/B23 conserved; bounded host parity and independent flavored catalog are new | partial | refactor | Native surfaces exist; no-copy parity and independent fixture are incomplete. |
+| `ABG5-S07` | B18/B22/B23/B25/B26 conserved; exact 5.0 release-subject chain extends them | missing | create | Qualification and release chain has not begun. |
 
 `ABI5-ROOT-001` remains red:
 
-| Root obligation | 4.6 disposition | X coverage | X action | Required movement |
+| Root obligation | 4.6 contribution and 5.0 delta | X coverage | X action | Required movement |
 |---|---|---|---|---|
-| `R1` exact artifacts verified | conserved | partial | replace | Replace generated mixed-basis manifests with one candidate-owned exact product set. |
-| `R2` clean install | conserved | partial | refactor | Remove generated executable runtime authority from install. |
-| `R3` workspace bound | conserved | partial | refactor | Bind only immutable Product/install/workspace truth. |
-| `R4` catalog admitted/narrowed | not_applicable | partial | refactor | Publish the destination-owned Hello World module/program/function and admit one view. |
-| `R5` target program selected/admitted | not_applicable | missing | create | Create the exact accepted GTL program binding; no HoG-local plan/catalog. |
-| `R6` GraphFunction/contracts resolved | conserved | partial | refactor | Reuse catalog/contract primitives under the exact R5 program. |
-| `R7` GTL graph materialized/validated | conserved | partial | refactor | Use non-lowering validation and remove executable plan creation. |
-| `R8` public invocation enters HoG | superseded | contradictory | replace | Replace the RC5/X compiler and engine handoff with one direct traversal entry. |
-| `R9` ABG causal result/close | conserved | partial | refactor | Reuse events and replay around the new traversal entry. |
-| `R10` replay/CLI typed agreement twice | conserved | missing | create | Add the exact installed terminal predicate and repeatability proof. |
+| `R1` exact artifacts verified | B22/B23/B26 conserved; exact 5.0 Product set is new | partial | replace | Replace mixed-basis manifests with one candidate-owned exact set. |
+| `R2` clean install | B22/B23/B26 conserved; source-blind 5.0 install extends them | partial | refactor | Remove generated executable runtime authority from install. |
+| `R3` workspace bound | B23 source-blind identity law conserved; exact workspace binding is new | partial | refactor | Bind only immutable Product/install/workspace truth. |
+| `R4` catalog admitted/narrowed | B01/B03/B16 contribute admission law; Product catalog/view is new | partial | refactor | Publish the Hello World module/program/function and admit one view. |
+| `R5` target program selected/admitted | B01/B03 contribute authority law; exact Program selection is new | missing | create | Create the accepted GTL program binding; no HoG-local plan/catalog. |
+| `R6` GraphFunction/contracts resolved | B01/B19 conserved; exact catalog membership/contracts extend them | partial | refactor | Re-adopt contract primitives under the exact R5 program. |
+| `R7` GTL graph materialized/validated | B19/B20 conserved; B21 executable lowering superseded | partial | refactor | Use non-lowering validation and remove executable plan creation. |
+| `R8` public invocation enters HoG | B02/B06 conserved; B21 handoff superseded; direct HoG entry is new | contradictory | replace | Replace compiler/engine handoff with one direct traversal entry. |
+| `R9` ABG causal result/close | B03-B06 conserved; exact direct-path event binding extends them | partial | refactor | Re-adopt events and replay around the new traversal entry. |
+| `R10` replay/CLI typed agreement twice | B03/B04/B22/B23/B26 conserved; exact terminal repeatability is new | missing | create | Add the installed terminal predicate and repeatability proof. |
 
 The first typed frontier is `R1`: one exact packed candidate cannot yet be
 verified because its current generated product/manifests contain mixed and
@@ -348,46 +395,71 @@ the root in rank order and reruns the governor at every promoted checkpoint.
 
 ## 8. X Carrier Census
 
-| Carrier family | Representative paths | 4.6 disposition | Coverage judgment | Action |
+Donor admission stages classify extraction order without pre-deciding M3 module
+shape: `D1` package/binding/catalog foundation; `D2` GTL authoring and
+validation; `D3` all-`F_D` direct HoG/ABG root; `D4` remaining traversal,
+`F_P`, and `F_H`; `D5` Product constructions and public projections; `D6`
+qualification and release. A row may move only after its owning proof is
+available. `D4` B-001 proof precedes the first `F_P` transport admission but is
+not part of `D3` root closure.
+
+| ID | Carrier family and representative paths | 4.6 disposition | Coverage / action | Successor owner; admission stage; owning proof |
 |---|---|---|---|---|
-| GTL M01 graph carriers and constructors | `code/src/gtl/m01/contracts`, `algebra/core.ts` | conserved | Correct substrate with stale node-type-as-GraphFunction encoding | refactor |
-| GTL C and HOF algebra | `algebra/c_algebra.ts`, `hof.ts` | conserved | Seven C terms and fan-out/fan-in authoring are valuable | retain |
-| GTL admission and serialization | `gtl/m01/admission`, `serialization` | conserved | Correct language boundary | retain |
-| GTL M02 Module/contracts | `gtl/m02` | not_applicable | Correct publication substrate; bind accepted Program separately | refactor |
-| Whole-program validator | `abg/m03/contracts/gtl_program_conformance.ts` (about 582K bytes) | conserved | Valuable diagnostics mixed with compiler, runtime-plan, fixed-count, and feature-coverage authority | replace |
-| Validation/materialization helpers named compiler | `graph_function_application_compiler.ts`, `hof_relation_compiler.ts` | not_applicable | Useful total validation or binding logic may remain, but names and imports must not imply lowering, topology ownership, or executable plan authority | refactor |
-| HoG runtime-program syntax/catalog | `hog_program.ts`, `hog_program_syntax.ts`, `execution_declaration_compiler.ts` | not_applicable | Rival program representation, defaults, selectors, and ladder | delete |
-| C-to-HoG lowering | `c_algebra_hog_compiler.ts` | superseded | Historical 4.6 mechanism superseded by accepted 5.0 | delete |
-| GraphVector compiler/handoff | `graph_vector_c_program_compiler.ts`, `graph_vector_execution_handoff.ts` | superseded | Useful boundary checks wrapped around executable compiled authority | replace |
-| Complete C plan/compiler | `complete_c_program.ts` | not_applicable | Locus/cardinality checks useful; `CompiledCProgramPlan` is prohibited | replace |
-| Complete C runtime | `runner/complete_c_program_runtime.ts` | not_applicable | Cursor, atom receipt, evidence, and fold useful; plan-driven executor is prohibited | refactor |
-| Feature-specific traversal runtimes | `workflow_c_runtime.ts`, `c_batch_runtime.ts`, `c_retry_runtime.ts`, `typed_recurse_runtime.ts` | not_applicable | Valuable semantics behind alternate executor paths | refactor |
-| Legacy engine | `runner/engine_runner.ts` (about 8K lines) | superseded | Contains proven interiors but owns selection, scheduling, retry, and closure branches | replace |
-| Runtime catalog, registry, and declared context | `runtime_catalog.ts`, `runtime_graph_function_registry.ts`, `declared_execution_context.ts` | not_applicable | Valuable admission and identity checks are mixed with runtime selection, plan, and startup authority | refactor |
-| ABG C-call enclosure and event admission | `c_call_*`, `event_admission.ts`, `events/` | conserved | Correct runtime-truth substrate | retain |
-| Event Calculus and replay | `event_calculus.ts`, `replay_*`, `continuation_transition.ts` | conserved | Correct ABG derivation substrate | retain |
-| Transport and real worker | `transport/`, `shared/abg_library`, `shared/traced_process` | conserved | X regressed the RC5 lane, append-argument, sandbox, and real-worker proof contracts; later tracing interiors require separate donor review | replace |
-| F_H interaction | `runner/fh_interaction.ts` | conserved | Correct attributed hold/response/resume semantics | refactor |
-| One Surface semantic authorities | `one_surface_authority.ts`, semantic admission/evaluation contracts | not_applicable | Four distinct authorities are Product-required | retain |
-| One Surface compiler/runtime | `one_surface_program_compiler.ts`, `one_surface_program_runtime.ts` | not_applicable | Feature-specific compiled/order authority | replace |
-| Consensus GTL body and contracts | `consensus_gtl_body.ts`, contract family, profiles/results | not_applicable | Product-required standard construction | refactor |
-| Public definition/schema family | `app/m04/public_contracts`, generated contract assets | not_applicable | Valuable one-truth projection; counts remain derived | retain |
-| Public SDK | `app/m04/public_sdk/sdk.ts` | conserved | Contract projection mixed with selection, execution, and post-action control | replace |
-| Native `abg.cli` shell | `app/m04/public_cli`, `bin/abg.cli.ts` | conserved | Correct destination shell shape; needs a thin direct invocation join | refactor |
-| Legacy CLI/install shell | `code/src/cli/command.ts`, `bin/abiogenesis.ts`, `bin/abg.install.ts` | conserved | Installer and runtime concerns mixed; private binding is executable authority | replace |
-| Installer-generated runtime | `typescript_installer.ts` generated `cli-runtime.mjs` | not_applicable | Authors private Node, GraphFunction, Module, policy, and ExecutionBasis | delete |
-| Workspace runtime override | CLI preference for `.abiogenesis/typescript-runtime.mjs` | not_applicable | Arbitrary executable authority outside Product/catalog | delete |
-| M04 control/max-autonomy/start | `app/m04/control`, `max_autonomy`, `start.ts` | not_applicable | Public adapters call the legacy engine and own loop shape | delete |
-| Product/install/workspace/catalog carriers | `app/m04/product_intake`, `toolchain_binding`, `workspace`, catalog authority | conserved | Useful exact-identity and admission behavior | refactor |
-| Qualification/release carriers | `qualification/m05` | conserved | Useful exact-subject primitives; incomplete and stale lineages | refactor |
-| Generated catalogs/manifests | `contracts/*.json`, `product-toolchain-manifest.json` | conserved | Read models only; current dirty variants are unaccepted | replace |
-| Compiled-plan tests/probes | `test_t220`, `t254` through `t271`, Consensus probe compiler assertions | not_applicable | Valuable historical and boundary evidence but assert prohibited authority | archive |
-| Public/event/transport tests | canonical event, replay, F_P, F_H, transport, install tests | conserved | Reusable contract evidence after target-path rebinding; RC5 transport tests outrank their X regressions | refactor |
-| Accepted compiled-plan designs | `M03_COMPILED_EXECUTION_HANDOFF_*`, `M03_COMPLETE_C_PROGRAM_*`, related diagrams | not_applicable | Historical decision evidence invalidated by T-283 | archive |
+| `XC01` | GTL M01 graph carriers and constructors: `gtl/m01/contracts`, `algebra/core.ts` | conserved | stale node-type encoding; `refactor` | GTL language; D2; S01/S02 plus node-type non-callability negative |
+| `XC02` | GTL C and HOF algebra: `c_algebra.ts`, `hof.ts` | conserved | seven C terms valuable; `retain` | GTL language; D2; 40-row traversal structure proof |
+| `XC03` | GTL admission and serialization | conserved | correct boundary; `retain` | GTL admission; D2; round-trip and malformed-input proof |
+| `XC04` | GTL M02 Module/contracts | not_applicable | publication substrate; `refactor` | Product Module/Program publication; D1-D2; S01 catalog proof |
+| `XC05` | whole-program validator: `gtl_program_conformance.ts` | conserved | diagnostics mixed with lowering/count authority; `replace` | non-lowering GTL validator; D2; valid/invalid whole-program corpus |
+| `XC06` | helpers named compiler: `graph_function_application_compiler.ts`, `hof_relation_compiler.ts` | not_applicable | total checks may survive; `refactor` | GTL materialization/validation; D2-D3; S01/S02 and no-plan mutation |
+| `XC07` | HoG runtime-program syntax/catalog | not_applicable | rival program/default/selector; `delete` | none; D3 retirement; installed absence proof |
+| `XC08` | C-to-HoG lowering: `c_algebra_hog_compiler.ts` | superseded | compiled handoff; `delete` | none; D3 retirement; direct-path plus lowering absence proof |
+| `XC09` | GraphVector compiler/handoff | superseded | checks around executable authority; `replace` | HoG traversal boundary; D3; S01 direct entry and no-handoff mutation |
+| `XC10` | Complete C plan/compiler | not_applicable | useful locus checks, prohibited plan; `replace` | HoG traversal validation; D3; S02 and `CompiledCProgramPlan` absence |
+| `XC11` | Complete C runtime | not_applicable | useful receipts/fold, plan executor; `refactor` | generic HoG traversal plus ABG admission; D3-D4; S01/S02 |
+| `XC12` | feature runtimes: workflow, batch, retry, recurse | not_applicable | useful semantics behind alternate executors; `refactor` | one HoG relation; D4; traversal rows and feature-runner absence |
+| `XC13` | legacy `engine_runner.ts` | superseded | owns selection/scheduling/retry/closure; `replace` | HoG plus ABG owner split; D3-D4; root and controller absence proof |
+| `XC14` | runtime catalog/registry/declared context | not_applicable | identity checks mixed with startup authority; `refactor` | Product catalog projection plus ABG admission; D1-D3; R3-R6 |
+| `XC15` | ABG C-call enclosure, event admission, `events/` | conserved | runtime-truth substrate; `retain` | ABG; D3; R8-R10 causal path |
+| `XC16` | Event Calculus, replay, continuation transition | conserved | derivation substrate; `retain` | ABG; D3-D4; replay agreement and continuation mutation proof |
+| `XC17` | `fp_result_contract_admission.ts` | conserved | strong F_P result boundary; `refactor` | ABG result/evidence admission; D4; F04/S02 malformed-result negatives |
+| `XC18` | plugin declaration/selection: `plugin_selection.ts`, `plugins.ts` | conserved | capability admission mixed with plugin-era naming; `refactor` | Product implementation-binding policy plus ABG admission; D4; B16/F04 selection mutations |
+| `XC19` | plugin result envelopes and live-plugin runners | conserved | result/evidence semantics valuable; `refactor` | declared F_P implementation seam and ABG result admission; D4; B06/B16 and S02 live proof |
+| `XC20` | bounded repair: `retry_repair.ts` | conserved | finite repair semantics; `refactor` | GTL consequence plus HoG/ABG attempt law; D4; B17/S02 retry-vs-recursion proof |
+| `XC21` | transport and real worker | conserved | X never incorporated RC5 B-001; `replace` | F_P implementation seam; D4 after RCI-01; B07-B14/B24 real-worker proof |
+| `XC22` | F_H interaction: `runner/fh_interaction.ts` | conserved | attributed hold/response/resume; `refactor` | Product policy plus ABG admission; D4; S03 same-locus continuation |
+| `XC23` | observer/tuner: `executive_observer.ts`, `observer_operation_contracts.ts`, `tuner_operation_contracts.ts`, tiers, `executive_observer_runner.ts` | conserved | replay-grounded interiors mixed with old campaign/runtime coupling; `refactor` | Product observer/tuner GraphFunctions over ABG replay; D5; F12 and observer/tuner mutation proof |
+| `XC24` | One Surface semantic authorities | not_applicable | four Product-required authorities; `retain` | Product GraphFunctions and GTL program; D5; S03 authority-chain proof |
+| `XC25` | One Surface compiler/runtime | not_applicable | feature-specific execution/order; `replace` | ordinary GTL composition traversed by HoG; D5; S03 plus compiler absence |
+| `XC26` | Consensus GTL body/contracts/profiles/results | not_applicable | required construction behind special path; `refactor` | SYSTEM Product construction; D5; S05 three-workspace proof |
+| `XC27` | public definition/schema family | not_applicable | useful one-truth projection; `retain` | Product public contract authority; D5; SDK/CLI parity and no-rival-register proof |
+| `XC28` | public SDK | conserved | projection mixed with control; `replace` | thin typed shell; D5; S03/S06 controller mutation proof |
+| `XC29` | native `abg.cli` shell | conserved | destination shell shape; `refactor` | thin invocation/projection shell; D3/D5; root and SDK/CLI parity |
+| `XC30` | legacy CLI/install shell | conserved | install and private runtime authority mixed; `replace` | Product install plus thin CLI; D1/D3; R1-R10 and bypass absence |
+| `XC31` | installer-generated `cli-runtime.mjs` | not_applicable | authors private topology/ExecutionBasis; `delete` | none; D1 retirement; installed absence proof |
+| `XC32` | `.abiogenesis/typescript-runtime.mjs` override | not_applicable | arbitrary executable authority; `delete` | none; D1 retirement; source-blind mutation negative |
+| `XC33` | M04 control/max-autonomy/start | not_applicable | rival controller; `delete` | Product GTL program and thin ingress; D5 retirement; S03 absence proof |
+| `XC34` | Product/install/workspace/catalog carriers | conserved | useful identity/admission behavior; `refactor` | Product binding/catalog owners; D1; R1-R6 |
+| `XC35` | qualification/release carriers | conserved | useful primitives, stale lineages; `refactor` | Product qualification/release; D6; S04/S07 exact subjects |
+| `XC36` | generated catalogs/manifests | conserved | unaccepted read models; `replace` | derived Product projections; D1/D5/D6; digest/freshness gates |
+| `XC37` | compiled-plan tests/probes | not_applicable | historical boundary evidence; `archive` | none; archive at X; prohibited identities become mutations |
+| `XC38` | public/event/transport tests | conserved | reusable after rebinding; `refactor` | owning successor proof lanes; D1-D6; each consuming feature |
+| `XC39` | accepted compiled-plan designs | not_applicable | invalidated decision evidence; `archive` | none; archive at X; M3 replacement review |
+| `XC40` | every X path not matched by `XC01`-`XC39` | not_applicable | no admitted target relation; `archive` | none; immutable X archive only; any later donor request must amend this census and pass review before extraction |
 
 The census deliberately avoids treating 129 contract files or 19 public
 operations as the engine ontology. The target Prime is the accepted language,
 one traversal relation, ABG runtime truth, and Product-owned constructions.
+
+### 8.1 Final-Integration Donor Census
+
+The separately frozen final-integration line is a donor/evidence line, not a
+fourth authority surface.
+
+| ID | Exact carrier | Method class | Successor disposition and proof |
+|---|---|---|---|
+| `Y01` | committed transport repairs `e736fa49` and `53b3a72c` | `rewrite` | Candidate source for binding RC5 lane behavior through live implementation seams at D4. Extract only after RCI-01 and prove B07-B14/B24 plus F_P result admission. Do not cherry-pick the commits. |
+| `Y02` | dirty snapshot `3c2d86d4` with 346 status entries | `redundant` by default | Archive-only evidence. A later donor request must identify one exact path, Product obligation, destination, loss, and proof and amend this row before extraction. |
+| `Y03` | rejected T-270 stash `d4d1a3cc` | `redundant` | Archive-only negative evidence; no prototype carrier enters the successor. |
 
 ## 9. Explicit Retirement Set
 
@@ -435,27 +507,55 @@ No held X ticket resumes directly and no active ticket directory is copied onto
 the successor line. M3 design decides which retained claims are carried into a
 small successor set. Ticket history remains evidence at the X archive ref.
 
-## 11. M3 Design Input Contract
+### 10.1 Requirement Re-Entry
 
-M3 shall produce one replacement design against the clean RC5 construction
-base, not another product definition and not a family of compiler repairs. The
-proposed carrier is:
+The first review falsified the claim that M3 required no upstream repair. T-284
+therefore re-enters at requirements while keeping accepted Intent and Product
+stable.
+
+| Requirement family | Bounded correction |
+|---|---|
+| `REQ-P-POLICY-023`, `054` | Separate One Surface semantic ordering from ABG admission and separate direct GraphFunction `invoke` from `start`-only `root_mode`. |
+| `REQ-R-ABG3-SAGA-FRONTIER` | GTL declares topology, HoG traverses, host realizes effects, and ABG admits/replays facts without becoming a scheduler. |
+| `REQ-R-ABG3-WORKER` | Product/implementation binding proposes a worker, ABG admits it, and HoG/host realize admitted work. |
+| `REQ-L-GTL3-SUBWORK` | Sub-work remains a GTL declaration traversed by HoG and realized by the host under ABG admission. |
+| `REQ-R-ABG3-BINDING` | Binding truth surrounds HoG/host realization rather than assigning execution to ABG. |
+| `REQ-R-ABG3-LEAFTASK` | Bounded leaf work uses the same GTL/HoG/host/ABG split and cannot become a rival executor. |
+| `REQ-R-ABG3-CONVERGENCE` | HoG traverses declared proof/closure GraphFunctions; ABG admits their results and owns closure truth. |
+
+These edits remove contradictory owner verbs; they do not change the Product
+outcomes, scenarios, root predicate, or accepted non-features. Their exact
+bytes are part of the T-284 constitutional refreeze and require independent
+acceptance before M3.
+
+## 11. M3 Design Review Input, Not Accepted Design
+
+M3 remains blocked until the requirement amendments in T-284 are accepted, the
+constitutional subject is refrozen, this vector passes independent review, and
+M2 closes. The following constraints and questions are inputs to M3. They are
+not accepted interfaces, module shape, implementation sequence, or design
+authority.
+
+The proposed review carrier is:
 
 ```text
 build_tenants/abiogenesis/typescript/design/
   M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
 ```
 
-It must close these design decisions:
+M3 must answer and obtain acceptance for these decisions:
 
-1. **Admitted input**: exact GTL Program, selected GraphFunction membership,
+1. **Admitted input**: exact Product, install, workspace binding, narrowed
+   catalog-view binding, GTL Program, selected GraphFunction membership,
    materialized graph/C term, contracts, implementation bindings, policy, and
    invocation basis.
 2. **One executor**: HoG traverses the admitted graph and C term directly. Its
    invocation-local cursor is state, not a program and not a resumable rival
    authority.
-3. **One bind**: each `TraversalUnit<A,B>` returns a typed outcome that ABG
-   admits and joins to one declared continuation.
+3. **One transition relation**: each traversal step returns a typed proposal;
+   ABG admits or rejects its transition and cursor fact, and HoG applies only
+   the admitted transition. The design must not assume a `TraversalUnit` type
+   before deriving the minimal interface.
 4. **Leaf boundary**: `F_D` is a total admitted implementation; `F_P` is a
    bounded worker proposal followed by result admission; `F_H` is a typed hold
    followed by attributed response admission. Implementations never select
@@ -463,60 +563,74 @@ It must close these design decisions:
 5. **Structural recursion**: compose, edge, batch, workflow child traversal,
    graph recursion, retry, fan-out, fan-in, gate, and promotion use the same
    interpreter relation, with no feature-specific executor.
-6. **Runtime truth**: ABG alone owns graph-call/frame/attempt identity, events,
-   evidence, replay, correction, continuation, and closure.
-7. **Public path**: installer projects immutable Product truth; catalog selects
-   admitted Program and GraphFunction; SDK and CLI only submit and project.
+6. **Runtime truth**: ABG alone owns graph-call/frame/attempt identity, admitted
+   selection truth, events, evidence, replay, correction, continuation, and
+   closure. It does not own traversal topology or scheduling.
+7. **Public path**: installer projects immutable Product truth. Module and
+   catalog project declarations and a narrowing view. The caller or admitted
+   program proposes Program and GraphFunction references; ABG admits selection,
+   membership, binding, and invocation truth; HoG traverses. SDK and CLI only
+   submit and project.
 8. **Positive proof**: one intended-authority sequence covers exact
    `ABI5-ROOT-001` R1-R10.
 9. **Absence proof**: real-path mutations prove no compiled plan, HoG-local
    program catalog/default, private runtime binding, SDK controller, feature
    runner, or rival event/closure path is reachable.
-10. **Migration map**: every carrier in section 8 has an exact destination,
-    extraction order, transactional retirement point, and owning test change.
-11. **Clean-line proof**: the design names the exact RC5 base, accepted 5.0
-    constitutional overlay, donor-admission protocol, and forbidden X identities
-    that must never enter the successor history or package.
+10. **Migration map**: every `RCI`, `XC`, and `Y` carrier selected for admission
+    has an exact destination, extraction order, transactional retirement point,
+    and owning proof change.
+11. **Fresh-line proof**: the design names a fresh successor tree, accepted 5.0
+    constitutional overlay, all three sideways donor bases, donor-admission
+    protocol, and forbidden identities that must never enter the successor
+    public path or package.
 
 The design must include at least three views: static ownership, dynamic sunny
-path, and dynamic continuation/failure path. It must specify the minimal
-interfaces before selecting file/module decomposition.
+path, and dynamic continuation/failure path. It must derive the minimal
+interfaces before selecting file/module decomposition. If a row exposes a
+Product or requirement contradiction, M3 stops and re-enters requirements; it
+does not treat the vector's classification as semantic authority.
 
-## 12. Proportional Execution After M3
+## 12. Candidate Sequence For M3 To Evaluate
 
-The implementation order is fixed by the root frontier:
+This is a proposed ordering constraint for design review, not an authorized
+implementation plan:
 
 ```text
-1. create a clean successor worktree from exact RC5 source
-2. apply the accepted 5.0 constitutional and root-governor basis
-3. conserve RC5 B-001 and retain only GTL/ABG substrate needed by Hello World
-4. replace the RC5 compiled handoff with one direct all-F_D HoG traversal unit
-5. wrap it in ABG event and replay truth
-6. add a thin abg.cli invocation/projection shell
-7. prove compiled-plan, private-runtime, and controller identities absent
-8. pack, clean-install, and satisfy ABI5-ROOT-001 R1-R10
-9. only then selectively migrate X behavior across F_P, F_H, full traversal, Consensus,
-   portability, qualification, and release
+1. accept the repaired requirements and M3 replacement design
+2. create a fresh successor implementation tree with donor code absent
+3. selectively re-adopt the minimum D1/D2 Product, GTL, and validation carriers
+4. realize one direct all-F_D HoG traversal with ABG event and replay truth
+5. expose it through the thin installed abg.cli path
+6. prove prohibited compiler, plan, private-runtime, and controller identities absent
+7. pack, clean-install, and satisfy exact ABI5-ROOT-001 R1-R10
+8. before the first F_P slice, re-adopt and prove RC5 B-001 transport behavior
+9. admit remaining D4-D6 behavior one Product claim and proof at a time
 ```
 
-The first implementation slice does not import the X framework. It selects the
-smallest RC5 carriers required for the exact Hello World root, proves the new
-authority path, and then admits additional X donor behavior one claim at a
-time. A component test, generated manifest, compiler equivalence, feature
-fixture, or volume of migrated code cannot project root progress.
+M3 may change this proposed decomposition when it proves a smaller lawful set
+of direct prerequisites. It may not weaken `ABI5-ROOT-001`, make B-001 part of
+that all-`F_D` predicate, import a donor framework wholesale, or let a component
+test, generated manifest, compiler equivalence, feature fixture, or volume of
+migrated code project root progress.
 
 ## 13. Review Gate
 
-T-284 remains open pending independent review of this exact vector. Review must
-attempt to falsify:
+T-284 remains open pending independent review of a newly frozen exact subject.
+Review must attempt to falsify:
 
-1. complete RC5 baseline coverage, especially B-001 and explicit exclusions;
-2. all 40 traversal rows plus fibre substitution;
-3. all 17 features, seven scenarios, and R1-R10;
-4. the distinction between useful behavior and invalid authority;
-5. the explicit retirement set;
-6. held-ticket disposition; and
-7. the claim that M3 can proceed without another Intent, Product, or requirement
-   re-entry.
+1. complete RC5 semantic and implementation classification, especially B-001
+   and the default-absence rule;
+2. complete X and final-integration carrier classification, including
+   observer/tuner, plugins, repair, and F_P result admission;
+3. all 40 traversal rows plus fibre substitution;
+4. decomposed 4.6 contributions and 5.0 deltas across all 17 features, seven
+   scenarios, and R1-R10;
+5. the GTL/HoG/ABG/catalog authority split and repaired requirement consistency;
+6. the distinction between useful donor behavior and invalid authority;
+7. the explicit retirement set and held-ticket dispositions; and
+8. exact-subject reconciliation after the T-283 activation edits and T-284
+   requirement amendments.
 
-No design acceptance or code change is authorized by this vector.
+No M3 design acceptance or code change is authorized by this vector. M3 may
+begin only after the refrozen requirements and vector pass independent review
+and M2 closes.

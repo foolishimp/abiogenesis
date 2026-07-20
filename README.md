@@ -12,9 +12,9 @@ successor to the immutable 4.6 RC5 Product origin.
 
 | Surface | State |
 |---|---|
-| current work owner | `T-284` M2 correction vector |
+| current work owner | `T-284` M2 requirement repair and correction vector |
 | Product definition | accepted in `specification/PRODUCT.md` |
-| implementation | held; existing code is X-path evidence only |
+| implementation | held; RC5, X, and final-integration are sideways donor evidence |
 | replacement design | blocked pending M2 X-to-5 correction vector |
 | delivery governor | `ABI5-ROOT-001`, currently unproved |
 | qualification method | tapped STDO 2.0 required before self-conformance and release |
@@ -84,9 +84,10 @@ build_tenants/abiogenesis/python/            withdrawn historical reference
 
 ## Current Work Rule
 
-Do not implement against unclassified X. First freeze X and derive the
-three-axis correction vector under T-284, then accept a direct-GTL replacement
-design and establish `ABI5-ROOT-001` before horizontal feature work.
+Do not implement against a donor line. First accept the bounded requirement
+repair and the refrozen no-silence correction vector under T-284, then accept a
+direct-GTL replacement design and establish `ABI5-ROOT-001` before horizontal
+feature work.
 
 Existing tests and commands remain current-state probes only. They are not
 5.0 Product evidence until the accepted design maps them onto the exact root,
