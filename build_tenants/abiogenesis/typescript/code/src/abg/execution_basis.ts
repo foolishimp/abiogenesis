@@ -34,7 +34,11 @@ export interface InvocationRefusalAdmission {
   readonly refusalRef: string;
   readonly refusalDigest: Sha256Digest;
   readonly invocationAdmissionRef: string;
-  readonly stage: "execution_basis" | "graph_validation" | "implementation_resolution";
+  readonly stage:
+    | "execution_basis"
+    | "graph_validation"
+    | "implementation_resolution"
+    | "open_call";
   readonly subjectDigest: Sha256Digest;
   readonly contractOrDiagnosticRefs: readonly string[];
   readonly admissionEventRef: string;

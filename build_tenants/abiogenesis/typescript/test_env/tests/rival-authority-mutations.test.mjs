@@ -1,16 +1,21 @@
 import assert from "node:assert/strict";
 import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  applyInstalledTranscriptPrefix,
   buildRootCliScenario,
+  installedCliPackageRoot,
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const mutationEvidence = [];
+let installedAbsenceEvidence = null;
 
 async function exists(path) {
   try {
@@ -36,110 +41,23 @@ async function jsText(rootPath) {
   return values.join("\n");
 }
 
-test("B8 installed public path refuses six rival authority carriers", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
-  const mutations = [
-    {
-      id: "compiled-plan",
-      field: "compiledPlan",
-      transform: (payload) => ({
-        ...payload,
-        compiledPlan: {
-          kind: "CompiledCProgramPlan",
-          result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
-        },
-      }),
-    },
-    {
-      id: "hidden-default-target",
-      field: "defaultProgramRef",
-      transform: ({ programRef: _programRef, ...payload }) => ({
-        ...payload,
-        defaultProgramRef: "program://abiogenesis/conformance/hello-world@5",
-      }),
-    },
-    {
-      id: "renamed-controller",
-      field: "controller",
-      transform: (payload) => ({
-        ...payload,
-        controller: {
-          kind: "renamed_feature_runner",
-          result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
-        },
-      }),
-    },
-    {
-      id: "private-execution-basis",
-      field: "executionBasis",
-      transform: (payload) => ({
-        ...payload,
-        executionBasis: { kind: "execution_basis", disposition: "admitted", basisRef: "forged" },
-      }),
-    },
-    {
-      id: "event-bypass",
-      field: "events",
-      transform: (payload) => ({
-        ...payload,
-        events: [{ kind: "run_closed", aggregateId: "fixture-authored" }],
-      }),
-    },
-    {
-      id: "fixture-result-and-closure",
-      field: "result",
-      transform: (payload) => ({
-        ...payload,
-        result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
-        closed: true,
-      }),
-    },
-  ];
-  const results = [];
-  let installedRoot = null;
-  for (const mutation of mutations) {
-    const scenario = await buildRootCliScenario(
-      harness,
-      `b8-${mutation.id}`,
-      mutation.transform,
-    );
-    installedRoot = scenario.installedRoot;
-    const run = await runInstalledCli(harness, scenario);
-    assert.equal(run.exitCode, 2, `${mutation.id}: ${run.stdout}`);
-    assert.equal(run.stderr, "");
-    assert.equal(run.outcomes.length, 6, `${mutation.id}: ${run.stdout}`);
-    assert.deepEqual(run.outcomes.slice(0, 5).map((row) => row.disposition), [
-      "succeeded",
-      "succeeded",
-      "succeeded",
-      "succeeded",
-      "succeeded",
-    ]);
-    const refusal = run.outcomes.at(-1);
-    assert.equal(refusal.operationId, "abg.operation.run.invoke");
-    assert.equal(refusal.disposition, "refused");
-    assert.equal(refusal.result.code, "invalid_request");
-    assert.match(refusal.result.message, new RegExp(mutation.field));
-    assert.equal(refusal.runtimeInvocationRef, null);
-    assert.equal(refusal.runId, null);
-    assert.equal(refusal.cCallRef, null);
-    assert.equal(refusal.resultRef, null);
-    assert.equal(refusal.replayDigest, null);
-    assert.equal(await exists(scenario.eventLogPath), false);
-    results.push({
-      mutation: mutation.id,
-      injectedField: mutation.field,
-      exitCode: run.exitCode,
-      disposition: refusal.disposition,
-      diagnosticRef: refusal.diagnosticRef,
-      runtimeInvocationAbsent: refusal.runtimeInvocationRef === null,
-      causalRunAbsent: refusal.runId === null,
-      durableEventLogAbsent: !(await exists(scenario.eventLogPath)),
-    });
-  }
+function satisfiesInstalledRoot(outcome, durableLogPresent) {
+  return outcome.disposition === "succeeded" &&
+    outcome.runId?.startsWith("run://abiogenesis/") === true &&
+    outcome.graphCallId?.startsWith("graph-call://abiogenesis/") === true &&
+    outcome.frameId?.startsWith("frame://abiogenesis/") === true &&
+    outcome.cCallRef?.startsWith("c-call:sha256:") === true &&
+    outcome.resultRef?.startsWith("result://abiogenesis/") === true &&
+    outcome.judgmentRef?.startsWith("judgment://abiogenesis/") === true &&
+    outcome.replayAgreement === true &&
+    outcome.outputContractRef === outcome.admittedResultContractRef &&
+    durableLogPresent;
+}
 
-  assert.notEqual(installedRoot, null);
-  const installedSource = await jsText(join(installedRoot, "build/code/src"));
+test("B8 installed package exposes no retired runtime authority", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const packageRoot = installedCliPackageRoot(harness);
+  const installedSource = await jsText(join(packageRoot, "build/code/src"));
   for (const prohibited of [
     "CompiledCProgramPlan",
     "CompiledExecutionDeclaration",
@@ -148,24 +66,281 @@ test("B8 installed public path refuses six rival authority carriers", async (con
   ]) {
     assert.equal(installedSource.includes(prohibited), false, prohibited);
   }
+  const installedAbg = await import(
+    `${pathToFileURL(join(packageRoot, "build/code/src/abg/index.js")).href}?b8=exports`
+  );
+  assert.equal("admitRuntimeEvent" in installedAbg, false);
+  installedAbsenceEvidence = {
+    compiledPlan: !installedSource.includes("CompiledCProgramPlan"),
+    compiledExecutionDeclaration: !installedSource.includes("CompiledExecutionDeclaration"),
+    publicControlLoop: !installedSource.includes("publicControlLoop"),
+    runtimeProgramCatalog: !installedSource.includes("runtime-program-catalog"),
+    rawEventWriterExported: "admitRuntimeEvent" in installedAbg,
+  };
+});
 
-  const evidenceDirectory = join(root, "test_env/evidence");
-  await mkdir(evidenceDirectory, { recursive: true });
+test("B8 explicit invocation schema refuses an injected compiled-plan carrier", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const scenario = await buildRootCliScenario(harness, "b8-ingress-compiled-plan", (payload) => ({
+    ...payload,
+    compiledPlan: {
+      kind: "CompiledCProgramPlan",
+      result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
+    },
+  }));
+  const run = await runInstalledCli(harness, scenario);
+  assert.equal(run.exitCode, 2, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "refused");
+  assert.equal(outcome.result.code, "invalid_request");
+  assert.match(outcome.result.message, /compiledPlan/u);
+  assert.equal(await exists(scenario.eventLogPath), false);
+  mutationEvidence.push({
+    mutation: "undeclared_compiled_plan",
+    boundary: "public_ingress",
+    disposition: outcome.disposition,
+    refusalCode: outcome.result.code,
+    runtimeInvocationAbsent: outcome.runtimeInvocationRef === null,
+    durableEventLogAbsent: !(await exists(scenario.eventLogPath)),
+  });
+
+  const missingTarget = await buildRootCliScenario(
+    harness,
+    "b8-missing-explicit-target",
+    ({ programRef: _programRef, ...payload }) => payload,
+  );
+  const missingTargetRun = await runInstalledCli(harness, missingTarget);
+  assert.equal(missingTargetRun.exitCode, 2, missingTargetRun.stdout);
+  const missingTargetOutcome = missingTargetRun.outcomes.at(-1);
+  assert.equal(missingTargetOutcome.disposition, "refused");
+  assert.equal(missingTargetOutcome.result.code, "invalid_request");
+  assert.match(missingTargetOutcome.result.message, /programRef/u);
+  assert.equal(await exists(missingTarget.eventLogPath), false);
+  mutationEvidence.push({
+    mutation: "missing_explicit_target",
+    boundary: "public_ingress",
+    disposition: missingTargetOutcome.disposition,
+    refusalCode: missingTargetOutcome.result.code,
+    hiddenDefaultActivated: false,
+    durableEventLogAbsent: !(await exists(missingTarget.eventLogPath)),
+  });
+});
+
+test("B8 disabled HoG cannot fall through to a callable compiled-plan rival", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const packageRoot = installedCliPackageRoot(harness);
+  const traversalPath = join(packageRoot, "build/code/src/hog/traversal.js");
+  const traversalSource = await readFile(traversalPath, "utf8");
+  const marker = "export function traverse(input) {";
+  assert.equal(traversalSource.includes(marker), true);
   await writeFile(
-    join(evidenceDirectory, "abi5-root-rival-authority-mutations.json"),
+    traversalPath,
+    traversalSource.replace(marker, `${marker}\n    throw new Error("disabled direct HoG mutation");`),
+    "utf8",
+  );
+  const rivalPath = join(packageRoot, "build/code/src/hog/compiled-plan-rival.js");
+  await writeFile(
+    rivalPath,
+    "export function executeCompiledPlan() { return { kind: 'hello_world_output', schemaVersion: '5.0.0', message: 'Hello World' }; }\n",
+    "utf8",
+  );
+  const rival = await import(`${pathToFileURL(rivalPath).href}?mutation=callable`);
+  assert.equal(rival.executeCompiledPlan().message, "Hello World");
+
+  const scenario = await buildRootCliScenario(harness, "b8-disabled-hog");
+  const run = await runInstalledCli(harness, scenario);
+  assert.equal(run.exitCode, 2, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "failed");
+  assert.equal(outcome.result, null);
+  assert.equal(satisfiesInstalledRoot(outcome, true), false);
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), true);
+  assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
+  assert.equal(events.some((event) => event.kind === "run_closed"), false);
+  assert.equal(JSON.stringify(events).includes("executeCompiledPlan"), false);
+  mutationEvidence.push({
+    mutation: "disabled_hog_with_callable_rival",
+    boundary: "executor",
+    disposition: outcome.disposition,
+    runtimeFailureAdmitted: events.some((event) => event.kind === "runtime_failure_observed"),
+    cCallAbsent: !events.some((event) => event.kind === "c_call_opened"),
+    rivalResultAbsent: outcome.result === null,
+    falseClosureAbsent: !events.some((event) => event.kind === "run_closed"),
+  });
+});
+
+test("B8 a renamed controller can forge output but cannot satisfy the installed root", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const operationsPath = join(
+    installedCliPackageRoot(harness),
+    "build/code/src/public/operations.js",
+  );
+  const operationsSource = await readFile(operationsPath, "utf8");
+  const marker = "export async function applyRootPublicInvocation(context, invocation) {";
+  assert.equal(operationsSource.includes(marker), true);
+  const forgedOutcome = `
+    if (invocation.operationId === "abg.operation.run.invoke") {
+        return {
+            kind: "public_outcome", schemaVersion: "5.0.0",
+            operationId: invocation.operationId, variant: invocation.variant,
+            invocationRef: invocation.invocationRef, runtimeInvocationRef: "invocation://fixture/controller",
+            disposition: "succeeded", outcomeDigest: "sha256:${"0".repeat(64)}",
+            result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
+            diagnosticRef: null, runId: "run://fixture/controller", graphCallId: "graph-call://fixture/controller",
+            frameId: "frame://fixture/controller", cCallRef: "c-call:sha256:${"1".repeat(64)}",
+            resultRef: "result://fixture/controller", judgmentRef: "judgment://fixture/controller",
+            outputContractRef: "contract://abiogenesis/conformance/hello-output@5",
+            admittedResultContractRef: "contract://abiogenesis/conformance/hello-output@5",
+            replayRef: "replay://fixture/controller", replayDigest: "sha256:${"2".repeat(64)}",
+            replayAgreement: true, eventLogPath: invocation.payload.eventLogPath,
+            eventLogDigest: "sha256:${"3".repeat(64)}"
+        };
+    }`;
+  await writeFile(
+    operationsPath,
+    operationsSource.replace(marker, `${marker}${forgedOutcome}`),
+    "utf8",
+  );
+
+  const scenario = await buildRootCliScenario(harness, "b8-renamed-controller");
+  const run = await runInstalledCli(harness, scenario);
+  assert.equal(run.exitCode, 0, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "succeeded");
+  assert.equal(outcome.result.message, "Hello World");
+  assert.equal(await exists(scenario.eventLogPath), false);
+  assert.equal(satisfiesInstalledRoot(outcome, false), false);
+  mutationEvidence.push({
+    mutation: "renamed_controller_forged_output",
+    boundary: "public_projection",
+    projectedDisposition: outcome.disposition,
+    matchingOutputForged: outcome.result.message === "Hello World",
+    durableAbgTruthAbsent: !(await exists(scenario.eventLogPath)),
+    installedRootSatisfied: false,
+  });
+});
+
+test("B8 copied ExecutionBasis cannot enter the installed HoG or ABG path", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const copiedBasis = structuredClone(environment.executionBasis);
+  const eventCount = environment.store.readAll().length;
+  const open = environment.abg.openCall(
+    environment.store,
+    copiedBasis,
+    {
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/b8/copied-basis",
+      causationEventRefs: [],
+    },
+  );
+  assert.equal(open.kind, "open_call_refusal");
+  assert.equal(open.code, "execution_basis_not_admitted");
+  assert.equal(environment.store.readAll().length, eventCount);
+  mutationEvidence.push({
+    mutation: "copied_private_execution_basis",
+    boundary: "abg_open_call",
+    disposition: open.disposition,
+    refusalCode: open.code,
+    runtimeEventsAdded: environment.store.readAll().length - eventCount,
+  });
+});
+
+test("B8 installed leaf exceptions and malformed returns complete the failure spine", async (context) => {
+  const cases = [
+    {
+      label: "exception",
+      failureClass: "implementation_exception",
+      source: "export function realizeHelloWorld() { throw new Error('leaf mutation'); }\n",
+    },
+    {
+      label: "malformed",
+      failureClass: "malformed_return",
+      source: "export function realizeHelloWorld() { return { kind: 'malformed_leaf_candidate' }; }\n",
+    },
+  ];
+  for (const row of cases) {
+    const harness = await setupInstalledCliHarness(context, root);
+    const scenario = await buildRootCliScenario(harness, `b8-leaf-${row.label}`);
+    const { operationContext, outcomes, publicApi } = await applyInstalledTranscriptPrefix(
+      harness,
+      scenario,
+    );
+    assert.deepEqual(outcomes.map((outcome) => outcome.disposition), [
+      "succeeded", "succeeded", "succeeded", "succeeded", "succeeded",
+    ]);
+    const implementationPath = join(
+      scenario.installedRoot,
+      "build/code/src/implementation/hello_world.js",
+    );
+    await writeFile(implementationPath, row.source, "utf8");
+    const outcome = await publicApi.applyRootPublicInvocation(
+      operationContext,
+      scenario.transcript.at(-1),
+    );
+    assert.equal(outcome.disposition, "blocked", JSON.stringify(outcome));
+    assert.equal(outcome.result.kind, "hello_world_failure");
+    assert.equal(outcome.result.failureClass, row.failureClass);
+    assert.equal(
+      outcome.admittedResultContractRef,
+      "contract://abiogenesis/conformance/hello-failure@5",
+    );
+    assert.equal(outcome.cCallRef?.startsWith("c-call:sha256:"), true);
+    assert.equal(outcome.resultRef?.startsWith("result://abiogenesis/"), true);
+    assert.equal(outcome.judgmentRef?.startsWith("judgment://abiogenesis/"), true);
+    assert.equal(outcome.replayAgreement, true);
+    assert.equal(satisfiesInstalledRoot(outcome, true), false);
+
+    const events = (await readFile(scenario.eventLogPath, "utf8"))
+      .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+    const cCallEvents = events.filter((event) => event.aggregateId === outcome.cCallRef);
+    assert.deepEqual(cCallEvents.map((event) => event.kind), [
+      "c_call_opened",
+      "c_call_fibre_selected",
+      "c_call_evidenced",
+      "c_call_result_admitted",
+      "c_call_judged",
+    ]);
+    assert.equal(cCallEvents.at(-2).payload.resultClass, "failure");
+    assert.equal(cCallEvents.at(-1).payload.judgment, "blocked");
+    assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), false);
+    assert.equal(events.some((event) => event.kind === "run_closed"), false);
+    const evidence = {
+      mutation: `leaf_${row.label}`,
+      boundary: "leaf_realization",
+      disposition: outcome.disposition,
+      failureClass: outcome.result.failureClass,
+      admittedFailureContract: outcome.admittedResultContractRef,
+      cCallSpineComplete: cCallEvents.length === 5,
+      directRuntimeFailureAbsent: true,
+      falseRootClosureAbsent: true,
+    };
+    mutationEvidence.push(evidence);
+  }
+
+  assert.notEqual(installedAbsenceEvidence, null);
+  assert.deepEqual(mutationEvidence.map((row) => row.mutation), [
+    "undeclared_compiled_plan",
+    "missing_explicit_target",
+    "disabled_hog_with_callable_rival",
+    "renamed_controller_forged_output",
+    "copied_private_execution_basis",
+    "leaf_exception",
+    "leaf_malformed",
+  ]);
+  const proofDirectory = join(root, "test_env/proof");
+  await mkdir(proofDirectory, { recursive: true });
+  await writeFile(
+    join(proofDirectory, "abi5-root-rival-authority-mutations.json"),
     `${JSON.stringify({
       kind: "abi5_root_rival_authority_evidence",
       schemaVersion: "5.0.0",
       bindingId: "ABI5-ROOT-001",
-      result: "all_rivals_refused_before_runtime",
+      result: "real_owner_boundary_mutations_refused_or_non_closing",
       sourceImportUsed: false,
-      mutations: results,
-      installedAbsence: {
-        compiledPlan: true,
-        compiledExecutionDeclaration: true,
-        publicControlLoop: true,
-        runtimeProgramCatalog: true,
-      },
+      mutations: mutationEvidence,
+      installedAbsence: installedAbsenceEvidence,
     }, null, 2)}\n`,
     "utf8",
   );

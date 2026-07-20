@@ -132,7 +132,7 @@ export interface AdmittedCCallResult {
   readonly resultDigest: Sha256Digest;
   readonly valueDigest: Sha256Digest;
   readonly cCallRef: string;
-  readonly resultClass: "success";
+  readonly resultClass: "failure" | "success";
   readonly contractRef: string;
   readonly valueKind: string;
   readonly value: JsonValue;
@@ -548,6 +548,7 @@ export function admitResult(
   store: AbgEventStore,
   cCall: CCall,
   candidate: JsonValue,
+  resultClass: AdmittedCCallResult["resultClass"],
   contractRef: string,
   valueKind: string,
   evidence: readonly AdmittedCCallEvidence[],
@@ -557,11 +558,16 @@ export function admitResult(
     (event) => event.kind === "c_call_evidenced",
   );
   const valueDigest = sha256Canonical(candidate);
+  const expectedContractRef = resultClass === "success"
+    ? cCall.outputContractRef
+    : cCall.failureContractRef;
   if (
     !hasOpenedCCall(store, cCall) ||
+    (resultClass !== "success" && resultClass !== "failure") ||
     !isJsonRecord(candidate) ||
     candidate.kind !== valueKind ||
-    contractRef !== cCall.outputContractRef ||
+    candidate.schemaVersion !== "5.0.0" ||
+    contractRef !== expectedContractRef ||
     evidence.length === 0 ||
     evidence.length !== evidenceEvents.length ||
     new Set(evidence.map((row) => row.evidenceRef)).size !== evidence.length ||
@@ -585,7 +591,7 @@ export function admitResult(
   const immutableValue = deepFreeze(JSON.parse(canonicalJson(candidate)) as JsonValue);
   const body = {
     cCallRef: cCall.cCallRef,
-    resultClass: "success" as const,
+    resultClass,
     contractRef,
     valueKind,
     valueDigest,
@@ -656,7 +662,7 @@ export function admitJudgment(
     candidate.contractRef !== cCall.judgmentContractRef ||
     candidate.predicateRef !== cCall.judgmentPredicateRef ||
     candidate.replayStateDigest !== replayState.replayDigest ||
-    replay(store).replayDigest !== replayState.replayDigest ||
+    replay(store, { runId: cCall.runId }).replayDigest !== replayState.replayDigest ||
     eventsFor(store, cCall.cCallRef).at(-1)?.eventId !== result.admissionEventRef
   ) {
     return rejection(
@@ -818,7 +824,7 @@ export function completeRejectedCCall(
     resultEventRef = resultEvent.eventId;
   }
 
-  const rejectionReplay = replay(store);
+  const rejectionReplay = replay(store, { runId: cCall.runId });
   const rejectionJudgmentBody = {
     cCallRef: cCall.cCallRef,
     resultRef,

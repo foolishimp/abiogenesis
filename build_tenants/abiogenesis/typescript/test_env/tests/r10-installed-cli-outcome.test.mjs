@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
@@ -13,12 +15,24 @@ import {
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 test("R10 installed abg.cli returns the same typed outcome as two ABG replay folds", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
+  const harness = await setupInstalledCliHarness(context, root, {
+    scratchPath: join(tmpdir(), "abi5-root-r10-proof"),
+  });
   const scenario = await buildRootCliScenario(harness, "r10");
+  const secondRun = structuredClone(scenario.transcript.at(-1));
+  secondRun.invocationRef = `${scenario.refs.run}-second`;
+  secondRun.correlationId = `${secondRun.correlationId}/second`;
+  secondRun.payload.input.subject = "Universe";
+  const transcript = [...scenario.transcript, secondRun];
+  await writeFile(
+    scenario.transcriptPath,
+    `${transcript.map((row) => JSON.stringify(row)).join("\n")}\n`,
+    "utf8",
+  );
   const run = await runInstalledCli(harness, scenario);
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 6, run.stdout);
+  assert.equal(run.outcomes.length, 7, run.stdout);
   assert.deepEqual(run.outcomes.map((outcome) => outcome.disposition), [
     "succeeded",
     "succeeded",
@@ -26,17 +40,20 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
     "succeeded",
     "succeeded",
     "succeeded",
+    "succeeded",
   ]);
+  const firstOutcome = run.outcomes.at(-2);
   const outcome = run.outcomes.at(-1);
   assert.equal(outcome.kind, "public_outcome");
   assert.equal(outcome.operationId, "abg.operation.run.invoke");
-  assert.equal(outcome.invocationRef, scenario.refs.run);
+  assert.equal(firstOutcome.invocationRef, scenario.refs.run);
+  assert.equal(outcome.invocationRef, secondRun.invocationRef);
   assert.equal(outcome.runtimeInvocationRef.startsWith("invocation://abiogenesis/"), true);
   assert.equal(outcome.outputContractRef, "contract://abiogenesis/conformance/hello-output@5");
   assert.equal(outcome.admittedResultContractRef, outcome.outputContractRef);
   assert.deepEqual(outcome.result, {
     kind: "hello_world_output",
-    message: "Hello World",
+    message: "Hello Universe",
     schemaVersion: "5.0.0",
   });
   assert.equal(outcome.replayAgreement, true);
@@ -45,10 +62,21 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
   assert.equal(outcome.graphCallId.startsWith("graph-call://abiogenesis/"), true);
   assert.equal(outcome.frameId.startsWith("frame://abiogenesis/"), true);
   assert.equal(outcome.cCallRef.startsWith("c-call:sha256:"), true);
+  assert.equal(firstOutcome.disposition, "succeeded");
+  assert.deepEqual(firstOutcome.result, {
+    kind: "hello_world_output",
+    message: "Hello World",
+    schemaVersion: "5.0.0",
+  });
+  assert.equal(firstOutcome.replayAgreement, true);
+  assert.notEqual(firstOutcome.runId, outcome.runId);
+  assert.notEqual(firstOutcome.replayDigest, outcome.replayDigest);
 
-  const persisted = JSON.parse(await readFile(scenario.eventLogPath, "utf8"));
-  assert.equal(persisted.kind, "abg_event_log");
-  assert.deepEqual(persisted.events.slice(-10).map((event) => event.kind), [
+  const persistedEvents = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.deepEqual(persistedEvents.slice(-10).map((event) => event.kind), [
     "c_call_opened",
     "c_call_fibre_selected",
     "c_call_evidenced",
@@ -60,18 +88,22 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
     "graph_call_closed",
     "run_closed",
   ]);
-  assert.equal(persisted.events.at(-1).causationEventRefs[0], persisted.events.at(-2).eventId);
+  assert.equal(persistedEvents.at(-1).causationEventRefs[0], persistedEvents.at(-2).eventId);
+  assert.equal(persistedEvents.filter((event) => event.kind === "run_closed").length, 2);
   assert.equal(
-    persisted.events.some((event) =>
+    persistedEvents.some((event) =>
       JSON.stringify(event).includes("CompiledCProgramPlan") ||
       JSON.stringify(event).includes("publicControlLoop")),
     false,
   );
 
-  const evidenceDirectory = join(root, "test_env/evidence");
-  await mkdir(evidenceDirectory, { recursive: true });
+  const rawEventLog = await readFile(scenario.eventLogPath);
+  const eventLogDigest = `sha256:${createHash("sha256").update(rawEventLog).digest("hex")}`;
+  const proofDirectory = join(root, "test_env/proof");
+  await mkdir(proofDirectory, { recursive: true });
+  await writeFile(join(proofDirectory, "abi5-root-r10.events.jsonl"), rawEventLog);
   await writeFile(
-    join(evidenceDirectory, "abi5-root-r10.json"),
+    join(proofDirectory, "abi5-root-r10.json"),
     `${JSON.stringify({
       kind: "abi5_root_obligation_evidence",
       schemaVersion: "5.0.0",
@@ -79,16 +111,31 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
       obligation: "R10_replay_and_cli_typed_outcome_agree",
       result: "satisfied",
       sourceImportUsed: false,
-      cliPath: harness.cliPath,
       artifactDigest: run.outcomes[0].result.artifactDigest,
       productInstallId: run.outcomes[1].result.installId,
       workspaceBindingId: run.outcomes[2].result.bindingId,
       catalogId: run.outcomes[3].result.catalogId,
       catalogViewId: run.outcomes[4].result.viewId,
-      publicOutcome: outcome,
-      replayAgreement: outcome.replayAgreement,
-      durableEventCount: persisted.events.length,
-      eventKinds: persisted.events.map((event) => event.kind),
+      runOutcomes: [firstOutcome, outcome].map((value) => ({
+        invocationRef: value.invocationRef,
+        disposition: value.disposition,
+        result: value.result,
+        runId: value.runId,
+        graphCallId: value.graphCallId,
+        frameId: value.frameId,
+        cCallRef: value.cCallRef,
+        resultRef: value.resultRef,
+        judgmentRef: value.judgmentRef,
+        replayRef: value.replayRef,
+        replayDigest: value.replayDigest,
+        replayAgreement: value.replayAgreement,
+      })),
+      replayAgreement: firstOutcome.replayAgreement && outcome.replayAgreement,
+      replayScopesDistinct: firstOutcome.runId !== outcome.runId,
+      durableEventCount: persistedEvents.length,
+      durableEventLogLocator: "test_env/proof/abi5-root-r10.events.jsonl",
+      durableEventLogDigest: eventLogDigest,
+      eventKinds: persistedEvents.map((event) => event.kind),
       authorityBoundary: {
         callerAuthoredOperationOrder: true,
         cliConstructedExecutionBasis: false,

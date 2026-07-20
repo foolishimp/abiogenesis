@@ -3,6 +3,7 @@ import {
   admitEvidence,
   admitJudgment,
   admitResult,
+  admitRuntimeFailure,
   admitTransition,
   completeRejectedCCall,
   openCCall,
@@ -19,20 +20,37 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
-import type { JsonValue } from "../product/index.js";
+import { sha256Canonical, type JsonValue } from "../product/index.js";
 import type { DeterministicEvidenceCandidate } from "../abg/c_call.js";
 import { deepFreeze } from "../product/immutable.js";
-import { proposeJudgment, type DeclaredJudgmentRelation } from "./judgment.js";
+import {
+  proposeFailureJudgment,
+  proposeJudgment,
+  type DeclaredJudgmentRelation,
+} from "./judgment.js";
 import { proposeTerminalTransition } from "./transition.js";
 import type { TraversalStopRef } from "./traversal.js";
 
-export interface DeterministicLeafCandidate<Output> {
+export interface DeterministicLeafSuccessCandidate<Output> {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "success";
   readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
   readonly resultCandidate: Output;
 }
+
+export interface DeterministicLeafFailureCandidate {
+  readonly kind: "leaf_realization_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "failure";
+  readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
+  readonly resultCandidate: Readonly<Record<string, JsonValue>>;
+  readonly diagnosticRef: string;
+}
+
+export type DeterministicLeafCandidate<Output> =
+  | DeterministicLeafFailureCandidate
+  | DeterministicLeafSuccessCandidate<Output>;
 
 export interface DeterministicTraversalClock {
   readonly eventTime: string;
@@ -42,7 +60,7 @@ export interface DeterministicTraversalClock {
 export interface DeterministicTraversalCompletion {
   readonly kind: "deterministic_traversal_completion";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "blocked" | "closed" | "refused";
+  readonly disposition: "blocked" | "closed" | "failed" | "refused";
   readonly cCallRef: string | null;
   readonly resultRef: string | null;
   readonly judgmentRef: string | null;
@@ -64,12 +82,11 @@ export interface CompleteDeterministicTraversalInput<
   readonly implementationResolution: AdmittedImplementationResolution;
   readonly input: Readonly<Input>;
   readonly inputDigest: `sha256:${string}`;
+  readonly failureValueKind: string;
   readonly resultValueKind: string;
   readonly closureContract: Readonly<ClosureContract>;
   readonly judgmentRelation: DeclaredJudgmentRelation<Input, Output>;
-  readonly realize: (
-    input: Readonly<Input>,
-  ) => Readonly<DeterministicLeafCandidate<Output>>;
+  readonly realize: (input: Readonly<Input>) => unknown;
   readonly clock: DeterministicTraversalClock;
 }
 
@@ -108,6 +125,63 @@ function completion(
   }) as DeterministicTraversalCompletion;
 }
 
+function replayRun(input: Pick<CompleteDeterministicTraversalInput<unknown, unknown>, "store" | "openedTraversalScope">): ReplayState {
+  return replay(input.store, { runId: input.openedTraversalScope.runId });
+}
+
+function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isEvidenceCandidate(value: unknown): value is DeterministicEvidenceCandidate {
+  return isRecord(value) &&
+    value.kind === "deterministic_evidence_candidate" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.implementationRef === "string" && value.implementationRef.length !== 0 &&
+    typeof value.inputDigest === "string" && /^sha256:[a-f0-9]{64}$/u.test(value.inputDigest) &&
+    typeof value.outputDigest === "string" && /^sha256:[a-f0-9]{64}$/u.test(value.outputDigest);
+}
+
+function isLeafCandidate<Output>(value: unknown): value is DeterministicLeafCandidate<Output> {
+  return isRecord(value) &&
+    value.kind === "leaf_realization_candidate" &&
+    value.schemaVersion === "5.0.0" &&
+    (value.disposition === "success" || value.disposition === "failure") &&
+    Array.isArray(value.evidenceCandidates) &&
+    value.evidenceCandidates.every(isEvidenceCandidate) &&
+    isRecord(value.resultCandidate) &&
+    value.resultCandidate.schemaVersion === "5.0.0" &&
+    (value.disposition === "success" || typeof value.diagnosticRef === "string");
+}
+
+function totalizedFailureCandidate<Input, Output>(
+  input: CompleteDeterministicTraversalInput<Input, Output>,
+  failureClass: "implementation_exception" | "malformed_return",
+): DeterministicLeafFailureCandidate {
+  const diagnosticRef = `diagnostic://abiogenesis/implementation/${failureClass.replaceAll("_", "-")}@5`;
+  const resultCandidate = deepFreeze({
+    kind: input.failureValueKind,
+    schemaVersion: "5.0.0" as const,
+    failureClass,
+    diagnosticRef,
+  }) as Readonly<Record<string, JsonValue>>;
+  const outputDigest = sha256Canonical(resultCandidate);
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "failure" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: input.implementationResolution.implementationRef,
+      inputDigest: input.inputDigest,
+      outputDigest,
+    }],
+    resultCandidate,
+    diagnosticRef,
+  }) as DeterministicLeafFailureCandidate;
+}
+
 export function completeDeterministicTraversal<
   Input,
   Output,
@@ -125,12 +199,33 @@ export function completeDeterministicTraversal<
     basis(input.clock, "c-call-open"),
   );
   if (opened.kind !== "c_call_admission") {
-    return completion("refused", replay(input.store), {
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "c_call_open",
+      opened as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${opened.code}@5`,
+      basis(input.clock, "c-call-open-refusal"),
+    );
+    return completion("failed", replayRun(input), {
       diagnosticRef: `diagnostic://abiogenesis/hog/${opened.code}@5`,
     });
   }
   const cCall = opened.cCall;
-  const leaf = input.realize(input.input);
+  let realized: unknown;
+  let leaf: DeterministicLeafCandidate<Output>;
+  try {
+    realized = input.realize(input.input);
+    leaf = isLeafCandidate<Output>(realized) &&
+      (realized.disposition === "success" ||
+        (realized.resultCandidate.kind === input.failureValueKind &&
+          realized.resultCandidate.diagnosticRef === realized.diagnosticRef))
+      ? realized
+      : totalizedFailureCandidate(input, "malformed_return");
+  } catch {
+    leaf = totalizedFailureCandidate(input, "implementation_exception");
+  }
   const evidence = [];
   for (const candidate of leaf.evidenceCandidates) {
     const admitted = admitEvidence(
@@ -148,7 +243,7 @@ export function completeDeterministicTraversal<
         admitted,
         basis(input.clock, "evidence-rejection"),
       );
-      return completion("blocked", replay(input.store), {
+      return completion("blocked", replayRun(input), {
         cCallRef: cCall.cCallRef,
         resultRef: rejected.refusalResultRef,
         judgmentRef: rejected.rejectionJudgmentRef,
@@ -161,8 +256,13 @@ export function completeDeterministicTraversal<
     input.store,
     cCall,
     leaf.resultCandidate as unknown as JsonValue,
-    input.closureContract.resultContractRef,
-    input.resultValueKind,
+    leaf.disposition,
+    leaf.disposition === "success"
+      ? input.closureContract.resultContractRef
+      : cCall.failureContractRef,
+    leaf.disposition === "success"
+      ? input.resultValueKind
+      : input.failureValueKind,
     evidence,
     basis(input.clock, "result"),
   );
@@ -173,22 +273,30 @@ export function completeDeterministicTraversal<
       result,
       basis(input.clock, "result-rejection"),
     );
-    return completion("blocked", replay(input.store), {
+    return completion("blocked", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: rejected.refusalResultRef,
       judgmentRef: rejected.rejectionJudgmentRef,
       diagnosticRef: result.diagnosticRef,
     });
   }
-  const resultReplay = replay(input.store);
-  const judgmentCandidate = proposeJudgment(
-    cCall,
-    result,
-    resultReplay,
-    input.input,
-    input.judgmentRelation,
-    input.closureContract.judgmentContractRef,
-  );
+  const resultReplay = replayRun(input);
+  const judgmentCandidate = leaf.disposition === "success"
+    ? proposeJudgment(
+      cCall,
+      result,
+      resultReplay,
+      input.input,
+      input.judgmentRelation,
+      input.closureContract.judgmentContractRef,
+    )
+    : proposeFailureJudgment(
+      cCall,
+      result,
+      resultReplay,
+      leaf.diagnosticRef,
+      input.closureContract.judgmentContractRef,
+    );
   const judgment = admitJudgment(
     input.store,
     cCall,
@@ -204,7 +312,7 @@ export function completeDeterministicTraversal<
       judgment,
       basis(input.clock, "judgment-rejection"),
     );
-    return completion("blocked", replay(input.store), {
+    return completion("blocked", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: rejected.refusalResultRef,
       judgmentRef: rejected.rejectionJudgmentRef,
@@ -212,14 +320,14 @@ export function completeDeterministicTraversal<
     });
   }
   if (judgment.judgment !== "advance") {
-    return completion("blocked", replay(input.store), {
+    return completion("blocked", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       diagnosticRef: judgment.reasonRef,
     });
   }
-  const judgedReplay = replay(input.store);
+  const judgedReplay = replayRun(input);
   const proposal = proposeTerminalTransition(
     input.graph,
     input.traversalStop,
@@ -229,7 +337,19 @@ export function completeDeterministicTraversal<
     input.closureContract.transitionContractRef,
   );
   if (proposal.kind !== "transition_proposal") {
-    return completion("refused", replay(input.store), {
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "transition",
+      proposal as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      {
+        ...basis(input.clock, "transition-proposal-refusal"),
+        causationEventRefs: [judgment.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
@@ -246,14 +366,26 @@ export function completeDeterministicTraversal<
     basis(input.clock, "transition"),
   );
   if (transition.kind !== "admitted_transition") {
-    return completion("refused", replay(input.store), {
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "transition",
+      transition as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${transition.code}@5`,
+      {
+        ...basis(input.clock, "transition-admission-refusal"),
+        causationEventRefs: [judgment.admissionEventRef],
+      },
+    );
+    return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       diagnosticRef: `diagnostic://abiogenesis/hog/${transition.code}@5`,
     });
   }
-  const transitionReplay = replay(input.store);
+  const transitionReplay = replayRun(input);
   const closure = admitClosure(
     input.store,
     cCall,
@@ -265,14 +397,14 @@ export function completeDeterministicTraversal<
     basis(input.clock, "closure"),
   );
   if (closure.kind !== "closure_admission") {
-    return completion("refused", replay(input.store), {
+    return completion("failed", replayRun(input), {
       cCallRef: cCall.cCallRef,
       resultRef: result.resultRef,
       judgmentRef: judgment.judgmentRef,
       diagnosticRef: `diagnostic://abiogenesis/hog/${closure.code}@5`,
     });
   }
-  return completion("closed", replay(input.store), {
+  return completion("closed", replayRun(input), {
     cCallRef: cCall.cCallRef,
     resultRef: result.resultRef,
     judgmentRef: judgment.judgmentRef,

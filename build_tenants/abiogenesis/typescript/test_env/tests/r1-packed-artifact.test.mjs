@@ -7,6 +7,11 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
+import {
+  expectedVerificationIdentity,
+  readCandidateBasis,
+} from "../support/candidate-basis.mjs";
+
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -30,15 +35,14 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
 
   const productRoot = join(extractRoot, "package");
   const packageJson = JSON.parse(await readFile(join(productRoot, "package.json"), "utf8"));
+  const candidateBasis = await readCandidateBasis(root);
   const productModulePath = join(productRoot, "build/code/src/product/index.js");
   const product = await import(`${pathToFileURL(productModulePath).href}?artifact=${Date.now()}`);
 
   const request = {
     artifactPath,
     artifactRef: basename(artifactPath),
-    expectedProductId: `product://abiogenesis/typescript-tenant@${packageJson.version}`,
-    expectedPackageName: packageJson.name,
-    expectedPackageVersion: packageJson.version,
+    ...expectedVerificationIdentity(packageJson, candidateBasis),
   };
   const verified = await product.verifyProduct(request);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
@@ -56,7 +60,31 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
     artifactRef: basename(tamperedArtifactPath),
   });
   assert.equal(refused.disposition, "refused");
-  assert.equal(refused.code, "product_content_mismatch");
+  assert.equal(refused.code, "artifact_digest_mismatch");
+
+  const manifestPath = join(productRoot, "product-toolchain-manifest.json");
+  const forgedManifest = JSON.parse(await readFile(manifestPath, "utf8"));
+  const forgedInventory = [];
+  for (const path of [...forgedManifest.productRelativeLocators].sort()) {
+    forgedInventory.push({
+      path,
+      sha256: product.sha256Bytes(await readFile(join(productRoot, path))),
+    });
+  }
+  forgedManifest.productContentDigest = product.payloadInventoryDigest(forgedInventory);
+  await writeFile(manifestPath, `${product.canonicalJson(forgedManifest)}\n`, "utf8");
+  const selfConsistentArtifactPath = join(
+    artifacts,
+    "self-consistent-substitution-abiogenesis-typescript-tenant.tgz",
+  );
+  await execFileAsync("tar", ["-czf", selfConsistentArtifactPath, "-C", extractRoot, "package"]);
+  const selfConsistentRefusal = await product.verifyProduct({
+    ...request,
+    artifactPath: selfConsistentArtifactPath,
+    artifactRef: basename(selfConsistentArtifactPath),
+  });
+  assert.equal(selfConsistentRefusal.disposition, "refused");
+  assert.equal(selfConsistentRefusal.code, "artifact_digest_mismatch");
 
   const evidenceDirectory = join(root, "test_env/evidence");
   await mkdir(evidenceDirectory, { recursive: true });
@@ -79,8 +107,9 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
         verified,
         mutation: {
           changedPath: "build/code/src/index.js",
-          expectedRefusal: "product_content_mismatch",
-          observedRefusal: refused.code,
+          selfManifestRecomputed: true,
+          expectedRefusal: "artifact_digest_mismatch",
+          observedRefusal: selfConsistentRefusal.code,
         },
       },
       null,

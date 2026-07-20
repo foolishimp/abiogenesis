@@ -9,6 +9,26 @@ import type {
   RootPublicInvocation,
 } from "./contracts.js";
 
+function diagnosticFromValue(value: JsonValue | null): string | null {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
+  const diagnosticRef = (value as Readonly<Record<string, JsonValue>>).diagnosticRef;
+  return typeof diagnosticRef === "string" ? diagnosticRef : null;
+}
+
+function diagnosticFromEvent(
+  eventLog: PersistedEventLog,
+  eventRef: string | null,
+): string | null {
+  const event = eventLog.events.find((row) => row.eventId === eventRef);
+  if (event === undefined || typeof event.payload !== "object" || event.payload === null || Array.isArray(event.payload)) {
+    return null;
+  }
+  const payload = event.payload as Readonly<Record<string, JsonValue>>;
+  if (typeof payload.diagnosticRef === "string") return payload.diagnosticRef;
+  const refs = payload.contractOrDiagnosticRefs;
+  return Array.isArray(refs) && typeof refs[0] === "string" ? refs[0] : null;
+}
+
 export function projectOutcome(
   invocation: RootPublicInvocation,
   firstReplay: ReplayState,
@@ -52,8 +72,9 @@ export function projectOutcome(
     result: latestCall?.resultValue ?? null,
     diagnosticRef: closed
       ? null
-      : firstReplay.runtimeFailureEventRef ??
-        firstReplay.invocationRefusalEventRef ??
+      : diagnosticFromEvent(eventLog, firstReplay.runtimeFailureEventRef) ??
+        diagnosticFromEvent(eventLog, firstReplay.invocationRefusalEventRef) ??
+        diagnosticFromValue(latestCall?.resultValue ?? null) ??
         "diagnostic://abiogenesis/public/non-terminal-replay@5",
     runId: firstReplay.runId,
     graphCallId: firstReplay.graphCallId,

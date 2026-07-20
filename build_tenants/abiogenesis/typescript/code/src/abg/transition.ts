@@ -95,7 +95,7 @@ export function admitTransition(
   ) {
     return refusal("judgment_mismatch", "terminal transition requires this CCall's admitted advance judgment");
   }
-  const currentReplay = replay(store);
+  const currentReplay = replay(store, { runId: cCall.runId });
   if (
     currentReplay.replayDigest !== replayState.replayDigest ||
     candidate.replayStateDigest !== replayState.replayDigest

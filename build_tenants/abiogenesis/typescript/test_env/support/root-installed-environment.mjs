@@ -6,6 +6,11 @@ import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
+import {
+  expectedVerificationIdentity,
+  readCandidateBasis,
+} from "./candidate-basis.mjs";
+
 const execFileAsync = promisify(execFile);
 
 export function publicOperationBasis(
@@ -77,12 +82,11 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
+  const candidateBasis = await readCandidateBasis(packageRoot);
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
-    expectedProductId: `product://abiogenesis/typescript-tenant@${packageJson.version}`,
-    expectedPackageName: packageJson.name,
-    expectedPackageVersion: packageJson.version,
+    ...expectedVerificationIdentity(packageJson, candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
   const consumerRoot = join(scratch, "consumer");

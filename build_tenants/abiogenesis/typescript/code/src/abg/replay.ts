@@ -2,7 +2,12 @@ import type { JsonValue, Sha256Digest } from "../product/index.js";
 import { sha256Canonical } from "../product/digests.js";
 import { deepFreeze } from "../product/immutable.js";
 import { eventCalculusEffect } from "./event_calculus.js";
-import type { AbgEventStore, RootEventKind, RuntimeEvent } from "./event_store.js";
+import type {
+  AbgEventStore,
+  RootEventKind,
+  RuntimeEvent,
+  RuntimeEventScope,
+} from "./event_store.js";
 
 export interface ReplayCCallState {
   readonly cCallRef: string;
@@ -75,13 +80,14 @@ function validateCCallOrder(events: readonly RuntimeEvent[]): void {
   }
 }
 
-export function replay(store: AbgEventStore): ReplayState {
-  const events = store.readAll();
-  for (const [index, event] of events.entries()) {
+export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {
+  const admittedEvents = store.readAll();
+  for (const [index, event] of admittedEvents.entries()) {
     if (event.admissionOrdinal !== index + 1) {
       throw new TypeError("ABG replay requires a total, gap-free admission-ordinal order");
     }
   }
+  const events = scope === undefined ? admittedEvents : store.readScope(scope);
 
   const activeFluents = new Set<string>();
   for (const event of events) {
@@ -139,7 +145,7 @@ export function replay(store: AbgEventStore): ReplayState {
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
   const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
   const blocked = cCalls.some((cCall) => cCall.judgment === "blocked");
-  const eventStoreDigest = store.digest();
+  const eventStoreDigest = store.digest(scope);
   const body = {
     eventStoreDigest,
     eventCount: events.length,

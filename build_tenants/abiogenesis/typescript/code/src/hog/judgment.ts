@@ -43,3 +43,30 @@ export function proposeJudgment<Input, Output>(
     ...body,
   }) as JudgmentCandidate;
 }
+
+export function proposeFailureJudgment(
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  replayState: ReplayState,
+  reasonRef: string,
+  contractRef: string,
+): JudgmentCandidate {
+  const body = {
+    cCallRef: cCall.cCallRef,
+    resultRef: result.resultRef,
+    resultDigest: result.resultDigest,
+    judgment: "blocked" as const,
+    reasonRef,
+    contractRef,
+    predicateRef: cCall.judgmentPredicateRef,
+    replayStateDigest: replayState.replayDigest,
+  };
+  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({
+    kind: "judgment_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    candidateRef: `judgment-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+    candidateDigest,
+    ...body,
+  }) as JudgmentCandidate;
+}

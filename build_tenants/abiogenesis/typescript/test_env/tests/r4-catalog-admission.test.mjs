@@ -7,6 +7,11 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
+import {
+  expectedVerificationIdentity,
+  readCandidateBasis,
+} from "../support/candidate-basis.mjs";
+
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -73,12 +78,11 @@ test("R4 admits and narrows the exact validated Hello World catalog", async (con
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
+  const candidateBasis = await readCandidateBasis(root);
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
-    expectedProductId: `product://abiogenesis/typescript-tenant@${packageJson.version}`,
-    expectedPackageName: packageJson.name,
-    expectedPackageVersion: packageJson.version,
+    ...expectedVerificationIdentity(packageJson, candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
 

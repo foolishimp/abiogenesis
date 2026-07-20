@@ -295,9 +295,22 @@ async function applyVerify(
   if (invocation.variant !== "artifact") {
     throw new ApplicationRefusal("invalid_request", "product.verify requires variant artifact");
   }
+  requireExactPayloadKeys(invocation.payload, [
+    "artifactPath",
+    "artifactRef",
+    "expectedArtifactDigest",
+    "expectedManifestDigest",
+    "expectedPackageName",
+    "expectedPackageVersion",
+    "expectedProductContentDigest",
+    "expectedProductId",
+  ], "product.verify");
   const verified = await product.verifyProduct({
     artifactPath: stringField(invocation.payload, "artifactPath"),
     artifactRef: stringField(invocation.payload, "artifactRef"),
+    expectedArtifactDigest: stringField(invocation.payload, "expectedArtifactDigest") as product.Sha256Digest,
+    expectedProductContentDigest: stringField(invocation.payload, "expectedProductContentDigest") as product.Sha256Digest,
+    expectedManifestDigest: stringField(invocation.payload, "expectedManifestDigest") as product.Sha256Digest,
     expectedProductId: stringField(invocation.payload, "expectedProductId"),
     expectedPackageName: stringField(invocation.payload, "expectedPackageName"),
     expectedPackageVersion: stringField(invocation.payload, "expectedPackageVersion"),
@@ -659,6 +672,8 @@ async function applyRunInvoke(
   if (candidate.kind !== "public_invocation_candidate") {
     throw new ApplicationRefusal("owner_refusal", `Invocation construction refused: ${candidate.message}`);
   }
+  const durableEventLogPath = eventLogPath(invocation, workspaceState.binding);
+  context.store.configureDurableLog(durableEventLogPath);
   const invocationAdmission = abg.admitInvocation(
     context.store,
     {
@@ -686,7 +701,21 @@ async function applyRunInvoke(
   }
   const node = graphFunction.template.nodes[0];
   if (node === undefined) {
-    throw new ApplicationRefusal("target_mismatch", "root GraphFunction has no declared C locus");
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "implementation_resolution",
+      product.sha256Canonical(graphFunction as unknown as product.JsonValue),
+      ["diagnostic://abiogenesis/implementation-resolution/c-locus-absent@5"],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/missing-c-locus`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
   }
   const resolutionCandidate = product.resolveImplementation(
     viewState.view,
@@ -704,16 +733,12 @@ async function applyRunInvoke(
       [`diagnostic://abiogenesis/implementation-resolution/${resolutionCandidate.code}@5`],
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution`, causationEventRefs: [] },
     );
-    const first = abg.replay(context.store);
-    const second = abg.replay(context.store);
-    const eventLog = await abg.persistEventLog(context.store, eventLogPath(invocation, workspaceState.binding));
-    return projectOutcome(
+    return projectCurrentOutcome(
+      context,
       invocation,
-      first,
-      second,
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
-      eventLog,
+      durableEventLogPath,
     );
   }
   const descriptor = product.rootPackagedImplementationDescriptor();
@@ -733,16 +758,12 @@ async function applyRunInvoke(
       resolutionValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-validation`, causationEventRefs: [] },
     );
-    const first = abg.replay(context.store);
-    const second = abg.replay(context.store);
-    const eventLog = await abg.persistEventLog(context.store, eventLogPath(invocation, workspaceState.binding));
-    return projectOutcome(
+    return projectCurrentOutcome(
+      context,
       invocation,
-      first,
-      second,
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
-      eventLog,
+      durableEventLogPath,
     );
   }
   const graph = gtl.materializeGraph(graphFunction, {
@@ -769,23 +790,33 @@ async function applyRunInvoke(
       graphValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/graph-validation`, causationEventRefs: [] },
     );
-    const first = abg.replay(context.store);
-    const second = abg.replay(context.store);
-    const eventLog = await abg.persistEventLog(context.store, eventLogPath(invocation, workspaceState.binding));
-    return projectOutcome(
+    return projectCurrentOutcome(
+      context,
       invocation,
-      first,
-      second,
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
-      eventLog,
+      durableEventLogPath,
     );
   }
   const closureContract = viewState.catalogState.publication.closureContracts.find(
     (value) => value.closureContractRef === programValue.closureContractRef,
   );
   if (closureContract === undefined) {
-    throw new ApplicationRefusal("target_mismatch", "root Program closure contract is absent");
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "execution_basis",
+      product.sha256Canonical(programValue as unknown as product.JsonValue),
+      ["diagnostic://abiogenesis/execution-basis/closure-contract-absent@5"],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/missing-closure-contract`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
   }
   const executionAdmission = abg.admitExecutionBasis(
     context.store,
@@ -801,16 +832,12 @@ async function applyRunInvoke(
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/execution-basis`, causationEventRefs: [] },
   );
   if (executionAdmission.kind !== "execution_basis_admission") {
-    const first = abg.replay(context.store);
-    const second = abg.replay(context.store);
-    const eventLog = await abg.persistEventLog(context.store, eventLogPath(invocation, workspaceState.binding));
-    return projectOutcome(
+    return projectCurrentOutcome(
+      context,
       invocation,
-      first,
-      second,
       graphFunction.outputs[0] ?? "",
       candidate.invocationRef,
-      eventLog,
+      durableEventLogPath,
     );
   }
   const opened = abg.openCall(
@@ -819,32 +846,144 @@ async function applyRunInvoke(
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/open`, causationEventRefs: [] },
   );
   if (opened.kind !== "open_call_admission") {
-    throw new ApplicationRefusal("owner_refusal", `Run opening refused: ${opened.code}`);
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      "open_call",
+      product.sha256Canonical(opened as unknown as product.JsonValue),
+      [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/open-refusal`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
   }
-  const stop = hog.traverse({
-    program: programValue,
-    graph,
-    graphValidation,
-    executionBasis: executionAdmission.executionBasis,
-    openedTraversalScope: opened.scope,
-  });
+  let stop: ReturnType<typeof hog.traverse>;
+  try {
+    stop = hog.traverse({
+      program: programValue,
+      graph,
+      graphValidation,
+      executionBasis: executionAdmission.executionBasis,
+      openedTraversalScope: opened.scope,
+    });
+  } catch (error) {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "hog_traversal",
+      { errorClass: "traversal_exception" },
+      "diagnostic://abiogenesis/hog/traversal-exception@5",
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/traversal-failure`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
   if (stop.kind !== "traversal_stop_ref") {
-    throw new ApplicationRefusal("owner_refusal", `HoG traversal refused: ${stop.code}`);
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "hog_traversal",
+      stop as unknown as product.JsonValue,
+      `diagnostic://abiogenesis/hog/${stop.code}@5`,
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/traversal-refusal`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
   }
   const moduleUrl = pathToFileURL(resolve(
     installState.candidate.installedRoot,
     executionAdmission.implementationResolution.modulePath,
   )).href;
-  const implementationModule = await import(moduleUrl);
+  let implementationModule: Record<string, unknown>;
+  try {
+    implementationModule = await import(moduleUrl) as Record<string, unknown>;
+  } catch {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "implementation_load",
+      { modulePath: executionAdmission.implementationResolution.modulePath },
+      "diagnostic://abiogenesis/implementation/module-load-failed@5",
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
+  }
   const leaf = implementationModule[executionAdmission.implementationResolution.namedSymbol] as unknown;
   if (typeof leaf !== "function") {
-    throw new ApplicationRefusal("target_mismatch", "admitted leaf symbol is not callable in the installed Product");
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "implementation_load",
+      { namedSymbol: executionAdmission.implementationResolution.namedSymbol },
+      "diagnostic://abiogenesis/implementation/symbol-not-callable@5",
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-symbol`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
   }
   const outputDeclaration = viewState.catalogState.publication.contracts.find(
     (value) => value.contractRef === graphFunction.outputs[0] && value.contractKind === "output",
   );
-  if (outputDeclaration === undefined) {
-    throw new ApplicationRefusal("target_mismatch", "root output contract declaration is absent");
+  const failureDeclaration = viewState.catalogState.publication.contracts.find(
+    (value) =>
+      value.contractRef === executionAdmission.implementationResolution.failureContractRef &&
+      value.contractKind === "failure",
+  );
+  if (outputDeclaration === undefined || failureDeclaration === undefined) {
+    abg.admitRuntimeFailure(
+      context.store,
+      executionAdmission.executionBasis,
+      opened.scope,
+      "output_contract",
+      {
+        failureContractRef: executionAdmission.implementationResolution.failureContractRef,
+        outputContractRef: graphFunction.outputs[0] ?? null,
+      },
+      "diagnostic://abiogenesis/implementation/result-contract-absent@5",
+      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/output-contract`, causationEventRefs: [] },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      opened.scope.runId,
+    );
   }
   const traversalCompletion = hog.completeDeterministicTraversal<HelloWorldInput, HelloWorldOutput>(
     {
@@ -857,6 +996,7 @@ async function applyRunInvoke(
       implementationResolution: executionAdmission.implementationResolution,
       input: helloInput,
       inputDigest: rawInput.subjectDigest,
+      failureValueKind: failureDeclaration.valueKind,
       resultValueKind: outputDeclaration.valueKind,
       closureContract,
       judgmentRelation: {
@@ -865,23 +1005,26 @@ async function applyRunInvoke(
         rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
         evaluate: gtl.evaluateHelloWorldResult,
       },
-      realize: leaf as (
-        value: Readonly<HelloWorldInput>,
-      ) => Readonly<hog.DeterministicLeafCandidate<HelloWorldOutput>>,
+      realize: leaf as (value: Readonly<HelloWorldInput>) => unknown,
       clock: {
         eventTime: invocation.eventTime,
         correlationId: `${invocation.correlationId}/hog`,
       },
     },
   );
-  const firstReplay = abg.replay(context.store);
-  const secondReplay = abg.replay(context.store);
+  const replayScope = {
+    invocationRef: candidate.invocationRef,
+    runId: opened.scope.runId,
+  };
+  const firstReplay = abg.replay(context.store, replayScope);
+  const secondReplay = abg.replay(context.store, replayScope);
   if (traversalCompletion.replayState.replayDigest !== firstReplay.replayDigest) {
     throw new ApplicationRefusal("owner_refusal", "HoG completion and ABG replay disagree");
   }
   const persisted = await abg.persistEventLog(
     context.store,
-    eventLogPath(invocation, workspaceState.binding),
+    durableEventLogPath,
+    replayScope,
   );
   return projectOutcome(
     invocation,
@@ -890,6 +1033,30 @@ async function applyRunInvoke(
     outputDeclaration.contractRef,
     candidate.invocationRef,
     persisted,
+  );
+}
+
+async function projectCurrentOutcome(
+  context: RootOperationContext,
+  invocation: RootPublicInvocation,
+  outputContractRef: string,
+  runtimeInvocationRef: string,
+  durableEventLogPath: string,
+  runId?: string,
+): Promise<PublicOutcome> {
+  const scope = runId === undefined
+    ? { invocationRef: runtimeInvocationRef }
+    : { invocationRef: runtimeInvocationRef, runId };
+  const first = abg.replay(context.store, scope);
+  const second = abg.replay(context.store, scope);
+  const eventLog = await abg.persistEventLog(context.store, durableEventLogPath, scope);
+  return projectOutcome(
+    invocation,
+    first,
+    second,
+    outputContractRef,
+    runtimeInvocationRef,
+    eventLog,
   );
 }
 

@@ -7,6 +7,11 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
+import {
+  expectedVerificationIdentity,
+  readCandidateBasis,
+} from "../support/candidate-basis.mjs";
+
 const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -32,12 +37,11 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
+  const candidateBasis = await readCandidateBasis(root);
   const verificationRequest = {
     artifactPath,
     artifactRef: basename(artifactPath),
-    expectedProductId: `product://abiogenesis/typescript-tenant@${packageJson.version}`,
-    expectedPackageName: packageJson.name,
-    expectedPackageVersion: packageJson.version,
+    ...expectedVerificationIdentity(packageJson, candidateBasis),
   };
   const verified = await product.verifyProduct(verificationRequest);
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
@@ -55,6 +59,9 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
     const result = await verifyProduct({
       artifactPath: process.env.ABI5_ARTIFACT_PATH,
       artifactRef: process.env.ABI5_ARTIFACT_REF,
+      expectedArtifactDigest: process.env.ABI5_ARTIFACT_DIGEST,
+      expectedProductContentDigest: process.env.ABI5_PRODUCT_CONTENT_DIGEST,
+      expectedManifestDigest: process.env.ABI5_MANIFEST_DIGEST,
       expectedProductId: process.env.ABI5_PRODUCT_ID,
       expectedPackageName: process.env.ABI5_PACKAGE_NAME,
       expectedPackageVersion: process.env.ABI5_PACKAGE_VERSION
@@ -70,6 +77,9 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
         ...process.env,
         ABI5_ARTIFACT_PATH: artifactPath,
         ABI5_ARTIFACT_REF: basename(artifactPath),
+        ABI5_ARTIFACT_DIGEST: verified.artifactDigest,
+        ABI5_PRODUCT_CONTENT_DIGEST: verified.productContentDigest,
+        ABI5_MANIFEST_DIGEST: verified.manifestDigest,
         ABI5_PRODUCT_ID: verified.productId,
         ABI5_PACKAGE_NAME: verified.packageName,
         ABI5_PACKAGE_VERSION: verified.packageVersion,

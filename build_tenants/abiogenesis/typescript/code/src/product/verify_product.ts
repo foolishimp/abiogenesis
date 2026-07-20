@@ -202,6 +202,17 @@ export async function verifyProduct(
   } catch (error) {
     return refusal(request, "artifact_unreadable", String(error));
   }
+  const artifactDigest = sha256Bytes(artifactBytes);
+  if (
+    !isSha256Digest(request.expectedArtifactDigest) ||
+    artifactDigest !== request.expectedArtifactDigest
+  ) {
+    return refusal(
+      request,
+      "artifact_digest_mismatch",
+      "artifact bytes differ from the externally expected artifact identity",
+    );
+  }
 
   if (
     archiveEntries.length === 0 ||
@@ -227,6 +238,17 @@ export async function verifyProduct(
   const manifest = parseProductManifest(manifestUnknown);
   if (manifest === null) {
     return refusal(request, "manifest_malformed", "product manifest shape is invalid");
+  }
+  const manifestDigest = sha256Canonical(manifest as unknown as JsonValue);
+  if (
+    !isSha256Digest(request.expectedManifestDigest) ||
+    manifestDigest !== request.expectedManifestDigest
+  ) {
+    return refusal(
+      request,
+      "manifest_digest_mismatch",
+      "product manifest differs from the externally expected manifest identity",
+    );
   }
 
   if (
@@ -281,7 +303,12 @@ export async function verifyProduct(
   } catch (error) {
     return refusal(request, "payload_unreadable", String(error));
   }
-  if (payloadInventoryDigest(inventory) !== manifest.productContentDigest) {
+  const productContentDigest = payloadInventoryDigest(inventory);
+  if (
+    !isSha256Digest(request.expectedProductContentDigest) ||
+    manifest.productContentDigest !== request.expectedProductContentDigest ||
+    productContentDigest !== request.expectedProductContentDigest
+  ) {
     return refusal(request, "product_content_mismatch", "packed payload digest differs from the manifest");
   }
 
@@ -368,13 +395,13 @@ export async function verifyProduct(
     schemaVersion: "5.0.0",
     disposition: "verified",
     artifactRef: request.artifactRef,
-    artifactDigest: sha256Bytes(artifactBytes),
+    artifactDigest,
     artifactByteLength: artifactBytes.byteLength,
     productId: manifest.productId,
     packageName: manifest.packageName,
     packageVersion: manifest.packageVersion,
-    productContentDigest: manifest.productContentDigest,
-    manifestDigest: sha256Canonical(manifest as unknown as JsonValue),
+    productContentDigest,
+    manifestDigest,
     catalogId: manifest.publicContractCatalog.catalogId,
     catalogDigest: manifest.publicContractCatalog.catalogDigest,
     checkedPayloadFiles: inventory.length,

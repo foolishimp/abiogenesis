@@ -133,7 +133,7 @@ export function admitClosure(
       basis,
     );
   }
-  const currentReplay = replay(store);
+  const currentReplay = replay(store, { runId: cCall.runId });
   if (
     currentReplay.replayDigest !== replayState.replayDigest ||
     store.readAll().at(-1)?.eventId !== transition.admissionEventRef

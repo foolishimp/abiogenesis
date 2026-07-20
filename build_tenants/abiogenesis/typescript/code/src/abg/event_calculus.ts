@@ -74,7 +74,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
-    terminates: ["frame_active"], clips: [], declips: [],
+    terminates: ["frame_active", "graph_call_active", "run_active"], clips: [], declips: [],
   },
   terminal_reached: {
     initiates: ["terminal_admitted"],

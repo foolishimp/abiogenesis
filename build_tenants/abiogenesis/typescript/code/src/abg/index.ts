@@ -3,6 +3,7 @@ export {
   ROOT_EVENT_KIND_VALUES,
   type RootEventKind,
   type RuntimeEvent,
+  type RuntimeEventScope,
 } from "./event_store.js";
 export {
   admitProductInstall,
@@ -107,3 +108,7 @@ export {
   type ClosureAdmissionRefusal,
   type ClosureAdmissionResult,
 } from "./closure.js";
+export {
+  admitRuntimeFailure,
+  type RuntimeFailureAdmission,
+} from "./runtime_failure.js";

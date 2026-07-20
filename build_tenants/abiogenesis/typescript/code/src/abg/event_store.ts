@@ -1,3 +1,13 @@
+import {
+  appendFileSync,
+  closeSync,
+  fsyncSync,
+  mkdirSync,
+  openSync,
+  writeFileSync,
+} from "node:fs";
+import { dirname, resolve } from "node:path";
+
 import { canonicalJson, sha256Canonical, type JsonValue, type Sha256Digest } from "../product/index.js";
 import { deepFreeze } from "../product/immutable.js";
 
@@ -53,19 +63,104 @@ export interface RuntimeEvent extends RuntimeEventCandidate {
   readonly payloadDigest: Sha256Digest;
 }
 
-const eventState = new WeakMap<AbgEventStore, RuntimeEvent[]>();
+export interface RuntimeEventScope {
+  readonly invocationRef?: string;
+  readonly runId?: string;
+}
+
+interface EventStoreState {
+  readonly events: RuntimeEvent[];
+  durableLogPath: string | null;
+}
+
+const eventState = new WeakMap<AbgEventStore, EventStoreState>();
+
+function payloadInvocationRef(event: RuntimeEvent): string | null {
+  if (typeof event.payload !== "object" || event.payload === null || Array.isArray(event.payload)) {
+    return null;
+  }
+  const value = (event.payload as Readonly<Record<string, JsonValue>>).invocationRef;
+  return typeof value === "string" ? value : null;
+}
+
+export function selectRuntimeEvents(
+  events: readonly RuntimeEvent[],
+  scope?: RuntimeEventScope,
+): readonly RuntimeEvent[] {
+  if (scope === undefined) return Object.freeze([...events]);
+  const selected = new Set<string>();
+  for (const event of events) {
+    if (
+      (scope.runId !== undefined && event.runId === scope.runId) ||
+      (scope.invocationRef !== undefined &&
+        (event.parentAggregateId === scope.invocationRef ||
+          payloadInvocationRef(event) === scope.invocationRef))
+    ) {
+      selected.add(event.eventId);
+    }
+  }
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const event of events) {
+      if (!selected.has(event.eventId)) continue;
+      for (const cause of event.causationEventRefs) {
+        if (!selected.has(cause)) {
+          selected.add(cause);
+          changed = true;
+        }
+      }
+    }
+  }
+  return Object.freeze(events.filter((event) => selected.has(event.eventId)));
+}
+
+function appendDurably(path: string, event: RuntimeEvent): void {
+  const descriptor = openSync(path, "a");
+  try {
+    appendFileSync(descriptor, `${canonicalJson(event as unknown as JsonValue)}\n`, "utf8");
+    fsyncSync(descriptor);
+  } finally {
+    closeSync(descriptor);
+  }
+}
 
 export class AbgEventStore {
   constructor() {
-    eventState.set(this, []);
+    eventState.set(this, { events: [], durableLogPath: null });
   }
 
   readAll(): readonly RuntimeEvent[] {
-    return Object.freeze([...(eventState.get(this) ?? [])]);
+    return Object.freeze([...(eventState.get(this)?.events ?? [])]);
   }
 
-  digest(): Sha256Digest {
-    return sha256Canonical((eventState.get(this) ?? []) as unknown as JsonValue);
+  readScope(scope: RuntimeEventScope): readonly RuntimeEvent[] {
+    return selectRuntimeEvents(this.readAll(), scope);
+  }
+
+  digest(scope?: RuntimeEventScope): Sha256Digest {
+    const events = scope === undefined ? this.readAll() : this.readScope(scope);
+    return sha256Canonical(events as unknown as JsonValue);
+  }
+
+  configureDurableLog(path: string): void {
+    const state = eventState.get(this);
+    if (state === undefined) throw new TypeError("event store state is unavailable");
+    const exactPath = resolve(path);
+    if (state.durableLogPath !== null) {
+      if (state.durableLogPath !== exactPath) {
+        throw new TypeError("ABG event store cannot change its configured durable log");
+      }
+      return;
+    }
+    mkdirSync(dirname(exactPath), { recursive: true });
+    writeFileSync(exactPath, "", { encoding: "utf8", flag: "wx" });
+    for (const event of state.events) appendDurably(exactPath, event);
+    state.durableLogPath = exactPath;
+  }
+
+  configuredDurableLogPath(): string | null {
+    return eventState.get(this)?.durableLogPath ?? null;
   }
 }
 
@@ -73,10 +168,11 @@ export function admitRuntimeEvent(
   store: AbgEventStore,
   candidate: RuntimeEventCandidate,
 ): RuntimeEvent {
-  const events = eventState.get(store);
-  if (events === undefined) {
+  const state = eventState.get(store);
+  if (state === undefined) {
     throw new TypeError("event store was not constructed by this ABG module");
   }
+  const events = state.events;
   if (
     new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
     candidate.causationEventRefs.some(
@@ -101,6 +197,7 @@ export function admitRuntimeEvent(
     admissionOrdinal,
     payloadDigest,
   }) as RuntimeEvent;
+  if (state.durableLogPath !== null) appendDurably(state.durableLogPath, event);
   events.push(event);
   return event;
 }

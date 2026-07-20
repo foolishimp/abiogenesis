@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
@@ -93,6 +93,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     store,
     cCall,
     leafCandidate.resultCandidate,
+    "success",
     closureContract.resultContractRef,
     "hello_world_output",
     [evidence],
@@ -105,7 +106,8 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     message: "Hello World",
   });
 
-  const resultReplay = abg.replay(store);
+  const replayScope = { runId: cCall.runId };
+  const resultReplay = abg.replay(store, replayScope);
   const judgmentCandidate = hog.proposeJudgment(
     cCall,
     result,
@@ -130,7 +132,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   assert.equal(judgment.kind, "admitted_c_call_judgment", JSON.stringify(judgment));
   assert.equal(judgment.judgment, "advance");
 
-  const judgedReplay = abg.replay(store);
+  const judgedReplay = abg.replay(store, replayScope);
   const transitionCandidate = hog.proposeTerminalTransition(
     graph,
     traversalStop,
@@ -151,7 +153,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
   );
   assert.equal(transition.kind, "admitted_transition", JSON.stringify(transition));
 
-  const transitionReplay = abg.replay(store);
+  const transitionReplay = abg.replay(store, replayScope);
   const closure = abg.admitClosure(
     store,
     cCall,
@@ -163,7 +165,7 @@ test("R9 admits the uniform CCall spine, terminal transition, and exact closure 
     runtimeBasis("correlation://t286/r9/closure"),
   );
   assert.equal(closure.kind, "closure_admission", JSON.stringify(closure));
-  const finalReplay = abg.replay(store);
+  const finalReplay = abg.replay(store, replayScope);
   assert.equal(finalReplay.runtimeStatus, "closed");
   assert.equal(finalReplay.runId, opened.run.runId);
   assert.equal(finalReplay.cCalls.length, 1);
@@ -306,6 +308,7 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     store,
     cCall,
     alteredResult,
+    "success",
     closureContract.resultContractRef,
     "hello_world_output",
     [evidence],
@@ -375,4 +378,89 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     }, null, 2)}\n`,
     "utf8",
   );
+});
+
+test("R9 admits and durably appends a post-open CCall refusal", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const {
+    abg,
+    gtl,
+    hog,
+    store,
+    program,
+    graph,
+    graphValidation,
+    input,
+    rawInput,
+    implementationResolution,
+    executionBasis,
+    closureContract,
+    publication,
+    workspaceBinding,
+  } = environment;
+  const durablePath = join(
+    workspaceBinding.roots.eventLogRoot,
+    "r9-post-open-refusal.events.jsonl",
+  );
+  store.configureDurableLog(durablePath);
+  const opened = abg.openCall(
+    store,
+    executionBasis,
+    runtimeBasis("correlation://t286/r9-post-open/open"),
+  );
+  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const traversalStop = hog.traverse({
+    program,
+    graph,
+    graphValidation,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+  });
+  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const alteredStop = structuredClone(traversalStop);
+  alteredStop.frameId = "frame://mutation/wrong-lineage";
+  const outputContract = publication.contracts.find((value) => value.contractKind === "output");
+  const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
+  const completion = hog.completeDeterministicTraversal({
+    store,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+    program,
+    graph,
+    traversalStop: alteredStop,
+    implementationResolution,
+    input,
+    inputDigest: rawInput.subjectDigest,
+    failureValueKind: failureContract.valueKind,
+    resultValueKind: outputContract.valueKind,
+    closureContract,
+    judgmentRelation: {
+      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
+      rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
+      evaluate: gtl.evaluateHelloWorldResult,
+    },
+    realize: () => {
+      throw new Error("unreachable leaf");
+    },
+    clock: {
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/r9-post-open/hog",
+    },
+  });
+  assert.equal(completion.disposition, "failed");
+  assert.match(completion.diagnosticRef, /locus_mismatch/u);
+  const replay = abg.replay(store, { runId: opened.scope.runId });
+  assert.equal(replay.runtimeStatus, "failed");
+  assert.equal(replay.cCalls.length, 0);
+  const events = store.readAll();
+  const failure = events.at(-1);
+  assert.equal(failure.kind, "runtime_failure_observed");
+  assert.equal(failure.payload.stage, "c_call_open");
+  assert.equal(failure.causationEventRefs[0], opened.scope.frameOpenEventRef);
+  const durableEvents = (await readFile(durablePath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  assert.equal(durableEvents.length, events.length);
+  assert.equal(durableEvents.at(-1).eventId, failure.eventId);
+  assert.equal(durableEvents.at(-1).kind, "runtime_failure_observed");
 });

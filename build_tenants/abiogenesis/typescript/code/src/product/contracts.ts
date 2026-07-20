@@ -7,6 +7,9 @@ export const ABI5_PACKAGE_VERSION = "5.0.0-dev.286";
 export interface VerifyProductRequest {
   readonly artifactPath: string;
   readonly artifactRef: string;
+  readonly expectedArtifactDigest: Sha256Digest;
+  readonly expectedProductContentDigest: Sha256Digest;
+  readonly expectedManifestDigest: Sha256Digest;
   readonly expectedProductId: string;
   readonly expectedPackageName: string;
   readonly expectedPackageVersion: string;
@@ -31,8 +34,10 @@ export interface VerifiedProductArtifact {
 
 export const PRODUCT_VERIFICATION_REFUSAL_CODES = [
   "artifact_unreadable",
+  "artifact_digest_mismatch",
   "manifest_unreadable",
   "manifest_malformed",
+  "manifest_digest_mismatch",
   "identity_mismatch",
   "unsafe_locator",
   "payload_inventory_mismatch",

@@ -2,7 +2,13 @@ import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
+
+import {
+  expectedVerificationIdentity,
+  readCandidateBasis,
+} from "./candidate-basis.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -19,8 +25,14 @@ function invocation(operationId, variant, invocationRef, payload) {
   };
 }
 
-export async function setupInstalledCliHarness(context, packageRoot) {
-  const scratch = await mkdtemp(join(tmpdir(), "abi5-root-cli-"));
+export async function setupInstalledCliHarness(context, packageRoot, options = {}) {
+  const scratch = options.scratchPath === undefined
+    ? await mkdtemp(join(tmpdir(), "abi5-root-cli-"))
+    : options.scratchPath;
+  if (options.scratchPath !== undefined) {
+    await rm(scratch, { force: true, recursive: true });
+    await mkdir(scratch, { recursive: true });
+  }
   context.after(async () => rm(scratch, { force: true, recursive: true }));
   const artifacts = join(scratch, "artifacts");
   await mkdir(artifacts);
@@ -32,6 +44,7 @@ export async function setupInstalledCliHarness(context, packageRoot) {
   const [packResult] = JSON.parse(packStdout);
   const artifactPath = join(artifacts, packResult.filename);
   const packageJson = JSON.parse(await readFile(join(packageRoot, "package.json"), "utf8"));
+  const candidateBasis = await readCandidateBasis(packageRoot);
   const cliHost = join(scratch, "cli-host");
   await mkdir(cliHost);
   await writeFile(join(cliHost, "package.json"), `${JSON.stringify({
@@ -57,6 +70,7 @@ export async function setupInstalledCliHarness(context, packageRoot) {
     artifactPath,
     artifactRef: basename(artifactPath),
     packageJson,
+    candidateBasis,
     cliHost,
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
   };
@@ -71,7 +85,7 @@ export async function buildRootCliScenario(
   const productConsumer = join(scenarioRoot, "product-consumer");
   const workspaceRoot = join(scenarioRoot, "workspace");
   const eventLogRoot = join(workspaceRoot, ".ai-workspace/events");
-  const eventLogPath = join(eventLogRoot, "abi5-root-001.json");
+  const eventLogPath = join(eventLogRoot, "abi5-root-001.events.jsonl");
   await mkdir(workspaceRoot, { recursive: true });
   const prefix = `invocation://t286/${label}`;
   const refs = {
@@ -106,9 +120,7 @@ export async function buildRootCliScenario(
     invocation("abg.operation.product.verify", "artifact", refs.verify, {
       artifactPath: harness.artifactPath,
       artifactRef: harness.artifactRef,
-      expectedProductId: `product://abiogenesis/typescript-tenant@${harness.packageJson.version}`,
-      expectedPackageName: harness.packageJson.name,
-      expectedPackageVersion: harness.packageJson.version,
+      ...expectedVerificationIdentity(harness.packageJson, harness.candidateBasis),
     }),
     invocation("abg.operation.product.install", "verified_artifact", refs.install, {
       verifiedInvocationRef: refs.verify,
@@ -182,4 +194,33 @@ export function runInstalledCli(harness, scenario) {
       },
     );
   });
+}
+
+export function installedCliPackageRoot(harness) {
+  return join(
+    harness.cliHost,
+    "node_modules",
+    "@abiogenesis",
+    "typescript-tenant",
+  );
+}
+
+export async function applyInstalledTranscriptPrefix(
+  harness,
+  scenario,
+  count = 5,
+) {
+  const publicModulePath = join(
+    installedCliPackageRoot(harness),
+    "build/code/src/public/index.js",
+  );
+  const publicApi = await import(
+    `${pathToFileURL(publicModulePath).href}?scenario=${encodeURIComponent(scenario.label)}`
+  );
+  const operationContext = publicApi.createRootOperationContext();
+  const outcomes = [];
+  for (const invocation of scenario.transcript.slice(0, count)) {
+    outcomes.push(await publicApi.applyRootPublicInvocation(operationContext, invocation));
+  }
+  return { operationContext, outcomes, publicApi };
 }
