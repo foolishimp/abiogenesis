@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abg.schema.product-toolchain-manifest@5",
+  "title": "ABIogenesis Product Toolchain Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "productId",
+    "packageName",
+    "packageVersion",
+    "productContentDigest",
+    "productRelativeLocators",
+    "publicContractCatalog"
+  ],
+  "properties": {
+    "kind": {
+      "const": "abg_product_toolchain_manifest"
+    },
+    "schemaVersion": {
+      "const": "5.0.0"
+    },
+    "productId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "packageName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "packageVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "productContentDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "productRelativeLocators": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "publicContractCatalog": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "abg.schema.public-contract-catalog@5",
+  "title": "ABIogenesis Public Contract Catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogId",
+    "catalogVersion",
+    "catalogDigest",
+    "catalogSchemaPath",
+    "catalogSchemaDigest",
+    "rows"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "5.0.0"
+    },
+    "catalogId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "catalogSchemaPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogSchemaDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "contractId",
+          "contractVersion",
+          "contractDigest",
+          "contractKind",
+          "owningProduct",
+          "requirementAuthorityRefs",
+          "capabilityIdentities"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

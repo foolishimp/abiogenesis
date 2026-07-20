@@ -1,0 +1,35 @@
+{
+  "name": "@abiogenesis/typescript-tenant",
+  "version": "5.0.0-dev.286",
+  "description": "ABIogenesis 5 direct-GTL TypeScript product",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./build/code/src/index.d.ts",
+      "import": "./build/code/src/index.js"
+    },
+    "./product": {
+      "types": "./build/code/src/product/index.d.ts",
+      "import": "./build/code/src/product/index.js"
+    }
+  },
+  "files": [
+    "build/**",
+    "contracts/**",
+    "product-toolchain-manifest.json"
+  ],
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
+    "prepack": "npm run build",
+    "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.0",
+    "typescript": "5.9.2"
+  }
+}
