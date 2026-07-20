@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: realization_correction
 - status: active
-- phase_status: repaired_candidate_ready_for_exact_freeze
+- phase_status: repaired_candidate_frozen_independent_review_pending
 - review_status: independent_rereview_pending
-- proof_status: donor_freezes_and_local_consistency_verified
+- proof_status: exact_subject_and_local_consistency_verified
 - goal: GOAL-035 M2
 - priority: critical
 - change_class: requirement_reprice
@@ -37,12 +37,20 @@
     .ai-workspace/comments/codex/
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - correction_vector_sha256: 28b5987f014bf42bdaf3e6028f380545e16143b1679b5a723a1a5db33066fe8f
+- repaired_candidate_commit: 4ac6617c6450234cfb1c20112a89c286f4e6e7ce
+- repaired_candidate_tree: 8921125d947428066618b93f140eb306e286a62c
+- constitutional_subject_files: 85
+- constitutional_subject_sha256: bc7db5d0d8a172e2ddaf6469853336109b6960742d3cef30380e41a15c475b00
+- requirement_amendment_sha256: e532304300acfcd127632304bc9373d3d64937428b3ae562e0f9b4ed19ab55a4
+- candidate_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T051507Z_CHECKPOINT_t284_repaired_candidate_manifest.md
 - self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T051041Z_SELF_REVIEW_t284_repaired_candidate.md
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
-- constitutional_refreeze: candidate_freeze_pending
+- constitutional_refreeze: frozen_independent_review_pending
 
 ## Purpose
 
