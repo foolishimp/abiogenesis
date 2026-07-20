@@ -5,9 +5,9 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_design_derivation_active
-- review_status: pending
-- proof_status: pending
+- phase_status: m3_design_candidate_ready_for_freeze
+- review_status: self_review_in_progress
+- proof_status: mermaid_and_design_gates_green
 - goal: GOAL-035 M3
 - priority: critical
 - change_intent: >-
@@ -31,6 +31,11 @@
     20260720T023314Z_STRATEGY_t284_x_to_5_correction_vector.md
 - correction_vector_sha256: 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4
 - selected_migration_strategy: fundamental_re_adoption
+- design_ref: >-
+    build_tenants/abiogenesis/typescript/design/
+    M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
+- design_subject_boundary: immutable_design_file_only
+- design_index_ref: build_tenants/abiogenesis/typescript/design/README.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 
