@@ -5,7 +5,7 @@
 - type: design
 - ticket_category: ordinary
 - status: active
-- phase_status: m3_third_design_candidate_frozen_independent_review_pending
+- phase_status: m3_fourth_design_candidate_frozen_independent_review_pending
 - review_status: independent_exact_design_review_pending
 - proof_status: exact_identity_and_design_gates_green
 - goal: GOAL-035 M3
@@ -65,17 +65,32 @@
 - second_review_changes_requested_ref: >-
     .ai-workspace/comments/codex/
     20260720T124237Z_REVIEW_t285_second_exact_design_changes_requested.md
-- design_candidate_commit: c70455d19313c686fc60b5b96d8f740b5d4ec786
-- design_candidate_tree: 047577772deacd7176768e69a744594fd6e3da9b
-- design_subject_blob: a35a79b1ff995b915bafe557c44580bdc60f489c
-- design_subject_sha256: 44253c21348e799f85d97f826539efa2ab6e16eee214368be6796e82d2af67eb
-- design_subject_lines: 1214
-- design_self_review_ref: >-
+- third_review_changes_requested_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T134946Z_REVIEW_t285_third_exact_design_changes_requested.md
+- superseded_third_design_candidate_commit: c70455d19313c686fc60b5b96d8f740b5d4ec786
+- superseded_third_design_candidate_tree: 047577772deacd7176768e69a744594fd6e3da9b
+- superseded_third_design_subject_blob: a35a79b1ff995b915bafe557c44580bdc60f489c
+- superseded_third_design_subject_sha256: 44253c21348e799f85d97f826539efa2ab6e16eee214368be6796e82d2af67eb
+- superseded_third_design_subject_lines: 1214
+- superseded_third_design_self_review_ref: >-
     .ai-workspace/comments/codex/
     20260720T130552Z_SELF_REVIEW_t285_third_direct_gtl_design_candidate.md
-- design_manifest_ref: >-
+- superseded_third_design_manifest_ref: >-
     .ai-workspace/comments/codex/
     20260720T130552Z_CHECKPOINT_t285_third_direct_gtl_design_candidate_manifest.md
+- acceptance_lifecycle_gate_repair_commit: 794bcac469a6fa70832390c74da5ed51ef53a652
+- design_candidate_commit: 10667b234696ff2bd10d12065279e310a3445156
+- design_candidate_tree: 3310050031309cf2a8e345a4ffe38661ab6e599e
+- design_subject_blob: 595caef2a1c5ff19277d02d52f41f8d5e11b881e
+- design_subject_sha256: 9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0
+- design_subject_lines: 1400
+- design_self_review_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T140330Z_SELF_REVIEW_t285_fourth_direct_gtl_design_candidate.md
+- design_manifest_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T140330Z_CHECKPOINT_t285_fourth_direct_gtl_design_candidate_manifest.md
 - implementation_hold: active_until_m3_design_acceptance
 - implementation_hold_effect: no mergeable successor implementation or donor carry-forward
 
