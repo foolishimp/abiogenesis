@@ -128,6 +128,7 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
         ? {
           programRef: request.payload.programRef,
           graphFunctionRef: request.payload.graphFunctionRef,
+          input: request.payload.input,
         }
         : {},
   }));

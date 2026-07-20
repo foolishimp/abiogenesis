@@ -45,6 +45,14 @@ const RUN_EVENT_KINDS = Object.freeze([
   "run_closed",
 ]);
 
+const SETUP_EVENT_ROWS = Object.freeze([
+  ["public_operation_artifact_admitted", "abg.operation.product.install"],
+  ["public_operation_artifact_admitted", "abg.operation.workspace.bind"],
+  ["public_operation_artifact_admitted", "abg.operation.catalog.admit"],
+  ["registry_entry_admitted", "abg.operation.catalog.admit"],
+  ["public_operation_artifact_admitted", "abg.operation.catalog.view"],
+]);
+
 function canonicalJson(value) {
   if (value === null || typeof value === "boolean" || typeof value === "string") {
     return JSON.stringify(value);
@@ -77,6 +85,14 @@ function equalJson(left, right) {
   } catch {
     return false;
   }
+}
+
+function validOutcomeIdentity(outcome) {
+  if (!isRecord(outcome)) return false;
+  const { kind, schemaVersion, outcomeDigest, ...body } = outcome;
+  return kind === "public_outcome" &&
+    schemaVersion === "5.0.0" &&
+    outcomeDigest === sha256Canonical(body);
 }
 
 function verifyEvents(events) {
@@ -116,7 +132,7 @@ function verifyEvents(events) {
   return failures;
 }
 
-function runEpisode(events, outcome) {
+function runEpisode(events, outcome, request) {
   const selected = events.filter((event) =>
     event.runId === outcome.runId ||
     event.parentAggregateId === outcome.runtimeInvocationRef ||
@@ -124,14 +140,26 @@ function runEpisode(events, outcome) {
   const kinds = selected.map((event) => event.kind);
   const resultEvent = selected.find((event) => event.kind === "c_call_result_admitted");
   const judgmentEvent = selected.find((event) => event.kind === "c_call_judged");
+  const publicEvent = selected.find((event) => event.kind === "public_operation_admitted");
+  const invocationEvent = selected.find((event) => event.kind === "invocation_admitted");
   const failures = [];
-  const { kind, schemaVersion, outcomeDigest, ...outcomeBody } = outcome;
+  const input = request?.payload?.input;
   if (
-    kind !== "public_outcome" ||
-    schemaVersion !== "5.0.0" ||
-    outcomeDigest !== sha256Canonical(outcomeBody)
+    !isRecord(input) ||
+    input.kind !== "hello_world_input" ||
+    input.schemaVersion !== "5.0.0" ||
+    typeof input.subject !== "string" ||
+    input.subject.length === 0
   ) {
-    failures.push(`run ${outcome.runId} public outcome identity is invalid`);
+    failures.push(`run ${outcome.runId} lacks the exact declared Hello World input`);
+  }
+  if (
+    publicEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
+    publicEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef ||
+    invocationEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
+    invocationEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef
+  ) {
+    failures.push(`run ${outcome.runId} does not preserve its admitted invocation identity`);
   }
   if (!equalJson(kinds, RUN_EVENT_KINDS)) {
     failures.push(`run ${outcome.runId} event order differs from the exact admitted spine`);
@@ -148,7 +176,8 @@ function runEpisode(events, outcome) {
     resultEvent?.aggregateId !== outcome.cCallRef ||
     resultEvent?.payload?.resultRef !== outcome.resultRef ||
     resultEvent?.payload?.contractRef !== outcome.admittedResultContractRef ||
-    !equalJson(resultEvent?.payload?.value, outcome.result)
+    !equalJson(resultEvent?.payload?.value, outcome.result) ||
+    outcome.result?.message !== `Hello ${input?.subject ?? ""}`
   ) {
     failures.push(`run ${outcome.runId} result projection differs from admitted CCall truth`);
   }
@@ -162,7 +191,7 @@ function runEpisode(events, outcome) {
   if (!equalJson(closeKinds, ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"])) {
     failures.push(`run ${outcome.runId} lacks the exact terminal closure suffix`);
   }
-  return failures;
+  return { failures, eventIds: selected.map((event) => event.eventId) };
 }
 
 export async function evaluateAbi5Root({
@@ -185,6 +214,10 @@ export async function evaluateAbi5Root({
   }
   const verifyRequest = transcript[0];
   const verifyOutcome = outcomes[0];
+  const outcomeIdentitiesValid = outcomes.every(validOutcomeIdentity);
+  if (!outcomeIdentitiesValid) {
+    failures.push("one or more public outcome identities are invalid");
+  }
   obligationResults.R1 = artifactBytes !== null &&
     sha256Bytes(artifactBytes) === candidateBasis.artifactDigest &&
     verifyRequest?.operationId === SETUP_OPERATIONS[0] &&
@@ -198,7 +231,8 @@ export async function evaluateAbi5Root({
     verifyOutcome?.result?.artifactDigest === candidateBasis.artifactDigest &&
     verifyOutcome?.result?.productContentDigest === candidateBasis.productContentDigest &&
     verifyOutcome?.result?.manifestDigest === candidateBasis.manifestDigest &&
-    verifyOutcome?.result?.productId === candidateBasis.productId;
+    verifyOutcome?.result?.productId === candidateBasis.productId &&
+    outcomeIdentitiesValid;
 
   const operationIds = outcomes.map((outcome) => outcome.operationId);
   const requestOperationIds = transcript.map((request) => request.operationId);
@@ -238,13 +272,80 @@ export async function evaluateAbi5Root({
     failures.push("durable ABG event log is absent or malformed");
   }
 
+  const setupEvents = events.slice(0, SETUP_EVENT_ROWS.length);
+  const installEvent = setupEvents[0];
+  const workspaceEvent = setupEvents[1];
+  const catalogArtifactEvent = setupEvents[2];
+  const catalogRegistryEvent = setupEvents[3];
+  const catalogViewEvent = setupEvents[4];
+  const installOutcome = outcomes[1];
+  const workspaceOutcome = outcomes[2];
+  const catalogOutcome = outcomes[3];
+  const catalogViewOutcome = outcomes[4];
+  const catalogCandidateRef = typeof catalogOutcome?.result?.catalogDigest === "string"
+    ? `catalog-candidate://abiogenesis/${catalogOutcome.result.catalogDigest.slice("sha256:".length)}`
+    : null;
+  const catalogViewCandidateRef = typeof catalogViewOutcome?.result?.viewDigest === "string"
+    ? `catalog-view-candidate://abiogenesis/${catalogViewOutcome.result.viewDigest.slice("sha256:".length)}`
+    : null;
+  const setupEventsValid = setupEvents.length === SETUP_EVENT_ROWS.length &&
+    SETUP_EVENT_ROWS.every(([kind, operationId], index) =>
+      setupEvents[index]?.kind === kind &&
+      setupEvents[index]?.payload?.operationId === operationId) &&
+    installEvent?.eventId === installOutcome?.result?.admissionEventRef &&
+    installEvent?.aggregateId === installOutcome?.result?.installId &&
+    installEvent?.basisId === installOutcome?.result?.installId &&
+    installEvent?.payload?.artifactRef === installOutcome?.result?.installId &&
+    installEvent?.payload?.invocationRef === transcript[1]?.invocationRef &&
+    equalJson(installEvent?.causationEventRefs, []) &&
+    workspaceEvent?.eventId === workspaceOutcome?.result?.admissionEventRef &&
+    workspaceEvent?.aggregateId === workspaceOutcome?.result?.bindingId &&
+    workspaceEvent?.basisId === workspaceOutcome?.result?.bindingId &&
+    workspaceEvent?.payload?.artifactRef === workspaceOutcome?.result?.bindingId &&
+    workspaceEvent?.payload?.invocationRef === transcript[2]?.invocationRef &&
+    equalJson(workspaceEvent?.causationEventRefs, [installEvent?.eventId]) &&
+    catalogArtifactEvent?.eventId === catalogOutcome?.result?.admissionEventRef &&
+    catalogArtifactEvent?.aggregateId === workspaceOutcome?.result?.bindingId &&
+    catalogArtifactEvent?.basisId === workspaceOutcome?.result?.bindingId &&
+    catalogArtifactEvent?.payload?.authorityScopeRef === workspaceOutcome?.result?.bindingId &&
+    catalogArtifactEvent?.payload?.artifactRef === catalogCandidateRef &&
+    catalogArtifactEvent?.payload?.invocationRef === transcript[3]?.invocationRef &&
+    equalJson(catalogArtifactEvent?.causationEventRefs, [workspaceEvent?.eventId]) &&
+    catalogRegistryEvent?.parentAggregateId === catalogOutcome?.result?.catalogId &&
+    catalogRegistryEvent?.basisId === catalogCandidateRef &&
+    catalogRegistryEvent?.payload?.candidateId === catalogCandidateRef &&
+    catalogRegistryEvent?.payload?.catalogId === catalogOutcome?.result?.catalogId &&
+    catalogRegistryEvent?.payload?.handle ===
+      "graph-function://abiogenesis/conformance/hello-world@5" &&
+    equalJson(catalogRegistryEvent?.causationEventRefs, [catalogArtifactEvent?.eventId]) &&
+    catalogViewEvent?.eventId === catalogViewOutcome?.result?.admissionEventRef &&
+    catalogViewEvent?.aggregateId === catalogOutcome?.result?.catalogId &&
+    catalogViewEvent?.basisId === catalogOutcome?.result?.catalogId &&
+    catalogViewEvent?.payload?.authorityScopeRef === catalogOutcome?.result?.catalogId &&
+    catalogViewEvent?.payload?.artifactRef === catalogViewCandidateRef &&
+    catalogViewEvent?.payload?.invocationRef === transcript[4]?.invocationRef &&
+    equalJson(catalogViewEvent?.causationEventRefs, [catalogArtifactEvent?.eventId]);
+  if (!setupEventsValid) {
+    failures.push("installed setup events differ from the exact admitted path");
+  }
+  obligationResults.R2 = obligationResults.R2 && setupEventsValid;
+  obligationResults.R3 = obligationResults.R3 && setupEventsValid;
+  obligationResults.R4 = obligationResults.R4 && setupEventsValid;
+
   const runRequests = transcript.slice(SETUP_OPERATIONS.length);
   const runOutcomes = outcomes.slice(SETUP_OPERATIONS.length);
+  const uniqueRunIdentities =
+    new Set(runRequests.map((request) => request.invocationRef)).size === runRequests.length &&
+    new Set(runOutcomes.map((outcome) => outcome.runtimeInvocationRef)).size === runOutcomes.length &&
+    new Set(runOutcomes.map((outcome) => outcome.runId)).size === runOutcomes.length;
+  if (!uniqueRunIdentities) {
+    failures.push("run request, runtime invocation, or Run identities are duplicated");
+  }
   const exactTargets = runRequests.length >= 1 && runRequests.every((request) =>
     request.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
     request.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5");
   const invocationEvents = events.filter((event) => event.kind === "invocation_admitted");
-  obligationResults.R5 = obligationResults.R4 && exactTargets &&
+  obligationResults.R5 = obligationResults.R4 && exactTargets && uniqueRunIdentities &&
     invocationEvents.length === runOutcomes.length;
 
   const implementationEvents = events.filter((event) => event.kind === "implementation_admitted");
@@ -267,19 +368,47 @@ export async function evaluateAbi5Root({
   obligationResults.R8 = obligationResults.R7 && runOutcomes.length >= 1 &&
     openKinds.every((kind) => events.filter((event) => event.kind === kind).length === runOutcomes.length);
 
-  const episodeFailures = runOutcomes.flatMap((outcome) => runEpisode(events, outcome));
+  const episodeResults = runOutcomes.map((outcome, index) =>
+    runEpisode(events, outcome, runRequests[index]));
+  const episodeFailures = episodeResults.flatMap((result) => result.failures);
   failures.push(...episodeFailures);
-  obligationResults.R9 = obligationResults.R8 && episodeFailures.length === 0;
+  const accountedEventIds = new Set([
+    ...setupEvents.map((event) => event.eventId),
+    ...episodeResults.flatMap((result) => result.eventIds),
+  ]);
+  const eventAccountingValid =
+    events.length === SETUP_EVENT_ROWS.length + (runOutcomes.length * RUN_EVENT_KINDS.length) &&
+    accountedEventIds.size === events.length &&
+    events.every((event) => accountedEventIds.has(event.eventId));
+  if (!eventAccountingValid) {
+    failures.push("durable ledger contains a missing, duplicated, or unaccounted event");
+  }
+  obligationResults.R9 = obligationResults.R8 &&
+    episodeFailures.length === 0 &&
+    eventAccountingValid;
 
   const outputContract = "contract://abiogenesis/conformance/hello-output@5";
-  const prefixChecks = eventBytes !== null && runOutcomes.every((outcome) => {
+  const prefixChecks = eventBytes !== null && runOutcomes.every((outcome, index) => {
     if (
       !Number.isInteger(outcome.eventLogByteLength) ||
       outcome.eventLogByteLength <= 0 ||
-      outcome.eventLogByteLength > eventBytes.byteLength
+      outcome.eventLogByteLength > eventBytes.byteLength ||
+      !Number.isInteger(outcome.durableEventCount) ||
+      outcome.durableEventCount <= 0 ||
+      (index > 0 &&
+        outcome.durableEventCount <= runOutcomes[index - 1]?.durableEventCount)
     ) return false;
-    return sha256Bytes(eventBytes.subarray(0, outcome.eventLogByteLength)) === outcome.eventLogDigest;
+    const prefix = eventBytes.subarray(0, outcome.eventLogByteLength);
+    const prefixLines = prefix.toString("utf8").split(/\r?\n/u).filter(Boolean);
+    return prefix.at(-1) === 0x0a &&
+      prefixLines.length === outcome.durableEventCount &&
+      sha256Bytes(prefix) === outcome.eventLogDigest;
   });
+  const finalPrefixCoversLog = eventBytes !== null &&
+    runOutcomes.at(-1)?.eventLogByteLength === eventBytes.byteLength;
+  if (!finalPrefixCoversLog) {
+    failures.push("final durable prefix does not cover the exact event log bytes");
+  }
   obligationResults.R10 = obligationResults.R9 &&
     runOutcomes.length >= 1 &&
     runOutcomes.every((outcome) =>
@@ -289,6 +418,8 @@ export async function evaluateAbi5Root({
       outcome.result?.kind === "hello_world_output" &&
       typeof outcome.result?.message === "string" &&
       typeof outcome.replayDigest === "string") &&
+    runOutcomes.at(-1)?.durableEventCount === events.length &&
+    finalPrefixCoversLog &&
     prefixChecks;
 
   for (const id of OBLIGATIONS) {

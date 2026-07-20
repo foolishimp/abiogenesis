@@ -42,7 +42,12 @@
     "invocationRef": "invocation://t286/r10/run-invoke",
     "payload": {
       "programRef": "program://abiogenesis/conformance/hello-world@5",
-      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5"
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      }
     }
   },
   {
@@ -51,7 +56,12 @@
     "invocationRef": "invocation://t286/r10/run-invoke-second",
     "payload": {
       "programRef": "program://abiogenesis/conformance/hello-world@5",
-      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5"
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "Universe"
+      }
     }
   }
 ]
