@@ -10,6 +10,9 @@ export interface ReplayCCallState {
   readonly evidenceRefs: readonly string[];
   readonly resultRef: string | null;
   readonly resultDigest: Sha256Digest | null;
+  readonly resultClass: string | null;
+  readonly resultContractRef: string | null;
+  readonly resultValueKind: string | null;
   readonly resultValue: JsonValue | null;
   readonly judgmentRef: string | null;
   readonly judgment: string | null;
@@ -33,7 +36,15 @@ export interface ReplayState {
   readonly frameClosedEventRef: string | null;
   readonly graphCallClosedEventRef: string | null;
   readonly runClosedEventRef: string | null;
-  readonly runtimeStatus: "active" | "closed" | "refused" | "workspace";
+  readonly invocationRefusalEventRef: string | null;
+  readonly runtimeFailureEventRef: string | null;
+  readonly runtimeStatus:
+    | "active"
+    | "blocked"
+    | "closed"
+    | "failed"
+    | "refused"
+    | "workspace";
 }
 
 function isRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
@@ -106,6 +117,9 @@ export function replay(store: AbgEventStore): ReplayState {
       resultDigest: resultEvent === undefined
         ? null
         : stringField(resultEvent, "resultDigest") as Sha256Digest | null,
+      resultClass: resultEvent === undefined ? null : stringField(resultEvent, "resultClass"),
+      resultContractRef: resultEvent === undefined ? null : stringField(resultEvent, "contractRef"),
+      resultValueKind: resultEvent === undefined ? null : stringField(resultEvent, "valueKind"),
       resultValue: resultEvent !== undefined && isRecord(resultEvent.payload)
         ? (resultEvent.payload.value ?? null)
         : null,
@@ -123,6 +137,8 @@ export function replay(store: AbgEventStore): ReplayState {
   const graphCallClosed = events.find((event) => event.kind === "graph_call_closed");
   const runClosed = events.find((event) => event.kind === "run_closed");
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
+  const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
+  const blocked = cCalls.some((cCall) => cCall.judgment === "blocked");
   const eventStoreDigest = store.digest();
   const body = {
     eventStoreDigest,
@@ -137,13 +153,19 @@ export function replay(store: AbgEventStore): ReplayState {
     frameClosedEventRef: frameClosed?.eventId ?? null,
     graphCallClosedEventRef: graphCallClosed?.eventId ?? null,
     runClosedEventRef: runClosed?.eventId ?? null,
+    invocationRefusalEventRef: invocationRefused?.eventId ?? null,
+    runtimeFailureEventRef: runtimeFailure?.eventId ?? null,
     runtimeStatus: runClosed !== undefined
       ? "closed" as const
-      : invocationRefused !== undefined
-        ? "refused" as const
-        : runOpen !== undefined
-          ? "active" as const
-          : "workspace" as const,
+      : runtimeFailure !== undefined
+        ? "failed" as const
+        : blocked
+          ? "blocked" as const
+          : invocationRefused !== undefined
+            ? "refused" as const
+            : runOpen !== undefined
+              ? "active" as const
+              : "workspace" as const,
   };
   const replayDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({

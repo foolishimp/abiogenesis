@@ -90,6 +90,10 @@ export {
   type ReplayState,
 } from "./replay.js";
 export {
+  persistEventLog,
+  type PersistedEventLog,
+} from "./event_log.js";
+export {
   admitTransition,
   isAdmittedTransition,
   type AdmittedTransition,

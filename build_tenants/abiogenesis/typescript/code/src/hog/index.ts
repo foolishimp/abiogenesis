@@ -16,3 +16,10 @@ export {
   type TransitionProposal,
   type TransitionProposalRefusal,
 } from "./transition.js";
+export {
+  completeDeterministicTraversal,
+  type CompleteDeterministicTraversalInput,
+  type DeterministicLeafCandidate,
+  type DeterministicTraversalClock,
+  type DeterministicTraversalCompletion,
+} from "./execute.js";

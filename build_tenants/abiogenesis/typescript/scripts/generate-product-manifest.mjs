@@ -102,8 +102,35 @@ const hogNativeInventory = [
     declarationDigest: await sha256File(join(root, hogDeclarationPath)),
   },
 ];
+const publicDeclarationPath = "build/code/src/public/index.d.ts";
+const publicNativeInventory = [
+  {
+    packageExportPath: "./public",
+    declarationPath: publicDeclarationPath,
+    declarationDigest: await sha256File(join(root, publicDeclarationPath)),
+  },
+];
 
 const rows = [
+  {
+    contractId: "abg.contract.public.root-invocation",
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(publicNativeInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: [
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
+      "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
+      "specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-008",
+    ],
+    capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+    nativeTypedLocator: {
+      packageName: packageJson.name,
+      packageExportPath: "./public",
+      namedSymbol: "applyRootPublicInvocation",
+      declarationPath: publicDeclarationPath,
+    },
+  },
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
