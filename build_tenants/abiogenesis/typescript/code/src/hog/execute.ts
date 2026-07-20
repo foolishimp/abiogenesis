@@ -198,6 +198,25 @@ export function completeDeterministicTraversal<
 >(
   input: CompleteDeterministicTraversalInput<Input, Output>,
 ): DeterministicTraversalCompletion {
+  if (
+    sha256Canonical(input.input as unknown as JsonValue) !== input.inputDigest ||
+    input.inputDigest !== input.executionBasis.rawInputDigest
+  ) {
+    const diagnosticRef = "diagnostic://abiogenesis/hog/input-basis-mismatch@5";
+    admitRuntimeFailure(
+      input.store,
+      input.executionBasis,
+      input.openedTraversalScope,
+      "c_call_open",
+      {
+        admittedInputDigest: input.executionBasis.rawInputDigest,
+        suppliedInputDigest: input.inputDigest,
+      },
+      diagnosticRef,
+      basis(input.clock, "input-basis-refusal"),
+    );
+    return completion("failed", replayRun(input), { diagnosticRef });
+  }
   const opened = openCCall(
     input.store,
     input.executionBasis,

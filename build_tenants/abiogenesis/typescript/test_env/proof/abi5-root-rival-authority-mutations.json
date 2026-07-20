@@ -48,6 +48,15 @@
       "runtimeEventsAdded": 0
     },
     {
+      "mutation": "post_admission_validator_exception",
+      "boundary": "graph_validation",
+      "disposition": "refused",
+      "invocationAdmitted": true,
+      "refusalAdmitted": true,
+      "runOpenAbsent": true,
+      "rootGovernorDisposition": "root_red"
+    },
+    {
       "mutation": "leaf_exception",
       "boundary": "leaf_realization",
       "disposition": "blocked",

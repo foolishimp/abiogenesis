@@ -1,67 +1,132 @@
 [
   {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
     "operationId": "abg.operation.product.verify",
     "variant": "artifact",
     "invocationRef": "invocation://t286/r10/product-verify",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
     "payload": {
-      "expectedArtifactDigest": "sha256:928d2dd779ff6e6116b5d0fa11bf7f41b87eb3ef381ce353530148cff90fc7c6",
-      "expectedProductContentDigest": "sha256:e640c935b19a3734efd654c8de9f1390542d50d5ff5d4e835dbdda5a77c2068d",
-      "expectedManifestDigest": "sha256:1193a290d437b7b1c8c4cc56e89124e7416e73ec4ae8f2435a7116a85a481970",
+      "artifactPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
+      "artifactRef": "abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
+      "expectedArtifactDigest": "sha256:80c35c9a9cfff6938dc4aa59ad13b15eef8b625d8be08245bb826fae155ba04b",
+      "expectedProductContentDigest": "sha256:ae68ebb778084641cc4fcbac0ed4fcf823fdeced011358f6ced074545b610c25",
+      "expectedManifestDigest": "sha256:57aea42fb10cef9304663eddfe761d6778d4dfc51767a77f68db238b835860c4",
       "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
       "expectedPackageName": "@abiogenesis/typescript-tenant",
       "expectedPackageVersion": "5.0.0-dev.286"
     }
   },
   {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
     "operationId": "abg.operation.product.install",
     "variant": "verified_artifact",
     "invocationRef": "invocation://t286/r10/product-install",
-    "payload": {}
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
+    "payload": {
+      "verifiedInvocationRef": "invocation://t286/r10/product-verify",
+      "artifactPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz",
+      "targetRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/product-consumer"
+    }
   },
   {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
     "operationId": "abg.operation.workspace.bind",
     "variant": "exact_product_set",
     "invocationRef": "invocation://t286/r10/workspace-bind",
-    "payload": {}
-  },
-  {
-    "operationId": "abg.operation.catalog.admit",
-    "variant": "module_publication",
-    "invocationRef": "invocation://t286/r10/catalog-admit",
-    "payload": {}
-  },
-  {
-    "operationId": "abg.operation.catalog.view",
-    "variant": "allowlist",
-    "invocationRef": "invocation://t286/r10/catalog-view",
-    "payload": {}
-  },
-  {
-    "operationId": "abg.operation.run.invoke",
-    "variant": "direct",
-    "invocationRef": "invocation://t286/r10/run-invoke",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
     "payload": {
-      "programRef": "program://abiogenesis/conformance/hello-world@5",
-      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
-      "input": {
-        "kind": "hello_world_input",
-        "schemaVersion": "5.0.0",
-        "subject": "World"
+      "installInvocationRef": "invocation://t286/r10/product-install",
+      "workspaceId": "workspace://t286/r10",
+      "canonicalRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace",
+      "authorityManifestRef": "manifest://t286/r10/workspace-authority",
+      "roots": {
+        "toolchainRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/product-consumer",
+        "productRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/product-consumer/node_modules/@abiogenesis/typescript-tenant",
+        "eventLogRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/events",
+        "runtimeStateRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/runtime",
+        "projectionRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/projections",
+        "archiveRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/archive"
       }
     }
   },
   {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
+    "operationId": "abg.operation.catalog.admit",
+    "variant": "module_publication",
+    "invocationRef": "invocation://t286/r10/catalog-admit",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
+    "payload": {
+      "verifiedInvocationRef": "invocation://t286/r10/product-verify",
+      "workspaceBindingInvocationRef": "invocation://t286/r10/workspace-bind"
+    }
+  },
+  {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
+    "operationId": "abg.operation.catalog.view",
+    "variant": "allowlist",
+    "invocationRef": "invocation://t286/r10/catalog-view",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
+    "payload": {
+      "catalogInvocationRef": "invocation://t286/r10/catalog-admit",
+      "allowlist": [
+        "graph-function://abiogenesis/conformance/hello-world@5"
+      ]
+    }
+  },
+  {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
+    "operationId": "abg.operation.run.invoke",
+    "variant": "direct",
+    "invocationRef": "invocation://t286/r10/run-invoke",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli",
+    "payload": {
+      "installInvocationRef": "invocation://t286/r10/product-install",
+      "workspaceBindingInvocationRef": "invocation://t286/r10/workspace-bind",
+      "catalogViewInvocationRef": "invocation://t286/r10/catalog-view",
+      "programRef": "program://abiogenesis/conformance/hello-world@5",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "actorRef": "actor://abiogenesis/t286/trusted-developer",
+      "input": {
+        "kind": "hello_world_input",
+        "schemaVersion": "5.0.0",
+        "subject": "World"
+      },
+      "eventLogPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/events/abi5-root-001.events.jsonl"
+    }
+  },
+  {
+    "kind": "public_invocation",
+    "schemaVersion": "5.0.0",
     "operationId": "abg.operation.run.invoke",
     "variant": "direct",
     "invocationRef": "invocation://t286/r10/run-invoke-second",
+    "eventTime": "2026-07-21T00:00:00.000Z",
+    "correlationId": "correlation://t286/root-cli/second",
     "payload": {
+      "installInvocationRef": "invocation://t286/r10/product-install",
+      "workspaceBindingInvocationRef": "invocation://t286/r10/workspace-bind",
+      "catalogViewInvocationRef": "invocation://t286/r10/catalog-view",
       "programRef": "program://abiogenesis/conformance/hello-world@5",
       "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-world@5",
+      "actorRef": "actor://abiogenesis/t286/trusted-developer",
       "input": {
         "kind": "hello_world_input",
         "schemaVersion": "5.0.0",
         "subject": "Universe"
-      }
+      },
+      "eventLogPath": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-r10-proof/r10/workspace/.ai-workspace/events/abi5-root-001.events.jsonl"
     }
   }
 ]

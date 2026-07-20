@@ -46,11 +46,11 @@ const RUN_EVENT_KINDS = Object.freeze([
 ]);
 
 const SETUP_EVENT_ROWS = Object.freeze([
-  ["public_operation_artifact_admitted", "abg.operation.product.install"],
-  ["public_operation_artifact_admitted", "abg.operation.workspace.bind"],
-  ["public_operation_artifact_admitted", "abg.operation.catalog.admit"],
-  ["registry_entry_admitted", "abg.operation.catalog.admit"],
-  ["public_operation_artifact_admitted", "abg.operation.catalog.view"],
+  ["public_operation_artifact_admitted", "abg.operation.product.install", 1],
+  ["public_operation_artifact_admitted", "abg.operation.workspace.bind", 2],
+  ["public_operation_artifact_admitted", "abg.operation.catalog.admit", 3],
+  ["registry_entry_admitted", "abg.operation.catalog.admit", null],
+  ["public_operation_artifact_admitted", "abg.operation.catalog.view", 4],
 ]);
 
 function canonicalJson(value) {
@@ -142,6 +142,10 @@ function runEpisode(events, outcome, request) {
   const judgmentEvent = selected.find((event) => event.kind === "c_call_judged");
   const publicEvent = selected.find((event) => event.kind === "public_operation_admitted");
   const invocationEvent = selected.find((event) => event.kind === "invocation_admitted");
+  const runEvent = selected.find((event) => event.kind === "run_segment_opened");
+  const graphCallEvent = selected.find((event) => event.kind === "graph_call_opened");
+  const frameEvent = selected.find((event) => event.kind === "frame_opened");
+  const cCallEvent = selected.find((event) => event.kind === "c_call_opened");
   const failures = [];
   const input = request?.payload?.input;
   if (
@@ -157,9 +161,34 @@ function runEpisode(events, outcome, request) {
     publicEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
     publicEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef ||
     invocationEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
-    invocationEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef
+    invocationEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef ||
+    invocationEvent?.payload?.publicRequestInvocationRef !== request?.invocationRef ||
+    invocationEvent?.payload?.publicRequestDigest !== sha256Canonical(request) ||
+    invocationEvent?.payload?.rawInputDigest !== sha256Canonical(input)
   ) {
     failures.push(`run ${outcome.runId} does not preserve its admitted invocation identity`);
+  }
+  if (
+    typeof request?.correlationId !== "string" ||
+    selected.some((event) =>
+      event.correlationId !== request.correlationId &&
+      !event.correlationId?.startsWith(`${request.correlationId}/`))
+  ) {
+    failures.push(`run ${outcome.runId} does not preserve its caller correlation scope`);
+  }
+  if (
+    publicEvent?.payload?.programRef !== request?.payload?.programRef ||
+    publicEvent?.payload?.graphFunctionRef !== request?.payload?.graphFunctionRef ||
+    runEvent?.aggregateId !== outcome.runId ||
+    runEvent?.payload?.runId !== outcome.runId ||
+    graphCallEvent?.aggregateId !== outcome.graphCallId ||
+    graphCallEvent?.payload?.graphCallId !== outcome.graphCallId ||
+    frameEvent?.aggregateId !== outcome.frameId ||
+    frameEvent?.payload?.frameId !== outcome.frameId ||
+    cCallEvent?.aggregateId !== outcome.cCallRef ||
+    cCallEvent?.payload?.cCallRef !== outcome.cCallRef
+  ) {
+    failures.push(`run ${outcome.runId} scope identities differ from its public outcome`);
   }
   if (!equalJson(kinds, RUN_EVENT_KINDS)) {
     failures.push(`run ${outcome.runId} event order differs from the exact admitted spine`);
@@ -251,17 +280,24 @@ export async function evaluateAbi5Root({
   }
   obligationResults.R2 = obligationResults.R1 &&
     outcomes[1]?.result?.kind === "product_install" &&
+    outcomes[1]?.result?.productId === candidateBasis.productId &&
     typeof outcomes[1]?.result?.installId === "string";
   obligationResults.R3 = obligationResults.R2 &&
     outcomes[2]?.result?.kind === "workspace_binding" &&
-    typeof outcomes[2]?.result?.bindingId === "string";
+    typeof outcomes[2]?.result?.bindingId === "string" &&
+    outcomes[2]?.result?.bindingId ===
+      `workspace-binding://abiogenesis/${outcomes[2]?.result?.bindingDigest?.slice("sha256:".length)}`;
   obligationResults.R4 = obligationResults.R3 &&
     outcomes[3]?.result?.kind === "admitted_catalog" &&
+    outcomes[3]?.result?.admittedRows === 1 &&
+    outcomes[3]?.result?.catalogId ===
+      `catalog://abiogenesis/${outcomes[3]?.result?.catalogDigest?.slice("sha256:".length)}` &&
     outcomes[4]?.result?.kind === "catalog_view" &&
-    Array.isArray(outcomes[4]?.result?.allowlist) &&
-    outcomes[4].result.allowlist.includes(
+    outcomes[4]?.result?.viewId ===
+      `catalog-view://abiogenesis/${outcomes[4]?.result?.viewDigest?.slice("sha256:".length)}` &&
+    equalJson(outcomes[4]?.result?.allowlist, [
       "graph-function://abiogenesis/conformance/hello-world@5",
-    );
+    ]);
 
   try {
     eventBytes = await readFile(eventLogPath);
@@ -289,9 +325,19 @@ export async function evaluateAbi5Root({
     ? `catalog-view-candidate://abiogenesis/${catalogViewOutcome.result.viewDigest.slice("sha256:".length)}`
     : null;
   const setupEventsValid = setupEvents.length === SETUP_EVENT_ROWS.length &&
-    SETUP_EVENT_ROWS.every(([kind, operationId], index) =>
+    SETUP_EVENT_ROWS.every(([kind, operationId, requestIndex], index) =>
       setupEvents[index]?.kind === kind &&
-      setupEvents[index]?.payload?.operationId === operationId) &&
+      setupEvents[index]?.payload?.operationId === operationId &&
+      (requestIndex === null || (
+        setupEvents[index]?.payload?.invocationPayloadDigest ===
+          sha256Canonical(transcript[requestIndex]?.payload) &&
+        setupEvents[index]?.payload?.invocationDigest ===
+          sha256Canonical({
+            invocationRef: transcript[requestIndex]?.invocationRef,
+            operationId,
+            payloadDigest: sha256Canonical(transcript[requestIndex]?.payload),
+          })
+      ))) &&
     installEvent?.eventId === installOutcome?.result?.admissionEventRef &&
     installEvent?.aggregateId === installOutcome?.result?.installId &&
     installEvent?.basisId === installOutcome?.result?.installId &&
@@ -351,18 +397,40 @@ export async function evaluateAbi5Root({
   const implementationEvents = events.filter((event) => event.kind === "implementation_admitted");
   obligationResults.R6 = obligationResults.R5 &&
     implementationEvents.length === runOutcomes.length &&
+    new Set(implementationEvents.map((event) => event.payload?.implementationBindingDigest)).size === 1 &&
+    new Set(implementationEvents.map((event) => event.payload?.implementationDescriptorDigest)).size === 1 &&
     implementationEvents.every((event) =>
       event.payload?.implementationBindingRef ===
         "implementation-binding://abiogenesis/conformance/hello-world-fd@5" &&
+      event.payload?.implementationRef ===
+        "implementation://abiogenesis/conformance/hello-world-fd@5" &&
+      event.payload?.computeRegime === "F_D" &&
+      event.payload?.packageName === candidateBasis.packageName &&
+      event.payload?.packageVersion === candidateBasis.packageVersion &&
+      event.payload?.inputContractRef ===
+        "contract://abiogenesis/conformance/hello-input@5" &&
+      event.payload?.outputContractRef ===
+        "contract://abiogenesis/conformance/hello-output@5" &&
       typeof event.payload?.implementationBindingDigest === "string" &&
       typeof event.payload?.implementationDescriptorDigest === "string");
 
   const basisEvents = events.filter((event) => event.kind === "basis_admitted");
   obligationResults.R7 = obligationResults.R6 &&
     basisEvents.length === runOutcomes.length &&
-    basisEvents.every((event) =>
+    basisEvents.every((event, index) =>
+      event.parentAggregateId === runOutcomes[index]?.runtimeInvocationRef &&
+      event.payload?.invocationRef === runOutcomes[index]?.runtimeInvocationRef &&
+      event.payload?.rawInputDigest === sha256Canonical(runRequests[index]?.payload?.input) &&
+      event.payload?.workspaceBindingId === outcomes[2]?.result?.bindingId &&
+      event.payload?.workspaceBindingDigest === outcomes[2]?.result?.bindingDigest &&
+      event.payload?.catalogViewId === outcomes[4]?.result?.viewId &&
+      event.payload?.catalogViewDigest === outcomes[4]?.result?.viewDigest &&
+      event.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
       event.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5" &&
-      typeof event.payload?.graphRef === "string");
+      event.payload?.graphRef ===
+        `graph-materialization://abiogenesis/${event.payload?.graphDigest?.slice("sha256:".length)}` &&
+      event.payload?.basisRef ===
+        `execution-basis://abiogenesis/${event.payload?.basisDigest?.slice("sha256:".length)}`);
 
   const openKinds = ["run_segment_opened", "graph_call_opened", "frame_opened"];
   obligationResults.R8 = obligationResults.R7 && runOutcomes.length >= 1 &&
@@ -389,19 +457,24 @@ export async function evaluateAbi5Root({
 
   const outputContract = "contract://abiogenesis/conformance/hello-output@5";
   const prefixChecks = eventBytes !== null && runOutcomes.every((outcome, index) => {
+    const expectedEventCount = SETUP_EVENT_ROWS.length +
+      ((index + 1) * RUN_EVENT_KINDS.length);
+    const expectedPrefix = Buffer.from(
+      `${events.slice(0, expectedEventCount).map(canonicalJson).join("\n")}\n`,
+      "utf8",
+    );
     if (
       !Number.isInteger(outcome.eventLogByteLength) ||
       outcome.eventLogByteLength <= 0 ||
       outcome.eventLogByteLength > eventBytes.byteLength ||
-      !Number.isInteger(outcome.durableEventCount) ||
-      outcome.durableEventCount <= 0 ||
-      (index > 0 &&
-        outcome.durableEventCount <= runOutcomes[index - 1]?.durableEventCount)
+      outcome.eventLogByteLength !== expectedPrefix.byteLength ||
+      outcome.durableEventCount !== expectedEventCount
     ) return false;
     const prefix = eventBytes.subarray(0, outcome.eventLogByteLength);
     const prefixLines = prefix.toString("utf8").split(/\r?\n/u).filter(Boolean);
     return prefix.at(-1) === 0x0a &&
       prefixLines.length === outcome.durableEventCount &&
+      prefix.equals(expectedPrefix) &&
       sha256Bytes(prefix) === outcome.eventLogDigest;
   });
   const finalPrefixCoversLog = eventBytes !== null &&

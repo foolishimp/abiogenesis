@@ -26,6 +26,7 @@ export interface RuntimeFailureAdmission {
     | "c_call_open"
     | "hog_traversal"
     | "implementation_load"
+    | "operation_application"
     | "output_contract"
     | "transition";
   readonly subjectDigest: Sha256Digest;

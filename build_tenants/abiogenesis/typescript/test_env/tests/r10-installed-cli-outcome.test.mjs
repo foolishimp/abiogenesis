@@ -111,27 +111,7 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
   const proofDirectory = join(root, "test_env/proof");
   await mkdir(proofDirectory, { recursive: true });
   await writeFile(join(proofDirectory, "abi5-root-r10.events.jsonl"), rawEventLog);
-  const proofTranscript = transcript.map((request) => ({
-    operationId: request.operationId,
-    variant: request.variant,
-    invocationRef: request.invocationRef,
-    payload: request.operationId === "abg.operation.product.verify"
-      ? {
-        expectedArtifactDigest: request.payload.expectedArtifactDigest,
-        expectedProductContentDigest: request.payload.expectedProductContentDigest,
-        expectedManifestDigest: request.payload.expectedManifestDigest,
-        expectedProductId: request.payload.expectedProductId,
-        expectedPackageName: request.payload.expectedPackageName,
-        expectedPackageVersion: request.payload.expectedPackageVersion,
-      }
-      : request.operationId === "abg.operation.run.invoke"
-        ? {
-          programRef: request.payload.programRef,
-          graphFunctionRef: request.payload.graphFunctionRef,
-          input: request.payload.input,
-        }
-        : {},
-  }));
+  const proofTranscript = transcript;
   const proofOutcomes = run.outcomes;
   await writeFile(
     join(proofDirectory, "abi5-root-r10.transcript.json"),

@@ -21,6 +21,7 @@ export interface PublicOperationAdmissionBasis {
   readonly authorityScopeRef: string;
   readonly authorityScopeDigest: Sha256Digest;
   readonly invocationRef: string;
+  readonly invocationPayloadDigest: Sha256Digest;
   readonly invocationDigest: Sha256Digest;
   readonly correlationId: string;
   readonly eventTime: string;
@@ -68,6 +69,7 @@ export function validatePublicOperationBasis(
   const expectedInvocationDigest = sha256Canonical({
     invocationRef: basis.invocationRef,
     operationId: expectedOperation,
+    payloadDigest: basis.invocationPayloadDigest,
   });
   if (
     basis.definitionDigest !== expectedDefinitionDigest ||
@@ -106,6 +108,7 @@ export function admitArtifact(
       authorityScopeRef: basis.authorityScopeRef,
       authorityScopeDigest: basis.authorityScopeDigest,
       invocationRef: basis.invocationRef,
+      invocationPayloadDigest: basis.invocationPayloadDigest,
       invocationDigest: basis.invocationDigest,
       ownerAdmittedDisposition: "admitted",
       artifactRef,

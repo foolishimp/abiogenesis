@@ -270,6 +270,52 @@ test("B8 copied ExecutionBasis cannot enter the installed HoG or ABG path", asyn
   });
 });
 
+test("B8 post-admission exceptions become replayable ABG refusal truth", async (context) => {
+  const harness = await setupInstalledCliHarness(context, root);
+  const graphValidatorPath = join(
+    installedCliPackageRoot(harness),
+    "build/code/src/validator/graph.js",
+  );
+  const graphValidatorSource = await readFile(graphValidatorPath, "utf8");
+  const marker = "export function validateGraph(graph, programValidation, graphFunction, basis) {";
+  assert.equal(graphValidatorSource.includes(marker), true);
+  await writeFile(
+    graphValidatorPath,
+    graphValidatorSource.replace(
+      marker,
+      `${marker}\n    throw new Error("post-admission graph validation mutation");`,
+    ),
+    "utf8",
+  );
+
+  const scenario = await buildRootCliScenario(harness, "b8-post-admission-exception");
+  const run = await runInstalledCli(harness, scenario);
+  assert.equal(run.exitCode, 2, run.stdout);
+  const outcome = run.outcomes.at(-1);
+  assert.equal(outcome.disposition, "refused");
+  assert.equal(outcome.result, null);
+  assert.equal(
+    outcome.diagnosticRef,
+    "diagnostic://abiogenesis/operation-application/graph_validation-exception@5",
+  );
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
+  assert.equal(events.some((event) => event.kind === "invocation_admitted"), true);
+  assert.equal(events.some((event) => event.kind === "invocation_refused"), true);
+  assert.equal(events.some((event) => event.kind === "run_segment_opened"), false);
+  const governor = await rootVerdict(harness, scenario, run.outcomes);
+  assert.equal(governor.disposition, "root_red");
+  mutationEvidence.push({
+    mutation: "post_admission_validator_exception",
+    boundary: "graph_validation",
+    disposition: outcome.disposition,
+    invocationAdmitted: true,
+    refusalAdmitted: true,
+    runOpenAbsent: true,
+    rootGovernorDisposition: governor.disposition,
+  });
+});
+
 test("B8 installed leaf exceptions and malformed returns complete the failure spine", async (context) => {
   const cases = [
     {
@@ -368,6 +414,7 @@ test("B8 installed leaf exceptions and malformed returns complete the failure sp
     "disabled_hog_with_callable_rival",
     "renamed_controller_forged_output",
     "copied_private_execution_basis",
+    "post_admission_validator_exception",
     "leaf_exception",
     "leaf_malformed",
     "leaf_sparse-evidence",

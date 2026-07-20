@@ -481,3 +481,76 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
   assert.equal(durableEvents.at(-1).eventId, failure.eventId);
   assert.equal(durableEvents.at(-1).kind, "runtime_failure_observed");
 });
+
+test("R9 refuses a leaf input that differs from the admitted input digest", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const {
+    abg,
+    gtl,
+    hog,
+    store,
+    program,
+    graph,
+    graphValidation,
+    input,
+    rawInput,
+    implementationResolution,
+    executionBasis,
+    closureContract,
+    publication,
+  } = environment;
+  const opened = abg.openCall(
+    store,
+    executionBasis,
+    runtimeBasis("correlation://t286/r9-input-basis/open"),
+  );
+  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const traversalStop = hog.traverse({
+    program,
+    graph,
+    graphValidation,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+  });
+  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const outputContract = publication.contracts.find((value) => value.contractKind === "output");
+  const failureContract = publication.contracts.find((value) => value.contractKind === "failure");
+  const alteredInput = { ...input, subject: "Not the admitted subject" };
+  const completion = hog.completeDeterministicTraversal({
+    store,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+    program,
+    graph,
+    traversalStop,
+    implementationResolution,
+    input: alteredInput,
+    inputDigest: rawInput.subjectDigest,
+    failureValueKind: failureContract.valueKind,
+    resultValueKind: outputContract.valueKind,
+    validateSuccessResult: gtl.isHelloWorldOutput,
+    closureContract,
+    judgmentRelation: {
+      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
+      rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
+      evaluate: gtl.evaluateHelloWorldResult,
+    },
+    realize: () => {
+      throw new Error("input mismatch must stop before leaf realization");
+    },
+    clock: {
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/r9-input-basis/hog",
+    },
+  });
+  assert.equal(completion.disposition, "failed");
+  assert.equal(
+    completion.diagnosticRef,
+    "diagnostic://abiogenesis/hog/input-basis-mismatch@5",
+  );
+  const events = store.readAll();
+  assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
+  assert.equal(events.at(-1).kind, "runtime_failure_observed");
+  assert.equal(events.at(-1).payload.stage, "c_call_open");
+});

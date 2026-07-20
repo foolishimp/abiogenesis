@@ -21,6 +21,7 @@ export function publicOperationBasis(
   invocationRef,
   causationEventRefs = [],
 ) {
+  const invocationPayloadDigest = product.sha256Canonical({});
   return {
     operationId,
     definitionKey: operationId,
@@ -28,7 +29,12 @@ export function publicOperationBasis(
     authorityScopeRef: scopeRef,
     authorityScopeDigest: scopeDigest,
     invocationRef,
-    invocationDigest: product.sha256Canonical({ invocationRef, operationId }),
+    invocationPayloadDigest,
+    invocationDigest: product.sha256Canonical({
+      invocationRef,
+      operationId,
+      payloadDigest: invocationPayloadDigest,
+    }),
     correlationId: "correlation://t286/root",
     eventTime: "2026-07-21T00:00:00.000Z",
     causationEventRefs,

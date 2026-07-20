@@ -16,6 +16,7 @@ const execFileAsync = promisify(execFile);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 function artifactBasis(product, operationId, scopeRef, scopeDigest, invocationRef, causationEventRefs = []) {
+  const invocationPayloadDigest = product.sha256Canonical({});
   return {
     operationId,
     definitionKey: operationId,
@@ -23,7 +24,12 @@ function artifactBasis(product, operationId, scopeRef, scopeDigest, invocationRe
     authorityScopeRef: scopeRef,
     authorityScopeDigest: scopeDigest,
     invocationRef,
-    invocationDigest: product.sha256Canonical({ invocationRef, operationId }),
+    invocationPayloadDigest,
+    invocationDigest: product.sha256Canonical({
+      invocationRef,
+      operationId,
+      payloadDigest: invocationPayloadDigest,
+    }),
     correlationId: "correlation://t286/r4",
     eventTime: "2026-07-21T00:00:00.000Z",
     causationEventRefs,

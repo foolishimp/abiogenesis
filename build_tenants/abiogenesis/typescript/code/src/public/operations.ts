@@ -108,6 +108,7 @@ function operationBasis(
   if (invocation.operationId === "abg.operation.product.verify") {
     throw new ApplicationRefusal("invalid_request", "product.verify is a pure operation and has no ABG admission basis");
   }
+  const invocationPayloadDigest = product.sha256Canonical(invocation.payload);
   return {
     operationId: invocation.operationId,
     definitionKey: invocation.operationId,
@@ -118,9 +119,11 @@ function operationBasis(
     authorityScopeRef: scopeRef,
     authorityScopeDigest: scopeDigest,
     invocationRef: invocation.invocationRef,
+    invocationPayloadDigest,
     invocationDigest: product.sha256Canonical({
       invocationRef: invocation.invocationRef,
       operationId: invocation.operationId,
+      payloadDigest: invocationPayloadDigest,
     }),
     correlationId: invocation.correlationId,
     eventTime: invocation.eventTime,
@@ -668,6 +671,10 @@ async function applyRunInvoke(
   if (invocationAdmission.kind !== "invocation_admission") {
     throw new ApplicationRefusal("owner_refusal", `Invocation admission refused: ${invocationAdmission.message}`);
   }
+  let activeRefusalStage: abg.InvocationRefusalAdmission["stage"] = "graph_validation";
+  let failureExecutionBasis: abg.ExecutionBasis | null = null;
+  let failureScope: abg.OpenedTraversalScope | null = null;
+  try {
   const node = graphFunction.template.nodes[0];
   if (node === undefined) {
     abg.admitInvocationRefusal(
@@ -718,6 +725,7 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
+  activeRefusalStage = "implementation_resolution";
   const matchingBindings = viewState.catalogState.publication.implementationBindings.filter(
     (binding) => binding.bindingRef === node.implementationBindingRef,
   );
@@ -867,6 +875,7 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
+  activeRefusalStage = "execution_basis";
   const executionAdmission = abg.admitExecutionBasis(
     context.store,
     {
@@ -889,6 +898,8 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
+  failureExecutionBasis = executionAdmission.executionBasis;
+  activeRefusalStage = "open_call";
   const opened = abg.openCall(
     context.store,
     executionAdmission.executionBasis,
@@ -911,6 +922,7 @@ async function applyRunInvoke(
       durableEventLogPath,
     );
   }
+  failureScope = opened.scope;
   let stop: ReturnType<typeof hog.traverse>;
   try {
     stop = hog.traverse({
@@ -1038,6 +1050,59 @@ async function applyRunInvoke(
     candidate.invocationRef,
     persisted,
   );
+  } catch (error) {
+    const failureSubject = {
+      errorClass: error instanceof Error ? error.name : typeof error,
+      stage: activeRefusalStage,
+    };
+    const diagnosticRef =
+      `diagnostic://abiogenesis/operation-application/${activeRefusalStage}-exception@5`;
+    if (failureExecutionBasis !== null && failureScope !== null) {
+      const replayState = abg.replay(context.store, { runId: failureScope.runId });
+      if (replayState.runtimeStatus !== "closed" && replayState.runtimeStatus !== "failed") {
+        abg.admitRuntimeFailure(
+          context.store,
+          failureExecutionBasis,
+          failureScope,
+          "operation_application",
+          failureSubject,
+          diagnosticRef,
+          {
+            eventTime: invocation.eventTime,
+            correlationId: `${invocation.correlationId}/operation-application-failure`,
+            causationEventRefs: [],
+          },
+        );
+      }
+      return projectCurrentOutcome(
+        context,
+        invocation,
+        graphFunction.outputs[0] ?? "",
+        candidate.invocationRef,
+        durableEventLogPath,
+        failureScope.runId,
+      );
+    }
+    abg.admitInvocationRefusal(
+      context.store,
+      invocationAdmission,
+      activeRefusalStage,
+      product.sha256Canonical(failureSubject),
+      [diagnosticRef],
+      {
+        eventTime: invocation.eventTime,
+        correlationId: `${invocation.correlationId}/operation-application-refusal`,
+        causationEventRefs: [],
+      },
+    );
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+    );
+  }
 }
 
 async function projectCurrentOutcome(
