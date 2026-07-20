@@ -5,9 +5,9 @@
 - type: analysis
 - ticket_category: realization_correction
 - status: active
-- phase_status: x_freeze_pending
+- phase_status: x_frozen_vector_derivation_pending
 - review_status: pending
-- proof_status: pending
+- proof_status: x_freeze_reproduced
 - goal: GOAL-035 M2
 - priority: critical
 - change_class: design_reframe
@@ -20,6 +20,12 @@
 - predecessor: T-283
 - accepted_product_candidate: afb35def08b2259046830f87c18b45c95c84001c
 - accepted_product_aggregate: c85ca7ae34352b91d579fcfae035ca3aa3d9a27428b584ac81c425b0d837d260
+- x_freeze_ref: >-
+    .ai-workspace/comments/codex/
+    20260720T022230Z_CHECKPOINT_t284_x_freeze_manifest.md
+- x_source_commit: 1b8b2b0a22ad5dc484e3db5c19fd562cd7935ff8
+- x_snapshot_commit: 676766a648066eaa69dce05f636d5ec98fb40dec
+- x_snapshot_ref: archive/t284-x-freeze-20260720T022230Z
 - implementation_hold: active
 - implementation_hold_effect: no design acceptance, code, test, generated-manifest, package, qualification, or release changes
 
