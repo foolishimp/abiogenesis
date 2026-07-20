@@ -10,7 +10,7 @@
     this is the first realization of the accepted direct-GTL boundary; RC5, X,
     and final-integration are sideways donors rather than reusable authority
 - status: active
-- phase_status: m4_clean_successor_boundary_pending
+- phase_status: m4_clean_successor_boundary_in_progress
 - review_status: implementation_review_pending
 - proof_status: root_red_at_r1
 - goal: GOAL-035 M4
@@ -123,7 +123,7 @@ No final-integration `Y` row enters this all-F_D root.
 | ID | Product result | Required evidence | Status |
 |---|---|---|---|
 | `A0` | M3 design accepted and M4 authorized | exact F_H receipt binds design SHA-256 `9faeb41d...92f0` | `[x] complete` |
-| `A1` | clean successor construction boundary | isolated branch/worktree; canonical donor implementation and tests absent before new source enters | `[ ] pending` |
+| `A1` | clean successor construction boundary | isolated branch/worktree; canonical donor implementation and tests absent before new source enters | `[-] in progress - worktree created; donor removal pending` |
 | `B1` | `R1` exact artifacts verified | minimal package builds packed bytes; manifest and content digests verify without source imports | `[ ] pending` |
 | `B2` | `R2` clean install complete | empty temporary consumer installs only the packed artifact | `[ ] pending` |
 | `B3` | `R3-R4` workspace and catalog admitted | immutable ProductSet/WorkspaceBinding plus publication validation, per-row catalog dispositions, and narrowed root view | `[ ] pending` |
